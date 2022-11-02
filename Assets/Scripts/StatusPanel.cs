@@ -169,7 +169,7 @@ public class StatusPanel : MonoBehaviour {
 
         if(GameMgr.Story_Mode == 1)
         {
-            if(GameMgr.GirlLoveEvent_num >= 12) //クッキー作れるようになる。
+            if(GameMgr.GirlLoveEvent_num >= 1) //クッキー作れるようになる。
             {
                 HikariParam_Toggle_obj.SetActive(true);
             }

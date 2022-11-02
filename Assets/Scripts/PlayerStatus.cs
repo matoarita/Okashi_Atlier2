@@ -31,7 +31,6 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_girl_maxlifepoint;     //妹の体力のMAX
     public static int player_girl_eatCount;         //妹が食べたお菓子の回数　お菓子種類に限らず総カウント数
     public static int player_girl_eatCount_tabetai; //妹が食べたいお菓子をあげた回数
-    public static int player_girl_yaruki;         //妹のやる気　隠しパラメータ　しかったりすると下がる。セーブはされないのでリセット可能。
 
 
     //お菓子経験値　全１５種類
@@ -141,7 +140,6 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_lifepoint = player_girl_maxlifepoint;
         player_girl_eatCount = 0;
         player_girl_eatCount_tabetai = 0;
-        player_girl_yaruki = 100;
 
         player_girl_expression = 3;
         player_girl_express_param = 50;

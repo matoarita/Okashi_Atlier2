@@ -44,6 +44,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject ScoreHyoujiPanel;
     private GameObject MainQuestOKPanel;
     private GameObject ExtraQuestOKPanel;
+    private GameObject ExtraQuest_TreasurePanel;
     private GameObject QuestClearEffectPanel;
     private Text MainQuestText;
     private string _mainquest_name;
@@ -145,6 +146,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private bool judge_end;
     private int judge_anim_status;
     private bool heart_animON; //ハートが上がったり下がったりするアニメのフラグ  ロードすると強制解除。
+    private bool loveplusanimON; //実際のハートが発生して、衝突したときにハートが上昇する時のフラグ
 
     private SpriteRenderer s;
 
@@ -529,11 +531,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 MainQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/MainQuestOKPanel").gameObject;
                 MainQuestText = MainQuestOKPanel.transform.Find("Panel1/QuestPanel/Image/QuestClearText").GetComponent<Text>();
                 ExtraQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/ExtraQuestOKPanel").gameObject;
+                ExtraQuest_TreasurePanel = canvas.transform.Find("ScoreHyoujiPanel/ExtraQuestTreasurePanel").gameObject;
                 Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
                 Result_Text = ScoreHyoujiPanel.transform.Find("GetLovePanelBG/Result_GetLoveText/Result_Text").GetComponent<Text>();
                 ScoreHyoujiPanel.SetActive(false);
                 MainQuestOKPanel.SetActive(false);
                 ExtraQuestOKPanel.SetActive(false);
+                ExtraQuest_TreasurePanel.SetActive(false);
 
                 QuestClearEffectPanel = canvas.transform.Find("QuestClearEffectPanel").gameObject;
                 QuestClearEffectPanel.SetActive(false);
@@ -607,6 +611,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         judge_end = false;
         judge_anim_status = 0;
         heart_animON = false;
+        loveplusanimON = false;
 
         //要素数の初期化
         _girlsweat = new int[girl1_status.youso_count];
@@ -651,6 +656,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case "Compound":
 
                 heart_animON = false;
+                loveplusanimON = false;
                 girl_param.color = origin_color;
                 break;
         }
@@ -777,7 +783,32 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //ハートゲージのアニメーション中
         if (heart_animON)
         {
-            //スライダの更新 減る処理の場合のみ、Updateで行う。増える場合は、ハートがゲージに衝突したタイミングなので、ここでは処理しない。
+            if (loveplusanimON)
+            { } //ハート実際に発生したときは、ハートが衝突したときにスライドの表示更新の処理を優先するので、以下の処理を使わなくする。
+            else
+            {
+                if (_tempResultGirllove >= _tempGirllove) //アニメ前より、現在の計算用ハートが+
+                {
+                    if (timeOutHeart <= 0)
+                    {
+                        timeOutHeart = 0.05f;
+
+                        _lovecounter++;
+                        Slider_Koushin((int)(_lovecounter));
+
+                        girl_param.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //青文字(105f / 255f, 168f / 255f, 255f / 255f)
+                        girl_param.text = _lovecounter.ToString();
+                        //sc.PlaySe(37); //トゥルルルルという文字送り音
+
+                        if (_lovecounter >= _tempResultGirllove) //増える処理の終了
+                        {
+                            EndDegHeart();
+                        }
+                    }
+                }
+            }
+
+            //スライダの更新 減る処理の場合のみ、Updateで行う。
             if (_tempResultGirllove < _tempGirllove) //アニメ前より、現在の計算用ハートが-
             {
                 if (timeOutHeart <= 0)
@@ -795,10 +826,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         EndDegHeart();
                     }
-                }
-
-                timeOutHeart -= Time.deltaTime;
+                }               
             }
+
+            timeOutHeart -= Time.deltaTime;
         }
     }
 
@@ -2641,6 +2672,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 0.1f));
                 GetMoney += (int)(_basecost * 0.5f);
+                compound_Main.GirlExpressionKoushin(5);
 
                 if (Getlove_exp <= 0) //ただし、1は必ず上がる。
                 {
@@ -2657,35 +2689,35 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
                 GetMoney += (int)(_basecost * 1.5f);
-                compound_Main.GirlExpressionKoushin(40);
+                compound_Main.GirlExpressionKoushin(30);
             }
             else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
             {
                 Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.25f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(60);
+                compound_Main.GirlExpressionKoushin(50);
             }
             else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.5f));
                 GetMoney += (int)(_basecost * 2.2f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(60);
+                compound_Main.GirlExpressionKoushin(70);
             }
             else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.2f) * (_basegirl1_like * 1.5f));
                 GetMoney += (int)(_basecost * 2.5f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(60);
+                compound_Main.GirlExpressionKoushin(100);
             }
             else if (total_score >= 500) //300~500点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.4f) * (_basegirl1_like * 1.75f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(60);
+                compound_Main.GirlExpressionKoushin(100);
             }
 
             //そのお菓子を食べた回数でお金取得を割り算。同じお菓子を何度あげても、だんだんお金は上がらなくなってくる。
@@ -2741,7 +2773,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //エクストラモード時　さらに計算
             if (GameMgr.Story_Mode == 1)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.5f); //ハートが上がりにくく
+                Getlove_exp = (int)(Getlove_exp * 0.5f); //ハートが上がりにくく補正
                 GameMgr.RandomEatOkashi_counter++;
 
                 if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。ハート〇倍。
@@ -2752,6 +2784,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     //体力も上がる。
                     PlayerStatus.player_girl_maxlifepoint += 2;
+
+                    //機嫌もよくなる。
+                    compound_Main.GirlExpressionKoushin(10);
 
                     //次で食べたいお菓子が強制的に変わる。
                     GameMgr.RandomEatOkashi_counter = 0;
@@ -2827,8 +2862,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listEffect.Clear();
     }
 
-    //好感度が下がるときの処理。外部からアクセス用でもある。ゲージにも反映される。
-    public void DegHeart(int _param, bool _sound)
+    //好感度が上がる・下がるときの処理。外部からアクセス用でもある。ゲージにも反映される。
+    public void UpDegHeart(int _param, bool _sound)
     {
         //TimeControllerでのハート減る　重複防止用に、フラグをたてる。
         GameMgr.Degheart_on = true;
@@ -2848,60 +2883,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _tempResultGirllove += Getlove_exp;
         }
 
-
         //好感度が0の場合、0が下限。
         if (_tempResultGirllove <= 0)
         {
             _tempResultGirllove = 0;
         }
 
-        //アニメーションをON
-        //UpdateDegHeart(_tempResultGirllove, _sound);
-
-    }
-
-    /*
-    void UpdateDegHeart(int num, bool _sound)
-    {
-        //カウントアップのための秒数を割り出す。
-        countTime = Mathf.Abs(Getlove_exp) * 0.05f; //1ごとに0.05fで表示する
-
-        currentDispCoin = PlayerStatus.girl1_Love_exp;
-
-        //origin_color = girl_param.color;
-
-        DOTween.Kill(coinTween);
-        coinTween = DOTween.To(() => currentDispCoin, (val) =>
+        //好感度が9999の場合、9999が上限。
+        if (_tempResultGirllove >= 9999)
         {
-            //Debug.Log("bang");
-            currentDispCoin = val;
-
-            if (_slider.value <= 0) //スライダが0になった場合、そこが下限。girl1_Love_expは、それ以上減少しない。
-            {
-                _slider.value = 0;
-            }
-            else
-            {
-                if (currentDispCoin != preDispCoin)
-                {
-                    if (_sound)
-                    {
-                        sc.PlaySe(37); //トゥルルルルという文字送り音
-                    }
-                    //スライダにも反映
-                    Slider_Koushin(currentDispCoin);
-                }
-
-            }
-
-            girl_param.color = new Color(105f / 255f, 168f / 255f, 255f / 255f); //青文字(105f / 255f, 168f / 255f, 255f / 255f)
-            girl_param.text = string.Format("{0:#,0}", val);
-
-
-            preDispCoin = currentDispCoin; //前回の値も保存
-        }, num, countTime).SetEase(Ease.OutQuart)
-        .OnComplete(EndDegHeart); //③エンドアニメ　再生終了時;
-    }*/
+            _tempResultGirllove = 9999;
+        }
+    }
 
     void EndDegHeart()
     {
@@ -2915,6 +2908,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (PlayerStatus.girl1_Love_exp <= 0)
         {
             PlayerStatus.girl1_Love_exp = 0;
+        }
+        if (PlayerStatus.girl1_Love_exp >= 9999)
+        {
+            PlayerStatus.girl1_Love_exp = 9999;
         }
         if (GameMgr.stageclear_cullentlove <= 0)
         {
@@ -2965,6 +2962,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _tempResultGirllove = PlayerStatus.girl1_Love_exp + _Getlove_param; //あがった後の好感度を一時保存
             _lovecounter = _tempGirllove; //スライダ表示用のカウンター
             heart_animON = true;
+            loveplusanimON = true;
         }
         else //アニメ中 計算用の_tempの値で計算する。アニメ終わりに、この値を実際のハートの値に反映させる。
         {
@@ -3068,6 +3066,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //ハートゲージ更新のアニメは終了
         heart_animON = false;
+        loveplusanimON = false;
 
         //好感度　取得分増加
         if (PlayerStatus.girl1_Love_lv >= 99)
@@ -3104,7 +3103,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            hlv_check = false;
+            
             _lovecounter += _up_deg; //love_counter自体は、floatで正確な上がり幅を計算し、表示用のカウンタでは、intにむりやりなおす。レベルチェックもlove_counterを基準に計算。
 
             //スライダにも反映
@@ -3112,6 +3111,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             girl_param.text = ((int)_lovecounter).ToString();
 
             //現在のスライダ上限に好感度が達したら、次のレベルへ。
+            hlv_check = false;
             while (!hlv_check)
             {
                 if (_lovecounter >= _slider.maxValue)
@@ -3574,7 +3574,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         if (Getlove_exp < 0) //ハートが下がる
         {
-            DegHeart(Getlove_exp, true); //trueだと音あり
+            UpDegHeart(Getlove_exp, true); //trueだと音あり
 
             //テキストウィンドウの更新
             exp_Controller.GirlDisLikeText(Getlove_exp);
@@ -4184,6 +4184,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             //3回以内だと、特別イベント Girl1_statusで、分岐
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4199,6 +4202,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             //3回以内だと、特別イベント
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4214,6 +4220,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             //3回以内だと、特別イベント
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4229,6 +4238,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             //3回以内だと、特別イベント
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4238,6 +4250,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         Debug.Log("＜エクストラ＞プリンさんにお菓子渡した。クエストクリア");
                         sp_quest_clear = true;
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4247,6 +4262,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         Debug.Log("＜エクストラ＞ヒカリがお菓子を3種類覚えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
 
                     break;
@@ -4263,6 +4281,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             //3回以内だと、特別イベント
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4272,6 +4293,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         Debug.Log("＜エクストラ＞ヒカリがお菓子を10種類覚えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
                     }
 
                     break;
@@ -4280,8 +4304,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             
             if (sp_quest_clear)
             {
-                //エクストラ獲得アイテムのランクも決定
-                ExtraItemGetRank();
+                
 
                 GetLoveEnd();
             }
@@ -4290,7 +4313,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void ExtraItemGetRank()
     {
-        if (GameMgr.Okashi_spquest_MaxScore >= 60 && GameMgr.Okashi_spquest_MaxScore < 100) //ランク１は使わないが、例外で、ハートのときなどに、お菓子をあげる前にクリアする可能性はあり。その場合は、１も通る。
+        if (GameMgr.Okashi_spquest_MaxScore < 100) //ランク１は使わないが、例外で、ハートのときなどに、お菓子をあげる前にクリアする可能性はあり。その場合は、１も通る。
         {
             GameMgr.ExtraClear_QuestItemRank = 1;
         }
@@ -4575,6 +4598,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         BlackPanel_event.SetActive(true);
         MainQuestOKPanel.SetActive(false);
         ExtraQuestOKPanel.SetActive(false);
+        ExtraQuest_TreasurePanel.SetActive(false);
         sc.PlaySe(18); //閉じる音
         sceneBGM.OnMainClearResultBGMOFF();
 

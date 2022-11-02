@@ -2471,7 +2471,7 @@ public class GetMaterial : MonoBehaviour
         //Debug.Log("_findpower_girl_getmat_final: " + _findpower_girl_getmat_final);
 
         //アイテムの入手
-        for (count = 0; count < 1 + _findpower_girl_getmat_final; count++) //〇回繰り返す
+        for (count = 0; count < 5 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
             ItemGetMethod(count);
         }

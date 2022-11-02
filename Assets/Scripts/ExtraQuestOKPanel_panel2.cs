@@ -43,6 +43,6 @@ public class ExtraQuestOKPanel_panel2 : MonoBehaviour {
 
     public void AnimSound()
     {
-        sc.PlaySe(84);
+        //sc.PlaySe(84); //宝箱が落ちたときの音
     }
 }

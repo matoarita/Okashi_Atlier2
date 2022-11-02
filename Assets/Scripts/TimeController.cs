@@ -305,6 +305,46 @@ public class TimeController : MonoBehaviour
                                                 HikariMakeOkashiJudge();
 
                                             }
+
+                                            //お菓子を作ってる間、キゲンが良い間はハートも上がる。
+                                            timeIttei4++;
+                                            if (PlayerStatus.player_girl_manpuku >= 10)
+                                            {
+                                                if (PlayerStatus.player_girl_expression >= 4) //機嫌は5段階
+                                                {
+                                                    if (timeIttei4 >= 6) //30分ごとに。
+                                                    {
+                                                        timeIttei4 = 0;
+
+                                                        girleat_judge.UpDegHeart(1, false);
+                                                    }
+                                                }
+                                                else if (PlayerStatus.player_girl_expression == 3)
+                                                {
+                                                    if (timeIttei4 >= 12) //60分ごとに。
+                                                    {
+                                                        timeIttei4 = 0;
+
+                                                        girleat_judge.UpDegHeart(1, false);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else //ヒカリがお菓子を作ってないときは、ご機嫌のときのみ少しハートは上がる。
+                                        {
+                                            timeIttei4++;
+                                            if (PlayerStatus.player_girl_manpuku >= 10)
+                                            {
+                                                if (PlayerStatus.player_girl_expression >= 4) //機嫌は5段階
+                                                {
+                                                    if (timeIttei4 >= 12) //60分ごとに。
+                                                    {
+                                                        timeIttei4 = 0;
+
+                                                        girleat_judge.UpDegHeart(1, false);
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
 
@@ -322,7 +362,8 @@ public class TimeController : MonoBehaviour
                                             //満腹度が0になると、ハートも減り始める。
                                             if (PlayerStatus.player_girl_manpuku <= 0)
                                             {
-                                                girleat_judge.DegHeart(-1, false);
+                                                girleat_judge.UpDegHeart(-1, false);
+                                                compound_main.GirlExpressionKoushin(-3);
 
                                                 /*if (PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 80)
                                                 {
@@ -340,24 +381,16 @@ public class TimeController : MonoBehaviour
                                                 {
                                                     girleat_judge.DegHeart(-1, false);
                                                 }*/
-                                                
+
                                                 girl1_status.MotionChange(23);
                                             }
-                                        }
 
-                                        //時間でゆるやかにハートも減る。
-                                        /*timeIttei4++;
-                                        if (timeIttei4 >= (int)(30))
-                                        {
-                                            timeIttei4 = 0;
-
-                                            //満腹度が0になると、ハートも減り始める。
-                                            if (PlayerStatus.player_girl_manpuku <= 70)
+                                            //機嫌も少しずつ収まっていく。
+                                            if (PlayerStatus.player_girl_express_param >= 50)
                                             {
-                                                girleat_judge.DegHeart(-2, false);
+                                                compound_main.GirlExpressionKoushin(-1);
                                             }
-
-                                        }*/
+                                        }                                      
                                     }
                                 }
 
@@ -419,6 +452,9 @@ public class TimeController : MonoBehaviour
             //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
             GameMgr.hikari_make_okashiKosu++;
             Hikarimake_StartPanel.hikarimake_GetExp(2);
+
+            //成功すると、機嫌が少しよくなる。
+            compound_main.GirlExpressionKoushin(10);
         }
         else //失敗
         {
@@ -426,6 +462,12 @@ public class TimeController : MonoBehaviour
 
             //生成されず。材料だけ消費。
             Hikarimake_StartPanel.hikarimake_GetExp(5);
+
+            //ハートも下がる。
+            girleat_judge.UpDegHeart(-5, false);
+
+            //失敗すると、機嫌は下がる。-20で1段階下がる。
+            compound_main.GirlExpressionKoushin(-10);
         }
 
 
@@ -830,7 +872,7 @@ public class TimeController : MonoBehaviour
                         timeIttei = 0;
                         timeDegHeart_flag = true;
 
-                        girleat_judge.DegHeart(-1, false); //false なら音なし
+                        girleat_judge.UpDegHeart(-1, false); //false なら音なし
 
                     }
                     break;
@@ -841,7 +883,7 @@ public class TimeController : MonoBehaviour
                     {
                         timeIttei = 0;
 
-                        girleat_judge.DegHeart(-1, false);
+                        girleat_judge.UpDegHeart(-1, false);
 
                     }
                     break;

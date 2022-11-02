@@ -1576,15 +1576,13 @@ public class Utage_scenario : MonoBehaviour
             {
                 random = Random.Range(10, 25); //
                 girlEat_judge.loveGetPlusAnimeON(random, false);
-                compound_Main.GirlExpressionKoushin(30); //ほめる場合
-                PlayerStatus.player_girl_yaruki += 50;
+                compound_Main.GirlExpressionKoushin(20); //ほめる場合
             }
             else
             {
                 random = -1 * Random.Range(30, 151); //
-                girlEat_judge.DegHeart(random, true);
-                compound_Main.GirlExpressionKoushin(-50); //しかった場合
-                PlayerStatus.player_girl_yaruki -= 30;
+                girlEat_judge.UpDegHeart(random, true);
+                compound_Main.GirlExpressionKoushin(-40); //しかった場合
             }
 
             GameMgr.outgirl_Nowprogress = false;

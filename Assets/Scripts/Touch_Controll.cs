@@ -185,7 +185,7 @@ public class Touch_Controll : MonoBehaviour
 
                         if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
                         {
-                            girleat_judge.DegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
+                            girleat_judge.UpDegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
                             compound_Main.GirlExpressionKoushin(-5);
                         }
 

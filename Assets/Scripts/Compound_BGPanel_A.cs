@@ -63,7 +63,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         if(GameMgr.Story_Mode == 1)
         {
-            if(GameMgr.GirlLoveEvent_num >= 12)
+            if(GameMgr.GirlLoveEvent_num >= 1) //ヒカリお菓子作り解禁
             {
                 HikariMakeButton.SetActive(true);
             }

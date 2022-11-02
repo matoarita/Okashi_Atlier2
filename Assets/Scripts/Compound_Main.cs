@@ -76,6 +76,8 @@ public class Compound_Main : MonoBehaviour
     private Slider manpuku_slider;
     private Text manpuku_text;
 
+    private Text kigen_text;
+
     private GameObject GirlHeartEffect_obj;
 
     private GameObject TimePanel_obj1;
@@ -551,6 +553,8 @@ public class Compound_Main : MonoBehaviour
         manpuku_bar = canvas.transform.Find("MainUIPanel/ManpukuBar").gameObject;
         manpuku_slider = manpuku_bar.GetComponent<Slider>();
         manpuku_text = manpuku_bar.transform.Find("ManpukuText").GetComponent<Text>();
+
+        kigen_text = manpuku_bar.transform.Find("KigenText").GetComponent<Text>();
 
         //お金ステータスパネルの取得
         moneystatus_panel = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
@@ -1399,7 +1403,10 @@ public class Compound_Main : MonoBehaviour
                 mainUI_panel_obj.GetComponent<MainUIPanel>().StageNumKoushin();
 
                 //満腹度更新
-                ManpukuKoushin();                
+                ManpukuKoushin();
+
+                //機嫌表示更新
+                GirlExpressionKoushinHyouji();
 
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
@@ -3458,7 +3465,7 @@ public class Compound_Main : MonoBehaviour
                         case 0:
 
                             _textmain.text = "あまりピクニックは喜ばなかったようだ..。";
-                            girlEat_judge.DegHeart((int)(SujiMap(GameMgr.event_okashi_score, 0, 30, 60, 0)), true);
+                            girlEat_judge.UpDegHeart(-1*(int)SujiMap(GameMgr.event_okashi_score, 0, 30, 60, 0), true);
                             GirlExpressionKoushin(-20);
                             break;
 
@@ -4297,26 +4304,36 @@ public class Compound_Main : MonoBehaviour
             PlayerStatus.player_girl_express_param = 100;
         }
 
+        GirlExpressionKoushinHyouji();
+    }
+
+    void GirlExpressionKoushinHyouji()
+    {
         //機嫌決定
         if (PlayerStatus.player_girl_express_param < 20)
         {
             PlayerStatus.player_girl_expression = 1;
+            kigen_text.text = "機嫌: 怒り";
         }
         else if (PlayerStatus.player_girl_express_param >= 20 && PlayerStatus.player_girl_express_param < 40)
         {
             PlayerStatus.player_girl_expression = 2;
+            kigen_text.text = "機嫌: 不機嫌";
         }
         else if (PlayerStatus.player_girl_express_param >= 40 && PlayerStatus.player_girl_express_param < 60)
         {
             PlayerStatus.player_girl_expression = 3;
+            kigen_text.text = "機嫌: まあまあ";
         }
         else if (PlayerStatus.player_girl_express_param >= 60 && PlayerStatus.player_girl_express_param < 80)
         {
             PlayerStatus.player_girl_expression = 4;
+            kigen_text.text = "機嫌: 良";
         }
         else if (PlayerStatus.player_girl_express_param >= 80)
         {
             PlayerStatus.player_girl_expression = 5;
+            kigen_text.text = "機嫌: 最高";
         }
     }
 

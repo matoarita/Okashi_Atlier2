@@ -1322,15 +1322,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             {
                                 random = Random.Range(0, 100);
                                 Debug.Log("外出イベント　抽選スタート　10以下で成功: " + random);
-                                Debug.Log("player_girl_yaruki: " + PlayerStatus.player_girl_yaruki);
+                                Debug.Log("機嫌度player_girl_express_param: " + PlayerStatus.player_girl_express_param);
 
-                                picnic_exprob = (int)(20f * PlayerStatus.player_girl_yaruki * 0.01f); //20%の確率で発生。10~13時　5分ごとに判定
+                                picnic_exprob = (int)(20f * PlayerStatus.player_girl_express_param * 0.01f); //20%の確率で発生。10~13時　5分ごとに判定
                                 if (picnic_exprob <= 0)
                                 {
                                     picnic_exprob = 0;
                                 }
 
-                                if (PlayerStatus.player_girl_yaruki == 0) { }
+                                if (PlayerStatus.player_girl_expression <= 1) { }
                                 else
                                 {
                                     Debug.Log("picnic_exprob: " + picnic_exprob);

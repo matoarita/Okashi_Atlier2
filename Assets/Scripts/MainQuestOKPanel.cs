@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class MainQuestOKPanel : MonoBehaviour {
 
+    private GameObject canvas;
+
     private Button button;
 
     private ItemDataBase database;
@@ -16,6 +18,9 @@ public class MainQuestOKPanel : MonoBehaviour {
     private GirlEat_Judge girlEat_judge;
     private Special_Quest special_quest;
 
+    private GameObject Panel1;
+
+    private GameObject extra_quest_treasurepanel;
     private GameObject quest_panel;
 
     // Use this for initialization
@@ -38,6 +43,8 @@ public class MainQuestOKPanel : MonoBehaviour {
 
         girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
+        canvas = GameObject.FindWithTag("Canvas");
+
         button = this.transform.Find("Panel1/Button").GetComponent<Button>();
         button.interactable = false;
 
@@ -47,7 +54,13 @@ public class MainQuestOKPanel : MonoBehaviour {
         okashiImage = this.transform.Find("Panel1/ItemImgPanel/ItemImg").GetComponent<Image>();
 
         quest_panel = this.transform.Find("Panel1/QuestPanel").gameObject;
-        
+
+        Panel1 = this.transform.Find("Panel1").gameObject;
+        Panel1.SetActive(true);
+
+        extra_quest_treasurepanel = canvas.transform.Find("ScoreHyoujiPanel/ExtraQuestTreasurePanel").gameObject;
+        extra_quest_treasurepanel.SetActive(false);
+
         if (GameMgr.Story_Mode == 0)
         {
             okashiImage.sprite = special_quest.OkashiQuest_sprite;
@@ -70,7 +83,18 @@ public class MainQuestOKPanel : MonoBehaviour {
 
     public void MainQuestOKButtonON()
     {
-        girlEat_judge.PanelResultOFF();
+        if (GameMgr.Story_Mode == 0)
+        {
+            girlEat_judge.PanelResultOFF();
+        }
+        else
+        {
+            extra_quest_treasurepanel.SetActive(true);
+            Panel1.SetActive(false);
+
+            //宝箱演出パネルへ処理うつる。数字演出処理へ。
+            extra_quest_treasurepanel.GetComponent<ExtraQuestTreasurePanel>().TreasurePanel_Start();
+        }
     }
 
     void StartAnim()
