@@ -180,7 +180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.2
-  m_Text: "\u306B\u3044\u3061\u3083\uFF5E\u3093..\u3000\n\u30D2\u30AB\u30EA\u3001\u304A\u306A\u304B\u3078\u3063\u305F\u3002"
+  m_Text: "\u306B\u3044\u3061\u3083\uFF5E\u3093..\u3000\n\u3082\u3046\u304A\u91D1\u304C\u3001\u306A\u304F\u306A\u3063\u3061\u3083\u3063\u305F\u3088\uFF5E\u30FB\u30FB\u3002"
 --- !u!222 &144806016
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1383,6 +1383,18 @@ MonoBehaviour:
   sound19: {fileID: 0}
   sound20: {fileID: 0}
   sound21: {fileID: 0}
+  sound22: {fileID: 0}
+  sound23: {fileID: 0}
+  sound24: {fileID: 0}
+  sound25: {fileID: 0}
+  sound26: {fileID: 0}
+  sound27: {fileID: 0}
+  sound28: {fileID: 0}
+  sound29: {fileID: 0}
+  sound30: {fileID: 0}
+  sound31: {fileID: 0}
+  sound32: {fileID: 0}
+  sound33: {fileID: 0}
   _mixRate: 0
 --- !u!82 &1685791145
 AudioSource:

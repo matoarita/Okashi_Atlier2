@@ -264,8 +264,8 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
         _poncount = 0;
 
         //③宝箱登場の演出
-        //StartCoroutine("StarPon"); //☆登場演出アリは、こっちをONにして、下の行をコメントアウトすればOK
-        StartCoroutine("TreasureAnim");
+        StartCoroutine("StarPon"); //☆登場演出アリは、こっちをONにして、下の行をコメントアウトすればOK
+        //StartCoroutine("TreasureAnim");
 
     }
 

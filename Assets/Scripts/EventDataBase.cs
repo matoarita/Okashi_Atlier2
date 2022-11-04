@@ -1472,6 +1472,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         //取得アイテムの計算
         OutGirlGetItems();
 
+        //外にいくたびに、アイテム発見力も少し上がる。
+        PlayerStatus.player_girl_findpower += 5; //20ごとに一回探索回数が増える
+
         StartCoroutine("eventOutGirlReturnHome_end");　//シナリオ読み終わり待ち
     }
 

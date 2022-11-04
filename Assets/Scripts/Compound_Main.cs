@@ -771,10 +771,10 @@ public class Compound_Main : MonoBehaviour
         compound_status = GameMgr.compound_status;
         compound_select = GameMgr.compound_select;
 
-        //エクストラモード　ハートと満腹度が0を下回ったらゲームオーバー
-        /*if (GameMgr.Story_Mode != 0)
+        //エクストラモード　お金が0を下回ったらゲームオーバー
+        if (GameMgr.Story_Mode != 0)
         {
-            if (PlayerStatus.girl1_Love_exp <= 0 && PlayerStatus.player_girl_manpuku <= 0)
+            if (PlayerStatus.player_money <= 0)
             {
                 if (!gameover_loading)
                 {
@@ -785,7 +785,7 @@ public class Compound_Main : MonoBehaviour
                     FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
                 }
             }
-        }*/
+        }
 
         if (GameMgr.scenario_ON != true)
         {

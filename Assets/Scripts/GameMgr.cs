@@ -1406,8 +1406,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable.Add(1, 10);
         Hikariokashi_Exptable.Add(2, 20);
         Hikariokashi_Exptable.Add(3, 30);
-        Hikariokashi_Exptable.Add(4, 70);
-        Hikariokashi_Exptable.Add(5, 150);
+        Hikariokashi_Exptable.Add(4, 50);
+        Hikariokashi_Exptable.Add(5, 100);
         Hikariokashi_Exptable.Add(6, 250);
         Hikariokashi_Exptable.Add(7, 500);
         Hikariokashi_Exptable.Add(8, 1000);

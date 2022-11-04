@@ -1229,7 +1229,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //GameMgr.sp_okashi_ID = 10000;
                 GameMgr.sp_okashi_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
 
-                //いくつかの特殊条件をみたすと、ミニイベントを開始。
+                //いくつかの特殊条件をみたすと、ミニイベントを開始。現在は未使用。
                 if(GameMgr.Okashi_Extra_SpEvent_Start)
                 {
                     GameMgr.Okashi_Extra_SpEvent_Start = false;

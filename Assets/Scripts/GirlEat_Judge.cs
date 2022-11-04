@@ -1606,9 +1606,39 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             beauty_score = 0;
         }
 
-        //以上、全ての点数を合計。
-        total_score = set_score + sweat_score + bitter_score + sour_score
-            + shokukan_score + topping_score + beauty_score;
+        //最終の点数合計
+        if (GameMgr.Story_Mode == 0)
+        {
+            //以上、全ての点数を合計。
+            TotalScoreKeisan();
+        }
+        else
+        {
+            switch (GameMgr.GirlLoveEvent_num)
+            {
+
+                case 13: //カミナリのようにすっぱいクレープ 酸味で点数があがる
+
+                    if (_baseitemtype_sub == "Crepe")
+                    {
+                        total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
+                    }
+                    else
+                    {
+                        //以上、全ての点数を合計。
+                        TotalScoreKeisan();
+                    }
+                    break;
+
+                default:
+
+                    //以上、全ての点数を合計。
+                    TotalScoreKeisan();
+                    break;
+            }
+        }
+
+            
 
         //水っぽい・油っぽいなどの減点点数処理
         Debuf_Param_Judge();
@@ -1750,6 +1780,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             debug_taste_resultText.text = "";
             DebugTextLog();
         }
+    }
+
+    void TotalScoreKeisan()
+    {
+        //以上、全ての点数を合計。
+        total_score = set_score + sweat_score + bitter_score + sour_score
+        + shokukan_score + topping_score + beauty_score;
     }
 
     void Debuf_Param_Judge()
@@ -2693,24 +2730,24 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
             {
-                Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.25f));
+                Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.15f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(50);
+                compound_Main.GirlExpressionKoushin(40);
             }
             else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
             {
-                Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.5f));
+                Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.3f));
                 GetMoney += (int)(_basecost * 2.2f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(70);
+                compound_Main.GirlExpressionKoushin(50);
             }
             else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.2f) * (_basegirl1_like * 1.5f));
                 GetMoney += (int)(_basecost * 2.5f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(100);
+                compound_Main.GirlExpressionKoushin(70);
             }
             else if (total_score >= 500) //300~500点を超えた場合、ベース×5
             {
@@ -2773,7 +2810,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //エクストラモード時　さらに計算
             if (GameMgr.Story_Mode == 1)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.5f); //ハートが上がりにくく補正
+                Getlove_exp = (int)(Getlove_exp * 0.4f); //ハートが上がりにくく補正
                 GameMgr.RandomEatOkashi_counter++;
 
                 if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。ハート〇倍。
@@ -4064,16 +4101,24 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 13: //カミナリのようにすっぱいクレープ 酸味が100以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
 
-                    if (_baseitemtype_sub == "Crepe" && total_score >= 120)
+                    if (_baseitemtype_sub == "Crepe" && _basesour >= 85)
                     {
-                        if (sour_level >= 7 || _basesour >= 100)
-                        {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";                           
-                        }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+
+                        if (total_score >= 100 && total_score < 120)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 2;
+                        }
+                        else if (total_score >= 120 && total_score < 150)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 3;
+                        }
+                        else if (total_score >= 150)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 4;
+                        }
                     }
                     break;
 
@@ -4258,10 +4303,25 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 12:
 
+                    /*
                     if (databaseCompo.Hikarimake_Totalcount() >= 3)
                     {
                         Debug.Log("＜エクストラ＞ヒカリがお菓子を3種類覚えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
+                    }*/
+                    if (PlayerStatus.girl1_Love_exp >= 2000)
+                    {
+                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
+                        sp_quest_clear = true;
+
+                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                        {
+                            //3回以内だと、特別イベント
+                            GameMgr.Okashi_Extra_SpEvent_Start = false;
+                        }
 
                         //エクストラ獲得アイテムのランクも決定
                         ExtraItemGetRank();
@@ -4865,6 +4925,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             no_hint = false;
                             tpcheck_utageON = true;
                         }
+                    }
+
+                    break;
+
+                case 10130: //めちゃすっぱいクレープ１　すっぱさが足りてないとき
+
+                    if (_basesour <= 85)
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 0;
                     }
 
                     break;
