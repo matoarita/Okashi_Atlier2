@@ -193,7 +193,7 @@ public class Touch_Controll : MonoBehaviour
                         {
                             _rnd = Random.Range(0, 3);
                             girleat_judge.loveGetPlusAnimeON(1 + _rnd, false); //1~3　ちょっとハートあがる。
-                            compound_Main.GirlExpressionKoushin(50);
+                            compound_Main.GirlExpressionKoushin(20);
                             girl1_status.DefFaceChange();
                         }
                         break;

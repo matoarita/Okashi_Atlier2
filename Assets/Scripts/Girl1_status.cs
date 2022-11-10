@@ -1306,18 +1306,35 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 else
                 {
-                    _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
+                    if (_ID == 1120) //幻の青色紅茶
+                    {
+                        _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "がのみたい！";
+                    }
+                    else
+                    {
+                        _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
+                    }
                     GameMgr.NowEatOkashiName = girlLikeCompo_database.girllike_composet[_compID].desc;
                 }
                 break;
 
             case 1: //エクストラ
 
-                _desc = "にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！";
+                if(database.items[_ID].itemType_sub.ToString() == "Coffee" || database.items[_ID].itemType_sub.ToString() == "Coffee_Mat" ||
+                   database.items[_ID].itemType_sub.ToString() == "Juice" || database.items[_ID].itemType_sub.ToString() == "Tea" ||
+                   database.items[_ID].itemType_sub.ToString() == "Tea_Mat" || database.items[_ID].itemType_sub.ToString() == "Tea_Potion")
+                {
+                    _desc = "にいちゃん！　" + database.items[_ID].itemNameHyouji + "がのみたい！";
+                }
+                else
+                {
+                    _desc = "にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！";
+                }
+                
                 GameMgr.NowEatOkashiName = database.items[_ID].itemNameHyouji;
                 GameMgr.NowEatOkashiID = database.items[_ID].itemID;
 
-                Debug.Log("にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！");
+                Debug.Log("にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！（or のみたい！）");
                 break;
         }   
     }

@@ -53,6 +53,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveFlag> _temp_eventcollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_contestclearcollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_bgmcollectionlist = new List<ItemSaveFlag>();
+    private List<ItemSaveFlag> _temp_bgacce_flaglist = new List<ItemSaveFlag>();
     private List<Item> _temp_contestclearcollectionlistItemData = new List<Item>();
 
     private GameObject _model_obj;
@@ -167,6 +168,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             _temp_emeraldshop_zaiko.Add(new ItemSaveKosu(shop_database.emeraldshop_items[i].shop_itemName, shop_database.emeraldshop_items[i].shop_itemzaiko, 0));
         }
 
+        //背景アイテムの表示フラグリスト
+        _temp_bgacce_flaglist.Clear();
+        foreach (string key in GameMgr.BGAcceItemsName.Keys)
+        {
+            _temp_bgacce_flaglist.Add(new ItemSaveFlag(key, 0, GameMgr.BGAcceItemsName[key]));
+        }
+
         //アイテムの前回得点のみ取得
         /*_temp_itemscorelist.Clear();
         for (i = 0; i < database.items.Count; i++)
@@ -257,7 +265,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //save_acce_num = GameMgr.Accesory_Num,
 
             //飾っているアイテムのリスト
-            save_DecoItems = GameMgr.DecoItems,
+            save_BGAcceItemsName = _temp_bgacce_flaglist,
 
             //コレクションに登録したアイテムのリスト
             save_CollectionItems = GameMgr.CollectionItems,
@@ -574,9 +582,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //GameMgr.Costume_Num = playerData.save_costume_num;
         //GameMgr.Accesory_Num = playerData.save_acce_num;
 
-        //飾っているアイテムのリスト
-        GameMgr.DecoItems = playerData.save_DecoItems;
-
         //コレクションに登録したアイテムのリスト
         GameMgr.CollectionItems = playerData.save_CollectionItems;
 
@@ -732,7 +737,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //エメラルドショップのイベントリスト
         GameMgr.emeraldShopEvent_stage = playerData.save_emeraldShopEvent_stage;
 
-        
+
+        //飾っているアイテムのリスト
+        for (i = 0; i < playerData.save_BGAcceItemsName.Count; i++)
+        {
+            GameMgr.SetBGAcceFlag(playerData.save_BGAcceItemsName[i].itemName, playerData.save_BGAcceItemsName[i].Flag);
+        }
+
         //アイテムリスト＜デフォルト＞
         for (i = 0; i < playerData.save_playeritemlist.Count; i++)
         {       

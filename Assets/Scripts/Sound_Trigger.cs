@@ -360,7 +360,8 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音。
-                SE_point_click(11);
+                //SE_point_click(128);
+                
                 break;
 
             case "Button_modoru":

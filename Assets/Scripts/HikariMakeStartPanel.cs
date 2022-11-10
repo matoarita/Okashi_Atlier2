@@ -432,7 +432,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 //個数リセット
                 GameMgr.hikari_make_okashiKosu = 0;
 
-                sc.PlaySe(127);
+                sc.PlaySe(76);
                 extremePanel.SetExtremeItem(0, 2);
                 ResultHikariMakeCardView_andOFF();
 

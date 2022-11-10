@@ -127,4 +127,5 @@ SE表
 ・SE_125	間抜け3						時間スピード変更音　普通
 ・SE_126	間抜け3_sukosi_hayai				時間スピード変更音　少し早い
 ・SE_127	間抜け3_hayai					時間スピード変更音　早い
-・SE_128	audiostock_1276963_sample			お菓子パネルにセットする音　ポコッ
+・SE_128	audiostock_837234_sample			【#未使用】
+・SE_129	audiostock_104039				衣装装備時　キラリ音

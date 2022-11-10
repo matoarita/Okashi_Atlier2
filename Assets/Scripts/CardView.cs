@@ -685,9 +685,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //飾れるアイテムは、「飾る」を表示
         _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(false);
 
-        for (i = 0; i < GameMgr.BGAcceItemsName.Count; i++)
+        foreach (string key in GameMgr.BGAcceItemsName.Keys)
         {
-            if (GameMgr.BGAcceItemsName[i] == database.items[_cardImage.itemID].itemName)
+            if (key == database.items[_cardImage.itemID].itemName)
             {
                 _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
                 _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardDeco_Toggle").gameObject.SetActive(true);

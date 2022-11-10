@@ -24,6 +24,7 @@ public class Utage_scenario : MonoBehaviour
     private int sp_Okashi_ID;
     private int mainClear_ID;
     private int touchhint_ID;
+    private int itemID;
 
     private int GirlLoveEvent_num;
 
@@ -2379,6 +2380,19 @@ public class Utage_scenario : MonoBehaviour
         scenarioLabel = "OkashiEatComment"; //イベントレシピタグのシナリオを再生。
 
         scenario_loading = true;
+
+        itemID = GameMgr.OkashiComment_itemID;
+        if (database.items[itemID].itemType_sub.ToString() == "Coffee" || database.items[itemID].itemType_sub.ToString() == "Coffee_Mat" ||
+                   database.items[itemID].itemType_sub.ToString() == "Juice" || database.items[itemID].itemType_sub.ToString() == "Tea" ||
+                   database.items[itemID].itemType_sub.ToString() == "Tea_Mat" || database.items[itemID].itemType_sub.ToString() == "Tea_Potion")
+        {
+            //飲み物の場合
+            engine.Param.TrySetParameter("FoodorJuice_num", 1);
+        }
+        else
+        {
+            engine.Param.TrySetParameter("FoodorJuice_num", 0);
+        }
 
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("OkashiComment_num", Okashicomment_ID);

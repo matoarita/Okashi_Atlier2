@@ -100,7 +100,7 @@ public class PlayerData
     public int[] save_acce_num = new int[GameMgr.Accesory_Num.Length];
 
     //飾っているアイテムのリスト
-    public bool[] save_DecoItems = new bool[GameMgr.DecoItems.Length];
+    public List<ItemSaveFlag> save_BGAcceItemsName = new List<ItemSaveFlag>();
 
     //コレクションに登録したアイテムのリスト
     public List<bool> save_CollectionItems = new List<bool>();

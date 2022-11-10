@@ -130,6 +130,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject status_panel;
     private GameObject okashihint_panel;
 
+    private GameObject bg_accessory_panel;
+
     private CombinationMain Combinationmain;
     private BGAcceTrigger BGAccetrigger;
 
@@ -156,6 +158,14 @@ public class Compound_Main : MonoBehaviour
     private ParticleSystem.EmissionModule particleEm_Light4;
     private ParticleSystem.EmissionModule particleEm_Light5;
     private ParticleSystem.EmissionModule particleEm_Light6;
+
+    private ParticleSystem.EmissionModule particleEm_CandleLight1;
+    private ParticleSystem.EmissionModule particleEm_CandleLight2;
+    private ParticleSystem.EmissionModule particleEm_MiniHouseLight1;
+
+    private GameObject particleEm_CandleLight1_obj;
+    private GameObject particleEm_CandleLight2_obj;
+    private GameObject particleEm_MiniHouseLight1_obj;
 
     //Live2Dモデルの取得
     private GameObject _model_obj;
@@ -278,7 +288,9 @@ public class Compound_Main : MonoBehaviour
 
     private int motion_layer_num = 1;
 
-    private Tween t1, t2, t3, t4, t5, t6, t7;
+    private Tween t1, t2, t3, t4, t5, t6, t7, t8;
+
+    private Color color_set;
 
     // Use this for initialization
     void Start()
@@ -576,6 +588,7 @@ public class Compound_Main : MonoBehaviour
         bgweather_image_panel = GameObject.FindWithTag("BGImageWindowOutPanel");
         BG_Imagepanel = GameObject.FindWithTag("BG");
         BG_effectpanel = GameObject.FindWithTag("BG_Effect");
+        bg_accessory_panel = GameObject.FindWithTag("BGAccessory");
 
         bg_weather_image.Clear();
         foreach (Transform child in bgweather_image_panel.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -601,6 +614,15 @@ public class Compound_Main : MonoBehaviour
         particleEm_Light4 = BG_effectpanel.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
         particleEm_Light5 = BG_effectpanel.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
         particleEm_Light6 = BG_effectpanel.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
+
+        //BGアクセサリー系のパーティクル
+        particleEm_CandleLight1 = bg_accessory_panel.transform.Find("Candle/Candle1/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
+        particleEm_CandleLight2 = bg_accessory_panel.transform.Find("Candle/Candle2/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
+        particleEm_MiniHouseLight1 = bg_accessory_panel.transform.Find("MiniHouse/MiniHouse2/BG_Particle_HouseLight").GetComponent<ParticleSystem>().emission;
+
+        particleEm_CandleLight1_obj = bg_accessory_panel.transform.Find("Candle/Candle1/BG_Particle_CandleLight").gameObject;
+        particleEm_CandleLight2_obj = bg_accessory_panel.transform.Find("Candle/Candle2/BG_Particle_CandleLight").gameObject;
+        particleEm_MiniHouseLight1_obj = bg_accessory_panel.transform.Find("MiniHouse/MiniHouse2/BG_Particle_HouseLight").gameObject;
 
         Change_BGimage();
         //メモボタン
@@ -680,8 +702,8 @@ public class Compound_Main : MonoBehaviour
 
 
 
-        //飾りアイテムのセット
-        BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();
+        //飾りアイテムのセット        
+        BGAccetrigger = bg_accessory_panel.GetComponent<BGAcceTrigger>();
         BGAccetrigger.DrawBGAcce();
 
         ReturnBackHome();
@@ -4144,6 +4166,7 @@ public class Compound_Main : MonoBehaviour
         DOTween.Kill(t5);
         DOTween.Kill(t6);
         DOTween.Kill(t7);
+        DOTween.Kill(t8);
 
         switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
         {
@@ -4156,18 +4179,27 @@ public class Compound_Main : MonoBehaviour
                 t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(1, _changetime);
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(1, _changetime)
                     .OnComplete(RealTimeBGSetInit);
+                color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
+                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
                 break;
 
             case 3:
 
                 t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
+                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                //BGアクセサリー系
+                particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 4:
@@ -4176,12 +4208,19 @@ public class Compound_Main : MonoBehaviour
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
 
                 t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
+                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                //BGアクセサリー系
+                particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 5:
@@ -4192,12 +4231,19 @@ public class Compound_Main : MonoBehaviour
 
                 t4 = bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 t5 = BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
+                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(5);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+
+                //BGアクセサリー系
+                particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
             case 6:
@@ -4210,12 +4256,23 @@ public class Compound_Main : MonoBehaviour
 
                 t6 = bgweather_image_panel.transform.Find("BG_windowout_evening").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 t7 = BG_Imagepanel.transform.Find("BG_sprite_evening").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
+                color_set = new Color(77f / 255f, 79f / 255f, 98f / 255f);
+                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(200);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                //BGアクセサリー系
+                particleEm_CandleLight1_obj.SetActive(true);
+                particleEm_CandleLight2_obj.SetActive(true);
+                particleEm_MiniHouseLight1_obj.SetActive(true);
+
+                particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 break;
         }
     }
@@ -4375,12 +4432,24 @@ public class Compound_Main : MonoBehaviour
         }
         bgweather_image_panel.transform.Find("BG_windowout_white").gameObject.SetActive(false);
 
+        color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
+        t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, 0.0f);
+
         particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
         particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
         particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+        //BGアクセサリー系
+        particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+        particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+        particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+        particleEm_CandleLight1_obj.SetActive(false);
+        particleEm_CandleLight2_obj.SetActive(false);
+        particleEm_MiniHouseLight1_obj.SetActive(false);
     }
 
     //即座に朝背景に変更。Utageの寝るイベントから呼び出し

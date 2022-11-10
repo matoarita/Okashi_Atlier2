@@ -2810,20 +2810,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //エクストラモード時　さらに計算
             if (GameMgr.Story_Mode == 1)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.4f); //ハートが上がりにくく補正
+                Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
                 GameMgr.RandomEatOkashi_counter++;
 
                 if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
-                    Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.5倍");
-                    Getlove_exp = (int)(Getlove_exp * 1.5f);
+                    Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.2倍");
+                    Getlove_exp = (int)(Getlove_exp * 1.2f);
                     PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
 
                     //体力も上がる。
                     PlayerStatus.player_girl_maxlifepoint += 2;
 
                     //機嫌もよくなる。
-                    compound_Main.GirlExpressionKoushin(10);
+                    compound_Main.GirlExpressionKoushin(20);
 
                     //次で食べたいお菓子が強制的に変わる。
                     GameMgr.RandomEatOkashi_counter = 0;
@@ -3408,8 +3408,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
 
         girl1_status.hukidasiOff();
-        GameMgr.OkashiComment_flag = true;
 
+        GameMgr.OkashiComment_flag = true;
+        GameMgr.OkashiComment_itemID = _baseID;
         while (!GameMgr.scenario_read_endflag)
         {
             yield return null;
@@ -4176,7 +4177,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
-                case 24: //300点超えのプリンセストータ
+                /*case 24: //300点超えのプリンセストータ
 
                     if (_basename == "princess_tota" && total_score >= 300)
                     {
@@ -4197,7 +4198,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         GameMgr.ExtraClear_QuestItemRank = 4;
                     }
-                    break;
+                    break;*/
 
                 default: //Extraモードでは、食べたいお菓子がランダムで変わるので、こちらは使用しない。
 
@@ -4349,10 +4350,42 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 22:
 
-                    if (databaseCompo.Hikarimake_Totalcount() >= 10)
+                    /*if (databaseCompo.Hikarimake_Totalcount() >= 10)
                     {
                         Debug.Log("＜エクストラ＞ヒカリがお菓子を10種類覚えたので、クエストクリア");
                         sp_quest_clear = true;
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
+                    }*/
+                    if (PlayerStatus.girl1_Love_exp >= 4000)
+                    {
+                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
+                        sp_quest_clear = true;
+
+                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                        {
+                            //3回以内だと、特別イベント
+                            GameMgr.Okashi_Extra_SpEvent_Start = false;
+                        }
+
+                        //エクストラ獲得アイテムのランクも決定
+                        ExtraItemGetRank();
+                    }
+                    break;
+
+                case 24:
+
+                    if (PlayerStatus.girl1_Love_exp >= 5000)
+                    {
+                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
+                        sp_quest_clear = true;
+
+                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                        {
+                            //3回以内だと、特別イベント
+                            GameMgr.Okashi_Extra_SpEvent_Start = false;
+                        }
 
                         //エクストラ獲得アイテムのランクも決定
                         ExtraItemGetRank();
@@ -4377,15 +4410,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             GameMgr.ExtraClear_QuestItemRank = 1;
         }
-        else if (GameMgr.Okashi_spquest_MaxScore >= 100 && GameMgr.Okashi_spquest_MaxScore < 150)
+        else if (GameMgr.Okashi_spquest_MaxScore >= 100 && GameMgr.Okashi_spquest_MaxScore < 200)
         {
             GameMgr.ExtraClear_QuestItemRank = 2;
         }
-        else if (GameMgr.Okashi_spquest_MaxScore >= 150 && GameMgr.Okashi_spquest_MaxScore < 200)
+        else if (GameMgr.Okashi_spquest_MaxScore >= 200 && GameMgr.Okashi_spquest_MaxScore < 300)
         {
             GameMgr.ExtraClear_QuestItemRank = 3;
         }
-        else if (GameMgr.Okashi_spquest_MaxScore >= 200)
+        else if (GameMgr.Okashi_spquest_MaxScore >= 300)
         {
             GameMgr.ExtraClear_QuestItemRank = 4;
         }

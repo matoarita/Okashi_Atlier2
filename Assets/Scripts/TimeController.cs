@@ -96,6 +96,8 @@ public class TimeController : MonoBehaviour
     private Vector3 localAngle1;
     private Vector3 localAngle2;
 
+    private int heart_countup_time;
+
     // Use this for initialization
     void Start()
     {
@@ -310,9 +312,25 @@ public class TimeController : MonoBehaviour
                                             timeIttei4++;
                                             if (PlayerStatus.player_girl_manpuku >= 10)
                                             {
+                                                heart_countup_time = 6; //デフォルト
+
+                                                if (pitemlist.KosuCount("memory_feather3") >= 1)
+                                                {
+                                                    heart_countup_time = 2;
+                                                }
+                                                else if (pitemlist.KosuCount("memory_feather2") >= 1)
+                                                {
+                                                    heart_countup_time = 3;
+                                                }
+                                                else if (pitemlist.KosuCount("memory_feather1") >= 1)
+                                                {
+                                                    heart_countup_time = 4;
+                                                }
+
+                                                
                                                 if (PlayerStatus.player_girl_expression >= 4) //機嫌は5段階
                                                 {
-                                                    if (timeIttei4 >= 6) //30分ごとに。
+                                                    if (timeIttei4 >= heart_countup_time) //30分ごとに。
                                                     {
                                                         timeIttei4 = 0;
 
@@ -321,7 +339,7 @@ public class TimeController : MonoBehaviour
                                                 }
                                                 else if (PlayerStatus.player_girl_expression == 3)
                                                 {
-                                                    if (timeIttei4 >= 12) //60分ごとに。
+                                                    if (timeIttei4 >= heart_countup_time*2) //60分ごとに。
                                                     {
                                                         timeIttei4 = 0;
 
@@ -335,9 +353,24 @@ public class TimeController : MonoBehaviour
                                             timeIttei4++;
                                             if (PlayerStatus.player_girl_manpuku >= 10)
                                             {
+                                                heart_countup_time = 12; //デフォルト
+
+                                                if (pitemlist.KosuCount("memory_feather3") >= 1)
+                                                {
+                                                    heart_countup_time = 4;
+                                                }
+                                                else if (pitemlist.KosuCount("memory_feather2") >= 1)
+                                                {
+                                                    heart_countup_time = 6;
+                                                }
+                                                else if (pitemlist.KosuCount("memory_feather1") >= 1)
+                                                {
+                                                    heart_countup_time = 8;
+                                                }
+
                                                 if (PlayerStatus.player_girl_expression >= 4) //機嫌は5段階
                                                 {
-                                                    if (timeIttei4 >= 12) //60分ごとに。
+                                                    if (timeIttei4 >= heart_countup_time) //60分ごとに。
                                                     {
                                                         timeIttei4 = 0;
 
@@ -352,7 +385,7 @@ public class TimeController : MonoBehaviour
                                     if (!GameMgr.outgirl_Nowprogress)
                                     {
                                         timeIttei3++;
-                                        if (timeIttei3 >= 2) //1=5分なので、3だと15分で腹減り-1
+                                        if (timeIttei3 >= 2) //1=5分なので、2だと10分で腹減り-1
                                         {
                                             timeIttei3 = 0;
 

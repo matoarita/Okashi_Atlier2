@@ -350,11 +350,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
         if (pitemlist.KosuCount("tea_powerup3") >= 1) //
         {
-            _buf_shokukanup += 15;
+            _buf_shokukanup += 20;
         }
         if (pitemlist.KosuCount("tea_powerup4") >= 1) //
         {
-            _buf_shokukanup += 25;
+            _buf_shokukanup += 30;
         }
         if (pitemlist.KosuCount("tea_powerup5") >= 1) //
         {
@@ -366,15 +366,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         if (pitemlist.KosuCount("shokukan_powerup1") >= 1) //
         {
-            _buf_shokukanup += 5;
+            _buf_shokukanup += 10;
         }
         if (pitemlist.KosuCount("shokukan_powerup2") >= 1) //
         {
-            _buf_shokukanup += 10;
+            _buf_shokukanup += 25;
         }
         if (pitemlist.KosuCount("shokukan_powerup3") >= 1) //
         {
-            _buf_shokukanup += 15;
+            _buf_shokukanup += 50;
         }
     }
 

@@ -78,12 +78,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] Accesory_Num = new int[6]; //アクセ番号 現在アクセ数６個
 
     //飾っているアイテムのリスト
-    public static bool[] DecoItems = new bool[10];
+    //public static bool[] DecoItems = new bool[30];
+    public static Dictionary<string, bool> BGAcceItemsName = new Dictionary<string, bool>(); //背景の置物のリスト。
 
     //コレクションに登録したアイテムのリスト
     public static List<bool> CollectionItems = new List<bool>(); //登録済みか否か。こっちはセーブ必要。
-    public static List<string> CollectionItemsName = new List<string>(); //登録済みか否か。こっちはセーブ不要。
-    public static List<string> BGAcceItemsName = new List<string>(); //背景の置物のリスト。こっちはセーブ不要。
+    public static List<string> CollectionItemsName = new List<string>(); //登録済みか否か。こっちはセーブ不要。    
 
     //現在覚えているレシピの数と達成率。調合成功率アップのパーセント
     public static int game_Cullent_recipi_count;
@@ -283,6 +283,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //通常お菓子を食べた後の感想
     public static int OkashiComment_ID;
     public static bool OkashiComment_flag;
+    public static int OkashiComment_itemID; //食べたお菓子のアイテムID
 
     //スペシャルお菓子を食べる前の会話フラグ
     public static bool sp_okashi_hintflag;
@@ -468,6 +469,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     private PlayerItemList pitemlist;
 
     public static int system_i;
+    public static int system_temp_int;
     private int ev_id;
 
     private float timeLeft;
@@ -1049,10 +1051,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
 
         //飾りアイテムの初期化
-        for (system_i = 0; system_i < DecoItems.Length; system_i++)
+        /*for (system_i = 0; system_i < DecoItems.Length; system_i++)
         {
             DecoItems[system_i] = false;
-        }
+        }*/
 
         //一度に仕上げできる回数
         topping_Set_Count = 1;
@@ -1082,17 +1084,33 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static void InitBGAcceItemsLibrary()
     {
+        //DecoItemsの配列数分まで用意
         BGAcceItemsName.Clear();
-        BGAcceItemsName.Add("himmeli");
-        BGAcceItemsName.Add("kuma_nuigurumi");
-        BGAcceItemsName.Add("Non");
-        BGAcceItemsName.Add("Non");
-        BGAcceItemsName.Add("Non");
-        BGAcceItemsName.Add("Non");
-        BGAcceItemsName.Add("Non");
-        BGAcceItemsName.Add("Non");
-        BGAcceItemsName.Add("Non");
-        BGAcceItemsName.Add("Non");
+        BGAcceItemsName.Add("himmeli", false);
+        BGAcceItemsName.Add("kuma_nuigurumi", false);
+        BGAcceItemsName.Add("saboten_1", false);
+        BGAcceItemsName.Add("saboten_2", false);
+        BGAcceItemsName.Add("saboten_3", false);
+        BGAcceItemsName.Add("dryflowerpot_1", false);
+        BGAcceItemsName.Add("dryflowerpot_2", false);
+        BGAcceItemsName.Add("dryflowerpot_3", false);
+        BGAcceItemsName.Add("aroma_candle1", false);
+        BGAcceItemsName.Add("aroma_candle2", false);
+
+        BGAcceItemsName.Add("mini_house", false);
+        BGAcceItemsName.Add("aroma_potion1", false);
+        BGAcceItemsName.Add("aroma_potion2", false);
+        BGAcceItemsName.Add("aroma_potion3", false);
+        BGAcceItemsName.Add("magic_crystal1", false);
+        BGAcceItemsName.Add("magic_crystal2", false);
+        BGAcceItemsName.Add("magic_crystal3", false);
+
+        /*system_temp_int = DecoItems.Length - BGAcceItemsName.Count;
+
+        for (system_i = 0; system_i < system_temp_int; system_i++)
+        {
+            BGAcceItemsName.Add("Non");
+        }*/
     }
 
     //いちごお菓子コレクションのリスト　ItemNameとそろえる。
@@ -1388,6 +1406,17 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
     }
 
+    //背景アイテムのnameを入れると、フラグを置き換えるメソッド
+    public static void SetBGAcceFlag(string _name, bool _flag)
+    {
+        if (BGAcceItemsName.ContainsKey(_name))
+        {
+            BGAcceItemsName[_name] = _flag;
+        }
+        //Keyが無かった場合は、無視
+        else { }
+    }
+
     //各サブイベントのNPCのお菓子判定番号
     public static void InitSubNPCEvent_OkashiJudgeLibrary()
     {
@@ -1408,9 +1437,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable.Add(3, 30);
         Hikariokashi_Exptable.Add(4, 50);
         Hikariokashi_Exptable.Add(5, 100);
-        Hikariokashi_Exptable.Add(6, 250);
-        Hikariokashi_Exptable.Add(7, 500);
-        Hikariokashi_Exptable.Add(8, 1000);
+        Hikariokashi_Exptable.Add(6, 200);
+        Hikariokashi_Exptable.Add(7, 320);
+        Hikariokashi_Exptable.Add(8, 500);
         Hikariokashi_Exptable.Add(9, 9999);
 
         //少し難しめのお菓子は、レベルも上がりにくくなる。
