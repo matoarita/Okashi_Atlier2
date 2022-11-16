@@ -183,7 +183,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_totalscore; //女の子にあげたときの点数   
     public static int Okashi_last_totalscore; //前回食べたお菓子の点数 
     public static int Okashi_quest_bunki_on; //特定お菓子のときの条件分岐
-    public static bool high_score_flag; //高得点でクリアしたというフラグ。セーブされる。
+    public static bool high_score_flag; //高得点でクリアしたというフラグ。セーブされる。    
 
     public static int Okashi_toplast_score; //前回あげた最高得点
     public static int Okashi_toplast_heart; //前回あげたときの最高ハート取得量
@@ -224,7 +224,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikari_make_okashiKosu; //ヒカリが現在制作したお菓子の個数
     public static int hikari_make_success_count; //ヒカリが制作に成功した数
     public static int hikari_make_failed_count; //ヒカリが制作に失敗した数
-    public static bool hikari_make_Allfailed; //すべて失敗して材料がなくなってしまった
+    public static bool hikari_make_Allfailed; //すべて失敗して材料がなくなってしまった 
 
     public static int hikari_makeokashi_startcounter; //これはセーブ不要。10秒ほどたったら、元のアイドルモーションにもどすためのタイマー
     public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
@@ -236,6 +236,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float BGMVolumeParam;
     public static float SeVolumeParam;
     public static int GameSpeedParam;
+
+    public static bool SleepSkipFlag;
+    public static bool PicnicSkipFlag;
+    public static bool OutGirlSkipFlag;
 
     //現在のメインBGMの番号
     public static int mainBGM_Num;
@@ -466,6 +470,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
     public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ   
 
+    public static bool hikari_tabetaiokashi_buf; //食べたいお菓子をあげたときに、一時的にバフがかかる状態
+    public static int hikari_tabetaiokashi_buf_time; //効果時間
+
     private PlayerItemList pitemlist;
 
     public static int system_i;
@@ -677,6 +684,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Story_Mode = 1; //0=本編　1=エクストラモード　初期値は0でOK
         GameSpeedParam = 3;
 
+        SleepSkipFlag = false;
+        PicnicSkipFlag = false;
+        OutGirlSkipFlag = false;
+
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。
         scenario_ON = false;
         scenario_flag_input = 0;
@@ -788,6 +799,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_toplast_score = 0;
         Okashi_toplast_heart = 0;
         high_score_flag = false;
+        hikari_tabetaiokashi_buf = false;
+        hikari_tabetaiokashi_buf_time = 0;
 
         sys_extreme_itemID = 9999;
         sys_extreme_itemType = 0;

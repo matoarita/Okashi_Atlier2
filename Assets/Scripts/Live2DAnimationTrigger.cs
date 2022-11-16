@@ -72,8 +72,6 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         { }
         else
         { 
-            
-
             //うまく調合できた場合は、「おいしそ～」って感じで、ワクワクした表情に。
             if (exp_Controller.ResultSuccess) //成功した場合
             {

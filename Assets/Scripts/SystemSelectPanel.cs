@@ -20,6 +20,7 @@ public class SystemSelectPanel : MonoBehaviour {
     private Compound_Main compound_Main;
 
     private GameObject option_panel;
+    private GameObject extraoption_panel;
     private GameObject titleback_panel;
     private Text titleback_text;
     private Text yes_text;
@@ -43,6 +44,9 @@ public class SystemSelectPanel : MonoBehaviour {
 
         //オプションパネルの取得
         option_panel = canvas.transform.Find("OptionPanel").gameObject;
+
+        //オプションパネルの取得
+        extraoption_panel = canvas.transform.Find("OptionPanel/ExtraOptionList").gameObject;
 
         titleback_panel = canvas.transform.Find("SystemPanel/TitleBackKakunin").gameObject;
         titleback_panel.SetActive(false);
@@ -69,6 +73,15 @@ public class SystemSelectPanel : MonoBehaviour {
         else
         {
             loadButton_obj.GetComponent<Button>().interactable = false;
+        }
+
+        if(GameMgr.Story_Mode == 0)
+        {
+            this.transform.Find("Scroll View/Viewport/Content/ExtraOptionButton").gameObject.SetActive(false);
+        }
+        else
+        {
+            this.transform.Find("Scroll View/Viewport/Content/ExtraOptionButton").gameObject.SetActive(true);
         }
     }
 	
@@ -111,6 +124,15 @@ public class SystemSelectPanel : MonoBehaviour {
     public void OnOptionButton()
     {
         option_panel.SetActive(true);
+        extraoption_panel.SetActive(false);
+        GameMgr.compound_select = 205;
+    }
+
+    //エクストラオプション
+    public void OnExtraOptionButton()
+    {
+        option_panel.SetActive(true);
+        extraoption_panel.SetActive(true);
         GameMgr.compound_select = 205;
     }
 

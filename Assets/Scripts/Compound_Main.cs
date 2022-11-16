@@ -158,6 +158,7 @@ public class Compound_Main : MonoBehaviour
     private ParticleSystem.EmissionModule particleEm_Light4;
     private ParticleSystem.EmissionModule particleEm_Light5;
     private ParticleSystem.EmissionModule particleEm_Light6;
+    private ParticleSystem.EmissionModule particleEm_Light7;
 
     private ParticleSystem.EmissionModule particleEm_CandleLight1;
     private ParticleSystem.EmissionModule particleEm_CandleLight2;
@@ -279,6 +280,8 @@ public class Compound_Main : MonoBehaviour
     private bool gameover_loading;
     private bool Sleep_on;
     private bool mute_on;
+
+    private bool heartget_ON;
 
     private int picnic_exprob;
 
@@ -614,6 +617,7 @@ public class Compound_Main : MonoBehaviour
         particleEm_Light4 = BG_effectpanel.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
         particleEm_Light5 = BG_effectpanel.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
         particleEm_Light6 = BG_effectpanel.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
+        particleEm_Light7 = BG_effectpanel.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;
 
         //BGアクセサリー系のパーティクル
         particleEm_CandleLight1 = bg_accessory_panel.transform.Find("Candle/Candle1/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
@@ -638,6 +642,7 @@ public class Compound_Main : MonoBehaviour
         compo_ON = false;
         Recipi_loading = false;       
         check_recipi_flag = false;
+        heartget_ON = false;
 
         GameMgr.GirlLove_loading = false;
         GameMgr.check_GirlLoveEvent_flag = false;
@@ -1441,7 +1446,6 @@ public class Compound_Main : MonoBehaviour
                 Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f);
                 girl1_status.HukidashiFlag = true;
                 girl1_status.tween_start = false;
-                //live2d_animator.Play("Idle", motion_layer_num, 0.0f);
                 girl1_status.IdleMotionReset();
 
                 //時間のチェック。
@@ -2434,7 +2438,7 @@ public class Compound_Main : MonoBehaviour
         stageclear_panel.SetActive(false);
 
         //5個クエストをクリアしたら、クリアボタンがでる。
-        if (GameMgr.OkashiQuest_flag_stage1[4])
+        if (GameMgr.GirlLoveEvent_num == 50)
         {
             //stageclear_toggle.SetActive(true);
             stageclear_panel.SetActive(true);
@@ -2843,7 +2847,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            if (GameMgr.OkashiQuest_flag_stage1[4])
+            if (GameMgr.GirlLoveEvent_num == 50)
             {
                 if (pitemlist.player_extremepanel_itemlist.Count == 0)
                 {
@@ -3466,7 +3470,8 @@ public class Compound_Main : MonoBehaviour
         {
             GameMgr.SubEvAfterHeartGet = false;
 
-            switch(GameMgr.SubEvAfterHeartGet_num)
+            heartget_ON = false;
+            switch (GameMgr.SubEvAfterHeartGet_num)
             {
                 case 60:
 
@@ -3496,8 +3501,9 @@ public class Compound_Main : MonoBehaviour
                             //get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
                             get_heart = 10;
                             _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
                             GirlExpressionKoushin(10);
+
+                            heartget_ON = true;
                             break;
 
                         case 2:
@@ -3505,10 +3511,12 @@ public class Compound_Main : MonoBehaviour
                             //get_heart = GameMgr.event_okashi_score;
                             get_heart = 20;
                             _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(get_heart, false);
+
                             GirlExpressionKoushin(30);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
+
+                            heartget_ON = true;
                             break;
 
                         case 3:
@@ -3516,10 +3524,12 @@ public class Compound_Main : MonoBehaviour
                             //get_heart = GameMgr.event_okashi_score;
                             get_heart = 30;
                             _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(get_heart, false);
+
                             GirlExpressionKoushin(50);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
+
+                            heartget_ON = true;
                             break;
 
                         case 4:
@@ -3527,10 +3537,12 @@ public class Compound_Main : MonoBehaviour
                             //get_heart = GameMgr.event_okashi_score;
                             get_heart = 50;
                             _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
-                            girlEat_judge.loveGetPlusAnimeON(get_heart, false);
+                            
                             GirlExpressionKoushin(100);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
+
+                            heartget_ON = true;
                             break;
                     }
                                        
@@ -3611,10 +3623,26 @@ public class Compound_Main : MonoBehaviour
                 case 100:
 
                     _textmain.text = "ぬいぐるみに喜んだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(30, false);
+                    get_heart = 30;
                     GirlExpressionKoushin(50);
+
+                    heartget_ON = true;
                     break;
             }
+
+            if(heartget_ON)
+            {
+                if (pitemlist.KosuCount("aroma_potion1") >= 1)
+                {
+                    get_heart = (int)(get_heart * 1.2f);
+                    girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
+                }
+                else
+                {
+                    girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
+                }
+            }
+            
 
             StartCoroutine("ReadGirlLoveEventAfter");
             subevent_after_end = true; //サブイベントアフター演出を読み中            
@@ -4150,6 +4178,7 @@ public class Compound_Main : MonoBehaviour
             BG_effectpanel.transform.Find("BG_Particle_Light_Morning").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_Night").gameObject.SetActive(true);
             BG_effectpanel.transform.Find("BG_Particle_Light_twilight").gameObject.SetActive(true);
+            BG_effectpanel.transform.Find("BG_Particle_Light_moon").gameObject.SetActive(true);
 
             //時間をチェックし、背景を自動で変更。
             time_controller.Weather_ChangeNow(0.0f);
@@ -4183,7 +4212,7 @@ public class Compound_Main : MonoBehaviour
                 t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
                 break;
 
-            case 3:
+            case 3: //朝
 
                 t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
@@ -4195,6 +4224,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -4202,7 +4232,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
-            case 4:
+            case 4: //昼
 
                 t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
@@ -4216,6 +4246,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -4223,7 +4254,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
-            case 5:
+            case 5: //夕方
 
                 t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
@@ -4239,6 +4270,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -4246,7 +4278,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
-            case 6:
+            case 6: //夜
 
                 t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
@@ -4264,6 +4296,7 @@ public class Compound_Main : MonoBehaviour
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(200);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(1);
 
                 //BGアクセサリー系
                 particleEm_CandleLight1_obj.SetActive(true);
@@ -4441,6 +4474,7 @@ public class Compound_Main : MonoBehaviour
         particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
         particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+        particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
 
         //BGアクセサリー系
         particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);

@@ -316,6 +316,11 @@ public class PlayerData
     //調合シーンでBGM切り替えるフラグ
     public bool save_CompoBGMChange_ON = true;
 
+    //スキップ系フラグ
+    public bool save_SleepSkipFlag;
+    public bool save_PicnicSkipFlag;
+    public bool save_OutGirlSkipFlag;
+
     //エンディングカウント
     public int save_ending_count;
 

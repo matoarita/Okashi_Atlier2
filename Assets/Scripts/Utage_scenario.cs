@@ -716,11 +716,31 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("Sleep_num", GameMgr.sleep_status);
+        if(GameMgr.Story_Mode != 0)
+        {
+            if (GameMgr.SleepSkipFlag) //スキップON
+            {
+                engine.Param.TrySetParameter("Sleep_num", 10);
+
+                //キャラ背後のハートもオフにする。
+                GirlHeartEffect_obj.SetActive(false);
+
+            }
+            else
+            {
+                engine.Param.TrySetParameter("Sleep_num", GameMgr.sleep_status);
+            }           
+        }
+        else
+        {
+            engine.Param.TrySetParameter("Sleep_num", GameMgr.sleep_status);
+            
+        }
+
         engine.Param.TrySetParameter("FoodExpenses", GameMgr.Foodexpenses);
         engine.Param.TrySetParameter("TodayFood", GameMgr.MgrTodayFood);
 
-        if(girl1_status.GirlGokigenStatus < 3)
+        if (girl1_status.GirlGokigenStatus < 3)
         {
             engine.Param.TrySetParameter("GirlGokigen_num", 0);
         } else
@@ -746,12 +766,12 @@ public class Utage_scenario : MonoBehaviour
        
 
         //音を止めて、宿屋のジングル
-        sceneBGM.MuteBGM();
+        sceneBGM.MuteBGM(); //BGMとめる
 
         //続きから再度読み込み
         engine.ResumeScenario();
 
-        //
+        //真っ黒画面中～
         //「宴」のポーズ終了待ち
         while (!engine.IsPausingScenario)
         {
@@ -776,6 +796,12 @@ public class Utage_scenario : MonoBehaviour
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
+
+        if(GameMgr.SleepSkipFlag)
+        {
+                //キャラ背後のハートONに。
+                GirlHeartEffect_obj.SetActive(true);           
+        }
 
         //BGMを再開
         sceneBGM.MuteOFFBGM();
@@ -1576,6 +1602,10 @@ public class Utage_scenario : MonoBehaviour
             if ((int)engine.Param.GetParameter("OutGirlHomeru_num") == 0)
             {
                 random = Random.Range(10, 25); //
+                if (pitemlist.KosuCount("aroma_potion1") >= 1)
+                {
+                    random = (int)(random * 1.2f);
+                }
                 girlEat_judge.loveGetPlusAnimeON(random, false);
                 compound_Main.GirlExpressionKoushin(20); //ほめる場合
             }

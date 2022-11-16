@@ -41,6 +41,13 @@ public class OptionPanel : MonoBehaviour {
 
     private Toggle CompoBGMchange_on_toggle;
 
+    private Toggle SleepSkip_toggle;
+    private GameObject SleepSkip_toggle_obj;
+    private Toggle PicnicSkip_toggle;
+    private GameObject PicnicSkip_toggle_obj;
+    private Toggle OutGirlSkip_toggle;
+    private GameObject OutGirlSkip_toggle_obj;
+
     private GameObject system_panel;
 
     private Compound_Main compound_Main;
@@ -124,17 +131,28 @@ public class OptionPanel : MonoBehaviour {
 
         CompoBGMchange_on_toggle = this.transform.Find("OptionList/Viewport/Content/CompoChangeBGMOn/CompoBGMToggle").GetComponent<Toggle>();
 
-        GameSpeed_paramtext = this.transform.Find("OptionList/Viewport/Content/GameSpeed/speed_text").GetComponent<Text>();
-        music_paramtext = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/music_text").GetComponent<Text>();
-        Bgm_dropdown = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel/Dropdown").GetComponent<Dropdown>();
+        //エクストラオプション
+        GameSpeed_paramtext = this.transform.Find("ExtraOptionList/Viewport/Content/GameSpeed/speed_text").GetComponent<Text>();
+        music_paramtext = this.transform.Find("ExtraOptionList/Viewport/Content/BGMSelectPanel/music_text").GetComponent<Text>();
+        Bgm_dropdown = this.transform.Find("ExtraOptionList/Viewport/Content/BGMSelectPanel/Dropdown").GetComponent<Dropdown>();
 
-        Gamespeed_Panel = this.transform.Find("OptionList/Viewport/Content/GameSpeed").gameObject;
-        BGMSelectPanel = this.transform.Find("OptionList/Viewport/Content/BGMSelectPanel").gameObject;
+        Gamespeed_Panel = this.transform.Find("ExtraOptionList/Viewport/Content/GameSpeed").gameObject;
+        BGMSelectPanel = this.transform.Find("ExtraOptionList/Viewport/Content/BGMSelectPanel").gameObject;
 
         MusicSelect_panel = this.transform.Find("MusicSelectPanel").gameObject;
         MusicSelect_panel.SetActive(false);
         bgm_select_content = this.transform.Find("MusicSelectPanel/Scroll_View/Viewport/Content").gameObject;
         bgm_select_obj = (GameObject)Resources.Load("Prefabs/BGMSelect");
+
+        SleepSkip_toggle_obj = this.transform.Find("ExtraOptionList/Viewport/Content/SleepSkip").gameObject;
+        SleepSkip_toggle = this.transform.Find("ExtraOptionList/Viewport/Content/SleepSkip/SleepSkipToggle").GetComponent<Toggle>();
+
+        PicnicSkip_toggle_obj = this.transform.Find("ExtraOptionList/Viewport/Content/PicnicSkip").gameObject;
+        PicnicSkip_toggle = this.transform.Find("ExtraOptionList/Viewport/Content/PicnicSkip/PicnicSkipToggle").GetComponent<Toggle>();
+
+        OutGirlSkip_toggle_obj = this.transform.Find("ExtraOptionList/Viewport/Content/OutGirlSkip").gameObject;
+        OutGirlSkip_toggle = this.transform.Find("ExtraOptionList/Viewport/Content/OutGirlSkip/OutGirlSkipToggle").GetComponent<Toggle>();
+        
 
         if (GameMgr.AUTOSAVE_ON)
         {
@@ -157,6 +175,46 @@ public class OptionPanel : MonoBehaviour {
         {
             CompoBGMchange_on_toggle.SetIsOnWithoutCallback(false);
         }
+
+        //スキップ関連
+        if (pitemlist.KosuCount("skip_sleep") >= 1)
+        {
+            SleepSkip_toggle_obj.SetActive(true);
+            PicnicSkip_toggle_obj.SetActive(true);
+            OutGirlSkip_toggle_obj.SetActive(true);
+        }
+        else
+        {
+            SleepSkip_toggle_obj.SetActive(false);
+            PicnicSkip_toggle_obj.SetActive(false);
+            OutGirlSkip_toggle_obj.SetActive(false);
+        }
+        if (GameMgr.SleepSkipFlag)
+        {
+            SleepSkip_toggle.SetIsOnWithoutCallback(true);
+        }
+        else
+        {
+            SleepSkip_toggle.SetIsOnWithoutCallback(false);
+        }
+        if (GameMgr.PicnicSkipFlag)
+        {
+            PicnicSkip_toggle.SetIsOnWithoutCallback(true);
+        }
+        else
+        {
+            PicnicSkip_toggle.SetIsOnWithoutCallback(false);
+        }
+        if (GameMgr.OutGirlSkipFlag)
+        {
+            OutGirlSkip_toggle.SetIsOnWithoutCallback(true);
+        }
+        else
+        {
+            OutGirlSkip_toggle.SetIsOnWithoutCallback(false);
+        }
+
+
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -215,11 +273,20 @@ public class OptionPanel : MonoBehaviour {
                         bgm_toggle[i].transform.Find("Background/MusicText").gameObject.SetActive(false);
 
                         if (GameMgr.bgm_collection_list[i].Flag)
-                        {                            
-                            bgm_toggle[i].transform.Find("Background/MusicTextBack").GetComponent<Text>().text = GameMgr.bgm_collection_list[i].titleNameHyouji;
-                            bgm_toggle[i].transform.Find("Background/MusicText").GetComponent<Text>().text = GameMgr.bgm_collection_list[i].titleNameHyouji;
+                        {
+                            if (bgm_toggle[i].GetComponent<bgmSelectToggle>().toggle_ID == 0)
+                            {
+                                bgm_toggle[i].transform.Find("Background/MusicTextBack").GetComponent<Text>().text = GameMgr.bgm_collection_list[i].titleNameHyouji;
+                                bgm_toggle[i].transform.Find("Background/MusicText").GetComponent<Text>().text = GameMgr.bgm_collection_list[i].titleNameHyouji;
+
+                            }
+                            else
+                            {
+                                bgm_toggle[i].transform.Find("Background/MusicTextBack").GetComponent<Text>().text = bgm_toggle[i].GetComponent<bgmSelectToggle>().toggle_ID.ToString() + "." + GameMgr.bgm_collection_list[i].titleNameHyouji;
+                                bgm_toggle[i].transform.Find("Background/MusicText").GetComponent<Text>().text = bgm_toggle[i].GetComponent<bgmSelectToggle>().toggle_ID.ToString() + "." + GameMgr.bgm_collection_list[i].titleNameHyouji;
+                            }
                             bgm_toggle[i].transform.GetComponent<Toggle>().interactable = true;
-                            bgm_toggle[i].transform.GetComponent<Sound_Trigger>().enabled = true;                           
+                            bgm_toggle[i].transform.GetComponent<Sound_Trigger>().enabled = true;
                         }
                         else
                         {
@@ -234,7 +301,7 @@ public class OptionPanel : MonoBehaviour {
 
                     //ゲームスピード変更のトグル
                     gamespeed_toggle.Clear();
-                    foreach (Transform child in this.transform.Find("OptionList/Viewport/Content/GameSpeed/Scroll_View/Viewport/Content").transform) //
+                    foreach (Transform child in this.transform.Find("ExtraOptionList/Viewport/Content/GameSpeed/Scroll_View/Viewport/Content").transform) //
                     {
                         gamespeed_toggle.Add(child.gameObject.GetComponent<Toggle>());
                     }
@@ -528,7 +595,7 @@ public class OptionPanel : MonoBehaviour {
         {
             GameMgr.AUTOSAVE_ON = true;
             Autosave_text_obj.SetActive(true);
-            sc.PlaySe(81); //21
+            sc.PlaySe(125); //21
         }
         else
         {
@@ -543,7 +610,7 @@ public class OptionPanel : MonoBehaviour {
         if (CompoBGMchange_on_toggle.isOn)
         {
             GameMgr.CompoBGMCHANGE_ON = true;
-            sc.PlaySe(81); //21
+            sc.PlaySe(125); //21
         }
         else
         {
@@ -615,5 +682,47 @@ public class OptionPanel : MonoBehaviour {
         //音楽セレクト画面をオフに。
         MusicSelect_panel.SetActive(false);
         BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(true);
+    }
+
+    public void OnSleepSkip()
+    {
+        if (SleepSkip_toggle.isOn)
+        {
+            GameMgr.SleepSkipFlag = true;
+            sc.PlaySe(125); //21
+        }
+        else
+        {
+            GameMgr.SleepSkipFlag = false;
+            sc.PlaySe(81);
+        }
+    }
+
+    public void OnPicnicSkip()
+    {
+        if (PicnicSkip_toggle.isOn)
+        {
+            GameMgr.PicnicSkipFlag = true;
+            sc.PlaySe(125); //21 128
+        }
+        else
+        {
+            GameMgr.PicnicSkipFlag = false;
+            sc.PlaySe(81);
+        }
+    }
+
+    public void OnOutHikariSkip()
+    {
+        if (OutGirlSkip_toggle.isOn)
+        {
+            GameMgr.OutGirlSkipFlag = true;
+            sc.PlaySe(125); //21
+        }
+        else
+        {
+            GameMgr.OutGirlSkipFlag = false;
+            sc.PlaySe(81);
+        }
     }
 }

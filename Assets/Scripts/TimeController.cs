@@ -97,6 +97,8 @@ public class TimeController : MonoBehaviour
     private Vector3 localAngle2;
 
     private int heart_countup_time;
+    private int heart_up_auto_param;
+    private int manpuku_deg_param;
 
     // Use this for initialization
     void Start()
@@ -295,6 +297,17 @@ public class TimeController : MonoBehaviour
                                     //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
                                     if (!GameMgr.outgirl_Nowprogress)
                                     {
+                                        heart_up_auto_param = 1; //自動でハート上がる量　デフォルト
+
+                                        if (pitemlist.KosuCount("aroma_potion3") >= 1)
+                                        {
+                                            heart_up_auto_param += 2;
+                                        }
+                                        if (pitemlist.KosuCount("aroma_potion2") >= 1)
+                                        {
+                                            heart_up_auto_param += 1;
+                                        }
+
                                         if (GameMgr.hikari_make_okashiFlag)
                                         {
                                             GameMgr.hikari_make_okashiTimeCounter += 5;
@@ -334,7 +347,7 @@ public class TimeController : MonoBehaviour
                                                     {
                                                         timeIttei4 = 0;
 
-                                                        girleat_judge.UpDegHeart(1, false);
+                                                        girleat_judge.UpDegHeart(heart_up_auto_param, false);
                                                     }
                                                 }
                                                 else if (PlayerStatus.player_girl_expression == 3)
@@ -343,7 +356,7 @@ public class TimeController : MonoBehaviour
                                                     {
                                                         timeIttei4 = 0;
 
-                                                        girleat_judge.UpDegHeart(1, false);
+                                                        girleat_judge.UpDegHeart(heart_up_auto_param, false);
                                                     }
                                                 }
                                             }
@@ -374,18 +387,41 @@ public class TimeController : MonoBehaviour
                                                     {
                                                         timeIttei4 = 0;
 
-                                                        girleat_judge.UpDegHeart(1, false);
+                                                        girleat_judge.UpDegHeart(heart_up_auto_param, false);
                                                     }
                                                 }
-                                            }
-                                        }
+                                            }                                            
+                                        }                                        
                                     }
 
                                     //5分を基準に腹もへる。
                                     if (!GameMgr.outgirl_Nowprogress)
                                     {
                                         timeIttei3++;
-                                        if (timeIttei3 >= 2) //1=5分なので、2だと10分で腹減り-1
+
+                                        manpuku_deg_param = 2; //満腹が減る時間間隔　デフォルトは2 10分 効果は重複する。
+
+                                        if (pitemlist.KosuCount("hikari_manpuku_deg2") >= 1)
+                                        {
+                                            manpuku_deg_param = manpuku_deg_param * 3;
+                                        }
+                                        if (pitemlist.KosuCount("hikari_manpuku_deg1") >= 1)
+                                        {
+                                            manpuku_deg_param = manpuku_deg_param * 2;
+                                        }
+
+                                        //さらに、食べたいお菓子あげて一定時間満腹減少状態になってるとき。重複する。
+                                        if (pitemlist.KosuCount("hikari_manpuku_deg3") >= 1)
+                                        {
+                                            if (GameMgr.hikari_tabetaiokashi_buf)
+                                            {
+                                                manpuku_deg_param = manpuku_deg_param * 2;
+                                            }
+                                        }
+
+                                        
+
+                                        if (timeIttei3 >= manpuku_deg_param) //1=5分なので、2だと10分で腹減り-1
                                         {
                                             timeIttei3 = 0;
 
@@ -424,6 +460,17 @@ public class TimeController : MonoBehaviour
                                                 compound_main.GirlExpressionKoushin(-1);
                                             }
                                         }                                      
+                                    }
+
+                                    //食べたいお菓子をあげた直後、しばらくハートが上がる特殊状態になる。
+                                    if (GameMgr.hikari_tabetaiokashi_buf)
+                                    {
+                                        GameMgr.hikari_tabetaiokashi_buf_time--;
+
+                                        if(GameMgr.hikari_tabetaiokashi_buf_time <= 0)
+                                        {
+                                            GameMgr.hikari_tabetaiokashi_buf = false; //バフ終了
+                                        }
                                     }
                                 }
 

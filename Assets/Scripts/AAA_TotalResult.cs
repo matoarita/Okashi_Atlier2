@@ -623,8 +623,8 @@ public class AAA_TotalResult : MonoBehaviour {
         }
         else
         {
-            //ハートが9999以上　かつ　レシピ75%以上達成　かつ　コンテストで優勝
-            if (total_score >= 9999 && GameMgr.game_Recipi_archivement_rate >= 75.0f && GameMgr.Contest_yusho_flag)
+            //ハートが7777以上　かつ　レシピ75%以上達成　かつ　コンテストで優勝
+            if (total_score >= 7777 && GameMgr.game_Recipi_archivement_rate >= 75.0f && GameMgr.Contest_yusho_flag)
             {
                 _rank = "SS";
                 player_shogo = GameMgr.SearchTitleCollectionNameString("title7");

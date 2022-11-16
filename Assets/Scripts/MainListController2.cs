@@ -87,7 +87,7 @@ public class MainListController2 : MonoBehaviour
         //自身のレイアウトグループ情報の取得
         gridlayout = this.transform.Find("Viewport/Content_Main").GetComponent<GridLayoutGroup>();
         list_BG = this.transform.Find("ListBGimage").gameObject;
-        defaultPos = this.transform.localPosition;             
+        defaultPos = this.transform.localPosition;
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -118,6 +118,15 @@ public class MainListController2 : MonoBehaviour
                 shopstreet_toggle = shopstreet_toggle_obj.GetComponent<Toggle>();
                 hiroba1_toggle = hiroba1_toggle_obj.GetComponent<Toggle>();
 
+                npc1_toggle.interactable = true;
+                npc2_toggle.interactable = true;
+                npc3_toggle.interactable = true;
+                npc4_toggle.interactable = true;
+                npc5_toggle.interactable = true;
+                npc6_toggle.interactable = true;
+                npc7_toggle.interactable = true;
+                npc8_toggle.interactable = true;
+
                 //最初はoff
                 npc4_toggle_obj.SetActive(false);
                 npc5_toggle_obj.SetActive(false);
@@ -144,6 +153,53 @@ public class MainListController2 : MonoBehaviour
 
         //フラグをチェックし、必要ならONにする。
         ToggleFlagCheck();
+
+        //時間が遅いと、お店などは閉まって入れなくなる。
+        if (GameMgr.Story_Mode != 0)
+        {
+
+            switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
+            {
+                case 1:
+
+                    break;
+
+                case 2: //深夜→朝
+
+                    break;
+
+                case 3: //朝
+
+                    break;
+
+                case 4: //昼
+
+                    break;
+
+                case 5: //夕方
+
+                    break;
+
+                case 6: //夜
+
+                    switch (SceneManager.GetActiveScene().name)
+                    {
+                        case "Hiroba2":
+
+                            npc1_toggle.interactable = false;
+                            npc2_toggle.interactable = false;
+                            npc3_toggle.interactable = false;
+                            npc4_toggle.interactable = false;
+                            npc5_toggle.interactable = false;
+                            npc6_toggle.interactable = false;
+                            npc7_toggle.interactable = false;
+
+                            //npc8_toggle.interactable = false; //3番街
+                            break;
+                    }
+                    break;
+            }
+        }
     }
 
     public void MenuWindowExpand()

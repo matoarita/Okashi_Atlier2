@@ -663,16 +663,6 @@ Prefab:
       propertyPath: m_Name
       value: hiroba3_NPC1_SelectToggle
       objectReference: {fileID: 0}
-    - target: {fileID: 114937718235805506, guid: f45d90a6ca66996479e40787f055a9dd,
-        type: 2}
-      propertyPath: m_Text
-      value: "\u30E2\u30FC\u30BB\u306E\u793C\u62DD\u5802"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114778740421086744, guid: f45d90a6ca66996479e40787f055a9dd,
-        type: 2}
-      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnHiroba3_NPC1_toggle
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f45d90a6ca66996479e40787f055a9dd, type: 2}
   m_IsPrefabParent: 0
@@ -1298,7 +1288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1273919473
 Transform:
   m_ObjectHideFlags: 0
@@ -1318,7 +1308,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1273919472}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1346,15 +1336,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -999
-  m_Sprite: {fileID: 21300000, guid: 50462bbfeea2f854fa6aaea3f611e02e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9a4bc8b406afd0d418977d1ad0c96e80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.4, y: 4.8}
+  m_Size: {x: 8, y: 6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!1001 &1274023964
 Prefab:
@@ -5164,7 +5154,7 @@ GameObject:
   - component: {fileID: 1501021581}
   m_Layer: 0
   m_Name: BGImagePanel
-  m_TagString: Untagged
+  m_TagString: BG
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5795,7 +5785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1883806092
 Transform:
   m_ObjectHideFlags: 0
@@ -5815,7 +5805,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1883806091}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -5843,7 +5833,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -998
-  m_Sprite: {fileID: 21300000, guid: c3641efc050cb004dbad1bab349e8554, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c325aa99b620824fa1bbf3c8911212e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

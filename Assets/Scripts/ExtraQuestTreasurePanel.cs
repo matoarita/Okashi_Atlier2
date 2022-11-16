@@ -376,7 +376,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
             //設定してはいるが、現状Rank1・5は未使用。234のみ設定しておけばOK
             case 0: //ハートを100
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "saboten_1");
                 ItemGetDict.Add(3, "saboten_2");
                 ItemGetDict.Add(4, "saboten_3");
@@ -385,7 +385,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 1: //300
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "dryflowerpot_1");
                 ItemGetDict.Add(3, "dryflowerpot_2");
                 ItemGetDict.Add(4, "dryflowerpot_3");
@@ -394,7 +394,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 2: //650
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "aroma_candle1");
                 ItemGetDict.Add(3, "aroma_candle2");
                 ItemGetDict.Add(4, "mini_house");
@@ -403,7 +403,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 3: //1000
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "shokukan_powerup1");
                 ItemGetDict.Add(3, "shokukan_powerup2");
                 ItemGetDict.Add(4, "shokukan_powerup3");
@@ -412,11 +412,16 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 4: //230点以上のスーパークレープ　条件分岐
 
+                ItemGetDict.Add(1, "neko_badge3");
+                ItemGetDict.Add(2, "neko_badge3");
+                ItemGetDict.Add(3, "hikari_manpuku_deg1");
+                ItemGetDict.Add(4, "hikari_manpuku_deg2");
+                ItemGetDict.Add(5, "shokukan_powerup3");
                 break;
 
             case 10: //茶色いクッキー
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "cookie_powerup2");
                 ItemGetDict.Add(3, "cookie_powerup3");
                 ItemGetDict.Add(4, "cookie_powerup4");
@@ -425,7 +430,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 11: //お茶会用のお茶
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "tea_powerup2");
                 ItemGetDict.Add(3, "tea_powerup3");
                 ItemGetDict.Add(4, "tea_powerup4");
@@ -434,7 +439,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 12: //ヒカリが3種類のお菓子を作れるようにする。
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "hikari_powerup1");
                 ItemGetDict.Add(3, "hikari_powerup2");
                 ItemGetDict.Add(4, "hikari_powerup3");
@@ -443,7 +448,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 13: //カミナリのようにすっぱいクレープ 酸味が100以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "crepe_powerup2");
                 ItemGetDict.Add(3, "crepe_powerup3");
                 ItemGetDict.Add(4, "crepe_powerup4");
@@ -452,11 +457,16 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 14: //300点以上のいちごのクレープ
 
+                ItemGetDict.Add(1, "neko_badge3");
+                ItemGetDict.Add(2, "neko_badge3");
+                ItemGetDict.Add(3, "hikari_speed_up2");
+                ItemGetDict.Add(4, "hikari_manpuku_deg2");
+                ItemGetDict.Add(5, "shokukan_powerup3");
                 break;
 
             case 20: //ハート3000以上
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "memory_feather1");
                 ItemGetDict.Add(3, "memory_feather2");
                 ItemGetDict.Add(4, "memory_feather3");
@@ -465,7 +475,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 21: //ムーディーな大人のおかし　カンノーリ　ティラミス　コーヒー　カフェオレシュー　ココアクッキー　ビスコッティ
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "otona_powerup1");
                 ItemGetDict.Add(3, "candy_powerup1");
                 ItemGetDict.Add(4, "candy_powerup1");
@@ -477,9 +487,9 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
                 }
                 break;
 
-            case 22: //ヒカリが10種類のお菓子を作れる
+            case 22: //ハート 4000~
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "aroma_potion1");
                 ItemGetDict.Add(3, "aroma_potion2");
                 ItemGetDict.Add(4, "aroma_potion3");
@@ -488,14 +498,14 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
             case 23: //200をこえる夢のようなパンケーキ
 
-                ItemGetDict.Add(1, "neko_badge1");
+                ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "magic_crystal1");
                 ItemGetDict.Add(3, "magic_crystal2");
                 ItemGetDict.Add(4, "magic_crystal3");
                 ItemGetDict.Add(5, "magic_crystal3");
                 break;
 
-            case 24: //300点超えのプリンセストータ
+            case 24: //ハート 5000~
 
                 break;
 
@@ -505,10 +515,10 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
         }
         if (ItemGetDict.Count == 0)
         {
-            ItemGetDict.Add(1, "neko_badge1");
-            ItemGetDict.Add(2, "neko_badge2");
-            ItemGetDict.Add(3, "neko_badge3");
-            ItemGetDict.Add(4, "neko_badge4");
+            ItemGetDict.Add(1, "neko_badge3");
+            ItemGetDict.Add(2, "neko_badge3");
+            ItemGetDict.Add(3, "neko_badge4");
+            ItemGetDict.Add(4, "neko_badge2");
             ItemGetDict.Add(5, "neko_badge5");
         }
 

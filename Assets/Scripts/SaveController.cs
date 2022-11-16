@@ -218,7 +218,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //お菓子経験値　全１５種類
             save_player_girl_appaleil_exp = PlayerStatus.player_girl_appaleil_exp,
             save_player_girl_cream_exp = PlayerStatus.player_girl_cream_exp,
-            save_player_girl_cookie_exp = PlayerStatus.player_girl_cream_exp,
+            save_player_girl_cookie_exp = PlayerStatus.player_girl_cookie_exp,
             save_player_girl_chocolate_exp = PlayerStatus.player_girl_chocolate_exp,
             save_player_girl_crepe_exp = PlayerStatus.player_girl_crepe_exp,
             save_player_girl_creampuff_exp = PlayerStatus.player_girl_creampuff_exp,
@@ -472,8 +472,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         Debug.Log("bank.Store()");
 
         //一時データを永続的に保存。永続保存するときは、一度、一時データに保存しておく。
-        bank.SaveAll();
-        Debug.Log("bank.SaveAll()");
+        bank.Save("player1");
+        Debug.Log("bank.Save(player1)");
 
         //システムデータもセーブ
         SystemsaveCheck();
@@ -532,7 +532,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //お菓子経験値　全１５種類
         PlayerStatus.player_girl_appaleil_exp = playerData.save_player_girl_appaleil_exp;
         PlayerStatus.player_girl_cream_exp = playerData.save_player_girl_cream_exp;
-        PlayerStatus.player_girl_cream_exp = playerData.save_player_girl_cookie_exp;
+        PlayerStatus.player_girl_cookie_exp = playerData.save_player_girl_cookie_exp;
         PlayerStatus.player_girl_chocolate_exp = playerData.save_player_girl_chocolate_exp;
         PlayerStatus.player_girl_crepe_exp = playerData.save_player_girl_crepe_exp;
         PlayerStatus.player_girl_creampuff_exp = playerData.save_player_girl_creampuff_exp;
@@ -1217,6 +1217,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //調合シーンでBGM切り替えるフラグ
             save_CompoBGMChange_ON = GameMgr.CompoBGMCHANGE_ON,
 
+            //スキップ系フラグ
+            save_SleepSkipFlag = GameMgr.SleepSkipFlag,
+            save_PicnicSkipFlag = GameMgr.PicnicSkipFlag,
+            save_OutGirlSkipFlag = GameMgr.OutGirlSkipFlag,
+
             save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
             save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
 
@@ -1270,8 +1275,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //Debug.Log("bank.Store()");
 
         //一時データを永続的に保存。永続保存するときは、一度、一時データに保存しておく。
-        bank.SaveAll();
-        Debug.Log("bank.SaveAll()");
+        bank.Save("System");
+        Debug.Log("bank.Save(System)");
 
         Debug.Log("システムセーブ完了");
     }
@@ -1311,6 +1316,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //オートセーブフラグ
             GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
+
+            //スキップ系フラグ
+            GameMgr.SleepSkipFlag = systemData.save_SleepSkipFlag;
+            GameMgr.PicnicSkipFlag = systemData.save_PicnicSkipFlag;
+            GameMgr.OutGirlSkipFlag = systemData.save_OutGirlSkipFlag;
 
             //調合シーンでBGM切り替えるフラグ
             GameMgr.CompoBGMCHANGE_ON = systemData.save_CompoBGMChange_ON;
@@ -1393,10 +1403,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             {
                 if (i >= 70 && i < 80)
                 {
+                    //Debug.Log("i+ " + i);
                     GameMgr.GirlLoveSubEvent_stage1[i] = systemData.save_GirlLoveSubEvent_stage1_system[i];
                 }
                 if (i >= 100 && i < 110)
                 {
+                    //Debug.Log("i+ " + i);
                     GameMgr.GirlLoveSubEvent_stage1[i] = systemData.save_GirlLoveSubEvent_stage1_system[i];
                 }
             }

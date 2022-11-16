@@ -64,19 +64,6 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         _buf_kakuritsuup = 0;
 
-        /*for(i=0; i < GameMgr.CollectionItemsName.Count; i++)
-        {
-            if (GameMgr.CollectionItemsName[i] == "green_pendant" && GameMgr.CollectionItems[i] == true) //コレクションが登録されていれば、確率アップ効果発動
-            {
-                _buf_kakuritsuup += 30;
-            }
-
-            if (GameMgr.CollectionItemsName[i] == "star_pendant" && GameMgr.CollectionItems[i] == true) //コレクションが登録されていれば、確率アップ効果発動
-            {
-                _buf_kakuritsuup += 10;
-            }
-        }*/
-
         if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
         {
             _buf_kakuritsuup += 10;
@@ -548,6 +535,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         //最終的にかかる時間は、Exp_Controllerで計算
         GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 2.0f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍
+
+        if (pitemlist.KosuCount("hikari_speed_up2") >= 1) //持ってるだけで効果アップ
+        {
+            GameMgr.hikari_make_okashiTime_costbuf = GameMgr.hikari_make_okashiTime_costbuf * 0.5f;
+        }
+        else if (pitemlist.KosuCount("hikari_speed_up1") >= 1) //
+        {
+            GameMgr.hikari_make_okashiTime_costbuf = GameMgr.hikari_make_okashiTime_costbuf　* 0.75f;
+        }
 
         //最終的な成功率は、Compound_Checkで計算
         GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.5f, 1.3f); //成功率　LV1~9 を　0.4から1.8に変換。

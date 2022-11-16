@@ -32,6 +32,8 @@ public class Hiroba_Main2 : MonoBehaviour
     private GameObject timepanel;
     private TimeController time_controller;
 
+    private GameObject BG_Imagepanel;
+
     private BGM sceneBGM;
     public bool bgm_change_flag;
 
@@ -88,6 +90,45 @@ public class Hiroba_Main2 : MonoBehaviour
         //time_controller.TimeCheck_flag = true;
         //time_controller.TimeKoushin(); //時間の更新
 
+        BG_Imagepanel = GameObject.FindWithTag("BG");
+
+        if (GameMgr.Story_Mode != 0)
+        {
+            //まずリセット
+            BG_Imagepanel.transform.Find("BG_sprite_morning").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("BG_sprite_evening").gameObject.SetActive(false);
+            BG_Imagepanel.transform.Find("BG_sprite_night").gameObject.SetActive(false);
+
+            switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
+            {
+                case 1:
+
+                    break;
+
+                case 2: //深夜→朝
+
+                    break;
+
+                case 3: //朝
+
+                    break;
+
+                case 4: //昼
+
+                    break;
+
+                case 5: //夕方
+
+                    BG_Imagepanel.transform.Find("BG_sprite_evening").gameObject.SetActive(true);
+                    break;
+
+                case 6: //夜
+
+                    BG_Imagepanel.transform.Find("BG_sprite_night").gameObject.SetActive(true);
+
+                    break;
+            }
+        }
     }
 
     // Update is called once per frame

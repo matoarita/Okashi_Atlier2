@@ -59,8 +59,26 @@ public class Touch_Controll : MonoBehaviour
 
         girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
+        nohearteffect = false;
+
         //時間管理オブジェクトの取得
-        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
+                break;
+
+            case "001_Title":
+
+                nohearteffect = true;
+                break;
+
+            case "999_Gameover":
+
+                nohearteffect = true;
+                break;
+        }
 
         //Live2Dモデルの取得
         _model_root_obj = GameObject.FindWithTag("CharacterRoot").gameObject;
@@ -77,16 +95,8 @@ public class Touch_Controll : MonoBehaviour
         mouseLclick_off = false;
         isHimmeli = false;
 
-        touch_interval_flag = false;
-        nohearteffect = false;
+        touch_interval_flag = false;        
 
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "001_Title":
-
-                nohearteffect = true;
-                break;
-        }
     }
 
     private void Update()
@@ -108,8 +118,7 @@ public class Touch_Controll : MonoBehaviour
 
     //頭を触る。一回ならびっくりモーション。ドラッグすると、さわさわ触る反応。
     public void OnTouchHair()
-    {
-        
+    {        
 
         if (ALL_touch_flag)
         {
@@ -140,7 +149,7 @@ public class Touch_Controll : MonoBehaviour
                 timeOut = time_inter_default;
 
                 //時間の項目リセット
-                time_controller.ResetTimeFlag();
+                TimeReset();
             }
         }
     }
@@ -162,7 +171,7 @@ public class Touch_Controll : MonoBehaviour
                 }
 
             //時間の項目リセット
-            time_controller.ResetTimeFlag();
+            TimeReset();
             //}
         }
     }
@@ -261,7 +270,7 @@ public class Touch_Controll : MonoBehaviour
                 timeOut = time_inter_default;
 
                 //時間の項目リセット
-                time_controller.ResetTimeFlag();
+                TimeReset();
             }
         }
 
@@ -284,7 +293,7 @@ public class Touch_Controll : MonoBehaviour
                 }
 
                 //時間の項目リセット
-                time_controller.ResetTimeFlag();
+                TimeReset();
             }
         }
     }
@@ -352,7 +361,7 @@ public class Touch_Controll : MonoBehaviour
                 timeOut = time_inter_default;
 
                 //時間の項目リセット
-                time_controller.ResetTimeFlag();
+                TimeReset();
             }
         }
     }
@@ -381,7 +390,7 @@ public class Touch_Controll : MonoBehaviour
                 //timeOut = time_inter_default;
 
                 //時間の項目リセット
-                time_controller.ResetTimeFlag();
+                TimeReset();
             }
         }
 
@@ -420,7 +429,7 @@ public class Touch_Controll : MonoBehaviour
                 timeOut = time_inter_default;
 
                 //時間の項目リセット
-                time_controller.ResetTimeFlag();
+                TimeReset();
             }
         }
     }
@@ -465,7 +474,7 @@ public class Touch_Controll : MonoBehaviour
                 timeOut = time_inter_default;
 
                 //時間の項目リセット
-                time_controller.ResetTimeFlag();
+                TimeReset();
             }
         }
     }
@@ -534,8 +543,21 @@ public class Touch_Controll : MonoBehaviour
                                                           //isHimmeli = true;
 
             //時間の項目リセット
-            time_controller.ResetTimeFlag();
+            TimeReset();
         }
+    }
+
+    void TimeReset()
+    {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
+                break;
+        }
+        
     }
 
 

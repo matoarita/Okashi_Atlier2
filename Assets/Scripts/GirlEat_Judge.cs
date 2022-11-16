@@ -2816,6 +2816,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
                     Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.2倍");
+
+                    GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
+                    GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
+
                     Getlove_exp = (int)(Getlove_exp * 1.2f);
                     PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
 
@@ -2853,6 +2857,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Getlove_exp = (int)(Getlove_exp * 1.0f);
             }
 
+            //ハート　装備品による補正
+            if(pitemlist.KosuCount("aroma_potion1") >= 1)
+            {
+                Getlove_exp = (int)(Getlove_exp * 1.2f);
+            }
 
             //お金関係　装備品による補正
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
@@ -4081,11 +4090,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     if (total_score >= 230)
                     {
                         sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";                       
+                        _windowtext.text = "満足しているようだ。";
+
+                        if (total_score >= 230 && total_score < 300)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 2;
+                        }
+                        else if (total_score >= 300 && total_score < 350)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 3;
+                        }
+                        else if (total_score >= 350)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 4;
+                        }
                     }
 
-                    //エクストラ獲得アイテムのランクも決定
-                    ExtraItemGetRank();
                     break;
 
                 case 10: //茶色いクッキー
@@ -4133,8 +4153,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             _windowtext.text = "満足しているようだ。";                           
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
+                        if (total_score >= 300 && total_score < 400)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 2;
+                        }
+                        else if (total_score >= 400 && total_score < 500)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 3;
+                        }
+                        else if (total_score >= 500)
+                        {
+                            GameMgr.ExtraClear_QuestItemRank = 4;
+                        }
                     }
                     break;
 
@@ -4163,15 +4193,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         _windowtext.text = "満足しているようだ。";
                     }
 
-                    if (total_score >= 200 && total_score < 250)
+                    if (total_score >= 200 && total_score < 300)
                     {
                         GameMgr.ExtraClear_QuestItemRank = 2;
                     }
-                    else if (total_score >= 250 && total_score < 300)
+                    else if (total_score >= 300 && total_score < 400)
                     {
                         GameMgr.ExtraClear_QuestItemRank = 3;
                     }
-                    else if (total_score >= 300)
+                    else if (total_score >= 400)
                     {
                         GameMgr.ExtraClear_QuestItemRank = 4;
                     }

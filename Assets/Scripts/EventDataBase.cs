@@ -1259,7 +1259,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                             GameMgr.Mute_on = true;
 
-                            pitemlist.addPlayerItemString("Record_30", 1); //レコード
+                            pitemlist.addPlayerItemString("Record_21", 1); //レコード パティシエールレッスン
                         }
                     }
                 }
@@ -1307,45 +1307,49 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-                    //     
+                    //ヒカリお外へ遊びにいく発生
                     if (!GameMgr.outgirl_Nowprogress)
                     {
-                        if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour < 13
-                            && PlayerStatus.girl1_Love_lv >= 6) //9時から12時の間に、サイコロふる
+                        if (GameMgr.OutGirlSkipFlag) { }　//外出スキップON
+                        else
                         {
-                            if (GameMgr.outgirl_count <= 0)
+                            if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour < 13
+                                && PlayerStatus.girl1_Love_lv >= 6) //9時から12時の間に、サイコロふる
                             {
-                                GameMgr.outgirl_event_ON = true;
-                            }
-
-                            if (GameMgr.outgirl_event_ON)
-                            {
-                                random = Random.Range(0, 100);
-                                Debug.Log("外出イベント　抽選スタート　10以下で成功: " + random);
-                                Debug.Log("機嫌度player_girl_express_param: " + PlayerStatus.player_girl_express_param);
-
-                                picnic_exprob = (int)(20f * PlayerStatus.player_girl_express_param * 0.01f); //20%の確率で発生。10~13時　5分ごとに判定
-                                if (picnic_exprob <= 0)
+                                if (GameMgr.outgirl_count <= 0)
                                 {
-                                    picnic_exprob = 0;
+                                    GameMgr.outgirl_event_ON = true;
                                 }
 
-                                if (PlayerStatus.player_girl_expression <= 1) { }
-                                else
+                                if (GameMgr.outgirl_event_ON)
                                 {
-                                    Debug.Log("picnic_exprob: " + picnic_exprob);
-                                    if (random <= picnic_exprob)
+                                    random = Random.Range(0, 100);
+                                    Debug.Log("外出イベント　抽選スタート　10以下で成功: " + random);
+                                    Debug.Log("機嫌度player_girl_express_param: " + PlayerStatus.player_girl_express_param);
+
+                                    picnic_exprob = (int)(20f * PlayerStatus.player_girl_express_param * 0.01f); //20%の確率で発生。10~13時　5分ごとに判定
+                                    if (picnic_exprob <= 0)
                                     {
-                                        GameMgr.GirlLoveSubEvent_num = 150;
-                                        GameMgr.GirlLoveSubEvent_stage1[150] = true; //イベント初発生の分をフラグっておく。
+                                        picnic_exprob = 0;
+                                    }
 
-                                        GameMgr.outgirl_event_ON = false;
-                                        outGirlCounterReset();//次の外出るイベントまでの日数カウンタ                                       
+                                    if (PlayerStatus.player_girl_expression <= 1) { }
+                                    else
+                                    {
+                                        Debug.Log("picnic_exprob: " + picnic_exprob);
+                                        if (random <= picnic_exprob)
+                                        {
+                                            GameMgr.GirlLoveSubEvent_num = 150;
+                                            GameMgr.GirlLoveSubEvent_stage1[150] = true; //イベント初発生の分をフラグっておく。
 
-                                        GameMgr.check_GirlLoveTimeEvent_flag = false;
+                                            GameMgr.outgirl_event_ON = false;
+                                            outGirlCounterReset();//次の外出るイベントまでの日数カウンタ                                       
 
-                                        //GameMgr.Mute_on = true;
+                                            GameMgr.check_GirlLoveTimeEvent_flag = false;
 
+                                            //GameMgr.Mute_on = true;
+
+                                        }
                                     }
                                 }
                             }
@@ -1386,11 +1390,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 {
                     //ピクニックイベントチェック
                     if (!GameMgr.outgirl_Nowprogress)
-                    {              
-                        if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
-                            && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
+                    {
+                        if (GameMgr.PicnicSkipFlag) { } //ピクニックスキップON
+                        else
                         {
-                            PicnicEvent();
+                            if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
+                                && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
+                            {
+                                PicnicEvent();
+                            }
                         }
                     }
                 }
