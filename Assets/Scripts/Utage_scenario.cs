@@ -1886,6 +1886,9 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.event_judge_status = 4;
         }
 
+        //点数を宴にもセット
+        engine.Param.TrySetParameter("event_okashi_score", total_score);
+
 
         //ピクニックイベントの場合    
         if (GameMgr.picnic_event_reading_now)

@@ -13,6 +13,7 @@ public class Item
     public string itemName;         //名前、画像ファイル名
     public string itemNameHyouji;   //名前　ゲーム中での表示用。日本語。
     public int itemID;              //アイテムID
+    public string OriginalitemID;      //オリジナルアイテムリストの固有のアイテムID
     public string itemDesc;         //アイテムの説明文
     //public Texture2D itemIcon;      //アイコン
     public Sprite itemIcon_sprite;      //アイコン
@@ -172,7 +173,7 @@ public class Item
     }
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public Item(int id, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, 
+    public Item(int id, string OriginalID, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, 
         int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, int beauty,
         int juice,
         string type, string subtype, int _base_score, float _girl1_like, int cost, int sell, 
@@ -181,6 +182,7 @@ public class Item
         int _judge_num, int _eat_kaisu, int _highscore, int _lasttotal_score, string _hinttext, float _total_kyori, int _rare, int _manpuku, int _secretFlag)
     {
         itemID = id;
+        OriginalitemID = OriginalID;
         fileName = file_name;
 
         itemName = name;

@@ -682,13 +682,13 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }*/
 
                 //エクストラモードのみのイベント　どっこいステーキ
-                /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
                 {
                     if (GameMgr.Story_Mode == 1)
                     {
-                        if (PlayerStatus.girl1_Love_lv >= 50 && GameMgr.GirlLoveSubEvent_stage1[63] == false) //
+                        if (PlayerStatus.girl1_Love_lv >= 40 && GameMgr.GirlLoveSubEvent_stage1[63] == false) //
                         {
                             GameMgr.GirlLoveSubEvent_num = 63;
                             GameMgr.GirlLoveSubEvent_stage1[63] = true;
@@ -698,7 +698,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.Mute_on = true;
                         }
                     }
-                }*/
+                }
 
                 //エクストラモードのみのイベント　わたあめ
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -1411,7 +1411,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     //モーセ家にくる
                     if (!GameMgr.outgirl_Nowprogress)
                     {              
-                        if (PlayerStatus.girl1_Love_lv >= 30) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
+                        if (PlayerStatus.girl1_Love_lv >= 10) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
                         {
                             //random = Random.Range(0, 100);
                             //Debug.Log("モーセくるイベント　10以下で成功: " + random);

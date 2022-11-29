@@ -1,0 +1,217 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "FireScale_1",
+			"GroupId": "",
+			"Name": "火根元のスケール"
+		},
+		{
+			"Id": "FireRot_1",
+			"GroupId": "",
+			"Name": "火根元の回転"
+		},
+		{
+			"Id": "ParamFire_1",
+			"GroupId": "",
+			"Name": "火のゆらめき1"
+		},
+		{
+			"Id": "ParamFire_2",
+			"GroupId": "",
+			"Name": "火のゆらめき2"
+		},
+		{
+			"Id": "ParamFire_3",
+			"GroupId": "",
+			"Name": "火のゆらめき3"
+		},
+		{
+			"Id": "ParamFire_sentan1",
+			"GroupId": "",
+			"Name": "火のゆらめき先端"
+		},
+		{
+			"Id": "ParamFireGlow_1",
+			"GroupId": "",
+			"Name": "グローまたたき"
+		},
+		{
+			"Id": "ParamFireGlow_2",
+			"GroupId": "",
+			"Name": "グローまたたき2"
+		},
+		{
+			"Id": "ParamCandle_ONOFF1",
+			"GroupId": "",
+			"Name": "キャンドル青ON"
+		},
+		{
+			"Id": "ParamCandleFire_ONOFF1",
+			"GroupId": "",
+			"Name": "キャンドル青炎ON"
+		},
+		{
+			"Id": "ParamCandle_ONOFF2",
+			"GroupId": "",
+			"Name": "キャンドル紫ON"
+		},
+		{
+			"Id": "ParamCandleFire_ONOFF2",
+			"GroupId": "",
+			"Name": "キャンドル紫炎ON"
+		},
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "ParamGroup",
+			"Name": "角度 X"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "ParamGroup",
+			"Name": "角度 Y"
+		},
+		{
+			"Id": "ParamAngleZ",
+			"GroupId": "ParamGroup",
+			"Name": "角度 Z"
+		},
+		{
+			"Id": "ParamEyeLOpen",
+			"GroupId": "ParamGroup",
+			"Name": "左目　開閉"
+		},
+		{
+			"Id": "ParamEyeLSmile",
+			"GroupId": "ParamGroup",
+			"Name": "左目　笑顔"
+		},
+		{
+			"Id": "ParamEyeROpen",
+			"GroupId": "ParamGroup",
+			"Name": "右目　開閉"
+		},
+		{
+			"Id": "ParamEyeRSmile",
+			"GroupId": "ParamGroup",
+			"Name": "右目　笑顔"
+		},
+		{
+			"Id": "ParamEyeBallX",
+			"GroupId": "ParamGroup",
+			"Name": "目玉 X"
+		},
+		{
+			"Id": "ParamEyeBallY",
+			"GroupId": "ParamGroup",
+			"Name": "目玉 Y"
+		},
+		{
+			"Id": "ParamBrowLY",
+			"GroupId": "ParamGroup",
+			"Name": "左眉　上下"
+		},
+		{
+			"Id": "ParamBrowRY",
+			"GroupId": "ParamGroup",
+			"Name": "右眉　上下"
+		},
+		{
+			"Id": "ParamBrowLX",
+			"GroupId": "ParamGroup",
+			"Name": "左眉　左右"
+		},
+		{
+			"Id": "ParamBrowRX",
+			"GroupId": "ParamGroup",
+			"Name": "右眉　左右"
+		},
+		{
+			"Id": "ParamBrowLAngle",
+			"GroupId": "ParamGroup",
+			"Name": "左眉　角度"
+		},
+		{
+			"Id": "ParamBrowRAngle",
+			"GroupId": "ParamGroup",
+			"Name": "右眉　角度"
+		},
+		{
+			"Id": "ParamBrowLForm",
+			"GroupId": "ParamGroup",
+			"Name": "左眉　変形"
+		},
+		{
+			"Id": "ParamBrowRForm",
+			"GroupId": "ParamGroup",
+			"Name": "右眉　変形"
+		},
+		{
+			"Id": "ParamMouthForm",
+			"GroupId": "ParamGroup",
+			"Name": "口　変形"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"GroupId": "ParamGroup",
+			"Name": "口　開閉"
+		},
+		{
+			"Id": "ParamCheek",
+			"GroupId": "ParamGroup",
+			"Name": "照れ"
+		},
+		{
+			"Id": "ParamBodyAngleX",
+			"GroupId": "ParamGroup",
+			"Name": "体の回転　X"
+		},
+		{
+			"Id": "ParamBodyAngleY",
+			"GroupId": "ParamGroup",
+			"Name": "体の回転　Y"
+		},
+		{
+			"Id": "ParamBodyAngleZ",
+			"GroupId": "ParamGroup",
+			"Name": "体の回転　Z"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "ParamGroup",
+			"Name": "呼吸"
+		},
+		{
+			"Id": "ParamHairFront",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　前"
+		},
+		{
+			"Id": "ParamHairSide",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　横"
+		},
+		{
+			"Id": "ParamHairBack",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　後"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "default"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "Part",
+			"Name": "キャンドル紫"
+		},
+		{
+			"Id": "Part2",
+			"Name": "キャンドル青"
+		}
+	]
+}

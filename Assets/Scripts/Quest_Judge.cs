@@ -1856,12 +1856,14 @@ public class Quest_Judge : MonoBehaviour {
     {
 
         //ヒントを表示する。０のものは、判定なしなので、表示もしない。
+        _sweat_kansou = "";
+        _bitter_kansou = "";
+        _sour_kansou = "";
 
         if (sweat_level != 0)
         {
             SweatHintHyouji();
         }
-
         if (bitter_level != 0)
         {
             BitterHintHyouji();

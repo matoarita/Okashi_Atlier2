@@ -1233,19 +1233,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0
+        value: 25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 2
-        value: -30
+        value: -15
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 4
-        value: 0
+        value: 25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1263,24 +1263,24 @@ AnimationClip:
         time: 0
         value: 0
         inSlope: 0
-        outSlope: 0
+        outSlope: 47.100048
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 25
+        value: 30
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 3
-        value: -25
+        value: -30
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 4
         value: 0
-        inSlope: 0
+        inSlope: 43.680046
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
@@ -2887,19 +2887,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0
+        value: 25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 2
-        value: -30
+        value: -15
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 4
-        value: 0
+        value: 25
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2917,24 +2917,24 @@ AnimationClip:
         time: 0
         value: 0
         inSlope: 0
-        outSlope: 0
+        outSlope: 47.100048
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: 25
+        value: 30
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 3
-        value: -25
+        value: -30
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
         time: 4
         value: 0
-        inSlope: 0
+        inSlope: 43.680046
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2

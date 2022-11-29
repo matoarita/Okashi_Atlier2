@@ -370,6 +370,11 @@ public class Debug_Panel : MonoBehaviour {
                         }
                         else
                         {
+                            //デバッグパネルの現在の仕様上、エクストラのクリア後ごほうびは、おかしくなる。
+                            //event_num=20を仮に指定しても、girl_love_eventnum=10で再生されるため。14を指定できていない。なのでガジュマルになったりする。
+                            //もしクリア後のごほうびをチェックする際は、ちゃんと14で指定して、クリアして次へいくこと。
+                            GameMgr.MainQuestClear_flag = 1;
+
                             if (event_num == 50)
                             {
                                 GameMgr.GirlLoveEvent_stage1[20] = true;

@@ -445,7 +445,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             //日数の経過。帰りも同じ時間かかる。
             time_controller.SetMinuteToHour(select_place_day);
-            time_controller.TimeKoushin();
+            time_controller.TimeKoushin(0);
             time_controller.Weather_Change(0.0f);
 
             //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
@@ -644,7 +644,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     //日数の経過。場所ごとに、移動までの日数が変わる。
                     //PlayerStatus.player_time += select_place_day;
                     time_controller.SetMinuteToHour(select_place_day);
-                    time_controller.TimeKoushin();
+                    time_controller.TimeKoushin(0);
 
                     //時間の項目リセット
                     time_controller.ResetTimeFlag();
@@ -1533,7 +1533,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             {
                 //メインシーンのデフォルトに戻る。
                 time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
-                time_controller.TimeKoushin();
+                time_controller.TimeKoushin(0);
                 girl1_status.hukidasiOn();
             }
           
@@ -1571,7 +1571,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //メインシーンのデフォルトに戻る。
         time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
         time_controller.TimeReturnHomeSleep_Status = true;
-        time_controller.TimeKoushin();
+        time_controller.TimeKoushin(0);
         girl1_status.hukidasiOn();
 
         GameMgr.ReadGirlLoveTimeEvent_reading_now = false;

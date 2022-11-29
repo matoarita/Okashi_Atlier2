@@ -22,6 +22,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private SoundController sc;
     private BGM sceneBGM;
 
+    private TimeController time_controller;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -470,6 +472,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //お金の増減用パネルの取得
                 MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+
+                //時間管理オブジェクトの取得
+                time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
                 //女の子の反映用ハートエフェクト取得
                 GirlHeartEffect = character_root.transform.Find("CharacterMove/Particle_Heart_Character").GetComponent<Particle_Heart_Character>();
@@ -2869,7 +2874,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             if (GameMgr.Story_Mode == 1)
             {
-                GetMoney = (int)(GetMoney * 0.4f); //エクストラの最終的な調整　元のままだと、少し入りすぎた感があるため。
+                GetMoney = (int)(GetMoney * 0.7f); //エクストラの最終的な調整　元のままだと、少し入りすぎた感があるため。
             }
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
@@ -3969,7 +3974,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.MesaggeKoushinON = false;
 
         if (GameMgr.NextQuestID % 100 != 0) //次クエが100番台以外
-        {
+        {           
+
             if (GameMgr.Story_Mode == 0)
             {
                 special_quest.SetSpecialOkashiDict(GameMgr.NextQuestID, 0);
@@ -3978,6 +3984,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else
             {
+                GameMgr.MainQuestClear_flag = 0;
                 special_quest.SetSpecialOkashiDict(GameMgr.NextQuestID, 2);
 
                 EndExtraQuest();
@@ -3987,6 +3994,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         else //次クエが100で割り切れる。次のSpお菓子へ
         {
+            GameMgr.MainQuestClear_flag = 1; //次ステージへ行く場合。1になる。主にエクストラモード（報酬ゲット後のパネルの判定）で、通常SPかメインクエストクリアかを判定するのに使用。
             subQuestClear_check = true;
             GameMgr.QuestClearAnim_Flag = false; //次のメインクエストへ行くまえに、また演出はOFFに。
             ResultPanel_On();
@@ -4092,18 +4100,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
 
-                        if (total_score >= 230 && total_score < 300)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 2;
-                        }
-                        else if (total_score >= 300 && total_score < 350)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 3;
-                        }
-                        else if (total_score >= 350)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 4;
-                        }
                     }
 
                     break;
@@ -4116,8 +4112,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         _windowtext.text = "満足しているようだ。";                       
                     }
 
-                    //エクストラ獲得アイテムのランクも決定
-                    ExtraItemGetRank();
                     break;
 
                 case 13: //カミナリのようにすっぱいクレープ 酸味が100以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
@@ -4128,18 +4122,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
 
-                        if (total_score >= 100 && total_score < 120)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 2;
-                        }
-                        else if (total_score >= 120 && total_score < 150)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 3;
-                        }
-                        else if (total_score >= 150)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 4;
-                        }
                     }
                     break;
 
@@ -4151,19 +4133,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         {
                             sp_quest_clear = true;
                             _windowtext.text = "満足しているようだ。";                           
-                        }
-
-                        if (total_score >= 300 && total_score < 400)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 2;
-                        }
-                        else if (total_score >= 400 && total_score < 500)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 3;
-                        }
-                        else if (total_score >= 500)
-                        {
-                            GameMgr.ExtraClear_QuestItemRank = 4;
                         }
                     }
                     break;
@@ -4179,9 +4148,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             _windowtext.text = "満足しているようだ。";                          
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
-
                     }
                     break;
 
@@ -4193,21 +4159,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         _windowtext.text = "満足しているようだ。";
                     }
 
-                    if (total_score >= 200 && total_score < 300)
-                    {
-                        GameMgr.ExtraClear_QuestItemRank = 2;
-                    }
-                    else if (total_score >= 300 && total_score < 400)
-                    {
-                        GameMgr.ExtraClear_QuestItemRank = 3;
-                    }
-                    else if (total_score >= 400)
-                    {
-                        GameMgr.ExtraClear_QuestItemRank = 4;
-                    }
                     break;
 
-                /*case 24: //300点超えのプリンセストータ
+                case 24: //300点超えのプリンセストータ
 
                     if (_basename == "princess_tota" && total_score >= 300)
                     {
@@ -4216,19 +4170,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         
                     }
 
-                    if (total_score >= 300 && total_score < 350)
-                    {
-                        GameMgr.ExtraClear_QuestItemRank = 2;
-                    }
-                    else if (total_score >= 350 && total_score < 400)
-                    {
-                        GameMgr.ExtraClear_QuestItemRank = 3;
-                    }
-                    else if (total_score >= 400)
-                    {
-                        GameMgr.ExtraClear_QuestItemRank = 4;
-                    }
-                    break;*/
+                    break;
 
                 default: //Extraモードでは、食べたいお菓子がランダムで変わるので、こちらは使用しない。
 
@@ -4261,8 +4203,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4279,8 +4219,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4297,8 +4235,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4315,8 +4251,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4327,8 +4261,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         Debug.Log("＜エクストラ＞プリンさんにお菓子渡した。クエストクリア");
                         sp_quest_clear = true;
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4340,8 +4272,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         Debug.Log("＜エクストラ＞ヒカリがお菓子を3種類覚えたので、クエストクリア");
                         sp_quest_clear = true;
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }*/
                     if (PlayerStatus.girl1_Love_exp >= 2000)
                     {
@@ -4354,8 +4284,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
 
                     break;
@@ -4373,8 +4301,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
                     break;
 
@@ -4385,10 +4311,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         Debug.Log("＜エクストラ＞ヒカリがお菓子を10種類覚えたので、クエストクリア");
                         sp_quest_clear = true;
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }*/
-                    if (PlayerStatus.girl1_Love_exp >= 4000)
+                    if (PlayerStatus.girl1_Love_exp >= 5000)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
@@ -4399,12 +4323,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
                     break;
 
-                case 24:
+                /*case 24:
 
                     if (PlayerStatus.girl1_Love_exp >= 5000)
                     {
@@ -4417,45 +4339,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                        //エクストラ獲得アイテムのランクも決定
-                        ExtraItemGetRank();
                     }
 
-                    break;
+                    break;*/
             }
 
             
             if (sp_quest_clear)
             {
-                
-
                 GetLoveEnd();
             }
         }
-    }
-
-    void ExtraItemGetRank()
-    {
-        if (GameMgr.Okashi_spquest_MaxScore < 100) //ランク１は使わないが、例外で、ハートのときなどに、お菓子をあげる前にクリアする可能性はあり。その場合は、１も通る。
-        {
-            GameMgr.ExtraClear_QuestItemRank = 1;
-        }
-        else if (GameMgr.Okashi_spquest_MaxScore >= 100 && GameMgr.Okashi_spquest_MaxScore < 200)
-        {
-            GameMgr.ExtraClear_QuestItemRank = 2;
-        }
-        else if (GameMgr.Okashi_spquest_MaxScore >= 200 && GameMgr.Okashi_spquest_MaxScore < 300)
-        {
-            GameMgr.ExtraClear_QuestItemRank = 3;
-        }
-        else if (GameMgr.Okashi_spquest_MaxScore >= 300)
-        {
-            GameMgr.ExtraClear_QuestItemRank = 4;
-        }
-        /*else if (GameMgr.Okashi_spquest_MaxScore >= 300)
-        {
-            GameMgr.ExtraClear_QuestItemRank = 5;
-        }*/
     }
 
 
@@ -4687,6 +4581,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         }
 
+        //イベントによっては、日付もしくは天気を変更する。
+        if (GameMgr.Story_Mode == 1)
+        {
+            switch (GameMgr.mainquest_ID)
+            {
+                case 10100: //いちご少女とお茶会 
+
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 17, 0); //その日の夕方に。
+                    break;
+
+            }
+        }
+
         while (!GameMgr.recipi_read_endflag)
         {
             yield return null;
@@ -4715,7 +4622,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         ResetResult();
     }
 
-    //メインクエストOKパネルを閉じたあと
+    //メインクエストOKパネルを閉じたあと ステージクエストクリア時
     public void PanelResultOFF()
     {
         BlackPanel_event.SetActive(true);
@@ -4727,6 +4634,30 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //パラメータリセット
         EndFlagResetParam();
+
+        GameMgr.questclear_After = true;
+
+        //黒で一度フェードアウト
+        sceneBGM.MuteBGM();
+        Fadeout_Black_obj.GetComponent<FadeOutBlack>().FadeIn();
+        //Debug.Log("## 一度ブラックアウト　演出 ##");
+        StartCoroutine("Black_FadeOut");
+    }
+
+    //エクストラ　パネル閉じたあと　まだステージクエストはクリアしてないとき
+    public void ExtraPanelResultOFF()
+    {
+        BlackPanel_event.SetActive(true);
+        MainQuestOKPanel.SetActive(false);
+        ExtraQuestOKPanel.SetActive(false);
+        ExtraQuest_TreasurePanel.SetActive(false);
+        sc.PlaySe(18); //閉じる音
+        sceneBGM.OnMainClearResultBGMOFF();
+
+        //パラメータリセット
+        EndFlagResetParam();
+
+        GameMgr.questclear_After = false;
 
         //黒で一度フェードアウト
         sceneBGM.MuteBGM();
@@ -4757,8 +4688,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         yield return new WaitForSeconds(1.0f);
 
+        Debug.Log("GameMgr.GirlLoveEvent_num: " + GameMgr.GirlLoveEvent_num);
         GameMgr.check_GirlLoveEvent_flag = false; //好感度によって発生するイベントがないかチェックする 
-        GameMgr.questclear_After = true;
+        //GameMgr.questclear_After = true;
         ResetResult();
     }
 

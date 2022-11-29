@@ -1627,33 +1627,64 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //changeanim_clip.ChangeClip(1);
                 if (PlayerStatus.girl1_Love_lv < 80)
                 {
-                    //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
+                    switch(PlayerStatus.player_girl_expression)
+                    {
+                        case 1: //怒り
+
+                            trans_makemotion = 500;
+                            break;
+
+                        case 2: //不機嫌
+                            trans_makemotion = 400;
+                            break;
+
+                        default:
+
+                            //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
+                            trans_makemotion = 100;
+                            break;
+                    }
 
                     make_Idlemotion_start = true;
-                    trans_makemotion = 100;
                     live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
                 }
                 else
                 {
-                    random = Random.Range(0, 10);
-                    if (random >= 0 && random < 5)
+                    switch (PlayerStatus.player_girl_expression)
                     {
-                        //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
-                        make_Idlemotion_start = true;
-                        trans_makemotion = 100;
-                        live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
+                        case 1: //怒り
+
+                            trans_makemotion = 500;
+                            break;
+
+                        case 2: //不機嫌
+                            trans_makemotion = 400;
+                            break;
+
+                        default:
+
+                            random = Random.Range(0, 10);
+                            if (random >= 0 && random < 4)
+                            {
+                                //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);                              
+                                trans_makemotion = 100;
+                                
+                            }
+                            else if (random >= 4 && random < 7)
+                            {
+                                //live2d_animator.Play("Idle_hikariMake2", motion_layer_num, 0.0f); //ヤムチャの歌をうたいながら
+                                trans_makemotion = 200;
+                            }
+                            else if (random >= 7 && random < 10)
+                            {
+                                //live2d_animator.Play("Idle_hikariMake3", motion_layer_num, 0.0f); //棒目で上機嫌
+                                trans_makemotion = 300;
+                            }
+                            break;
                     }
-                    else if (random >= 5 && random < 10)
-                    {
-                        //live2d_animator.Play("Idle_hikariMake2", motion_layer_num, 0.0f); //ヤムチャの歌をうたいながら
-                        make_Idlemotion_start = true;
-                        trans_makemotion = 200;
-                        live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
-                    }
-                    /*else if (random >= 7 && random < 10)
-                    {
-                        live2d_animator.Play("Idle_hikariMake3", motion_layer_num, 0.0f); //棒目で上機嫌
-                    }*/
+
+                    make_Idlemotion_start = true;
+                    live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
                 }
             }
 
@@ -2417,8 +2448,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     //ツインテール　ドラッグで触り続けた場合
     public void TouchSisterTwinTail()
-    {        
-        
+    {
+        touch_startreset();
         Init_touchTwintailComment();
 
         //コメント順番に表示

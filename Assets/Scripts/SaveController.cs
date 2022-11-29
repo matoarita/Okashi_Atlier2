@@ -310,6 +310,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ヒカリのお菓子作り系フラグ
             save_hikari_kettei_item = GameMgr.hikari_kettei_item,
+            save_hikari_kettei_originalID = GameMgr.hikari_kettei_originalID,
             save_hikari_kettei_kosu = GameMgr.hikari_kettei_kosu,
             save_hikari_kettei_toggleType = GameMgr.hikari_kettei_toggleType,
             save_hikari_kettei_itemName = GameMgr.hikari_kettei_itemName,
@@ -624,6 +625,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //ヒカリのお菓子作り系フラグ
         GameMgr.hikari_kettei_item = playerData.save_hikari_kettei_item;
+        GameMgr.hikari_kettei_originalID = playerData.save_hikari_kettei_originalID;
         GameMgr.hikari_kettei_kosu = playerData.save_hikari_kettei_kosu;
         GameMgr.hikari_kettei_toggleType = playerData.save_hikari_kettei_toggleType;
         GameMgr.hikari_make_okashiFlag = playerData.save_hikari_make_okashiFlag; //ヒカリがお菓子を制作中かどうかのフラグ
@@ -1142,7 +1144,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < database.items.Count; i++)
         {
             if(database.items[i].itemType_sub.ToString() == "Donguri" ||
-                database.items[i].itemType_sub.ToString() == "Machine" || database.items[i].itemType_sub.ToString() == "Object"
+                database.items[i].itemType_sub.ToString() == "Object"
                 || database.items[i].itemType_sub.ToString() == "Record")
             {
                 _tempdongrilist.Add(new ItemSaveKosu(database.items[i].itemName, pitemlist.playeritemlist[database.items[i].itemName], 0));

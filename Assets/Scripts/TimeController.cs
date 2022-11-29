@@ -66,6 +66,10 @@ public class TimeController : MonoBehaviour
     public int timeIttei2;
     public int timeIttei3;
     public int timeIttei4;
+    public int timeIttei5;
+    public int timeIttei6;
+    public int timeIttei7;
+    public int timeIttei8;
     public bool timeDegHeart_flag; //表示用にpublicにしてるだけ。
 
     private int i, count;
@@ -78,8 +82,6 @@ public class TimeController : MonoBehaviour
     private bool itemkosu_check;
 
     private float timespeed_range;
-
-    private bool money_counter;
 
     public bool TimeCheck_flag; //調合メインメソッドのトップ画面で起動開始
     public bool TimeReturnHomeSleep_Status; //兄が帰ってきたあと、少しセリフ変わる。 
@@ -108,6 +110,11 @@ public class TimeController : MonoBehaviour
         timeIttei = 0;
         timeIttei3 = 0;
         timeIttei4 = 0;
+        timeIttei5 = 0;
+        timeIttei6 = 0;
+        timeIttei7 = 0;
+        timeIttei8 = 0;
+
         timeDegHeart_flag = false;
         TimeCheck_flag = false;
         TimeReturnHomeSleep_Status = false;
@@ -214,8 +221,6 @@ public class TimeController : MonoBehaviour
       
         timespeed_range = 1.0f;
 
-        money_counter = false;
-
         if (GameMgr.Story_Mode == 0)
         {
             this.transform.Find("TimeHyouji_1").GetComponent<CanvasGroup>().alpha = 0;
@@ -280,7 +285,7 @@ public class TimeController : MonoBehaviour
                                     
                                     timeLeft2 = 0.0f;
                                     SetMinuteToHour(1); //1=5分単位
-                                    TimeKoushin();
+                                    TimeKoushin(0);
 
                                     Weather_Change(5.0f);
 
@@ -322,7 +327,7 @@ public class TimeController : MonoBehaviour
                                             }
 
                                             //お菓子を作ってる間、キゲンが良い間はハートも上がる。
-                                            timeIttei4++;
+                                            timeIttei4++;                                           
                                             if (PlayerStatus.player_girl_manpuku >= 10)
                                             {
                                                 heart_countup_time = 6; //デフォルト
@@ -391,7 +396,76 @@ public class TimeController : MonoBehaviour
                                                     }
                                                 }
                                             }                                            
-                                        }                                        
+                                        }
+
+                                        //にんじん等のアイテムで、お菓子を作っていなくても常にハートが上がる
+                                        timeIttei5++;
+                                        timeIttei6++;
+                                        timeIttei7++;
+                                        timeIttei8++;
+                                        if (PlayerStatus.player_girl_manpuku >= 10)
+                                        {
+                                            if (PlayerStatus.player_girl_expression >= 3) //機嫌は5段階
+                                            {
+                                                if (pitemlist.KosuCount("pink_ninjin") >= 1)
+                                                {
+                                                    if (timeIttei5 >= 24) //120分ごとに。
+                                                    {
+                                                        timeIttei5 = 0;
+
+                                                        girleat_judge.UpDegHeart(1, false);
+                                                    }
+                                                }
+
+                                                if(GameMgr.BGAcceItemsName["saboten_1"])
+                                                {
+                                                    if (timeIttei6 >= 24) //120分ごとに。
+                                                    {
+                                                        timeIttei6 = 0;
+
+                                                        girleat_judge.UpDegHeart(1, false);
+                                                    }
+                                                }
+                                                else if (GameMgr.BGAcceItemsName["saboten_2"])
+                                                {
+                                                    if (timeIttei6 >= 12) //60分ごとに。
+                                                    {
+                                                        timeIttei6 = 0;
+
+                                                        girleat_judge.UpDegHeart(1, false);
+                                                    }
+                                                }
+                                                else if (GameMgr.BGAcceItemsName["saboten_3"])
+                                                {
+                                                    if (timeIttei6 >= 6) //30分ごとに。
+                                                    {
+                                                        timeIttei6 = 0;
+
+                                                        girleat_judge.UpDegHeart(1, false);
+                                                    }
+                                                }
+
+                                                if (pitemlist.KosuCount("angel_statue1") >= 1)
+                                                {
+                                                    if (timeIttei7 >= 4) //20分ごとに。
+                                                    {
+                                                        timeIttei7 = 0;
+
+                                                        girleat_judge.UpDegHeart(1, false);
+                                                    }
+                                                }
+
+                                                if (pitemlist.KosuCount("angel_statue2") >= 1)
+                                                {
+                                                    if (timeIttei8 >= 4) //20分ごとに。
+                                                    {
+                                                        timeIttei8 = 0;
+
+                                                        girleat_judge.UpDegHeart(2, false);
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
 
                                     //5分を基準に腹もへる。
@@ -399,8 +473,9 @@ public class TimeController : MonoBehaviour
                                     {
                                         timeIttei3++;
 
-                                        manpuku_deg_param = 2; //満腹が減る時間間隔　デフォルトは2 10分 効果は重複する。
+                                        manpuku_deg_param = 3; //満腹が減る時間間隔　デフォルト 15分 効果は重複する。
 
+                                        //アイテムによって満腹度は減りにくくなる。
                                         if (pitemlist.KosuCount("hikari_manpuku_deg2") >= 1)
                                         {
                                             manpuku_deg_param = manpuku_deg_param * 3;
@@ -419,7 +494,12 @@ public class TimeController : MonoBehaviour
                                             }
                                         }
 
-                                        
+                                        //ねこバッジを持ってる数だけ、さらにお腹が減りにくくなる。
+                                        if (pitemlist.KosuCount("neko_badge3") >= 1)
+                                        {
+                                            manpuku_deg_param = manpuku_deg_param + (1 * pitemlist.KosuCount("neko_badge3"));
+                                        }
+
 
                                         if (timeIttei3 >= manpuku_deg_param) //1=5分なので、2だと10分で腹減り-1
                                         {
@@ -562,7 +642,13 @@ public class TimeController : MonoBehaviour
             }
             else
             {
-                if (GameMgr.hikari_kettei_toggleType[i] == 0)
+                /*Debug.Log("オリジナルアイテムリスト総数: " + pitemlist.player_originalitemlist.Count);
+                Debug.Log("GameMgr.hikari_kettei_originalID[i]: " + GameMgr.hikari_kettei_originalID[i]);
+                Debug.Log("GameMgr.hikari_kettei_toggleType[i]: " + GameMgr.hikari_kettei_toggleType[i]);
+                Debug.Log("pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]): " + 
+                    pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]));*/
+
+                if (GameMgr.hikari_kettei_toggleType[i] == 0) //店売りアイテム
                 {
                     if (database.items[GameMgr.hikari_kettei_item[i]].itemType_sub.ToString() == "Machine")
                     {
@@ -577,12 +663,36 @@ public class TimeController : MonoBehaviour
                         }
                     }
                 }
-                else if (GameMgr.hikari_kettei_toggleType[i] == 1)
+                else if (GameMgr.hikari_kettei_toggleType[i] == 1) //オリジナルアイテム
                 {
-                    if (pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[i]].ItemKosu - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
+                    if (pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]) == 9999)
                     {
-                        //終了
+                        //例外　もしなかった場合
                         itemkosu_check = true;
+                    }
+                    else
+                    {
+                        if (pitemlist.player_originalitemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
+                        {
+                            //終了
+                            itemkosu_check = true;
+                        }
+                    }
+                }
+                else if (GameMgr.hikari_kettei_toggleType[i] == 2) //エクストリームアイテム
+                {
+                    if (pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]) == 9999)
+                    {
+                        //例外　もしなかった場合
+                        itemkosu_check = true;
+                    }
+                    else
+                    {
+                        if (pitemlist.player_extremepanel_itemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
+                        {
+                            //終了
+                            itemkosu_check = true;
+                        }
                     }
                 }
             }
@@ -604,7 +714,8 @@ public class TimeController : MonoBehaviour
         }
     }
 
-    //時間に応じて、天気（背景）を変更する。BG_RealtimeChange()内の数字は、切り替わりの時間。調合後（ExpController）や採取から帰ってきたとき（Compound_Main）からも読まれる。
+    //時間に応じて、天気（背景）を変更する。BG_RealtimeChange()内の数字は、切り替わりの時間。
+    //調合後（ExpController）や採取から帰ってきたとき（Compound_Main）からも読まれる。
     //下の関数とほぼ同じだが、こっちはcompound_main.BG_RealtimeChange内のtweenのDoFadeを、重複して発生しないようにしている。基本はこっちを使用でOK。
     public void Weather_Change(float _changetime)
     {
@@ -679,7 +790,7 @@ public class TimeController : MonoBehaviour
     }
 
     //現在の月日・現在時刻を計算する。また、イベントチェックも行う。
-    public void TimeKoushin()
+    public void TimeKoushin(int _mstatus)
     {
         
         if (GameMgr.TimeUSE_FLAG) //TRUEのときは使用。オフにするときは、TimePanelのゲームオブジェクトもオフにする。
@@ -719,7 +830,7 @@ public class TimeController : MonoBehaviour
             /* 月日の計算 */
             //
 
-            InitParam();
+            //InitParam();
 
             //プレイヤーデイを基に、カレンダーの日付に変換。
             if (PlayerStatus.player_day > 365)
@@ -758,17 +869,21 @@ public class TimeController : MonoBehaviour
 
             //** ここの間は未使用 **//
 
-            count = 0;
-            while (count < calender.Count)
+            //カレンダー変換機能
+            if (_mstatus == 0)
             {
-                if (_cullent_day > calender[count]) { _cullent_day -= calender[count]; }
-                else //その月の日付
+                count = 0;
+                while (count < calender.Count)
                 {
-                    month = count + 1; //月　0始まりなので、足す１
-                    day = _cullent_day; //日
-                    break;
+                    if (_cullent_day > calender[count]) { _cullent_day -= calender[count]; }
+                    else //その月の日付
+                    {
+                        month = count + 1; //月　0始まりなので、足す１
+                        day = _cullent_day; //日
+                        break;
+                    }
+                    ++count;
                 }
-                ++count;
             }
 
             //現在の月と日を更新しておく。
@@ -1083,16 +1198,17 @@ public class TimeController : MonoBehaviour
     public void OnDebugTimeCountUpButton()
     {
         SetMinuteToHour(6); //+30分
-        TimeKoushin();
+        TimeKoushin(0);
     }
 
     public void OnDebugTimeCountDownButton()
     {
         SetMinuteToHour(-6); //-30分
-        TimeKoushin();
+        TimeKoushin(0);
     }
 
-    //時間をいれると、その経過時間をチェックし、お菓子を作ってないかを判定
+    //時間をいれると、その経過時間をチェックし、お菓子を作ってないかを判定 Exp_Controllerから読み出し。
+    //にいちゃんとヒカリの材料消費の処理が入り組んで複雑なため、現在未使用。
     public void HikarimakeTimeCheck(int _costTime)
     {
         //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
@@ -1120,6 +1236,21 @@ public class TimeController : MonoBehaviour
                 }
             }
         }
+    }
+
+    //外部から。指定した日付と時間に瞬時に更新する。月と日、時間と分で指定できる。
+    public void SetCullentDayTime(int _month, int _day, int _hour, int _minute)
+    {
+        PlayerStatus.player_cullent_month = _month;
+        PlayerStatus.player_cullent_day = _day;
+        PlayerStatus.player_cullent_hour = _hour;
+        PlayerStatus.player_cullent_minute = _minute;
+
+        //日付更新
+        TimeKoushin(1);
+
+        //天気も変更
+        Weather_ChangeNow(1.0f);
     }
 
     void GameSpeedRange()

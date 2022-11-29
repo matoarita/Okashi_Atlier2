@@ -925,6 +925,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //_listitem[list_count].transform.Find("Background/Item_count").GetComponent<>().
 
         //Debug.Log("Original: " + i + "　ItemID" + _toggle_itemID.toggleitem_ID + " アイテム名: " + item_name);
+        //Debug.Log("Original: " + i + "　Item固有ID" + pitemlist.player_originalitemlist[i].OriginalitemID + " アイテム名: " + item_name);
 
         //画像を変更
         texture2d = pitemlist.player_originalitemlist[i].itemIcon_sprite;
@@ -961,6 +962,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //_listitem[list_count].transform.Find("Background/Item_count").GetComponent<>().
 
         //Debug.Log("Original: " + i + "　ItemID" + _toggle_itemID.toggleitem_ID + " アイテム名: " + item_name);
+        //Debug.Log("Extreme: " + i + "　Item固有ID: " + pitemlist.player_extremepanel_itemlist[i].OriginalitemID + " アイテム名: " + item_name);
 
         //画像を変更
         texture2d = pitemlist.player_extremepanel_itemlist[i].itemIcon_sprite;

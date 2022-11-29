@@ -145,6 +145,7 @@ public class PlayerData
 
     //ヒカリのお菓子作り系フラグ
     public int[] save_hikari_kettei_item = new int[GameMgr.hikari_kettei_item.Length];
+    public string[] save_hikari_kettei_originalID = new string[GameMgr.hikari_kettei_originalID.Length];
     public int[] save_hikari_kettei_kosu = new int[GameMgr.hikari_kettei_kosu.Length];
     public int[] save_hikari_kettei_toggleType = new int[GameMgr.hikari_kettei_toggleType.Length];
     public string[] save_hikari_kettei_itemName = new string[GameMgr.hikari_kettei_itemName.Length];

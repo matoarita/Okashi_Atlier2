@@ -176,20 +176,21 @@ public class ShopQuestListController : MonoBehaviour
                 }
             }
         }
-        else
+        else //エクストラモードのみ
         {
             for (j = 0; j < quest_database.questset.Count; j++)
             {
-                if (quest_database.questset[j].QuestHyouji <= PlayerStatus.player_ninki_param)//名声値に応じてクエストでる。
+                if (quest_database.questset[j].QuestHyouji <= PlayerStatus.player_ninki_param)//名声値に応じてクエストでる。名声が100なら、QuestHyoujiが100以下のものがでる。
                 {
                     selectquestDB.Add(j);
                 }
             }           
         }
 
+        //ハートレベルに応じて、追加するクエスト
         for (j = 0; j < quest_database.questset2.Count; j++)
         {
-            if (quest_database.questset2[j].QuestHyouji <= PlayerStatus.girl1_Love_lv) //PlayerStatus.player_renkin_lv
+            if (quest_database.questset2[j].QuestHyouji <= PlayerStatus.girl1_Love_lv) //PlayerStatus.girl1_Love_lv
             {
                 selectquestDB2.Add(j);
             }

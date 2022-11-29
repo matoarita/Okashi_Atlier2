@@ -210,6 +210,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //ヒカリに作らせるお菓子の材料
     public static int[] hikari_kettei_item = new int[10];
+    public static string[] hikari_kettei_originalID = new string[10];
     public static int[] hikari_kettei_kosu = new int[10];
     public static int[] hikari_kettei_toggleType = new int[10];
     public static string[] hikari_kettei_itemName = new string[10]; //ItemDBのItemNameも入れておく。材料表示するときなどに使う。
@@ -468,7 +469,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikarimakeokashi_nowlv; //ヒカリのお菓子Expテーブルで、現在のお菓子レベル。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_finalgetexp; //ヒカリのお菓子経験値　最終獲得値。一時的。
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
-    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ   
+    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ  
+    public static int MainQuestClear_flag; //メインクエストをクリアしたのか、道中の通常のSPクエストをクリアしたのか、判定するフラグ
 
     public static bool hikari_tabetaiokashi_buf; //食べたいお菓子をあげたときに、一時的にバフがかかる状態
     public static int hikari_tabetaiokashi_buf_time; //効果時間
@@ -842,6 +844,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikariokashiExpTable_noTypeflag = false;
         Okashi_Extra_SpEvent_Start = false;
         ExtraClear_QuestName = "";
+        MainQuestClear_flag = 0;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -925,6 +928,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < hikari_kettei_item.Length; system_i++)
         {
             hikari_kettei_item[system_i] = 0;
+            hikari_kettei_originalID[system_i] = "";
             hikari_kettei_kosu[system_i] = 0;
             hikari_kettei_toggleType[system_i] = 0;
             hikari_kettei_itemName[system_i] = "";
@@ -996,7 +1000,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         NowEatOkashiName = "";
 
         //コンテストお菓子初期化
-        contest_okashi_ItemData = new Item(9999, "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        contest_okashi_ItemData = new Item(9999, "Non", "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0);
 
@@ -1446,12 +1450,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable.Clear();
 
         Hikariokashi_Exptable.Add(1, 10);
-        Hikariokashi_Exptable.Add(2, 20);
-        Hikariokashi_Exptable.Add(3, 30);
-        Hikariokashi_Exptable.Add(4, 50);
-        Hikariokashi_Exptable.Add(5, 100);
-        Hikariokashi_Exptable.Add(6, 200);
-        Hikariokashi_Exptable.Add(7, 320);
+        Hikariokashi_Exptable.Add(2, 30);
+        Hikariokashi_Exptable.Add(3, 70);
+        Hikariokashi_Exptable.Add(4, 150);
+        Hikariokashi_Exptable.Add(5, 200);
+        Hikariokashi_Exptable.Add(6, 300);
+        Hikariokashi_Exptable.Add(7, 400);
         Hikariokashi_Exptable.Add(8, 500);
         Hikariokashi_Exptable.Add(9, 9999);
 

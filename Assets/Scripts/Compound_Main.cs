@@ -161,11 +161,9 @@ public class Compound_Main : MonoBehaviour
     private ParticleSystem.EmissionModule particleEm_Light7;
 
     private ParticleSystem.EmissionModule particleEm_CandleLight1;
-    private ParticleSystem.EmissionModule particleEm_CandleLight2;
     private ParticleSystem.EmissionModule particleEm_MiniHouseLight1;
 
     private GameObject particleEm_CandleLight1_obj;
-    private GameObject particleEm_CandleLight2_obj;
     private GameObject particleEm_MiniHouseLight1_obj;
 
     //Live2Dモデルの取得
@@ -620,12 +618,10 @@ public class Compound_Main : MonoBehaviour
         particleEm_Light7 = BG_effectpanel.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;
 
         //BGアクセサリー系のパーティクル
-        particleEm_CandleLight1 = bg_accessory_panel.transform.Find("Candle/Candle1/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
-        particleEm_CandleLight2 = bg_accessory_panel.transform.Find("Candle/Candle2/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
+        particleEm_CandleLight1 = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
         particleEm_MiniHouseLight1 = bg_accessory_panel.transform.Find("MiniHouse/MiniHouse2/BG_Particle_HouseLight").GetComponent<ParticleSystem>().emission;
 
-        particleEm_CandleLight1_obj = bg_accessory_panel.transform.Find("Candle/Candle1/BG_Particle_CandleLight").gameObject;
-        particleEm_CandleLight2_obj = bg_accessory_panel.transform.Find("Candle/Candle2/BG_Particle_CandleLight").gameObject;
+        particleEm_CandleLight1_obj = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").gameObject;
         particleEm_MiniHouseLight1_obj = bg_accessory_panel.transform.Find("MiniHouse/MiniHouse2/BG_Particle_HouseLight").gameObject;
 
         Change_BGimage();
@@ -736,12 +732,15 @@ public class Compound_Main : MonoBehaviour
             //時間をチェックし、背景を自動で変更
             Change_BGimage();
 
-            character_move.transform.position = new Vector3(0f, 0, 0); //念のため、ゼロにリセット
+            character_move.transform.position = new Vector3(0f, 0, 0); //念のため、ゼロにリセット            
 
             Debug.Log("エンディング回数: " + GameMgr.ending_count);
         }
 
         Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
+
+        //固有IDがないオリジナルアイテムを自動で削除する　バージョン更新用
+        pitemlist.DeleteETCOriginalKoyuIDItem();
 
         if (!GameMgr.outgirl_Nowprogress) //外出中はLive2Dをオフに。
         {
@@ -1449,7 +1448,7 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.IdleMotionReset();
 
                 //時間のチェック。
-                time_controller.TimeKoushin(); //時間の更新
+                time_controller.TimeKoushin(0); //時間の更新
 
                 //妹が外出していて（または調合終了して）、よる７時をまわってから、自分が家にかえってきた場合は、先に妹は家に帰っている。
                 if (PlayerStatus.player_cullent_hour >= 19 && GameMgr.outgirl_Nowprogress)
@@ -1489,7 +1488,7 @@ public class Compound_Main : MonoBehaviour
                         {
                             Debug.Log("時間更新＆チェック");
                             time_controller.TimeCheck_flag = true;
-                            time_controller.TimeKoushin(); //時間の更新     
+                            time_controller.TimeKoushin(0); //時間の更新     
                         }
                     }
                 }
@@ -3791,6 +3790,18 @@ public class Compound_Main : MonoBehaviour
                 matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁
                 matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁
                 matplace_database.matPlaceKaikin("Hiroba"); //広場解禁
+
+                //装備品は最初からもっている。
+                /*pitemlist.addPlayerItemString("milkpan", 1);
+                pitemlist.addPlayerItemString("pan_knife", 1);
+                pitemlist.addPlayerItemString("siboribukuro", 1);
+                pitemlist.addPlayerItemString("whisk", 1);
+                pitemlist.addPlayerItemString("wind_mixer", 1);
+                pitemlist.addPlayerItemString("oil_extracter", 1);
+                pitemlist.addPlayerItemString("juice_mixer", 1);
+                pitemlist.addPlayerItemString("egg_splitter", 1);
+                pitemlist.addPlayerItemString("ice_box", 1);*/
+                pitemlist.addPlayerItemString("flyer", 1);
             }
 
             //二週目以降、自動で出てくる。
@@ -4228,8 +4239,9 @@ public class Compound_Main : MonoBehaviour
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
 
             case 4: //昼
@@ -4250,8 +4262,9 @@ public class Compound_Main : MonoBehaviour
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
 
             case 5: //夕方
@@ -4274,8 +4287,9 @@ public class Compound_Main : MonoBehaviour
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
 
             case 6: //夜
@@ -4300,12 +4314,12 @@ public class Compound_Main : MonoBehaviour
 
                 //BGアクセサリー系
                 particleEm_CandleLight1_obj.SetActive(true);
-                particleEm_CandleLight2_obj.SetActive(true);
                 particleEm_MiniHouseLight1_obj.SetActive(true);
 
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
-                particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+
+                bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeNight();
                 break;
         }
     }
@@ -4478,12 +4492,12 @@ public class Compound_Main : MonoBehaviour
 
         //BGアクセサリー系
         particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-        particleEm_CandleLight2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
 
         particleEm_CandleLight1_obj.SetActive(false);
-        particleEm_CandleLight2_obj.SetActive(false);
         particleEm_MiniHouseLight1_obj.SetActive(false);
+
+        bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
     }
 
     //即座に朝背景に変更。Utageの寝るイベントから呼び出し

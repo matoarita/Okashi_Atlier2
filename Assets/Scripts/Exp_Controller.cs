@@ -575,7 +575,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
         time_controller.Weather_Change(0.0f);
-        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+        //time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 
@@ -827,7 +827,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
         time_controller.Weather_Change(0.0f);
-        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+        //time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1052,7 +1052,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(3);
         time_controller.Weather_Change(0.0f);
-        time_controller.HikarimakeTimeCheck(3); //ヒカリのお菓子作り時間を計算
+        //time_controller.HikarimakeTimeCheck(3); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1094,13 +1094,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         result_ID = pitemlistController.result_compID;
 
         Comp_method_bunki = 0;
+        extreme_on = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。ヒカリは、新しいお菓子をひらめくことは、今の仕様では無い。
 
-        
+
         //調合の予測処理 予測用オリジナルアイテムを生成　パラメータも予測して表示する（アイテム消費はしない）
         compound_keisan.Topping_Compound_Method(2);
 
         //使用する材料と個数を別に保存する。すぐにはアイテムの使用はせず、時間イベントに合わせて、処理を行う。
-        GameMgr.hikari_kettei_item[0] = pitemlistController.kettei_item1;
+        GameMgr.hikari_kettei_item[0] = pitemlistController.kettei_item1; //店売りかオリジナルアイテムのリスト配列番号
         GameMgr.hikari_kettei_item[1] = pitemlistController.kettei_item2;
         GameMgr.hikari_kettei_item[2] = pitemlistController.kettei_item3;
         GameMgr.hikari_kettei_toggleType[0] = pitemlistController._toggle_type1;
@@ -1113,6 +1114,38 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_okashiID = result_item;
         GameMgr.hikari_make_okashi_compID = result_ID;
         GameMgr.hikari_make_success_rate = _success_rate;
+
+        //オリジナルアイテムかお菓子パネルのリストを選択していたら、アイテムの固有IDを保存しておく。
+        if(GameMgr.hikari_kettei_toggleType[0] == 1)
+        {
+            GameMgr.hikari_kettei_originalID[0] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[0]].OriginalitemID;
+        }
+        else if (GameMgr.hikari_kettei_toggleType[0] == 2)
+        {
+            GameMgr.hikari_kettei_originalID[0] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[0]].OriginalitemID;
+        }
+        if (GameMgr.hikari_kettei_toggleType[1] == 1)
+        {
+            GameMgr.hikari_kettei_originalID[1] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[1]].OriginalitemID;
+        }
+        else if (GameMgr.hikari_kettei_toggleType[1] == 2)
+        {
+            GameMgr.hikari_kettei_originalID[1] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[1]].OriginalitemID;
+        }
+        if (GameMgr.hikari_kettei_item[2] != 9999)
+        {
+            if (GameMgr.hikari_kettei_toggleType[2] == 1)
+            {
+                GameMgr.hikari_kettei_originalID[2] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[2]].OriginalitemID;
+            }
+            else if (GameMgr.hikari_kettei_toggleType[2] == 2)
+            {
+                GameMgr.hikari_kettei_originalID[2] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[2]].OriginalitemID;
+            }
+        }
+        //Debug.Log("GameMgr.hikari_kettei_originalID[0]; " + GameMgr.hikari_kettei_originalID[0]);
+        //Debug.Log("GameMgr.hikari_kettei_originalID[1]; " + GameMgr.hikari_kettei_originalID[1]);
+        //Debug.Log("GameMgr.hikari_kettei_originalID[2]; " + GameMgr.hikari_kettei_originalID[2]);
 
         GameMgr.hikari_make_success_count = 0;
         GameMgr.hikari_make_failed_count = 0;

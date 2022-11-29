@@ -607,7 +607,7 @@ public class Bar_Main : MonoBehaviour
             for (i = 0; i < uwasalist_count*6; i++) //頭から５個ずつ
             {
                 shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
-            }
+            }           
         }
 
         //ランダムで噂を選ぶメソッド

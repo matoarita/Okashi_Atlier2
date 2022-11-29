@@ -1,12 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Live2D.Cubism.Core;
+using Live2D.Cubism.Framework;
+using DG.Tweening;
+
 
 public class BGAcceTrigger : MonoBehaviour {
 
     private SoundController sc;
 
+    private Animator candle_live2d_animator;
+    private Animator saboten_live2d_animator;
+
+    private int trans_motion;
+    private string Acce_input_name;
+
     private int i;
+    private bool candle_onoff;
+    private bool saboten_onoff;
 
     private List<string> _temp_Accename = new List<string>();
 
@@ -15,6 +27,12 @@ public class BGAcceTrigger : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        candle_live2d_animator = this.transform.Find("Candle/cgw01_candle_Live2D").FindCubismModel().GetComponent<Animator>();
+        saboten_live2d_animator = this.transform.Find("MiniSaboten/saboten_Live2D").FindCubismModel().GetComponent<Animator>();
+
+        candle_onoff = false;
+        saboten_onoff = false;
 
     }
 	
@@ -44,238 +62,239 @@ public class BGAcceTrigger : MonoBehaviour {
 
     void AcceFlagMethod()
     {
-        for (i = 0; i < _temp_Accename.Count; i++)
+
+        switch (Acce_input_name)
         {
+            case "himmeli":
 
-            switch (_temp_Accename[i])
-            {
-                case "himmeli":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                { }
+                else
+                { }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {   }
-                    else
-                    {   }
-                    break;
+            case "kuma_nuigurumi":
 
-                case "kuma_nuigurumi":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                { }
+                else
+                { }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    { }
-                    else
-                    { }
-                    break;
+            case "saboten_1":
 
-                case "saboten_1":
+                //Debug.Log("_temp_Accename[i] " + _temp_Accename[i]);
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("saboten_1", true);
+                    GameMgr.SetBGAcceFlag("saboten_2", false);
+                    GameMgr.SetBGAcceFlag("saboten_3", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("saboten_1", false);
+                }
+                break;
 
-                    //Debug.Log("_temp_Accename[i] " + _temp_Accename[i]);
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("saboten_1", true);
-                        GameMgr.SetBGAcceFlag("saboten_2", false);
-                        GameMgr.SetBGAcceFlag("saboten_3", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("saboten_1", false);
-                    }
-                    break;
+            case "saboten_2":
 
-                case "saboten_2":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("saboten_1", false);
+                    GameMgr.SetBGAcceFlag("saboten_2", true);
+                    GameMgr.SetBGAcceFlag("saboten_3", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("saboten_2", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("saboten_1", false);
-                        GameMgr.SetBGAcceFlag("saboten_2", true);
-                        GameMgr.SetBGAcceFlag("saboten_3", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("saboten_2", false);
-                    }
-                    break;
+            case "saboten_3":
 
-                case "saboten_3":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("saboten_1", false);
+                    GameMgr.SetBGAcceFlag("saboten_2", false);
+                    GameMgr.SetBGAcceFlag("saboten_3", true);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("saboten_3", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("saboten_1", false);
-                        GameMgr.SetBGAcceFlag("saboten_2", false);
-                        GameMgr.SetBGAcceFlag("saboten_3", true);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("saboten_3", false);
-                    }
-                    break;
+            case "dryflowerpot_1":
 
-                case "dryflowerpot_1":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("dryflowerpot_1", true);
+                    GameMgr.SetBGAcceFlag("dryflowerpot_2", false);
+                    GameMgr.SetBGAcceFlag("dryflowerpot_3", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("dryflowerpot_1", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("dryflowerpot_1", true);
-                        GameMgr.SetBGAcceFlag("dryflowerpot_2", false);
-                        GameMgr.SetBGAcceFlag("dryflowerpot_3", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("dryflowerpot_1", false);
-                    }
-                    break;
+            case "dryflowerpot_2":
 
-                case "dryflowerpot_2":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("dryflowerpot_1", false);
+                    GameMgr.SetBGAcceFlag("dryflowerpot_2", true);
+                    GameMgr.SetBGAcceFlag("dryflowerpot_3", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("dryflowerpot_2", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("dryflowerpot_1", false);
-                        GameMgr.SetBGAcceFlag("dryflowerpot_2", true);
-                        GameMgr.SetBGAcceFlag("dryflowerpot_3", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("dryflowerpot_2", false);
-                    }
-                    break;
+            case "dryflowerpot_3":
 
-                case "dryflowerpot_3":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("dryflowerpot_1", false);
+                    GameMgr.SetBGAcceFlag("dryflowerpot_2", false);
+                    GameMgr.SetBGAcceFlag("dryflowerpot_3", true);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("dryflowerpot_3", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("dryflowerpot_1", false);
-                        GameMgr.SetBGAcceFlag("dryflowerpot_2", false);
-                        GameMgr.SetBGAcceFlag("dryflowerpot_3", true);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("dryflowerpot_3", false);
-                    }
-                    break;
+            case "aroma_candle1":
 
-                case "aroma_candle1":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("aroma_candle1", true);
+                    GameMgr.SetBGAcceFlag("aroma_candle2", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("aroma_candle1", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_candle1", true);
-                        GameMgr.SetBGAcceFlag("aroma_candle2", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_candle1", false);
-                    }
-                    break;
+            case "aroma_candle2":
 
-                case "aroma_candle2":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("aroma_candle1", false);
+                    GameMgr.SetBGAcceFlag("aroma_candle2", true);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("aroma_candle2", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_candle1", false);
-                        GameMgr.SetBGAcceFlag("aroma_candle2", true);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_candle2", false);
-                    }
-                    break;
+            case "mini_house":
 
-                case "mini_house":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                { }
+                else
+                { }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    { }
-                    else
-                    { }
-                    break;
+            case "aroma_potion1":
 
-                case "aroma_potion1":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("aroma_potion1", true);
+                    GameMgr.SetBGAcceFlag("aroma_potion2", false);
+                    GameMgr.SetBGAcceFlag("aroma_potion3", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("aroma_potion1", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_potion1", true);
-                        GameMgr.SetBGAcceFlag("aroma_potion2", false);
-                        GameMgr.SetBGAcceFlag("aroma_potion3", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_potion1", false);
-                    }
-                    break;
+            case "aroma_potion2":
 
-                case "aroma_potion2":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("aroma_potion1", false);
+                    GameMgr.SetBGAcceFlag("aroma_potion2", true);
+                    GameMgr.SetBGAcceFlag("aroma_potion3", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("aroma_potion2", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_potion1", false);
-                        GameMgr.SetBGAcceFlag("aroma_potion2", true);
-                        GameMgr.SetBGAcceFlag("aroma_potion3", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_potion2", false);
-                    }
-                    break;
+            case "aroma_potion3":
 
-                case "aroma_potion3":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("aroma_potion1", false);
+                    GameMgr.SetBGAcceFlag("aroma_potion2", false);
+                    GameMgr.SetBGAcceFlag("aroma_potion3", true);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("aroma_potion3", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_potion1", false);
-                        GameMgr.SetBGAcceFlag("aroma_potion2", false);
-                        GameMgr.SetBGAcceFlag("aroma_potion3", true);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("aroma_potion3", false);
-                    }
-                    break;
+            case "magic_crystal1":
 
-                case "magic_crystal1":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("magic_crystal1", true);
+                    GameMgr.SetBGAcceFlag("magic_crystal2", false);
+                    GameMgr.SetBGAcceFlag("magic_crystal3", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("magic_crystal1", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("magic_crystal1", true);
-                        GameMgr.SetBGAcceFlag("magic_crystal2", false);
-                        GameMgr.SetBGAcceFlag("magic_crystal3", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("magic_crystal1", false);
-                    }
-                    break;
+            case "magic_crystal2":
 
-                case "magic_crystal2":
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("magic_crystal1", false);
+                    GameMgr.SetBGAcceFlag("magic_crystal2", true);
+                    GameMgr.SetBGAcceFlag("magic_crystal3", false);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("magic_crystal2", false);
+                }
+                break;
 
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("magic_crystal1", false);
-                        GameMgr.SetBGAcceFlag("magic_crystal2", true);
-                        GameMgr.SetBGAcceFlag("magic_crystal3", false);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("magic_crystal2", false);
-                    }
-                    break;
+            case "magic_crystal3":
 
-                case "magic_crystal3":
-
-                    if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
-                    {
-                        GameMgr.SetBGAcceFlag("magic_crystal1", false);
-                        GameMgr.SetBGAcceFlag("magic_crystal2", false);
-                        GameMgr.SetBGAcceFlag("magic_crystal3", true);
-                    }
-                    else
-                    {
-                        GameMgr.SetBGAcceFlag("magic_crystal3", false);
-                    }
-                    break;
-            }
+                if (GameMgr.BGAcceItemsName[Acce_input_name])
+                {
+                    GameMgr.SetBGAcceFlag("magic_crystal1", false);
+                    GameMgr.SetBGAcceFlag("magic_crystal2", false);
+                    GameMgr.SetBGAcceFlag("magic_crystal3", true);
+                }
+                else
+                {
+                    GameMgr.SetBGAcceFlag("magic_crystal3", false);
+                }
+                break;
         }
+
     }
 
     void DrawAcceMethod()
     {
+        //Live2Dフラグ系リセット
+        candle_onoff = false;
+        saboten_onoff = false;
+
         for (i = 0; i < _temp_Accename.Count; i++)
         {
-
             switch (_temp_Accename[i])
             {
                 case "himmeli":
@@ -306,11 +325,16 @@ public class BGAcceTrigger : MonoBehaviour {
 
                     if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
                     {
-                        this.transform.Find("MiniSaboten/Saboten1").gameObject.SetActive(true);
+                        //this.transform.Find("MiniSaboten/Saboten1").gameObject.SetActive(true);
+                        this.transform.Find("MiniSaboten/saboten_Live2D").gameObject.SetActive(true);
+                        trans_motion = 100;
+                        saboten_live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                        saboten_onoff = true;
                     }
                     else
                     {
-                        this.transform.Find("MiniSaboten/Saboten1").gameObject.SetActive(false);
+                        //this.transform.Find("MiniSaboten/Saboten1").gameObject.SetActive(false);
                     }
                     break;
 
@@ -318,11 +342,16 @@ public class BGAcceTrigger : MonoBehaviour {
 
                     if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
                     {
-                        this.transform.Find("MiniSaboten/Saboten2").gameObject.SetActive(true);
+                        //this.transform.Find("MiniSaboten/Saboten2").gameObject.SetActive(true);
+                        this.transform.Find("MiniSaboten/saboten_Live2D").gameObject.SetActive(true);
+                        trans_motion = 200;
+                        saboten_live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                        saboten_onoff = true;
                     }
                     else
                     {
-                        this.transform.Find("MiniSaboten/Saboten2").gameObject.SetActive(false);
+                        //this.transform.Find("MiniSaboten/Saboten2").gameObject.SetActive(false);
                     }
                     break;
 
@@ -330,11 +359,16 @@ public class BGAcceTrigger : MonoBehaviour {
 
                     if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
                     {
-                        this.transform.Find("MiniSaboten/Saboten3").gameObject.SetActive(true);
+                        //this.transform.Find("MiniSaboten/Saboten3").gameObject.SetActive(true);
+                        this.transform.Find("MiniSaboten/saboten_Live2D").gameObject.SetActive(true);
+                        trans_motion = 300;
+                        saboten_live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                        saboten_onoff = true;
                     }
                     else
                     {
-                        this.transform.Find("MiniSaboten/Saboten3").gameObject.SetActive(false);
+                        //this.transform.Find("MiniSaboten/Saboten3").gameObject.SetActive(false);
                     }
                     break;
 
@@ -378,11 +412,17 @@ public class BGAcceTrigger : MonoBehaviour {
 
                     if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
                     {
-                        this.transform.Find("Candle/Candle1").gameObject.SetActive(true);
+                        //this.transform.Find("Candle/Candle1").gameObject.SetActive(true);
+                        this.transform.Find("Candle/cgw01_candle_Live2D").gameObject.SetActive(true);
+                        trans_motion = 100;
+                        candle_live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                        candle_onoff = true;
                     }
                     else
                     {
-                        this.transform.Find("Candle/Candle1").gameObject.SetActive(false);
+                        //this.transform.Find("Candle/Candle1").gameObject.SetActive(false);
+                        //this.transform.Find("Candle/cgw01_candle_Live2D").gameObject.SetActive(false);
                     }
                     break;
 
@@ -390,11 +430,17 @@ public class BGAcceTrigger : MonoBehaviour {
 
                     if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
                     {
-                        this.transform.Find("Candle/Candle2").gameObject.SetActive(true);
+                        //this.transform.Find("Candle/Candle2").gameObject.SetActive(true);
+                        this.transform.Find("Candle/cgw01_candle_Live2D").gameObject.SetActive(true);
+                        trans_motion = 200;
+                        candle_live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                        candle_onoff = true;
                     }
                     else
                     {
-                        this.transform.Find("Candle/Candle2").gameObject.SetActive(false);
+                        //this.transform.Find("Candle/Candle2").gameObject.SetActive(false);
+                        //this.transform.Find("Candle/cgw01_candle_Live2D").gameObject.SetActive(false);
                     }
                     break;
 
@@ -482,6 +528,15 @@ public class BGAcceTrigger : MonoBehaviour {
                     }
                     break;
             }
+
+            if(!candle_onoff)
+            {
+                this.transform.Find("Candle/cgw01_candle_Live2D").gameObject.SetActive(false);
+            }
+            if (!saboten_onoff)
+            {
+                this.transform.Find("MiniSaboten/saboten_Live2D").gameObject.SetActive(false);
+            }
         }
     }
 
@@ -489,6 +544,7 @@ public class BGAcceTrigger : MonoBehaviour {
     {
 
         GameMgr.BGAcceItemsName[_accenum] = !GameMgr.BGAcceItemsName[_accenum]; //OnとOffを切り替え
+        Acce_input_name = _accenum;
 
         if (GameMgr.BGAcceItemsName[_accenum])
         {
@@ -506,4 +562,48 @@ public class BGAcceTrigger : MonoBehaviour {
         DrawBGAcce();
     }
 
+    //朝～夜で状態が変わる
+    public void WeatherChangeMorning()
+    {
+
+        //アロマキャンドル
+        if (GameMgr.BGAcceItemsName["aroma_candle1"])
+        {
+            trans_motion = 110;
+            candle_live2d_animator.SetInteger("trans_motion", trans_motion);
+        }
+        else
+        { }
+
+        if (GameMgr.BGAcceItemsName["aroma_candle2"])
+        {
+            trans_motion = 210;
+            candle_live2d_animator.SetInteger("trans_motion", trans_motion);
+        }
+        else
+        { }
+
+    }
+
+    public void WeatherChangeNight()
+    {
+
+        //アロマキャンドル
+        if (GameMgr.BGAcceItemsName["aroma_candle1"])
+        {
+            trans_motion = 100;
+            candle_live2d_animator.SetInteger("trans_motion", trans_motion);
+        }
+        else
+        { }
+
+        if (GameMgr.BGAcceItemsName["aroma_candle2"])
+        {
+            trans_motion = 200;
+            candle_live2d_animator.SetInteger("trans_motion", trans_motion);
+        }
+        else
+        { }
+
+    }
 }

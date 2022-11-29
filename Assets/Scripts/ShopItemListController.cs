@@ -826,6 +826,8 @@ public class ShopItemListController : MonoBehaviour
             Check_ONShopListFlag(shop_hyouji_flag);
             shop_hyouji_flag = 5;
             Check_ONShopListFlag(shop_hyouji_flag);
+            shop_hyouji_flag = 2000;
+            Check_ONShopListFlag(shop_hyouji_flag);
         }
 
         //セールや日によって出たりでなかったりする品物

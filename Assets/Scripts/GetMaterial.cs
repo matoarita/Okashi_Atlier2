@@ -325,7 +325,7 @@ public class GetMaterial : MonoBehaviour
                 //日数の経過
                 //PlayerStatus.player_time += 6; //場所に関係なく、一回とるごとに30分
                 time_controller.SetMinuteToHour(6);
-                time_controller.TimeKoushin();
+                time_controller.TimeKoushin(0);
 
                 //妹の体力消費 一回の行動でマップに応じた量減る。
                 if (matplace_database.matplace_lists[index].placeType != 0)
@@ -707,6 +707,22 @@ public class GetMaterial : MonoBehaviour
         itemKosu = ChooseKosu();
         kettei_kosu[_count] = itemKosu;
 
+        if(rare_event_kakuritsu >= 45.0f)
+        {
+            random = Random.Range(0, 10);
+            if (random >= 3)
+            {
+                itemKosu++;
+            }
+        }
+        else if (rare_event_kakuritsu >= 25.0f)
+        {
+            random = Random.Range(0, 10);
+            if (random >= 6)
+            {
+                itemKosu++;
+            }
+        }
 
         if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
         {
@@ -1573,14 +1589,12 @@ public class GetMaterial : MonoBehaviour
     //イベントの発生確率をセット
     void InitializeEventDicts()
     {
-        if(rare_event_kakuritsu >= 15) //レアイベント発生確率などは、最大１５％ぐらいが上限。でないと採取が出にくくなるため。
+        rare_event_kakuritsu_hosei = rare_event_kakuritsu;
+        if (rare_event_kakuritsu >= 10) //レアイベント発生確率などは、最大１５％ぐらいが上限。でないと採取が出にくくなるため。
         {
-            rare_event_kakuritsu_hosei = 15;
+            rare_event_kakuritsu_hosei = 10;
         }
-        else
-        {
-            rare_event_kakuritsu_hosei = rare_event_kakuritsu;
-        }
+        
         
         switch (mat_place)
         {
@@ -1589,8 +1603,8 @@ public class GetMaterial : MonoBehaviour
                 eventDict = new Dictionary<int, float>();
                 eventDict.Add(0, 80.0f); //採集
                 eventDict.Add(1, 15.0f); //20%でイベント発生
-                eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu_hosei); //お宝発見
+                eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント　バードサンクチュアリ発見かお金拾うやつ
+                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei*0.3f)); //お宝発見
                 break;
 
             case "BirdSanctuali":
@@ -1599,7 +1613,7 @@ public class GetMaterial : MonoBehaviour
                 eventDict.Add(0, 80.0f); //採集
                 eventDict.Add(1, 15.0f); //20%でイベント発生
                 eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + rare_event_kakuritsu_hosei); //お宝発見
+                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
                 break;
 
             case "BerryFarm":
@@ -1608,7 +1622,7 @@ public class GetMaterial : MonoBehaviour
                 eventDict.Add(0, 80.0f); //採集
                 eventDict.Add(1, 15.0f); //20%でイベント発生
                 eventDict.Add(2, 0.0f); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 1.5f)); //お宝発見
+                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
                 break;
 
             case "HimawariHill":
@@ -1617,7 +1631,7 @@ public class GetMaterial : MonoBehaviour
                 eventDict.Add(0, 75.0f); //採集
                 eventDict.Add(1, 10.0f); //10%でイベント
                 eventDict.Add(2, 10.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 5.0f); //お宝発見
+                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
 
                 /*
                 if (!GameMgr.MapEvent_04[1])
@@ -1640,10 +1654,10 @@ public class GetMaterial : MonoBehaviour
             default:
 
                 eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 78.0f); //採集
+                eventDict.Add(0, 80.0f); //採集
                 eventDict.Add(1, 15.0f); //10%でイベント
                 eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
-                eventDict.Add(3, 7.0f + rare_event_kakuritsu_hosei); //お宝発見
+                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
                 break;
         }
     }
@@ -2094,7 +2108,7 @@ public class GetMaterial : MonoBehaviour
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(3, 25.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 25.0f);
 
                 if (GameMgr.Story_Mode == 1)
                 {
@@ -2500,7 +2514,7 @@ public class GetMaterial : MonoBehaviour
         player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
         _findpower_girl_getmat = player_girl_findpower_final - PlayerStatus.player_girl_findpower_def;
 
-        //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。
+        //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。 現在のアイテム発見力　- 100 に0.1倍したもの。
         rare_event_kakuritsu = _findpower_girl_getmat * 0.1f;
         if (rare_event_kakuritsu >= 50.0f)
         {

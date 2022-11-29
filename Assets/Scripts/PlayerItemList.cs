@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 {
@@ -12,6 +13,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private ItemDataBase database;
 
     private Exp_Controller exp_Controller;
+
+    private DateTime TodayNow;
 
     private int _id;
     private string _itemname;
@@ -50,7 +53,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private bool check_itemlist;
 
     private int _itemcount;
-    private int _itemid;    
+    private int _itemid;
+
+    private bool delete_koyuID_flag;
+    private bool break_on;
+
+    private string _original_id_string;
 
     //プレイヤーの所持アイテムリスト。Dictionaryなので、｛アイテム名, 個数｝の関係で格納する。
     public Dictionary<string, int> playeritemlist = new Dictionary<string, int>();
@@ -67,7 +75,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //お菓子パネルにセッティングするアイテムリスト。基本的に、このリストには一個しかアイテムが入らないように使う。
     public List<Item> player_extremepanel_itemlist = new List<Item>();
 
-    //予測用のオリジナルのアイテムリスト。プレイヤーから触ることはできない架空の所持リスト。
+    //ヒカリお菓子制作用。予測のオリジナルのアイテムリスト。プレイヤーから触ることはできない架空の所持リスト。
     public List<Item> player_yosokuitemlist = new List<Item>();
 
     //お菓子パネルにセッティングするアイテムチェック用のリスト。こちらも保存されず、架空のtemp所持リストで扱う。
@@ -90,6 +98,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
         _id = 0;
         sheet_no = 0;
+        delete_koyuID_flag = false;
 
         //エクセルのアイテムIDを順番に読み取り、プレイヤー所持リストに割り当て。
         while (sheet_no < excel_itemdatabase.sheets.Count)
@@ -299,6 +308,90 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return _total_kosu; //0個　持っていないときは、0
     }
 
+    //アイテムリストに、固有ID（string）をいれると、配列番号を返すメソッド オリジナルとお菓子パネル両方を見る
+    public int ReturnOriginalKoyuIDtoItemID(string originalID)
+    {
+        //オリジナルアイテムリストも見る。
+        for (i = 0; i < player_originalitemlist.Count; i++)
+        {
+            if (player_originalitemlist[i].OriginalitemID == originalID)
+            {
+                return i;
+            }
+        }
+
+        //エクストリームパネルもみる
+        for (i = 0; i < player_extremepanel_itemlist.Count; i++)
+        {
+            if (player_extremepanel_itemlist[i].OriginalitemID == originalID)
+            {
+                return i;
+            }
+        }
+
+        return 9999; //なかったときは9999
+    }
+
+    //アイテムリストに、固有ID（string）をいれると、そのアイテムが今どのアイテムタイプに所属するかを返す　オリジナルかお菓子パネルか
+    public int ReturnOriginalKoyuIDtoItemType(string originalID)
+    {
+        //オリジナルアイテムリストも見る。
+        for (i = 0; i < player_originalitemlist.Count; i++)
+        {
+            if (player_originalitemlist[i].OriginalitemID == originalID)
+            {
+                return 1;
+            }
+        }
+
+        //エクストリームパネルもみる
+        for (i = 0; i < player_extremepanel_itemlist.Count; i++)
+        {
+            if (player_extremepanel_itemlist[i].OriginalitemID == originalID)
+            {
+                return 2;
+            }
+        }
+
+        return 9999; //なかったときは9999
+    }
+
+    //オリジナルorエクストリームパネルのお菓子をみて、固有IDがないものは自動で削除するメソッド
+    public void DeleteETCOriginalKoyuIDItem()
+    {
+        //オリジナルアイテムリストを順番に見る。
+        delete_koyuID_flag = false;
+        while (!delete_koyuID_flag)
+        {
+            i = 0;
+            break_on = false;
+            while (i < player_originalitemlist.Count)
+            {
+                if (player_originalitemlist[i].OriginalitemID == "")
+                {
+                    break_on = true;
+                    deleteOriginalItem(i, 99);                    
+                    break;
+                }
+                i++;
+            }
+
+            if(!break_on)
+            {
+                delete_koyuID_flag = true;
+            }
+        }
+
+        //エクストリームパネルもみる
+        for (i = 0; i < player_extremepanel_itemlist.Count; i++)
+        {
+            if (player_extremepanel_itemlist[i].OriginalitemID == "")
+            {
+                deleteAllExtremePanelItem();
+            }
+        }
+    }
+
     //アイテムリストに、名前をいれると、アイテムリスト・オリジナルアイテムリストのどちらかに所持していた場合は、削除するメソッド
     public void SearchDeleteItem(string itemName)
     {
@@ -463,7 +556,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             ++i;
         }
 
-        player_originalitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty, 
+        KoyuID_Set(); //固有IDの設定
+
+        player_originalitemlist.Add(new Item(_id, _original_id_string, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty, 
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _base_score, _girl1_like, _cost, _sell, 
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
@@ -513,13 +608,15 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             ++i;
         }
 
-        player_extremepanel_itemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
+        KoyuID_Set(); //固有IDの設定
+
+        player_extremepanel_itemlist.Add(new Item(_id, _original_id_string, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
     }
 
-    //予測表示用オリジナルアイテムを登録する。
+    //ヒカリオリジナルアイテムを登録する。
     public void addYosokuOriginalItem(string _name, int _mp, int _day, int _quality, int _exp, float _ex_probabilty,
         int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _beauty,
         int _juice,
@@ -564,7 +661,10 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             ++i;
         }
 
-        player_yosokuitemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
+        //KoyuID_Set(); //固有IDの設定
+        _original_id_string = "Non";
+
+        player_yosokuitemlist.Add(new Item(_id, _original_id_string, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
@@ -572,7 +672,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
     //チェック用のオリジナルアイテムを登録する。
     public void addCheckOriginalItem(string _name, int _mp, int _day, int _quality, int _exp, float _ex_probabilty,
-        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _powdery, int _oily, int _watery, int _beauty,
+        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, 
+        int _powdery, int _oily, int _watery, int _beauty,
         int _juice,
         float _girl1_like, int _cost, int _sell,
         string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10,
@@ -615,7 +716,10 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             ++i;
         }
 
-        player_check_itemlist.Add(new Item(_id, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
+        //KoyuID_Set(); //固有IDの設定
+        _original_id_string = "Non";
+
+        player_check_itemlist.Add(new Item(_id, _original_id_string, _file_name, _name, _nameHyouji, _desc, _comp_hosei, _mp, _day, _quality, _exp, _ex_probabilty,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _secretFlag));
@@ -624,10 +728,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //お菓子パネルにすでにセットされてるアイテムを、オリジナルアイテムへコピーする。個数だけは計算したものをいれる。
     public void ExtremeToCopyOriginalItem(int _kosu)
     {
-
         tempID = 0;
         player_originalitemlist.Add(
-            new Item(player_extremepanel_itemlist[tempID].itemID, player_extremepanel_itemlist[tempID].fileName, player_extremepanel_itemlist[tempID].itemName,
+            new Item(player_extremepanel_itemlist[tempID].itemID, player_extremepanel_itemlist[tempID].OriginalitemID, player_extremepanel_itemlist[tempID].fileName, player_extremepanel_itemlist[tempID].itemName,
             player_extremepanel_itemlist[tempID].itemNameHyouji, player_extremepanel_itemlist[tempID].itemDesc, player_extremepanel_itemlist[tempID].itemComp_Hosei,
             player_extremepanel_itemlist[tempID].itemHP, player_extremepanel_itemlist[tempID].item_day, player_extremepanel_itemlist[tempID].Quality,
             player_extremepanel_itemlist[tempID].Exp, player_extremepanel_itemlist[tempID].Ex_Probability,
@@ -651,6 +754,15 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             player_extremepanel_itemlist[tempID].last_total_score, player_extremepanel_itemlist[tempID].last_hinttext,
             player_extremepanel_itemlist[tempID].total_kyori, player_extremepanel_itemlist[tempID].Rare, player_extremepanel_itemlist[tempID].Manpuku,
             player_extremepanel_itemlist[tempID].SecretFlag));
+    }
+
+    void KoyuID_Set()
+    {
+        TodayNow = DateTime.Now;
+        //System.Guid guid = System.Guid.NewGuid();
+        //_original_id_string = guid.ToString();
+        _original_id_string = TodayNow.Year.ToString("0000") + TodayNow.Month.ToString("00") + TodayNow.Day.ToString("00") + TodayNow.Hour.ToString("00") + TodayNow.Minute.ToString("00") + TodayNow.Second.ToString("00");
+        Debug.Log("OriginalItemID: " + _original_id_string);
     }
 
     //指定したIDのオリジナルアイテムを削除する

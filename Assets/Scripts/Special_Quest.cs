@@ -363,7 +363,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 12: //ヒカリが3種類のお菓子を作れるようにする。
+            case 12: //ハート2000以上
 
                 girl1_status.OkashiQuest_ID = 10120;
                 OkashiQuest_Count = 3;

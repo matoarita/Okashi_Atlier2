@@ -217,7 +217,14 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
     public void MainQuestOKButtonON3()
     {
-        girlEat_judge.PanelResultOFF();
+        if (GameMgr.MainQuestClear_flag == 0)
+        {
+            girlEat_judge.ExtraPanelResultOFF();
+        }
+        else
+        {
+            girlEat_judge.PanelResultOFF();
+        }
     }
 
     //①数字演出
@@ -360,16 +367,7 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
 
     void GetItemMethod()
     {        
-
-        //例外処理。100未満はランク１に。
-        if (GameMgr.Okashi_spquest_MaxScore < 100)
-        {
-            GameMgr.ExtraClear_QuestItemRank = 1;
-        }
-
-        //ご褒美アイテムのランク決めは、GirlEat_Judge.csで決定
-        ItemRank = GameMgr.ExtraClear_QuestItemRank;       
-
+        
         ItemGetDict = new Dictionary<int, string>();
         switch (GameMgr.ExtraClear_QuestNum) //GirlEat_JudgeでExtraClear_QuestNumを決定
         {
@@ -377,37 +375,58 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
             case 0: //ハートを100
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "saboten_1");
-                ItemGetDict.Add(3, "saboten_2");
+                ItemGetDict.Add(2, "neko_badge3");
+                ItemGetDict.Add(3, "saboten_1");
                 ItemGetDict.Add(4, "saboten_3");
                 ItemGetDict.Add(5, "saboten_3");
+
+                //クエストごとにスコアに対するアイテムランクを決定
+                if (GameMgr.Okashi_spquest_MaxScore < 100)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 2;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 100 && GameMgr.Okashi_spquest_MaxScore < 150)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 3;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 150)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 4;
+                }
+                
                 break;
 
             case 1: //300
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "dryflowerpot_1");
-                ItemGetDict.Add(3, "dryflowerpot_2");
+                ItemGetDict.Add(2, "neko_badge3");
+                ItemGetDict.Add(3, "dryflowerpot_1");
                 ItemGetDict.Add(4, "dryflowerpot_3");
                 ItemGetDict.Add(5, "dryflowerpot_3");
+
+                ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
                 break;
 
             case 2: //650
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "aroma_candle1");
-                ItemGetDict.Add(3, "aroma_candle2");
-                ItemGetDict.Add(4, "mini_house");
+                ItemGetDict.Add(2, "neko_badge3");
+                ItemGetDict.Add(3, "aroma_candle1");
+                ItemGetDict.Add(4, "aroma_candle2");
                 ItemGetDict.Add(5, "dryflowerpot_3");
+
+                ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
                 break;
 
             case 3: //1000
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "shokukan_powerup1");
+                ItemGetDict.Add(2, "neko_badge3");
                 ItemGetDict.Add(3, "shokukan_powerup2");
                 ItemGetDict.Add(4, "shokukan_powerup3");
                 ItemGetDict.Add(5, "shokukan_powerup3");
+
+                ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
                 break;
 
             case 4: //230点以上のスーパークレープ　条件分岐
@@ -417,12 +436,26 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
                 ItemGetDict.Add(3, "hikari_manpuku_deg1");
                 ItemGetDict.Add(4, "hikari_manpuku_deg2");
                 ItemGetDict.Add(5, "shokukan_powerup3");
+
+                //クエストごとにスコアに対するアイテムランクを決定
+                if (GameMgr.Okashi_spquest_MaxScore < 230)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 2;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 230 && GameMgr.Okashi_spquest_MaxScore < 300)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 3;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 300)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 4;
+                }
                 break;
 
             case 10: //茶色いクッキー
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "cookie_powerup2");
+                ItemGetDict.Add(2, "neko_badge3");
                 ItemGetDict.Add(3, "cookie_powerup3");
                 ItemGetDict.Add(4, "cookie_powerup4");
                 ItemGetDict.Add(5, "cookie_powerup5");
@@ -431,28 +464,50 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
             case 11: //お茶会用のお茶
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "tea_powerup2");
+                ItemGetDict.Add(2, "neko_badge3");
                 ItemGetDict.Add(3, "tea_powerup3");
                 ItemGetDict.Add(4, "tea_powerup4");
                 ItemGetDict.Add(5, "tea_powerup5");
+
+                ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
                 break;
 
-            case 12: //ヒカリが3種類のお菓子を作れるようにする。
+            case 12: //ハート2000以上
 
                 ItemGetDict.Add(1, "neko_badge3");
                 ItemGetDict.Add(2, "hikari_powerup1");
                 ItemGetDict.Add(3, "hikari_powerup2");
                 ItemGetDict.Add(4, "hikari_powerup3");
                 ItemGetDict.Add(5, "hikari_powerup3");
+
+                ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
                 break;
 
             case 13: //カミナリのようにすっぱいクレープ 酸味が100以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "crepe_powerup2");
+                ItemGetDict.Add(2, "neko_badge3");
                 ItemGetDict.Add(3, "crepe_powerup3");
                 ItemGetDict.Add(4, "crepe_powerup4");
                 ItemGetDict.Add(5, "crepe_powerup5");
+
+                //クエストごとにスコアに対するアイテムランクを決定
+                if (GameMgr.Okashi_spquest_MaxScore < 100)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 1;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 100 && GameMgr.Okashi_spquest_MaxScore < 150)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 2;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 150 && GameMgr.Okashi_spquest_MaxScore < 200)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 3;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 200)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 4;
+                }
                 break;
 
             case 14: //300点以上のいちごのクレープ
@@ -462,6 +517,20 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
                 ItemGetDict.Add(3, "hikari_speed_up2");
                 ItemGetDict.Add(4, "hikari_manpuku_deg2");
                 ItemGetDict.Add(5, "shokukan_powerup3");
+
+                //クエストごとにスコアに対するアイテムランクを決定
+                if (GameMgr.Okashi_spquest_MaxScore < 300)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 2;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 300 && GameMgr.Okashi_spquest_MaxScore < 400)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 3;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 400)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 4;
+                }
                 break;
 
             case 20: //ハート3000以上
@@ -471,13 +540,15 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
                 ItemGetDict.Add(3, "memory_feather2");
                 ItemGetDict.Add(4, "memory_feather3");
                 ItemGetDict.Add(5, "memory_feather3");
+
+                ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
                 break;
 
             case 21: //ムーディーな大人のおかし　カンノーリ　ティラミス　コーヒー　カフェオレシュー　ココアクッキー　ビスコッティ
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "otona_powerup1");
-                ItemGetDict.Add(3, "candy_powerup1");
+                ItemGetDict.Add(2, "neko_badge3");
+                ItemGetDict.Add(3, "otona_powerup1");
                 ItemGetDict.Add(4, "candy_powerup1");
                 ItemGetDict.Add(5, "crepe_powerup5");
 
@@ -485,34 +556,76 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
                 {
 
                 }
+
+                ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
                 break;
 
-            case 22: //ハート 4000~
+            case 22: //ハート 5000~
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "aroma_potion1");
+                ItemGetDict.Add(2, "neko_badge3");
                 ItemGetDict.Add(3, "aroma_potion2");
                 ItemGetDict.Add(4, "aroma_potion3");
                 ItemGetDict.Add(5, "crepe_powerup5");
+
+                ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
                 break;
 
             case 23: //200をこえる夢のようなパンケーキ
 
                 ItemGetDict.Add(1, "neko_badge3");
-                ItemGetDict.Add(2, "magic_crystal1");
+                ItemGetDict.Add(2, "neko_badge3");
                 ItemGetDict.Add(3, "magic_crystal2");
                 ItemGetDict.Add(4, "magic_crystal3");
                 ItemGetDict.Add(5, "magic_crystal3");
+
+                //クエストごとにスコアに対するアイテムランクを決定
+                if (GameMgr.Okashi_spquest_MaxScore < 300)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 2;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 300 && GameMgr.Okashi_spquest_MaxScore < 400)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 3;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 400)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 4;
+                }
+
                 break;
 
-            case 24: //ハート 5000~
+            case 24: //300点越えのプリンセストータ
 
+                ItemGetDict.Add(1, "neko_badge3");
+                ItemGetDict.Add(2, "neko_badge3");
+                ItemGetDict.Add(3, "angel_statue1");
+                ItemGetDict.Add(4, "angel_statue2");
+                ItemGetDict.Add(5, "neko_badge5");
+
+                //ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
+
+                //クエストごとにスコアに対するアイテムランクを決定  プリンセストータクリア時の場合
+                if (GameMgr.Okashi_spquest_MaxScore < 350)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 2;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 350 && GameMgr.Okashi_spquest_MaxScore < 400)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 3;
+                }
+                else if (GameMgr.Okashi_spquest_MaxScore >= 400)
+                {
+                    GameMgr.ExtraClear_QuestItemRank = 4;
+                }
                 break;
 
             default: //
 
                 break;
         }
+
+        //例外処理
         if (ItemGetDict.Count == 0)
         {
             ItemGetDict.Add(1, "neko_badge3");
@@ -520,14 +633,49 @@ public class ExtraQuestTreasurePanel : MonoBehaviour {
             ItemGetDict.Add(3, "neko_badge4");
             ItemGetDict.Add(4, "neko_badge2");
             ItemGetDict.Add(5, "neko_badge5");
+
+            ExtraItemGetRankDefault(); //クエストごとにスコアに対するアイテムランクを決定
         }
 
+        //例外処理。100未満はランク１に。
+        if (GameMgr.Okashi_spquest_MaxScore < 100)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 1;
+        }
+
+        //ご褒美アイテムのランク決めは、GirlEat_Judge.csで決定
+        ItemRank = GameMgr.ExtraClear_QuestItemRank;
 
         //描画更新とアイテム取得処理
         ExtraQuest_GetItemText.text = database.items[database.SearchItemIDString(ItemGetDict[ItemRank])].itemNameHyouji;
         ExtraQuest_GetItemImage.sprite = database.items[database.SearchItemIDString(ItemGetDict[ItemRank])].itemIcon_sprite;
         pitemlist.addPlayerItem(ItemGetDict[ItemRank], 1);
 
+    }
+
+    //アイテムランクデフォルト
+    void ExtraItemGetRankDefault()
+    {
+        if (GameMgr.Okashi_spquest_MaxScore < 100) //ランク１は使わないが、例外で、ハートのときなどに、お菓子をあげる前にクリアする可能性はあり。その場合は、１も通る。
+        {
+            GameMgr.ExtraClear_QuestItemRank = 1;
+        }
+        else if (GameMgr.Okashi_spquest_MaxScore >= 100 && GameMgr.Okashi_spquest_MaxScore < 200)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 2;
+        }
+        else if (GameMgr.Okashi_spquest_MaxScore >= 200 && GameMgr.Okashi_spquest_MaxScore < 300)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 3;
+        }
+        else if (GameMgr.Okashi_spquest_MaxScore >= 300)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 4;
+        }
+        /*else if (GameMgr.Okashi_spquest_MaxScore >= 300)
+        {
+            GameMgr.ExtraClear_QuestItemRank = 5;
+        }*/
     }
 
     //ボインとはじくようなアニメ
