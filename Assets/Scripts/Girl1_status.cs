@@ -244,7 +244,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private GameObject _model_obj;
     private CubismModel _model;
     private Animator live2d_animator;
-    private ChangeAnimationClip changeanim_clip;
     private int trans_expression;
     private int trans_motion;
     private int trans_makemotion;
@@ -321,7 +320,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                 _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                 live2d_animator = _model.GetComponent<Animator>();
-                changeanim_clip = _model.GetComponent<ChangeAnimationClip>();
                 /*trans_expression = live2d_animator.GetInteger("trans_expression");*/
                 character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
                 character_move = character_root.transform.Find("CharacterMove").gameObject;
@@ -364,7 +362,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
                 _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
                 live2d_animator = _model_obj.GetComponent<Animator>();
-                changeanim_clip = _model.GetComponent<ChangeAnimationClip>();
                 character = GameObject.FindWithTag("Character");
 
                 GirlEat_Judge_on = false;
@@ -520,7 +517,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                     _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                     live2d_animator = _model.GetComponent<Animator>();
-                    changeanim_clip = _model.GetComponent<ChangeAnimationClip>();
                     character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
                     character_move = character_root.transform.Find("CharacterMove").gameObject;
                     character = GameObject.FindWithTag("Character");
@@ -570,7 +566,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
                     character = GameObject.FindWithTag("Character");
                     live2d_animator = _model_obj.GetComponent<Animator>();
-                    changeanim_clip = _model.GetComponent<ChangeAnimationClip>();
 
                     GirlEat_Judge_on = false;
 
@@ -908,7 +903,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _model.GetComponent<CubismEyeBlinkController>().enabled = true;
     }
 
-    //普段の素の状態での表情変化 GameMgr.girl_expressionがまあまあのときは、ハートレベルに応じて、素の状態が変化する。GirlEat_Judgeからも読む。
+    //普段の素の状態での表情変化 GameMgr.girl_expressionがまあまあのときは、ハートレベルに応じて、素の状態が変化する。Compound_Main・GirlEat_Judgeからも読む。
     public void DefFaceChange()
     {
         //Live2Dモデルの取得
@@ -949,7 +944,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     }
 
-    public void CheckGokigen()　//Updateで常にチェック
+    public void CheckGokigen()　//Updateで常にチェック　Title_Main.csからも読まれる
     {
         //女の子の今のご機嫌　ハートレベルに応じた絶対的なもの
         if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 3) // HLv
@@ -1018,15 +1013,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 11;
 
         }
-        else if (PlayerStatus.girl1_Love_lv >= 80)
+        else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
         {
             //あたたかい安心
             GirlGokigenStatus = 12;
 
         }
+        else if (PlayerStatus.girl1_Love_lv >= 90)
+        {
+            //あたたかい安心
+            GirlGokigenStatus = 13;
+
+        }
     }
 
-    //お菓子を食べる前の、デフォルトの状態。
+    //お菓子を食べる前の、デフォルトの状態。Debug_Panel・Title_Main.csからも読み出し。
     public void DefaultFace()
     {
         //Live2Dモデルの取得
@@ -1616,15 +1617,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //Idleにリセット
             if (!GameMgr.hikari_makeokashi_startflag)
             {
-                //changeanim_clip.ChangeClip(0);
-                //live2d_animator.Play("Idle", motion_layer_num, 0.0f);
-                make_Idlemotion_start = true;
-                trans_makemotion = 10;
-                live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
+                live2d_animator.Play("Idle", motion_layer_num, 0.0f);
+                //make_Idlemotion_start = true;
+                //trans_makemotion = 10; //Idleにリセット
+                //live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
             }
             else
             {
-                //changeanim_clip.ChangeClip(1);
+                //ヒカリがお菓子作り中の場合のIdle　この場合のみ、trans_makemotionで指定しているので、trans_motionとの間違いに気を付ける。
                 if (PlayerStatus.girl1_Love_lv < 80)
                 {
                     switch(PlayerStatus.player_girl_expression)
@@ -2834,13 +2834,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 12: //80~
 
-                    random = Random.Range(0, 15);
+                    random = Random.Range(0, 16);
+                    hukidashi_number = 60;
+                    break;
+
+                case 13: //90~
+
+                    random = Random.Range(0, 17);
                     hukidashi_number = 60;
                     break;
 
                 default: //それ以上
 
-                    random = Random.Range(0, 15); 
+                    random = Random.Range(0, 17); 
                     hukidashi_number = 60;
                     break;
             }
@@ -2991,6 +2997,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 case 14:
 
                     IdleMotionHukidashiSetting(80); //雑談
+                    break;
+
+                case 15:
+
+                    IdleMotionHukidashiSetting(85); //雑談
+                    break;
+
+                case 16:
+
+                    IdleMotionHukidashiSetting(87); //雑談
                     break;
 
                 default:
@@ -3261,7 +3277,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 70:
 
                 random = Random.Range(0, 1); //0~4
-
                 zatudan(random);               
 
                 break;
@@ -3269,7 +3284,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 75:
 
                 random = Random.Range(0, 2); //0~4
-
                 zatudan(random);
 
                 break;
@@ -3277,7 +3291,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 80:
 
                 random = Random.Range(0, 3); //0~4
+                zatudan(random);
 
+                break;
+
+            case 85:
+
+                random = Random.Range(0, 4); //0~4
+                zatudan(random);
+
+                break;
+
+            case 87:
+
+                random = Random.Range(0, 5); //0~4
                 zatudan(random);
 
                 break;
@@ -3473,6 +3500,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     switch (GameMgr.bgm_collection_list[GameMgr.userBGM_Num].titleName)
                     {
+                        case "bgm9":
+
+                            FaceMotionPlay(1024);
+                            _touchface_comment_lib.Add("にいちゃん。いまかかってる音楽、ここちいいねぇ～..。ぽかぽか。");
+                            break;
 
                         case "bgm18":
 
@@ -3483,6 +3515,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         default:
 
                             FaceMotionPlay(1018);
+                            sc.PlaySe(40);
                             _touchface_comment_lib.Add("にいちゃん。鳥さんが、ないてるよ～♪");
                             break;
                     }
@@ -3593,29 +3626,51 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 1: //雑談をする2 癒し
 
                 FaceMotionPlay(2001); //はなうた
-                _touchface_comment_lib.Add("しっぱいは、せいこうの母なんだよ～！にいちゃん！");
+                _touchface_comment_lib.Add("しっぱいは、せいこうのはは、なんだよ～！にいちゃん！");
                 _touchface_comment_lib.Add("にいちゃんといつまでも一緒♪　でも、キラキラ宝石は欲しい..。にいちゃん！");
                 _touchface_comment_lib.Add("にいちゃん。つかれたら、ヒカリが膝枕でよしよししてあげるね。よしよし..。");                
                 _touchface_comment_lib.Add("おいもとバターって、相性ぴったり♪　まるで恋人みたいだね。");
                 _touchface_comment_lib.Add("プリンのおねえちゃん。なにしてるかなぁ～？");
                 _touchface_comment_lib.Add("このあいだ、はっぱがキラキラしててきれいだったよ～。にいちゃん！");
-                _touchface_comment_lib.Add("にいちゃん！　このまえ、おさかな焦がしちゃった～。");
+                _touchface_comment_lib.Add("にいちゃん！　このまえ、おさかな焦がしちゃった～..。");
 
                 _touchface_comment_lib.Add("にいちゃん！　だいすき～♪");
                 _touchface_comment_lib.Add("にいちゃんのために、お菓子作る～♪");
                 break;
 
             //70~から
-
             case 2:
 
                 FaceMotionPlay(2001); //はなうた
                 _touchface_comment_lib.Add("にいちゃん！今日はのんびり日和～♪　ごろごろ..。");
                 _touchface_comment_lib.Add("あのね！　このあいだ、いしの隙間でやもりさん見つけたよ～！");
-                _touchface_comment_lib.Add("毎朝みるく飲んで、背のばすよ～。いつか、おにいちゃん超える！");
-                _touchface_comment_lib.Add("おうごんじゃがいも..　いっぱい買う～♪");
+                _touchface_comment_lib.Add("まいあさ、みるく飲んで、背のばすよ～。いつか、おにいちゃん超えてやる！");
+                _touchface_comment_lib.Add("おうごんじゃがいも..　いっぱい食べたいな～♪");
 
                 _touchface_comment_lib.Add("にいちゃん、すきすき！ハートのクッキー.. 作ろっかな！");
+                _touchface_comment_lib.Add("にいちゃん、焼きたてフィナンシェ.. サックサクでおいしいんだよ～♪");
+                break;
+
+            //80~から
+            case 3:
+
+                FaceMotionPlay(2001); //はなうた
+                _touchface_comment_lib.Add("とれとれ、とれたてか～にの身を～、ぱんにつ～めて～♪");
+                _touchface_comment_lib.Add("にいちゃん～！かにぱんまんのご本、いっしょに見よ～♪");
+                _touchface_comment_lib.Add("きらきらぽんぽ～♪　きょうもいっぱいだね！おにいちゃん！");
+                _touchface_comment_lib.Add("にいちゃん。フォカッチャ大使は、じつはいい人なんだよ..！");
+
+                _touchface_comment_lib.Add("にいちゃん、ずっとヒカリのそばにいてね♪");
+                _touchface_comment_lib.Add("にいちゃん。ままとぱぱと一緒に、ピクニックいきたいなぁ～♪");
+                break;
+
+            //90~から
+            case 4:
+
+                FaceMotionPlay(2001); //はなうた
+                _touchface_comment_lib.Add("ほぐほぐ、ほぐしたか～にの身を～、ぱんにつ～めて～♪");
+
+                _touchface_comment_lib.Add("にいちゃんと一緒に、ずっとお菓子作ってたいなぁ～♪");
                 break;
 
             default:
@@ -4281,7 +4336,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     }
 
-    //表情パラメータを一旦リセット
+    //表情パラメータを一旦リセット。だが、Live2D_animatorの書き方的には、多分機能してない。
     public void face_girl_Reset()
     {
         //intパラメーターの値を設定する.  

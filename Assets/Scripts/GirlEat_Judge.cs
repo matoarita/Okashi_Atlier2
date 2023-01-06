@@ -2828,6 +2828,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     Getlove_exp = (int)(Getlove_exp * 1.2f);
                     PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
 
+                    if (PlayerStatus.player_girl_eatCount_tabetai >= 999)
+                    {
+                        PlayerStatus.player_girl_eatCount_tabetai = 999; //999でカンスト
+                    }
+
                     //体力も上がる。
                     PlayerStatus.player_girl_maxlifepoint += 2;
 
@@ -3934,6 +3939,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.Extraquest_ID = girl1_status.OkashiQuest_ID; //
         GameMgr.ExtraClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
+        //イベントによっては、日付もしくは天気を変更する。エクストラクリアの場合。
+        if (GameMgr.Story_Mode == 1)
+        {
+            switch (GameMgr.Extraquest_ID)
+            {
+                case 10020: //カマキリ
+
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //その日の夕方に。
+                    PlayerStatus.player_day = PlayerStatus.player_day + 1;
+                    break;
+
+            }
+        }
+
         while (!GameMgr.recipi_read_endflag)
         {
             yield return null;
@@ -4586,6 +4605,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             switch (GameMgr.mainquest_ID)
             {
+
                 case 10100: //いちご少女とお茶会 
 
                     time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 17, 0); //その日の夕方に。

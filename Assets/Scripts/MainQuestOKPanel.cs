@@ -107,7 +107,7 @@ public class MainQuestOKPanel : MonoBehaviour {
             ); //
 
         //移動のアニメ
-        sequence.Append(quest_panel.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f)
+        sequence.Append(quest_panel.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.5f)
             .SetEase(Ease.OutElastic)); //はねる動き
                                         //.SetEase(Ease.OutExpo)); //スケール小からフェードイン
         sequence.Join(quest_panel.GetComponent<CanvasGroup>().DOFade(1, 0.2f));

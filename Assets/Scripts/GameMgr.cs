@@ -56,6 +56,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int scenario_flag;    //全シーンで共通。今、どのシナリオまできているか。クエストやステージではなく、ゲーム自体の進行度を表す。
     public static int ending_count;     //エンディングを迎えた回数
+    public static bool bestend_on_flag; //ベストED　Aを一度でも迎えたことがあるフラグ
     public static int stage_number;     //ステージ番号　stage1 stage2のこと
     public static int stage_quest_num; //メインのクエスト番号
     public static int stage_quest_num_sub; //クエスト番号
@@ -98,13 +99,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] GirlLoveEvent_stage3 = new bool[GirlLoveEvent_stage_num];
 
     //クリア時の好感度
-    public static int stage1_girl1_loveexp; //ステージ１クリア時の好感度を保存
-    public static int stage2_girl1_loveexp;
-    public static int stage3_girl1_loveexp;
+    public static int stage1_clear_girl1_loveexp; //ステージ１クリア時の好感度を保存
+    public static int stage2_clear_girl1_loveexp;
+    public static int stage3_clear_girl1_loveexp;
 
-    public static int stage1_clear_love;
-    public static int stage2_clear_love;
-    public static int stage3_clear_love;    
+    public static int stage1_clear_girl1_lovelv; //クリア時の好感度LV
+    public static int stage2_clear_girl1_lovelv;
+    public static int stage3_clear_girl1_lovelv;    
 
     //クッキーをはじめて作ったかどうか、などのゲーム序盤に○○の処理をしたかどうかを判定するイベントフラグ   
     public static bool[] Beginner_flag = new bool[Event_num];
@@ -273,7 +274,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
     //バージョン情報
-    public static float GameVersion = 1.22f;
+    public static float GameVersion = 1.35f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
@@ -478,6 +479,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     private PlayerItemList pitemlist;
 
     public static int system_i;
+    public static int system_count;
     public static int system_temp_int;
     private int ev_id;
 
@@ -611,6 +613,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //エンディングカウント。リセットされない。
         ending_number = 1;
         ending_count = 0;
+        bestend_on_flag = false;
 
         //各イベントフラグ・ゲームパラメーターの初期設定
         ResetGameDefaultStatus();
@@ -671,6 +674,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         GameLoadOn = false;
         saveOK = false;
+
+        stage1_clear_girl1_lovelv = 1;
+        stage2_clear_girl1_lovelv = 1;
+        stage3_clear_girl1_lovelv = 1;
 
         compound_status = 0;
         compound_select = 0;
@@ -1021,11 +1028,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ending_on = false;
         ending_on2 = false;
 
-        //ステージごとの、クリア好感度の数値設定。現在は未使用
-        stage1_clear_love = 100;
-        stage2_clear_love = 200;
-        stage3_clear_love = 450;
-
         //ステージごとの、始まりの日数
         stage1_start_day = 91;
         stage2_start_day = 121;
@@ -1272,6 +1274,21 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                 event_collection_list[system_i].Flag = _flag;
             }
         }
+    }
+
+    //イベントの現在解放済みをカウントするメソッド
+    public static int GetEventCollectionListCount()
+    {
+        system_count = 0;
+        for (system_i = 0; system_i < event_collection_list.Count; system_i++)
+        {
+            if (event_collection_list[system_i].Flag)
+            {
+                system_count++;
+            }
+          
+        }
+        return system_count;
     }
 
     //コンテストクリアお菓子コレクションのリスト

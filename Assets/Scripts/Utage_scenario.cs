@@ -3585,6 +3585,7 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
                 GameMgr.ending_number = 4;
                 GameMgr.SetEventCollectionFlag("event3", true);
+                GameMgr.bestend_on_flag = true; //ベストEDをむかえたことがあるフラグ
             }
             else
             {

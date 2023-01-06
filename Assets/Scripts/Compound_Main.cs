@@ -619,10 +619,10 @@ public class Compound_Main : MonoBehaviour
 
         //BGアクセサリー系のパーティクル
         particleEm_CandleLight1 = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
-        particleEm_MiniHouseLight1 = bg_accessory_panel.transform.Find("MiniHouse/MiniHouse2/BG_Particle_HouseLight").GetComponent<ParticleSystem>().emission;
+        particleEm_MiniHouseLight1 = bg_accessory_panel.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").GetComponent<ParticleSystem>().emission;
 
         particleEm_CandleLight1_obj = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").gameObject;
-        particleEm_MiniHouseLight1_obj = bg_accessory_panel.transform.Find("MiniHouse/MiniHouse2/BG_Particle_HouseLight").gameObject;
+        particleEm_MiniHouseLight1_obj = bg_accessory_panel.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").gameObject;
 
         Change_BGimage();
         //メモボタン
@@ -658,7 +658,7 @@ public class Compound_Main : MonoBehaviour
         girl1_status.Girl1_Status_Init();
         girl1_status.DefFaceChange();
 
-        //ステージクリア用の好感度数値
+        //ステージごとのロード処理
         switch (GameMgr.stage_number)
         {
             case 1:
@@ -668,17 +668,16 @@ public class Compound_Main : MonoBehaviour
                     GameMgr.stage1_load_ok = true;
                     GameMgr.scenario_flag = 110;                   
                 }
-                //clear_love = GameMgr.stage1_clear_love;
+
                 break;
 
             case 2:
 
-                //clear_love = GameMgr.stage2_clear_love;
+
                 break;
 
             case 3:
 
-                //clear_love = GameMgr.stage3_clear_love;
                 break;
         }
 
@@ -3072,6 +3071,11 @@ public class Compound_Main : MonoBehaviour
                 //お菓子をあげた回数をカウント
                 PlayerStatus.player_girl_eatCount++;
 
+                if(PlayerStatus.player_girl_eatCount >= 999)
+                {
+                    PlayerStatus.player_girl_eatCount = 999; //999でカンスト
+                }
+
                 ClickPanel_1.SetActive(false);
                 ClickPanel_2.SetActive(false);
                 break;
@@ -3293,19 +3297,22 @@ public class Compound_Main : MonoBehaviour
                 {
                     case 1:
 
-                        GameMgr.stage1_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage1_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage1_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
                         FadeManager.Instance.LoadScene("Contest", 0.3f);
                         break;
 
                     case 2:
 
-                        GameMgr.stage2_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage2_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage2_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
                         FadeManager.Instance.LoadScene("003_Stage3_eyecatch", 0.3f);
                         break;
 
                     case 3:
 
-                        GameMgr.stage3_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage3_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
+                        GameMgr.stage3_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
                         FadeManager.Instance.LoadScene("100_Ending", 0.3f);
                         break;
 

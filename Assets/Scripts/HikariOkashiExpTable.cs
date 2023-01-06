@@ -504,7 +504,9 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
     void Check_OkashilvUP()
     {
         if (_nowlv >= 9) //9がカンスト
-        { }
+        {
+            _nowexp = 0;
+        }
         else
         {
             if (_nowexp >= GameMgr.Hikariokashi_Exptable[_nowlv])

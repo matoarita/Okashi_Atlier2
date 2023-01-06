@@ -73,17 +73,25 @@ public class Title_Main : MonoBehaviour {
         save_controller.SystemloadCheck();
         //これ以降、システムのデータに応じて、処理を分けて大丈夫。
         
-        if (GameMgr.ending_count >= 1)
+        if (GameMgr.ending_count >= 1) //一回でもEDクリア。トップ画面はLive2Dモードになる。
         {
-            galleryButton_obj.SetActive(true);
-            freeModeButton_obj.SetActive(true);
+            galleryButton_obj.SetActive(true);           
 
             chara_Icon.SetActive(false);
             _model_move.SetActive(true);
             live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
 
-            PlayerStatus.girl1_Love_lv = 99; //タイトル画面でのみの、一時的なレベル
+            PlayerStatus.girl1_Love_lv = GameMgr.stage1_clear_girl1_lovelv; //タイトル画面でのみの、一時的な好感度レベル。最後にクリアした時のレベルにしておく。         
+            if(PlayerStatus.girl1_Love_lv <= 0) { PlayerStatus.girl1_Love_lv = 1; } //例外処理
+            //Debug.Log("PlayerStatus.girl1_Love_lv: " + PlayerStatus.girl1_Love_lv);
             girl1_status.CheckGokigen();
+            girl1_status.DefaultFace();
+
+            if (GameMgr.bestend_on_flag) //エクストラモード出現条件　ED:Aをみる
+            {
+                freeModeButton_obj.SetActive(true);
+            }
+            
         }
         else
         {

@@ -12,6 +12,7 @@ public class BGAcceTrigger : MonoBehaviour {
 
     private Animator candle_live2d_animator;
     private Animator saboten_live2d_animator;
+    private Animator minihouse_live2d_animator;
 
     private int trans_motion;
     private string Acce_input_name;
@@ -19,6 +20,7 @@ public class BGAcceTrigger : MonoBehaviour {
     private int i;
     private bool candle_onoff;
     private bool saboten_onoff;
+    private bool minihouse_onoff;
 
     private List<string> _temp_Accename = new List<string>();
 
@@ -30,10 +32,11 @@ public class BGAcceTrigger : MonoBehaviour {
 
         candle_live2d_animator = this.transform.Find("Candle/cgw01_candle_Live2D").FindCubismModel().GetComponent<Animator>();
         saboten_live2d_animator = this.transform.Find("MiniSaboten/saboten_Live2D").FindCubismModel().GetComponent<Animator>();
+        minihouse_live2d_animator = this.transform.Find("MiniHouse/minihouse_Live2D").FindCubismModel().GetComponent<Animator>();
 
         candle_onoff = false;
         saboten_onoff = false;
-
+        minihouse_onoff = false;
     }
 	
 	// Update is called once per frame
@@ -292,6 +295,7 @@ public class BGAcceTrigger : MonoBehaviour {
         //Live2Dフラグ系リセット
         candle_onoff = false;
         saboten_onoff = false;
+        minihouse_onoff = false;
 
         for (i = 0; i < _temp_Accename.Count; i++)
         {
@@ -448,11 +452,16 @@ public class BGAcceTrigger : MonoBehaviour {
 
                     if (GameMgr.BGAcceItemsName[_temp_Accename[i]])
                     {
-                        this.transform.Find("MiniHouse/MiniHouse1").gameObject.SetActive(true);
+                        //this.transform.Find("MiniHouse/MiniHouse1").gameObject.SetActive(true);
+                        this.transform.Find("MiniHouse/minihouse_Live2D").gameObject.SetActive(true);
+                        trans_motion = 100;
+                        minihouse_live2d_animator.SetInteger("trans_motion", trans_motion);
+
+                        minihouse_onoff = true;
                     }
                     else
                     {
-                        this.transform.Find("MiniHouse/MiniHouse1").gameObject.SetActive(false);
+                        //this.transform.Find("MiniHouse/MiniHouse1").gameObject.SetActive(false);
                     }
                     break;
 
@@ -537,6 +546,10 @@ public class BGAcceTrigger : MonoBehaviour {
             {
                 this.transform.Find("MiniSaboten/saboten_Live2D").gameObject.SetActive(false);
             }
+            if (!minihouse_onoff)
+            {
+                this.transform.Find("MiniHouse/minihouse_Live2D").gameObject.SetActive(false);
+            }
         }
     }
 
@@ -565,7 +578,6 @@ public class BGAcceTrigger : MonoBehaviour {
     //朝～夜で状態が変わる
     public void WeatherChangeMorning()
     {
-
         //アロマキャンドル
         if (GameMgr.BGAcceItemsName["aroma_candle1"])
         {
@@ -583,6 +595,14 @@ public class BGAcceTrigger : MonoBehaviour {
         else
         { }
 
+        //ミニ家
+        if (GameMgr.BGAcceItemsName["mini_house"])
+        {
+            trans_motion = 100;
+            minihouse_live2d_animator.SetInteger("trans_motion", trans_motion);
+        }
+        else
+        { }
     }
 
     public void WeatherChangeNight()
@@ -605,5 +625,13 @@ public class BGAcceTrigger : MonoBehaviour {
         else
         { }
 
+        //ミニ家
+        if (GameMgr.BGAcceItemsName["mini_house"])
+        {
+            trans_motion = 110;
+            minihouse_live2d_animator.SetInteger("trans_motion", trans_motion);
+        }
+        else
+        { }
     }
 }

@@ -32,14 +32,12 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
         live2d_animator = this.GetComponent<Animator>();
-        //expressionは、ノーマルにセットしておく。宴でバグらなくなる。
-        trans_expression = 1; //リセット
-        live2d_animator.SetInteger("trans_expression", trans_expression);
+        //expressionは、ノーマルにセットしておく。宴でバグらなくなる。古い処理かも？もう削除して大丈夫そう。
+        //trans_expression = 1; //リセット
+        //live2d_animator.SetInteger("trans_expression", trans_expression);
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
-
-       
 
         switch (SceneManager.GetActiveScene().name)
         {

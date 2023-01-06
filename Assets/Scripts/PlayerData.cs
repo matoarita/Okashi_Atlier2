@@ -192,13 +192,13 @@ public class PlayerData
     public int save_NowEatOkashiID; //今食べたいお菓子ID表示
 
     //ステージ１クリア時の好感度を保存
-    public int save_stage1_girl1_loveexp;
-    public int save_stage2_girl1_loveexp;
-    public int save_stage3_girl1_loveexp;
+    public int save_stage1_clear_girl1_loveexp;
+    public int save_stage2_clear_girl1_loveexp;
+    public int save_stage3_clear_girl1_loveexp;
 
-    public int save_stage1_clear_love;
-    public int save_stage2_clear_love;
-    public int save_stage3_clear_love;
+    public int save_stage1_clear_girl1_lovelv;
+    public int save_stage2_clear_girl1_lovelv;
+    public int save_stage3_clear_girl1_lovelv;
 
     //ショップのイベントリスト
     public bool[] save_ShopEvent_stage = new bool[GameMgr.ShopEvent_stage.Length];
@@ -324,6 +324,7 @@ public class PlayerData
 
     //エンディングカウント
     public int save_ending_count;
+    public bool save_bestend_on_flag;
 
     //ストーリーモード
     public int save_Story_Mode;

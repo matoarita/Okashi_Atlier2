@@ -367,16 +367,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_MapEvent_08 = GameMgr.MapEvent_08,         //白猫のおはか
 
             //広場でのイベント
-            save_hiroba_event_end = GameMgr.hiroba_event_end,
-
-            //ステージ１クリア時の好感度を保存
-            save_stage1_girl1_loveexp = GameMgr.stage1_girl1_loveexp,
-            save_stage2_girl1_loveexp = GameMgr.stage2_girl1_loveexp,
-            save_stage3_girl1_loveexp = GameMgr.stage3_girl1_loveexp,
-
-            save_stage1_clear_love = GameMgr.stage1_clear_love,
-            save_stage2_clear_love = GameMgr.stage2_clear_love,
-            save_stage3_clear_love = GameMgr.stage3_clear_love,
+            save_hiroba_event_end = GameMgr.hiroba_event_end,           
 
             //ショップのイベントリスト
             save_ShopEvent_stage = GameMgr.ShopEvent_stage,
@@ -705,16 +696,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //広場でのイベント
-        GameMgr.hiroba_event_end = playerData.save_hiroba_event_end;
-
-        //ステージ１クリア時の好感度を保存
-        GameMgr.stage1_girl1_loveexp = playerData.save_stage1_girl1_loveexp;
-        GameMgr.stage2_girl1_loveexp = playerData.save_stage2_girl1_loveexp;
-        GameMgr.stage3_girl1_loveexp = playerData.save_stage3_girl1_loveexp;
-
-        GameMgr.stage1_clear_love = playerData.save_stage1_clear_love;
-        GameMgr.stage2_clear_love = playerData.save_stage2_clear_love;
-        GameMgr.stage3_clear_love = playerData.save_stage3_clear_love;
+        GameMgr.hiroba_event_end = playerData.save_hiroba_event_end;       
 
         //ショップのイベントリスト
         GameMgr.ShopEvent_stage = playerData.save_ShopEvent_stage;
@@ -1212,6 +1194,16 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             save_saveOK = GameMgr.saveOK,
             save_ending_count = GameMgr.ending_count,
+            save_bestend_on_flag = GameMgr.bestend_on_flag,
+
+            //ステージ１クリア時の好感度を保存
+            save_stage1_clear_girl1_loveexp = GameMgr.stage1_clear_girl1_loveexp,
+            save_stage2_clear_girl1_loveexp = GameMgr.stage2_clear_girl1_loveexp,
+            save_stage3_clear_girl1_loveexp = GameMgr.stage3_clear_girl1_loveexp,
+
+            save_stage1_clear_girl1_lovelv = GameMgr.stage1_clear_girl1_lovelv,
+            save_stage2_clear_girl1_lovelv = GameMgr.stage2_clear_girl1_lovelv,
+            save_stage3_clear_girl1_lovelv = GameMgr.stage3_clear_girl1_lovelv,
 
             //オートセーブフラグ
             save_Autosave_ON = GameMgr.AUTOSAVE_ON,
@@ -1315,6 +1307,16 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //セーブやED関係
             GameMgr.saveOK = systemData.save_saveOK;
             GameMgr.ending_count = systemData.save_ending_count;
+            GameMgr.bestend_on_flag = systemData.save_bestend_on_flag;
+
+            //ステージ１クリア時の好感度を保存
+            GameMgr.stage1_clear_girl1_loveexp = systemData.save_stage1_clear_girl1_loveexp;
+            GameMgr.stage2_clear_girl1_loveexp = systemData.save_stage2_clear_girl1_loveexp;
+            GameMgr.stage3_clear_girl1_loveexp = systemData.save_stage3_clear_girl1_loveexp;
+
+            GameMgr.stage1_clear_girl1_lovelv = systemData.save_stage1_clear_girl1_lovelv;
+            GameMgr.stage2_clear_girl1_lovelv = systemData.save_stage2_clear_girl1_lovelv;
+            GameMgr.stage3_clear_girl1_lovelv = systemData.save_stage3_clear_girl1_lovelv;
 
             //オートセーブフラグ
             GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;

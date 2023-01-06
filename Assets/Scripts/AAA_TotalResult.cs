@@ -887,7 +887,7 @@ public class AAA_TotalResult : MonoBehaviour {
             {
                 case 1: //Bad ED
 
-                    _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートをもっと上げて、再度挑戦してね！";
+                    _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "ハートをもっと上げていれば、こんな運命は変えられたかもしれない・・。";
                     break;
 
                 case 2:

@@ -884,16 +884,22 @@ public class TimeController : MonoBehaviour
                     }
                     ++count;
                 }
+
+                //現在の月と日を更新しておく。
+                PlayerStatus.player_cullent_month = month;
+                PlayerStatus.player_cullent_day = day;
+            }
+            else if (_mstatus == 1)
+            {
+                //入力された日付から、逆算してPlayerStatus.player_dayを計算する必要があり。まだ実装してないので、実装必要。
             }
 
-            //現在の月と日を更新しておく。
-            PlayerStatus.player_cullent_month = month;
-            PlayerStatus.player_cullent_day = day;
+            
 
             //表示
-            _month_text1.text = month.ToString();
-            _day_text1.text = day.ToString();
-            _day_text2.text = month.ToString() + "/" + day.ToString();
+            _month_text1.text = PlayerStatus.player_cullent_month.ToString();
+            _day_text1.text = PlayerStatus.player_cullent_day.ToString();
+            _day_text2.text = PlayerStatus.player_cullent_month.ToString() + "/" + PlayerStatus.player_cullent_day.ToString();
 
             //** 月日の計算　ここまで **//
 
