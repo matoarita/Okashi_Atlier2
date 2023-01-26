@@ -375,6 +375,48 @@ public class RecipiListController : MonoBehaviour {
                 texture2d = database.items[j].itemIcon_sprite;
                 _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
 
+                //引継ぎ用の仕様
+                /*switch(GameMgr.compound_select)
+                {
+                    case 3000: //オマケで開く場合
+
+                        if (database.items_system[j].HighScore_flag == 1)
+                        {
+                            _HighStar.SetActive(true);
+                            _HighStar_2.SetActive(false);
+                        }
+                        else if (database.items_system[j].HighScore_flag == 2)
+                        {
+                            _HighStar.SetActive(true);
+                            _HighStar_2.SetActive(true);
+                        }
+                        else
+                        {
+                            _HighStar.SetActive(false);
+                            _HighStar_2.SetActive(false);
+                        }
+                        break;
+
+                    default:
+
+                        if (database.items[j].HighScore_flag == 1)
+                        {
+                            _HighStar.SetActive(true);
+                            _HighStar_2.SetActive(false);
+                        }
+                        else if (database.items[j].HighScore_flag == 2)
+                        {
+                            _HighStar.SetActive(true);
+                            _HighStar_2.SetActive(true);
+                        }
+                        else
+                        {
+                            _HighStar.SetActive(false);
+                            _HighStar_2.SetActive(false);
+                        }
+                        break;
+                }*/
+
                 if (database.items[j].HighScore_flag == 1)
                 {
                     _HighStar.SetActive(true);
@@ -384,11 +426,13 @@ public class RecipiListController : MonoBehaviour {
                 {
                     _HighStar.SetActive(true);
                     _HighStar_2.SetActive(true);
-                } else
+                }
+                else
                 {
                     _HighStar.SetActive(false);
                     _HighStar_2.SetActive(false);
                 }
+
 
                 break;
             }
@@ -446,7 +490,7 @@ public class RecipiListController : MonoBehaviour {
 
                 _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
 
-                if (database.items[j].HighScore_flag == 1)
+                /*if (database.items[j].HighScore_flag == 1)
                 {
                     _HighStar.SetActive(true);
                     _HighStar_2.SetActive(false);
@@ -460,7 +504,9 @@ public class RecipiListController : MonoBehaviour {
                 {
                     _HighStar.SetActive(false);
                     _HighStar_2.SetActive(false);
-                }
+                }*/
+                _HighStar.SetActive(false);
+                _HighStar_2.SetActive(false);
 
                 break;
             }

@@ -118,7 +118,15 @@ public class MainUIPanel : MonoBehaviour {
             bar_sprite.sprite = bar_sprite_2;
             stage_text_obj.SetActive(false);
             FreeModeText_obj.SetActive(true);
-            manpuku_bar.SetActive(true);
+
+            if (GameMgr.System_Manpuku_ON)
+            {
+                manpuku_bar.SetActive(true);
+            }
+            else
+            {
+                manpuku_bar.SetActive(false);
+            }
         }
     }
 

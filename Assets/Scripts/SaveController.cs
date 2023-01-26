@@ -134,11 +134,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }*/
 
         //調合フラグと調合回数の取得
-        /*_temp_cmpflaglist.Clear();
+        _temp_cmpflaglist.Clear();
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
-            _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, databaseCompo.compoitems[i].comp_count));
-        }*/
+            _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, 
+                databaseCompo.compoitems[i].comp_count, databaseCompo.compoitems[i].hikari_make_count));
+        }
 
         //マップのフラグのみ取得
         _tempmap_placeflaglist.Clear();
@@ -416,10 +417,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_extremepanel_itemlist = pitemlist.player_extremepanel_itemlist,
 
             //アイテムの前回スコアなどを記録する
-            //save_itemdatabase = _temp_itemscorelist,
+            save_itemdatabase = _temp_itemscorelist,
 
             //調合のフラグ＋調合回数を記録する
-            //save_itemCompodatabase = _temp_cmpflaglist,
+            save_itemCompodatabase = _temp_cmpflaglist,
 
             //今うけてるクエストを保存する。
             save_questTakeset = quest_database.questTakeset,
@@ -792,7 +793,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             pitemlist.player_extremepanel_itemlist[i].sell_price = database.items[_itemID].sell_price;
         }
 
-        //アイテムの前回スコアなどを読み込み
+        //アイテムの前回スコアなどを読み込み ゲームデータのほうは、前回スコアは触らない。
         /*for (count = 0; count < playerData.save_itemdatabase.Count; count++)
         {
             i = 0;
@@ -800,8 +801,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             {
                 if (playerData.save_itemdatabase[count].itemName == database.items[i].itemName)
                 {
-                    database.items[i].Eat_kaisu = playerData.save_itemdatabase[count].Eat_kaisu;
                     database.items[i].HighScore_flag = playerData.save_itemdatabase[count].HighScore_flag;
+                    database.items[i].Eat_kaisu = playerData.save_itemdatabase[count].Eat_kaisu;    
+                    
                     database.items[i].last_total_score = playerData.save_itemdatabase[count].last_total_score;
                     database.items[i].last_rich_score = playerData.save_itemdatabase[count].last_rich_score;
                     database.items[i].last_sweat_score = playerData.save_itemdatabase[count].last_sweat_score;
@@ -821,22 +823,22 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             
         }*/
 
-        //調合のフラグ＋調合回数を記録する
-        //databaseCompo.compoitems.Clear();
-        /*for (count = 0; count < playerData.save_itemCompodatabase.Count; count++)
+        //調合のフラグ＋調合回数を記録　プレイヤーデータではしない。ヒカリの制作フラグだけ読み込み。
+        for (count = 0; count < playerData.save_itemCompodatabase.Count; count++)
         {
             i = 0;
             while (i < databaseCompo.compoitems.Count)
             {
                 if (playerData.save_itemCompodatabase[count].comp_name == databaseCompo.compoitems[i].cmpitem_Name)
                 {
-                    databaseCompo.compoitems[i].cmpitem_flag = playerData.save_itemCompodatabase[count].comp_Flag;
-                    databaseCompo.compoitems[i].comp_count= playerData.save_itemCompodatabase[count].comp_Count;
+                    //databaseCompo.compoitems[i].cmpitem_flag = playerData.save_itemCompodatabase[count].comp_Flag;
+                    //databaseCompo.compoitems[i].comp_count= playerData.save_itemCompodatabase[count].comp_Count;
+                    //databaseCompo.compoitems[i].hikari_make_count = playerData.save_itemCompodatabase[count].hikarimake_Count;
                     break;
                 }
                 i++;
             }
-        }*/
+        }
 
 
         //今うけてるクエストをロード。
@@ -1081,10 +1083,21 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             {
                 pitemlist.playeritemlist[database.items[i].itemName] = 0;
             }
+
+            //どんぐりはリスタートで必ず消す。
+            //database.items[i].HighScore_flag = 0;
         }
 
+        //ヒカリ制作フラグも必ず消す。
+        for (i = 0; i < databaseCompo.compoitems.Count; i++)
+        {
+            databaseCompo.compoitems[i].hikari_make_count = 0;
+        }
+            
+
         //体力は全回復
-        PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;
+        PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;       
+
     }
 
     //ロードの準備
@@ -1153,10 +1166,25 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_itemscorelist.Clear();
         for (i = 0; i < database.items.Count; i++)
         {
+            /*if (database.items[i].HighScore_flag < database.items_system[i].HighScore_flag)
+            {
+                _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items_system[i].HighScore_flag, database.items[i].last_total_score,
+                    database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
+                    database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
+                    database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
+            }
+            else
+            {
+                _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
+                    database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
+                    database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
+                    database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
+            }*/
+
             _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
-                database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
-                database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
-                database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
+                    database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
+                    database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
+                    database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
         }
 
         //称号リスト
@@ -1355,7 +1383,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 pitemlist.ReSetEmeraldItemString(systemData.save_player_emeralditemlist[i].itemName, systemData.save_player_emeralditemlist[i].itemKosu);
             }
             
-            //調合のフラグ＋調合回数を記録する
+            //調合のフラグ＋調合回数を記録する システムデータでは、ヒカリのお菓子制作フラグはONになったものだけ更新する。
             for (count = 0; count < systemData.save_itemCompodatabase.Count; count++)
             {
                 i = 0;
@@ -1383,6 +1411,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     {
                         database.items[i].Eat_kaisu = systemData.save_itemdatabase[count].Eat_kaisu;
                         database.items[i].HighScore_flag = systemData.save_itemdatabase[count].HighScore_flag;
+                        //database.items_system[i].HighScore_flag = systemData.save_itemdatabase[count].HighScore_flag; //引継ぎせず、毎回リセットする仕様はこっち
                         database.items[i].last_total_score = systemData.save_itemdatabase[count].last_total_score;
                         database.items[i].last_rich_score = systemData.save_itemdatabase[count].last_rich_score;
                         database.items[i].last_sweat_score = systemData.save_itemdatabase[count].last_sweat_score;

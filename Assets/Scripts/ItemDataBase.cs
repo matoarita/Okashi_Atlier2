@@ -84,6 +84,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
     //Item型内で、画像データ（texture2d）を保存している。エクセルでは、画像を直接スプライトで保存できないため、こうしている。nameの部分が、画像のパス・ファイル名にあたる。
     public List<Item> items = new List<Item>();
     public List<Item> items_gamedefault = new List<Item>(); //ゲーム最初の設定データ。ゲーム内で再計算されて、上書きされたものが、上のメインとなるitems。
+    public List<Item> items_system = new List<Item>(); //システムデータ管理用のアイテムデータ。主にどんぐりフラグをチェックするのに使う。
 
     //リスト化をして下のvoid Start内でリストに値を追加、値は適当です。
     void Start()
@@ -92,6 +93,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
         items.Clear();
         items_gamedefault.Clear();
+        items_system.Clear();
 
         excel_itemdatabase = Resources.Load("Excel/Entity_ItemDataBase") as Entity_ItemDataBase;
 
@@ -183,6 +185,11 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _base_score, _girl1_like,
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _secretFlag));
+                //システムデータ保存用のアイテムデータリスト
+                items_system.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _base_score, _girl1_like,
+                    _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
+                    _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _secretFlag));
 
                 ++count;
             }
@@ -204,6 +211,10 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
                     //comp_hoseiでバグらないようにするための、クローン
                     items_gamedefault.Add(new Item(_id + i + 1, "Non", "orange", "Non" + (sheet_no - 1).ToString() + " " + (sheet_count + i).ToString(), "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                        "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
+                        _ex_kaisu, 0, 0, 0, 0, 0, "", 0, 1, 0, 0));
+                    //システムデータ保存用のアイテムデータリスト
+                    items_system.Add(new Item(_id + i + 1, "Non", "orange", "Non" + (sheet_no - 1).ToString() + " " + (sheet_count + i).ToString(), "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         _ex_kaisu, 0, 0, 0, 0, 0, "", 0, 1, 0, 0));
                 }

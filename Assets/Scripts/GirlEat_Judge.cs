@@ -1719,14 +1719,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     database.items[_baseID].last_beauty_score = _basebeauty;
 
                     //last_score_kousin = true;
+                   
+                }
 
-                    //85点以上で、さらに高得点を一度もとったことがなければ、えめらるどんぐり一個もらえる
+                //100点以上で、さらに高得点を一度もとったことがなければ、えめらるどんぐり一個もらえる
+                if (total_score >= GameMgr.high_score)
+                {
                     if (database.items[_baseID].HighScore_flag == 0)
                     {
-                        if (total_score >= GameMgr.high_score)
-                        {
-                            emerarudonguri_get = true;
-                        }
+                        emerarudonguri_get = true;
                     }
                     else if (database.items[_baseID].HighScore_flag == 1)
                     {
@@ -3905,7 +3906,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //一度黒におとし、感想のシナリオ再生
         if (GameMgr.Story_Mode == 1)
         {
-            StartCoroutine("ExtraQuestClearEvent");
+            StartCoroutine("ExtraQuestClearEvent"); //リザルト画面とご褒美画面の表示　EndExtraQuest()も通るようにする。
+
+            //リザルト画面ごほうびをスキップする　EndSpQuest()を通るようにする。
+            /*GameMgr.ExtraClear_QuestName = girl1_status.OkashiQuest_Name; //このタイミングで一度現クエストのクエストネームを保存
+            GameMgr.ExtraClear_QuestNum = GameMgr.GirlLoveEvent_num;
+            SelectNewOkashiSet();*/
         }
 
         //
@@ -4006,7 +4012,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 GameMgr.MainQuestClear_flag = 0;
                 special_quest.SetSpecialOkashiDict(GameMgr.NextQuestID, 2);
 
-                EndExtraQuest();
+                //EndSpQuest();
+                EndExtraQuest(); //リザルトとごほうび画面をだす
             }
 
         }
@@ -4049,7 +4056,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 2);
 
-            EndExtraQuest();
+            //EndSpQuest();
+            EndExtraQuest(); //リザルトとごほうび画面をだす
         }
     }
 
@@ -4227,6 +4235,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 1:
 
+                    /*if (databaseCompo.Hikarimake_Totalcount() >= 3)
+                    {
+                        Debug.Log("＜エクストラ＞ヒカリがお菓子を3種類覚えたので、クエストクリア");
+                        sp_quest_clear = true;
+
+                    }*/
                     if (PlayerStatus.girl1_Love_exp >= 300)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");

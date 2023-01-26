@@ -28,7 +28,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     }
 
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
-    public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。    
+    public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
+    
+    public static bool System_Manpuku_ON = true; //エクストラ　満腹度をtrueだと、ONにする。
 
     //** --ここまで-- **//
 

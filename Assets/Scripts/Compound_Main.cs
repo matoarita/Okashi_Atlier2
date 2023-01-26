@@ -4334,38 +4334,41 @@ public class Compound_Main : MonoBehaviour
     //満腹ゲージの処理
     public void ManpukuBarKoushin(int _param)
     {
-        if(_param >= 0)
+        if (GameMgr.System_Manpuku_ON)
         {
-            PlayerStatus.player_girl_manpuku += _param;
-            if(PlayerStatus.player_girl_manpuku > 0)
+            if (_param >= 0)
             {
-                GameMgr.Haraheri_Msg = false;
+                PlayerStatus.player_girl_manpuku += _param;
+                if (PlayerStatus.player_girl_manpuku > 0)
+                {
+                    GameMgr.Haraheri_Msg = false;
+                }
             }
-        }
-        else
-        {
-            PlayerStatus.player_girl_manpuku += _param;
-        }
-
-        if(PlayerStatus.player_girl_manpuku <= 0)
-        {
-            PlayerStatus.player_girl_manpuku = 0;
-
-            if (!GameMgr.Haraheri_Msg)
+            else
             {
-                GameMgr.Haraheri_Msg = true;
-                //音鳴らす
-                sc.PlaySe(45);
-
-                girl1_status.MotionChange(23);
+                PlayerStatus.player_girl_manpuku += _param;
             }
-        }
-        if (PlayerStatus.player_girl_manpuku >= 100)
-        {
-            PlayerStatus.player_girl_manpuku = 100;
-        }
 
-        ManpukuKoushin();
+            if (PlayerStatus.player_girl_manpuku <= 0)
+            {
+                PlayerStatus.player_girl_manpuku = 0;
+
+                if (!GameMgr.Haraheri_Msg)
+                {
+                    GameMgr.Haraheri_Msg = true;
+                    //音鳴らす
+                    sc.PlaySe(45);
+
+                    girl1_status.MotionChange(23);
+                }
+            }
+            if (PlayerStatus.player_girl_manpuku >= 100)
+            {
+                PlayerStatus.player_girl_manpuku = 100;
+            }
+
+            ManpukuKoushin();
+        }
     }
 
     void ManpukuKoushin()
