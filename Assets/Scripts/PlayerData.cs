@@ -178,6 +178,7 @@ public class PlayerData
     public int save_Okashi_lastbitter_param;
     public int save_Okashi_quest_bunki_on; //条件分岐しているか否かのフラグ
     public bool save_high_score_flag; //高得点でクリアしたというフラグ。
+    public bool save_high_score_flag2; //エクストラ高得点でクリアしたというフラグ。
     public int save_Okashi_lasttotalscore; //前回食べたお菓子の点数。メモ保存用。
 
     public int save_Okashi_toplast_score; //前回あげた最高得点

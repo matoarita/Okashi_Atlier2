@@ -87,9 +87,18 @@ public class Title_Main : MonoBehaviour {
             girl1_status.CheckGokigen();
             girl1_status.DefaultFace();
 
+            freeModeButton_obj.SetActive(true);
             if (GameMgr.bestend_on_flag) //エクストラモード出現条件　ED:Aをみる
             {
-                freeModeButton_obj.SetActive(true);
+                freeModeButton_obj.GetComponent<Button>().interactable = true;
+                freeModeButton_obj.GetComponent<Sound_Trigger>().se_sound_ON = true;
+                freeModeButton_obj.transform.Find("Text").GetComponent<Text>().text = "エクストラモード";
+            }
+            else
+            {
+                freeModeButton_obj.GetComponent<Button>().interactable = false;
+                freeModeButton_obj.GetComponent<Sound_Trigger>().se_sound_ON = false;
+                freeModeButton_obj.transform.Find("Text").GetComponent<Text>().text = "???";
             }
             
         }

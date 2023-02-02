@@ -89,11 +89,18 @@ public class MainQuestOKPanel : MonoBehaviour {
         }
         else
         {
-            extra_quest_treasurepanel.SetActive(true);
-            Panel1.SetActive(false);
+            if(GameMgr.System_ExtraStageClearResult_ON)
+            {
+                //数字演出・ごほうび演出をONにする。
+                extra_quest_treasurepanel.SetActive(true);
+                Panel1.SetActive(false);
 
-            //宝箱演出パネルへ処理うつる。数字演出処理へ。
-            extra_quest_treasurepanel.GetComponent<ExtraQuestTreasurePanel>().TreasurePanel_Start();
+                //宝箱演出パネルへ処理うつる。数字演出処理へ。
+                extra_quest_treasurepanel.GetComponent<ExtraQuestTreasurePanel>().TreasurePanel_Start();
+            } else
+            {
+                girlEat_judge.PanelResultOFF(); //ノーマルモードと同じ流れ。
+            }            
         }
     }
 

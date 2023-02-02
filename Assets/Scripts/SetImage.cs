@@ -55,6 +55,7 @@ public class SetImage : MonoBehaviour
     private Texture2D card_template_3;
     private Texture2D card_template_4;
     private Texture2D card_template_10;
+    private Texture2D card_template_100;
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
@@ -295,6 +296,7 @@ public class SetImage : MonoBehaviour
         card_template_3 = Resources.Load<Texture2D>("Sprites/Icon/card_template_3"); //レア
         card_template_4 = Resources.Load<Texture2D>("Sprites/Icon/card_template_4"); //スーパーレア
         card_template_10 = Resources.Load<Texture2D>("Sprites/Icon/card_template_10"); //器具のカードテンプレ画像
+        card_template_100 = Resources.Load<Texture2D>("Sprites/Icon/card_template_100"); //シークレットカード
 
         Card_param_obj = this.transform.Find("Card_Param_window").gameObject;
         Card_param_obj2 = this.transform.Find("Card_Param_window2").gameObject;
@@ -935,57 +937,66 @@ public class SetImage : MonoBehaviour
     {
     
         // texture2dを使い、Spriteを作って、反映させる
-        item_Icon.sprite = texture2d;       
+        item_Icon.sprite = texture2d;
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
-        switch (item_type_sub)
+        if (_secretFlag == 1) //シークレットは少しカードの柄が変わる。
         {
-            //器具系は、枠の色が違う。
-            case "Machine":
-                item_screen.sprite = Sprite.Create(card_template_10,
-                                   new Rect(0, 0, card_template_10.width, card_template_10.height),
-                                   Vector2.zero);
-                break;
+            item_screen.sprite = Sprite.Create(card_template_100,
+                                       new Rect(0, 0, card_template_100.width, card_template_100.height),
+                                       Vector2.zero);
+        }
+        else
+        {
+            switch (item_type_sub)
+            {
+                //器具系は、枠の色が違う。
+                case "Machine":
+                    item_screen.sprite = Sprite.Create(card_template_10,
+                                       new Rect(0, 0, card_template_10.width, card_template_10.height),
+                                       Vector2.zero);
+                    break;
 
-            default:
+                default:
 
-                //レア度に応じて、カードの枠が変わる。
-                switch (_rare)
-                {
-                    case 1:
+                    //レア度に応じて、カードの枠が変わる。
+                    switch (_rare)
+                    {
+                        case 1:
 
-                        item_screen.sprite = Sprite.Create(card_template_1,
-                                   new Rect(0, 0, card_template_1.width, card_template_1.height),
-                                   Vector2.zero);
-                        break;
+                            item_screen.sprite = Sprite.Create(card_template_1,
+                                       new Rect(0, 0, card_template_1.width, card_template_1.height),
+                                       Vector2.zero);
+                            break;
 
-                    case 2:
+                        case 2:
 
-                        item_screen.sprite = Sprite.Create(card_template_2,
-                                   new Rect(0, 0, card_template_2.width, card_template_2.height),
-                                   Vector2.zero);
-                        break;
+                            item_screen.sprite = Sprite.Create(card_template_2,
+                                       new Rect(0, 0, card_template_2.width, card_template_2.height),
+                                       Vector2.zero);
+                            break;
 
-                    case 3:
+                        case 3:
 
-                        item_screen.sprite = Sprite.Create(card_template_3,
-                                   new Rect(0, 0, card_template_3.width, card_template_3.height),
-                                   Vector2.zero);
-                        break;
+                            item_screen.sprite = Sprite.Create(card_template_3,
+                                       new Rect(0, 0, card_template_3.width, card_template_3.height),
+                                       Vector2.zero);
+                            break;
 
-                    case 4:
+                        case 4:
 
-                        item_screen.sprite = Sprite.Create(card_template_4,
-                                   new Rect(0, 0, card_template_4.width, card_template_4.height),
-                                   Vector2.zero);
-                        break;
+                            item_screen.sprite = Sprite.Create(card_template_4,
+                                       new Rect(0, 0, card_template_4.width, card_template_4.height),
+                                       Vector2.zero);
+                            break;
 
-                    default: //レア度がないやつ。
-                        
-                        break;
-                }
-                
-                break;
+                        default: //レア度がないやつ。
+
+                            break;
+                    }
+
+                    break;
+            }
         }
 
 
@@ -1238,8 +1249,17 @@ public class SetImage : MonoBehaviour
                 break;
         }
 
-        //最終的なテキストを表示 "\n"で改行
-        item_Category.text = category + " - " + subcategory;
+        if (_secretFlag == 1)
+        {
+            //最終的なテキストを表示 "\n"で改行 隠しレシピは後ろに★がつく
+            item_Category.text = category + " - " + subcategory + "★";
+        }
+        else
+        {
+            //最終的なテキストを表示 "\n"で改行
+            item_Category.text = category + " - " + subcategory;
+        }
+            
 
         /* カテゴリーここまで */
 

@@ -1266,12 +1266,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 GameMgr.sp_okashi_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
 
                 //いくつかの特殊条件をみたすと、ミニイベントを開始。現在は未使用。
-                if(GameMgr.Okashi_Extra_SpEvent_Start)
+                /*if(GameMgr.Okashi_Extra_SpEvent_Start)
                 {
                     GameMgr.Okashi_Extra_SpEvent_Start = false;
 
                     GameMgr.sp_okashi_ID = OkashiQuest_ID + 1;
-                }
+                }*/
             }
             //Debug.Log("OkashiQuest_ID: " + OkashiQuest_ID);
 
@@ -3644,11 +3644,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 FaceMotionPlay(2001); //はなうた
                 _touchface_comment_lib.Add("にいちゃん！今日はのんびり日和～♪　ごろごろ..。");
                 _touchface_comment_lib.Add("あのね！　このあいだ、いしの隙間でやもりさん見つけたよ～！");
-                _touchface_comment_lib.Add("まいあさ、みるく飲んで、背のばすよ～。いつか、おにいちゃん超えてやる！");
-                _touchface_comment_lib.Add("おうごんじゃがいも..　いっぱい食べたいな～♪");
+                _touchface_comment_lib.Add("うしさんのおちち。モ～モ～♪");
+                _touchface_comment_lib.Add("おうごんおじゃが..　いっぱい食べたいな～♪");
 
-                _touchface_comment_lib.Add("にいちゃん、すきすき！ハートのクッキー.. 作ろっかな！");
-                _touchface_comment_lib.Add("にいちゃん、焼きたてフィナンシェ.. サックサクでおいしいんだよ～♪");
+                _touchface_comment_lib.Add("にいちゃんのために、ハートクッキー作ろっかな！");
+                _touchface_comment_lib.Add("焼きたてフィナンシェ.. サックサクでおいしいんだよ～♪");
                 break;
 
             //80~から
@@ -3656,8 +3656,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 FaceMotionPlay(2001); //はなうた
                 _touchface_comment_lib.Add("とれとれ、とれたてか～にの身を～、ぱんにつ～めて～♪");
-                _touchface_comment_lib.Add("にいちゃん～！かにぱんまんのご本、いっしょに見よ～♪");
-                _touchface_comment_lib.Add("きらきらぽんぽ～♪　きょうもいっぱいだね！おにいちゃん！");
+                _touchface_comment_lib.Add("にいちゃん～！かにぱんまんのご本、いっしょに見よ～よ♪");
+                _touchface_comment_lib.Add("きらきらぽんぽ～♪　きょうもいっぱい！にいちゃん！");
                 _touchface_comment_lib.Add("にいちゃん。フォカッチャ大使は、じつはいい人なんだよ..！");
 
                 _touchface_comment_lib.Add("にいちゃん、ずっとヒカリのそばにいてね♪");

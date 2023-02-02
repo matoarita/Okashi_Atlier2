@@ -2474,7 +2474,7 @@ public class GetMaterial : MonoBehaviour
         //プレイヤーのアイテム発見力をバフつきで計算
         Keisan_FindPower();
         
-        //アイテム発見力30ごとに、一回探索する
+        //アイテム発見力20ごとに、一回探索回数がふえる。
         _findpower_girl_getmat_final = 0;
         while(_findpower_girl_getmat >= 20)
         {
@@ -2482,19 +2482,19 @@ public class GetMaterial : MonoBehaviour
             _findpower_girl_getmat_final++;
         }
 
-        //例外処理
-        if(_findpower_girl_getmat_final < 1) { _findpower_girl_getmat_final = 0; }
+        //例外処理  探索回数増加数は30は越えない。
+        if(_findpower_girl_getmat_final <= 0) { _findpower_girl_getmat_final = 0; }
         if (_findpower_girl_getmat_final >= 30) { _findpower_girl_getmat_final = 30; }
         //Debug.Log("_findpower_girl_getmat_final: " + _findpower_girl_getmat_final);
 
         //アイテムの入手
-        for (count = 0; count < 3 + _findpower_girl_getmat_final; count++) //〇回繰り返す
+        for (count = 0; count < 6 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
             ItemGetMethod(count);
         }
 
         //レアアイテムの入手
-        for (count = 0; count < _findpower_girl_getmat_final; count++) //〇回繰り返す
+        for (count = 0; count < 2 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
 
             RareItemGetMethod(count);

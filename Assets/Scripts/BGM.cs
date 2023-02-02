@@ -235,7 +235,14 @@ public class BGM : MonoBehaviour {
         }
         else
         {
-            _bgm[0].clip = sound1; //エクストラモード専用曲
+            if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
+            {
+                _bgm[0].clip = sound10;
+            }
+            else
+            {
+                _bgm[0].clip = sound21; //エクストラモード専用曲　旧: sound1
+            }
         }
     }
 

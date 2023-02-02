@@ -575,7 +575,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
         time_controller.Weather_Change(0.0f);
-        //time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 
@@ -827,7 +827,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
         time_controller.Weather_Change(0.0f);
-        //time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1052,7 +1052,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         time_controller.SetMinuteToHour(3);
         time_controller.Weather_Change(0.0f);
-        //time_controller.HikarimakeTimeCheck(3); //ヒカリのお菓子作り時間を計算
+        time_controller.HikarimakeTimeCheck(3); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();

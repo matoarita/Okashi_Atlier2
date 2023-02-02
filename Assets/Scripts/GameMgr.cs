@@ -30,7 +30,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     
-    public static bool System_Manpuku_ON = true; //エクストラ　満腹度をtrueだと、ONにする。
+    //エクストラの演出のONOFF
+    public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
+    public static bool System_ExtraResult_ON = false; //エクストラ　道中クエストのリザルト画面とご褒美画面をONにする。
+    public static bool System_ExtraStageClearResult_ON = false; //エクストラ　ステージクリア時にリザルト画面とご褒美画面をONにする。
+    public static bool System_GameOver_ON = false; //エクストラ　ゲームオーバーのONOFF
+    public static bool System_HikariMake_OnichanTimeCost_ON = false; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
 
     //** --ここまで-- **//
 
@@ -186,7 +191,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Okashi_totalscore; //女の子にあげたときの点数   
     public static int Okashi_last_totalscore; //前回食べたお菓子の点数 
     public static int Okashi_quest_bunki_on; //特定お菓子のときの条件分岐
-    public static bool high_score_flag; //高得点でクリアしたというフラグ。セーブされる。    
+    public static bool high_score_flag; //高得点でクリアしたというフラグ。セーブされる。
+    public static bool high_score_flag2; //150点~でクリアしたというフラグ。セーブされる。  
 
     public static int Okashi_toplast_score; //前回あげた最高得点
     public static int Okashi_toplast_heart; //前回あげたときの最高ハート取得量
@@ -276,7 +282,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
     //バージョン情報
-    public static float GameVersion = 1.35f;
+    public static float GameVersion = 1.40f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
@@ -810,6 +816,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_toplast_score = 0;
         Okashi_toplast_heart = 0;
         high_score_flag = false;
+        high_score_flag2 = false;
         hikari_tabetaiokashi_buf = false;
         hikari_tabetaiokashi_buf_time = 0;
 

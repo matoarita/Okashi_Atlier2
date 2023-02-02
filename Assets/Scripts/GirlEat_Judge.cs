@@ -380,6 +380,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private float _up_deg;
     private bool hlv_check;
 
+    private int _judge_sour = 40;
+
     // Use this for initialization
     void Start() {
 
@@ -1240,31 +1242,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     switch (GameMgr.GirlLoveEvent_num)
                     {
-                        case 0: //ハートあげる系
+                        /*case 0: //ハートあげる系
+
+                            //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
+                            SettingGirlHungrySet();
+                            break;*/
+
+                        case 1: //ヒカリにお菓子覚えさせる系
 
                             //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
                             SettingGirlHungrySet();
                             break;
 
-                        case 1: //ハートあげる系
-
-                            //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                            SettingGirlHungrySet();
-                            break;
-
-                        case 2: //ハートあげる系
-
-                            //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                            SettingGirlHungrySet();
-                            break;
-
-                        case 3: //ハートあげる系
-
-                            //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                            SettingGirlHungrySet();
-                            break;
-
-                        case 20: //ハートあげる系
+                        case 11: //お茶会
 
                             //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
                             SettingGirlHungrySet();
@@ -2419,6 +2409,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         //まずはリセット
         GameMgr.high_score_flag = false;
+        GameMgr.high_score_flag2 = false;
 
         //☆
         if (total_score > 0 && total_score < GameMgr.mazui_score)
@@ -2471,7 +2462,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             star_Count = 5;
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
-            GameMgr.high_score_flag = true; //ハイスコアでクリアしたので、高得点ゲットのフラグがたつ。
+            GameMgr.high_score_flag = true; //ハイスコアでクリアしたので、高得点ゲットのフラグがたつ。  
+            //GameMgr.high_score_flag2 = true; //150~でクリアしたフラグ
             if (database.items[_baseID].HighScore_flag < 2)
             {
                 database.items[_baseID].HighScore_flag = 2;
@@ -2816,17 +2808,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //エクストラモード時　さらに計算
             if (GameMgr.Story_Mode == 1)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
+                //Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
                 GameMgr.RandomEatOkashi_counter++;
 
                 if (GameMgr.NowEatOkashiID == _baseID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
-                    Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.2倍");
+                    Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.3倍");
 
                     GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
                     GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
 
-                    Getlove_exp = (int)(Getlove_exp * 1.2f);
+                    Getlove_exp = (int)(Getlove_exp * 1.3f);
                     PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
 
                     if (PlayerStatus.player_girl_eatCount_tabetai >= 999)
@@ -2878,10 +2870,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
             GetMoney = (int)(GetMoney * _buf_moneyup / 2);
 
-            if (GameMgr.Story_Mode == 1)
+            /*if (GameMgr.Story_Mode == 1)
             {
                 GetMoney = (int)(GetMoney * 0.7f); //エクストラの最終的な調整　元のままだと、少し入りすぎた感があるため。
-            }
+            }*/
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
             Debug.Log("取得お金: " + GetMoney);
@@ -3055,6 +3047,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else
             { }
+        }
+        else //エクストラモードの場合なし。
+        {
+            /*if (_slider.value + _Getlove_param >= _slider.maxValue)
+            {
+                if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、判定処理をなくしておく。
+                {
+                }
+                else
+                {
+                    Debug.Log("ハートレベル上がったので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+            }
+            else
+            { }*/
         }
 
 
@@ -3942,6 +3950,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //yield return new WaitForSeconds(0.5f);
 
         GameMgr.scenario_ON = true;
+
+        //高得点のときは、ここで特別スチルがでる。
+        if (total_score >= GameMgr.high_score_2)
+        {
+
+        }
+
+
         GameMgr.Extraquest_ID = girl1_status.OkashiQuest_ID; //
         GameMgr.ExtraClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
@@ -3950,12 +3966,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             switch (GameMgr.Extraquest_ID)
             {
-                case 10020: //カマキリ
+                /*case 10020: //カマキリ
 
-                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //その日の夕方に。
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                    PlayerStatus.player_day = PlayerStatus.player_day + 1;
+                    break;*/
+
+                case 10040: //スーパークッキー
+
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
                     PlayerStatus.player_day = PlayerStatus.player_day + 1;
                     break;
-
             }
         }
 
@@ -4012,19 +4033,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 GameMgr.MainQuestClear_flag = 0;
                 special_quest.SetSpecialOkashiDict(GameMgr.NextQuestID, 2);
 
-                //EndSpQuest();
-                EndExtraQuest(); //リザルトとごほうび画面をだす
+                if(GameMgr.System_ExtraResult_ON)
+                {
+                    EndExtraQuest(); //リザルトとごほうび画面をだす
+                }
+                else
+                {
+                    EndSpQuest();
+                }
             }
 
         }
-
         else //次クエが100で割り切れる。次のSpお菓子へ
         {
-            GameMgr.MainQuestClear_flag = 1; //次ステージへ行く場合。1になる。主にエクストラモード（報酬ゲット後のパネルの判定）で、通常SPかメインクエストクリアかを判定するのに使用。
+            GameMgr.MainQuestClear_flag = 1; //次ステージへ行く場合。1になる。現在未使用。主にエクストラモード用（報酬ゲット後のパネルの判定）で、通常SPかメインクエストクリアかを判定するのに使用。
             subQuestClear_check = true;
             GameMgr.QuestClearAnim_Flag = false; //次のメインクエストへ行くまえに、また演出はOFFに。
             ResultPanel_On();
-
         }
 
     }
@@ -4056,8 +4081,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 2);
 
-            //EndSpQuest();
-            EndExtraQuest(); //リザルトとごほうび画面をだす
+            if (GameMgr.System_ExtraResult_ON)
+            {
+                EndExtraQuest(); //リザルトとごほうび画面をだす
+            }
+            else
+            {
+                EndSpQuest();
+            }
         }
     }
 
@@ -4120,51 +4151,107 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             switch (GameMgr.GirlLoveEvent_num)
             {
-                case 4: //230点以上のスーパークレープ　条件分岐
 
-                    if (total_score >= 230)
-                    {
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
-
-                    }
-
-                    break;
-
-                case 10: //茶色いクッキー
+                case 0: //茶色いクッキー
 
                     if (_basename == "cocoa_cookie" && total_score >= GameMgr.low_score)
                     {
                         sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";                       
-                    }
-
-                    break;
-
-                case 13: //カミナリのようにすっぱいクレープ 酸味が100以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
-
-                    if (_baseitemtype_sub == "Crepe" && _basesour >= 85)
-                    {
-
-                        sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
-
                     }
+
                     break;
 
-                case 14: //300点以上のいちごのクレープ
+                case 3: //ピンククッキー
 
-                    if (total_score >= 300)
+                    if (total_score >= GameMgr.low_score)
                     {
-                        if (_basename == "strawberry_crepe" || _basename == "strawberryblueberry_crepe" || _basename == "berry_crepe" || _basename == "doubleberry_crepe")
+                        if (_basename == "cherry_cookie" || _basename == "sakura_cookie" || _basename == "peach_cookie")
                         {
                             sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";                           
+                            _windowtext.text = "満足しているようだ。";
+                        }
+                    }
+
+                    break;
+
+                case 4: //さっくりさくさく最強クッキー
+
+                    if (_baseitemtype_sub == "Cookie")
+                    {
+                        if (total_score >= GameMgr.high_score_2)
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+
+                            if (total_score >= 200) //ハイスコア判定
+                            {
+                                GameMgr.high_score_flag2 = true; //200~でクリアしたフラグ
+                            }
                         }
                     }
                     break;
 
-                case 21: //ムーディーな大人のおかし　カンノーリ　ティラミス　コーヒー　カフェオレシュー　ココアクッキー　ビスコッティ
+                case 10: //むらさき色のお茶
+
+                    if (total_score >= GameMgr.low_score)
+                    {
+                        if (_basename == "lavender_tea" || _basename == "hydrangea_tea")
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+                        }
+                    }
+
+                    break;
+
+                case 12: //ベリークレープ
+
+                    if (total_score >= GameMgr.low_score)
+                    {
+                        if (_basename == "strawberry_crepe" || _basename == "blueberry_crepe" || _basename == "strawberryblueberry_crepe" || 
+                            _basename == "doubleberry_crepe" || _basename == "berry_crepe")
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+                        }
+                    }
+
+                    break;
+
+                case 13: //カミナリのようにすっぱいクレープ 酸味が40以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
+
+                    if (total_score >= GameMgr.low_score)
+                    {
+                        if (_baseitemtype_sub == "Crepe" && _basesour >= _judge_sour)
+                        {
+
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+
+                        }
+                    }
+                    break;
+
+                case 14: //200点以上のいちごのクレープ
+
+                    if (total_score >= 150)
+                    {
+                        if (_basename == "strawberry_crepe" || _basename == "strawberryblueberry_crepe" || _basename == "berry_crepe" || _basename == "doubleberry_crepe")
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+
+                            if (total_score >= 200) //ハイスコア判定
+                            {
+                                GameMgr.high_score_flag2 = true; //高得点でクリアしたフラグ
+                            }
+                        }
+                    }
+                    break;
+                
+
+                case 20: //ムーディーな大人のおかし　カンノーリ　ティラミス　コーヒー　カフェオレシュー　ココアクッキー　ビスコッティ
 
                     if (total_score >= GameMgr.low_score)
                     {
@@ -4178,23 +4265,33 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
-                case 23: //200をこえる夢のようなパンケーキ
+                case 23: //夢のようなパンケーキ 見た目をよくしないとクリアできない
 
-                    if (_baseitemtype_sub == "PanCake" && total_score >= 200 && _basebeauty >= 120)
+                    if (total_score >= GameMgr.low_score)
                     {
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
+                        if (_baseitemtype_sub == "PanCake" && _basebeauty >= 100)
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+                        }
                     }
 
                     break;
 
-                case 24: //300点超えのプリンセストータ
+                case 24: //鉱石マフィン
 
-                    if (_basename == "princess_tota" && total_score >= 300)
+                    if (_basename == "maffin_jewery") //princess_tota
                     {
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
-                        
+                        if (total_score >= GameMgr.low_score)
+                        {
+                            sp_quest_clear = true;
+                            _windowtext.text = "満足しているようだ。";
+
+                            if (total_score >= 150) //ハイスコア判定
+                            {
+                                GameMgr.high_score_flag2 = true; //高得点でクリアしたフラグ
+                            }
+                        }
                     }
 
                     break;
@@ -4210,6 +4307,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     //
     //クエストクリア条件　エクストラモード時ハート系　食べなくてもハートが上がったタイミングでクエストクリア判定する
+    //ハートあげる系のクエストは、上あたりにある「judge_result()」も更新しないとダメ
     //
     void HeartUpQuestBunkiCheck()
     {
@@ -4217,7 +4315,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             switch (GameMgr.GirlLoveEvent_num)
             {
-                case 0:
+                /*case 0:
 
                     if (PlayerStatus.girl1_Love_exp >= 100)
                     {
@@ -4231,17 +4329,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         }
 
                     }
-                    break;
+                    break;*/
 
                 case 1:
 
-                    /*if (databaseCompo.Hikarimake_Totalcount() >= 3)
+                    if (databaseCompo.Hikarimake_Totalcount() >= 1)
                     {
-                        Debug.Log("＜エクストラ＞ヒカリがお菓子を3種類覚えたので、クエストクリア");
+                        Debug.Log("＜エクストラ＞ヒカリがお菓子を1種類覚えたので、クエストクリア");
                         sp_quest_clear = true;
 
-                    }*/
-                    if (PlayerStatus.girl1_Love_exp >= 300)
+                    }
+                    /*if (PlayerStatus.girl1_Love_exp >= 300)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
                         sp_quest_clear = true;
@@ -4252,10 +4350,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             GameMgr.Okashi_Extra_SpEvent_Start = false;
                         }
 
-                    }
+                    }*/
                     break;
 
-                case 2:
+                /*case 2:
 
                     if (PlayerStatus.girl1_Love_exp >= 650)
                     {
@@ -4285,7 +4383,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         }
 
                     }
-                    break;
+                    break;*/
 
                 case 11:
 
@@ -4297,15 +4395,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
-                case 12:
+                /*case 12:
 
-                    /*
-                    if (databaseCompo.Hikarimake_Totalcount() >= 3)
-                    {
-                        Debug.Log("＜エクストラ＞ヒカリがお菓子を3種類覚えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                    }*/
                     if (PlayerStatus.girl1_Love_exp >= 2000)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
@@ -4339,12 +4430,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 22:
 
-                    /*if (databaseCompo.Hikarimake_Totalcount() >= 10)
-                    {
-                        Debug.Log("＜エクストラ＞ヒカリがお菓子を10種類覚えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                    }*/
                     if (PlayerStatus.girl1_Love_exp >= 5000)
                     {
                         Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
@@ -4359,7 +4444,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
-                /*case 24:
+                case 24:
 
                     if (PlayerStatus.girl1_Love_exp >= 5000)
                     {
@@ -4435,13 +4520,34 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (girlLikeCompo_database.girllike_composet[i].set_ID == _temp_count)
             {
-                if (!GameMgr.high_score_flag) //通常クリア
+                if (GameMgr.Story_Mode == 0)
                 {
-                    _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name2;
+                    if (!GameMgr.high_score_flag) //通常クリア
+                    {
+                        _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name2;
+                    }
+                    else //さらに高得点だったら、特別なイベントや報酬などが発生
+                    {
+                        _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name3;
+                    }
                 }
-                else //さらに高得点だったら、特別なイベントや報酬などが発生
+                else
                 {
-                    _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name3;
+                    if (!GameMgr.high_score_flag) //通常クリア
+                    {
+                        _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name2;
+                    }
+                    else
+                    {
+                        if (!GameMgr.high_score_flag2) //通常クリア
+                        {
+                            _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name2;
+                        }
+                        else //さらに高得点だったら、特別なイベントや報酬などが発生
+                        {
+                            _mainquest_name = girlLikeCompo_database.girllike_composet[i].spquest_name3;
+                        }
+                    }
                 }
             }
         }
@@ -4533,20 +4639,35 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             ClearQuestName();
             MainQuestText.text = _mainquest_name;
 
+            //宴の「MainQuestClear」タブを指定
             if (GameMgr.Story_Mode == 0)
             {
                 if (!GameMgr.high_score_flag) //通常クリア
                 {
                     _set_MainQuestID = _temp_count;
                 }
-                else //ハイスコアクリア　直前で食べたお菓子で85~だせばフラグがたつ。
+                else //ハイスコアクリア　直前で食べたお菓子で100~だせばフラグがたつ。
                 {
                     _set_MainQuestID = _temp_count + 1;
                 }
             }
             else
             {
-                _set_MainQuestID = _temp_count;
+                if (!GameMgr.high_score_flag) //通常クリア
+                {
+                    _set_MainQuestID = _temp_count;
+                }
+                else //ハイスコアクリア　直前で食べたお菓子で100~だせばフラグがたつ。
+                {
+                    if (!GameMgr.high_score_flag2) //さらに一定の高得点水準をだしたかどうか
+                    {
+                        _set_MainQuestID = _temp_count;
+                    }
+                    else //150~クリア
+                    {                        
+                        _set_MainQuestID = _temp_count + 1;
+                    }
+                }
             }
 
             StartCoroutine("MainQuestClearEvent");
@@ -4960,7 +5081,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 case 10130: //めちゃすっぱいクレープ１　すっぱさが足りてないとき
 
-                    if (_basesour <= 85)
+                    if (_basesour <= _judge_sour)
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 0;
+                    }
+
+                    break;
+
+                case 10230: //夢みたいなパンケーキ　見た目がたりてない
+
+                    if (_basebeauty <= 100)
                     {
                         no_hint = false;
                         tpcheck_utageON = true;

@@ -326,7 +326,7 @@ public class TimeController : MonoBehaviour
 
                                             }
 
-                                            //お菓子を作ってる間、キゲンが良い間はハートも上がる。
+                                            //お菓子を作ってる間、ハート上がる。
                                             timeIttei4++;                                           
                                             if (PlayerStatus.player_girl_manpuku >= 10)
                                             {
@@ -366,7 +366,7 @@ public class TimeController : MonoBehaviour
                                                 }
                                             }
                                         }
-                                        else //ヒカリがお菓子を作ってないときは、ご機嫌のときのみ少しハートは上がる。
+                                        else //ヒカリがお菓子を作ってないときは、アイテムのみハート上がる。
                                         {
                                             timeIttei4++;
                                             if (PlayerStatus.player_girl_manpuku >= 10)
@@ -509,30 +509,34 @@ public class TimeController : MonoBehaviour
                                             compound_main.ManpukuBarKoushin(-1);
 
                                             //満腹度が0になると、ハートも減り始める。
-                                            if (PlayerStatus.player_girl_manpuku <= 0)
+                                            if (GameMgr.System_Manpuku_ON)
                                             {
-                                                girleat_judge.UpDegHeart(-1, false);
-                                                compound_main.GirlExpressionKoushin(-3);
+                                                if (PlayerStatus.player_girl_manpuku <= 0)
+                                                {
+                                                    girleat_judge.UpDegHeart(-1, false);
+                                                    compound_main.GirlExpressionKoushin(-3);
 
-                                                /*if (PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 80)
-                                                {
-                                                    girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.05f), false);
-                                                }
-                                                else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
-                                                {
-                                                    girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.075f), false);
-                                                }
-                                                else if (PlayerStatus.girl1_Love_lv >= 90)
-                                                {
-                                                    girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.1f), false);
-                                                }
-                                                else
-                                                {
-                                                    girleat_judge.DegHeart(-1, false);
-                                                }*/
+                                                    /*if (PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 80)
+                                                    {
+                                                        girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.05f), false);
+                                                    }
+                                                    else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
+                                                    {
+                                                        girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.075f), false);
+                                                    }
+                                                    else if (PlayerStatus.girl1_Love_lv >= 90)
+                                                    {
+                                                        girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.1f), false);
+                                                    }
+                                                    else
+                                                    {
+                                                        girleat_judge.DegHeart(-1, false);
+                                                    }*/
 
-                                                girl1_status.MotionChange(23);
+                                                    girl1_status.MotionChange(23);
+                                                }
                                             }
+                                            else { }
 
                                             //機嫌も少しずつ収まっていく。
                                             if (PlayerStatus.player_girl_express_param >= 50)
@@ -1214,30 +1218,33 @@ public class TimeController : MonoBehaviour
     }
 
     //時間をいれると、その経過時間をチェックし、お菓子を作ってないかを判定 Exp_Controllerから読み出し。
-    //にいちゃんとヒカリの材料消費の処理が入り組んで複雑なため、現在未使用。
+    //にいちゃんとヒカリの材料消費の処理が入り組んで複雑なため、バグがある可能性大。ひとまず未使用。
     public void HikarimakeTimeCheck(int _costTime)
     {
-        //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
-        if (!GameMgr.outgirl_Nowprogress)
+        if (GameMgr.System_HikariMake_OnichanTimeCost_ON)
         {
-            if (GameMgr.hikari_make_okashiFlag)
+            //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
+            if (!GameMgr.outgirl_Nowprogress)
             {
-                GameMgr.hikari_make_okashiTimeCounter += (5 * _costTime);
-
-                while (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost)
+                if (GameMgr.hikari_make_okashiFlag)
                 {
-                    //costtime=1が5分　ヒカリが作ると2倍時間かかる　
-                    //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
+                    GameMgr.hikari_make_okashiTimeCounter += (5 * _costTime);
 
-                    GameMgr.hikari_make_okashiTimeCounter -= GameMgr.hikari_make_okashiTimeCost;
-
-                    //お菓子制作。成功率を計算する。
-                    HikariMakeOkashiJudge();
-
-                    if (!GameMgr.hikari_make_okashiFlag)
+                    while (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost)
                     {
-                        //終了
-                        break;
+                        //costtime=1が5分　ヒカリが作ると2倍時間かかる　
+                        //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
+
+                        GameMgr.hikari_make_okashiTimeCounter -= GameMgr.hikari_make_okashiTimeCost;
+
+                        //お菓子制作。成功率を計算する。
+                        HikariMakeOkashiJudge();
+
+                        if (!GameMgr.hikari_make_okashiFlag)
+                        {
+                            //終了
+                            break;
+                        }
                     }
                 }
             }

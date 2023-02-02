@@ -797,17 +797,20 @@ public class Compound_Main : MonoBehaviour
         compound_select = GameMgr.compound_select;
 
         //エクストラモード　お金が0を下回ったらゲームオーバー
-        if (GameMgr.Story_Mode != 0)
+        if (GameMgr.System_GameOver_ON)
         {
-            if (PlayerStatus.player_money <= 0)
+            if (GameMgr.Story_Mode != 0)
             {
-                if (!gameover_loading)
+                if (PlayerStatus.player_money <= 0)
                 {
-                    gameover_loading = true; //アップデートを更新しないようにしている。
-                                             //お金が0になったので、ゲーム終了　ぐええ
-                    Debug.Log("ゲームオーバー画面表示");
+                    if (!gameover_loading)
+                    {
+                        gameover_loading = true; //アップデートを更新しないようにしている。
+                                                 //お金が0になったので、ゲーム終了　ぐええ
+                        Debug.Log("ゲームオーバー画面表示");
 
-                    FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+                        FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+                    }
                 }
             }
         }
@@ -1571,12 +1574,12 @@ public class Compound_Main : MonoBehaviour
 
                 }
 
-                if (!SceneStart_flag)
-                {
+                //if (!SceneStart_flag)
+                //{
                     if (girl1_status.special_animatFirst) //SPアニメ終わったあとにチェック
                     {
 
-                        SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
+                        //SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
 
                         //エクストラモード　クエストクリアチェック
                         if (GameMgr.Story_Mode == 1)
@@ -1585,7 +1588,7 @@ public class Compound_Main : MonoBehaviour
                         }
 
                     }
-                }
+                //}
 
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
                 if (GameMgr.check_CompoAfter_flag)
@@ -2393,7 +2396,14 @@ public class Compound_Main : MonoBehaviour
 
         if (GameMgr.Story_Mode == 1)
         {
-            manpuku_bar.SetActive(true);
+            if (GameMgr.System_Manpuku_ON)
+            {
+                manpuku_bar.SetActive(true);
+            }
+            else
+            {
+                manpuku_bar.SetActive(false);
+            }
         }
 
         //girleat_toggle.SetActive(true);
@@ -4373,6 +4383,13 @@ public class Compound_Main : MonoBehaviour
 
     void ManpukuKoushin()
     {
+        if (GameMgr.System_Manpuku_ON)
+        { }
+        else
+        {
+            PlayerStatus.player_girl_manpuku = 50; //満腹機能使ってないときは、常に50を保つ。
+        }
+
         if (PlayerStatus.player_girl_manpuku >= 0 && PlayerStatus.player_girl_manpuku < 1)
         {
             manpuku_text.text = "空腹";

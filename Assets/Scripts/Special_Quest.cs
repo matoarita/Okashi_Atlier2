@@ -313,7 +313,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     {
         switch (spquest_set_num)
         {
-            case 0: //ハートを100
+            case 0: //茶色クッキー　（ハートを100）
 
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 10000;
@@ -321,31 +321,31 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 1: //300
+            case 1: //ヒカリにお菓子一個覚えさせる
 
                 girl1_status.OkashiQuest_ID = 10010;
                 OkashiQuest_Count = 2;
 
                 break;
 
-            case 2: //650
+            case 2: //未使用
 
                 girl1_status.OkashiQuest_ID = 10020;
                 OkashiQuest_Count = 3;
 
                 break;
 
-            case 3: //1000
+            case 3: //ピンクのクッキー
 
                 girl1_status.OkashiQuest_ID = 10030;
-                OkashiQuest_Count = 4;
+                OkashiQuest_Count = 3;
 
                 break;
 
-            case 4: //230点以上のスーパークレープ　条件分岐
+            case 4: //スーパークッキー
 
                 girl1_status.OkashiQuest_ID = 10040;
-                OkashiQuest_Count = 5;
+                OkashiQuest_Count = 4;
 
                 break;
 
@@ -363,7 +363,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 12: //ハート2000以上
+            case 12: //豪華なベリークレープ
 
                 girl1_status.OkashiQuest_ID = 10120;
                 OkashiQuest_Count = 3;
@@ -384,21 +384,21 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 20: //ハート3000以上
+            case 20: //大人でムーディーなお菓子
 
                 girl1_status.OkashiQuest_ID = 10200;
                 OkashiQuest_Count = 1;
 
                 break;
 
-            case 21: //大人でムーディーなお菓子
+            case 21: //未使用　（ハート3000以上）
 
                 girl1_status.OkashiQuest_ID = 10210;
                 OkashiQuest_Count = 2;
 
                 break;
 
-            case 22: //ヒカリが10種類のお菓子を作れる
+            case 22: //未使用　（ヒカリが10種類のお菓子を作れる）
 
                 girl1_status.OkashiQuest_ID = 10220;
                 OkashiQuest_Count = 3;
@@ -408,7 +408,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 23: //200点超える夢のようなパンケーキ
 
                 girl1_status.OkashiQuest_ID = 10230;
-                OkashiQuest_Count = 4;
+                OkashiQuest_Count = 2;
 
                 break;
 
@@ -416,7 +416,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 //Debug.Log("Extra 24: Check");
                 girl1_status.OkashiQuest_ID = 10240;
-                OkashiQuest_Count = 5;
+                OkashiQuest_Count = 3;
 
                 //３と４は飛ばす GirlEatJudgeのほうで、条件分岐    
                 //debug_panelでも更新してる。
@@ -494,9 +494,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
         else
         {
-            QuestCountDict.Add(1, 5);
+            QuestCountDict.Add(1, 4);
             QuestCountDict.Add(2, 5);
-            QuestCountDict.Add(3, 5);
+            QuestCountDict.Add(3, 3);
             QuestCountDict.Add(6, 1);
         }
 

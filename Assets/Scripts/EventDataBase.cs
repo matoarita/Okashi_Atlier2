@@ -657,30 +657,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }
-
-                //エクストラモードのみのイベント　カフェ
-                /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 40 && GameMgr.GirlLoveSubEvent_stage1[62] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 62;
-                            GameMgr.GirlLoveSubEvent_stage1[62] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            //イベントCG解禁
-                            //GameMgr.SetEventCollectionFlag("event1", true);
-                            //GameMgr.SetEventCollectionFlag("event2", true);
-                        }
-                    }
-                }*/
-
+               
                 //エクストラモードのみのイベント　どっこいステーキ
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -700,6 +677,60 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //エクストラモードのみのイベント　すみれのお花のお菓子
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 50 && GameMgr.GirlLoveSubEvent_stage1[62] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 62;
+                            GameMgr.GirlLoveSubEvent_stage1[62] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            //天気も変更
+                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
+
+                            //イベントCG解禁
+                            //GameMgr.SetEventCollectionFlag("event1", true);
+                            //GameMgr.SetEventCollectionFlag("event2", true);
+                        }
+                    }
+                }
+
+                //エクストラモードのみのイベント　カマキリ
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 60 && GameMgr.GirlLoveSubEvent_stage1[69] == false) //
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 69;
+                            GameMgr.GirlLoveSubEvent_stage1[69] = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            //天気も変更
+                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
+
+                            //イベントCG解禁
+                            //GameMgr.SetEventCollectionFlag("event1", true);
+                            //GameMgr.SetEventCollectionFlag("event2", true);
+                        }
+                    }
+                }
+
                 //エクストラモードのみのイベント　わたあめ
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -715,6 +746,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.check_GirlLoveSubEvent_flag = false;
 
                             GameMgr.Mute_on = true;
+
+                            //天気も変更
+                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
                         }
                     }
                 }
@@ -736,6 +771,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.Mute_on = true;
 
                             pitemlist.addPlayerItemString("heart_jewery", 1); //ハート宝石ゲット
+
+                            //天気も変更
+                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
                         }
                     }
                 }
@@ -755,6 +794,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.check_GirlLoveSubEvent_flag = false;
 
                             GameMgr.Mute_on = true;
+
+                            //天気も変更
+                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
                         }
                     }
                 }
@@ -776,6 +819,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.Mute_on = true;
 
                             pitemlist.addPlayerItemString("Record_16", 1); //レコード
+                            pitemlist.addPlayerItemString("rubyDongri", 1); //るびーどんぐり
                         }
                     }
                 }
@@ -800,6 +844,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }
+                //GirlLoveSubEvent_stage1 サブイベントは69まで。70~は、衣装買ったときのセリフが入っている。
 
 
                 //
