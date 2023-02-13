@@ -282,7 +282,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
     //バージョン情報
-    public static float GameVersion = 1.40f;
+    public static float GameVersion = 1.41f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
@@ -1017,7 +1017,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //コンテストお菓子初期化
         contest_okashi_ItemData = new Item(9999, "Non", "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
+                        "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0);
 
         //お菓子のクリア基準値

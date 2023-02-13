@@ -2174,6 +2174,12 @@ public class GetMaterial : MonoBehaviour
                     treasureInfo.Add(1, "Record_6");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
                 }
+                if (pitemlist.KosuCount("crepe_powerup3") == 0)
+                {
+                    treasureInfo.Add(2, "crepe_powerup3");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
+                
 
                 break;
 
@@ -2187,6 +2193,11 @@ public class GetMaterial : MonoBehaviour
                     treasureInfo.Add(1, "Record_7");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
                 }
+                if (pitemlist.KosuCount("cookie_powerup4") == 0)
+                {
+                    treasureInfo.Add(2, "cookie_powerup4");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "Lavender_field":
@@ -2198,6 +2209,11 @@ public class GetMaterial : MonoBehaviour
                 {                  
                     treasureInfo.Add(1, "Record_8");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
+                if (pitemlist.KosuCount("shokukan_powerup3") == 0)
+                {
+                    treasureInfo.Add(2, "shokukan_powerup3");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
@@ -2211,6 +2227,11 @@ public class GetMaterial : MonoBehaviour
                     treasureInfo.Add(1, "Record_9");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
                 }
+                if (pitemlist.KosuCount("candy_powerup1") == 0)
+                {
+                    treasureInfo.Add(2, "candy_powerup1");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "HimawariHill":
@@ -2222,6 +2243,11 @@ public class GetMaterial : MonoBehaviour
                 {
                     treasureInfo.Add(1, "Record_10");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
+                if (pitemlist.KosuCount("hikari_powerup3") == 0)
+                {
+                    treasureInfo.Add(2, "hikari_powerup3");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
@@ -2235,6 +2261,11 @@ public class GetMaterial : MonoBehaviour
                     treasureInfo.Add(1, "Record_11");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
                 }
+                if (pitemlist.KosuCount("tea_powerup4") == 0)
+                {
+                    treasureInfo.Add(2, "tea_powerup4");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "BirdSanctuali":
@@ -2247,6 +2278,11 @@ public class GetMaterial : MonoBehaviour
                     treasureInfo.Add(1, "Record_12");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
                 }
+                if (pitemlist.KosuCount("magic_crystal2") == 0)
+                {
+                    treasureInfo.Add(2, "magic_crystal2");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
                 break;
 
             case "CatGrave":
@@ -2258,6 +2294,11 @@ public class GetMaterial : MonoBehaviour
                 {
                     treasureInfo.Add(1, "Record_13");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                }
+                if (pitemlist.KosuCount("otona_powerup1") == 0)
+                {
+                    treasureInfo.Add(2, "otona_powerup1");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 

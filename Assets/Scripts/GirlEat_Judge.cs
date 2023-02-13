@@ -3954,14 +3954,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //高得点のときは、ここで特別スチルがでる。
         if (total_score >= GameMgr.high_score_2)
         {
-
+            GameMgr.Extraquest_ID = girl1_status.OkashiQuest_ID + 100000;
         }
-
-
-        GameMgr.Extraquest_ID = girl1_status.OkashiQuest_ID; //
+        else
+        {
+            GameMgr.Extraquest_ID = girl1_status.OkashiQuest_ID; //
+        }
+        
         GameMgr.ExtraClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
-        //イベントによっては、日付もしくは天気を変更する。エクストラクリアの場合。
+        //エクストラ小クエストクリア時の感想。イベントによっては、日付もしくは天気を変更する。アイテム取得関係もここで処理。
         if (GameMgr.Story_Mode == 1)
         {
             switch (GameMgr.Extraquest_ID)
@@ -3977,6 +3979,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
                     PlayerStatus.player_day = PlayerStatus.player_day + 1;
                     break;
+
+                /*case 110000: //ココアクッキー高得点
+
+                    //茶色の小瓶ゲット
+                    pitemlist.addPlayerItemString("shokukan_powerup1", 1); //
+                    break;*/
             }
         }
 
@@ -4731,6 +4739,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 //イベントCG解禁
                 GameMgr.SetEventCollectionFlag("event6", true);
+                break;
+
+            case 10001:
+
+                //りんごのハンカチゲット
+                pitemlist.addPlayerItemString("crepe_powerup4", 1); //
                 break;
 
         }

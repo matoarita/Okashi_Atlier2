@@ -691,7 +691,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
         if (playerData.save_MapEvent_08 == null)
         {
-            //バージョンが新しくなっていた場合は、ロードしてしまうと、nullが入ってしまうので、回避用。ver1.20で以下二つのマップイベント配列を追加。
         }
         else
         {
@@ -825,7 +824,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             
         }*/
 
-        //調合のフラグ＋調合回数を記録　プレイヤーデータではしない。ヒカリの制作フラグだけ読み込み。
+        //調合のフラグ＋調合回数を記録　プレイヤーデータではしない。
         for (count = 0; count < playerData.save_itemCompodatabase.Count; count++)
         {
             i = 0;
@@ -1393,7 +1392,18 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 {
                     if (systemData.save_itemCompodatabase[count].comp_name == databaseCompo.compoitems[i].cmpitem_Name)
                     {
-                        databaseCompo.compoitems[i].cmpitem_flag = systemData.save_itemCompodatabase[count].comp_Flag;
+                        if(databaseCompo.compoitems[i].cmpitem_flag == 9999) //最新のエクセルが9999なら、そっちを優先
+                        {  }
+                        else
+                        { //そうじゃないとき
+                            if(systemData.save_itemCompodatabase[count].comp_Flag == 9999) //読み込み元が9999だと、そっちは無視して最新を優先する。
+                            { }
+                            else
+                            {
+                                databaseCompo.compoitems[i].cmpitem_flag = systemData.save_itemCompodatabase[count].comp_Flag;
+                            }
+                        }
+                        
                         databaseCompo.compoitems[i].comp_count = systemData.save_itemCompodatabase[count].comp_Count;
                         databaseCompo.compoitems[i].hikari_make_count = systemData.save_itemCompodatabase[count].hikarimake_Count;
                         //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);

@@ -287,7 +287,9 @@ public class TimeController : MonoBehaviour
                                     SetMinuteToHour(1); //1=5分単位
                                     TimeKoushin(0);
 
+                                    
                                     Weather_Change(5.0f);
+                                    
 
                                     //サブ時間イベントをチェック
                                     if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
@@ -726,17 +728,21 @@ public class TimeController : MonoBehaviour
         //フリーモードのときのみ　変更
         if (GameMgr.Story_Mode == 1)
         {
-            Weather_Judge_Method();            
+            Weather_Judge_Method();
 
             //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
             //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
-            if (GameMgr.BG_cullent_weather != GameMgr.BG_before_weather)
-            {
-                GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
 
-                //天気アニメ変更をトリガー
-                compound_main.BG_RealtimeChange(_changetime); //背景更新
-                Debug.Log("天気を変更　秒数: " + _changetime);
+            if (GameMgr.BG_cullent_weather != 2) //朝起きたては、強制的にCompound_MainのOnMorningBG()で変更するので、朝の判定のみ削除。お昼～夜まではチェック。
+            {
+                if (GameMgr.BG_cullent_weather != GameMgr.BG_before_weather)
+                {
+                    GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
+
+                    //天気アニメ変更をトリガー
+                    compound_main.BG_RealtimeChange(_changetime); //背景更新
+                    Debug.Log("天気を変更　秒数: " + _changetime);
+                }
             }
         }
     }

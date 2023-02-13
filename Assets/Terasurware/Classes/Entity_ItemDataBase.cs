@@ -44,6 +44,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int beauty;
 		public string type;
 		public string subtype;
+		public string subtype_category;
 		public int base_score;
 		public float girl1_like;
 		public int cost_price;

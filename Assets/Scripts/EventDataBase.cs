@@ -320,10 +320,16 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
-    //SPお菓子とは別で、パティシエレベルor好感度が一定に達すると発生するサブイベント
+    //SPお菓子とは別で、パティシエレベルor好感度が一定に達すると発生するサブイベント Compound_Mainから読み出す。
     public void GirlLove_SubEventMethod()
     {
         GameMgr.girlloveevent_bunki = 1; //サブイベントの発生のチェック。宴用に分岐。
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //時間管理オブジェクトの取得
+        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
         if (GameMgr.GirlLove_loading)
         { }
@@ -771,6 +777,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.Mute_on = true;
 
                             pitemlist.addPlayerItemString("heart_jewery", 1); //ハート宝石ゲット
+                            if (PlayerStatus.player_money >= 100)
+                            {
+                                PlayerStatus.player_money -= 100; //100ルピア消費
+                            }
+                            else
+                            {
+                                PlayerStatus.player_money = 0;
+                            }
 
                             //天気も変更
                             time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。

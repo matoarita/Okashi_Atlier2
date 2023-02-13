@@ -61,6 +61,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private string check_itemName;
     private string check_itemType;
     private string check_itemType_sub;
+    private string check_itemType_sub_category;
 
     //各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
     public int _count1; //表示されているリスト中の選択番号 1
@@ -454,6 +455,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemName = database.items[i].itemName;
             check_itemType = database.items[i].itemType.ToString();
             check_itemType_sub = database.items[i].itemType_sub.ToString();
+            check_itemType_sub_category = database.items[i].itemType_sub_category;
 
             if (pitemlist.playeritemlist[check_itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
             {
@@ -469,6 +471,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemName = pitemlist.player_originalitemlist[i].itemName;
             check_itemType = pitemlist.player_originalitemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_originalitemlist[i].itemType_sub.ToString();
+            check_itemType_sub_category = pitemlist.player_originalitemlist[i].itemType_sub_category;
 
             Check_ListHyouji();
         }
@@ -481,6 +484,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemName = pitemlist.player_extremepanel_itemlist[i].itemName;
             check_itemType = pitemlist.player_extremepanel_itemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_extremepanel_itemlist[i].itemType_sub.ToString();
+            check_itemType_sub_category = pitemlist.player_extremepanel_itemlist[i].itemType_sub_category;
 
             Check_ListHyouji();
         }
@@ -523,13 +527,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             {
                                 itemlist_hyouji_Check();
                             }
-                            else if (check_itemType_sub == "Chocolate_Mat" || check_itemType_sub == "IceCream" ||
-                                check_itemType_sub == "Bread" || check_itemType_sub == "Bread_Sliced" ||
-                                check_itemType_sub == "Tea_Mat" ||
-                                check_itemType_sub == "Crepe_Mat" || check_itemType_sub == "Castella" ||
-                                check_itemType_sub == "Source" || check_itemType_sub == "Juice" ||
-                                check_itemType_sub == "Cake_Mat" || check_itemType_sub == "Coffee_Mat" ||
-                                check_itemType_sub == "Cookie_Mat")
+                            else if ( check_itemType_sub == "Source" || check_itemType_sub_category == "Mat")
                             {
                                 itemlist_hyouji_Check();
                             }
@@ -781,6 +779,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemName = database.items[i].itemName;
             check_itemType = database.items[i].itemType.ToString();
             check_itemType_sub = database.items[i].itemType_sub.ToString();
+            check_itemType_sub_category = database.items[i].itemType_sub_category;
 
             if (pitemlist.playeritemlist[check_itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
             {
@@ -796,6 +795,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemName = pitemlist.player_originalitemlist[i].itemName;
             check_itemType = pitemlist.player_originalitemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_originalitemlist[i].itemType_sub.ToString();
+            check_itemType_sub_category = pitemlist.player_originalitemlist[i].itemType_sub_category;
 
             //Debug.Log("check_itemName check_itemType check_item_Hyouji: " + check_itemName + " " + check_itemType + " " + check_item_Hyouji);
             Check_ListToppingHyouji();
@@ -809,6 +809,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemName = pitemlist.player_extremepanel_itemlist[i].itemName;
             check_itemType = pitemlist.player_extremepanel_itemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_extremepanel_itemlist[i].itemType_sub.ToString();
+            check_itemType_sub_category = pitemlist.player_extremepanel_itemlist[i].itemType_sub_category;
 
             Check_ListToppingHyouji();
         }
@@ -833,9 +834,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
                     if (check_itemType == "Potion" || check_itemType_sub == "Potion" ||
                         check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" ||
-                        check_itemType_sub == "Nuts" || check_itemType_sub == "Chocolate_Mat" ||
-                        check_itemType_sub == "IceCream" || check_itemType_sub == "Candy" ||
-                        check_itemType_sub == "Tea_Potion")
+                        check_itemType_sub == "Nuts" || check_itemType_sub == "IceCream" ||
+                        check_itemType_sub_category == "Potion")
                     {
                         itemlist_hyouji_Check();
                     }

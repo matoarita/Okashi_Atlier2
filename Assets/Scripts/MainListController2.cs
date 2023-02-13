@@ -525,10 +525,14 @@ public class MainListController2 : MonoBehaviour
 
                     if (!GameMgr.hiroba_event_end[11])
                     {
+                        sceneBGM.FadeOutBGM();
+                        Hiroba_main2.bgm_change_flag = true;
                         GameMgr.hiroba_event_ID = 3050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
                     else
                     {
+                        sceneBGM.FadeOutBGM();
+                        Hiroba_main2.bgm_change_flag = true;
                         GameMgr.hiroba_event_ID = 3051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
                     

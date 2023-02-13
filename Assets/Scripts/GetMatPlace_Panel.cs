@@ -82,6 +82,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Texture2D texture2d;
     private Texture2D texture2d_map;
 
+    private GameObject BG_Imagepanel;
+
     private GameObject map_bg_effect;
 
     private int mapid;
@@ -220,6 +222,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
         getmatResult_panel = canvas.transform.Find("GetMatResult_Panel").GetComponent<GetMatResult_Panel>();
 
+        BG_Imagepanel = getmatplace_panel.transform.Find("MapSelectBGPanel").gameObject;
+
         //マップ背景エフェクト
         map_bg_effect = GameObject.FindWithTag("MapBG_Effect");
 
@@ -305,6 +309,45 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //画面のアニメ
         OpenAnim();
+
+        //時刻によって、背景の絵の天気を変える。
+        if (GameMgr.Story_Mode != 0)
+        {
+            //まずリセット
+            BG_Imagepanel.transform.Find("SelectMapBG1").gameObject.SetActive(true);
+            BG_Imagepanel.transform.Find("SelectMapBG2").gameObject.SetActive(false);
+            BG_Imagepanel.transform.Find("SelectMapBG3").gameObject.SetActive(false);
+
+            switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
+            {
+                case 1:
+
+                    break;
+
+                case 2: //深夜→朝
+
+                    break;
+
+                case 3: //朝
+
+                    break;
+
+                case 4: //昼
+
+                    break;
+
+                case 5: //夕方
+
+                    BG_Imagepanel.transform.Find("SelectMapBG2").gameObject.SetActive(true);
+                    break;
+
+                case 6: //夜
+
+                    BG_Imagepanel.transform.Find("SelectMapBG3").gameObject.SetActive(true);
+
+                    break;
+            }
+        }
 
         move_anim_on = false;
         modoru_anim_on = false;
@@ -516,25 +559,58 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     //時間が20時をこえないかチェック
                     if (GameMgr.TimeUSE_FLAG)
                     {
-                        //_yosokutime = PlayerStatus.player_time + matplace_database.matplace_lists[_place_num].placeDay; //行きの時間だけ計算
-                        _yosokutime = time_controller.YosokuMinuteToHour(matplace_database.matplace_lists[_place_num].placeDay);
-                        if (_yosokutime >= GameMgr.EndDay_hour) //20時をこえるかどうか。
+                        if (GameMgr.Story_Mode == 0)
                         {
-                            //20時を超えるので、妹に止められる。
-                            if (GameMgr.outgirl_Nowprogress)
+                            //_yosokutime = PlayerStatus.player_time + matplace_database.matplace_lists[_place_num].placeDay; //行きの時間だけ計算
+                            _yosokutime = time_controller.YosokuMinuteToHour(matplace_database.matplace_lists[_place_num].placeDay);
+                            if (_yosokutime >= GameMgr.EndDay_hour) //20時をこえるかどうか。
                             {
-                                _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
+                                //20時を超えるので、妹に止められる。
+                                if (GameMgr.outgirl_Nowprogress)
+                                {
+                                    _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
+                                }
+                                else
+                                {
+                                    _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
+                                }
+                                All_Off();
                             }
                             else
                             {
-                                _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
+                                KakuninPlace();
+                                break;
                             }
-                            All_Off();
                         }
                         else
                         {
-                            KakuninPlace();
-                            break;
+                            //エクストラモードだと、19時以降は、採取地にはもう移動できない。
+                            if (GameMgr.BG_cullent_weather == 6)
+                            {
+                                if (matplace_database.matplace_lists[_place_num].placeType == 0)
+                                {
+                                    KakuninPlace();
+                                    break;
+                                }
+                                else
+                                {
+                                    //20時を超えるので、妹に止められる。
+                                    if (GameMgr.outgirl_Nowprogress)
+                                    {
+                                        _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
+                                    }
+                                    else
+                                    {
+                                        _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
+                                    }
+                                    All_Off();
+                                }
+                            }
+                            else
+                            {
+                                KakuninPlace();
+                                break;
+                            }
                         }
                     }
                     else
