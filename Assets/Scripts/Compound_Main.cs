@@ -4138,8 +4138,10 @@ public class Compound_Main : MonoBehaviour
             if (GameMgr.GirlLoveEvent_num >= 1) //くもり　どんより HLv2~
             {
                 DrawALLOFFBG();
-                bgweather_image_panel.transform.Find("BG_windowout_white").gameObject.SetActive(true);
-                BG_Imagepanel.transform.Find("BG_sprite_morning").gameObject.SetActive(true);
+                bgweather_image_panel.transform.Find("BG_windowout_morning").gameObject.SetActive(true);
+                //BG_Imagepanel.transform.Find("BG_sprite_morning").gameObject.SetActive(true);
+                BG_Imagepanel.transform.Find("BG_sprite_sunny").gameObject.SetActive(true);
+                BG_effectpanel.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
             }
             if (GameMgr.GirlLoveEvent_num >= 10) //うすぐもり HLv4~
             {

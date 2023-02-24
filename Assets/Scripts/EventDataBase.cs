@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 {
@@ -56,8 +57,22 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        //シーン移動の際、破壊されてしまうオブジェクトは、毎回初期化
+        if (canvas == null)
+        {
+            canvas = GameObject.FindWithTag("Canvas");
+
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Compound":
+
+                    //時間管理オブジェクトの取得
+                    time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
+                    break;
+            }
+        }
+    }
 
     //好感度によって発生する、メインイベント。基本、クエストクリアボタンを押さないと発動しない。
     public void GirlLoveMainEvent()
@@ -325,11 +340,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     {
         GameMgr.girlloveevent_bunki = 1; //サブイベントの発生のチェック。宴用に分岐。
 
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
-        //時間管理オブジェクトの取得
-        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
+        
 
         if (GameMgr.GirlLove_loading)
         { }
