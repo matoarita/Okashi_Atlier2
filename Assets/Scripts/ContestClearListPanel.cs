@@ -93,6 +93,9 @@ public class ContestClearListPanel : MonoBehaviour {
             {
                 contestlist_List[i].transform.Find("ItemImg").GetComponent<Image>().sprite = GameMgr.contestclear_collection_list[i].imgIcon_sprite;
                 contestlist_List[i].GetComponent<Toggle>().interactable = false;
+
+                contestlist_List[i].transform.Find("Text").GetComponent<Text>().text = GameMgr.contestclear_collection_list[i].titleNameHyouji;
+                contestlist_List[i].transform.Find("Score").GetComponent<Text>().text = GameMgr.contestclear_collection_list[i].Score.ToString();
             }
         }
 
