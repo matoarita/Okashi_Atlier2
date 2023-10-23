@@ -9,9 +9,6 @@ public class Compound_Check : MonoBehaviour {
 
     private GameObject canvas;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private CombinationMain Combinationmain;
 
     private GameObject itemselect_cancel_obj;
@@ -110,9 +107,6 @@ public class Compound_Check : MonoBehaviour {
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
-
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         //コンポBGパネルの取得
         compoBG_A = this.transform.parent.gameObject;

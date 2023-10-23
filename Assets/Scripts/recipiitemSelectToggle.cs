@@ -31,9 +31,6 @@ public class recipiitemSelectToggle : MonoBehaviour
     private Button[] updown_button = new Button[2];
     private bool updown_counter_USE;
 
-    private GameObject kakuritsuPanel_obj;
-    private KakuritsuPanel kakuritsuPanel;
-
     private GameObject card_view_obj;
     private CardView card_view;
 
@@ -126,24 +123,25 @@ public class recipiitemSelectToggle : MonoBehaviour
 
         updown_counter_USE = true;
 
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
+        // 調合専用シーンでやりたい処理。
+        if (GameMgr.CompoundSceneStartON)
+        {
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+
+            yes = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/Yes").gameObject;
+            yes_text = yes.GetComponentInChildren<Text>();
+            no = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/No").gameObject;
+        }
+
+        if (SceneManager.GetActiveScene().name == "Compound") 
         {
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-            kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
-            kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
             //サウンドコントローラーの取得
             sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-            
-            yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
-            yes_text = yes.GetComponentInChildren<Text>();
-            no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
-            
+           
         }
         else if (SceneManager.GetActiveScene().name == "200_Omake")
         {
@@ -266,7 +264,6 @@ public class recipiitemSelectToggle : MonoBehaviour
             exp_Controller._success_judge_flag = 1; //判定処理を行う。             
 
             //exp_Controller._success_rate = _success_rate;
-            //kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
 
             StartCoroutine("recipiitemselect_kakunin"); //選択後、個数も選ぶ
         }    

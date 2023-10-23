@@ -177,8 +177,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //時間管理オブジェクトの取得
         TimePanel_obj1 = canvas.transform.Find("MainUIPanel/Comp/TimePanel").gameObject;
-        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
-        
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子  
 
@@ -489,7 +491,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
             //日数の経過。帰りも同じ時間かかる。
             time_controller.SetMinuteToHour(select_place_day);
             time_controller.TimeKoushin(0);
-            time_controller.Weather_Change(0.0f);
 
             //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
             if (GameMgr.OsotoIkitaiFlag)

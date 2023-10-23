@@ -59,6 +59,9 @@ public class Touch_Controll : MonoBehaviour
 
         girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         nohearteffect = false;
 
         //時間管理オブジェクトの取得
@@ -66,7 +69,6 @@ public class Touch_Controll : MonoBehaviour
         {
             case "Compound":
 
-                time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
                 break;
 
             case "001_Title":

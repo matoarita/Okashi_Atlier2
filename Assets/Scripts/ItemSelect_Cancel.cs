@@ -10,9 +10,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject text_area; //Sceneテキスト表示エリアのこと。
     private Text _text; //
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
 
@@ -48,7 +45,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private Text no_text;
 
-    private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
     private GameObject item_tsuika; //PlayeritemList_ScrollViewの子オブジェクト「item_tsuika」ボタン
@@ -89,15 +85,10 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             case "Compound":
 
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
                 kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
-                yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
-                //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();               
+                yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();              
 
                 text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
                 _text = text_area.GetComponentInChildren<Text>();
@@ -180,17 +171,13 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
                 
-                if (compound_Main_obj == null)
+                if (canvas == null)
                 {
                     canvas = GameObject.FindWithTag("Canvas");
 
                     yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
-                    //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                    //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+                    exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-                    
                     kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                     kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
@@ -199,9 +186,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
 
                     text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
-                    _text = text_area.GetComponentInChildren<Text>();
-
-                    exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+                    _text = text_area.GetComponentInChildren<Text>();                   
 
                     kettei_on_waiting = false;
                 }
@@ -238,8 +223,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
                     yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
-                    //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                    //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                     shopMain_obj = GameObject.FindWithTag("Shop_Main");
                     shopMain = shopMain_obj.GetComponent<Shop_Main>();
@@ -279,8 +262,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
                     yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
-                    //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                    //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
                     shopMain_obj = GameObject.FindWithTag("Bar_Main");
                     shopMain = shopMain_obj.GetComponent<Shop_Main>();
@@ -321,42 +302,45 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
 
         //各シーンごとの、待機処理
-
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。
+                                        //トグル押されたら、トグルのほうのyes,noやキャンセルが優先され、このスクリプトは無視する。
         {
-            
-            //調合中か、あげる処理に入っているか、もしくはアイテムリストを開いているとき
-            switch (GameMgr.compound_status)
-            {
-                case 4:
-                    
-                    if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
-                    {
-                        yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
-                        yes_text = yes.GetComponentInChildren<Text>();
-                        no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
-                    }
-                    if (GameMgr.compound_select == 6) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
-                    {
-                        //yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
-                        //yes_text = yes.GetComponentInChildren<Text>();
-                        //no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
-                    }
-                    else
-                    {
-                        yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-                        yes_text = yes.GetComponentInChildren<Text>();
-                        no = pitemlistController_obj.transform.Find("No").gameObject;
-                    }
 
-                    if (GameMgr.compound_select == 6 || GameMgr.compound_select == 8 || GameMgr.compound_select == 120) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
-                    {
-                    }
-                    else if (GameMgr.compound_select == 7)
-                    {
-                        if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+            //シーンに関係なく調合処理をつかうとき
+            if (GameMgr.CompoundSceneStartON)
+            {
+                //調合中か、あげる処理に入っているか、もしくはアイテムリストを開いているとき
+                switch (GameMgr.compound_status)
+                {
+                    case 4:
+
+                        if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
                         {
-                            if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。
+                            yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+                            yes_text = yes.GetComponentInChildren<Text>();
+                            no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+                        }
+
+                        if (GameMgr.compound_select == 6) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
+                        {
+                            //yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+                            //yes_text = yes.GetComponentInChildren<Text>();
+                            //no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+                        }
+                        else
+                        {
+                            yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+                            yes_text = yes.GetComponentInChildren<Text>();
+                            no = pitemlistController_obj.transform.Find("No").gameObject;
+                        }
+
+                        if (GameMgr.compound_select == 6 || GameMgr.compound_select == 8 || GameMgr.compound_select == 120)
+                        {
+                            //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
+                        }
+                        else if (GameMgr.compound_select == 7)
+                        {
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                             {
                                 if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                 {
@@ -366,19 +350,15 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                     GameMgr.compound_status = 8; //何も選択していない状態にもどる。
                                     GameMgr.compound_select = 0;
-                                    GameMgr.extremepanel_on = false;
 
                                     yes_selectitem_kettei.onclick = false;
 
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                        else
                         {
-                            if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                             {
                                 if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                 {
@@ -388,80 +368,27 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                     GameMgr.compound_status = 6; //何も選択していない状態にもどる。
                                     GameMgr.compound_select = 0;
-                                    GameMgr.extremepanel_on = false;
 
                                     yes_selectitem_kettei.onclick = false;
 
                                 }
                             }
                         }
-                    }
+                        break;
 
-                    break;
+                    case 100:　//compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
 
-                
-                case 21: //status=21。材料採取地選択中
-
-                    if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
-                    {
-                        if (kettei_on_waiting == false) //トグルが押されていない時で、材料採取地選択最中の状態を表す。
+                        //調合選択中のとき、キャンセル待ち処理
+                        if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) //オリジナル調合のときの処理
                         {
-                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                            if (GameMgr.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
                             {
 
-                                GameMgr.compound_status = 0; //何も選択していない状態にもどる。
-                                GameMgr.compound_select = 0;
-
-                                yes_selectitem_kettei.onclick = false;
-
-                            }
-                        }
-                    }
-
-                    break;
-
-
-                case 61: //compound_status = 61。レシピ本を選択中。
-
-                    if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
-                    {
-                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
-                        {
-                            All_cancel();
-
-                            GameMgr.compound_status = 0; //何も選択していない状態にもどる。
-                        }
-                    }
-                    break;
-
-                case 99: //compound_status = 99。アイテム画面開き中。
-
-                    if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
-                    {
-                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
-                        {
-                            All_cancel();
-
-                            GameMgr.compound_status = 0; //何も選択していない状態にもどる。
-                        }
-                    }
-                    break;
-
-                
-                case 100: //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
-
-                    //調合選択中のとき、キャンセル待ち処理
-                    if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) //オリジナル調合のときの処理
-                    {
-                        if (GameMgr.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
-                        {
-
-                            //オリジナル調合時の、待機中の処理
-                            {
-                                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                                //オリジナル調合時の、待機中の処理
                                 {
-                                    if (kettei_on_waiting == false) //待機状態を表す。トグルが押されると、kettei_on_waiting=trueになり、トグルの処理が優先される。
+                                    if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                                     {
+
                                         if (pitemlistController.kettei1_bunki == 1) //現在一個目を選択している状態
                                         {
                                             if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
@@ -495,21 +422,19 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                 }
                             }
                         }
-                    }
 
 
-                    if (GameMgr.compound_select == 2) //トッピング調合のときの処理
-                    {
-
-                        if (GameMgr.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
+                        if (GameMgr.compound_select == 2) //トッピング調合のときの処理
                         {
 
-                            //トッピング調合時の、待機中の処理
-
-                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                            if (GameMgr.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
                             {
-                                if (kettei_on_waiting == false) //待機状態を表す。トグルが押されると、kettei_on_waiting=trueになり、トグルの処理が優先される。
+
+                                //トッピング調合時の、待機中の処理
+
+                                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                                 {
+
                                     if (pitemlistController.kettei1_bunki == 10) //現在ベースアイテムを選択している状態
                                     {
                                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
@@ -565,25 +490,39 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                 }
                             }
                         }
-                    }
 
-                    if (GameMgr.compound_select == 99) //カード一度開いた状態で、メニュー開いたのときの処理
-                    {
+                        break;
+
+                    default://compound=110　最後調合するかどうかの確認中など、待機状態
+                        break;
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+            {
+
+                switch (GameMgr.compound_status)
+                {
+                    case 21: //status=21。材料採取地選択中
+
                         if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                         {
                             if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                             {
-                                All_cancel();
 
-                                pitemlistController._count1 = 9999;
+                                GameMgr.compound_status = 0; //何も選択していない状態にもどる。
+                                GameMgr.compound_select = 0;
 
-                                GameMgr.compound_status = 99; //何も選択していない状態にもどる。
+                                yes_selectitem_kettei.onclick = false;
+
                             }
                         }
-                    }
 
-                    if (GameMgr.compound_select == 200) //システム画面開いたのときの処理
-                    {
+                        break;
+
+
+                    case 61: //compound_status = 61。レシピ本を選択中。
+
                         if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                         {
                             if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
@@ -593,22 +532,65 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                 GameMgr.compound_status = 0; //何も選択していない状態にもどる。
                             }
                         }
-                    }
-                    break;
+                        break;
 
-                
+                    case 99: //compound_status = 99。アイテム画面開き中。
 
-                default://compound=110　最後調合するかどうかの確認中など、待機状態
-                    break;
-            }                         
-        }
+                        if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                        {
+                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                            {
+                                All_cancel();
+
+                                GameMgr.compound_status = 0; //何も選択していない状態にもどる。
+                            }
+                        }
+                        break;
 
 
-        if (SceneManager.GetActiveScene().name == "GirlEat") // 女の子シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {
-            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                    case 100: //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
+
+                        
+                        if (GameMgr.compound_select == 99) //カード一度開いた状態で、メニュー開いたのときの処理
+                        {
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                            {
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+                                    All_cancel();
+
+                                    pitemlistController._count1 = 9999;
+
+                                    GameMgr.compound_status = 99; //何も選択していない状態にもどる。
+                                }
+                            }
+                        }
+
+                        if (GameMgr.compound_select == 200) //システム画面開いたのときの処理
+                        {
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                            {
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+                                    All_cancel();
+
+                                    GameMgr.compound_status = 0; //何も選択していない状態にもどる。
+                                }
+                            }
+                        }
+                        break;
+
+
+
+                    default://compound=110　最後調合するかどうかの確認中など、待機状態
+                        break;
+                }
+            }
+
+
+            if (SceneManager.GetActiveScene().name == "GirlEat") // 女の子シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
-                if (kettei_on_waiting == false) //トグルが押されていない時
+                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                 {
                     if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                     {
@@ -624,15 +606,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     }
                 }
             }
-        }
 
-        if (SceneManager.GetActiveScene().name == "Bar")
-        {
-            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+            if (SceneManager.GetActiveScene().name == "Bar")
             {
-                if (shopMain.shop_scene == 3 && shopquestlistController.nouhin_select_on == 1) //ショップ納品時の選択
+                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                 {
-                    if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。トグルが押されると、これはfalseになり、トグルの処理が優先される。
+                    if (shopMain.shop_scene == 3 && shopquestlistController.nouhin_select_on == 1) //ショップ納品時の選択
                     {
                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                         {
@@ -648,7 +627,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             {
                                 _text.text = "渡したいお菓子を選んでね。";
                             }
-                            
+
 
                             //Debug.Log("pitemlistController._listcount[i]を削除: " + pitemlistController._listcount[pitemlistController._listcount.Count - 1]);
                             pitemlistController._listcount.RemoveAt(pitemlistController._listcount.Count - 1); //一番最後に挿入されたやつを、そのまま削除
@@ -672,7 +651,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             }
 
                             card_view.DeleteCard_DrawView();
-                            
+
                             yes.SetActive(false);
                             //no.SetActive(false);
                             NouhinKetteiPanel_obj.SetActive(true);
@@ -690,24 +669,24 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     }
                 }
             }
-        }
 
-        //全シーンで共通の処理
-        switch (GameMgr.compound_status)
-        {
-            case 1000: //サブイベントで、アイテムを何も選択していない状態
+            //全シーンで共通の処理
+            switch (GameMgr.compound_status)
+            {
+                case 1000: //サブイベントで、アイテムを何も選択していない状態
 
-                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
-                {
-                    if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                    if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                     {
-                        //kettei_on_waiting = false;
-                        GameMgr.event_pitem_cancel = true; //やめたフラグON
-                        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                        {
+                            //kettei_on_waiting = false;
+                            GameMgr.event_pitem_cancel = true; //やめたフラグON
+                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+                        }
                     }
-                }
-                break;
-        }
+                    break;
+            }
+        }         
     }
 
 
@@ -728,13 +707,14 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             //まずは、レシピ・それ以外の調合用にオブジェクト取得
             if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
             {
-                yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+                yes = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
-                no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+                no = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/No").gameObject;
 
             }
             else
             {
+                //レシピ以外では、アイテムリスト備え付けのyes,noを使う。
                 yes = pitemlistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = pitemlistController_obj.transform.Find("No").gameObject;
@@ -754,12 +734,25 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 update_ListSelect_Flag = 0; //オールリセットするのみ。
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
-
             //エクストリーム調合のときの処理
             else if (GameMgr.compound_select == 2) 
             {
                 if (pitemlistController.kettei1_bunki == 10)
                 {
+                    //Debug.Log("調合シーンキャンセル");
+
+                    _text.text = "";
+
+                    card_view.DeleteCard_DrawView();
+                    card_view.DeleteCard_DrawView();
+
+                    pitemlistController.kettei1_bunki = 0;
+
+                    GameMgr.compound_status = 6; //何も選択していない状態にもどる。
+                    GameMgr.compound_select = 6;
+                    //GameMgr.CompoundSceneStartON = false;　//調合シーン終了
+
+                    /*
                     if (GameMgr.extremepanel_on != true) //通常のエクストリーム調合。ベースアイテム選択に戻る
                     {
                         _text.text = "ベースのお菓子を選択してね。";
@@ -780,10 +773,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                         pitemlistController.kettei1_bunki = 0;
 
-                        GameMgr.compound_status = 0; //何も選択していない状態にもどる。
+                        GameMgr.compound_status = 6; //何も選択していない状態にもどる。
                         GameMgr.compound_select = 0;
+                        //GameMgr.CompoundSceneStartON = false;　//調合シーン終了
 
-                    }
+                    }*/
                 }
             }
 
@@ -942,7 +936,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     //三個目の選択をキャンセルする処理
     public void Three_cancel()
     {
-
         kettei_on_waiting = false;
 
         if (pitemlistController.kettei1_bunki == 3)
@@ -986,7 +979,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     //四個目の選択をキャンセルする処理
     public void Four_cancel()
     {
-
         //トッピング調合のときのみ、使う。
 
         kettei_on_waiting = false;

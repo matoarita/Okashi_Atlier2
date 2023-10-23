@@ -33,6 +33,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private SoundController sc;
     private Special_Quest special_quest;
     private MoneyStatus_Controller money_status;
+    private Exp_Controller exp_Controller;
 
     private GameObject canvas;
 
@@ -94,6 +95,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
 
         quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
     }
 	
 	// Update is called once per frame
@@ -430,8 +434,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_mapflaglist = _tempmap_placeflaglist,
 
             //エクストリームパネルのアイテムIDも保存
-            save_extreme_itemid = GameMgr.sys_extreme_itemID,
-            save_extreme_itemtype = GameMgr.sys_extreme_itemType,
+            save_extreme_itemid = exp_Controller._temp_extreme_id,
+            save_extreme_itemtype = exp_Controller._temp_extreme_itemtype,
 
             //お菓子の一度にトッピングできる回数
             save_topping_Set_Count = GameMgr.topping_Set_Count,
@@ -873,8 +877,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //エクストリームパネルのアイテムを読み込み
-        GameMgr.sys_extreme_itemID = playerData.save_extreme_itemid;
-        GameMgr.sys_extreme_itemType = playerData.save_extreme_itemtype;
+        exp_Controller._temp_extreme_id = playerData.save_extreme_itemid;
+        exp_Controller._temp_extreme_itemtype = playerData.save_extreme_itemtype;
 
         //お菓子の一度にトッピングできる回数
         GameMgr.topping_Set_Count = playerData.save_topping_Set_Count;       
@@ -969,16 +973,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 questname.text = girl1_status.OkashiQuest_Name;
                 sceneBGM.PlayMain(); //BGMの更新                               
 
-                if (pitemlist.player_extremepanel_itemlist.Count > 0)
-                {
-                    extreme_panel = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").GetComponentInChildren<ExtremePanel>();
-                    //Debug.Log("GameMgr.sys_extreme_itemID: " + GameMgr.sys_extreme_itemID);
-                    //Debug.Log("GameMgr.sys_extreme_itemType: " + GameMgr.sys_extreme_itemType);
-
-                    extreme_panel.SetExtremeItem(0, 2);
-                    extreme_panel.SetInitParamExtreme();
-
-                }
+                GameMgr.extremepanel_Koushin = true;
 
                 //衣装チェンジ
                 _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
@@ -1059,16 +1054,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         quest_database.ResetQuestTakeSet();
 
         //エクストリームパネルも空に。
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                //キャンバスの読み込み
-                canvas = GameObject.FindWithTag("Canvas");
-                extreme_panel = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").GetComponentInChildren<ExtremePanel>();
-                extreme_panel.deleteExtreme_Item();
-                break;
-        }
+        exp_Controller.deleteExtreme_Item();
 
     }
 

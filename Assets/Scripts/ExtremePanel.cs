@@ -54,9 +54,6 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
-    private GameObject pitemlistController_obj;
-    private PlayerItemListController pitemlistController;
-
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -175,128 +172,27 @@ public class ExtremePanel : MonoBehaviour {
         //別シーンから、再度読み込まれたときに、すでにお菓子を作成済みだった場合は、初期化する。
         if (myscene_loaded == true)
         {
-            SetInitParamExtreme();            
-
+            GameMgr.extremepanel_Koushin = true;          
             myscene_loaded = false;
         }
 
-        if(pitemlistController_obj == null)
-        { //Compound_Mainのトッピング時と処理が同じ
-            pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-        }
+        //お菓子のHPが減っていく処理。使用してない。
+        //DegLifeOkashi();
         
-        /*
-        if( Life_anim_on == true) //お菓子が完成したら、だんだんとHPが減っていく。０になると、お菓子が壊れる。
+        //表示処理　Exp_Controllerなどから、ONになったときだけ表示を更新する。
+        if(GameMgr.extremepanel_Koushin)
         {
+            GameMgr.extremepanel_Koushin = false;
 
-            if (timeOut <= 0.0)
+            if (pitemlist.player_extremepanel_itemlist.Count > 0)
             {
-                timeOut = 1.0f; //１秒ずつ減少
-
-                Starthp -= _deg; //_degの分ずつ、減少していく。
-                exp_Controller._temp_Starthp = Starthp;
-
-                _hpslider.value = Starthp; //それをバーにも反映。
-                
-                Okashi_moneyparam -= _moneydeg;
-                exp_Controller._temp_extreme_money = Okashi_moneyparam;
-                Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);                
-
-                if (Starthp <= 0) //0になったら、お菓子が壊れる。
-                {
-                    //所持品削除
-                    switch (extreme_itemtype)
-                    {
-                        case 0: //プレイヤーアイテムリストから選択している。
-
-                            pitemlist.deletePlayerItem(database.items[extreme_itemID].itemName, 1);
-                            break;
-
-                        case 1: //オリジナルアイテムリストから選択している。
-
-                            pitemlist.deleteOriginalItem(extreme_itemID, 1);
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                    deleteExtreme_Item();
-
-                    Life_anim_on = false;
-                    exp_Controller._temp_life_anim_on = false;
-
-                    //エフェクト生成
-                    Extreme_Failed_effect = Instantiate(Extreme_Failed_effect_Prefab);
-                    Extreme_Failed_effect.GetComponent<Canvas>().worldCamera = Camera.main;
-
-                    //音を鳴らす
-                    sc.PlaySe(20);
-                }
+                Extreme_Hyouji(0);
             }
-
-            //時間減少
-            timeOut -= Time.deltaTime;
-        }*/
-	}
-
-    public void SetInitParamExtreme()
-    {
-        extreme_itemID = exp_Controller._temp_extreme_id; // 空の場合は、9999でリセット           
-
-        if (pitemlist.player_extremepanel_itemlist.Count > 0)
-        {
-            extreme_itemtype = exp_Controller._temp_extreme_itemtype;
-            Starthp = exp_Controller._temp_Starthp;
-            Life_anim_on = exp_Controller._temp_life_anim_on;
-            Okashi_moneyparam = exp_Controller._temp_extreme_money;
-            _moneydeg = exp_Controller._temp_moneydeg;
-
-            Extreme_Hyouji(0);
-        }
-        else
-        {
-            deleteExtreme_Item();
-        }
-    }
-
-    public void SetExtremeItem( int item_id, int itemtype )
-    {
-
-        extreme_itemID = item_id;
-        extreme_itemtype = itemtype;
-
-        //ゲーム保存用　下のtempと意味合い的には一緒。一緒にしてOKだが、面倒なのでとりあえず分け。
-        GameMgr.sys_extreme_itemID = extreme_itemID;
-        GameMgr.sys_extreme_itemType = extreme_itemtype;
-
-        //シーン移動用に保存
-        exp_Controller._temp_extreme_id = extreme_itemID; //オリジナルリストの最後の番号のこと
-        exp_Controller._temp_extreme_itemtype = extreme_itemtype;
-        exp_Controller._temp_extremeSetting = true; //セットされていますよ～、ということ。この状態で、オリジナルリストの最後の番号のアイテムが削除されたら、パネルのデータも削除する。
-
-        if (pitemlist.player_extremepanel_itemlist.Count > 0)
-        {
-            //お菓子のHPをセット
-            SetDegOkashiLife(pitemlist.player_extremepanel_itemlist[0].itemHP);
-            /*if (itemtype == 0)
+            else
             {
-                //お菓子のHPをセット
-                SetDegOkashiLife(database.items[extreme_itemID].itemHP);
-            } else if (itemtype == 1)
-            {
-                //お菓子のHPをセット
-                SetDegOkashiLife(pitemlist.player_originalitemlist[extreme_itemID].itemHP);
+                //パネルは空
+                EmptyExtremeHyouji();
             }
-            else if (itemtype == 2)
-            {
-                //お菓子のHPをセット
-                SetDegOkashiLife(pitemlist.player_extremepanel_itemlist[extreme_itemID].itemHP);
-            }*/
-
-
-            Extreme_Hyouji(0);
         }
     }
 
@@ -344,13 +240,24 @@ public class ExtremePanel : MonoBehaviour {
         particle_effect.SetActive(true);
     }
 
+    void EmptyExtremeHyouji()
+    {
+        item_Icon.color = new Color(1, 1, 1, 0);
+
+        extreme_Param.text = "-";
+        extreme_itemName.text = "";
+
+        image_effect.SetActive(false);
+        particle_effect.SetActive(false);
+    }
+
     public void OnClick_ExtremeButton()
     {
 
         extreme_Button.interactable = false;
         GameMgr.compound_status = 6; //調合選択画面に移動 元々4にしてた
 
-        if (extreme_itemID != 9999)
+        if (exp_Controller._temp_extreme_id != 9999)
         {
 
             //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
@@ -369,9 +276,7 @@ public class ExtremePanel : MonoBehaviour {
         {
             card_view.DeleteCard_DrawView();
 
-            _text.text = "何の調合をする？";
-            
-            GameMgr.extremepanel_on = false;
+            _text.text = "何の調合をする？";          
 
             //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
             if (GameMgr.tutorial_ON == true)
@@ -391,40 +296,6 @@ public class ExtremePanel : MonoBehaviour {
 
     }
 
-    //CompoundMainControllerから読みこむ用
-    public void extreme_Compo_Setup()
-    {
-        //以下、エクストリーム用に再度パラメータを設定
-        GameMgr.extremepanel_on = true;
-
-        if (extreme_itemtype == 0) //デフォルトアイテムの場合
-        {
-            pitemlistController.final_base_kettei_item = database.items[extreme_itemID].itemID;
-        }
-        else if (extreme_itemtype == 1) //オリジナルアイテムの場合
-        {
-            pitemlistController.final_base_kettei_item = pitemlist.player_originalitemlist[extreme_itemID].itemID;
-        }
-        else if (extreme_itemtype == 2) //エクストリームパネルに設定したアイテムの場合　通常これのみ使用
-        {
-            pitemlistController.final_base_kettei_item = pitemlist.player_extremepanel_itemlist[extreme_itemID].itemID;
-        }
-
-        pitemlistController.base_kettei_item = extreme_itemID;
-        pitemlistController._base_toggle_type = extreme_itemtype;
-
-        pitemlistController.final_base_kettei_kosu = 1;
-
-        pitemlistController.kettei1_bunki = 10; //トッピング材料から選び始める。
-        pitemlistController.reset_and_DrawView_Topping();
-
-        card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item);
-        card_view.OKCard_DrawView(pitemlistController.final_base_kettei_kosu);
-
-        itemselect_cancel.update_ListSelect_Flag = 10; //ベースアイテムを選択できないようにする。
-        itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
-    }
-
     public void OnClick_RecipiBook()
     {
         extreme_Button.interactable = false;
@@ -441,7 +312,7 @@ public class ExtremePanel : MonoBehaviour {
 
         card_view.DeleteCard_DrawView();
 
-        if (extreme_itemID != 9999)
+        if (exp_Controller._temp_extreme_id != 9999)
         {
             _text.text = "今、作ったお菓子をあげますか？";
             GameMgr.compound_status = 10;
@@ -458,7 +329,7 @@ public class ExtremePanel : MonoBehaviour {
 
         card_view.DeleteCard_DrawView();
 
-        if (extreme_itemID != 9999)
+        if (exp_Controller._temp_extreme_id != 9999)
         {
             Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
             _text.text = "作ったお菓子をショップへ卸しますか？" + "\n" + "現在の価格: " + Okashi_moneypram_int.ToString() + "G です。";
@@ -495,14 +366,14 @@ public class ExtremePanel : MonoBehaviour {
         }*/
 
         //エクストリームパネルからも削除
-        deleteExtreme_Item();
+        //deleteExtreme_Item();
 
         GameMgr.compound_status = 0;
         GameMgr.compound_select = 0;
     }
 
-
-    public void deleteExtreme_Item() //削除。さらに全てのパラメータもリセットする。
+    /*
+    void deleteExtreme_Item() //削除。さらに全てのパラメータもリセットする。
     {
         card_view.DeleteCard_DrawView();
 
@@ -526,7 +397,7 @@ public class ExtremePanel : MonoBehaviour {
         GameMgr.sys_extreme_itemType = 0;
 
         pitemlist.deleteAllExtremePanelItem();
-    }
+    }*/
 
 
     public void extremeButtonInteractOn()
@@ -568,7 +439,7 @@ public class ExtremePanel : MonoBehaviour {
 
     public void LifeAnimeOnTrue()
     {
-        if (extreme_itemID != 9999)
+        if (exp_Controller._temp_extreme_id != 9999)
         {
             Life_anim_on = true;
         }
@@ -577,6 +448,63 @@ public class ExtremePanel : MonoBehaviour {
 
         }
     }
+
+    /*
+    void DegLifeOkashi()
+    {
+        if (Life_anim_on == true) //お菓子が完成したら、だんだんとHPが減っていく。０になると、お菓子が壊れる。
+        {
+
+            if (timeOut <= 0.0)
+            {
+                timeOut = 1.0f; //１秒ずつ減少
+
+                Starthp -= _deg; //_degの分ずつ、減少していく。
+                exp_Controller._temp_Starthp = Starthp;
+
+                _hpslider.value = Starthp; //それをバーにも反映。
+
+                Okashi_moneyparam -= _moneydeg;
+                exp_Controller._temp_extreme_money = Okashi_moneyparam;
+                Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
+
+                if (Starthp <= 0) //0になったら、お菓子が壊れる。
+                {
+                    //所持品削除
+                    switch (extreme_itemtype)
+                    {
+                        case 0: //プレイヤーアイテムリストから選択している。
+
+                            pitemlist.deletePlayerItem(database.items[extreme_itemID].itemName, 1);
+                            break;
+
+                        case 1: //オリジナルアイテムリストから選択している。
+
+                            pitemlist.deleteOriginalItem(extreme_itemID, 1);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    deleteExtreme_Item();
+
+                    Life_anim_on = false;
+                    exp_Controller._temp_life_anim_on = false;
+
+                    //エフェクト生成
+                    Extreme_Failed_effect = Instantiate(Extreme_Failed_effect_Prefab);
+                    Extreme_Failed_effect.GetComponent<Canvas>().worldCamera = Camera.main;
+
+                    //音を鳴らす
+                    sc.PlaySe(20);
+                }
+            }
+
+            //時間減少
+            timeOut -= Time.deltaTime;
+        }
+    }*/
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

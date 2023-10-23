@@ -27,11 +27,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject Extremepanel_obj;
+
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
-    private GameObject Extremepanel_obj;
-    private ExtremePanel extreme_panel;
     private GameObject hinttaste_toggle;
 
     private GameObject MainUIPanel_obj;
@@ -449,13 +449,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //BGMの取得
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
-                //エクストリームパネルの取得
-                Extremepanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
-                extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
-
                 hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
 
                 MainUIPanel_obj = canvas.transform.Find("MainUIPanel").gameObject;
+
+                //エクストリームパネルの取得+初期化
+                Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
 
                 BlackPanel_event = canvas.transform.Find("Black_Panel_Event").gameObject;
 
@@ -2644,7 +2643,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
 
                 //エクストリームアイテムのほうも、空にする。
-                extreme_panel.deleteExtreme_Item();
+                exp_Controller.deleteExtreme_Item();
                 break;
 
             default:
@@ -3272,7 +3271,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         touch_controller.Touch_OnAllOFF();
         compound_Main.OffCompoundSelect();
         compound_Main.OnCompoundSelectObj();
-        Extremepanel_obj.SetActive(false);
+        //Extremepanel_obj.SetActive(false);
         hinttaste_toggle.SetActive(false);
     }
 

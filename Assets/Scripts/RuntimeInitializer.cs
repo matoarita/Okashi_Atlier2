@@ -144,7 +144,7 @@ public class RuntimeInitializer : MonoBehaviour
         //サウンド・SE関連を統括するオブジェクト
         var soundcontroller_init = new GameObject("SoundController", typeof(SoundController));
         GameObject.DontDestroyOnLoad(soundcontroller_init);
-        soundcontroller_init.tag = "SoundController";
+        soundcontroller_init.tag = "SoundController";        
 
         //調合計算用メソッドオブジェクト
         var combination_init = new GameObject("CombinationMain", typeof(CombinationMain));
@@ -170,6 +170,11 @@ public class RuntimeInitializer : MonoBehaviour
         //FPSカウンタ
         var fpscounter_init = new GameObject("FPSCounter", typeof(FPSCounter));
         GameObject.DontDestroyOnLoad(fpscounter_init);
+
+        //時間を統括するオブジェクト
+        var timecontroller_init = new GameObject("TimeController", typeof(TimeController));
+        GameObject.DontDestroyOnLoad(timecontroller_init);
+        timecontroller_init.tag = "TimeController";
 
     }
 

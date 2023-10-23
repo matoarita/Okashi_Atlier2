@@ -42,6 +42,10 @@ public class BGM : MonoBehaviour {
     public AudioClip sound31;  //ピクニック2のBGM
     public AudioClip sound32;  //ピクニック3のBGM
     public AudioClip sound33;  //ピクニック帰りのBGM
+    public AudioClip sound34;  //クエストに豪勢にお金をもらったときの曲
+    public AudioClip sound35;  //エメラルショップのBGM
+    public AudioClip sound36;  //コンテスト会場のBGM
+    public AudioClip sound37;  //広場３のBGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -65,11 +69,6 @@ public class BGM : MonoBehaviour {
 
         switch (SceneManager.GetActiveScene().name)
         {
-            case "001_Title":
-
-                PlaySub();
-                break;
-
             case "Compound":
 
                 PlayMain();
@@ -109,6 +108,11 @@ public class BGM : MonoBehaviour {
             case "Bar":
 
                 _bgm[1].volume = 0.4f * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
+                break;
+
+            default:
+
+                _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
                 break;
         }
 
@@ -164,7 +168,6 @@ public class BGM : MonoBehaviour {
 
     public void PlayMain()
     {
-
         BGMMainChange();
 
         _bgm[0].Play();
@@ -175,9 +178,56 @@ public class BGM : MonoBehaviour {
 
     public void PlaySub()
     {
-        _bgm[0].clip = sound1;
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "001_Title":
+
+                _bgm[0].clip = sound24;
+                break;
+
+            case "Farm":
+
+                _bgm[0].clip = sound28;
+                break;
+
+            case "Shop":
+
+                _bgm[0].clip = sound27;
+                break;
+
+            case "Emerald_Shop":
+
+                _bgm[0].clip = sound35;
+                break;
+
+            case "Bar":
+
+                _bgm[0].clip = sound29;
+                break;
+
+            case "Hiroba2":
+
+                _bgm[0].clip = sound23;
+                break;
+
+            case "Hiroba3":
+
+                _bgm[0].clip = sound37;
+                break;
+
+            case "Contest":
+
+                _bgm[0].clip = sound36;
+                break;
+
+            default:
+
+                _bgm[0].clip = sound1;
+                break;
+        }
         _bgm[0].Play();
 
+        
     }
 
     public void EndingBGM_A()
@@ -469,7 +519,6 @@ public class BGM : MonoBehaviour {
     }
     public void OnMainBGMFade()
     {
-
         fade_status = 4;
     }
 
@@ -593,7 +642,7 @@ public class BGM : MonoBehaviour {
     public void PlayFanfare1()
     {
         _bgm[0].Stop();
-        _bgm[1].clip = sound2;
+        _bgm[1].clip = sound34;
         _bgm[1].Play();
     }
 

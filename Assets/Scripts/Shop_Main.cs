@@ -55,6 +55,7 @@ public class Shop_Main : MonoBehaviour {
     private GameObject shopon_toggle_quest;
     private GameObject shopon_toggle_uwasa;
     private GameObject shopon_toggle_present;
+    private GameObject shopon_toggle_compound;
 
     private bool check_event;   
     private bool check_lvevent;
@@ -127,6 +128,7 @@ public class Shop_Main : MonoBehaviour {
         shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
         shopon_toggle_present = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Present").gameObject;
         shopon_toggle_present.SetActive(false);
+        shopon_toggle_compound = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Compound").gameObject;
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
         //shopon_toggle_quest.SetActive(false);
@@ -457,6 +459,19 @@ public class Shop_Main : MonoBehaviour {
                     case 100: //退避
                         break;
 
+                    case 500: //調合用
+
+                        //調合終了まち
+                        if(GameMgr.CompoundSceneStartON == false)
+                        {
+                            GameMgr.compound_select = 0; //何もしていない状態
+                            GameMgr.compound_status = 0;
+
+                            shop_status = 0;
+                            shop_scene = 0;
+                        }
+                        break;
+
                     default:
                         break;
 
@@ -611,6 +626,21 @@ public class Shop_Main : MonoBehaviour {
 
             StartCoroutine("UtageEndWait");
 
+        }
+    }
+
+    public void OnCheck_Compound() //ショップで調合できるかお試し
+    {
+        if (shopon_toggle_compound.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle_compound.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            shop_status = 500; //
+            shop_scene = 500;
+
+            GameMgr.compound_status = 6;
+
+            GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
         }
     }
 

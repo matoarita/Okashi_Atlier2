@@ -12,9 +12,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     private ItemDataBase database;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private GameObject ResultCardView_content_obj;
 
     private List<GameObject> _cardImage_obj = new List<GameObject>(); //カード表示用のゲームオブジェクト
@@ -239,7 +236,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void OKCard_DrawView(int _kosu)
     {
-        Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
@@ -261,7 +257,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void SelectCard_DrawView02(int _toggleType, int _kettei_item2)
     {
-        Draw_Compound();
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[1].GetComponent<SetImage>();
@@ -304,7 +299,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void OKCard_DrawView02(int _kosu)
     {
-        Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
@@ -332,8 +326,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
     public void SelectCard_DrawView03(int _toggleType, int _kettei_item3)
     {
         //Debug.Log("SelectCard_DrawView03 called");
-
-        Draw_Compound();
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[2].GetComponent<SetImage>();
@@ -380,7 +372,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void OKCard_DrawView03(int _kosu)
     {
-        Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
@@ -413,7 +404,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void SelectCard_DrawView04(int _toggleType, int _kettei_item4)
     {
-        Draw_Compound();
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[3].GetComponent<SetImage>();
@@ -456,7 +446,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void OKCard_DrawView04()
     {
-        Draw_Compound();
 
         // オリジナル調合を選択した場合の処理
         if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
@@ -919,13 +908,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     }
 
-
-
-    void Draw_Compound()
-    {
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-    }
 
 
     //一時的にカードのインタラクトをOFF

@@ -1720,6 +1720,7 @@ public class SetImage : MonoBehaviour
                                 if (exp_Controller._temp_extreme_id != 9999) //新しいお菓子がセットされているので、一度オフ
                                 {
                                     GameMgr.compound_status = 0;
+                                    GameMgr.CompoundSceneStartON = false;　//調合シーン終了
 
                                     if (GameMgr.tutorial_ON == true)
                                     {
@@ -1742,7 +1743,7 @@ public class SetImage : MonoBehaviour
                                 if (exp_Controller._temp_extreme_id != 9999) //新しいお菓子がセットされているので、一度オフ
                                 {
                                     GameMgr.compound_status = 0;
-
+                                    GameMgr.CompoundSceneStartON = false;　//調合シーン終了
 
                                     if (GameMgr.tutorial_ON == true)
                                     {
@@ -1762,14 +1763,12 @@ public class SetImage : MonoBehaviour
 
                             default:
 
+                                GameMgr.CompoundSceneStartON = false;　//調合シーン終了
                                 GameMgr.compound_status = 0;
                                 break;
 
                         }
                     }
-
-                    GameMgr.CompoundSceneStartON = false;　//調合シーン終了
-                    //compound_Main.compo_ON = false; //成功でも失敗でも、必ずこのカードは押さないと、メイン画面に戻れない。
 
                     exp_Controller.EffectListClear();
                     card_view.DeleteCard_DrawView();

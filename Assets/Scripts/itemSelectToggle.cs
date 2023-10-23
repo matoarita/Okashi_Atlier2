@@ -248,14 +248,13 @@ public class itemSelectToggle : MonoBehaviour
         //m_Text.text = "New Value : " + m_Toggle.isOn;
         if (m_Toggle.isOn == true)
         {
-
-            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理
+            // 調合シーンでやりたい処理
+            if (GameMgr.CompoundSceneStartON)
             {
-
                 itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
                 GameMgr.compound_status = 100; //トグルを押して、調合中の状態。All_cancelで、status=4に戻る。status=4でキャンセルすると、最初の調合選択シーンに戻る。
-                
+
                 // オリジナル調合かヒカリに作らせるを選択した場合の処理
                 if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
                 {
@@ -279,112 +278,123 @@ public class itemSelectToggle : MonoBehaviour
 
                     compound_roast_active();
                 }
-
-                // お菓子を「あげる」を選択した場合の処理
-                if (GameMgr.compound_select == 10)
-                {
-
-                }
-
-                // 単にメニューを開いたとき
-                if (GameMgr.compound_select == 99)
-                {
-                    Player_ItemList_Open();
-                }
-
-                // シナリオやサブイベントなどを読み中の処理
-                if (GameMgr.compound_select == 1000)
-                {
-                    itempresent_active();
-                }
             }
-
-            else if (SceneManager.GetActiveScene().name == "Shop") // ショップでやりたい処理
+            else
             {
-                itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
-
-                back_ShopFirst_btn.interactable = false;
-
-                switch (shop_Main.shop_scene)
+                if (SceneManager.GetActiveScene().name == "Compound") // 調合シーン以外でメインシーンでやりたい処理
                 {
 
-                    /*case 3: //納品時の画面開いた時。酒場に移行したので、こっちは未使用。
-                        
-                        NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+                    itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
-                        shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
-                        shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+                    GameMgr.compound_status = 100; //トグルを押して、調合中の状態。All_cancelで、status=4に戻る。status=4でキャンセルすると、最初の調合選択シーンに戻る。
 
-                        questjudge_obj = GameObject.FindWithTag("Quest_Judge");
-                        questjudge = questjudge_obj.GetComponent<Quest_Judge>();
+                    
+                    // お菓子を「あげる」を選択した場合の処理
+                    if (GameMgr.compound_select == 10)
+                    {
 
-                        //黒半透明パネルの取得
-                        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+                    }
 
-                        nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
-                        break;*/
+                    // 単にメニューを開いたとき
+                    if (GameMgr.compound_select == 99)
+                    {
+                        Player_ItemList_Open();
+                    }
 
-                    case 5: //売るとき
+                    // シナリオやサブイベントなどを読み中の処理
+                    if (GameMgr.compound_select == 1000)
+                    {
+                        itempresent_active();
+                    }
+                }
 
-                        itemsell_active(); //アイテムを売る
-                        break;
+                else if (SceneManager.GetActiveScene().name == "Shop") // ショップでやりたい処理
+                {
+                    itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
-                    case 6: //わたすとき
+                    back_ShopFirst_btn.interactable = false;
 
+                    switch (shop_Main.shop_scene)
+                    {
+
+                        /*case 3: //納品時の画面開いた時。酒場に移行したので、こっちは未使用。
+
+                            NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+                            shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                            shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+                            questjudge_obj = GameObject.FindWithTag("Quest_Judge");
+                            questjudge = questjudge_obj.GetComponent<Quest_Judge>();
+
+                            //黒半透明パネルの取得
+                            black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+
+                            nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
+                            break;*/
+
+                        case 5: //売るとき
+
+                            itemsell_active(); //アイテムを売る
+                            break;
+
+                        case 6: //わたすとき
+
+                            GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
+                            itempresent_active();
+                            break;
+                    }
+                }
+
+                else if (SceneManager.GetActiveScene().name == "Bar") // 酒場でやりたい処理
+                {
+                    itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
+
+                    back_ShopFirst_btn.interactable = false;
+
+                    switch (bar_Main.shop_scene)
+                    {
+
+                        case 3: //納品時の画面開いた時
+
+                            NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+                            shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                            shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+                            questjudge_obj = GameObject.FindWithTag("Quest_Judge");
+                            questjudge = questjudge_obj.GetComponent<Quest_Judge>();
+
+                            //黒半透明パネルの取得
+                            black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+
+                            nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
+                            break;
+
+                        case 6: //わたすとき
+
+                            GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
+                            itempresent_active();
+                            break;
+
+                    }
+                }
+
+                else // その他シーンでやりたい処理
+                {
+                    // シナリオやサブイベントなどを読み中の処理
+                    if (GameMgr.compound_select == 1000)
+                    {
                         GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
                         itempresent_active();
-                        break;
-                }
-            }
-
-            else if (SceneManager.GetActiveScene().name == "Bar") // 酒場でやりたい処理
-            {
-                itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
-
-                back_ShopFirst_btn.interactable = false;
-
-                switch (bar_Main.shop_scene)
-                {
-
-                    case 3: //納品時の画面開いた時
-
-                        NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
-
-                        shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
-                        shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-
-                        questjudge_obj = GameObject.FindWithTag("Quest_Judge");
-                        questjudge = questjudge_obj.GetComponent<Quest_Judge>();
-
-                        //黒半透明パネルの取得
-                        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
-
-                        nouhin_active(); //納品したいアイテムを、納品個数に達するまで、選択できる。か、一種類のみで、必要個数
-                        break;
-
-                    case 6: //わたすとき
-
-                        GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
-                        itempresent_active();
-                        break;
+                    }
+                    else
+                    {
+                        //アイテム画面を表示した時などで使用
+                        Player_ItemList_Open();
+                    }
 
                 }
-            }
-
-            else // その他シーンでやりたい処理
-            {
-                // シナリオやサブイベントなどを読み中の処理
-                if (GameMgr.compound_select == 1000)
-                {
-                    GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
-                    itempresent_active();
-                }
-                else
-                {
-                    //アイテム画面を表示した時などで使用
-                    Player_ItemList_Open();
-                }
-
             }
         }
 

@@ -12,15 +12,11 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private GameObject updown_counter;
     private Compound_Keisan compound_keisan;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private GameObject card_view_obj;
     private CardView card_view;
     private Transform resulttransform;
 
-    private GameObject extremePanel_obj;
-    private ExtremePanel extremePanel;
+    private Exp_Controller exp_Controller;
 
     private SoundController sc;
 
@@ -37,6 +33,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private GameObject text_area;
     private GameObject yes_no_okashisetkakunin;
     private Text _text;
+
+    private GameObject compoBG_A;
 
     private int itemID_1;
     private int itemID_2;
@@ -115,11 +113,14 @@ public class HikariMakeStartPanel : MonoBehaviour {
         //ヒカリお菓子EXPデータベースの取得
         hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
 
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
-        extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
+        //コンポBGパネルの取得
+        compoBG_A = this.transform.parent.gameObject;
 
         charaIcon_sprite_1 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_02");
         charaIcon_sprite_2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_07");
@@ -128,9 +129,6 @@ public class HikariMakeStartPanel : MonoBehaviour {
         chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
 
         cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
-
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -141,7 +139,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         effect_Particle_KiraExplode_2 = this.transform.Find("Particle_KiraExplode_2").gameObject;
         effect_Particle_KiraExplode_2.SetActive(false);
 
-        text_area = canvas.transform.Find("MessageWindow").gameObject;
+        text_area = compoBG_A.transform.Find("MessageWindowComp").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         yes_no_panel = this.transform.Find("Yes_no_Panel_Finalcheck").gameObject;
@@ -312,7 +310,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         }
     }
 
-    //この画面専用でのカード表示　cardViewとは別で処理
+    //この画面専用でのカード表示　cardViewとは別で処理　今作り中カードの表示用
     public void HikariMakeResultCard_DrawView()
     {
         for (i = 0; i < _cardImage_obj.Count; i++)
@@ -335,11 +333,12 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         _cardImage_obj[0].transform.localScale = new Vector3(0.75f, 0.75f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 1200;
 
         _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
     }
 
-    //この画面専用でのカード表示　cardViewとは別で処理
+    //この画面専用でのカード表示　cardViewとは別で処理　受け取る前最終確認のカード
     public void TakeResultCard_DrawView(int _mstatus)
     {
         for (i = 0; i < _cardImage_obj2.Count; i++)
@@ -353,7 +352,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         _cardImage = _cardImage_obj2[0].GetComponent<SetImage>();
         _cardImage.anim_status = 99;
 
-        _cardImage_obj2[0].GetComponent<Canvas>().sortingOrder = 1000;
+        //_cardImage_obj2[0].GetComponent<Canvas>().sortingOrder = 1000;
         
         //店売りかオリジナルか、アイテムID        
         _cardImage.check_counter = pitemlist.player_yosokuitemlist.Count - 1;
@@ -433,7 +432,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 GameMgr.hikari_make_okashiKosu = 0;
 
                 sc.PlaySe(76);
-                extremePanel.SetExtremeItem(0, 2);
+                exp_Controller.SetExtremeItem(0, 2);
                 ResultHikariMakeCardView_andOFF();
 
                 //仕上げ回数をリセット

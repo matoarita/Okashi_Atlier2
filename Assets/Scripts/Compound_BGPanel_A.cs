@@ -152,8 +152,6 @@ public class Compound_BGPanel_A : MonoBehaviour {
             }
             else
             {
-                GameMgr.extremepanel_on = false;
-
                 card_view.DeleteCard_DrawView();
                 SelectCompo_panel_1.SetActive(false);
 
@@ -172,8 +170,6 @@ public class Compound_BGPanel_A : MonoBehaviour {
         }
         else
         {
-            GameMgr.extremepanel_on = false;
-
             card_view.DeleteCard_DrawView();
             SelectCompo_panel_1.SetActive(false);
 

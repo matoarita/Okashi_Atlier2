@@ -14,9 +14,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     private keyManager keymanager;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
@@ -100,8 +97,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public List<int> _listkosu = new List<int>(); //納品時用の個数リスト型
 
-    //public bool extremepanel_on; //extremeパネルからのエクストリーム調合かどうか。
-
     private GameObject yes_button;
     private GameObject no_button;
 
@@ -165,8 +160,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         i = 0;
 
-        GameMgr.extremepanel_on = false;
-
         shopsell_final_select_flag = false;
 
         _listitem.Clear();
@@ -211,148 +204,152 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         no_button.SetActive(true);
 
-        switch (SceneManager.GetActiveScene().name) 
+        ResetKettei_item();
+
+        // 調合専用シーンでやりたい処理。
+        if (GameMgr.CompoundSceneStartON)
         {
-            case "Compound":　// 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+            if (GameMgr.tutorial_ON == true)
+            {
+                no_button.SetActive(false);
+            }
+            else
+            {
+                no_button.SetActive(true);
+            }
 
-                if (compound_Main_obj != null) //ゲームのセットアップ時は無視
+            // トッピング調合を選択した場合の処理
+            if (GameMgr.compound_select == 2)
+            {
+                if (kettei1_bunki == 0)
                 {
-                    //キャンバスの読み込み
-                    canvas = GameObject.FindWithTag("Canvas");
-
-                    updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-                    updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-
-                    //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
-                    updown_counter_obj.SetActive(true);
-                    updown_counter.updown_kosu = 1;
-
-                    updown_counter_obj.SetActive(false);
-                }
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-                
-                ResetKettei_item();
-
-                if (GameMgr.tutorial_ON == true)
-                {
-                    no_button.SetActive(false);
+                    topping_DrawView_1();
                 }
                 else
                 {
-                    no_button.SetActive(true);
+                    topping_DrawView_2();
                 }
+            }
+            else //トッピング調合以外
+            {
+                reset_and_DrawView();
+            }
 
-                if (GameMgr.extremepanel_on == true)
-                {
+            OpenAnim();
+        }
+        else
+        {
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Compound": // 調合シーン以外でやりたい処理。それ以外のシーンでは、この中身の処理は無視。
 
-                }
-                else
-                {
-                    kettei1_bunki = 0;
-                }               
-
-                // トッピング調合を選択した場合の処理
-                if (GameMgr.compound_select == 2)
-                {
-                    if (kettei1_bunki == 0)
+                    /*if (canvas != null) //ゲームのセットアップ時は無視
                     {
-                        topping_DrawView_1();
+                        //キャンバスの読み込み
+                        canvas = GameObject.FindWithTag("Canvas");
+
+                        updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+                        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+
+                        //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
+                        updown_counter_obj.SetActive(true);
+                        updown_counter.updown_kosu = 1;
+
+                        updown_counter_obj.SetActive(false);
+                    }*/
+
+                    reset_and_DrawView();
+
+                    if (GameMgr.tutorial_ON == true)
+                    {
+                        no_button.SetActive(false);
                     }
                     else
                     {
-                        topping_DrawView_2();
+                        no_button.SetActive(true);
                     }
-                }
-                else //トッピング調合以外
-                {
-                    reset_and_DrawView();
-                }
 
+                    //アニメーション
+                    if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
+                    {
+                        this.transform.localPosition = new Vector3(224f, 57f, 0);
+                        OpenAnim2();
+                    }
+                    else
+                    {
+                        this.transform.localPosition = new Vector3(-224f, 57f, 0);
+                        OpenAnim();
+                    }
 
+                    break;
 
+                case "Shop":
 
-                //アニメーション
-                if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
-                {
-                    this.transform.localPosition = new Vector3(224f, 57f, 0);
-                    OpenAnim2();
-                }
-                else
-                {
-                    this.transform.localPosition = new Vector3(-224f, 57f, 0);
+                    shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
+
+                    switch (shop_Main.shop_scene)
+                    {
+                        case 3: //納品時にアイテムを選択するときの処理
+
+                            yes_button.SetActive(false);
+                            no_button.SetActive(false);
+                            reset_and_DrawView();
+
+                            break;
+
+                        case 5: //売るとき
+
+                            yes_button.SetActive(false);
+                            no_button.SetActive(false);
+                            this.transform.localPosition = new Vector3(-180, 63, 0);
+                            reset_and_DrawView();
+                            break;
+
+                        case 6: //あげるとき
+
+                            yes_button.SetActive(false);
+                            no_button.SetActive(true);
+                            reset_and_DrawView();
+
+                            break;
+                    }
+
                     OpenAnim();
-                }
+                    break;
 
-                break;
+                case "Bar":
 
-            case "Shop":
+                    bar_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
 
-                shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
+                    switch (bar_Main.shop_scene)
+                    {
+                        case 3: //納品時にアイテムを選択するときの処理
 
-                switch (shop_Main.shop_scene)
-                {
-                    case 3: //納品時にアイテムを選択するときの処理
+                            yes_button.SetActive(false);
+                            no_button.SetActive(false);
+                            reset_and_DrawView();
 
-                        yes_button.SetActive(false);
-                        no_button.SetActive(false);
-                        reset_and_DrawView();
+                            break;
 
-                        break;
+                        case 6: //あげるとき
 
-                    case 5: //売るとき
+                            yes_button.SetActive(false);
+                            no_button.SetActive(true);
+                            reset_and_DrawView();
 
-                        yes_button.SetActive(false);
-                        no_button.SetActive(false);
-                        this.transform.localPosition = new Vector3(-180, 63, 0);
-                        reset_and_DrawView();
-                        break;
+                            break;
+                    }
 
-                    case 6: //あげるとき
+                    OpenAnim();
+                    break;
 
-                        yes_button.SetActive(false);
-                        no_button.SetActive(true);
-                        reset_and_DrawView();
+                default:
 
-                        break;
-                }
-
-                OpenAnim();
-                break;
-
-            case "Bar":
-
-                bar_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
-
-                switch (bar_Main.shop_scene)
-                {
-                    case 3: //納品時にアイテムを選択するときの処理
-
-                        yes_button.SetActive(false);
-                        no_button.SetActive(false);
-                        reset_and_DrawView();
-
-                        break;
-
-                    case 6: //あげるとき
-
-                        yes_button.SetActive(false);
-                        no_button.SetActive(true);
-                        reset_and_DrawView();
-
-                        break;
-                }
-
-                OpenAnim();
-                break;
-
-            default:
-
-                reset_and_DrawView();
-
-                OpenAnim();
-                break;
-        }       
+                    reset_and_DrawView();
+                    OpenAnim();
+                    break;
+            }
+        }
 
         //開いたときは、必ず、全てのアイテムは未選択の状態にする。
         ResetAllItemSelected();
@@ -981,8 +978,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
           
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
             // トッピング調合を選択した場合の処理
             if (GameMgr.compound_select == 2)

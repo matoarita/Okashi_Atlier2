@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class TimeController : MonoBehaviour
+public class TimeController : SingletonMonoBehaviour<TimeController>
 {
 
     //時間の概念を使用するかどうかは、GameMgr.csに記述  使用しないときは、TimePanelオブジェクトもオフにする
@@ -24,32 +24,7 @@ public class TimeController : MonoBehaviour
 
     private PlayerItemList pitemlist;
 
-    private ItemDataBase database;
-
-    private GameObject _month_obj1;
-    private GameObject _monthday_obj1;
-    private GameObject _month_obj2;
-    private Text _month_text1;
-    private Text _day_text1;
-    private Text _day_text2;
-
-    private GameObject _time_obj1_hour;
-    private GameObject _time_obj1_count;
-    private GameObject _time_obj1_minute;
-    private GameObject _time_obj2_hour;
-    private GameObject _time_obj2_count;
-    private GameObject _time_obj2_minute;
-    private GameObject _time_obj1_limit;
-    private GameObject _time_obj2_limit;
-
-    private Text _time_hour1;
-    private Text _time_count1;
-    private Text _time_minute1;
-    private Text _time_hour2;
-    private Text _time_count2;
-    private Text _time_minute2;
-    private Text _time_limit1;
-    private Text _time_limit2;
+    private ItemDataBase database; 
 
     private List<int> calender = new List<int>();
     private int _cullent_day;
@@ -138,22 +113,7 @@ public class TimeController : MonoBehaviour
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         //ヒカリお菓子EXPデータベースの取得
-        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
-                girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
-
-                //女の子データの取得
-                girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
-
-                //Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
-                break;
-
-        }
+        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();       
 
         //カレンダー初期化
         calender.Clear();
@@ -169,69 +129,11 @@ public class TimeController : MonoBehaviour
         calender.Add(30); //９月
         calender.Add(31); //１０月
         calender.Add(30); //１１月
-        calender.Add(31); //１２月
-
-        _month_obj1 = this.transform.Find("TimeHyouji_1/Image/Month").gameObject;
-        _month_text1 = _month_obj1.GetComponent<Text>();
-
-        _monthday_obj1 = this.transform.Find("TimeHyouji_1/Image/Month_Day").gameObject;
-        _day_text1 = _monthday_obj1.GetComponent<Text>();
-
-        _month_obj2 = this.transform.Find("TimeHyouji_2/Month").gameObject;
-        _day_text2 = _month_obj2.GetComponent<Text>();
-
-        _time_obj1_hour = this.transform.Find("TimeHyouji_1/Image/HourPanel/Hour").gameObject;
-        _time_hour1 = _time_obj1_hour.GetComponent<Text>();
-
-        _time_obj1_count = this.transform.Find("TimeHyouji_1/Image/HourPanel/TimeCount").gameObject;
-        _time_count1 = _time_obj1_count.GetComponent<Text>();
-
-        _time_obj1_minute = this.transform.Find("TimeHyouji_1/Image/HourPanel/Minute").gameObject;
-        _time_minute1 = _time_obj1_minute.GetComponent<Text>();
-
-        _time_obj2_hour = this.transform.Find("TimeHyouji_2/Hour").gameObject;
-        _time_hour2 = _time_obj2_hour.GetComponent<Text>();
-
-        _time_obj2_count = this.transform.Find("TimeHyouji_2/TimeCount").gameObject;
-        _time_count2 = _time_obj2_count.GetComponent<Text>();
-
-        _time_obj2_minute = this.transform.Find("TimeHyouji_2/Minute").gameObject;
-        _time_minute2 = _time_obj2_minute.GetComponent<Text>();
-
-        _time_obj1_limit = this.transform.Find("TimeHyouji_1/NokoriTimePanel/NokoriTimeParam").gameObject;
-        _time_limit1 = _time_obj1_limit.GetComponent<Text>();
-
-        _time_obj2_limit = this.transform.Find("TimeHyouji_2/NokoriTimeParam").gameObject;
-        _time_limit2 = _time_obj2_limit.GetComponent<Text>();
-
-        DebugTimecountUp_button = this.transform.Find("TimeHyouji_2/TimeCountUpButton").gameObject;
-        DebugTimecountDown_button = this.transform.Find("TimeHyouji_2/TimeCountDownButton").gameObject;
-
-        clock_hari1 = this.transform.Find("TimeHyouji_1/Image/HourPanel/ClockBase/Clock_hari1").gameObject;
-        clock_hari2 = this.transform.Find("TimeHyouji_1/Image/HourPanel/ClockBase/Clock_hari2").gameObject;
-
-        // transformを取得
-        clock_hari1Transform = clock_hari1.transform;
-        clock_hari2Transform = clock_hari2.transform;
-
-        // ローカル座標を基準に、回転を取得
-        localAngle1 = clock_hari1Transform.localEulerAngles;
-        localAngle2 = clock_hari2Transform.localEulerAngles;
-
-        timeLeft = 1.0f;
-        timeLeft2 = 0.0f;
-        count_switch = true;
+        calender.Add(31); //１２月       
       
         timespeed_range = 1.0f;
 
-        if (GameMgr.Story_Mode == 0)
-        {
-            this.transform.Find("TimeHyouji_1").GetComponent<CanvasGroup>().alpha = 0;
-        }
-        else
-        {
-            this.transform.Find("TimeHyouji_1").GetComponent<CanvasGroup>().alpha = 1;
-        }
+        
     }
 
     private void OnEnable()
@@ -242,6 +144,25 @@ public class TimeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //セットアップ
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                if (compound_main == null)
+                {
+                    compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+                    girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+
+                    //女の子データの取得
+                    girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+                    //Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
+                }
+                break;
+
+        }
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
@@ -290,9 +211,9 @@ public class TimeController : MonoBehaviour
                                     SetMinuteToHour(1); //1=5分単位
                                     TimeKoushin(0);
 
-                                    
-                                    Weather_Change(5.0f);
-                                    
+
+                                    compound_main.Weather_Change(5.0f);
+
 
                                     //サブ時間イベントをチェック
                                     if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
@@ -579,30 +500,6 @@ public class TimeController : MonoBehaviour
                     }
                 }
 
-                if (count_switch)
-                {
-                    //表示
-                    _time_count1.text = ":";
-                    _time_count2.text = ":";
-
-                }
-                else
-                {
-                    //表示
-                    _time_count1.text = " ";
-                    _time_count2.text = " ";
-                }
-
-                if (GameMgr.DEBUG_MODE)
-                {
-                    DebugTimecountUp_button.SetActive(true);
-                    DebugTimecountDown_button.SetActive(true);
-                }
-                else
-                {
-                    DebugTimecountUp_button.SetActive(false);
-                    DebugTimecountDown_button.SetActive(false);
-                }
                 break;
         }
     }
@@ -727,51 +624,7 @@ public class TimeController : MonoBehaviour
         }
     }
 
-    //時間に応じて、天気（背景）を変更する。BG_RealtimeChange()内の数字は、切り替わりの時間。
-    //調合後（ExpController）や採取から帰ってきたとき（Compound_Main）からも読まれる。
-    //下の関数とほぼ同じだが、こっちはcompound_main.BG_RealtimeChange内のtweenのDoFadeを、重複して発生しないようにしている。基本はこっちを使用でOK。
-    public void Weather_Change(float _changetime)
-    {
-        //フリーモードのときのみ　変更
-        if (GameMgr.Story_Mode == 1)
-        {
-            Weather_Judge_Method();
-
-            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
-            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
-
-            if (GameMgr.BG_cullent_weather != 2) //朝起きたては、強制的にCompound_MainのOnMorningBG()で変更するので、朝の判定のみ削除。お昼～夜まではチェック。
-            {
-                if (GameMgr.BG_cullent_weather != GameMgr.BG_before_weather)
-                {
-                    GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
-
-                    //天気アニメ変更をトリガー
-                    compound_main.BG_RealtimeChange(_changetime); //背景更新
-                    Debug.Log("天気を変更　秒数: " + _changetime);
-                }
-            }
-        }
-    }
-
-    //現在時刻に合わせて、即背景を変更。前時間と現在時間の比較計算をしない。ロード直後はこっちを使用。（うまくbeforeとcullentの値の切り替えが出来なかったため。）
-    public void Weather_ChangeNow(float _changetime)
-    {
-        //フリーモードのときのみ　変更
-        if (GameMgr.Story_Mode == 1)
-        {
-            Weather_Judge_Method();
-
-            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
-            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
-            GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
-
-            //天気アニメ変更をトリガー
-            compound_main.BG_RealtimeChange(_changetime); //背景更新
-            Debug.Log("天気を変更　秒数: " + _changetime);
-        }
-    }
-
+    //天気状態の更新
     void Weather_Judge_Method()
     {
         //Debug.Log("天気チェック");
@@ -816,32 +669,7 @@ public class TimeController : MonoBehaviour
             /* 時刻の計算 */
 
             //現在時刻を計算 この時点で、25時 ○○分とかの可能性もあり。そのときに、player_dayへの変換もする。
-            TimeKeisan();
-
-            //表示
-            _time_hour1.text = PlayerStatus.player_cullent_hour.ToString("00");
-            _time_minute1.text = PlayerStatus.player_cullent_minute.ToString("00");
-            _time_hour2.text = PlayerStatus.player_cullent_hour.ToString("00");
-            _time_minute2.text = PlayerStatus.player_cullent_minute.ToString("00");
-
-            //時計版表示           
-            localAngle1.z = -1 * PlayerStatus.player_cullent_minute * 6; // ローカル座標を基準に、z軸を軸にした回転
-            clock_hari1Transform.localEulerAngles = localAngle1; // 回転角度を設定
-
-            if(PlayerStatus.player_cullent_hour >= 12)
-            {
-                cullent_hour_clock = PlayerStatus.player_cullent_hour - 12;
-            }
-            else
-            {
-                cullent_hour_clock = PlayerStatus.player_cullent_hour;
-            }
-            localAngle2.z = -1 * 30 * cullent_hour_clock; // ローカル座標を基準に、z軸を軸にした回転
-            localAngle2.z = localAngle2.z  + (- 2.5f * (PlayerStatus.player_cullent_minute / 5));
-            clock_hari2Transform.localEulerAngles = localAngle2; // 回転角度を設定
-
-            //** 時刻の計算　ここまで **//
-
+            TimeKeisan();            
 
             //
             /* 月日の計算 */
@@ -857,34 +685,7 @@ public class TimeController : MonoBehaviour
 
             _cullent_day = PlayerStatus.player_day;
             month = 0;
-            day = 0;
-
-            /*現在は未使用 */
-
-            switch (GameMgr.stage_number)
-            {
-                case 1:
-
-                    _stage_limit_day = GameMgr.stage1_limit_day;
-                    break;
-
-                case 2:
-
-                    _stage_limit_day = GameMgr.stage2_limit_day;
-                    break;
-
-                case 3:
-
-                    _stage_limit_day = GameMgr.stage3_limit_day;
-                    break;
-
-            }
-
-            //残り日数
-            _time_limit1.text = (_stage_limit_day - _cullent_day).ToString() + "日";
-            _time_limit2.text = (_stage_limit_day - _cullent_day).ToString() + "日";
-
-            //** ここの間は未使用 **//
+            day = 0;            
 
             //カレンダー変換機能
             if (_mstatus == 0)
@@ -911,14 +712,11 @@ public class TimeController : MonoBehaviour
                 //入力された日付から、逆算してPlayerStatus.player_dayを計算する必要があり。まだ実装してないので、実装必要。
             }
 
-            
-
-            //表示
-            _month_text1.text = PlayerStatus.player_cullent_month.ToString();
-            _day_text1.text = PlayerStatus.player_cullent_day.ToString();
-            _day_text2.text = PlayerStatus.player_cullent_month.ToString() + "/" + PlayerStatus.player_cullent_day.ToString();
-
             //** 月日の計算　ここまで **//
+
+
+            //時間帯に合わせて天気情報も更新
+            Weather_Judge_Method();
 
 
             //時刻と月日の計算後にイベントチェック
@@ -1276,8 +1074,10 @@ public class TimeController : MonoBehaviour
         TimeKoushin(1);
 
         //天気も変更
-        Weather_ChangeNow(1.0f);
+        //Weather_ChangeNow(1.0f);
     }
+
+
 
     void GameSpeedRange()
     {

@@ -90,10 +90,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private ItemRoastDataBase databaseRoast;
     private ItemShopDataBase shop_database;
     private SlotNameDataBase slotnamedatabase;
-    private SlotChangeName slotchangename;
-
-    private GameObject extremePanel_obj;
-    private ExtremePanel extremePanel;
 
     private GameObject hukidashiitem;
     private Text _hukidashitext;
@@ -170,7 +166,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private GameObject HikariMake_effect_Particle_KiraExplode;
 
-    private GameObject ResultBGimage;
     private GameObject BlackImage;
 
     private GameObject CompleteImage;
@@ -294,18 +289,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //カメラの取得
         main_cam = Camera.main;
         maincam_animator = main_cam.GetComponent<Animator>();
-        trans = maincam_animator.GetInteger("trans");
-
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-        Hikarimake_StartPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
+        trans = maincam_animator.GetInteger("trans");        
 
         //時間管理オブジェクトの取得
-        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
-
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
-        extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
@@ -331,21 +318,31 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //完成時パネルの取得
         CompleteImage = compoBG_A.transform.Find("CompletePanel").gameObject; //調合成功時のイメージパネル
 
-        
-        ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
-        ResultBGimage.SetActive(false);
-
         //YesNoパネル
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
 
-        //スロット名前変換用オブジェクトの取得
-        slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
-
         //Live2Dモデルの取得
-        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
-        live2d_animator = _model_obj.GetComponent<Animator>();
+        Scene scene = SceneManager.GetActiveScene();
+        GameObject[] rootObjects = scene.GetRootGameObjects();
 
-        character_move = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove").gameObject;
+        //character_On = false;
+        foreach (var obj in rootObjects)
+        {
+            //Debug.LogFormat("RootObject = {0}", obj.name);
+            if (obj.name == "CharacterRoot")
+            {
+                Debug.Log("character_On: ヒカリちゃん　シーン内に存在する");
+                _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+                live2d_animator = _model_obj.GetComponent<Animator>();
+                character_move = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove").gameObject;
+            }
+            else
+            {
+
+            }
+        }
+
+        Hikarimake_StartPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
     }
 
     // Update is called once per frame
@@ -354,17 +351,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
-
             //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
             if (compound_Main_obj == null)
             {
+                
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
                 InitObject();
             }
 
             //調合中ウェイト+アニメ
             if (compo_anim_on == true)
             {
-                //compound_Main.compo_ON = true;
                 GameMgr.check_GirlLoveSubEvent_flag = false;
 
                 //アニメスタート
@@ -555,7 +554,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList(1);
-            extremePanel.deleteExtreme_Item();
+            deleteExtreme_Item();
+            GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             card_view.ResultCard_DrawView(0, result_item);
 
@@ -574,13 +574,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
-        time_controller.Weather_Change(0.0f);
         time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 
-        //メインテキストも更新
-        compound_Main.StartMessage();        
+        //シーンごとの後処理
+        SceneAfterSetting();
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -611,7 +610,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             else
             {
                 //お菓子パネルに、作ったやつをセット。
-                extremePanel.SetExtremeItem(result_item, 2);
+                SetExtremeItem(result_item, 2);
+                GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
                 //仕上げ回数をリセット
                 PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
@@ -657,7 +657,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else
         {
             //右側パネルに、作ったやつを表示する。
-            extremePanel.SetExtremeItem(result_item, 0);
+            SetExtremeItem(result_item, 0);
+            GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
         }
 
@@ -801,7 +802,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList(1);
-            extremePanel.deleteExtreme_Item();
+            deleteExtreme_Item();
+            GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             card_view.ResultCard_DrawView(0, result_item);
 
@@ -818,12 +820,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         recipiresult_ok = false;
 
-        //メインテキストも更新
-        compound_Main.StartMessage();
+        //シーンごとの後処理
+        SceneAfterSetting();
 
         //日数の経過
         time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
-        time_controller.Weather_Change(0.0f);
         time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
@@ -980,8 +981,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_kosu = 1;
 
             //右側パネルに、作ったやつを表示する。
-            extremePanel.SetExtremeItem(0, 2);
-            
+            SetExtremeItem(0, 2);
+            GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
+
             //テキストの表示
             renkin_exp_up();
 
@@ -1022,7 +1024,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList(1);
-            extremePanel.deleteExtreme_Item();
+            deleteExtreme_Item();
+            GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             card_view.ResultCard_DrawView(0, result_item);
 
@@ -1042,12 +1045,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //テキスト表示後、閃いた～をリセットしておく
         _ex_text = "";
 
-        //メインテキストも更新
-        compound_Main.StartMessage();
+        //シーンごとの後処理
+        SceneAfterSetting();
 
         //日数の経過
         time_controller.SetMinuteToHour(3);
-        time_controller.Weather_Change(0.0f);
         time_controller.HikarimakeTimeCheck(3); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
@@ -1060,6 +1062,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.check_CompoAfter_flag = true;
     }
 
+    //シーンごとの後処理
+    void SceneAfterSetting()
+    {
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        {
+            //メインテキストも更新
+            compound_Main.StartMessage();
+        }
+    }
 
     //
     //ヒカリが作る完了の場合
@@ -1455,7 +1466,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 sc.PlaySe(10);
 
                 //一時的にお菓子のHP減少をストップ
-                extremePanel.LifeAnimeOnFalse();
+                //extremePanel.LifeAnimeOnFalse();
 
                 //背景変更
                 //compoBG_A.SetActive(true);
@@ -1628,7 +1639,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         sc.PlaySe(27);
         sc.PlaySe(78);
 
-        //ResultBGimage.SetActive(true);
     }
 
     void ResultEffect_NG()
@@ -1821,4 +1831,25 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     }
 
+    //作ったお菓子を、セットする 
+    public void SetExtremeItem(int item_id, int itemtype)
+    {
+        //シーン移動用に保存
+        _temp_extreme_id = item_id; //オリジナルリストの最後の番号のこと
+        _temp_extreme_itemtype = itemtype;
+        _temp_extremeSetting = true; //セットされていますよ～、ということ。この状態で、オリジナルリストの最後の番号のアイテムが削除されたら、パネルのデータも削除する。
+
+    }
+
+    //パネル上のお菓子を削除する　Compound_Keisanなどからも読まれる。
+    public void deleteExtreme_Item() //削除。さらに全てのパラメータもリセットする。
+    {
+        card_view.DeleteCard_DrawView();
+
+        _temp_extreme_id = 9999;
+        _temp_extreme_itemtype = 0;
+        _temp_extremeSetting = false;
+
+        pitemlist.deleteAllExtremePanelItem();
+    }
 }

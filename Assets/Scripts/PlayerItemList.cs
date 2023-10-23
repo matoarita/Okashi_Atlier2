@@ -797,8 +797,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             {
                 player_extremepanel_itemlist.Clear();
 
-                //exp_Controller._temp_extremeSetting = false;
-                //exp_Controller._temp_extreme_id = 9999;
+                exp_Controller._temp_extremeSetting = false;
+                exp_Controller._temp_extreme_id = 9999;
+                exp_Controller._temp_extreme_itemtype = 0;
             }            
         }        
     }

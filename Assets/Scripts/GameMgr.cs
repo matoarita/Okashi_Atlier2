@@ -162,10 +162,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //コンテストのイベントリスト
     public static bool[] ContestEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
 
-    //エクストリームパネルのアイテム保存
-    public static int sys_extreme_itemID;
-    public static int sys_extreme_itemType;
-
     //お菓子イベントクリアのフラグ
     public static bool[] OkashiQuest_flag_stage1 = new bool[Event_num]; //各イベントのクリアしたかどうかのフラグ。
     public static bool[] OkashiQuest_flag_stage2 = new bool[Event_num];
@@ -480,9 +476,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
     public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ  
     public static int MainQuestClear_flag; //メインクエストをクリアしたのか、道中の通常のSPクエストをクリアしたのか、判定するフラグ
-    public static bool extremepanel_on; //extremeパネルからのエクストリーム調合かどうか。
     public static bool final_select_flag; //調合シーンで、調合の最終決定の確認
     public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
+    public static bool extremepanel_Koushin; //なんらかの調合が終わり、エクストリームパネルの表示を更新するフラグ
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -825,9 +821,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikari_tabetaiokashi_buf = false;
         hikari_tabetaiokashi_buf_time = 0;
 
-        sys_extreme_itemID = 9999;
-        sys_extreme_itemType = 0;
-
         stageclear_cullentlove = 0;
         ExtraClear_QuestItemRank = 1;
 
@@ -866,10 +859,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_Extra_SpEvent_Start = false;
         ExtraClear_QuestName = "";
         MainQuestClear_flag = 0;
-        extremepanel_on = false;
         final_select_flag = false;
         CompoundSceneStartON = false;
         compobgm_change_flag = false;
+        extremepanel_Koushin = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

@@ -120,6 +120,9 @@ public class CompoundMainController : MonoBehaviour {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         Debug_CompoIcon = this.transform.Find("Debug_CompIcon").gameObject;
         Debug_CompoIcon.SetActive(false);
 
@@ -156,10 +159,9 @@ public class CompoundMainController : MonoBehaviour {
         select_hikarimake_button = select_hikarimake_button_obj.GetComponent<Button>();
 
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
-        yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
-        no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
-
-        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+        yes_no_panel = compoBG_A.transform.Find("Yes_no_Panel").gameObject;
+        yes = yes_no_panel.transform.Find("Yes").gameObject;
+        no = yes_no_panel.transform.Find("No").gameObject;       
 
         //シーン最初にカウンターも生成する。
         updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
@@ -201,16 +203,6 @@ public class CompoundMainController : MonoBehaviour {
         //ピクニック用のテキスト取得
         picnic_itemText = compoBG_A.transform.Find("SelectPanel_1/Picnic_yesno/ItemText/Text").GetComponent<Text>();
 
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                //時間管理オブジェクトの取得
-                time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
-                break;
-
-        }
-
 
         //Live2Dモデルの取得 
         //調合専用処理では、Live2Dの描画順のみ操作し、位置やアクションなどには触らないようにする。LateUpdateの関係など、ややこしいので、元シーンで処理する。
@@ -240,10 +232,6 @@ public class CompoundMainController : MonoBehaviour {
         }
 
         //各調合時のシステムメッセージ集
-        originai_text = "新しくお菓子を作ろう！" + "\n" + "好きな材料を" + GameMgr.ColorYellow +
-            "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
-        extreme_text = "仕上げをしよう！にいちゃん！ 一個目の材料を選んでね。";
-        recipi_text = "ヒカリのお菓子手帳だよ！" + "\n" + "にいちゃんのレシピが増えたら、ここに書いてくね！";
         hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
             "好きな材料を" + GameMgr.ColorYellow +
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
@@ -288,16 +276,20 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                     GameMgr.compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
 
-                    recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
-                    kakuritsuPanel_obj.SetActive(true);
-                    compoBG_A.SetActive(true);
-                    //compoBGA_image.SetActive(false);
-                    compoBGA_imageOri.SetActive(false);
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
+
                     compoBGA_imageRecipi.SetActive(true);
-                    compoBGA_imageExtreme.SetActive(false);
-                    compoBGA_imageHikariMake.SetActive(false);                   
+
+                    recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
+
                     yes_no_panel.SetActive(true);
                     yes.SetActive(false);
+                   
+                    text_area_compound.SetActive(true);
+
+                    //ヒカリちゃんを表示する
+                    ReDrawLive2DPos_Compound();
 
                     if (GameMgr.tutorial_ON != true)
                     { }
@@ -306,12 +298,6 @@ public class CompoundMainController : MonoBehaviour {
                         no.SetActive(false);
                     }
 
-                    text_area_compound.SetActive(true);
-                    //WindowOff();
-
-                    //ヒカリちゃんを表示する
-                    ReDrawLive2DPos_Compound();
-
                     break;
 
                 case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
@@ -319,24 +305,22 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                     GameMgr.compound_select = 2; //トッピング調合を選択
 
-                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                    kakuritsuPanel_obj.SetActive(false);
-                    compoBG_A.SetActive(true);
-                    //compoBGA_image.SetActive(false);
-                    compoBGA_imageOri.SetActive(false);
-                    compoBGA_imageRecipi.SetActive(false);
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
+
                     compoBGA_imageExtreme.SetActive(true);
-                    compoBGA_imageHikariMake.SetActive(false);
+
+                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
+                    pitemlistController.kettei1_bunki = 0;
 
                     text_area_compound.SetActive(true);
-                    //WindowOff();
 
                     //ヒカリちゃんを表示する
                     ReDrawLive2DPos_Compound();
+                    
 
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-
-                    extreme_Compo_Setup();
+                    extreme_Compo_Setup(); //ベースアイテムを事前に設定しておく処理
 
                     break;
 
@@ -344,27 +328,22 @@ public class CompoundMainController : MonoBehaviour {
 
                     GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                     GameMgr.compound_select = 3; //オリジナル調合を選択
+                   
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
+
+                    compoBGA_imageOri.SetActive(true);
 
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                    kakuritsuPanel_obj.SetActive(true);
+                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+                    pitemlistController.kettei1_bunki = 0;
 
-                    compoBG_A.SetActive(true);
-                    //compoBGA_image.SetActive(false);
-                    compoBGA_imageOri.SetActive(true);
-                    compoBGA_imageRecipi.SetActive(false);
-                    compoBGA_imageExtreme.SetActive(false);
-                    compoBGA_imageHikariMake.SetActive(false);
                     recipiMemoButton.SetActive(true);
-                    recipimemoController_obj.SetActive(false);
-                    memoResult_obj.SetActive(false);
 
                     text_area_compound.SetActive(true);
-                    //WindowOff();
 
                     //ヒカリちゃんを表示する
                     ReDrawLive2DPos_Compound();
-
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
 
                     if (GameMgr.tutorial_ON == true)
                     {
@@ -405,6 +384,9 @@ public class CompoundMainController : MonoBehaviour {
 
                 case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
 
+                    GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                    GameMgr.compound_select = 6;
+
                     //BGMを変更
                     if (!GameMgr.tutorial_ON)
                     {
@@ -416,10 +398,7 @@ public class CompoundMainController : MonoBehaviour {
                                 GameMgr.compobgm_change_flag = true;
                             }
                         }
-                    }
-
-                    GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
-                    GameMgr.compound_select = 6;
+                    }                    
 
                     switch (SceneManager.GetActiveScene().name)
                     {
@@ -429,23 +408,18 @@ public class CompoundMainController : MonoBehaviour {
                             break;
                     }
 
-                    playeritemlist_onoff.SetActive(false);
-                    recipilist_onoff.SetActive(false);
-                    kakuritsuPanel_obj.SetActive(false);
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
 
                     SelectCompo_panel_1.SetActive(true);
                     compoBG_A.SetActive(true);
-                    //compoBGA_image.SetActive(true);
-                    compoBGA_imageOri.SetActive(false);
-                    compoBGA_imageRecipi.SetActive(false);
-                    compoBGA_imageExtreme.SetActive(false);
-                    compoBGA_imageHikariMake.SetActive(false);
+
+                    
                     
                     yes_no_panel.SetActive(false);
 
                     text_area_compound.SetActive(false);
                     text_hikari_makecaption.SetActive(false);
-                    //WindowOff();
 
                     //カメラリセット
                     //アイドルに戻るときに0に戻す。
@@ -455,12 +429,10 @@ public class CompoundMainController : MonoBehaviour {
                     maincam_animator.SetInteger("trans", trans);
 
                     //ヒカリちゃんを表示しない。デフォルト描画順
-                    //ReSetLive2DOrder_Default();
+                    ReSetLive2DOrder_Default();
                     GameMgr.QuestManzokuFace = false; //おいしかった表情は、調合シーンに入るとリセットされる。
 
-                    recipiMemoButton.SetActive(false);
-                    recipimemoController_obj.SetActive(false);
-                    memoResult_obj.SetActive(false);
+                    
 
                     if (pitemlist.player_extremepanel_itemlist.Count > 0 && PlayerStatus.player_extreme_kaisu > 0) //extreme_panel.extreme_kaisu
                     {
@@ -518,21 +490,17 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                     GameMgr.compound_select = 7; //ヒカリに作らせるを選択
 
-                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                    kakuritsuPanel_obj.SetActive(true);
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
 
-                    compoBG_A.SetActive(true);
-                    //compoBGA_image.SetActive(false);
-                    compoBGA_imageOri.SetActive(false);
-                    compoBGA_imageRecipi.SetActive(false);
-                    compoBGA_imageExtreme.SetActive(false);
                     compoBGA_imageHikariMake.SetActive(true);
                     recipiMemoButton.SetActive(true);
-                    recipimemoController_obj.SetActive(false);
-                    memoResult_obj.SetActive(false);
+
+                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+                    pitemlistController.kettei1_bunki = 0;
 
                     text_area_compound.SetActive(true);
-                    //WindowOff();
                     _textcomp.text = hikarimake_text;
                     text_hikari_makecaption.SetActive(true);
 
@@ -540,67 +508,78 @@ public class CompoundMainController : MonoBehaviour {
                     compoBGA_imageHikariMake.transform.Find("Particle_KiraExplode").gameObject.SetActive(false);
 
                     //ヒカリちゃんを表示する
-                    ReDrawLive2DPos_Compound();
-
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+                    ReDrawLive2DPos_Compound();                  
 
                     break;
 
                 case 8: //ヒカリお菓子作りのスタートパネルを開く               
 
-                    Hikarimake_StartPanel.SetActive(true);
-
+                    
                     GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                     GameMgr.compound_select = 8;
+
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
 
                     ReSetLive2DOrder_Default();
 
                     playeritemlist_onoff.SetActive(false);
                     recipilist_onoff.SetActive(false);
-                    kakuritsuPanel_obj.SetActive(false);
 
                     SelectCompo_panel_1.SetActive(false);
-                    compoBG_A.SetActive(true);
-                    //compoBGA_image.SetActive(true);
-                    compoBGA_imageOri.SetActive(false);
-                    compoBGA_imageRecipi.SetActive(false);
-                    compoBGA_imageExtreme.SetActive(false);
-                    compoBGA_imageHikariMake.SetActive(false);
+                   
+                    Hikarimake_StartPanel.SetActive(true);
+
                     yes_no_panel.SetActive(false);
 
                     text_area_compound.SetActive(false);
-                    //WindowOff();
-                    text_hikari_makecaption.SetActive(false);
-
-                    recipiMemoButton.SetActive(false);
-                    recipimemoController_obj.SetActive(false);
-                    memoResult_obj.SetActive(false);
-
-                    /*if (pitemlist.player_extremepanel_itemlist.Count > 0 && PlayerStatus.player_extreme_kaisu > 0) //extreme_panel.extreme_kaisu
-                    {
-                        select_extreme_button.interactable = true;
-                    }
-                    else
-                    {
-                        select_extreme_button.interactable = false;
-                    }*/
 
                     break;
             }
         }
     }
 
-    public void OnCancelCompound_Select() //調合画面から戻るとき
+    void CompoScreenReset()
     {
+        compoBGA_imageOri.SetActive(false);
+        compoBGA_imageRecipi.SetActive(false);
+        compoBGA_imageExtreme.SetActive(false);
+        compoBGA_imageHikariMake.SetActive(false);
+
+        playeritemlist_onoff.SetActive(false);
+        recipilist_onoff.SetActive(false);
+
+        recipiMemoButton.SetActive(false);
+        recipimemoController_obj.SetActive(false);
+        memoResult_obj.SetActive(false);
+    }
+
+    public void OnCancelCompound_Select() //調合画面から元シーンに戻るとき
+    {
+        if (!GameMgr.tutorial_ON)
+        {
+            if (GameMgr.CompoBGMCHANGE_ON)
+            {
+                if (GameMgr.compobgm_change_flag == true)
+                {
+                    GameMgr.compobgm_change_flag = false;
+                    sceneBGM.OnMainBGMFade();
+                    //sceneBGM.OnMainBGM(); //即座に切り替え
+                }
+            }
+        }
+
         GameMgr.CompoundSceneStartON = false;　//調合シーン終了
         GameMgr.compound_status = 0;
+
+        compoBG_A.SetActive(false);
     }
 
     //エクストリーム調合開始　お菓子パネルに現在セットされてるお菓子をベースにする処理
     void extreme_Compo_Setup()
     {
         //以下、エクストリーム用に再度パラメータを設定
-        GameMgr.extremepanel_on = true;
+        
 
         if (exp_Controller._temp_extreme_itemtype == 0) //デフォルトアイテムの場合
         {

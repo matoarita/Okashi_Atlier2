@@ -53,8 +53,6 @@ public class MainListController2 : MonoBehaviour
     private GridLayoutGroup gridlayout;
     private GameObject list_BG;
 
-    private GameObject timepanel;
-
     private BGM sceneBGM;
 
     private Vector3 defaultPos;
@@ -81,8 +79,6 @@ public class MainListController2 : MonoBehaviour
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
-        //時間オブジェクトの取得
-        timepanel = canvas.transform.Find("TimePanel").gameObject;
 
         //自身のレイアウトグループ情報の取得
         gridlayout = this.transform.Find("Viewport/Content_Main").GetComponent<GridLayoutGroup>();
@@ -846,7 +842,6 @@ public class MainListController2 : MonoBehaviour
     void CanvasOff()
     {
         text_area.SetActive(false);
-        timepanel.SetActive(false);
         this.gameObject.SetActive(false);
     }
 }
