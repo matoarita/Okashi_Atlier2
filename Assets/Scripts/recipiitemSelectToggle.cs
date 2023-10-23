@@ -17,16 +17,10 @@ public class recipiitemSelectToggle : MonoBehaviour
 
     Toggle m_Toggle;
 
-    private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
-    private Text _text; //同じく、Scene「Compund」用。
-
     private SoundController sc;
 
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
-
-    private GameObject compound_Check_obj;
-    private Compound_Check compound_Check;
 
     private GameObject recipilistController_obj;
     private RecipiListController recipilistController;
@@ -137,11 +131,8 @@ public class recipiitemSelectToggle : MonoBehaviour
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-            kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+            kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
             kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-            compound_Check_obj = GameObject.FindWithTag("Compound_Check");
-            compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
 
             //サウンドコントローラーの取得
             sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -152,9 +143,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
             no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
-
-            text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-            _text = text_area.GetComponentInChildren<Text>();
+            
         }
         else if (SceneManager.GetActiveScene().name == "200_Omake")
         {
@@ -274,8 +263,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             BlackImage.SetActive(true);
 
             //調合判定を行うかどうか
-            exp_Controller._success_judge_flag = 1; //判定処理を行う。
-            //_success_rate = compound_Check.Kakuritsu_Keisan(compo_itemID);                
+            exp_Controller._success_judge_flag = 1; //判定処理を行う。             
 
             //exp_Controller._success_rate = _success_rate;
             //kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
@@ -304,7 +292,7 @@ public class recipiitemSelectToggle : MonoBehaviour
 
                 recipilistController._recipi_listitem[count].GetComponent<Toggle>().interactable = false;
 
-                compound_Check.final_select_flag = true;               
+                GameMgr.final_select_flag = true;               
 
                 Debug.Log("レシピ選択完了！");
                 break;

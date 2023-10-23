@@ -450,7 +450,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
                 //エクストリームパネルの取得
-                Extremepanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
+                Extremepanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
                 extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
 
                 hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
@@ -472,7 +472,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 character_root = GameObject.FindWithTag("CharacterRoot");
 
                 //お金の増減用パネルの取得
-                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
+                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
                 //時間管理オブジェクトの取得
@@ -488,9 +488,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 origin_color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
 
                 //クエストクリアボタンの取得
-                stageclear_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
+                stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
                 stageclear_toggle = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
-                stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
+                stageclear_Button = stageclear_panel.transform.Find("StageClear_Button").gameObject;
 
                 //エフェクトプレファブの取得
                 effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");

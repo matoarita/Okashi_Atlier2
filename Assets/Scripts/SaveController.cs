@@ -943,7 +943,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
-                money_status = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+                money_status = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
                 //Live2Dモデルの取得
                 _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
@@ -958,7 +958,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
                 sc.VolumeSetting();
 
-                StageClearButton_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
+                StageClearButton_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
                 StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
                 StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
 
@@ -971,7 +971,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 if (pitemlist.player_extremepanel_itemlist.Count > 0)
                 {
-                    extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponentInChildren<ExtremePanel>();
+                    extreme_panel = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").GetComponentInChildren<ExtremePanel>();
                     //Debug.Log("GameMgr.sys_extreme_itemID: " + GameMgr.sys_extreme_itemID);
                     //Debug.Log("GameMgr.sys_extreme_itemType: " + GameMgr.sys_extreme_itemType);
 
@@ -1065,7 +1065,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 //キャンバスの読み込み
                 canvas = GameObject.FindWithTag("Canvas");
-                extreme_panel = canvas.transform.Find("MainUIPanel/ExtremePanel").GetComponentInChildren<ExtremePanel>();
+                extreme_panel = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").GetComponentInChildren<ExtremePanel>();
                 extreme_panel.deleteExtreme_Item();
                 break;
         }

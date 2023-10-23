@@ -83,7 +83,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public int kettei1_bunki; //調合どこまで選択したか、のステータス。0=なにも選択なし, 1=一個目を選択, 2=二個目を選択
     public bool kettei1_on;
-    public bool final_select_flag;
+    //public bool final_select_flag;
 
     public int final_kettei_item1; //最終的に確定したアイテムのID（アイテムデータベースのIDを同一）
     public int final_kettei_item2;
@@ -100,7 +100,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public List<int> _listkosu = new List<int>(); //納品時用の個数リスト型
 
-    public bool extremepanel_on; //extremeパネルからのエクストリーム調合かどうか。
+    //public bool extremepanel_on; //extremeパネルからのエクストリーム調合かどうか。
 
     private GameObject yes_button;
     private GameObject no_button;
@@ -148,7 +148,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         kettei1_bunki = 0;
         kettei1_on = false;
-        final_select_flag = false;
+        //final_select_flag = false;
 
         //選んだアイテムのアイテムIDが入る。（店売り、オリジナル関係なし）
         final_kettei_item1 = 9999;
@@ -165,7 +165,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         i = 0;
 
-        extremepanel_on = false;
+        GameMgr.extremepanel_on = false;
 
         shopsell_final_select_flag = false;
 
@@ -243,7 +243,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     no_button.SetActive(true);
                 }
 
-                if (extremepanel_on == true)
+                if (GameMgr.extremepanel_on == true)
                 {
 
                 }
@@ -1024,4 +1024,5 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             _listitem[i].GetComponent<Toggle>().interactable = true;
         }
     }
+
 }

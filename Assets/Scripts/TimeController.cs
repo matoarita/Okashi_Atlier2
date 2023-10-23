@@ -14,10 +14,11 @@ public class TimeController : MonoBehaviour
     private Compound_Main compound_main;
 
     private GirlEat_Judge girleat_judge;
-    private MoneyStatus_Controller moneyStatus_Controller;
+
+    private HikariOkashiExpTable hikariOkashiExpTable;
 
     private Compound_Keisan compound_keisan;
-    private HikariMakeStartPanel Hikarimake_StartPanel;
+    //private HikariMakeStartPanel Hikarimake_StartPanel;
 
     private Girl1_status girl1_status;
 
@@ -74,6 +75,8 @@ public class TimeController : MonoBehaviour
 
     private int i, count;
     private int dice;
+
+    private int _getexp;
 
     private float timeLeft;
     private float timeLeft2;
@@ -134,6 +137,9 @@ public class TimeController : MonoBehaviour
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
+        //ヒカリお菓子EXPデータベースの取得
+        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
@@ -141,13 +147,10 @@ public class TimeController : MonoBehaviour
                 compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
                 girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
-                //お金パネル
-                moneyStatus_Controller = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
-
                 //女の子データの取得
                 girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
-                Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
+                //Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
                 break;
 
         }
@@ -617,7 +620,9 @@ public class TimeController : MonoBehaviour
 
             //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
             GameMgr.hikari_make_okashiKosu++;
-            Hikarimake_StartPanel.hikarimake_GetExp(2);
+            //Hikarimake_StartPanel.hikarimake_GetExp(2);
+            _getexp = 2;
+            hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
 
             //成功すると、機嫌が少しよくなる。
             compound_main.GirlExpressionKoushin(10);
@@ -627,7 +632,9 @@ public class TimeController : MonoBehaviour
             GameMgr.hikari_make_failed_count++;
 
             //生成されず。材料だけ消費。
-            Hikarimake_StartPanel.hikarimake_GetExp(5);
+            //Hikarimake_StartPanel.hikarimake_GetExp(5);
+            _getexp = 5;
+            hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
 
             //ハートも下がる。
             girleat_judge.UpDegHeart(-5, false);

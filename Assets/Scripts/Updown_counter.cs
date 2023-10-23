@@ -1138,9 +1138,14 @@ public class Updown_counter : MonoBehaviour {
         _count_text.text = updown_kosu.ToString();
     }
 
+
     //レシピリストのときの処理
     public void updown_keisan_Method()
     {
+        //windowテキストエリアの取得 調合シーンは、専用のウィンドウを指定する
+        text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
+        _text = text_area.GetComponentInChildren<Text>();
+
         count = recipilistController._count1;
         itemID_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID; //itemID_1という変数に、プレイヤーが選択した調合DBの配列番号を格納する。
         itemname_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;

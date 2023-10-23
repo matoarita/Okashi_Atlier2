@@ -22,6 +22,9 @@ public class Compound_Main : MonoBehaviour
     private GameObject text_area_Main;
     private Text _textmain;
 
+    private GameObject text_area_compound;
+    private Text _textcomp;
+
     private GameObject text_hikari_makecaption;
 
     private Text picnic_itemText;
@@ -112,7 +115,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
     public bool girlEat_ON; //食べ中のフラグ
-    public bool compo_ON; //調合を開始したフラグ
+    private bool compo_ON; //調合を開始したフラグ
 
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
@@ -122,7 +125,6 @@ public class Compound_Main : MonoBehaviour
     private GameObject black_panel_A;
     private GameObject compoBG_A;
     private GameObject ResultBGimage;
-    private GameObject compoBG_A_effect;
 
     private GameObject Hikarimake_StartPanel;
     private GameObject SelectCompo_panel_1;
@@ -349,7 +351,6 @@ public class Compound_Main : MonoBehaviour
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
         bgm_change_flag = false;
-        bgm_change_flag2 = false;
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();        
@@ -368,13 +369,17 @@ public class Compound_Main : MonoBehaviour
         recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
         recipilist_onoff.SetActive(false);
 
+        //コンポBGパネルの取得
+        compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
+        compoBG_A.SetActive(false);
+
         //レシピメモボタンを取得
-        recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
-        recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
-        memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
+        recipimemoController_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
+        recipiMemoButton = compoBG_A.transform.Find("RecipiMemoButton").gameObject;
+        memoResult_obj = compoBG_A.transform.Find("Memo_Result").gameObject;
 
         //調合セレクトパネルを取得
-        selectPanel_1 = canvas.transform.Find("Compound_BGPanel_A/SelectPanel_1").gameObject;
+        selectPanel_1 = compoBG_A.transform.Find("SelectPanel_1").gameObject;
         select_original_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/OriginalButton").gameObject;
         select_original_button = select_original_button_obj.GetComponent<Button>();
         select_recipi_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/RecipiButton").gameObject;
@@ -401,7 +406,7 @@ public class Compound_Main : MonoBehaviour
         updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+        kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //システムパネルの取得
@@ -433,8 +438,10 @@ public class Compound_Main : MonoBehaviour
         _text = text_area.GetComponentInChildren<Text>();        
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.transform.Find("Text").GetComponent<Text>();
+        text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
+        _textcomp = text_area_compound.GetComponentInChildren<Text>();
 
-        text_hikari_makecaption = text_area.transform.Find("HikariMakeOkashiCaptionText").gameObject;
+        text_hikari_makecaption = text_area_compound.transform.Find("HikariMakeOkashiCaptionText").gameObject;
         text_hikari_makecaption.SetActive(false);
 
         //エクストリームパネルの取得+初期化
@@ -450,28 +457,24 @@ public class Compound_Main : MonoBehaviour
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
         black_panel_A.SetActive(false);
-
-        //コンポBGパネルの取得
-        compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
-        compoBG_A.SetActive(false);
-        compoBGA_image = canvas.transform.Find("Compound_BGPanel_A/BG").gameObject;
-        compoBGA_imageOri = canvas.transform.Find("Compound_BGPanel_A/OriCompoImage").gameObject;
-        compoBGA_imageRecipi = canvas.transform.Find("Compound_BGPanel_A/RecipiCompoImage").gameObject;
-        compoBGA_imageExtreme = canvas.transform.Find("Compound_BGPanel_A/ExtremeImage").gameObject;
-        compoBGA_imageHikariMake = canvas.transform.Find("Compound_BGPanel_A/HikariMakeImage").gameObject;
+      
+        compoBGA_image = compoBG_A.transform.Find("BG").gameObject;
+        compoBGA_imageOri = compoBG_A.transform.Find("OriCompoImage").gameObject;
+        compoBGA_imageRecipi = compoBG_A.transform.Find("RecipiCompoImage").gameObject;
+        compoBGA_imageExtreme = compoBG_A.transform.Find("ExtremeImage").gameObject;
+        compoBGA_imageHikariMake = compoBG_A.transform.Find("HikariMakeImage").gameObject;
         ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
         ResultBGimage.SetActive(false);
-        compoBG_A_effect = GameObject.FindWithTag("Comp_Effect").gameObject;
-        compoBG_A_effect.SetActive(false);
-        Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").gameObject;
+
+        Hikarimake_StartPanel = compoBG_A.transform.Find("HikariMakeStartPanel").gameObject;
         Hikarimake_StartPanel.SetActive(false);
 
         //調合選択画面の取得
-        SelectCompo_panel_1 = canvas.transform.Find("Compound_BGPanel_A/SelectPanel_1").gameObject;
+        SelectCompo_panel_1 = compoBG_A.transform.Find("SelectPanel_1").gameObject;
         SelectCompo_panel_1.SetActive(false);
 
         //ピクニック用のテキスト取得
-        picnic_itemText = canvas.transform.Find("Compound_BGPanel_A/SelectPanel_1/Picnic_yesno/ItemText/Text").GetComponent<Text>();
+        picnic_itemText = compoBG_A.transform.Find("SelectPanel_1/Picnic_yesno/ItemText/Text").GetComponent<Text>();
 
         //材料採取地パネルの取得
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel/Comp").gameObject;
@@ -486,7 +489,8 @@ public class Compound_Main : MonoBehaviour
         time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
         //お金パネル
-        moneyStatus_Controller = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+        moneystatus_panel = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
+        moneyStatus_Controller = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
         //キー入力受付コントローラーの取得
         keymanager = keyManager.Instance.GetComponent<keyManager>();
@@ -510,10 +514,10 @@ public class Compound_Main : MonoBehaviour
         GirlHeartEffect_obj = character_root.transform.Find("CharacterMove/Particle_Heart_Character").gameObject;
 
         //ヒントボタンの取得
-        HintObjectGroup = canvas.transform.Find("MainUIPanel/HintObject/").gameObject;
-        ClickPanel_1 = canvas.transform.Find("MainUIPanel/HintObject/ClickPanel1").gameObject;
+        HintObjectGroup = canvas.transform.Find("MainUIPanel/Comp/HintObject/").gameObject;
+        ClickPanel_1 = HintObjectGroup.transform.Find("ClickPanel1").gameObject;
         ClickPanel_1.SetActive(false);
-        ClickPanel_2 = canvas.transform.Find("MainUIPanel/HintObject/ClickPanel2").gameObject;
+        ClickPanel_2 = HintObjectGroup.transform.Find("ClickPanel2").gameObject;
         ClickPanel_2.SetActive(false);
 
         //
@@ -551,7 +555,7 @@ public class Compound_Main : MonoBehaviour
         SceneStart_flag = false;
 
         //ステージパネルの取得
-        Stagepanel_obj = canvas.transform.Find("MainUIPanel/Comp/StagePanel").gameObject;
+        Stagepanel_obj = canvas.transform.Find("MainUIPanel/StagePanel").gameObject;
 
         //時間表示パネルの取得
         TimePanel_obj1 = canvas.transform.Find("MainUIPanel/Comp/TimePanel/TimeHyouji_1").gameObject;
@@ -568,16 +572,12 @@ public class Compound_Main : MonoBehaviour
         manpuku_text = manpuku_bar.transform.Find("ManpukuText").GetComponent<Text>();
 
         kigen_text = manpuku_bar.transform.Find("KigenText").GetComponent<Text>();
-
-        //お金ステータスパネルの取得
-        moneystatus_panel = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
-
-        
+               
         //えめらるどんぐりパネルの取得
         kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
 
-        stageclear_panel = canvas.transform.Find("MainUIPanel/StageClearButton_Panel").gameObject;
-        stageclear_Button = canvas.transform.Find("MainUIPanel/StageClearButton_Panel/StageClear_Button").gameObject;
+        stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
+        stageclear_Button = stageclear_panel.transform.Find("StageClear_Button").gameObject;
         stageclear_button_toggle = stageclear_Button.GetComponent<Toggle>();
         stageclear_button_text = stageclear_Button.transform.Find("TextPlate/Text").GetComponent<Text>();
         stageclear_default_text = stageclear_button_text.text;
@@ -911,7 +911,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         compoundselect_onoff_obj.SetActive(false);
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
 
                         compoBGA_image.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
@@ -933,7 +933,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         compoundselect_onoff_obj.SetActive(false);
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
 
                         compoBGA_image.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
@@ -959,7 +959,7 @@ public class Compound_Main : MonoBehaviour
                         select_no_button.interactable = true;
 
                         compoundselect_onoff_obj.SetActive(false);
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
 
                         compoBGA_image.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
@@ -977,19 +977,19 @@ public class Compound_Main : MonoBehaviour
 
                         recipiMemoButton.GetComponent<Button>().interactable = true;
 
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
                         _text.text = "右上の「レシピをみる」ボタンを押して" + "\n" + "クッキーを作ってみよう！";
                         break;
 
                     case 40: //メモ画面を開いた。
 
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
                         break;
 
                     case 50: //宴ポーズ。オリジナル調合をしてみるところ。
 
                         pitemlistController.Oninteract();
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
                         _text.text = "左のリストから、" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"; ;
 
                         GameMgr.tutorial_Num = 55;
@@ -1000,20 +1000,20 @@ public class Compound_Main : MonoBehaviour
 
                     case 60: //調合完了！
 
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
 
                         break;
 
                     case 70: //宴ポーズ。やったね！クッキーができた～から、レシピを閃き、ボタンを押し待ち。
 
                         card_view.SetinteractiveOn();
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
                         GameMgr.tutorial_Num = 75; //退避
                         break;
 
                     case 75:
 
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
                         _text.text = "カードを押してみよう！";
                         break;
 
@@ -1032,7 +1032,7 @@ public class Compound_Main : MonoBehaviour
 
                         compoundselect_onoff_obj.SetActive(false);
                         OffCompoundSelect();
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
 
                         //girl1_status.Girl_EatDecide();
                         girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
@@ -1095,7 +1095,7 @@ public class Compound_Main : MonoBehaviour
 
                     case 130:
 
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
                         break;
 
                     case 140:
@@ -1116,7 +1116,7 @@ public class Compound_Main : MonoBehaviour
                         select_recipi_button.interactable = false;
                         select_no_button.interactable = false;
 
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
                         break;
 
                     case 160:
@@ -1124,7 +1124,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         select_recipi_button.interactable = true;
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
 
                         GameMgr.tutorial_Num = 165;
                         break;
@@ -1136,14 +1136,14 @@ public class Compound_Main : MonoBehaviour
 
                     case 170: //れしぴ調合完了！
 
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
                         break;
 
                     case 180:
 
                         card_view.SetinteractiveOn();
 
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
                         _text.text = "カードを押してみよう！";
                         break;
 
@@ -1175,15 +1175,15 @@ public class Compound_Main : MonoBehaviour
                         select_recipi_button.interactable = false;
                         select_no_button.interactable = false;
 
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
                         break;
 
                     case 220:
 
                         //MainCompoundMethod();
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
 
-                        _text.text = "「仕上げる」を押してみよう！";
+                        _textcomp.text = "「仕上げる」を押してみよう！";
 
                         break;
 
@@ -1192,7 +1192,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         kakuritsuPanel_obj.SetActive(false);
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
 
                         break;
 
@@ -1201,7 +1201,7 @@ public class Compound_Main : MonoBehaviour
                         MainCompoundMethod();
 
                         //kakuritsuPanel_obj.SetActive(true);
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
 
                         GameMgr.tutorial_Num = 245; //退避
 
@@ -1209,22 +1209,22 @@ public class Compound_Main : MonoBehaviour
 
                     case 245:
 
-                        text_area.SetActive(true);
+                        text_area_compound.SetActive(true);
                         break;
 
 
                     case 250:
 
                         kakuritsuPanel_obj.SetActive(false);
-                        text_area.SetActive(false);
+                        text_area_compound.SetActive(false);
                         break;
 
                     case 260:
 
                         card_view.SetinteractiveOn();
 
-                        text_area.SetActive(true);
-                        _text.text = "カードを押してみよう！";
+                        text_area_compound.SetActive(true);
+                        _textcomp.text = "カードを押してみよう！";
 
                         GameMgr.tutorial_Num = 265; //退避
                         break;
@@ -1315,7 +1315,7 @@ public class Compound_Main : MonoBehaviour
             }
             else
             {
-                if (compo_ON) //お菓子調合中もメインの処理は無視。おわったら、サブイベントチェックしてから、メインへ。
+                if (GameMgr.CompoundSceneStartON) //お菓子調合中もメインの処理は無視。おわったら、サブイベントチェックしてから、メインへ。
                 {
 
                 }
@@ -1413,7 +1413,6 @@ public class Compound_Main : MonoBehaviour
                 black_panel_A.SetActive(false);
                 ResultBGimage.SetActive(false);
                 compoBG_A.SetActive(false);
-                compoBG_A_effect.SetActive(false);
                 system_panel.SetActive(false);
                 status_panel.SetActive(false);
                 okashihint_panel.SetActive(false);
@@ -1443,7 +1442,7 @@ public class Compound_Main : MonoBehaviour
                 //アニメーション、キャラの表情関係
                 //
                 //Live2Dデフォルト
-                cubism_rendercontroller.SortingOrder = default_live2d_draworder;
+                ReSetLive2DOrder_Default();
                 Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f);
                 girl1_status.HukidashiFlag = true;
                 girl1_status.tween_start = false;
@@ -1541,9 +1540,9 @@ public class Compound_Main : MonoBehaviour
                     }
                     if (GameMgr.CompoBGMCHANGE_ON)
                     {
-                        if (bgm_change_flag2 == true)
+                        if (GameMgr.compobgm_change_flag == true)
                         {
-                            bgm_change_flag2 = false;
+                            GameMgr.compobgm_change_flag = false;
                             sceneBGM.OnMainBGMFade();         
                             //sceneBGM.OnMainBGM(); //即座に切り替え
                         }
@@ -1604,13 +1603,14 @@ public class Compound_Main : MonoBehaviour
 
             case 1: //レシピ調合の処理を開始。クリック後に処理が始まる。
 
+                /*
+                GameMgr.CompoundSceneStartON = true;　//調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
                 GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                 GameMgr.compound_select = 1; //今、どの調合をしているかを番号で知らせる。レシピ調合を選択
 
                 recipilist_onoff.SetActive(true); //レシピリスト画面を表示。
                 kakuritsuPanel_obj.SetActive(true);
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(true);
@@ -1630,7 +1630,7 @@ public class Compound_Main : MonoBehaviour
                     no.SetActive(false);
                 }
 
-                text_area.SetActive(true);
+                text_area_compound.SetActive(true);
                 WindowOff();
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
@@ -1646,18 +1646,20 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.DeleteHukidashiOnly();
 
                 //keymanager.SelectOff();
+                */
 
                 break;
 
             case 2: //エクストリーム調合の処理を開始。クリック後に処理が始まる。
 
+                /*
+                GameMgr.CompoundSceneStartON = true;　//調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
                 GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                 GameMgr.compound_select = 2; //トッピング調合を選択
 
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 kakuritsuPanel_obj.SetActive(false);
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
@@ -1668,7 +1670,7 @@ public class Compound_Main : MonoBehaviour
                 time_controller.TimeCheck_flag = false;
                 stageclear_panel.SetActive(false);
 
-                text_area.SetActive(true);
+                text_area_compound.SetActive(true);
                 WindowOff();
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
@@ -1688,11 +1690,13 @@ public class Compound_Main : MonoBehaviour
                 extreme_panel.extreme_Compo_Setup();
 
                 //keymanager.SelectOff();
-
+                */
                 break;
 
             case 3: //オリジナル調合の処理を開始。クリック後に処理が始まる。
 
+                /*
+                GameMgr.CompoundSceneStartON = true;　//調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
                 GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                 GameMgr.compound_select = 3; //オリジナル調合を選択
 
@@ -1700,7 +1704,6 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(true);
 
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(true);
                 compoBGA_imageRecipi.SetActive(false);
@@ -1714,7 +1717,7 @@ public class Compound_Main : MonoBehaviour
                 memoResult_obj.SetActive(false);
                 stageclear_panel.SetActive(false);
 
-                text_area.SetActive(true);
+                text_area_compound.SetActive(true);
                 WindowOff();
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
 
@@ -1742,7 +1745,7 @@ public class Compound_Main : MonoBehaviour
                         GameMgr.tutorial_Num = 20;
                     }
                 }
-
+                */
                 break;
 
             case 4: //調合シーンに入ってますよ、というフラグ。各ケース処理後、必ずこの中の処理に移行する。yes, noボタンを押されるまでは、待つ状態に入る。
@@ -1751,14 +1754,16 @@ public class Compound_Main : MonoBehaviour
 
             case 5: //「焼く」を選択
 
+                /*
                 compoundselect_onoff_obj.SetActive(false);
 
+                GameMgr.CompoundSceneStartON = true;　//調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
                 GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                 GameMgr.compound_select = 5; //焼くを選択
 
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-
+                */
                 break;
 
             /*case 5: //ブレンド調合の処理（未使用）
@@ -1771,23 +1776,32 @@ public class Compound_Main : MonoBehaviour
 
             break;*/
 
-            case 6: //オリジナル調合かレシピ調合を選択できるパネルを表示
+            case 6: //各種調合の選択画面エントランス
 
+                GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
+
+                //ヒカリちゃんを表示しない。デフォルト描画順
+                SetLive2DPos_Compound();
+                ReSetLive2DOrder_Default();
+                map_ambience.Mute();
+
+                StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+
+                /*
                 //BGMを変更
                 if (!GameMgr.tutorial_ON)
                 {
                     if (GameMgr.CompoBGMCHANGE_ON)
                     {
-                        if (bgm_change_flag2 != true)
+                        if (GameMgr.compobgm_change_flag != true)
                         {
                             sceneBGM.OnCompoundBGM();
-                            bgm_change_flag2 = true;
+                            GameMgr.compobgm_change_flag = true;
                         }
                     }
                 }
 
-                StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
-
+                GameMgr.CompoundSceneStartON = true;　//調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
                 GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                 GameMgr.compound_select = 6;
 
@@ -1798,7 +1812,6 @@ public class Compound_Main : MonoBehaviour
 
                 SelectCompo_panel_1.SetActive(true);
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(true);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
@@ -1810,6 +1823,7 @@ public class Compound_Main : MonoBehaviour
                 yes_no_panel.SetActive(false);
 
                 text_area.SetActive(false);
+                text_area_compound.SetActive(false);
                 text_hikari_makecaption.SetActive(false);
                 WindowOff();
 
@@ -1822,9 +1836,6 @@ public class Compound_Main : MonoBehaviour
                 //intパラメーターの値を設定する.
                 maincam_animator.SetInteger("trans", trans);
 
-                //ヒカリちゃんを表示しない。デフォルト描画順
-                SetLive2DPos_Compound();
-                cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順
                 GameMgr.QuestManzokuFace = false; //おいしかった表情は、調合シーンに入るとリセットされる。
 
                 recipiMemoButton.SetActive(false);
@@ -1878,12 +1889,14 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.DeleteHukidashiOnly();
 
                 //keymanager.InitCompoundMainScene();
-
+                */
                 break;
 
 
             case 7: //ヒカリが作るを開始
 
+                /*
+                GameMgr.CompoundSceneStartON = true;　//調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
                 GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                 GameMgr.compound_select = 7; //ヒカリに作らせるを選択
 
@@ -1891,7 +1904,6 @@ public class Compound_Main : MonoBehaviour
                 kakuritsuPanel_obj.SetActive(true);
 
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(false);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
@@ -1905,9 +1917,9 @@ public class Compound_Main : MonoBehaviour
                 memoResult_obj.SetActive(false);
                 stageclear_panel.SetActive(false);
 
-                text_area.SetActive(true);
+                text_area_compound.SetActive(true);
                 WindowOff();
-                _text.text = hikarimake_text;
+                _textcomp.text = hikarimake_text;
                 text_hikari_makecaption.SetActive(true);
 
                 //エフェクトはオフ
@@ -1928,15 +1940,19 @@ public class Compound_Main : MonoBehaviour
                 pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
 
                 //keymanager.SelectOff();
-
+                */
                 break;
 
             case 8: //ヒカリお菓子作りのスタートパネルを開く               
 
+                /*
                 Hikarimake_StartPanel.SetActive(true);
 
+                GameMgr.CompoundSceneStartON = true;　//調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
                 GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                 GameMgr.compound_select = 8;
+
+                ReSetLive2DOrder_Default();                
 
                 playeritemlist_onoff.SetActive(false);
                 recipilist_onoff.SetActive(false);
@@ -1945,7 +1961,6 @@ public class Compound_Main : MonoBehaviour
 
                 SelectCompo_panel_1.SetActive(false);
                 compoBG_A.SetActive(true);
-                compoBG_A_effect.SetActive(false);
                 //compoBGA_image.SetActive(true);
                 compoBGA_imageOri.SetActive(false);
                 compoBGA_imageRecipi.SetActive(false);
@@ -1956,7 +1971,7 @@ public class Compound_Main : MonoBehaviour
                 time_controller.TimeCheck_flag = false;
                 yes_no_panel.SetActive(false);
 
-                text_area.SetActive(false);
+                text_area_compound.SetActive(false);
                 WindowOff();
                 text_hikari_makecaption.SetActive(false);
 
@@ -1978,7 +1993,7 @@ public class Compound_Main : MonoBehaviour
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
-
+                */
                 break;
 
             case 10: //「あげる」を選択
@@ -2259,16 +2274,6 @@ public class Compound_Main : MonoBehaviour
 
             case 1001: //サブイベント中、アイテムを渡すのをキャンセルするかどうか、確認する。                
 
-                /*pitemlistController.Offinteract();
-
-                text_area.SetActive(true);
-                _text.text = "やっぱりやめる？";
-
-                yes_no_panel.SetActive(true);
-                yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
-
-                StartCoroutine("EventPresent_Final_select");*/
-
                 break;
 
             default:
@@ -2337,8 +2342,6 @@ public class Compound_Main : MonoBehaviour
     //調合シーンに入った時の、キャラクタ位置や状態など更新
     void SetLive2DPos_Compound()
     {
-        cubism_rendercontroller.SortingOrder = 100;
-
         //位置変更
         character_move.transform.position = new Vector3(2.8f, 0, 0);
         live2d_posmove_flag = true; //位置を変更したフラグ
@@ -2484,8 +2487,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-
-    public void OnCheck_1() //レシピ調合をON
+    public void OnCheck_Recipi() //レシピをON
     {
         if (recipi_toggle.GetComponent<Toggle>().isOn == true)
         {
@@ -2498,126 +2500,6 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    public void OnCheck_1_button()
-    {
-        card_view.DeleteCard_DrawView();
-        SelectCompo_panel_1.SetActive(false);
-
-        _text.text = recipi_text;
-        GameMgr.compound_status = 1;
-    }
-
-    public void OnCheck_2() //トッピング調合をON
-    {
-        if (extreme_toggle.GetComponent<Toggle>().isOn == true)
-        {
-            extreme_toggle.GetComponent<Toggle>().isOn = false;
-
-            pitemlistController.extremepanel_on = false;
-            card_view.DeleteCard_DrawView();
-
-            _text.text = extreme_text;
-            GameMgr.compound_status = 2;
-        }
-    }
-
-    public void OnCheck_2_button()
-    {
-        if (GameMgr.tutorial_ON == true)
-        {
-            if (GameMgr.tutorial_Num == 210) //エクストリーム説明中は、押しても反応なし
-            {
-
-            }
-            else
-            {
-                pitemlistController.extremepanel_on = false;
-
-                card_view.DeleteCard_DrawView();
-                SelectCompo_panel_1.SetActive(false);
-
-                _text.text = extreme_text;
-                GameMgr.compound_status = 2;
-
-                if (GameMgr.tutorial_ON == true)
-                {
-                    if (GameMgr.tutorial_Num == 220)
-                    {
-                        GameMgr.tutorial_Progress = true;
-                        GameMgr.tutorial_Num = 230;
-                    }
-                }
-            }
-        }
-        else
-        {
-            pitemlistController.extremepanel_on = false;
-
-            card_view.DeleteCard_DrawView();
-            SelectCompo_panel_1.SetActive(false);
-
-            _text.text = extreme_text;
-            GameMgr.compound_status = 2;
-
-        }
-        
-    }
-
-    public void OnCheck_3() //オリジナル調合をON
-    {
-        if (original_toggle.GetComponent<Toggle>().isOn == true)
-        {
-            original_toggle.GetComponent<Toggle>().isOn = false;
-
-            card_view.DeleteCard_DrawView();
-
-            _text.text = originai_text;
-            GameMgr.compound_status = 3;
-        }
-    }
-
-    public void OnCheck_3_button() //調合選択画面からボタンを選択して、オリジナル調合をON
-    {
-        card_view.DeleteCard_DrawView();
-        SelectCompo_panel_1.SetActive(false);
-
-        _text.text = originai_text;
-        GameMgr.compound_status = 3;
-    }
-
-    public void OnCheck_4_button() //調合選択画面からボタンを選択して、ヒカリにつくらせるをON
-    {
-        card_view.DeleteCard_DrawView();
-        SelectCompo_panel_1.SetActive(false);
-
-        //_text.text = hikarimake_text;
-        GameMgr.compound_status = 8;
-    }
-
-    /*public void OnCheck_4() //ブレンド調合をON
-    {
-        if (blend_toggle.GetComponent<Toggle>().isOn == true)
-        {
-
-            //Debug.Log("check4");
-            _text.text = "ブレンド調合をします。まずはレシピを選ぶ。";
-            compound_status = 5;
-        }
-    }*/
-
-    public void OnCheck_5() //"焼き"をON
-    {
-        if (roast_toggle.GetComponent<Toggle>().isOn == true)
-        {
-            roast_toggle.GetComponent<Toggle>().isOn = false;
-
-            card_view.DeleteCard_DrawView();
-
-            _text.text = "作った生地を焼きます。焼きたい生地を選んでください。";
-            GameMgr.compound_status = 5;
-        }
-    }
-
     public void OnCancel_Select()
     {
         GameMgr.compound_status = 0;
@@ -2625,10 +2507,8 @@ public class Compound_Main : MonoBehaviour
 
     public void OnCancelCompound_Select() //調合画面から戻るとき
     {
-
         //カメラをメニューオープンの状態で戻す。メイン画面でカメラ位置を指定してたときの名残。
         GameMgr.compound_status = 0;
-
     }
 
     public void OnOKPicnic_Select()
@@ -2642,7 +2522,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.compound_select = 120;
         if (exp_Controller._temp_extremeSetting)
         {
-            _text.text = "このお菓子でいく？";
+            _textcomp.text = "このお菓子でいく？";
 
             extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
@@ -2652,8 +2532,7 @@ public class Compound_Main : MonoBehaviour
         }
         else
         {
-            //_text.text = "持っていくお菓子が決まってないよ～";
-            _text.text = "今は、何のお菓子も選択されていないよ。" + "\n" + "やっぱりやめる？";
+            _textcomp.text = "今は、何のお菓子も選択されていないよ。" + "\n" + "やっぱりやめる？";
             StartCoroutine("PicnicItem_Cancel_Final_select");
         }
     }
@@ -3229,7 +3108,6 @@ public class Compound_Main : MonoBehaviour
 
                 //Debug.Log("cancel");
 
-                _text.text = "";
                 GameMgr.compound_status = 0;
 
                 //extreme_panel.LifeAnimeOnTrue();
@@ -3270,7 +3148,6 @@ public class Compound_Main : MonoBehaviour
 
                 yes_no_clear_okashi_panel.SetActive(false);
 
-                //_textmain.text = "";
                 StartMessage();
                 GameMgr.compound_status = 0;
 
@@ -3335,7 +3212,6 @@ public class Compound_Main : MonoBehaviour
 
                 yes_no_clear_panel.SetActive(false);
 
-                //_textmain.text = "";
                 StartMessage();
                 GameMgr.compound_status = 0;
 
@@ -3373,7 +3249,6 @@ public class Compound_Main : MonoBehaviour
 
                 yes_no_sleep_panel.SetActive(false);
 
-                //_textmain.text = "";
                 StartMessage();
                 GameMgr.compound_status = 0;
 
@@ -4759,8 +4634,13 @@ public class Compound_Main : MonoBehaviour
     //さらに、表示するときのコマンド
     void ReDrawLive2DPos_Compound()
     {
-        cubism_rendercontroller.SortingOrder = 100;
+        cubism_rendercontroller.SortingOrder = 1500; //描画順指定
 
+    }
+
+    void ReSetLive2DOrder_Default()
+    {
+        cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順 //描画順指定
     }
 
     //さらに調合位置に戻すコマンド　SetImage, NewRecipiButton.csから呼び出し

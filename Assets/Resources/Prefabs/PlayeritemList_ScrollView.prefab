@@ -776,7 +776,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114015042282743850}
   m_HandleRect: {fileID: 224629409892168824}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1022,7 +1022,6 @@ MonoBehaviour:
   base_kettei_item: 0
   kettei1_bunki: 0
   kettei1_on: 0
-  final_select_flag: 0
   final_kettei_item1: 0
   final_kettei_item2: 0
   final_kettei_item3: 0
@@ -1034,7 +1033,6 @@ MonoBehaviour:
   final_kettei_kosu3: 0
   final_base_kettei_kosu: 0
   _listkosu: 
-  extremepanel_on: 0
   shopsell_final_select_flag: 0
 --- !u!114 &114404347787794950
 MonoBehaviour:
@@ -1770,7 +1768,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 600
+  m_SortingOrder: 3000
   m_TargetDisplay: 0
 --- !u!224 &224158529550137626
 RectTransform:

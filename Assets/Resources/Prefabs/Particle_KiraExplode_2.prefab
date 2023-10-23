@@ -3723,7 +3723,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2000
+  m_SortingOrder: 20000
   m_TargetDisplay: 0
 --- !u!224 &224137151569249494
 RectTransform:

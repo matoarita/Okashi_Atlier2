@@ -9,11 +9,16 @@ public class RecipiMemoButton : MonoBehaviour {
     private GameObject canvas;
     private GameObject recipimemoController_obj;
 
+    private GameObject compoBG_A;
+
     // Use this for initialization
     void Start () {
 
         canvas = GameObject.FindWithTag("Canvas");
-        recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
+
+        //コンポBGパネルの取得
+        compoBG_A = this.transform.parent.gameObject;
+        recipimemoController_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
     }
 	
 	// Update is called once per frame

@@ -26,6 +26,8 @@ public class RecipiMemoController : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
+    private GameObject compoBG_A;
+
     private string item_name;
     private int item_kosu;
 
@@ -57,8 +59,11 @@ public class RecipiMemoController : MonoBehaviour
         //カードのプレファブコンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
 
+        //コンポBGパネルの取得
+        compoBG_A = this.transform.parent.gameObject;
+
         //レシピメモボタンを取得
-        recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
+        recipiMemoButton = compoBG_A.transform.Find("RecipiMemoButton").gameObject;
 
         i = 0;
 

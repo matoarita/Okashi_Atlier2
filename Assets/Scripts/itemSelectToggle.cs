@@ -23,9 +23,6 @@ public class itemSelectToggle : MonoBehaviour
 
     private CombinationMain Combinationmain;
 
-    private GameObject compound_Check_obj;
-    private Compound_Check compound_Check;
-
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -147,11 +144,12 @@ public class itemSelectToggle : MonoBehaviour
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
-                compound_Check_obj = GameObject.FindWithTag("Compound_Check");
-                compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
+                //テキストウィンドウの取得
+                text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
+                _text = text_area.GetComponentInChildren<Text>();
 
                 break;
 
@@ -161,6 +159,10 @@ public class itemSelectToggle : MonoBehaviour
 
                 back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
                 back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
+
+                //テキストウィンドウの取得
+                text_area = canvas.transform.Find("MessageWindow").gameObject;
+                _text = text_area.GetComponentInChildren<Text>();
                 break;
 
             case "Bar":
@@ -169,6 +171,10 @@ public class itemSelectToggle : MonoBehaviour
 
                 back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
                 back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
+
+                //テキストウィンドウの取得
+                text_area = canvas.transform.Find("MessageWindow").gameObject;
+                _text = text_area.GetComponentInChildren<Text>();
                 break;
         }
 
@@ -193,11 +199,7 @@ public class itemSelectToggle : MonoBehaviour
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
         
-        item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;
-
-        //テキストウィンドウの取得
-        text_area = canvas.transform.Find("MessageWindow").gameObject;
-        _text = text_area.GetComponentInChildren<Text>();
+        item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;       
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -683,7 +685,8 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.kettei_on_waiting = false;
                
                 yes_text.text = "作る";
-                compound_Check.YesSetDesign2();
+                yes_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //白文字
+                yes.GetComponent<Image>().sprite = yes_sprite2;
 
                 _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
                 //Debug.Log("二個目選択完了！");
@@ -732,8 +735,8 @@ public class itemSelectToggle : MonoBehaviour
                 card_view.OKCard_DrawView03(pitemlistController.final_kettei_kosu3);
 
                 yes.SetActive(true);
-                
-                compound_Check.final_select_flag = true;
+
+                GameMgr.final_select_flag = true;
 
 
                 break;
@@ -1042,7 +1045,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 if (GameMgr.topping_Set_Count == 1) //トッピングが一度に一個のとき
                 {
-                    compound_Check.final_select_flag = true; //ここにfinalをいれることで、一個だけしかトッピングできないようにする。
+                    GameMgr.final_select_flag = true; //ここにfinalをいれることで、一個だけしかトッピングできないようにする。
                 }
                 else 
                 {
@@ -1104,7 +1107,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 if (GameMgr.topping_Set_Count == 2) //トッピングが一度に２個のとき
                 {
-                    compound_Check.final_select_flag = true; //ここにfinalをいれることで、二個のトッピングになる。
+                    GameMgr.final_select_flag = true; //ここにfinalをいれることで、二個のトッピングになる。
                 }
                 else
                 {
@@ -1168,11 +1171,11 @@ public class itemSelectToggle : MonoBehaviour
 
                 if (GameMgr.topping_Set_Count == 3) //トッピングが一度に３個のとき
                 {
-                    compound_Check.final_select_flag = true; //3個まで
+                    GameMgr.final_select_flag = true; //3個まで
                 }
                 else
                 {
-                    compound_Check.final_select_flag = true; //3個まで
+                    GameMgr.final_select_flag = true; //3個まで
                 }
 
                 yes_text.text = "トッピング開始！";
@@ -1782,7 +1785,8 @@ public class itemSelectToggle : MonoBehaviour
         //yesは元デザインに戻す
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
         {
-            compound_Check.YesSetDesignDefault();
+            yes_text.color = new Color(56f / 255f, 56f / 255f, 36f / 255f); //焦げ茶文字
+            yes.GetComponent<Image>().sprite = yes_sprite1;
         }
 
     }

@@ -3,8 +3,9 @@
 	"FileReferences": {
 		"Moc": "puddingsan_Live2D.moc3",
 		"Textures": [
-			"puddingsan_Live2D.1024/texture_00.png"
+			"puddingsan_Live2D.2048/texture_00.png"
 		],
+		"Physics": "puddingsan_Live2D.physics3.json",
 		"DisplayInfo": "puddingsan_Live2D.cdi3.json"
 	},
 	"Groups": [

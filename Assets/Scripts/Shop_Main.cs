@@ -40,6 +40,9 @@ public class Shop_Main : MonoBehaviour {
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
 
+    private GameObject recipilist_onoff;
+    private RecipiListController recipilistController;
+
     private GameObject backshopfirst_obj;
 
     private GameObject black_effect;
@@ -144,8 +147,13 @@ public class Shop_Main : MonoBehaviour {
 
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
-
         playeritemlist_onoff.SetActive(false); //
+
+        //レシピリストパネルの取得
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().RecipiList_ScrollView_Init();
+        recipilist_onoff = GameObject.FindWithTag("RecipiList_ScrollView");
+        recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
+        recipilist_onoff.SetActive(false);
 
         //ショップリスト画面。初期設定で最初はOFF。
         shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;

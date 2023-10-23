@@ -58,8 +58,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int GirlGokigenStatus; //女の子の現在のご機嫌の状態。6段階ほどあり、好感度が上がるにつれて、だんだん見た目が元気になっていく。
     public int GirlOishiso_Status; //食べたあとの、「おいしそ～」の状態。この状態では、アイドルモーションが少し変化する。
 
-    private GameObject text_area;
-
     private GameObject hukidashiPrefab;
     private GameObject canvas;
 
@@ -67,7 +65,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private bool hukidashion;
     private Text _text;
 
-    private GameObject MoneyStatus_Panel_obj;
     private GameObject Extremepanel_obj;
 
     private List<string> _touchhead_comment_lib = new List<string>();
@@ -297,9 +294,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
-
-        //テキストエリアの取得
-        text_area = canvas.transform.Find("MessageWindow").gameObject;
         
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -331,9 +325,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 //エクストリームパネルの取得
                 Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
-
-                //お金の増減用パネルの取得
-                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
 
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -500,14 +491,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();                    
 
-                    //テキストエリアの取得
-                    text_area = canvas.transform.Find("MessageWindow").gameObject;
-
                     //エクストリームパネルの取得
                     Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
-
-                    //お金の増減用パネルの取得
-                    MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
 
                     //BGMの取得
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();

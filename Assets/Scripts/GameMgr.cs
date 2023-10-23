@@ -480,6 +480,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
     public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ  
     public static int MainQuestClear_flag; //メインクエストをクリアしたのか、道中の通常のSPクエストをクリアしたのか、判定するフラグ
+    public static bool extremepanel_on; //extremeパネルからのエクストリーム調合かどうか。
+    public static bool final_select_flag; //調合シーンで、調合の最終決定の確認
+    public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
+
+    public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
     public static bool hikari_tabetaiokashi_buf; //食べたいお菓子をあげたときに、一時的にバフがかかる状態
     public static int hikari_tabetaiokashi_buf_time; //効果時間
@@ -495,7 +500,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Game_timeCount; //ゲーム内共通の時間
 
     //ゲームの現在の状態を表すステータス
-    public static int compound_status;
+    public static int compound_status; //メイン　各シーン共通で使われるので注意。
     public static int compound_select;
 
     //チュートリアル用の管理フラグ
@@ -861,6 +866,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Okashi_Extra_SpEvent_Start = false;
         ExtraClear_QuestName = "";
         MainQuestClear_flag = 0;
+        extremepanel_on = false;
+        final_select_flag = false;
+        CompoundSceneStartON = false;
+        compobgm_change_flag = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

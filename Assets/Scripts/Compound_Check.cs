@@ -65,6 +65,8 @@ public class Compound_Check : MonoBehaviour {
     private Text FinalCheck_Text;
     private string final_itemmes;
 
+    private GameObject compoBG_A;
+
     private GameObject BlackImage;
 
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
@@ -85,8 +87,6 @@ public class Compound_Check : MonoBehaviour {
     private int itemID_1;
     private int itemID_2;
     private int itemID_3;
-
-    public bool final_select_flag;
 
     private GameObject memo_result_obj;
     private GameObject recipiMemoButton_obj;
@@ -114,13 +114,16 @@ public class Compound_Check : MonoBehaviour {
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
+        //コンポBGパネルの取得
+        compoBG_A = this.transform.parent.gameObject;
+
         //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+        kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
-        resultitemName_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/TextPanel/Image/Result_item/NameText").gameObject;
+        resultitemName_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/TextPanel/Image/Result_item/NameText").gameObject;
 
-        FinalCheckPanel = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel").gameObject;
+        FinalCheckPanel = compoBG_A.transform.Find("FinalCheckPanel").gameObject;
         FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/KakuritsuMessage/Image/Text").GetComponent<Text>();
 
         //Expコントローラーの取得
@@ -146,7 +149,7 @@ public class Compound_Check : MonoBehaviour {
         card_view = card_view_obj.GetComponent<CardView>();
 
         //テキストウィンドウの取得
-        text_area = canvas.transform.Find("MessageWindow").gameObject;
+        text_area = compoBG_A.transform.Find("MessageWindowComp").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         text_hikari_makecaption = text_area.transform.Find("HikariMakeOkashiCaptionText").gameObject;       
@@ -163,11 +166,11 @@ public class Compound_Check : MonoBehaviour {
         finalcheck_Prefab2 = (GameObject)Resources.Load("Prefabs/finalcheck_kakeru");
         resultitem_Hyouji = FinalCheckPanel.transform.Find("Comp/TextPanel/Image/Result_item").gameObject;
 
-        memo_result_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
-        recipiMemoButton_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
-        recipiMemoScrollView_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
+        memo_result_obj = compoBG_A.transform.Find("Memo_Result").gameObject;
+        recipiMemoButton_obj = compoBG_A.transform.Find("RecipiMemoButton").gameObject;
+        recipiMemoScrollView_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
 
-        final_select_flag = false;
+        //final_select_flag = false;
     }
 	
 	// Update is called once per frame
@@ -184,7 +187,7 @@ public class Compound_Check : MonoBehaviour {
 
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-            updown_counter_oricompofinalcheck_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/updown_counter").gameObject; //オリジナル調合の場合、参照先が異なる
+            updown_counter_oricompofinalcheck_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/updown_counter").gameObject; //オリジナル調合の場合、参照先が異なる
             updown_counter_oricompofinalcheck = updown_counter_oricompofinalcheck_obj.GetComponent<Updown_counter>();
 
             yes = pitemlistController_obj.transform.Find("Yes").gameObject;
@@ -196,7 +199,7 @@ public class Compound_Check : MonoBehaviour {
 
         }
 
-        if (final_select_flag == true) //最後、これで調合するかどうかを待つフラグ
+        if (GameMgr.final_select_flag == true) //最後、これで調合するかどうかを待つフラグ
         {
             if (GameMgr.compound_select == 1) //レシピ調合のときの処理
             {
@@ -207,7 +210,7 @@ public class Compound_Check : MonoBehaviour {
 
                 SelectPaused();
 
-                final_select_flag = false;
+                GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
 
                 
@@ -223,7 +226,7 @@ public class Compound_Check : MonoBehaviour {
 
                 SelectPaused();
 
-                final_select_flag = false;
+                GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
 
                 StartCoroutine("topping_Final_select");
@@ -237,7 +240,7 @@ public class Compound_Check : MonoBehaviour {
 
                 SelectPaused();
 
-                final_select_flag = false;
+                GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
 
                 FinalCheckPanel.SetActive(true);
@@ -263,7 +266,7 @@ public class Compound_Check : MonoBehaviour {
 
                 SelectPaused();
 
-                final_select_flag = false;
+                GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
 
                 FinalCheckPanel.SetActive(true);
@@ -1205,7 +1208,7 @@ public class Compound_Check : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "Compound")
         {
-            if (final_select_flag == true)
+            if (GameMgr.final_select_flag == true)
             {
                 yes_text.text = "制作開始！";
                 YesSetDesign2();

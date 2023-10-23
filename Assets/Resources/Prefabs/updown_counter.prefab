@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  se_sound_ON: 0
 --- !u!114 &114043645386437222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,6 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  se_sound_ON: 0
 --- !u!114 &114132527619793210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,6 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  se_sound_ON: 0
 --- !u!114 &114168721933677728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -798,6 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce51795ae9b7115428f0eaf1f123638c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  se_sound_ON: 0
 --- !u!114 &114579489280371154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1174,7 +1178,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1200
+  m_SortingOrder: 4000
   m_TargetDisplay: 0
 --- !u!224 &224118251427814796
 RectTransform:

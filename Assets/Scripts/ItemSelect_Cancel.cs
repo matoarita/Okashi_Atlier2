@@ -16,9 +16,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
 
-    private GameObject compound_Check_obj;
-    private Compound_Check compound_Check;
-
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
 
@@ -95,17 +92,14 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-                compound_Check_obj = GameObject.FindWithTag("Compound_Check");
-                compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
 
                 yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
                 //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
                 //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();               
 
-                text_area = canvas.transform.Find("MessageWindow").gameObject;
+                text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
                 _text = text_area.GetComponentInChildren<Text>();
 
                 exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -197,17 +191,14 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
                     
-                    kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                    kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                     kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-                    compound_Check_obj = GameObject.FindWithTag("Compound_Check");
-                    compound_Check = compound_Check_obj.GetComponent<Compound_Check>();
 
                     updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
                     updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
                     updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
 
-                    text_area = canvas.transform.Find("MessageWindow").gameObject;
+                    text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
                     _text = text_area.GetComponentInChildren<Text>();
 
                     exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -323,24 +314,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             default: //上記シーン以外
 
                 yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
-                //selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-                //yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
-                /*
-                if (text_area == null)
-                {
-                    canvas = GameObject.FindWithTag("Canvas");
-                    text_area = canvas.transform.Find("MessageWindow").gameObject;
-                    _text = text_area.GetComponentInChildren<Text>();
-                }                
-
-                //プレイヤーアイテムリストオブジェクトの初期化
-                if (pitemlistController_obj == null)
-                {
-                    canvas = GameObject.FindWithTag("Canvas");
-                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-                }*/
 
                 break;
         }
@@ -393,7 +366,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                     GameMgr.compound_status = 8; //何も選択していない状態にもどる。
                                     GameMgr.compound_select = 0;
-                                    pitemlistController.extremepanel_on = false;
+                                    GameMgr.extremepanel_on = false;
 
                                     yes_selectitem_kettei.onclick = false;
 
@@ -415,7 +388,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                     GameMgr.compound_status = 6; //何も選択していない状態にもどる。
                                     GameMgr.compound_select = 0;
-                                    pitemlistController.extremepanel_on = false;
+                                    GameMgr.extremepanel_on = false;
 
                                     yes_selectitem_kettei.onclick = false;
 
@@ -480,7 +453,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     //調合選択中のとき、キャンセル待ち処理
                     if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) //オリジナル調合のときの処理
                     {
-                        if (compound_Check.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
+                        if (GameMgr.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
                         {
 
                             //オリジナル調合時の、待機中の処理
@@ -507,7 +480,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                             {
                                                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                                                compound_Check.final_select_flag = true;
+                                                GameMgr.final_select_flag = true;
 
                                             }
                                             else if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
@@ -528,7 +501,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     if (GameMgr.compound_select == 2) //トッピング調合のときの処理
                     {
 
-                        if (compound_Check.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
+                        if (GameMgr.final_select_flag == false) //最後、これで調合するかどうかを待つフラグ
                         {
 
                             //トッピング調合時の、待機中の処理
@@ -556,7 +529,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                         {
 
                                             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-                                            compound_Check.final_select_flag = true;
+                                            GameMgr.final_select_flag = true;
 
                                         }
 
@@ -576,7 +549,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                             yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                                            compound_Check.final_select_flag = true;
+                                            GameMgr.final_select_flag = true;
 
                                         }
 
@@ -787,7 +760,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             {
                 if (pitemlistController.kettei1_bunki == 10)
                 {
-                    if (pitemlistController.extremepanel_on != true) //通常のエクストリーム調合。ベースアイテム選択に戻る
+                    if (GameMgr.extremepanel_on != true) //通常のエクストリーム調合。ベースアイテム選択に戻る
                     {
                         _text.text = "ベースのお菓子を選択してね。";
 
@@ -1036,7 +1009,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //no.SetActive(false);
         updown_counter_obj.SetActive(false);
 
-        compound_Check.final_select_flag = false;
+        GameMgr.final_select_flag = false;
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }

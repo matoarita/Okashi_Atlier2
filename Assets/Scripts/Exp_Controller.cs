@@ -178,6 +178,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
     public int _temp_extreme_id;
     public int _temp_extreme_itemtype;
+
     public bool _temp_extremeSetting;
     public float _temp_extreme_money;
     public float _temp_moneydeg;
@@ -298,37 +299,39 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-        Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
+        Hikarimake_StartPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
 
         //時間管理オブジェクトの取得
         time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
 
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
+        extremePanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
-        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        //コンポBGパネルの取得
+        compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
+
+        text_area = compoBG_A.transform.Find("MessageWindowComp").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
         //確率パネルの取得
-        kakuritsuPanel_obj = canvas.transform.Find("Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+        kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //レシピメモボタンを取得
-        recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
-        recipiMemoButton = canvas.transform.Find("Compound_BGPanel_A/RecipiMemoButton").gameObject;
-        memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
+        recipimemoController_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
+        recipiMemoButton = compoBG_A.transform.Find("RecipiMemoButton").gameObject;
+        memoResult_obj = compoBG_A.transform.Find("Memo_Result").gameObject;
 
         //レシピ達成率を取得
-        recipi_archivement_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiCompoImage/Panel").gameObject;       
+        recipi_archivement_obj = compoBG_A.transform.Find("RecipiCompoImage/Panel").gameObject;       
 
         //黒半透明パネルの取得
-        BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
+        BlackImage = compoBG_A.transform.Find("BlackImage").gameObject; //魔法エフェクト用の半透明で幕
 
         //完成時パネルの取得
-        CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
+        CompleteImage = compoBG_A.transform.Find("CompletePanel").gameObject; //調合成功時のイメージパネル
 
-        //コンポBGパネルの取得
-        compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
+        
         ResultBGimage = compoBG_A.transform.Find("ResultBG").gameObject;
         ResultBGimage.SetActive(false);
 
@@ -361,7 +364,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //調合中ウェイト+アニメ
             if (compo_anim_on == true)
             {
-                compound_Main.compo_ON = true;
+                //compound_Main.compo_ON = true;
                 GameMgr.check_GirlLoveSubEvent_flag = false;
 
                 //アニメスタート
@@ -378,9 +381,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public void ResultOK()
     {
         InitObject();
-
-        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-        _text = text_area.GetComponentInChildren<Text>();
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();       
@@ -673,9 +673,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         InitObject();
 
-        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-        _text = text_area.GetComponentInChildren<Text>();
-
         recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
         recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
 
@@ -851,8 +848,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-        _text = text_area.GetComponentInChildren<Text>();
+        
 
         Comp_method_bunki = 3; //トッピング調合の処理。
 
@@ -1071,9 +1067,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public void HikariMakeOK()
     {
         InitObject();
-
-        text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-        _text = text_area.GetComponentInChildren<Text>();
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();

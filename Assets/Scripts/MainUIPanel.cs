@@ -68,9 +68,9 @@ public class MainUIPanel : MonoBehaviour {
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.GetComponentInChildren<Text>();
 
-        stage_text_obj = this.transform.Find("Comp/StagePanel/Image/StageText").gameObject;
-        stage_text = this.transform.Find("Comp/StagePanel/Image/StageText").GetComponent<Text>();
-        FreeModeText_obj = this.transform.Find("Comp/StagePanel/Image/FreeModeText").gameObject;
+        stage_text_obj = this.transform.Find("StagePanel/Image/StageText").gameObject;
+        stage_text = stage_text_obj.GetComponent<Text>();
+        FreeModeText_obj = this.transform.Find("StagePanel/Image/FreeModeText").gameObject;
 
         _CompObj = this.transform.Find("Comp/").gameObject;
 

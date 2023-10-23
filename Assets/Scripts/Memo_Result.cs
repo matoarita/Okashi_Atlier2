@@ -30,6 +30,8 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     private GameObject content;
     private GameObject textPrefab;
 
+    private GameObject compoBG_A;
+
     private List<GameObject> _memoList = new List<GameObject>();
 
     // Use this for initialization
@@ -59,7 +61,10 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         content = this.transform.Find("Viewport/Content").gameObject;
         textPrefab = (GameObject)Resources.Load("Prefabs/MemoText");
 
-        recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
+        //コンポBGパネルの取得
+        compoBG_A = this.transform.parent.gameObject;
+
+        recipimemoController_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
         recipimemoController_obj.SetActive(false);
 
 

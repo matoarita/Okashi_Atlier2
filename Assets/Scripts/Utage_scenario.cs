@@ -440,12 +440,24 @@ public class Utage_scenario : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm" || SceneManager.GetActiveScene().name == "Bar")
             {
                 character = GameObject.FindWithTag("Character");
-               
-                if(GameMgr.shop_event_flag)
+
+                if (SceneManager.GetActiveScene().name == "Shop")
+                {
+                    if (!_model)
+                    {
+                        //Live2Dモデルの取得
+                        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                        _renderController = _model.GetComponent<CubismRenderController>();
+                        live2d_animator = _model.GetComponent<Animator>();
+                    }
+                }
+
+                if (GameMgr.shop_event_flag)
                 {
                     GameMgr.shop_event_flag = false;
                     story_num = GameMgr.shop_event_num;
-                    CharacterSpriteSetOFF();
+                    CharacterLive2DSubNPCImageOFF();
+                    //CharacterSpriteSetOFF();
 
                     scenarioLabel = "Shop_Event";
                     StartCoroutine(Scenario_Start());
@@ -456,7 +468,8 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.shop_lvevent_flag = false;
                     story_num = GameMgr.shop_lvevent_num;
-                    CharacterSpriteSetOFF();
+                    CharacterLive2DSubNPCImageOFF();
+                    //CharacterSpriteSetOFF();
 
                     scenarioLabel = "Shop_LvEvent";
                     StartCoroutine(Scenario_Start());
@@ -648,9 +661,16 @@ public class Utage_scenario : MonoBehaviour
                         break;
                 }
             }
-            
 
-            CharacterSpriteFadeON();
+            if (SceneManager.GetActiveScene().name == "Shop")
+            {
+                CharacterLive2DSubNPCImageON();
+            }
+            else
+            {
+                CharacterSpriteFadeON();
+            }
+            
 
             GameMgr.scenario_ON = false;
         }
@@ -2839,7 +2859,8 @@ public class Utage_scenario : MonoBehaviour
 
         if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
         {
-            CharacterSpriteSetOFF();
+            CharacterLive2DSubNPCImageOFF();
+            //CharacterSpriteSetOFF();
         }
 
         //「宴」のシナリオを呼び出す
@@ -2868,7 +2889,8 @@ public class Utage_scenario : MonoBehaviour
         if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
         {
             GameMgr.utage_charaHyouji_flag = false;
-            CharacterSpriteFadeON();
+            CharacterLive2DSubNPCImageON();
+            //CharacterSpriteFadeON();
         }
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
@@ -3892,11 +3914,20 @@ public class Utage_scenario : MonoBehaviour
     void CharacterLive2DImageOFF()
     {        
         _renderController.Opacity = 0.0f;
-        //FadeAnim_flag = true;
-        //FadeAnim_status = 1;
 
         //宴用の表情モードに切り替える。
         live2d_animator.SetLayerWeight(3, 1.0f);
+    }
+
+    //ゲームサブキャラ・NPCのLive2DキャラクタをONにする。
+    void CharacterLive2DSubNPCImageON()
+    {
+        _renderController.Opacity = 1.0f;
+    }
+
+    void CharacterLive2DSubNPCImageOFF()
+    {
+        _renderController.Opacity = 0.0f;
     }
 
     //キャラクタスプライト画像をONにする

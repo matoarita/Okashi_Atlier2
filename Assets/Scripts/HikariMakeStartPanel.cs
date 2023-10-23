@@ -118,7 +118,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
+        extremePanel_obj = canvas.transform.Find("MainUIPanel/Comp/ExtremePanel").gameObject;
         extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
 
         charaIcon_sprite_1 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_02");
@@ -605,8 +605,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
         ResetHyouji();
     }
 
-    //TimeControllerなどから読み込み。失敗しても経験ははいる。
-    public void hikarimake_GetExp(int _exp)
+    //TimeControllerなどから読み込み。失敗しても経験ははいる。現在は未使用。
+    /*private void hikarimake_GetExp(int _exp)
     {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
@@ -618,7 +618,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
         _itemType_subtext = GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji;
         _nowlv = GameMgr.hikarimakeokashi_nowlv;
-    } 
+    } */
 
 
     //SetImageからも読み出し　compound_Mainに戻る

@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class ExtremePanel : MonoBehaviour {
 
-    public int extreme_itemID;
-    public int extreme_itemtype;
+    private int extreme_itemID;
+    private int extreme_itemtype;
 
     public int extreme_kaisu;
 
@@ -18,7 +18,6 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject image_effect;
     private GameObject particle_effect;
     private GameObject canvas;
-    private GameObject compoBG_A;
 
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -121,11 +120,8 @@ public class ExtremePanel : MonoBehaviour {
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
-        //コンポBGパネルの取得
-        compoBG_A = canvas.transform.Find("Compound_BGPanel_A").gameObject;
-
         //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject;
+        MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         //エフェクト取得
@@ -352,10 +348,10 @@ public class ExtremePanel : MonoBehaviour {
     {
 
         extreme_Button.interactable = false;
+        GameMgr.compound_status = 6; //調合選択画面に移動 元々4にしてた
 
         if (extreme_itemID != 9999)
         {
-            GameMgr.compound_status = 6; //調合選択画面に移動 元々4にしてた
 
             //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
             if (GameMgr.tutorial_ON == true)
@@ -374,9 +370,8 @@ public class ExtremePanel : MonoBehaviour {
             card_view.DeleteCard_DrawView();
 
             _text.text = "何の調合をする？";
-            GameMgr.compound_status = 6;
-
-            pitemlistController.extremepanel_on = false;
+            
+            GameMgr.extremepanel_on = false;
 
             //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
             if (GameMgr.tutorial_ON == true)
@@ -396,11 +391,11 @@ public class ExtremePanel : MonoBehaviour {
 
     }
 
-    //CompoundMainから読みこむ用
+    //CompoundMainControllerから読みこむ用
     public void extreme_Compo_Setup()
     {
         //以下、エクストリーム用に再度パラメータを設定
-        pitemlistController.extremepanel_on = true;
+        GameMgr.extremepanel_on = true;
 
         if (extreme_itemtype == 0) //デフォルトアイテムの場合
         {

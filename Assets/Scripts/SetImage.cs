@@ -59,9 +59,6 @@ public class SetImage : MonoBehaviour
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
-    private GameObject extremePanel_obj;
-    private ExtremePanel extremePanel;
-
     private GameObject CompleteImage;
 
     private HikariMakeStartPanel hikarimake_startpanel;
@@ -1622,12 +1619,8 @@ public class SetImage : MonoBehaviour
             //Expコントローラーの取得
             exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-            //エクストリームパネルオブジェクトの取得
-            extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
-            extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
-
             //ブラックエフェクトを取得
-            BlackImage = canvas.transform.Find("Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
+            BlackImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
 
             //カード表示用オブジェクトの取得
             card_view_obj = GameObject.FindWithTag("CardView");
@@ -1708,7 +1701,7 @@ public class SetImage : MonoBehaviour
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                     //完成時パネルの取得
-                    CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
+                    CompleteImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
                     CompleteImage.SetActive(false);
 
                     //別画面で（たとえばピクニック中など）戻るときは、status=0にならず、また調合画面に戻る。
@@ -1724,7 +1717,7 @@ public class SetImage : MonoBehaviour
                         {
                             case 1: //レシピ調合
 
-                                if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                                if (exp_Controller._temp_extreme_id != 9999) //新しいお菓子がセットされているので、一度オフ
                                 {
                                     GameMgr.compound_status = 0;
 
@@ -1746,7 +1739,7 @@ public class SetImage : MonoBehaviour
 
                             case 3: //オリジナル調合
 
-                                if (extremePanel.extreme_itemID != 9999) //新しいお菓子がセットされているので、一度オフ
+                                if (exp_Controller._temp_extreme_id != 9999) //新しいお菓子がセットされているので、一度オフ
                                 {
                                     GameMgr.compound_status = 0;
 
@@ -1775,17 +1768,8 @@ public class SetImage : MonoBehaviour
                         }
                     }
 
-                    compound_Main.compo_ON = false; //成功でも失敗でも、必ずこのカードは押さないと、メイン画面に戻れない。
-
-
-                    if (exp_Controller.compound_success == true)
-                    {
-                        extremePanel.LifeAnimeOnTrue();
-                    }
-                    else
-                    {
-
-                    }
+                    GameMgr.CompoundSceneStartON = false;　//調合シーン終了
+                    //compound_Main.compo_ON = false; //成功でも失敗でも、必ずこのカードは押さないと、メイン画面に戻れない。
 
                     exp_Controller.EffectListClear();
                     card_view.DeleteCard_DrawView();
@@ -1795,7 +1779,7 @@ public class SetImage : MonoBehaviour
         }
         else
         {
-            hikarimake_startpanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
+            hikarimake_startpanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
             hikarimake_startpanel.ResultHikariMakeCardView_andOFF();
         }
     }

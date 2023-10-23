@@ -19,22 +19,17 @@
 		{
 			"Id": "ParamEyeLOpen",
 			"GroupId": "ParamGroup",
-			"Name": "左目　開閉"
-		},
-		{
-			"Id": "ParamEyeLSmile",
-			"GroupId": "ParamGroup",
-			"Name": "左目　笑顔"
+			"Name": "左眼　開閉"
 		},
 		{
 			"Id": "ParamEyeROpen",
 			"GroupId": "ParamGroup",
-			"Name": "右目　開閉"
+			"Name": "右眼　開閉"
 		},
 		{
-			"Id": "ParamEyeRSmile",
+			"Id": "ParamEyeSmile",
 			"GroupId": "ParamGroup",
-			"Name": "右目　笑顔"
+			"Name": "笑顔"
 		},
 		{
 			"Id": "ParamEyeBallX",
@@ -97,9 +92,19 @@
 			"Name": "口　開閉"
 		},
 		{
+			"Id": "ParamCheekDefault",
+			"GroupId": "ParamGroup",
+			"Name": "チークデフォルト"
+		},
+		{
 			"Id": "ParamCheek",
 			"GroupId": "ParamGroup",
 			"Name": "照れ"
+		},
+		{
+			"Id": "ParamEyeCry",
+			"GroupId": "ParamGroup",
+			"Name": "悲しみ涙"
 		},
 		{
 			"Id": "ParamBodyAngleX",
@@ -117,63 +122,143 @@
 			"Name": "体の回転　Z"
 		},
 		{
+			"Id": "ParamArmL",
+			"GroupId": "ParamGroup",
+			"Name": "左上腕"
+		},
+		{
+			"Id": "ParamArmL2",
+			"GroupId": "ParamGroup",
+			"Name": "左腕"
+		},
+		{
+			"Id": "ParamArmR",
+			"GroupId": "ParamGroup",
+			"Name": "右上腕"
+		},
+		{
+			"Id": "ParamArmR2",
+			"GroupId": "ParamGroup",
+			"Name": "右腕"
+		},
+		{
 			"Id": "ParamBreath",
 			"GroupId": "ParamGroup",
 			"Name": "呼吸"
 		},
 		{
-			"Id": "ParamHairFront",
+			"Id": "Param",
 			"GroupId": "ParamGroup",
-			"Name": "髪揺れ　前"
+			"Name": "困り汗"
 		},
 		{
-			"Id": "ParamHairSide",
+			"Id": "ParamWindBone",
 			"GroupId": "ParamGroup",
-			"Name": "髪揺れ　横"
+			"Name": "風揺れ用ボーン"
 		},
 		{
-			"Id": "ParamHairBack",
+			"Id": "ParamHairFront1",
 			"GroupId": "ParamGroup",
-			"Name": "髪揺れ　後"
+			"Name": "髪揺れ　前1"
+		},
+		{
+			"Id": "ParamHairFront2",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　前2"
+		},
+		{
+			"Id": "ParamHairSide1",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　横1"
+		},
+		{
+			"Id": "ParamHairSide2",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　横2"
+		},
+		{
+			"Id": "ParamHairSide3",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　横3"
+		},
+		{
+			"Id": "ParamHairBack1",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　後ろ1"
+		},
+		{
+			"Id": "ParamHairBack2",
+			"GroupId": "ParamGroup",
+			"Name": "髪揺れ　後ろ2"
+		},
+		{
+			"Id": "ParamChestYure1",
+			"GroupId": "ParamGroup",
+			"Name": "胸の揺れ1"
+		},
+		{
+			"Id": "ParamChestYure2",
+			"GroupId": "ParamGroup",
+			"Name": "胸の揺れ2"
+		},
+		{
+			"Id": "ParamRibbonRYure1",
+			"GroupId": "ParamGroup",
+			"Name": "リボン右揺れ1"
+		},
+		{
+			"Id": "ParamRibbonRYure2",
+			"GroupId": "ParamGroup",
+			"Name": "リボン右揺れ2"
+		},
+		{
+			"Id": "ParamRibbonLYure1",
+			"GroupId": "ParamGroup",
+			"Name": "リボン左揺れ1"
+		},
+		{
+			"Id": "ParamRibbonLYure2",
+			"GroupId": "ParamGroup",
+			"Name": "リボン左揺れ2"
 		},
 		{
 			"Id": "ParamFace01onoff",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "表情01通常のonoff"
 		},
 		{
 			"Id": "ParamFace02onoff",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "表情02おっのonoff"
 		},
 		{
 			"Id": "ParamFace03onoff",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "表情03笑顔のonoff"
 		},
 		{
 			"Id": "ParamFace04onoff",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "表情04困りのonoff"
 		},
 		{
 			"Id": "ParamFace05onoff",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "表情05悲しみのonoff"
 		},
 		{
 			"Id": "ParamFace06onoff",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "表情06照れのonoff"
 		},
 		{
 			"Id": "ParamFace07onoff",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "表情07驚きのonoff"
 		},
 		{
 			"Id": "ParamFace08onoff",
-			"GroupId": "",
+			"GroupId": "ParamGroup2",
 			"Name": "表情08怒りのonoff"
 		}
 	],
@@ -182,47 +267,72 @@
 			"Id": "ParamGroup",
 			"GroupId": "",
 			"Name": "基本"
+		},
+		{
+			"Id": "ParamGroup2",
+			"GroupId": "",
+			"Name": "表情ガイド"
 		}
 	],
 	"Parts": [
 		{
-			"Id": "template",
-			"Name": "template"
+			"Id": "Part10",
+			"Name": "A1-1.psd（対応無し）"
+		},
+		{
+			"Id": "Part01HairFront001",
+			"Name": "前髪"
+		},
+		{
+			"Id": "Part01HairSide001",
+			"Name": "横髪"
+		},
+		{
+			"Id": "Part01HairBack001",
+			"Name": "後ろ髪"
+		},
+		{
+			"Id": "Part01Nose001",
+			"Name": "鼻"
+		},
+		{
+			"Id": "Part01Mouth001",
+			"Name": "口"
+		},
+		{
+			"Id": "Part01Brow001",
+			"Name": "まゆ毛"
+		},
+		{
+			"Id": "Part01EyeBall001",
+			"Name": "目玉"
+		},
+		{
+			"Id": "Part01Eye001",
+			"Name": "目"
+		},
+		{
+			"Id": "Part01Ear001",
+			"Name": "耳"
+		},
+		{
+			"Id": "Part01Face001",
+			"Name": "顔"
+		},
+		{
+			"Id": "Part01Neck",
+			"Name": "首"
+		},
+		{
+			"Id": "Part01Body",
+			"Name": "体"
 		},
 		{
 			"Id": "Part",
 			"Name": "表情"
 		},
 		{
-			"Id": "Part10",
-			"Name": "08怒り"
-		},
-		{
-			"Id": "Part2",
-			"Name": "07驚き"
-		},
-		{
-			"Id": "Part3",
-			"Name": "06照れ"
-		},
-		{
-			"Id": "Part4",
-			"Name": "05悲しみ"
-		},
-		{
-			"Id": "Part5",
-			"Name": "04困り"
-		},
-		{
-			"Id": "Part6",
-			"Name": "03笑顔"
-		},
-		{
-			"Id": "Part7",
-			"Name": "02おっ"
-		},
-		{
-			"Id": "Part8",
+			"Id": "Part9",
 			"Name": "01通常"
 		}
 	]

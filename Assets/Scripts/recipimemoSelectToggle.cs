@@ -72,10 +72,10 @@ public class recipimemoSelectToggle : MonoBehaviour
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        recipimemoController_obj = canvas.transform.Find("Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
+        recipimemoController_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/RecipiMemo_ScrollView").gameObject;
         recipimemoController = recipimemoController_obj.GetComponent<RecipiMemoController>();
 
-        memoResult_obj = canvas.transform.Find("Compound_BGPanel_A/Memo_Result").gameObject;
+        memoResult_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Memo_Result").gameObject;
         memoResult = memoResult_obj.GetComponent<Memo_Result>();
 
         yes = recipimemoController_obj.transform.Find("Yes").gameObject;

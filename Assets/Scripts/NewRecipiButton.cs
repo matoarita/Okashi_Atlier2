@@ -14,9 +14,6 @@ public class NewRecipiButton : MonoBehaviour {
 
     private GameObject CompleteImage;
 
-    private GameObject extremePanel_obj;
-    private ExtremePanel extremePanel;
-
     private Exp_Controller exp_Controller;
 
     private SoundController sc;
@@ -40,12 +37,8 @@ public class NewRecipiButton : MonoBehaviour {
         compound_Main_obj = GameObject.FindWithTag("Compound_Main");
         compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-        //エクストリームパネルオブジェクトの取得
-        extremePanel_obj = canvas.transform.Find("MainUIPanel/ExtremePanel").gameObject;
-        extremePanel = extremePanel_obj.GetComponent<ExtremePanel>();
-
         //完成時パネルの取得
-        CompleteImage = canvas.transform.Find("Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
+        CompleteImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
     }
 	
 	// Update is called once per frame
@@ -87,7 +80,7 @@ public class NewRecipiButton : MonoBehaviour {
             {
                 case 1: //レシピ調合
 
-                    if (extremePanel.extreme_itemID != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。現状は、新しいお菓子がセットされてない場合。
+                    if (exp_Controller._temp_extreme_id != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。現状は、新しいお菓子がセットされてない場合。
                     {
                         GameMgr.compound_status = 0;
                     }
@@ -100,7 +93,7 @@ public class NewRecipiButton : MonoBehaviour {
 
                 case 3: //オリジナル調合
 
-                    if (extremePanel.extreme_itemID != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。
+                    if (exp_Controller._temp_extreme_id != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。
                     {
                         GameMgr.compound_status = 0;
                     }
@@ -119,12 +112,12 @@ public class NewRecipiButton : MonoBehaviour {
             }
         }
 
-        compound_Main.compo_ON = false;
+        GameMgr.CompoundSceneStartON = false;　//調合シーン終了
+        //compound_Main.compo_ON = false;
 
         CompleteImage.SetActive(false);
 
         exp_Controller.EffectListClear();
-        extremePanel.LifeAnimeOnTrue();
 
         card_view.DeleteCard_DrawView();
         Destroy(this.gameObject);
