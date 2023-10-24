@@ -671,8 +671,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //アイテムによっては、使用するかどうかのビューも表示する。
         UseToggleSetInit(); //まず初期化
 
-        //飾れるアイテムは、「飾る」を表示
-        _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(false);
+        //飾れるアイテムは、「飾る」を表示 共通でキャンセルは表示
+        _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
 
         foreach (string key in GameMgr.BGAcceItemsName.Keys)
         {

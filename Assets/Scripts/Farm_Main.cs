@@ -34,9 +34,6 @@ public class Farm_Main : MonoBehaviour {
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
 
-    private GameObject updown_counter_obj;
-    private GameObject updown_counter_Prefab;
-
     private GameObject backshopfirst_obj;
 
     public int farm_status;
@@ -63,10 +60,6 @@ public class Farm_Main : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
-        //シーン最初にカウンターも生成する。
-        updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
-        updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();

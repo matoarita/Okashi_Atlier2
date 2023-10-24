@@ -27,9 +27,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private string[] _slot = new string[10]; //とりあえず、スロットの数の設定用。
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。
 
-    private GameObject updown_counter_obj;
-    private Updown_counter updown_counter;
-
     private PlayerItemList pitemlist;
 
     private GameObject textPrefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
@@ -123,6 +120,20 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         content = GameObject.FindWithTag("PlayerItemListContent");
         textPrefab = (GameObject)Resources.Load("Prefabs/itemSelectToggle");
 
+        InitSetUp();
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+        
+    }
+
+    void InitSetUp()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
         //表示中リストの、選択した番号も保存
         _count1 = 9999;
         _count2 = 9999;
@@ -164,18 +175,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         _listitem.Clear();
         _prelistitem.Clear();
-    }
 
-    // Use this for initialization
-    void Start()
-    {
-        
-    }
-
-    void InitSetUp()
-    {
-        
-        
     }
 
     // Update is called once per frame
@@ -209,6 +209,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         // 調合専用シーンでやりたい処理。
         if (GameMgr.CompoundSceneStartON)
         {
+
             if (GameMgr.tutorial_ON == true)
             {
                 no_button.SetActive(false);
@@ -242,24 +243,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Compound": // 調合シーン以外でやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-
-                    /*if (canvas != null) //ゲームのセットアップ時は無視
-                    {
-                        //キャンバスの読み込み
-                        canvas = GameObject.FindWithTag("Canvas");
-
-                        updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-                        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-
-                        //シーン移動などで、リセットされない場合があるので、念の為ここでリセット
-                        updown_counter_obj.SetActive(true);
-                        updown_counter.updown_kosu = 1;
-
-                        updown_counter_obj.SetActive(false);
-                    }*/
-
-                    reset_and_DrawView();
-
+                   
                     if (GameMgr.tutorial_ON == true)
                     {
                         no_button.SetActive(false);
@@ -270,7 +254,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     }
 
                     //アニメーション
-                    if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
+                    /*if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
                     {
                         this.transform.localPosition = new Vector3(224f, 57f, 0);
                         OpenAnim2();
@@ -279,8 +263,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     {
                         this.transform.localPosition = new Vector3(-224f, 57f, 0);
                         OpenAnim();
-                    }
+                    }*/
 
+                    reset_and_DrawView();
+                    OpenAnim();
                     break;
 
                 case "Shop":

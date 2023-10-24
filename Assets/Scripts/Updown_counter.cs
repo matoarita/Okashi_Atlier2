@@ -48,7 +48,7 @@ public class Updown_counter : MonoBehaviour {
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
     private Text _count_text;
-    public int updown_kosu;
+    //private int updown_kosu;
     private int listkosu_count;
 
     private int i, count, _zaiko_max;
@@ -207,8 +207,12 @@ public class Updown_counter : MonoBehaviour {
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         updown_button = this.GetComponentsInChildren<Button>();
-        updown_button[0].interactable = true;
-        updown_button[1].interactable = true;
+        foreach (var obj in updown_button)
+        {
+            obj.interactable = true;
+        }
+        //updown_button[0].interactable = true;
+        //updown_button[1].interactable = true;
 
         updown_button_Big = this.transform.Find("up_big").gameObject;
         updown_button_Big.SetActive(false);
@@ -392,11 +396,11 @@ public class Updown_counter : MonoBehaviour {
                 break;
         }
 
-        updown_kosu = 1;
+        GameMgr.updown_kosu = 1;
         _zaiko_max = 0;
 
         _count_text = transform.Find("counter_num").GetComponent<Text>();
-        _count_text.text = updown_kosu.ToString();
+        _count_text.text = GameMgr.updown_kosu.ToString();
 
     }
 
@@ -414,7 +418,7 @@ public class Updown_counter : MonoBehaviour {
                     if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) //オリジナル調合のとき
                     {
                         //カウントをとりあえず１足す
-                        ++updown_kosu;
+                        ++GameMgr.updown_kosu;
 
                         switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
                         {
@@ -481,11 +485,11 @@ public class Updown_counter : MonoBehaviour {
                                     break;
                             }
 
-                            player_itemkosu3 = pitemlistController.final_kettei_kosu3 * updown_kosu;
+                            player_itemkosu3 = pitemlistController.final_kettei_kosu3 * GameMgr.updown_kosu;
                         }
 
-                        player_itemkosu1 = pitemlistController.final_kettei_kosu1 * updown_kosu;
-                        player_itemkosu2 = pitemlistController.final_kettei_kosu2 * updown_kosu;
+                        player_itemkosu1 = pitemlistController.final_kettei_kosu1 * GameMgr.updown_kosu;
+                        player_itemkosu2 = pitemlistController.final_kettei_kosu2 * GameMgr.updown_kosu;
 
                         /*Debug.Log("アイテム1 所持数: " + _item_max1 + " プレイヤーカウンタ個数1 : " + player_itemkosu1);
                         Debug.Log("アイテム2 所持数: " + _item_max2 + " プレイヤーカウンタ個数2 : " + player_itemkosu2);
@@ -499,7 +503,7 @@ public class Updown_counter : MonoBehaviour {
                             if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2)
                             {
                                 //Debug.Log("どれか一つのアイテムが、所持数を超えた");
-                                updown_kosu--;
+                                GameMgr.updown_kosu--;
                             }
                             else
                             {
@@ -510,7 +514,7 @@ public class Updown_counter : MonoBehaviour {
                             if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2 || player_itemkosu3 > _item_max3)
                             {
                                 //Debug.Log("どれか一つのアイテムが、所持数を超えた");
-                                updown_kosu--;
+                                GameMgr.updown_kosu--;
                             }
                             else
                             {
@@ -748,7 +752,7 @@ public class Updown_counter : MonoBehaviour {
 
             }
 
-            _count_text.text = updown_kosu.ToString();
+            _count_text.text = GameMgr.updown_kosu.ToString();
         }
 
         else if (SceneManager.GetActiveScene().name == "Shop")
@@ -759,15 +763,15 @@ public class Updown_counter : MonoBehaviour {
 
                 AddMethod1();
 
-                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * updown_kosu)
+                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                 {
                     //お金が足りない
                     _text.text = "お金が足りない。";
 
-                    updown_kosu--;
+                    GameMgr.updown_kosu--;
                 }
 
-                _count_text.text = updown_kosu.ToString();
+                _count_text.text = GameMgr.updown_kosu.ToString();
             }
 
             if (shop_Main.shop_scene == 3)　//ショップ納品のとき
@@ -870,15 +874,15 @@ public class Updown_counter : MonoBehaviour {
 
             AddMethod1();
 
-            if (PlayerStatus.player_money < shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_costprice * updown_kosu)
+            if (PlayerStatus.player_money < shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
             {
                 //お金が足りない
                 _text.text = "お金が足りない。";
 
-                updown_kosu--;
+                GameMgr.updown_kosu--;
             }
 
-            _count_text.text = updown_kosu.ToString();
+            _count_text.text = GameMgr.updown_kosu.ToString();
         }
         else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
         {
@@ -890,15 +894,15 @@ public class Updown_counter : MonoBehaviour {
             //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
             kaerucoin = pitemlist.playeritemlist["emeralDongri"];
 
-            if (kaerucoin < shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * updown_kosu)
+            if (kaerucoin < shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
             {
                 //お金が足りない
                 _text.text = "エメラルどんぐりが足りない。";
 
-                updown_kosu--;
+                GameMgr.updown_kosu--;
             }
 
-            _count_text.text = updown_kosu.ToString();
+            _count_text.text = GameMgr.updown_kosu.ToString();
         }
     }
 
@@ -912,15 +916,15 @@ public class Updown_counter : MonoBehaviour {
 
                 AddMethod2();
 
-                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * updown_kosu)
+                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                 {
                     //お金が足りない
                     _text.text = "お金が足りない。";
 
-                    updown_kosu = updown_kosu - 10;
+                    GameMgr.updown_kosu = GameMgr.updown_kosu - 10;
                 }
 
-                _count_text.text = updown_kosu.ToString();
+                _count_text.text = GameMgr.updown_kosu.ToString();
             }
 
             if (shop_Main.shop_scene == 5)
@@ -960,15 +964,15 @@ public class Updown_counter : MonoBehaviour {
 
             AddMethod2();
 
-            if (PlayerStatus.player_money < shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_costprice * updown_kosu)
+            if (PlayerStatus.player_money < shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
             {
                 //お金が足りない
                 _text.text = "お金が足りない。";
 
-                updown_kosu = updown_kosu - 10;
+                GameMgr.updown_kosu = GameMgr.updown_kosu - 10;
             }
 
-            _count_text.text = updown_kosu.ToString();
+            _count_text.text = GameMgr.updown_kosu.ToString();
 
         }
         else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
@@ -981,15 +985,15 @@ public class Updown_counter : MonoBehaviour {
             //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
             kaerucoin = pitemlist.playeritemlist["emeralDongri"];
 
-            if (kaerucoin < shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * updown_kosu)
+            if (kaerucoin < shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
             {
                 //お金が足りない
                 _text.text = "エメラルどんぐりが足りない。";
 
-                updown_kosu = updown_kosu - 10;
+                GameMgr.updown_kosu = GameMgr.updown_kosu - 10;
             }
 
-            _count_text.text = updown_kosu.ToString();
+            _count_text.text = GameMgr.updown_kosu.ToString();
         }
     }
 
@@ -1005,12 +1009,12 @@ public class Updown_counter : MonoBehaviour {
 
                 if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    player_itemkosu1 = pitemlistController.final_kettei_kosu1 * updown_kosu;
-                    player_itemkosu2 = pitemlistController.final_kettei_kosu2 * updown_kosu;
+                    player_itemkosu1 = pitemlistController.final_kettei_kosu1 * GameMgr.updown_kosu;
+                    player_itemkosu2 = pitemlistController.final_kettei_kosu2 * GameMgr.updown_kosu;
 
                     if (pitemlistController.kettei_item3 != 9999) //３個目も選んでいれば、下の処理を起動
                     {
-                        player_itemkosu3 = pitemlistController.final_kettei_kosu3 * updown_kosu;
+                        player_itemkosu3 = pitemlistController.final_kettei_kosu3 * GameMgr.updown_kosu;
                     }
                 }
             }
@@ -1096,46 +1100,46 @@ public class Updown_counter : MonoBehaviour {
 
     void AddMethod1()
     {
-        ++updown_kosu;
-        if (updown_kosu > _zaiko_max)
+        ++GameMgr.updown_kosu;
+        if (GameMgr.updown_kosu > _zaiko_max)
         {
-            updown_kosu = _zaiko_max;
+            GameMgr.updown_kosu = _zaiko_max;
         }
 
-        _count_text.text = updown_kosu.ToString();
+        _count_text.text = GameMgr.updown_kosu.ToString();
     }
 
     void AddMethod2()
     {
-        updown_kosu = updown_kosu + 10;
-        if (updown_kosu > _zaiko_max)
+        GameMgr.updown_kosu = GameMgr.updown_kosu + 10;
+        if (GameMgr.updown_kosu > _zaiko_max)
         {
-            updown_kosu = _zaiko_max;
+            GameMgr.updown_kosu = _zaiko_max;
         }
 
-        _count_text.text = updown_kosu.ToString();
+        _count_text.text = GameMgr.updown_kosu.ToString();
     }
 
     void DegMethod1()
     {
-        --updown_kosu;
-        if (updown_kosu <= 1)
+        --GameMgr.updown_kosu;
+        if (GameMgr.updown_kosu <= 1)
         {
-            updown_kosu = 1;
+            GameMgr.updown_kosu = 1;
         }
 
-        _count_text.text = updown_kosu.ToString();
+        _count_text.text = GameMgr.updown_kosu.ToString();
     }
 
     void DegMethod2()
     {
-        updown_kosu = updown_kosu - 10;
-        if (updown_kosu <= 1)
+        GameMgr.updown_kosu = GameMgr.updown_kosu - 10;
+        if (GameMgr.updown_kosu <= 1)
         {
-            updown_kosu = 1;
+            GameMgr.updown_kosu = 1;
         }
 
-        _count_text.text = updown_kosu.ToString();
+        _count_text.text = GameMgr.updown_kosu.ToString();
     }
 
 
@@ -1150,7 +1154,7 @@ public class Updown_counter : MonoBehaviour {
         itemID_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID; //itemID_1という変数に、プレイヤーが選択した調合DBの配列番号を格納する。
         itemname_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;
 
-        recipilistController.final_select_kosu = updown_kosu; //選択個数(セットの回数）
+        recipilistController.final_select_kosu = GameMgr.updown_kosu; //選択個数(セットの回数）
 
         //必要アイテム・個数の代入
         cmpitem_kosu1 = databaseCompo.compoitems[itemID_1].cmpitem_kosu1;
@@ -1227,7 +1231,7 @@ public class Updown_counter : MonoBehaviour {
 
         if(cmpitem1_type == 0)
         {
-            cmpitem_kosu1_select = cmpitem_kosu1 * updown_kosu; //必要個数×選択している作成数
+            cmpitem_kosu1_select = cmpitem_kosu1 * GameMgr.updown_kosu; //必要個数×選択している作成数
         }
         else
         {
@@ -1236,7 +1240,7 @@ public class Updown_counter : MonoBehaviour {
 
         if (cmpitem2_type == 0)
         {
-            cmpitem_kosu2_select = cmpitem_kosu2 * updown_kosu; //必要個数×選択している作成数
+            cmpitem_kosu2_select = cmpitem_kosu2 * GameMgr.updown_kosu; //必要個数×選択している作成数
         }
         else
         {
@@ -1245,7 +1249,7 @@ public class Updown_counter : MonoBehaviour {
 
         if (cmpitem3_type == 0)
         {
-            cmpitem_kosu3_select = cmpitem_kosu3 * updown_kosu; //必要個数×選択している作成数
+            cmpitem_kosu3_select = cmpitem_kosu3 * GameMgr.updown_kosu; //必要個数×選択している作成数
         }
         else
         {
@@ -1429,21 +1433,21 @@ public class Updown_counter : MonoBehaviour {
             case 0:
 
                 _text.text = database.items[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + database.items[pitemlistController.kettei_item1].sell_price * updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+            GameMgr.ColorYellow + database.items[pitemlistController.kettei_item1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
                 break;
 
             case 1:
 
                 _text.text = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + pitemlist.player_originalitemlist[pitemlistController.kettei_item1].sell_price * updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+            GameMgr.ColorYellow + pitemlist.player_originalitemlist[pitemlistController.kettei_item1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
                 break;
 
             case 2:
 
                 _text.text = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].sell_price * updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+            GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
                 break;
 
@@ -1453,5 +1457,19 @@ public class Updown_counter : MonoBehaviour {
         
     }
 
-    
+    public void UpdownButton_InteractALLON()
+    {
+        foreach (var obj in updown_button)
+        {
+            obj.interactable = true;
+        }
+    }
+
+    public void UpdownButton_InteractALLOFF()
+    {
+        foreach (var obj in updown_button)
+        {
+            obj.interactable = false;
+        }
+    }
 }

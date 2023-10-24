@@ -235,9 +235,6 @@ public class Compound_Main : MonoBehaviour
     private GameObject yes_no_clear_okashi_panel; //クリア時のYes, noボタン
     private GameObject yes_no_sleep_panel; //寝るかどうかのYes, noボタン
 
-    private GameObject updown_counter_obj;
-    private GameObject updown_counter_Prefab;
-
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
@@ -397,10 +394,6 @@ public class Compound_Main : MonoBehaviour
         yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
         yes_no_sleep_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
         yes_no_clear_okashi_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel3").gameObject;
-
-        //シーン最初にカウンターも生成する。
-        updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
-        updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //確率パネルの取得
         kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;

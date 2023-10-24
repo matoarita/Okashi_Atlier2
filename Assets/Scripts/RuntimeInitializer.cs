@@ -104,6 +104,10 @@ public class RuntimeInitializer : MonoBehaviour
         var keyinputmgr_init = new GameObject("KeyInputMgr", typeof(keyManager));
         GameObject.DontDestroyOnLoad(keyinputmgr_init);
 
+        //シーン最初にプレファブから設置したいオブジェクトの生成　Yes,noパネルなど
+        var sceneInitSetting_init = new GameObject("SceneInitSetting", typeof(SceneInitSetting));
+        GameObject.DontDestroyOnLoad(sceneInitSetting_init);
+
         //EXPコントローラー（アイテム増減・経験の増減処理を行う）
         var expcontroller_init = new GameObject("Exp_Controller", typeof(Exp_Controller));
         expcontroller_init.AddComponent<AudioSource>();
@@ -174,7 +178,7 @@ public class RuntimeInitializer : MonoBehaviour
         //時間を統括するオブジェクト
         var timecontroller_init = new GameObject("TimeController", typeof(TimeController));
         GameObject.DontDestroyOnLoad(timecontroller_init);
-        timecontroller_init.tag = "TimeController";
+        timecontroller_init.tag = "TimeController";      
 
     }
 

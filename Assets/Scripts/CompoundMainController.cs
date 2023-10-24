@@ -94,9 +94,6 @@ public class CompoundMainController : MonoBehaviour {
 
     private GameObject yes_no_panel; //通常時のYes, noボタン
 
-    private GameObject updown_counter_obj;
-    private GameObject updown_counter_Prefab;
-
     //Live2Dモデルの取得
     private GameObject _model_obj;
     private CubismRenderController cubism_rendercontroller;
@@ -104,6 +101,8 @@ public class CompoundMainController : MonoBehaviour {
     private bool character_On; //そのシーンにヒカリちゃんが存在するかどうかを検出
 
     private GameObject Debug_CompoIcon;
+
+    private bool WaitForCompEnd; //調合シーン終了時に一回だけ行う処理のフラグ
 
     // Use this for initialization
     void Start () {
@@ -162,10 +161,6 @@ public class CompoundMainController : MonoBehaviour {
         yes_no_panel = compoBG_A.transform.Find("Yes_no_Panel").gameObject;
         yes = yes_no_panel.transform.Find("Yes").gameObject;
         no = yes_no_panel.transform.Find("No").gameObject;       
-
-        //シーン最初にカウンターも生成する。
-        updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
-        updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //確率パネルの取得
         kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
@@ -235,6 +230,8 @@ public class CompoundMainController : MonoBehaviour {
         hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
             "好きな材料を" + GameMgr.ColorYellow +
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
+
+        WaitForCompEnd = false;
     }
 	
 	// Update is called once per frame
@@ -264,6 +261,10 @@ public class CompoundMainController : MonoBehaviour {
 
         if (GameMgr.CompoundSceneStartON)
         {
+            if (!WaitForCompEnd) //
+            {
+                WaitForCompEnd = true;
+            }
 
             switch (GameMgr.compound_status)
             {
@@ -387,6 +388,8 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                     GameMgr.compound_select = 6;
 
+                    GameMgr.updown_kosu = 1; //調合シーン最初に、数値をリセット
+
                     //BGMを変更
                     if (!GameMgr.tutorial_ON)
                     {
@@ -413,9 +416,7 @@ public class CompoundMainController : MonoBehaviour {
 
                     SelectCompo_panel_1.SetActive(true);
                     compoBG_A.SetActive(true);
-
-                    
-                    
+                                       
                     yes_no_panel.SetActive(false);
 
                     text_area_compound.SetActive(false);
@@ -535,6 +536,15 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(false);
 
                     break;
+            }
+        }
+        else
+        {
+            if(WaitForCompEnd) //調合終了を聞いたタイミングで一回だけ行う処理
+            {
+                WaitForCompEnd = false;
+
+                OnCancelCompound_Select();
             }
         }
     }

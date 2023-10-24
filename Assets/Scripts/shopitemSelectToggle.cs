@@ -267,7 +267,7 @@ public class shopitemSelectToggle : MonoBehaviour
                 //Debug.Log("ok");
                 //解除
 
-                shopitemlistController.shop_final_itemkosu_1 = updown_counter.updown_kosu; //最終個数を入れる。
+                shopitemlistController.shop_final_itemkosu_1 = GameMgr.updown_kosu; //最終個数を入れる。
 
                 shopitemlistController.shop_final_select_flag = true; //確認のフラグ
 

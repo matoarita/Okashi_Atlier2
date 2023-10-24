@@ -58,9 +58,6 @@ public class Bar_Main : MonoBehaviour
     private bool check_lvevent;
     private bool lvevent_loading;
 
-    private GameObject updown_counter_obj;
-    private GameObject updown_counter_Prefab;
-
     public int shop_status;
     public int shop_scene; //どのシーンを選択しているかを判別
 
@@ -91,10 +88,6 @@ public class Bar_Main : MonoBehaviour
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
-
-        //シーン最初にカウンターも生成する。
-        updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
-        updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();

@@ -84,6 +84,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int trans_expression;
     private int trans_motion;
     private GameObject character_move;
+    private bool character_ON;
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -124,7 +125,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
 
-    private int i, sw, count;
+    private int i, count;
 
     public int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ
 
@@ -218,27 +219,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //合成計算オブジェクトの取得
         compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
 
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //レベルアップチェック用オブジェクトの取得
-        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
-
-        //音声ファイルの取得。SCを使わずに鳴らす場合はこっち。
-
-        //カード表示用オブジェクトの取得
-        card_view_obj = GameObject.FindWithTag("CardView");
-        card_view = card_view_obj.GetComponent<CardView>();
-
-        //エフェクトプレファブの取得
-        Compo_Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
-        Compo_Magic_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo2");
-        Compo_Magic_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Particle_Compo3");
-        Compo_Magic_effect_Prefab4 = (GameObject)Resources.Load("Prefabs/Particle_Compo4");
-        Compo_Magic_effect_Prefab5 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
-        Compo_Magic_effect_Prefab6 = (GameObject)Resources.Load("Prefabs/Particle_Compo6");
-        Compo_Magic_effect_Prefab_kiraexplode = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");
-        
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();    
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -267,15 +255,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         NewRecipiflag_check = false;
 
         i = 0;
-        sw = 0;
         new_item = 0;
 
         Comp_method_bunki = 0;
-        DoubleItemCreated = 0;
-
-        compo_anim_status = 0;
-        compo_anim_on = false;
-        compo_anim_end = false;        
+        DoubleItemCreated = 0;              
 
         _temp_extreme_id = 9999;
         _temp_extremeSetting = false;
@@ -291,9 +274,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         maincam_animator = main_cam.GetComponent<Animator>();
         trans = maincam_animator.GetInteger("trans");        
 
-        //時間管理オブジェクトの取得
-        time_controller = TimeController.Instance.GetComponent<TimeController>();
-
+        
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
 
@@ -321,17 +302,35 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //YesNoパネル
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
 
+        //カード表示用オブジェクトの取得
+        card_view_obj = GameObject.FindWithTag("CardView");
+        card_view = card_view_obj.GetComponent<CardView>();
+
+        //エフェクトプレファブの取得
+        Compo_Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_Compo1");
+        Compo_Magic_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo2");
+        Compo_Magic_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Particle_Compo3");
+        Compo_Magic_effect_Prefab4 = (GameObject)Resources.Load("Prefabs/Particle_Compo4");
+        Compo_Magic_effect_Prefab5 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
+        Compo_Magic_effect_Prefab6 = (GameObject)Resources.Load("Prefabs/Particle_Compo6");
+        Compo_Magic_effect_Prefab_kiraexplode = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");
+
+        compo_anim_status = 0;
+        compo_anim_on = false;
+        compo_anim_end = false;
+
         //Live2Dモデルの取得
         Scene scene = SceneManager.GetActiveScene();
         GameObject[] rootObjects = scene.GetRootGameObjects();
 
-        //character_On = false;
+        character_ON = false;
         foreach (var obj in rootObjects)
         {
             //Debug.LogFormat("RootObject = {0}", obj.name);
             if (obj.name == "CharacterRoot")
             {
                 Debug.Log("character_On: ヒカリちゃん　シーン内に存在する");
+                character_ON = true;
                 _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                 live2d_animator = _model_obj.GetComponent<Animator>();
                 character_move = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove").gameObject;
@@ -349,18 +348,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void Update()
     {
 
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        if (GameMgr.CompoundSceneStartON)
         {
-            //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
-            if (compound_Main_obj == null)
-            {
-                
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-                InitObject();
-            }
-
             //調合中ウェイト+アニメ
             if (compo_anim_on == true)
             {
@@ -369,7 +358,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //アニメスタート
                 Compo_Magic_Animation();
             }
-
         }
     }        
 
@@ -1067,6 +1055,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
+            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
             //メインテキストも更新
             compound_Main.StartMessage();
         }
@@ -1455,9 +1446,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 BlackImage.GetComponent<CanvasGroup>().alpha = 0;
                 sequence.Append(BlackImage.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
 
-                //ヒカリちゃんを右にずらす
-                character_move.transform.DOMoveX(8f, 1f)
-                    .SetEase(Ease.InOutSine);
+                if (character_ON)
+                {
+                    //ヒカリちゃんを右にずらす
+                    character_move.transform.DOMoveX(8f, 1f)
+                        .SetEase(Ease.InOutSine);
+                }
 
                 //エフェクト生成＋アニメ開始
                 _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));

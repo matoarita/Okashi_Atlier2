@@ -347,7 +347,7 @@ public class Compound_Check : MonoBehaviour {
 
                             if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
                             {
-                                exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+                                exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
                             }
                             else
                             {
@@ -470,7 +470,7 @@ public class Compound_Check : MonoBehaviour {
 
                             exp_Controller.extreme_on = false;
 
-                            exp_Controller.set_kaisu = updown_counter_oricompofinalcheck.updown_kosu; //何セット作るかの個数もいれる。
+                            exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
 
                             exp_Controller.result_kosuset.Clear();
                             for (i = 0; i < result_kosuset.Count; i++)
@@ -878,6 +878,8 @@ public class Compound_Check : MonoBehaviour {
             _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item1].itemType_sub.ToString());
 
             _itemKosutemp_result.Add(1);
+            //Debug.Log("pitemlistController.final_kettei_kosu1: " + pitemlistController.final_kettei_kosu1);
+
             _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
 
             if (pitemlistController.final_kettei_item2 == 9999) //二個しか選択していないときは、9999が入っている。

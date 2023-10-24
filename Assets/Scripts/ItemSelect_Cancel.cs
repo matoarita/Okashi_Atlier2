@@ -38,7 +38,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
-    private Button[] updown_button = new Button[2];
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
@@ -69,49 +68,77 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
-        //カード表示用オブジェクトの取得
-        card_view_obj = GameObject.FindWithTag("CardView");
-        card_view = card_view_obj.GetComponent<CardView>();
-
-        canvas = GameObject.FindWithTag("Canvas");
+        //InitSetting();
 
         update_ListSelect_Flag = 0;
         kettei_on_waiting = false;
 
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Hiroba":
-                break;
-
-            case "Compound":
-
-                kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
-                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-                yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();              
-
-                text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
-                _text = text_area.GetComponentInChildren<Text>();
-
-                exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
-
-                break;
-
-            case "GirlEat":
-                GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
-                girlEat_scene = GirlEat_scene_obj.GetComponent<GirlEat_Main>();
-
-                break;
-
-
-            default:
-                
-                break;
-
-        }       
     }
 
+    void InitSetting()
+    {
+        yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //カード表示用オブジェクトの取得
+        card_view_obj = GameObject.FindWithTag("CardView");
+        card_view = card_view_obj.GetComponent<CardView>();
+       
+        //プレイヤーアイテムリストオブジェクトの初期化
+        if (pitemlistController_obj == null)
+        {
+            pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+        }        
+
+        //レシピ調合のときは、参照するオブジェクトが変わるので、それ対策
+        if (GameMgr.CompoundSceneStartON)
+        {
+            kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+            kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+            text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
+            _text = text_area.GetComponentInChildren<Text>();
+
+            //まずは、レシピ・それ以外の調合用にオブジェクト取得
+            if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
+            {
+                yes = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/Yes").gameObject;
+                yes_text = yes.GetComponentInChildren<Text>();
+                no = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/No").gameObject;
+
+            }
+            else
+            {
+                //レシピ以外では、アイテムリスト備え付けのyes,noを使う。
+                yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+                yes_text = yes.GetComponentInChildren<Text>();
+                no = pitemlistController_obj.transform.Find("No").gameObject;
+            }
+        }
+        else
+        {
+            text_area = canvas.transform.Find("MessageWindow").gameObject;
+            _text = text_area.GetComponentInChildren<Text>();
+
+            //アイテムリスト備え付けのyes,noを使う。
+            yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+            yes_text = yes.GetComponentInChildren<Text>();
+            no = pitemlistController_obj.transform.Find("No").gameObject;
+        }
+    }
+
+    //メソッドを読み込むタイミングでイニシャライズ
+    void OnEnableInit()
+    {
+        if (updown_counter_obj == null)
+        {
+            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+        }
+    }
 
     // Update is called once per frame
     void Update() {
@@ -173,44 +200,17 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 
                 if (canvas == null)
                 {
-                    canvas = GameObject.FindWithTag("Canvas");
-
-                    yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
-                    exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
-
-                    kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
-                    kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-                    updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-                    updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-                    updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
-
-                    text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
-                    _text = text_area.GetComponentInChildren<Text>();                   
+                    InitSetting();                                                    
 
                     kettei_on_waiting = false;
-                }
-
-                //プレイヤーアイテムリストオブジェクトの初期化
-                if (pitemlistController_obj == null)
-                {
-                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-                }
+                }               
 
                 //レシピリストオブジェクトの初期化
                 if (recipilistController_obj == null)
                 {
                     recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
                     recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-                }
-
-                if (updown_counter_obj == null)
-                {
-                    updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-                    updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-                    updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
-                }
+                }                
 
                 break;
 
@@ -218,11 +218,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 if (shopMain_obj == null)
                 {
-                    canvas = GameObject.FindWithTag("Canvas");
+                    InitSetting();
 
                     NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
-
-                    yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
 
                     shopMain_obj = GameObject.FindWithTag("Shop_Main");
                     shopMain = shopMain_obj.GetComponent<Shop_Main>();
@@ -238,17 +236,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     no = shopitemlistController_obj.transform.Find("No").gameObject;
                     no_text = no.GetComponentInChildren<Text>();
 
-                    text_area = canvas.transform.Find("MessageWindow").gameObject;
-                    _text = text_area.GetComponentInChildren<Text>();
-
                     kettei_on_waiting = false;
-                }
-
-                //プレイヤーアイテムリストオブジェクトの初期化
-                if (pitemlistController_obj == null)
-                {
-                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
                 }
 
                 break;
@@ -257,11 +245,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 if (shopMain_obj == null)
                 {
-                    canvas = GameObject.FindWithTag("Canvas");
+                    InitSetting();
 
                     NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
-
-                    yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
 
                     shopMain_obj = GameObject.FindWithTag("Bar_Main");
                     shopMain = shopMain_obj.GetComponent<Shop_Main>();
@@ -277,17 +263,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     no = shopitemlistController_obj.transform.Find("No").gameObject;
                     no_text = no.GetComponentInChildren<Text>();
 
-                    text_area = canvas.transform.Find("MessageWindow").gameObject;
-                    _text = text_area.GetComponentInChildren<Text>();
-
                     kettei_on_waiting = false;
-                }
-
-                //プレイヤーアイテムリストオブジェクトの初期化
-                if (pitemlistController_obj == null)
-                {
-                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
                 }
 
                 break;           
@@ -302,8 +278,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
 
         //各シーンごとの、待機処理
-        if (kettei_on_waiting == false) //トグルが押されていない時で、調合選択最中の状態を表す。
-                                        //トグル押されたら、トグルのほうのyes,noやキャンセルが優先され、このスクリプトは無視する。
+        if (kettei_on_waiting == false) //トグルが押されていない時の処理。
+                                        //トグル押されたら、トグルのほうのyes,noやキャンセルが優先され、この中のスクリプトは無視する。
         {
 
             //シーンに関係なく調合処理をつかうとき
@@ -551,7 +527,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     case 100: //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
 
                         
-                        if (GameMgr.compound_select == 99) //カード一度開いた状態で、メニュー開いたのときの処理
+                        /*if (GameMgr.compound_select == 99) //カード一度開いた状態で、メニュー開いたのときの処理
                         {
                             if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                             {
@@ -564,7 +540,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                     GameMgr.compound_status = 99; //何も選択していない状態にもどる。
                                 }
                             }
-                        }
+                        }*/
 
                         if (GameMgr.compound_select == 200) //システム画面開いたのときの処理
                         {
@@ -587,25 +563,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 }
             }
 
-
-            if (SceneManager.GetActiveScene().name == "GirlEat") // 女の子シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-            {
-                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
-                {
-                    if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
-                    {
-                        //Debug.Log("キャンセル");
-
-                        GirlEat_scene_obj = GameObject.FindWithTag("GirlEat_scene");
-                        girlEat_scene = GirlEat_scene_obj.GetComponent<GirlEat_Main>();
-
-                        girlEat_scene.girleat_status = 0;
-                        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
-                        //All_cancel();
-                    }
-                }
-            }
 
             if (SceneManager.GetActiveScene().name == "Bar")
             {
@@ -691,21 +648,21 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
 
 
-    //一個目の選択をキャンセルする処理
+    //一個目の選択をキャンセルする処理　トグルは何も押されていない状態に戻る
     public void All_cancel()
-    {        
+    {
+        InitSetting();
+        OnEnableInit();
+
         kettei_on_waiting = false;
 
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理
+        //シーンに関係なく調合処理をつかうとき
+        if (GameMgr.CompoundSceneStartON)
         {
             GameMgr.compound_status = 4;
 
-            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-            updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
-
             //まずは、レシピ・それ以外の調合用にオブジェクト取得
-            if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
+            /*if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
             {
                 yes = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
@@ -718,11 +675,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 yes = pitemlistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = pitemlistController_obj.transform.Find("No").gameObject;
-            }
+            }*/
 
 
             //オリジナル調合の処理
-            if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) 
+            if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
             {
                 if (pitemlistController.kettei1_bunki == 1)
                 {
@@ -735,7 +692,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
             //エクストリーム調合のときの処理
-            else if (GameMgr.compound_select == 2) 
+            else if (GameMgr.compound_select == 2)
             {
                 if (pitemlistController.kettei1_bunki == 10)
                 {
@@ -782,7 +739,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             }
 
             //レシピ調合のときの処理
-            else if (GameMgr.compound_select == 1) 
+            else if (GameMgr.compound_select == 1)
             {
                 _text.text = "レシピを選択してね。";
 
@@ -801,62 +758,45 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 update_ListSelect_Flag = 0; //オールリセットするのみ。
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
             }
-
-            //お菓子をあげるときの処理
-            else if (GameMgr.compound_select == 10)
-            {
-                _text.text = "あげるお菓子を選択してね。";
-
-
-                pitemlistController.kettei1_bunki = 0;
-
-                update_ListSelect_Flag = 0; //オールリセットするのみ。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
-            }
-
-            else if (GameMgr.compound_select == 99)
-            {                
-
-                update_ListSelect_Flag = 0; //オールリセットするのみ。
-                update_ListSelect(); //アイテム選択時の、リストの表示処理
-            }
-
-            updown_counter_obj.SetActive(false);
-
-        }
-        else if (SceneManager.GetActiveScene().name == "GirlEat") // 女の子シーンでやりたい処理。
-        {
-            //girlEat_scene.girleat_status = 0;
-            yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-            yes_text = yes.GetComponentInChildren<Text>();
-            no = pitemlistController_obj.transform.Find("No").gameObject;
-
-
-            update_ListSelect_Flag = 0; //オールリセットするのみ。
-            update_ListSelect(); //アイテム選択時の、リストの表示処理
-        }
-        else if (SceneManager.GetActiveScene().name == "200_Omake") // 女の子シーンでやりたい処理。
-        {
-            update_ListSelect_Flag = 0; //オールリセットするのみ。
-            //update_ListSelect(); //アイテム選択時の、リストの表示処理
         }
         else
         {
-            updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-            updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-            updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+            //調合以外での処理
+            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理
+            {          
+                //お菓子をあげるときの処理
+                if (GameMgr.compound_select == 10)
+                {
+                    _text.text = "あげるお菓子を選択してね。";
 
-            yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-            yes_text = yes.GetComponentInChildren<Text>();
-            no = pitemlistController_obj.transform.Find("No").gameObject;
 
-            update_ListSelect_Flag = 0; //オールリセットするのみ。
-            update_ListSelect(); //アイテム選択時の、リストの表示処理
+                    pitemlistController.kettei1_bunki = 0;
 
-            updown_counter_obj.SetActive(false);
+                    update_ListSelect_Flag = 0; //オールリセットするのみ。
+                    update_ListSelect(); //アイテム選択時の、リストの表示処理
+                }
+
+                else if (GameMgr.compound_select == 99)
+                {
+
+                    update_ListSelect_Flag = 0; //オールリセットするのみ。
+                    update_ListSelect(); //アイテム選択時の、リストの表示処理
+                }
+
+            }
+            else if (SceneManager.GetActiveScene().name == "200_Omake") //
+            {
+                update_ListSelect_Flag = 0; //オールリセットするのみ。
+                                            //update_ListSelect(); //アイテム選択時の、リストの表示処理
+            }
+            else
+            {
+                update_ListSelect_Flag = 0; //オールリセットするのみ。
+                update_ListSelect(); //アイテム選択時の、リストの表示処理                
+            }
         }
 
-
+        updown_counter_obj.SetActive(false);
         card_view.DeleteCard_DrawView();
 
         yes.SetActive(false);
@@ -883,6 +823,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     public void Two_cancel()
     {
+        InitSetting();
+        OnEnableInit();
 
         kettei_on_waiting = false;
 
@@ -936,6 +878,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     //三個目の選択をキャンセルする処理
     public void Three_cancel()
     {
+        InitSetting();
+        OnEnableInit();
+
         kettei_on_waiting = false;
 
         if (pitemlistController.kettei1_bunki == 3)
@@ -979,6 +924,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     //四個目の選択をキャンセルする処理
     public void Four_cancel()
     {
+        InitSetting();
+        OnEnableInit();
+
         //トッピング調合のときのみ、使う。
 
         kettei_on_waiting = false;

@@ -28,7 +28,6 @@ public class recipiitemSelectToggle : MonoBehaviour
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
-    private Button[] updown_button = new Button[2];
     private bool updown_counter_USE;
 
     private GameObject card_view_obj;

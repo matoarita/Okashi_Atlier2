@@ -490,6 +490,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int system_i;
     public static int system_count;
     public static int system_temp_int;
+    public static int updown_kosu;
     private int ev_id;
 
     private float timeLeft;
@@ -690,6 +691,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         compound_status = 0;
         compound_select = 0;
+
+        updown_kosu = 1;
 
         BG_cullent_weather = 2;
         BG_before_weather = BG_cullent_weather;
