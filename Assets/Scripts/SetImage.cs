@@ -45,6 +45,7 @@ public class SetImage : MonoBehaviour
     private CardView card_view;
 
     private Compound_Keisan compound_keisan;
+    private CompoundMainController compoundmain_Controller;
 
     private SlotNameDataBase slotnamedatabase;
     private SlotChangeName slotchangename;
@@ -1619,6 +1620,9 @@ public class SetImage : MonoBehaviour
             //Expコントローラーの取得
             exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
+            //調合コントローラーの取得
+            compoundmain_Controller = canvas.transform.Find("CompoundMainController").GetComponent<CompoundMainController>();
+
             //ブラックエフェクトを取得
             BlackImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/BlackImage").gameObject; //魔法エフェクト用の半透明で幕
 
@@ -1697,8 +1701,8 @@ public class SetImage : MonoBehaviour
                 }
                 else
                 {
-                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+                    //compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                    //compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                     //完成時パネルの取得
                     CompleteImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
@@ -1708,7 +1712,7 @@ public class SetImage : MonoBehaviour
                     if (GameMgr.picnic_event_reading_now)
                     {
                         GameMgr.compound_status = 6; // 調合の画面に戻る。
-                        compound_Main.ReSetLive2DPos_Compound();
+                        compoundmain_Controller.ReSetLive2DPos_Compound();
                     }
                     else
                     {
@@ -1734,7 +1738,7 @@ public class SetImage : MonoBehaviour
                                 else
                                 {
                                     GameMgr.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
-                                    compound_Main.ReSetLive2DPos_Compound();
+                                    compoundmain_Controller.ReSetLive2DPos_Compound();
                                 }
                                 break;
 
@@ -1757,7 +1761,7 @@ public class SetImage : MonoBehaviour
                                 else
                                 {
                                     GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
-                                    compound_Main.ReSetLive2DPos_Compound();
+                                    compoundmain_Controller.ReSetLive2DPos_Compound();
                                 }
                                 break;
 

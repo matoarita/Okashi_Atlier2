@@ -99,6 +99,13 @@ public class CompoundMainController : MonoBehaviour {
     private CubismRenderController cubism_rendercontroller;
     private int default_live2d_draworder;
     private bool character_On; //そのシーンにヒカリちゃんが存在するかどうかを検出
+    private GameObject character_root;
+    private GameObject character_move;
+    private GameObject Anchor_Pos;
+    private Animator live2d_animator;
+    private int trans_expression;
+    private int trans_motion;
+    private int trans_position;
 
     private GameObject Debug_CompoIcon;
 
@@ -216,6 +223,10 @@ public class CompoundMainController : MonoBehaviour {
                 _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
                 cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
                 default_live2d_draworder = cubism_rendercontroller.SortingOrder;
+                live2d_animator = _model_obj.GetComponent<Animator>();
+                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                character_move = character_root.transform.Find("CharacterMove").gameObject;
+                Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
 
                 //タッチ判定オブジェクトの取得
                 touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
@@ -389,6 +400,9 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.compound_select = 6;
 
                     GameMgr.updown_kosu = 1; //調合シーン最初に、数値をリセット
+
+                    //Live2Dキャラの位置初期化
+                    SetLive2DPos_Compound();
 
                     //BGMを変更
                     if (!GameMgr.tutorial_ON)
@@ -582,6 +596,8 @@ public class CompoundMainController : MonoBehaviour {
         GameMgr.CompoundSceneStartON = false;　//調合シーン終了
         GameMgr.compound_status = 0;
 
+        ResetLive2DPos_Init(); //Live2Dキャラクタの位置を元シーンの原点にもどす。
+
         compoBG_A.SetActive(false);
     }
 
@@ -590,7 +606,6 @@ public class CompoundMainController : MonoBehaviour {
     {
         //以下、エクストリーム用に再度パラメータを設定
         
-
         if (exp_Controller._temp_extreme_itemtype == 0) //デフォルトアイテムの場合
         {
             pitemlistController.final_base_kettei_item = database.items[exp_Controller._temp_extreme_id].itemID;
@@ -621,7 +636,33 @@ public class CompoundMainController : MonoBehaviour {
 
     //Live2D関連コマンド
 
-    //調合シーンに入った時の、Live2D描画順の処理。位置動きは触らない。
+    //調合シーンに入った時の、Live2D処理。
+
+    //調合シーンに入った時の、キャラクタ位置や状態など更新
+    void SetLive2DPos_Compound()
+    {
+        if (character_On)
+        {
+            //位置変更
+            ReSetLive2DPos_Compound();
+
+            //もし、リターンホーム中にすぐにシーン切り替えた場合用に、Live2D自体の位置もリセット。そして、すぐOriCompoMotionに遷移
+            trans_motion = 11;
+            live2d_animator.SetInteger("trans_motion", trans_motion);
+            //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f);
+
+            live2d_animator.SetInteger("trans_nade", 0);
+            Anchor_Pos.transform.localPosition = new Vector3(-0.5f, 0.05f, -5f);
+
+
+            girl1_status.face_girl_Normal();
+            girl1_status.AddMotionAnimReset();
+            girl1_status.IdleMotionReset();
+            girl1_status.DoTSequence_Kill();
+
+            girl1_status.Walk_Start = false;
+        }
+    }
 
     //さらに、表示するときのコマンド
     void ReDrawLive2DPos_Compound()
@@ -638,6 +679,30 @@ public class CompoundMainController : MonoBehaviour {
         if (character_On)
         {
             cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順 //描画順指定
+        }
+    }
+
+    //さらに調合位置に戻すコマンド　SetImage, NewRecipiButton.csから呼び出し
+    public void ReSetLive2DPos_Compound()
+    {
+        if (character_On)
+        {
+            character_move.transform.position = new Vector3(2.8f, 0, 0); //画面右あたり
+            GameMgr.live2d_posmove_flag = true; //位置を変更したフラグ 
+        }
+    }
+
+    void ResetLive2DPos_Init()
+    {
+        if (character_On)
+        {
+            Debug.Log("Live2D位置のリセット");
+
+            //character_move.transform.position = new Vector3(0f, 0, 0);
+            character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.2f); //少し間を置くことで、キャラが一瞬真ん中に映るのを防ぐ
+            GameMgr.live2d_posmove_flag = false;
+
+            //girl1_status.DefFaceChange();
         }
     }
 }

@@ -41,6 +41,7 @@ public class Compound_Main : MonoBehaviour
 
     private Exp_Controller exp_Controller;
     private MoneyStatus_Controller moneyStatus_Controller;
+    private CompoundMainController compoundmain_Controller;
 
     private BGM sceneBGM;
     private Map_Ambience map_ambience;
@@ -177,7 +178,6 @@ public class Compound_Main : MonoBehaviour
     private int trans_motion;
     private int trans_position;
     //public int ResultComplete_flag;
-    private bool live2d_posmove_flag; //位置を変更したフラグ
     private GameObject character_root;
     private GameObject character_move;
     private GameObject Anchor_Pos;
@@ -367,6 +367,9 @@ public class Compound_Main : MonoBehaviour
         compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
         compoBG_A.SetActive(false);
 
+        //調合コントローラーの取得
+        compoundmain_Controller = canvas.transform.Find("CompoundMainController").GetComponent<CompoundMainController>();
+
         //レシピメモボタンを取得
         recipimemoController_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
         recipiMemoButton = compoBG_A.transform.Find("RecipiMemoButton").gameObject;
@@ -492,7 +495,6 @@ public class Compound_Main : MonoBehaviour
         live2d_animator = _model_obj.GetComponent<Animator>();
         live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
         GameMgr.ResultComplete_flag = 0; //調合が完了したよフラグ
-        live2d_posmove_flag = false;
         character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
         character_move = character_root.transform.Find("CharacterMove").gameObject;
         Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
@@ -1593,7 +1595,7 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
 
                 //ヒカリちゃんを表示しない。デフォルト描画順
-                SetLive2DPos_Compound();
+                //SetLive2DPos_Compound();
                 ReSetLive2DOrder_Default();
                 map_ambience.Mute();
 
@@ -1924,8 +1926,9 @@ public class Compound_Main : MonoBehaviour
                             trans_expression = 2;
                             live2d_animator.SetInteger("trans_expression", trans_expression);
 
-                            character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.1f);
-                            live2d_posmove_flag = false;
+                            //ResetLive2DPos_Face();
+                            //character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.1f);
+                            //GameMgr.live2d_posmove_flag = false;
                             //
                         }
                         else
@@ -1951,30 +1954,6 @@ public class Compound_Main : MonoBehaviour
                     break;
             }
         }
-    }
-
-    //調合シーンに入った時の、キャラクタ位置や状態など更新
-    void SetLive2DPos_Compound()
-    {
-        //位置変更
-        character_move.transform.position = new Vector3(2.8f, 0, 0);
-        live2d_posmove_flag = true; //位置を変更したフラグ
-
-        //もし、リターンホーム中にすぐにシーン切り替えた場合用に、Live2D自体の位置もリセット。そして、すぐOriCompoMotionに遷移
-        trans_motion = 11;
-        live2d_animator.SetInteger("trans_motion", trans_motion);
-        //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f);
-
-        live2d_animator.SetInteger("trans_nade", 0);
-        Anchor_Pos.transform.localPosition = new Vector3(-0.5f, 0.05f, -5f);
-        
-
-        girl1_status.face_girl_Normal();
-        girl1_status.AddMotionAnimReset();
-        girl1_status.IdleMotionReset();
-        girl1_status.DoTSequence_Kill();
-        
-        girl1_status.Walk_Start = false;
     }
   
 
@@ -4296,22 +4275,15 @@ public class Compound_Main : MonoBehaviour
         cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順 //描画順指定
     }
 
-    //さらに調合位置に戻すコマンド　SetImage, NewRecipiButton.csから呼び出し
-    public void ReSetLive2DPos_Compound()
+    void ResetLive2DPos_Face() //CompoundMainControllerに移行　表情のみもとに戻す処理
     {
-        character_move.transform.position = new Vector3(2.8f, 0, 0);
-        live2d_posmove_flag = true; //位置を変更したフラグ   
-    }
+        //Debug.Log("Live2D位置のリセット");
 
-    void ResetLive2DPos_Face()
-    {
-        Debug.Log("Live2D位置のリセット");
-
-        if (live2d_posmove_flag) //調合シーンに入った時に、位置を変更するので、変更したという合図
-        {
-            character_move.transform.position = new Vector3(0f, 0, 0);
-            live2d_posmove_flag = false;
-        }
+        //if (GameMgr.live2d_posmove_flag) //調合シーンに入った時に、位置を変更するので、変更したという合図
+        //{
+            //character_move.transform.position = new Vector3(0f, 0, 0);
+            //GameMgr.live2d_posmove_flag = false;
+        //}
 
         girl1_status.DefFaceChange();
 
@@ -4320,7 +4292,6 @@ public class Compound_Main : MonoBehaviour
     //ゲームメイン中のLive2Dキャラクタの表示をONにする。
     void CharacterLive2DImageON()
     {
-        //character_move.SetActive(true);
         cubism_rendercontroller.Opacity = 1.0f;
         GirlHeartEffect_obj.SetActive(true);
         GirlHeartEffect_obj.GetComponent<Particle_Heart_Character>().LoveRateChange();
@@ -4329,7 +4300,6 @@ public class Compound_Main : MonoBehaviour
     //ゲームメイン中のLive2Dキャラクタの表示をOFFにする。
     void CharacterLive2DImageOFF()
     {
-        //character_move.SetActive(false);
         cubism_rendercontroller.Opacity = 0.0f;
         GirlHeartEffect_obj.SetActive(false);
     }

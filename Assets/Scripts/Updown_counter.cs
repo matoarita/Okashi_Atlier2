@@ -156,26 +156,31 @@ public class Updown_counter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //初期位置の更新がEnableだとうまくいかないので、強引にフラグを使って、Update内で処理
-        switch (SceneManager.GetActiveScene().name)
+        if (GameMgr.CompoundSceneStartON)
+        { }
+        else
         {
-            case "Shop":
+            //初期位置の更新がEnableだとうまくいかないので、強引にフラグを使って、Update内で処理
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Shop":
 
-                if (OpenFlag != true)
-                {
-                    if (shop_Main.shop_scene == 1) //ショップ「買う」の時
+                    if (OpenFlag != true)
                     {
-                        ShopUpdownCounter_Pos();
-                    }
-                    else if (shop_Main.shop_scene == 3) //依頼の納品の時
-                    {
-                        ShopUpdownCounter_Pos2();
+                        if (shop_Main.shop_scene == 1) //ショップ「買う」の時
+                        {
+                            ShopUpdownCounter_Pos();
+                        }
+                        else if (shop_Main.shop_scene == 3) //依頼の納品の時
+                        {
+                            ShopUpdownCounter_Pos2();
+                        }
+
+                        OpenFlag = true;
                     }
 
-                    OpenFlag = true;
-                }
-
-                break;
+                    break;
+            }
         }
     }
 
@@ -231,169 +236,175 @@ public class Updown_counter : MonoBehaviour {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
-        switch (SceneManager.GetActiveScene().name)
+        //調合中に開かれた場合は、シーンに限らずプレイヤーアイテムとレシピリストを取得
+        if (GameMgr.CompoundSceneStartON)
         {
-            case "Shop":
+            pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-                shop_Main_obj = GameObject.FindWithTag("Shop_Main");
-                shop_Main = shop_Main_obj.GetComponent<Shop_Main>();
+            recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+            recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
 
-                //ショップリスト画面の取得
-                shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-                shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
-                shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-
-                pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-                yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-                no = pitemlistController_obj.transform.Find("No").gameObject;
+            _p_or_recipi_flag = 0;
+            //レシピ調合とそれ以外で、YesNoの取得オブジェクトが違う
+            if (recipilistController_obj.activeSelf == true)
+            {
+                yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+                no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
                 yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
-                if (shop_Main.shop_scene == 1 || shop_Main.shop_scene == 5)
+                _p_or_recipi_flag = 1;
+            }
+            else if (pitemlistController_obj.activeSelf == true)
+            {
+                _p_or_recipi_flag = 0;
+            }
+
+            if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
+            {
+                updown_counter_setpanel.SetActive(true);
+                this.transform.Find("counter_img1").gameObject.SetActive(false);
+            }
+            else
+            {
+                this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                this.transform.Find("counter_img1").gameObject.SetActive(true);
+
+                switch (GameMgr.compound_select)
                 {
-                    updown_button_Big.SetActive(true);
-                    updown_button_Small.SetActive(true);
+                    case 1: //レシピ調合の場合
+
+                        this.transform.localPosition = new Vector3(0, -87, 0);
+                        break;
+
+                    case 3: //オリジナル調合の場合の、カウンターの位置
+
+                        this.transform.localPosition = new Vector3(0, -87, 0);
+                        break;
+
+                    case 7: //ヒカリに作らせる場合の、カウンターの位置
+
+                        this.transform.localPosition = new Vector3(0, -87, 0);
+
+                        if (GameMgr.compound_status == 100) //アイテム選択中
+                        {
+                            switch (pitemlistController.kettei1_bunki) //itemselectToggle内で、分岐数字を変えてるので、注意。selectToggleでは、0,1,2になっている。
+                            {
+                                case 1:
+
+                                    if (database.items[pitemlistController.final_kettei_item1].itemType.ToString() == "Okashi")
+                                    {
+                                        updown_button[0].interactable = false;
+                                        updown_button[1].interactable = false;
+                                    }
+                                    break;
+
+                                case 2:
+
+                                    if (database.items[pitemlistController.final_kettei_item2].itemType.ToString() == "Okashi")
+                                    {
+                                        updown_button[0].interactable = false;
+                                        updown_button[1].interactable = false;
+                                    }
+                                    break;
+
+                                case 3:
+
+                                    if (database.items[pitemlistController.final_kettei_item3].itemType.ToString() == "Okashi")
+                                    {
+                                        updown_button[0].interactable = false;
+                                        updown_button[1].interactable = false;
+                                    }
+                                    break;
+                            }
+                        }
+                        break;
+
+                    default:
+
+                        this.transform.localPosition = new Vector3(100, -120, 0);
+                        break;
+
                 }
-                else
-                {
-                    updown_button_Big.SetActive(false);
-                    updown_button_Small.SetActive(false);
-                }
+            }
+        }
+        else
+        {
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Shop":
 
-                break;
+                    shop_Main_obj = GameObject.FindWithTag("Shop_Main");
+                    shop_Main = shop_Main_obj.GetComponent<Shop_Main>();
 
-            case "Farm":
+                    //ショップリスト画面の取得
+                    shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                    shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
 
-                farm_Main_obj = GameObject.FindWithTag("Farm_Main");
-                farm_Main = farm_Main_obj.GetComponent<Farm_Main>();
+                    shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                    shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
 
-                //ショップリスト画面の取得
-                shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-                shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+                    pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+                    pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-                updown_button_Big.SetActive(true);
-                updown_button_Small.SetActive(true);
-
-                break;
-
-            case "Emerald_Shop":
-
-                emeraldshop_Main_obj = GameObject.FindWithTag("EmeraldShop_Main");
-                emeraldshop_Main = emeraldshop_Main_obj.GetComponent<EmeraldShop_Main>();
-
-                //ショップリスト画面の取得
-                shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-                shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                updown_button_Big.SetActive(true);
-                updown_button_Small.SetActive(true);
-
-                break;
-
-            case "Compound":
-
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-                pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-                recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-                recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-
-                if (recipilistController_obj.activeSelf == true)
-                {
-                    yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
-                    no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+                    yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+                    no = pitemlistController_obj.transform.Find("No").gameObject;
                     yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
-                    _p_or_recipi_flag = 1;
-                }
-                else if (pitemlistController_obj.activeSelf == true)
-                {
-                    _p_or_recipi_flag = 0;
-                }
-
-                if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
-                {
-                    //this.transform.localPosition = new Vector3(115, -106, 0);
-                    //this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-                    updown_counter_setpanel.SetActive(true);
-                    this.transform.Find("counter_img1").gameObject.SetActive(false);
-                }
-                else
-                {
-                    this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-                    this.transform.Find("counter_img1").gameObject.SetActive(true);
-
-                    switch (GameMgr.compound_select)
+                    if (shop_Main.shop_scene == 1 || shop_Main.shop_scene == 5)
                     {
-                        case 1: //レシピ調合の場合
-
-                            this.transform.localPosition = new Vector3(0, -87, 0);
-                            break;
-
-                        case 3: //オリジナル調合の場合の、カウンターの位置
-
-                            this.transform.localPosition = new Vector3(0, -87, 0);
-                            break;
-
-                        case 7: //ヒカリに作らせる場合の、カウンターの位置
-
-                            this.transform.localPosition = new Vector3(0, -87, 0);
-
-                            if (GameMgr.compound_status == 100) //アイテム選択中
-                            {
-                                switch (pitemlistController.kettei1_bunki) //itemselectToggle内で、分岐数字を変えてるので、注意。selectToggleでは、0,1,2になっている。
-                                {
-                                    case 1:
-
-                                        if (database.items[pitemlistController.final_kettei_item1].itemType.ToString() == "Okashi")
-                                        {
-                                            updown_button[0].interactable = false;
-                                            updown_button[1].interactable = false;
-                                        }
-                                        break;
-
-                                    case 2:
-
-                                        if (database.items[pitemlistController.final_kettei_item2].itemType.ToString() == "Okashi")
-                                        {
-                                            updown_button[0].interactable = false;
-                                            updown_button[1].interactable = false;
-                                        }
-                                        break;
-
-                                    case 3:
-
-                                        if (database.items[pitemlistController.final_kettei_item3].itemType.ToString() == "Okashi")
-                                        {
-                                            updown_button[0].interactable = false;
-                                            updown_button[1].interactable = false;
-                                        }
-                                        break;
-                                }
-                            }
-                            break;
-
-                        default:
-
-                            this.transform.localPosition = new Vector3(100, -120, 0);
-                            break;
-
+                        updown_button_Big.SetActive(true);
+                        updown_button_Small.SetActive(true);
                     }
-                }
+                    else
+                    {
+                        updown_button_Big.SetActive(false);
+                        updown_button_Small.SetActive(false);
+                    }
 
-                break;
+                    break;
 
-            default:
+                case "Farm":
 
-                _p_or_recipi_flag = 0;
+                    farm_Main_obj = GameObject.FindWithTag("Farm_Main");
+                    farm_Main = farm_Main_obj.GetComponent<Farm_Main>();
 
-                break;
+                    //ショップリスト画面の取得
+                    shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                    shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                    updown_button_Big.SetActive(true);
+                    updown_button_Small.SetActive(true);
+
+                    break;
+
+                case "Emerald_Shop":
+
+                    emeraldshop_Main_obj = GameObject.FindWithTag("EmeraldShop_Main");
+                    emeraldshop_Main = emeraldshop_Main_obj.GetComponent<EmeraldShop_Main>();
+
+                    //ショップリスト画面の取得
+                    shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                    shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                    updown_button_Big.SetActive(true);
+                    updown_button_Small.SetActive(true);
+
+                    break;
+
+                case "Compound":
+
+                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+
+
+
+                    break;
+
+                default:                    
+
+                    break;
+            }
         }
 
         GameMgr.updown_kosu = 1;
@@ -408,9 +419,9 @@ public class Updown_counter : MonoBehaviour {
 
     public void OnClick_up()
     {
-        if (SceneManager.GetActiveScene().name == "Compound")
+        //調合シーンでの処理
+        if (GameMgr.CompoundSceneStartON)
         {
-
             if (_p_or_recipi_flag == 0) //プレイヤーアイテムリストのときの処理
             {
                 if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
@@ -737,7 +748,7 @@ public class Updown_counter : MonoBehaviour {
                     }
 
                     AddMethod1();
-                    
+
                 }
             }
             else //レシピリストのときの処理
@@ -755,15 +766,128 @@ public class Updown_counter : MonoBehaviour {
             _count_text.text = GameMgr.updown_kosu.ToString();
         }
 
-        else if (SceneManager.GetActiveScene().name == "Shop")
+        else //調合以外の処理
         {
-            if (shop_Main.shop_scene == 1)　//ショップ「買う」のとき
+            if (SceneManager.GetActiveScene().name == "Shop")
             {
-                _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
+                if (shop_Main.shop_scene == 1) //ショップ「買う」のとき
+                {
+                    _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
+
+                    AddMethod1();
+
+                    if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
+                    {
+                        //お金が足りない
+                        _text.text = "お金が足りない。";
+
+                        GameMgr.updown_kosu--;
+                    }
+
+                    _count_text.text = GameMgr.updown_kosu.ToString();
+                }
+
+                if (shop_Main.shop_scene == 3) //ショップ納品のとき
+                {
+                    listkosu_count = 0;
+
+                    //現在選択済みの個数をすべてトータル
+                    for (i = 0; i < pitemlistController._listkosu.Count; i++)
+                    {
+                        listkosu_count += pitemlistController._listkosu[i];
+                    }
+
+                    switch (pitemlistController._toggle_type1)
+                    {
+                        case 0:
+
+                            if (pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName] >=
+                                quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
+                            {
+                                _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default
+                                    - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
+                            }
+                            else
+                            {
+                                _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
+                            }
+                            break;
+
+                        case 1:
+
+                            if (pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu >=
+                                quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
+                            {
+                                _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default
+                                    - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
+                            }
+                            else
+                            {
+                                _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                            }
+
+                            break;
+
+                        case 2:
+
+                            if (pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu >=
+                                quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
+                            {
+                                _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default
+                                    - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
+                            }
+                            else
+                            {
+                                _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                            }
+
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    AddMethod1();
+                }
+
+                if (shop_Main.shop_scene == 5) //ショップ「売る」のとき
+                {
+                    switch (pitemlistController._toggle_type1)
+                    {
+                        case 0:
+
+                            _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
+                            break;
+
+                        case 1:
+
+                            _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                            break;
+
+                        case 2:
+
+                            _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
+                    AddMethod1();
+
+                    //ウィンドウの表示も変える。
+                    SellYosokuText();
+                }
+            }
+            else if (SceneManager.GetActiveScene().name == "Farm")
+            {
+
+                _zaiko_max = shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
                 AddMethod1();
 
-                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
+                if (PlayerStatus.player_money < shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                 {
                     //お金が足りない
                     _text.text = "お金が足りない。";
@@ -773,136 +897,26 @@ public class Updown_counter : MonoBehaviour {
 
                 _count_text.text = GameMgr.updown_kosu.ToString();
             }
-
-            if (shop_Main.shop_scene == 3)　//ショップ納品のとき
+            else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
             {
-                listkosu_count = 0;
 
-                //現在選択済みの個数をすべてトータル
-                for (i = 0; i < pitemlistController._listkosu.Count; i++)
-                {
-                    listkosu_count += pitemlistController._listkosu[i];
-                }
-
-                switch (pitemlistController._toggle_type1)
-                {
-                    case 0:
-
-                        if (pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName] >= 
-                            quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
-                        {                           
-                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default 
-                                - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
-                        }
-                        else
-                        {
-                            _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
-                        }
-                        break;
-
-                    case 1:
-
-                        if (pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu >= 
-                            quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
-                        {
-                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default 
-                                - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
-                        }
-                        else
-                        {
-                            _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
-                        }
-
-                        break;
-
-                    case 2:
-
-                        if (pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu >=
-                            quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
-                        {
-                            _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default
-                                - listkosu_count; //クエストの必要個数-今まで選択しているアイテムの個数
-                        }
-                        else
-                        {
-                            _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
-                        }
-
-                        break;
-
-                    default:
-                        break;
-                }
-
-                AddMethod1();
-            }
-
-            if (shop_Main.shop_scene == 5)　//ショップ「売る」のとき
-            {
-                switch (pitemlistController._toggle_type1)
-                {
-                    case 0:
-
-                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
-                        break;
-
-                    case 1:
-
-                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
-                        break;
-
-                    case 2:
-
-                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
-                        break;
-
-                    default:
-                        break;
-                }
-
+                _zaiko_max = shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
                 AddMethod1();
 
-                //ウィンドウの表示も変える。
-                SellYosokuText();
+                //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
+                kaerucoin = pitemlist.playeritemlist["emeralDongri"];
+
+                if (kaerucoin < shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
+                {
+                    //お金が足りない
+                    _text.text = "エメラルどんぐりが足りない。";
+
+                    GameMgr.updown_kosu--;
+                }
+
+                _count_text.text = GameMgr.updown_kosu.ToString();
             }
-        }
-        else if (SceneManager.GetActiveScene().name == "Farm")
-        {
-
-            _zaiko_max = shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
-
-            AddMethod1();
-
-            if (PlayerStatus.player_money < shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
-            {
-                //お金が足りない
-                _text.text = "お金が足りない。";
-
-                GameMgr.updown_kosu--;
-            }
-
-            _count_text.text = GameMgr.updown_kosu.ToString();
-        }
-        else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
-        {
-
-            _zaiko_max = shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
-
-            AddMethod1();
-
-            //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
-            kaerucoin = pitemlist.playeritemlist["emeralDongri"];
-
-            if (kaerucoin < shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
-            {
-                //お金が足りない
-                _text.text = "エメラルどんぐりが足りない。";
-
-                GameMgr.updown_kosu--;
-            }
-
-            _count_text.text = GameMgr.updown_kosu.ToString();
         }
     }
 
@@ -1001,7 +1015,8 @@ public class Updown_counter : MonoBehaviour {
 
     public void OnClick_down()
     {
-        if (SceneManager.GetActiveScene().name == "Compound")
+        //調合シーンでの処理
+        if (GameMgr.CompoundSceneStartON)
         {
             if (_p_or_recipi_flag == 0) //プレイヤーアイテムリストのときの処理
             {
@@ -1028,37 +1043,41 @@ public class Updown_counter : MonoBehaviour {
             }
 
         }
-        else if (SceneManager.GetActiveScene().name == "Shop")
+        else
+        //調合以外での処理
         {
-            if (shop_Main.shop_scene == 1) //買い物のとき
+            if (SceneManager.GetActiveScene().name == "Shop")
+            {
+                if (shop_Main.shop_scene == 1) //買い物のとき
+                {
+                    DegMethod1();
+
+                    //ウィンドウの表示も変える。
+                    BuyYosokuText();
+                }
+                else if (shop_Main.shop_scene == 5) //売るとき
+                {
+                    DegMethod1();
+
+                    //ウィンドウの表示も変える。
+                    SellYosokuText();
+                }
+                else
+                {
+                    DegMethod1();
+                }
+            }
+            else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
             {
                 DegMethod1();
 
                 //ウィンドウの表示も変える。
                 BuyYosokuText();
             }
-            else if (shop_Main.shop_scene == 5) //売るとき
-            {
-                DegMethod1();
-
-                //ウィンドウの表示も変える。
-                SellYosokuText();
-            }
             else
             {
                 DegMethod1();
             }
-        }
-        else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
-        {
-            DegMethod1();
-
-            //ウィンドウの表示も変える。
-            BuyYosokuText();
-        }
-        else
-        {
-            DegMethod1();
         }
     }
 

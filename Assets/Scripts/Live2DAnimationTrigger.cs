@@ -117,7 +117,7 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         live2d_animator.SetInteger("trans_motion", trans_motion);
     }
 
-    //DefaultPotionから読み出し。
+    //Live2DAnimatorタイムラインの「DefaultPosition」から読み出し。
     public void OnEndOriCompoPosition()
     {
         trans_motion = 0; //リセット

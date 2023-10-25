@@ -6,8 +6,7 @@ public class NewRecipiButton : MonoBehaviour {
 
     private GameObject canvas;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
+    private CompoundMainController compoundmain_Controller;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -34,8 +33,8 @@ public class NewRecipiButton : MonoBehaviour {
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+        //調合コントローラーの取得
+        compoundmain_Controller = canvas.transform.Find("CompoundMainController").GetComponent<CompoundMainController>();
 
         //完成時パネルの取得
         CompleteImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
@@ -72,7 +71,7 @@ public class NewRecipiButton : MonoBehaviour {
         if (GameMgr.picnic_event_reading_now)
         {
             GameMgr.compound_status = 6; // 調合の画面に戻る。
-            compound_Main.ReSetLive2DPos_Compound();
+            compoundmain_Controller.ReSetLive2DPos_Compound();
         }
         else
         {
@@ -87,7 +86,7 @@ public class NewRecipiButton : MonoBehaviour {
                     else
                     {
                         GameMgr.compound_status = 1; // もう一回、オリジナル調合の画面に戻る。
-                        compound_Main.ReSetLive2DPos_Compound();
+                        compoundmain_Controller.ReSetLive2DPos_Compound();
                     }
                     break;
 
@@ -100,7 +99,7 @@ public class NewRecipiButton : MonoBehaviour {
                     else
                     {
                         GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
-                        compound_Main.ReSetLive2DPos_Compound();
+                        compoundmain_Controller.ReSetLive2DPos_Compound();
                     }
                     break;
 
@@ -113,7 +112,6 @@ public class NewRecipiButton : MonoBehaviour {
         }
 
         GameMgr.CompoundSceneStartON = false;　//調合シーン終了
-        //compound_Main.compo_ON = false;
 
         CompleteImage.SetActive(false);
 

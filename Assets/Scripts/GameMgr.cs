@@ -479,6 +479,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool final_select_flag; //調合シーンで、調合の最終決定の確認
     public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
     public static bool extremepanel_Koushin; //なんらかの調合が終わり、エクストリームパネルの表示を更新するフラグ
+    public static bool live2d_posmove_flag; //Live2Dキャラの位置を移動したフラグ
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -866,6 +867,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CompoundSceneStartON = false;
         compobgm_change_flag = false;
         extremepanel_Koushin = false;
+        live2d_posmove_flag = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

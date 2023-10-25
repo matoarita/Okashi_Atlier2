@@ -18,7 +18,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private HikariOkashiExpTable hikariOkashiExpTable;
 
     private Compound_Keisan compound_keisan;
-    //private HikariMakeStartPanel Hikarimake_StartPanel;
 
     private Girl1_status girl1_status;
 
@@ -156,8 +155,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                     //女の子データの取得
                     girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
-
-                    //Hikarimake_StartPanel = canvas.transform.Find("Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
                 }
                 break;
 
@@ -517,7 +514,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
             //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
             GameMgr.hikari_make_okashiKosu++;
-            //Hikarimake_StartPanel.hikarimake_GetExp(2);
             _getexp = 2;
             hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
 
@@ -529,7 +525,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             GameMgr.hikari_make_failed_count++;
 
             //生成されず。材料だけ消費。
-            //Hikarimake_StartPanel.hikarimake_GetExp(5);
             _getexp = 5;
             hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
 

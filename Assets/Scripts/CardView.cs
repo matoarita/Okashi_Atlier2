@@ -22,11 +22,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public int Pitem_or_Origin_judge; //店売りアイテムか、オリジナルアイテムの判定
 
-    //SEを鳴らす
-    public AudioClip sound1;
-    public AudioClip sound2;
-    AudioSource audioSource;
-
     private Transform resulttransform;
     private Vector3 resultScale;
     private Vector3 resultPos;
@@ -52,61 +47,46 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private int _movetime;
     public bool cardcompo_anim_on;
 
-    private GameObject zero_point;
-
     // Use this for initialization
     void Start () {
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
+        InitSetting();
+
+        //timeOut = 1.0f / 60.0f;
+
+        /*switch (SceneManager.GetActiveScene().name)
+        {
+            case "Compound":
+
+                ResultCardView_content_obj = canvas.transform.Find("ResultCardView/Viewport/Content").gameObject;
+                break;
+
+            default://シナリオ系のシーンでは読み込まない。
+                break;
+        }*/
+    }
+
+    void InitSetting()
+    {
         //カードのプレファブコンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
         cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
 
         Pitem_or_Origin_judge = 0;
 
-        audioSource = GetComponent<AudioSource>();
-
         speed = 2.0f;
-        //timeOut = 1.0f / 60.0f;
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                zero_point = canvas.transform.Find("ZeroPoint").gameObject;
-                ResultCardView_content_obj = canvas.transform.Find("ResultCardView/Viewport/Content").gameObject;
-                break;
-
-            default://シナリオ系のシーンでは読み込まない。
-                break;
-        }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 
         if(canvas == null)
         {
-            //カードのプレファブコンテンツ要素を取得
-            canvas = GameObject.FindWithTag("Canvas");
-            cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
+            InitSetting();
 
-
-            Pitem_or_Origin_judge = 0;
-
-            switch (SceneManager.GetActiveScene().name)
-            {
-                case "Compound":
-
-                    zero_point = canvas.transform.Find("ZeroPoint").gameObject;
-                    ResultCardView_content_obj = canvas.transform.Find("ResultCardView/Viewport/Content").gameObject;
-                    break;
-
-                default://シナリオ系のシーンでは読み込まない。
-                    break;
-            }
         }
 
         if (cardcompo_anim_on == true)
@@ -470,6 +450,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
     }
 
+    //
+    //前提として、「CompoundMainController」を使用するときの処理。
+    //
     //リザルトカードの場合は、カード自体を押すと、消える
     public void ResultCard_DrawView(int _toggleType, int _result_item)
     {
@@ -480,7 +463,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Clear();
 
-        _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
+        SetResultCardViewPanel();
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
         _cardImage.anim_status = 99;
 
@@ -513,8 +496,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Clear();
 
+
+
         //1枚目
-        _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
+        SetResultCardViewPanel();
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
         _cardImage.anim_status = 99;
 
@@ -532,7 +517,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
 
         //2枚目
-        _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
+        SetResultCardViewPanel();
         _cardImage = _cardImage_obj[1].GetComponent<SetImage>();
         _cardImage.anim_status = 99;
 
@@ -560,7 +545,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Clear();
 
-        _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
+        
+        SetResultCardViewPanel();
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
         _cardImage.anim_status = 99;
 
@@ -577,6 +563,21 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
     }
+
+    //
+    void SetResultCardViewPanel()
+    {
+        if (GameMgr.CompoundSceneStartON)
+        {
+            ResultCardView_content_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/ResultCardView/Viewport/Content").gameObject;
+            _cardImage_obj.Add(Instantiate(cardPrefab, ResultCardView_content_obj.transform));
+        }
+        else
+        {
+            _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
+        }
+    }
+
 
 
     //レシピリストで、開いたときのカード表示処理
