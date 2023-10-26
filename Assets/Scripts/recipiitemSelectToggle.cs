@@ -128,9 +128,10 @@ public class recipiitemSelectToggle : MonoBehaviour
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
-            yes = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/Yes").gameObject;
+            yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+            yes = yes_no_panel.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
-            no = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/No").gameObject;
+            no = yes_no_panel.transform.Find("No").gameObject;
         }
 
         if (SceneManager.GetActiveScene().name == "Compound") 
@@ -144,11 +145,10 @@ public class recipiitemSelectToggle : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "200_Omake")
         {
-            yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+            yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+            yes = yes_no_panel.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
-            no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
-
-            yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+            no = yes_no_panel.transform.Find("No").gameObject;
 
             updown_counter_USE = false;
         }

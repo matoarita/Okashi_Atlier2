@@ -14,6 +14,8 @@ public class Shop_Main : MonoBehaviour {
     private ItemShopDataBase shop_database;
     private ItemMatPlaceDataBase matplace_database;
 
+    private SceneInitSetting sceneinit_setting;
+
     private SoundController sc;
     private Girl1_status girl1_status;
 
@@ -108,6 +110,18 @@ public class Shop_Main : MonoBehaviour {
         //黒半透明パネルの取得
         black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
 
+        //シーン最初にプレイヤーアイテムリストの生成
+        sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
+        sceneinit_setting.PlayerItemListController_Init();
+
+        //プレイヤー所持アイテムリストパネルの取得
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
+
+        //レシピリストパネルの取得
+        recipilist_onoff = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+        recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
+
         character = GameObject.FindWithTag("Character");
         character.GetComponent<FadeCharacter>().SetOff();
 
@@ -135,20 +149,6 @@ public class Shop_Main : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-        //プレイヤー所持アイテムリストパネルの初期化・取得
-        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
-        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
-
-        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
-        playeritemlist_onoff.SetActive(false); //
-
-        //レシピリストパネルの取得
-        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().RecipiList_ScrollView_Init();
-        recipilist_onoff = GameObject.FindWithTag("RecipiList_ScrollView");
-        recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
-        recipilist_onoff.SetActive(false);
 
         //ショップリスト画面。初期設定で最初はOFF。
         shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
@@ -215,6 +215,7 @@ public class Shop_Main : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
 
         if (!GameMgr.ShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
@@ -403,7 +404,7 @@ public class Shop_Main : MonoBehaviour {
                         character.GetComponent<FadeCharacter>().SetOn();
                         shopitemlist_onoff.SetActive(false);
                         shopquestlist_obj.SetActive(false);
-                        playeritemlist_onoff.SetActive(false);
+                        
                         backshopfirst_obj.SetActive(false);
                         backshopfirst_obj.GetComponent<Button>().interactable = true;
                         shop_select.SetActive(true);
@@ -411,6 +412,11 @@ public class Shop_Main : MonoBehaviour {
                         money_status_obj.SetActive(true);
                         placename_panel.SetActive(true);
                         black_effect.SetActive(false);
+
+                        if(playeritemlist_onoff != null && playeritemlist_onoff.activeInHierarchy)
+                        {
+                            playeritemlist_onoff.SetActive(false);
+                        }
 
                         //_text.text = shopdefault_text;
 

@@ -104,128 +104,25 @@ public class Updown_counter : MonoBehaviour {
 
     private int _p_or_recipi_flag;
 
-    public bool OpenFlag;
-
     // Use this for initialization
     void Start () {
 
-        //アイテムデータベースの取得
-        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+        
 
-        //調合組み合わせデータベースの取得
-        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
-
-        updown_button = this.GetComponentsInChildren<Button>();
-        updown_button[0].interactable = true;
-        updown_button[1].interactable = true;        
-
-        OpenFlag = false;
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
-                { }
-                else
-                {
-                    this.transform.localPosition = new Vector3(0, -80, 0);
-                }
-                break;
-
-            case "Shop":
-
-                ShopUpdownCounter_Pos();
-                break;
-
-            case "Farm":
-
-                ShopUpdownCounter_Pos();
-                break;
-
-            case "Emerald_Shop":
-
-                ShopUpdownCounter_Pos();
-                break;
-
-            default:
-                break;
-        }
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (GameMgr.CompoundSceneStartON)
-        { }
-        else
-        {
-            //初期位置の更新がEnableだとうまくいかないので、強引にフラグを使って、Update内で処理
-            switch (SceneManager.GetActiveScene().name)
-            {
-                case "Shop":
-
-                    if (OpenFlag != true)
-                    {
-                        if (shop_Main.shop_scene == 1) //ショップ「買う」の時
-                        {
-                            ShopUpdownCounter_Pos();
-                        }
-                        else if (shop_Main.shop_scene == 3) //依頼の納品の時
-                        {
-                            ShopUpdownCounter_Pos2();
-                        }
-
-                        OpenFlag = true;
-                    }
-
-                    break;
-            }
-        }
     }
 
-    void ShopUpdownCounter_Pos()
+    void InitSetting()
     {
-        this.transform.localPosition = new Vector3(280, -60, 0);
-    }
-
-    void ShopUpdownCounter_Pos2()
-    {
-        this.transform.localPosition = new Vector3(0, -80, 0);
-    }
-
-    void OnEnable()
-    {
-        //Debug.Log("Reset Updown Counter");
-
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
-        //windowテキストエリアの取得
-        text_area = canvas.transform.Find("MessageWindow").gameObject;
-        _text = text_area.GetComponentInChildren<Text>();
-
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
-
-        updown_button = this.GetComponentsInChildren<Button>();
-        foreach (var obj in updown_button)
-        {
-            obj.interactable = true;
-        }
-        //updown_button[0].interactable = true;
-        //updown_button[1].interactable = true;
-
-        updown_button_Big = this.transform.Find("up_big").gameObject;
-        updown_button_Big.SetActive(false);
-        updown_button_Small = this.transform.Find("up_small").gameObject;
-        updown_button_Small.SetActive(false);
-
-        updown_counter_setpanel = this.transform.Find("SetPanel").gameObject;
-        updown_counter_setpanel.SetActive(false);
 
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
@@ -235,6 +132,39 @@ public class Updown_counter : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //windowテキストエリアの取得
+        text_area = canvas.transform.Find("MessageWindow").gameObject;
+        _text = text_area.GetComponentInChildren<Text>();
+
+        //updown_button = this.GetComponentsInChildren<Button>();
+        //updown_button[0].interactable = true;
+        //updown_button[1].interactable = true;
+    }
+
+    void OnEnable()
+    {
+        //Debug.Log("Reset Updown Counter");
+
+        InitSetting();
+        
+        updown_button = this.GetComponentsInChildren<Button>();
+        foreach (var obj in updown_button)
+        {
+            obj.interactable = true;
+        }
+
+        updown_button_Big = this.transform.Find("up_big").gameObject;
+        updown_button_Big.SetActive(false);
+        updown_button_Small = this.transform.Find("up_small").gameObject;
+        updown_button_Small.SetActive(false);
+
+        updown_counter_setpanel = this.transform.Find("SetPanel").gameObject;
+        updown_counter_setpanel.SetActive(false);
+       
 
         //調合中に開かれた場合は、シーンに限らずプレイヤーアイテムとレシピリストを取得
         if (GameMgr.CompoundSceneStartON)
@@ -267,65 +197,8 @@ public class Updown_counter : MonoBehaviour {
             }
             else
             {
-                this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-                this.transform.Find("counter_img1").gameObject.SetActive(true);
-
-                switch (GameMgr.compound_select)
-                {
-                    case 1: //レシピ調合の場合
-
-                        this.transform.localPosition = new Vector3(0, -87, 0);
-                        break;
-
-                    case 3: //オリジナル調合の場合の、カウンターの位置
-
-                        this.transform.localPosition = new Vector3(0, -87, 0);
-                        break;
-
-                    case 7: //ヒカリに作らせる場合の、カウンターの位置
-
-                        this.transform.localPosition = new Vector3(0, -87, 0);
-
-                        if (GameMgr.compound_status == 100) //アイテム選択中
-                        {
-                            switch (pitemlistController.kettei1_bunki) //itemselectToggle内で、分岐数字を変えてるので、注意。selectToggleでは、0,1,2になっている。
-                            {
-                                case 1:
-
-                                    if (database.items[pitemlistController.final_kettei_item1].itemType.ToString() == "Okashi")
-                                    {
-                                        updown_button[0].interactable = false;
-                                        updown_button[1].interactable = false;
-                                    }
-                                    break;
-
-                                case 2:
-
-                                    if (database.items[pitemlistController.final_kettei_item2].itemType.ToString() == "Okashi")
-                                    {
-                                        updown_button[0].interactable = false;
-                                        updown_button[1].interactable = false;
-                                    }
-                                    break;
-
-                                case 3:
-
-                                    if (database.items[pitemlistController.final_kettei_item3].itemType.ToString() == "Okashi")
-                                    {
-                                        updown_button[0].interactable = false;
-                                        updown_button[1].interactable = false;
-                                    }
-                                    break;
-                            }
-                        }
-                        break;
-
-                    default:
-
-                        this.transform.localPosition = new Vector3(100, -120, 0);
-                        break;
-
-                }
+                this.transform.localPosition = new Vector3(0, -80, 0);
+                SettingPos();                
             }
         }
         else
@@ -362,6 +235,19 @@ public class Updown_counter : MonoBehaviour {
                         updown_button_Small.SetActive(false);
                     }
 
+                    if (shop_Main.shop_scene == 1) //ショップ「買う」の時
+                    {
+                        ShopUpdownCounter_Pos();
+                    }
+                    else if (shop_Main.shop_scene == 3) //依頼の納品の時
+                    {
+                        ShopUpdownCounter_Pos2();
+                    }
+                    else if (shop_Main.shop_scene == 5) //売るの時
+                    {
+                        ShopUpdownCounter_Pos2();
+                    }
+
                     break;
 
                 case "Farm":
@@ -375,6 +261,8 @@ public class Updown_counter : MonoBehaviour {
 
                     updown_button_Big.SetActive(true);
                     updown_button_Small.SetActive(true);
+
+                    ShopUpdownCounter_Pos();
 
                     break;
 
@@ -390,14 +278,14 @@ public class Updown_counter : MonoBehaviour {
                     updown_button_Big.SetActive(true);
                     updown_button_Small.SetActive(true);
 
+                    ShopUpdownCounter_Pos();
+
                     break;
 
                 case "Compound":
 
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-
 
                     break;
 
@@ -415,6 +303,78 @@ public class Updown_counter : MonoBehaviour {
 
     }
 
+    void SettingPos()
+    {
+        this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        this.transform.Find("counter_img1").gameObject.SetActive(true);
+
+        switch (GameMgr.compound_select)
+        {
+            case 1: //レシピ調合の場合
+
+                this.transform.localPosition = new Vector3(0, -87, 0);
+                break;
+
+            case 3: //オリジナル調合の場合の、カウンターの位置
+
+                this.transform.localPosition = new Vector3(0, -87, 0);
+                break;
+
+            case 7: //ヒカリに作らせる場合の、カウンターの位置
+
+                this.transform.localPosition = new Vector3(0, -87, 0);
+
+                if (GameMgr.compound_status == 100) //アイテム選択中
+                {
+                    switch (pitemlistController.kettei1_bunki) //itemselectToggle内で、分岐数字を変えてるので、注意。selectToggleでは、0,1,2になっている。
+                    {
+                        case 1:
+
+                            if (database.items[pitemlistController.final_kettei_item1].itemType.ToString() == "Okashi")
+                            {
+                                updown_button[0].interactable = false;
+                                updown_button[1].interactable = false;
+                            }
+                            break;
+
+                        case 2:
+
+                            if (database.items[pitemlistController.final_kettei_item2].itemType.ToString() == "Okashi")
+                            {
+                                updown_button[0].interactable = false;
+                                updown_button[1].interactable = false;
+                            }
+                            break;
+
+                        case 3:
+
+                            if (database.items[pitemlistController.final_kettei_item3].itemType.ToString() == "Okashi")
+                            {
+                                updown_button[0].interactable = false;
+                                updown_button[1].interactable = false;
+                            }
+                            break;
+                    }
+                }
+                break;
+
+            default:
+
+                this.transform.localPosition = new Vector3(100, -120, 0);
+                break;
+
+        }
+    }
+
+    void ShopUpdownCounter_Pos()
+    {
+        this.transform.localPosition = new Vector3(280, -60, 0);
+    }
+
+    void ShopUpdownCounter_Pos2()
+    {
+        this.transform.localPosition = new Vector3(0, -80, 0);
+    }
 
 
     public void OnClick_up()

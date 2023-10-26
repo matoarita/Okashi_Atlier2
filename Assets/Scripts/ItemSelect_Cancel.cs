@@ -39,6 +39,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
 
+    private SceneInitSetting sceneinit_setting;
+
+    private GameObject yes_no_panel;
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
@@ -60,6 +63,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     public bool kettei_on_waiting;
 
+    private bool playerlist_check_on;
+
     private int i;
 
     // Use this for initialization
@@ -67,8 +72,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
-
-        //InitSetting();
 
         update_ListSelect_Flag = 0;
         kettei_on_waiting = false;
@@ -85,48 +88,62 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
-       
-        //プレイヤーアイテムリストオブジェクトの初期化
-        if (pitemlistController_obj == null)
+
+        //アイテムリストがすでに生成されているかをチェック
+        playerlist_check_on = false;
+        foreach (Transform child in canvas.transform)
         {
-            pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-        }        
-
-        //レシピ調合のときは、参照するオブジェクトが変わるので、それ対策
-        if (GameMgr.CompoundSceneStartON)
-        {
-            kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
-            kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-            text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
-            _text = text_area.GetComponentInChildren<Text>();
-
-            //まずは、レシピ・それ以外の調合用にオブジェクト取得
-            if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
+            if (child.name == "PlayeritemList_ScrollView")
             {
-                yes = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/Yes").gameObject;
-                yes_text = yes.GetComponentInChildren<Text>();
-                no = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/No").gameObject;
+                playerlist_check_on = true;
+            }
+        }
 
+        if (playerlist_check_on)
+        {
+            //プレイヤーアイテムリストオブジェクトの初期化
+            if (pitemlistController_obj == null)
+            {
+                pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+                pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+            }
+
+            //レシピ調合のときは、参照するオブジェクトが変わるので、それ対策
+            if (GameMgr.CompoundSceneStartON)
+            {
+                kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+                text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
+                _text = text_area.GetComponentInChildren<Text>();
+
+                //まずは、レシピ・それ以外の調合用にオブジェクト取得
+                if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
+                {
+                    yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+                    yes = yes_no_panel.transform.Find("Yes").gameObject;
+                    yes_text = yes.GetComponentInChildren<Text>();
+                    no = yes_no_panel.transform.Find("No").gameObject;
+
+                }
+                else
+                {
+                    //レシピ以外では、アイテムリスト備え付けのyes,noを使う。
+                    yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+                    yes_text = yes.GetComponentInChildren<Text>();
+                    no = pitemlistController_obj.transform.Find("No").gameObject;
+                }
             }
             else
             {
-                //レシピ以外では、アイテムリスト備え付けのyes,noを使う。
+                text_area = canvas.transform.Find("MessageWindow").gameObject;
+                _text = text_area.GetComponentInChildren<Text>();
+
+                //アイテムリスト備え付けのyes,noを使う。
                 yes = pitemlistController_obj.transform.Find("Yes").gameObject;
                 yes_text = yes.GetComponentInChildren<Text>();
                 no = pitemlistController_obj.transform.Find("No").gameObject;
             }
-        }
-        else
-        {
-            text_area = canvas.transform.Find("MessageWindow").gameObject;
-            _text = text_area.GetComponentInChildren<Text>();
-
-            //アイテムリスト備え付けのyes,noを使う。
-            yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-            yes_text = yes.GetComponentInChildren<Text>();
-            no = pitemlistController_obj.transform.Find("No").gameObject;
         }
     }
 
@@ -270,7 +287,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             default: //上記シーン以外
 
-                yes_selectitem_kettei = SelectItem_kettei.Instance.GetComponent<SelectItem_kettei>();
+                InitSetting();
 
                 break;
         }
@@ -292,9 +309,10 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                         if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
                         {
-                            yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+                            yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+                            yes = yes_no_panel.transform.Find("Yes").gameObject;
                             yes_text = yes.GetComponentInChildren<Text>();
-                            no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+                            no = yes_no_panel.transform.Find("No").gameObject;
                         }
 
                         if (GameMgr.compound_select == 6) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
@@ -660,23 +678,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         if (GameMgr.CompoundSceneStartON)
         {
             GameMgr.compound_status = 4;
-
-            //まずは、レシピ・それ以外の調合用にオブジェクト取得
-            /*if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
-            {
-                yes = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/Yes").gameObject;
-                yes_text = yes.GetComponentInChildren<Text>();
-                no = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Yes_no_Panel/No").gameObject;
-
-            }
-            else
-            {
-                //レシピ以外では、アイテムリスト備え付けのyes,noを使う。
-                yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-                yes_text = yes.GetComponentInChildren<Text>();
-                no = pitemlistController_obj.transform.Find("No").gameObject;
-            }*/
-
 
             //オリジナル調合の処理
             if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)

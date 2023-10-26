@@ -34,6 +34,7 @@ public class Compound_Main : MonoBehaviour
 
     private SaveController save_controller;
     private keyManager keymanager;
+    private SceneInitSetting sceneinit_setting;
 
     private GameObject canvas;
 
@@ -347,21 +348,18 @@ public class Compound_Main : MonoBehaviour
         bgm_change_flag = false;
 
         //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();        
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        //プレイヤー所持アイテムリストパネルの取得
-        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
-        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+        //シーン最初にプレイヤーアイテムリストの生成
+        sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
+        sceneinit_setting.PlayerItemListController_Init();
 
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
-        playeritemlist_onoff.SetActive(false);
 
         //レシピリストパネルの取得
-        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().RecipiList_ScrollView_Init();
-        recipilist_onoff = GameObject.FindWithTag("RecipiList_ScrollView");
+        recipilist_onoff = canvas.transform.Find("RecipiList_ScrollView").gameObject;
         recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
-        recipilist_onoff.SetActive(false);
 
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
@@ -3227,8 +3225,7 @@ public class Compound_Main : MonoBehaviour
         //ゲーム「はじめから」で始まった場合の、最初の一回だけする処理       
         if (GameMgr.gamestart_recipi_get != true)
         {
-
-            exp_Controller.deleteExtreme_Item();
+            //exp_Controller.deleteExtreme_Item();
 
             GameMgr.gamestart_recipi_get = true; //フラグをONに。  
 

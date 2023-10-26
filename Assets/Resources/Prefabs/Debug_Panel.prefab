@@ -3387,7 +3387,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224317613878330886}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.045908183
+  m_Size: 0.04590818
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3936,7 +3936,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224362935167197822}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4494,7 +4494,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 9999
+  m_SortingOrder: 32000
   m_TargetDisplay: 0
 --- !u!224 &224044935117381306
 RectTransform:

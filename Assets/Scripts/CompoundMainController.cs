@@ -36,6 +36,8 @@ public class CompoundMainController : MonoBehaviour {
     private BGM sceneBGM;
     private Map_Ambience map_ambience;
 
+    private SceneInitSetting sceneinit_setting;
+
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
     private Touch_Controller touch_controller;
@@ -112,7 +114,8 @@ public class CompoundMainController : MonoBehaviour {
     private bool WaitForCompEnd; //調合シーン終了時に一回だけ行う処理のフラグ
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
@@ -132,6 +135,10 @@ public class CompoundMainController : MonoBehaviour {
         Debug_CompoIcon = this.transform.Find("Debug_CompIcon").gameObject;
         Debug_CompoIcon.SetActive(false);
 
+        //シーン最初にプレイヤーアイテムリストの生成
+        sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
+        sceneinit_setting.PlayerItemListController_Init();
+
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
@@ -143,6 +150,8 @@ public class CompoundMainController : MonoBehaviour {
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         //map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
+
+        
 
         //コンポBGパネルの取得
         compoBG_A = this.transform.Find("Compound_BGPanel_A").gameObject;
@@ -163,11 +172,6 @@ public class CompoundMainController : MonoBehaviour {
         select_extreme_button = select_extreme_button_obj.GetComponent<Button>();
         select_hikarimake_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/HikariMakeButton").gameObject;
         select_hikarimake_button = select_hikarimake_button_obj.GetComponent<Button>();
-
-        //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
-        yes_no_panel = compoBG_A.transform.Find("Yes_no_Panel").gameObject;
-        yes = yes_no_panel.transform.Find("Yes").gameObject;
-        no = yes_no_panel.transform.Find("No").gameObject;       
 
         //確率パネルの取得
         kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
@@ -216,7 +220,7 @@ public class CompoundMainController : MonoBehaviour {
         foreach (var obj in rootObjects)
         {
             //Debug.LogFormat("RootObject = {0}", obj.name);
-            if(obj.name == "CharacterRoot")
+            if (obj.name == "CharacterRoot")
             {
                 Debug.Log("character_On: ヒカリちゃん　シーン内に存在する");
                 character_On = true;
@@ -233,22 +237,27 @@ public class CompoundMainController : MonoBehaviour {
             }
             else
             {
-                
+
             }
         }
 
+
         //各調合時のシステムメッセージ集
         hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
-            "好きな材料を" + GameMgr.ColorYellow +
-            "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
+        "好きな材料を" + GameMgr.ColorYellow +
+        "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
 
         WaitForCompEnd = false;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    void InitSetting()
     {
-        if(playeritemlist_onoff == null)
+        //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+        yes = yes_no_panel.transform.Find("Yes").gameObject;
+        no = yes_no_panel.transform.Find("No").gameObject;
+
+        if (playeritemlist_onoff == null)
         {
             //プレイヤー所持アイテムリストパネルの取得
             playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
@@ -258,6 +267,12 @@ public class CompoundMainController : MonoBehaviour {
             recipilist_onoff = canvas.transform.Find("RecipiList_ScrollView").gameObject;
             recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
         }
+    }
+	
+	// Update is called once per frame
+	void Update ()
+    {
+        
 
         //デバッグ用　使用中アイコン
         if (GameMgr.CompoundSceneStartON)
@@ -400,6 +415,10 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.compound_select = 6;
 
                     GameMgr.updown_kosu = 1; //調合シーン最初に、数値をリセット
+
+                    //最初に読むこむ設定
+                    InitSetting();
+                    
 
                     //Live2Dキャラの位置初期化
                     SetLive2DPos_Compound();
@@ -687,7 +706,8 @@ public class CompoundMainController : MonoBehaviour {
     {
         if (character_On)
         {
-            character_move.transform.position = new Vector3(2.8f, 0, 0); //画面右あたり
+            //character_move.transform.position = new Vector3(2.8f, 0, 0); //画面右あたり
+            character_move.transform.DOMove(new Vector3(2.8f, 0, 0), 0.2f); //画面右あたり 少し間を置くことで、キャラが一瞬真ん中に映るのを防ぐ
             GameMgr.live2d_posmove_flag = true; //位置を変更したフラグ 
         }
     }
@@ -698,11 +718,20 @@ public class CompoundMainController : MonoBehaviour {
         {
             Debug.Log("Live2D位置のリセット");
 
-            //character_move.transform.position = new Vector3(0f, 0, 0);
-            character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.2f); //少し間を置くことで、キャラが一瞬真ん中に映るのを防ぐ
-            GameMgr.live2d_posmove_flag = false;
+            if (GameMgr.ResultComplete_flag != 0) //厨房から帰ってくるときの動き
+            {
+                //character_move.transform.position = new Vector3(0f, 0, 0);
+                character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.2f); //少し間を置くことで、キャラが一瞬真ん中に映るのを防ぐ
+                
 
-            //girl1_status.DefFaceChange();
+                //girl1_status.DefFaceChange();
+            }
+            else
+            {
+                character_move.transform.position = new Vector3(0f, 0, 0);
+            }
+
+            GameMgr.live2d_posmove_flag = false;
         }
     }
 }

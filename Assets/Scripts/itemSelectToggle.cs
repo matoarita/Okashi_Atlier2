@@ -1724,8 +1724,6 @@ public class itemSelectToggle : MonoBehaviour
                     card_view.DeleteCard_DrawView();
                 }               
                 
-
-                updown_counter.OpenFlag = false;
                 updown_counter_obj.SetActive(false);
                 yes.SetActive(false);
                 //no.SetActive(false);
@@ -1764,7 +1762,6 @@ public class itemSelectToggle : MonoBehaviour
 
                 card_view.DeleteCard_DrawView();
 
-                updown_counter.OpenFlag = false;
                 updown_counter_obj.SetActive(false);
                 yes.SetActive(false);
                 NouhinKetteiPanel_obj.SetActive(true);

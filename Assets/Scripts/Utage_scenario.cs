@@ -51,12 +51,14 @@ public class Utage_scenario : MonoBehaviour
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private ItemMatPlaceDataBase matplace_database;
-    private ContestCommentDataBase databaseContestComment;
-    private Contest_Main contest_main;
+    private ContestCommentDataBase databaseContestComment;    
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
     private MoneyStatus_Controller moneyStatus_Controller;
     private EmeraldShop_Main emeraldshop_main;
     private Exp_Controller exp_Controller;
+
+    private Contest_Main contest_main;
+    private Contest_Main_A1 contest_main_a1;
 
     private GameObject character_root;
     private GameObject GirlHeartEffect_obj;
@@ -577,6 +579,21 @@ public class Utage_scenario : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Contest")
             {
                 contest_main = GameObject.FindWithTag("contest_Main").GetComponent<Contest_Main>();
+
+                if (GameMgr.contest_event_flag)
+                {
+                    GameMgr.contest_event_flag = false;
+                    contest_num = GameMgr.contest_event_num;
+                    //CharacterSpriteSetOFF();                    
+
+                    StartCoroutine(Contest_Event());
+
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name == "Contest_A1")
+            {
+                contest_main_a1 = GameObject.FindWithTag("contest_Main").GetComponent<Contest_Main_A1>();
 
                 if (GameMgr.contest_event_flag)
                 {
@@ -3330,7 +3347,14 @@ public class Utage_scenario : MonoBehaviour
         Engine.JumpScenario(scenarioLabel);
 
         //お菓子を判定する。採点結果により、審査員の反応も少し変わる。
-        contest_main.Contest_Judge();
+        if (SceneManager.GetActiveScene().name == "Contest")
+        {
+            contest_main.Contest_Judge();
+        }
+        else if (SceneManager.GetActiveScene().name == "Contest_A1")
+        {
+            contest_main_a1.Contest_Judge();
+        }
 
         //提出したお菓子の名前をセット
         engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);

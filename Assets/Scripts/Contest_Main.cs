@@ -19,9 +19,6 @@ public class Contest_Main : MonoBehaviour {
     private GameObject scene_black_effect;
     private GameObject canvas;
 
-    private GameObject updown_counter_obj;
-    private GameObject updown_counter_Prefab;
-
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
 
@@ -89,10 +86,6 @@ public class Contest_Main : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
-        //シーン最初にカウンターも生成する。
-        updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
-        updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();

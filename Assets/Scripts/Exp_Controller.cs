@@ -18,8 +18,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     //カメラ関連
     private Camera main_cam;
-    private Animator maincam_animator;
-    private int trans; //トランジション用のパラメータ
+    //private Animator maincam_animator;
+    //private int trans; //トランジション用のパラメータ
 
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
@@ -192,9 +192,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         DontDestroyOnLoad(this);
 
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
@@ -228,18 +225,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //レベルアップチェック用オブジェクトの取得
         exp_table = ExpTable.Instance.GetComponent<ExpTable>();    
 
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                InitObject();
-
-                break;
-
-            default:
-                break;
-        }
-
         result_ok = false;
         recipiresult_ok = false;
         girleat_ok = false;
@@ -271,36 +256,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //カメラの取得
         main_cam = Camera.main;
-        maincam_animator = main_cam.GetComponent<Animator>();
-        trans = maincam_animator.GetInteger("trans");        
-
-        
-        //コンポBGパネルの取得
-        compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
-
-        text_area = compoBG_A.transform.Find("MessageWindowComp").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
-        _text = text_area.GetComponentInChildren<Text>();
-
-        //確率パネルの取得
-        kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
-        kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
-
-        //レシピメモボタンを取得
-        recipimemoController_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
-        recipiMemoButton = compoBG_A.transform.Find("RecipiMemoButton").gameObject;
-        memoResult_obj = compoBG_A.transform.Find("Memo_Result").gameObject;
-
-        //レシピ達成率を取得
-        recipi_archivement_obj = compoBG_A.transform.Find("RecipiCompoImage/Panel").gameObject;       
-
-        //黒半透明パネルの取得
-        BlackImage = compoBG_A.transform.Find("BlackImage").gameObject; //魔法エフェクト用の半透明で幕
-
-        //完成時パネルの取得
-        CompleteImage = compoBG_A.transform.Find("CompletePanel").gameObject; //調合成功時のイメージパネル
-
-        //YesNoパネル
-        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+        //maincam_animator = main_cam.GetComponent<Animator>();
+        //trans = maincam_animator.GetInteger("trans");              
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -339,14 +296,44 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
 
             }
-        }
+        }       
+    }
 
-        Hikarimake_StartPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
+    void CompInitSetting()
+    {
+        //コンポBGパネルの取得
+        compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
+
+        text_area = compoBG_A.transform.Find("MessageWindowComp").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
+        _text = text_area.GetComponentInChildren<Text>();
+
+        //確率パネルの取得
+        kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+        kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+        //レシピメモボタンを取得
+        recipimemoController_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
+        recipiMemoButton = compoBG_A.transform.Find("RecipiMemoButton").gameObject;
+        memoResult_obj = compoBG_A.transform.Find("Memo_Result").gameObject;
+
+        //レシピ達成率を取得
+        recipi_archivement_obj = compoBG_A.transform.Find("RecipiCompoImage/Panel").gameObject;
+
+        //黒半透明パネルの取得
+        BlackImage = compoBG_A.transform.Find("BlackImage").gameObject; //魔法エフェクト用の半透明で幕
+
+        //完成時パネルの取得
+        CompleteImage = compoBG_A.transform.Find("CompletePanel").gameObject; //調合成功時のイメージパネル        
     }
 
     // Update is called once per frame
     void Update()
     {
+        //シーン移動時バグるのでUpdateで初期化
+        if (canvas == null)
+        {
+            InitObject();
+        }
 
         if (GameMgr.CompoundSceneStartON)
         {
@@ -368,6 +355,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public void ResultOK()
     {
         InitObject();
+        CompInitSetting();
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();       
@@ -628,7 +616,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     }
 
     //使ってない
-    void Compo_2()
+    /*void Compo_2()
     {
         //②店売りアイテムとして生成し、実際にアイテムを追加。
         
@@ -651,7 +639,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         card_view.RecipiResultCard_DrawView(0, result_item);
-    }
+    }*/
 
 
 
@@ -661,6 +649,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public void Recipi_ResultOK()
     {
         InitObject();
+        CompInitSetting();
 
         recipilistController_obj = GameObject.FindWithTag("RecipiList_ScrollView");
         recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
@@ -833,6 +822,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public void Topping_Result_OK()
     {
         InitObject();
+        CompInitSetting();
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
@@ -1069,12 +1059,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public void HikariMakeOK()
     {
         InitObject();
+        CompInitSetting();
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
         HikariMakeImage = compoBG_A.transform.Find("HikariMakeImage").gameObject;
         HikariMake_effect_Particle_KiraExplode = HikariMakeImage.transform.Find("Particle_KiraExplode").gameObject;
+
+        Hikarimake_StartPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/HikariMakeStartPanel").GetComponent<HikariMakeStartPanel>();
 
         //一個以上作ってた場合、先にそれは入手する。
         if (GameMgr.hikari_make_okashiKosu >= 1)
@@ -1219,6 +1212,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         memoResult_obj.SetActive(false);
         recipi_archivement_obj.SetActive(false);
         kakuritsuPanel_obj.SetActive(false);
+
+        //YesNoパネル
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
         yes_no_panel.SetActive(false);
 
         //半透明の黒をON
@@ -1437,6 +1433,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 memoResult_obj.SetActive(false);
                 recipi_archivement_obj.SetActive(false);
                 kakuritsuPanel_obj.SetActive(false);
+
+                //YesNoパネル
+                yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
                 yes_no_panel.SetActive(false);
 
                 //半透明の黒をON
@@ -1461,9 +1460,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //一時的にお菓子のHP減少をストップ
                 //extremePanel.LifeAnimeOnFalse();
-
-                //背景変更
-                //compoBG_A.SetActive(true);
 
                 timeOut = 2.0f;
                 compo_anim_status = 1;
