@@ -57,14 +57,14 @@ public class Utage_scenario : MonoBehaviour
     private EmeraldShop_Main emeraldshop_main;
     private Exp_Controller exp_Controller;
 
-    private Contest_Main contest_main;
-    private Contest_Main_A1 contest_main_a1;
-
     private GameObject character_root;
     private GameObject GirlHeartEffect_obj;
 
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
+
+    private GameObject contest_judge_obj;
+    private Contest_Judge contest_judge;
 
     private int picnic_place_num;
 
@@ -178,7 +178,7 @@ public class Utage_scenario : MonoBehaviour
                 switch (GameMgr.scenario_flag)
                 {
                     case 0:
-                       
+
                         scenarioLabel = "Prologue";
                         story_num = GameMgr.scenario_flag;
                         StartCoroutine(Scenario_Start());
@@ -199,7 +199,7 @@ public class Utage_scenario : MonoBehaviour
                 {
 
                     case 2000: //2話はじまり
-                       
+
                         scenarioLabel = "Chapter_2";
                         story_num = GameMgr.scenario_flag;
                         StartCoroutine(Scenario_Start());
@@ -212,7 +212,7 @@ public class Utage_scenario : MonoBehaviour
                     default:
                         break;
                 }
-                    
+
             }
 
             if (SceneManager.GetActiveScene().name == "030_Stage3")
@@ -303,19 +303,19 @@ public class Utage_scenario : MonoBehaviour
                     default:
                         break;
                 }
-                
 
-                if(GameMgr.CompoundEvent_storyflag)
+
+                if (GameMgr.CompoundEvent_storyflag)
                 {
                     GameMgr.CompoundEvent_storyflag = false;
-                    
+
                     story_num = GameMgr.CompoundEvent_storynum;
                     StartCoroutine(backHome());
                 }
-                
+
                 if (GameMgr.girlloveevent_flag)
                 {
-                    GameMgr.girlloveevent_flag = false;                    
+                    GameMgr.girlloveevent_flag = false;
 
                     //好感度イベントを表示
                     StartCoroutine(Girllove_event_Hyouji());
@@ -436,126 +436,134 @@ public class Utage_scenario : MonoBehaviour
                     //ヒントを表示
                     StartCoroutine(TouchHint_Hyouji());
                 }
-            }               
+            }
 
             //ショップ・牧場シーンでのイベント処理
-            if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm" || SceneManager.GetActiveScene().name == "Bar")
+            if (GameMgr.Scene_Category_Num == 20) //ショップでLive2Dモデル取得
             {
-                character = GameObject.FindWithTag("Character");
-
-                if (SceneManager.GetActiveScene().name == "Shop")
+                if (!_model)
                 {
-                    if (!_model)
-                    {
-                        //Live2Dモデルの取得
-                        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
-                        _renderController = _model.GetComponent<CubismRenderController>();
-                        live2d_animator = _model.GetComponent<Animator>();
-                    }
-                }
-
-                if (GameMgr.shop_event_flag)
-                {
-                    GameMgr.shop_event_flag = false;
-                    story_num = GameMgr.shop_event_num;
-                    CharacterLive2DSubNPCImageOFF();
-                    //CharacterSpriteSetOFF();
-
-                    scenarioLabel = "Shop_Event";
-                    StartCoroutine(Scenario_Start());
-
-                }
-
-                if (GameMgr.shop_lvevent_flag)
-                {
-                    GameMgr.shop_lvevent_flag = false;
-                    story_num = GameMgr.shop_lvevent_num;
-                    CharacterLive2DSubNPCImageOFF();
-                    //CharacterSpriteSetOFF();
-
-                    scenarioLabel = "Shop_LvEvent";
-                    StartCoroutine(Scenario_Start());
-
-                }
-
-                if ( GameMgr.talk_flag == true )
-                {
-                    GameMgr.talk_flag = false;
-                    shop_talk_number = GameMgr.talk_number;
-
-                    switch(SceneManager.GetActiveScene().name)
-                    {
-                        case "Shop":
-                            StartCoroutine(Shop_Talk());
-                            break;
-
-                        case "Farm":
-                            StartCoroutine(Farm_Talk());
-                            break;
-
-                        case "Bar":
-                            StartCoroutine(Bar_Talk());
-                            break;
-                    }
-                }
-
-                if (GameMgr.uwasa_flag == true)
-                {
-                    GameMgr.uwasa_flag = false;
-                    shop_uwasa_number = GameMgr.uwasa_number;
-                    StartCoroutine(Shop_Uwasa());
-
-                }
-
-                if ((GameMgr.shop_hint == true))
-                {
-                    GameMgr.shop_hint = false;
-                    shop_hint_number = GameMgr.shop_hint_num;
-                    StartCoroutine(Shop_Hint());
-                }
-
-                if (GameMgr.farm_event_flag)
-                {
-                    GameMgr.farm_event_flag = false;
-                    story_num = GameMgr.farm_event_num;
-                    CharacterSpriteSetOFF();
-
-                    scenarioLabel = "Farm_Event";
-                    StartCoroutine(Scenario_Start());
-                }
-
-                if (GameMgr.bar_event_flag)
-                {
-                    GameMgr.bar_event_flag = false;
-                    story_num = GameMgr.bar_event_num;
-                    CharacterSpriteSetOFF();
-
-                    scenarioLabel = "Bar_Event";
-                    StartCoroutine(Scenario_Start());
-
+                    //Live2Dモデルの取得
+                    _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                    _renderController = _model.GetComponent<CubismRenderController>();
+                    live2d_animator = _model.GetComponent<Animator>();
                 }
             }
+
+            if (GameMgr.shop_event_flag)
+            {
+                ShopInitSetting();
+
+                GameMgr.shop_event_flag = false;
+                story_num = GameMgr.shop_event_num;
+                CharacterLive2DSubNPCImageOFF();
+                //CharacterSpriteSetOFF();
+
+                scenarioLabel = "Shop_Event";
+                StartCoroutine(Scenario_Start());
+
+            }
+
+            if (GameMgr.shop_lvevent_flag)
+            {
+                ShopInitSetting();
+
+                GameMgr.shop_lvevent_flag = false;
+                story_num = GameMgr.shop_lvevent_num;
+                CharacterLive2DSubNPCImageOFF();
+                //CharacterSpriteSetOFF();
+
+                scenarioLabel = "Shop_LvEvent";
+                StartCoroutine(Scenario_Start());
+
+            }
+
+            if (GameMgr.talk_flag == true)
+            {
+                ShopInitSetting();
+
+                GameMgr.talk_flag = false;
+                shop_talk_number = GameMgr.talk_number;
+
+                switch (GameMgr.Scene_Category_Num)
+                {
+                    case 20:
+                        StartCoroutine(Shop_Talk());
+                        break;
+                    case 30:
+                        StartCoroutine(Bar_Talk());
+                        break;
+                    case 40:
+                        StartCoroutine(Farm_Talk());
+                        break;
+                   
+                }
+            }
+
+            if (GameMgr.uwasa_flag == true)
+            {
+                ShopInitSetting();
+
+                GameMgr.uwasa_flag = false;
+                shop_uwasa_number = GameMgr.uwasa_number;
+                StartCoroutine(Shop_Uwasa());
+
+            }
+
+            if ((GameMgr.shop_hint == true))
+            {
+                ShopInitSetting();
+
+                GameMgr.shop_hint = false;
+                shop_hint_number = GameMgr.shop_hint_num;
+                StartCoroutine(Shop_Hint());
+            }
+
+            if (GameMgr.farm_event_flag)
+            {
+                ShopInitSetting();
+
+                GameMgr.farm_event_flag = false;
+                story_num = GameMgr.farm_event_num;
+                CharacterSpriteSetOFF();
+
+                scenarioLabel = "Farm_Event";
+                StartCoroutine(Scenario_Start());
+            }
+
+            if (GameMgr.bar_event_flag)
+            {
+                ShopInitSetting();
+
+                GameMgr.bar_event_flag = false;
+                story_num = GameMgr.bar_event_num;
+                CharacterSpriteSetOFF();
+
+                scenarioLabel = "Bar_Event";
+                StartCoroutine(Scenario_Start());
+
+            }
+
 
             //エメラルショップシーンでのイベント処理
-            if (SceneManager.GetActiveScene().name == "Emerald_Shop")
+            if (GameMgr.emeraldshop_event_flag)
             {
-                character = GameObject.FindWithTag("Character");
+                ShopInitSetting();
 
-                if (GameMgr.emeraldshop_event_flag)
-                {
-                    GameMgr.emeraldshop_event_flag = false;
-                    story_num = GameMgr.emeraldshop_event_num;
-                    CharacterSpriteSetOFF();
+                GameMgr.emeraldshop_event_flag = false;
+                story_num = GameMgr.emeraldshop_event_num;
+                CharacterSpriteSetOFF();
 
-                    scenarioLabel = "emeraldShop_Event";
-                    StartCoroutine(Emerald_Shop());
+                scenarioLabel = "emeraldShop_Event";
+                StartCoroutine(Emerald_Shop());
 
-                }
             }
 
-            //広場シーンでのイベント処理
-            if (SceneManager.GetActiveScene().name == "Hiroba2" || SceneManager.GetActiveScene().name == "Hiroba3")
+
+            //広場系シーンでのイベント処理
+            if (GameMgr.hiroba_event_flag)
             {
+                GameMgr.hiroba_event_flag = false;
                 //character = GameObject.FindWithTag("Character");               
 
                 if (!sceneBGM)
@@ -564,48 +572,27 @@ public class Utage_scenario : MonoBehaviour
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
                 }
 
-                if (GameMgr.hiroba_event_flag)
-                {
-                    GameMgr.hiroba_event_flag = false;
-                    //CharacterSpriteSetOFF();                    
-                    
-                    StartCoroutine(Hiroba_Event());
+                //CharacterSpriteSetOFF();                    
 
-                }
-                
+                StartCoroutine(Hiroba_Event());
             }
 
             //コンテストシーンでのイベント処理
-            if (SceneManager.GetActiveScene().name == "Contest")
+            if (GameMgr.contest_event_flag)
             {
-                contest_main = GameObject.FindWithTag("contest_Main").GetComponent<Contest_Main>();
+                GameMgr.contest_event_flag = false;
+                contest_num = GameMgr.contest_event_num;
+                //CharacterSpriteSetOFF();                    
 
-                if (GameMgr.contest_event_flag)
-                {
-                    GameMgr.contest_event_flag = false;
-                    contest_num = GameMgr.contest_event_num;
-                    //CharacterSpriteSetOFF();                    
-
-                    StartCoroutine(Contest_Event());
-
-                }
-            }
-
-            if (SceneManager.GetActiveScene().name == "Contest_A1")
-            {
-                contest_main_a1 = GameObject.FindWithTag("contest_Main").GetComponent<Contest_Main_A1>();
-
-                if (GameMgr.contest_event_flag)
-                {
-                    GameMgr.contest_event_flag = false;
-                    contest_num = GameMgr.contest_event_num;
-                    //CharacterSpriteSetOFF();                    
-
-                    StartCoroutine(Contest_Event());
-
-                }
+                StartCoroutine(Contest_Event());
             }
         }
+    }
+
+    //ショップ系シーンでは、必ずCharacterというオブジェクトをONにしとかないと、バグる
+    void ShopInitSetting()
+    {
+        character = GameObject.FindWithTag("Character");
     }
 
     //
@@ -663,7 +650,7 @@ public class Utage_scenario : MonoBehaviour
                 break;
         }
 
-        if (SceneManager.GetActiveScene().name == "Shop" || SceneManager.GetActiveScene().name == "Farm" || SceneManager.GetActiveScene().name == "Bar")
+        if (GameMgr.Scene_Category_Num == 20 || GameMgr.Scene_Category_Num == 30 || GameMgr.Scene_Category_Num == 40)
         {
             if (scenarioLabel == "Shop_Event")
             {
@@ -679,7 +666,7 @@ public class Utage_scenario : MonoBehaviour
                 }
             }
 
-            if (SceneManager.GetActiveScene().name == "Shop")
+            if (GameMgr.Scene_Category_Num == 20)
             {
                 CharacterLive2DSubNPCImageON();
             }
@@ -1723,7 +1710,7 @@ public class Utage_scenario : MonoBehaviour
             //ここで、宴のパラメータ設定。リセットしておく。
             engine.Param.TrySetParameter("EventEnd_Flag", false);
 
-            if (SceneManager.GetActiveScene().name == "Compound")
+            if (GameMgr.Scene_Category_Num == 10)
             {
                 //いかないを選択したので、ハート獲得演出はキャンセル
                 GameMgr.SubEvAfterHeartGet = false;
@@ -1818,7 +1805,7 @@ public class Utage_scenario : MonoBehaviour
                     yield return null;
                 }
 
-                if (SceneManager.GetActiveScene().name == "Compound")
+                if (GameMgr.Scene_Category_Num == 10)
                 {
                     //いかないを選択したので、ハート獲得演出はキャンセル
                     GameMgr.SubEvAfterHeartGet = false;
@@ -3346,15 +3333,12 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
+        //お菓子の判定処理オブジェクトの取得
+        contest_judge_obj = GameObject.FindWithTag("Contest_Judge");
+        contest_judge = contest_judge_obj.GetComponent<Contest_Judge>();
+
         //お菓子を判定する。採点結果により、審査員の反応も少し変わる。
-        if (SceneManager.GetActiveScene().name == "Contest")
-        {
-            contest_main.Contest_Judge();
-        }
-        else if (SceneManager.GetActiveScene().name == "Contest_A1")
-        {
-            contest_main_a1.Contest_Judge();
-        }
+        contest_judge.Contest_Judge_Start();
 
         //提出したお菓子の名前をセット
         engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);

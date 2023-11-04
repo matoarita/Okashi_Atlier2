@@ -278,7 +278,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
     //バージョン情報
-    public static float GameVersion = 1.45f;
+    public static float GameVersion = 2.0f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
 
     /* セーブ　ここまで */
@@ -438,6 +438,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool CGGallery_readflag;
     public static int CGGallery_num; //別シーンから、どのイベントを呼び出すかを、指定する。
 
+    //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
+    public static int Scene_Category_Num;         //Compound=10, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, Contest=100, 200_omake=200, 001_Title=1000
+
     //その他、一時的なフラグ
     public static int MapSubEvent_Flag;
     public static bool MenuOpenFlag; //メニューを現在開いているか閉じているか
@@ -480,6 +483,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
     public static bool extremepanel_Koushin; //なんらかの調合が終わり、エクストリームパネルの表示を更新するフラグ
     public static bool live2d_posmove_flag; //Live2Dキャラの位置を移動したフラグ
+    public static bool Reset_BarStatus; //酒場クエストの遷移状態をリセットするフラグ　主にQuest_Judgeとの連携
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -868,6 +872,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         compobgm_change_flag = false;
         extremepanel_Koushin = false;
         live2d_posmove_flag = false;
+        Reset_BarStatus = false;
+
+        Scene_Category_Num = 0;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

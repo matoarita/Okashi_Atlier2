@@ -434,15 +434,10 @@ public class CompoundMainController : MonoBehaviour {
                                 GameMgr.compobgm_change_flag = true;
                             }
                         }
-                    }                    
-
-                    switch (SceneManager.GetActiveScene().name)
-                    {
-                        case "Compound":
-
-                            time_controller.TimeCheck_flag = false;
-                            break;
                     }
+
+                    //念のため、調合シーンに入ったら、寝るフラグがたたないように強制オフにしてる。
+                    time_controller.TimeCheck_flag = false;
 
                     //各調合画面を一度オフ
                     CompoScreenReset();

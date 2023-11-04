@@ -1200,26 +1200,14 @@ public class Compound_Check : MonoBehaviour {
         yes.SetActive(true);
         no.SetActive(true);
 
-        yes_text.text = "決定";       
+        yes_text.text = "決定";
 
-        if (SceneManager.GetActiveScene().name == "Compound")
+        if (GameMgr.final_select_flag == true)
         {
-            if (GameMgr.final_select_flag == true)
-            {
-                yes_text.text = "制作開始！";
-                YesSetDesign2();
-            }
-
-            if (GameMgr.compound_select == 5)
-            {
-                yes_text.text = "生地を焼く！";
-            }
-
-            if (GameMgr.compound_select == 10)
-            {
-                yes_text.text = "あげる";
-            }
+            yes_text.text = "制作開始！";
+            YesSetDesign2();
         }
+
     }
 
     void Off_Flag_Setting()

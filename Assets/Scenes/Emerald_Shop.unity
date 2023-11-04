@@ -1548,7 +1548,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 180, y: 55}
+  m_CellSize: {x: 180, y: 50}
   m_Spacing: {x: 20, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 1
@@ -3332,6 +3332,8 @@ MonoBehaviour:
   sound33: {fileID: 0}
   sound34: {fileID: 0}
   sound35: {fileID: 0}
+  sound36: {fileID: 0}
+  sound37: {fileID: 0}
   _mixRate: 0
 --- !u!4 &1404438393
 Transform:

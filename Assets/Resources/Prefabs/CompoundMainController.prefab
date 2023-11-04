@@ -13813,7 +13813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937a8e35e1d374c4d8e7a36ce9c975a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenFlag: 0
 --- !u!114 &114024097394659544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22485,7 +22484,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937a8e35e1d374c4d8e7a36ce9c975a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenFlag: 0
 --- !u!114 &114312189420426390
 MonoBehaviour:
   m_ObjectHideFlags: 1

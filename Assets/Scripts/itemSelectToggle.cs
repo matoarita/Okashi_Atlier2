@@ -151,13 +151,13 @@ public class itemSelectToggle : MonoBehaviour
             _text = text_area.GetComponentInChildren<Text>();
         }
 
-        switch (SceneManager.GetActiveScene().name) 
+        switch (GameMgr.Scene_Category_Num) 
         {
-            case "Compound":
+            case 10: //調合シーン
                
                 break;
 
-            case "Shop":
+            case 20: //ショップ
 
                 shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
 
@@ -166,7 +166,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 break;
 
-            case "Bar":
+            case 30: //酒場
 
                 bar_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
 
@@ -278,7 +278,7 @@ public class itemSelectToggle : MonoBehaviour
             }
             else
             {
-                if (SceneManager.GetActiveScene().name == "Compound") // 調合シーン以外でメインシーンでやりたい処理
+                if (GameMgr.Scene_Category_Num == 10) // 調合シーン以外でメインシーンでやりたい処理
                 {
 
                     itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
@@ -305,7 +305,7 @@ public class itemSelectToggle : MonoBehaviour
                     }
                 }
 
-                else if (SceneManager.GetActiveScene().name == "Shop") // ショップでやりたい処理
+                else if (GameMgr.Scene_Category_Num == 20) // ショップでやりたい処理
                 {
                     itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
@@ -327,13 +327,13 @@ public class itemSelectToggle : MonoBehaviour
                     }
                 }
 
-                else if (SceneManager.GetActiveScene().name == "Bar") // 酒場でやりたい処理
+                else if (GameMgr.Scene_Category_Num == 30) // 酒場でやりたい処理
                 {
                     itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
                     back_ShopFirst_btn.interactable = false;
 
-                    switch (bar_Main.shop_scene)
+                    switch (bar_Main.bar_scene)
                     {
 
                         case 3: //納品時の画面開いた時
@@ -1797,7 +1797,7 @@ public class itemSelectToggle : MonoBehaviour
         yes_text.text = "決定";
 
         //yesは元デザインに戻す
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。
+        if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。
         {
             yes_text.color = new Color(56f / 255f, 56f / 255f, 36f / 255f); //焦げ茶文字
             yes.GetComponent<Image>().sprite = yes_sprite1;

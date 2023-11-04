@@ -301,9 +301,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //好感度レベルのテーブル初期化
         Init_Stage1_LVTable();        
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 //カメラの取得
                 main_cam = Camera.main;
@@ -347,7 +347,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 break;
 
-            case "001_Title":
+            case 1000:
 
                 //Live2Dモデルの取得
                 _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
@@ -479,9 +479,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             canvas = GameObject.FindWithTag("Canvas");
 
-            switch (SceneManager.GetActiveScene().name)
+            switch (GameMgr.Scene_Category_Num)
             {
-                case "Compound":
+                case 10:
 
                     //カメラの取得
                     main_cam = Camera.main;
@@ -533,18 +533,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     break;
 
-                case "Shop":
+                case 20:
 
                     //カメラの取得
-                    main_cam = Camera.main;
+                    /*main_cam = Camera.main;
                     maincam_animator = main_cam.GetComponent<Animator>();
                     trans = maincam_animator.GetInteger("trans");
 
-                    GirlEat_Judge_on = false;
+                    GirlEat_Judge_on = false;*/
 
                     break;
 
-                case "001_Title":
+                case 1000:
 
                     //Live2Dモデルの取得
                     _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
@@ -563,9 +563,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             Emo_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Emo_Angry_Anim");
         }
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 //女の子の今のご機嫌チェック
                 CheckGokigen();
@@ -632,9 +632,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
         else { 
 
-            switch (SceneManager.GetActiveScene().name)
+            switch (GameMgr.Scene_Category_Num)
             {
-                case "Compound":
+                case 10:
 
                     if (GameMgr.compound_status == 110) //トップ画面のときだけ発動
                     {
@@ -856,12 +856,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private void LateUpdate()
     {
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":              
-
-                break;
-        }
 
         if(facemotion_start)
         {
@@ -1478,9 +1472,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void Girl1_Hint(float _temptimehint)
     {
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 //まだ一度も調合していない
                 if (PlayerStatus.First_recipi_on != true)
@@ -1576,7 +1570,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 break;
 
-            case "001_Title": //タイトルのときのセリフ
+            case 1000: //タイトルのときのセリフ
 
                 random = Random.Range(0, 100);
                 if (random < 20)

@@ -61,6 +61,9 @@ public class Contest_Main : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 100;
+
         //カメラの取得
         main_cam = Camera.main;
         maincam_animator = main_cam.GetComponent<Animator>();
@@ -207,157 +210,9 @@ public class Contest_Main : MonoBehaviour {
         {
             conteston_toggle_judge.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。          
 
-            Contest_Judge();
+            contest_judge.Contest_Judge_Start();
         }
     }
 
-
-    public void Contest_Judge()
-    {
-        Debug.Log("コンテスト判定ON");
-
-        //判定するお菓子を決定
-        
-        if (pitemlist.player_extremepanel_itemlist.Count > 0)
-        {
-            kettei_itemID = 0;
-            kettei_itemType = 2;           
-        }
-        else //エクストリームパネルにお菓子が入っていない時。デバッグ用。
-        {
-            //お試し　店売りねこクッキー
-            kettei_itemID = 200;
-            kettei_itemType = 0;
-        }
-
-        //提出されたお菓子の固有アイテム名・タイプサブを出し、判定用DBから一致するものを探す。
-        if (kettei_itemType == 0)
-        {
-            itemName = database.items[kettei_itemID].itemName;
-            item_subType = database.items[kettei_itemID].itemType_sub.ToString();
-
-            //表示用アイテム名
-            GameMgr.contest_okashiSlotName = "";
-            GameMgr.contest_okashiName = database.items[kettei_itemID].itemName;
-            GameMgr.contest_okashiNameHyouji = database.items[kettei_itemID].itemNameHyouji;
-            GameMgr.contest_okashiSubType = database.items[kettei_itemID].itemType_sub.ToString();
-            GameMgr.contest_okashiID = database.items[kettei_itemID].itemID;
-
-            GameMgr.contest_okashi_ItemData = database.items[kettei_itemID];
-            Debug.Log("コンテストお菓子　itemType:0 セッティングOK");
-        }
-        else if (kettei_itemType == 1)
-        {
-            itemName = pitemlist.player_originalitemlist[kettei_itemID].itemName;
-            item_subType = pitemlist.player_originalitemlist[kettei_itemID].itemType_sub.ToString();
-
-            //表示用アイテム名
-            GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[kettei_itemID].item_SlotName;
-            GameMgr.contest_okashiName = pitemlist.player_originalitemlist[kettei_itemID].itemName;
-            GameMgr.contest_okashiNameHyouji =  pitemlist.player_originalitemlist[kettei_itemID].itemNameHyouji;
-            GameMgr.contest_okashiSubType = pitemlist.player_originalitemlist[kettei_itemID].itemType_sub.ToString();
-            GameMgr.contest_okashiID = pitemlist.player_originalitemlist[kettei_itemID].itemID;
-
-            GameMgr.contest_okashi_ItemData = pitemlist.player_originalitemlist[kettei_itemID];
-            Debug.Log("コンテストお菓子　itemType:1 セッティングOK");
-        }
-        else if (kettei_itemType == 2)
-        {
-            itemName = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemName;
-            item_subType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
-
-            //表示用アイテム名
-            GameMgr.contest_okashiSlotName = pitemlist.player_extremepanel_itemlist[kettei_itemID].item_SlotName;
-            GameMgr.contest_okashiName = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemName;
-            GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemNameHyouji;
-            GameMgr.contest_okashiSubType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
-            GameMgr.contest_okashiID = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemID;
-
-            GameMgr.contest_okashi_ItemData = pitemlist.player_extremepanel_itemlist[kettei_itemID];
-            Debug.Log("コンテストお菓子　itemType:2 セッティングOK");
-        }
-
-
-
-
-        judge_flag = false;
-
-        //***お菓子の判定処理　***
-        //左二つが判定するお菓子、3番目が判定用のセット番号(girlLikeCompoのcompIDか、girlLikeSetの番号を直接指定。）
-        //4番目がコンテスト判定タイプ　0=審査員3人か、1=審査員1人として計算
-        //3番目の番号は、girlLikeSetのcomp_Num番号。
-        //***
-
-        judge_Type = 0; //0=審査員3人。1=審査員1人
-
-        if (judge_Type == 0) //1000～が審査員3人個別に判定セット。1500～が審査員まとめて一つバージョンの評価セット
-        {
-            DB_list_Type = 10000;
-        }
-        else if (judge_Type == 1)
-        {
-            DB_list_Type = 20000; //現在は使用していない。
-        }
-
-        i = 0;
-        while (i < girlLikeSet_database.girllikeset.Count)
-        {
-            if (girlLikeSet_database.girllikeset[i].girlLike_compNum >= DB_list_Type) 
-            {
-                if (girlLikeSet_database.girllikeset[i].girlLike_itemName != "Non") //固有名がはいってる場合は、固有名をみる。
-                {
-                    //固有のアイテム名と一致するかどうかを判定。
-                    if (girlLikeSet_database.girllikeset[i].girlLike_itemName == itemName)
-                    {
-                        //一致した場合の番号を入れる。
-                        compNum = girlLikeSet_database.girllikeset[i].girlLike_compNum;
-                        judge_flag = true;
-                        Debug.Log("判定番号: " + compNum);
-                        break;
-                    }
-                }
-                else//固有名が入ってない場合は、サブタイプをみる。
-                {
-                    if (girlLikeSet_database.girllikeset[i].girlLike_itemSubtype == item_subType && girlLikeSet_database.girllikeset[i].girlLike_itemSubtype != "Non")
-                    {
-                        compNum = girlLikeSet_database.girllikeset[i].girlLike_compNum;
-                        judge_flag = true;
-                        Debug.Log("判定番号: " + compNum);
-                        break;
-                    }
-                }
-            }
-            i++;
-        }
-
-        if (!judge_flag)
-        {
-            //例外処理。もし、審査員DB上に登録されていないお菓子を渡した場合。通常はないはずだが、登録し忘れなどの場合。
-            for (i = 0; i < GameMgr.contest_Score.Length; i++)
-            {
-                GameMgr.contest_Score[i] = -9999;
-            }
-
-            GameMgr.contest_TotalScore = -9999;
-        }
-        else
-        {
-            switch(judge_Type)
-            {
-                case 0:
-
-                    //0
-                    //審査員個別に判定バージョン　個別の場合、3人それぞれの評価値を設定する必要があり。
-                    contest_judge.Contest_Judge_method(kettei_itemID, kettei_itemType, compNum, 0);
-                    break;
-
-                case 1:
-
-                    //1
-                    //審査員まとめて一つの点数バージョン
-                    contest_judge.Contest_Judge_method(kettei_itemID, kettei_itemType, compNum, 1);
-                    break;
-            }                       
-        }
-    }
+    
 }

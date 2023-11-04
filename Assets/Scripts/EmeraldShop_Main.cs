@@ -58,6 +58,9 @@ public class EmeraldShop_Main : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 50;
+
         //カメラの取得
         main_cam = Camera.main;
         maincam_animator = main_cam.GetComponent<Animator>();

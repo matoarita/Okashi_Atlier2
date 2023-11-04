@@ -134,7 +134,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             no = yes_no_panel.transform.Find("No").gameObject;
         }
 
-        if (SceneManager.GetActiveScene().name == "Compound") 
+        if (GameMgr.Scene_Category_Num == 10) 
         {
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -143,7 +143,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
            
         }
-        else if (SceneManager.GetActiveScene().name == "200_Omake")
+        else if (GameMgr.Scene_Category_Num == 200)
         {
             yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
             yes = yes_no_panel.transform.Find("Yes").gameObject;
@@ -252,7 +252,8 @@ public class recipiitemSelectToggle : MonoBehaviour
                 updown_counter_obj.SetActive(true);
                 updown_counter.updown_keisan_Method();
             }
-            if (SceneManager.GetActiveScene().name == "200_Omake")
+
+            if (GameMgr.Scene_Category_Num == 200)
             {
                 yes_no_panel.SetActive(true);
                 yes.SetActive(false);
@@ -314,7 +315,7 @@ public class recipiitemSelectToggle : MonoBehaviour
 
                 BlackImage.SetActive(false);
                 
-                if (SceneManager.GetActiveScene().name == "200_Omake")
+                if (GameMgr.Scene_Category_Num == 200)
                 {
                     yes_no_panel.SetActive(false);
                     card_view.DeleteCard_DrawView();

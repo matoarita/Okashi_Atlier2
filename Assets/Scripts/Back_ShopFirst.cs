@@ -29,17 +29,9 @@ public class Back_ShopFirst : MonoBehaviour {
 
     public void OnClick_Back_ShopFirst()
     {
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Bar":
-
-                bar_Main_obj = GameObject.FindWithTag("Bar_Main");
-                bar_Main = bar_Main_obj.GetComponent<Bar_Main>();
-
-                bar_Main.shop_status = 0;
-                break;
-
-            case "Shop":
+            case 20:
 
                 shop_Main_obj = GameObject.FindWithTag("Shop_Main");
                 shop_Main = shop_Main_obj.GetComponent<Shop_Main>();
@@ -47,7 +39,15 @@ public class Back_ShopFirst : MonoBehaviour {
                 shop_Main.shop_status = 0;
                 break;
 
-            case "Farm":
+            case 30:
+
+                bar_Main_obj = GameObject.FindWithTag("Bar_Main");
+                bar_Main = bar_Main_obj.GetComponent<Bar_Main>();
+
+                bar_Main.bar_status = 0;
+                break;          
+
+            case 40:
 
                 farm_Main_obj = GameObject.FindWithTag("Farm_Main");
                 farm_Main = farm_Main_obj.GetComponent<Farm_Main>();
@@ -55,7 +55,7 @@ public class Back_ShopFirst : MonoBehaviour {
                 farm_Main.farm_status = 0;
                 break;
 
-            case "Emerald_Shop":
+            case 50:
 
                 emeraldshop_Main_obj = GameObject.FindWithTag("EmeraldShop_Main");
                 emeraldshop_Main = emeraldshop_Main_obj.GetComponent<EmeraldShop_Main>();
@@ -63,7 +63,7 @@ public class Back_ShopFirst : MonoBehaviour {
                 emeraldshop_Main.shop_status = 0;
                 break;
 
-            case "Hiroba2":
+            case 60:
 
                 BackScene();
                 break;

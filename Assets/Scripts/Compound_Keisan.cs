@@ -290,6 +290,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     // Update is called once per frame
     void Update() {
 
+        if(canvas == null)
+        {
+            //キャンバスの読み込み
+            canvas = GameObject.FindWithTag("Canvas");
+        }
     }
 
     public void ResetDefaultTasteParam()

@@ -250,34 +250,7 @@ public class Quest_Judge : MonoBehaviour {
        
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Bar":
-
-                barMain_obj = GameObject.FindWithTag("Bar_Main");
-                barMain = barMain_obj.GetComponent<Bar_Main>();
-
-                //名声パネルの取得
-                NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
-                ninkiStatus_Controller = NinkiStatus_Panel_obj.GetComponent<NinkiStatus_Controller>();
-
-                WhiteFadeCanvas = canvas.transform.Find("WhiteFadeCanvas").gameObject;
-
-                questResultPanel2 = canvas.transform.Find("QuestResultPanel2").gameObject;
-                questResultPanel2.SetActive(false);
-                HintText = questResultPanel2.transform.Find("QuestResultImage/HintText").GetComponent<Text>();
-                questResultPanel_tsukatext_pos2 = questResultPanel2.transform.Find("QuestResultImage/MoneyTsukaText").transform;
-                questResultPanel_tsukatext_defpos2 = questResultPanel_tsukatext_pos2.localPosition;
-                break;
-
-            case "Shop":
-
-                shopMain_obj = GameObject.FindWithTag("Shop_Main");
-                shopMain = shopMain_obj.GetComponent<Shop_Main>();
-                break;
-        }
-                       
+              
 
         shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
@@ -359,6 +332,29 @@ public class Quest_Judge : MonoBehaviour {
         
         endresultbutton = false;
         mute_on = false;
+    }
+
+    void InitSetting()
+    {
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 30:
+
+                //名声パネルの取得
+                NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
+                ninkiStatus_Controller = NinkiStatus_Panel_obj.GetComponent<NinkiStatus_Controller>();
+
+                WhiteFadeCanvas = canvas.transform.Find("WhiteFadeCanvas").gameObject;
+
+                questResultPanel2 = canvas.transform.Find("QuestResultPanel2").gameObject;
+                questResultPanel2.SetActive(false);
+                HintText = questResultPanel2.transform.Find("QuestResultImage/HintText").GetComponent<Text>();
+                questResultPanel_tsukatext_pos2 = questResultPanel2.transform.Find("QuestResultImage/MoneyTsukaText").transform;
+                questResultPanel_tsukatext_defpos2 = questResultPanel_tsukatext_pos2.localPosition;
+                break;
+
+
+        }
     }
 
     // Update is called once per frame
@@ -762,6 +758,7 @@ public class Quest_Judge : MonoBehaviour {
     //
     public void Okashi_Judge(int _ID)
     {
+        InitSetting();
         _qitemID = _ID;
 
         Okashi_Judge_Method();
@@ -1462,6 +1459,8 @@ public class Quest_Judge : MonoBehaviour {
 
     public void OnEndResultButton() //クエストリザルトボタンおすと、フラグがONに。
     {
+        InitSetting();
+
         sc.PlaySe(2);
 
         endresultbutton = true;
@@ -1528,17 +1527,13 @@ public class Quest_Judge : MonoBehaviour {
             sceneBGM.FadeInBGM();
         }
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Bar":
+            case 30:
 
-                barMain.shop_status = 0;
+                GameMgr.Reset_BarStatus = true;
                 break;
-
-            case "Shop":
-
-                shopMain.shop_status = 0;
-                break;
+           
         }
         
     }

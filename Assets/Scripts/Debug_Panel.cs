@@ -20,9 +20,6 @@ public class Debug_Panel : MonoBehaviour {
     private ExpTable exp_table;
     private FPSCounter fps_counter;
 
-    private GameObject mainlist_controller2_obj;
-    private MainListController2 mainlist_controller2;
-
     private GameObject StoryNumber;
     private Text StoryNumber_text;
 
@@ -567,16 +564,6 @@ public class Debug_Panel : MonoBehaviour {
                 GameMgr.hiroba_event_end[6] = true; //パン工房でベニエと会う。油を探すことになった。
                 GameMgr.hiroba_event_end[7] = true; //お花屋さんから油の話をきいた。「ひまわり畑」ON
 
-                if (SceneManager.GetActiveScene().name == "Hiroba2") // 
-                {
-                    //キャンバスの読み込み
-                    canvas = GameObject.FindWithTag("Canvas");
-                    mainlist_controller2_obj = canvas.transform.Find("MainList_ScrollView").gameObject;
-                    mainlist_controller2 = mainlist_controller2_obj.GetComponent<MainListController2>();
-
-                    mainlist_controller2.ToggleFlagCheck();
-                    mainlist_controller2.MenuWindowExpand();
-                }
                 break;
 
             case 50:

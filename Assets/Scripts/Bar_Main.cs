@@ -58,8 +58,8 @@ public class Bar_Main : MonoBehaviour
     private bool check_lvevent;
     private bool lvevent_loading;
 
-    public int shop_status;
-    public int shop_scene; //どのシーンを選択しているかを判別
+    public int bar_status;
+    public int bar_scene; //どのシーンを選択しているかを判別
 
     private bool hukidasi_oneshot; //吹き出しの作成は一つのみ
 
@@ -71,9 +71,10 @@ public class Bar_Main : MonoBehaviour
     private int rnd;
     private int count;
 
-    // Use this for initialization
     void Start()
     {
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 30;
 
         //カメラの取得
         main_cam = Camera.main;
@@ -110,7 +111,7 @@ public class Bar_Main : MonoBehaviour
 
         hukidasi_oneshot = false;
 
-        shop_select = canvas.transform.Find("Shop_Select").gameObject;
+        shop_select = canvas.transform.Find("Bar_Select").gameObject;
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
         shopon_toggle_sell = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Sell").gameObject;
         shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
@@ -168,8 +169,8 @@ public class Bar_Main : MonoBehaviour
         _text.text = shopdefault_text;
         text_area.SetActive(false);
 
-        shop_status = 0;
-        shop_scene = 0;
+        bar_status = 0;
+        bar_scene = 0;
 
         check_event = false; //強制で発生するイベントのフラグ
         check_lvevent = false; //レベルに応じて発生するイベントのフラグ
@@ -241,6 +242,11 @@ public class Bar_Main : MonoBehaviour
             */
         }
 
+        if(GameMgr.Reset_BarStatus)
+        {
+            GameMgr.Reset_BarStatus = false;
+            bar_status = 0;
+        }
 
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
@@ -278,7 +284,7 @@ public class Bar_Main : MonoBehaviour
             else
             {
                 //Debug.Log("shop_status" + shop_status);
-                switch (shop_status)
+                switch (bar_status)
                 {
                     case 0:
 
@@ -299,8 +305,8 @@ public class Bar_Main : MonoBehaviour
                             ninki_status_obj.SetActive(true);
                         }
 
-                        shop_scene = 0;
-                        shop_status = 100;
+                        bar_scene = 0;
+                        bar_status = 100;
 
                         if (trans == 1) //カメラが寄っていたら、デフォに戻す。
                         {
@@ -356,8 +362,8 @@ public class Bar_Main : MonoBehaviour
             shop_select.SetActive(false);
             placename_panel.SetActive(false);
 
-            shop_status = 1; //ショップのシーンに入っている、というフラグ
-            shop_scene = 1;
+            bar_status = 1; //ショップのシーンに入っている、というフラグ
+            bar_scene = 1;
 
             _text.text = "何を買うの？";
 
@@ -370,8 +376,8 @@ public class Bar_Main : MonoBehaviour
         {
             shopon_toggle_talk.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            shop_status = 2; //眺めるを押したときのフラグ
-            shop_scene = 2;
+            bar_status = 2; //眺めるを押したときのフラグ
+            bar_scene = 2;
 
             //_text.text = "なぁに？お話する？";
 
@@ -395,8 +401,8 @@ public class Bar_Main : MonoBehaviour
             placename_panel.SetActive(false);
             //money_status_obj.SetActive(false);
 
-            shop_status = 3; //クエストを押したときのフラグ
-            shop_scene = 3;
+            bar_status = 3; //クエストを押したときのフラグ
+            bar_scene = 3;
 
             _text.text = "いまは、こんな依頼があるわよ。どれをうける？";
 
@@ -415,8 +421,8 @@ public class Bar_Main : MonoBehaviour
         {
             shopon_toggle_uwasa.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            shop_status = 4; //クエストを押したときのフラグ
-            shop_scene = 4;
+            bar_status = 4; //クエストを押したときのフラグ
+            bar_scene = 4;
 
             //_text.text = "これはうわさ話なんだけど..聞く？　一回100Gいただくわ。";
 
@@ -446,8 +452,8 @@ public class Bar_Main : MonoBehaviour
             shop_select.SetActive(false);
             placename_panel.SetActive(false);
 
-            shop_status = 5; //ショップのシーンに入っている、というフラグ
-            shop_scene = 5;
+            bar_status = 5; //ショップのシーンに入っている、というフラグ
+            bar_scene = 5;
 
             playeritemlist_onoff.SetActive(true); //プレイヤーアイテムリスト画面を表示。
 
@@ -462,8 +468,8 @@ public class Bar_Main : MonoBehaviour
         {
             shopon_toggle_present.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            shop_status = 6; //クエストを押したときのフラグ
-            shop_scene = 6;
+            bar_status = 6; //クエストを押したときのフラグ
+            bar_scene = 6;
 
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
@@ -504,8 +510,8 @@ public class Bar_Main : MonoBehaviour
         GameMgr.compound_select = 0; //何もしていない状態
         GameMgr.compound_status = 0;
 
-        shop_status = 0;
-        shop_scene = 0;
+        bar_status = 0;
+        bar_scene = 0;
     }
 
     IEnumerator Scenario_loading()
@@ -525,7 +531,7 @@ public class Bar_Main : MonoBehaviour
         check_event = false;
         check_lvevent = false;
         lvevent_loading = false;
-        shop_status = 0;
+        bar_status = 0;
 
     }
 

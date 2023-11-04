@@ -55,6 +55,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     private GameObject shopMain_obj;
     private Shop_Main shopMain;
+
+    private GameObject barMain_obj;
+    private Bar_Main barMain;
     //private Bar_Main barMain;
 
     private GameObject black_effect;
@@ -161,57 +164,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     void Update() {
 
         //初期化
-        switch (SceneManager.GetActiveScene().name)
-        {
-            /*case "000_CompanyLogoMovie": //シナリオ系のシーンでは読み込まない。
-                break;
-
-            case "001_Title": //シナリオ系のシーンでは読み込まない。
-                break;
-
-            case "010_Prologue":
-                break;
-
-            case "010_Chapter1":
-                break;
-
-            case "020_Stage2":
-                break;
-
-            case "020_Stage2_eyecatch":
-                break;
-
-            case "030_Stage3":
-                break;
-
-            case "030_Stage3_eyecatch":
-                break;
-
-            case "100_Ending":
-                break;
-
-            case "110_TotalResult":
-                break;
-
-            case "120_AutoSave":
-                break;
-
-            case "200_Omake":
-                break;
-
-            case "999_Gameover":
-                break;
-
-            case "Farm":
-                break;
-
-            case "Emerald_Shop":
-                break;
-
-            case "Contest":
-                break;*/
-
-            case "Compound":
+        switch (GameMgr.Scene_Category_Num)
+        {            
+            case 10:
 
                 //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
                 
@@ -231,16 +186,13 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 break;
 
-            case "Shop":
+            case 20:
 
-                if (shopMain_obj == null)
+                if (canvas == null)
                 {
                     InitSetting();
 
                     NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
-
-                    shopMain_obj = GameObject.FindWithTag("Shop_Main");
-                    shopMain = shopMain_obj.GetComponent<Shop_Main>();
 
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
                     shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
@@ -258,16 +210,16 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 break;
 
-            case "Bar":
+            case 30:
 
-                if (shopMain_obj == null)
+                if (canvas == null)
                 {
                     InitSetting();
 
                     NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
 
-                    shopMain_obj = GameObject.FindWithTag("Bar_Main");
-                    shopMain = shopMain_obj.GetComponent<Shop_Main>();
+                    barMain_obj = GameObject.FindWithTag("Bar_Main");
+                    barMain = barMain_obj.GetComponent<Bar_Main>();
 
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
                     shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
@@ -492,7 +444,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 }
             }
 
-            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+            if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
 
                 switch (GameMgr.compound_status)
@@ -582,11 +534,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             }
 
 
-            if (SceneManager.GetActiveScene().name == "Bar")
+            if (GameMgr.Scene_Category_Num == 30)
             {
                 if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                 {
-                    if (shopMain.shop_scene == 3 && shopquestlistController.nouhin_select_on == 1) //ショップ納品時の選択
+                    if (barMain.bar_scene == 3 && shopquestlistController.nouhin_select_on == 1) //ショップ納品時の選択
                     {
                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                         {
@@ -763,7 +715,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         else
         {
             //調合以外での処理
-            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理
+            if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理
             {          
                 //お菓子をあげるときの処理
                 if (GameMgr.compound_select == 10)
@@ -785,7 +737,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 }
 
             }
-            else if (SceneManager.GetActiveScene().name == "200_Omake") //
+            else if (GameMgr.Scene_Category_Num == 200) //
             {
                 update_ListSelect_Flag = 0; //オールリセットするのみ。
                                             //update_ListSelect(); //アイテム選択時の、リストの表示処理

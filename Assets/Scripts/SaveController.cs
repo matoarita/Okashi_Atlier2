@@ -925,9 +925,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
 
         //画面の更新処理
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 DrawGameScreen();               
                 break;
@@ -941,9 +941,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 

@@ -148,7 +148,7 @@ public class GetMaterial : MonoBehaviour
         text_kaigyo_buttonPanel = canvas.transform.Find("MessageWindow/KaigyoButtonPanel").gameObject;
 
         //時間管理オブジェクトの取得
-        time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;

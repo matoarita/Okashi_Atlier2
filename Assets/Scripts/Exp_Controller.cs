@@ -407,8 +407,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 set_kaisu = 1;
             }
-            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数は、updowncounterの数値がセットされる。スクリプトは、Compound_Checkから参照。
-
+            //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数set_kaisuは、Compound_Checkから参照。
+            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
 
             //調合処理
             Compo_1();
@@ -1043,7 +1043,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //シーンごとの後処理
     void SceneAfterSetting()
     {
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
@@ -1298,9 +1298,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             pitemlist.addPlayerItem(database.items[kettei_item1].itemName, result_kosu);
         }
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Shop":
+            case 20:
 
                 //所持金をへらす
                 moneyStatus_Controller.UseMoney(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
@@ -1309,7 +1309,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
                 break;
 
-            case "Farm":
+            case 40:
 
                 //所持金をへらす
                 moneyStatus_Controller.UseMoney(shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
@@ -1318,7 +1318,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
                 break;
 
-            case "Emerald_Shop":
+            case 50:
 
                 kaeruCoin_Controller = canvas.transform.Find("KaeruCoin_Panel").GetComponent<KaeruCoin_Controller>();
 
@@ -1395,9 +1395,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         }
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Shop":
+            case 20:
 
                 //所持金を増やす
                 moneyStatus_Controller.GetMoney(database.items[pitemlistController.final_kettei_item1].sell_price * pitemlistController.final_kettei_kosu1);

@@ -17,9 +17,6 @@ public class Updown_counter : MonoBehaviour {
     private GameObject shopquestlistController_obj;
     private ShopQuestListController shopquestlistController;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private GameObject shop_Main_obj;
     private Shop_Main shop_Main;
 
@@ -179,8 +176,8 @@ public class Updown_counter : MonoBehaviour {
             //レシピ調合とそれ以外で、YesNoの取得オブジェクトが違う
             if (recipilistController_obj.activeSelf == true)
             {
-                yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
-                no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
+                yes = canvas.transform.Find("Yes_no_Panel(Clone)/Yes").gameObject;
+                no = canvas.transform.Find("Yes_no_Panel(Clone)/No").gameObject;
                 yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
                 _p_or_recipi_flag = 1;
@@ -203,9 +200,9 @@ public class Updown_counter : MonoBehaviour {
         }
         else
         {
-            switch (SceneManager.GetActiveScene().name)
+            switch (GameMgr.Scene_Category_Num)
             {
-                case "Shop":
+                case 20:
 
                     shop_Main_obj = GameObject.FindWithTag("Shop_Main");
                     shop_Main = shop_Main_obj.GetComponent<Shop_Main>();
@@ -250,7 +247,7 @@ public class Updown_counter : MonoBehaviour {
 
                     break;
 
-                case "Farm":
+                case 40:
 
                     farm_Main_obj = GameObject.FindWithTag("Farm_Main");
                     farm_Main = farm_Main_obj.GetComponent<Farm_Main>();
@@ -266,7 +263,7 @@ public class Updown_counter : MonoBehaviour {
 
                     break;
 
-                case "Emerald_Shop":
+                case 50:
 
                     emeraldshop_Main_obj = GameObject.FindWithTag("EmeraldShop_Main");
                     emeraldshop_Main = emeraldshop_Main_obj.GetComponent<EmeraldShop_Main>();
@@ -279,13 +276,6 @@ public class Updown_counter : MonoBehaviour {
                     updown_button_Small.SetActive(true);
 
                     ShopUpdownCounter_Pos();
-
-                    break;
-
-                case "Compound":
-
-                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                     break;
 
@@ -728,7 +718,7 @@ public class Updown_counter : MonoBehaviour {
 
         else //調合以外の処理
         {
-            if (SceneManager.GetActiveScene().name == "Shop")
+            if (GameMgr.Scene_Category_Num == 20)
             {
                 if (shop_Main.shop_scene == 1) //ショップ「買う」のとき
                 {
@@ -840,7 +830,7 @@ public class Updown_counter : MonoBehaviour {
                     SellYosokuText();
                 }
             }
-            else if (SceneManager.GetActiveScene().name == "Farm")
+            else if (GameMgr.Scene_Category_Num == 40)
             {
 
                 _zaiko_max = shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
@@ -857,7 +847,7 @@ public class Updown_counter : MonoBehaviour {
 
                 _count_text.text = GameMgr.updown_kosu.ToString();
             }
-            else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
+            else if (GameMgr.Scene_Category_Num == 50)
             {
 
                 _zaiko_max = shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
@@ -882,7 +872,7 @@ public class Updown_counter : MonoBehaviour {
 
     public void OnClickup_Big()
     {
-        if (SceneManager.GetActiveScene().name == "Shop")
+        if (GameMgr.Scene_Category_Num == 20)
         {
             if (shop_Main.shop_scene == 1)
             {
@@ -931,7 +921,7 @@ public class Updown_counter : MonoBehaviour {
                 
             }
         }
-        else if (SceneManager.GetActiveScene().name == "Farm")
+        else if (GameMgr.Scene_Category_Num == 40)
         {
 
             _zaiko_max = shop_database.farmitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
@@ -949,7 +939,7 @@ public class Updown_counter : MonoBehaviour {
             _count_text.text = GameMgr.updown_kosu.ToString();
 
         }
-        else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
+        else if (GameMgr.Scene_Category_Num == 50)
         {
 
             _zaiko_max = shop_database.emeraldshop_items[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
@@ -1006,7 +996,7 @@ public class Updown_counter : MonoBehaviour {
         else
         //調合以外での処理
         {
-            if (SceneManager.GetActiveScene().name == "Shop")
+            if (GameMgr.Scene_Category_Num == 20)
             {
                 if (shop_Main.shop_scene == 1) //買い物のとき
                 {
@@ -1027,7 +1017,7 @@ public class Updown_counter : MonoBehaviour {
                     DegMethod1();
                 }
             }
-            else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
+            else if (GameMgr.Scene_Category_Num == 50)
             {
                 DegMethod1();
 
@@ -1043,7 +1033,7 @@ public class Updown_counter : MonoBehaviour {
 
     public void OnClickdown_Small()
     {
-        if (SceneManager.GetActiveScene().name == "Shop")
+        if (GameMgr.Scene_Category_Num == 20)
         {
             if (shop_Main.shop_scene == 1) //買い物のとき
             {
@@ -1064,7 +1054,7 @@ public class Updown_counter : MonoBehaviour {
                 DegMethod2();
             }
         }
-        else if (SceneManager.GetActiveScene().name == "Emerald_Shop")
+        else if (GameMgr.Scene_Category_Num == 50)
         {
             DegMethod2();
 

@@ -299,9 +299,9 @@ public class shopitemSelectToggle : MonoBehaviour
 
     IEnumerator shop_buy_Final_select()
     {
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Emerald_Shop":
+            case 50:
 
                 switch(shopitemlistController.shop_dongriType)
                 {
@@ -412,23 +412,23 @@ public class shopitemSelectToggle : MonoBehaviour
         {
             shopitemlistController._shop_listitem[i].GetComponent<Toggle>().isOn = false;
 
-            switch (SceneManager.GetActiveScene().name)
+            switch (GameMgr.Scene_Category_Num)
             {
-                case "Shop":
+                case 20:
 
                     player_money = PlayerStatus.player_money;
                     _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
 
                     break;
 
-                case "Farm":
+                case 40:
 
                     player_money = PlayerStatus.player_money;
                     _cost = shop_database.farmitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
 
                     break;
 
-                case "Emerald_Shop":
+                case 50:
 
                     switch (shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_dongriType)
                     {

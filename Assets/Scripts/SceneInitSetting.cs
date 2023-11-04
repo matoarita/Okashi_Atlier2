@@ -67,7 +67,7 @@ public class SceneInitSetting : SingletonMonoBehaviour<SceneInitSetting>
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        //アイテムリストがすでに生成されているかをチェック　Shop_Main+CompoundMainControllerが混在する場合などで、重複する可能性があり
+        //アイテムリストがすでに生成されているかをチェック　Shop_Main+CompoundMainControllerが混在する場合などで、重複する可能性がありなので、重複回避も実施。
         playerlist_check_on = false;
         foreach (Transform child in canvas.transform)
         {

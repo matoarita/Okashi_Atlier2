@@ -434,9 +434,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //バフ効果計算メソッドの取得
         bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 //カメラの取得
                 main_cam = Camera.main;
@@ -590,7 +590,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 break;
 
-            case "Contest":
+            case 100:
 
                 //テキストエリアの取得　コンテストの場合
                 text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -657,9 +657,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //ロード時に必ずリセットされる項目
     public void ResetLoadStatus()
     {
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10: //メインシーン
 
                 heart_animON = false;
                 loveplusanimON = false;

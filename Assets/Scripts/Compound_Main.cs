@@ -99,7 +99,6 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
-    private GameObject pitemlist_scrollview_init_obj;
 
     private GameObject recipilist_onoff;
     private RecipiListController recipilistController;
@@ -290,7 +289,9 @@ public class Compound_Main : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-       
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 10;
+
         //Debug.Log("Compound scene loaded");
 
         //宴オブジェクトの読み込み。
@@ -729,7 +730,7 @@ public class Compound_Main : MonoBehaviour
         {
             CharacterLive2DImageOFF();
             touch_controller.Touch_OnAllOFF();
-        }
+        }        
 
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
     }

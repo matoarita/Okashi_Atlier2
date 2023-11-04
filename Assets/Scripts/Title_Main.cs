@@ -36,6 +36,9 @@ public class Title_Main : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 1000;
+
         //Prefab内の、コンテンツ要素を取得
         canvas = GameObject.FindWithTag("Canvas");
 
@@ -67,7 +70,7 @@ public class Title_Main : MonoBehaviour {
         live2d_animator = _model_obj.GetComponent<Animator>();
 
         version_text = canvas.transform.Find("VersionText").gameObject;
-        version_text.GetComponent<Text>().text = "ver " + GameMgr.GameVersion.ToString();
+        version_text.GetComponent<Text>().text = "ver " + GameMgr.GameVersion.ToString("f2");
 
         //システムロード
         save_controller.SystemloadCheck();

@@ -240,9 +240,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
         else
         {
-            switch (SceneManager.GetActiveScene().name)
+            switch (GameMgr.Scene_Category_Num)
             {
-                case "Compound": // 調合シーン以外でやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+                case 10: // 調合シーン以外でやりたい処理。それ以外のシーンでは、この中身の処理は無視。
                    
                     if (GameMgr.tutorial_ON == true)
                     {
@@ -269,7 +269,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     OpenAnim();
                     break;
 
-                case "Shop":
+                case 20:
 
                     shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
 
@@ -303,11 +303,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     OpenAnim();
                     break;
 
-                case "Bar":
+                case 30:
 
                     bar_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
 
-                    switch (bar_Main.shop_scene)
+                    switch (bar_Main.bar_scene)
                     {
                         case 3: //納品時にアイテムを選択するときの処理
 
@@ -554,7 +554,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             }
             else
             {
-                if (SceneManager.GetActiveScene().name == "Compound")
+                if (GameMgr.Scene_Category_Num == 10)
                 {
                     switch (GameMgr.compound_select) //さらに、調合シーンによって、アイテム種類ごとに表示／非表示を分ける。
                     {                       
@@ -586,7 +586,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
                 }
-                else if (SceneManager.GetActiveScene().name == "Shop") //納品時にリストを開くとき
+                else if (GameMgr.Scene_Category_Num == 20) //納品時にリストを開くとき
                 {
                     switch (shop_Main.shop_scene)
                     {
@@ -625,9 +625,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
                 }
-                else if (SceneManager.GetActiveScene().name == "Bar") //納品時にリストを開くとき
+                else if (GameMgr.Scene_Category_Num == 30) //納品時にリストを開くとき
                 {
-                    switch (bar_Main.shop_scene)
+                    switch (bar_Main.bar_scene)
                     {
                         case 3:
 

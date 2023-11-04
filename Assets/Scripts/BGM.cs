@@ -176,6 +176,7 @@ public class BGM : MonoBehaviour {
         _bgm[1].Play();
     }
 
+    //各シーンのBGM選択
     public void PlaySub()
     {
         switch (SceneManager.GetActiveScene().name)
