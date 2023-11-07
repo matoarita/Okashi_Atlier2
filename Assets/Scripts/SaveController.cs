@@ -925,6 +925,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
 
         //画面の更新処理
+        //Debug.Log("(GameMgr.Scene_Category_Num): " + GameMgr.Scene_Category_Num);
         switch (GameMgr.Scene_Category_Num)
         {
             case 10:

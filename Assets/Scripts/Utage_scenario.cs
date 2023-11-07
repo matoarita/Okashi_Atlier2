@@ -256,7 +256,7 @@ public class Utage_scenario : MonoBehaviour
             }
 
             //調合シーンでのテキスト処理
-            if (SceneManager.GetActiveScene().name == "Compound")
+            if (SceneManager.GetActiveScene().name == "Compound" || SceneManager.GetActiveScene().name == "Or_Compound")
             {
                 if (!_model)
                 {

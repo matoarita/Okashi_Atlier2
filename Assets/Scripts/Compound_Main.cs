@@ -291,6 +291,7 @@ public class Compound_Main : MonoBehaviour
     {
         //今いるシーン番号を指定
         GameMgr.Scene_Category_Num = 10;
+        //Debug.Log("(GameMgr.Scene_Category_Num): " + GameMgr.Scene_Category_Num);
 
         //Debug.Log("Compound scene loaded");
 
@@ -730,7 +731,7 @@ public class Compound_Main : MonoBehaviour
         {
             CharacterLive2DImageOFF();
             touch_controller.Touch_OnAllOFF();
-        }        
+        }
 
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
     }
@@ -3212,14 +3213,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    //別シーンからこのシーンが読み込まれたときに、読み込む
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {
-
-        }
-    }
+    
 
     void DefaultStartPitem()
     {
@@ -3975,10 +3969,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    public void ChangeBGM() //デバッグパネルからアクセス用
-    {
-        sceneBGM.OnMainBGM();
-    }
+    
 
     void DrawALLOFFBG()
     {
@@ -4306,5 +4297,19 @@ public class Compound_Main : MonoBehaviour
     float SujiMap(float value, float start1, float stop1, float start2, float stop2)
     {
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+    }
+
+    public void ChangeBGM() //デバッグパネルからアクセス用
+    {
+        sceneBGM.OnMainBGM();
+    }
+
+    //別シーンからこのシーンが読み込まれたときに、読み込む
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        {
+
+        }
     }
 }

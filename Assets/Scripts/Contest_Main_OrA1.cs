@@ -36,7 +36,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private GameObject contest_judge_obj;
     private Contest_Judge contest_judge;
 
-    public int contest_status;
+    private int contest_status;
     private int contest_scene;
     private PlayerItemList pitemlist;
 

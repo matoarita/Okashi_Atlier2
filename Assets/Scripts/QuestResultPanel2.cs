@@ -13,8 +13,12 @@ public class QuestResultPanel2 : MonoBehaviour {
     private GameObject Magic_effect_Prefab1;
     private List<GameObject> _listEffect = new List<GameObject>();
 
+    private GameObject quest_Judge_CanvasPanel;
     private GameObject WhiteFade;
     private GameObject WhiteFadeCanvas;
+
+    private GameObject questjudge_obj;
+    private Quest_Judge questjudge;
 
     private GameObject ResultButton;
 
@@ -40,11 +44,16 @@ public class QuestResultPanel2 : MonoBehaviour {
 
         _listEffect.Clear();
 
+        quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
+
         questResult_obj = this.transform.Find("QuestResultImage").gameObject;
         WhiteFade = this.transform.Find("WhiteEffect").gameObject;
-        WhiteFadeCanvas = canvas.transform.Find("WhiteFadeCanvas").gameObject;
+        WhiteFadeCanvas = quest_Judge_CanvasPanel.transform.Find("WhiteFadeCanvas").gameObject;
         ResultButton = this.transform.Find("QuestResultCloseButton").gameObject;
         ResultButton.SetActive(false);
+
+        questjudge_obj = GameObject.FindWithTag("Quest_Judge");
+        questjudge = questjudge_obj.GetComponent<Quest_Judge>();
 
         if (GameMgr.bar_quest_okashiScore < GameMgr.low_score) //60点より下だとエフェクトがでない
         { }
@@ -91,5 +100,11 @@ public class QuestResultPanel2 : MonoBehaviour {
         yield return new WaitForSeconds(2f); //2秒待つ
 
         ResultButton.SetActive(true);
+    }
+
+    //結果確認のボタンを押した
+    public void OnEndResultButton()
+    {
+        questjudge.OnEndResultButton();
     }
 }

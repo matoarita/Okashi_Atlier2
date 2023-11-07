@@ -55,6 +55,9 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         //playeritemlist_onoff.transform.localPosition = new Vector3(-240,80, 0);
         playeritemlist_onoff.name = "PlayeritemList_ScrollView";
 
+        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
+        pitemlistController.OnInitAfterSetting();
+
     }
 
     public void RecipiList_ScrollView_Init()

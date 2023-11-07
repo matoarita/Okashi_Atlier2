@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class FadeCharacter : MonoBehaviour {
 
+    private GameObject CharacterImg_obj;
+
     private bool fade_flag;
     private int fade_sw;
 
@@ -15,11 +17,12 @@ public class FadeCharacter : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        CharacterImg_obj = this.transform.Find("CharacterImage").gameObject;
 
         red = 1;//this.gameObject.GetComponent<SpriteRenderer>().color.r;
         green = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.g;
         blue = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.b;
-        alfa = this.gameObject.GetComponent<SpriteRenderer>().color.a;
+        alfa = CharacterImg_obj.gameObject.GetComponent<SpriteRenderer>().color.a;
 
         fade_flag = false;
         _speed = 0.1f;
@@ -46,7 +49,7 @@ public class FadeCharacter : MonoBehaviour {
                 case 0: //255 -> 0
 
                     alfa -= _speed;
-                    this.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
+                    CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
 
                     if (alfa < 0.0)
                     {
@@ -57,7 +60,7 @@ public class FadeCharacter : MonoBehaviour {
                 case 1: //0 -> 255
 
                     alfa += _speed;
-                    this.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
+                    CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
 
                     if (alfa > 1.0)
                     {
@@ -89,12 +92,14 @@ public class FadeCharacter : MonoBehaviour {
 
     public void SetOff() //画像を透明にし、なくす。
     {
-        this.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 0);
+        CharacterImg_obj = this.transform.Find("CharacterImage").gameObject;
+        CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 0);
     }
 
     public void SetOn() //画像を不透明度=255にし、表示。
     {
-        this.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 1);
+        CharacterImg_obj = this.transform.Find("CharacterImage").gameObject;
+        CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 1);
     }
 
 }

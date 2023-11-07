@@ -29,8 +29,6 @@ public class Quest_Judge : MonoBehaviour {
 
     private GameObject shopquestlistController_obj;
     private ShopQuestListController shopquestlistController;
-    private GameObject back_ShopFirst_obj;
-    private Button back_ShopFirst_btn;
 
     private Toggle questListToggle;
     private Toggle nouhinToggle;
@@ -213,6 +211,8 @@ public class Quest_Judge : MonoBehaviour {
 
     private GameObject WhiteFadeCanvas;
 
+    private GameObject quest_Judge_CanvasPanel;
+
     //時間
     private float timeOut;
 
@@ -250,12 +250,14 @@ public class Quest_Judge : MonoBehaviour {
        
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-              
 
-        shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+
+
+        //**クエストパネル関係取得　酒場のみのオブジェクトなので気を付ける
+
+        quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
+        shopquestlistController_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-        back_ShopFirst_obj = shopquestlistController_obj.transform.Find("Back_ShopFirst").gameObject;
-        back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
 
         questListToggle = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_QuestList").GetComponent<Toggle>();
         nouhinToggle = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_Nouhin").GetComponent<Toggle>();
@@ -263,7 +265,29 @@ public class Quest_Judge : MonoBehaviour {
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
         yes = yes_no_panel.transform.Find("Yes").gameObject;
         no = yes_no_panel.transform.Find("No").gameObject;
-        
+
+        //クエストリザルトパネル
+        questResultPanel = quest_Judge_CanvasPanel.transform.Find("QuestResultPanel").gameObject;
+        questResultPanel.SetActive(false);
+
+        questResultPanel_tsukatext_pos = questResultPanel.transform.Find("QuestResultImage/MoneyTsukaText").transform;
+        questResultPanel_tsukatext_defpos = questResultPanel_tsukatext_pos.localPosition;
+
+        //名声パネルの取得
+        NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
+        ninkiStatus_Controller = NinkiStatus_Panel_obj.GetComponent<NinkiStatus_Controller>();
+
+        WhiteFadeCanvas = quest_Judge_CanvasPanel.transform.Find("WhiteFadeCanvas").gameObject;
+
+        questResultPanel2 = quest_Judge_CanvasPanel.transform.Find("QuestResultPanel2").gameObject;
+        questResultPanel2.SetActive(false);
+        HintText = questResultPanel2.transform.Find("QuestResultImage/HintText").GetComponent<Text>();
+        questResultPanel_tsukatext_pos2 = questResultPanel2.transform.Find("QuestResultImage/MoneyTsukaText").transform;
+        questResultPanel_tsukatext_defpos2 = questResultPanel_tsukatext_pos2.localPosition;
+
+        //ここまで
+
+
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();       
@@ -293,7 +317,7 @@ public class Quest_Judge : MonoBehaviour {
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
+        MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         //女の子、お菓子の判定処理オブジェクトの取得
@@ -321,14 +345,6 @@ public class Quest_Judge : MonoBehaviour {
         judge_anim_status = 0;
         judge_end = false;
 
-        //クエストリザルトパネル
-        questResultPanel = canvas.transform.Find("QuestResultPanel").gameObject;
-        questResultPanel.SetActive(false);
-        
-
-        questResultPanel_tsukatext_pos = questResultPanel.transform.Find("QuestResultImage/MoneyTsukaText").transform;
-        questResultPanel_tsukatext_defpos = questResultPanel_tsukatext_pos.localPosition;
-
         
         endresultbutton = false;
         mute_on = false;
@@ -340,17 +356,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             case 30:
 
-                //名声パネルの取得
-                NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
-                ninkiStatus_Controller = NinkiStatus_Panel_obj.GetComponent<NinkiStatus_Controller>();
-
-                WhiteFadeCanvas = canvas.transform.Find("WhiteFadeCanvas").gameObject;
-
-                questResultPanel2 = canvas.transform.Find("QuestResultPanel2").gameObject;
-                questResultPanel2.SetActive(false);
-                HintText = questResultPanel2.transform.Find("QuestResultImage/HintText").GetComponent<Text>();
-                questResultPanel_tsukatext_pos2 = questResultPanel2.transform.Find("QuestResultImage/MoneyTsukaText").transform;
-                questResultPanel_tsukatext_defpos2 = questResultPanel_tsukatext_pos2.localPosition;
+                
                 break;
 
 
@@ -371,7 +377,6 @@ public class Quest_Judge : MonoBehaviour {
                     //text_area.SetActive(false);
                     shopquestlistController_obj.SetActive(false);
                     black_effect.SetActive(false);
-                    back_ShopFirst_obj.SetActive(false);
 
                     timeOut = 1.5f;
                     judge_anim_status = 1;
@@ -646,7 +651,6 @@ public class Quest_Judge : MonoBehaviour {
                 questListToggle.interactable = true;
                 nouhinToggle.interactable = true;
 
-                //back_ShopFirst_btn.interactable = true;
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
             }
         }
@@ -1457,7 +1461,7 @@ public class Quest_Judge : MonoBehaviour {
 
     
 
-    public void OnEndResultButton() //クエストリザルトボタンおすと、フラグがONに。
+    public void OnEndResultButton() //クエストリザルトボタンおすと、フラグがONに。各QuestResultPanelから呼び出しされる。
     {
         InitSetting();
 
@@ -1516,7 +1520,6 @@ public class Quest_Judge : MonoBehaviour {
         questListToggle.interactable = true;
         nouhinToggle.interactable = true;
 
-        back_ShopFirst_btn.interactable = true;
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
         if(mute_on)
@@ -1531,7 +1534,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             case 30:
 
-                GameMgr.Reset_BarStatus = true;
+                GameMgr.Reset_SceneStatus = true;
                 break;
            
         }

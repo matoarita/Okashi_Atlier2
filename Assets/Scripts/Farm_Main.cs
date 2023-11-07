@@ -36,8 +36,8 @@ public class Farm_Main : MonoBehaviour {
 
     private GameObject backshopfirst_obj;
 
-    public int farm_status;
-    public int farm_scene; //どのシーンを選択しているかを判別
+    //public int farm_status;
+    //public int farm_scene; //どのシーンを選択しているかを判別
 
     private int i;
 
@@ -103,8 +103,8 @@ public class Farm_Main : MonoBehaviour {
         _text.text = "ここは牧場だ。";
         text_area.SetActive(false);
 
-        farm_status = 0;
-        farm_scene = 0;
+        GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
 
         //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
         for (i = 0; i < shop_database.farmitems.Count; i++)
@@ -160,6 +160,12 @@ public class Farm_Main : MonoBehaviour {
                 break;
         }
 
+        if (GameMgr.Reset_SceneStatus)
+        {
+            GameMgr.Reset_SceneStatus = false;
+            GameMgr.Scene_Status = 0;
+        }
+
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {
@@ -170,13 +176,13 @@ public class Farm_Main : MonoBehaviour {
             money_status_obj.SetActive(false);
             placename_panel.SetActive(false);
 
-            farm_status = 0;
-            farm_scene = 0;
+            GameMgr.Scene_Status = 0;
+            GameMgr.Scene_Select = 0;
         }
         else
         {
             //Debug.Log("shop_status" + shop_status);
-            switch (farm_status)
+            switch (GameMgr.Scene_Status)
             {
                 case 0:
 
@@ -187,8 +193,8 @@ public class Farm_Main : MonoBehaviour {
                     money_status_obj.SetActive(true);
                     placename_panel.SetActive(true);
 
-                    farm_scene = 0;
-                    farm_status = 100;
+                    GameMgr.Scene_Select = 0;
+                    GameMgr.Scene_Status = 100;
 
                     if (trans == 1) //カメラが寄っていたら、デフォに戻す。
                     {
@@ -234,8 +240,8 @@ public class Farm_Main : MonoBehaviour {
             farm_select.SetActive(false);
             placename_panel.SetActive(false);
 
-            farm_status = 1; //ショップのシーンに入っている、というフラグ
-            farm_scene = 1;
+            GameMgr.Scene_Status = 1; //ショップのシーンに入っている、というフラグ
+            GameMgr.Scene_Select = 1;
 
             _text.text = "ぎょ～さん買っていきぃ！";
 
@@ -248,8 +254,8 @@ public class Farm_Main : MonoBehaviour {
         {
             farm_toggle_talk.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            farm_status = 2; //話すを押したときのフラグ
-            farm_scene = 2;
+            GameMgr.Scene_Status = 2; //話すを押したときのフラグ
+            GameMgr.Scene_Select = 2;
 
             //_text.text = "（..今はしゃべる気がないようだ。）";
 
@@ -268,8 +274,8 @@ public class Farm_Main : MonoBehaviour {
         {
             farm_toggle_present.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            farm_status = 3; //クエストを押したときのフラグ
-            farm_scene = 3;
+            GameMgr.Scene_Status = 3; //クエストを押したときのフラグ
+            GameMgr.Scene_Select = 3;
 
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
@@ -303,7 +309,7 @@ public class Farm_Main : MonoBehaviour {
         GameMgr.compound_select = 0; //何もしていない状態
         GameMgr.compound_status = 0;
 
-        farm_status = 0;
-        farm_scene = 0;
+        GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
     }
 }

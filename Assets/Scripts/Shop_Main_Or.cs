@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Shop_Main : MonoBehaviour {
+public class Shop_Main_Or : MonoBehaviour {
 
     //カメラ関連
     private Camera main_cam;
@@ -372,6 +372,8 @@ public class Shop_Main : MonoBehaviour {
             GameMgr.Reset_SceneStatus = false;
             GameMgr.Scene_Status = 0;
         }
+
+
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)

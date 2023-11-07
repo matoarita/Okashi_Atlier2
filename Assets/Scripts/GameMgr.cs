@@ -483,7 +483,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
     public static bool extremepanel_Koushin; //なんらかの調合が終わり、エクストリームパネルの表示を更新するフラグ
     public static bool live2d_posmove_flag; //Live2Dキャラの位置を移動したフラグ
-    public static bool Reset_BarStatus; //酒場クエストの遷移状態をリセットするフラグ　主にQuest_Judgeとの連携
+    public static bool Reset_SceneStatus; //酒場クエストの遷移状態をリセットするフラグ　主にQuest_Judgeとの連携
+    public static int Scene_Status; //各シーンごとの状態
+    public static int Scene_Select; //各シーンごとの状態 今なにを選択しているか
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -629,6 +631,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ending_number = 1;
         ending_count = 0;
         bestend_on_flag = false;
+
+        //シーンに割り振られたカテゴリ番号　ロードなどではリセットされない。
+        Scene_Category_Num = 0;
 
         //各イベントフラグ・ゲームパラメーターの初期設定
         ResetGameDefaultStatus();
@@ -872,9 +877,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         compobgm_change_flag = false;
         extremepanel_Koushin = false;
         live2d_posmove_flag = false;
-        Reset_BarStatus = false;
-
-        Scene_Category_Num = 0;
+        Reset_SceneStatus = false;     
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

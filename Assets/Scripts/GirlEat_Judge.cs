@@ -389,50 +389,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     }
 
-    void SceneInitSetting()
+    void SceneCanvasObjectLoad()
     {
-        Debug.Log("GirlEatJudge初期化");
-
         canvas = GameObject.FindWithTag("Canvas");
-
-        //プレイヤー所持アイテムリストの取得
-        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
-        //アイテムデータベースの取得
-        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
-
-        //調合組み合わせデータベースの取得
-        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
-
-        //採取地データベースの取得
-        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
-
-        //スロットの日本語表示用リストの取得
-        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
-
-        //女の子の好みのお菓子セットの取得
-        girlLikeSet_database = GirlLikeSetDataBase.Instance.GetComponent<GirlLikeSetDataBase>();
-
-        //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
-        girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
-
-        //女の子データの取得
-        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
-
-        //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-        //Expコントローラーの取得
-        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
-
-        //レベルアップチェック用オブジェクトの取得
-        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
-
-        //スペシャルお菓子クエストの取得
-        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
-
-        //バフ効果計算メソッドの取得
-        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
 
         switch (GameMgr.Scene_Category_Num)
         {
@@ -598,6 +557,52 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
 
         }
+    }
+
+    void SceneInitSetting()
+    {
+        Debug.Log("GirlEatJudge初期化");
+
+        //canvas = GameObject.FindWithTag("Canvas");
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //調合組み合わせデータベースの取得
+        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //スロットの日本語表示用リストの取得
+        slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
+        //女の子の好みのお菓子セットの取得
+        girlLikeSet_database = GirlLikeSetDataBase.Instance.GetComponent<GirlLikeSetDataBase>();
+
+        //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
+        girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
+
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
+
+        //スペシャルお菓子クエストの取得
+        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+
+        //バフ効果計算メソッドの取得
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();        
 
         kettei_item1 = 0;
         _toggle_type1 = 0;
@@ -671,9 +676,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     // Update is called once per frame
     void Update() {
 
-        //シーン移動の際、破壊されてしまうオブジェクトは、毎回初期化
+        //シーン関係のオブジェクト読み込みをUpdateのタイミングでする。
         if (canvas == null)
         {
+            SceneCanvasObjectLoad();
             SceneInitSetting();
         }
 

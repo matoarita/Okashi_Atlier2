@@ -48,8 +48,8 @@ public class EmeraldShop_Main : MonoBehaviour {
     private GameObject shopon_toggle_quest;
     private GameObject shopon_toggle_uwasa;
 
-    public int shop_status;
-    public int shop_scene; //どのシーンを選択しているかを判別
+    //public int shop_status;
+    //public int shop_scene; //どのシーンを選択しているかを判別
 
     private int i;
 
@@ -131,8 +131,8 @@ public class EmeraldShop_Main : MonoBehaviour {
         _text.text = shopdefault_text;
         text_area.SetActive(false);
 
-        shop_status = 0;
-        shop_scene = 0;
+        GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
 
         event_loading = false;
 
@@ -178,6 +178,12 @@ public class EmeraldShop_Main : MonoBehaviour {
             }
         }
 
+        if (GameMgr.Reset_SceneStatus)
+        {
+            GameMgr.Reset_SceneStatus = false;
+            GameMgr.Scene_Status = 0;
+        }
+
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {
@@ -192,7 +198,7 @@ public class EmeraldShop_Main : MonoBehaviour {
         else
         {
             //Debug.Log("shop_status" + shop_status);
-            switch (shop_status)
+            switch (GameMgr.Scene_Status)
             {
                 case 0:
 
@@ -207,8 +213,8 @@ public class EmeraldShop_Main : MonoBehaviour {
 
                     _text.text = shopdefault_text;
 
-                    shop_scene = 0;
-                    shop_status = 100;
+                    GameMgr.Scene_Select = 0;
+                    GameMgr.Scene_Status = 100;
 
                     if (trans == 1) //カメラが寄っていたら、デフォに戻す。
                     {
@@ -259,8 +265,8 @@ public class EmeraldShop_Main : MonoBehaviour {
             shop_select.SetActive(false);
             placename_panel.SetActive(false);
 
-            shop_status = 1; //ショップのシーンに入っている、というフラグ
-            shop_scene = 1;
+            GameMgr.Scene_Status = 1; //ショップのシーンに入っている、というフラグ
+            GameMgr.Scene_Select = 1;
 
             _text.text = "何がほしいのかえ？";
 
@@ -273,8 +279,8 @@ public class EmeraldShop_Main : MonoBehaviour {
         {
             shopon_toggle_talk.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            shop_status = 2; //眺めるを押したときのフラグ
-            shop_scene = 2;
+            GameMgr.Scene_Status = 2; //眺めるを押したときのフラグ
+            GameMgr.Scene_Select = 2;
 
             _text.text = "..（今はしゃべる気がないようだ。）";
 
@@ -294,8 +300,8 @@ public class EmeraldShop_Main : MonoBehaviour {
             yield return null;
         }
 
-        shop_status = 0;
-        shop_scene = 0;
+        GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
     }
 
     IEnumerator Scenario_loading()
@@ -312,7 +318,7 @@ public class EmeraldShop_Main : MonoBehaviour {
         GameMgr.scenario_ON = false;
 
         event_loading = false;
-        shop_status = 0;
+        GameMgr.Scene_Status = 0;
 
     }
 

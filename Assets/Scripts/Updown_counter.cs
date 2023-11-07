@@ -17,15 +17,6 @@ public class Updown_counter : MonoBehaviour {
     private GameObject shopquestlistController_obj;
     private ShopQuestListController shopquestlistController;
 
-    private GameObject shop_Main_obj;
-    private Shop_Main shop_Main;
-
-    private GameObject farm_Main_obj;
-    private Farm_Main farm_Main;
-
-    private GameObject emeraldshop_Main_obj;
-    private EmeraldShop_Main emeraldshop_Main;
-
     private GameObject text_area;
     private Text _text;
 
@@ -204,9 +195,6 @@ public class Updown_counter : MonoBehaviour {
             {
                 case 20:
 
-                    shop_Main_obj = GameObject.FindWithTag("Shop_Main");
-                    shop_Main = shop_Main_obj.GetComponent<Shop_Main>();
-
                     //ショップリスト画面の取得
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
                     shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
@@ -221,7 +209,7 @@ public class Updown_counter : MonoBehaviour {
                     no = pitemlistController_obj.transform.Find("No").gameObject;
                     yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
-                    if (shop_Main.shop_scene == 1 || shop_Main.shop_scene == 5)
+                    if (GameMgr.Scene_Select == 1 || GameMgr.Scene_Select == 5)
                     {
                         updown_button_Big.SetActive(true);
                         updown_button_Small.SetActive(true);
@@ -232,15 +220,15 @@ public class Updown_counter : MonoBehaviour {
                         updown_button_Small.SetActive(false);
                     }
 
-                    if (shop_Main.shop_scene == 1) //ショップ「買う」の時
+                    if (GameMgr.Scene_Select == 1) //ショップ「買う」の時
                     {
                         ShopUpdownCounter_Pos();
                     }
-                    else if (shop_Main.shop_scene == 3) //依頼の納品の時
+                    else if (GameMgr.Scene_Select == 3) //依頼の納品の時
                     {
                         ShopUpdownCounter_Pos2();
                     }
-                    else if (shop_Main.shop_scene == 5) //売るの時
+                    else if (GameMgr.Scene_Select == 5) //売るの時
                     {
                         ShopUpdownCounter_Pos2();
                     }
@@ -248,9 +236,6 @@ public class Updown_counter : MonoBehaviour {
                     break;
 
                 case 40:
-
-                    farm_Main_obj = GameObject.FindWithTag("Farm_Main");
-                    farm_Main = farm_Main_obj.GetComponent<Farm_Main>();
 
                     //ショップリスト画面の取得
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
@@ -264,9 +249,6 @@ public class Updown_counter : MonoBehaviour {
                     break;
 
                 case 50:
-
-                    emeraldshop_Main_obj = GameObject.FindWithTag("EmeraldShop_Main");
-                    emeraldshop_Main = emeraldshop_Main_obj.GetComponent<EmeraldShop_Main>();
 
                     //ショップリスト画面の取得
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
@@ -720,7 +702,7 @@ public class Updown_counter : MonoBehaviour {
         {
             if (GameMgr.Scene_Category_Num == 20)
             {
-                if (shop_Main.shop_scene == 1) //ショップ「買う」のとき
+                if (GameMgr.Scene_Select == 1) //ショップ「買う」のとき
                 {
                     _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
@@ -737,7 +719,7 @@ public class Updown_counter : MonoBehaviour {
                     _count_text.text = GameMgr.updown_kosu.ToString();
                 }
 
-                if (shop_Main.shop_scene == 3) //ショップ納品のとき
+                if (GameMgr.Scene_Select == 3) //ショップ納品のとき
                 {
                     listkosu_count = 0;
 
@@ -800,7 +782,7 @@ public class Updown_counter : MonoBehaviour {
                     AddMethod1();
                 }
 
-                if (shop_Main.shop_scene == 5) //ショップ「売る」のとき
+                if (GameMgr.Scene_Select == 5) //ショップ「売る」のとき
                 {
                     switch (pitemlistController._toggle_type1)
                     {
@@ -874,7 +856,7 @@ public class Updown_counter : MonoBehaviour {
     {
         if (GameMgr.Scene_Category_Num == 20)
         {
-            if (shop_Main.shop_scene == 1)
+            if (GameMgr.Scene_Select == 1)
             {
                 _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
@@ -891,7 +873,7 @@ public class Updown_counter : MonoBehaviour {
                 _count_text.text = GameMgr.updown_kosu.ToString();
             }
 
-            if (shop_Main.shop_scene == 5)
+            if (GameMgr.Scene_Select == 5)
             {
                 switch (pitemlistController._toggle_type1)
                 {
@@ -998,14 +980,14 @@ public class Updown_counter : MonoBehaviour {
         {
             if (GameMgr.Scene_Category_Num == 20)
             {
-                if (shop_Main.shop_scene == 1) //買い物のとき
+                if (GameMgr.Scene_Select == 1) //買い物のとき
                 {
                     DegMethod1();
 
                     //ウィンドウの表示も変える。
                     BuyYosokuText();
                 }
-                else if (shop_Main.shop_scene == 5) //売るとき
+                else if (GameMgr.Scene_Select == 5) //売るとき
                 {
                     DegMethod1();
 
@@ -1035,14 +1017,14 @@ public class Updown_counter : MonoBehaviour {
     {
         if (GameMgr.Scene_Category_Num == 20)
         {
-            if (shop_Main.shop_scene == 1) //買い物のとき
+            if (GameMgr.Scene_Select == 1) //買い物のとき
             {
                 DegMethod2();
 
                 //ウィンドウの表示も変える。
                 BuyYosokuText();
             }
-            else if (shop_Main.shop_scene == 5) //売るとき
+            else if (GameMgr.Scene_Select == 5) //売るとき
             {
                 DegMethod2();                
 

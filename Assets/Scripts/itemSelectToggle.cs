@@ -23,9 +23,6 @@ public class itemSelectToggle : MonoBehaviour
 
     private CombinationMain Combinationmain;
 
-    private Shop_Main shop_Main;
-    private Bar_Main bar_Main;
-
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
 
@@ -74,6 +71,7 @@ public class itemSelectToggle : MonoBehaviour
 
     private GameObject black_effect;
 
+    private GameObject quest_Judge_CanvasPanel;
     private GameObject NouhinKetteiPanel_obj;
 
     public int toggleitem_ID; //リストの要素自体に、アイテムIDを保持する。
@@ -159,16 +157,12 @@ public class itemSelectToggle : MonoBehaviour
 
             case 20: //ショップ
 
-                shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
-
                 back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
                 back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
 
                 break;
 
             case 30: //酒場
-
-                bar_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
 
                 back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
                 back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
@@ -311,7 +305,7 @@ public class itemSelectToggle : MonoBehaviour
 
                     back_ShopFirst_btn.interactable = false;
 
-                    switch (shop_Main.shop_scene)
+                    switch (GameMgr.Scene_Select)
                     {
 
                         case 5: //売るとき
@@ -333,14 +327,15 @@ public class itemSelectToggle : MonoBehaviour
 
                     back_ShopFirst_btn.interactable = false;
 
-                    switch (bar_Main.bar_scene)
+                    switch (GameMgr.Scene_Select)
                     {
 
                         case 3: //納品時の画面開いた時
 
-                            NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+                            quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
+                            NouhinKetteiPanel_obj = quest_Judge_CanvasPanel.transform.Find("NouhinKetteiPanel").gameObject;
 
-                            shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                            shopquestlistController_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
                             shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
 
                             questjudge_obj = GameObject.FindWithTag("Quest_Judge");

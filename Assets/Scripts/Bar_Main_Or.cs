@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Shop_Main : MonoBehaviour {
+public class Bar_Main_Or : MonoBehaviour
+{
 
     //カメラ関連
     private Camera main_cam;
@@ -13,8 +14,6 @@ public class Shop_Main : MonoBehaviour {
 
     private ItemShopDataBase shop_database;
     private ItemMatPlaceDataBase matplace_database;
-
-    private SceneInitSetting sceneinit_setting;
 
     private SoundController sc;
     private Girl1_status girl1_status;
@@ -27,11 +26,13 @@ public class Shop_Main : MonoBehaviour {
 
     private GameObject placename_panel;
 
+    private GameObject quest_Judge_CanvasPanel;
+
     private GameObject shopitemlist_onoff;
-    private ShopItemListController shoplistController;
     private GameObject shopquestlist_obj;
 
     private GameObject money_status_obj;
+    private GameObject ninki_status_obj;
 
     public GameObject hukidasi_sub;
     private GameObject hukidasi_sub_Prefab;
@@ -41,9 +42,6 @@ public class Shop_Main : MonoBehaviour {
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
     private GameObject pitemlist_scrollview_init_obj;
-
-    private GameObject recipilist_onoff;
-    private RecipiListController recipilistController;
 
     private GameObject backshopfirst_obj;
 
@@ -57,16 +55,13 @@ public class Shop_Main : MonoBehaviour {
     private GameObject shopon_toggle_quest;
     private GameObject shopon_toggle_uwasa;
     private GameObject shopon_toggle_present;
-    private GameObject shopon_toggle_compound;
 
-    private bool check_event;   
+    private bool check_event;
     private bool check_lvevent;
     private bool lvevent_loading;
 
-    private int shop_hyouji_flag;
-
-    //public int shop_status;
-    //public int shop_scene; //どのシーンを選択しているかを判別
+    //public int bar_status;
+    //public int bar_scene; //どのシーンを選択しているかを判別
 
     private bool hukidasi_oneshot; //吹き出しの作成は一つのみ
 
@@ -74,14 +69,14 @@ public class Shop_Main : MonoBehaviour {
 
     private List<bool> shopuwasa_List = new List<bool>();
     private List<int> random_uwasa_select = new List<int>();
-    private int uwasalist_count;    
+    private int uwasalist_count;
     private int rnd;
+    private int count;
 
-    // Use this for initialization
-    void Start () {
-
+    void Start()
+    {
         //今いるシーン番号を指定
-        GameMgr.Scene_Category_Num = 20;
+        GameMgr.Scene_Category_Num = 30;
 
         //カメラの取得
         main_cam = Camera.main;
@@ -113,24 +108,12 @@ public class Shop_Main : MonoBehaviour {
         //黒半透明パネルの取得
         black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
 
-        //シーン最初にプレイヤーアイテムリストの生成
-        sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
-        sceneinit_setting.PlayerItemListController_Init();
-
-        //プレイヤー所持アイテムリストパネルの取得
-        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
-
-        //レシピリストパネルの取得
-        recipilist_onoff = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-        recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
-
         character = GameObject.FindWithTag("Character");
         character.GetComponent<FadeCharacter>().SetOff();
 
-        hukidasi_oneshot = false;       
+        hukidasi_oneshot = false;
 
-        shop_select = canvas.transform.Find("Shop_Select").gameObject;
+        shop_select = canvas.transform.Find("Bar_Select").gameObject;
         shopon_toggle_buy = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Buy").gameObject;
         shopon_toggle_sell = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Sell").gameObject;
         shopon_toggle_talk = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Talk").gameObject;
@@ -138,7 +121,6 @@ public class Shop_Main : MonoBehaviour {
         shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
         shopon_toggle_present = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Present").gameObject;
         shopon_toggle_present.SetActive(false);
-        shopon_toggle_compound = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Compound").gameObject;
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
         //shopon_toggle_quest.SetActive(false);
@@ -147,19 +129,39 @@ public class Shop_Main : MonoBehaviour {
         money_status_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
         money_status_obj.SetActive(false);
 
+        //自分の持ってるお金などのステータス
+        ninki_status_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
+        if (GameMgr.Story_Mode == 0)
+        {
+            ninki_status_obj.SetActive(false);
+        }
+        else
+        {
+            ninki_status_obj.SetActive(true);
+        }
+
         //場所名前パネル
         placename_panel = canvas.transform.Find("PlaceNamePanel").gameObject;
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //プレイヤー所持アイテムリストパネルの初期化・取得
+        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
+        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
+
+        playeritemlist_onoff.SetActive(false); 
+
         //ショップリスト画面。初期設定で最初はOFF。
         shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-        shoplistController = shopitemlist_onoff.GetComponent<ShopItemListController>();
         shopitemlist_onoff.SetActive(false);
 
         //クエストリスト画面。初期設定で最初はOFF。
-        shopquestlist_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+        quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
+        shopquestlist_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
         shopquestlist_obj.SetActive(false);
 
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -177,34 +179,12 @@ public class Shop_Main : MonoBehaviour {
         check_lvevent = false; //レベルに応じて発生するイベントのフラグ
         lvevent_loading = false;
 
-        if(GameMgr.Story_Mode==1)
+        if (GameMgr.Story_Mode == 1)
         {
-            //あるクエスト以降、プリンさんにお菓子渡せる。
-            if(GameMgr.GirlLoveEvent_num >= 11)
+            //あるクエスト以降、フィオナにお菓子わたせる。
+            if (GameMgr.GirlLoveEvent_num >= 11)
             {
                 shopon_toggle_present.SetActive(true);
-                /*
-                if (!GameMgr.ShopEvent_stage[10])
-                {
-                    shopon_toggle_present.SetActive(true);
-                }
-                else
-                {
-                    shopon_toggle_present.SetActive(false);
-                }*/
-            }
-        }
-
-        //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
-        for (i = 0; i < shop_database.shopitems.Count; i++)
-        {
-            if (shop_database.shopitems[i].shop_itemType == 0 || shop_database.shopitems[i].shop_itemType == 3)
-            {
-                shop_database.shopitems[i].shop_itemzaiko = shop_database.shopitems[i].shop_itemzaiko_max;
-            }
-            else
-            {
-
             }
         }
 
@@ -218,153 +198,51 @@ public class Shop_Main : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
 
-        if (!GameMgr.ShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+        if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
         {
-            GameMgr.ShopEvent_stage[0] = true;
+            GameMgr.BarEvent_stage[0] = true;
+
             GameMgr.scenario_ON = true;
 
-            GameMgr.shop_event_num = 0;
-            GameMgr.shop_event_flag = true;
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 0;
-            GameMgr.CompoundEvent_flag = true;
+            GameMgr.bar_event_num = 0;
+            GameMgr.bar_event_flag = true;
 
             check_event = true;
 
             StartCoroutine("Scenario_loading");
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_flag = true;
         }
 
 
         if (!check_event)
         {
-            if (GameMgr.Story_Mode == 0)
+            /*
+            //イベント発生フラグをチェック
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
             {
-                //イベント発生フラグをチェック
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
 
-                    case 2: //かわいい材料を探しに来た。
+                case 2: //かわいい材料を探しに来た。
 
-                        if (!GameMgr.ShopEvent_stage[6])
-                        {
-                            GameMgr.ShopEvent_stage[6] = true;
-                            GameMgr.scenario_ON = true;
+                    if (!GameMgr.ShopEvent_stage[5])
+                    {
+                        GameMgr.ShopEvent_stage[5] = true;
+                        GameMgr.scenario_ON = true;
 
-                            GameMgr.shop_event_num = 2;
-                            GameMgr.shop_event_flag = true;
+                        GameMgr.shop_event_num = 2;
+                        GameMgr.shop_event_flag = true;
 
-                            StartCoroutine("Scenario_loading");
-                        }
+                        StartCoroutine("Scenario_loading");
+                    }
 
-                        break;
+                    break;
 
-                    case 10: //ショップ二度目。ラスク作りの材料を買いにきた。
-
-                        if (!GameMgr.ShopEvent_stage[1])
-                        {
-                            GameMgr.ShopEvent_stage[1] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 10;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 20: //クレープイベント
-
-                        if (!GameMgr.ShopEvent_stage[2])
-                        {
-                            GameMgr.ShopEvent_stage[2] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 20;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 22: //アイスイベント
-
-                        if (!GameMgr.ShopEvent_stage[7])
-                        {
-                            GameMgr.ShopEvent_stage[7] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 22;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 30: //シュークリームイベント
-
-                        if (!GameMgr.ShopEvent_stage[3])
-                        {
-                            GameMgr.ShopEvent_stage[3] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 30;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 40: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
-
-                        if (!GameMgr.ShopEvent_stage[4])
-                        {
-                            GameMgr.ShopEvent_stage[4] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 40;
-                            GameMgr.shop_event_flag = true;
-
-                            //メイン画面にもどったときに、イベントを発生させるフラグをON
-                            GameMgr.CompoundEvent_num = 20;
-                            GameMgr.CompoundEvent_flag = true;
-
-                            //村の広場にいけるようになる。
-                            matplace_database.matPlaceKaikin("Hiroba");
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 50: //コンテストイベント
-
-                        if (!GameMgr.ShopEvent_stage[5])
-                        {
-                            GameMgr.ShopEvent_stage[5] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 50;
-                            GameMgr.shop_event_flag = true;
-
-                            GameMgr.CompoundEvent_flag = false; //もし一度もショップへきたことなかった場合は、帰ってきてもヒカリが「なに買ってきたの？」と聞くイベントは発生しない。
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    default:
-                        break;
-                }
             }
+            */
         }
 
         if (GameMgr.Reset_SceneStatus)
@@ -372,6 +250,7 @@ public class Shop_Main : MonoBehaviour {
             GameMgr.Reset_SceneStatus = false;
             GameMgr.Scene_Status = 0;
         }
+
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
@@ -386,13 +265,17 @@ public class Shop_Main : MonoBehaviour {
             placename_panel.SetActive(false);
             black_effect.SetActive(false);
 
+            if (GameMgr.Story_Mode == 1)
+            {
+                ninki_status_obj.SetActive(false);
+            }
         }
         else
         {
             if (!check_lvevent) //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
             {
                 Debug.Log("チェック　パティシエレベルor好感度レベルイベント");
-                CheckShopLvEvent();
+                CheckBarLvEvent();
 
                 if (lvevent_loading) { }
                 else
@@ -411,7 +294,7 @@ public class Shop_Main : MonoBehaviour {
                         character.GetComponent<FadeCharacter>().SetOn();
                         shopitemlist_onoff.SetActive(false);
                         shopquestlist_obj.SetActive(false);
-                        
+                        playeritemlist_onoff.SetActive(false);
                         backshopfirst_obj.SetActive(false);
                         backshopfirst_obj.GetComponent<Button>().interactable = true;
                         shop_select.SetActive(true);
@@ -420,12 +303,10 @@ public class Shop_Main : MonoBehaviour {
                         placename_panel.SetActive(true);
                         black_effect.SetActive(false);
 
-                        if(playeritemlist_onoff != null && playeritemlist_onoff.activeInHierarchy)
+                        if (GameMgr.Story_Mode == 1)
                         {
-                            playeritemlist_onoff.SetActive(false);
+                            ninki_status_obj.SetActive(true);
                         }
-
-                        //_text.text = shopdefault_text;
 
                         GameMgr.Scene_Select = 0;
                         GameMgr.Scene_Status = 100;
@@ -459,23 +340,9 @@ public class Shop_Main : MonoBehaviour {
                         break;
 
                     case 4: //うわさ話聞き中
-
                         break;
 
                     case 100: //退避
-                        break;
-
-                    case 500: //調合用
-
-                        //調合終了まち
-                        if(GameMgr.CompoundSceneStartON == false)
-                        {
-                            GameMgr.compound_select = 0; //何もしていない状態
-                            GameMgr.compound_status = 0;
-
-                            GameMgr.Scene_Status = 0;
-                            GameMgr.Scene_Select = 0;
-                        }
                         break;
 
                     default:
@@ -502,7 +369,7 @@ public class Shop_Main : MonoBehaviour {
             GameMgr.Scene_Select = 1;
 
             _text.text = "何を買うの？";
-            
+
         }
     }
 
@@ -520,7 +387,6 @@ public class Shop_Main : MonoBehaviour {
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
             GameMgr.talk_number = 100;
-            GameMgr.utage_charaHyouji_flag = true;
 
             StartCoroutine("UtageEndWait");
         }
@@ -548,7 +414,7 @@ public class Shop_Main : MonoBehaviour {
 
             //intパラメーターの値を設定する.
             maincam_animator.SetInteger("trans", trans);
-           
+
         }
     }
 
@@ -584,7 +450,7 @@ public class Shop_Main : MonoBehaviour {
         if (shopon_toggle_sell.GetComponent<Toggle>().isOn == true)
         {
             shopon_toggle_sell.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
-            
+
             backshopfirst_obj.SetActive(true);
             shop_select.SetActive(false);
             placename_panel.SetActive(false);
@@ -599,35 +465,27 @@ public class Shop_Main : MonoBehaviour {
         }
     }
 
-    public void OnCheck_6() //ショップ　アイテムをあげる
+    public void OnCheck_6() //アイテムをあげる
     {
         if (shopon_toggle_present.GetComponent<Toggle>().isOn == true)
         {
             shopon_toggle_present.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
-            if (GameMgr.GirlLoveEvent_num == 11)
-            {
-                GameMgr.talk_number = 500;
-            }
-            else //11以降　いつでもお茶を渡せる。高得点でレコード取得。
-            {
-                GameMgr.talk_number = 501;
-            }
             GameMgr.Scene_Status = 6; //クエストを押したときのフラグ
             GameMgr.Scene_Select = 6;
 
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
-            
+            GameMgr.talk_number = 500;
             GameMgr.utage_charaHyouji_flag = true;
 
             //アイテムを使用するときのフラグ
             GameMgr.event_pitem_use_select = true;
-            GameMgr.shop_event_ON = true;
+            GameMgr.bar_event_ON = true;
 
             //下は、使うときだけtrueにすればOK
             GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-            GameMgr.KoyuJudge_num = GameMgr.Shop_Okashi_num01;//GirlLikeSetの番号を直接指定
+            GameMgr.KoyuJudge_num = GameMgr.Bar_Okashi_num01;//GirlLikeSetの番号を直接指定
             GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
 
             StartCoroutine("UtageEndWait");
@@ -635,86 +493,10 @@ public class Shop_Main : MonoBehaviour {
         }
     }
 
-    public void OnCheck_Compound() //ショップで調合できるかお試し
-    {
-        if (shopon_toggle_compound.GetComponent<Toggle>().isOn == true)
-        {
-            shopon_toggle_compound.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
-
-            GameMgr.Scene_Status = 500; //
-            GameMgr.Scene_Select = 500;
-
-            GameMgr.compound_status = 6;
-
-            GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
-        }
-    }
-
 
     //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
-    void CheckShopLvEvent()
+    void CheckBarLvEvent()
     {
-        //品物追加　いくつかの器具解禁 ShopItemListController.csで、品の追加処理をかいている。
-
-        //品物追加　かわいいトッピング追加
-        if (GameMgr.GirlLoveEvent_num >= 2) //かわいいクッキーイベント開始
-        {
-            if (!GameMgr.ShopLVEvent_stage[3])
-            {
-                //Debug.Log("ショップレベルイベント１　開始");
-                GameMgr.ShopLVEvent_stage[3] = true;
-                GameMgr.scenario_ON = true;
-
-                GameMgr.shop_lvevent_num = 1;
-                GameMgr.shop_lvevent_flag = true;
-
-                lvevent_loading = true;
-                StartCoroutine("Scenario_loading");
-            }
-        }
-
-        //品物追加　ラスク　パンナイフ追加
-        if (GameMgr.GirlLoveEvent_num >= 10) //ラスクイベント開始
-        {
-            if (!GameMgr.ShopLVEvent_stage[0])
-            {
-                //Debug.Log("ショップレベルイベント１　開始");
-                GameMgr.ShopLVEvent_stage[0] = true;
-                GameMgr.scenario_ON = true;
-
-                GameMgr.shop_lvevent_num = 1;
-                GameMgr.shop_lvevent_flag = true;
-
-                lvevent_loading = true;
-                StartCoroutine("Scenario_loading");
-            }
-        }
-
-        //品物追加　シュークリームイベント以降
-        if (GameMgr.GirlLoveEvent_num >= 30 && !GameMgr.ShopLVEvent_stage[1])
-        {
-            GameMgr.ShopLVEvent_stage[1] = true;
-            GameMgr.scenario_ON = true;
-
-            GameMgr.shop_lvevent_num = 1;
-            GameMgr.shop_lvevent_flag = true;
-
-            lvevent_loading = true;
-            StartCoroutine("Scenario_loading");
-        }
-
-        //品物追加　ドーナツイベント以降
-        if (GameMgr.GirlLoveEvent_num >= 40 && !GameMgr.ShopLVEvent_stage[2])
-        {
-            GameMgr.ShopLVEvent_stage[2] = true;
-            GameMgr.scenario_ON = true;
-
-            GameMgr.shop_lvevent_num = 1;
-            GameMgr.shop_lvevent_flag = true;
-
-            lvevent_loading = true;
-            StartCoroutine("Scenario_loading");
-        }
 
     }
 
@@ -762,60 +544,118 @@ public class Shop_Main : MonoBehaviour {
     void InitUwasaList()
     {
         shopuwasa_List.Clear();
-        random_uwasa_select.Clear();
         uwasalist_count = 5;
+        count = 0;
 
         //***  うわさリスト選択 ***//
 
-        //クッキー作り開始　初期値
-        for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+        if (GameMgr.Story_Mode == 0)
         {
-            shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
-        }
-
-        //ラスク
-        if (GameMgr.GirlLoveEvent_stage1[10]) 
-        {
-            /*for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+            //クッキー作り開始　初期値
+            for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i+5]);
-            }*/
-        }
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
+            }
 
-        //
+            //ラスク
+            if (GameMgr.GirlLoveEvent_stage1[10])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //クレープ
+            if (GameMgr.GirlLoveEvent_stage1[20])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //シュークリーム
+            if (GameMgr.GirlLoveEvent_stage1[30])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //ドーナツ
+            if (GameMgr.GirlLoveEvent_stage1[40])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //コンテスト
+            if (GameMgr.GirlLoveEvent_stage1[50])
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+        }
+        else
+        {
+            //エクストラモードは全てでてる。
+            for (i = 0; i < uwasalist_count*6; i++) //頭から５個ずつ
+            {
+                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
+            }           
+        }
 
         //ランダムで噂を選ぶメソッド
         uwasa_randomselect();
-        
-        if(random_uwasa_select.Count > 0)
-        {            
+
+        if (random_uwasa_select.Count > 0)
+        {
         }
         else //もしきける話を全て聞いていた場合
         {
-            //きける話を全てリセット
+            Debug.Log("うわさ番号　リセット");
+            //きける話を全てリセットして、もっかい抽選
             for (i = 0; i < shopuwasa_List.Count; i++)
             {
                 shopuwasa_List[i] = false; //すべてのうわさの聞いたフラグをリセット
 
             }
 
-            random_uwasa_select.Clear();
+            for (i = 0; i < GameMgr.ShopUwasa_stage1.Length; i++)
+            {
+                GameMgr.ShopUwasa_stage1[i] = false;
+            }
+
+
             uwasa_randomselect();
             //GameMgr.uwasa_number = 9999; //うわさ話はすべて聞いたというフラグ
         }
 
         rnd = Random.Range(0, random_uwasa_select.Count);
-        GameMgr.uwasa_number = random_uwasa_select[rnd];
+        GameMgr.uwasa_number = random_uwasa_select[rnd];       
+
+        Debug.Log("選ばれたうわさ番号: " + GameMgr.uwasa_number);
+
     }
 
     void uwasa_randomselect()
     {
+        random_uwasa_select.Clear();
+
         for (i = 0; i < shopuwasa_List.Count; i++)
         {
             if (!shopuwasa_List[i]) //まだうわさをきいてないやつだけをランダムで選ばれるようにする。
             {
                 random_uwasa_select.Add(i);
             }
+            //Debug.Log("shopuwasa_List: " + shopuwasa_List[i]);
         }
     }
 }

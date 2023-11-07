@@ -23,6 +23,8 @@ public class shopQuestSelectToggle : MonoBehaviour
 
     private Text _coin_cullency; //通貨　GameMgrで決めたものを自動で入力する
 
+    private GameObject quest_Judge_CanvasPanel;
+
     private GameObject questjudge_obj;
     private Quest_Judge questjudge;
 
@@ -110,13 +112,14 @@ public class shopQuestSelectToggle : MonoBehaviour
 
         updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
         updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-       
-        NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
+
+        quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
+        NouhinKetteiPanel_obj = quest_Judge_CanvasPanel.transform.Find("NouhinKetteiPanel").gameObject;
 
         questjudge_obj = GameObject.FindWithTag("Quest_Judge");
         questjudge = questjudge_obj.GetComponent<Quest_Judge>();
 
-        shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+        shopquestlistController_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
         back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();

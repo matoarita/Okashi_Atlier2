@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Contest_Main : MonoBehaviour {
+public class Contest_Main_OrB1 : MonoBehaviour {
 
     //カメラ関連
     private Camera main_cam;
@@ -37,6 +37,7 @@ public class Contest_Main : MonoBehaviour {
     private Contest_Judge contest_judge;
 
     private int contest_status;
+    private int contest_scene;
     private PlayerItemList pitemlist;
 
     private GameObject text_area;
@@ -44,6 +45,7 @@ public class Contest_Main : MonoBehaviour {
 
     private GameObject contest_select;
     private GameObject conteston_toggle_judge;
+    private GameObject conteston_toggle_compo;
 
     private int kettei_itemID;
     private int kettei_itemType;
@@ -121,7 +123,7 @@ public class Contest_Main : MonoBehaviour {
         _text.text = "コンテスト会場だ。";
 
         contest_select = canvas.transform.Find("Contest_Select").gameObject;
-        conteston_toggle_judge = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Judge").gameObject;
+        conteston_toggle_compo = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Compo").gameObject;
 
         contest_status = 100;
     }
@@ -130,7 +132,7 @@ public class Contest_Main : MonoBehaviour {
 	void Update () {
 
         //コンテスト会場きたときのイベント
-        if (!GameMgr.contest_eventStart_flag)
+        /*if (!GameMgr.contest_eventStart_flag)
         {
             GameMgr.contest_eventStart_flag = true;
             GameMgr.scenario_ON = true;
@@ -140,7 +142,7 @@ public class Contest_Main : MonoBehaviour {
             GameMgr.contest_event_num = 0;
             GameMgr.contest_event_flag = true;
 
-        }
+        }*/
 
         //コンテスト終了後、エンディングへ
         if(GameMgr.ending_on)
@@ -191,10 +193,24 @@ public class Contest_Main : MonoBehaviour {
                     sceneBGM.MuteOFFBGM();
 
                     contest_status = 100;
+                    contest_scene = 0;
                     break;
 
                 case 100: //退避
 
+                    break;
+
+                case 500: //調合用
+
+                    //調合終了まち
+                    if (GameMgr.CompoundSceneStartON == false)
+                    {
+                        GameMgr.compound_select = 0; //何もしていない状態
+                        GameMgr.compound_status = 0;
+
+                        contest_status = 0;
+                        contest_scene = 0;
+                    }
                     break;
 
                 default:
@@ -213,6 +229,34 @@ public class Contest_Main : MonoBehaviour {
             contest_judge.Contest_Judge_Start();
         }
     }
-
     
+
+    public void OnCheck_Compound() //調合シーンに入る
+    {
+        if (conteston_toggle_compo.GetComponent<Toggle>().isOn == true)
+        {
+            conteston_toggle_compo.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            contest_status = 500; //
+            contest_scene = 500;
+
+            GameMgr.compound_status = 6;
+
+            GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
+        }
+    }
+
+    public void OnDebugContestStart()
+    {
+        GameMgr.contest_eventStart_flag = true;
+        GameMgr.scenario_ON = true;
+
+        sceneBGM.MuteBGM();
+
+        GameMgr.contest_event_num = 0;
+        GameMgr.contest_event_flag = true;
+
+        GameMgr.ending_count = 1;
+        canvas.transform.Find("DebugContestStart").gameObject.SetActive(false);
+    }
 }

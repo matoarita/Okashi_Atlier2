@@ -17,9 +17,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    private Shop_Main shop_Main;
-    private Bar_Main bar_Main;
-
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
@@ -97,6 +94,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private GameObject yes_button;
     private GameObject no_button;
 
+    private bool SceneStartSetting_LoadOK;
+
     public bool shopsell_final_select_flag;
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
@@ -119,6 +118,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //スクロールビュー内の、コンテンツ要素を取得
         content = GameObject.FindWithTag("PlayerItemListContent");
         textPrefab = (GameObject)Resources.Load("Prefabs/itemSelectToggle");
+
+        SceneStartSetting_LoadOK = false;
 
         InitSetUp();
     }
@@ -240,100 +241,99 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
         else
         {
-            switch (GameMgr.Scene_Category_Num)
+            if (SceneStartSetting_LoadOK) //シーン読み込み完了後は、以下の処理が動くようになる。初期化の際は無視する。
             {
-                case 10: // 調合シーン以外でやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-                   
-                    if (GameMgr.tutorial_ON == true)
-                    {
-                        no_button.SetActive(false);
-                    }
-                    else
-                    {
-                        no_button.SetActive(true);
-                    }
+                switch (GameMgr.Scene_Category_Num)
+                {
+                    case 10: // 調合シーン以外でやりたい処理。それ以外のシーンでは、この中身の処理は無視。
 
-                    //アニメーション
-                    /*if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
-                    {
-                        this.transform.localPosition = new Vector3(224f, 57f, 0);
-                        OpenAnim2();
-                    }
-                    else
-                    {
-                        this.transform.localPosition = new Vector3(-224f, 57f, 0);
+                        if (GameMgr.tutorial_ON == true)
+                        {
+                            no_button.SetActive(false);
+                        }
+                        else
+                        {
+                            no_button.SetActive(true);
+                        }
+
+                        //アニメーション
+                        /*if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
+                        {
+                            this.transform.localPosition = new Vector3(224f, 57f, 0);
+                            OpenAnim2();
+                        }
+                        else
+                        {
+                            this.transform.localPosition = new Vector3(-224f, 57f, 0);
+                            OpenAnim();
+                        }*/
+
+                        reset_and_DrawView();
                         OpenAnim();
-                    }*/
+                        break;
 
-                    reset_and_DrawView();
-                    OpenAnim();
-                    break;
+                    case 20:
 
-                case 20:
+                        switch (GameMgr.Scene_Select)
+                        {
+                            case 3: //納品時にアイテムを選択するときの処理
 
-                    shop_Main = GameObject.FindWithTag("Shop_Main").GetComponent<Shop_Main>();
+                                yes_button.SetActive(false);
+                                no_button.SetActive(false);
+                                reset_and_DrawView();
 
-                    switch (shop_Main.shop_scene)
-                    {
-                        case 3: //納品時にアイテムを選択するときの処理
+                                break;
 
-                            yes_button.SetActive(false);
-                            no_button.SetActive(false);
-                            reset_and_DrawView();
+                            case 5: //売るとき
 
-                            break;
+                                yes_button.SetActive(false);
+                                no_button.SetActive(false);
+                                this.transform.localPosition = new Vector3(-180, 63, 0);
+                                reset_and_DrawView();
+                                break;
 
-                        case 5: //売るとき
+                            case 6: //あげるとき
 
-                            yes_button.SetActive(false);
-                            no_button.SetActive(false);
-                            this.transform.localPosition = new Vector3(-180, 63, 0);
-                            reset_and_DrawView();
-                            break;
+                                yes_button.SetActive(false);
+                                no_button.SetActive(true);
+                                reset_and_DrawView();
 
-                        case 6: //あげるとき
+                                break;
+                        }
 
-                            yes_button.SetActive(false);
-                            no_button.SetActive(true);
-                            reset_and_DrawView();
+                        OpenAnim();
+                        break;
 
-                            break;
-                    }
+                    case 30:
 
-                    OpenAnim();
-                    break;
+                        switch (GameMgr.Scene_Select)
+                        {
+                            case 3: //納品時にアイテムを選択するときの処理
 
-                case 30:
+                                yes_button.SetActive(false);
+                                no_button.SetActive(false);
+                                reset_and_DrawView();
 
-                    bar_Main = GameObject.FindWithTag("Bar_Main").GetComponent<Bar_Main>();
+                                break;
 
-                    switch (bar_Main.bar_scene)
-                    {
-                        case 3: //納品時にアイテムを選択するときの処理
+                            case 6: //あげるとき
 
-                            yes_button.SetActive(false);
-                            no_button.SetActive(false);
-                            reset_and_DrawView();
+                                yes_button.SetActive(false);
+                                no_button.SetActive(true);
+                                reset_and_DrawView();
 
-                            break;
+                                break;
+                        }
 
-                        case 6: //あげるとき
+                        OpenAnim();
+                        break;
 
-                            yes_button.SetActive(false);
-                            no_button.SetActive(true);
-                            reset_and_DrawView();
+                    default:
 
-                            break;
-                    }
-
-                    OpenAnim();
-                    break;
-
-                default:
-
-                    reset_and_DrawView();
-                    OpenAnim();
-                    break;
+                        reset_and_DrawView();
+                        OpenAnim();
+                        break;
+                }
             }
         }
 
@@ -588,7 +588,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 else if (GameMgr.Scene_Category_Num == 20) //納品時にリストを開くとき
                 {
-                    switch (shop_Main.shop_scene)
+                    switch (GameMgr.Scene_Select)
                     {
                         case 3:
 
@@ -627,7 +627,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 else if (GameMgr.Scene_Category_Num == 30) //納品時にリストを開くとき
                 {
-                    switch (bar_Main.bar_scene)
+                    switch (GameMgr.Scene_Select)
                     {
                         case 3:
 
@@ -1002,4 +1002,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         }
     }
 
+    //初期化生成が終わったあとに呼ぶメソッド
+    public void OnInitAfterSetting()
+    {
+        SceneStartSetting_LoadOK = true;
+    }
 }

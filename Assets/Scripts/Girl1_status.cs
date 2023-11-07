@@ -14,9 +14,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Animator maincam_animator;
     private int trans; //トランジション用のパラメータ
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
@@ -274,7 +271,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         _desc = "";
 
         //Prefab内の、コンテンツ要素を取得
-        canvas = GameObject.FindWithTag("Canvas");
+        //canvas = GameObject.FindWithTag("Canvas");
         hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
 
         //スロットの日本語表示用リストの取得
@@ -299,66 +296,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
      
         //好感度レベルのテーブル初期化
-        Init_Stage1_LVTable();        
-
-        switch (GameMgr.Scene_Category_Num)
-        {
-            case 10:
-
-                //カメラの取得
-                main_cam = Camera.main;
-                maincam_animator = main_cam.GetComponent<Animator>();
-                trans = maincam_animator.GetInteger("trans");
-
-                //Live2Dモデルの取得
-                _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
-                _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
-                live2d_animator = _model.GetComponent<Animator>();
-                /*trans_expression = live2d_animator.GetInteger("trans_expression");*/
-                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                character_move = character_root.transform.Find("CharacterMove").gameObject;
-                character = GameObject.FindWithTag("Character");
-
-                //初期表情の設定
-                CheckGokigen();
-                DefFaceChange();
-
-                //エクストリームパネルの取得
-                Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
-
-                //タッチ判定オブジェクトの取得
-                touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
-                touch_controll = character.GetComponent<Touch_Controll>();
-
-                //BGMの取得
-                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-                map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
-
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
-
-                girl_param = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("Girllove_param").GetComponent<Text>();
-                _slider = GameObject.FindWithTag("Girl_love_exp_bar").GetComponent<Slider>();
-
-                //メイン画面に表示する、現在のクエスト
-                questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
-                questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
-                questtitle_panel.SetActive(false);
-
-                break;
-
-            case 1000:
-
-                //Live2Dモデルの取得
-                _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
-                _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
-                live2d_animator = _model_obj.GetComponent<Animator>();
-                character = GameObject.FindWithTag("Character");
-
-                GirlEat_Judge_on = false;
-
-                break;
-        }
+        Init_Stage1_LVTable();                
        
         // *** パラメータ初期設定 ***
 
@@ -474,7 +412,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     // Update is called once per frame
     void Update () {
 
-        //シーン移動の際、破壊されてしまうオブジェクトは、毎回初期化
+        //シーン関係のオブジェクト読み込みをUpdateのタイミングでする。
         if( canvas == null )
         {
             canvas = GameObject.FindWithTag("Canvas");
@@ -486,10 +424,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //カメラの取得
                     main_cam = Camera.main;
                     maincam_animator = main_cam.GetComponent<Animator>();
-                    trans = maincam_animator.GetInteger("trans");
-
-                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();                    
+                    trans = maincam_animator.GetInteger("trans");                 
 
                     //エクストリームパネルの取得
                     Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");

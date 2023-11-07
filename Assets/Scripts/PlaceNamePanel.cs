@@ -64,6 +64,11 @@ public class PlaceNamePanel : MonoBehaviour {
                 _text = "オランジーナの酒場";
                 break;
 
+            case "Or_Shop":
+
+                _text = "オランジーナのお菓子店";
+                break;
+
             default:
 
                 break;

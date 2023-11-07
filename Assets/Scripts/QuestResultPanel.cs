@@ -11,6 +11,9 @@ public class QuestResultPanel : MonoBehaviour {
     private GameObject Magic_effect_Prefab1;
     private List<GameObject> _listEffect = new List<GameObject>();
 
+    private GameObject questjudge_obj;
+    private Quest_Judge questjudge;
+
     private int i;
 
     // Use this for initialization
@@ -34,6 +37,9 @@ public class QuestResultPanel : MonoBehaviour {
 
         _listEffect.Add(Instantiate(Magic_effect_Prefab1, this.transform));
 
+        questjudge_obj = GameObject.FindWithTag("Quest_Judge");
+        questjudge = questjudge_obj.GetComponent<Quest_Judge>();
+
         Sequence sequence = DOTween.Sequence();
 
         //まず、初期値。
@@ -55,5 +61,11 @@ public class QuestResultPanel : MonoBehaviour {
             Destroy(_listEffect[(_listEffect.Count-1) - i].gameObject);
         }
         _listEffect.Clear();
+    }
+
+    //結果確認のボタンを押した
+    public void OnEndResultButton()
+    {
+        questjudge.OnEndResultButton();
     }
 }

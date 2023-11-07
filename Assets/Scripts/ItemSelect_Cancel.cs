@@ -26,6 +26,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
+    private GameObject quest_Judge_CanvasPanel;
     private GameObject NouhinKetteiPanel_obj;
 
     private GameObject canvas;
@@ -52,13 +53,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject item_tsuika; //PlayeritemList_ScrollViewの子オブジェクト「item_tsuika」ボタン
 
     private ItemDataBase database;
-
-    private GameObject shopMain_obj;
-    private Shop_Main shopMain;
-
-    private GameObject barMain_obj;
-    private Bar_Main barMain;
-    //private Bar_Main barMain;
 
     private GameObject black_effect;
 
@@ -192,13 +186,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 {
                     InitSetting();
 
-                    NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
-
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
                     shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                    shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
-                    shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
 
                     yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
                     yes_text = yes.GetComponentInChildren<Text>();
@@ -216,15 +205,13 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 {
                     InitSetting();
 
-                    NouhinKetteiPanel_obj = canvas.transform.Find("NouhinKetteiPanel").gameObject;
-
-                    barMain_obj = GameObject.FindWithTag("Bar_Main");
-                    barMain = barMain_obj.GetComponent<Bar_Main>();
+                    quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
+                    NouhinKetteiPanel_obj = quest_Judge_CanvasPanel.transform.Find("NouhinKetteiPanel").gameObject;
 
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
                     shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
 
-                    shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
+                    shopquestlistController_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
                     shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
 
                     yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
@@ -538,7 +525,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             {
                 if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                 {
-                    if (barMain.bar_scene == 3 && shopquestlistController.nouhin_select_on == 1) //ショップ納品時の選択
+                    if (GameMgr.Scene_Select == 3 && shopquestlistController.nouhin_select_on == 1) //ショップ納品時の選択
                     {
                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                         {
