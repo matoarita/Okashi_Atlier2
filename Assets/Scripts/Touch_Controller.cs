@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Touch_Controller : MonoBehaviour {
 
+    private GameObject bgpanelmatome;
     private GameObject BG;
     private GameObject Character;
 
@@ -14,7 +15,8 @@ public class Touch_Controller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        BG = GameObject.FindWithTag("BGAccessory");
+        bgpanelmatome = GameObject.FindWithTag("BG");
+        BG = bgpanelmatome.transform.Find("BGAccessory").gameObject; ;
         Character = GameObject.FindWithTag("Character");
 
         //touch_obj.Add(BG.transform.Find("TouchBell").gameObject);

@@ -39,6 +39,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
     private Compound_Main compound_Main;
 
+    private GameObject bgpanelmatome;
+
     private Text questname;
     private List<ItemSaveKosu> _tempplayeritemlist = new List<ItemSaveKosu>();
     private List<ItemSaveKosu> _tempdongrilist = new List<ItemSaveKosu>();
@@ -968,7 +970,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
 
                 //飾りアイテムのセット
-                BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();
+                bgpanelmatome = GameObject.FindWithTag("BG");
+                BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
 
                 money_status.money_Draw();
                 questname.text = girl1_status.OkashiQuest_Name;

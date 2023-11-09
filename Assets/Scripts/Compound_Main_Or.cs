@@ -18,14 +18,15 @@ public class Compound_Main_Or : MonoBehaviour {
         GameMgr.Scene_Category_Num = 10;
         //Debug.Log("(GameMgr.Scene_Category_Num): " + GameMgr.Scene_Category_Num);
 
-        //メインオブジェクト　シーンの読み込み。
-        SceneManager.LoadScene("Compound", LoadSceneMode.Additive); //
 
-        
+        //メインオブジェクト　シーンの読み込み。
+        SceneManager.LoadScene("Hikari_CompMain", LoadSceneMode.Additive); //
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+
 }

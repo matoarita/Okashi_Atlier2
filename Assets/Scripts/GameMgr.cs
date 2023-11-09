@@ -439,7 +439,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int CGGallery_num; //別シーンから、どのイベントを呼び出すかを、指定する。
 
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
-    public static int Scene_Category_Num;         //Compound=10, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, Contest=100, 200_omake=200, 001_Title=1000
+    public static int Scene_Category_Num;         //Compound=10, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, Contest=100, 200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
 
     //その他、一時的なフラグ
     public static int MapSubEvent_Flag;
@@ -486,6 +486,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Reset_SceneStatus; //酒場クエストの遷移状態をリセットするフラグ　主にQuest_Judgeとの連携
     public static int Scene_Status; //各シーンごとの状態
     public static int Scene_Select; //各シーンごとの状態 今なにを選択しているか
+    public static bool Scene_LoadedOn_End; //シーンの読み込み完了フラグ
+    public static bool girlEat_ON; //女の子　食べ中のフラグ
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -877,7 +879,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         compobgm_change_flag = false;
         extremepanel_Koushin = false;
         live2d_posmove_flag = false;
-        Reset_SceneStatus = false;     
+        Reset_SceneStatus = false;
+        Scene_LoadedOn_End = false;
+        girlEat_ON = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

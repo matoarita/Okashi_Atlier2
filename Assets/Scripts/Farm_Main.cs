@@ -13,6 +13,8 @@ public class Farm_Main : MonoBehaviour {
 
     private ItemShopDataBase shop_database;
 
+    private SceneInitSetting sceneinit_setting;
+
     private PlayerItemList pitemlist;
 
     private GameObject text_area;
@@ -80,9 +82,9 @@ public class Farm_Main : MonoBehaviour {
         shopitemlist_onoff = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
         shopitemlist_onoff.SetActive(false);
 
-        //プレイヤー所持アイテムリストパネルの初期化・取得
-        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
-        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+        //シーン最初にプレイヤーアイテムリストの生成
+        sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
+        sceneinit_setting.PlayerItemListController_Init();
 
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
@@ -127,6 +129,10 @@ public class Farm_Main : MonoBehaviour {
                 farm_toggle_present.SetActive(true);
             }
         }
+
+        //シーン読み込み完了時のメソッド
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
+        SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
 
     // Update is called once per frame
@@ -311,5 +317,18 @@ public class Farm_Main : MonoBehaviour {
 
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
+    }
+
+    //別シーンからこのシーンが読み込まれたときに、読み込む
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameMgr.Scene_LoadedOn_End = true;
+    }
+
+    //シーンがアンロードされたタイミングで呼び出しされる
+    void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log("OnSceneUnloaded: " + current);
+        GameMgr.Scene_LoadedOn_End = false;
     }
 }

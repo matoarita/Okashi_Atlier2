@@ -199,7 +199,7 @@ public class Debug_Panel : MonoBehaviour {
 
             PlayerStatus.player_money = money_num;
 
-            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+            if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
                 if (canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject)
                 {
@@ -342,13 +342,10 @@ public class Debug_Panel : MonoBehaviour {
             GameMgr.QuestClearflag = false; //クエストクリアフラグ系をオフに。
             GameMgr.QuestClearButton_anim = false;
 
-            if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+            if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
             {
                 //女の子判定データの取得
                 girlEat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
-
-                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                 //現在のクエストを再度設定。
                 if (event_num != 0)
@@ -409,7 +406,7 @@ public class Debug_Panel : MonoBehaviour {
                         girlEat_judge.ResultOFF();
 
                         //お菓子の判定処理を終了
-                        compound_Main.girlEat_ON = false;
+                        GameMgr.girlEat_ON = false;
                         GameMgr.compound_status = 0;
 
                         girl1_status.timeGirl_hungry_status = 0;
@@ -460,9 +457,12 @@ public class Debug_Panel : MonoBehaviour {
 
             GirlLove_Koushin(girllove_param);
 
-            switch (SceneManager.GetActiveScene().name)
+            switch (GameMgr.Scene_Category_Num)
             {
-                case "Compound":
+                case 10:
+
+                    compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                    compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                     compound_Main.bgm_change_story();
                     compound_Main.ChangeBGM();
@@ -603,7 +603,7 @@ public class Debug_Panel : MonoBehaviour {
             _girllove_param = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
         }
 
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
             canvas = GameObject.FindWithTag("Canvas");
 
@@ -643,7 +643,7 @@ public class Debug_Panel : MonoBehaviour {
 
         PlayerStatus.girl1_Love_exp = 0;
 
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+        if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
             GirlloveParamKoushinMethod(_girllove_param);
         }
@@ -651,8 +651,6 @@ public class Debug_Panel : MonoBehaviour {
 
     void GirlloveParamKoushinMethod(int _girllove_param)
     {
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
        
         //好感度バーの取得
         _slider = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").GetComponent<Slider>();

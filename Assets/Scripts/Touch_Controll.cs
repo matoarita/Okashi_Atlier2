@@ -36,14 +36,10 @@ public class Touch_Controll : MonoBehaviour
     private float timeOut;
     private bool mouseLclick_off;
 
-    private bool isHimmeli;
-    private Animator himmeli_animator;
-
     private bool touch_interval_flag;
     private float time_inter_default;
 
     private int _rnd;
-    private bool nohearteffect;
 
     // Use this for initialization
     void Start()
@@ -62,26 +58,6 @@ public class Touch_Controll : MonoBehaviour
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
-        nohearteffect = false;
-
-        //時間管理オブジェクトの取得
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                break;
-
-            case "001_Title":
-
-                nohearteffect = true;
-                break;
-
-            case "999_Gameover":
-
-                nohearteffect = true;
-                break;
-        }
-
         //Live2Dモデルの取得
         _model_root_obj = GameObject.FindWithTag("CharacterRoot").gameObject;
         _model = _model_root_obj.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
@@ -95,7 +71,6 @@ public class Touch_Controll : MonoBehaviour
         time_inter_default = 1.2f;
 
         mouseLclick_off = false;
-        isHimmeli = false;
 
         touch_interval_flag = false;        
 
@@ -184,38 +159,34 @@ public class Touch_Controll : MonoBehaviour
         {
             //Debug.Log("EndDrag_Hair");           
 
-            if (!nohearteffect) //メインシーンのみ
+            switch (GameMgr.Scene_Category_Num)
             {
-                switch (SceneManager.GetActiveScene().name)
-                {
-                    case "Compound":
+                case 10:
 
-                        //調合シーンメインオブジェクトの取得
-                        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+                    //調合シーンメインオブジェクトの取得
 
-                        if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
-                        {
-                            girleat_judge.UpDegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
-                            compound_Main.GirlExpressionKoushin(-5);
-                        }
+                    if (girl1_status.Girl1_touchhair_status >= 12) //触りすぎると、少し好感度が下がる。
+                    {
+                        girleat_judge.UpDegHeart(-1, true); //マイナスのときのみ、こちらで処理。ゲージにも反映される。
+                        girl1_status.GirlExpressionKoushin(-5);
+                    }
 
-                        if (girl1_status.Girl1_touchhair_status >= 5 && girl1_status.Girl1_touchhair_status <= 9)
-                        {
-                            _rnd = Random.Range(0, 3);
-                            girleat_judge.loveGetPlusAnimeON(1 + _rnd, false); //1~3　ちょっとハートあがる。
-                            compound_Main.GirlExpressionKoushin(20);
-                            girl1_status.DefFaceChange();
-                        }
-                        break;
-                }
-                
+                    if (girl1_status.Girl1_touchhair_status >= 5 && girl1_status.Girl1_touchhair_status <= 9)
+                    {
+                        _rnd = Random.Range(0, 3);
+                        girleat_judge.loveGetPlusAnimeON(1 + _rnd, false); //1~3　ちょっとハートあがる。
+                        girl1_status.GirlExpressionKoushin(20);
+                        girl1_status.DefFaceChange();
+                    }
+                    break;
             }
+
+
 
             draghair_count = 0;
             girl1_status.Girl1_touchhair_start = false;
             EndTouchMethod();
-            
+
         }
     }
 
@@ -491,88 +462,12 @@ public class Touch_Controll : MonoBehaviour
         }
     }
 
-    //
-    //その他系
-    //
-    public void OnTouchBell()
-    {
-
-        if (ALL_touch_flag)
-        {
-            //Debug.Log("Touch_Bell");
-
-            sc.PlaySe(16);
-        }
-
-    }
-
-    public void OnTouchFlower()
-    {
-
-        if (ALL_touch_flag)
-        {
-            //Debug.Log("Touch_Flower");
-
-            girl1_status.TouchFlower();
-        }
-
-    }
-
-    public void OnTouchWindow()
-    {
-
-        if (ALL_touch_flag)
-        {
-            //Debug.Log("Touch_Window");
-
-            //音を鳴らす。被り無し
-            sc.PlaySe(40);
-        }
-
-    }
-
-    //
-    //飾りもの類
-    //
-    public void OnTouchHimmeli()
-    {
-        if (ALL_touch_flag)
-        {
-            Debug.Log("Touch_Himmeli");
-
-            himmeli_animator = this.transform.Find("himmeli_live2d").GetComponent<Animator>();
-            himmeli_animator.Play("himmeli_Touch", 0, 0); //第２引数は、レイヤーの番号、第３が再生時間で、0を指定している。
-                                                          //isHimmeli = true;
-
-            //時間の項目リセット
-            TimeReset();
-        }
-    }
-
     void TimeReset()
     {
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                //時間の項目リセット
-                time_controller.ResetTimeFlag();
-                break;
-        }
+        //時間の項目リセット
+        time_controller.ResetTimeFlag();
         
     }
 
-
-    //タッチを一時的にオフ。全て。
-    void TouchOff()
-    {
-        ALL_touch_flag = false;
-    }
-
-    //タッチをオン。全て。
-    void TouchOn()
-    {
-        ALL_touch_flag = true;
-    }
 
 }

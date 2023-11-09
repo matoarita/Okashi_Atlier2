@@ -111,13 +111,13 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         debug_command_status = 0;
         command_count = 0;
 
-        switch (SceneManager.GetActiveScene().name)
+        /*switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
 
                 InitCompoundMainScene();
                 break;
-        }
+        }*/
 
         //debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド

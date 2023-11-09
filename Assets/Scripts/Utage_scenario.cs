@@ -239,7 +239,7 @@ public class Utage_scenario : MonoBehaviour
             }
 
             //CGギャラリーなどオマケ
-            if (SceneManager.GetActiveScene().name == "200_Omake")
+            if (GameMgr.Scene_Category_Num == 200)
             {
                 if (!sceneBGM)
                 {
@@ -256,7 +256,7 @@ public class Utage_scenario : MonoBehaviour
             }
 
             //調合シーンでのテキスト処理
-            if (SceneManager.GetActiveScene().name == "Compound" || SceneManager.GetActiveScene().name == "Or_Compound")
+            if (GameMgr.Scene_Category_Num == 10)
             {
                 if (!_model)
                 {
@@ -1631,13 +1631,13 @@ public class Utage_scenario : MonoBehaviour
                     random = (int)(random * 1.2f);
                 }
                 girlEat_judge.loveGetPlusAnimeON(random, false);
-                compound_Main.GirlExpressionKoushin(20); //ほめる場合
+                girl1_status.GirlExpressionKoushin(20); //ほめる場合
             }
             else
             {
                 random = -1 * Random.Range(30, 151); //
                 girlEat_judge.UpDegHeart(random, true);
-                compound_Main.GirlExpressionKoushin(-40); //しかった場合
+                girl1_status.GirlExpressionKoushin(-40); //しかった場合
             }
 
             GameMgr.outgirl_Nowprogress = false;

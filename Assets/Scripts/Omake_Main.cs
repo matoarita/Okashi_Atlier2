@@ -94,7 +94,11 @@ public class Omake_Main : MonoBehaviour {
 
         //デバッグ用コマンド
         //DebugCommand();
-        
+
+        //シーン読み込み完了時のメソッド
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
+        SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
+
     }
 
     void DebugCommand()
@@ -194,5 +198,18 @@ public class Omake_Main : MonoBehaviour {
         fadeout_panel_obj.SetActive(true);
         fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 0;
         fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+    }
+
+    //別シーンからこのシーンが読み込まれたときに、読み込む
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameMgr.Scene_LoadedOn_End = true;
+    }
+
+    //シーンがアンロードされたタイミングで呼び出しされる
+    void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log("OnSceneUnloaded: " + current);
+        GameMgr.Scene_LoadedOn_End = false;
     }
 }

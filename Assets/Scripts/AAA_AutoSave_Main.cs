@@ -14,6 +14,9 @@ public class AAA_AutoSave_Main : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 5000;
+
         save_controller = SaveController.Instance.GetComponent<SaveController>();
 
         Msg_window = GameObject.FindWithTag("Message_Window");

@@ -27,6 +27,9 @@ public class AAA_Ending_Main : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 5000;
+
         Debug.Log("Ending_lodingOK");
 
         GameMgr.scenario_flag = 1000;

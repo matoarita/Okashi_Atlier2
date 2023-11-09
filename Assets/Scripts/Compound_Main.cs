@@ -115,7 +115,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
-    public bool girlEat_ON; //食べ中のフラグ
+    //public bool girlEat_ON; //食べ中のフラグ
 
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
@@ -145,6 +145,7 @@ public class Compound_Main : MonoBehaviour
     private ItemCompoundDataBase databaseCompo;
     private EventDataBase eventdatabase;
 
+    private GameObject bgpanelmatome;
     private GameObject BG_Imagepanel;
     private List<GameObject> bgwall_sprite = new List<GameObject>();
 
@@ -208,7 +209,6 @@ public class Compound_Main : MonoBehaviour
     private GameObject status_toggle;
     private GameObject hinttaste_toggle;
 
-    //private GameObject HintTasteButton;
     private Button extreme_Button;
     private Button recipi_Button;
     private GameObject sell_Button;
@@ -224,11 +224,6 @@ public class Compound_Main : MonoBehaviour
     public bool check_recipi_flag;
     private int not_read_total;
     private int _checkexp;
-
-    private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
-    private Text yes_text;
-    private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
-    private Text no_text;
 
     private GameObject yes_no_panel; //通常時のYes, noボタン
     private GameObject yes_no_clear_panel; //クリア時のYes, noボタン
@@ -336,6 +331,9 @@ public class Compound_Main : MonoBehaviour
         //イベントデータベースの取得
         eventdatabase = EventDataBase.Instance.GetComponent<EventDataBase>();
 
+        //キー入力受付コントローラーの取得
+        keymanager = keyManager.Instance.GetComponent<keyManager>();
+
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
@@ -390,9 +388,6 @@ public class Compound_Main : MonoBehaviour
         select_no_button = selectPanel_1.transform.Find("No").GetComponent<Button>();
 
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
-        yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
-        no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
-
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
         yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
         yes_no_sleep_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
@@ -479,14 +474,11 @@ public class Compound_Main : MonoBehaviour
         touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
         
-
         //お金パネル
         moneystatus_panel = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
         moneyStatus_Controller = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
 
-        //キー入力受付コントローラーの取得
-        keymanager = keyManager.Instance.GetComponent<keyManager>();
-
+        
         //Live2Dモデルの取得
         _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
@@ -574,13 +566,14 @@ public class Compound_Main : MonoBehaviour
         stageclear_default_text = stageclear_button_text.text;
         stageclear_button_toggle.isOn = false;
         stageclear_Button.SetActive(false);
-        
+
 
         //背景天気オブジェクトの取得
-        bgweather_image_panel = GameObject.FindWithTag("BGImageWindowOutPanel");
-        BG_Imagepanel = GameObject.FindWithTag("BG");
-        BG_effectpanel = GameObject.FindWithTag("BG_Effect");
-        bg_accessory_panel = GameObject.FindWithTag("BGAccessory");
+        bgpanelmatome = GameObject.FindWithTag("BG");
+        bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel").gameObject;
+        BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel").gameObject;
+        BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect").gameObject;
+        bg_accessory_panel = bgpanelmatome.transform.Find("BGAccessory").gameObject;
 
         bg_weather_image.Clear();
         foreach (Transform child in bgweather_image_panel.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -616,20 +609,17 @@ public class Compound_Main : MonoBehaviour
         particleEm_MiniHouseLight1_obj = bg_accessory_panel.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").gameObject;
 
         Change_BGimage();
-        //メモボタン
-        //HintTasteButton = canvas.transform.Find("MainUIPanel/HintTasteButton").gameObject;
-        //HintTasteButton.SetActive(false);
 
         /* --- */
 
         Sleep_on = false;
 
-        status_zero_readOK = false;
-        girlEat_ON = false;
+        status_zero_readOK = false;       
         Recipi_loading = false;       
         check_recipi_flag = false;
         heartget_ON = false;
 
+        GameMgr.girlEat_ON = false;
         GameMgr.GirlLove_loading = false;
         GameMgr.check_GirlLoveEvent_flag = false;
         GameMgr.check_GirlLoveSubEvent_flag = false;
@@ -733,7 +723,9 @@ public class Compound_Main : MonoBehaviour
             touch_controller.Touch_OnAllOFF();
         }
 
-        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
+        //シーン読み込み完了時のメソッド
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
+        SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
 
     //家に帰ってきたときの処理
@@ -1290,7 +1282,7 @@ public class Compound_Main : MonoBehaviour
         else //以下が、通常の処理
         {
 
-            if (girlEat_ON) //お菓子判定中の間は、無条件で、メインの処理は無視する。
+            if (GameMgr.girlEat_ON) //お菓子判定中の間は、無条件で、メインの処理は無視する。
             {
 
             }
@@ -1639,7 +1631,7 @@ public class Compound_Main : MonoBehaviour
 
                 GameMgr.compound_status = 12;
                 text_area.SetActive(false);
-                girlEat_ON = true; //お菓子判定中フラグ
+                GameMgr.girlEat_ON = true; //お菓子判定中フラグ
                 character_move.transform.position = new Vector3(0, 0, 0);
 
                 //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1 1=コンテストのとき
@@ -2898,7 +2890,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
         GameMgr.compound_status = 1000;
 
-        while (girlEat_ON)
+        while (GameMgr.girlEat_ON)
         {
             yield return null;
         }
@@ -2960,7 +2952,7 @@ public class Compound_Main : MonoBehaviour
 
                     _textmain.text = "ぽんぽんの力で、より元気になってきた。";
                     //girlEat_judge.loveGetPlusAnimeON(30, false);    
-                    GirlExpressionKoushin(50);
+                    girl1_status.GirlExpressionKoushin(50);
 
                     break;
 
@@ -2976,7 +2968,7 @@ public class Compound_Main : MonoBehaviour
 
                             _textmain.text = "あまりピクニックは喜ばなかったようだ..。";
                             girlEat_judge.UpDegHeart(-1*(int)SujiMap(GameMgr.event_okashi_score, 0, 30, 60, 0), true);
-                            GirlExpressionKoushin(-20);
+                            girl1_status.GirlExpressionKoushin(-20);
                             break;
 
                         case 1:
@@ -2984,7 +2976,7 @@ public class Compound_Main : MonoBehaviour
                             //get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
                             get_heart = 10;
                             _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
-                            GirlExpressionKoushin(10);
+                            girl1_status.GirlExpressionKoushin(10);
 
                             heartget_ON = true;
                             break;
@@ -2995,7 +2987,7 @@ public class Compound_Main : MonoBehaviour
                             get_heart = 20;
                             _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
 
-                            GirlExpressionKoushin(30);
+                            girl1_status.GirlExpressionKoushin(30);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
 
@@ -3008,7 +3000,7 @@ public class Compound_Main : MonoBehaviour
                             get_heart = 30;
                             _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
 
-                            GirlExpressionKoushin(50);
+                            girl1_status.GirlExpressionKoushin(50);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
 
@@ -3020,8 +3012,8 @@ public class Compound_Main : MonoBehaviour
                             //get_heart = GameMgr.event_okashi_score;
                             get_heart = 50;
                             _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
-                            
-                            GirlExpressionKoushin(100);
+
+                            girl1_status.GirlExpressionKoushin(100);
                             GameMgr.picnic_after = true;
                             GameMgr.picnic_after_time = 60;
 
@@ -3107,7 +3099,7 @@ public class Compound_Main : MonoBehaviour
 
                     _textmain.text = "ぬいぐるみに喜んだようだ！";
                     get_heart = 30;
-                    GirlExpressionKoushin(50);
+                    girl1_status.GirlExpressionKoushin(50);
 
                     heartget_ON = true;
                     break;
@@ -3831,7 +3823,6 @@ public class Compound_Main : MonoBehaviour
         //フリーモードのときのみ　変更
         if (GameMgr.Story_Mode == 1)
         {
-
             //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
             //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
             GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
@@ -3841,47 +3832,7 @@ public class Compound_Main : MonoBehaviour
             Debug.Log("天気を変更　秒数: " + _changetime);
         }
     }
-
-    //満腹ゲージの処理
-    public void ManpukuBarKoushin(int _param)
-    {
-        if (GameMgr.System_Manpuku_ON)
-        {
-            if (_param >= 0)
-            {
-                PlayerStatus.player_girl_manpuku += _param;
-                if (PlayerStatus.player_girl_manpuku > 0)
-                {
-                    GameMgr.Haraheri_Msg = false;
-                }
-            }
-            else
-            {
-                PlayerStatus.player_girl_manpuku += _param;
-            }
-
-            if (PlayerStatus.player_girl_manpuku <= 0)
-            {
-                PlayerStatus.player_girl_manpuku = 0;
-
-                if (!GameMgr.Haraheri_Msg)
-                {
-                    GameMgr.Haraheri_Msg = true;
-                    //音鳴らす
-                    sc.PlaySe(45);
-
-                    girl1_status.MotionChange(23);
-                }
-            }
-            if (PlayerStatus.player_girl_manpuku >= 100)
-            {
-                PlayerStatus.player_girl_manpuku = 100;
-            }
-
-            ManpukuKoushin();
-        }
-    }
-
+    
     void ManpukuKoushin()
     {
         if (GameMgr.System_Manpuku_ON)
@@ -3913,58 +3864,29 @@ public class Compound_Main : MonoBehaviour
         }
 
         manpuku_slider.value = PlayerStatus.player_girl_manpuku;
-    }
-
-    //機嫌状態の処理
-    public void GirlExpressionKoushin(int _param)
-    {
-        if (_param >= 0)
-        {
-            PlayerStatus.player_girl_express_param += _param;
-        }
-        else
-        {
-            PlayerStatus.player_girl_express_param += _param;
-        }
-
-        if (PlayerStatus.player_girl_express_param <= 0)
-        {
-            PlayerStatus.player_girl_express_param = 0;
-        }
-        else if (PlayerStatus.player_girl_express_param >= 100)
-        {
-            PlayerStatus.player_girl_express_param = 100;
-        }
-
-        GirlExpressionKoushinHyouji();
-    }
+    }  
 
     void GirlExpressionKoushinHyouji()
     {
         //機嫌決定
         if (PlayerStatus.player_girl_express_param < 20)
         {
-            PlayerStatus.player_girl_expression = 1;
             kigen_text.text = "機嫌: 怒り";
         }
         else if (PlayerStatus.player_girl_express_param >= 20 && PlayerStatus.player_girl_express_param < 40)
         {
-            PlayerStatus.player_girl_expression = 2;
             kigen_text.text = "機嫌: 不機嫌";
         }
         else if (PlayerStatus.player_girl_express_param >= 40 && PlayerStatus.player_girl_express_param < 60)
         {
-            PlayerStatus.player_girl_expression = 3;
             kigen_text.text = "機嫌: まあまあ";
         }
         else if (PlayerStatus.player_girl_express_param >= 60 && PlayerStatus.player_girl_express_param < 80)
         {
-            PlayerStatus.player_girl_expression = 4;
             kigen_text.text = "機嫌: 良";
         }
         else if (PlayerStatus.player_girl_express_param >= 80)
         {
-            PlayerStatus.player_girl_expression = 5;
             kigen_text.text = "機嫌: 最高";
         }
     }
@@ -4307,9 +4229,14 @@ public class Compound_Main : MonoBehaviour
     //別シーンからこのシーンが読み込まれたときに、読み込む
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {
+        Debug.Log("OnSceneloaded: " + scene);
+        GameMgr.Scene_LoadedOn_End = true;
+    }
 
-        }
+    //シーンがアンロードされたタイミングで呼び出しされる
+    void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log("OnSceneUnloaded: " + current);
+        GameMgr.Scene_LoadedOn_End = false;
     }
 }

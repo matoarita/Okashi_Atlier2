@@ -109,6 +109,8 @@ public class CompoundMainController : MonoBehaviour {
     private int trans_motion;
     private int trans_position;
 
+    private int i;
+
     private GameObject Debug_CompoIcon;
 
     private bool WaitForCompEnd; //調合シーン終了時に一回だけ行う処理のフラグ
@@ -212,34 +214,43 @@ public class CompoundMainController : MonoBehaviour {
 
         //Live2Dモデルの取得 
         //調合専用処理では、Live2Dの描画順のみ操作し、位置やアクションなどには触らないようにする。LateUpdateの関係など、ややこしいので、元シーンで処理する。
-
-        Scene scene = SceneManager.GetActiveScene();
-        GameObject[] rootObjects = scene.GetRootGameObjects();
-
+        //Scene scene = SceneManager.GetActiveScene();
+        //Debug.Log("Active scene is '" + scene.name + "'.");
         character_On = false;
-        foreach (var obj in rootObjects)
+        for (i = 0; i < SceneManager.sceneCount; i++)
         {
-            //Debug.LogFormat("RootObject = {0}", obj.name);
-            if (obj.name == "CharacterRoot")
-            {
-                Debug.Log("character_On: ヒカリちゃん　シーン内に存在する");
-                character_On = true;
-                _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
-                cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
-                default_live2d_draworder = cubism_rendercontroller.SortingOrder;
-                live2d_animator = _model_obj.GetComponent<Animator>();
-                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                character_move = character_root.transform.Find("CharacterMove").gameObject;
-                Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
+            //読み込まれているシーンを取得し、その名前をログに表示
+            string sceneName = SceneManager.GetSceneAt(i).name;
+            Debug.Log(sceneName);
 
-                //タッチ判定オブジェクトの取得
-                touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
-            }
-            else
+            GameObject[] rootObjects = SceneManager.GetSceneAt(i).GetRootGameObjects();
+            
+            foreach (var obj in rootObjects)
             {
+                //Debug.LogFormat("RootObject = {0}", obj.name);
+                if (obj.name == "CharacterRoot")
+                {
+                    Debug.Log("character_On: ヒカリちゃん　シーン内に存在する");
+                    character_On = true;
+                    _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+                    cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
+                    default_live2d_draworder = cubism_rendercontroller.SortingOrder;
+                    live2d_animator = _model_obj.GetComponent<Animator>();
+                    character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                    character_move = character_root.transform.Find("CharacterMove").gameObject;
+                    Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
 
+                    //タッチ判定オブジェクトの取得
+                    touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+                }
+                else
+                {
+
+                }
             }
+
         }
+        
 
 
         //各調合時のシステムメッセージ集

@@ -498,7 +498,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 GameMgr.OsotoIkitaiFlag = false;
                 girlEat_judge.loveGetPlusAnimeON(5, false);
                 _textmain.text = "お外にいって、喜んだようだ。";
-                compound_Main.GirlExpressionKoushin(20);
+                girl1_status.GirlExpressionKoushin(20);
             }
             else
             {

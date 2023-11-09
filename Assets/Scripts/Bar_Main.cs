@@ -18,6 +18,8 @@ public class Bar_Main : MonoBehaviour
     private SoundController sc;
     private Girl1_status girl1_status;
 
+    private SceneInitSetting sceneinit_setting;
+
     private GameObject text_area;
     private Text _text;
     private string shopdefault_text;
@@ -146,9 +148,9 @@ public class Bar_Main : MonoBehaviour
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        //プレイヤー所持アイテムリストパネルの初期化・取得
-        pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
-        pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
+        //シーン最初にプレイヤーアイテムリストの生成
+        sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
+        sceneinit_setting.PlayerItemListController_Init();
 
         playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
@@ -193,6 +195,10 @@ public class Bar_Main : MonoBehaviour
 
         //入店の音
         sc.PlaySe(51);
+
+        //シーン読み込み完了時のメソッド
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
+        SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
 
     // Update is called once per frame
@@ -657,5 +663,18 @@ public class Bar_Main : MonoBehaviour
             }
             //Debug.Log("shopuwasa_List: " + shopuwasa_List[i]);
         }
+    }
+
+    //別シーンからこのシーンが読み込まれたときに、読み込む
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameMgr.Scene_LoadedOn_End = true;
+    }
+
+    //シーンがアンロードされたタイミングで呼び出しされる
+    void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log("OnSceneUnloaded: " + current);
+        GameMgr.Scene_LoadedOn_End = false;
     }
 }

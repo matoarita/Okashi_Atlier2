@@ -126,6 +126,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         conteston_toggle_compo = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Compo").gameObject;
 
         contest_status = 100;
+
+        //シーン読み込み完了時のメソッド
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
+        SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
 	
 	// Update is called once per frame
@@ -258,5 +262,18 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         GameMgr.ending_count = 1;
         canvas.transform.Find("DebugContestStart").gameObject.SetActive(false);
+    }
+
+    //別シーンからこのシーンが読み込まれたときに、読み込む
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameMgr.Scene_LoadedOn_End = true;
+    }
+
+    //シーンがアンロードされたタイミングで呼び出しされる
+    void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log("OnSceneUnloaded: " + current);
+        GameMgr.Scene_LoadedOn_End = false;
     }
 }

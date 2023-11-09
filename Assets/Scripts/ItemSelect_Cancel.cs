@@ -157,78 +157,87 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     // Update is called once per frame
     void Update() {
 
-        //初期化
-        switch (GameMgr.Scene_Category_Num)
-        {            
-            case 10:
+        if (GameMgr.Scene_LoadedOn_End) //シーン読み込み完了してから動き出す
+        {
+            //初期化
+            switch (GameMgr.Scene_Category_Num)
+            {
+                case 10:
 
-                //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
-                
-                if (canvas == null)
-                {
-                    InitSetting();                                                    
+                    //シーン読み込みのたびに、一度リセットされてしまうので、アップデートで一度初期化
 
-                    kettei_on_waiting = false;
-                }               
+                    if (canvas == null)
+                    {
+                        InitSetting();
 
-                //レシピリストオブジェクトの初期化
-                if (recipilistController_obj == null)
-                {
-                    recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-                    recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-                }                
+                        kettei_on_waiting = false;
+                    }
 
-                break;
+                    //レシピリストオブジェクトの初期化
+                    if (recipilistController_obj == null)
+                    {
+                        recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+                        recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+                    }
 
-            case 20:
+                    break;
 
-                if (canvas == null)
-                {
+                case 20:
+
+                    if (canvas == null)
+                    {
+                        InitSetting();
+
+                        shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                        shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                        yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
+                        yes_text = yes.GetComponentInChildren<Text>();
+                        no = shopitemlistController_obj.transform.Find("No").gameObject;
+                        no_text = no.GetComponentInChildren<Text>();
+
+                        kettei_on_waiting = false;
+                    }
+
+                    break;
+
+                case 30:
+
+                    if (canvas == null)
+                    {
+                        InitSetting();
+
+                        quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
+                        NouhinKetteiPanel_obj = quest_Judge_CanvasPanel.transform.Find("NouhinKetteiPanel").gameObject;
+
+                        shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                        shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                        shopquestlistController_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
+                        shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
+
+                        yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
+                        yes_text = yes.GetComponentInChildren<Text>();
+                        no = shopitemlistController_obj.transform.Find("No").gameObject;
+                        no_text = no.GetComponentInChildren<Text>();
+
+                        kettei_on_waiting = false;
+                    }
+
+                    break;
+
+                case 9999: //シーン読み込み途中などの回避用
+
+                    break;
+
+
+
+                default: //上記シーン以外
+
                     InitSetting();
 
-                    shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-                    shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                    yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
-                    yes_text = yes.GetComponentInChildren<Text>();
-                    no = shopitemlistController_obj.transform.Find("No").gameObject;
-                    no_text = no.GetComponentInChildren<Text>();
-
-                    kettei_on_waiting = false;
-                }
-
-                break;
-
-            case 30:
-
-                if (canvas == null)
-                {
-                    InitSetting();
-
-                    quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
-                    NouhinKetteiPanel_obj = quest_Judge_CanvasPanel.transform.Find("NouhinKetteiPanel").gameObject;
-
-                    shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-                    shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
-                    shopquestlistController_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
-                    shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-
-                    yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
-                    yes_text = yes.GetComponentInChildren<Text>();
-                    no = shopitemlistController_obj.transform.Find("No").gameObject;
-                    no_text = no.GetComponentInChildren<Text>();
-
-                    kettei_on_waiting = false;
-                }
-
-                break;           
-
-            default: //上記シーン以外
-
-                InitSetting();
-
-                break;
+                    break;
+            }
         }
 
 

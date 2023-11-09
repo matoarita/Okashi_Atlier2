@@ -52,26 +52,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         GetEmeraldItem = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        //シーン移動の際、破壊されてしまうオブジェクトは、毎回初期化
-        if (canvas == null)
-        {
-            canvas = GameObject.FindWithTag("Canvas");
-
-            switch (SceneManager.GetActiveScene().name)
-            {
-                case "Compound":
-
-                    //時間管理オブジェクトの取得
-                    time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
-                    break;
-            }
-        }
     }
 
     //好感度によって発生する、メインイベント。基本、クエストクリアボタンを押さないと発動しない。

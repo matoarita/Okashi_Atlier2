@@ -277,26 +277,33 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compo_anim_end = false;
 
         //Live2Dモデルの取得
-        Scene scene = SceneManager.GetActiveScene();
-        GameObject[] rootObjects = scene.GetRootGameObjects();
-
         character_ON = false;
-        foreach (var obj in rootObjects)
+        for (i = 0; i < SceneManager.sceneCount; i++)
         {
-            //Debug.LogFormat("RootObject = {0}", obj.name);
-            if (obj.name == "CharacterRoot")
-            {
-                Debug.Log("character_On: ヒカリちゃん　シーン内に存在する");
-                character_ON = true;
-                _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
-                live2d_animator = _model_obj.GetComponent<Animator>();
-                character_move = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove").gameObject;
-            }
-            else
-            {
+            //読み込まれているシーンを取得し、その名前をログに表示
+            string sceneName = SceneManager.GetSceneAt(i).name;
+            Debug.Log(sceneName);
 
+            GameObject[] rootObjects = SceneManager.GetSceneAt(i).GetRootGameObjects();
+
+            
+            foreach (var obj in rootObjects)
+            {
+                //Debug.LogFormat("RootObject = {0}", obj.name);
+                if (obj.name == "CharacterRoot")
+                {
+                    Debug.Log("character_On: ヒカリちゃん　シーン内に存在する");
+                    character_ON = true;
+                    _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+                    live2d_animator = _model_obj.GetComponent<Animator>();
+                    character_move = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove").gameObject;
+                }
+                else
+                {
+
+                }
             }
-        }       
+        }     
     }
 
     void CompInitSetting()
@@ -329,10 +336,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     // Update is called once per frame
     void Update()
     {
-        //シーン移動時バグるのでUpdateで初期化
-        if (canvas == null)
+        if (GameMgr.Scene_LoadedOn_End) //シーン読み込み完了してから動き出す
         {
-            InitObject();
+            //シーン移動時バグるのでUpdateで初期化
+            if (canvas == null)
+            {
+                InitObject();
+            }
         }
 
         if (GameMgr.CompoundSceneStartON)
@@ -1834,6 +1844,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //パネル上のお菓子を削除する　Compound_Keisanなどからも読まれる。
     public void deleteExtreme_Item() //削除。さらに全てのパラメータもリセットする。
     {
+        InitObject();
         card_view.DeleteCard_DrawView();
 
         _temp_extreme_id = 9999;

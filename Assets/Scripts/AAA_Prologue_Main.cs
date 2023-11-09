@@ -11,6 +11,9 @@ public class AAA_Prologue_Main : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 5000;
+
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストウィンドウを読み込み。シーンにシーンを加算する形。
 
         //デバッグパネルの取得

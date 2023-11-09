@@ -128,6 +128,10 @@ public class Title_Main : MonoBehaviour {
             loadButton_obj.GetComponent<Button>().interactable = false;
             loadButton_obj.SetActive(false);
         }
+
+        //シーン読み込み完了時のメソッド
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
+        SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
 	
 	// Update is called once per frame
@@ -165,6 +169,7 @@ public class Title_Main : MonoBehaviour {
 
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene("Compound", 0.3f);
+        //SceneManager.LoadSceneAsync("Compound");
     }
 
     public void OnGalleryButton()
@@ -191,5 +196,21 @@ public class Title_Main : MonoBehaviour {
         #elif UNITY_STANDALONE
             UnityEngine.Application.Quit();
         #endif
+    }
+
+    //別シーンからこのシーンが読み込まれたときに、読み込む
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameMgr.Scene_LoadedOn_End = true;
+    }
+
+    //シーンがアンロードされたタイミングで呼び出しされる
+    void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log("OnSceneUnloaded: " + current);
+        GameMgr.Scene_LoadedOn_End = false;
+
+        //次シーン行く際のロード中　シーン番号
+        GameMgr.Scene_Category_Num = 9999;
     }
 }

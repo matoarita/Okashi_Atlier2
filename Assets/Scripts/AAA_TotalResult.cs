@@ -111,6 +111,9 @@ public class AAA_TotalResult : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        //今いるシーン番号を指定
+        GameMgr.Scene_Category_Num = 5000;
+
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 

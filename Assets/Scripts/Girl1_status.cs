@@ -412,146 +412,149 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     // Update is called once per frame
     void Update () {
 
-        //シーン関係のオブジェクト読み込みをUpdateのタイミングでする。
-        if( canvas == null )
+        if (GameMgr.Scene_LoadedOn_End) //シーン読み込み完了してから動き出す
         {
-            canvas = GameObject.FindWithTag("Canvas");
+            //シーン関係のオブジェクト読み込みをUpdateのタイミングでする。
+            if (canvas == null)
+            {
+                canvas = GameObject.FindWithTag("Canvas");
+
+                switch (GameMgr.Scene_Category_Num)
+                {
+                    case 10:
+
+                        //カメラの取得
+                        main_cam = Camera.main;
+                        maincam_animator = main_cam.GetComponent<Animator>();
+                        trans = maincam_animator.GetInteger("trans");
+
+                        //エクストリームパネルの取得
+                        Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
+
+                        //BGMの取得
+                        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                        map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
+
+                        //Live2Dモデルの取得
+                        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+                        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                        live2d_animator = _model.GetComponent<Animator>();
+                        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                        character_move = character_root.transform.Find("CharacterMove").gameObject;
+                        character = GameObject.FindWithTag("Character");
+
+                        //タッチ判定オブジェクトの取得
+                        touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+                        touch_controll = character.GetComponent<Touch_Controll>();
+
+                        //メイン画面に表示する、現在のクエスト
+                        questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
+                        questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
+                        questtitle_panel.SetActive(false);
+
+                        //初期表情の設定
+                        CheckGokigen();
+                        DefFaceChange();
+
+                        //タイマーをリセット
+                        timeOut = Default_hungry_cooltime;
+                        timeOut2 = 10.0f;
+                        GirlEat_Judge_on = true;
+
+                        HukidashiFlag = true;
+                        gireleat_start_flag = false;
+
+                        GirlOishiso_Status = 0; //シーン移動でも、おいしそ～状態はリセット
+                        _noweat_count = 0;
+                        hukidashion = false;
+
+                        break;
+
+                    case 20:
+
+                        //カメラの取得
+                        /*main_cam = Camera.main;
+                        maincam_animator = main_cam.GetComponent<Animator>();
+                        trans = maincam_animator.GetInteger("trans");
+
+                        GirlEat_Judge_on = false;*/
+
+                        break;
+
+                    case 1000:
+
+                        //Live2Dモデルの取得
+                        _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
+                        _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
+                        character = GameObject.FindWithTag("Character");
+                        live2d_animator = _model_obj.GetComponent<Animator>();
+
+                        GirlEat_Judge_on = false;
+
+                        break;
+                }
+
+                //エフェクトプレファブの取得
+                Emo_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Emo_Hirameki_Anim");
+                Emo_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Emo_Kirari_Anim");
+                Emo_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Emo_Angry_Anim");
+            }
 
             switch (GameMgr.Scene_Category_Num)
             {
                 case 10:
 
-                    //カメラの取得
-                    main_cam = Camera.main;
-                    maincam_animator = main_cam.GetComponent<Animator>();
-                    trans = maincam_animator.GetInteger("trans");                 
-
-                    //エクストリームパネルの取得
-                    Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
-
-                    //BGMの取得
-                    sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-                    map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
-
-                    //Live2Dモデルの取得
-                    _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
-                    _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
-                    live2d_animator = _model.GetComponent<Animator>();
-                    character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                    character_move = character_root.transform.Find("CharacterMove").gameObject;
-                    character = GameObject.FindWithTag("Character");
-
-                    //タッチ判定オブジェクトの取得
-                    touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
-                    touch_controll = character.GetComponent<Touch_Controll>();
-
-                    //メイン画面に表示する、現在のクエスト
-                    questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
-                    questtitle_panel = canvas.transform.Find("QuestTitlePanel").gameObject;
-                    questtitle_panel.SetActive(false);
-
-                    //初期表情の設定
+                    //女の子の今のご機嫌チェック
                     CheckGokigen();
-                    DefFaceChange();
 
-                    //タイマーをリセット
-                    timeOut = Default_hungry_cooltime;
-                    timeOut2 = 10.0f;
-                    GirlEat_Judge_on = true;
+                    //必ず1秒ずつ減るカウンタ
+                    timeOutSec -= Time.deltaTime;
 
-                    HukidashiFlag = true;
-                    gireleat_start_flag = false;
-
-                    GirlOishiso_Status = 0; //シーン移動でも、おいしそ～状態はリセット
-                    _noweat_count = 0;
-                    hukidashion = false;
-
-                    break;
-
-                case 20:
-
-                    //カメラの取得
-                    /*main_cam = Camera.main;
-                    maincam_animator = main_cam.GetComponent<Animator>();
-                    trans = maincam_animator.GetInteger("trans");
-
-                    GirlEat_Judge_on = false;*/
-
-                    break;
-
-                case 1000:
-
-                    //Live2Dモデルの取得
-                    _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
-                    _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
-                    character = GameObject.FindWithTag("Character");
-                    live2d_animator = _model_obj.GetComponent<Animator>();
-
-                    GirlEat_Judge_on = false;
-
-                    break;
-            }
-
-            //エフェクトプレファブの取得
-            Emo_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Emo_Hirameki_Anim");
-            Emo_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Emo_Kirari_Anim");
-            Emo_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Emo_Angry_Anim");
-        }
-
-        switch (GameMgr.Scene_Category_Num)
-        {
-            case 10:
-
-                //女の子の今のご機嫌チェック
-                CheckGokigen();
-
-                //必ず1秒ずつ減るカウンタ
-                timeOutSec -= Time.deltaTime;
-
-                if (GameMgr.outgirl_Nowprogress)
-                { }
-                else
-                {
-                    //trueだと腹減りカウントが進む。
-                    if (GirlEat_Judge_on)
+                    if (GameMgr.outgirl_Nowprogress)
+                    { }
+                    else
                     {
-                        timeOut -= Time.deltaTime;
-                        timeOut2 -= Time.deltaTime;
-                        timeOutHeartDeg -= Time.deltaTime;
-                        timeOutMoveX -= Time.deltaTime;
-
-                    }
-
-                    if (WaitHint_on) //吹き出しを表示中
-                    {
-                        timeOutHint -= Time.deltaTime;
-
-                        if (timeOutHint <= 0.0f)
+                        //trueだと腹減りカウントが進む。
+                        if (GirlEat_Judge_on)
                         {
-                            //吹き出しが残っていたら、削除。
-                            if (hukidashiitem != null)
+                            timeOut -= Time.deltaTime;
+                            timeOut2 -= Time.deltaTime;
+                            timeOutHeartDeg -= Time.deltaTime;
+                            timeOutMoveX -= Time.deltaTime;
+
+                        }
+
+                        if (WaitHint_on) //吹き出しを表示中
+                        {
+                            timeOutHint -= Time.deltaTime;
+
+                            if (timeOutHint <= 0.0f)
                             {
-                                DeleteHukidashi();
+                                //吹き出しが残っていたら、削除。
+                                if (hukidashiitem != null)
+                                {
+                                    DeleteHukidashi();
+                                }
+
+                                WaitHint_on = false;
+                                GirlEat_Judge_on = true;
+                                Girl1_touchtwintail_count = 0;
+
+                                if (GirlOishiso_Status != 0) //成功　もしくはしっぱい
+                                {
+                                    GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
+                                    DefFaceChange();
+                                }
+
+                                //アイドルモーションの更新
+                                IdleMotionReset();
+
+                                _model.GetComponent<CubismEyeBlinkController>().enabled = true;
                             }
-
-                            WaitHint_on = false;
-                            GirlEat_Judge_on = true;
-                            Girl1_touchtwintail_count = 0;
-
-                            if (GirlOishiso_Status != 0) //成功　もしくはしっぱい
-                            {
-                                GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
-                                DefFaceChange();
-                            }
-
-                            //アイドルモーションの更新
-                            IdleMotionReset();
-
-                            _model.GetComponent<CubismEyeBlinkController>().enabled = true;
                         }
                     }
-                }
-                break;
+                    break;
+            }
         }
 
         if (hukidashiPrefab == null)
@@ -4305,6 +4308,89 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
 
         return _sum;
+    }
+
+    //機嫌状態の処理
+    public void GirlExpressionKoushin(int _param)
+    {
+        if (_param >= 0)
+        {
+            PlayerStatus.player_girl_express_param += _param;
+        }
+        else
+        {
+            PlayerStatus.player_girl_express_param += _param;
+        }
+
+        if (PlayerStatus.player_girl_express_param <= 0)
+        {
+            PlayerStatus.player_girl_express_param = 0;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 100)
+        {
+            PlayerStatus.player_girl_express_param = 100;
+        }
+
+        //機嫌決定
+        if (PlayerStatus.player_girl_express_param < 20)
+        {
+            PlayerStatus.player_girl_expression = 1;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 20 && PlayerStatus.player_girl_express_param < 40)
+        {
+            PlayerStatus.player_girl_expression = 2;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 40 && PlayerStatus.player_girl_express_param < 60)
+        {
+            PlayerStatus.player_girl_expression = 3;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 60 && PlayerStatus.player_girl_express_param < 80)
+        {
+            PlayerStatus.player_girl_expression = 4;
+        }
+        else if (PlayerStatus.player_girl_express_param >= 80)
+        {
+            PlayerStatus.player_girl_expression = 5;
+        }
+
+    }
+
+    //満腹ゲージの処理
+    public void ManpukuBarKoushin(int _param)
+    {
+        if (GameMgr.System_Manpuku_ON)
+        {
+            if (_param >= 0)
+            {
+                PlayerStatus.player_girl_manpuku += _param;
+                if (PlayerStatus.player_girl_manpuku > 0)
+                {
+                    GameMgr.Haraheri_Msg = false;
+                }
+            }
+            else
+            {
+                PlayerStatus.player_girl_manpuku += _param;
+            }
+
+            if (PlayerStatus.player_girl_manpuku <= 0)
+            {
+                PlayerStatus.player_girl_manpuku = 0;
+
+                if (!GameMgr.Haraheri_Msg)
+                {
+                    GameMgr.Haraheri_Msg = true;
+                    //音鳴らす
+                    sc.PlaySe(45);
+
+                    MotionChange(23);
+                }
+            }
+            if (PlayerStatus.player_girl_manpuku >= 100)
+            {
+                PlayerStatus.player_girl_manpuku = 100;
+            }
+        }
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

@@ -676,11 +676,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     // Update is called once per frame
     void Update() {
 
-        //シーン関係のオブジェクト読み込みをUpdateのタイミングでする。
-        if (canvas == null)
+        if (GameMgr.Scene_LoadedOn_End) //シーン読み込み完了してから動き出す
         {
-            SceneCanvasObjectLoad();
-            SceneInitSetting();
+            //シーン関係のオブジェクト読み込みをUpdateのタイミングでする。
+            if (canvas == null)
+            {
+                SceneCanvasObjectLoad();
+                SceneInitSetting();
+            }
         }
 
         if (judge_anim_on == true)
@@ -846,7 +849,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }
 
     //選んだアイテムと、女の子の好みを比較するメソッド
-
     public void Girleat_Judge_method(int value1, int value2, int _Type)
     {
 
@@ -1074,7 +1076,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     GameMgr.compound_status = 0;
                     //お菓子の判定処理を終了
-                    compound_Main.girlEat_ON = false;
+                    GameMgr.girlEat_ON = false;
 
                     break;
 
@@ -2507,7 +2509,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (Mazui_flag)
         {
             sc.PlaySe(6); //ダウン音
-            compound_Main.GirlExpressionKoushin(-75); //まずいと、不機嫌になる。
+            girl1_status.GirlExpressionKoushin(-75); //まずいと、不機嫌になる。
         }
         else
         {
@@ -2712,7 +2714,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 0.1f));
                 GetMoney += (int)(_basecost * 0.5f);
-                compound_Main.GirlExpressionKoushin(5);
+                girl1_status.GirlExpressionKoushin(5);
 
                 if (Getlove_exp <= 0) //ただし、1は必ず上がる。
                 {
@@ -2723,41 +2725,41 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 0.7f));
                 GetMoney += (int)(_basecost * 1.0f);
-                compound_Main.GirlExpressionKoushin(20);
+                girl1_status.GirlExpressionKoushin(20);
             }
             else if (total_score >= GameMgr.high_score && total_score < GameMgr.high_score_2) //ベース×3
             {
                 Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
                 GetMoney += (int)(_basecost * 1.5f);
-                compound_Main.GirlExpressionKoushin(30);
+                girl1_status.GirlExpressionKoushin(30);
             }
             else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
             {
                 Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.15f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(40);
+                girl1_status.GirlExpressionKoushin(40);
             }
             else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.3f));
                 GetMoney += (int)(_basecost * 2.2f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(50);
+                girl1_status.GirlExpressionKoushin(50);
             }
             else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.2f) * (_basegirl1_like * 1.5f));
                 GetMoney += (int)(_basecost * 2.5f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(70);
+                girl1_status.GirlExpressionKoushin(70);
             }
             else if (total_score >= 500) //300~500点を超えた場合、ベース×5
             {
                 Getlove_exp += (int)((total_score * 0.4f) * (_basegirl1_like * 1.75f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
-                compound_Main.GirlExpressionKoushin(100);
+                girl1_status.GirlExpressionKoushin(100);
             }
 
             //そのお菓子を食べた回数でお金取得を割り算。同じお菓子を何度あげても、だんだんお金は上がらなくなってくる。
@@ -2835,7 +2837,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     PlayerStatus.player_girl_maxlifepoint += 2;
 
                     //機嫌もよくなる。
-                    compound_Main.GirlExpressionKoushin(20);
+                    girl1_status.GirlExpressionKoushin(20);
 
                     //次で食べたいお菓子が強制的に変わる。
                     GameMgr.RandomEatOkashi_counter = 0;
@@ -2893,7 +2895,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //フリーモード時　満腹度の計算
         if (GameMgr.Story_Mode == 1)
         {
-            compound_Main.ManpukuBarKoushin((int)(_basegirl1_manpuku + (total_score * 0.1f))); //満腹度も計算
+            girl1_status.ManpukuBarKoushin((int)(_basegirl1_manpuku + (total_score * 0.1f))); //満腹度も計算
             Debug.Log("満腹上昇値Base: " + _basegirl1_manpuku);
         }
     }
@@ -3819,7 +3821,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         yield return new WaitForSeconds(1.0f);
 
         //演出処理　このタイミングで、「クエストクリア～！」みたいな演出？一時的に触れなくする。
-        compound_Main.girlEat_ON = true;
+        GameMgr.girlEat_ON = true;
         Touch_WindowInteractOFF();
         QuestClearEffectPanel.SetActive(true);
         sceneBGM.MuteBGM();
@@ -3846,7 +3848,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else //SPクエストクリアで、ボタン登場演出がない場合。次へ。
         {
             //お菓子の判定処理を終了
-            //compound_Main.girlEat_ON = false;
 
             sceneBGM.MuteOFFBGM(); //ここのタイミングでBGMをオンに。
 
@@ -4699,7 +4700,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 ResultOFF();
 
                 //お菓子の判定処理を終了
-                compound_Main.girlEat_ON = false;
+                GameMgr.girlEat_ON = false;
                 GameMgr.compound_status = 0;
             }
         }
@@ -4889,7 +4890,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     void EndCompJudge() //女の子の判定終了のフラグ系
     {
         //お菓子の判定処理を終了
-        compound_Main.girlEat_ON = false;
+        GameMgr.girlEat_ON = false;
         GameMgr.compound_status = 0;
 
         GameMgr.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック

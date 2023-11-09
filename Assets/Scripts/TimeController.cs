@@ -112,7 +112,11 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         //ヒカリお菓子EXPデータベースの取得
-        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();       
+        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();        
+
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+        girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
         //カレンダー初期化
         calender.Clear();
@@ -144,25 +148,32 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     void Update()
     {
         //セットアップ
-        switch (SceneManager.GetActiveScene().name)
+        if (GameMgr.Scene_LoadedOn_End) //シーン読み込み完了してから動き出す
         {
-            case "Compound":
+            if (canvas == null)
+            {
+                InitParam();
 
-                if (compound_main == null)
+                switch (GameMgr.Scene_Category_Num)
                 {
-                    compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
-                    girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+                    case 10:
 
-                    //女の子データの取得
-                    girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+                        if (compound_main == null)
+                        {
+                            compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+                            
+                        }
+                        break;
+
                 }
-                break;
-
+            }
         }
 
-        switch (SceneManager.GetActiveScene().name)
+        
+
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 //時間のカウント
                 timeLeft -= Time.deltaTime;
@@ -429,7 +440,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                             timeIttei3 = 0;
 
                                             //満腹度が減る。
-                                            compound_main.ManpukuBarKoushin(-1);
+                                            girl1_status.ManpukuBarKoushin(-1);
 
                                             //満腹度が0になると、ハートも減り始める。
                                             if (GameMgr.System_Manpuku_ON)
@@ -437,7 +448,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                                 if (PlayerStatus.player_girl_manpuku <= 0)
                                                 {
                                                     girleat_judge.UpDegHeart(-1, false);
-                                                    compound_main.GirlExpressionKoushin(-3);
+                                                    girl1_status.GirlExpressionKoushin(-3);
 
                                                     /*if (PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 80)
                                                     {
@@ -464,7 +475,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                             //機嫌も少しずつ収まっていく。
                                             if (PlayerStatus.player_girl_express_param >= 50)
                                             {
-                                                compound_main.GirlExpressionKoushin(-1);
+                                                girl1_status.GirlExpressionKoushin(-1);
                                             }
                                         }                                      
                                     }
@@ -518,7 +529,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
 
             //成功すると、機嫌が少しよくなる。
-            compound_main.GirlExpressionKoushin(10);
+            girl1_status.GirlExpressionKoushin(10);
         }
         else //失敗
         {
@@ -532,7 +543,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             girleat_judge.UpDegHeart(-5, false);
 
             //失敗すると、機嫌は下がる。-20で1段階下がる。
-            compound_main.GirlExpressionKoushin(-10);
+            girl1_status.GirlExpressionKoushin(-10);
         }
 
 
