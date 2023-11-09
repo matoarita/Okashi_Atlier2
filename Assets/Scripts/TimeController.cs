@@ -11,6 +11,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     //時間の概念を使用するかどうかは、GameMgr.csに記述  使用しないときは、TimePanelオブジェクトもオフにする
 
     private GameObject canvas;
+
+    private GameObject compound_Main_obj;
     private Compound_Main compound_main;
 
     private GirlEat_Judge girleat_judge;
@@ -134,14 +136,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         calender.Add(30); //１１月
         calender.Add(31); //１２月       
       
-        timespeed_range = 1.0f;
-
-        
+        timespeed_range = 1.0f;       
     }
 
     private void OnEnable()
     {
-        InitParam();
+        //InitParam();
     }
 
     // Update is called once per frame
@@ -152,20 +152,23 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         {
             if (canvas == null)
             {
-                InitParam();
+                InitParam();               
+               
+            }
 
-                switch (GameMgr.Scene_Category_Num)
-                {
-                    case 10:
+            switch (GameMgr.Scene_Category_Num)
+            {
+                case 10:
+                   
+                    if (compound_Main_obj == null)
+                    {
+                        //Debug.Log("このタイミングでcompound_Main TimeController");
+                        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                        compound_main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                        if (compound_main == null)
-                        {
-                            compound_main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
-                            
-                        }
-                        break;
+                    }
+                    break;
 
-                }
             }
         }
 

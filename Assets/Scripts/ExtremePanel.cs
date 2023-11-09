@@ -24,8 +24,6 @@ public class ExtremePanel : MonoBehaviour {
 
     private Exp_Controller exp_Controller;
 
-    private OkashiParamKeisanMethod Okashi_keisan;
-
     private PlayerItemList pitemlist;
 
     private ItemDataBase database;
@@ -99,9 +97,6 @@ public class ExtremePanel : MonoBehaviour {
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
-
-        //お菓子パラム計算用メソッドの取得
-        Okashi_keisan = GameObject.FindWithTag("OkashiParamKeisanMethod").GetComponent<OkashiParamKeisanMethod>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
