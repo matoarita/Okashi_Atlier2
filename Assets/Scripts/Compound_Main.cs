@@ -570,6 +570,9 @@ public class Compound_Main : MonoBehaviour
 
         //背景天気オブジェクトの取得
         bgpanelmatome = GameObject.FindWithTag("BG");
+        //★注意　タグ「BG」が、Compoundのメインシーンと、Hikari_CompMainで被っているので、Hikari_CompMainでチェックするとき以外は、Hikari_CompMainの「BGPanelMatome」はオフにする。
+        //Hikari_CompMainの「BGPanelMatome」とそれ以下は、削除しても大丈夫なオブジェクト。デバッグ用に一応残しているだけ。
+
         bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel").gameObject;
         BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel").gameObject;
         BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect").gameObject;
@@ -1636,6 +1639,7 @@ public class Compound_Main : MonoBehaviour
 
                 //お菓子の判定処理を起動。引数は、決定したアイテムのアイテムIDと、店売りかオリジナルで制作したアイテムかの、判定用ナンバー 0or1 1=コンテストのとき
                 girlEat_judge.Girleat_Judge_method(0, 2, 0);
+                GameMgr.extremepanel_Koushin = true; //食べたので、パネルのお菓子は消える。
 
                 break;
 

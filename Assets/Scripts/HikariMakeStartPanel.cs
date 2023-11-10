@@ -438,6 +438,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 //仕上げ回数をリセット
                 PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
 
+                //エクストリームパネルも更新
+                GameMgr.extremepanel_Koushin = true;
+
                 ResetHyouji();
                 break;
 
