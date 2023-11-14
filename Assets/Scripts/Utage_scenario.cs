@@ -54,7 +54,6 @@ public class Utage_scenario : MonoBehaviour
     private ContestCommentDataBase databaseContestComment;    
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
     private MoneyStatus_Controller moneyStatus_Controller;
-    private EmeraldShop_Main emeraldshop_main;
     private Exp_Controller exp_Controller;
 
     private GameObject character_root;
@@ -3152,8 +3151,7 @@ public class Utage_scenario : MonoBehaviour
                     yield return null;
                 }
 
-                emeraldshop_main = GameObject.FindWithTag("EmeraldShop_Main").gameObject.GetComponent<EmeraldShop_Main>();
-                emeraldshop_main.BlackOff();
+                GameMgr.Scene_Black_Off = true;
 
                 //続きから再度読み込み
                 engine.ResumeScenario();

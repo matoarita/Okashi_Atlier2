@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class EmeraldShop_Main : MonoBehaviour {
+public class EmeraldShop_Main_Or : MonoBehaviour {
 
     //カメラ関連
     private Camera main_cam;
@@ -191,7 +191,7 @@ public class EmeraldShop_Main : MonoBehaviour {
         }
 
         //宴途中でブラックをオフにする
-        if (GameMgr.Scene_Black_Off)
+        if(GameMgr.Scene_Black_Off)
         {
             GameMgr.Scene_Black_Off = false;
             black_effect.SetActive(false);

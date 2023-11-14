@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class ShopItemListController : MonoBehaviour
 {
+    //
+    //ショップの品揃えのコントローラー
+    //
 
     private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
     public List<GameObject> _shop_listitem = new List<GameObject>(); //リストビューの個数　テキスト表示用のプレファブのインスタンスを格納する。

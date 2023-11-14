@@ -488,6 +488,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Scene_Select; //各シーンごとの状態 今なにを選択しているか
     public static bool Scene_LoadedOn_End; //シーンの読み込み完了フラグ
     public static bool girlEat_ON; //女の子　食べ中のフラグ
+    public static bool Scene_Black_Off; //シーンによっては、このフラグがたつと、宴途中などで、シーンの黒画面をオフにする
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -882,6 +883,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Reset_SceneStatus = false;
         Scene_LoadedOn_End = false;
         girlEat_ON = false;
+        Scene_Black_Off = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

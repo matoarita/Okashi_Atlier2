@@ -201,6 +201,11 @@ public class BGM : MonoBehaviour {
                 _bgm[0].clip = sound35;
                 break;
 
+            case "Or_Emerald_Shop":
+
+                _bgm[0].clip = sound35;
+                break;
+
             case "Bar":
 
                 _bgm[0].clip = sound29;
