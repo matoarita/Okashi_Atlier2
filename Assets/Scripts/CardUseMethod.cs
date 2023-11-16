@@ -11,6 +11,7 @@ public class CardUseMethod : MonoBehaviour
     private Compound_Main compound_Main;
     private ItemDataBase database;
 
+    private GameObject bgpanelmatome;
     private BGAcceTrigger BGAccetrigger;
     private CardView card_view;
 
@@ -49,7 +50,8 @@ public class CardUseMethod : MonoBehaviour
     public void OnDecoAction()
     {
         itemID = this.GetComponent<SetImage>().itemID;
-        BGAccetrigger = GameObject.FindWithTag("BGAccessory").GetComponent<BGAcceTrigger>();
+        bgpanelmatome = GameObject.FindWithTag("BG");
+        BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
 
         BGAccetrigger.BGAcceOn(database.items[itemID].itemName); //ヒンメリだったら、himmeliを入力している。
 

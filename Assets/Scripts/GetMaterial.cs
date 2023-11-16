@@ -285,6 +285,11 @@ public class GetMaterial : MonoBehaviour
             timeOut -= Time.deltaTime;
         }
 
+        if(GameMgr.Kaigyo_ON)
+        {
+            GameMgr.Kaigyo_ON = false;
+            KaigyoButton();
+        }
     }
 
 
@@ -803,7 +808,7 @@ public class GetMaterial : MonoBehaviour
     }
 
     //採集アイテムが4個以上のとき、3行ずつ表示する。ボタンを押すと、次のページへ送り出す。
-    public void KaigyoButton()
+    void KaigyoButton()
     {
         sc.PlaySe(30);
 

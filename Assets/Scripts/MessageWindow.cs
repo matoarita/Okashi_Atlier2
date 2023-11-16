@@ -30,4 +30,10 @@ public class MessageWindow : MonoBehaviour {
     {
         window_clickon = false;
     }
+
+    public void KaigyoButton()
+    {
+        GameMgr.Kaigyo_ON = true;
+
+    }
 }

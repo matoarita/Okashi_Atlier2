@@ -50,8 +50,6 @@ public class OptionPanel : MonoBehaviour {
 
     private GameObject system_panel;
 
-    private Compound_Main compound_Main;
-
     private GameObject SystemSave_Panel;
 
     private GameObject Gamespeed_Panel;
@@ -92,24 +90,19 @@ public class OptionPanel : MonoBehaviour {
         save_controller = SaveController.Instance.GetComponent<SaveController>();
         SystemSave_Panel = this.transform.Find("systemSavePanel").gameObject;
 
-        //調合メイン取得
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
-                compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+        //調合メイン取得
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10:
+
                 system_panel = canvas.transform.Find("SystemPanel").gameObject;
                 system_panel.SetActive(false);
 
                 //BGMの取得
-                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-
-                //時間管理オブジェクトの取得
-                time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
-
-                break;
-
-            case "001_Title":
+                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();                
 
                 break;
         }
@@ -216,15 +209,15 @@ public class OptionPanel : MonoBehaviour {
 
 
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "001_Title":
+            case 1000:
 
                 Gamespeed_Panel.SetActive(false);
                 BGMSelectPanel.SetActive(false);
                 break;
 
-            case "Compound":
+            case 10:
 
                 if (GameMgr.Story_Mode == 0)
                 {
@@ -381,9 +374,9 @@ public class OptionPanel : MonoBehaviour {
 
         DrawBGMSelectToggle();
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 sceneBGM.StopPlayMain();
 
@@ -452,13 +445,6 @@ public class OptionPanel : MonoBehaviour {
         {
             GameMgr.GameSpeedParam = 5;
             GameSpeed_paramtext.text = "めちゃおそ";
-        }
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                break;
         }
 
     }
@@ -623,13 +609,13 @@ public class OptionPanel : MonoBehaviour {
     {
 
         //一回黒フェードして「システムデータセーブ中」でてから、シーンもどす。
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 break;
 
-            case "001_Title":
+            case 1000:
 
                 save_controller.SystemsaveCheck();
                 break;
@@ -652,16 +638,16 @@ public class OptionPanel : MonoBehaviour {
         BGMSelectPanel.transform.Find("BG_Particle_Onpu").gameObject.SetActive(false);
         SystemSave_Panel.SetActive(false);
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10:
 
                 GameMgr.compound_select = 200;
                 system_panel.SetActive(true);
                 this.gameObject.SetActive(false);
                 break;
 
-            case "001_Title":
+            case 1000:
 
                 this.gameObject.SetActive(false);
                 break;
