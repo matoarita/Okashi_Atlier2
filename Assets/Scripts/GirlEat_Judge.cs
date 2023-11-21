@@ -434,7 +434,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
                 //時間管理オブジェクトの取得
-                time_controller = canvas.transform.Find("MainUIPanel/Comp/TimePanel").GetComponent<TimeController>();
+                time_controller = TimeController.Instance.GetComponent<TimeController>();
 
                 //女の子の反映用ハートエフェクト取得
                 GirlHeartEffect = character_root.transform.Find("CharacterMove/Particle_Heart_Character").GetComponent<Particle_Heart_Character>();

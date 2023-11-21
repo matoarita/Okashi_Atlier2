@@ -1015,7 +1015,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         debug_panel.GirlLove_Koushin(PlayerStatus.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
         GameMgr.KeyInputOff_flag = true;
-        
+
+        //シーンロード完了
+        GameMgr.Scene_LoadedOn_End = true;
+
+
     }
 
     //ゲーム「はじめから」で、リセットされる項目

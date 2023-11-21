@@ -1392,7 +1392,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //デフォルト・共通の腹減り初期化設定
     public void Girl1_Status_Init()
     {
-
         timeGirl_hungry_status = 0;
     }
 
@@ -1400,7 +1399,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void Girl1_Status_Init2()
     {
         timeOut = 0.5f;
-
         timeGirl_hungry_status = 0;
     }
 

@@ -29,6 +29,9 @@ public class Debug_Panel : MonoBehaviour {
     private GameObject StageNumber;
     private Text StageNumber_text;
 
+    private GameObject SceneNumber;
+    private Text SceneNumber_text;
+
     private Text CStatus_text;
     private Text CSelect_text;
 
@@ -96,6 +99,9 @@ public class Debug_Panel : MonoBehaviour {
 
         StageNumber = this.transform.Find("Hyouji/StageNumber").gameObject;
         StageNumber_text = StageNumber.GetComponent<Text>();
+
+        SceneNumber = this.transform.Find("Hyouji/SceneNumber").gameObject;
+        SceneNumber_text = SceneNumber.GetComponent<Text>();
 
         input_money = this.transform.Find("Hyouji/InputField_Money").gameObject.GetComponent<InputField>();
         input_edonguri = this.transform.Find("Hyouji/InputField_EDonguri").gameObject.GetComponent<InputField>();
@@ -176,6 +182,7 @@ public class Debug_Panel : MonoBehaviour {
 
         EventNumber_text.text = "Event: " + GameMgr.GirlLoveEvent_num;
         StageNumber_text.text = "Stage: " + GameMgr.stage_number;
+        SceneNumber_text.text = "SceneNum: " + GameMgr.Scene_Category_Num;
 
         CStatus_text.text = "compound_Status: " + GameMgr.compound_status.ToString();
         CSelect_text.text = "_Select: " + GameMgr.compound_select.ToString();

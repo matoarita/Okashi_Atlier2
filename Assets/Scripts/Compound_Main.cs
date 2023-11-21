@@ -2099,11 +2099,13 @@ public class Compound_Main : MonoBehaviour
         GameMgr.compound_status = 0;
     }
 
+
+
     public void OnOKPicnic_Select()
     {
         //ピクニックイベント中、お菓子制作中は更新する。
         black_panel_A.SetActive(true);
-        text_area.SetActive(true);
+        text_area_compound.SetActive(true);
         yes_no_panel.SetActive(true);
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
@@ -2129,14 +2131,115 @@ public class Compound_Main : MonoBehaviour
     {
         //ピクニックイベント中、お菓子制作中は更新する。
         black_panel_A.SetActive(true);
-        text_area.SetActive(true);
+        text_area_compound.SetActive(true);
         yes_no_panel.SetActive(true);
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
         GameMgr.compound_select = 120;
 
-        _text.text = "やっぱりやめる？";
+        _textcomp.text = "やっぱりやめる？";
         StartCoroutine("PicnicItem_Cancel_Final_select");
     }
+
+    IEnumerator PicnicItem_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        text_area_compound.SetActive(false);
+        black_panel_A.SetActive(false);
+        card_view.DeleteCard_DrawView();
+        yes_no_panel.SetActive(false);
+        GameMgr.compound_select = 6;
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                GameMgr.compound_select = 1000; //シナリオイベント読み中の状態にもどす。
+                GameMgr.compound_status = 1000;
+
+                //ピクニックアイテム決定
+                compoBG_A.SetActive(false);
+
+                yes_selectitem_kettei.onclick = false;
+
+                //時間の項目リセット
+                time_controller.ResetTimeFlag();
+
+                GameMgr.event_pitem_use_OK = true;
+
+                //決定したアイテムの番号と個数
+                GameMgr.event_kettei_itemID = 0;
+                GameMgr.event_kettei_item_Type = 2;
+                //GameMgr.event_kettei_item_Kosu = updown_counter.updown_kosu; //最終個数を入れる。
+                GameMgr.event_kettei_item_Kosu = 1;
+
+                GameMgr.CompoundSceneStartON = false;　//ピクニックの調合シーンは終了
+                Debug.Log("ピクニックの調合シーン終了");
+                break;
+
+            case false:
+
+                //Debug.Log("cancel+ブラックパネルOFF");
+
+                //GameMgr.compound_status = 6;
+
+                yes_selectitem_kettei.onclick = false;
+
+                break;
+
+        }
+    }
+
+    //ピクニックキャンセルした
+    IEnumerator PicnicItem_Cancel_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        text_area_compound.SetActive(false);
+        yes_no_panel.SetActive(false);
+        black_panel_A.SetActive(false);
+        GameMgr.compound_select = 6;
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                compoBG_A.SetActive(false);
+
+                GameMgr.compound_select = 1000; //シナリオイベント読み中の状態にもどす。
+                GameMgr.compound_status = 1000;
+
+                //kettei_on_waiting = false;
+                GameMgr.event_pitem_cancel = true; //やめたフラグON
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+                GameMgr.CompoundSceneStartON = false;　//ピクニックの調合シーンは終了
+                Debug.Log("ピクニックの調合シーン終了");
+                break;
+
+            case false:
+
+                Debug.Log("cancel");
+
+                //GameMgr.compound_status = 6;
+
+                yes_selectitem_kettei.onclick = false;
+
+                break;
+
+        }
+    }
+
 
     public void OnMenu_toggle() //メニューをON
     {
@@ -2578,97 +2681,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    IEnumerator PicnicItem_Final_select()
-    {
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        black_panel_A.SetActive(false);
-        card_view.DeleteCard_DrawView();
-        yes_no_panel.SetActive(false);
-        GameMgr.compound_select = 6;
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-            case true:
-
-                GameMgr.compound_select = 1000; //シナリオイベント読み中の状態にもどす。
-                GameMgr.compound_status = 1000;
-
-                //ピクニックアイテム決定
-                compoBG_A.SetActive(false);
-                
-                yes_selectitem_kettei.onclick = false;                
-
-                //時間の項目リセット
-                time_controller.ResetTimeFlag();
-
-                GameMgr.event_pitem_use_OK = true;
-
-                //決定したアイテムの番号と個数
-                GameMgr.event_kettei_itemID = 0;
-                GameMgr.event_kettei_item_Type = 2;
-                //GameMgr.event_kettei_item_Kosu = updown_counter.updown_kosu; //最終個数を入れる。
-                GameMgr.event_kettei_item_Kosu = 1;
-                break;
-
-            case false:
-
-                //Debug.Log("cancel+ブラックパネルOFF");
-
-                //GameMgr.compound_status = 6;
-
-                yes_selectitem_kettei.onclick = false;
-
-                break;
-
-        }
-    }
-
-    //ピクニックキャンセルした
-    IEnumerator PicnicItem_Cancel_Final_select()
-    {
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        yes_no_panel.SetActive(false);
-        black_panel_A.SetActive(false);
-        GameMgr.compound_select = 6;
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-            case true:
-
-                compoBG_A.SetActive(false);
-
-                GameMgr.compound_select = 1000; //シナリオイベント読み中の状態にもどす。
-                GameMgr.compound_status = 1000;
-
-                //kettei_on_waiting = false;
-                GameMgr.event_pitem_cancel = true; //やめたフラグON
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-                break;
-
-            case false:
-
-                Debug.Log("cancel");
-
-                //GameMgr.compound_status = 6;
-
-                yes_selectitem_kettei.onclick = false;
-
-                break;
-
-        }
-    }
+    
 
     IEnumerator Sell_Final_select()
     {
@@ -2927,6 +2940,8 @@ public class Compound_Main : MonoBehaviour
             yield return null;
         }
 
+        Debug.Log("サブイベント読み終了");
+
         GameMgr.girlloveevent_endflag = false;
         GameMgr.scenario_ON = false;
         GameMgr.girl_returnhome_endflag = false;
@@ -3133,7 +3148,8 @@ public class Compound_Main : MonoBehaviour
 
             GameMgr.check_GirlLoveEvent_flag = true;
             girl1_status.Girl1_Status_Init2();
-
+            GameMgr.compound_status = 0;
+            //Debug.Log("compound_statusを0にする");
         }       
 
         //腹減りカウント開始
@@ -3155,7 +3171,9 @@ public class Compound_Main : MonoBehaviour
 
         GameMgr.check_GirlLoveEvent_flag = true;
         girl1_status.Girl1_Status_Init2();
+        GameMgr.compound_status = 0;
         subevent_after_end = false;
+        //Debug.Log("compound_statusを0にする");
     }
 
     //レシピの番号チェック。コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。
