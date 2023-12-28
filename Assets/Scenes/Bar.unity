@@ -210,16 +210,20 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 223351802098252724, guid: 935123da782705a43bffb8166acef60c,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1332623222}
     - target: {fileID: 223188055111704976, guid: 935123da782705a43bffb8166acef60c,
         type: 2}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1332623222}
+    - target: {fileID: 223351802098252724, guid: 935123da782705a43bffb8166acef60c,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1332623222}
+    - target: {fileID: 1008928946328176, guid: 935123da782705a43bffb8166acef60c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 935123da782705a43bffb8166acef60c, type: 2}
   m_IsPrefabParent: 0
@@ -4481,8 +4485,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hukidasi_sub: {fileID: 0}
-  shop_status: 0
-  shop_scene: 0
 --- !u!4 &1735986884
 Transform:
   m_ObjectHideFlags: 0
@@ -4508,8 +4510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hukidasi_sub: {fileID: 0}
-  bar_status: 0
-  bar_scene: 0
 --- !u!1 &1778332722
 GameObject:
   m_ObjectHideFlags: 0

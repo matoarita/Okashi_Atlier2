@@ -75,14 +75,7 @@ public class SystemSelectPanel : MonoBehaviour {
             loadButton_obj.GetComponent<Button>().interactable = false;
         }
 
-        if(GameMgr.Story_Mode == 0)
-        {
-            this.transform.Find("Scroll View/Viewport/Content/ExtraOptionButton").gameObject.SetActive(false);
-        }
-        else
-        {
-            this.transform.Find("Scroll View/Viewport/Content/ExtraOptionButton").gameObject.SetActive(true);
-        }
+        CheckButtonStatus();
     }
 	
 	// Update is called once per frame
@@ -96,6 +89,20 @@ public class SystemSelectPanel : MonoBehaviour {
         canvas = GameObject.FindWithTag("Canvas");
         no_button = canvas.transform.Find("SystemPanel/No").gameObject;
         no_button.SetActive(true);
+
+        CheckButtonStatus();
+    }
+
+    void CheckButtonStatus()
+    {
+        if (GameMgr.Story_Mode == 0)
+        {
+            this.transform.Find("Scroll View/Viewport/Content/ExtraOptionButton").gameObject.SetActive(false);
+        }
+        else
+        {
+            this.transform.Find("Scroll View/Viewport/Content/ExtraOptionButton").gameObject.SetActive(true);
+        }
     }
 
     //セーブ

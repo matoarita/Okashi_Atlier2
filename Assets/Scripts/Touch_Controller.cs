@@ -15,7 +15,7 @@ public class Touch_Controller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        bgpanelmatome = GameObject.FindWithTag("BG");
+        bgpanelmatome = GameObject.FindWithTag("BG"); //Hikari_CompMainでbgpanelmatomeのバグが出た場合、Hikari_CompMainではbgpanelmatomeをオフにする仕様で出るバグなので、無視で構わない。
         BG = bgpanelmatome.transform.Find("BGAccessory").gameObject; ;
         Character = GameObject.FindWithTag("Character");
 

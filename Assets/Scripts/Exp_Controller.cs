@@ -294,7 +294,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 {
                     Debug.Log("character_On: ヒカリちゃん　シーン内に存在する");
                     character_ON = true;
-                    _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+                    _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
                     live2d_animator = _model_obj.GetComponent<Animator>();
                     character_move = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove").gameObject;
                 }
