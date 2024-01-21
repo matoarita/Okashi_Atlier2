@@ -244,6 +244,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 AllShokukanBuf();
 
                 return _buf_shokukanup;
+
+            case 5: //見た目のバフ
+
+                return _buf_shokukanup;
         }
 
         return 0; //なにもない場合や例外は0
@@ -414,8 +418,56 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case 4: //ジュースのバフ
 
                         break;
+
+                    case 5: //見た目のバフ
+
+                        break;
                 }                
             }            
+        }
+
+        return _buf_shokukanup;
+    }
+
+    //特定の調合処理にのみ、バフをかける処理
+    public int Buf_OkashiParamUp_CompoNameKeisan(int _status, string _basename)
+    {
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        _buf_shokukanup = 0;
+
+
+        if (_basename == "blacklotus_sponge_cake_sliced") //パンナイフでスポンジケーキを切ったとき　マイナスになる。
+        {
+            switch (_status)
+            {
+                case 0: //さくさく感のバフ
+
+                    break;
+
+                case 1: //ふわふわ感のバフ
+
+                    break;
+
+                case 2: //なめらか感のバフ
+
+                    break;
+
+                case 3: //歯ごたえ感のバフ
+
+                    break;
+
+                case 4: //ジュースのバフ
+
+                    break;
+
+                case 5: //見た目のバフ
+
+                    _buf_shokukanup -= 50;
+
+                    return _buf_shokukanup;
+            }
         }
 
         return _buf_shokukanup;

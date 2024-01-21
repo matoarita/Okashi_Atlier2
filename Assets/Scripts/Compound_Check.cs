@@ -1011,7 +1011,8 @@ public class Compound_Check : MonoBehaviour {
             //ヒカリが作る場合、成功率を事前に計算
             bufpower_keisan.hikariBuf_okashilv(database.items[pitemlistController.result_item].itemType_sub.ToString()); //GameMgr.hikari_make_okashiTime_successrate_bufを事前計算
             _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
-        } 
+        }
+       
         newrecipi_flag = false;
         hikari_nomake = false;
 
@@ -1366,6 +1367,7 @@ public class Compound_Check : MonoBehaviour {
             {
                 _rate = 100;
             }
+  
         }
         else
         {

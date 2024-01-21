@@ -1836,6 +1836,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType_sub);
                 _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType_sub);
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _base_itemType_sub);
+                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_Keisan(5, _base_itemType_sub);
 
                 //固有のお菓子のみにバフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(0, _basename); //中の数字でどの食感パラムかの指定
@@ -1843,6 +1844,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesmooth += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(2, _basename);
                 _basehardness += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(3, _basename);
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(4, _basename);
+                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(5, _basename);
+
+                //特定の調合DBにのみバフをかける処理
+                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(0, databaseCompo.compoitems[result_ID].cmpitem_Name); //中の数字でどの食感パラムかの指定
+                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(1, databaseCompo.compoitems[result_ID].cmpitem_Name);
+                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(2, databaseCompo.compoitems[result_ID].cmpitem_Name);
+                _basehardness += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(3, databaseCompo.compoitems[result_ID].cmpitem_Name);
+                _basejuice += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(4, databaseCompo.compoitems[result_ID].cmpitem_Name);
+                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(5, databaseCompo.compoitems[result_ID].cmpitem_Name);
 
                 //魔力の泡だて器をもっている
                 if (pitemlist.ReturnItemKosu("whisk_magic") >= 1)
