@@ -55,7 +55,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
 
-    public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
+    //public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
 
     public List<QuestSet> questset = new List<QuestSet>();
     public List<QuestSet> questset2 = new List<QuestSet>(); //ぱてぃしえレベルに応じて選択されるクエスト
@@ -75,7 +75,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         excel_questset_database = Resources.Load("Excel/Entity_QuestSetDataBase") as Entity_QuestSetDataBase;
 
-        sheet_topendID.Add(0); //シートの頭のIDは0。
+        //sheet_topendID.Add(0); //シートの頭のIDは0。
 
         sheet_no = 0;
 
@@ -99,7 +99,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
             }
 
-            sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
+            //sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
 
             sheet_no++;
 
@@ -120,7 +120,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
             }
 
-            sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
+            //sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
 
             sheet_no++;
         }

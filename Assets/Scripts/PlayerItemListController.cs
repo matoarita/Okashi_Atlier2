@@ -72,9 +72,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     public int kettei_item3;
     public int base_kettei_item; //トッピング調合時のベースアイテム。プレイヤーリストを選択している番号
 
-    public int kettei1_bunki; //調合どこまで選択したか、のステータス。0=なにも選択なし, 1=一個目を選択, 2=二個目を選択
+    //public int kettei1_bunki; //調合どこまで選択したか、のステータス。0=なにも選択なし, 1=一個目を選択, 2=二個目を選択
     public bool kettei1_on;
-    //public bool final_select_flag;
 
     public int final_kettei_item1; //最終的に確定したアイテムのID（アイテムデータベースのIDを同一）
     public int final_kettei_item2;
@@ -153,9 +152,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         kettei_item3 = 0;
         base_kettei_item = 0;
 
-        kettei1_bunki = 0;
+        GameMgr.Comp_kettei_bunki = 0;
         kettei1_on = false;
-        //final_select_flag = false;
 
         //選んだアイテムのアイテムIDが入る。（店売り、オリジナル関係なし）
         final_kettei_item1 = 9999;
@@ -223,7 +221,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             // トッピング調合を選択した場合の処理
             if (GameMgr.compound_select == 2)
             {
-                if (kettei1_bunki == 0)
+                if (GameMgr.Comp_kettei_bunki == 0)
                 {
                     topping_DrawView_1();
                 }
@@ -407,7 +405,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public void reset_and_DrawView_Topping()
     {
-        if (kettei1_bunki == 0)
+        if (GameMgr.Comp_kettei_bunki == 0)
         {
             topping_DrawView_1();
         }
@@ -964,7 +962,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             // トッピング調合を選択した場合の処理
             if (GameMgr.compound_select == 2)
             {
-                if (kettei1_bunki == 0)
+                if (GameMgr.Comp_kettei_bunki == 0)
                 {
                     topping_DrawView_1();
                 }

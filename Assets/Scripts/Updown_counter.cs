@@ -298,7 +298,7 @@ public class Updown_counter : MonoBehaviour {
 
                 if (GameMgr.compound_status == 100) //アイテム選択中
                 {
-                    switch (pitemlistController.kettei1_bunki) //itemselectToggle内で、分岐数字を変えてるので、注意。selectToggleでは、0,1,2になっている。
+                    switch (GameMgr.Comp_kettei_bunki) //itemselectToggle内で、分岐数字を変えてるので、注意。selectToggleでは、0,1,2になっている。
                     {
                         case 1:
 
@@ -472,7 +472,7 @@ public class Updown_counter : MonoBehaviour {
                 {
                     if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
                     {
-                        switch (pitemlistController.kettei1_bunki)
+                        switch (GameMgr.Comp_kettei_bunki)
                         {
                             case 1:
 

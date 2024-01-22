@@ -86,6 +86,8 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject Hikarimake_StartPanel;
     private GameObject SelectCompo_panel_1;
 
+    private GameObject MagicStartPanel;
+
     private GameObject card_view_obj;
     private CardView card_view;
 
@@ -189,6 +191,9 @@ public class CompoundMainController : MonoBehaviour {
 
         Hikarimake_StartPanel = compoBG_A.transform.Find("HikariMakeStartPanel").gameObject;
         Hikarimake_StartPanel.SetActive(false);
+
+        MagicStartPanel = compoBG_A.transform.Find("MagicStartPanel").gameObject;
+        MagicStartPanel.SetActive(false);
 
         //windowテキストエリアの取得
         text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
@@ -350,7 +355,7 @@ public class CompoundMainController : MonoBehaviour {
 
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
-                    pitemlistController.kettei1_bunki = 0;
+                    GameMgr.Comp_kettei_bunki = 0;
 
                     text_area_compound.SetActive(true);
 
@@ -374,7 +379,7 @@ public class CompoundMainController : MonoBehaviour {
 
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-                    pitemlistController.kettei1_bunki = 0;
+                    GameMgr.Comp_kettei_bunki = 0;
 
                     recipiMemoButton.SetActive(true);
 
@@ -538,7 +543,7 @@ public class CompoundMainController : MonoBehaviour {
 
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-                    pitemlistController.kettei1_bunki = 0;
+                    GameMgr.Comp_kettei_bunki = 0;
 
                     text_area_compound.SetActive(true);
                     _textcomp.text = hikarimake_text;
@@ -565,14 +570,36 @@ public class CompoundMainController : MonoBehaviour {
 
                     playeritemlist_onoff.SetActive(false);
                     recipilist_onoff.SetActive(false);
-
                     SelectCompo_panel_1.SetActive(false);
-                   
+                    yes_no_panel.SetActive(false);
+                    text_area_compound.SetActive(false);
+
                     Hikarimake_StartPanel.SetActive(true);
 
-                    yes_no_panel.SetActive(false);
+                    
 
-                    text_area_compound.SetActive(false);
+                    break;
+
+                case 20: //魔法の選択画面を開く              
+
+
+                    GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                    GameMgr.compound_select = 20;
+
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
+
+                    ReSetLive2DOrder_Default();
+
+                    playeritemlist_onoff.SetActive(false);
+                    recipilist_onoff.SetActive(false);
+                    SelectCompo_panel_1.SetActive(false);
+                    yes_no_panel.SetActive(false);
+                    text_area_compound.SetActive(true);
+
+                    MagicStartPanel.SetActive(true);
+
+                    
 
                     break;
             }
@@ -649,7 +676,7 @@ public class CompoundMainController : MonoBehaviour {
 
         pitemlistController.final_base_kettei_kosu = 1;
 
-        pitemlistController.kettei1_bunki = 10; //トッピング材料から選び始める。
+        GameMgr.Comp_kettei_bunki = 10; //トッピング材料から選び始める。
         pitemlistController.reset_and_DrawView_Topping();
 
         card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item);

@@ -280,9 +280,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addkoyutp = new string[database.items[0].koyu_toppingtype.Length];
         _slotHyouji1 = new string[database.items[0].toppingtype.Length];
 
-        //
         //アイテムデータベースの味パラムを初期化。初期化は、ゲーム起動時の一回のみ。
-        //
         ResetDefaultTasteParam();
 
     }
@@ -297,6 +295,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
     }
 
+    //
+    //アイテムデータベースの味パラムを初期化。初期化は、ゲーム起動時の一回のみ。
+    //
     public void ResetDefaultTasteParam()
     {
         for (DBcount = 0; DBcount < databaseCompo.compoitems.Count; DBcount++)

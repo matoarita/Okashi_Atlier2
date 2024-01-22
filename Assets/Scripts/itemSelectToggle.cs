@@ -465,7 +465,7 @@ public class itemSelectToggle : MonoBehaviour
 
     public void compound_active()
     {
-        switch (pitemlistController.kettei1_bunki)
+        switch (GameMgr.Comp_kettei_bunki)
         {
             case 0: //何も選択されていない時
 
@@ -491,7 +491,7 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_item1 = itemID_1;
 
                 //押したタイミングで、分岐＝１に。
-                pitemlistController.kettei1_bunki = 1;
+                GameMgr.Comp_kettei_bunki = 1;
 
                 //もし生地アイテムを一個目に選んだ場合、生地にアイテムを混ぜ込む処理になる。現在は未使用。
                 if (database.items[itemID_1].itemType_sub == Item.ItemType_sub.Pate)
@@ -546,7 +546,7 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_item2 = itemID_2;
 
                 //押したタイミングで、分岐＝２に。
-                pitemlistController.kettei1_bunki = 2;
+                GameMgr.Comp_kettei_bunki = 2;
 
                 _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
 
@@ -595,7 +595,7 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_item3 = itemID_3;
 
                 //押したタイミングで、分岐＝３に。
-                pitemlistController.kettei1_bunki = 3;
+                GameMgr.Comp_kettei_bunki = 3;
 
                 _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
 
@@ -783,7 +783,7 @@ public class itemSelectToggle : MonoBehaviour
     {
         //最初に、ベースとなるアイテムを一つ選択する。その後、トッピングアイテムを選ぶ（３つまで。好きな数でよい）
 
-        switch (pitemlistController.kettei1_bunki)
+        switch (GameMgr.Comp_kettei_bunki)
         {
             case 0: //何も選択されていない時
 
@@ -807,7 +807,7 @@ public class itemSelectToggle : MonoBehaviour
                 baseitemID = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //baseitemIDに、プレイヤーが一個目に選択したアイテムIDを格納する。
                 pitemlistController.final_base_kettei_item = baseitemID; //最終的にできあがるベースアイテムの、アイテムID。
 
-                pitemlistController.kettei1_bunki = 10;
+                GameMgr.Comp_kettei_bunki = 10;
 
                 _text.text = database.items[baseitemID].itemNameHyouji + "をベースにします。";
 
@@ -849,7 +849,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
                 pitemlistController.final_kettei_item1 = itemID_1;
 
-                pitemlistController.kettei1_bunki = 11;
+                GameMgr.Comp_kettei_bunki = 11;
 
                 //トッピングの場合、このタイミングで確率も計算。一個目
                 Compo_KakuritsuKeisan_1();
@@ -900,7 +900,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemID_2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
                 pitemlistController.final_kettei_item2 = itemID_2;
 
-                pitemlistController.kettei1_bunki = 12;
+                GameMgr.Comp_kettei_bunki = 12;
 
                 //トッピングの場合、このタイミングで確率も計算。二個目
                 Compo_KakuritsuKeisan_2();
@@ -955,7 +955,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemID_3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
                 pitemlistController.final_kettei_item3 = itemID_3;
 
-                pitemlistController.kettei1_bunki = 13;
+                GameMgr.Comp_kettei_bunki = 13;
 
                 //トッピングの場合、このタイミングで確率も計算。三個目
                 Compo_KakuritsuKeisan_3();
@@ -1246,7 +1246,7 @@ public class itemSelectToggle : MonoBehaviour
         itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
         pitemlistController.final_kettei_item1 = itemID_1;
 
-        pitemlistController.kettei1_bunki = 9999; //分岐なし。テキストの更新を避けるため、とりあえず適当な数字を入れて回避。
+        GameMgr.Comp_kettei_bunki = 9999; //分岐なし。テキストの更新を避けるため、とりあえず適当な数字を入れて回避。
 
         _text.text = database.items[itemID_1].itemNameHyouji + "を焼きますか？○○時間かかります。";
 

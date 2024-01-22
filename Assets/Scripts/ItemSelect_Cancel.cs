@@ -331,7 +331,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                     if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                                     {
 
-                                        if (pitemlistController.kettei1_bunki == 1) //現在一個目を選択している状態
+                                        if (GameMgr.Comp_kettei_bunki == 1) //現在一個目を選択している状態
                                         {
                                             if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                             {
@@ -343,7 +343,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                             }
                                         }
 
-                                        if (pitemlistController.kettei1_bunki == 2) //現在二個目を選択している状態
+                                        if (GameMgr.Comp_kettei_bunki == 2) //現在二個目を選択している状態
                                         {
                                             if (yes_selectitem_kettei.kettei1 == true) //調合二個で決定した状態
                                             {
@@ -377,7 +377,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                 if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                                 {
 
-                                    if (pitemlistController.kettei1_bunki == 10) //現在ベースアイテムを選択している状態
+                                    if (GameMgr.Comp_kettei_bunki == 10) //現在ベースアイテムを選択している状態
                                     {
                                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                         {
@@ -390,7 +390,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                         }
                                     }
 
-                                    if (pitemlistController.kettei1_bunki == 11) //現在一個目を選択している状態
+                                    if (GameMgr.Comp_kettei_bunki == 11) //現在一個目を選択している状態
                                     {
                                         if (yes_selectitem_kettei.kettei1 == true) //ベースアイテム＋調合１個で決定した状態
                                         {
@@ -409,7 +409,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                         }
                                     }
 
-                                    if (pitemlistController.kettei1_bunki == 12) //現在二個目を選択している状態
+                                    if (GameMgr.Comp_kettei_bunki == 12) //現在二個目を選択している状態
                                     {
                                         if (yes_selectitem_kettei.kettei1 == true) //ベースアイテム＋調合二個で決定した状態
                                         {
@@ -630,12 +630,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             //オリジナル調合の処理
             if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
             {
-                if (pitemlistController.kettei1_bunki == 1)
+                if (GameMgr.Comp_kettei_bunki == 1)
                 {
                     _text.text = "一つ目の材料を選択してね。";
                 }
 
-                pitemlistController.kettei1_bunki = 0;
+                GameMgr.Comp_kettei_bunki = 0;
 
                 update_ListSelect_Flag = 0; //オールリセットするのみ。
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -643,7 +643,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             //エクストリーム調合のときの処理
             else if (GameMgr.compound_select == 2)
             {
-                if (pitemlistController.kettei1_bunki == 10)
+                if (GameMgr.Comp_kettei_bunki == 10)
                 {
                     //Debug.Log("調合シーンキャンセル");
 
@@ -652,7 +652,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     card_view.DeleteCard_DrawView();
                     card_view.DeleteCard_DrawView();
 
-                    pitemlistController.kettei1_bunki = 0;
+                    GameMgr.Comp_kettei_bunki = 0;
 
                     GameMgr.compound_status = 6; //何も選択していない状態にもどる。
                     GameMgr.compound_select = 6;
@@ -702,7 +702,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 _text.text = "一つ目の材料を選択してね。";
 
 
-                pitemlistController.kettei1_bunki = 0;
+                GameMgr.Comp_kettei_bunki = 0;
 
                 update_ListSelect_Flag = 0; //オールリセットするのみ。
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -719,7 +719,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     _text.text = "あげるお菓子を選択してね。";
 
 
-                    pitemlistController.kettei1_bunki = 0;
+                    GameMgr.Comp_kettei_bunki = 0;
 
                     update_ListSelect_Flag = 0; //オールリセットするのみ。
                     update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -777,19 +777,19 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         kettei_on_waiting = false;
 
-        if (pitemlistController.kettei1_bunki == 2)
+        if (GameMgr.Comp_kettei_bunki == 2)
         {
             update_ListSelect_Flag = 1; //二個目まで、選択できないようにする。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
 
             pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false; //選択していたものをキャンセル。
 
-            pitemlistController.kettei1_bunki = 1;
+            GameMgr.Comp_kettei_bunki = 1;
 
             _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
         }
 
-        if (pitemlistController.kettei1_bunki == 11)
+        if (GameMgr.Comp_kettei_bunki == 11)
         {
             update_ListSelect_Flag = 10; //ベースアイテム選択のみの状態
             update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -797,7 +797,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             pitemlistController._listitem[pitemlistController._count1].GetComponent<Toggle>().isOn = false;
 
-            pitemlistController.kettei1_bunki = 10;
+            GameMgr.Comp_kettei_bunki = 10;
 
             _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一つ目のトッピングアイテムを選択してください。";
 
@@ -832,27 +832,27 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         kettei_on_waiting = false;
 
-        if (pitemlistController.kettei1_bunki == 3)
+        if (GameMgr.Comp_kettei_bunki == 3)
         {
             update_ListSelect_Flag = 2; //二個目まで、選択できないようにする。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
 
             pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false; //三個目の選択はキャンセル
 
-            pitemlistController.kettei1_bunki = 2;
+            GameMgr.Comp_kettei_bunki = 2;
             pitemlistController.kettei_item3 = 9999;
 
             _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
         }
 
-        if (pitemlistController.kettei1_bunki == 12)
+        if (GameMgr.Comp_kettei_bunki == 12)
         {
             update_ListSelect_Flag = 11; //ベース・一個目の選択の状態に戻る。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
 
             pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false;
 
-            pitemlistController.kettei1_bunki = 11;
+            GameMgr.Comp_kettei_bunki = 11;
             pitemlistController.kettei_item2 = 9999;
 
             _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
@@ -885,7 +885,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false;
 
-        pitemlistController.kettei1_bunki = 12;
+        GameMgr.Comp_kettei_bunki = 12;
 
         _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
 

@@ -288,15 +288,16 @@ public class Compound_Check : MonoBehaviour {
     {
         //*** 2個or3個選んだ状態で、最後、これでOKかどうか聞くメソッド　***//
 
-        switch (pitemlistController.kettei1_bunki)
+        switch (GameMgr.Comp_kettei_bunki)
         {
             case 2: //2個選択しているとき
 
                 itemID_1 = pitemlistController.final_kettei_item1;
                 itemID_2 = pitemlistController.final_kettei_item2;
-
+                
                 pitemlistController.kettei_item3 = 9999;
                 pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
+                itemID_3 = pitemlistController.final_kettei_item3;
 
                 card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
 
@@ -445,7 +446,7 @@ public class Compound_Check : MonoBehaviour {
                     _text.text = final_itemmes + "\n" + "このお菓子を作ってもらう？";
                 }
 
-                    //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
+                //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
 
                 while (yes_selectitem_kettei.onclick != true)
                 {
@@ -547,15 +548,18 @@ public class Compound_Check : MonoBehaviour {
     {
         //*** 1個or2個or3個選んだ状態で、最後、これでOKかどうか聞くメソッド　***//
 
-        switch (pitemlistController.kettei1_bunki)
+        switch (GameMgr.Comp_kettei_bunki)
         {
             case 11: //べーすあいてむ + 1個選択しているとき
 
                 itemID_1 = pitemlistController.final_kettei_item1;
+
                 pitemlistController.kettei_item2 = 9999;
                 pitemlistController.kettei_item3 = 9999;
                 pitemlistController.final_kettei_item2 = 9999; //9999は空を表す数字                
                 pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
+                itemID_2 = pitemlistController.final_kettei_item2;
+                itemID_3 = pitemlistController.final_kettei_item3;
 
                 card_view.OKCard_DrawView02(1);
 
@@ -622,6 +626,7 @@ public class Compound_Check : MonoBehaviour {
 
                 pitemlistController.kettei_item3 = 9999;
                 pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
+                itemID_3 = pitemlistController.final_kettei_item3;
 
                 card_view.OKCard_DrawView03(1);
 
@@ -833,18 +838,18 @@ public class Compound_Check : MonoBehaviour {
         _ex_probabilty_temp = 1.0f;
 
         //オリジナル調合の場合はこっち
-        if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
+        if (GameMgr.Comp_kettei_bunki == 2 || GameMgr.Comp_kettei_bunki == 3)
         {
-            _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item1].itemName);
-            _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item2].itemName);
+            _itemIDtemp_result.Add(database.items[itemID_1].itemName);
+            _itemIDtemp_result.Add(database.items[itemID_2].itemName);
 
-            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item1].itemType_sub.ToString());
-            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item2].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[itemID_2].itemType_sub.ToString());
 
             _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
             _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
 
-            if (pitemlistController.final_kettei_item3 == 9999) //二個しか選択していないときは、9999が入っている。
+            if (itemID_3 == 9999) //二個しか選択していないときは、9999が入っている。
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
@@ -852,37 +857,37 @@ public class Compound_Check : MonoBehaviour {
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[pitemlistController.final_kettei_item1].Ex_Probability *
-                database.items[pitemlistController.final_kettei_item2].Ex_Probability;
+                _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
+                database.items[itemID_2].Ex_Probability;
             }
             else
             {
-                _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item3].itemName);
-                _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item3].itemType_sub.ToString());
+                _itemIDtemp_result.Add(database.items[itemID_3].itemName);
+                _itemSubtype_temp_result.Add(database.items[itemID_3].itemType_sub.ToString());
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[pitemlistController.final_kettei_item1].Ex_Probability *
-                database.items[pitemlistController.final_kettei_item2].Ex_Probability *
-                database.items[pitemlistController.final_kettei_item3].Ex_Probability;
+                _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
+                database.items[itemID_2].Ex_Probability *
+                database.items[itemID_3].Ex_Probability;
             }
         }
 
         //エクストリーム調合の場合は、こっち。ベース決定アイテムを、temp_resultに入れる。
-        else if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
+        else if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
         {
             _itemIDtemp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemName);
-            _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item1].itemName);
+            _itemIDtemp_result.Add(database.items[itemID_1].itemName);
 
             _itemSubtype_temp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemType_sub.ToString());
-            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item1].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
 
             _itemKosutemp_result.Add(1);
             //Debug.Log("pitemlistController.final_kettei_kosu1: " + pitemlistController.final_kettei_kosu1);
 
             _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
 
-            if (pitemlistController.final_kettei_item2 == 9999) //二個しか選択していないときは、9999が入っている。
+            if (itemID_2 == 9999) //二個しか選択していないときは、9999が入っている。
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
@@ -891,18 +896,18 @@ public class Compound_Check : MonoBehaviour {
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
-                database.items[pitemlistController.final_kettei_item1].Ex_Probability;
+                database.items[itemID_1].Ex_Probability;
             }
             else
             {
-                _itemIDtemp_result.Add(database.items[pitemlistController.final_kettei_item2].itemName);
-                _itemSubtype_temp_result.Add(database.items[pitemlistController.final_kettei_item2].itemType_sub.ToString());
+                _itemIDtemp_result.Add(database.items[itemID_2].itemName);
+                _itemSubtype_temp_result.Add(database.items[itemID_2].itemType_sub.ToString());
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
-                database.items[pitemlistController.final_kettei_item1].Ex_Probability *
-                database.items[pitemlistController.final_kettei_item2].Ex_Probability;
+                database.items[itemID_1].Ex_Probability *
+                database.items[itemID_2].Ex_Probability;
             }
         }
 
@@ -1054,13 +1059,13 @@ public class Compound_Check : MonoBehaviour {
             //調合判定を行うかどうか+成功確率の表示更新
 
             //新規調合の場合　もしくは、　エクストリーム調合の場合。
-            if (pitemlistController.kettei1_bunki == 2 || pitemlistController.kettei1_bunki == 3)
+            if (GameMgr.Comp_kettei_bunki == 2 || GameMgr.Comp_kettei_bunki == 3)
             {
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
                 exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
             }
-            else if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
+            else if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
             {
                 //
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
@@ -1113,7 +1118,7 @@ public class Compound_Check : MonoBehaviour {
             //Debug.Log("どの調合リストにも当てはまらなかった。");            
 
             //エクストリーム調合の場合は、通常通りトッピングの処理を行う。
-            if (pitemlistController.kettei1_bunki == 11 || pitemlistController.kettei1_bunki == 12)
+            if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
             {
 
             }
@@ -1223,7 +1228,7 @@ public class Compound_Check : MonoBehaviour {
         //カード全て削除
         //card_view.DeleteCard_DrawView();
 
-        pitemlistController.kettei1_bunki = 0;
+        GameMgr.Comp_kettei_bunki = 0;
 
         itemselect_cancel.kettei_on_waiting = false;
 

@@ -57,7 +57,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     //アイテム番号が低いものをベースに、残りの番号との組み合わせを見る。番号は、アイテムID。
 
     public List<ItemCompound> compoitems = new List<ItemCompound>(); //
-    
+    public List<ItemCompound> magic_compoitems = new List<ItemCompound>(); //
+
     void Start()
     {
         DontDestroyOnLoad(this); //ゲーム中のアイテムリスト情報は、ゲーム中で全て共通のデータベースで管理したい。なので、破壊されないようにしておく。
@@ -70,63 +71,92 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     public void ResetDefaultCompoExcel()
     {
         compoitems.Clear();
+        magic_compoitems.Clear();
 
         excel_compoitemdatabase = Resources.Load("Excel/Entity_compoItemDataBase") as Entity_compoItemDataBase;
 
         sheet_no = 0;
 
-        count = 0;
-
-        while (count < excel_compoitemdatabase.sheets[sheet_no].list.Count)
+        while (sheet_no < excel_compoitemdatabase.sheets.Count)
         {
-            // 一旦代入
-            _id = excel_compoitemdatabase.sheets[sheet_no].list[count].ItemID;
-            cmpitem_name = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemName;
-            cmpitem_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_1;
-            cmpitem_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_2;
-            cmpitem_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_3;
-            cmpsubtype_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_1;
-            cmpsubtype_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_2;
-            cmpsubtype_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_3;
-            result_item = excel_compoitemdatabase.sheets[sheet_no].list[count].result_itemID;
-            result_kosu = excel_compoitemdatabase.sheets[sheet_no].list[count].result_kosu;
+            count = 0;
 
-            cmp_kosu_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu1;
-            cmp_kosu_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu2;
-            cmp_kosu_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu3;
-            cmp_bestkosu_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu1;
-            cmp_bestkosu_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu2;
-            cmp_bestkosu_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu3;
-            cmp_flag = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_flag;
+            while (count < excel_compoitemdatabase.sheets[sheet_no].list.Count)
+            {
+                SetParam();
 
-            _cost_time = excel_compoitemdatabase.sheets[sheet_no].list[count].cost_time;
+                //ここでリストに追加している
+                compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
+                    cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
+                    cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, secretFlag, hikari_make_count));
 
-            _srate = excel_compoitemdatabase.sheets[sheet_no].list[count].success_rate;
-            _renkin_bexp = excel_compoitemdatabase.sheets[sheet_no].list[count].renkin_Bexp;
+                ++count;
+            }
 
-            _keisan_method = excel_compoitemdatabase.sheets[sheet_no].list[count].KeisanMethod;
-            _comp_count = excel_compoitemdatabase.sheets[sheet_no].list[count].comp_count;
+            sheet_no++;
 
-            release_recipi = excel_compoitemdatabase.sheets[sheet_no].list[count].release_recipi;
-            recipi_count = excel_compoitemdatabase.sheets[sheet_no].list[count].recipi_count;
-            buf_kouka_on = excel_compoitemdatabase.sheets[sheet_no].list[count].buf_kouka_on;
-            secretFlag = excel_compoitemdatabase.sheets[sheet_no].list[count].seacretFlag;
+            count = 0;
 
-            //Excelにのってない変数
-            hikari_make_count = 0;
+            while (count < excel_compoitemdatabase.sheets[sheet_no].list.Count)
+            {
+                SetParam();
 
-            //ここでリストに追加している
-            compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
-                cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3, 
-                cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, secretFlag, hikari_make_count));
+                //ここでリストに追加している
+                magic_compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
+                    cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
+                    cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, secretFlag, hikari_make_count));
 
-            ++count;
+                //Debug.Log("CompoID: " + magic_compoitems[count].cmpitemID);
+
+                ++count;
+            }
+
+            sheet_no++;
         }
 
         /*for (i = 0; i < compoitems.Count; i++)
         {
             Debug.Log(i + " " + compoitems[i].cmpitem_Name + " " + compoitems[i].cmpitemID + " cmp_flag: " + compoitems[i].cmpitem_flag);
         }*/
+    }
+
+    void SetParam()
+    {
+        // 一旦代入
+        _id = excel_compoitemdatabase.sheets[sheet_no].list[count].ItemID;
+        cmpitem_name = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemName;
+        cmpitem_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_1;
+        cmpitem_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_2;
+        cmpitem_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitemID_3;
+        cmpsubtype_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_1;
+        cmpsubtype_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_2;
+        cmpsubtype_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_3;
+        result_item = excel_compoitemdatabase.sheets[sheet_no].list[count].result_itemID;
+        result_kosu = excel_compoitemdatabase.sheets[sheet_no].list[count].result_kosu;
+
+        cmp_kosu_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu1;
+        cmp_kosu_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu2;
+        cmp_kosu_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu3;
+        cmp_bestkosu_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu1;
+        cmp_bestkosu_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu2;
+        cmp_bestkosu_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].best_kosu3;
+        cmp_flag = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_flag;
+
+        _cost_time = excel_compoitemdatabase.sheets[sheet_no].list[count].cost_time;
+
+        _srate = excel_compoitemdatabase.sheets[sheet_no].list[count].success_rate;
+        _renkin_bexp = excel_compoitemdatabase.sheets[sheet_no].list[count].renkin_Bexp;
+
+        _keisan_method = excel_compoitemdatabase.sheets[sheet_no].list[count].KeisanMethod;
+        _comp_count = excel_compoitemdatabase.sheets[sheet_no].list[count].comp_count;
+
+        release_recipi = excel_compoitemdatabase.sheets[sheet_no].list[count].release_recipi;
+        recipi_count = excel_compoitemdatabase.sheets[sheet_no].list[count].recipi_count;
+        buf_kouka_on = excel_compoitemdatabase.sheets[sheet_no].list[count].buf_kouka_on;
+        secretFlag = excel_compoitemdatabase.sheets[sheet_no].list[count].seacretFlag;
+
+        //Excelにのってない変数
+        hikari_make_count = 0;
     }
 
     //アイテム名を入力すると、該当するcompoIDをOnにする

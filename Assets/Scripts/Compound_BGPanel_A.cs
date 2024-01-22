@@ -22,6 +22,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
     private string originai_text;
     private string extreme_text;
     private string recipi_text;
+    private string magic_text;
     private string hikarimake_text;
 
     // Use this for initialization
@@ -64,7 +65,8 @@ public class Compound_BGPanel_A : MonoBehaviour {
         originai_text = "新しくお菓子を作ろう！" + "\n" + "好きな材料を" + GameMgr.ColorYellow +
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをしよう！にいちゃん！ 一個目の材料を選んでね。";
-        recipi_text = "ヒカリのお菓子手帳だよ！" + "\n" + "にいちゃんのレシピが増えたら、ここに書いてくね！";
+        recipi_text = "ヒカリのお菓子手帳だよ！" + "\n" + "にいちゃんのレシピ　が増えたら、ここに書いてくね！";
+        magic_text = "にいちゃん！　ふしぎな魔法をヒカリがかけてあげる！" + "\n" + "使いたい魔法を選んでね！";
         hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
             "好きな材料を" + GameMgr.ColorYellow +
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
@@ -190,6 +192,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
         GameMgr.compound_status = 3;
     }
 
+    //ヒカリに作らせる
     public void OnCheck_4_button() //調合選択画面からボタンを選択して、ヒカリにつくらせるをON
     {
         card_view.DeleteCard_DrawView();
@@ -197,6 +200,16 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         //_text.text = hikarimake_text;
         GameMgr.compound_status = 8;
+    }
+
+    //魔法
+    public void OnCheck_5_button() //魔法
+    {
+        card_view.DeleteCard_DrawView();
+        SelectCompo_panel_1.SetActive(false);
+
+        _text.text = magic_text;
+        GameMgr.compound_status = 20;
     }
 
     /*public void OnCheck_4() //ブレンド調合をON
