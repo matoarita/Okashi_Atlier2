@@ -15,4 +15,11 @@ public class MagicStartPanel : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void OnCancel_MagicSelect()
+    {
+        GameMgr.compound_status = 6;
+
+        this.gameObject.SetActive(false);
+    }
 }

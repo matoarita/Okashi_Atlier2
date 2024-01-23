@@ -14,13 +14,17 @@ public class RuntimeInitializer : MonoBehaviour
         // 「player_status」だけは、直接staticにして、イニシャライズして使いやすくしている。
         // 調整する際は、スクリプトから直接アクセスすること。（ゲームオブジェクトすら生成されないので、見つけづらいかも。）
 
-        //世界・街のデータベースリスト
+        //世界・街のデータベースリスト（初期のもので、現在未使用）
         var worlddatabase_init = new GameObject("WorldDataBase", typeof(WorldDataBase));
         GameObject.DontDestroyOnLoad(worlddatabase_init);
 
         //採取地のデータベースリスト
         var matplacedatabase_init = new GameObject("ItemMatPlaceDataBase", typeof(ItemMatPlaceDataBase));
         GameObject.DontDestroyOnLoad(matplacedatabase_init);
+
+        //魔法・スキルデータベースリスト
+        var magicskilllist_database_init = new GameObject("MagicSkillListDataBase", typeof(MagicSkillListDataBase));
+        GameObject.DontDestroyOnLoad(magicskilllist_database_init);
 
         //スロットネーム変換リスト
         var slotnamedatabase_init = new GameObject("SlotNameDataBase", typeof(SlotNameDataBase));

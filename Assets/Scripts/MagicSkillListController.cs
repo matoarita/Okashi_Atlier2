@@ -12,35 +12,24 @@ public class MagicSkillListController : MonoBehaviour
     //
 
     private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
-    public List<GameObject> _shop_listitem = new List<GameObject>(); //リストビューの個数　テキスト表示用のプレファブのインスタンスを格納する。
+    public List<GameObject> _skill_listitem = new List<GameObject>(); //リストビューの個数　テキスト表示用のプレファブのインスタンスを格納する。
     private int list_count; //リストビューに現在表示するリストの個数をカウント
 
-    private Text[] _text = new Text[3];
+    private Text[] _text = new Text[2];
     private Sprite texture2d;
-    private Sprite texture_emeraldIcon;
-    private Sprite texture_sapphireIcon;
     private Sprite touchon, touchoff;
     private Image _Img;
-    private Image _ImgDongriIcon;
     private Image _togglebg;
-    private shopitemSelectToggle _toggle_itemID;
+    private magicskillSelectToggle _toggle_itemID;
 
     private Girl1_status girl1_status;
 
-    private GameObject shopitem_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
-    private GameObject shopitem_Prefab2; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
+    private GameObject skill_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
 
-    private PlayerItemList pitemlist;
+    private MagicSkillListDataBase magicskill_database;
 
-    public GameObject cardImage_onoff_pcontrol;
-
-    private ItemDataBase database;
-
-    private ItemShopDataBase shop_database;
-
-    private string item_name;
-    private int item_cost;
-    private int item_zaiko;
+    private string skill_name;
+    private string skill_comment;
 
     private int max;
     private int count;
@@ -48,50 +37,34 @@ public class MagicSkillListController : MonoBehaviour
     private int rnd;
     private int shop_hyouji_flag;
 
-    public int shop_count; //選択したリスト番号が入る。
-    public int shop_kettei_ID; //ショップデータベースIDが入る。
-    public int shop_kettei_item1; //選択したアイテムのアイテムIDが入る。通常アイテムなら、アイテムID、イベントアイテムならイベントリストのアイテムID。
-    public int shop_itemType;
-    public int shop_dongriType;
-    public int shop_costprice; //金額
-    public string shop_itemName_Hyouji; //最終的に買うアイテム名がはいる。
+    public int skill_count; //選択したリスト番号が入る。
+    public int skill_kettei_ID; //スキルデータベースIDが入る。
+    public int skill_Type;
+    public int skill_cost; //消費MP
+    public string skill_itemName_Hyouji; //最終的なスキル名がはいる。
 
-    public int shop_final_itemkosu_1; //選択したアイテムIDの個数が入る。
+    public bool skill_final_select_flag;
 
     public List<GameObject> category_toggle = new List<GameObject>();
     private int category_status;
-
-    private int emeraldonguriID;
-    private bool sale_ON;
 
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
 
-        //プレイヤー所持アイテムリストの取得
-        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
-
-        //アイテムデータベースの取得
-        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
-
-        //ショップデータベースの取得
-        shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
         //スクロールビュー内の、コンテンツ要素を取得
-        content = GameObject.FindWithTag("ShopitemListContent");
-        shopitem_Prefab = (GameObject)Resources.Load("Prefabs/shopitemSelectToggle");
-        shopitem_Prefab2 = (GameObject)Resources.Load("Prefabs/emeralditemSelectToggle");
+        content = this.transform.Find("Viewport/Content").gameObject;
+        skill_Prefab = (GameObject)Resources.Load("Prefabs/magicskillSelectToggle");
 
         //アイコン背景画像データの取得
         touchon = Resources.Load<Sprite>("Sprites/Window/sabwindowB");
         touchoff = Resources.Load<Sprite>("Sprites/Window/checkbox");
-
-        //どんぐりアイコンの取得
-        texture_emeraldIcon = Resources.Load<Sprite>("Sprites/Icon/emeralDonguri_icon");
-        texture_sapphireIcon = Resources.Load<Sprite>("Sprites/Icon/sapphireDonguri_icon");
 
         foreach (Transform child in this.transform.Find("CategoryView/Viewport/Content/").transform)
         {
@@ -217,25 +190,18 @@ public class MagicSkillListController : MonoBehaviour
         }
 
         list_count = 0;
-        _shop_listitem.Clear();
-        //Debug.Log(shop_database.shopitems.Count);
+        _skill_listitem.Clear();
 
-        switch(SceneManager.GetActiveScene().name)
+        switch(_cate_status)
         {
-            case "Shop":
+            case 0:
 
-                for (i = 0; i < shop_database.shopitems.Count; i++)
+                for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
                 {
                     //1～だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemType=0は基本の材料系
-                    if (shop_database.shopitems[i].shop_item_hyouji > 0 && shop_database.shopitems[i].shop_item_hyouji_on
-                        && shop_database.shopitems[i].shop_itemType == 0)
+                    if (magicskill_database.magicskill_lists[i].skillFlag == 1)
                     {
-                        if (shop_database.shopitems[i].shop_itemzaiko > 0)
-                        {
-
-                            drawItem();
-
-                        }
+                        drawSkill();
                     }
                 }
                 break;
@@ -249,44 +215,30 @@ public class MagicSkillListController : MonoBehaviour
     }
 
 
-    void drawItem()
+    void drawSkill()
     {
-        _shop_listitem.Add(Instantiate(shopitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
-        _text = _shop_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
-        _Img = _shop_listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
-        _togglebg = _shop_listitem[list_count].transform.Find("Background").GetComponent<Image>(); //アイコン背景データ
+        _skill_listitem.Add(Instantiate(skill_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _text = _skill_listitem[list_count].transform.Find("Background").GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
+        _Img = _skill_listitem[list_count].transform.Find("Background/Icon").GetComponent<Image>(); //アイテムの画像データ
+        _togglebg = _skill_listitem[list_count].transform.Find("Background").GetComponent<Image>(); //アイコン背景データ
 
-        _toggle_itemID = _shop_listitem[list_count].GetComponent<shopitemSelectToggle>();
-        _toggle_itemID.toggle_shop_ID = shop_database.shopitems[i].shop_ID; //ショップに登録されている、ショップデータベース上のアイテムID。iと同じ値になる。
-        _toggle_itemID.toggle_shopitem_ID = shop_database.shopitems[i].shop_itemID; //ショップに登録されている、アイテムDB上のアイテムID
-        _toggle_itemID.toggle_shopitem_type = shop_database.shopitems[i].shop_itemType; //通常アイテムか、イベントアイテムの判定用タイプ
-        _toggle_itemID.toggle_shopitem_nameHyouji = shop_database.shopitems[i].shop_itemNameHyouji; //表示用の名前
-        _toggle_itemID.toggle_shopitem_costprice = shop_database.shopitems[i].shop_costprice; //単価
-
-        //セール表示
-        if(shop_database.shopitems[i].shop_item_hyouji == 100)
-        {
-            _shop_listitem[list_count].transform.Find("SalePanel").gameObject.SetActive(true);
-        }
+        _toggle_itemID = _skill_listitem[list_count].GetComponent<magicskillSelectToggle>();
+        _toggle_itemID.toggle_skill_ID = magicskill_database.magicskill_lists[i].magicskillID; //スキルデータベース上のアイテムID。iと同じ値になる。
+        _toggle_itemID.toggle_skill_type = magicskill_database.magicskill_lists[i].skillType; //スキルがパッシヴかアクティブか
+        _toggle_itemID.toggle_skill_nameHyouji = magicskill_database.magicskill_lists[i].skillNameHyouji; //表示用の名前
 
 
-        item_name = shop_database.shopitems[i].shop_itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+        skill_name = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+        _text[0].text = skill_name;
 
-        _text[0].text = item_name;
+        skill_comment = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
+        _text[1].text = skill_comment;
 
-        item_cost = shop_database.shopitems[i].shop_costprice;
-
-        _text[2].text = item_cost.ToString(); //価格
-
-        item_zaiko = shop_database.shopitems[i].shop_itemzaiko;
-
-        //_text[4].text = item_zaiko.ToString(); //在庫
-
-        texture2d = shop_database.shopitems[i].shop_itemIcon;
+        texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
         _Img.sprite = texture2d;
 
         //お金が足りない場合は、選択できないようにする。
-        if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)
+        /*if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
             //_togglebg.sprite = touchoff;
@@ -295,7 +247,7 @@ public class MagicSkillListController : MonoBehaviour
         {
             _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
             //_togglebg.sprite = touchon;
-        }
+        }*/
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 
         ++list_count;
