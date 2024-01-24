@@ -330,6 +330,11 @@ public class Updown_counter : MonoBehaviour {
                 }
                 break;
 
+            case 21: //オリジナル調合の場合の、カウンターの位置
+
+                this.transform.localPosition = new Vector3(0, -87, 0);
+                break;
+
             default:
 
                 this.transform.localPosition = new Vector3(100, -120, 0);
@@ -470,7 +475,7 @@ public class Updown_counter : MonoBehaviour {
                 }
                 else
                 {
-                    if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 7)
+                    if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 7 || GameMgr.compound_select == 21)
                     {
                         switch (GameMgr.Comp_kettei_bunki)
                         {
@@ -642,6 +647,31 @@ public class Updown_counter : MonoBehaviour {
                                     case 2:
 
                                         _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+
+                                break;
+
+                            case 20:
+
+                                switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                                {
+                                    case 0:
+
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName]; //一個目の決定アイテムの所持数
+                                        break;
+
+                                    case 1:
+
+                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        break;
+
+                                    case 2:
+
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
                                         break;
 
                                     default:

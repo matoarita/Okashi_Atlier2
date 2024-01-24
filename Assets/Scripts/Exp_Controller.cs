@@ -127,7 +127,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private int i, count;
 
-    public int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ
+    public int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ Compound_Keisanから読み出ししてるので注意
 
     public bool compound_success; //調合の成功か失敗
 
@@ -139,9 +139,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public bool NewRecipiflag_check;
     public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
 
-    public bool result_ok; // 調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。現在、未使用。
+    public bool result_ok; // 調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。Exp_Controllerで指定、Compound_Keisanで使用。
     public bool recipiresult_ok; //レシピ調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool topping_result_ok; //トッピング調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
+    public bool magic_result_ok; //魔法調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
     public bool roast_result_ok; //「焼く」完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
 
     public bool ResultSuccess; //成功か失敗かのフラグ
@@ -227,6 +228,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         result_ok = false;
         recipiresult_ok = false;
+        magic_result_ok = false;
         girleat_ok = false;
 
         ResultSuccess = false;
@@ -1050,6 +1052,206 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.check_CompoAfter_flag = true;
     }
 
+    //
+    //魔法調合完了の場合、ここでアイテムリストの更新行う。
+    //
+    public void MagicResultOK()
+    {
+        InitObject();
+        CompInitSetting();
+
+        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        //リザルトアイテムを代入
+        result_item = pitemlistController.result_item;
+
+        //コンポ調合データベースのIDを代入
+        result_ID = pitemlistController.result_compID;
+
+        Comp_method_bunki = 20;
+
+        //ウェイトアニメーション開始
+        pitemlistController_obj.SetActive(false);
+        compo_anim_on = true; //アニメスタート
+
+        StartCoroutine("Magic_Compo_anim");
+
+    }
+
+    IEnumerator Magic_Compo_anim()
+    {
+        while (compo_anim_end != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        compo_anim_on = false;
+        compo_anim_end = false;
+        compo_anim_status = 0;
+
+        //調合判定
+        //チュートリアルモードのときは100%成功
+        if (GameMgr.tutorial_ON == true)
+        {
+            compound_success = true;
+        }
+        else
+        {
+            CompoundSuccess_judge();
+        }
+
+        //調合成功
+        if (compound_success == true)
+        {
+            //個数の決定
+            if (set_kaisu == 0) //例外処理。ロードしたてのときは、回数0のまま、仕上げから新規作成される際、0になることがある。
+            {
+                set_kaisu = 1;
+            }
+            //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数set_kaisuは、Compound_Checkから参照。
+            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
+
+            //調合処理
+            Compo_1();
+
+            //完成アイテムの、レシピフラグをONにする。
+            _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
+            databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+            Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
+
+            //作ったことがあるかどうかをチェック
+            if (databaseCompo.compoitems[result_ID].comp_count == 0)
+            {
+                //作った回数をカウント
+                databaseCompo.compoitems[result_ID].comp_count++;
+
+                //レシピ達成率を更新
+                databaseCompo.RecipiCount_database();
+
+                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
+                PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
+
+                //NewRecipiFlag = true;
+                NewRecipi_compoID = result_ID;
+
+                _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
+            }
+            //すでに作っていたことがある場合
+            else if (databaseCompo.compoitems[result_ID].comp_count > 0)
+            {
+                //作った回数をカウント
+                databaseCompo.compoitems[result_ID].comp_count++;
+
+                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
+                PlayerStatus.player_renkin_exp += _getexp; //すでに作ったことがある場合、取得量は少なくなる
+
+                _ex_text = "";
+            }
+
+            //はじめて、アイテムを制作した場合は、フラグをONに。
+            if (!GameMgr.tutorial_ON)
+            {
+                if (PlayerStatus.First_recipi_on != true)
+                {
+                    PlayerStatus.First_recipi_on = true;
+                }
+            }
+
+
+            if (extreme_on) //トッピング調合から、新規作成に分岐した場合
+            {
+                if (!PlayerStatus.First_extreme_on) //仕上げを一度もやったことがなかったら、フラグをON
+                {
+                    PlayerStatus.First_extreme_on = true;
+                }
+            }
+
+            //テキストの表示
+            if (DoubleItemCreated == 0)
+            {
+                renkin_exp_up();
+            }
+            else //2つ同時にできたとき
+            {
+                renkin_exp_up2();
+            }
+
+            //完成エフェクト
+            ResultEffect_OK();
+            CompleteAnim(); //完成背景切り替え＋アニメ
+
+            //調合完了＋成功
+            GameMgr.ResultComplete_flag = 1;
+            ResultSuccess = true;
+
+        }
+        else //調合失敗
+        {
+
+            _text.text = "調合失敗..！ ";
+
+            //ゴミアイテムを検索。
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+
+                if (database.items[i].itemName == "gomi_1")
+                {
+                    result_item = i; //プレイヤーコントローラーの変数に、アイテムIDを代入
+                    break;
+                }
+                ++i;
+            }
+
+            Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
+
+            result_kosu = 1;
+            NewRecipiFlag = false;
+
+            //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
+            pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
+
+            //失敗した場合でも、アイテムは消える。
+            compound_keisan.Delete_playerItemList(1);
+            deleteExtreme_Item();
+            GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
+
+            card_view.ResultCard_DrawView(0, result_item);
+
+            //テキストの表示
+            Failed_Text();
+
+            //完成エフェクト
+            ResultEffect_NG();
+
+            //調合完了＋失敗
+            GameMgr.ResultComplete_flag = 2;
+            ResultSuccess = false;
+        }
+
+        magic_result_ok = false;
+
+        //日数の経過
+        time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
+        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+
+        _ex_text = "";
+
+        //シーンごとの後処理
+        SceneAfterSetting();
+
+        //経験値の増減後、レベルアップしたかどうかをチェック
+        //exp_table.Check_LevelUp();
+
+        //時間の項目リセット
+        time_controller.ResetTimeFlag();
+
+        //作った直後のサブイベントをチェック
+        GameMgr.check_CompoAfter_flag = true;
+    }
+
     //シーンごとの後処理
     void SceneAfterSetting()
     {
@@ -1791,7 +1993,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     }
 
 
-    //確率判定処理
+    //成功判定処理
     void CompoundSuccess_judge()
     {
         switch (_success_judge_flag)
@@ -1802,9 +2004,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 break;
 
             case 1: //判定処理を行う
-
-                
-                _rate_final = _success_rate;
+             
+                _rate_final = _success_rate; //_success_rateは、事前にCompound_checkで計算したものを代入してるだけ。
 
                 //サイコロをふる
                 dice = Random.Range(1, 100); //1~100までのサイコロをふる。

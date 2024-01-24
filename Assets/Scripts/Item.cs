@@ -170,7 +170,8 @@ public class Item
         Donguri,
         Rare,
         Record,
-        Etc
+        Etc,
+        MagicData
     }
 
     //ここでリスト化時に渡す引数をあてがいます   

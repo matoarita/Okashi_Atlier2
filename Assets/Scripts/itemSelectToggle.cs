@@ -269,6 +269,15 @@ public class itemSelectToggle : MonoBehaviour
 
                     compound_roast_active();
                 }
+
+                // 魔法調合の場合の処理
+                if (GameMgr.compound_select == 21)
+                {
+                    yes.SetActive(true);
+
+                    //Debug.Log("GameMgr.Comp_kettei_bunki: " + GameMgr.Comp_kettei_bunki);
+                    magiccompound_active();
+                }
             }
             else
             {
@@ -1302,6 +1311,108 @@ public class itemSelectToggle : MonoBehaviour
      
         }
     }
+
+    /* ### 魔法使用時の調合処理 ### */
+
+    public void magiccompound_active()
+    {
+        switch (GameMgr.Comp_kettei_bunki)
+        {
+            case 20: //魔法を指定した状態で、どのアイテムにするかを選択する状態
+
+                //一個目のアイテムを選択したときの処理（トグルの処理）
+
+                count = 0;
+
+                while (count < pitemlistController._listitem.Count)
+                {
+                    selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
+                    if (selectToggle == true) break;
+                    ++count;
+                }
+
+                //リスト中の選択された番号を格納。
+                pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+
+                //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
+                pitemlistController._count1 = count;
+
+                itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+                pitemlistController.final_kettei_item1 = itemID_1;
+
+                //押したタイミングで、分岐＝１に。
+                //GameMgr.Comp_kettei_bunki = 1;
+
+                _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
+
+
+                //Debug.Log(count + "番が押されたよ");
+                //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+                //Debug.Log("これでいいですか？");
+
+                card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示。トグルタイプとリスト番号を入れると、表示してくれる。
+                updown_counter_obj.SetActive(true);
+
+                SelectPaused();
+
+                StartCoroutine("magicitemselect_kakunin_one");
+                break;
+        }
+    }
+
+
+
+    IEnumerator magicitemselect_kakunin_one()
+    {
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された
+
+                //Debug.Log("ok");
+                //解除
+
+                //itemselect_cancel.update_ListSelect_Flag = 1; //一個目を選択したものを選択できないようにするときの番号。
+                //itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
+
+                pitemlistController.final_kettei_kosu1 = GameMgr.updown_kosu;
+                //card_view.OKCard_DrawView(pitemlistController.final_kettei_kosu1);
+
+                yes.SetActive(false);
+                //no.SetActive(false);
+                updown_counter_obj.SetActive(false);
+
+                itemselect_cancel.kettei_on_waiting = false;
+                GameMgr.final_select_flag = true; //調合すぐ開始 + 演出画面を登場
+
+                //Debug.Log("一個目選択完了！");
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("一個目はcancel");
+
+                itemselect_cancel.All_cancel();
+
+                break;
+        }
+
+    }
+
+    // 魔法の調合処理　ここまで //
+
 
 
     /* ### アイテム売るときのシーン ### */

@@ -36,6 +36,7 @@ public class Compound_Check : MonoBehaviour {
     private PlayerItemList pitemlist;
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private MagicSkillListDataBase magicskill_database;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -131,6 +132,9 @@ public class Compound_Check : MonoBehaviour {
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //調合用メソッドの取得
         Combinationmain = CombinationMain.Instance.GetComponent<CombinationMain>();
@@ -278,6 +282,24 @@ public class Compound_Check : MonoBehaviour {
 
                 StartCoroutine("Final_select");
 
+            }
+
+            if (GameMgr.compound_select == 21) //魔法調合のときの処理
+            {
+
+                GameMgr.compound_status = 110;
+
+                SelectPaused();
+
+                GameMgr.final_select_flag = false;
+                resultitemName_obj.SetActive(true);
+
+                FinalCheckPanel.SetActive(true);
+                yes.GetComponent<Button>().interactable = false;
+                no.GetComponent<Button>().interactable = false;
+
+                //StartCoroutine("Final_select"); //最終確認
+                MagicFinal_select();
             }
         }
         
@@ -817,6 +839,91 @@ public class Compound_Check : MonoBehaviour {
         }
     }
 
+
+    /* 魔法調合時の調合決定処理 */
+
+    void MagicFinal_select()
+    {
+        //*** 魔法調合時これでOKかどうか聞くメソッド　***//
+
+        switch (GameMgr.Comp_kettei_bunki)
+        {
+            case 20: //1個選択しているとき
+
+                itemID_1 = pitemlistController.final_kettei_item1;
+                itemID_2 = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+
+                pitemlistController.kettei_item3 = 9999;
+                pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
+                itemID_3 = pitemlistController.final_kettei_item3;
+
+                //card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
+
+                CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+
+                recipiMemoScrollView_obj.SetActive(false);
+                memo_result_obj.SetActive(false);
+
+                //確率に応じて、テキストが変わる。
+                //FinalCheck_Text.text = success_text;
+
+                //選んだアイテムを表示する。リザルトアイテムも表示する。
+                //FinalCheck_ItemIconHyouji(0); //2個表示のとき
+
+                /*if (GameMgr.compound_select == 3)
+                {
+                    _text.text = final_itemmes + "\n" + "作る？";
+                }
+                else if (GameMgr.compound_select == 7)
+                {
+                    _text.text = final_itemmes + "\n" + "このお菓子を作ってもらう？";
+                }*/
+
+                //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
+
+                /*while (yes_selectitem_kettei.onclick != true)
+                {
+
+                    yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+                }*/
+
+                FinalCheckPanel.SetActive(false);
+                yes.GetComponent<Button>().interactable = true;
+                no.GetComponent<Button>().interactable = true;
+
+                //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
+
+                //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
+                exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
+
+                exp_Controller.extreme_on = false;
+
+                if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                {
+                    exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
+                }
+                else
+                {
+                    exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                }
+
+                exp_Controller.result_kosuset.Clear();
+                for (i = 0; i < result_kosuset.Count; i++)
+                {
+                    exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                }
+
+                GameMgr.compound_status = 4;
+
+                //card_view.CardCompo_Anim();
+                Off_Flag_Setting();
+
+                exp_Controller.MagicResultOK();
+               
+                break;
+        }
+    }
+
     public void YesSetDesignDefault()
     {
         yes_text.color = new Color(56f / 255f, 56f / 255f, 36f / 255f); //焦げ茶文字
@@ -908,6 +1015,42 @@ public class Compound_Check : MonoBehaviour {
                 _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
                 database.items[itemID_1].Ex_Probability *
                 database.items[itemID_2].Ex_Probability;
+            }
+        }
+
+        //魔法調合の場合はこっち
+        if (GameMgr.Comp_kettei_bunki == 20)
+        {
+            _itemIDtemp_result.Add(database.items[itemID_1].itemName);
+            _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName);
+
+            _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add("empty");
+
+            _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
+            _itemKosutemp_result.Add(1);
+
+            if (itemID_3 == 9999) //二個しか選択していないときは、9999が入っている。
+            {
+                _itemIDtemp_result.Add("empty");
+                _itemSubtype_temp_result.Add("empty");
+                pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
+                _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
+
+                //アイテムごとの確率補正値を、先にここで計算
+                _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
+                (float)(magicskill_database.magicskill_lists[itemID_2].success_rate * 0.01);
+            }
+            else
+            {
+                _itemIDtemp_result.Add(database.items[itemID_3].itemName);
+                _itemSubtype_temp_result.Add(database.items[itemID_3].itemType_sub.ToString());
+                _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
+
+                //アイテムごとの確率補正値を、先にここで計算
+                _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
+                database.items[itemID_2].Ex_Probability *
+                database.items[itemID_3].Ex_Probability;
             }
         }
 
@@ -1066,6 +1209,13 @@ public class Compound_Check : MonoBehaviour {
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
             }
             else if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
+            {
+                //
+                exp_Controller._success_judge_flag = 1; //判定処理を行う。
+                exp_Controller._success_rate = _success_rate;
+                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+            }
+            else if (GameMgr.Comp_kettei_bunki == 20)
             {
                 //
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。

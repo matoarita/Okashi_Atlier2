@@ -433,6 +433,28 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             }
                         }
 
+
+                        if (GameMgr.compound_select == 21) //魔法の処理　魔法決定後、アイテムを選択中の画面
+                        {
+
+                            if (GameMgr.final_select_flag == false) //最後、これで調合するかどうかを待つフラグがオフの間だけ反応する
+                            {
+
+                                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                                {
+
+                                    if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                    {
+                                        //魔法選択画面へ戻る
+                                        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+                                        GameMgr.compound_status = 20;//魔法選択スタートのステータスに戻す。
+
+                                    }
+
+                                }
+                            }
+                        }
                         break;
 
                     default://compound=110　最後調合するかどうかの確認中など、待機状態
@@ -686,18 +708,24 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     }*/
                 }
             }
+            else if (GameMgr.compound_select == 21) //魔法調合の処理
+            {
 
-            //レシピ調合のときの処理
-            else if (GameMgr.compound_select == 1)
+                _text.text = GameMgr.UseMagicSkill_nameHyouji + "→ ";
+
+                //GameMgr.Comp_kettei_bunki = 20;
+
+                update_ListSelect_Flag = 0; //オールリセットするのみ。
+                update_ListSelect(); //アイテム選択時の、リストの表示処理
+            }           
+            else if (GameMgr.compound_select == 1) //レシピ調合のときの処理
             {
                 _text.text = "レシピを選択してね。";
 
                 //レシピのキャンセル(recipiitemlistController)は、recipiitemSelectToggleの中で処理。
                 //なので、recipiitemlistControllerは、このスクリプト内では記述していない。
-            }
-
-            //焼くのときの処理
-            else if (GameMgr.compound_select == 5)
+            }            
+            else if (GameMgr.compound_select == 5) //焼くのときの処理
             {
                 _text.text = "一つ目の材料を選択してね。";
 

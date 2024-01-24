@@ -44,7 +44,8 @@ public class magicskillSelectToggle : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    public int toggle_skill_ID; //スキルデータベース上のIDを保持する。
+    public int toggle_skill_ID; //スキルデータベース上のIDを保持する。IDは、単なる行の番号なので、あとで番号自体が変わる可能性がある。処理を分けるなら、名前で分けるようにする。
+    public string toggle_skill_name; //使用するスキルの名前　
     public string toggle_skill_nameHyouji; //表示用名前
     public int toggle_skill_type; //リストの要素に、スキルタイプを保持
     public int toggle_skill_cost;
@@ -170,7 +171,8 @@ public class magicskillSelectToggle : MonoBehaviour
 
         magicskilllistController.skill_count = count; //カウントしたリスト番号を保持
         magicskilllistController.skill_kettei_ID = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_ID; //IDを入れる。
-        magicskilllistController.skill_Type = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_type; //判定用アイテムタイプを入れる。
+        magicskilllistController.skill_Type = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_type; //
+        magicskilllistController.skill_Name = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_name; //使用するスキル英字ネーム
         _item_Namehyouji = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_nameHyouji; //表示用ネームを入れる。
         magicskilllistController.skill_itemName_Hyouji = _item_Namehyouji;
         magicskilllistController.skill_cost = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_cost;
@@ -284,8 +286,30 @@ public class magicskillSelectToggle : MonoBehaviour
                 yes_no_panel.SetActive(false);
                 //back_ShopFirst_btn.interactable = true;
 
-                //スキルに応じて、次の処理を決める。
+                itemselect_cancel.kettei_on_waiting = false;
 
+                //スキルに応じて、次の処理を決める。
+                //スキルネームが「Freezing_Cookie」なら、それに応じた処理などにケースを分ける。
+                GameMgr.UseMagicSkill = magicskilllistController.skill_Name;
+                GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
+                switch (GameMgr.UseMagicSkill)
+                {
+                    case "Freezing_Cookie":
+
+                        GameMgr.compound_status = 21; //魔法を選んで、かけるアイテムを選択する場合の処理
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ "+ "\n" + "かけたいクッキーを選んでね。";
+                        break;
+
+                    case "Luminous_Suger":
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい砂糖を選んでね。";
+                        break;
+
+                    default: //例外処理　通常ここを通ることはない
+                        GameMgr.compound_status = 21;
+                        break;
+                }
+                
 
                 break;
 

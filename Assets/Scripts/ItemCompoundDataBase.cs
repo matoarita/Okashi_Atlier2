@@ -57,7 +57,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     //アイテム番号が低いものをベースに、残りの番号との組み合わせを見る。番号は、アイテムID。
 
     public List<ItemCompound> compoitems = new List<ItemCompound>(); //
-    public List<ItemCompound> magic_compoitems = new List<ItemCompound>(); //
+    //public List<ItemCompound> magic_compoitems = new List<ItemCompound>(); //
 
     void Start()
     {
@@ -71,7 +71,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     public void ResetDefaultCompoExcel()
     {
         compoitems.Clear();
-        magic_compoitems.Clear();
+        //magic_compoitems.Clear();
 
         excel_compoitemdatabase = Resources.Load("Excel/Entity_compoItemDataBase") as Entity_compoItemDataBase;
 
@@ -79,8 +79,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
         while (sheet_no < excel_compoitemdatabase.sheets.Count)
         {
+            //通常の調合データ
             count = 0;
-
             while (count < excel_compoitemdatabase.sheets[sheet_no].list.Count)
             {
                 SetParam();
@@ -95,14 +95,15 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
             sheet_no++;
 
-            count = 0;
 
+            //魔法調合用のDBデータ
+            count = 0;
             while (count < excel_compoitemdatabase.sheets[sheet_no].list.Count)
             {
                 SetParam();
 
                 //ここでリストに追加している
-                magic_compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
+                compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
                     cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
                     cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, secretFlag, hikari_make_count));
 

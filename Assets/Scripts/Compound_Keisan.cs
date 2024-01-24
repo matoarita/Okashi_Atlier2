@@ -489,6 +489,51 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             final_select_kaisu = 1;
         }
 
+        if (Comp_method_bunki == 20) //魔法調合の場合　アイテムDBに、あえて空のアイテムデータを用意し、それを計算する 他、処理はオリジナルと一緒
+        {
+            //オリジナル調合の設定
+
+            //**重要** 
+            //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
+            //店売りの場合は、実質アイテムIDと数字は一緒。
+            //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
+
+            kettei_item1 = pitemlistController.kettei_item1;
+            kettei_item2 = database.SearchItemIDString("magic_comp_setting");
+            kettei_item3 = pitemlistController.kettei_item3;
+
+            toggle_type1 = pitemlistController._toggle_type1;
+            toggle_type2 = 0;
+            toggle_type3 = pitemlistController._toggle_type3;
+
+            final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
+            final_kette_kosu2 = 0;
+            final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+
+            _before_itemtype_Sub = "";
+
+            //Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+            //Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);
+
+
+            /*Debug.Log("pitemlistController.kettei_item1: " + kettei_item1);
+            Debug.Log("pitemlistController.kettei_item2: " + kettei_item2);
+            Debug.Log("pitemlistController._toggle_type1: " + toggle_type1);
+            Debug.Log("pitemlistController._toggle_type2: " + toggle_type2);
+            Debug.Log("pitemlistController.final_kettei_kosu1: " + final_kette_kosu1);
+            Debug.Log("pitemlistController.final_kettei_kosu2: " + final_kette_kosu2);*/
+
+            //セット数　updowncounterの値をもとに設定してる。現在は、セット数は選択できないようにしているので、1に固定
+            //final_select_kaisu = exp_Controller.set_kaisu;
+            final_select_kaisu = 1;
+
+            //パラメータを取得
+            result_item = pitemlistController.result_item;
+
+            //コンポ調合データベースのIDを代入
+            result_ID = pitemlistController.result_compID;
+        }
+
         //**ここまで**
     }
 
@@ -571,7 +616,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     //ゲーム最初に、アイテムデータベースの味パラメータを、コンポDBから計算して初期化
     void SetParamDatabaseInit()
     {
-
         Comp_method_bunki = 2;
 
         i = 0;
@@ -738,7 +782,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
         //ベースアイテム　タイプを見て、プレイヤリストアイテムかオリジナルアイテムかを識別する。
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //新規にアイテムを作成する場合 or レシピ調合の場合。空のパラメータに、材料のパラメータを総計していく。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20) //新規にアイテムを作成する場合 or レシピ調合の場合。空のパラメータに、材料のパラメータを総計していく。
         {
             _id = result_item;
 
@@ -1109,6 +1153,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             else if (exp_Controller.roast_result_ok == true) //「焼く」の場合
             {
                 result_kosu = pitemlistController.final_kettei_kosu1;
+            }
+            else if (exp_Controller.magic_result_ok == true) //魔法調合の場合
+            {
+                result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * final_select_kaisu;
             }
 
             // アイテムリストの削除処理 //
@@ -1684,7 +1732,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //***基本の味の計算方法***
         //各材料の、パラメータをそれぞれ加算する。食感のみ、小麦粉とその他材料の比率をだして、補正がかかる。イメージ。
 
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
         {
             //材料のパラメータ計算処理。
             AddParam_Method();
@@ -1800,7 +1848,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basejuice = _basesweat + _basebitter + _basesour;
 
         //新規作成時の特殊処理
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
         {
             //ジュースの特殊処理　甘さが青天井で上がることはないように、上限をおさえる。
             if (_base_itemType_sub == "Juice")
@@ -1827,7 +1875,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
         {
             if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
@@ -1907,7 +1955,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         
         if (mstatus == 0 || mstatus == 1)
         {
-            if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。
+            if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
             {
                 //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合のみ。。
                 if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
@@ -2032,7 +2080,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //店売りアイテムを合成に使う場合は、固有トッピングを計算する。
 
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20) //オリジナル・レシピ調合時
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -2095,7 +2143,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //オリジナルアイテムを合成に使う場合も、固有トッピングを計算する。
 
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20) //オリジナル・レシピ調合時
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -2160,7 +2208,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //オリジナルアイテムを合成に使う場合も、固有トッピングを計算する。
 
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2) //オリジナル・レシピ調合時
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20) //オリジナル・レシピ調合時
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -2337,7 +2385,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 DeleteMethod2();
             }
         }
-        else if (Comp_method_bunki == 0)
+        else if (Comp_method_bunki == 0 || Comp_method_bunki == 20)
         {
             final_kette_kosu1 = final_kette_kosu1 * final_select_kaisu;
             final_kette_kosu2 = final_kette_kosu2 * final_select_kaisu;
@@ -2362,8 +2410,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _id = kettei_item1;
                 //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
 
-                //器具は、削除しない
-                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                //器具と一部の特殊なデータは、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
                 {
 
                 }
@@ -2401,8 +2449,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _id = kettei_item2;
                     //Debug.Log("_id: " + _id + " final_kette_kosu2: " + final_kette_kosu2);
 
-                    //器具は、削除しない
-                    if (database.items[_id].itemType_sub.ToString() == "Machine")
+                    //器具と一部の特殊なデータは、削除しない
+                    if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
                     {
 
                     }
@@ -2423,7 +2471,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                     _id = kettei_item2;
 
-                    deleteExtremeList.Add(_id, final_kette_kosu1);
+                    deleteExtremeList.Add(_id, final_kette_kosu2);
                     break;
 
                 default:
@@ -2441,8 +2489,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _id = kettei_item3;
                     //Debug.Log("_id: " + _id + " final_kette_kosu3: " + final_kette_kosu3);
 
-                    //器具は、削除しない
-                    if (database.items[_id].itemType_sub.ToString() == "Machine")
+                    //器具と一部の特殊なデータは、削除しない
+                    if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
                     {
 
                     }
@@ -2463,7 +2511,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                     _id = kettei_item3;
 
-                    deleteExtremeList.Add(_id, final_kette_kosu1);
+                    deleteExtremeList.Add(_id, final_kette_kosu3);
                     break;
 
                 default:
@@ -2523,8 +2571,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _id = kettei_item1;
             //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
 
-            //器具は、削除しない
-            if (database.items[_id].itemType_sub.ToString() == "Machine")
+            //器具と一部の特殊なデータは、削除しない
+            if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
             {
 
             }
@@ -2540,8 +2588,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             nokori_kosu = final_kette_kosu1 - pitemlist.playeritemlist[database.items[kettei_item1].itemName];
 
-            //器具は、削除しない
-            if (database.items[_id].itemType_sub.ToString() == "Machine")
+            //器具と一部の特殊なデータは、削除しない
+            if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
             {
 
             }
@@ -2583,8 +2631,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _id = kettei_item2;
                 //Debug.Log("_id: " + _id + " final_kette_kosu1: " + final_kette_kosu1);
 
-                //器具は、削除しない
-                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                //器具と一部の特殊なデータは、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
                 {
 
                 }
@@ -2599,8 +2647,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                 nokori_kosu = final_kette_kosu2 - pitemlist.playeritemlist[database.items[kettei_item2].itemName];
 
-                //器具は、削除しない
-                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                //器具と一部の特殊なデータは、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
                 {
 
                 }
@@ -2642,8 +2690,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 _id = kettei_item3;
 
-                //器具は、削除しない
-                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                //器具と一部の特殊なデータは、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
                 {
 
                 }
@@ -2658,8 +2706,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                 nokori_kosu = final_kette_kosu3 - pitemlist.playeritemlist[database.items[kettei_item3].itemName];
 
-                //器具は、削除しない
-                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                //器具と一部の特殊なデータは、削除しない
+                if (database.items[_id].itemType_sub.ToString() == "Machine" || database.items[_id].itemType_sub.ToString() == "MagicData")
                 {
 
                 }

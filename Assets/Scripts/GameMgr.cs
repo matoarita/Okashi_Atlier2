@@ -491,6 +491,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Scene_Black_Off; //シーンによっては、このフラグがたつと、宴途中などで、シーンの黒画面をオフにする
     public static bool Kaigyo_ON; //メッセージウィンドウの改行ボタンをおした。宴ではなく、材料採取の改行時など。
     public static int Comp_kettei_bunki; //調合の、今何の調合をしている最中かを表すステータス
+    public static string UseMagicSkill; //使用する魔法・スキルのネーム
+    public static string UseMagicSkill_nameHyouji; //使用する魔法・スキルのネームの表示用
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -888,6 +890,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Scene_Black_Off = false;
         Kaigyo_ON = false;
         Comp_kettei_bunki = 0;
+        UseMagicSkill = "";
+        UseMagicSkill_nameHyouji = "";
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

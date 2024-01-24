@@ -548,6 +548,34 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         }
 
                         break;
+
+                    case 21: //魔法使用時のアイテムリスト　魔法に応じて表示を切り替える                    
+
+                        switch (GameMgr.UseMagicSkill)
+                        {
+                            case "Freezing_Cookie":
+
+                                if (check_itemType_sub == "Cookie")
+                                {
+                                    itemlist_hyouji_Check();
+                                }
+                                break;
+
+                            case "Luminous_Suger":
+
+                                if (check_itemType_sub == "Suger")
+                                {
+                                    itemlist_hyouji_Check();
+                                }
+                                break;
+
+                            default: //例外処理　通常ここを通ることはない
+                                
+                                break;
+                        }
+                        
+
+                        break;
                 }
             }
             else

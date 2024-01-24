@@ -29,6 +29,7 @@ public class CompoundMainController : MonoBehaviour {
     public string originai_text;
     public string extreme_text;
     public string recipi_text;
+    public string magic_text;
     public string hikarimake_text;
 
     private GameObject text_hikari_makecaption;
@@ -87,6 +88,8 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject SelectCompo_panel_1;
 
     private GameObject MagicStartPanel;
+    private GameObject magic_compo1;
+    private GameObject magic_compo2;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -195,6 +198,11 @@ public class CompoundMainController : MonoBehaviour {
         MagicStartPanel = compoBG_A.transform.Find("MagicStartPanel").gameObject;
         MagicStartPanel.SetActive(false);
 
+        magic_compo1 = MagicStartPanel.transform.Find("magicComp1").gameObject;
+        magic_compo1.SetActive(true);
+        magic_compo2 = MagicStartPanel.transform.Find("magicComp2").gameObject;
+        magic_compo2.SetActive(false);
+
         //windowテキストエリアの取得
         text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
         _textcomp = text_area_compound.GetComponentInChildren<Text>();
@@ -255,10 +263,11 @@ public class CompoundMainController : MonoBehaviour {
             }
 
         }
-        
+
 
 
         //各調合時のシステムメッセージ集
+        magic_text = "にいちゃん！　ふしぎな魔法をヒカリがかけてあげる！" + "\n" + "使いたい魔法を選んでね！";
         hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
         "好きな材料を" + GameMgr.ColorYellow +
         "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
@@ -576,8 +585,6 @@ public class CompoundMainController : MonoBehaviour {
 
                     Hikarimake_StartPanel.SetActive(true);
 
-                    
-
                     break;
 
                 case 20: //魔法の選択画面を開く              
@@ -595,12 +602,33 @@ public class CompoundMainController : MonoBehaviour {
                     recipilist_onoff.SetActive(false);
                     SelectCompo_panel_1.SetActive(false);
                     yes_no_panel.SetActive(false);
+
                     text_area_compound.SetActive(true);
+                    _textcomp.text = magic_text;
 
                     MagicStartPanel.SetActive(true);
+                    magic_compo1.SetActive(true);
+                    magic_compo2.SetActive(false);
 
-                    
+                    break;
 
+                case 21: //魔法選択後、アイテム選択中のステータス
+
+                    GameMgr.compound_status = 100; //トグルや魔法選択中の状況からは変わらないので100のまま
+                    GameMgr.compound_select = 21;
+
+                    //魔法選択時の調合画面を開く
+                    magic_compo2.SetActive(true);
+
+                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+                    GameMgr.Comp_kettei_bunki = 20;
+
+                    recipiMemoButton.SetActive(true);
+                    text_area_compound.SetActive(true);
+
+                    //ヒカリちゃんを表示する
+                    ReDrawLive2DPos_Compound();
                     break;
             }
         }

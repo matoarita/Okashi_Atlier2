@@ -28,19 +28,18 @@ public class MagicSkillListController : MonoBehaviour
 
     private MagicSkillListDataBase magicskill_database;
 
-    private string skill_name;
-    private string skill_comment;
-
     private int max;
     private int count;
     private int i;
     private int rnd;
     private int shop_hyouji_flag;
 
+    //一時保存用変数
     public int skill_count; //選択したリスト番号が入る。
     public int skill_kettei_ID; //スキルデータベースIDが入る。
     public int skill_Type;
     public int skill_cost; //消費MP
+    public string skill_Name;
     public string skill_itemName_Hyouji; //最終的なスキル名がはいる。
 
     public bool skill_final_select_flag;
@@ -225,14 +224,12 @@ public class MagicSkillListController : MonoBehaviour
         _toggle_itemID = _skill_listitem[list_count].GetComponent<magicskillSelectToggle>();
         _toggle_itemID.toggle_skill_ID = magicskill_database.magicskill_lists[i].magicskillID; //スキルデータベース上のアイテムID。iと同じ値になる。
         _toggle_itemID.toggle_skill_type = magicskill_database.magicskill_lists[i].skillType; //スキルがパッシヴかアクティブか
+        _toggle_itemID.toggle_skill_name = magicskill_database.magicskill_lists[i].skillName; //データ上のスキル名
         _toggle_itemID.toggle_skill_nameHyouji = magicskill_database.magicskill_lists[i].skillNameHyouji; //表示用の名前
 
+        _text[0].text = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。;
 
-        skill_name = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
-        _text[0].text = skill_name;
-
-        skill_comment = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
-        _text[1].text = skill_comment;
+        _text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
 
         texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
         _Img.sprite = texture2d;
