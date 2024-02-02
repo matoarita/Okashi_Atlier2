@@ -136,7 +136,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         effect_Particle_KiraExplode = this.transform.Find("Particle_KiraExplode").gameObject;
         effect_Particle_KiraExplode.SetActive(false);
-        effect_Particle_KiraExplode_2 = this.transform.Find("Particle_KiraExplode_2").gameObject;
+        effect_Particle_KiraExplode_2 = this.transform.Find("Particle_KiraSimpleBomb").gameObject;
         effect_Particle_KiraExplode_2.SetActive(false);
 
         text_area = compoBG_A.transform.Find("MessageWindowComp").gameObject;

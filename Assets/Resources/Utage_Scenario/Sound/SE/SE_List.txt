@@ -129,3 +129,6 @@ SE表
 ・SE_127	間抜け3_hayai					時間スピード変更音　早い
 ・SE_128	audiostock_837234_sample			【#未使用】
 ・SE_129	audiostock_104039				衣装装備時　キラリ音
+・SE_130	audiostock_1411314_sample			魔法発動音１
+・SE_131	audiostock_1285222_sample			魔法調合の完成音
+・SE_132	audiostock_825112_sample			魔法発動音２

@@ -128,7 +128,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
 
-            yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+            yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
             yes = yes_no_panel.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
             no = yes_no_panel.transform.Find("No").gameObject;
@@ -145,7 +145,7 @@ public class recipiitemSelectToggle : MonoBehaviour
         }
         else if (GameMgr.Scene_Category_Num == 200)
         {
-            yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+            yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
             yes = yes_no_panel.transform.Find("Yes").gameObject;
             yes_text = yes.GetComponentInChildren<Text>();
             no = yes_no_panel.transform.Find("No").gameObject;

@@ -202,7 +202,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
         GameMgr.compound_status = 8;
     }
 
-    //魔法
+    //魔法を使う
     public void OnCheck_5_button() //魔法
     {
         card_view.DeleteCard_DrawView();
@@ -210,6 +210,16 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         _text.text = magic_text;
         GameMgr.compound_status = 20;
+    }
+
+    //魔法・スキルを覚える
+    public void OnCheck_6_button()
+    {
+        card_view.DeleteCard_DrawView();
+        SelectCompo_panel_1.SetActive(false);
+
+        _text.text = magic_text;
+        GameMgr.compound_status = 30;
     }
 
     /*public void OnCheck_4() //ブレンド調合をON

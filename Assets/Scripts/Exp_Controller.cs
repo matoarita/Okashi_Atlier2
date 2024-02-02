@@ -155,6 +155,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int compo_anim_status;
     private bool compo_anim_on;
     private bool compo_anim_end;
+    private bool magiccompo_anim_on;
+    private bool magiccompo_anim_end;
     private float timeOut;
 
     private GameObject Compo_Magic_effect_Prefab1;
@@ -277,6 +279,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compo_anim_status = 0;
         compo_anim_on = false;
         compo_anim_end = false;
+        magiccompo_anim_on = false;
+        magiccompo_anim_end = false;
 
         //Live2Dモデルの取得
         character_ON = false;
@@ -355,7 +359,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 GameMgr.check_GirlLoveSubEvent_flag = false;
 
                 //アニメスタート
-                Compo_Magic_Animation();
+                Compo_Animation();
+            }
+
+            //魔法調合中ウェイト+アニメ
+            if (magiccompo_anim_on == true)
+            {
+                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                //アニメスタート
+                MagicCompo_Animation();
             }
         }
     }        
@@ -423,7 +436,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
 
             //調合処理
-            Compo_1();
+            Compo_1(0);
 
 
 
@@ -505,7 +518,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //完成エフェクト
-            ResultEffect_OK();
+            ResultEffect_OK(0);
             CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
@@ -579,7 +592,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.check_CompoAfter_flag = true;
     }
 
-    void Compo_1()
+    void Compo_1(int _status)
     {
         //①調合処理 オリジナルアイテムとして生成
         compound_keisan.Topping_Compound_Method(0);
@@ -587,8 +600,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (DoubleItemCreated == 0)
         {
             result_item = pitemlist.player_check_itemlist.Count - 1;
-            GameMgr.Okashi_makeID = pitemlist.player_check_itemlist[result_item].itemID;
+            
             renkin_hyouji = pitemlist.player_check_itemlist[result_item].itemNameHyouji;
+            GameMgr.Okashi_makeID = pitemlist.player_check_itemlist[result_item].itemID;
+            GameMgr.ResultItem_nameHyouji = pitemlist.player_check_itemlist[result_item].itemNameHyouji; //別スクリプトでの使用用
 
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
             if (pitemlist.player_check_itemlist[result_item].itemType.ToString() == "Mat" || 
@@ -608,7 +623,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             new_item = result_item;
 
-            card_view.ResultCard_DrawView(3, new_item);
+            switch(_status)
+            {
+                case 0: //通常調合時のリザルトカード表示
+                    card_view.ResultCard_DrawView(3, new_item);
+                    break;
+
+                case 1: //魔法調合時のリザルトカード表示
+                    card_view.MagicResultCard_DrawView(3, new_item);
+                    break;
+            }
+            
         }
         else //例外処理。卵白と卵黄が同時にできる場合など。
         {
@@ -712,7 +737,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
 
             //調合処理
-            Compo_1();
+            Compo_1(0);
             
             //チュートリアルのときは、一時的にOFF
             if (GameMgr.tutorial_ON == true)
@@ -755,7 +780,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             renkin_default_exp_up();
 
             //完成エフェクト
-            ResultEffect_OK();
+            ResultEffect_OK(0);
             CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
@@ -978,7 +1003,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             renkin_exp_up();
 
             //完成エフェクト
-            ResultEffect_OK();
+            ResultEffect_OK(0);
             CompleteAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
@@ -1073,7 +1098,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //ウェイトアニメーション開始
         pitemlistController_obj.SetActive(false);
-        compo_anim_on = true; //アニメスタート
+        magiccompo_anim_on = true; //アニメスタート
 
         StartCoroutine("Magic_Compo_anim");
 
@@ -1081,13 +1106,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     IEnumerator Magic_Compo_anim()
     {
-        while (compo_anim_end != true)
+        while (magiccompo_anim_end != true)
         {
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
 
-        compo_anim_on = false;
-        compo_anim_end = false;
+        magiccompo_anim_on = false;
+        magiccompo_anim_end = false;
         compo_anim_status = 0;
 
         //調合判定
@@ -1113,7 +1138,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
 
             //調合処理
-            Compo_1();
+            Compo_1(1);
 
             //完成アイテムの、レシピフラグをONにする。
             _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
@@ -1178,8 +1203,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //完成エフェクト
-            ResultEffect_OK();
-            CompleteAnim(); //完成背景切り替え＋アニメ
+            ResultEffect_OK(1);
+            CompleteMagicAnim(); //完成背景切り替え＋アニメ
 
             //調合完了＋成功
             GameMgr.ResultComplete_flag = 1;
@@ -1229,7 +1254,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //調合完了＋失敗
             GameMgr.ResultComplete_flag = 2;
             ResultSuccess = false;
-        }
+        }        
+
+        //完成用の背景を登場　成功・失敗かかわらず共通
+        GameMgr.compound_status = 23;
 
         magic_result_ok = false;
 
@@ -1256,12 +1284,21 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void SceneAfterSetting()
     {
         if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {
+        {           
             compound_Main_obj = GameObject.FindWithTag("Compound_Main");
             compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
             //メインテキストも更新
             compound_Main.StartMessage();
+
+            //ヒカリが厨房のセンター位置に戻る準備で右に。
+            if(character_ON)
+            {
+                //character_moveでなく、Live2Dのポスを直接アニメートさせてる。また、Live2Dモデルの位置情報は、スクリプトやTweenとかで直接変えることができない。
+                //ここでinterger=99で事前に右にし、integer=100にすると、戻るアニメスタート
+                trans_motion = 99;
+                live2d_animator.SetInteger("trans_motion", trans_motion);
+            }
         }
     }
 
@@ -1426,7 +1463,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         kakuritsuPanel_obj.SetActive(false);
 
         //YesNoパネル
-        yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
         yes_no_panel.SetActive(false);
 
         //半透明の黒をON
@@ -1632,7 +1669,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //
     //調合中のアニメ
     //
-    void Compo_Magic_Animation()
+    void Compo_Animation()
     {
 
         switch (compo_anim_status)
@@ -1647,7 +1684,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 kakuritsuPanel_obj.SetActive(false);
 
                 //YesNoパネル
-                yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+                yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
                 yes_no_panel.SetActive(false);
 
                 //半透明の黒をON
@@ -1806,6 +1843,170 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         sequence2.Join(CompleteImage.transform.Find("Image").GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
+
+
+    //
+    //魔法演出中のアニメ
+    //
+    void MagicCompo_Animation()
+    {
+
+        switch (compo_anim_status)
+        {
+            case 0: //初期化 状態１
+
+                //メモは全てオフに
+                recipiMemoButton.SetActive(false);
+                recipimemoController_obj.SetActive(false);
+                memoResult_obj.SetActive(false);
+                recipi_archivement_obj.SetActive(false);
+                kakuritsuPanel_obj.SetActive(false);
+
+                //YesNoパネル
+                yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+                yes_no_panel.SetActive(false);
+
+                //半透明の黒をON
+                //Sequence sequence = DOTween.Sequence();
+
+                //まず、初期値。
+                //BlackImage.GetComponent<CanvasGroup>().alpha = 0;
+                //sequence.Append(BlackImage.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
+
+                /*if (character_ON)
+                {
+                    //ヒカリちゃんを右にずらす
+                    character_move.transform.DOMoveX(8f, 1f)
+                        .SetEase(Ease.InOutSine);
+                }*/
+
+                //エフェクト生成＋アニメ開始
+                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
+
+                //音を鳴らす シュイイイン
+                sc.PlaySe(129);
+                sc.PlaySe(131);
+
+                //一時的にお菓子のHP減少をストップ
+                //extremePanel.LifeAnimeOnFalse();
+
+                timeOut = 2.0f;
+                compo_anim_status = 1;
+
+                _text.text = "ガシャ .";
+                break;
+
+            case 1: // 状態2
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 1.0f;
+                    compo_anim_status = 2;
+
+                    _text.text = "ガシャ　ガシャ . .";
+                }
+                break;
+
+            case 2:
+
+                if (timeOut <= 0.0)
+                {
+                    //新しいアイテムができるときは、さらに追加のキラキラ演出
+                    if (NewRecipiFlag)
+                    {
+                        timeOut = 1.0f;
+                        compo_anim_status = 3;
+
+                        //エフェクト生成＋アニメ開始
+                        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab6));
+
+                        //色を変更 難しい..。
+                        //ParticleSystem.MainModule main = _listEffect[0].gameObject.GetComponent<ParticleSystem>().main;
+                        //main.startColor = Color.red;
+                        //_listEffect[0].gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", Color.red);
+                        //_listEffect[0].gameObject.GetComponents<Renderer>().material.SetColor("_TintColor", Color.red);
+
+                        //音を鳴らす
+                        sc.PlaySe(89);
+
+                        _text.text = "ガシャ　ガシャ . . . ";
+                    }
+                    else
+                    {
+                        timeOut = 0.5f;
+                        compo_anim_status = 5;
+                    }
+
+
+                }
+                break;
+
+            case 3:
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 2.0f;
+                    compo_anim_status = 4;
+
+                    _text.text = "ガシャ　ガシャ　ガシャ . . . . ";
+                }
+                break;
+
+            case 4:
+
+                if (timeOut <= 0.0)
+                {
+                    timeOut = 0.5f;
+                    compo_anim_status = 5;
+                }
+                break;
+
+            case 5: //アニメ終了。判定する
+
+
+                //カードビューのカードアニメもストップ
+                card_view.cardcompo_anim_on = false;
+                card_view.DeleteCard_DrawView();
+
+                //音を止める
+                sc.StopSe();
+
+                //Debug.Log("アニメ終了");
+                magiccompo_anim_end = true;
+
+                break;
+
+            default:
+                break;
+        }
+
+        //時間減少
+        timeOut -= Time.deltaTime;
+    }
+
+    void CompleteMagicAnim()
+    {
+        //完成～出来たー！という変化をつけるために、背景を変える。
+        
+
+
+        //アニメーション
+        /*//まず、初期値。
+        Sequence sequence2 = DOTween.Sequence();
+        CompleteImage.transform.Find("Image").GetComponent<CanvasGroup>().alpha = 0;
+        sequence2.Append(CompleteImage.transform.Find("Image").DOScale(new Vector3(0.3f, 0.3f, 1.0f), 0.0f)
+            ); //
+
+        //移動のアニメ
+        sequence2.Append(CompleteImage.transform.Find("Image").DOScale(new Vector3(0.5f, 0.5f, 1.0f), 0.75f)
+        //.SetEase(Ease.OutElastic)); //はねる動き
+        .SetEase(Ease.OutExpo)); //スケール小からフェードイン
+        sequence2.Join(CompleteImage.transform.Find("Image").GetComponent<CanvasGroup>().DOFade(1, 0.2f));*/
+    }
+
+
+
+
     public void EffectListClear()
     {
         //初期化
@@ -1816,7 +2017,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect.Clear();
     }
 
-    void ResultEffect_OK()
+    void ResultEffect_OK(int _status)
     {
         //初期化しておく
         for (i = 0; i < _listEffect.Count; i++)
@@ -1836,10 +2037,23 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab_kiraexplode));
         _listEffect[3].GetComponent<Canvas>().worldCamera = Camera.main;
 
-        //音を鳴らす
-        sc.PlaySe(4);        
-        sc.PlaySe(27);
-        sc.PlaySe(78);
+        //音を鳴らす　ブィィン！
+        switch(_status)
+        {
+            case 0: //通常調合用のエフェクトと効果音
+
+                sc.PlaySe(4);
+                sc.PlaySe(27);
+                sc.PlaySe(78);
+                break;
+
+            case 1: //魔法調合用のエフェクトと効果音
+                sc.PlaySe(130);
+                sc.PlaySe(132);
+                sc.PlaySe(78);
+                break;
+        }
+        
 
     }
 

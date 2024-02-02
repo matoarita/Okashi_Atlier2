@@ -39,9 +39,9 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Compound":
+            case 10: //調合メインシーンでやりたい処理
 
                 //カメラの取得
                 main_cam = Camera.main;

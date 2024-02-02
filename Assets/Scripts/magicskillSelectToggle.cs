@@ -32,12 +32,14 @@ public class magicskillSelectToggle : MonoBehaviour
 
     private GameObject magicskilllistController_obj;
     private MagicSkillListController magicskilllistController;
+
     private GameObject back_ShopFirst_obj;
     private Button back_ShopFirst_btn;
 
     private PlayerItemList pitemlist;
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private MagicSkillListDataBase magicskill_database;
 
     private GameObject yes_no_panel;
 
@@ -66,6 +68,8 @@ public class magicskillSelectToggle : MonoBehaviour
     {
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //Fetch the Toggle GameObject
         m_Toggle = GetComponent<Toggle>();
@@ -83,7 +87,7 @@ public class magicskillSelectToggle : MonoBehaviour
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        magicskilllistController_obj = GameObject.FindWithTag("MagicSkillList_ScrollView");
+        magicskilllistController_obj = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView").gameObject;
         magicskilllistController = magicskilllistController_obj.GetComponent<MagicSkillListController>();
         //back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         //back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
@@ -292,24 +296,8 @@ public class magicskillSelectToggle : MonoBehaviour
                 //スキルネームが「Freezing_Cookie」なら、それに応じた処理などにケースを分ける。
                 GameMgr.UseMagicSkill = magicskilllistController.skill_Name;
                 GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
-                switch (GameMgr.UseMagicSkill)
-                {
-                    case "Freezing_Cookie":
 
-                        GameMgr.compound_status = 21; //魔法を選んで、かけるアイテムを選択する場合の処理
-                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ "+ "\n" + "かけたいクッキーを選んでね。";
-                        break;
-
-                    case "Luminous_Suger":
-                        GameMgr.compound_status = 21;
-                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい砂糖を選んでね。";
-                        break;
-
-                    default: //例外処理　通常ここを通ることはない
-                        GameMgr.compound_status = 21;
-                        break;
-                }
-                
+                SkillUseLibrary();                              
 
                 break;
 
@@ -353,6 +341,55 @@ public class magicskillSelectToggle : MonoBehaviour
         for (i = 0; i < category_toggle.Count; i++)
         {
             category_toggle[i].GetComponent<Toggle>().interactable = true;
+        }
+    }
+
+    public void OnSkillMemoButton_ON()
+    {
+
+    }
+
+    public void OnSkillLevelUpButton_ON()
+    {
+        magicskill_database.magicskill_lists[toggle_skill_ID].skillLv++;
+        //上限処理
+        if(magicskill_database.magicskill_lists[toggle_skill_ID].skillLv > magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv)
+        {
+            magicskill_database.magicskill_lists[toggle_skill_ID].skillLv = magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv;
+        }
+        magicskilllistController.ReDraw();
+    }
+
+
+    //
+    //魔法の処理分岐//
+    //
+
+    void SkillUseLibrary()
+    {
+        //PlayerItemListControllerでも以下の魔法分岐を行ってるので、そちらでも書く
+
+        switch (GameMgr.UseMagicSkill)
+        {
+            case "Freezing_Spell":
+
+                GameMgr.compound_status = 21; //魔法を選んで、かけるアイテムを選択する場合の処理
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
+                break;
+
+            case "Luminous_Suger":
+                GameMgr.compound_status = 21;
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい砂糖を選んでね。";
+                break;
+
+            case "Luminous_Fruits":
+                GameMgr.compound_status = 21;
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいフルーツを選んでね。";
+                break;
+
+            default: //例外処理　通常ここを通ることはない
+                GameMgr.compound_status = 21;
+                break;
         }
     }
 }

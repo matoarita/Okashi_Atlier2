@@ -30,6 +30,7 @@ public class CompoundMainController : MonoBehaviour {
     public string extreme_text;
     public string recipi_text;
     public string magic_text;
+    public string magiclearn_text;
     public string hikarimake_text;
 
     private GameObject text_hikari_makecaption;
@@ -44,15 +45,17 @@ public class CompoundMainController : MonoBehaviour {
     private Touch_Controller touch_controller;
     private TimeController time_controller;
 
-    private GameObject recipilist_onoff;
-    private RecipiListController recipilistController;
-
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
-    private GameObject pitemlist_scrollview_init_obj;
+
+    private GameObject recipilist_onoff;
+    private RecipiListController recipilistController;
+
+    private GameObject magicskilllistController_onoff;
+    private MagicSkillListController magicskilllistController;
 
     private PlayerItemList pitemlist;
 
@@ -90,6 +93,10 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject MagicStartPanel;
     private GameObject magic_compo1;
     private GameObject magic_compo2;
+    private GameObject magic_compo3;
+    private GameObject magic_compo4;
+
+    private GameObject MagicLearnPanel;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -202,6 +209,13 @@ public class CompoundMainController : MonoBehaviour {
         magic_compo1.SetActive(true);
         magic_compo2 = MagicStartPanel.transform.Find("magicComp2").gameObject;
         magic_compo2.SetActive(false);
+        magic_compo3 = MagicStartPanel.transform.Find("magicComp3").gameObject;
+        magic_compo3.SetActive(false);
+        magic_compo4 = MagicStartPanel.transform.Find("magicComp4").gameObject;
+        magic_compo4.SetActive(false);
+
+        MagicLearnPanel = compoBG_A.transform.Find("MagicLearnPanel").gameObject;
+        MagicLearnPanel.SetActive(false);
 
         //windowテキストエリアの取得
         text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
@@ -268,6 +282,7 @@ public class CompoundMainController : MonoBehaviour {
 
         //各調合時のシステムメッセージ集
         magic_text = "にいちゃん！　ふしぎな魔法をヒカリがかけてあげる！" + "\n" + "使いたい魔法を選んでね！";
+        magiclearn_text = "どの魔法をおぼえる？　にいちゃん！";
         hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
         "好きな材料を" + GameMgr.ColorYellow +
         "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
@@ -278,7 +293,7 @@ public class CompoundMainController : MonoBehaviour {
     void InitSetting()
     {
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
-        yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
         yes = yes_no_panel.transform.Find("Yes").gameObject;
         no = yes_no_panel.transform.Find("No").gameObject;
 
@@ -291,6 +306,10 @@ public class CompoundMainController : MonoBehaviour {
             //レシピリストパネルの取得
             recipilist_onoff = canvas.transform.Find("RecipiList_ScrollView").gameObject;
             recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
+
+            //スキルリストの取得
+            magicskilllistController_onoff = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView").gameObject;
+            magicskilllistController = magicskilllistController_onoff.GetComponent<MagicSkillListController>();
         }
     }
 	
@@ -470,7 +489,9 @@ public class CompoundMainController : MonoBehaviour {
                     SelectCompo_panel_1.SetActive(true);
                     compoBG_A.SetActive(true);
                                        
-                    yes_no_panel.SetActive(false);
+                    yes_no_panel.SetActive(false); //yes no は状態リセット
+                    yes.SetActive(true);
+                    no.SetActive(true);
 
                     text_area_compound.SetActive(false);
                     text_hikari_makecaption.SetActive(false);
@@ -592,11 +613,13 @@ public class CompoundMainController : MonoBehaviour {
 
                     GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                     GameMgr.compound_select = 20;
+                    GameMgr.MagicSkillSelectStatus = 0; //魔法を使うを選択
 
                     //各調合画面を一度オフ
                     CompoScreenReset();
 
-                    ReSetLive2DOrder_Default();
+                    //ヒカリちゃん表示をオフ
+                    ReSetLive2DOrder_Default();                   
 
                     playeritemlist_onoff.SetActive(false);
                     recipilist_onoff.SetActive(false);
@@ -606,9 +629,13 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(true);
                     _textcomp.text = magic_text;
 
+                    magicskilllistController_onoff.SetActive(true);
+
                     MagicStartPanel.SetActive(true);
                     magic_compo1.SetActive(true);
                     magic_compo2.SetActive(false);
+                    magic_compo3.SetActive(false);
+                    magic_compo4.SetActive(false);
 
                     break;
 
@@ -618,8 +645,10 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.compound_select = 21;
 
                     //魔法選択時の調合画面を開く
+                    magic_compo1.SetActive(false);
                     magic_compo2.SetActive(true);
 
+                    magicskilllistController_onoff.SetActive(false);
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
                     GameMgr.Comp_kettei_bunki = 20;
@@ -628,7 +657,80 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(true);
 
                     //ヒカリちゃんを表示する
+                    //ReDrawLive2DPos_Compound();
+                    break;
+
+                case 22: //魔法演出画面
+
+                    GameMgr.compound_status = 4; //演出中
+                    GameMgr.compound_select = 22;
+
+                    //魔法演出画面を開く
+                    magic_compo2.SetActive(false);
+                    magic_compo3.SetActive(true);
+
+                    //スキル名表示
+                    magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv1";
+
+                    playeritemlist_onoff.SetActive(false);                 
+                    recipiMemoButton.SetActive(false);
+                    text_area_compound.SetActive(false);
+
+                    //ヒカリちゃん表示をオフ
+                    //ReSetLive2DOrder_Default();
+
+                    //ヒカリちゃんを表示する
                     ReDrawLive2DPos_Compound();
+                    ResetLive2DPos_CenterNow(); //このタイミングで位置はセンターにする
+                    break;
+
+                case 23: //魔法調合後の完成画面
+
+                    GameMgr.compound_status = 4; //演出中
+                    GameMgr.compound_select = 23;
+
+                    //魔法演出画面を開く
+                    magic_compo3.SetActive(false);
+                    magic_compo4.SetActive(true);
+                  
+                    text_area_compound.SetActive(false); //専用ウィンドウを表示させてるのでオフ
+
+                    //できるアイテムを表示
+                    magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = GameMgr.ResultItem_nameHyouji + "　が　できたよ！";
+
+                    //ヒカリちゃん表示をオフ
+                    ReSetLive2DOrder_Default();
+
+                    //位置変更 右に。
+                    //ReSetLive2DPos_Compound();
+                    break;
+
+                case 30: //魔法・スキルの習得画面を開く              
+
+
+                    GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+                    GameMgr.compound_select = 30;
+                    GameMgr.MagicSkillSelectStatus = 1; //魔法を習得を選択
+
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
+
+                    //ヒカリちゃん表示をオフ
+                    ReSetLive2DOrder_Default();
+
+                    playeritemlist_onoff.SetActive(false);
+                    recipilist_onoff.SetActive(false);
+                    SelectCompo_panel_1.SetActive(false);
+                    yes_no_panel.SetActive(false);
+
+                    text_area_compound.SetActive(true);
+                    _textcomp.text = magiclearn_text;
+
+                    magicskilllistController_onoff.SetActive(true); //魔法をおぼえるがONになった状態のリストを表示
+
+                    MagicLearnPanel.SetActive(true);
+                    //magic_compo1.SetActive(true);
+
                     break;
             }
         }
@@ -649,9 +751,11 @@ public class CompoundMainController : MonoBehaviour {
         compoBGA_imageRecipi.SetActive(false);
         compoBGA_imageExtreme.SetActive(false);
         compoBGA_imageHikariMake.SetActive(false);
-
+        MagicStartPanel.SetActive(false);
+       
         playeritemlist_onoff.SetActive(false);
         recipilist_onoff.SetActive(false);
+        magicskilllistController_onoff.SetActive(false);
 
         recipiMemoButton.SetActive(false);
         recipimemoController_obj.SetActive(false);
@@ -723,7 +827,7 @@ public class CompoundMainController : MonoBehaviour {
     {
         if (character_On)
         {
-            //位置変更
+            //位置変更 右に。
             ReSetLive2DPos_Compound();
 
             //もし、リターンホーム中にすぐにシーン切り替えた場合用に、Live2D自体の位置もリセット。そして、すぐOriCompoMotionに遷移
@@ -734,12 +838,11 @@ public class CompoundMainController : MonoBehaviour {
             live2d_animator.SetInteger("trans_nade", 0);
             Anchor_Pos.transform.localPosition = new Vector3(-0.5f, 0.05f, -5f);
 
-
+            //女の子アニメーション初期化
             girl1_status.face_girl_Normal();
             girl1_status.AddMotionAnimReset();
             girl1_status.IdleMotionReset();
             girl1_status.DoTSequence_Kill();
-
             girl1_status.Walk_Start = false;
         }
     }
@@ -759,6 +862,16 @@ public class CompoundMainController : MonoBehaviour {
         if (character_On)
         {
             cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順 //描画順指定
+        }
+    }
+
+    //すぐにセンター位置にヒカリの位置をセット
+    void ResetLive2DPos_CenterNow()
+    {
+        if (character_On)
+        {
+            character_move.transform.DOMove(new Vector3(0.0f, 0, 0), 0.0f); //
+            Anchor_Pos.transform.localPosition = new Vector3(0.0f, 0.134f, -5f); //これが目線デフォルト位置
         }
     }
 

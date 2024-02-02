@@ -496,8 +496,6 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         _cardImage_obj.Clear();
 
-
-
         //1枚目
         SetResultCardViewPanel();
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
@@ -535,6 +533,38 @@ public class CardView : SingletonMonoBehaviour<CardView>
         Result_animOn(1); //スケールが小さいから大きくなるアニメーションをON
     }
 
+    public void MagicResultCard_DrawView(int _toggleType, int _result_item)
+    {
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            Destroy(_cardImage_obj[i]);
+        }
+
+        _cardImage_obj.Clear();
+
+        SetResultCardViewPanel();
+        _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
+        _cardImage.anim_status = 99;
+
+        _cardImage_obj[0].transform.Find("CompoundResultButton").gameObject.SetActive(true);
+
+        _cardImage.Pitem_or_Origin = _toggleType;
+        _cardImage.check_counter = _result_item;
+        _cardImage.SetInit();
+
+        _cardImage_obj[0].transform.localScale = new Vector3(0.0f, 0.0f, 1);
+        //_cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
+
+        //Debug.Log("ログ");
+        _cardImage.CardParamOFF_2();
+        //_cardImage.CardALLParamOFF(); //魔法調合時、カードそのものの表示はオフ。ただし、調合リザルトボタンは流用したい。
+
+        Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
+    }
+
+
+
+
     //予測表示するときのカード表示
     public void ResultCardYosoku_DrawView(int _toggleType, int _result_item)
     {
@@ -563,6 +593,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         Result_animOn(0); //スケールが小さいから大きくなるアニメーションをON
     }
+
+
+
 
     //
     void SetResultCardViewPanel()

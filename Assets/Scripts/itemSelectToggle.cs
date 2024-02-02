@@ -1390,6 +1390,8 @@ public class itemSelectToggle : MonoBehaviour
                 pitemlistController.final_kettei_kosu1 = GameMgr.updown_kosu;
                 //card_view.OKCard_DrawView(pitemlistController.final_kettei_kosu1);
 
+                card_view.DeleteCard_DrawView(); //決定したら表示してたカードを削除　もしくは、少し演出のアニメ入れてから消す
+
                 yes.SetActive(false);
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);

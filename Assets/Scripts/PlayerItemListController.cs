@@ -553,7 +553,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         switch (GameMgr.UseMagicSkill)
                         {
-                            case "Freezing_Cookie":
+                            case "Freezing_Spell":
 
                                 if (check_itemType_sub == "Cookie")
                                 {
@@ -564,6 +564,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             case "Luminous_Suger":
 
                                 if (check_itemType_sub == "Suger")
+                                {
+                                    itemlist_hyouji_Check();
+                                }
+                                break;
+
+                            case "Luminous_Fruits":
+
+                                if (check_itemType_sub == "Fruits")
                                 {
                                     itemlist_hyouji_Check();
                                 }

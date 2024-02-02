@@ -21,6 +21,10 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
     private RecipiListController recipilistController;
     private GameObject recipilist_scrollview_init;
 
+    private GameObject magicskilllist_onoff;
+    private MagicSkillListController magicskilllistController;
+    private GameObject magicskilllist_scrollview_init;
+
     private GameObject canvas;
 
     private int i;
@@ -73,4 +77,14 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         recipilist_onoff.name = "RecipiList_ScrollView";
     }
 
+    public void MagicSkillList_ScrollView_Init()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        magicskilllist_scrollview_init = (GameObject)Resources.Load("Prefabs/MagicSkillList_Panel");
+        magicskilllist_onoff = Instantiate(magicskilllist_scrollview_init, canvas.transform);
+
+        magicskilllist_onoff.name = "MagicSkillList_Panel";
+    }
 }

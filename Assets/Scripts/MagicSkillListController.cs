@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class MagicSkillListController : MonoBehaviour
+public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListController>
 {
     //
     //ショップの品揃えのコントローラー
@@ -15,7 +15,7 @@ public class MagicSkillListController : MonoBehaviour
     public List<GameObject> _skill_listitem = new List<GameObject>(); //リストビューの個数　テキスト表示用のプレファブのインスタンスを格納する。
     private int list_count; //リストビューに現在表示するリストの個数をカウント
 
-    private Text[] _text = new Text[2];
+    private Text[] _text = new Text[3];
     private Sprite texture2d;
     private Sprite touchon, touchoff;
     private Image _Img;
@@ -101,7 +101,7 @@ public class MagicSkillListController : MonoBehaviour
         
     }
 
-    public void SkillList_DrawView()
+    public void SkillList_DrawView() //基本
     {
         if (category_toggle[0].GetComponent<Toggle>().isOn == true)
         {
@@ -110,7 +110,7 @@ public class MagicSkillListController : MonoBehaviour
         }
     }
 
-    public void SkillList_DrawView2()
+    public void SkillList_DrawView2() //氷
     {
         if (category_toggle[1].GetComponent<Toggle>().isOn == true)
         {
@@ -119,7 +119,7 @@ public class MagicSkillListController : MonoBehaviour
         }
     }
 
-    public void SkillList_DrawView3()
+    public void SkillList_DrawView3() //光
     {
         if (category_toggle[2].GetComponent<Toggle>().isOn == true)
         {
@@ -128,7 +128,7 @@ public class MagicSkillListController : MonoBehaviour
         }
     }
 
-    public void SkillList_DrawView4()
+    public void SkillList_DrawView4() //風
     {
         if (category_toggle[3].GetComponent<Toggle>().isOn == true)
         {
@@ -137,7 +137,7 @@ public class MagicSkillListController : MonoBehaviour
         }
     }
 
-    public void SkillList_DrawView5()
+    public void SkillList_DrawView5() //星
     {
         if (category_toggle[4].GetComponent<Toggle>().isOn == true)
         {
@@ -146,6 +146,34 @@ public class MagicSkillListController : MonoBehaviour
         }
     }
 
+    public void SkillList_DrawView6() //森
+    {
+        if (category_toggle[5].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 5;
+            reset_and_DrawView(5);
+        }
+    }
+
+    public void SkillList_DrawView7() //時
+    {
+        if (category_toggle[6].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 6;
+            reset_and_DrawView(6);
+        }
+    }
+
+    public void SkillList_DrawView8() //音
+    {
+        if (category_toggle[7].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 7;
+            reset_and_DrawView(7);
+        }
+    }
+
+    //再度描画
     public void ReDraw()
     {       
 
@@ -176,6 +204,21 @@ public class MagicSkillListController : MonoBehaviour
                 reset_and_DrawView(4);
                 break;
 
+            case 5:
+
+                reset_and_DrawView(5);
+                break;
+
+            case 6:
+
+                reset_and_DrawView(6);
+                break;
+
+            case 7:
+
+                reset_and_DrawView(7);
+                break;
+
         }
     }
 
@@ -195,12 +238,200 @@ public class MagicSkillListController : MonoBehaviour
         {
             case 0:
 
-                for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                if (GameMgr.MagicSkillSelectStatus == 0)
                 {
-                    //1～だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。+ itemType=0は基本の材料系
-                    if (magicskill_database.magicskill_lists[i].skillFlag == 1)
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
                     {
-                        drawSkill();
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 0)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if(GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 0)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 1:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 1)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 1)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 2:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 2)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 2)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 3:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 3)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 3)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 4:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 4)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 4)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 5:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 5)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 5)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 6:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 6)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 6)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 7:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 7)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 7)
+                        {
+                            drawSkill();
+                        }
                     }
                 }
                 break;
@@ -228,11 +459,29 @@ public class MagicSkillListController : MonoBehaviour
         _toggle_itemID.toggle_skill_nameHyouji = magicskill_database.magicskill_lists[i].skillNameHyouji; //表示用の名前
 
         _text[0].text = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。;
-
         _text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
+        _text[2].text = "Lv " + magicskill_database.magicskill_lists[i].skillLv + " / " + magicskill_database.magicskill_lists[i].skillMaxLv;
 
         texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
         _Img.sprite = texture2d;
+
+        /*switch (GameMgr.MagicSkillSelectStatus)
+        {
+            case 0: //魔法使う場合
+
+                _skill_listitem[list_count].transform.Find("Background/CommentButton").gameObject.SetActive(false);
+                _skill_listitem[list_count].transform.Find("Background/LvupButton").gameObject.SetActive(false);
+                break;
+
+            case 1: //魔法スキル習得の場合
+
+                _skill_listitem[list_count].transform.Find("Background/CommentButton").gameObject.SetActive(true);
+                _skill_listitem[list_count].transform.Find("Background/LvupButton").gameObject.SetActive(true);
+                _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                _skill_listitem[list_count].GetComponent<ButtonAnimTrigger>().enabled = false;
+                _skill_listitem[list_count].GetComponent<Sound_Trigger>().enabled = false;
+                break;
+        }*/
 
         //お金が足りない場合は、選択できないようにする。
         /*if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)

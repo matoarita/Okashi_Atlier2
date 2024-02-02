@@ -20,6 +20,7 @@ public class SetImage : MonoBehaviour
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
+    private GameObject Card_TemplateMain_obj;
     private GameObject Card_param_obj;
     private GameObject Card_param_obj2;
     private GameObject TasteSubWindow;
@@ -296,6 +297,8 @@ public class SetImage : MonoBehaviour
         card_template_10 = Resources.Load<Texture2D>("Sprites/Icon/card_template_10"); //器具のカードテンプレ画像
         card_template_100 = Resources.Load<Texture2D>("Sprites/Icon/card_template_100"); //シークレットカード
 
+        Card_TemplateMain_obj = this.transform.Find("Item_card_template").gameObject;
+        //Card_TemplateMain_obj.SetActive(true);
         Card_param_obj = this.transform.Find("Card_Param_window").gameObject;
         Card_param_obj2 = this.transform.Find("Card_Param_window2").gameObject;
         Slot_SubWindow = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot").gameObject;
@@ -1803,6 +1806,13 @@ public class SetImage : MonoBehaviour
 
     public void CardParamOFF_2()
     {
+        Card_param_obj2.SetActive(false);
+    }
+
+    public void CardALLParamOFF() //カードの表示そのものもオフにする。ただし、調合リザルトボタンはONのまま
+    {
+        Card_TemplateMain_obj.SetActive(false);
+        Card_param_obj.SetActive(false);
         Card_param_obj2.SetActive(false);
     }
 

@@ -27,9 +27,11 @@ public class Entity_magicSkillListDataBase : ScriptableObject
 		public int skill_flag;
 		public int skill_lv;
 		public int skill_maxlv;
+		public int skill_uselv;
 		public int skill_type;
 		public int skill_category;
 		public int success_rate;
+		public string comment_full;
 	}
 }
 

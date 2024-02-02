@@ -167,8 +167,8 @@ public class Updown_counter : MonoBehaviour {
             //レシピ調合とそれ以外で、YesNoの取得オブジェクトが違う
             if (recipilistController_obj.activeSelf == true)
             {
-                yes = canvas.transform.Find("Yes_no_Panel(Clone)/Yes").gameObject;
-                no = canvas.transform.Find("Yes_no_Panel(Clone)/No").gameObject;
+                yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
+                no = canvas.transform.Find("Yes_no_Panel/No").gameObject;
                 yes_selectitem_kettei = yes.GetComponent<SelectItem_kettei>();
 
                 _p_or_recipi_flag = 1;

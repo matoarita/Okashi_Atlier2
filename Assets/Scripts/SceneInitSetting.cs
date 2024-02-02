@@ -20,6 +20,7 @@ public class SceneInitSetting : SingletonMonoBehaviour<SceneInitSetting>
     private GameObject pitemlist_scrollview_init_obj;
 
     private GameObject recipilist_onoff;
+    private GameObject magicskill_list_onoff;
 
     private bool playerlist_check_on;
 
@@ -43,8 +44,8 @@ public class SceneInitSetting : SingletonMonoBehaviour<SceneInitSetting>
         updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
         //シーン最初にYes,noパネルも生成する。基本、はいかいいえは、シーンで一個共通して使う
-        yes_no_panel_Prefab = (GameObject)Resources.Load("Prefabs/Yes_no_Panel");
-        yes_no_panel_obj = Instantiate(yes_no_panel_Prefab, canvas.transform);
+        //yes_no_panel_Prefab = (GameObject)Resources.Load("Prefabs/Yes_no_Panel");
+        //yes_no_panel_obj = Instantiate(yes_no_panel_Prefab, canvas.transform);
 
         
     }
@@ -78,13 +79,18 @@ public class SceneInitSetting : SingletonMonoBehaviour<SceneInitSetting>
             recipilist_onoff = canvas.transform.Find("RecipiList_ScrollView").gameObject;
             recipilist_onoff.SetActive(false);
 
+            //シーン最初にスキルリストパネルの生成
+            pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().MagicSkillList_ScrollView_Init();
+            magicskill_list_onoff = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView").gameObject;
+            magicskill_list_onoff.SetActive(false);
+
             //シーン最初にカウンターも生成する。
             updown_counter_Prefab = (GameObject)Resources.Load("Prefabs/updown_counter");
             updown_counter_obj = Instantiate(updown_counter_Prefab, canvas.transform);
 
             //シーン最初にYes,noパネルも生成する。基本、はいかいいえは、シーンで一個共通して使う
-            yes_no_panel_Prefab = (GameObject)Resources.Load("Prefabs/Yes_no_Panel");
-            yes_no_panel_obj = Instantiate(yes_no_panel_Prefab, canvas.transform);
+            //yes_no_panel_Prefab = (GameObject)Resources.Load("Prefabs/Yes_no_Panel");
+            //yes_no_panel_obj = Instantiate(yes_no_panel_Prefab, canvas.transform);
         }
         
     }

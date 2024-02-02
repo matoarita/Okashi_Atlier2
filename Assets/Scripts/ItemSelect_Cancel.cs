@@ -117,7 +117,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 //まずは、レシピ・それ以外の調合用にオブジェクト取得
                 if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
                 {
-                    yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+                    yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
                     yes = yes_no_panel.transform.Find("Yes").gameObject;
                     yes_text = yes.GetComponentInChildren<Text>();
                     no = yes_no_panel.transform.Find("No").gameObject;
@@ -257,13 +257,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                         if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
                         {
-                            yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+                            yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
                             yes = yes_no_panel.transform.Find("Yes").gameObject;
                             yes_text = yes.GetComponentInChildren<Text>();
                             no = yes_no_panel.transform.Find("No").gameObject;
                         }
-
-                        if (GameMgr.compound_select == 6) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
+                        else if (GameMgr.compound_select == 6) //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
                         {
                             //yes = canvas.transform.Find("Yes_no_Panel/Yes").gameObject;
                             //yes_text = yes.GetComponentInChildren<Text>();
@@ -276,7 +275,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             no = pitemlistController_obj.transform.Find("No").gameObject;
                         }
 
-                        if (GameMgr.compound_select == 6 || GameMgr.compound_select == 8 || GameMgr.compound_select == 120)
+                        if (GameMgr.compound_select == 8 || GameMgr.compound_select == 120)
                         {
                             //ピクニックイベントなどでは、調合のセレクト画面でyes,noを押すので回避用。
                         }

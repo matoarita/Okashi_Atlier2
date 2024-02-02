@@ -1916,7 +1916,7 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.ResultComplete_flag = 0;
                             //intパラメーターの値を設定する.  
 
-                            //戻るアニメに遷移
+                            //戻るアニメに遷移 これより前に、Hikari_Live2DのほうのPositionを事前に右にしておく必要がある。_character_moveではなく。
                             trans_motion = 100;
                             live2d_animator.SetInteger("trans_motion", trans_motion);
                             trans_expression = 2;

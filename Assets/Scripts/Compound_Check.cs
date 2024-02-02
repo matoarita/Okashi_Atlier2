@@ -298,7 +298,7 @@ public class Compound_Check : MonoBehaviour {
                 yes.GetComponent<Button>().interactable = false;
                 no.GetComponent<Button>().interactable = false;
 
-                //StartCoroutine("Final_select"); //最終確認
+                //StartCoroutine("Final_select"); //最終確認 確率とかを確認する？
                 MagicFinal_select();
             }
         }
@@ -845,6 +845,7 @@ public class Compound_Check : MonoBehaviour {
     void MagicFinal_select()
     {
         //*** 魔法調合時これでOKかどうか聞くメソッド　***//
+        //　現在コルーチンで最終確認はせず、そのまま進む //
 
         switch (GameMgr.Comp_kettei_bunki)
         {
@@ -913,7 +914,7 @@ public class Compound_Check : MonoBehaviour {
                     exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
                 }
 
-                GameMgr.compound_status = 4;
+                GameMgr.compound_status = 22;
 
                 //card_view.CardCompo_Anim();
                 Off_Flag_Setting();

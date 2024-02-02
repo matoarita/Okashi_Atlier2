@@ -493,6 +493,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Comp_kettei_bunki; //調合の、今何の調合をしている最中かを表すステータス
     public static string UseMagicSkill; //使用する魔法・スキルのネーム
     public static string UseMagicSkill_nameHyouji; //使用する魔法・スキルのネームの表示用
+    public static string ResultItem_nameHyouji; //完成したアイテム名表示用
+    public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -892,6 +894,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Comp_kettei_bunki = 0;
         UseMagicSkill = "";
         UseMagicSkill_nameHyouji = "";
+        ResultItem_nameHyouji = "";
+        MagicSkillSelectStatus = 0;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
