@@ -296,6 +296,7 @@ public class magicskillSelectToggle : MonoBehaviour
                 //スキルネームが「Freezing_Cookie」なら、それに応じた処理などにケースを分ける。
                 GameMgr.UseMagicSkill = magicskilllistController.skill_Name;
                 GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
+                GameMgr.UseMagicSkill_ID = magicskilllistController.skill_kettei_ID;
 
                 SkillUseLibrary();                              
 
@@ -346,7 +347,15 @@ public class magicskillSelectToggle : MonoBehaviour
 
     public void OnSkillMemoButton_ON()
     {
-
+        GameMgr.UseMagicSkill_ID = toggle_skill_ID;
+        if (magicskilllistController_obj.transform.Find("SkillMemo_Result").gameObject.activeInHierarchy)
+        {
+            magicskilllistController_obj.transform.Find("SkillMemo_Result").gameObject.SetActive(false);
+        }
+        else
+        {
+            magicskilllistController_obj.transform.Find("SkillMemo_Result").gameObject.SetActive(true);
+        }
     }
 
     public void OnSkillLevelUpButton_ON()

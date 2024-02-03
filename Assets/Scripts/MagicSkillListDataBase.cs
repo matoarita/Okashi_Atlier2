@@ -7,6 +7,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     private Entity_magicSkillListDataBase excel_magicskill_itemdatabase;
 
     private int _id;
+    private int _koyuid;
     private string skillFileName;
     private string skillName;
     private string skillName_Hyouji;
@@ -54,6 +55,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
             {
                 // 一旦代入
                 _id = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skillID;
+                _koyuid = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_koyuID;
                 skillFileName = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].file_name;
                 skillName = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_Name;
                 skillName_Hyouji = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_Name_Hyouji;
@@ -73,7 +75,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 //ここでリストに追加している
                 if (sheet_no == 0)
                 {
-                    magicskill_lists.Add(new MagicSkillList(_id, skillFileName, skillName, skillName_Hyouji, skillComment, 
+                    magicskill_lists.Add(new MagicSkillList(_id, _koyuid, skillFileName, skillName, skillName_Hyouji, skillComment, 
                         skill_day, skill_cost, skill_flag, skill_lv, skill_maxlv, skill_uselv,
                         skill_type, skill_category, success_rate, skillComment_Full));
                 }

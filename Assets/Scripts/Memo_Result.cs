@@ -81,8 +81,7 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         _text = _memoList[0].GetComponent<Text>();
 
         //メモのデータの読み込み
-        text_recipi_memo = pitemlist.eventitemlist[event_ID].ev_memo;
-
+        text_recipi_memo = pitemlist.eventitemlist[event_ID].ev_memo + "\n" + "\n" + "\n";
         _text.text = text_recipi_memo;
 
         //チュートリアル時
@@ -96,7 +95,7 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         }
 
         //音鳴らす
-        //sc.PlaySe(34);
+        sc.PlaySe(34);
 
         rootPos = new Vector3(400f, 400f, 0f); //画面の半分（400, 300）+y方向に100
 

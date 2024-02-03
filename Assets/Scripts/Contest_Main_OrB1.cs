@@ -243,9 +243,9 @@ public class Contest_Main_OrB1 : MonoBehaviour {
 
             contest_status = 500; //
             contest_scene = 500;
+            text_area.SetActive(false);
 
             GameMgr.compound_status = 6;
-
             GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
         }
     }

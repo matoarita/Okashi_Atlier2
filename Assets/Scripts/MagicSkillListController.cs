@@ -21,10 +21,12 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
     private Image _Img;
     private Image _togglebg;
     private magicskillSelectToggle _toggle_itemID;
+    private magicskillLearnToggle _toggle_learn_itemID;
 
     private Girl1_status girl1_status;
 
     private GameObject skill_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
+    private GameObject skill_Prefab_learn;
 
     private MagicSkillListDataBase magicskill_database;
 
@@ -60,6 +62,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         //スクロールビュー内の、コンテンツ要素を取得
         content = this.transform.Find("Viewport/Content").gameObject;
         skill_Prefab = (GameObject)Resources.Load("Prefabs/magicskillSelectToggle");
+        skill_Prefab_learn = (GameObject)Resources.Load("Prefabs/magicskillLearnToggle");
 
         //アイコン背景画像データの取得
         touchon = Resources.Load<Sprite>("Sprites/Window/sabwindowB");
@@ -255,7 +258,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 0)
                         {
-                            drawSkill();
+                            drawLearnSkill();
                         }
                     }
                 }
@@ -280,7 +283,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 1)
                         {
-                            drawSkill();
+                            drawLearnSkill();
                         }
                     }
                 }
@@ -305,7 +308,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 2)
                         {
-                            drawSkill();
+                            drawLearnSkill();
                         }
                     }
                 }
@@ -330,7 +333,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 3)
                         {
-                            drawSkill();
+                            drawLearnSkill();
                         }
                     }
                 }
@@ -355,7 +358,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 4)
                         {
-                            drawSkill();
+                            drawLearnSkill();
                         }
                     }
                 }
@@ -380,7 +383,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 5)
                         {
-                            drawSkill();
+                            drawLearnSkill();
                         }
                     }
                 }
@@ -405,7 +408,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 6)
                         {
-                            drawSkill();
+                            drawLearnSkill();
                         }
                     }
                 }
@@ -430,7 +433,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 7)
                         {
-                            drawSkill();
+                            drawLearnSkill();
                         }
                     }
                 }
@@ -465,39 +468,53 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
         _Img.sprite = texture2d;
 
-        /*switch (GameMgr.MagicSkillSelectStatus)
-        {
-            case 0: //魔法使う場合
-
-                _skill_listitem[list_count].transform.Find("Background/CommentButton").gameObject.SetActive(false);
-                _skill_listitem[list_count].transform.Find("Background/LvupButton").gameObject.SetActive(false);
-                break;
-
-            case 1: //魔法スキル習得の場合
-
-                _skill_listitem[list_count].transform.Find("Background/CommentButton").gameObject.SetActive(true);
-                _skill_listitem[list_count].transform.Find("Background/LvupButton").gameObject.SetActive(true);
-                _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
-                _skill_listitem[list_count].GetComponent<ButtonAnimTrigger>().enabled = false;
-                _skill_listitem[list_count].GetComponent<Sound_Trigger>().enabled = false;
-                break;
-        }*/
-
-        //お金が足りない場合は、選択できないようにする。
-        /*if (PlayerStatus.player_money < shop_database.shopitems[i].shop_costprice)
-        {
-            _shop_listitem[list_count].GetComponent<Toggle>().interactable = false;
-            //_togglebg.sprite = touchoff;
-        }
-        else
-        {
-            _shop_listitem[list_count].GetComponent<Toggle>().interactable = true;
-            //_togglebg.sprite = touchon;
-        }*/
-        //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
-
         ++list_count;
     }
 
-    
+    void drawLearnSkill()
+    {
+
+        _skill_listitem.Add(Instantiate(skill_Prefab_learn, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        
+        if(magicskill_database.magicskill_lists[i].skillLv >= 1) //習得すみのスキルは見た目が変わる
+        {
+            _text = _skill_listitem[list_count].transform.Find("Background_LearnOK").GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
+            _Img = _skill_listitem[list_count].transform.Find("Background_LearnOK/Icon").GetComponent<Image>(); //アイテムの画像データ
+            _togglebg = _skill_listitem[list_count].transform.Find("Background_LearnOK").GetComponent<Image>(); //アイコン背景データ
+
+            //LVアップと説明ボタンだけ押せるようにする。
+            _skill_listitem[list_count].transform.Find("Background_LearnOK").gameObject.SetActive(true);
+            _skill_listitem[list_count].transform.Find("Background").gameObject.SetActive(false);
+            _skill_listitem[list_count].GetComponent<Toggle>().enabled = false;
+            _skill_listitem[list_count].GetComponent<ButtonAnimTrigger>().enabled = false;
+            _skill_listitem[list_count].GetComponent<Sound_Trigger>().enabled = false;
+        }
+        else
+        {
+            _text = _skill_listitem[list_count].transform.Find("Background").GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
+            _Img = _skill_listitem[list_count].transform.Find("Background/Icon").GetComponent<Image>(); //アイテムの画像データ
+            _togglebg = _skill_listitem[list_count].transform.Find("Background").GetComponent<Image>(); //アイコン背景データ
+        }
+
+        _toggle_learn_itemID = _skill_listitem[list_count].GetComponent<magicskillLearnToggle>();
+        _toggle_learn_itemID.toggle_skill_ID = magicskill_database.magicskill_lists[i].magicskillID; //スキルデータベース上のアイテムID。iと同じ値になる。
+        _toggle_learn_itemID.toggle_skill_type = magicskill_database.magicskill_lists[i].skillType; //スキルがパッシヴかアクティブか
+        _toggle_learn_itemID.toggle_skill_name = magicskill_database.magicskill_lists[i].skillName; //データ上のスキル名
+        _toggle_learn_itemID.toggle_skill_nameHyouji = magicskill_database.magicskill_lists[i].skillNameHyouji; //表示用の名前
+
+        _text[0].text = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。;
+        _text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
+        _text[2].text = "Lv " + magicskill_database.magicskill_lists[i].skillLv + " / " + magicskill_database.magicskill_lists[i].skillMaxLv;
+
+        texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
+        _Img.sprite = texture2d;
+
+        //マックスLVまでとってたら、レベルアップボタンは表示しない
+        if (magicskill_database.magicskill_lists[i].skillLv >= magicskill_database.magicskill_lists[i].skillMaxLv)
+        {
+            _skill_listitem[list_count].transform.Find("Background_LearnOK/SkillLvupButton").gameObject.SetActive(false);
+        }
+
+        ++list_count;
+    }
 }

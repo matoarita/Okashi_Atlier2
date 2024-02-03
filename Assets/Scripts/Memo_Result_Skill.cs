@@ -23,7 +23,7 @@ public class Memo_Result_Skill : MonoBehaviour, IDragHandler, IBeginDragHandler,
     private int event_ID;
 
     private Text _text;
-    private string text_recipi_memo;
+    private string text_skill_memo;
 
     private SoundController sc;
 
@@ -76,27 +76,32 @@ public class Memo_Result_Skill : MonoBehaviour, IDragHandler, IBeginDragHandler,
         _text = _memoList[0].GetComponent<Text>();
 
         //メモのデータの読み込み
-        text_recipi_memo = pitemlist.eventitemlist[event_ID].ev_memo;
-
-        _text.text = text_recipi_memo;
+        text_skill_memo = magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillComment_Full + "\n" + "\n" + "\n";
+        _text.text = text_skill_memo;
 
         //チュートリアル時
-        if (GameMgr.tutorial_ON == true)
+        /*if (GameMgr.tutorial_ON == true)
         {
             if (GameMgr.tutorial_Num == 30)
             {
                 GameMgr.tutorial_Progress = true;
                 GameMgr.tutorial_Num = 40;
             }
-        }
+        }*/
 
         //音鳴らす
-        //sc.PlaySe(34);
+        sc.PlaySe(34);
 
         rootPos = new Vector3(400f, 400f, 0f); //画面の半分（400, 300）+y方向に100
 
         //初期位置
-        this.transform.localPosition = new Vector3(250f, 50f, 0f);
+        //this.transform.localPosition = new Vector3(250f, 50f, 0f);
+    }
+
+    private void OnDisable()
+    {
+        //音鳴らす
+        //sc.PlaySe(34);
     }
 
     public void SeteventID(int _ev_id )

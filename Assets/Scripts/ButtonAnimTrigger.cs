@@ -41,7 +41,7 @@ public class ButtonAnimTrigger : MonoBehaviour {
     {
         if (this.GetComponent<Toggle>())
         {
-            if (this.GetComponent<Toggle>().IsInteractable() == false)
+            if (this.GetComponent<Toggle>().IsInteractable() == false || this.GetComponent<Toggle>().isActiveAndEnabled == false)
             {
 
             }
@@ -53,7 +53,7 @@ public class ButtonAnimTrigger : MonoBehaviour {
 
         if (this.GetComponent<Button>())
         {
-            if (this.GetComponent<Button>().IsInteractable() == false)
+            if (this.GetComponent<Button>().IsInteractable() == false || this.GetComponent<Button>().isActiveAndEnabled == false)
             {
 
             }
@@ -77,7 +77,7 @@ public class ButtonAnimTrigger : MonoBehaviour {
     {
         if (this.GetComponent<Toggle>())
         {
-            if (this.GetComponent<Toggle>().IsInteractable() == false)
+            if (this.GetComponent<Toggle>().IsInteractable() == false || this.GetComponent<Toggle>().isActiveAndEnabled == false)
             {
 
             }
@@ -89,7 +89,7 @@ public class ButtonAnimTrigger : MonoBehaviour {
 
         if (this.GetComponent<Button>())
         {
-            if (this.GetComponent<Button>().IsInteractable() == false)
+            if (this.GetComponent<Button>().IsInteractable() == false || this.GetComponent<Button>().isActiveAndEnabled == false)
             {
 
             }
@@ -112,7 +112,7 @@ public class ButtonAnimTrigger : MonoBehaviour {
     {
         if (this.GetComponent<Toggle>())
         {
-            if (this.GetComponent<Toggle>().IsInteractable() == false)
+            if (this.GetComponent<Toggle>().IsInteractable() == false || this.GetComponent<Toggle>().isActiveAndEnabled == false)
             {
 
             }
@@ -124,7 +124,7 @@ public class ButtonAnimTrigger : MonoBehaviour {
 
         if (this.GetComponent<Button>())
         {
-            if (this.GetComponent<Button>().IsInteractable() == false)
+            if (this.GetComponent<Button>().IsInteractable() == false || this.GetComponent<Button>().isActiveAndEnabled == false)
             {
 
             }

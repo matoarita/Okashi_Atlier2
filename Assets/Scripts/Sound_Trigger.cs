@@ -60,6 +60,26 @@ public class Sound_Trigger : MonoBehaviour {
                 //SE_point_click(46);
                 break;
 
+            case "Yes_collect":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                //SE_point_click(36);
+                break;
+
+            case "Yes_Learn": //魔法を習得するを押したときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                //SE_point_click(46);
+                break;
+
             case "No_okashiSet": //noを押したときのSE
 
                 //ポインタが入ったときに鳴る音
@@ -162,14 +182,14 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(23);
                 break;
 
-            case "recipiMemoSelectToggle_content(Clone)": //メモ開くときの音
+            case "recipiMemoSelectToggle_content": //メモ開くときの音
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(34);
+                //SE_point_click(34);
                 break;
 
             case "HintTasteButton": //メモ開くときの音
@@ -518,6 +538,24 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(46);
                 break;
 
+            case "LearningButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(46);
+                break;
+
+            case "MagicButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(46);
+                break;
+
             case "HikariMakeButton":
 
                 //ポインタが入ったときに鳴る音
@@ -646,16 +684,7 @@ public class Sound_Trigger : MonoBehaviour {
                 //クリックしたときに鳴る音。
                 //SE_point_click(36);
                 break;
-
-            case "Yes_collect":
-
-                //ポインタが入ったときに鳴る音
-                SE_point_enter(2);
-
-
-                //クリックしたときに鳴る音。
-                //SE_point_click(36);
-                break;
+          
 
             case "Speed1": //ゲーム中の時間速度変更のボタン音
 
@@ -705,6 +734,26 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音。
                 SE_point_click(122);
+                break;
+
+            case "SkillCommentButton": //魔法説明を開いた時の音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                //SE_point_click(122);
+                break;
+
+            case "SkillLvupButton": //魔法説明を開いた時の音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                //SE_point_click(122);
                 break;
 
             default: //特に指定がない場合

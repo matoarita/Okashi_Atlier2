@@ -18,6 +18,7 @@ public class Entity_magicSkillListDataBase : ScriptableObject
 	{
 		
 		public int skillID;
+		public int skill_koyuID;
 		public string file_name;
 		public string skill_Name;
 		public string skill_Name_Hyouji;

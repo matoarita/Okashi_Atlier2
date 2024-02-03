@@ -51,20 +51,21 @@ public class Entity_magicSkillListDataBase_importer : AssetPostprocessor {
 						Entity_magicSkillListDataBase.Param p = new Entity_magicSkillListDataBase.Param ();
 						
 					cell = row.GetCell(0); p.skillID = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(1); p.file_name = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(2); p.skill_Name = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(3); p.skill_Name_Hyouji = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(4); p.comment = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(5); p.skill_day = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(6); p.skill_cost = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(7); p.skill_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(8); p.skill_lv = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(9); p.skill_maxlv = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(10); p.skill_uselv = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(11); p.skill_type = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(12); p.skill_category = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(13); p.success_rate = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(14); p.comment_full = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(1); p.skill_koyuID = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(2); p.file_name = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(3); p.skill_Name = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(4); p.skill_Name_Hyouji = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(5); p.comment = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(6); p.skill_day = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(7); p.skill_cost = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(8); p.skill_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.skill_lv = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(10); p.skill_maxlv = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(11); p.skill_uselv = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(12); p.skill_type = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(13); p.skill_category = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(14); p.success_rate = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(15); p.comment_full = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

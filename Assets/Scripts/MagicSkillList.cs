@@ -7,6 +7,7 @@ using System.Collections;
 public class MagicSkillList
 {
     public int magicskillID;
+    public int magicskill_koyuID; //セーブなどをする際、この固有IDと各フラグを紐づける。あとでデータが増えたり行を入れ変えたりしても、固有IDは変わることはない。
     public string skillName;
     public string skillNameHyouji;
     public string skillComment; //スキルの説明
@@ -24,10 +25,11 @@ public class MagicSkillList
     public Sprite skillIcon_sprite;
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public MagicSkillList(int id, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
+    public MagicSkillList(int id, int koyuid, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
         int skill_lv, int skill_maxlv, int skill_uselv, int skill_type, int skill_category, int successRate, string skill_comment_full)
     {
         magicskillID = id;
+        magicskill_koyuID = koyuid;
 
         skillName = skill_name;
         skillNameHyouji = skill_name_Hyouji;
