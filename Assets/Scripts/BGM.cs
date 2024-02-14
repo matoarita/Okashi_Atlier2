@@ -46,6 +46,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound35;  //エメラルショップのBGM
     public AudioClip sound36;  //コンテスト会場のBGM
     public AudioClip sound37;  //広場３のBGM
+    public AudioClip sound38;  //大会コンテストのBGM Aランク
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -228,8 +229,22 @@ public class BGM : MonoBehaviour {
 
             default:
 
-                _bgm[0].clip = sound1;
+                //Debug.Log("GameMgr.Scene_Category_Num: " + GameMgr.Scene_Category_Num);
+                //特定シーン以外で、シーンカテゴリーでざっくりBGMを設定する場合はここ
+                switch(GameMgr.Scene_Category_Num)
+                {
+                    case 100: //コンテスト系
+
+                        _bgm[0].clip = sound38;
+                        break;
+
+                    default:
+
+                        _bgm[0].clip = sound1;
+                        break;
+                }
                 break;
+
         }
         _bgm[0].Play();
 

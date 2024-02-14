@@ -51,7 +51,7 @@ public class Compound_Main : MonoBehaviour
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
-    private Touch_Controller touch_controller;
+    private Touch_Controll character_touch_controll;
 
     private TimeController time_controller;
 
@@ -146,6 +146,7 @@ public class Compound_Main : MonoBehaviour
     private EventDataBase eventdatabase;
 
     private GameObject bgpanelmatome;
+    private Touch_Controll_Item bg_touch_controll;
     private GameObject BG_Imagepanel;
     private List<GameObject> bgwall_sprite = new List<GameObject>();
 
@@ -219,7 +220,6 @@ public class Compound_Main : MonoBehaviour
     private Text stageclear_button_text;
     private string stageclear_default_text;
 
-    private bool status_zero_readOK;
     private bool Recipi_loading;
     public bool check_recipi_flag;
     private int not_read_total;
@@ -264,7 +264,6 @@ public class Compound_Main : MonoBehaviour
     public int event_itemID; //イベントレシピ使用時のイベントのID
 
     private bool gameover_loading;
-    private bool Sleep_on;
     private bool mute_on;
 
     private bool heartget_ON;
@@ -470,9 +469,6 @@ public class Compound_Main : MonoBehaviour
         getmatplace_panel.SetActive(false);
         GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel").gameObject;
 
-        //タッチ判定オブジェクトの取得
-        touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
-
         
         //お金パネル
         moneystatus_panel = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
@@ -490,6 +486,7 @@ public class Compound_Main : MonoBehaviour
         character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
         character_move = character_root.transform.Find("CharacterMove").gameObject;
         Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
+        character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
 
         compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").gameObject;
 
@@ -570,6 +567,7 @@ public class Compound_Main : MonoBehaviour
 
         //背景天気オブジェクトの取得
         bgpanelmatome = GameObject.FindWithTag("BG");
+        bg_touch_controll = bgpanelmatome.transform.Find("BGAccessory").GetComponent<Touch_Controll_Item>();
         //★注意　タグ「BG」が、Compoundのメインシーンと、Hikari_CompMainで被っているので、Hikari_CompMainでチェックするとき以外は、Hikari_CompMainの「BGPanelMatome」はオフにする。
         //Hikari_CompMainの「BGPanelMatome」とそれ以下は、削除しても大丈夫なオブジェクト。デバッグ用に一応残しているだけ。
 
@@ -615,9 +613,7 @@ public class Compound_Main : MonoBehaviour
 
         /* --- */
 
-        Sleep_on = false;
-
-        status_zero_readOK = false;       
+        
         Recipi_loading = false;       
         check_recipi_flag = false;
         heartget_ON = false;
@@ -630,8 +626,10 @@ public class Compound_Main : MonoBehaviour
         GameMgr.check_CompoAfter_flag = false;
         GameMgr.check_GetMat_flag = false;
         GameMgr.check_OkashiAfter_flag = false;
-        
-        
+        GameMgr.EventAfter_MoveEnd = false;
+        GameMgr.Status_zero_readOK = false;
+
+
         gameover_loading = false;
         subevent_after_end = false;
         GetFirstCollectionItem = false;
@@ -718,12 +716,12 @@ public class Compound_Main : MonoBehaviour
         if (!GameMgr.outgirl_Nowprogress) //外出中はLive2Dをオフに。
         {
             CharacterLive2DImageON();
-            touch_controller.Touch_OnAllON();
+            Touch_ALLON();
         }
         else
         {
             CharacterLive2DImageOFF();
-            touch_controller.Touch_OnAllOFF();
+            Touch_ALLOFF();
         }
 
         //シーン読み込み完了時のメソッド
@@ -852,7 +850,7 @@ public class Compound_Main : MonoBehaviour
             //チュートリアルモードがONになったら、この中の処理が始まる。
             if (GameMgr.tutorial_ON == true)
             {
-                touch_controller.Touch_OnAllOFF();
+                Touch_ALLOFF();
                 girl1_status.HukidashiFlag = false;
 
                 switch (GameMgr.tutorial_Num)
@@ -1260,7 +1258,7 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.DeleteHukidashiOnly();
                 girl1_status.Girl1_Status_Init();
 
-                touch_controller.Touch_OnAllOFF();
+                Touch_ALLOFF();
                 SceneStart_flag = false;
 
                 //テキストエリアの表示
@@ -1417,8 +1415,8 @@ public class Compound_Main : MonoBehaviour
                 //アニメーション、キャラの表情関係
                 //
                 //Live2Dデフォルト
-                ReSetLive2DOrder_Default();
-                Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f);
+                //ReSetLive2DOrder_Default();
+                //Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f);
                 girl1_status.HukidashiFlag = true;
                 girl1_status.tween_start = false;
                 girl1_status.IdleMotionReset();
@@ -1476,7 +1474,7 @@ public class Compound_Main : MonoBehaviour
                 if (!GameMgr.outgirl_Nowprogress) 
                 {
                     CharacterLive2DImageON();
-                    touch_controller.Touch_OnAllON();
+                    Touch_ALLON();
                     sleep_toggle.GetComponent<Toggle>().interactable = true;
                     if (GameMgr.QuestClearflag)
                     {
@@ -1487,7 +1485,7 @@ public class Compound_Main : MonoBehaviour
                 else //外出中はLive2Dをオフに。
                 {
                     CharacterLive2DImageOFF();
-                    touch_controller.Touch_OnAllOFF();
+                    Touch_ALLOFF();
                     girleat_toggle.GetComponent<Toggle>().interactable = false;
                     sleep_toggle.GetComponent<Toggle>().interactable = false;
                     if (GameMgr.QuestClearflag)
@@ -1531,7 +1529,7 @@ public class Compound_Main : MonoBehaviour
                         if (girl1_status.special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート。それまでは他のボタン入力できない。
                         {
                             mainUI_panel_obj.SetActive(false);
-                            touch_controller.Touch_OnAllOFF();
+                            Touch_ALLOFF();
                         }
                     }
 
@@ -1559,9 +1557,9 @@ public class Compound_Main : MonoBehaviour
                     Debug.Log("調合後に、サブイベントチェック入る");
                     GameMgr.check_CompoAfter_flag = false;
                     GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
-                }                
+                }
 
-                status_zero_readOK = true;
+                GameMgr.Status_zero_readOK = true;
 
                 break;
 
@@ -1591,7 +1589,7 @@ public class Compound_Main : MonoBehaviour
 
                 //ヒカリちゃんを表示しない。デフォルト描画順
                 //SetLive2DPos_Compound();
-                ReSetLive2DOrder_Default();
+                //ReSetLive2DOrder_Default();
                 map_ambience.Mute();
 
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
@@ -1657,7 +1655,7 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.compound_select = 20; //
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
-                touch_controller.Touch_OnAllOFF();
+                Touch_ALLOFF();
                 time_controller.TimeCheck_flag = false;
 
                 //おいしそ～状態は、元に戻る。
@@ -1890,65 +1888,6 @@ public class Compound_Main : MonoBehaviour
 
             default:
                 break;
-        }
-    }
-
-    private void LateUpdate()
-    {
-        if (status_zero_readOK)
-        {
-            status_zero_readOK = false;
-
-            switch (GameMgr.compound_status)
-            {
-                case 0:
-
-                    if (!Sleep_on)
-                    {
-                        if (GameMgr.ResultComplete_flag != 0) //厨房から帰ってくるときの動き
-                        {
-                            Debug.Log("厨房から戻ってくる動き。");
-
-                            //腹減りカウント一時停止
-                            girl1_status.GirlEatJudgecounter_OFF();
-                            girl1_status.ResetHukidashi();
-
-                            GameMgr.ResultComplete_flag = 0;
-                            //intパラメーターの値を設定する.  
-
-                            //戻るアニメに遷移 これより前に、Hikari_Live2DのほうのPositionを事前に右にしておく必要がある。_character_moveではなく。
-                            trans_motion = 100;
-                            live2d_animator.SetInteger("trans_motion", trans_motion);
-                            trans_expression = 2;
-                            live2d_animator.SetInteger("trans_expression", trans_expression);
-
-                            //ResetLive2DPos_Face();
-                            //character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.1f);
-                            //GameMgr.live2d_posmove_flag = false;
-                            //
-                        }
-                        else
-                        {
-                            ResetLive2DPos_Face(); //表情をデフォルトに戻す。                            
-                        }
-                    }
-                    else
-                    {
-                        GameMgr.ResultComplete_flag = 0;
-
-                        trans_motion = 11; //位置をもとに戻す。
-                        live2d_animator.SetInteger("trans_motion", trans_motion);
-                        girl1_status.DefFaceChange();
-                    }
-
-                    GameMgr.compound_select = 0;
-                    GameMgr.compound_status = 110; //退避
-                    break;
-
-                case 110: //退避用
-
-                    break;
-            }
         }
     }
   
@@ -2584,7 +2523,7 @@ public class Compound_Main : MonoBehaviour
 
     IEnumerator Recipi_Read_Method()
     {
-        touch_controller.Touch_OnAllOFF();
+        Touch_ALLOFF();
         compoundselect_onoff_obj.SetActive(false);
         Extremepanel_obj.SetActive(false);
         text_area.SetActive(false);
@@ -3391,7 +3330,7 @@ public class Compound_Main : MonoBehaviour
     //タイムコントローラーから、眠りの宴シナリオを呼び出す際に使用。
     public void OnSleepReceive()
     {
-        Sleep_on = true;
+        GameMgr.EventAfter_MoveEnd = true;
         StartCoroutine("SleepDayEnd");
     }
 
@@ -3457,7 +3396,7 @@ public class Compound_Main : MonoBehaviour
         }
 
         //寝たらスリープフラグもOFFに。
-        Sleep_on = false;
+        GameMgr.EventAfter_MoveEnd = false;
     }
 
     public void OffCompoundSelectnoExtreme()
@@ -3473,7 +3412,7 @@ public class Compound_Main : MonoBehaviour
 
     void OffInteract()
     {
-        touch_controller.Touch_OnAllOFF();
+        Touch_ALLOFF();       
         menu_toggle.GetComponent<Toggle>().interactable = false;
         getmaterial_toggle.GetComponent<Toggle>().interactable = false;
         shop_toggle.GetComponent<Toggle>().interactable = false;
@@ -3488,7 +3427,7 @@ public class Compound_Main : MonoBehaviour
 
     void OnCompoundSelect()
     {
-        touch_controller.Touch_OnAllON();
+        Touch_ALLON();
         menu_toggle.GetComponent<Toggle>().interactable = true;
         getmaterial_toggle.GetComponent<Toggle>().interactable = true;
         shop_toggle.GetComponent<Toggle>().interactable = true;
@@ -3501,6 +3440,20 @@ public class Compound_Main : MonoBehaviour
         hinttaste_toggle.GetComponent<Toggle>().interactable = true;
         extreme_Button.interactable = true;
     }
+
+    //メインシーン内のタッチオブジェクトのONOFF　GirlEat_Judgeやgirl1_statusからも読み出し
+    public void Touch_ALLON()
+    {
+        character_touch_controll.Touch_OnAllON();
+        bg_touch_controll.Touch_OnAllON();
+    }
+
+    public void Touch_ALLOFF()
+    {
+        character_touch_controll.Touch_OnAllOFF();
+        bg_touch_controll.Touch_OnAllOFF();
+    }
+
 
     public void OnCompoundSelectObj() //GirlEatJudgeから読み出し
     {
@@ -4200,7 +4153,6 @@ public class Compound_Main : MonoBehaviour
     void ReDrawLive2DPos_Compound()
     {
         cubism_rendercontroller.SortingOrder = 1500; //描画順指定
-
     }
 
     void ReSetLive2DOrder_Default()
@@ -4208,18 +4160,9 @@ public class Compound_Main : MonoBehaviour
         cubism_rendercontroller.SortingOrder = default_live2d_draworder;  //ヒカリちゃんを表示しない。デフォルト描画順 //描画順指定
     }
 
-    void ResetLive2DPos_Face() //CompoundMainControllerに移行　表情のみもとに戻す処理
+    void ResetLive2DPos_Face() //CompoundMainControllerに移行　位置をセンターに戻す処理
     {
-        //Debug.Log("Live2D位置のリセット");
-
-        //if (GameMgr.live2d_posmove_flag) //調合シーンに入った時に、位置を変更するので、変更したという合図
-        //{
-            //character_move.transform.position = new Vector3(0f, 0, 0);
-            //GameMgr.live2d_posmove_flag = false;
-        //}
-
-        girl1_status.DefFaceChange();
-
+        compoundmain_Controller.ResetLive2D_ModelPos();
     }
 
     //ゲームメイン中のLive2Dキャラクタの表示をONにする。

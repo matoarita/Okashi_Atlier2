@@ -42,7 +42,7 @@ public class CompoundMainController : MonoBehaviour {
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
-    private Touch_Controller touch_controller;
+    private Touch_Controll touch_controller;
     private TimeController time_controller;
 
     private GameObject kakuritsuPanel_obj;
@@ -268,7 +268,7 @@ public class CompoundMainController : MonoBehaviour {
                     Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
 
                     //タッチ判定オブジェクトの取得
-                    touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
+                    touch_controller = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
                 }
                 else
                 {
@@ -360,7 +360,8 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(true);
 
                     //ヒカリちゃんを表示する
-                    ReDrawLive2DPos_Compound();
+                    ReDrawLive2DOrder_Compound();
+                    SetLive2DPos_Compound();
 
                     if (GameMgr.tutorial_ON != true)
                     { }
@@ -388,8 +389,8 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(true);
 
                     //ヒカリちゃんを表示する
-                    ReDrawLive2DPos_Compound();
-                    
+                    ReDrawLive2DOrder_Compound();
+                    SetLive2DPos_Compound();
 
                     extreme_Compo_Setup(); //ベースアイテムを事前に設定しておく処理
 
@@ -414,7 +415,8 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(true);
 
                     //ヒカリちゃんを表示する
-                    ReDrawLive2DPos_Compound();
+                    ReDrawLive2DOrder_Compound();
+                    SetLive2DPos_Compound();
 
                     if (GameMgr.tutorial_ON == true)
                     {
@@ -463,19 +465,21 @@ public class CompoundMainController : MonoBehaviour {
                     //最初に読むこむ設定
                     InitSetting();
                     
-
                     //Live2Dキャラの位置初期化
                     SetLive2DPos_Compound();
 
                     //BGMを変更
-                    if (!GameMgr.tutorial_ON)
+                    if (!GameMgr.Contest_ON) //大会はじまったときは調合BGM変わらないようにする
                     {
-                        if (GameMgr.CompoBGMCHANGE_ON)
+                        if (!GameMgr.tutorial_ON)
                         {
-                            if (GameMgr.compobgm_change_flag != true)
+                            if (GameMgr.CompoBGMCHANGE_ON)
                             {
-                                sceneBGM.OnCompoundBGM();
-                                GameMgr.compobgm_change_flag = true;
+                                if (GameMgr.compobgm_change_flag != true)
+                                {
+                                    sceneBGM.OnCompoundBGM();
+                                    GameMgr.compobgm_change_flag = true;
+                                }
                             }
                         }
                     }
@@ -583,7 +587,7 @@ public class CompoundMainController : MonoBehaviour {
                     compoBGA_imageHikariMake.transform.Find("Particle_KiraExplode").gameObject.SetActive(false);
 
                     //ヒカリちゃんを表示する
-                    ReDrawLive2DPos_Compound();                  
+                    ReDrawLive2DOrder_Compound();                  
 
                     break;
 
@@ -657,7 +661,7 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(true);
 
                     //ヒカリちゃんを表示する
-                    //ReDrawLive2DPos_Compound();
+                    //ReDrawLive2DOrder_Compound();
                     break;
 
                 case 22: //魔法演出画面
@@ -680,8 +684,8 @@ public class CompoundMainController : MonoBehaviour {
                     //ReSetLive2DOrder_Default();
 
                     //ヒカリちゃんを表示する
-                    ReDrawLive2DPos_Compound();
-                    ResetLive2DPos_CenterNow(); //このタイミングで位置はセンターにする
+                    ReDrawLive2DOrder_Compound();
+                    Live2DPos_CenterNow(); //このタイミングで位置はセンターにする
                     break;
 
                 case 23: //魔法調合後の完成画面
@@ -745,6 +749,64 @@ public class CompoundMainController : MonoBehaviour {
         }
     }
 
+    private void LateUpdate()
+    {
+        if (GameMgr.Status_zero_readOK)
+        {
+            GameMgr.Status_zero_readOK = false;
+
+            switch (GameMgr.compound_status)
+            {
+                case 0:
+
+                    if (!GameMgr.EventAfter_MoveEnd) //寝るイベント発生などのフラグ
+                    {
+                        if (GameMgr.ResultComplete_flag != 0) //厨房から帰ってくるときの動き
+                        {
+                            Debug.Log("厨房から戻ってくる動き。");
+
+                            //腹減りカウント一時停止
+                            girl1_status.GirlEatJudgecounter_OFF();
+                            girl1_status.ResetHukidashi();
+
+                            //戻るアニメに遷移 これより前に、Hikari_Live2DのほうのPositionを事前に右にしておく必要がある。_character_moveではなく。
+                            trans_motion = 100;
+                            live2d_animator.SetInteger("trans_motion", trans_motion);
+                            trans_expression = 2;
+                            live2d_animator.SetInteger("trans_expression", trans_expression);
+
+                            //
+                        }
+                        else
+                        {
+                            girl1_status.DefFaceChange(); //表情をデフォルトに戻す。                            
+                        }
+                    }
+                    else
+                    {
+
+                        trans_motion = 11; //位置をもとに戻す。
+                        live2d_animator.SetInteger("trans_motion", trans_motion);
+                        girl1_status.DefFaceChange();
+                    }
+
+                    //調合後、元の状態にリセット
+                    Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f); //アンカーを元位置にリセット
+                    ReSetLive2DOrder_Default();
+                    GameMgr.live2d_posmove_flag = false;
+                    GameMgr.ResultComplete_flag = 0;
+
+                    GameMgr.compound_select = 0;
+                    GameMgr.compound_status = 110; //退避
+                    break;
+
+                case 110: //退避用
+
+                    break;
+            }
+        }
+    }
+
     void CompoScreenReset()
     {
         compoBGA_imageOri.SetActive(false);
@@ -780,7 +842,7 @@ public class CompoundMainController : MonoBehaviour {
         GameMgr.CompoundSceneStartON = false;　//調合シーン終了
         GameMgr.compound_status = 0;
 
-        ResetLive2DPos_Init(); //Live2Dキャラクタの位置を元シーンの原点にもどす。
+        ResetLive2D_DefaultStatus(); //Live2Dキャラクタの状態を元状態にもどす
 
         compoBG_A.SetActive(false);
     }
@@ -827,28 +889,41 @@ public class CompoundMainController : MonoBehaviour {
     {
         if (character_On)
         {
-            //位置変更 右に。
-            ReSetLive2DPos_Compound();
+            //位置変更 右に。 すでに右位置にいる場合は、この処理は省略
+            if (!GameMgr.live2d_posmove_flag)
+            {
+                Live2DPos_Compound();
 
-            //もし、リターンホーム中にすぐにシーン切り替えた場合用に、Live2D自体の位置もリセット。そして、すぐOriCompoMotionに遷移
-            trans_motion = 11;
-            live2d_animator.SetInteger("trans_motion", trans_motion);
-            //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f);
+                //女の子アニメーション初期化
+                girl1_status.face_girl_Normal();
+                girl1_status.AddMotionAnimReset();
+                girl1_status.IdleMotionReset();
+                girl1_status.DoTSequence_Kill();
+                girl1_status.Walk_Start = false;
 
-            live2d_animator.SetInteger("trans_nade", 0);
-            Anchor_Pos.transform.localPosition = new Vector3(-0.5f, 0.05f, -5f);
+                //もし、リターンホーム中にすぐにシーン切り替えた場合用に、Live2D自体の位置もリセット。
+                trans_motion = 11;
+                live2d_animator.SetInteger("trans_motion", trans_motion);
+                //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f); //OriCompoMotion
+                live2d_animator.SetInteger("trans_nade", 0);
+            }           
+            
+            if (GameMgr.ResultComplete_flag != 0) //なんらかの調合をしたあとに、再度ここの処理に戻った場合　生地とか作って戻ってくるとき
+            {
+                GameMgr.ResultComplete_flag = 0; //調合完了フラグ　画面に戻るたびリセットされる
 
-            //女の子アニメーション初期化
-            girl1_status.face_girl_Normal();
-            girl1_status.AddMotionAnimReset();
-            girl1_status.IdleMotionReset();
-            girl1_status.DoTSequence_Kill();
-            girl1_status.Walk_Start = false;
+                trans_motion = 11;
+                live2d_animator.SetInteger("trans_motion", trans_motion);
+                //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f); //OriCompoMotion
+                live2d_animator.SetInteger("trans_nade", 0);
+
+                Live2DPos_Compound(); //また元の右位置に戻す
+            }
         }
     }
 
     //さらに、表示するときのコマンド
-    void ReDrawLive2DPos_Compound()
+    void ReDrawLive2DOrder_Compound()
     {
         if (character_On)
         {
@@ -865,8 +940,8 @@ public class CompoundMainController : MonoBehaviour {
         }
     }
 
-    //すぐにセンター位置にヒカリの位置をセット
-    void ResetLive2DPos_CenterNow()
+    //_moveを使って、一時的に位置をセンターにする
+    void Live2DPos_CenterNow()
     {
         if (character_On)
         {
@@ -875,18 +950,20 @@ public class CompoundMainController : MonoBehaviour {
         }
     }
 
-    //さらに調合位置に戻すコマンド　SetImage, NewRecipiButton.csから呼び出し
-    public void ReSetLive2DPos_Compound()
+    //さらに調合位置（右）に戻すコマンド　SetImage, NewRecipiButton.csから呼び出し
+    public void Live2DPos_Compound()
     {
         if (character_On)
         {
             //character_move.transform.position = new Vector3(2.8f, 0, 0); //画面右あたり
             character_move.transform.DOMove(new Vector3(2.8f, 0, 0), 0.2f); //画面右あたり 少し間を置くことで、キャラが一瞬真ん中に映るのを防ぐ
+            Anchor_Pos.transform.localPosition = new Vector3(-0.5f, 0.05f, -5f);
             GameMgr.live2d_posmove_flag = true; //位置を変更したフラグ 
         }
     }
 
-    void ResetLive2DPos_Init()
+    //_moveを真ん中位置にリセット＋live2d_posmove_flagもリセット
+    /*void ResetLive2DPos_Init()
     {
         if (character_On)
         {
@@ -897,7 +974,6 @@ public class CompoundMainController : MonoBehaviour {
                 //character_move.transform.position = new Vector3(0f, 0, 0);
                 character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.2f); //少し間を置くことで、キャラが一瞬真ん中に映るのを防ぐ
                 
-
                 //girl1_status.DefFaceChange();
             }
             else
@@ -905,7 +981,33 @@ public class CompoundMainController : MonoBehaviour {
                 character_move.transform.position = new Vector3(0f, 0, 0);
             }
 
-            GameMgr.live2d_posmove_flag = false;
-        }
+            ResetLive2D_DefaultStatus();
+        }       
+    }*/
+
+    void ResetLive2D_DefaultStatus()
+    {
+        character_move.transform.position = new Vector3(0f, 0, 0);
+        //character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.2f); //少し間を置くことで、キャラが一瞬真ん中に映るのを防ぐ
+
+        GameMgr.live2d_posmove_flag = false;
+        Anchor_Pos.transform.localPosition = new Vector3(0.0f, 0.134f, -5f);
+        girl1_status.HukidashiFlag = true;
+        girl1_status.tween_start = false;
+        girl1_status.IdleMotionReset();
+        girl1_status.DefFaceChange();
     }
+
+    //Live2Dのモデルと視点アンカーの位置情報も含めて、0に戻す　compound_Mainから読み出し
+    public void ResetLive2D_ModelPos()
+    {        
+        //Live2D自体の位置もリセット。
+        trans_motion = 11;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        live2d_animator.SetInteger("trans_nade", 0);
+
+        ResetLive2D_DefaultStatus();
+    }
+
+    
 }

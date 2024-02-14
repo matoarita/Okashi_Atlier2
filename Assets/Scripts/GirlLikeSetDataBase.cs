@@ -59,7 +59,7 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
 
-    public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
+    //public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
 
     public List<GirlLikeSet> girllikeset = new List<GirlLikeSet>();
 
@@ -72,68 +72,27 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
 
         excel_girlLikeset_database = Resources.Load("Excel/Entity_GirlLikeSetDataBase") as Entity_GirlLikeSetDataBase;
 
-        sheet_topendID.Add(0); //シートの頭のIDは0。
-
         sheet_no = 0;
 
-
-        count = 0;
-
-        //シート一枚目
-        while (count < excel_girlLikeset_database.sheets[sheet_no].list.Count)
+        while (sheet_no < excel_girlLikeset_database.sheets.Count)
         {
-            // 一旦代入
-            SetExcelDB();           
 
-            ++count;
+            count = 0;
+
+            //シート一枚目から順に入れる
+            while (count < excel_girlLikeset_database.sheets[sheet_no].list.Count)
+            {
+                // 一旦代入
+                SetExcelDB();
+
+                ++count;
 
 
+            }
+
+            ++sheet_no;
         }
-
-        sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
-
-        sheet_no++;        
-
-        count = 0;
-
-        _id = excel_girlLikeset_database.sheets[sheet_no].list[count].setID;
-        sheet_topendID.Add(_id);
-
-        //シート二枚目
-        while (count < excel_girlLikeset_database.sheets[sheet_no].list.Count)
-        {
-            // 一旦代入
-            SetExcelDB();
-
-            ++count;
-
-
-        }
-
-        sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
-
-        sheet_no++;
-
-
-        count = 0;
-
-        _id = excel_girlLikeset_database.sheets[sheet_no].list[count].setID;
-        sheet_topendID.Add(_id);
-
-        //シート三枚目
-        while (count < excel_girlLikeset_database.sheets[sheet_no].list.Count)
-        {
-            // 一旦代入
-            SetExcelDB();
-
-            ++count;
-
-
-        }
-
-        sheet_topendID.Add(_id); // sheetの終わりのIDを入れる。シート0～から。
-
-        sheet_no++;
+       
     }
 
     void SetExcelDB()

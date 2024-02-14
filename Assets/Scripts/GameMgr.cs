@@ -496,6 +496,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int UseMagicSkill_ID; //使用するスキルのID
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
     public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐
+    public static int ContestSelectNum; //どのコンテストに今出場しているか
+    public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
+    public static bool EventAfter_MoveEnd; //なんらかのイベント終了後、すぐにヒカリを元の位置に戻す
+    public static bool Status_zero_readOK; //メインステータスを読み終わったよ～のフラグ　その後に、ヒカリが戻ってくるなどの処理を挟む用
+    public static int OkashiMake_PanelSetType; //さっき作ったお菓子が、パネルにセットされるお菓子かどうか。生地などはセットされず、すぐ調合画面を戻す
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -898,6 +903,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         UseMagicSkill_ID = 0;
         ResultItem_nameHyouji = "";
         MagicSkillSelectStatus = 0;
+        ContestSelectNum = 0;
+        Contest_ON = false;
+        EventAfter_MoveEnd = false;
+        Status_zero_readOK = false;
+        OkashiMake_PanelSetType = 0;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

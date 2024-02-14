@@ -23,7 +23,6 @@ public class MainUIPanel : MonoBehaviour {
 
     private int total_obj_count;
 
-    private Touch_Controller touch_controller;
     private CubismModel _model;
 
     private GameObject text_area_Main;
@@ -59,9 +58,6 @@ public class MainUIPanel : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-        //タッチ判定オブジェクトの取得
-        touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
 
         compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
@@ -174,18 +170,6 @@ public class MainUIPanel : MonoBehaviour {
         maincam_animator.SetInteger("trans", trans);
         */
         GameMgr.MenuOpenFlag = false; //現在メニューを閉じている状態
-    }
-
-    void OsawariON()
-    {
-        _model.GetComponent<GazeController>().enabled = true;
-        touch_controller.Touch_OnAllON();
-    }
-
-    void OsawariOFF()
-    {
-        _model.GetComponent<GazeController>().enabled = false;
-        touch_controller.Touch_OnAllOFF();
     }
 
     

@@ -91,7 +91,11 @@ public class RuntimeInitializer : MonoBehaviour
         //クエストセットデータベースリスト
         var questset_database_init = new GameObject("QuestSetDataBase", typeof(QuestSetDataBase));
         GameObject.DontDestroyOnLoad(questset_database_init);
-       
+
+        //コンテストの判定セットデータベースリスト
+        var contestset_database_init = new GameObject("ContestSetDataBase", typeof(ContestSetDataBase));
+        GameObject.DontDestroyOnLoad(contestset_database_init);
+
         //コンテスト感想データベースリスト
         var contestcomment_database_init = new GameObject("ContestCommentDataBase", typeof(ContestCommentDataBase));
         GameObject.DontDestroyOnLoad(contestcomment_database_init);

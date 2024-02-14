@@ -1039,6 +1039,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     //初期化生成が終わったあとに呼ぶメソッド
     public void OnInitAfterSetting()
     {
+        //店売りアイテムは先に生成し、ゲーム中ではONOFFのみにする。
+
         SceneStartSetting_LoadOK = true;
     }
 }

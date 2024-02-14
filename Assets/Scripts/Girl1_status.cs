@@ -14,6 +14,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Animator maincam_animator;
     private int trans; //トランジション用のパラメータ
 
+    private GameObject compound_Main_obj;
+    private Compound_Main compound_Main;
+
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
@@ -23,11 +26,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
 
+    //コンテストの判定セット
+    private ContestSetDataBase contestSet_database;
+
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
-
-    private Touch_Controller touch_controller; //タッチのONOFFのみのスクリプト
-    private Touch_Controll touch_controll; //タッチした際のメソッドを記述
 
     private SoundController sc;
 
@@ -283,6 +286,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
         girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
 
+        //コンテストの判定セットの取得
+        contestSet_database = ContestSetDataBase.Instance.GetComponent<ContestSetDataBase>();
+
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
@@ -421,12 +427,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 switch (GameMgr.Scene_Category_Num)
                 {
-                    case 10:
-
+                    case 10: //メイン調合
+                        
                         //カメラの取得
                         main_cam = Camera.main;
                         maincam_animator = main_cam.GetComponent<Animator>();
                         trans = maincam_animator.GetInteger("trans");
+
+                        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                         //エクストリームパネルの取得
                         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
@@ -442,10 +451,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
                         character_move = character_root.transform.Find("CharacterMove").gameObject;
                         character = GameObject.FindWithTag("Character");
-
-                        //タッチ判定オブジェクトの取得
-                        touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
-                        touch_controll = character.GetComponent<Touch_Controll>();
 
                         //メイン画面に表示する、現在のクエスト
                         questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
@@ -481,7 +486,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                         break;
 
-                    case 1000:
+                    case 100: //コンテスト
+
+                        //Live2Dモデルの取得
+                        _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
+                        _model = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
+                        character = GameObject.FindWithTag("Character");
+                        live2d_animator = _model_obj.GetComponent<Animator>();
+
+                        GirlEat_Judge_on = false;
+                        break;
+
+                    case 1000: //タイトル画面
 
                         //Live2Dモデルの取得
                         _model_obj = GameObject.FindWithTag("CharacterRoot").transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
@@ -1141,7 +1157,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             special_animstart_endflag = false;
             GirlEat_Judge_on = false;
             special_animstart_status = 0;
-            touch_controller.Touch_OnAllOFF();
+            compound_Main.Touch_ALLOFF();
 
             GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
             GameMgr.compound_status = 1000;
@@ -1163,7 +1179,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             canvas.SetActive(false);
             sceneBGM.MuteBGM();
             map_ambience.Mute();
-            touch_controller.Touch_OnAllOFF();
+            compound_Main.Touch_ALLOFF();
 
             while (!GameMgr.camerazoom_endflag)
             {
@@ -1759,8 +1775,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             j++;
         }
 
-
-
         //初期化
         girl1_hungrySet.Clear();
         girl1_hungrytoppingSet.Clear();
@@ -1973,6 +1987,238 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girllike_judgeNum[_set_num] = _id;
     }
 
+    //
+    //コンテスト判定用
+    //
+    public void InitializeStageContestJudgeSet(int _id, int _set_num)
+    {
+        //IDをセット。「compNum」の値で指定する。
+
+        //compNumの値で指定しているので、IDに変換する。
+        j = 0;
+        while (j < contestSet_database.contest_set.Count)
+        {
+            if (_id == contestSet_database.contest_set[j].girlLike_compNum)
+            {
+                //Debug.Log("contestSet_database.contest_set[j].girlLike_compNum: " + contestSet_database.contest_set[j].girlLike_compNum);
+                //Debug.Log("j :" + j);
+                setID = j;
+                break;
+            }
+            j++;
+        }
+
+        //初期化
+        girl1_hungrySet.Clear();
+        girl1_hungrytoppingSet.Clear();
+        girl1_hungrytoppingNumberSet.Clear();
+
+
+        //ステージごとに、女の子が欲しがるアイテムのセット
+
+        //セット例
+        //①スロット：　オレンジ・ナッツ・ぶどう
+
+        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
+        {
+
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[0])
+            {
+
+                if (contestSet_database.contest_set[setID].girlLike_topping[0] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[0]);
+                    girl1_hungrytoppingNumberSet.Add(1);
+                }
+
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[1])
+            {
+                if (contestSet_database.contest_set[setID].girlLike_topping[1] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[1]);
+                    girl1_hungrytoppingNumberSet.Add(2);
+                }
+
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[2])
+            {
+                if (contestSet_database.contest_set[setID].girlLike_topping[2] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[2]);
+                    girl1_hungrytoppingNumberSet.Add(3);
+                }
+
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[3])
+            {
+                if (contestSet_database.contest_set[setID].girlLike_topping[3] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[3]);
+                    girl1_hungrytoppingNumberSet.Add(4);
+                }
+
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[4])
+            {
+                if (contestSet_database.contest_set[setID].girlLike_topping[4] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[4]);
+                    girl1_hungrytoppingNumberSet.Add(5);
+                }
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[5])
+            {
+                if (contestSet_database.contest_set[setID].girlLike_topping[5] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[5]);
+                    girl1_hungrytoppingNumberSet.Add(6);
+                }
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[6])
+            {
+                if (contestSet_database.contest_set[setID].girlLike_topping[6] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[6]);
+                    girl1_hungrytoppingNumberSet.Add(7);
+                }
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[7])
+            {
+                if (contestSet_database.contest_set[setID].girlLike_topping[7] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[7]);
+                    girl1_hungrytoppingNumberSet.Add(8);
+                }
+            }
+            if (slotnamedatabase.slotname_lists[i].slotName == contestSet_database.contest_set[setID].girlLike_topping[8])
+            {
+                if (contestSet_database.contest_set[setID].girlLike_topping[8] != "Non")
+                {
+                    girl1_hungrySet.Add(i);
+                    girl1_hungrytoppingSet.Add(contestSet_database.contest_set[setID].girlLike_topping_score[8]);
+                    girl1_hungrytoppingNumberSet.Add(9);
+                }
+            }
+        }
+
+
+        //以下、パラメータのセッティング
+
+        //①女の子の食べたいトッピング
+
+        switch (_set_num)
+        {
+            case 0:
+
+                //まず全ての値を0に初期化
+                for (i = 0; i < girl1_hungryScoreSet1.Count; i++)
+                {
+                    girl1_hungryScoreSet1[i] = 0;
+                    girl1_hungryToppingScoreSet1[i] = 0;
+                    girl1_hungryToppingNumberSet1[i] = 0;
+                }
+
+                //トッピングの値を加算
+                for (i = 0; i < girl1_hungrySet.Count; i++)
+                {
+                    //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
+                    girl1_hungryScoreSet1[girl1_hungrySet[i]]++;
+                    girl1_hungryToppingScoreSet1[girl1_hungrySet[i]] = girl1_hungrytoppingSet[i];
+                    girl1_hungryToppingNumberSet1[girl1_hungrySet[i]] = girl1_hungrytoppingNumberSet[i];
+                }
+                break;
+
+            case 1:
+
+                //まず全ての値を0に初期化
+                for (i = 0; i < girl1_hungryScoreSet2.Count; i++)
+                {
+                    girl1_hungryScoreSet2[i] = 0;
+                    girl1_hungryToppingScoreSet2[i] = 0;
+                    girl1_hungryToppingNumberSet2[i] = 0;
+                }
+
+                //トッピングの値を加算
+                for (i = 0; i < girl1_hungrySet.Count; i++)
+                {
+                    //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
+                    girl1_hungryScoreSet2[girl1_hungrySet[i]]++;
+                    girl1_hungryToppingScoreSet2[girl1_hungrySet[i]] = girl1_hungrytoppingSet[i];
+                    girl1_hungryToppingNumberSet2[girl1_hungrySet[i]] = girl1_hungrytoppingNumberSet[i];
+                }
+                break;
+
+            case 2:
+
+                //まず全ての値を0に初期化
+                for (i = 0; i < girl1_hungryScoreSet3.Count; i++)
+                {
+                    girl1_hungryScoreSet3[i] = 0;
+                    girl1_hungryToppingScoreSet3[i] = 0;
+                    girl1_hungryToppingNumberSet3[i] = 0;
+                }
+
+                //トッピングの値を加算
+                for (i = 0; i < girl1_hungrySet.Count; i++)
+                {
+                    //該当のトッピングの値を、+1する。あとで、GirlEat_Judge内の判定スロットと比較する。
+                    girl1_hungryScoreSet3[girl1_hungrySet[i]]++;
+                    girl1_hungryToppingScoreSet3[girl1_hungrySet[i]] = girl1_hungrytoppingSet[i];
+                    girl1_hungryToppingNumberSet3[girl1_hungrySet[i]] = girl1_hungrytoppingNumberSet[i];
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        //欲しいトッピングがなかったときに、マイナスに働くパラメータ
+        girl1_NonToppingScoreSet[_set_num] = contestSet_database.contest_set[setID].girlLike_Non_topping_score;
+
+        //②味のパラメータ。これに足りてないと、「甘さが足りない」といったコメントをもらえる。
+        girl1_Rich[_set_num] = contestSet_database.contest_set[setID].girlLike_rich;
+        girl1_Sweat[_set_num] = contestSet_database.contest_set[setID].girlLike_sweat;
+        girl1_Sour[_set_num] = contestSet_database.contest_set[setID].girlLike_sour;
+        girl1_Bitter[_set_num] = contestSet_database.contest_set[setID].girlLike_bitter;
+
+        girl1_Crispy[_set_num] = contestSet_database.contest_set[setID].girlLike_crispy;
+        girl1_Fluffy[_set_num] = contestSet_database.contest_set[setID].girlLike_fluffy;
+        girl1_Smooth[_set_num] = contestSet_database.contest_set[setID].girlLike_smooth;
+        girl1_Hardness[_set_num] = contestSet_database.contest_set[setID].girlLike_hardness;
+        girl1_Chewy[_set_num] = contestSet_database.contest_set[setID].girlLike_chewy;
+        girl1_Jiggly[_set_num] = contestSet_database.contest_set[setID].girlLike_jiggly;
+        girl1_Juice[_set_num] = contestSet_database.contest_set[setID].girlLike_juice;
+
+        girl1_Beauty[_set_num] = contestSet_database.contest_set[setID].girlLike_beauty;
+
+        //③お菓子の種類：　空＝お菓子はなんでもよい　か　クッキー
+        girl1_likeSubtype[_set_num] = contestSet_database.contest_set[setID].girlLike_itemSubtype;
+
+        //④特定のお菓子が食べたいかを決定。関係性は、④＞③。
+        //④が決まった場合、③は無視し、①と②だけ計算する。④が空=Nonの場合、③を計算。④も③も空の場合、お菓子の種類は関係なくなる。
+        girl1_likeOkashi[_set_num] = contestSet_database.contest_set[setID].girlLike_itemName;
+
+        //セットごとの固有の味の採点値をセット
+        girl1_like_set_score[_set_num] = contestSet_database.contest_set[setID].girlLike_set_score;
+
+        //コメントをセット
+        girllike_desc[_set_num] = contestSet_database.contest_set[setID].set_kansou;
+
+        //お菓子食べた後の感想用フラグのセット
+        girllike_comment_flag[_set_num] = contestSet_database.contest_set[setID].girlLike_comment_flag;
+
+        //compNumの番号も保存。どの判定用お菓子セットを選んだかがわかる。
+        girllike_judgeNum[_set_num] = _id;
+    }
 
 
     //

@@ -77,7 +77,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                //SE_point_click(46);
+                SE_point_click(127);
                 break;
 
             case "No_okashiSet": //noを押したときのSE
@@ -746,14 +746,14 @@ public class Sound_Trigger : MonoBehaviour {
                 //SE_point_click(122);
                 break;
 
-            case "SkillLvupButton": //魔法説明を開いた時の音
+            case "SkillLvupButton": //魔法レベルアップを押した時の音
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
 
 
                 //クリックしたときに鳴る音。
-                //SE_point_click(122);
+                SE_point_click(127);
                 break;
 
             default: //特に指定がない場合

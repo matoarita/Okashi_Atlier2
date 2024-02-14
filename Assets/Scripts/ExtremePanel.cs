@@ -254,7 +254,6 @@ public class ExtremePanel : MonoBehaviour {
 
         if (exp_Controller._temp_extreme_id != 9999)
         {
-
             //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
             if (GameMgr.tutorial_ON == true)
             {
@@ -265,7 +264,6 @@ public class ExtremePanel : MonoBehaviour {
                 }
 
             }
-
         }
         else //何もまだ作られていない場合は、新規調合
         {

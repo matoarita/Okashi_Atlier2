@@ -602,16 +602,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_item = pitemlist.player_check_itemlist.Count - 1;
             
             renkin_hyouji = pitemlist.player_check_itemlist[result_item].itemNameHyouji;
-            GameMgr.Okashi_makeID = pitemlist.player_check_itemlist[result_item].itemID;
+            GameMgr.Okashi_makeID = pitemlist.player_check_itemlist[result_item].itemID; //今作ったやつのお菓子ID
             GameMgr.ResultItem_nameHyouji = pitemlist.player_check_itemlist[result_item].itemNameHyouji; //別スクリプトでの使用用
 
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
             if (pitemlist.player_check_itemlist[result_item].itemType.ToString() == "Mat" || 
                 pitemlist.player_check_itemlist[result_item].itemType.ToString() == "Potion")
             {
+                GameMgr.OkashiMake_PanelSetType = 0;
             }
             else
             {
+                GameMgr.OkashiMake_PanelSetType = 1;
+
                 //お菓子パネルに、作ったやつをセット。
                 SetExtremeItem(result_item, 2);
                 GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
@@ -1283,22 +1286,26 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     //シーンごとの後処理
     void SceneAfterSetting()
     {
-        if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {           
-            compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-            compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
+        switch (GameMgr.Scene_Category_Num) 
+        {
+            case 10: // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
 
-            //メインテキストも更新
-            compound_Main.StartMessage();
+                compound_Main_obj = GameObject.FindWithTag("Compound_Main");
+                compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-            //ヒカリが厨房のセンター位置に戻る準備で右に。
-            if(character_ON)
-            {
-                //character_moveでなく、Live2Dのポスを直接アニメートさせてる。また、Live2Dモデルの位置情報は、スクリプトやTweenとかで直接変えることができない。
-                //ここでinterger=99で事前に右にし、integer=100にすると、戻るアニメスタート
-                trans_motion = 99;
-                live2d_animator.SetInteger("trans_motion", trans_motion);
-            }
+                //メインテキストも更新
+                compound_Main.StartMessage();
+                
+                break;
+        }
+
+        //ヒカリが厨房のセンター位置に戻る準備で右に。
+        if (character_ON)
+        {
+            //character_moveでなく、Live2Dのポスを直接アニメートさせてる。また、Live2Dモデルの位置情報は、スクリプトやTweenとかで直接変えることができない。
+            //ここでinterger=99で事前に右にし、integer=100にすると、戻るアニメスタート
+            trans_motion = 99;
+            live2d_animator.SetInteger("trans_motion", trans_motion);
         }
     }
 
@@ -1444,7 +1451,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //
         result_item = pitemlist.player_yosokuitemlist.Count - 1;
-        //GameMgr.Okashi_makeID = pitemlist.player_originalitemlist[result_item].itemID;
         renkin_hyouji = pitemlist.player_yosokuitemlist[result_item].itemNameHyouji;
 
         new_item = result_item;

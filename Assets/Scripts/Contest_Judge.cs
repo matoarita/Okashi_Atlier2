@@ -48,7 +48,6 @@ public class Contest_Judge : MonoBehaviour {
     private Text Delicious_Text;
 
     private Exp_Controller exp_Controller;
-    private Touch_Controller touch_controller;
 
     private PlayerItemList pitemlist;
 
@@ -75,6 +74,9 @@ public class Contest_Judge : MonoBehaviour {
     private GirlLikeCompoDataBase girlLikeCompo_database;
     private Dictionary<int, int> girlLikeCompoScore = new Dictionary<int, int>();
 
+    //コンテストの判定セット
+    private ContestSetDataBase contestSet_database;
+
     private string _commentrandom;
     private List<string> _commentDict = new List<string>();
 
@@ -96,6 +98,8 @@ public class Contest_Judge : MonoBehaviour {
 
     private int kettei_itemID;
     private int kettei_itemType;
+
+    private string contest_Name;
 
 
     //SEを鳴らす
@@ -294,6 +298,9 @@ public class Contest_Judge : MonoBehaviour {
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
 
+        //コンテストの判定セットの取得
+        contestSet_database = ContestSetDataBase.Instance.GetComponent<ContestSetDataBase>();
+
         //女の子の好みのお菓子セットの取得
         girlLikeSet_database = GirlLikeSetDataBase.Instance.GetComponent<GirlLikeSetDataBase>();
 
@@ -360,6 +367,7 @@ public class Contest_Judge : MonoBehaviour {
     public void Contest_Judge_Start()
     {
         Debug.Log("コンテスト判定ON");
+        Debug.Log("コンテスト場所: " + GameMgr.ContestSelectNum);
 
         //判定するお菓子を決定
 
@@ -426,35 +434,42 @@ public class Contest_Judge : MonoBehaviour {
 
 
         //***お菓子の判定処理　***
-        //左二つが判定するお菓子、3番目が判定用のセット番号(girlLikeCompoのcompIDか、girlLikeSetの番号を直接指定。）
-        //4番目がコンテスト判定タイプ　0=審査員3人か、1=審査員1人として計算
+        //左二つが判定するお菓子
         //3番目の番号は、girlLikeSetのcomp_Num番号。
+        //GameMgr.ContestSelectNumは、コンテストのシーン番号。DB_list_Type以上のcomp_Numを判定として使用。
         //***
 
         judge_flag = false;
-        judge_Type = 0; //0=審査員3人。1=審査員1人
+        //judge_Type = 0; //基本審査員3人で対応。judge_Typeは、どのコンテストかを指定する。
 
-        if (judge_Type == 0) //1000～が審査員3人個別に判定セット。1500～が審査員まとめて一つバージョンの評価セット
+        //コンテストごとに、判定する審査員を変える
+        switch (GameMgr.ContestSelectNum)
         {
-            DB_list_Type = 10000;
-        }
-        else if (judge_Type == 1)
-        {
-            DB_list_Type = 20000; //現在は使用していない。
+            case 1000: //オレンジーナコンテストA1 クープデュモンド
+
+                DB_list_Type = 20000; //compNum=20000~を指定
+                contest_Name = "Or_Contest_001";
+                break;
+
+            default: //ヒカリ１のときのコンテスト番号 0
+
+                DB_list_Type = 10000; //girlLikeSetのcompNumの10000～を参照するようにしている。コンテストを分ける場合、compNumの数字で分ければOK.
+                contest_Name = "First_Contest";
+                break;
         }
 
         i = 0;
-        while (i < girlLikeSet_database.girllikeset.Count)
+        while (i < contestSet_database.contest_set.Count)
         {
-            if (girlLikeSet_database.girllikeset[i].girlLike_compNum >= DB_list_Type)
+            if (contestSet_database.contest_set[i].girlLike_compNum >= DB_list_Type)
             {
-                if (girlLikeSet_database.girllikeset[i].girlLike_itemName != "Non") //固有名がはいってる場合は、固有名をみる。
+                if (contestSet_database.contest_set[i].girlLike_itemName != "Non") //固有名がはいってる場合は、固有名をみる。
                 {
                     //固有のアイテム名と一致するかどうかを判定。
-                    if (girlLikeSet_database.girllikeset[i].girlLike_itemName == itemName)
+                    if (contestSet_database.contest_set[i].girlLike_itemName == itemName)
                     {
                         //一致した場合の番号を入れる。
-                        compNum = girlLikeSet_database.girllikeset[i].girlLike_compNum;
+                        compNum = contestSet_database.contest_set[i].girlLike_compNum;
                         judge_flag = true;
                         Debug.Log("判定番号: " + compNum);
                         break;
@@ -462,9 +477,9 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else//固有名が入ってない場合は、サブタイプをみる。
                 {
-                    if (girlLikeSet_database.girllikeset[i].girlLike_itemSubtype == item_subType && girlLikeSet_database.girllikeset[i].girlLike_itemSubtype != "Non")
+                    if (contestSet_database.contest_set[i].girlLike_itemSubtype == item_subType && contestSet_database.contest_set[i].girlLike_itemSubtype != "Non")
                     {
-                        compNum = girlLikeSet_database.girllikeset[i].girlLike_compNum;
+                        compNum = contestSet_database.contest_set[i].girlLike_compNum;
                         judge_flag = true;
                         Debug.Log("判定番号: " + compNum);
                         break;
@@ -472,6 +487,13 @@ public class Contest_Judge : MonoBehaviour {
                 }
             }
             i++;
+
+            //~+10000番までは検索する。
+            if(contestSet_database.contest_set[i].girlLike_compNum >= DB_list_Type + 10000)
+            {
+                judge_flag = false;
+                break;
+            }
         }
 
         if (!judge_flag)
@@ -486,27 +508,13 @@ public class Contest_Judge : MonoBehaviour {
         }
         else
         {
-            switch (judge_Type)
-            {
-                case 0:
-
-                    //0
-                    //審査員個別に判定バージョン　個別の場合、3人それぞれの評価値を設定する必要があり。
-                    Contest_Judge_method(kettei_itemID, kettei_itemType, compNum, 0);
-                    break;
-
-                case 1:
-
-                    //1
-                    //審査員まとめて一つの点数バージョン
-                    Contest_Judge_method(kettei_itemID, kettei_itemType, compNum, 1);
-                    break;
-            }
+            //審査員判定
+            Contest_Judge_method(kettei_itemID, kettei_itemType, compNum);
         }
     }
 
     //選んだアイテムを審査委員が判定するメソッド
-    public void Contest_Judge_method(int value1, int value2, int judge_num, int judge_type) //judge_type=0で審査員3人の判定。基本0にしている。
+    public void Contest_Judge_method(int value1, int value2, int judge_num) //judge_typeは、コンテストを指定
     {
         //一度、決定したアイテムのリスト番号と、タイプを取得
         kettei_item1 = value1;
@@ -640,50 +648,35 @@ public class Contest_Judge : MonoBehaviour {
 
 
         //** 判定用に、コンテストの好み値(GirlLikeSet)をセッティング
+        set1_ID = judge_num; //審査員１の好み
+        set2_ID = judge_num + 1; //審査員２の好み
+        set3_ID = judge_num + 2; //審査員３の好み
 
-        switch (judge_type)
+        set_ID.Clear();
+
+        //set_idにリストの番号をセット
+        if (set1_ID != 9999)
         {
-
-            case 0:
-
-                set1_ID = judge_num; //審査員１の好み
-                set2_ID = judge_num + 1; //審査員２の好み
-                set3_ID = judge_num + 2; //審査員３の好み
-
-                set_ID.Clear();
-
-                //set_idにリストの番号をセット
-                if (set1_ID != 9999)
-                {
-                    set_ID.Add(set1_ID);
-                }
-                if (set2_ID != 9999)
-                {
-                    set_ID.Add(set2_ID);
-                }
-                if (set3_ID != 9999)
-                {
-                    set_ID.Add(set3_ID);
-                }
-
-                //さきほどのset_IDをもとに、好みの値を決定する。
-                for (count = 0; count < set_ID.Count; count++)
-                {
-                    //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可 ３番めの番号は、女の子かコンテストかのタイプ判定　1=コンテスト
-                    girl1_status.InitializeStageGirlHungrySet(set_ID[count], count);
-                    //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
-                }
-
-                Set_Count = set_ID.Count;
-
-                break;
-
-            case 1:
-
-                girl1_status.InitializeStageGirlHungrySet(judge_num, 0);
-                Set_Count = 1;
-                break;
+            set_ID.Add(set1_ID);
         }
+        if (set2_ID != 9999)
+        {
+            set_ID.Add(set2_ID);
+        }
+        if (set3_ID != 9999)
+        {
+            set_ID.Add(set3_ID);
+        }
+
+        //さきほどのset_IDをもとに、好みの値を決定する。
+        for (count = 0; count < set_ID.Count; count++)
+        {
+            //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可 ３番めの番号は、女の子かコンテストかのタイプ判定　1=コンテスト
+            girl1_status.InitializeStageContestJudgeSet(set_ID[count], count);
+            //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
+        }
+
+        Set_Count = set_ID.Count;
 
 
         //上記は、girls1_status上でセッティングしただけなので、こっちのスクリプトに読み込む
@@ -737,63 +730,48 @@ public class Contest_Judge : MonoBehaviour {
         //お菓子の味判定処理
         //
         judge_result_contest(); //判定し、トータルのスコアが算出される。
-       
+
 
 
         switch (dislike_status)
         {
             case 0:
 
-                switch (judge_type)
+                _windowtext.text = "審査員１　点数：" + total_score[0] + "点" + "\n" +
+                    "審査員２　点数：" + total_score[1] + "点" + "\n" +
+                    "審査員３　点数：" + total_score[2] + "点";
+
+                //点数を200点を上限にし、100点に正規化する処理
+                for (i = 0; i < GameMgr.contest_Score.Length; i++)
                 {
-                    case 0:
-
-                        _windowtext.text = "審査員１　点数：" + total_score[0] + "点" + "\n" +
-                            "審査員２　点数：" + total_score[1] + "点" + "\n" +
-                            "審査員３　点数：" + total_score[2] + "点";
-
-                        //点数を200点を上限にし、100点に正規化する処理
-                        for (i = 0; i < GameMgr.contest_Score.Length; i++)
-                        {
-                            _temp_score = SujiMap(total_score[i], 0, 200, 0, 100);
-                            total_score[i] = (int)_temp_score;
-                        }
-
-                        Debug.Log("審査員１　正規化点数：" + total_score[0] + "点");
-                        Debug.Log("審査員２　正規化点数：" + total_score[1] + "点");
-                        Debug.Log("審査員３　正規化点数：" + total_score[2] + "点");
-
-                        Debug.Log("### ###");
-                        Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
-                        Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
-                        Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
-                        Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
-
-                        sum = 0;
-                        for (i=0; i< GameMgr.contest_Score.Length; i++)
-                        {
-                            GameMgr.contest_Score[i] = total_score[i];
-                            sum += total_score[i];
-                        }
-
-                        GameMgr.contest_TotalScore = sum / GameMgr.contest_Score.Length;
-                        if(GameMgr.contest_TotalScore < 0)
-                        {
-                            GameMgr.contest_TotalScore = 0;
-                        }
-                        Debug.Log("総合得点：" + GameMgr.contest_TotalScore + "点");                       
-
-
-                        break;
-
-                    case 1:
-
-                        _windowtext.text = "決勝戦" + "\n" +
-                            "審査員　総合得点：" + total_score[0] + "点";
-
-                        GameMgr.contest_TotalScore = total_score[0];
-                        break;
+                    _temp_score = SujiMap(total_score[i], 0, 200, 0, 100);
+                    total_score[i] = (int)_temp_score;
                 }
+
+                Debug.Log("審査員１　正規化点数：" + total_score[0] + "点");
+                Debug.Log("審査員２　正規化点数：" + total_score[1] + "点");
+                Debug.Log("審査員３　正規化点数：" + total_score[2] + "点");
+
+                Debug.Log("### ###");
+                Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
+                Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
+                Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");               
+
+                sum = 0;
+                for (i = 0; i < GameMgr.contest_Score.Length; i++)
+                {
+                    GameMgr.contest_Score[i] = total_score[i];
+                    sum += total_score[i];
+                }
+
+                GameMgr.contest_TotalScore = sum / GameMgr.contest_Score.Length;
+                if (GameMgr.contest_TotalScore < 0)
+                {
+                    GameMgr.contest_TotalScore = 0;
+                }
+                Debug.Log("総合得点：" + GameMgr.contest_TotalScore + "点");
+
+
                 break;
 
             case 1: //求められる課題のお菓子と違った場合
@@ -807,7 +785,7 @@ public class Contest_Judge : MonoBehaviour {
 
 
         }
-        
+
         //先に算出しておいて、あとで、審査員一人一人のコメント＋点数を演出して出す。宴へ戻る。
     }
 
@@ -843,30 +821,45 @@ public class Contest_Judge : MonoBehaviour {
             
         }
 
-        //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。その代わり見た目の点数が一切入らない。
-        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
-        if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 80)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 180)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
-        }
 
-        total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
+        //各コンテスト審査員ごとの判定分け
+        switch(contest_Name)
+        {
+            case "First_Contest":
+
+                //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。その代わり見た目の点数が一切入らない。
+                before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+                if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
+                }
+                else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 80)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
+                }
+                else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
+                }
+                else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
+                }
+                else if (GameMgr.contest_Taste_Score[2] >= 180)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
+                }
+
+                total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
+
+                Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
+                break;
+
+            default:
+
+                break;
+        }
+       
     }
 
     IEnumerator Girl_Judge_anim_co()
@@ -947,8 +940,6 @@ public class Contest_Judge : MonoBehaviour {
         _girloily = girl1_status.girl1_Oily;
         _girlwatery = girl1_status.girl1_Watery;
 
-        //girllikeCompoのOkashiQuest_IDのこと。コンテストでは使ってないかも。
-        //_set_compID = girl1_status.Set_compID;
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

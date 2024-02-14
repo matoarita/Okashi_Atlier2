@@ -70,7 +70,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private Text Delicious_Text;
 
     private Exp_Controller exp_Controller;
-    private Touch_Controller touch_controller;
 
     private PlayerItemList pitemlist;
 
@@ -417,9 +416,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 BlackPanel_event = canvas.transform.Find("Black_Panel_Event").gameObject;
 
-                //タッチ判定オブジェクトの取得
-                touch_controller = GameObject.FindWithTag("Touch_Controller").GetComponent<Touch_Controller>();
-
                 //Live2Dモデルの取得
                 _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
                 live2d_animator = _model.GetComponent<Animator>();
@@ -726,7 +722,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _model.GetComponent<CubismAutoEyeBlinkInput>().enabled = false;
                     _model.GetComponent<CubismEyeBlinkController>().enabled = false;
 
-                    touch_controller.Touch_OnAllOFF();
+                    compound_Main.Touch_ALLOFF();
 
                     break;
 
@@ -3276,7 +3272,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
         //girl1_status.hukidasiOff();
-        touch_controller.Touch_OnAllOFF();
+        compound_Main.Touch_ALLOFF();
         compound_Main.OffCompoundSelect();
         compound_Main.OnCompoundSelectObj();
         //Extremepanel_obj.SetActive(false);
@@ -3319,7 +3315,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.WaitHint_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
+        compound_Main.Touch_ALLOFF();
 
         GameMgr.emeralDonguri_status = emeraldonguri_status; //0=85点以上　1=100点以上
         GameMgr.emeralDonguri_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -3395,7 +3391,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
         canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
+        compound_Main.Touch_ALLOFF();
 
         //カメラが元の位置にもどってから、キャラ表示を切り替え
         while (main_cam.transform.position.z != -10)
@@ -3467,7 +3463,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.WaitHint_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
+        compound_Main.Touch_ALLOFF();
 
         //
         //①アフター感想
@@ -3604,7 +3600,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         sceneBGM.MuteOFFBGM();
                         canvas.SetActive(true);
                         ResetResult();
-                        touch_controller.Touch_OnAllON();
+                        compound_Main.Touch_ALLON();
                         GameMgr.QuestClearCommentflag = true;
                     }
                     else
@@ -3799,7 +3795,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
         //girl1_status.hukidasiOff();
-        touch_controller.Touch_OnAllOFF();
+        compound_Main.Touch_ALLOFF();
 
         //クエスト初クリア時に、最後に食べたお菓子をクリアお菓子として保存する。ItemIDとして保存。
         GameMgr.SpecialQuestClear_okashiItemID = GameMgr.Okashi_lastID;
@@ -3946,7 +3942,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.WaitHint_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
+        compound_Main.Touch_ALLOFF();
         sceneBGM.MuteBGM();
 
         girl1_status.ResetCharacterPosition();
@@ -4716,7 +4712,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.WaitHint_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
-        touch_controller.Touch_OnAllOFF();
+        compound_Main.Touch_ALLOFF();
         sceneBGM.MuteBGM();
 
         girl1_status.ResetCharacterPosition();

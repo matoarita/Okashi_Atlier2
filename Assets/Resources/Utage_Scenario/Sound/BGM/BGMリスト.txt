@@ -79,3 +79,4 @@
 ・BGM_77		ボサノバ2				カフェのBGM＜広場２で使用＞
 ・BGM_78		audiostock_251363.mp3			【宴用】ショップのBGM
 ・BGM_79		PerituneMaterial_Cafe_Musette		【宴用】調合テーマ７　ワルツの調合風音楽　BGM61と同じ
+・BGM_80		PerituneMaterial_EpicBattle_Deity_loop	大会コンテスト調合時のBGM

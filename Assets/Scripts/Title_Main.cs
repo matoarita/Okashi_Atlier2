@@ -67,15 +67,16 @@ public class Title_Main : MonoBehaviour {
         _model_move = _model_root_obj.transform.Find("CharacterMove").gameObject;
         _model_obj = _model_root_obj.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
-        live2d_animator = _model_obj.GetComponent<Animator>();
+        live2d_animator = _model_obj.GetComponent<Animator>();       
 
         version_text = canvas.transform.Find("VersionText").gameObject;
         version_text.GetComponent<Text>().text = "ver " + GameMgr.GameVersion.ToString("f2");
 
         //システムロード
         save_controller.SystemloadCheck();
+
         //これ以降、システムのデータに応じて、処理を分けて大丈夫。
-        
+        GameMgr.ending_count = 10;
         if (GameMgr.ending_count >= 1) //一回でもEDクリア。トップ画面はLive2Dモードになる。
         {
             galleryButton_obj.SetActive(true);           

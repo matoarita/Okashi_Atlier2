@@ -176,6 +176,15 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         }
     }
 
+    public void SkillList_DrawView9() //心
+    {
+        if (category_toggle[8].GetComponent<Toggle>().isOn == true)
+        {
+            category_status = 8;
+            reset_and_DrawView(8);
+        }
+    }
+
     //再度描画
     public void ReDraw()
     {       
@@ -220,6 +229,11 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             case 7:
 
                 reset_and_DrawView(7);
+                break;
+
+            case 8:
+
+                reset_and_DrawView(8);
                 break;
 
         }
@@ -432,6 +446,31 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 7)
+                        {
+                            drawLearnSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 8:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 8)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 8)
                         {
                             drawLearnSkill();
                         }

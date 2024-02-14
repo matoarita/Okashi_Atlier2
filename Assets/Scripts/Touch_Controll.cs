@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 using Live2D.Cubism.Rendering;
@@ -39,7 +40,9 @@ public class Touch_Controll : MonoBehaviour
     private bool touch_interval_flag;
     private float time_inter_default;
 
-    private int _rnd;
+    private int i, _rnd;
+
+    private List<GameObject> touch_obj = new List<GameObject>();
 
     // Use this for initialization
     void Start()
@@ -72,8 +75,17 @@ public class Touch_Controll : MonoBehaviour
 
         mouseLclick_off = false;
 
-        touch_interval_flag = false;        
+        touch_interval_flag = false;
 
+        //Touchエリアの取得
+        touch_obj.Add(this.transform.Find("TouchFace").gameObject);
+        touch_obj.Add(this.transform.Find("TouchHair").gameObject);
+        touch_obj.Add(this.transform.Find("TouchHand").gameObject);
+        touch_obj.Add(this.transform.Find("TouchChest").gameObject);
+        touch_obj.Add(this.transform.Find("TouchRibbonR").gameObject);
+        touch_obj.Add(this.transform.Find("TouchRibbonL").gameObject);
+        touch_obj.Add(this.transform.Find("TouchLongHairR").gameObject);
+        touch_obj.Add(this.transform.Find("TouchLongHairL").gameObject);
     }
 
     private void Update()
@@ -469,5 +481,25 @@ public class Touch_Controll : MonoBehaviour
         
     }
 
+    //全てのオブジェクトのタッチをオフにする。
+    public void Touch_OnAllOFF()
+    {
+        i = 0;
+        while (i < touch_obj.Count)
+        {
+            touch_obj[i].SetActive(false);
+            i++;
+        }
+    }
 
+    //全てのオブジェクトのタッチをオフにする。
+    public void Touch_OnAllON()
+    {
+        i = 0;
+        while (i < touch_obj.Count)
+        {
+            touch_obj[i].SetActive(true);
+            i++;
+        }
+    }
 }

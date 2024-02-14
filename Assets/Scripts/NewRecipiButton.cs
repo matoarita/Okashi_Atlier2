@@ -6,8 +6,6 @@ public class NewRecipiButton : MonoBehaviour {
 
     private GameObject canvas;
 
-    private CompoundMainController compoundmain_Controller;
-
     private GameObject card_view_obj;
     private CardView card_view;
 
@@ -32,9 +30,6 @@ public class NewRecipiButton : MonoBehaviour {
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
-
-        //調合コントローラーの取得
-        compoundmain_Controller = canvas.transform.Find("CompoundMainController").GetComponent<CompoundMainController>();
 
         //完成時パネルの取得
         CompleteImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
@@ -71,7 +66,6 @@ public class NewRecipiButton : MonoBehaviour {
         if (GameMgr.picnic_event_reading_now)
         {
             GameMgr.compound_status = 6; // 調合の画面に戻る。
-            compoundmain_Controller.ReSetLive2DPos_Compound();
         }
         else
         {
@@ -79,27 +73,25 @@ public class NewRecipiButton : MonoBehaviour {
             {
                 case 1: //レシピ調合
 
-                    if (exp_Controller._temp_extreme_id != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。現状は、新しいお菓子がセットされてない場合。
+                    if (GameMgr.OkashiMake_PanelSetType != 0) 
                     {
                         GameMgr.compound_status = 0;
                     }
-                    else
+                    else //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。
                     {
                         GameMgr.compound_status = 1; // もう一回、オリジナル調合の画面に戻る。
-                        compoundmain_Controller.ReSetLive2DPos_Compound();
                     }
                     break;
 
                 case 3: //オリジナル調合
 
-                    if (exp_Controller._temp_extreme_id != 9999) //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。
+                    if (GameMgr.OkashiMake_PanelSetType != 0) 
                     {
                         GameMgr.compound_status = 0;
                     }
                     else
                     {
-                        GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
-                        compoundmain_Controller.ReSetLive2DPos_Compound();
+                        GameMgr.compound_status = 3; //生地系などのアイテムの場合は、利便性のため、すぐに調合画面に戻る。
                     }
                     break;
 
@@ -109,9 +101,9 @@ public class NewRecipiButton : MonoBehaviour {
                     break;
 
             }
-        }
 
-        GameMgr.CompoundSceneStartON = false;　//調合シーン終了
+            GameMgr.CompoundSceneStartON = false;　//調合シーン終了　新しいレシピひらめいたときは、現状必ず一度戻るようにした。
+        }       
 
         CompleteImage.SetActive(false);
 

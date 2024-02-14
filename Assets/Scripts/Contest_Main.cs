@@ -64,6 +64,10 @@ public class Contest_Main : MonoBehaviour {
         //今いるシーン番号を指定
         GameMgr.Scene_Category_Num = 100;
 
+        //さらにどのコンテストに現在出場しているかを指定
+        GameMgr.ContestSelectNum = 0; //コンテストのシーン番号
+        GameMgr.Contest_ON = false; //コンテストだけど、１のころのやつなのでfalseでだいじょうぶ
+
         //カメラの取得
         main_cam = Camera.main;
         maincam_animator = main_cam.GetComponent<Animator>();
