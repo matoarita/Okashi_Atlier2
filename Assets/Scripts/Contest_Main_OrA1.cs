@@ -72,6 +72,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private int i, count;
     private bool judge_flag;
     private int judge_Type, DB_list_Type;
+    private int inputcount;
 
     //Live2Dモデルの取得    
     private GameObject _model_root_obj;
@@ -198,7 +199,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         contest_status = 0;
 
         //デバッグ用　最初に所持するアイテム
-        //Debug_StartItem();
+        Debug_StartItem();
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -353,8 +354,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         _itemKosutemp_result.Add(4);        
         _itemKosutemp_result.Add(0);
 
-        var inputcount = 2; //何個選んだ場合の調合か
-        //Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
+        inputcount = 2; //何個選んだ場合の調合か
+        Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
