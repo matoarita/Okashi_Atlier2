@@ -994,7 +994,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
           
         if (GameMgr.CompoundSceneStartON) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
         {
-
             // トッピング調合を選択した場合の処理
             if (GameMgr.compound_select == 2)
             {

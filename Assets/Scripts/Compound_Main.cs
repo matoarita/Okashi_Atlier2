@@ -145,6 +145,8 @@ public class Compound_Main : MonoBehaviour
     private ItemCompoundDataBase databaseCompo;
     private EventDataBase eventdatabase;
 
+    private PlayerDefaultStartItemGet playerDefaultStart_ItemGet;
+
     private GameObject bgpanelmatome;
     private Touch_Controll_Item bg_touch_controll;
     private GameObject BG_Imagepanel;
@@ -329,6 +331,9 @@ public class Compound_Main : MonoBehaviour
 
         //イベントデータベースの取得
         eventdatabase = EventDataBase.Instance.GetComponent<EventDataBase>();
+
+        //ゲーム最初に所持するアイテムを決定するスクリプト
+        playerDefaultStart_ItemGet = PlayerDefaultStartItemGet.Instance.GetComponent<PlayerDefaultStartItemGet>();
 
         //キー入力受付コントローラーの取得
         keymanager = keyManager.Instance.GetComponent<keyManager>();
@@ -670,7 +675,7 @@ public class Compound_Main : MonoBehaviour
         text_area_Main.SetActive(false);
 
         //初期アイテムの取得。一度きり。
-        DefaultStartPitem();
+        playerDefaultStart_ItemGet.DefaultStartPitem();
 
 
 
@@ -3115,7 +3120,7 @@ public class Compound_Main : MonoBehaviour
         //Debug.Log("compound_statusを0にする");
     }
 
-    //レシピの番号チェック。コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。
+    //レシピの番号チェック。ゲットしたアイテム以外に、コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。
     void Recipi_FlagON_Method()
     {
         
@@ -3168,7 +3173,7 @@ public class Compound_Main : MonoBehaviour
 
     
 
-    void DefaultStartPitem()
+    /*void DefaultStartPitem()
     {
         //ゲーム「はじめから」で始まった場合の、最初の一回だけする処理       
         if (GameMgr.gamestart_recipi_get != true)
@@ -3221,15 +3226,15 @@ public class Compound_Main : MonoBehaviour
                 matplace_database.matPlaceKaikin("Hiroba"); //広場解禁
 
                 //装備品は最初からもっている。
-                /*pitemlist.addPlayerItemString("milkpan", 1);
-                pitemlist.addPlayerItemString("pan_knife", 1);
-                pitemlist.addPlayerItemString("siboribukuro", 1);
-                pitemlist.addPlayerItemString("whisk", 1);
-                pitemlist.addPlayerItemString("wind_mixer", 1);
-                pitemlist.addPlayerItemString("oil_extracter", 1);
-                pitemlist.addPlayerItemString("juice_mixer", 1);
-                pitemlist.addPlayerItemString("egg_splitter", 1);
-                pitemlist.addPlayerItemString("ice_box", 1);*/
+                //pitemlist.addPlayerItemString("milkpan", 1);
+                //pitemlist.addPlayerItemString("pan_knife", 1);
+                //pitemlist.addPlayerItemString("siboribukuro", 1);
+                //pitemlist.addPlayerItemString("whisk", 1);
+                //pitemlist.addPlayerItemString("wind_mixer", 1);
+                //pitemlist.addPlayerItemString("oil_extracter", 1);
+                //pitemlist.addPlayerItemString("juice_mixer", 1);
+                //pitemlist.addPlayerItemString("egg_splitter", 1);
+                //pitemlist.addPlayerItemString("ice_box", 1);
                 pitemlist.addPlayerItemString("flyer", 1);
             }
 
@@ -3250,7 +3255,7 @@ public class Compound_Main : MonoBehaviour
             //pitemlist.addPlayerItemString("stone_oven", 1);
 
         }
-    }
+    }*/
 
     //外へ出る、などのコマンドを増やす系のイベント
     void FlagEvent()

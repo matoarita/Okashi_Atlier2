@@ -31,7 +31,11 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
 
+    private PlayerDefaultStartItemGet playerDefaultStart_ItemGet;
+
     private ItemDataBase database;
+
+    private MagicSkillListDataBase magicskill_database;
 
     private Debug_Panel_Init debug_panel_init;
     private Exp_Controller exp_Controller;
@@ -95,6 +99,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
@@ -106,6 +113,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //ゲーム最初に所持するアイテムを決定するスクリプト
+        playerDefaultStart_ItemGet = PlayerDefaultStartItemGet.Instance.GetComponent<PlayerDefaultStartItemGet>();
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -177,7 +187,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         conteston_toggle_compo = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Compo").gameObject;
 
         contest_status = 100;
-        
+
+        //デバッグ用　最初に所持するアイテム
+        Debug_StartItem();
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -302,6 +314,17 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         GameMgr.ending_count = 1;
         canvas.transform.Find("DebugContestStart").gameObject.SetActive(false);
+    }
+
+    void Debug_StartItem()
+    {
+        //pitemlist.addPlayerItemString("komugiko", 10);
+
+        //デバッグ用　全てのアイテムを追加する
+        playerDefaultStart_ItemGet.AddAllItem_NoAcce();
+
+        magicskill_database.skillLearnLv_Name("Cookie_Study", 10);
+        magicskill_database.skillLearnLv_Name("Freezing_Spell", 10);
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

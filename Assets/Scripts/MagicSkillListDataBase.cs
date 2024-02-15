@@ -98,6 +98,29 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         }
     }
 
+    //スキル名とレベルをいれると、そのスキルをそのレベルまで習得する
+    public void skillLearnLv_Name(string _name, int _lv)
+    {
+        for (i = 0; i < magicskill_lists.Count; i++)
+        {
+            if (magicskill_lists[i].skillName == _name)
+            {
+                magicskill_lists[i].skillFlag = 1;
+
+                if(magicskill_lists[i].skillMaxLv <= _lv)
+                {
+                    magicskill_lists[i].skillLv = magicskill_lists[i].skillMaxLv;
+                }
+                else
+                {
+                    magicskill_lists[i].skillLv = _lv;
+                }
+                
+                magicskill_lists[i].skillUseLv = magicskill_lists[i].skillLv;
+            }
+        }
+    }
+
     //スキル名をいれると、そのスキルのIDを返すメソッド
     public int SearchSkillString(string Name)
     {

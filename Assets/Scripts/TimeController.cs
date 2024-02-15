@@ -9,6 +9,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 {
 
     //時間の概念を使用するかどうかは、GameMgr.csに記述  使用しないときは、TimePanelオブジェクトもオフにする
+    //TimeControllerは、時間を計算するだけ。描画は、スクリプトを分けている。TimePanelで取得して、描画してる。
 
     private GameObject canvas;
 
@@ -158,8 +159,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
             switch (GameMgr.Scene_Category_Num)
             {
-                case 10:
-                   
+                case 10: //調合シーン
+
                     if (compound_Main_obj == null)
                     {
                         //Debug.Log("このタイミングでcompound_Main TimeController");
@@ -176,7 +177,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
         switch (GameMgr.Scene_Category_Num)
         {
-            case 10:
+            case 10: //調合シーンでは時間を計算する
 
                 //時間のカウント
                 timeLeft -= Time.deltaTime;

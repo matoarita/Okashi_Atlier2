@@ -52,10 +52,10 @@ public class TimePanel : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        _month_obj1 = this.transform.Find("TimeHyouji_1/Image/Month").gameObject;
+        _month_obj1 = this.transform.Find("TimeHyouji_1/Image/calender_bg/Month").gameObject;
         _month_text1 = _month_obj1.GetComponent<Text>();
 
-        _monthday_obj1 = this.transform.Find("TimeHyouji_1/Image/Month_Day").gameObject;
+        _monthday_obj1 = this.transform.Find("TimeHyouji_1/Image/calender_bg/Month_Day").gameObject;
         _day_text1 = _monthday_obj1.GetComponent<Text>();
 
         _month_obj2 = this.transform.Find("TimeHyouji_2/Month").gameObject;
@@ -115,7 +115,19 @@ public class TimePanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        TimeDraw();
+        switch(GameMgr.Scene_Category_Num)
+        {
+            case 100: //コンテストでは、参照する時間の引数を変える。
+
+                this.transform.Find("TimeHyouji_1/Image/calender_bg").gameObject.SetActive(false);
+                TimeDraw();
+                break;
+
+            default:
+                TimeDraw();
+                break;
+        }
+        
 
     }
 
