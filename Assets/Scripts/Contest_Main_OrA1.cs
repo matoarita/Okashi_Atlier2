@@ -33,6 +33,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     private PlayerDefaultStartItemGet playerDefaultStart_ItemGet;
 
+    private CombinationMain Combinationmain; //テスト用
+    private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
+    private List<string> _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
+    private List<string> _itemSubtypeB_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
+    private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
+
     private ItemDataBase database;
 
     private MagicSkillListDataBase magicskill_database;
@@ -117,6 +123,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //ゲーム最初に所持するアイテムを決定するスクリプト
         playerDefaultStart_ItemGet = PlayerDefaultStartItemGet.Instance.GetComponent<PlayerDefaultStartItemGet>();
 
+        //調合用メソッドの取得　テスト用
+        Combinationmain = CombinationMain.Instance.GetComponent<CombinationMain>();
+
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
@@ -186,10 +195,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         contest_select = canvas.transform.Find("Contest_Select").gameObject;
         conteston_toggle_compo = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Compo").gameObject;
 
-        contest_status = 100;
+        contest_status = 0;
 
         //デバッグ用　最初に所持するアイテム
-        Debug_StartItem();
+        //Debug_StartItem();
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -250,6 +259,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     contest_scene = 0;
 
                     GameMgr.Status_zero_readOK = true;
+                    
                     break;
 
                 case 100: //退避
@@ -325,6 +335,26 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         magicskill_database.skillLearnLv_Name("Cookie_Study", 10);
         magicskill_database.skillLearnLv_Name("Freezing_Spell", 10);
+
+        //デバグ
+        _itemIDtemp_result.Add("juice_mixer");
+        _itemIDtemp_result.Add("green_apple");               
+        _itemIDtemp_result.Add("empty");
+
+        _itemSubtype_temp_result.Add("Machine");
+        _itemSubtype_temp_result.Add("Fruits");      
+        _itemSubtype_temp_result.Add("empty");
+
+        _itemSubtypeB_temp_result.Add("a_Machine");
+        _itemSubtypeB_temp_result.Add("a_Apple");        
+        _itemSubtypeB_temp_result.Add("empty");
+
+        _itemKosutemp_result.Add(1);
+        _itemKosutemp_result.Add(4);        
+        _itemKosutemp_result.Add(0);
+
+        var inputcount = 2; //何個選んだ場合の調合か
+        //Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
