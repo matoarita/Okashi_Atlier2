@@ -27,7 +27,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int day;
 		public int quality;
 		public int exp;
-		public float ex_probability;
+		public int ex_probability;
 		public int rich;
 		public int sweat;
 		public int bitter;
@@ -44,9 +44,10 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int beauty;
 		public string type;
 		public string subtype;
+		public string subtypeB;
 		public string subtype_category;
 		public int base_score;
-		public float girl1_like;
+		public int girl1_like;
 		public int cost_price;
 		public int sell_price;
 		public string topping01;

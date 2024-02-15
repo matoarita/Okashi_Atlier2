@@ -144,8 +144,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
                 _type = excel_itemdatabase.sheets[sheet_no].list[count].type;
                 _subtype = excel_itemdatabase.sheets[sheet_no].list[count].subtype;
-                //_subtypeB = excel_itemdatabase.sheets[sheet_no].list[count].subtypeB;
-                _subtypeB = "Non";
+                _subtypeB = excel_itemdatabase.sheets[sheet_no].list[count].subtypeB;
                 _subtype_category = excel_itemdatabase.sheets[sheet_no].list[count].subtype_category;
 
                 _base_score = excel_itemdatabase.sheets[sheet_no].list[count].base_score;
