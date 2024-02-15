@@ -49,6 +49,7 @@ public class Item
 
     public ItemType itemType;               //アイテムの種類メインカテゴリー
     public ItemType_sub itemType_sub;       //アイテムの種類サブカテゴリー（クッキー系とかパイ系など）
+    public string itemType_subB;       //アイテムの種類サブのサブカテゴリー（フルーツでも、さらにその中のいちごなど。属性）
     public string itemType_sub_category;    //サブカテゴリーのさらに属性。それがMat系か、Potion系か。調合する際の表示の有無に関係。
 
     public int Base_Score;          //アイテムごとの、基本得点。好みの食感との距離で、得点に倍率をかけて、最終点数になる。
@@ -178,7 +179,7 @@ public class Item
     public Item(int id, string OriginalID, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, 
         int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, int beauty,
         int juice,
-        string type, string subtype, string subtype_category, int _base_score, float _girl1_like, int cost, int sell, 
+        string type, string subtype, string subtypeB, string subtype_category, int _base_score, float _girl1_like, int cost, int sell, 
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
         int _judge_num, int _eat_kaisu, int _highscore, int _lasttotal_score, string _hinttext, float _total_kyori, int _rare, int _manpuku, int _secretFlag)
@@ -225,6 +226,7 @@ public class Item
         
         itemType = (ItemType)Enum.Parse(typeof(ItemType), type);      
         itemType_sub = (ItemType_sub)Enum.Parse(typeof(ItemType_sub), subtype);
+        itemType_subB = subtypeB;
         itemType_sub_category = subtype_category;
 
         Base_Score = _base_score;

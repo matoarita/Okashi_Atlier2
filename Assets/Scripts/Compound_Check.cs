@@ -69,7 +69,9 @@ public class Compound_Check : MonoBehaviour {
 
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
     private List<string> _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
+    private List<string> _itemSubtypeB_temp_result = new List<string>(); //調合DBのサブタイプBの組み合わせリスト。
     private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
+    private int inputcount;
 
     private bool compoDB_select_judge;
     private bool hikari_nomake;
@@ -943,6 +945,7 @@ public class Compound_Check : MonoBehaviour {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
         _itemSubtype_temp_result.Clear();
+        _itemSubtypeB_temp_result.Clear();
         _ex_probabilty_temp = 1.0f;
 
         //オリジナル調合の場合はこっち
@@ -954,6 +957,9 @@ public class Compound_Check : MonoBehaviour {
             _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
             _itemSubtype_temp_result.Add(database.items[itemID_2].itemType_sub.ToString());
 
+            _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[itemID_2].itemType_subB.ToString());
+
             _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
             _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
 
@@ -961,24 +967,31 @@ public class Compound_Check : MonoBehaviour {
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
+                _itemSubtypeB_temp_result.Add("empty");
                 pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
                 database.items[itemID_2].Ex_Probability;
+
+                inputcount = 2;
             }
             else
             {
                 _itemIDtemp_result.Add(database.items[itemID_3].itemName);
                 _itemSubtype_temp_result.Add(database.items[itemID_3].itemType_sub.ToString());
+                _itemSubtypeB_temp_result.Add(database.items[itemID_3].itemType_subB.ToString());
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
                 database.items[itemID_2].Ex_Probability *
                 database.items[itemID_3].Ex_Probability;
+
+                inputcount = 3;
             }
+
         }
 
         //エクストリーム調合の場合は、こっち。ベース決定アイテムを、temp_resultに入れる。
@@ -990,6 +1003,9 @@ public class Compound_Check : MonoBehaviour {
             _itemSubtype_temp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemType_sub.ToString());
             _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
 
+            _itemSubtypeB_temp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
+
             _itemKosutemp_result.Add(1);
             //Debug.Log("pitemlistController.final_kettei_kosu1: " + pitemlistController.final_kettei_kosu1);
 
@@ -999,23 +1015,29 @@ public class Compound_Check : MonoBehaviour {
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
+                _itemSubtypeB_temp_result.Add("empty");
                 pitemlistController.final_kettei_kosu2 = 9999; //個数にも9999=emptyを入れる。
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
                 database.items[itemID_1].Ex_Probability;
+
+                inputcount = 2;
             }
             else
             {
                 _itemIDtemp_result.Add(database.items[itemID_2].itemName);
                 _itemSubtype_temp_result.Add(database.items[itemID_2].itemType_sub.ToString());
+                _itemSubtypeB_temp_result.Add(database.items[itemID_2].itemType_subB.ToString());
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
                 database.items[itemID_1].Ex_Probability *
                 database.items[itemID_2].Ex_Probability;
+
+                inputcount = 3;
             }
         }
 
@@ -1028,30 +1050,40 @@ public class Compound_Check : MonoBehaviour {
             _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
             _itemSubtype_temp_result.Add("empty");
 
+            _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add("empty");
+
             _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
             _itemKosutemp_result.Add(1);
+
 
             if (itemID_3 == 9999) //二個しか選択していないときは、9999が入っている。
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
+                _itemSubtypeB_temp_result.Add("empty");
                 pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
                 (float)(magicskill_database.magicskill_lists[itemID_2].success_rate * 0.01);
+
+                inputcount = 2;
             }
             else
             {
                 _itemIDtemp_result.Add(database.items[itemID_3].itemName);
                 _itemSubtype_temp_result.Add(database.items[itemID_3].itemType_sub.ToString());
+                _itemSubtypeB_temp_result.Add(database.items[itemID_3].itemType_subB.ToString());
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
                 database.items[itemID_2].Ex_Probability *
                 database.items[itemID_3].Ex_Probability;
+
+                inputcount = 3;
             }
         }
 
@@ -1067,7 +1099,22 @@ public class Compound_Check : MonoBehaviour {
 
         //新規作成のため、以下の判定処理を行う。個数は、判定に関係しない。
 
+        Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
+        compoDB_select_judge = Combinationmain.compFlag;
+        if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
+        {
+            resultitemID = Combinationmain.resultitemName;
+            result_compoID = Combinationmain.result_compID;
 
+            result_kosuset.Clear();
+            for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
+            {
+                result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
+            }
+        }
+
+        //***** 以下は過去のもので、現在使用してない ****
+        /*
         //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
 
         //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     
@@ -1126,7 +1173,8 @@ public class Compound_Check : MonoBehaviour {
                     result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
                 }
             }
-        }
+        }*/
+        /* ************ */
 
 
         exp_Controller.DoubleItemCreated = 0; //2個以上のアイテムが同時に作られない場合、デフォルトは0。
@@ -1291,6 +1339,7 @@ public class Compound_Check : MonoBehaviour {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
         _itemSubtype_temp_result.Clear();
+        _itemSubtypeB_temp_result.Clear();
         _ex_probabilty_temp = 1.0f;
 
         _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemName);
@@ -1299,6 +1348,9 @@ public class Compound_Check : MonoBehaviour {
         _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemType_sub.ToString());
         _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem2].itemType_sub.ToString());
 
+        _itemSubtypeB_temp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemType_subB.ToString());
+        _itemSubtypeB_temp_result.Add(database.items[recipilistController.kettei_recipiitem2].itemType_subB.ToString());
+
         _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu1);
         _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu2);
 
@@ -1306,6 +1358,7 @@ public class Compound_Check : MonoBehaviour {
         {
             _itemIDtemp_result.Add("empty");
             _itemSubtype_temp_result.Add("empty");
+            _itemSubtypeB_temp_result.Add("empty");
             recipilistController.final_kettei_recipikosu3 = 9999; //個数にも9999=emptyを入れる。
             _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu3);
 
@@ -1317,6 +1370,7 @@ public class Compound_Check : MonoBehaviour {
         {
             _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemName);
             _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemType_sub.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemType_subB.ToString());
             _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu3);
 
             //アイテムごとの確率補正値を、先にここで計算
@@ -1326,7 +1380,8 @@ public class Compound_Check : MonoBehaviour {
         }
 
         //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     距離も計算される。
-        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 0); //決めた３つのアイテム＋それぞれの個数、の配列
+        Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
+        //Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 0); //決めた３つのアイテム＋それぞれの個数、の配列
 
         //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
         _success_rate = Kakuritsu_Keisan(recipilistController.result_recipicompID);

@@ -1436,14 +1436,14 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         {
             if (compFlag)
             {
-                Debug.Log("一致したときの個数");
-                Debug.Log("アイテム名１:" + databaseCompo.compoitems[collect_count].cmpitemID_1 + " 個数: " + kosuset2[youso2[0]]);
-                Debug.Log("アイテム名２:" + databaseCompo.compoitems[collect_count].cmpitemID_2 + " 個数: " + kosuset2[youso2[1]]);
+                /*Debug.Log("一致したときの個数");
+                Debug.Log("アイテム名１:" + itemset2[youso2[0]] + " 個数: " + kosuset2[youso2[0]]);
+                Debug.Log("アイテム名２:" + itemset2[youso2[1]] + " 個数: " + kosuset2[youso2[1]]);
 
                 if (k >= 3)
                 {
-                    Debug.Log("アイテム名３:" + databaseCompo.compoitems[collect_count].cmpitemID_3 + " 個数: " + kosuset2[youso2[2]]);
-                }
+                    Debug.Log("アイテム名３:" + itemset2[youso2[2]] + " 個数: " + kosuset2[youso2[2]]);
+                }*/
 
                 result_kosuset.Clear();
                 for (i = 0; i < k; i++)

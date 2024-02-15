@@ -355,7 +355,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         _itemKosutemp_result.Add(0);
 
         inputcount = 2; //何個選んだ場合の調合か
-        Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
+        //Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
