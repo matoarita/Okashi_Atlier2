@@ -1186,7 +1186,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     if (collect_check) //すべて合ってた場合はtrueになるので一致していた調合DBのIDをもって抜け出す
                     {
                         compFlag = true;
-                        collect_count = count;
+                        //collect_count = count;
 
                         //s = "(" + string.Join(",", elem2.Select(x => x.ToString()).ToArray()) + ")"; //デバッグ用
                         //Debug.Log("一致したset" + set_count + ": " + s); //デバッグ用
@@ -1199,14 +1199,25 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                         resultitemName = databaseCompo.compoitems[count].cmpitemID_result;
                         result_compID = count;
 
-                        Kyori_Keisan3();
+                        result_kosuset.Clear();
+                        for (i = 0; i < k; i++)
+                        {
+                            result_kosuset.Add(kosuset2[youso2[i]]); //頭から順番に、youso[0], youso[1], youso[2]を保存
+                        }
+
+                        Kyori_Keisan3(result_compID, result_kosuset.ToArray());
+
+                        break;
                     }
                     set_count++;
-                }
-
+                }               
                 //Debug.Log("調合一個に対して、ぶつける組み合わせ通り: " + set_count - 1 + "通り");
             }
 
+            if (compFlag)
+            {
+                break; //compoDBチェックからも抜ける　組み合わせが複数（固有*3もサブ*3も）の場合は、compoの上が優先される
+            }
             count++;
         }
 
@@ -1217,7 +1228,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         }
         else
         {
-            Debug.Log("一致した: " + databaseCompo.compoitems[collect_count].cmpitem_Name);
+            Debug.Log("一致した: " + databaseCompo.compoitems[result_compID].cmpitem_Name);
         }
     }
 
@@ -1403,25 +1414,26 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         }
     }
 
-    void Kyori_Keisan3()
+    void Kyori_Keisan3(int kyori_compID, int[] kyori_kosuSet)
     {
-        kyori1 = Mathf.Abs(kosuset2[youso2[0]] - databaseCompo.compoitems[collect_count].cmpitem_bestkosu1);
-        kyori2 = Mathf.Abs(kosuset2[youso2[1]] - databaseCompo.compoitems[collect_count].cmpitem_bestkosu2);
+        kyori1 = Mathf.Abs(kyori_kosuSet[0] - databaseCompo.compoitems[kyori_compID].cmpitem_bestkosu1);
+        kyori2 = Mathf.Abs(kyori_kosuSet[1] - databaseCompo.compoitems[kyori_compID].cmpitem_bestkosu2);
+        kyori3 = 0;
 
-        if (kosuset2[youso2[0]] == 9999)
+        if (kyori_kosuSet[0] == 9999)
         {
             kyori1 = 0;
         }
-        if (kosuset2[youso2[1]] == 9999)
+        if (kyori_kosuSet[1] == 9999)
         {
             kyori2 = 0;
         }
 
-        if (k >= 3)
+        if (databaseCompo.compoitems[kyori_compID].cmpitem_kosu3 != 9999)
         {
-            kyori3 = Mathf.Abs(kosuset2[youso2[2]] - databaseCompo.compoitems[collect_count].cmpitem_bestkosu3);
+            kyori3 = Mathf.Abs(kyori_kosuSet[2] - databaseCompo.compoitems[kyori_compID].cmpitem_bestkosu3);
 
-            if (kosuset2[youso2[2]] == 9999)
+            if (kyori_kosuSet[2] == 9999)
             {
                 kyori3 = 0;
             }
@@ -1445,12 +1457,26 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
                     Debug.Log("アイテム名３:" + itemset2[youso2[2]] + " 個数: " + kosuset2[youso2[2]]);
                 }*/
 
-                result_kosuset.Clear();
+                /*result_kosuset.Clear();
                 for (i = 0; i < k; i++)
                 {
                     result_kosuset.Add(kosuset2[youso2[i]]); //頭から順番に、youso[0], youso[1], youso[2]を保存
-                }
+                }*/
+
             }
         }
+    }
+
+    //主に、ゲーム初期化時にお菓子のデータをセッティングするときに使う　Compound_Keisanから読み出し
+    public float GetKyoriKeisan(int getcompID, int[] getkosuSet)
+    {
+        Kyori_Keisan3(getcompID, getkosuSet);
+
+        if (databaseCompo.compoitems[getcompID].KeisanMethod != "Non")
+        {
+            //Debug.Log("お菓子ネーム: " + databaseCompo.compoitems[getcompID].cmpitem_Name + " ベスト配合との距離: " + totalkyori + " 距離計算: USE");
+        }
+
+        return totalkyori;
     }
 }

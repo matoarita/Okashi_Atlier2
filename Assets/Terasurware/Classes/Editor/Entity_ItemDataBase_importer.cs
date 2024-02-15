@@ -60,7 +60,7 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(7); p.day = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(8); p.quality = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(9); p.exp = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(10); p.ex_probability = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(10); p.ex_probability = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(11); p.rich = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(12); p.sweat = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(13); p.bitter = (int)(cell == null ? 0 : cell.NumericCellValue);
@@ -80,7 +80,7 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(27); p.subtypeB = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(28); p.subtype_category = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(29); p.base_score = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(30); p.girl1_like = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(30); p.girl1_like = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(31); p.cost_price = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(32); p.sell_price = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(33); p.topping01 = (cell == null ? "" : cell.StringCellValue);

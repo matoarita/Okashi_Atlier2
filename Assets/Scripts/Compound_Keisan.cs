@@ -39,7 +39,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
     private List<string> _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
+    private List<string> _itemSubtypeB_temp_result = new List<string>(); //調合DBのサブタイプBの組み合わせリスト。
     private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
+    private int inputcount;
 
     private bool compoDB_select_judge;
 
@@ -78,6 +80,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private string kettei_originalitemID1;
     private string kettei_originalitemID2;
     private string kettei_originalitemID3;
+
+    private List<int> kyori_kosuSet = new List<int>();
 
 
 
@@ -673,17 +677,22 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //**ここまで**
     }
 
+    /*
     void SetParamKosuHosei()
     {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
         _itemSubtype_temp_result.Clear();
+        _itemSubtypeB_temp_result.Clear();
 
         _itemIDtemp_result.Add(database.items[kettei_item1].itemName);
         _itemIDtemp_result.Add(database.items[kettei_item2].itemName);
 
         _itemSubtype_temp_result.Add(database.items[kettei_item1].itemType_sub.ToString());
         _itemSubtype_temp_result.Add(database.items[kettei_item2].itemType_sub.ToString());
+
+        _itemSubtypeB_temp_result.Add(database.items[kettei_item1].itemType_subB.ToString());
+        _itemSubtypeB_temp_result.Add(database.items[kettei_item2].itemType_subB.ToString());
 
         _itemKosutemp_result.Add(final_kette_kosu1);
         _itemKosutemp_result.Add(final_kette_kosu2);
@@ -692,30 +701,36 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _itemIDtemp_result.Add("empty");
             _itemSubtype_temp_result.Add("empty");
+            _itemSubtypeB_temp_result.Add("empty");
             _itemKosutemp_result.Add(final_kette_kosu3);
+
+            inputcount = 2;
         }
         else
         {
             _itemIDtemp_result.Add(database.items[kettei_item3].itemName);
             _itemSubtype_temp_result.Add(database.items[kettei_item3].itemType_sub.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[kettei_item3].itemType_subB.ToString());
             _itemKosutemp_result.Add(final_kette_kosu3);
+
+            inputcount = 3;
         }
-
-
-        compoDB_select_judge = false;
 
 
         //判定処理//
 
         //一個目に選んだアイテムが生地タイプでもなく、フルーツ同士の合成でもない場合、
         //新規作成のため、以下の判定処理を行う。個数は、判定に関係しない。
+        compoDB_select_judge = false;
+        //Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 99);
+        //compoDB_select_judge = Combinationmain.compFlag;
 
-
+        //以下は、古い判定処理
+        
         //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
 
         //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     
         Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 99); //決めた３つのアイテム＋それぞれの個数、の配列
-
         compoDB_select_judge = Combinationmain.compFlag;
 
 
@@ -737,7 +752,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             compoDB_select_judge = Combinationmain.compFlag;
         }
-    }
+    }*/
 
 
 
@@ -777,7 +792,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             //パラメータを取得。アイテムデータベースを、ここで計算して初期化する。ゲーム開始時のみ使用。
             SetParamDatabaseInit();
-            SetParamKosuHosei();
+            //SetParamKosuHosei();
         }
 
 
@@ -1708,13 +1723,21 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _baseexp += _tempexp;
         _getExp = _tempexp; //トッピング調合時に取得する経験値。パブリック
 
-        if (mstatus != 2)
-        {
-            totalkyori = Combinationmain.totalkyori; //_mstatus=99のときにこのスクリプトから計算するか、調合時にもCombinationmain.csで計算して、値が更新されてるはず。
-        }
-        else //mstatus=2はヒカリが作るお菓子　totalkyoriはセーブしておく。
+
+        if (mstatus == 2)//mstatus=2はヒカリが作るお菓子　totalkyoriはセーブしておく。
         {
             totalkyori = GameMgr.hikari_make_okashi_totalkyori;
+        }
+        else if (mstatus == 99)
+        {
+            kyori_kosuSet.Add(final_kette_kosu1);
+            kyori_kosuSet.Add(final_kette_kosu2);
+            kyori_kosuSet.Add(final_kette_kosu3);
+            totalkyori = Combinationmain.GetKyoriKeisan(result_ID, kyori_kosuSet.ToArray()); //初期化のときは、ここで距離をとってくる
+        }
+        else
+        {
+            totalkyori = Combinationmain.totalkyori; //_mstatus=99のときにこのスクリプトから計算するか、調合時にもCombinationmain.csで計算して、値が更新されてるはず。
         }
 
 
@@ -1988,8 +2011,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
     }
-
-
 
 
     void AddSlot_Method()

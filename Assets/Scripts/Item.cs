@@ -64,6 +64,7 @@ public class Item
     public int Manpuku; //満腹度
     public int SecretFlag; //隠しアイテムかどうか。隠しアイテムであれば、お菓子手帳のリストには表示されない。
 
+    //記載なし
     public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
 
     //以下パラメータはExcel上には記載なし
