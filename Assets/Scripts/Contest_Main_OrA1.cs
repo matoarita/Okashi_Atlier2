@@ -336,9 +336,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         magicskill_database.skillLearnLv_Name("Cookie_Study", 10);
         magicskill_database.skillLearnLv_Name("Freezing_Spell", 10);
+        magicskill_database.skillLearnLv_Name("Luminous_Suger", 10);
 
         //デバグ
-        _itemIDtemp_result.Add("juice_mixer");
+        /*_itemIDtemp_result.Add("juice_mixer");
         _itemIDtemp_result.Add("green_apple");               
         _itemIDtemp_result.Add("empty");
 
@@ -354,7 +355,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         _itemKosutemp_result.Add(4);        
         _itemKosutemp_result.Add(0);
 
-        inputcount = 2; //何個選んだ場合の調合か
+        inputcount = 2; //何個選んだ場合の調合か*/
         //Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
     }
 

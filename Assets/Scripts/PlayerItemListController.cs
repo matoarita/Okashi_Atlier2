@@ -52,7 +52,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private string check_itemName;
     private string check_itemType;
     private string check_itemType_sub;
+    private string check_itemType_subB;
     private string check_itemType_sub_category;
+    
 
     //各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
     public int _count1; //表示されているリスト中の選択番号 1
@@ -436,6 +438,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType = database.items[i].itemType.ToString();
             check_itemType_sub = database.items[i].itemType_sub.ToString();
             check_itemType_sub_category = database.items[i].itemType_sub_category;
+            check_itemType_subB = database.items[i].itemType_subB.ToString();
 
             if (pitemlist.playeritemlist[check_itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
             {
@@ -452,6 +455,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType = pitemlist.player_originalitemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_originalitemlist[i].itemType_sub.ToString();
             check_itemType_sub_category = pitemlist.player_originalitemlist[i].itemType_sub_category;
+            check_itemType_subB = pitemlist.player_originalitemlist[i].itemType_subB.ToString();
 
             Check_ListHyouji();
         }
@@ -465,6 +469,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType = pitemlist.player_extremepanel_itemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_extremepanel_itemlist[i].itemType_sub.ToString();
             check_itemType_sub_category = pitemlist.player_extremepanel_itemlist[i].itemType_sub_category;
+            check_itemType_subB = pitemlist.player_extremepanel_itemlist[i].itemType_subB.ToString();
 
             Check_ListHyouji();
         }
@@ -555,7 +560,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         {
                             case "Freezing_Spell":
 
-                                if (check_itemType_sub == "Cookie")
+                                if (check_itemType_sub == "Cookie" || check_itemType_subB == "a_AppaleilChocolate")
                                 {
                                     itemlist_hyouji_Check();
                                 }
@@ -572,6 +577,30 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             case "Luminous_Fruits":
 
                                 if (check_itemType_sub == "Fruits")
+                                {
+                                    itemlist_hyouji_Check();
+                                }
+                                break;
+
+                            case "Bake_Beans":
+
+                                if (check_itemType_subB == "a_Cacao" || check_itemType_subB == "a_CoffeeBeans")
+                                {
+                                    itemlist_hyouji_Check();
+                                }
+                                break;
+
+                            case "Removing_Shells":
+
+                                if (check_itemType_subB == "a_CacaoRoasted")
+                                {
+                                    itemlist_hyouji_Check();
+                                }
+                                break;
+
+                            case "Chocolate_Tempering":
+
+                                if (check_itemType_subB == "a_CacaoMass")
                                 {
                                     itemlist_hyouji_Check();
                                 }

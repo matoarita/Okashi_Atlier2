@@ -47,6 +47,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound36;  //コンテスト会場のBGM
     public AudioClip sound37;  //広場３のBGM
     public AudioClip sound38;  //大会コンテストのBGM Aランク
+    public AudioClip sound39;  //オランジーナ調合メインのBGM予定1
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -265,21 +266,39 @@ public class BGM : MonoBehaviour {
 
     void BGMMainChange()
     {
-        if(GameMgr.Story_Mode == 0)
+        switch (SceneManager.GetActiveScene().name)
         {
-            BGMDefault();
+            case "Compound":
+
+                if (GameMgr.Story_Mode == 0)
+                {
+                    BGMDefault();
+                }
+                else
+                {
+                    if (GameMgr.userBGM_Num == 0) //デフォルト　ユーザーが1をおした場合、デフォルトのBGM
+                    {
+                        BGMDefault();
+                    }
+                    else
+                    {
+                        OngakuZukanSelect();
+                    }
+                }
+                break;
+
+            case "Or_Compound":
+
+                //Debug.Log("BGM　オランジーナ調合シーン");
+                //_bgm[0].clip = sound39;
+                _bgm[0].clip = sound21;
+
+                break;
+
+            default:
+                break;
         }
-        else
-        {
-            if (GameMgr.userBGM_Num == 0) //デフォルト　ユーザーが1をおした場合、デフォルトのBGM
-            {
-                BGMDefault();                
-            }
-            else
-            {
-                OngakuZukanSelect();
-            }
-        }       
+          
     }
 
     void BGMDefault()

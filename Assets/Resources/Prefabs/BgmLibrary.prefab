@@ -332,4 +332,5 @@ MonoBehaviour:
   sound36: {fileID: 8300000, guid: 9b2ebdd4683bd74438d6e0aacaee36cf, type: 3}
   sound37: {fileID: 8300000, guid: ca62c851251463545946e1c2b75388c2, type: 3}
   sound38: {fileID: 8300000, guid: 8f60dfd849ca65845ad6b571ef32f5af, type: 3}
+  sound39: {fileID: 8300000, guid: cfc1597e250d42c4d849eab99a60309b, type: 3}
   _mixRate: 0

@@ -78,7 +78,14 @@ public class RecipiMemoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(GameMgr.DEBUG_MODE)
+        {
+            this.transform.Find("Debug_RecipiALLON").gameObject.SetActive(true);
+        }
+        else
+        {
+            this.transform.Find("Debug_RecipiALLON").gameObject.SetActive(false);
+        }
     }
 
     void OnEnable()
@@ -164,5 +171,16 @@ public class RecipiMemoController : MonoBehaviour
         transform.localPosition = eventData.position - rootPos;
 
         //画面外にでたら、端っこあたりにでるようにする。
+    }
+
+    public void OnDebug_Recipi_AllON()
+    {
+        //デバッグ用　レシピ全表示
+        for (i = 0; i < pitemlist.eventitemlist.Count; i++)
+        {
+            pitemlist.eventitemlist[i].ev_itemKosu = 1;
+        }
+
+        reset_and_DrawView();
     }
 }

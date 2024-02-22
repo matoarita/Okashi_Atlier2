@@ -48,9 +48,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private GameObject recipi_archivement_obj;
 
-    private GameObject kakuritsuPanel_obj;
-    private KakuritsuPanel kakuritsuPanel;
-
     private GameObject GirlEat_scene_obj;
     private GirlEat_Main girlEat_scene;
 
@@ -319,10 +316,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         text_area = compoBG_A.transform.Find("MessageWindowComp").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
-
-        //確率パネルの取得
-        kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
-        kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //レシピメモボタンを取得
         recipimemoController_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
@@ -1466,7 +1459,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         recipimemoController_obj.SetActive(false);
         memoResult_obj.SetActive(false);
         recipi_archivement_obj.SetActive(false);
-        kakuritsuPanel_obj.SetActive(false);
 
         //YesNoパネル
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
@@ -1687,7 +1679,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
                 recipi_archivement_obj.SetActive(false);
-                kakuritsuPanel_obj.SetActive(false);
 
                 //YesNoパネル
                 yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
@@ -1866,7 +1857,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 recipimemoController_obj.SetActive(false);
                 memoResult_obj.SetActive(false);
                 recipi_archivement_obj.SetActive(false);
-                kakuritsuPanel_obj.SetActive(false);
 
                 //YesNoパネル
                 yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;

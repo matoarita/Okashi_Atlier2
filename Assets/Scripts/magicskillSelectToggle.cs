@@ -382,7 +382,7 @@ public class magicskillSelectToggle : MonoBehaviour
         {
             case "Freezing_Spell":
 
-                GameMgr.compound_status = 21; //魔法を選んで、かけるアイテムを選択する場合の処理
+                GameMgr.compound_status = 21; //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
                 break;
 
@@ -396,7 +396,22 @@ public class magicskillSelectToggle : MonoBehaviour
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいフルーツを選んでね。";
                 break;
 
-            default: //例外処理　通常ここを通ることはない
+            case "Bake_Beans":
+                GameMgr.compound_status = 21;
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい豆を選んでね。";
+                break;
+
+            case "Removing_Shells":
+                GameMgr.compound_status = 21;
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "殻をむく豆を選んでね。";
+                break;
+
+            case "Chocolate_Tempering":
+                GameMgr.compound_status = 21;
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオを選んでね。";
+                break;
+
+            default: //例外処理　通常ここを通ることはない..が、処理を未登録などの場合、ひとまずここを通る。
                 GameMgr.compound_status = 21;
                 break;
         }
