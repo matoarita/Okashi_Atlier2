@@ -20,6 +20,9 @@ public class Live2DAnimationTrigger : MonoBehaviour {
 
     private Exp_Controller exp_Controller;
 
+    private GameObject character_root;
+    private Touch_Controll character_touch_controll;
+
     // Use this for initialization
     void Start () {
 
@@ -30,6 +33,9 @@ public class Live2DAnimationTrigger : MonoBehaviour {
     {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+        character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
 
         live2d_animator = this.GetComponent<Animator>();
         //expressionは、ノーマルにセットしておく。宴でバグらなくなる。古い処理かも？もう削除して大丈夫そう。
@@ -108,6 +114,9 @@ public class Live2DAnimationTrigger : MonoBehaviour {
             //腹減りカウント再開は、吹き出しが消えたあと。
             //girl1_status.GirlEat_Judge_on = true;
             girl1_status.ResetHukidashiYodare();
+
+            //タッチもできるように。
+            character_touch_controll.Touch_OnAllON();
         }
     }
 

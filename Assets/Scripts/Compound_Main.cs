@@ -94,9 +94,6 @@ public class Compound_Main : MonoBehaviour
     private GetMatPlace_Panel getmatplace;
     private ItemMatPlaceDataBase matplace_database;
 
-    private GameObject kakuritsuPanel_obj;
-    private KakuritsuPanel kakuritsuPanel;
-
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
 
@@ -396,10 +393,6 @@ public class Compound_Main : MonoBehaviour
         yes_no_clear_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
         yes_no_sleep_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
         yes_no_clear_okashi_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel3").gameObject;
-
-        //確率パネルの取得
-        kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
-        kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         //システムパネルの取得
         system_panel = canvas.transform.Find("SystemPanel").gameObject;
@@ -946,7 +939,6 @@ public class Compound_Main : MonoBehaviour
                         compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
                         compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
                         pitemlistController.Offinteract();
-                        kakuritsuPanel_obj.SetActive(false);
 
                         recipiMemoButton.GetComponent<Button>().interactable = false;
 
@@ -1170,7 +1162,6 @@ public class Compound_Main : MonoBehaviour
 
                         MainCompoundMethod();
 
-                        kakuritsuPanel_obj.SetActive(false);
                         text_area_compound.SetActive(false);
 
                         break;
@@ -1179,7 +1170,6 @@ public class Compound_Main : MonoBehaviour
 
                         MainCompoundMethod();
 
-                        //kakuritsuPanel_obj.SetActive(true);
                         text_area_compound.SetActive(true);
 
                         GameMgr.tutorial_Num = 245; //退避
@@ -1194,7 +1184,6 @@ public class Compound_Main : MonoBehaviour
 
                     case 250:
 
-                        kakuritsuPanel_obj.SetActive(false);
                         text_area_compound.SetActive(false);
                         break;
 
@@ -1388,7 +1377,6 @@ public class Compound_Main : MonoBehaviour
                 playeritemlist_onoff.SetActive(false);
                 yes_no_panel.SetActive(false);
                 getmatplace_panel.SetActive(false);               
-                kakuritsuPanel_obj.SetActive(false);
                 black_panel_A.SetActive(false);
                 ResultBGimage.SetActive(false);
                 compoBG_A.SetActive(false);
@@ -2412,7 +2400,6 @@ public class Compound_Main : MonoBehaviour
         Debug.Log("イベントレシピID: " + event_itemID + "　レシピ名: " + pitemlist.eventitemlist[event_itemID].event_itemNameHyouji);
 
         compoundselect_onoff_obj.SetActive(false);
-        kakuritsuPanel_obj.SetActive(false);
         text_area.SetActive(false);
         text_area_Main.SetActive(false);
         black_panel_A.GetComponent<Image>().raycastTarget = false;

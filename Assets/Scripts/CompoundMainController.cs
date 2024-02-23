@@ -996,6 +996,8 @@ public class CompoundMainController : MonoBehaviour {
         girl1_status.tween_start = false;
         girl1_status.IdleMotionReset();
         girl1_status.DefFaceChange();
+
+        touch_controller.Touch_OnAllON(); //タッチもできるように。
     }
 
     //Live2Dのモデルと視点アンカーの位置情報も含めて、0に戻す　compound_Mainから読み出し

@@ -1325,7 +1325,7 @@ public class Compound_Check : MonoBehaviour {
             {
                 //失敗
                 exp_Controller._success_judge_flag = 2; //必ず失敗する
-                success_text = "これは.. ダメかもしれぬ。";
+                success_text = "これは.. 失敗かも？";
                 kakuritsuPanel.KakuritsuYosoku_Img(0);
             }
 
