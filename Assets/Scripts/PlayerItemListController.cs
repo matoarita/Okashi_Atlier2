@@ -490,7 +490,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                     case 2: //トッピング調合。お菓子と、トッピング系アイテムを表示し、ベース＝「お菓子」タイプのみ選択可能、その後、トッピングできるアイテムのみ選択可能。（フルーツ・ナッツ・チョコはOK。トッピング系アイテム。材料は×）                        
 
-                        if (check_itemType == "Okashi" || check_itemType == "Potion")
+                        if (check_itemType == "Okashi" || check_itemType == "Potion" || check_itemType_sub_category == "Potion")
                         {
                             itemlist_hyouji_Check();
                         }
@@ -509,11 +509,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         }
                         else
                         {
-                            if (check_itemType == "Mat")
+                            if (check_itemType == "Mat" || check_itemType_sub_category == "Mat")
                             {
                                 itemlist_hyouji_Check();
                             }
-                            else if (check_itemType_sub == "Source" || check_itemType_sub_category == "Mat")
+                            else if (check_itemType_sub == "Source")
                             {
                                 itemlist_hyouji_Check();
                             }
@@ -535,7 +535,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                     case 7: //ヒカリに作らせる。材料・生地などの素材アイテムのみ表示。
 
-                        if (check_itemType == "Mat" || check_itemType == "Okashi")
+                        if (check_itemType == "Mat" || check_itemType == "Okashi" || check_itemType_sub_category == "Mat")
+                        {
+                            itemlist_hyouji_Check();
+                        }
+                        else if (check_itemType_sub == "Source" )
                         {
                             itemlist_hyouji_Check();
                         }
@@ -543,11 +547,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         {
                             itemlist_hyouji_Check();
                         }
-                        else if (check_itemType == "Potion" || check_itemType_sub == "Potion" ||
-                    check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" ||
-                    check_itemType_sub == "Nuts" || check_itemType_sub == "Chocolate" ||
-                    check_itemType_sub == "IceCream" || check_itemType_sub == "Candy" ||
-                    check_itemType_sub == "Tea_Potion")
+                        else if (check_itemType == "Potion" || check_itemType_sub_category == "Potion")
                         {
                             itemlist_hyouji_Check();
                         }
@@ -560,7 +560,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         {
                             case "Freezing_Spell":
 
-                                if (check_itemType_sub == "Cookie" || check_itemType_subB == "a_AppaleilChocolate")
+                                if (check_itemType_sub == "Cookie" || 
+                                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilChocolateTwister")
                                 {
                                     itemlist_hyouji_Check();
                                 }
@@ -601,6 +602,15 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             case "Chocolate_Tempering":
 
                                 if (check_itemType_subB == "a_CacaoMass")
+                                {
+                                    itemlist_hyouji_Check();
+                                }
+                                break;
+
+                            case "Wind_Twister":
+
+                                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                                    check_itemName == "appaleil_chocolate" || check_itemType_subB == "a_AppaleiliceCream")
                                 {
                                     itemlist_hyouji_Check();
                                 }

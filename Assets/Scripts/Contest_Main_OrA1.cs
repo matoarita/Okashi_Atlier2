@@ -338,25 +338,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         magicskill_database.skillLearnLv_Name("Freezing_Spell", 10);
         magicskill_database.skillLearnLv_Name("Luminous_Suger", 10);
 
-        //デバグ
-        /*_itemIDtemp_result.Add("juice_mixer");
-        _itemIDtemp_result.Add("green_apple");               
-        _itemIDtemp_result.Add("empty");
+        magicskill_database.skillLearnLv_Name("Bake_Beans", 10);
+        magicskill_database.skillLearnLv_Name("Freezing_Spell", 10);
+        magicskill_database.skillLearnLv_Name("Removing_Shells", 10);
+        magicskill_database.skillLearnLv_Name("Chocolate_Tempering", 10);
+        magicskill_database.skillLearnLv_Name("Wind_Twister", 10);
 
-        _itemSubtype_temp_result.Add("Machine");
-        _itemSubtype_temp_result.Add("Fruits");      
-        _itemSubtype_temp_result.Add("empty");
-
-        _itemSubtypeB_temp_result.Add("a_Machine");
-        _itemSubtypeB_temp_result.Add("a_Apple");        
-        _itemSubtypeB_temp_result.Add("empty");
-
-        _itemKosutemp_result.Add(1);
-        _itemKosutemp_result.Add(4);        
-        _itemKosutemp_result.Add(0);
-
-        inputcount = 2; //何個選んだ場合の調合か*/
-        //Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

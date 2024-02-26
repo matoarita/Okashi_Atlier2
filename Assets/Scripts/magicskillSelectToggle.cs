@@ -411,6 +411,11 @@ public class magicskillSelectToggle : MonoBehaviour
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオを選んでね。";
                 break;
 
+            case "Wind_Twister":
+                GameMgr.compound_status = 21;
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
+                break;
+
             default: //例外処理　通常ここを通ることはない..が、処理を未登録などの場合、ひとまずここを通る。
                 GameMgr.compound_status = 21;
                 break;

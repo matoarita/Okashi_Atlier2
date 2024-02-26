@@ -1147,7 +1147,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Debug_TastePanel();
         }
 
-
+        //
+        /* 結果と制作個数 */
+        //
         //以下、実際にアイテムリスト削除と、プレイヤーアイテムへの所持追加処理
         if (_mstatus == 0)
         {
@@ -1171,7 +1173,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
             else if (exp_Controller.magic_result_ok == true) //魔法調合の場合
             {
-                result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * final_select_kaisu;
+                //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * final_select_kaisu;
+                result_kosu = final_kette_kosu1;
             }
 
             // アイテムリストの削除処理 //
