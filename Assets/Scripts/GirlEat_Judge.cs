@@ -932,12 +932,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basejuice = pitemlist.player_originalitemlist[kettei_item1].Juice;
                 _basegirl1_manpuku = pitemlist.player_originalitemlist[kettei_item1].Manpuku;
 
-                for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
+                for (i = 0; i < pitemlist.player_originalitemlist[kettei_item1].toppingtype.Length; i++)
                 {
                     _basetp[i] = pitemlist.player_originalitemlist[kettei_item1].toppingtype[i].ToString();
                 }
 
-                for (i = 0; i < database.items[kettei_item1].koyu_toppingtype.Length; i++)
+                for (i = 0; i < pitemlist.player_originalitemlist[kettei_item1].koyu_toppingtype.Length; i++)
                 {
                     _koyutp[i] = pitemlist.player_originalitemlist[kettei_item1].koyu_toppingtype[i].ToString();
                 }
@@ -975,12 +975,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basejuice = pitemlist.player_extremepanel_itemlist[kettei_item1].Juice;
                 _basegirl1_manpuku = pitemlist.player_extremepanel_itemlist[kettei_item1].Manpuku;
 
-                for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
+                for (i = 0; i < pitemlist.player_extremepanel_itemlist[kettei_item1].toppingtype.Length; i++)
                 {
                     _basetp[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].toppingtype[i].ToString();
                 }
 
-                for (i = 0; i < database.items[kettei_item1].koyu_toppingtype.Length; i++)
+                for (i = 0; i < pitemlist.player_extremepanel_itemlist[kettei_item1].koyu_toppingtype.Length; i++)
                 {
                     _koyutp[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].koyu_toppingtype[i].ToString();
                 }
@@ -991,6 +991,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
+        _baseID = database.SearchItemID(_baseID); //アイテムIDを、itemsリストの番号に変換
 
 
         //一回まず各スコアを初期化。

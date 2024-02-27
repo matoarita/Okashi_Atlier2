@@ -412,8 +412,11 @@ public class itemSelectToggle : MonoBehaviour
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         pitemlistController._count1 = count;
 
-        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
         pitemlistController.final_kettei_item1 = itemID_1;
+
+        Debug.Log("pitemlistController.kettei_item1: " + pitemlistController.kettei_item1 + " " + database.items[itemID_1].itemName);
 
         card_view.ItemListCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1);
 
@@ -496,7 +499,8 @@ public class itemSelectToggle : MonoBehaviour
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 pitemlistController._count1 = count;
 
-                itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+                //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDのID→database.itemsのリスト番号に変換したものを格納する。
+                itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID); 
                 pitemlistController.final_kettei_item1 = itemID_1;
 
                 //押したタイミングで、分岐＝１に。
@@ -551,7 +555,7 @@ public class itemSelectToggle : MonoBehaviour
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 pitemlistController._count2 = count;
 
-                itemID_2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+                itemID_2 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
                 pitemlistController.final_kettei_item2 = itemID_2;
 
                 //押したタイミングで、分岐＝２に。
@@ -600,7 +604,7 @@ public class itemSelectToggle : MonoBehaviour
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 pitemlistController._count3 = count;
 
-                itemID_3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+                itemID_3 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
                 pitemlistController.final_kettei_item3 = itemID_3;
 
                 //押したタイミングで、分岐＝３に。
@@ -719,7 +723,7 @@ public class itemSelectToggle : MonoBehaviour
                 yes_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //白文字
                 yes.GetComponent<Image>().sprite = yes_sprite2;
 
-                _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
                 //Debug.Log("二個目選択完了！");
                 break;
 
@@ -855,7 +859,8 @@ public class itemSelectToggle : MonoBehaviour
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 pitemlistController._count1 = count;
 
-                itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+                //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+                itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
                 pitemlistController.final_kettei_item1 = itemID_1;
 
                 GameMgr.Comp_kettei_bunki = 11;
@@ -906,7 +911,8 @@ public class itemSelectToggle : MonoBehaviour
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 pitemlistController._count2 = count;
 
-                itemID_2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+                //itemID_2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+                itemID_2 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
                 pitemlistController.final_kettei_item2 = itemID_2;
 
                 GameMgr.Comp_kettei_bunki = 12;
@@ -961,7 +967,8 @@ public class itemSelectToggle : MonoBehaviour
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 pitemlistController._count3 = count;
 
-                itemID_3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+                //itemID_3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+                itemID_3 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
                 pitemlistController.final_kettei_item3 = itemID_3;
 
                 GameMgr.Comp_kettei_bunki = 13;
@@ -1252,7 +1259,8 @@ public class itemSelectToggle : MonoBehaviour
         //表示中リストの、リスト番号を保存。
         pitemlistController._count1 = count;
 
-        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
         pitemlistController.final_kettei_item1 = itemID_1;
 
         GameMgr.Comp_kettei_bunki = 9999; //分岐なし。テキストの更新を避けるため、とりあえず適当な数字を入れて回避。
@@ -1338,7 +1346,8 @@ public class itemSelectToggle : MonoBehaviour
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 pitemlistController._count1 = count;
 
-                itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+                //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
+                itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
                 pitemlistController.final_kettei_item1 = itemID_1;
 
                 //押したタイミングで、分岐＝１に。
@@ -1441,7 +1450,8 @@ public class itemSelectToggle : MonoBehaviour
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         pitemlistController._count1 = count;
 
-        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
         pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
 
         _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" + 
@@ -1610,8 +1620,9 @@ public class itemSelectToggle : MonoBehaviour
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         pitemlistController._count1 = count;
 
-        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
-        pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
+        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
+        pitemlistController.final_kettei_item1 = itemID_1;
 
         /*
         _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" +
@@ -1728,7 +1739,8 @@ public class itemSelectToggle : MonoBehaviour
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         pitemlistController._listcount.Add(count);
 
-        itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
         pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
 
         //Debug.Log(count + "番が押されたよ");

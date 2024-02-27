@@ -76,7 +76,7 @@ public class Title_Main : MonoBehaviour {
         save_controller.SystemloadCheck();
 
         //これ以降、システムのデータに応じて、処理を分けて大丈夫。
-        GameMgr.ending_count = 10;
+
         if (GameMgr.ending_count >= 1) //一回でもEDクリア。トップ画面はLive2Dモードになる。
         {
             galleryButton_obj.SetActive(true);           

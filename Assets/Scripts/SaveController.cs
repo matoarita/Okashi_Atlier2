@@ -1406,7 +1406,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     i++;
                 }
             }
-
+            
             //アイテムの前回スコアなどを読み込み
             for (count = 0; count < systemData.save_itemdatabase.Count; count++)
             {

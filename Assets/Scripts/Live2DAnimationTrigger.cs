@@ -34,9 +34,6 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
-        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-        character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
-
         live2d_animator = this.GetComponent<Animator>();
         //expressionは、ノーマルにセットしておく。宴でバグらなくなる。古い処理かも？もう削除して大丈夫そう。
         //trans_expression = 1; //リセット
@@ -45,18 +42,24 @@ public class Live2DAnimationTrigger : MonoBehaviour {
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
-        switch (GameMgr.Scene_Category_Num)
+        /*switch (GameMgr.Scene_Category_Num)
         {
             case 10: //調合メインシーンでやりたい処理
 
-                //カメラの取得
-                main_cam = Camera.main;
-                maincam_animator = main_cam.GetComponent<Animator>();
-                trans = maincam_animator.GetInteger("trans");
+                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
 
                 this.GetComponent<CubismRenderController>().SortingOrder = -500;
                 break;
-        }
+
+            case 100: //コンテストシーンでやりたい処理
+
+                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
+
+                this.GetComponent<CubismRenderController>().SortingOrder = -500;
+                break;
+        }*/
     }
 	
 	// Update is called once per frame
@@ -116,6 +119,8 @@ public class Live2DAnimationTrigger : MonoBehaviour {
             girl1_status.ResetHukidashiYodare();
 
             //タッチもできるように。
+            character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+            character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
             character_touch_controll.Touch_OnAllON();
         }
     }

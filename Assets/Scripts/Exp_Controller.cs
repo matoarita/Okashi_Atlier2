@@ -95,6 +95,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int toggle_type1;
     private int dongri_type;
     private int kettei_item1;
+    private int shopbuy_kettei_item1;
 
     private int result_item;
     public int result_ID; //SetImageなどからも読む可能性あり
@@ -1504,7 +1505,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
-        kettei_item1 = shopitemlistController.shop_kettei_item1;
+        shopbuy_kettei_item1 = shopitemlistController.shop_kettei_item1; //ショップ購入時の決定アイテムIDは、参照先がdatabaseの場合とeventdatabaseで分かれているので、下の処理内で、配列番号を取得するようにしている。
         //Debug.Log("決定したアイテムID: " + kettei_item1 + " リスト番号: " + shopitemlistController.shop_count);
 
         toggle_type1 = shopitemlistController.shop_itemType;
@@ -1516,19 +1517,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (toggle_type1 == 0)
         {
             //プレイヤーアイテムリストに追加。
-            pitemlist.addPlayerItem(database.items[kettei_item1].itemName, result_kosu);
+            pitemlist.addPlayerItem(database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName, result_kosu);
         }
         else if (toggle_type1 == 1) //shop_itemType=1のものは、レシピのこと。買うことで、あとでアトリエに戻ったときに、本を読み、いくつかのレシピを解禁するフラグになる。
         {
-            //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
-            pitemlist.add_eventPlayerItem(kettei_item1, result_kosu);
+            //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。            
+            pitemlist.add_eventPlayerItem(pitemlist.SearchEventItemID(shopbuy_kettei_item1), result_kosu);
             pitemlist.eventitemlist_Sansho(); //デバッグ用
 
         }
         else if (toggle_type1 == 5) //shop_itemType = 5 のものは、エメラルどんぐりで買うアイテムで特殊。レアアイテム・コスチュームなどのアイテム系。
         {
-            //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。
-            pitemlist.add_EmeraldPlayerItem(kettei_item1, result_kosu);
+            //イベントプレイヤーアイテムリストに追加。レシピのフラグなど。            
+            pitemlist.add_EmeraldPlayerItem(pitemlist.SearchEmeraldItemID(shopbuy_kettei_item1), result_kosu);
             pitemlist.emeralditemlist_Sansho(); //デバッグ用。コメントアウトしても大丈夫。
             
         }
@@ -1536,13 +1537,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             //かごの大きさ計算やバフの計算は「Buf_Power_keisan.cs」
             //プレイヤーアイテムリストに追加。
-            pitemlist.addPlayerItem(database.items[kettei_item1].itemName, result_kosu);
+            pitemlist.addPlayerItem(database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName, result_kosu);
             
         }
         else //トッピングなど
         {
             //プレイヤーアイテムリストに追加。
-            pitemlist.addPlayerItem(database.items[kettei_item1].itemName, result_kosu);
+            pitemlist.addPlayerItem(database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName, result_kosu);
         }
 
         switch (GameMgr.Scene_Category_Num)

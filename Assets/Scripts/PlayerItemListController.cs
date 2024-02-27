@@ -659,7 +659,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
                 }
-                else if (GameMgr.Scene_Category_Num == 20) //納品時にリストを開くとき
+                else if (GameMgr.Scene_Category_Num == 20) //お店でリストを開くとき
                 {
                     switch (GameMgr.Scene_Select)
                     {
@@ -676,7 +676,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             //フルーツかレアアイテムを表示
                             if (check_itemType == "Mat" || check_itemType == "Potion" || check_itemType == "Okashi" ||
-                                    check_itemType_sub == "Rare" || check_itemType_sub == "Equip")
+                                    check_itemType_sub == "Rare" || check_itemType_sub == "Equip" || check_itemType_sub == "Garbage" || check_itemType_sub == "Object")
                             {
 
                                 itemlist_hyouji_Check();
@@ -827,8 +827,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _listitem.Clear();
 
         //まず、プレイヤーアイテムリストを、表示
-        check_itemListType = 0;
-            
+        check_itemListType = 0;          
         for (i = 0; i < pitemlist.playeritemlist.Count; i++)
         {
             check_item_Hyouji = database.items[i].item_Hyouji;
@@ -886,10 +885,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             else
             {
                 //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
-                if (check_itemType == "Potion" || check_itemType_sub == "Potion" ||
+                if (check_itemType == "Potion" || check_itemType_sub_category == "Potion" ||
                     check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" ||
-                    check_itemType_sub == "Nuts" || check_itemType_sub == "IceCream" ||
-                    check_itemType_sub_category == "Potion")
+                    check_itemType_sub == "Nuts" || check_itemType_sub == "IceCream"
+                    )
                 {
                     itemlist_hyouji_Check();
                 }
@@ -928,10 +927,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
-        _toggle_itemID.toggleitem_ID = i; //アイテムIDを、リストビューのトグル自体にも記録させておく。 
+        _toggle_itemID.toggleitem_ID = database.items[i].itemID; //アイテムIDを、リストビューのトグル自体にも記録させておく。 
         _toggle_itemID.toggleitem_type = 0; //プレイヤーアイテムリストを識別するための番号。0を入れる。
         _toggle_itemID.toggle_originplist_ID = i; //店売りアイテムのアイテムリスト番号
-        //Debug.Log("プレイヤ店売りアイテムリストID: " + _toggle_itemID.toggle_originplist_ID);
+        //Debug.Log("プレイヤ店売りリスト配列番号: " + _toggle_itemID.toggle_originplist_ID);
 
 
         item_name = database.items[i].itemNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。

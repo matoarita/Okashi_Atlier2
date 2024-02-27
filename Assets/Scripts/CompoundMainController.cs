@@ -862,9 +862,11 @@ public class CompoundMainController : MonoBehaviour {
         }
         else if (exp_Controller._temp_extreme_itemtype == 2) //エクストリームパネルに設定したアイテムの場合　通常これのみ使用
         {
-            pitemlistController.final_base_kettei_item = pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID;
+            //pitemlistController.final_base_kettei_item = pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID;
+            pitemlistController.final_base_kettei_item = database.SearchItemID(pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID);
         }
 
+        Debug.Log("ベースアイテムID: " + pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID + " " + database.items[pitemlistController.final_base_kettei_item].itemName);
         pitemlistController.base_kettei_item = exp_Controller._temp_extreme_id;
         pitemlistController._base_toggle_type = exp_Controller._temp_extreme_itemtype;
 

@@ -121,7 +121,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             }
 
             ++sheet_no;
-
+            /*
             if (sheet_no < excel_itemdatabase.sheets.Count)
             {
                 sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる。ここでは、前シートの要素数を取得している。
@@ -130,7 +130,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 {
                     playeritemlist.Add("Non" + (sheet_no-1).ToString() + " " + (sheet_count+i).ToString(), 0); //エクセルに登録されていないアイテムID分、空をいれている。
                 }
-            }
+            }*/
         }
 
         /*foreach (KeyValuePair<string, int> item in playeritemlist) //ここで使っているitemは、foreach用の変数
@@ -453,6 +453,24 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         //Debug.Log("itemID: " + deleteID + " 残り所持数: " + playeritemlist[deleteID]);
     }
 
+    //イベントアイテムIDをいれると、そのアイテムの(配列番号)を返すメソッド
+    public int SearchEventItemID(int _itemID)
+    {
+
+        i = 0;
+        while (i <= eventitemlist.Count)
+        {
+            if (eventitemlist[i].ev_ItemID == _itemID)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
+
+    }
+
     //イベントアイテムを追加
     public void add_eventPlayerItem(int ev_id, int count_kosu)
     {
@@ -479,6 +497,24 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             }           
             i++;
         }
+    }
+
+    //エメラルドアイテムIDをいれると、そのアイテムの(配列番号)を返すメソッド
+    public int SearchEmeraldItemID(int _itemID)
+    {
+
+        i = 0;
+        while (i <= emeralditemlist.Count)
+        {
+            if (emeralditemlist[i].ev_ItemID == _itemID)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
+
     }
 
     //エメラルドアイテムを追加

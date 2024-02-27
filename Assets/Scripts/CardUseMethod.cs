@@ -53,7 +53,7 @@ public class CardUseMethod : MonoBehaviour
         bgpanelmatome = GameObject.FindWithTag("BG");
         BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
 
-        BGAccetrigger.BGAcceOn(database.items[itemID].itemName); //ヒンメリだったら、himmeliを入力している。
+        BGAccetrigger.BGAcceOn(database.items[database.SearchItemID(itemID)].itemName); //ヒンメリだったら、himmeliを入力している。
 
     }
 
@@ -98,7 +98,7 @@ public class CardUseMethod : MonoBehaviour
 
                 for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
                 {
-                    if (GameMgr.CollectionItemsName[i] == database.items[itemID].itemName)
+                    if (GameMgr.CollectionItemsName[i] == database.items[database.SearchItemID(itemID)].itemName)
                     {
                         GameMgr.CollectionItems[i] = true;
                     }
@@ -107,7 +107,7 @@ public class CardUseMethod : MonoBehaviour
                 //登録したアイテムは削除
                 if (itemType == 0)
                 {
-                    pitemlist.deletePlayerItem(database.items[itemID].itemName, 1);
+                    pitemlist.deletePlayerItem(database.items[database.SearchItemID(itemID)].itemName, 1);
                 }
                 else
                 {

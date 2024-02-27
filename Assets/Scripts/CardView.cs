@@ -710,7 +710,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         foreach (string key in GameMgr.BGAcceItemsName.Keys)
         {
-            if (key == database.items[_cardImage.itemID].itemName)
+            if (key == database.items[_kettei_item1].itemName)
             {
                 _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
                 _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardDeco_Toggle").gameObject.SetActive(true);
@@ -721,7 +721,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         /*
         for( i=0; i< GameMgr.CollectionItemsName.Count; i++)
         {
-            if(database.items[_cardImage.itemID].itemName == GameMgr.CollectionItemsName[i])
+            if(database.items[_kettei_item1].itemName == GameMgr.CollectionItemsName[i])
             {
                 _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
                 _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardCollect_Toggle").gameObject.SetActive(true);

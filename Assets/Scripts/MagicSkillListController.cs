@@ -106,83 +106,82 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
     public void SkillList_DrawView() //基本
     {
-        if (category_toggle[0].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 0;
             reset_and_DrawView(0);
-        }
+        
     }
 
     public void SkillList_DrawView2() //氷
     {
-        if (category_toggle[1].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 1;
             reset_and_DrawView(1);
-        }
+        
     }
 
     public void SkillList_DrawView3() //光
     {
-        if (category_toggle[2].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 2;
             reset_and_DrawView(2);
-        }
+        
     }
 
     public void SkillList_DrawView4() //風
     {
-        if (category_toggle[3].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 3;
             reset_and_DrawView(3);
-        }
+        
     }
 
     public void SkillList_DrawView5() //星
     {
-        if (category_toggle[4].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 4;
             reset_and_DrawView(4);
-        }
+        
     }
 
     public void SkillList_DrawView6() //森
     {
-        if (category_toggle[5].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 5;
             reset_and_DrawView(5);
-        }
+        
     }
 
     public void SkillList_DrawView7() //時
     {
-        if (category_toggle[6].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 6;
             reset_and_DrawView(6);
-        }
+        
     }
 
     public void SkillList_DrawView8() //音
     {
-        if (category_toggle[7].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 7;
             reset_and_DrawView(7);
-        }
+
     }
 
     public void SkillList_DrawView9() //心
     {
-        if (category_toggle[8].GetComponent<Toggle>().isOn == true)
-        {
+
             category_status = 8;
             reset_and_DrawView(8);
-        }
+        
+    }
+
+    public void SkillList_DrawView10() //火
+    {
+
+        category_status = 9;
+        reset_and_DrawView(9);
+
     }
 
     //再度描画
@@ -234,6 +233,11 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             case 8:
 
                 reset_and_DrawView(8);
+                break;
+
+            case 9:
+
+                reset_and_DrawView(9);
                 break;
 
         }
@@ -471,6 +475,31 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                     for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 8)
+                        {
+                            drawLearnSkill();
+                        }
+                    }
+                }
+                break;
+
+            case 9:
+
+                if (GameMgr.MagicSkillSelectStatus == 0)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillType == 1 &&
+                            magicskill_database.magicskill_lists[i].skillLv >= 1 && magicskill_database.magicskill_lists[i].skillCategory == 9)
+                        {
+                            drawSkill();
+                        }
+                    }
+                }
+                else if (GameMgr.MagicSkillSelectStatus == 1)
+                {
+                    for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+                    {
+                        if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 9)
                         {
                             drawLearnSkill();
                         }

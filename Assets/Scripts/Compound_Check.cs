@@ -84,6 +84,7 @@ public class Compound_Check : MonoBehaviour {
     private float _ex_probabilty_temp;
     private int dice;
 
+    private int baseitemID;
     private int itemID_1;
     private int itemID_2;
     private int itemID_3;
@@ -318,7 +319,7 @@ public class Compound_Check : MonoBehaviour {
 
                 itemID_1 = pitemlistController.final_kettei_item1;
                 itemID_2 = pitemlistController.final_kettei_item2;
-                
+
                 pitemlistController.kettei_item3 = 9999;
                 pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
                 itemID_3 = pitemlistController.final_kettei_item3;
@@ -576,7 +577,9 @@ public class Compound_Check : MonoBehaviour {
         {
             case 11: //べーすあいてむ + 1個選択しているとき
 
+                //itemID_1 = pitemlistController.final_kettei_item1;
                 itemID_1 = pitemlistController.final_kettei_item1;
+                baseitemID = pitemlistController.final_base_kettei_item;
 
                 pitemlistController.kettei_item2 = 9999;
                 pitemlistController.kettei_item3 = 9999;
@@ -589,7 +592,7 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + "一個目: " + 
+                _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + "に" + "\n" + "一個目: " + 
                     database.items[itemID_1].itemNameHyouji + " " + 
                     pitemlistController.final_kettei_kosu1 + "個" + "をトッピングします。" + "\n" + "　トッピングしますか？";
 
@@ -647,6 +650,7 @@ public class Compound_Check : MonoBehaviour {
 
                 itemID_1 = pitemlistController.final_kettei_item1;
                 itemID_2 = pitemlistController.final_kettei_item2;
+                baseitemID = pitemlistController.final_base_kettei_item;
 
                 pitemlistController.kettei_item3 = 9999;
                 pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
@@ -656,7 +660,7 @@ public class Compound_Check : MonoBehaviour {
 
                 CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + 
+                _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + "に" + "\n" + 
                     "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + 
                     "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + 
                     "　トッピングしますか？";
@@ -717,10 +721,11 @@ public class Compound_Check : MonoBehaviour {
                 itemID_1 = pitemlistController.final_kettei_item1;
                 itemID_2 = pitemlistController.final_kettei_item2;
                 itemID_3 = pitemlistController.final_kettei_item3;
+                baseitemID = pitemlistController.final_base_kettei_item;
 
                 card_view.OKCard_DrawView04();
 
-                _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "に" + "\n" + 
+                _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + "に" + "\n" + 
                     "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + 
                     "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + 
                     "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + 
@@ -997,13 +1002,13 @@ public class Compound_Check : MonoBehaviour {
         //エクストリーム調合の場合は、こっち。ベース決定アイテムを、temp_resultに入れる。
         else if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
         {
-            _itemIDtemp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemName);
+            _itemIDtemp_result.Add(database.items[baseitemID].itemName);
             _itemIDtemp_result.Add(database.items[itemID_1].itemName);
 
-            _itemSubtype_temp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[baseitemID].itemType_sub.ToString());
             _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
 
-            _itemSubtypeB_temp_result.Add(database.items[pitemlistController.final_base_kettei_item].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[baseitemID].itemType_subB.ToString());
             _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
 
             _itemKosutemp_result.Add(1);
@@ -1020,7 +1025,7 @@ public class Compound_Check : MonoBehaviour {
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
+                _ex_probabilty_temp = database.items[baseitemID].Ex_Probability *
                 database.items[itemID_1].Ex_Probability;
 
                 inputcount = 2;
@@ -1033,7 +1038,7 @@ public class Compound_Check : MonoBehaviour {
                 _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[pitemlistController.final_base_kettei_item].Ex_Probability *
+                _ex_probabilty_temp = database.items[baseitemID].Ex_Probability *
                 database.items[itemID_1].Ex_Probability *
                 database.items[itemID_2].Ex_Probability;
 

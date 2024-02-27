@@ -61,6 +61,7 @@ public class shopitemSelectToggle : MonoBehaviour
     public int toggle_shopitem_dongri_type; //どんぐりタイプも保持
 
     private int i;
+    private int _id;
 
     private int _itemcount; //現在の所持数　店売り＋オリジナル
     private string _item_Namehyouji;
@@ -206,19 +207,22 @@ public class shopitemSelectToggle : MonoBehaviour
 
         if (shopitemlistController.shop_itemType == 1) //レシピを選択したとき
         {
+            _id = pitemlist.SearchEventItemID(shopitemlistController.shop_kettei_item1); //IDをもとにevent_itemsの配列番号に変換
             _text.text = _item_Namehyouji + "を何個買いますか？";
-            card_view.ShopSelectCard_DrawView(1, shopitemlistController.shop_kettei_item1);
+            card_view.ShopSelectCard_DrawView(1, _id);
         }
         else if (shopitemlistController.shop_itemType == 5) //エメラルドショップのアイテムを選択したとき
         {
-            _itemcount = pitemlist.KosuCountEmerald(pitemlist.emeralditemlist[shopitemlistController.shop_kettei_item1].event_itemName);
+            _id = pitemlist.SearchEmeraldItemID(shopitemlistController.shop_kettei_item1);
+            _itemcount = pitemlist.KosuCountEmerald(pitemlist.emeralditemlist[_id].event_itemName);
             _text.text = _item_Namehyouji + "を買いますか？" + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
         }
         else //それ以外の通常のアイテムは個数が表示
-        {           
-            _itemcount = pitemlist.KosuCount(database.items[shopitemlistController.shop_kettei_item1].itemName);
+        {
+            _id = database.SearchItemID(shopitemlistController.shop_kettei_item1); //IDをもとにitemsの配列番号に変換
+            _itemcount = pitemlist.KosuCount(database.items[_id].itemName);
             _text.text = _item_Namehyouji + "を買いますか？" + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
-            card_view.ShopSelectCard_DrawView(0, shopitemlistController.shop_kettei_item1);
+            card_view.ShopSelectCard_DrawView(0, _id);
         }
 
         Debug.Log(count + "番が押されたよ");

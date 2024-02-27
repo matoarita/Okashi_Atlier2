@@ -207,7 +207,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
             {
                 sheet_count = _id + 1; //一枚前のシートの要素数をカウント　_idのラストは、例えば2が入っているので、+1すれば、要素数になる
 
-                for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
+                /*for (i = 0; i < excel_itemdatabase.sheets[sheet_no].list[0].ItemID - sheet_count; i++) //次のシートの0行目のID番号をみる。例えば300とか。
                 {
                     items.Add(new Item(_id + i + 1, "Non", "orange", "Non" + (sheet_no - 1).ToString() + " " + (sheet_count + i).ToString(), "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
@@ -221,7 +221,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     items_system.Add(new Item(_id + i + 1, "Non", "orange", "Non" + (sheet_no - 1).ToString() + " " + (sheet_count + i).ToString(), "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         _ex_kaisu, 0, 0, 0, 0, 0, "", 0, 1, 0, 0));
-                }
+                }*/
 
                 sheet_topendID.Add(excel_itemdatabase.sheets[sheet_no].list[0].ItemID); // 次sheetの頭のIDを入れる。
             }
@@ -231,9 +231,9 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
         // デバッグ用 //
         /*for (i = 0; i < items.Count; i++)
         {
-            Debug.Log(items[i].itemID);
+            Debug.Log(items[i].itemID + ": " + items[i].itemName);
         }*/
-
+       
         /*for (i = 0; i < sheet_topendID.Count; i++)
         {
             Debug.Log( "  " + sheet_topendID[i]);

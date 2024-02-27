@@ -129,7 +129,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         nouhinToggle_obj = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_Nouhin").gameObject;
         nouhinToggle = nouhinToggle_obj.GetComponent<Toggle>();
 
-        yes_no_panel = canvas.transform.Find("Yes_no_Panel(Clone)").gameObject;
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
         yes_no_panel.SetActive(false);
 
         yes = yes_no_panel.transform.Find("Yes").gameObject;

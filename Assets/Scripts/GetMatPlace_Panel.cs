@@ -431,6 +431,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Farm", 0.3f);
                     break;
 
+                case "Orangina_Castletown":
+
+                    FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
+                    break;
+
+                case "Contest_OrA1":
+
+                    FadeManager.Instance.LoadScene("Or_Contest_A1", 0.3f);
+                    break;
+
                 default:
 
                     //採取地表示
