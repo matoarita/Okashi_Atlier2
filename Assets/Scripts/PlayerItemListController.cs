@@ -19,6 +19,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private MagicSkillListDataBase magicskill_database;
 
     private SlotNameDataBase slotnamedatabase;
     private string[] _slot = new string[10]; //とりあえず、スロットの数の設定用。
@@ -46,6 +47,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private int max_original;
     private int count;
     private int i, n;
+    private int _lv;
 
     private int check_itemListType;
     private int check_item_Hyouji;
@@ -112,6 +114,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //キーマネージャー取得
         keymanager = keyManager.Instance.GetComponent<keyManager>();
@@ -560,11 +565,46 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         {
                             case "Freezing_Spell":
 
-                                if (check_itemType_sub == "Cookie" || 
-                                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilChocolateTwister")
+                                _lv = magicskill_database.skillName_SearchLearnLevel("Freezing_Spell");
+
+                                if (_lv >= 1) //1のときはアイス水溶液のみ
                                 {
-                                    itemlist_hyouji_Check();
+                                    if (check_itemType_subB == "a_AppaleiliceCream")
+                                    {
+                                        itemlist_hyouji_Check();
+                                    }
                                 }
+                                if (_lv >= 2) //液体系全般
+                                {
+                                    if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilTwister" || 
+                                        check_itemType_subB == "a_AppaleilJelly" || 
+                                        check_itemType_sub == "Water" || check_itemType_sub == "Milk" || check_itemType_subB == "a_Juice")
+                                    {
+                                        itemlist_hyouji_Check();
+                                    }
+                                }
+                                if (_lv >= 3) //くだもの
+                                {
+                                    if (check_itemType_sub == "Fruits")
+                                    {
+                                        itemlist_hyouji_Check();
+                                    }
+                                }
+                                if (_lv >= 4) //おはな
+                                {
+                                    if (check_itemType_sub == "Flower")
+                                    {
+                                        itemlist_hyouji_Check();
+                                    }
+                                }
+                                if (_lv >= 5) //お菓子全て
+                                {
+                                    if (check_itemType == "Okashi")
+                                    {
+                                        itemlist_hyouji_Check();
+                                    }
+                                }
+
                                 break;
 
                             case "Luminous_Suger":
@@ -609,10 +649,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             case "Wind_Twister":
 
-                                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
-                                    check_itemName == "appaleil_chocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" || check_itemType_subB == "a_Juice" ||
+                                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
                                 {
-                                    itemlist_hyouji_Check();
+                                    if (check_itemType_subB != "a_AppaleilTwister" || check_itemType_subB != "a_AppaleilChocolateBar") //ツイスターや加工されたものはもうツイストできない
+                                    {
+                                        itemlist_hyouji_Check();
+                                    }
+
                                 }
                                 break;
 

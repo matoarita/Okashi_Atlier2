@@ -14,6 +14,10 @@ public class CatchLog : MonoBehaviour
     private StringBuilder builder = new StringBuilder();
     private bool autoScroll = true;
 
+    private bool _sw;
+    private GameObject DebugLogPanel;
+    private Toggle logcatch_toggle;
+
     private bool catchstop_flag = false;
 
     [SerializeField, Tooltip("テキストの先頭に時刻を表示する")]
@@ -27,6 +31,9 @@ public class CatchLog : MonoBehaviour
 
     private void Awake()
     {
+        DebugLogPanel = this.transform.parent.parent.parent.parent.gameObject;
+        logcatch_toggle = DebugLogPanel.transform.Find("LogGetToggle").GetComponent<Toggle>();
+
         text = this.GetComponent<Text>();
         if (text == null)
         {
@@ -41,6 +48,7 @@ public class CatchLog : MonoBehaviour
             text.supportRichText = true;
 
         text.text = string.Empty;
+        _sw = true;
     }
 
     private void OnEnable()
@@ -143,9 +151,10 @@ public class CatchLog : MonoBehaviour
         }
     }
 
-    public void CatchStopButton(int _bool)
+    public void CatchStopButton()
     {
-        if(_bool == 0)
+        _sw = logcatch_toggle.isOn;
+        if (!_sw)
         {
             catchstop_flag = false;
         }

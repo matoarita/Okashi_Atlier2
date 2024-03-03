@@ -2001,7 +2001,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             if (_id == contestSet_database.contest_set[j].girlLike_compNum)
             {
                 //Debug.Log("contestSet_database.contest_set[j].girlLike_compNum: " + contestSet_database.contest_set[j].girlLike_compNum);
-                //Debug.Log("j :" + j);
+                //Debug.Log("リストの配列番号 j :" + j);
                 setID = j;
                 break;
             }
@@ -2218,6 +2218,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //compNumの番号も保存。どの判定用お菓子セットを選んだかがわかる。
         girllike_judgeNum[_set_num] = _id;
+
+        //Debug.Log("girl1_Bitter: " + "[" + _set_num + "]" + girl1_Bitter[_set_num]);
     }
 
 

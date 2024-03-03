@@ -324,6 +324,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.contest_event_flag = true;
 
         GameMgr.ending_count = 1;
+
+        _model_move.SetActive(false);
         canvas.transform.Find("DebugContestStart").gameObject.SetActive(false);
     }
 
@@ -332,7 +334,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //pitemlist.addPlayerItemString("komugiko", 10);
 
         //デバッグ用　全てのアイテムを追加する
-        playerDefaultStart_ItemGet.AddAllItem_NoAcce();
+        //playerDefaultStart_ItemGet.AddAllItem_NoAcce();
+        pitemlist.addPlayerItemString("cacao_beans", 10);
+        pitemlist.addPlayerItemString("suger", 10);
+        pitemlist.addPlayerItemString("beans_crusher", 1);
+        pitemlist.addPlayerItemString("appaleil_chocolate", 10);
+        pitemlist.addPlayerItemString("appaleil_chocolate_twister_lv1", 10);
 
         magicskill_database.skillLearnLv_Name("Cookie_Study", 10);
         magicskill_database.skillLearnLv_Name("Freezing_Spell", 10);

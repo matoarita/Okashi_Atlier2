@@ -1051,6 +1051,7 @@ public class Compound_Check : MonoBehaviour {
         {
             _itemIDtemp_result.Add(database.items[itemID_1].itemName);
             _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName);
+            //Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName + magicskill_database.magicskill_lists[itemID_2].skillUseLv);
 
             _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
             _itemSubtype_temp_result.Add("empty");

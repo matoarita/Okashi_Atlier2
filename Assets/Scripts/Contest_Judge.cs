@@ -379,7 +379,7 @@ public class Contest_Judge : MonoBehaviour {
         else //エクストリームパネルにお菓子が入っていない時。デバッグ用。
         {
             //お試し　店売りねこクッキー
-            kettei_itemID = 200;
+            kettei_itemID = database.SearchItemIDString("neko_cookie");
             kettei_itemType = 0;
         }
 
@@ -457,6 +457,7 @@ public class Contest_Judge : MonoBehaviour {
                 contest_Name = "First_Contest";
                 break;
         }
+        Debug.Log("コンテスト名前と番号: " + contest_Name + " " + GameMgr.ContestSelectNum);
 
         i = 0;
         while (i < contestSet_database.contest_set.Count)
@@ -520,8 +521,7 @@ public class Contest_Judge : MonoBehaviour {
         kettei_item1 = value1;
         _toggle_type1 = value2;
 
-        //アイテムパラメータの取得
-
+        //アイテムパラメータの取得 店売りかオリジナルかエクストリームパネルにセットされてるか
         switch (_toggle_type1)
         {
             case 0:
@@ -736,26 +736,8 @@ public class Contest_Judge : MonoBehaviour {
         switch (dislike_status)
         {
             case 0:
-
-                _windowtext.text = "審査員１　点数：" + total_score[0] + "点" + "\n" +
-                    "審査員２　点数：" + total_score[1] + "点" + "\n" +
-                    "審査員３　点数：" + total_score[2] + "点";
-
-                //点数を200点を上限にし、100点に正規化する処理
-                for (i = 0; i < GameMgr.contest_Score.Length; i++)
-                {
-                    _temp_score = SujiMap(total_score[i], 0, 200, 0, 100);
-                    total_score[i] = (int)_temp_score;
-                }
-
-                Debug.Log("審査員１　正規化点数：" + total_score[0] + "点");
-                Debug.Log("審査員２　正規化点数：" + total_score[1] + "点");
-                Debug.Log("審査員３　正規化点数：" + total_score[2] + "点");
-
-                Debug.Log("### ###");
-                Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
-                Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
-                Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");               
+  
+                
 
                 sum = 0;
                 for (i = 0; i < GameMgr.contest_Score.Length; i++)
@@ -770,6 +752,10 @@ public class Contest_Judge : MonoBehaviour {
                     GameMgr.contest_TotalScore = 0;
                 }
                 Debug.Log("総合得点：" + GameMgr.contest_TotalScore + "点");
+
+                _windowtext.text = "審査員１　点数：" + total_score[0] + "点" + "\n" +
+                    "審査員２　点数：" + total_score[1] + "点" + "\n" +
+                    "審査員３　点数：" + total_score[2] + "点";
 
 
                 break;
@@ -859,7 +845,23 @@ public class Contest_Judge : MonoBehaviour {
 
                 break;
         }
-       
+
+        //点数を200点を上限にし、100点に正規化する処理　ヒカリの点数の２分の一になるということ
+        for (i = 0; i < GameMgr.contest_Score.Length; i++)
+        {
+            _temp_score = SujiMap(total_score[i], 0, 200, 0, 100);
+            total_score[i] = (int)_temp_score;
+        }
+
+        Debug.Log("審査員１　正規化点数：" + total_score[0] + "点");
+        Debug.Log("審査員２　正規化点数：" + total_score[1] + "点");
+        Debug.Log("審査員３　正規化点数：" + total_score[2] + "点");
+
+        Debug.Log("### ###");
+        Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
+        Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
+        Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
+
     }
 
     IEnumerator Girl_Judge_anim_co()

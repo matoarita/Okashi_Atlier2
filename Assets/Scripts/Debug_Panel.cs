@@ -74,7 +74,6 @@ public class Debug_Panel : MonoBehaviour {
 
     private GameObject TastePanel;
     private GameObject DebugLogPanel;
-    private Toggle DebugLogCatchButton;
     private GameObject DebugHyouji_panel;
 
     //好感度レベルテーブルの取得
@@ -118,8 +117,6 @@ public class Debug_Panel : MonoBehaviour {
 
         DebugLogPanel = this.transform.Find("Hyouji/DebugLogPanel").gameObject;
         DebugLogPanel.SetActive(false);
-
-        DebugLogCatchButton = this.transform.Find("Hyouji/DebugCatchStopButton").GetComponent<Toggle>();
 
         CStatus_text = this.transform.Find("Hyouji/CompoundStatusText").GetComponent<Text>();
         CSelect_text = this.transform.Find("Hyouji/CompoundSelectText").GetComponent<Text>();
@@ -788,18 +785,6 @@ public class Debug_Panel : MonoBehaviour {
         else
         {
             DebugLogPanel.SetActive(true);
-        }
-    }
-
-    public void OnDebugLogCatchStopToggle()
-    {
-        if(DebugLogCatchButton.isOn)
-        {
-            DebugLogPanel.transform.Find("Scroll View/Viewport/Content/DebugLogText").GetComponent<CatchLog>().CatchStopButton(0);
-        }
-        else
-        {
-            DebugLogPanel.transform.Find("Scroll View/Viewport/Content/DebugLogText").GetComponent<CatchLog>().CatchStopButton(1);
         }
     }
 }

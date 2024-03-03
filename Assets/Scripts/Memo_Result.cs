@@ -7,7 +7,7 @@ using UnityEngine.UI;
 // Imageコンポーネントを必要とする
 [RequireComponent(typeof(Image))]
 
-public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler
+public class Memo_Result : MonoBehaviour
 {
     // ドラッグ前の位置
     private Vector3 prevPos;
@@ -97,7 +97,7 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         //音鳴らす
         sc.PlaySe(34);
 
-        rootPos = new Vector3(400f, 400f, 0f); //画面の半分（400, 300）+y方向に100
+        //rootPos = new Vector3(400f, 400f, 0f); //画面の半分（400, 300）+y方向に100
 
         //初期位置
         this.transform.localPosition = new Vector3(250f, 50f, 0f);
@@ -117,7 +117,7 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         this.gameObject.SetActive(false);
     }
 
-
+    /*
     //ドラッグ＆ドロップ関係
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -140,10 +140,10 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         transform.localPosition = eventData.position - rootPos;
 
         //画面外にでたら、端っこあたりにでるようにする。
-    }
+    }*/
 
-    public void OnDrop(PointerEventData eventData)
-    {
+    //public void OnDrop(PointerEventData eventData)
+    //{
         /*var raycastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raycastResults);
 
@@ -157,5 +157,5 @@ public class Memo_Result : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 this.enabled = false;
             }
         }*/
-    }
+    //}
 }

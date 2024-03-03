@@ -250,7 +250,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             matplace_toggle.Add(Instantiate(matplace_toggle_obj, content.transform));
             map_icon = matplace_database.matplace_lists[i].mapIcon_sprite;
             matplace_toggle[i].transform.Find("Background").GetComponent<Image>().sprite = map_icon;
-            matplace_toggle[i].GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+            matplace_toggle[i].transform.Find("Background").GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
             matplace_toggle[i].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにIDを割り振っておく。
         }
 

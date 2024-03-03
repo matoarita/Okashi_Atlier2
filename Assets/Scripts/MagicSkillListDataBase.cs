@@ -121,6 +121,23 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         }
     }
 
+    //スキル名をいれると、そのスキルの習得レベルを返す
+    public int skillName_SearchLearnLevel(string _name)
+    {
+        i = 0;
+        while (i < magicskill_lists.Count)
+        {
+            if (magicskill_lists[i].skillName == _name)
+            { 
+                return magicskill_lists[i].skillLv;
+            }
+            i++;
+        }
+
+        //一致しなかった場合はエラー　ひとまず0を返す
+        return 0;
+    }
+
     //スキル名をいれると、そのスキルのIDを返すメソッド
     public int SearchSkillString(string Name)
     {

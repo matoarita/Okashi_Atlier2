@@ -2071,7 +2071,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
     }
 
-    
+
 
     void Set_addparam()
     {
@@ -2129,11 +2129,16 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
+        if (Comp_method_bunki == 20) //魔法調合時 計算時の個数は1の時のパラメータで計算する
+        {
+            _addkosu = 1;
+        }
+
         //Debug.Log("_addkosu: " + _addkosu);
         _additemlist.Add(new ItemAdd(_addname, _addhp, _addday, _addquality, _addexp, _addrich, _addsweat, _addbitter, _addsour,
-            _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _addbeauty, _add_itemType, _add_itemType_sub,
-            _addbase_score, _addgirl1_like, _addcost, _addsell, 
-            _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
+        _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _addbeauty, _add_itemType, _add_itemType_sub,
+        _addbase_score, _addgirl1_like, _addcost, _addsell,
+        _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], _addkoyutp[0], _addkosu));
     }
 
     void Set_add_originparam()
@@ -2192,6 +2197,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 //_addkoyutp[i] = "Non";
                 _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
             }
+        }
+
+        if (Comp_method_bunki == 20) //魔法調合時 計算時の個数は1の時のパラメータで計算する
+        {
+            _addkosu = 1;
         }
 
         //Debug.Log("_addkosu: " + _addkosu);
@@ -2257,6 +2267,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 //_addkoyutp[i] = "Non";
                 _addkoyutp[i] = pitemlist.player_extremepanel_itemlist[_id].koyu_toppingtype[i].ToString();
             }
+        }
+
+        if (Comp_method_bunki == 20) //魔法調合時 計算時の個数は1の時のパラメータで計算する
+        {
+            _addkosu = 1;
         }
 
         //Debug.Log("_addkosu: " + _addkosu);
