@@ -140,6 +140,9 @@ public class Contest_Main : MonoBehaviour {
         //コンテスト会場きたときのイベント
         if (!GameMgr.contest_eventStart_flag)
         {
+            //採点処理
+            contest_judge.Contest_Judge_Start();
+
             GameMgr.contest_eventStart_flag = true;
             GameMgr.scenario_ON = true;
 

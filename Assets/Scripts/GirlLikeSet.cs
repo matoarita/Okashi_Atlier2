@@ -31,11 +31,14 @@ public class GirlLikeSet
 
     public int girlLike_beauty;
 
+    public int girlLike_sp_score1;
+
     public string[] girlLike_topping = new string[9];   //特定のトッピングに応じて、加算される。
     public int[] girlLike_topping_score = new int[9];
     public int girlLike_Non_topping_score; //トッピングが何もない、もしくは乗っててほしいトッピングがない時に、加算される値。大抵、おおきくマイナスになる。
 
     public int girlLike_comment_flag;
+    public int girlLike__search_endflag;
 
     public string set_kansou;
 
@@ -43,9 +46,10 @@ public class GirlLikeSet
     //ここでリスト化時に渡す引数をあてがいます   
     public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _set_score, int _rich, int _sweat, int _bitter, int _sour, 
         int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
+        int _sp_score1,
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, 
         int tp_score01, int tp_score02, int tp_score03, int tp_score04, int tp_score05, int tp_score06, int tp_score07, int tp_score08, int tp_score09,
-        int non_tp_score, string _setkansou, int _comment_flag)
+        int non_tp_score, string _setkansou, int _comment_flag, int _search_endflag)
     {
         girlLike_ID = id;
         girlLike_compNum = _compnum;
@@ -69,6 +73,8 @@ public class GirlLikeSet
         girlLike_juice = _juice;
 
         girlLike_beauty = _beauty;
+
+        girlLike_sp_score1 = _sp_score1;
 
         girlLike_topping[0] = tp01;
         girlLike_topping[1] = tp02;
@@ -94,6 +100,7 @@ public class GirlLikeSet
         set_kansou = _setkansou;
 
         girlLike_comment_flag = _comment_flag;
+        girlLike__search_endflag = _search_endflag;
     }
 
 }

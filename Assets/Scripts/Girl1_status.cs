@@ -107,6 +107,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public int[] girl1_Beauty;
 
+    public int[] girl1_SP_score1;
+
     //マイナスとなる要素。これは、お菓子の種類は関係なく、この数値を超えると、嫌がられる。
     public int girl1_Powdery;
     public int girl1_Oily;
@@ -324,6 +326,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Juice = new int[youso_count];
 
         girl1_Beauty = new int[youso_count];
+        girl1_SP_score1 = new int[youso_count];
 
         girl1_like_set_score = new int[youso_count];
         girl1_NonToppingScoreSet = new int[youso_count];
@@ -1966,6 +1969,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Juice[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_juice;
 
         girl1_Beauty[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_beauty;
+        girl1_SP_score1[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_score1;
 
         //③お菓子の種類：　空＝お菓子はなんでもよい　か　クッキー
         girl1_likeSubtype[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_itemSubtype;
@@ -2199,6 +2203,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Juice[_set_num] = contestSet_database.contest_set[setID].girlLike_juice;
 
         girl1_Beauty[_set_num] = contestSet_database.contest_set[setID].girlLike_beauty;
+        girl1_SP_score1[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_score1;
 
         //③お菓子の種類：　空＝お菓子はなんでもよい　か　クッキー
         girl1_likeSubtype[_set_num] = contestSet_database.contest_set[setID].girlLike_itemSubtype;

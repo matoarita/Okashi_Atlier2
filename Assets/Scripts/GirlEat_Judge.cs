@@ -182,6 +182,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int _baseoily;
     private int _basewatery;
     private int _basebeauty;
+
+    private int _base_sp_wind;
+
     private int _basescore;
     private float _basegirl1_like;
     private int _baseSetjudge_num;
@@ -214,6 +217,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int[] _girlchewy;
     private int[] _girljuice;
     private int[] _girlbeauty;
+    private int[] _girlspscore1;
 
     private int _girlpowdery;
     private int _girloily;
@@ -252,7 +256,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     //採点用パラメータを元に、さらに計算し、最終的に出されるスコア。
     //女の子が感想をいうときにも、使う。スコアは、girl1_statusにも共有し、宴と処理を絡める。
-    private int taste_level;
+    public int taste_level; //Quest_Judgeからも読み出し
     private int taste_score;
     private string taste_type;
 
@@ -275,6 +279,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     public int juice_score;
     public int shokukan_score;
     public int beauty_score;
+    public int spscore1_score;
 
     public int subtype1_score;
     public int subtype2_score;
@@ -634,6 +639,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _girljuice = new int[girl1_status.youso_count];
 
         _girlbeauty = new int[girl1_status.youso_count];
+        _girlspscore1 = new int[girl1_status.youso_count];
 
         _girl_subtype = new string[girl1_status.youso_count];
         _girl_likeokashi = new string[girl1_status.youso_count];
@@ -880,6 +886,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseoily = database.items[kettei_item1].Oily;
                 _basewatery = database.items[kettei_item1].Watery;
                 _basebeauty = database.items[kettei_item1].Beauty;
+                _base_sp_wind = database.items[kettei_item1].SP_wind;
                 _basescore = database.items[kettei_item1].Base_Score;
                 _basegirl1_like = database.items[kettei_item1].girl1_itemLike;
                 _baseitemtype = database.items[kettei_item1].itemType.ToString();
@@ -923,6 +930,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseoily = pitemlist.player_originalitemlist[kettei_item1].Oily;
                 _basewatery = pitemlist.player_originalitemlist[kettei_item1].Watery;
                 _basebeauty = pitemlist.player_originalitemlist[kettei_item1].Beauty;
+                _base_sp_wind = pitemlist.player_originalitemlist[kettei_item1].SP_wind;
                 _basescore = pitemlist.player_originalitemlist[kettei_item1].Base_Score;
                 _basegirl1_like = pitemlist.player_originalitemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_originalitemlist[kettei_item1].itemType.ToString();
@@ -966,6 +974,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseoily = pitemlist.player_extremepanel_itemlist[kettei_item1].Oily;
                 _basewatery = pitemlist.player_extremepanel_itemlist[kettei_item1].Watery;
                 _basebeauty = pitemlist.player_extremepanel_itemlist[kettei_item1].Beauty;
+                _base_sp_wind = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_wind;
                 _basescore = pitemlist.player_extremepanel_itemlist[kettei_item1].Base_Score;
                 _basegirl1_like = pitemlist.player_extremepanel_itemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_extremepanel_itemlist[kettei_item1].itemType.ToString();
@@ -1146,6 +1155,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _girljuice[i] = girl1_status.girl1_Juice[i];
 
             _girlbeauty[i] = girl1_status.girl1_Beauty[i];
+            _girlspscore1[i] = girl1_status.girl1_SP_score1[i];
 
             _girl_subtype[i] = girl1_status.girl1_likeSubtype[i];
             _girl_likeokashi[i] = girl1_status.girl1_likeOkashi[i];
@@ -1416,6 +1426,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         hardness_score = 0;
         juice_score = 0;
         beauty_score = 0;
+        spscore1_score = 0;
         topping_score = 0;
         topping_flag_point = 0;
         topping_flag = false;
@@ -1447,17 +1458,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //甘味
         sweat_score = TasteKeisanBase(_girlsweat[countNum], sweat_result, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
-        sweat_level = TasteLevel_Keisan(_girlsweat[countNum], sweat_score);
+        sweat_level = taste_level;
         Debug.Log("甘み点: " + sweat_score);
 
         //苦み
         bitter_score = TasteKeisanBase(_girlbitter[countNum], bitter_result, "苦み: ");
-        bitter_level = TasteLevel_Keisan(_girlbitter[countNum], bitter_score);
+        bitter_level = taste_level;
         Debug.Log("苦味点: " + bitter_score);
 
         //酸味
         sour_score = TasteKeisanBase(_girlsour[countNum], sour_result, "酸味: ");
-        sour_level = TasteLevel_Keisan(_girlsour[countNum], sour_score);
+        sour_level = taste_level;
         Debug.Log("酸味点: " + sour_score);
 
         //コンテスト用（その他NPCイベントの感想用）にここでヒントを更新
@@ -1487,7 +1498,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 if (itemslotScore[i] > 0)
                 {
                     topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslotScore[i]; //味に対するボーナス得点
-                    _basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslotScore[i]; //見た目に対するボーナス得点
+                    //_basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslotScore[i]; //見た目に対するボーナス得点　ややこしいので廃止
                 }
 
             }
@@ -1603,6 +1614,37 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             beauty_score = 0;
+        }
+
+        //コンテストでは、さらに「風らしさ」などの特殊点を計算
+        if (_girlspscore1[countNum] > 0)
+        {
+            GameMgr.Contest_Clear_Failed = false;
+
+            //コンテストに応じて、_base〇〇の部分を変える 〇回戦とかでも変える
+            switch (GameMgr.Contest_Name)
+            {
+                case "Or_Contest_001": //オレンジーナコンテストA1 クープデュモンド
+
+                    spscore1_score = _base_sp_wind - _girlspscore1[countNum];
+                    Debug.Log("コンテスト　特殊点: " + spscore1_score);
+                    break;
+
+                default: //
+
+                    spscore1_score = 0;
+                    break;
+            }
+            
+            if(spscore1_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　特殊点: " + spscore1_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore1_score = 0;
         }
 
         //最終の点数合計
@@ -1786,7 +1828,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         //以上、全ての点数を合計。
         total_score = set_score + sweat_score + bitter_score + sour_score
-        + shokukan_score + topping_score + beauty_score;
+        + shokukan_score + topping_score + beauty_score
+        + spscore1_score;
     }
 
     void Debuf_Param_Judge()
@@ -1836,6 +1879,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             Debug.Log(_taste_Type + "判定なし");
             taste_score = 0;
+            taste_level = 0;
         }
         else
         {
@@ -1851,55 +1895,59 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
             taste_score = 100;
+            taste_level = 8;
         }
         else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 80;
+            taste_score = 90;
+            taste_level = 7;
         }
-        else if (Mathf.Abs(_taste_result) < 10) //+-5~9  ほどよく良い塩梅
+        else if (Mathf.Abs(_taste_result) < 15) //+-5~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 40;
+            taste_score = 75;
+            taste_level = 6;
         }
-        else if (Mathf.Abs(_taste_result) < 15) //+-10~14　いい感じ
+        else if (Mathf.Abs(_taste_result) < 30) //+-15~29　かなりいい感じ
         {
             Debug.Log(_taste_type + "Well!");
-            taste_score = 20;
+            taste_score = 40;
+            taste_level = 5;
         }
-        else if (Mathf.Abs(_taste_result) < 20) //+-15~19　いい感じ
-        {
-            Debug.Log(_taste_type + "A little Well!");
-            taste_score = 20;
-        }
-        else if (Mathf.Abs(_taste_result) < 30) //+-20~29  ちょっと足りないかな
+        else if (Mathf.Abs(_taste_result) < 60) //+-29~59  いい感じ
         {
             Debug.Log(_taste_type + "Good!");
-            taste_score = 20;
+            taste_score = 35;
+            taste_level = 5;
         }
-        else if (Mathf.Abs(_taste_result) < 50) //+-30~49　全然足りない
+        else if (Mathf.Abs(_taste_result) < 90) //+-60~89　ちょっと足りない
         {
             Debug.Log(_taste_type + "Normal");
-            taste_score = 10;
+            taste_score = 20;
+            taste_level = 4;
         }
-        else if (Mathf.Abs(_taste_result) < 80) //+-50~79
+        else if (Mathf.Abs(_taste_result) < 90) //+-90~149　全然足りない
         {
             Debug.Log(_taste_type + "poor");
-            taste_score = 0;
+            taste_score = 3;
+            taste_level = 3;
         }
-        else if (Mathf.Abs(_taste_result) <= 100) //+-80~99
+        else if (Mathf.Abs(_taste_result) <= 150) //+-150~249
         {
             Debug.Log(_taste_type + "death..");
-            taste_score = -80;
+            taste_score = -60;
+            taste_level = 2;
         }
-        else if (Mathf.Abs(_taste_result) > 100) //+-100
+        else if (Mathf.Abs(_taste_result) > 250) //+-250
         {
             Debug.Log(_taste_type + "death..");
-            taste_score = -80;
+            taste_score = -120;
+            taste_level = 1;
         }
     }
 
-    public int TasteLevel_Keisan(int _girltaste, int _tast_score)
+    /*public int TasteLevel_Keisan(int _girltaste, int _tast_score)
     {
         if (_girltaste == 0)
         {
@@ -1946,7 +1994,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             return taste_level;
         }
-    }
+    }*/
 
     void ShokukanScore_keisan(string _temp_baseitemtype_sub)
     {
@@ -5281,15 +5329,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (sweat_result < 0)
             {
-                _sweat_kansou = "甘さ B: 甘さがちょっと足りない";
-                _contest_sweat_kansou = "甘さ B: 甘さが、すこし足りないようで、ちょっと物足りなかったですね。";
-                _shopgirl_sweat_kansou = "甘さ B: 甘さがもう少しあると、いい感じかも！";
+                _sweat_kansou = "甘さ B: 甘さいい感じ";
+                _contest_sweat_kansou = "甘さ B: 甘さ、良い感じですね。もう少し甘くてもいいと思います。";
+                _shopgirl_sweat_kansou = "甘さ B: ほどよい甘さでいいわね。少し甘さを足すともっといいかも。";
             }
             else
             {
-                _sweat_kansou = "甘さ B: 少し甘いかも？";
-                _contest_sweat_kansou = "甘さ B: 少し甘さが強かったようで、後味が少々くどいです。";
-                _shopgirl_sweat_kansou = "甘さ B: 少し甘味が強かった..かな？";
+                _sweat_kansou = "甘さ B: 甘さいい感じ";
+                _contest_sweat_kansou = "甘さ B: 良い甘さですね。少し甘さを控えてもいいと思います。";
+                _shopgirl_sweat_kansou = "甘さ B: ほどよい甘さでいいわね。少し甘さを引くとなおいいかも。";
             }
         }
         else if (sweat_level == 4)
@@ -5379,15 +5427,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (bitter_result < 0)
             {
-                _bitter_kansou = "苦さ B: 苦さがちょっと足りない";
-                _contest_bitter_kansou = "苦さ B: 苦さが少し足りない感じですね。";
-                _shopgirl_bitter_kansou = "苦さ B: あと少し、苦みがほしいかも。";
+                _bitter_kansou = "苦さ B: 苦さほどよくいい感じ";
+                _contest_bitter_kansou = "苦さ B: 苦さほどよくいい感じです。少し苦味を足すともっと良くなりそうです。";
+                _shopgirl_bitter_kansou = "苦さ B: 苦さほどよくいい感じね。あと少し苦さがあると深みが増しそう。";
             }
             else
             {
-                _bitter_kansou = "苦さ B: 少し苦いかも？";
-                _contest_bitter_kansou = "苦さ B: うぅん..。少し苦みが強かったですね。";
-                _shopgirl_bitter_kansou = "苦さ B: 少し苦さが強かったかも。でも、いい味わいよ♪";
+                _bitter_kansou = "苦さ B: 苦さほどよくいい感じ";
+                _contest_bitter_kansou = "苦さ B: 苦さほどよくいい感じです。少し苦味を抑えると、より味が引き立ちそうです。";
+                _shopgirl_bitter_kansou = "苦さ B: 苦さほどよくいい感じね。少し苦みを抑えると、もっといい塩梅かも。";
             }
         }
         else if (bitter_level == 4)
@@ -5481,15 +5529,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (sour_result < 0)
             {
-                _sour_kansou = "酸味 B: すっぱさちょっと足りない";
-                _contest_sour_kansou = "酸味 B: すっぱさが、もう少し入れてもよいかもですね。";
-                _shopgirl_sour_kansou = "酸味 B: 酸味があと少し効いたら.. 最高ね！";
+                _sour_kansou = "酸味 B: すっぱさいい感じ";
+                _contest_sour_kansou = "酸味 B: すっぱさ、ほどよく良い感じです。もう少し酸味を足してもイケそうです。";
+                _shopgirl_sour_kansou = "酸味 B: 酸味がいい感じね！　あとちょっと酸っぱくても、味が引き立ちそう。";
             }
             else
             {
-                _sour_kansou = "酸味 B: 少しすっぱいかも？";
-                _contest_sour_kansou = "酸味 B: 少しすっぱさが強かったですね。他の味にまで影響がでそうです。";
-                _shopgirl_sour_kansou = "酸味 B: ほんの少し、酸味が強かったかしら。でもいいお味ね。";
+                _sour_kansou = "酸味 B: すっぱさいい感じ";
+                _contest_sour_kansou = "酸味 B: すっぱさ、ほどよく良い感じです。少し酸味を抑えると、マイルドで良さそうです。";
+                _shopgirl_sour_kansou = "酸味 B: 酸味がいい感じね！　少し酸味を抑えれば、よりおいしさが引き立つかも。";
             }
         }
         else if (sour_level == 4)

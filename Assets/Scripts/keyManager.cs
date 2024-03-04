@@ -129,11 +129,11 @@ public class keyManager : SingletonMonoBehaviour<keyManager>
         //デバッグ用
         if (GameMgr.DEBUG_MODE)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1)) //１キーでMain デバッグ用
+            /*if (Input.GetKeyDown(KeyCode.Alpha1)) //１キーでMain デバッグ用
             {
                 //SceneManager.LoadScene("Main");
                 FadeManager.Instance.LoadScene("001_Title", 0.3f);
-            }
+            }*/
 
             if (Input.GetKeyDown(KeyCode.LeftShift)) //左シフトキーでデバッグ入力受付のON/OFF
             {

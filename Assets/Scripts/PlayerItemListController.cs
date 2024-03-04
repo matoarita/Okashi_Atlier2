@@ -601,7 +601,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 {
                                     if (check_itemType == "Okashi")
                                     {
-                                        if (check_itemType_sub != "Tea" || check_itemType_sub != "Coffee" || check_itemType_sub != "Bread")
+                                        if (check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Bread")
                                         {
                                             itemlist_hyouji_Check();
                                         }

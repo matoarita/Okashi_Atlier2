@@ -28,6 +28,7 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
     private int _juice;
 
     private int _beauty;
+    private int _sp_score1;
 
     private string _tp01;
     private string _tp02;
@@ -53,6 +54,7 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
     private string _setkansou;
 
     private int _comment_flag;
+    private int _search_endflag;
 
     private int i;
     private int count;
@@ -119,6 +121,8 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
 
         _beauty = excel_girlLikeset_database.sheets[sheet_no].list[count].beauty;
 
+        _sp_score1 = 0;
+
         _tp01 = excel_girlLikeset_database.sheets[sheet_no].list[count].topping01;
         _tp02 = excel_girlLikeset_database.sheets[sheet_no].list[count].topping02;
         _tp03 = excel_girlLikeset_database.sheets[sheet_no].list[count].topping03;
@@ -143,13 +147,15 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
         _setkansou = excel_girlLikeset_database.sheets[sheet_no].list[count].desc;
 
         _comment_flag = excel_girlLikeset_database.sheets[sheet_no].list[count].commet_flag;
+        _search_endflag = excel_girlLikeset_database.sheets[sheet_no].list[count].search_endflag;
 
         //ここでリストに追加している
         girllikeset.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
+            _sp_score1,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09,
             _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _tp_score06, _tp_score07, _tp_score08, _tp_score09,
-            _non_tp_score, _setkansou, _comment_flag));
+            _non_tp_score, _setkansou, _comment_flag, _search_endflag));
 
         //Debug.Log("GirlLike_tp01: " + girllikeset[count].girlLike_topping[0]);
     }

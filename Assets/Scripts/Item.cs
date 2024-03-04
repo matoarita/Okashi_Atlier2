@@ -47,6 +47,8 @@ public class Item
 
     public int Beauty;              //見た目の数値　大きいほど、かわいいとかキラキラしてるということ。
 
+    public int SP_wind;             //風らしさ
+
     public ItemType itemType;               //アイテムの種類メインカテゴリー
     public ItemType_sub itemType_sub;       //アイテムの種類サブカテゴリー（クッキー系とかパイ系など）
     public string itemType_subB;       //アイテムの種類サブのサブカテゴリー（フルーツでも、さらにその中のいちごなど。属性）
@@ -180,6 +182,7 @@ public class Item
     public Item(int id, string OriginalID, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, 
         int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, int beauty,
         int juice,
+        int sp_wind,
         string type, string subtype, string subtypeB, string subtype_category, int _base_score, float _girl1_like, int cost, int sell, 
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
@@ -224,7 +227,9 @@ public class Item
         Watery = watery;
 
         Beauty = beauty;
-        
+
+        SP_wind = sp_wind;
+
         itemType = (ItemType)Enum.Parse(typeof(ItemType), type);      
         itemType_sub = (ItemType_sub)Enum.Parse(typeof(ItemType_sub), subtype);
         itemType_subB = subtypeB;

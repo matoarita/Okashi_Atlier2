@@ -74,6 +74,8 @@ public class SetImage : MonoBehaviour
 
     public string item_type;
     public string item_type_sub;
+    public string item_type_subB;
+    public string item_type_sub_category;
 
     private string _quality;
     private string _quality_bar;
@@ -108,6 +110,9 @@ public class SetImage : MonoBehaviour
     private Text item_Powdery;
     private Text item_Oily;
     private Text item_Watery;
+
+    private Text item_Beauty;
+    private Text item_Spwind;
 
     private Text item_lastRich;
     private Text item_lastSweat;
@@ -152,6 +157,9 @@ public class SetImage : MonoBehaviour
     private int _chewy_score;
 
     private int _juice_score;
+
+    private int _beauty_score;
+    private int _spwind_score;
 
     private int _powdery_score;
     private int _oily_score;
@@ -337,6 +345,10 @@ public class SetImage : MonoBehaviour
         item_Oily = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemOily").gameObject.GetComponent<Text>(); //粉っぽいの値
         item_Watery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemWatery").gameObject.GetComponent<Text>(); //粉っぽいの値
 
+        //デバッグ用　見た目などのパラメータ
+        item_Beauty = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/DebugTasteScorePanel/ItemBeautyScore").gameObject.GetComponent<Text>(); //見た目の値
+        item_Spwind = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/DebugTasteScorePanel/ItemSP_windScore").gameObject.GetComponent<Text>();
+
         //スロット表示
         item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
         item_Slot[1] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_02").gameObject.GetComponent<Text>(); //Slot02の値
@@ -468,6 +480,8 @@ public class SetImage : MonoBehaviour
 
                 //サブカテゴリーの代入
                 item_type_sub = database.items[check_counter].itemType_sub.ToString();
+                item_type_subB = database.items[check_counter].itemType_subB.ToString();
+                item_type_sub_category = database.items[check_counter].itemType_sub_category.ToString();
 
                 /* アイテム解説の表示 */
                 item_RankDesc.text = database.items[check_counter].itemDesc;
@@ -508,6 +522,9 @@ public class SetImage : MonoBehaviour
                 _oily_score = database.items[check_counter].Oily;
                 _watery_score = database.items[check_counter].Watery;
 
+                _beauty_score = database.items[check_counter].Beauty;
+                _spwind_score = database.items[check_counter].SP_wind;
+
                 //前回の味読み込み
                 //_lastquality_score = database.items[check_counter].Quality;
                 _lastrich_score = database.items[check_counter].last_rich_score;
@@ -544,6 +561,8 @@ public class SetImage : MonoBehaviour
 
                 //サブカテゴリーの代入
                 item_type_sub = pitemlist.player_originalitemlist[check_counter].itemType_sub.ToString();
+                item_type_subB = pitemlist.player_originalitemlist[check_counter].itemType_subB.ToString();
+                item_type_sub_category = pitemlist.player_originalitemlist[check_counter].itemType_sub_category.ToString();
 
                 /* アイテム解説の表示 */
                 item_RankDesc.text = pitemlist.player_originalitemlist[check_counter].itemDesc;
@@ -580,6 +599,9 @@ public class SetImage : MonoBehaviour
                 _hardness_score = pitemlist.player_originalitemlist[check_counter].Hardness;
 
                 _juice_score = pitemlist.player_originalitemlist[check_counter].Juice;
+
+                _beauty_score = pitemlist.player_originalitemlist[check_counter].Beauty;
+                _spwind_score = pitemlist.player_originalitemlist[check_counter].SP_wind;
 
                 _powdery_score = pitemlist.player_originalitemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_originalitemlist[check_counter].Oily;
@@ -620,6 +642,8 @@ public class SetImage : MonoBehaviour
 
                 //サブカテゴリーの代入
                 item_type_sub = pitemlist.player_extremepanel_itemlist[check_counter].itemType_sub.ToString();
+                item_type_subB = pitemlist.player_extremepanel_itemlist[check_counter].itemType_subB.ToString();
+                item_type_sub_category = pitemlist.player_extremepanel_itemlist[check_counter].itemType_sub_category.ToString();
 
                 /* アイテム解説の表示 */
                 item_RankDesc.text = pitemlist.player_extremepanel_itemlist[check_counter].itemDesc;
@@ -655,6 +679,9 @@ public class SetImage : MonoBehaviour
                 _hardness_score = pitemlist.player_extremepanel_itemlist[check_counter].Hardness;
 
                 _juice_score = pitemlist.player_extremepanel_itemlist[check_counter].Juice;
+
+                _beauty_score = pitemlist.player_extremepanel_itemlist[check_counter].Beauty;
+                _spwind_score = pitemlist.player_extremepanel_itemlist[check_counter].SP_wind;
 
                 _powdery_score = pitemlist.player_extremepanel_itemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_extremepanel_itemlist[check_counter].Oily;
@@ -694,6 +721,8 @@ public class SetImage : MonoBehaviour
 
                 //サブカテゴリーの代入
                 item_type_sub = pitemlist.player_check_itemlist[check_counter].itemType_sub.ToString();
+                item_type_subB = pitemlist.player_check_itemlist[check_counter].itemType_subB.ToString();
+                item_type_sub_category = pitemlist.player_check_itemlist[check_counter].itemType_sub_category.ToString();
 
                 /* アイテム解説の表示 */
                 item_RankDesc.text = pitemlist.player_check_itemlist[check_counter].itemDesc;
@@ -729,6 +758,9 @@ public class SetImage : MonoBehaviour
                 _hardness_score = pitemlist.player_check_itemlist[check_counter].Hardness;
 
                 _juice_score = pitemlist.player_check_itemlist[check_counter].Juice;
+
+                _beauty_score = pitemlist.player_check_itemlist[check_counter].Beauty;
+                _spwind_score = pitemlist.player_check_itemlist[check_counter].SP_wind;
 
                 _powdery_score = pitemlist.player_check_itemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_check_itemlist[check_counter].Oily;
@@ -780,6 +812,8 @@ public class SetImage : MonoBehaviour
 
         //サブカテゴリーの代入
         item_type_sub = pitemlist.player_yosokuitemlist[check_counter].itemType_sub.ToString();
+        item_type_subB = pitemlist.player_yosokuitemlist[check_counter].itemType_subB.ToString();
+        item_type_sub_category = pitemlist.player_yosokuitemlist[check_counter].itemType_sub_category.ToString();
 
         /* アイテム解説の表示 */
         item_RankDesc.text = pitemlist.player_yosokuitemlist[check_counter].itemDesc;
@@ -815,6 +849,9 @@ public class SetImage : MonoBehaviour
         _hardness_score = pitemlist.player_yosokuitemlist[check_counter].Hardness;
 
         _juice_score = pitemlist.player_yosokuitemlist[check_counter].Juice;
+
+        _beauty_score = pitemlist.player_yosokuitemlist[check_counter].Beauty;
+        _spwind_score = pitemlist.player_yosokuitemlist[check_counter].SP_wind;
 
         _powdery_score = pitemlist.player_yosokuitemlist[check_counter].Powdery;
         _oily_score = pitemlist.player_yosokuitemlist[check_counter].Oily;
@@ -861,6 +898,8 @@ public class SetImage : MonoBehaviour
 
         //サブカテゴリーの代入
         item_type_sub = GameMgr.contestclear_collection_list[check_counter].ItemData.itemType_sub.ToString();
+        item_type_subB = GameMgr.contestclear_collection_list[check_counter].ItemData.itemType_subB.ToString();
+        item_type_sub_category = GameMgr.contestclear_collection_list[check_counter].ItemData.itemType_sub_category.ToString();
 
         /* アイテム解説の表示 */
         item_RankDesc.text = GameMgr.contestclear_collection_list[check_counter].ItemData.itemDesc;
@@ -896,6 +935,9 @@ public class SetImage : MonoBehaviour
         _hardness_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Hardness;
 
         _juice_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Juice;
+
+        _beauty_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Beauty;
+        _spwind_score = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_wind;
 
         _powdery_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Powdery;
         _oily_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Oily;
@@ -1270,6 +1312,8 @@ public class SetImage : MonoBehaviour
         item_Smooth.text = _smooth_score.ToString();
         item_Hardness.text = _hardness_score.ToString();
 
+        item_Beauty.text = _beauty_score.ToString();
+        item_Spwind.text = _spwind_score.ToString();
 
         //ゲージの更新
         _Shokukan_slider.value = _shokukan_score;
@@ -1451,39 +1495,19 @@ public class SetImage : MonoBehaviour
             switch (item_type_sub)
             {
                 case "Appaleil":
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(false);
-                    TasteSubWindow.SetActive(true);
-                    Slot_SubWindow.SetActive(false);
-                    SlotChangeButtonON();
-                    taste_slot_flag = true; //現在テイストサブウィンドウを表示
-                    item_Shokukan.text = "-";
 
-                    item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
+                    DrawTasteWindow1();
+                    
                     break;
 
                 case "Cream":
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(false);
-                    TasteSubWindow.SetActive(true);
-                    Slot_SubWindow.SetActive(false);
-                    SlotChangeButtonON();
-                    taste_slot_flag = true; //現在テイストサブウィンドウを表示
-                    item_Shokukan.text = "-";
 
-                    item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
+                    DrawTasteWindow1();
                     break;
 
                 case "Water":
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(false);
-                    TasteSubWindow.SetActive(true);
-                    Slot_SubWindow.SetActive(false);
-                    SlotChangeButtonON();
-                    taste_slot_flag = true; //現在テイストサブウィンドウを表示
-                    item_Shokukan.text = "-";
 
-                    item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
+                    DrawTasteWindow1();
                     break;
 
                 case "Fruits":
@@ -1520,6 +1544,11 @@ public class SetImage : MonoBehaviour
                     
                     break;
             }
+
+            if(item_type_subB == "a_CacaoMass")
+            {
+                DrawTasteWindow1();
+            }
         }
         else if (item_type == "Okashi")
         {
@@ -1548,6 +1577,19 @@ public class SetImage : MonoBehaviour
         {
             secret_panel.SetActive(false);
         }
+    }
+
+    void DrawTasteWindow1()
+    {
+        Card_param_obj.SetActive(true);
+        Card_param_obj2.SetActive(false);
+        TasteSubWindow.SetActive(true);
+        Slot_SubWindow.SetActive(false);
+        SlotChangeButtonON();
+        taste_slot_flag = true; //現在テイストサブウィンドウを表示
+        item_Shokukan.text = "-";
+
+        item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
     }
 
     void Crispy_Text()

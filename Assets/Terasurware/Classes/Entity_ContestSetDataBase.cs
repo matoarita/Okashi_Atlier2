@@ -34,6 +34,7 @@ public class Entity_ContestSetDataBase : ScriptableObject
 		public int chewy;
 		public int juice;
 		public int beauty;
+		public int Sp_Score1;
 		public string topping01;
 		public string topping02;
 		public string topping03;
@@ -55,6 +56,7 @@ public class Entity_ContestSetDataBase : ScriptableObject
 		public int Non_tpscore;
 		public string desc;
 		public int commet_flag;
+		public int search_endflag;
 	}
 }
 

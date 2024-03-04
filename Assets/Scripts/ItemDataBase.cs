@@ -42,6 +42,8 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
     private int _beauty;
     private int _juice;
 
+    private int _sp_wind;
+
     private string _type;
     private string _subtype;
     private string _subtypeB;
@@ -142,6 +144,8 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
                 _beauty = excel_itemdatabase.sheets[sheet_no].list[count].beauty;
 
+                _sp_wind = excel_itemdatabase.sheets[sheet_no].list[count].SP_wind;
+
                 _type = excel_itemdatabase.sheets[sheet_no].list[count].type;
                 _subtype = excel_itemdatabase.sheets[sheet_no].list[count].subtype;
                 _subtypeB = excel_itemdatabase.sheets[sheet_no].list[count].subtypeB;
@@ -181,17 +185,23 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
                 //ここでリストに追加している
                 items.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
-                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, 
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice,
+                    _sp_wind,
+                    _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, 
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _secretFlag));
                 //comp_hoseiでバグらないようにするための、クローン
                 items_gamedefault.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
-                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like,
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice,
+                    _sp_wind, 
+                    _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like,
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _secretFlag));
                 //システムデータ保存用のアイテムデータリスト
                 items_system.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
-                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like,
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice,
+                    _sp_wind, 
+                    _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like,
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _secretFlag));
 

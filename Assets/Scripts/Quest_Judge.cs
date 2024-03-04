@@ -892,13 +892,13 @@ public class Quest_Judge : MonoBehaviour {
             //rich_score = girlEat_judge.TasteKeisanBase(_rich, rich_result, "味のコク: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
 
             sweat_score = girlEat_judge.TasteKeisanBase(_sweat, sweat_result, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
-            sweat_level = girlEat_judge.TasteLevel_Keisan(_sweat, sweat_score);
+            sweat_level = girlEat_judge.taste_level;
 
             bitter_score = girlEat_judge.TasteKeisanBase(_bitter, bitter_result, "苦み: ");
-            bitter_level = girlEat_judge.TasteLevel_Keisan(_bitter, bitter_score);
+            bitter_level = girlEat_judge.taste_level;
 
             sour_score = girlEat_judge.TasteKeisanBase(_sour, sour_result, "酸味: ");
-            sour_level = girlEat_judge.TasteLevel_Keisan(_sour, sour_score);
+            sour_level = girlEat_judge.taste_level;
 
             //書き方が少し違うけど、GirlEat_Judgeでやってることとほぼ一緒
             if (_crispy > 0)
@@ -1120,7 +1120,7 @@ public class Quest_Judge : MonoBehaviour {
                     if (itemslot_PitemScore[i] > 0)
                     {
                         topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslot_PitemScore[i];
-                        _basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslot_PitemScore[i]; //見た目に対するボーナス得点
+                        //_basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslot_PitemScore[i]; //見た目に対するボーナス得点　ややこしいので廃止
                     }
                 }
             }
@@ -1887,11 +1887,11 @@ public class Quest_Judge : MonoBehaviour {
         }
         else if (sweat_level == 6)
         {
-            _sweat_kansou = "甘さ A: 甘さ、ほどよくよい具合！";
+            _sweat_kansou = "甘さ A: 甘さ、素晴らしい具合！";
         }
         else if (sweat_level == 5)
         {
-            _sweat_kansou = "甘さ B: まあまあの甘さ";
+            _sweat_kansou = "甘さ B: いい感じの甘さ";
         }
         else if (sweat_level == 4)
         {
@@ -1954,11 +1954,11 @@ public class Quest_Judge : MonoBehaviour {
         }
         else if (bitter_level == 6)
         {
-            _bitter_kansou = "苦さ A: 苦さ、ほどよくいい具合！";
+            _bitter_kansou = "苦さ A: 苦さ、すばらしい！";
         }
         else if (bitter_level == 5)
         {
-            _bitter_kansou = "苦さ B: まあまあの苦さ";
+            _bitter_kansou = "苦さ B: いい感じの苦さ";
         }
         else if (bitter_level == 4)
         {
@@ -2024,11 +2024,11 @@ public class Quest_Judge : MonoBehaviour {
         }
         else if (sour_level == 6)
         {
-            _sour_kansou = "酸味 A: すっぱさ、ほどよくいい具合！";
+            _sour_kansou = "酸味 A: すっぱさ、すばらしい！";
         }
         else if (sour_level == 5)
         {
-            _sour_kansou = "酸味 B: まあまあのすっぱさ";
+            _sour_kansou = "酸味 B: いい感じのすっぱさ";
         }
         else if (sour_level == 4)
         {

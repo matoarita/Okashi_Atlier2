@@ -3332,11 +3332,11 @@ public class Utage_scenario : MonoBehaviour
         Engine.JumpScenario(scenarioLabel);
 
         //お菓子の判定処理オブジェクトの取得
-        contest_judge_obj = GameObject.FindWithTag("Contest_Judge");
-        contest_judge = contest_judge_obj.GetComponent<Contest_Judge>();
+        //contest_judge_obj = GameObject.FindWithTag("Contest_Judge");
+        //contest_judge = contest_judge_obj.GetComponent<Contest_Judge>();
 
         //お菓子を判定する。採点結果により、審査員の反応も少し変わる。
-        contest_judge.Contest_Judge_Start();
+        //contest_judge.Contest_Judge_Start();
 
         //提出したお菓子の名前をセット
         engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);

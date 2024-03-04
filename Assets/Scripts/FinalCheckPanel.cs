@@ -65,4 +65,5 @@ public class FinalCheckPanel : MonoBehaviour {
         sequence.Join(_comp.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
         sequence.Join(updown_counter.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
+
 }

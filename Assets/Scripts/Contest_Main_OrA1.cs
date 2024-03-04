@@ -57,7 +57,6 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private Text _text;
 
     private GameObject contest_select;
-    private GameObject conteston_toggle_judge;
     private GameObject conteston_toggle_compo;
 
     private int kettei_itemID;
@@ -212,6 +211,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //コンテスト会場きたときのイベント
         /*if (!GameMgr.contest_eventStart_flag)
         {
+            //採点処理
+            contest_judge.Contest_Judge_Start();
+
             GameMgr.contest_eventStart_flag = true;
             GameMgr.scenario_ON = true;
 
@@ -223,7 +225,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }*/
 
         //コンテスト終了後、エンディングへ
-        if(GameMgr.ending_on)
+        if (GameMgr.ending_on)
         {
             scene_black_effect.SetActive(true);
             //GameMgr.scenario_ON = true;
@@ -287,14 +289,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
-    public void OnContest_Judge_Toggle()
+    public void OnContest_Judge_Now()
     {
-        if(conteston_toggle_judge.GetComponent<Toggle>().isOn == true)
-        {
-            conteston_toggle_judge.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。          
-
-            contest_judge.Contest_Judge_Start();
-        }
+        contest_judge.Contest_Judge_Start();
     }
     
 
@@ -336,10 +333,20 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //デバッグ用　全てのアイテムを追加する
         //playerDefaultStart_ItemGet.AddAllItem_NoAcce();
         pitemlist.addPlayerItemString("cacao_beans", 10);
+        pitemlist.addPlayerItemString("cacao_nibs", 10);
+        pitemlist.addPlayerItemString("coffee_powder", 10);
+
+        pitemlist.addPlayerItemString("nuts_pistachio", 10);
+        pitemlist.addPlayerItemString("appaleil_pistachio", 10);
+
         pitemlist.addPlayerItemString("suger", 10);
+        pitemlist.addPlayerItemString("emerald_suger", 10);
+
         pitemlist.addPlayerItemString("beans_crusher", 1);
         pitemlist.addPlayerItemString("appaleil_chocolate", 10);
         pitemlist.addPlayerItemString("appaleil_chocolate_twister_lv1", 10);
+
+        pitemlist.addPlayerItemString("mint", 10);
 
         magicskill_database.skillLearnLv_Name("Cookie_Study", 10);
         magicskill_database.skillLearnLv_Name("Freezing_Spell", 10);

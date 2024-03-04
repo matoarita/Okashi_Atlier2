@@ -83,6 +83,7 @@ public class Compound_Check : MonoBehaviour {
     private float _success_rate;
     private float _ex_probabilty_temp;
     private int dice;
+    private bool _debug_sw;
 
     private int baseitemID;
     private int itemID_1;
@@ -172,6 +173,7 @@ public class Compound_Check : MonoBehaviour {
         recipiMemoScrollView_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
 
         //final_select_flag = false;
+        _debug_sw = false;
     }
 	
 	// Update is called once per frame
@@ -1605,6 +1607,22 @@ public class Compound_Check : MonoBehaviour {
         if (_rate < 0)
         {
             _rate = 0;
+        }
+    }
+
+    //デバッグ用　確率を100%に。
+    public void DebugKakuritsuALLOK()
+    {
+        _debug_sw = !_debug_sw;
+        if (!_debug_sw)
+        {
+            exp_Controller._success_rate = _success_rate;
+            kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+        }
+        else
+        {
+            exp_Controller._success_rate = 100;
+            kakuritsuPanel.KakuritsuYosoku_Img(100);
         }
     }
 }
