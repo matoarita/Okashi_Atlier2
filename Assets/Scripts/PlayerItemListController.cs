@@ -574,11 +574,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                         itemlist_hyouji_Check();
                                     }
                                 }
-                                if (_lv >= 2) //液体系全般
+                                if (_lv >= 2) //水・ミルク系全般
                                 {
-                                    if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilTwister" || 
+                                    if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilChocolateBar" || 
                                         check_itemType_subB == "a_AppaleilJelly" || 
-                                        check_itemType_sub == "Water" || check_itemType_sub == "Milk" || check_itemType_subB == "a_Juice")
+                                        check_itemType_sub == "Water" || check_itemType_sub == "Milk")
                                     {
                                         itemlist_hyouji_Check();
                                     }
@@ -601,7 +601,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                 {
                                     if (check_itemType == "Okashi")
                                     {
-                                        itemlist_hyouji_Check();
+                                        if (check_itemType_sub != "Tea" || check_itemType_sub != "Coffee" || check_itemType_sub != "Bread")
+                                        {
+                                            itemlist_hyouji_Check();
+                                        }
                                     }
                                 }
 
@@ -617,9 +620,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             case "Luminous_Fruits":
 
-                                if (check_itemType_sub == "Fruits")
+                                if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
                                 {
-                                    itemlist_hyouji_Check();
+                                    if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
+                                    {
+                                        itemlist_hyouji_Check();
+                                    }
                                 }
                                 break;
 
@@ -649,10 +655,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             case "Wind_Twister":
 
-                                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" || check_itemType_subB == "a_Juice" ||
+                                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
                                     check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
                                 {
-                                    if (check_itemType_subB != "a_AppaleilTwister" || check_itemType_subB != "a_AppaleilChocolateBar") //ツイスターや加工されたものはもうツイストできない
+                                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                                     {
                                         itemlist_hyouji_Check();
                                     }
