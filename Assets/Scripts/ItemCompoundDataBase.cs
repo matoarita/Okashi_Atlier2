@@ -17,8 +17,11 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private string cmpsubtype_1;
     private string cmpsubtype_2;
     private string cmpsubtype_3;
+
     private string result_item;
     private int result_kosu;
+    private string result_item2;
+    private int result_kosu2;
 
     private int cmp_kosu_1;
     private int cmp_kosu_2;
@@ -86,7 +89,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
                 SetParam();
 
                 //ここでリストに追加している
-                compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
+                compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, result_item2, result_kosu2,
                     cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
                     cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, secretFlag, hikari_make_count));
 
@@ -103,7 +106,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
                 SetParam();
 
                 //ここでリストに追加している
-                compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu,
+                compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, result_item2, result_kosu2,
                     cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
                     cmp_flag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, secretFlag, hikari_make_count));
 
@@ -117,7 +120,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
         /*for (i = 0; i < compoitems.Count; i++)
         {
-            Debug.Log(i + " " + compoitems[i].cmpitem_Name + " " + compoitems[i].cmpitemID + " cmp_flag: " + compoitems[i].cmpitem_flag);
+            //Debug.Log(i + " " + compoitems[i].cmpitem_Name + " " + compoitems[i].cmpitemID + " cmp_flag: " + compoitems[i].cmpitem_flag);
+            Debug.Log(i + " " + compoitems[i].cmpitem_Name + " result_item1: " + compoitems[i].cmpitemID_result + " result_item2: " + compoitems[i].cmpitemID_result2);
         }*/
     }
 
@@ -132,8 +136,11 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         cmpsubtype_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_1;
         cmpsubtype_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_2;
         cmpsubtype_3 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmp_subtype_3;
+
         result_item = excel_compoitemdatabase.sheets[sheet_no].list[count].result_itemID;
         result_kosu = excel_compoitemdatabase.sheets[sheet_no].list[count].result_kosu;
+        result_item2 = excel_compoitemdatabase.sheets[sheet_no].list[count].result_itemID2;
+        result_kosu2 = excel_compoitemdatabase.sheets[sheet_no].list[count].result_kosu2;
 
         cmp_kosu_1 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu1;
         cmp_kosu_2 = excel_compoitemdatabase.sheets[sheet_no].list[count].cmpitem_kosu2;
