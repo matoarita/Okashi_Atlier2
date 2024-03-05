@@ -32,6 +32,7 @@ public class Entity_magicSkillListDataBase : ScriptableObject
 		public int skill_type;
 		public int skill_category;
 		public int success_rate;
+		public int cost_time;
 		public string comment_full;
 	}
 }

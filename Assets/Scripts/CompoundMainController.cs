@@ -122,6 +122,7 @@ public class CompoundMainController : MonoBehaviour {
     private int trans_position;
 
     private int i;
+    private int _id;
 
     private GameObject Debug_CompoIcon;
 
@@ -700,7 +701,14 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(false); //専用ウィンドウを表示させてるのでオフ
 
                     //できるアイテムを表示
-                    magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = GameMgr.ResultItem_nameHyouji + "　が　できたよ！";
+                    if (GameMgr.Result_compound_success)
+                    {
+                        magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = GameMgr.ResultItem_nameHyouji + "　が " + GameMgr.Result_Kosu + "個 できたよ！";
+                    }
+                    else
+                    {
+                        magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = "失敗しちゃった・・。";
+                    }
 
                     //ヒカリちゃん表示をオフ
                     ReSetLive2DOrder_Default();
@@ -854,29 +862,29 @@ public class CompoundMainController : MonoBehaviour {
         
         if (exp_Controller._temp_extreme_itemtype == 0) //デフォルトアイテムの場合
         {
-            pitemlistController.final_base_kettei_item = database.items[exp_Controller._temp_extreme_id].itemID;
+            //pitemlistController.final_base_kettei_item = database.items[exp_Controller._temp_extreme_id].itemID;
         }
         else if (exp_Controller._temp_extreme_itemtype == 1) //オリジナルアイテムの場合
         {
-            pitemlistController.final_base_kettei_item = pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemID;
+            //pitemlistController.final_base_kettei_item = pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemID;
         }
         else if (exp_Controller._temp_extreme_itemtype == 2) //エクストリームパネルに設定したアイテムの場合　通常これのみ使用
         {
             //pitemlistController.final_base_kettei_item = pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID;
-            pitemlistController.final_base_kettei_item = database.SearchItemID(pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID);
+            _id = database.SearchItemID(pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID);
         }
 
-        Debug.Log("ベースアイテムID: " + pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID + " " + database.items[pitemlistController.final_base_kettei_item].itemName);
-        pitemlistController.base_kettei_item = exp_Controller._temp_extreme_id;
-        pitemlistController._base_toggle_type = exp_Controller._temp_extreme_itemtype;
+        Debug.Log("ベースアイテムID: " + pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID + " " + database.items[_id].itemName);
+        GameMgr.Final_list_baseitemID = exp_Controller._temp_extreme_id;
+        GameMgr.Final_toggle_baseType = exp_Controller._temp_extreme_itemtype;
 
-        pitemlistController.final_base_kettei_kosu = 1;
+        GameMgr.Final_kettei_kosu1 = 1;
 
         GameMgr.Comp_kettei_bunki = 10; //トッピング材料から選び始める。
         pitemlistController.reset_and_DrawView_Topping();
 
-        card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item);
-        card_view.OKCard_DrawView(pitemlistController.final_base_kettei_kosu);
+        card_view.SelectCard_DrawView(GameMgr.Final_toggle_baseType, GameMgr.Final_list_baseitemID);
+        card_view.OKCard_DrawView(GameMgr.Final_kettei_kosu1);
 
         itemselect_cancel.update_ListSelect_Flag = 10; //ベースアイテムを選択できないようにする。
         itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理

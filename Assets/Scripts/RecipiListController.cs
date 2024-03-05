@@ -47,25 +47,7 @@ public class RecipiListController : MonoBehaviour {
     private int count;
     private int i, j;
 
-    public int _count1;
-
-    public int final_kettei_recipiitemID_1;
-
-    public int kettei_recipiitem1; //最終的に確定したアイテムのID（アイテムデータベースのIDを同一）
-    public int kettei_recipiitem2;
-    public int kettei_recipiitem3;
-
-    public int kettei_toggle_type1;
-    public int kettei_toggle_type2;
-    public int kettei_toggle_type3;
-
-    public int result_recipiitem;
-    public int result_recipicompID; //最終的に確定したときの、コンポDBのアイテムID
-
-    public int final_kettei_recipikosu1;
-    public int final_kettei_recipikosu2;
-    public int final_kettei_recipikosu3;
-    public int final_select_kosu;
+    //public int _count1;
 
     public bool final_recipiselect_flag;    
 
@@ -184,9 +166,28 @@ public class RecipiListController : MonoBehaviour {
                 break;
         }
 
-        
+        ResetKettei_item();
 
         OpenAnim();
+    }
+
+    void ResetKettei_item()
+    {
+        GameMgr.List_count1 = 9999;
+        GameMgr.List_count2 = 9999;
+        GameMgr.List_count3 = 9999;
+        GameMgr.List_basecount = 9999;
+
+        //9999 = empty
+        GameMgr.Final_list_itemID1 = 9999;
+        GameMgr.Final_list_itemID2 = 9999;
+        GameMgr.Final_list_itemID3 = 9999;
+        GameMgr.Final_list_baseitemID = 9999;
+
+        GameMgr.Final_kettei_kosu1 = 1;
+        GameMgr.Final_kettei_kosu2 = 1;
+        GameMgr.Final_kettei_kosu3 = 1;
+        GameMgr.Final_kettei_basekosu = 1;
     }
 
     //アニメーション

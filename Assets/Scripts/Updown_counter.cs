@@ -302,7 +302,7 @@ public class Updown_counter : MonoBehaviour {
                     {
                         case 1:
 
-                            if (database.items[pitemlistController.final_kettei_item1].itemType.ToString() == "Okashi")
+                            if (database.items[GameMgr.Final_list_itemID1].itemType.ToString() == "Okashi")
                             {
                                 updown_button[0].interactable = false;
                                 updown_button[1].interactable = false;
@@ -311,7 +311,7 @@ public class Updown_counter : MonoBehaviour {
 
                         case 2:
 
-                            if (database.items[pitemlistController.final_kettei_item2].itemType.ToString() == "Okashi")
+                            if (database.items[GameMgr.Final_list_itemID2].itemType.ToString() == "Okashi")
                             {
                                 updown_button[0].interactable = false;
                                 updown_button[1].interactable = false;
@@ -320,13 +320,14 @@ public class Updown_counter : MonoBehaviour {
 
                         case 3:
 
-                            if (database.items[pitemlistController.final_kettei_item3].itemType.ToString() == "Okashi")
+                            if (database.items[GameMgr.Final_list_itemID3].itemType.ToString() == "Okashi")
                             {
                                 updown_button[0].interactable = false;
                                 updown_button[1].interactable = false;
                             }
                             break;
                     }
+
                 }
                 break;
 
@@ -368,76 +369,76 @@ public class Updown_counter : MonoBehaviour {
                         //カウントをとりあえず１足す
                         ++GameMgr.updown_kosu;
 
-                        switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                        switch (GameMgr.Final_toggle_Type1)
                         {
                             case 0:
 
-                                _item_max1 = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
+                                _item_max1 = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName];
                                 break;
 
                             case 1:
 
-                                _item_max1 = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                _item_max1 = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                 break;
 
                             case 2:
 
-                                _item_max1 = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                _item_max1 = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                 break;
 
                             default:
                                 break;
                         }
 
-                        switch (pitemlistController._listitem[pitemlistController._count2].GetComponent<itemSelectToggle>().toggleitem_type)
+                        switch (GameMgr.Final_toggle_Type2)
                         {
                             case 0:
 
-                                _item_max2 = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item2].itemName];
+                                _item_max2 = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID2].itemName];
                                 break;
 
                             case 1:
 
-                                _item_max2 = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
+                                _item_max2 = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].ItemKosu;
                                 break;
 
                             case 2:
 
-                                _item_max2 = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item2].ItemKosu;
+                                _item_max2 = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].ItemKosu;
                                 break;
 
                             default:
                                 break;
                         }
 
-                        if (pitemlistController.kettei_item3 != 9999) //３個目も選んでいれば、下の処理を起動
+                        if (GameMgr.Final_list_itemID3 != 9999) //３個目も選んでいれば、下の処理を起動
                         {
-                            switch (pitemlistController._listitem[pitemlistController._count3].GetComponent<itemSelectToggle>().toggleitem_type)
+                            switch (GameMgr.Final_toggle_Type3)
                             {
                                 case 0:
 
-                                    _item_max3 = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item3].itemName];
+                                    _item_max3 = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID3].itemName];
                                     break;
 
                                 case 1:
 
-                                    _item_max3 = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
+                                    _item_max3 = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].ItemKosu;
                                     break;
 
                                 case 2:
 
-                                    _item_max3 = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item3].ItemKosu;
+                                    _item_max3 = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].ItemKosu;
                                     break;
 
                                 default:
                                     break;
                             }
 
-                            player_itemkosu3 = pitemlistController.final_kettei_kosu3 * GameMgr.updown_kosu;
+                            player_itemkosu3 = GameMgr.Final_kettei_kosu3 * GameMgr.updown_kosu;
                         }
 
-                        player_itemkosu1 = pitemlistController.final_kettei_kosu1 * GameMgr.updown_kosu;
-                        player_itemkosu2 = pitemlistController.final_kettei_kosu2 * GameMgr.updown_kosu;
+                        player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
+                        player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
 
                         /*Debug.Log("アイテム1 所持数: " + _item_max1 + " プレイヤーカウンタ個数1 : " + player_itemkosu1);
                         Debug.Log("アイテム2 所持数: " + _item_max2 + " プレイヤーカウンタ個数2 : " + player_itemkosu2);
@@ -446,7 +447,7 @@ public class Updown_counter : MonoBehaviour {
 
 
                         //判定。もしどれかのアイテムの一つでも、個数がmaxより超えたら、そこがセット数の上限
-                        if (pitemlistController.kettei_item3 == 9999) //３個目も選んでいれば、下の処理を起動
+                        if (GameMgr.Final_list_itemID3 == 9999) //３個目も選んでいれば、下の処理を起動
                         {
                             if (player_itemkosu1 > _item_max1 || player_itemkosu2 > _item_max2)
                             {
@@ -481,21 +482,21 @@ public class Updown_counter : MonoBehaviour {
                         {
                             case 1:
 
-                                switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                                switch (GameMgr.Final_toggle_Type1)
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName]; //一個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName]; //一個目の決定アイテムの所持数
                                         break;
 
                                     case 1:
 
-                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                         break;
 
                                     case 2:
 
-                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                         break;
 
                                     default:
@@ -506,22 +507,22 @@ public class Updown_counter : MonoBehaviour {
 
                             case 2:
 
-                                switch (pitemlistController._listitem[pitemlistController._count2].GetComponent<itemSelectToggle>().toggleitem_type)
+                                switch (GameMgr.Final_toggle_Type2)
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item2].itemName]; //二個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID2].itemName]; //二個目の決定アイテムの所持数
 
                                         break;
 
                                     case 1:
 
-                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
+                                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].ItemKosu;
                                         break;
 
                                     case 2:
 
-                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item2].ItemKosu;
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].ItemKosu;
                                         break;
 
                                     default:
@@ -532,21 +533,21 @@ public class Updown_counter : MonoBehaviour {
 
                             case 3:
 
-                                switch (pitemlistController._listitem[pitemlistController._count3].GetComponent<itemSelectToggle>().toggleitem_type)
+                                switch (GameMgr.Final_toggle_Type3)
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item3].itemName]; //三個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID3].itemName]; //三個目の決定アイテムの所持数
                                         break;
 
                                     case 1:
 
-                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].ItemKosu;
                                         break;
 
                                     case 2:
 
-                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].ItemKosu;
                                         break;
 
                                     default:
@@ -557,21 +558,21 @@ public class Updown_counter : MonoBehaviour {
 
                             case 10:
 
-                                switch (pitemlistController._listitem[pitemlistController._base_count].GetComponent<itemSelectToggle>().toggleitem_type)
+                                switch (GameMgr.Final_toggle_baseType)
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.base_kettei_item].itemName]; //ベース決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_baseitemID].itemName]; //ベース決定アイテムの所持数
                                         break;
 
                                     case 1:
 
-                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.base_kettei_item].ItemKosu;
+                                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_baseitemID].ItemKosu;
                                         break;
 
                                     case 2:
 
-                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.base_kettei_item].ItemKosu;
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_baseitemID].ItemKosu;
                                         break;
 
                                     default:
@@ -582,21 +583,21 @@ public class Updown_counter : MonoBehaviour {
 
                             case 11:
 
-                                switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                                switch (GameMgr.Final_toggle_Type1)
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName]; //一個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName]; //一個目の決定アイテムの所持数
                                         break;
 
                                     case 1:
 
-                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                         break;
 
                                     case 2:
 
-                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                         break;
 
                                     default:
@@ -607,21 +608,21 @@ public class Updown_counter : MonoBehaviour {
 
                             case 12:
 
-                                switch (pitemlistController._listitem[pitemlistController._count2].GetComponent<itemSelectToggle>().toggleitem_type)
+                                switch (GameMgr.Final_toggle_Type2)
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item2].itemName]; //二個目の決定アイテムの所持数                           
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID2].itemName]; //二個目の決定アイテムの所持数                           
                                         break;
 
                                     case 1:
 
-                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item2].ItemKosu;
+                                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].ItemKosu;
                                         break;
 
                                     case 2:
 
-                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item2].ItemKosu;
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].ItemKosu;
                                         break;
 
                                     default:
@@ -632,21 +633,21 @@ public class Updown_counter : MonoBehaviour {
 
                             case 13:
 
-                                switch (pitemlistController._listitem[pitemlistController._count3].GetComponent<itemSelectToggle>().toggleitem_type)
+                                switch (GameMgr.Final_toggle_Type3)
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item3].itemName]; //三個目の決定アイテムの所持数                           
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID3].itemName]; //三個目の決定アイテムの所持数                           
                                         break;
 
                                     case 1:
 
-                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].ItemKosu;
                                         break;
 
                                     case 2:
 
-                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item3].ItemKosu;
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].ItemKosu;
                                         break;
 
                                     default:
@@ -657,21 +658,21 @@ public class Updown_counter : MonoBehaviour {
 
                             case 20:
 
-                                switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                                switch (GameMgr.Final_toggle_Type1)
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName]; //一個目の決定アイテムの所持数
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName]; //一個目の決定アイテムの所持数
                                         break;
 
                                     case 1:
 
-                                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                         break;
 
                                     case 2:
 
-                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                         break;
 
                                     default:
@@ -687,21 +688,21 @@ public class Updown_counter : MonoBehaviour {
 
                     else if (GameMgr.compound_select == 5) //焼くの場合　未使用
                     {
-                        switch (pitemlistController._listitem[pitemlistController._count1].GetComponent<itemSelectToggle>().toggleitem_type)
+                        switch (GameMgr.Final_toggle_Type1)
                         {
                             case 0:
 
-                                _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName]; //一個目の決定アイテムの所持数
+                                _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName]; //一個目の決定アイテムの所持数
                                 break;
 
                             case 1:
 
-                                _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                 break;
 
                             case 2:
 
-                                _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
                                 break;
 
                             default:
@@ -759,11 +760,11 @@ public class Updown_counter : MonoBehaviour {
                         listkosu_count += pitemlistController._listkosu[i];
                     }
 
-                    switch (pitemlistController._toggle_type1)
+                    switch (GameMgr.Final_toggle_Type1)
                     {
                         case 0:
 
-                            if (pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName] >=
+                            if (pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName] >=
                                 quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
                             {
                                 _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default
@@ -771,13 +772,13 @@ public class Updown_counter : MonoBehaviour {
                             }
                             else
                             {
-                                _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
+                                _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName];
                             }
                             break;
 
                         case 1:
 
-                            if (pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu >=
+                            if (pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu >=
                                 quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
                             {
                                 _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default
@@ -785,14 +786,14 @@ public class Updown_counter : MonoBehaviour {
                             }
                             else
                             {
-                                _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                                _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
                             }
 
                             break;
 
                         case 2:
 
-                            if (pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu >=
+                            if (pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu >=
                                 quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default - listkosu_count)
                             {
                                 _zaiko_max = quest_database.questTakeset[shopquestlistController._count].Quest_kosu_default
@@ -800,7 +801,7 @@ public class Updown_counter : MonoBehaviour {
                             }
                             else
                             {
-                                _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                                _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
                             }
 
                             break;
@@ -814,21 +815,21 @@ public class Updown_counter : MonoBehaviour {
 
                 if (GameMgr.Scene_Select == 5) //ショップ「売る」のとき
                 {
-                    switch (pitemlistController._toggle_type1)
+                    switch (GameMgr.Final_toggle_Type1)
                     {
                         case 0:
 
-                            _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
+                            _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName];
                             break;
 
                         case 1:
 
-                            _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                            _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
                             break;
 
                         case 2:
 
-                            _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                            _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
                             break;
 
                         default:
@@ -905,21 +906,21 @@ public class Updown_counter : MonoBehaviour {
 
             if (GameMgr.Scene_Select == 5)
             {
-                switch (pitemlistController._toggle_type1)
+                switch (GameMgr.Final_toggle_Type1)
                 {
                     case 0:
 
-                        _zaiko_max = pitemlist.playeritemlist[database.items[pitemlistController.kettei_item1].itemName];
+                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName];
                         break;
 
                     case 1:
 
-                        _zaiko_max = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].ItemKosu;
+                        _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
                         break;
 
                     case 2:
 
-                        _zaiko_max = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].ItemKosu;
+                        _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
                         break;
 
                     default:
@@ -986,12 +987,12 @@ public class Updown_counter : MonoBehaviour {
 
                 if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    player_itemkosu1 = pitemlistController.final_kettei_kosu1 * GameMgr.updown_kosu;
-                    player_itemkosu2 = pitemlistController.final_kettei_kosu2 * GameMgr.updown_kosu;
+                    player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
+                    player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
 
-                    if (pitemlistController.kettei_item3 != 9999) //３個目も選んでいれば、下の処理を起動
+                    if (GameMgr.Final_list_itemID3 != 9999) //３個目も選んでいれば、下の処理を起動
                     {
-                        player_itemkosu3 = pitemlistController.final_kettei_kosu3 * GameMgr.updown_kosu;
+                        player_itemkosu3 = GameMgr.Final_kettei_kosu3 * GameMgr.updown_kosu;
                     }
                 }
             }
@@ -1131,11 +1132,11 @@ public class Updown_counter : MonoBehaviour {
         text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
-        count = recipilistController._count1;
-        itemID_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID; //itemID_1という変数に、プレイヤーが選択した調合DBの配列番号を格納する。
+        count = GameMgr.List_count1;
+        itemID_1 = GameMgr.Final_result_compID; //itemID_1という変数に、プレイヤーが選択した調合DBの配列番号を格納する。
         itemname_1 = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;
 
-        recipilistController.final_select_kosu = GameMgr.updown_kosu; //選択個数(セットの回数）
+        GameMgr.Final_setCount = GameMgr.updown_kosu; //選択個数(セットの回数）
 
         //必要アイテム・個数の代入
         cmpitem_kosu1 = databaseCompo.compoitems[itemID_1].cmpitem_kosu1;
@@ -1383,21 +1384,27 @@ public class Updown_counter : MonoBehaviour {
 
         //最終的な必要アイテム（パラメータは、現在デフォルトの値のみ）＋最終個数をコントローラー側の変数に代入
 
-        recipilistController.kettei_recipiitem1 = database.items[itemdb_id1].itemID;
-        recipilistController.kettei_recipiitem2 = database.items[itemdb_id2].itemID;
+        GameMgr.Final_list_itemID1 = itemdb_id1;
+        GameMgr.Final_list_itemID2 = itemdb_id2;
 
-        recipilistController.final_kettei_recipikosu1 = cmpitem_kosu1;
-        recipilistController.final_kettei_recipikosu2 = cmpitem_kosu2;
+        GameMgr.Final_kettei_kosu1 = cmpitem_kosu1;
+        GameMgr.Final_kettei_kosu2 = cmpitem_kosu2;
 
         if (databaseCompo.compoitems[itemID_1].cmpitemID_3 == "empty") //2個のアイテムが必要な場合。３個めは空＝9999
         {
-            recipilistController.kettei_recipiitem3 = 9999;
-            recipilistController.final_kettei_recipikosu3 = 0;
+            GameMgr.Final_list_itemID3 = 9999;
+            GameMgr.Final_kettei_kosu3 = 0;
+
+            //押したタイミングで、分岐＝２に。
+            GameMgr.Comp_kettei_bunki = 2;
         }
         else //3個アイテムが必要な場合
         {
-            recipilistController.kettei_recipiitem3 = database.items[itemdb_id3].itemID;
-            recipilistController.final_kettei_recipikosu3 = cmpitem_kosu3;
+            GameMgr.Final_list_itemID3 = itemdb_id3;
+            GameMgr.Final_kettei_kosu3 = cmpitem_kosu3;
+
+            //押したタイミングで、分岐＝２に。
+            GameMgr.Comp_kettei_bunki = 3;
         }
     }
 
@@ -1409,26 +1416,26 @@ public class Updown_counter : MonoBehaviour {
 
     void SellYosokuText()
     {
-        switch (pitemlistController._toggle_type1)
+        switch (GameMgr.Final_toggle_Type1)
         {
             case 0:
 
-                _text.text = database.items[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + database.items[pitemlistController.kettei_item1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+                _text.text = database.items[GameMgr.Final_list_itemID1].itemNameHyouji + "が選択されました。　" +
+            GameMgr.ColorYellow + database.items[GameMgr.Final_list_itemID1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
                 break;
 
             case 1:
 
-                _text.text = pitemlist.player_originalitemlist[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + pitemlist.player_originalitemlist[pitemlistController.kettei_item1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+                _text.text = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].itemNameHyouji + "が選択されました。　" +
+            GameMgr.ColorYellow + pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
                 break;
 
             case 2:
 
-                _text.text = pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[pitemlistController.kettei_item1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
+                _text.text = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].itemNameHyouji + "が選択されました。　" +
+            GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].sell_price * GameMgr.updown_kosu + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
                 break;
 

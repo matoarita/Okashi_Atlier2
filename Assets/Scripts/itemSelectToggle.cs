@@ -84,14 +84,7 @@ public class itemSelectToggle : MonoBehaviour
     private int count;
     private bool selectToggle;
 
-    private int kettei_item1; //このスクリプトは、プレファブのインスタンスに取り付けているので、各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
-    private int kettei_item2;
-    private int kettei_item3;
-
-    private int itemID_1;
-    private int itemID_2;
-    private int itemID_3;
-    private int baseitemID;
+    private int _itemID1;
 
     private int kosusum;
 
@@ -214,9 +207,6 @@ public class itemSelectToggle : MonoBehaviour
 
         count = 0;
         judge_flag = 0;
-
-        itemID_1 = 0;
-        itemID_2 = 0;
        
     }
 
@@ -394,7 +384,7 @@ public class itemSelectToggle : MonoBehaviour
 
         while (count < pitemlistController._listitem.Count)
         {
-            if (count != pitemlistController._count1)
+            if (count != GameMgr.List_count1)
             {
                 selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
                 if (selectToggle == true) break;
@@ -404,27 +394,23 @@ public class itemSelectToggle : MonoBehaviour
 
         pitemlistController._listitem[count].GetComponent<Toggle>().interactable = false;
 
-        //リスト中の選択された番号を格納。
-        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
-
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-        pitemlistController._count1 = count;
+        GameMgr.List_count1 = count;
 
-        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
-        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-        pitemlistController.final_kettei_item1 = itemID_1;
+        //リスト中の選択された番号を格納。
+        GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+        GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+        GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
-        Debug.Log("pitemlistController.kettei_item1: " + pitemlistController.kettei_item1 + " " + database.items[itemID_1].itemName);
+        Debug.Log("アイテム配列番号: " + GameMgr.temp_itemID1 + " " + database.items[GameMgr.temp_itemID1].itemName);
 
-        card_view.ItemListCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1);
+        card_view.ItemListCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1);
 
         //あらためて新しく押されたやつ以外の表示をリセットする。
         count = 0;
         while (count < pitemlistController._listitem.Count)
         {
-            if (count != pitemlistController._count1)
+            if (count != GameMgr.List_count1)
             {
                 pitemlistController._listitem[count].GetComponent<Toggle>().isOn = false;
                 pitemlistController._listitem[count].GetComponent<Toggle>().interactable = true;
@@ -462,7 +448,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 itemselect_cancel.All_cancel();
 
-                pitemlistController._count1 = 9999;
+                GameMgr.List_count1 = 9999;
                 GameMgr.compound_status = 99; //何も選択していない状態にもどる。
 
                 pitemlistController.transform.Find("BlackImg").gameObject.SetActive(false);
@@ -492,36 +478,34 @@ public class itemSelectToggle : MonoBehaviour
                     ++count;
                 }
 
-                //リスト中の選択された番号を格納。
-                pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-                pitemlistController._count1 = count;
+                GameMgr.List_count1 = count;
 
-                //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDのID→database.itemsのリスト番号に変換したものを格納する。
-                itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID); 
-                pitemlistController.final_kettei_item1 = itemID_1;
+                //リスト中の選択された番号を格納。
+                GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;                
+                GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                //GameMgr.Final_list_itemID1という変数に、プレイヤーが一個目に選択したアイテムIDのID→database.itemsのリスト番号に変換したものを格納する。
+                GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 //押したタイミングで、分岐＝１に。
                 GameMgr.Comp_kettei_bunki = 1;
 
                 //もし生地アイテムを一個目に選んだ場合、生地にアイテムを混ぜ込む処理になる。現在は未使用。
-                if (database.items[itemID_1].itemType_sub == Item.ItemType_sub.Pate)
+                if (database.items[GameMgr.temp_itemID1].itemType_sub == Item.ItemType_sub.Pate)
                 {
-                    _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
+                    _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
                 }
                 else
                 {
-                    _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
+                    _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
                 }
 
 
                 //Debug.Log(count + "番が押されたよ");
-                //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+                //Debug.Log("1個目　アイテムID:" + _itemID1 + " " + database.items[_itemID1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
-                card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示。トグルタイプとリスト番号を入れると、表示してくれる。
+                card_view.SelectCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示。トグルタイプとリスト番号を入れると、表示してくれる。
                 updown_counter_obj.SetActive(true);
 
                 SelectPaused();
@@ -539,7 +523,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 while (count < pitemlistController._listitem.Count)
                 {
-                    if (count != pitemlistController._count1)
+                    if (count != GameMgr.List_count1)
                     {
                         selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
                         if (selectToggle == true) break;
@@ -548,26 +532,24 @@ public class itemSelectToggle : MonoBehaviour
                     ++count;
                 }
 
-                //リスト中の選択された番号を格納。
-                pitemlistController.kettei_item2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                pitemlistController._toggle_type2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-                pitemlistController._count2 = count;
+                GameMgr.List_count2 = count;
 
-                itemID_2 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-                pitemlistController.final_kettei_item2 = itemID_2;
+                //リスト中の選択された番号を格納。
+                GameMgr.Final_toggle_Type2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+                GameMgr.Final_list_itemID2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                GameMgr.temp_itemID2 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 //押したタイミングで、分岐＝２に。
                 GameMgr.Comp_kettei_bunki = 2;
 
-                _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
+                _text.text = database.items[GameMgr.temp_itemID2].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
 
                 //Debug.Log(count + "番が押されたよ");
-                //Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
+                //Debug.Log("2個目　アイテムID:" + _itemID1 + " " + database.items[_itemID1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
-                card_view.SelectCard_DrawView02(pitemlistController._toggle_type2, pitemlistController.kettei_item2); //選択したアイテム2枚目をカードで表示
+                card_view.SelectCard_DrawView02(GameMgr.Final_toggle_Type2, GameMgr.Final_list_itemID2); //選択したアイテム2枚目をカードで表示
                 updown_counter_obj.SetActive(true);
 
                 SelectPaused();
@@ -585,9 +567,9 @@ public class itemSelectToggle : MonoBehaviour
 
                 while (count < pitemlistController._listitem.Count)
                 {
-                    if (count != pitemlistController._count1)
+                    if (count != GameMgr.List_count1)
                     {
-                        if (count != pitemlistController._count2)
+                        if (count != GameMgr.List_count2)
                         {
                             selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
                             if (selectToggle == true) break;
@@ -597,26 +579,24 @@ public class itemSelectToggle : MonoBehaviour
                     ++count;
                 }
 
-                //リスト中の選択された番号を格納。
-                pitemlistController.kettei_item3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                pitemlistController._toggle_type3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-                pitemlistController._count3 = count;
+                GameMgr.List_count3 = count;
 
-                itemID_3 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-                pitemlistController.final_kettei_item3 = itemID_3;
+                //リスト中の選択された番号を格納。
+                GameMgr.Final_toggle_Type3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+                GameMgr.Final_list_itemID3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                GameMgr.temp_itemID3 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 //押したタイミングで、分岐＝３に。
                 GameMgr.Comp_kettei_bunki = 3;
 
-                _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
+                _text.text = database.items[GameMgr.temp_itemID3].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
 
                 //Debug.Log(count + "番が押されたよ");
-                //Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
+                //Debug.Log("3個目　アイテムID:" + _itemID1 + " " + database.items[_itemID1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
-                card_view.SelectCard_DrawView03(pitemlistController._toggle_type3, pitemlistController.kettei_item3); //選択したアイテム2枚目をカードで表示
+                card_view.SelectCard_DrawView03(GameMgr.Final_toggle_Type3, GameMgr.Final_list_itemID3); //選択したアイテム2枚目をカードで表示
                 updown_counter_obj.SetActive(true);
 
                 SelectPaused();
@@ -652,8 +632,8 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 1; //一個目を選択したものを選択できないようにするときの番号。
                 itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-                pitemlistController.final_kettei_kosu1 = GameMgr.updown_kosu;
-                card_view.OKCard_DrawView(pitemlistController.final_kettei_kosu1);
+                GameMgr.Final_kettei_kosu1 = GameMgr.updown_kosu;
+                card_view.OKCard_DrawView(GameMgr.Final_kettei_kosu1);
 
                 yes.SetActive(false);
                 //no.SetActive(false);
@@ -662,13 +642,15 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.kettei_on_waiting = false;
                 
 
-                if (database.items[itemID_1].itemType_sub == Item.ItemType_sub.Pate)
+                if (database.items[GameMgr.temp_itemID1].itemType_sub == Item.ItemType_sub.Pate)
                 {
-                    _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "　生地にアイテムを混ぜます" + "\n" + "二個目を選択してください。";
+                    _text.text = "一個目: " + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" 
+                        + "　生地にアイテムを混ぜます" + "\n" + "二個目を選択してください。";
                 }
                 else
                 {
-                    _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
+                    _text.text = "一個目: " + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" 
+                        + "\n" + "二個目を選択してください。";
                 }
                 //Debug.Log("一個目選択完了！");
                 break;
@@ -710,8 +692,8 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 2; //二個目まで、選択できないようにする。
                 itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-                pitemlistController.final_kettei_kosu2 = GameMgr.updown_kosu;
-                card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
+                GameMgr.Final_kettei_kosu2 = GameMgr.updown_kosu;
+                card_view.OKCard_DrawView02(GameMgr.Final_kettei_kosu2);
 
                 yes.SetActive(true);
                 //no.SetActive(false);
@@ -723,7 +705,8 @@ public class itemSelectToggle : MonoBehaviour
                 yes_text.color = new Color(255f / 255f, 255f / 255f, 255f / 255f); //白文字
                 yes.GetComponent<Image>().sprite = yes_sprite2;
 
-                _text.text = "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+                _text.text = "一個目: " + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" 
+                    + "二個目: " + database.items[GameMgr.temp_itemID2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
                 //Debug.Log("二個目選択完了！");
                 break;
 
@@ -763,9 +746,9 @@ public class itemSelectToggle : MonoBehaviour
 
                 itemselect_cancel.update_ListSelect_Flag = 3; //二個目まで、選択できないようにする。
                 itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
-                
-                pitemlistController.final_kettei_kosu3 = GameMgr.updown_kosu;
-                card_view.OKCard_DrawView03(pitemlistController.final_kettei_kosu3);
+
+                GameMgr.Final_kettei_kosu3 = GameMgr.updown_kosu;
+                card_view.OKCard_DrawView03(GameMgr.Final_kettei_kosu3);
 
                 updown_counter_obj.SetActive(false);
 
@@ -810,25 +793,22 @@ public class itemSelectToggle : MonoBehaviour
                     ++count;
                 }
 
-                //リスト中の選択された番号を格納。
-                pitemlistController.base_kettei_item = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                pitemlistController._base_toggle_type = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-                pitemlistController._base_count = count;
+                GameMgr.List_basecount = count;
 
-                baseitemID = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //baseitemIDに、プレイヤーが一個目に選択したアイテムIDを格納する。
-                pitemlistController.final_base_kettei_item = baseitemID; //最終的にできあがるベースアイテムの、アイテムID。
+                //リスト中の選択された番号を格納。
+                GameMgr.Final_toggle_baseType = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+                GameMgr.Final_list_baseitemID = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
 
                 GameMgr.Comp_kettei_bunki = 10;
 
-                _text.text = database.items[baseitemID].itemNameHyouji + "をベースにします。";
+                _text.text = database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "をベースにします。";
 
                 //Debug.Log(count + "番が押されたよ");
-                //Debug.Log("1個目　アイテムID:" + baseitemID + " " + database.items[baseitemID].itemNameHyouji + "が選択されました。");
+                //Debug.Log("1個目　アイテムID:" + GameMgr.Final_list_baseitemID + " " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
-                card_view.SelectCard_DrawView(pitemlistController._base_toggle_type, pitemlistController.base_kettei_item); //選択したアイテムをカードで表示
+                card_view.SelectCard_DrawView(GameMgr.Final_toggle_baseType, GameMgr.Final_list_baseitemID); //選択したアイテムをカードで表示
 
                 SelectPaused();
                 
@@ -852,29 +832,26 @@ public class itemSelectToggle : MonoBehaviour
                     ++count;
                 }
 
-                //リスト中の選択された番号を格納。
-                pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-                pitemlistController._count1 = count;
+                GameMgr.List_count1 = count;
 
-                //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
-                itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-                pitemlistController.final_kettei_item1 = itemID_1;
+                //リスト中の選択された番号を格納。
+                GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+                GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 GameMgr.Comp_kettei_bunki = 11;
 
                 //トッピングの場合、このタイミングで確率も計算。一個目
                 Compo_KakuritsuKeisan_1();
 
-                _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
+                _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
-                //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+                //Debug.Log("1個目　アイテムID:" + GameMgr.temp_itemID1 + " " + database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
-                card_view.SelectCard_DrawView02(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+                card_view.SelectCard_DrawView02(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示
                 updown_counter_obj.SetActive(false);
 
                 SelectPaused();
@@ -894,7 +871,7 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     //if (count != pitemlistController._base_count)
                     //{
-                        if (count != pitemlistController._count1)
+                        if (count != GameMgr.List_count1)
                         {
                             selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
                             if (selectToggle == true) break;
@@ -904,29 +881,26 @@ public class itemSelectToggle : MonoBehaviour
                     ++count;
                 }
 
-                //リスト中の選択された番号を格納。
-                pitemlistController.kettei_item2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                pitemlistController._toggle_type2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-                pitemlistController._count2 = count;
+                GameMgr.List_count2 = count;
 
-                //itemID_2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
-                itemID_2 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-                pitemlistController.final_kettei_item2 = itemID_2;
+                //リスト中の選択された番号を格納。
+                GameMgr.Final_toggle_Type2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+                GameMgr.Final_list_itemID2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                GameMgr.temp_itemID2 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 GameMgr.Comp_kettei_bunki = 12;
 
                 //トッピングの場合、このタイミングで確率も計算。二個目
                 Compo_KakuritsuKeisan_2();
 
-                _text.text = database.items[itemID_2].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
+                _text.text = database.items[GameMgr.temp_itemID2].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
-                //Debug.Log("2個目　アイテムID:" + itemID_2 + " " + database.items[itemID_2].itemNameHyouji + "が選択されました。");
+                //Debug.Log("2個目　アイテムID:" + GameMgr.temp_itemID2 + " " + database.items[GameMgr.temp_itemID2].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
-                card_view.SelectCard_DrawView03(pitemlistController._toggle_type2, pitemlistController.kettei_item2); //選択したアイテム2枚目をカードで表示
+                card_view.SelectCard_DrawView03(GameMgr.Final_toggle_Type2, GameMgr.Final_list_itemID2); //選択したアイテム2枚目をカードで表示
                 updown_counter_obj.SetActive(false);
 
                 SelectPaused();
@@ -946,9 +920,9 @@ public class itemSelectToggle : MonoBehaviour
                 {
                     //if (count != pitemlistController._base_count)
                     //{
-                        if (count != pitemlistController._count1)
+                        if (count != GameMgr.List_count1)
                         {
-                            if (count != pitemlistController._count2)
+                            if (count != GameMgr.List_count2)
                             {
                                 selectToggle = pitemlistController._listitem[count].GetComponent<Toggle>().isOn;
                                 if (selectToggle == true) break;
@@ -959,17 +933,13 @@ public class itemSelectToggle : MonoBehaviour
                     ++count;
                 }
 
-                //リスト中の選択された番号を格納。
-                pitemlistController.kettei_item3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                pitemlistController._toggle_type3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
-
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-                pitemlistController._count3 = count;
+                GameMgr.List_count3 = count;
 
-                //itemID_3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
-                itemID_3 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-                pitemlistController.final_kettei_item3 = itemID_3;
+                //リスト中の選択された番号を格納。
+                GameMgr.Final_toggle_Type3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+                GameMgr.Final_list_itemID3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                GameMgr.temp_itemID3 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 GameMgr.Comp_kettei_bunki = 13;
 
@@ -977,13 +947,13 @@ public class itemSelectToggle : MonoBehaviour
                 Compo_KakuritsuKeisan_3();
                 
 
-                _text.text = database.items[itemID_3].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
+                _text.text = database.items[GameMgr.temp_itemID3].itemNameHyouji + "が選択されました。" + "\n" + "これでいいですか？";
 
                 //Debug.Log(count + "番が押されたよ");
-                //Debug.Log("3個目　アイテムID:" + itemID_3 + " " + database.items[itemID_3].itemNameHyouji + "が選択されました。");
+                //Debug.Log("3個目　アイテムID:" + GameMgr.temp_itemID3 + " " + database.items[GameMgr.temp_itemID3].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
-                card_view.SelectCard_DrawView04(pitemlistController._toggle_type3, pitemlistController.kettei_item3); //選択したアイテム2枚目をカードで表示
+                card_view.SelectCard_DrawView04(GameMgr.Final_toggle_Type3, GameMgr.Final_list_itemID3); //選択したアイテム2枚目をカードで表示
                 updown_counter_obj.SetActive(false);
 
                 SelectPaused();
@@ -1031,11 +1001,12 @@ public class itemSelectToggle : MonoBehaviour
                 //no.SetActive(false);
                 //updown_counter_obj.SetActive(false);
 
-                pitemlistController.final_base_kettei_kosu = 1; //updown_counter.updown_kosu;
+                GameMgr.Final_kettei_basekosu = 1; //updown_counter.updown_kosu;
 
                 itemselect_cancel.kettei_on_waiting = false;                
 
-                _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + " " + "1個" + "\n" + "トッピングアイテム一個目を選択してください。";
+                _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + " " + "1個" + "\n" 
+                    + "トッピングアイテム一個目を選択してください。";
                 //Debug.Log("ベースアイテム選択完了！");
                 break;
 
@@ -1073,9 +1044,8 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 11; //ベースアイテムと一個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
 
-                //pitemlistController.final_kettei_item1 = itemID_1;
                 //pitemlistController.final_kettei_kosu1 = GameMgr.updown_kosu;
-                pitemlistController.final_kettei_kosu1 = 1;
+                GameMgr.Final_kettei_kosu1 = 1;
 
                 card_view.OKCard_DrawView02(1);
                 //yes.SetActive(false);
@@ -1090,8 +1060,8 @@ public class itemSelectToggle : MonoBehaviour
                 else 
                 {
                     itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
-                    _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: "
-                    + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択するか、決定を押してね。";
+                    _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" + "一個目: "
+                    + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" + "二個目を選択するか、決定を押してね。";
                 }
 
 
@@ -1138,7 +1108,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 12; //ベースアイテムと一個目・二個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
 
-                pitemlistController.final_kettei_kosu2 = GameMgr.updown_kosu;
+                GameMgr.Final_kettei_kosu2 = GameMgr.updown_kosu;
 
                 card_view.OKCard_DrawView03(1);
                 //yes.SetActive(false);
@@ -1153,9 +1123,9 @@ public class itemSelectToggle : MonoBehaviour
                 else
                 {
                     itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
-                    _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" +
-                    "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" +
-                    "二個目: " + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+                    _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" +
+                    "一個目: " + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" +
+                    "二個目: " + database.items[GameMgr.temp_itemID2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
                 }
                 
 
@@ -1204,7 +1174,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 13; //ベースアイテムと一個目・二個目・三個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
 
-                pitemlistController.final_kettei_kosu3 = GameMgr.updown_kosu;
+                GameMgr.Final_kettei_kosu3 = GameMgr.updown_kosu;
 
                 updown_counter_obj.SetActive(false);
 
@@ -1251,27 +1221,23 @@ public class itemSelectToggle : MonoBehaviour
             ++count;
         }
 
-        //リスト中の選択された番号を格納。
-        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
-
         //表示中リストの、リスト番号を保存。
-        pitemlistController._count1 = count;
+        GameMgr.List_count1 = count;
 
-        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
-        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-        pitemlistController.final_kettei_item1 = itemID_1;
+        //リスト中の選択された番号を格納。
+        GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+        GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+        GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
         GameMgr.Comp_kettei_bunki = 9999; //分岐なし。テキストの更新を避けるため、とりあえず適当な数字を入れて回避。
 
-        _text.text = database.items[itemID_1].itemNameHyouji + "を焼きますか？○○時間かかります。";
+        _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "を焼きますか？○○時間かかります。";
 
         //Debug.Log(count + "番が押されたよ");
-        //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+        //Debug.Log("1個目　アイテムID:" + GameMgr.temp_itemID1 + " " + database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。");
         //Debug.Log("これでいいですか？");
 
-        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+        card_view.SelectCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示
         updown_counter_obj.SetActive(true);
 
         SelectPaused();
@@ -1292,13 +1258,10 @@ public class itemSelectToggle : MonoBehaviour
         {
             case true:
 
-                //選んだ生地を焼き、お菓子を作成。
-                exp_Controller.compound_success = true;
-
                 //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                 exp_Controller.roast_result_ok = true; //調合完了のフラグをたてておく。
 
-                pitemlistController.final_kettei_kosu1 = GameMgr.updown_kosu;
+                GameMgr.Final_kettei_kosu1 = GameMgr.updown_kosu;
 
                 GameMgr.compound_status = 4;
 
@@ -1339,28 +1302,25 @@ public class itemSelectToggle : MonoBehaviour
                     ++count;
                 }
 
-                //リスト中の選択された番号を格納。
-                pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-                pitemlistController._count1 = count;
+                GameMgr.List_count1 = count;
 
-                //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID; //itemID_1という変数に、プレイヤーが一個目に選択したアイテムIDを格納する。
-                itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-                pitemlistController.final_kettei_item1 = itemID_1;
+                //リスト中の選択された番号を格納。
+                GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+                GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 //押したタイミングで、分岐＝１に。
                 //GameMgr.Comp_kettei_bunki = 1;
 
-                _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
+                _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
 
 
                 //Debug.Log(count + "番が押されたよ");
-                //Debug.Log("1個目　アイテムID:" + itemID_1 + " " + database.items[itemID_1].itemNameHyouji + "が選択されました。");
+                //Debug.Log("1個目　アイテムID:" + GameMgr.temp_itemID1 + " " + database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
-                card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示。トグルタイプとリスト番号を入れると、表示してくれる。
+                card_view.SelectCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示。トグルタイプとリスト番号を入れると、表示してくれる。
                 updown_counter_obj.SetActive(true);
 
                 SelectPaused();
@@ -1396,17 +1356,17 @@ public class itemSelectToggle : MonoBehaviour
                 //itemselect_cancel.update_ListSelect_Flag = 1; //一個目を選択したものを選択できないようにするときの番号。
                 //itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-                pitemlistController.final_kettei_kosu1 = GameMgr.updown_kosu;
+                GameMgr.Final_kettei_kosu1 = GameMgr.updown_kosu;
                 //card_view.OKCard_DrawView(pitemlistController.final_kettei_kosu1);
 
-                card_view.DeleteCard_DrawView(); //決定したら表示してたカードを削除　もしくは、少し演出のアニメ入れてから消す
+                //card_view.DeleteCard_DrawView(); //決定したら表示してたカードを削除　もしくは、少し演出のアニメ入れてから消す
 
                 yes.SetActive(false);
                 //no.SetActive(false);
                 updown_counter_obj.SetActive(false);
 
                 itemselect_cancel.kettei_on_waiting = false;
-                GameMgr.final_select_flag = true; //調合すぐ開始 + 演出画面を登場
+                GameMgr.final_select_flag = true; //調合最終確認
 
                 //Debug.Log("一個目選択完了！");
                 break;
@@ -1442,27 +1402,23 @@ public class itemSelectToggle : MonoBehaviour
             ++count;
         }
 
-        //リスト中の選択された番号を格納。
-        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
-
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-        pitemlistController._count1 = count;
+        GameMgr.List_count1 = count;
 
-        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
-        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-        pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
+        //リスト中の選択された番号を格納。
+        GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+        GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+        GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
-        _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" + 
-            GameMgr.ColorYellow + database.items[itemID_1].sell_price + " " + GameMgr.MoneyCurrency + "</color>"
+        _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。　" + 
+            GameMgr.ColorYellow + database.items[GameMgr.temp_itemID1].sell_price + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
 
         //Debug.Log(count + "番が押されたよ");
-        //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
+        //Debug.Log("アイテムID:" + GameMgr.temp_itemID1 + "が選択されました。");
         //Debug.Log("これでいいですか？");
 
-        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+        card_view.SelectCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示
 
         SelectPaused();
 
@@ -1495,7 +1451,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("ok");
 
-                pitemlistController.final_kettei_kosu1 = GameMgr.updown_kosu; //最終個数を入れる。
+                GameMgr.Final_kettei_kosu1 = GameMgr.updown_kosu; //最終個数を入れる。
 
                 pitemlistController.shopsell_final_select_flag = true; //確認のフラグ
 
@@ -1527,8 +1483,8 @@ public class itemSelectToggle : MonoBehaviour
     IEnumerator shop_sell_Final_select()
     {
 
-        _text.text = database.items[pitemlistController.final_kettei_item1].itemNameHyouji + "を　" + pitemlistController.final_kettei_kosu1 + "個 売りますか？" + "\n" +
-            "全部で　" + GameMgr.ColorYellow + database.items[pitemlistController.final_kettei_item1].sell_price * pitemlistController.final_kettei_kosu1 + 
+        _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "を　" + GameMgr.Final_kettei_kosu1 + "個 売りますか？" + "\n" +
+            "全部で　" + GameMgr.ColorYellow + database.items[GameMgr.temp_itemID1].sell_price * GameMgr.Final_kettei_kosu1 + 
             " " + GameMgr.MoneyCurrency + "</color>" + "で買い取ります。";
 
         updown_counter.UpdownButton_InteractALLOFF();
@@ -1612,29 +1568,25 @@ public class itemSelectToggle : MonoBehaviour
             ++count;
         }
 
-        //リスト中の選択された番号を格納。
-        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
-
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
-        pitemlistController._count1 = count;
+        GameMgr.List_count1 = count;
 
-        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
-        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-        pitemlistController.final_kettei_item1 = itemID_1;
+        //リスト中の選択された番号を格納。
+        GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+        GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+        GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
         /*
-        _text.text = database.items[itemID_1].itemNameHyouji + "が選択されました。　" +
-            GameMgr.ColorYellow + database.items[itemID_1].sell_price + " " + GameMgr.MoneyCurrency + "</color>"
+        _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。　" +
+            GameMgr.ColorYellow + database.items[GameMgr.temp_itemID1].sell_price + " " + GameMgr.MoneyCurrency + "</color>"
             + "\n" + "個数を選択してください";
             */
 
         //Debug.Log(count + "番が押されたよ");
-        //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
+        //Debug.Log("アイテムID:" + GameMgr.temp_itemID1 + "が選択されました。");
         //Debug.Log("これでいいですか？");
 
-        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+        card_view.SelectCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示
 
         SelectPaused();
 
@@ -1679,8 +1631,8 @@ public class itemSelectToggle : MonoBehaviour
                 GameMgr.event_pitem_use_OK = true;
 
                 //決定したアイテムの番号と個数
-                GameMgr.event_kettei_itemID = pitemlistController.kettei_item1;
-                GameMgr.event_kettei_item_Type = pitemlistController._toggle_type1;
+                GameMgr.event_kettei_itemID = GameMgr.Final_list_itemID1;
+                GameMgr.event_kettei_item_Type = GameMgr.Final_toggle_Type1;
                 //GameMgr.event_kettei_item_Kosu = updown_counter.updown_kosu; //最終個数を入れる。
                 GameMgr.event_kettei_item_Kosu = 1;
 
@@ -1731,23 +1683,20 @@ public class itemSelectToggle : MonoBehaviour
             ++count;
         }
 
-        //リスト中の選択された番号を格納。
-        pitemlistController.kettei_item1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-        pitemlistController._toggle_type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-
-
         //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
         pitemlistController._listcount.Add(count);
 
-        //itemID_1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
-        itemID_1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
-        pitemlistController.final_kettei_item1 = itemID_1;//選択したアイテムの、アイテムIDを格納しておく。
+        //リスト中の選択された番号を格納。
+        GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
+        GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+        GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
+
 
         //Debug.Log(count + "番が押されたよ");
-        //Debug.Log("アイテムID:" + itemID_1 + "が選択されました。");
+        //Debug.Log("アイテムID:" + GameMgr.temp_itemID1 + "が選択されました。");
         //Debug.Log("これでいいですか？");
 
-        card_view.SelectCard_DrawView(pitemlistController._toggle_type1, pitemlistController.kettei_item1); //選択したアイテムをカードで表示
+        card_view.SelectCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示
         updown_counter_obj.SetActive(true);
         NouhinKetteiPanel_obj.SetActive(false);
 
@@ -1931,7 +1880,7 @@ public class itemSelectToggle : MonoBehaviour
     //
     void Compo_KakuritsuKeisan_1()
     {
-        _success_rate = (100 * database.items[itemID_1].Ex_Probability) + PlayerStatus.player_renkin_lv;
+        _success_rate = (100 * database.items[GameMgr.temp_itemID1].Ex_Probability) + PlayerStatus.player_renkin_lv;
 
         if(_success_rate >= 100 )
         {
@@ -1950,7 +1899,7 @@ public class itemSelectToggle : MonoBehaviour
 
     void Compo_KakuritsuKeisan_2()
     {
-        _success_rate = (exp_Controller._temp_srate_1 * database.items[itemID_2].Ex_Probability * 0.75f) + PlayerStatus.player_renkin_lv;
+        _success_rate = (exp_Controller._temp_srate_1 * database.items[GameMgr.temp_itemID2].Ex_Probability * 0.75f) + PlayerStatus.player_renkin_lv;
 
         if (_success_rate >= 100)
         {
@@ -1969,7 +1918,7 @@ public class itemSelectToggle : MonoBehaviour
 
     void Compo_KakuritsuKeisan_3()
     {
-        _success_rate = (exp_Controller._temp_srate_2 * database.items[itemID_3].Ex_Probability * 0.5f) + PlayerStatus.player_renkin_lv;
+        _success_rate = (exp_Controller._temp_srate_2 * database.items[GameMgr.temp_itemID3].Ex_Probability * 0.5f) + PlayerStatus.player_renkin_lv;
 
         if (_success_rate >= 100)
         {

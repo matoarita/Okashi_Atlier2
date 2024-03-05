@@ -127,8 +127,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     public int Comp_method_bunki; //トッピング調合メソッドの分岐フラグ Compound_Keisanから読み出ししてるので注意
 
-    public bool compound_success; //調合の成功か失敗
-
     public bool NewRecipiFlag;  //新しいレシピをひらめいたフラグをON
     public int NewRecipi_compoID;   //そのときの、調合DBのID
     private int _releaseID;
@@ -235,7 +233,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //blend_flag = false;
 
-        compound_success = false;
         NewRecipiFlag = false;
 
         extreme_on = false;
@@ -380,10 +377,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();       
 
         //リザルトアイテムを代入
-        result_item = pitemlistController.result_item;
+        result_item = GameMgr.Final_result_itemID1;
 
         //コンポ調合データベースのIDを代入
-        result_ID = pitemlistController.result_compID;
+        result_ID = GameMgr.Final_result_compID;
 
         Comp_method_bunki = 0;
         
@@ -411,7 +408,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //チュートリアルモードのときは100%成功
         if (GameMgr.tutorial_ON == true)
         {
-            compound_success = true;
+            GameMgr.Result_compound_success = true;
         }
         else
         {
@@ -419,7 +416,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //調合成功
-        if (compound_success == true)
+        if (GameMgr.Result_compound_success == true)
         {
             //個数の決定
             if (set_kaisu == 0) //例外処理。ロードしたてのときは、回数0のまま、仕上げから新規作成される際、0になることがある。
@@ -690,10 +687,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
        
         //コンポ調合データベースのIDを代入
-        result_ID = recipilistController.result_recipicompID;
+        result_ID = GameMgr.Final_result_compID;
 
         //個数の決定
-        result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * recipilistController.final_select_kosu;
+        result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * GameMgr.Final_setCount;
 
         extreme_on = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。
 
@@ -722,7 +719,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //チュートリアルモードのときは100%成功
         if (GameMgr.tutorial_ON == true)
         {
-            compound_success = true;
+            GameMgr.Result_compound_success = true;
         }
         else
         {
@@ -730,7 +727,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //調合成功
-        if (compound_success == true)
+        if (GameMgr.Result_compound_success == true)
         {
 
             //調合処理
@@ -889,7 +886,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //チュートリアルモードのときは100%成功
         /*if (GameMgr.tutorial_ON == true)
         {
-            compound_success = true;
+            GameMgr.Result_compound_success = true;
         }
         else
         {
@@ -897,10 +894,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }*/
 
         //エクストリーム調合は必ず成功　トッピングなので。
-        compound_success = true;
+        GameMgr.Result_compound_success = true;
 
 
-        if (compound_success == true)
+        if (GameMgr.Result_compound_success == true)
         {
             Debug.Log("Topping_Compound_Sucess!!");
 
@@ -925,7 +922,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             else
             {
                 //調合データベースのIDを代入
-                result_ID = pitemlistController.result_compID;
+                result_ID = GameMgr.Final_result_compID;
 
 
                 //閃き済みかどうかをチェック。
@@ -1086,10 +1083,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
         //リザルトアイテムを代入
-        result_item = pitemlistController.result_item;
+        result_item = GameMgr.Final_result_itemID1;
 
         //コンポ調合データベースのIDを代入
-        result_ID = pitemlistController.result_compID;
+        result_ID = GameMgr.Final_result_compID;
 
         Comp_method_bunki = 20;
 
@@ -1116,7 +1113,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //チュートリアルモードのときは100%成功
         if (GameMgr.tutorial_ON == true)
         {
-            compound_success = true;
+            GameMgr.Result_compound_success = true;
         }
         else
         {
@@ -1124,7 +1121,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //調合成功
-        if (compound_success == true)
+        if (GameMgr.Result_compound_success == true)
         {
             //個数の決定
             if (set_kaisu == 0) //例外処理。ロードしたてのときは、回数0のまま、仕上げから新規作成される際、0になることがある。
@@ -1326,10 +1323,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //リザルトアイテムを代入
-        result_item = pitemlistController.result_item;
+        //result_item = GameMgr.Final_result_itemID1;
 
         //コンポ調合データベースのIDを代入
-        result_ID = pitemlistController.result_compID;
+        //result_ID = GameMgr.Final_result_compID;
 
         Comp_method_bunki = 0;
         extreme_on = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。ヒカリは、新しいお菓子をひらめくことは、今の仕様では無い。
@@ -1339,18 +1336,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         compound_keisan.Topping_Compound_Method(2);
 
         //使用する材料と個数を別に保存する。すぐにはアイテムの使用はせず、時間イベントに合わせて、処理を行う。
-        GameMgr.hikari_kettei_item[0] = pitemlistController.kettei_item1; //店売りかオリジナルアイテムのリスト配列番号
-        GameMgr.hikari_kettei_item[1] = pitemlistController.kettei_item2;
-        GameMgr.hikari_kettei_item[2] = pitemlistController.kettei_item3;
-        GameMgr.hikari_kettei_toggleType[0] = pitemlistController._toggle_type1;
-        GameMgr.hikari_kettei_toggleType[1] = pitemlistController._toggle_type2;
-        GameMgr.hikari_kettei_toggleType[2] = pitemlistController._toggle_type3;
-        GameMgr.hikari_kettei_kosu[0] = pitemlistController.final_kettei_kosu1;
-        GameMgr.hikari_kettei_kosu[1] = pitemlistController.final_kettei_kosu2;
-        GameMgr.hikari_kettei_kosu[2] = pitemlistController.final_kettei_kosu3;        
+        GameMgr.hikari_kettei_item[0] = GameMgr.Final_list_itemID1; //店売りかオリジナルアイテムのリスト配列番号
+        GameMgr.hikari_kettei_item[1] = GameMgr.Final_list_itemID2;
+        GameMgr.hikari_kettei_item[2] = GameMgr.Final_list_itemID3;
+        GameMgr.hikari_kettei_toggleType[0] = GameMgr.Final_toggle_Type1;
+        GameMgr.hikari_kettei_toggleType[1] = GameMgr.Final_toggle_Type2;
+        GameMgr.hikari_kettei_toggleType[2] = GameMgr.Final_toggle_Type3;
+        GameMgr.hikari_kettei_kosu[0] = GameMgr.Final_kettei_kosu1;
+        GameMgr.hikari_kettei_kosu[1] = GameMgr.Final_kettei_kosu2;
+        GameMgr.hikari_kettei_kosu[2] = GameMgr.Final_kettei_kosu3;        
         GameMgr.hikari_make_okashiFlag = true; //現在制作中。このフラグをもとに、キャンセルできるようにもする。
-        GameMgr.hikari_make_okashiID = result_item;
-        GameMgr.hikari_make_okashi_compID = result_ID;
+        GameMgr.hikari_make_okashiID = GameMgr.Final_result_itemID1;
+        GameMgr.hikari_make_okashi_compID = GameMgr.Final_result_compID;
         GameMgr.hikari_make_success_rate = _success_rate;
 
         //オリジナルアイテムかお菓子パネルのリストを選択していたら、アイテムの固有IDを保存しておく。
@@ -1398,7 +1395,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_Allfailed = false;
 
         //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が5分なので、*5。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
-        GameMgr.hikari_make_okashiTimeCost = (int)(databaseCompo.compoitems[result_ID].cost_Time * 5f * 2 * GameMgr.hikari_make_okashiTime_costbuf);
+        GameMgr.hikari_make_okashiTimeCost = (int)(databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cost_Time * 5f * 2 * GameMgr.hikari_make_okashiTime_costbuf);
         //Debug.Log("GameMgr.hikari_make_okashiTime_costbuf: " + GameMgr.hikari_make_okashiTime_costbuf);
 
         if (GameMgr.hikari_kettei_toggleType[0] == 0)
@@ -1444,10 +1441,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
         //
-        result_item = pitemlist.player_yosokuitemlist.Count - 1;
-        renkin_hyouji = pitemlist.player_yosokuitemlist[result_item].itemNameHyouji;
-
-        new_item = result_item;
+        renkin_hyouji = pitemlist.player_yosokuitemlist[pitemlist.player_yosokuitemlist.Count - 1].itemNameHyouji;
+        new_item = pitemlist.player_yosokuitemlist.Count - 1;
 
 
         //リザルトアニメーション開始
@@ -1620,9 +1615,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
         moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
-        kettei_item1 = pitemlistController.kettei_item1;
-        toggle_type1 = pitemlistController._toggle_type1;
-        result_kosu = pitemlistController.final_kettei_kosu1; //買った個数
+        kettei_item1 = GameMgr.Final_list_itemID1;
+        toggle_type1 = GameMgr.Final_toggle_Type1;
+        result_kosu = GameMgr.Final_kettei_kosu1; //買った個数
 
         //通常アイテム
         if (toggle_type1 == 0)
@@ -1648,7 +1643,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case 20:
 
                 //所持金を増やす
-                moneyStatus_Controller.GetMoney(database.items[pitemlistController.final_kettei_item1].sell_price * pitemlistController.final_kettei_kosu1);
+                moneyStatus_Controller.GetMoney(database.items[GameMgr.Final_list_itemID1].sell_price * GameMgr.Final_kettei_kosu1);
 
                 break;
 
@@ -2211,7 +2206,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             case 0: //必ず成功
 
-                compound_success = true;
+                GameMgr.Result_compound_success = true;
                 break;
 
             case 1: //判定処理を行う
@@ -2225,18 +2220,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 if (dice <= (int)_rate_final) //出た目が、成功率より下なら成功
                 {
-                    compound_success = true;
+                    GameMgr.Result_compound_success = true;
                 }
                 else //失敗
                 {
-                    compound_success = false;
+                    GameMgr.Result_compound_success = false;
                 }
 
                 break;
 
             case 2: //必ず失敗
 
-                compound_success = false;
+                GameMgr.Result_compound_success = false;
                 break;
         }
 

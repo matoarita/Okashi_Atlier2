@@ -41958,7 +41958,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.75
   m_Text: "\u30A2\u30A4\u30B9\u30AF\u30C3\u30AD\u30FC\u3000\u304C\u3000\u3067\u304D\u305F\u3088\uFF01"
 --- !u!114 &114831379652894800
 MonoBehaviour:
@@ -47123,6 +47123,8 @@ MonoBehaviour:
   itemID: 0
   item_type: 
   item_type_sub: 
+  item_type_subB: 
+  item_type_sub_category: 
   check_counter: 0
   Pitem_or_Origin: 0
   def_scale: {x: 0, y: 0, z: 0}

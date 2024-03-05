@@ -185,8 +185,8 @@ public class Compound_Check : MonoBehaviour {
             pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
             pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-            //recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-            //recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+            recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+            recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
 
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
@@ -206,8 +206,8 @@ public class Compound_Check : MonoBehaviour {
         {
             if (GameMgr.compound_select == 1) //レシピ調合のときの処理
             {
-                recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-                recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
+                //recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
+                //recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
 
                 GameMgr.compound_status = 110;
 
@@ -215,8 +215,6 @@ public class Compound_Check : MonoBehaviour {
 
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
-
-                
 
                 StartCoroutine("recipiFinal_select");
 
@@ -299,12 +297,12 @@ public class Compound_Check : MonoBehaviour {
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
 
-                FinalCheckPanel.SetActive(true);
+                //FinalCheckPanel.SetActive(true);
                 yes.GetComponent<Button>().interactable = false;
                 no.GetComponent<Button>().interactable = false;
 
-                //StartCoroutine("Final_select"); //最終確認 確率とかを確認する？
-                MagicFinal_select();
+                StartCoroutine("MagicFinal_select"); //最終確認 スキルレベルを選択する。
+                //MagicFinal_select();
             }
         }
         
@@ -319,14 +317,13 @@ public class Compound_Check : MonoBehaviour {
         {
             case 2: //2個選択しているとき
 
-                itemID_1 = pitemlistController.final_kettei_item1;
-                itemID_2 = pitemlistController.final_kettei_item2;
+                itemID_1 = GameMgr.Final_list_itemID1;
+                itemID_2 = GameMgr.Final_list_itemID2;
 
-                pitemlistController.kettei_item3 = 9999;
-                pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
-                itemID_3 = pitemlistController.final_kettei_item3;
+                GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
+                itemID_3 = GameMgr.Final_list_itemID3;
 
-                card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
+                card_view.OKCard_DrawView02(GameMgr.Final_kettei_kosu2);
 
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
@@ -355,6 +352,7 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 FinalCheckPanel.SetActive(false);
                 yes.GetComponent<Button>().interactable = true;
@@ -447,11 +445,11 @@ public class Compound_Check : MonoBehaviour {
 
             case 3: //3個選択しているとき
 
-                itemID_1 = pitemlistController.final_kettei_item1;
-                itemID_2 = pitemlistController.final_kettei_item2;
-                itemID_3 = pitemlistController.final_kettei_item3;
+                itemID_1 = GameMgr.Final_list_itemID1;
+                itemID_2 = GameMgr.Final_list_itemID2;
+                itemID_3 = GameMgr.Final_list_itemID3;
 
-                card_view.OKCard_DrawView03(pitemlistController.final_kettei_kosu3);
+                card_view.OKCard_DrawView03(GameMgr.Final_kettei_kosu3);
 
                 CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
@@ -480,6 +478,7 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 FinalCheckPanel.SetActive(false);
                 yes.GetComponent<Button>().interactable = true;
@@ -579,24 +578,21 @@ public class Compound_Check : MonoBehaviour {
         {
             case 11: //べーすあいてむ + 1個選択しているとき
 
-                //itemID_1 = pitemlistController.final_kettei_item1;
-                itemID_1 = pitemlistController.final_kettei_item1;
-                baseitemID = pitemlistController.final_base_kettei_item;
+                itemID_1 = GameMgr.Final_list_itemID1;
+                baseitemID = GameMgr.Final_list_baseitemID;
 
-                pitemlistController.kettei_item2 = 9999;
-                pitemlistController.kettei_item3 = 9999;
-                pitemlistController.final_kettei_item2 = 9999; //9999は空を表す数字                
-                pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
-                itemID_2 = pitemlistController.final_kettei_item2;
-                itemID_3 = pitemlistController.final_kettei_item3;
+                GameMgr.Final_list_itemID2 = 9999; //9999は空を表す数字                
+                GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
+                itemID_2 = GameMgr.Final_list_itemID2;
+                itemID_3 = GameMgr.Final_list_itemID3;
 
                 card_view.OKCard_DrawView02(1);
 
                 CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
 
                 _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + "に" + "\n" + "一個目: " + 
-                    database.items[itemID_1].itemNameHyouji + " " + 
-                    pitemlistController.final_kettei_kosu1 + "個" + "をトッピングします。" + "\n" + "　トッピングしますか？";
+                    database.items[itemID_1].itemNameHyouji + " " +
+                    GameMgr.Final_kettei_kosu1 + "個" + "をトッピングします。" + "\n" + "　トッピングしますか？";
 
                 Debug.Log("ベースアイテム＋一個トッピング　調合確認中");
 
@@ -605,6 +601,7 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 switch (yes_selectitem_kettei.kettei1)
                 {
@@ -650,21 +647,20 @@ public class Compound_Check : MonoBehaviour {
 
             case 12: //べーすあいてむ + 2個選択しているとき
 
-                itemID_1 = pitemlistController.final_kettei_item1;
-                itemID_2 = pitemlistController.final_kettei_item2;
-                baseitemID = pitemlistController.final_base_kettei_item;
+                itemID_1 = GameMgr.Final_list_itemID1;
+                itemID_2 = GameMgr.Final_list_itemID2;
+                baseitemID = GameMgr.Final_list_baseitemID;
 
-                pitemlistController.kettei_item3 = 9999;
-                pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
-                itemID_3 = pitemlistController.final_kettei_item3;
+                GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
+                itemID_3 = GameMgr.Final_list_itemID3;
 
                 card_view.OKCard_DrawView03(1);
 
                 CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
 
                 _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + "に" + "\n" + 
-                    "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + 
-                    "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + 
+                    "一個目: " + database.items[itemID_1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" + 
+                    "二個目：" + database.items[itemID_2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" + 
                     "　トッピングしますか？";
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
@@ -674,6 +670,7 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 switch (yes_selectitem_kettei.kettei1)
                 {
@@ -720,17 +717,17 @@ public class Compound_Check : MonoBehaviour {
 
             case 13: //べーすあいてむ + 3個選択しているとき
 
-                itemID_1 = pitemlistController.final_kettei_item1;
-                itemID_2 = pitemlistController.final_kettei_item2;
-                itemID_3 = pitemlistController.final_kettei_item3;
-                baseitemID = pitemlistController.final_base_kettei_item;
+                itemID_1 = GameMgr.Final_list_itemID1;
+                itemID_2 = GameMgr.Final_list_itemID2;
+                itemID_3 = GameMgr.Final_list_itemID3;
+                baseitemID = GameMgr.Final_list_baseitemID;
 
                 card_view.OKCard_DrawView04();
 
                 _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + "に" + "\n" + 
-                    "一個目: " + database.items[itemID_1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + 
-                    "二個目：" + database.items[itemID_2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + 
-                    "三個目：" + database.items[itemID_3].itemNameHyouji + " " + pitemlistController.final_kettei_kosu3 + "個" + 
+                    "一個目: " + database.items[itemID_1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" + 
+                    "二個目：" + database.items[itemID_2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" + 
+                    "三個目：" + database.items[itemID_3].itemNameHyouji + " " + GameMgr.Final_kettei_kosu3 + "個" + 
                     "　トッピングしますか？";
 
                 //Debug.Log(database.items[itemID_1].itemNameHyouji + "と" + database.items[itemID_2].itemNameHyouji + "と" + database.items[itemID_3].itemNameHyouji + "でいいですか？");
@@ -740,6 +737,7 @@ public class Compound_Check : MonoBehaviour {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 switch (yes_selectitem_kettei.kettei1)
                 {
@@ -776,10 +774,14 @@ public class Compound_Check : MonoBehaviour {
 
     IEnumerator recipiFinal_select()
     {
-        CompoundRecipiKyorikeisan(); //食材の距離計算も行う。
+        itemID_1 = GameMgr.Final_list_itemID1;
+        itemID_2 = GameMgr.Final_list_itemID2;
+        itemID_3 = GameMgr.Final_list_itemID3;
 
-        _text.text = database.items[recipilistController.result_recipiitem].itemNameHyouji + "が" +
-            databaseCompo.compoitems[recipilistController.result_recipicompID].cmpitem_result_kosu * recipilistController.final_select_kosu + 
+        CompoundJudge(); //食材の距離計算も行う。
+
+        _text.text = database.items[GameMgr.Final_result_itemID1].itemNameHyouji + "が" +
+            databaseCompo.compoitems[GameMgr.Final_result_compID].cmpitem_result_kosu * GameMgr.Final_setCount + 
             "個　出来ます。" + "\n" + "作る？" + "\n" + "成功確率: " + _success_rate + "％";
        
 
@@ -788,6 +790,7 @@ public class Compound_Check : MonoBehaviour {
 
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -816,8 +819,6 @@ public class Compound_Check : MonoBehaviour {
                 card_view.CardCompo_Anim();
 
                 GameMgr.compound_status = 4;
-
-                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 exp_Controller.Recipi_ResultOK();
 
@@ -851,23 +852,22 @@ public class Compound_Check : MonoBehaviour {
 
     /* 魔法調合時の調合決定処理 */
 
-    void MagicFinal_select()
+    IEnumerator MagicFinal_select()
     {
         //*** 魔法調合時これでOKかどうか聞くメソッド　***//
-        //　現在コルーチンで最終確認はせず、そのまま進む //
 
         switch (GameMgr.Comp_kettei_bunki)
         {
             case 20: //1個選択しているとき
 
-                itemID_1 = pitemlistController.final_kettei_item1;
+                itemID_1 = GameMgr.Final_list_itemID1;
                 itemID_2 = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
-                pitemlistController.kettei_item3 = 9999;
-                pitemlistController.final_kettei_item3 = 9999; //9999は空を表す数字
-                itemID_3 = pitemlistController.final_kettei_item3;
+                GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
+                itemID_3 = GameMgr.Final_list_itemID3;
 
                 //card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
+                //魔法のときは、対象アイテムと魔法のエフェクトなどを表示する？
 
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
@@ -880,55 +880,74 @@ public class Compound_Check : MonoBehaviour {
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
                 //FinalCheck_ItemIconHyouji(0); //2個表示のとき
 
-                /*if (GameMgr.compound_select == 3)
-                {
-                    _text.text = final_itemmes + "\n" + "作る？";
-                }
-                else if (GameMgr.compound_select == 7)
-                {
-                    _text.text = final_itemmes + "\n" + "このお菓子を作ってもらう？";
-                }*/
+
+                _text.text = "魔法のレベルを選択してね。";
+                updown_counter_obj.SetActive(true);
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
-                /*while (yes_selectitem_kettei.onclick != true)
+                while (yes_selectitem_kettei.onclick != true)
                 {
 
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-                }*/
+                }
+                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 FinalCheckPanel.SetActive(false);
                 yes.GetComponent<Button>().interactable = true;
                 no.GetComponent<Button>().interactable = true;
 
                 //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
-
-                //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
-                exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
-
-                exp_Controller.extreme_on = false;
-
-                if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                switch (yes_selectitem_kettei.kettei1)
                 {
-                    exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
+                    case true:
+
+                        //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
+                        exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
+
+                        exp_Controller.extreme_on = false;
+
+                        exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                        /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                        {
+                            exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
+                        }
+                        else
+                        {
+                            exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                        }*/
+
+                        exp_Controller.result_kosuset.Clear();
+                        for (i = 0; i < result_kosuset.Count; i++)
+                        {
+                            exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                        }
+
+                        GameMgr.compound_status = 22;
+
+                        //card_view.CardCompo_Anim();
+                        Off_Flag_Setting();
+
+                        exp_Controller.MagicResultOK();
+
+                        break;
+
+                    case false:
+
+                        //Debug.Log("1個目を選択した状態に戻る");
+
+                        //recipiMemoButton_obj.SetActive(true);
+                        GameMgr.compound_status = 100;
+                        //itemselect_cancel.Two_cancel();
+
+                        /*if (GameMgr.compound_select == 7)
+                        {
+                            text_hikari_makecaption.SetActive(true);
+                        }*/
+
+                        break;
                 }
-                else
-                {
-                    exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
-                }
-
-                exp_Controller.result_kosuset.Clear();
-                for (i = 0; i < result_kosuset.Count; i++)
-                {
-                    exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
-                }
-
-                GameMgr.compound_status = 22;
-
-                //card_view.CardCompo_Anim();
-                Off_Flag_Setting();
-
-                exp_Controller.MagicResultOK();
+                
                
                 break;
         }
@@ -967,16 +986,16 @@ public class Compound_Check : MonoBehaviour {
             _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
             _itemSubtypeB_temp_result.Add(database.items[itemID_2].itemType_subB.ToString());
 
-            _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
-            _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
+            _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu1);
+            _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu2);
 
             if (itemID_3 == 9999) //二個しか選択していないときは、9999が入っている。
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
                 _itemSubtypeB_temp_result.Add("empty");
-                pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
-                _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
+                GameMgr.Final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
+                _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
@@ -989,7 +1008,7 @@ public class Compound_Check : MonoBehaviour {
                 _itemIDtemp_result.Add(database.items[itemID_3].itemName);
                 _itemSubtype_temp_result.Add(database.items[itemID_3].itemType_sub.ToString());
                 _itemSubtypeB_temp_result.Add(database.items[itemID_3].itemType_subB.ToString());
-                _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
+                _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
@@ -1016,15 +1035,15 @@ public class Compound_Check : MonoBehaviour {
             _itemKosutemp_result.Add(1);
             //Debug.Log("pitemlistController.final_kettei_kosu1: " + pitemlistController.final_kettei_kosu1);
 
-            _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
+            _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu1);
 
             if (itemID_2 == 9999) //二個しか選択していないときは、9999が入っている。
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
                 _itemSubtypeB_temp_result.Add("empty");
-                pitemlistController.final_kettei_kosu2 = 9999; //個数にも9999=emptyを入れる。
-                _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
+                GameMgr.Final_kettei_kosu2 = 9999; //個数にも9999=emptyを入れる。
+                _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[baseitemID].Ex_Probability *
@@ -1037,7 +1056,7 @@ public class Compound_Check : MonoBehaviour {
                 _itemIDtemp_result.Add(database.items[itemID_2].itemName);
                 _itemSubtype_temp_result.Add(database.items[itemID_2].itemType_sub.ToString());
                 _itemSubtypeB_temp_result.Add(database.items[itemID_2].itemType_subB.ToString());
-                _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu2);
+                _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[baseitemID].Ex_Probability *
@@ -1061,7 +1080,7 @@ public class Compound_Check : MonoBehaviour {
             _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
             _itemSubtypeB_temp_result.Add("empty");
 
-            _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu1);
+            _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu1);
             _itemKosutemp_result.Add(1);
 
 
@@ -1070,8 +1089,8 @@ public class Compound_Check : MonoBehaviour {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
                 _itemSubtypeB_temp_result.Add("empty");
-                pitemlistController.final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
-                _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
+                GameMgr.Final_kettei_kosu3 = 9999; //個数にも9999=emptyを入れる。
+                _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
@@ -1084,7 +1103,7 @@ public class Compound_Check : MonoBehaviour {
                 _itemIDtemp_result.Add(database.items[itemID_3].itemName);
                 _itemSubtype_temp_result.Add(database.items[itemID_3].itemType_sub.ToString());
                 _itemSubtypeB_temp_result.Add(database.items[itemID_3].itemType_subB.ToString());
-                _itemKosutemp_result.Add(pitemlistController.final_kettei_kosu3);
+                _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
@@ -1198,9 +1217,8 @@ public class Compound_Check : MonoBehaviour {
         }
 
         //stringのリザルドアイテムを、アイテムIDに変換。
-        pitemlistController.result_item = database.SearchItemIDString(resultitemID);
-
-        pitemlistController.result_compID = result_compoID;
+        GameMgr.Final_result_itemID1 = database.SearchItemIDString(resultitemID);
+        GameMgr.Final_result_compID = result_compoID;
 
 
 
@@ -1209,13 +1227,13 @@ public class Compound_Check : MonoBehaviour {
         //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
         if (GameMgr.compound_select != 7)
         {
-            _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
+            _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
         }
            else
         {
             //ヒカリが作る場合、成功率を事前に計算
-            bufpower_keisan.hikariBuf_okashilv(database.items[pitemlistController.result_item].itemType_sub.ToString()); //GameMgr.hikari_make_okashiTime_successrate_bufを事前計算
-            _success_rate = Kakuritsu_Keisan(pitemlistController.result_compID);
+            bufpower_keisan.hikariBuf_okashilv(database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString()); //GameMgr.hikari_make_okashiTime_successrate_bufを事前計算
+            _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
         }
        
         newrecipi_flag = false;
@@ -1296,7 +1314,7 @@ public class Compound_Check : MonoBehaviour {
 
                     resultitemID = "gomi_1";
                     //stringのリザルドアイテムを、アイテムIDに変換。
-                    pitemlistController.result_item = database.SearchItemIDString(resultitemID);
+                    GameMgr.Final_result_itemID1 = database.SearchItemIDString(resultitemID);
                 }
                 else
                 {
@@ -1342,62 +1360,7 @@ public class Compound_Check : MonoBehaviour {
         //判定予測処理　ここまで//
     }
 
-    void CompoundRecipiKyorikeisan()
-    {
-        _itemIDtemp_result.Clear();
-        _itemKosutemp_result.Clear();
-        _itemSubtype_temp_result.Clear();
-        _itemSubtypeB_temp_result.Clear();
-        _ex_probabilty_temp = 1.0f;
 
-        _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemName);
-        _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem2].itemName);
-
-        _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemType_sub.ToString());
-        _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem2].itemType_sub.ToString());
-
-        _itemSubtypeB_temp_result.Add(database.items[recipilistController.kettei_recipiitem1].itemType_subB.ToString());
-        _itemSubtypeB_temp_result.Add(database.items[recipilistController.kettei_recipiitem2].itemType_subB.ToString());
-
-        _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu1);
-        _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu2);
-
-        if (recipilistController.kettei_recipiitem3 == 9999) //二個しか選択していないときは、9999が入っている。
-        {
-            _itemIDtemp_result.Add("empty");
-            _itemSubtype_temp_result.Add("empty");
-            _itemSubtypeB_temp_result.Add("empty");
-            recipilistController.final_kettei_recipikosu3 = 9999; //個数にも9999=emptyを入れる。
-            _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu3);
-
-            //アイテムごとの確率補正値を、先にここで計算
-            _ex_probabilty_temp = database.items[recipilistController.kettei_recipiitem1].Ex_Probability *
-            database.items[recipilistController.kettei_recipiitem2].Ex_Probability;
-        }
-        else
-        {
-            _itemIDtemp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemName);
-            _itemSubtype_temp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemType_sub.ToString());
-            _itemSubtypeB_temp_result.Add(database.items[recipilistController.kettei_recipiitem3].itemType_subB.ToString());
-            _itemKosutemp_result.Add(recipilistController.final_kettei_recipikosu3);
-
-            //アイテムごとの確率補正値を、先にここで計算
-            _ex_probabilty_temp = database.items[recipilistController.kettei_recipiitem1].Ex_Probability *
-            database.items[recipilistController.kettei_recipiitem2].Ex_Probability *
-            database.items[recipilistController.kettei_recipiitem3].Ex_Probability;
-        }
-
-        //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     距離も計算される。
-        Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 0);
-        //Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 0); //決めた３つのアイテム＋それぞれの個数、の配列
-
-        //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
-        _success_rate = Kakuritsu_Keisan(recipilistController.result_recipicompID);
-        Debug.Log("レシピ調合　成功確率: " + _success_rate);
-
-        exp_Controller._success_judge_flag = 1; //判定処理を行う。
-        exp_Controller._success_rate = _success_rate;
-    }
 
     void SelectPaused()
     {
@@ -1448,10 +1411,10 @@ public class Compound_Check : MonoBehaviour {
 
         updown_counter_obj.SetActive(false);        
 
-        yes_selectitem_kettei.kettei1 = false;
+        //yes_selectitem_kettei.kettei1 = false;
         yes.SetActive(false);
 
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        //yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
         //Debug.Log("選択完了！");
     }
@@ -1464,7 +1427,7 @@ public class Compound_Check : MonoBehaviour {
         _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_1].itemNameHyouji; //アイテム名
         texture2d = database.items[itemID_1].itemIcon_sprite;
         _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
-        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = pitemlistController.final_kettei_kosu1.ToString(); //個数
+        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Final_kettei_kosu1.ToString(); //個数
 
         //×をいれる
         //_listitem.Add(Instantiate(finalcheck_Prefab2, content.transform));
@@ -1477,7 +1440,7 @@ public class Compound_Check : MonoBehaviour {
         _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_2].itemNameHyouji; //アイテム名
         texture2d = database.items[itemID_2].itemIcon_sprite;
         _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
-        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = pitemlistController.final_kettei_kosu2.ToString(); //個数
+        _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Final_kettei_kosu2.ToString(); //個数
 
         if(_status == 1) //3個表示のとき
         {
@@ -1492,17 +1455,17 @@ public class Compound_Check : MonoBehaviour {
             _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_3].itemNameHyouji; //アイテム名
             texture2d = database.items[itemID_3].itemIcon_sprite;
             _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
-            _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = pitemlistController.final_kettei_kosu3.ToString(); //個数
+            _listitem[list_count].transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Final_kettei_kosu3.ToString(); //個数
 
         }
 
         //リザルトアイテムの表示
         if (!newrecipi_flag)
         {
-            resultitemName_obj.GetComponent<Text>().text = database.items[pitemlistController.result_item].itemNameHyouji; //アイテム名
+            resultitemName_obj.GetComponent<Text>().text = database.items[GameMgr.Final_result_itemID1].itemNameHyouji; //アイテム名
             if (compoDB_select_judge == true)
             {
-                final_itemmes = database.items[pitemlistController.result_item].itemNameHyouji + "が出来そう！";
+                final_itemmes = database.items[GameMgr.Final_result_itemID1].itemNameHyouji + "が出来そう！";
             }
             else
             {
@@ -1515,7 +1478,7 @@ public class Compound_Check : MonoBehaviour {
                     final_itemmes = "これは.. ダメかもしれぬ。";
                 }
             }
-            texture2d = database.items[pitemlistController.result_item].itemIcon_sprite;
+            texture2d = database.items[GameMgr.Final_result_itemID1].itemIcon_sprite;
             resultitem_Hyouji.transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
             resultitem_Hyouji.transform.Find("KosuText").gameObject.SetActive(true);
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(false);
@@ -1528,7 +1491,7 @@ public class Compound_Check : MonoBehaviour {
             else
             {
                 resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
-                databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
+                databaseCompo.compoitems[GameMgr.Final_result_compID].cmpitem_result_kosu.ToString(); //個数
             }
         }
         else //新しいお菓子を思いつきそうな場合。アイコンは「？」とかになる。
@@ -1549,7 +1512,7 @@ public class Compound_Check : MonoBehaviour {
             else
             {
                 resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
-                databaseCompo.compoitems[pitemlistController.result_compID].cmpitem_result_kosu.ToString(); //個数
+                databaseCompo.compoitems[GameMgr.Final_result_compID].cmpitem_result_kosu.ToString(); //個数
             }
         }
     }

@@ -71,7 +71,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int nokori_kosu;
 
     private int result_item;
-    private int result_ID;
+    private int result_compID;
     private int new_item;
 
     private bool Pate_flag;
@@ -330,7 +330,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 else
                 {
                     //コンポ調合データベースのIDを代入
-                    result_ID = DBcount;
+                    result_compID = DBcount;
 
                     Topping_Compound_Method(99);
                 }
@@ -362,17 +362,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 //店売りの場合は、実質アイテムIDと数字は一緒。
                 //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
 
-                kettei_item1 = pitemlistController.kettei_item1;
-                kettei_item2 = pitemlistController.kettei_item2;
-                kettei_item3 = pitemlistController.kettei_item3;
+                kettei_item1 = GameMgr.Final_list_itemID1;
+                kettei_item2 = GameMgr.Final_list_itemID2;
+                kettei_item3 = GameMgr.Final_list_itemID3;
 
-                toggle_type1 = pitemlistController._toggle_type1;
-                toggle_type2 = pitemlistController._toggle_type2;
-                toggle_type3 = pitemlistController._toggle_type3;
+                toggle_type1 = GameMgr.Final_toggle_Type1;
+                toggle_type2 = GameMgr.Final_toggle_Type2;
+                toggle_type3 = GameMgr.Final_toggle_Type3;
 
-                final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
-                final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
-                final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+                final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
+                final_kette_kosu2 = GameMgr.Final_kettei_kosu2;
+                final_kette_kosu3 = GameMgr.Final_kettei_kosu3;
 
                 _before_itemtype_Sub = "";
 
@@ -381,17 +381,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
             else //仕上げで新しく閃く場合
             {
-                kettei_item1 = pitemlistController.base_kettei_item;
-                kettei_item2 = pitemlistController.kettei_item1;
-                kettei_item3 = pitemlistController.kettei_item2;
+                kettei_item1 = GameMgr.Final_list_baseitemID;
+                kettei_item2 = GameMgr.Final_list_itemID1;
+                kettei_item3 = GameMgr.Final_list_itemID2;
 
-                toggle_type1 = pitemlistController._base_toggle_type;
-                toggle_type2 = pitemlistController._toggle_type1;
-                toggle_type3 = pitemlistController._toggle_type2;
+                toggle_type1 = GameMgr.Final_toggle_baseType;
+                toggle_type2 = GameMgr.Final_toggle_Type1;
+                toggle_type3 = GameMgr.Final_toggle_Type2;
 
-                final_kette_kosu1 = pitemlistController.final_base_kettei_kosu;
-                final_kette_kosu2 = pitemlistController.final_kettei_kosu1;
-                final_kette_kosu3 = pitemlistController.final_kettei_kosu2;
+                final_kette_kosu1 = GameMgr.Final_kettei_basekosu;
+                final_kette_kosu2 = GameMgr.Final_kettei_kosu1;
+                final_kette_kosu3 = GameMgr.Final_kettei_kosu2;
 
                 if (toggle_type1 == 0)
                 {
@@ -419,30 +419,31 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             final_select_kaisu = 1;
 
             //パラメータを取得
-            result_item = pitemlistController.result_item;
+            result_item = GameMgr.Final_result_itemID1;
 
             //コンポ調合データベースのIDを代入
-            result_ID = pitemlistController.result_compID;
+            result_compID = GameMgr.Final_result_compID;
         }
 
         if (Comp_method_bunki == 2) //レシピ調合の場合
         {
             //レシピの場合。使うアイテムを自動的に選択する。
-            //今のところ、店売りアイテムのみでしか、レシピの材料にならないので、以下の定め方にしている。もし、オリジナルアイテムから使う場合は、toggle_typeなどの判定がちゃんと必要。
+            //今のところ、店売りアイテムのみでしか、レシピの材料にならないので、以下の定め方にしている。
+            //もし、オリジナルアイテムから使う場合は、toggle_typeなどの判定がちゃんと必要。
 
-            kettei_item1 = recipilistController.kettei_recipiitem1;
-            kettei_item2 = recipilistController.kettei_recipiitem2;
-            kettei_item3 = recipilistController.kettei_recipiitem3;
+            kettei_item1 = GameMgr.Final_list_itemID1;
+            kettei_item2 = GameMgr.Final_list_itemID2;
+            kettei_item3 = GameMgr.Final_list_itemID3;
 
             toggle_type1 = 0;
             toggle_type2 = 0;
             toggle_type3 = 0;
 
-            final_kette_kosu1 = recipilistController.final_kettei_recipikosu1; //一回あたりの必要個数×セット回数
-            final_kette_kosu2 = recipilistController.final_kettei_recipikosu2;
-            final_kette_kosu3 = recipilistController.final_kettei_recipikosu3;
+            final_kette_kosu1 = GameMgr.Final_kettei_kosu1; //一回あたりの必要個数
+            final_kette_kosu2 = GameMgr.Final_kettei_kosu2;
+            final_kette_kosu3 = GameMgr.Final_kettei_kosu3;
 
-            final_select_kaisu = recipilistController.final_select_kosu;
+            final_select_kaisu = GameMgr.Final_setCount;
 
             if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
             {
@@ -456,41 +457,41 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
 
             //パラメータを取得
-            result_item = recipilistController.result_recipiitem;
+            result_item = GameMgr.Final_result_itemID1;
 
             //コンポ調合データベースのIDを代入
-            result_ID = recipilistController.result_recipicompID;
+            result_compID = GameMgr.Final_result_compID;
         }
 
         if (Comp_method_bunki == 3) //トッピング調合の場合
         {
             //プレイヤーリストコントローラーで更新した変数を、こっちでも一度代入
-            kettei_item1 = pitemlistController.kettei_item1;
-            kettei_item2 = pitemlistController.kettei_item2;
-            kettei_item3 = pitemlistController.kettei_item3;
-            base_kettei_item = pitemlistController.base_kettei_item;
+            kettei_item1 = GameMgr.Final_list_itemID1;
+            kettei_item2 = GameMgr.Final_list_itemID2;
+            kettei_item3 = GameMgr.Final_list_itemID3;
+            base_kettei_item = GameMgr.Final_list_baseitemID;
 
-            toggle_type1 = pitemlistController._toggle_type1;
-            toggle_type2 = pitemlistController._toggle_type2;
-            toggle_type3 = pitemlistController._toggle_type3;
-            base_toggle_type = pitemlistController._base_toggle_type;
+            toggle_type1 = GameMgr.Final_toggle_Type1;
+            toggle_type2 = GameMgr.Final_toggle_Type2;
+            toggle_type3 = GameMgr.Final_toggle_Type3;
+            base_toggle_type = GameMgr.Final_toggle_baseType;
 
 
-            if (pitemlistController.final_kettei_item2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+            if (GameMgr.Final_list_itemID2 == 9999) //2個目が空の場合、トッピングは一個のみ。
             {
                 kettei_item2 = 9999;
                 kettei_item3 = 9999;
             }
 
-            if (pitemlistController.final_kettei_item3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+            if (GameMgr.Final_list_itemID3 == 9999) //3個目が空の場合、トッピングは二個のみ。
             {
                 kettei_item3 = 9999;
             }
 
             base_kosu = 1;
-            final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
-            final_kette_kosu2 = pitemlistController.final_kettei_kosu2;
-            final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+            final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
+            final_kette_kosu2 = GameMgr.Final_kettei_kosu2;
+            final_kette_kosu3 = GameMgr.Final_kettei_kosu3;
 
             //オリジナル・トッピングは、現在のところ、1セットのみの対応
             final_select_kaisu = 1;
@@ -505,17 +506,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             //店売りの場合は、実質アイテムIDと数字は一緒。
             //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
 
-            kettei_item1 = pitemlistController.kettei_item1;
+            kettei_item1 = GameMgr.Final_list_itemID1;
             kettei_item2 = database.SearchItemIDString("magic_comp_setting");
-            kettei_item3 = pitemlistController.kettei_item3;
+            kettei_item3 = 9999;
 
-            toggle_type1 = pitemlistController._toggle_type1;
+            toggle_type1 = GameMgr.Final_toggle_Type1;
             toggle_type2 = 0;
-            toggle_type3 = pitemlistController._toggle_type3;
+            toggle_type3 = 0;
 
-            final_kette_kosu1 = pitemlistController.final_kettei_kosu1;
+            final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
             final_kette_kosu2 = 0;
-            final_kette_kosu3 = pitemlistController.final_kettei_kosu3;
+            final_kette_kosu3 = 0;
 
             _before_itemtype_Sub = "";
 
@@ -535,10 +536,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             final_select_kaisu = 1;
 
             //パラメータを取得
-            result_item = pitemlistController.result_item;
+            result_item = GameMgr.Final_result_itemID1;
 
             //コンポ調合データベースのIDを代入
-            result_ID = pitemlistController.result_compID;
+            result_compID = GameMgr.Final_result_compID;
         }
 
         //**ここまで**
@@ -612,7 +613,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             result_item = GameMgr.hikari_make_okashiID;
 
             //コンポ調合データベースのIDを代入
-            result_ID = GameMgr.hikari_make_okashi_compID;
+            result_compID = GameMgr.hikari_make_okashi_compID;
 
             exp_Controller.result_ok = true; //オリジナル調合扱い
             exp_Controller.DoubleItemCreated = GameMgr.hikari_make_doubleItemCreated;
@@ -628,7 +629,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         i = 0;
         while (i < database.items.Count)
         {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_1 == database.items[i].itemName)
+            if (databaseCompo.compoitems[result_compID].cmpitemID_1 == database.items[i].itemName)
             {
                 kettei_item1 = i;
                 break;
@@ -639,7 +640,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         i = 0;
         while (i < database.items.Count)
         {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_2 == database.items[i].itemName)
+            if (databaseCompo.compoitems[result_compID].cmpitemID_2 == database.items[i].itemName)
             {
                 kettei_item2 = i;
                 break;
@@ -650,7 +651,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         i = 0;
         while (i < database.items.Count)
         {
-            if (databaseCompo.compoitems[result_ID].cmpitemID_3 == database.items[i].itemName)
+            if (databaseCompo.compoitems[result_compID].cmpitemID_3 == database.items[i].itemName)
             {
                 kettei_item3 = i;
                 break;
@@ -662,9 +663,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         toggle_type2 = 0;
         toggle_type3 = 0;
 
-        final_kette_kosu1 = databaseCompo.compoitems[result_ID].cmpitem_kosu1;
-        final_kette_kosu2 = databaseCompo.compoitems[result_ID].cmpitem_kosu2;
-        final_kette_kosu3 = databaseCompo.compoitems[result_ID].cmpitem_kosu3;
+        final_kette_kosu1 = databaseCompo.compoitems[result_compID].cmpitem_kosu1;
+        final_kette_kosu2 = databaseCompo.compoitems[result_compID].cmpitem_kosu2;
+        final_kette_kosu3 = databaseCompo.compoitems[result_compID].cmpitem_kosu3;
 
         if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
         {
@@ -679,84 +680,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //**ここまで**
     }
-
-    /*
-    void SetParamKosuHosei()
-    {
-        _itemIDtemp_result.Clear();
-        _itemKosutemp_result.Clear();
-        _itemSubtype_temp_result.Clear();
-        _itemSubtypeB_temp_result.Clear();
-
-        _itemIDtemp_result.Add(database.items[kettei_item1].itemName);
-        _itemIDtemp_result.Add(database.items[kettei_item2].itemName);
-
-        _itemSubtype_temp_result.Add(database.items[kettei_item1].itemType_sub.ToString());
-        _itemSubtype_temp_result.Add(database.items[kettei_item2].itemType_sub.ToString());
-
-        _itemSubtypeB_temp_result.Add(database.items[kettei_item1].itemType_subB.ToString());
-        _itemSubtypeB_temp_result.Add(database.items[kettei_item2].itemType_subB.ToString());
-
-        _itemKosutemp_result.Add(final_kette_kosu1);
-        _itemKosutemp_result.Add(final_kette_kosu2);
-
-        if (final_kette_kosu3 == 9999) //二個しか選択していないときは、9999が入っている。
-        {
-            _itemIDtemp_result.Add("empty");
-            _itemSubtype_temp_result.Add("empty");
-            _itemSubtypeB_temp_result.Add("empty");
-            _itemKosutemp_result.Add(final_kette_kosu3);
-
-            inputcount = 2;
-        }
-        else
-        {
-            _itemIDtemp_result.Add(database.items[kettei_item3].itemName);
-            _itemSubtype_temp_result.Add(database.items[kettei_item3].itemType_sub.ToString());
-            _itemSubtypeB_temp_result.Add(database.items[kettei_item3].itemType_subB.ToString());
-            _itemKosutemp_result.Add(final_kette_kosu3);
-
-            inputcount = 3;
-        }
-
-
-        //判定処理//
-
-        //一個目に選んだアイテムが生地タイプでもなく、フルーツ同士の合成でもない場合、
-        //新規作成のため、以下の判定処理を行う。個数は、判定に関係しない。
-        compoDB_select_judge = false;
-        //Combinationmain.CombinationMain_Method(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemSubtypeB_temp_result.ToArray(), _itemKosutemp_result.ToArray(), inputcount, 99);
-        //compoDB_select_judge = Combinationmain.compFlag;
-
-        //以下は、古い判定処理
-        
-        //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
-
-        //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     
-        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 99); //決めた３つのアイテム＋それぞれの個数、の配列
-        compoDB_select_judge = Combinationmain.compFlag;
-
-
-        //②　①の組み合わせにない場合は、2通りが考えられる。　アイテム名＋サブ＋サブ　か　アイテム名＋アイテム名＋サブの組み合わせ
-        if (compoDB_select_judge == false)
-        {
-            //個数計算していないので、バグあり
-            Combinationmain.Combination2(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
-
-            compoDB_select_judge = Combinationmain.compFlag;
-        }
-
-
-        //③固有の組み合わせがなかった場合のみ、サブジャンル同士の組み合わせがないかも見る。サブ＋サブ＋サブ
-
-        if (compoDB_select_judge == false)
-        {
-            Combinationmain.Combination3(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 99);
-
-            compoDB_select_judge = Combinationmain.compFlag;
-        }
-    }*/
-
 
 
 
@@ -1005,9 +928,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                         _basetp[i] = database.items[_id].toppingtype[i].ToString();
                     }
 
-                    //result_itemに、アイテムIDを入れる。
-                    result_item = _id;
-
                     break;
 
                 case 1: //オリジナルプレイヤーアイテムリストから選択している場合
@@ -1054,21 +974,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     for (i = 0; i < database.items[_id].toppingtype.Length; i++)
                     {
                         _basetp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
-                    }
-
-                    //result_itemに、アイテムIDを入れる。
-                    //データベースから_nameに一致するものを取得。
-                    i = 0;
-
-                    while (i < database.items.Count)
-                    {
-
-                        if (database.items[i].itemName == _basename)
-                        {
-                            result_item = database.items[i].itemID; //アイテムIDのこと。
-                            break;
-                        }
-                        ++i;
                     }
 
                     break;
@@ -1119,21 +1024,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                         _basetp[i] = pitemlist.player_extremepanel_itemlist[_id].toppingtype[i].ToString();
                     }
 
-                    //result_itemに、アイテムIDを入れる。
-                    //データベースから_nameに一致するものを取得。
-                    i = 0;
-
-                    while (i < database.items.Count)
-                    {
-
-                        if (database.items[i].itemName == _basename)
-                        {
-                            result_item = database.items[i].itemID; //アイテムIDのこと。
-                            break;
-                        }
-                        ++i;
-                    }
-
                     break;
 
                 default:
@@ -1167,11 +1057,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             if (exp_Controller.result_ok == true) //オリジナル調合の場合
             {
-                result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * final_select_kaisu;
+                result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * final_select_kaisu;
             }
             else if (exp_Controller.recipiresult_ok == true) //レシピ調合の場合
             {
-                result_kosu = recipilistController.final_select_kosu;
+                result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * final_select_kaisu;
             }
             else if (exp_Controller.topping_result_ok == true) //トッピング調合の場合
             {
@@ -1179,13 +1069,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
             else if (exp_Controller.roast_result_ok == true) //「焼く」の場合
             {
-                result_kosu = pitemlistController.final_kettei_kosu1;
+                result_kosu = GameMgr.Final_kettei_kosu1;
             }
             else if (exp_Controller.magic_result_ok == true) //魔法調合の場合
             {
-                //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * final_select_kaisu;
+                //result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * final_select_kaisu;
                 result_kosu = final_kette_kosu1;
             }
+            GameMgr.Result_Kosu = result_kosu;
 
             // アイテムリストの削除処理 //
             Delete_playerItemList(0);
@@ -1250,8 +1141,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         result_item = GameMgr.hikari_make_okashiID;
 
         //コンポ調合データベースのIDを代入
-        result_ID = GameMgr.hikari_make_okashi_compID;
-        //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * GameMgr.hikari_make_okashiKosu; //compoDBの回数も含む個数
+        result_compID = GameMgr.hikari_make_okashi_compID;
+        //result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * GameMgr.hikari_make_okashiKosu; //compoDBの回数も含む個数
         result_kosu = GameMgr.hikari_make_okashiKosu;
 
         hikari_make_flag = true; //ヒカリのお菓子作りの場合
@@ -1470,12 +1361,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     void MakeMethodExt()
     {
-        if (databaseCompo.compoitems[result_ID].cmpitem_Name == "egg_split")
+        if (databaseCompo.compoitems[result_compID].cmpitem_Name == "egg_split")
         {
             pitemlist.addPlayerItemString("egg_white", result_kosu);
             pitemlist.addPlayerItemString("egg_yellow", result_kosu);
         }
-        if (databaseCompo.compoitems[result_ID].cmpitem_Name == "egg_split_premiaum")
+        if (databaseCompo.compoitems[result_compID].cmpitem_Name == "egg_split_premiaum")
         {
             pitemlist.addPlayerItemString("egg_premiaum_white", result_kosu);
             pitemlist.addPlayerItemString("egg_premiaum_yellow", result_kosu);
@@ -1753,7 +1644,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             kyori_kosuSet.Add(final_kette_kosu1);
             kyori_kosuSet.Add(final_kette_kosu2);
             kyori_kosuSet.Add(final_kette_kosu3);
-            totalkyori = Combinationmain.GetKyoriKeisan(result_ID, kyori_kosuSet.ToArray()); //初期化のときは、ここで距離をとってくる
+            totalkyori = Combinationmain.GetKyoriKeisan(result_compID, kyori_kosuSet.ToArray()); //初期化のときは、ここで距離をとってくる
         }
         else
         {
@@ -1922,7 +1813,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
         {
-            if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
+            if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
                 //お菓子の食感ごとに、バフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType_sub); //中の数字でどの食感パラムかの指定
@@ -1941,12 +1832,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basebeauty += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(5, _basename);
 
                 //特定の調合DBにのみバフをかける処理
-                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(0, databaseCompo.compoitems[result_ID].cmpitem_Name); //中の数字でどの食感パラムかの指定
-                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(1, databaseCompo.compoitems[result_ID].cmpitem_Name);
-                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(2, databaseCompo.compoitems[result_ID].cmpitem_Name);
-                _basehardness += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(3, databaseCompo.compoitems[result_ID].cmpitem_Name);
-                _basejuice += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(4, databaseCompo.compoitems[result_ID].cmpitem_Name);
-                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(5, databaseCompo.compoitems[result_ID].cmpitem_Name);
+                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(0, databaseCompo.compoitems[result_compID].cmpitem_Name); //中の数字でどの食感パラムかの指定
+                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(1, databaseCompo.compoitems[result_compID].cmpitem_Name);
+                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(2, databaseCompo.compoitems[result_compID].cmpitem_Name);
+                _basehardness += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(3, databaseCompo.compoitems[result_compID].cmpitem_Name);
+                _basejuice += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(4, databaseCompo.compoitems[result_compID].cmpitem_Name);
+                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(5, databaseCompo.compoitems[result_compID].cmpitem_Name);
 
                 //魔力の泡だて器をもっている
                 if (pitemlist.ReturnItemKosu("whisk_magic") >= 1)
@@ -1960,9 +1851,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     else
                     {
                         //クリーム系の補正 魔法泡だて器を使って、作りたてクリーム　か　リコッタクリーム
-                        if (result_ID == databaseCompo.SearchCompoIDString("whipped cream_row_magic") ||
-                            result_ID == databaseCompo.SearchCompoIDString("whipped cream_row_magic_Free") ||
-                            result_ID == databaseCompo.SearchCompoIDString("cream_row_ricotta"))
+                        if (result_compID == databaseCompo.SearchCompoIDString("whipped cream_row_magic") ||
+                            result_compID == databaseCompo.SearchCompoIDString("whipped cream_row_magic_Free") ||
+                            result_compID == databaseCompo.SearchCompoIDString("cream_row_ricotta"))
                         {
                             _basecrispy = (int)(_basecrispy * 1.3f);
                             _basefluffy = (int)(_basefluffy * 1.3f);
@@ -1976,7 +1867,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //⑥ヒカリのお菓子の場合　味に補正かかる。
         if(mstatus == 2)
         {
-            if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+            if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
             {
                 //まず、作るお菓子のサブタイプをもとに、計算。制作時間なども計算する。
                 hikari_okashilv_hosei = bufpower_keisan.Buf_HikariOkashiLV_Keisan(_base_itemType_sub);
@@ -2003,7 +1894,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
             {
                 //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合のみ。。
-                if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+                if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
                 {
                     if (_base_itemType == "Okashi")
                     {
@@ -2019,7 +1910,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
 
                 //⑧ハートボーナス　HLV=99のときは、お菓子の味が1.3倍に上昇。にいちゃんが作る場合のみ。
-                if (databaseCompo.compoitems[result_ID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+                if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
                 {
                     if (PlayerStatus.girl1_Love_lv >= 99)
                     {
@@ -2322,7 +2213,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
        
         //特定のアイテムの場合は、加算のみでOK。例えばアマンドファリーヌのような、粉同士を組み合わせただけ、など。
-        if(databaseCompo.compoitems[result_ID].KeisanMethod == "Non")
+        if(databaseCompo.compoitems[result_compID].KeisanMethod == "Non")
         {
             keisan_method_flag = 0;
         }

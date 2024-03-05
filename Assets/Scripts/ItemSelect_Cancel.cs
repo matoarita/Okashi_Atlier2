@@ -809,11 +809,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             update_ListSelect_Flag = 1; //二個目まで、選択できないようにする。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-            pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false; //選択していたものをキャンセル。
+            pitemlistController._listitem[GameMgr.List_count2].GetComponent<Toggle>().isOn = false; //選択していたものをキャンセル。
 
             GameMgr.Comp_kettei_bunki = 1;
 
-            _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
+            _text.text = "一個目: " + database.items[GameMgr.Final_list_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" 
+                + "二個目を選択してください。";
         }
 
         if (GameMgr.Comp_kettei_bunki == 11)
@@ -822,11 +823,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             update_ListSelect(); //アイテム選択時の、リストの表示処理
 
 
-            pitemlistController._listitem[pitemlistController._count1].GetComponent<Toggle>().isOn = false;
+            pitemlistController._listitem[GameMgr.List_count1].GetComponent<Toggle>().isOn = false;
 
             GameMgr.Comp_kettei_bunki = 10;
 
-            _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一つ目のトッピングアイテムを選択してください。";
+            _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" + "一つ目のトッピングアイテムを選択してください。";
 
             if (GameMgr.tutorial_ON == true)
             {
@@ -840,7 +841,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
 
         card_view.DeleteCard_DrawView02();
-        card_view.OKCard_DrawView(pitemlistController.final_kettei_kosu1);
+        card_view.OKCard_DrawView(GameMgr.Final_kettei_kosu1);
 
         yes.SetActive(false);
         //no.SetActive(false);
@@ -864,12 +865,14 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             update_ListSelect_Flag = 2; //二個目まで、選択できないようにする。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-            pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false; //三個目の選択はキャンセル
+            pitemlistController._listitem[GameMgr.List_count3].GetComponent<Toggle>().isOn = false; //三個目の選択はキャンセル
 
             GameMgr.Comp_kettei_bunki = 2;
-            pitemlistController.kettei_item3 = 9999;
+            GameMgr.Final_list_itemID3 = 9999;
 
-            _text.text = "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+            _text.text = "一個目: " + database.items[GameMgr.Final_list_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" 
+                + "二個目: " + database.items[GameMgr.Final_list_itemID2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" 
+                + "最後に一つ追加できます。";
         }
 
         if (GameMgr.Comp_kettei_bunki == 12)
@@ -877,16 +880,18 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             update_ListSelect_Flag = 11; //ベース・一個目の選択の状態に戻る。
             update_ListSelect(); //アイテム選択時の、リストの表示処理
 
-            pitemlistController._listitem[pitemlistController._count2].GetComponent<Toggle>().isOn = false;
+            pitemlistController._listitem[GameMgr.List_count2].GetComponent<Toggle>().isOn = false;
 
             GameMgr.Comp_kettei_bunki = 11;
-            pitemlistController.kettei_item2 = 9999;
+            GameMgr.Final_list_itemID2 = 9999;
 
-            _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目を選択してください。";
+            _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" + 
+                "一個目: " + database.items[GameMgr.Final_list_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" 
+                + "二個目を選択してください。";
         }
 
         card_view.DeleteCard_DrawView03();
-        card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
+        card_view.OKCard_DrawView02(GameMgr.Final_kettei_kosu2);
 
         yes_text.text = "決定";
         yes.SetActive(false);
@@ -910,11 +915,14 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         update_ListSelect_Flag = 12; //ベースアイテムと一個目・二個目を選択できないようにする。
         update_ListSelect();
 
-        pitemlistController._listitem[pitemlistController._count3].GetComponent<Toggle>().isOn = false;
+        pitemlistController._listitem[GameMgr.List_count3].GetComponent<Toggle>().isOn = false;
 
         GameMgr.Comp_kettei_bunki = 12;
 
-        _text.text = "ベースアイテム: " + database.items[pitemlistController.final_base_kettei_item].itemNameHyouji + "\n" + "一個目: " + database.items[pitemlistController.final_kettei_item1].itemNameHyouji + " " + pitemlistController.final_kettei_kosu1 + "個" + "\n" + "二個目: " + database.items[pitemlistController.final_kettei_item2].itemNameHyouji + " " + pitemlistController.final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
+        _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" 
+            + "一個目: " + database.items[GameMgr.Final_list_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" 
+            + "二個目: " + database.items[GameMgr.Final_list_itemID2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" 
+            + "最後に一つ追加できます。";
 
         card_view.DeleteCard_DrawView04();
         card_view.OKCard_DrawView03(1);
@@ -1016,7 +1024,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             //とりあえず、表示されてるリストを上から順番に見ていく。店売りかオリジナルの判定＋その時のプレイヤーリスト番号が一致するものが、一個目に選択したもの。
 
-            if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == pitemlistController._base_toggle_type && pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == pitemlistController.base_kettei_item)
+            if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == GameMgr.Final_toggle_baseType && 
+            pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == GameMgr.Final_list_baseitemID)
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false; //一個目も選択できないようにする
                 //Debug.Log("一個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type1 + " リストID: " + pitemlistController.kettei_item1);
@@ -1030,7 +1039,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             //とりあえず、表示されてるリストを上から順番に見ていく。店売りかオリジナルの判定＋その時のプレイヤーリスト番号が一致するものが、一個目に選択したもの。
 
-            if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == pitemlistController._toggle_type1 && pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == pitemlistController.kettei_item1)
+            if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == GameMgr.Final_toggle_Type1 && 
+            pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == GameMgr.Final_list_itemID1)
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false; //一個目も選択できないようにする
                 //Debug.Log("一個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type1 + " リストID: " + pitemlistController.kettei_item1);
@@ -1041,7 +1051,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     void update_ListSelect_2()
         {
             //二個目選択したものを選択できないようにする。一個目と同様の処理。
-            if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == pitemlistController._toggle_type2 && pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == pitemlistController.kettei_item2)
+            if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == GameMgr.Final_toggle_Type2 && 
+            pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == GameMgr.Final_list_itemID2)
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false; //二個目も選択できないようにする
                 //Debug.Log("二個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type2 + " リストID: " + pitemlistController.kettei_item2);
@@ -1052,7 +1063,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     void update_ListSelect_3()
         {
             //三個目選択したものを選択できないようにする。
-            if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == pitemlistController._toggle_type3 && pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == pitemlistController.kettei_item3)
+            if (pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggleitem_type == GameMgr.Final_toggle_Type3 && 
+            pitemlistController._listitem[i].GetComponent<itemSelectToggle>().toggle_originplist_ID == GameMgr.Final_list_itemID3)
             {
                 pitemlistController._listitem[i].GetComponent<Toggle>().interactable = false; //三個目も選択できないようにする
                 //Debug.Log("三個目選択したもの: アイテムトグルタイプ" + pitemlistController._toggle_type3 + " リストID: " + pitemlistController.kettei_item3);

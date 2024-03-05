@@ -58,39 +58,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private string check_itemType_sub_category;
     
 
-    //各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
-    public int _count1; //表示されているリスト中の選択番号 1
-    public int _count2; //表示されているリスト中の選択番号 2
-    public int _count3; //表示されているリスト中の選択番号 3
-    public int _base_count;
-
     public List<int> _listcount = new List<int>(); //納品時用の選択番号リスト型
 
-    public int _toggle_type1; //選択したアイテムが、店売りかオリジナルかの判定用。アイテムごとに３つ。
-    public int _toggle_type2;
-    public int _toggle_type3;
-    public int _base_toggle_type;
-
-    public int kettei_item1; //アイテムの配列番号。店売りアイテムの場合は、アイテムIDがそのまま入る。オリジナルplistアイテムの場合は、リストの番号が入っている。
-    public int kettei_item2;
-    public int kettei_item3;
-    public int base_kettei_item; //トッピング調合時のベースアイテム。プレイヤーリストを選択している番号
-
-    //public int kettei1_bunki; //調合どこまで選択したか、のステータス。0=なにも選択なし, 1=一個目を選択, 2=二個目を選択
     public bool kettei1_on;
 
-    public int final_kettei_item1; //最終的に確定したアイテムのID（アイテムデータベースのIDを同一）
-    public int final_kettei_item2;
-    public int final_kettei_item3;
-    public int final_base_kettei_item; //トッピング調合時の最終決定ベースアイテム。アイテムデータベースのIDと同一。
-
-    public int result_item;
-    public int result_compID; //最終的に確定したときの、コンポDBのアイテムID
-
-    public int final_kettei_kosu1;
-    public int final_kettei_kosu2;
-    public int final_kettei_kosu3;
-    public int final_base_kettei_kosu;
+    //public int result_item;
+    //public int result_compID; //最終的に確定したときの、コンポDBのアイテムID
 
     public List<int> _listkosu = new List<int>(); //納品時用の個数リスト型
 
@@ -141,39 +114,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        //表示中リストの、選択した番号も保存
-        _count1 = 9999;
-        _count2 = 9999;
-        _count3 = 9999;
-        _base_count = 9999;
-
-        //決定したアイテムが、店売りか、オリジナルかの判定用変数。
-        _toggle_type1 = 0;
-        _toggle_type2 = 0;
-        _toggle_type3 = 0;
-        _base_toggle_type = 0;
-
-        //選択したアイテムの並び番号を格納しておく変数。(店売り 0, 1, 2..., オリジナル 0, 1, 2.. ) といった感じ。店売りアイテムは、アイテムIDと並びは一緒になる。
-        kettei_item1 = 0;
-        kettei_item2 = 0;
-        kettei_item3 = 0;
-        base_kettei_item = 0;
-
         GameMgr.Comp_kettei_bunki = 0;
-        kettei1_on = false;
-
-        //選んだアイテムのアイテムIDが入る。（店売り、オリジナル関係なし）
-        final_kettei_item1 = 9999;
-        final_kettei_item2 = 9999;
-        final_kettei_item3 = 9999; //9999 = empty
-        final_base_kettei_item = 9999;
-
-        final_kettei_kosu1 = 1;
-        final_kettei_kosu2 = 1;
-        final_kettei_kosu3 = 1;
-        final_base_kettei_kosu = 1;
-
-        result_item = 0;
+        kettei1_on = false;       
 
         i = 0;
 
@@ -380,21 +322,21 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public void ResetKettei_item()
     {
-        _count1 = 9999;
-        _count2 = 9999;
-        _count3 = 9999;
-        _base_count = 9999;
-
-        kettei_item1 = 9999;
-        kettei_item2 = 9999;
-        kettei_item3 = 9999;
-        base_kettei_item = 9999;
+        GameMgr.List_count1 = 9999;
+        GameMgr.List_count2 = 9999;
+        GameMgr.List_count3 = 9999;
+        GameMgr.List_basecount = 9999;
 
         //9999 = empty
-        final_kettei_item1 = 9999;
-        final_kettei_item2 = 9999;
-        final_kettei_item3 = 9999;
-        final_base_kettei_item = 9999;
+        GameMgr.Final_list_itemID1 = 9999;
+        GameMgr.Final_list_itemID2 = 9999;
+        GameMgr.Final_list_itemID3 = 9999;
+        GameMgr.Final_list_baseitemID = 9999;
+
+        GameMgr.Final_kettei_kosu1 = 1;
+        GameMgr.Final_kettei_kosu2 = 1;
+        GameMgr.Final_kettei_kosu3 = 1;
+        GameMgr.Final_kettei_basekosu = 1;
     }
 
     void ResetAllItemSelected()

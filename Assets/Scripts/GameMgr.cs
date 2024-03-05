@@ -493,16 +493,49 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Comp_kettei_bunki; //調合の、今何の調合をしている最中かを表すステータス
     public static string UseMagicSkill; //使用する魔法・スキルのネーム
     public static string UseMagicSkill_nameHyouji; //使用する魔法・スキルのネームの表示用
-    public static int UseMagicSkill_ID; //使用するスキルのID
-    public static string ResultItem_nameHyouji; //完成したアイテム名表示用
-    public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐
-    public static int ContestSelectNum; //どのコンテストに今出場しているか
-    public static string Contest_Name; //コンテストの名前
-    public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
+    public static int UseMagicSkill_ID; //使用するスキルのID    
+    public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐    
     public static bool EventAfter_MoveEnd; //なんらかのイベント終了後、すぐにヒカリを元の位置に戻す
     public static bool Status_zero_readOK; //メインステータスを読み終わったよ～のフラグ　その後に、ヒカリが戻ってくるなどの処理を挟む用
     public static int OkashiMake_PanelSetType; //さっき作ったお菓子が、パネルにセットされるお菓子かどうか。生地などはセットされず、すぐ調合画面を戻す
-    public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。
+    public static int ContestSelectNum; //どのコンテストに今出場しているか
+    public static string Contest_Name; //コンテストの名前
+    public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
+    public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。   
+
+    //一時フラグ　アイテムDB関連
+    public static string ResultItem_nameHyouji; //完成したアイテム名表示用
+    public static int Result_Kosu; //完成したアイテムの個数
+    public static bool Result_compound_success; //調合が成功したか失敗したか
+
+    public static int temp_itemID1; //一時的にアイテムIDを保存しておくための変数 アイテムDBのリスト配列
+    public static int temp_itemID2; //一時的にアイテムIDを保存しておくための変数
+    public static int temp_itemID3; //一時的にアイテムIDを保存しておくための変数
+
+    public static int Final_list_itemID1; //一時的なDBのリスト配列番号　店売り・オリジナル・エクストリーム全て含む　各スクリプトをまたぐため、ここで設定 　
+    public static int Final_list_itemID2; //アイテムIDではなく、リストの配列を指定しているところに注意　またtoggle_Typeと一緒に使う
+    public static int Final_list_itemID3;
+    public static int Final_list_baseitemID;
+
+    public static int Final_toggle_Type1; //店売りかオリジナルアイテムリストか、エクストリームパネルのリストか　を　指定する
+    public static int Final_toggle_Type2;
+    public static int Final_toggle_Type3;
+    public static int Final_toggle_baseType;
+
+    public static int Final_kettei_kosu1;
+    public static int Final_kettei_kosu2;
+    public static int Final_kettei_kosu3;
+    public static int Final_kettei_basekosu;
+
+    public static int List_count1; //一時的なアイテムリストのリスト番号　IDと違い、開いたリストの配列をそのまま指定　toggle_Typeは使わない
+    public static int List_count2;
+    public static int List_count3;
+    public static int List_basecount;
+
+    public static int Final_setCount; //セット数
+    public static int Final_result_itemID1; //一時的なDBのリスト配列番号 生成されるアイテム
+    public static int Final_result_compID; //そのときのcompoDBの調合リスト番号
+
 
     public static bool CompoundSceneStartON; //調合の処理を開始したというフラグ　あらゆるシーンから、調合シーンができるようにするためのフラグ管理
 
@@ -904,6 +937,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         UseMagicSkill_nameHyouji = "";
         UseMagicSkill_ID = 0;
         ResultItem_nameHyouji = "";
+        Result_Kosu = 0;
+        Result_compound_success = false;
         MagicSkillSelectStatus = 0;
         ContestSelectNum = 0;
         Contest_Name = "";

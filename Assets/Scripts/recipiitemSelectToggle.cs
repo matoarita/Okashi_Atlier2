@@ -72,8 +72,6 @@ public class recipiitemSelectToggle : MonoBehaviour
 
     private int kettei_item1; //このスクリプトは、プレファブのインスタンスに取り付けているので、各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
 
-    private int compo_itemID;
-
     private string compo_itemname;
 
 
@@ -195,8 +193,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             ++count;
         }
 
-        recipilistController._count1 = count; //リスト中の選択された番号を格納。
-
+        GameMgr.List_count1 = count; //リスト中の選択された番号を格納。
 
         //イベントアイテムの場合
         if (recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleEventType == 0) 
@@ -216,16 +213,15 @@ public class recipiitemSelectToggle : MonoBehaviour
         else if (recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleEventType == 1) 
         {
             compo_itemname = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_itemNameHyouji;
-            compo_itemID = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID;
-            recipilistController.result_recipicompID = compo_itemID;
+            GameMgr.Final_result_compID = recipilistController._recipi_listitem[count].GetComponent<recipiitemSelectToggle>().recipi_toggleCompoitem_ID;
 
             //調合DBの生成されるアイテム名から、アイテムDBを検索し、IDを検出して、リザルトに代入
             i = 0;
             while ( i < database.items.Count )
             {
-                if ( database.items[i].itemName == databaseCompo.compoitems[compo_itemID].cmpitemID_result )
+                if ( database.items[i].itemName == databaseCompo.compoitems[GameMgr.Final_result_compID].cmpitemID_result )
                 {
-                    recipilistController.result_recipiitem = i;
+                    GameMgr.Final_result_itemID1 = i;
                     break;
                 }
                 i++;
@@ -233,7 +229,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             
 
             Debug.Log(count + "番が押されたよ");
-            Debug.Log("レシピリスト番号:" + compo_itemID + " " + compo_itemname + "が選択されました。");
+            Debug.Log("レシピリスト番号:" + GameMgr.Final_result_compID + " " + compo_itemname + "が選択されました。");
 
             //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
             for (i = 0; i < recipilistController._recipi_listitem.Count; i++)
@@ -242,7 +238,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             }
 
             //compound_keisan.Topping_Compound_Method(1); //予測で処理
-            card_view.RecipiCard_DrawView(0, recipilistController.result_recipiitem); //選択したアイテムをカードで表示
+            card_view.RecipiCard_DrawView(0, GameMgr.Final_result_itemID1); //選択したアイテムをカードで表示
 
 
             yes.SetActive(true);

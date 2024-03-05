@@ -20,13 +20,14 @@ public class MagicSkillList
     public int skillType;   //パッシヴかアクティブスキルか
     public int skillCategory; //スキルの属性　基本、火、氷、光、風、心
     public int success_rate;
+    public int cost_time;
     public string skillComment_Full; //スキルの詳細な説明
 
     public Sprite skillIcon_sprite;
 
     //ここでリスト化時に渡す引数をあてがいます   
     public MagicSkillList(int id, int koyuid, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
-        int skill_lv, int skill_maxlv, int skill_uselv, int skill_type, int skill_category, int successRate, string skill_comment_full)
+        int skill_lv, int skill_maxlv, int skill_uselv, int skill_type, int skill_category, int successRate, int costTime, string skill_comment_full)
     {
         magicskillID = id;
         magicskill_koyuID = koyuid;
@@ -46,6 +47,7 @@ public class MagicSkillList
         skillComment_Full = skill_comment_full;
 
         success_rate = successRate;
+        cost_time = costTime;
 
         skillIcon_sprite = Resources.Load<Sprite>("Sprites/Skill_Icon/" + fileName);
     }
