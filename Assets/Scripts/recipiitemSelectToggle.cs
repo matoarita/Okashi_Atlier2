@@ -52,8 +52,6 @@ public class recipiitemSelectToggle : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    private GameObject BlackImage;
-
     public int recipi_toggleEventType; //選んだアイテムが、イベントアイテムか、コンポ調合DBのアイテムかを判別する。0=イベントアイテム, 1=コンポ調合用DBアイテム
     public int recipi_toggleType; //選んだアイテムが、店売りかオリジナルかを判定する。
     public int recipi_toggleCompoitem_ID; //リストの要素自体に、コンポアイテムIDを保持する。
@@ -114,9 +112,6 @@ public class recipiitemSelectToggle : MonoBehaviour
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-
-        //黒半透明パネルの取得
-        BlackImage = recipilistController_obj.transform.Find("BlackImage").gameObject;
 
         updown_counter_USE = true;
 
@@ -254,7 +249,7 @@ public class recipiitemSelectToggle : MonoBehaviour
                 yes_no_panel.SetActive(true);
                 yes.SetActive(false);
             }
-            BlackImage.SetActive(true);
+            recipilistController.BlackImageON(); //背景を半透明ブラックにする。
 
             //調合判定を行うかどうか
             exp_Controller._success_judge_flag = 1; //判定処理を行う。             
@@ -308,9 +303,9 @@ public class recipiitemSelectToggle : MonoBehaviour
                     }
                     
                 }
+                recipilistController.BlackImageOFF();
 
-                BlackImage.SetActive(false);
-                
+
                 if (GameMgr.Scene_Category_Num == 200)
                 {
                     yes_no_panel.SetActive(false);
@@ -327,4 +322,5 @@ public class recipiitemSelectToggle : MonoBehaviour
 
     }
  
+    
 }

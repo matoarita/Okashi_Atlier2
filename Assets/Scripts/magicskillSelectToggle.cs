@@ -42,6 +42,7 @@ public class magicskillSelectToggle : MonoBehaviour
     private MagicSkillListDataBase magicskill_database;
 
     private GameObject yes_no_panel;
+    private GameObject compoBG_A;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -102,6 +103,7 @@ public class magicskillSelectToggle : MonoBehaviour
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
         blackpanel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+        compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -187,7 +189,7 @@ public class magicskillSelectToggle : MonoBehaviour
         Debug.Log(count + "番が押されたよ");
         Debug.Log("アイテム:" + _item_Namehyouji + "が選択されました。");
 
-        blackpanel_A.SetActive(true);
+        compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
 
         //Debug.Log("これでいいですか？");
 
@@ -204,57 +206,8 @@ public class magicskillSelectToggle : MonoBehaviour
         yes_no_panel.SetActive(true);
 
         magicskilllistController.skill_final_select_flag = true; //確認のフラグ
-        //StartCoroutine("shop_buy_kosu_select");
 
     }
-
-    /*IEnumerator shop_buy_kosu_select()
-    {
-        
-
-        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-
-            case true: //決定が押された。これでいいですか？の確認。
-
-                //Debug.Log("ok");
-                //解除
-
-                magicskilllistController.skill_final_select_flag = true; //確認のフラグ
-
-                Debug.Log("選択完了！");
-                
-                break;
-
-            case false: //キャンセルが押された
-
-                //Debug.Log("cancel");
-
-                _text.text = "何にしますか？";
-
-                //キャンセル時、リストのインタラクティブ解除。その時、プレイヤーの所持金をチェックし、足りないものはOFF表示にする。
-                Skill_Check();
-
-                yes_no_panel.SetActive(false);
-
-                back_ShopFirst_btn.interactable = true;
-
-                card_view.DeleteCard_DrawView();
-                blackpanel_A.SetActive(false);
-
-                break;
-        }
-    }*/
 
 
     IEnumerator skilluse_Final_select()
@@ -267,6 +220,8 @@ public class magicskillSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageOFF();
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -285,7 +240,6 @@ public class magicskillSelectToggle : MonoBehaviour
                 }
 
                 card_view.DeleteCard_DrawView();
-                blackpanel_A.SetActive(false);
 
                 yes_no_panel.SetActive(false);
                 //back_ShopFirst_btn.interactable = true;
@@ -312,7 +266,6 @@ public class magicskillSelectToggle : MonoBehaviour
                 Skill_Check();
 
                 card_view.DeleteCard_DrawView();
-                blackpanel_A.SetActive(false);
 
                 yes_selectitem_kettei.kettei1 = false;
                 yes_no_panel.SetActive(false);

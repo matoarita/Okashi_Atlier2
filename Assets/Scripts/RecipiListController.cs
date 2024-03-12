@@ -41,7 +41,7 @@ public class RecipiListController : MonoBehaviour {
 
     private Text recipititle;
 
-    private GameObject black_panel;
+    private GameObject BlackImage;
 
     private int max;
     private int count;
@@ -106,10 +106,10 @@ public class RecipiListController : MonoBehaviour {
 
         yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;
-        black_panel = this.transform.Find("BlackImage").gameObject;
+        BlackImage = this.transform.Find("BlackImage").gameObject;
         yes_button.SetActive(false);
         no_button.SetActive(false);
-        black_panel.SetActive(false);
+        BlackImage.SetActive(false);
 
         final_recipiselect_flag = false;
         for (i = 0; i < category_toggle.Count; i++)
@@ -547,6 +547,17 @@ public class RecipiListController : MonoBehaviour {
 
             }
         }
+    }
+
+    //Compound_Checkなどからも読まれる
+    public void BlackImageON()
+    {
+        BlackImage.SetActive(true);
+    }
+
+    public void BlackImageOFF()
+    {
+        BlackImage.SetActive(false);
     }
 
     //デバッグ用　本全て解放　本を所持したことにする。

@@ -13,6 +13,7 @@ public class Updown_counter : MonoBehaviour {
     private QuestSetDataBase quest_database;
 
     private ItemShopDataBase shop_database;
+    private MagicSkillListDataBase magicskill_database;
 
     private GameObject shopquestlistController_obj;
     private ShopQuestListController shopquestlistController;
@@ -89,6 +90,7 @@ public class Updown_counter : MonoBehaviour {
     private GameObject updown_counter_setpanel;
 
     private int _itemcount;
+    private int _id, _skillLV;
 
     private int _p_or_recipi_flag;
 
@@ -120,6 +122,9 @@ public class Updown_counter : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -273,6 +278,22 @@ public class Updown_counter : MonoBehaviour {
         _count_text = transform.Find("counter_num").GetComponent<Text>();
         _count_text.text = GameMgr.updown_kosu.ToString();
 
+
+        if(GameMgr.Comp_kettei_bunki == 21) //魔法選択してスキルレベル選択の場合
+        {
+            _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+
+            if(magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non")
+            {
+                _skillLV = magicskill_database.magicskill_lists[_id].skillLv;
+                GameMgr.updown_kosu = _skillLV;
+                _count_text.text = GameMgr.updown_kosu.ToString();
+            }
+            else
+            {
+                GameMgr.updown_kosu = 1;
+            }          
+        }
     }
 
     void SettingPos()
@@ -681,6 +702,14 @@ public class Updown_counter : MonoBehaviour {
 
                                 break;
 
+                            case 21: //魔法のレベル選択
+
+                                _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+
+                                _zaiko_max = magicskill_database.magicskill_lists[_id].skillLv;
+
+                                break;
+
                             default:
                                 break;
                         }
@@ -981,28 +1010,48 @@ public class Updown_counter : MonoBehaviour {
         //調合シーンでの処理
         if (GameMgr.CompoundSceneStartON)
         {
-            if (_p_or_recipi_flag == 0) //プレイヤーアイテムリストのときの処理
+            if (GameMgr.compound_select == 21) //魔法処理　アイテム選択画面のとき
             {
-                DegMethod1();
-
-                if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
+                if(GameMgr.Comp_kettei_bunki == 21) //選択後、スキルレベルを選ぶタイミング
                 {
-                    player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
-                    player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
+                    //レベル選択しない魔法は、レベル固定のまま
+                    _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
-                    if (GameMgr.Final_list_itemID3 != 9999) //３個目も選んでいれば、下の処理を起動
+                    if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non")
                     {
-                        player_itemkosu3 = GameMgr.Final_kettei_kosu3 * GameMgr.updown_kosu;
+                        //数値に変化なし
+                    }
+                    else
+                    {
+                        DegMethod1();
                     }
                 }
             }
-            else //レシピリストのときの処理
+            else
             {
-                DegMethod1();
+                if (_p_or_recipi_flag == 0) //プレイヤーアイテムリストのときの処理
+                {
+                    DegMethod1();
 
-                //個数を変えた際に、必要アイテム数と、所持アイテム数を比較するメソッド
-                updown_keisan_Method();
+                    if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
+                    {
+                        player_itemkosu1 = GameMgr.Final_kettei_kosu1 * GameMgr.updown_kosu;
+                        player_itemkosu2 = GameMgr.Final_kettei_kosu2 * GameMgr.updown_kosu;
 
+                        if (GameMgr.Final_list_itemID3 != 9999) //３個目も選んでいれば、下の処理を起動
+                        {
+                            player_itemkosu3 = GameMgr.Final_kettei_kosu3 * GameMgr.updown_kosu;
+                        }
+                    }
+                }
+                else //レシピリストのときの処理
+                {
+                    DegMethod1();
+
+                    //個数を変えた際に、必要アイテム数と、所持アイテム数を比較するメソッド
+                    updown_keisan_Method();
+
+                }
             }
 
         }

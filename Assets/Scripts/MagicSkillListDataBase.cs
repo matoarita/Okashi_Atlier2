@@ -18,6 +18,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     private int skill_lv;
     private int skill_maxlv;
     private int skill_uselv;
+    private string skill_lvselect;
     private int skill_type;
     private int skill_category;
     private int success_rate;
@@ -67,6 +68,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 skill_lv = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_lv;
                 skill_maxlv = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_maxlv;
                 skill_uselv = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_uselv;
+                skill_lvselect = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_lvSelect;
                 skill_type = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_type;
                 skill_category = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_category;
                 success_rate = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].success_rate;
@@ -78,7 +80,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 if (sheet_no == 0)
                 {
                     magicskill_lists.Add(new MagicSkillList(_id, _koyuid, skillFileName, skillName, skillName_Hyouji, skillComment, 
-                        skill_day, skill_cost, skill_flag, skill_lv, skill_maxlv, skill_uselv,
+                        skill_day, skill_cost, skill_flag, skill_lv, skill_maxlv, skill_uselv, skill_lvselect,
                         skill_type, skill_category, success_rate, cost_time, skillComment_Full));
                 }
                 ++count;

@@ -619,6 +619,7 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
                     GameMgr.compound_select = 20;
                     GameMgr.MagicSkillSelectStatus = 0; //魔法を使うを選択
+                    GameMgr.Comp_kettei_bunki = 0;
 
                     //各調合画面を一度オフ
                     CompoScreenReset();
@@ -656,7 +657,7 @@ public class CompoundMainController : MonoBehaviour {
                     magicskilllistController_onoff.SetActive(false);
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-                    GameMgr.Comp_kettei_bunki = 20;
+                    //GameMgr.Comp_kettei_bunki = 20;
 
                     recipiMemoButton.SetActive(true);
                     text_area_compound.SetActive(true);

@@ -712,7 +712,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 _text.text = GameMgr.UseMagicSkill_nameHyouji + "→ ";
 
-                //GameMgr.Comp_kettei_bunki = 20;
+                GameMgr.Comp_kettei_bunki = 0;
 
                 update_ListSelect_Flag = 0; //オールリセットするのみ。
                 update_ListSelect(); //アイテム選択時の、リストの表示処理
@@ -727,7 +727,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             else if (GameMgr.compound_select == 5) //焼くのときの処理
             {
                 _text.text = "一つ目の材料を選択してね。";
-
 
                 GameMgr.Comp_kettei_bunki = 0;
 

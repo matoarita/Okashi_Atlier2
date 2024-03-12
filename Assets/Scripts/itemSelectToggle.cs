@@ -1289,7 +1289,7 @@ public class itemSelectToggle : MonoBehaviour
     {
         switch (GameMgr.Comp_kettei_bunki)
         {
-            case 20: //魔法を指定した状態で、どのアイテムにするかを選択する状態
+            case 0: //魔法を指定した状態で、どのアイテムにするかを選択する状態
 
                 //一個目のアイテムを選択したときの処理（トグルの処理）
 
@@ -1310,8 +1310,8 @@ public class itemSelectToggle : MonoBehaviour
                 GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
                 GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
-                //押したタイミングで、分岐＝１に。
-                //GameMgr.Comp_kettei_bunki = 1;
+                //押したタイミングで、分岐。
+                GameMgr.Comp_kettei_bunki = 20;
 
                 _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。" + "\n" + "個数を選択してください。";
 

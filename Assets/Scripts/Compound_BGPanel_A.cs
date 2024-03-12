@@ -18,6 +18,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
     private CardView card_view;
 
     private GameObject SelectCompo_panel_1;
+    private GameObject BlackImage;
 
     private string originai_text;
     private string extreme_text;
@@ -60,6 +61,8 @@ public class Compound_BGPanel_A : MonoBehaviour {
         //デフォルトではOFF
         HikariMakeButton = this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/HikariMakeButton").gameObject;
         HikariMakeButton.SetActive(false);
+
+        BlackImage = this.transform.Find("BlackImage").gameObject;
 
         //各調合時のシステムメッセージ集
         originai_text = "新しくお菓子を作ろう！" + "\n" + "好きな材料を" + GameMgr.ColorYellow +
@@ -220,6 +223,16 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         _text.text = magic_text;
         GameMgr.compound_status = 30;
+    }
+
+    public void BlackImageON()
+    {
+        BlackImage.GetComponent<CanvasGroup>().alpha = 1;
+    }
+
+    public void BlackImageOFF()
+    {
+        BlackImage.GetComponent<CanvasGroup>().alpha = 0;
     }
 
     /*public void OnCheck_4() //ブレンド調合をON

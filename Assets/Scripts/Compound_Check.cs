@@ -45,6 +45,7 @@ public class Compound_Check : MonoBehaviour {
     private Text yes_text;
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
     private Text no_text;
+    private GameObject yes_no_panel_magic;
 
     private Sprite yes_sprite1;
     private Sprite yes_sprite2;
@@ -172,6 +173,9 @@ public class Compound_Check : MonoBehaviour {
         recipiMemoButton_obj = compoBG_A.transform.Find("RecipiMemoButton").gameObject;
         recipiMemoScrollView_obj = compoBG_A.transform.Find("RecipiMemo_ScrollView").gameObject;
 
+        yes_no_panel_magic = compoBG_A.transform.Find("MagicStartPanel/Yes_no_Panel_Finalcheck").gameObject;
+        yes_no_panel_magic.SetActive(false);
+
         //final_select_flag = false;
         _debug_sw = false;
     }
@@ -296,11 +300,7 @@ public class Compound_Check : MonoBehaviour {
 
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
-
-                //FinalCheckPanel.SetActive(true);
-                yes.GetComponent<Button>().interactable = false;
-                no.GetComponent<Button>().interactable = false;
-
+                
                 StartCoroutine("MagicFinal_select"); //最終確認 スキルレベルを選択する。
                 //MagicFinal_select();
             }
@@ -838,9 +838,7 @@ public class Compound_Check : MonoBehaviour {
                 }
 
                 recipilistController.Redraw_OkashiBook();
-
-                BlackImage = recipilistController_obj.transform.Find("BlackImage").gameObject;
-                BlackImage.SetActive(false);
+                recipilistController.BlackImageOFF();
 
                 GameMgr.compound_status = 100;
                 itemselect_cancel.All_cancel();
@@ -855,6 +853,8 @@ public class Compound_Check : MonoBehaviour {
     IEnumerator MagicFinal_select()
     {
         //*** 魔法調合時これでOKかどうか聞くメソッド　***//
+        yes.GetComponent<Button>().interactable = false;
+        no.GetComponent<Button>().interactable = false;
 
         switch (GameMgr.Comp_kettei_bunki)
         {
@@ -873,6 +873,7 @@ public class Compound_Check : MonoBehaviour {
 
                 recipiMemoScrollView_obj.SetActive(false);
                 memo_result_obj.SetActive(false);
+                compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
 
                 //確率に応じて、テキストが変わる。
                 //FinalCheck_Text.text = success_text;
@@ -880,20 +881,21 @@ public class Compound_Check : MonoBehaviour {
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
                 //FinalCheck_ItemIconHyouji(0); //2個表示のとき
 
-
+                GameMgr.Comp_kettei_bunki = 21;
                 _text.text = "魔法のレベルを選択してね。";
                 updown_counter_obj.SetActive(true);
+                yes_no_panel_magic.SetActive(true);
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
 
                 while (yes_selectitem_kettei.onclick != true)
                 {
-
                     yield return null; // オンクリックがtrueになるまでは、とりあえず待機
                 }
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                FinalCheckPanel.SetActive(false);
+                yes_no_panel_magic.SetActive(false);
+                compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageOFF();
                 yes.GetComponent<Button>().interactable = true;
                 no.GetComponent<Button>().interactable = true;
 
@@ -926,6 +928,7 @@ public class Compound_Check : MonoBehaviour {
                         GameMgr.compound_status = 22;
 
                         //card_view.CardCompo_Anim();
+                        card_view.DeleteCard_DrawView();
                         Off_Flag_Setting();
 
                         exp_Controller.MagicResultOK();
@@ -936,19 +939,12 @@ public class Compound_Check : MonoBehaviour {
 
                         //Debug.Log("1個目を選択した状態に戻る");
 
-                        //recipiMemoButton_obj.SetActive(true);
                         GameMgr.compound_status = 100;
-                        //itemselect_cancel.Two_cancel();
-
-                        /*if (GameMgr.compound_select == 7)
-                        {
-                            text_hikari_makecaption.SetActive(true);
-                        }*/
+                        itemselect_cancel.All_cancel();
 
                         break;
                 }
-                
-               
+                              
                 break;
         }
     }
@@ -1068,11 +1064,21 @@ public class Compound_Check : MonoBehaviour {
         }
 
         //魔法調合の場合はこっち
-        if (GameMgr.Comp_kettei_bunki == 20)
+        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21)
         {
             _itemIDtemp_result.Add(database.items[itemID_1].itemName);
-            _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName);
-            //Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName + magicskill_database.magicskill_lists[itemID_2].skillUseLv);
+
+            if(magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non")
+            {
+                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName);
+                //Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName);
+            }
+            else //[USE]が入っている時
+            {
+                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName + magicskill_database.magicskill_lists[itemID_2].skillUseLv);
+                //Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName + magicskill_database.magicskill_lists[itemID_2].skillUseLv);
+            }
+
 
             _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
             _itemSubtype_temp_result.Add("empty");
@@ -1290,7 +1296,7 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
             }
-            else if (GameMgr.Comp_kettei_bunki == 20)
+            else if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21)
             {
                 //
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。

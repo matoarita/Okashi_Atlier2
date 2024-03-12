@@ -42,6 +42,7 @@ public class magicskillLearnToggle : MonoBehaviour
     private MagicSkillListDataBase magicskill_database;
 
     private GameObject yes_no_panel;
+    private GameObject compoBG_A;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -103,6 +104,7 @@ public class magicskillLearnToggle : MonoBehaviour
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
         blackpanel_A = canvas.transform.Find("Black_Panel_A").gameObject;
+        compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -188,7 +190,8 @@ public class magicskillLearnToggle : MonoBehaviour
         Debug.Log(count + "番が押されたよ");
         Debug.Log("アイテム:" + _item_Namehyouji + "が選択されました。");
 
-        blackpanel_A.SetActive(true);
+        //blackpanel_A.SetActive(true);
+        compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
 
         //Debug.Log("これでいいですか？");
 
@@ -219,6 +222,7 @@ public class magicskillLearnToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageOFF();
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -236,8 +240,7 @@ public class magicskillLearnToggle : MonoBehaviour
                     category_toggle[i].GetComponent<Toggle>().interactable = true;
                 }
 
-                card_view.DeleteCard_DrawView();
-                blackpanel_A.SetActive(false);
+                card_view.DeleteCard_DrawView();                
 
                 yes_no_panel.SetActive(false);
                 //back_ShopFirst_btn.interactable = true;
@@ -264,7 +267,6 @@ public class magicskillLearnToggle : MonoBehaviour
                 Skill_Check();
 
                 card_view.DeleteCard_DrawView();
-                blackpanel_A.SetActive(false);
 
                 yes_selectitem_kettei.kettei1 = false;
                 yes_no_panel.SetActive(false);
