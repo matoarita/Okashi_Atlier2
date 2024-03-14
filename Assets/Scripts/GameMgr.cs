@@ -494,6 +494,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string UseMagicSkill; //使用する魔法・スキルのネーム
     public static string UseMagicSkill_nameHyouji; //使用する魔法・スキルのネームの表示用
     public static int UseMagicSkill_ID; //使用するスキルのID    
+    public static int UseMagicSkillLv; //使用するスキルの使用レベル
     public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐    
     public static bool EventAfter_MoveEnd; //なんらかのイベント終了後、すぐにヒカリを元の位置に戻す
     public static bool Status_zero_readOK; //メインステータスを読み終わったよ～のフラグ　その後に、ヒカリが戻ってくるなどの処理を挟む用

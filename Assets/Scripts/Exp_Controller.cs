@@ -629,18 +629,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
             
         }
-        else //例外処理。卵白と卵黄が同時にできる場合など。
+        else //2個同時に生成するときの処理。卵白と卵黄が同時にできる場合など。
         {
-            if (databaseCompo.compoitems[result_ID].cmpitem_Name == "egg_split")
+            if (databaseCompo.compoitems[result_ID].cmpitemID_result2 != "Non")
             {
-                _id1 = database.SearchItemIDString("egg_white");
-                _id2 = database.SearchItemIDString("egg_yellow");
-                card_view.ResultCard_DrawView2(0, _id1, _id2);
-            }
-            if (databaseCompo.compoitems[result_ID].cmpitem_Name == "egg_split_premiaum")
-            {
-                _id1 = database.SearchItemIDString("egg_premiaum_white");
-                _id2 = database.SearchItemIDString("egg_premiaum_yellow");
+                _id1 = database.SearchItemIDString(databaseCompo.compoitems[result_ID].cmpitemID_result);
+                _id2 = database.SearchItemIDString(databaseCompo.compoitems[result_ID].cmpitemID_result2);
                 card_view.ResultCard_DrawView2(0, _id1, _id2);
             }
         }

@@ -657,7 +657,6 @@ public class CompoundMainController : MonoBehaviour {
                     magicskilllistController_onoff.SetActive(false);
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-                    //GameMgr.Comp_kettei_bunki = 20;
 
                     recipiMemoButton.SetActive(true);
                     text_area_compound.SetActive(true);
@@ -676,7 +675,7 @@ public class CompoundMainController : MonoBehaviour {
                     magic_compo3.SetActive(true);
 
                     //スキル名表示
-                    magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv1";
+                    magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
 
                     playeritemlist_onoff.SetActive(false);                 
                     recipiMemoButton.SetActive(false);

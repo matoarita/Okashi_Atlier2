@@ -233,6 +233,15 @@ public class CardView : SingletonMonoBehaviour<CardView>
             _cardImage_obj[0].transform.localPosition = new Vector3(50, 100, 0);
             _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
         }
+
+        // 魔法使用時、スキルレベル選択時の場合の処理
+        if (GameMgr.compound_select == 21)
+        {
+            _cardImage_obj[0].transform.localScale = new Vector3(0.75f, 0.75f, 1);
+            _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
+            _cardImage_obj[0].GetComponent<SetImage>().Kosu_ON(_kosu);
+            _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF();
+        }
     }
 
     public void SelectCard_DrawView02(int _toggleType, int _kettei_item2)

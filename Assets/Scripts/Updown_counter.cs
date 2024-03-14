@@ -30,6 +30,8 @@ public class Updown_counter : MonoBehaviour {
     private GameObject shopitemlistController_obj;
     private ShopItemListController shopitemlistController;
 
+    private Compound_Check compound_check;
+
     private PlayerItemList pitemlist;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
@@ -187,6 +189,27 @@ public class Updown_counter : MonoBehaviour {
             {
                 updown_counter_setpanel.SetActive(true);
                 this.transform.Find("counter_img1").gameObject.SetActive(false);
+
+                if (GameMgr.compound_select == 21)
+                {
+                    switch (GameMgr.Comp_kettei_bunki)
+                    {
+                        case 21: //魔法のレベル選択時のポス
+
+                            this.transform.localPosition = new Vector3(280, 10, 0);
+
+                            _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+                            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non")
+                            {
+                                updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(true);
+                            }
+                            else //[USE]が入っている時
+                            {
+                                updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(false);
+                            }
+                            break;
+                    }
+                }
             }
             else
             {
@@ -494,6 +517,20 @@ public class Updown_counter : MonoBehaviour {
                         //表示を更新は下にある。
 
                     }
+
+                    if (GameMgr.compound_select == 21)
+                    {
+                        switch (GameMgr.Comp_kettei_bunki)
+                        {
+                            case 21: //魔法のレベル選択
+
+                                _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+                                _zaiko_max = magicskill_database.magicskill_lists[_id].skillLv;
+                                AddMethod1();
+
+                                break;
+                        }
+                    }
                 }
                 else
                 {
@@ -701,14 +738,7 @@ public class Updown_counter : MonoBehaviour {
                                 }
 
                                 break;
-
-                            case 21: //魔法のレベル選択
-
-                                _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
-
-                                _zaiko_max = magicskill_database.magicskill_lists[_id].skillLv;
-
-                                break;
+                           
 
                             default:
                                 break;
@@ -1026,6 +1056,10 @@ public class Updown_counter : MonoBehaviour {
                         DegMethod1();
                     }
                 }
+                else
+                {
+                    DegMethod1();
+                }
             }
             else
             {
@@ -1138,6 +1172,8 @@ public class Updown_counter : MonoBehaviour {
         }
 
         _count_text.text = GameMgr.updown_kosu.ToString();
+
+        Magic_ReKeisan();
     }
 
     void AddMethod2()
@@ -1160,6 +1196,8 @@ public class Updown_counter : MonoBehaviour {
         }
 
         _count_text.text = GameMgr.updown_kosu.ToString();
+
+        Magic_ReKeisan();
     }
 
     void DegMethod2()
@@ -1171,6 +1209,22 @@ public class Updown_counter : MonoBehaviour {
         }
 
         _count_text.text = GameMgr.updown_kosu.ToString();
+    }
+
+    //アップorダウンしたときに調合確率も再計算する　特定のタイミングのときのみ
+    void Magic_ReKeisan()
+    {
+        if (GameMgr.compound_select == 21) //魔法処理　アイテム選択画面のとき
+        {
+            if (GameMgr.Comp_kettei_bunki == 21) //選択後、スキルレベルを選ぶタイミング
+            {
+                compound_check = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Compound_Check").GetComponent<Compound_Check>();
+                GameMgr.UseMagicSkillLv = GameMgr.updown_kosu;
+
+                //compound_check.CompoundJudge();
+
+            }
+        }
     }
 
 

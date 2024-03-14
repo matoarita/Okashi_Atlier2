@@ -94,6 +94,7 @@ public class Compound_Check : MonoBehaviour {
     private GameObject memo_result_obj;
     private GameObject recipiMemoButton_obj;
     private GameObject recipiMemoScrollView_obj;
+    private GameObject MagicSelectLv_Panel;
 
     private int i;
     private int _rate;
@@ -122,6 +123,8 @@ public class Compound_Check : MonoBehaviour {
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
         resultitemName_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/TextPanel/Image/Result_item/NameText").gameObject;
+        MagicSelectLv_Panel = compoBG_A.transform.Find("MagicStartPanel/magicComp2/MagicSelectLv_Panel").gameObject;
+        MagicSelectLv_Panel.SetActive(false);
 
         FinalCheckPanel = compoBG_A.transform.Find("FinalCheckPanel").gameObject;
         FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/KakuritsuMessage/Image/Text").GetComponent<Text>();
@@ -176,7 +179,6 @@ public class Compound_Check : MonoBehaviour {
         yes_no_panel_magic = compoBG_A.transform.Find("MagicStartPanel/Yes_no_Panel_Finalcheck").gameObject;
         yes_no_panel_magic.SetActive(false);
 
-        //final_select_flag = false;
         _debug_sw = false;
     }
 	
@@ -210,15 +212,16 @@ public class Compound_Check : MonoBehaviour {
         {
             if (GameMgr.compound_select == 1) //レシピ調合のときの処理
             {
-                //recipilistController_obj = canvas.transform.Find("RecipiList_ScrollView").gameObject;
-                //recipilistController = recipilistController_obj.GetComponent<RecipiListController>();
-
                 GameMgr.compound_status = 110;
 
                 SelectPaused();
 
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
+
+                //確率パネルの取得・参照先を指定
+                kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
                 StartCoroutine("recipiFinal_select");
 
@@ -233,6 +236,10 @@ public class Compound_Check : MonoBehaviour {
 
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
+
+                //確率パネルの取得・参照先を指定
+                kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
                 StartCoroutine("topping_Final_select");
 
@@ -251,6 +258,10 @@ public class Compound_Check : MonoBehaviour {
                 FinalCheckPanel.SetActive(true);
                 yes.GetComponent<Button>().interactable = false;
                 no.GetComponent<Button>().interactable = false;
+
+                //確率パネルの取得・参照先を指定
+                kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
                 //一度contentの中身を削除
                 foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -279,6 +290,10 @@ public class Compound_Check : MonoBehaviour {
                 no.GetComponent<Button>().interactable = false;
                 text_hikari_makecaption.SetActive(false);
 
+                //確率パネルの取得・参照先を指定
+                kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
                 //一度contentの中身を削除
                 foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
                 {
@@ -298,9 +313,12 @@ public class Compound_Check : MonoBehaviour {
 
                 SelectPaused();
 
-                GameMgr.final_select_flag = false;
-                resultitemName_obj.SetActive(true);
-                
+                GameMgr.final_select_flag = false;                
+
+                //確率パネルの取得・参照先を指定
+                kakuritsuPanel_obj = compoBG_A.transform.Find("MagicStartPanel/magicComp2/MagicSelectLv_Panel/KakuritsuPanel").gameObject;
+                kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
                 StartCoroutine("MagicFinal_select"); //最終確認 スキルレベルを選択する。
                 //MagicFinal_select();
             }
@@ -317,8 +335,8 @@ public class Compound_Check : MonoBehaviour {
         {
             case 2: //2個選択しているとき
 
-                itemID_1 = GameMgr.Final_list_itemID1;
-                itemID_2 = GameMgr.Final_list_itemID2;
+                itemID_1 = GameMgr.temp_itemID1;
+                itemID_2 = GameMgr.temp_itemID2;
 
                 GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
                 itemID_3 = GameMgr.Final_list_itemID3;
@@ -445,9 +463,9 @@ public class Compound_Check : MonoBehaviour {
 
             case 3: //3個選択しているとき
 
-                itemID_1 = GameMgr.Final_list_itemID1;
-                itemID_2 = GameMgr.Final_list_itemID2;
-                itemID_3 = GameMgr.Final_list_itemID3;
+                itemID_1 = GameMgr.temp_itemID1;
+                itemID_2 = GameMgr.temp_itemID2;
+                itemID_3 = GameMgr.temp_itemID3;
 
                 card_view.OKCard_DrawView03(GameMgr.Final_kettei_kosu3);
 
@@ -578,7 +596,7 @@ public class Compound_Check : MonoBehaviour {
         {
             case 11: //べーすあいてむ + 1個選択しているとき
 
-                itemID_1 = GameMgr.Final_list_itemID1;
+                itemID_1 = GameMgr.temp_itemID1;
                 baseitemID = GameMgr.Final_list_baseitemID;
 
                 GameMgr.Final_list_itemID2 = 9999; //9999は空を表す数字                
@@ -647,8 +665,8 @@ public class Compound_Check : MonoBehaviour {
 
             case 12: //べーすあいてむ + 2個選択しているとき
 
-                itemID_1 = GameMgr.Final_list_itemID1;
-                itemID_2 = GameMgr.Final_list_itemID2;
+                itemID_1 = GameMgr.temp_itemID1;
+                itemID_2 = GameMgr.temp_itemID2;
                 baseitemID = GameMgr.Final_list_baseitemID;
 
                 GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
@@ -717,9 +735,9 @@ public class Compound_Check : MonoBehaviour {
 
             case 13: //べーすあいてむ + 3個選択しているとき
 
-                itemID_1 = GameMgr.Final_list_itemID1;
-                itemID_2 = GameMgr.Final_list_itemID2;
-                itemID_3 = GameMgr.Final_list_itemID3;
+                itemID_1 = GameMgr.temp_itemID1;
+                itemID_2 = GameMgr.temp_itemID2;
+                itemID_3 = GameMgr.temp_itemID3;
                 baseitemID = GameMgr.Final_list_baseitemID;
 
                 card_view.OKCard_DrawView04();
@@ -774,9 +792,9 @@ public class Compound_Check : MonoBehaviour {
 
     IEnumerator recipiFinal_select()
     {
-        itemID_1 = GameMgr.Final_list_itemID1;
-        itemID_2 = GameMgr.Final_list_itemID2;
-        itemID_3 = GameMgr.Final_list_itemID3;
+        itemID_1 = GameMgr.temp_itemID1;
+        itemID_2 = GameMgr.temp_itemID2;
+        itemID_3 = GameMgr.temp_itemID3;
 
         CompoundJudge(); //食材の距離計算も行う。
 
@@ -860,16 +878,28 @@ public class Compound_Check : MonoBehaviour {
         {
             case 20: //1個選択しているとき
 
-                itemID_1 = GameMgr.Final_list_itemID1;
+                itemID_1 = GameMgr.temp_itemID1;
                 itemID_2 = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
                 GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
                 itemID_3 = GameMgr.Final_list_itemID3;
 
-                //card_view.OKCard_DrawView02(pitemlistController.final_kettei_kosu2);
-                //魔法のときは、対象アイテムと魔法のエフェクトなどを表示する？
-
+                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non")
+                {
+                    //常に習得レベルで固定する扱いになるので、判定では使用しない。
+                    GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[itemID_2].skillLv;
+                }
+                else //[USE]が入っている時
+                {
+                    magicskill_database.magicskill_lists[itemID_2].skillUseLv = 1; //
+                    GameMgr.UseMagicSkillLv = 1;
+                }
+                
                 CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+
+                MagicSelectLv_Panel.SetActive(true);
+                MagicSelectLv_Panel.transform.Find("MagicSkillNameImg/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji;
+                //魔法のときは、対象アイテムと魔法のエフェクトなどを表示する
 
                 recipiMemoScrollView_obj.SetActive(false);
                 memo_result_obj.SetActive(false);
@@ -878,11 +908,8 @@ public class Compound_Check : MonoBehaviour {
                 //確率に応じて、テキストが変わる。
                 //FinalCheck_Text.text = success_text;
 
-                //選んだアイテムを表示する。リザルトアイテムも表示する。
-                //FinalCheck_ItemIconHyouji(0); //2個表示のとき
-
                 GameMgr.Comp_kettei_bunki = 21;
-                _text.text = "魔法のレベルを選択してね。";
+                _text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
                 updown_counter_obj.SetActive(true);
                 yes_no_panel_magic.SetActive(true);
 
@@ -895,6 +922,7 @@ public class Compound_Check : MonoBehaviour {
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                 yes_no_panel_magic.SetActive(false);
+                MagicSelectLv_Panel.SetActive(false);
                 compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageOFF();
                 yes.GetComponent<Button>().interactable = true;
                 no.GetComponent<Button>().interactable = true;
@@ -903,6 +931,10 @@ public class Compound_Check : MonoBehaviour {
                 switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
+
+                        magicskill_database.magicskill_lists[itemID_2].skillUseLv = GameMgr.UseMagicSkillLv; //使ったスキルレベルで魔法DBのUSELVも更新
+
+                        CompoundJudge(); //魔法レベルが決定したあと、再び調合判定。
 
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
@@ -961,8 +993,8 @@ public class Compound_Check : MonoBehaviour {
         yes.GetComponent<Image>().sprite = yes_sprite2;
     }
 
-
-    void CompoundJudge()
+    //調合判定メソッド　Updown_Counterからも読まれる。
+    public void CompoundJudge()
     {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
@@ -1071,12 +1103,12 @@ public class Compound_Check : MonoBehaviour {
             if(magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non")
             {
                 _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName);
-                //Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName);
+                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName);
             }
             else //[USE]が入っている時
             {
-                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName + magicskill_database.magicskill_lists[itemID_2].skillUseLv);
-                //Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName + magicskill_database.magicskill_lists[itemID_2].skillUseLv);
+                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName + GameMgr.UseMagicSkillLv);
+                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName + GameMgr.UseMagicSkillLv);
             }
 
 
@@ -1113,7 +1145,7 @@ public class Compound_Check : MonoBehaviour {
 
                 //アイテムごとの確率補正値を、先にここで計算
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
-                database.items[itemID_2].Ex_Probability *
+                (float)(magicskill_database.magicskill_lists[itemID_2].success_rate * 0.01) *
                 database.items[itemID_3].Ex_Probability;
 
                 inputcount = 3;
@@ -1212,12 +1244,8 @@ public class Compound_Check : MonoBehaviour {
 
         exp_Controller.DoubleItemCreated = 0; //2個以上のアイテムが同時に作られない場合、デフォルトは0。
 
-        //特定のアイテム（卵白と卵黄など生成アイテムが2種類の場合）のcompIDを判定。例外処理。
-        if (databaseCompo.compoitems[result_compoID].cmpitem_Name == "egg_split")
-        {
-            exp_Controller.DoubleItemCreated = 1;
-        }
-        if (databaseCompo.compoitems[result_compoID].cmpitem_Name == "egg_split_premiaum")
+        //特定のアイテム（卵白と卵黄など生成アイテムが2種類の場合）のcompIDを判定。2個以上生成アイテム。
+        if (databaseCompo.compoitems[result_compoID].cmpitemID_result2 != "Non")
         {
             exp_Controller.DoubleItemCreated = 1;
         }

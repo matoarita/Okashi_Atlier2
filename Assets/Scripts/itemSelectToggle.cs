@@ -798,7 +798,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 //リスト中の選択された番号を格納。
                 GameMgr.Final_toggle_baseType = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-                GameMgr.Final_list_baseitemID = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID;
+                GameMgr.Final_list_baseitemID = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 GameMgr.Comp_kettei_bunki = 10;
 
@@ -1357,9 +1357,8 @@ public class itemSelectToggle : MonoBehaviour
                 //itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
 
                 GameMgr.Final_kettei_kosu1 = GameMgr.updown_kosu;
-                //card_view.OKCard_DrawView(pitemlistController.final_kettei_kosu1);
-
                 //card_view.DeleteCard_DrawView(); //決定したら表示してたカードを削除　もしくは、少し演出のアニメ入れてから消す
+                card_view.OKCard_DrawView(GameMgr.Final_kettei_kosu1);               
 
                 yes.SetActive(false);
                 //no.SetActive(false);

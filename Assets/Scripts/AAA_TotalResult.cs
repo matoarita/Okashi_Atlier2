@@ -531,7 +531,7 @@ public class AAA_TotalResult : MonoBehaviour {
     {
         //コンテストクリア時のアイテムと名前　コンテストスコア
         ClearItemName.text = GameMgr.contest_okashiSlotName + GameMgr.contest_okashiNameHyouji;
-        ClearImg.sprite = database.items[GameMgr.contest_okashiID].itemIcon_sprite;
+        ClearImg.sprite = database.items[database.SearchItemID(GameMgr.contest_okashiID)].itemIcon_sprite;
         //contest_score_text.text = GameMgr.contest_TotalScore.ToString();
 
         //ハート総数とレベル
