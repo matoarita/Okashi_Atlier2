@@ -220,7 +220,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                 {
                                     
                                     timeLeft2 = 0.0f;
-                                    SetMinuteToHour(1); //1=5分単位
+                                    SetMinuteToHour(5); //5分
                                     TimeKoushin(0);
 
 
@@ -253,7 +253,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                                         if (GameMgr.hikari_make_okashiFlag)
                                         {
-                                            GameMgr.hikari_make_okashiTimeCounter += 5;
+                                            GameMgr.hikari_make_okashiTimeCounter += 1 * GameMgr.TimeStep;
                                             if (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost) //costtime=1が5分　ヒカリが作ると2倍時間かかる　
                                                                                                                              //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
                                             {
@@ -925,19 +925,18 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         {
             minute = 0;
             hour = 0;
-            //現在5分刻みで計算
-            //10分刻みなので、6ごとに時間を+1 5分刻みなら12ごとに時間を+1
+            //現在1分刻みで計算
 
             while (_m > 0) //
             {
-                if (_m >= 12)
+                if (_m >= 60)
                 {
-                    _m -= 12;
+                    _m -= 60;
                     hour++;
                 }
                 else //12より下なら、分のみで、時間は計算いらない。
                 {
-                    minute = _m * 5; //残り時間 * 10分
+                    minute = _m * GameMgr.TimeStep; //残り時間 * 5分
                     _m = 0;
                     break;
                 }
@@ -954,14 +953,14 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
             while (_m < 0) //
             {
-                if (_m <= -12)
+                if (_m <= -60)
                 {
-                    _m += 12;
+                    _m += 60;
                     hour--;
                 }
                 else //
                 {
-                    minute = _m * 5; //巻き戻し時間をだす。マイナスになるかも。
+                    minute = _m * GameMgr.TimeStep; //巻き戻し時間をだす。マイナスになるかも。
                     _m = 0;
                     break;
                 }
@@ -981,19 +980,19 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
         minute = 0;
         hour = 0;
-        //現在5分刻みで計算
-        //10分刻みなので、6ごとに時間を+1 5分刻みなら12ごとに時間を+1
+        //現在1分刻みで計算
+        
 
         while (_m > 0) //
         {
-            if (_m >= 12)
+            if (_m >= 60) //5分刻みなら12ごとに時間を+1
             {
-                _m -= 12;
+                _m -= 60;
                 hour++;
             }
             else //12より下なら、分のみで、時間は計算いらない。
             {
-                minute = _m * 5; //残り時間 * 10分
+                minute = _m * GameMgr.TimeStep; //残り時間 * 5分
                 _m = 0;
                 break;
             }
@@ -1026,15 +1025,70 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         return _cullent_hour;
     }
 
+
+    //入力された分単位の時間を、時間と分にわけて、コンテストの時間に加算する。マイナスの場合、引き算する。
+    public void SetMinuteToHourContest(int _m)
+    {
+        //制限時間から引き算
+        PlayerStatus.player_contest_LimitTime -= _m;
+
+        //時間と分になおす
+        if (_m >= 0)
+        {
+            minute = 0;
+            hour = 0;
+            //現在1分刻みで計算
+
+            while (_m > 0) //
+            {
+                if (_m >= 60)
+                {
+                    _m -= 60;
+                    hour++;
+                }
+                else //12より下なら、分のみで、時間は計算いらない。
+                {
+                    minute = _m * GameMgr.TimeStep; //残り時間 * 5分
+                    _m = 0;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            minute = 0;
+            hour = 0;
+
+            while (_m < 0) //
+            {
+                if (_m <= -60)
+                {
+                    _m += 60;
+                    hour--;
+                }
+                else //
+                {
+                    minute = _m * GameMgr.TimeStep; //巻き戻し時間をだす。マイナスになるかも。
+                    _m = 0;
+                    break;
+                }
+            }           
+        }
+
+        //入力された分を、時間と分に直し加算する。
+        PlayerStatus.player_contest_hour += hour;
+        PlayerStatus.player_contest_minute += minute;
+    }
+
     public void OnDebugTimeCountUpButton()
     {
-        SetMinuteToHour(6); //+30分
+        SetMinuteToHour(30); //+30分
         TimeKoushin(0);
     }
 
     public void OnDebugTimeCountDownButton()
     {
-        SetMinuteToHour(-6); //-30分
+        SetMinuteToHour(-30); //-30分
         TimeKoushin(0);
     }
 
@@ -1049,7 +1103,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             {
                 if (GameMgr.hikari_make_okashiFlag)
                 {
-                    GameMgr.hikari_make_okashiTimeCounter += (5 * _costTime);
+                    GameMgr.hikari_make_okashiTimeCounter += (GameMgr.TimeStep * _costTime);
 
                     while (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost)
                     {

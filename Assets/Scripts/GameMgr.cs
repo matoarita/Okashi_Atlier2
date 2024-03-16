@@ -650,6 +650,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int StartDay_hour;
     public static int EndDay_hour;
 
+    //時間刻む単位
+    public static int TimeStep;
+
     //現在の天気の状態
     public static int BG_cullent_weather;
     public static int BG_before_weather;
@@ -677,6 +680,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //秒計算。　
         timeLeft = 1.0f;
+
+        //刻む時間の単位　分単位
+        TimeStep = 1;
 
         //エンディングカウント。リセットされない。
         ending_number = 1;

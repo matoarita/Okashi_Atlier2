@@ -97,6 +97,12 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_cullent_Deadmonth; //締め切りの月（上記プレイヤーデイを基に、time_controllerで計算する。）
     public static int player_cullent_Deadday; //締め切りの月（上記プレイヤーデイを基に、time_controllerで計算する。）
 
+    //セーブ不要
+    public static int player_contest_hour; //コンテストの現在時間　何時か
+    public static int player_contest_minute; //コンテストの現在時間　何分か
+    public static int player_contest_LimitTime; //コンテストの制限時間
+    //
+
     public static bool First_recipi_on; //はじめて調合したフラグ
     public static bool First_extreme_on; //はじめて仕上げをしたフラグ
 

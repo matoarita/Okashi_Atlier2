@@ -238,7 +238,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         if (GameMgr.compound_select == 21)
         {
             _cardImage_obj[0].transform.localScale = new Vector3(0.75f, 0.75f, 1);
-            _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
+            _cardImage_obj[0].transform.localPosition = new Vector3(-180, 65, 0);
             _cardImage_obj[0].GetComponent<SetImage>().Kosu_ON(_kosu);
             _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF();
         }

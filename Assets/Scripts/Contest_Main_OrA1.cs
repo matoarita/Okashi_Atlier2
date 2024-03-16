@@ -91,10 +91,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.ContestSelectNum = 1000; //コンテストのシーン番号　//大会の場合、1回戦　2回戦　決勝戦とかをシーン番号でさらに分けてよさげ。
         GameMgr.Contest_ON = true;
 
-        //カメラの取得
-        main_cam = Camera.main;
-        maincam_animator = main_cam.GetComponent<Animator>();
-        trans = maincam_animator.GetInteger("trans");
+        //コンテスト時間指定
+        PlayerStatus.player_contest_hour = 8;
+        PlayerStatus.player_contest_minute = 0;
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
@@ -139,9 +139,6 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //場所名前パネル
         placename_panel = canvas.transform.Find("PlaceNamePanel").gameObject;
         placename_panel.SetActive(false);
-
-        //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();

@@ -20,8 +20,6 @@ public class TimePanel : MonoBehaviour {
     private GameObject _time_obj2_hour;
     private GameObject _time_obj2_count;
     private GameObject _time_obj2_minute;
-    private GameObject _time_obj1_limit;
-    private GameObject _time_obj2_limit;
 
     private Text _time_hour1;
     private Text _time_count1;
@@ -29,11 +27,13 @@ public class TimePanel : MonoBehaviour {
     private Text _time_hour2;
     private Text _time_count2;
     private Text _time_minute2;
-    private Text _time_limit1;
-    private Text _time_limit2;
 
     private GameObject DebugTimecountUp_button;
     private GameObject DebugTimecountDown_button;
+
+    private Text Contest_nokori_hour;
+    private Text Contest_nokori_minute;
+    private int _hour, _minute, _nokoritime;
 
     private GameObject clock_hari1;
     private GameObject clock_hari2;
@@ -79,11 +79,8 @@ public class TimePanel : MonoBehaviour {
         _time_obj2_minute = this.transform.Find("TimeHyouji_2/Minute").gameObject;
         _time_minute2 = _time_obj2_minute.GetComponent<Text>();
 
-        _time_obj1_limit = this.transform.Find("TimeHyouji_1/NokoriTimePanel/NokoriTimeParam").gameObject;
-        _time_limit1 = _time_obj1_limit.GetComponent<Text>();
-
-        _time_obj2_limit = this.transform.Find("TimeHyouji_2/NokoriTimeParam").gameObject;
-        _time_limit2 = _time_obj2_limit.GetComponent<Text>();
+        Contest_nokori_hour = this.transform.Find("ContestTimePanel/NokoriTimeHour").GetComponent<Text>();
+        Contest_nokori_minute = this.transform.Find("ContestTimePanel/NokoriTimeMinutes").GetComponent<Text>();
 
         DebugTimecountUp_button = this.transform.Find("TimeHyouji_2/TimeCountUpButton").gameObject;
         DebugTimecountDown_button = this.transform.Find("TimeHyouji_2/TimeCountDownButton").gameObject;
@@ -102,14 +99,14 @@ public class TimePanel : MonoBehaviour {
         timeLeft = 1.0f;
         count_switch = true;
 
-        if (GameMgr.Story_Mode == 0)
+        /*if (GameMgr.Story_Mode == 0)
         {
             this.transform.Find("TimeHyouji_1").GetComponent<CanvasGroup>().alpha = 0;
         }
         else
         {
             this.transform.Find("TimeHyouji_1").GetComponent<CanvasGroup>().alpha = 1;
-        }
+        }*/
     }
 	
 	// Update is called once per frame
@@ -120,7 +117,8 @@ public class TimePanel : MonoBehaviour {
             case 100: //コンテストでは、参照する時間の引数を変える。
 
                 this.transform.Find("TimeHyouji_1/Image/calender_bg").gameObject.SetActive(false);
-                TimeDraw();
+                this.transform.Find("ContestTimePanel").gameObject.SetActive(true);
+                ContestTimeDraw();
                 break;
 
             default:
@@ -161,32 +159,72 @@ public class TimePanel : MonoBehaviour {
         _day_text2.text = PlayerStatus.player_cullent_month.ToString() + "/" + PlayerStatus.player_cullent_day.ToString();
 
 
-        /*現在は未使用 */
-        /*_cullent_day = PlayerStatus.player_day;
-        switch (GameMgr.stage_number)
+        //表示用時間のカウント 秒がドットで進んでいく表示を更新するだけ。実際の時間には影響なし。
+        timeLeft -= Time.deltaTime;
+
+        //1秒ごとのタイムカウンター
+        if (timeLeft <= 0.0)
         {
-            case 1:
-
-                _stage_limit_day = GameMgr.stage1_limit_day;
-                break;
-
-            case 2:
-
-                _stage_limit_day = GameMgr.stage2_limit_day;
-                break;
-
-            case 3:
-
-                _stage_limit_day = GameMgr.stage3_limit_day;
-                break;
-
+            timeLeft = 1.0f; //現実の1秒の時間。
+            count_switch = !count_switch;
         }
 
-        //残り日数
-        _time_limit1.text = (_stage_limit_day - _cullent_day).ToString() + "日";
-        _time_limit2.text = (_stage_limit_day - _cullent_day).ToString() + "日";
-        */
-        //** ここの間は未使用 **//
+        if (count_switch)
+        {
+            //表示
+            _time_count1.text = ":";
+            _time_count2.text = ":";
+
+        }
+        else
+        {
+            //表示
+            _time_count1.text = " ";
+            _time_count2.text = " ";
+        }
+        //ここまで
+
+
+        if (GameMgr.DEBUG_MODE)
+        {
+            DebugTimecountUp_button.SetActive(true);
+            DebugTimecountDown_button.SetActive(true);
+        }
+        else
+        {
+            DebugTimecountUp_button.SetActive(false);
+            DebugTimecountDown_button.SetActive(false);
+        }
+    }
+
+    void ContestTimeDraw()
+    {
+        //表示
+        _time_hour1.text = PlayerStatus.player_contest_hour.ToString("00");
+        _time_minute1.text = PlayerStatus.player_contest_minute.ToString("00");
+        _time_hour2.text = PlayerStatus.player_contest_hour.ToString("00");
+        _time_minute2.text = PlayerStatus.player_contest_minute.ToString("00");
+
+        //時計版表示           
+        localAngle1.z = -1 * PlayerStatus.player_contest_minute * 6; // ローカル座標を基準に、z軸を軸にした回転
+        clock_hari1Transform.localEulerAngles = localAngle1; // 回転角度を設定
+
+        if (PlayerStatus.player_contest_hour >= 12)
+        {
+            cullent_hour_clock = PlayerStatus.player_contest_hour - 12;
+        }
+        else
+        {
+            cullent_hour_clock = PlayerStatus.player_contest_hour;
+        }
+        localAngle2.z = -1 * 30 * cullent_hour_clock; // ローカル座標を基準に、z軸を軸にした回転
+        localAngle2.z = localAngle2.z + (-2.5f * (PlayerStatus.player_contest_minute / 5));
+        clock_hari2Transform.localEulerAngles = localAngle2; // 回転角度を設定
+
+        //表示 月日
+        //_month_text1.text = PlayerStatus.player_cullent_month.ToString();
+        //_day_text1.text = PlayerStatus.player_cullent_day.ToString();
+        //_day_text2.text = PlayerStatus.player_cullent_month.ToString() + "/" + PlayerStatus.player_cullent_day.ToString();
 
 
         //表示用時間のカウント 秒がドットで進んでいく表示を更新するだけ。実際の時間には影響なし。
@@ -214,6 +252,20 @@ public class TimePanel : MonoBehaviour {
         }
         //ここまで
 
+
+        //残り制限時間を表示
+        _hour = 0;
+        _minute = 0;
+        _nokoritime = PlayerStatus.player_contest_LimitTime;
+        while (_nokoritime >= 60)
+        {
+            _nokoritime = _nokoritime - 60;
+            _hour++;
+        }
+        _minute = _nokoritime * GameMgr.TimeStep; //1分刻み
+
+        Contest_nokori_hour.text = _hour.ToString();
+        Contest_nokori_minute.text = _minute.ToString();
 
         if (GameMgr.DEBUG_MODE)
         {

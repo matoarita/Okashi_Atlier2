@@ -58,11 +58,17 @@ public class Compound_Check : MonoBehaviour {
     private GameObject kakuritsuPanel_obj;
     private KakuritsuPanel kakuritsuPanel;
 
+    private GameObject costTimePanel_obj;
+    private Text _cost_hourtext;
+    private Text _cost_minutestext;
+
     private GameObject resultitemName_obj;
 
     private GameObject FinalCheckPanel;
     private Text FinalCheck_Text;
     private string final_itemmes;
+
+    private int _costTime, _hour, _minutes;
 
     private GameObject compoBG_A;
 
@@ -121,6 +127,10 @@ public class Compound_Check : MonoBehaviour {
         //確率パネルの取得
         kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
         kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+        costTimePanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/CostTimePanel").gameObject;
+        _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
+        _cost_minutestext = costTimePanel_obj.transform.Find("Image/TimeMinutes_param").GetComponent<Text>();
 
         resultitemName_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/TextPanel/Image/Result_item/NameText").gameObject;
         MagicSelectLv_Panel = compoBG_A.transform.Find("MagicStartPanel/magicComp2/MagicSelectLv_Panel").gameObject;
@@ -223,6 +233,10 @@ public class Compound_Check : MonoBehaviour {
                 kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
+                costTimePanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/CostTimePanel").gameObject;
+                _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
+                _cost_minutestext = costTimePanel_obj.transform.Find("Image/TimeMinutes_param").GetComponent<Text>();
+
                 StartCoroutine("recipiFinal_select");
 
             }
@@ -240,6 +254,10 @@ public class Compound_Check : MonoBehaviour {
                 //確率パネルの取得・参照先を指定
                 kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+                costTimePanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/CostTimePanel").gameObject;
+                _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
+                _cost_minutestext = costTimePanel_obj.transform.Find("Image/TimeMinutes_param").GetComponent<Text>();
 
                 StartCoroutine("topping_Final_select");
 
@@ -262,6 +280,10 @@ public class Compound_Check : MonoBehaviour {
                 //確率パネルの取得・参照先を指定
                 kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+                costTimePanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/CostTimePanel").gameObject;
+                _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
+                _cost_minutestext = costTimePanel_obj.transform.Find("Image/TimeMinutes_param").GetComponent<Text>();
 
                 //一度contentの中身を削除
                 foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -294,6 +316,10 @@ public class Compound_Check : MonoBehaviour {
                 kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
 
+                costTimePanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/CostTimePanel").gameObject;
+                _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
+                _cost_minutestext = costTimePanel_obj.transform.Find("Image/TimeMinutes_param").GetComponent<Text>();
+
                 //一度contentの中身を削除
                 foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
                 {
@@ -318,6 +344,10 @@ public class Compound_Check : MonoBehaviour {
                 //確率パネルの取得・参照先を指定
                 kakuritsuPanel_obj = compoBG_A.transform.Find("MagicStartPanel/magicComp2/MagicSelectLv_Panel/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+                costTimePanel_obj = compoBG_A.transform.Find("MagicStartPanel/magicComp2/MagicSelectLv_Panel/CostTimePanel").gameObject;
+                _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
+                _cost_minutestext = costTimePanel_obj.transform.Find("Image/TimeMinutes_param").GetComponent<Text>();
 
                 StartCoroutine("MagicFinal_select"); //最終確認 スキルレベルを選択する。
                 //MagicFinal_select();
@@ -909,7 +939,8 @@ public class Compound_Check : MonoBehaviour {
                 //FinalCheck_Text.text = success_text;
 
                 GameMgr.Comp_kettei_bunki = 21;
-                _text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
+                _text.text = "魔法のレベルを選択してね。";
+                //_text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
                 updown_counter_obj.SetActive(true);
                 yes_no_panel_magic.SetActive(true);
 
@@ -1255,9 +1286,22 @@ public class Compound_Check : MonoBehaviour {
         GameMgr.Final_result_compID = result_compoID;
 
 
+        //制作時間の予想を表示
+        _hour = 0;
+        _minutes = 0;
+        _costTime = databaseCompo.compoitems[GameMgr.Final_result_compID].cost_Time;
+        while(_costTime >= 60)
+        {
+            _costTime = _costTime - 60;
+            _hour++;
+        }
+        _minutes = _costTime * GameMgr.TimeStep; //1分刻み
+
+        _cost_hourtext.text = _hour.ToString();
+        _cost_minutestext.text = _minutes.ToString();
+
 
         //調合判定
-
         //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
         if (GameMgr.compound_select != 7)
         {
@@ -1572,8 +1616,9 @@ public class Compound_Check : MonoBehaviour {
         Debug.Log("成功基本確率: " + databaseCompo.compoitems[_compID].success_Rate);
         Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _rate);
         Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);
+        Debug.Log("制作時間目安(1分単位): " + databaseCompo.compoitems[_compID].cost_Time);
 
-        if(databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない
+        if (databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない
         {
             if (GameMgr.compound_select == 7) //ヒカリが作るときは、失敗する可能性あり。
             {
