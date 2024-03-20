@@ -217,7 +217,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int[] _girlchewy;
     private int[] _girljuice;
     private int[] _girlbeauty;
-    private int[] _girlspscore1;
+    private int[] _girlsp1_wind;
 
     private int _girlpowdery;
     private int _girloily;
@@ -639,7 +639,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _girljuice = new int[girl1_status.youso_count];
 
         _girlbeauty = new int[girl1_status.youso_count];
-        _girlspscore1 = new int[girl1_status.youso_count];
+        _girlsp1_wind = new int[girl1_status.youso_count];
 
         _girl_subtype = new string[girl1_status.youso_count];
         _girl_likeokashi = new string[girl1_status.youso_count];
@@ -1155,7 +1155,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _girljuice[i] = girl1_status.girl1_Juice[i];
 
             _girlbeauty[i] = girl1_status.girl1_Beauty[i];
-            _girlspscore1[i] = girl1_status.girl1_SP_score1[i];
+            _girlsp1_wind[i] = girl1_status.girl1_SP1_Wind[i];
 
             _girl_subtype[i] = girl1_status.girl1_likeSubtype[i];
             _girl_likeokashi[i] = girl1_status.girl1_likeOkashi[i];
@@ -1609,7 +1609,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //見た目点数の計算
         if (_girlbeauty[countNum] > 0)
         {
-            beauty_score = _basebeauty - _girlbeauty[countNum];
+            beauty_score = _girlbeauty[countNum] - _basebeauty;
+            Debug.Log("見た目点: " + beauty_score + " 判定値: " + _basebeauty + " お菓子の見た目: " + _girlbeauty[countNum]);
         }
         else
         {
@@ -1617,34 +1618,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
 
         //コンテストでは、さらに「風らしさ」などの特殊点を計算
-        if (_girlspscore1[countNum] > 0)
+        if (_girlsp1_wind[countNum] > 0)
         {
             GameMgr.Contest_Clear_Failed = false;
 
-            //コンテストに応じて、_base〇〇の部分を変える 〇回戦とかでも変える
-            switch (GameMgr.Contest_Name)
-            {
-                case "Or_Contest_001": //オレンジーナコンテストA1 クープデュモンド
+            spscore1_score = _girlsp1_wind[countNum] - _base_sp_wind;
+            Debug.Log("コンテスト　風らしさ計算ON: " + spscore1_score + " 判定値: " + _base_sp_wind + " お菓子の風らしさ: " + _girlsp1_wind[countNum]);
 
-                    spscore1_score = _base_sp_wind - _girlspscore1[countNum];
-                    Debug.Log("コンテスト　特殊点: " + spscore1_score);
-                    break;
-
-                default: //
-
-                    spscore1_score = 0;
-                    break;
-            }
-            
-            if(spscore1_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore1_score < 0) //合格点に達してない場合は、クリアできない
             {
                 GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("コンテスト　特殊点: " + spscore1_score + " 足りなかったので不合格");
+                Debug.Log("コンテスト　風らしさの点: " + spscore1_score + " 足りなかったので不合格");
             }
         }
         else
         {
             spscore1_score = 0;
+            Debug.Log("コンテスト　風らしさ計算OFF");
         }
 
         //最終の点数合計

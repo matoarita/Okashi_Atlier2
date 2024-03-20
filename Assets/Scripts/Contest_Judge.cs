@@ -49,7 +49,7 @@ public class Contest_Judge : MonoBehaviour {
     private string contest_Name;
 
     private bool judge_flag;
-    private int judge_Type, DB_list_Type;
+    private int judge_Type;
 
 
     public int[] total_score;
@@ -187,33 +187,16 @@ public class Contest_Judge : MonoBehaviour {
         //***お菓子の判定処理　***
         //左二つが判定するお菓子
         //3番目の番号は、girlLikeSetのcomp_Num番号。
-        //GameMgr.ContestSelectNumは、コンテストのシーン番号。DB_list_Type以上のcomp_Numを判定として使用。
+        //GameMgr.ContestSelectNumは、コンテストのシーン番号。Contest_DB_list_Type以上のcomp_Numを判定として使用。
         //***
 
         judge_flag = false;
         //judge_Type = 0; //基本審査員3人で対応。judge_Typeは、どのコンテストかを指定する。
 
-        //コンテストごとに、判定を変える
-        switch (GameMgr.ContestSelectNum)
-        {
-            case 1000: //オレンジーナコンテストA1 クープデュモンド
-
-                DB_list_Type = 20000; //compNum=20000~を指定
-                GameMgr.Contest_Name = "Or_Contest_001";
-                break;
-
-            default: //ヒカリ１のときのコンテスト番号 0
-
-                DB_list_Type = 10000; //girlLikeSetのcompNumの10000～を参照するようにしている。コンテストを分ける場合、compNumの数字で分ければOK.
-                GameMgr.Contest_Name = "First_Contest";
-                break;
-        }
-        Debug.Log("コンテスト名前と番号: " + GameMgr.Contest_Name + " " + GameMgr.ContestSelectNum);
-
         i = 0;
         while (i < contestSet_database.contest_set.Count)
         {
-            if (contestSet_database.contest_set[i].girlLike_compNum >= DB_list_Type)
+            if (contestSet_database.contest_set[i].girlLike_compNum >= GameMgr.Contest_DB_list_Type)
             {
                 if (contestSet_database.contest_set[i].girlLike_itemName != "Non") //固有名がはいってる場合は、固有名をみる。
                 {
@@ -372,7 +355,7 @@ public class Contest_Judge : MonoBehaviour {
         }
 
 
-        //各コンテスト審査員ごとの判定分け
+        //各コンテスト審査員ごとの判定分け　補正がけ　必要な場合
         switch(GameMgr.Contest_Name)
         {
             case "First_Contest":

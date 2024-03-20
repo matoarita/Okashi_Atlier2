@@ -62,11 +62,7 @@ public class Contest_Main : MonoBehaviour {
     void Start () {
 
         //今いるシーン番号を指定
-        GameMgr.Scene_Category_Num = 100;
-
-        //さらにどのコンテストに現在出場しているかを指定
-        GameMgr.ContestSelectNum = 0; //コンテストのシーン番号
-        GameMgr.Contest_ON = false; //コンテストだけど、１のころのやつなのでfalseでだいじょうぶ
+        GameMgr.Scene_Category_Num = 100;        
 
         //カメラの取得
         main_cam = Camera.main;
@@ -140,6 +136,10 @@ public class Contest_Main : MonoBehaviour {
         //コンテスト会場きたときのイベント
         if (!GameMgr.contest_eventStart_flag)
         {
+            GameMgr.ContestSelectNum = 0; //コンテストのシーン番号
+            GameMgr.Contest_ON = false; //コンテストだけど、１のころのやつなのでfalseでだいじょうぶ
+            ContestDataSetting();
+
             //採点処理
             contest_judge.Contest_Judge_Start();
 
@@ -214,6 +214,21 @@ public class Contest_Main : MonoBehaviour {
             }
         }
     }
+
+    void ContestDataSetting()
+    {
+        //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定
+        switch (GameMgr.ContestSelectNum)
+        {
+            default: //ヒカリ１のときのコンテスト番号 0
+
+                GameMgr.Contest_DB_list_Type = 10000; //girlLikeSetのcompNumの10000～を参照するようにしている。コンテストを分ける場合、compNumの数字で分ければOK.
+                GameMgr.Contest_Name = "First_Contest";
+                break;
+        }
+        Debug.Log("コンテスト名前と番号とラウンド数: " + GameMgr.Contest_Name + " " + GameMgr.ContestSelectNum + " " + GameMgr.ContestRoundNum + "回戦");
+    }
+
 
     public void OnContest_Judge_Toggle()
     {

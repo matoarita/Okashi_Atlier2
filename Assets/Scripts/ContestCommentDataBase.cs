@@ -17,6 +17,7 @@ public class ContestCommentDataBase : SingletonMonoBehaviour<ContestCommentDataB
     private string comment_2;
     private string comment_3;
     private string comment_4;
+    private int search_flag;
 
     private int i, j;
     private int count;
@@ -36,27 +37,18 @@ public class ContestCommentDataBase : SingletonMonoBehaviour<ContestCommentDataB
 
         sheet_no = 0;
 
-        count = 0;
-
-        while (count < excel_contestcomment_database.sheets[sheet_no].list.Count)
+        while (sheet_no < excel_contestcomment_database.sheets.Count)
         {
-            //代入
-            SetExcelDB();
+            count = 0;
+            while (count < excel_contestcomment_database.sheets[sheet_no].list.Count)
+            {
+                //代入
+                SetExcelDB();
 
-            ++count;
-        }
+                ++count;
+            }
 
-        sheet_no++;
-
-        count = 0;
-
-        //シート二枚目
-        while (count < excel_contestcomment_database.sheets[sheet_no].list.Count)
-        {
-            //代入
-            SetExcelDB();
-
-            ++count;
+            ++sheet_no;
         }
     }
 
@@ -71,8 +63,9 @@ public class ContestCommentDataBase : SingletonMonoBehaviour<ContestCommentDataB
         comment_2 = excel_contestcomment_database.sheets[sheet_no].list[count].comment2;
         comment_3 = excel_contestcomment_database.sheets[sheet_no].list[count].comment3;
         comment_4 = excel_contestcomment_database.sheets[sheet_no].list[count].comment4;
+        search_flag = excel_contestcomment_database.sheets[sheet_no].list[count].search_endflag;
 
         //ここでリストに追加している
-        contestcomment_lists.Add(new ContestComment(_id, _commentid, itemName, _setid, comment_1, comment_2, comment_3, comment_4));
+        contestcomment_lists.Add(new ContestComment(_id, _commentid, itemName, _setid, comment_1, comment_2, comment_3, comment_4, search_flag));
     }
 }

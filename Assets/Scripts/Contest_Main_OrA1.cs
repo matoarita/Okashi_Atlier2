@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 using Live2D.Cubism.Rendering;
+using DG.Tweening;
 
 public class Contest_Main_OrA1 : MonoBehaviour {
 
@@ -18,8 +19,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private Girl1_status girl1_status;
 
     private GameObject placename_panel;
-    private GameObject black_effect;
     private GameObject scene_black_effect;
+    private GameObject contest_startbutton_panel;
     private GameObject canvas;
 
     private GameObject GirlEat_judge_obj;
@@ -72,6 +73,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private bool judge_flag;
     private int judge_Type, DB_list_Type;
     private int inputcount;
+    private bool StartRead; //シーンに入って最初の一回だけ起動する
 
     //Live2Dモデルの取得    
     private GameObject _model_root_obj;
@@ -85,16 +87,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     void Start () {
 
         //今いるシーン番号を指定
-        GameMgr.Scene_Category_Num = 100; 
-
-        //さらにどのコンテストに現在出場しているかを指定
-        GameMgr.ContestSelectNum = 1000; //コンテストのシーン番号　//大会の場合、1回戦　2回戦　決勝戦とかをシーン番号でさらに分けてよさげ。
-        GameMgr.Contest_ON = true;
-
-        //コンテスト時間指定
-        PlayerStatus.player_contest_hour = 8;
-        PlayerStatus.player_contest_minute = 0;
-        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+        GameMgr.Scene_Category_Num = 100;        
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
@@ -130,9 +123,6 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
-        //黒半透明パネルの取得
-        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
-
         //シーン全てをブラックに消すパネル
         scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
 
@@ -140,9 +130,11 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         placename_panel = canvas.transform.Find("PlaceNamePanel").gameObject;
         placename_panel.SetActive(false);
 
+        //コンテスト開始ボタンパネル
+        contest_startbutton_panel = canvas.transform.Find("ContestStartButtonPanel").gameObject;
+
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-        sceneBGM.PlaySub();
 
         //お菓子の判定処理オブジェクトの取得
         contest_judge_obj = GameObject.FindWithTag("Contest_Judge");
@@ -187,12 +179,13 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
-        _text.text = "至高のチョコレート（Aランク）" + "\n"+ "テーマ：「風」をテーマにした美しいチョコレート";
+        _text.text = "";
 
         contest_select = canvas.transform.Find("Contest_Select").gameObject;
         conteston_toggle_compo = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Compo").gameObject;
 
         contest_status = 0;
+        StartRead = false;
 
         //デバッグ用　最初に所持するアイテム
         Debug_StartItem();
@@ -206,40 +199,56 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 	void Update () {
 
         //コンテスト会場きたときのイベント
-        /*if (!GameMgr.contest_eventStart_flag)
+        if (!GameMgr.contest_eventStart_flag)
         {
-            //採点処理
-            contest_judge.Contest_Judge_Start();
-
             GameMgr.contest_eventStart_flag = true;
+            GameMgr.Contest_ON = true;
+
+            //さらにどのコンテストに現在出場しているかを指定
+            GameMgr.ContestRoundNum = 1; //一回戦
+            ContestDataSetting();            
+
+            GameMgr.scenario_ON = true;
+
+            sceneBGM.MuteBGM();
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+
+            GameMgr.contest_event_num = GameMgr.ContestSelectNum;
+            GameMgr.contest_or_event_flag = true;
+        }
+
+        //二回戦以降、始まる場合の処理　Utage_scenarioの採点後にフラグをたてている。
+        if(GameMgr.Contest_Next_flag)
+        {
+            GameMgr.Contest_Next_flag = false;
+
+            GameMgr.ContestRoundNum++;
+            ContestDataSetting();
+
             GameMgr.scenario_ON = true;
 
             sceneBGM.MuteBGM();
 
-            GameMgr.contest_event_num = 0;
-            GameMgr.contest_event_flag = true;
-
-        }*/
+            GameMgr.contest_or_event_flag = true;
+        }
 
         //コンテスト終了後、エンディングへ
-        if (GameMgr.ending_on)
+        /*if (GameMgr.ending_on)
         {
             scene_black_effect.SetActive(true);
             //GameMgr.scenario_ON = true;
             GameMgr.ending_on = false;
             FadeManager.Instance.LoadScene("100_Ending", 0.3f);
-        }
+        }*/
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {
             text_area.SetActive(false);
             //placename_panel.SetActive(false);
-            contest_select.SetActive(false);
-            black_effect.SetActive(false);
-            scene_black_effect.SetActive(false);
-
-            //contest_status = 0;
+            contest_select.SetActive(false);           
+            _model_move.SetActive(false);
+            contest_startbutton_panel.SetActive(false);
         }
         else
         {
@@ -250,7 +259,17 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     text_area.SetActive(true);
                     //placename_panel.SetActive(true);
                     contest_select.SetActive(true);
+                    contest_startbutton_panel.SetActive(true);
                     sceneBGM.MuteOFFBGM();
+                    _model_move.SetActive(true);
+                    live2d_animator.SetLayerWeight(3, 0.0f); //宴用表情はオフにしておく。
+
+                    if (!StartRead) //シーン最初だけ読み込む
+                    {
+                        StartRead = true;
+                        sceneBGM.PlaySub();
+                        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
+                    }                   
 
                     GameMgr.compound_select = 0; //何もしていない状態
                     GameMgr.compound_status = 0;
@@ -286,9 +305,63 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
-    public void OnContest_Judge_Now()
+    void ContestDataSetting()
     {
-        contest_judge.Contest_Judge_Start();
+        GameMgr.ContestSelectNum = 1000; //コンテストのシーン番号　//大会の場合、1回戦　2回戦　決勝戦とかをシーン番号でさらに分けてよさげ。   
+
+        //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定
+        switch (GameMgr.ContestSelectNum)
+        {
+            case 1000: //オレンジーナコンテストA1 クープデュモンド
+
+                GameMgr.ContestRoundNumMax = 3; //そのコンテストの最大のラウンド数
+
+                switch (GameMgr.ContestRoundNum)
+                {
+                    case 1: //一回戦
+
+                        //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
+                        GameMgr.Contest_DB_list_Type = 20000; //compNum=20000~を指定
+                        GameMgr.Contest_Name = "Or_Contest_001_1";
+                        GameMgr.Contest_ProblemSentence = "至高のチョコレート（Aランク）" + "\n" + "テーマ：「風」をテーマにした美しいチョコレート";
+
+                        //コンテスト時間指定
+                        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
+                        PlayerStatus.player_contest_minute = 0; //開始分
+                        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+                        break;
+
+                    case 2: //二回戦
+
+                        GameMgr.Contest_DB_list_Type = 21000; //compNum=20000~を指定
+                        GameMgr.Contest_Name = "Or_Contest_001_2";
+                        GameMgr.Contest_ProblemSentence = "自由課題" + "\n" + "テーマ：「海」をテーマにした自由なお菓子";
+
+                        //コンテスト時間指定
+                        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
+                        PlayerStatus.player_contest_minute = 0; //開始分
+                        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+                        break;
+
+                    case 3: //決勝戦
+
+                        GameMgr.Contest_DB_list_Type = 22000; //compNum=20000~を指定
+                        GameMgr.Contest_Name = "Or_Contest_001_3";
+                        GameMgr.Contest_ProblemSentence = "至高のケーキ" + "\n" + "テーマ：「愛」をテーマにした至高のケーキ";
+
+                        //コンテスト時間指定
+                        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
+                        PlayerStatus.player_contest_minute = 0; //開始分
+                        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+                        break;
+                }
+                break;
+        }
+        Debug.Log("コンテスト名前と番号とラウンド数: " + GameMgr.Contest_Name + " " + GameMgr.ContestSelectNum + " " + GameMgr.ContestRoundNum + "回戦");
+
+        _text.text = GameMgr.Contest_ProblemSentence;
+        contest_status = 0;
+        StartRead = false; //BGMをリセット
     }
     
 
@@ -307,20 +380,25 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
-    public void OnDebugContestStart()
+    //審査員におかしを提出する
+    public void OnContestJudge_Start()
     {
-        GameMgr.contest_eventStart_flag = true;
-        GameMgr.scenario_ON = true;
-
         sceneBGM.MuteBGM();
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
 
-        GameMgr.contest_event_num = 0;
-        GameMgr.contest_event_flag = true;
+        GameMgr.contest_event_num = GameMgr.ContestSelectNum;
 
-        GameMgr.ending_count = 1;
+        StartCoroutine("WaitForJudge");
+    }
 
-        _model_move.SetActive(false);
-        canvas.transform.Find("DebugContestStart").gameObject.SetActive(false);
+    IEnumerator WaitForJudge()
+    {
+        yield return new WaitForSeconds(1f); //1秒待つ
+
+        GameMgr.scenario_ON = true;
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
+        GameMgr.contest_or_contestjudge_flag = true;
     }
 
     void Debug_StartItem()
@@ -355,6 +433,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         magicskill_database.skillLearnLv_Name("Chocolate_Tempering", 10);
         magicskill_database.skillLearnLv_Name("Wind_Twister", 10);
 
+    }
+
+    //デバッグ用にすぐに計算するボタン
+    public void OnDebugContest_Judge_Now()
+    {
+        contest_judge.Contest_Judge_Start();
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

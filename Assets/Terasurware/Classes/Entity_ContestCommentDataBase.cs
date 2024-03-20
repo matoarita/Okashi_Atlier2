@@ -26,6 +26,7 @@ public class Entity_ContestCommentDataBase : ScriptableObject
 		public string comment3;
 		public string comment4;
 		public string Memo;
+		public int search_endflag;
 	}
 }
 

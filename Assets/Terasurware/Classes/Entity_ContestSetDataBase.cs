@@ -34,7 +34,7 @@ public class Entity_ContestSetDataBase : ScriptableObject
 		public int chewy;
 		public int juice;
 		public int beauty;
-		public int Sp_Score1;
+		public int Sp1_Wind;
 		public string topping01;
 		public string topping02;
 		public string topping03;

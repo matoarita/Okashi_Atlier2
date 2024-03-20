@@ -875,8 +875,9 @@ public class CompoundMainController : MonoBehaviour {
         }
 
         Debug.Log("ベースアイテムID: " + pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID + " " + database.items[_id].itemName);
-        GameMgr.Final_list_baseitemID = exp_Controller._temp_extreme_id;
+        GameMgr.Final_list_baseitemID = exp_Controller._temp_extreme_id; //エクストリームパネル上のリスト配列番号
         GameMgr.Final_toggle_baseType = exp_Controller._temp_extreme_itemtype;
+        GameMgr.temp_baseitemID = _id; //アイテムDB上のリスト配列番号のこと
 
         GameMgr.Final_kettei_kosu1 = 1;
 

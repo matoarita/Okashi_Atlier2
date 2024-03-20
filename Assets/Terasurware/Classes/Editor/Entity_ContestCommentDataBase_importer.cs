@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_ContestCommentDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Excel_Data/Entity_ContestCommentDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Excel_Data/Entity_ContestCommentDataBase.asset";
-	private static readonly string[] sheetNames = { "01_DefaultComment","02_SpecialComment", };
+	private static readonly string[] sheetNames = { "01_ContestComment","02_ContestComment", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
@@ -59,6 +59,7 @@ public class Entity_ContestCommentDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(6); p.comment3 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(7); p.comment4 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(8); p.Memo = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(9); p.search_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

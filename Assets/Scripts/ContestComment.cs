@@ -14,10 +14,12 @@ public class ContestComment
     public string Comment_2;
     public string Comment_3;
     public string Comment_4;
+    public int Search_flag;
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ContestComment(int _id, int _commentid, string _itemName, int _setid, string _comment1, string _comment2, string _comment3, string _comment4)
+    public ContestComment(int _id, int _commentid, string _itemName, int _setid, string _comment1, string _comment2, string _comment3, string _comment4
+        , int _search_flag)
     {
         ID = _id;
         CommentID = _commentid;
@@ -29,6 +31,8 @@ public class ContestComment
         Comment_2 = _comment2;
         Comment_3 = _comment3;
         Comment_4 = _comment4;
+
+        Search_flag = _search_flag;
     }
 
 }

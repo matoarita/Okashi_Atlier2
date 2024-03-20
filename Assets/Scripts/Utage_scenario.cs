@@ -569,9 +569,7 @@ public class Utage_scenario : MonoBehaviour
                 {
                     //BGMの取得
                     sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-                }
-
-                //CharacterSpriteSetOFF();                    
+                }                  
 
                 StartCoroutine(Hiroba_Event());
             }
@@ -580,10 +578,27 @@ public class Utage_scenario : MonoBehaviour
             if (GameMgr.contest_event_flag)
             {
                 GameMgr.contest_event_flag = false;
-                contest_num = GameMgr.contest_event_num;
-                //CharacterSpriteSetOFF();                    
+                contest_num = GameMgr.contest_event_num;                   
 
                 StartCoroutine(Contest_Event());
+            }
+
+            //コンテストオランジーナシーンでのイベントスタート処理
+            if (GameMgr.contest_or_event_flag)
+            {
+                GameMgr.contest_or_event_flag = false;
+                contest_num = GameMgr.contest_event_num;
+
+                StartCoroutine(Contest_Or_EventStart());
+            }
+
+            //コンテストオランジーナシーンでのイベント採点処理
+            if (GameMgr.contest_or_contestjudge_flag)
+            {
+                GameMgr.contest_or_contestjudge_flag = false;
+                contest_num = GameMgr.contest_event_num;
+
+                StartCoroutine(Contest_Or_ContestJudge());
             }
         }
     }
@@ -3311,7 +3326,7 @@ public class Utage_scenario : MonoBehaviour
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "Contest_Event"; //ショップ話すタグのシナリオを再生。
+        scenarioLabel = "Contest_Event"; //タグのシナリオを再生。
 
         scenario_loading = true;
 
@@ -3666,6 +3681,130 @@ public class Utage_scenario : MonoBehaviour
 
     }
 
+    //
+    // コンテストオランジーナ　イベント
+    //
+    IEnumerator Contest_Or_EventStart()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Contest_Or_EventStart"; //タグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Contest_num", contest_num);
+        engine.Param.TrySetParameter("Round_num", GameMgr.ContestRoundNum); //〇回戦かを指定
+
+        //課題をセット
+        engine.Param.TrySetParameter("contest_ProblemSentence", GameMgr.Contest_ProblemSentence);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+        GameMgr.scenario_ON = false;    
+
+    }
+
+    //
+    // コンテストオランジーナ　採点
+    //
+    IEnumerator Contest_Or_ContestJudge()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Contest_Or_Judge"; //タグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Contest_num", contest_num);
+
+        //提出したお菓子の名前をセット
+        engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
+        engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);
+
+        //採点をセット
+        engine.Param.TrySetParameter("contest_score1", GameMgr.contest_Score[0]); //審査員１
+        engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]); //審査員２
+        engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]); //審査員３
+        engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
+
+        //採点によって、感想が変わる。
+        if (GameMgr.contest_TotalScore >= GameMgr.high_score) //85~
+        {
+            engine.Param.TrySetParameter("contest_comment_num", 0);
+        }
+        else if (GameMgr.contest_TotalScore >= GameMgr.low_score && GameMgr.contest_TotalScore < GameMgr.high_score) //60~85
+        {
+            engine.Param.TrySetParameter("contest_comment_num", 1);
+        }
+        else if (GameMgr.contest_TotalScore >= 30 && GameMgr.contest_TotalScore < GameMgr.low_score) //30~60
+        {
+            engine.Param.TrySetParameter("contest_comment_num", 2);
+        }
+        else if (GameMgr.contest_TotalScore < 30)
+        {
+            engine.Param.TrySetParameter("contest_comment_num", 3);
+        }
+
+        //感想データベースから該当の感想を検索
+        KansouSelect();
+
+
+        //その戦いをクリアするかどうかの判定　ランキング、または対戦相手がいるという設定
+        contest_boss_score = 80;
+        engine.Param.TrySetParameter("contest_boss_score", contest_boss_score);
+
+        if (GameMgr.contest_TotalScore > contest_boss_score) //対戦相手よりも高得点なら、勝ち
+        {
+            GameMgr.Contest_winner_flag = true;
+            engine.Param.TrySetParameter("contest_ranking_num", 1);
+        }
+        else //負けの場合
+        {
+            GameMgr.Contest_winner_flag = false;
+            engine.Param.TrySetParameter("contest_ranking_num", 0);
+        }
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+        GameMgr.scenario_ON = false;
+
+        //二回戦以降がある場合、再度コンテストスタートから始まる。
+        if (GameMgr.ContestRoundNum < GameMgr.ContestRoundNumMax)
+        {
+            GameMgr.Contest_Next_flag = true;
+        }
+        else
+        {
+            //決勝戦まで終了したら、コンテストを終了する。
+            //賞品をゲットする処理が入る。その後、小話がはさまったあと、会場をでる。
+            //会場をでたあと、外。クリアしたコンテストに応じて、新エリアや採取地を解放する処理。
+            GameMgr.Contest_ON = false;
+
+            Debug.Log("コンテスト　終了！！");
+        }
+
+    }
+
     void YushoOkashi_Koushin(string _listname)
     {
         //前回得点より、今回のお菓子が得点を上回ったら、新しくデータ更新
@@ -3680,30 +3819,49 @@ public class Utage_scenario : MonoBehaviour
     {
         judge_num = 0;
         SpecialItemFlag = false;
+        CommentID = 0;
 
         i = 0;
         while (i < databaseContestComment.contestcomment_lists.Count)
         {
-            if (databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiName ||
-                databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiSubType)
+            if (databaseContestComment.contestcomment_lists[i].CommentID >= GameMgr.Contest_DB_list_Type)
             {
-                CommentID = i;
-                SpecialItemFlag = true;
-                Debug.Log("審査員　特定のお菓子に反応: " + GameMgr.contest_okashiName);
-                break;
+                if (databaseContestComment.contestcomment_lists[i].ItemName != "")
+                {
+                    if (databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiName ||
+                    databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiSubType)
+                    {
+                        CommentID = i;
+                        SpecialItemFlag = true;
+                        Debug.Log("審査員　特定のお菓子に反応: " + GameMgr.contest_okashiName);
+                        break;
+                    }
+                }
+
+                //~そのシートの検索EndPointまで検索する。Excel上にフラグがある。
+                if (databaseContestComment.contestcomment_lists[i].Search_flag == 1)
+                {
+                    SpecialItemFlag = false;
+                    break;
+                }
             }
             i++;
         }
 
+        //特定のお菓子に反応しなかったので、デフォルトのコメントになる。
         if (!SpecialItemFlag)
         {
             i = 0;
             while (i < databaseContestComment.contestcomment_lists.Count)
             {
-                if (databaseContestComment.contestcomment_lists[i].CommentID == 0)
+                if (databaseContestComment.contestcomment_lists[i].CommentID >= GameMgr.Contest_DB_list_Type)
                 {
-                    CommentID = i;
-                    break;
+                    if (databaseContestComment.contestcomment_lists[i].ItemName == "Contest_Default")
+                    {
+                        CommentID = i;
+                        Debug.Log("審査員のコメント　デフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
+                        break;
+                    }                   
                 }
                 i++;
             }

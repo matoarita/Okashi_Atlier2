@@ -20,7 +20,7 @@ public class MagicSkillList
     public string skill_LvSelect; //スキルを使うとき、レベルを指定するかどうか。Nonのときは固定レベルで、今覚えているLVの最大で使用する。調合時は、レベル数値を無視する。
     public int skillType;   //パッシヴかアクティブスキルか
     public int skillCategory; //スキルの属性　基本、火、氷、光、風、心
-    public int success_rate;
+    public int success_rate; //スキルの成功率　だが、今のとこcompoDBで決定するので使用してない
     public int cost_time;
     public string skillComment_Full; //スキルの詳細な説明
 

@@ -399,7 +399,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int emeraldshop_event_num;
 
     //コンテストのイベント発生フラグ
-    public static bool contest_event_flag;  //ショップで発生するイベントのフラグ。
+    public static bool contest_event_flag;  //イベントのフラグ。
+    public static bool contest_or_event_flag;  //オランジーナ系コンテスト　２はこっちを使う
+    public static bool contest_or_contestjudge_flag;
     public static int contest_event_num;
 
     //コンテストに提出したお菓子
@@ -477,7 +479,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikarimakeokashi_nowlv; //ヒカリのお菓子Expテーブルで、現在のお菓子レベル。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_finalgetexp; //ヒカリのお菓子経験値　最終獲得値。一時的。
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
-    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ  
+    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ
+    public static bool Contest_winner_flag; //コンテストで対戦相手に勝ったかどうかのフラグ
+    public static bool Contest_Next_flag; //コンテスト〇回戦を開始する
     public static int MainQuestClear_flag; //メインクエストをクリアしたのか、道中の通常のSPクエストをクリアしたのか、判定するフラグ
     public static bool final_select_flag; //調合シーンで、調合の最終決定の確認
     public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
@@ -500,7 +504,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Status_zero_readOK; //メインステータスを読み終わったよ～のフラグ　その後に、ヒカリが戻ってくるなどの処理を挟む用
     public static int OkashiMake_PanelSetType; //さっき作ったお菓子が、パネルにセットされるお菓子かどうか。生地などはセットされず、すぐ調合画面を戻す
     public static int ContestSelectNum; //どのコンテストに今出場しているか
+    public static int ContestRoundNum; //今何回戦か
+    public static int ContestRoundNumMax; //その大会のMaxのラウンド数
     public static string Contest_Name; //コンテストの名前
+    public static string Contest_ProblemSentence; //コンテストの課題の内容
+    public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
     public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。   
 
@@ -512,6 +520,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int temp_itemID1; //一時的にアイテムIDを保存しておくための変数 アイテムDBのリスト配列
     public static int temp_itemID2; //一時的にアイテムIDを保存しておくための変数
     public static int temp_itemID3; //一時的にアイテムIDを保存しておくための変数
+    public static int temp_baseitemID;
 
     public static int Final_list_itemID1; //一時的なDBのリスト配列番号　店売り・オリジナル・エクストリーム全て含む　各スクリプトをまたぐため、ここで設定 　
     public static int Final_list_itemID2; //アイテムIDではなく、リストの配列を指定しているところに注意　またtoggle_Typeと一緒に使う
@@ -928,6 +937,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikariokashiExpTable_noTypeflag = false;
         Okashi_Extra_SpEvent_Start = false;
         ExtraClear_QuestName = "";
+        Contest_Next_flag = false;
         MainQuestClear_flag = 0;
         final_select_flag = false;
         CompoundSceneStartON = false;
@@ -949,11 +959,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MagicSkillSelectStatus = 0;
         ContestSelectNum = 0;
         Contest_Name = "";
+        Contest_ProblemSentence = "";
         Contest_ON = false;
         EventAfter_MoveEnd = false;
         Status_zero_readOK = false;
         OkashiMake_PanelSetType = 0;
         Contest_Clear_Failed = false;
+        contest_event_flag = false;
+        contest_or_event_flag = false;
+        contest_or_contestjudge_flag = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -1022,8 +1036,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_okashiName = "";
         contest_okashiNameHyouji = "";
         contest_okashiSubType = "";
+        contest_okashiSlotName = "";
         contest_TotalScore = 0;
         special_shogo_flag = false;
+
 
         //コンテスト感想初期化
         for (system_i = 0; system_i < contest_judge1_comment.Length; system_i++)

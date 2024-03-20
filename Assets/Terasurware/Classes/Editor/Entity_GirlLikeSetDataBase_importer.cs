@@ -67,7 +67,7 @@ public class Entity_GirlLikeSetDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(14); p.chewy = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(15); p.juice = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(16); p.beauty = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(17); p.Sp_Score1 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(17); p.Sp1_Wind = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(18); p.topping01 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(19); p.topping02 = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(20); p.topping03 = (cell == null ? "" : cell.StringCellValue);

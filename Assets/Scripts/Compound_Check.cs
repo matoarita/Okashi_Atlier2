@@ -627,7 +627,7 @@ public class Compound_Check : MonoBehaviour {
             case 11: //べーすあいてむ + 1個選択しているとき
 
                 itemID_1 = GameMgr.temp_itemID1;
-                baseitemID = GameMgr.Final_list_baseitemID;
+                baseitemID = GameMgr.temp_baseitemID;
 
                 GameMgr.Final_list_itemID2 = 9999; //9999は空を表す数字                
                 GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
@@ -697,7 +697,7 @@ public class Compound_Check : MonoBehaviour {
 
                 itemID_1 = GameMgr.temp_itemID1;
                 itemID_2 = GameMgr.temp_itemID2;
-                baseitemID = GameMgr.Final_list_baseitemID;
+                baseitemID = GameMgr.temp_baseitemID;
 
                 GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
                 itemID_3 = GameMgr.Final_list_itemID3;
@@ -768,7 +768,7 @@ public class Compound_Check : MonoBehaviour {
                 itemID_1 = GameMgr.temp_itemID1;
                 itemID_2 = GameMgr.temp_itemID2;
                 itemID_3 = GameMgr.temp_itemID3;
-                baseitemID = GameMgr.Final_list_baseitemID;
+                baseitemID = GameMgr.temp_baseitemID;
 
                 card_view.OKCard_DrawView04();
 
