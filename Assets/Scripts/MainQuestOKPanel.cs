@@ -67,7 +67,8 @@ public class MainQuestOKPanel : MonoBehaviour {
         }
         else
         {
-            okashiImage.sprite = database.items[database.SearchItemID(GameMgr.SpecialQuestClear_okashiItemID)].itemIcon_sprite;
+            okashiImage.sprite = database.items[GameMgr.SpecialQuestClear_okashiItemID].itemIcon_sprite;
+
         }
 
         StartAnim(); //開いた最初のアニメ

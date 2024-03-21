@@ -278,6 +278,7 @@ public class Compound_Main : MonoBehaviour
     private Tween t1, t2, t3, t4, t5, t6, t7, t8;
 
     private Color color_set;
+    private bool StartRead;
 
     // Use this for initialization
     void Start()
@@ -722,6 +723,8 @@ public class Compound_Main : MonoBehaviour
             Touch_ALLOFF();
         }
 
+        StartRead = false;
+
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
@@ -764,6 +767,14 @@ public class Compound_Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!StartRead) //シーン最初だけ読み込む
+        {
+            StartRead = true;
+            //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
+            bgm_change_story();
+            sceneBGM.OnMainBGM();
+        }
+
         //デバッグでの確認用
         compound_status = GameMgr.compound_status;
         compound_select = GameMgr.compound_select;
@@ -2042,7 +2053,7 @@ public class Compound_Main : MonoBehaviour
         yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
 
         GameMgr.compound_select = 120;
-        if (exp_Controller._temp_extremeSetting)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             _textcomp.text = "このお菓子でいく？";
 

@@ -55,7 +55,7 @@ public class Hiroba_Main2 : MonoBehaviour
     public bool bgm_change_flag;
 
     private GridLayoutGroup gridlayout;
-    private GameObject list_BG;
+    //private GameObject list_BG;
     private Vector3 defaultPos;
     private Vector3 MovedPos;
 
@@ -92,7 +92,7 @@ public class Hiroba_Main2 : MonoBehaviour
 
         //リストオブジェクトのレイアウトグループ情報の取得
         gridlayout = mainlist_controller_obj.transform.Find("Viewport/Content_Main").GetComponent<GridLayoutGroup>();
-        list_BG = mainlist_controller_obj.transform.Find("ListBGimage").gameObject;
+        //list_BG = mainlist_controller_obj.transform.Find("ListBGimage").gameObject;
         defaultPos = mainlist_controller_obj.transform.localPosition;
 
 
@@ -204,7 +204,7 @@ public class Hiroba_Main2 : MonoBehaviour
     {
         MovedPos = new Vector3(190, defaultPos.y, defaultPos.z);
         gridlayout.constraintCount = 2;
-        list_BG.GetComponent<RectTransform>().sizeDelta = new Vector2(480, list_BG.GetComponent<RectTransform>().sizeDelta.y);
+        mainlist_controller_obj.GetComponent<RectTransform>().sizeDelta = new Vector2(500, mainlist_controller_obj.GetComponent<RectTransform>().sizeDelta.y);
         mainlist_controller_obj.transform.localPosition = MovedPos;
     }
 

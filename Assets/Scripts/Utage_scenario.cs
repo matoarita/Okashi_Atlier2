@@ -34,7 +34,6 @@ public class Utage_scenario : MonoBehaviour
     private int shop_hint_number;
     private int hiroba_endflag_num;
     private int contest_num;
-    private int contest_boss_score;
     private string itemType_sub;
     private string itemName;
 
@@ -592,13 +591,22 @@ public class Utage_scenario : MonoBehaviour
                 StartCoroutine(Contest_Or_EventStart());
             }
 
-            //コンテストオランジーナシーンでのイベント採点処理
+            //コンテストオランジーナシーンでのお菓子採点処理
             if (GameMgr.contest_or_contestjudge_flag)
             {
                 GameMgr.contest_or_contestjudge_flag = false;
                 contest_num = GameMgr.contest_event_num;
 
                 StartCoroutine(Contest_Or_ContestJudge());
+            }
+
+            //コンテストオランジーナシーンでの賞品獲得処理
+            if (GameMgr.contest_or_prizeget_flag)
+            {
+                GameMgr.contest_or_prizeget_flag = false;
+                contest_num = GameMgr.contest_event_num;
+
+                StartCoroutine(Contest_Or_GetPrize());
             }
         }
     }
@@ -3341,17 +3349,7 @@ public class Utage_scenario : MonoBehaviour
         else
         {
             engine.Param.TrySetParameter("ContestSkip_Flag", false);
-        }
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        //お菓子の判定処理オブジェクトの取得
-        //contest_judge_obj = GameObject.FindWithTag("Contest_Judge");
-        //contest_judge = contest_judge_obj.GetComponent<Contest_Judge>();
-
-        //お菓子を判定する。採点結果により、審査員の反応も少し変わる。
-        //contest_judge.Contest_Judge_Start();
+        }       
 
         //提出したお菓子の名前をセット
         engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
@@ -3362,6 +3360,9 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]); //アントワネット
         engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]); //村長
         engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
 
         //
         //「宴」のポーズ終了待ち
@@ -3395,10 +3396,10 @@ public class Utage_scenario : MonoBehaviour
 
 
         //優勝かどうかの判定
-        contest_boss_score = 87;
-        engine.Param.TrySetParameter("contest_boss_score", contest_boss_score);
+        GameMgr.contest_boss_score = 87;
+        engine.Param.TrySetParameter("contest_boss_score", GameMgr.contest_boss_score);
 
-        if (GameMgr.contest_TotalScore > contest_boss_score) //アマクサよりも高得点なら、優勝
+        if (GameMgr.contest_TotalScore > GameMgr.contest_boss_score) //アマクサよりも高得点なら、優勝
         {
             yusho_flag = true;
             engine.Param.TrySetParameter("contest_ranking_num", 1);
@@ -3727,6 +3728,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Contest_num", contest_num);
+        engine.Param.TrySetParameter("Round_num", GameMgr.ContestRoundNum); //〇回戦かを指定
 
         //提出したお菓子の名前をセット
         engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
@@ -3737,6 +3739,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]); //審査員２
         engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]); //審査員３
         engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
+
+        GameMgr.contest_TotalScoreList.Add(GameMgr.contest_TotalScore); //採点時に、各ラウンドごとの得点も保存。賞品獲得時に計算して使う。
 
         //採点によって、感想が変わる。
         if (GameMgr.contest_TotalScore >= GameMgr.high_score) //85~
@@ -3760,19 +3764,20 @@ public class Utage_scenario : MonoBehaviour
         KansouSelect();
 
 
-        //その戦いをクリアするかどうかの判定　ランキング、または対戦相手がいるという設定
-        contest_boss_score = 80;
-        engine.Param.TrySetParameter("contest_boss_score", contest_boss_score);
+        //その戦いをクリアするかどうかの判定　ランキング、または対戦相手がいるという設定        
+        engine.Param.TrySetParameter("contest_boss_score", GameMgr.contest_boss_score);
 
-        if (GameMgr.contest_TotalScore > contest_boss_score) //対戦相手よりも高得点なら、勝ち
+        if (GameMgr.contest_TotalScore > GameMgr.contest_boss_score) //対戦相手よりも高得点なら、勝ち
         {
             GameMgr.Contest_winner_flag = true;
             engine.Param.TrySetParameter("contest_ranking_num", 1);
+            Debug.Log("対戦相手のスコア: " + GameMgr.contest_boss_score + " 自分のスコア: " + GameMgr.contest_TotalScore + " 勝ち");
         }
         else //負けの場合
         {
             GameMgr.Contest_winner_flag = false;
             engine.Param.TrySetParameter("contest_ranking_num", 0);
+            Debug.Log("対戦相手のスコア: " + GameMgr.contest_boss_score + " 自分のスコア: " + GameMgr.contest_TotalScore + " 負け");
         }
 
         //「宴」のシナリオを呼び出す
@@ -3788,21 +3793,72 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
-        //二回戦以降がある場合、再度コンテストスタートから始まる。
-        if (GameMgr.ContestRoundNum < GameMgr.ContestRoundNumMax)
+        if (GameMgr.Contest_winner_flag)
         {
-            GameMgr.Contest_Next_flag = true;
+            //二回戦以降がある場合、再度コンテストスタートから始まる。
+            if (GameMgr.ContestRoundNum < GameMgr.ContestRoundNumMax)
+            {
+                GameMgr.Contest_Next_flag = true;
+            }
+            else
+            {
+                //決勝戦まで終了したら、コンテストを終了する。
+                //賞品をゲットする処理が入る。その後、小話がはさまったあと、会場をでる。
+                //会場をでたあと、外。クリアしたコンテストに応じて、新エリアや採取地を解放する処理。
+                GameMgr.Contest_ON = false;
+
+                Debug.Log("コンテスト　本戦終了！！");
+
+                GameMgr.Contest_PrizeGet_flag = true; //賞品を獲得するイベント発生
+                                                      //各ラウンドの採点を合計
+                GameMgr.contest_PrizeScore = 0;
+                for (i = 0; i < GameMgr.contest_TotalScoreList.Count; i++)
+                {
+                    GameMgr.contest_PrizeScore = GameMgr.contest_PrizeScore + GameMgr.contest_TotalScoreList[i];
+                }
+                Debug.Log("各ラウンドの点数の合計: " + GameMgr.contest_PrizeScore);
+            }
         }
         else
         {
-            //決勝戦まで終了したら、コンテストを終了する。
-            //賞品をゲットする処理が入る。その後、小話がはさまったあと、会場をでる。
-            //会場をでたあと、外。クリアしたコンテストに応じて、新エリアや採取地を解放する処理。
-            GameMgr.Contest_ON = false;
+            //負けた場合　そこで終了し、会場外へ。
+            GameMgr.contest_eventEnd_flag = true;
+        }
+    }
 
-            Debug.Log("コンテスト　終了！！");
+    //
+    // コンテストオランジーナ　賞品獲得
+    //
+    IEnumerator Contest_Or_GetPrize()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Contest_Or_GetPrize"; //タグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Contest_num", contest_num);
+        engine.Param.TrySetParameter("contest_totalPrize_score", GameMgr.contest_PrizeScore); //総合点
+        engine.Param.TrySetParameter("contest_PrizeGetItemName", GameMgr.Contest_PrizeGet_ItemName); //獲得した賞品名
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
         }
 
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+        GameMgr.scenario_ON = false;
+
+        Debug.Log("コンテスト　イベント終了");
+
+        GameMgr.NewAreaRelease_flag = true; //新エリア解禁フラグ
+        GameMgr.contest_eventEnd_flag = true;
     }
 
     void YushoOkashi_Koushin(string _listname)

@@ -76,7 +76,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool AUTOSAVE_ON = false; //シーンからメインに戻ってきたときや、採取から帰ってきたときにオートセーブするかどうか
 
     //調合シーンでBGM切り替えるかどうかのフラグ
-    public static bool CompoBGMCHANGE_ON = true;
+    public static bool CompoBGMCHANGE_ON = false;
 
     //初期アイテム取得のフラグ
     public static bool gamestart_recipi_get;
@@ -201,6 +201,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //コンテスト審査員の点数
     public static int[] contest_Score = new int[3];
     public static int contest_TotalScore;
+    public static List<int> contest_TotalScoreList = new List<int>();
+    public static int contest_PrizeScore; //各ラウンドのトータルスコアの合計値　賞品獲得の計算で使う
     public static int[] contest_Taste_Score = new int[3];
     public static int[] contest_Beauty_Score = new int[3];
     public static int[] contest_Sweat_Score = new int[3];
@@ -402,10 +404,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_event_flag;  //イベントのフラグ。
     public static bool contest_or_event_flag;  //オランジーナ系コンテスト　２はこっちを使う
     public static bool contest_or_contestjudge_flag;
+    public static bool contest_or_prizeget_flag;
     public static int contest_event_num;
 
-    //コンテストに提出したお菓子
-    public static bool contest_eventStart_flag;
+    //コンテストに提出したお菓子    
     public static string contest_okashiName;
     public static string contest_okashiNameHyouji;
     public static string contest_okashiSubType;
@@ -441,7 +443,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int CGGallery_num; //別シーンから、どのイベントを呼び出すかを、指定する。
 
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
-    public static int Scene_Category_Num;         //Compound=10, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, Contest=100, 200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
+    public static int Scene_Category_Num;           //Compound=10, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, Contest=100, Contest_Outside=110, 
+                                                    //200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
 
     //その他、一時的なフラグ
     public static int MapSubEvent_Flag;
@@ -479,9 +482,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikarimakeokashi_nowlv; //ヒカリのお菓子Expテーブルで、現在のお菓子レベル。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_finalgetexp; //ヒカリのお菓子経験値　最終獲得値。一時的。
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
-    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ
-    public static bool Contest_winner_flag; //コンテストで対戦相手に勝ったかどうかのフラグ
-    public static bool Contest_Next_flag; //コンテスト〇回戦を開始する
     public static int MainQuestClear_flag; //メインクエストをクリアしたのか、道中の通常のSPクエストをクリアしたのか、判定するフラグ
     public static bool final_select_flag; //調合シーンで、調合の最終決定の確認
     public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
@@ -510,7 +510,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Contest_ProblemSentence; //コンテストの課題の内容
     public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
-    public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。   
+    public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。 
+    public static int contest_boss_score; //コンテスト　対戦相手のスコア
+    public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ
+    public static bool Contest_winner_flag; //コンテストで対戦相手に勝ったかどうかのフラグ
+    public static bool Contest_Next_flag; //コンテスト〇回戦を開始する
+    public static bool Contest_PrizeGet_flag; //コンテスト賞品を獲得する処理のフラグ
+    public static string Contest_PrizeGet_ItemName; //獲得した賞品のアイテム名
+    public static bool contest_eventEnd_flag; //コンテストイベント全て終了
+    public static bool contest_eventStart_flag; //コンテストイベント開始　コンテスト会場きて一番最初にシナリオスタートするフラグ
+    public static bool NewAreaRelease_flag; //なんらかのイベント後、新エリアが解禁されるフラグ
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -904,6 +913,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ExtraClear_QuestItemRank = 1;
 
         contest_eventStart_flag = false;
+        contest_eventEnd_flag = false;
+        NewAreaRelease_flag = false;
         MenuOpenFlag = false;
         QuestManzokuFace = false;
         OsotoIkitaiFlag = false;
@@ -936,8 +947,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         specialsubevent_flag1 = false;
         hikariokashiExpTable_noTypeflag = false;
         Okashi_Extra_SpEvent_Start = false;
-        ExtraClear_QuestName = "";
-        Contest_Next_flag = false;
+        ExtraClear_QuestName = "";        
         MainQuestClear_flag = 0;
         final_select_flag = false;
         CompoundSceneStartON = false;
@@ -968,6 +978,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_event_flag = false;
         contest_or_event_flag = false;
         contest_or_contestjudge_flag = false;
+        contest_or_prizeget_flag = false;
+        Contest_Next_flag = false;
+        Contest_PrizeGet_flag = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -1038,6 +1051,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_okashiSubType = "";
         contest_okashiSlotName = "";
         contest_TotalScore = 0;
+        contest_TotalScoreList.Clear();
+        contest_PrizeScore = 0;
+        Contest_PrizeGet_ItemName = "";
         special_shogo_flag = false;
 
 

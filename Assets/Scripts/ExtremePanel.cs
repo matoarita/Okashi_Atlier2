@@ -198,29 +198,6 @@ public class ExtremePanel : MonoBehaviour {
         extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[_id].item_SlotName +
             "</color>" + pitemlist.player_extremepanel_itemlist[_id].itemNameHyouji;
 
-        /*if (extreme_itemtype == 0) //デフォルトアイテムの場合
-        {
-            texture2d = database.items[extreme_itemID].itemIcon_sprite;
-            extreme_itemName.text = database.items[extreme_itemID].itemNameHyouji;
-        }
-        else if (extreme_itemtype == 1) //オリジナルアイテムの場合
-        {
-            texture2d = pitemlist.player_originalitemlist[extreme_itemID].itemIcon_sprite;
-
-            //スロット名+アイテム名の表示
-            extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_originalitemlist[extreme_itemID].item_SlotName + 
-                "</color>" + pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
-            //extreme_itemName.text = pitemlist.player_originalitemlist[extreme_itemID].itemNameHyouji;
-        }
-        else if (extreme_itemtype == 2) //エクストリームパネルに設定したアイテムの場合　通常はこれのみを使用。
-        {
-            texture2d = pitemlist.player_extremepanel_itemlist[extreme_itemID].itemIcon_sprite;
-
-            //スロット名+アイテム名の表示
-            extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[extreme_itemID].item_SlotName +
-                "</color>" + pitemlist.player_extremepanel_itemlist[extreme_itemID].itemNameHyouji;
-        }*/
-
 
         item_Icon.color = new Color(1, 1, 1, 1);
         item_Icon.sprite = texture2d;
@@ -252,7 +229,7 @@ public class ExtremePanel : MonoBehaviour {
         extreme_Button.interactable = false;
         GameMgr.compound_status = 6; //調合選択画面に移動 元々4にしてた
 
-        if (exp_Controller._temp_extreme_id != 9999)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             //チュートリアルモードがONのときの処理。ボタンを押した、フラグをたてる。
             if (GameMgr.tutorial_ON == true)
@@ -305,7 +282,7 @@ public class ExtremePanel : MonoBehaviour {
 
         card_view.DeleteCard_DrawView();
 
-        if (exp_Controller._temp_extreme_id != 9999)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             _text.text = "今、作ったお菓子をあげますか？";
             GameMgr.compound_status = 10;
@@ -322,7 +299,7 @@ public class ExtremePanel : MonoBehaviour {
 
         card_view.DeleteCard_DrawView();
 
-        if (exp_Controller._temp_extreme_id != 9999)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             Okashi_moneypram_int = (int)Mathf.Ceil(Okashi_moneyparam);
             _text.text = "作ったお菓子をショップへ卸しますか？" + "\n" + "現在の価格: " + Okashi_moneypram_int.ToString() + "G です。";
@@ -409,18 +386,18 @@ public class ExtremePanel : MonoBehaviour {
         _hpslider.value = Life;
         Starthp = Life; //floatで計算し、valueに反映する。
 
-        exp_Controller._temp_Starthp = Starthp;
+        //exp_Controller._temp_Starthp = Starthp;
 
         timeOut = 1.0f;
         //Life_anim_on = true;
-        exp_Controller._temp_life_anim_on = true;
+        //exp_Controller._temp_life_anim_on = true;
 
         //お菓子の現在の価値もセット
         //Okashi_moneyparam = Okashi_keisan.Sell_Okashi(extreme_itemID, extreme_itemtype);
 
         //減少量も決定
         _moneydeg = Okashi_moneyparam / Starthp;
-        exp_Controller._temp_moneydeg = _moneydeg;
+        //exp_Controller._temp_moneydeg = _moneydeg;
         //Debug.Log("_moneydeg: " + _moneydeg);
     }
 
@@ -432,7 +409,7 @@ public class ExtremePanel : MonoBehaviour {
 
     public void LifeAnimeOnTrue()
     {
-        if (exp_Controller._temp_extreme_id != 9999)
+        if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
             Life_anim_on = true;
         }

@@ -48,6 +48,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound37;  //広場３のBGM
     public AudioClip sound38;  //大会コンテストのBGM Aランク
     public AudioClip sound39;  //オランジーナ調合メインのBGM予定1
+    public AudioClip sound40;  //オランジーナ調合メインのBGM予定2
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -232,11 +233,22 @@ public class BGM : MonoBehaviour {
 
                 //Debug.Log("GameMgr.Scene_Category_Num: " + GameMgr.Scene_Category_Num);
                 //特定シーン以外で、シーンカテゴリーでざっくりBGMを設定する場合はここ
+                //オランジーナは、こっちが中心
                 switch(GameMgr.Scene_Category_Num)
                 {
+                    case 60: //オランジーナ広場系
+
+                        _bgm[0].clip = sound23;
+                        break;
+
                     case 100: //コンテスト系
 
                         _bgm[0].clip = sound38;
+                        break;
+
+                    case 110: //コンテスト会場前系
+
+                        _bgm[0].clip = sound23;
                         break;
 
                     default:
@@ -291,7 +303,7 @@ public class BGM : MonoBehaviour {
 
                 //Debug.Log("BGM　オランジーナ調合シーン");
                 //_bgm[0].clip = sound39;
-                _bgm[0].clip = sound21;
+                _bgm[0].clip = sound40; //sound21
 
                 break;
 

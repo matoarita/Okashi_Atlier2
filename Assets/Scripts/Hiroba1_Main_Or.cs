@@ -60,6 +60,9 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
     private int rndnum;
 
+    private int scene_status, scene_num;
+    private bool StartRead;
+
     // Use this for initialization
     void Start()
     {
@@ -124,13 +127,6 @@ public class Hiroba1_Main_Or : MonoBehaviour
         npc6_toggle.interactable = true;
         npc7_toggle.interactable = true;
         npc8_toggle.interactable = true;
-
-        //最初はoff
-        npc4_toggle_obj.SetActive(false);
-        npc5_toggle_obj.SetActive(false);
-        npc6_toggle_obj.SetActive(false);
-        npc7_toggle_obj.SetActive(false);
-        npc8_toggle_obj.SetActive(false);
 
 
         //フラグをチェックし、必要ならONにする。
@@ -198,6 +194,9 @@ public class Hiroba1_Main_Or : MonoBehaviour
             }
         }
 
+        scene_status = 0;
+        StartRead = false;
+
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
@@ -213,7 +212,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
     void ToggleFlagCheck()
     {
-
+        /*
         if (GameMgr.Story_Mode == 0)
         {
             //新しく3人のNPCのとこへいける
@@ -260,7 +259,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
             {
                 npc8_toggle_obj.SetActive(true);
             }
-        }
+        }*/
 
     }
 
@@ -281,7 +280,46 @@ public class Hiroba1_Main_Or : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!StartRead) //シーン最初だけ読み込む
+        {
+            StartRead = true;
+            sceneBGM.PlaySub();
+        }
 
+        //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
+        if (GameMgr.scenario_ON == true)
+        {
+            text_area.SetActive(false);
+            //placename_panel.SetActive(false);
+            mainlist_controller_obj.SetActive(false);
+
+        }
+        else
+        {
+            switch (scene_status)
+            {
+                case 0:
+
+                    text_area.SetActive(true);
+                    //placename_panel.SetActive(true);
+                    mainlist_controller_obj.SetActive(true);
+
+                    sceneBGM.MuteOFFBGM();
+                   
+                    scene_status = 100;
+                    scene_num = 0;
+
+                    break;
+
+                case 100: //退避
+
+                    break;
+
+                default:
+
+                    break;
+            }
+        }
     }
 
     void text_scenario()
@@ -315,7 +353,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
             default:
 
-                _text.text = "ここは、村の中央広場のようだ。いろんな人がいるみたいだ。";
+                _text.text = "ここは、オランジーナの街の中央広場だ。" + "\n" + "大きい噴水がある。";
                 break;
         }
     }
@@ -541,7 +579,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
                         bgm_change_flag = true;
                         GameMgr.hiroba_event_ID = 1040;
 
-                        MenuWindowExpand();
+                        //MenuWindowExpand();
                     }
                     else
                     {

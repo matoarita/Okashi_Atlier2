@@ -435,10 +435,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //マップフラグリスト
             save_mapflaglist = _tempmap_placeflaglist,
 
-            //エクストリームパネルのアイテムIDも保存
-            save_extreme_itemid = exp_Controller._temp_extreme_id,
-            save_extreme_itemtype = exp_Controller._temp_extreme_itemtype,
-
             //お菓子の一度にトッピングできる回数
             save_topping_Set_Count = GameMgr.topping_Set_Count,
 
@@ -878,10 +874,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             shop_database.ReSetEmeraldItemString(playerData.save_emeraldshop_zaiko[i].itemName, playerData.save_emeraldshop_zaiko[i].itemKosu);
         }
 
-        //エクストリームパネルのアイテムを読み込み
-        exp_Controller._temp_extreme_id = playerData.save_extreme_itemid;
-        exp_Controller._temp_extreme_itemtype = playerData.save_extreme_itemtype;
-
         //お菓子の一度にトッピングできる回数
         GameMgr.topping_Set_Count = playerData.save_topping_Set_Count;       
 
@@ -1062,7 +1054,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         quest_database.ResetQuestTakeSet();
 
         //エクストリームパネルも空に。
-        exp_Controller.deleteExtreme_Item();
+        pitemlist.deleteAllExtremePanelItem();
 
     }
 

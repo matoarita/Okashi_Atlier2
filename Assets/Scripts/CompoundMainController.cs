@@ -859,24 +859,12 @@ public class CompoundMainController : MonoBehaviour {
     void extreme_Compo_Setup()
     {
         //以下、エクストリーム用に再度パラメータを設定
-        
-        if (exp_Controller._temp_extreme_itemtype == 0) //デフォルトアイテムの場合
-        {
-            //pitemlistController.final_base_kettei_item = database.items[exp_Controller._temp_extreme_id].itemID;
-        }
-        else if (exp_Controller._temp_extreme_itemtype == 1) //オリジナルアイテムの場合
-        {
-            //pitemlistController.final_base_kettei_item = pitemlist.player_originalitemlist[exp_Controller._temp_extreme_id].itemID;
-        }
-        else if (exp_Controller._temp_extreme_itemtype == 2) //エクストリームパネルに設定したアイテムの場合　通常これのみ使用
-        {
-            //pitemlistController.final_base_kettei_item = pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID;
-            _id = database.SearchItemID(pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID);
-        }
 
-        Debug.Log("ベースアイテムID: " + pitemlist.player_extremepanel_itemlist[exp_Controller._temp_extreme_id].itemID + " " + database.items[_id].itemName);
-        GameMgr.Final_list_baseitemID = exp_Controller._temp_extreme_id; //エクストリームパネル上のリスト配列番号
-        GameMgr.Final_toggle_baseType = exp_Controller._temp_extreme_itemtype;
+        _id = database.SearchItemID(pitemlist.player_extremepanel_itemlist[0].itemID);
+
+        Debug.Log("ベースアイテムID: " + pitemlist.player_extremepanel_itemlist[0].itemID + " " + database.items[_id].itemName);
+        GameMgr.Final_list_baseitemID = 0; //エクストリームパネル上のリスト配列番号
+        GameMgr.Final_toggle_baseType = 2;
         GameMgr.temp_baseitemID = _id; //アイテムDB上のリスト配列番号のこと
 
         GameMgr.Final_kettei_kosu1 = 1;

@@ -849,13 +849,15 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             //0以下になったら、リストそのものから削除する。
             if (player_extremepanel_itemlist[_id].ItemKosu <= 0)
             {
-                player_extremepanel_itemlist.Clear();
+                deleteAllExtremePanelItem();
+            }
+            //個数がまだ残ってた場合、そのままオリジナルアイテムリストへ移動。お菓子パネル上のお菓子は削除する。仕様
+            else if (player_extremepanel_itemlist[_id].ItemKosu > 0)
+            {
+                ExtremeToCopyOriginalItem(player_extremepanel_itemlist[0].ItemKosu);
+            }
 
-                exp_Controller._temp_extremeSetting = false;
-                exp_Controller._temp_extreme_id = 9999;
-                exp_Controller._temp_extreme_itemtype = 0;
-            }            
-        }        
+        }      
     }
 
     //お菓子パネルアイテムを全削除する。個数は関係なし。

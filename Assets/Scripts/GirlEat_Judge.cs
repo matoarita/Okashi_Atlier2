@@ -1609,8 +1609,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //見た目点数の計算
         if (_girlbeauty[countNum] > 0)
         {
-            beauty_score = _girlbeauty[countNum] - _basebeauty;
-            Debug.Log("見た目点: " + beauty_score + " 判定値: " + _basebeauty + " お菓子の見た目: " + _girlbeauty[countNum]);
+            beauty_score = _basebeauty - _girlbeauty[countNum];
+            Debug.Log("見た目点: " + beauty_score + " お菓子の見た目: " + _basebeauty + " 判定値: " + _girlbeauty[countNum]);
         }
         else
         {
@@ -1618,12 +1618,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
 
         //コンテストでは、さらに「風らしさ」などの特殊点を計算
+        GameMgr.Contest_Clear_Failed = false;
         if (_girlsp1_wind[countNum] > 0)
-        {
-            GameMgr.Contest_Clear_Failed = false;
-
-            spscore1_score = _girlsp1_wind[countNum] - _base_sp_wind;
-            Debug.Log("コンテスト　風らしさ計算ON: " + spscore1_score + " 判定値: " + _base_sp_wind + " お菓子の風らしさ: " + _girlsp1_wind[countNum]);
+        {           
+            spscore1_score = _base_sp_wind - _girlsp1_wind[countNum];
+            Debug.Log("コンテスト　風らしさ計算ON: " + spscore1_score + " お菓子の風らしさ: " + _base_sp_wind + " 判定値: " + _girlsp1_wind[countNum]);
 
             if (spscore1_score < 0) //合格点に達してない場合は、クリアできない
             {
@@ -2674,19 +2673,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 2: //お菓子パネルからアイテム削除
 
-                pitemlist.deleteExtremePanelItem(kettei_item1, 1);
+                pitemlist.deleteExtremePanelItem(kettei_item1, 1);               
 
-                //個数がまだ残ってた場合、一個消費し、そのままオリジナルアイテムリストへ移動。お菓子パネルのお菓子は削除する。
-                if (pitemlist.player_extremepanel_itemlist.Count > 0)
-                {
-                    if (pitemlist.player_extremepanel_itemlist[0].ItemKosu > 0)
-                    {
-                        pitemlist.ExtremeToCopyOriginalItem(pitemlist.player_extremepanel_itemlist[0].ItemKosu);
-                    }
-                }
-
-                //エクストリームアイテムのほうも、空にする。
-                exp_Controller.deleteExtreme_Item();
                 break;
 
             default:
@@ -3836,7 +3824,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //girl1_status.hukidasiOff();
         compound_Main.Touch_ALLOFF();
 
-        //クエスト初クリア時に、最後に食べたお菓子をクリアお菓子として保存する。ItemIDとして保存。
+        //クエスト初クリア時に、最後に食べたお菓子をクリアお菓子として保存する。DBのリスト番号として保存。
         GameMgr.SpecialQuestClear_okashiItemID = GameMgr.Okashi_lastID;
 
         //エメラルどんぐりイベントが発生した場合は、どんぐりが終了するまで待つ。emerarudonguri_end GameMgr.QuestClearflag

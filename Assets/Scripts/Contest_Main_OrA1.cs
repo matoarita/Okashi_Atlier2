@@ -83,6 +83,11 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private Animator live2d_animator;
     private bool character_ON;
 
+    //賞品リスト
+    private List<string> PrizeItemList = new List<string>();
+    private List<int> PrizeScoreAreaList = new List<int>();
+    private Dictionary<int, string> PrizeRankList = new Dictionary<int, string>();
+
     // Use this for initialization
     void Start () {
 
@@ -187,6 +192,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         contest_status = 0;
         StartRead = false;
 
+        PrizeRankDict();
+
         //デバッグ用　最初に所持するアイテム
         Debug_StartItem();
 
@@ -206,6 +213,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             //さらにどのコンテストに現在出場しているかを指定
             GameMgr.ContestRoundNum = 1; //一回戦
+            GameMgr.contest_TotalScoreList.Clear();
             ContestDataSetting();            
 
             GameMgr.scenario_ON = true;
@@ -232,14 +240,32 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_or_event_flag = true;
         }
 
-        //コンテスト終了後、エンディングへ
-        /*if (GameMgr.ending_on)
+        //決勝戦終了後、賞品獲得
+        if(GameMgr.Contest_PrizeGet_flag)
         {
-            scene_black_effect.SetActive(true);
-            //GameMgr.scenario_ON = true;
-            GameMgr.ending_on = false;
-            FadeManager.Instance.LoadScene("100_Ending", 0.3f);
-        }*/
+            GameMgr.Contest_PrizeGet_flag = false;
+
+            PrizeGet(); //アイテム獲得
+
+            GameMgr.scenario_ON = true;
+
+            sceneBGM.MuteBGM();
+
+            GameMgr.contest_or_prizeget_flag = true;
+        }
+
+        //コンテスト終了　会場外へでる。
+        if (GameMgr.contest_eventEnd_flag)
+        {
+            GameMgr.contest_eventEnd_flag = false;            
+
+            FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+        }
+
+        //
+        //
+        //
+
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
@@ -307,7 +333,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     void ContestDataSetting()
     {
-        GameMgr.ContestSelectNum = 1000; //コンテストのシーン番号　//大会の場合、1回戦　2回戦　決勝戦とかをシーン番号でさらに分けてよさげ。   
+        GameMgr.ContestSelectNum = 1000; //コンテストの会場番号　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
+
 
         //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定
         switch (GameMgr.ContestSelectNum)
@@ -329,6 +356,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                         PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
                         PlayerStatus.player_contest_minute = 0; //開始分
                         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                        GameMgr.contest_boss_score = 80; //一回戦相手の点数
                         break;
 
                     case 2: //二回戦
@@ -341,6 +370,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                         PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
                         PlayerStatus.player_contest_minute = 0; //開始分
                         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                        GameMgr.contest_boss_score = 90; //
                         break;
 
                     case 3: //決勝戦
@@ -353,8 +384,28 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                         PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
                         PlayerStatus.player_contest_minute = 0; //開始分
                         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                        GameMgr.contest_boss_score = 97; //
                         break;
                 }
+
+                if (GameMgr.ContestRoundNum == 1) //最初のときだけ設定
+                {                    
+                    //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。
+                    PrizeItemList.Clear();
+                    PrizeItemList.Add("nuts");
+                    PrizeItemList.Add("ice_box");
+                    PrizeItemList.Add("neko_badge2");
+                    PrizeItemList.Add("whisk_magic");
+                    PrizeItemList.Add("gold_oven");
+
+                    PrizeScoreAreaList.Clear();
+                    PrizeScoreAreaList.Add(60);
+                    PrizeScoreAreaList.Add(120);
+                    PrizeScoreAreaList.Add(180);
+                    PrizeScoreAreaList.Add(240);
+                }
+
                 break;
         }
         Debug.Log("コンテスト名前と番号とラウンド数: " + GameMgr.Contest_Name + " " + GameMgr.ContestSelectNum + " " + GameMgr.ContestRoundNum + "回戦");
@@ -362,6 +413,60 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         _text.text = GameMgr.Contest_ProblemSentence;
         contest_status = 0;
         StartRead = false; //BGMをリセット
+    }
+
+    void PrizeGet()
+    {
+        //5段階ぐらいで分ける？
+        i = 0;
+        while (i < PrizeItemList.Count)
+        {
+            if (i == 0)
+            {
+                if (GameMgr.contest_PrizeScore < PrizeScoreAreaList[i])
+                {                   
+                    pitemlist.addPlayerItemString(PrizeItemList[i], 1);
+                    GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(PrizeItemList[i])].itemNameHyouji;
+                    Debug.Log("ランク: " + PrizeRankList[i]);
+                    break;
+                }
+            }
+            else
+            {
+                if(i != PrizeItemList.Count-1)
+                {
+                    if (GameMgr.contest_PrizeScore >= PrizeScoreAreaList[i - 1] && GameMgr.contest_PrizeScore < PrizeScoreAreaList[i])
+                    {                      
+                        pitemlist.addPlayerItemString(PrizeItemList[i], 1);
+                        GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(PrizeItemList[i])].itemNameHyouji;
+                        Debug.Log("ランク: " + PrizeRankList[i]);
+                        break;
+                    }
+                }
+                else //リストの一番最後
+                {
+                    if (GameMgr.contest_PrizeScore >= PrizeScoreAreaList[i - 1])
+                    {
+                        pitemlist.addPlayerItemString(PrizeItemList[i], 1);
+                        GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(PrizeItemList[i])].itemNameHyouji;
+                        Debug.Log("ランク: " + PrizeRankList[i]);
+                        break;
+                    }
+                }
+                
+            }
+            i++;
+        }
+    }
+
+    void PrizeRankDict()
+    {
+        PrizeRankList.Clear();
+        PrizeRankList.Add(0, "D");
+        PrizeRankList.Add(1, "C");
+        PrizeRankList.Add(2, "B");
+        PrizeRankList.Add(3, "A");
+        PrizeRankList.Add(4, "S");
     }
     
 
@@ -396,6 +501,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     {
         yield return new WaitForSeconds(1f); //1秒待つ
 
+        //お菓子を採点する
+        contest_judge.Contest_Judge_Start();
+
+        //パネルのお菓子を削除
+        pitemlist.deleteExtremePanelItem(0, 1);
+        
         GameMgr.scenario_ON = true;
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
         GameMgr.contest_or_contestjudge_flag = true;

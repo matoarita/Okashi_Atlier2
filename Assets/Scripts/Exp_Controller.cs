@@ -171,14 +171,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject CompleteImage;
 
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
-    public int _temp_extreme_id;
-    public int _temp_extreme_itemtype;
-
-    public bool _temp_extremeSetting;
-    public float _temp_extreme_money;
-    public float _temp_moneydeg;
-    public bool _temp_life_anim_on;
-    public float _temp_Starthp;
+    //public int _temp_extreme_id;
+    //public int _temp_extreme_itemtype;
+    //public bool _temp_extremeSetting;
 
     private string renkin_hyouji;
 
@@ -244,8 +239,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Comp_method_bunki = 0;
         DoubleItemCreated = 0;              
 
-        _temp_extreme_id = 9999;
-        _temp_extremeSetting = false;
+        //_temp_extreme_id = 9999;
+        //_temp_extremeSetting = false;
     }
 
     private void InitObject()
@@ -546,7 +541,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList(1);
-            deleteExtreme_Item();
+            //deleteExtreme_Item();
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             card_view.ResultCard_DrawView(0, result_item);
@@ -615,7 +610,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 GameMgr.OkashiMake_PanelSetType = 1;
 
                 //お菓子パネルに、作ったやつをセット。
-                SetExtremeItem(result_item, 2);
                 GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
                 //仕上げ回数をリセット
@@ -666,7 +660,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else
         {
             //右側パネルに、作ったやつを表示する。
-            SetExtremeItem(result_item, 0);
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
         }
@@ -812,7 +805,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList(1);
-            deleteExtreme_Item();
+            //deleteExtreme_Item();
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             card_view.ResultCard_DrawView(0, result_item);
@@ -999,7 +992,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_kosu = 1;
 
             //右側パネルに、作ったやつを表示する。
-            SetExtremeItem(0, 2);
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             //テキストの表示
@@ -1042,7 +1034,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList(1);
-            deleteExtreme_Item();
+            //deleteExtreme_Item();
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             card_view.ResultCard_DrawView(0, result_item);
@@ -1251,7 +1243,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //失敗した場合でも、アイテムは消える。
             compound_keisan.Delete_playerItemList(1);
-            deleteExtreme_Item();
+            //deleteExtreme_Item();
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             card_view.ResultCard_DrawView(0, result_item);
@@ -2260,28 +2252,5 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
 
 
-    }
-
-    //作ったお菓子を、セットする 
-    public void SetExtremeItem(int item_id, int itemtype)
-    {
-        //シーン移動用に保存
-        _temp_extreme_id = item_id; //オリジナルリストの最後の番号のこと
-        _temp_extreme_itemtype = itemtype;
-        _temp_extremeSetting = true; //セットされていますよ～、ということ。この状態で、オリジナルリストの最後の番号のアイテムが削除されたら、パネルのデータも削除する。
-
-    }
-
-    //パネル上のお菓子を削除する　Compound_Keisanなどからも読まれる。
-    public void deleteExtreme_Item() //削除。さらに全てのパラメータもリセットする。
-    {
-        InitObject();
-        card_view.DeleteCard_DrawView();
-
-        _temp_extreme_id = 9999;
-        _temp_extreme_itemtype = 0;
-        _temp_extremeSetting = false;
-
-        pitemlist.deleteAllExtremePanelItem();
     }
 }

@@ -2489,30 +2489,22 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             foreach (KeyValuePair<int, int> deletePair in newTable)
             {
-                /*if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
-                {
-                    exp_Controller.deleteExtreme_Item();
-                }*/
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
                 
                 //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }
         }
 
-        //オリジナルアイテムリストからアイテムを選んでる場合の削除処理
+        //エクストリームアイテムリストからアイテムを選んでる場合の削除処理
         if (deleteExtremeList.Count > 0)
         {
             Debug.Log("調合にお菓子パネルアイテムを使用した");
 
-            //オリジナルアイテムをトッピングに使用していた場合の削除処理。削除用リストに入れた分をもとに、削除の処理を行う。
+            //エクストリームアイテムをトッピングに使用していた場合の削除処理。削除用リストに入れた分をもとに、削除の処理を行う。
             var newTable = deleteExtremeList.OrderByDescending(value => value.Key); //降順にする
 
             foreach (KeyValuePair<int, int> deletePair in newTable)
             {
-                /*if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
-                {
-                    exp_Controller.deleteExtreme_Item();
-                }*/
                 pitemlist.deleteExtremePanelItem(deletePair.Key, deletePair.Value);
             }
         }
@@ -2711,10 +2703,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             foreach (KeyValuePair<int, int> deletePair in newTable)
             {
-                if (deletePair.Key == exp_Controller._temp_extreme_id && exp_Controller._temp_extremeSetting == true)
-                {
-                    exp_Controller.deleteExtreme_Item();
-                }
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
                 //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }

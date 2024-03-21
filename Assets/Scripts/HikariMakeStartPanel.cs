@@ -432,7 +432,6 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 GameMgr.hikari_make_okashiKosu = 0;
 
                 sc.PlaySe(76);
-                exp_Controller.SetExtremeItem(0, 2);
                 ResultHikariMakeCardView_andOFF();
 
                 //仕上げ回数をリセット
