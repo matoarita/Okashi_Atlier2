@@ -140,9 +140,6 @@ public class Outside_theContest_Main : MonoBehaviour
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
 
-        text_area = GameObject.FindWithTag("Message_Window");
-        _text = text_area.GetComponentInChildren<Text>();
-
         text_scenario();
 
         newAreaReleasePanel_obj = canvas.transform.Find("NewAreaReleasePanel").gameObject;
@@ -210,6 +207,14 @@ public class Outside_theContest_Main : MonoBehaviour
         {
             StartRead = true;
             sceneBGM.PlaySub();
+        }
+
+        //コンテスト失格になった場合の、後処理
+        if(GameMgr.contest_LimitTimeOver_After_flag)
+        {
+            GameMgr.contest_LimitTimeOver_After_flag = false;
+
+            ContestTimeOverAfter();
         }
 
         //コンテスト終了後　フラグ解放などのイベント発生
@@ -320,6 +325,11 @@ public class Outside_theContest_Main : MonoBehaviour
                 _text.text = "クープデュモンドのコンテスト会場前だ。";
                 break;
         }
+    }
+
+    void ContestTimeOverAfter()
+    {
+        _text.text = "コンテスト失格になってしまった。" + "\n" + "名声が下がった・・。";
     }
 
     //MainListController2から読み出し

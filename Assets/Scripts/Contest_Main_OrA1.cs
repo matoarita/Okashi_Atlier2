@@ -22,6 +22,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private GameObject scene_black_effect;
     private GameObject contest_startbutton_panel;
     private GameObject canvas;
+    private GameObject timelimitover_panel;
 
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
@@ -85,14 +86,15 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     //賞品リスト
     private List<string> PrizeItemList = new List<string>();
-    private List<int> PrizeScoreAreaList = new List<int>();
     private Dictionary<int, string> PrizeRankList = new Dictionary<int, string>();
 
     // Use this for initialization
     void Start () {
 
         //今いるシーン番号を指定
-        GameMgr.Scene_Category_Num = 100;        
+        GameMgr.Scene_Category_Num = 100;
+
+        GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
@@ -189,6 +191,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         contest_select = canvas.transform.Find("Contest_Select").gameObject;
         conteston_toggle_compo = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Compo").gameObject;
 
+        timelimitover_panel = canvas.transform.Find("TimeOverPanel").gameObject;
+        timelimitover_panel.SetActive(false);
+
         contest_status = 0;
         StartRead = false;
 
@@ -262,6 +267,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
         }
 
+        //制限時間を少し超えた場合、注意のパネルがでる
+        if(GameMgr.contest_LimitTimeOver_DegScore_flag)
+        {
+            timelimitover_panel.SetActive(true);
+        }
+
         //
         //
         //
@@ -304,7 +315,16 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     contest_scene = 0;
 
                     GameMgr.Status_zero_readOK = true;
-                    
+
+                    //制限時間　30分を超えた場合、失格フラグ
+                    if (GameMgr.contest_LimitTimeOver_Gameover_flag)
+                    {
+                        GameMgr.contest_LimitTimeOver_Gameover_flag = false;
+
+                        timelimitover_panel.SetActive(true);
+                        LimitTimeOver();
+                    }
+
                     break;
 
                 case 100: //退避
@@ -333,15 +353,14 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     void ContestDataSetting()
     {
-        GameMgr.ContestSelectNum = 1000; //コンテストの会場番号　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
-
-
+        
         //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定
         switch (GameMgr.ContestSelectNum)
         {
             case 1000: //オレンジーナコンテストA1 クープデュモンド
 
                 GameMgr.ContestRoundNumMax = 3; //そのコンテストの最大のラウンド数
+                GameMgr.Contest_Cate_Ranking = 0; //コンテストがトーナメント形式=0 か　ランキング形式=1 か
 
                 switch (GameMgr.ContestRoundNum)
                 {
@@ -399,16 +418,69 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     PrizeItemList.Add("whisk_magic");
                     PrizeItemList.Add("gold_oven");
 
-                    PrizeScoreAreaList.Clear();
-                    PrizeScoreAreaList.Add(60);
-                    PrizeScoreAreaList.Add(120);
-                    PrizeScoreAreaList.Add(180);
-                    PrizeScoreAreaList.Add(240);
+                    GameMgr.PrizeScoreAreaList.Clear();
+                    GameMgr.PrizeScoreAreaList.Add(60);
+                    GameMgr.PrizeScoreAreaList.Add(120);
+                    GameMgr.PrizeScoreAreaList.Add(180);
+                    GameMgr.PrizeScoreAreaList.Add(240);
+                }
+
+                break;
+
+            case 10000: //オレンジーナコンテスト　弱小　ランキング形式
+
+                GameMgr.ContestRoundNumMax = 1; //そのコンテストの最大のラウンド数 １の場合、ランキング形式（複数参加者がランキングで競う）で一回戦のみ
+                GameMgr.Contest_Cate_Ranking = 1; //コンテストがトーナメント形式=0 か　ランキング形式=1 か
+
+                switch (GameMgr.ContestRoundNum)
+                {
+                    case 1: //一回戦
+
+                        //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
+                        GameMgr.Contest_DB_list_Type = 100000; //compNum=100000~を指定
+                        GameMgr.Contest_Name = "Or_Contest_010_1";
+                        GameMgr.Contest_ProblemSentence = "テーマ：おいしいクッキー";
+
+                        //コンテスト時間指定
+                        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
+                        PlayerStatus.player_contest_minute = 0; //開始分
+                        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位                       
+
+                        break;
+
+                }
+
+                if (GameMgr.ContestRoundNum == 1) //最初のときだけ設定
+                {
+                    //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。
+                    PrizeItemList.Clear();
+                    PrizeItemList.Add("nuts");
+                    PrizeItemList.Add("ice_box");
+                    PrizeItemList.Add("neko_badge2");
+                    PrizeItemList.Add("whisk_magic");
+                    PrizeItemList.Add("gold_oven");
+
+                    //相手の点数リスト
+                    GameMgr.PrizeScoreAreaList.Clear();
+                    GameMgr.PrizeScoreAreaList.Add(30);
+                    GameMgr.PrizeScoreAreaList.Add(56);
+                    GameMgr.PrizeScoreAreaList.Add(83);
+                    GameMgr.PrizeScoreAreaList.Add(92);
+
+                    GameMgr.contest_boss_score = GameMgr.PrizeScoreAreaList[GameMgr.PrizeScoreAreaList.Count-1];  //一位の人の得点
                 }
 
                 break;
         }
         Debug.Log("コンテスト名前と番号とラウンド数: " + GameMgr.Contest_Name + " " + GameMgr.ContestSelectNum + " " + GameMgr.ContestRoundNum + "回戦");
+        if(GameMgr.Contest_Cate_Ranking == 0)
+        {
+            Debug.Log("トーナメント形式");
+        }
+        else
+        {
+            Debug.Log("ランキング形式（一回戦のみ）");
+        }
 
         _text.text = GameMgr.Contest_ProblemSentence;
         contest_status = 0;
@@ -419,11 +491,11 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     {
         //5段階ぐらいで分ける？
         i = 0;
-        while (i < PrizeItemList.Count)
+        while (i <= GameMgr.PrizeScoreAreaList.Count)
         {
             if (i == 0)
             {
-                if (GameMgr.contest_PrizeScore < PrizeScoreAreaList[i])
+                if (GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
                 {                   
                     pitemlist.addPlayerItemString(PrizeItemList[i], 1);
                     GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(PrizeItemList[i])].itemNameHyouji;
@@ -433,9 +505,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             }
             else
             {
-                if(i != PrizeItemList.Count-1)
+                if(i != GameMgr.PrizeScoreAreaList.Count)
                 {
-                    if (GameMgr.contest_PrizeScore >= PrizeScoreAreaList[i - 1] && GameMgr.contest_PrizeScore < PrizeScoreAreaList[i])
+                    if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1] && GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
                     {                      
                         pitemlist.addPlayerItemString(PrizeItemList[i], 1);
                         GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(PrizeItemList[i])].itemNameHyouji;
@@ -445,7 +517,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 }
                 else //リストの一番最後
                 {
-                    if (GameMgr.contest_PrizeScore >= PrizeScoreAreaList[i - 1])
+                    if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1])
                     {
                         pitemlist.addPlayerItemString(PrizeItemList[i], 1);
                         GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(PrizeItemList[i])].itemNameHyouji;
@@ -506,10 +578,32 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         //パネルのお菓子を削除
         pitemlist.deleteExtremePanelItem(0, 1);
-        
+
+        GameMgr.contest_LimitTimeOver_DegScore_flag = false; //採点後にオフにする。
         GameMgr.scenario_ON = true;
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
         GameMgr.contest_or_contestjudge_flag = true;
+    }
+
+    //制限時間をこえたので失格
+    void LimitTimeOver()
+    {
+        sceneBGM.MuteBGM();
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+        GameMgr.contest_event_num = GameMgr.ContestSelectNum;
+
+        StartCoroutine("WaitForLimitTimeOver");
+    }
+
+    IEnumerator WaitForLimitTimeOver()
+    {
+        yield return new WaitForSeconds(1f); //1秒待つ
+
+        GameMgr.scenario_ON = true;
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
+        GameMgr.contest_or_limittimeover_flag = true;
     }
 
     void Debug_StartItem()

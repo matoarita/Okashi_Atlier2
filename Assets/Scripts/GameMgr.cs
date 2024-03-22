@@ -405,6 +405,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_or_event_flag;  //オランジーナ系コンテスト　２はこっちを使う
     public static bool contest_or_contestjudge_flag;
     public static bool contest_or_prizeget_flag;
+    public static bool contest_or_limittimeover_flag;
     public static int contest_event_num;
 
     //コンテストに提出したお菓子    
@@ -506,12 +507,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ContestSelectNum; //どのコンテストに今出場しているか
     public static int ContestRoundNum; //今何回戦か
     public static int ContestRoundNumMax; //その大会のMaxのラウンド数
+    public static int Contest_Cate_Ranking; //トーナメント形式かランキング形式か
     public static string Contest_Name; //コンテストの名前
     public static string Contest_ProblemSentence; //コンテストの課題の内容
     public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
     public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。 
     public static int contest_boss_score; //コンテスト　対戦相手のスコア
+    public static int contest_Rank_Count; //コンテスト　ランキングで何位だったか
     public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ
     public static bool Contest_winner_flag; //コンテストで対戦相手に勝ったかどうかのフラグ
     public static bool Contest_Next_flag; //コンテスト〇回戦を開始する
@@ -519,7 +522,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Contest_PrizeGet_ItemName; //獲得した賞品のアイテム名
     public static bool contest_eventEnd_flag; //コンテストイベント全て終了
     public static bool contest_eventStart_flag; //コンテストイベント開始　コンテスト会場きて一番最初にシナリオスタートするフラグ
+    public static bool contest_LimitTimeOver_DegScore_flag; //コンテスト制限時間をこえて、減点のフラグ
+    public static bool contest_LimitTimeOver_Gameover_flag; //コンテスト制限時間をこえて失格のフラグ
+    public static bool contest_LimitTimeOver_After_flag; //コンテスト失格後、なんらかのペナルティやメッセージが発生するフラグ
     public static bool NewAreaRelease_flag; //なんらかのイベント後、新エリアが解禁されるフラグ
+    public static List<int> PrizeScoreAreaList = new List<int>(); //コンテストのランキングスコア、もしくは賞品のスコア範囲のリスト
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -914,6 +921,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         contest_eventStart_flag = false;
         contest_eventEnd_flag = false;
+        contest_LimitTimeOver_DegScore_flag = false;
+        contest_LimitTimeOver_Gameover_flag = false;
+        contest_LimitTimeOver_After_flag = false;
         NewAreaRelease_flag = false;
         MenuOpenFlag = false;
         QuestManzokuFace = false;
@@ -978,9 +988,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_event_flag = false;
         contest_or_event_flag = false;
         contest_or_contestjudge_flag = false;
+        contest_or_limittimeover_flag = false;
         contest_or_prizeget_flag = false;
         Contest_Next_flag = false;
         Contest_PrizeGet_flag = false;
+        contest_Rank_Count = 1;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -1053,6 +1065,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_TotalScore = 0;
         contest_TotalScoreList.Clear();
         contest_PrizeScore = 0;
+        PrizeScoreAreaList.Clear();
         Contest_PrizeGet_ItemName = "";
         special_shogo_flag = false;
 

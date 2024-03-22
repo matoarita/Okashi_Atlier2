@@ -257,10 +257,21 @@ public class TimePanel : MonoBehaviour {
         _hour = 0;
         _minute = 0;
         _nokoritime = PlayerStatus.player_contest_LimitTime;
-        while (_nokoritime >= 60)
+        if (_nokoritime >= 0)
         {
-            _nokoritime = _nokoritime - 60;
-            _hour++;
+            while (_nokoritime >= 60)
+            {
+                _nokoritime = _nokoritime - 60;
+                _hour++;
+            }
+        }
+        else //残り時間が制限時間をこえてマイナスになった場合
+        {
+            while (_nokoritime <= -60)
+            {
+                _nokoritime = _nokoritime + 60;
+                _hour--;
+            }
         }
         _minute = _nokoritime * GameMgr.TimeStep; //1分刻み
 

@@ -67,8 +67,6 @@ public class itemSelectToggle : MonoBehaviour
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
-    private GameObject item_tsuika; //PlayeritemList_ScrollViewの子オブジェクト「item_tsuika」ボタン
-
     private GameObject black_effect;
 
     private GameObject quest_Judge_CanvasPanel;
@@ -121,6 +119,7 @@ public class itemSelectToggle : MonoBehaviour
         {
             ToggleValueChanged(m_Toggle);
         });
+
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -182,9 +181,7 @@ public class itemSelectToggle : MonoBehaviour
         yes_sprite2 = Resources.Load<Sprite>("Sprites/Window/sabwindowA_pink_66");
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
-        
-        item_tsuika = pitemlistController_obj.transform.Find("ItemADDbutton_Debug").gameObject;       
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();     
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();

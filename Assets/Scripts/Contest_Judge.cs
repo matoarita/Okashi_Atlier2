@@ -400,9 +400,19 @@ public class Contest_Judge : MonoBehaviour {
             total_score[i] = (int)_temp_score;
         }
 
-        Debug.Log("審査員１　正規化点数：" + total_score[0] + "点");
-        Debug.Log("審査員２　正規化点数：" + total_score[1] + "点");
-        Debug.Log("審査員３　正規化点数：" + total_score[2] + "点");
+        //さらに提出が遅れた場合減点
+        if(GameMgr.contest_LimitTimeOver_DegScore_flag)
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = total_score[i] - Mathf.Abs(PlayerStatus.player_contest_LimitTime)*2; //遅れた時間分だけ減点
+            }
+            Debug.Log("提出時間が遅れたので、減点: -" + Mathf.Abs(PlayerStatus.player_contest_LimitTime) * 2);
+        }
+
+        Debug.Log("審査員１　点数：" + total_score[0] + "点");
+        Debug.Log("審査員２　点数：" + total_score[1] + "点");
+        Debug.Log("審査員３　点数：" + total_score[2] + "点");
 
         Debug.Log("### ###");
         Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");

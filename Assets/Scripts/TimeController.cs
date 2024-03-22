@@ -1032,6 +1032,22 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //制限時間から引き算
         PlayerStatus.player_contest_LimitTime -= _m;
 
+        //もし制限時間を超えた場合、30分以内なら減点はされるが、提出は可能。30分をこえると失格になり、
+        //イベント発生のち、コンテスト終了
+        if(PlayerStatus.player_contest_LimitTime < 0)
+        {
+            if(Mathf.Abs(PlayerStatus.player_contest_LimitTime) < 30)
+            {
+                //提出は可能　だが減点　時間とボタンが赤になる。
+                GameMgr.contest_LimitTimeOver_DegScore_flag = true;
+            }
+            else
+            {
+                //３０分を超えた場合　失格
+                GameMgr.contest_LimitTimeOver_Gameover_flag = true;
+            }
+        }
+
         //時間と分になおす
         if (_m >= 0)
         {

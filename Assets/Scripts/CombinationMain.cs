@@ -1056,6 +1056,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
 
         item2.Clear();
         item2_kosu.Clear();
+        dictID2.Clear();
 
         t_count = 0;
         for (i = 0; i < args_size; i++)
