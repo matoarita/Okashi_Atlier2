@@ -250,7 +250,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private GameObject character_move;
 
     //ハートレベルのテーブル
-    public List<int> stage1_lvTable = new List<int>();
+    //public List<int> stage1_lvTable = new List<int>();
 
     private int _sum;
     private int _noweat_count;
@@ -304,7 +304,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
      
         //好感度レベルのテーブル初期化
-        Init_Stage1_LVTable();                
+        //Init_Stage1_LVTable();                
        
         // *** パラメータ初期設定 ***
 
@@ -4513,54 +4513,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         live2d_animator.SetInteger("trans_expression", trans_expression);
     }
 
-
-    //ハートレベルアップテーブル
-    void Init_Stage1_LVTable()
-    {
-        stage1_lvTable.Clear();
-        stage1_lvTable.Add(15); //LV2。LV1で、次のレベルが上がるまでの好感度値
-        stage1_lvTable.Add(60);　//LV3 LV1の分は含めない。
-        stage1_lvTable.Add(120); //LV4
-        stage1_lvTable.Add(200); //LV5
-        stage1_lvTable.Add(300); //LV6
-        stage1_lvTable.Add(410); //LV7
-        stage1_lvTable.Add(530); //LV8
-        stage1_lvTable.Add(650); //LV9
-        stage1_lvTable.Add(780); //LV10
-        stage1_lvTable.Add(920); //LV11
-        stage1_lvTable.Add(1050); //LV12
-        stage1_lvTable.Add(1200); //LV13
-        stage1_lvTable.Add(1350); //LV14
-        stage1_lvTable.Add(1500); //LV15
-
-        _hlv_last = stage1_lvTable.Count;
-        //LV16以上～99まで　ハートレベル*110ごとに上がるように設定
-        for (i=1; i < ( 99 - _hlv_last); i++)
-        {
-            stage1_lvTable.Add((_hlv_last+i) * 100);           
-        }
-        stage1_lvTable[stage1_lvTable.Count - 1] = 9999; //最後だけ9999
-
-        //デバッグ用
-        /*for (i = 0; i < stage1_lvTable.Count; i++)
-        {
-            Debug.Log("stage1_levelTable: " + "次のLv" + (i+2) + " " + stage1_lvTable[i]);
-        }
-        Debug.Log("stage1_lvTable.Count: " + stage1_lvTable.Count);*/
-    }
-
-    //レベルをいれると、それまでに必要な経験値の合計を返すメソッド レベルは１始まり
-    public int SumLvTable(int _count)
-    {
-        _sum = 0;
-
-        for(i=0; i < _count-1; i++)
-        {
-            _sum += stage1_lvTable[i];
-        }
-
-        return _sum;
-    }
 
     //機嫌状態の処理
     public void GirlExpressionKoushin(int _param)

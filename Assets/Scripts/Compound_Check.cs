@@ -61,6 +61,9 @@ public class Compound_Check : MonoBehaviour {
     private GameObject costTimePanel_obj;
     private Text _cost_hourtext;
     private Text _cost_minutestext;
+    private Text _cost_player_mptext;
+    private Text _cost_mptext;
+    private int costMP;
 
     private GameObject resultitemName_obj;
 
@@ -348,6 +351,8 @@ public class Compound_Check : MonoBehaviour {
                 costTimePanel_obj = compoBG_A.transform.Find("MagicStartPanel/magicComp2/MagicSelectLv_Panel/CostTimePanel").gameObject;
                 _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
                 _cost_minutestext = costTimePanel_obj.transform.Find("Image/TimeMinutes_param").GetComponent<Text>();
+                _cost_player_mptext = costTimePanel_obj.transform.Find("Image/PlayerMP_param").GetComponent<Text>();
+                _cost_mptext = costTimePanel_obj.transform.Find("Image/CostMP_param").GetComponent<Text>();
 
                 StartCoroutine("MagicFinal_select"); //最終確認 スキルレベルを選択する。
                 //MagicFinal_select();
@@ -668,6 +673,7 @@ public class Compound_Check : MonoBehaviour {
                             //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
                             exp_Controller.ResultOK();
+                            Debug.Log("トッピング時だが、新しいお菓子が生成されるパターン");
                         }
                         else
                         {
@@ -738,6 +744,7 @@ public class Compound_Check : MonoBehaviour {
                             //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
                             exp_Controller.ResultOK();
+                            Debug.Log("トッピング時だが、新しいお菓子が生成されるパターン");
                         }
                         else
                         {
@@ -967,6 +974,9 @@ public class Compound_Check : MonoBehaviour {
 
                         CompoundJudge(); //魔法レベルが決定したあと、再び調合判定。
 
+                        //MPを消費
+                        PlayerStatus.player_mp -= costMP;
+
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
 
@@ -1131,7 +1141,12 @@ public class Compound_Check : MonoBehaviour {
         {
             _itemIDtemp_result.Add(database.items[itemID_1].itemName);
 
-            if(magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non")
+            costMP = magicskill_database.magicskill_lists[itemID_2].skillCost;
+            //消費MPも表示
+            _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
+            _cost_mptext.text = costMP.ToString();
+
+            if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non")
             {
                 _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName);
                 Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName);
@@ -1299,6 +1314,8 @@ public class Compound_Check : MonoBehaviour {
 
         _cost_hourtext.text = _hour.ToString();
         _cost_minutestext.text = _minutes.ToString();
+
+        
 
 
         //調合判定

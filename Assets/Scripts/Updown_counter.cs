@@ -196,7 +196,7 @@ public class Updown_counter : MonoBehaviour {
                     {
                         case 21: //魔法のレベル選択時のポス
 
-                            this.transform.localPosition = new Vector3(280, 10, 0);
+                            this.transform.localPosition = new Vector3(60, -70, 0);
 
                             _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
                             if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non")

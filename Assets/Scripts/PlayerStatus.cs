@@ -20,6 +20,15 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static int player_kamado_lv; //かまどのレベル
 
+    //２からのステータス追加 セーブ必要だが、まだしてない
+    public static int player_mp;
+    public static int player_maxmp;
+    public static int player_patissier_lv;
+    public static int player_patissier_exp;
+    public static int player_patissier_job_pt;
+    public static int player_patissier_Rank;
+    public static int player_patissier_Rank_pt;
+
 
     //妹のステータス
     //好感度のexpとlvだけは、girl1_statusに登録。
@@ -186,6 +195,14 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_tea_lv = 1;
         player_girl_icecream_lv = 1;
         player_girl_rareokashi_lv = 1;
+        
+        player_maxmp = 5;
+        player_mp = player_maxmp;
+        player_patissier_lv = 1;
+        player_patissier_exp = 0;
+        player_patissier_job_pt = 0;
+        player_patissier_Rank = 1;
+        player_patissier_Rank_pt = 0;
 
         InitTitleCollectionLibrary();
 

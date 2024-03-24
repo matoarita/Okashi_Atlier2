@@ -74,7 +74,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     public bool shopsell_final_select_flag;
 
-    void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
+    // Use this for initialization
+    void Start()
+    {
+        
+    }
+
+    void InitSetUp()
     {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -100,17 +106,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         SceneStartSetting_LoadOK = false;
 
-        InitSetUp();
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        
-    }
-
-    void InitSetUp()
-    {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 

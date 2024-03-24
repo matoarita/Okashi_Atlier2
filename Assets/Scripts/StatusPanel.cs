@@ -43,7 +43,6 @@ public class StatusPanel : MonoBehaviour {
     private List<GameObject> costume_list = new List<GameObject>();
 
     private Text girlLV_param;
-    private Text renkinnextLV_param;
     private Text girlHeart_param;
     private Text girlFind_power_param;
     private Text girlLifepoint_param;
@@ -156,7 +155,6 @@ public class StatusPanel : MonoBehaviour {
         girlLifepoint_param = paramview1.transform.Find("ParamE_param/Text").GetComponent<Text>();
         girlExtremeKaisu_param = paramview1.transform.Find("ParamH_param/Text").GetComponent<Text>();
         BoxLv_param = paramview1.transform.Find("ParamI_param/Text").GetComponent<Text>();
-        renkinnextLV_param = paramview1.transform.Find("ParamG_param/Text").GetComponent<Text>();
         zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
         Okashi_SPquest_eatkaisu_param = paramview1.transform.Find("ParamJ_param/TextKosu").GetComponent<Text>();
         Okashi_SPquest_MaxScore_param = paramview1.transform.Find("ParamK_param/TextKosu").GetComponent<Text>();
@@ -222,8 +220,7 @@ public class StatusPanel : MonoBehaviour {
         girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
         girlExtremeKaisu_param.text = PlayerStatus.player_extreme_kaisu_Max.ToString();
         BoxLv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
-        
-        renkinnextLV_param.text = (exp_table.exp_table[PlayerStatus.player_renkin_lv + 1] - PlayerStatus.player_renkin_exp).ToString(); //次レベルに必要な経験値がでる。
+
 
         if (PlayerStatus.player_girl_lifepoint <= 3)
         {

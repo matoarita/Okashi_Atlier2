@@ -15,8 +15,9 @@ public class SoundController : SingletonMonoBehaviour<SoundController>
     Queue<int> seRequestQueue = new Queue<int>();
 
 
-    void Awake(){
 
+    void InitSetup()
+    {
         //初期化
         for (int i = 0; i < seSources.Length; i++)
         {
@@ -39,6 +40,7 @@ public class SoundController : SingletonMonoBehaviour<SoundController>
     // Use this for initialization
     void Start () {
 
+        InitSetup();
     }
 	
 	// Update is called once per frame

@@ -12,10 +12,11 @@ using UnityEngine.UI;
 
 public class ExpTable : SingletonMonoBehaviour<ExpTable>
 {
-    
-    //経験値テーブル
-    [SerializeField]
-    public int[] exp_table_setting = new int[30];
+
+    //ハートレベルのテーブル
+    public List<int> stage1_hlvTable = new List<int>();
+    private List<int> skill_patissier_List = new List<int>();
+    private int _hlv_last, _sum;
 
     public Dictionary<int, int> exp_table;
 
@@ -37,9 +38,6 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
     IEnumerator routine;
 
-    public bool check_on;
-    private bool check_Lclick;
-
     private int _mstatus;
 
 
@@ -48,8 +46,13 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         DontDestroyOnLoad(this.gameObject);
 
-        SetInit_ExpTable();
         InitSetup();
+
+        //好感度レベルのテーブル初期化
+        Init_Stage1_LVTable();
+        Init_SkillTable();
+
+        skill_patissier_List.Clear();
     }
 
     private void InitSetup()
@@ -61,232 +64,17 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         girlEat_judge = GirlEat_Judge.Instance.GetComponent<GirlEat_Judge>();
-
-        check_on = false;
-        check_Lclick = false;
     }
 
     // Update is called once per frame
     void Update () {
-		
-        if ( check_on == true )
-        {
-            if (Input.GetMouseButtonDown(0) == true)
-            {
-                check_Lclick = true;
-            }
-        }
+	
 
         if(canvas == null)
         {
             InitSetup();
         }
 	}
-
-    
-    public void Check_LevelUp()
-    {
-        //windowテキストエリアの取得
-        text_area = canvas.transform.Find("MessageWindow").gameObject;
-        _text = text_area.GetComponentInChildren<Text>();
-
-        if(!check_on)
-        {
-            before_start_lv = PlayerStatus.player_renkin_lv; //現在のレベル（レベルアップ前）
-        }
-
-        check_on = true; //チェック中
-
-        for (i = 1; i < exp_table_setting.Length - 1; i++)
-        {
-            //Console.WriteLine("[{0}:{1}]", table.Key, table.Value);
-            if (PlayerStatus.player_renkin_exp >= exp_table[i] && PlayerStatus.player_renkin_exp < exp_table[i+1]) //ex: 0~15なら、LV1。15~45ならLV2、といった具合。
-            {
-                now_level = i;
-            }
-        }
-
-        before_level = PlayerStatus.player_renkin_lv; //現在のレベル（レベルアップ更新中）
-
-        //現在のレベルより、ナウレベルのほうが高い場合は、レベルアップ
-        if (now_level > before_level)
-        {
-
-            //音を鳴らす。音終わりに次の処理。
-            sc.PlaySe(13);
-
-            routine = WaitTime();
-            StartCoroutine("WaitTime");
-            StartCoroutine("Skip_LevelUp");
-
-
-            /*音終わりに次の処理をする書き方。メモ。
-            //音を鳴らす
-            audioSource.Play();
-
-            StartCoroutine(Checking(() => {
-
-                Debug.Log("レベルが上がった！！");                 
-
-                //１ずつあげて、その時に覚えるスキルなどがあれば、それをチェックする。
-
-                PlayerStatus.player_renkin_lv++;
-
-                //○○を覚えた！など
-
-                //最後にテキスト表示
-                _text.text = "レベルが上がった！" + "\n" + "錬金レベルが" + PlayerStatus.player_renkin_lv + "になった！";
-            }));
-            */
-
-
-        }
-        else //全て上がりきったら処理を抜ける。それまで、他の操作は出来なくする。
-        {
-            check_Lclick = false;
-            check_on = false;
-            StopCoroutine("Skip_LevelUp");
-        }
-    }
-
-    /*
-    public delegate void functionType();
-    private IEnumerator Checking(functionType callback)
-    {
-        while (true)
-        {
-            yield return new WaitForFixedUpdate();
-            if (!audioSource.isPlaying)
-            {
-                callback();
-                break;
-            }
-        }
-    }*/
-
-    IEnumerator WaitTime()
-    {
-        //3秒待つ
-        yield return new WaitForSeconds(3);
-
-        //左クリックが押されたら、強制終了
-        if (check_Lclick == true)
-        {
-            check_Lclick = false;
-            check_on = false;
-
-            routine = null;
-            yield break;
-        }
-
-
-        //レベルが上がった以降の処理を書く。
-        Debug.Log("レベルが上がった！！");
-        
-        //１ずつあげて、その時に覚えるスキルなどがあれば、それをチェックする。
-        PlayerStatus.player_renkin_lv++;
-
-        //○○を覚えた！など
-        _temp_skill.Clear();
-        SkillCheck(PlayerStatus.player_renkin_lv);
-
-        //最後にテキスト表示
-        TextHyouji();
-
-        Check_LevelUp(); //もう一回繰り返し
-    }
-
-    IEnumerator Skip_LevelUp()
-    {
-        while (routine != null)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        PlayerStatus.player_renkin_lv = now_level;
-
-        //○○を覚えた！など
-        //前のレベルから現在レベルまでの間に、スキルがないかチェックする。
-        _temp_skill.Clear();
-        _temp_lv = before_start_lv;
-        for (count=0; count <  (now_level-before_start_lv); count++ )
-        {          
-            SkillCheck(_temp_lv+count+1);
-        }
-
-        //最後にテキスト表示
-        TextHyouji();
-    }
-
-    void TextHyouji()
-    {
-        if (_temp_skill.Count > 0)
-        {
-            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが " + GameMgr.ColorYellow + PlayerStatus.player_renkin_lv + "</color>" + " になった！" + "\n" + _temp_skill[0];
-        }
-        else
-        {
-            _text.text = "レベルが上がった！" + "\n" + "パティシエレベルが " + GameMgr.ColorYellow + PlayerStatus.player_renkin_lv + "</color>" + " になった！";
-        }
-    }
-
-    public void SkillCheck(int _nowlevel)
-    {
-        _mstatus = 0;
-
-        switch (_nowlevel)
-        {
-            case 2:
-
-                _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
-                PlayerStatus.player_extreme_kaisu_Max++;
-                PlayerStatus.player_extreme_kaisu++;
-                break;
-
-            case 5:
-
-                _temp_skill.Add("一度に　2個　トッピングできるようになった！");
-                GameMgr.topping_Set_Count = 2;
-                break;
-
-            case 6:
-
-                _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
-                PlayerStatus.player_extreme_kaisu_Max++;
-                PlayerStatus.player_extreme_kaisu++;
-                break;
-            
-
-            case 10:
-
-                _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
-                PlayerStatus.player_extreme_kaisu_Max++;
-                PlayerStatus.player_extreme_kaisu++;
-                break;
-
-            case 15:
-
-                _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
-                PlayerStatus.player_extreme_kaisu_Max++;
-                PlayerStatus.player_extreme_kaisu++;
-                break;
-
-            case 30:
-
-                _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
-                PlayerStatus.player_extreme_kaisu_Max++;
-                PlayerStatus.player_extreme_kaisu++;
-                break;
-
-            case 50:
-
-                _temp_skill.Add("仕上げ出来る回数が 1 上がった！");
-                PlayerStatus.player_extreme_kaisu_Max++;
-                PlayerStatus.player_extreme_kaisu++;
-                break;
-        }
-    }
 
     //ハートレベルに応じてスキルを覚えるパターン Girl_Eat_Judgeかデバッグパネルから読む。
     public void SkillCheckHeartLV(int _nowlevel, int _status)
@@ -346,6 +134,18 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 ShiageUp();
                 break;
         }
+    }    
+
+    //パティシエレベルに応じてスキルを覚えるパターン Girl_Eat_Judgeかデバッグパネルから読む。
+    public void SkillCheckPatissierLV(int _nowlevel, int _status)
+    {
+        _mstatus = _status;
+
+        if(_nowlevel % 1 == 0) //LV〇〇ごとにジョブが1上がる
+        {
+            PlayerStatus.player_patissier_job_pt++;
+            
+        }
     }
 
     void ShiageUp()
@@ -359,43 +159,79 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
     }
 
-    public void SetInit_ExpTable() //現在は未使用。
+    //ハートレベルアップテーブル(パティシエレベルと現在共通）
+    void Init_Stage1_LVTable()
     {
-        exp_table = new Dictionary<int, int>();
+        stage1_hlvTable.Clear();
+        stage1_hlvTable.Add(15); //LV2。LV1で、次のレベルが上がるまでの好感度値
+        stage1_hlvTable.Add(60);　//LV3 LV1の分は含めない。
+        stage1_hlvTable.Add(120); //LV4
+        stage1_hlvTable.Add(200); //LV5
+        stage1_hlvTable.Add(300); //LV6
+        stage1_hlvTable.Add(410); //LV7
+        stage1_hlvTable.Add(530); //LV8
+        stage1_hlvTable.Add(650); //LV9
+        stage1_hlvTable.Add(780); //LV10
+        stage1_hlvTable.Add(920); //LV11
+        stage1_hlvTable.Add(1050); //LV12
+        stage1_hlvTable.Add(1200); //LV13
+        stage1_hlvTable.Add(1350); //LV14
+        stage1_hlvTable.Add(1500); //LV15
 
-        exp_table.Add(1, 0);
-        exp_table.Add(2, 15);
-        exp_table.Add(3, 45);
-        exp_table.Add(4, 90);
-        exp_table.Add(5, 150);
-        exp_table.Add(6, 220);
-        exp_table.Add(7, 300);
-        exp_table.Add(8, 380);
-        exp_table.Add(9, 490);
-        exp_table.Add(10, 600);
+        _hlv_last = stage1_hlvTable.Count;
+        //LV16以上～99まで　ハートレベル*100ごとに上がるように設定
+        for (i = 1; i < (99 - _hlv_last); i++)
+        {
+            stage1_hlvTable.Add((_hlv_last + i) * 100);
+        }
+        stage1_hlvTable[stage1_hlvTable.Count - 1] = 9999; //最後だけ9999
 
-        exp_table.Add(11, 780);
-        exp_table.Add(12, 950);
-        exp_table.Add(13, 1080);
-        exp_table.Add(14, 1310);
-        exp_table.Add(15, 1560);
-        exp_table.Add(16, 1800);
-        exp_table.Add(17, 2100);
-        exp_table.Add(18, 2400);
-        exp_table.Add(19, 2700);
-        exp_table.Add(20, 3000);
+        //デバッグ用
+        /*for (i = 0; i < stage1_lvTable.Count; i++)
+        {
+            Debug.Log("stage1_levelTable: " + "次のLv" + (i+2) + " " + stage1_lvTable[i]);
+        }
+        Debug.Log("stage1_lvTable.Count: " + stage1_lvTable.Count);*/
+    }
 
-        exp_table.Add(21, 3300);
-        exp_table.Add(22, 3600);
-        exp_table.Add(23, 3900);
-        exp_table.Add(24, 4500);
-        exp_table.Add(25, 5100);
-        exp_table.Add(26, 5700);
-        exp_table.Add(27, 6300);
-        exp_table.Add(28, 6900);
-        exp_table.Add(29, 7800);
-        exp_table.Add(30, 9999);
-        //Debug.Log( i+1 + " " + exp_table[i+1]);
+    void Init_SkillTable()
+    {
+        i = 1;
+        while(i<99) //LV３ごとにジョブが1上がる
+        {
+            if(i % 3 == 0)
+            {
+                skill_patissier_List.Add(0);
+            }
+            i++;
+        }
+    }
 
+    //更新後のHeartExpをいれると、現在のHLVに再計算する
+    public void HeartLVKoushin()
+    {
+        i = 0;
+        PlayerStatus.girl1_Love_lv = 1;
+        while (PlayerStatus.girl1_Love_exp >= stage1_hlvTable[i])
+        {
+            //_girllove_param -= stage_levelTable[i];
+            PlayerStatus.girl1_Love_lv++;
+            i++;
+        }
+
+        //
+    }
+
+    //レベルをいれると、それまでに必要な経験値の合計を返すメソッド レベルは１始まり
+    public int SumLvTable(int _count)
+    {
+        _sum = 0;
+
+        for (i = 0; i < _count - 1; i++)
+        {
+            _sum += stage1_hlvTable[i];
+        }
+
+        return _sum;
     }
 }

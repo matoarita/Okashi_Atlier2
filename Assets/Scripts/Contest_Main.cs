@@ -58,6 +58,8 @@ public class Contest_Main : MonoBehaviour {
     private bool judge_flag;
     private int judge_Type, DB_list_Type;
 
+    private bool contest_eventStart_flag;
+
     // Use this for initialization
     void Start () {
 
@@ -124,6 +126,7 @@ public class Contest_Main : MonoBehaviour {
         conteston_toggle_judge = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Judge").gameObject;
 
         contest_status = 100;
+        contest_eventStart_flag = false;
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -134,7 +137,7 @@ public class Contest_Main : MonoBehaviour {
 	void Update () {
 
         //コンテスト会場きたときのイベント
-        if (!GameMgr.contest_eventStart_flag)
+        if (!contest_eventStart_flag)
         {
             GameMgr.ContestSelectNum = 0; //コンテストのシーン番号
             GameMgr.Contest_ON = false; //コンテストだけど、１のころのやつなのでfalseでだいじょうぶ
@@ -143,7 +146,7 @@ public class Contest_Main : MonoBehaviour {
             //採点処理
             contest_judge.Contest_Judge_Start();
 
-            GameMgr.contest_eventStart_flag = true;
+            contest_eventStart_flag = true;
             GameMgr.scenario_ON = true;
 
             sceneBGM.MuteBGM();

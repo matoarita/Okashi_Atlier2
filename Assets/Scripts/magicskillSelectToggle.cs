@@ -361,7 +361,7 @@ public class magicskillSelectToggle : MonoBehaviour
 
             case "Chocolate_Tempering":
                 GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオを選んでね。";
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオマスを選んでね。";
                 break;
 
             case "Wind_Twister":

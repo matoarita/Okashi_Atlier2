@@ -228,11 +228,13 @@ public class Compound_BGPanel_A : MonoBehaviour {
     public void BlackImageON()
     {
         BlackImage.GetComponent<CanvasGroup>().alpha = 1;
+        BlackImage.GetComponent<Image>().raycastTarget = true;
     }
 
     public void BlackImageOFF()
     {
         BlackImage.GetComponent<CanvasGroup>().alpha = 0;
+        BlackImage.GetComponent<Image>().raycastTarget = false;
     }
 
     /*public void OnCheck_4() //ブレンド調合をON

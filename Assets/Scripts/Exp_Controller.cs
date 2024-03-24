@@ -596,7 +596,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             result_item = pitemlist.player_check_itemlist.Count - 1;
             
             renkin_hyouji = pitemlist.player_check_itemlist[result_item].itemNameHyouji;
-            GameMgr.Okashi_makeID = pitemlist.player_check_itemlist[result_item].itemID; //今作ったやつのお菓子ID
+            GameMgr.Okashi_makeID = database.SearchItemID(pitemlist.player_check_itemlist[result_item].itemID); //今作ったやつのお菓子ID
             GameMgr.ResultItem_nameHyouji = pitemlist.player_check_itemlist[result_item].itemNameHyouji; //別スクリプトでの使用用
 
             //制作したアイテムが材料、もしくはポーション類ならエクストリームパネルに設定はしない。
@@ -613,7 +613,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
                 //仕上げ回数をリセット
-                PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+                if (extreme_on) //トッピングのときに新しいお菓子に変化する場合は回数が減る
+                {
+                    //仕上げ回数を減らす
+                    PlayerStatus.player_extreme_kaisu--;
+                }
+                else
+                {
+                    PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+                }
 
             }
 

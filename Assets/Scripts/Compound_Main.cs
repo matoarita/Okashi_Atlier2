@@ -2801,21 +2801,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    
 
-
-
-    //好感度イベント発生用の閾値を計算
-    int CheckLoveExp(int kaisu)
-    {
-        _checkexp = 0;
-
-        for (i=0; i < kaisu; i++)
-        {
-            _checkexp += girl1_status.stage1_lvTable[i];
-        }
-        return _checkexp;
-    }
 
     
 

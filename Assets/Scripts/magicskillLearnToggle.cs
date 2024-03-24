@@ -214,7 +214,7 @@ public class magicskillLearnToggle : MonoBehaviour
 
     IEnumerator skilllearn_Final_select()
     {
-        _text.text = magicskilllistController.skill_itemName_Hyouji + "をおぼえる？";
+        _text.text = magicskilllistController.skill_itemName_Hyouji + "をおぼえる？" + "\n" + "ジョブポイントを 1 消費するよ。";
 
         while (yes_selectitem_kettei.onclick != true)
         {
@@ -253,7 +253,12 @@ public class magicskillLearnToggle : MonoBehaviour
                 GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
                 GameMgr.UseMagicSkill_ID = magicskilllistController.skill_kettei_ID;
 
-                SkillLearnLibrary();                              
+                SkillLearnLibrary();
+
+                //JPを消費
+                PlayerStatus.player_patissier_job_pt--;
+
+                magicskilllistController.ReDraw(); //再描画
 
                 break;
 
@@ -315,8 +320,12 @@ public class magicskillLearnToggle : MonoBehaviour
     public void OnSkillLevelUpButton_ON()
     {
         magicskill_database.magicskill_lists[toggle_skill_ID].skillLv++;
+
+        //JPを消費
+        PlayerStatus.player_patissier_job_pt--;
+
         //上限処理
-        if(magicskill_database.magicskill_lists[toggle_skill_ID].skillLv > magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv)
+        if (magicskill_database.magicskill_lists[toggle_skill_ID].skillLv > magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv)
         {
             magicskill_database.magicskill_lists[toggle_skill_ID].skillLv = magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv;
         }

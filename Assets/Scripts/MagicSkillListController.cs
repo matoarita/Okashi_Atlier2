@@ -8,8 +8,10 @@ using UnityEngine.SceneManagement;
 public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListController>
 {
     //
-    //ショップの品揃えのコントローラー
+    //魔法スキルのコントローラー
     //
+
+    private GameObject canvas;
 
     private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
     public List<GameObject> _skill_listitem = new List<GameObject>(); //リストビューの個数　テキスト表示用のプレファブのインスタンスを格納する。
@@ -30,6 +32,8 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
     private MagicSkillListDataBase magicskill_database;
 
+    private GameObject player_patissierjob_panel;
+
     private int max;
     private int count;
     private int i;
@@ -49,10 +53,8 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
     public List<GameObject> category_toggle = new List<GameObject>();
     private int category_status;
 
-
-    void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
+    void InitSetup()
     {
-
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
@@ -74,6 +76,11 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             category_toggle.Add(child.gameObject);
         }
 
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        player_patissierjob_panel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/PlayerJobPanel").gameObject;
+
         i = 0;
         category_status = 0;
     }
@@ -92,6 +99,9 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
     void OnEnable()
     {
+        
+        InitSetup();
+
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");
 
@@ -241,6 +251,9 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
                 break;
 
         }
+
+        player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
+        player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
     }
 
     // リストビューの描画部分。重要。
@@ -532,9 +545,15 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         _text[0].text = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。;
         _text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
         _text[2].text = "Lv " + magicskill_database.magicskill_lists[i].skillLv + " / " + magicskill_database.magicskill_lists[i].skillMaxLv;
+        _text[3].text = "MP " + magicskill_database.magicskill_lists[i].skillCost;
 
         texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
         _Img.sprite = texture2d;
+
+        if(PlayerStatus.player_mp < magicskill_database.magicskill_lists[i].skillCost)
+        {
+            _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
+        }
 
         ++list_count;
     }
@@ -573,6 +592,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         _text[0].text = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。;
         _text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
         _text[2].text = "Lv " + magicskill_database.magicskill_lists[i].skillLv + " / " + magicskill_database.magicskill_lists[i].skillMaxLv;
+        //_text[3].text = "MP " + magicskill_database.magicskill_lists[i].skillCost; //習得のほうは、表示そもそもしない
 
         texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
         _Img.sprite = texture2d;
@@ -580,6 +600,13 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         //マックスLVまでとってたら、レベルアップボタンは表示しない
         if (magicskill_database.magicskill_lists[i].skillLv >= magicskill_database.magicskill_lists[i].skillMaxLv)
         {
+            _skill_listitem[list_count].transform.Find("Background_LearnOK/SkillLvupButton").gameObject.SetActive(false);
+        }
+
+        //ジョブポイント足りなかったら押せない
+        if (PlayerStatus.player_patissier_job_pt < 1)
+        {
+            _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
             _skill_listitem[list_count].transform.Find("Background_LearnOK/SkillLvupButton").gameObject.SetActive(false);
         }
 

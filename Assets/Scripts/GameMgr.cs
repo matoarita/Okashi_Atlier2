@@ -56,7 +56,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool recipi_read_endflag; //レシピを読み終えたときのフラグ
 
     public static int stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様
-    public static int stageclear_cullentlove; //クエストをクリアするのに、必要なハートの蓄積量。
 
 
     /* セーブする */
@@ -521,7 +520,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_PrizeGet_flag; //コンテスト賞品を獲得する処理のフラグ
     public static string Contest_PrizeGet_ItemName; //獲得した賞品のアイテム名
     public static bool contest_eventEnd_flag; //コンテストイベント全て終了
-    public static bool contest_eventStart_flag; //コンテストイベント開始　コンテスト会場きて一番最初にシナリオスタートするフラグ
     public static bool contest_LimitTimeOver_DegScore_flag; //コンテスト制限時間をこえて、減点のフラグ
     public static bool contest_LimitTimeOver_Gameover_flag; //コンテスト制限時間をこえて失格のフラグ
     public static bool contest_LimitTimeOver_After_flag; //コンテスト失格後、なんらかのペナルティやメッセージが発生するフラグ
@@ -916,10 +914,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikari_tabetaiokashi_buf = false;
         hikari_tabetaiokashi_buf_time = 0;
 
-        stageclear_cullentlove = 0;
         ExtraClear_QuestItemRank = 1;
 
-        contest_eventStart_flag = false;
         contest_eventEnd_flag = false;
         contest_LimitTimeOver_DegScore_flag = false;
         contest_LimitTimeOver_Gameover_flag = false;

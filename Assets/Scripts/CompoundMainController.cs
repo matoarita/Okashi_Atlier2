@@ -95,8 +95,10 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject magic_compo2;
     private GameObject magic_compo3;
     private GameObject magic_compo4;
+    private GameObject player_mp_panel;
 
     private GameObject MagicLearnPanel;
+    private GameObject player_patissierjob_panel;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -214,9 +216,13 @@ public class CompoundMainController : MonoBehaviour {
         magic_compo3.SetActive(false);
         magic_compo4 = MagicStartPanel.transform.Find("magicComp4").gameObject;
         magic_compo4.SetActive(false);
+        player_mp_panel = MagicStartPanel.transform.Find("PlayerMPPanel").gameObject;
+        player_mp_panel.SetActive(true);
 
         MagicLearnPanel = compoBG_A.transform.Find("MagicLearnPanel").gameObject;
         MagicLearnPanel.SetActive(false);
+        player_patissierjob_panel = MagicLearnPanel.transform.Find("PlayerJobPanel").gameObject;
+        player_patissierjob_panel.SetActive(true);
 
         //windowテキストエリアの取得
         text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
@@ -642,6 +648,9 @@ public class CompoundMainController : MonoBehaviour {
                     magic_compo2.SetActive(false);
                     magic_compo3.SetActive(false);
                     magic_compo4.SetActive(false);
+                    player_mp_panel.SetActive(true);
+                    player_mp_panel.transform.Find("player_mp").GetComponent<Text>().text = PlayerStatus.player_mp.ToString();
+                    player_mp_panel.transform.Find("player_maxmp").GetComponent<Text>().text = PlayerStatus.player_maxmp.ToString();
 
                     break;
 
@@ -653,6 +662,7 @@ public class CompoundMainController : MonoBehaviour {
                     //魔法選択時の調合画面を開く
                     magic_compo1.SetActive(false);
                     magic_compo2.SetActive(true);
+                    player_mp_panel.SetActive(false);
 
                     magicskilllistController_onoff.SetActive(false);
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
@@ -741,7 +751,8 @@ public class CompoundMainController : MonoBehaviour {
                     magicskilllistController_onoff.SetActive(true); //魔法をおぼえるがONになった状態のリストを表示
 
                     MagicLearnPanel.SetActive(true);
-                    //magic_compo1.SetActive(true);
+                    player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
+                    player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
 
                     break;
             }

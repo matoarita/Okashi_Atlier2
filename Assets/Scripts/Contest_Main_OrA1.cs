@@ -60,6 +60,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     private GameObject contest_select;
     private GameObject conteston_toggle_compo;
+    private GameObject conteston_toggle_giveup;
 
     private int kettei_itemID;
     private int kettei_itemType;
@@ -75,6 +76,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private int judge_Type, DB_list_Type;
     private int inputcount;
     private bool StartRead; //シーンに入って最初の一回だけ起動する
+    private bool contest_eventStart_flag; //シーン最初にシナリオ開始する
 
     //Live2Dモデルの取得    
     private GameObject _model_root_obj;
@@ -131,7 +133,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
         //シーン全てをブラックに消すパネル
-        scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
+        scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;        
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f); //黒い画面からスタート
 
         //場所名前パネル
         placename_panel = canvas.transform.Find("PlaceNamePanel").gameObject;
@@ -190,12 +193,14 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         contest_select = canvas.transform.Find("Contest_Select").gameObject;
         conteston_toggle_compo = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_Compo").gameObject;
+        conteston_toggle_giveup = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_GiveUp").gameObject;
 
         timelimitover_panel = canvas.transform.Find("TimeOverPanel").gameObject;
         timelimitover_panel.SetActive(false);
 
         contest_status = 0;
         StartRead = false;
+        contest_eventStart_flag = false;
 
         PrizeRankDict();
 
@@ -211,9 +216,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 	void Update () {
 
         //コンテスト会場きたときのイベント
-        if (!GameMgr.contest_eventStart_flag)
+        if (!contest_eventStart_flag)
         {
-            GameMgr.contest_eventStart_flag = true;
+            contest_eventStart_flag = true;
             GameMgr.Contest_ON = true;
 
             //さらにどのコンテストに現在出場しているかを指定
@@ -223,8 +228,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             GameMgr.scenario_ON = true;
 
-            sceneBGM.MuteBGM();
-            scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+            sceneBGM.MuteBGM();            
 
             GameMgr.contest_event_num = GameMgr.ContestSelectNum;
             GameMgr.contest_or_event_flag = true;
@@ -262,7 +266,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //コンテスト終了　会場外へでる。
         if (GameMgr.contest_eventEnd_flag)
         {
-            GameMgr.contest_eventEnd_flag = false;            
+            GameMgr.contest_eventEnd_flag = false;
+            GameMgr.Contest_ON = false;
 
             FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
         }
@@ -557,6 +562,17 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
+    public void OnCheck_GiveUp() //諦める
+    {
+        if (conteston_toggle_giveup.GetComponent<Toggle>().isOn == true)
+        {
+            conteston_toggle_giveup.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+            GameMgr.Contest_ON = false;
+
+            FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+        }
+    }
+
     //審査員におかしを提出する
     public void OnContestJudge_Start()
     {
@@ -656,6 +672,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     void OnSceneUnloaded(Scene current)
     {
         Debug.Log("OnSceneUnloaded: " + current);
+        
         GameMgr.Scene_LoadedOn_End = false;
     }
 }

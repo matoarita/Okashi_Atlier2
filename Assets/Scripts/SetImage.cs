@@ -1668,150 +1668,145 @@ public class SetImage : MonoBehaviour
             card_view_obj = GameObject.FindWithTag("CardView");
             card_view = card_view_obj.GetComponent<CardView>();
 
-            if (exp_table.check_on == true)
+
+            //半透明黒パネルはoff
+            BlackImage.GetComponent<CanvasGroup>().alpha = 0;
+
+            //チュートリアル最初のクッキーのときだけは、強制的に新しいお菓子閃いたことにする
+            if (GameMgr.tutorial_ON == true)
             {
-                //レベルチェック中は、カードを消せないようにする。
+                if (GameMgr.tutorial_Num == 75 || GameMgr.tutorial_Num == 265)
+                {
+                    exp_Controller.NewRecipiFlag = true;
+                    exp_Controller.NewRecipi_compoID = exp_Controller.result_ID; //コンポ調合データベースのIDを代入
+                }
+            }
+
+            //新しいレシピをひらめいたかどうかチェック
+            if (exp_Controller.NewRecipiFlag == true)
+            {
+                newrecipi_id = exp_Controller.NewRecipi_compoID;
+
+                //調合DBの名前と一致するものを、アイテムDBから検索。表示名前と画像を取得
+                i = 0;
+                while (i < database.items.Count)
+                {
+                    if (database.items[i].itemName == databaseCompo.compoitems[newrecipi_id].cmpitemID_result)
+                    {
+                        newrecipi_name = database.items[i].itemNameHyouji;
+                        newrecipi_Img = database.items[i].itemIcon_sprite;
+                        break;
+                    }
+                    i++;
+                }
+
+                //取得
+                NewRecipi = Instantiate(NewRecipi_Prefab1, canvas.transform);
+                newrecipi_text = NewRecipi.transform.Find("Panel/RecipiTextPanel/Text").gameObject.GetComponent<Text>();
+                newrecipi_Img_hyouji = NewRecipi.transform.Find("Panel/ItemPanel/ItemImage").gameObject.GetComponent<Image>();
+
+                //表示
+                newrecipi_text.text = GameMgr.ColorLemon + newrecipi_name + "</color>" + "\n" + "を覚えた！";
+
+                // texture2dを使い、Spriteを作って、反映させる
+                newrecipi_Img_hyouji.sprite = newrecipi_Img;
+
+                //アニメーション
+                //まず、初期値。
+                Sequence sequence = DOTween.Sequence();
+                NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().alpha = 0;
+                sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(0.65f, 0.65f, 1.0f), 0.0f)
+                    ); //
+
+                //移動のアニメ
+                sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f)
+                    .SetEase(Ease.OutElastic)); //はねる動き
+                                                //.SetEase(Ease.OutExpo)); //スケール小からフェードイン
+                sequence.Join(NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().DOFade(1, 0.2f));
+
+
+                //音を鳴らす 新しいレシピ閃いたときの音 scのほうに音を送ると、途中で音が途切れない。
+                sc.PlaySe(25);
+
+                exp_Controller.NewRecipiFlag = false; //オフにしておく。
+
+                card_view.DeleteCard_DrawView();
             }
             else
             {
-                //半透明黒パネルはoff
-                BlackImage.GetComponent<CanvasGroup>().alpha = 0;
 
-                //チュートリアル最初のクッキーのときだけは、強制的に新しいお菓子閃いたことにする
-                if (GameMgr.tutorial_ON == true)
+                //完成時パネルの取得
+                CompleteImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
+                CompleteImage.SetActive(false);
+
+                //別画面で（たとえばピクニック中など）戻るときは、status=0にならず、また調合画面に戻る。
+                if (GameMgr.picnic_event_reading_now)
                 {
-                    if (GameMgr.tutorial_Num == 75 || GameMgr.tutorial_Num == 265)
-                    {
-                        exp_Controller.NewRecipiFlag = true;
-                        exp_Controller.NewRecipi_compoID = exp_Controller.result_ID; //コンポ調合データベースのIDを代入
-                    }
-                }
-
-                //新しいレシピをひらめいたかどうかチェック
-                if (exp_Controller.NewRecipiFlag == true)
-                {
-                    newrecipi_id = exp_Controller.NewRecipi_compoID;
-
-                    //調合DBの名前と一致するものを、アイテムDBから検索。表示名前と画像を取得
-                    i = 0;
-                    while (i < database.items.Count)
-                    {
-                        if (database.items[i].itemName == databaseCompo.compoitems[newrecipi_id].cmpitemID_result)
-                        {
-                            newrecipi_name = database.items[i].itemNameHyouji;
-                            newrecipi_Img = database.items[i].itemIcon_sprite;
-                            break;
-                        }
-                        i++;
-                    }
-
-                    //取得
-                    NewRecipi = Instantiate(NewRecipi_Prefab1, canvas.transform);
-                    newrecipi_text = NewRecipi.transform.Find("Panel/RecipiTextPanel/Text").gameObject.GetComponent<Text>();
-                    newrecipi_Img_hyouji = NewRecipi.transform.Find("Panel/ItemPanel/ItemImage").gameObject.GetComponent<Image>();
-
-                    //表示
-                    newrecipi_text.text = GameMgr.ColorLemon + newrecipi_name + "</color>" + "\n" + "を覚えた！";
-
-                    // texture2dを使い、Spriteを作って、反映させる
-                    newrecipi_Img_hyouji.sprite = newrecipi_Img;
-
-                    //アニメーション
-                    //まず、初期値。
-                    Sequence sequence = DOTween.Sequence();
-                    NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().alpha = 0;
-                    sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(0.65f, 0.65f, 1.0f), 0.0f)
-                        ); //
-
-                    //移動のアニメ
-                    sequence.Append(NewRecipi.transform.Find("Panel/ItemPanel").DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f)
-                        .SetEase(Ease.OutElastic)); //はねる動き
-                                                    //.SetEase(Ease.OutExpo)); //スケール小からフェードイン
-                    sequence.Join(NewRecipi.transform.Find("Panel/ItemPanel").GetComponent<CanvasGroup>().DOFade(1, 0.2f));
-
-
-                    //音を鳴らす 新しいレシピ閃いたときの音 scのほうに音を送ると、途中で音が途切れない。
-                    sc.PlaySe(25);
-
-                    exp_Controller.NewRecipiFlag = false; //オフにしておく。
-
-                    card_view.DeleteCard_DrawView();
+                    GameMgr.compound_status = 6; // 調合の画面に戻る。
                 }
                 else
                 {
-
-                    //完成時パネルの取得
-                    CompleteImage = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CompletePanel").gameObject; //調合成功時のイメージパネル
-                    CompleteImage.SetActive(false);
-
-                    //別画面で（たとえばピクニック中など）戻るときは、status=0にならず、また調合画面に戻る。
-                    if (GameMgr.picnic_event_reading_now)
+                    //調合完了後、また調合画面に戻るか、メイン画面に戻るか
+                    switch (GameMgr.compound_select)
                     {
-                        GameMgr.compound_status = 6; // 調合の画面に戻る。
-                    }
-                    else
-                    {
-                        //調合完了後、また調合画面に戻るか、メイン画面に戻るか
-                        switch (GameMgr.compound_select)
-                        {
-                            case 1: //レシピ調合
+                        case 1: //レシピ調合
 
-                                if (GameMgr.OkashiMake_PanelSetType != 0) //新しいお菓子がセットされているので、一度オフ
-                                {
-                                    GameMgr.compound_status = 0;
-                                    GameMgr.CompoundSceneStartON = false;　//調合シーン終了
-
-                                    if (GameMgr.tutorial_ON == true)
-                                    {
-                                        if (GameMgr.tutorial_Num == 180)
-                                        {
-                                            GameMgr.tutorial_Progress = true;
-                                            GameMgr.tutorial_Num = 190;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    GameMgr.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
-                                }
-                                break;
-
-                            case 3: //オリジナル調合
-
-                                if (GameMgr.OkashiMake_PanelSetType != 0) //新しいお菓子がセットされているので、一度オフ
-                                {
-                                    GameMgr.compound_status = 0;
-                                    GameMgr.CompoundSceneStartON = false;　//調合シーン終了
-
-                                    if (GameMgr.tutorial_ON == true)
-                                    {
-                                        if (GameMgr.tutorial_Num == 180)
-                                        {
-                                            GameMgr.tutorial_Progress = true;
-                                            GameMgr.tutorial_Num = 190;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
-                                }
-                                break;
-
-                            default:
-
-                                GameMgr.CompoundSceneStartON = false;　//調合シーン終了
+                            if (GameMgr.OkashiMake_PanelSetType != 0) //新しいお菓子がセットされているので、一度オフ
+                            {
                                 GameMgr.compound_status = 0;
-                                break;
+                                GameMgr.CompoundSceneStartON = false; //調合シーン終了
 
-                        }
+                                if (GameMgr.tutorial_ON == true)
+                                {
+                                    if (GameMgr.tutorial_Num == 180)
+                                    {
+                                        GameMgr.tutorial_Progress = true;
+                                        GameMgr.tutorial_Num = 190;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                GameMgr.compound_status = 1; // もう一回、レシピ調合の画面に戻る。
+                            }
+                            break;
+
+                        case 3: //オリジナル調合
+
+                            if (GameMgr.OkashiMake_PanelSetType != 0) //新しいお菓子がセットされているので、一度オフ
+                            {
+                                GameMgr.compound_status = 0;
+                                GameMgr.CompoundSceneStartON = false; //調合シーン終了
+
+                                if (GameMgr.tutorial_ON == true)
+                                {
+                                    if (GameMgr.tutorial_Num == 180)
+                                    {
+                                        GameMgr.tutorial_Progress = true;
+                                        GameMgr.tutorial_Num = 190;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                GameMgr.compound_status = 3; // もう一回、オリジナル調合の画面に戻る。
+                            }
+                            break;
+
+                        default:
+
+                            GameMgr.CompoundSceneStartON = false; //調合シーン終了
+                            GameMgr.compound_status = 0;
+                            break;
+
                     }
-
-                    exp_Controller.EffectListClear();
-                    card_view.DeleteCard_DrawView();
-
                 }
+
+                exp_Controller.EffectListClear();
+                card_view.DeleteCard_DrawView();
+
             }
+
         }
         else
         {

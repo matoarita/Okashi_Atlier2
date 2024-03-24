@@ -222,9 +222,10 @@ public class Debug_Panel : MonoBehaviour {
         }
     }
 
+    //未使用
     public void InputPLevelNum()
     {
-        if (Debug_INPUT_ON)
+        /*if (Debug_INPUT_ON)
         {
             input_text = input_plevel.text;
             Int32.TryParse(input_text, out plevel_num);
@@ -245,8 +246,9 @@ public class Debug_Panel : MonoBehaviour {
             }
 
             matplace_database.matPlaceKaikin("Emerald_Shop"); //怪しげな館解禁
-        }
+        }*/
     }
+
 
     public void InputEDonguriNum()
     {
@@ -602,9 +604,9 @@ public class Debug_Panel : MonoBehaviour {
 
         PlayerStatus.girl1_Love_exp = 0;
 
-        if(_girllove_param >= girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count-1])
+        if(_girllove_param >= exp_table.stage1_hlvTable[exp_table.stage1_hlvTable.Count-1])
         {
-            _girllove_param = girl1_status.stage1_lvTable[girl1_status.stage1_lvTable.Count - 1];
+            _girllove_param = exp_table.stage1_hlvTable[exp_table.stage1_hlvTable.Count - 1];
         }
 
         if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
@@ -617,22 +619,15 @@ public class Debug_Panel : MonoBehaviour {
         else
         {
             //その他シーン　ハート数値を更新するだけ
-            for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
+            for (i = 0; i < exp_table.stage1_hlvTable.Count; i++)
             {
-                stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
+                stage_levelTable.Add(exp_table.stage1_hlvTable[i]);
                 //Debug.Log("stage1_levelTable: " + stage_levelTable[i]);
             }
 
             PlayerStatus.girl1_Love_exp = _girllove_param;
 
-            i = 0;
-            PlayerStatus.girl1_Love_lv = 1;
-            while (_girllove_param >= stage_levelTable[i])
-            {
-                //_girllove_param -= stage_levelTable[i];
-                PlayerStatus.girl1_Love_lv++;
-                i++;
-            }
+            exp_table.HeartLVKoushin();
 
             //表情も即時変更
             girl1_status.CheckGokigen();
@@ -666,34 +661,11 @@ public class Debug_Panel : MonoBehaviour {
         stage_levelTable.Clear();
 
         //好感度レベルテーブルを取得
-        switch (GameMgr.stage_number)
+        for (i = 0; i < exp_table.stage1_hlvTable.Count; i++)
         {
-            case 1:
-
-                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                {
-                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                    //Debug.Log("stage1_levelTable: " + "次のLv" + (i+2) + " " + stage_levelTable[i]);
-                }
-
-                break;
-
-            case 2:
-
-                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                {
-                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                }
-                break;
-
-            case 3:
-
-                for (i = 0; i < girl1_status.stage1_lvTable.Count; i++)
-                {
-                    stage_levelTable.Add(girl1_status.stage1_lvTable[i]);
-                }
-                break;
-        }
+            stage_levelTable.Add(exp_table.stage1_hlvTable[i]);
+            //Debug.Log("stage1_levelTable: " + "次のLv" + (i+2) + " " + stage_levelTable[i]);
+        }        
 
         PlayerStatus.girl1_Love_exp = _girllove_param;
 

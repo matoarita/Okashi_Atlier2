@@ -290,7 +290,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //クエスト以外で、クリアするのに必要なハート量
             save_stageclear_love = GameMgr.stageclear_love,
-            save_stageclear_cullentlove = GameMgr.stageclear_cullentlove,
 
             //イベントフラグ
             save_GirlLoveEvent_num = GameMgr.GirlLoveEvent_num,
@@ -594,7 +593,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //クエスト以外で、クリアするのに必要なハート量
         GameMgr.stageclear_love = playerData.save_stageclear_love;
-        GameMgr.stageclear_cullentlove = playerData.save_stageclear_cullentlove;
 
         //イベントフラグ
         GameMgr.GirlLoveEvent_num = playerData.save_GirlLoveEvent_num;
