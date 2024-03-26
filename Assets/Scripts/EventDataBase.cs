@@ -1565,13 +1565,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         {
             if(matplace_database.matplace_lists[i].placeFlag == 1 && matplace_database.matplace_lists[i].placeType == 1)
             {
-                map_list.Add(matplace_database.matplace_lists[i].matplaceID);
+                map_list.Add(i);
             }
         }
 
         random = Random.Range(0, map_list.Count);
         get_material.OutGirlGetRandomMaterials(map_list[random]);
-        //get_material.OutGirlGetRandomMaterials(matplace_database.SearchMapString("Forest"));
+        Debug.Log("取ってきた場所: " + matplace_database.matplace_lists[map_list[random]].placeNameHyouji);
+
     }
 
     void PicnicEvent()

@@ -443,7 +443,8 @@ public class Utage_scenario : MonoBehaviour
                 if (!_model)
                 {
                     //Live2Dモデルの取得
-                    _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                    ShopInitSetting();
+                    _model = character.transform.Find("puddingsan_Live2D").FindCubismModel();
                     _renderController = _model.GetComponent<CubismRenderController>();
                     live2d_animator = _model.GetComponent<Animator>();
                 }

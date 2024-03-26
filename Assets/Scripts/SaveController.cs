@@ -19,6 +19,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private ExtremePanel extreme_panel; //エクストリームパネルに登録したものがあった場合は、そのアイテムも表示されるように。
     private ItemShopDataBase shop_database;
     private QuestSetDataBase quest_database;
+    private MagicSkillListDataBase magicskill_database;
 
     //保存するものリスト　ここまで
 
@@ -58,6 +59,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveFlag> _temp_bgmcollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_bgacce_flaglist = new List<ItemSaveFlag>();
     private List<Item> _temp_contestclearcollectionlistItemData = new List<Item>();
+    private List<ItemSaveFlag> _temp_magicskill_list = new List<ItemSaveFlag>();
 
     private GameObject _model_obj;
     private GameObject StageClearButton_panel;
@@ -100,6 +102,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
     }
 	
 	// Update is called once per frame
@@ -179,7 +184,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_bgacce_flaglist.Clear();
         foreach (string key in GameMgr.BGAcceItemsName.Keys)
         {
-            _temp_bgacce_flaglist.Add(new ItemSaveFlag(key, 0, GameMgr.BGAcceItemsName[key]));
+            _temp_bgacce_flaglist.Add(new ItemSaveFlag(key, 0, 0, 0, GameMgr.BGAcceItemsName[key]));
+        }
+
+        //魔法スキルフラグリスト bool型は使用してないのでfalseにしてる
+        _temp_magicskill_list.Clear();
+        for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
+        {
+            _temp_magicskill_list.Add(new ItemSaveFlag(magicskill_database.magicskill_lists[i].skillName, magicskill_database.magicskill_lists[i].skillFlag, 
+                magicskill_database.magicskill_lists[i].skillLv, magicskill_database.magicskill_lists[i].skillUseLv, false));
         }
 
         //アイテムの前回得点のみ取得
@@ -209,6 +222,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_ninki_param = PlayerStatus.player_ninki_param, //人気度。いるかな？とりあえず置き
             save_player_zairyobox_lv = PlayerStatus.player_zairyobox_lv, // 材料カゴの大きさ
             save_player_zairyobox = PlayerStatus.player_zairyobox, // 材料カゴの大きさ
+
+            save_player_mp = PlayerStatus.player_mp,
+            save_player_maxmp = PlayerStatus.player_maxmp,
+            save_player_patissier_lv = PlayerStatus.player_patissier_lv,
+            save_player_patissier_exp = PlayerStatus.player_patissier_exp,
+            save_player_patissier_job_pt = PlayerStatus.player_patissier_job_pt,
+            save_player_patissier_Rank = PlayerStatus.player_patissier_Rank,
+            save_player_patissier_Rank_pt = PlayerStatus.player_patissier_Rank_pt,
 
 
             //妹のステータス
@@ -404,6 +425,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //エメラルドショップのイベントリスト
             save_emeraldShopEvent_stage = GameMgr.emeraldShopEvent_stage,
 
+            //魔法スキルのリスト
+            save_magicskill_list = _temp_magicskill_list,
+
             //アイテムリスト＜デフォルト＞
             save_playeritemlist = _tempplayeritemlist,
 
@@ -456,6 +480,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ゲームスピード
             save_GameSpeedParam = GameMgr.GameSpeedParam,
+
+            //セーブしたシーンの場所
+            save_Scene_Name = GameMgr.Scene_Name,
         };
 
         //デバッグ用
@@ -512,6 +539,21 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_ninki_param = playerData.save_player_ninki_param; //人気度。いるかな？とりあえず置き
         PlayerStatus.player_zairyobox_lv = playerData.save_player_zairyobox_lv; // 材料カゴの大きさ
         PlayerStatus.player_zairyobox = playerData.save_player_zairyobox; // 材料カゴの大きさ
+
+        PlayerStatus.player_mp = playerData.save_player_mp;
+        PlayerStatus.player_maxmp = playerData.save_player_maxmp;
+        PlayerStatus.player_patissier_lv = playerData.save_player_patissier_lv;
+        PlayerStatus.player_patissier_exp = playerData.save_player_patissier_exp;
+        PlayerStatus.player_patissier_job_pt = playerData.save_player_patissier_job_pt;
+        PlayerStatus.player_patissier_Rank = playerData.save_player_patissier_Rank;
+        PlayerStatus.player_patissier_Rank_pt = playerData.save_player_patissier_Rank_pt;
+
+        if(PlayerStatus.player_mp == 0) //例外処理　MP初期値が0になるのを回避　セーブデータに新パラメータ追加したてのときは0になるので、それを回避
+        {
+            PlayerStatus.player_mp = PlayerStatus.player_default_mp;
+            PlayerStatus.player_maxmp = PlayerStatus.player_default_mp;
+            PlayerStatus.player_patissier_lv = 1;
+        }
 
         //妹のステータス
         PlayerStatus.player_girl_findpower = playerData.save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
@@ -872,6 +914,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             shop_database.ReSetEmeraldItemString(playerData.save_emeraldshop_zaiko[i].itemName, playerData.save_emeraldshop_zaiko[i].itemKosu);
         }
 
+        //魔法スキルリストの読み込み
+        for (i = 0; i < playerData.save_magicskill_list.Count; i++)
+        {
+            magicskill_database.ReSetSkillParamString(playerData.save_magicskill_list[i].itemName, playerData.save_magicskill_list[i].Param, 
+                playerData.save_magicskill_list[i].Param2, playerData.save_magicskill_list[i].Param3);
+        }
+
         //お菓子の一度にトッピングできる回数
         GameMgr.topping_Set_Count = playerData.save_topping_Set_Count;       
 
@@ -907,6 +956,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         if (playerData.save_GameSpeedParam < 1 || playerData.save_GameSpeedParam > 6) { GameMgr.GameSpeedParam = 3; } //例外処理
         else { GameMgr.GameSpeedParam = playerData.save_GameSpeedParam; }
 
+        //セーブしたシーンの場所
+        GameMgr.Scene_Name = playerData.save_Scene_Name;
+
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
         /*for (i= 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
@@ -916,23 +968,25 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }*/
 
 
+        //
         //画面の更新処理
-        //Debug.Log("(GameMgr.Scene_Category_Num): " + GameMgr.Scene_Category_Num);
-        switch (GameMgr.Scene_Category_Num)
-        {
-            case 10:
-
-                DrawGameScreen();               
-                break;
-        }
+        //
+        
+        //まずはシーンを移動する。その後、移動先シーンからDrawGameScreenを読み出し
+        GameMgr.GameLoadOn = true;
+        FadeManager.Instance.LoadScene(GameMgr.Scene_Name, 0.3f);
+        
     }
-
+    
+    //シーン読み込み(start)完了後、ここを読む　Compound_Mainから読み込み
     public void DrawGameScreen()
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
         debug_panel = GameObject.FindWithTag("Debug_Panel").GetComponent<Debug_Panel>();
+
+        //Debug.Log("(GameMgr.Scene_Category_Num): " + GameMgr.Scene_Category_Num);
 
         switch (GameMgr.Scene_Category_Num)
         {
@@ -1008,7 +1062,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //シーンロード完了
         GameMgr.Scene_LoadedOn_End = true;
-
 
     }
 
@@ -1176,14 +1229,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_titlecollectionlist.Clear();
         for (i = 0; i < GameMgr.title_collection_list.Count; i++)
         {
-            _temp_titlecollectionlist.Add(new ItemSaveFlag(GameMgr.title_collection_list[i].titleName, 0, GameMgr.title_collection_list[i].Flag));
+            _temp_titlecollectionlist.Add(new ItemSaveFlag(GameMgr.title_collection_list[i].titleName, 0, 0, 0, GameMgr.title_collection_list[i].Flag));
         }
 
         //イベントリスト
         _temp_eventcollectionlist.Clear();
         for (i = 0; i < GameMgr.event_collection_list.Count; i++)
         {
-            _temp_eventcollectionlist.Add(new ItemSaveFlag(GameMgr.event_collection_list[i].titleName, 0, GameMgr.event_collection_list[i].Flag));
+            _temp_eventcollectionlist.Add(new ItemSaveFlag(GameMgr.event_collection_list[i].titleName, 0, 0, 0, GameMgr.event_collection_list[i].Flag));
         }
 
         //コンテストクリアお菓子リスト
@@ -1191,7 +1244,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_contestclearcollectionlistItemData.Clear();
         for (i = 0; i < GameMgr.contestclear_collection_list.Count; i++)
         {
-            _temp_contestclearcollectionlist.Add(new ItemSaveFlag(GameMgr.contestclear_collection_list[i].titleName, GameMgr.contestclear_collection_list[i].Score, GameMgr.contestclear_collection_list[i].Flag));
+            _temp_contestclearcollectionlist.Add(new ItemSaveFlag(GameMgr.contestclear_collection_list[i].titleName, GameMgr.contestclear_collection_list[i].Score, 0, 0, GameMgr.contestclear_collection_list[i].Flag));
             _temp_contestclearcollectionlistItemData.Add(GameMgr.contestclear_collection_list[i].ItemData);
         }
 
@@ -1199,7 +1252,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_bgmcollectionlist.Clear();
         for (i = 0; i < GameMgr.bgm_collection_list.Count; i++)
         {
-            _temp_bgmcollectionlist.Add(new ItemSaveFlag(GameMgr.bgm_collection_list[i].titleName, 0, GameMgr.bgm_collection_list[i].Flag));
+            _temp_bgmcollectionlist.Add(new ItemSaveFlag(GameMgr.bgm_collection_list[i].titleName, 0, 0, 0, GameMgr.bgm_collection_list[i].Flag));
         }
 
         //システムデータに、セーブしたかどうかのフラグをセット

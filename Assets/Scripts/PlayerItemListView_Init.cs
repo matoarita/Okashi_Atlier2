@@ -60,7 +60,6 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
         playeritemlist_onoff.name = "PlayeritemList_ScrollView";
 
         pitemlistController = playeritemlist_onoff.GetComponent<PlayerItemListController>();
-        pitemlistController.OnInitAfterSetting();
 
     }
 

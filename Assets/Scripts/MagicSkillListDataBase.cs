@@ -164,4 +164,21 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
             return 9999; //見つからなかった場合、9999
         }
     }
+
+    //スキルのパラメータセット　アイテム名＋パラメータで、指定したパラムに置き換える。
+    public void ReSetSkillParamString(string skillName, int param, int param2, int param3)
+    {
+        i = 0;
+        while (i < magicskill_lists.Count)
+        {
+            if (magicskill_lists[i].skillName == skillName)
+            {
+                magicskill_lists[i].skillFlag = param;
+                magicskill_lists[i].skillLv = param2;
+                magicskill_lists[i].skillUseLv = param3;
+                break;
+            }
+            i++;
+        }
+    }
 }

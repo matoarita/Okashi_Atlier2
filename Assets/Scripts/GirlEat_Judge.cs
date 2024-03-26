@@ -1664,7 +1664,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (_setType == 0)
             {
-                if (GameMgr.NowEatOkashiID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。得点も少し上がる。
+                if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。得点も少し上がる。
                 {
                     total_score = (int)(total_score * 1.3f);
                 }
@@ -2813,7 +2813,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
                 GameMgr.RandomEatOkashi_counter++;
 
-                if (GameMgr.NowEatOkashiID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
+                if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
                     Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.3倍");
 

@@ -23,6 +23,14 @@ public class PlayerData
     public int save_player_zairyobox; // 材料カゴの大きさ
     public int save_player_zairyobox_lv; // 材料カゴのLV
 
+    public int save_player_mp;
+    public int save_player_maxmp;
+    public int save_player_patissier_lv;
+    public int save_player_patissier_exp;
+    public int save_player_patissier_job_pt;
+    public int save_player_patissier_Rank;
+    public int save_player_patissier_Rank_pt;
+
 
     //妹のステータス
     public int save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
@@ -241,6 +249,9 @@ public class PlayerData
     //プレイヤーのエメラルドアイテムリスト。
     public List<ItemSaveKosu> save_player_emeralditemlist = new List<ItemSaveKosu>();
 
+    //魔法スキルの習得リスト
+    public List<ItemSaveFlag> save_magicskill_list = new List<ItemSaveFlag>();
+
     //プレイヤーが作成したオリジナルのアイテムリスト。
     public List<Item> save_player_originalitemlist = new List<Item>();
 
@@ -329,6 +340,9 @@ public class PlayerData
 
     //ストーリーモード
     public int save_Story_Mode;
+
+    //セーブした場所
+    public string save_Scene_Name;
 
     //ゲームバージョン情報
     public float save_GameVersion;

@@ -20,9 +20,10 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static int player_kamado_lv; //かまどのレベル
 
-    //２からのステータス追加 セーブ必要だが、まだしてない
+    //２からのステータス追加
     public static int player_mp;
     public static int player_maxmp;
+    public static int player_default_mp; //ゲーム初期値　セーブ不要
     public static int player_patissier_lv;
     public static int player_patissier_exp;
     public static int player_patissier_job_pt;
@@ -195,8 +196,9 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_tea_lv = 1;
         player_girl_icecream_lv = 1;
         player_girl_rareokashi_lv = 1;
-        
-        player_maxmp = 5;
+
+        player_default_mp = 5;
+        player_maxmp = player_default_mp;
         player_mp = player_maxmp;
         player_patissier_lv = 1;
         player_patissier_exp = 0;

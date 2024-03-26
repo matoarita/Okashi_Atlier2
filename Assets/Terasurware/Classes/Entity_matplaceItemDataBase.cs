@@ -55,6 +55,7 @@ public class Entity_matplaceItemDataBase : ScriptableObject
 		public float drop_rare_prob3;
 		public string center_bg;
 		public string back_bg;
+		public int read_end;
 	}
 }
 

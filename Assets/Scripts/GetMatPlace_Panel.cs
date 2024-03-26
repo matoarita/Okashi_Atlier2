@@ -66,6 +66,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject text_kaigyo_buttonPanel;
     private string _temp_tx;
     private bool text_kaigyo_active;
+    private bool MapList_ReadEnd;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -83,6 +84,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private Texture2D texture2d_map;
 
     private GameObject BG_Imagepanel;
+    private List<GameObject> BG_Imagepanel_obj = new List<GameObject>();
 
     private GameObject map_bg_effect;
 
@@ -95,7 +97,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     public int slot_view_status;
 
-    private int i, j;
+    private int i, j, count;
     private int select_num;
 
     private bool move_anim_on;
@@ -225,6 +227,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         getmatResult_panel = canvas.transform.Find("GetMatResult_Panel").GetComponent<GetMatResult_Panel>();
 
         BG_Imagepanel = getmatplace_panel.transform.Find("MapSelectBGPanel").gameObject;
+        BG_Imagepanel_obj.Clear();
 
         //マップ背景エフェクト
         map_bg_effect = GameObject.FindWithTag("MapBG_Effect");
@@ -238,20 +241,54 @@ public class GetMatPlace_Panel : MonoBehaviour {
         save_controller = SaveController.Instance.GetComponent<SaveController>();
 
         matplace_toggle.Clear();
+        count = 0;
+        MapList_ReadEnd = false;
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
             Destroy(child.gameObject);
         }
 
-        for (i = 0; i < matplace_database.matplace_lists.Count; i++)
+        i = 0;
+        while (i < matplace_database.matplace_lists.Count)
         {
-            //Debug.Log(child.name);           
-            matplace_toggle.Add(Instantiate(matplace_toggle_obj, content.transform));
-            map_icon = matplace_database.matplace_lists[i].mapIcon_sprite;
-            matplace_toggle[i].transform.Find("Background").GetComponent<Image>().sprite = map_icon;
-            matplace_toggle[i].transform.Find("Background").GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
-            matplace_toggle[i].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにIDを割り振っておく。
+            switch (GameMgr.Scene_Name)
+            {
+                case "Compound":
+
+                    if (matplace_database.matplace_lists[i].matplaceID >= 0)
+                    {
+                        mapicon_Draw();
+
+                        if (matplace_database.matplace_lists[i].read_end == 1)
+                        {
+                            MapList_ReadEnd = true;
+                            break;
+                        }
+                    }
+
+                    break;
+
+                case "Or_Compound":
+
+                    if (matplace_database.matplace_lists[i].matplaceID >= 100)
+                    {
+                        mapicon_Draw();
+
+                        if (matplace_database.matplace_lists[i].read_end == 1)
+                        {
+                            MapList_ReadEnd = true;
+                            break;
+                        }
+                    }
+                    break;
+            }
+
+            if(MapList_ReadEnd)
+            {
+                break;
+            }
+            i++;
         }
 
         //採取地画面の取得
@@ -292,6 +329,19 @@ public class GetMatPlace_Panel : MonoBehaviour {
         InitializeResultItemDicts(); //取得したアイテム表示用のディクショナリー
     }
 
+    void mapicon_Draw()
+    {
+        //Debug.Log(child.name);           
+        matplace_toggle.Add(Instantiate(matplace_toggle_obj, content.transform));
+        map_icon = matplace_database.matplace_lists[i].mapIcon_sprite;
+        matplace_toggle[count].transform.Find("Background").GetComponent<Image>().sprite = map_icon;       
+        matplace_toggle[count].transform.Find("Background").GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+        matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_flag = matplace_database.matplace_lists[i].placeFlag;
+        matplace_toggle[count].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにリスト配列番号を割り振っておく。
+        
+        count++;
+    }
+
     private void OnEnable()
     {
         
@@ -316,9 +366,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
         if (GameMgr.Story_Mode != 0)
         {
             //まずリセット
-            BG_Imagepanel.transform.Find("SelectMapBG1").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("SelectMapBG2").gameObject.SetActive(false);
-            BG_Imagepanel.transform.Find("SelectMapBG3").gameObject.SetActive(false);
+            BG_Imagepanel_obj.Clear();
+            BG_Imagepanel_obj.Add(BG_Imagepanel.transform.Find("Map_01/SelectMapBG1").gameObject);
+            BG_Imagepanel_obj.Add(BG_Imagepanel.transform.Find("Map_01/SelectMapBG2").gameObject);
+            BG_Imagepanel_obj.Add(BG_Imagepanel.transform.Find("Map_01/SelectMapBG3").gameObject);
+
+            BG_Imagepanel_obj[0].SetActive(true);
+            BG_Imagepanel_obj[1].SetActive(false);
+            BG_Imagepanel_obj[2].SetActive(false);
 
             switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
             {
@@ -340,12 +395,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 case 5: //夕方
 
-                    BG_Imagepanel.transform.Find("SelectMapBG2").gameObject.SetActive(true);
+                    BG_Imagepanel_obj[1].SetActive(true);
                     break;
 
                 case 6: //夜
 
-                    BG_Imagepanel.transform.Find("SelectMapBG3").gameObject.SetActive(true);
+                    BG_Imagepanel_obj[2].SetActive(true);
 
                     break;
             }
@@ -358,7 +413,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //表示フラグにそって、採取地の表示/非表示の決定
         for (i = 0; i < matplace_toggle.Count; i++)
         {
-            if (matplace_database.matplace_lists[i].placeFlag == 1)
+            if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
             {
                 matplace_toggle[i].SetActive(true);
             }
@@ -431,9 +486,32 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Farm", 0.3f);
                     break;
 
-                case "Orangina_Castletown":
+                case "Grt_StartCompound":
+
+                    FadeManager.Instance.LoadScene("Compound", 0.3f);
+                    break;
+
+                //以下、オランジーナ関連
+                case "Orangina_Compound":
 
                     FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
+                    break;
+
+                case "Or_Shop_A1":
+
+                    GameMgr.Scene_Name = "Or_Shop_A1"; //ショップや酒場・コンテストなどは行く前に、どのエリアのお店なのか名称も指定する
+                    FadeManager.Instance.LoadScene("Or_Shop", 0.3f);
+                    break;
+
+                case "Or_Bar_A1":
+
+                    GameMgr.Scene_Name = "Or_Bar_A1";
+                    FadeManager.Instance.LoadScene("Or_Bar", 0.3f);
+                    break;
+
+                case "Or_Hiroba1":
+
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", 0.3f);
                     break;
 
                 case "Contest_OrA1":
@@ -653,7 +731,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         select_place_name = matplace_database.matplace_lists[_place_num].placeName;
         select_place_day = matplace_database.matplace_lists[_place_num].placeDay;
 
-        Debug.Log("mapID: " + _place_num + " " + select_place_name + "が選択されました。");
+        Debug.Log("mapID: " + matplace_database.matplace_lists[_place_num].matplaceID + " " + select_place_name + "が選択されました。");
 
         Select_Pause();
     }

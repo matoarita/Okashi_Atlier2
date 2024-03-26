@@ -210,16 +210,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
                         NouhinKetteiPanel_obj = quest_Judge_CanvasPanel.transform.Find("NouhinKetteiPanel").gameObject;
 
-                        shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
-                        shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
-
                         shopquestlistController_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
                         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-
-                        yes = shopitemlistController_obj.transform.Find("Yes").gameObject;
-                        yes_text = yes.GetComponentInChildren<Text>();
-                        no = shopitemlistController_obj.transform.Find("No").gameObject;
-                        no_text = no.GetComponentInChildren<Text>();
 
                         kettei_on_waiting = false;
                     }
@@ -283,6 +275,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         {
                             if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                             {
+                                yes_selectitem_kettei.onclick = false;
+
                                 if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                 {
                                     //Debug.Log("調合シーンキャンセル");
@@ -291,9 +285,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                     GameMgr.compound_status = 8; //何も選択していない状態にもどる。
                                     GameMgr.compound_select = 0;
-
-                                    yes_selectitem_kettei.onclick = false;
-
                                 }
                             }
                         }
@@ -301,6 +292,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         {
                             if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                             {
+                                yes_selectitem_kettei.onclick = false;
                                 if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                 {
                                     //Debug.Log("調合シーンキャンセル");
@@ -309,9 +301,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                     GameMgr.compound_status = 6; //何も選択していない状態にもどる。
                                     GameMgr.compound_select = 0;
-
-                                    yes_selectitem_kettei.onclick = false;
-
                                 }
                             }
                         }
@@ -329,6 +318,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                 {
                                     if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                                     {
+                                        yes_selectitem_kettei.onclick = false;
 
                                         if (GameMgr.Comp_kettei_bunki == 1) //現在一個目を選択している状態
                                         {
@@ -336,7 +326,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                             {
                                                 //Debug.Log("一個目はcancel");
 
-                                                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                                                 All_cancel();
 
                                             }
@@ -346,7 +335,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                         {
                                             if (yes_selectitem_kettei.kettei1 == true) //調合二個で決定した状態
                                             {
-                                                yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                                                 GameMgr.final_select_flag = true;
 
@@ -375,13 +363,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                 if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                                 {
+                                    yes_selectitem_kettei.onclick = false;
 
                                     if (GameMgr.Comp_kettei_bunki == 10) //現在ベースアイテムを選択している状態
                                     {
                                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                         {
-
-                                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                                             pitemlistController.topping_DrawView_1(); //リストビューを更新し、トッピング材料だけ表示する。
 
                                             All_cancel();
@@ -394,7 +381,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                         if (yes_selectitem_kettei.kettei1 == true) //ベースアイテム＋調合１個で決定した状態
                                         {
 
-                                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                                             GameMgr.final_select_flag = true;
 
                                         }
@@ -412,8 +398,6 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                     {
                                         if (yes_selectitem_kettei.kettei1 == true) //ベースアイテム＋調合二個で決定した状態
                                         {
-
-                                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                                             GameMgr.final_select_flag = true;
 
@@ -441,11 +425,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                 if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                                 {
+                                    yes_selectitem_kettei.onclick = false;
 
                                     if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                     {
                                         //魔法選択画面へ戻る
-                                        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
                                         GameMgr.compound_status = 20;//魔法選択スタートのステータスに戻す。
 
@@ -460,79 +444,36 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         break;
                 }
             }
-
-            if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
+            else
             {
-
-                switch (GameMgr.compound_status)
+                if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
                 {
-                    case 21: //status=21。材料採取地選択中
 
-                        if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
-                        {
-                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
-                            {
+                    switch (GameMgr.compound_status)
+                    {
+                        case 21: //status=21。材料採取地選択中
 
-                                GameMgr.compound_status = 0; //何も選択していない状態にもどる。
-                                GameMgr.compound_select = 0;
-
-                                yes_selectitem_kettei.onclick = false;
-
-                            }
-                        }
-
-                        break;
-
-
-                    case 61: //compound_status = 61。レシピ本を選択中。
-
-                        if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
-                        {
-                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
-                            {
-                                All_cancel();
-
-                                GameMgr.compound_status = 0; //何も選択していない状態にもどる。
-                            }
-                        }
-                        break;
-
-                    case 99: //compound_status = 99。アイテム画面開き中。
-
-                        if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
-                        {
-                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
-                            {
-                                All_cancel();
-
-                                GameMgr.compound_status = 0; //何も選択していない状態にもどる。
-                            }
-                        }
-                        break;
-
-
-                    case 100: //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
-
-                        
-                        /*if (GameMgr.compound_select == 99) //カード一度開いた状態で、メニュー開いたのときの処理
-                        {
                             if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                             {
+                                yes_selectitem_kettei.onclick = false;
                                 if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                 {
-                                    All_cancel();
 
-                                    pitemlistController._count1 = 9999;
+                                    GameMgr.compound_status = 0; //何も選択していない状態にもどる。
+                                    GameMgr.compound_select = 0;
 
-                                    GameMgr.compound_status = 99; //何も選択していない状態にもどる。
                                 }
                             }
-                        }*/
 
-                        if (GameMgr.compound_select == 200) //システム画面開いたのときの処理
-                        {
+                            break;
+
+
+                        case 61: //compound_status = 61。レシピ本を選択中。
+
                             if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                             {
+                                yes_selectitem_kettei.onclick = false;
+
                                 if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                 {
                                     All_cancel();
@@ -540,75 +481,142 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                     GameMgr.compound_status = 0; //何も選択していない状態にもどる。
                                 }
                             }
-                        }
-                        break;
+                            break;
+
+                        case 99: //compound_status = 99。アイテム画面開き中。
+
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                            {
+                                yes_selectitem_kettei.onclick = false;
+
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+                                    All_cancel();
+
+                                    GameMgr.compound_status = 0; //何も選択していない状態にもどる。
+                                }
+                            }
+                            break;
+
+
+                        case 100: //compound_status = 100のとき。一度トグルをおし、カードなどを選択し始めた場合、status=100になる。
+
+
+                            /*if (GameMgr.compound_select == 99) //カード一度開いた状態で、メニュー開いたのときの処理
+                            {
+                                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                                {
+                                    yes_selectitem_kettei.onclick = false;
+                                    if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                    {
+                                        All_cancel();
+
+                                        pitemlistController._count1 = 9999;
+
+                                        GameMgr.compound_status = 99; //何も選択していない状態にもどる。
+                                    }
+                                }
+                            }*/
+
+                            if (GameMgr.compound_select == 200) //システム画面開いたのときの処理
+                            {
+                                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                                {
+                                    yes_selectitem_kettei.onclick = false;
+
+                                    if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                    {
+                                        All_cancel();
+
+                                        GameMgr.compound_status = 0; //何も選択していない状態にもどる。
+                                    }
+                                }
+                            }
+                            break;
 
 
 
-                    default://compound=110　最後調合するかどうかの確認中など、待機状態
-                        break;
+                        default://compound=110　最後調合するかどうかの確認中など、待機状態
+                            break;
+                    }
                 }
-            }
 
-
-            if (GameMgr.Scene_Category_Num == 30)
-            {
-                if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                if (GameMgr.Scene_Category_Num == 20) //ショップシーン
                 {
-                    if (GameMgr.Scene_Select == 3 && shopquestlistController.nouhin_select_on == 1) //ショップ納品時の選択
+                    if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                     {
-                        if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                        yes_selectitem_kettei.onclick = false;
+
+                        if (GameMgr.Scene_Select == 5) //売る選択時
                         {
-                            yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-                            no = pitemlistController_obj.transform.Find("No").gameObject;
-
-                            //Debug.Log("キャンセル");
-                            if (pitemlistController._listcount.Count > 0)
+                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                             {
-                                _text.text = "次のお菓子を選んでね。";
+
+                                GameMgr.Scene_Status = 0;
                             }
-                            else
+                        }
+                    }
+                }
+
+                if (GameMgr.Scene_Category_Num == 30)
+                {
+                    if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                    {
+                        yes_selectitem_kettei.onclick = false;
+
+                        if (GameMgr.Scene_Select == 3 && shopquestlistController.nouhin_select_on == 1) //酒場クエスト納品時の選択
+                        {
+                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                             {
-                                _text.text = "渡したいお菓子を選んでね。";
+                                yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+                                no = pitemlistController_obj.transform.Find("No").gameObject;
+
+                                //Debug.Log("キャンセル");
+                                if (pitemlistController._listcount.Count > 0)
+                                {
+                                    _text.text = "次のお菓子を選んでね。";
+                                }
+                                else
+                                {
+                                    _text.text = "渡したいお菓子を選んでね。";
+                                }
+
+
+                                //Debug.Log("pitemlistController._listcount[i]を削除: " + pitemlistController._listcount[pitemlistController._listcount.Count - 1]);
+                                pitemlistController._listcount.RemoveAt(pitemlistController._listcount.Count - 1); //一番最後に挿入されたやつを、そのまま削除
+                                pitemlistController._listkosu.RemoveAt(pitemlistController._listkosu.Count - 1); //一番最後に挿入されたやつを、そのまま削除
+
+                                for (i = 0; i < pitemlistController._listitem.Count; i++)
+                                {
+                                    //まずは、一度全て表示を初期化
+                                    pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
+
+                                }
+
+
+                                //選択済みのやつだけONにしておく。
+                                for (i = 0; i < pitemlistController._listcount.Count; i++)
+                                {
+                                    Debug.Log("pitemlistController._listcount[i]: " + i + ": " + pitemlistController._listcount[i]);
+                                    pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().interactable = false;
+                                    //pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().isOn = true;
+                                }
+
+                                card_view.DeleteCard_DrawView();
+
+                                yes.SetActive(false);
+                                //no.SetActive(false);
+                                NouhinKetteiPanel_obj.SetActive(true);
+
+                                //Debug.Log("リストカウント: " + pitemlistController._listcount.Count);
+                                if (pitemlistController._listcount.Count <= 0) //すべて選択してないときは、noはOFF
+                                {
+                                    Debug.Log("リストカウント: " + pitemlistController._listcount.Count);
+                                    no.SetActive(false);
+                                }
+
                             }
-
-
-                            //Debug.Log("pitemlistController._listcount[i]を削除: " + pitemlistController._listcount[pitemlistController._listcount.Count - 1]);
-                            pitemlistController._listcount.RemoveAt(pitemlistController._listcount.Count - 1); //一番最後に挿入されたやつを、そのまま削除
-                            pitemlistController._listkosu.RemoveAt(pitemlistController._listkosu.Count - 1); //一番最後に挿入されたやつを、そのまま削除
-
-                            for (i = 0; i < pitemlistController._listitem.Count; i++)
-                            {
-                                //まずは、一度全て表示を初期化
-                                pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
-                                pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
-
-                            }
-
-
-                            //選択済みのやつだけONにしておく。
-                            for (i = 0; i < pitemlistController._listcount.Count; i++)
-                            {
-                                Debug.Log("pitemlistController._listcount[i]: " + i + ": " + pitemlistController._listcount[i]);
-                                pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().interactable = false;
-                                //pitemlistController._listitem[pitemlistController._listcount[i]].GetComponent<Toggle>().isOn = true;
-                            }
-
-                            card_view.DeleteCard_DrawView();
-
-                            yes.SetActive(false);
-                            //no.SetActive(false);
-                            NouhinKetteiPanel_obj.SetActive(true);
-
-                            yes_selectitem_kettei.onclick = false;
-
-                            //Debug.Log("リストカウント: " + pitemlistController._listcount.Count);
-                            if (pitemlistController._listcount.Count <= 0) //すべて選択してないときは、noはOFF
-                            {
-                                Debug.Log("リストカウント: " + pitemlistController._listcount.Count);
-                                no.SetActive(false);
-                            }
-
                         }
                     }
                 }
@@ -621,11 +629,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                     if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                     {
+                        yes_selectitem_kettei.onclick = false;
+
                         if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                         {
                             //kettei_on_waiting = false;
                             GameMgr.event_pitem_cancel = true; //やめたフラグON
-                            yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
                         }
                     }
                     break;
@@ -786,7 +795,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         }
      
 
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        //yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
     }
 
@@ -846,7 +855,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //no.SetActive(false);
         updown_counter_obj.SetActive(false);
 
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        //yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
 
@@ -897,7 +906,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         //no.SetActive(false);
         updown_counter_obj.SetActive(false);
 
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        //yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
 
@@ -934,7 +943,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         GameMgr.final_select_flag = false;
 
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        //yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
     }
 
 

@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_matplaceItemDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Excel_Data/Entity_matplaceItemDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Excel_Data/Entity_matplaceItemDataBase.asset";
-	private static readonly string[] sheetNames = { "Sheet1","Sheet2", };
+	private static readonly string[] sheetNames = { "01_map_Grt","01_map_Grt_Hikari","02_map_Or","02_map_Or_Hikari", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
@@ -88,6 +88,7 @@ public class Entity_matplaceItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(35); p.drop_rare_prob3 = (float)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(36); p.center_bg = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(37); p.back_bg = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(38); p.read_end = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

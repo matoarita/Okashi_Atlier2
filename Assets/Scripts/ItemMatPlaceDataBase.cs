@@ -8,7 +8,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
 
     private int _id;
     private string placeFileName;
-    private string placeName;
+    private string placeName; //メインとヒカリ採取用マップは名前は被っていい　２つセットで登録していく
     private string placeName_Hyouji;
     private int place_day;
     private int place_cost;
@@ -43,6 +43,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     private float drop_rare_prob3;
     private string center_bg;
     private string back_bg;
+    private int read_end;
 
     private int i;
     private int count;
@@ -113,24 +114,25 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
                 drop_rare_prob3 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_rare_prob3;
                 center_bg = excel_matplace_itemdatabase.sheets[sheet_no].list[count].center_bg;
                 back_bg = excel_matplace_itemdatabase.sheets[sheet_no].list[count].back_bg;
+                read_end = excel_matplace_itemdatabase.sheets[sheet_no].list[count].read_end;
 
 
                 //ここでリストに追加している
-                if (sheet_no == 0)
+                if (sheet_no % 2 == 0) //偶数がメインのマップ
                 {
                     matplace_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_day, place_cost, place_hp, place_flag, place_type,
                         drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_item6, drop_item7, drop_item8, drop_item9, drop_item10,
                         drop_rare1, drop_rare2, drop_rare3,
                         drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_prob6, drop_prob7, drop_prob8, drop_prob9, drop_prob10,
-                        drop_rare_prob1, drop_rare_prob2, drop_rare_prob3, center_bg, back_bg));
+                        drop_rare_prob1, drop_rare_prob2, drop_rare_prob3, center_bg, back_bg, read_end));
                 }
-                else if (sheet_no == 1)
+                else if (sheet_no % 2 == 1) //奇数がヒカリの採取用マップ
                 {
                     matplace_hikariget_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_day, place_cost, place_hp, place_flag, place_type,
                         drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_item6, drop_item7, drop_item8, drop_item9, drop_item10,
                         drop_rare1, drop_rare2, drop_rare3,
                         drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_prob6, drop_prob7, drop_prob8, drop_prob9, drop_prob10,
-                        drop_rare_prob1, drop_rare_prob2, drop_rare_prob3, center_bg, back_bg));
+                        drop_rare_prob1, drop_rare_prob2, drop_rare_prob3, center_bg, back_bg, read_end));
                 }
                 ++count;
             }

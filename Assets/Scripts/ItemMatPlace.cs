@@ -46,6 +46,8 @@ public class ItemMatPlace
     public Texture2D center_bg;
     public Texture2D back_bg;
 
+    public int read_end; //各マップリストデータの読み終わり地点
+
     public Sprite mapIcon_sprite;
 
     //ここでリスト化時に渡す引数をあてがいます   
@@ -55,7 +57,7 @@ public class ItemMatPlace
         string drop_rare1, string drop_rare2, string drop_rare3, 
         float drop_prob1, float drop_prob2, float drop_prob3, float drop_prob4, float drop_prob5,
         float drop_prob6, float drop_prob7, float drop_prob8, float drop_prob9, float drop_prob10, 
-        float drop_rare_prob1, float drop_rare_prob2, float drop_rare_prob3, string _center_bg, string _back_bg)
+        float drop_rare_prob1, float drop_rare_prob2, float drop_rare_prob3, string _center_bg, string _back_bg, int _read_end)
     {
         matplaceID = id;
 
@@ -100,6 +102,8 @@ public class ItemMatPlace
 
         center_bg = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/" + _center_bg);
         back_bg = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/" + _back_bg);
+
+        read_end = _read_end;
     }
 
 }

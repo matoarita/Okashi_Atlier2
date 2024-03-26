@@ -236,6 +236,16 @@ public class BGM : MonoBehaviour {
                 //オランジーナは、こっちが中心
                 switch(GameMgr.Scene_Category_Num)
                 {
+                    case 20: //オランジーナショップ
+
+                        _bgm[0].clip = sound27;
+                        break;
+
+                    case 30: //オランジーナ酒場
+
+                        _bgm[0].clip = sound29;
+                        break;
+
                     case 60: //オランジーナ広場系
 
                         _bgm[0].clip = sound23;

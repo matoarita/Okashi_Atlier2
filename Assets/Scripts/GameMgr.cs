@@ -35,7 +35,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_ExtraResult_ON = false; //エクストラ　道中クエストのリザルト画面とご褒美画面をONにする。
     public static bool System_ExtraStageClearResult_ON = false; //エクストラ　ステージクリア時にリザルト画面とご褒美画面をONにする。
     public static bool System_GameOver_ON = false; //エクストラ　ゲームオーバーのONOFF
-    public static bool System_HikariMake_OnichanTimeCost_ON = false; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
+    public static bool System_HikariMake_OnichanTimeCost_ON = true; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
 
     //** --ここまで-- **//
 
@@ -67,6 +67,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage_quest_num; //メインのクエスト番号
     public static int stage_quest_num_sub; //クエスト番号
     public static int Story_Mode; //0が本編。1が、フリーモード（強くてニューゲーム）。
+    public static string Scene_Name; //その場所の固有名　主にセーブした場所を記録する。
 
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;
@@ -349,7 +350,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //お菓子イベント現在のナンバー
     public static string NowEatOkashiName; //今食べたいお菓子の名前表示
-    public static int NowEatOkashiID; //今食べたいお菓子のアイテムID。ItemdatabaseのitemID。
+    public static int NowEatOkashiID; //今食べたいお菓子のアイテムID。Itemdatabaseのリスト番号。
 
     //お菓子の点数基準値
     public static int mazui_score;
@@ -445,6 +446,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
     public static int Scene_Category_Num;           //Compound=10, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, Contest=100, Contest_Outside=110, 
                                                     //200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
+    
 
     //その他、一時的なフラグ
     public static int MapSubEvent_Flag;

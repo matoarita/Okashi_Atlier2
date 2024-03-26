@@ -227,9 +227,6 @@ public class Updown_counter : MonoBehaviour {
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
                     shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
 
-                    shopquestlistController_obj = canvas.transform.Find("ShopQuestList_ScrollView").gameObject;
-                    shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
-
                     pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
                     pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 

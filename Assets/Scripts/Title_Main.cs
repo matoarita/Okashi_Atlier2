@@ -164,13 +164,9 @@ public class Title_Main : MonoBehaviour {
 
     public void OnLoadButton()
     {
-        
-        save_controller.OnLoadMethod();
-        GameMgr.GameLoadOn = true; //順番が大事。ロードより後にこっちはtrueにしとく。
-
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
-        FadeManager.Instance.LoadScene("Compound", 0.3f);
-        //SceneManager.LoadSceneAsync("Compound");
+        save_controller.OnLoadMethod();
+
     }
 
     public void OnGalleryButton()

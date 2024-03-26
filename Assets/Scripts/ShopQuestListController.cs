@@ -126,7 +126,7 @@ public class ShopQuestListController : MonoBehaviour
 
     }
 
-    //ランダムでクエストを３つ選ぶ。現在は、ショップ入店時のタイミング
+    //ランダムでクエストを３つ選ぶ。現在は、入店時のタイミング
     public void RandomQuestSelect()
     {
         InitiallizeRandomQuestDatabase(); //ストーリー進行にそって、どのクエストが選ばれるかを初期化

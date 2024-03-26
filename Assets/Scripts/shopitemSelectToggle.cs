@@ -128,6 +128,9 @@ public class shopitemSelectToggle : MonoBehaviour
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
+        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
+
 
         //カテゴリータブの取得
         category_toggle.Clear();
@@ -173,6 +176,8 @@ public class shopitemSelectToggle : MonoBehaviour
             updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
             updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
             updown_button = updown_counter_obj.GetComponentsInChildren<Button>();
+
+            itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
             back_ShopFirst_btn.interactable = false;
             shop_buy_active();
@@ -262,7 +267,7 @@ public class shopitemSelectToggle : MonoBehaviour
         }
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
+        
         switch (yes_selectitem_kettei.kettei1)
         {
 
@@ -295,6 +300,9 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 card_view.DeleteCard_DrawView();
                 blackpanel_A.SetActive(false);
+
+                itemselect_cancel.kettei_on_waiting = false; //トグルが押された時点で、トグル内のボタンyes,noを優先する
+
 
                 break;
         }
@@ -342,6 +350,8 @@ public class shopitemSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        itemselect_cancel.kettei_on_waiting = false; //トグルが押された時点で、トグル内のボタンyes,noを優先する
+
 
         switch (yes_selectitem_kettei.kettei1)
         {

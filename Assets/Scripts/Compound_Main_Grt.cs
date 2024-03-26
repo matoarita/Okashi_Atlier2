@@ -22,6 +22,9 @@ public class Compound_Main_Grt : MonoBehaviour {
 
         //今いるシーン番号を指定
         //GameMgr.Scene_Category_Num = 10;
+
+        GameMgr.Scene_Name = "Compound";
+
         //Debug.Log("(GameMgr.Scene_Category_Num): " + GameMgr.Scene_Category_Num);
     }
 	

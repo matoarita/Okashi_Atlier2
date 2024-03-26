@@ -253,7 +253,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                                         if (GameMgr.hikari_make_okashiFlag)
                                         {
-                                            GameMgr.hikari_make_okashiTimeCounter += 1 * GameMgr.TimeStep;
+                                            GameMgr.hikari_make_okashiTimeCounter += 5 * GameMgr.TimeStep;
                                             if (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost) //costtime=1が5分　ヒカリが作ると2倍時間かかる　
                                                                                                                              //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
                                             {
@@ -518,40 +518,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     public void HikariMakeOkashiJudge()
     {
-        //サイコロをふる
-        dice = Random.Range(1, 100); //1~100までのサイコロをふる。
-
-        Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
-
-        if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
-        {
-            GameMgr.hikari_make_success_count++;
-
-            //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
-            GameMgr.hikari_make_okashiKosu++;
-            _getexp = 2;
-            hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
-
-            //成功すると、機嫌が少しよくなる。
-            girl1_status.GirlExpressionKoushin(10);
-        }
-        else //失敗
-        {
-            GameMgr.hikari_make_failed_count++;
-
-            //生成されず。材料だけ消費。
-            _getexp = 5;
-            hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
-
-            //ハートも下がる。
-            girleat_judge.UpDegHeart(-5, false);
-
-            //失敗すると、機嫌は下がる。-20で1段階下がる。
-            girl1_status.GirlExpressionKoushin(-10);
-        }
-
-
-        //削除前に残り個数チェック
+        //まず残り個数チェック
         //材料がなくなってたら、ここで終了。
         itemkosu_check = false;
         for (i = 0; i < 3; i++)
@@ -576,9 +543,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     }
                     else
                     {
-                        if (pitemlist.playeritemlist[database.items[GameMgr.hikari_kettei_item[i]].itemName] - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
+                        if (pitemlist.playeritemlist[database.items[GameMgr.hikari_kettei_item[i]].itemName] < GameMgr.hikari_kettei_kosu[i])
                         {
-                            //終了
+                            //個数足りない　終了
                             itemkosu_check = true;
                         }
                     }
@@ -592,7 +559,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     }
                     else
                     {
-                        if (pitemlist.player_originalitemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
+                        if (pitemlist.player_originalitemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu < GameMgr.hikari_kettei_kosu[i])
                         {
                             //終了
                             itemkosu_check = true;
@@ -608,7 +575,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     }
                     else
                     {
-                        if (pitemlist.player_extremepanel_itemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu - GameMgr.hikari_kettei_kosu[i] < GameMgr.hikari_kettei_kosu[i])
+                        if (pitemlist.player_extremepanel_itemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu < GameMgr.hikari_kettei_kosu[i])
                         {
                             //終了
                             itemkosu_check = true;
@@ -618,9 +585,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             }
         }
 
-        compound_keisan.Delete_playerItemList(2);
-
-        if (itemkosu_check)
+        if (itemkosu_check) //trueなら個数がたりないので、終了
         {
             //終了
             GameMgr.hikari_make_okashiFlag = false;
@@ -631,7 +596,45 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             {
                 GameMgr.hikari_make_Allfailed = true;
             }
+        } else
+        {
+            //制作チェック
+
+            //サイコロをふる
+            dice = Random.Range(1, 100); //1~100までのサイコロをふる。
+
+            Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
+
+            if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
+            {
+                GameMgr.hikari_make_success_count++;
+
+                //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
+                GameMgr.hikari_make_okashiKosu++;
+                _getexp = 2;
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
+
+                //成功すると、機嫌が少しよくなる。
+                girl1_status.GirlExpressionKoushin(10);
+            }
+            else //失敗
+            {
+                GameMgr.hikari_make_failed_count++;
+
+                //生成されず。材料だけ消費。
+                _getexp = 5;
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
+
+                //ハートも下がる。
+                girleat_judge.UpDegHeart(-5, false);
+
+                //失敗すると、機嫌は下がる。-20で1段階下がる。
+                girl1_status.GirlExpressionKoushin(-10);
+            }
+
+            compound_keisan.Delete_playerItemList(2);
         }
+        
     }
 
     //天気状態の更新
@@ -1119,7 +1122,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             {
                 if (GameMgr.hikari_make_okashiFlag)
                 {
-                    GameMgr.hikari_make_okashiTimeCounter += (GameMgr.TimeStep * _costTime);
+                    GameMgr.hikari_make_okashiTimeCounter += (GameMgr.TimeStep * _costTime); //hikari_make_okashiTimeCounterは0始まり
 
                     while (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost)
                     {
@@ -1128,7 +1131,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                         GameMgr.hikari_make_okashiTimeCounter -= GameMgr.hikari_make_okashiTimeCost;
 
-                        //お菓子制作。成功率を計算する。
+                        //お菓子制作。個数と成功率を計算する。
                         HikariMakeOkashiJudge();
 
                         if (!GameMgr.hikari_make_okashiFlag)

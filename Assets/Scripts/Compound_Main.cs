@@ -692,8 +692,8 @@ public class Compound_Main : MonoBehaviour
         if (GameMgr.GameLoadOn)
         {
             Debug.Log("ロード画面から読み込んだ");
-
-            GameMgr.GameLoadOn = false;
+            GameMgr.GameLoadOn = false; 
+            
             save_controller.DrawGameScreen();
             //keymanager.InitCompoundMainScene();
             GameMgr.MesaggeKoushinON = true;
@@ -767,589 +767,599 @@ public class Compound_Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!StartRead) //シーン最初だけ読み込む
+        if (GameMgr.Scene_LoadedOn_End) //シーンのロード（セーブデータのロードも）全て完了してからUpdateの処理に入る
         {
-            StartRead = true;
-            //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
-            bgm_change_story();
-            sceneBGM.OnMainBGM();
-        }
 
-        //デバッグでの確認用
-        compound_status = GameMgr.compound_status;
-        compound_select = GameMgr.compound_select;
-
-        //エクストラモード　お金が0を下回ったらゲームオーバー
-        if (GameMgr.System_GameOver_ON)
-        {
-            if (GameMgr.Story_Mode != 0)
+            if (!StartRead) //シーン最初だけ読み込む
             {
-                if (PlayerStatus.player_money <= 0)
-                {
-                    if (!gameover_loading)
-                    {
-                        gameover_loading = true; //アップデートを更新しないようにしている。
-                                                 //お金が0になったので、ゲーム終了　ぐええ
-                        Debug.Log("ゲームオーバー画面表示");
+                StartRead = true;
+                //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
+                bgm_change_story();
+                sceneBGM.OnMainBGM();
+            }
 
-                        FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+            //デバッグでの確認用
+            compound_status = GameMgr.compound_status;
+            compound_select = GameMgr.compound_select;
+
+            //エクストラモード　お金が0を下回ったらゲームオーバー
+            if (GameMgr.System_GameOver_ON)
+            {
+                if (GameMgr.Story_Mode != 0)
+                {
+                    if (PlayerStatus.player_money <= 0)
+                    {
+                        if (!gameover_loading)
+                        {
+                            gameover_loading = true; //アップデートを更新しないようにしている。
+                                                     //お金が0になったので、ゲーム終了　ぐええ
+                            Debug.Log("ゲームオーバー画面表示");
+
+                            FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+                        }
                     }
                 }
             }
-        }
 
-        if (GameMgr.scenario_ON != true)
-        {
-            switch (GameMgr.scenario_flag)
+            if (GameMgr.scenario_ON != true)
             {
-
-                case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
-
-                    GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
-                    //GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-                    //GameMgr.compound_status = 1000;
-
-                    break;
-
-                default:
-                    break;
-            }            
-        }
-
-        //上のイベントが先に発生した場合、以下の処理は無視される。以下は、別シーンから戻ってきたときに、何かイベントが発生するかどうか。
-        if (GameMgr.scenario_ON != true)
-        {
-            if (GameMgr.CompoundEvent_flag)
-            {
-                GameMgr.CompoundEvent_flag = false;
-
-                if (GameMgr.outgirl_Nowprogress) { } //妹外出中のときは、発生しない
-                else
+                switch (GameMgr.scenario_flag)
                 {
-                    GameMgr.CompoundEvent_storynum = GameMgr.CompoundEvent_num;
-                    GameMgr.CompoundEvent_storyflag = true;
-                    GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
 
-                    GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-                    GameMgr.compound_status = 1000;
-                }
-            }
-        }
+                    case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
 
-        //スペシャルアニメスタート時まではオフ
-        if (GameMgr.tutorial_ON != true)
-        {
-            if (!girl1_status.special_animatFirst)
-            {
-                WindowOff();
-            }
-        }
-
-        //ピクニックイベント中、お菓子制作中は更新する。
-        if(GameMgr.picnic_event_reading_now)
-        {
-            MainCompoundMethod();            
-        }
-
-        //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
-        if (GameMgr.scenario_ON == true)
-        {
-            //Debug.Log("ゲームマネジャー　シナリオON");           
-
-            //チュートリアルモードがONになったら、この中の処理が始まる。
-            if (GameMgr.tutorial_ON == true)
-            {
-                Touch_ALLOFF();
-                girl1_status.HukidashiFlag = false;
-
-                switch (GameMgr.tutorial_Num)
-                {
-                    case 0: //最初にシナリオを読み始める。
-
-                        canvas.SetActive(false);
-
-                        //腹減りカウント一時停止
-                        girl1_status.GirlEatJudgecounter_OFF();
-
-                        girl1_status.DeleteHukidashiOnly();
-                        //girl1_status.Girl_Full();
-                        girl1_status.Girl1_Status_Init();
-                        girl1_status.OkashiNew_Status = 1;
-                        GameMgr.tutorial_Num = 1; //退避
-                        break;
-
-                    case 10: //宴ポーズ。エクストリームパネルを押そう！で、待機。
-
-                        canvas.SetActive(true);
-                        MainCompoundMethod();
-                        compoundselect_onoff_obj.SetActive(false);                        
-                        OffCompoundSelectnoExtreme();
-                        //extreme_Button.interactable = true;
-
-                        _textmain.text = "左の「お菓子パネル」を押してみよう！";
-                        break;
-
-                    case 15: //はじめてパネルを開いた。オリジナル調合を押そう！
-
-                        MainCompoundMethod();
-
-                        compoundselect_onoff_obj.SetActive(false);
-                        text_area_compound.SetActive(false);
-
-                        compoBGA_image.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
-
-                        Extremepanel_obj.SetActive(false);
-
-                        select_original_button.interactable = false;
-                        select_recipi_button.interactable = false;
-                        select_extreme_button.interactable = false;
-                        select_no_button.interactable = false;
-
-                        break;
-
-                    case 16: //メッセージおわり
-
-                        MainCompoundMethod();
-
-                        compoundselect_onoff_obj.SetActive(false);
-                        text_area_compound.SetActive(false);
-
-                        compoBGA_image.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
-
-                        Extremepanel_obj.SetActive(false);
-
-                        select_original_button.interactable = true;
-                        select_recipi_button.interactable = false;
-                        select_extreme_button.interactable = false;
-                        select_no_button.interactable = false;
-
-                        break;
-
-                    case 20: //エクストリームパネルを押して、オリジナル調合画面を開いた
-
-                        MainCompoundMethod();
-
-                        select_recipi_button.interactable = true;
-                        select_extreme_button.interactable = true;
-                        select_no_button.interactable = true;
-
-                        compoundselect_onoff_obj.SetActive(false);
-                        text_area_compound.SetActive(false);
-
-                        compoBGA_image.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
-                        compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
-                        pitemlistController.Offinteract();
-
-                        recipiMemoButton.GetComponent<Button>().interactable = false;
-
-                        break;
-
-                    case 30: //宴がポーズ状態。右のレシピメモを押そう。
-
-                        recipiMemoButton.GetComponent<Button>().interactable = true;
-
-                        text_area_compound.SetActive(true);
-                        _text.text = "右上の「レシピをみる」ボタンを押して" + "\n" + "クッキーを作ってみよう！";
-                        break;
-
-                    case 40: //メモ画面を開いた。
-
-                        text_area_compound.SetActive(false);
-                        break;
-
-                    case 50: //宴ポーズ。オリジナル調合をしてみるところ。
-
-                        pitemlistController.Oninteract();
-                        text_area_compound.SetActive(true);
-                        _text.text = "左のリストから、" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"; ;
-
-                        GameMgr.tutorial_Num = 55;
-                        break;
-
-                    case 55: //調合中
-                        break;
-
-                    case 60: //調合完了！
-
-                        text_area_compound.SetActive(false);
-
-                        break;
-
-                    case 70: //宴ポーズ。やったね！クッキーができた～から、レシピを閃き、ボタンを押し待ち。
-
-                        card_view.SetinteractiveOn();
-                        text_area_compound.SetActive(true);
-                        GameMgr.tutorial_Num = 75; //退避
-                        break;
-
-                    case 75:
-
-                        text_area_compound.SetActive(true);
-                        _text.text = "カードを押してみよう！";
-                        break;
-
-                    case 80: //ボタンを押し、元の画面に戻る。
-
-                        MainCompoundMethod();
-
-                        canvas.SetActive(false);
-
-                        break;
-
-                    case 90: //「あげる」ボタンを押すところ。「あげる」のみをON、他のボタンはオフ。
-
-                        //Debug.Log("GameMgr.チュートリアルNo: " + GameMgr.tutorial_Num);
-                        MainCompoundMethod();
-
-                        compoundselect_onoff_obj.SetActive(false);
-                        OffCompoundSelect();
-                        text_area_compound.SetActive(false);
-
-                        //girl1_status.Girl_EatDecide();
-                        girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
-
-                        GameMgr.tutorial_Num = 95; //退避
-
-                        break;
-
-                    case 100:
-
-                        MainCompoundMethod();
-                        canvas.SetActive(true);
-                        compoundselect_onoff_obj.SetActive(true);
-
-                        _textmain.text = "お菓子をあげてみよう！";
-
-                        //このタイミングで、アイテムのどれかが0になっていたら、また、全てのアイテムを5ずつにリセットしなおす。
-                        if (pitemlist.KosuCount("komugiko") <= 1 || pitemlist.KosuCount("butter") <= 1 || pitemlist.KosuCount("suger") <= 1)
-                        {
-                            pitemlist.addPlayerItemString("komugiko", 5 - pitemlist.KosuCount("komugiko"));
-                            pitemlist.addPlayerItemString("butter", 5 - pitemlist.KosuCount("butter"));
-                            pitemlist.addPlayerItemString("suger", 5 - pitemlist.KosuCount("suger"));
-                        }
-
-                        GameMgr.tutorial_Num = 105; //退避
-                        break;
-
-                    case 105:
-
-                        MainCompoundMethod();
-
-                        OffCompoundSelect();
-                        girleat_toggle.GetComponent<Toggle>().interactable = true;
-
-                        break;
-
-                    case 110:
-
-                        MainCompoundMethod();
-                        girl1_status.DeleteHukidashiOnly();
-                        canvas.SetActive(false);
-
-                        break;
-
-                    case 120:
-
-                        MainCompoundMethod();
-
-                        compoundselect_onoff_obj.SetActive(false);
-
-                        girl1_status.timeGirl_hungry_status = 2; //一回、画像を元に戻す。
-
-                        //girl1_status.Girl_EatDecide();
-                        girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
-
-                        GameMgr.tutorial_Num = 130;
-
-                        GameMgr.tutorial_Progress = true;
-                        break;
-
-                    case 130:
-
-                        text_area_compound.SetActive(false);
-                        break;
-
-                    case 140:
-
-                        extreme_Button.interactable = true;
-                        canvas.SetActive(true);
-
-                        _textmain.text = "ねこクッキーを作ってみよう！";
-
-                        break;
-
-                    case 150: //レシピボタンでも～を説明中。ボタンは押せないようにしておく。
-
-                        MainCompoundMethod();
-
-                        select_original_button.interactable = false;
-                        select_extreme_button.interactable = false;
-                        select_recipi_button.interactable = false;
-                        select_no_button.interactable = false;
-
-                        text_area_compound.SetActive(false);
-                        break;
-
-                    case 160:
-
-                        MainCompoundMethod();
-
-                        select_recipi_button.interactable = true;
-                        text_area_compound.SetActive(true);
-
-                        GameMgr.tutorial_Num = 165;
-                        break;
-
-                    case 165: //レシピ調合中
-
-                        MainCompoundMethod();
-                        break;
-
-                    case 170: //れしぴ調合完了！
-
-                        text_area_compound.SetActive(false);
-                        break;
-
-                    case 180:
-
-                        card_view.SetinteractiveOn();
-
-                        text_area_compound.SetActive(true);
-                        _text.text = "カードを押してみよう！";
-                        break;
-
-                    case 190: //元の画面に戻る
-
-                        MainCompoundMethod();
-                        canvas.SetActive(false);
-
-                        break;
-
-                    case 200:
-
-                        MainCompoundMethod();
-
-                        canvas.SetActive(true);
-                        OffCompoundSelectnoExtreme();
-                        //extreme_Button.interactable = true;
-
-                        _textmain.text = "もう一度パネルを押してみよう！";
-
-                        break;
-
-                    case 210: //エクストリーム調合　他のボタンは触れない
-
-                        MainCompoundMethod();
-
-                        select_original_button.interactable = false;
-                        select_extreme_button.interactable = true;
-                        select_recipi_button.interactable = false;
-                        select_no_button.interactable = false;
-
-                        text_area_compound.SetActive(false);
-                        break;
-
-                    case 220:
-
-                        //MainCompoundMethod();
-                        text_area_compound.SetActive(true);
-
-                        _textcomp.text = "「仕上げる」を押してみよう！";
-
-                        break;
-
-                    case 230:
-
-                        MainCompoundMethod();
-
-                        text_area_compound.SetActive(false);
-
-                        break;
-
-                    case 240:
-
-                        MainCompoundMethod();
-
-                        text_area_compound.SetActive(true);
-
-                        GameMgr.tutorial_Num = 245; //退避
-
-                        break;
-
-                    case 245:
-
-                        text_area_compound.SetActive(true);
-                        break;
-
-
-                    case 250:
-
-                        text_area_compound.SetActive(false);
-                        break;
-
-                    case 260:
-
-                        card_view.SetinteractiveOn();
-
-                        text_area_compound.SetActive(true);
-                        _textcomp.text = "カードを押してみよう！";
-
-                        GameMgr.tutorial_Num = 265; //退避
-                        break;
-
-                    case 270: //再び、元画面に戻る。
-
-                        MainCompoundMethod();
-                        canvas.SetActive(false);
-
-
-                        break;
-
-                    case 280:
-
-                        MainCompoundMethod();
-                        canvas.SetActive(true);
-
-                        compoundselect_onoff_obj.SetActive(true);
-                        OffCompoundSelect();
-                        girleat_toggle.GetComponent<Toggle>().interactable = true;
-                        girl1_status.timeGirl_hungry_status = 1;
-
-                        _textmain.text = "お菓子をあげてみよう！";
-
-                        GameMgr.tutorial_Num = 285; //退避
-                        break;
-
-                    case 285:
-
-                        MainCompoundMethod();
-
-                        break;
-
-                    case 290:
-
-                        MainCompoundMethod();
-                        girl1_status.DeleteHukidashiOnly();
-                        canvas.SetActive(false);
+                        GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+                                                    //GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+                                                    //GameMgr.compound_status = 1000;
 
                         break;
 
                     default:
-
                         break;
                 }
+            }
+
+            //上のイベントが先に発生した場合、以下の処理は無視される。以下は、別シーンから戻ってきたときに、何かイベントが発生するかどうか。
+            if (GameMgr.scenario_ON != true)
+            {
+                if (GameMgr.CompoundEvent_flag)
+                {
+                    GameMgr.CompoundEvent_flag = false;
+
+                    if (GameMgr.outgirl_Nowprogress) { } //妹外出中のときは、発生しない
+                    else
+                    {
+                        GameMgr.CompoundEvent_storynum = GameMgr.CompoundEvent_num;
+                        GameMgr.CompoundEvent_storyflag = true;
+                        GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+
+                        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+                        GameMgr.compound_status = 1000;
+                    }
+                }
+            }
+
+            //スペシャルアニメスタート時まではオフ
+            if (GameMgr.tutorial_ON != true)
+            {
+                if (!girl1_status.special_animatFirst)
+                {
+                    WindowOff();
+                }
+            }
+
+            //ピクニックイベント中、お菓子制作中は更新する。
+            if (GameMgr.picnic_event_reading_now)
+            {
+                MainCompoundMethod();
+            }
+
+            //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
+            if (GameMgr.scenario_ON == true)
+            {
+                //Debug.Log("ゲームマネジャー　シナリオON");           
+
+                //チュートリアル
+                TutorialEvent();
 
             }
-            else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
+            else //以下が、通常の処理
             {
-                WindowOff();
-                
-                check_recipi_flag = false;
 
-                //腹減りカウント一時停止
-                girl1_status.GirlEatJudgecounter_OFF();
-
-                girl1_status.DeleteHukidashiOnly();
-                girl1_status.Girl1_Status_Init();
-
-                Touch_ALLOFF();
-                SceneStart_flag = false;
-
-                //テキストエリアの表示
-                if (GameMgr.picnic_event_reading_now)
+                if (GameMgr.girlEat_ON) //お菓子判定中の間は、無条件で、メインの処理は無視する。
                 {
-                    if (GameMgr.compound_select == 1 || GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 120)
+
+                }
+                else
+                {
+                    if (GameMgr.CompoundSceneStartON) //お菓子調合中もメインの処理は無視。おわったら、サブイベントチェックしてから、メインへ。
                     {
 
                     }
                     else
                     {
-                        text_area.SetActive(false);
+                        //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
+                        if (GameMgr.check_GirlLoveEvent_flag == false)
+                        {
+                            Debug.Log("イベントチェックON");
+
+                            //メインイベント
+                            eventdatabase.GirlLoveMainEvent();
+                        }
+                        else
+                        {
+                            //サブイベントの発生をチェック。
+                            if (GameMgr.check_GirlLoveSubEvent_flag == false)
+                            {
+                                Debug.Log("サブイベントチェックON");
+
+                                //好感度に応じて発生するサブイベント
+                                eventdatabase.GirlLove_SubEventMethod();
+                            }
+                            else
+                            {
+                                //時間イベントの発生をチェック。＜エクストラモード＞
+                                if (GameMgr.check_GirlLoveTimeEvent_flag == false && GameMgr.Story_Mode != 0)
+                                {
+                                    //Debug.Log("時間イベントチェックON");
+
+                                    //時間イベント
+                                    eventdatabase.GirlLove_SubTimeEventMethod();
+                                }
+                                else
+                                {
+                                    //読んでいないレシピがあれば、読む処理。優先順位二番目。
+                                    if (check_recipi_flag != true)
+                                    {
+
+                                        //Debug.Log("チェックレシピ中");
+                                        Check_RecipiFlag();
+                                    }
+                                    else
+                                    {
+
+                                        //Debug.Log("compound_status: " + compound_status);
+                                        //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
+                                        MainCompoundMethod();
+
+
+                                    }
+                                }
+                            }
+                        }
                     }
+                }
+            }
+        }
+    }
+
+    void TutorialEvent()
+    {
+        //チュートリアルモードがONになったら、この中の処理が始まる。
+        if (GameMgr.tutorial_ON == true)
+        {
+            Touch_ALLOFF();
+            girl1_status.HukidashiFlag = false;
+
+            switch (GameMgr.tutorial_Num)
+            {
+                case 0: //最初にシナリオを読み始める。
+
+                    canvas.SetActive(false);
+
+                    //腹減りカウント一時停止
+                    girl1_status.GirlEatJudgecounter_OFF();
+
+                    girl1_status.DeleteHukidashiOnly();
+                    //girl1_status.Girl_Full();
+                    girl1_status.Girl1_Status_Init();
+                    girl1_status.OkashiNew_Status = 1;
+                    GameMgr.tutorial_Num = 1; //退避
+                    break;
+
+                case 10: //宴ポーズ。エクストリームパネルを押そう！で、待機。
+
+                    canvas.SetActive(true);
+                    MainCompoundMethod();
+                    compoundselect_onoff_obj.SetActive(false);
+                    OffCompoundSelectnoExtreme();
+                    //extreme_Button.interactable = true;
+
+                    _textmain.text = "左の「お菓子パネル」を押してみよう！";
+                    break;
+
+                case 15: //はじめてパネルを開いた。オリジナル調合を押そう！
+
+                    MainCompoundMethod();
+
+                    compoundselect_onoff_obj.SetActive(false);
+                    text_area_compound.SetActive(false);
+
+                    compoBGA_image.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
+
+                    Extremepanel_obj.SetActive(false);
+
+                    select_original_button.interactable = false;
+                    select_recipi_button.interactable = false;
+                    select_extreme_button.interactable = false;
+                    select_no_button.interactable = false;
+
+                    break;
+
+                case 16: //メッセージおわり
+
+                    MainCompoundMethod();
+
+                    compoundselect_onoff_obj.SetActive(false);
+                    text_area_compound.SetActive(false);
+
+                    compoBGA_image.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
+
+                    Extremepanel_obj.SetActive(false);
+
+                    select_original_button.interactable = true;
+                    select_recipi_button.interactable = false;
+                    select_extreme_button.interactable = false;
+                    select_no_button.interactable = false;
+
+                    break;
+
+                case 20: //エクストリームパネルを押して、オリジナル調合画面を開いた
+
+                    MainCompoundMethod();
+
+                    select_recipi_button.interactable = true;
+                    select_extreme_button.interactable = true;
+                    select_no_button.interactable = true;
+
+                    compoundselect_onoff_obj.SetActive(false);
+                    text_area_compound.SetActive(false);
+
+                    compoBGA_image.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                    compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
+                    pitemlistController.Offinteract();
+
+                    recipiMemoButton.GetComponent<Button>().interactable = false;
+
+                    break;
+
+                case 30: //宴がポーズ状態。右のレシピメモを押そう。
+
+                    recipiMemoButton.GetComponent<Button>().interactable = true;
+
+                    text_area_compound.SetActive(true);
+                    _text.text = "右上の「レシピをみる」ボタンを押して" + "\n" + "クッキーを作ってみよう！";
+                    break;
+
+                case 40: //メモ画面を開いた。
+
+                    text_area_compound.SetActive(false);
+                    break;
+
+                case 50: //宴ポーズ。オリジナル調合をしてみるところ。
+
+                    pitemlistController.Oninteract();
+                    text_area_compound.SetActive(true);
+                    _text.text = "左のリストから、" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"; ;
+
+                    GameMgr.tutorial_Num = 55;
+                    break;
+
+                case 55: //調合中
+                    break;
+
+                case 60: //調合完了！
+
+                    text_area_compound.SetActive(false);
+
+                    break;
+
+                case 70: //宴ポーズ。やったね！クッキーができた～から、レシピを閃き、ボタンを押し待ち。
+
+                    card_view.SetinteractiveOn();
+                    text_area_compound.SetActive(true);
+                    GameMgr.tutorial_Num = 75; //退避
+                    break;
+
+                case 75:
+
+                    text_area_compound.SetActive(true);
+                    _text.text = "カードを押してみよう！";
+                    break;
+
+                case 80: //ボタンを押し、元の画面に戻る。
+
+                    MainCompoundMethod();
+
+                    canvas.SetActive(false);
+
+                    break;
+
+                case 90: //「あげる」ボタンを押すところ。「あげる」のみをON、他のボタンはオフ。
+
+                    //Debug.Log("GameMgr.チュートリアルNo: " + GameMgr.tutorial_Num);
+                    MainCompoundMethod();
+
+                    compoundselect_onoff_obj.SetActive(false);
+                    OffCompoundSelect();
+                    text_area_compound.SetActive(false);
+
+                    //girl1_status.Girl_EatDecide();
+                    girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
+
+                    GameMgr.tutorial_Num = 95; //退避
+
+                    break;
+
+                case 100:
+
+                    MainCompoundMethod();
+                    canvas.SetActive(true);
+                    compoundselect_onoff_obj.SetActive(true);
+
+                    _textmain.text = "お菓子をあげてみよう！";
+
+                    //このタイミングで、アイテムのどれかが0になっていたら、また、全てのアイテムを5ずつにリセットしなおす。
+                    if (pitemlist.KosuCount("komugiko") <= 1 || pitemlist.KosuCount("butter") <= 1 || pitemlist.KosuCount("suger") <= 1)
+                    {
+                        pitemlist.addPlayerItemString("komugiko", 5 - pitemlist.KosuCount("komugiko"));
+                        pitemlist.addPlayerItemString("butter", 5 - pitemlist.KosuCount("butter"));
+                        pitemlist.addPlayerItemString("suger", 5 - pitemlist.KosuCount("suger"));
+                    }
+
+                    GameMgr.tutorial_Num = 105; //退避
+                    break;
+
+                case 105:
+
+                    MainCompoundMethod();
+
+                    OffCompoundSelect();
+                    girleat_toggle.GetComponent<Toggle>().interactable = true;
+
+                    break;
+
+                case 110:
+
+                    MainCompoundMethod();
+                    girl1_status.DeleteHukidashiOnly();
+                    canvas.SetActive(false);
+
+                    break;
+
+                case 120:
+
+                    MainCompoundMethod();
+
+                    compoundselect_onoff_obj.SetActive(false);
+
+                    girl1_status.timeGirl_hungry_status = 2; //一回、画像を元に戻す。
+
+                    //girl1_status.Girl_EatDecide();
+                    girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
+
+                    GameMgr.tutorial_Num = 130;
+
+                    GameMgr.tutorial_Progress = true;
+                    break;
+
+                case 130:
+
+                    text_area_compound.SetActive(false);
+                    break;
+
+                case 140:
+
+                    extreme_Button.interactable = true;
+                    canvas.SetActive(true);
+
+                    _textmain.text = "ねこクッキーを作ってみよう！";
+
+                    break;
+
+                case 150: //レシピボタンでも～を説明中。ボタンは押せないようにしておく。
+
+                    MainCompoundMethod();
+
+                    select_original_button.interactable = false;
+                    select_extreme_button.interactable = false;
+                    select_recipi_button.interactable = false;
+                    select_no_button.interactable = false;
+
+                    text_area_compound.SetActive(false);
+                    break;
+
+                case 160:
+
+                    MainCompoundMethod();
+
+                    select_recipi_button.interactable = true;
+                    text_area_compound.SetActive(true);
+
+                    GameMgr.tutorial_Num = 165;
+                    break;
+
+                case 165: //レシピ調合中
+
+                    MainCompoundMethod();
+                    break;
+
+                case 170: //れしぴ調合完了！
+
+                    text_area_compound.SetActive(false);
+                    break;
+
+                case 180:
+
+                    card_view.SetinteractiveOn();
+
+                    text_area_compound.SetActive(true);
+                    _text.text = "カードを押してみよう！";
+                    break;
+
+                case 190: //元の画面に戻る
+
+                    MainCompoundMethod();
+                    canvas.SetActive(false);
+
+                    break;
+
+                case 200:
+
+                    MainCompoundMethod();
+
+                    canvas.SetActive(true);
+                    OffCompoundSelectnoExtreme();
+                    //extreme_Button.interactable = true;
+
+                    _textmain.text = "もう一度パネルを押してみよう！";
+
+                    break;
+
+                case 210: //エクストリーム調合　他のボタンは触れない
+
+                    MainCompoundMethod();
+
+                    select_original_button.interactable = false;
+                    select_extreme_button.interactable = true;
+                    select_recipi_button.interactable = false;
+                    select_no_button.interactable = false;
+
+                    text_area_compound.SetActive(false);
+                    break;
+
+                case 220:
+
+                    //MainCompoundMethod();
+                    text_area_compound.SetActive(true);
+
+                    _textcomp.text = "「仕上げる」を押してみよう！";
+
+                    break;
+
+                case 230:
+
+                    MainCompoundMethod();
+
+                    text_area_compound.SetActive(false);
+
+                    break;
+
+                case 240:
+
+                    MainCompoundMethod();
+
+                    text_area_compound.SetActive(true);
+
+                    GameMgr.tutorial_Num = 245; //退避
+
+                    break;
+
+                case 245:
+
+                    text_area_compound.SetActive(true);
+                    break;
+
+
+                case 250:
+
+                    text_area_compound.SetActive(false);
+                    break;
+
+                case 260:
+
+                    card_view.SetinteractiveOn();
+
+                    text_area_compound.SetActive(true);
+                    _textcomp.text = "カードを押してみよう！";
+
+                    GameMgr.tutorial_Num = 265; //退避
+                    break;
+
+                case 270: //再び、元画面に戻る。
+
+                    MainCompoundMethod();
+                    canvas.SetActive(false);
+
+
+                    break;
+
+                case 280:
+
+                    MainCompoundMethod();
+                    canvas.SetActive(true);
+
+                    compoundselect_onoff_obj.SetActive(true);
+                    OffCompoundSelect();
+                    girleat_toggle.GetComponent<Toggle>().interactable = true;
+                    girl1_status.timeGirl_hungry_status = 1;
+
+                    _textmain.text = "お菓子をあげてみよう！";
+
+                    GameMgr.tutorial_Num = 285; //退避
+                    break;
+
+                case 285:
+
+                    MainCompoundMethod();
+
+                    break;
+
+                case 290:
+
+                    MainCompoundMethod();
+                    girl1_status.DeleteHukidashiOnly();
+                    canvas.SetActive(false);
+
+                    break;
+
+                default:
+
+                    break;
+            }
+
+        }
+        else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
+        {
+            WindowOff();
+
+            check_recipi_flag = false;
+
+            //腹減りカウント一時停止
+            girl1_status.GirlEatJudgecounter_OFF();
+
+            girl1_status.DeleteHukidashiOnly();
+            girl1_status.Girl1_Status_Init();
+
+            Touch_ALLOFF();
+            SceneStart_flag = false;
+
+            //テキストエリアの表示
+            if (GameMgr.picnic_event_reading_now)
+            {
+                if (GameMgr.compound_select == 1 || GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 120)
+                {
+
                 }
                 else
                 {
                     text_area.SetActive(false);
                 }
             }
-
-        }
-        else //以下が、通常の処理
-        {
-
-            if (GameMgr.girlEat_ON) //お菓子判定中の間は、無条件で、メインの処理は無視する。
-            {
-
-            }
             else
             {
-                if (GameMgr.CompoundSceneStartON) //お菓子調合中もメインの処理は無視。おわったら、サブイベントチェックしてから、メインへ。
-                {
-
-                }
-                else
-                {
-                    //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
-                    if (GameMgr.check_GirlLoveEvent_flag == false)
-                    {
-                        Debug.Log("イベントチェックON");
-
-                        //メインイベント
-                        eventdatabase.GirlLoveMainEvent();
-                    }
-                    else
-                    {
-                        //サブイベントの発生をチェック。
-                        if (GameMgr.check_GirlLoveSubEvent_flag == false)
-                        {
-                            Debug.Log("サブイベントチェックON");
-
-                            //好感度に応じて発生するサブイベント
-                            eventdatabase.GirlLove_SubEventMethod();
-                        }
-                        else
-                        {
-                            //時間イベントの発生をチェック。＜エクストラモード＞
-                            if (GameMgr.check_GirlLoveTimeEvent_flag == false && GameMgr.Story_Mode != 0)
-                            {
-                                //Debug.Log("時間イベントチェックON");
-
-                                //時間イベント
-                                eventdatabase.GirlLove_SubTimeEventMethod();
-                            }
-                            else
-                            {
-                                //読んでいないレシピがあれば、読む処理。優先順位二番目。
-                                if (check_recipi_flag != true)
-                                {
-
-                                    //Debug.Log("チェックレシピ中");
-                                    Check_RecipiFlag();
-                                }
-                                else
-                                {
-
-                                    //Debug.Log("compound_status: " + compound_status);
-                                    //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-                                    MainCompoundMethod();
-
-
-                                }
-                            }
-                        }
-                    }
-                }
+                text_area.SetActive(false);
             }
         }
     }

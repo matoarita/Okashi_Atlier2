@@ -70,7 +70,7 @@ public class Character_Shop : MonoBehaviour {
                     recipi_id = Find_eventitemdatabase("bugget_recipi");
                     pitemlist.add_eventPlayerItem(recipi_id, 1); //ラスクのレシピを追加
 
-                    shop_Main.hukidasi_sub.SetActive(false);
+                    //shop_Main.hukidasi_sub.SetActive(false);
 
                     GameMgr.scenario_ON = true;
                     GameMgr.shop_hint_num = 160;

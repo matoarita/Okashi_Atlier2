@@ -28,7 +28,9 @@ public class Compound_Main_Or : MonoBehaviour {
         //GameMgr.Scene_Category_Num = 10;
         //Debug.Log("(GameMgr.Scene_Category_Num): " + GameMgr.Scene_Category_Num); 
 
-        DebugStartItem();
+        GameMgr.Scene_Name = "Or_Compound";
+
+        //DebugStartItem();
     }
 	
 	// Update is called once per frame
@@ -36,6 +38,7 @@ public class Compound_Main_Or : MonoBehaviour {
 		
 	}
 
+    //デバッグ用
     void DebugStartItem()
     {
         //プレイヤー所持アイテムリストの取得

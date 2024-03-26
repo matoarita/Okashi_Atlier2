@@ -187,6 +187,8 @@ public class shopQuestSelectToggle : MonoBehaviour
         //m_Text.text = "New Value : " + m_Toggle.isOn;
         if (m_Toggle.isOn == true)
         {
+            itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
+
             //クエストリストを開いてる場合の処理
             if (shopquestlistController.qlist_status == 0)
             {
@@ -260,6 +262,7 @@ public class shopQuestSelectToggle : MonoBehaviour
             yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        itemselect_cancel.kettei_on_waiting = false;
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -428,6 +431,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         }
 
         yes_selectitem_kettei.onclick = false;
+        itemselect_cancel.kettei_on_waiting = false;
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -518,6 +522,8 @@ public class shopQuestSelectToggle : MonoBehaviour
                 pitemlistController_obj.SetActive(false);
                 yes_no_panel.SetActive(false);
                 NouhinKetteiPanel_obj.SetActive(false);
+
+                itemselect_cancel.kettei_on_waiting = false;
                 break;
 
             case false: //キャンセルが押された
@@ -596,6 +602,8 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                     pitemlistController._listcount.Clear();
                     pitemlistController._listkosu.Clear();
+
+                    itemselect_cancel.kettei_on_waiting = false;
                 }
                 break;
         }

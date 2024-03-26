@@ -1305,7 +1305,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
                 
                 GameMgr.NowEatOkashiName = database.items[_ID].itemNameHyouji;
-                GameMgr.NowEatOkashiID = database.items[_ID].itemID;
+                GameMgr.NowEatOkashiID = _ID;
 
                 Debug.Log("にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！（or のみたい！）");
                 break;

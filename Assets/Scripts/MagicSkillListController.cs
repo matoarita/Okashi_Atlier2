@@ -77,9 +77,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         }
 
         //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
-        player_patissierjob_panel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/PlayerJobPanel").gameObject;
+        canvas = GameObject.FindWithTag("Canvas");        
 
         i = 0;
         category_status = 0;
@@ -252,6 +250,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
         }
 
+        player_patissierjob_panel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/PlayerJobPanel").gameObject;
         player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
         player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
     }
