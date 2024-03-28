@@ -47,7 +47,7 @@ public class BackTown : MonoBehaviour {
         GameMgr.Scene_back_home = true;
 
         //メインシーン読み込み
-        FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
+        FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
     }
 
     public void OnClickToHiroba2()
@@ -56,7 +56,7 @@ public class BackTown : MonoBehaviour {
 
         //StartCoroutine(CoUnload());
         //広場シーン読み込み
-        FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
+        FadeManager.Instance.LoadScene("Hiroba2", GameMgr.SceneFadeTime);
     }
 
     IEnumerator CoUnload()
@@ -71,7 +71,7 @@ public class BackTown : MonoBehaviour {
 
         //アンロード後の処理を書く
         //メインシーン読み込み
-        FadeManager.Instance.LoadScene("Compound", 0.3f);
+        FadeManager.Instance.LoadScene("Compound", GameMgr.SceneFadeTime);
         GameMgr.Scene_back_home = true;      
     }
 
@@ -80,6 +80,6 @@ public class BackTown : MonoBehaviour {
         GameMgr.Scene_back_home = true;
 
         //メインシーン読み込み
-        FadeManager.Instance.LoadScene("Compound", 0.3f);        
+        FadeManager.Instance.LoadScene("Compound", GameMgr.SceneFadeTime);        
     }
 }

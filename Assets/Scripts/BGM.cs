@@ -49,6 +49,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound38;  //大会コンテストのBGM Aランク
     public AudioClip sound39;  //オランジーナ調合メインのBGM予定1
     public AudioClip sound40;  //オランジーナ調合メインのBGM予定2
+    public AudioClip sound41;  //オランジーナ街BGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -233,6 +234,7 @@ public class BGM : MonoBehaviour {
 
                 //Debug.Log("GameMgr.Scene_Category_Num: " + GameMgr.Scene_Category_Num);
                 //特定シーン以外で、シーンカテゴリーでざっくりBGMを設定する場合はここ
+
                 //オランジーナは、こっちが中心
                 switch(GameMgr.Scene_Category_Num)
                 {
@@ -248,8 +250,45 @@ public class BGM : MonoBehaviour {
 
                     case 60: //オランジーナ広場系
 
-                        _bgm[0].clip = sound23;
+                        //_bgm[0].clip = sound41;
+                        switch (GameMgr.Scene_Name)
+                        {
+                            case "Or_Hiroba_CentralPark": //中央噴水
+
+                                _bgm[0].clip = sound41;
+                                break;
+
+                            case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道
+
+                                _bgm[0].clip = sound37; //23
+                                break;
+
+                            case "Or_Hiroba_Spring_Entrance": //春のエリア入口
+
+                                _bgm[0].clip = sound41; //37
+                                break;
+
+                            case "Or_Hiroba_Spring_Shoping_Moll": //春のエリア商店街
+
+                                _bgm[0].clip = sound41;
+                                break;
+
+                            case "Or_Hiroba_Spring_Oku": //春のエリア商店街
+
+                                _bgm[0].clip = sound41;
+                                break;
+
+                            case "Or_Hiroba_Spring_UraStreet": //春のエリア商店街
+
+                                _bgm[0].clip = sound41;
+                                break;
+
+                            default:
+
+                                break;
+                        }
                         break;
+
 
                     case 100: //コンテスト系
 
@@ -258,7 +297,7 @@ public class BGM : MonoBehaviour {
 
                     case 110: //コンテスト会場前系
 
-                        _bgm[0].clip = sound23;
+                        _bgm[0].clip = sound41; //23
                         break;
 
                     default:

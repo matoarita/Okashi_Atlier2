@@ -289,7 +289,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 break;
             }
             i++;
-        }
+        }       
 
         //採取地画面の取得
         slot_view = this.transform.Find("Comp/Slot_View").gameObject;
@@ -447,6 +447,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        //matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //デバッグ用　フラグが狂ったときに
+
         if (move_anim_on == true)
         {
             //移動中のウェイトアニメ
@@ -463,60 +465,73 @@ public class GetMatPlace_Panel : MonoBehaviour {
             {
                 case "Hiroba":
 
-                    FadeManager.Instance.LoadScene("Hiroba2", 0.3f);
+                    FadeManager.Instance.LoadScene("Hiroba2", GameMgr.SceneFadeTime);
                     break;
 
                 case "Shop":
 
-                    FadeManager.Instance.LoadScene("Shop", 0.3f);
+                    FadeManager.Instance.LoadScene("Shop", GameMgr.SceneFadeTime);
                     break;
 
                 case "Bar":
 
-                    FadeManager.Instance.LoadScene("Bar", 0.3f);
+                    FadeManager.Instance.LoadScene("Bar", GameMgr.SceneFadeTime);
                     break;
 
                 case "Emerald_Shop":
 
-                    FadeManager.Instance.LoadScene("Emerald_Shop", 0.3f);
+                    FadeManager.Instance.LoadScene("Emerald_Shop", GameMgr.SceneFadeTime);
                     break;
 
                 case "Farm":
 
-                    FadeManager.Instance.LoadScene("Farm", 0.3f);
+                    FadeManager.Instance.LoadScene("Farm", GameMgr.SceneFadeTime);
                     break;
 
                 case "Grt_StartCompound":
 
-                    FadeManager.Instance.LoadScene("Compound", 0.3f);
+                    FadeManager.Instance.LoadScene("Compound", GameMgr.SceneFadeTime);
                     break;
 
                 //以下、オランジーナ関連
                 case "Orangina_Compound":
 
-                    FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
+                    FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
                     break;
 
                 case "Or_Shop_A1":
 
-                    GameMgr.Scene_Name = "Or_Shop_A1"; //ショップや酒場・コンテストなどは行く前に、どのエリアのお店なのか名称も指定する
-                    FadeManager.Instance.LoadScene("Or_Shop", 0.3f);
+                    GameMgr.SceneSelectNum = 0; //ショップや酒場・コンテストなどは行く前に、どのエリアのお店なのか番号を指定する　名前は移動先シーンのメインcsのStartで決定
+                    FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
                     break;
 
                 case "Or_Bar_A1":
 
-                    GameMgr.Scene_Name = "Or_Bar_A1";
-                    FadeManager.Instance.LoadScene("Or_Bar", 0.3f);
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Emerald_Shop":
+
+                    GameMgr.Scene_Name = "Or_Emerald_Shop";
+                    FadeManager.Instance.LoadScene("Or_Emerald_Shop", GameMgr.SceneFadeTime);
                     break;
 
                 case "Or_Hiroba1":
 
-                    FadeManager.Instance.LoadScene("Or_Hiroba1", 0.3f);
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Outside_the_Contest":
+
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
                     break;
 
                 case "Contest_OrA1":
 
-                    FadeManager.Instance.LoadScene("Or_Contest_A1", 0.3f);
+                    FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
                     break;
 
                 default:

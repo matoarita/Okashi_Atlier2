@@ -47,24 +47,24 @@ public class Outside_theContest_Main : MonoBehaviour
 
     private GameObject canvas;
 
-    private GameObject BG_Imagepanel;
-
     private BGM sceneBGM;
     public bool bgm_change_flag;
-
-    private GridLayoutGroup gridlayout;
-    private GameObject list_BG;
-    private Vector3 defaultPos;
-    private Vector3 MovedPos;
 
     private GameObject newAreaReleasePanel_obj;
 
     private int ev_id;
 
-    private int rndnum;
+    private int i, rndnum;
+    private int backnum;
 
     private int scene_status, scene_num;
     private bool StartRead;
+
+    private string default_scenetext;
+
+    private GameObject BGImagePanel;
+    private List<GameObject> BGImg_List = new List<GameObject>();
+    private List<GameObject> BGImg_List_mago = new List<GameObject>();
 
     // Use this for initialization
     void Start()
@@ -95,12 +95,7 @@ public class Outside_theContest_Main : MonoBehaviour
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //リストオブジェクトの取得
-        mainlist_controller_obj = canvas.transform.Find("MainList_ScrollView").gameObject;
-
-        //リストオブジェクトのレイアウトグループ情報の取得
-        gridlayout = mainlist_controller_obj.transform.Find("Viewport/Content_Main").GetComponent<GridLayoutGroup>();
-        list_BG = mainlist_controller_obj.transform.Find("ListBGimage").gameObject;
-        defaultPos = mainlist_controller_obj.transform.localPosition;
+        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_01").gameObject;
         
 
         //トグル初期状態
@@ -140,65 +135,108 @@ public class Outside_theContest_Main : MonoBehaviour
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
 
-        text_scenario();
+        
 
         newAreaReleasePanel_obj = canvas.transform.Find("NewAreaReleasePanel").gameObject;
         newAreaReleasePanel_obj.SetActive(false);
 
-        BG_Imagepanel = GameObject.FindWithTag("BG");
-
-        if (GameMgr.Story_Mode != 0)
+        //
+        //背景と場所名の設定 最初にこれを行う
+        //
+        BGImagePanel = GameObject.FindWithTag("BG");
+        BGImg_List.Clear();
+        BGImg_List_mago.Clear();
+        i = 0;
+        foreach (Transform child in BGImagePanel.transform)　//子要素（孫は取得しない）までなら、childでOK
         {
-            //まずリセット
-            BG_Imagepanel.transform.Find("BGPlace_01/BG_sprite_morning").gameObject.SetActive(true);
-            BG_Imagepanel.transform.Find("BGPlace_01/BG_sprite_evening").gameObject.SetActive(false);
-            BG_Imagepanel.transform.Find("BGPlace_01/BG_sprite_night").gameObject.SetActive(false);
+            //Debug.Log(child.name);           
+            BGImg_List.Add(child.gameObject);
+            BGImg_List[i].SetActive(false);
+            i++;
+        }
 
-            switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
+        switch (GameMgr.SceneSelectNum)
+        {
+            case 0: //春のコンテスト　01
+
+                GameMgr.ContestSelectNum = 10000; //コンテストの会場を指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 12; //バックボタン押したときの戻り先
+
+                default_scenetext = "春コンテストの会場だ！　にいちゃん！！" + "\n" + "ひぃぃぃぃ・・・";
+                break;
+
+        }
+
+        //天気対応
+        if (GameMgr.WEATHER_TIMEMODE_ON)
+        {
+            if (GameMgr.Story_Mode != 0)
             {
-                case 1:
 
-                    break;
+                switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
+                {
+                    case 1:
 
-                case 2: //深夜→朝
+                        break;
 
-                    break;
+                    case 2: //深夜→朝
 
-                case 3: //朝
+                        break;
 
-                    break;
+                    case 3: //朝
 
-                case 4: //昼
+                        break;
 
-                    break;
+                    case 4: //昼
 
-                case 5: //夕方
+                        break;
 
-                    BG_Imagepanel.transform.Find("BG_sprite_evening").gameObject.SetActive(true);
-                    break;
+                    case 5: //夕方
 
-                case 6: //夜
+                        BGImg_List_mago[1].gameObject.SetActive(true);
+                        break;
 
-                    BG_Imagepanel.transform.Find("BG_sprite_night").gameObject.SetActive(true);
+                    case 6: //夜
 
-                    npc1_toggle.interactable = false;
-                    npc2_toggle.interactable = false;
-                    npc3_toggle.interactable = false;
-                    npc4_toggle.interactable = false;
-                    npc5_toggle.interactable = false;
-                    npc6_toggle.interactable = false;
-                    npc7_toggle.interactable = false;
+                        BGImg_List_mago[2].gameObject.SetActive(true);
 
-                    break;
+                        npc1_toggle.interactable = false;
+                        npc2_toggle.interactable = false;
+                        npc3_toggle.interactable = false;
+                        npc4_toggle.interactable = false;
+                        npc5_toggle.interactable = false;
+                        npc6_toggle.interactable = false;
+                        npc7_toggle.interactable = false;
+                        break;
+                }
             }
         }
+        //** 場所名設定ここまで **//
 
         scene_status = 0;
         StartRead = false;
 
+        text_scenario();
+
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
+    }
+
+    void SettingBGPanel(int _num)
+    {
+        BGImg_List[_num].gameObject.SetActive(true);
+
+        i = 0;
+        foreach (Transform child in BGImg_List[_num].transform) //子要素（孫は取得しない）までなら、childでOK
+        {
+            //Debug.Log(child.name);           
+            BGImg_List_mago.Add(child.gameObject);
+            BGImg_List_mago[i].SetActive(false);
+            i++;
+        }
+        BGImg_List_mago[0].gameObject.SetActive(true); //朝の画像一番上オブジェクトをON
     }
 
     void Update()
@@ -293,38 +331,7 @@ public class Outside_theContest_Main : MonoBehaviour
 
     void text_scenario()
     {
-        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-        {
-            case 40: //ドーナツイベント時
-                if (GameMgr.hiroba_event_end[8])
-                {
-                    _text.text = "ピンクのドーナツを作ってみよう！";
-                }
-                else
-                {
-                    if (GameMgr.hiroba_event_end[1])
-                    {
-                        _text.text = "さて、村長さんにも話を聞いたし。行くところは..。";
-                    }
-                    else
-                    {
-                        if (GameMgr.hiroba_event_end[0])
-                        {
-                            _text.text = "色んな人に話を聞いてみよう！";
-                        }
-                        else
-                        {
-                            _text.text = "ここは、村の中央広場のようだ。いろんな人がいるみたいだ。";
-                        }
-                    }
-                }
-                break;
-
-            default:
-
-                _text.text = "クープデュモンドのコンテスト会場前だ。";
-                break;
-        }
+        _text.text = default_scenetext;
     }
 
     void ContestTimeOverAfter()
@@ -454,425 +461,133 @@ public class Outside_theContest_Main : MonoBehaviour
     //広場 各NPCのイベント実行・フラグ管理
     //
 
-    //コンテスト　中に入る
+    //NPC1
     public void OnNPC1_toggle()
     {
         if (npc1_toggle.isOn == true)
         {
             npc1_toggle.isOn = false;
-
-            FadeManager.Instance.LoadScene("Or_Contest_A1", 0.3f);
-            //EventReadingStart();
-
-            //CanvasOff();
+            
         }
     }
 
-    //噴水
+    //NPC2
     public void OnNPC2_toggle()
     {
         if (npc2_toggle.isOn == true)
         {
             npc2_toggle.isOn = false;
 
-            //噴水押した　宴の処理へ
-            GameMgr.hiroba_event_placeNum = 1; //
-
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-            {
-                case 40: //ドーナツイベント時
-
-                    if (!GameMgr.hiroba_event_end[0])
-                    {
-                        sceneBGM.FadeOutBGM();
-                        bgm_change_flag = true;
-                        GameMgr.hiroba_event_ID = 1040;
-                    }
-                    else
-                    {
-                        GameMgr.hiroba_event_ID = 1041;
-                    }
-                    break;
-
-                case 50:
-
-                    GameMgr.hiroba_event_ID = 1050;
-                    break;
-
-                default:
-
-                    GameMgr.hiroba_event_ID = 1000;
-                    break;
-            }
-
-            EventReadingStart();
-
-            CanvasOff();
+            
         }
     }
 
-    //村長の家
+    //NPC3
     public void OnNPC3_toggle()
     {
         if (npc3_toggle.isOn == true)
         {
             npc3_toggle.isOn = false;
 
-            //村長の家押した　宴の処理へ
-            GameMgr.hiroba_event_placeNum = 2; //
-
-            if (GameMgr.Story_Mode == 0)
-            {
-                //イベント発生フラグをチェック
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-                    case 40: //ドーナツイベント時
-
-                        /*if (!GameMgr.hiroba_event_end[0] || !GameMgr.hiroba_event_end[3] || !GameMgr.hiroba_event_end[5])
-                        {
-                            GameMgr.hiroba_event_ID = 2040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                        }
-                        else //最初アマクサにあったら、すぐイベントが進む。
-                        {*/
-                        if (!GameMgr.hiroba_event_end[1])
-                        {
-                            sceneBGM.FadeOutBGM();
-                            bgm_change_flag = true;
-                            GameMgr.hiroba_event_ID = 2045;
-                        }
-                        else
-                        {
-                            GameMgr.hiroba_event_ID = 2046;
-                        }
-
-                        //}
-                        break;
-
-                    case 50:
-
-                        GameMgr.hiroba_event_ID = 2050;
-                        break;
-
-                    default:
-
-                        GameMgr.hiroba_event_ID = 2000;
-                        break;
-                }
-            }
-            else
-            {
-                sceneBGM.FadeOutBGM();
-                bgm_change_flag = true;
-                GameMgr.hiroba_event_ID = 12000;
-            }
-
-            EventReadingStart();
-
-            CanvasOff();
+            
         }
     }
 
-    //パン工房
+    //NPC4
     public void OnNPC4_toggle()
     {
         if (npc4_toggle.isOn == true)
         {
             npc4_toggle.isOn = false;
 
-            //パン工房押した　宴の処理へ
-            GameMgr.hiroba_event_placeNum = 3; //
-
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-            {
-                case 40: //ドーナツイベント時
-
-                    if (!GameMgr.hiroba_event_end[8])
-                    {
-                        if (!GameMgr.hiroba_event_end[6])
-                        {
-                            sceneBGM.FadeOutBGM();
-                            bgm_change_flag = true;
-                            GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                        }
-                        else
-                        {
-                            //ひまわり油をもっていたら、イベントが進む。ひまわり油は削除する。
-                            if (pitemlist.ReturnItemKosu("himawari_Oil") >= 1)
-                            {
-                                pitemlist.SearchDeleteItem("himawari_Oil");
-                                pitemlist.addPlayerItemString("flyer", 1);
-
-                                sceneBGM.FadeOutBGM();
-                                bgm_change_flag = true;
-                                GameMgr.hiroba_event_ID = 3042;
-                            }
-                            else
-                            {
-                                GameMgr.hiroba_event_ID = 3041;
-                            }
-                        }
-                    }
-                    else //ドーナツレシピを教わった。
-                    {
-                        GameMgr.hiroba_event_ID = 3043;
-
-                    }
-                    break;
-
-                case 50:
-
-                    if (!GameMgr.hiroba_event_end[11])
-                    {
-                        sceneBGM.FadeOutBGM();
-                        bgm_change_flag = true;
-                        GameMgr.hiroba_event_ID = 3050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else
-                    {
-                        sceneBGM.FadeOutBGM();
-                        bgm_change_flag = true;
-                        GameMgr.hiroba_event_ID = 3051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-
-                    break;
-
-                default:
-
-                    GameMgr.hiroba_event_ID = 3000;
-                    break;
-            }
-
-            EventReadingStart();
-
-            CanvasOff();
+            
         }
     }
 
-    //お花屋さん
+    //NPC5
     public void OnNPC5_toggle()
     {
         if (npc5_toggle.isOn == true)
         {
             npc5_toggle.isOn = false;
 
-            //お花屋さん押した　宴の処理へ
-            GameMgr.hiroba_event_placeNum = 4; //
-
-            if (GameMgr.Story_Mode == 0)
-            {
-                //イベント発生フラグをチェック
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-                    case 40: //ドーナツイベント時
-
-                        if (!GameMgr.hiroba_event_end[6])
-                        {
-                            if (!GameMgr.hiroba_event_end[3])
-                            {
-                                GameMgr.hiroba_event_ID = 4040;
-                            }
-                            else
-                            {
-                                GameMgr.hiroba_event_ID = 4041;
-                            }
-                        }
-                        else //油の話をききにくる。
-                        {
-                            if (!GameMgr.hiroba_event_end[7])
-                            {
-                                GameMgr.hiroba_event_ID = 4042;
-                            }
-                            else
-                            {
-                                GameMgr.hiroba_event_ID = 4043;
-                            }
-                        }
-                        break;
-
-                    case 50:
-
-                        if (!GameMgr.hiroba_event_end[12])
-                        {
-                            GameMgr.hiroba_event_ID = 4050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                        }
-                        else
-                        {
-                            GameMgr.hiroba_event_ID = 4051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                        }
-
-                        break;
-
-                    default:
-
-                        GameMgr.hiroba_event_ID = 4000;
-                        break;
-                }
-            }
-            else
-            {
-                //イベント発生フラグをチェック
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-                    case 50:
-
-                        GameMgr.hiroba_event_ID = 14050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-
-                        break;
-
-                    default:
-
-                        GameMgr.hiroba_event_ID = 14000;
-                        break;
-                }
-            }
-
-            EventReadingStart();
-
-            CanvasOff();
+            
         }
     }
 
-    //図書館
+    //NPC6
     public void OnNPC6_toggle()
     {
         if (npc6_toggle.isOn == true)
         {
             npc6_toggle.isOn = false;
 
-            //図書館押した　宴の処理へ
-            GameMgr.hiroba_event_placeNum = 5; //
-
-            //図書室はBGMかえる
-            sceneBGM.FadeOutBGM();
-            bgm_change_flag = true;
-
-            if (GameMgr.Story_Mode == 0)
-            {
-                //イベント発生フラグをチェック
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-                    case 40: //ドーナツイベント時
-
-                        if (!GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
-                        {
-                            GameMgr.hiroba_event_ID = 5040;
-                        }
-                        else if (GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
-                        {
-                            GameMgr.hiroba_event_ID = 5041;
-                        }
-                        else if (GameMgr.hiroba_event_end[5])
-                        {
-                            GameMgr.hiroba_event_ID = 5042;
-                        }
-                        break;
-
-                    case 50:
-
-                        if (!GameMgr.hiroba_event_end[13])
-                        {
-                            GameMgr.hiroba_event_ID = 5050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                        }
-                        else
-                        {
-                            GameMgr.hiroba_event_ID = 5051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                        }
-
-                        break;
-
-                    default:
-
-                        GameMgr.hiroba_event_ID = 5000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                        break;
-                }
-            }
-            else
-            {
-                if (GameMgr.GirlLoveEvent_num == 50) //コンテスト時
-                {
-                    if (!GameMgr.hiroba_event_end[13])
-                    {
-                        GameMgr.hiroba_event_ID = 5050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else
-                    {
-                        GameMgr.hiroba_event_ID = 5051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                }
-                else
-                {
-                    GameMgr.hiroba_event_ID = 15000;
-                }
-            }
-
-            EventReadingStart();
-
-            CanvasOff();
+            
         }
     }
 
-    //井戸端の奥さん
+    //NPC7
     public void OnNPC7_toggle()
     {
         if (npc7_toggle.isOn == true)
         {
             npc7_toggle.isOn = false;
-
-            //井戸端の奥さん押した　宴の処理へ
-            GameMgr.hiroba_event_placeNum = 6; //
-
-            if (GameMgr.Story_Mode == 0)
-            {
-                //イベント発生フラグをチェック
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-                    case 40: //ドーナツイベント時
-
-                        //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
-                        rndnum = Random.Range(0, 5);
-                        GameMgr.hiroba_event_ID = 6040 + rndnum;
-                        break;
-
-                    case 50: //
-
-                        //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。
-                        rndnum = Random.Range(0, 5);
-                        GameMgr.hiroba_event_ID = 6050;
-                        break;
-
-                    default:
-
-                        GameMgr.hiroba_event_ID = 6000;
-                        break;
-                }
-            }
-            else
-            {
-                //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。
-                rndnum = Random.Range(0, 7);
-                GameMgr.hiroba_event_ID = 16000 + rndnum;
-            }
-
-            EventReadingStart();
-
-            CanvasOff();
+            
         }
     }
 
-    //広場に戻る
+    //NPC8
     public void OnNPC8_toggle()
     {
         if (npc8_toggle.isOn == true)
         {
             npc8_toggle.isOn = false;
 
-            //3番街へ（主にNPCイベント関係）
-            FadeManager.Instance.LoadScene("Or_Hiroba1", 0.3f);
+           
         }
     }
- 
+
+    //SubView1 コンテスト中へ入る
+    public void OnSubNPC1_toggle()
+    {
+        //コンテスト会場指定は、ここに来た時に、Start内ですでにやっているので不要
+        FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
+    }
+
+    //SubView2　立ち去る
+    public void OnSubNPC2_toggle()
+    {
+        //戻る
+        GameMgr.SceneSelectNum = backnum;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    //SubView3
+    public void OnSubNPC3_toggle()
+    {
+
+    }
+
+    //SubView4
+    public void OnSubNPC4_toggle()
+    {
+
+    }
+
+    //SubView5
+    public void OnSubNPC5_toggle()
+    {
+
+    }
+
+    //SubView6　立ち去る
+    public void OnSubNPC6_toggle()
+    {
+        //戻る
+        GameMgr.SceneSelectNum = backnum;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
 
     void CanvasOff()
     {

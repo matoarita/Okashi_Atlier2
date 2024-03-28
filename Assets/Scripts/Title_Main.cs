@@ -148,7 +148,7 @@ public class Title_Main : MonoBehaviour {
 
         GameMgr.Story_Mode = 0;
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
-        FadeManager.Instance.LoadScene("010_Prologue", 0.3f);
+        FadeManager.Instance.LoadScene("010_Prologue", GameMgr.SceneFadeTime);
     }
 
     public void OnStartButton2() //フリーモード　強くてニューゲーム
@@ -159,7 +159,7 @@ public class Title_Main : MonoBehaviour {
 
         GameMgr.Story_Mode = 1;
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
-        FadeManager.Instance.LoadScene("010_Prologue", 0.3f);
+        FadeManager.Instance.LoadScene("010_Prologue", GameMgr.SceneFadeTime);
     }
 
     public void OnLoadButton()
@@ -173,7 +173,7 @@ public class Title_Main : MonoBehaviour {
     {
         save_controller.SystemloadCheck(); //システムデータロード　お菓子手帳やED回数など引継ぎデータはロード
         FadeManager.Instance.fadeColor = new Color(1.0f, 1.0f, 1.0f);
-        FadeManager.Instance.LoadScene("200_Omake", 0.3f);
+        FadeManager.Instance.LoadScene("200_Omake", GameMgr.SceneFadeTime);
     }
 
     public void OnOptionButton()

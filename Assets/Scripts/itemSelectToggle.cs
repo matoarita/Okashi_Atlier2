@@ -1466,7 +1466,7 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
                 yes.SetActive(false);
-                no.SetActive(false);
+                no.SetActive(true);
                 updown_counter_obj.SetActive(false);
                 back_ShopFirst_btn.interactable = true;
 
@@ -1505,7 +1505,7 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
                 yes.SetActive(false);
-                no.SetActive(false);
+                no.SetActive(true);
                 back_ShopFirst_btn.interactable = true;
 
                 updown_counter.UpdownButton_InteractALLON();
@@ -1514,6 +1514,7 @@ public class itemSelectToggle : MonoBehaviour
                 card_view.DeleteCard_DrawView();
                
                 exp_Controller.Shop_SellOK();
+                itemselect_cancel.kettei_on_waiting = false;
 
                 break;
 
@@ -1530,13 +1531,14 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
                 yes.SetActive(false);
-                no.SetActive(false);
+                no.SetActive(true);
                 back_ShopFirst_btn.interactable = true;
 
                 updown_counter.UpdownButton_InteractALLON();
                 updown_counter_obj.SetActive(false);
 
                 card_view.DeleteCard_DrawView();
+                itemselect_cancel.kettei_on_waiting = false;
 
                 break;
         }

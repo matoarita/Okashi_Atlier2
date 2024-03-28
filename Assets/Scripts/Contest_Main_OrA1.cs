@@ -96,7 +96,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //今いるシーン番号を指定
         GameMgr.Scene_Category_Num = 100;
 
-        GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
+        //GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
@@ -356,6 +356,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
+    //各コンテストのデータの初期設定
     void ContestDataSetting()
     {
         

@@ -202,9 +202,9 @@ public class Hiroba_Main2 : MonoBehaviour
 
     public void MenuWindowExpand()
     {
-        MovedPos = new Vector3(190, defaultPos.y, defaultPos.z);
-        gridlayout.constraintCount = 2;
-        mainlist_controller_obj.GetComponent<RectTransform>().sizeDelta = new Vector2(500, mainlist_controller_obj.GetComponent<RectTransform>().sizeDelta.y);
+        MovedPos = new Vector3(0, defaultPos.y, defaultPos.z);
+        //gridlayout.constraintCount = 2;
+        //mainlist_controller_obj.GetComponent<RectTransform>().sizeDelta = new Vector2(500, mainlist_controller_obj.GetComponent<RectTransform>().sizeDelta.y);
         mainlist_controller_obj.transform.localPosition = MovedPos;
     }
 

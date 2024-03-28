@@ -56,6 +56,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     private GameObject shopon_toggle_quest;
     private GameObject shopon_toggle_uwasa;
     private GameObject shopon_toggle_present;
+    private GameObject shopon_toggle_back;
 
     private bool check_event;
     private bool check_lvevent;
@@ -122,6 +123,7 @@ public class Bar_Main_Controller : MonoBehaviour {
         shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
         shopon_toggle_present = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Present").gameObject;
         shopon_toggle_present.SetActive(false);
+        shopon_toggle_back = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Back").gameObject;
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
         //shopon_toggle_quest.SetActive(false);
@@ -482,6 +484,48 @@ public class Bar_Main_Controller : MonoBehaviour {
             GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
 
             StartCoroutine("UtageEndWait");
+
+        }
+    }
+
+    public void OnCheck_Back() //ショップからでて、広場に戻る
+    {
+        if (shopon_toggle_back.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle_back.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+
+            switch (GameMgr.Scene_Name)
+            {
+                case "Or_Bar_A1": //春エリア
+
+                    GameMgr.SceneSelectNum = 11;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Bar_B1": //夏エリア
+
+                    GameMgr.SceneSelectNum = 11;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Bar_C1": //秋エリア
+
+                    GameMgr.SceneSelectNum = 11;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Bar_D1": //冬エリア
+
+                    GameMgr.SceneSelectNum = 11;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                default:
+
+
+                    break;
+            }
 
         }
     }

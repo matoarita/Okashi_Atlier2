@@ -30,10 +30,35 @@ public class Shop_Main_Or : MonoBehaviour {
             i++;
         }
 
-        switch(GameMgr.Scene_Name)
+        switch(GameMgr.SceneSelectNum)
         {
-            case "Or_Shop_A1":
+            case 0: //春エリア
 
+                GameMgr.Scene_Name = "Or_Shop_A1";
+                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                break;
+
+            case 10: //夏エリア
+
+                GameMgr.Scene_Name = "Or_Shop_B1";
+                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                break;
+
+            case 20: //秋エリア
+
+                GameMgr.Scene_Name = "Or_Shop_C1";
+                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                break;
+
+            case 30: //冬エリア
+
+                GameMgr.Scene_Name = "Or_Shop_D1";
+                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                break;
+
+            default:
+
+                GameMgr.Scene_Name = "Or_Shop_A1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
                 break;
         }

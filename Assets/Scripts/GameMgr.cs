@@ -29,7 +29,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
-    
+    public static bool WEATHER_TIMEMODE_ON = false; //時間によって朝・昼・夜の背景を変更するかどうか。   
+
     //エクストラの演出のONOFF
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
     public static bool System_ExtraResult_ON = false; //エクストラ　道中クエストのリザルト画面とご褒美画面をONにする。
@@ -77,6 +78,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //調合シーンでBGM切り替えるかどうかのフラグ
     public static bool CompoBGMCHANGE_ON = false;
+
+    //シーン移動の際の切り替え時間
+    public static float SceneFadeTime = 0.5f;
 
     //初期アイテム取得のフラグ
     public static bool gamestart_recipi_get;
@@ -527,6 +531,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_LimitTimeOver_After_flag; //コンテスト失格後、なんらかのペナルティやメッセージが発生するフラグ
     public static bool NewAreaRelease_flag; //なんらかのイベント後、新エリアが解禁されるフラグ
     public static List<int> PrizeScoreAreaList = new List<int>(); //コンテストのランキングスコア、もしくは賞品のスコア範囲のリスト
+    public static int SceneSelectNum; //シーンの移動先を指定する番号　番号をもとに、移動先シーンのStartでその場所名を決定する
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -991,6 +996,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_Next_flag = false;
         Contest_PrizeGet_flag = false;
         contest_Rank_Count = 1;
+        SceneSelectNum = 0;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
