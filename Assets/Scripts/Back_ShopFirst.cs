@@ -41,6 +41,11 @@ public class Back_ShopFirst : MonoBehaviour {
                 GameMgr.Reset_SceneStatus = true;
                 break;
 
+            case 120: //コンテスト会場受付
+
+                GameMgr.Reset_SceneStatus = true;
+                break;
+
             case 60:
 
                 BackScene();

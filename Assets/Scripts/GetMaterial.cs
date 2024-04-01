@@ -121,6 +121,7 @@ public class GetMaterial : MonoBehaviour
 
     private int page_count, lastpage_count;
     private int hyouji_max;
+    private bool dict_check;
 
     // Use this for initialization
     void Start()
@@ -150,16 +151,15 @@ public class GetMaterial : MonoBehaviour
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
-        //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
-        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+        //お金の増減用コントローラーの取得
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
         //材料採取地パネルの取得
         getmatplace_panel_obj = canvas.transform.Find("GetMatPlace_Panel").gameObject;
         getmatplace_panel = getmatplace_panel_obj.GetComponent<GetMatPlace_Panel>();
 
         //ヒロインライフパネル
-        HeroineLifePanel = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel/HeroineLife").gameObject;
+        HeroineLifePanel = getmatplace_panel_obj.transform.Find("Comp/GetMatStatusPanel/HeroineLife").gameObject;
         HeroineLifeText = HeroineLifePanel.transform.Find("HPguage/HPparam").GetComponent<Text>();
 
         //材料採取のための、消費コスト
@@ -181,7 +181,7 @@ public class GetMaterial : MonoBehaviour
         kettei_item = new int[99];
         kettei_kosu = new int[99];
 
-        TansakuLoding_Panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/TansakuLodingPanel").gameObject;
+        TansakuLoding_Panel = canvas.transform.Find("GetMatPlace_Panel/Comp/TansakuLodingPanel").gameObject;
 
         tansaku_panel = canvas.transform.Find("GetMatPlace_Panel/Comp/Slot_View/Tansaku_panel").gameObject;
 
@@ -757,7 +757,7 @@ public class GetMaterial : MonoBehaviour
             pitemlist.addPlayerItem(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
 
             //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-            getmatplace_panel.result_items[database.items[kettei_item[_count]].itemName] += kettei_kosu[_count];
+            ItemGetforDictionary(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
         }
     }
 
@@ -803,7 +803,7 @@ public class GetMaterial : MonoBehaviour
             pitemlist.addPlayerItem(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
 
             //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-            getmatplace_panel.result_items[database.items[kettei_item[_count]].itemName] += kettei_kosu[_count];
+            ItemGetforDictionary(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
         }
     }
 
@@ -1489,7 +1489,8 @@ public class GetMaterial : MonoBehaviour
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
         //_itemid = pitemlist.SearchItemString("kirakira_stone1");
-        getmatplace_panel.result_items["kirakira_stone1"] += 1;
+        ItemGetforDictionary("kirakira_stone1", 1);       
+        
 
         //音を鳴らす
         sc.PlaySe(1);
@@ -1568,7 +1569,7 @@ public class GetMaterial : MonoBehaviour
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
         //_itemid = pitemlist.SearchItemString("kirakira_stone2");
-        getmatplace_panel.result_items["kirakira_stone2"] += 1;
+        ItemGetforDictionary("kirakira_stone2", 1);
 
         //音を鳴らす
         sc.PlaySe(1);
@@ -1584,7 +1585,7 @@ public class GetMaterial : MonoBehaviour
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
         //_itemid = pitemlist.SearchItemString("kirakira_stone3");
-        getmatplace_panel.result_items["kirakira_stone3"] += 1;
+        ItemGetforDictionary("kirakira_stone3", 1);
 
         //音を鳴らす
         sc.PlaySe(1);
@@ -1912,7 +1913,7 @@ public class GetMaterial : MonoBehaviour
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
         //_itemid = pitemlist.SearchItemString(itemName);
-        getmatplace_panel.result_items[itemName] += 1;
+        ItemGetforDictionary(itemName, 1);
 
         //音を鳴らす
         switch (Treasure_Status)
@@ -1953,7 +1954,7 @@ public class GetMaterial : MonoBehaviour
 
             //取得したアイテムをリストに入れ、あとでリザルト画面で表示
             //_itemid = pitemlist.SearchItemString(itemName);
-            getmatplace_panel.result_items[itemName] += 1;
+            ItemGetforDictionary(itemName, 1);
         }
     }
 
@@ -2316,6 +2317,34 @@ public class GetMaterial : MonoBehaviour
         }
 
 
+    }
+
+    void ItemGetforDictionary(string _itemname, int _kosu)
+    {
+        Debug.Log("取得したアイテム: " + _itemname + " " + _kosu);
+
+        dict_check = false;
+        foreach (KeyValuePair<string, int> item in GameMgr.GetMat_ResultList)
+        {
+            if (item.Key == _itemname)
+            {
+                GameMgr.GetMat_ResultList[_itemname] += _kosu;
+                dict_check = true;
+                Debug.Log("リザルトに表示するアイテム: " + item.Key + " " + item.Value);
+                break;
+            }
+            else
+            {
+                
+            }
+            
+        }
+        
+        if(!dict_check)
+        {
+            GameMgr.GetMat_ResultList.Add(_itemname, _kosu);
+            Debug.Log("リザルトに表示するアイテム: " + _itemname + " " + _kosu);
+        }
     }
 
     int TreasureChoose()

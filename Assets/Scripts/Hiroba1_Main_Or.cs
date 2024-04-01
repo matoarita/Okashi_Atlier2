@@ -12,7 +12,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
     private GameObject BGImagePanel;
     private List<GameObject> BGImg_List = new List<GameObject>();
     private List<GameObject> BGImg_List_mago = new List<GameObject>();
-    private int i;
+    private int i, _num;
 
     // Use this for initialization
     void Start()
@@ -40,62 +40,62 @@ public class Hiroba1_Main_Or : MonoBehaviour
             case 0: //中央噴水 メイン
                 
                 GameMgr.Scene_Name = "Or_Hiroba_CentralPark";
-                SettingBGPanel(2); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map03"); //Map〇〇のリスト番号を指定
                 break;
 
             case 1: //中央噴水２　冬エリアへ繋がる散歩道
 
                 GameMgr.Scene_Name = "Or_Hiroba_CentralPark2";
-                SettingBGPanel(1); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map02"); //Map〇〇のリスト番号を指定
                 break;
 
             case 10: //春エリア
 
                 GameMgr.Scene_Name = "Or_Hiroba_Spring_Entrance";
-                SettingBGPanel(3); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map04"); //Map〇〇のリスト番号を指定
                 break;
 
             case 11: //春エリア　商店街
 
                 GameMgr.Scene_Name = "Or_Hiroba_Spring_Shoping_Moll";
-                SettingBGPanel(4); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map05"); //Map〇〇のリスト番号を指定
                 break;
 
             case 12: //春エリア　奥側
 
                 GameMgr.Scene_Name = "Or_Hiroba_Spring_Oku";
-                SettingBGPanel(5); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map06"); //Map〇〇のリスト番号を指定
                 break;
 
             case 13: //春エリア　裏通り
 
                 GameMgr.Scene_Name = "Or_Hiroba_Spring_UraStreet";
-                SettingBGPanel(6); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map07"); //Map〇〇のリスト番号を指定
                 break;
 
             case 100: //夏エリア
 
                 GameMgr.Scene_Name = "Or_Hiroba_Summer_Entrance";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map100"); //Map〇〇のリスト番号を指定
                 break;
 
             case 200: //秋エリア
 
                 GameMgr.Scene_Name = "Or_Hiroba_Autumn_Entrance";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map200"); //Map〇〇のリスト番号を指定
                 break;
 
             case 300: //冬エリア
 
                 GameMgr.Scene_Name = "Or_Hiroba_Winter_Entrance";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map300"); //Map〇〇のリスト番号を指定
                 
                 break;
 
             default:
 
                 GameMgr.Scene_Name = "Or_Hiroba_CentralPark";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map03"); //Map〇〇のリスト番号を指定
                 break;
         }
 
@@ -161,8 +161,20 @@ public class Hiroba1_Main_Or : MonoBehaviour
         hiroba1_mainController.UpdateHiroba1MainScene();        
     }
 
-    void SettingBGPanel(int _num)
+    void SettingBGPanel(string _name)
     {
+        i = 0;
+        while(i < BGImg_List.Count)
+        {
+            if(BGImg_List[i].name == _name)
+            {
+                _num = i;
+                break;
+            }
+             //マップオブジェクト名に一致するもの探す
+            i++;
+        }
+
         BGImg_List[_num].gameObject.SetActive(true);
 
         i = 0;

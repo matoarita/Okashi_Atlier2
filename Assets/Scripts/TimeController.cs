@@ -171,6 +171,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     break;
 
             }
+
+            TimeKoushin(0); //時間の更新　初期
         }
 
         

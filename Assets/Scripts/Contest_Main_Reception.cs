@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Outside_theContest_Main : MonoBehaviour
+public class Contest_Main_Reception : MonoBehaviour
 {
 
     private GameObject text_area;
@@ -42,6 +42,7 @@ public class Outside_theContest_Main : MonoBehaviour
     private RecipiListController recipilistController;
 
     private GameObject mainlist_controller_obj;
+    private GameObject contestList_ScrollView_obj;
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -51,13 +52,13 @@ public class Outside_theContest_Main : MonoBehaviour
     public bool bgm_change_flag;
 
     private GameObject newAreaReleasePanel_obj;
+    private GameObject backshopfirst_obj;
 
     private int ev_id;
 
     private int i, rndnum;
     private int backnum;
 
-    private int scene_status, scene_num;
     private bool StartRead;
 
     private string default_scenetext;
@@ -70,7 +71,7 @@ public class Outside_theContest_Main : MonoBehaviour
     void Start()
     {
         //今いるシーン番号を指定
-        GameMgr.Scene_Category_Num = 110;
+        GameMgr.Scene_Category_Num = 120;
 
         //Debug.Log("Hiroba scene loaded");
 
@@ -136,9 +137,13 @@ public class Outside_theContest_Main : MonoBehaviour
         bgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
 
         
-
         newAreaReleasePanel_obj = canvas.transform.Find("NewAreaReleasePanel").gameObject;
         newAreaReleasePanel_obj.SetActive(false);
+
+        contestList_ScrollView_obj = canvas.transform.Find("ContestListPanel/ContestList_ScrollView").gameObject;
+        contestList_ScrollView_obj.SetActive(false);
+        backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
+        backshopfirst_obj.SetActive(false);
 
         //
         //背景と場所名の設定 最初にこれを行う
@@ -157,13 +162,14 @@ public class Outside_theContest_Main : MonoBehaviour
 
         switch (GameMgr.SceneSelectNum)
         {
-            case 0: //春のコンテスト　01
+            case 0: //春のコンテスト　会場受付
 
-                GameMgr.ContestSelectNum = 10000; //コンテストの会場を指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                //受付シーンで、10個ぐらいコンテストのリスト一覧をだし、そこで指定すると、以下のコンテスト番号を決定
+                //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
-                backnum = 12; //バックボタン押したときの戻り先
+                backnum = 0; //バックボタン押したときの戻り先
 
-                default_scenetext = "春コンテストの会場だ！　にいちゃん！！" + "\n" + "ひぃぃぃぃ・・・";
+                default_scenetext = "いらっしゃい。ここは、コンテスト受付ですよ。";
                 break;
 
         }
@@ -214,7 +220,7 @@ public class Outside_theContest_Main : MonoBehaviour
         }
         //** 場所名設定ここまで **//
 
-        scene_status = 0;
+        GameMgr.Scene_Status = 0;
         StartRead = false;
 
         text_scenario();
@@ -265,8 +271,15 @@ public class Outside_theContest_Main : MonoBehaviour
 
             GameMgr.scenario_ON = true;
             newAreaReleasePanel_obj.SetActive(true);
-            scene_status = 0;
+            GameMgr.Scene_Status = 0;
             //sceneBGM.MuteBGM();
+        }
+
+        if (GameMgr.Reset_SceneStatus)
+        {
+            GameMgr.Reset_SceneStatus = false;
+            GameMgr.Scene_Status = 0;
+            text_scenario();
         }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
@@ -275,22 +288,26 @@ public class Outside_theContest_Main : MonoBehaviour
             text_area.SetActive(false);
             //placename_panel.SetActive(false);
             mainlist_controller_obj.SetActive(false);
-
+            backshopfirst_obj.SetActive(false);
+            contestList_ScrollView_obj.SetActive(false);
         }
         else
         {
-            switch (scene_status)
+            switch (GameMgr.Scene_Status)
             {
                 case 0:
 
                     text_area.SetActive(true);
                     //placename_panel.SetActive(true);
                     mainlist_controller_obj.SetActive(true);
+                    backshopfirst_obj.SetActive(false);
+                    backshopfirst_obj.GetComponent<Button>().interactable = true;
+                    contestList_ScrollView_obj.SetActive(false);
 
-                    sceneBGM.MuteOFFBGM();                  
+                    sceneBGM.MuteOFFBGM();
 
-                    scene_status = 100;
-                    scene_num = 0;
+                    GameMgr.Scene_Status = 100;
+                    GameMgr.Scene_Select = 0;
 
                     break;
 
@@ -547,19 +564,21 @@ public class Outside_theContest_Main : MonoBehaviour
         }
     }
 
-    //SubView1 コンテスト中へ入る
+    //SubView1
     public void OnSubNPC1_toggle()
     {
-        //コンテスト会場指定は、ここに来た時に、Start内ですでにやっているので不要
-        FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
+        //コンテストリストメニュー開く
+        contestList_ScrollView_obj.SetActive(true);
+        backshopfirst_obj.SetActive(true);
+        mainlist_controller_obj.SetActive(false);
+
+        _text.text = "今開催しているコンテストです。";
     }
 
-    //SubView2　立ち去る
+    //SubView2
     public void OnSubNPC2_toggle()
     {
-        //戻る
-        GameMgr.SceneSelectNum = backnum;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+
     }
 
     //SubView3
@@ -585,7 +604,7 @@ public class Outside_theContest_Main : MonoBehaviour
     {
         //戻る
         GameMgr.SceneSelectNum = backnum;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
     }
 
 

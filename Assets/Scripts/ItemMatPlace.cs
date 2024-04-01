@@ -43,8 +43,8 @@ public class ItemMatPlace
     public float dropRareProb2;
     public float dropRareProb3;
 
-    public Texture2D center_bg;
-    public Texture2D back_bg;
+    public Sprite center_bg;
+    public Sprite back_bg;
 
     public int read_end; //各マップリストデータの読み終わり地点
 
@@ -100,8 +100,8 @@ public class ItemMatPlace
 
         mapIcon_sprite = Resources.Load<Sprite>("Sprites/BG_Icon/" + fileName);
 
-        center_bg = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/MatPlace/" + _center_bg);
-        back_bg = Resources.Load<Texture2D>("Utage_Scenario/Texture/Bg/" + _back_bg);
+        center_bg = Resources.Load<Sprite>("Utage_Scenario/Texture/Bg/MatPlace/" + _center_bg);
+        back_bg = Resources.Load<Sprite>("Utage_Scenario/Texture/Bg/" + _back_bg);
 
         read_end = _read_end;
     }

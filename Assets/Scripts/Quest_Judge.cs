@@ -318,7 +318,7 @@ public class Quest_Judge : MonoBehaviour {
 
         //お金の増減用パネルの取得
         MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
-        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
         //女の子、お菓子の判定処理オブジェクトの取得
         GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");

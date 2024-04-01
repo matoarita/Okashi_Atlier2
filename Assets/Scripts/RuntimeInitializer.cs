@@ -138,6 +138,11 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(slotchangename_init);
         slotchangename_init.tag = "SlotChangeName";
 
+        //お金増減のコントローラー
+        var MoneyStatus_Controller_init = new GameObject("MoneyStatus_Controller", typeof(MoneyStatus_Controller));
+        GameObject.DontDestroyOnLoad(MoneyStatus_Controller_init);
+        MoneyStatus_Controller_init.tag = "MoneyStatus_Controller";
+
         //フェードマネージャー
         var fadeMgr_init = new GameObject("FadeManager", typeof(FadeManager));
         GameObject.DontDestroyOnLoad(fadeMgr_init);

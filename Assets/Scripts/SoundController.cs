@@ -119,4 +119,12 @@ public class SoundController : SingletonMonoBehaviour<SoundController>
             source.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
         }
     }
+
+    //メインアトリエに入るときの玄関音
+    public void EnterSound_01()
+    {
+        //入店の音
+        PlaySe(38); //ドア
+        PlaySe(50); //ベル
+    }
 }

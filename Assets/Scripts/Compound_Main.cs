@@ -46,7 +46,6 @@ public class Compound_Main : MonoBehaviour
 
     private BGM sceneBGM;
     private Map_Ambience map_ambience;
-    public bool bgm_change_flag;
     public bool bgm_change_flag2;
 
     private Girl1_status girl1_status;
@@ -75,7 +74,7 @@ public class Compound_Main : MonoBehaviour
     private Text girl_param;
     private GameObject moneystatus_panel;
     private GameObject kaerucoin_panel;
-    private GameObject GetMatStatusButton_obj;
+    //private GameObject GetMatStatusButton_obj;
 
     private GameObject manpuku_bar;
     private Slider manpuku_slider;
@@ -347,7 +346,7 @@ public class Compound_Main : MonoBehaviour
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
-        bgm_change_flag = false;
+        GameMgr.matbgm_change_flag = false;
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -417,11 +416,11 @@ public class Compound_Main : MonoBehaviour
 
         //女の子、お菓子の判定処理オブジェクトの取得
         GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
-        girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();        
+        girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
 
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
-        _text = text_area.GetComponentInChildren<Text>();        
+        _text = text_area.GetComponentInChildren<Text>();
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.transform.Find("Text").GetComponent<Text>();
         text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
@@ -432,18 +431,18 @@ public class Compound_Main : MonoBehaviour
 
         //エクストリームパネルの取得+初期化
         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
-        extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();       
+        extreme_panel = Extremepanel_obj.GetComponentInChildren<ExtremePanel>();
 
         //ボタンの取得
         extreme_Button = Extremepanel_obj.transform.Find("Comp/ExtremeButton").gameObject.GetComponent<Button>(); //エクストリームボタン
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
-        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();        
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
         black_panel_A.SetActive(false);
-      
+
         compoBGA_image = compoBG_A.transform.Find("BG").gameObject;
         compoBGA_imageOri = compoBG_A.transform.Find("OriCompoImage").gameObject;
         compoBGA_imageRecipi = compoBG_A.transform.Find("RecipiCompoImage").gameObject;
@@ -466,14 +465,14 @@ public class Compound_Main : MonoBehaviour
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel/Comp").gameObject;
         getmatplace = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
         getmatplace_panel.SetActive(false);
-        GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel").gameObject;
+        //GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel").gameObject;
 
-        
+
         //お金パネル
         moneystatus_panel = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
-        moneyStatus_Controller = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
-        
+
         //Live2Dモデルの取得
         _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
@@ -520,7 +519,7 @@ public class Compound_Main : MonoBehaviour
         hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
         hinttaste_toggle.SetActive(false);
 
-        menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;       
+        menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         bar_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Bar_Toggle").gameObject;
         getmaterial_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/GetMaterial_Toggle").gameObject;
@@ -551,7 +550,7 @@ public class Compound_Main : MonoBehaviour
         manpuku_text = manpuku_bar.transform.Find("ManpukuText").GetComponent<Text>();
 
         kigen_text = manpuku_bar.transform.Find("KigenText").GetComponent<Text>();
-               
+
         //えめらるどんぐりパネルの取得
         kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
 
@@ -570,10 +569,16 @@ public class Compound_Main : MonoBehaviour
         //★注意　タグ「BG」が、Compoundのメインシーンと、Hikari_CompMainで被っているので、Hikari_CompMainでチェックするとき以外は、Hikari_CompMainの「BGPanelMatome」はオフにする。
         //Hikari_CompMainの「BGPanelMatome」とそれ以下は、削除しても大丈夫なオブジェクト。デバッグ用に一応残しているだけ。
 
+
         bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel").gameObject;
         BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel").gameObject;
         BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect").gameObject;
         bg_accessory_panel = bgpanelmatome.transform.Find("BGAccessory").gameObject;
+
+        //飾りアイテムのセット        
+        BGAccetrigger = bg_accessory_panel.GetComponent<BGAcceTrigger>();
+        BGAccetrigger.DrawBGAcce();
+        
 
         bg_weather_image.Clear();
         foreach (Transform child in bgweather_image_panel.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
@@ -608,12 +613,20 @@ public class Compound_Main : MonoBehaviour
         particleEm_CandleLight1_obj = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").gameObject;
         particleEm_MiniHouseLight1_obj = bg_accessory_panel.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").gameObject;
 
+        //飾りアイテムはオランジーナではひとまず使わない
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Compound":
+                bg_accessory_panel.SetActive(false);
+                break;
+        }
+
         Change_BGimage();
 
         /* --- */
 
-        
-        Recipi_loading = false;       
+
+        Recipi_loading = false;
         check_recipi_flag = false;
         heartget_ON = false;
 
@@ -646,7 +659,7 @@ public class Compound_Main : MonoBehaviour
                 if (GameMgr.stage1_load_ok != true)
                 {
                     GameMgr.stage1_load_ok = true;
-                    GameMgr.scenario_flag = 110;                   
+                    GameMgr.scenario_flag = 110;
                 }
 
                 break;
@@ -665,17 +678,15 @@ public class Compound_Main : MonoBehaviour
         questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
 
         //初期メッセージ
-        StartMessage();        
+        StartMessage();
         text_area_Main.SetActive(false);
 
         //初期アイテムの取得。一度きり。
         playerDefaultStart_ItemGet.DefaultStartPitem();
 
+        
+        
 
-
-        //飾りアイテムのセット        
-        BGAccetrigger = bg_accessory_panel.GetComponent<BGAcceTrigger>();
-        BGAccetrigger.DrawBGAcce();
 
         ReturnBackHome();
 
@@ -692,8 +703,8 @@ public class Compound_Main : MonoBehaviour
         if (GameMgr.GameLoadOn)
         {
             Debug.Log("ロード画面から読み込んだ");
-            GameMgr.GameLoadOn = false; 
-            
+            GameMgr.GameLoadOn = false;
+
             save_controller.DrawGameScreen();
             //keymanager.InitCompoundMainScene();
             GameMgr.MesaggeKoushinON = true;
@@ -737,9 +748,8 @@ public class Compound_Main : MonoBehaviour
         {
             GameMgr.Scene_back_home = false;
 
-            //入店の音
-            sc.PlaySe(38); //ドア
-            sc.PlaySe(50); //ベル
+            //玄関音
+            sc.EnterSound_01();
 
             //時間をチェックし、背景を自動で変更
             Weather_Change(0.0f);
@@ -1393,7 +1403,7 @@ public class Compound_Main : MonoBehaviour
                 }
 
                 mainUI_panel_obj.SetActive(true);
-                GetMatStatusButton_obj.SetActive(false);
+                //GetMatStatusButton_obj.SetActive(false);
                 recipilist_onoff.SetActive(false);
                 playeritemlist_onoff.SetActive(false);
                 yes_no_panel.SetActive(false);
@@ -1514,9 +1524,9 @@ public class Compound_Main : MonoBehaviour
                     //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
                     bgm_change_story();
 
-                    if (bgm_change_flag == true)
+                    if (GameMgr.matbgm_change_flag == true)
                     {
-                        bgm_change_flag = false;
+                        GameMgr.matbgm_change_flag = false;
                        
                         sceneBGM.OnMainBGM();
                     }
@@ -1549,21 +1559,51 @@ public class Compound_Main : MonoBehaviour
 
                 }
 
-                //if (!SceneStart_flag)
-                //{
-                    if (girl1_status.special_animatFirst) //SPアニメ終わったあとにチェック
+
+                if (girl1_status.special_animatFirst) //SPアニメ終わったあとにチェック
+                {
+
+                    //SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
+
+                    //エクストラモード　クエストクリアチェック
+                    if (GameMgr.Story_Mode == 1)
                     {
-
-                        //SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
-
-                        //エクストラモード　クエストクリアチェック
-                        if (GameMgr.Story_Mode == 1)
-                        {
-                            girlEat_judge.ExtraSPQuestClearCheck();
-                        }
-
+                        girlEat_judge.ExtraSPQuestClearCheck();
                     }
-                //}
+
+                    //採取地から家に帰ってきたときの処理
+                    if (GameMgr.Getmat_return_home)
+                    {
+                        GameMgr.Getmat_return_home = false;
+
+                        //リザルトパネルを表示する
+                        getmatplace.ResultPanelOn();
+
+                        //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
+                        if (GameMgr.OsotoIkitaiFlag)
+                        {
+                            GameMgr.OsotoIkitaiFlag = false;
+                            girlEat_judge.loveGetPlusAnimeON(5, false);
+                            _textmain.text = "お外にいって、喜んだようだ。";
+                            girl1_status.GirlExpressionKoushin(20);
+                        }
+                        else
+                        {
+                            _textmain.text = "家に戻ってきた。どうしようかなぁ？";
+                        }
+                        //ハートゲージを更新。
+                        HeartGuageTextKoushin();
+
+                        //オートセーブ
+                        if (GameMgr.AUTOSAVE_ON)
+                        {
+                            save_controller.OnSaveMethod();
+                            Debug.Log("オートセーブ完了");
+
+                            AutoSaveCompleteText();
+                        }
+                    }
+                }
 
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
                 if (GameMgr.check_CompoAfter_flag)
@@ -1572,6 +1612,8 @@ public class Compound_Main : MonoBehaviour
                     GameMgr.check_CompoAfter_flag = false;
                     GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
                 }
+
+                
 
                 GameMgr.Status_zero_readOK = true;
 
@@ -1682,8 +1724,8 @@ public class Compound_Main : MonoBehaviour
                 WindowOff();
 
                 text_area.SetActive(true);
-                moneystatus_panel.SetActive(true);
-                GetMatStatusButton_obj.SetActive(true);
+                //moneystatus_panel.SetActive(true);
+                //GetMatStatusButton_obj.SetActive(true);
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
@@ -2299,28 +2341,48 @@ public class Compound_Main : MonoBehaviour
         {
             getmaterial_toggle.GetComponent<Toggle>().isOn = false;
 
-            card_view.DeleteCard_DrawView();
-            _text.text = "妹と一緒に材料を取りにいくよ！行き先を選んでね。";
-            GameMgr.compound_status = 20;
+            switch(GameMgr.Scene_Name)
+            {
+                case "Compound":
 
-            StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+                    OnGetMatPanel(); //採取地画面を直接開く
+                    break;
 
-            //BGMを変更
-            sceneBGM.OnGetMatStartBGM();
-            map_ambience.Mute();
-            bgm_change_flag = true;
+                case "Or_Compound":
 
-            //音ならす
-            sc.PlaySe(36);
-
-            getmatplace.SetInit();
-            getmatplace_panel.SetActive(true);
-            yes_no_panel.SetActive(true);
-            yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
-
-            TimePanel_obj1.SetActive(false);
-            TimePanel_obj2.SetActive(true);            
+                    //玄関音　外に一度出るパターン
+                    sc.EnterSound_01();
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
+                    break;
+            }       
         }
+    }
+
+    void OnGetMatPanel()
+    {
+        card_view.DeleteCard_DrawView();
+        _text.text = "妹と一緒に材料を取りにいくよ！行き先を選んでね。";
+        GameMgr.compound_status = 20;
+
+        StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+
+        //BGMを変更
+        sceneBGM.OnGetMatStartBGM();
+        map_ambience.Mute();
+        GameMgr.matbgm_change_flag = true;
+
+        //音ならす
+        sc.PlaySe(36);
+
+        getmatplace.SetInit();
+        getmatplace_panel.SetActive(true);
+        yes_no_panel.SetActive(true);
+        yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
+
+        moneystatus_panel.SetActive(false);
+        TimePanel_obj1.SetActive(false);
+        //TimePanel_obj2.SetActive(true);
     }
 
     public void OnGirlEat() //女の子にお菓子をあげる
@@ -2836,7 +2898,7 @@ public class Compound_Main : MonoBehaviour
         Extremepanel_obj.SetActive(false);
         compoBG_A.SetActive(false);
         girl_love_exp_bar.SetActive(true);
-        GameMgr.GirlLove_loading = true;        
+        GameMgr.GirlLove_loading = true;
 
         //腹減りカウント一時停止
         girl1_status.GirlEatJudgecounter_OFF();
@@ -2915,9 +2977,8 @@ public class Compound_Main : MonoBehaviour
 
                 case 61:
 
-                    //入店の音
-                    sc.PlaySe(38); //ドア
-                    sc.PlaySe(50); //ベル
+                    //玄関音
+                    sc.EnterSound_01();
 
                     switch (GameMgr.event_judge_status)
                     {
@@ -3932,11 +3993,6 @@ public class Compound_Main : MonoBehaviour
     {
         //好感度ゲージを更新               
         debug_panel.GirlLove_Koushin(PlayerStatus.girl1_Love_exp);
-    }
-
-    public void MoneyTextKoushin()
-    {
-        moneystatus_panel.GetComponent<MoneyStatus_Controller>().money_Draw();
     }
 
     void InitTodayFoodLibrary()

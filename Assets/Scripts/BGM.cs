@@ -230,6 +230,11 @@ public class BGM : MonoBehaviour {
                 _bgm[0].clip = sound36;
                 break;
 
+            case "GetMaterial":
+
+                //シーン最初は無音。GetMatPlace_Panelで決めてる。
+                break;
+
             default:
 
                 //Debug.Log("GameMgr.Scene_Category_Num: " + GameMgr.Scene_Category_Num);
@@ -238,6 +243,11 @@ public class BGM : MonoBehaviour {
                 //オランジーナは、こっちが中心
                 switch(GameMgr.Scene_Category_Num)
                 {
+                    case 11: //アトリエ前
+
+                        _bgm[0].clip = sound41;
+                        break;
+
                     case 20: //オランジーナショップ
 
                         _bgm[0].clip = sound27;
@@ -283,6 +293,11 @@ public class BGM : MonoBehaviour {
                                 _bgm[0].clip = sound41;
                                 break;
 
+                            case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
+
+                                _bgm[0].clip = sound41;
+                                break;
+                                
                             default:
 
                                 break;
@@ -300,6 +315,11 @@ public class BGM : MonoBehaviour {
                         _bgm[0].clip = sound41; //23
                         break;
 
+                    case 120: //コンテスト会場受付系
+
+                        _bgm[0].clip = sound41; //23
+                        break;
+
                     default:
 
                         _bgm[0].clip = sound1;
@@ -308,9 +328,10 @@ public class BGM : MonoBehaviour {
                 break;
 
         }
-        _bgm[0].Play();
 
-        
+        _bgm[0].Play();
+        _mixRate = 0; //bgm[0]に音を切り替える
+
     }
 
     public void EndingBGM_A()

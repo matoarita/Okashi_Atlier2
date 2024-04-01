@@ -541,6 +541,28 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                     }
                 }
 
+                if (GameMgr.Scene_Category_Num == 11) // アトリエ前
+                {
+                    switch (GameMgr.Scene_Status)
+                    {
+                        case 21: //status=21。材料採取地選択中
+
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                            {
+                                yes_selectitem_kettei.onclick = false;
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+
+                                    GameMgr.Scene_Status = 0; //何も選択していない状態にもどる。
+                                    GameMgr.Scene_Select = 0;
+
+                                }
+                            }
+
+                            break;
+                    }
+                }
+
                 if (GameMgr.Scene_Category_Num == 20) //ショップシーン
                 {
                     if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された

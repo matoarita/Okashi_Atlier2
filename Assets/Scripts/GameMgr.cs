@@ -80,7 +80,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool CompoBGMCHANGE_ON = false;
 
     //シーン移動の際の切り替え時間
-    public static float SceneFadeTime = 0.5f;
+    public static float SceneFadeTime = 0.3f;
 
     //初期アイテム取得のフラグ
     public static bool gamestart_recipi_get;
@@ -448,9 +448,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int CGGallery_num; //別シーンから、どのイベントを呼び出すかを、指定する。
 
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
-    public static int Scene_Category_Num;           //Compound=10, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, Contest=100, Contest_Outside=110, 
+    public static int Scene_Category_Num;           //Compound=10, Compound_Entrance=11, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, 
+                                                    //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130,
                                                     //200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
-    
+
 
     //その他、一時的なフラグ
     public static int MapSubEvent_Flag;
@@ -490,6 +491,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
     public static int MainQuestClear_flag; //メインクエストをクリアしたのか、道中の通常のSPクエストをクリアしたのか、判定するフラグ
     public static bool final_select_flag; //調合シーンで、調合の最終決定の確認
+    public static bool matbgm_change_flag; //採取地へ行く際のBGM切り替えのフラグ
     public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
     public static bool extremepanel_Koushin; //なんらかの調合が終わり、エクストリームパネルの表示を更新するフラグ
     public static bool live2d_posmove_flag; //Live2Dキャラの位置を移動したフラグ
@@ -532,6 +534,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool NewAreaRelease_flag; //なんらかのイベント後、新エリアが解禁されるフラグ
     public static List<int> PrizeScoreAreaList = new List<int>(); //コンテストのランキングスコア、もしくは賞品のスコア範囲のリスト
     public static int SceneSelectNum; //シーンの移動先を指定する番号　番号をもとに、移動先シーンのStartでその場所名を決定する
+    public static bool Getmat_return_home; //採取地から家に帰ってきたフラグ
+    public static int Select_place_num; //採取のDBリスト番号
+    public static string Select_place_name; //採取地の名前
+    public static int Select_place_day; //採取地までにかかる日数
+    public static Dictionary<string, int> GetMat_ResultList = new Dictionary<string, int>(); //採取で取得したアイテムのリスト　名前と個数
+    public static bool Money_counterAnim_on; //所持金お金動くアニメON
+    public static bool Money_counterAnim_StartSetting; //そのとき最初だけ初期設定
+    public static int Money_counterParam; //そのときの入ったお金
+    public static int Money_StartParam; //アニメ前の始まりのお金
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -964,6 +975,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MainQuestClear_flag = 0;
         final_select_flag = false;
         CompoundSceneStartON = false;
+        matbgm_change_flag = false;
         compobgm_change_flag = false;
         extremepanel_Koushin = false;
         live2d_posmove_flag = false;
@@ -997,6 +1009,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_PrizeGet_flag = false;
         contest_Rank_Count = 1;
         SceneSelectNum = 0;
+        Getmat_return_home = false;
+        Money_counterAnim_on = false;
+        Money_counterAnim_StartSetting = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -1070,6 +1085,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_TotalScoreList.Clear();
         contest_PrizeScore = 0;
         PrizeScoreAreaList.Clear();
+        GetMat_ResultList.Clear();
         Contest_PrizeGet_ItemName = "";
         special_shogo_flag = false;
 

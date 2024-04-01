@@ -336,16 +336,7 @@ public class Utage_scenario : MonoBehaviour
 
                     //イベントレシピを表示
                     StartCoroutine(ItemUse_Recipi_Hyouji());
-                }
-
-                if (GameMgr.map_event_flag == true)
-                {
-                    GameMgr.map_event_flag = false;
-                    map_ev_ID = GameMgr.map_ev_ID;
-
-                    //マップイベントのテキストを表示
-                    StartCoroutine(MapEvent_Hyouji());
-                }
+                }               
 
                 if (GameMgr.OkashiComment_flag == true)
                 {
@@ -619,6 +610,17 @@ public class Utage_scenario : MonoBehaviour
 
                 StartCoroutine(Contest_Or_TimeLimitOver());
             }
+
+            //採取地でのイベント
+            if (GameMgr.map_event_flag == true)
+            {
+                GameMgr.map_event_flag = false;
+                map_ev_ID = GameMgr.map_ev_ID;
+
+                //マップイベントのテキストを表示
+                StartCoroutine(MapEvent_Hyouji());
+            }
+
         }
     }
 
@@ -2410,8 +2412,9 @@ public class Utage_scenario : MonoBehaviour
     // マップイベント表示
     //
     IEnumerator MapEvent_Hyouji()
-    {
+    {      
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+        Debug.Log("宴シーン読み込み中");
 
         scenarioLabel = "MapEvent"; //イベントレシピタグのシナリオを再生。
 
@@ -2419,6 +2422,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("MapEv_num", map_ev_ID);
+        Debug.Log("map_ev_ID: " + map_ev_ID);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);

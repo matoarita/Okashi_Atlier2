@@ -59,18 +59,92 @@ public class PlaceNamePanel : MonoBehaviour {
                 _text = "コンテスト会場";
                 break;
 
-            case "Or_Bar":
-
-                _text = "オランジーナの酒場";
-                break;
-
-            case "Or_Shop":
-
-                _text = "オランジーナのお菓子店";
-                break;
-
             default:
 
+                //オランジーナは、こっちが中心
+                switch (GameMgr.Scene_Category_Num)
+                {
+                    case 20: //オランジーナショップ
+
+                        _text = "オランジーナのお菓子店";
+                        break;
+
+                    case 30: //オランジーナ酒場
+
+                        _text = "オランジーナの酒場";
+                        
+                        break;
+
+                    case 60: //オランジーナ広場系
+
+                        switch (GameMgr.Scene_Name)
+                        {
+                            case "Or_Hiroba_CentralPark": //中央噴水
+
+
+                                break;
+
+                            case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道
+
+
+                                break;
+
+                            case "Or_Hiroba_Spring_Entrance": //春のエリア入口
+
+
+                                break;
+
+                            case "Or_Hiroba_Spring_Shoping_Moll": //春のエリア商店街
+
+
+                                break;
+
+                            case "Or_Hiroba_Spring_Oku": //春のエリア商店街
+
+
+                                break;
+
+                            case "Or_Hiroba_Spring_UraStreet": //春のエリア商店街
+
+
+                                break;
+
+                            case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
+
+
+                                break;
+
+                            case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
+
+
+                                break;
+
+                            case "Or_Hiroba_Winter_Entrance": //冬のエリア入口
+
+                                _text = "スノーマンズ・レスト";
+                                break;
+
+                            default:
+
+                                break;
+                        }
+                        break;
+
+
+                    case 100: //コンテスト系
+
+
+                        break;
+
+                    case 110: //コンテスト会場前系
+
+
+                        break;
+
+                    default:
+
+                        break;
+                }
                 break;
         }
 

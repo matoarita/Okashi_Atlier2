@@ -33,7 +33,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private BGM sceneBGM;
     private SoundController sc;
     private Special_Quest special_quest;
-    private MoneyStatus_Controller money_status;
     private Exp_Controller exp_Controller;
 
     private GameObject canvas;
@@ -994,8 +993,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
                 compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
-                money_status = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
-
                 //Live2Dモデルの取得
                 _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
 
@@ -1017,7 +1014,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 bgpanelmatome = GameObject.FindWithTag("BG");
                 BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
 
-                money_status.money_Draw();
                 questname.text = girl1_status.OkashiQuest_Name;
                 sceneBGM.PlayMain(); //BGMの更新                               
 

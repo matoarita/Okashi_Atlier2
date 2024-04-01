@@ -72,8 +72,8 @@ public class GetMatResult_Panel : MonoBehaviour
 
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
 
-        getmatResult_panel_obj = canvas.transform.Find("GetMatResult_Panel/Comp").gameObject;
-        getmatResult_Image_obj = canvas.transform.Find("GetMatResult_Panel/Comp/Image").gameObject;
+        getmatResult_panel_obj = this.transform.Find("Comp").gameObject;
+        getmatResult_Image_obj = this.transform.Find("Comp/Image").gameObject;
     }
 
     private void OnEnable()
@@ -94,16 +94,13 @@ public class GetMatResult_Panel : MonoBehaviour
         itemID.Clear();
         itemKosu.Clear();
 
-        for (i=0;  i < getmatplace_panel.result_items.Count; i++)
+        foreach (KeyValuePair<string, int> item in GameMgr.GetMat_ResultList)
         {
-            if(getmatplace_panel.result_items[database.items[i].itemName] > 0)
-            {
-                itemID.Add(i);
-                itemKosu.Add(getmatplace_panel.result_items[database.items[i].itemName]);
-            }
+            itemID.Add(database.SearchItemIDString(item.Key));
+            itemKosu.Add(item.Value);
+            
         }
         
-
         //表示
         for (i = 0; i < itemID.Count; i++)
         {

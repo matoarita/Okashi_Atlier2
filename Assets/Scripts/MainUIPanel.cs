@@ -13,7 +13,6 @@ public class MainUIPanel : MonoBehaviour {
     private int trans; //トランジション用のパラメータ
 
     private GameObject canvas;
-    private GameObject GetMatStatusButton_obj;
     private GameObject TimePanel_obj;
     private GameObject _CompObj;
 
@@ -54,7 +53,6 @@ public class MainUIPanel : MonoBehaviour {
         _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
 
         TimePanel_obj = this.transform.Find("Comp/TimePanel").gameObject;
-        GetMatStatusButton_obj = this.transform.Find("Comp/GetMatStatusPanel").gameObject;
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -139,9 +137,6 @@ public class MainUIPanel : MonoBehaviour {
         {
             TimePanel_obj.SetActive(false);
         }
-
-        //材料採取系ボタンもオフにする。
-        GetMatStatusButton_obj.SetActive(false);
 
         compound_Main.CheckButtonFlag();
         compound_Main.QuestClearCheck();

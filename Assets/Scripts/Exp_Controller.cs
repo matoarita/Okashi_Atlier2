@@ -59,7 +59,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject card_view_obj;
     private CardView card_view;
 
-    private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
     private KaeruCoin_Controller kaeruCoin_Controller;
@@ -212,6 +211,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //お金の増減用コントローラーの取得
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -1520,10 +1522,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
-        //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = canvas.transform.Find("MoneyStatus_panel").gameObject;
-        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
-
         shopbuy_kettei_item1 = shopitemlistController.shop_kettei_item1; //ショップ購入時の決定アイテムIDは、参照先がdatabaseの場合とeventdatabaseで分かれているので、下の処理内で、配列番号を取得するようにしている。
         //Debug.Log("決定したアイテムID: " + kettei_item1 + " リスト番号: " + shopitemlistController.shop_count);
 
@@ -1634,10 +1632,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         text_area = canvas.transform.Find("MessageWindow").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
-
-        //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = GameObject.FindWithTag("MoneyStatus_panel").gameObject;
-        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
 
         kettei_item1 = GameMgr.Final_list_itemID1;
         toggle_type1 = GameMgr.Final_toggle_Type1;
