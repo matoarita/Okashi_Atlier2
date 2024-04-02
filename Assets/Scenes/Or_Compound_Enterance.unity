@@ -113,47 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &13387073
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 13387075}
-  - component: {fileID: 13387074}
-  m_Layer: 0
-  m_Name: GetMaterial
-  m_TagString: GetMaterial
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &13387074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 13387073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce97c4212d3f81a4f8cbd5c3d1b7349b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Treasure_Status: 0
---- !u!4 &13387075
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 13387073}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 332.95462, y: 358.48563, z: -2.25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &107153204
 Prefab:
   m_ObjectHideFlags: 0
@@ -4078,7 +4037,7 @@ Prefab:
     - target: {fileID: 114508389928645004, guid: 9b85655288b765a48963c8ed40e5a690,
         type: 2}
       propertyPath: m_Text
-      value: "\u63A1\u53D6\u5730\u3078"
+      value: "\u5916\u3078\u304A\u51FA\u304B\u3051"
       objectReference: {fileID: 0}
     - target: {fileID: 114990163715943804, guid: 9b85655288b765a48963c8ed40e5a690,
         type: 2}

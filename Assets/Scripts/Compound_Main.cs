@@ -106,9 +106,6 @@ public class Compound_Main : MonoBehaviour
     private GameObject card_view_obj;
     private CardView card_view;
 
-    private GameObject get_material_obj;
-    private GetMaterial get_material;
-
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
     //public bool girlEat_ON; //食べ中のフラグ
@@ -409,10 +406,6 @@ public class Compound_Main : MonoBehaviour
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
-
-        //材料ランダムで３つ手に入るオブジェクトの取得
-        get_material_obj = GameObject.FindWithTag("GetMaterial");
-        get_material = get_material_obj.GetComponent<GetMaterial>();
 
         //女の子、お菓子の判定処理オブジェクトの取得
         GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
@@ -3431,6 +3424,8 @@ public class Compound_Main : MonoBehaviour
 
         //リセット。
         PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint; //体力は全回復
+        PlayerStatus.player_mp = PlayerStatus.player_maxmp; //MPも全回復
+
         PlayerStatus.player_day++;
         GameMgr.Sale_ON = false;
         //PlayerStatus.player_time = 0;
@@ -3457,6 +3452,9 @@ public class Compound_Main : MonoBehaviour
 
         //寝たらスリープフラグもOFFに。
         GameMgr.EventAfter_MoveEnd = false;
+
+        //サブイベントの発生チェック　コンテストの発生もないかここでチェックする
+        GameMgr.check_GirlLoveSubEvent_flag = true;
     }
 
     public void OffCompoundSelectnoExtreme()

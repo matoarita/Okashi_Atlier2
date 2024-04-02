@@ -159,6 +159,7 @@ public class Contest_Main_Outside : MonoBehaviour
             case 0: //春のコンテスト会場
 
                 //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                GameMgr.Scene_Name = "Or_Contest_Out_Spring";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 gotonum = 0; //会場受付シーンの指定
                 backnum = 12; //バックボタン押したときの戻り先
@@ -348,8 +349,8 @@ public class Contest_Main_Outside : MonoBehaviour
     IEnumerator EventReading()
     {
         GameMgr.hiroba_event_flag = true;
-        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-        GameMgr.compound_status = 1000;
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
 
         //Debug.Log("広場イベント　読み中");
 
@@ -359,8 +360,8 @@ public class Contest_Main_Outside : MonoBehaviour
         }
 
         GameMgr.scenario_read_endflag = false;
-        GameMgr.compound_select = 0; //何もしていない状態
-        GameMgr.compound_status = 0;
+        GameMgr.Scene_Select = 0; //何もしていない状態
+        GameMgr.Scene_Status = 0;
 
         //読み終わったら、またウィンドウなどを元に戻す。
         text_area.SetActive(true);

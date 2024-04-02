@@ -33,6 +33,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
 
+    private ContestStartListDataBase conteststartList_database;
+
     private PlayerDefaultStartItemGet playerDefaultStart_ItemGet;
 
     private CombinationMain Combinationmain; //テスト用
@@ -69,6 +71,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     private string itemName;
     private string item_subType;
+    private string contest_name_origin;
     private int compNum;
 
     private int i, count;
@@ -109,6 +112,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
@@ -359,138 +365,164 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     //各コンテストのデータの初期設定
     void ContestDataSetting()
     {
-        
-        //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定
-        switch (GameMgr.ContestSelectNum)
-        {
-            case 1000: //オレンジーナコンテストA1 クープデュモンド
+        contest_name_origin = conteststartList_database.conteststart_lists[GameMgr.Contest_listnum].ContestName;
 
-                GameMgr.ContestRoundNumMax = 3; //そのコンテストの最大のラウンド数
-                GameMgr.Contest_Cate_Ranking = 0; //コンテストがトーナメント形式=0 か　ランキング形式=1 か
-
-                switch (GameMgr.ContestRoundNum)
-                {
-                    case 1: //一回戦
-
-                        //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
-                        GameMgr.Contest_DB_list_Type = 20000; //compNum=20000~を指定
-                        GameMgr.Contest_Name = "Or_Contest_001_1";
-                        GameMgr.Contest_ProblemSentence = "至高のチョコレート（Aランク）" + "\n" + "テーマ：「風」をテーマにした美しいチョコレート";
-
-                        //コンテスト時間指定
-                        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
-                        PlayerStatus.player_contest_minute = 0; //開始分
-                        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
-
-                        GameMgr.contest_boss_score = 80; //一回戦相手の点数
-                        break;
-
-                    case 2: //二回戦
-
-                        GameMgr.Contest_DB_list_Type = 21000; //compNum=20000~を指定
-                        GameMgr.Contest_Name = "Or_Contest_001_2";
-                        GameMgr.Contest_ProblemSentence = "自由課題" + "\n" + "テーマ：「海」をテーマにした自由なお菓子";
-
-                        //コンテスト時間指定
-                        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
-                        PlayerStatus.player_contest_minute = 0; //開始分
-                        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
-
-                        GameMgr.contest_boss_score = 90; //
-                        break;
-
-                    case 3: //決勝戦
-
-                        GameMgr.Contest_DB_list_Type = 22000; //compNum=20000~を指定
-                        GameMgr.Contest_Name = "Or_Contest_001_3";
-                        GameMgr.Contest_ProblemSentence = "至高のケーキ" + "\n" + "テーマ：「愛」をテーマにした至高のケーキ";
-
-                        //コンテスト時間指定
-                        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
-                        PlayerStatus.player_contest_minute = 0; //開始分
-                        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
-
-                        GameMgr.contest_boss_score = 97; //
-                        break;
-                }
-
-                if (GameMgr.ContestRoundNum == 1) //最初のときだけ設定
-                {                    
-                    //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。
-                    PrizeItemList.Clear();
-                    PrizeItemList.Add("nuts");
-                    PrizeItemList.Add("ice_box");
-                    PrizeItemList.Add("neko_badge2");
-                    PrizeItemList.Add("whisk_magic");
-                    PrizeItemList.Add("gold_oven");
-
-                    GameMgr.PrizeScoreAreaList.Clear();
-                    GameMgr.PrizeScoreAreaList.Add(60);
-                    GameMgr.PrizeScoreAreaList.Add(120);
-                    GameMgr.PrizeScoreAreaList.Add(180);
-                    GameMgr.PrizeScoreAreaList.Add(240);
-                }
-
-                break;
-
-            case 10000: //オレンジーナコンテスト　弱小　ランキング形式
-
-                GameMgr.ContestRoundNumMax = 1; //そのコンテストの最大のラウンド数 １の場合、ランキング形式（複数参加者がランキングで競う）で一回戦のみ
-                GameMgr.Contest_Cate_Ranking = 1; //コンテストがトーナメント形式=0 か　ランキング形式=1 か
-
-                switch (GameMgr.ContestRoundNum)
-                {
-                    case 1: //一回戦
-
-                        //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
-                        GameMgr.Contest_DB_list_Type = 100000; //compNum=100000~を指定
-                        GameMgr.Contest_Name = "Or_Contest_010_1";
-                        GameMgr.Contest_ProblemSentence = "テーマ：おいしいクッキー";
-
-                        //コンテスト時間指定
-                        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
-                        PlayerStatus.player_contest_minute = 0; //開始分
-                        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位                       
-
-                        break;
-
-                }
-
-                if (GameMgr.ContestRoundNum == 1) //最初のときだけ設定
-                {
-                    //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。
-                    PrizeItemList.Clear();
-                    PrizeItemList.Add("nuts");
-                    PrizeItemList.Add("ice_box");
-                    PrizeItemList.Add("neko_badge2");
-                    PrizeItemList.Add("whisk_magic");
-                    PrizeItemList.Add("gold_oven");
-
-                    //相手の点数リスト
-                    GameMgr.PrizeScoreAreaList.Clear();
-                    GameMgr.PrizeScoreAreaList.Add(30);
-                    GameMgr.PrizeScoreAreaList.Add(56);
-                    GameMgr.PrizeScoreAreaList.Add(83);
-                    GameMgr.PrizeScoreAreaList.Add(92);
-
-                    GameMgr.contest_boss_score = GameMgr.PrizeScoreAreaList[GameMgr.PrizeScoreAreaList.Count-1];  //一位の人の得点
-                }
-
-                break;
-        }
-        Debug.Log("コンテスト名前と番号とラウンド数: " + GameMgr.Contest_Name + " " + GameMgr.ContestSelectNum + " " + GameMgr.ContestRoundNum + "回戦");
-        if(GameMgr.Contest_Cate_Ranking == 0)
+        if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
         {
             Debug.Log("トーナメント形式");
+
+            //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定
+            switch (GameMgr.ContestSelectNum)
+            {
+                case 1000: //オレンジーナコンテストA1 クープデュモンド
+
+                    GameMgr.ContestRoundNumMax = 3; //そのコンテストの最大のラウンド数
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin + "_1";
+                            ContestData_001();
+                            break;
+
+                        case 2: //二回戦
+
+                            GameMgr.Contest_Name = contest_name_origin + "_2";
+                            ContestData_002();
+                            break;
+
+                        case 3: //決勝戦
+
+                            GameMgr.Contest_Name = contest_name_origin + "_3";
+                            ContestData_003();
+                            break;
+                    }
+
+                    if (GameMgr.ContestRoundNum == 1) //最初のときだけ設定
+                    {
+                        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。
+                        PrizeItemList.Clear();
+                        PrizeItemList.Add("nuts");
+                        PrizeItemList.Add("ice_box");
+                        PrizeItemList.Add("neko_badge2");
+                        PrizeItemList.Add("whisk_magic");
+                        PrizeItemList.Add("gold_oven");
+
+                        GameMgr.PrizeScoreAreaList.Clear();
+                        GameMgr.PrizeScoreAreaList.Add(60);
+                        GameMgr.PrizeScoreAreaList.Add(120);
+                        GameMgr.PrizeScoreAreaList.Add(180);
+                        GameMgr.PrizeScoreAreaList.Add(240);
+                    }
+
+                    break;
+            }
         }
-        else
+        else //ランキング形式=1
         {
             Debug.Log("ランキング形式（一回戦のみ）");
+
+            switch (GameMgr.ContestSelectNum)
+            {
+
+                case 10000: //オレンジーナコンテスト　弱小　ランキング形式
+
+                    GameMgr.ContestRoundNumMax = 1; //そのコンテストの最大のラウンド数 １の場合、ランキング形式（複数参加者がランキングで競う）で一回戦のみ
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin + "_1";
+                            ContestData_100();
+                            break;
+
+                    }
+
+                    if (GameMgr.ContestRoundNum == 1) //最初のときだけ設定
+                    {
+                        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。
+                        PrizeItemList.Clear();
+                        PrizeItemList.Add("nuts");
+                        PrizeItemList.Add("ice_box");
+                        PrizeItemList.Add("neko_badge2");
+                        PrizeItemList.Add("whisk_magic");
+                        PrizeItemList.Add("gold_oven");
+
+                        //相手の点数リスト
+                        GameMgr.PrizeScoreAreaList.Clear();
+                        GameMgr.PrizeScoreAreaList.Add(30);
+                        GameMgr.PrizeScoreAreaList.Add(56);
+                        GameMgr.PrizeScoreAreaList.Add(83);
+                        GameMgr.PrizeScoreAreaList.Add(GameMgr.contest_boss_score);
+                    }
+
+                    break;
+            }
         }
+        //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定
+        
+        Debug.Log("コンテスト名前と番号とラウンド数: " + GameMgr.Contest_Name + " " + GameMgr.ContestSelectNum + " " + GameMgr.ContestRoundNum + "回戦");
 
         _text.text = GameMgr.Contest_ProblemSentence;
         contest_status = 0;
         StartRead = false; //BGMをリセット
+    }
+
+    void ContestData_001()
+    {
+        //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
+        GameMgr.Contest_DB_list_Type = 20000; //compNum=20000~を指定        
+        GameMgr.Contest_ProblemSentence = "至高のチョコレート（Aランク）" + "\n" + "テーマ：「風」をテーマにした美しいチョコレート";
+
+        //コンテスト時間指定
+        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
+        PlayerStatus.player_contest_minute = 0; //開始分
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+        GameMgr.contest_boss_score = 80; //一回戦相手の点数
+    }
+
+    void ContestData_002()
+    {
+        GameMgr.Contest_DB_list_Type = 21000; //compNum=20000~を指定
+        GameMgr.Contest_ProblemSentence = "自由課題" + "\n" + "テーマ：「海」をテーマにした自由なお菓子";
+
+        //コンテスト時間指定
+        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
+        PlayerStatus.player_contest_minute = 0; //開始分
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+        GameMgr.contest_boss_score = 90; //
+    }
+
+    void ContestData_003()
+    {
+        GameMgr.Contest_DB_list_Type = 22000; //compNum=20000~を指定
+        GameMgr.Contest_ProblemSentence = "至高のケーキ" + "\n" + "テーマ：「愛」をテーマにした至高のケーキ";
+
+        //コンテスト時間指定
+        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
+        PlayerStatus.player_contest_minute = 0; //開始分
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+        GameMgr.contest_boss_score = 97; //
+    }
+
+    void ContestData_100()
+    {
+        //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
+        GameMgr.Contest_DB_list_Type = 100000; //compNum=100000~を指定
+
+        GameMgr.Contest_ProblemSentence = "テーマ：おいしいクッキー";
+
+        //コンテスト時間指定
+        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
+        PlayerStatus.player_contest_minute = 0; //開始分
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位   
+
+        GameMgr.contest_boss_score = 92;
     }
 
     void PrizeGet()

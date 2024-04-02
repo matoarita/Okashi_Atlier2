@@ -283,6 +283,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //獲得音楽図鑑のフラグ
     public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
+    //現在受けているコンテスト まだセーブに登録はしてない
+    public static List<ContestSaveList> contest_accepted_list = new List<ContestSaveList>(); //
+
     //バージョン情報
     public static float GameVersion = 2.0f;
     public static string GameSaveDaytime = ""; //セーブしたときの日付
@@ -449,7 +452,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
     public static int Scene_Category_Num;           //Compound=10, Compound_Entrance=11, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, 
-                                                    //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130,
+                                                    //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130, Station=140,
                                                     //200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
 
 
@@ -511,6 +514,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool EventAfter_MoveEnd; //なんらかのイベント終了後、すぐにヒカリを元の位置に戻す
     public static bool Status_zero_readOK; //メインステータスを読み終わったよ～のフラグ　その後に、ヒカリが戻ってくるなどの処理を挟む用
     public static int OkashiMake_PanelSetType; //さっき作ったお菓子が、パネルにセットされるお菓子かどうか。生地などはセットされず、すぐ調合画面を戻す
+    public static int Contest_listnum; //今出場してるコンテストのDBのリスト番号
     public static int ContestSelectNum; //どのコンテストに今出場しているか
     public static int ContestRoundNum; //今何回戦か
     public static int ContestRoundNumMax; //その大会のMaxのラウンド数
@@ -543,6 +547,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Money_counterAnim_StartSetting; //そのとき最初だけ初期設定
     public static int Money_counterParam; //そのときの入ったお金
     public static int Money_StartParam; //アニメ前の始まりのお金
+    public static int Contest_OrganizeMonth; //コンテストの開催月
+    public static int Contest_OrganizeDay; //コンテストの開催日
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用

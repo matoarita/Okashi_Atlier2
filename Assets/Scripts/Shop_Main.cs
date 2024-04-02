@@ -12,8 +12,13 @@ public class Shop_Main : MonoBehaviour {
     void Start () {
 
         shopmain_Controller = this.GetComponent<Shop_Main_Controller>();
+        shopmain_Controller.InitSetup();
 
         GameMgr.Scene_Name = "Shop_Grt";
+
+        //ネームプレートの設定
+        shopmain_Controller.SceneNamePlateSetting();
+
         //シーン読み込み完了時のメソッド
         //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         //SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド

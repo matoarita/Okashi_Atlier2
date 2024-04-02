@@ -85,6 +85,11 @@ public class Shop_Main_Controller : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        
+    }
+
+    public void InitSetup()
+    {
         //今いるシーン番号を指定
         GameMgr.Scene_Category_Num = 20;
 
@@ -168,7 +173,7 @@ public class Shop_Main_Controller : MonoBehaviour {
         shopitemlist_onoff.SetActive(false);
 
         text_area = canvas.transform.Find("MessageWindow").gameObject;
-        _text = text_area.GetComponentInChildren<Text>();
+        _text = text_area.GetComponentInChildren<Text>();       
 
         //初期メッセージ
         shopdefault_text = "いらっしゃい～。";
@@ -208,7 +213,7 @@ public class Shop_Main_Controller : MonoBehaviour {
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
-    
+
     void SceneFlagcheck()
     {
         switch (SceneManager.GetActiveScene().name)
@@ -883,6 +888,11 @@ public class Shop_Main_Controller : MonoBehaviour {
                 random_uwasa_select.Add(i);
             }
         }
+    }
+
+    public void SceneNamePlateSetting()
+    {
+        placename_panel.GetComponent<PlaceNamePanel>().OnSceneNamePlate();
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

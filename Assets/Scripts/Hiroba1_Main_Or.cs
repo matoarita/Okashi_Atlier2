@@ -12,7 +12,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
     private GameObject BGImagePanel;
     private List<GameObject> BGImg_List = new List<GameObject>();
     private List<GameObject> BGImg_List_mago = new List<GameObject>();
-    private int i, _num;
+    private int i, _num;   
 
     // Use this for initialization
     void Start()
@@ -147,6 +147,9 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
         //テキスト設定
         hiroba1_mainController.text_scenario();
+
+        //ネムプレートを表示
+        hiroba1_mainController.SceneNamePlateSetting();
 
         //シーン読み込み完了時のメソッド
         //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      

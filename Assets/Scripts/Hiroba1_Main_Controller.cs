@@ -50,6 +50,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     private GameObject mainlist_controller_obj;
 
+    private GameObject sceneplace_namepanel_obj;
+    private ScenePlaceNamePanel sceneplace_namepanel;
+
     private Debug_Panel_Init debug_panel_init;
 
     private GameObject canvas;
@@ -95,6 +98,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+
+        sceneplace_namepanel_obj = canvas.transform.Find("MainListPanel/ScenePlaceNamePanel").gameObject;
+        sceneplace_namepanel = sceneplace_namepanel_obj.GetComponent<ScenePlaceNamePanel>();
+        sceneplace_namepanel_obj.SetActive(false);
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -1514,6 +1521,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             }
         }*/
 
+    }
+
+    //ネームプレートの設定とアニメーションON
+    public void SceneNamePlateSetting()
+    {
+        sceneplace_namepanel.OnSceneNamePlate();
+        sceneplace_namepanel_obj.SetActive(true);
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

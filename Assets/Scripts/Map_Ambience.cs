@@ -11,7 +11,6 @@ public class Map_Ambience : MonoBehaviour {
     public AudioClip sound2;  //雨の音
 
     private GameObject canvas;
-    private GetMatPlace_Panel getmatplace_panel;
 
     private int fade_status;
     private float fade_volume;
@@ -26,8 +25,6 @@ public class Map_Ambience : MonoBehaviour {
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
-
-        getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
 
         //使用するAudioSource取得。
         _bgm = GetComponents<AudioSource>();

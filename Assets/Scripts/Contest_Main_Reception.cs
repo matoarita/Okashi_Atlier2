@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class Contest_Main_Reception : MonoBehaviour
 {
+    //カメラ関連
+    private Camera main_cam;
+    private Animator maincam_animator;
+    private int trans; //トランジション用のパラメータ
 
     private GameObject text_area;
     private Text _text;
@@ -43,6 +47,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     private GameObject mainlist_controller_obj;
     private GameObject contestList_ScrollView_obj;
+    private GameObject contest_detailedPanel;
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -74,6 +79,11 @@ public class Contest_Main_Reception : MonoBehaviour
         GameMgr.Scene_Category_Num = 120;
 
         //Debug.Log("Hiroba scene loaded");
+
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
 
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
@@ -145,6 +155,9 @@ public class Contest_Main_Reception : MonoBehaviour
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
 
+        contest_detailedPanel = canvas.transform.Find("ContestListPanel/Contest_DetailedPanel").gameObject;
+        contest_detailedPanel.SetActive(false);
+
         //
         //背景と場所名の設定 最初にこれを行う
         //
@@ -166,6 +179,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
                 //受付シーンで、10個ぐらいコンテストのリスト一覧をだし、そこで指定すると、以下のコンテスト番号を決定
                 //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                GameMgr.Scene_Name = "Or_Contest_Reception_Spring";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 0; //バックボタン押したときの戻り先
 
@@ -308,6 +322,23 @@ public class Contest_Main_Reception : MonoBehaviour
 
                     GameMgr.Scene_Status = 100;
                     GameMgr.Scene_Select = 0;
+
+                    if (trans == 1) //カメラが寄っていたら、デフォに戻す。
+                    {
+                        //カメラ寄る。
+                        trans--; //transが1を超えたときに、ズームするように設定されている。
+
+                        //intパラメーターの値を設定する.
+                        maincam_animator.SetInteger("trans", trans);
+                    }
+                    else if (trans == 10) //カメラが寄っていたら、デフォに戻す。
+                    {
+                        //カメラ寄る。
+                        trans = 0; //transが1を超えたときに、ズームするように設定されている。
+
+                        //intパラメーターの値を設定する.
+                        maincam_animator.SetInteger("trans", trans);
+                    }
 
                     break;
 
@@ -573,6 +604,12 @@ public class Contest_Main_Reception : MonoBehaviour
         mainlist_controller_obj.SetActive(false);
 
         _text.text = "今開催しているコンテストです。";
+
+        //カメラ寄る。
+        trans++; //transが1を超えたときに、ズームするように設定されている。
+
+        //intパラメーターの値を設定する.
+        maincam_animator.SetInteger("trans", trans);
     }
 
     //SubView2

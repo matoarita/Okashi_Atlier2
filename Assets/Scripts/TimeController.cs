@@ -29,7 +29,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private ItemDataBase database; 
 
     private List<int> calender = new List<int>();
-    private int _cullent_day;
     private int _cullent_time;
     private int _cullent_hour;
     private int _cullent_minute;
@@ -698,25 +697,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 PlayerStatus.player_day = 1;
             }
 
-            _cullent_day = PlayerStatus.player_day;
-            month = 0;
-            day = 0;            
+                      
 
             //カレンダー変換機能
             if (_mstatus == 0)
             {
-                count = 0;
-                while (count < calender.Count)
-                {
-                    if (_cullent_day > calender[count]) { _cullent_day -= calender[count]; }
-                    else //その月の日付
-                    {
-                        month = count + 1; //月　0始まりなので、足す１
-                        day = _cullent_day; //日
-                        break;
-                    }
-                    ++count;
-                }
+                CullenderKeisan(PlayerStatus.player_day);              
 
                 //現在の月と日を更新しておく。
                 PlayerStatus.player_cullent_month = month;
@@ -745,6 +731,26 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             {
                 DayEndEvent();
             }
+        }
+    }
+
+    //日数をいれると、その日が何月何日か出してくれる
+    void CullenderKeisan(int _cullent_day)
+    {
+        month = 0;
+        day = 0;
+
+        count = 0;
+        while (count < calender.Count)
+        {
+            if (_cullent_day > calender[count]) { _cullent_day -= calender[count]; }
+            else //その月の日付
+            {
+                month = count + 1; //月　0始まりなので、足す１
+                day = _cullent_day; //日
+                break;
+            }
+            ++count;
         }
     }
 
@@ -1162,6 +1168,13 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //Weather_ChangeNow(1.0f);
     }
 
+    //コンテストで開催日時を計算するのに使用　入れた日数を、現在の日数に足して、何月何日に変換して戻す Contest_DetailedPanel.csから読み出し
+    public void AfterTimeLimit_Keisan(int _afterday)
+    {
+        CullenderKeisan(PlayerStatus.player_day + _afterday);
+        GameMgr.Contest_OrganizeMonth = month;
+        GameMgr.Contest_OrganizeDay = day;
+    }
 
 
     void GameSpeedRange()

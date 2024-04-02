@@ -8,6 +8,7 @@ public class matplaceSelectToggle : MonoBehaviour {
 
     public int placeNum; //トグルの番号
     public int place_flag;
+    public int place_default_flag;
 
     private GameObject getmatplace_panel;
     private GetMatPlace_Panel getmatplace;

@@ -235,6 +235,11 @@ public class BGM : MonoBehaviour {
                 //シーン最初は無音。GetMatPlace_Panelで決めてる。
                 break;
 
+            case "Station":
+
+                _bgm[0].clip = sound23;
+                break;
+
             default:
 
                 //Debug.Log("GameMgr.Scene_Category_Num: " + GameMgr.Scene_Category_Num);

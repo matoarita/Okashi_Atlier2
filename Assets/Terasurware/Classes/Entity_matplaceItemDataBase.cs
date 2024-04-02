@@ -26,6 +26,7 @@ public class Entity_matplaceItemDataBase : ScriptableObject
 		public int place_cost;
 		public int place_hp;
 		public int place_flag;
+		public int place_default_flag;
 		public int place_type;
 		public string drop_item1;
 		public string drop_item2;

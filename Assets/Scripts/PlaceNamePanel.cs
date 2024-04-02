@@ -15,6 +15,12 @@ public class PlaceNamePanel : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        InitSetting();
+        
+    }
+
+    void InitSetting()
+    {
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
@@ -29,24 +35,12 @@ public class PlaceNamePanel : MonoBehaviour {
 
             case "Bar":
 
-                for (i = 0; i < matplace_database.matplace_lists.Count; i++)
-                {
-                    if (matplace_database.matplace_lists[i].placeName == "Bar")
-                    {
-                        _text = matplace_database.matplace_lists[i].placeNameHyouji;
-                    }
-                }
+                SetSceneName("Bar"); //マップDBに登録されているmap_Nameをもとに、マップ名をテキストに入れる
                 break;
 
             case "Farm":
 
-                for (i = 0; i < matplace_database.matplace_lists.Count; i++)
-                {
-                    if (matplace_database.matplace_lists[i].placeName == "Farm")
-                    {
-                        _text = matplace_database.matplace_lists[i].placeNameHyouji;
-                    }
-                }
+                SetSceneName("Farm"); //マップDBに登録されているmap_Nameをもとに、マップ名をテキストに入れる
                 break;
 
             case "Emerald_Shop":
@@ -66,68 +60,17 @@ public class PlaceNamePanel : MonoBehaviour {
                 {
                     case 20: //オランジーナショップ
 
-                        _text = "オランジーナのお菓子店";
+                        _text = "エク・レール";
                         break;
 
                     case 30: //オランジーナ酒場
 
                         _text = "オランジーナの酒場";
-                        
+
                         break;
 
-                    case 60: //オランジーナ広場系
+                    case 60: //オランジーナ広場系 広場系は、ScenePlaceNamePanelで設定
 
-                        switch (GameMgr.Scene_Name)
-                        {
-                            case "Or_Hiroba_CentralPark": //中央噴水
-
-
-                                break;
-
-                            case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道
-
-
-                                break;
-
-                            case "Or_Hiroba_Spring_Entrance": //春のエリア入口
-
-
-                                break;
-
-                            case "Or_Hiroba_Spring_Shoping_Moll": //春のエリア商店街
-
-
-                                break;
-
-                            case "Or_Hiroba_Spring_Oku": //春のエリア商店街
-
-
-                                break;
-
-                            case "Or_Hiroba_Spring_UraStreet": //春のエリア商店街
-
-
-                                break;
-
-                            case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
-
-
-                                break;
-
-                            case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
-
-
-                                break;
-
-                            case "Or_Hiroba_Winter_Entrance": //冬のエリア入口
-
-                                _text = "スノーマンズ・レスト";
-                                break;
-
-                            default:
-
-                                break;
-                        }
                         break;
 
 
@@ -150,9 +93,25 @@ public class PlaceNamePanel : MonoBehaviour {
 
         _paneltext.text = _text;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void SetSceneName(string _name)
+    {
+        for (i = 0; i < matplace_database.matplace_lists.Count; i++)
+        {
+            if (matplace_database.matplace_lists[i].placeName == _name)
+            {
+                _text = matplace_database.matplace_lists[i].placeNameHyouji;
+            }
+        }
+    }
+
+    public void OnSceneNamePlate()
+    {
+        InitSetting();
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

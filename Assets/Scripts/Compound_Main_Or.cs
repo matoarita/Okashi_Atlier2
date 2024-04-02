@@ -24,7 +24,7 @@ public class Compound_Main_Or : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        //今いるシーン番号を指定
+        //今いるシーン番号を指定 Compound_Mainで指定してる
         //GameMgr.Scene_Category_Num = 10;
         //Debug.Log("(GameMgr.Scene_Category_Num): " + GameMgr.Scene_Category_Num); 
 

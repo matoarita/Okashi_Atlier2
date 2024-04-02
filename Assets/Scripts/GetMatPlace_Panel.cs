@@ -197,11 +197,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //アイテムセレクトキャンセルオブジェクトの取得
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
-        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
-
-        //材料ランダムで３つ手に入るオブジェクトの取得
-        get_material_obj = GameObject.FindWithTag("GetMaterial");
-        get_material = get_material_obj.GetComponent<GetMaterial>();
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();        
 
 
         //お金の増減用パネルの取得
@@ -322,6 +318,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         matplace_toggle[count].transform.Find("Background").GetComponent<Image>().sprite = map_icon;       
         matplace_toggle[count].transform.Find("Background").GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_flag = matplace_database.matplace_lists[i].placeFlag;
+        matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_default_flag = matplace_database.matplace_lists[i].placeDefaultFlag;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにリスト配列番号を割り振っておく。
         
         count++;
@@ -398,9 +395,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //表示フラグにそって、採取地の表示/非表示の決定
         for (i = 0; i < matplace_toggle.Count; i++)
         {
-            if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
+            if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 1) //ゲーム中の解禁フラグにかかわらず、必ずON/OFFできるフラグ
             {
-                matplace_toggle[i].SetActive(true);
+                if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
+                {
+                    matplace_toggle[i].SetActive(true);
+                }
+                else
+                {
+                    matplace_toggle[i].SetActive(false);
+                }
             }
             else
             {
@@ -481,6 +485,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Compound", GameMgr.SceneFadeTime);
                     break;
 
+                case "Grt_Station":
+
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
+                    break;
+
                 //以下、オランジーナ関連
                 case "Orangina_Compound":
 
@@ -509,6 +519,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     GameMgr.SceneSelectNum = 0;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Station":
+
+                    GameMgr.SceneSelectNum = 100;
+                    FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
                     break;
 
                 case "Or_Outside_the_Contest":
@@ -806,7 +822,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     //リザルトアイテムをリセット
                     InitializeResultItemDicts();
-                    get_material.SetInit();
 
                     //腹も減る
                     if (GameMgr.Story_Mode != 0)
@@ -847,6 +862,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         getmatplace_panel.SetActive(true);
         map_bg_effect.SetActive(true);
+
+        //材料ランダムで３つ手に入るオブジェクトの取得
+        get_material_obj = GameObject.FindWithTag("GetMaterial");
+        get_material = get_material_obj.GetComponent<GetMaterial>();
 
         switch (slot_view_status)
         {
