@@ -387,6 +387,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_ShopActive01();
                     break;
 
+                case "Or_Hiroba_Spring_UraStreet":
+
+                    On_NPC_MagicActive01();
+                    break;
+
                 default:
 
                     On_Active100();
@@ -850,6 +855,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
         FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
+    }
+
+    void On_NPC_MagicActive01()
+    {
+        //_text.text = "春エリアの魔法の先生の家へ入る";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
     }
 
     void On_BackHomeActive01()

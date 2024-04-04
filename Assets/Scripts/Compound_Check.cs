@@ -33,6 +33,9 @@ public class Compound_Check : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private Girl1_status girl1_status;
+    private GirlEat_Judge girleat_judge;
+
     private PlayerItemList pitemlist;
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
@@ -141,6 +144,10 @@ public class Compound_Check : MonoBehaviour {
 
         FinalCheckPanel = compoBG_A.transform.Find("FinalCheckPanel").gameObject;
         FinalCheck_Text = FinalCheckPanel.transform.Find("Comp/KakuritsuMessage/Image/Text").GetComponent<Text>();
+
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+        girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -976,6 +983,7 @@ public class Compound_Check : MonoBehaviour {
 
                         //MPを消費
                         PlayerStatus.player_mp -= costMP;
+                        //girleat_judge.UpDegHeart(-costMP, false); //ハートを消費するパターン
 
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。

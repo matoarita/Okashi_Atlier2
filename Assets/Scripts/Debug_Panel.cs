@@ -203,22 +203,6 @@ public class Debug_Panel : MonoBehaviour {
 
             PlayerStatus.player_money = money_num;
 
-            if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-            {
-                if (canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").gameObject)
-                {
-                    moneyStatus_Controller = canvas.transform.Find("MainUIPanel/Comp/MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
-                    moneyStatus_Controller.money_Draw();
-                }
-            }
-            else
-            {
-                if (canvas.transform.Find("MoneyStatus_panel").gameObject)
-                {
-                    moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
-                    moneyStatus_Controller.money_Draw();
-                }
-            }
         }
     }
 

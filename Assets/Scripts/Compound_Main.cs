@@ -3454,7 +3454,8 @@ public class Compound_Main : MonoBehaviour
         GameMgr.EventAfter_MoveEnd = false;
 
         //サブイベントの発生チェック　コンテストの発生もないかここでチェックする
-        GameMgr.check_GirlLoveSubEvent_flag = true;
+        GameMgr.check_GirlLoveSubEvent_flag = false;
+        GameMgr.check_SleepEnd_Eventflag = true;
     }
 
     public void OffCompoundSelectnoExtreme()

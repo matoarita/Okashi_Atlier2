@@ -324,6 +324,33 @@ public class GetMatPlace_Panel : MonoBehaviour {
         count++;
     }
 
+    void mapicon_Active()
+    {
+        //表示フラグにそって、採取地の表示/非表示の決定 read_endflagに注意　設定し忘れてると、表示されなかったりするよ
+        for (i = 0; i < matplace_toggle.Count; i++)
+        {
+            if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 9999) //ゲーム中の解禁フラグにかかわらず、必ずON/OFFできるフラグ 9999の場合、ゲーム中のフラグを優先する。
+            {
+                if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
+                {
+                    matplace_toggle[i].SetActive(true);
+                }
+                else
+                {
+                    matplace_toggle[i].SetActive(false);
+                }
+            }
+            else if(matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 0)
+            {
+                matplace_toggle[i].SetActive(false);
+            }
+            else if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 1)
+            {
+                matplace_toggle[i].SetActive(true);
+            }
+        }
+    }
+
     private void OnEnable()
     {
         
@@ -392,25 +419,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         modoru_anim_on = false;
         treasure_anim_on = false;
 
-        //表示フラグにそって、採取地の表示/非表示の決定
-        for (i = 0; i < matplace_toggle.Count; i++)
-        {
-            if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 1) //ゲーム中の解禁フラグにかかわらず、必ずON/OFFできるフラグ
-            {
-                if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
-                {
-                    matplace_toggle[i].SetActive(true);
-                }
-                else
-                {
-                    matplace_toggle[i].SetActive(false);
-                }
-            }
-            else
-            {
-                matplace_toggle[i].SetActive(false);
-            }
-        }
+        mapicon_Active();
+        
 
         //妹の体力（HP)を表示
         HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();

@@ -488,7 +488,8 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
         {
             npc2_toggle.isOn = false;
 
-            
+            mainlist_controller_obj.SetActive(false);
+            OnGetMaterialPanel();
         }
     }
 
@@ -499,7 +500,9 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
         {
             npc3_toggle.isOn = false;
 
-            
+            //玄関音
+            sc.EnterSound_01();
+            FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
         }
     }
 

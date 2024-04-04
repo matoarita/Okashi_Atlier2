@@ -12,8 +12,13 @@ public class Bar_Main : MonoBehaviour
     void Start()
     {
         barmain_Controller = this.GetComponent<Bar_Main_Controller>();
+        barmain_Controller.InitSetup();
 
         GameMgr.Scene_Name = "Bar_Grt";
+
+        //ネームプレートの設定
+        barmain_Controller.SceneNamePlateSetting();
+
         //シーン読み込み完了時のメソッド
         //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         //SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド

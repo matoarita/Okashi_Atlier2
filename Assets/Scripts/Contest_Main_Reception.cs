@@ -34,7 +34,9 @@ public class Contest_Main_Reception : MonoBehaviour
     private Toggle npc7_toggle;
     private Toggle npc8_toggle;
 
+    private GameObject npc2sub_toggle_obj;
 
+    private ContestStartListDataBase conteststartList_database;
     private ItemMatPlaceDataBase matplace_database;
 
     private PlayerItemList pitemlist;
@@ -44,6 +46,8 @@ public class Contest_Main_Reception : MonoBehaviour
 
     private GameObject recipilist_onoff;
     private RecipiListController recipilistController;
+
+    private TimeController time_controller;
 
     private GameObject mainlist_controller_obj;
     private GameObject contestList_ScrollView_obj;
@@ -63,8 +67,10 @@ public class Contest_Main_Reception : MonoBehaviour
 
     private int i, rndnum;
     private int backnum;
+    private int contest_list, _id;
 
     private bool StartRead;
+    private bool flag_chk;
 
     private string default_scenetext;
 
@@ -105,6 +111,12 @@ public class Contest_Main_Reception : MonoBehaviour
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
+
         //リストオブジェクトの取得
         mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_01").gameObject;
         
@@ -136,7 +148,9 @@ public class Contest_Main_Reception : MonoBehaviour
         npc6_toggle.interactable = true;
         npc7_toggle.interactable = true;
         npc8_toggle.interactable = true;
-       
+
+        npc2sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView2_SelectToggle").gameObject;
+        npc2sub_toggle_obj.SetActive(false);
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -323,6 +337,8 @@ public class Contest_Main_Reception : MonoBehaviour
                     GameMgr.Scene_Status = 100;
                     GameMgr.Scene_Select = 0;
 
+                    ToggleFlagCheck();
+
                     if (trans == 1) //カメラが寄っていたら、デフォに戻す。
                     {
                         //カメラ寄る。
@@ -355,7 +371,35 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void ToggleFlagCheck()
     {
+        Debug.Log("チェック　本日がコンテスト開催日かどうか");
 
+        i = 0;
+        flag_chk = false;
+        while (i < GameMgr.contest_accepted_list.Count)
+        {
+            if (GameMgr.contest_accepted_list[i].Month == PlayerStatus.player_cullent_month &&
+                GameMgr.contest_accepted_list[i].Day == PlayerStatus.player_cullent_day)
+            {
+                Debug.Log("本日コンテスト開催日 " + GameMgr.contest_accepted_list[i].Month + "/" + GameMgr.contest_accepted_list[i].Day + " " +
+                    GameMgr.contest_accepted_list[i].contestName);
+                contest_list = i;
+                flag_chk = true;
+                
+                break;
+            }
+            i++;
+        }
+
+        if(flag_chk)
+        {
+            flag_chk = false;
+
+            npc2sub_toggle_obj.SetActive(true);
+        }
+        else
+        {
+            npc2sub_toggle_obj.SetActive(false);
+        }
     }
 
     void NewAreaFlagCheck()
@@ -406,28 +450,55 @@ public class Contest_Main_Reception : MonoBehaviour
             yield return null;
         }
 
-        GameMgr.scenario_read_endflag = false;
-        GameMgr.compound_select = 0; //何もしていない状態
-        GameMgr.compound_status = 0;
-
-        //読み終わったら、またウィンドウなどを元に戻す。
-        text_area.SetActive(true);
-        mainlist_controller_obj.SetActive(true);
-
-        //音を戻す。
-        if (bgm_change_flag)
+        if(GameMgr.Contest_ReadyToStart) //コンテスト開始のイベントだった場合は、このタイミングでコンテスト本番スタート
         {
-            bgm_change_flag = false;
-            sceneBGM.FadeInBGM();
-        }
+            GameMgr.Contest_ReadyToStart = false;
 
-        //読み終わったフラグをたてる
-        switch(GameMgr.hiroba_event_ID)
+            _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
+
+            GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
+            conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。
+
+            GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
+            GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
+            FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
+        }
+        else
+        {
+            GameMgr.scenario_read_endflag = false;
+            GameMgr.compound_select = 0; //何もしていない状態
+            GameMgr.compound_status = 0;
+
+            //読み終わったら、またウィンドウなどを元に戻す。
+            text_area.SetActive(true);
+            mainlist_controller_obj.SetActive(true);
+
+            //音を戻す。
+            if (bgm_change_flag)
+            {
+                bgm_change_flag = false;
+                sceneBGM.FadeInBGM();
+            }
+
+            //読み終わったフラグをたてる
+            EventReadEnd_Flagcheck();
+            
+
+            ToggleFlagCheck();
+
+            text_scenario(); //テキストの更新
+        }
+        
+    }
+
+    void EventReadEnd_Flagcheck()
+    {
+        switch (GameMgr.hiroba_event_ID)
         {
             //クエスト４　「ドーナツ作り」～　0番台
             case 40:
 
-                GameMgr.hiroba_event_end[2] = true;                
+                GameMgr.hiroba_event_end[2] = true;
                 break;
 
             case 1040:
@@ -498,10 +569,6 @@ public class Contest_Main_Reception : MonoBehaviour
 
                 break;
         }
-
-        ToggleFlagCheck();
-
-        text_scenario(); //テキストの更新
     }
 
 
@@ -615,7 +682,8 @@ public class Contest_Main_Reception : MonoBehaviour
     //SubView2
     public void OnSubNPC2_toggle()
     {
-
+        On_ActiveContestStart();
+        
     }
 
     //SubView3
@@ -644,6 +712,21 @@ public class Contest_Main_Reception : MonoBehaviour
         FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
     }
 
+    void On_ActiveContestStart()
+    {
+        //噴水押した　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1000; //
+
+        //イベント発生フラグをチェック
+        GameMgr.hiroba_event_ID = 0;
+
+        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる
+        GameMgr.Contest_ReadyToStart = true;
+
+        EventReadingStart();
+
+        CanvasOff();
+    }
 
     void CanvasOff()
     {

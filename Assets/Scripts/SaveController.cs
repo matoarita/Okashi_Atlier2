@@ -20,6 +20,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private ItemShopDataBase shop_database;
     private QuestSetDataBase quest_database;
     private MagicSkillListDataBase magicskill_database;
+    private ContestStartListDataBase conteststartList_database;
 
     //保存するものリスト　ここまで
 
@@ -104,6 +105,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
     }
 	
 	// Update is called once per frame
@@ -426,6 +430,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //魔法スキルのリスト
             save_magicskill_list = _temp_magicskill_list,
+
+            //コンテスト受付のリスト
+            save_contest_accepted_list = GameMgr.contest_accepted_list,
 
             //アイテムリスト＜デフォルト＞
             save_playeritemlist = _tempplayeritemlist,
@@ -918,6 +925,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             magicskill_database.ReSetSkillParamString(playerData.save_magicskill_list[i].itemName, playerData.save_magicskill_list[i].Param, 
                 playerData.save_magicskill_list[i].Param2, playerData.save_magicskill_list[i].Param3);
+        }
+
+        //コンテスト受付のリスト読み込み　DBの受付中フラグもセットする
+        GameMgr.contest_accepted_list = playerData.save_contest_accepted_list;
+        for (i = 0; i < GameMgr.contest_accepted_list.Count; i++)
+        {
+            conteststartList_database.SetContestAcceptedString(GameMgr.contest_accepted_list[i].contestName);
         }
 
         //お菓子の一度にトッピングできる回数

@@ -78,7 +78,11 @@ public class Bar_Main_Controller : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+      
+    }
+	
+    public void InitSetup()
+    {
         //今いるシーン番号を指定
         GameMgr.Scene_Category_Num = 30;
 
@@ -207,9 +211,9 @@ public class Bar_Main_Controller : MonoBehaviour {
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
@@ -694,6 +698,11 @@ public class Bar_Main_Controller : MonoBehaviour {
             }
             //Debug.Log("shopuwasa_List: " + shopuwasa_List[i]);
         }
+    }
+
+    public void SceneNamePlateSetting()
+    {
+        placename_panel.GetComponent<PlaceNamePanel>().OnSceneNamePlate();
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

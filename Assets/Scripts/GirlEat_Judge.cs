@@ -429,7 +429,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 //お金の増減用パネルの取得
                 MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
-                moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+                moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
                 //時間管理オブジェクトの取得
                 time_controller = TimeController.Instance.GetComponent<TimeController>();
@@ -2766,7 +2766,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             //③補正
             //そのお菓子を食べた回数で割り算。同じお菓子を何度あげても、だんだん好感度は上がらなくなってくる。
-            Getlove_exp = Getlove_exp * 2; //2倍
+            //Getlove_exp = Getlove_exp * 2; //2倍
             if (database.items[_baseID].Eat_kaisu == 0)
             {
                 database.items[_baseID].Eat_kaisu = 1; //0で割り算を回避。
@@ -2795,17 +2795,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Getlove_exp = (int)(Getlove_exp * 0.05f);
             }
 
-
+            //再計算後、60点以上とれていたら、1は必ず上がる。マイナスにはならない。
             if (Getlove_exp <= 1) { Getlove_exp = 1; }
 
-            //再計算後、60点以上とれていたら、1は必ず上がる。マイナスにはならない。
-            if (total_score >= GameMgr.low_score) //60点
-            {
-                if (Getlove_exp <= 0) //1は必ず上がる。
-                {
-                    Getlove_exp = 1;
-                }
-            }
 
             //エクストラモード時　さらに計算
             if (GameMgr.Story_Mode == 1)

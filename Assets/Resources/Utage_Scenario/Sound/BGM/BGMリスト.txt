@@ -82,3 +82,4 @@
 ・BGM_80		PerituneMaterial_EpicBattle_Deity_loop	大会コンテスト調合時のBGM
 ・BGM_81		PerituneMaterial_Laid_Back3_Retro_loop	２のアトリエ調合メインBGM予定
 ・BGM_82		PerituneMaterial_Cafe_Seaside_loop	２のオランジーナ街BGM
+・BGM_83		Lethargic-Witch(なぐもりず)		魔法の先生のテーマ01

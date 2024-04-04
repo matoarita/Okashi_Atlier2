@@ -555,7 +555,12 @@ public class Utage_scenario : MonoBehaviour
             if (GameMgr.hiroba_event_flag)
             {
                 GameMgr.hiroba_event_flag = false;
-                //character = GameObject.FindWithTag("Character");               
+
+                if (GameMgr.utage_charaHyouji_flag)
+                {
+                    ShopInitSetting();
+                    CharacterSpriteSetOFF();
+                }
 
                 if (!sceneBGM)
                 {
@@ -3292,6 +3297,12 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Hiroba3_reihaido";
                 break;
 
+            //以下、オランジーナ関連
+            case 1000: //コンテスト会場
+              
+                scenarioLabel = "Hiroba_Or";
+                break;
+
             default:
 
                 scenarioLabel = "Hiroba_ichigo";
@@ -3334,7 +3345,14 @@ public class Utage_scenario : MonoBehaviour
             default:
 
                 break;
-        }        
+        }
+
+        if (GameMgr.utage_charaHyouji_flag)
+        {
+            GameMgr.utage_charaHyouji_flag = false;
+            CharacterSpriteSetON();
+
+        }
 
         scenario_loading = false;
 

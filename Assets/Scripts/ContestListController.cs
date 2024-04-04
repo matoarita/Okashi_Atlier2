@@ -34,6 +34,8 @@ public class ContestListController : MonoBehaviour
     private string _name_Hyouji;
     private int item_kosu;
 
+    private string _contest_Grade;
+
     private int max;
     private int count;
     private int i, j;
@@ -155,6 +157,8 @@ public class ContestListController : MonoBehaviour
 
 
         _contest_listitem[list_count].transform.Find("Background/Quest_name").GetComponent<Text>().text = _name_Hyouji;
+        _contest_Grade = conteststartList_database.RankToGradeText(conteststartList_database.conteststart_lists[i].Contest_Lv);
+        _contest_listitem[list_count].transform.Find("Background/ContestRank").GetComponent<Text>().text = _contest_Grade;
 
         texture2d = conteststartList_database.conteststart_lists[i].ContestIcon_sprite;
         _Img.sprite = texture2d;

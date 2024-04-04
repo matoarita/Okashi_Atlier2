@@ -28,6 +28,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private int i, random;
     private int picnic_exprob;
     private int ev_id;
+    private bool _fire;
 
     private List<int> map_list = new List<int>();
 
@@ -56,6 +57,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         GetEmeraldItem = false;
+        _fire = false;
     }
 	
 	// Update is called once per frame
@@ -1321,6 +1323,38 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             pitemlist.addPlayerItemString("Record_21", 1); //レコード パティシエールレッスン
                         }
                     }
+                }
+
+                //コンテストの開催日になった
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag) //ねておきたあとにチェック
+                    {
+                        GameMgr.check_SleepEnd_Eventflag = false;
+
+                        Debug.Log("チェック　本日がコンテスト開催日かどうか");
+                        i = 0;
+                        while (i<GameMgr.contest_accepted_list.Count)
+                        {
+                            if(GameMgr.contest_accepted_list[i].Month == PlayerStatus.player_cullent_month &&
+                                GameMgr.contest_accepted_list[i].Day == PlayerStatus.player_cullent_day)
+                            {
+                                Debug.Log("本日コンテスト開催日 " + GameMgr.contest_accepted_list[i].Month + "/" + GameMgr.contest_accepted_list[i].Day + " " +
+                                    GameMgr.contest_accepted_list[i].contestName);
+
+                                GameMgr.GirlLoveSubEvent_num = 1000;
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                                GameMgr.Mute_on = true;
+                                break;
+                            }
+                            i++;
+                        }
+
+                    }
+
                 }
             }
 

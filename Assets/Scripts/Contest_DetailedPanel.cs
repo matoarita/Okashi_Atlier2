@@ -23,6 +23,8 @@ public class Contest_DetailedPanel : MonoBehaviour {
     private int _list;
     private int _Rank;
 
+    private string _contest_Grade;
+
     // Use this for initialization
     void Start () {
        
@@ -103,33 +105,8 @@ public class Contest_DetailedPanel : MonoBehaviour {
             contest_bringtype.text = "×";
         }
 
-        switch(conteststartList_database.conteststart_lists[_list].Contest_Lv)
-        {
-            case 1:
-
-                contest_lv.text = "D";
-                break;
-
-            case 2:
-
-                contest_lv.text = "C";
-                break;
-
-            case 3:
-
-                contest_lv.text = "B";
-                break;
-
-            case 4:
-
-                contest_lv.text = "A";
-                break;
-
-            case 5:
-
-                contest_lv.text = "S";
-                break;
-        }
+        _contest_Grade = conteststartList_database.RankToGradeText(conteststartList_database.conteststart_lists[_list].Contest_Lv);
+        contest_lv.text = _contest_Grade;　//
 
         _Rank = conteststartList_database.conteststart_lists[_list].Contest_PatissierRank;
         if (_Rank <= 1)
@@ -138,11 +115,11 @@ public class Contest_DetailedPanel : MonoBehaviour {
         }
         else if (_Rank > 1 && _Rank <= 3)
         {
-            contest_condition.text = "パティシエランク" + "\n" + "シルバー以上";
+            contest_condition.text = "パティシエLv " + "5 以上" + "\n" + "人気ランク　シルバー以上";
         }
         else if (_Rank > 3)
         {
-            contest_condition.text = "パティシエランク" + "\n" + "ゴールド以上";
+            contest_condition.text = "パティシエLv " + "5 以上" + "\n" + "人気ランク　ゴールド以上";
         }
 
         contest_theme.text = conteststartList_database.conteststart_lists[_list].Contest_themeComment;

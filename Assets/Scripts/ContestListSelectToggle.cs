@@ -242,7 +242,7 @@ public class ContestListSelectToggle : MonoBehaviour
                 //Debug.Log("ok");
                 //解除
 
-                _text.text = "受付完了しました！";
+                _text.text = "受付完了しました！" + "\n" + "コンテスト開催日の、朝10時までにきてくださいね！";
                 yes_no_panel.SetActive(false);
                 back_ShopFirst_btn.interactable = true;
                 itemselect_cancel.kettei_on_waiting = false;
@@ -260,7 +260,7 @@ public class ContestListSelectToggle : MonoBehaviour
                 contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
                
                 contest_detailedPanel.SetActive(false);
-                FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime); //デバッグ用
+                //FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime); //デバッグ用
 
                 break;
 

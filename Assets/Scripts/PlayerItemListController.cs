@@ -175,7 +175,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 reset_and_DrawView();
             }
 
-            OpenAnim();
         }
         else
         {
@@ -197,16 +196,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     /*if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
                     {
                         this.transform.localPosition = new Vector3(224f, 57f, 0);
-                        OpenAnim2();
                     }
                     else
                     {
                         this.transform.localPosition = new Vector3(-224f, 57f, 0);
-                        OpenAnim();
                     }*/
 
                     reset_and_DrawView();
-                    OpenAnim();
                     break;
 
                 case 20:
@@ -238,7 +234,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
 
-                    OpenAnim();
                     break;
 
                 case 30:
@@ -262,13 +257,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             break;
                     }
 
-                    OpenAnim();
                     break;
 
                 default:
 
                     reset_and_DrawView();
-                    OpenAnim();
                     break;
             }
 
@@ -277,38 +270,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //開いたときは、必ず、全てのアイテムは未選択の状態にする。
         ResetAllItemSelected();
     }
-
-    void OpenAnim()
-    {
-        //まず、初期値。
-        this.GetComponent<CanvasGroup>().alpha = 0;
-
-        Sequence sequence = DOTween.Sequence();
-
-        sequence.Append(this.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
-            .SetRelative()); //元の位置から30px上に置いておく。
-
-        sequence.Append(this.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.3f)
-            .SetRelative()
-            .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
-        sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
-    }
-
-    void OpenAnim2()
-    {
-        //まず、初期値。
-        this.GetComponent<CanvasGroup>().alpha = 0;
-
-        Sequence sequence = DOTween.Sequence();
-
-        sequence.Append(this.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.0f)
-            .SetRelative()); //元の位置から30px上に置いておく。
-
-        sequence.Append(this.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.3f)
-            .SetRelative()
-            .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
-        sequence.Join(this.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
-    }
+    
 
     public void ResetKettei_item()
     {

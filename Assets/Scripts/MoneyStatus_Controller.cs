@@ -37,13 +37,15 @@ public class MoneyStatus_Controller : SingletonMonoBehaviour<MoneyStatus_Control
 
         //お金の増減
         PlayerStatus.player_money += _getmoney;
+        GameMgr.Money_counterParam = _getmoney;
 
-        if(PlayerStatus.player_money >= 999999)
+        if (PlayerStatus.player_money >= 999999)
         {
             PlayerStatus.player_money = 999999;
+            GameMgr.Money_counterParam = 999999;
         }
 
-        GameMgr.Money_counterParam = _getmoney;
+        
         GameMgr.Money_counterAnim_on = true;
         GameMgr.Money_counterAnim_StartSetting = true;
     }
@@ -59,20 +61,37 @@ public class MoneyStatus_Controller : SingletonMonoBehaviour<MoneyStatus_Control
 
         //お金の増減
         PlayerStatus.player_money -= _usemoney;
+        GameMgr.Money_counterParam = -(_usemoney);
 
         if (PlayerStatus.player_money <= 0)
         {
             PlayerStatus.player_money = 0;
+            GameMgr.Money_counterParam = 0;
         }
 
-        GameMgr.Money_counterParam = -(_usemoney);
+        
         GameMgr.Money_counterAnim_on = true;
         GameMgr.Money_counterAnim_StartSetting = true;
     }
 
-    //表示をすぐに更新
-    public void money_Draw()
+    //表示をすぐに更新 こっちは＋、-両方OK
+    public void Getmoney_noAnim(int _getmoney)
     {
-        
+        //お金の増減
+        PlayerStatus.player_money += _getmoney;
+        GameMgr.Money_counterParam = _getmoney;
+
+        if (PlayerStatus.player_money >= 999999)
+        {
+            PlayerStatus.player_money = 999999;
+            GameMgr.Money_counterParam = 999999;
+        }
+        if (PlayerStatus.player_money <= 0)
+        {
+            PlayerStatus.player_money = 0;
+            GameMgr.Money_counterParam = 0;
+        }
+
+        GameMgr.Money_counterOnly = true;
     }
 }

@@ -143,4 +143,47 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
     }
 
+    //コンテスト名をいれると、そのコンテストの受付フラグをONにする
+    public void SetContestAcceptedString(string _name)
+    {
+        i = 0;
+        while (i <= conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                conteststart_lists[i].Contest_Accepted = 1;
+                break;
+            }
+            i++;
+        }
+    }
+
+    //ランクを入れると、それに合わせたグレードに表記を変換する
+    public string RankToGradeText(int _rank)
+    {
+        switch (_rank)
+        {
+            case 1:
+
+                return "Gentle";　//優しい　一番簡単・ありふれたの意味
+
+            case 2:
+
+                return "IPA-1"; //国際パティシエ協会の略
+
+            case 3:
+
+                return "G3";
+
+            case 4:
+
+                return "G2";
+
+            case 5:
+
+                return "G1";
+        }
+
+        return "-"; //例外処理
+    }
 }

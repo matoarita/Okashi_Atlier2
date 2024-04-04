@@ -1471,6 +1471,8 @@ public class itemSelectToggle : MonoBehaviour
                 back_ShopFirst_btn.interactable = true;
 
                 card_view.DeleteCard_DrawView();
+                itemselect_cancel.kettei_on_waiting = false;
+
 
                 break;
         }
@@ -1625,6 +1627,7 @@ public class itemSelectToggle : MonoBehaviour
                 no.SetActive(false);                
 
                 card_view.DeleteCard_DrawView();
+                itemselect_cancel.kettei_on_waiting = false;
 
                 GameMgr.event_pitem_use_OK = true;
 
@@ -1846,6 +1849,9 @@ public class itemSelectToggle : MonoBehaviour
     }
 
     /* ここまで */
+
+
+
 
 
 

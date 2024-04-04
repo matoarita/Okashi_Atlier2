@@ -24,6 +24,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private GameObject canvas;
     private GameObject timelimitover_panel;
 
+    private TimeController time_controller;
+
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
 
@@ -133,6 +135,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         //調合用メソッドの取得　テスト用
         Combinationmain = CombinationMain.Instance.GetComponent<CombinationMain>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -275,7 +280,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_eventEnd_flag = false;
             GameMgr.Contest_ON = false;
 
-            FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+            //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+            //家に帰って寝る
+            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
+            FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
         }
 
         //制限時間を少し超えた場合、注意のパネルがでる
@@ -477,8 +485,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Contest_ProblemSentence = "至高のチョコレート（Aランク）" + "\n" + "テーマ：「風」をテーマにした美しいチョコレート";
 
         //コンテスト時間指定
-        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
-        PlayerStatus.player_contest_minute = 0; //開始分
+        Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 80; //一回戦相手の点数
@@ -490,8 +497,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Contest_ProblemSentence = "自由課題" + "\n" + "テーマ：「海」をテーマにした自由なお菓子";
 
         //コンテスト時間指定
-        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
-        PlayerStatus.player_contest_minute = 0; //開始分
+        Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 90; //
@@ -503,8 +509,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Contest_ProblemSentence = "至高のケーキ" + "\n" + "テーマ：「愛」をテーマにした至高のケーキ";
 
         //コンテスト時間指定
-        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
-        PlayerStatus.player_contest_minute = 0; //開始分
+        Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 97; //
@@ -518,11 +523,16 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Contest_ProblemSentence = "テーマ：おいしいクッキー";
 
         //コンテスト時間指定
-        PlayerStatus.player_contest_hour = 8; //コンテストの開始時間
-        PlayerStatus.player_contest_minute = 0; //開始分
+        Contest_SetStartTime();             
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位   
 
         GameMgr.contest_boss_score = 92;
+    }
+
+    void Contest_SetStartTime()
+    {
+        PlayerStatus.player_contest_hour = 10; //コンテストの開始時間
+        PlayerStatus.player_contest_minute = 0; //開始分
     }
 
     void PrizeGet()

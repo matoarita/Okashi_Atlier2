@@ -304,6 +304,7 @@ GameObject:
   - component: {fileID: 222847059655604706}
   - component: {fileID: 114352488873377200}
   - component: {fileID: 114360657604615886}
+  - component: {fileID: 114214852547316648}
   - component: {fileID: 223536140241508344}
   - component: {fileID: 114405034572201194}
   - component: {fileID: 225552611335018920}
@@ -731,6 +732,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30AD\u30E3\u30F3\u30BB\u30EB\n"
+--- !u!114 &114214852547316648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519690101177418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57100a3cc6a17d4aa030b712aa239b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114218285330717014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -850,7 +862,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114015042282743850}
   m_HandleRect: {fileID: 224629409892168824}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

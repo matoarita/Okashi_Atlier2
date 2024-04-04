@@ -3964,7 +3964,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1117246732142754, guid: f6babc09f1b5cc947baaff022e129fdd, type: 2}
       propertyPath: m_Name
-      value: Button_modoru
+      value: ShopOn_Toggle_Back
       objectReference: {fileID: 0}
     - target: {fileID: 114162018870413840, guid: f6babc09f1b5cc947baaff022e129fdd,
         type: 2}
@@ -4359,6 +4359,7 @@ MonoBehaviour:
   sound38: {fileID: 0}
   sound39: {fileID: 0}
   sound40: {fileID: 0}
+  sound41: {fileID: 0}
   _mixRate: 0
 --- !u!82 &1841630730
 AudioSource:

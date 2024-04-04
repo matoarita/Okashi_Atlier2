@@ -335,4 +335,5 @@ MonoBehaviour:
   sound39: {fileID: 8300000, guid: cfc1597e250d42c4d849eab99a60309b, type: 3}
   sound40: {fileID: 8300000, guid: bffa308392beb9e41843e0cf7a662069, type: 3}
   sound41: {fileID: 8300000, guid: 63b1e0e3f18f11e4db9b7b6485201585, type: 3}
+  sound42: {fileID: 8300000, guid: 70be88e0a7679ac4f8385efc581cec89, type: 3}
   _mixRate: 0

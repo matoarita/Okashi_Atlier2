@@ -283,7 +283,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //獲得音楽図鑑のフラグ
     public static List<SpecialTitle> bgm_collection_list = new List<SpecialTitle>(); //音楽リスト。 
 
-    //現在受けているコンテスト まだセーブに登録はしてない
+    //現在受けているコンテスト
     public static List<ContestSaveList> contest_accepted_list = new List<ContestSaveList>(); //
 
     //バージョン情報
@@ -452,7 +452,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
     public static int Scene_Category_Num;           //Compound=10, Compound_Entrance=11, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, 
-                                                    //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130, Station=140,
+                                                    //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130, Station=140, NPCHouse=150
                                                     //200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
 
 
@@ -472,6 +472,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool check_CompoAfter_flag;
     public static bool check_GetMat_flag;
     public static bool check_OkashiAfter_flag;
+    public static bool check_SleepEnd_Eventflag;
     public static int ResultComplete_flag;
     public static bool Mute_on;
     public static bool SubEvAfterHeartGet; //Utage_scenarioからも読まれる
@@ -545,10 +546,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static Dictionary<string, int> GetMat_ResultList = new Dictionary<string, int>(); //採取で取得したアイテムのリスト　名前と個数
     public static bool Money_counterAnim_on; //所持金お金動くアニメON
     public static bool Money_counterAnim_StartSetting; //そのとき最初だけ初期設定
+    public static bool Money_counterOnly; //アニメはなしで、カウンタを生成する
     public static int Money_counterParam; //そのときの入ったお金
     public static int Money_StartParam; //アニメ前の始まりのお金
     public static int Contest_OrganizeMonth; //コンテストの開催月
     public static int Contest_OrganizeDay; //コンテストの開催日
+    public static bool Contest_ReadyToStart; //宴の読みが終わってから、コンテストを開始するフラグ
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -968,6 +971,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         check_CompoAfter_flag = false;
         check_GetMat_flag = false;
         check_OkashiAfter_flag = false;
+        check_SleepEnd_Eventflag = false;
         ResultComplete_flag = 0;
         Mute_on = false;
         SubEvAfterHeartGet = false;
@@ -1018,6 +1022,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Getmat_return_home = false;
         Money_counterAnim_on = false;
         Money_counterAnim_StartSetting = false;
+        Money_counterOnly = false;
+        Contest_ReadyToStart = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -1094,6 +1100,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GetMat_ResultList.Clear();
         Contest_PrizeGet_ItemName = "";
         special_shogo_flag = false;
+        contest_accepted_list.Clear();
 
 
         //コンテスト感想初期化

@@ -286,6 +286,9 @@ public class PlayerData
     //獲得音楽図鑑のフラグ
     public List<ItemSaveFlag> save_bgm_collection_list = new List<ItemSaveFlag>(); //音楽リスト。 
 
+    //コンテスト現在受け付けてるリスト
+    public List<ContestSaveList> save_contest_accepted_list = new List<ContestSaveList>();
+
     //エクストリームパネル用のアイテムとタイプ
     public int save_extreme_itemid;
     public int save_extreme_itemtype;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class ScenePlaceNamePanel : MonoBehaviour {
 
@@ -31,30 +32,6 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
         switch (SceneManager.GetActiveScene().name) //初回に、広場シーンを読み込むと、こちらが読み込まれる。OnSceneLoadedは読まれない。
         {
-            /*case "Shop":
-
-                _text = "プリンのお菓子店";
-                break;
-
-            case "Bar":
-
-                SetSceneName("Bar"); //マップDBに登録されているmap_Nameをもとに、マップ名をテキストに入れる
-                break;
-
-            case "Farm":
-
-                SetSceneName("Farm"); //マップDBに登録されているmap_Nameをもとに、マップ名をテキストに入れる
-                break;
-
-            case "Emerald_Shop":
-
-                _text = "エメラルショップ";
-                break;
-
-            case "Contest":
-
-                _text = "コンテスト会場";
-                break;*/
 
             default:
 
@@ -178,4 +155,6 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    
 }

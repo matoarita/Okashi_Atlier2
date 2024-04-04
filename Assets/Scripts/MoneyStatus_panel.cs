@@ -44,15 +44,8 @@ public class MoneyStatus_panel : MonoBehaviour {
         //moneypanel_localPos = moneyicon_transfrom.localPosition;
         //Debug.Log("moneypanel_localPos: " + moneypanel_localPos);
 
-        //例外処理　お金の表記が-とかになってたら、0に戻す。
-        if(PlayerStatus.player_money < 0 )
-        {
-            PlayerStatus.player_money = 0;
-        }
-        _money_text.text = PlayerStatus.player_money.ToString();
-
-        _coin_cullency = this.transform.Find("Money_text").GetComponent<Text>();
-        _coin_cullency.text = GameMgr.MoneyCurrencyEn;
+        DrawMoney();
+        
 
         _deg = 1;
         GameMgr.Money_counterAnim_on = false;
@@ -62,10 +55,16 @@ public class MoneyStatus_panel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (GameMgr.Money_counterOnly)
+        {
+            GameMgr.Money_counterOnly = false;
+
+            CounterOnTextOBJ(GameMgr.Money_counterParam);
+        }
+
         if (GameMgr.Money_counterAnim_on == true)
         {
-
-            if(GameMgr.Money_counterAnim_StartSetting)
+            if (GameMgr.Money_counterAnim_StartSetting)
             {
                 GameMgr.Money_counterAnim_StartSetting = false;
 
@@ -125,10 +124,24 @@ public class MoneyStatus_panel : MonoBehaviour {
                 sc.PlaySe(29);
                 timeOut = 0.12f;
             }
+        } else
+        {
+            DrawMoney();
         }
     }
 
-    
+    void DrawMoney()
+    {
+        //例外処理　お金の表記が-とかになってたら、0に戻す。
+        if (PlayerStatus.player_money < 0)
+        {
+            PlayerStatus.player_money = 0;
+        }
+        _money_text.text = PlayerStatus.player_money.ToString();
+
+        _coin_cullency = this.transform.Find("Money_text").GetComponent<Text>();
+        _coin_cullency.text = GameMgr.MoneyCurrencyEn;
+    }
 
     private void OnEnable()
     {
@@ -136,7 +149,7 @@ public class MoneyStatus_panel : MonoBehaviour {
         _money_text = _money_param.GetComponent<Text>();
 
         _money_text.text = PlayerStatus.player_money.ToString();
-        GameMgr.Money_counterAnim_on = false;
+        
     }
 
     void StartSetting()

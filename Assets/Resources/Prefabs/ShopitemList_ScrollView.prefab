@@ -556,6 +556,9 @@ GameObject:
   - component: {fileID: 222656044951455510}
   - component: {fileID: 114361159406134300}
   - component: {fileID: 114817301758394686}
+  - component: {fileID: 114467629647594670}
+  - component: {fileID: 114806785748946684}
+  - component: {fileID: 225120686071941804}
   m_Layer: 0
   m_Name: ShopitemList_ScrollView
   m_TagString: ShopitemList_ScrollView
@@ -1769,6 +1772,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114467629647594670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1701673714601528}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57100a3cc6a17d4aa030b712aa239b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114470566171469402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2228,6 +2242,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114806785748946684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1701673714601528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e85b5453aa82ee4d9b9992c14da60aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114815769257588802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2671,7 +2696,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224965969927678184}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3773,3 +3798,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225120686071941804
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1701673714601528}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

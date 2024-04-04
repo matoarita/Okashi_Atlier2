@@ -50,6 +50,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound39;  //オランジーナ調合メインのBGM予定1
     public AudioClip sound40;  //オランジーナ調合メインのBGM予定2
     public AudioClip sound41;  //オランジーナ街BGM
+    public AudioClip sound42;  //魔法の先生のテーマ01
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -302,7 +303,17 @@ public class BGM : MonoBehaviour {
 
                                 _bgm[0].clip = sound41;
                                 break;
-                                
+
+                            case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
+
+                                _bgm[0].clip = sound38;
+                                break;
+
+                            case "Or_Hiroba_Winter_Entrance": //秋のエリア入口
+
+                                _bgm[0].clip = sound38;
+                                break;
+
                             default:
 
                                 break;
@@ -323,6 +334,11 @@ public class BGM : MonoBehaviour {
                     case 120: //コンテスト会場受付系
 
                         _bgm[0].clip = sound41; //23
+                        break;
+
+                    case 150: //NPCの家系
+
+                        _bgm[0].clip = sound42; //23
                         break;
 
                     default:
