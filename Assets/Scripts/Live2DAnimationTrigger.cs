@@ -121,7 +121,7 @@ public class Live2DAnimationTrigger : MonoBehaviour {
             //タッチもできるように。
             character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
             character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
-            character_touch_controll.Touch_OnAllON();
+            GameMgr.CharacterTouch_ALLON = true;
         }
     }
 

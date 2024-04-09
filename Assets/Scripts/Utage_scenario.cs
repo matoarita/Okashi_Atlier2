@@ -301,131 +301,141 @@ public class Utage_scenario : MonoBehaviour
 
                     default:
                         break;
-                }
+                }              
+            }
 
+            
 
-                if (GameMgr.CompoundEvent_storyflag)
-                {
-                    GameMgr.CompoundEvent_storyflag = false;
+            if (GameMgr.CompoundEvent_storyflag)
+            {
+                GameMgr.CompoundEvent_storyflag = false;
 
-                    story_num = GameMgr.CompoundEvent_storynum;
-                    StartCoroutine(backHome());
-                }
+                story_num = GameMgr.CompoundEvent_storynum;
+                StartCoroutine(backHome());
+            }
 
-                if (GameMgr.girlloveevent_flag)
-                {
-                    GameMgr.girlloveevent_flag = false;
+            if (GameMgr.girlloveevent_flag)
+            {
+                GameMgr.girlloveevent_flag = false;
 
-                    //好感度イベントを表示
-                    StartCoroutine(Girllove_event_Hyouji());
-                }
+                //好感度イベントを表示
+                StartCoroutine(Girllove_event_Hyouji());
+            }
 
-                if (GameMgr.recipi_read_flag)
-                {
-                    GameMgr.recipi_read_flag = false;
-                    recipi_read_ID = GameMgr.recipi_read_ID;
+            if (GameMgr.recipi_read_flag)
+            {
+                GameMgr.recipi_read_flag = false;
+                recipi_read_ID = GameMgr.recipi_read_ID;
 
-                    //レシピを手に入れて読むときの表示
-                    StartCoroutine(Recipi_read_Hyouji());
-                }
+                //レシピを手に入れて読むときの表示
+                StartCoroutine(Recipi_read_Hyouji());
+            }
 
-                if (GameMgr.itemuse_recipi_flag == true)
-                {
-                    GameMgr.itemuse_recipi_flag = false;
-                    itemuse_recipi_ID = GameMgr.recipi_read_ID;
+            if (GameMgr.itemuse_recipi_flag == true)
+            {
+                GameMgr.itemuse_recipi_flag = false;
+                itemuse_recipi_ID = GameMgr.recipi_read_ID;
 
-                    //イベントレシピを表示
-                    StartCoroutine(ItemUse_Recipi_Hyouji());
-                }               
+                //イベントレシピを表示
+                StartCoroutine(ItemUse_Recipi_Hyouji());
+            }
 
-                if (GameMgr.OkashiComment_flag == true)
-                {
-                    GameMgr.OkashiComment_flag = false;
-                    Okashicomment_ID = GameMgr.OkashiComment_ID;
+            if (GameMgr.OkashiComment_flag == true)
+            {
+                GameMgr.OkashiComment_flag = false;
 
-                    //お菓子食べた直後（採点表示パネル前）の通常感想テキストを表示
-                    StartCoroutine(OkashiComment_Hyouji());
-                }
+                ContestInitSetting();
+                Okashicomment_ID = GameMgr.OkashiComment_ID;
 
-                if (GameMgr.sp_okashi_hintflag == true)
-                {
-                    GameMgr.sp_okashi_hintflag = false;
-                    sp_Okashi_ID = GameMgr.sp_okashi_ID;
+                //お菓子食べた直後（採点表示パネル前）の通常感想テキストを表示
+                StartCoroutine(OkashiComment_Hyouji());
+            }
 
-                    //SPお菓子食べる前のふきだし
-                    StartCoroutine(SpOkashiComment_HintHyouji());
-                }
+            if (GameMgr.sp_okashi_hintflag == true)
+            {               
+                GameMgr.sp_okashi_hintflag = false;
 
-                if (GameMgr.sp_okashi_flag == true)
-                {
-                    GameMgr.sp_okashi_flag = false;
-                    sp_Okashi_ID = GameMgr.sp_okashi_ID;
+                ContestInitSetting();
+                sp_Okashi_ID = GameMgr.sp_okashi_ID;
 
-                    //SPお菓子食べたあとの感想テキストを表示
-                    StartCoroutine(SpOkashiComment_Hyouji());
-                }
+                //SPお菓子食べる前のふきだし
+                StartCoroutine(SpOkashiComment_HintHyouji());
+            }
 
-                if (GameMgr.okashiafter_flag == true)
-                {
-                    GameMgr.okashiafter_flag = false;
+            if (GameMgr.sp_okashi_flag == true)
+            {
+                GameMgr.sp_okashi_flag = false;
 
-                    //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
-                    StartCoroutine(OkashiAfterComment_Hyouji());
-                }
+                ContestInitSetting();
+                sp_Okashi_ID = GameMgr.sp_okashi_ID;
 
-                if (GameMgr.emeralDonguri_flag == true)
-                {
-                    GameMgr.emeralDonguri_flag = false;
+                //SPお菓子食べたあとの感想テキストを表示
+                StartCoroutine(SpOkashiComment_Hyouji());
+            }
 
-                    //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
-                    StartCoroutine(EmeralDonguri_Hyouji());
-                }
+            if (GameMgr.okashiafter_flag == true)
+            {
+                GameMgr.okashiafter_flag = false;
 
-                if (GameMgr.QuestClearButtonMessage_flag == true)
-                {
-                    GameMgr.QuestClearButtonMessage_flag = false;
+                ContestInitSetting();
+                //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
+                StartCoroutine(OkashiAfterComment_Hyouji());
+            }
 
-                    //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
-                    StartCoroutine(QuestClearButton_Hyouji());
-                }
+            if (GameMgr.emeralDonguri_flag == true)
+            {
+                GameMgr.emeralDonguri_flag = false;
 
-                if (GameMgr.ExtraClear_flag == true)
-                {
-                    GameMgr.ExtraClear_flag = false;
-                    mainClear_ID = GameMgr.Extraquest_ID;
-                    scenarioLabel = "ExtraClearMessage"; //イベントレシピタグのシナリオを再生。
+                ContestInitSetting();
 
-                    //エクストラクリア後の感想テキストを表示
-                    StartCoroutine(MainQuestClear_Hyouji());
-                }
+                //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
+                StartCoroutine(EmeralDonguri_Hyouji());
+            }
 
-                if (GameMgr.mainClear_flag == true)
-                {
-                    GameMgr.mainClear_flag = false;
-                    mainClear_ID = GameMgr.mainquest_ID;
-                    scenarioLabel = "MainQuestClear"; //イベントレシピタグのシナリオを再生。
+            if (GameMgr.QuestClearButtonMessage_flag == true)
+            {
+                GameMgr.QuestClearButtonMessage_flag = false;
 
-                    //SPお菓子食べたあとの感想テキストを表示
-                    StartCoroutine(MainQuestClear_Hyouji());
-                }
+                //お菓子食べたあとの感想（採点表示パネル後）のテキストを表示
+                StartCoroutine(QuestClearButton_Hyouji());
+            }
 
-                if (GameMgr.sleep_flag == true)
-                {
-                    GameMgr.sleep_flag = false;
-                    scenarioLabel = "Sleep";
+            if (GameMgr.ExtraClear_flag == true)
+            {
+                GameMgr.ExtraClear_flag = false;
+                mainClear_ID = GameMgr.Extraquest_ID;
+                scenarioLabel = "ExtraClearMessage"; //イベントレシピタグのシナリオを再生。
 
-                    //寝るイベントを表示
-                    StartCoroutine(Sleep());
-                }
+                //エクストラクリア後の感想テキストを表示
+                StartCoroutine(MainQuestClear_Hyouji());
+            }
 
-                if (GameMgr.touchhint_flag == true)
-                {
-                    GameMgr.touchhint_flag = false;
-                    touchhint_ID = GameMgr.touchhint_ID;
+            if (GameMgr.mainClear_flag == true)
+            {
+                GameMgr.mainClear_flag = false;
+                mainClear_ID = GameMgr.mainquest_ID;
+                scenarioLabel = "MainQuestClear"; //イベントレシピタグのシナリオを再生。
 
-                    //ヒントを表示
-                    StartCoroutine(TouchHint_Hyouji());
-                }
+                //SPお菓子食べたあとの感想テキストを表示
+                StartCoroutine(MainQuestClear_Hyouji());
+            }
+
+            if (GameMgr.sleep_flag == true)
+            {
+                GameMgr.sleep_flag = false;
+                scenarioLabel = "Sleep";
+
+                //寝るイベントを表示
+                StartCoroutine(Sleep());
+            }
+
+            if (GameMgr.touchhint_flag == true)
+            {
+                GameMgr.touchhint_flag = false;
+                touchhint_ID = GameMgr.touchhint_ID;
+
+                //ヒントを表示
+                StartCoroutine(TouchHint_Hyouji());
             }
 
             //ショップ・牧場シーンでのイベント処理
@@ -633,6 +643,41 @@ public class Utage_scenario : MonoBehaviour
     void ShopInitSetting()
     {
         character = GameObject.FindWithTag("Character");
+    }
+
+    void ContestInitSetting()
+    {
+        if (GameMgr.Scene_Category_Num == 100) //コンテストシーンでの取得
+        {
+            switch (GameMgr.Scene_Name)
+            {
+                case "Or_Contest": //味見用シーンでの処理
+
+                    if (!_model)
+                    {
+                        //Live2Dモデルの取得
+                        _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
+                        _renderController = _model.GetComponent<CubismRenderController>();
+                        live2d_animator = _model.GetComponent<Animator>();
+
+                        //女の子の反映用ハートエフェクト取得
+                        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                        GirlHeartEffect_obj = character_root.transform.Find("CharacterMove/Particle_Heart_Character").gameObject;
+                    }
+
+                    if (!sceneBGM)
+                    {
+                        //BGMの取得
+                        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                        //map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
+                    }
+                    break;
+
+                default: //１のときのコンテストでは使わない
+
+                    break;
+            }
+        }
     }
 
     //
@@ -3822,10 +3867,10 @@ public class Utage_scenario : MonoBehaviour
             {
                 if (i == 0)
                 {
-                    if (GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
+                    if (GameMgr.contest_TotalScore < GameMgr.PrizeScoreAreaList[i])
                     {
                         _rank = GameMgr.PrizeScoreAreaList.Count + 1 - i;
-                        //Debug.Log("順位: " + i + "位");
+                        Debug.Log("順位: " + _rank + "位");
                         break;
                     }
                 }
@@ -3833,19 +3878,19 @@ public class Utage_scenario : MonoBehaviour
                 {
                     if (i != GameMgr.PrizeScoreAreaList.Count)
                     {
-                        if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1] && GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
+                        if (GameMgr.contest_TotalScore >= GameMgr.PrizeScoreAreaList[i - 1] && GameMgr.contest_TotalScore < GameMgr.PrizeScoreAreaList[i])
                         {
                             _rank = GameMgr.PrizeScoreAreaList.Count + 1 - i;
-                            //Debug.Log("順位: " + i + "位");
+                            Debug.Log("順位: " + _rank + "位");
                             break;
                         }
                     }
                     else //リストの一番最後
                     {
-                        if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1])
+                        if (GameMgr.contest_TotalScore >= GameMgr.PrizeScoreAreaList[i - 1])
                         {
                             _rank = GameMgr.PrizeScoreAreaList.Count + 1 - i;
-                            //Debug.Log("順位: " + "優勝");
+                            Debug.Log("順位: " + "優勝");
                             break;
                         }
                     }
@@ -3955,10 +4000,35 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Contest_num", contest_num);
         engine.Param.TrySetParameter("contest_totalPrize_score", GameMgr.contest_PrizeScore); //総合点
         engine.Param.TrySetParameter("contest_PrizeGetItemName", GameMgr.Contest_PrizeGet_ItemName); //獲得した賞品名
+        engine.Param.TrySetParameter("contest_PrizeGetMoney", GameMgr.Contest_PrizeGet_Money);
         engine.Param.TrySetParameter("contest_ranking_count", GameMgr.contest_Rank_Count); //ランキング形式のとき順位。トーナメントでは使わない。
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオポーズ待ち
+        while (!Engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        //シーンの黒フェードをオフにする。
+        GameMgr.Utage_Prizepanel_ON = true;
+
+        //元のシナリオにもどる。
+        engine.ResumeScenario();
+
+        
+        //「宴」のシナリオポーズ待ち
+        while (!Engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.Utage_SceneEnd_BlackON = true;
+
+        //元のシナリオにもどる。
+        engine.ResumeScenario();
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)

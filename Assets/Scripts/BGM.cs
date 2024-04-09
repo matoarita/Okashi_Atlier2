@@ -399,6 +399,22 @@ public class BGM : MonoBehaviour {
                 break;
 
             default:
+
+                if (GameMgr.Story_Mode == 0)
+                {
+                    BGMDefault();
+                }
+                else
+                {
+                    if (GameMgr.userBGM_Num == 0) //デフォルト　ユーザーが1をおした場合、デフォルトのBGM
+                    {
+                        BGMDefault();
+                    }
+                    else
+                    {
+                        OngakuZukanSelect();
+                    }
+                }
                 break;
         }
           

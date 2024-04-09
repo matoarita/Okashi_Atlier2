@@ -46,6 +46,8 @@ public class Result_Panel : MonoBehaviour
     private Sprite charaIcon_sprite_6;
     private Animator chara_animator;
 
+    private Sequence sequence;
+
     private int getlove_exp;
     private int Total_score;
     private int star_count;
@@ -417,9 +419,25 @@ public class Result_Panel : MonoBehaviour
     //⑤好感度バー表示
     void GetLoveBarAnim()
     {
-        GetLoveTextKoushin();
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Contest": //味見用シーンでの処理
 
-        Sequence sequence = DOTween.Sequence();
+                Getlove_panel.transform.Find("Result_GetLoveText").gameObject.SetActive(false);
+                Getlove_panel.transform.Find("Result_NoLoveText").gameObject.SetActive(true);
+
+                Getlove_panel.transform.Find("Result_NoLoveText").GetComponent<Text>().text = "味見完了！！";                
+
+                break;
+
+            default:
+
+                GetLoveTextKoushin();
+               
+                break;
+        }
+
+        sequence = DOTween.Sequence();
 
         //好感度ゲットバーも表示する。
         sequence.Append(Getlove_panel.transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.3f)
@@ -451,7 +469,7 @@ public class Result_Panel : MonoBehaviour
         {
             sc.PlaySe(20);
         }
-        
+
         sequence.Append(Getlove_param.transform.DOLocalMove(new Vector3(0f, 30f, 0), 0.3f)
             .SetRelative()
             .SetEase(Ease.OutQuart));

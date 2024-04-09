@@ -532,12 +532,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_Next_flag; //コンテスト〇回戦を開始する
     public static bool Contest_PrizeGet_flag; //コンテスト賞品を獲得する処理のフラグ
     public static string Contest_PrizeGet_ItemName; //獲得した賞品のアイテム名
+    public static int Contest_PrizeGet_Money; //獲得した賞金
     public static bool contest_eventEnd_flag; //コンテストイベント全て終了
     public static bool contest_LimitTimeOver_DegScore_flag; //コンテスト制限時間をこえて、減点のフラグ
     public static bool contest_LimitTimeOver_Gameover_flag; //コンテスト制限時間をこえて失格のフラグ
     public static bool contest_LimitTimeOver_After_flag; //コンテスト失格後、なんらかのペナルティやメッセージが発生するフラグ
     public static bool NewAreaRelease_flag; //なんらかのイベント後、新エリアが解禁されるフラグ
     public static List<int> PrizeScoreAreaList = new List<int>(); //コンテストのランキングスコア、もしくは賞品のスコア範囲のリスト
+    public static List<string> PrizeItemList = new List<string>(); //コンテストの優勝のアイテムリスト
+    public static List<string> PrizeCharacterList = new List<string>(); //コンテストの参加者リスト
+    public static List<int> PrizeGetMoneyList = new List<int>(); //コンテストの優勝の賞金リスト
     public static int SceneSelectNum; //シーンの移動先を指定する番号　番号をもとに、移動先シーンのStartでその場所名を決定する
     public static bool Getmat_return_home; //採取地から家に帰ってきたフラグ
     public static int Select_place_num; //採取のDBリスト番号
@@ -552,6 +556,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_OrganizeMonth; //コンテストの開催月
     public static int Contest_OrganizeDay; //コンテストの開催日
     public static bool Contest_ReadyToStart; //宴の読みが終わってから、コンテストを開始するフラグ
+    public static bool CharacterTouch_ALLOFF; //キャラの触り判定をオフにする。
+    public static bool CharacterTouch_ALLON; //キャラの触り判定をオンにする。
+    public static bool BGTouch_ALLOFF; //背景オブジェクトの触り判定をオフにする。
+    public static bool BGTouch_ALLON; //背景オブジェクトの触り判定をオンにする。
+    public static bool EatAnim_End; //食べるときのエフェクトアニメの終了を検知
+    public static bool Utage_Prizepanel_ON; //コンテスト賞品のシーン再生中、賞品リストを表示する。
+    public static bool Utage_SceneEnd_BlackON; //うたげ終了時、シーン移動する際に、ゲーム本編の黒をONにする。でないと、一瞬切り替え表示が見えてしまう。
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -664,6 +675,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //女の子の名前
     public static string mainGirl_Name;
+    public static string player_Name; //主人公の名前
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
@@ -770,6 +782,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //メインの女の子名前
         mainGirl_Name = "ヒカリ";
+        player_Name = "アキラ・ノワゼット";
 
         //ゴールドマスターのライン
         GoldMasterMoneyLine = 100000;
@@ -1024,6 +1037,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Money_counterAnim_StartSetting = false;
         Money_counterOnly = false;
         Contest_ReadyToStart = false;
+        CharacterTouch_ALLOFF = false; ; //キャラの触り判定をオフにする。
+        CharacterTouch_ALLON = false;
+        BGTouch_ALLOFF = false; //背景オブジェクトの触り判定をオフにする。
+        BGTouch_ALLON = false;
+        EatAnim_End = false;
+        Utage_Prizepanel_ON = false;
+        Utage_SceneEnd_BlackON = false;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -1097,8 +1117,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_TotalScoreList.Clear();
         contest_PrizeScore = 0;
         PrizeScoreAreaList.Clear();
+        PrizeItemList.Clear();
+        PrizeCharacterList.Clear();
+        PrizeGetMoneyList.Clear();
         GetMat_ResultList.Clear();
         Contest_PrizeGet_ItemName = "";
+        Contest_PrizeGet_Money = 0;
         special_shogo_flag = false;
         contest_accepted_list.Clear();
 

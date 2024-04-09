@@ -62,6 +62,7 @@ public class ContestListSelectToggle : MonoBehaviour
     public int toggle_ID; //こっちは、ショップデータベース上のIDを保持する。
     public string toggle_name; //リストの要素自体に、アイテムDB上のアイテムIDを保持する。
     public string toggle_nameHyouji; //リストの要素に、通常アイテムか、イベントアイテム判定用のタイプを保持する。
+    public int toggle_RankType; //コンテストのランキングタイプ
 
     private int i, _id, _list;
 
@@ -190,8 +191,14 @@ public class ContestListSelectToggle : MonoBehaviour
 
         contest_listController._count = count; //カウントしたリスト番号を保持
         _id = contest_listController._contest_listitem[count].GetComponent<ContestListSelectToggle>().toggle_ID; //IDを入れる。
-        contest_listController._ID = _id;
+        toggle_RankType = contest_listController._contest_listitem[count].GetComponent<ContestListSelectToggle>().toggle_RankType;
         _nameHyouji = contest_listController._contest_listitem[count].GetComponent<ContestListSelectToggle>().toggle_nameHyouji;
+
+        contest_listController._ID = _id;
+        _list = conteststartList_database.SearchContestID(_id);
+
+        GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
+        GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
 
         Debug.Log(count + "番が押されたよ");
         Debug.Log("コンテスト:" + _nameHyouji + " が選択されました。");
@@ -280,6 +287,100 @@ public class ContestListSelectToggle : MonoBehaviour
                 yes_no_panel.SetActive(false);
                 back_ShopFirst_btn.interactable = true;
                 itemselect_cancel.kettei_on_waiting = false;
+
+                contest_detailedPanel.SetActive(false);
+
+                break;
+        }
+    }
+
+    //すでに受けてるコンテストをキャンセルする
+    public void OnCancel_Contest()
+    {
+        //Debug.Log("コンテストキャンセル　おした　ContestID: " + toggle_ID);
+
+        //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
+        for (i = 0; i < contest_listController._contest_listitem.Count; i++)
+        {
+            contest_listController._contest_listitem[i].GetComponent<Toggle>().interactable = false;
+        }
+
+        _id = toggle_ID;
+
+        yes_no_panel.SetActive(true);
+        yes.SetActive(true);
+        no.SetActive(true);
+
+        _list = conteststartList_database.SearchContestID(_id);
+        _nameHyouji = conteststartList_database.conteststart_lists[_list].ContestNameHyouji;
+        _text.text = _nameHyouji + "の出場をキャンセルしますか？" + "\n" + "※出場費用は、半分返ってきます。";
+
+        //さらにコンテスト詳細のパネルを表示する。
+        contest_detailedPanel.SetActive(true);
+        contest_detailedPanel.GetComponent<Contest_DetailedPanel>().OnContestSettingData(_id);
+
+        back_ShopFirst_btn.interactable = false;
+
+        StartCoroutine("ContestCancel_wait");
+    }
+
+    //
+    //コンテスト　キャンセルするかしないか
+    //
+    IEnumerator ContestCancel_wait()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        yes_selectitem_kettei.onclick = false;
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された。
+
+                //Debug.Log("ok");
+                //解除
+
+                _text.text = "キャンセルしました！";
+                yes_no_panel.SetActive(false);
+                back_ShopFirst_btn.interactable = true;
+
+                _list = conteststartList_database.SearchContestID(_id);
+                conteststartList_database.conteststart_lists[_list].Contest_Accepted = 0; //受付キャンセルのフラグ
+
+                //新しく受け付けたコンテストは、リストに追加していく。締め切り日付も保存する。
+                for (i = 0; i < GameMgr.contest_accepted_list.Count; i++)
+                {
+                    if (GameMgr.contest_accepted_list[i].contestName == conteststartList_database.conteststart_lists[_list].ContestName)
+                    {
+                        GameMgr.contest_accepted_list.RemoveAt(i);
+                    }
+                }
+                contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
+
+                contest_detailedPanel.SetActive(false);
+
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("cancel");
+
+                //キャンセル時、リストのインタラクティブ解除。
+                for (i = 0; i < contest_listController._contest_listitem.Count; i++)
+                {
+                    contest_listController._contest_listitem[i].GetComponent<Toggle>().interactable = true;
+                    contest_listController._contest_listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+                contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
+
+                _text.text = "今開催しているコンテストです。";
+                yes_no_panel.SetActive(false);
+                back_ShopFirst_btn.interactable = true;
 
                 contest_detailedPanel.SetActive(false);
 

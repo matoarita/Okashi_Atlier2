@@ -226,7 +226,10 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 default: //上記シーン以外
 
-                    InitSetting();
+                    if (canvas == null)
+                    {
+                        InitSetting();
+                    }
 
                     break;
             }

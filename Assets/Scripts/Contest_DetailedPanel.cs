@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 public class Contest_DetailedPanel : MonoBehaviour {
 
+    private GameObject canvas;
+
     private ContestStartListDataBase conteststartList_database;
+
+    private ContestPrizeScoreDataBase contestPrizeScore_dataBase;
 
     private GameObject contest_detailed_datapanel;
     private TimeController time_controller;
+
+    private GameObject contestPrizePanel;
 
     private Text contest_title;
     private Text contest_cost;
@@ -37,11 +43,18 @@ public class Contest_DetailedPanel : MonoBehaviour {
 
     void InitSetting()
     {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
+        contestPrizeScore_dataBase = ContestPrizeScoreDataBase.Instance.GetComponent<ContestPrizeScoreDataBase>();
+
+        contestPrizePanel = this.transform.parent.Find("ContestPrizePanel").gameObject;
+        contestPrizePanel.SetActive(false);
 
         contest_detailed_datapanel = this.transform.Find("ContestDetailed_datapanel").gameObject;
         contest_title = contest_detailed_datapanel.transform.Find("background/ContestTitle").GetComponent<Text>();
@@ -124,4 +137,23 @@ public class Contest_DetailedPanel : MonoBehaviour {
 
         contest_theme.text = conteststartList_database.conteststart_lists[_list].Contest_themeComment;
     }
+
+    //各コンテストの賞品確認ページを開く
+    public void OnPrizeGet_Check()
+    {
+        GameMgr.Scene_Status = 50;
+
+        //GameMgr.Contest_Cate_RankingとContestSelectNumは、DetailedPanelを開いた時点で、ContestListSelectToggleで先に設定されている。
+        if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
+        {
+            contestPrizeScore_dataBase.OnPrizeListSet(GameMgr.ContestSelectNum);
+        }
+        else
+        {
+            contestPrizeScore_dataBase.OnPrizeListRankingSet(GameMgr.ContestSelectNum);
+        }
+        contestPrizePanel.SetActive(true);
+    }
+
+    
 }

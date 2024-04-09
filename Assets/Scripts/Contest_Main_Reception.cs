@@ -14,6 +14,8 @@ public class Contest_Main_Reception : MonoBehaviour
     private GameObject text_area;
     private Text _text;
 
+    private GameObject yes_no_panel;
+
     private SceneInitSetting sceneinit_setting;
 
     private GameObject npc1_toggle_obj;
@@ -52,6 +54,8 @@ public class Contest_Main_Reception : MonoBehaviour
     private GameObject mainlist_controller_obj;
     private GameObject contestList_ScrollView_obj;
     private GameObject contest_detailedPanel;
+    private GameObject time_panel;
+    private GameObject money_panel;
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -107,6 +111,8 @@ public class Contest_Main_Reception : MonoBehaviour
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -171,6 +177,9 @@ public class Contest_Main_Reception : MonoBehaviour
 
         contest_detailedPanel = canvas.transform.Find("ContestListPanel/Contest_DetailedPanel").gameObject;
         contest_detailedPanel.SetActive(false);
+
+        time_panel = canvas.transform.Find("TimePanel").gameObject;
+        money_panel = canvas.transform.Find("MoneyStatus_panel").gameObject;
 
         //
         //背景と場所名の設定 最初にこれを行う
@@ -318,6 +327,8 @@ public class Contest_Main_Reception : MonoBehaviour
             mainlist_controller_obj.SetActive(false);
             backshopfirst_obj.SetActive(false);
             contestList_ScrollView_obj.SetActive(false);
+            time_panel.SetActive(false);
+            money_panel.SetActive(false);
         }
         else
         {
@@ -331,6 +342,8 @@ public class Contest_Main_Reception : MonoBehaviour
                     backshopfirst_obj.SetActive(false);
                     backshopfirst_obj.GetComponent<Button>().interactable = true;
                     contestList_ScrollView_obj.SetActive(false);
+                    time_panel.SetActive(true);
+                    money_panel.SetActive(true);
 
                     sceneBGM.MuteOFFBGM();
 
@@ -356,6 +369,23 @@ public class Contest_Main_Reception : MonoBehaviour
                         maincam_animator.SetInteger("trans", trans);
                     }
 
+                    break;
+
+                case 50: //賞品リストを開き中
+
+                    yes_no_panel.SetActive(false);
+                    text_area.SetActive(false);
+                    time_panel.SetActive(false);
+                    money_panel.SetActive(false);
+                    break;
+
+                case 51:　//賞品リスト閉じるボタンおした
+
+                    yes_no_panel.SetActive(true);
+                    text_area.SetActive(true);
+                    time_panel.SetActive(true);
+                    money_panel.SetActive(true);
+                    GameMgr.Scene_Status = 100;
                     break;
 
                 case 100: //退避
@@ -450,9 +480,18 @@ public class Contest_Main_Reception : MonoBehaviour
             yield return null;
         }
 
-        if(GameMgr.Contest_ReadyToStart) //コンテスト開始のイベントだった場合は、このタイミングでコンテスト本番スタート
+        GameMgr.scenario_read_endflag = false;
+
+        if (GameMgr.Contest_ReadyToStart) //コンテスト開始のイベントだった場合は、このタイミングでコンテスト本番スタート
         {
             GameMgr.Contest_ReadyToStart = false;
+
+            //もしエクストリームパネルにすでにお菓子があった場合は、オリジナルリストへ移動しておく。
+            if(pitemlist.player_extremepanel_itemlist.Count > 0)
+            {
+                pitemlist.ExtremeToCopyOriginalItem(99);
+                pitemlist.deleteAllExtremePanelItem();
+            }
 
             _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
 
@@ -465,7 +504,7 @@ public class Contest_Main_Reception : MonoBehaviour
         }
         else
         {
-            GameMgr.scenario_read_endflag = false;
+            
             GameMgr.compound_select = 0; //何もしていない状態
             GameMgr.compound_status = 0;
 

@@ -21,6 +21,12 @@ public class EatAnimPanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+        if(GameMgr.EatAnim_End)
+        {
+            GameMgr.EatAnim_End = false;
+            Effect_End();
+            this.gameObject.SetActive(false);
+        }
 	}
 
     public void Effect_Start()
@@ -29,6 +35,7 @@ public class EatAnimPanel : MonoBehaviour {
         EatStartEffect.SetActive(true);
         
     }
+
 
     public void OnSound_Hit()
     {

@@ -42,7 +42,6 @@ public class CompoundMainController : MonoBehaviour {
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
-    private Touch_Controll touch_controller;
     private TimeController time_controller;
 
     private GameObject kakuritsuPanel_obj;
@@ -274,8 +273,6 @@ public class CompoundMainController : MonoBehaviour {
                     character_move = character_root.transform.Find("CharacterMove").gameObject;
                     Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
 
-                    //タッチ判定オブジェクトの取得
-                    touch_controller = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
                 }
                 else
                 {
@@ -619,6 +616,7 @@ public class CompoundMainController : MonoBehaviour {
 
                     break;
 
+
                 case 20: //魔法の選択画面を開く              
 
 
@@ -937,7 +935,7 @@ public class CompoundMainController : MonoBehaviour {
     {
         if (character_On)
         {
-            touch_controller.Touch_OnAllOFF();
+            GameMgr.CharacterTouch_ALLOFF = true;
             cubism_rendercontroller.SortingOrder = 1500; //描画順指定
         }
     }
@@ -1007,7 +1005,7 @@ public class CompoundMainController : MonoBehaviour {
         girl1_status.IdleMotionReset();
         girl1_status.DefFaceChange();
 
-        touch_controller.Touch_OnAllON(); //タッチもできるように。
+        GameMgr.CharacterTouch_ALLON = true; //タッチもできるように。
     }
 
     //Live2Dのモデルと視点アンカーの位置情報も含めて、0に戻す　compound_Mainから読み出し

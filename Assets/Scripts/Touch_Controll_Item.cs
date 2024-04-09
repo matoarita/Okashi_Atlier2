@@ -79,6 +79,19 @@ public class Touch_Controll_Item : MonoBehaviour
                 touch_interval_flag = false;
             }
         }
+
+        //背景おぶじぇくとの触り判定をオフにする。　どこのスクリプトからでも呼べる。
+        if (GameMgr.BGTouch_ALLOFF)
+        {
+            GameMgr.CharacterTouch_ALLOFF = false;
+            Touch_OnAllOFF();
+        }
+
+        if (GameMgr.BGTouch_ALLON)
+        {
+            GameMgr.CharacterTouch_ALLON = false;
+            Touch_OnAllON();
+        }
     }
 
     //
@@ -147,7 +160,7 @@ public class Touch_Controll_Item : MonoBehaviour
     }
 
     //全てのオブジェクトのタッチをオフにする。
-    public void Touch_OnAllOFF()
+    void Touch_OnAllOFF()
     {
         i = 0;
         while (i < touch_obj.Count)
@@ -158,7 +171,7 @@ public class Touch_Controll_Item : MonoBehaviour
     }
 
     //全てのオブジェクトのタッチをオフにする。
-    public void Touch_OnAllON()
+    void Touch_OnAllON()
     {
         i = 0;
         while (i < touch_obj.Count)

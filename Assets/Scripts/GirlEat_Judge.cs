@@ -27,16 +27,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
-    private GameObject Extremepanel_obj;
-
-    private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
     private GameObject hinttaste_toggle;
 
     private GameObject MainUIPanel_obj;
 
-    private GameObject Girlloveexp_bar;
     private Buf_Power_Keisan bufpower_keisan;
 
     private Debug_Panel debug_panel;
@@ -153,7 +149,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject EatAnimPanel;
     private Image EatAnimPanel_itemImage;
     private Sprite texture2d;
-    private GameObject EatStartEffect;
 
     //時間
     private float timeOut;
@@ -355,7 +350,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private PlayableDirector playableDirector;
 
     //レベルアップ用
-    private GameObject zeropoint;
     private GameObject HeartLvUpPanel_obj;
     private GameObject lvuppanel_Prefab;
     private List<GameObject> _listlvup_obj = new List<GameObject>();
@@ -398,44 +392,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             case 10:
 
-                //カメラの取得
-                main_cam = Camera.main;
-                maincam_animator = main_cam.GetComponent<Animator>();
-                trans = maincam_animator.GetInteger("trans");
-
+                //調合シーン特有のオブジェクトたち
                 compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                 compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                //BGMの取得
-                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-
-                hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
-
                 MainUIPanel_obj = canvas.transform.Find("MainUIPanel").gameObject;
 
-                //エクストリームパネルの取得+初期化
-                Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
+                hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;               
 
                 BlackPanel_event = canvas.transform.Find("Black_Panel_Event").gameObject;
 
-                //Live2Dモデルの取得
-                _model = GameObject.FindWithTag("CharacterLive2D").FindCubismModel();
-                live2d_animator = _model.GetComponent<Animator>();
-                _renderController = _model.GetComponent<CubismRenderController>();
-
-                //キャラクタ取得
-                character = GameObject.FindWithTag("Character");
-                character_root = GameObject.FindWithTag("CharacterRoot");
-
-                //お金の増減用パネルの取得
-                MoneyStatus_Panel_obj = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
-                moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
-
-                //時間管理オブジェクトの取得
-                time_controller = TimeController.Instance.GetComponent<TimeController>();
-
-                //女の子の反映用ハートエフェクト取得
-                GirlHeartEffect = character_root.transform.Find("CharacterMove/Particle_Heart_Character").GetComponent<Particle_Heart_Character>();
+                //クエストクリアボタンの取得
+                stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
+                stageclear_toggle = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
+                stageclear_Button = stageclear_panel.transform.Find("StageClear_Button").gameObject;
+                
+                playableDirector = stageclear_panel.GetComponent<PlayableDirector>();
+                playableDirector.enabled = false;
 
                 //女の子のレベル表示取得
                 girl_lv = canvas.transform.Find("MainUIPanel/Girl_love_exp_bar").transform.Find("LV_param").GetComponent<Text>();
@@ -443,83 +416,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //origin_color = girl_param.color;
                 origin_color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
 
-                //クエストクリアボタンの取得
-                stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
-                stageclear_toggle = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").transform.Find("Viewport/Content_compound/StageClear_Toggle").gameObject;
-                stageclear_Button = stageclear_panel.transform.Find("StageClear_Button").gameObject;
-
-                //エフェクトプレファブの取得
-                effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
-                questclear_effect_Prefab = (GameObject)Resources.Load("Prefabs/ParticleQClearEffect");
-                Emo_effect_manzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
-                Emo_effect_daimanzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
-                Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
-                Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
-                playableDirector = stageclear_panel.GetComponent<PlayableDirector>();
-                playableDirector.enabled = false;
-
-                //ハートプレファブの取得
-                heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
-                heart_Prefab2 = (GameObject)Resources.Load("Prefabs/HeartUpObj2");
-                hearthit_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect");
-                hearthit2_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect2");
-                //エフェクトプレファブの取得
-                Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode_Heart");
-
-                //Prefab内の、コンテンツ要素を取得
-                eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
-
-                //フェードアウトブラックのオブジェクトを取得
-                Fadeout_Black_obj = GameObject.FindWithTag("FadeOutBlack");
-
-                //食べ始めアニメオブジェクトの取得
-                EatAnimPanel = canvas.transform.Find("EatAnimPanel").gameObject;
-                EatAnimPanel_itemImage = EatAnimPanel.transform.Find("ItemImage").GetComponent<Image>();
-                EatAnimPanel.SetActive(false);
-
-                EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
-
                 //好感度レベルアップ時の演出パネル取得
                 HeartLvUpPanel_obj = canvas.transform.Find("HeartLvUpPanel").gameObject;
                 foreach (Transform child in HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
                 {
                     Destroy(child.gameObject);
-                }
-                lvuppanel_Prefab = (GameObject)Resources.Load("Prefabs/GirlLoveLevelUpPanel");
+                }                
                 _listlvup_obj.Clear();
 
-                //お菓子採点結果表示用パネルの取得
-                ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
-                Okashi_Score = ScoreHyoujiPanel.transform.Find("Image/ScoreBackIcon/Okashi_Score").GetComponent<Text>();
-                MainQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/MainQuestOKPanel").gameObject;
-                MainQuestText = MainQuestOKPanel.transform.Find("Panel1/QuestPanel/Image/QuestClearText").GetComponent<Text>();
-                ExtraQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/ExtraQuestOKPanel").gameObject;
-                ExtraQuest_TreasurePanel = canvas.transform.Find("ScoreHyoujiPanel/ExtraQuestTreasurePanel").gameObject;
-                Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
-                Result_Text = ScoreHyoujiPanel.transform.Find("GetLovePanelBG/Result_GetLoveText/Result_Text").GetComponent<Text>();
-                ScoreHyoujiPanel.SetActive(false);
-                MainQuestOKPanel.SetActive(false);
-                ExtraQuestOKPanel.SetActive(false);
-                ExtraQuest_TreasurePanel.SetActive(false);
+                //フェードアウトブラックのオブジェクトを取得
+                Fadeout_Black_obj = GameObject.FindWithTag("FadeOutBlack");
 
                 QuestClearEffectPanel = canvas.transform.Find("QuestClearEffectPanel").gameObject;
                 QuestClearEffectPanel.SetActive(false);
 
-                Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
-                Delicious_Text = ScoreHyoujiPanel.transform.Find("Image/DeliciousPanel/Text").GetComponent<Text>();
-                ScoreHyoujiPanel.SetActive(false);
-
-                //好感度ゲージの取得
-                Girlloveexp_bar = MainUIPanel_obj.transform.Find("Girl_love_exp_bar").gameObject;
-
                 //好感度バーの取得
                 _slider_obj = MainUIPanel_obj.transform.Find("Girl_love_exp_bar").gameObject;
                 _slider = _slider_obj.GetComponent<Slider>();
-
-                zeropoint = canvas.transform.Find("ZeroPoint").gameObject;
-
-                Getlove_exp = 0;
-                GetMoney = 0;
 
                 //スライダ表示を更新
 
@@ -536,6 +449,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 text_area = canvas.transform.Find("MessageWindowMain").gameObject;
                 _windowtext = text_area.GetComponentInChildren<Text>();
 
+                LoadCommonSetting();
+
+
+
                 break;
 
             case 100:
@@ -543,9 +460,96 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //テキストエリアの取得　コンテストの場合
                 text_area = canvas.transform.Find("MessageWindow").gameObject;
                 _windowtext = text_area.GetComponentInChildren<Text>();
+
+                switch (GameMgr.Scene_Name)
+                {
+                    case "Or_Contest": //味見用
+
+                        MainUIPanel_obj = canvas.transform.Find("MainUIPanel").gameObject;
+                        LoadCommonSetting();
+                        break;
+
+                    default:
+                        
+                        break;
+                }
+                
                 break;
 
         }
+    }
+
+    void LoadCommonSetting()
+    {
+        
+        //カメラの取得
+        main_cam = Camera.main;
+        maincam_animator = main_cam.GetComponent<Animator>();
+        trans = maincam_animator.GetInteger("trans");
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
+        //キャラクタ取得        
+        character_root = GameObject.FindWithTag("CharacterRoot");
+        character = character_root.transform.Find("CharacterMove/Character").gameObject;
+
+        //Live2Dモデルの取得
+        _model = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").FindCubismModel();
+        live2d_animator = _model.GetComponent<Animator>();
+        _renderController = _model.GetComponent<CubismRenderController>();
+
+        //エフェクトプレファブの取得
+        effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Heart");
+        questclear_effect_Prefab = (GameObject)Resources.Load("Prefabs/ParticleQClearEffect");
+        Emo_effect_manzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
+        Emo_effect_daimanzoku = (GameObject)Resources.Load("Prefabs/Emo_HeartAnimL");
+        Score_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_ResultFeather");
+        Score_effect_Prefab2 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
+
+        lvuppanel_Prefab = (GameObject)Resources.Load("Prefabs/GirlLoveLevelUpPanel");
+
+        //女の子の反映用ハートエフェクト取得
+        GirlHeartEffect = character_root.transform.Find("CharacterMove/Particle_Heart_Character").GetComponent<Particle_Heart_Character>();
+
+        //ハートプレファブの取得
+        heart_Prefab = (GameObject)Resources.Load("Prefabs/HeartUpObj");
+        heart_Prefab2 = (GameObject)Resources.Load("Prefabs/HeartUpObj2");
+        hearthit_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect");
+        hearthit2_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect2");
+        //エフェクトプレファブの取得
+        Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode_Heart");
+
+        //Prefab内の、コンテンツ要素を取得
+        eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
+
+        //食べ始めアニメオブジェクトの取得
+        EatAnimPanel = canvas.transform.Find("EatAnimPanel").gameObject;
+        EatAnimPanel_itemImage = EatAnimPanel.transform.Find("ItemImage").GetComponent<Image>();
+        EatAnimPanel.SetActive(false);
+        
+
+        //お菓子採点結果表示用パネルの取得
+        ScoreHyoujiPanel = canvas.transform.Find("ScoreHyoujiPanel/Result_Panel").gameObject;
+        Okashi_Score = ScoreHyoujiPanel.transform.Find("Image/ScoreBackIcon/Okashi_Score").GetComponent<Text>();
+        MainQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/MainQuestOKPanel").gameObject;
+        MainQuestText = MainQuestOKPanel.transform.Find("Panel1/QuestPanel/Image/QuestClearText").GetComponent<Text>();
+        ExtraQuestOKPanel = canvas.transform.Find("ScoreHyoujiPanel/ExtraQuestOKPanel").gameObject;
+        ExtraQuest_TreasurePanel = canvas.transform.Find("ScoreHyoujiPanel/ExtraQuestTreasurePanel").gameObject;
+        Hint_Text = ScoreHyoujiPanel.transform.Find("Image/Hint_Text").GetComponent<Text>();
+        Result_Text = ScoreHyoujiPanel.transform.Find("GetLovePanelBG/Result_GetLoveText/Result_Text").GetComponent<Text>();
+        Manzoku_Score = ScoreHyoujiPanel.transform.Find("Image/Manzoku_Score").GetComponent<Text>();
+        Delicious_Text = ScoreHyoujiPanel.transform.Find("Image/DeliciousPanel/Text").GetComponent<Text>();
+        ScoreHyoujiPanel.SetActive(false);
+        MainQuestOKPanel.SetActive(false);
+        ExtraQuestOKPanel.SetActive(false);
+        ExtraQuest_TreasurePanel.SetActive(false);
+               
+        ScoreHyoujiPanel.SetActive(false);
+
+        Getlove_exp = 0;
+        GetMoney = 0;
+        
     }
 
     void SceneInitSetting()
@@ -583,6 +587,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //お金の増減用パネルの取得
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //レベルアップチェック用オブジェクトの取得
         exp_table = ExpTable.Instance.GetComponent<ExpTable>();
@@ -680,12 +690,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 case 0: //初期化 状態１
 
+                    MainUIPanel_obj.SetActive(false);
+
+                    GameMgr.CharacterTouch_ALLOFF = true;
+                    GameMgr.EatAnim_End = false;
+                    GameMgr.camerazoom_endflag = false;
+
                     girl1_status.gireleat_start_flag = true;
                     girl1_status.GirlEat_Judge_on = false;
 
                     text_area.SetActive(false);
-                    MainUIPanel_obj.SetActive(false);
-
+                    
                     timeOut = 4.0f;
                     judge_anim_status = 1;
 
@@ -712,9 +727,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     live2d_animator.SetInteger("trans_expression", trans_expression);
 
                     _model.GetComponent<CubismAutoEyeBlinkInput>().enabled = false;
-                    _model.GetComponent<CubismEyeBlinkController>().enabled = false;
-
-                    compound_Main.Touch_ALLOFF();
+                    _model.GetComponent<CubismEyeBlinkController>().enabled = false;                  
 
                     break;
 
@@ -770,8 +783,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _model.GetComponent<CubismAutoEyeBlinkInput>().enabled = true;
                     _model.GetComponent<CubismEyeBlinkController>().enabled = true;
 
-                    EatAnimPanel.SetActive(false);
-                    EatStartEffect.SetActive(false);
+                    //EatAnimPanel.SetActive(false);
+                    GameMgr.EatAnim_End = true;
 
                     break;
 
@@ -1062,6 +1075,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     break;
             }
         }
+        else if(contest_type == 10) //コンテストの味見で使用する
+        {
+            //判定アニメ起動
+            judge_anim_on = true;
+            judge_end = false;
+            StartCoroutine("Girl_Judge_anim_co");
+        }
+        else { }
+
 
 
         // => Compound_Mainに戻る
@@ -1206,58 +1228,71 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         non_spquest_flag = false;
 
-        if (GameMgr.GirlLoveEvent_num == 50 && contest_type == 0) //コンテストのときに「あげる」をおすと、こちらの処理
+        switch (GameMgr.Scene_Name)
         {
-            SettingGirlHungrySet();
-        }
-        else
-        {
-            switch (girl1_status.OkashiNew_Status)
-            {
-                case 0: //メイン
+            case "Or_Contest": //味見用シーンでの処理
 
-                    JudgeGirlCompo();
-                    break;
+                JudgeGirlCompo();
+                break;
 
-                case 1: //主にチュートリアル
+            default:
 
+                if (GameMgr.GirlLoveEvent_num == 50 && contest_type == 0) //１のコンテストシナリオのときに「あげる」をおすと、こちらの処理
+                {
                     SettingGirlHungrySet();
-                    break;
-
-                case 2: //エクストラ
-
-                    switch (GameMgr.GirlLoveEvent_num)
+                }
+                else
+                {
+                    switch (girl1_status.OkashiNew_Status)
                     {
-                        /*case 0: //ハートあげる系
-
-                            //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                            SettingGirlHungrySet();
-                            break;*/
-
-                        case 1: //ヒカリにお菓子覚えさせる系
-
-                            //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                            SettingGirlHungrySet();
-                            break;
-
-                        case 11: //お茶会
-
-                            //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                            SettingGirlHungrySet();
-                            break;
-
-                        default: //特殊なものがない限りは、デフォルト。60点以上でクリア
+                        case 0: //メイン
 
                             JudgeGirlCompo();
                             break;
+
+                        case 1: //主にチュートリアル
+
+                            SettingGirlHungrySet();
+                            break;
+
+                        case 2: //エクストラ
+
+                            switch (GameMgr.GirlLoveEvent_num)
+                            {
+                                /*case 0: //ハートあげる系
+
+                                    //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
+                                    SettingGirlHungrySet();
+                                    break;*/
+
+                                case 1: //ヒカリにお菓子覚えさせる系
+
+                                    //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
+                                    SettingGirlHungrySet();
+                                    break;
+
+                                case 11: //お茶会
+
+                                    //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
+                                    SettingGirlHungrySet();
+                                    break;
+
+                                default: //特殊なものがない限りは、デフォルト。60点以上でクリア
+
+                                    JudgeGirlCompo();
+                                    break;
+                            }
+
+
+                            break;
                     }
-
-
-                    break;
-            }
+                }
+                break;
         }
 
+
         GameMgr.Okashi_dislike_status = dislike_status;
+        Debug.Log("dislike_status: " + dislike_status);
     }
 
     void SettingGirlHungrySet()
@@ -1609,43 +1644,56 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
 
         //最終の点数合計
-        if (GameMgr.Story_Mode == 0)
+        switch(GameMgr.Scene_Category_Num)
         {
-            //以上、全ての点数を合計。
-            TotalScoreKeisan();
-        }
-        else
-        {
-            switch (GameMgr.GirlLoveEvent_num)
-            {
+            case 100: //コンテストのシーン
 
-                case 13: //カミナリのようにすっぱいクレープ 酸味で点数があがる
+                //以上、全ての点数を合計。
+                TotalScoreKeisan();
+                break;
 
-                    if (_baseitemtype_sub == "Crepe")
-                    {
-                        total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
-                    }
-                    else
-                    {
-                        //以上、全ての点数を合計。
-                        TotalScoreKeisan();
-                    }
-                    break;
+            default:
 
-                default:
-
+                if (GameMgr.Story_Mode == 0)
+                {
                     //以上、全ての点数を合計。
                     TotalScoreKeisan();
-                    break;
-            }
+                }
+                else
+                {
+                    switch (GameMgr.GirlLoveEvent_num)
+                    {
+
+                        case 13: //カミナリのようにすっぱいクレープ 酸味で点数があがる
+
+                            if (_baseitemtype_sub == "Crepe")
+                            {
+                                total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
+                            }
+                            else
+                            {
+                                //以上、全ての点数を合計。
+                                TotalScoreKeisan();
+                            }
+                            break;
+
+                        default:
+
+                            //以上、全ての点数を合計。
+                            TotalScoreKeisan();
+                            break;
+                    }
+                }
+                break;
         }
+        
 
             
 
         //水っぽい・油っぽいなどの減点点数処理
         Debuf_Param_Judge();
 
-        switch (dislike_status)
+        /*switch (dislike_status)
         {
             case 3: //水っぽいなどがでたら、total_scoreをマイナス。
 
@@ -1657,7 +1705,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 total_score = 0;
                 break;
-        }
+        }*/
 
         //フリーモード時　さらに計算。コンテスト時は除外。
         if (GameMgr.Story_Mode == 1)
@@ -1790,7 +1838,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //以上、全ての点数を合計。
         total_score = set_score + sweat_score + bitter_score + sour_score
         + shokukan_score + topping_score + beauty_score
-        + spscore1_score;
+        + spscore1_score - dislike_score;
     }
 
     void Debuf_Param_Judge()
@@ -1803,6 +1851,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_score += _basepowdery * 2;
             dislike_status = 3;
             dislike_num = 0;
+            Debug.Log("粉っぽい");
         }
         if (_baseoily > GameMgr.Watery_Line)
         {
@@ -1810,6 +1859,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_score += _baseoily * 2;
             dislike_status = 3;
             dislike_num = 1;
+            Debug.Log("油っぽい");
         }
         //ジュース・ティー・コーヒー類は、水系の値の判定をなくす。もともと、みずなので。
         if (_baseitemtype_sub == "Juice" || _baseitemtype_sub == "Tea" || _baseitemtype_sub == "Tea_Potion" || _baseitemtype_sub == "Coffee_Mat"
@@ -1822,6 +1872,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 dislike_score += _basewatery * 2;
                 dislike_status = 3;
                 dislike_num = 2;
+                Debug.Log("水っぽい");
             }
         }
 
@@ -2281,14 +2332,26 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             database.items[_baseID].Eat_kaisu += 1;
             Debug.Log("食べた回数: " + database.items[_baseID].Eat_kaisu);
 
-            //エクストラモード時、そのクエストで食べた回数をカウント。
-            GameMgr.Okashi_spquest_eatkaisu++;
+            //味見のときは通らない
+            switch (GameMgr.Scene_Name)
+            {
+                case "Or_Contest": //味見用シーンでの処理
 
-            //好感度とお金を計算
-            LoveScoreCal();
+                    Debug.Log("味見中: ");
+                    break;
 
-            //アイテムの削除
-            delete_Item();
+                default:
+
+                    //エクストラモード時、そのクエストで食べた回数をカウント。
+                    GameMgr.Okashi_spquest_eatkaisu++;
+
+                    //好感度とお金を計算
+                    LoveScoreCal();
+
+                    //アイテムの削除
+                    delete_Item();
+                    break;
+            }                    
 
             OkashiSaitenhyouji(); //採点パネル表示してからリザルト
 
@@ -3243,14 +3306,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void Touch_WindowInteractOFF()
     {
+
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
         //girl1_status.hukidasiOff();
-        compound_Main.Touch_ALLOFF();
-        compound_Main.OffCompoundSelect();
-        compound_Main.OnCompoundSelectObj();
-        //Extremepanel_obj.SetActive(false);
-        hinttaste_toggle.SetActive(false);
+
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10:
+
+                GameMgr.CharacterTouch_ALLOFF = true;
+                compound_Main.OffCompoundSelect();
+                compound_Main.OnCompoundSelectObj();
+                hinttaste_toggle.SetActive(false);
+                break;
+        }
     }
 
     //外部からクエストクリアしたかどうかをチェックする　compound_mainなどから読む。
@@ -3289,7 +3359,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.WaitHint_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
-        compound_Main.Touch_ALLOFF();
+        GameMgr.CharacterTouch_ALLOFF = true;
 
         GameMgr.emeralDonguri_status = emeraldonguri_status; //0=85点以上　1=100点以上
         GameMgr.emeralDonguri_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -3365,7 +3435,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
         canvas.SetActive(false);
-        compound_Main.Touch_ALLOFF();
+        GameMgr.CharacterTouch_ALLOFF = true;
 
         //カメラが元の位置にもどってから、キャラ表示を切り替え
         while (main_cam.transform.position.z != -10)
@@ -3416,10 +3486,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         GameMgr.OkashiComment_flag = true;
         GameMgr.OkashiComment_itemID = _baseID;
+        Debug.Log("お菓子　採点前の一言もぐもぐ　ON");
         while (!GameMgr.scenario_read_endflag)
         {
             yield return null;
         }
+        Debug.Log("お菓子　採点前の一言もぐもぐ　終了");
 
         GameMgr.scenario_read_endflag = false;
 
@@ -3437,7 +3509,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.WaitHint_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
-        compound_Main.Touch_ALLOFF();
+        GameMgr.CharacterTouch_ALLOFF = true;
 
         //
         //①アフター感想
@@ -3574,7 +3646,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         sceneBGM.MuteOFFBGM();
                         canvas.SetActive(true);
                         ResetResult();
-                        compound_Main.Touch_ALLON();
+                        GameMgr.CharacterTouch_ALLON = true;
                         GameMgr.QuestClearCommentflag = true;
                     }
                     else
@@ -3590,109 +3662,127 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else { } //エクストラモードはメッセージがでない。
 
-        //
-        //③ハート実際の獲得する演出
-        //
 
-        //満足度にあわせて音を鳴らす。
-        if (total_score < GameMgr.low_score)　//60点以下
+
+        switch (GameMgr.Scene_Name)
         {
+            case "Or_Contest": //味見用シーンでの処理
 
-        }
-        else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //60点以上～85点以下
-        {
-            sc.PlaySe(60);
+                //ハートは獲得しないので無視して、元の画面に戻る
+                MainUIPanel_obj.SetActive(true);
+                text_area.SetActive(true);
+                EffectClear_Feather();
+                break;
 
-            //エフェクト生成＋アニメ開始
-            _listEffect.Add(Instantiate(Emo_effect_manzoku, character.transform));
-        }
-        else //85点以上
-        {
-            sc.PlaySe(60);
 
-            //エフェクト生成＋アニメ開始
-            _listEffect.Add(Instantiate(Emo_effect_daimanzoku, character.transform));
+            default:
 
-        }
+                //
+                //③ハート実際の獲得する演出
+                //
 
-        if (Getlove_exp < 0) //ハートが下がる
-        {
-            DegHeartAnimOn(Getlove_exp, true); //trueだと音あり
+                //満足度にあわせて音を鳴らす。
+                if (total_score < GameMgr.low_score) //60点以下
+                {
 
-            //テキストウィンドウの更新
-            exp_Controller.GirlDisLikeText(Getlove_exp);
+                }
+                else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //60点以上～85点以下
+                {
+                    sc.PlaySe(60);
 
-            //女の子の表情をまずい表情にする。
-            girl1_status.DefFaceChange();
+                    //エフェクト生成＋アニメ開始
+                    _listEffect.Add(Instantiate(Emo_effect_manzoku, character.transform));
+                }
+                else //85点以上
+                {
+                    sc.PlaySe(60);
 
-            //お菓子の判定処理を終了
-            EndCompJudge();
+                    //エフェクト生成＋アニメ開始
+                    _listEffect.Add(Instantiate(Emo_effect_daimanzoku, character.transform));
 
-        }
-        else //ハートが上昇
-        {
-            //アニメーションをON。好感度パラメータの反映もここ。
-            loveGetPlusAnimeON(Getlove_exp, true);
+                }
 
-            //エフェクト生成＋アニメ開始
-            _listEffect.Add(Instantiate(effect_Prefab));
-            StartCoroutine("Love_effect");
+                if (Getlove_exp < 0) //ハートが下がる
+                {
+                    DegHeartAnimOn(Getlove_exp, true); //trueだと音あり
 
-            //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
-            GirlHeartEffect.LoveRateChange();
+                    //テキストウィンドウの更新
+                    exp_Controller.GirlDisLikeText(Getlove_exp);
 
-            //表情も一瞬喜びに。
-            StartCoroutine("GirlHeartUpYorokobiFace");
-            GameMgr.QuestManzokuFace = true; //おいしかった～の表情
-            girl1_status.QuestManzoku_counter = 10;
+                    //女の子の表情をまずい表情にする。
+                    girl1_status.DefFaceChange();
 
-            //テキストウィンドウの更新
-            exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
+                    //お菓子の判定処理を終了
+                    EndCompJudge();
 
-            if (GetMoney > 0)
-            {
-                moneyStatus_Controller.GetMoney(GetMoney);
-            }
+                }
+                else //ハートが上昇
+                {
+                    //アニメーションをON。好感度パラメータの反映もここ。
+                    loveGetPlusAnimeON(Getlove_exp, true);
 
-            //吹き出しをだす。
-            switch (dislike_status)
-            {
-                case 1: //デフォルトおいしい
+                    //エフェクト生成＋アニメ開始
+                    _listEffect.Add(Instantiate(effect_Prefab));
+                    StartCoroutine("Love_effect");
 
-                    if (total_score >= GameMgr.low_score)
+                    //好感度パラメータに応じて、実際にキャラクタからハートがでてくる量を更新
+                    GirlHeartEffect.LoveRateChange();
+
+                    //表情も一瞬喜びに。
+                    StartCoroutine("GirlHeartUpYorokobiFace");
+                    GameMgr.QuestManzokuFace = true; //おいしかった～の表情
+                    girl1_status.QuestManzoku_counter = 10;
+
+                    //テキストウィンドウの更新
+                    exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
+
+                    if (GetMoney > 0)
                     {
-                        //Debug.Log("吹き出しON");
-                        //ランダムで、吹き出しの内容を決定
-                        CommentTextInit();
-                        random = Random.Range(0, _commentDict.Count);
-                        _commentrandom = _commentDict[random];
-
-                        girl1_status.hukidashiMessage(_commentrandom);
-
-                        girl1_status.timeOut += 3.0f; //少し表示時間をのばす
-                    }
-                    else //まずいときは吹き出しでない
-                    {
-
+                        moneyStatus_Controller.GetMoney(GetMoney);
                     }
 
-                    break;
+                    //吹き出しをだす。
+                    switch (dislike_status)
+                    {
+                        case 1: //デフォルトおいしい
 
-                //新しいお菓子をあげた場合の処理
-                case 2:
+                            if (total_score >= GameMgr.low_score)
+                            {
+                                //Debug.Log("吹き出しON");
+                                //ランダムで、吹き出しの内容を決定
+                                CommentTextInit();
+                                random = Random.Range(0, _commentDict.Count);
+                                _commentrandom = _commentDict[random];
 
-                    girl1_status.hukidashiMessage(database.items[_baseID].itemNameHyouji + "うまいぞ！");
+                                girl1_status.hukidashiMessage(_commentrandom);
 
-                    girl1_status.timeOut += 3.0f; //少し表示時間をのばす
-                    break;
+                                girl1_status.timeOut += 3.0f; //少し表示時間をのばす
+                            }
+                            else //まずいときは吹き出しでない
+                            {
 
-            }
+                            }
+
+                            break;
+
+                        //新しいお菓子をあげた場合の処理
+                        case 2:
+
+                            girl1_status.hukidashiMessage(database.items[_baseID].itemNameHyouji + "うまいぞ！");
+
+                            girl1_status.timeOut += 3.0f; //少し表示時間をのばす
+                            break;
+
+                    }
+                }
+
+                ResultOFF();
+                break;
         }
 
 
         canvas.SetActive(true);
-
-        ResultOFF();
+        
     }
 
     void OkashiAfterKansou_Setting()
@@ -3768,7 +3858,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
         //girl1_status.hukidasiOff();
-        compound_Main.Touch_ALLOFF();
+        GameMgr.CharacterTouch_ALLOFF = true;
 
         //クエスト初クリア時に、最後に食べたお菓子をクリアお菓子として保存する。DBのリスト番号として保存。
         GameMgr.SpecialQuestClear_okashiItemID = GameMgr.Okashi_lastID;
@@ -3915,7 +4005,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.WaitHint_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
-        compound_Main.Touch_ALLOFF();
+        GameMgr.CharacterTouch_ALLOFF = true;
         sceneBGM.MuteBGM();
 
         girl1_status.ResetCharacterPosition();
@@ -4685,7 +4775,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.WaitHint_on = false;
         girl1_status.hukidasiOff();
         canvas.SetActive(false);
-        compound_Main.Touch_ALLOFF();
+        GameMgr.CharacterTouch_ALLOFF = true;
         sceneBGM.MuteBGM();
 
         girl1_status.ResetCharacterPosition();
@@ -4843,16 +4933,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.timeGirl_hungry_status = 2;
         girl1_status.timeOut = 1.0f;
         girl1_status.GirlEat_Judge_on = true;//またカウントが進み始める
-        
+
+        EffectClear_Feather();
+
+        GameMgr.scenario_ON = false;
+
+    }
+
+    //エフェクトをクリア
+    void EffectClear_Feather()
+    {
         //初期化
         for (i = 0; i < _listScoreEffect.Count; i++)
         {
             Destroy(_listScoreEffect[i]);
         }
         _listScoreEffect.Clear();
-      
-        GameMgr.scenario_ON = false;
-
     }
 
     void EndCompJudge() //女の子の判定終了のフラグ系

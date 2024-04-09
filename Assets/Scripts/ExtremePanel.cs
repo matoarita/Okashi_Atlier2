@@ -52,9 +52,6 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private GameObject compoundselect_onoff_obj;
 
     private GameObject text_area;
@@ -68,7 +65,7 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject itemselect_cancel_obj;
     private ItemSelect_Cancel itemselect_cancel;
 
-    private bool myscene_loaded;
+    private bool Start_read;
 
     private GameObject Extreme_Failed_effect_Prefab;
     private GameObject Extreme_Failed_effect;
@@ -88,9 +85,6 @@ public class ExtremePanel : MonoBehaviour {
         canvas = GameObject.FindWithTag("Canvas");
 
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
-
-        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
@@ -113,8 +107,7 @@ public class ExtremePanel : MonoBehaviour {
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
         //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = GameObject.FindWithTag("Canvas").transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
-        moneyStatus_Controller = MoneyStatus_Panel_obj.GetComponent<MoneyStatus_Controller>();
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
         //エフェクト取得
         Extreme_Failed_effect_Prefab = (GameObject)Resources.Load("Prefabs/Particle_Extreme_Failed");
@@ -157,18 +150,19 @@ public class ExtremePanel : MonoBehaviour {
 
         Life_anim_on = false;
 
-        myscene_loaded = false;
+        Start_read = false;
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        //別シーンから、再度読み込まれたときに、すでにお菓子を作成済みだった場合は、初期化する。
-        if (myscene_loaded == true)
+        //シーン最初に表示を更新する
+        if (!Start_read)
         {
-            GameMgr.extremepanel_Koushin = true;          
-            myscene_loaded = false;
+            Start_read = true;
+            GameMgr.extremepanel_Koushin = true;
+            
         }
 
         //お菓子のHPが減っていく処理。使用してない。
@@ -228,6 +222,7 @@ public class ExtremePanel : MonoBehaviour {
 
         extreme_Button.interactable = false;
         GameMgr.compound_status = 6; //調合選択画面に移動 元々4にしてた
+        GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
 
         if (pitemlist.player_extremepanel_itemlist.Count > 0)
         {
@@ -264,6 +259,17 @@ public class ExtremePanel : MonoBehaviour {
             }
         }
 
+        switch(GameMgr.Scene_Category_Num)
+        {
+            case 100: //コンテスト中のシーンで押したときは、メッセージもオフ
+
+                GameMgr.Scene_Status = 500; //
+                GameMgr.Scene_Select = 500;
+                text_area.SetActive(false);
+                extreme_Button.interactable = true;
+
+                break;
+        }
     }
 
     public void OnClick_RecipiBook()
@@ -479,11 +485,5 @@ public class ExtremePanel : MonoBehaviour {
     //別シーンからこのシーンが読み込まれたときに、読み込む
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (SceneManager.GetActiveScene().name == "Compound") // 調合シーンでやりたい処理。それ以外のシーンでは、この中身の処理は無視。
-        {
-            //Debug.Log(scene.name + " scene loaded");
-            myscene_loaded = true;
-
-        }
     }
 }

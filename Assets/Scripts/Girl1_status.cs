@@ -14,9 +14,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private Animator maincam_animator;
     private int trans; //トランジション用のパラメータ
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
@@ -437,9 +434,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         main_cam = Camera.main;
                         maincam_animator = main_cam.GetComponent<Animator>();
                         trans = maincam_animator.GetInteger("trans");
-
-                        compound_Main_obj = GameObject.FindWithTag("Compound_Main");
-                        compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
                         //エクストリームパネルの取得
                         Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
@@ -1161,7 +1155,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             special_animstart_endflag = false;
             GirlEat_Judge_on = false;
             special_animstart_status = 0;
-            compound_Main.Touch_ALLOFF();
+            GameMgr.CharacterTouch_ALLOFF = true;
 
             GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
             GameMgr.compound_status = 1000;
@@ -1183,7 +1177,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             canvas.SetActive(false);
             sceneBGM.MuteBGM();
             map_ambience.Mute();
-            compound_Main.Touch_ALLOFF();
+            GameMgr.CharacterTouch_ALLOFF = true;
 
             while (!GameMgr.camerazoom_endflag)
             {

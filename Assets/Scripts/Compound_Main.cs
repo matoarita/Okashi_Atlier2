@@ -143,6 +143,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject bgpanelmatome;
     private Touch_Controll_Item bg_touch_controll;
     private GameObject BG_Imagepanel;
+    private GameObject BGImageTemaePanel;
     private List<GameObject> bgwall_sprite = new List<GameObject>();
 
     private GameObject BG_effectpanel;
@@ -204,6 +205,9 @@ public class Compound_Main : MonoBehaviour
     private GameObject system_toggle;
     private GameObject status_toggle;
     private GameObject hinttaste_toggle;
+
+    private GameObject mainlist_scrollview_obj;
+    private GameObject outhome_toggle;
 
     private Button extreme_Button;
     private Button recipi_Button;
@@ -512,6 +516,9 @@ public class Compound_Main : MonoBehaviour
         hinttaste_toggle = canvas.transform.Find("MainUIPanel/Comp/HintTaste_Toggle").gameObject;
         hinttaste_toggle.SetActive(false);
 
+        mainlist_scrollview_obj = canvas.transform.Find("MainUIPanel/MainList_ScrollView_01").gameObject;
+        outhome_toggle = mainlist_scrollview_obj.transform.Find("Viewport/Content_Main/NPC1_SelectToggle").gameObject;
+
         menu_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/ItemMenu_Toggle").gameObject;
         shop_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Shop_Toggle").gameObject;
         bar_toggle = compoundselect_onoff_obj.transform.Find("Viewport/Content_compound/Bar_Toggle").gameObject;
@@ -565,6 +572,7 @@ public class Compound_Main : MonoBehaviour
 
         bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel").gameObject;
         BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel").gameObject;
+        BGImageTemaePanel = GameObject.FindWithTag("BGImageTemaePanel");
         BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect").gameObject;
         bg_accessory_panel = bgpanelmatome.transform.Find("BGAccessory").gameObject;
 
@@ -779,6 +787,8 @@ public class Compound_Main : MonoBehaviour
                 //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
                 bgm_change_story();
                 sceneBGM.OnMainBGM();
+
+                OuthomePanelONOFF();               
             }
 
             //デバッグでの確認用
@@ -1396,6 +1406,7 @@ public class Compound_Main : MonoBehaviour
                 }
 
                 mainUI_panel_obj.SetActive(true);
+                BGImageTemaePanel.SetActive(true);
                 //GetMatStatusButton_obj.SetActive(false);
                 recipilist_onoff.SetActive(false);
                 playeritemlist_onoff.SetActive(false);
@@ -1634,7 +1645,7 @@ public class Compound_Main : MonoBehaviour
 
             case 6: //各種調合の選択画面エントランス
 
-                GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
+                //GameMgr.CompoundSceneStartON = true; //調合シーンに入っています、というフラグ開始。処理をCompoundMainControllerオブジェに移す。
 
                 //ヒカリちゃんを表示しない。デフォルト描画順
                 //SetLive2DPos_Compound();
@@ -1959,6 +1970,8 @@ public class Compound_Main : MonoBehaviour
         //girleat_toggle.SetActive(false);
         recipi_toggle.SetActive(false);
         HintObjectGroup.SetActive(false);
+
+        mainlist_scrollview_obj.SetActive(false);
     }
 
     public void WindowOn()
@@ -1972,7 +1985,10 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
+
         Stagepanel_obj.SetActive(true);
+
+        OuthomePanelONOFF();
 
         if (GameMgr.Story_Mode == 1)
         {
@@ -2019,6 +2035,27 @@ public class Compound_Main : MonoBehaviour
 
         extreme_panel.extremeButtonInteractOn();
         extreme_panel.LifeAnimeOnTrue();
+    }
+
+    void OuthomePanelONOFF()
+    {
+        switch (GameMgr.Scene_Name)
+        {
+            case "Compound":
+
+                mainlist_scrollview_obj.SetActive(false);
+                break;
+
+            case "Or_Compound":
+
+                mainlist_scrollview_obj.SetActive(true);
+                break;
+
+            default:
+
+                mainlist_scrollview_obj.SetActive(false);
+                break;
+        }
     }
 
     public void QuestClearCheck() //SaveControllerからも読み込んでいる。
@@ -2343,14 +2380,22 @@ public class Compound_Main : MonoBehaviour
 
                 case "Or_Compound":
 
+                    OnGetMatPanel(); //採取地画面を直接開く
+
                     //玄関音　外に一度出るパターン
-                    sc.EnterSound_01();
-                    GameMgr.SceneSelectNum = 0;
-                    FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
+                    //sc.EnterSound_01();
+                    //GameMgr.SceneSelectNum = 0;
+                    //FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
+                    break;
+
+                default:
+
+                    OnGetMatPanel(); //採取地画面を直接開く
                     break;
             }       
         }
     }
+
 
     void OnGetMatPanel()
     {
@@ -2375,7 +2420,39 @@ public class Compound_Main : MonoBehaviour
 
         moneystatus_panel.SetActive(false);
         TimePanel_obj1.SetActive(false);
+        BGImageTemaePanel.SetActive(false);
         //TimePanel_obj2.SetActive(true);
+    }
+
+    public void OnOutHome_toggle() //玄関からアトリエの外へでる
+    {
+        if (outhome_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            outhome_toggle.GetComponent<Toggle>().isOn = false;
+
+            switch (GameMgr.Scene_Name)
+            {
+                case "Compound":
+
+                    OnGetMatPanel(); //採取地画面を直接開く
+                    break;
+
+                case "Or_Compound":
+
+                    //OnGetMatPanel(); //採取地画面を直接開く
+
+                    //玄関音　外に一度出るパターン
+                    sc.EnterSound_01();
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
+                    break;
+
+                default:
+
+                    OnGetMatPanel(); //採取地画面を直接開く
+                    break;
+            }
+        }
     }
 
     public void OnGirlEat() //女の子にお菓子をあげる
@@ -3501,16 +3578,16 @@ public class Compound_Main : MonoBehaviour
     }
 
     //メインシーン内のタッチオブジェクトのONOFF　GirlEat_Judgeやgirl1_statusからも読み出し
-    public void Touch_ALLON()
+    void Touch_ALLON()
     {
-        character_touch_controll.Touch_OnAllON();
-        bg_touch_controll.Touch_OnAllON();
+        GameMgr.CharacterTouch_ALLON = true;
+        GameMgr.BGTouch_ALLON = true;
     }
 
-    public void Touch_ALLOFF()
+    void Touch_ALLOFF()
     {
-        character_touch_controll.Touch_OnAllOFF();
-        bg_touch_controll.Touch_OnAllOFF();
+        GameMgr.CharacterTouch_ALLOFF = true;
+        GameMgr.BGTouch_ALLOFF = true;
     }
 
 

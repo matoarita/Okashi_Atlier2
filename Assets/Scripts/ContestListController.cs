@@ -47,11 +47,6 @@ public class ContestListController : MonoBehaviour
     private int read_ID;
 
     private int rand;
-    private int sel_quest_count = 3;
-    private int sel_quest_count2 = 1;
-    private int quest2_count_add;
-    private List<int> selectquestDB = new List<int>();
-    private List<int> selectquestDB2 = new List<int>();
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {     
@@ -150,6 +145,7 @@ public class ContestListController : MonoBehaviour
 
         _toggle_itemID = _contest_listitem[list_count].GetComponent<ContestListSelectToggle>();
         _toggle_itemID.toggle_ID = conteststartList_database.conteststart_lists[i].ContestID; //DBのID。上から順番
+        _toggle_itemID.toggle_RankType = conteststartList_database.conteststart_lists[i].Contest_RankingType; //ランキングタイプも保存
         _name_Hyouji = conteststartList_database.conteststart_lists[i].ContestNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
         _name = conteststartList_database.conteststart_lists[i].ContestName;
         _toggle_itemID.toggle_name = _name; //

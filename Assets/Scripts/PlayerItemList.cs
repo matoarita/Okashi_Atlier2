@@ -787,6 +787,11 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     public void ExtremeToCopyOriginalItem(int _kosu)
     {
         tempID = 0;
+        if (player_extremepanel_itemlist[tempID].ItemKosu <= _kosu)
+        {
+            _kosu = player_extremepanel_itemlist[tempID].ItemKosu;
+        }
+        
         player_originalitemlist.Add(
             new Item(player_extremepanel_itemlist[tempID].itemID, player_extremepanel_itemlist[tempID].OriginalitemID, player_extremepanel_itemlist[tempID].fileName, player_extremepanel_itemlist[tempID].itemName,
             player_extremepanel_itemlist[tempID].itemNameHyouji, player_extremepanel_itemlist[tempID].itemDesc, player_extremepanel_itemlist[tempID].itemComp_Hosei,
