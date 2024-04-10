@@ -11,8 +11,13 @@ public class BackTown : MonoBehaviour {
 
     private GameObject canvas;
 
+    private SoundController sc;
+
     // Use this for initialization
     void Start () {
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -43,12 +48,15 @@ public class BackTown : MonoBehaviour {
 
     public void OnClickToTown2()
     {
+        //玄関音
+        sc.EnterSound_01();
 
         GameMgr.Scene_back_home = true;
 
         //メインシーン読み込み
         FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
     }
+
 
     public void OnClickToHiroba2()
     {

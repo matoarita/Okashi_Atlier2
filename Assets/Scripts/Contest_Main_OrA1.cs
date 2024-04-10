@@ -113,8 +113,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Scene_Name = "Or_Contest";
         
         /* デバッグ用 */
-        GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
-        GameMgr.Contest_Cate_Ranking = 1;
+        //GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
+        //GameMgr.Contest_Cate_Ranking = 1;
         /* */
 
         //宴オブジェクトの読み込み。
@@ -300,9 +300,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         {
             GameMgr.Contest_PrizeGet_flag = false;
 
+            contestPrizePanel.SetActive(false); //ランキング戦で一回表示してる可能性があるので、一度オフ
             contestPrizeScore_dataBase.PrizeGet(); //アイテム獲得
-            contestPrizePanel.SetActive(true);
-            contestPrizePanel.GetComponent<GraphicRaycaster>().enabled = false; //宴が触れるように。
 
             GameMgr.scenario_ON = true;
 
@@ -347,6 +346,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             if (GameMgr.Utage_Prizepanel_ON)
             {
                 GameMgr.Utage_Prizepanel_ON = false;
+                contestPrizePanel.SetActive(true);
+                contestPrizePanel.GetComponent<GraphicRaycaster>().enabled = false; //宴が触れるように。
                 scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.3f);
             }
 

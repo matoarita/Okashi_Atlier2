@@ -127,4 +127,17 @@ public class SoundController : SingletonMonoBehaviour<SoundController>
         PlaySe(38); //ドア
         PlaySe(50); //ベル
     }
+
+    //メインアトリエに入るときの玄関音 ベルのみ
+    public void EnterSound_02()
+    {
+        //入店の音
+        PlaySe(50); //ベル
+    }
+
+    public void ShopEnterSound01()
+    {
+        PlaySe(51);
+        PlaySe(38); //ドア
+    }
 }

@@ -3774,6 +3774,7 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Contest_num", contest_num);
         engine.Param.TrySetParameter("Round_num", GameMgr.ContestRoundNum); //〇回戦かを指定
+        engine.Param.TrySetParameter("contest_ranking_Type", GameMgr.Contest_Cate_Ranking); //トーナメントかランキング形式か 
 
         //課題をセット
         engine.Param.TrySetParameter("contest_ProblemSentence", GameMgr.Contest_ProblemSentence);
@@ -3922,6 +3923,34 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
+        if (GameMgr.Contest_Cate_Ranking == 1)
+        {
+            
+            //「宴」のシナリオポーズ待ち
+            while (!Engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            GameMgr.Utage_Prizepanel_Type = 0; //順位表を表示する
+            //シーンの黒フェードをオフにする。
+            GameMgr.Utage_Prizepanel_ON = true;
+
+            //元のシナリオにもどる。
+            engine.ResumeScenario();
+
+            //「宴」のシナリオポーズ待ち
+            while (!Engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            GameMgr.Utage_SceneEnd_BlackON = true;
+
+            //元のシナリオにもどる。
+            engine.ResumeScenario();
+        }
+
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
         {
@@ -4012,6 +4041,7 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
+        GameMgr.Utage_Prizepanel_Type = 1; //賞品リストを表示する
         //シーンの黒フェードをオフにする。
         GameMgr.Utage_Prizepanel_ON = true;
 

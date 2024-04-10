@@ -11,6 +11,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     private SceneInitSetting sceneinit_setting;
 
+    private SoundController sc;
+
     private GameObject npc1_toggle_obj;
     private GameObject npc2_toggle_obj;
     private GameObject npc3_toggle_obj;
@@ -90,6 +92,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //シーン最初にプレイヤーアイテムリストの生成
         sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
@@ -831,7 +836,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //_text.text = "春エリアのお店へ入る";
 
-        //GameMgr.Scene_back_home = true;
+        //入店の音
+        sc.ShopEnterSound01();
+        
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
         FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
@@ -841,7 +848,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //_text.text = "春エリアのお店へ入る";
 
-        //GameMgr.Scene_back_home = true;
+        //入店の音
+        sc.ShopEnterSound01();
+
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);

@@ -563,6 +563,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool EatAnim_End; //食べるときのエフェクトアニメの終了を検知
     public static bool Utage_Prizepanel_ON; //コンテスト賞品のシーン再生中、賞品リストを表示する。
     public static bool Utage_SceneEnd_BlackON; //うたげ終了時、シーン移動する際に、ゲーム本編の黒をONにする。でないと、一瞬切り替え表示が見えてしまう。
+    public static int Utage_Prizepanel_Type; //コンテストのシーン再生中、賞品リストか順位表を表示する際のタイプ指定
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -1044,6 +1045,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         EatAnim_End = false;
         Utage_Prizepanel_ON = false;
         Utage_SceneEnd_BlackON = false;
+        Utage_Prizepanel_Type = 0;
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)

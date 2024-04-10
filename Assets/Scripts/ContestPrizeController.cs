@@ -98,7 +98,7 @@ public class ContestPrizeController : MonoBehaviour
         {
             case 100: //コンテスト本番シーン　景品獲得シーンで開くとき
 
-                _Type = 1;
+                _Type = GameMgr.Utage_Prizepanel_Type;
                 closebutton.SetActive(false);
                 break;
 
