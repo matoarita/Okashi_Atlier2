@@ -49,7 +49,7 @@ public class BackTown : MonoBehaviour {
     public void OnClickToTown2()
     {
         //玄関音
-        sc.EnterSound_01();
+        sc.EnterSound_03();
 
         GameMgr.Scene_back_home = true;
 

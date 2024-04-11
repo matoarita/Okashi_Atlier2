@@ -13,7 +13,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_extreme_kaisu_Max; //仕上げ可能回数
     public static int player_extreme_kaisu; //現在の仕上げ可能回数
 
-    public static int player_ninki_param; //人気度。
+    
 
     public static int player_zairyobox_lv; // 材料カゴのLV
     public static int player_zairyobox; // 材料カゴの大きさ
@@ -28,8 +28,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_patissier_exp;
     public static int player_patissier_job_pt;
     public static int player_patissier_Rank;
-    public static int player_patissier_Rank_pt;
-
+    public static int player_ninki_param; //名声。名声が上昇すると、パティシエランクが上がる。
 
     //妹のステータス
     //好感度のexpとlvだけは、girl1_statusに登録。
@@ -204,7 +203,6 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_patissier_exp = 0;
         player_patissier_job_pt = 0;
         player_patissier_Rank = 1;
-        player_patissier_Rank_pt = 0;
 
         InitTitleCollectionLibrary();
 
@@ -231,5 +229,32 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_okashiparam_NameList.Add("tea", "ティー");
         player_girl_okashiparam_NameList.Add("icecream", "アイスクリーム");
         player_girl_okashiparam_NameList.Add("rareokashi", "レアお菓子");
+    }
+
+    //Rankの数値をもとに、ランク表記に変える。
+    public static string SetPatissierRank(int _parank)
+    {
+        switch(_parank )
+        {
+            case 1:
+                return "一つ星";
+
+            case 2:
+                return "二つ星";
+
+            case 3:
+                return "三つ星";
+
+            case 4:
+                return "四つ星";
+
+            case 5:
+                return "五つ星";
+
+            default:
+
+                return "ブラック";
+        }
+        
     }
 }

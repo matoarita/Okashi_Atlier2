@@ -41,6 +41,7 @@ public class Touch_Controll : MonoBehaviour
     private float time_inter_default;
 
     private int i, _rnd;
+    private bool Outgirl_touchFlag;
 
     private List<GameObject> touch_obj = new List<GameObject>();
 
@@ -76,6 +77,7 @@ public class Touch_Controll : MonoBehaviour
         mouseLclick_off = false;
 
         touch_interval_flag = false;
+        Outgirl_touchFlag = false;
 
         //Touchエリアの取得
         touch_obj.Add(this.transform.Find("TouchFace").gameObject);
@@ -112,6 +114,21 @@ public class Touch_Controll : MonoBehaviour
         {
             GameMgr.CharacterTouch_ALLON = false;
             Touch_OnAllON();
+        }
+
+        if(GameMgr.outgirl_Nowprogress)
+        {
+            Outgirl_touchFlag = true;
+            Touch_OnAllOFF();
+        }
+
+        if (Outgirl_touchFlag)
+        {
+            if (!GameMgr.outgirl_Nowprogress)
+            {
+                Touch_OnAllON();
+                Outgirl_touchFlag = false;
+            }
         }
     }
  

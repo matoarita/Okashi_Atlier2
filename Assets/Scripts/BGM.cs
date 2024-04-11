@@ -46,11 +46,16 @@ public class BGM : MonoBehaviour {
     public AudioClip sound35;  //エメラルショップのBGM
     public AudioClip sound36;  //コンテスト会場のBGM
     public AudioClip sound37;  //広場３のBGM
-    public AudioClip sound38;  //大会コンテストのBGM Aランク
+    public AudioClip sound38;  //大会コンテストのBGM エデンコンテスト
     public AudioClip sound39;  //オランジーナ調合メインのBGM予定1
     public AudioClip sound40;  //オランジーナ調合メインのBGM予定2
     public AudioClip sound41;  //オランジーナ街BGM
     public AudioClip sound42;  //魔法の先生のテーマ01
+    public AudioClip sound43;  //秋エリアBGM
+    public AudioClip sound44;  //冬エリアBGM
+    public AudioClip sound45;  //夏エリアBGM
+    public AudioClip sound46;  //大会コンテストのBGM 初級
+    public AudioClip sound47;  //大会コンテスト受付のBGM
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -304,14 +309,24 @@ public class BGM : MonoBehaviour {
                                 _bgm[0].clip = sound41;
                                 break;
 
-                            case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
+                            case "Or_Hiroba_Summer_Street": //夏のエリア入口　奥側
 
-                                _bgm[0].clip = sound38;
+                                _bgm[0].clip = sound41;
                                 break;
 
-                            case "Or_Hiroba_Winter_Entrance": //秋のエリア入口
+                            case "Or_Hiroba_Summer_MainStreet": //夏のエリア　メインストリート
 
-                                _bgm[0].clip = sound38;
+                                _bgm[0].clip = sound41;
+                                break;
+
+                            case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
+
+                                _bgm[0].clip = sound43;
+                                break;
+
+                            case "Or_Hiroba_Winter_Entrance": //冬のエリア入口
+
+                                _bgm[0].clip = sound44;
                                 break;
 
                             default:
@@ -323,7 +338,28 @@ public class BGM : MonoBehaviour {
 
                     case 100: //コンテスト系
 
-                        _bgm[0].clip = sound38;
+                        switch(GameMgr.Contest_Name)
+                        {
+                            case "Or_Contest_001_1":
+
+                                _bgm[0].clip = sound38;
+                                break;
+
+                            case "Or_Contest_001_2":
+
+                                _bgm[0].clip = sound38;
+                                break;
+
+                            case "Or_Contest_001_3":
+
+                                _bgm[0].clip = sound38;
+                                break;
+
+                            default:
+                                _bgm[0].clip = sound46;
+                                break;
+                        }
+                        
                         break;
 
                     case 110: //コンテスト会場前系
@@ -333,7 +369,7 @@ public class BGM : MonoBehaviour {
 
                     case 120: //コンテスト会場受付系
 
-                        _bgm[0].clip = sound41; //23
+                        _bgm[0].clip = sound47; //23
                         break;
 
                     case 150: //NPCの家系

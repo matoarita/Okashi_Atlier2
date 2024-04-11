@@ -13,6 +13,9 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
     private GameObject canvas;
 
+    private GameObject text_area_comp;
+    private Text _text_comp;
+
     private GameObject content; //Scroll viewのcontentを取得するための、一時的な変数
     public List<GameObject> _skill_listitem = new List<GameObject>(); //リストビューの個数　テキスト表示用のプレファブのインスタンスを格納する。
     private int list_count; //リストビューに現在表示するリストの個数をカウント
@@ -82,6 +85,10 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
+        //windowテキストエリアの取得
+        text_area_comp = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
+        _text_comp = text_area_comp.GetComponentInChildren<Text>();
+
         skillExTextPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/SkillExTextPanel").gameObject;
         skillExtext = skillExTextPanel.transform.Find("MaskPanel").GetComponentsInChildren<Text>();
         skillExtextAnim = skillExTextPanel.transform.Find("MaskPanel").GetComponentsInChildren<Anim_TextScroll>();
@@ -119,8 +126,9 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         {
             category_toggle[i].GetComponent<Toggle>().isOn = false;
         }
-        category_toggle[9].GetComponent<Toggle>().isOn = true;
-        SkillList_DrawView10();       
+        category_toggle[1].GetComponent<Toggle>().isOn = true;
+        SkillList_DrawView10();
+        _text_comp.text = "どの魔法をおぼえようかなぁ？　にいちゃん！";
     }
 
     public void SkillList_DrawView() //基本
@@ -133,6 +141,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "基本のスキルだよ！";
         }
+        _text_comp.text = "基本のスキルだよ！";
     }
 
     public void SkillList_DrawView2() //氷
@@ -145,7 +154,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "氷の魔法は何でも冷やす！　アイスクリームに強いよ！";
         }
-
+        _text_comp.text = "氷の魔法は何でも冷やす！　アイスクリームに強いよ！";
     }
 
     public void SkillList_DrawView3() //光
@@ -158,7 +167,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "光の魔法はきらきら！　フルーツやシュガー、ケーキを光らせたりできるよ！";
         }
-
+        _text_comp.text = "光の魔法はきらきら！" + "\n" + "フルーツやシュガー、ケーキを光らせたりできるよ！";
     }
 
     public void SkillList_DrawView4() //風
@@ -171,7 +180,9 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "風の魔法は少し特殊！　形を自由に作れるよ！　ふわふわのお菓子に強い！";
         }
+        _text_comp.text = "風の魔法は少し特殊！　形を自由に作れるよ！" + "\n" + "クレープとかケーキとかのお菓子が得意だよ！";
     }
+
 
     public void SkillList_DrawView5() //星
     {
@@ -183,6 +194,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "星魔法は、夜や星、天気に関係する変わった魔法！　ソーダが作れる！";
         }
+        _text_comp.text = "星魔法は、夜や星、天気に関係する変わった魔法だよ！" + "\n" + "ソーダが作れる！";
     }
 
     public void SkillList_DrawView6() //森
@@ -195,6 +207,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "森の魔法は、いろんな植物や木のお菓子を作ったりできるよ！";
         }
+        _text_comp.text = "森の魔法は、いろんな植物や木のお菓子を作ったりできるよ！";
     }
 
     public void SkillList_DrawView7() //時
@@ -207,6 +220,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "時の魔法は、時間を戻したり早めたりする、ちょっと不思議な魔法だよ！";
         }
+        _text_comp.text = "時の魔法は、時間を戻したり早めたりできる！" + "\n" + "ちょっと不思議な魔法だよ！";
     }
 
     public void SkillList_DrawView8() //音
@@ -219,6 +233,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "音の魔法は、食感の音や素材に眠る音を聞く.. ベテランの魔法だよ！";
         }
+        _text_comp.text = "音の魔法は、食感の音や素材に眠る音を聞く.. ベテランの魔法だよ！";
     }
 
     public void SkillList_DrawView9() //心
@@ -231,6 +246,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "心の魔法は、ハートをお菓子にいっぱいこめるよ！　おいしくなぁれ！";
         }
+        _text_comp.text = "心の魔法は、ハートをお菓子にいっぱいこめるよ！" + "\n" + "おいしくなぁれ！";
     }
 
     public void SkillList_DrawView10() //火
@@ -243,6 +259,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "火の魔法はお菓子の基本！　クッキーや焼き菓子に強いよ！";
         }
+        _text_comp.text = "火の魔法はお菓子の基本！　クッキーや焼き菓子に強いよ！";
     }
 
     //再度描画

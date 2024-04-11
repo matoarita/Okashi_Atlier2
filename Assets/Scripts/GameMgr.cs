@@ -264,7 +264,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //外出るイベントのカウンター
     public static int outgirl_count;
     public static bool outgirl_event_ON;
-    public static bool outgirl_Nowprogress;
+    public static bool outgirl_Nowprogress; //ヒカリが採取などで外へ外出中のフラグ
 
     //いちごイベントのフラグ
     public static bool hiroba_ichigo_first; //一回でもいちごお菓子をわたした。

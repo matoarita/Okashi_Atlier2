@@ -47,6 +47,9 @@ public class StatusPanel : MonoBehaviour {
     private Text girlFind_power_param;
     private Text girlLifepoint_param;
     private Text playerLV_param;
+    private Text playerMP_param;
+    private Text playerNinki_param;
+    private Text playerPRank_param;
     private Text girlExtremeKaisu_param;
     private Text BoxLv_param;
     private Text Okashi_SPquest_eatkaisu_param;
@@ -152,6 +155,9 @@ public class StatusPanel : MonoBehaviour {
         girlHeart_param = paramview1.transform.Find("ParamB_param/Text").GetComponent<Text>();
         girlFind_power_param = paramview1.transform.Find("ParamC_param/Text").GetComponent<Text>();
         playerLV_param = paramview1.transform.Find("ParamD_param/Text").GetComponent<Text>();
+        playerMP_param = paramview1.transform.Find("ParamF_param/Text").GetComponent<Text>();
+        playerNinki_param = paramview1.transform.Find("ParamM_param/Text").GetComponent<Text>();
+        playerPRank_param = paramview1.transform.Find("ParamO_param/Text").GetComponent<Text>();
         girlLifepoint_param = paramview1.transform.Find("ParamE_param/Text").GetComponent<Text>();
         girlExtremeKaisu_param = paramview1.transform.Find("ParamH_param/Text").GetComponent<Text>();
         BoxLv_param = paramview1.transform.Find("ParamI_param/Text").GetComponent<Text>();
@@ -214,7 +220,11 @@ public class StatusPanel : MonoBehaviour {
         WindowAllOFF();
         StatusList_obj.SetActive(true);
 
+
+
+        //
         //パラメータ更新
+        //
         girlLV_param.text = PlayerStatus.girl1_Love_lv.ToString();
         girlHeart_param.text = PlayerStatus.girl1_Love_exp.ToString();
         girlFind_power_param.text = PlayerStatus.player_girl_findpower.ToString();
@@ -232,6 +242,11 @@ public class StatusPanel : MonoBehaviour {
         }
         playerLV_param.text = PlayerStatus.player_renkin_lv.ToString();
         //zairyobox_lv_param.text = PlayerStatus.player_zairyobox_lv.ToString();
+
+        playerMP_param.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
+        playerNinki_param.text = PlayerStatus.player_ninki_param.ToString();
+        playerPRank_param.text = PlayerStatus.SetPatissierRank(PlayerStatus.player_patissier_Rank);
+
 
         //装備品があった場合、バフ効果も表示        
         girlFind_power_param_buf = paramview1.transform.Find("ParamC_param/Buf_Text").GetComponent<Text>();
@@ -251,7 +266,7 @@ public class StatusPanel : MonoBehaviour {
         }
 
         
-        if (GameMgr.Story_Mode == 1)
+        /*if (GameMgr.Story_Mode == 1)
         {
             paramview1.transform.Find("ParamJ").gameObject.SetActive(true);
             paramview1.transform.Find("ParamJ_param").gameObject.SetActive(true);
@@ -267,7 +282,7 @@ public class StatusPanel : MonoBehaviour {
             paramview1.transform.Find("ParamJ_param").gameObject.SetActive(false);
             paramview1.transform.Find("ParamK").gameObject.SetActive(false);
             paramview1.transform.Find("ParamK_param").gameObject.SetActive(false);
-        }
+        }*/
         Okashi_Game_MaxScore_param.text = GameMgr.Okashi_toplast_score.ToString();
 
     }

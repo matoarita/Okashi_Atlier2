@@ -29,7 +29,6 @@ public class PlayerData
     public int save_player_patissier_exp;
     public int save_player_patissier_job_pt;
     public int save_player_patissier_Rank;
-    public int save_player_patissier_Rank_pt;
 
 
     //妹のステータス

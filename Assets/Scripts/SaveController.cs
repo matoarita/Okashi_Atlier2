@@ -232,7 +232,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_patissier_exp = PlayerStatus.player_patissier_exp,
             save_player_patissier_job_pt = PlayerStatus.player_patissier_job_pt,
             save_player_patissier_Rank = PlayerStatus.player_patissier_Rank,
-            save_player_patissier_Rank_pt = PlayerStatus.player_patissier_Rank_pt,
 
 
             //妹のステータス
@@ -552,7 +551,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_patissier_exp = playerData.save_player_patissier_exp;
         PlayerStatus.player_patissier_job_pt = playerData.save_player_patissier_job_pt;
         PlayerStatus.player_patissier_Rank = playerData.save_player_patissier_Rank;
-        PlayerStatus.player_patissier_Rank_pt = playerData.save_player_patissier_Rank_pt;
 
         if(PlayerStatus.player_mp == 0) //例外処理　MP初期値が0になるのを回避　セーブデータに新パラメータ追加したてのときは0になるので、それを回避
         {

@@ -86,13 +86,26 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Hiroba_Spring_UraStreet": //春のエリア裏通り
 
-
+                                _text = "";
+                                _subtext = "";
                                 break;
 
                             case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
 
                                 _text = "サマー・ドリームス入口";
                                 _subtext = "Summer Dreams Entrance";
+                                break;
+
+                            case "Or_Hiroba_Summer_Street": //夏のエリア入口　奥側
+
+                                _text = "";
+                                _subtext = "";
+                                break;
+
+                            case "Or_Hiroba_Summer_MainStreet": //夏のエリア　メインストリート
+
+                                _text = "サマー・ドリームス　メイン通り";
+                                _subtext = "Summer Dreams MainStreet";
                                 break;
 
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口

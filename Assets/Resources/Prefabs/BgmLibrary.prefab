@@ -336,4 +336,9 @@ MonoBehaviour:
   sound40: {fileID: 8300000, guid: bffa308392beb9e41843e0cf7a662069, type: 3}
   sound41: {fileID: 8300000, guid: 63b1e0e3f18f11e4db9b7b6485201585, type: 3}
   sound42: {fileID: 8300000, guid: 70be88e0a7679ac4f8385efc581cec89, type: 3}
+  sound43: {fileID: 8300000, guid: f450fbf838996af4891d08de935cbbe6, type: 3}
+  sound44: {fileID: 8300000, guid: 36e52a50951f4ae478759980198fe43d, type: 3}
+  sound45: {fileID: 8300000, guid: 02cf2f62c79f5d640b36209fbe64a300, type: 3}
+  sound46: {fileID: 8300000, guid: 93d729a7772310948badfb1e76d77401, type: 3}
+  sound47: {fileID: 8300000, guid: 373ab17a3f13c4649868b632fc5822d5, type: 3}
   _mixRate: 0
