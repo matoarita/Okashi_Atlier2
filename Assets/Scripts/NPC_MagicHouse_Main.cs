@@ -181,15 +181,40 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
         switch (GameMgr.SceneSelectNum)
         {
-            case 0: //春のコンテスト　会場受付
+            case 0: //春のパティシエ魔法の先生
 
-                //受付シーンで、10個ぐらいコンテストのリスト一覧をだし、そこで指定すると、以下のコンテスト番号を決定
-                //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
-                GameMgr.Scene_Name = "Or_NPC_MagicHouse_01";
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Spring";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 13; //バックボタン押したときの戻り先
 
                 default_scenetext = "はぁあ～・・。だる～い・・。";
+                break;
+
+            case 10: //夏のパティシエ魔法の先生
+
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Summer";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 152; //バックボタン押したときの戻り先
+
+                default_scenetext = "あら、どなた？" + "\n" + "ここは氷のパティシエであるこの私の家ですよ。";
+                break;
+
+            case 20: //秋のパティシエ魔法の先生
+
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Autumn";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 152; //バックボタン押したときの戻り先
+
+                default_scenetext = "木枯らしがたまりませんね。" + "\n" + "私は風のパティシエ～ル。芸術ですな。";
+                break;
+
+            case 30: //冬のパティシエ魔法の先生
+
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Winter";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 152; //バックボタン押したときの戻り先
+
+                default_scenetext = "こんにちは..。" + "\n" + "私は光のパティシエ..。なにして遊ぶ？";
                 break;
 
         }

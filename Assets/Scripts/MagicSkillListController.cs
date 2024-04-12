@@ -114,6 +114,22 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
     }
 
+    //最初開いたときのデフォルトのテキスト
+    public void OnDefaultText(int _type)
+    {
+        switch(_type)
+        {
+            case 0:
+                _text_comp.text = "どの魔法をつかう？　にいちゃん！";
+                break;
+
+            case 1:
+                _text_comp.text = "どの魔法をおぼえようかなぁ？　にいちゃん！";
+                break;
+        }
+        
+    }
+
     void OnEnable()
     {
         
@@ -128,7 +144,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         }
         category_toggle[1].GetComponent<Toggle>().isOn = true;
         SkillList_DrawView10();
-        _text_comp.text = "どの魔法をおぼえようかなぁ？　にいちゃん！";
+        
     }
 
     public void SkillList_DrawView() //基本

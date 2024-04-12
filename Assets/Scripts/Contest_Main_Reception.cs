@@ -196,17 +196,48 @@ public class Contest_Main_Reception : MonoBehaviour
             i++;
         }
 
+        //受付シーンで、10個ぐらいコンテストのリスト一覧をだし、そこで指定すると、以下のコンテスト番号を決定
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //春のコンテスト　会場受付
 
-                //受付シーンで、10個ぐらいコンテストのリスト一覧をだし、そこで指定すると、以下のコンテスト番号を決定
+                
                 //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
                 GameMgr.Scene_Name = "Or_Contest_Reception_Spring";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 0; //バックボタン押したときの戻り先
 
-                default_scenetext = "いらっしゃい。ここは、コンテスト受付ですよ。";
+                default_scenetext = "いらっしゃ～い。ここは、春コンテストの受付ですよ～。";
+                break;
+
+            case 10: //夏のコンテスト　会場受付
+
+                //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                GameMgr.Scene_Name = "Or_Contest_Reception_Summer";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 10; //バックボタン押したときの戻り先
+
+                default_scenetext = "ハロー！！ここは、夏コンテストの受付デース！！";
+                break;
+
+            case 20: //秋のコンテスト　会場受付
+
+                //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                GameMgr.Scene_Name = "Or_Contest_Reception_Autumn";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 20; //バックボタン押したときの戻り先
+
+                default_scenetext = "ようこそ紳士淑女。ここは、秋コンテストの受付でございます。";
+                break;
+
+            case 30: //冬のコンテスト　会場受付
+
+                //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                GameMgr.Scene_Name = "Or_Contest_Reception_Winter";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 30; //バックボタン押したときの戻り先
+
+                default_scenetext = "こんばんは..。ここは.. 冬コンテストの受付です..。";
                 break;
 
         }

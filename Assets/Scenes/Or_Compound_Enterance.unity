@@ -2114,6 +2114,11 @@ Prefab:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnNPC1_toggle
       objectReference: {fileID: 0}
+    - target: {fileID: 114388911020817616, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u4E2D\u592E\u5674\u6C34\u3078"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5, type: 2}
   m_IsPrefabParent: 0
@@ -2630,6 +2635,20 @@ Prefab:
         type: 2}
       propertyPath: m_AnchoredPosition.y
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1045759110836230, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114388911020817616, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u30A2\u30C8\u30EA\u30A8\u306B\n\u5165\u308B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 224016557000066808, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 49.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5, type: 2}

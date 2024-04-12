@@ -640,6 +640,7 @@ public class CompoundMainController : MonoBehaviour {
                     _textcomp.text = magic_text;
 
                     magicskilllistController_onoff.SetActive(true);
+                    magicskilllistController.OnDefaultText(0);
 
                     MagicStartPanel.SetActive(true);
                     magic_compo1.SetActive(true);
@@ -747,6 +748,7 @@ public class CompoundMainController : MonoBehaviour {
                     _textcomp.text = magiclearn_text;
 
                     magicskilllistController_onoff.SetActive(true); //魔法をおぼえるがONになった状態のリストを表示
+                    magicskilllistController.OnDefaultText(1);
 
                     MagicLearnPanel.SetActive(true);
                     player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();

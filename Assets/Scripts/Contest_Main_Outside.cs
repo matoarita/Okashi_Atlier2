@@ -167,6 +167,39 @@ public class Contest_Main_Outside : MonoBehaviour
                 default_scenetext = "春コンテストの会場だ！　にいちゃん！！" + "\n" + "ひぃぃぃぃ・・・";
                 break;
 
+            case 10: //夏のコンテスト会場
+
+                //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                GameMgr.Scene_Name = "Or_Contest_Out_Summer";
+                SettingBGPanel(1); //Map〇〇のリスト番号を指定
+                gotonum = 10; //会場受付シーンの指定
+                backnum = 151; //バックボタン押したときの戻り先
+
+                default_scenetext = "夏コンテストの会場だ！　にいちゃん！！" + "\n" + "でっけぇ～～！！";
+                break;
+
+            case 20: //秋のコンテスト会場
+
+                //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                GameMgr.Scene_Name = "Or_Contest_Out_Autumn";
+                SettingBGPanel(2); //Map〇〇のリスト番号を指定
+                gotonum = 20; //会場受付シーンの指定
+                backnum = 151; //バックボタン押したときの戻り先
+
+                default_scenetext = "秋コンテストの会場だ！　にいちゃん！！" + "\n" + "あいしゅうだよ～・・。";
+                break;
+
+            case 30: //冬のコンテスト会場
+
+                //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
+                GameMgr.Scene_Name = "Or_Contest_Out_Autumn";
+                SettingBGPanel(3); //Map〇〇のリスト番号を指定
+                gotonum = 30; //会場受付シーンの指定
+                backnum = 151; //バックボタン押したときの戻り先
+
+                default_scenetext = "冬コンテストの会場だ！　にいちゃん！！" + "\n" + "さぶいぃ.. はやく中入ろう！";
+                break;
+
         }
 
         //天気対応

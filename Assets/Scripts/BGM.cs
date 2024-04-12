@@ -319,6 +319,21 @@ public class BGM : MonoBehaviour {
                                 _bgm[0].clip = sound41;
                                 break;
 
+                            case "Or_Hiroba_Summer_ThemePark_Map": //夏エリア　遊園地　全体マップ
+
+                                _bgm[0].clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_Enter": //夏エリア　遊園地入口
+
+                                _bgm[0].clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_StreetA": //夏エリア　遊園地　右の通り
+
+                                _bgm[0].clip = sound45;
+                                break;
+
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
 
                                 _bgm[0].clip = sound43;

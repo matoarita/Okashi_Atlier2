@@ -407,6 +407,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_ShopActive02();
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_Map":
+
+                    On_Active21();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_Enter":
+
+                    On_ContestActive02();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_StreetA":
+
+                    On_NPC_MagicActive02();
+                    break;
+
                 default:
 
                     On_Active100();
@@ -506,6 +521,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active10();
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_Map":
+
+                    On_Active11();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_Enter":
+
+                    On_Active20();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_StreetA":
+
+                    On_Active21();
+                    break;
+
                 case "Or_Hiroba_Autumn_Entrance":
 
                     On_Active06();
@@ -563,6 +593,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active11();
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_Enter":
+
+                    On_Active22();
+
+                    break;
                 default:
 
                     On_Active103();
@@ -588,6 +623,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Spring_Shoping_Moll":
 
                     On_Active09();
+                    break;
+
+                case "Or_Hiroba_Summer_MainStreet":
+
+                    On_Active20();
                     break;
 
                 default:
@@ -874,11 +914,41 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_Active11()
     {
-        //_text.text = "夏エリア入口　奥へ　移動";
+        //_text.text = "夏エリア　メインストリートへ　移動";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 102;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active20()
+    {
+        //_text.text = "夏エリア遊園地　全体マップへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 150;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active21()
+    {
+        //_text.text = "夏エリア遊園地　入口へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 151;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active22()
+    {
+        //_text.text = "夏エリア遊園地　右の通りへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 152;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -940,6 +1010,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
     }
 
+    void On_ContestActive02()
+    {
+        //_text.text = "夏エリアのコンテスト01";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 10;
+        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
+    }
+
     void On_NPC_MagicActive01()
     {
         //_text.text = "春エリアの魔法の先生の家へ入る";
@@ -947,6 +1027,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+    }
+
+    void On_NPC_MagicActive02()
+    {
+        //_text.text = "夏エリアの魔法の先生の家へ入る";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 10;
         FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
     }
 
@@ -1513,6 +1603,39 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、サマー・ドリームスのメインストリートのようだ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Map": //夏エリア　遊園地　全体マップ
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_150").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地だ。島全体が遊園地になっている。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Enter": //夏エリア　遊園地入口
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_151").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地の入口だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_StreetA": //夏エリア　遊園地　右の通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_152").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　右の通りだ。";
 
                 break;
 
