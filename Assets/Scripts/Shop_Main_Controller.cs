@@ -681,7 +681,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                 case "Or_Shop_B1": //夏エリア
 
-                    GameMgr.SceneSelectNum = 11;
+                    GameMgr.SceneSelectNum = 102;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 

@@ -60,12 +60,56 @@ public class PlaceNamePanel : MonoBehaviour {
                 {
                     case 20: //オランジーナショップ
 
-                        _text = "エク・レール";
+                        switch(GameMgr.Scene_Name)
+                        {
+                            case "Or_Shop_A1":
+
+                                _text = "エクレール";
+                                break;
+
+                            case "Or_Shop_B1":
+
+                                _text = "マリトッツォ";
+                                break;
+
+                            case "Or_Shop_C1":
+
+                                _text = "秋のお店";
+                                break;
+
+                            case "Or_Shop_D1":
+
+                                _text = "冬のお店";
+                                break;
+                        }
+                        
                         break;
 
                     case 30: //オランジーナ酒場
 
-                        _text = "オランジーナの酒場";
+                        switch (GameMgr.Scene_Name)
+                        {
+                            case "Or_Bar_A1":
+
+                                _text = "よいどれ亭";
+                                break;
+
+                            case "Or_Bar_B1":
+
+                                _text = "バー・マカジキ";
+                                break;
+
+                            case "Or_Bar_C1":
+
+                                _text = "秋の酒場";
+                                break;
+
+                            case "Or_Bar_D1":
+
+                                _text = "冬の酒場";
+                                break;
+                        }
+                        
 
                         break;
 

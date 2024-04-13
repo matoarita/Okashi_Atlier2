@@ -407,6 +407,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_ShopActive02();
                     break;
 
+                case "Or_Hiroba_Summer_MainStreet_Shop":
+
+                    On_ShopActive02();
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_Map":
 
                     On_Active21();
@@ -457,6 +462,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Spring_Shoping_Moll":
 
                     On_BarActive01();
+                    break;
+
+                case "Or_Hiroba_Summer_MainStreet":
+
+                    On_Active12();
                     break;
 
                 default:
@@ -519,6 +529,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Summer_MainStreet":
 
                     On_Active10();
+                    break;
+
+                case "Or_Hiroba_Summer_MainStreet_Shop":
+
+                    On_Active11();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_Map":
@@ -922,6 +937,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    void On_Active12()
+    {
+        //_text.text = "夏エリア　ショップ前へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 103;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
     void On_Active20()
     {
         //_text.text = "夏エリア遊園地　全体マップへ　移動";
@@ -972,7 +997,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         sc.ShopEnterSound01();
 
         //シーン読み込み
-        GameMgr.SceneSelectNum = 0;
+        GameMgr.SceneSelectNum = 10;
         FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
     }
 
@@ -996,7 +1021,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         sc.ShopEnterSound01();
 
         //シーン読み込み
-        GameMgr.SceneSelectNum = 0;
+        GameMgr.SceneSelectNum = 10;
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
     }
 
@@ -1603,6 +1628,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、サマー・ドリームスのメインストリートのようだ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_MainStreet_Shop": //夏エリア　入口
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_103").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームスのショップ前の通りだ。";
 
                 break;
 

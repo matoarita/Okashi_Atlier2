@@ -114,6 +114,18 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Soda Island";
                                 break;
 
+                            case "Or_Hiroba_Summer_ThemePark_Enter": //夏のエリア　遊園地全体マップ
+
+                                _text = "ソーダ・アイランド・前広場";
+                                _subtext = "Soda Island Campo";
+                                break;
+
+                                case "Or_Hiroba_Summer_ThemePark_StreetA":
+
+                                _text = "13番街通り";
+                                _subtext = "Soda 13th Street";
+                                break;
+
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
 
                                 _text = "オータム・リーブス入口";

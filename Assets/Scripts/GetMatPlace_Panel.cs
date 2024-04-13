@@ -372,7 +372,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         OpenAnim();
 
         //時刻によって、背景の絵の天気を変える。
-        if (GameMgr.Story_Mode != 0)
+        /*if (GameMgr.Story_Mode != 0)
         {
             //まずリセット
             MapSelect_Imagepanel_obj.Clear();
@@ -413,7 +413,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     break;
             }
-        }
+        }*/
 
         move_anim_on = false;
         modoru_anim_on = false;

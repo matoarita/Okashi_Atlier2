@@ -91,6 +91,12 @@ public class Hiroba1_Main_Or : MonoBehaviour
                 SettingBGPanel("Map102"); //Map〇〇のリスト番号を指定
                 break;
 
+            case 103: //夏エリア  メインストリート
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_MainStreet_Shop";
+                SettingBGPanel("Map103"); //Map〇〇のリスト番号を指定
+                break;
+
             case 150: //夏エリア  遊園地入口全体マップ
 
                 GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_Map";
