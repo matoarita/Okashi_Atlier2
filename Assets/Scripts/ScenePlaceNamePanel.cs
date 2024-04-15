@@ -104,7 +104,7 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Hiroba_Summer_MainStreet": //夏のエリア　メインストリート
 
-                                _text = "サマー・ドリームス　メイン通り";
+                                _text = "サマー・ドリームス" + "\n" + "メイン通り";
                                 _subtext = "Summer Dreams MainStreet";
                                 break;
 
@@ -116,7 +116,7 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Hiroba_Summer_ThemePark_Enter": //夏のエリア　遊園地全体マップ
 
-                                _text = "ソーダ・アイランド・前広場";
+                                _text = "ソーダ・アイランド" + "\n" + "入口広場";
                                 _subtext = "Soda Island Campo";
                                 break;
 
@@ -130,6 +130,30 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                                 _text = "オータム・リーブス入口";
                                 _subtext = "Autumn Leaves Entrance";
+                                break;
+
+                            case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋
+
+                                _text = "メイプル大橋";
+                                _subtext = "Maple Big bridge";
+                                break;
+
+                            case "Or_Hiroba_Autumn_MainStreet": //秋エリア　メインストリート
+
+                                _text = "オータム・リーブス" + "\n" + "メイン通り";
+                                _subtext = "Autumn Leaves MainStreet";
+                                break;
+
+                            case "Or_Hiroba_Autumn_DepartMae": //秋エリア　百貨店前
+
+                                _text = "オータム・リーブス" + "\n" + "百貨店前";
+                                _subtext = "Autumn Leaves Depart";
+                                break;
+
+                            case "Or_Hiroba_Autumn_BarStreet": //秋エリア　酒場通り
+
+                                _text = "オータム・リーブス" + "\n" + "酒場通り";
+                                _subtext = "Autumn Leaves BarStreet";
                                 break;
 
                             case "Or_Hiroba_Winter_Entrance": //冬のエリア入口

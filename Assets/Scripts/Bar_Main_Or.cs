@@ -47,13 +47,13 @@ public class Bar_Main_Or : MonoBehaviour
             case 20: //秋エリア
 
                 GameMgr.Scene_Name = "Or_Bar_C1";
-                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                BGImagePanel.transform.Find("BG_sprite_3").gameObject.SetActive(true);
                 break;
 
             case 30: //冬エリア
 
                 GameMgr.Scene_Name = "Or_Bar_D1";
-                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                BGImagePanel.transform.Find("BG_sprite_4").gameObject.SetActive(true);
                 break;
 
             default:

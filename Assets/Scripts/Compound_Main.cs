@@ -471,15 +471,17 @@ public class Compound_Main : MonoBehaviour
 
 
         //Live2Dモデルの取得
-        _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+        character_move = character_root.transform.Find("CharacterMove").gameObject;
+        _model_obj = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
+
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
         default_live2d_draworder = cubism_rendercontroller.SortingOrder;
         Live2d_default_pos = _model_obj.transform.localPosition;
         live2d_animator = _model_obj.GetComponent<Animator>();
         live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
         GameMgr.ResultComplete_flag = 0; //調合が完了したよフラグ
-        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-        character_move = character_root.transform.Find("CharacterMove").gameObject;
+        
         Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
         character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
 

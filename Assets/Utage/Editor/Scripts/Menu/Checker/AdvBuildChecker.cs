@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Utage
 {
 	//アプリのビルド時に呼ばれる
-	//Utage/Sample/Resources/Sample　アセットがあったら警告
+	//Utage/Sample/Resources/Sample　アセットがあったら警告 このエラーは無視しても問題ない
 	public class AdvBuildChecker
 	{
 		[PostProcessBuildAttribute(1)]

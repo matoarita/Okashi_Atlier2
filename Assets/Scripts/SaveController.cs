@@ -61,6 +61,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<Item> _temp_contestclearcollectionlistItemData = new List<Item>();
     private List<ItemSaveFlag> _temp_magicskill_list = new List<ItemSaveFlag>();
 
+    private GameObject character_root;
+    private GameObject character_move;
     private GameObject _model_obj;
     private GameObject StageClearButton_panel;
     private AudioSource StageClearbutton_audio;
@@ -1003,10 +1005,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             case 10:
 
+                //Debug.Log("シーン読み込み後、DrawGameScreen発動");
                 compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
                 //Live2Dモデルの取得
-                _model_obj = GameObject.FindWithTag("CharacterLive2D").gameObject;
+                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                character_move = character_root.transform.Find("CharacterMove").gameObject;
+                _model_obj = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
 
                 //メイン画面に表示する、現在のクエスト
                 questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
@@ -1041,6 +1046,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 //背景を自動で変更
                 compound_Main.Change_BGimage();
 
+                
                 GameMgr.compound_status = 0;
 
                 //ロード直後のサブイベントを発生させる

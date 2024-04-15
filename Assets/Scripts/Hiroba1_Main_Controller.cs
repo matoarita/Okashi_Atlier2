@@ -414,7 +414,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_ThemePark_Map":
 
-                    On_Active21();
+                    On_Active71();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_Enter":
@@ -425,6 +425,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Summer_ThemePark_StreetA":
 
                     On_NPC_MagicActive02();
+                    break;
+
+                case "Or_Hiroba_Autumn_Entrance_bridge":
+
+                    On_Active101();
+                    break;
+
+                case "Or_Hiroba_Autumn_MainStreet":
+
+                    On_Active102();
+                    break;
+
+                case "Or_Hiroba_Autumn_DepartMae":
+
+                    On_ContestActive03();
+                    break;
+
+                case "Or_Hiroba_Autumn_BarStreet":
+
+                    On_BarActive03();
                     break;
 
                 default:
@@ -466,12 +486,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_MainStreet":
 
-                    On_Active12();
+                    On_Active52();
                     break;
 
                 default:
 
-                    On_Active101();
+                    On_Active1001();
                     break;
             }
         }
@@ -528,27 +548,27 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_MainStreet":
 
-                    On_Active10();
+                    On_Active50();
                     break;
 
                 case "Or_Hiroba_Summer_MainStreet_Shop":
 
-                    On_Active11();
+                    On_Active51();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_Map":
 
-                    On_Active11();
+                    On_Active51();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_Enter":
 
-                    On_Active20();
+                    On_Active70();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_StreetA":
 
-                    On_Active21();
+                    On_Active71();
                     break;
 
                 case "Or_Hiroba_Autumn_Entrance":
@@ -556,14 +576,34 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active06();
                     break;
 
-                case "Or_Hiroba_Winter_Entrance":
+                case "Or_Hiroba_Autumn_Entrance_":
 
                     On_Active06();
                     break;
 
-                default:
+                case "Or_Hiroba_Autumn_Entrance_bridge":
+
+                    On_Active03();
+                    break;
+
+                case "Or_Hiroba_Autumn_MainStreet":
+
+                    On_Active100();
+                    break;
+
+                case "Or_Hiroba_Autumn_DepartMae":
+
+                    On_Active101();
+                    break;
+
+                case "Or_Hiroba_Autumn_BarStreet":
 
                     On_Active102();
+                    break;
+
+                default:
+
+                    On_Active1002();
                     break;
             }
         }
@@ -600,22 +640,32 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_Entrance":
 
-                    On_Active10();
+                    On_Active50();
                     break;
 
                 case "Or_Hiroba_Summer_Street":
 
-                    On_Active11();
+                    On_Active51();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_Enter":
 
-                    On_Active22();
-
+                    On_Active72();
                     break;
-                default:
+
+                case "Or_Hiroba_Autumn_MainStreet":
+
+                    On_ShopActive03();
+                    break;
+
+                case "Or_Hiroba_Autumn_DepartMae":
 
                     On_Active103();
+                    break;
+
+                default:
+
+                    On_Active1003();
                     break;
             }
         }
@@ -642,12 +692,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_MainStreet":
 
-                    On_Active20();
+                    On_Active70();
                     break;
 
                 default:
 
-                    On_Active104();
+                    On_Active1004();
                     break;
             }
         }
@@ -669,7 +719,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    On_Active105();
+                    On_Active1005();
                     break;
             }
         }
@@ -691,7 +741,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    On_Active106();
+                    On_Active1006();
                     break;
             }
         }
@@ -766,7 +816,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             default:
 
-                On_Active106();
+                On_Active1006();
                 break;
         }
     }
@@ -783,7 +833,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             default:
 
-                On_Active106();
+                On_Active1006();
                 break;
         }
     }
@@ -800,7 +850,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             default:
 
-                On_Active106();
+                On_Active1006();
                 break;
         }
     }
@@ -817,7 +867,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             default:
 
-                On_Active106();
+                On_Active1006();
                 break;
         }
     }
@@ -917,7 +967,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    void On_Active10()
+    void On_Active50()
     {
         //_text.text = "夏エリア入口　奥へ　移動";
 
@@ -927,7 +977,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    void On_Active11()
+    void On_Active51()
     {
         //_text.text = "夏エリア　メインストリートへ　移動";
 
@@ -937,7 +987,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    void On_Active12()
+    void On_Active52()
     {
         //_text.text = "夏エリア　ショップ前へ　移動";
 
@@ -947,7 +997,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    void On_Active20()
+    void On_Active70()
     {
         //_text.text = "夏エリア遊園地　全体マップへ　移動";
 
@@ -957,7 +1007,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    void On_Active21()
+    void On_Active71()
     {
         //_text.text = "夏エリア遊園地　入口へ　移動";
 
@@ -967,13 +1017,53 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    void On_Active22()
+    void On_Active72()
     {
         //_text.text = "夏エリア遊園地　右の通りへ　移動";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 152;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active100()
+    {
+        //_text.text = "秋エリア　メイプル大橋へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 201;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active101()
+    {
+        //_text.text = "秋エリア　メインストリートへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 202;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active102()
+    {
+        //_text.text = "秋エリア　百貨店前へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 203;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active103()
+    {
+        //_text.text = "秋エリア　酒場前へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 204;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -1001,6 +1091,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
     }
 
+    void On_ShopActive03()
+    {
+        //_text.text = "秋エリアのお店へ入る";
+
+        //入店の音
+        sc.ShopEnterSound01();
+
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 20;
+        FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+    }
+
     void On_BarActive01()
     {
         //_text.text = "春エリアの酒場へ入る";
@@ -1025,6 +1127,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
     }
 
+    void On_BarActive03()
+    {
+        //_text.text = "秋エリアの酒場へ入る";
+
+        //入店の音
+        sc.ShopEnterSound01();
+
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 20;
+        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+    }
+
     void On_ContestActive01()
     {
         //_text.text = "春エリアのコンテスト01";
@@ -1042,6 +1156,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 10;
+        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
+    }
+
+    void On_ContestActive03()
+    {
+        //_text.text = "夏エリアのコンテスト01";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 20;
         FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
     }
 
@@ -1074,7 +1198,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
     }
 
-    void On_Active100()
+    void On_Active1000()
     {
         //いちご少女押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 0; //いちご少女を押した　という指定番号
@@ -1147,7 +1271,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     }
 
-    void On_Active101()
+    void On_Active1001()
     {
         //噴水押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1; //
@@ -1187,7 +1311,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         CanvasOff();
     }
 
-    void On_Active102()
+    void On_Active1002()
     {
         //村長の家押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 2; //
@@ -1242,7 +1366,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         CanvasOff();
     }
 
-    void On_Active103()
+    void On_Active1003()
     {
         //パン工房押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 3; //
@@ -1313,7 +1437,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         CanvasOff();
     }
 
-    void On_Active104()
+    void On_Active1004()
     {
         //お花屋さん押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 4; //
@@ -1391,7 +1515,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         CanvasOff();
     }
 
-    void On_Active105()
+    void On_Active1005()
     {
         //図書館押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 5; //
@@ -1464,7 +1588,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         CanvasOff();
     }
 
-    void On_Active106()
+    void On_Active1006()
     {
         //井戸端の奥さん押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 6; //
@@ -1682,11 +1806,55 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは、オータム・リーブスの入口だ。" + "\n" + "紅葉の赤やカラフルな色に包まれている。";
+                default_scenetext = "ここは、オータム・リーブスの入口だ。" + "\n" + "紅葉の赤やカラフルな色の建物に包まれている。";
 
                 break;
 
-            case "Or_Hiroba_Winter_Entrance": //秋エリア　入口
+            case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_201").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オータム・リーブスの橋.." + "\n" + "メイプル大橋と呼ばれている。";
+
+                break;
+
+            case "Or_Hiroba_Autumn_MainStreet": //秋エリア　メインストリート
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_202").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オータム・リーブスのメインの大通りだ。";
+
+                break;
+
+            case "Or_Hiroba_Autumn_DepartMae": //秋エリア　デパート前
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_203").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オータム・リーブスのデパート前だ。";
+
+                break;
+
+            case "Or_Hiroba_Autumn_BarStreet": //秋エリア　酒場前
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_204").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オータム・リーブスの酒場前の通りだ。";
+
+                break;
+
+            case "Or_Hiroba_Winter_Entrance": //冬エリア　入口
 
                 //移動用リストオブジェクトの取得
                 mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_300").gameObject;

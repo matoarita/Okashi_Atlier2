@@ -121,6 +121,30 @@ public class Hiroba1_Main_Or : MonoBehaviour
                 SettingBGPanel("Map200"); //Map〇〇のリスト番号を指定
                 break;
 
+            case 201: //秋エリア入口　大橋
+
+                GameMgr.Scene_Name = "Or_Hiroba_Autumn_Entrance_bridge";
+                SettingBGPanel("Map201"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 202: //秋エリア　メインストリート
+
+                GameMgr.Scene_Name = "Or_Hiroba_Autumn_MainStreet";
+                SettingBGPanel("Map202"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 203: //秋エリア　百貨店前
+
+                GameMgr.Scene_Name = "Or_Hiroba_Autumn_DepartMae";
+                SettingBGPanel("Map203"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 204: //秋エリア　酒場通り
+
+                GameMgr.Scene_Name = "Or_Hiroba_Autumn_BarStreet";
+                SettingBGPanel("Map204"); //Map〇〇のリスト番号を指定
+                break;
+
             case 300: //冬エリア
 
                 GameMgr.Scene_Name = "Or_Hiroba_Winter_Entrance";

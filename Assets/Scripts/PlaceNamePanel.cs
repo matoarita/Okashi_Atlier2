@@ -74,7 +74,7 @@ public class PlaceNamePanel : MonoBehaviour {
 
                             case "Or_Shop_C1":
 
-                                _text = "秋のお店";
+                                _text = "モン・ブラン";
                                 break;
 
                             case "Or_Shop_D1":

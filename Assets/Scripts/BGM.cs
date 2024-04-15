@@ -56,6 +56,8 @@ public class BGM : MonoBehaviour {
     public AudioClip sound45;  //夏エリアBGM
     public AudioClip sound46;  //大会コンテストのBGM 初級
     public AudioClip sound47;  //大会コンテスト受付のBGM
+    public AudioClip sound1000;  //空のサウンド
+
 
     [Range(0, 1)]
     public float _mixRate = 0;
@@ -335,6 +337,26 @@ public class BGM : MonoBehaviour {
                                 break;
 
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
+
+                                _bgm[0].clip = sound43;
+                                break;
+
+                            case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋
+
+                                _bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                break;
+
+                            case "Or_Hiroba_Autumn_MainStreet": //秋エリア　メインストリート
+
+                                _bgm[0].clip = sound43;
+                                break;
+
+                            case "Or_Hiroba_Autumn_DepartMae": //秋エリア　百貨店前
+
+                                _bgm[0].clip = sound43;
+                                break;
+
+                            case "Or_Hiroba_Autumn_BarStreet": //秋エリア　酒場通り
 
                                 _bgm[0].clip = sound43;
                                 break;
