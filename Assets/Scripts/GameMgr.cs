@@ -37,6 +37,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_ExtraStageClearResult_ON = false; //エクストラ　ステージクリア時にリザルト画面とご褒美画面をONにする。
     public static bool System_GameOver_ON = false; //エクストラ　ゲームオーバーのONOFF
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
+    public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
 
     //** --ここまで-- **//
 
@@ -237,6 +238,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikari_make_success_count; //ヒカリが制作に成功した数
     public static int hikari_make_failed_count; //ヒカリが制作に失敗した数
     public static bool hikari_make_Allfailed; //すべて失敗して材料がなくなってしまった 
+    public static bool hikari_zairyo_no_flag; //作る材料が単になくなった場合
 
     public static int hikari_makeokashi_startcounter; //これはセーブ不要。10秒ほどたったら、元のアイドルモーションにもどすためのタイマー
     public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
@@ -414,6 +416,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_or_prizeget_flag;
     public static bool contest_or_limittimeover_flag;
     public static int contest_event_num;
+    public static bool contest_MainMatchStart; //コンテスト実際の試合開始の合図
 
     //コンテストに提出したお菓子    
     public static string contest_okashiName;
@@ -1028,6 +1031,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_Clear_Failed = false;
         contest_event_flag = false;
         contest_or_event_flag = false;
+        contest_MainMatchStart = false;
         contest_or_contestjudge_flag = false;
         contest_or_limittimeover_flag = false;
         contest_or_prizeget_flag = false;
@@ -1162,6 +1166,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikari_makeokashi_startcounter = 0;
         hikari_makeokashi_startflag = false;
         hikari_make_Allfailed = false;
+        hikari_zairyo_no_flag = false;
 
         //マップイベントの初期化
         for (system_i = 0; system_i < MapEvent_01.Length; system_i++)

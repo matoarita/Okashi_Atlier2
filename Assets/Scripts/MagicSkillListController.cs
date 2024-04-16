@@ -98,9 +98,12 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].SetInit();
         }
 
+
         i = 0;
         category_status = 9; //基本がなくなったので、火のスキルがデフォルトになる
     }
+
+    
 
     // Use this for initialization
     void Start()
@@ -132,11 +135,28 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
     void OnEnable()
     {
+
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10:
+
+                CompScene_Init();
+                break;
+
+            case 100:
+
+                CompScene_Init();
+                break;
+        }       
         
+    }
+
+    void CompScene_Init()
+    {
         InitSetup();
 
         //ウィンドウがアクティヴになった瞬間だけ読み出される
-        //Debug.Log("OnEnable");
+        Debug.Log("OnEnable MagicPanel");
 
         for (i = 0; i < category_toggle.Count; i++)
         {
@@ -144,7 +164,6 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         }
         category_toggle[1].GetComponent<Toggle>().isOn = true;
         SkillList_DrawView10();
-        
     }
 
     public void SkillList_DrawView() //基本

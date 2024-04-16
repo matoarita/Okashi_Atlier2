@@ -516,13 +516,125 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 }
 
                 break;
+
+            case 100: //コンテスト中は、リアルタイムに1sずつ減っていく。
+
+                if (GameMgr.System_Contest_RealTimeProgress_ON)
+                {
+                    if (GameMgr.contest_MainMatchStart)
+                    {
+                        //時間のカウント
+                        timeLeft -= Time.deltaTime;
+
+                        //1秒ごとのタイムカウンター
+                        if (timeLeft <= 0.0)
+                        {
+                            GameSpeedRange(); //ゲームスピードパラメータの変更。
+
+                            timeLeft = 1.0f; //現実の1秒の時間。
+                            count_switch = !count_switch;
+
+                            PlayerStatus.player_contest_second++;
+                            if (PlayerStatus.player_contest_second >= 60) //1分たった。
+                            {
+                                PlayerStatus.player_contest_second = 0;
+                                SetMinuteToHourContest(1);
+                            }
+
+                        }
+                    }
+                }
+                break;
         }
     }
 
     public void HikariMakeOkashiJudge()
     {
         //まず残り個数チェック
-        //材料がなくなってたら、ここで終了。
+        //材料がなくなってたら、ここで終了。これは、にいちゃんが途中で材料を使った場合のチェックになる。
+        HikariKosuCheckMethod();
+        
+        if (itemkosu_check) //trueなら個数がたりないので、終了
+        {
+            //終了
+            GameMgr.hikari_make_okashiFlag = false;
+            GameMgr.hikari_makeokashi_startflag = false;
+
+            //このとき、成功が0だった場合は、全て失敗してるので、失敗しちゃった～の顔に。
+            if (GameMgr.hikari_make_success_count == 0)
+            {
+                GameMgr.hikari_make_Allfailed = true;
+            }
+            else
+            {
+                //材料なくなった～の表情に
+                GameMgr.hikari_zairyo_no_flag = true;
+            }
+        } else
+        {
+            //制作チェック
+
+            //サイコロをふる
+            dice = Random.Range(1, 100); //1~100までのサイコロをふる。
+
+            Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
+
+            if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
+            {
+                GameMgr.hikari_make_success_count++;
+
+                //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
+                GameMgr.hikari_make_okashiKosu++;
+                _getexp = 2;
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
+
+                //成功すると、機嫌が少しよくなる。
+                girl1_status.GirlExpressionKoushin(10);
+            }
+            else //失敗
+            {
+                GameMgr.hikari_make_failed_count++;
+
+                //生成されず。材料だけ消費。
+                _getexp = 5;
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
+
+                //ハートも下がる。
+                girleat_judge.UpDegHeart(-5, false);
+
+                //失敗すると、機嫌は下がる。-20で1段階下がる。
+                girl1_status.GirlExpressionKoushin(-10);
+            }
+
+            compound_keisan.Delete_playerItemList(2);
+
+            //
+            //作ったあとのタイミングで、改めて個数をチェックする。なくなってれば、終了
+            HikariKosuCheckMethod();
+
+            if (itemkosu_check) //trueなら個数がたりないので、終了
+            {
+                //終了
+                GameMgr.hikari_make_okashiFlag = false;
+                GameMgr.hikari_makeokashi_startflag = false;
+
+                //このとき、成功が0だった場合は、全て失敗してるので、失敗しちゃった～の顔に。
+                if (GameMgr.hikari_make_success_count == 0)
+                {
+                    GameMgr.hikari_make_Allfailed = true;
+                }
+                else
+                {
+                    //材料なくなった～の表情に
+                    GameMgr.hikari_zairyo_no_flag = true;
+                }
+            }
+        }
+        
+    }
+
+    void HikariKosuCheckMethod()
+    {
         itemkosu_check = false;
         for (i = 0; i < 3; i++)
         {
@@ -587,57 +699,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 }
             }
         }
-
-        if (itemkosu_check) //trueなら個数がたりないので、終了
-        {
-            //終了
-            GameMgr.hikari_make_okashiFlag = false;
-            GameMgr.hikari_makeokashi_startflag = false;
-
-            //このとき、成功が0だった場合は、全て失敗してるので、失敗しちゃった～の顔に。
-            if (GameMgr.hikari_make_success_count == 0)
-            {
-                GameMgr.hikari_make_Allfailed = true;
-            }
-        } else
-        {
-            //制作チェック
-
-            //サイコロをふる
-            dice = Random.Range(1, 100); //1~100までのサイコロをふる。
-
-            Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
-
-            if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
-            {
-                GameMgr.hikari_make_success_count++;
-
-                //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
-                GameMgr.hikari_make_okashiKosu++;
-                _getexp = 2;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
-
-                //成功すると、機嫌が少しよくなる。
-                girl1_status.GirlExpressionKoushin(10);
-            }
-            else //失敗
-            {
-                GameMgr.hikari_make_failed_count++;
-
-                //生成されず。材料だけ消費。
-                _getexp = 5;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
-
-                //ハートも下がる。
-                girleat_judge.UpDegHeart(-5, false);
-
-                //失敗すると、機嫌は下がる。-20で1段階下がる。
-                girl1_status.GirlExpressionKoushin(-10);
-            }
-
-            compound_keisan.Delete_playerItemList(2);
-        }
-        
     }
 
     //天気状態の更新

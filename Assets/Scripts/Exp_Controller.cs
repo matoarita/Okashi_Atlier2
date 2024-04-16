@@ -1418,6 +1418,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_makeokashi_startflag = true;
 
         GameMgr.hikari_make_Allfailed = false;
+        GameMgr.hikari_zairyo_no_flag = false;
 
         //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が1分なので、*1。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
         GameMgr.hikari_make_okashiTimeCost = 

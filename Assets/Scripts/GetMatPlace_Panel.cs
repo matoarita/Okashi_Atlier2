@@ -537,15 +537,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
                     break;
 
-                case "Or_Outside_the_Contest":
+                case "Or_Contest_A1":
 
                     GameMgr.SceneSelectNum = 0;
-                    FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
-                    break;
-
-                case "Contest_OrA1":
-
-                    FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
+                    FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
                     break;
 
                 default:

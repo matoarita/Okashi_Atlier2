@@ -37,12 +37,16 @@ public class TimePanel : MonoBehaviour {
 
     private GameObject clock_hari1;
     private GameObject clock_hari2;
+    private GameObject clock_hari3;
 
     private Transform clock_hari1Transform;
     private Transform clock_hari2Transform;
+    private Transform clock_hari3Transform;
+
 
     private Vector3 localAngle1;
     private Vector3 localAngle2;
+    private Vector3 localAngle3;
 
     private float timeLeft;
     private bool count_switch;
@@ -87,14 +91,18 @@ public class TimePanel : MonoBehaviour {
 
         clock_hari1 = this.transform.Find("TimeHyouji_1/Image/HourPanel/ClockBase/Clock_hari1").gameObject;
         clock_hari2 = this.transform.Find("TimeHyouji_1/Image/HourPanel/ClockBase/Clock_hari2").gameObject;
+        clock_hari3 = this.transform.Find("TimeHyouji_1/Image/HourPanel/ClockBase/Clock_hari3").gameObject;
+        clock_hari3.SetActive(false); //コンテストで秒針は使用
 
         // transformを取得
         clock_hari1Transform = clock_hari1.transform;
         clock_hari2Transform = clock_hari2.transform;
+        clock_hari3Transform = clock_hari3.transform;
 
         // ローカル座標を基準に、回転を取得
         localAngle1 = clock_hari1Transform.localEulerAngles;
         localAngle2 = clock_hari2Transform.localEulerAngles;
+        localAngle3 = clock_hari3Transform.localEulerAngles;
 
         timeLeft = 1.0f;
         count_switch = true;
@@ -117,7 +125,7 @@ public class TimePanel : MonoBehaviour {
             case 100: //コンテストでは、参照する時間の引数を変える。
 
                 this.transform.Find("TimeHyouji_1/Image/calender_bg").gameObject.SetActive(false);
-                this.transform.Find("ContestTimePanel").gameObject.SetActive(true);
+                this.transform.Find("ContestTimePanel").gameObject.SetActive(true);                
                 ContestTimeDraw();
                 break;
 
@@ -221,10 +229,13 @@ public class TimePanel : MonoBehaviour {
         localAngle2.z = localAngle2.z + (-2.5f * (PlayerStatus.player_contest_minute / 5));
         clock_hari2Transform.localEulerAngles = localAngle2; // 回転角度を設定
 
-        //表示 月日
-        //_month_text1.text = PlayerStatus.player_cullent_month.ToString();
-        //_day_text1.text = PlayerStatus.player_cullent_day.ToString();
-        //_day_text2.text = PlayerStatus.player_cullent_month.ToString() + "/" + PlayerStatus.player_cullent_day.ToString();
+        //秒針
+        if (GameMgr.System_Contest_RealTimeProgress_ON)
+        {
+            clock_hari3.SetActive(true);
+            localAngle3.z = -1 * PlayerStatus.player_contest_second * 6; // ローカル座標を基準に、z軸を軸にした回転
+            clock_hari3Transform.localEulerAngles = localAngle3; // 回転角度を設定
+        }
 
 
         //表示用時間のカウント 秒がドットで進んでいく表示を更新するだけ。実際の時間には影響なし。

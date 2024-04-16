@@ -280,6 +280,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             GameMgr.contest_event_num = GameMgr.ContestSelectNum;
             GameMgr.contest_or_event_flag = true;
+            GameMgr.contest_MainMatchStart = false;
+            PlayerStatus.player_contest_second = 0;
         }
 
         //二回戦以降、始まる場合の処理　Utage_scenarioの採点後にフラグをたてている。
@@ -295,6 +297,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             sceneBGM.MuteBGM();
 
             GameMgr.contest_or_event_flag = true;
+            GameMgr.contest_MainMatchStart = false;
+            PlayerStatus.player_contest_second = 0;
         }
 
         //決勝戦終了後、賞品獲得
@@ -310,6 +314,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             sceneBGM.MuteBGM();
 
             GameMgr.contest_or_prizeget_flag = true;
+            GameMgr.contest_MainMatchStart = false;
+            PlayerStatus.player_contest_second = 0;
         }
 
         //コンテスト終了　会場外へでる。
@@ -317,6 +323,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         {
             GameMgr.contest_eventEnd_flag = false;
             GameMgr.Contest_ON = false;
+            GameMgr.contest_MainMatchStart = false;
+            PlayerStatus.player_contest_second = 0;
 
             //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
             //家に帰って寝る
@@ -390,6 +398,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     GameMgr.Scene_Select = 0;
 
                     GameMgr.Status_zero_readOK = true;
+                    GameMgr.contest_MainMatchStart = true; //本戦開始の合図　TimeControllerで時間が進み始める
 
                     //制限時間　30分を超えた場合、失格フラグ
                     if (GameMgr.contest_LimitTimeOver_Gameover_flag)

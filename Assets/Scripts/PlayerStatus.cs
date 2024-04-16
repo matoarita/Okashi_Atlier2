@@ -109,6 +109,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     //セーブ不要
     public static int player_contest_hour; //コンテストの現在時間　何時か
     public static int player_contest_minute; //コンテストの現在時間　何分か
+    public static int player_contest_second; //コンテストの現在時間　何分か
     public static int player_contest_LimitTime; //コンテストの制限時間
     //
 

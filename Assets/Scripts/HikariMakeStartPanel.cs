@@ -67,6 +67,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private Sprite charaIcon_sprite_1;
     private Sprite charaIcon_sprite_2;
     private Sprite charaIcon_sprite_3;
+    private Sprite charaIcon_sprite_4;
     private GameObject chara_Icon;
 
     private Slider _slider;
@@ -125,6 +126,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         charaIcon_sprite_1 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_02");
         charaIcon_sprite_2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_07");
         charaIcon_sprite_3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_08");
+        charaIcon_sprite_4 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/hikari_saiten_face_03");
         chara_Icon = this.transform.Find("Comp2/CharaPanel/Image").gameObject;
         chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_1;
 
@@ -216,7 +218,15 @@ public class HikariMakeStartPanel : MonoBehaviour {
             }
             else
             {
-                _hukidashi.text = "にいちゃん！" + "\n" + "ヒカリ、何作ろうかなぁ～？";
+                if (GameMgr.hikari_zairyo_no_flag) //材料がなくなった場合　ただし、一個以上はできてる
+                {
+                    chara_Icon.GetComponent<Image>().sprite = charaIcon_sprite_4;
+                    _hukidashi.text = "にいちゃん！" + "\n" + "いっぱいできたよ～！";
+                }
+                else
+                {
+                    _hukidashi.text = "にいちゃん！" + "\n" + "ヒカリ、何作ろうかなぁ～？"; //デフォルト
+                }
             }
         }
     }
