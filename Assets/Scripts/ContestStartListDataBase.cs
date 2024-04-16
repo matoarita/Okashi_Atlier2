@@ -120,6 +120,22 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         return 9999; //見つからなかった場合、9999
     }
 
+    //コンテストplace_numをいれると、そのコンテストのリストIDを返すメソッド
+    public int SearchContestPlaceNum(int ID)
+    {
+        i = 0;
+        while (i <= conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].Contest_placeNumID == ID)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
+    }
+
     //コンテスト名をいれると、そのコンテストのリストIDを返すメソッド
     public int SearchContestString(string Name)
     {

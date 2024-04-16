@@ -154,7 +154,6 @@ public class Live2DAnimationTrigger : MonoBehaviour {
     public void OishisoEndSignal() //アニメーションをフェードで終了し切り替えるためのフラグ
     {
         girl1_status.GirlOishiso_Status = 0; //０に戻す。
-        girl1_status.Walk_Start = true;
     }
 
     IEnumerator Waitalittle() //使用していない

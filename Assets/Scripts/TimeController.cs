@@ -81,6 +81,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private int heart_up_auto_param;
     private int manpuku_deg_param;
 
+    private int Start_count;
+    private bool Zairyo_nothing;
+
     // Use this for initialization
     void Start()
     {
@@ -254,13 +257,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                                         if (GameMgr.hikari_make_okashiFlag)
                                         {
-                                            GameMgr.hikari_make_okashiTimeCounter += 5 * GameMgr.TimeStep;
-                                            if (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost) //costtime=1が5分　ヒカリが作ると2倍時間かかる　
-                                                                                                                             //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
+                                            GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
+                                            if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
                                             {
-                                                GameMgr.hikari_make_okashiTimeCounter = 0;
+                                                GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
 
-                                                //お菓子制作。成功率を計算する。
+                                                //お菓子制作。材料チェックと成功率を計算する。
                                                 HikariMakeOkashiJudge();
 
                                             }
@@ -1120,7 +1122,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     }
 
     //時間をいれると、その経過時間をチェックし、お菓子を作ってないかを判定 Exp_Controllerから読み出し。
-    //にいちゃんとヒカリの材料消費の処理が入り組んで複雑なため、バグがある可能性大。ひとまず未使用。
     public void HikarimakeTimeCheck(int _costTime)
     {
         if (GameMgr.System_HikariMake_OnichanTimeCost_ON)
@@ -1130,24 +1131,40 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             {
                 if (GameMgr.hikari_make_okashiFlag)
                 {
-                    GameMgr.hikari_make_okashiTimeCounter += (GameMgr.TimeStep * _costTime); //hikari_make_okashiTimeCounterは0始まり
-
-                    while (GameMgr.hikari_make_okashiTimeCounter >= GameMgr.hikari_make_okashiTimeCost)
+                    //にいちゃんの制作時間より、まだヒカリの制作時間のほうが長い場合
+                    if(GameMgr.hikari_make_okashiTimeCounter > _costTime)
                     {
-                        //costtime=1が5分　ヒカリが作ると2倍時間かかる　
-                        //GameMgr.hikari_make_okashiTimeCostは60で割る前の時間が入る。表示するときに60で割り、時間に直している。
-
-                        GameMgr.hikari_make_okashiTimeCounter -= GameMgr.hikari_make_okashiTimeCost;
-
-                        //お菓子制作。個数と成功率を計算する。
-                        HikariMakeOkashiJudge();
-
-                        if (!GameMgr.hikari_make_okashiFlag)
+                        GameMgr.hikari_make_okashiTimeCounter -= _costTime; //ヒカリの制作時間を減らす
+                    }
+                    else //にいちゃんの制作時間中に、ヒカリの制作が終わった場合　数回繰り返す可能性がある
+                    {
+                        Zairyo_nothing = false;
+                        Start_count = _costTime;
+                        while (Start_count >= GameMgr.hikari_make_okashiTimeCounter)
                         {
-                            //終了
-                            break;
+                            Debug.Log("ヒカリのお菓子制作　チェック");
+
+                            Start_count -= GameMgr.hikari_make_okashiTimeCounter;
+
+                            //お菓子制作。個数チェックと成功率を計算する。
+                            HikariMakeOkashiJudge();
+
+                            if (!GameMgr.hikari_make_okashiFlag)
+                            {
+                                //終了 途中で材料なくなった
+                                Zairyo_nothing = true;
+                                break;
+                            }
+
+                            GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
+                        }
+
+                        if (!Zairyo_nothing)
+                        {
+                            GameMgr.hikari_make_okashiTimeCounter -= Start_count; //最後に余った制作時間分を、カウンタから減らす
                         }
                     }
+                    
                 }
             }
         }

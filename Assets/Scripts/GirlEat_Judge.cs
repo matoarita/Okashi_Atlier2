@@ -3672,6 +3672,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 MainUIPanel_obj.SetActive(true);
                 text_area.SetActive(true);
                 EffectClear_Feather();
+                GameMgr.Scene_Status = 0; //シーンステータスも戻す
+                GameMgr.Ajimi_AfterFlag = true;
+                GameMgr.AjimiAfter_Text = total_score.ToString() + "点" + "\n" + "味見してもらった。";
                 break;
 
 

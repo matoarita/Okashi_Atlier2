@@ -164,9 +164,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
         makeTimePanel = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel").gameObject;
         _slider = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel/Slider").GetComponent<Slider>();
         _slider.maxValue = GameMgr.hikari_make_okashiTimeCost;
-        _slider.value = GameMgr.hikari_make_okashiTimeCost - GameMgr.hikari_make_okashiTimeCounter;
+        _slider.value = GameMgr.hikari_make_okashiTimeCounter;
         _slider_text = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel/TimeTextPanel/TimeText").GetComponent<Text>();
-        _slider_text.text = ((GameMgr.hikari_make_okashiTimeCost - GameMgr.hikari_make_okashiTimeCounter) / 60.0f).ToString("F1");
+        _slider_text.text = (GameMgr.hikari_make_okashiTimeCounter / 60.0f).ToString("F1");
 
         hikari_success_text = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel/SuccessTextPanel/SuccessText").GetComponent<Text>();
         hikari_failed_text = this.transform.Find("Comp/MatPanel/Image/MakeTimePanel/SuccessTextPanel/FailedText").GetComponent<Text>();

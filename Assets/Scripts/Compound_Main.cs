@@ -711,6 +711,7 @@ public class Compound_Main : MonoBehaviour
             save_controller.DrawGameScreen();
             //keymanager.InitCompoundMainScene();
             GameMgr.MesaggeKoushinON = true;
+            StartRead = false;
             StartMessage();
 
             //時間をチェックし、背景を自動で変更

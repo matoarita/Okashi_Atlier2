@@ -40,8 +40,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public float timeOut;  //girleat_judgeから読んでいる
     public float timeOut2; //その他は、デバッグ用に外側からすぐ見れるようにpublicにしてる。
     public float timeOut3;
-    public float timeOutMoveX;
-    public float timeOutHeartDeg;
     public float timeOutHint;
     private float timeOutSec; //1秒ずつ減るカウンタ
     private float Default_hungry_cooltime;
@@ -61,8 +59,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public GameObject hukidashiitem;
     private bool hukidashion;
     private Text _text;
-
-    private GameObject Extremepanel_obj;
 
     private List<string> _touchhead_comment_lib = new List<string>();
     private string _touchhead_comment;
@@ -216,9 +212,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     //public bool touchanim_start; //タッチしはじめたら、その他のモーションなどを一時的に止める。
 
-    //歩きスタート
-    public bool Walk_Start;
-
     //特定のお菓子か、ランダムから選ぶかのフラグ
     public int OkashiNew_Status;
     public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
@@ -358,8 +351,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         timeOut = Default_hungry_cooltime;
         timeOut2 = 10.0f;
-        timeOutMoveX = 7.0f;
-        timeOutHeartDeg = 5.0f;
         timeGirl_hungry_status = 1;
         QuestManzoku_counter = 10;
 
@@ -406,8 +397,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //touchanim_start = false;
 
-        Walk_Start = true; //歩きフラグをON
-
         girl_Mazui_flag = false;        
 
 
@@ -434,9 +423,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         main_cam = Camera.main;
                         maincam_animator = main_cam.GetComponent<Animator>();
                         trans = maincam_animator.GetInteger("trans");
-
-                        //エクストリームパネルの取得
-                        Extremepanel_obj = GameObject.FindWithTag("ExtremePanel");
 
                         //BGMの取得
                         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -470,17 +456,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         GirlOishiso_Status = 0; //シーン移動でも、おいしそ～状態はリセット
                         _noweat_count = 0;
                         hukidashion = false;
-
-                        break;
-
-                    case 20:
-
-                        //カメラの取得
-                        /*main_cam = Camera.main;
-                        maincam_animator = main_cam.GetComponent<Animator>();
-                        trans = maincam_animator.GetInteger("trans");
-
-                        GirlEat_Judge_on = false;*/
 
                         break;
 
@@ -531,10 +506,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         //trueだと腹減りカウントが進む。
                         if (GirlEat_Judge_on)
                         {
-                            timeOut -= Time.deltaTime;
-                            timeOut2 -= Time.deltaTime;
-                            timeOutHeartDeg -= Time.deltaTime;
-                            timeOutMoveX -= Time.deltaTime;
+                            timeOut -= Time.deltaTime; //腹減りのカウンタ
+                            timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
 
                         }
 
@@ -582,7 +555,39 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
 
         }
-        else { 
+        else {
+
+            //タッチを終えたら、カウントスタートし、数秒後に元の状態にリセット
+            if (Girl1_touch_end) //Touch_Controllからtrueにしている。なので、女の子がいるシーンでないと、この中の処理は走らない。
+            {
+                WaitHint_on = false;
+                timeOut3 -= Time.deltaTime;
+
+                //一定時間がたち、元の状態に戻る。
+                if (timeOut3 <= 0.0f)
+                {
+                    GirlEat_Judge_on = true;
+
+                    _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                    Girl1_touch_end = false;
+                    CubismLookFlag = false;
+
+                    //表情をリセット
+                    switch (GameMgr.compound_status)
+                    {
+                        case 4: //調合中のシーン
+                            face_girl_Normal();
+                            break;
+
+                        default:
+                            DefFaceChange();
+                            break;
+                    }
+
+                    //吹き出し・ハングリーステータスをリセット
+                    ResetHukidashi();
+                }
+            }
 
             switch (GameMgr.Scene_Category_Num)
             {
@@ -658,37 +663,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             Girl1_Hint(Default_hukidashi_hyoujitime); //ランダムセリフ＋モーションを決定する
                         }
 
-                        //タッチを終えたら、カウントスタートし、数秒後に元の状態にリセット
-                        if (Girl1_touch_end)
-                        {
-                            WaitHint_on = false;
-                            timeOut3 -= Time.deltaTime;
-
-                            //一定時間がたち、元の状態に戻る。
-                            if (timeOut3 <= 0.0f)
-                            {
-                                GirlEat_Judge_on = true;
-                                
-                                _model.GetComponent<CubismEyeBlinkController>().enabled = true;                               
-                                Girl1_touch_end = false;
-                                CubismLookFlag = false;
-
-                                //表情をリセット
-                                switch (GameMgr.compound_status)
-                                {
-                                    case 4: //調合中のシーン
-                                        face_girl_Normal();
-                                        break;
-
-                                    default:
-                                        DefFaceChange();
-                                        break;
-                                }
-
-                                //吹き出し・ハングリーステータスをリセット
-                                ResetHukidashi();
-                            }
-                        }
+                        
 
                         //常に1秒をカウントするカウンタ
                         if (timeOutSec <= 0.0f)
@@ -720,18 +695,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 }
                             }
                         }
-
-                        //自動で歩く
-                        /*if (Walk_Start)
-                        {
-                            if (timeOutMoveX <= 0.0f)
-                            {
-                                rnd = Random.Range(3.0f, 10.0f);
-                                timeOutMoveX = 2.0f + rnd;
-
-                                IdleMoveX();
-                            }
-                        }*/
 
                     }
                     break;
@@ -1195,14 +1158,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 //GameMgr.sp_okashi_ID = 10000;
                 GameMgr.sp_okashi_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
-
-                //いくつかの特殊条件をみたすと、ミニイベントを開始。現在は未使用。
-                /*if(GameMgr.Okashi_Extra_SpEvent_Start)
-                {
-                    GameMgr.Okashi_Extra_SpEvent_Start = false;
-
-                    GameMgr.sp_okashi_ID = OkashiQuest_ID + 1;
-                }*/
             }
             //Debug.Log("OkashiQuest_ID: " + OkashiQuest_ID);
 
@@ -1517,6 +1472,31 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             }
                         }
                     }
+                }
+                break;
+
+            case 100: //コンテスト中
+
+                random = Random.Range(0, 100);
+                if (random >= 0 && random < 50)
+                {
+                    random = Random.Range(0, 2);
+                    switch (random)
+                    {
+                        case 0:
+
+                            FaceMotionPlay(1022);
+                            break;
+
+                        case 1:
+
+                            FaceMotionPlay(1025);
+                            break;
+                    }
+                }
+                else
+                {
+                    IdleMotionHukidashiSetting(1000); //吹き出しも一緒に生成
                 }
                 break;
 
@@ -2800,7 +2780,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         tween_start = false;*/
     }   
 
-    //ランダムで左右に動く
+    //ランダムで左右に動く 現在未使用
     void IdleMoveX()
     {
         rnd = Random.Range(2.0f, -2.0f);
@@ -2823,18 +2803,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             .SetRelative();
     }
 
-    //歩くをストップ
-    public void DoTSequence_Kill()
-    {
-        sequence_girlmove.Complete();
-        sequence_girlmove2.Complete();
-        timeOutMoveX = 7.0f;
-    }
-
     //移動した位置を元に戻す。
     public void ResetCharacterPosition()
     {
-        DoTSequence_Kill();
         character_move.transform.DOMoveX(0, 0.0f);
     }
 
@@ -2928,17 +2899,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 3:
 
-                    /*if (GameMgr.Costume_Num != 0)
-                    {
-                        //コスチュームモーション               
-                        IdleMotionHukidashiSetting(300);
-                    }
-                    else
-                    {
-                        //モーション1種類
-                        FaceMotionPlay(1003);
-                        IdleMotionHukidashiSetting(1); //吹き出しも一緒に生成
-                    }*/
                     IdleMotionHukidashiSetting(100); //吹き出しも一緒に生成
                     break;
             }
@@ -3756,6 +3716,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 FaceMotionPlay(1006);
                 _touchface_comment_lib.Add("..おにいちゃん！　おかえりなさい～☆");
+                break;
+
+            case 1000: //コンテスト中
+
+                _touchface_comment_lib.Add("..いっぱい作る～！！");
+                _touchface_comment_lib.Add("ぐ～るぐ～る☆");
+                _touchface_comment_lib.Add("..あわわ。粉入れすぎちゃった..。");
                 break;
 
             default:

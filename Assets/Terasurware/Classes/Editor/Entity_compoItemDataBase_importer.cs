@@ -8,8 +8,8 @@ using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 
 public class Entity_compoItemDataBase_importer : AssetPostprocessor {
-	private static readonly string filePath = "Assets/Excel_Data/Entity_compoItemDataBase.xlsx";
-	private static readonly string exportPath = "Assets/Excel_Data/Entity_compoItemDataBase.asset";
+	private static readonly string filePath = "Assets/Resources/Excel/Entity_compoItemDataBase.xlsx";
+	private static readonly string exportPath = "Assets/Resources/Excel/Entity_compoItemDataBase.asset";
 	private static readonly string[] sheetNames = { "Compound_ItemDB","magicCompound_ItemDB", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)

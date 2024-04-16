@@ -31,7 +31,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private Compound_Keisan compound_keisan;
     private BGAcceTrigger BGAccetrigger;
     private Debug_Panel debug_panel; //画面更新用のメソッドを借りる。
-    private BGM sceneBGM;
     private SoundController sc;
     private Special_Quest special_quest;
     private Exp_Controller exp_Controller;
@@ -1016,13 +1015,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 //メイン画面に表示する、現在のクエスト
                 questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
 
-                //BGMの取得
-                sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-
                 //サウンドコントローラーの取得
                 sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
                 sc.VolumeSetting();
 
+                
                 StageClearButton_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
                 StageClearbutton_audio = StageClearButton_panel.GetComponent<AudioSource>();
                 StageClearbutton_audio.volume = 1.0f * GameMgr.MasterVolumeParam * GameMgr.SeVolumeParam;
@@ -1031,17 +1028,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 bgpanelmatome = GameObject.FindWithTag("BG");
                 BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
 
+                
                 questname.text = girl1_status.OkashiQuest_Name;
-                sceneBGM.PlayMain(); //BGMの更新                               
 
                 GameMgr.extremepanel_Koushin = true;
+                
 
                 //衣装チェンジ
                 _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
                 _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeAcce();
+                
 
                 //飾りアイテムのセット
                 BGAccetrigger.DrawBGAcce();
+               
 
                 //背景を自動で変更
                 compound_Main.Change_BGimage();
@@ -1111,6 +1111,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //マップフラグの初期化
         matplace_database.ResetDefaultMapExcel();
+
+        //魔法の初期化
+        magicskill_database.ResetDefaultMapExcel();
 
         //各ショップのイベントアイテムの在庫の初期化
         shop_database.ShopZaiko_Reset();

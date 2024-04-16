@@ -8,8 +8,8 @@ using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 
 public class Entity_matplaceItemDataBase_importer : AssetPostprocessor {
-	private static readonly string filePath = "Assets/Excel_Data/Entity_matplaceItemDataBase.xlsx";
-	private static readonly string exportPath = "Assets/Excel_Data/Entity_matplaceItemDataBase.asset";
+	private static readonly string filePath = "Assets/Resources/Excel/Entity_matplaceItemDataBase.xlsx";
+	private static readonly string exportPath = "Assets/Resources/Excel/Entity_matplaceItemDataBase.asset";
 	private static readonly string[] sheetNames = { "01_map_Grt","01_map_Grt_Hikari","02_map_Or","02_map_Or_Hikari", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)

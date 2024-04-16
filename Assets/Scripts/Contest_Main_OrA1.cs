@@ -115,6 +115,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         /* デバッグ用 */
         //GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
         //GameMgr.Contest_Cate_Ranking = 1;
+        //GameMgr.Story_Mode = 1;
+        //GameMgr.GirlLoveEvent_num = 10;
         /* */
 
         //宴オブジェクトの読み込み。
@@ -372,6 +374,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     sceneBGM.MuteOFFBGM();
                     _model_move.SetActive(true);
                     live2d_animator.SetLayerWeight(3, 0.0f); //宴用表情はオフにしておく。
+                    GameMgr.CharacterTouch_ALLON = true; //タッチもオンにする。
 
                     if (!StartRead) //シーン最初だけ読み込む
                     {
@@ -469,7 +472,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     //各コンテストのデータの初期設定
     void ContestDataSetting()
     {
-        contest_name_origin = conteststartList_database.conteststart_lists[GameMgr.Contest_listnum].ContestName;
+        contest_name_origin = conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestName;
 
         if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
         {
@@ -552,7 +555,16 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     void text_default()
     {
-        _text.text = GameMgr.Contest_ProblemSentence;
+        if(GameMgr.Ajimi_AfterFlag)
+        {
+            GameMgr.Ajimi_AfterFlag = false;
+            _text.text = GameMgr.AjimiAfter_Text;
+        }
+        else
+        {
+            _text.text = GameMgr.Contest_ProblemSentence;
+        }
+        
     }
 
     void ContestData_001()

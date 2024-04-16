@@ -1410,8 +1410,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         GameMgr.hikari_make_success_count = 0;
         GameMgr.hikari_make_failed_count = 0;
-
-        GameMgr.hikari_make_okashiTimeCounter = 0;
+        
         GameMgr.hikari_make_doubleItemCreated = DoubleItemCreated;
         GameMgr.hikari_make_okashiKosu = 0;
 
@@ -1420,8 +1419,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         GameMgr.hikari_make_Allfailed = false;
 
-        //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が5分なので、*5。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
-        GameMgr.hikari_make_okashiTimeCost = (int)(databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cost_Time * 5f * 2 * GameMgr.hikari_make_okashiTime_costbuf);
+        //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が1分なので、*1。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
+        GameMgr.hikari_make_okashiTimeCost = 
+            (int)(databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cost_Time * 1f * 2 * GameMgr.hikari_make_okashiTime_costbuf);
+        GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
         //Debug.Log("GameMgr.hikari_make_okashiTime_costbuf: " + GameMgr.hikari_make_okashiTime_costbuf);
 
         if (GameMgr.hikari_kettei_toggleType[0] == 0)

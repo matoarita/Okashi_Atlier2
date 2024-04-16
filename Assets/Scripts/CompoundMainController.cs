@@ -908,8 +908,6 @@ public class CompoundMainController : MonoBehaviour {
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
                 girl1_status.IdleMotionReset();
-                girl1_status.DoTSequence_Kill();
-                girl1_status.Walk_Start = false;
 
                 //もし、リターンホーム中にすぐにシーン切り替えた場合用に、Live2D自体の位置もリセット。
                 trans_motion = 11;

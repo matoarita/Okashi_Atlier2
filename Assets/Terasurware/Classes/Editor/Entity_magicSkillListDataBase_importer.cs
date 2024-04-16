@@ -8,8 +8,8 @@ using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 
 public class Entity_magicSkillListDataBase_importer : AssetPostprocessor {
-	private static readonly string filePath = "Assets/Excel_Data/Entity_magicSkillListDataBase.xlsx";
-	private static readonly string exportPath = "Assets/Excel_Data/Entity_magicSkillListDataBase.asset";
+	private static readonly string filePath = "Assets/Resources/Excel/Entity_magicSkillListDataBase.xlsx";
+	private static readonly string exportPath = "Assets/Resources/Excel/Entity_magicSkillListDataBase.asset";
 	private static readonly string[] sheetNames = { "Sheet1", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)

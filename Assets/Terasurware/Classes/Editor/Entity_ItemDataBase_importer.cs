@@ -8,8 +8,8 @@ using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 
 public class Entity_ItemDataBase_importer : AssetPostprocessor {
-	private static readonly string filePath = "Assets/Excel_Data/Entity_ItemDataBase.xlsx";
-	private static readonly string exportPath = "Assets/Excel_Data/Entity_ItemDataBase.asset";
+	private static readonly string filePath = "Assets/Resources/Excel/Entity_ItemDataBase.xlsx";
+	private static readonly string exportPath = "Assets/Resources/Excel/Entity_ItemDataBase.asset";
 	private static readonly string[] sheetNames = { "01_ItemDB_Material","02_ItemDB_Okashi","03_ItemDB_Potion","04_ItemDB_Etc", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
