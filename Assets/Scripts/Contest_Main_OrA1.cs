@@ -72,6 +72,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
+    private GameObject yes_no_submit_panel;
+    private GameObject yes_no_giveup_panel;
+
     private GameObject contest_select;
     private GameObject conteston_toggle_01;
     private GameObject conteston_toggle_giveup;
@@ -113,10 +116,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Scene_Name = "Or_Contest";
         
         /* デバッグ用 */
-        //GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
-        //GameMgr.Contest_Cate_Ranking = 1;
-        //GameMgr.Story_Mode = 1;
-        //GameMgr.GirlLoveEvent_num = 10;
+        GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
+        GameMgr.Contest_Cate_Ranking = 1;
+        GameMgr.Story_Mode = 1;
+        GameMgr.GirlLoveEvent_num = 10;
         /* */
 
         //宴オブジェクトの読み込み。
@@ -177,6 +180,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         placename_panel.SetActive(false);
 
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+
+        yes_no_submit_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel1").gameObject;
+        yes_no_giveup_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
 
         contestPrizePanel = canvas.transform.Find("ContestPrizePanel").gameObject;
         contestPrizePanel.SetActive(false);
@@ -250,10 +256,13 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         GameMgr.Scene_Status = 0;
         StartRead = false;
-        contest_eventStart_flag = false;        
+        contest_eventStart_flag = false;
 
         //デバッグ用　最初に所持するアイテム
-        Debug_StartItem();
+        if (GameMgr.System_DebugItemSet_ON)
+        {
+            Debug_StartItem();
+        }
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -377,9 +386,13 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     text_area.SetActive(true);
                     //contest_select.SetActive(true);
                     //contest_startbutton_panel.SetActive(true);
+
                     yes_no_panel.SetActive(false);
+                    yes_no_giveup_panel.SetActive(false);
+                    yes_no_submit_panel.SetActive(false);
                     mainUI_panel.SetActive(true);
                     sceneBGM.MuteOFFBGM();
+
                     _model_move.SetActive(true);
                     live2d_animator.SetLayerWeight(3, 0.0f); //宴用表情はオフにしておく。
                     GameMgr.CharacterTouch_ALLON = true; //タッチもオンにする。
@@ -670,66 +683,6 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
-    public void OnCheck_GiveUp() //諦める
-    {
-        if (conteston_toggle_giveup.GetComponent<Toggle>().isOn == true)
-        {
-            conteston_toggle_giveup.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
-            GameMgr.Contest_ON = false;
-
-            FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
-        }
-    }
-
-    //審査員におかしを提出する
-    public void OnContestJudge_Start()
-    {
-        sceneBGM.MuteBGM();
-        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
-        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
-
-        GameMgr.contest_event_num = GameMgr.ContestSelectNum;
-
-        StartCoroutine("WaitForJudge");
-    }
-
-    IEnumerator WaitForJudge()
-    {
-        yield return new WaitForSeconds(1f); //1秒待つ
-
-        //お菓子を採点する
-        contest_judge.Contest_Judge_Start();
-
-        //パネルのお菓子を削除
-        pitemlist.deleteExtremePanelItem(0, 1);
-
-        GameMgr.contest_LimitTimeOver_DegScore_flag = false; //採点後にオフにする。
-        GameMgr.scenario_ON = true;
-        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
-        GameMgr.contest_or_contestjudge_flag = true;
-    }
-
-    //制限時間をこえたので失格
-    void LimitTimeOver()
-    {
-        sceneBGM.MuteBGM();
-        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
-        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
-
-        GameMgr.contest_event_num = GameMgr.ContestSelectNum;
-
-        StartCoroutine("WaitForLimitTimeOver");
-    }
-
-    IEnumerator WaitForLimitTimeOver()
-    {
-        yield return new WaitForSeconds(1f); //1秒待つ
-
-        GameMgr.scenario_ON = true;
-        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
-        GameMgr.contest_or_limittimeover_flag = true;
-    }
-
     IEnumerator Girl_present_Final_select()
     {
 
@@ -776,6 +729,196 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         }
     }
+
+
+
+
+    public void OnCheck_GiveUp() //諦める
+    {
+        if (conteston_toggle_giveup.GetComponent<Toggle>().isOn == true)
+        {
+            conteston_toggle_giveup.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            yes_no_giveup_panel.SetActive(true);
+            black_panel_A.SetActive(true);
+
+            //腹減りカウント一時停止
+            girl1_status.GirlEatJudgecounter_OFF();
+
+            text_area.SetActive(true);
+            _text.text = "にいちゃん！　コンテストあきらめる？";
+            StartCoroutine("GiveUp_Final_select");
+            
+        }
+    }
+
+    IEnumerator GiveUp_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+        yes_selectitem_kettei.onclick = false;
+
+        black_panel_A.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                yes_no_giveup_panel.SetActive(false);
+
+                GiveUpContest();
+
+                break;
+
+            case false:
+
+                //Debug.Log("cancel");
+
+                //_textmain.text = "";
+                GameMgr.Scene_Status = 0;
+                yes_no_giveup_panel.SetActive(false);
+
+                break;
+
+        }
+    }
+
+    //コンテストギブアップ　暗くなる演出
+    void GiveUpContest()
+    {
+        sceneBGM.MuteBGM();
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+        StartCoroutine("WaitForGiveUpContest");
+    }
+
+    IEnumerator WaitForGiveUpContest()
+    {
+        yield return new WaitForSeconds(2.0f); //1秒待つ
+
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
+        GameMgr.Contest_ON = false;
+        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+    }
+
+
+
+
+    //審査員におかしを提出する
+    public void OnContestJudge_Start()
+    {
+        yes_no_submit_panel.SetActive(true);
+        black_panel_A.SetActive(true);
+
+        //腹減りカウント一時停止
+        girl1_status.GirlEatJudgecounter_OFF();
+
+        text_area.SetActive(true);
+
+        if(pitemlist.player_extremepanel_itemlist.Count > 0)
+        {
+            _text.text = "にいちゃん！　このお菓子で提出する？";
+        }
+        else //まだできていない
+        {
+            _text.text = "にいちゃん！" + "\n" + "お菓子がまだできてないよ～・・。";
+            yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = false;
+            yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = false;
+        }
+        
+        StartCoroutine("Submit_Final_select");       
+    }
+
+    //提出する最終確認
+    IEnumerator Submit_Final_select()
+    {
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+        yes_selectitem_kettei.onclick = false;
+
+        black_panel_A.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                yes_no_submit_panel.SetActive(false);
+
+                sceneBGM.MuteBGM();
+                scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+                scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+                GameMgr.contest_event_num = GameMgr.ContestSelectNum;
+
+                StartCoroutine("WaitForJudge");
+
+                break;
+
+            case false:
+
+                //Debug.Log("cancel");
+
+                //_textmain.text = "";
+                GameMgr.Scene_Status = 0;
+                yes_no_submit_panel.SetActive(false);
+                yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
+                yes_no_submit_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+
+                break;
+
+        }
+    }
+
+    IEnumerator WaitForJudge()
+    {
+        yield return new WaitForSeconds(1f); //1秒待つ
+
+        //お菓子を採点する
+        contest_judge.Contest_Judge_Start();
+
+        //パネルのお菓子を削除
+        pitemlist.deleteExtremePanelItem(0, 1);
+
+        GameMgr.contest_LimitTimeOver_DegScore_flag = false; //採点後にオフにする。
+        GameMgr.scenario_ON = true;
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
+        GameMgr.contest_or_contestjudge_flag = true;
+    }
+
+
+
+
+    //制限時間をこえたので失格
+    void LimitTimeOver()
+    {
+        sceneBGM.MuteBGM();
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+        GameMgr.contest_event_num = GameMgr.ContestSelectNum;
+
+        StartCoroutine("WaitForLimitTimeOver");
+    }
+
+    IEnumerator WaitForLimitTimeOver()
+    {
+        yield return new WaitForSeconds(1f); //1秒待つ
+
+        GameMgr.scenario_ON = true;
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
+        GameMgr.contest_or_limittimeover_flag = true;
+    }
+
+   
+  
 
     void Debug_StartItem()
     {

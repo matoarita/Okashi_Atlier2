@@ -262,8 +262,9 @@ public class Compound_Check : MonoBehaviour {
                 resultitemName_obj.SetActive(true);
 
                 //確率パネルの取得・参照先を指定
-                kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
+                kakuritsuPanel_obj = compoBG_A.transform.Find("ExtremeImage/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+                kakuritsuPanel_obj.SetActive(true);
 
                 costTimePanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/CostTimePanel").gameObject;
                 _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
@@ -380,8 +381,8 @@ public class Compound_Check : MonoBehaviour {
                 itemID_1 = GameMgr.temp_itemID1;
                 itemID_2 = GameMgr.temp_itemID2;
 
-                GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
-                itemID_3 = GameMgr.Final_list_itemID3;
+                GameMgr.temp_itemID3 = 9999; //9999は空を表す数字
+                itemID_3 = GameMgr.temp_itemID3;
 
                 card_view.OKCard_DrawView02(GameMgr.Final_kettei_kosu2);
 
@@ -641,10 +642,10 @@ public class Compound_Check : MonoBehaviour {
                 itemID_1 = GameMgr.temp_itemID1;
                 baseitemID = GameMgr.temp_baseitemID;
 
-                GameMgr.Final_list_itemID2 = 9999; //9999は空を表す数字                
-                GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
-                itemID_2 = GameMgr.Final_list_itemID2;
-                itemID_3 = GameMgr.Final_list_itemID3;
+                GameMgr.temp_itemID2 = 9999; //9999は空を表す数字                
+                GameMgr.temp_itemID3 = 9999; //9999は空を表す数字
+                itemID_2 = GameMgr.temp_itemID2;
+                itemID_3 = GameMgr.temp_itemID3;
 
                 card_view.OKCard_DrawView02(1);
 
@@ -663,6 +664,7 @@ public class Compound_Check : MonoBehaviour {
                 }
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
+                kakuritsuPanel_obj.SetActive(false);
                 switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
@@ -712,8 +714,8 @@ public class Compound_Check : MonoBehaviour {
                 itemID_2 = GameMgr.temp_itemID2;
                 baseitemID = GameMgr.temp_baseitemID;
 
-                GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
-                itemID_3 = GameMgr.Final_list_itemID3;
+                GameMgr.temp_itemID3 = 9999; //9999は空を表す数字
+                itemID_3 = GameMgr.temp_itemID3;
 
                 card_view.OKCard_DrawView03(1);
 
@@ -733,6 +735,7 @@ public class Compound_Check : MonoBehaviour {
                 }
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
+                kakuritsuPanel_obj.SetActive(false);
                 switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
@@ -801,6 +804,7 @@ public class Compound_Check : MonoBehaviour {
                 }
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
+                kakuritsuPanel_obj.SetActive(false);
                 switch (yes_selectitem_kettei.kettei1)
                 {
                     case true:
@@ -925,8 +929,8 @@ public class Compound_Check : MonoBehaviour {
                 itemID_1 = GameMgr.temp_itemID1;
                 itemID_2 = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
-                GameMgr.Final_list_itemID3 = 9999; //9999は空を表す数字
-                itemID_3 = GameMgr.Final_list_itemID3;
+                GameMgr.temp_itemID3 = 9999; //9999は空を表す数字
+                itemID_3 = GameMgr.temp_itemID3;
 
                 if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non")
                 {
@@ -1323,28 +1327,86 @@ public class Compound_Check : MonoBehaviour {
         _cost_hourtext.text = _hour.ToString();
         _cost_minutestext.text = _minutes.ToString();
 
-        
 
+
+        //
+        //
+
+
+        newrecipi_flag = false;
+        hikari_nomake = false;
+
+
+        //新しいレシピかどうか。           
+        _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
+        if (databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
+        {
+            if (GameMgr.compound_select == 7) //ヒカリに作らせる場合　兄がおぼえていないレシピは作れない。
+            {
+                success_text = "にいちゃん～・・。このレシピ、見たことないよ～・・。";
+                exp_Controller._success_judge_flag = 2; //必ず失敗する
+                kakuritsuPanel.KakuritsuYosoku_Img(0);
+                exp_Controller.NewRecipiFlag = false;
+                newrecipi_flag = false;
+                compoDB_select_judge = false;
+                hikari_nomake = true;
+
+                resultitemID = "gomi_1";
+                //stringのリザルドアイテムを、アイテムIDに変換。
+                GameMgr.Final_result_itemID1 = database.SearchItemIDString(resultitemID);
+            }
+            else
+            {
+                success_text = "新しいお菓子を思いつきそう..？";
+                newrecipi_flag = true;
+                exp_Controller.NewRecipiFlag = true;
+                //kakuritsuPanel.KakuritsuYosoku_NewImg(); //??にする。
+            }
+        }
+        else
+        {
+            exp_Controller.NewRecipiFlag = false;
+            newrecipi_flag = false;
+        }
+
+        //例外処理　二個以上同時にできる場合は、新しいレシピとしては登録されない
+        if (exp_Controller.DoubleItemCreated == 1)
+        {
+            exp_Controller.NewRecipiFlag = false;
+        }
 
         //調合判定
         //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
         if (GameMgr.compound_select != 7)
         {
-            _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
+            if(GameMgr.compound_select != 2)
+            {
+                _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
+            }
+            else //トッピング調合の場合　新規レシピは確率計算するが、一度作ったことがあるか、特にレシピがない場合は100%
+            {
+                if(newrecipi_flag)
+                {
+                    _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
+                }
+                else
+                {
+                    _success_rate = 100f;
+                }
+            }           
         }
-           else
+        else
         {
             //ヒカリが作る場合、成功率を事前に計算
             bufpower_keisan.hikariBuf_okashilv(database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString()); //GameMgr.hikari_make_okashiTime_successrate_bufを事前計算
             _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
         }
        
-        newrecipi_flag = false;
-        hikari_nomake = false;
-
+        
         if (compoDB_select_judge == true)
         {
-
+            if(!newrecipi_flag)
+            { 
             if (_success_rate >= 0.0 && _success_rate < 20.0)
             {
                 //成功率超低い
@@ -1375,6 +1437,7 @@ public class Compound_Check : MonoBehaviour {
                 //１００％成功
                 success_text = "１００％成功する！！";
             }
+            }
 
 
             //調合判定を行うかどうか+成功確率の表示更新
@@ -1399,45 +1462,7 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
                 exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
-            }
-
-            //新しいレシピかどうか。           
-            _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
-            if (databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
-            {
-                if (GameMgr.compound_select == 7) //ヒカリに作らせる場合　兄がおぼえていないレシピは作れない。
-                {
-                    success_text = "にいちゃん～・・。このレシピ、見たことないよ～・・。";
-                    exp_Controller._success_judge_flag = 2; //必ず失敗する
-                    kakuritsuPanel.KakuritsuYosoku_Img(0);
-                    exp_Controller.NewRecipiFlag = false;
-                    newrecipi_flag = false;
-                    compoDB_select_judge = false;
-                    hikari_nomake = true;
-
-                    resultitemID = "gomi_1";
-                    //stringのリザルドアイテムを、アイテムIDに変換。
-                    GameMgr.Final_result_itemID1 = database.SearchItemIDString(resultitemID);
-                }
-                else
-                {
-                    success_text = "新しいお菓子を思いつきそう..？";
-                    newrecipi_flag = true;
-                    exp_Controller.NewRecipiFlag = true;
-                    //kakuritsuPanel.KakuritsuYosoku_NewImg(); //??にする。
-                }
-            }
-            else
-            {
-                exp_Controller.NewRecipiFlag = false;
-                newrecipi_flag = false;
-            }
-
-            //例外処理　二個以上同時にできる場合は、新しいレシピとしては登録されない
-            if (exp_Controller.DoubleItemCreated == 1)
-            {
-                exp_Controller.NewRecipiFlag = false;
-            }
+            }          
            
         }
         //どの調合リストにも当てはまらなかった場合
@@ -1448,7 +1473,7 @@ public class Compound_Check : MonoBehaviour {
             //エクストリーム調合の場合は、通常通りトッピングの処理を行う。
             if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
             {
-
+                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
             }
             else
             {

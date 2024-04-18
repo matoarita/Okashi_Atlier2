@@ -241,7 +241,7 @@ public class recipiitemSelectToggle : MonoBehaviour
             if (updown_counter_USE)
             {
                 updown_counter_obj.SetActive(true);
-                updown_counter.updown_keisan_Method();
+                updown_counter.updown_keisan_Method(); //アイテムIDのセッティングなどは、この中でやっている。
             }
 
             if (GameMgr.Scene_Category_Num == 200)
@@ -252,7 +252,10 @@ public class recipiitemSelectToggle : MonoBehaviour
             recipilistController.BlackImageON(); //背景を半透明ブラックにする。
 
             //調合判定を行うかどうか
-            exp_Controller._success_judge_flag = 1; //判定処理を行う。             
+            exp_Controller._success_judge_flag = 1; //判定処理を行う。       
+
+            //分岐　UpdownCounterでやっている。
+            //GameMgr.Comp_kettei_bunki = 3;
 
             //exp_Controller._success_rate = _success_rate;
 

@@ -507,15 +507,58 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
                     break;
 
+                case "Or_Comp_Entrance": //玄関から外にでる。
+
+                    sc.EnterSound_01();
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
+                    break;
+
                 case "Or_Shop_A1":
 
                     GameMgr.SceneSelectNum = 0; //ショップや酒場・コンテストなどは行く前に、どのエリアのお店なのか番号を指定する　名前は移動先シーンのメインcsのStartで決定
                     FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
                     break;
 
+                case "Or_Shop_B1":
+
+                    GameMgr.SceneSelectNum = 10; //
+                    FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Shop_C1":
+
+                    GameMgr.SceneSelectNum = 20; //
+                    FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Shop_D1":
+
+                    GameMgr.SceneSelectNum = 30; //
+                    FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+                    break;
+
                 case "Or_Bar_A1":
 
                     GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Bar_B1":
+
+                    GameMgr.SceneSelectNum = 10;
+                    FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Bar_C1":
+
+                    GameMgr.SceneSelectNum = 20;
+                    FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Bar_D1":
+
+                    GameMgr.SceneSelectNum = 30;
                     FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
                     break;
 
@@ -542,6 +585,25 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     GameMgr.SceneSelectNum = 0;
                     FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
                     break;
+
+                case "Or_Contest_B1":
+
+                    GameMgr.SceneSelectNum = 10;
+                    FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Contest_C1":
+
+                    GameMgr.SceneSelectNum = 20;
+                    FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Contest_D1":
+
+                    GameMgr.SceneSelectNum = 30;
+                    FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+                    break;
+
 
                 default:
 
@@ -574,46 +636,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
             GameMgr.Getmat_return_home = true;
             GameMgr.Scene_back_home = true; //玄関音鳴らすフラグ
             FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);   
-            
-
-            //GameMgr.Scene_Status = 0;
-            //GameMgr.compound_status = 0;
-
-            /*
-            
-            foreach (Transform child in slot_tansaku_button.transform) // 
-            {
-                child.GetComponent<Button>().interactable = true;
-            }
-            
-
-            foreach (Transform map_bg_child in map_bg_effect.transform) // map_bg_effect以下のオブジェクトをoff
-            {
-                map_bg_child.gameObject.SetActive(false);
-            }
-
-            slot_view.SetActive(false);
-
-            StatusPanelON();
-            moveanim_panel.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //背景黒フェード
-            this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(0, 0.0f); //背景黒フェードをOFF
-
-            //girl1_status.hukidasiOn();
-
-            //立ち絵もオフ
-            sister_stand_img1.SetActive(false);
-
-            //日数の経過。帰りも同じ時間かかる。
-            time_controller.SetMinuteToHour(GameMgr.Select_place_day);
-            time_controller.TimeKoushin(0);
-
-            //音量フェードイン
-            sceneBGM.FadeInBGM();           
-
-            //リザルトパネルを表示
-            ResultPanelOn();*/
-
-
 
         }
     }
@@ -901,7 +923,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 slot_view_status = 1;
                 GameMgr.Scene_Status = 22;
-                GameMgr.compound_status = 22;
+                //GameMgr.compound_status = 22;
 
                 //音量フェードイン
                 sceneBGM.MuteOFFBGM();
@@ -924,7 +946,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 StatusPanelON();
 
                 MapSetting_01();
-
+                MapSetting_02();
 
                 if (!subevent_on) //サブイベントなどが発生しなければ、そのままフェードをONにして探索開始
                 {
@@ -1664,7 +1686,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //森のBGM
                 sceneBGM.OnGetMat_LavenderFieldBGM();
-                //GameMgr.matbgm_change_flag = true;
 
                 //背景のSEを鳴らす。
                 map_ambience.MuteOFF();
@@ -1705,7 +1726,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //ベリーファームのBGM
                 sceneBGM.OnGetMat_BerryFarmBGM();
-                //GameMgr.matbgm_change_flag = true;
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Lavender").gameObject.SetActive(true);
@@ -1733,7 +1753,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //ストロベリーガーデンのBGM
                 sceneBGM.OnGetMat_StrawberryGardenBGM();
-                //GameMgr.matbgm_change_flag = true;
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_StrawberryGarden").gameObject.SetActive(true);
@@ -1770,7 +1789,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //ひまわり畑のBGM
                 sceneBGM.OnGetMat_HimawariHillBGM();
-                //GameMgr.matbgm_change_flag = true;
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
@@ -1807,7 +1825,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //バードサンクチュアリのBGM
                 sceneBGM.OnGetMat_BirdSanctualiBGM();
-                //GameMgr.matbgm_change_flag = true;
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_BirdSanctuali").gameObject.SetActive(true);
@@ -1847,7 +1864,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //ねこのおはかのBGM
                 sceneBGM.OnGetMat_CatGraveBGM();
-                //GameMgr.matbgm_change_flag = true;
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
@@ -1873,7 +1889,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //アイスの実の森のBGM
                 sceneBGM.OnGetMat_HimawariHillBGM();
-                //GameMgr.matbgm_change_flag = true;
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
@@ -1905,7 +1920,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //井戸のBGM
                 sceneBGM.OnGetMat_IdoBGM();
-                //GameMgr.matbgm_change_flag = true;
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
@@ -1939,6 +1953,75 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 break;
 
             default:
+                break;
+        }
+    }
+
+    //主にオランジーナ採取地関係
+    void MapSetting_02()
+    {
+        switch (GameMgr.Select_place_name)
+        {
+
+            case "Sakura_Forest":
+
+                //森のBGM
+                sceneBGM.OnGetMat_ForestBGM();
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "森のいい香りだ。ここはとても落ち着く..。";
+                }
+                else
+                {
+
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_01[0])
+                    {
+                        GameMgr.MapEvent_01[0] = true;
+
+                        _text.text = "すげぇ～～！森だー！";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避
+
+                        GameMgr.map_ev_ID = 10;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、いっぱいとろうね！";
+
+                        //サブイベントチェック
+                        //Debug.Log("ししゃもクッキー所持数: " + pitemlist.ReturnItemKosu("shishamo_cookie"));
+                        if (!event_end_flag) //来るたびの初回のみイベントチェック
+                        {
+                            event_end_flag = true;
+
+                            if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている　かつ　お菓子パネルにセットされてる
+                            {
+                                if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
+                                    pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
+                                {
+                                    GameMgr.map_ev_ID = 11;
+                                    GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                                    sceneBGM.MuteBGM(); //宴のBGMを使う
+                                    //this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
+                                    //getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
+                                    Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
+
+                                    StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
+                                }
+                            }
+                        }
+                    }
+                }
+
                 break;
         }
     }

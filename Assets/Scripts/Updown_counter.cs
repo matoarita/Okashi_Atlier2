@@ -1484,8 +1484,13 @@ public class Updown_counter : MonoBehaviour {
 
         //最終的な必要アイテム（パラメータは、現在デフォルトの値のみ）＋最終個数をコントローラー側の変数に代入
 
-        GameMgr.Final_list_itemID1 = itemdb_id1;
+        GameMgr.Final_list_itemID1 = itemdb_id1; //temp_itemIDと一緒っぽいが、Final_listは、各アイテムリストのリスト番号。なので、Final_toggle_Typeとセットで使う。
+        //レシピでは、現在デフォルトアイテムしか対応してないので、アイテムDBのリスト番号を指定していることになる。なので、中身は一緒になる。
+        //temp_itemIDは、アイテムDBのリスト番号を直接指定している。
         GameMgr.Final_list_itemID2 = itemdb_id2;
+
+        GameMgr.temp_itemID1 = itemdb_id1;
+        GameMgr.temp_itemID2 = itemdb_id2;
 
         GameMgr.Final_kettei_kosu1 = cmpitem_kosu1;
         GameMgr.Final_kettei_kosu2 = cmpitem_kosu2;
@@ -1493,6 +1498,7 @@ public class Updown_counter : MonoBehaviour {
         if (databaseCompo.compoitems[itemID_1].cmpitemID_3 == "empty") //2個のアイテムが必要な場合。３個めは空＝9999
         {
             GameMgr.Final_list_itemID3 = 9999;
+            GameMgr.temp_itemID3 = 9999;
             GameMgr.Final_kettei_kosu3 = 0;
 
             //押したタイミングで、分岐＝２に。
@@ -1501,6 +1507,7 @@ public class Updown_counter : MonoBehaviour {
         else //3個アイテムが必要な場合
         {
             GameMgr.Final_list_itemID3 = itemdb_id3;
+            GameMgr.temp_itemID3 = itemdb_id3;
             GameMgr.Final_kettei_kosu3 = cmpitem_kosu3;
 
             //押したタイミングで、分岐＝２に。

@@ -481,7 +481,7 @@ public class itemSelectToggle : MonoBehaviour
                 //リスト中の選択された番号を格納。
                 GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;                
                 GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
-                //GameMgr.Final_list_itemID1という変数に、プレイヤーが一個目に選択したアイテムIDのID→database.itemsのリスト番号に変換したものを格納する。
+                //GameMgr.Final_list_itemID1という変数には、プレイヤーアイテムリストのリスト番号が入ってる。
                 GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 //押したタイミングで、分岐＝１に。

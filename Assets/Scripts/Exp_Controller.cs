@@ -564,14 +564,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
-            time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);           
         }
         else
         {
             //コンテストのときは、コンテスト時間を計算
             time_controller.SetMinuteToHourContest(databaseCompo.compoitems[result_ID].cost_Time);
         }
+        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 
@@ -839,13 +839,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
-            time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);            
         }
         else
         {
             time_controller.SetMinuteToHourContest(databaseCompo.compoitems[result_ID].cost_Time);
         }
+        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1073,12 +1073,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         if (!GameMgr.Contest_ON)
         {
             time_controller.SetMinuteToHour(15);
-            time_controller.HikarimakeTimeCheck(15); //ヒカリのお菓子作り時間を計算
         }
         else
         {
             time_controller.SetMinuteToHourContest(15);
         }
+        time_controller.HikarimakeTimeCheck(15); //ヒカリのお菓子作り時間を計算
 
         //経験値の増減後、レベルアップしたかどうかをチェック
         //exp_table.Check_LevelUp();
@@ -1277,13 +1277,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);
-            time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);           
         }
         else
         {
             time_controller.SetMinuteToHourContest(databaseCompo.compoitems[result_ID].cost_Time);
         }
+        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 

@@ -790,10 +790,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //プレイヤーのエメラルドアイテムリスト。
-        /*for (i = 0; i < playerData.save_player_emeralditemlist.Count; i++)
+        for (i = 0; i < playerData.save_player_emeralditemlist.Count; i++)
         {
             pitemlist.ReSetEmeraldItemString(playerData.save_player_emeralditemlist[i].itemName, playerData.save_player_emeralditemlist[i].itemKosu);
-        }*/
+        }
 
         //アイテムリスト＜オリジナル＞
         pitemlist.player_originalitemlist.Clear();
@@ -1189,8 +1189,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //周回しても引き継がれる要素
 
-        //どんぐりと装備品やオーブン置物
-        _tempdongrilist.Clear();
+        //どんぐりと装備品やオーブン置物 2ではもう引き継ぎはされないようにする
+        /*_tempdongrilist.Clear();
         for (i = 0; i < database.items.Count; i++)
         {
             if(database.items[i].itemType_sub.ToString() == "Donguri" ||
@@ -1199,7 +1199,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             {
                 _tempdongrilist.Add(new ItemSaveKosu(database.items[i].itemName, pitemlist.playeritemlist[database.items[i].itemName], 0));
             }
-        }
+        }*/
 
         //エメラルドアイテム
         _temp_emeralditemlist.Clear();
@@ -1307,7 +1307,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_acce_num = GameMgr.Accesory_Num,
 
             //アイテムリスト＜どんぐりと装備品関係＞
-            save_dongurilist = _tempdongrilist,
+            //save_dongurilist = _tempdongrilist,
 
             //エメラルドアイテム
             save_player_emeralditemlist = _temp_emeralditemlist,
@@ -1427,10 +1427,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.Accesory_Num = systemData.save_acce_num;
             
             //アイテムリスト＜どんぐりと装備品＞
-            for (i = 0; i < systemData.save_dongurilist.Count; i++)
+            /*for (i = 0; i < systemData.save_dongurilist.Count; i++)
             {
                 pitemlist.ReSetPlayerItemString(systemData.save_dongurilist[i].itemName, systemData.save_dongurilist[i].itemKosu);
-            }
+            }*/
 
             //プレイヤーのエメラルドアイテムリスト。
             for (i = 0; i < systemData.save_player_emeralditemlist.Count; i++)

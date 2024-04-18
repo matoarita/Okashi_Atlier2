@@ -30,7 +30,10 @@ public class Compound_Main_Or : MonoBehaviour {
 
         GameMgr.Scene_Name = "Or_Compound";
 
-        //DebugStartItem();
+        if (GameMgr.System_DebugItemSet_ON)
+        {
+            DebugStartItem();
+        }
     }
 	
 	// Update is called once per frame
