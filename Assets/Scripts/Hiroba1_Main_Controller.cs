@@ -447,6 +447,46 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_BarActive03();
                     break;
 
+                case "Or_Hiroba_Winter_Entrance":
+
+                    On_Active150();
+                    break;
+
+                case "Or_Hiroba_Winter_EntranceHiroba":
+
+                    On_Active151();
+                    break;
+
+                case "Or_Hiroba_Winter_Street1":
+
+                    On_Active152();
+                    break;
+
+                case "Or_Hiroba_Winter_MainStreet":
+
+                    On_Active153();
+                    break;
+
+                case "Or_Hiroba_Winter_MainHiroba":
+
+                    On_Active154();
+                    break;
+
+                case "Or_Hiroba_Winter_Street2":
+
+                    On_Active155();
+                    break;
+
+                case "Or_Hiroba_Winter_ContestBridge":
+
+                    On_ContestActive04();
+                    break;
+
+                case "Or_Hiroba_Winter_Street3":
+
+                    On_Active161();
+                    break;
+
                 default:
 
                     On_Active100();
@@ -487,6 +527,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Summer_MainStreet":
 
                     On_Active52();
+                    break;
+
+                case "Or_Hiroba_Winter_MainHiroba":
+
+                    On_Active160();
                     break;
 
                 default:
@@ -601,6 +646,51 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active102();
                     break;
 
+                case "Or_Hiroba_Autumn_UraStreet":
+
+                    On_Active101();
+                    break;
+
+                case "Or_Hiroba_Winter_EntranceHiroba":
+
+                    On_Active04();
+                    break;
+
+                case "Or_Hiroba_Winter_Street1":
+
+                    On_Active150();
+                    break;
+
+                case "Or_Hiroba_Winter_MainStreet":
+
+                    On_Active151();
+                    break;
+
+                case "Or_Hiroba_Winter_MainHiroba":
+
+                    On_Active152();
+                    break;
+
+                case "Or_Hiroba_Winter_Street2":
+
+                    On_Active153();
+                    break;
+
+                case "Or_Hiroba_Winter_ContestBridge":
+
+                    On_Active154();
+                    break;
+
+                case "Or_Hiroba_Winter_Street3":
+
+                    On_Active153();
+                    break;
+
+                case "Or_Hiroba_Winter_PatissierHouseMae":
+
+                    On_Active160();
+                    break;
+
                 default:
 
                     On_Active1002();
@@ -663,6 +753,31 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active103();
                     break;
 
+                case "Or_Hiroba_Winter_EntranceHiroba":
+
+                    On_NPC_MagicActive04();
+                    break;
+
+                case "Or_Hiroba_Winter_Street1":
+
+                    On_ShopActive04();
+                    break;
+
+                case "Or_Hiroba_Winter_MainStreet":
+
+                    On_ShopActive04();
+                    break;
+
+                case "Or_Hiroba_Winter_MainHiroba":
+
+                    On_BarActive04();
+                    break;
+
+                case "Or_Hiroba_Winter_PatissierHouseMae":
+
+                    On_NPC_MagicActive05();
+                    break;
+
                 default:
 
                     On_Active1003();
@@ -693,6 +808,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Summer_MainStreet":
 
                     On_Active70();
+                    break;
+
+                case "Or_Hiroba_Autumn_MainStreet":
+
+                    On_Active104();
                     break;
 
                 default:
@@ -1067,6 +1187,96 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    void On_Active104()
+    {
+        //_text.text = "秋エリア　裏通りへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 205;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active150()
+    {
+        //_text.text = "冬エリア　入口前広場　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 301;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active151()
+    {
+        //_text.text = "冬エリア　広場通り　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 302;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active152()
+    {
+        //_text.text = "冬エリア　メインストリート　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 303;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active153()
+    {
+        //_text.text = "冬エリア　大広場　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 304;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active154()
+    {
+        //_text.text = "冬エリア　大広場右　細い通り　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 305;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active155()
+    {
+        //_text.text = "冬エリア　コンテスト前の橋　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 306;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active160()
+    {
+        //_text.text = "冬エリア　大広場左　通り　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 320;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active161()
+    {
+        //_text.text = "冬エリア　パティシエ家前1　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 321;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
     void On_ShopActive01()
     {
         //_text.text = "春エリアのお店へ入る";
@@ -1100,6 +1310,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 20;
+        FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+    }
+
+    void On_ShopActive04()
+    {
+        //_text.text = "冬エリアのお店へ入る";
+
+        //入店の音
+        sc.ShopEnterSound01();
+
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 30;
         FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
     }
 
@@ -1139,6 +1361,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
     }
 
+    void On_BarActive04()
+    {
+        //_text.text = "秋エリアの酒場へ入る";
+
+        //入店の音
+        sc.ShopEnterSound01();
+
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 30;
+        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+    }
+
     void On_ContestActive01()
     {
         //_text.text = "春エリアのコンテスト01";
@@ -1161,11 +1395,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_ContestActive03()
     {
-        //_text.text = "夏エリアのコンテスト01";
+        //_text.text = "秋エリアのコンテスト01";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 20;
+        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
+    }
+
+    void On_ContestActive04()
+    {
+        //_text.text = "冬エリアのコンテスト01";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 30;
         FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
     }
 
@@ -1186,6 +1430,36 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 10;
+        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+    }
+
+    void On_NPC_MagicActive03()
+    {
+        //_text.text = "秋エリアの魔法の先生の家へ入る";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 20;
+        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+    }
+
+    void On_NPC_MagicActive04()
+    {
+        //_text.text = "冬エリアの魔法の先生１の家へ入る";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 30;
+        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+    }
+
+    void On_NPC_MagicActive05()
+    {
+        //_text.text = "冬エリアの魔法の先生２の家へ入る";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 40;
         FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
     }
 
@@ -1854,6 +2128,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 break;
 
+            case "Or_Hiroba_Autumn_UraStreet": //秋エリア　裏通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_205").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オータム・リーブスの裏通りだ。";
+
+                break;
+
             case "Or_Hiroba_Winter_Entrance": //冬エリア　入口
 
                 //移動用リストオブジェクトの取得
@@ -1861,9 +2146,99 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは、スノーマンズ・レストの入口だ。" + "\n" + "夜の真っ暗で幻想的な雰囲気に包まれている。";
+                default_scenetext = "ここは、スノーマンズ・レストの入口だ。";
 
                 break;
+
+
+            case "Or_Hiroba_Winter_EntranceHiroba": //冬エリア　前広場
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_301").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、スノーマンズ・レストの入口広場だ。" + "\n" + "夜の真っ暗で幻想的な雰囲気に包まれている。";
+
+                break;
+
+            case "Or_Hiroba_Winter_Street1": //冬エリア　広場通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_302").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、スノーマンズ・レストの広場通りだ。";
+
+                break;
+
+            case "Or_Hiroba_Winter_MainStreet": //冬エリア　広場通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_303").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、スノーマンズ・レストのメインストリートだ。";
+
+                break;
+
+            case "Or_Hiroba_Winter_MainHiroba": //冬エリア　広場通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_304").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、スノーマンズ・レストの大広場だ。";
+
+                break;
+
+            case "Or_Hiroba_Winter_Street2": //冬エリア　右奥の細道
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_305").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、大広場からの細い通りのようだ。";
+
+                break;
+
+            case "Or_Hiroba_Winter_ContestBridge": //冬エリア　コンテスト会場前の橋
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_306").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、スノーマンズ・レストの橋だ。";
+
+                break;
+
+            case "Or_Hiroba_Winter_Street3": //冬エリア　左奥の通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_320").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、大広場からの通りだ。";
+
+                break;
+
+            case "Or_Hiroba_Winter_PatissierHouseMae": //冬エリア　パティシエの家前
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_321").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、星パティシエの家の前のようだ。";
+
+                break;
+
             default:
 
                 break;

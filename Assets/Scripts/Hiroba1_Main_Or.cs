@@ -145,11 +145,73 @@ public class Hiroba1_Main_Or : MonoBehaviour
                 SettingBGPanel("Map204"); //Map〇〇のリスト番号を指定
                 break;
 
-            case 300: //冬エリア
+            case 205: //秋エリア　裏通り　まだ入れてない
+
+                GameMgr.Scene_Name = "Or_Hiroba_Autumn_UraStreet";
+                SettingBGPanel("Map205"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 300: //冬エリア　入口
 
                 GameMgr.Scene_Name = "Or_Hiroba_Winter_Entrance";
                 SettingBGPanel("Map300"); //Map〇〇のリスト番号を指定
                 
+                break;
+
+            case 301: //冬エリア　街前広場
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_EntranceHiroba";
+                SettingBGPanel("Map301"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 302: //冬エリア　広場からの通り
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_Street1";
+                SettingBGPanel("Map302"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 303: //冬エリア　メインストリート
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_MainStreet";
+                SettingBGPanel("Map303"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 304: //冬エリア　大広場
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_MainHiroba";
+                SettingBGPanel("Map304"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 305: //冬エリア　右奥の細道
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_Street2";
+                SettingBGPanel("Map305"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 306: //冬エリア　コンテスト会場前の橋
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_ContestBridge";
+                SettingBGPanel("Map306"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 320: //冬エリア　左奥の通り
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_Street3";
+                SettingBGPanel("Map320"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 321: //冬エリア　パティシエ家前
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_PatissierHouseMae";
+                SettingBGPanel("Map321"); //Map〇〇のリスト番号を指定
+
                 break;
 
             default:

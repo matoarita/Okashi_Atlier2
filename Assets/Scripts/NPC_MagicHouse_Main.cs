@@ -187,7 +187,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 13; //バックボタン押したときの戻り先
 
-                default_scenetext = "はぁあ～・・。だる～い・・。";
+                default_scenetext = "こんにちは。" + "\n" + "火の魔法を教えてあげますよ。ふふ。";
                 break;
 
             case 10: //夏のパティシエ魔法の先生
@@ -196,7 +196,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 152; //バックボタン押したときの戻り先
 
-                default_scenetext = "あら、どなた？" + "\n" + "ここは氷のパティシエであるこの私の家ですよ。";
+                default_scenetext = "ヘイヘイヘーーーーイ！！ボウヤ！" + "\n" + "氷の魔法を習いにきましたか～！？";
                 break;
 
             case 20: //秋のパティシエ魔法の先生
@@ -205,16 +205,25 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 152; //バックボタン押したときの戻り先
 
-                default_scenetext = "木枯らしがたまりませんね。" + "\n" + "私は風のパティシエ～ル。芸術ですな。";
+                default_scenetext = "はぁあ～・・。だる～い・・。" + "\n" + "風魔法～？　えー・・。";
                 break;
 
-            case 30: //冬のパティシエ魔法の先生
+            case 30: //冬のパティシエ魔法の先生１
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Winter";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
-                backnum = 152; //バックボタン押したときの戻り先
+                backnum = 301; //バックボタン押したときの戻り先
 
-                default_scenetext = "こんにちは..。" + "\n" + "私は光のパティシエ..。なにして遊ぶ？";
+                default_scenetext = "..。" + "\n" + "..お前たち。光の魔法を習いにきたのか..？　フン..。";
+                break;
+
+            case 40: //冬のパティシエ魔法の先生２
+
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Winter";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 321; //バックボタン押したときの戻り先
+
+                default_scenetext = "ムッシュ～！" + "\n" + "ここは星の魔法を覚えれますヨ～。";
                 break;
 
         }

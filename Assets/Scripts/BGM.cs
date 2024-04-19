@@ -361,7 +361,47 @@ public class BGM : MonoBehaviour {
                                 _bgm[0].clip = sound43;
                                 break;
 
-                            case "Or_Hiroba_Winter_Entrance": //冬のエリア入口
+                            case "Or_Hiroba_Winter_Entrance": //冬のエリア入口　雪道
+
+                                _bgm[0].clip = sound44;
+                                break;
+
+                            case "Or_Hiroba_Winter_EntranceHiroba": //冬のエリア入口
+
+                                _bgm[0].clip = sound44;
+                                break;
+
+                            case "Or_Hiroba_Winter_Street1": //冬のエリア入口から奥の広場通り
+
+                                _bgm[0].clip = sound44;
+                                break;
+
+                            case "Or_Hiroba_Winter_MainStreet": //冬のエリア入口から奥の広場通り
+
+                                _bgm[0].clip = sound44;
+                                break;
+
+                            case "Or_Hiroba_Winter_MainHiroba": //冬のエリア入口から奥の広場通り
+
+                                _bgm[0].clip = sound44;
+                                break;
+
+                            case "Or_Hiroba_Winter_Street2": //冬のエリア入口から奥の広場通り
+
+                                _bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                break;
+
+                            case "Or_Hiroba_Winter_ContestBridge": //冬のエリア入口から奥の広場通り
+
+                                _bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                break;
+
+                            case "Or_Hiroba_Winter_Street3": //冬のエリア入口から奥の広場通り
+
+                                _bgm[0].clip = sound44;
+                                break;
+
+                            case "Or_Hiroba_Winter_PatissierHouseMae": //冬のエリア入口から奥の広場通り
 
                                 _bgm[0].clip = sound44;
                                 break;

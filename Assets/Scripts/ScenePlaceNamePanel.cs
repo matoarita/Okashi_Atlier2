@@ -156,12 +156,59 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Autumn Leaves BarStreet";
                                 break;
 
-                            case "Or_Hiroba_Winter_Entrance": //冬のエリア入口
+                            case "Or_Hiroba_Winter_Entrance": //冬のエリア入口　雪の通り
 
                                 _text = "スノーマンズ・レスト";
                                 _subtext = "SnowMan's Resting Place";
                                 break;
 
+                            case "Or_Hiroba_Winter_EntranceHiroba": //冬のエリア入口
+
+                                _text = "スノーマンズ・レスト" + "\n" + "入口広場";
+                                _subtext = "SnowMan's Resting Entrance";
+                                break;
+
+                            case "Or_Hiroba_Winter_Street1": //冬のエリア入口から奥通り
+
+                                _text = "ランプ街道";
+                                _subtext = "Lamp Street";
+                                break;
+
+                            case "Or_Hiroba_Winter_MainStreet": //冬のエリア入口から奥の広場通り
+
+                                _text = "小街道";
+                                _subtext = "SnowMan's Main Street";
+                                break;
+
+                            case "Or_Hiroba_Winter_MainHiroba": //冬のエリア入口から奥の広場通り
+
+                                _text = "雪うさぎの大広場";
+                                _subtext = "SnowMan's Rabbits Campo";
+                                break;
+
+                            case "Or_Hiroba_Winter_Street2": //冬のエリア入口から奥の広場通り
+
+                                _text = "";
+                                _subtext = "";
+                                break;
+
+                            case "Or_Hiroba_Winter_ContestBridge": //冬のエリア入口から奥の広場通り
+
+                                _text = "ミルキー・ブリッジ";
+                                _subtext = "Milky Bridge";
+                                break;
+
+                            case "Or_Hiroba_Winter_Street3": //冬のエリア入口から奥の広場通り
+
+                                _text = "";
+                                _subtext = "";
+                                break;
+
+                            case "Or_Hiroba_Winter_PatissierHouseMae": //冬のエリア入口から奥の広場通り
+
+                                _text = "星降る夜の小広場";
+                                _subtext = "Star Nights Campo";
+                                break;
                             default:
 
                                 break;

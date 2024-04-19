@@ -192,7 +192,7 @@ public class Contest_Main_Outside : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Contest_Out_Autumn";
                 SettingBGPanel(3); //Map〇〇のリスト番号を指定
                 gotonum = 30; //会場受付シーンの指定
-                backnum = 151; //バックボタン押したときの戻り先
+                backnum = 306; //バックボタン押したときの戻り先
 
                 default_scenetext = "冬コンテストの会場だ！　にいちゃん！！" + "\n" + "さぶいぃ.. はやく中入ろう！";
                 break;
