@@ -104,7 +104,7 @@ public class ItemMatPlace
         mapIcon_sprite = Resources.Load<Sprite>("Sprites/BG_Icon/" + fileName);
 
         center_bg = Resources.Load<Sprite>("Utage_Scenario/Texture/Bg/MatPlace/" + _center_bg);
-        back_bg = Resources.Load<Sprite>("Utage_Scenario/Texture/Bg/" + _back_bg);
+        back_bg = Resources.Load<Sprite>("Utage_Scenario/Texture/Bg/MatPlace/" + _back_bg);
 
         read_end = _read_end;
     }

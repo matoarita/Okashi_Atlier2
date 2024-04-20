@@ -631,7 +631,24 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             GameMgr.Getmat_return_home = true;
             GameMgr.Scene_back_home = true; //玄関音鳴らすフラグ
-            FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);   
+
+            switch (GameMgr.GetMat_BackPlaceName)
+            {
+                case "Compound":
+
+                    FadeManager.Instance.LoadScene("Compound", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Compound":
+
+                    FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
+                    break;
+
+                default:
+                    FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
+                    break;
+            }
+             
 
         }
     }
@@ -845,6 +862,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     //リザルトアイテムをリセット
                     InitializeResultItemDicts();
+
+                    //戻り先もセット
+                    GameMgr.GetMat_BackPlaceName = GameMgr.Scene_Name;
 
                     //腹も減る
                     if (GameMgr.Story_Mode != 0)

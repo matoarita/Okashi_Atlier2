@@ -570,6 +570,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Utage_Prizepanel_Type; //コンテストのシーン再生中、賞品リストか順位表を表示する際のタイプ指定
     public static bool Ajimi_AfterFlag; //味見直後　テキスト更新用のフラグ
     public static string AjimiAfter_Text; //味見直後　テキスト
+    public static string GetMat_BackPlaceName; //採取から戻るときの戻り先の指定
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
