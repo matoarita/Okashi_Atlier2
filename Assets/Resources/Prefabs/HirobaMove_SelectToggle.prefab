@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 114089433532564458}
   - component: {fileID: 114208565480201866}
   - component: {fileID: 114102858688194268}
+  - component: {fileID: 114418588338992948}
   - component: {fileID: 114494211544430656}
   m_Layer: 0
   m_Name: HirobaMove_SelectToggle
@@ -644,6 +645,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114418588338992948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356900222938430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8714e3bc242179b4bb8e49d1aea673e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114418700524297692
 MonoBehaviour:
   m_ObjectHideFlags: 1

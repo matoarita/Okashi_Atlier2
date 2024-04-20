@@ -126,76 +126,7 @@ public class ShopQuestListController : MonoBehaviour
 
     }
 
-    //ランダムでクエストを３つ選ぶ。現在は、入店時のタイミング
-    public void RandomQuestSelect()
-    {
-        InitiallizeRandomQuestDatabase(); //ストーリー進行にそって、どのクエストが選ばれるかを初期化
-
-        quest_database.questRandomset.Clear();
-
-        //ランダムでセット３つを選ぶ。
-        for (i = 0; i < sel_quest_count; i++)
-        {
-            rand = Random.Range(0, selectquestDB.Count);
-
-            quest_database.RandomNewSetInit(selectquestDB[rand]);
-
-        }
-
-        //ハートレベルに応じて、追加するクエスト（レベル5～から追加されていく）
-        if(PlayerStatus.girl1_Love_lv >= 5)
-        {
-            quest2_count_add = Mathf.FloorToInt(PlayerStatus.girl1_Love_lv / 5); //LV5ごとに一個ずつ表示されるクエストが増えていく。
-            if(quest2_count_add >= 10) //10個まで
-            {
-                quest2_count_add = 10;
-            }
-            for (i = 0; i < sel_quest_count2 + quest2_count_add; i++)
-            {
-                rand = Random.Range(0, selectquestDB2.Count);
-
-                quest_database.RandomNewSetInit2(selectquestDB2[rand]);
-
-            }
-        }
-    }
-
-    void InitiallizeRandomQuestDatabase()
-    {
-        selectquestDB.Clear();
-        selectquestDB2.Clear();
-
-        //シナリオの進行度に応じて、クエストが変化する。
-        if (GameMgr.Story_Mode == 0)
-        {
-            for (j = 0; j < quest_database.questset.Count; j++)
-            {
-                if (quest_database.questset[j].QuestHyouji <= GameMgr.GirlLoveEvent_num)//GirlLoveEvent_numは、0~50まで。10の単位。
-                {
-                    selectquestDB.Add(j);
-                }
-            }
-        }
-        else //エクストラモードのみ
-        {
-            for (j = 0; j < quest_database.questset.Count; j++)
-            {
-                if (quest_database.questset[j].QuestHyouji <= PlayerStatus.player_ninki_param)//名声値に応じてクエストでる。名声が100なら、QuestHyoujiが100以下のものがでる。
-                {
-                    selectquestDB.Add(j);
-                }
-            }           
-        }
-
-        //ハートレベルに応じて、追加するクエスト
-        for (j = 0; j < quest_database.questset2.Count; j++)
-        {
-            if (quest_database.questset2[j].QuestHyouji <= PlayerStatus.girl1_Love_lv) //PlayerStatus.girl1_Love_lv
-            {
-                selectquestDB2.Add(j);
-            }
-        }
-    }
+    
 
     // リストビューの描画部分。重要。
     public void reset_and_DrawView()
@@ -213,11 +144,18 @@ public class ShopQuestListController : MonoBehaviour
         list_count = 0;
         _quest_listitem.Clear();
 
+
+        drawQuest();
+        
+
+    }
+
+    void drawQuest()
+    {
         for (i = 0; i < quest_database.questRandomset.Count; i++)
         {
             //if (quest_database.questRandomset[i].shop_item_hyouji > 0) //1だと表示する。章によって、品ぞろえを追加する場合などに、フラグとして使用する。
             //{
-
 
             _quest_listitem.Add(Instantiate(questitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
             _text = _quest_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、6つのテキストコンポを格納する。
@@ -256,7 +194,6 @@ public class ShopQuestListController : MonoBehaviour
 
             //}
         }
-
     }
     
     public void NouhinList_DrawView()
@@ -331,6 +268,103 @@ public class ShopQuestListController : MonoBehaviour
         
     }
 
+    //ランダムでクエストを３つ選ぶ。現在は、入店時のタイミング
+    public void RandomQuestSelect()
+    {
+        InitiallizeRandomQuestDatabase(); //はーとレベルにそって、どのクエストが選ばれるかを初期化
+
+        quest_database.questRandomset.Clear();
+
+        //ランダムでセット３つを選ぶ。
+        for (i = 0; i < sel_quest_count; i++)
+        {
+            rand = Random.Range(0, selectquestDB.Count);
+
+            quest_database.RandomNewSetInit(selectquestDB[rand]);
+
+        }
+
+        //ハートレベルに応じて、さらに追加するクエスト（レベル5～から追加されていく）　たんに数が増える
+        if (PlayerStatus.girl1_Love_lv >= 5)
+        {
+            quest2_count_add = Mathf.FloorToInt(PlayerStatus.girl1_Love_lv / 5); //LV5ごとに一個ずつ表示されるクエストが増えていく。
+            if (quest2_count_add >= 10) //10個まで
+            {
+                quest2_count_add = 10;
+            }
+
+            for (i = 0; i < quest2_count_add; i++)
+            {
+                rand = Random.Range(0, selectquestDB.Count);
+
+                quest_database.RandomNewSetInit(selectquestDB[rand]);
+
+            }
+        }
+    }
+
+    void InitiallizeRandomQuestDatabase()
+    {
+        selectquestDB.Clear();
+
+        switch(GameMgr.Scene_Name)
+        {
+            //オランジーナ酒場関係は10000~以降
+            case "Or_Bar_A1":
+
+                SelectQuestList(10000);
+                break;
+
+            case "Or_Bar_B1":
+
+                SelectQuestList(20000);
+                break;
+
+            case "Or_Bar_C1":
+
+                SelectQuestList(30000);
+                break;
+
+            case "Or_Bar_D1":
+
+                SelectQuestList(40000);
+                break;
+
+            default:
+
+                SelectQuestList(0);
+                break;
+        }
+        
+
+    }
+
+    void SelectQuestList(int _id)
+    {
+        j = 0;
+        while (j < quest_database.questset.Count)
+        {
+            if (quest_database.questset[j].Quest_ID >= _id)
+            {
+                Debug.Log("クエストID: " + quest_database.questset[j].Quest_ID);
+                //まずパティシエランクが足りてないのものは表示されない
+                if (quest_database.questset[j].QuestHyouji <= PlayerStatus.player_patissier_Rank)
+                {
+                    if (quest_database.questset[j].QuestHyoujiHeart <= PlayerStatus.girl1_Love_lv) //ランクが足りてるかつ、ハートLVが足りてるものを表示
+                    {                        
+                        selectquestDB.Add(j); //クエストDBのリスト番号のリスト
+                    }
+                }
+
+                if(quest_database.questset[j].read_endflag == 1)
+                {
+                    break;
+                }
+            }
+            j++;
+        }
+    }
+
     //デバッグ用　全てのクエストを表示する。
     public void DebugQuestAllRequest()
     {
@@ -341,14 +375,6 @@ public class ShopQuestListController : MonoBehaviour
                 quest_database.RandomNewSetInit(i);
             }
 
-        }
-
-        for (i = 0; i < quest_database.questset2.Count; i++) //こっちはパティシエレベルに応じて追加されるクエスト
-        {
-            if (quest_database.questset2[i].QuestHyouji != 9999)
-            {
-                quest_database.RandomNewSetInit2(i);
-            }
         }
 
         if (qlist_status == 0)

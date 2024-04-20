@@ -527,11 +527,21 @@ public class Bar_Main_Controller : MonoBehaviour {
 
                 default:
 
-
                     break;
             }
-
         }
+    }
+
+    //アトリエに戻る
+    public void OnCheck_BackHome()
+    {
+        //玄関音
+        sc.EnterSound_03();
+
+        GameMgr.Scene_back_home = true;
+
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
     }
 
 

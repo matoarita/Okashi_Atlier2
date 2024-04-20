@@ -529,6 +529,33 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     }
 
                     break;
+
+                case 2000: //オレンジーナコンテストB1 プラトンアカデミーコンテスト
+
+                    GameMgr.ContestRoundNumMax = 3; //そのコンテストの最大のラウンド数
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin + "_1";
+                            ContestData_001();
+                            break;
+
+                        case 2: //二回戦
+
+                            GameMgr.Contest_Name = contest_name_origin + "_2";
+                            ContestData_002();
+                            break;
+
+                        case 3: //決勝戦
+
+                            GameMgr.Contest_Name = contest_name_origin + "_3";
+                            ContestData_003();
+                            break;
+                    }
+
+                    break;
             }
 
             if (GameMgr.ContestRoundNum == 1) //最初のときだけ設定
@@ -539,22 +566,59 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         else //ランキング形式=1
         {
             Debug.Log("ランキング形式（一回戦のみ）");
-
+            GameMgr.ContestRoundNumMax = 1; //そのコンテストの最大のラウンド数 １の場合、ランキング形式（複数参加者がランキングで競う）で一回戦のみ
             switch (GameMgr.ContestSelectNum)
             {
 
                 case 10000: //オレンジーナコンテスト　弱小　ランキング形式
 
-                    GameMgr.ContestRoundNumMax = 1; //そのコンテストの最大のラウンド数 １の場合、ランキング形式（複数参加者がランキングで競う）で一回戦のみ
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin;
+                            ContestRankingData_100();
+                            break;
+                    }                    
+
+                    break;
+
+                case 10100: //
 
                     switch (GameMgr.ContestRoundNum)
                     {
                         case 1: //一回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_1";
+                            GameMgr.Contest_Name = contest_name_origin;
                             ContestRankingData_100();
                             break;
-                    }                    
+                    }
+
+                    break;
+
+                case 10200: //
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin;
+                            ContestRankingData_100();
+                            break;
+                    }
+
+                    break;
+
+                case 10300: //
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin;
+                            ContestRankingData_100();
+                            break;
+                    }
 
                     break;
             }

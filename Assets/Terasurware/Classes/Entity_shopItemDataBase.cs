@@ -17,7 +17,7 @@ public class Entity_shopItemDataBase : ScriptableObject
 	public class Param
 	{
 		
-		public int ItemID;
+		public int ShopID;
 		public string name;
 		public int zaiko;
 		public int itemType;
@@ -26,6 +26,7 @@ public class Entity_shopItemDataBase : ScriptableObject
 		public int shop_buy_price;
 		public int item_hyouji;
 		public bool item_hyouji_on;
+		public int read_endflag;
 	}
 }
 

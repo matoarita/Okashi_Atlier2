@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_shopItemDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Resources/Excel/Entity_shopItemDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Resources/Excel/Entity_shopItemDataBase.asset";
-	private static readonly string[] sheetNames = { "ShopItemDB_1","FarmItemDB_1","EmeraldShopItemDB_1", };
+	private static readonly string[] sheetNames = { "ShopItemDB_1","FarmItemDB_1","EmeraldShopItemDB_1","Or_ShopItemDB_1","Or_ShopItemDB_2","Or_ShopItemDB_3","Or_ShopItemDB_4", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
@@ -50,7 +50,7 @@ public class Entity_shopItemDataBase_importer : AssetPostprocessor {
 						
 						Entity_shopItemDataBase.Param p = new Entity_shopItemDataBase.Param ();
 						
-					cell = row.GetCell(0); p.ItemID = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(0); p.ShopID = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(1); p.name = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(2); p.zaiko = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(3); p.itemType = (int)(cell == null ? 0 : cell.NumericCellValue);
@@ -59,6 +59,7 @@ public class Entity_shopItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(6); p.shop_buy_price = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(7); p.item_hyouji = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(8); p.item_hyouji_on = (cell == null ? false : cell.BooleanCellValue);
+					cell = row.GetCell(9); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

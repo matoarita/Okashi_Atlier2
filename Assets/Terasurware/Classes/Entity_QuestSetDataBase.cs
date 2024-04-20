@@ -21,6 +21,8 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int QuestID;
 		public int QuestType;
 		public int QuestHyouji;
+		public int QuestHyoujiHeart;
+		public int HighType;
 		public string file_name;
 		public string quest_itemName;
 		public string quest_itemsubtype;
@@ -52,6 +54,7 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int tp_score5;
 		public string quest_Title;
 		public string desc;
+		public int read_endflag;
 	}
 }
 

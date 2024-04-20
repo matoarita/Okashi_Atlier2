@@ -4360,6 +4360,13 @@ MonoBehaviour:
   sound39: {fileID: 0}
   sound40: {fileID: 0}
   sound41: {fileID: 0}
+  sound42: {fileID: 0}
+  sound43: {fileID: 0}
+  sound44: {fileID: 0}
+  sound45: {fileID: 0}
+  sound46: {fileID: 0}
+  sound47: {fileID: 0}
+  sound1000: {fileID: 0}
   _mixRate: 0
 --- !u!82 &1841630730
 AudioSource:

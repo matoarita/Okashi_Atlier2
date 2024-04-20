@@ -706,6 +706,18 @@ public class Shop_Main_Controller : MonoBehaviour {
         }
     }
 
+    //アトリエに戻る
+    public void OnCheck_BackHome()
+    {
+        //玄関音
+        sc.EnterSound_03();
+
+        GameMgr.Scene_back_home = true;
+
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
+    }
+
     public void OnCheck_Compound() //ショップで調合できるかお試し
     {
         if (shopon_toggle_compound.GetComponent<Toggle>().isOn == true)

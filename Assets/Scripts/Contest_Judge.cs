@@ -354,8 +354,9 @@ public class Contest_Judge : MonoBehaviour {
             
         }
 
-
-        //各コンテスト審査員ごとの判定分け　補正がけ　必要な場合
+        //
+        //各コンテスト審査員ごとの判定分け　補正がけ
+        //
         switch(GameMgr.Contest_Name)
         {
             case "First_Contest":
@@ -386,22 +387,55 @@ public class Contest_Judge : MonoBehaviour {
                 total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
 
                 Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
+
+                //200点を上限に100点に正規化する。
+                ScoreNormalized(200);
                 break;
+
+                
+            case "Or_Contest_010":　//クッキー初級コンテスト
+
+                //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。その代わり見た目の点数が一切入らない。
+                before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+                if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
+                }
+                else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 80)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
+                }
+                else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
+                }
+                else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
+                }
+                else if (GameMgr.contest_Taste_Score[2] >= 180)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
+                }
+
+                total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
+
+                Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
+
+                //入れた数値を上限に100点に正規化する。
+                ScoreNormalized(200);
+                break;
+
 
             default:
 
                 break;
         }
 
-        //点数を200点を上限にし、100点に正規化する処理　ヒカリの点数の２分の一になるということ
-        for (i = 0; i < GameMgr.contest_Score.Length; i++)
-        {
-            _temp_score = SujiMap(total_score[i], 0, 200, 0, 100);
-            total_score[i] = (int)_temp_score;
-        }
+        
 
         //さらに提出が遅れた場合減点
-        if(GameMgr.contest_LimitTimeOver_DegScore_flag)
+        if (GameMgr.contest_LimitTimeOver_DegScore_flag)
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
@@ -421,7 +455,16 @@ public class Contest_Judge : MonoBehaviour {
 
     }
 
-
+    //点数を、入れた値を上限にして100点に正規化する。
+    void ScoreNormalized(int _max)
+    {
+        //200を入れた場合、点数を200点を上限にし、100点に正規化する処理　つまり、ヒカリの点数の２分の一になるということ
+        for (i = 0; i < GameMgr.contest_Score.Length; i++)
+        {
+            _temp_score = SujiMap(total_score[i], 0, _max, 0, 100);
+            total_score[i] = (int)_temp_score;
+        }
+    }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
     float SujiMap(float value, float start1, float stop1, float start2, float stop2)

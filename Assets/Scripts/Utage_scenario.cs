@@ -3345,7 +3345,17 @@ public class Utage_scenario : MonoBehaviour
             //以下、オランジーナ関連
             case 1000: //コンテスト会場
               
-                scenarioLabel = "Hiroba_Or";
+                scenarioLabel = "Hiroba_Or_Contest_Reception";
+                break;
+
+            case 1010: //Orお花屋さん
+
+                scenarioLabel = "Hiroba_Or_flower";
+                break;
+
+            case 2000: //Orヒカリ広場イベント　通れないとかも含む
+
+                scenarioLabel = "Hiroba_Or_Hikari";
                 break;
 
             default:

@@ -3666,7 +3666,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         switch (GameMgr.Scene_Name)
         {
-            case "Or_Contest": //味見用シーンでの処理
+            case "Or_Contest": //味見用シーンでの処理　ここが味見処理の終点
 
                 //ハートは獲得しないので無視して、元の画面に戻る
                 MainUIPanel_obj.SetActive(true);
@@ -3674,7 +3674,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 EffectClear_Feather();
                 GameMgr.Scene_Status = 0; //シーンステータスも戻す
                 GameMgr.Ajimi_AfterFlag = true;
-                GameMgr.AjimiAfter_Text = total_score.ToString() + "点" + "\n" + "味見してもらった。";
+                GameMgr.AjimiAfter_Text = total_score.ToString() + "点" + "\n" + "味見してもらった！";
+
+                if(total_score < GameMgr.low_score) //60以下だと、下がるような音
+                {
+                    sc.PlaySe(6);
+                }
+                else
+                {
+                    sc.PlaySe(5);
+                }
                 break;
 
 

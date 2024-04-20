@@ -321,6 +321,11 @@ public class BGM : MonoBehaviour {
                                 _bgm[0].clip = sound41;
                                 break;
 
+                            case "Or_Hiroba_Summer_MainStreet_Shop": //夏のエリア　メインストリート
+
+                                _bgm[0].clip = sound41;
+                                break;
+
                             case "Or_Hiroba_Summer_ThemePark_Map": //夏エリア　遊園地　全体マップ
 
                                 _bgm[0].clip = sound45;
@@ -406,6 +411,18 @@ public class BGM : MonoBehaviour {
                                 _bgm[0].clip = sound44;
                                 break;
 
+                            case "Or_Hiroba_Catsle_Garden": //城エリア　大通り前庭
+
+                                _bgm[0].clip = sound44;
+
+                                break;
+
+                            case "Or_Hiroba_Catsle_MainStreet": //城エリア　大通り
+
+                                _bgm[0].clip = sound44;
+
+                                break;
+
                             default:
 
                                 break;
@@ -450,6 +467,11 @@ public class BGM : MonoBehaviour {
                         break;
 
                     case 150: //NPCの家系
+
+                        _bgm[0].clip = sound42; //23
+                        break;
+
+                    case 160: //城のBGM
 
                         _bgm[0].clip = sound42; //23
                         break;

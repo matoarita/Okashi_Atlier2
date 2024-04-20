@@ -214,6 +214,20 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
                 break;
 
+            case 500: //城エリア　ストリート前の庭
+
+                GameMgr.Scene_Name = "Or_Hiroba_Catsle_Garden";
+                SettingBGPanel("Map500"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 501: //城エリア　メインストリート
+
+                GameMgr.Scene_Name = "Or_Hiroba_Catsle_MainStreet";
+                SettingBGPanel("Map501"); //Map〇〇のリスト番号を指定
+
+                break;
+
             default:
 
                 GameMgr.Scene_Name = "Or_Hiroba_CentralPark";

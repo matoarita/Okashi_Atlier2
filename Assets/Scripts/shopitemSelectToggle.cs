@@ -438,20 +438,20 @@ public class shopitemSelectToggle : MonoBehaviour
                 case 40:
 
                     player_money = PlayerStatus.player_money;
-                    _cost = shop_database.farmitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                    _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
 
                     break;
 
                 case 50:
 
-                    switch (shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_dongriType)
+                    switch (shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_dongriType)
                     {
                         case 0: //エメラルどんぐり
 
                             //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
 
                             player_money = pitemlist.playeritemlist["emeralDongri"];
-                            _cost = shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                            _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
                             break;
 
                         case 1: //サファイアどんぐり
@@ -459,7 +459,7 @@ public class shopitemSelectToggle : MonoBehaviour
                             //emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
 
                             player_money = pitemlist.playeritemlist["sapphireDongri"];
-                            _cost = shop_database.emeraldshop_items[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                            _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
                             break;
                     }
                             

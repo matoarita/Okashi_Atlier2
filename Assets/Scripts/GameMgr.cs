@@ -456,8 +456,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
     public static int Scene_Category_Num;           //Compound=10, Compound_Entrance=11, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, 
-                                                    //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130, Station=140, NPCHouse=150
-                                                    //200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
+                                                    //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130, Station=140, NPCMagicHouse=150
+                                                    //NPC_Catsle=160, 200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
 
 
     //その他、一時的なフラグ

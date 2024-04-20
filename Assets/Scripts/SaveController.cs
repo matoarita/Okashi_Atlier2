@@ -171,7 +171,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //牧場の在庫のみ取得
-        _temp_farmzaiko.Clear();
+        /*_temp_farmzaiko.Clear();
         for (i = 0; i < shop_database.farmitems.Count; i++)
         {
             _temp_farmzaiko.Add(new ItemSaveKosu(shop_database.farmitems[i].shop_itemName, shop_database.farmitems[i].shop_itemzaiko,0));
@@ -182,7 +182,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
         {
             _temp_emeraldshop_zaiko.Add(new ItemSaveKosu(shop_database.emeraldshop_items[i].shop_itemName, shop_database.emeraldshop_items[i].shop_itemzaiko, 0));
-        }
+        }*/
 
         //背景アイテムの表示フラグリスト
         _temp_bgacce_flaglist.Clear();
@@ -871,7 +871,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             
         }*/
 
-        //調合のフラグ＋調合回数を記録　プレイヤーデータではしない。
+        //調合のフラグ＋調合回数を記録　お菓子手帳はゲーム中用（PlayerData）と、あとの図鑑用（SystemData）で別々に分けて保存する。
         for (count = 0; count < playerData.save_itemCompodatabase.Count; count++)
         {
             i = 0;
@@ -879,9 +879,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             {
                 if (playerData.save_itemCompodatabase[count].comp_name == databaseCompo.compoitems[i].cmpitem_Name)
                 {
-                    //databaseCompo.compoitems[i].cmpitem_flag = playerData.save_itemCompodatabase[count].comp_Flag;
-                    //databaseCompo.compoitems[i].comp_count= playerData.save_itemCompodatabase[count].comp_Count;
-                    //databaseCompo.compoitems[i].hikari_make_count = playerData.save_itemCompodatabase[count].hikarimake_Count;
+                    databaseCompo.compoitems[i].cmpitem_flag = playerData.save_itemCompodatabase[count].comp_Flag;
+                    databaseCompo.compoitems[i].comp_count= playerData.save_itemCompodatabase[count].comp_Count;
+                    databaseCompo.compoitems[i].hikari_make_count = playerData.save_itemCompodatabase[count].hikarimake_Count;
                     break;
                 }
                 i++;
@@ -910,14 +910,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             shop_database.ReSetShopItemString(playerData.save_shopzaiko[i].itemName, playerData.save_shopzaiko[i].itemKosu);
         }
-        for (i = 0; i < playerData.save_farmzaiko.Count; i++)
+        /*for (i = 0; i < playerData.save_farmzaiko.Count; i++)
         {
             shop_database.ReSetFarmItemString(playerData.save_farmzaiko[i].itemName, playerData.save_farmzaiko[i].itemKosu);
         }
         for (i = 0; i < playerData.save_emeraldshop_zaiko.Count; i++)
         {
             shop_database.ReSetEmeraldItemString(playerData.save_emeraldshop_zaiko[i].itemName, playerData.save_emeraldshop_zaiko[i].itemKosu);
-        }
+        }*/
 
         //魔法スキルリストの読み込み
         for (i = 0; i < playerData.save_magicskill_list.Count; i++)
@@ -1104,7 +1104,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         database.ResetLastScore();
 
         //調合フラグ＋調合回数も初期化
-        //databaseCompo.ResetDefaultCompoExcel();
+        databaseCompo.ResetDefaultCompoExcel();
 
         //アイテムDBの味の初期化
         //compound_keisan.ResetDefaultTasteParam();
@@ -1438,8 +1438,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 pitemlist.ReSetEmeraldItemString(systemData.save_player_emeralditemlist[i].itemName, systemData.save_player_emeralditemlist[i].itemKosu);
             }
             
-            //調合のフラグ＋調合回数を記録する システムデータでは、ヒカリのお菓子制作フラグはONになったものだけ更新する。
-            for (count = 0; count < systemData.save_itemCompodatabase.Count; count++)
+            //調合のフラグ＋調合回数を読み込み システムデータでは、ヒカリのお菓子制作フラグはONになったものだけ更新する。
+            /*for (count = 0; count < systemData.save_itemCompodatabase.Count; count++)
             {
                 i = 0;
                 while (i < databaseCompo.compoitems.Count)
@@ -1465,7 +1465,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     }
                     i++;
                 }
-            }
+            }*/
             
             //アイテムの前回スコアなどを読み込み
             for (count = 0; count < systemData.save_itemdatabase.Count; count++)

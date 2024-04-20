@@ -30,9 +30,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GirlEat_Judge girlEat_judge;
 
     private TimeController time_controller;
-    private GameObject TimePanel_obj;
 
-    private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
 
     private GameObject content;
@@ -164,10 +162,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //時間管理オブジェクトの取得
-        TimePanel_obj = this.transform.Find("Comp/TimePanelMaterial").gameObject;
-
-        //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //お金の増減用パネルの取得
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子  
@@ -200,9 +198,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();        
 
 
-        //お金の増減用パネルの取得
-        MoneyStatus_Panel_obj = this.transform.Find("Comp/MoneyStatus_Matpanel").gameObject;
-        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
+        
 
         //材料採取地パネルの取得
         getmatplace_panel = this.transform.Find("Comp").gameObject;
@@ -1275,22 +1271,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     void StatusPanelOFF()
     {
-        MoneyStatus_Panel_obj.SetActive(false);
         GetMatStatusButton_obj.SetActive(false);
-        if (GameMgr.TimeUSE_FLAG)
-        {
-            TimePanel_obj.SetActive(false);
-        }
     }
 
     void StatusPanelON()
     {
-        MoneyStatus_Panel_obj.SetActive(true);
         GetMatStatusButton_obj.SetActive(true);
-        if (GameMgr.TimeUSE_FLAG)
-        {
-            TimePanel_obj.SetActive(true);
-        }
     }
 
     public void SisterOn1()

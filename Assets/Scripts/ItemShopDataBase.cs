@@ -16,6 +16,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private string _name;
     private string _name_hyouji;
 
+    private int _shopID;
     private int _itemID;
     private int _cost;
     private int _sell;
@@ -24,6 +25,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private int _dongriType;
     private int _itemhyouji;
     private bool _itemhyouji_on;
+    private int _read_endflag;
 
     private int i;
     private int count;
@@ -31,8 +33,8 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private int sheet_no; //アイテムが格納されているシート番号
 
     public List<ItemShop> shopitems = new List<ItemShop>();
-    public List<ItemShop> farmitems = new List<ItemShop>();
-    public List<ItemShop> emeraldshop_items = new List<ItemShop>();
+    //public List<ItemShop> farmitems = new List<ItemShop>();
+    //public List<ItemShop> emeraldshop_items = new List<ItemShop>();
 
     // Use this for initialization
     void Start () {
@@ -47,80 +49,51 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
 
         excel_shopitemdatabase = Resources.Load("Excel/Entity_shopItemDataBase") as Entity_shopItemDataBase;
 
-
-        //ショップのデータの読み込み
+        //ショップデータ全て　読み込み
+        //Debug.Log("ショップシートカウント: " + excel_shopitemdatabase.sheets.Count);
         sheet_no = 0;
-        sheet_count = 0;
-
-        while (sheet_count < 1)
+        while (sheet_no < excel_shopitemdatabase.sheets.Count)
         {
             count = 0;
-
             while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
             {
-
                 InitShopDB_Common();
 
                 //ここでリストに追加している
-                shopitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _dongriType, _itemhyouji, _itemhyouji_on));
+                shopitems.Add(new ItemShop(_shopID, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _dongriType, _itemhyouji, _itemhyouji_on, _read_endflag));
 
                 ++count;
             }
-            ++sheet_count;
+            ++sheet_no;
         }
 
-        //ファームのデータの読み込み
-        sheet_no = 1;
-        sheet_count = 0;
-
-        while (sheet_count < 1)
-        {
-            count = 0;
-
-            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
-            {
-
-                InitShopDB_Common();
-
-                //ここでリストに追加している
-                farmitems.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _dongriType, _itemhyouji, _itemhyouji_on));
-
-                ++count;
-            }
-            ++sheet_count;
-        }
-
-        //エメラルドショップデータの読み込み
-        sheet_no = 2;
-        sheet_count = 0;
-
-        while (sheet_count < 1)
-        {
-            count = 0;
-
-            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
-            {
-
-                InitShopDB_Common();
-
-                //ここでリストに追加している
-                emeraldshop_items.Add(new ItemShop(count, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _dongriType, _itemhyouji, _itemhyouji_on));
-
-                ++count;
-            }
-            ++sheet_count;
-        }
-
-
+        //デバッグ用
         /*for (i = 0; i < shopitems.Count; i++)
         {
             Debug.Log("ショップID: " + shopitems[i].shop_ID + " アイテムID: " + shopitems[i].shop_itemID + " アイテム名: " + shopitems[i].shop_itemNameHyouji);
         }*/
 
     }
+
+    int SearchSheetsNameID(string _name)
+    {
+        i = 0;
+        while (sheet_no < excel_shopitemdatabase.sheets.Count)
+        {
+            if (excel_shopitemdatabase.sheets[i].name == _name)
+            {
+
+                return i;
+            }
+            ++i;
+        }
+
+        return 0; //例外でシート名がなかったときは0がかえる
+    }
 	
     void InitShopDB_Common()
     {
+        _shopID = excel_shopitemdatabase.sheets[sheet_no].list[count].ShopID;
         _name = excel_shopitemdatabase.sheets[sheet_no].list[count].name;
         _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
         _itemType = excel_shopitemdatabase.sheets[sheet_no].list[count].itemType;
@@ -129,6 +102,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
         _sell = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_buy_price;
         _itemhyouji = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji;
         _itemhyouji_on = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji_on;
+        _read_endflag = excel_shopitemdatabase.sheets[sheet_no].list[count].read_endflag;
 
         //Debug.Log("ショップ_itemType: " + _itemType);
 
@@ -216,66 +190,22 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     //ショップの在庫をリセットし、初期状態に戻す。
     public void ShopZaiko_Reset()
     {
-        //ショップのデータの読み込み
+        i = 0;
         sheet_no = 0;
-        sheet_count = 0;
-
-        while (sheet_count < 1)
+        while (sheet_no < excel_shopitemdatabase.sheets.Count)
         {
             count = 0;
-
             while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
             {
                 _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
 
                 //ここでリストに追加している
-                shopitems[count].shop_itemzaiko = _zaiko;
+                shopitems[i].shop_itemzaiko = _zaiko;
 
                 ++count;
+                ++i;
             }
-            ++sheet_count;
-        }
-
-        //ファームのデータの読み込み
-        sheet_no = 1;
-        sheet_count = 0;
-
-        while (sheet_count < 1)
-        {
-            count = 0;
-
-            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
-            {
-
-                _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
-
-                //ここでリストに追加している
-                farmitems[count].shop_itemzaiko = _zaiko;
-
-                ++count;
-            }
-            ++sheet_count;
-        }
-
-        //エメラルドショップデータの読み込み
-        sheet_no = 2;
-        sheet_count = 0;
-
-        while (sheet_count < 1)
-        {
-            count = 0;
-
-            while (count < excel_shopitemdatabase.sheets[sheet_no].list.Count)
-            {
-
-                _zaiko = excel_shopitemdatabase.sheets[sheet_no].list[count].zaiko;
-
-                //ここでリストに追加している
-                emeraldshop_items[count].shop_itemzaiko = _zaiko;
-
-                ++count;
-            }
-            ++sheet_count;
+            ++sheet_no;
         }
     }
 
@@ -294,33 +224,19 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
         }
     }
 
-    //ファーム　アイテム名＋個数で、指定した在庫数に変更する。
-    public void ReSetFarmItemString(string itemName, int count_kosu)
+    //ショップIDを入れると、DBのリスト番号を返す
+    public int SeartchShopID(int _shopID)
     {
         i = 0;
-        while (i < farmitems.Count)
+        while (i < shopitems.Count)
         {
-            if (farmitems[i].shop_itemName == itemName)
+            if (shopitems[i].shop_ID == _shopID)
             {
-                farmitems[i].shop_itemzaiko = count_kosu;
-                break;
+                return i;
             }
             i++;
         }
-    }
 
-    //エメラルドショップ　アイテム名＋個数で、指定した在庫数に変更する。
-    public void ReSetEmeraldItemString(string itemName, int count_kosu)
-    {
-        i = 0;
-        while (i < emeraldshop_items.Count)
-        {
-            if (emeraldshop_items[i].shop_itemName == itemName)
-            {
-                emeraldshop_items[i].shop_itemzaiko = count_kosu;
-                break;
-            }
-            i++;
-        }
+        return 0;
     }
 }

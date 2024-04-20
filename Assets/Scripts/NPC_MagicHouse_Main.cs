@@ -181,55 +181,91 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
         switch (GameMgr.SceneSelectNum)
         {
-            case 0: //春のパティシエ魔法の先生
+            case 0: //火のパティシエ魔法の先生
 
-                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Spring";
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Fire";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 13; //バックボタン押したときの戻り先
 
                 default_scenetext = "こんにちは。" + "\n" + "火の魔法を教えてあげますよ。ふふ。";
                 break;
 
-            case 10: //夏のパティシエ魔法の先生
+            case 10: //氷のパティシエ魔法の先生
 
-                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Summer";
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Ice";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 152; //バックボタン押したときの戻り先
 
                 default_scenetext = "ヘイヘイヘーーーーイ！！ボウヤ！" + "\n" + "氷の魔法を習いにきましたか～！？";
                 break;
 
-            case 20: //秋のパティシエ魔法の先生
+            case 20: //風のパティシエ魔法の先生
 
-                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Autumn";
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Wind";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 152; //バックボタン押したときの戻り先
 
                 default_scenetext = "はぁあ～・・。だる～い・・。" + "\n" + "風魔法～？　えー・・。";
                 break;
 
-            case 30: //冬のパティシエ魔法の先生１
+            case 30: //光のパティシエ魔法の先生
 
-                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Winter";
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Luminous";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 301; //バックボタン押したときの戻り先
 
                 default_scenetext = "..。" + "\n" + "..お前たち。光の魔法を習いにきたのか..？　フン..。";
                 break;
 
-            case 40: //冬のパティシエ魔法の先生２
+            case 40: //星のパティシエ魔法の先生
 
-                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Winter";
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Star";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
 
                 default_scenetext = "ムッシュ～！" + "\n" + "ここは星の魔法を覚えれますヨ～。";
                 break;
 
+            case 50: //森のパティシエ魔法の先生
+
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Forest";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 321; //バックボタン押したときの戻り先
+
+                default_scenetext = "あんれまあ！" + "\n" + "森の魔法を覚えにきたんかいね？";
+                break;
+
+            case 60: //時のパティシエ魔法の先生
+
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Time";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 321; //バックボタン押したときの戻り先
+
+                default_scenetext = "あら～！" + "\n" + "時の魔法を覚えたいの？";
+                break;
+
+            case 70: //音のパティシエ魔法の先生
+
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Sound";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 321; //バックボタン押したときの戻り先
+
+                default_scenetext = "ハッハー！" + "\n" + "音の魔法を覚えたいのですね～？";
+                break;
+
+            case 80: //心のパティシエ魔法の先生
+
+                GameMgr.Scene_Name = "Or_NPC_MagicHouse_Heart";
+                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                backnum = 321; //バックボタン押したときの戻り先
+
+                default_scenetext = "おや、きみたちは。" + "\n" + "心の魔法を習いにきたのかい？";
+                break;
+
         }
 
         //天気対応
-        if (GameMgr.WEATHER_TIMEMODE_ON)
+        /*if (GameMgr.WEATHER_TIMEMODE_ON)
         {
             if (GameMgr.Story_Mode != 0)
             {
@@ -271,7 +307,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                         break;
                 }
             }
-        }
+        }*/
         //** 場所名設定ここまで **//
 
         GameMgr.Scene_Status = 0;
@@ -340,8 +376,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                     GameMgr.Scene_Status = 100;
                     GameMgr.Scene_Select = 0;
 
-                    ToggleFlagCheck();
-
                     if (trans == 1) //カメラが寄っていたら、デフォに戻す。
                     {
                         //カメラ寄る。
@@ -372,27 +406,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         }
     }
 
-    void ToggleFlagCheck()
-    {
-        Debug.Log("チェック　本日がコンテスト開催日かどうか");
-
-        i = 0;
-        flag_chk = false;
-        while (i < GameMgr.contest_accepted_list.Count)
-        {
-            if (GameMgr.contest_accepted_list[i].Month == PlayerStatus.player_cullent_month &&
-                GameMgr.contest_accepted_list[i].Day == PlayerStatus.player_cullent_day)
-            {
-                Debug.Log("本日コンテスト開催日 " + GameMgr.contest_accepted_list[i].Month + "/" + GameMgr.contest_accepted_list[i].Day + " " +
-                    GameMgr.contest_accepted_list[i].contestName);
-                contest_list = i;
-                flag_chk = true;
-                
-                break;
-            }
-            i++;
-        }
-    }
 
     void NewAreaFlagCheck()
     {
@@ -470,9 +483,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
             //読み終わったフラグをたてる
             EventReadEnd_Flagcheck();
-            
-
-            ToggleFlagCheck();
+           
 
             text_scenario(); //テキストの更新
         }

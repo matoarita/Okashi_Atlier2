@@ -394,7 +394,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Spring_UraStreet":
 
-                    On_NPC_MagicActive01();
+                    On_NPC_MagicActive04();
                     break;
 
                 case "Or_Hiroba_Summer_Entrance":
@@ -485,6 +485,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Winter_Street3":
 
                     On_Active161();
+                    break;
+
+                case "Or_Hiroba_Catsle_Garden":
+
+                    On_Active11();
                     break;
 
                 default:
@@ -691,6 +696,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active160();
                     break;
 
+                case "Or_Hiroba_Catsle_Garden":
+
+                    On_Active06();
+                    break;
+
+                case "Or_Hiroba_Catsle_MainStreet":
+
+                    On_Active10();
+                    break;
+
                 default:
 
                     On_Active1002();
@@ -713,9 +728,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active05();
                     break;
 
-                case "Or_Hiroba_Spring_Shoping_Moll":
+                case "Or_Hiroba_Spring_Shoping_Moll": //ハートレベルが10必要
 
-                    On_Active08();
+                    if(PlayerStatus.girl1_Love_lv < 10)
+                    {
+                        On_Active2000(); //まだ通れない
+                    }
+                    else
+                    {
+                        On_Active08();
+                    }
+                    
                     break;
 
                 case "Or_Hiroba_Spring_Oku":
@@ -776,6 +799,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Winter_PatissierHouseMae":
 
                     On_NPC_MagicActive05();
+                    break;
+
+                case "Or_Hiroba_Catsle_MainStreet":
+
+                    On_NPC_CatsleActive01();
                     break;
 
                 default:
@@ -856,7 +884,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             {
                 case "Or_Hiroba_CentralPark": //中央噴水
 
-                    On_Active04();
+                    On_Active10();
                     break;
 
                 default:
@@ -1084,6 +1112,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 13;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active10()
+    {
+        //_text.text = "城エリア　手前　庭へ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //メインシーン読み込み
+        GameMgr.SceneSelectNum = 500;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active11()
+    {
+        //_text.text = "城エリア 大通りへ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //メインシーン読み込み
+        GameMgr.SceneSelectNum = 501;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -1415,7 +1463,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_NPC_MagicActive01()
     {
-        //_text.text = "春エリアの魔法の先生の家へ入る";
+        //_text.text = "火の魔法の先生の家へ入る";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
@@ -1425,7 +1473,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_NPC_MagicActive02()
     {
-        //_text.text = "夏エリアの魔法の先生の家へ入る";
+        //_text.text = "氷の魔法の先生の家へ入る";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
@@ -1435,7 +1483,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_NPC_MagicActive03()
     {
-        //_text.text = "秋エリアの魔法の先生の家へ入る";
+        //_text.text = "風の魔法の先生の家へ入る";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
@@ -1445,7 +1493,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_NPC_MagicActive04()
     {
-        //_text.text = "冬エリアの魔法の先生１の家へ入る";
+        //_text.text = "光の魔法の先生の家へ入る";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
@@ -1455,12 +1503,22 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_NPC_MagicActive05()
     {
-        //_text.text = "冬エリアの魔法の先生２の家へ入る";
+        //_text.text = "星の魔法の先生の家へ入る";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 40;
         FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+    }
+
+    void On_NPC_CatsleActive01()
+    {
+        //_text.text = "城へ入る";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_NPC_Catsle", GameMgr.SceneFadeTime);
     }
 
     void On_BackHomeActive01()
@@ -1714,8 +1772,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     void On_Active1004()
     {
         //お花屋さん押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 4; //
+        GameMgr.hiroba_event_placeNum = 1010; //
 
+        GameMgr.hiroba_event_ID = 140000;
+
+        /*
         if (GameMgr.Story_Mode == 0)
         {
             //イベント発生フラグをチェック
@@ -1779,10 +1840,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    GameMgr.hiroba_event_ID = 100000;
+                    GameMgr.hiroba_event_ID = 140000;
                     break;
             }
-        }
+        }*/
 
         EventReadingStart();
 
@@ -1904,7 +1965,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         CanvasOff();
     }
 
-    
+    //ヒカリ関連のマップイベントはActive2000～
+    void On_Active2000()
+    {
+        GameMgr.hiroba_event_placeNum = 2000; //
+
+        //sceneBGM.FadeOutBGM();
+        //bgm_change_flag = true;
+        GameMgr.hiroba_event_ID = 200000; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
+
+        EventReadingStart();
+
+        CanvasOff();
+    }
+
+
     //
     //その他処理　publicは、同じオブジェクトにつけたHiroba1_Main_Orのcsから読み出し
     //
@@ -1968,7 +2043,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //移動用リストオブジェクトの取得
                 mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_04").gameObject;
                 mainlist_controller_obj.SetActive(true);
-                ToggleSetup();
+                ToggleSetup();               
 
                 default_scenetext = "スプリングガーデンの商店街だ。" + "\n" + "人でにぎわっている。";
                               
@@ -2029,7 +2104,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 break;
 
-            case "Or_Hiroba_Summer_MainStreet_Shop": //夏エリア　入口
+            case "Or_Hiroba_Summer_MainStreet_Shop": //夏エリア　ショップ通り
 
                 //移動用リストオブジェクトの取得
                 mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_103").gameObject;
@@ -2236,6 +2311,28 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、星パティシエの家の前のようだ。";
+
+                break;
+
+            case "Or_Hiroba_Catsle_Garden": //城エリア　大通り前庭
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_500").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、噴水広場北にあるなぞの庭のようだ。";
+
+                break;
+
+            case "Or_Hiroba_Catsle_MainStreet": //城エリア　大通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_501").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オランジーナ城へ繋がるメインストリートだ。";
 
                 break;
 

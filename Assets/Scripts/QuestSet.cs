@@ -14,6 +14,8 @@ public class QuestSet
 
     public int QuestType;   //0なら材料採取系。1ならお菓子を納品系。こっちは、プレイヤーが納品するアイテムを、リストから選択する形式
     public int QuestHyouji; //数字を指定すると、ストーリーの進行によって、どのクエストが出るのかを操作できる。
+    public int QuestHyoujiHeart; //ハートレベルに応じてクエスト表示を追加
+    public int HighType; //そのクエストが高品質クエストかどうか
 
     public Sprite questIcon;      //アイコン
     public string Quest_FileName;
@@ -44,19 +46,23 @@ public class QuestSet
 
     public string Quest_Title;
     public string Quest_desc;
+    public int read_endflag;
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public QuestSet(int id, int _questID, int _questType, int _questHyouji, string fileName, string _itemname, string _itemsubtype, 
+    public QuestSet(int id, int _questID, int _questType, int _questHyouji, int _questHyoujiHeart, int _hightype, 
+        string fileName, string _itemname, string _itemsubtype, 
         int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, 
         int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
         string tp01, string tp02, string tp03, string tp04, string tp05, int tp_score_01, int tp_score_02, int tp_score_03, int tp_score_04, int tp_score_05,
-        string _title, string _setkansou)
+        string _title, string _setkansou, int _read_endflag)
     {
         _ID = id;
         Quest_ID = _questID;
         QuestType = _questType;
         QuestHyouji = _questHyouji;
+        QuestHyoujiHeart = _questHyoujiHeart;
+        HighType = _hightype;
 
         Quest_FileName = fileName;
         questIcon = Resources.Load<Sprite>("Sprites/Items/" + Quest_FileName);
@@ -97,6 +103,7 @@ public class QuestSet
 
         Quest_Title = _title;
         Quest_desc = _setkansou;
+        read_endflag = _read_endflag;
     }
 
     public void ResetSprite(string fileName)
