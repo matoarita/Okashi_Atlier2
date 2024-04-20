@@ -1,21 +1,3 @@
-fileFormatVersion: 2
-guid: 08a065896505b0c43bb316f02696db9a
-TrueTypeFontImporter:
-  externalObjects: {}
-  serializedVersion: 4
-  fontSize: 16
-  forceTextureCase: -2
-  characterSpacing: 0
-  characterPadding: 1
-  includeFontData: 1
-  fontName: Georgia
-  fontNames:
-  - Georgia
-  fallbackFontReferences: []
-  customCharacters: 
-  fontRenderingMode: 0
-  ascentCalculationMode: 1
-  useLegacyBoundsCalculation: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:d78a07abd79cb8e67c2a82be7f98ab78d52d4fac3770aaf1eb66d8abda5de4c5
+size 484

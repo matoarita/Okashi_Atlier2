@@ -1,21 +1,3 @@
-fileFormatVersion: 2
-guid: 1d8f5779a16101a4389553f7d1203024
-TrueTypeFontImporter:
-  externalObjects: {}
-  serializedVersion: 4
-  fontSize: 16
-  forceTextureCase: -2
-  characterSpacing: 0
-  characterPadding: 1
-  includeFontData: 1
-  fontName: Koku Mincho Regular
-  fontNames:
-  - Koku Mincho Regular
-  fallbackFontReferences: []
-  customCharacters: 
-  fontRenderingMode: 0
-  ascentCalculationMode: 1
-  useLegacyBoundsCalculation: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:242838f8747e7d37c4587b662cfdc90f842f5c5834edc2e013fd9ddf123a8fdc
+size 508

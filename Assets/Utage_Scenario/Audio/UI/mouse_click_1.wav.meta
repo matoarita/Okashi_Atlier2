@@ -1,12 +1,3 @@
-fileFormatVersion: 2
-guid: 6dea5e6d59984254cadb85fe2163f0fb
-AudioImporter:
-  serializedVersion: 4
-  format: -1
-  quality: .5
-  stream: 1
-  3D: 0
-  forceToMono: 0
-  useHardware: 0
-  loopable: 0
-  userData: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:1d4158ab720483c2181afd30c0d15fa4fb4355f6d3763efcba25c8851e75f598
+size 218

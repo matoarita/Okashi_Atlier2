@@ -1,22 +1,3 @@
-fileFormatVersion: 2
-guid: a00e89924d8183944a032490ff80fa49
-TrueTypeFontImporter:
-  externalObjects: {}
-  serializedVersion: 4
-  fontSize: 16
-  forceTextureCase: -2
-  characterSpacing: 0
-  characterPadding: 1
-  includeFontData: 1
-  fontName: M+ 1p
-  fontNames:
-  - M+ 1p
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: e00ab963cd709f4428b4df8db1aa73f9, type: 3}
-  customCharacters: 
-  fontRenderingMode: 0
-  ascentCalculationMode: 1
-  useLegacyBoundsCalculation: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:60229fd1b0b38f664b405e8399980ecdccf921e8c178a16ea02db9ec14f480fb
+size 550

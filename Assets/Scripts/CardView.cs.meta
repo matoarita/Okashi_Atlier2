@@ -1,13 +1,3 @@
-fileFormatVersion: 2
-guid: b93113968a908374e93a51617cf0ec91
-MonoImporter:
-  externalObjects: {}
-  serializedVersion: 2
-  defaultReferences:
-  - sound1: {fileID: 8300000, guid: 20f265ede9f368243b486dbe67263045, type: 3}
-  - sound2: {fileID: 8300000, guid: da0307ee6b710404db2bfc274dea4cf5, type: 3}
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:46c01d53f23450634ac4d27bb33ed44768d5afb743ef4dcbffd1b04ef8971b40
+size 411
