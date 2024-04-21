@@ -23,9 +23,12 @@ public class ContestListSelectToggle : MonoBehaviour
 
     private Text _coin_cullency; //通貨　GameMgrで決めたものを自動で入力する
 
+    private SoundController sc;
+
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
     private Exp_Controller exp_Controller;
+    private MoneyStatus_Controller moneyStatus_Controller;
 
     private GameObject contest_listController_obj;
     private ContestListController contest_listController;
@@ -45,8 +48,6 @@ public class ContestListSelectToggle : MonoBehaviour
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private ContestStartListDataBase conteststartList_database;
-
-    private SoundController sc;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private GameObject no; //PlayeritemList_ScrollViewの子オブジェクト「no」ボタン
@@ -81,6 +82,8 @@ public class ContestListSelectToggle : MonoBehaviour
     {
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
+
         //Fetch the Toggle GameObject
         m_Toggle = GetComponent<Toggle>();
 
@@ -110,10 +113,10 @@ public class ContestListSelectToggle : MonoBehaviour
 
         contest_detailedPanel = canvas.transform.Find("ContestListPanel/Contest_DetailedPanel").gameObject;
 
-        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel_ContestSelect").gameObject;
         yes_no_panel.SetActive(false);
 
-        yes = yes_no_panel.transform.Find("Yes").gameObject;
+        yes = yes_no_panel.transform.Find("Yes_ContestKettei").gameObject;
         no = yes_no_panel.transform.Find("No").gameObject;
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
@@ -246,28 +249,48 @@ public class ContestListSelectToggle : MonoBehaviour
 
             case true: //決定が押された。
 
-                //Debug.Log("ok");
-                //解除
-
-                _text.text = "受付完了しました！" + "\n" + "コンテスト開催日の、朝10時までにきてくださいね！";
-                yes_no_panel.SetActive(false);
-                back_ShopFirst_btn.interactable = true;
-                itemselect_cancel.kettei_on_waiting = false;
-
                 _list = conteststartList_database.SearchContestID(contest_listController._ID);
-                conteststartList_database.conteststart_lists[_list].Contest_Accepted = 1; //受付完了フラグ
 
-                //新しく受け付けたコンテストは、リストに追加していく。締め切り日付も保存する。
-                GameMgr.contest_accepted_list.Add(new ContestSaveList(conteststartList_database.conteststart_lists[_list].ContestName, 
-                    GameMgr.Contest_OrganizeMonth, GameMgr.Contest_OrganizeDay, 0, conteststartList_database.conteststart_lists[_list].Contest_Accepted));
+                //ここで登録料　お金チェック
+                if (PlayerStatus.player_money < conteststartList_database.conteststart_lists[_list].Contest_Cost)
+                {
+                    _text.text = "あら！" + "\n" + "どうやら登録料が足りてないようですね。";
 
-                GameMgr.Contest_listnum = _list;                
-                GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
-                GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
-                contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
-               
-                contest_detailedPanel.SetActive(false);
-                //FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime); //デバッグ用
+                    OffDetailedWindow();
+
+                    sc.PlaySe(6);
+
+                } else
+                {
+                    //Debug.Log("ok");
+                    //解除
+
+                    //sc.PlaySe(0);
+                    sc.PlaySe(25);
+
+                    _text.text = "受付完了しました！" + "\n" + "コンテスト開催日の、朝10時までにきてくださいね！";
+                    yes_no_panel.SetActive(false);
+                    back_ShopFirst_btn.interactable = true;
+                    itemselect_cancel.kettei_on_waiting = false;
+
+                    //お金支払い
+                    moneyStatus_Controller.UseMoney(conteststartList_database.conteststart_lists[_list].Contest_Cost);
+
+                    conteststartList_database.conteststart_lists[_list].Contest_Accepted = 1; //受付完了フラグ
+
+                    //新しく受け付けたコンテストは、リストに追加していく。締め切り日付も保存する。
+                    GameMgr.contest_accepted_list.Add(new ContestSaveList(conteststartList_database.conteststart_lists[_list].ContestName,
+                        GameMgr.Contest_OrganizeMonth, GameMgr.Contest_OrganizeDay, 0, conteststartList_database.conteststart_lists[_list].Contest_Accepted));
+
+                    GameMgr.Contest_listnum = _list;
+                    GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
+                    GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
+                    contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
+
+                    contest_detailedPanel.SetActive(false);
+                    //FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime); //デバッグ用
+                }
+
 
                 break;
 
@@ -275,23 +298,30 @@ public class ContestListSelectToggle : MonoBehaviour
 
                 //Debug.Log("cancel");
 
-                //キャンセル時、リストのインタラクティブ解除。
-                for (i = 0; i < contest_listController._contest_listitem.Count; i++)
-                {
-                    contest_listController._contest_listitem[i].GetComponent<Toggle>().interactable = true;
-                    contest_listController._contest_listitem[i].GetComponent<Toggle>().isOn = false;
-                }
-                contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
-
                 _text.text = "今開催しているコンテストです。";
-                yes_no_panel.SetActive(false);
-                back_ShopFirst_btn.interactable = true;
-                itemselect_cancel.kettei_on_waiting = false;
-
-                contest_detailedPanel.SetActive(false);
+                OffDetailedWindow();
+                
 
                 break;
         }
+    }
+
+    void OffDetailedWindow()
+    {
+        //キャンセル時、リストのインタラクティブ解除。
+        for (i = 0; i < contest_listController._contest_listitem.Count; i++)
+        {
+            contest_listController._contest_listitem[i].GetComponent<Toggle>().interactable = true;
+            contest_listController._contest_listitem[i].GetComponent<Toggle>().isOn = false;
+        }
+        contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
+
+
+        yes_no_panel.SetActive(false);
+        back_ShopFirst_btn.interactable = true;
+        itemselect_cancel.kettei_on_waiting = false;
+
+        contest_detailedPanel.SetActive(false);
     }
 
     //すでに受けてるコンテストをキャンセルする

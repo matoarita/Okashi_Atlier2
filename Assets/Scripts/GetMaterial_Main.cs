@@ -285,8 +285,8 @@ public class GetMaterial_Main : MonoBehaviour
     }
 
 
-    //MainListController2から読み出し
-    public void EventReadingStart()
+    
+    void EventReadingStart()
     {
         StartCoroutine("EventReading");
     }

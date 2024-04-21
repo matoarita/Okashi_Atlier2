@@ -111,23 +111,47 @@ public class ContestListController : MonoBehaviour
         list_count = 0;
         _contest_listitem.Clear();
 
+        //Debug.Log("GameMgr.Scene_Name: " + GameMgr.Scene_Name);
         switch(GameMgr.Scene_Name)
         {
             case "Or_Contest_Reception_Spring":
 
                 read_ID = 0; //ID=0～からread_endflag=1まで読む
                 break;
+
+            case "Or_Contest_Reception_Summer":
+
+                read_ID = 1000; //ID=0～からread_endflag=1まで読む
+                break;
+
+            case "Or_Contest_Reception_Autumn":
+
+                read_ID = 2000; //ID=0～からread_endflag=1まで読む
+                break;
+
+            case "Or_Contest_Reception_Winter":
+
+                read_ID = 3000; //ID=0～からread_endflag=1まで読む
+                break;
         }
 
         i = 0;
         while ( i < conteststartList_database.conteststart_lists.Count)
         {
+            
             if (conteststartList_database.conteststart_lists[i].ContestID >= read_ID)
             {
+                //デフォルトで出す
                 if (conteststartList_database.conteststart_lists[i].Contest_Flag == 1)
-                {
+                {                 
                     DrawContest();
                 }
+
+                //条件をみたせば、flag>=2以上のものもだす。パティシエランクが〇〇以上など。
+                /*if (conteststartList_database.conteststart_lists[i].Contest_Flag == 2)
+                {
+                    DrawContest();
+                }*/
 
                 if (conteststartList_database.conteststart_lists[i].read_endflag == 1)
                 {

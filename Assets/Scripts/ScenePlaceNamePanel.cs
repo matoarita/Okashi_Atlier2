@@ -156,6 +156,18 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Autumn Leaves BarStreet";
                                 break;
 
+                            case "Or_Hiroba_Autumn_UraStreet": //秋エリア　裏通り
+
+                                _text = "ミルフィーユ通り";
+                                _subtext = "Millefeuille Street";
+                                break;
+
+                            case "Or_Hiroba_Autumn_UraStreet2": //秋エリア　裏通り奥
+
+                                _text = "木枯らし小道";
+                                _subtext = "Kogarashi Campiello"; //路地裏はカンピエーロになるらしい
+                                break;
+
                             case "Or_Hiroba_Winter_Entrance": //冬のエリア入口　雪の通り
 
                                 _text = "スノーマンズ・レスト";

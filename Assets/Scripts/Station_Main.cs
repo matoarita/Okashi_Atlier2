@@ -53,6 +53,8 @@ public class Station_Main : MonoBehaviour
     private BGM sceneBGM;
     private Map_Ambience map_ambience;
 
+    private bool bgm_change_flag;
+
     private int ev_id;
 
     private int i, rndnum;
@@ -106,7 +108,6 @@ public class Station_Main : MonoBehaviour
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
-        GameMgr.matbgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
 
         //移動用リストオブジェクトの初期化
         foreach (Transform child in canvas.transform.Find("MainListPanel").transform)　//子要素（孫は取得しない）までなら、childでOK
@@ -198,6 +199,8 @@ public class Station_Main : MonoBehaviour
 
         GameMgr.Scene_Status = 0;
         StartRead = false;
+
+        bgm_change_flag = false;
 
         text_scenario();
 
@@ -317,88 +320,10 @@ public class Station_Main : MonoBehaviour
         mainlist_controller_obj.SetActive(true);
 
         //音を戻す。
-        if (GameMgr.matbgm_change_flag)
+        if (bgm_change_flag)
         {
-            GameMgr.matbgm_change_flag = false;
+            bgm_change_flag = false;
             sceneBGM.FadeInBGM();
-        }
-
-        //読み終わったフラグをたてる
-        switch(GameMgr.hiroba_event_ID)
-        {
-            //クエスト４　「ドーナツ作り」～　0番台
-            case 40:
-
-                GameMgr.hiroba_event_end[2] = true;                
-                break;
-
-            case 1040:
-
-                GameMgr.hiroba_event_end[0] = true;
-                break;
-
-            case 2045:
-
-                GameMgr.hiroba_event_end[1] = true;
-                break;
-
-            case 3040:
-
-                GameMgr.hiroba_event_end[6] = true;
-                break;
-
-            case 3042:
-
-                ev_id = pitemlist.Find_eventitemdatabase("donuts_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ドーナツのレシピを追加
-
-                GameMgr.hiroba_event_end[8] = true;
-                break;
-
-            case 4040:
-
-                GameMgr.hiroba_event_end[3] = true;
-                break;
-
-            case 4042:
-
-                GameMgr.hiroba_event_end[7] = true;
-                break;
-
-            case 5041:
-
-                GameMgr.hiroba_event_end[4] = true;
-                break;
-
-            case 5042:
-
-                GameMgr.hiroba_event_end[5] = true;
-                break;
-
-            //クエスト５　コンテスト～  10番台
-            case 50:
-
-                GameMgr.hiroba_event_end[10] = true;
-                break;
-
-            case 3050:
-
-                GameMgr.hiroba_event_end[11] = true;
-                break;
-
-            case 4050:
-
-                GameMgr.hiroba_event_end[12] = true;
-                break;
-
-            case 5050:
-
-                GameMgr.hiroba_event_end[13] = true;
-                break;
-
-            default:
-
-                break;
         }
 
         text_scenario(); //テキストの更新
@@ -498,7 +423,8 @@ public class Station_Main : MonoBehaviour
     //SubView1 アトリエ中へ入る
     public void OnSubNPC1_toggle()
     {
-        switch (GameMgr.Scene_Name)
+        On_Active01();
+        /*switch (GameMgr.Scene_Name)
         {
             case "Sta_Grt":
 
@@ -511,7 +437,7 @@ public class Station_Main : MonoBehaviour
                 GameMgr.SceneSelectNum = 0;
                 FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
                 break;
-        }
+        }*/
     }
 
     //SubView2
@@ -556,6 +482,33 @@ public class Station_Main : MonoBehaviour
                 FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                 break;
         }
+    }
+
+    void On_Active01()
+    {
+        //ステーション　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 3000; //
+
+        //sceneBGM.FadeOutBGM();
+        //bgm_change_flag = true;
+
+        switch (GameMgr.Scene_Name)
+        {
+            case "Sta_Grt":
+
+                GameMgr.hiroba_event_ID = 1000;
+                break;
+
+            case "Sta_Or":
+
+                GameMgr.hiroba_event_ID = 2000;
+                break;
+        }
+
+
+        EventReadingStart();
+
+        CanvasOff();
     }
 
     void ToggleSetup()

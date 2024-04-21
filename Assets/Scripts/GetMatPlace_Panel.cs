@@ -118,10 +118,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject NextButton_obj;
     private GameObject OpenTreasureButton_obj;
 
-    private GameObject HeroineLifePanel;
-    private Text HeroineLifeText;
-    private int HeroineLife;
-
     private GameObject TreasureGetitem_obj;
 
     private GameObject Fadeout_Black_obj;
@@ -178,8 +174,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //ヒロインライフパネル
         GetMatStatusButton_obj = this.transform.Find("Comp/GetMatStatusPanel").gameObject;
-        HeroineLifePanel = GetMatStatusButton_obj.transform.Find("HeroineLife").gameObject;
-        HeroineLifeText = HeroineLifePanel.transform.Find("HPguage/HPparam").GetComponent<Text>();
         
 
         TreasureGetitem_obj = this.transform.Find("Comp/Slot_View/Image/TreasureGetImage").gameObject;
@@ -417,10 +411,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         mapicon_Active();
         
-
-        //妹の体力（HP)を表示
-        HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
-        //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
 
         //採取地行く前なら、場所番号などはリセット　採取地シーンに入った場合は、ここは無視する
         GameMgr.Select_place_num = 0;
@@ -766,7 +756,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
         else
         {
-            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "移動費用：" + GameMgr.ColorYellow + matplace_database.matplace_lists[i].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
+            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "移動費用：" 
+                + GameMgr.ColorYellow + matplace_database.matplace_lists[_place_num].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
                 + "  " + "体力消費：" + GameMgr.ColorPink + matplace_database.matplace_lists[_place_num].placeHP + "</color>";
         }
 
@@ -1505,7 +1496,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
             //ハートを３つ消費
             //PlayerStatus.girl1_Love_exp -= 3;
             PlayerStatus.player_girl_lifepoint -= 3;
-            HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
 
             treasure_anim_status = 0;
             treasure_anim_on = true;
@@ -1629,8 +1619,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Forest":
 
                 //森のBGM
-                sceneBGM.OnGetMat_ForestBGM();
-                //GameMgr.matbgm_change_flag = true;
+                sceneBGM.OnGetMat_MapBGM(0);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
@@ -1690,8 +1679,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             case "Lavender_field":
 
-                //森のBGM
-                sceneBGM.OnGetMat_LavenderFieldBGM();
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(1);
 
                 //背景のSEを鳴らす。
                 map_ambience.MuteOFF();
@@ -1731,7 +1720,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "BerryFarm":
 
                 //ベリーファームのBGM
-                sceneBGM.OnGetMat_BerryFarmBGM();
+                sceneBGM.OnGetMat_MapBGM(3);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Lavender").gameObject.SetActive(true);
@@ -1758,7 +1747,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "StrawberryGarden":
 
                 //ストロベリーガーデンのBGM
-                sceneBGM.OnGetMat_StrawberryGardenBGM();
+                sceneBGM.OnGetMat_MapBGM(2);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_StrawberryGarden").gameObject.SetActive(true);
@@ -1794,7 +1783,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "HimawariHill":
 
                 //ひまわり畑のBGM
-                sceneBGM.OnGetMat_HimawariHillBGM();
+                sceneBGM.OnGetMat_MapBGM(4);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
@@ -1830,7 +1819,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "BirdSanctuali":
 
                 //バードサンクチュアリのBGM
-                sceneBGM.OnGetMat_BirdSanctualiBGM();
+                sceneBGM.OnGetMat_MapBGM(5);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_BirdSanctuali").gameObject.SetActive(true);
@@ -1869,7 +1858,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "CatGrave":
 
                 //ねこのおはかのBGM
-                sceneBGM.OnGetMat_CatGraveBGM();
+                sceneBGM.OnGetMat_MapBGM(6);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
@@ -1894,7 +1883,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "IceCreamForest":
 
                 //アイスの実の森のBGM
-                sceneBGM.OnGetMat_HimawariHillBGM();
+                sceneBGM.OnGetMat_MapBGM(7);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Himawari").gameObject.SetActive(true);
@@ -1925,7 +1914,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Ido":
 
                 //井戸のBGM
-                sceneBGM.OnGetMat_IdoBGM();
+                sceneBGM.OnGetMat_MapBGM(7);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
@@ -1972,7 +1961,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Sakura_Forest":
 
                 //森のBGM
-                sceneBGM.OnGetMat_ForestBGM();
+                sceneBGM.OnGetMat_MapBGM(100);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Forest").gameObject.SetActive(true);
@@ -1983,7 +1972,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 }
                 else
                 {
-
                     //イベントチェック
                     if (!GameMgr.MapEvent_01[0])
                     {

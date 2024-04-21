@@ -80,6 +80,17 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(127);
                 break;
 
+            case "Yes_ContestKettei": //ステージクリアを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                //SE_point_click(28);
+
+                break;
+
             case "No_okashiSet": //noを押したときのSE
 
                 //ポインタが入ったときに鳴る音
@@ -754,6 +765,16 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音。
                 SE_point_click(127);
+                break;
+
+            case "ContestRecep1_SelectToggle":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(34);
                 break;
 
             default: //特に指定がない場合

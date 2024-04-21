@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_ContestStartListDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Resources/Excel/Entity_ContestStartListDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Resources/Excel/Entity_ContestStartListDataBase.asset";
-	private static readonly string[] sheetNames = { "Sheet1", };
+	private static readonly string[] sheetNames = { "Or_Contest_001","Or_Contest_002","Or_Contest_003","Or_Contest_004", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{

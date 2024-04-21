@@ -447,6 +447,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_BarActive03();
                     break;
 
+                case "Or_Hiroba_Autumn_UraStreet2":
+
+                    On_NPC_MagicActive03();
+                    break;
+
                 case "Or_Hiroba_Winter_Entrance":
 
                     On_Active150();
@@ -656,6 +661,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active101();
                     break;
 
+                case "Or_Hiroba_Autumn_UraStreet2":
+
+                    On_Active104();
+                    break;
+
+                case "Or_Hiroba_Winter_Entrance":
+
+                    On_Active06();
+                    break;
+
                 case "Or_Hiroba_Winter_EntranceHiroba":
 
                     On_Active04();
@@ -774,6 +789,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Autumn_DepartMae":
 
                     On_Active103();
+                    break;
+
+                case "Or_Hiroba_Autumn_UraStreet":
+
+                    On_Active105();
                     break;
 
                 case "Or_Hiroba_Winter_EntranceHiroba":
@@ -1242,6 +1262,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 205;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active105()
+    {
+        //_text.text = "秋エリア　裏通りへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 206;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -2211,6 +2241,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、オータム・リーブスの裏通りだ。";
+
+                break;
+
+            case "Or_Hiroba_Autumn_UraStreet2": //秋エリア　裏通り2
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_206").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オータム・リーブス裏通りのさらに奥だ。";
 
                 break;
 

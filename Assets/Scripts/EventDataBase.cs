@@ -18,6 +18,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private PlayerItemList pitemlist;
     private TimeController time_controller;
     private Exp_Controller exp_Controller;
+    private MoneyStatus_Controller moneyStatus_Controller;
 
     private GetMatPlace_Panel getmatplace_panel;
     private GetMaterial get_material;
@@ -55,6 +56,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //お金オブジェクト
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
         GetEmeraldItem = false;
         _fire = false;
@@ -666,6 +670,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
                
+
+                /*
                 //エクストラモードのみのイベント　どっこいステーキ
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -861,7 +867,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
                 //GirlLoveSubEvent_stage1 サブイベントは69まで。70~は、衣装買ったときのセリフが入っている。
-
+                */
 
                 //
                 //ビギナー系のサブイベント関係は、80番台～
@@ -1262,6 +1268,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                /*
                 //お金10万ルピア達成
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -1323,8 +1330,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             pitemlist.addPlayerItemString("Record_21", 1); //レコード パティシエールレッスン
                         }
                     }
-                }
+                }*/
 
+                //
                 //コンテストの開催日になった
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -1332,7 +1340,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 {
                     if (GameMgr.check_SleepEnd_Eventflag) //ねておきたあとにチェック
                     {
-                        GameMgr.check_SleepEnd_Eventflag = false;
+                        //GameMgr.check_SleepEnd_Eventflag = false;
 
                         Debug.Log("チェック　本日がコンテスト開催日かどうか");
                         i = 0;
@@ -1354,8 +1362,36 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
 
                     }
-
                 }
+
+                //月日をまたいだ場合、家賃が発生 5月～
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag) //ねておきたあとにチェック
+                    {
+
+                        Debug.Log("チェック　本日が月始めかどうか");
+                        
+                        if( PlayerStatus.player_cullent_month > GameMgr.SleepBefore_Month)
+                        {
+                            //月はこのタイミングでも更新する。
+                            GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
+
+                            //寝る前の月　起きた後の月で、月が変わっていた　家賃発生
+                            moneyStatus_Controller.UseMoney(1000);
+
+                            GameMgr.GirlLoveSubEvent_num = 1500;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+                        }
+                    }
+                }
+
+
+                //
             }
 
 
@@ -1376,6 +1412,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                 ReadGirlLoveEvent();
 
+            }
+            else
+            {
+                //全てのイベントチェックし終わったら、フラグオフ
+                GameMgr.check_SleepEnd_Eventflag = false;
             }
         }
     }

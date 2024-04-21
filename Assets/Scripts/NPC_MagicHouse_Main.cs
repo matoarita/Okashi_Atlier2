@@ -203,7 +203,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Wind";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
-                backnum = 152; //バックボタン押したときの戻り先
+                backnum = 206; //バックボタン押したときの戻り先
 
                 default_scenetext = "はぁあ～・・。だる～い・・。" + "\n" + "風魔法～？　えー・・。";
                 break;
@@ -212,7 +212,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Luminous";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
-                backnum = 301; //バックボタン押したときの戻り先
+                backnum = 0; //バックボタン押したときの戻り先
 
                 default_scenetext = "..。" + "\n" + "..お前たち。光の魔法を習いにきたのか..？　フン..。";
                 break;

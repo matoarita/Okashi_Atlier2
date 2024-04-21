@@ -112,7 +112,7 @@ public class Contest_Main_Reception : MonoBehaviour
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
-        yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel_ContestSelect").gameObject;
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -207,7 +207,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 0; //バックボタン押したときの戻り先
 
-                default_scenetext = "いらっしゃ～い。ここは、春コンテストの受付ですよ～。";
+                default_scenetext = "いらっしゃ～い。" + "\n" + "ここは、春コンテストの受付ですよ～。";
                 break;
 
             case 10: //夏のコンテスト　会場受付
@@ -217,7 +217,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 10; //バックボタン押したときの戻り先
 
-                default_scenetext = "ハロー！！ここは、夏コンテストの受付デース！！";
+                default_scenetext = "ハロー！！" + "\n" + "ここは、夏コンテストの受付デース！！";
                 break;
 
             case 20: //秋のコンテスト　会場受付
@@ -227,7 +227,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 20; //バックボタン押したときの戻り先
 
-                default_scenetext = "ようこそ紳士淑女。ここは、秋コンテストの受付でございます。";
+                default_scenetext = "ようこそ紳士淑女。" + "\n" + "ここは、秋コンテストの受付でございます。";
                 break;
 
             case 30: //冬のコンテスト　会場受付
@@ -237,13 +237,13 @@ public class Contest_Main_Reception : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 30; //バックボタン押したときの戻り先
 
-                default_scenetext = "こんばんは..。ここは.. 冬コンテストの受付です..。";
+                default_scenetext = "こんばんは..。" + "\n" + "ここは.. 冬コンテストの受付です..。";
                 break;
 
         }
 
         //天気対応
-        if (GameMgr.WEATHER_TIMEMODE_ON)
+        /*if (GameMgr.WEATHER_TIMEMODE_ON)
         {
             if (GameMgr.Story_Mode != 0)
             {
@@ -285,7 +285,7 @@ public class Contest_Main_Reception : MonoBehaviour
                         break;
                 }
             }
-        }
+        }*/
         //** 場所名設定ここまで **//
 
         GameMgr.Scene_Status = 0;

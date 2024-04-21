@@ -499,17 +499,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                     }
                                 }
 
-
-
-                                /*
-                                if(GameMgr.hikari_makeokashi_startflag)
-                                {
-                                    GameMgr.hikari_makeokashi_startcounter--;
-                                    if (GameMgr.hikari_makeokashi_startcounter <= 0)
-                                    {
-                                        GameMgr.hikari_makeokashi_startflag = false;
-                                    }
-                                }*/
                             }
                         }
                     }
@@ -1014,11 +1003,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     _m = 0;
                     break;
                 }
-            }
-
-            //入力された分を、時間と分に直し加算する。
-            PlayerStatus.player_cullent_hour += hour;
-            PlayerStatus.player_cullent_minute += minute;
+            }            
         }
         else
         {
@@ -1039,11 +1024,15 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     break;
                 }
             }
-
-            //入力された分を、時間と分に直し加算する。
-            PlayerStatus.player_cullent_hour += hour;
-            PlayerStatus.player_cullent_minute += minute;
         }
+
+        //加算前に、現在の月日をセッティング　月をまたいだかチェックで使う
+        GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
+        GameMgr.SleepBefore_Day = PlayerStatus.player_cullent_day;
+
+        //入力された分を、時間と分に直し加算する。
+        PlayerStatus.player_cullent_hour += hour;
+        PlayerStatus.player_cullent_minute += minute;
     }
 
     //入力された分単位の時間を、時間と分にわけて、現在の時間に加算し、予測時間をだす。実際の加算はしない。Returnは時間のみ。

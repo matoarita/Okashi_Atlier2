@@ -85,6 +85,7 @@
 ・BGM_83		Lethargic-Witch(なぐもりず)		魔法の先生のテーマ01
 ・BGM_84		PerituneMaterial_Snowy_Day3_loop	冬エリアのBGM
 ・BGM_85		audiostock_872985_sample		秋エリアのBGM
-・BGM_86		PerituneMaterial_Holiday3		夏エリアのBGM
+・BGM_86		PerituneMaterial_Holiday3		夏エリア遊園地のBGM
 ・BGM_87		PerituneMaterial_Enjoyable3_loop	大会コンテスト調合時のBGM02　初級
 ・BGM_88		PerituneMaterial_Teatime_loop		大会コンテスト受付のBGM
+・BGM_89		PerituneMaterial_Memories2		サクラフォレストのBGM

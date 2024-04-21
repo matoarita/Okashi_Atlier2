@@ -116,9 +116,6 @@ public class GetMaterial : MonoBehaviour
     private GameObject TreasureGetitem_obj;
     private Image TreasureGetitem_img;
 
-    private GameObject HeroineLifePanel;
-    private Text HeroineLifeText;
-
     private int page_count, lastpage_count;
     private int hyouji_max;
     private bool dict_check;
@@ -157,10 +154,6 @@ public class GetMaterial : MonoBehaviour
         //材料採取地パネルの取得
         getmatplace_panel_obj = canvas.transform.Find("GetMatPlace_Panel").gameObject;
         getmatplace_panel = getmatplace_panel_obj.GetComponent<GetMatPlace_Panel>();
-
-        //ヒロインライフパネル
-        HeroineLifePanel = getmatplace_panel_obj.transform.Find("Comp/GetMatStatusPanel/HeroineLife").gameObject;
-        HeroineLifeText = HeroineLifePanel.transform.Find("HPguage/HPparam").GetComponent<Text>();
 
         //材料採取のための、消費コスト
         mat_cost = 0;
@@ -387,10 +380,7 @@ public class GetMaterial : MonoBehaviour
         {
             PlayerStatus.player_girl_lifepoint = 0;
         }
-        HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
 
-        //PlayerStatus.girl1_Love_exp -= matplace_database.matplace_lists[index].placeHP;
-        //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
     }
 
     //入れた数値分、体力を上げる処理
@@ -402,10 +392,7 @@ public class GetMaterial : MonoBehaviour
         {
             PlayerStatus.player_girl_lifepoint = 99;
         }
-        HeroineLifeText.text = PlayerStatus.player_girl_lifepoint.ToString();
 
-        //PlayerStatus.girl1_Love_exp -= matplace_database.matplace_lists[index].placeHP;
-        //HeroineLifeText.text = PlayerStatus.girl1_Love_exp.ToString();
     }
 
     IEnumerator Mat_Judge_anim_co()

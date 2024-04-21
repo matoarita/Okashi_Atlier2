@@ -720,6 +720,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int StartDay_hour;
     public static int EndDay_hour;
 
+    //寝る前の現在の月日
+    public static int SleepBefore_Month;
+    public static int SleepBefore_Day;
+
     //時間刻む単位
     public static int TimeStep;
 
@@ -875,6 +879,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         gamestart_recipi_get = false;
         MesaggeKoushinON = false;
+
+        SleepBefore_Month = 4;
+        SleepBefore_Day = 1;
 
         shop_event_flag = false;
         shop_lvevent_flag = false;

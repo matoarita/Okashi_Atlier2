@@ -3512,6 +3512,9 @@ public class Compound_Main : MonoBehaviour
         PlayerStatus.player_cullent_hour = GameMgr.StartDay_hour;
         PlayerStatus.player_cullent_minute = 0;
 
+        //月日も更新しておく カレンダー更新
+        time_controller.TimeKoushin(0);
+
         //寝るイベント発生時に、ピクニックイベントのカウンタが+1進む。
         Debug.Log("ピクニックカウント: " + GameMgr.picnic_count);
         GameMgr.picnic_count--;

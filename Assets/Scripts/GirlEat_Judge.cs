@@ -4097,7 +4097,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }
 
     //
-    //次クエスト指定
+    //次クエスト指定　
     //
     void QuestBunki1()
     {

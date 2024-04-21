@@ -76,20 +76,23 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 _getpt = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].GetPatissierPoint;
                 Comment_out = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].comment_out;
                 _read_endflag = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].read_endflag;
-                
+
 
                 //ここでリストに追加している
-                if (sheet_no == 0)
-                {
-                    conteststart_lists.Add(new ContestStartList(_id, _placenum, FileName, Name, Name_Hyouji, Contest_themeComment,
-                        _pmonth, _pday, _cost, _flag, _patissierRank, _lv, _bringType, _bringmax,
-                        _rankingType, _accepted, _getpt, Comment_out, _read_endflag));
-                }
+                conteststart_lists.Add(new ContestStartList(_id, _placenum, FileName, Name, Name_Hyouji, Contest_themeComment,
+                    _pmonth, _pday, _cost, _flag, _patissierRank, _lv, _bringType, _bringmax,
+                    _rankingType, _accepted, _getpt, Comment_out, _read_endflag));
+
                 ++count;
             }
-
             ++sheet_no;
         }
+
+        //デバッグ用
+        /*for(i=0; i< conteststart_lists.Count; i++)
+        {
+            Debug.Log("conteststart_lists[i]: " + conteststart_lists[i].ContestID + " " + conteststart_lists[i].ContestName);
+        }*/
     }
 
     //コンテスト名をいれると、そのコンテストを解禁する
@@ -181,23 +184,28 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         {
             case 1:
 
-                return "Gentle";　//優しい　一番簡単・ありふれたの意味
+                return "★"; //優しい　一番簡単・ありふれたの意味
+                                 //return "Gentle";　//優しい　一番簡単・ありふれたの意味
 
             case 2:
 
-                return "IPA-1"; //国際パティシエ協会の略
+                return "★★";
+            //return "IPA-1"; //国際パティシエ協会の略
 
             case 3:
 
-                return "G3";
+                return "★★★";
+            //return "G3";
 
             case 4:
 
-                return "G2";
+                return "★★★★";
+            //return "G2";
 
             case 5:
 
-                return "G1";
+                return "★★★★★";
+                //return "G1";
         }
 
         return "-"; //例外処理

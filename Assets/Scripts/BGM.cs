@@ -56,6 +56,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound45;  //夏エリアBGM
     public AudioClip sound46;  //大会コンテストのBGM 初級
     public AudioClip sound47;  //大会コンテスト受付のBGM
+    public AudioClip sound48;  //「サクラフォレスト」BGM
     public AudioClip sound1000;  //空のサウンド
 
 
@@ -362,6 +363,16 @@ public class BGM : MonoBehaviour {
                                 break;
 
                             case "Or_Hiroba_Autumn_BarStreet": //秋エリア　酒場通り
+
+                                _bgm[0].clip = sound43;
+                                break;
+
+                            case "Or_Hiroba_Autumn_UraStreet": //秋エリア　裏通り
+
+                                _bgm[0].clip = sound43;
+                                break;
+
+                            case "Or_Hiroba_Autumn_UraStreet2": //秋エリア　裏通り奥
 
                                 _bgm[0].clip = sound43;
                                 break;
@@ -836,77 +847,63 @@ public class BGM : MonoBehaviour {
         //_mixRate = 1;
     }
 
-    public void OnGetMat_ForestBGM()
+    public void OnGetMat_MapBGM(int _sound_num)
     {
         _bgm[1].Stop();
-        _bgm[1].clip = sound4;
+
+        switch (_sound_num)
+        {
+            case 0: //近くの森
+
+                _bgm[1].clip = sound4;
+                break;
+
+            case 1: //ラベンダー畑
+
+                _bgm[1].clip = sound11;
+                break;
+
+            case 2: //ストロベリーガーデン
+
+                _bgm[1].clip = sound8;
+                break;
+
+            case 3: //ベリーファーム
+
+                _bgm[1].clip = sound17;
+                break;
+
+            case 4: //ひまわり畑
+
+                _bgm[1].clip = sound9;
+                break;
+
+            case 5: //バードサンクチュアリ
+
+                _bgm[1].clip = sound12;
+                break;
+
+            case 6: //白猫のお墓
+
+                _bgm[1].clip = sound15;
+                break;
+
+            case 7: //井戸
+
+                _bgm[1].clip = sound5;
+                break;
+
+            case 100: //サクラフォレスト
+
+                _bgm[1].clip = sound48;
+                break;
+        }
+       
         _bgm[1].Play();
 
         _mixRate = 1;
     }
 
-    public void OnGetMat_LavenderFieldBGM()
-    {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound11;
-        _bgm[1].Play();
-
-        _mixRate = 1;
-    }
-
-    public void OnGetMat_StrawberryGardenBGM()
-    {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound8;
-        _bgm[1].Play();
-
-        _mixRate = 1;
-    }
-
-    public void OnGetMat_HimawariHillBGM()
-    {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound9;
-        _bgm[1].Play();
-
-        _mixRate = 1;
-    }
-
-    public void OnGetMat_BirdSanctualiBGM()
-    {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound12;
-        _bgm[1].Play();
-
-        _mixRate = 1;
-    }
-
-    public void OnGetMat_CatGraveBGM()
-    {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound15;
-        _bgm[1].Play();
-
-        _mixRate = 1;
-    }
-
-    public void OnGetMat_IdoBGM()
-    {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound5;
-        _bgm[1].Play();
-
-        _mixRate = 1;
-    }
-
-    public void OnGetMat_BerryFarmBGM()
-    {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound17;
-        _bgm[1].Play();
-
-        _mixRate = 1;
-    }
 
     public void OnTutorialBGM()
     {

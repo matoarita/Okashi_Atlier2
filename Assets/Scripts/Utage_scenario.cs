@@ -3358,6 +3358,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Hiroba_Or_Hikari";
                 break;
 
+            case 3000: //駅のイベント
+
+                scenarioLabel = "Station";
+                break;
+
             default:
 
                 scenarioLabel = "Hiroba_ichigo";
@@ -3366,6 +3371,7 @@ public class Utage_scenario : MonoBehaviour
 
         engine.Param.TrySetParameter("Hiroba_num", GameMgr.hiroba_event_ID);
         engine.Param.TrySetParameter("Hiroba_endflag_Num", 0); //0で初期化
+        engine.Param.TrySetParameter("Player_Money", PlayerStatus.player_money);
 
         Debug.Log("scenarioLabel: " + scenarioLabel);
         Debug.Log("GameMgr.hiroba_event_ID: " + GameMgr.hiroba_event_ID);
@@ -3383,6 +3389,11 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        //
+        //イベント終わりの処理関係
+        //
+
 
         hiroba_endflag_num = (int)engine.Param.GetParameter("Hiroba_endflag_Num");
         switch(hiroba_endflag_num)
@@ -3408,6 +3419,18 @@ public class Utage_scenario : MonoBehaviour
             CharacterSpriteSetON();
 
         }
+
+        //駅のイベント お金の処理など
+        switch (GameMgr.hiroba_event_placeNum)
+        {
+            case 3000:
+
+                break;
+        }
+
+
+
+        //
 
         scenario_loading = false;
 
