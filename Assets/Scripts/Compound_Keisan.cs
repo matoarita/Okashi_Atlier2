@@ -1703,11 +1703,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else if (totalkyori >= 0.1 && totalkyori < 0.5)
                 {
-                    kyori_hosei = 1.8f;
+                    kyori_hosei = 1.5f;
                 }
                 else if (totalkyori >= 0.5 && totalkyori < 1.0)
                 {
-                    kyori_hosei = 1.5f;
+                    kyori_hosei = 1.35f;
                 }
                 else if (totalkyori >= 1.0 && totalkyori < 2.0)
                 {
@@ -1850,9 +1850,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        //クリーム系の補正 魔法泡だて器を使って、作りたてクリーム　か　リコッタクリーム
-                        if (result_compID == databaseCompo.SearchCompoIDString("whipped cream_row_magic") ||
-                            result_compID == databaseCompo.SearchCompoIDString("whipped cream_row_magic_Free") ||
+                        //クリーム系の補正 泡だて器を使う調合のみバフ　作りたてクリーム　か　リコッタクリーム
+                        if (result_compID == databaseCompo.SearchCompoIDString("whipped cream_row") ||
+                            result_compID == databaseCompo.SearchCompoIDString("whipped cream_row_Free") ||
                             result_compID == databaseCompo.SearchCompoIDString("cream_row_ricotta"))
                         {
                             _basecrispy = (int)(_basecrispy * 1.3f);

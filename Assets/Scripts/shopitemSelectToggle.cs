@@ -202,7 +202,7 @@ public class shopitemSelectToggle : MonoBehaviour
         }
 
         shopitemlistController.shop_count = count; //カウントしたリスト番号を保持
-        shopitemlistController.shop_kettei_ID = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shop_ID; //ショップIDを入れる。
+        shopitemlistController.shop_kettei_ID = shop_database.SeartchShopID(shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shop_ID); //ショップID→ショップDBのリスト番号
         shopitemlistController.shop_kettei_item1 = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_ID; //アイテムIDを入れる。
         shopitemlistController.shop_itemType = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_type; //判定用アイテムタイプを入れる。
         shopitemlistController.shop_dongriType = shopitemlistController._shop_listitem[count].GetComponent<shopitemSelectToggle>().toggle_shopitem_dongri_type;
@@ -431,27 +431,27 @@ public class shopitemSelectToggle : MonoBehaviour
                 case 20:
 
                     player_money = PlayerStatus.player_money;
-                    _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                    _cost = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice;
 
                     break;
 
                 case 40:
 
                     player_money = PlayerStatus.player_money;
-                    _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                    _cost = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice;
 
                     break;
 
                 case 50:
 
-                    switch (shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_dongriType)
+                    switch (shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_dongriType)
                     {
                         case 0: //エメラルどんぐり
 
                             //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
 
                             player_money = pitemlist.playeritemlist["emeralDongri"];
-                            _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                            _cost = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice;
                             break;
 
                         case 1: //サファイアどんぐり
@@ -459,7 +459,7 @@ public class shopitemSelectToggle : MonoBehaviour
                             //emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
 
                             player_money = pitemlist.playeritemlist["sapphireDongri"];
-                            _cost = shop_database.shopitems[shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shop_ID].shop_costprice;
+                            _cost = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice;
                             break;
                     }
                             

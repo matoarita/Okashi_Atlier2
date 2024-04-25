@@ -1096,39 +1096,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     }
 
-    void DebugTextLog()
-    {
-        //デバッグ用　計算結果の表示
-
-        debug_taste_resultText.text +=
-            "\n" + "\n" + "###  好みの比較　結果　###"
-            + "\n" + "\n" + "コンポ判定の番号(0~2）: " + countNum
-            + "\n" + "\n" + "判定用お菓子セットの番号: " + _girl_judgenum[countNum]
-            + "\n" + "\n" + "アイテム名: " + _basenameHyouji
-            + "\n" + "\n" + "あまさ: " + _basesweat
-            + "\n" + " 女の子の好みの甘さ: " + _girlsweat[countNum]
-            + "\n" + "あまさの差: " + sweat_result
-            + "\n" + " 点数: " + sweat_score
-            + "\n" + "\n" + "苦さ: " + _basebitter
-            + "\n" + " 女の子の好みの苦さ: " + _girlbitter[countNum]
-            + "\n" + "にがさの差: " + bitter_result
-            + "\n" + " 点数: " + bitter_score
-            + "\n" + "\n" + "酸味: " + _basesour
-            + "\n" + " 女の子の好みの酸味: " + _girlsour[countNum]
-            + "\n" + "酸味の差: " + sour_result
-            + "\n" + " 点数: " + sour_score
-            + "\n" + "\n" + "さくさく度: " + _basecrispy + "\n" + "さくさく閾値: " + _girlcrispy[countNum] + "\n" + " 点数: " + crispy_score
-            + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _girlfluffy[countNum] + "\n" + " 点数: " + fluffy_score
-            + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _girlsmooth[countNum] + "\n" + " 点数: " + smooth_score
-            + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness[countNum] + "\n" + " 点数: " + hardness_score
-            + "\n" + "\n" + "飲みごたえ度: " + _basejuice + "\n" + "飲みごたえ閾値: " + _girljuice[countNum] + "\n" + " 点数: " + juice_score
-            + "\n" + "\n" + "ぷるぷる度: " + "-"
-            + "\n" + "\n" + "噛み応え度: " + "-"
-            + "\n" + "\n" + "判定セットごとの基本得点: " + set_score
-            + "\n" + "\n" + "トッピングスコア: " + topping_score
-            + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目閾値: " + _girlbeauty[countNum] + "\n" + "見た目スコア: " + beauty_score
-            + "\n" + "\n" + "総合得点: " + total_score;
-    }
+    
 
     void SetGirlTasteInit()
     {
@@ -1232,7 +1200,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             case "Or_Contest": //味見用シーンでの処理
 
-                JudgeGirlCompo();
+                //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
+                SettingGirlHungrySet();
                 break;
 
             default:
@@ -1464,17 +1433,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("判定番号: " + _girl_judgenum[countNum]);
 
         //甘味
-        sweat_score = TasteKeisanBase(_girlsweat[countNum], sweat_result, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
+        sweat_score = TasteKeisanBase(_girlsweat[countNum], sweat_result, _baseitemtype_sub, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
         sweat_level = taste_level;
         Debug.Log("甘み点: " + sweat_score);
 
         //苦み
-        bitter_score = TasteKeisanBase(_girlbitter[countNum], bitter_result, "苦み: ");
+        bitter_score = TasteKeisanBase(_girlbitter[countNum], bitter_result, _baseitemtype_sub, "苦み: ");
         bitter_level = taste_level;
         Debug.Log("苦味点: " + bitter_score);
 
         //酸味
-        sour_score = TasteKeisanBase(_girlsour[countNum], sour_result, "酸味: ");
+        sour_score = TasteKeisanBase(_girlsour[countNum], sour_result, _baseitemtype_sub, "酸味: ");
         sour_level = taste_level;
         Debug.Log("酸味点: " + sour_score);
 
@@ -1693,19 +1662,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //水っぽい・油っぽいなどの減点点数処理
         Debuf_Param_Judge();
 
-        /*switch (dislike_status)
-        {
-            case 3: //水っぽいなどがでたら、total_scoreをマイナス。
-
-                total_score = 0;
-                //total_score -= dislike_score;
-                break;
-
-            case 4: //嫌いな材料が使われても、total_score=0に。
-
-                total_score = 0;
-                break;
-        }*/
+        
 
         //フリーモード時　さらに計算。コンテスト時は除外。
         if (GameMgr.Story_Mode == 1)
@@ -1821,6 +1778,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //デバッグパネルの取得
             debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
             debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
+            debug_taste_resultText.text = "";
             DebugTextLog();
         }
         else
@@ -1851,7 +1809,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_score += _basepowdery * 2;
             dislike_status = 3;
             dislike_num = 0;
-            Debug.Log("粉っぽい");
+            Debug.Log("粉っぽい: " + dislike_score);
         }
         if (_baseoily > GameMgr.Watery_Line)
         {
@@ -1859,7 +1817,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_score += _baseoily * 2;
             dislike_status = 3;
             dislike_num = 1;
-            Debug.Log("油っぽい");
+            Debug.Log("油っぽい: " + dislike_score);
         }
         //ジュース・ティー・コーヒー類は、水系の値の判定をなくす。もともと、みずなので。
         if (_baseitemtype_sub == "Juice" || _baseitemtype_sub == "Tea" || _baseitemtype_sub == "Tea_Potion" || _baseitemtype_sub == "Coffee_Mat"
@@ -1872,7 +1830,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 dislike_score += _basewatery * 2;
                 dislike_status = 3;
                 dislike_num = 2;
-                Debug.Log("水っぽい");
+                Debug.Log("水っぽい: " + dislike_score);
             }
         }
 
@@ -1882,10 +1840,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_status = 4;
         }
 
+        /*switch (dislike_status)
+        {
+            case 3: //水っぽいなどがでたら、total_scoreをマイナス。
+
+                total_score = 0;
+                //total_score -= dislike_score;
+                break;
+
+            case 4: //嫌いな材料が使われても、total_score=0に。
+
+                total_score = 0;
+                break;
+        }*/
     }
 
     //酒場クエスト(Quest_Judge.cs)などからも読み込み
-    public int TasteKeisanBase(int _girltaste, int _taste_result, string _taste_Type)
+    public int TasteKeisanBase(int _girltaste, int _taste_result, string _tasteitemtype_sub, string _taste_Type)
     {
         if (_girltaste == 0) //クエスト判定の値が0なら、そもそも判定しない。
         {
@@ -1895,7 +1866,30 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
-            TasteScore_keisan(_taste_result, _taste_Type);     //差をいれると、点数計算       
+            //お菓子の種類ごとに、甘さや苦さの数値の絶対的な尺度が変わる。ので、お菓子ごとにちょっと塩梅を変える必要がある。
+            switch(_tasteitemtype_sub)
+            {
+                case "Cookie":
+
+                    TasteScore_keisan2(_taste_result, _taste_Type);     //_taste_resultは、sweat_resultなどの、女の子の好みからお菓子の数値を引いた差の値。差をいれると、点数計算 
+                    break;
+
+                case "Cookie_Hard":
+
+                    TasteScore_keisan2(_taste_result, _taste_Type);
+                    break;
+
+                case "Rusk":
+
+                    TasteScore_keisan2(_taste_result, _taste_Type);
+                    break;
+
+                default:
+
+                    TasteScore_keisan(_taste_result, _taste_Type); 
+                    break;
+            }
+                  
         }
 
         return taste_score;
@@ -1959,54 +1953,78 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
-    /*public int TasteLevel_Keisan(int _girltaste, int _tast_score)
+    //クッキーを基準にした味
+    void TasteScore_keisan2(int _taste_result, string _taste_type)
     {
-        if (_girltaste == 0)
+        if (Mathf.Abs(_taste_result) == 0)
         {
-            return 0; //クエスト判定の値が0なら、そもそも判定しない。
+            Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
+            taste_score = 100;
+            taste_level = 8;
         }
-        else
+        else if (Mathf.Abs(_taste_result) < 3) //+-1~2　絶妙な塩梅
         {
-            if (_tast_score >= 100)
-            {
-                taste_level = 8;
-            }
-            else if ((_tast_score < 100) && _tast_score >= 45)
-            {
-                taste_level = 7;
-            }
-            else if ((_tast_score < 45) && _tast_score >= 35)
-            {
-                taste_level = 6;
-            }
-            else if ((_tast_score < 35) && _tast_score >= 23)
-            {
-                taste_level = 5;
-            }
-            else if ((_tast_score < 23) && _tast_score >= 15)
-            {
-                taste_level = 5;
-            }
-            else if ((_tast_score < 15) && _tast_score >= 10)
-            {
-                taste_level = 4;
-            }
-            else if ((_tast_score < 10) && _tast_score >= 0)
-            {
-                taste_level = 3;
-            }
-            else if ((_tast_score < 0) && _tast_score >= -35)
-            {
-                taste_level = 2;
-            }
-            else if (_tast_score < -35)
-            {
-                taste_level = 1;
-            }
+            Debug.Log(_taste_type + "Great!!");
+            taste_score = 75;
+            taste_level = 7;
+        }
+        else if (Mathf.Abs(_taste_result) < 8) //+-3~7　絶妙な塩梅
+        {
+            Debug.Log(_taste_type + "Great!!");
+            taste_score = 55;
+            taste_level = 7;
+        }
+        else if (Mathf.Abs(_taste_result) < 15) //+-8~14  すばらしい
+        {
+            Debug.Log(_taste_type + "Well done!");
+            taste_score = 30;
+            taste_level = 6;
+        }
+        else if (Mathf.Abs(_taste_result) < 23) //+15~22  すばらしい
+        {
+            Debug.Log(_taste_type + "Well done!");
+            taste_score = 20;
+            taste_level = 6;
+        }
+        else if (Mathf.Abs(_taste_result) < 40) //+-23~39　かなりいい感じ
+        {
+            Debug.Log(_taste_type + "Well!");
+            taste_score = 15;
+            taste_level = 5;
+        }
+        else if (Mathf.Abs(_taste_result) < 60) //+-29~59  いい感じ
+        {
+            Debug.Log(_taste_type + "Good!");
+            taste_score = 10;
+            taste_level = 5;
+        }
+        else if (Mathf.Abs(_taste_result) < 90) //+-60~89　ちょっと足りない
+        {
+            Debug.Log(_taste_type + "Normal");
+            taste_score = 5;
+            taste_level = 4;
+        }
+        else if (Mathf.Abs(_taste_result) < 90) //+-90~149　全然足りない
+        {
+            Debug.Log(_taste_type + "poor");
+            taste_score = 0;
+            taste_level = 3;
+        }
+        else if (Mathf.Abs(_taste_result) <= 150) //+-150~249
+        {
+            Debug.Log(_taste_type + "death..");
+            taste_score = -60;
+            taste_level = 2;
+        }
+        else if (Mathf.Abs(_taste_result) > 250) //+-250
+        {
+            Debug.Log(_taste_type + "death..");
+            taste_score = -120;
+            taste_level = 1;
+        }
+    }
 
-            return taste_level;
-        }
-    }*/
+
 
     void ShokukanScore_keisan(string _temp_baseitemtype_sub)
     {
@@ -2884,7 +2902,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
 
                     //体力も上がる。
-                    PlayerStatus.player_girl_maxlifepoint += 2;
+                    PlayerStatus.player_girl_maxlifepoint += 1;
 
                     //機嫌もよくなる。
                     girl1_status.GirlExpressionKoushin(20);
@@ -5835,6 +5853,42 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listHeartHit2.Clear();
 
 
+    }
+
+    void DebugTextLog()
+    {
+        //デバッグ用　計算結果の表示
+        
+        debug_taste_resultText.text +=
+            "\n" + "\n" + "###  好みの比較　結果　###"
+            + "\n" + "\n" + "コンポ判定の番号(0~2）: " + countNum
+            + "\n" + "\n" + "判定用お菓子セットの番号: " + _girl_judgenum[countNum]
+            + "\n" + "\n" + "アイテム名: " + _basenameHyouji
+            + "\n" + "\n" + "あまさ: " + _basesweat
+            + "\n" + " 女の子の好みの甘さ: " + _girlsweat[countNum]
+            + "\n" + "あまさの差(sweat_result): " + sweat_result
+            + "\n" + " 点数: " + sweat_score
+            + "\n" + "\n" + "苦さ: " + _basebitter
+            + "\n" + " 女の子の好みの苦さ: " + _girlbitter[countNum]
+            + "\n" + "にがさの差(bitter_result): " + bitter_result
+            + "\n" + " 点数: " + bitter_score
+            + "\n" + "\n" + "酸味: " + _basesour
+            + "\n" + " 女の子の好みの酸味: " + _girlsour[countNum]
+            + "\n" + "酸味の差(sour_result): " + sour_result
+            + "\n" + " 点数: " + sour_score
+            + "\n" + "\n" + "さくさく度: " + _basecrispy + "\n" + "さくさく閾値: " + _girlcrispy[countNum] + "\n" + " 点数: " + crispy_score
+            + "\n" + "\n" + "ふわふわ度: " + _basefluffy + "\n" + "ふわふわ閾値: " + _girlfluffy[countNum] + "\n" + " 点数: " + fluffy_score
+            + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _girlsmooth[countNum] + "\n" + " 点数: " + smooth_score
+            + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness[countNum] + "\n" + " 点数: " + hardness_score
+            + "\n" + "\n" + "飲みごたえ度: " + _basejuice + "\n" + "飲みごたえ閾値: " + _girljuice[countNum] + "\n" + " 点数: " + juice_score
+            + "\n" + "\n" + "ぷるぷる度: " + "-"
+            + "\n" + "\n" + "噛み応え度: " + "-"
+            + "\n" + "\n" + "判定セットごとの基本得点: " + set_score
+            + "\n" + "\n" + "トッピングスコア: " + topping_score
+            + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目閾値: " + _girlbeauty[countNum] + "\n" + "見た目スコア: " + beauty_score
+            + "\n" + "\n" + "風らしさ: " + spscore1_score
+            + "\n" + "\n" + "ディスライクスコア: " + dislike_score
+            + "\n" + "\n" + "総合得点: " + total_score;
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

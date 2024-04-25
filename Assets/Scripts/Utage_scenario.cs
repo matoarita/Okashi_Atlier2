@@ -33,6 +33,7 @@ public class Utage_scenario : MonoBehaviour
     private int shop_uwasa_number;
     private int shop_hint_number;
     private int hiroba_endflag_num;
+    private int stationevent_num;
     private int contest_num;
     private string itemType_sub;
     private string itemName;
@@ -150,6 +151,8 @@ public class Utage_scenario : MonoBehaviour
         if (canvas == null)
         {
             canvas = GameObject.FindWithTag("Canvas");
+
+            moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
         }
 
         //フェードアニメ用
@@ -3021,7 +3024,7 @@ public class Utage_scenario : MonoBehaviour
             {
                 //キャンバスの読み込み
                 canvas = GameObject.FindWithTag("Canvas");
-                moneyStatus_Controller = canvas.transform.Find("MoneyStatus_panel").GetComponent<MoneyStatus_Controller>();
+                //moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
                 //お金の消費
                 if (PlayerStatus.player_money >= 30)
@@ -3425,6 +3428,26 @@ public class Utage_scenario : MonoBehaviour
         {
             case 3000:
 
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
+                switch(stationevent_num)
+                {
+                    case 0: //キャンセルか所持金足りなかった
+
+                        break;
+
+                    case 1: //のる　ガレット→オランジーナ
+
+                        GameMgr.Station_TrainGoFlag = true;
+                        moneyStatus_Controller.UseMoney(2000);
+                        break;
+
+                    case 2: //のる　オランジーナ→ガレット
+
+                        GameMgr.Station_TrainGoFlag = true;
+                        moneyStatus_Controller.UseMoney(500);
+                        break;
+                }
                 break;
         }
 
@@ -3880,6 +3903,7 @@ public class Utage_scenario : MonoBehaviour
         if (GameMgr.Contest_Cate_Ranking == 0) //トーナメント形式
         {
             engine.Param.TrySetParameter("contest_boss_score", GameMgr.contest_boss_score);
+            engine.Param.TrySetParameter("bossContest_name", GameMgr.contest_boss_name);
 
             if (GameMgr.contest_TotalScore > GameMgr.contest_boss_score) //対戦相手よりも高得点なら、勝ち
             {
@@ -3934,6 +3958,7 @@ public class Utage_scenario : MonoBehaviour
             }
 
             engine.Param.TrySetParameter("contest_boss_score", GameMgr.contest_boss_score); //一位の人の点数をいれる
+            engine.Param.TrySetParameter("bossContest_name", GameMgr.contest_boss_name);
 
             if (GameMgr.contest_TotalScore > GameMgr.contest_boss_score) //優勝
             {

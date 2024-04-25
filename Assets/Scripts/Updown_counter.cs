@@ -791,11 +791,11 @@ public class Updown_counter : MonoBehaviour {
             {
                 if (GameMgr.Scene_Select == 1) //ショップ「買う」のとき
                 {
-                    _zaiko_max = shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko;
+                    _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
                     AddMethod1();
 
-                    if (PlayerStatus.player_money < shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * GameMgr.updown_kosu)
+                    if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                     {
                         //お金が足りない
                         _text.text = "お金が足りない。";
@@ -902,11 +902,11 @@ public class Updown_counter : MonoBehaviour {
             else if (GameMgr.Scene_Category_Num == 40)
             {
 
-                _zaiko_max = shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko;
+                _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
                 AddMethod1();
 
-                if (PlayerStatus.player_money < shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * GameMgr.updown_kosu)
+                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                 {
                     //お金が足りない
                     _text.text = "お金が足りない。";
@@ -919,17 +919,17 @@ public class Updown_counter : MonoBehaviour {
             else if (GameMgr.Scene_Category_Num == 50)
             {
 
-                _zaiko_max = shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko;
+                _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
                 AddMethod1();
 
                 //どんぐりタイプをみる
-                if(shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_dongriType == 0)
+                if(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_dongriType == 0)
                 {
                     //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
                     kaerucoin = pitemlist.playeritemlist["emeralDongri"];
 
-                    if (kaerucoin < shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * GameMgr.updown_kosu)
+                    if (kaerucoin < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                     {
                         //お金が足りない
                         _text.text = "エメラルどんぐりが足りない。";
@@ -937,12 +937,12 @@ public class Updown_counter : MonoBehaviour {
                         GameMgr.updown_kosu--;
                     }
                 }
-                else if (shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_dongriType == 1)
+                else if (shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_dongriType == 1)
                 {
                     //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
                     kaerucoin = pitemlist.playeritemlist["sapphireDongri"];
 
-                    if (kaerucoin < shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * GameMgr.updown_kosu)
+                    if (kaerucoin < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                     {
                         //お金が足りない
                         _text.text = "サファイアどんぐりが足りない。";
@@ -962,11 +962,11 @@ public class Updown_counter : MonoBehaviour {
         {
             if (GameMgr.Scene_Select == 1)
             {
-                _zaiko_max = shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko;
+                _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
                 AddMethod2();
 
-                if (PlayerStatus.player_money < shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * GameMgr.updown_kosu)
+                if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                 {
                     //お金が足りない
                     _text.text = "お金が足りない。";
@@ -1010,11 +1010,11 @@ public class Updown_counter : MonoBehaviour {
         else if (GameMgr.Scene_Category_Num == 40)
         {
 
-            _zaiko_max = shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko;
+            _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
             AddMethod2();
 
-            if (PlayerStatus.player_money < shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * GameMgr.updown_kosu)
+            if (PlayerStatus.player_money < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
             {
                 //お金が足りない
                 _text.text = "お金が足りない。";
@@ -1028,17 +1028,17 @@ public class Updown_counter : MonoBehaviour {
         else if (GameMgr.Scene_Category_Num == 50)
         {
 
-            _zaiko_max = shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko;
+            _zaiko_max = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko;
 
             AddMethod2();
 
             //どんぐりタイプをみる
-            if (shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_dongriType == 0)
+            if (shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_dongriType == 0)
             {
                 //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
                 kaerucoin = pitemlist.playeritemlist["emeralDongri"];
 
-                if (kaerucoin < shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * GameMgr.updown_kosu)
+                if (kaerucoin < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                 {
                     //お金が足りない
                     _text.text = "エメラルどんぐりが足りない。";
@@ -1046,12 +1046,12 @@ public class Updown_counter : MonoBehaviour {
                     GameMgr.updown_kosu = GameMgr.updown_kosu - 10;
                 }
             }
-            else if (shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_dongriType == 1)
+            else if (shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_dongriType == 1)
             {
                 //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
                 kaerucoin = pitemlist.playeritemlist["sapphireDongri"];
 
-                if (kaerucoin < shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * GameMgr.updown_kosu)
+                if (kaerucoin < shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * GameMgr.updown_kosu)
                 {
                     //お金が足りない
                     _text.text = "サファイアどんぐりが足りない。";

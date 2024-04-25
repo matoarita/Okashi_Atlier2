@@ -36,6 +36,7 @@ public class ContestListSelectToggle : MonoBehaviour
     private Button back_ShopFirst_btn;
 
     private GameObject contest_detailedPanel;
+    private GameObject contestList_ScrollView_obj;
 
     private GameObject updown_counter_obj;
     private Updown_counter updown_counter;
@@ -112,6 +113,7 @@ public class ContestListSelectToggle : MonoBehaviour
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
 
         contest_detailedPanel = canvas.transform.Find("ContestListPanel/Contest_DetailedPanel").gameObject;
+        contestList_ScrollView_obj = canvas.transform.Find("ContestListPanel/ContestList_ScrollView").gameObject;
 
         yes_no_panel = canvas.transform.Find("Yes_no_Panel_ContestSelect").gameObject;
         yes_no_panel.SetActive(false);
@@ -267,27 +269,43 @@ public class ContestListSelectToggle : MonoBehaviour
 
                     //sc.PlaySe(0);
                     sc.PlaySe(25);
-
-                    _text.text = "受付完了しました！" + "\n" + "コンテスト開催日の、朝10時までにきてくださいね！";
-                    yes_no_panel.SetActive(false);
-                    back_ShopFirst_btn.interactable = true;
+                   
+                    yes_no_panel.SetActive(false);                    
                     itemselect_cancel.kettei_on_waiting = false;
+                    //back_ShopFirst_btn.interactable = true;
 
                     //お金支払い
                     moneyStatus_Controller.UseMoney(conteststartList_database.conteststart_lists[_list].Contest_Cost);
 
-                    conteststartList_database.conteststart_lists[_list].Contest_Accepted = 1; //受付完了フラグ
 
-                    //新しく受け付けたコンテストは、リストに追加していく。締め切り日付も保存する。
+
+                    //ほかに受け付けてるコンテストがあった場合、全てキャンセルし、新しく一個が登録
+                    for(i=0; i< conteststartList_database.conteststart_lists.Count; i++)
+                    {
+                        conteststartList_database.conteststart_lists[i].Contest_Accepted = 0;
+                    }
+                    GameMgr.contest_accepted_list.Clear();
+                    //
+
+                    //新しく受け付けたコンテストは、リストに追加。締め切り日付も保存する。
+                    //ただ、現在すぐ出場するので、フラグも終了後にすぐ消えるので、意味はないかも。
+                    conteststartList_database.conteststart_lists[_list].Contest_Accepted = 1; //受付完了フラグ
                     GameMgr.contest_accepted_list.Add(new ContestSaveList(conteststartList_database.conteststart_lists[_list].ContestName,
                         GameMgr.Contest_OrganizeMonth, GameMgr.Contest_OrganizeDay, 0, conteststartList_database.conteststart_lists[_list].Contest_Accepted));
+                    //
 
                     GameMgr.Contest_listnum = _list;
                     GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
                     GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
-                    contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
 
+                    //contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
                     contest_detailedPanel.SetActive(false);
+                    contestList_ScrollView_obj.SetActive(false);
+
+                    //受付した時点で、宴のイベントが開始し、すぐに次の日の朝10時になりコンテスト開始
+                    //_text.text = "ありがとうございます！"; //"コンテスト開催日の、朝10時までにきてくださいね！"
+                    GameMgr.Contest_ReadyToStart2 = true;
+
                     //FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime); //デバッグ用
                 }
 

@@ -1570,19 +1570,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case 20:
 
                 //所持金をへらす
-                moneyStatus_Controller.UseMoney(shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * result_kosu);
+                moneyStatus_Controller.UseMoney(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
 
                 //ショップの在庫をへらす。
-                shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko -= result_kosu;
+                shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
                 break;
 
             case 40:
 
                 //所持金をへらす
-                moneyStatus_Controller.UseMoney(shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * result_kosu);
+                moneyStatus_Controller.UseMoney(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
 
                 //ショップの在庫をへらす。
-                shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko -= result_kosu;
+                shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
                 break;
 
             case 50:
@@ -1594,18 +1594,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     case 0:
 
                         //エメラルどんぐり数をへらす
-                        kaeruCoin_Controller.UseCoin(shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * result_kosu);
+                        kaeruCoin_Controller.UseCoin(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
                         break;
 
                     case 1:
 
                         //サファイアどんぐり数をへらす
-                        kaeruCoin_Controller.UseCoin2(shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_costprice * result_kosu);
+                        kaeruCoin_Controller.UseCoin2(shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice * result_kosu);
                         break;
                 }
                 
                 //ショップの在庫をへらす。
-                shop_database.shopitems[shop_database.SeartchShopID(shopitemlistController.shop_kettei_ID)].shop_itemzaiko -= result_kosu;
+                shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_itemzaiko -= result_kosu;
                 break;
 
             default:

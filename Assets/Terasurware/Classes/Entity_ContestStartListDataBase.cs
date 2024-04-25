@@ -25,6 +25,8 @@ public class Entity_ContestStartListDataBase : ScriptableObject
 		public string theme_comment;
 		public int Contest_Pmonth;
 		public int Contest_Pday;
+		public int Contest_Endmonth;
+		public int Contest_Endday;
 		public int Contest_cost;
 		public int Contest_flag;
 		public int Contest_PatissierRank;

@@ -20,7 +20,7 @@ public class ContestListController : MonoBehaviour
     private GameObject contestitem_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
 
     private PlayerItemList pitemlist;
-
+    private TimeController time_controller;
     private ItemDataBase database;
 
     private ContestStartListDataBase conteststartList_database;
@@ -40,6 +40,10 @@ public class ContestListController : MonoBehaviour
     private int count;
     private int i, j;
     private int _hoshu;
+
+    private int _Contest_startday;
+    private int _Contest_endday;
+    private int _Cullent_day;
 
     public int _count; //選択したリスト番号が入る。
     public int _ID; //ショップデータベースIDが入る。
@@ -74,6 +78,9 @@ public class ContestListController : MonoBehaviour
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
@@ -141,17 +148,30 @@ public class ContestListController : MonoBehaviour
             
             if (conteststartList_database.conteststart_lists[i].ContestID >= read_ID)
             {
-                //デフォルトで出す
-                if (conteststartList_database.conteststart_lists[i].Contest_Flag == 1)
-                {                 
-                    DrawContest();
+
+                //現在の日時が開催期間中のものだけを表示する。
+                _Contest_startday = time_controller.CullenderKeisanInverse
+                    (conteststartList_database.conteststart_lists[i].Contest_PMonth, conteststartList_database.conteststart_lists[i].Contest_Pday);
+                _Contest_endday = time_controller.CullenderKeisanInverse
+                    (conteststartList_database.conteststart_lists[i].Contest_EndMonth, conteststartList_database.conteststart_lists[i].Contest_Endday);
+                _Cullent_day = time_controller.CullenderKeisanInverse
+                    (PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day);
+
+                if ( _Cullent_day >= _Contest_startday && _Cullent_day <= _Contest_endday)
+                {
+                    //デフォルトで出す
+                    if (conteststartList_database.conteststart_lists[i].Contest_Flag == 1)
+                    {
+                        DrawContest();
+                    }
+
+                    //条件をみたせば、flag>=2以上のものもだす。パティシエランクが〇〇以上など。
+                    /*if (conteststartList_database.conteststart_lists[i].Contest_Flag == 2)
+                    {
+                        DrawContest();
+                    }*/
                 }
 
-                //条件をみたせば、flag>=2以上のものもだす。パティシエランクが〇〇以上など。
-                /*if (conteststartList_database.conteststart_lists[i].Contest_Flag == 2)
-                {
-                    DrawContest();
-                }*/
 
                 if (conteststartList_database.conteststart_lists[i].read_endflag == 1)
                 {

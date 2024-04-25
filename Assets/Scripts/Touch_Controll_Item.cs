@@ -83,13 +83,15 @@ public class Touch_Controll_Item : MonoBehaviour
         //背景おぶじぇくとの触り判定をオフにする。　どこのスクリプトからでも呼べる。
         if (GameMgr.BGTouch_ALLOFF)
         {
-            GameMgr.CharacterTouch_ALLOFF = false;
+            //Debug.Log("タッチBG　オールOFF Touch_Controll_Item.cs");
+            GameMgr.BGTouch_ALLOFF = false;
             Touch_OnAllOFF();
         }
 
         if (GameMgr.BGTouch_ALLON)
         {
-            GameMgr.CharacterTouch_ALLON = false;
+            //Debug.Log("タッチBG　オールON Touch_Controll_Item.cs");
+            GameMgr.BGTouch_ALLON = false;
             Touch_OnAllON();
         }
     }

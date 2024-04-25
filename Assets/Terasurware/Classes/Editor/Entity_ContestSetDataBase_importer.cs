@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_ContestSetDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Resources/Excel/Entity_ContestSetDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Resources/Excel/Entity_ContestSetDataBase.asset";
-	private static readonly string[] sheetNames = { "01_ContestSetData1","02_Contest_D01","02_Contest_D100", };
+	private static readonly string[] sheetNames = { "01_ContestSetData1","02_Contest_D01","02_Contest_D100","02_Contest_D101", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
@@ -68,28 +68,37 @@ public class Entity_ContestSetDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(15); p.juice = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(16); p.beauty = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(17); p.Sp1_Wind = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(18); p.topping01 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(19); p.topping02 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(20); p.topping03 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(21); p.topping04 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(22); p.topping05 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(23); p.topping06 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(24); p.topping07 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(25); p.topping08 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(26); p.topping09 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(27); p.tp_score01 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(28); p.tp_score02 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(29); p.tp_score03 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(30); p.tp_score04 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(31); p.tp_score05 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(32); p.tp_score06 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(33); p.tp_score07 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(34); p.tp_score08 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(35); p.tp_score09 = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(36); p.Non_tpscore = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(37); p.desc = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(38); p.commet_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(39); p.search_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(18); p.Sp2_Sco = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(19); p.Sp3_Sco = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(20); p.Sp4_Sco = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(21); p.Sp5_Sco = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(22); p.Sp6_Wind = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(23); p.Sp7_Sco = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(24); p.Sp8_Sco = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(25); p.Sp9_Sco = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(26); p.Sp10_Sco = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(27); p.topping01 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(28); p.topping02 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(29); p.topping03 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(30); p.topping04 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(31); p.topping05 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(32); p.topping06 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(33); p.topping07 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(34); p.topping08 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(35); p.topping09 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(36); p.tp_score01 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(37); p.tp_score02 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(38); p.tp_score03 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(39); p.tp_score04 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(40); p.tp_score05 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(41); p.tp_score06 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(42); p.tp_score07 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(43); p.tp_score08 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(44); p.tp_score09 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(45); p.Non_tpscore = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(46); p.desc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(47); p.commet_flag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(48); p.search_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

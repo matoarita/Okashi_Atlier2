@@ -62,6 +62,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     private float timespeed_range;
 
+    private int total_day;
+
     public bool TimeCheck_flag; //調合メインメソッドのトップ画面で起動開始
     public bool TimeReturnHomeSleep_Status; //兄が帰ってきたあと、少しセリフ変わる。 
 
@@ -804,6 +806,29 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             }
             ++count;
         }
+    }
+
+    //何月何日かをいれると、それを日数に逆算する ContestListControllerなどで使用
+    public int CullenderKeisanInverse(int _month, int _day)
+    {
+        total_day = 0;
+
+        if(_month <= 0)
+        {
+            _month = 1;
+        }
+
+        count = 0;
+        while (count < _month-1) //まず月をもとに、前月までの総日数をだす
+        {
+            total_day += calender[count];
+            ++count;
+        }
+
+        //そのあと、残りの日数を加算
+        total_day += _day;
+
+        return total_day;
     }
 
     void DayEndEvent()

@@ -304,16 +304,13 @@ public class Farm_Main : MonoBehaviour {
 
     IEnumerator UtageEndWait()
     {
-        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-        GameMgr.compound_status = 1000;
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
 
         while (GameMgr.scenario_ON)
         {
             yield return null;
         }
-
-        GameMgr.compound_select = 0; //何もしていない状態
-        GameMgr.compound_status = 0;
 
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;

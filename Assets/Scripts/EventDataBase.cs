@@ -1338,9 +1338,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-                    if (GameMgr.check_SleepEnd_Eventflag) //ねておきたあとにチェック
+                    if (GameMgr.check_SleepEnd_Eventflag[0]) //ねておきたあとにチェック
                     {
-                        //GameMgr.check_SleepEnd_Eventflag = false;
+                        GameMgr.check_SleepEnd_Eventflag[0] = false;
 
                         Debug.Log("チェック　本日がコンテスト開催日かどうか");
                         i = 0;
@@ -1369,9 +1369,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-                    if (GameMgr.check_SleepEnd_Eventflag) //ねておきたあとにチェック
+                    if (GameMgr.check_SleepEnd_Eventflag[1]) //ねておきたあとにチェック
                     {
-
+                        GameMgr.check_SleepEnd_Eventflag[1] = false;
                         Debug.Log("チェック　本日が月始めかどうか");
                         
                         if( PlayerStatus.player_cullent_month > GameMgr.SleepBefore_Month)
@@ -1415,8 +1415,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             }
             else
             {
-                //全てのイベントチェックし終わったら、フラグオフ
-                GameMgr.check_SleepEnd_Eventflag = false;
+
             }
         }
     }

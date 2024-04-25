@@ -243,7 +243,7 @@ public class Contest_Main_Reception : MonoBehaviour
         }
 
         //天気対応
-        /*if (GameMgr.WEATHER_TIMEMODE_ON)
+        if (GameMgr.WEATHER_TIMEMODE_ON)
         {
             if (GameMgr.Story_Mode != 0)
             {
@@ -285,7 +285,7 @@ public class Contest_Main_Reception : MonoBehaviour
                         break;
                 }
             }
-        }*/
+        }
         //** 場所名設定ここまで **//
 
         GameMgr.Scene_Status = 0;
@@ -342,6 +342,31 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.Scene_Status = 0;
             //sceneBGM.MuteBGM();
         }
+
+        //コンテストリスト選択後、出場するをおすと、宴開始してコンテストシーンへ
+        if(GameMgr.Contest_ReadyToStart2)
+        {
+            GameMgr.Contest_ReadyToStart2 = false;
+
+            if (trans == 1) //カメラが寄っていたら、デフォに戻す。
+            {
+                //カメラ寄る。
+                trans--; //transが1を超えたときに、ズームするように設定されている。
+
+                //intパラメーターの値を設定する.
+                maincam_animator.SetInteger("trans", trans);
+            }
+            else if (trans == 10) //カメラが寄っていたら、デフォに戻す。
+            {
+                //カメラ寄る。
+                trans = 0; //transが1を超えたときに、ズームするように設定されている。
+
+                //intパラメーターの値を設定する.
+                maincam_animator.SetInteger("trans", trans);
+            }
+            On_ActiveContestStart2();
+        }
+        
 
         if (GameMgr.Reset_SceneStatus)
         {
@@ -500,9 +525,10 @@ public class Contest_Main_Reception : MonoBehaviour
 
     IEnumerator EventReading()
     {
+        GameMgr.scenario_ON = true;
         GameMgr.hiroba_event_flag = true;
-        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-        GameMgr.compound_status = 1000;
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
 
         //Debug.Log("広場イベント　読み中");
 
@@ -512,6 +538,7 @@ public class Contest_Main_Reception : MonoBehaviour
         }
 
         GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
 
         if (GameMgr.Contest_ReadyToStart) //コンテスト開始のイベントだった場合は、このタイミングでコンテスト本番スタート
         {
@@ -535,9 +562,9 @@ public class Contest_Main_Reception : MonoBehaviour
         }
         else
         {
-            
-            GameMgr.compound_select = 0; //何もしていない状態
-            GameMgr.compound_status = 0;
+
+            GameMgr.Scene_Select = 0; //何もしていない状態
+            GameMgr.Scene_Status = 0;
 
             //読み終わったら、またウィンドウなどを元に戻す。
             text_area.SetActive(true);
@@ -784,14 +811,30 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void On_ActiveContestStart()
     {
-        //噴水押した　宴の処理へ
+        //宴の処理へ
         GameMgr.hiroba_event_placeNum = 1000; //
 
         //イベント発生フラグをチェック
         GameMgr.hiroba_event_ID = 0;
 
         GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる
-        GameMgr.Contest_ReadyToStart = true;
+        GameMgr.Contest_ReadyToStart = true; //宴読み終わり後、即コンテストを開始する　trueにしなければ、そこでイベント終了
+
+        EventReadingStart();
+
+        CanvasOff();
+    }
+
+    void On_ActiveContestStart2()
+    {
+        //宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1000; //
+
+        //イベント発生フラグをチェック
+        GameMgr.hiroba_event_ID = 10;
+
+        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる
+        GameMgr.Contest_ReadyToStart = true;　//宴読み終わり後、即コンテストを開始する　trueにしなければ、そこでイベント終了
 
         EventReadingStart();
 

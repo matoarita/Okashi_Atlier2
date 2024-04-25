@@ -14,9 +14,6 @@ public class Touch_Controll : MonoBehaviour
 
     private SoundController sc;
 
-    private GameObject compound_Main_obj;
-    private Compound_Main compound_Main;
-
     private Girl1_status girl1_status;
     private GirlEat_Judge girleat_judge;
 
@@ -105,6 +102,7 @@ public class Touch_Controll : MonoBehaviour
         //キャラの触り判定をオフにする。　どこのスクリプトからでも呼べる。
         if(GameMgr.CharacterTouch_ALLOFF)
         {
+            //Debug.Log("タッチ　オールOFF Touch_Controll.cs");
             GameMgr.CharacterTouch_ALLOFF = false;
             Touch_OnAllOFF();
         }
@@ -112,6 +110,7 @@ public class Touch_Controll : MonoBehaviour
         //キャラの触り判定をオフにする。　どこのスクリプトからでも呼べる。
         if (GameMgr.CharacterTouch_ALLON)
         {
+            //Debug.Log("タッチ　オールON Touch_Controll.cs");
             GameMgr.CharacterTouch_ALLON = false;
             Touch_OnAllON();
         }

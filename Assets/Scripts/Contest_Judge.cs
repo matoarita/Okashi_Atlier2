@@ -278,12 +278,32 @@ public class Contest_Judge : MonoBehaviour {
             set_ID.Add(set3_ID);
         }
 
-        //さきほどのset_IDをもとに、好みの値を決定する。
+        //さきほどのset_IDをもとに、好みの値を決定する。このとき、コンテストごとの審査員の好みの判定補正もかける。
         for (count = 0; count < set_ID.Count; count++)
         {
-            //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可 ３番めの番号は、女の子かコンテストかのタイプ判定　1=コンテスト
-            girl1_status.InitializeStageContestJudgeSet(set_ID[count], count);
-            //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
+            /*switch (GameMgr.Contest_Name)
+            {
+                case "Or_Contest_010": //初級クッキーコンテスト
+
+                    //コンテストによっては、女の子の判定と同じ　に　補正をかけたもの もしかすると、全部こっちでいいのかも..。
+                    girl1_status.InitializeStageGirlHungrySet(set_ID[count], count); //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可
+                    girl1_status.girl1_Beauty[1] += 20; //二番目の審査員アントワネット様は、少し見た目点が辛口
+                    girl1_status.girl1_Beauty[2] = 0; //三番目の審査員じいさんは、見た目の点数が入らない
+                    girl1_status.girl1_Crispy[0] -= 10; //一番目のタカノは、少し判定甘目
+                    girl1_status.girl1_Crispy[2] += 20; //じいさんは、食感に関して審査が辛い
+                    break;
+
+                default:
+
+                    //こっちは、Entity_ContestSetDataBaseに登録した、コンテスト専用の判定値
+                    
+                    girl1_status.InitializeStageContestJudgeSet(set_ID[count], count); //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可
+                    //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
+                    break;
+            }*/
+
+            girl1_status.InitializeStageContestJudgeSet(set_ID[count], count); //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可
+                                                                               //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
         }
 
         Set_Count = set_ID.Count;
@@ -387,9 +407,13 @@ public class Contest_Judge : MonoBehaviour {
                 total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
 
                 Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
+                Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
+                Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
 
                 //200点を上限に100点に正規化する。
                 ScoreNormalized(200);
+                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
+                Debug.Log("### ###");
                 break;
 
                 
@@ -420,10 +444,14 @@ public class Contest_Judge : MonoBehaviour {
 
                 total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
 
-                Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
+                Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。下の食感の値が最終の食感点数");
+                Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
+                Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
 
                 //入れた数値を上限に100点に正規化する。
                 ScoreNormalized(200);
+                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
+                Debug.Log("### ###");
                 break;
 
 
@@ -449,9 +477,8 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員３　点数：" + total_score[2] + "点");
 
         Debug.Log("### ###");
-        Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
-        Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
-        Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
+        //Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
+        
 
     }
 

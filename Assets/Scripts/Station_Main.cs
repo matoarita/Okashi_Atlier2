@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Station_Main : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class Station_Main : MonoBehaviour
     private SoundController sc;
 
     private Debug_Panel_Init debug_panel_init;
+    private GameObject scene_black_effect;
 
     private GameObject canvas;
 
@@ -108,6 +110,9 @@ public class Station_Main : MonoBehaviour
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
+
+        //シーン全てをブラックに消すパネル
+        scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
 
         //移動用リストオブジェクトの初期化
         foreach (Transform child in canvas.transform.Find("MainListPanel").transform)　//子要素（孫は取得しない）までなら、childでOK
@@ -312,21 +317,69 @@ public class Station_Main : MonoBehaviour
         }
 
         GameMgr.scenario_read_endflag = false;
+        
+
+        
+        //電車にのる
+        if (GameMgr.Station_TrainGoFlag)
+        {
+            GameMgr.Station_TrainGoFlag = false;
+
+            TrainGo();
+            
+        }
+        else
+        {
+            GameMgr.Scene_Select = 0; //何もしていない状態
+            GameMgr.Scene_Status = 0;
+
+            //読み終わったら、またウィンドウなどを元に戻す。
+            text_area.SetActive(true);
+            mainlist_controller_obj.SetActive(true);
+
+            //音を戻す。
+            if (bgm_change_flag)
+            {
+                bgm_change_flag = false;
+                sceneBGM.FadeInBGM();
+            }
+
+            text_scenario(); //テキストの更新
+        }
+    }
+
+    //電車移動中　暗くなる演出
+    void TrainGo()
+    {
+        sceneBGM.MuteBGM();
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+        StartCoroutine("WaitForTrainGo");
+    }
+
+    IEnumerator WaitForTrainGo()
+    {
+        yield return new WaitForSeconds(2.0f); //1秒待つ
+
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
         GameMgr.Scene_Select = 0; //何もしていない状態
         GameMgr.Scene_Status = 0;
 
-        //読み終わったら、またウィンドウなどを元に戻す。
-        text_area.SetActive(true);
-        mainlist_controller_obj.SetActive(true);
-
-        //音を戻す。
-        if (bgm_change_flag)
+        switch (GameMgr.Scene_Name)
         {
-            bgm_change_flag = false;
-            sceneBGM.FadeInBGM();
-        }
+            case "Sta_Grt":
 
-        text_scenario(); //テキストの更新
+                GameMgr.SceneSelectNum = 100;
+                FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
+                break;
+
+            case "Sta_Or":
+
+                GameMgr.SceneSelectNum = 0;
+                FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
+                break;
+        }
     }
 
 
@@ -424,20 +477,7 @@ public class Station_Main : MonoBehaviour
     public void OnSubNPC1_toggle()
     {
         On_Active01();
-        /*switch (GameMgr.Scene_Name)
-        {
-            case "Sta_Grt":
-
-                GameMgr.SceneSelectNum = 100;
-                FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
-                break;
-
-            case "Sta_Or":
-
-                GameMgr.SceneSelectNum = 0;
-                FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
-                break;
-        }*/
+        
     }
 
     //SubView2

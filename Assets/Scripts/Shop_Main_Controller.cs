@@ -670,6 +670,9 @@ public class Shop_Main_Controller : MonoBehaviour {
         {
             shopon_toggle_back.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
+            //店のドア音
+            sc.PlaySe(38);
+            sc.PlaySe(51);
 
             switch (GameMgr.Scene_Name)
             {
@@ -709,8 +712,9 @@ public class Shop_Main_Controller : MonoBehaviour {
     //アトリエに戻る
     public void OnCheck_BackHome()
     {
-        //玄関音
-        sc.EnterSound_03();
+        //店のドア音
+        sc.PlaySe(38);
+        sc.PlaySe(51);
 
         GameMgr.Scene_back_home = true;
 
@@ -803,16 +807,13 @@ public class Shop_Main_Controller : MonoBehaviour {
 
     IEnumerator UtageEndWait()
     {
-        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-        GameMgr.compound_status = 1000;
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
 
         while (GameMgr.scenario_ON)
         {
             yield return null;
         }
-
-        GameMgr.compound_select = 0; //何もしていない状態
-        GameMgr.compound_status = 0;
 
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;

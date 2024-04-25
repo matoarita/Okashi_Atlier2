@@ -1745,8 +1745,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             if (_id == girlLikeSet_database.girllikeset[j].girlLike_compNum)
             {
-                //Debug.Log("girlLikeSet_database.girllikeset[j].girlLike_compNum: " + girlLikeSet_database.girllikeset[j].girlLike_compNum);
-                //Debug.Log("j :" + j);
+                Debug.Log("girlLikeSet_database.girllikeset[j].girlLike_compNum: " + girlLikeSet_database.girllikeset[j].girlLike_compNum);
+                Debug.Log("j :" + j);
                 setID = j;
                 break;
             }

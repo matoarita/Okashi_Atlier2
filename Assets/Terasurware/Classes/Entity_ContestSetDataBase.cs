@@ -35,6 +35,15 @@ public class Entity_ContestSetDataBase : ScriptableObject
 		public int juice;
 		public int beauty;
 		public int Sp1_Wind;
+		public int Sp2_Sco;
+		public int Sp3_Sco;
+		public int Sp4_Sco;
+		public int Sp5_Sco;
+		public int Sp6_Wind;
+		public int Sp7_Sco;
+		public int Sp8_Sco;
+		public int Sp9_Sco;
+		public int Sp10_Sco;
 		public string topping01;
 		public string topping02;
 		public string topping03;

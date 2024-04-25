@@ -755,7 +755,7 @@ public class Compound_Main : MonoBehaviour
             //玄関音
             sc.EnterSound_01();
 
-            //時間をチェックし、背景を自動で変更
+            //時間をチェックし、背景を自動で変更 　フリーモードのときのみチェックしてる
             Weather_Change(0.0f);
 
             //オートセーブ
@@ -3538,7 +3538,10 @@ public class Compound_Main : MonoBehaviour
 
         //サブイベントの発生チェック　コンテストの発生もないかここでチェックする
         GameMgr.check_GirlLoveSubEvent_flag = false;
-        GameMgr.check_SleepEnd_Eventflag = true;
+        for (i = 0; i < GameMgr.check_SleepEnd_Eventflag.Length; i++) //寝ておきたあとにイベント発生するものがないか全てチェック
+        {
+            GameMgr.check_SleepEnd_Eventflag[i] = true;
+        }
     }
 
     public void OffCompoundSelectnoExtreme()
@@ -3916,7 +3919,6 @@ public class Compound_Main : MonoBehaviour
         //フリーモードのときのみ　変更
         if (GameMgr.Story_Mode == 1)
         {
-
             //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
             //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
 
@@ -4121,6 +4123,8 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("ねぎピザ");
                     _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     _todayfood_lib.Add("きのこピザ");
+                    _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
+                    _todayfood_lib.Add("ヒカリのじゃりパン");
                     _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     break;
 

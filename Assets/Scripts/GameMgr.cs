@@ -476,7 +476,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool check_CompoAfter_flag;
     public static bool check_GetMat_flag;
     public static bool check_OkashiAfter_flag;
-    public static bool check_SleepEnd_Eventflag;
+    public static bool[] check_SleepEnd_Eventflag = new bool[10];
     public static int ResultComplete_flag;
     public static bool Mute_on;
     public static bool SubEvAfterHeartGet; //Utage_scenarioからも読まれる
@@ -530,6 +530,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
     public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。 
     public static int contest_boss_score; //コンテスト　対戦相手のスコア
+    public static string contest_boss_name; //コンテスト　対戦相手の名前
     public static int contest_Rank_Count; //コンテスト　ランキングで何位だったか
     public static bool Contest_yusho_flag; //コンテスト優勝したかどうかのフラグ
     public static bool Contest_winner_flag; //コンテストで対戦相手に勝ったかどうかのフラグ
@@ -560,6 +561,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_OrganizeMonth; //コンテストの開催月
     public static int Contest_OrganizeDay; //コンテストの開催日
     public static bool Contest_ReadyToStart; //宴の読みが終わってから、コンテストを開始するフラグ
+    public static bool Contest_ReadyToStart2; //出場するではいを押した後、すぐにコンテスト開始するフラグ
     public static bool CharacterTouch_ALLOFF; //キャラの触り判定をオフにする。
     public static bool CharacterTouch_ALLON; //キャラの触り判定をオンにする。
     public static bool BGTouch_ALLOFF; //背景オブジェクトの触り判定をオフにする。
@@ -571,6 +573,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Ajimi_AfterFlag; //味見直後　テキスト更新用のフラグ
     public static string AjimiAfter_Text; //味見直後　テキスト
     public static string GetMat_BackPlaceName; //採取から戻るときの戻り先の指定
+    public static bool Station_TrainGoFlag; //電車にのるフラグ
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -998,8 +1001,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         check_GirlLoveTimeEvent_flag = false;
         check_CompoAfter_flag = false;
         check_GetMat_flag = false;
-        check_OkashiAfter_flag = false;
-        check_SleepEnd_Eventflag = false;
+        check_OkashiAfter_flag = false;       
         ResultComplete_flag = 0;
         Mute_on = false;
         SubEvAfterHeartGet = false;
@@ -1053,6 +1055,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Money_counterAnim_StartSetting = false;
         Money_counterOnly = false;
         Contest_ReadyToStart = false;
+        Contest_ReadyToStart2 = false;
         CharacterTouch_ALLOFF = false; ; //キャラの触り判定をオフにする。
         CharacterTouch_ALLON = false;
         BGTouch_ALLOFF = false; //背景オブジェクトの触り判定をオフにする。
@@ -1062,6 +1065,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Utage_SceneEnd_BlackON = false;
         Utage_Prizepanel_Type = 0;
         Ajimi_AfterFlag = false;
+        Station_TrainGoFlag = false;
+
+        for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
+        {
+            check_SleepEnd_Eventflag[system_i] = false;
+        }
 
         //好感度イベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveEvent_stage1.Length; system_i++)
@@ -1139,6 +1148,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         PrizeCharacterList.Clear();
         PrizeGetMoneyList.Clear();
         GetMat_ResultList.Clear();
+        contest_boss_name = "";
         Contest_PrizeGet_ItemName = "";
         Contest_PrizeGet_Money = 0;
         special_shogo_flag = false;
