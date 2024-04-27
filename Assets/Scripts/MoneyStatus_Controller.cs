@@ -8,10 +8,6 @@ public class MoneyStatus_Controller : SingletonMonoBehaviour<MoneyStatus_Control
 
     private SoundController sc;
 
-    private Transform moneyicon_transfrom;
-    Vector3 moneypanel_localPos;
-
-    private List<GameObject> _getmoney_obj = new List<GameObject>(); //お金アニメ表示用のゲームオブジェクト
 
     // Use this for initialization
     void Start () {

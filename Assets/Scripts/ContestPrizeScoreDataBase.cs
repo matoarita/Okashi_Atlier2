@@ -8,10 +8,18 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     //コンテスト　ランク
     private Dictionary<int, string> PrizeRankList = new Dictionary<int, string>();
 
+    //獲得人気度　順位ごとに、なん分の一とかになる
+    private Dictionary<int, float> PrizeNinkiRankList = new Dictionary<int, float>();
+
     private PlayerItemList pitemlist;
     private ItemDataBase database;
+    private ContestStartListDataBase conteststartList_database;
+
+    private MoneyStatus_Controller moneyStatus_Controller;
+    private NinkiStatus_Controller ninkiStatus_Controller;
 
     private int i;
+    private int _getninki;
 
     void Start()
     {
@@ -23,7 +31,17 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
+
+        //お金の増減用パネルの取得
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
+
+        //人気コントローラー取得
+        ninkiStatus_Controller = NinkiStatus_Controller.Instance.GetComponent<NinkiStatus_Controller>();
+
         PrizeRankDict();
+        PrizeNinkiRankDict();
     }
 
     void Update()
@@ -57,6 +75,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 break;
         }
 
+        GameMgr.PrizeGetninkiparam = conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].GetPatissierPoint;
         //GameMgr.contest_boss_name = GameMgr.PrizeCharacterList[GameMgr.PrizeCharacterList.Count - 1];
     }
 
@@ -226,6 +245,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 break;
         }
 
+        GameMgr.PrizeGetninkiparam = conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].GetPatissierPoint;
         GameMgr.contest_boss_name = GameMgr.PrizeCharacterList[GameMgr.PrizeCharacterList.Count - 1];
     }
 
@@ -242,9 +262,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 {
                     pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
                     GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
-                    PlayerStatus.player_money += GameMgr.PrizeGetMoneyList[i];
+                    moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                     GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                    Debug.Log("ランク: " + PrizeRankList[i]);
+                    _getninki = 1;
+                    ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得 最低でも1は入る
+                    Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
                     break;
                 }
             }
@@ -256,9 +278,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                     {
                         pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
                         GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
-                        PlayerStatus.player_money += GameMgr.PrizeGetMoneyList[i];
+                        moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                         GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                        Debug.Log("ランク: " + PrizeRankList[i]);
+                        _getninki = (int)(GameMgr.PrizeGetninkiparam * PrizeNinkiRankList[i]);
+                        ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
+                        Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
                         break;
                     }
                 }
@@ -268,9 +292,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                     {
                         pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
                         GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
-                        PlayerStatus.player_money += GameMgr.PrizeGetMoneyList[i];
+                        moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                         GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                        Debug.Log("ランク: " + PrizeRankList[i]);
+                        _getninki = (int)(GameMgr.PrizeGetninkiparam * PrizeNinkiRankList[i]);
+                        ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
+                        Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
                         break;
                     }
                 }
@@ -288,6 +314,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         PrizeRankList.Add(2, "B");
         PrizeRankList.Add(3, "A");
         PrizeRankList.Add(4, "S");
+    }
+
+    void PrizeNinkiRankDict()
+    {
+        PrizeNinkiRankList.Clear();
+        PrizeNinkiRankList.Add(0, 0f);
+        PrizeNinkiRankList.Add(1, 0.1f); //GetPatissierPointの10分の一
+        PrizeNinkiRankList.Add(2, 0.25f); //4分の一
+        PrizeNinkiRankList.Add(3, 0.5f); //2分の一
+        PrizeNinkiRankList.Add(4, 1.0f); //まるっともらえる
     }
 
     //トーナメント形式の賞品設定　選手名はContestStartListDBで決める
@@ -383,11 +419,17 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     }
     //
 
+
+
+
+    //
+    //ランキング形式
+    //
     void PrizeRankingSet01()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
+        GameMgr.PrizeItemList.Add("nuts"); //5位 ↓
         GameMgr.PrizeItemList.Add("ice_box");
         GameMgr.PrizeItemList.Add("neko_badge2");
         GameMgr.PrizeItemList.Add("whisk_magic");

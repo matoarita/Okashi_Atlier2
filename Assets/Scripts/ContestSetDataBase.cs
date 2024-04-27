@@ -30,8 +30,18 @@ public class ContestSetDataBase : SingletonMonoBehaviour<ContestSetDataBase>
     private int _juice;
 
     private int _beauty;
+    private int _tea_flavor;
 
     private int _sp1_wind; //テーマに応じた特別な採点　「風らしさ」など。コンテストごとに参照する得点が変わる。
+    private int _sp_score2;
+    private int _sp_score3;
+    private int _sp_score4;
+    private int _sp_score5;
+    private int _sp_score6;
+    private int _sp_score7;
+    private int _sp_score8;
+    private int _sp_score9;
+    private int _sp_score10;
 
     private string _tp01;
     private string _tp02;
@@ -124,7 +134,18 @@ public class ContestSetDataBase : SingletonMonoBehaviour<ContestSetDataBase>
         _juice = excel_contestset_database.sheets[sheet_no].list[count].juice;
 
         _beauty = excel_contestset_database.sheets[sheet_no].list[count].beauty;
+        _tea_flavor = excel_contestset_database.sheets[sheet_no].list[count].tea_flavor;
+
         _sp1_wind = excel_contestset_database.sheets[sheet_no].list[count].Sp1_Wind;
+        _sp_score2 = excel_contestset_database.sheets[sheet_no].list[count].Sp2_Sco;
+        _sp_score3 = excel_contestset_database.sheets[sheet_no].list[count].Sp3_Sco;
+        _sp_score4 = excel_contestset_database.sheets[sheet_no].list[count].Sp4_Sco;
+        _sp_score5 = excel_contestset_database.sheets[sheet_no].list[count].Sp5_Sco;
+        _sp_score6 = excel_contestset_database.sheets[sheet_no].list[count].Sp6_Sco;
+        _sp_score7 = excel_contestset_database.sheets[sheet_no].list[count].Sp7_Sco;
+        _sp_score8 = excel_contestset_database.sheets[sheet_no].list[count].Sp8_Sco;
+        _sp_score9 = excel_contestset_database.sheets[sheet_no].list[count].Sp9_Sco;
+        _sp_score10 = excel_contestset_database.sheets[sheet_no].list[count].Sp10_Sco;
 
         _tp01 = excel_contestset_database.sheets[sheet_no].list[count].topping01;
         _tp02 = excel_contestset_database.sheets[sheet_no].list[count].topping02;
@@ -154,8 +175,8 @@ public class ContestSetDataBase : SingletonMonoBehaviour<ContestSetDataBase>
 
         //ここでリストに追加している
         contest_set.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
-            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-            _sp1_wind,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
+            _sp1_wind, _sp_score2, _sp_score3, _sp_score4, _sp_score5, _sp_score6, _sp_score7, _sp_score8, _sp_score9, _sp_score10,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09,
             _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _tp_score06, _tp_score07, _tp_score08, _tp_score09,
             _non_tp_score, _setkansou, _comment_flag, _search_endflag));

@@ -46,6 +46,7 @@ public class SetImage : MonoBehaviour
 
     private SlotNameDataBase slotnamedatabase;
     private SlotChangeName slotchangename;
+    private ItemSubTypeSetDatabase itemsubtypeset_database;
 
     private Sprite texture2d;
     private Texture2D card_template_1;
@@ -159,7 +160,17 @@ public class SetImage : MonoBehaviour
     private int _juice_score;
 
     private int _beauty_score;
+    private int _tea_flavor_score;
     private int _spwind_score;
+    private int _sp_score2;
+    private int _sp_score3;
+    private int _sp_score4;
+    private int _sp_score5;
+    private int _sp_score6;
+    private int _sp_score7;
+    private int _sp_score8;
+    private int _sp_score9;
+    private int _sp_score10;
 
     private int _powdery_score;
     private int _oily_score;
@@ -285,6 +296,9 @@ public class SetImage : MonoBehaviour
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //アイテムサブタイプの表記を分けるデータベース
+        itemsubtypeset_database = ItemSubTypeSetDatabase.Instance.GetComponent<ItemSubTypeSetDatabase>();
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -523,7 +537,17 @@ public class SetImage : MonoBehaviour
                 _watery_score = database.items[check_counter].Watery;
 
                 _beauty_score = database.items[check_counter].Beauty;
+                _tea_flavor_score = database.items[check_counter].Tea_Flavor;
                 _spwind_score = database.items[check_counter].SP_wind;
+                _sp_score2 = database.items[check_counter].SP_Score2;
+                _sp_score3 = database.items[check_counter].SP_Score3;
+                _sp_score4 = database.items[check_counter].SP_Score4;
+                _sp_score5 = database.items[check_counter].SP_Score5;
+                _sp_score6 = database.items[check_counter].SP_Score6;
+                _sp_score7 = database.items[check_counter].SP_Score7;
+                _sp_score8 = database.items[check_counter].SP_Score8;
+                _sp_score9 = database.items[check_counter].SP_Score9;
+                _sp_score10 = database.items[check_counter].SP_Score10;
 
                 //前回の味読み込み
                 //_lastquality_score = database.items[check_counter].Quality;
@@ -601,7 +625,17 @@ public class SetImage : MonoBehaviour
                 _juice_score = pitemlist.player_originalitemlist[check_counter].Juice;
 
                 _beauty_score = pitemlist.player_originalitemlist[check_counter].Beauty;
+                _tea_flavor_score = pitemlist.player_originalitemlist[check_counter].Tea_Flavor;
                 _spwind_score = pitemlist.player_originalitemlist[check_counter].SP_wind;
+                _sp_score2 = pitemlist.player_originalitemlist[check_counter].SP_Score2;
+                _sp_score3 = pitemlist.player_originalitemlist[check_counter].SP_Score3;
+                _sp_score4 = pitemlist.player_originalitemlist[check_counter].SP_Score4;
+                _sp_score5 = pitemlist.player_originalitemlist[check_counter].SP_Score5;
+                _sp_score6 = pitemlist.player_originalitemlist[check_counter].SP_Score6;
+                _sp_score7 = pitemlist.player_originalitemlist[check_counter].SP_Score7;
+                _sp_score8 = pitemlist.player_originalitemlist[check_counter].SP_Score8;
+                _sp_score9 = pitemlist.player_originalitemlist[check_counter].SP_Score9;
+                _sp_score10 = pitemlist.player_originalitemlist[check_counter].SP_Score10;
 
                 _powdery_score = pitemlist.player_originalitemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_originalitemlist[check_counter].Oily;
@@ -681,7 +715,17 @@ public class SetImage : MonoBehaviour
                 _juice_score = pitemlist.player_extremepanel_itemlist[check_counter].Juice;
 
                 _beauty_score = pitemlist.player_extremepanel_itemlist[check_counter].Beauty;
+                _tea_flavor_score = pitemlist.player_extremepanel_itemlist[check_counter].Tea_Flavor;
                 _spwind_score = pitemlist.player_extremepanel_itemlist[check_counter].SP_wind;
+                _sp_score2 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score2;
+                _sp_score3 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score3;
+                _sp_score4 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score4;
+                _sp_score5 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score5;
+                _sp_score6 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score6;
+                _sp_score7 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score7;
+                _sp_score8 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score8;
+                _sp_score9 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score9;
+                _sp_score10 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score10;
 
                 _powdery_score = pitemlist.player_extremepanel_itemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_extremepanel_itemlist[check_counter].Oily;
@@ -760,7 +804,17 @@ public class SetImage : MonoBehaviour
                 _juice_score = pitemlist.player_check_itemlist[check_counter].Juice;
 
                 _beauty_score = pitemlist.player_check_itemlist[check_counter].Beauty;
+                _tea_flavor_score = pitemlist.player_check_itemlist[check_counter].Tea_Flavor;
                 _spwind_score = pitemlist.player_check_itemlist[check_counter].SP_wind;
+                _sp_score2 = pitemlist.player_check_itemlist[check_counter].SP_Score2;
+                _sp_score3 = pitemlist.player_check_itemlist[check_counter].SP_Score3;
+                _sp_score4 = pitemlist.player_check_itemlist[check_counter].SP_Score4;
+                _sp_score5 = pitemlist.player_check_itemlist[check_counter].SP_Score5;
+                _sp_score6 = pitemlist.player_check_itemlist[check_counter].SP_Score6;
+                _sp_score7 = pitemlist.player_check_itemlist[check_counter].SP_Score7;
+                _sp_score8 = pitemlist.player_check_itemlist[check_counter].SP_Score8;
+                _sp_score9 = pitemlist.player_check_itemlist[check_counter].SP_Score9;
+                _sp_score10 = pitemlist.player_check_itemlist[check_counter].SP_Score10;
 
                 _powdery_score = pitemlist.player_check_itemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_check_itemlist[check_counter].Oily;
@@ -851,7 +905,17 @@ public class SetImage : MonoBehaviour
         _juice_score = pitemlist.player_yosokuitemlist[check_counter].Juice;
 
         _beauty_score = pitemlist.player_yosokuitemlist[check_counter].Beauty;
+        _tea_flavor_score = pitemlist.player_yosokuitemlist[check_counter].Tea_Flavor;
         _spwind_score = pitemlist.player_yosokuitemlist[check_counter].SP_wind;
+        _sp_score2 = pitemlist.player_yosokuitemlist[check_counter].SP_Score2;
+        _sp_score3 = pitemlist.player_yosokuitemlist[check_counter].SP_Score3;
+        _sp_score4 = pitemlist.player_yosokuitemlist[check_counter].SP_Score4;
+        _sp_score5 = pitemlist.player_yosokuitemlist[check_counter].SP_Score5;
+        _sp_score6 = pitemlist.player_yosokuitemlist[check_counter].SP_Score6;
+        _sp_score7 = pitemlist.player_yosokuitemlist[check_counter].SP_Score7;
+        _sp_score8 = pitemlist.player_yosokuitemlist[check_counter].SP_Score8;
+        _sp_score9 = pitemlist.player_yosokuitemlist[check_counter].SP_Score9;
+        _sp_score10 = pitemlist.player_yosokuitemlist[check_counter].SP_Score10;
 
         _powdery_score = pitemlist.player_yosokuitemlist[check_counter].Powdery;
         _oily_score = pitemlist.player_yosokuitemlist[check_counter].Oily;
@@ -937,7 +1001,17 @@ public class SetImage : MonoBehaviour
         _juice_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Juice;
 
         _beauty_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Beauty;
+        _tea_flavor_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Tea_Flavor;
         _spwind_score = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_wind;
+        _sp_score2 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score2;
+        _sp_score3 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score3;
+        _sp_score4 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score4;
+        _sp_score5 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score5;
+        _sp_score6 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score6;
+        _sp_score7 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score7;
+        _sp_score8 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score8;
+        _sp_score9 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score9;
+        _sp_score10 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score10;
 
         _powdery_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Powdery;
         _oily_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Oily;
@@ -1068,235 +1142,62 @@ public class SetImage : MonoBehaviour
         item_Shokukan_Type.text = "";
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
-        switch (item_type_sub)
+        itemsubtypeset_database.SetImageSub(item_type_sub);
+
+        //GameMgr.Item_ShokukanTypeNumは、上のitemsubtypeset_databaseで設定している
+        switch (GameMgr.Item_ShokukanTypeNum)
         {
-            case "Non":
-                subcategory = "";
+            case 0: //さくさく
+
+                Crispy_Text();
                 break;
 
-            //お菓子
-            case "Biscotti":
-                subcategory = "ビスコッティ";
-                Hardness_Text();
+            case 1: //ふわふわ
+
+                Fluffy_Text();
                 break;
-            case "Bread":
-                subcategory = "パン";
-                Crispy_Text();
-                break;
-            case "Bread_Sliced":
-                subcategory = "パン";
-                Crispy_Text();
-                break;
-            case "Cookie":
-                subcategory = "クッキー";
-                Crispy_Text();
-                break;
-            case "Cookie_Mat":
-                subcategory = "クッキー";
-                Crispy_Text();
-                break;
-            case "Cookie_Hard":
-                subcategory = "ノンシュガークッキー";
-                Hardness_Text();
-                break;
-            case "Chocolate":
-                subcategory = "チョコレート";
+
+            case 2: //なめらか
+
                 Smooth_Text();
                 break;
-            case "Chocolate_Mat":
-                subcategory = "チョコレート";
-                Smooth_Text();
-                break;
-            case "Cake":
-                subcategory = "ケーキ";
-                Fluffy_Text();
-                break;
-            case "Cake_Mat":
-                subcategory = "ケーキの素材";
-                Fluffy_Text();
-                break;
-            case "Castella":
-                subcategory = "カステラ";
-                Fluffy_Text();
-                break;
-            case "Cannoli":
-                subcategory = "カンノーリ";
-                Crispy_Text();
-                break;
-            case "Candy":
-                subcategory = "キャンディ";
+
+            case 3: //歯ごたえ
+
                 Hardness_Text();
                 break;
-            case "Crepe":
-                subcategory = "クレープ";
-                Fluffy_Text();
-                break;
-            case "Crepe_Mat":
-                subcategory = "クレープ";
-                Fluffy_Text();
-                break;
-            case "Creampuff":
-                subcategory = "シュークリーム";
-                Fluffy_Text();
-                break;
-            case "Coffee":
-                subcategory = "コーヒー";
-                Crispy_Text();
-                item_Shokukan_Type.text = "香り";
-                item_lastShokukan_Type.text = "香り";
-                break;
-            case "Coffee_Mat":
-                subcategory = "コーヒー";
-                Crispy_Text();
-                item_Shokukan_Type.text = "香り";
-                item_lastShokukan_Type.text = "香り";
-                break;
-            case "Donuts":
-                subcategory = "ドーナツ";
-                Fluffy_Text();
-                break;
-            case "Financier":
-                subcategory = "フィナンシェ";
-                Fluffy_Text();
-                break;
-            case "IceCream":
-                subcategory = "アイスクリーム";
-                Smooth_Text();
-                break;
-            case "Juice":
-                subcategory = "ジュース";
+
+            case 4: //のどごし
+
                 Juice_Text();
                 break;
-            case "Jelly":
-                subcategory = "ゼリー";
-                Hardness_Text();
-                //Smooth_Text();
-                break;
-            case "Maffin":
-                subcategory = "マフィン";
-                Fluffy_Text();
-                break;            
-            case "PanCake":
-                subcategory = "パンケーキ";
-                Fluffy_Text();
-                break;
-            case "Parfe":
-                subcategory = "パフェ";
-                Smooth_Text();
-                break;
-            case "Pie":
-                subcategory = "パイ";
-                Crispy_Text();
-                break;
-            case "SumireSuger":
-                subcategory = "すみれ砂糖菓子";
-                Crispy_Text();
-                item_Shokukan_Type.text = "香り";
-                item_lastShokukan_Type.text = "香り";
-                break;
-            case "Rusk":
-                subcategory = "ラスク";
-                Crispy_Text();
-                break;         
-            case "Tea":
-                subcategory = "お茶";
-                Crispy_Text();
-                item_Shokukan_Type.text = "香り";
-                item_lastShokukan_Type.text = "香り";
-                break;
-            case "Tea_Mat":
-                subcategory = "お茶";
-                Crispy_Text();
-                item_Shokukan_Type.text = "香り";
-                item_lastShokukan_Type.text = "香り";
-                break;
-            case "Tea_Potion":
-                subcategory = "お茶";
-                Crispy_Text();
-                item_Shokukan_Type.text = "香り";
-                item_lastShokukan_Type.text = "香り";
+
+            case 5: //香り
+
+                Tea_Text();
                 break;
 
-            //材料など
-            case "Fruits":
-                subcategory = "フルーツ";
-                Etc_Text_Non();
-                break;            
-            case "Nuts":
-                subcategory = "ナッツ";
-                Etc_Text_Non();
+            case 90: //食感
+
                 break;
-            case "Source":
-                subcategory = "お菓子材料";
-                Etc_Text();                
-                break;
-            case "Potion":
-                subcategory = "お菓子材料";
-                Etc_Text();
-                break;
-            case "Appaleil":
-                subcategory = "生地";
-                Etc_Text();
-                break;
-            case "Pate":
-                subcategory = "生地";
-                Etc_Text();
-                break;
-            case "Cream":               
-                subcategory = "クリーム";
-                Etc_Text();
-                break;            
-            case "Cookie_base":
-                subcategory = "生地";
-                break;
-            case "Pie_base":
-                subcategory = "生地";
-                break;
-            case "Chocolate_base":
-                subcategory = "生地";
-                break;
-            case "Cake_base":
-                subcategory = "生地";
-                break;
-            case "Komugiko":
-                subcategory = "小麦粉";
-                break;
-            case "Suger":
-                subcategory = "砂糖";
-                break;
-            case "Butter":
-                subcategory = "バター";
-                break;
-            case "Egg":
-                subcategory = "たまご";
-                break;
-            case "Milk":
-                subcategory = "ミルク";
-                Etc_Text_Non();
-                break;
-            case "Water":
-                subcategory = "水";
-                Etc_Text_Non();
-                break;
-            case "Machine":
-                subcategory = "器具";
-                break;
-            
+
             default:
-                // 処理３　指定がなかった場合
-                subcategory = "";
+
                 break;
         }
+
+        //食感表示
+        ShokukanText();
 
         if (_secretFlag == 1)
         {
             //最終的なテキストを表示 "\n"で改行 隠しレシピは後ろに★がつく
-            item_Category.text = category + " - " + subcategory + "★";
+            item_Category.text = category + " - " + GameMgr.Item_subcategoryText + "★";
         }
         else
         {
             //最終的なテキストを表示 "\n"で改行
-            item_Category.text = category + " - " + subcategory;
+            item_Category.text = category + " - " + GameMgr.Item_subcategoryText;
         }
             
 
@@ -1592,10 +1493,14 @@ public class SetImage : MonoBehaviour
         item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
     }
 
+    void ShokukanText()
+    {
+        item_Shokukan_Type.text = GameMgr.Item_ShokukanTypeText;
+        item_lastShokukan_Type.text = GameMgr.Item_ShokukanTypeText;
+    }
+
     void Crispy_Text()
     {
-        item_Shokukan_Type.text = "さくさく感";
-        item_lastShokukan_Type.text = "さくさく感";
         item_Shokukan.text = _crispy_score.ToString();
         _shokukan_score = _crispy_score;
         _lastshokukan_score = _lastcrispy_score;
@@ -1603,8 +1508,6 @@ public class SetImage : MonoBehaviour
 
     void Fluffy_Text()
     {
-        item_Shokukan_Type.text = "ふわふわ感";
-        item_lastShokukan_Type.text = "ふわふわ感";
         item_Shokukan.text = _fluffy_score.ToString();
         _shokukan_score = _fluffy_score;
         _lastshokukan_score = _lastfluffy_score;
@@ -1612,8 +1515,6 @@ public class SetImage : MonoBehaviour
 
     void Smooth_Text()
     {
-        item_Shokukan_Type.text = "なめらか感";
-        item_lastShokukan_Type.text = "なめらか感";
         item_Shokukan.text = _smooth_score.ToString();
         _shokukan_score = _smooth_score;
         _lastshokukan_score = _lastsmooth_score;
@@ -1621,8 +1522,8 @@ public class SetImage : MonoBehaviour
 
     void Hardness_Text()
     {
-        item_Shokukan_Type.text = "歯ごたえ";
-        item_lastShokukan_Type.text = "歯ごたえ";
+        //item_Shokukan_Type.text = "歯ごたえ";
+        //item_lastShokukan_Type.text = "歯ごたえ";
         item_Shokukan.text = _hardness_score.ToString();
         _shokukan_score = _hardness_score;
         _lastshokukan_score = _lasthardness_score;
@@ -1630,11 +1531,16 @@ public class SetImage : MonoBehaviour
 
     void Juice_Text()
     {
-        item_Shokukan_Type.text = "のどごし";
-        item_lastShokukan_Type.text = "のどごし";
         item_Shokukan.text = _juice_score.ToString();
         _shokukan_score = _juice_score;
         _lastshokukan_score = _lastjuice_score;
+    }
+
+    void Tea_Text()
+    {
+        item_Shokukan.text = _tea_flavor_score.ToString();
+        _shokukan_score = _tea_flavor_score;
+        _lastshokukan_score = _lastcrispy_score;
     }
 
     void Etc_Text()

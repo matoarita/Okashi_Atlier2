@@ -34,12 +34,13 @@ public class Entity_ContestSetDataBase : ScriptableObject
 		public int chewy;
 		public int juice;
 		public int beauty;
+		public int tea_flavor;
 		public int Sp1_Wind;
 		public int Sp2_Sco;
 		public int Sp3_Sco;
 		public int Sp4_Sco;
 		public int Sp5_Sco;
-		public int Sp6_Wind;
+		public int Sp6_Sco;
 		public int Sp7_Sco;
 		public int Sp8_Sco;
 		public int Sp9_Sco;

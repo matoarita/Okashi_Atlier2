@@ -99,8 +99,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public int[] girl1_Juice;
 
     public int[] girl1_Beauty;
+    public int[] girl1_Tea_Flavor;
 
     public int[] girl1_SP1_Wind;
+    public int[] girl1_SP_Score2;
+    public int[] girl1_SP_Score3;
+    public int[] girl1_SP_Score4;
+    public int[] girl1_SP_Score5;
+    public int[] girl1_SP_Score6;
+    public int[] girl1_SP_Score7;
+    public int[] girl1_SP_Score8;
+    public int[] girl1_SP_Score9;
+    public int[] girl1_SP_Score10;
 
     //マイナスとなる要素。これは、お菓子の種類は関係なく、この数値を超えると、嫌がられる。
     public int girl1_Powdery;
@@ -316,8 +326,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Juice = new int[youso_count];
 
         girl1_Beauty = new int[youso_count];
+        girl1_Tea_Flavor = new int[youso_count];
 
         girl1_SP1_Wind = new int[youso_count];
+        girl1_SP_Score2 = new int[youso_count];
+        girl1_SP_Score3 = new int[youso_count];
+        girl1_SP_Score4 = new int[youso_count];
+        girl1_SP_Score5 = new int[youso_count];
+        girl1_SP_Score6 = new int[youso_count];
+        girl1_SP_Score7 = new int[youso_count];
+        girl1_SP_Score8 = new int[youso_count];
+        girl1_SP_Score9 = new int[youso_count];
+        girl1_SP_Score10 = new int[youso_count];
 
         girl1_like_set_score = new int[youso_count];
         girl1_NonToppingScoreSet = new int[youso_count];
@@ -1944,7 +1964,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Juice[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_juice;
 
         girl1_Beauty[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_beauty;
+        girl1_Tea_Flavor[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_tea_flavor;
+
         girl1_SP1_Wind[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp1_Wind;
+        girl1_SP_Score2[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score2;
+        girl1_SP_Score3[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score3;
+        girl1_SP_Score4[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score4;
+        girl1_SP_Score5[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score5;
+        girl1_SP_Score6[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score6;
+        girl1_SP_Score7[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score7;
+        girl1_SP_Score8[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score8;
+        girl1_SP_Score9[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score9;
+        girl1_SP_Score10[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp_Score10;
 
         //③お菓子の種類：　空＝お菓子はなんでもよい　か　クッキー
         girl1_likeSubtype[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_itemSubtype;
@@ -2178,7 +2209,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Juice[_set_num] = contestSet_database.contest_set[setID].girlLike_juice;
 
         girl1_Beauty[_set_num] = contestSet_database.contest_set[setID].girlLike_beauty;
+        girl1_Tea_Flavor[_set_num] = contestSet_database.contest_set[setID].girlLike_tea_flavor;
+
         girl1_SP1_Wind[_set_num] = contestSet_database.contest_set[setID].girlLike_sp1_Wind;
+        girl1_SP_Score2[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score2;
+        girl1_SP_Score3[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score3;
+        girl1_SP_Score4[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score4;
+        girl1_SP_Score5[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score5;
+        girl1_SP_Score6[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score6;
+        girl1_SP_Score7[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score7;
+        girl1_SP_Score8[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score8;
+        girl1_SP_Score9[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score9;
+        girl1_SP_Score10[_set_num] = contestSet_database.contest_set[setID].girlLike_sp_Score10;
 
         //③お菓子の種類：　空＝お菓子はなんでもよい　か　クッキー
         girl1_likeSubtype[_set_num] = contestSet_database.contest_set[setID].girlLike_itemSubtype;

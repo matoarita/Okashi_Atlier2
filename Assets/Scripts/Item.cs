@@ -46,8 +46,18 @@ public class Item
     public int Watery;              //水っぽさ　マイナス要因   水・ミルクなどを入れすぎると、水っぽくなり、固まらない。
 
     public int Beauty;              //見た目の数値　大きいほど、かわいいとかキラキラしてるということ。
+    public int Tea_Flavor;          //お茶の香り
 
     public int SP_wind;             //風らしさ
+    public int SP_Score2;
+    public int SP_Score3;
+    public int SP_Score4;
+    public int SP_Score5;
+    public int SP_Score6;
+    public int SP_Score7;
+    public int SP_Score8;
+    public int SP_Score9;
+    public int SP_Score10;
 
     public ItemType itemType;               //アイテムの種類メインカテゴリー
     public ItemType_sub itemType_sub;       //アイテムの種類サブカテゴリー（クッキー系とかパイ系など）
@@ -181,8 +191,8 @@ public class Item
     //ここでリスト化時に渡す引数をあてがいます   
     public Item(int id, string OriginalID, string file_name, string name, string nameHyouji, string desc, int _comp_hosei, int hp, int day, int quality, int _exp, float ex_pro, 
         int rich, int sweat, int bitter, int sour, int crispy, int fluffy, int smooth, int hardness, int jiggly, int chewy, int powdery, int oily, int watery, int beauty,
-        int juice,
-        int sp_wind,
+        int juice, int tea_flavor,
+        int sp_wind, int sp_Score2, int sp_Score3, int sp_Score4, int sp_Score5, int sp_Score6, int sp_Score7, int sp_Score8, int sp_Score9, int sp_Score10,
         string type, string subtype, string subtypeB, string subtype_category, int _base_score, float _girl1_like, int cost, int sell, 
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
@@ -227,8 +237,18 @@ public class Item
         Watery = watery;
 
         Beauty = beauty;
+        Tea_Flavor = tea_flavor;
 
         SP_wind = sp_wind;
+        SP_Score2 = sp_Score2;
+        SP_Score3 = sp_Score3;
+        SP_Score4 = sp_Score4;
+        SP_Score5 = sp_Score5;
+        SP_Score6 = sp_Score6;
+        SP_Score7 = sp_Score7;
+        SP_Score8 = sp_Score8;
+        SP_Score9 = sp_Score9;
+        SP_Score10 = sp_Score10;
 
         itemType = (ItemType)Enum.Parse(typeof(ItemType), type);      
         itemType_sub = (ItemType_sub)Enum.Parse(typeof(ItemType_sub), subtype);

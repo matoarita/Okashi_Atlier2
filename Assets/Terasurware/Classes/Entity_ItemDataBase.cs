@@ -42,7 +42,17 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int oily;
 		public int watery;
 		public int beauty;
+		public int tea_flavor;
 		public int SP_wind;
+		public int SP2_sco;
+		public int SP3_sco;
+		public int SP4_sco;
+		public int SP5_sco;
+		public int SP6_sco;
+		public int SP7_sco;
+		public int SP8_sco;
+		public int SP9_sco;
+		public int SP10_sco;
 		public string type;
 		public string subtype;
 		public string subtypeB;

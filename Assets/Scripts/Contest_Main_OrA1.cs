@@ -32,6 +32,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private ItemDataBase database;
+
     private GameObject black_panel_A;
 
     //女の子のお菓子の好きセット
@@ -50,8 +52,6 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private List<string> _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
     private List<string> _itemSubtypeB_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
     private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
-
-    private ItemDataBase database;
 
     private MagicSkillListDataBase magicskill_database;
 
@@ -318,6 +318,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             contestPrizePanel.SetActive(false); //ランキング戦で一回表示してる可能性があるので、一度オフ
             contestPrizeScore_dataBase.PrizeGet(); //アイテム獲得
 
+            //支給されたアイテムはここで削除
+            pitemlist.DeleteContestSurppliedItem();
+
             GameMgr.scenario_ON = true;
 
             sceneBGM.MuteBGM();
@@ -497,6 +500,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //DBで初期設定を行っている
         conteststartList_database.ContestSetting();
 
+        //コンテスト支給のものがあれば、このタイミングで追加
+        conteststartList_database.AddContest_SurppliedItem();
+
         _text.text = GameMgr.Contest_ProblemSentence;
         GameMgr.Scene_Status = 0;
         StartRead = false; //BGMをリセット
@@ -668,6 +674,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         sceneBGM.MuteBGM();
         scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+        //支給されたアイテムはここで削除
+        pitemlist.DeleteContestSurppliedItem();
 
         StartCoroutine("WaitForGiveUpContest");
     }

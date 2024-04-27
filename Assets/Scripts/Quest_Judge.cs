@@ -251,6 +251,8 @@ public class Quest_Judge : MonoBehaviour {
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
+        //人気コントローラー取得
+        ninkiStatus_Controller = NinkiStatus_Controller.Instance.GetComponent<NinkiStatus_Controller>();
 
 
         //**クエストパネル関係取得　酒場のみのオブジェクトなので気を付ける
@@ -274,8 +276,7 @@ public class Quest_Judge : MonoBehaviour {
         questResultPanel_tsukatext_defpos = questResultPanel_tsukatext_pos.localPosition;
 
         //名声パネルの取得
-        NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
-        ninkiStatus_Controller = NinkiStatus_Panel_obj.GetComponent<NinkiStatus_Controller>();
+        NinkiStatus_Panel_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;       
 
         WhiteFadeCanvas = quest_Judge_CanvasPanel.transform.Find("WhiteFadeCanvas").gameObject;
 
@@ -1423,10 +1424,8 @@ public class Quest_Judge : MonoBehaviour {
                 moneyStatus_Controller.GetMoney(_getMoney); //アニメつき
 
                 //名声値は減る
-                if (GameMgr.Story_Mode == 1)
-                {
-                    //ninkiStatus_Controller.DegNinki(3); //アニメつき
-                }
+                //ninkiStatus_Controller.DegNinki(3); //アニメつき
+
 
                 WhiteFadeCanvas.SetActive(false);
                 //sceneBGM.FadeInBGM();
@@ -1496,22 +1495,7 @@ public class Quest_Judge : MonoBehaviour {
         moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
 
         //名声をプラスかマイナス。0は変化なし
-        if (GameMgr.Story_Mode == 1)
-        {
-            if (_getNinki < 0)
-            {
-                //名声値は減る
-                PlayerStatus.player_ninki_param -= (Mathf.Abs(_getNinki));
-                //ninkiStatus_Controller.DegNinki(Mathf.Abs(_getNinki)); //アニメつき
-            }
-            else if (_getNinki > 0)
-            {
-                //名声値は増える
-                PlayerStatus.player_ninki_param += (Mathf.Abs(_getNinki));
-                //ninkiStatus_Controller.GetNinki(_getNinki); //アニメつき
-            }
-            ninkiStatus_Controller.money_Draw();
-        }
+        ninkiStatus_Controller.GetNinki(_getNinki);           
 
         ResetQuestStatus();
     }

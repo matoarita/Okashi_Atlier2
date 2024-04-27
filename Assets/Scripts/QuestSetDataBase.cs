@@ -6,6 +6,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 {
     private Entity_QuestSetDataBase excel_questset_database; //sample_excelクラス。エクセル読み込み時、XMLインポートで生成されたときのクラスを読む。リスト型と同じように扱える。
 
+    private TimeController time_controller;
+
     private int _id;
     private int _questID;
     private int _questType;
@@ -49,6 +51,12 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private int _tp_score04;
     private int _tp_score05;
 
+    public int _quest_AfterDay;
+    public int _quest_LimitMonth;
+    public int _quest_LimitDay;
+    public int _quest_AreaType; //
+    public string _quest_ClientName; //
+
     private string _title;
     private string _desc;
     private int _read_endflag;
@@ -57,6 +65,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
+
+    private int _day;
 
     //public List<int> sheet_topendID = new List<int>(); //シートごとに、IDの頭と最後を、順番に入れている。[0][1]は、シート０のIDの頭、と最後、という感じ。
 
@@ -90,7 +100,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                 //ここでリストに追加している
                 questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-                    _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc, _read_endflag));              
+                    _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
+                    _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));              
 
                 ++count;
             }
@@ -152,6 +163,12 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp_score04 = excel_questset_database.sheets[sheet_no].list[count].tp_score4;
         _tp_score05 = excel_questset_database.sheets[sheet_no].list[count].tp_score5;
 
+        _quest_AfterDay = excel_questset_database.sheets[sheet_no].list[count].quest_afterday;
+        _quest_LimitMonth = excel_questset_database.sheets[sheet_no].list[count].limit_month;
+        _quest_LimitDay = excel_questset_database.sheets[sheet_no].list[count].limit_day;
+        _quest_AreaType = excel_questset_database.sheets[sheet_no].list[count].area_Type;
+        _quest_ClientName = excel_questset_database.sheets[sheet_no].list[count].ClientName;
+
         _title = excel_questset_database.sheets[sheet_no].list[count].quest_Title;
         _desc = excel_questset_database.sheets[sheet_no].list[count].desc;
         _read_endflag = excel_questset_database.sheets[sheet_no].list[count].read_endflag;
@@ -204,6 +221,22 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp_score04 = questset[count].Quest_tp_score[3];
         _tp_score05 = questset[count].Quest_tp_score[4];
 
+        //日付に少しランダムで幅をつける
+        if(questset[count].Quest_AfterDay <= 15)
+        {
+            _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 3);
+        }
+        else
+        {
+            _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 5);
+        }      
+        if(_quest_AfterDay < 0) { _quest_AfterDay = 1; }
+
+        _quest_LimitMonth = questset[count].Quest_LimitMonth;
+        _quest_LimitDay = questset[count].Quest_LimitDay;
+        _quest_AreaType = questset[count].Quest_AreaType;
+        _quest_ClientName = questset[count].Quest_ClientName;
+
         _title = questset[count].Quest_Title;
         _desc = questset[count].Quest_desc;
         _read_endflag = questset[count].read_endflag;
@@ -211,12 +244,16 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         //ここでリストに追加している
         questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc, _read_endflag));
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
+            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));
     }
 
 
     public void QuestTakeSetInit(int count)
     {
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         // 一旦代入
         _id = questRandomset[count]._ID;
         _questID = questRandomset[count].Quest_ID;
@@ -262,6 +299,17 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp_score04 = questRandomset[count].Quest_tp_score[3];
         _tp_score05 = questRandomset[count].Quest_tp_score[4];
 
+        //クエスト決定したタイミングで、AfterDayの日付と現在の日付をもとに、締め切り日を設定する。
+        _quest_AfterDay = questRandomset[count].Quest_AfterDay;
+        _day = PlayerStatus.player_day + _quest_AfterDay;
+
+        time_controller.CullenderKeisan(_day); //GameMgr.Cullender_MonthとDayで値が返る
+        _quest_LimitMonth = GameMgr.Cullender_Month;
+        _quest_LimitDay = GameMgr.Cullender_Day;
+
+        _quest_AreaType = questRandomset[count].Quest_AreaType;
+        _quest_ClientName = questRandomset[count].Quest_ClientName;
+
         _title = questRandomset[count].Quest_Title;
         _desc = questRandomset[count].Quest_desc;
         _read_endflag = questRandomset[count].read_endflag;
@@ -269,7 +317,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         //ここでリストに追加している
         questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _title, _desc, _read_endflag));
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
+            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));
     }
 
     public void ResetQuestTakeSet()

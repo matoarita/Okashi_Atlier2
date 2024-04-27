@@ -28,7 +28,17 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
     private int _juice;
 
     private int _beauty;
+    private int _tea_flavor;
     private int _sp1_wind;
+    private int _sp_Score2;
+    private int _sp_Score3;
+    private int _sp_Score4;
+    private int _sp_Score5;
+    private int _sp_Score6;
+    private int _sp_Score7;
+    private int _sp_Score8;
+    private int _sp_Score9;
+    private int _sp_Score10;
 
     private string _tp01;
     private string _tp02;
@@ -120,8 +130,18 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
         _juice = excel_girlLikeset_database.sheets[sheet_no].list[count].juice;
 
         _beauty = excel_girlLikeset_database.sheets[sheet_no].list[count].beauty;
+        _tea_flavor = excel_girlLikeset_database.sheets[sheet_no].list[count].tea_flavor;
 
         _sp1_wind = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp1_Wind;
+        _sp_Score2 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp2_Sco;
+        _sp_Score3 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp3_Sco;
+        _sp_Score4 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp4_Sco;
+        _sp_Score5 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp5_Sco;
+        _sp_Score6 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp6_Sco;
+        _sp_Score7 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp7_Sco;
+        _sp_Score8 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp8_Sco;
+        _sp_Score9 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp9_Sco;
+        _sp_Score10 = excel_girlLikeset_database.sheets[sheet_no].list[count].Sp10_Sco;
 
         _tp01 = excel_girlLikeset_database.sheets[sheet_no].list[count].topping01;
         _tp02 = excel_girlLikeset_database.sheets[sheet_no].list[count].topping02;
@@ -151,8 +171,8 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
 
         //ここでリストに追加している
         girllikeset.Add(new GirlLikeSet(_id, _compnum, _itemname, _itemsubtype, _set_score,
-            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
-            _sp1_wind,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
+            _sp1_wind, _sp_Score2, _sp_Score3, _sp_Score4, _sp_Score5, _sp_Score6, _sp_Score7, _sp_Score8, _sp_Score9, _sp_Score10,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09,
             _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05, _tp_score06, _tp_score07, _tp_score08, _tp_score09,
             _non_tp_score, _setkansou, _comment_flag, _search_endflag));

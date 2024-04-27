@@ -25,10 +25,10 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_maxmp;
     public static int player_default_mp; //ゲーム初期値　セーブ不要
     public static int player_patissier_lv;
-    public static int player_patissier_exp;
+    public static int player_patissier_exp; //パティシエLV用だが、LVはハートLVに依存するので、現在未使用。使ってもいい。
     public static int player_patissier_job_pt;
     public static int player_patissier_Rank;
-    public static int player_ninki_param; //名声。名声が上昇すると、パティシエランクが上がる。
+    public static int player_ninki_param; //名声値はこれを使う。名声が上昇すると、パティシエランクが上がる。
 
     //妹のステータス
     //好感度のexpとlvだけは、girl1_statusに登録。

@@ -40,9 +40,19 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
     private int _watery;
 
     private int _beauty;
+    private int _tea_flavor;
     private int _juice;
 
     private int _sp_wind;
+    private int _sp_score2;
+    private int _sp_score3;
+    private int _sp_score4;
+    private int _sp_score5;
+    private int _sp_score6;
+    private int _sp_score7;
+    private int _sp_score8;
+    private int _sp_score9;
+    private int _sp_score10;
 
     private string _type;
     private string _subtype;
@@ -143,8 +153,19 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                 _watery = excel_itemdatabase.sheets[sheet_no].list[count].watery;
 
                 _beauty = excel_itemdatabase.sheets[sheet_no].list[count].beauty;
+                _tea_flavor = excel_itemdatabase.sheets[sheet_no].list[count].tea_flavor;
 
                 _sp_wind = excel_itemdatabase.sheets[sheet_no].list[count].SP_wind;
+                _sp_score2 = excel_itemdatabase.sheets[sheet_no].list[count].SP2_sco;
+                _sp_score3 = excel_itemdatabase.sheets[sheet_no].list[count].SP3_sco;
+                _sp_score4 = excel_itemdatabase.sheets[sheet_no].list[count].SP4_sco;
+                _sp_score5 = excel_itemdatabase.sheets[sheet_no].list[count].SP5_sco;
+                _sp_score6 = excel_itemdatabase.sheets[sheet_no].list[count].SP6_sco;
+                _sp_score7 = excel_itemdatabase.sheets[sheet_no].list[count].SP7_sco;
+                _sp_score8 = excel_itemdatabase.sheets[sheet_no].list[count].SP8_sco;
+                _sp_score9 = excel_itemdatabase.sheets[sheet_no].list[count].SP9_sco;
+                _sp_score10 = excel_itemdatabase.sheets[sheet_no].list[count].SP10_sco;
+
 
                 _type = excel_itemdatabase.sheets[sheet_no].list[count].type;
                 _subtype = excel_itemdatabase.sheets[sheet_no].list[count].subtype;
@@ -185,22 +206,22 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
 
                 //ここでリストに追加している
                 items.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
-                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice,
-                    _sp_wind,
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _tea_flavor,
+                    _sp_wind, _sp_score2, _sp_score3, _sp_score4, _sp_score5, _sp_score6, _sp_score7, _sp_score8, _sp_score9, _sp_score10,
                     _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, 
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _secretFlag));
                 //comp_hoseiでバグらないようにするための、クローン
                 items_gamedefault.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
-                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice,
-                    _sp_wind, 
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _tea_flavor,
+                    _sp_wind, _sp_score2, _sp_score3, _sp_score4, _sp_score5, _sp_score6, _sp_score7, _sp_score8, _sp_score9, _sp_score10,
                     _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like,
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _secretFlag));
                 //システムデータ保存用のアイテムデータリスト
                 items_system.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
-                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice,
-                    _sp_wind, 
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _powdery, _oily, _watery, _beauty, _juice, _tea_flavor,
+                    _sp_wind, _sp_score2, _sp_score3, _sp_score4, _sp_score5, _sp_score6, _sp_score7, _sp_score8, _sp_score9, _sp_score10,
                     _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like,
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _secretFlag));
@@ -337,5 +358,5 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
             return 9999; //見つからなかった場合、9999
         }
     }
-   
+       
 }

@@ -40,9 +40,16 @@ public class QuestSet
     public int Quest_juice;
 
     public int Quest_beauty;
+    public int Quest_tea_flavor;
 
     public string[] Quest_topping = new string[5];
     public int[] Quest_tp_score = new int[5];
+
+    public int Quest_AfterDay;
+    public int Quest_LimitMonth;
+    public int Quest_LimitDay;
+    public int Quest_AreaType; //どの酒場の依頼か
+    public string Quest_ClientName; //依頼者の名前
 
     public string Quest_Title;
     public string Quest_desc;
@@ -55,7 +62,7 @@ public class QuestSet
         int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, 
         int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
         string tp01, string tp02, string tp03, string tp04, string tp05, int tp_score_01, int tp_score_02, int tp_score_03, int tp_score_04, int tp_score_05,
-        string _title, string _setkansou, int _read_endflag)
+        int _quest_afterday, int _quest_limitmonth, int _quest_limitday, int _quest_areaType, string _quest_clientname, string _title, string _setkansou, int _read_endflag)
     {
         _ID = id;
         Quest_ID = _questID;
@@ -100,6 +107,12 @@ public class QuestSet
         Quest_tp_score[2] = tp_score_03;
         Quest_tp_score[3] = tp_score_04;
         Quest_tp_score[4] = tp_score_05;
+
+        Quest_AfterDay = _quest_afterday;
+        Quest_LimitMonth = _quest_limitmonth;
+        Quest_LimitDay = _quest_limitday;
+        Quest_AreaType = _quest_areaType;
+        Quest_ClientName = _quest_clientname;
 
         Quest_Title = _title;
         Quest_desc = _setkansou;

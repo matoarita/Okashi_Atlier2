@@ -554,7 +554,7 @@ public class Contest_Main_Reception : MonoBehaviour
             _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
 
             GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
-            conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。
+            conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。           
 
             GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
             GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;

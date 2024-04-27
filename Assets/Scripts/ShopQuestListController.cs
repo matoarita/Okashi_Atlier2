@@ -178,12 +178,13 @@ public class ShopQuestListController : MonoBehaviour
 
             _text[2].text = item_kosu.ToString(); //個数
 
-            //進行中表示はオフ
-            _text[3].text = "";
-            _text[4].text = "";
-
             _hoshu = quest_database.questRandomset[i].Quest_buy_price * item_kosu;
-            _text[6].text = _hoshu.ToString();
+            _text[4].text = _hoshu.ToString();
+
+            //進行中表示はオフ
+            _text[5].text = "";
+            _text[6].text = quest_database.questRandomset[i].Quest_AfterDay.ToString() + "日";
+
 
             texture2d = quest_database.questRandomset[i].questIcon;
             _Img.sprite = texture2d;
@@ -234,11 +235,12 @@ public class ShopQuestListController : MonoBehaviour
 
             _text[2].text = item_kosu.ToString(); //価格
 
-            _text[3].text = "進行中"; //受注マーク
-            _text[4].text = ""; //締め切り日時 締切: ○月△日
-
             _hoshu = quest_database.questTakeset[i].Quest_buy_price * item_kosu;
-            _text[6].text = _hoshu.ToString();
+            _text[4].text = _hoshu.ToString();
+
+            _text[5].text = "進行中"; //受注マーク
+            _text[6].text = quest_database.questTakeset[i].Quest_LimitMonth.ToString() + "/" + 
+                quest_database.questTakeset[i].Quest_LimitDay.ToString(); //締め切り日時 締切: ○月△日           
 
             texture2d = quest_database.questTakeset[i].questIcon;
             _Img.sprite = texture2d;

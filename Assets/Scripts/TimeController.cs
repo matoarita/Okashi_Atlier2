@@ -789,7 +789,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     }
 
     //日数をいれると、その日が何月何日か出してくれる
-    void CullenderKeisan(int _cullent_day)
+    public void CullenderKeisan(int _cullent_day)
     {
         month = 0;
         day = 0;
@@ -802,6 +802,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             {
                 month = count + 1; //月　0始まりなので、足す１
                 day = _cullent_day; //日
+
+                GameMgr.Cullender_Month = month;
+                GameMgr.Cullender_Day = day;
                 break;
             }
             ++count;

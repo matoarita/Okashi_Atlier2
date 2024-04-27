@@ -151,6 +151,11 @@ public class RuntimeInitializer : MonoBehaviour
         GameObject.DontDestroyOnLoad(MoneyStatus_Controller_init);
         MoneyStatus_Controller_init.tag = "MoneyStatus_Controller";
 
+        //名声（人気）増減のコントローラー
+        var NinkiStatus_Controller_init = new GameObject("NinkiStatus_Controller", typeof(NinkiStatus_Controller));
+        GameObject.DontDestroyOnLoad(NinkiStatus_Controller_init);
+        MoneyStatus_Controller_init.tag = "NinkiStatus_Controller";
+
         //フェードマネージャー
         var fadeMgr_init = new GameObject("FadeManager", typeof(FadeManager));
         GameObject.DontDestroyOnLoad(fadeMgr_init);
@@ -191,6 +196,10 @@ public class RuntimeInitializer : MonoBehaviour
         //イベントデータベースリスト
         var event_database_init = new GameObject("EventDataBase", typeof(EventDataBase));
         GameObject.DontDestroyOnLoad(event_database_init);
+
+        //アイテムのサブタイプを一括で分けるデータベースリスト
+        var ItemSubTypeSetDatabase_init = new GameObject("ItemSubTypeSetDatabase", typeof(ItemSubTypeSetDatabase));
+        GameObject.DontDestroyOnLoad(ItemSubTypeSetDatabase_init);
 
         //ゲーム最初で所持するアイテムなどを設定するスクリプト
         var player_defaultstart_ItemGet_init = new GameObject("PlayerDefaultStartItemGet", typeof(PlayerDefaultStartItemGet));

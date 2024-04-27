@@ -547,6 +547,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<string> PrizeItemList = new List<string>(); //コンテストの優勝のアイテムリスト
     public static List<string> PrizeCharacterList = new List<string>(); //コンテストの参加者リスト
     public static List<int> PrizeGetMoneyList = new List<int>(); //コンテストの優勝の賞金リスト
+    public static int PrizeGetninkiparam; //コンテストの順位で獲得する人気度
     public static int SceneSelectNum; //シーンの移動先を指定する番号　番号をもとに、移動先シーンのStartでその場所名を決定する
     public static bool Getmat_return_home; //採取地から家に帰ってきたフラグ
     public static int Select_place_num; //採取のDBリスト番号
@@ -574,6 +575,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string AjimiAfter_Text; //味見直後　テキスト
     public static string GetMat_BackPlaceName; //採取から戻るときの戻り先の指定
     public static bool Station_TrainGoFlag; //電車にのるフラグ
+    public static string Item_subcategoryText; //カード表示するときのサブカテゴリーの日本語表記
+    public static string Item_ShokukanTypeText; //そのときの食感の表示
+    public static int Item_ShokukanTypeNum; //どの食感を選んでいるかを番号で指定　その後の各スクリプトの処理で分岐して使用する
+    public static int Item_ShokukanTypeScoreNum; //どの食感で、どの判定を使うかを指定
+    public static List<string> ContestItem_supplied_List = new List<string>(); //コンテストで支給されるアイテム
+    public static List<int> ContestItem_supplied_KosuList = new List<int>(); //コンテストで支給されるアイテムの個数
+    public static int Cullender_Month; //カレンダーで計算した、入力した日付をもとに月を返す値
+    public static int Cullender_Day; //カレンダーで計算した、入力した日付をもとに日を返す値
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -1148,6 +1157,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         PrizeCharacterList.Clear();
         PrizeGetMoneyList.Clear();
         GetMat_ResultList.Clear();
+        ContestItem_supplied_List.Clear();
+        ContestItem_supplied_KosuList.Clear();
         contest_boss_name = "";
         Contest_PrizeGet_ItemName = "";
         Contest_PrizeGet_Money = 0;
@@ -1241,7 +1252,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //コンテストお菓子初期化
         contest_okashi_ItemData = new Item(9999, "Non", "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0);
 

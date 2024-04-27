@@ -90,6 +90,7 @@ public class Compound_Check : MonoBehaviour {
     private bool hikari_nomake;
     private string resultitemID;
     private int result_compoID;
+    private bool resultDB_Failed;
     private List<int> result_kosuset = new List<int>();
 
     private string success_text;
@@ -1214,9 +1215,8 @@ public class Compound_Check : MonoBehaviour {
         i = 0;
 
         resultitemID = "gomi_1"; //どの調合組み合わせのパターンにも合致しなかった場合は、ゴミのIDが入っている。調合DBのゴミのitemNameを入れると、後で数値に変換してくれる。現在は、500に変換される。
-
         compoDB_select_judge = false;
-
+        resultDB_Failed = false;
 
         //判定処理//
 
@@ -1226,13 +1226,26 @@ public class Compound_Check : MonoBehaviour {
         compoDB_select_judge = Combinationmain.compFlag;
         if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
         {
-            resultitemID = Combinationmain.resultitemName;
-            result_compoID = Combinationmain.result_compID;
-
-            result_kosuset.Clear();
-            for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
+            if (Combinationmain.resultitemName == "Failed")
             {
-                result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
+                //CompoDBの組み合わせで失敗が指定されるものを引いた場合　その調合は失敗になる。
+
+                resultitemID = "gomi_1";
+                result_compoID = Combinationmain.result_compID;
+                compoDB_select_judge = false;
+                resultDB_Failed = true;
+            }
+            else
+            {
+                resultitemID = Combinationmain.resultitemName;
+                result_compoID = Combinationmain.result_compID;
+                resultDB_Failed = false;
+
+                result_kosuset.Clear();
+                for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
+                {
+                    result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
+                }
             }
         }
 
@@ -1299,13 +1312,15 @@ public class Compound_Check : MonoBehaviour {
         }*/
         /* ************ */
 
-
-        exp_Controller.DoubleItemCreated = 0; //2個以上のアイテムが同時に作られない場合、デフォルトは0。
-
-        //特定のアイテム（卵白と卵黄など生成アイテムが2種類の場合）のcompIDを判定。2個以上生成アイテム。
-        if (databaseCompo.compoitems[result_compoID].cmpitemID_result2 != "Non")
+        if (compoDB_select_judge) //一致する場合
         {
-            exp_Controller.DoubleItemCreated = 1;
+            exp_Controller.DoubleItemCreated = 0; //2個以上のアイテムが同時に作られない場合、デフォルトは0。
+
+            //特定のアイテム（卵白と卵黄など生成アイテムが2種類の場合）のcompIDを判定。2個以上生成アイテム。
+            if (databaseCompo.compoitems[result_compoID].cmpitemID_result2 != "Non")
+            {
+                exp_Controller.DoubleItemCreated = 1;
+            }
         }
 
         //stringのリザルドアイテムを、アイテムIDに変換。
@@ -1317,7 +1332,7 @@ public class Compound_Check : MonoBehaviour {
         _hour = 0;
         _minutes = 0;
         _costTime = databaseCompo.compoitems[GameMgr.Final_result_compID].cost_Time;
-        while(_costTime >= 60)
+        while (_costTime >= 60)
         {
             _costTime = _costTime - 60;
             _hour++;
@@ -1332,111 +1347,112 @@ public class Compound_Check : MonoBehaviour {
         //
         //
 
-
-        newrecipi_flag = false;
-        hikari_nomake = false;
-
-
-        //新しいレシピかどうか。           
-        _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
-        if (databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
+        if (compoDB_select_judge) //一致する場合
         {
-            if (GameMgr.compound_select == 7) //ヒカリに作らせる場合　兄がおぼえていないレシピは作れない。
-            {
-                success_text = "にいちゃん～・・。このレシピ、見たことないよ～・・。";
-                exp_Controller._success_judge_flag = 2; //必ず失敗する
-                kakuritsuPanel.KakuritsuYosoku_Img(0);
-                exp_Controller.NewRecipiFlag = false;
-                newrecipi_flag = false;
-                compoDB_select_judge = false;
-                hikari_nomake = true;
-
-                resultitemID = "gomi_1";
-                //stringのリザルドアイテムを、アイテムIDに変換。
-                GameMgr.Final_result_itemID1 = database.SearchItemIDString(resultitemID);
-            }
-            else
-            {
-                success_text = "新しいお菓子を思いつきそう..？";
-                newrecipi_flag = true;
-                exp_Controller.NewRecipiFlag = true;
-                //kakuritsuPanel.KakuritsuYosoku_NewImg(); //??にする。
-            }
-        }
-        else
-        {
-            exp_Controller.NewRecipiFlag = false;
             newrecipi_flag = false;
-        }
+            hikari_nomake = false;
 
-        //例外処理　二個以上同時にできる場合は、新しいレシピとしては登録されない
-        if (exp_Controller.DoubleItemCreated == 1)
-        {
-            exp_Controller.NewRecipiFlag = false;
-        }
-
-        //調合判定
-        //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
-        if (GameMgr.compound_select != 7)
-        {
-            if(GameMgr.compound_select != 2)
+            //新しいレシピかどうか。           
+            _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
+            if (databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
             {
-                _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
-            }
-            else //トッピング調合の場合　新規レシピは確率計算するが、一度作ったことがあるか、特にレシピがない場合は100%
-            {
-                if(newrecipi_flag)
+                if (GameMgr.compound_select == 7) //ヒカリに作らせる場合　兄がおぼえていないレシピは作れない。
                 {
-                    _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
+                    success_text = "にいちゃん～・・。このレシピ、見たことないよ～・・。";
+                    exp_Controller._success_judge_flag = 2; //必ず失敗する
+                    kakuritsuPanel.KakuritsuYosoku_Img(0);
+                    exp_Controller.NewRecipiFlag = false;
+                    newrecipi_flag = false;
+                    compoDB_select_judge = false;
+                    hikari_nomake = true;
+
+                    resultitemID = "gomi_1";
+                    //stringのリザルドアイテムを、アイテムIDに変換。
+                    GameMgr.Final_result_itemID1 = database.SearchItemIDString(resultitemID);
                 }
                 else
                 {
-                    _success_rate = 100f;
+                    success_text = "新しいお菓子を思いつきそう..？";
+                    newrecipi_flag = true;
+                    exp_Controller.NewRecipiFlag = true;
+                    //kakuritsuPanel.KakuritsuYosoku_NewImg(); //??にする。
                 }
-            }           
+            }
+            else
+            {
+                exp_Controller.NewRecipiFlag = false;
+                newrecipi_flag = false;
+            }
+
+            //例外処理　二個以上同時にできる場合は、新しいレシピとしては登録されない
+            if (exp_Controller.DoubleItemCreated == 1)
+            {
+                exp_Controller.NewRecipiFlag = false;
+            }
+
+            //調合判定
+            //成功率の計算。コンポDBの、基本確率　＋　プレイヤーのレベル
+            if (GameMgr.compound_select != 7)
+            {
+                if (GameMgr.compound_select != 2)
+                {
+                    _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
+                }
+                else //トッピング調合の場合　新規レシピは確率計算するが、一度作ったことがあるか、特にレシピがない場合は100%
+                {
+                    if (newrecipi_flag)
+                    {
+                        _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
+                    }
+                    else
+                    {
+                        _success_rate = 100f;
+                    }
+                }
+            }
+            else
+            {
+                //ヒカリが作る場合、成功率を事前に計算
+                bufpower_keisan.hikariBuf_okashilv(database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString()); //GameMgr.hikari_make_okashiTime_successrate_bufを事前計算
+                _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
+            }
         }
-        else
-        {
-            //ヒカリが作る場合、成功率を事前に計算
-            bufpower_keisan.hikariBuf_okashilv(database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString()); //GameMgr.hikari_make_okashiTime_successrate_bufを事前計算
-            _success_rate = Kakuritsu_Keisan(GameMgr.Final_result_compID);
-        }
-       
-        
+
+
         if (compoDB_select_judge == true)
         {
-            if(!newrecipi_flag)
-            { 
-            if (_success_rate >= 0.0 && _success_rate < 20.0)
+            if (!newrecipi_flag)
             {
-                //成功率超低い
-                success_text = "絶望的。奇跡が起こるかも..？";
-            }
-            else if (_success_rate >= 20.0 && _success_rate < 40.0)
-            {
-                //成功率低め
-                success_text = "たぶん、失敗しそう..。";
-            }
-            else if (_success_rate >= 40.0 && _success_rate < 60.0)
-            {
-                //普通
-                success_text = "頑張れば、いける・・！？";
-            }
-            else if (_success_rate >= 60.0 && _success_rate < 80.0)
-            {
-                //成功率高め
-                success_text = "ちょっと難しいかも..。";
-            }
-            else if (_success_rate >= 80.0 && _success_rate < 99.9)
-            {
-                //成功率かなり高い
-                success_text = "これなら楽勝だね！";
-            }
-            else //100%~
-            {
-                //１００％成功
-                success_text = "１００％成功する！！";
-            }
+                if (_success_rate >= 0.0 && _success_rate < 20.0)
+                {
+                    //成功率超低い
+                    success_text = "絶望的。奇跡が起こるかも..？";
+                }
+                else if (_success_rate >= 20.0 && _success_rate < 40.0)
+                {
+                    //成功率低め
+                    success_text = "たぶん、失敗しそう..。";
+                }
+                else if (_success_rate >= 40.0 && _success_rate < 60.0)
+                {
+                    //普通
+                    success_text = "頑張れば、いける・・！？";
+                }
+                else if (_success_rate >= 60.0 && _success_rate < 80.0)
+                {
+                    //成功率高め
+                    success_text = "ちょっと難しいかも..。";
+                }
+                else if (_success_rate >= 80.0 && _success_rate < 99.9)
+                {
+                    //成功率かなり高い
+                    success_text = "これなら楽勝だね！";
+                }
+                else //100%~
+                {
+                    //１００％成功
+                    success_text = "１００％成功する！！";
+                }
             }
 
 
@@ -1462,8 +1478,8 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
                 exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
-            }          
-           
+            }
+
         }
         //どの調合リストにも当てはまらなかった場合
         else
@@ -1473,7 +1489,17 @@ public class Compound_Check : MonoBehaviour {
             //エクストリーム調合の場合は、通常通りトッピングの処理を行う。
             if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
             {
-                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+                if (resultDB_Failed) //ただし、DB上で、その組み合わせは失敗が指定されてる場合は、トッピングもできず、失敗になる。
+                {
+                    //失敗
+                    exp_Controller._success_judge_flag = 2; //必ず失敗する
+                    success_text = "これは.. 失敗かも？";
+                    kakuritsuPanel.KakuritsuYosoku_Img(0);
+                }
+                else
+                {
+                    kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+                }
             }
             else
             {

@@ -86,7 +86,7 @@ public class AddPlayerItemButton : MonoBehaviour {
 
         pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 5, 0.95f, 60, 60, 50, 10, 200, 0, 0, 0, 0, 0, 50, 50, 50, 50, 120, 
             0,             
-            20, 50, 50,"Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5, 3, 1, 0);
+            20, 50, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5, 3, 1, 0);
 
         pitemlistController.AddItemList();
     }

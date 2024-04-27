@@ -74,6 +74,9 @@ public class Compound_Main : MonoBehaviour
     private Text girl_param;
     private GameObject moneystatus_panel;
     private GameObject kaerucoin_panel;
+
+    private GameObject quest_kakuninButton_obj;
+    private GameObject quest_CheckPanel_obj;
     //private GameObject GetMatStatusButton_obj;
 
     private GameObject manpuku_bar;
@@ -550,6 +553,11 @@ public class Compound_Main : MonoBehaviour
         manpuku_bar = canvas.transform.Find("MainUIPanel/ManpukuBar").gameObject;
         manpuku_slider = manpuku_bar.GetComponent<Slider>();
         manpuku_text = manpuku_bar.transform.Find("ManpukuText").GetComponent<Text>();
+
+        //クエスト確認ボタンの取得
+        quest_kakuninButton_obj = canvas.transform.Find("MainUIPanel/QuestKakuninButtonPanel").gameObject;
+        quest_CheckPanel_obj = canvas.transform.Find("QuestKakuninHyoujiPanel").gameObject;
+        quest_CheckPanel_obj.SetActive(false);
 
         kigen_text = manpuku_bar.transform.Find("KigenText").GetComponent<Text>();
 
@@ -1869,11 +1877,15 @@ public class Compound_Main : MonoBehaviour
 
                 break;            
 
-            case 110: //調合、最後これでよいか選択中のステータス
+            case 110: //調合、最後これでよいか選択中のステータス　status=0が全て読み終わった後のデフォルトの待機状態もここ。
 
                 break;
 
             case 120: //なんらかの選択で、最後これでいいかどうかの確認中
+
+                break;
+
+            case 130: //クエスト確認パネル開いてる最中
 
                 break;
 
@@ -1967,6 +1979,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj1.SetActive(false);
         moneystatus_panel.SetActive(false);
         Stagepanel_obj.SetActive(false);
+        quest_kakuninButton_obj.SetActive(false);
 
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
@@ -1988,6 +2001,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj1.SetActive(true);
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
+        quest_kakuninButton_obj.SetActive(true);
 
         Stagepanel_obj.SetActive(true);
 
@@ -2546,6 +2560,16 @@ public class Compound_Main : MonoBehaviour
             }
 
         }
+    }
+
+    public void OnQuestCheck_button() //クエスト確認　ボタンで押した場合
+    {
+        GameMgr.compound_status = 130;
+
+        quest_CheckPanel_obj.SetActive(true);
+        quest_CheckPanel_obj.transform.Find("PanelB").gameObject.SetActive(false);
+
+        StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
     }
 
 

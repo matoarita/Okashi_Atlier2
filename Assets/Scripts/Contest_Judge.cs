@@ -457,6 +457,10 @@ public class Contest_Judge : MonoBehaviour {
 
             default:
 
+                //入れた数値を上限に100点に正規化する。
+                ScoreNormalized(200);
+                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
+                Debug.Log("### ###");
                 break;
         }
 

@@ -74,6 +74,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private ItemMatPlaceDataBase matplace_database;
+    private ItemSubTypeSetDatabase itemsubtypeset_database;
 
     public bool subQuestClear_check;
     private bool HighScore_flag;
@@ -176,8 +177,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int _baseoily;
     private int _basewatery;
     private int _basebeauty;
+    private int _basetea_flavor;
 
     private int _base_sp_wind;
+    private int _base_sp_score2;
+    private int _base_sp_score3;
+    private int _base_sp_score4;
+    private int _base_sp_score5;
+    private int _base_sp_score6;
+    private int _base_sp_score7;
+    private int _base_sp_score8;
+    private int _base_sp_score9;
+    private int _base_sp_score10;
 
     private int _basescore;
     private float _basegirl1_like;
@@ -211,7 +222,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int[] _girlchewy;
     private int[] _girljuice;
     private int[] _girlbeauty;
+    private int[] _girltea_flavor;
     private int[] _girlsp1_wind;
+    private int[] _girlsp_score2;
+    private int[] _girlsp_score3;
+    private int[] _girlsp_score4;
+    private int[] _girlsp_score5;
+    private int[] _girlsp_score6;
+    private int[] _girlsp_score7;
+    private int[] _girlsp_score8;
+    private int[] _girlsp_score9;
+    private int[] _girlsp_score10;
+
 
     private int _girlpowdery;
     private int _girloily;
@@ -273,7 +295,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     public int juice_score;
     public int shokukan_score;
     public int beauty_score;
+    public int tea_flavor_score;
     public int spscore1_score;
+    public int spscore2_score;
+    public int spscore3_score;
+    public int spscore4_score;
+    public int spscore5_score;
+    public int spscore6_score;
+    public int spscore7_score;
+    public int spscore8_score;
+    public int spscore9_score;
+    public int spscore10_score;
+
 
     public int subtype1_score;
     public int subtype2_score;
@@ -601,7 +634,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
 
         //バフ効果計算メソッドの取得
-        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();        
+        bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
+
+        //アイテムサブタイプの表記を分けるデータベース
+        itemsubtypeset_database = ItemSubTypeSetDatabase.Instance.GetComponent<ItemSubTypeSetDatabase>();
 
         kettei_item1 = 0;
         _toggle_type1 = 0;
@@ -636,7 +672,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _girljuice = new int[girl1_status.youso_count];
 
         _girlbeauty = new int[girl1_status.youso_count];
+        _girltea_flavor = new int[girl1_status.youso_count];
         _girlsp1_wind = new int[girl1_status.youso_count];
+        _girlsp_score2= new int[girl1_status.youso_count];
+        _girlsp_score3 = new int[girl1_status.youso_count];
+        _girlsp_score4 = new int[girl1_status.youso_count];
+        _girlsp_score5 = new int[girl1_status.youso_count];
+        _girlsp_score6 = new int[girl1_status.youso_count];
+        _girlsp_score7 = new int[girl1_status.youso_count];
+        _girlsp_score8 = new int[girl1_status.youso_count];
+        _girlsp_score9 = new int[girl1_status.youso_count];
+        _girlsp_score10 = new int[girl1_status.youso_count];
 
         _girl_subtype = new string[girl1_status.youso_count];
         _girl_likeokashi = new string[girl1_status.youso_count];
@@ -871,7 +917,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseoily = database.items[kettei_item1].Oily;
                 _basewatery = database.items[kettei_item1].Watery;
                 _basebeauty = database.items[kettei_item1].Beauty;
+                _basetea_flavor = database.items[kettei_item1].Tea_Flavor;
                 _base_sp_wind = database.items[kettei_item1].SP_wind;
+                _base_sp_score2 = database.items[kettei_item1].SP_Score2;
+                _base_sp_score3 = database.items[kettei_item1].SP_Score3;
+                _base_sp_score4 = database.items[kettei_item1].SP_Score4;
+                _base_sp_score5 = database.items[kettei_item1].SP_Score5;
+                _base_sp_score6 = database.items[kettei_item1].SP_Score6;
+                _base_sp_score7 = database.items[kettei_item1].SP_Score7;
+                _base_sp_score8 = database.items[kettei_item1].SP_Score8;
+                _base_sp_score9 = database.items[kettei_item1].SP_Score9;
+                _base_sp_score10 = database.items[kettei_item1].SP_Score10;
                 _basescore = database.items[kettei_item1].Base_Score;
                 _basegirl1_like = database.items[kettei_item1].girl1_itemLike;
                 _baseitemtype = database.items[kettei_item1].itemType.ToString();
@@ -915,7 +971,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseoily = pitemlist.player_originalitemlist[kettei_item1].Oily;
                 _basewatery = pitemlist.player_originalitemlist[kettei_item1].Watery;
                 _basebeauty = pitemlist.player_originalitemlist[kettei_item1].Beauty;
+                _basetea_flavor = pitemlist.player_originalitemlist[kettei_item1].Tea_Flavor;
                 _base_sp_wind = pitemlist.player_originalitemlist[kettei_item1].SP_wind;
+                _base_sp_score2 = pitemlist.player_originalitemlist[kettei_item1].SP_Score2;
+                _base_sp_score3 = pitemlist.player_originalitemlist[kettei_item1].SP_Score3;
+                _base_sp_score4 = pitemlist.player_originalitemlist[kettei_item1].SP_Score4;
+                _base_sp_score5 = pitemlist.player_originalitemlist[kettei_item1].SP_Score5;
+                _base_sp_score6 = pitemlist.player_originalitemlist[kettei_item1].SP_Score6;
+                _base_sp_score7 = pitemlist.player_originalitemlist[kettei_item1].SP_Score7;
+                _base_sp_score8 = pitemlist.player_originalitemlist[kettei_item1].SP_Score8;
+                _base_sp_score9 = pitemlist.player_originalitemlist[kettei_item1].SP_Score9;
+                _base_sp_score10 = pitemlist.player_originalitemlist[kettei_item1].SP_Score10;                
                 _basescore = pitemlist.player_originalitemlist[kettei_item1].Base_Score;
                 _basegirl1_like = pitemlist.player_originalitemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_originalitemlist[kettei_item1].itemType.ToString();
@@ -959,7 +1025,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseoily = pitemlist.player_extremepanel_itemlist[kettei_item1].Oily;
                 _basewatery = pitemlist.player_extremepanel_itemlist[kettei_item1].Watery;
                 _basebeauty = pitemlist.player_extremepanel_itemlist[kettei_item1].Beauty;
+                _basetea_flavor = pitemlist.player_extremepanel_itemlist[kettei_item1].Tea_Flavor;
                 _base_sp_wind = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_wind;
+                _base_sp_score2 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score2;
+                _base_sp_score3 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score3;
+                _base_sp_score4 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score4;
+                _base_sp_score5 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score5;
+                _base_sp_score6 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score6;
+                _base_sp_score7 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score7;
+                _base_sp_score8 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score8;
+                _base_sp_score9 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score9;
+                _base_sp_score10 = pitemlist.player_extremepanel_itemlist[kettei_item1].SP_Score10;               
                 _basescore = pitemlist.player_extremepanel_itemlist[kettei_item1].Base_Score;
                 _basegirl1_like = pitemlist.player_extremepanel_itemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_extremepanel_itemlist[kettei_item1].itemType.ToString();
@@ -1117,7 +1193,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _girljuice[i] = girl1_status.girl1_Juice[i];
 
             _girlbeauty[i] = girl1_status.girl1_Beauty[i];
+            _girltea_flavor[i] = girl1_status.girl1_Tea_Flavor[i];
+
             _girlsp1_wind[i] = girl1_status.girl1_SP1_Wind[i];
+            _girlsp_score2[i] = girl1_status.girl1_SP_Score2[i];
+            _girlsp_score3[i] = girl1_status.girl1_SP_Score3[i];
+            _girlsp_score4[i] = girl1_status.girl1_SP_Score4[i];
+            _girlsp_score5[i] = girl1_status.girl1_SP_Score5[i];
+            _girlsp_score6[i] = girl1_status.girl1_SP_Score6[i];
+            _girlsp_score7[i] = girl1_status.girl1_SP_Score7[i];
+            _girlsp_score8[i] = girl1_status.girl1_SP_Score8[i];
+            _girlsp_score9[i] = girl1_status.girl1_SP_Score9[i];
+            _girlsp_score10[i] = girl1_status.girl1_SP_Score10[i];
 
             _girl_subtype[i] = girl1_status.girl1_likeSubtype[i];
             _girl_likeokashi[i] = girl1_status.girl1_likeOkashi[i];
@@ -1971,32 +2058,32 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else if (Mathf.Abs(_taste_result) < 8) //+-3~7　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 55;
-            taste_level = 7;
+            taste_score = 65;
+            taste_level = 6;
         }
         else if (Mathf.Abs(_taste_result) < 15) //+-8~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 30;
-            taste_level = 6;
+            taste_score = 50;
+            taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) < 23) //+15~22  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 20;
-            taste_level = 6;
+            taste_score = 40;
+            taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) < 40) //+-23~39　かなりいい感じ
         {
             Debug.Log(_taste_type + "Well!");
-            taste_score = 15;
-            taste_level = 5;
+            taste_score = 30;
+            taste_level = 4;
         }
         else if (Mathf.Abs(_taste_result) < 60) //+-29~59  いい感じ
         {
             Debug.Log(_taste_type + "Good!");
             taste_score = 10;
-            taste_level = 5;
+            taste_level = 4;
         }
         else if (Mathf.Abs(_taste_result) < 90) //+-60~89　ちょっと足りない
         {
@@ -2028,7 +2115,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void ShokukanScore_keisan(string _temp_baseitemtype_sub)
     {
-        switch (_temp_baseitemtype_sub)
+
+        /*switch (_temp_baseitemtype_sub)
         {
             case "Biscotti":
                 Hardness_Score();
@@ -2131,6 +2219,61 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
 
             default:
+                Crispy_Score();
+                break;
+        }*/
+
+        //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
+        itemsubtypeset_database.SetImageSub(_temp_baseitemtype_sub);
+
+        //GameMgr.Item_ShokukanTypeNumは、上のitemsubtypeset_databaseで設定している
+        switch (GameMgr.Item_ShokukanTypeScoreNum)
+        {
+            case 0: //さくさく
+
+                Crispy_Score();
+                break;
+
+            case 1: //ふわふわ
+
+                Fluffy_Score();
+                break;
+
+            case 2: //なめらか
+
+                Smooth_Score();
+                break;
+
+            case 3: //歯ごたえ
+
+                Hardness_Score();
+                break;
+
+            case 4: //のどごし
+
+                Juice_Score();
+                break;
+
+            case 5: //香り
+
+                Tea_Score();
+                break;
+
+            case 10: //ゼリー　なめらかさ・歯ごたえ
+
+                Hardness_Score();
+                Smooth_Score();
+                break;
+
+            case 11: //パフェ　さくさく・ふわふわ・アイスのなめらかさ
+
+                Crispy_Score();
+                Fluffy_Score();
+                Smooth_Score();
+                break;
+
+            default:
+
                 Crispy_Score();
                 break;
         }
@@ -2310,35 +2453,35 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void Tea_Score()
     {
-        if (_girlcrispy[countNum] > 0)
+        if (_girltea_flavor[countNum] > 0)
         {
-            _temp_kyori = _basecrispy - _girlcrispy[countNum];
-            _temp_deg = 1.0f * _basecrispy / _girlcrispy[countNum];
+            _temp_kyori = _basetea_flavor - _girltea_flavor[countNum];
+            _temp_deg = 1.0f * _basetea_flavor / _girltea_flavor[countNum];
 
             if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
             {
                 _temp_ratio = 1.0f;
                 Debug.Log("_temp_deg: " + _temp_deg);
 
-                crispy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                tea_flavor_score = (int)(_basescore * _temp_ratio * _temp_deg);
             }
             else
             {
                 _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
                 Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                crispy_score = (int)(_basescore * _temp_ratio);
+                tea_flavor_score = (int)(_basescore * _temp_ratio);
             }
         }
         else
         {
-            crispy_score = 0;
+            tea_flavor_score = 0;
         }
 
-        shokukan_baseparam = _basecrispy;
-        shokukan_score += crispy_score;
+        shokukan_baseparam = _basetea_flavor;
+        shokukan_score += tea_flavor_score;
         shokukan_mes = "香り";
-        Debug.Log("香りベース: " + _basecrispy + " 判定値: " + _girlcrispy[countNum] + " 香り（サクサク度）の点: " + crispy_score);
+        Debug.Log("香りベース: " + _basetea_flavor + " 判定値: " + _girltea_flavor[countNum] + " 香り(tea_flavor)の点: " + tea_flavor_score);
     }
 
     void Girl_reaction()

@@ -42,6 +42,7 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int chewy;
 		public int juice;
 		public int beauty;
+		public int tea_flavor;
 		public string topping01;
 		public string topping02;
 		public string topping03;
@@ -52,6 +53,11 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int tp_score3;
 		public int tp_score4;
 		public int tp_score5;
+		public int quest_afterday;
+		public int limit_month;
+		public int limit_day;
+		public int area_Type;
+		public string ClientName;
 		public string quest_Title;
 		public string desc;
 		public int read_endflag;

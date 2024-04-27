@@ -13,6 +13,7 @@ using System.Text;
 public class ExcelImporterMaker : EditorWindow
 {
     private Vector2 curretScroll = Vector2.zero;
+    private Vector2 curretScroll2 = Vector2.zero;
 
     void OnGUI()
     {
@@ -36,6 +37,7 @@ public class ExcelImporterMaker : EditorWindow
         // selecting sheets
 
         EditorGUILayout.LabelField("sheet settings");
+        curretScroll2 = EditorGUILayout.BeginScrollView(curretScroll2);
         EditorGUILayout.BeginVertical("box");
         foreach (ExcelSheetParameter sheet in sheetList)
         {
@@ -47,6 +49,7 @@ public class ExcelImporterMaker : EditorWindow
             GUILayout.EndHorizontal();
         }
         EditorGUILayout.EndVertical();
+        EditorGUILayout.EndScrollView();
 
         // selecting parameters
         EditorGUILayout.LabelField("parameter settings");

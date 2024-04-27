@@ -30,8 +30,18 @@ public class GirlLikeSet
     public int girlLike_juice;
 
     public int girlLike_beauty;
+    public int girlLike_tea_flavor;
 
     public int girlLike_sp1_Wind;
+    public int girlLike_sp_Score2;
+    public int girlLike_sp_Score3;
+    public int girlLike_sp_Score4;
+    public int girlLike_sp_Score5;
+    public int girlLike_sp_Score6;
+    public int girlLike_sp_Score7;
+    public int girlLike_sp_Score8;
+    public int girlLike_sp_Score9;
+    public int girlLike_sp_Score10;
 
     public string[] girlLike_topping = new string[9];   //特定のトッピングに応じて、加算される。
     public int[] girlLike_topping_score = new int[9];
@@ -45,8 +55,8 @@ public class GirlLikeSet
 
     //ここでリスト化時に渡す引数をあてがいます   
     public GirlLikeSet(int id, int _compnum, string _itemname, string _itemsubtype, int _set_score, int _rich, int _sweat, int _bitter, int _sour, 
-        int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
-        int _sp1_wind,
+        int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty, int _tea_flavor,
+        int _sp1_wind, int _sp_score2, int _sp_score3, int _sp_score4, int _sp_score5, int _sp_score6, int _sp_score7, int _sp_score8, int _sp_score9, int _sp_score10,
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, 
         int tp_score01, int tp_score02, int tp_score03, int tp_score04, int tp_score05, int tp_score06, int tp_score07, int tp_score08, int tp_score09,
         int non_tp_score, string _setkansou, int _comment_flag, int _search_endflag)
@@ -73,8 +83,18 @@ public class GirlLikeSet
         girlLike_juice = _juice;
 
         girlLike_beauty = _beauty;
+        girlLike_tea_flavor = _tea_flavor;
 
         girlLike_sp1_Wind = _sp1_wind;
+        girlLike_sp_Score2 = _sp_score2;
+        girlLike_sp_Score3 = _sp_score3;
+        girlLike_sp_Score4 = _sp_score4;
+        girlLike_sp_Score5 = _sp_score5;
+        girlLike_sp_Score6 = _sp_score6;
+        girlLike_sp_Score7 = _sp_score7;
+        girlLike_sp_Score8 = _sp_score8;
+        girlLike_sp_Score9 = _sp_score9;
+        girlLike_sp_Score10 = _sp_score10;
 
         girlLike_topping[0] = tp01;
         girlLike_topping[1] = tp02;
