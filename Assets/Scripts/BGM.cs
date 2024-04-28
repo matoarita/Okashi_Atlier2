@@ -272,6 +272,11 @@ public class BGM : MonoBehaviour {
                         _bgm[0].clip = sound29;
                         break;
 
+                    case 40: //オランジーナファーム
+
+                        _bgm[0].clip = sound28;
+                        break;
+
                     case 60: //オランジーナ広場系
 
                         //_bgm[0].clip = sound41;

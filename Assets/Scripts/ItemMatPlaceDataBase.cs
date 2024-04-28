@@ -16,6 +16,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     private int place_flag;
     private int place_default_flag;
     private int place_type;
+    private int place_category;
     private string drop_item1;
     private string drop_item2;
     private string drop_item3;
@@ -88,6 +89,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
                 place_flag = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_flag;
                 place_default_flag = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_default_flag;
                 place_type = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_type;
+                place_category = excel_matplace_itemdatabase.sheets[sheet_no].list[count].place_category;
                 drop_item1 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_item1;
                 drop_item2 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_item2;
                 drop_item3 = excel_matplace_itemdatabase.sheets[sheet_no].list[count].drop_item3;
@@ -123,7 +125,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
                 if (sheet_no % 2 == 0) //偶数がメインのマップ
                 {
                     matplace_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_day, place_cost, place_hp, place_flag, place_default_flag, 
-                        place_type,
+                        place_type, place_category,
                         drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_item6, drop_item7, drop_item8, drop_item9, drop_item10,
                         drop_rare1, drop_rare2, drop_rare3,
                         drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_prob6, drop_prob7, drop_prob8, drop_prob9, drop_prob10,
@@ -132,7 +134,7 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
                 else if (sheet_no % 2 == 1) //奇数がヒカリの採取用マップ
                 {
                     matplace_hikariget_lists.Add(new ItemMatPlace(_id, placeFileName, placeName, placeName_Hyouji, place_day, place_cost, place_hp, place_flag, place_default_flag, 
-                        place_type,
+                        place_type, place_category,
                         drop_item1, drop_item2, drop_item3, drop_item4, drop_item5, drop_item6, drop_item7, drop_item8, drop_item9, drop_item10,
                         drop_rare1, drop_rare2, drop_rare3,
                         drop_prob1, drop_prob2, drop_prob3, drop_prob4, drop_prob5, drop_prob6, drop_prob7, drop_prob8, drop_prob9, drop_prob10,

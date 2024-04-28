@@ -105,6 +105,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int _yosokutime;
     private int mat_cost;
 
+    private GameObject category_toggleList_obj;
+    private int category_status;
+    private List<GameObject> category_toggle = new List<GameObject>();
+
     private GameObject sister_stand_img1;
 
     //public Dictionary<string, int> result_items;
@@ -189,10 +193,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //アイテムセレクトキャンセルオブジェクトの取得
         itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
-        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();        
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
 
+        save_controller = SaveController.Instance.GetComponent<SaveController>();
 
-        
 
         //材料採取地パネルの取得
         getmatplace_panel = this.transform.Find("Comp").gameObject;
@@ -203,81 +207,27 @@ public class GetMatPlace_Panel : MonoBehaviour {
         MapSelect_BGpanel = getmatplace_panel.transform.Find("MapSelectBGPanel").gameObject;
         MapSelect_Imagepanel_obj.Clear();
 
+        category_toggleList_obj = this.transform.Find("Comp/GetMatPlace_View/CategoryView").gameObject;
+        category_toggle.Clear();
+        foreach (Transform child in this.transform.Find("Comp/GetMatPlace_View/CategoryView/Viewport/Content/").transform)
+        {
+            //Debug.Log(child.name);           
+            category_toggle.Add(child.gameObject);
+        }
+
+        content = getmatplace_view.transform.Find("Viewport/Content").gameObject;
+        matplace_toggle_obj = (GameObject)Resources.Load("Prefabs/MatPlace_toggle1");
+
+        category_status = 0;
+        MapIcon_reset_and_DrawView(category_status);
+
         //マップ背景エフェクト
         map_bg_effect = this.transform.Find("MapBG_Effect").gameObject;
 
         //フェードアウトブラックのオブジェクトを取得
         Fadeout_Black_obj = GameObject.FindWithTag("FadeOutBlack");
 
-        content = getmatplace_view.transform.Find("Viewport/Content").gameObject;
-        matplace_toggle_obj = (GameObject)Resources.Load("Prefabs/MatPlace_toggle1");
-
-        save_controller = SaveController.Instance.GetComponent<SaveController>();
-
-        matplace_toggle.Clear();
-        count = 0;
-        MapList_ReadEnd = false;
-
-        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
-        {
-            Destroy(child.gameObject);
-        }
-
-        i = 0;
-        while (i < matplace_database.matplace_lists.Count)
-        {
-            switch (GameMgr.Scene_Name)
-            {
-                case "Compound":
-
-                    if (matplace_database.matplace_lists[i].matplaceID >= 0)
-                    {
-                        mapicon_Draw();
-
-                        if (matplace_database.matplace_lists[i].read_end == 1)
-                        {
-                            MapList_ReadEnd = true;
-                            break;
-                        }
-                    }
-
-                    break;
-
-                /*case "Or_Compound":
-
-                    if (matplace_database.matplace_lists[i].matplaceID >= 100)
-                    {
-                        mapicon_Draw();
-
-                        if (matplace_database.matplace_lists[i].read_end == 1)
-                        {
-                            MapList_ReadEnd = true;
-                            break;
-                        }
-                    }
-                    break;*/
-
-                default:
-
-                    if (matplace_database.matplace_lists[i].matplaceID >= 100)
-                    {
-                        mapicon_Draw();
-
-                        if (matplace_database.matplace_lists[i].read_end == 1)
-                        {
-                            MapList_ReadEnd = true;
-                            break;
-                        }
-                    }
-                    break;
-            }
-
-            if(MapList_ReadEnd)
-            {
-                break;
-            }
-            i++;
-        }       
+        
 
         //採取地画面の取得
         slot_view = this.transform.Find("Comp/Slot_View").gameObject;
@@ -300,17 +250,105 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     }
 
+    
+
+    // リストビューの描画部分。重要。
+    void MapIcon_reset_and_DrawView(int _cate_status)
+    {
+
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        matplace_toggle.Clear();
+        count = 0;
+        MapList_ReadEnd = false;
+
+        i = 0;
+        while (i < matplace_database.matplace_lists.Count)
+        {
+            switch (GameMgr.Scene_Name)
+            {
+                case "Compound":
+
+                    if (matplace_database.matplace_lists[i].matplaceID >= 0)
+                    {
+                        if (matplace_database.matplace_lists[i].placeCategory == _cate_status)
+                        {
+                            mapicon_Draw();
+                        }
+
+                        if (matplace_database.matplace_lists[i].read_end == 1)
+                        {
+                            MapList_ReadEnd = true;
+                            break;
+                        }
+                    }
+                    category_toggleList_obj.SetActive(false);
+
+                    break;
+
+                case "Or_Compound":
+
+                    if (matplace_database.matplace_lists[i].matplaceID >= 100)
+                    {
+                        if (matplace_database.matplace_lists[i].placeCategory == _cate_status)
+                        {
+                            mapicon_Draw();
+                        }
+
+                        if (matplace_database.matplace_lists[i].read_end == 1)
+                        {
+                            MapList_ReadEnd = true;
+                            break;
+                        }
+                    }
+                    category_toggleList_obj.SetActive(true);
+
+                    break;
+
+                default:
+
+                    if (matplace_database.matplace_lists[i].matplaceID >= 100)
+                    {
+                        if (matplace_database.matplace_lists[i].placeCategory == _cate_status)
+                        {
+                            mapicon_Draw();
+                        }
+
+                        if (matplace_database.matplace_lists[i].read_end == 1)
+                        {
+                            MapList_ReadEnd = true;
+                            break;
+                        }
+                    }
+                    category_toggleList_obj.SetActive(true);
+
+                    break;
+            }
+
+            if (MapList_ReadEnd)
+            {
+                break;
+            }
+            i++;
+        }
+
+        mapicon_Active();
+    }
+
     void mapicon_Draw()
     {
         //Debug.Log(child.name);           
         matplace_toggle.Add(Instantiate(matplace_toggle_obj, content.transform));
         map_icon = matplace_database.matplace_lists[i].mapIcon_sprite;
-        matplace_toggle[count].transform.Find("Background").GetComponent<Image>().sprite = map_icon;       
+        matplace_toggle[count].transform.Find("Background").GetComponent<Image>().sprite = map_icon;
         matplace_toggle[count].transform.Find("Background").GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_flag = matplace_database.matplace_lists[i].placeFlag;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_default_flag = matplace_database.matplace_lists[i].placeDefaultFlag;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにリスト配列番号を割り振っておく。
-        
+
         count++;
     }
 
@@ -319,6 +357,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //表示フラグにそって、採取地の表示/非表示の決定 read_endflagに注意　設定し忘れてると、表示されなかったりするよ
         for (i = 0; i < matplace_toggle.Count; i++)
         {
+            Debug.Log("マップトグル default_flag: " + matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag);
             if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 9999) //ゲーム中の解禁フラグにかかわらず、必ずON/OFFできるフラグ 9999の場合、ゲーム中のフラグを優先する。
             {
                 if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
@@ -330,7 +369,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     matplace_toggle[i].SetActive(false);
                 }
             }
-            else if(matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 0)
+            else if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 0)
             {
                 matplace_toggle[i].SetActive(false);
             }
@@ -341,10 +380,72 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
     }
 
+    void CategoryCompScene_Init()
+    {
+
+        //ウィンドウがアクティヴになった瞬間だけ読み出される
+        //Debug.Log("OnEnable MagicPanel");
+
+        for (i = 0; i < category_toggle.Count; i++)
+        {
+            category_toggle[i].GetComponent<Toggle>().isOn = false;
+        }
+        category_toggle[0].GetComponent<Toggle>().isOn = true;
+
+        switch (GameMgr.Scene_Name)
+        {
+            case "Compound":
+
+                MapList_DrawView0();
+                break;
+
+            case "Or_Compound":
+
+                MapList_DrawView1();
+                break;
+
+            default:
+
+                MapList_DrawView0();
+                break;
+        }
+    }
+
+    public void MapList_DrawView0() //ガレット村
+    {
+        category_status = 0;
+        MapIcon_reset_and_DrawView(category_status);
+    }
+
+    public void MapList_DrawView1() //春エリア
+    {
+        category_status = 10;
+        MapIcon_reset_and_DrawView(category_status);
+    }
+
+    public void MapList_DrawView2() //春エリア
+    {
+        category_status = 20;
+        MapIcon_reset_and_DrawView(category_status);
+    }
+
+    public void MapList_DrawView3() //春エリア
+    {
+        category_status = 30;
+        MapIcon_reset_and_DrawView(category_status);
+    }
+
+    public void MapList_DrawView4() //春エリア
+    {
+        category_status = 40;
+        MapIcon_reset_and_DrawView(category_status);
+    }
+
     private void OnEnable()
     {
         
     }
+    
 
     //外から読み込む。初期化用。
     public void SetInit()
@@ -354,6 +455,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         //最初は、採取地選択画面をonに。
         getmatplace_view.SetActive(true);
+        CategoryCompScene_Init();
 
         //採取地用ステータスパネル表示
         StatusPanelON();
@@ -409,12 +511,13 @@ public class GetMatPlace_Panel : MonoBehaviour {
         modoru_anim_on = false;
         treasure_anim_on = false;
 
-        mapicon_Active();
+        
         
 
         //採取地行く前なら、場所番号などはリセット　採取地シーンに入った場合は、ここは無視する
         GameMgr.Select_place_num = 0;
     }
+    
 
     void OpenAnim()
     {
@@ -548,9 +651,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
                     break;
 
+                case "Or_Farm":
+
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Farm", GameMgr.SceneFadeTime);
+                    break;
+
                 case "Or_Emerald_Shop":
 
-                    GameMgr.Scene_Name = "Or_Emerald_Shop";
+                    GameMgr.SceneSelectNum = 0;
                     FadeManager.Instance.LoadScene("Or_Emerald_Shop", GameMgr.SceneFadeTime);
                     break;
 
