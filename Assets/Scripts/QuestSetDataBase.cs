@@ -222,13 +222,13 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp_score05 = questset[count].Quest_tp_score[4];
 
         //日付に少しランダムで幅をつける
-        if(questset[count].Quest_AfterDay <= 15)
+        if(questset[count].Quest_AfterDay <= 10)
         {
-            _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 3);
+            _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 5);
         }
         else
         {
-            _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 5);
+            _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 10);
         }      
         if(_quest_AfterDay < 0) { _quest_AfterDay = 1; }
 

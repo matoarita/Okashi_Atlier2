@@ -138,7 +138,20 @@ public class QuestCheckListController : MonoBehaviour
         //あと何日
         _Limit_day = time_controller.CullenderKeisanInverse(questset_database.questTakeset[i].Quest_LimitMonth, questset_database.questTakeset[i].Quest_LimitDay);
         _Nokori_day = _Limit_day - PlayerStatus.player_day;
-        _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = _Nokori_day.ToString() + "日";
+
+        if (_Nokori_day < 0)
+        {
+            _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = "過ぎた..";
+        }
+        else if (_Nokori_day == 0)
+        {
+            _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = "本日";
+        }
+        else
+        {
+            _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = _Nokori_day.ToString() + "日";
+        }
+        
 
         //texture2d = questset_database.questTakeset[i].ContestIcon_sprite;
         //_Img.sprite = texture2d;

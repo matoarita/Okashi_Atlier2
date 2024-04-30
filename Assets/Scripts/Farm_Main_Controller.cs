@@ -13,6 +13,7 @@ public class Farm_Main_Controller : MonoBehaviour {
 
     private ItemShopDataBase shop_database;
 
+    private SoundController sc;
     private SceneInitSetting sceneinit_setting;
 
     private PlayerItemList pitemlist;
@@ -72,6 +73,9 @@ public class Farm_Main_Controller : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -339,6 +343,19 @@ public class Farm_Main_Controller : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    //アトリエに戻る
+    public void OnCheck_BackHome()
+    {
+        //店のドア音
+        sc.PlaySe(38);
+        sc.PlaySe(51);
+
+        GameMgr.Scene_back_home = true;
+
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
     }
 
     IEnumerator UtageEndWait()

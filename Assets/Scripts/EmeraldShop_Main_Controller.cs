@@ -357,6 +357,19 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
         }
     }
 
+    //アトリエに戻る
+    public void OnCheck_BackHome()
+    {
+        //店のドア音
+        sc.PlaySe(38);
+        sc.PlaySe(51);
+
+        GameMgr.Scene_back_home = true;
+
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
+    }
+
     IEnumerator UtageEndWait()
     {
         while (GameMgr.scenario_ON)

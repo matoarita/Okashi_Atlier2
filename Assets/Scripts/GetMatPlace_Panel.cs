@@ -357,7 +357,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //表示フラグにそって、採取地の表示/非表示の決定 read_endflagに注意　設定し忘れてると、表示されなかったりするよ
         for (i = 0; i < matplace_toggle.Count; i++)
         {
-            Debug.Log("マップトグル default_flag: " + matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag);
+            //Debug.Log("マップトグル default_flag: " + matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag);
             if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 9999) //ゲーム中の解禁フラグにかかわらず、必ずON/OFFできるフラグ 9999の場合、ゲーム中のフラグを優先する。
             {
                 if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
@@ -1087,63 +1087,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         
     }
 
-    IEnumerator modoru_kakunin()
-    {
-
-        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-
-            case true: //決定が押された
-
-                //Debug.Log("ok");
-                //解除
-
-                //全ての処理が完了し、家に戻るときに、以下の処理でリセット
-                All_Off();
-
-                slot_tansaku_button_obj.SetActive(false);
-
-                modoru_anim_on = true;
-
-                //音量フェードアウト
-                sceneBGM.FadeOutBGM();
-
-
-                break;
-
-            case false: //キャンセルが押された
-
-                //Debug.Log("一個目はcancel");
-                slot_view_status = 1;
-
-                foreach (Transform child in slot_tansaku_button.transform) // 
-                {
-                    child.GetComponent<Button>().interactable = true;
-                }
-
-                yes_no_panel.SetActive(false);
-
-                _text.text = "";
-
-                if (text_kaigyo_active)
-                {
-                    text_kaigyo_button.SetActive(true);
-                    text_kaigyo_buttonPanel.SetActive(true);
-                }
-
-                yes_selectitem_kettei.onclick = false;
-                break;
-        }
-
-    }
+    
 
     void All_Off()
     {
@@ -1276,7 +1220,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //背景のSEを止める。
                 map_ambience.FadeOut();
 
-                _text.text = "帰還中 .";
+                _text.text = "もどるぞ～！";
                 moveanim_panel_image_text.GetComponent<Text>().text = "帰還中 .";
                 break;
 
@@ -1287,7 +1231,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     timeOut = _return_blackTime;
                     modoru_anim_status = 2;
 
-                    _text.text = "帰還中 . .";
+                    //_text.text = "帰還中 . .";
                     moveanim_panel_image_text.GetComponent<Text>().text = "帰還中 . .";
                 }
                 break;
@@ -1584,6 +1528,65 @@ public class GetMatPlace_Panel : MonoBehaviour {
         yes_no_panel.SetActive(true);
 
         StartCoroutine("modoru_kakunin");
+    }
+
+    IEnumerator modoru_kakunin()
+    {
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+        yes_selectitem_kettei.onclick = false;
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された
+
+                //Debug.Log("ok");
+                //解除
+
+                //全ての処理が完了し、家に戻るときに、以下の処理でリセット
+                //All_Off();
+
+                slot_tansaku_button_obj.SetActive(false);
+
+                modoru_anim_on = true;
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM();
+
+
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("一個目はcancel");
+                slot_view_status = 1;
+
+                foreach (Transform child in slot_tansaku_button.transform) // 
+                {
+                    child.GetComponent<Button>().interactable = true;
+                }
+
+                yes_no_panel.SetActive(false);
+
+                _text.text = "";
+
+                if (text_kaigyo_active)
+                {
+                    text_kaigyo_button.SetActive(true);
+                    text_kaigyo_buttonPanel.SetActive(true);
+                }
+
+                
+                break;
+        }
+
     }
 
     //

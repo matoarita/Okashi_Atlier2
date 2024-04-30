@@ -128,6 +128,7 @@ public class Quest_Judge : MonoBehaviour {
 
     private int _juice;
     private int _beauty;
+    private int _tea_flavor;
 
     private string[] _tp;
     private int[] _tp_score;
@@ -159,6 +160,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _baseoily;
     private int _basewatery;
     private int _basebeauty;
+    private int _basetea_flavor;
     private int _basescore;
     private float _basegirl1_like;
     private int _basecost;
@@ -187,6 +189,7 @@ public class Quest_Judge : MonoBehaviour {
     private int chewy_score;
     private int juice_score;
     private int beauty_score;
+    private int tea_flavor_score;
     private int Hosei_score;
 
     private int rich_result;
@@ -1057,28 +1060,25 @@ public class Quest_Judge : MonoBehaviour {
                 }
             }
 
-            if(_base_itemType_sub == "Tea" || _base_itemType_sub == "Tea_Potion" || _base_itemType_sub == "Coffee_Mat")
+            if (_tea_flavor > 0)
             {
-                if (_crispy > 0)
+                _temp_kyori = _basetea_flavor - _tea_flavor;
+
+                if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
                 {
-                    _temp_kyori = _basecrispy - _crispy;
+                    _temp_ratio = 1.0f;
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
-                    {
-                        _temp_ratio = 1.0f;
-                        Debug.Log("_temp_ratio: " + _temp_ratio);
+                    tea_flavor_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
+                    _a = "香りがいい感じだわ";
+                }
+                else
+                {
+                    _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
+                    Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                        crispy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                        _a = "香りがいい感じだわ";
-                    }
-                    else
-                    {
-                        _temp_ratio = SujiMap(Mathf.Abs(_temp_kyori), 0, 50, 1.0f, 0.1f);
-                        Debug.Log("_temp_ratio: " + _temp_ratio);
-
-                        crispy_score = (int)(_basescore * _temp_ratio);
-                        _a = "香りがちょっと足りない。";
-                    }
+                    tea_flavor_score = (int)(_basescore * _temp_ratio);
+                    _a = "香りがちょっと足りない。";
                 }
             }
 
@@ -1166,7 +1166,7 @@ public class Quest_Judge : MonoBehaviour {
             //総合点数を計算
             okashi_score += sweat_score + bitter_score + sour_score +
                 crispy_score + fluffy_score + smooth_score + hardness_score + jiggly_score + chewy_score +
-                juice_score + beauty_score + topping_score + Hosei_score;
+                juice_score + beauty_score + tea_flavor_score + topping_score + Hosei_score;
 
             //採点はここまで
 
@@ -1249,7 +1249,7 @@ public class Quest_Judge : MonoBehaviour {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.2f);
                     debug_money_text = "(基準値 * 0.2f)";
                     _getNinki = -5;
-                    _kanso = "う～ん..。お客さん不満だったみたい。次からは気をつけてね。" + "\n" + "報酬額を少し減らされてしまった！";
+                    _kanso = "う～ん..。お客さん不満だったみたい。" + "\n" + "次からは気をつけてね。報酬額が少し減った！";
                     
                 }
                 else if (okashi_totalscore >= 30 && okashi_totalscore < 45) //30~45
@@ -1558,6 +1558,7 @@ public class Quest_Judge : MonoBehaviour {
             + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _smooth + "\n" + " 点数: " + smooth_score
             + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _hardness + "\n" + " 点数: " + hardness_score
             + "\n" + "\n" + "のどごし度: " + _basejuice + "\n" + "のどごし閾値: " + _juice + "\n" + " 点数: " + juice_score
+            + "\n" + "\n" + "香り: " + _basetea_flavor + "\n" + "香り閾値: " + _tea_flavor + "\n" + " 点数: " + tea_flavor_score
             + "\n" + "\n" + "ぷるぷる度: " + "-"
             + "\n" + "\n" + "噛み応え度: " + "-"
             + "\n" + "\n" + "トッピングスコア: " + topping_score
@@ -1604,6 +1605,7 @@ public class Quest_Judge : MonoBehaviour {
 
         _juice = quest_database.questTakeset[_count].Quest_juice;
         _beauty = quest_database.questTakeset[_count].Quest_beauty;
+        _tea_flavor = quest_database.questTakeset[_count].Quest_tea_flavor;
 
         for (i = 0; i < _tp.Length; i++)
         {
@@ -1671,6 +1673,7 @@ public class Quest_Judge : MonoBehaviour {
                 _baseoily = database.items[_id].Oily;
                 _basewatery = database.items[_id].Watery;
                 _basebeauty = database.items[_id].Beauty;
+                _basetea_flavor = database.items[_id].Tea_Flavor;
                 _basescore = database.items[_id].Base_Score;
                 _basegirl1_like = database.items[_id].girl1_itemLike;
                 _basecost = database.items[_id].cost_price;
@@ -1720,6 +1723,7 @@ public class Quest_Judge : MonoBehaviour {
                 _baseoily = pitemlist.player_originalitemlist[_id].Oily;
                 _basewatery = pitemlist.player_originalitemlist[_id].Watery;
                 _basebeauty = pitemlist.player_originalitemlist[_id].Beauty;
+                _basetea_flavor = pitemlist.player_originalitemlist[_id].Tea_Flavor;
                 _basescore = pitemlist.player_originalitemlist[_id].Base_Score;
                 _basegirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
                 _basecost = pitemlist.player_originalitemlist[_id].cost_price;
@@ -1766,6 +1770,7 @@ public class Quest_Judge : MonoBehaviour {
                 _baseoily = pitemlist.player_extremepanel_itemlist[_id].Oily;
                 _basewatery = pitemlist.player_extremepanel_itemlist[_id].Watery;
                 _basebeauty = pitemlist.player_extremepanel_itemlist[_id].Beauty;
+                _basetea_flavor = pitemlist.player_extremepanel_itemlist[_id].Tea_Flavor;
                 _basescore = pitemlist.player_extremepanel_itemlist[_id].Base_Score;
                 _basegirl1_like = pitemlist.player_extremepanel_itemlist[_id].girl1_itemLike;
                 _basecost = pitemlist.player_extremepanel_itemlist[_id].cost_price;

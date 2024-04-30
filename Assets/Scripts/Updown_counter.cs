@@ -214,7 +214,7 @@ public class Updown_counter : MonoBehaviour {
             else
             {
                 this.transform.localPosition = new Vector3(0, -80, 0);
-                SettingPos();                
+                SettingPosCompound();                
             }
         }
         else
@@ -260,7 +260,20 @@ public class Updown_counter : MonoBehaviour {
 
                     break;
 
-                case 40:
+                case 30: //酒場
+
+                    //ショップリスト画面の取得
+                    //shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
+                    //shopitemlistController = shopitemlistController_obj.GetComponent<ShopItemListController>();
+
+                    //updown_button_Big.SetActive(true);
+                    //updown_button_Small.SetActive(true);
+
+                    ShopUpdownCounter_Pos2();
+
+                    break;
+
+                case 40: //ファーム
 
                     //ショップリスト画面の取得
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
@@ -273,7 +286,7 @@ public class Updown_counter : MonoBehaviour {
 
                     break;
 
-                case 50:
+                case 50: //エメラルショップ
 
                     //ショップリスト画面の取得
                     shopitemlistController_obj = canvas.transform.Find("ShopitemList_ScrollView").gameObject;
@@ -316,7 +329,7 @@ public class Updown_counter : MonoBehaviour {
         }
     }
 
-    void SettingPos()
+    void SettingPosCompound()
     {
         this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         this.transform.Find("counter_img1").gameObject.SetActive(true);

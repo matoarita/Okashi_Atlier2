@@ -89,3 +89,4 @@
 ・BGM_87		PerituneMaterial_Enjoyable3_loop	大会コンテスト調合時のBGM02　初級
 ・BGM_88		PerituneMaterial_Teatime_loop		大会コンテスト受付のBGM
 ・BGM_89		PerituneMaterial_Memories2		サクラフォレストのBGM
+・BGM_90		audiostock_157663			夏エリアのBGM

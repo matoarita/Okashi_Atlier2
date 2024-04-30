@@ -53,10 +53,11 @@ public class BGM : MonoBehaviour {
     public AudioClip sound42;  //魔法の先生のテーマ01
     public AudioClip sound43;  //秋エリアBGM
     public AudioClip sound44;  //冬エリアBGM
-    public AudioClip sound45;  //夏エリアBGM
+    public AudioClip sound45;  //夏エリア遊園地BGM
     public AudioClip sound46;  //大会コンテストのBGM 初級
     public AudioClip sound47;  //大会コンテスト受付のBGM
     public AudioClip sound48;  //「サクラフォレスト」BGM
+    public AudioClip sound49;  //夏エリアBGM
     public AudioClip sound1000;  //空のサウンド
 
 
@@ -314,22 +315,22 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
 
-                                _bgm[0].clip = sound41;
+                                _bgm[0].clip = sound49;
                                 break;
 
                             case "Or_Hiroba_Summer_Street": //夏のエリア入口　奥側
 
-                                _bgm[0].clip = sound41;
+                                _bgm[0].clip = sound49;
                                 break;
 
                             case "Or_Hiroba_Summer_MainStreet": //夏のエリア　メインストリート
 
-                                _bgm[0].clip = sound41;
+                                _bgm[0].clip = sound49;
                                 break;
 
                             case "Or_Hiroba_Summer_MainStreet_Shop": //夏のエリア　メインストリート
 
-                                _bgm[0].clip = sound41;
+                                _bgm[0].clip = sound49;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_Map": //夏エリア　遊園地　全体マップ

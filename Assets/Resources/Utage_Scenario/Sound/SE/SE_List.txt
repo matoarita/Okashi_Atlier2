@@ -133,3 +133,4 @@ SE表
 ・SE_131	audiostock_1285222_sample			魔法調合の完成音
 ・SE_132	audiostock_825112_sample			魔法発動音２
 ・SE_133							【未使用？　いれた記憶がない】
+・SE_134	audiostock_718349_sample			観客ブーイング音

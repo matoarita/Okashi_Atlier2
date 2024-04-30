@@ -13,6 +13,9 @@ public class Bar_Main_Controller : MonoBehaviour {
 
     private ItemShopDataBase shop_database;
     private ItemMatPlaceDataBase matplace_database;
+    private QuestSetDataBase quest_database;
+
+    private TimeController time_controller;
 
     private SoundController sc;
     private Girl1_status girl1_status;
@@ -59,8 +62,6 @@ public class Bar_Main_Controller : MonoBehaviour {
     private GameObject shopon_toggle_back;
 
     private bool check_event;
-    private bool check_lvevent;
-    private bool lvevent_loading;
 
     //public int bar_status;
     //public int bar_scene; //どのシーンを選択しているかを判別
@@ -75,6 +76,13 @@ public class Bar_Main_Controller : MonoBehaviour {
     private int rnd;
     private int count;
     private bool StartRead;
+
+    private int _Limit_day;
+    private int _Nokori_day;
+    private int questout_count;
+    private bool questout_flag;
+    private List<int> questout_deleteList = new List<int>();
+    private int _id;
 
     // Use this for initialization
     void Start () {
@@ -109,6 +117,12 @@ public class Bar_Main_Controller : MonoBehaviour {
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //クエストデータベースの取得
+        quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //吹き出しプレファブの取得
         hukidasi_sub_Prefab = (GameObject)Resources.Load("Prefabs/Emo_Hukidashi_Anim");
@@ -185,9 +199,7 @@ public class Bar_Main_Controller : MonoBehaviour {
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 
-        check_event = false; //強制で発生するイベントのフラグ
-        check_lvevent = false; //レベルに応じて発生するイベントのフラグ
-        lvevent_loading = false;
+        check_event = false; //イベントのフラグ
 
         if (GameMgr.Story_Mode == 1)
         {
@@ -226,50 +238,80 @@ public class Bar_Main_Controller : MonoBehaviour {
         }
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
-
-        if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
-        {
-            GameMgr.BarEvent_stage[0] = true;
-
-            GameMgr.scenario_ON = true;
-
-            GameMgr.bar_event_num = 0;
-            GameMgr.bar_event_flag = true;
-
-            check_event = true;
-
-            StartCoroutine("Scenario_loading");
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 5;
-            GameMgr.CompoundEvent_flag = true;
-        }
-
-
         if (!check_event)
         {
-            /*
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+
+            if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
             {
+                GameMgr.BarEvent_stage[0] = true;
 
-                case 2: //かわいい材料を探しに来た。
+                GameMgr.scenario_ON = true;
 
-                    if (!GameMgr.ShopEvent_stage[5])
-                    {
-                        GameMgr.ShopEvent_stage[5] = true;
-                        GameMgr.scenario_ON = true;
+                GameMgr.bar_event_num = 0;
+                GameMgr.bar_event_flag = true;
 
-                        GameMgr.shop_event_num = 2;
-                        GameMgr.shop_event_flag = true;
+                check_event = true;
 
-                        StartCoroutine("Scenario_loading");
-                    }
+                StartCoroutine("Scenario_loading");
 
-                    break;
-
+                //メイン画面にもどったときに、イベントを発生させるフラグをON
+                GameMgr.CompoundEvent_num = 5;
+                GameMgr.CompoundEvent_flag = true;
             }
-            */
+
+
+            //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+                QuestOutCheck();
+
+                if (questout_flag)
+                {
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.bar_event_num = 10000;
+                    GameMgr.bar_event_flag = true;
+
+                    check_event = true;
+                    sceneBGM.MuteBGM();
+
+                    StartCoroutine("Scenario_loading");
+                }
+                
+            }
+
+
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+                /*
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+
+                    case 2: //かわいい材料を探しに来た。
+
+                        if (!GameMgr.ShopEvent_stage[5])
+                        {
+                            GameMgr.ShopEvent_stage[5] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 2;
+                            GameMgr.shop_event_flag = true;
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                }
+                */
+            }
         }
 
         if (GameMgr.Reset_SceneStatus)
@@ -299,85 +341,107 @@ public class Bar_Main_Controller : MonoBehaviour {
         }
         else
         {
-            if (!check_lvevent) //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
+
+            //Debug.Log("shop_status" + shop_status);
+            switch (GameMgr.Scene_Status)
             {
-                Debug.Log("チェック　パティシエレベルor好感度レベルイベント");
-                CheckBarLvEvent();
+                case 0:
 
-                if (lvevent_loading) { }
-                else
-                {
-                    //すべてのイベントをチェックし終わって、何もなければfalseになっており、lveventのチェックをtrueにして終了する。はず。
-                    check_lvevent = true;
-                }
+                    character.GetComponent<FadeCharacter>().SetOn();
+                    shopitemlist_onoff.SetActive(false);
+                    shopquestlist_obj.SetActive(false);
+                    playeritemlist_onoff.SetActive(false);
+                    backshopfirst_obj.SetActive(false);
+                    backshopfirst_obj.GetComponent<Button>().interactable = true;
+                    shop_select.SetActive(true);
+                    text_area.SetActive(true);
+                    money_status_obj.SetActive(true);
+                    placename_panel.SetActive(true);
+                    black_effect.SetActive(false);
+                    sceneBGM.MuteOFFBGM();
+
+                    if (GameMgr.Story_Mode == 1)
+                    {
+                        ninki_status_obj.SetActive(true);
+                    }
+
+                    GameMgr.Scene_Select = 0;
+                    GameMgr.Scene_Status = 100;
+
+                    if (trans == 1) //カメラが寄っていたら、デフォに戻す。
+                    {
+                        //カメラ寄る。
+                        trans--; //transが1を超えたときに、ズームするように設定されている。
+
+                        //intパラメーターの値を設定する.
+                        maincam_animator.SetInteger("trans", trans);
+                    }
+                    else if (trans == 10) //カメラが寄っていたら、デフォに戻す。
+                    {
+                        //カメラ寄る。
+                        trans = 0; //transが1を超えたときに、ズームするように設定されている。
+
+                        //intパラメーターの値を設定する.
+                        maincam_animator.SetInteger("trans", trans);
+                    }
+
+                    break;
+
+                case 1: //ショップのアイテム選択中
+                    break;
+
+                case 2:
+                    break;
+
+                case 3: //クエスト選択中
+                    break;
+
+                case 4: //うわさ話聞き中
+                    break;
+
+                case 100: //退避
+                    break;
+
+                default:
+                    break;
+
+
             }
-            else
+
+        }
+    }
+
+    void QuestOutCheck()
+    {
+        questout_count = 0;
+        questout_flag = false;
+        questout_deleteList.Clear();
+
+        for (i = 0; i < quest_database.questTakeset.Count; i++)
+        {
+            _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[i].Quest_LimitMonth, quest_database.questTakeset[i].Quest_LimitDay);
+            _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+            if (_Nokori_day < 0)
             {
-                //Debug.Log("shop_status" + shop_status);
-                switch (GameMgr.Scene_Status)
-                {
-                    case 0:
+                Debug.Log("クエスト　超過あり: " + i + " " + quest_database.questTakeset[i].Quest_itemName);
+                questout_count++;
+                questout_flag = true;
 
-                        character.GetComponent<FadeCharacter>().SetOn();
-                        shopitemlist_onoff.SetActive(false);
-                        shopquestlist_obj.SetActive(false);
-                        playeritemlist_onoff.SetActive(false);
-                        backshopfirst_obj.SetActive(false);
-                        backshopfirst_obj.GetComponent<Button>().interactable = true;
-                        shop_select.SetActive(true);
-                        text_area.SetActive(true);
-                        money_status_obj.SetActive(true);
-                        placename_panel.SetActive(true);
-                        black_effect.SetActive(false);
-
-                        if (GameMgr.Story_Mode == 1)
-                        {
-                            ninki_status_obj.SetActive(true);
-                        }
-
-                        GameMgr.Scene_Select = 0;
-                        GameMgr.Scene_Status = 100;
-
-                        if (trans == 1) //カメラが寄っていたら、デフォに戻す。
-                        {
-                            //カメラ寄る。
-                            trans--; //transが1を超えたときに、ズームするように設定されている。
-
-                            //intパラメーターの値を設定する.
-                            maincam_animator.SetInteger("trans", trans);
-                        }
-                        else if (trans == 10) //カメラが寄っていたら、デフォに戻す。
-                        {
-                            //カメラ寄る。
-                            trans = 0; //transが1を超えたときに、ズームするように設定されている。
-
-                            //intパラメーターの値を設定する.
-                            maincam_animator.SetInteger("trans", trans);
-                        }
-
-                        break;
-
-                    case 1: //ショップのアイテム選択中
-                        break;
-
-                    case 2:
-                        break;
-
-                    case 3: //クエスト選択中
-                        break;
-
-                    case 4: //うわさ話聞き中
-                        break;
-
-                    case 100: //退避
-                        break;
-
-                    default:
-                        break;
-
-
-                }
+                questout_deleteList.Add(i); //あとで降順で削除用にリスト番号を追加
             }
+        }
+
+        if (questout_flag) //超えてるものがあった場合、複数の可能性あるので、逆から削除していく。
+        {
+            for (i = questout_deleteList.Count - 1; i >= 0; i--)
+            {
+                _id = questout_deleteList[i];
+
+                quest_database.questTakeset.RemoveAt(_id); //削除
+            }
+
+            PlayerStatus.player_ninki_param -= (questout_count * 10); //過ぎてたクエスト*10　人気度が減る
         }
     }
 
@@ -549,12 +613,6 @@ public class Bar_Main_Controller : MonoBehaviour {
     }
 
 
-    //ショップの品数が増えるなど、パティシエレベルや好感度に応じたイベントの発生フラグをチェック
-    void CheckBarLvEvent()
-    {
-
-    }
-
     IEnumerator UtageEndWait()
     {
         GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
@@ -572,7 +630,6 @@ public class Bar_Main_Controller : MonoBehaviour {
     IEnumerator Scenario_loading()
     {
         //Debug.Log("シナリオ開始");
-        check_lvevent = true;
 
         while (!GameMgr.scenario_read_endflag)
         {
@@ -584,8 +641,6 @@ public class Bar_Main_Controller : MonoBehaviour {
         GameMgr.scenario_ON = false;
 
         check_event = false;
-        check_lvevent = false;
-        lvevent_loading = false;
         GameMgr.Scene_Status = 0;
 
     }

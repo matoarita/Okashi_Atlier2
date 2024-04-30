@@ -74,6 +74,7 @@ public class shopQuestSelectToggle : MonoBehaviour
     public int toggle_quest_ID; //リストの要素自体に、アイテムDB上のアイテムIDを保持する。
     public int toggle_quest_type; //リストの要素に、通常アイテムか、イベントアイテム判定用のタイプを保持する。
     public int toggle_itemID; //選択したクエストの納品用の、お菓子のアイテムID（アイテムDBの番号）
+    public int toggle_Listnum;
 
     private int i;
 
@@ -123,7 +124,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
         back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
-        
+
         questListToggle_obj = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_QuestList").gameObject;
         questListToggle = questListToggle_obj.GetComponent<Toggle>();
         nouhinToggle_obj = shopquestlistController_obj.transform.Find("CategoryView/Viewport/Content/Cate_Nouhin").gameObject;
@@ -196,7 +197,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                 questselect_active();
             }
             //受注リストを開いている場合の処理
-            else if (shopquestlistController.qlist_status == 1) 
+            else if (shopquestlistController.qlist_status == 1)
             {
                 back_ShopFirst_btn.interactable = false;
                 questTake_active();
@@ -242,6 +243,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         yes_no_panel.SetActive(true);
         yes.SetActive(true);
         no.SetActive(true);
+        black_effect.SetActive(true);
 
         questListToggle.interactable = false;
         nouhinToggle.interactable = false;
@@ -253,7 +255,6 @@ public class shopQuestSelectToggle : MonoBehaviour
     IEnumerator quest_select()
     {
 
-
         // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
 
         while (yes_selectitem_kettei.onclick != true)
@@ -263,6 +264,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         }
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
         itemselect_cancel.kettei_on_waiting = false;
+        black_effect.SetActive(false);
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -293,8 +295,8 @@ public class shopQuestSelectToggle : MonoBehaviour
                 questListToggle.interactable = true;
                 nouhinToggle.interactable = true;
 
-                back_ShopFirst_btn.interactable = true;        
-                
+                back_ShopFirst_btn.interactable = true;
+
                 break;
 
             case false: //キャンセルが押された
@@ -319,7 +321,7 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                 break;
         }
-    }    
+    }
 
     /* ### 受注リスト表示中のシーン ### */
 
@@ -375,6 +377,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         yes_no_panel.SetActive(true);
         yes.SetActive(true);
         no.SetActive(true);
+        black_effect.SetActive(true);
 
         questListToggle.interactable = false;
         nouhinToggle.interactable = false;
@@ -415,7 +418,7 @@ public class shopQuestSelectToggle : MonoBehaviour
 
             StartCoroutine("questTake_select");
         }
-            
+
     }
 
 
@@ -432,6 +435,7 @@ public class shopQuestSelectToggle : MonoBehaviour
 
         yes_selectitem_kettei.onclick = false;
         itemselect_cancel.kettei_on_waiting = false;
+        black_effect.SetActive(false);
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -454,8 +458,8 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                     //足りてるかどうかをチェック、材料アイテムなら即納品。
                     questjudge.Quest_result(shopquestlistController._count, true);
-                }               
-               
+                }
+
                 break;
 
             case false: //キャンセルが押された
@@ -522,6 +526,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                 pitemlistController_obj.SetActive(false);
                 yes_no_panel.SetActive(false);
                 NouhinKetteiPanel_obj.SetActive(false);
+                black_effect.SetActive(false);
 
                 itemselect_cancel.kettei_on_waiting = false;
                 break;
@@ -556,8 +561,10 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                     card_view.DeleteCard_DrawView();
 
+                    _text.text = "渡したいお菓子を選んでね。";
+
                     yes.SetActive(false);
-                    black_effect.SetActive(false);
+                    //black_effect.SetActive(false);
                     NouhinKetteiPanel_obj.SetActive(true);
                     NouhinKetteiPanel_obj.transform.Find("NouhinButton").gameObject.SetActive(false);
 
@@ -593,6 +600,7 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                     questListToggle.interactable = true;
                     nouhinToggle.interactable = true;
+                    black_effect.SetActive(false);
 
                     card_view.DeleteCard_DrawView();
                     updown_counter_obj.SetActive(false);
@@ -605,6 +613,125 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                     itemselect_cancel.kettei_on_waiting = false;
                 }
+                break;
+        }
+    }
+
+    public void questCancel_active()
+    {
+
+        //アイテムを選択したときの処理（トグルの処理）
+        itemselect_cancel.kettei_on_waiting = true;
+
+        count = 0;
+
+        /*while (count < shopquestlistController._quest_listitem.Count)
+        {
+            selectToggle = shopquestlistController._quest_listitem[count].GetComponent<Toggle>().isOn;
+            if (selectToggle == true) break;
+            ++count;
+        }*/
+
+        
+        //shopquestlistController._count = count; //カウントしたリスト番号を保持
+        shopquestlistController._ID = quest_database.questTakeset[toggle_Listnum]._ID; //IDを入れる。
+
+
+        _text.text = "選んだ依頼をキャンセルするの？" + "\n" + "（人気が少し落ちるかも。）";
+
+        Debug.Log(toggle_Listnum + "番が押されたよ");
+        Debug.Log("受注クエスト: " + quest_database.questTakeset[toggle_Listnum].Quest_itemName + "が選択されました。");
+
+        //Debug.Log("これでいいですか？");
+
+        //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
+        /*for (i = 0; i < shopquestlistController._quest_listitem.Count; i++)
+        {
+            shopquestlistController._quest_listitem[i].GetComponent<Toggle>().interactable = false;
+        }*/
+
+        yes_no_panel.SetActive(true);
+        yes.SetActive(true);
+        no.SetActive(true);
+        black_effect.SetActive(true);
+
+        questListToggle.interactable = false;
+        nouhinToggle.interactable = false;
+
+        StartCoroutine("WaitForCancel");
+    }
+
+
+    IEnumerator WaitForCancel()
+    {
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        itemselect_cancel.kettei_on_waiting = false;
+        black_effect.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された。これでいいですか？の確認。
+
+                //Debug.Log("ok");
+                //解除
+
+                //受注したクエストを、リストに登録。RandomSetのIDを入れる。
+                //quest_database.QuestTakeSetInit(shopquestlistController._count);
+
+                //その後、クエストリストから選んだやつを削除
+                quest_database.questTakeset.RemoveAt(toggle_Listnum);
+
+                //人気が少し下がる
+                PlayerStatus.player_ninki_param -= 10;
+
+                //画面の更新
+                shopquestlistController.reset_and_DrawView();
+
+                _text.text = "キャンセルしたわ！" + "\n" + "次からは、納品できるように頑張ってね～。";
+
+                //音を鳴らす。
+                sc.PlaySe(21);
+
+                Debug.Log("キャンセル完了！");
+
+                yes_no_panel.SetActive(false);
+
+                questListToggle.interactable = true;
+                nouhinToggle.interactable = true;
+
+                back_ShopFirst_btn.interactable = true;
+
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("cancel");
+
+                _text.text = "今はこんな依頼があるわよ";
+
+                //キャンセル時、リストのインタラクティブ解除。
+                for (i = 0; i < shopquestlistController._quest_listitem.Count; i++)
+                {
+                    shopquestlistController._quest_listitem[i].GetComponent<Toggle>().interactable = true;
+                    shopquestlistController._quest_listitem[i].GetComponent<Toggle>().isOn = false;
+                }
+
+                yes_no_panel.SetActive(false);
+
+                questListToggle.interactable = true;
+                nouhinToggle.interactable = true;
+
+                back_ShopFirst_btn.interactable = true;
+
                 break;
         }
     }

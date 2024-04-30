@@ -220,7 +220,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u540D\u58F0"
+  m_Text: "\u4EBA\u6C17"
 --- !u!114 &114453302749029814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -464,7 +464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 119.99998, y: 268.7}
+  m_AnchoredPosition: {x: 119.99997, y: 268.7}
   m_SizeDelta: {x: -583, y: -544.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224406237988742612

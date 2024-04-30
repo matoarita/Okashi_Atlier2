@@ -1489,7 +1489,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         hardness_score = 0;
         juice_score = 0;
         beauty_score = 0;
+        tea_flavor_score = 0;
         spscore1_score = 0;
+        spscore2_score = 0;
+        spscore3_score = 0;
+        spscore4_score = 0;
+        spscore5_score = 0;
+        spscore6_score = 0;
+        spscore7_score = 0;
+        spscore8_score = 0;
+        spscore9_score = 0;
+        spscore10_score = 0;
         topping_score = 0;
         topping_flag_point = 0;
         topping_flag = false;
@@ -1883,7 +1893,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //以上、全ての点数を合計。
         total_score = set_score + sweat_score + bitter_score + sour_score
         + shokukan_score + topping_score + beauty_score
-        + spscore1_score - dislike_score;
+        + spscore1_score + spscore2_score + spscore3_score + spscore4_score + spscore5_score
+        + spscore6_score + spscore7_score + spscore8_score + spscore9_score + spscore10_score 
+        - dislike_score;
     }
 
     void Debuf_Param_Judge()

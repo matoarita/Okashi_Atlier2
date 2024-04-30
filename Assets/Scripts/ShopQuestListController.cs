@@ -24,8 +24,8 @@ public class ShopQuestListController : MonoBehaviour
 
     public GameObject cardImage_onoff_pcontrol;
 
+    private TimeController time_controller;
     private ItemDataBase database;
-
     private QuestSetDataBase quest_database;
 
     private GameObject questListToggle_obj;
@@ -55,6 +55,9 @@ public class ShopQuestListController : MonoBehaviour
     public int nouhin_select_on;
     public bool final_select_flag;
 
+    private int _Limit_day;
+    private int _Nokori_day;
+
     private int rand;
     private int sel_quest_count = 3;
     private int sel_quest_count2 = 1;
@@ -75,6 +78,9 @@ public class ShopQuestListController : MonoBehaviour
 
         //クエストデータベースの取得
         quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //スクロールビュー内の、コンテンツ要素を取得
         content = this.transform.Find("Viewport/Content").gameObject;
@@ -183,11 +189,13 @@ public class ShopQuestListController : MonoBehaviour
 
             //進行中表示はオフ
             _text[5].text = "";
-            _text[6].text = quest_database.questRandomset[i].Quest_AfterDay.ToString() + "日";
+            _text[6].text = quest_database.questRandomset[i].Quest_AfterDay.ToString();
 
 
             texture2d = quest_database.questRandomset[i].questIcon;
             _Img.sprite = texture2d;
+
+            _quest_listitem[list_count].transform.Find("Background/CancelButton").gameObject.SetActive(false);
 
             //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 
@@ -220,6 +228,7 @@ public class ShopQuestListController : MonoBehaviour
             _Img = _quest_listitem[list_count].transform.Find("Background/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
             _toggle_itemID = _quest_listitem[list_count].GetComponent<shopQuestSelectToggle>();
+            _toggle_itemID.toggle_Listnum = i;
             _toggle_itemID.toggle_ID = quest_database.questTakeset[i]._ID; //DBのID。上から順番
             _toggle_itemID.toggle_quest_ID = quest_database.questTakeset[i].Quest_ID; //クエスト固有のID
             _toggle_itemID.toggle_quest_type = quest_database.questTakeset[i].QuestType; //クエストのタイプ　0なら材料採取　1ならお菓子系。1は、プレイヤーが選択
@@ -239,11 +248,28 @@ public class ShopQuestListController : MonoBehaviour
             _text[4].text = _hoshu.ToString();
 
             _text[5].text = "進行中"; //受注マーク
-            _text[6].text = quest_database.questTakeset[i].Quest_LimitMonth.ToString() + "/" + 
-                quest_database.questTakeset[i].Quest_LimitDay.ToString(); //締め切り日時 締切: ○月△日           
+            //あと何日
+            _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[i].Quest_LimitMonth, quest_database.questTakeset[i].Quest_LimitDay);
+            _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+            if(_Nokori_day < 0)
+            {
+                _text[6].text = "";
+                _text[7].text = "過ぎた";
+            }
+            else
+            {
+                _text[6].text = _Nokori_day.ToString();
+                _text[7].text = "日";
+            }
+            
+            /*_text[6].text = quest_database.questTakeset[i].Quest_LimitMonth.ToString() + "/" + 
+                quest_database.questTakeset[i].Quest_LimitDay.ToString(); //締め切り日時 締切: ○月△日   */
 
             texture2d = quest_database.questTakeset[i].questIcon;
             _Img.sprite = texture2d;
+
+            _quest_listitem[list_count].transform.Find("Background/CancelButton").gameObject.SetActive(true);
 
             //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 

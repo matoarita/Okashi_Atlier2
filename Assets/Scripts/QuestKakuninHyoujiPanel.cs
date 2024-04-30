@@ -22,6 +22,11 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private Text quest_desc;
     private Text item_kosu;
 
+    private GameObject quest_text1;
+    private GameObject quest_text2;
+    private GameObject quest_dayout;
+    private GameObject quest_day_today;
+
     private int _kosu;
     private int _money;
     private string _area;
@@ -53,6 +58,10 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         questname = this.transform.Find("PanelB/Quest_name").GetComponent<Text>();
         item_kosu = this.transform.Find("PanelB/Quest_Kosu").GetComponent<Text>();
         questday = this.transform.Find("PanelB/Quest_Day").GetComponent<Text>();
+        quest_text1 = this.transform.Find("PanelB/Quest_Day_text1").gameObject;
+        quest_text2 = this.transform.Find("PanelB/Quest_Day_text2").gameObject;
+        quest_dayout = this.transform.Find("PanelB/Quest_Day_Out").gameObject;
+        quest_day_today = this.transform.Find("PanelB/Quest_Day_Today").gameObject;
         questmoney = this.transform.Find("PanelB/Quest_Money").GetComponent<Text>();
         quest_clientname = this.transform.Find("PanelB/Quest_ClientName").GetComponent<Text>();
         quest_area = this.transform.Find("PanelB/Quest_Place").GetComponent<Text>();
@@ -92,7 +101,32 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         //あと何日
         _Limit_day = time_controller.CullenderKeisanInverse(questset_database.questTakeset[_list].Quest_LimitMonth, questset_database.questTakeset[_list].Quest_LimitDay);
         _Nokori_day = _Limit_day - PlayerStatus.player_day;
-        questday.text = _Nokori_day.ToString();
+
+        if (_Nokori_day < 0)
+        {
+            questday.text = "";
+            quest_text1.SetActive(false);
+            quest_text2.SetActive(false);
+            quest_dayout.SetActive(true);
+            quest_day_today.SetActive(false);
+        }
+        else if (_Nokori_day == 0)
+        {
+            questday.text = "";
+            quest_text1.SetActive(false);
+            quest_text2.SetActive(false);
+            quest_dayout.SetActive(false);
+            quest_day_today.SetActive(true);
+        }
+        else
+        {
+            questday.text = _Nokori_day.ToString();
+            quest_text1.SetActive(true);
+            quest_text2.SetActive(true);
+            quest_dayout.SetActive(false);
+            quest_day_today.SetActive(false);
+        }
+        
 
         switch (questset_database.questTakeset[_list].Quest_AreaType)
         {
