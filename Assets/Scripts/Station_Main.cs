@@ -235,6 +235,7 @@ public class Station_Main : MonoBehaviour
         {
             StartRead = true;
             sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
         }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。

@@ -134,3 +134,6 @@ SE表
 ・SE_132	audiostock_825112_sample			魔法発動音２
 ・SE_133							【未使用？　いれた記憶がない】
 ・SE_134	audiostock_718349_sample			観客ブーイング音
+・SE_135	sei_ge_doa_kisimi05				ドアのきしむ音
+・SE_136	sei_ge_doa_kisimi02				ドアのきしむ音２
+・SE_137	sei_ge_doa_tuyoku_cl01				重めのドアを閉める音

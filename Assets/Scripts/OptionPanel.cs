@@ -378,7 +378,7 @@ public class OptionPanel : MonoBehaviour {
         {
             case 10:
 
-                sceneBGM.StopPlayMain();
+                sceneBGM.StopBGM(0);
 
                 if (_currentBGMCoroutine == null)
                 {

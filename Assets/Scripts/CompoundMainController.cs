@@ -852,7 +852,7 @@ public class CompoundMainController : MonoBehaviour {
                 if (GameMgr.compobgm_change_flag == true)
                 {
                     GameMgr.compobgm_change_flag = false;
-                    sceneBGM.OnMainBGMFade();
+                    sceneBGM.OnChangeCompoBGMFade();
                     //sceneBGM.OnMainBGM(); //即座に切り替え
                 }
             }

@@ -13,6 +13,7 @@ public class Title_Main : MonoBehaviour {
     private SoundController sc;
 
     private Debug_Panel_Init debug_panel_init;
+    private BGM sceneBGM;
 
     private Girl1_status girl1_status;
 
@@ -33,6 +34,8 @@ public class Title_Main : MonoBehaviour {
 
     private GameObject version_text;
 
+    private bool StartRead;
+
     // Use this for initialization
     void Start () {
 
@@ -46,6 +49,9 @@ public class Title_Main : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -130,6 +136,8 @@ public class Title_Main : MonoBehaviour {
             loadButton_obj.SetActive(false);
         }
 
+        StartRead = false;
+
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
@@ -137,8 +145,14 @@ public class Title_Main : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        if (!StartRead) //シーン最初だけ読み込む
+        {
+            StartRead = true;
+            sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
+        }
+    }
 
     public void OnStartButton()
     {

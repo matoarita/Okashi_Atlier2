@@ -798,6 +798,7 @@ public class Compound_Main : MonoBehaviour
                 //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
                 bgm_change_story();
                 sceneBGM.OnMainBGM();
+                sceneBGM.NowFadeVolumeONBGM();
 
                 OuthomePanelONOFF();               
             }

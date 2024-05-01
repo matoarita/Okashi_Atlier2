@@ -21,6 +21,7 @@ public class HirobaBlockText : MonoBehaviour {
         BlockText = BlockText_obj.GetComponent<Text>();
 
         BlockCheck();
+        NPCEventCheck(); //NPCイベントも発生しているかチェック
     }
 
     void BlockCheck()
@@ -44,6 +45,11 @@ public class HirobaBlockText : MonoBehaviour {
                 }
                 break;
         }
+    }
+
+    void NPCEventCheck()
+    {
+
     }
 
     private void OnEnable()

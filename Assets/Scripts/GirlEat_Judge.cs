@@ -1709,60 +1709,63 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             Debug.Log("コンテスト　風らしさ計算OFF");
         }
 
-        //最終の点数合計
-        switch(GameMgr.Scene_Category_Num)
-        {
-            case 100: //コンテストのシーン
-
-                //以上、全ての点数を合計。
-                TotalScoreKeisan();
-                break;
-
-            default:
-
-                if (GameMgr.Story_Mode == 0)
-                {
-                    //以上、全ての点数を合計。
-                    TotalScoreKeisan();
-                }
-                else
-                {
-                    switch (GameMgr.GirlLoveEvent_num)
-                    {
-
-                        case 13: //カミナリのようにすっぱいクレープ 酸味で点数があがる
-
-                            if (_baseitemtype_sub == "Crepe")
-                            {
-                                total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
-                            }
-                            else
-                            {
-                                //以上、全ての点数を合計。
-                                TotalScoreKeisan();
-                            }
-                            break;
-
-                        default:
-
-                            //以上、全ての点数を合計。
-                            TotalScoreKeisan();
-                            break;
-                    }
-                }
-                break;
-        }
-        
-
-            
-
         //水っぽい・油っぽいなどの減点点数処理
         Debuf_Param_Judge();
 
-        
+
+        //最終の点数合計
+        if (!dislike_flag)
+        {
+            total_score = 0;
+        }
+        else
+        {
+            switch (GameMgr.Scene_Category_Num)
+            {
+                case 100: //コンテストのシーン
+
+                    //以上、全ての点数を合計。
+                    TotalScoreKeisan();
+                    break;
+
+                default:
+
+                    if (GameMgr.Story_Mode == 0)
+                    {
+                        //以上、全ての点数を合計。
+                        TotalScoreKeisan();
+                    }
+                    else
+                    {
+                        switch (GameMgr.GirlLoveEvent_num)
+                        {
+
+                            case 13: //カミナリのようにすっぱいクレープ 酸味で点数があがる
+
+                                if (_baseitemtype_sub == "Crepe")
+                                {
+                                    total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
+                                }
+                                else
+                                {
+                                    //以上、全ての点数を合計。
+                                    TotalScoreKeisan();
+                                }
+                                break;
+
+                            default:
+
+                                //以上、全ての点数を合計。
+                                TotalScoreKeisan();
+                                break;
+                        }
+                    }
+                    break;
+            }
+        }
 
         //フリーモード時　さらに計算。コンテスト時は除外。
-        if (GameMgr.Story_Mode == 1)
+        /*if (GameMgr.Story_Mode == 1)
         {
             if (_setType == 0)
             {
@@ -1771,7 +1774,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     total_score = (int)(total_score * 1.3f);
                 }
             }
-        }
+        }*/
 
         //まずいの判定
         if (total_score < GameMgr.mazui_score) //total_scoreが30より下だと、マズイ。
@@ -1904,16 +1907,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         if (_basepowdery > GameMgr.Watery_Line) //50より上
         {
-            //dislike_flag = false;
-            dislike_score += _basepowdery * 2;
+            dislike_flag = false;
+            //dislike_score += _basepowdery * 2;
             dislike_status = 3;
             dislike_num = 0;
             Debug.Log("粉っぽい: " + dislike_score);
         }
         if (_baseoily > GameMgr.Watery_Line)
         {
-            //dislike_flag = false;
-            dislike_score += _baseoily * 2;
+            dislike_flag = false;
+            //dislike_score += _baseoily * 2;
             dislike_status = 3;
             dislike_num = 1;
             Debug.Log("油っぽい: " + dislike_score);
@@ -1925,8 +1928,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else {
             if (_basewatery > GameMgr.Watery_Line)
             {
-                //dislike_flag = false;
-                dislike_score += _basewatery * 2;
+                dislike_flag = false;
+                //dislike_score += _basewatery * 2;
                 dislike_status = 3;
                 dislike_num = 2;
                 Debug.Log("水っぽい: " + dislike_score);
@@ -2797,7 +2800,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             QuestClearJoukenCheck();
 
             //クエストのときに、特定の条件を満たすと、次クエストが分岐する。
-            SPQuest_BunkiCheck();
+            //SPQuest_BunkiCheck();
         }
     }
 
@@ -4258,12 +4261,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //初期化 
         girl1_status.special_animatFirst = false;
 
-        //次のお菓子クエストがあるかどうかをチェック。特定の条件を満たしていれば、ルートが分岐する。
+        //次のお菓子クエストがあるかどうかをチェック。特定の条件を満たしていれば、ルートが分岐する。２では、メインクエからのルート分岐はしない
         if (GameMgr.Okashi_quest_bunki_on == 0)
         {
             QuestBunki1();
         }
-        else //1~の数字のときは、分岐開始
+        else //1~の数字のときは、分岐開始　２では、こっちは通らない
         {
             QuestBunki2();
         }
@@ -4358,6 +4361,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //
     void SPQuest_BunkiCheck()
     {
+        //２からは分岐はない予定なので、オフ
+        /*
         if (GameMgr.Story_Mode == 0)
         {
             switch (GameMgr.GirlLoveEvent_num)
@@ -4374,16 +4379,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
 
-                    /*case 20: //クレープ　条件分岐
+                    //case 20: //クレープ　条件分岐
 
-                        if (total_score >= 150) //クレープが150点以上
-                        {
+                        //if (total_score >= 150) //クレープが150点以上
+                        //{
                                 //次のクエストは別のおかしに。
-                                GameMgr.Okashi_quest_bunki_on = 1;                    
-                        }
-                        break;*/
+                                //GameMgr.Okashi_quest_bunki_on = 1;                    
+                        //}
+                        //break;
             }
-        }
+        }*/
     }
 
 

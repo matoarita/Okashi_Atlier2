@@ -4534,7 +4534,6 @@ MonoBehaviour:
   sound48: {fileID: 0}
   sound49: {fileID: 0}
   sound1000: {fileID: 0}
-  _mixRate: 0
 --- !u!82 &1841630730
 AudioSource:
   m_ObjectHideFlags: 0

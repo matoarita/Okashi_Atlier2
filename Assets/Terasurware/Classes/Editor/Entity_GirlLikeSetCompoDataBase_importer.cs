@@ -10,7 +10,7 @@ using NPOI.SS.UserModel;
 public class Entity_GirlLikeSetCompoDataBase_importer : AssetPostprocessor {
 	private static readonly string filePath = "Assets/Resources/Excel/Entity_GirlLikeSetCompoDataBase.xlsx";
 	private static readonly string exportPath = "Assets/Resources/Excel/Entity_GirlLikeSetCompoDataBase.asset";
-	private static readonly string[] sheetNames = { "01_Stage1_Set", };
+	private static readonly string[] sheetNames = { "01_Stage1_Set","02_Stage1_Set", };
 	
 	static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{

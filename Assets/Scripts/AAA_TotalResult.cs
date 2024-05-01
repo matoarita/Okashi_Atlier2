@@ -104,6 +104,8 @@ public class AAA_TotalResult : MonoBehaviour {
     private int preDispCoin;
     private float countTime;
 
+    private bool StartRead;
+
     private bool panel3_anim_start;
 
     private bool Live2D_USE = true; //Live2Dモデルを使うかどうか。画像自体は、ヒエラルキー上でON/OFFする。
@@ -254,8 +256,15 @@ public class AAA_TotalResult : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        if (!StartRead) //シーン最初だけ読み込む
+        {
+            StartRead = true;
+
+            sceneBGM.OnEndingBGM();
+            sceneBGM.NowFadeVolumeONBGM();
+        }
+    }
 
     private void LateUpdate()
     {

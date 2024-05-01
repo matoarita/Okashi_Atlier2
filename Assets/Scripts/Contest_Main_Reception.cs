@@ -319,6 +319,7 @@ public class Contest_Main_Reception : MonoBehaviour
         {
             StartRead = true;
             sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
         }
 
         //コンテスト失格になった場合の、後処理

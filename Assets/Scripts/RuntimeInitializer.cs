@@ -174,7 +174,11 @@ public class RuntimeInitializer : MonoBehaviour
         //サウンド・SE関連を統括するオブジェクト
         var soundcontroller_init = new GameObject("SoundController", typeof(SoundController));
         GameObject.DontDestroyOnLoad(soundcontroller_init);
-        soundcontroller_init.tag = "SoundController";        
+        soundcontroller_init.tag = "SoundController";
+
+        //BGMを鳴らすコントローラー　常駐し破壊されない
+        var bgmController_init = new GameObject("BGMController", typeof(BGMController));
+        GameObject.DontDestroyOnLoad(bgmController_init);
 
         //調合計算用メソッドオブジェクト
         var combination_init = new GameObject("CombinationMain", typeof(CombinationMain));

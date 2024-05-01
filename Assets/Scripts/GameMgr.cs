@@ -15,6 +15,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int GirlLoveSubEvent_stage_num = 200;
     public static int Event_num = 30;
     public static int Uwasa_num = 100;
+    public static int NpcEvent_stage_num = 3000;
 
     //** --ここまで-- **//
 
@@ -110,6 +111,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] GirlLoveEvent_stage1 = new bool[GirlLoveEvent_stage_num];  //各イベントの、現在読み中かどうかのフラグ。
     public static bool[] GirlLoveEvent_stage2 = new bool[GirlLoveEvent_stage_num];
     public static bool[] GirlLoveEvent_stage3 = new bool[GirlLoveEvent_stage_num];
+    public static int[] NPCHiroba_eventList = new int[NpcEvent_stage_num]; //主にNPCイベントのフラグリスト　配列の番号で各キャラを指定 100~ とか　200~とか
 
     //クリア時の好感度
     public static int stage1_clear_girl1_loveexp; //ステージ１クリア時の好感度を保存
@@ -1088,6 +1090,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             GirlLoveEvent_stage2[system_i] = false;
             GirlLoveEvent_stage3[system_i] = false;
         }
+
+        //広場NPCイベントフラグの初期化
+        for (system_i = 0; system_i < NPCHiroba_eventList.Length; system_i++)
+        {
+            NPCHiroba_eventList[system_i] = 0;
+        }
+        
 
         //好感度サブイベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveSubEvent_stage1.Length; system_i++)

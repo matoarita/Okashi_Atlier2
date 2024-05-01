@@ -11,6 +11,8 @@ public class Farm_Main_Controller : MonoBehaviour {
     private Animator maincam_animator;
     private int trans; //トランジション用のパラメータ
 
+    private BGM sceneBGM;
+
     private ItemShopDataBase shop_database;
 
     private SoundController sc;
@@ -77,6 +79,9 @@ public class Farm_Main_Controller : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
@@ -117,6 +122,8 @@ public class Farm_Main_Controller : MonoBehaviour {
         _text.text = "ここは牧場だ。";
         text_area.SetActive(false);
 
+        StartRead = false;
+
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 
@@ -154,6 +161,13 @@ public class Farm_Main_Controller : MonoBehaviour {
 
     public void UpdateFarmScene()
     {
+        if (!StartRead) //シーン最初だけ読み込む
+        {
+            StartRead = true;
+            sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
+        }
+
         //イベント発生フラグをチェック
 
         if (!GameMgr.FarmEvent_stage[0]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。

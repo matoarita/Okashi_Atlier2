@@ -434,11 +434,12 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
     }
 
-    //エクセルDBのset_compID（クエスト番号）と、GirlLoveEvent_numの紐づけ。ゲーム中クエストの総数でもある。
+    //GirlLikeSetCompoエクセルDBのset_compID（クエスト番号）と、GirlLoveEvent_numの紐づけ。ゲーム中メインクエストの総数でもある。
     void InitQuestNumDict()
     {
         QuestDict = new Dictionary<int, int>();
 
+        //１のやつ
         //本編のモード
         QuestDict.Add(1000, 0);
         QuestDict.Add(1010, 1);
@@ -477,6 +478,20 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(10230, 23);
         QuestDict.Add(10240, 24);
         QuestDict.Add(10500, 50);
+        //
+
+        //２から
+        QuestDict.Add(100000, 0);
+        QuestDict.Add(100010, 1);
+        QuestDict.Add(100020, 2);
+        QuestDict.Add(100030, 3);
+        QuestDict.Add(100040, 4);
+        QuestDict.Add(100100, 10);
+        QuestDict.Add(100110, 11);
+        QuestDict.Add(100120, 12);
+        QuestDict.Add(100130, 13);
+        QuestDict.Add(100140, 14);
+        //QuestDict.Add(100500, 50);
     }
 
     void InitQuestCount() //ステージごとの、クエストの総数　1なら、クエスト3個など。クエストの進行度を表示する◆ボタン用に使う。

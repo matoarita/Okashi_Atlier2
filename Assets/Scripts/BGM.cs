@@ -7,7 +7,9 @@ using DG.Tweening;
 public class BGM : MonoBehaviour {
 
     //[SerializeField]
-    private AudioSource[] _bgm = new AudioSource[3];
+    //private AudioSource[] _bgm = new AudioSource[3];
+
+    private BGMController bgmController;
 
     public AudioClip sound1;  //Stage1MainのBGM
     public AudioClip sound2;  //調合中のBGM
@@ -60,13 +62,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound49;  //夏エリアBGM
     public AudioClip sound1000;  //空のサウンド
 
-
-    [Range(0, 1)]
-    public float _mixRate = 0;
-
-    private int fade_status;
-    private float fade_volume;
-    private float _fadedeg;
+    private AudioClip _send_clip;
 
     private int i;
 
@@ -74,120 +70,27 @@ public class BGM : MonoBehaviour {
     void Start () {
 
         //使用するAudioSource取得。２つを取得。
-        _bgm = GetComponents<AudioSource>();
+        //_bgm = GetComponents<AudioSource>();
 
-        fade_status = 1; //0=fade_out 1=OFF 2=fade_in
-        fade_volume = 1.0f;
-        _fadedeg = 0.03f; //フェードの音量減少量
-        //_bgm[1]のほうに、各シーンごとのBGMを切り替えては入れて、その後_bgm[0]から切り替える
+        bgmController = BGMController.Instance.GetComponent<BGMController>();
 
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                PlayMain();
-                break;
-
-            case "110_TotalResult":
-
-                if(GameMgr.ending_number == 3 || GameMgr.ending_number == 4)
-                {
-                    EndingBGM_A();
-                }
-                else
-                {
-                    EndingBGM_B();
-                }
-                break;
-
-            default:
-
-                PlaySub();
-                break;
-        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-
-        _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Compound":
-
-                _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
-                break;
-
-            case "Bar":
-
-                _bgm[1].volume = 0.4f * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
-                break;
-
-            default:
-
-                _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
-                break;
-        }
-
-        if(fade_status == 0) //フェードアウトがON
-        {           
-            if(fade_volume <= 0)
-            {
-                fade_status = 1;
-            }
-            else
-            {
-                fade_volume -= _fadedeg;
-            }
-        }
-
-        if (fade_status == 2) //フェードインがON
-        {
-            if (fade_volume >= 1.0f)
-            {
-                fade_status = 1;
-            }
-            else
-            {
-                fade_volume += _fadedeg;
-            }
-        }
-
-        if (fade_status == 3) //ミックスフェードで切り替え　0 -> 1
-        {
-            _mixRate += _fadedeg;
-            if (_mixRate >= 1.0f)
-            {
-                _mixRate = 1;
-                fade_status = 1;
-            }
-        }
-
-        if (fade_status == 4) //ミックスフェードで切り替え　1 -> 0
-        {
-            _mixRate -= _fadedeg;
-            if (_mixRate < 0.0f)
-            {
-                _mixRate = 0;
-                fade_status = 1;
-            }
-        }
+        
     }
-
-    public void StopPlayMain() //音の一時停止などに使用。あまり使わないかも。
-    {
-        _bgm[0].Stop();
-    }
-
+    
     public void PlayMain()
     {
         BGMMainChange();
 
-        _bgm[0].Play();
+        bgmController.BGMPlay(0, _send_clip);
+        //_bgm[0].Play();
 
-        _bgm[1].clip = sound2;
-        _bgm[1].Play();
+        bgmController.BGMPlay(1, sound2);
+        //_bgm[1].clip = sound2;
+        //_bgm[1].Play();
     }
 
     //各シーンのBGM選択
@@ -197,47 +100,56 @@ public class BGM : MonoBehaviour {
         {
             case "001_Title":
 
-                _bgm[0].clip = sound24;
+                //_bgm[0].clip = sound24;
+                _send_clip = sound24;
                 break;
 
             case "Farm":
 
-                _bgm[0].clip = sound28;
+                //_bgm[0].clip = sound28;
+                _send_clip = sound28;
                 break;
 
             case "Shop":
 
-                _bgm[0].clip = sound27;
+                //_bgm[0].clip = sound27;
+                _send_clip = sound27;
                 break;
 
             case "Emerald_Shop":
 
-                _bgm[0].clip = sound35;
+                //_bgm[0].clip = sound35;
+                _send_clip = sound35;
                 break;
 
             case "Or_Emerald_Shop":
 
-                _bgm[0].clip = sound35;
+                //_bgm[0].clip = sound35;
+                _send_clip = sound35;
                 break;
 
             case "Bar":
 
-                _bgm[0].clip = sound29;
+                //_bgm[0].clip = sound29;
+                _send_clip = sound29;
                 break;
 
             case "Hiroba2":
 
-                _bgm[0].clip = sound23;
+                //_bgm[0].clip = sound23;
+                _send_clip = sound23;
                 break;
 
             case "Hiroba3":
 
-                _bgm[0].clip = sound37;
+                //_bgm[0].clip = sound37;
+                _send_clip = sound37;
                 break;
 
             case "Contest":
 
-                _bgm[0].clip = sound36;
+                //_bgm[0].clip = sound36;
+                _send_clip = sound36;
                 break;
 
             case "GetMaterial":
@@ -247,7 +159,8 @@ public class BGM : MonoBehaviour {
 
             case "Station":
 
-                _bgm[0].clip = sound23;
+                //_bgm[0].clip = sound23;
+                _send_clip = sound23;
                 break;
 
             default:
@@ -260,184 +173,216 @@ public class BGM : MonoBehaviour {
                 {
                     case 11: //アトリエ前
 
-                        _bgm[0].clip = sound41;
+                        //_bgm[0].clip = sound41;
+                        _send_clip = sound41;
                         break;
 
                     case 20: //オランジーナショップ
 
-                        _bgm[0].clip = sound27;
+                        //_bgm[0].clip = sound27;
+                        _send_clip = sound27;
                         break;
 
                     case 30: //オランジーナ酒場
 
-                        _bgm[0].clip = sound29;
+                        //_bgm[0].clip = sound29;
+                        _send_clip = sound29;
                         break;
 
                     case 40: //オランジーナファーム
 
-                        _bgm[0].clip = sound28;
+                        //_bgm[0].clip = sound28;
+                        _send_clip = sound28;
                         break;
 
                     case 60: //オランジーナ広場系
 
-                        //_bgm[0].clip = sound41;
                         switch (GameMgr.Scene_Name)
                         {
                             case "Or_Hiroba_CentralPark": //中央噴水
 
-                                _bgm[0].clip = sound41;
+                                //_bgm[0].clip = sound41;
+                                _send_clip = sound41;
                                 break;
 
                             case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道
 
-                                _bgm[0].clip = sound37; //23
+                                //_bgm[0].clip = sound37; //23
+                                _send_clip = sound37;
                                 break;
 
                             case "Or_Hiroba_Spring_Entrance": //春のエリア入口
 
-                                _bgm[0].clip = sound41; //37
+                                //_bgm[0].clip = sound41; //37
+                                _send_clip = sound41;
                                 break;
 
                             case "Or_Hiroba_Spring_Shoping_Moll": //春のエリア商店街
 
-                                _bgm[0].clip = sound41;
+                                //_bgm[0].clip = sound41;
+                                _send_clip = sound41;
                                 break;
 
                             case "Or_Hiroba_Spring_Oku": //春のエリア商店街
 
-                                _bgm[0].clip = sound41;
+                                //_bgm[0].clip = sound41;
+                                _send_clip = sound41;
                                 break;
 
                             case "Or_Hiroba_Spring_UraStreet": //春のエリア商店街
 
-                                _bgm[0].clip = sound41;
+                                //_bgm[0].clip = sound41;
+                                _send_clip = sound41;
                                 break;
 
                             case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
 
-                                _bgm[0].clip = sound49;
+                                //_bgm[0].clip = sound49;
+                                _send_clip = sound49;
                                 break;
 
                             case "Or_Hiroba_Summer_Street": //夏のエリア入口　奥側
 
-                                _bgm[0].clip = sound49;
+                                //_bgm[0].clip = sound49;
+                                _send_clip = sound49;
                                 break;
 
                             case "Or_Hiroba_Summer_MainStreet": //夏のエリア　メインストリート
 
-                                _bgm[0].clip = sound49;
+                                //_bgm[0].clip = sound49;
+                                _send_clip = sound49;
                                 break;
 
                             case "Or_Hiroba_Summer_MainStreet_Shop": //夏のエリア　メインストリート
 
-                                _bgm[0].clip = sound49;
+                                //_bgm[0].clip = sound49;
+                                _send_clip = sound49;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_Map": //夏エリア　遊園地　全体マップ
 
-                                _bgm[0].clip = sound45;
+                                //_bgm[0].clip = sound45;
+                                _send_clip = sound45;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_Enter": //夏エリア　遊園地入口
 
-                                _bgm[0].clip = sound45;
+                                //_bgm[0].clip = sound45;
+                                _send_clip = sound45;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_StreetA": //夏エリア　遊園地　右の通り
 
-                                _bgm[0].clip = sound45;
+                                //_bgm[0].clip = sound45;
+                                _send_clip = sound45;
                                 break;
 
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
 
-                                _bgm[0].clip = sound43;
+                                //_bgm[0].clip = sound43;
+                                _send_clip = sound43;
                                 break;
 
                             case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋
 
-                                _bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                //_bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                _send_clip = sound1000;
                                 break;
 
                             case "Or_Hiroba_Autumn_MainStreet": //秋エリア　メインストリート
 
-                                _bgm[0].clip = sound43;
+                                //_bgm[0].clip = sound43;
+                                _send_clip = sound43;
                                 break;
 
                             case "Or_Hiroba_Autumn_DepartMae": //秋エリア　百貨店前
 
-                                _bgm[0].clip = sound43;
+                                //_bgm[0].clip = sound43;
+                                _send_clip = sound43;
                                 break;
 
                             case "Or_Hiroba_Autumn_BarStreet": //秋エリア　酒場通り
 
-                                _bgm[0].clip = sound43;
+                                //_bgm[0].clip = sound43;
+                                _send_clip = sound43;
                                 break;
 
                             case "Or_Hiroba_Autumn_UraStreet": //秋エリア　裏通り
 
-                                _bgm[0].clip = sound43;
+                                //_bgm[0].clip = sound43;
+                                _send_clip = sound43;
                                 break;
 
                             case "Or_Hiroba_Autumn_UraStreet2": //秋エリア　裏通り奥
 
-                                _bgm[0].clip = sound43;
+                                //_bgm[0].clip = sound43;
+                                _send_clip = sound43;
                                 break;
 
                             case "Or_Hiroba_Winter_Entrance": //冬のエリア入口　雪道
 
-                                _bgm[0].clip = sound44;
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             case "Or_Hiroba_Winter_EntranceHiroba": //冬のエリア入口
 
-                                _bgm[0].clip = sound44;
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             case "Or_Hiroba_Winter_Street1": //冬のエリア入口から奥の広場通り
 
-                                _bgm[0].clip = sound44;
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             case "Or_Hiroba_Winter_MainStreet": //冬のエリア入口から奥の広場通り
 
-                                _bgm[0].clip = sound44;
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             case "Or_Hiroba_Winter_MainHiroba": //冬のエリア入口から奥の広場通り
 
-                                _bgm[0].clip = sound44;
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             case "Or_Hiroba_Winter_Street2": //冬のエリア入口から奥の広場通り
 
-                                _bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                //_bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                _send_clip = sound1000;
                                 break;
 
                             case "Or_Hiroba_Winter_ContestBridge": //冬のエリア入口から奥の広場通り
 
-                                _bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                //_bgm[0].clip = sound1000; //サウンドなし　環境音のみ
+                                _send_clip = sound1000;
                                 break;
 
                             case "Or_Hiroba_Winter_Street3": //冬のエリア入口から奥の広場通り
 
-                                _bgm[0].clip = sound44;
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             case "Or_Hiroba_Winter_PatissierHouseMae": //冬のエリア入口から奥の広場通り
 
-                                _bgm[0].clip = sound44;
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             case "Or_Hiroba_Catsle_Garden": //城エリア　大通り前庭
 
-                                _bgm[0].clip = sound44;
-
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             case "Or_Hiroba_Catsle_MainStreet": //城エリア　大通り
 
-                                _bgm[0].clip = sound44;
-
+                                //_bgm[0].clip = sound44;
+                                _send_clip = sound44;
                                 break;
 
                             default:
@@ -453,21 +398,25 @@ public class BGM : MonoBehaviour {
                         {
                             case "Or_Contest_001_1":
 
-                                _bgm[0].clip = sound38;
+                                //_bgm[0].clip = sound38;
+                                _send_clip = sound38;
                                 break;
 
                             case "Or_Contest_001_2":
 
-                                _bgm[0].clip = sound38;
+                                //_bgm[0].clip = sound38;
+                                _send_clip = sound38;
                                 break;
 
                             case "Or_Contest_001_3":
 
-                                _bgm[0].clip = sound38;
+                                //_bgm[0].clip = sound38;
+                                _send_clip = sound38;
                                 break;
 
                             default:
-                                _bgm[0].clip = sound46;
+                                //_bgm[0].clip = sound46;
+                                _send_clip = sound46;
                                 break;
                         }
                         
@@ -475,49 +424,44 @@ public class BGM : MonoBehaviour {
 
                     case 110: //コンテスト会場前系
 
-                        _bgm[0].clip = sound41; //23
+                        //_bgm[0].clip = sound41; //23
+                        _send_clip = sound41;
                         break;
 
                     case 120: //コンテスト会場受付系
 
-                        _bgm[0].clip = sound47; //23
+                        //_bgm[0].clip = sound47; //23
+                        _send_clip = sound47;
                         break;
 
                     case 150: //NPCの家系
 
-                        _bgm[0].clip = sound42; //23
+                        //_bgm[0].clip = sound42; //23
+                        _send_clip = sound42;
                         break;
 
                     case 160: //城のBGM
 
-                        _bgm[0].clip = sound42; //23
+                        //_bgm[0].clip = sound42; //23
+                        _send_clip = sound42;
                         break;
 
                     default:
 
-                        _bgm[0].clip = sound1;
+                        //_bgm[0].clip = sound1;
+                        _send_clip = sound1;
                         break;
                 }
                 break;
 
         }
 
-        _bgm[0].Play();
-        _mixRate = 0; //bgm[0]に音を切り替える
+        bgmController.BGMPlay(0, _send_clip);
+        bgmController.MixRateChange(0); //bgm[0]に音を切り替える
+        //_bgm[0].Play();
+        //_mixRate = 0; //bgm[0]に音を切り替える
 
-    }
-
-    public void EndingBGM_A()
-    {
-        _bgm[0].clip = sound1;
-        _bgm[0].Play();
-    }
-
-    public void EndingBGM_B()
-    {
-        _bgm[0].clip = sound2;
-        _bgm[0].Play();
-    }
+    }    
 
     void BGMMainChange()
     {
@@ -545,8 +489,8 @@ public class BGM : MonoBehaviour {
             case "Or_Compound":
 
                 //Debug.Log("BGM　オランジーナ調合シーン");
-                //_bgm[0].clip = sound39;
-                _bgm[0].clip = sound40; //sound21
+                //_bgm[0].clip = sound40; //sound21 39
+                _send_clip = sound40;
 
                 break;
 
@@ -585,12 +529,14 @@ public class BGM : MonoBehaviour {
 
                 case 2:
 
-                    _bgm[0].clip = sound6;
+                    //_bgm[0].clip = sound6;
+                    _send_clip = sound6;
                     break;
 
                 case 3:
 
-                    _bgm[0].clip = sound7;
+                    //_bgm[0].clip = sound7;
+                    _send_clip = sound7;
                     break;
             }
         }
@@ -598,11 +544,13 @@ public class BGM : MonoBehaviour {
         {
             if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
             {
-                _bgm[0].clip = sound10;
+                //_bgm[0].clip = sound10;
+                _send_clip = sound10;
             }
             else
             {
-                _bgm[0].clip = sound21; //エクストラモード専用曲　旧: sound1
+                //_bgm[0].clip = sound21; //エクストラモード専用曲　旧: sound1
+                _send_clip = sound21;
             }
         }
     }
@@ -611,13 +559,15 @@ public class BGM : MonoBehaviour {
     {
         if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
         {
-            _bgm[0].clip = sound10;
+            //_bgm[0].clip = sound10;
+            _send_clip = sound10;
         }
         else
         {
             if (GameMgr.GirlLoveSubEvent_stage1[60]) //HLV15~できらぽんイベント発生後
             {
-                _bgm[0].clip = sound19;
+                //_bgm[0].clip = sound19;
+                _send_clip = sound19;
             }
             else
             {
@@ -625,37 +575,44 @@ public class BGM : MonoBehaviour {
                 {
                     case 0:
 
-                        _bgm[0].clip = sound20;
+                        //_bgm[0].clip = sound20;
+                        _send_clip = sound20;
                         break;
 
                     case 1:
 
-                        _bgm[0].clip = sound11;
+                        //_bgm[0].clip = sound11;
+                        _send_clip = sound11;
                         break;
 
                     case 2:
 
-                        _bgm[0].clip = sound21;
+                        //_bgm[0].clip = sound21;
+                        _send_clip = sound21;
                         break;
 
                     case 3:
 
-                        _bgm[0].clip = sound1;
+                        //_bgm[0].clip = sound1;
+                        _send_clip = sound1;
                         break;
 
                     case 4:
 
-                        _bgm[0].clip = sound1;
+                        //_bgm[0].clip = sound1;
+                        _send_clip = sound1;
                         break;
 
                     case 5:
 
-                        _bgm[0].clip = sound19;
+                        //_bgm[0].clip = sound19;
+                        _send_clip = sound19;
                         break;
 
                     default:
 
-                        _bgm[0].clip = sound19;
+                        //_bgm[0].clip = sound19;
+                        _send_clip = sound19;
                         break;
                 }
             }
@@ -671,147 +628,176 @@ public class BGM : MonoBehaviour {
 
             case "bgm2":
 
-                _bgm[0].clip = sound20;
+                //_bgm[0].clip = sound20;
+                _send_clip = sound20;
                 break;
 
             case "bgm3":
 
-                _bgm[0].clip = sound21;
+                //_bgm[0].clip = sound21;
+                _send_clip = sound21;
                 break;
 
             case "bgm4":
 
-                _bgm[0].clip = sound18;
+                //_bgm[0].clip = sound18;
+                _send_clip = sound18;
                 break;
 
             case "bgm5":
 
-                _bgm[0].clip = sound19;
+                //_bgm[0].clip = sound19;
+                _send_clip = sound19;
                 break;
 
             case "bgm6":
 
-                _bgm[0].clip = sound10;
+                //_bgm[0].clip = sound10;
+                _send_clip = sound10;
                 break;
 
             case "bgm7":
 
-                _bgm[0].clip = sound6;
+                //_bgm[0].clip = sound6;
+                _send_clip = sound6;
                 break;
 
             case "bgm8":
 
-                _bgm[0].clip = sound7;
+                //_bgm[0].clip = sound7;
+                _send_clip = sound7;
                 break;
 
             case "bgm9":
 
-                _bgm[0].clip = sound11;
+                //_bgm[0].clip = sound11;
+                _send_clip = sound11;
                 break;
 
             case "bgm10":
 
-                _bgm[0].clip = sound1;
+                //_bgm[0].clip = sound1;
+                _send_clip = sound1;
                 break;
 
             case "bgm11":
 
-                _bgm[0].clip = sound22;
+                //_bgm[0].clip = sound22;
+                _send_clip = sound22;
                 break;
 
             case "bgm12":
 
-                _bgm[0].clip = sound4;
+                //_bgm[0].clip = sound4;
+                _send_clip = sound4;
                 break;
 
             case "bgm13":
 
-                _bgm[0].clip = sound8;
+                //_bgm[0].clip = sound8;
+                _send_clip = sound8;
                 break;
 
             case "bgm14":
 
-                _bgm[0].clip = sound17;
+                //_bgm[0].clip = sound17;
+                _send_clip = sound17;
                 break;
 
             case "bgm15":
 
-                _bgm[0].clip = sound9;
+                //_bgm[0].clip = sound9;
+                _send_clip = sound9;
                 break;
 
             case "bgm16":
 
-                _bgm[0].clip = sound5;
+                //_bgm[0].clip = sound5;
+                _send_clip = sound5;
                 break;
 
             case "bgm17":
 
-                _bgm[0].clip = sound12;
+                //_bgm[0].clip = sound12;
+                _send_clip = sound12;
                 break;
 
             case "bgm18":
 
-                _bgm[0].clip = sound15;
+                //_bgm[0].clip = sound15;
+                _send_clip = sound15;
                 break;
 
             case "bgm19":
 
-                _bgm[0].clip = sound23;
+                //_bgm[0].clip = sound23;
+                _send_clip = sound23;
                 break;
 
             case "bgm20":
 
-                _bgm[0].clip = sound24;
+                //_bgm[0].clip = sound24;
+                _send_clip = sound24;
                 break;
 
             case "bgm21":
 
-                _bgm[0].clip = sound25;
+                //_bgm[0].clip = sound25;
+                _send_clip = sound25;
                 break;
 
             case "bgm22":
 
-                _bgm[0].clip = sound26;
+                //_bgm[0].clip = sound26;
+                _send_clip = sound26;
                 break;
 
             case "bgm23":
 
-                _bgm[0].clip = sound27;
+                //_bgm[0].clip = sound27;
+                _send_clip = sound27;
                 break;
 
             case "bgm24":
 
-                _bgm[0].clip = sound28;
+                //_bgm[0].clip = sound28;
+                _send_clip = sound28;
                 break;
 
             case "bgm25":
 
-                _bgm[0].clip = sound29;
+                //_bgm[0].clip = sound29;
+                _send_clip = sound29;
                 break;
 
             case "bgm26":
 
-                _bgm[0].clip = sound30;
+                //_bgm[0].clip = sound30;
+                _send_clip = sound30;
                 break;
 
             case "bgm27":
 
-                _bgm[0].clip = sound31;
+                //_bgm[0].clip = sound31;
+                _send_clip = sound31;
                 break;
 
             case "bgm28":
 
-                _bgm[0].clip = sound32;
+                //_bgm[0].clip = sound32;
+                _send_clip = sound32;
                 break;
 
             case "bgm29":
 
-                _bgm[0].clip = sound33;
+                //_bgm[0].clip = sound33;
+                _send_clip = sound33;
                 break;
 
             case "bgm30":
 
-                _bgm[0].clip = sound2;
+                //_bgm[0].clip = sound2;
+                _send_clip = sound2;
                 break;
 
             default:
@@ -824,160 +810,233 @@ public class BGM : MonoBehaviour {
     public void OnMainBGM()
     {
         BGMMainChange();
-        _bgm[0].Play();
 
-        _mixRate = 0;
+        bgmController.BGMRestartPlay(0, _send_clip);
+        bgmController.MixRateChange(0);
+        //_bgm[0].Play();
+        //_mixRate = 0;
     }
-    public void OnMainBGMFade()
+
+    //メインBGMと調合時のBGMシーンをミックスしながら切り替える
+    public void OnChangeCompoBGMFade()
     {
-        fade_status = 4;
+        bgmController.FadeStatusChange(4);
+        //fade_status = 4;
     }
 
     public void OnCompoundBGM()
     {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound2;
-        _bgm[1].Play();
+        bgmController.BGMStop(1);
+        bgmController.BGMPlay(1, sound2);
+        //_bgm[1].Stop();
+        //_bgm[1].clip = sound2;
+        //_bgm[1].Play();
 
-        fade_status = 3; //フェードで切り替える
-        //_mixRate = 1;
+        bgmController.FadeStatusChange(3);
+        //fade_status = 3; //フェードで切り替える
     }
 
     public void OnGetMatStartBGM()
     {
-        _bgm[0].Stop();
-        _bgm[0].clip = sound3;
-        _bgm[0].Play();
+        bgmController.BGMStop(0);
+        bgmController.BGMPlay(0, sound3);
+        //_bgm[0].Stop();
+        //_bgm[0].clip = sound3;
+        //_bgm[0].Play();
 
-        //fade_status = 3;
-        //_mixRate = 1;
     }
 
     public void OnGetMat_MapBGM(int _sound_num)
     {
-        _bgm[1].Stop();
+        //_bgm[1].Stop();
+        bgmController.BGMStop(1);
 
         switch (_sound_num)
         {
             case 0: //近くの森
 
-                _bgm[1].clip = sound4;
+                //_bgm[1].clip = sound4;
+                _send_clip = sound4;
                 break;
 
             case 1: //ラベンダー畑
 
-                _bgm[1].clip = sound11;
+                //_bgm[1].clip = sound11;
+                _send_clip = sound11;
                 break;
 
             case 2: //ストロベリーガーデン
 
-                _bgm[1].clip = sound8;
+                //_bgm[1].clip = sound8;
+                _send_clip = sound8;
                 break;
 
             case 3: //ベリーファーム
 
-                _bgm[1].clip = sound17;
+                //_bgm[1].clip = sound17;
+                _send_clip = sound17;
                 break;
 
             case 4: //ひまわり畑
 
-                _bgm[1].clip = sound9;
+                //_bgm[1].clip = sound9;
+                _send_clip = sound9;
                 break;
 
             case 5: //バードサンクチュアリ
 
-                _bgm[1].clip = sound12;
+                //_bgm[1].clip = sound12;
+                _send_clip = sound12;
                 break;
 
             case 6: //白猫のお墓
 
-                _bgm[1].clip = sound15;
+                //_bgm[1].clip = sound15;
+                _send_clip = sound15;
                 break;
 
             case 7: //井戸
 
-                _bgm[1].clip = sound5;
+                //_bgm[1].clip = sound5;
+                _send_clip = sound5;
                 break;
 
             case 100: //サクラフォレスト
 
-                _bgm[1].clip = sound48;
+                //_bgm[1].clip = sound48;
+                _send_clip = sound48;
                 break;
         }
-       
-        _bgm[1].Play();
 
-        _mixRate = 1;
+        bgmController.BGMRestartPlay(0, _send_clip);
+        //bgmController.MixRateChange(1);
+        //_bgm[1].Play();
+        //_mixRate = 1;
     }
 
 
     public void OnTutorialBGM()
     {
-        _bgm[1].Stop();
-        _bgm[1].clip = sound16;
-        _bgm[1].Play();
+        bgmController.BGMStop(1);
+        bgmController.BGMPlay(1, sound16);
+        bgmController.MixRateChange(1);
+        //_bgm[1].Stop();
+        //_bgm[1].clip = sound16;
+        //_bgm[1].Play();
 
-        _mixRate = 1;
+        //_mixRate = 1;
     }
 
     public void OnMainClearResultBGM()
     {
-        _bgm[2].clip = sound14;
-        _bgm[2].volume = 0.4f * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
-        _bgm[2].Play();
+        bgmController.BGMPlay(2, sound4);
+        bgmController.BGMVolume(2);
+        //_bgm[2].clip = sound14;
+        //_bgm[2].volume = 0.4f * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
+        //_bgm[2].Play();
     }
 
     public void OnMainClearResultBGMOFF()
     {
-        _bgm[2].DOFade(0.0f, 1.0f).OnComplete(() =>
+        bgmController.DoFadeBGM(2);
+        /*_bgm[2].DOFade(0.0f, 1.0f).OnComplete(() =>
         {
             _bgm[2].Stop();
-        });
+        });*/
+    }
+
+    public void OnEndingBGM()
+    {
+        if (GameMgr.ending_number == 3 || GameMgr.ending_number == 4)
+        {
+            EndingBGM_A();
+        }
+        else
+        {
+            EndingBGM_B();
+        }
+    }
+
+    void EndingBGM_A()
+    {
+        bgmController.BGMPlay(0, sound1);
+        //_bgm[0].clip = sound1;
+        //_bgm[0].Play();
+    }
+
+    void EndingBGM_B()
+    {
+        bgmController.BGMPlay(0, sound2);
+        //_bgm[0].clip = sound2;
+        //_bgm[0].Play();
     }
 
     //バーで使う用
     public void PlayFanfare1()
     {
-        _bgm[0].Stop();
-        _bgm[1].clip = sound34;
-        _bgm[1].Play();
+        bgmController.BGMStop(0);
+        bgmController.BGMPlay(1, sound34);
+
+        //_bgm[0].Stop();
+        //_bgm[1].clip = sound34;
+        //_bgm[1].Play();
     }
 
     public void StopFanfare()
     {
-        _bgm[1].Stop();
+        bgmController.BGMStop(1);
+        //_bgm[1].Stop();
+    }
+
+
+    public void StopBGM(int _num) //音をStopで停止
+    {
+        bgmController.BGMStop(_num);
     }
 
     public void MuteBGM()
     {
         //Debug.Log("Mute BGM");
-        _bgm[0].mute = true;
-        _bgm[1].mute = true;
+        bgmController.BGMMute(0, 0); //2番目が0ならMute
+        bgmController.BGMMute(1, 0);
+        //_bgm[0].mute = true;
+        //_bgm[1].mute = true;
     }
 
     public void MuteOFFBGM()
     {
-        _bgm[0].mute = false;
-        _bgm[1].mute = false;
+        bgmController.BGMMute(0, 1); //2番目が1ならMuteOFF
+        bgmController.BGMMute(1, 1);
+        //_bgm[0].mute = false;
+        //_bgm[1].mute = false;
     }
 
     public void FadeOutBGM()
     {
-        fade_status = 0;
+        //bgmController.DoFadeBGM(0);
+        //bgmController.FadeStatusChange(0);
+        bgmController.DoFadeVolumeOut();
+        //fade_status = 0;
     }
 
     public void FadeInBGM()
     {
-        fade_status = 2;
+        //bgmController.FadeStatusChange(2);
+        bgmController.DoFadeVolumeIn();
+        //fade_status = 2;
     }
 
     public void NowFadeVolumeONBGM() //ただちにフェードのボリュームをもとに戻す。
     {
-        fade_volume = 1.0f;
+        bgmController.FadeStatusChange(100); //フェード途中の場合は、強制的に待機状態にして、1にすぐ切り替える
+        bgmController.FadeVolumeChange(1.0f);
+        //fade_volume = 1.0f;
     }
 
     public void NowFadeVolumeOFFBGM() //ただちにフェードのボリュームを0にする。ミュートと、効果的には一緒。
     {
-        fade_volume = 0.0f;
+        bgmController.FadeStatusChange(100);
+        bgmController.FadeVolumeChange(0.0f);
+        //fade_volume = 0.0f;
     }
 }

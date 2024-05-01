@@ -243,6 +243,7 @@ public class Shop_Main_Controller : MonoBehaviour {
         {
             StartRead = true;
             sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
         }
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など

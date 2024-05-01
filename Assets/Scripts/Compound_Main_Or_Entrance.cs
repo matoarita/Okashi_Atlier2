@@ -261,7 +261,7 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
             {
                 case 0:
 
-                    text_area.SetActive(true);
+                    text_area.SetActive(false);
                     //placename_panel.SetActive(true);
                     mainlist_controller_obj.SetActive(true);
                     getmatplace_panel.SetActive(false);
@@ -370,7 +370,7 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
         GameMgr.Scene_Status = 0;
 
         //読み終わったら、またウィンドウなどを元に戻す。
-        text_area.SetActive(true);
+        text_area.SetActive(false);
         mainlist_controller_obj.SetActive(true);
 
         //音を戻す。

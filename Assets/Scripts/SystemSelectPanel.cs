@@ -8,6 +8,7 @@ public class SystemSelectPanel : MonoBehaviour {
 
     private SaveController save_controller;
     private SoundController sc;
+    private BGM sceneBGM;
 
     private GameObject text_area_Main;
     private Text _textmain;
@@ -59,6 +60,9 @@ public class SystemSelectPanel : MonoBehaviour {
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
         no_button = canvas.transform.Find("SystemPanel/No").gameObject;
 
@@ -217,7 +221,11 @@ public class SystemSelectPanel : MonoBehaviour {
                 //Debug.Log("ok");
                 //解除
 
-                save_controller.OnLoadMethod();                
+                //音量フェードアウト
+                //sceneBGM.FadeOutBGM();
+                sceneBGM.NowFadeVolumeOFFBGM(); //
+
+                save_controller.OnLoadMethod(); //Loadメソッド内でシーン移動している
 
                 if (GameMgr.saveOK)
                 {
@@ -227,8 +235,8 @@ public class SystemSelectPanel : MonoBehaviour {
                 {
                     _textmain.text = "セーブデータがありません。";
                 }
-
-                GameMgr.compound_status = 0;
+                
+                //GameMgr.compound_status = 0;
                 titleback_panel.SetActive(false);
                 this.transform.parent.gameObject.SetActive(false);
 

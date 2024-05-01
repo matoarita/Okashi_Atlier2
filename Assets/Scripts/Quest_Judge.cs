@@ -87,6 +87,7 @@ public class Quest_Judge : MonoBehaviour {
 
     private int _getMoney;
     private int _getNinki;
+    private int _getHeart;
     private string _kanso;
 
     private int _id;
@@ -787,6 +788,7 @@ public class Quest_Judge : MonoBehaviour {
         okashi_totalkosu = 0;
         _getNinki = 0;
         _getMoney = 0;
+        _getHeart = 0;
 
         set_kaisu = pitemlistController._listcount.Count;
 
@@ -1337,6 +1339,7 @@ public class Quest_Judge : MonoBehaviour {
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
 
+                _getHeart = (int)(okashi_totalscore * 0.1f);
                 _text.text = "評価: " + GameMgr.ColorYellow + okashi_totalscore + "</color>" + "点" + 
                     "　報酬 " + GameMgr.ColorYellow + _getMoney + GameMgr.MoneyCurrency + "　</color>" + "を受け取った！" + "\n" + _kanso;
 
@@ -1494,6 +1497,9 @@ public class Quest_Judge : MonoBehaviour {
         //所持金をプラス
         moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
 
+        //ハートも少しプラス
+        PlayerStatus.girl1_Love_exp += _getHeart;
+
         //名声をプラスかマイナス。0は変化なし
         ninkiStatus_Controller.GetNinki(_getNinki);           
 
@@ -1570,7 +1576,8 @@ public class Quest_Judge : MonoBehaviour {
             + "\n" + "\n" + "お金の取得式: " + "\n" + debug_money_text
             + "\n" + "\n" + "基準値: " + _buy_price * _kosu_default
             + "\n" + "\n" + "okashi_totalscore / GameMgr.high_score 計算: "
-            + "\n" + "\n" + "お金の取得合計: " + _getMoney;
+            + "\n" + "\n" + "お金の取得合計: " + _getMoney
+            + "\n" + "\n" + "ハートの取得合計: " + _getHeart;
     }
 
     //
