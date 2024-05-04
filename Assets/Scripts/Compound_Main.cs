@@ -735,10 +735,11 @@ public class Compound_Main : MonoBehaviour
         //固有IDがないオリジナルアイテムを自動で削除する　バージョン更新用
         pitemlist.DeleteETCOriginalKoyuIDItem();
 
+        Touch_ALLOFF(); //Compound_Status=0になるまでは、触れない
         if (!GameMgr.outgirl_Nowprogress) //外出中はLive2Dをオフに。
         {
             CharacterLive2DImageON();
-            Touch_ALLON();
+            //Touch_ALLON();
         }
         else
         {
@@ -1581,11 +1582,9 @@ public class Compound_Main : MonoBehaviour
 
                     //SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
 
-                    //エクストラモード　クエストクリアチェック
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        girlEat_judge.ExtraSPQuestClearCheck();
-                    }
+                    //お菓子以外で、条件を満たしていないかクエストクリアチェック
+                    girlEat_judge.ExtraSPQuestClearCheck();
+
 
                     //採取地から家に帰ってきたときの処理
                     if (GameMgr.Getmat_return_home)
@@ -1979,7 +1978,7 @@ public class Compound_Main : MonoBehaviour
         manpuku_bar.SetActive(false);
         TimePanel_obj1.SetActive(false);
         moneystatus_panel.SetActive(false);
-        Stagepanel_obj.SetActive(false);
+        //Stagepanel_obj.SetActive(false);
         quest_kakuninButton_obj.SetActive(false);
 
         stageclear_panel.SetActive(false);        
@@ -2004,7 +2003,7 @@ public class Compound_Main : MonoBehaviour
         moneystatus_panel.SetActive(true);
         quest_kakuninButton_obj.SetActive(true);
 
-        Stagepanel_obj.SetActive(true);
+        //Stagepanel_obj.SetActive(true);
 
         OuthomePanelONOFF();
 

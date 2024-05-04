@@ -463,6 +463,18 @@ public class GetMaterial : MonoBehaviour
                         event_Strawberry_Garden();
                         break;
 
+                    //2から
+                    case "Sakura_Forest":
+
+                        //イベント１
+                        event_sakuraForest();
+                        break;
+
+                    case "Or_Old_Ido":
+
+                        event_Forest();
+                        break;
+
                     default:
 
                         //イベント１
@@ -552,14 +564,20 @@ public class GetMaterial : MonoBehaviour
 
                     case "Ido":
 
-                        if (GameMgr.Story_Mode == 0)
-                        {
-                            treasure_no();
-                        }
-                        else if (GameMgr.Story_Mode == 1)
-                        {
-                            treasure_Check();
-                        }
+                        treasure_Check();
+                        break;
+
+                    //2から
+                    case "Sakura_Forest":
+
+                        //イベント１
+                        treasure_Check();
+                        break;
+
+                    case "Or_Old_Ido":
+
+                        //イベント１
+                        treasure_Check();
                         break;
 
                     default:
@@ -1335,6 +1353,58 @@ public class GetMaterial : MonoBehaviour
         }
     }
 
+    //春風の森
+    void event_sakuraForest()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん。風がそよそよ・・。きもちいい～！";
+                break;
+
+            case 1:
+
+                _text.text = "あ！しろいちょうちょ～～。（妹はサボっている。）";
+                break;
+
+            case 2:
+
+                _text.text = "にいちゃん。腹へった～。" + "\n" + "妹は帰りたそうにしている。";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "にいちゃん！！　花びらがひらひら.. きれい～！";
+                break;
+
+            default:
+
+                _text.text = "ギャーー！はちが・・！！　にいちゃん！！";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+
+
+
+
+
+    //
+    //
+    //
 
 
     //レアイベント関係
@@ -1755,107 +1825,69 @@ public class GetMaterial : MonoBehaviour
         {
             case "Forest":
 
-                Treasure_Forest();
+                Treasure_Get(0);
                 break;
 
             case "BerryFarm":
 
-                Treasure_BerryFarm();
+                Treasure_Get(3);
                 break;
 
             case "Lavender_field":
 
-                Treasure_LavenderField();
+                Treasure_Get(4);
                 break;
 
             case "StrawberryGarden":
 
-                Treasure_StrawberryGarden();
+                Treasure_Get(5);
                 break;
 
             case "HimawariHill":
 
-                Treasure_Himawari();
+                Treasure_Get(1);
                 break;
 
             case "BirdSanctuali":
 
-                Treasure_BirdSanctuali();
+                Treasure_Get(2);
                 break;
 
             case "Ido":
 
-                Treasure_Ido();
+                Treasure_Get(7);
                 break;
 
             case "CatGrave":
 
-                Treasure_CatGrave();
+                Treasure_Get(6);
+                break;
+
+            //2から
+            case "Sakura_Forest":
+
+                //イベント１
+                Treasure_Get(0);
+                break;
+
+            case "Or_Old_Ido":
+
+                Treasure_Get(7);
                 break;
 
             default:
-                Treasure_Forest();
+                Treasure_Get(0);
                 break;
         }
     }
 
-    void Treasure_Forest()
+    void Treasure_Get(int _place)
     {
-        InitializeTreasureDicts(0); //中の番号で、どの宝箱かを指定する
+        InitializeTreasureDicts(_place); //中の番号で、どの宝箱かを指定する
 
         TreasureGetAction();
     }
 
-    void Treasure_BirdSanctuali()
-    {
-        InitializeTreasureDicts(2); //中の番号で、どの宝箱かを指定する
-
-        TreasureGetAction();
-    }
-
-    void Treasure_BerryFarm()
-    {
-        InitializeTreasureDicts(3); //中の番号で、どの宝箱かを指定する
-
-        TreasureGetAction();
-    }
-
-    void Treasure_Himawari()
-    {
-        InitializeTreasureDicts(1); //中の番号で、どの宝箱かを指定する
-
-        TreasureGetAction();
-        
-    }
-
-    void Treasure_LavenderField()
-    {
-        InitializeTreasureDicts(4); //中の番号で、どの宝箱かを指定する
-
-        TreasureGetAction();
-    }
-
-    void Treasure_CatGrave()
-    {
-        InitializeTreasureDicts(6); //中の番号で、どの宝箱かを指定する
-
-        TreasureGetAction();
-    }
-
-    void Treasure_StrawberryGarden()
-    {
-        InitializeTreasureDicts(5); //中の番号で、どの宝箱かを指定する
-
-        TreasureGetAction();
-    }
-
-    void Treasure_Ido()
-    {
-        InitializeTreasureDicts(7); //中の番号で、どの宝箱かを指定する
-
-        TreasureGetAction();
-
-    }
 
     void TreasureGetAction()
     {

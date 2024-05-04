@@ -177,17 +177,13 @@ public class Utage_scenario : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "010_Prologue")
             { // hogehogeシーンでのみやりたい処理
 
-                switch (GameMgr.scenario_flag)
+                if (GameMgr.Prologue_storyflag)
                 {
-                    case 0:
+                    GameMgr.Prologue_storyflag = false;
 
-                        scenarioLabel = "Prologue";
-                        story_num = GameMgr.scenario_flag;
-                        StartCoroutine(Scenario_Start());
-                        break;
-
-                    default:
-                        break;
+                    scenarioLabel = "Prologue";
+                    story_num = GameMgr.scenario_flag;
+                    StartCoroutine(Scenario_Start());
                 }
 
             }
@@ -406,7 +402,7 @@ public class Utage_scenario : MonoBehaviour
             if (GameMgr.ExtraClear_flag == true)
             {
                 GameMgr.ExtraClear_flag = false;
-                mainClear_ID = GameMgr.Extraquest_ID;
+                mainClear_ID = GameMgr.ExtraOkashiQuestComment_num;
                 scenarioLabel = "ExtraClearMessage"; //イベントレシピタグのシナリオを再生。
 
                 //エクストラクリア後の感想テキストを表示
@@ -697,7 +693,7 @@ public class Utage_scenario : MonoBehaviour
         //ショップのときのフラグ関係
         if(scenarioLabel == "Shop_Event")
         {
-            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Farm")].placeFlag == 1)
+            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
             {
                 engine.Param.TrySetParameter("Farm_Flag", true);
             }
@@ -718,6 +714,11 @@ public class Utage_scenario : MonoBehaviour
             case 0:
 
                 GameMgr.scenario_flag = 100; //プロローグ終了。一話＝100。
+                break;
+
+            case 10:
+
+                GameMgr.scenario_flag = 100; //2プロローグ終了。一話＝100。
                 break;
 
             case 2000:
@@ -1739,7 +1740,8 @@ public class Utage_scenario : MonoBehaviour
             switch (GameMgr.GirlLoveSubEvent_num)
             {
                 case 83: //お金が半分以下　酒場登場
-                    matplace_database.matPlaceKaikin("Bar"); //モタリケ牧場解禁
+
+                    matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
                     break;
             }
         }
@@ -2942,11 +2944,11 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
 
-        if(matplace_database.matplace_lists[matplace_database.SearchMapString("Farm")].placeFlag == 1)
+        if(matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
         {
             engine.Param.TrySetParameter("Farm_Flag", true);
         }
-        if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag == 1)
+        if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Bar_A1")].placeFlag == 1)
         {
             engine.Param.TrySetParameter("Bar_Flag", true);
         }
@@ -2973,11 +2975,11 @@ public class Utage_scenario : MonoBehaviour
 
         if( (bool)engine.Param.GetParameter("Farm_Flag") )
         {
-            matplace_database.matPlaceKaikin("Farm"); //モタリケ牧場解禁
+            matplace_database.matPlaceKaikin("Or_Farm"); //牧場解禁
         }
         if ((bool)engine.Param.GetParameter("Bar_Flag"))
         {
-            matplace_database.matPlaceKaikin("Bar"); //酒場解禁
+            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
         }
 
         if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
@@ -3351,6 +3353,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Hiroba_Or_Contest_Reception";
                 break;
 
+            case 1001: //コンテスト会場 主に会話イベント
+
+                scenarioLabel = "Hiroba_Or_Contest_ReceptionTalk";
+                break;
+
             case 1010: //Orお花屋さん
 
                 scenarioLabel = "Hiroba_Or_flower";
@@ -3385,6 +3392,21 @@ public class Utage_scenario : MonoBehaviour
         if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
         {
             StartCoroutine("PitemPresent");
+        }
+
+        //コンテスト会場イベントの場合　移動するときに、シーン暗くしておく
+        if(GameMgr.hiroba_event_placeNum == 1000)
+        {
+                //「宴」のシナリオ終了待ち
+                while (!engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                GameMgr.Scene_Black_ON = true;
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
         }
 
         //「宴」のシナリオ終了待ち

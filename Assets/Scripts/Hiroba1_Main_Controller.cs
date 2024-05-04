@@ -55,6 +55,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private GameObject sceneplace_namepanel_obj;
     private ScenePlaceNamePanel sceneplace_namepanel;
 
+    private GameObject back_atlier_obj;
+
     private Debug_Panel_Init debug_panel_init;
 
     private GameObject canvas;
@@ -67,8 +69,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private int rndnum;
     private string default_scenetext;
 
-    private int scene_status, scene_num;
     private bool StartRead;
+    private bool check_event;
+
+    private bool map_move;
+    private int map_move_num;
+
+    private int _place_num;
 
     // Use this for initialization
     void Start () {
@@ -108,6 +115,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         sceneplace_namepanel = sceneplace_namepanel_obj.GetComponent<ScenePlaceNamePanel>();
         sceneplace_namepanel_obj.SetActive(false);
 
+        back_atlier_obj = canvas.transform.Find("BackHomeButtonPanel").gameObject;
+        back_atlier_obj.SetActive(false);
+
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
@@ -126,8 +136,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。       
 
-        scene_status = 0;
+        GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
+
+        map_move = false;
+
         StartRead = false;
+        check_event = false;
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -164,39 +179,86 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             sceneBGM.NowFadeVolumeONBGM();
         }
 
-        //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
-        if (GameMgr.scenario_ON == true)
-        {
-            text_area.SetActive(false);
-            //placename_panel.SetActive(false);
-            mainlist_controller_obj.SetActive(false);
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        EventCheck();
 
+        if (map_move) //マップ移動中は、ウィンドウオフのまま
+        {
+            WindowOff();
         }
         else
         {
-            switch (scene_status)
+            //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
+            if (GameMgr.scenario_ON == true)
             {
-                case 0:
-
-                    text_area.SetActive(false);
-                    //placename_panel.SetActive(true);
-                    mainlist_controller_obj.SetActive(true);
-
-                    sceneBGM.MuteOFFBGM();
-
-                    scene_status = 100;
-                    scene_num = 0;
-
-                    break;
-
-                case 100: //退避
-
-                    break;
-
-                default:
-
-                    break;
+                WindowOff();
             }
+            else
+            {
+                switch (GameMgr.Scene_Status)
+                {
+                    case 0:
+
+                        text_area.SetActive(false);
+                        //placename_panel.SetActive(true);
+                        mainlist_controller_obj.SetActive(true);
+                        sceneplace_namepanel_obj.SetActive(true);
+                        back_atlier_obj.SetActive(true);
+
+                        sceneBGM.MuteOFFBGM();
+
+                        GameMgr.Scene_Status = 100;
+                        GameMgr.Scene_Select = 0;
+
+                        break;
+
+                    case 100: //退避
+
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+        }
+    }
+
+    void WindowOff()
+    {
+        text_area.SetActive(false);
+        //placename_panel.SetActive(false);
+        mainlist_controller_obj.SetActive(false);
+        sceneplace_namepanel_obj.SetActive(false);
+        back_atlier_obj.SetActive(false);
+    }
+
+    void EventCheck()
+    {
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+            switch (GameMgr.Scene_Name)
+            {
+                case "Or_Hiroba_CentralPark":
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[0]) //はじめて中央噴水へきた。
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[0] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 220000;
+
+                        GameMgr.scenario_ON = true;
+
+                        check_event = true;
+
+                        matplace_database.matPlaceKaikin("Or_Hiroba1"); //解禁
+
+                        EventReadingStart();
+                    }
+                    break;
+            }           
         }
     }
 
@@ -242,8 +304,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
     }
 
-    //MainListController2から読み出し
-    public void EventReadingStart()
+    //MainListController2からも読み出し
+    void EventReadingStart()
     {
         StartCoroutine("EventReading");
     }
@@ -251,8 +313,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     IEnumerator EventReading()
     {
         GameMgr.hiroba_event_flag = true;
-        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-        GameMgr.compound_status = 1000;
+        GameMgr.scenario_ON = true;
+
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
 
         //Debug.Log("広場イベント　読み中");
 
@@ -262,101 +326,54 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
 
         GameMgr.scenario_read_endflag = false;
-        GameMgr.compound_select = 0; //何もしていない状態
-        GameMgr.compound_status = 0;
 
-        //読み終わったら、またウィンドウなどを元に戻す。
-        text_area.SetActive(false);
-        mainlist_controller_obj.SetActive(true);
-
-        //音を戻す。
-        if (bgm_change_flag)
+        if (map_move)
         {
-            bgm_change_flag = false;
-            sceneBGM.FadeInBGM();
-        }
+            GameMgr.scenario_ON = false;
 
-        //読み終わったフラグをたてる
-        switch (GameMgr.hiroba_event_ID)
+            GameMgr.Scene_Select = 0; //何もしていない状態
+            GameMgr.Scene_Status = 0;
+
+            switch(map_move_num)
+            {
+                case 0: //ブルートパーズの花畑へ移動
+
+                    _place_num = matplace_database.SearchMapString("Bluetopaz_Garden");
+                    GameMgr.Select_place_num = _place_num;
+                    GameMgr.Select_place_name = matplace_database.matplace_lists[_place_num].placeName;
+                    GameMgr.Select_place_day = matplace_database.matplace_lists[_place_num].placeDay;
+
+                    //GameMgr.SceneSelectNum = 13;
+
+                    //音量フェードアウト
+                    sceneBGM.FadeOutBGM(0.5f);
+
+                    FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
+                    break;
+            }
+        }
+        else
         {
-            //クエスト４　「ドーナツ作り」～　0番台
-            case 40:
+            GameMgr.scenario_ON = false;
 
-                GameMgr.hiroba_event_end[2] = true;
-                break;
+            GameMgr.Scene_Select = 0; //何もしていない状態
+            GameMgr.Scene_Status = 0;
 
-            case 1040:
+            //読み終わったら、またウィンドウなどを元に戻す。
+            text_area.SetActive(false);
+            mainlist_controller_obj.SetActive(true);
 
-                GameMgr.hiroba_event_end[0] = true;
-                break;
+            //音を戻す。
+            if (bgm_change_flag)
+            {
+                bgm_change_flag = false;
+                sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
+            }
 
-            case 2045:
+            ToggleFlagCheck();
 
-                GameMgr.hiroba_event_end[1] = true;
-                break;
-
-            case 3040:
-
-                GameMgr.hiroba_event_end[6] = true;
-                break;
-
-            case 3042:
-
-                ev_id = pitemlist.Find_eventitemdatabase("donuts_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ドーナツのレシピを追加
-
-                GameMgr.hiroba_event_end[8] = true;
-                break;
-
-            case 4040:
-
-                GameMgr.hiroba_event_end[3] = true;
-                break;
-
-            case 4042:
-
-                GameMgr.hiroba_event_end[7] = true;
-                break;
-
-            case 5041:
-
-                GameMgr.hiroba_event_end[4] = true;
-                break;
-
-            case 5042:
-
-                GameMgr.hiroba_event_end[5] = true;
-                break;
-
-            //クエスト５　コンテスト～  10番台
-            case 50:
-
-                GameMgr.hiroba_event_end[10] = true;
-                break;
-
-            case 3050:
-
-                GameMgr.hiroba_event_end[11] = true;
-                break;
-
-            case 4050:
-
-                GameMgr.hiroba_event_end[12] = true;
-                break;
-
-            case 5050:
-
-                GameMgr.hiroba_event_end[13] = true;
-                break;
-
-            default:
-
-                break;
+            text_scenario(); //テキストの更新
         }
-
-        ToggleFlagCheck();
-
-        text_scenario(); //テキストの更新
     }
 
 
@@ -744,6 +761,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active05();
                     break;
 
+                case "Or_Hiroba_CentralPark2": //散歩道
+
+                    On_Active2001();
+                    break;
+
                 case "Or_Hiroba_Spring_Shoping_Moll": //ハートレベルが10必要
 
                     if(PlayerStatus.girl1_Love_lv < 10)
@@ -852,6 +874,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Spring_Shoping_Moll":
 
                     On_Active09();
+                    break;
+
+                case "Or_Hiroba_Spring_Oku":
+
+                    On_MapActive01();
                     break;
 
                 case "Or_Hiroba_Summer_MainStreet":
@@ -1356,6 +1383,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    void On_MapActive01()
+    {
+        //_text.text = "ブルートパーズのお花畑へ　移動";
+
+        GameMgr.hiroba_event_placeNum = 2000; //
+
+        //sceneBGM.FadeOutBGM();
+        //bgm_change_flag = true;
+        GameMgr.hiroba_event_ID = 230000; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
+
+        map_move = true; //シナリオ読み終わり後、マップを移動する
+        map_move_num = 0;
+        EventReadingStart();
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+
+        
+    }
+
     void On_ShopActive01()
     {
         //_text.text = "春エリアのお店へ入る";
@@ -1630,8 +1677,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         EventReadingStart();
 
-        CanvasOff();
-
     }
 
     void On_Active1001()
@@ -1646,7 +1691,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (!GameMgr.hiroba_event_end[0])
                 {
-                    sceneBGM.FadeOutBGM();
+                    sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                     bgm_change_flag = true;
                     GameMgr.hiroba_event_ID = 1040;
 
@@ -1671,7 +1716,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         EventReadingStart();
 
-        CanvasOff();
     }
 
     void On_Active1002()
@@ -1694,7 +1738,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     {*/
                     if (!GameMgr.hiroba_event_end[1])
                     {
-                        sceneBGM.FadeOutBGM();
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         bgm_change_flag = true;
                         GameMgr.hiroba_event_ID = 2045;
                     }
@@ -1719,14 +1763,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
         else
         {
-            sceneBGM.FadeOutBGM();
+            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
             bgm_change_flag = true;
             GameMgr.hiroba_event_ID = 12000;
         }
 
         EventReadingStart();
-
-        CanvasOff();
     }
 
     void On_Active1003()
@@ -1743,7 +1785,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 {
                     if (!GameMgr.hiroba_event_end[6])
                     {
-                        sceneBGM.FadeOutBGM();
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         bgm_change_flag = true;
                         GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
@@ -1755,7 +1797,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                             pitemlist.SearchDeleteItem("himawari_Oil");
                             pitemlist.addPlayerItemString("flyer", 1);
 
-                            sceneBGM.FadeOutBGM();
+                            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                             bgm_change_flag = true;
                             GameMgr.hiroba_event_ID = 3042;
                         }
@@ -1776,13 +1818,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (!GameMgr.hiroba_event_end[11])
                 {
-                    sceneBGM.FadeOutBGM();
+                    sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                     bgm_change_flag = true;
                     GameMgr.hiroba_event_ID = 3050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                 }
                 else
                 {
-                    sceneBGM.FadeOutBGM();
+                    sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                     bgm_change_flag = true;
                     GameMgr.hiroba_event_ID = 3051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                 }
@@ -1796,8 +1838,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
 
         EventReadingStart();
-
-        CanvasOff();
     }
 
     void On_Active1004()
@@ -1877,8 +1917,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }*/
 
         EventReadingStart();
-
-        CanvasOff();
     }
 
     void On_Active1005()
@@ -1887,7 +1925,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GameMgr.hiroba_event_placeNum = 5; //
 
         //図書室はBGMかえる
-        sceneBGM.FadeOutBGM();
+        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
         bgm_change_flag = true;
 
         if (GameMgr.Story_Mode == 0)
@@ -1950,8 +1988,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
 
         EventReadingStart();
-
-        CanvasOff();
     }
 
     void On_Active1006()
@@ -1992,8 +2028,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
 
         EventReadingStart();
-
-        CanvasOff();
     }
 
     //ヒカリ関連のマップイベントはActive2000～
@@ -2006,8 +2040,29 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GameMgr.hiroba_event_ID = 200000; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
         EventReadingStart();
+    }
 
-        CanvasOff();
+    void On_Active2001() //散歩道のイベント
+    {
+        GameMgr.hiroba_event_placeNum = 2000; //
+
+        if(!GameMgr.NPCHiroba_HikarieventList[100])
+        {
+            GameMgr.NPCHiroba_HikarieventList[100] = true;
+
+            //sceneBGM.FadeOutBGM();
+            //bgm_change_flag = true;
+            GameMgr.hiroba_event_ID = 210000; //そのときに呼び出すイベント番号 placeNumとセットで使う。    
+            check_event = true;
+        }
+
+        if(check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+
+        }         
+
+        EventReadingStart();
     }
 
 
@@ -2015,11 +2070,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     //その他処理　publicは、同じオブジェクトにつけたHiroba1_Main_Orのcsから読み出し
     //
 
-    void CanvasOff()
+    /*void CanvasOff()
     {
         text_area.SetActive(false);
         mainlist_controller_obj.gameObject.SetActive(false);
-    }
+    }*/
 
     public void ToggleAllOff()
     {
@@ -2433,54 +2488,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     public void ToggleFlagCheck()
     {
-        /*
-        if (GameMgr.Story_Mode == 0)
-        {
-            //新しく3人のNPCのとこへいける
-            if (GameMgr.hiroba_event_end[0])
-            {
-                npc5_toggle_obj.SetActive(true);
-                npc6_toggle_obj.SetActive(true);
-                npc7_toggle_obj.SetActive(true);
-            }
-
-            //パン工房へいける
-            if (GameMgr.hiroba_event_end[0] && GameMgr.hiroba_event_end[1])
-            {
-                npc4_toggle_obj.SetActive(true);
-            }
-
-            //ストロベリーガーデンへいける
-            if (GameMgr.hiroba_event_end[2])
-            {
-                matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁　いちごがとれるようになる。
-            }
-
-            //ひまわり畑へいける
-            if (GameMgr.hiroba_event_end[7])
-            {
-                matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁　ひまわりの種がとれるようになる。
-            }
-
-            if (GameMgr.hiroba_event_end[0])
-            {
-                MenuWindowExpand();
-            }
-        }
-        else
-        {
-            MenuWindowExpand();
-            npc4_toggle_obj.SetActive(true);
-            npc5_toggle_obj.SetActive(true);
-            npc6_toggle_obj.SetActive(true);
-            npc7_toggle_obj.SetActive(true);
-
-            //3番街へいける
-            if (GameMgr.GirlLoveSubEvent_stage1[160])
-            {
-                npc8_toggle_obj.SetActive(true);
-            }
-        }*/
 
     }
 
@@ -2488,7 +2495,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     public void SceneNamePlateSetting()
     {
         sceneplace_namepanel.OnSceneNamePlate();
-        sceneplace_namepanel_obj.SetActive(true);
+        //sceneplace_namepanel_obj.SetActive(true);
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

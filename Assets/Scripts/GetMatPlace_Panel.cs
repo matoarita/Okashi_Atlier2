@@ -423,19 +423,19 @@ public class GetMatPlace_Panel : MonoBehaviour {
         MapIcon_reset_and_DrawView(category_status);
     }
 
-    public void MapList_DrawView2() //春エリア
+    public void MapList_DrawView2() //夏エリア
     {
         category_status = 20;
         MapIcon_reset_and_DrawView(category_status);
     }
 
-    public void MapList_DrawView3() //春エリア
+    public void MapList_DrawView3() //秋エリア
     {
         category_status = 30;
         MapIcon_reset_and_DrawView(category_status);
     }
 
-    public void MapList_DrawView4() //春エリア
+    public void MapList_DrawView4() //冬エリア
     {
         category_status = 40;
         MapIcon_reset_and_DrawView(category_status);
@@ -948,7 +948,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     girl1_status.hukidasiOff();
 
                     //音量フェードアウト
-                    sceneBGM.FadeOutBGM();
+                    sceneBGM.FadeOutBGM(0.5f);
 
                     //日数の経過。場所ごとに、移動までの日数が変わる。
                     time_controller.SetMinuteToHour(GameMgr.Select_place_day);
@@ -1043,7 +1043,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //音量フェードイン
                 sceneBGM.MuteOFFBGM();
-                sceneBGM.FadeInBGM();
+                sceneBGM.FadeInBGM(0.5f);
 
                 Debug.Log(GameMgr.Select_place_name + "へ移動");
                 for(i=0; i< matplace_database.matplace_lists.Count; i++) //強制移動などの際に、select_place_numが更新されないので、ここでも更新
@@ -1298,9 +1298,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 break;
 
             case 10: //ねこのお墓をみつけた
-
-                GameMgr.MapEvent_01[1] = true; //ししゃもクッキーイベント終了のフラグ
-
+                
                 matplace_database.matPlaceKaikin("CatGrave"); //ねこのお墓解禁
                 GameMgr.Select_place_name = "CatGrave";
                 _text.text = "ねこのお墓がある。";
@@ -1558,7 +1556,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 modoru_anim_on = true;
 
                 //音量フェードアウト
-                sceneBGM.FadeOutBGM();
+                sceneBGM.FadeOutBGM(0.5f);
 
 
                 break;
@@ -1772,6 +1770,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                 if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
                                     pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
                                 {
+
+                                    GameMgr.MapEvent_01[1] = true; //ししゃもクッキーイベント完了
+
                                     GameMgr.map_ev_ID = 11;
                                     GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
@@ -2085,9 +2086,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 else
                 {
                     //イベントチェック
-                    if (!GameMgr.MapEvent_01[0])
+                    if (!GameMgr.MapEvent_Or[0])
                     {
-                        GameMgr.MapEvent_01[0] = true;
+                        GameMgr.MapEvent_Or[0] = true;
 
                         _text.text = "すげぇ～～！森だー！";
 
@@ -2108,7 +2109,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         {
                             event_end_flag = true;
 
-                            if (!GameMgr.MapEvent_01[1]) //ししゃもクッキーをもっている　かつ　お菓子パネルにセットされてる
+                            if (!GameMgr.MapEvent_Or[1]) //ししゃもクッキーをもっている　かつ　お菓子パネルにセットされてる
                             {
                                 if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
                                     pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
@@ -2127,7 +2128,78 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
                     }
                 }
+                break;
 
+            case "Or_Old_Ido":
+
+                //井戸のBGM
+                sceneBGM.OnGetMat_MapBGM(7);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "村の井戸だ。キリキリに澄んだ水が、たっぷり貯まっている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[50])
+                    {
+                        GameMgr.MapEvent_Or[50] = true;
+
+                        _text.text = "いっぱい水を汲もう。にいちゃん。";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 30;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、今日も水汲み？ヒカリも手伝うー！";
+                    }
+                }
+                break;
+
+            case "Bluetopaz_Garden":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(7);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[100])
+                    {
+                        GameMgr.MapEvent_Or[100] = true;
+
+                        _text.text = "いっぱい水を汲もう。にいちゃん。";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 30;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、今日も水汲み？ヒカリも手伝うー！";
+                    }
+                }
                 break;
         }
     }

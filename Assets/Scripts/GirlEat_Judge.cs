@@ -1313,7 +1313,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                         case 2: //エクストラ
 
-                            switch (GameMgr.GirlLoveEvent_num)
+                            switch (girl1_status.OkashiQuest_ID)
                             {
                                 /*case 0: //ハートあげる系
 
@@ -1321,13 +1321,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                                     SettingGirlHungrySet();
                                     break;*/
 
-                                case 1: //ヒカリにお菓子覚えさせる系
+                                case 10010: //ヒカリにお菓子覚えさせる系
 
                                     //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
                                     SettingGirlHungrySet();
                                     break;
 
-                                case 11: //お茶会
+                                case 10110: //お茶会
 
                                     //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
                                     SettingGirlHungrySet();
@@ -1730,36 +1730,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 default:
 
-                    if (GameMgr.Story_Mode == 0)
+                    //特殊なクエストの場合、採点が少し変わる
+                    switch (girl1_status.OkashiQuest_ID)
                     {
-                        //以上、全ての点数を合計。
-                        TotalScoreKeisan();
-                    }
-                    else
-                    {
-                        switch (GameMgr.GirlLoveEvent_num)
-                        {
+                        case 10130: //カミナリのようにすっぱいクレープ 酸味で点数があがる
 
-                            case 13: //カミナリのようにすっぱいクレープ 酸味で点数があがる
-
-                                if (_baseitemtype_sub == "Crepe")
-                                {
-                                    total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
-                                }
-                                else
-                                {
-                                    //以上、全ての点数を合計。
-                                    TotalScoreKeisan();
-                                }
-                                break;
-
-                            default:
-
+                            if (_baseitemtype_sub == "Crepe")
+                            {
+                                total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
+                            }
+                            else
+                            {
                                 //以上、全ての点数を合計。
                                 TotalScoreKeisan();
-                                break;
-                        }
+                            }
+                            break;
+
+                        default:
+
+                            //以上、全ての点数を合計。
+                            TotalScoreKeisan();
+                            break;
                     }
+
                     break;
             }
         }
@@ -2804,49 +2797,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
-    void DefaultQuestJouken()
-    {
-        if (non_spquest_flag == false) //メインのSPお菓子クエストをクリアした。感想をだすだけ。ハートがたまらないと、次のSPクエストにはいけない。
-        {
-            //60点以上だった。
-            if (total_score >= GameMgr.low_score)
-            {
-                Debug.Log("６０点以上がでた。満足。");
-
-                if (GameMgr.Story_Mode == 0)
-                {
-                    if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
-                    {
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
-                    }
-                    else if (topping_all_non && !topping_flag) //食べたいトッピングがあるが、該当するトッピングはのっていなかった。現状、それでもクリア可能。
-                    {
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
-                    }
-                    else if (!topping_all_non) //そもそも食べたいトッピングない場合
-                    {
-                        sp_quest_clear = true;
-                        _windowtext.text = "満足しているようだ。";
-                    }
-                }
-                else
-                { }
-
-                //それ以外で、食べたいトッピングの登録があるけど、それに該当するトッピングがない場合は、クリアはできない仕様。
-
-            }
-            else //そもそも60点以下
-            {
-                sp_quest_clear = false;
-                _windowtext.text = "";
-            }
-        }
-    }
-
-
-
     IEnumerator OkashiAfterFaceChange()
     {
         yield return new WaitForSeconds(2.0f);
@@ -2854,44 +2804,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.DefFaceChange();
     }
 
-    void InitializeItemSlotDicts()
-    {
-        itemslotInfo.Clear();
-        itemslotScore.Clear();
 
-        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
-        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
-        {
-            itemslotInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
-            itemslotScore.Add(0);
-        }
 
-    }
 
-    void delete_Item()
-    {
-        switch (_toggle_type1)
-        {
-            case 0: //プレイヤーアイテムリストから選択している。
-
-                pitemlist.deletePlayerItem(database.items[kettei_item1].itemName, 1);
-                break;
-
-            case 1: //オリジナルアイテムリストから選択している。オリジナルの場合は、一度削除用リストにIDを追加し、降順にしてから、後の削除メソッドでまとめて削除する。
-
-                pitemlist.deleteOriginalItem(kettei_item1, 1);
-                break;
-
-            case 2: //お菓子パネルからアイテム削除
-
-                pitemlist.deleteExtremePanelItem(kettei_item1, 1);               
-
-                break;
-
-            default:
-                break;
-        }
-    }
 
 
 
@@ -3226,7 +3141,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //☆ハートレベルが上がったらクリアする
         //**
 
-        if (GameMgr.Story_Mode == 0)
+        /*if (GameMgr.Story_Mode == 0)
         {
             if (_slider.value + _Getlove_param >= _slider.maxValue)
             {
@@ -3244,7 +3159,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else //エクストラモードの場合なし。
         {
-        }
+        }*/
 
 
         //**　画面上に生成したハートがなくなるまでのコルーチン　ただし、調合シーンに入るか、シーン移動すると、ハート演出をなくし、値を即座に反映する
@@ -3480,33 +3395,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Slider_Koushin(PlayerStatus.girl1_Love_exp);
     }
 
-    void Touch_WindowInteractOFF()
-    {
-
-        girl1_status.GirlEat_Judge_on = false;
-        girl1_status.WaitHint_on = false;
-        //girl1_status.hukidasiOff();
-
-        switch (GameMgr.Scene_Category_Num)
-        {
-            case 10:
-
-                GameMgr.CharacterTouch_ALLOFF = true;
-                compound_Main.OffCompoundSelect();
-                compound_Main.OnCompoundSelectObj();
-                hinttaste_toggle.SetActive(false);
-                break;
-        }
-    }
-
-    //外部からクエストクリアしたかどうかをチェックする　compound_mainなどから読む。
-    public void ExtraSPQuestClearCheck()
-    {
-        if (!GameMgr.QuestClearButton_anim)
-        {
-            HeartUpQuestBunkiCheck();
-        }
-    }
+    
 
     IEnumerator EmeraldCheck_EndCompo()
     {
@@ -3587,18 +3476,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
 
-    //ExpTableから読み出し
-    public void LvUpPanel1(int _kaisu) //仕上げ回数あがった
-    {
-        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
-        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_2(_kaisu);
-    }
-
-    public void LvUpPanel2() //同時に2個仕上げできるようになった
-    {
-        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
-        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_3();
-    }
+    
 
 
 
@@ -3753,45 +3631,49 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else
             {
-                if (non_spquest_flag == false) //SPクエストのお菓子でないとこのメッセージはでない。
+                if (!non_spquest_flag) //SPクエストのお菓子でないとこのメッセージはでない。
                 {
                     if (!GameMgr.QuestClearCommentflag) //コメント一度だしたら、そのクエストで二回目以降はでない。
                     {
-                        //高得点のときは、ここで特別スチルがでる。
+                        //高得点のときは、ここで特別スチルやアイテムがでる。
                         if (total_score >= GameMgr.high_score)
                         {
                             if (!GameMgr.OkashiQuestHighScore_event[GameMgr.GirlLoveEvent_num])
                             {
-
-                                switch (GameMgr.GirlLoveEvent_num)
+                                
+                                switch (girl1_status.OkashiQuest_ID)
                                 {
+                                    //１のときの特別スチルやアイテム
                                     //特定のお菓子のみ、特殊イベント発生
-                                    case 0: //クッキー
+                                    case 1000: //クッキー
 
                                         break;
 
-                                    case 2: //かわいいクッキー
+                                    case 1020: //かわいいクッキー
 
                                         pitemlist.add_EmeraldPlayerItem(pitemlist.Find_emeralditemdatabase("Meid_Black_Costume"), 1);
                                         break;
 
-                                    case 20: //クレープ
+                                    case 1200: //クレープ
 
                                         pitemlist.addPlayerItem("yotuba_crown", 1);
                                         //イベントCG解禁
                                         GameMgr.SetEventCollectionFlag("event7", true);
                                         break;
 
-                                    case 30: //シュークリーム
+                                    case 1300: //シュークリーム
 
                                         //イベントCG解禁
                                         GameMgr.SetEventCollectionFlag("event8", true); //キスイベント
                                         break;
 
-                                    case 40: //ドーナツ　白衣装ゲット
+                                    case 1400: //ドーナツ　白衣装ゲット
 
                                         pitemlist.add_EmeraldPlayerItem(pitemlist.Find_emeralditemdatabase("PinkGoth_Costume"), 1);
                                         break;
+
+                                        //
+                                        //
                                 }
 
                                 GameMgr.OkashiQuestHighScore_event[GameMgr.GirlLoveEvent_num] = true;
@@ -4204,14 +4086,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         GameMgr.scenario_ON = true;
 
-        //高得点のときは、ここで特別スチルがでる。
+        //高得点のときは、ここで特別スチルがでる。ExtraOkashiQuestComment_numは宴設定用
         if (total_score >= GameMgr.high_score_2)
         {
-            GameMgr.Extraquest_ID = girl1_status.OkashiQuest_ID + 100000;
+            GameMgr.ExtraOkashiQuestComment_num = girl1_status.OkashiQuest_ID + 100000;
         }
         else
         {
-            GameMgr.Extraquest_ID = girl1_status.OkashiQuest_ID; //
+            GameMgr.ExtraOkashiQuestComment_num = girl1_status.OkashiQuest_ID; //
         }
         
         GameMgr.ExtraClear_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
@@ -4219,7 +4101,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //エクストラ小クエストクリア時の感想。イベントによっては、日付もしくは天気を変更する。アイテム取得関係もここで処理。
         if (GameMgr.Story_Mode == 1)
         {
-            switch (GameMgr.Extraquest_ID)
+            switch (girl1_status.OkashiQuest_ID)
             {
                 /*case 10020: //カマキリ
 
@@ -4268,7 +4150,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else //1~の数字のときは、分岐開始　２では、こっちは通らない
         {
-            QuestBunki2();
         }
     }
 
@@ -4315,44 +4196,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     }
 
-    void QuestBunki2()
-    {
-        GameMgr.MesaggeKoushinON = false;
-
-        if (GameMgr.Story_Mode == 0)
-        {
-            switch (GameMgr.GirlLoveEvent_num)
-            {
-                case 10: //ラスク　条件分岐
-
-                    GameMgr.GirlLoveEvent_num = 13; //分岐の場合、直接次クエスト(specialquest.cs)をここで指定する。
-                    break;
-
-                    /*case 20:
-
-                        GameMgr.GirlLoveEvent_num = 22;
-                        break;*/
-            }
-
-            special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 0);
-
-            EndSpQuest();
-        }
-        else
-        {
-            special_quest.SetSpecialOkashi(GameMgr.GirlLoveEvent_num, 2);
-
-            if (GameMgr.System_ExtraResult_ON)
-            {
-                EndExtraQuest(); //リザルトとごほうび画面をだす
-            }
-            else
-            {
-                EndSpQuest();
-            }
-        }
-    }
-
 
 
 
@@ -4395,343 +4238,638 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
     //
-    //クエストクリア条件関係 こっちは食べたとき用。
+    //***クエスト　クリア条件関係 こっちは食べたとき用。***
     //
     void QuestClearJoukenCheck()
     {
-        if (GameMgr.Story_Mode == 0)
+        switch (girl1_status.OkashiQuest_ID)
         {
-            switch (GameMgr.GirlLoveEvent_num)
-            {
-                default: //特殊なものがない限りは、デフォルト。60点以上でクリア
+        
+            //１のエクストラの時の条件
+            case 10000: //茶色いクッキー
 
-                    DefaultQuestJouken();
+                if (_basename == "cocoa_cookie" && total_score >= GameMgr.low_score)
+                {
+                    sp_quest_clear = true;
+                    _windowtext.text = "満足しているようだ。";
+                }
 
-                    break;
-            }
-        }
-        else
-        {
-            switch (GameMgr.GirlLoveEvent_num)
-            {
+                break;
 
-                case 0: //茶色いクッキー
+            case 10030: //ピンククッキー
 
-                    if (_basename == "cocoa_cookie" && total_score >= GameMgr.low_score)
+                if (total_score >= GameMgr.low_score)
+                {
+                    if (_basename == "cherry_cookie" || _basename == "sakura_cookie" || _basename == "peach_cookie")
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
+                }
+
+                break;
+
+            case 10040: //さっくりさくさく最強クッキー
+
+                if (_baseitemtype_sub == "Cookie")
+                {
+                    if (total_score >= GameMgr.high_score_2)
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+
+                        if (total_score >= 200) //ハイスコア判定
+                        {
+                            GameMgr.high_score_flag2 = true; //200~でクリアしたフラグ
+                        }
+                    }
+                }
+                break;
+
+            case 10100: //むらさき色のお茶
+
+                if (total_score >= GameMgr.low_score)
+                {
+                    if (_basename == "lavender_tea" || _basename == "hydrangea_tea")
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
+                }
+
+                break;
+
+            case 10120: //ベリークレープ
+
+                if (total_score >= GameMgr.low_score)
+                {
+                    if (_basename == "strawberry_crepe" || _basename == "blueberry_crepe" || _basename == "strawberryblueberry_crepe" ||
+                        _basename == "doubleberry_crepe" || _basename == "berry_crepe")
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
+                }
+
+                break;
+
+            case 10130: //カミナリのようにすっぱいクレープ 酸味が40以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
+
+                if (total_score >= GameMgr.low_score)
+                {
+                    if (_baseitemtype_sub == "Crepe" && _basesour >= _judge_sour)
+                    {
+
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+
+                    }
+                }
+                break;
+
+            case 10140: //200点以上のいちごのクレープ
+
+                if (total_score >= 150)
+                {
+                    if (_basename == "strawberry_crepe" || _basename == "strawberryblueberry_crepe" || _basename == "berry_crepe" || _basename == "doubleberry_crepe")
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+
+                        if (total_score >= 200) //ハイスコア判定
+                        {
+                            GameMgr.high_score_flag2 = true; //高得点でクリアしたフラグ
+                        }
+                    }
+                }
+                break;
+
+
+            case 10200: //ムーディーな大人のおかし　カンノーリ　ティラミス　コーヒー　カフェオレシュー　ココアクッキー　ビスコッティ
+
+                if (total_score >= GameMgr.low_score)
+                {
+                    if (_basename == "cannoli" || _basename == "tiramisu" || _basename == "sea_losanonos" || _basename == "cream_coffee"
+                        || _basename == "cafeaulait_creampuff" || _basename == "cocoa_cookie" || _basename == "biscotti")
                     {
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
                     }
 
-                    break;
+                }
+                break;
 
-                case 3: //ピンククッキー
+            case 10230: //夢のようなパンケーキ 見た目をよくしないとクリアできない
 
+                if (total_score >= GameMgr.low_score)
+                {
+                    if (_baseitemtype_sub == "PanCake" && _basebeauty >= 100)
+                    {
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+                    }
+                }
+
+                break;
+
+            case 10240: //鉱石マフィン
+
+                if (_basename == "maffin_jewery") //princess_tota
+                {
                     if (total_score >= GameMgr.low_score)
                     {
-                        if (_basename == "cherry_cookie" || _basename == "sakura_cookie" || _basename == "peach_cookie")
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
+
+                        if (total_score >= 150) //ハイスコア判定
                         {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
+                            GameMgr.high_score_flag2 = true; //高得点でクリアしたフラグ
                         }
                     }
+                }
+                break;
 
-                    break;
+                //
+                //
+                //
 
-                case 4: //さっくりさくさく最強クッキー
+            default: //特殊な条件がない場合、基本は60点以上だせばクリア
 
-                    if (_baseitemtype_sub == "Cookie")
+                DefaultQuestJouken();
+
+                break;
+
+        }
+    }
+
+    void DefaultQuestJouken()
+    {
+        if (non_spquest_flag == false) //メインのSPお菓子クエストをクリアした。感想をだすだけ。
+        {
+            //60点以上だった。
+            if (total_score >= GameMgr.low_score)
+            {
+                Debug.Log("６０点以上がでた。満足。");
+
+                if (GameMgr.Story_Mode == 0)
+                {
+                    if (topping_all_non && topping_flag) //食べたいトッピングがあり、どれか一つでもトッピングがのっていた。
                     {
-                        if (total_score >= GameMgr.high_score_2)
-                        {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
-
-                            if (total_score >= 200) //ハイスコア判定
-                            {
-                                GameMgr.high_score_flag2 = true; //200~でクリアしたフラグ
-                            }
-                        }
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
                     }
-                    break;
-
-                case 10: //むらさき色のお茶
-
-                    if (total_score >= GameMgr.low_score)
+                    else if (topping_all_non && !topping_flag) //食べたいトッピングがあるが、該当するトッピングはのっていなかった。現状、それでもクリア可能。
                     {
-                        if (_basename == "lavender_tea" || _basename == "hydrangea_tea")
-                        {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
-                        }
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
                     }
-
-                    break;
-
-                case 12: //ベリークレープ
-
-                    if (total_score >= GameMgr.low_score)
+                    else if (!topping_all_non) //そもそも食べたいトッピングない場合
                     {
-                        if (_basename == "strawberry_crepe" || _basename == "blueberry_crepe" || _basename == "strawberryblueberry_crepe" || 
-                            _basename == "doubleberry_crepe" || _basename == "berry_crepe")
-                        {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
-                        }
+                        sp_quest_clear = true;
+                        _windowtext.text = "満足しているようだ。";
                     }
+                }
+                else
+                { }
 
-                    break;
+                //それ以外で、食べたいトッピングの登録があるけど、それに該当するトッピングがない場合は、クリアはできない仕様。
 
-                case 13: //カミナリのようにすっぱいクレープ 酸味が40以上か、絶妙にすっぱいときのクレープ　すっぱすぎてもクリアできる
-
-                    if (total_score >= GameMgr.low_score)
-                    {
-                        if (_baseitemtype_sub == "Crepe" && _basesour >= _judge_sour)
-                        {
-
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
-
-                        }
-                    }
-                    break;
-
-                case 14: //200点以上のいちごのクレープ
-
-                    if (total_score >= 150)
-                    {
-                        if (_basename == "strawberry_crepe" || _basename == "strawberryblueberry_crepe" || _basename == "berry_crepe" || _basename == "doubleberry_crepe")
-                        {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
-
-                            if (total_score >= 200) //ハイスコア判定
-                            {
-                                GameMgr.high_score_flag2 = true; //高得点でクリアしたフラグ
-                            }
-                        }
-                    }
-                    break;
-                
-
-                case 20: //ムーディーな大人のおかし　カンノーリ　ティラミス　コーヒー　カフェオレシュー　ココアクッキー　ビスコッティ
-
-                    if (total_score >= GameMgr.low_score)
-                    {
-                        if (_basename == "cannoli" || _basename == "tiramisu" || _basename == "sea_losanonos" || _basename == "cream_coffee"
-                            || _basename == "cafeaulait_creampuff" || _basename == "cocoa_cookie" || _basename == "biscotti")
-                        {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";                          
-                        }
-
-                    }
-                    break;
-
-                case 23: //夢のようなパンケーキ 見た目をよくしないとクリアできない
-
-                    if (total_score >= GameMgr.low_score)
-                    {
-                        if (_baseitemtype_sub == "PanCake" && _basebeauty >= 100)
-                        {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
-                        }
-                    }
-
-                    break;
-
-                case 24: //鉱石マフィン
-
-                    if (_basename == "maffin_jewery") //princess_tota
-                    {
-                        if (total_score >= GameMgr.low_score)
-                        {
-                            sp_quest_clear = true;
-                            _windowtext.text = "満足しているようだ。";
-
-                            if (total_score >= 150) //ハイスコア判定
-                            {
-                                GameMgr.high_score_flag2 = true; //高得点でクリアしたフラグ
-                            }
-                        }
-                    }
-
-                    break;
-
-                default: //Extraモードでは、食べたいお菓子がランダムで変わるので、こちらは使用しない。
-
-                    DefaultQuestJouken();
-
-                    break;
+            }
+            else //そもそも60点以下
+            {
+                sp_quest_clear = false;
+                _windowtext.text = "";
             }
         }
     }
 
     //
-    //クエストクリア条件　エクストラモード時ハート系　食べなくてもハートが上がったタイミングでクエストクリア判定する
+    //クエストクリア条件　ハートやお菓子以外での条件をクリアしたときの判定
     //ハートあげる系のクエストは、上あたりにある「judge_result()」も更新しないとダメ
     //
     void HeartUpQuestBunkiCheck()
     {
-        if (GameMgr.Story_Mode != 0)
+
+        switch (girl1_status.OkashiQuest_ID)
         {
-            switch (GameMgr.GirlLoveEvent_num)
+            //１のエクストラのときのやつ
+            /*case 0:
+
+                if (PlayerStatus.girl1_Love_exp >= 100)
+                {
+                    Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
+                    sp_quest_clear = true;
+
+                    if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                    {
+                        //3回以内だと、特別イベント Girl1_statusで、分岐
+                        GameMgr.Okashi_Extra_SpEvent_Start = false;
+                    }
+
+                }
+                break;*/
+
+            case 10010:
+
+                if (databaseCompo.Hikarimake_Totalcount() >= 1)
+                {
+                    Debug.Log("＜エクストラ＞ヒカリがお菓子を1種類覚えたので、クエストクリア");
+                    sp_quest_clear = true;
+
+                }
+                /*if (PlayerStatus.girl1_Love_exp >= 300)
+                {
+                    Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
+                    sp_quest_clear = true;
+
+                    if (GameMgr.Okashi_spquest_eatkaisu <= 3)
+                    {
+                        //3回以内だと、特別イベント
+                        GameMgr.Okashi_Extra_SpEvent_Start = false;
+                    }
+
+                }*/
+                break;
+
+            case 10110:
+
+                if (GameMgr.ShopEvent_stage[10])
+                {
+                    Debug.Log("＜エクストラ＞プリンさんにお菓子渡した。クエストクリア");
+                    sp_quest_clear = true;
+
+                }
+                break;
+
+                //
+                //
+
+
+
+                
+        }
+
+
+        if (sp_quest_clear)
+        {
+            GetLoveEnd();
+        }
+
+    }
+
+
+
+    //
+    //食べたあとのヒント関係の処理
+    //
+    void SetHintText(int _hintstatus)
+    {
+        //ヒントを表示する。０のものは、判定なしなので、表示もしない。
+        SweatHintHyouji();
+        BitterHintHyouji();
+        SourHintHyouji();
+        ShokukanHintHyouji();
+
+        //クエストクリアの条件を満たしていない場合、
+        //そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
+        _temp_spkansou = "";
+        _special_kansou = "";
+        tpcheck_utageON = false;
+        tpcheck = false;
+        no_hint = true; //デフォルトでは、ヒントを出さない。
+        tpcheck_utagebunki = 0;
+
+        //トッピングがのってないときのヒント Excelにデフォルトのヒントがある。このスクリプトで直接入力してもOK。ヒント必要ない場合は、後述のスクリプトで空になる。
+        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+        {
+            if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
             {
-                /*case 0:
-
-                    if (PlayerStatus.girl1_Love_exp >= 100)
-                    {
-                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
-                        {
-                            //3回以内だと、特別イベント Girl1_statusで、分岐
-                            GameMgr.Okashi_Extra_SpEvent_Start = false;
-                        }
-
-                    }
-                    break;*/
-
-                case 1:
-
-                    if (databaseCompo.Hikarimake_Totalcount() >= 1)
-                    {
-                        Debug.Log("＜エクストラ＞ヒカリがお菓子を1種類覚えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                    }
-                    /*if (PlayerStatus.girl1_Love_exp >= 300)
-                    {
-                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
-                        {
-                            //3回以内だと、特別イベント
-                            GameMgr.Okashi_Extra_SpEvent_Start = false;
-                        }
-
-                    }*/
-                    break;
-
-                /*case 2:
-
-                    if (PlayerStatus.girl1_Love_exp >= 650)
-                    {
-                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
-                        {
-                            //3回以内だと、特別イベント
-                            GameMgr.Okashi_Extra_SpEvent_Start = false;
-                        }
-
-                    }
-                    break;
-
-                case 3:
-
-                    if (PlayerStatus.girl1_Love_exp >= 1000)
-                    {
-                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
-                        {
-                            //3回以内だと、特別イベント
-                            GameMgr.Okashi_Extra_SpEvent_Start = false;
-                        }
-
-                    }
-                    break;*/
-
-                case 11:
-
-                    if (GameMgr.ShopEvent_stage[10])
-                    {
-                        Debug.Log("＜エクストラ＞プリンさんにお菓子渡した。クエストクリア");
-                        sp_quest_clear = true;
-
-                    }
-                    break;
-
-                /*case 12:
-
-                    if (PlayerStatus.girl1_Love_exp >= 2000)
-                    {
-                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
-                        {
-                            //3回以内だと、特別イベント
-                            GameMgr.Okashi_Extra_SpEvent_Start = false;
-                        }
-
-                    }
-
-                    break;
-
-                case 20:
-
-                    if (PlayerStatus.girl1_Love_exp >= 3000)
-                    {
-                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
-                        {
-                            //3回以内だと、特別イベント
-                            GameMgr.Okashi_Extra_SpEvent_Start = false;
-                        }
-
-                    }
-                    break;
-
-                case 22:
-
-                    if (PlayerStatus.girl1_Love_exp >= 5000)
-                    {
-                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
-                        {
-                            //3回以内だと、特別イベント
-                            GameMgr.Okashi_Extra_SpEvent_Start = false;
-                        }
-
-                    }
-                    break;
-
-                case 24:
-
-                    if (PlayerStatus.girl1_Love_exp >= 5000)
-                    {
-                        Debug.Log("＜エクストラ＞ハートが一定超えたので、クエストクリア");
-                        sp_quest_clear = true;
-
-                        if (GameMgr.Okashi_spquest_eatkaisu <= 3)
-                        {
-                            //3回以内だと、特別イベント
-                            GameMgr.Okashi_Extra_SpEvent_Start = false;
-                        }
-
-                    }
-
-                    break;*/
-            }
-
-            
-            if (sp_quest_clear)
-            {
-                GetLoveEnd();
+                _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
             }
         }
+        _special_kansou = _temp_spkansou;
+
+        if (!non_spquest_flag)
+        {
+            //条件判定
+            switch (girl1_status.OkashiQuest_ID)
+            {
+                case 1020: //クッキー１　クッキーまでは合っているが、かわいいトッピングがのってないとき
+
+                    if (total_score < GameMgr.low_score) //60点以下だった
+                    {
+                        if (topping_all_non && !topping_flag) //好みのトッピングはある(toppingu_all_non=true)が、一つものってなかった場合(topping_flag=false)だった
+                        {
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                        }
+                        else
+                        {
+                            //ヒントはなし
+                        }
+                    }
+                    break;
+
+                case 1110: //ラスク２　すっぱいトッピングがのってないとき
+
+                    if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                    }
+                    else
+                    {
+                        //ヒントはなし
+                    }
+                    break;
+
+                case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
+
+                    if (_baseitemtype_sub == "Crepe_Mat")
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                    }
+
+                    //特定のトッピングスロットをみる
+                    /*tpcheck_slot = "WhipeedCream";
+                    ToppingCheck();
+
+                    if (tpcheck) //ホイップがちゃんとのっていた。
+                    {
+                        //ヒントはなし
+                    }
+                    else
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                    }*/
+
+                    break;
+
+                case 1230: //豪華なクレープ
+
+                    //30点以下の場合、ヒントがでる。
+                    //特定のトッピングスロットをみる
+                    tpcheck_slot = "Blackcurrant";
+                    ToppingCheck();
+                    if (tpcheck) //カシスは外れ
+                    {
+                        no_hint = false;
+                        _special_kansou = "この黒い粒、すっぱすぎるよ・・。にいちゃん。";
+                    }
+                    else
+                    {
+                        if (beauty_score <= -30)
+                        {
+                            no_hint = false;
+                            _special_kansou = GameMgr.ColorRedDeep + "ぜんぜん豪華じゃない。" + "</color>";
+                        }
+                        else if (beauty_score > -30 && beauty_score <= -10)
+                        {
+
+                            no_hint = false;
+                            _special_kansou = "もう少し、トッピングがほしいかも？";
+
+                        }
+                        else if (beauty_score >= -10 && beauty_score <= 20)
+                        {
+
+                            no_hint = false;
+                            _special_kansou = "よい豪華さ！";
+
+                        }
+                        else
+                        {
+
+                            no_hint = false;
+                            _special_kansou = "神の華やかさ！";
+
+                        }
+                    }
+
+                    break;
+
+                case 1300: //シュークリーム１　ホイップクリームがのってなかった時　tp_check=false
+
+                    //マフィンと間違えたとき
+                    if (_baseitemtype_sub == "Maffin")
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 1;
+                    }
+                    else
+                    {
+                        //トッピングスロットをみる
+                        if (_basename == "puff")
+                        {
+                            tpcheck = false; //ホイップがない
+                        }
+                        else
+                        {
+                            tpcheck = true; //trueにすればチェックOK
+                        }
+                        /*tpcheck_slot = "WhipeedCream";
+                        ToppingCheck();
+
+                        tpcheck_slot = "WhipeedCreamStrawberry";
+                        ToppingCheck();*/
+
+                        if (tpcheck) //なにかしらのホイップがのっていた
+                        {
+
+                        }
+                        else
+                        {
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                            tpcheck_utagebunki = 0;
+                        }
+                    }
+
+                    break;
+
+                case 1400: //ドーナツ１　ストロベリーホイップクリームがのってなかった時　tp_check=false
+
+                    //トッピングスロットをみる
+                    tpcheck_slot = "WhipeedCreamStrawberry";
+                    ToppingCheck();
+
+                    tpcheck_slot = "WhipeedCreamRaspberry";
+                    ToppingCheck();
+
+                    tpcheck_slot = "WhipeedCreamCherry";
+                    ToppingCheck();
+
+                    if (!tpcheck) //ストロベリークリームはのっていなかった。
+                    {
+                        tpcheck_slot = "Strawberry"; //次にすとろべりーを調べる
+                        ToppingCheck();
+
+                        if (tpcheck) //いちごはのってた場合。惜しい。
+                        {
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                            tpcheck_utagebunki = 1;
+                            _special_kansou = "にいちゃん。クリームも、ピンク色だったかも？";
+                        }
+                        else //ストロベリークリームも、いちごものってなかった
+                        {
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                        }
+                    }
+
+                    break;
+
+                case 10130: //めちゃすっぱいクレープ１　すっぱさが足りてないとき
+
+                    if (_basesour <= _judge_sour)
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 0;
+                    }
+
+                    break;
+
+                case 10230: //夢みたいなパンケーキ　見た目がたりてない
+
+                    if (_basebeauty <= 100)
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 0;
+                    }
+
+                    break;
+
+                default:
+
+                    break;
+            }
+
+        }
+        else //クエスト以外のお菓子をあげたときの感想・ヒント。そもそもお菓子を間違えている場合。
+        {
+
+            //条件判定
+            switch (girl1_status.OkashiQuest_ID)
+            {
+                case 1300: //シュークリーム１
+
+                    //マフィンと間違えたとき
+                    if (_baseitemtype_sub == "Maffin")
+                    {
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 1;
+                    }
+                    break;
+            }
+
+        }
+
+        //
+        if (!no_hint) //falseのときは、ヒントだす。
+        {
+            if (tpcheck_utageON) //宴でもヒント表示するか否か。宴で表示する場合、他の宴イベントのあとに表示される。
+            {
+                GameMgr.okashinontphint_flag = true;
+                GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + tpcheck_utagebunki;
+            }
+        }
+        else
+        {
+            _special_kansou = "";
+        }
+
+        //クエスト以外で新しいお菓子をあげたときの、感想（共通）
+        if (!non_spquest_flag)
+        { }
+        else
+        {
+            if (dislike_status == 2)
+            {
+                _special_kansou = "今まで食べたことないお菓子だ！";
+            }
+            else
+            {
+                _special_kansou = "";
+            }
+        }
+
+        _special_kansou = "\n" + _special_kansou;
+
+        //感想の表示　_statusが0なら、通常得点、1なら、高得点時（85点以上）の感想。2は、まずすぎたとき。
+        switch (_hintstatus)
+        {
+
+            case 0:
+
+                temp_hint_text = _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
+                break;
+
+            case 1:
+
+                temp_hint_text = _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + "\n" + "この" + _basenameHyouji + "うますぎィ！" + "最高！！";
+                break;
+
+            case 2:
+
+                temp_hint_text = "マズすぎるぅ..。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
+                break;
+
+            case 3: //粉っぽいなどのとき
+
+                switch (dislike_num)
+                {
+                    case 0: //粉っぽい
+
+                        temp_hint_text = "粉っぽいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
+                        break;
+
+                    case 1: //油っぽい
+
+                        temp_hint_text = "あぶらっこいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
+                        break;
+
+                    case 2: //水っぽい　粉＜油＜水の順
+
+                        temp_hint_text = "水っぽいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
+                        break;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        //temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
+
+        //if (last_score_kousin)
+        //{
+        database.items[_baseID].last_hinttext = temp_hint_text;
+        GameMgr.Okashi_lasthint = temp_hint_text;
+        GameMgr.Okashi_lastname = _basenameHyouji;
+        GameMgr.Okashi_lastslot = _basenameSlot;
+        GameMgr.Okashi_lastID = _baseID;
+        GameMgr.Okashi_lastshokukan_param = shokukan_baseparam;
+        GameMgr.Okashi_lastshokukan_mes = shokukan_mes;
+        GameMgr.Okashi_lastsweat_param = _basesweat;
+        GameMgr.Okashi_lastsour_param = _basesour;
+        GameMgr.Okashi_lastbitter_param = _basebitter;
+        //}
     }
+
+
+    /// <summary>
+    /// 
+    /// 
+    /// </summary>
+
+
 
 
     void EndSpQuest()
@@ -5151,347 +5289,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
     }
 
-    //食べたあとのヒント関係の処理
-    void SetHintText(int _hintstatus)
-    {      
-        //ヒントを表示する。０のものは、判定なしなので、表示もしない。
-        SweatHintHyouji();
-        BitterHintHyouji();
-        SourHintHyouji();       
-        ShokukanHintHyouji();
-
-        //クエストクリアの条件を満たしていない場合、
-        //そのクエストクリアに必要な固有のヒントをくれる。（クッキーのときは、「もっとかわいくして！」とか。妹が好みのものを伝えてくる。）
-        _temp_spkansou = "";
-        _special_kansou = "";
-        tpcheck_utageON = false;
-        tpcheck = false;
-        no_hint = true; //デフォルトでは、ヒントを出さない。
-        tpcheck_utagebunki = 0;
-
-        //トッピングがのってないときのヒント Excelにデフォルトのヒントがある。このスクリプトで直接入力してもOK。ヒント必要ない場合は、後述のスクリプトで空になる。
-        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
-        {
-            if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
-            {
-                _temp_spkansou = girlLikeCompo_database.girllike_composet[i].hint_text;
-            }
-        }
-        _special_kansou = _temp_spkansou;
-
-        if (!non_spquest_flag)
-        {
-            //条件判定
-            switch (girl1_status.OkashiQuest_ID)
-            {
-                case 1020: //クッキー１　クッキーまでは合っているが、かわいいトッピングがのってないとき
-
-                    if (total_score < GameMgr.low_score) //60点以下だった
-                    {
-                        if (topping_all_non && !topping_flag) //好みのトッピングはある(toppingu_all_non=true)が、一つものってなかった場合(topping_flag=false)だった
-                        {
-                            no_hint = false;
-                            tpcheck_utageON = true;
-                        }
-                        else
-                        {
-                            //ヒントはなし
-                        }
-                    }
-                    break;
-
-                case 1110: //ラスク２　すっぱいトッピングがのってないとき
-
-                    if (topping_all_non && !topping_flag) //好みのトッピングはあるが、一つものってなかった場合
-                    {
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                    }
-                    else
-                    {
-                        //ヒントはなし
-                    }
-                    break;
-
-                case 1200: //クレープ１　ホイップクリームがのってなかった時　tp_check=false
-
-                    if (_baseitemtype_sub == "Crepe_Mat")
-                    {
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                    }
-
-                    //特定のトッピングスロットをみる
-                    /*tpcheck_slot = "WhipeedCream";
-                    ToppingCheck();
-
-                    if (tpcheck) //ホイップがちゃんとのっていた。
-                    {
-                        //ヒントはなし
-                    }
-                    else
-                    {
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                    }*/
-
-                    break;
-
-                case 1230: //豪華なクレープ
-
-                    //30点以下の場合、ヒントがでる。
-                    //特定のトッピングスロットをみる
-                    tpcheck_slot = "Blackcurrant";
-                    ToppingCheck();
-                    if (tpcheck) //カシスは外れ
-                    {
-                        no_hint = false;
-                        _special_kansou = "この黒い粒、すっぱすぎるよ・・。にいちゃん。";
-                    }
-                    else
-                    {
-                        if (beauty_score <= -30)
-                        {
-                            no_hint = false;
-                            _special_kansou = GameMgr.ColorRedDeep + "ぜんぜん豪華じゃない。" + "</color>";
-                        }
-                        else if (beauty_score > -30 && beauty_score <= -10)
-                        {
-
-                            no_hint = false;
-                            _special_kansou = "もう少し、トッピングがほしいかも？";
-
-                        }
-                        else if (beauty_score >= -10 && beauty_score <= 20)
-                        {
-
-                            no_hint = false;
-                            _special_kansou = "よい豪華さ！";
-
-                        }
-                        else
-                        {
-
-                            no_hint = false;
-                            _special_kansou = "神の華やかさ！";
-
-                        }
-                    }
-
-                    break;
-
-                case 1300: //シュークリーム１　ホイップクリームがのってなかった時　tp_check=false
-
-                    //マフィンと間違えたとき
-                    if (_baseitemtype_sub == "Maffin")
-                    {
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                        tpcheck_utagebunki = 1;
-                    }
-                    else
-                    {
-                        //トッピングスロットをみる
-                        if (_basename == "puff")
-                        {
-                            tpcheck = false; //ホイップがない
-                        }
-                        else
-                        {
-                            tpcheck = true; //trueにすればチェックOK
-                        }
-                        /*tpcheck_slot = "WhipeedCream";
-                        ToppingCheck();
-
-                        tpcheck_slot = "WhipeedCreamStrawberry";
-                        ToppingCheck();*/
-
-                        if (tpcheck) //なにかしらのホイップがのっていた
-                        {
-
-                        }
-                        else
-                        {
-                            no_hint = false;
-                            tpcheck_utageON = true;
-                            tpcheck_utagebunki = 0;
-                        }
-                    }
-
-                    break;
-
-                case 1400: //ドーナツ１　ストロベリーホイップクリームがのってなかった時　tp_check=false
-
-                    //トッピングスロットをみる
-                    tpcheck_slot = "WhipeedCreamStrawberry";
-                    ToppingCheck();
-
-                    tpcheck_slot = "WhipeedCreamRaspberry";
-                    ToppingCheck();
-
-                    tpcheck_slot = "WhipeedCreamCherry";
-                    ToppingCheck();
-
-                    if (!tpcheck) //ストロベリークリームはのっていなかった。
-                    {
-                        tpcheck_slot = "Strawberry"; //次にすとろべりーを調べる
-                        ToppingCheck();
-
-                        if (tpcheck) //いちごはのってた場合。惜しい。
-                        {
-                            no_hint = false;
-                            tpcheck_utageON = true;
-                            tpcheck_utagebunki = 1;
-                            _special_kansou = "にいちゃん。クリームも、ピンク色だったかも？";
-                        }
-                        else //ストロベリークリームも、いちごものってなかった
-                        {
-                            no_hint = false;
-                            tpcheck_utageON = true;
-                        }
-                    }
-
-                    break;
-
-                case 10130: //めちゃすっぱいクレープ１　すっぱさが足りてないとき
-
-                    if (_basesour <= _judge_sour)
-                    {
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                        tpcheck_utagebunki = 0;
-                    }
-
-                    break;
-
-                case 10230: //夢みたいなパンケーキ　見た目がたりてない
-
-                    if (_basebeauty <= 100)
-                    {
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                        tpcheck_utagebunki = 0;
-                    }
-
-                    break;
-
-                default:
-
-                    break;
-            }
-
-        }
-        else //クエスト以外のお菓子をあげたときの感想・ヒント。そもそもお菓子を間違えている場合。
-        {
-
-            //条件判定
-            switch (girl1_status.OkashiQuest_ID)
-            {
-                case 1300: //シュークリーム１
-
-                    //マフィンと間違えたとき
-                    if (_baseitemtype_sub == "Maffin")
-                    {
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                        tpcheck_utagebunki = 1;
-                    }
-                    break;
-            }
-
-        }
-
-        //
-        if (!no_hint) //falseのときは、ヒントだす。
-        {
-            if (tpcheck_utageON) //宴でもヒント表示するか否か。宴で表示する場合、他の宴イベントのあとに表示される。
-            {
-                GameMgr.okashinontphint_flag = true;
-                GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + tpcheck_utagebunki;
-            }
-        }
-        else
-        {
-            _special_kansou = "";
-        }
-
-        //クエスト以外で新しいお菓子をあげたときの、感想（共通）
-        if (!non_spquest_flag)
-        { }
-        else
-        {
-            if (dislike_status == 2)
-            {
-                _special_kansou = "今まで食べたことないお菓子だ！";
-            }
-            else
-            {
-                _special_kansou = "";
-            }
-        }
-
-        _special_kansou = "\n" + _special_kansou;
-
-        //感想の表示　_statusが0なら、通常得点、1なら、高得点時（85点以上）の感想。2は、まずすぎたとき。
-        switch (_hintstatus)
-        {
-
-            case 0:
-
-                temp_hint_text = _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;                
-                break;
-
-            case 1:
-
-                temp_hint_text = _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + "\n" + "この" + _basenameHyouji + "うますぎィ！" + "最高！！";
-                break;
-
-            case 2:
-
-                temp_hint_text = "マズすぎるぅ..。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
-                break;
-
-            case 3: //粉っぽいなどのとき
-
-                switch(dislike_num)
-                {
-                    case 0: //粉っぽい
-
-                        temp_hint_text = "粉っぽいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
-                        break;
-
-                    case 1: //油っぽい
-
-                        temp_hint_text = "あぶらっこいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
-                        break;
-
-                    case 2: //水っぽい　粉＜油＜水の順
-
-                        temp_hint_text = "水っぽいよ..。にいちゃん。" + "\n" + _shokukan_kansou + _sweat_kansou + _bitter_kansou + _sour_kansou + _special_kansou;
-                        break;
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        //temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
-
-        //if (last_score_kousin)
-        //{
-            database.items[_baseID].last_hinttext = temp_hint_text;
-            GameMgr.Okashi_lasthint = temp_hint_text;
-            GameMgr.Okashi_lastname = _basenameHyouji;
-            GameMgr.Okashi_lastslot = _basenameSlot;
-            GameMgr.Okashi_lastID = _baseID;
-            GameMgr.Okashi_lastshokukan_param = shokukan_baseparam;
-            GameMgr.Okashi_lastshokukan_mes = shokukan_mes;
-            GameMgr.Okashi_lastsweat_param = _basesweat;
-            GameMgr.Okashi_lastsour_param = _basesour;
-            GameMgr.Okashi_lastbitter_param = _basebitter;
-        //}
-    }
+    
 
     void ToppingCheck()
     {
@@ -5997,6 +5795,49 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         return total_score;
     }
 
+
+
+    void Touch_WindowInteractOFF()
+    {
+
+        girl1_status.GirlEat_Judge_on = false;
+        girl1_status.WaitHint_on = false;
+        //girl1_status.hukidasiOff();
+
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10:
+
+                GameMgr.CharacterTouch_ALLOFF = true;
+                compound_Main.OffCompoundSelect();
+                compound_Main.OnCompoundSelectObj();
+                hinttaste_toggle.SetActive(false);
+                break;
+        }
+    }
+
+    //外部からクエストクリアしたかどうかをチェックする　compound_mainなどから読む。
+    public void ExtraSPQuestClearCheck()
+    {
+        if (!GameMgr.QuestClearButton_anim)
+        {
+            HeartUpQuestBunkiCheck();
+        }
+    }
+
+    //ExpTableから読み出し
+    public void LvUpPanel1(int _kaisu) //仕上げ回数あがった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_2(_kaisu);
+    }
+
+    public void LvUpPanel2() //同時に2個仕上げできるようになった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_3();
+    }
+
     //エフェクトをすぐに全て削除
     public void EffectClear()
     {
@@ -6013,6 +5854,45 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listHeartHit2.Clear();
 
 
+    }    
+
+    void InitializeItemSlotDicts()
+    {
+        itemslotInfo.Clear();
+        itemslotScore.Clear();
+
+        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
+        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
+        {
+            itemslotInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
+            itemslotScore.Add(0);
+        }
+
+    }
+
+    void delete_Item()
+    {
+        switch (_toggle_type1)
+        {
+            case 0: //プレイヤーアイテムリストから選択している。
+
+                pitemlist.deletePlayerItem(database.items[kettei_item1].itemName, 1);
+                break;
+
+            case 1: //オリジナルアイテムリストから選択している。オリジナルの場合は、一度削除用リストにIDを追加し、降順にしてから、後の削除メソッドでまとめて削除する。
+
+                pitemlist.deleteOriginalItem(kettei_item1, 1);
+                break;
+
+            case 2: //お菓子パネルからアイテム削除
+
+                pitemlist.deleteExtremePanelItem(kettei_item1, 1);
+
+                break;
+
+            default:
+                break;
+        }
     }
 
     void DebugTextLog()
@@ -6041,6 +5921,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             + "\n" + "\n" + "なめらか度: " + _basesmooth + "\n" + "なめらか閾値: " + _girlsmooth[countNum] + "\n" + " 点数: " + smooth_score
             + "\n" + "\n" + "歯ごたえ度: " + _basehardness + "\n" + "歯ごたえ閾値: " + _girlhardness[countNum] + "\n" + " 点数: " + hardness_score
             + "\n" + "\n" + "飲みごたえ度: " + _basejuice + "\n" + "飲みごたえ閾値: " + _girljuice[countNum] + "\n" + " 点数: " + juice_score
+            + "\n" + "\n" + "香り: " + _basetea_flavor + "\n" + "香り閾値: " + _girltea_flavor[countNum] + "\n" + " 点数: " + tea_flavor_score
             + "\n" + "\n" + "ぷるぷる度: " + "-"
             + "\n" + "\n" + "噛み応え度: " + "-"
             + "\n" + "\n" + "判定セットごとの基本得点: " + set_score

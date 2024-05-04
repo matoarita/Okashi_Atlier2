@@ -229,7 +229,6 @@ GameObject:
   m_Component:
   - component: {fileID: 34350717}
   - component: {fileID: 34350716}
-  - component: {fileID: 34350715}
   - component: {fileID: 34350714}
   m_Layer: 0
   m_Name: Character
@@ -247,17 +246,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c29294578a624043a7c4bee51ee95d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &34350715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 34350713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 490a3a8982942a6428642fe79bfcc658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &34350716
@@ -768,7 +756,7 @@ GameObject:
   - component: {fileID: 181584330}
   - component: {fileID: 181584329}
   m_Layer: 0
-  m_Name: MainList_ScrollView_01
+  m_Name: MainList_ScrollView_999
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

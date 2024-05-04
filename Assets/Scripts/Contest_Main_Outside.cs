@@ -30,6 +30,8 @@ public class Contest_Main_Outside : MonoBehaviour
     private Toggle npc7_toggle;
     private Toggle npc8_toggle;
 
+    private GameObject sceneplace_namepanel_obj;
+    private ScenePlaceNamePanel sceneplace_namepanel;
 
     private ItemMatPlaceDataBase matplace_database;
 
@@ -94,7 +96,7 @@ public class Contest_Main_Outside : MonoBehaviour
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //リストオブジェクトの取得
-        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_01").gameObject;
+        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_999").gameObject;
         
 
         //トグル初期状態
@@ -134,7 +136,9 @@ public class Contest_Main_Outside : MonoBehaviour
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
         bgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
 
-        
+        sceneplace_namepanel_obj = canvas.transform.Find("MainListPanel/ScenePlaceNamePanel").gameObject;
+        sceneplace_namepanel = sceneplace_namepanel_obj.GetComponent<ScenePlaceNamePanel>();
+        sceneplace_namepanel_obj.SetActive(false);
 
         newAreaReleasePanel_obj = canvas.transform.Find("NewAreaReleasePanel").gameObject;
         newAreaReleasePanel_obj.SetActive(false);
@@ -164,7 +168,7 @@ public class Contest_Main_Outside : MonoBehaviour
                 gotonum = 0; //会場受付シーンの指定
                 backnum = 12; //バックボタン押したときの戻り先
 
-                default_scenetext = "春コンテストの会場だ！　にいちゃん！！" + "\n" + "ひぃぃぃぃ・・・";
+                default_scenetext = "にいちゃん！！ おっきい建物～！！";
                 break;
 
             case 10: //夏のコンテスト会場
@@ -245,6 +249,9 @@ public class Contest_Main_Outside : MonoBehaviour
         }
         //** 場所名設定ここまで **//
 
+        //シーンネームプレート設定
+        sceneplace_namepanel.OnSceneNamePlate();
+
         GameMgr.Scene_Status = 0;
         StartRead = false;
 
@@ -276,6 +283,8 @@ public class Contest_Main_Outside : MonoBehaviour
         {
             StartRead = true;
             sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
+            
         }
 
         //コンテスト失格になった場合の、後処理
@@ -306,7 +315,7 @@ public class Contest_Main_Outside : MonoBehaviour
             text_area.SetActive(false);
             //placename_panel.SetActive(false);
             mainlist_controller_obj.SetActive(false);
-
+            sceneplace_namepanel_obj.SetActive(false);
         }
         else
         {
@@ -317,6 +326,7 @@ public class Contest_Main_Outside : MonoBehaviour
                     text_area.SetActive(true);
                     //placename_panel.SetActive(true);
                     mainlist_controller_obj.SetActive(true);
+                    sceneplace_namepanel_obj.SetActive(true);
 
                     sceneBGM.MuteOFFBGM();
 
@@ -401,7 +411,7 @@ public class Contest_Main_Outside : MonoBehaviour
         if (bgm_change_flag)
         {
             bgm_change_flag = false;
-            sceneBGM.FadeInBGM();
+            sceneBGM.FadeInBGM(1.0f);
         }
 
         //読み終わったフラグをたてる

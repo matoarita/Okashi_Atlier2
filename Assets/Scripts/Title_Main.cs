@@ -98,7 +98,7 @@ public class Title_Main : MonoBehaviour {
             girl1_status.DefaultFace();
 
             
-            if (GameMgr.bestend_on_flag) //エクストラモード出現条件　ED:Aをみる
+            /* if (GameMgr.bestend_on_flag) //エクストラモード出現条件　ED:Aをみる
             {
                 freeModeButton_obj.SetActive(true);
                 //freeModeButton_obj.GetComponent<Button>().interactable = true;
@@ -111,7 +111,7 @@ public class Title_Main : MonoBehaviour {
                 //freeModeButton_obj.GetComponent<Button>().interactable = false;
                 //freeModeButton_obj.GetComponent<Sound_Trigger>().se_sound_ON = false;
                 //freeModeButton_obj.transform.Find("Text").GetComponent<Text>().text = "???";
-            }
+            }*/
             
         }
         else
@@ -160,6 +160,7 @@ public class Title_Main : MonoBehaviour {
         save_controller.SystemloadCheck(); //システムデータロード　お菓子手帳やED回数など引継ぎデータはロード
         save_controller.ResetParamSecondTime();//いくつかのパラメータは、システムロード後に、またリセットする。食べた回数など。
 
+        sceneBGM.NowFadeVolumeOFFBGM();
         GameMgr.Story_Mode = 0;
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene("010_Prologue", GameMgr.SceneFadeTime);
@@ -171,6 +172,7 @@ public class Title_Main : MonoBehaviour {
         save_controller.SystemloadCheck(); //システムデータロード　お菓子手帳やED回数など引継ぎデータはロード
         save_controller.ResetParamSecondTime();//いくつかのパラメータは、システムロード後に、またリセットする。食べた回数など。
 
+        sceneBGM.NowFadeVolumeOFFBGM();
         GameMgr.Story_Mode = 1;
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene("010_Prologue", GameMgr.SceneFadeTime);

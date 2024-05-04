@@ -111,15 +111,14 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         
         if (GameMgr.Story_Mode == 0)
         {
-            Stage1_Normal();
-            //Stage1_Setting();
+            //Stage1_Normal(spquest_set_num);
+            Stage2_Main(spquest_set_num);
             //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
             GameMgr.QuestClearAnim_Flag = true;
         }
         else
         {
-            Stage1_Extra(); //エクストラ
-            //Stage1_Setting();
+            Stage1_Extra(spquest_set_num); //エクストラ
             GameMgr.QuestClearAnim_Flag = true;　//全てのクエストで、クエストボタンなしで次へ。
         }
 
@@ -147,16 +146,12 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         girl1_status.ResetHukidashiNoSound();
     }
 
-    //spquest_set_numをいれると、QuestDictのKeyを取得し、それをOkashiQuest_IDに自動で割り当てる処理。使わなければ、必要なし。
-    void Stage1_Setting()
-    {
-        var pair = QuestDict.FirstOrDefault( c => c.Value == spquest_set_num);
-        girl1_status.OkashiQuest_ID = pair.Key;
-    }
 
-    void Stage1_Normal()
+    //ステージ設定
+    //「OkashiQuest_ID」は、ここでのみ設定している。
+    void Stage1_Normal(int _spquest_setnum)
     {
-        switch (spquest_set_num)
+        switch (_spquest_setnum)
         {
             case 0: //オリジナルクッキーを食べたい
 
@@ -309,9 +304,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
     }
 
-    void Stage1_Extra()
+    void Stage1_Extra(int _spquest_setnum)
     {
-        switch (spquest_set_num)
+        switch (_spquest_setnum)
         {
             case 0: //茶色クッキー　（ハートを100）
 
@@ -350,7 +345,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 break;
 
             case 10: //茶色クッキー
-               
+
                 girl1_status.OkashiQuest_ID = 10100;
                 OkashiQuest_Count = 1;
 
@@ -434,6 +429,161 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
     }
 
+    void Stage2_Main(int _spquest_setnum)
+    {
+        switch (_spquest_setnum)
+        {
+            case 0: //２の最初　やはりオリジナルクッキーを食べたい
+
+                //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
+                girl1_status.OkashiQuest_ID = 100000;
+                OkashiQuest_Count = 1;
+
+                break;
+
+            case 1: //さくらクッキー
+
+                girl1_status.OkashiQuest_ID = 100010;
+                OkashiQuest_Count = 2;
+
+                break;
+
+            case 2: //茶色クッキー
+
+                girl1_status.OkashiQuest_ID = 100020;
+                OkashiQuest_Count = 3;
+
+                break;
+
+            case 10: //ラスク食べたい
+
+                girl1_status.OkashiQuest_ID = 1100;
+                OkashiQuest_Count = 1;
+
+                break;
+
+            case 11: //すっぱいラスク食べたい
+
+                girl1_status.OkashiQuest_ID = 1110;
+                OkashiQuest_Count = 2;
+
+                break;
+
+            case 12: //幻の青色紅茶食べたい＜13ラスクからの分岐＞
+
+                girl1_status.OkashiQuest_ID = 1120;
+                OkashiQuest_Count = 3;
+
+                break;
+
+            case 13: //キラキララスク食べたい＜10ラスクからの分岐１＞
+
+                girl1_status.OkashiQuest_ID = 1130;
+                OkashiQuest_Count = 2;
+
+                break;
+
+            case 20: //クレープ食べたい
+
+                girl1_status.OkashiQuest_ID = 1200;
+                OkashiQuest_Count = 1;
+
+                break;
+
+            case 21: //オレンジクレープ食べたい
+
+                girl1_status.OkashiQuest_ID = 1210;
+                OkashiQuest_Count = 2;
+
+                break;
+
+            case 22: //アイス食べたい
+
+                girl1_status.OkashiQuest_ID = 1240;
+                OkashiQuest_Count = 3;
+
+                break;
+
+            case 23: //ジェム・ボンボン 宝石のような見た目のお菓子を食べたい
+
+                girl1_status.OkashiQuest_ID = 1220;
+                OkashiQuest_Count = 4;
+
+                break;
+
+            case 24: //豪華なベリークレープ食べたい
+
+                girl1_status.OkashiQuest_ID = 1230;
+                OkashiQuest_Count = 5;
+
+                break;
+
+
+            /*case 29: //クレープ＜20クレープからの分岐１＞ 200点クレープ
+
+                girl1_status.OkashiQuest_ID = 1290;
+                OkashiQuest_Count = 2;
+
+                break;*/
+
+
+            case 30: //シュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1300;
+                OkashiQuest_Count = 1;
+
+                break;
+
+            case 31: //ラズベリーシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1310;
+                OkashiQuest_Count = 2;
+
+
+                break;
+
+            case 32: //カフェオーレシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1320;
+                OkashiQuest_Count = 3;
+
+
+                break;
+
+            case 33: //ティラミス食べたい
+
+                girl1_status.OkashiQuest_ID = 1330;
+                OkashiQuest_Count = 4;
+
+
+                break;
+
+            case 34: //150点以上のシュークリーム食べたい
+
+                girl1_status.OkashiQuest_ID = 1340;
+                OkashiQuest_Count = 5;
+
+                break;
+
+            case 40: //ドーナツ食べたい
+
+                girl1_status.OkashiQuest_ID = 1400;
+                OkashiQuest_Count = 1;
+
+                break;
+
+            case 50: //ステージ１ラスト　コンテスト開始
+
+                girl1_status.OkashiQuest_ID = 1500;
+
+                OkashiQuest_Count = 1;
+                break;
+
+            default:
+                break;
+        }
+    }
+
     //GirlLikeSetCompoエクセルDBのset_compID（クエスト番号）と、GirlLoveEvent_numの紐づけ。ゲーム中メインクエストの総数でもある。
     void InitQuestNumDict()
     {
@@ -498,7 +648,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     {
         QuestCountDict = new Dictionary<int, int>();
 
-        if (GameMgr.Story_Mode == 0)
+        /*if (GameMgr.Story_Mode == 0)
         {
             QuestCountDict.Add(1, 3);
             QuestCountDict.Add(2, 2);
@@ -513,8 +663,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             QuestCountDict.Add(2, 5);
             QuestCountDict.Add(3, 3);
             QuestCountDict.Add(6, 1);
-        }
+        }*/
 
+        QuestCountDict.Add(1, 5);
+        QuestCountDict.Add(2, 5);
     }
 
     //GirlLikeCompoのクエストのIDを入れると、GirlloveEventNumに変換して、SPクエストを指定する。GirlEatJudgeから読み出し。

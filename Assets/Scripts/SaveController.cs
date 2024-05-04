@@ -1299,8 +1299,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_PicnicSkipFlag = GameMgr.PicnicSkipFlag,
             save_OutGirlSkipFlag = GameMgr.OutGirlSkipFlag,
 
-            save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
-            save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
+            //save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
+            //save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
 
             //コスチューム番号
             save_costume_num = GameMgr.Costume_Num,
@@ -1413,14 +1413,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.CompoBGMCHANGE_ON = systemData.save_CompoBGMChange_ON;
 
             //PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
-            if (systemData.save_player_girl_maxlifepoint_system != 0) //ver途中から引継ぎするように仕様変更。なので例外処理をいれる。
+            /*if (systemData.save_player_girl_maxlifepoint_system != 0) //ver途中から引継ぎするように仕様変更。なので例外処理をいれる。
             {
                 PlayerStatus.player_girl_maxlifepoint = systemData.save_player_girl_maxlifepoint_system; // 女の子のMAX体力　システム引継ぎ用
             }
             else
             {
                 PlayerStatus.player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint_default;
-            }
+            }*/
 
             //コスチューム番号
             GameMgr.Costume_Num = systemData.save_costume_num;

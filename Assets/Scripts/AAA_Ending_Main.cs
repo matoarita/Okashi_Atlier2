@@ -120,7 +120,7 @@ public class AAA_Ending_Main : MonoBehaviour {
     public void OnSkipButton()
     {
         OnSkip = true;       
-        BGM.GetComponent<BGM>().FadeOutBGM();
+        BGM.GetComponent<BGM>().FadeOutBGM(1.0f);
         StartCoroutine("WaitNextResult");
     }
 

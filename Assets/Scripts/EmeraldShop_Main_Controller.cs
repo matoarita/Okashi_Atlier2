@@ -54,13 +54,12 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
     private GameObject shopon_toggle_back;
 
     private bool StartRead;
+    private bool check_event;
 
     //public int shop_status;
     //public int shop_scene; //どのシーンを選択しているかを判別
 
     private int i;
-
-    private bool event_loading;
 
     // Use this for initialization
     void Start () {
@@ -149,7 +148,8 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 
-        event_loading = false;
+        StartRead = false;
+        check_event = false;
 
         //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
         for (i = 0; i < shop_database.shopitems.Count; i++)
@@ -187,26 +187,7 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
         }
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
-        if (event_loading) { }
-        else
-        {
-            if (!GameMgr.emeraldShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
-            {
-                GameMgr.emeraldShopEvent_stage[0] = true;
-                GameMgr.scenario_ON = true;
-
-                GameMgr.emeraldshop_event_num = 0;
-                GameMgr.emeraldshop_event_flag = true;
-
-                //メイン画面にもどったときに、イベントを発生させるフラグをON
-                //GameMgr.CompoundEvent_num = 0;
-                //GameMgr.CompoundEvent_flag = true;
-
-                event_loading = true;
-
-                StartCoroutine("Scenario_loading");
-            }
-        }
+        EventCheck();
 
         if (GameMgr.Reset_SceneStatus)
         {
@@ -288,6 +269,51 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
 
             }
 
+        }
+    }
+
+    void EventCheck()
+    {
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+
+            if (!GameMgr.emeraldShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+            {
+                GameMgr.emeraldShopEvent_stage[0] = true;
+                GameMgr.scenario_ON = true;
+
+                GameMgr.emeraldshop_event_num = 0;
+                GameMgr.emeraldshop_event_flag = true;
+
+                //メイン画面にもどったときに、イベントを発生させるフラグをON
+                //GameMgr.CompoundEvent_num = 0;
+                //GameMgr.CompoundEvent_flag = true;
+
+                check_event = true;
+
+                StartCoroutine("Scenario_loading");
+            }
+
+
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+                    default:
+
+                        break;
+                }
+            }
+
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+
+            }
         }
     }
 
@@ -395,7 +421,7 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
 
-        event_loading = false;
+        check_event = false;
         GameMgr.Scene_Status = 0;
 
     }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class FadeCharacter : MonoBehaviour {
 
     private GameObject CharacterImg_obj;
+    private List<GameObject> CharacterImgList_obj = new List<GameObject>();
 
     private bool fade_flag;
     private int fade_sw;
@@ -13,16 +14,14 @@ public class FadeCharacter : MonoBehaviour {
     private float alfa;    //A値を操作するための変数
     private float red, green, blue;    //RGBを操作するための変数
     private float _speed;   //透明化の速さ
+    private List<float> alfaList = new List<float>();
+    private int i;
 
     // Use this for initialization
     void Start()
     {
-        CharacterImg_obj = this.transform.Find("CharacterImage").gameObject;
 
-        red = 1;//this.gameObject.GetComponent<SpriteRenderer>().color.r;
-        green = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.g;
-        blue = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.b;
-        alfa = CharacterImg_obj.gameObject.GetComponent<SpriteRenderer>().color.a;
+        InitSetting();
 
         fade_flag = false;
         _speed = 0.1f;
@@ -38,6 +37,24 @@ public class FadeCharacter : MonoBehaviour {
 
     }
 
+    void InitSetting()
+    {
+        CharacterImg_obj = this.transform.Find("CharacterImage").gameObject;
+
+        red = 1;//this.gameObject.GetComponent<SpriteRenderer>().color.r;
+        green = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.g;
+        blue = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.b;
+        alfa = CharacterImg_obj.gameObject.GetComponent<SpriteRenderer>().color.a;
+
+        CharacterImgList_obj.Clear();
+        alfaList.Clear();
+        foreach (Transform obj in this.transform.Find("CharacterImage").transform)
+        {
+            CharacterImgList_obj.Add(obj.gameObject);
+            alfaList.Add(obj.gameObject.GetComponent<SpriteRenderer>().color.a);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -51,6 +68,11 @@ public class FadeCharacter : MonoBehaviour {
                     alfa -= _speed;
                     CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
 
+                    for (i=0; i < CharacterImgList_obj.Count; i++)
+                    {
+                        CharacterImgList_obj[i].GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfaList[i]);
+                    }
+
                     if (alfa < 0.0)
                     {
                         fade_flag = false;
@@ -61,6 +83,11 @@ public class FadeCharacter : MonoBehaviour {
 
                     alfa += _speed;
                     CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
+
+                    for (i = 0; i < CharacterImgList_obj.Count; i++)
+                    {
+                        CharacterImgList_obj[i].GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfaList[i]);
+                    }
 
                     if (alfa > 1.0)
                     {
@@ -92,14 +119,22 @@ public class FadeCharacter : MonoBehaviour {
 
     public void SetOff() //画像を透明にし、なくす。
     {
-        CharacterImg_obj = this.transform.Find("CharacterImage").gameObject;
+        InitSetting();
         CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 0);
+        for (i = 0; i < CharacterImgList_obj.Count; i++)
+        {
+            CharacterImgList_obj[i].GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 0);
+        }
     }
 
     public void SetOn() //画像を不透明度=255にし、表示。
     {
-        CharacterImg_obj = this.transform.Find("CharacterImage").gameObject;
+        InitSetting();
         CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 1);
+        for (i = 0; i < CharacterImgList_obj.Count; i++)
+        {
+            CharacterImgList_obj[i].GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 1);
+        }
     }
 
 }

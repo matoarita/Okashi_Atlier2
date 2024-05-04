@@ -513,6 +513,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 case 10:
 
+                    if (special_animatFirst != true) //ピコンでるまでは触れない
+                    {
+                        GameMgr.CharacterTouch_ALLOFF = true;
+                    }
+
                     //女の子の今のご機嫌チェック
                     CheckGokigen();
 

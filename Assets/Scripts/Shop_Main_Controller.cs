@@ -247,152 +247,8 @@ public class Shop_Main_Controller : MonoBehaviour {
         }
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
-
-        if (!GameMgr.ShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
-        {
-            GameMgr.ShopEvent_stage[0] = true;
-            GameMgr.scenario_ON = true;
-
-            GameMgr.shop_event_num = 0;
-            GameMgr.shop_event_flag = true;
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 0;
-            GameMgr.CompoundEvent_flag = true;
-
-            check_event = true;
-
-            StartCoroutine("Scenario_loading");
-        }
-
-
-        if (!check_event)
-        {
-            if (GameMgr.Story_Mode == 0)
-            {
-                //イベント発生フラグをチェック
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-
-                    case 2: //かわいい材料を探しに来た。
-
-                        if (!GameMgr.ShopEvent_stage[6])
-                        {
-                            GameMgr.ShopEvent_stage[6] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 2;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 10: //ショップ二度目。ラスク作りの材料を買いにきた。
-
-                        if (!GameMgr.ShopEvent_stage[1])
-                        {
-                            GameMgr.ShopEvent_stage[1] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 10;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 20: //クレープイベント
-
-                        if (!GameMgr.ShopEvent_stage[2])
-                        {
-                            GameMgr.ShopEvent_stage[2] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 20;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 22: //アイスイベント
-
-                        if (!GameMgr.ShopEvent_stage[7])
-                        {
-                            GameMgr.ShopEvent_stage[7] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 22;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 30: //シュークリームイベント
-
-                        if (!GameMgr.ShopEvent_stage[3])
-                        {
-                            GameMgr.ShopEvent_stage[3] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 30;
-                            GameMgr.shop_event_flag = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 40: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
-
-                        if (!GameMgr.ShopEvent_stage[4])
-                        {
-                            GameMgr.ShopEvent_stage[4] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 40;
-                            GameMgr.shop_event_flag = true;
-
-                            //メイン画面にもどったときに、イベントを発生させるフラグをON
-                            GameMgr.CompoundEvent_num = 20;
-                            GameMgr.CompoundEvent_flag = true;
-
-                            //村の広場にいけるようになる。
-                            matplace_database.matPlaceKaikin("Hiroba");
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    case 50: //コンテストイベント
-
-                        if (!GameMgr.ShopEvent_stage[5])
-                        {
-                            GameMgr.ShopEvent_stage[5] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 50;
-                            GameMgr.shop_event_flag = true;
-
-                            GameMgr.CompoundEvent_flag = false; //もし一度もショップへきたことなかった場合は、帰ってきてもヒカリが「なに買ってきたの？」と聞くイベントは発生しない。
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        }
+        EventCheck();
+        
 
         if (GameMgr.Reset_SceneStatus)
         {
@@ -515,6 +371,299 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                 }
             }
+        }
+    }
+
+    void EventCheck()
+    {
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+            switch (GameMgr.Scene_Name)
+            {
+                case "Shop_Grt":
+
+                    EventCheck_Grt();
+                    break;
+
+                case "Or_Shop_A1":
+
+                    EventCheck_OrA1();
+                    break;
+
+                case "Or_Shop_B1":
+
+                    EventCheck_OrB1();
+                    break;
+
+                case "Or_Shop_C1":
+
+                    EventCheck_OrC1();
+                    break;
+
+                case "Or_Shop_D1":
+
+                    EventCheck_OrD1();
+                    break;
+            }                        
+        }
+    }
+
+    void EventCheck_Grt()
+    {
+        if (!GameMgr.ShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+        {
+            GameMgr.ShopEvent_stage[0] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_event_num = 0;
+            GameMgr.shop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 0;
+            GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+        }
+
+
+        if (check_event)
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 0)
+            {
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+
+                    case 2: //かわいい材料を探しに来た。
+
+                        if (!GameMgr.ShopEvent_stage[6])
+                        {
+                            GameMgr.ShopEvent_stage[6] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 2;
+                            GameMgr.shop_event_flag = true;
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                    case 10: //ショップ二度目。ラスク作りの材料を買いにきた。
+
+                        if (!GameMgr.ShopEvent_stage[1])
+                        {
+                            GameMgr.ShopEvent_stage[1] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 10;
+                            GameMgr.shop_event_flag = true;
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                    case 20: //クレープイベント
+
+                        if (!GameMgr.ShopEvent_stage[2])
+                        {
+                            GameMgr.ShopEvent_stage[2] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 20;
+                            GameMgr.shop_event_flag = true;
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                    case 22: //アイスイベント
+
+                        if (!GameMgr.ShopEvent_stage[7])
+                        {
+                            GameMgr.ShopEvent_stage[7] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 22;
+                            GameMgr.shop_event_flag = true;
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                    case 30: //シュークリームイベント
+
+                        if (!GameMgr.ShopEvent_stage[3])
+                        {
+                            GameMgr.ShopEvent_stage[3] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 30;
+                            GameMgr.shop_event_flag = true;
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                    case 40: //ドーナツイベント開始。まずはプリンさんに聞きにくる。
+
+                        if (!GameMgr.ShopEvent_stage[4])
+                        {
+                            GameMgr.ShopEvent_stage[4] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 40;
+                            GameMgr.shop_event_flag = true;
+
+                            //メイン画面にもどったときに、イベントを発生させるフラグをON
+                            GameMgr.CompoundEvent_num = 20;
+                            GameMgr.CompoundEvent_flag = true;
+
+                            //村の広場にいけるようになる。
+                            matplace_database.matPlaceKaikin("Hiroba");
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                    case 50: //コンテストイベント
+
+                        if (!GameMgr.ShopEvent_stage[5])
+                        {
+                            GameMgr.ShopEvent_stage[5] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 50;
+                            GameMgr.shop_event_flag = true;
+
+                            GameMgr.CompoundEvent_flag = false; //もし一度もショップへきたことなかった場合は、帰ってきてもヒカリが「なに買ってきたの？」と聞くイベントは発生しない。
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    void EventCheck_OrA1()
+    {
+        if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[0] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_event_num = 0;
+            GameMgr.shop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 0;
+            GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+        }
+    }
+
+    void EventCheck_OrB1()
+    {
+        if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[0] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_event_num = 0;
+            GameMgr.shop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 0;
+            GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+        }
+    }
+
+    void EventCheck_OrC1()
+    {
+        if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[0] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_event_num = 0;
+            GameMgr.shop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 0;
+            GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+        }
+    }
+
+    void EventCheck_OrD1()
+    {
+        if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[0] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_event_num = 0;
+            GameMgr.shop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 0;
+            GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
         }
     }
 

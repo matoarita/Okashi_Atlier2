@@ -43,6 +43,7 @@ public class Farm_Main_Controller : MonoBehaviour {
     private GameObject backshopfirst_obj;
 
     private bool StartRead;
+    private bool check_event;
 
     private int i;
 
@@ -123,6 +124,7 @@ public class Farm_Main_Controller : MonoBehaviour {
         text_area.SetActive(false);
 
         StartRead = false;
+        check_event = false;
 
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
@@ -169,31 +171,9 @@ public class Farm_Main_Controller : MonoBehaviour {
         }
 
         //イベント発生フラグをチェック
+        EventCheck();
 
-        if (!GameMgr.FarmEvent_stage[0]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
-        {
-            GameMgr.FarmEvent_stage[0] = true;
-            GameMgr.scenario_ON = true;
 
-            GameMgr.farm_event_num = 0;
-            GameMgr.farm_event_flag = true;
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 10;
-            GameMgr.CompoundEvent_flag = true;
-
-            //たまご・牛乳を各５個ずつもらえる。
-            pitemlist.addPlayerItemString("egg", 5);
-            pitemlist.addPlayerItemString("milk", 5);
-            pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
-        }
-
-        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-        {
-            default:
-
-                break;
-        }
 
         if (GameMgr.Reset_SceneStatus)
         {
@@ -259,6 +239,53 @@ public class Farm_Main_Controller : MonoBehaviour {
                 default:
                     break;
 
+
+            }
+        }
+    }
+
+    void EventCheck()
+    {
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+            if (!GameMgr.FarmEvent_stage[0]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
+            {
+                GameMgr.FarmEvent_stage[0] = true;
+                GameMgr.scenario_ON = true;
+
+                GameMgr.farm_event_num = 0;
+                GameMgr.farm_event_flag = true;
+
+                //メイン画面にもどったときに、イベントを発生させるフラグをON
+                GameMgr.CompoundEvent_num = 10;
+                GameMgr.CompoundEvent_flag = true;
+
+                check_event = true;
+
+                //たまご・牛乳を各５個ずつもらえる。
+                pitemlist.addPlayerItemString("egg", 5);
+                pitemlist.addPlayerItemString("milk", 5);
+                pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
+            }
+
+            
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+                    default:
+
+                        break;
+                }
+            }
+
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
 
             }
         }

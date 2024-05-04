@@ -69,6 +69,7 @@ public class NPC_Catsle_Main : MonoBehaviour
 
     private bool StartRead;
     private bool flag_chk;
+    private bool check_event;
 
     private string default_scenetext;
 
@@ -116,7 +117,7 @@ public class NPC_Catsle_Main : MonoBehaviour
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
         //リストオブジェクトの取得
-        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_01").gameObject;
+        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_999").gameObject;
         
 
         //トグル初期状態
@@ -192,7 +193,7 @@ public class NPC_Catsle_Main : MonoBehaviour
         }
 
         //天気対応
-        /*if (GameMgr.WEATHER_TIMEMODE_ON)
+        if (GameMgr.WEATHER_TIMEMODE_ON)
         {
             if (GameMgr.Story_Mode != 0)
             {
@@ -234,11 +235,12 @@ public class NPC_Catsle_Main : MonoBehaviour
                         break;
                 }
             }
-        }*/
+        }
         //** 場所名設定ここまで **//
 
         GameMgr.Scene_Status = 0;
         StartRead = false;
+        check_event = false;
 
         text_scenario();
 
@@ -268,8 +270,11 @@ public class NPC_Catsle_Main : MonoBehaviour
         {
             StartRead = true;
             sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
         }
-       
+
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        EventCheck();
 
         if (GameMgr.Reset_SceneStatus)
         {
@@ -333,11 +338,40 @@ public class NPC_Catsle_Main : MonoBehaviour
         }
     }
 
-
-    void NewAreaFlagCheck()
+    void EventCheck()
     {
 
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+            if (!GameMgr.NPCHiroba_eventList[0]) //はじめて酒場へきた。
+            {
+                GameMgr.NPCHiroba_eventList[0] = true;
+
+                GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
+                GameMgr.hiroba_event_ID = 1000;
+                GameMgr.hiroba_event_flag = true;
+
+                check_event = true;
+
+                EventReadingStart();
+
+                //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+                //メイン画面にもどったときに、イベントを発生させるフラグをON
+                //GameMgr.CompoundEvent_num = 5;
+                //GameMgr.CompoundEvent_flag = true;
+            }
+
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+            }
+        }
     }
+
+
 
     void InitSetting()
     {
@@ -368,8 +402,10 @@ public class NPC_Catsle_Main : MonoBehaviour
     IEnumerator EventReading()
     {
         GameMgr.hiroba_event_flag = true;
-        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-        GameMgr.compound_status = 1000;
+        GameMgr.scenario_ON = true;
+
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
 
         //Debug.Log("広場イベント　読み中");
 
@@ -378,124 +414,28 @@ public class NPC_Catsle_Main : MonoBehaviour
             yield return null;
         }
 
-        if(GameMgr.Contest_ReadyToStart) //コンテスト開始のイベントだった場合は、このタイミングでコンテスト本番スタート
+        GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
+
+        GameMgr.Scene_Select = 0; //何もしていない状態
+        GameMgr.Scene_Status = 0;
+
+        //読み終わったら、またウィンドウなどを元に戻す。
+        text_area.SetActive(true);
+        mainlist_controller_obj.SetActive(true);
+
+        //音を戻す。
+        if (bgm_change_flag)
         {
-            GameMgr.Contest_ReadyToStart = false;
-
-            _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
-
-            GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
-            conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。
-
-            GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
-            GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
-            FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
+            bgm_change_flag = false;
+            sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
         }
-        else
-        {
-            GameMgr.scenario_read_endflag = false;
-            GameMgr.compound_select = 0; //何もしていない状態
-            GameMgr.compound_status = 0;
 
-            //読み終わったら、またウィンドウなどを元に戻す。
-            text_area.SetActive(true);
-            mainlist_controller_obj.SetActive(true);
+        text_scenario(); //テキストの更新
 
-            //音を戻す。
-            if (bgm_change_flag)
-            {
-                bgm_change_flag = false;
-                sceneBGM.FadeInBGM();
-            }
-
-            //読み終わったフラグをたてる
-            EventReadEnd_Flagcheck();
-           
-
-            text_scenario(); //テキストの更新
-        }
-        
     }
 
-    void EventReadEnd_Flagcheck()
-    {
-        switch (GameMgr.hiroba_event_ID)
-        {
-            //クエスト４　「ドーナツ作り」～　0番台
-            case 40:
-
-                GameMgr.hiroba_event_end[2] = true;
-                break;
-
-            case 1040:
-
-                GameMgr.hiroba_event_end[0] = true;
-                break;
-
-            case 2045:
-
-                GameMgr.hiroba_event_end[1] = true;
-                break;
-
-            case 3040:
-
-                GameMgr.hiroba_event_end[6] = true;
-                break;
-
-            case 3042:
-
-                ev_id = pitemlist.Find_eventitemdatabase("donuts_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ドーナツのレシピを追加
-
-                GameMgr.hiroba_event_end[8] = true;
-                break;
-
-            case 4040:
-
-                GameMgr.hiroba_event_end[3] = true;
-                break;
-
-            case 4042:
-
-                GameMgr.hiroba_event_end[7] = true;
-                break;
-
-            case 5041:
-
-                GameMgr.hiroba_event_end[4] = true;
-                break;
-
-            case 5042:
-
-                GameMgr.hiroba_event_end[5] = true;
-                break;
-
-            //クエスト５　コンテスト～  10番台
-            case 50:
-
-                GameMgr.hiroba_event_end[10] = true;
-                break;
-
-            case 3050:
-
-                GameMgr.hiroba_event_end[11] = true;
-                break;
-
-            case 4050:
-
-                GameMgr.hiroba_event_end[12] = true;
-                break;
-
-            case 5050:
-
-                GameMgr.hiroba_event_end[13] = true;
-                break;
-
-            default:
-
-                break;
-        }
-    }
+    
 
 
     //

@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 181584330}
   - component: {fileID: 181584329}
   m_Layer: 0
-  m_Name: MainList_ScrollView_01
+  m_Name: MainList_ScrollView_999_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2602,7 +2602,7 @@ GameObject:
   - component: {fileID: 491962853}
   - component: {fileID: 491962852}
   m_Layer: 0
-  m_Name: MainList_ScrollView_02
+  m_Name: MainList_ScrollView_999_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

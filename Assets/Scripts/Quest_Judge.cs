@@ -431,7 +431,7 @@ public class Quest_Judge : MonoBehaviour {
                             WhiteFadeCanvas.GetComponent<CanvasGroup>().alpha = 0;
                             WhiteFadeCanvas.GetComponent<CanvasGroup>().DOFade(1, 1.0f);*/
 
-                            sceneBGM.FadeOutBGM();
+                            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         }
                         else
                         {
@@ -1357,7 +1357,7 @@ public class Quest_Judge : MonoBehaviour {
                     //sc.PlaySe(4);
                     sc.PlaySe(76);
                     sc.PlaySe(31);
-                    sceneBGM.FadeInBGM();
+                    sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
                 }
                 else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < GameMgr.high_score) //80点以上
                 {
@@ -1366,7 +1366,7 @@ public class Quest_Judge : MonoBehaviour {
 
                     sc.PlaySe(78);
                     sc.PlaySe(88);
-                    sceneBGM.FadeInBGM();
+                    sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 200) //ハイスコア
                 {
@@ -1376,7 +1376,7 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(78);
                     sc.PlaySe(88);
                     sc.PlaySe(43);
-                    sceneBGM.FadeInBGM();
+                    sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
                 }
                 else if (okashi_totalscore >= 250) //250点以上のときは、ファンファーレ
                 {
@@ -1392,7 +1392,7 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 else
                 {
-                    sceneBGM.FadeInBGM();
+                    sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
                 }
 
                 //クエストリザルト画面をだす。
@@ -1524,7 +1524,7 @@ public class Quest_Judge : MonoBehaviour {
             mute_on = false;
             sceneBGM.StopFanfare();
             sceneBGM.PlaySub();
-            sceneBGM.FadeInBGM();
+            sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
         }
 
         switch (GameMgr.Scene_Category_Num)

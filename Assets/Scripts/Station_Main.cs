@@ -142,7 +142,7 @@ public class Station_Main : MonoBehaviour
 
                 GameMgr.Scene_Name = "Sta_Grt";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定                                   
-                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_01").gameObject; //リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_999_1").gameObject; //リストオブジェクトの取得
                 mainlist_controller_obj.SetActive(true);
 
                 default_scenetext = "ガレット村の駅についた。";
@@ -152,7 +152,7 @@ public class Station_Main : MonoBehaviour
 
                 GameMgr.Scene_Name = "Sta_Or";
                 SettingBGPanel(1); //Map〇〇のリスト番号を指定
-                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_02").gameObject; //リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_999_2").gameObject; //リストオブジェクトの取得
                 mainlist_controller_obj.SetActive(true);
 
                 default_scenetext = "オランジーナ駅についた。";
@@ -342,7 +342,7 @@ public class Station_Main : MonoBehaviour
             if (bgm_change_flag)
             {
                 bgm_change_flag = false;
-                sceneBGM.FadeInBGM();
+                sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
             }
 
             text_scenario(); //テキストの更新

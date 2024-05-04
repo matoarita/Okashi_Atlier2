@@ -100,7 +100,7 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //リストオブジェクトの取得
-        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_01").gameObject;
+        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_999").gameObject;
 
         //事前にyes, noオブジェクトなどを読み込んでから、リストをOFF
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
@@ -377,7 +377,7 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
         if (GameMgr.matbgm_change_flag)
         {
             GameMgr.matbgm_change_flag = false;
-            sceneBGM.FadeInBGM();
+            sceneBGM.FadeInBGM(0.5f);
         }
 
         //読み終わったフラグをたてる

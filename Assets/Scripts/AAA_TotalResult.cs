@@ -689,7 +689,7 @@ public class AAA_TotalResult : MonoBehaviour {
 
     public void OnEndSceneButton()
     {
-        sceneBGM.FadeOutBGM();
+        sceneBGM.FadeOutBGM(1.0f);
         FadeManager.Instance.LoadScene("120_AutoSave", 2.0f);
     }
 

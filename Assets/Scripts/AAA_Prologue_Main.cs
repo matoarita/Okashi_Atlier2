@@ -21,8 +21,9 @@ public class AAA_Prologue_Main : MonoBehaviour {
         debug_panel_init.DebugPanel_init(); //パネルの初期化
 
         GameMgr.stage_number = 1;
-        GameMgr.scenario_flag = 0;
-
+        //GameMgr.scenario_flag = 0; //１のプロローグ
+        GameMgr.scenario_flag = 10; //２のプロローグ
+        GameMgr.Prologue_storyflag = true;
 
 
     }
@@ -35,7 +36,8 @@ public class AAA_Prologue_Main : MonoBehaviour {
             //GameMgr.scenario_flag = 101; //シーン読み込み処理中。このスクリプトで、アップデートを更新しないようにしている。(!FadeManager.Instance.isFading)使うときは、アップデートを更新してないと、読み込まれない。
 
             GameMgr.scenario_flag = 110;
-            FadeManager.Instance.LoadScene("Compound", 0.3f);
+            //FadeManager.Instance.LoadScene("Compound", 0.3f); //１のときはガレット村開始
+            FadeManager.Instance.LoadScene("Or_Compound", 0.3f); //２のときはオランジーナ街から開始
         }
 
     }

@@ -199,6 +199,7 @@ public class Bar_Main_Controller : MonoBehaviour {
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 
+        StartRead = false;
         check_event = false; //イベントのフラグ
 
         if (GameMgr.Story_Mode == 1)
@@ -216,7 +217,7 @@ public class Bar_Main_Controller : MonoBehaviour {
         //入店の音
         sc.PlaySe(51);
 
-        StartRead = false;
+        
         GameMgr.Scene_LoadedOn_End = true; //シーン読み込み完了
 
         //シーン読み込み完了時のメソッド
@@ -238,82 +239,9 @@ public class Bar_Main_Controller : MonoBehaviour {
             sceneBGM.NowFadeVolumeONBGM();
         }
 
-        //強制的に発生するイベントをチェック。はじめてショップへきた時など
-        if (!check_event)
-        {
-
-            if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
-            {
-                GameMgr.BarEvent_stage[0] = true;
-
-                GameMgr.scenario_ON = true;
-
-                GameMgr.bar_event_num = 0;
-                GameMgr.bar_event_flag = true;
-
-                check_event = true;
-
-                StartCoroutine("Scenario_loading");
-
-                //メイン画面にもどったときに、イベントを発生させるフラグをON
-                GameMgr.CompoundEvent_num = 5;
-                GameMgr.CompoundEvent_flag = true;
-            }
-
-
-            //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
-            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
-            { }
-            else
-            {
-                QuestOutCheck();
-
-                if (questout_flag)
-                {
-                    GameMgr.scenario_ON = true;
-
-                    GameMgr.bar_event_num = 10000;
-                    GameMgr.bar_event_flag = true;
-
-                    check_event = true;
-                    sceneBGM.MuteBGM();
-
-                    StartCoroutine("Scenario_loading");
-                }
-                
-            }
-
-
-            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
-            { }
-            else
-            {
-                /*
-                //イベント発生フラグをチェック
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-
-                    case 2: //かわいい材料を探しに来た。
-
-                        if (!GameMgr.ShopEvent_stage[5])
-                        {
-                            GameMgr.ShopEvent_stage[5] = true;
-                            GameMgr.scenario_ON = true;
-
-                            GameMgr.shop_event_num = 2;
-                            GameMgr.shop_event_flag = true;
-
-                            check_event = true;
-
-                            StartCoroutine("Scenario_loading");
-                        }
-
-                        break;
-
-                }
-                */
-            }
-        }
+        //強制的に発生するイベントをチェック。
+        EventCheck();
+        
 
         if (GameMgr.Reset_SceneStatus)
         {
@@ -443,6 +371,208 @@ public class Bar_Main_Controller : MonoBehaviour {
             }
 
             PlayerStatus.player_ninki_param -= (questout_count * 10); //過ぎてたクエスト*10　人気度が減る
+        }
+    }
+
+    void EventCheck()
+    {
+        
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+            switch (GameMgr.Scene_Name)
+            {
+                case "Bar_Grt":
+
+                    EventCheck_Grt();
+                    break;
+
+                case "Or_Bar_A1":
+
+                    EventCheck_OrA1();
+                    break;
+
+                case "Or_Bar_B1":
+
+                    EventCheck_OrB1();
+                    break;
+
+                case "Or_Bar_C1":
+
+                    EventCheck_OrC1();
+                    break;
+
+                case "Or_Bar_D1":
+
+                    EventCheck_OrD1();
+                    break;
+            }
+
+            
+            //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+                QuestOutCheck();
+
+                if (questout_flag)
+                {
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.bar_event_num = 10000;
+                    GameMgr.bar_event_flag = true;
+
+                    check_event = true;
+                    sceneBGM.MuteBGM();
+
+                    StartCoroutine("Scenario_loading");
+                }
+
+            }
+
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+                /*
+                //イベント発生フラグをチェック
+                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+                {
+
+                    case 2: //かわいい材料を探しに来た。
+
+                        if (!GameMgr.ShopEvent_stage[5])
+                        {
+                            GameMgr.ShopEvent_stage[5] = true;
+                            GameMgr.scenario_ON = true;
+
+                            GameMgr.shop_event_num = 2;
+                            GameMgr.shop_event_flag = true;
+
+                            check_event = true;
+
+                            StartCoroutine("Scenario_loading");
+                        }
+
+                        break;
+
+                }
+                */
+            }
+        }
+    }
+
+    void EventCheck_Grt()
+    {
+        if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
+        {
+            GameMgr.BarEvent_stage[0] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.bar_event_num = 0;
+            GameMgr.bar_event_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_flag = true;
+        }
+    }
+
+    void EventCheck_OrA1()
+    {
+        if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[100] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.bar_event_num = 0;
+            GameMgr.bar_event_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_flag = true;
+        }
+    }
+
+    void EventCheck_OrB1()
+    {
+        if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[100] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.bar_event_num = 0;
+            GameMgr.bar_event_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_flag = true;
+        }
+    }
+
+    void EventCheck_OrC1()
+    {
+        if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[100] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.bar_event_num = 0;
+            GameMgr.bar_event_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_flag = true;
+        }
+    }
+
+    void EventCheck_OrD1()
+    {
+        if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[100] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.bar_event_num = 0;
+            GameMgr.bar_event_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_flag = true;
         }
     }
 

@@ -404,6 +404,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     {
                         StartRead = true;
                         sceneBGM.PlaySub();
+                        sceneBGM.NowFadeVolumeONBGM();
                         scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
                     }                   
 

@@ -127,11 +127,11 @@ SE表
 ・SE_125	間抜け3						時間スピード変更音　普通
 ・SE_126	間抜け3_sukosi_hayai				時間スピード変更音　少し早い
 ・SE_127	間抜け3_hayai					時間スピード変更音　早い
-・SE_128	audiostock_1411013_sample			スキル習得時の音
+・SE_128	audiostock_1411013				スキル習得時の音
 ・SE_129	audiostock_104039				衣装装備時　キラリ音
-・SE_130	audiostock_1411314_sample			魔法発動音１
-・SE_131	audiostock_1285222_sample			魔法調合の完成音
-・SE_132	audiostock_825112_sample			魔法発動音２
+・SE_130	audiostock_1411314				魔法発動音１
+・SE_131	audiostock_1285222				魔法調合の完成音
+・SE_132	audiostock_825112				魔法発動音２
 ・SE_133							【未使用？　いれた記憶がない】
 ・SE_134	audiostock_718349_sample			観客ブーイング音
 ・SE_135	sei_ge_doa_kisimi05				ドアのきしむ音

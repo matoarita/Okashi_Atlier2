@@ -55,8 +55,8 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                         {
                             case "Or_Hiroba_CentralPark": //中央噴水
 
-                                _text = "中央噴水" + "\n" + "～ミラージュファウンテン～";                             
-                                _subtext = "Mirage Foutain";
+                                _text = "中央噴水" + "\n" + "～レインボーファウンテン～";                             
+                                _subtext = "Rainbow Foutain";
                                 
                                 break;
 
@@ -235,7 +235,33 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                     case 110: //コンテスト会場前系
 
+                        switch (GameMgr.Scene_Name)
+                        {
+                            case "Or_Contest_Out_Spring":
 
+                                _text = "春のコンテスト会場";
+                                _subtext = "Spring Contest Hall";
+                                break;
+
+                            case "Or_Contest_Out_Summer":
+
+                                _text = "星降る夜の小広場";
+                                _subtext = "Star Nights Campo";
+                                break;
+
+                            case "Or_Contest_Out_Autumn":
+
+                                _text = "星降る夜の小広場";
+                                _subtext = "Star Nights Campo";
+                                break;
+
+                            case "Or_Contest_Out_Winter":
+
+                                _text = "星降る夜の小広場";
+                                _subtext = "Star Nights Campo";
+                                break;
+
+                        }
                         break;
 
                     default:

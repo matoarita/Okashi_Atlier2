@@ -189,22 +189,22 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
         });
     }
 
-    public void DoFadeVolumeOut()
+    public void DoFadeVolumeOut(float _time)
     {
         _start_val = fade_volume;
-        DOVirtual.Float(_start_val, 0f, 0.5f, value =>
+        DOVirtual.Float(_start_val, 0f, _time, value =>
         {
-            Debug.Log("value: " + value);
+            //Debug.Log("value: " + value);
             fade_volume = value;
         });
     }
 
-    public void DoFadeVolumeIn()
+    public void DoFadeVolumeIn(float _time)
     {
         _start_val = fade_volume;
-        DOVirtual.Float(_start_val, 1f, 0.5f, value =>
+        DOVirtual.Float(_start_val, 1f, _time, value =>
         {
-            Debug.Log("value: " + value);
+            //Debug.Log("value: " + value);
             fade_volume = value;
         });
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Contest_Main_Reception : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Contest_Main_Reception : MonoBehaviour
     private GameObject yes_no_panel;
 
     private SceneInitSetting sceneinit_setting;
+    private GameObject scene_black_effect;
 
     private GameObject npc1_toggle_obj;
     private GameObject npc2_toggle_obj;
@@ -75,6 +77,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     private bool StartRead;
     private bool flag_chk;
+    private bool check_event;
 
     private string default_scenetext;
 
@@ -107,6 +110,10 @@ public class Contest_Main_Reception : MonoBehaviour
         //シーン最初にプレイヤーアイテムリストの生成
         sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
         sceneinit_setting.PlayerItemListController_Init();
+
+        //シーン全てをブラックに消すパネル
+        scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //黒い画面はオフ
 
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -290,6 +297,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
         GameMgr.Scene_Status = 0;
         StartRead = false;
+        check_event = false;
 
         text_scenario();
 
@@ -376,6 +384,17 @@ public class Contest_Main_Reception : MonoBehaviour
             text_scenario();
         }
 
+        //宴途中でブラックをオフにする ドアをあけて会場へ移動する演出用
+        if (GameMgr.Scene_Black_ON)
+        {
+            GameMgr.Scene_Black_ON = false;
+            sceneBGM.FadeOutBGM(2.0f);
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
+        }
+
+        //シーンイベントのチェック
+        EventCheck();
+
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
         {
@@ -454,6 +473,176 @@ public class Contest_Main_Reception : MonoBehaviour
                     break;
             }
         }
+    }
+
+    void EventCheck()
+    {
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+            switch (GameMgr.Scene_Name)
+            {
+                case "Or_Contest_Reception_Spring":
+
+                    EventCheck_OrA1();
+                    break;
+
+                case "Or_Contest_Reception_Summer":
+
+                    EventCheck_OrB1();
+                    break;
+
+                case "Or_Contest_Reception_Autumn":
+
+                    EventCheck_OrC1();
+                    break;
+
+                case "Or_Contest_Reception_Winter":
+
+                    EventCheck_OrD1();
+                    break;
+
+            }           
+        }
+    }
+
+    void EventCheck_OrA1()
+    {
+        if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
+        {
+            GameMgr.NPCHiroba_eventList[0] = true;
+
+            //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+            GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
+            GameMgr.hiroba_event_ID = 1000;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 0;
+            //GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+
+            EventReadingStart();
+        }
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                default:
+
+                    break;
+            }
+        }
+    }
+
+    void EventCheck_OrB1()
+    {
+        if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
+        {
+            GameMgr.NPCHiroba_eventList[0] = true;
+
+            //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+            GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
+            GameMgr.hiroba_event_ID = 1000;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 0;
+            //GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+
+            EventReadingStart();
+        }
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                default:
+
+                    break;
+            }
+        }
+
+    }
+
+    void EventCheck_OrC1()
+    {
+        if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
+        {
+            GameMgr.NPCHiroba_eventList[0] = true;
+
+            //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+            GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
+            GameMgr.hiroba_event_ID = 1000;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 0;
+            //GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+
+            EventReadingStart();
+        }
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                default:
+
+                    break;
+            }
+        }
+
+    }
+
+    void EventCheck_OrD1()
+    {
+        if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
+        {
+            GameMgr.NPCHiroba_eventList[0] = true;
+
+            //宴の処理用に番号を先に渡す　宴切り替えはeventReadingの中でOnにしてる
+            GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
+            GameMgr.hiroba_event_ID = 1000;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 0;
+            //GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+
+            EventReadingStart();
+        }
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                default:
+
+                    break;
+            }
+        }
+
     }
 
     void ToggleFlagCheck()
@@ -575,7 +764,7 @@ public class Contest_Main_Reception : MonoBehaviour
             if (bgm_change_flag)
             {
                 bgm_change_flag = false;
-                sceneBGM.FadeInBGM();
+                sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
             }
 
             //読み終わったフラグをたてる

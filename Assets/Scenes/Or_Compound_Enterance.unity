@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 181584330}
   - component: {fileID: 181584329}
   m_Layer: 0
-  m_Name: MainList_ScrollView_01
+  m_Name: MainList_ScrollView_999
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2620,7 +2620,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1601031454303626, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114645525900539894, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5,
         type: 2}

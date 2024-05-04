@@ -76,6 +76,10 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     private List<GameObject> BGImg_List = new List<GameObject>();
     private List<GameObject> BGImg_List_mago = new List<GameObject>();
 
+    private GameObject CharacterPanel;
+
+    private bool check_event;
+
     // Use this for initialization
     void Start()
     {
@@ -116,7 +120,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
         //リストオブジェクトの取得
-        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_01").gameObject;
+        mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_999").gameObject;
         
 
         //トグル初期状態
@@ -179,6 +183,16 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             i++;
         }
 
+        //キャラの設定　複数いる場合
+        CharacterPanel = GameObject.FindWithTag("Character");
+        i = 0;
+        foreach (Transform child in CharacterPanel.transform.Find("CharacterImage").transform)　//
+        {
+            //Debug.Log(child.name);           
+            child.gameObject.SetActive(false);
+            i++;
+        }
+
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //火のパティシエ魔法の先生
@@ -186,6 +200,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Fire";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 13; //バックボタン押したときの戻り先
+                SettingCharacterPanel(1);
 
                 default_scenetext = "こんにちは。" + "\n" + "火の魔法を教えてあげますよ。ふふ。";
                 break;
@@ -195,6 +210,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Ice";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 152; //バックボタン押したときの戻り先
+                SettingCharacterPanel(2);
 
                 default_scenetext = "ヘイヘイヘーーーーイ！！ボウヤ！" + "\n" + "氷の魔法を習いにきましたか～！？";
                 break;
@@ -204,6 +220,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Wind";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 206; //バックボタン押したときの戻り先
+                SettingCharacterPanel(3);
 
                 default_scenetext = "はぁあ～・・。だる～い・・。" + "\n" + "風魔法～？　えー・・。";
                 break;
@@ -212,9 +229,10 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Luminous";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
-                backnum = 0; //バックボタン押したときの戻り先
+                backnum = 13; //バックボタン押したときの戻り先
+                SettingCharacterPanel(0);
 
-                default_scenetext = "..。" + "\n" + "..お前たち。光の魔法を習いにきたのか..？　フン..。";
+                default_scenetext = "あんれま。" + "\n" + "光の魔法を習いにきましたか？";
                 break;
 
             case 40: //星のパティシエ魔法の先生
@@ -222,6 +240,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Star";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
+                SettingCharacterPanel(4);
 
                 default_scenetext = "ムッシュ～！" + "\n" + "ここは星の魔法を覚えれますヨ～。";
                 break;
@@ -231,6 +250,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Forest";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
+                SettingCharacterPanel(5);
 
                 default_scenetext = "あんれまあ！" + "\n" + "森の魔法を覚えにきたんかいね？";
                 break;
@@ -240,6 +260,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Time";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
+                SettingCharacterPanel(6);
 
                 default_scenetext = "あら～！" + "\n" + "時の魔法を覚えたいの？";
                 break;
@@ -249,6 +270,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Sound";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
+                SettingCharacterPanel(7);
 
                 default_scenetext = "ハッハー！" + "\n" + "音の魔法を覚えたいのですね～？";
                 break;
@@ -258,6 +280,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Heart";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
+                SettingCharacterPanel(8);
 
                 default_scenetext = "おや、きみたちは。" + "\n" + "心の魔法を習いにきたのかい？";
                 break;
@@ -265,7 +288,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         }
 
         //天気対応
-        /*if (GameMgr.WEATHER_TIMEMODE_ON)
+        if (GameMgr.WEATHER_TIMEMODE_ON)
         {
             if (GameMgr.Story_Mode != 0)
             {
@@ -307,11 +330,13 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                         break;
                 }
             }
-        }*/
+        }
         //** 場所名設定ここまで **//
 
         GameMgr.Scene_Status = 0;
+
         StartRead = false;
+        check_event = false; //イベントのフラグ
 
         text_scenario();
 
@@ -335,14 +360,68 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         BGImg_List_mago[0].gameObject.SetActive(true); //朝の画像一番上オブジェクトをON
     }
 
+    void SettingCharacterPanel(int _num)
+    {
+        switch(_num)
+        {
+            case 0: //光
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage01").gameObject.SetActive(true);
+                break;
+
+            case 1: //火
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage02").gameObject.SetActive(true);
+                break;
+
+            case 2: //氷
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage03").gameObject.SetActive(true);
+                break;
+
+            case 3: //風
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage04").gameObject.SetActive(true);
+                break;
+
+            case 4: //星
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage05").gameObject.SetActive(true);
+                break;
+
+            case 5: //森
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage04").gameObject.SetActive(true);
+                break;
+
+            case 6: //時
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage04").gameObject.SetActive(true);
+                break;
+
+            case 7: //音
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage04").gameObject.SetActive(true);
+                break;
+
+            case 8: //心
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage04").gameObject.SetActive(true);
+                break;
+        }
+    }
+
     void Update()
     {
         if (!StartRead) //シーン最初だけ読み込む
         {
             StartRead = true;
             sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
         }
-       
+
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        EventCheck();
 
         if (GameMgr.Reset_SceneStatus)
         {
@@ -406,10 +485,126 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         }
     }
 
-
-    void NewAreaFlagCheck()
+    void EventCheck()
     {
 
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+            switch (GameMgr.Scene_Name)
+            {
+
+                case "Or_Bar_A1":
+
+                    EventCheck_OrA1();
+                    break;
+
+                case "Or_Bar_B1":
+
+                    EventCheck_OrB1();
+                    break;
+
+                case "Or_Bar_C1":
+
+                    EventCheck_OrC1();
+                    break;
+
+                case "Or_Bar_D1":
+
+                    EventCheck_OrD1();
+                    break;
+            }           
+        }
+    }
+
+    void EventCheck_OrA1()
+    {
+        if (!GameMgr.NPCMagic_eventList[0]) //はじめて酒場へきた。
+        {
+            GameMgr.NPCMagic_eventList[0] = true;            
+
+            GameMgr.npc_event_num = 0;
+            GameMgr.npc_event_flag = true;
+
+            check_event = true;
+
+            EventReadingStart();
+
+            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 5;
+            //GameMgr.CompoundEvent_flag = true;
+        }
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+        }
+    }
+
+    void EventCheck_OrB1()
+    {
+        if (!GameMgr.NPCMagic_eventList[0]) //はじめて酒場へきた。
+        {
+            GameMgr.NPCMagic_eventList[0] = true;
+
+            GameMgr.npc_event_num = 0;
+            GameMgr.npc_event_flag = true;
+
+            check_event = true;
+
+            EventReadingStart();
+
+            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 5;
+            //GameMgr.CompoundEvent_flag = true;
+        }
+    }
+
+    void EventCheck_OrC1()
+    {
+        if (!GameMgr.NPCMagic_eventList[0]) //はじめて酒場へきた。
+        {
+            GameMgr.NPCMagic_eventList[0] = true;
+
+            GameMgr.npc_event_num = 0;
+            GameMgr.npc_event_flag = true;
+
+            check_event = true;
+
+            EventReadingStart();
+
+            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 5;
+            //GameMgr.CompoundEvent_flag = true;
+        }
+    }
+
+    void EventCheck_OrD1()
+    {
+        if (!GameMgr.NPCMagic_eventList[0]) //はじめて酒場へきた。
+        {
+            GameMgr.NPCMagic_eventList[0] = true;
+
+            GameMgr.npc_event_num = 0;
+            GameMgr.npc_event_flag = true;
+
+            check_event = true;
+
+            EventReadingStart();
+
+            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 5;
+            //GameMgr.CompoundEvent_flag = true;
+        }
     }
 
     void InitSetting()
@@ -441,8 +636,10 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     IEnumerator EventReading()
     {
         GameMgr.hiroba_event_flag = true;
-        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-        GameMgr.compound_status = 1000;
+        GameMgr.scenario_ON = true;
+
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
 
         //Debug.Log("広場イベント　読み中");
 
@@ -451,123 +648,26 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             yield return null;
         }
 
-        if(GameMgr.Contest_ReadyToStart) //コンテスト開始のイベントだった場合は、このタイミングでコンテスト本番スタート
+        GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
+
+        GameMgr.Scene_Select = 0; //何もしていない状態
+        GameMgr.Scene_Status = 0;
+
+        //読み終わったら、またウィンドウなどを元に戻す。
+        text_area.SetActive(true);
+        mainlist_controller_obj.SetActive(true);
+
+        //音を戻す。
+        if (bgm_change_flag)
         {
-            GameMgr.Contest_ReadyToStart = false;
-
-            _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
-
-            GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
-            conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。
-
-            GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
-            GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
-            FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
+            bgm_change_flag = false;
+            sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
         }
-        else
-        {
-            GameMgr.scenario_read_endflag = false;
-            GameMgr.compound_select = 0; //何もしていない状態
-            GameMgr.compound_status = 0;
 
-            //読み終わったら、またウィンドウなどを元に戻す。
-            text_area.SetActive(true);
-            mainlist_controller_obj.SetActive(true);
 
-            //音を戻す。
-            if (bgm_change_flag)
-            {
-                bgm_change_flag = false;
-                sceneBGM.FadeInBGM();
-            }
+        text_scenario(); //テキストの更新
 
-            //読み終わったフラグをたてる
-            EventReadEnd_Flagcheck();
-           
-
-            text_scenario(); //テキストの更新
-        }
-        
-    }
-
-    void EventReadEnd_Flagcheck()
-    {
-        switch (GameMgr.hiroba_event_ID)
-        {
-            //クエスト４　「ドーナツ作り」～　0番台
-            case 40:
-
-                GameMgr.hiroba_event_end[2] = true;
-                break;
-
-            case 1040:
-
-                GameMgr.hiroba_event_end[0] = true;
-                break;
-
-            case 2045:
-
-                GameMgr.hiroba_event_end[1] = true;
-                break;
-
-            case 3040:
-
-                GameMgr.hiroba_event_end[6] = true;
-                break;
-
-            case 3042:
-
-                ev_id = pitemlist.Find_eventitemdatabase("donuts_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ドーナツのレシピを追加
-
-                GameMgr.hiroba_event_end[8] = true;
-                break;
-
-            case 4040:
-
-                GameMgr.hiroba_event_end[3] = true;
-                break;
-
-            case 4042:
-
-                GameMgr.hiroba_event_end[7] = true;
-                break;
-
-            case 5041:
-
-                GameMgr.hiroba_event_end[4] = true;
-                break;
-
-            case 5042:
-
-                GameMgr.hiroba_event_end[5] = true;
-                break;
-
-            //クエスト５　コンテスト～  10番台
-            case 50:
-
-                GameMgr.hiroba_event_end[10] = true;
-                break;
-
-            case 3050:
-
-                GameMgr.hiroba_event_end[11] = true;
-                break;
-
-            case 4050:
-
-                GameMgr.hiroba_event_end[12] = true;
-                break;
-
-            case 5050:
-
-                GameMgr.hiroba_event_end[13] = true;
-                break;
-
-            default:
-
-                break;
-        }
     }
 
 

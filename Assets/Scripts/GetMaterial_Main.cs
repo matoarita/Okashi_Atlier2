@@ -315,7 +315,7 @@ public class GetMaterial_Main : MonoBehaviour
         if (GameMgr.matbgm_change_flag)
         {
             GameMgr.matbgm_change_flag = false;
-            sceneBGM.FadeInBGM();
+            sceneBGM.FadeInBGM(0.5f);
         }
 
         text_scenario(); //テキストの更新

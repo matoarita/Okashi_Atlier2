@@ -91,3 +91,5 @@
 ・BGM_89		PerituneMaterial_Memories2		サクラフォレストのBGM
 ・BGM_90		audiostock_157663			夏エリアのBGM
 ・BGM_91		audiostock_849596_sample		コンテスト終了後の賞品画面のBGM
+・BGM_92		Excursion(なぐもりず)			魔法の先生のテーマ02
+・BGM_93		icyalove_07(にんじんわいん)		秘密の花園のテーマ

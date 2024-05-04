@@ -43,7 +43,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
                 SettingBGPanel("Map03"); //Map〇〇のリスト番号を指定
                 break;
 
-            case 1: //中央噴水２　冬エリアへ繋がる散歩道
+            case 1: //中央噴水２　散歩道
 
                 GameMgr.Scene_Name = "Or_Hiroba_CentralPark2";
                 SettingBGPanel("Map02"); //Map〇〇のリスト番号を指定
@@ -290,7 +290,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
         //テキスト設定
         hiroba1_mainController.text_scenario();
 
-        //ネムプレートを表示
+        //ネームプレートを表示
         hiroba1_mainController.SceneNamePlateSetting();
 
         //シーン読み込み完了時のメソッド

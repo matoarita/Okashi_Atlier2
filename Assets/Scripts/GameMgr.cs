@@ -12,10 +12,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     // ** -- イベント数をセッティング -- ** //
     //
     public static int GirlLoveEvent_stage_num = 100;
-    public static int GirlLoveSubEvent_stage_num = 200;
+    public static int GirlLoveSubEvent_stage_num = 1000;
     public static int Event_num = 30;
     public static int Uwasa_num = 100;
     public static int NpcEvent_stage_num = 3000;
+    public static int OrEvent_num = 1000;
 
     //** --ここまで-- **//
 
@@ -40,6 +41,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_DebugItemSet_ON = false; //デバッグ用　アイテムや魔法などを最初からセットする　最終的にはオフにすること
+
+    public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
     //** --ここまで-- **//
 
@@ -110,8 +113,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int GirlLoveEvent_num;            //女の子の好感度に応じて発生するイベントの、イベント番号   
     public static bool[] GirlLoveEvent_stage1 = new bool[GirlLoveEvent_stage_num];  //各イベントの、現在読み中かどうかのフラグ。
     public static bool[] GirlLoveEvent_stage2 = new bool[GirlLoveEvent_stage_num];
-    public static bool[] GirlLoveEvent_stage3 = new bool[GirlLoveEvent_stage_num];
-    public static int[] NPCHiroba_eventList = new int[NpcEvent_stage_num]; //主にNPCイベントのフラグリスト　配列の番号で各キャラを指定 100~ とか　200~とか
+    public static bool[] GirlLoveEvent_stage3 = new bool[GirlLoveEvent_stage_num];   
 
     //クリア時の好感度
     public static int stage1_clear_girl1_loveexp; //ステージ１クリア時の好感度を保存
@@ -148,24 +150,32 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] MapEvent_07 = new bool[Event_num];         //ベリーファーム 
     public static bool[] MapEvent_08 = new bool[Event_num];         //白猫のおはか  
 
+    //2から  まだセーブしてない
+    public static bool[] MapEvent_Or = new bool[OrEvent_num];
+
     //広場でのイベント
     public static bool[] hiroba_event_end = new bool[99]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。
+
+    //2の広場イベントNPCフラグ　まだセーブしてない
+    public static bool[] NPCHiroba_HikarieventList = new bool[GirlLoveSubEvent_stage_num]; //２でのヒカリの広場全般イベントリスト。
+    //100~ 散歩道
+    public static bool[] NPCHiroba_eventList = new bool[NpcEvent_stage_num]; //主に2でのNPCイベントのフラグリスト　配列の番号で各キャラを指定 100~ とか　200~とか
+    //0~ コンテストレセプション
+    public static bool[] NPCMagic_eventList = new bool[NpcEvent_stage_num]; //主に2でのNPCイベントのフラグリスト
 
     //ショップのイベントリスト
     public static bool[] ShopEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
     public static bool[] ShopLVEvent_stage = new bool[Event_num]; //パティシエレベルなどに応じたイベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
-
-    //酒場のイベントリスト
     public static bool[] BarEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+    public static bool[] emeraldShopEvent_stage = new bool[Event_num];
+    public static bool[] FarmEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+
+    //2から  まだセーブしてない
+    public static bool[] Or_ShopEvent_stage = new bool[OrEvent_num];
 
     //酒場のうわさ話リスト
     public static bool[] ShopUwasa_stage1 = new bool[Uwasa_num]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
 
-    //エメラルドショップのイベントリスト
-    public static bool[] emeraldShopEvent_stage = new bool[Event_num];
-
-    //牧場のイベントリスト
-    public static bool[] FarmEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
 
     //コンテストのイベントリスト
     public static bool[] ContestEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -298,6 +308,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     /* セーブ　ここまで */
 
 
+    //シナリオ関係の発生フラグ
+    public static bool Prologue_storyflag; //プロローグの開始
 
     //広場イベント発生フラグ
     public static bool hiroba_event_flag;   //イベントレシピを見たときに、宴を表示する用のフラグ   
@@ -324,7 +336,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int okashiafter_status;    //採点表示　SPお菓子の感想か固有の感想か
     public static int mainquest_ID;         //クエストクリア時のイベント
     public static bool mainClear_flag;      //クエストクリア時のイベント
-    public static int Extraquest_ID;      //エクストラクエストクリア時のイベント 
+    public static int ExtraOkashiQuestComment_num;      //エクストラクエストクリア時のイベント 
     public static bool ExtraClear_flag;      //エクストラクエストクリア時のイベント 
     public static string ExtraClear_QuestName;      //エクストラクエストクリア時のイベント名前 
     public static int ExtraClear_QuestNum;          //エクストラクエストクリア時のイベント番号を一時保存     
@@ -393,6 +405,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool bar_event_flag;  //バーで発生するイベントのフラグ。
     public static int bar_event_num;
     public static int bar_quest_okashiScore; //酒場のクエストでのお菓子スコア
+
+    //NPCのコマンド
+    public static bool npc_event_flag;  //バーで発生するイベントのフラグ。
+    public static int npc_event_num;
 
     //マップイベント発生フラグ
     public static int map_ev_ID;           //その時のイベント番号
@@ -511,6 +527,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Scene_LoadedOn_End; //シーンの読み込み完了フラグ
     public static bool girlEat_ON; //女の子　食べ中のフラグ
     public static bool Scene_Black_Off; //シーンによっては、このフラグがたつと、宴途中などで、シーンの黒画面をオフにする
+    public static bool Scene_Black_ON; //こっちは黒をONにする
     public static bool Kaigyo_ON; //メッセージウィンドウの改行ボタンをおした。宴ではなく、材料採取の改行時など。
     public static int Comp_kettei_bunki; //調合の、今何の調合をしている最中かを表すステータス
     public static string UseMagicSkill; //使用する魔法・スキルのネーム
@@ -858,7 +875,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Foodexpenses = Foodexpenses_default;
 
         //ストーリーモード
-        Story_Mode = 1; //0=本編　1=エクストラモード　初期値は0でOK
+        Story_Mode = 0; //0=本編　1=エクストラモード　初期値は0でOK
         GameSpeedParam = 3;
 
         SleepSkipFlag = false;
@@ -897,6 +914,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SleepBefore_Month = 4;
         SleepBefore_Day = 1;
 
+        Prologue_storyflag = false;
+
         shop_event_flag = false;
         shop_lvevent_flag = false;
         shop_event_num = 0;
@@ -920,6 +939,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         bar_event_flag = false;
         bar_event_num = 0;
+
+        npc_event_flag = false;
+        npc_event_num = 0;
 
         emeraldshop_event_flag = false;
         emeraldshop_event_num = 0;
@@ -1034,6 +1056,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Scene_LoadedOn_End = false;
         girlEat_ON = false;
         Scene_Black_Off = false;
+        Scene_Black_ON = false;
         Kaigyo_ON = false;
         Comp_kettei_bunki = 0;
         UseMagicSkill = "";
@@ -1094,7 +1117,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //広場NPCイベントフラグの初期化
         for (system_i = 0; system_i < NPCHiroba_eventList.Length; system_i++)
         {
-            NPCHiroba_eventList[system_i] = 0;
+            NPCHiroba_eventList[system_i] = false;
+            NPCMagic_eventList[system_i] = false;
         }
         
 
@@ -1219,6 +1243,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             MapEvent_07[system_i] = false;
             MapEvent_08[system_i] = false;
         }
+
+        for (system_i = 0; system_i < MapEvent_Or.Length; system_i++)
+        {
+            MapEvent_Or[system_i] = false;
+            Or_ShopEvent_stage[system_i] = false;
+        }
+        
 
         //通常お菓子感想フラグ
         OkashiComment_flag = false;

@@ -22,6 +22,7 @@ public class HirobaBlockText : MonoBehaviour {
 
         BlockCheck();
         NPCEventCheck(); //NPCイベントも発生しているかチェック
+        AreaGoCheck(); //エリア進める→を表示するチェック
     }
 
     void BlockCheck()
@@ -49,7 +50,92 @@ public class HirobaBlockText : MonoBehaviour {
 
     void NPCEventCheck()
     {
+        switch (ScrollView.name)
+        {
+            case "MainList_ScrollView_02":
 
+                if (this.gameObject.name == "NPC4_SelectToggle")
+                {
+                    if (!GameMgr.outgirl_Nowprogress)
+                    {
+                        if (!GameMgr.NPCHiroba_HikarieventList[100]) //散歩道　ヒカリイベント
+                        {
+                            this.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            this.gameObject.SetActive(false);
+                        }
+                    }
+                    else
+                    {
+                        this.gameObject.SetActive(false);
+                    }
+                }
+                break;
+        }
+    }
+
+    void AreaGoCheck()
+    {
+        switch (ScrollView.name)
+        {
+            case "MainList_ScrollView_01":
+
+                if (this.gameObject.name == "NPC2_SelectToggle")
+                {
+
+                    if (GameMgr.NPCHiroba_eventList[2500]) //夏エリア解放
+                    {
+                        this.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        this.gameObject.SetActive(false);
+                    }
+
+                }
+                if (this.gameObject.name == "NPC3_SelectToggle")
+                {
+
+                    if (GameMgr.NPCHiroba_eventList[2501]) //秋エリア解放
+                    {
+                        this.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        this.gameObject.SetActive(false);
+                    }
+
+                }
+                if (this.gameObject.name == "NPC5_SelectToggle")
+                {
+
+                    if (GameMgr.NPCHiroba_eventList[2502]) //冬エリア解放
+                    {
+                        this.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        this.gameObject.SetActive(false);
+                    }
+
+                }
+                if (this.gameObject.name == "NPC7_SelectToggle")
+                {
+
+                    if (GameMgr.NPCHiroba_eventList[2503]) //城エリア解放
+                    {
+                        this.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        this.gameObject.SetActive(false);
+                    }
+
+                }
+                break;
+        }
     }
 
     private void OnEnable()

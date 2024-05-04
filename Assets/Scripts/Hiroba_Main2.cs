@@ -348,7 +348,7 @@ public class Hiroba_Main2 : MonoBehaviour
         if (bgm_change_flag)
         {
             bgm_change_flag = false;
-            sceneBGM.FadeInBGM();
+            sceneBGM.FadeInBGM(0.5f);
         }
 
         //読み終わったフラグをたてる
@@ -532,7 +532,7 @@ public class Hiroba_Main2 : MonoBehaviour
 
                     if (!GameMgr.hiroba_event_end[0])
                     {
-                        sceneBGM.FadeOutBGM();
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         bgm_change_flag = true;
                         GameMgr.hiroba_event_ID = 1040;
 
@@ -586,7 +586,7 @@ public class Hiroba_Main2 : MonoBehaviour
                         {*/
                         if (!GameMgr.hiroba_event_end[1])
                         {
-                            sceneBGM.FadeOutBGM();
+                            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                             bgm_change_flag = true;
                             GameMgr.hiroba_event_ID = 2045;
                         }
@@ -611,7 +611,7 @@ public class Hiroba_Main2 : MonoBehaviour
             }
             else
             {
-                sceneBGM.FadeOutBGM();
+                sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                 bgm_change_flag = true;
                 GameMgr.hiroba_event_ID = 12000;
             }
@@ -641,7 +641,7 @@ public class Hiroba_Main2 : MonoBehaviour
                     {
                         if (!GameMgr.hiroba_event_end[6])
                         {
-                            sceneBGM.FadeOutBGM();
+                            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                             bgm_change_flag = true;
                             GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                         }
@@ -653,7 +653,7 @@ public class Hiroba_Main2 : MonoBehaviour
                                 pitemlist.SearchDeleteItem("himawari_Oil");
                                 pitemlist.addPlayerItemString("flyer", 1);
 
-                                sceneBGM.FadeOutBGM();
+                                sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                                 bgm_change_flag = true;
                                 GameMgr.hiroba_event_ID = 3042;
                             }
@@ -674,13 +674,13 @@ public class Hiroba_Main2 : MonoBehaviour
 
                     if (!GameMgr.hiroba_event_end[11])
                     {
-                        sceneBGM.FadeOutBGM();
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         bgm_change_flag = true;
                         GameMgr.hiroba_event_ID = 3050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
                     else
                     {
-                        sceneBGM.FadeOutBGM();
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         bgm_change_flag = true;
                         GameMgr.hiroba_event_ID = 3051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
                     }
@@ -794,7 +794,7 @@ public class Hiroba_Main2 : MonoBehaviour
             GameMgr.hiroba_event_placeNum = 5; //
 
             //図書室はBGMかえる
-            sceneBGM.FadeOutBGM();
+            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
             bgm_change_flag = true;
 
             if (GameMgr.Story_Mode == 0)
