@@ -403,12 +403,16 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
                 }
+                else if (GameMgr.contest_Taste_Score[2] < 0)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
+                }
 
                 total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
 
                 Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
                 Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
-                Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
+                Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
 
                 //200点を上限に100点に正規化する。
                 ScoreNormalized(200);
@@ -423,11 +427,11 @@ public class Contest_Judge : MonoBehaviour {
                 before_tastescore[2] = GameMgr.contest_Taste_Score[2];
                 if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
                 {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
                 }
                 else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 80)
                 {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
                 }
                 else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
                 {
@@ -441,12 +445,16 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
                 }
+                else if (GameMgr.contest_Taste_Score[2] < 0)
+                {
+                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.7f);
+                }
 
                 total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
 
                 Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。下の食感の値が最終の食感点数");
                 Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
-                Debug.Log("審査員３　食感：" + GameMgr.contest_Taste_Score[2] + "点");
+                Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
 
                 //入れた数値を上限に100点に正規化する。
                 ScoreNormalized(200);

@@ -782,8 +782,24 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
-                _basetp[i] = "Non";
+                _basetp[i] = database.items[_id].toppingtype[i].ToString();
             }
+
+            /*if (_mstatus == 99)
+            {
+                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+                {
+                    _basetp[i] = "Non";
+                }
+            }
+            else
+            {
+                for (i = 0; i < database.items[_id].toppingtype.Length; i++)
+            {
+                _basetp[i] = database.items[_id].toppingtype[i].ToString();
+            }
+            }*/
+
 
         }
         else if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //生地合成、もしくはトッピング調合の場合。　一個目に選んだアイテムをベースに、リザルトアイテムにする。
@@ -2032,8 +2048,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             for (n = 0; n < _additemlist[count].ItemKosu; n++)
             {
-                i = 0;
 
+                i = 0;
                 while (i < _additemlist[count].toppingtype.Length)
                 {
                     //Debug.Log(_addtp[i]);
@@ -2068,7 +2084,45 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     {
                         //break;
                     }
+                    i++;
+                }
 
+                //固有トッピングのものも、トッピングする
+                i = 0;
+                while (i < _additemlist[count].koyu_toppingtype.Length)
+                {
+                    //Debug.Log(_addtp[i]);
+
+                    if (_additemlist[count].koyu_toppingtype[i] != "Non") //Nonではない、＝いちごとかオレンジとか、何かが入っている場合は、次にベースのTPを見る。
+                    {
+
+                        j = 0;
+                        while (j < _basetp.Length) //ベースが全て空でない場合、全て無視したまま、処理だけ続く。
+                        {
+
+                            if (_basetp[j] == "Non") //ベースが空の場合は、そこに_addトッピングを入れる。
+                            {
+                                //Debug.Log(_basetp[j]);
+                                _basetp[j] = _additemlist[count].koyu_toppingtype[i];
+                                break;
+                            }
+                            else if (_basetp[j] == _additemlist[count].koyu_toppingtype[i]) //ベースに入っているトッピングと、_addが重複の場合。
+                            {
+                                //無視して、次の_baseトッピングのスロットを見る。
+                            }
+                            else //ベースが空でない場合。
+                            {
+                                //無視して、次の_baseトッピングのスロットを見る。
+                            }
+
+                            j++;
+                        }
+
+                    }
+                    else if (_additemlist[count].koyu_toppingtype[i] == "Non") //Nonの場合、そのスロットは無視して、次のスロットをみる
+                    {
+                        //break;
+                    }
                     i++;
                 }
             }
@@ -2117,7 +2171,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType = database.items[_id].itemType.ToString();
         _add_itemType_sub = database.items[_id].itemType_sub.ToString();
 
-        //店売りアイテムを合成に使う場合は、固有トッピングを計算する。
+        //店売りアイテムを合成に使う場合。通常トッピング＋固有トッピングどちらも計算
 
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20) //オリジナル・レシピ調合時
         {
@@ -2146,6 +2200,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         if (Comp_method_bunki == 20) //魔法調合時 計算時の個数は1の時のパラメータで計算する
         {
+
             _addkosu = 1;
         }
 
@@ -2875,7 +2930,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         Debug.Log("_basegirl1_like:" + _basegirl1_like + " _basecost:" + _basecost + " _basesell:" + _basesell);
         Debug.Log("_base_itemType:" + _base_itemType + " _base_itemType_sub:" + _base_itemType_sub);
 
-        /*Debug.Log("スロット1: " + _basetp[0]);
+        Debug.Log("スロット1: " + _basetp[0]);
         Debug.Log("スロット2: " + _basetp[1]);
         Debug.Log("スロット3: " + _basetp[2]);
         Debug.Log("スロット4: " + _basetp[3]);
@@ -2884,7 +2939,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         Debug.Log("スロット7: " + _basetp[6]);
         Debug.Log("スロット8: " + _basetp[7]);
         Debug.Log("スロット9: " + _basetp[8]);
-        Debug.Log("スロット10: " + _basetp[9]);*/
+        Debug.Log("スロット10: " + _basetp[9]);
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

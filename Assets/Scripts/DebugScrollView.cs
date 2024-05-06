@@ -35,7 +35,7 @@ public class DebugScrollView : MonoBehaviour
 
     public void LoggedCb(string logstr, string stacktrace, LogType type)
     {
-        if (logcnt > 20)
+        if (logcnt > 100)
         {
             _logText.text = "";
             logcnt = 0;

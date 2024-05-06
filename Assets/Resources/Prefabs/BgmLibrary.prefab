@@ -345,4 +345,5 @@ MonoBehaviour:
   sound49: {fileID: 8300000, guid: 6bf03bf38db86db48b63c0deafd62843, type: 3}
   sound50: {fileID: 8300000, guid: 715d757296535a94ba666041e192ab02, type: 3}
   sound51: {fileID: 8300000, guid: 1b4c120cdca750346a364f9551f8639d, type: 3}
+  sound52: {fileID: 8300000, guid: f34a77a9ae1df7c4ea324d884949ec03, type: 3}
   sound1000: {fileID: 0}

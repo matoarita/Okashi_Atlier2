@@ -1085,8 +1085,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
         }
 
-        //固有トッピングスロットも見る。一致する効果があれば、所持数+1。現在は未使用。
-        /*for (i = 0; i < _koyutp.Length; i++)
+        //お菓子の固有トッピングスロットも見る。一致する効果があれば、所持数+1。
+        for (i = 0; i < _koyutp.Length; i++)
         {
             count = 0;
             //itemslotInfoディクショナリのキーを全て取得
@@ -1094,12 +1094,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 if (_koyutp[i] == key) //キーと一致するアイテムスロットがあれば、点数を+1
                 {
-                    //Debug.Log("_koyutp: " + _koyutp[i]);
+                    Debug.Log("_koyutp: " + _koyutp[i]);
                     itemslotScore[count]++;
                 }
                 count++;
             }
-        }*/
+        }
 
         //確認用
         /*count = 0;
@@ -1871,7 +1871,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //デバッグパネルの取得
             debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
             debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
-            debug_taste_resultText.text = "";
+            //debug_taste_resultText.text = "";
             DebugTextLog();
         }
         else
@@ -5728,6 +5728,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //** **//
     public int Judge_Score_Return(int value1, int value2, int SetType, int _Setcount)
     {      
+        if(_Setcount == 0)
+        {
+            debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();
+            debug_taste_resultText.text = "";
+        }
         SceneInitSetting();
             
         //コンテスト用に、渡すアイテムのパラメータ設定

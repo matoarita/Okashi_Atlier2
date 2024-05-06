@@ -2169,7 +2169,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Bluetopaz_Garden":
 
                 //BGM
-                sceneBGM.OnGetMat_MapBGM(7);
+                sceneBGM.OnGetMat_MapBGM(101);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
@@ -2185,7 +2185,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[100] = true;
 
-                        _text.text = "いっぱい水を汲もう。にいちゃん。";
+                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2197,7 +2197,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん、今日も水汲み？ヒカリも手伝うー！";
+                        _text.text = "にいちゃん、お花たくさん～！　いい香り..。";
                     }
                 }
                 break;

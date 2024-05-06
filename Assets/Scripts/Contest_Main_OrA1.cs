@@ -272,7 +272,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //コンテスト会場きたときのイベント
+        //各コンテストのデータ初期化とイベントはじまる
         if (!contest_eventStart_flag)
         {
             contest_eventStart_flag = true;
@@ -402,8 +402,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                     if (!StartRead) //シーン最初だけ読み込む
                     {
+                        Debug.Log("ContestMainOrA1 StartRead ON");
                         StartRead = true;
-                        sceneBGM.PlaySub();
+                        sceneBGM.PlayContestStartBGM();
                         sceneBGM.NowFadeVolumeONBGM();
                         scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
                     }                   

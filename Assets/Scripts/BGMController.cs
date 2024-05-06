@@ -17,6 +17,8 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
 
     private float _start_val;
 
+    private Tween _tw;
+
     private int i;
 
     // Use this for initialization
@@ -175,6 +177,7 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
 
     public void FadeVolumeChange(float _volume)
     {
+        DOTween.Kill(_tw);
         fade_volume = _volume;
     }
 
@@ -183,7 +186,7 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
     //DoTweenを使ってボリュームをフェードするメソッドたち　FadeStatusChangeがいらないかも。
     public void DoFadeBGM(int _num)
     {
-        _bgm[_num].DOFade(0.0f, 1.0f).OnComplete(() =>
+        _tw = _bgm[_num].DOFade(0.0f, 1.0f).OnComplete(() =>
         {
             _bgm[_num].Stop();
         });
@@ -192,7 +195,7 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
     public void DoFadeVolumeOut(float _time)
     {
         _start_val = fade_volume;
-        DOVirtual.Float(_start_val, 0f, _time, value =>
+        _tw = DOVirtual.Float(_start_val, 0f, _time, value =>
         {
             //Debug.Log("value: " + value);
             fade_volume = value;
@@ -202,7 +205,7 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
     public void DoFadeVolumeIn(float _time)
     {
         _start_val = fade_volume;
-        DOVirtual.Float(_start_val, 1f, _time, value =>
+        _tw = DOVirtual.Float(_start_val, 1f, _time, value =>
         {
             //Debug.Log("value: " + value);
             fade_volume = value;

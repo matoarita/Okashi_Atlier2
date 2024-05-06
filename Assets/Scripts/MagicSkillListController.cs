@@ -100,7 +100,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
 
         i = 0;
-        category_status = 9; //基本がなくなったので、火のスキルがデフォルトになる
+        //category_status = 9; //基本がなくなったので、火のスキルがデフォルトになる
     }
 
     
@@ -163,7 +163,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             category_toggle[i].GetComponent<Toggle>().isOn = false;
         }
         category_toggle[1].GetComponent<Toggle>().isOn = true;
-        SkillList_DrawView10();
+        //SkillList_DrawView10();
     }
 
     public void SkillList_DrawView() //基本

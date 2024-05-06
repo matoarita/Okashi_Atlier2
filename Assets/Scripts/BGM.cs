@@ -60,6 +60,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound49;  //夏エリアBGM
     public AudioClip sound50;  //魔法の先生のテーマ02
     public AudioClip sound51;  //秘密の花園テーマ
+    public AudioClip sound52;  //「ブルートパーズの花畑」テーマ
     public AudioClip sound1000;  //空のサウンド
 
     private AudioClip _send_clip;
@@ -339,34 +340,7 @@ public class BGM : MonoBehaviour {
                                 break;
                         }
                         break;
-
-
-                    case 100: //コンテスト系
-
-                        switch(GameMgr.Contest_Name)
-                        {
-                            case "Or_Contest_001_1":
-
-                                _send_clip = sound38;
-                                break;
-
-                            case "Or_Contest_001_2":
-
-                                _send_clip = sound38;
-                                break;
-
-                            case "Or_Contest_001_3":
-
-                                _send_clip = sound38;
-                                break;
-
-                            default:
-
-                                _send_clip = sound46;
-                                break;
-                        }
-                        
-                        break;
+                    
 
                     case 110: //コンテスト会場前系
 
@@ -422,9 +396,43 @@ public class BGM : MonoBehaviour {
 
         bgmController.BGMPlay(0, _send_clip);
         bgmController.MixRateChange(0); //bgm[0]に音を切り替える
-
-
     }    
+
+    public void PlayContestStartBGM()
+    {
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 100: //コンテスト系
+
+                switch (GameMgr.Contest_Name)
+                {
+                    case "Or_Contest_001_1":
+
+                        _send_clip = sound38;
+                        break;
+
+                    case "Or_Contest_001_2":
+
+                        _send_clip = sound38;
+                        break;
+
+                    case "Or_Contest_001_3":
+
+                        _send_clip = sound38;
+                        break;
+
+                    default:
+
+                        _send_clip = sound46;
+                        break;
+                }
+
+                break;
+        }
+
+        bgmController.BGMRestartPlay(0, _send_clip);
+        bgmController.MixRateChange(0); //bgm[0]に音を切り替える
+    }
 
     void BGMMainChange()
     {
@@ -805,6 +813,11 @@ public class BGM : MonoBehaviour {
             case 100: //サクラフォレスト
 
                 _send_clip = sound48;
+                break;
+
+            case 101: //ブルートパーズのお花畑
+
+                _send_clip = sound52;
                 break;
         }
 
