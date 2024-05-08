@@ -221,6 +221,25 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _text = "星降る夜の小広場";
                                 _subtext = "Star Nights Campo";
                                 break;
+
+                            case "Or_Hiroba_MainGate_Street": //正門前ストリート
+
+                                _text = "正門前ストリート";
+                                _subtext = "MainGate Street";
+                                break;
+
+                            case "Or_Hiroba_MainGate_Street2_hiroba": //お菓子街道
+
+                                _text = "お菓子街道";
+                                _subtext = "Patissier's Street";
+                                break;
+
+                            case "Or_Hiroba_MainGate_Entrance": //正門前ゲート
+
+                                _text = "正門前ゲート";
+                                _subtext = "Orangina MainGate";
+                                break;
+
                             default:
 
                                 break;

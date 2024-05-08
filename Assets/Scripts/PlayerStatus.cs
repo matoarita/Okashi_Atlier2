@@ -197,12 +197,12 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_icecream_lv = 1;
         player_girl_rareokashi_lv = 1;
 
-        player_default_mp = 5;
+        player_default_mp = 99; //初期値は5
         player_maxmp = player_default_mp;
         player_mp = player_maxmp;
         player_patissier_lv = 1;
         player_patissier_exp = 0;
-        player_patissier_job_pt = 0;
+        player_patissier_job_pt = 99; //ジョブポイント
         player_patissier_Rank = 1;
 
         InitTitleCollectionLibrary();

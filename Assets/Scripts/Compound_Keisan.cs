@@ -1875,7 +1875,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _baseoily += _additemlist[i].Oily * _additemlist[i].ItemKosu;
                 _basewatery += _additemlist[i].Watery * _additemlist[i].ItemKosu;
                 _basebeauty += _additemlist[i].Beauty * _additemlist[i].ItemKosu;
-                _basetea_flavor += _additemlist[i].Beauty * _additemlist[i].ItemKosu;
+                _basetea_flavor += _additemlist[i].Tea_Flavor * _additemlist[i].ItemKosu;
                 _basesp_wind += _additemlist[i].SP_wind * _additemlist[i].ItemKosu;
                 _basesp_score2 += _additemlist[i].SP_Score2 * _additemlist[i].ItemKosu;
                 _basesp_score3 += _additemlist[i].SP_Score3 * _additemlist[i].ItemKosu;
@@ -1885,7 +1885,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesp_score7 += _additemlist[i].SP_Score7 * _additemlist[i].ItemKosu;
                 _basesp_score8 += _additemlist[i].SP_Score8 * _additemlist[i].ItemKosu;
                 _basesp_score9 += _additemlist[i].SP_Score9 * _additemlist[i].ItemKosu;
-                _basesp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;
+                _basesp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;              
                 //}
             }
         }
@@ -1925,52 +1925,33 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
-                //お菓子の食感ごとに、バフをかける処理
+                //A. お菓子の食感ごとに、バフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType_sub); //中の数字でどの食感パラムかの指定
                 _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType_sub);
                 _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType_sub);
                 _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType_sub);
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _base_itemType_sub);
                 _basebeauty += bufpower_keisan.Buf_OkashiParamUp_Keisan(5, _base_itemType_sub);
+                _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_Keisan(6, _base_itemType_sub);
 
-                //固有のお菓子のみにバフをかける処理
+                //B. 固有のお菓子のみにバフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(0, _basename); //中の数字でどの食感パラムかの指定
                 _basefluffy += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(1, _basename);
                 _basesmooth += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(2, _basename);
                 _basehardness += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(3, _basename);
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(4, _basename);
                 _basebeauty += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(5, _basename);
+                _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(6, _basename);
 
-                //特定の調合DBにのみバフをかける処理
+                //C. 特定の調合DBにのみバフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(0, databaseCompo.compoitems[result_compID].cmpitem_Name); //中の数字でどの食感パラムかの指定
                 _basefluffy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(1, databaseCompo.compoitems[result_compID].cmpitem_Name);
                 _basesmooth += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(2, databaseCompo.compoitems[result_compID].cmpitem_Name);
                 _basehardness += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(3, databaseCompo.compoitems[result_compID].cmpitem_Name);
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(4, databaseCompo.compoitems[result_compID].cmpitem_Name);
                 _basebeauty += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(5, databaseCompo.compoitems[result_compID].cmpitem_Name);
-
-                //魔力の泡だて器をもっている
-                if (pitemlist.ReturnItemKosu("whisk_magic") >= 1)
-                {
-                    if (_base_itemType_sub.ToString() == "Appaleil") //生地系を作るときは、全てにバフ
-                    {
-                        _basecrispy = (int)(_basecrispy * 1.3f);
-                        _basefluffy = (int)(_basefluffy * 1.3f);
-                        _basesmooth = (int)(_basesmooth * 1.3f);
-                    }
-                    else
-                    {
-                        //クリーム系の補正 泡だて器を使う調合のみバフ　作りたてクリーム　か　リコッタクリーム
-                        if (result_compID == databaseCompo.SearchCompoIDString("whipped cream_row") ||
-                            result_compID == databaseCompo.SearchCompoIDString("whipped cream_row_Free") ||
-                            result_compID == databaseCompo.SearchCompoIDString("cream_row_ricotta"))
-                        {
-                            _basecrispy = (int)(_basecrispy * 1.3f);
-                            _basefluffy = (int)(_basefluffy * 1.3f);
-                            _basesmooth = (int)(_basesmooth * 1.3f);
-                        }
-                    }
-                }
+                _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(6, databaseCompo.compoitems[result_compID].cmpitem_Name);
+               
             }
         }
 
@@ -1988,6 +1969,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_hosei);
                 _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_hosei);
                 _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_hosei);
+                //_basebeauty = (int)(1.0f * _basebeauty  * hikari_okashilv_hosei);
+                _basetea_flavor = (int)(1.0f * _basetea_flavor * hikari_okashilv_hosei);
 
                 //専用アイテムがあれば、ヒカリのお菓子さらにパラメータアップ
                 _basecrispy += bufpower_keisan.Buf_HikariParamUp_Keisan(0, _base_itemType_sub); //_base_itemType_subは未使用だが、とりあえず置いてる。
@@ -1995,6 +1978,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesmooth += bufpower_keisan.Buf_HikariParamUp_Keisan(2, _base_itemType_sub);
                 _basehardness += bufpower_keisan.Buf_HikariParamUp_Keisan(3, _base_itemType_sub);
                 _basejuice += bufpower_keisan.Buf_HikariParamUp_Keisan(4, _base_itemType_sub);
+                //_basebeauty += bufpower_keisan.Buf_HikariParamUp_Keisan(5, _base_itemType_sub);
+                _basetea_flavor += bufpower_keisan.Buf_HikariParamUp_Keisan(6, _base_itemType_sub);
             }
         }
 
@@ -2016,6 +2001,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                         _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_paramup);
                         _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_paramup);
                         _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_paramup);
+                        //_basebeauty = (int)(1.0f * _basebeauty  * hikari_okashilv_paramup);
+                        _basetea_flavor = (int)(1.0f * _basetea_flavor * hikari_okashilv_paramup);
                     }
                 }
 
@@ -2029,6 +2016,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                         _basesmooth = (int)(1.2f * _basesmooth);
                         _basehardness = (int)(1.2f * _basehardness);
                         _basejuice = (int)(1.2f * _basejuice);
+                        //_basebeauty = (int)(1.2f * _basebeauty);
+                        _basetea_flavor = (int)(1.2f * _basetea_flavor);
                     }
                 }
             }
@@ -2430,7 +2419,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _tempoily += _additemlist[i].Oily * _additemlist[i].ItemKosu;
         _tempwatery += _additemlist[i].Watery * _additemlist[i].ItemKosu;
         //_tempbeauty += _additemlist[i].Beauty * _additemlist[i].ItemKosu; //beuatyはもともとのお菓子のパラメータをベースに使うので、新規調合では計算から除外
-        _temptea_flavor = _additemlist[i].Tea_Flavor * _additemlist[i].ItemKosu;
+        _temptea_flavor += _additemlist[i].Tea_Flavor * _additemlist[i].ItemKosu;
         _tempsp_wind += _additemlist[i].SP_wind * _additemlist[i].ItemKosu;
         _tempsp_score2 += _additemlist[i].SP_Score2 * _additemlist[i].ItemKosu;
         _tempsp_score3 += _additemlist[i].SP_Score3 * _additemlist[i].ItemKosu;
@@ -2442,7 +2431,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _tempsp_score9 += _additemlist[i].SP_Score9 * _additemlist[i].ItemKosu;
         _tempsp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;
 
-
+        //Debug.Log("_basetea_flavor check " + _temptea_flavor);
         //Debug.Log("_additemlist[i]._Addkosu: " + _additemlist[i]._Addkosu);
     }
 

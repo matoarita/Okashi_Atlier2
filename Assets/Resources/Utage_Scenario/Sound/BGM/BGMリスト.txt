@@ -84,7 +84,7 @@
 ・BGM_82		PerituneMaterial_Cafe_Seaside_loop	２のオランジーナ街BGM
 ・BGM_83		Lethargic-Witch(なぐもりず)		魔法の先生のテーマ01
 ・BGM_84		PerituneMaterial_Snowy_Day3_loop	冬エリアのBGM
-・BGM_85		PeriTune_Alleyway_loop			秋エリアのBGM (古いaudiostock_872985_sample)
+・BGM_85		Paysage de Strahlburg(なぐもりず)	秋エリアのBGM (古いaudiostock_872985_sample)
 ・BGM_86		PerituneMaterial_Holiday3		夏エリア遊園地のBGM
 ・BGM_87		PerituneMaterial_Enjoyable3_loop	大会コンテスト調合時のBGM02　初級
 ・BGM_88		PerituneMaterial_Teatime_loop		大会コンテスト受付のBGM

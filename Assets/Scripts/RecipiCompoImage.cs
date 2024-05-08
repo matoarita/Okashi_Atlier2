@@ -52,7 +52,8 @@ public class RecipiCompoImage : MonoBehaviour {
 
         //調合成功率アップパーセント表示も更新
         databaseCompo.RecipiCount_database();
-        cullent_exup = GameMgr.game_Exup_rate + bufpower_keisan.Buf_CompKakuritsu_Keisan();
+        //cullent_exup = GameMgr.game_Exup_rate + bufpower_keisan.Buf_CompKakuritsu_Keisan();
+        cullent_exup = GameMgr.game_Exup_rate;
         exup_text.text = "+" + cullent_exup.ToString() + "%";
     }
 

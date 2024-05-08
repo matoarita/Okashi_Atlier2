@@ -519,7 +519,7 @@ public class Station_Main : MonoBehaviour
 
             case "Sta_Or":
 
-                GameMgr.SceneSelectNum = 0;
+                GameMgr.SceneSelectNum = 402;
                 FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                 break;
         }

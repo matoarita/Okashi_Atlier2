@@ -7,6 +7,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private PlayerItemList pitemlist;
     private HikariOkashiExpTable hikariOkashiExpTable;
 
+    private ItemDataBase database;
+
     private int _buf_findpower;
     private int _buf_kakuritsuup;
     private float _buf_kakuritsuup_f;
@@ -17,12 +19,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int hikari_okashiLV;
 
     private int i;
+    private int _id;
+    private string _itemType_sub;
+    private string _itemType_subB;
 
     // Use this for initialization
     void Start () {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         //ヒカリお菓子EXPデータベースの取得
         hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
@@ -60,9 +68,50 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     }
 
     //調合成功率のバフ
-    public int Buf_CompKakuritsu_Keisan()
+    //調合で生成されるアイテムの_itemType_subを指定し、中に補正値をかけばOK
+    public int Buf_CompKakuritsu_Keisan(string _result_item)
     {
         _buf_kakuritsuup = 0;
+
+        //アイテムによって、特定のお菓子のときのみ成功率をあげる。
+        _id = database.SearchItemIDString(_result_item);
+        _itemType_sub = database.items[_id].itemType_sub.ToString();
+
+        
+        switch (_itemType_sub)
+        {
+            case "Cookie":
+
+                //めん棒系
+                if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+                {
+                    _buf_kakuritsuup += 5;
+                }
+                else
+                {
+                    if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+                    {
+                        _buf_kakuritsuup += 2;
+                    }
+                }
+                break;
+
+            case "Cookie_Hard":
+
+                //めん棒系
+                if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+                {
+                    _buf_kakuritsuup += 5;
+                }
+                else
+                {
+                    if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+                    {
+                        _buf_kakuritsuup += 2;
+                    }
+                }
+                break;
+        }
 
         if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
         {
@@ -106,6 +155,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     }
 
     //食感などのパラメータのバフ これのみ、ゲームスタート前に一度読み込む可能性あるので、アイテムリストを取得
+    //アイテムのサブタイプ(_itemType_sub)を指定し、中で補正をかければOK
     public int Buf_OkashiParamUp_Keisan(int _status, string _itemType_sub)
     {
         //プレイヤー所持アイテムリストの取得
@@ -119,6 +169,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 switch (_itemType_sub)
                 {
+                    case "Appaleil":
+
+                        CreamBuf();
+                        break;
+
                     case "Bread":
 
                         OvenBuf();
@@ -127,11 +182,6 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Cookie":
 
                         OvenBuf();
-                        CookieBuf();
-                        break;
-
-                    case "Cookie_Mat":
-
                         CookieBuf();
                         break;
 
@@ -145,22 +195,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         OvenBuf();
                         break;
-
-                    //現状ティーの香りは、さくさく感の値のこと
-                    case "Tea":
-
-                        TeaBuf();
-                        break;
-
-                    case "Tea_Mat":
-
-                        TeaBuf();
-                        break;
-
-                    case "Tea_Potion":
-
-                        TeaBuf();
-                        break;
+                    
                 }
 
                 AllShokukanBuf();
@@ -171,6 +206,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 switch (_itemType_sub)
                 {
+                    case "Appaleil":
+
+                        CreamBuf();
+                        break;
+
                     case "Crepe":
 
                         CrepeBuf();
@@ -212,6 +252,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case 2: //なめらか感のバフ
 
+                switch (_itemType_sub)
+                {
+                    case "Appaleil":
+
+                        CreamBuf();
+                        break;
+                }
+
                 AllShokukanBuf();
 
                 return _buf_shokukanup;
@@ -248,9 +296,39 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case 5: //見た目のバフ
 
                 return _buf_shokukanup;
+
+            case 6: //香りのバフ
+
+                switch (_itemType_sub)
+                {
+                    case "Tea":
+
+                        TeaBuf();
+                        break;
+
+                    case "Tea_Mat":
+
+                        TeaBuf();
+                        break;
+
+                    case "Tea_Potion":
+
+                        TeaBuf();
+                        break;
+                }
+
+                return _buf_shokukanup;
         }
 
         return 0; //なにもない場合や例外は0
+    }
+
+    void CreamBuf()
+    {
+        if (pitemlist.KosuCount("whisk_magic") >= 1) //魔力の泡だて器をもっている
+        {
+            _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+        }
     }
 
     void OvenBuf()
@@ -275,6 +353,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void CookieBuf()
     {
+        //めん棒系
+        if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+        {
+            _buf_shokukanup += 20;
+        }
+        else
+        {
+            if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+            {
+                _buf_shokukanup += 5;
+            }
+        }
+
         if (pitemlist.KosuCount("cookie_powerup1") >= 1) //
         {
             _buf_shokukanup += 5;
@@ -370,6 +461,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     }
 
     //特定のアイテムにのみ、バフをかける処理
+    //特定のお菓子の名前を指定し、どの食感(_status)に補正をかけるか指定して、書き込めばOK
     public int Buf_OkashiParamUp_ItemNameKeisan(int _status, string _basename)
     {
         //プレイヤー所持アイテムリストの取得
@@ -422,6 +514,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case 5: //見た目のバフ
 
                         break;
+
+                    case 6: //香りのバフ
+
+                        break;
                 }                
             }            
         }
@@ -430,44 +526,39 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     }
 
     //特定の調合処理にのみ、バフをかける処理
-    public int Buf_OkashiParamUp_CompoNameKeisan(int _status, string _basename)
+    //コンポ調合の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK
+    public int Buf_OkashiParamUp_CompoNameKeisan(int _status, string _componame)
     {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         _buf_shokukanup = 0;
 
-
-        if (_basename == "blacklotus_sponge_cake_sliced") //パンナイフでスポンジケーキを切ったとき　マイナスになる。
+        switch (_componame)
         {
-            switch (_status)
-            {
-                case 0: //さくさく感のバフ
+            case "whipped cream_row":
 
-                    break;
+                _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+                break;
 
-                case 1: //ふわふわ感のバフ
+            case "whipped cream_row_Free":
 
-                    break;
+                _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+                break;
 
-                case 2: //なめらか感のバフ
+            case "cream_row_ricotta":
 
-                    break;
+                _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+                break;
 
-                case 3: //歯ごたえ感のバフ
+            case "blacklotus_sponge_cake_sliced": //パンナイフでスポンジケーキを切ったとき　マイナスになる。
 
-                    break;
-
-                case 4: //ジュースのバフ
-
-                    break;
-
-                case 5: //見た目のバフ
-
+                if (_status == 5)//見た目のバフ
+                {
                     _buf_shokukanup -= 50;
-
                     return _buf_shokukanup;
-            }
+                }
+                break;
         }
 
         return _buf_shokukanup;

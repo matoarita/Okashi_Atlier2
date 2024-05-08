@@ -22,7 +22,7 @@ public class HirobaBlockText : MonoBehaviour {
 
         BlockCheck();
         NPCEventCheck(); //NPCイベントも発生しているかチェック
-        AreaGoCheck(); //エリア進める→を表示するチェック
+        //AreaGoCheck(); //エリア進める→を表示するチェック
     }
 
     void BlockCheck()

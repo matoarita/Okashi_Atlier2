@@ -1193,6 +1193,11 @@ public class Compound_Check : MonoBehaviour {
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
                 (float)(magicskill_database.magicskill_lists[itemID_2].success_rate * 0.01);
 
+                //魔法の場合、一度に作る個数が増えるほど、確率が10%ほど下がる
+                _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * 0.1);
+
+                //Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);
+
                 inputcount = 2;
             }
             else
@@ -1206,6 +1211,10 @@ public class Compound_Check : MonoBehaviour {
                 _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
                 (float)(magicskill_database.magicskill_lists[itemID_2].success_rate * 0.01) *
                 database.items[itemID_3].Ex_Probability;
+
+
+                //魔法の場合、一度に作る個数が増えるほど、確率が10%ほど下がる
+                _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * 0.1);
 
                 inputcount = 3;
             }
@@ -1498,7 +1507,10 @@ public class Compound_Check : MonoBehaviour {
                 }
                 else
                 {
-                    kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+                    //トッピングは100％成功なので、exp_Controller._success_judge_flag や exp_Controller._success_rateの設定は不要　exp_Controllerで直接指定してる
+                    _success_rate = 100f;                    
+                    kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //ふつうにトッピングするときは、100%成功
+
                 }
             }
             else
@@ -1675,7 +1687,7 @@ public class Compound_Check : MonoBehaviour {
     public int Kakuritsu_Keisan(int _compID)
     {
         _buf_kakuritsu = 0;
-        _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan();
+        _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan(databaseCompo.compoitems[_compID].cmpitemID_result); //にいちゃん・ヒカリが作るとき共通でバフかかる
         databaseCompo.RecipiCount_database();
        
         

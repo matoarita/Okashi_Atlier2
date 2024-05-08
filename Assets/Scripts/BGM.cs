@@ -252,7 +252,8 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋
 
-                                _send_clip = sound1000;
+                                //_send_clip = sound1000;
+                                _send_clip = sound43;
                                 break;
 
                             case "Or_Hiroba_Autumn_MainStreet": //秋エリア　メインストリート
@@ -323,6 +324,21 @@ public class BGM : MonoBehaviour {
                             case "Or_Hiroba_Winter_PatissierHouseMae": //冬のエリア入口から奥の広場通り
 
                                 _send_clip = sound44;
+                                break;
+
+                            case "Or_Hiroba_MainGate_Street": //正門前ストリート
+
+                                _send_clip = sound41;
+                                break;
+
+                            case "Or_Hiroba_MainGate_Street2_hiroba": //お菓子街道
+
+                                _send_clip = sound41;
+                                break;
+
+                            case "Or_Hiroba_MainGate_Entrance": //正門前ゲート
+
+                                _send_clip = sound23;
                                 break;
 
                             case "Or_Hiroba_Catsle_Garden": //城エリア　大通り前庭

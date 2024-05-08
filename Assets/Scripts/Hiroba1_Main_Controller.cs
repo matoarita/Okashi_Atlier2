@@ -510,9 +510,24 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active161();
                     break;
 
+                case "Or_Hiroba_MainGate_Street":
+
+                    On_Active06();
+                    break;
+
+                case "Or_Hiroba_MainGate_Street2_hiroba":
+
+                    On_Active200();
+                    break;
+
+                case "Or_Hiroba_MainGate_Entrance":
+
+                    On_Active201();
+                    break;
+
                 case "Or_Hiroba_Catsle_Garden":
 
-                    On_Active11();
+                    On_Active301();
                     break;
 
                 default:
@@ -729,6 +744,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active160();
                     break;
 
+                case "Or_Hiroba_MainGate_Street":
+
+                    On_Active201();
+                    break;
+
+                case "Or_Hiroba_MainGate_Street2_hiroba":
+
+                    On_Active202();
+                    break;
+
+                case "Or_Hiroba_MainGate_Entrance":
+
+                    On_StationActive01();
+                    break;
+
                 case "Or_Hiroba_Catsle_Garden":
 
                     On_Active06();
@@ -736,7 +766,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Catsle_MainStreet":
 
-                    On_Active10();
+                    On_Active300();
                     break;
 
                 default:
@@ -910,7 +940,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             {
                 case "Or_Hiroba_CentralPark": //中央噴水
 
-                    On_Active04();
+                    On_Active200();
                     break;
 
                 default:
@@ -932,7 +962,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             {
                 case "Or_Hiroba_CentralPark": //中央噴水
 
-                    On_Active10();
+                    On_Active300();
                     break;
 
                 default:
@@ -1163,25 +1193,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    void On_Active10()
-    {
-        //_text.text = "城エリア　手前　庭へ移動";
-
-        //GameMgr.Scene_back_home = true;
-        //メインシーン読み込み
-        GameMgr.SceneSelectNum = 500;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
-    }
-
-    void On_Active11()
-    {
-        //_text.text = "城エリア 大通りへ移動";
-
-        //GameMgr.Scene_back_home = true;
-        //メインシーン読み込み
-        GameMgr.SceneSelectNum = 501;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
-    }
+    
 
     void On_Active50()
     {
@@ -1380,6 +1392,56 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 321;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active200()
+    {
+        //_text.text = "正門前ストリート　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 400;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active201()
+    {
+        //_text.text = "正門前ストリート　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 401;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active202()
+    {
+        //_text.text = "正門前ストリート　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 402;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active300()
+    {
+        //_text.text = "城エリア　手前　庭へ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //メインシーン読み込み
+        GameMgr.SceneSelectNum = 500;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active301()
+    {
+        //_text.text = "城エリア 大通りへ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //メインシーン読み込み
+        GameMgr.SceneSelectNum = 501;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -1597,6 +1659,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
         FadeManager.Instance.LoadScene("Or_NPC_Catsle", GameMgr.SceneFadeTime);
+    }
+
+    void On_StationActive01()
+    {
+        //_text.text = "城へ入る";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 100;
+        FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
     }
 
     void On_BackHomeActive01()
@@ -2408,6 +2480,39 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、星パティシエの家の前のようだ。";
+
+                break;
+
+            case "Or_Hiroba_MainGate_Street": //正門前ストリート
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_400").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、正門前のストリートのようだ。";
+
+                break;
+
+            case "Or_Hiroba_MainGate_Street2_hiroba": //正門前露店通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_401").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、正門前の露店通りのようだ。";
+
+                break;
+
+            case "Or_Hiroba_MainGate_Entrance": //正門前ゲート
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_402").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、正門前のゲートだ。";
 
                 break;
 

@@ -455,116 +455,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                     case 21: //魔法使用時のアイテムリスト　魔法に応じて表示を切り替える                    
 
-                        switch (GameMgr.UseMagicSkill)
-                        {
-                            case "Freezing_Spell":
-
-                                _lv = magicskill_database.skillName_SearchLearnLevel("Freezing_Spell");
-
-                                if (_lv >= 1) //1のときはアイス水溶液のみ
-                                {
-                                    if (check_itemType_subB == "a_AppaleiliceCream")
-                                    {
-                                        itemlist_hyouji_Check();
-                                    }
-                                }
-                                if (_lv >= 2) //水・ミルク系全般
-                                {
-                                    if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilChocolateBar" || 
-                                        check_itemType_subB == "a_AppaleilJelly" || 
-                                        check_itemType_sub == "Water" || check_itemType_sub == "Milk")
-                                    {
-                                        itemlist_hyouji_Check();
-                                    }
-                                }
-                                if (_lv >= 3) //くだもの
-                                {
-                                    if (check_itemType_sub == "Fruits")
-                                    {
-                                        itemlist_hyouji_Check();
-                                    }
-                                }
-                                if (_lv >= 4) //おはな
-                                {
-                                    if (check_itemType_sub == "Flower")
-                                    {
-                                        itemlist_hyouji_Check();
-                                    }
-                                }
-                                if (_lv >= 5) //お菓子全て
-                                {
-                                    if (check_itemType == "Okashi")
-                                    {
-                                        if (check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Bread")
-                                        {
-                                            itemlist_hyouji_Check();
-                                        }
-                                    }
-                                }
-
-                                break;
-
-                            case "Luminous_Suger":
-
-                                if (check_itemType_sub == "Suger")
-                                {
-                                    itemlist_hyouji_Check();
-                                }
-                                break;
-
-                            case "Luminous_Fruits":
-
-                                if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
-                                {
-                                    if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
-                                    {
-                                        itemlist_hyouji_Check();
-                                    }
-                                }
-                                break;
-
-                            case "Bake_Beans":
-
-                                if (check_itemType_subB == "a_Cacao" || check_itemType_subB == "a_CoffeeBeans")
-                                {
-                                    itemlist_hyouji_Check();
-                                }
-                                break;
-
-                            case "Removing_Shells":
-
-                                if (check_itemType_subB == "a_CacaoRoasted")
-                                {
-                                    itemlist_hyouji_Check();
-                                }
-                                break;
-
-                            case "Chocolate_Tempering":
-
-                                if (check_itemType_subB == "a_CacaoMass")
-                                {
-                                    itemlist_hyouji_Check();
-                                }
-                                break;
-
-                            case "Wind_Twister":
-
-                                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
-                                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
-                                {
-                                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
-                                    {
-                                        itemlist_hyouji_Check();
-                                    }
-
-                                }
-                                break;
-
-                            default: //例外処理　通常ここを通ることはない
-                                
-                                break;
-                        }
-                        
+                        MagicItemListHyouji();
+                                              
 
                         break;
                 }
@@ -998,6 +890,167 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             reset_and_DrawView();
         }
     }
+
+    void MagicItemListHyouji()
+    {
+
+        switch (GameMgr.UseMagicSkill)
+        {
+            
+            case "Bake_Beans":
+
+                if (check_itemType_subB == "a_Cacao" || check_itemType_subB == "a_CoffeeBeans")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Removing_Shells":
+
+                if (check_itemType_subB == "a_CacaoRoasted")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Chocolate_Tempering":
+
+                if (check_itemType_subB == "a_CacaoMass")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Freezing_Spell":
+
+                _lv = magicskill_database.skillName_SearchLearnLevel("Freezing_Spell");
+
+                if (_lv >= 1) //1のときはアイス水溶液のみ
+                {
+                    if (check_itemType_subB == "a_AppaleiliceCream")
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+                if (_lv >= 2) //水・ミルク系全般
+                {
+                    if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilChocolateBar" ||
+                        check_itemType_subB == "a_AppaleilJelly" ||
+                        check_itemType_sub == "Water" || check_itemType_sub == "Milk")
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+                if (_lv >= 3) //くだもの
+                {
+                    if (check_itemType_sub == "Fruits")
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+                if (_lv >= 4) //おはな
+                {
+                    if (check_itemType_sub == "Flower")
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+                if (_lv >= 5) //お菓子全て
+                {
+                    if (check_itemType == "Okashi")
+                    {
+                        if (check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Bread")
+                        {
+                            itemlist_hyouji_Check();
+                        }
+                    }
+                }
+
+                break;
+
+            case "SugerPot":
+
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Cookie_SecondBake":
+
+                if (check_itemType == "Okashi")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Luminous_Suger":
+
+                if (check_itemType_sub == "Suger")
+                {
+                    if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+                break;
+
+            case "Luminous_Fruits":
+
+                if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
+                {
+                    if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+                break;
+
+            case "Buttelfy_illumination":
+
+                if (check_itemType == "Okashi")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Wind_Ark":
+
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Wind_Twister":
+
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            default: //例外処理　通常ここを通ることはないが、上で未登録のスキルはここを通る
+
+                break;
+        }
+    }
+
 
     //一時的に全てのアイテムを触れなくする。
     public void Offinteract()

@@ -91,7 +91,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
                 SettingBGPanel("Map102"); //Map〇〇のリスト番号を指定
                 break;
 
-            case 103: //夏エリア  メインストリート
+            case 103: //夏エリア  メインストリート　ショップ前
 
                 GameMgr.Scene_Name = "Or_Hiroba_Summer_MainStreet_Shop";
                 SettingBGPanel("Map103"); //Map〇〇のリスト番号を指定
@@ -217,6 +217,27 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_Hiroba_Winter_PatissierHouseMae";
                 SettingBGPanel("Map321"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 400: //正門前ストリート
+
+                GameMgr.Scene_Name = "Or_Hiroba_MainGate_Street";
+                SettingBGPanel("Map400"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 401: //正門前ストリート２　お菓子街道　パティシエたちの屋台や魔法のお菓子がいっぱいある
+
+                GameMgr.Scene_Name = "Or_Hiroba_MainGate_Street2_hiroba";
+                SettingBGPanel("Map401"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 402: //正門前ゲート
+
+                GameMgr.Scene_Name = "Or_Hiroba_MainGate_Entrance";
+                SettingBGPanel("Map402"); //Map〇〇のリスト番号を指定
 
                 break;
 

@@ -559,6 +559,8 @@ GameObject:
   - component: {fileID: 114922866302546828}
   - component: {fileID: 223322538564631488}
   - component: {fileID: 114305519071202800}
+  - component: {fileID: 114743563904442072}
+  - component: {fileID: 225063936181762350}
   m_Layer: 0
   m_Name: MagicSkillList_ScrollView
   m_TagString: MagicSkillList_ScrollView
@@ -3775,6 +3777,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114743563904442072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1411166545274808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57100a3cc6a17d4aa030b712aa239b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114758763860189494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6537,3 +6550,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225063936181762350
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1411166545274808}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
