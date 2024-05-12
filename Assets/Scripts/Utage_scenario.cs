@@ -3363,6 +3363,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Hiroba_Or_flower";
                 break;
 
+            case 1200: //OrNPC白い布
+
+                scenarioLabel = "Hiroba_Or_NPC01";
+                break;
+
             case 2000: //Orヒカリ広場イベント　通れないとかも含む
 
                 scenarioLabel = "Hiroba_Or_Hikari";

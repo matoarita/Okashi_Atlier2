@@ -430,6 +430,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_ShopActive02();
                     break;
 
+                case "Or_Hiroba_Summer_MainStreet_Gondora":
+
+                    On_Active70();
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_Map":
 
                     On_Active71();
@@ -443,6 +448,31 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Summer_ThemePark_StreetA":
 
                     On_NPC_MagicActive02();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMae":
+
+                    On_Active76();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumEntrance":
+
+                    On_Active77();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMainHall":
+
+                    On_Active78();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMain2F":
+
+                    On_Active80();
+                    break;
+
+                case "Or_Hiroba_Autumn_Entrance":
+
+                    On_Active106();
                     break;
 
                 case "Or_Hiroba_Autumn_Entrance_bridge":
@@ -468,6 +498,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Autumn_UraStreet2":
 
                     On_NPC_MagicActive03();
+                    break;
+
+                case "Or_Hiroba_Autumn_Riverside":
+
+                    On_Active100();
                     break;
 
                 case "Or_Hiroba_Winter_Entrance":
@@ -572,6 +607,31 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active52();
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_Enter":
+
+                    On_Active73();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                    On_Active75();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMainHall":
+
+                    On_Active79();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMain2F":
+
+                    On_BarActive02();
+                    break;
+
+                case "Or_Hiroba_Autumn_Entrance":
+
+                    On_Active1001();
+                    break;
+
                 case "Or_Hiroba_Winter_MainHiroba":
 
                     On_Active160();
@@ -644,9 +704,19 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active51();
                     break;
 
-                case "Or_Hiroba_Summer_ThemePark_Map":
+                case "Or_Hiroba_Summer_MainStreet_Oku":
 
                     On_Active51();
+                    break;
+
+                case "Or_Hiroba_Summer_MainStreet_Gondora":
+
+                    On_Active53();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_Map":
+
+                    On_Active54();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_Enter":
@@ -659,19 +729,59 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active71();
                     break;
 
-                case "Or_Hiroba_Autumn_Entrance":
+                case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
 
-                    On_Active06();
+                    On_Active71();
                     break;
 
-                case "Or_Hiroba_Autumn_Entrance_":
+                case "Or_Hiroba_Summer_ThemePark_KanranShaMae":
+
+                    On_Active73();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMae":
+
+                    On_Active73();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumEntrance":
+
+                    On_Active75();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMainHall":
+
+                    On_Active76();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMain2F":
+
+                    On_Active77();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumMiniHall":
+
+                    On_Active77();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumBigWhale":
+
+                    On_Active78();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_Pool":
+
+                    On_Active74();
+                    break;
+
+                case "Or_Hiroba_Autumn_Entrance":
 
                     On_Active06();
                     break;
 
                 case "Or_Hiroba_Autumn_Entrance_bridge":
 
-                    On_Active03();
+                    On_Active106();
                     break;
 
                 case "Or_Hiroba_Autumn_MainStreet":
@@ -697,6 +807,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Autumn_UraStreet2":
 
                     On_Active104();
+                    break;
+
+                case "Or_Hiroba_Autumn_Riverside":
+
+                    On_Active03();
                     break;
 
                 case "Or_Hiroba_Winter_Entrance":
@@ -829,9 +944,29 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active51();
                     break;
 
+                case "Or_Hiroba_Summer_MainStreet":
+
+                    On_Active53();
+                    break;
+
+                case "Or_Hiroba_Summer_MainStreet_Oku":
+
+                    On_Active54();
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_Enter":
 
                     On_Active72();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                    On_Active74();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_KanranShaMae":
+
+                    On_Active85();
                     break;
 
                 case "Or_Hiroba_Autumn_MainStreet":
@@ -1225,6 +1360,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    void On_Active53()
+    {
+        //_text.text = "夏エリア　メインストリート奥へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 104;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active54()
+    {
+        //_text.text = "夏エリア　メインストリート奥へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 105;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
     void On_Active70()
     {
         //_text.text = "夏エリア遊園地　全体マップへ　移動";
@@ -1252,6 +1407,96 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 152;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active73()
+    {
+        //_text.text = "夏エリア遊園地　観覧車広場へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 153;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active74()
+    {
+        //_text.text = "夏エリア遊園地　観覧車乗り場へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 154;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active75()
+    {
+        //_text.text = "夏エリア遊園地　水族館前へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 155;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active76()
+    {
+        //_text.text = "夏エリア遊園地　水族館入口へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 156;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active77()
+    {
+        //_text.text = "夏エリア遊園地　水族館メイン広場へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 157;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active78()
+    {
+        //_text.text = "夏エリア遊園地　水族館メイン２Fへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 158;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active79()
+    {
+        //_text.text = "夏エリア遊園地　水族館ミニホールへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 159;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active80()
+    {
+        //_text.text = "夏エリア遊園地　水族館大水槽へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 160;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active85()
+    {
+        //_text.text = "夏エリア遊園地　プールへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 170;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -1312,6 +1557,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 206;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active106()
+    {
+        //_text.text = "秋エリア　メイプル大橋前　川のほとりへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 207;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -1753,38 +2008,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_Active1001()
     {
-        //噴水押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 1; //
+        //NPC白い布　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1200; //
 
-        //イベント発生フラグをチェック
-        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-        {
-            case 40: //ドーナツイベント時
-
-                if (!GameMgr.hiroba_event_end[0])
-                {
-                    sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                    bgm_change_flag = true;
-                    GameMgr.hiroba_event_ID = 1040;
-
-                    //MenuWindowExpand();
-                }
-                else
-                {
-                    GameMgr.hiroba_event_ID = 1041;
-                }
-                break;
-
-            case 50:
-
-                GameMgr.hiroba_event_ID = 1050;
-                break;
-
-            default:
-
-                GameMgr.hiroba_event_ID = 1000;
-                break;
-        }
+        GameMgr.hiroba_event_ID = 0;
+        //BGMかえる
+        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        bgm_change_flag = true;
 
         EventReadingStart();
 
@@ -1917,7 +2147,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //お花屋さん押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1010; //
 
-        GameMgr.hiroba_event_ID = 140000;
+        GameMgr.hiroba_event_ID = 0;
 
         /*
         if (GameMgr.Story_Mode == 0)
@@ -2273,6 +2503,28 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 break;
 
+            case "Or_Hiroba_Summer_MainStreet_Oku": //夏エリア　メインストリート奥
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_104").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームスの奥の通りだ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_MainStreet_Gondora": //夏エリア　ゴンドラ乗り場
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_105").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームスのゴンドラ乗り場だ。";
+
+                break;
+
             case "Or_Hiroba_Summer_ThemePark_Map": //夏エリア　遊園地　全体マップ
 
                 //移動用リストオブジェクトの取得
@@ -2303,6 +2555,105 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、サマー・ドリームス遊園地　右の通りだ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba": //夏エリア　遊園地　観覧車広場
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_153").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　観覧車広場だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_KanranShaMae": //夏エリア　遊園地　観覧車乗り場
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_154").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　観覧車乗り場だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumMae": //夏エリア　遊園地　水族館前
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_155").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　水族館前だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumEntrance": //夏エリア　遊園地　水族館入口
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_156").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　水族館入口だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumMainHall": //夏エリア　遊園地　水族館メイン広場
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_157").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　水族館メイン広場のようだ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumMain2F": //夏エリア　遊園地　水族館メイン２F
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_158").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　水族館２階だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumMiniHall": //夏エリア　遊園地　水族館ミニホール
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_159").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　水族館ミニホールだ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumBigWhale": //夏エリア　遊園地　水族館　大水槽
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_160").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　水族館大水槽だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Pool": //夏エリア　遊園地　プール
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_170").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地のプールだ。";
 
                 break;
 
@@ -2380,6 +2731,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、オータム・リーブス裏通りのさらに奥だ。";
+
+                break;
+
+            case "Or_Hiroba_Autumn_Riverside": //秋エリア　川のほとり
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_207").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オータム・リーブスの川のようだ。";
 
                 break;
 

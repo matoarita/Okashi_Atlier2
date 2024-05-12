@@ -225,7 +225,17 @@ public class BGM : MonoBehaviour {
                                 _send_clip = sound49;
                                 break;
 
-                            case "Or_Hiroba_Summer_MainStreet_Shop": //夏のエリア　メインストリート
+                            case "Or_Hiroba_Summer_MainStreet_Shop": //夏のエリア　ショップ前
+
+                                _send_clip = sound49;
+                                break;
+
+                            case "Or_Hiroba_Summer_MainStreet_Oku": //夏のエリア　メイン奥
+
+                                _send_clip = sound49;
+                                break;
+
+                            case "Or_Hiroba_Summer_MainStreet_Gondora": //夏のエリア　ゴンドラ乗り場
 
                                 _send_clip = sound49;
                                 break;
@@ -245,6 +255,51 @@ public class BGM : MonoBehaviour {
                                 _send_clip = sound45;
                                 break;
 
+                            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba": //夏エリア　観覧車広場
+
+                                _send_clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_KanranShaMae": //夏エリア  遊園地　観覧車乗り場
+
+                                _send_clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumMae": //夏エリア  遊園地　水族館前
+
+                                _send_clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumEntrance": //夏エリア  遊園地　水族館入口
+
+                                _send_clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumMainHall": //夏エリア  遊園地　水族館メイン広場
+
+                                _send_clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumMain2F": //夏エリア  遊園地　水族館メイン2F
+
+                                _send_clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumMiniHall": //夏エリア  遊園地　水族館ミニホール
+
+                                _send_clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumBigWhale": //夏エリア  遊園地　水族館　大水槽
+
+                                _send_clip = sound45;
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_Pool": //夏エリア  プール
+
+                                _send_clip = sound45;
+                                break;
+
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口
 
                                 _send_clip = sound43;
@@ -252,8 +307,8 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋
 
-                                //_send_clip = sound1000;
-                                _send_clip = sound43;
+                                _send_clip = sound1000;
+                                //_send_clip = sound43;
                                 break;
 
                             case "Or_Hiroba_Autumn_MainStreet": //秋エリア　メインストリート
@@ -277,6 +332,11 @@ public class BGM : MonoBehaviour {
                                 break;
 
                             case "Or_Hiroba_Autumn_UraStreet2": //秋エリア　裏通り奥
+
+                                _send_clip = sound43;
+                                break;
+
+                            case "Or_Hiroba_Autumn_Riverside": //秋エリア　橋前の川のほとり
 
                                 _send_clip = sound43;
                                 break;

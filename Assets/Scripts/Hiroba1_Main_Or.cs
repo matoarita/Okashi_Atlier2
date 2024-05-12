@@ -97,6 +97,18 @@ public class Hiroba1_Main_Or : MonoBehaviour
                 SettingBGPanel("Map103"); //Map〇〇のリスト番号を指定
                 break;
 
+            case 104: //夏エリア  メインストリート2　奥
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_MainStreet_Oku";
+                SettingBGPanel("Map104"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 105: //夏エリア  メインストリート3　ゴンドラ乗り場前
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_MainStreet_Gondora";
+                SettingBGPanel("Map105"); //Map〇〇のリスト番号を指定
+                break;
+
             case 150: //夏エリア  遊園地入口全体マップ
 
                 GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_Map";
@@ -113,6 +125,60 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_StreetA";
                 SettingBGPanel("Map152"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 153: //夏エリア  遊園地　観覧車広場
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_KanranShaHiroba";
+                SettingBGPanel("Map153"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 154: //夏エリア  遊園地　観覧車乗り場
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_KanranShaMae";
+                SettingBGPanel("Map154"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 155: //夏エリア  遊園地　水族館前
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_AquariumMae";
+                SettingBGPanel("Map155"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 156: //夏エリア  遊園地　水族館入口
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_AquariumEntrance";
+                SettingBGPanel("Map156"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 157: //夏エリア  遊園地　水族館メイン広場
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_AquariumMainHall";
+                SettingBGPanel("Map157"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 158: //夏エリア  遊園地　水族館メイン2F
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_AquariumMain2F";
+                SettingBGPanel("Map158"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 159: //夏エリア  遊園地　水族館ミニホール
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_AquariumMiniHall";
+                SettingBGPanel("Map159"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 160: //夏エリア  遊園地　水族館　大水槽
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_AquariumBigWhale";
+                SettingBGPanel("Map160"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 170: //夏エリア  遊園地　プール
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_Pool";
+                SettingBGPanel("Map170"); //Map〇〇のリスト番号を指定
                 break;
 
             case 200: //秋エリア
@@ -155,6 +221,12 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_Hiroba_Autumn_UraStreet2";
                 SettingBGPanel("Map206"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 207: //秋エリア 途中の川のほとり
+
+                GameMgr.Scene_Name = "Or_Hiroba_Autumn_Riverside";
+                SettingBGPanel("Map207"); //Map〇〇のリスト番号を指定
                 break;
 
             case 300: //冬エリア　入口
