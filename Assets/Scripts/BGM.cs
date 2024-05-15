@@ -6,6 +6,9 @@ using DG.Tweening;
 
 public class BGM : MonoBehaviour {
 
+    //BGMのAudioSourceの役割について
+    //_bgm[0]がシーンのメインBGM、[1]がメインでは主に調合シーン用のBGMとして裏で鳴らしている設定　２では使わないかも。
+    //[2]が、[0][1]で被らないように、クエストクリア時の音を鳴らす用。
 
     private BGMController bgmController;
 
@@ -61,9 +64,18 @@ public class BGM : MonoBehaviour {
     public AudioClip sound50;  //魔法の先生のテーマ02
     public AudioClip sound51;  //秘密の花園テーマ
     public AudioClip sound52;  //「ブルートパーズの花畑」テーマ
+    public AudioClip sound53;  //水族館テーマ
     public AudioClip sound1000;  //空のサウンド
 
+    //環境音リスト
+    public AudioClip Ambient1; //野鳥ののどかな声
+    public AudioClip Ambient2; //森の中の虫の鳴き声
+    public AudioClip Ambient3; //川のせせらぎ音１
+    public AudioClip Ambient4; //川のせせらぎ音２
+
+
     private AudioClip _send_clip;
+    private AudioClip _send_clip_ambient;
 
     private int i;
 
@@ -85,12 +97,14 @@ public class BGM : MonoBehaviour {
 
         bgmController.BGMPlay(0, _send_clip);
         bgmController.BGMPlay(1, sound2);
-
+        bgmController.AmbientPlay(_send_clip_ambient);
     }
 
     //各シーンのBGM選択
     public void PlaySub()
     {
+        _send_clip_ambient = sound1000; //指定がなければ、環境音はデフォルトはoff
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "001_Title":
@@ -158,17 +172,63 @@ public class BGM : MonoBehaviour {
                 {
                     case 11: //アトリエ前
 
-                        _send_clip = sound41;
+                        //_send_clip = sound41;
+                        _send_clip = Ambient2; //疑似的にメインBGMを環境音に。
+                        _send_clip_ambient = Ambient1;
                         break;
 
                     case 20: //オランジーナショップ
 
-                        _send_clip = sound27;
+                        switch (GameMgr.Scene_Name)
+                        {
+                            case "Or_Shop_A1":
+
+                                _send_clip = sound27;
+                                break;
+
+                            case "Or_Shop_B1":
+
+                                _send_clip = sound27;
+                                break;
+
+                            case "Or_Shop_C1":
+
+                                _send_clip = sound27;
+                                break;
+
+                            case "Or_Shop_D1":
+
+                                _send_clip = sound27;
+                                break;
+                        }
+                        
                         break;
 
                     case 30: //オランジーナ酒場
 
-                        _send_clip = sound29;
+                        switch (GameMgr.Scene_Name)
+                        {
+                            case "Or_Bar_A1":
+
+                                _send_clip = sound29;
+                                break;
+
+                            case "Or_Bar_B1":
+
+                                _send_clip = sound29;
+                                break;
+
+                            case "Or_Bar_C1":
+
+                                _send_clip = sound29;
+                                break;
+
+                            case "Or_Bar_D1":
+
+                                _send_clip = sound29;
+                                break;
+                        }
+                                
                         break;
 
                     case 40: //オランジーナファーム
@@ -272,27 +332,27 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Summer_ThemePark_AquariumEntrance": //夏エリア  遊園地　水族館入口
 
-                                _send_clip = sound45;
+                                _send_clip = sound53;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_AquariumMainHall": //夏エリア  遊園地　水族館メイン広場
 
-                                _send_clip = sound45;
+                                _send_clip = sound53;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_AquariumMain2F": //夏エリア  遊園地　水族館メイン2F
 
-                                _send_clip = sound45;
+                                _send_clip = sound53;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_AquariumMiniHall": //夏エリア  遊園地　水族館ミニホール
 
-                                _send_clip = sound45;
+                                _send_clip = sound53;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_AquariumBigWhale": //夏エリア  遊園地　水族館　大水槽
 
-                                _send_clip = sound45;
+                                _send_clip = sound53;
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_Pool": //夏エリア  プール
@@ -309,6 +369,7 @@ public class BGM : MonoBehaviour {
 
                                 _send_clip = sound1000;
                                 //_send_clip = sound43;
+                                _send_clip_ambient = Ambient4;
                                 break;
 
                             case "Or_Hiroba_Autumn_MainStreet": //秋エリア　メインストリート
@@ -339,6 +400,7 @@ public class BGM : MonoBehaviour {
                             case "Or_Hiroba_Autumn_Riverside": //秋エリア　橋前の川のほとり
 
                                 _send_clip = sound43;
+                                _send_clip_ambient = Ambient3;
                                 break;
 
                             case "Or_Hiroba_Winter_Entrance": //冬のエリア入口　雪道
@@ -411,6 +473,11 @@ public class BGM : MonoBehaviour {
                                 _send_clip = sound44;
                                 break;
 
+                            case "Or_Hiroba_Catsle_MainEntrance": //城エリア　入口受付
+
+                                _send_clip = sound44;
+                                break;
+
                             default:
 
                                 break;
@@ -471,11 +538,14 @@ public class BGM : MonoBehaviour {
         }
 
         bgmController.BGMPlay(0, _send_clip);
+        bgmController.AmbientPlay(_send_clip_ambient);
         bgmController.MixRateChange(0); //bgm[0]に音を切り替える
     }    
 
     public void PlayContestStartBGM()
     {
+        _send_clip_ambient = sound1000; //指定がなければ、環境音はデフォルトはoff
+
         switch (GameMgr.Scene_Category_Num)
         {
             case 100: //コンテスト系
@@ -507,11 +577,14 @@ public class BGM : MonoBehaviour {
         }
 
         bgmController.BGMRestartPlay(0, _send_clip);
+        bgmController.AmbientPlay(_send_clip_ambient);
         bgmController.MixRateChange(0); //bgm[0]に音を切り替える
     }
 
     void BGMMainChange()
     {
+        _send_clip_ambient = sound1000; //指定がなければ、環境音はデフォルトはoff
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":
@@ -537,6 +610,7 @@ public class BGM : MonoBehaviour {
 
                 //Debug.Log("BGM　オランジーナ調合シーン");
                 _send_clip = sound40;
+                //_send_clip_ambient = Ambient1;
 
                 break;
 
@@ -816,6 +890,7 @@ public class BGM : MonoBehaviour {
         BGMMainChange();
 
         bgmController.BGMRestartPlay(0, _send_clip);
+        bgmController.AmbientPlay(_send_clip_ambient);
         bgmController.MixRateChange(0);
     }
 
@@ -837,12 +912,14 @@ public class BGM : MonoBehaviour {
     {
         bgmController.BGMStop(0);
         bgmController.BGMPlay(0, sound3);
+        bgmController.AmbientStop();
 
     }
 
     public void OnGetMat_MapBGM(int _sound_num)
     {
         bgmController.BGMStop(1);
+        _send_clip_ambient = sound1000; //指定がなければ、環境音はデフォルトはoff
 
         switch (_sound_num)
         {
@@ -898,12 +975,13 @@ public class BGM : MonoBehaviour {
         }
 
         bgmController.BGMRestartPlay(0, _send_clip);
+        bgmController.AmbientPlay(_send_clip_ambient);
         //bgmController.MixRateChange(1);
 
     }
 
 
-    public void OnTutorialBGM()
+    public void OnTutorialBGM() //MixRateChange(1)にすれば、_bgm[0]で鳴ってるメインBGMと環境音[3]は自動で音量オフになる。
     {
         bgmController.BGMStop(1);
         bgmController.BGMPlay(1, sound16);
@@ -914,7 +992,7 @@ public class BGM : MonoBehaviour {
 
     public void OnMainClearResultBGM()
     {
-        bgmController.BGMPlay(2, sound4);
+        bgmController.BGMPlay(2, sound10);
         bgmController.BGMVolume(2);
     }
 
@@ -938,18 +1016,20 @@ public class BGM : MonoBehaviour {
     void EndingBGM_A()
     {
         bgmController.BGMPlay(0, sound1);
-
+        bgmController.AmbientStop();
     }
 
     void EndingBGM_B()
     {
         bgmController.BGMPlay(0, sound2);
+        bgmController.AmbientStop();
     }
 
     //バーで使う用
     public void PlayFanfare1()
     {
         bgmController.BGMStop(0);
+        bgmController.AmbientStop();
         bgmController.BGMPlay(1, sound34);
     }
 
@@ -969,12 +1049,14 @@ public class BGM : MonoBehaviour {
         //Debug.Log("Mute BGM");
         bgmController.BGMMute(0, 0); //2番目が0ならMute
         bgmController.BGMMute(1, 0);
+        bgmController.AmbientMute(0);
     }
 
     public void MuteOFFBGM()
     {
         bgmController.BGMMute(0, 1); //2番目が1ならMuteOFF
         bgmController.BGMMute(1, 1);
+        bgmController.AmbientMute(1);
     }
 
     public void FadeOutBGM(float _time)

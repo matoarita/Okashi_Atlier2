@@ -29,6 +29,10 @@ public class OptionPanel : MonoBehaviour {
     private Text SEvolume_paramtext;
     private int SEvolume_param;
 
+    private Slider Ambientvolume_Slider;
+    private Text Ambientvolume_paramtext;
+    private int Ambientvolume_param;
+
     private Text GameSpeed_paramtext;
     private Text music_paramtext;
 
@@ -118,6 +122,9 @@ public class OptionPanel : MonoBehaviour {
 
         SEvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SoundPanel/SEVolumeSliderPanel/SEVolumeSlider").GetComponent<Slider>();
         SEvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SoundPanel/SEVolumeSliderPanel/SEVolumeSlider/Param").GetComponent<Text>();
+
+        Ambientvolume_Slider = this.transform.Find("OptionList/Viewport/Content/SoundPanel/AmbientVolumeSliderPanel/AmbientVolumeSlider").GetComponent<Slider>();
+        Ambientvolume_paramtext = this.transform.Find("OptionList/Viewport/Content/SoundPanel/AmbientVolumeSliderPanel/AmbientVolumeSlider/Param").GetComponent<Text>();
 
         Autosave_on_toggle = this.transform.Find("OptionList/Viewport/Content/AutoSaveOn/AutoSaveToggle").GetComponent<Toggle>();
         Autosave_text_obj= this.transform.Find("OptionList/Viewport/Content/AutoSaveOn/autosave_text").gameObject;
@@ -326,6 +333,10 @@ public class OptionPanel : MonoBehaviour {
         SEvolume_param = (int)(GameMgr.SeVolumeParam * 100);
         SEvolume_Slider.value = (int)(GameMgr.SeVolumeParam * 100);
         SEvolume_paramtext.text = SEvolume_param.ToString();
+
+        Ambientvolume_param = (int)(GameMgr.AmbientVolumeParam * 100);
+        Ambientvolume_Slider.value = (int)(GameMgr.AmbientVolumeParam * 100);
+        Ambientvolume_paramtext.text = Ambientvolume_param.ToString();
     }
 
     public void OnMasterVolume()
@@ -365,6 +376,17 @@ public class OptionPanel : MonoBehaviour {
         //ステージクリアボタンの音量は、「StageClear_Button」スクリプトで直接調整
 
         Debug.Log("GameMgr.SeVolumeParam: " + GameMgr.SeVolumeParam);
+    }
+
+    public void OnAmbientVolume()
+    {
+        //初期値 0~200 100
+        Ambientvolume_param = (int)(Ambientvolume_Slider.value);
+        Ambientvolume_paramtext.text = Ambientvolume_param.ToString();
+
+        //反映
+        GameMgr.AmbientVolumeParam = Ambientvolume_Slider.value / 100;
+        Debug.Log("GameMgr.AmbientVolumeParam: " + GameMgr.AmbientVolumeParam);
     }
 
     public void SelectBGM(int _id)

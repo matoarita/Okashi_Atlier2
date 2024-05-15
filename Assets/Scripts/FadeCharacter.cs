@@ -39,19 +39,25 @@ public class FadeCharacter : MonoBehaviour {
 
     void InitSetting()
     {
-        CharacterImg_obj = this.transform.Find("CharacterImage").gameObject;
+        /*CharacterImg_obj = this.transform.Find("CharacterImage/Image").gameObject;
 
         red = 1;//this.gameObject.GetComponent<SpriteRenderer>().color.r;
         green = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.g;
         blue = 1; // this.gameObject.GetComponent<SpriteRenderer>().color.b;
-        alfa = CharacterImg_obj.gameObject.GetComponent<SpriteRenderer>().color.a;
+        alfa = CharacterImg_obj.gameObject.GetComponent<SpriteRenderer>().color.a;*/
+
+        red = 1;
+        green = 1;
+        blue = 1;
+        alfa = 1;
+
 
         CharacterImgList_obj.Clear();
         alfaList.Clear();
         foreach (Transform obj in this.transform.Find("CharacterImage").transform)
         {
-            CharacterImgList_obj.Add(obj.gameObject);
-            alfaList.Add(obj.gameObject.GetComponent<SpriteRenderer>().color.a);
+            CharacterImgList_obj.Add(obj.transform.Find("Image").gameObject); //Imageを参照してるのでCharacterImage以下のImageは、使わなくても削除しちゃダメ
+            alfaList.Add(obj.transform.Find("Image").gameObject.GetComponent<SpriteRenderer>().color.a);
         }
     }
 
@@ -66,7 +72,7 @@ public class FadeCharacter : MonoBehaviour {
                 case 0: //255 -> 0
 
                     alfa -= _speed;
-                    CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
+                    //CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
 
                     for (i=0; i < CharacterImgList_obj.Count; i++)
                     {
@@ -82,7 +88,7 @@ public class FadeCharacter : MonoBehaviour {
                 case 1: //0 -> 255
 
                     alfa += _speed;
-                    CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
+                    //CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, alfa);
 
                     for (i = 0; i < CharacterImgList_obj.Count; i++)
                     {
@@ -120,7 +126,7 @@ public class FadeCharacter : MonoBehaviour {
     public void SetOff() //画像を透明にし、なくす。
     {
         InitSetting();
-        CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 0);
+        //CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 0);
         for (i = 0; i < CharacterImgList_obj.Count; i++)
         {
             CharacterImgList_obj[i].GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 0);
@@ -130,7 +136,7 @@ public class FadeCharacter : MonoBehaviour {
     public void SetOn() //画像を不透明度=255にし、表示。
     {
         InitSetting();
-        CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 1);
+        //CharacterImg_obj.GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 1);
         for (i = 0; i < CharacterImgList_obj.Count; i++)
         {
             CharacterImgList_obj[i].GetComponent<SpriteRenderer>().color = new Color(red, green, blue, 1);

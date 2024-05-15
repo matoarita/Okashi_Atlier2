@@ -12,6 +12,8 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
     private List<GameObject> BGImg_List = new List<GameObject>();
     private int i;
 
+    private GameObject CharacterPanel;
+
     // Use this for initialization
     void Start ()
     {
@@ -30,24 +32,37 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
             i++;
         }
 
+        //キャラの設定　複数いる場合
+        CharacterPanel = GameObject.FindWithTag("Character");
+        i = 0;
+        foreach (Transform child in CharacterPanel.transform.Find("CharacterImage").transform)　//
+        {
+            //Debug.Log(child.name);           
+            child.gameObject.SetActive(false);
+            i++;
+        }
+
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //春エリア
 
                 GameMgr.Scene_Name = "Or_EmeraldShop_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
+                SettingCharacterPanel(0);
                 break;
 
             case 10: //夏エリア
 
                 GameMgr.Scene_Name = "Or_EmeraldShop_B1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                SettingCharacterPanel(1);
                 break;
 
             default:
 
                 GameMgr.Scene_Name = "Or_EmeraldShop_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
+                SettingCharacterPanel(0);
                 break;
         }
 
@@ -64,7 +79,33 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
     {
         emeraldmain_Controller.UpdateEmeraldScene();
     }
-   
+
+    void SettingCharacterPanel(int _num)
+    {
+        switch (_num)
+        {
+            case 0: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage01").gameObject.SetActive(true);
+                break;
+
+            case 1: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage02").gameObject.SetActive(true);
+                break;
+
+            case 2: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage03").gameObject.SetActive(true);
+                break;
+
+            case 3: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage04").gameObject.SetActive(true);
+                break;
+        }
+    }
+
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

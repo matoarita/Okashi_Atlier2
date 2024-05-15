@@ -1,7 +1,7 @@
 ・Ambience_01		audiostock_588827				コンテスト会場の野外音<宴で使用>
 ・Ambience_02		audiostock_546092_sample			コンテスト会場の野外音２<宴で使用>
 ・Ambience_03		audiostock_653282				コンテスト会場内の雑音<宴で使用>
-・Ambience_04		VSQSE_951_river_15				川・湖のせせらぎ
+
 ・Ambience_05		audiostock_58814				きらきらぽんぽの音<宴で使用>
 ・Ambience_06		audiostock_170729				雨の音室内
 ・Ambience_07		VSQSE_0651_rain_5				雨の音外<宴で使用>
@@ -17,3 +17,10 @@
 ・Ambience_17		VSQSE_0828_morning_countryside_05		鳥の鳴き声　雨上がり後<宴で使用>
 ・Ambience_18		audiostock_532849				雨上がり後ぴちゃぴちゃ<宴で使用>
 ・Ambience_19		audiostock_1089295				野鳥の春声<宴で使用>
+
+マップで使う環境音は「Map_Ambience」フォルダに入れる。内容は同じでも、宴とデータは共有しないようにする。
+
+・MapAmbience_01	audiostock_1089295				野鳥の春声(Ambience_19と内容同じ)
+・MapAmbience_02	VSQSE_0967_singing_of_insect_08			森の中で虫の鳴き声
+・MapAmbience_03	VSQSE_951_river_15				川・湖のせせらぎ
+・MapAmbience_04	VSQSE_0649_river_02				川・湖のせせらぎ２

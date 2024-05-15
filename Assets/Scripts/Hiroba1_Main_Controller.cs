@@ -884,6 +884,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active300();
                     break;
 
+                case "Or_Hiroba_Catsle_MainEntrance":
+
+                    On_Active301();                    
+                    break;
+
                 default:
 
                     On_Active1002();
@@ -1011,9 +1016,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Catsle_MainStreet":
 
-                    On_NPC_CatsleActive01();
+                    On_Active302();
                     break;
 
+                case "Or_Hiroba_Catsle_MainEntrance":
+
+                    On_NPC_CatsleActive01();
+                    break;
+                
                 default:
 
                     On_Active1003();
@@ -1700,6 +1710,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    void On_Active302()
+    {
+        //_text.text = "城エリア 大通りへ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //メインシーン読み込み
+        GameMgr.SceneSelectNum = 502;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
     void On_MapActive01()
     {
         //_text.text = "ブルートパーズのお花畑へ　移動";
@@ -1860,6 +1880,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //_text.text = "火の魔法の先生の家へ入る";
 
+        //入店の音
+        sc.ShopEnterSound01();
+
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
@@ -1869,6 +1892,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     void On_NPC_MagicActive02()
     {
         //_text.text = "氷の魔法の先生の家へ入る";
+
+        //入店の音
+        sc.ShopEnterSound01();
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
@@ -1880,6 +1906,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //_text.text = "風の魔法の先生の家へ入る";
 
+        //入店の音
+        sc.ShopEnterSound01();
+
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 20;
@@ -1890,6 +1919,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //_text.text = "光の魔法の先生の家へ入る";
 
+        //入店の音
+        sc.ShopEnterSound01();
+
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 30;
@@ -1899,6 +1931,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     void On_NPC_MagicActive05()
     {
         //_text.text = "星の魔法の先生の家へ入る";
+
+        //入店の音
+        sc.ShopEnterSound01();
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
@@ -2897,6 +2932,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、オランジーナ城へ繋がるメインストリートだ。";
+
+                break;
+
+            case "Or_Hiroba_Catsle_MainEntrance": //城エリア　大通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_502").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オランジーナ城の入口受付だ。";
 
                 break;
 

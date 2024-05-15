@@ -15,6 +15,8 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
     private float fade_volume;
     private float _fadedeg;
 
+    private int _ambient_num;
+
     private float _start_val;
 
     private Tween _tw;
@@ -24,11 +26,14 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
     // Use this for initialization
     void Start () {
 
-        this.gameObject.AddComponent<AudioSource>();
-        this.gameObject.AddComponent<AudioSource>();
-        this.gameObject.AddComponent<AudioSource>();
+        this.gameObject.AddComponent<AudioSource>(); //シーンのメインで使うBGMを入れる
+        this.gameObject.AddComponent<AudioSource>(); //調合シーン用のBGMと、酒場クエスト高得点時のファンファーレを入れる
+        this.gameObject.AddComponent<AudioSource>(); //メインクエストクリア時（1の時の）のタンタカターンのBGM用　２では恐らく使わないはずだけど、一応開けとく
+        this.gameObject.AddComponent<AudioSource>(); //環境音を鳴らす用 _bgm[0]と同時に鳴らすかも。
 
-        //使用するAudioSource取得。２つを取得。
+        _ambient_num = 3;
+
+        //使用するAudioSource取得。4つを取得。
         _bgm = GetComponents<AudioSource>();
 
         for (i = 0; i < _bgm.Length; i++) {
@@ -44,7 +49,8 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
     // Update is called once per frame
     void Update () {
 
-        _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
+        _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam; //シーンのメインBGM
+        _bgm[_ambient_num].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.AmbientVolumeParam; //シーンの環境音
 
         switch (SceneManager.GetActiveScene().name)
         {
@@ -164,6 +170,43 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
         }
         
     }
+
+    //環境音を鳴らす　_numは3番で固定
+    public void AmbientPlay(AudioClip _clip)
+    {
+        if (_bgm[_ambient_num].clip == _clip)
+        {
+            //同じBGMがなってる場合は、そのまま鳴らし続ける
+        }
+        else
+        {
+            _bgm[_ambient_num].clip = _clip;
+            _bgm[_ambient_num].Play();
+        }
+    }
+
+    public void AmbientStop()
+    {
+        _bgm[_ambient_num].Stop();
+    }
+
+    public void AmbientMute(int _status)
+    {
+        switch (_status) //MuteかMuteOFFか
+        {
+            case 0:
+
+                _bgm[_ambient_num].mute = true;
+                break;
+
+            case 1:
+
+                _bgm[_ambient_num].mute = false;
+                break;
+        }
+
+    }
+
 
     public void MixRateChange(float _rate)
     {

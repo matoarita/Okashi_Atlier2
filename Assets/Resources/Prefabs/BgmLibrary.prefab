@@ -346,4 +346,9 @@ MonoBehaviour:
   sound50: {fileID: 8300000, guid: 715d757296535a94ba666041e192ab02, type: 3}
   sound51: {fileID: 8300000, guid: 1b4c120cdca750346a364f9551f8639d, type: 3}
   sound52: {fileID: 8300000, guid: f34a77a9ae1df7c4ea324d884949ec03, type: 3}
+  sound53: {fileID: 8300000, guid: 1854dee2755f2554092e45371a05dc87, type: 3}
   sound1000: {fileID: 0}
+  Ambient1: {fileID: 8300000, guid: 22aa78a1a6e88e349860f7432c6b446b, type: 3}
+  Ambient2: {fileID: 8300000, guid: 0b3dc0f79a0f48d4c96b0dc73904637f, type: 3}
+  Ambient3: {fileID: 8300000, guid: d274bf008b6dcbd4cbbae2f738455fd8, type: 3}
+  Ambient4: {fileID: 8300000, guid: ae39730a0b5874f4e9fcfc05ee3bd373, type: 3}

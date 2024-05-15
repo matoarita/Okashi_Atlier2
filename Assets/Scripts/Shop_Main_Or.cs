@@ -13,6 +13,8 @@ public class Shop_Main_Or : MonoBehaviour {
     private List<GameObject> BGImg_List = new List<GameObject>();
     private int i;
 
+    private GameObject CharacterPanel;
+
     // Use this for initialization
     void Start () {
 
@@ -31,36 +33,51 @@ public class Shop_Main_Or : MonoBehaviour {
             i++;
         }
 
-        switch(GameMgr.SceneSelectNum)
+        //キャラの設定　複数いる場合
+        CharacterPanel = GameObject.FindWithTag("Character");
+        i = 0;
+        foreach (Transform child in CharacterPanel.transform.Find("CharacterImage").transform)　//
+        {
+            //Debug.Log(child.name);           
+            child.gameObject.SetActive(false);
+            i++;
+        }
+
+        switch (GameMgr.SceneSelectNum)
         {
             case 0: //春エリア
 
                 GameMgr.Scene_Name = "Or_Shop_A1";
-                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
+                SettingCharacterPanel(0);
                 break;
 
             case 10: //夏エリア
 
                 GameMgr.Scene_Name = "Or_Shop_B1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                SettingCharacterPanel(1);
                 break;
 
             case 20: //秋エリア
 
                 GameMgr.Scene_Name = "Or_Shop_C1";
-                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                BGImagePanel.transform.Find("BG_sprite_3").gameObject.SetActive(true);
+                SettingCharacterPanel(2);
                 break;
 
             case 30: //冬エリア
 
                 GameMgr.Scene_Name = "Or_Shop_D1";
-                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                BGImagePanel.transform.Find("BG_sprite_4").gameObject.SetActive(true);
+                SettingCharacterPanel(3);
                 break;
 
             default:
 
                 GameMgr.Scene_Name = "Or_Shop_A1";
-                BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
+                SettingCharacterPanel(0);
                 break;
         }
 
@@ -78,6 +95,31 @@ public class Shop_Main_Or : MonoBehaviour {
         shopmain_Controller.UpdateShopScene();
     }
 
+    void SettingCharacterPanel(int _num)
+    {
+        switch (_num)
+        {
+            case 0: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage01").gameObject.SetActive(true);
+                break;
+
+            case 1: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage02").gameObject.SetActive(true);
+                break;
+
+            case 2: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage03").gameObject.SetActive(true);
+                break;
+
+            case 3: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage04").gameObject.SetActive(true);
+                break;
+        }
+    }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

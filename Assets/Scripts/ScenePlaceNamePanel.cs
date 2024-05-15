@@ -168,6 +168,12 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Kogarashi Campiello"; //路地裏はカンピエーロになるらしい
                                 break;
 
+                            case "Or_Hiroba_Autumn_Riverside": //秋エリア 途中の川のほとり
+
+                                _text = "黄金色の川のほとり";
+                                _subtext = "Golden RiverSide";
+                                break;
+
                             case "Or_Hiroba_Winter_Entrance": //冬のエリア入口　雪の通り
 
                                 _text = "スノーマンズ・レスト";

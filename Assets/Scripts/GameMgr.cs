@@ -262,6 +262,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float MasterVolumeParam;
     public static float BGMVolumeParam;
     public static float SeVolumeParam;
+    public static float AmbientVolumeParam;
     public static int GameSpeedParam;
 
     public static bool SleepSkipFlag;
@@ -804,6 +805,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MasterVolumeParam = 1.0f;
         BGMVolumeParam = 1.0f;
         SeVolumeParam = 1.0f;
+        AmbientVolumeParam = 1.0f;
 
         //各色の設定
         ColorYellow = "<color=#FDFF80>"; // ゴールドに近いくすんだ黄色 #BA9535  かなり薄い黄色 #FDFF80

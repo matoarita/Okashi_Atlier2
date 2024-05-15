@@ -444,9 +444,7 @@ public class Utage_scenario : MonoBehaviour
                 {
                     //Live2Dモデルの取得
                     ShopInitSetting();
-                    _model = character.transform.Find("puddingsan_Live2D").FindCubismModel();
-                    _renderController = _model.GetComponent<CubismRenderController>();
-                    live2d_animator = _model.GetComponent<Animator>();
+                    
                 }
             }
 
@@ -642,6 +640,44 @@ public class Utage_scenario : MonoBehaviour
     void ShopInitSetting()
     {
         character = GameObject.FindWithTag("Character");
+
+        switch(GameMgr.Scene_Name)
+        {
+            case "Or_Shop_A1":
+
+                _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
+                _renderController = _model.GetComponent<CubismRenderController>();
+                live2d_animator = _model.GetComponent<Animator>();
+                break;
+
+            case "Or_Shop_B1":
+
+                _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
+                _renderController = _model.GetComponent<CubismRenderController>();
+                live2d_animator = _model.GetComponent<Animator>();
+                break;
+
+            case "Or_Shop_C1":
+
+                _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
+                _renderController = _model.GetComponent<CubismRenderController>();
+                live2d_animator = _model.GetComponent<Animator>();
+                break;
+
+            case "Or_Shop_D1":
+
+                _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
+                _renderController = _model.GetComponent<CubismRenderController>();
+                live2d_animator = _model.GetComponent<Animator>();
+                break;
+
+            case "Shop_Grt":
+
+                _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
+                _renderController = _model.GetComponent<CubismRenderController>();
+                live2d_animator = _model.GetComponent<Animator>();
+                break;
+        }
     }
 
     void ContestInitSetting()

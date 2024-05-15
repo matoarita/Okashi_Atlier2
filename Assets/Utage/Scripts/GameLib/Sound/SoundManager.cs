@@ -281,7 +281,7 @@ namespace Utage
 		}
 		public void PlayAmbience(AssetFile file, float volume, bool isLoop, float fadeInTime, float fadeOutTime)
 		{
-			System.Play(IdAmbience, IdAmbience, new SoundData(file, SoundPlayMode.NotPlaySame, volume * GameMgr.MasterVolumeParam, isLoop), fadeInTime, fadeOutTime);
+			System.Play(IdAmbience, IdAmbience, new SoundData(file, SoundPlayMode.NotPlaySame, volume * GameMgr.MasterVolumeParam * GameMgr.AmbientVolumeParam, isLoop), fadeInTime, fadeOutTime);
             //System.Play(IdAmbience, IdAmbience, new SoundData(file, SoundPlayMode.NotPlaySame, volume, isLoop), fadeInTime, fadeOutTime);
         }
 
@@ -292,7 +292,7 @@ namespace Utage
 
 		public void PlayAmbience(AudioClip clip, bool isLoop, float fadeInTime, float fadeOutTime)
 		{
-			System.Play(IdAmbience, IdAmbience, new SoundData(clip, SoundPlayMode.NotPlaySame, DefaultVolume * GameMgr.MasterVolumeParam, isLoop), fadeInTime, fadeOutTime);
+			System.Play(IdAmbience, IdAmbience, new SoundData(clip, SoundPlayMode.NotPlaySame, DefaultVolume * GameMgr.MasterVolumeParam * GameMgr.AmbientVolumeParam, isLoop), fadeInTime, fadeOutTime);
 		}
 		
 		public void StopAmbience()
