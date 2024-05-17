@@ -1027,7 +1027,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 }
 
-                //はじめて衣装装備を買った 70番台～　周回しても、フラグは引継ぎ。二度目以上の発生はない。
+                //はじめて衣装装備を買った 70番台～
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1332,6 +1332,38 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }*/
 
+                //家にNPCが訪問する系のイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //モーセ家にくる
+                    if (PlayerStatus.girl1_Love_lv >= 10) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
+                    {
+                        //random = Random.Range(0, 100);
+                        //Debug.Log("モーセくるイベント　10以下で成功: " + random);
+                        //if (random <= 10)
+                        //{
+                        if (!GameMgr.GirlLoveSubEvent_stage1[160]) //160番～　サブイベントNPC系　フラグ３つか５つずつぐらい余分をとっておく。
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 160;
+                            GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
+                            GameMgr.NPC_event_ON = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            //下は、使うときだけtrueにすればOK
+                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
+                            GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                            GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
+                            GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                        }
+                        //}
+                    }
+                }
+
                 //
                 //コンテストの開催日になった
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -1403,8 +1435,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             //最後のタイミングで、決定したサブイベントの宴を再生
             if (!GameMgr.check_GirlLoveSubEvent_flag) //サブイベント発生した
             {
-                girl1_status.HukidashiFlag = false;
-                GameMgr.ResultComplete_flag = 0; //イベント読み始めたら、調合終了の合図をたてておく。
 
                 //クエスト発生
                 Debug.Log("サブ好感度イベントの発生");
@@ -1420,104 +1450,102 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
-    //SPお菓子とは別で、時間で発生するサブイベント
+    //通常サブイベントとは別で、時間で発生するイベント
     public void GirlLove_SubTimeEventMethod()
     {
         GameMgr.girlloveevent_bunki = 1; //サブイベントの発生のチェック。宴用に分岐。
 
         if (GameMgr.GirlLove_loading)
-        {}
+        { }
         else
         {
             GameMgr.check_GirlLoveTimeEvent_flag = true;
 
-            //お外勝手に遊びにいく　＜エクストラモード＞
-            if (GameMgr.Story_Mode == 0)
+            //お外勝手に遊びにいく
+            if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
             else
             {
-                if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
+                //ヒカリお外へ遊びにいく発生
+                if (!GameMgr.outgirl_Nowprogress)
                 {
-                    //ヒカリお外へ遊びにいく発生
-                    if (!GameMgr.outgirl_Nowprogress)
+                    if (GameMgr.OutGirlSkipFlag) { } //外出スキップON
+                    else
                     {
-                        if (GameMgr.OutGirlSkipFlag) { }　//外出スキップON
-                        else
+                        if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour < 13
+                            && PlayerStatus.girl1_Love_lv >= 10) //9時から12時の間に、サイコロふる
                         {
-                            if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour < 13
-                                && PlayerStatus.girl1_Love_lv >= 6) //9時から12時の間に、サイコロふる
+                            if (GameMgr.outgirl_count <= 0)
                             {
-                                if (GameMgr.outgirl_count <= 0)
-                                {
-                                    GameMgr.outgirl_event_ON = true;
-                                }
-
-                                if (GameMgr.outgirl_event_ON)
-                                {
-                                    random = Random.Range(0, 100);
-                                    Debug.Log("外出イベント　抽選スタート　10以下で成功: " + random);
-                                    Debug.Log("機嫌度player_girl_express_param: " + PlayerStatus.player_girl_express_param);
-
-                                    picnic_exprob = (int)(20f * PlayerStatus.player_girl_express_param * 0.01f); //20%の確率で発生。10~13時　5分ごとに判定
-                                    if (picnic_exprob <= 0)
-                                    {
-                                        picnic_exprob = 0;
-                                    }
-
-                                    if (PlayerStatus.player_girl_expression <= 1) { }
-                                    else
-                                    {
-                                        Debug.Log("picnic_exprob: " + picnic_exprob);
-                                        if (random <= picnic_exprob)
-                                        {
-                                            GameMgr.GirlLoveSubEvent_num = 150;
-                                            GameMgr.GirlLoveSubEvent_stage1[150] = true; //イベント初発生の分をフラグっておく。
-
-                                            GameMgr.outgirl_event_ON = false;
-                                            outGirlCounterReset();//次の外出るイベントまでの日数カウンタ                                       
-
-                                            GameMgr.check_GirlLoveTimeEvent_flag = false;
-
-                                            //GameMgr.Mute_on = true;
-
-                                        }
-                                    }
-                                }
+                                GameMgr.outgirl_event_ON = true;
                             }
-                        }
-                    }
-                    else //すでに外出中　15時ぐらいまでには帰ってくる。もし、帰ってくる前に寝るイベントが発生（お菓子で時間がたつなど）したら、そのときの条件分岐が必要。
-                    {
-                        if (GameMgr.ReadGirlLoveTimeEvent_reading_now) //すでにこのイベント読み中の場合、スキップするように。
-                        { }
-                        else
-                        {
-                            if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 18)
+
+                            if (GameMgr.outgirl_event_ON)
                             {
                                 random = Random.Range(0, 100);
-                                Debug.Log("外出から帰ってくる　抽選スタート　20以下で成功: " + random);
+                                Debug.Log("外出イベント　抽選スタート　20以下で成功: " + random);
+                                Debug.Log("機嫌度player_girl_express_param: " + PlayerStatus.player_girl_express_param);
 
-                                picnic_exprob = 20; //20%の確率で発生。
-
-                                if (random <= picnic_exprob)
+                                picnic_exprob = (int)(40f * PlayerStatus.player_girl_express_param * 0.01f); //20%の確率で発生。10~13時
+                                if (picnic_exprob <= 0)
                                 {
-                                    //ただいま～
-                                    OutGirlReturnHome();
-
+                                    picnic_exprob = 0;
                                 }
-                            }
-                            else if (PlayerStatus.player_cullent_hour >= 18)
-                            {
-                                //18時を超えたら、必ず帰ってくる。ただいま～
-                                OutGirlReturnHome();
+
+                                if (PlayerStatus.player_girl_expression <= 1) { }
+                                else
+                                {
+                                    Debug.Log("picnic_exprob: " + picnic_exprob);
+                                    if (random <= picnic_exprob)
+                                    {
+                                        GameMgr.GirlLoveSubEvent_num = 150;
+                                        GameMgr.GirlLoveSubEvent_stage1[150] = true; //イベント初発生の分をフラグっておく。
+
+                                        GameMgr.outgirl_event_ON = false;
+                                        outGirlCounterReset();//次の外出るイベントまでの日数カウンタ                                       
+
+                                        GameMgr.check_GirlLoveTimeEvent_flag = false;
+
+                                        //GameMgr.Mute_on = true;
+
+                                    }
+                                }
                             }
                         }
                     }
                 }
+                else //すでに外出中　15時ぐらいまでには帰ってくる。もし、帰ってくる前に寝るイベントが発生（お菓子で時間がたつなど）したら、そのときの条件分岐が必要。
+                {
+                    if (GameMgr.ReadGirlLoveTimeEvent_reading_now) //すでにこのイベント読み中の場合、スキップするように。
+                    { }
+                    else
+                    {
+                        if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 18)
+                        {
+                            random = Random.Range(0, 100);
+                            Debug.Log("外出から帰ってくる　抽選スタート　20以下で成功: " + random);
 
-                if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                            picnic_exprob = 20; //20%の確率で発生。
+
+                            if (random <= picnic_exprob)
+                            {
+                                //ただいま～
+                                OutGirlReturnHome();
+                                GameMgr.check_GirlLoveTimeEvent_flag = false;
+
+                            }
+                        }
+                        else if (PlayerStatus.player_cullent_hour >= 18)
+                        {
+                            //18時を超えたら、必ず帰ってくる。ただいま～
+                            OutGirlReturnHome();
+                            GameMgr.check_GirlLoveTimeEvent_flag = false;
+                        }
+                    }
+                }               
+            }
+
+            /*if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
                 {
@@ -1534,49 +1562,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             }
                         }
                     }
-                }
-
-                
-                if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    //モーセ家にくる
-                    if (!GameMgr.outgirl_Nowprogress)
-                    {              
-                        if (PlayerStatus.girl1_Love_lv >= 10) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
-                        {
-                            //random = Random.Range(0, 100);
-                            //Debug.Log("モーセくるイベント　10以下で成功: " + random);
-                            //if (random <= 10)
-                            //{
-                                if (!GameMgr.GirlLoveSubEvent_stage1[160])　//160番～　サブイベントNPC系　フラグ３つか５つずつぐらい余分をとっておく。
-                                {
-                                    GameMgr.GirlLoveSubEvent_num = 160;
-                                    GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
-                                    GameMgr.mainscene_event_ON = true;
-
-                                    GameMgr.check_GirlLoveTimeEvent_flag = false;
-
-                                    GameMgr.Mute_on = true;
-                                    GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
-
-                                    //下は、使うときだけtrueにすればOK
-                                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                                    GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
-                                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
-                                }
-                            //}
-                        }
-                    }
-                }
-            }
+                }*/
 
             //最後のタイミングで、決定したサブイベントの宴を再生
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //サブイベント発生した
             {
-                girl1_status.HukidashiFlag = false;
-                GameMgr.ResultComplete_flag = 0; //イベント読み始めたら、調合終了の合図をたてておく。
 
                 //クエスト発生
                 Debug.Log("サブ時間イベントの発生");
@@ -1595,7 +1585,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         GameMgr.outgirl_count = 3 + random; //次の外出るイベントまでの日数カウンタ
     }
 
-    void OutGirlReturnHome()
+    //ヒカリが外出から帰ってくる　直接Compound_Mainからも読む
+    public void OutGirlReturnHome()
     {
         GameMgr.GirlLoveSubEvent_num = 151;
         GameMgr.GirlLoveSubEvent_stage1[151] = true; //イベント初発生の分をフラグっておく。
@@ -1604,7 +1595,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         outGirlCounterReset(); //次の外出るイベントまでの日数カウンタ
         //GameMgr.outgirl_Nowprogress = false;
 
-        GameMgr.check_GirlLoveTimeEvent_flag = false;
+        //GameMgr.check_GirlLoveTimeEvent_flag = false;
         GameMgr.outgirl_returnhome_reading_now = true;
         GameMgr.ReadGirlLoveTimeEvent_reading_now = true; //152が終わったときに、フラグもoffにする。
 

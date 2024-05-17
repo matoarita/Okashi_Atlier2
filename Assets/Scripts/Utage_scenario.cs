@@ -37,6 +37,7 @@ public class Utage_scenario : MonoBehaviour
     private int contest_num;
     private string itemType_sub;
     private string itemName;
+    private bool NPC01_Friend_Flag;
 
     private int re_flag;
     private int ev_flag;
@@ -2193,9 +2194,9 @@ public class Utage_scenario : MonoBehaviour
         //
         //メイン画面サブイベント関連のフラグチェック
         //
-        if (GameMgr.mainscene_event_ON)
+        if (GameMgr.NPC_event_ON)
         {
-            GameMgr.mainscene_event_ON = false;
+            GameMgr.NPC_event_ON = false;
 
             switch(GameMgr.GirlLoveSubEvent_num)
             {
@@ -3392,16 +3393,26 @@ public class Utage_scenario : MonoBehaviour
             case 1001: //コンテスト会場 主に会話イベント
 
                 scenarioLabel = "Hiroba_Or_Contest_ReceptionTalk";
-                break;
-
-            case 1010: //Orお花屋さん
-
-                scenarioLabel = "Hiroba_Or_flower";
-                break;
+                break;            
 
             case 1200: //OrNPC白い布
 
-                scenarioLabel = "Hiroba_Or_NPC01";
+                scenarioLabel = "Or_NPC01_none";
+                break;
+
+            case 1210: //OrNPCきのこ
+
+                scenarioLabel = "Or_NPC02_kinoko";
+                break;
+
+            case 1220: //OrNPC魔女ばあさん
+
+                scenarioLabel = "Or_NPC03_baasan";
+                break;
+
+            case 1500: //Orお花屋さん
+
+                scenarioLabel = "Hiroba_Or_flower";
                 break;
 
             case 2000: //Orヒカリ広場イベント　通れないとかも含む
@@ -3479,21 +3490,29 @@ public class Utage_scenario : MonoBehaviour
                 break;
         }
 
-        if (GameMgr.utage_charaHyouji_flag)
+        //オランジーナフラグ関係
+        switch(scenarioLabel)
         {
-            GameMgr.utage_charaHyouji_flag = false;
-            CharacterSpriteSetON();
+            case "Or_NPC01_none":
 
-        }
+                if (!GameMgr.NPCHiroba_eventList[100]) //まだぬねと友達になってない
+                {
+                    NPC01_Friend_Flag = (bool)engine.Param.GetParameter("NPC01_Friend_Flag");
+                    if (NPC01_Friend_Flag) //ぬねと友達になった
+                    {
+                        GameMgr.NPCHiroba_eventList[100] = true;
+                    }
+                    else //選択を間違えたら、一日ほど消える
+                    {
+                        GameMgr.NPCHiroba_eventList[101] = true; //寝るタイミングでまたfalseに。
+                    }
+                }
+                break;
 
-        //駅のイベント お金の処理など
-        switch (GameMgr.hiroba_event_placeNum)
-        {
-            case 3000:
+            case "Station": //駅のイベント お金の処理など
 
                 stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
-
-                switch(stationevent_num)
+                switch (stationevent_num)
                 {
                     case 0: //キャンセルか所持金足りなかった
 
@@ -3513,8 +3532,17 @@ public class Utage_scenario : MonoBehaviour
                 }
                 break;
         }
+       
 
 
+        if (GameMgr.utage_charaHyouji_flag)
+        {
+            GameMgr.utage_charaHyouji_flag = false;
+            CharacterSpriteSetON();
+
+        }
+
+        
 
         //
 

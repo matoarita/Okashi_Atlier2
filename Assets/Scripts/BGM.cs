@@ -460,7 +460,7 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_MainGate_Entrance": //正門前ゲート
 
-                                _send_clip = sound23;
+                                _send_clip = sound41;
                                 break;
 
                             case "Or_Hiroba_Catsle_Garden": //城エリア　大通り前庭

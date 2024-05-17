@@ -159,8 +159,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //2の広場イベントNPCフラグ　まだセーブしてない
     public static bool[] NPCHiroba_HikarieventList = new bool[GirlLoveSubEvent_stage_num]; //２でのヒカリの広場全般イベントリスト。
     //100~ 散歩道
+
     public static bool[] NPCHiroba_eventList = new bool[NpcEvent_stage_num]; //主に2でのNPCイベントのフラグリスト　配列の番号で各キャラを指定 100~ とか　200~とか
-    //0~ コンテストレセプション
+    //0~ コンテストレセプション 100~白い布
+
     public static bool[] NPCMagic_eventList = new bool[NpcEvent_stage_num]; //主に2でのNPCイベントのフラグリスト
 
     //ショップのイベントリスト
@@ -693,7 +695,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool event_pitem_cancel;
     public static int event_judge_status;
     public static int event_okashi_score;
-    public static bool mainscene_event_ON; //調合画面メインでイベントがおこったフラグ
+    public static bool NPC_event_ON; //調合画面メインでイベントがおこったフラグ
     public static bool hiroba_event_ON;
     public static bool shop_event_ON;
     public static bool farm_event_ON;
@@ -927,7 +929,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         uwasa_number = 0;
         shop_hint = false;
         shop_hint_num = 0;
-        mainscene_event_ON = false;
+        NPC_event_ON = false;
         hiroba_event_ON = false;
         shop_event_ON = false;
         farm_event_ON = false;

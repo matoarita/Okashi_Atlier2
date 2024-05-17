@@ -73,6 +73,21 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                 }
                 break;
+
+            case "MainList_ScrollView_200":
+
+                if (this.gameObject.name == "NPC2_SelectToggle")
+                {
+                        if (!GameMgr.NPCHiroba_eventList[101]) //ぬね　友達になれなかった
+                        {
+                            this.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            this.gameObject.SetActive(false);
+                        }
+                }
+                break;
         }
     }
 

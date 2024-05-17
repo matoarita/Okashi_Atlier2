@@ -119,6 +119,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject Stagepanel_obj;
 
     private GameObject black_panel_A;
+    private GameObject scene_black_effect;
     private GameObject compoBG_A;
     private GameObject ResultBGimage;
 
@@ -369,6 +370,10 @@ public class Compound_Main : MonoBehaviour
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
         compoBG_A.SetActive(false);
+
+        //シーン全てをブラックに消すパネル
+        scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
+        //scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f); //黒い画面からスタート
 
         //調合コントローラーの取得
         compoundmain_Controller = canvas.transform.Find("CompoundMainController").GetComponent<CompoundMainController>();
@@ -905,9 +910,9 @@ public class Compound_Main : MonoBehaviour
                     else
                     {
                         //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
-                        if (GameMgr.check_GirlLoveEvent_flag == false)
+                        if (!GameMgr.check_GirlLoveEvent_flag)
                         {
-                            Debug.Log("イベントチェックON");
+                            Debug.Log("メインイベントチェックON");
 
                             //メインイベント
                             eventdatabase.GirlLoveMainEvent();
@@ -915,7 +920,7 @@ public class Compound_Main : MonoBehaviour
                         else
                         {
                             //サブイベントの発生をチェック。
-                            if (GameMgr.check_GirlLoveSubEvent_flag == false)
+                            if (!GameMgr.check_GirlLoveSubEvent_flag)
                             {
                                 Debug.Log("サブイベントチェックON");
 
@@ -924,10 +929,10 @@ public class Compound_Main : MonoBehaviour
                             }
                             else
                             {
-                                //時間イベントの発生をチェック。＜エクストラモード＞
-                                if (GameMgr.check_GirlLoveTimeEvent_flag == false && GameMgr.Story_Mode != 0)
+                                //時間イベントの発生をチェック。
+                                if (!GameMgr.check_GirlLoveTimeEvent_flag)
                                 {
-                                    //Debug.Log("時間イベントチェックON");
+                                    Debug.Log("時間イベントチェックON");
 
                                     //時間イベント
                                     eventdatabase.GirlLove_SubTimeEventMethod();
@@ -935,7 +940,7 @@ public class Compound_Main : MonoBehaviour
                                 else
                                 {
                                     //読んでいないレシピがあれば、読む処理。優先順位二番目。
-                                    if (check_recipi_flag != true)
+                                    if (!check_recipi_flag)
                                     {
 
                                         //Debug.Log("チェックレシピ中");
@@ -1528,7 +1533,7 @@ public class Compound_Main : MonoBehaviour
                     CharacterLive2DImageOFF();
                     Touch_ALLOFF();
                     girleat_toggle.GetComponent<Toggle>().interactable = false;
-                    sleep_toggle.GetComponent<Toggle>().interactable = false;
+                    //sleep_toggle.GetComponent<Toggle>().interactable = false;
                     if (GameMgr.QuestClearflag)
                     {
                         stageclear_Button.GetComponent<Toggle>().interactable = false;
@@ -1623,12 +1628,14 @@ public class Compound_Main : MonoBehaviour
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
                 if (GameMgr.check_CompoAfter_flag)
                 {
-                    Debug.Log("調合後に、サブイベントチェック入る");
                     GameMgr.check_CompoAfter_flag = false;
-                    GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
-                }
 
-                
+                    Debug.Log("調合後に、サブイベントチェック入る");
+                    
+                    GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
+                    GameMgr.check_GirlLoveTimeEvent_flag = false; //時間イベントもチェック
+                }
+               
 
                 GameMgr.Status_zero_readOK = true;
 
@@ -1829,8 +1836,8 @@ public class Compound_Main : MonoBehaviour
 
             case 50: //寝るを選択
 
-                GameMgr.compound_status = 51; //売るシーンに入っています、というフラグ
-                GameMgr.compound_select = 50; //売るを選択
+                GameMgr.compound_status = 51; //寝るシーンに入っています、というフラグ
+                GameMgr.compound_select = 50; //寝るを選択
 
                 yes_no_sleep_panel.SetActive(true);
 
@@ -2506,7 +2513,15 @@ public class Compound_Main : MonoBehaviour
             card_view.DeleteCard_DrawView();
 
             text_area.SetActive(true);
-            _text.text = "今日はもう寝る？"; //
+
+            if (!GameMgr.outgirl_Nowprogress)
+            {
+                _text.text = "今日はもう寝る？"; //
+            } else
+            {
+                _text.text = "ヒカリが戻ってくるまで寝る？"; //
+            }
+                
             HintButtonOFF();
 
             GameMgr.compound_status = 50;
@@ -2943,17 +2958,24 @@ public class Compound_Main : MonoBehaviour
         }
 
         black_panel_A.SetActive(false);
+        yes_selectitem_kettei.onclick = false;
 
         switch (yes_selectitem_kettei.kettei1)
         {
             case true:
 
                 //寝る処理
-
                 yes_no_sleep_panel.SetActive(false);
-                yes_selectitem_kettei.onclick = false;
 
-                time_controller.OnSleepMethod();
+                if (!GameMgr.outgirl_Nowprogress)
+                {
+                    GameMgr.sleep_status = 1; //宴で使用
+                    OnSleepReceive();
+                }
+                else //外出中は、ヒカリが戻ってくるまで寝る処理に。
+                {
+                    OnSleep_HikariReturnBack();
+                }
 
                 break;
 
@@ -2963,8 +2985,7 @@ public class Compound_Main : MonoBehaviour
 
                 StartMessage();
                 GameMgr.compound_status = 0;
-
-                yes_selectitem_kettei.onclick = false;
+                
                 break;
 
         }
@@ -2988,6 +3009,7 @@ public class Compound_Main : MonoBehaviour
         StartCoroutine("ReadGirlLoveEvent");
     }
 
+    //宴イベント読む
     IEnumerator ReadGirlLoveEvent()
     {
         OffCompoundSelect();
@@ -2996,6 +3018,9 @@ public class Compound_Main : MonoBehaviour
         compoBG_A.SetActive(false);
         girl_love_exp_bar.SetActive(true);
         GameMgr.GirlLove_loading = true;
+
+        girl1_status.HukidashiFlag = false;
+        GameMgr.ResultComplete_flag = 0; //イベント読み始めたら、調合終了の合図をたてておく。
 
         //腹減りカウント一時停止
         girl1_status.GirlEatJudgecounter_OFF();
@@ -3484,7 +3509,7 @@ public class Compound_Main : MonoBehaviour
 
     
 
-    //タイムコントローラーから、眠りの宴シナリオを呼び出す際に使用。
+    //眠りの宴シナリオを呼び出す際に使用。TimeControllerからも読み出し
     public void OnSleepReceive()
     {
         GameMgr.EventAfter_MoveEnd = true;
@@ -3526,29 +3551,32 @@ public class Compound_Main : MonoBehaviour
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
 
-        //リセット。
+        //リセットステータス
         PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint; //体力は全回復
         PlayerStatus.player_mp = PlayerStatus.player_maxmp; //MPも全回復
 
-        PlayerStatus.player_day++;
+        PlayerStatus.player_day++; //一日を加算
         GameMgr.Sale_ON = false;
         //PlayerStatus.player_time = 0;
         PlayerStatus.player_cullent_hour = GameMgr.StartDay_hour;
         PlayerStatus.player_cullent_minute = 0;
 
+        //寝るタイミングで、いくつかのフラグもリセット
+        SleepAfter_FlagReset();
+
         //月日も更新しておく カレンダー更新
         time_controller.TimeKoushin(0);
 
-        //寝るイベント発生時に、ピクニックイベントのカウンタが+1進む。
-        Debug.Log("ピクニックカウント: " + GameMgr.picnic_count);
+        //寝るイベント発生時に、ピクニックイベントのカウンタが+1進む。        
         GameMgr.picnic_count--;
         GameMgr.outgirl_count--; //外出カウンタも進む
+        Debug.Log("ピクニックカウント: " + GameMgr.picnic_count);
+        Debug.Log("外出カウント: " + GameMgr.outgirl_count);
 
         //変更したセリフ類は、必ず元に戻す。
         time_controller.TimeReturnHomeSleep_Status = false;
 
         //一日経つと、食費を消費
-        //所持金をへらす
         moneyStatus_Controller.UseMoney(GameMgr.Foodexpenses);
 
         //腹が回復する。
@@ -3566,6 +3594,34 @@ public class Compound_Main : MonoBehaviour
         {
             GameMgr.check_SleepEnd_Eventflag[i] = true;
         }
+    }
+
+    void OnSleep_HikariReturnBack()
+    {
+        //GameMgr.EventAfter_MoveEnd = true;
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+        
+        StartCoroutine("WaitForSleepAtHikari");
+    }
+
+    IEnumerator WaitForSleepAtHikari()
+    {
+        yield return new WaitForSeconds(2.0f); //1秒待つ
+
+        //時間を17時まで進める。
+        time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 17, 0);
+
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
+
+        eventdatabase.OutGirlReturnHome();
+        ReadGirlLoveTimeEvent_Fire();
+    }
+
+    void SleepAfter_FlagReset()
+    {
+        GameMgr.NPCHiroba_eventList[101] = false; //ぬねがまた登場し始める
     }
 
     public void OffCompoundSelectnoExtreme()

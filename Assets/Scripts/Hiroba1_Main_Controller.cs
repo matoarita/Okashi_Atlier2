@@ -359,6 +359,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Select = 0; //何もしていない状態
             GameMgr.Scene_Status = 0;
 
+            check_event = false;
+
             //読み終わったら、またウィンドウなどを元に戻す。
             text_area.SetActive(false);
             mainlist_controller_obj.SetActive(true);
@@ -629,7 +631,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Autumn_Entrance":
 
-                    On_Active1001();
+                    On_Active1001_Nuno();
+                    break;
+
+                case "Or_Hiroba_Autumn_MainStreet":
+
+                    On_Active1002_Kinoko();
+                    break;
+
+                case "Or_Hiroba_Winter_EntranceHiroba":
+
+                    On_Active1003_Basan();
                     break;
 
                 case "Or_Hiroba_Winter_MainHiroba":
@@ -639,7 +651,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    On_Active1001();
+                    On_Active1001_Nuno();
                     break;
             }
         }
@@ -891,7 +903,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    On_Active1002();
+                    On_Active1002_Kinoko();
                     break;
             }
         }
@@ -1026,7 +1038,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 
                 default:
 
-                    On_Active1003();
+                    On_Active1003_Basan();
                     break;
             }
         }
@@ -1044,6 +1056,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_CentralPark": //中央噴水
 
                     On_Active04();
+                    break;
+
+                case "Or_Hiroba_Spring_Entrance":
+
+                    On_Active1500();
                     break;
 
                 case "Or_Hiroba_Spring_Shoping_Moll":
@@ -1068,7 +1085,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    On_Active1004();
+                    On_Active1500();
                     break;
             }
         }
@@ -2041,220 +2058,109 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     }
 
-    void On_Active1001()
+    void On_Active1001_Nuno()
     {
         //NPC白い布　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1200; //
 
-        GameMgr.hiroba_event_ID = 0;
-        //BGMかえる
-        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-        bgm_change_flag = true;
+        if (!GameMgr.NPCHiroba_eventList[100]) //はじめて
+        {           
 
-        EventReadingStart();
-
-    }
-
-    void On_Active1002()
-    {
-        //村長の家押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 2; //
-
-        if (GameMgr.Story_Mode == 0)
-        {
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-            {
-                case 40: //ドーナツイベント時
-
-                    /*if (!GameMgr.hiroba_event_end[0] || !GameMgr.hiroba_event_end[3] || !GameMgr.hiroba_event_end[5])
-                    {
-                        GameMgr.hiroba_event_ID = 2040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else //最初アマクサにあったら、すぐイベントが進む。
-                    {*/
-                    if (!GameMgr.hiroba_event_end[1])
-                    {
-                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                        bgm_change_flag = true;
-                        GameMgr.hiroba_event_ID = 2045;
-                    }
-                    else
-                    {
-                        GameMgr.hiroba_event_ID = 2046;
-                    }
-
-                    //}
-                    break;
-
-                case 50:
-
-                    GameMgr.hiroba_event_ID = 2050;
-                    break;
-
-                default:
-
-                    GameMgr.hiroba_event_ID = 2000;
-                    break;
-            }
-        }
-        else
-        {
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
             sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
             bgm_change_flag = true;
-            GameMgr.hiroba_event_ID = 12000;
+
+            check_event = true;
         }
 
-        EventReadingStart();
-    }
-
-    void On_Active1003()
-    {
-        //パン工房押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 3; //
-
-        //イベント発生フラグをチェック
-        switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-        {
-            case 40: //ドーナツイベント時
-
-                if (!GameMgr.hiroba_event_end[8])
-                {
-                    if (!GameMgr.hiroba_event_end[6])
-                    {
-                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                        bgm_change_flag = true;
-                        GameMgr.hiroba_event_ID = 3040; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else
-                    {
-                        //ひまわり油をもっていたら、イベントが進む。ひまわり油は削除する。
-                        if (pitemlist.ReturnItemKosu("himawari_Oil") >= 1)
-                        {
-                            pitemlist.SearchDeleteItem("himawari_Oil");
-                            pitemlist.addPlayerItemString("flyer", 1);
-
-                            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                            bgm_change_flag = true;
-                            GameMgr.hiroba_event_ID = 3042;
-                        }
-                        else
-                        {
-                            GameMgr.hiroba_event_ID = 3041;
-                        }
-                    }
-                }
-                else //ドーナツレシピを教わった。
-                {
-                    GameMgr.hiroba_event_ID = 3043;
-
-                }
-                break;
-
-            case 50:
-
-                if (!GameMgr.hiroba_event_end[11])
-                {
-                    sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                    bgm_change_flag = true;
-                    GameMgr.hiroba_event_ID = 3050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                }
-                else
-                {
-                    sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                    bgm_change_flag = true;
-                    GameMgr.hiroba_event_ID = 3051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                }
-
-                break;
-
-            default:
-
-                GameMgr.hiroba_event_ID = 3000;
-                break;
-        }
-
-        EventReadingStart();
-    }
-
-    void On_Active1004()
-    {
-        //お花屋さん押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 1010; //
-
-        GameMgr.hiroba_event_ID = 0;
-
-        /*
-        if (GameMgr.Story_Mode == 0)
-        {
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-            {
-                case 40: //ドーナツイベント時
-
-                    if (!GameMgr.hiroba_event_end[6])
-                    {
-                        if (!GameMgr.hiroba_event_end[3])
-                        {
-                            GameMgr.hiroba_event_ID = 4040;
-                        }
-                        else
-                        {
-                            GameMgr.hiroba_event_ID = 4041;
-                        }
-                    }
-                    else //油の話をききにくる。
-                    {
-                        if (!GameMgr.hiroba_event_end[7])
-                        {
-                            GameMgr.hiroba_event_ID = 4042;
-                        }
-                        else
-                        {
-                            GameMgr.hiroba_event_ID = 4043;
-                        }
-                    }
-                    break;
-
-                case 50:
-
-                    if (!GameMgr.hiroba_event_end[12])
-                    {
-                        GameMgr.hiroba_event_ID = 4050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else
-                    {
-                        GameMgr.hiroba_event_ID = 4051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-
-                    break;
-
-                default:
-
-                    GameMgr.hiroba_event_ID = 4000;
-                    break;
-            }
-        }
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
         else
         {
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            if (GameMgr.NPCHiroba_eventList[100]) //ほかに発生するイベントがなく、すでに友達になった。
             {
-                case 50:
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
 
-                    GameMgr.hiroba_event_ID = 14050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-
-                    break;
-
-                default:
-
-                    GameMgr.hiroba_event_ID = 140000;
-                    break;
+                check_event = true;
             }
-        }*/
+        }
+
+        EventReadingStart();
+
+    }
+
+    void On_Active1002_Kinoko()
+    {
+        //NPCきのこ　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1210; //
+
+        if (!GameMgr.NPCHiroba_eventList[150]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[150] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[150]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
 
         EventReadingStart();
     }
+
+    void On_Active1003_Basan()
+    {
+        //NPC魔女ばあさん　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1220; //
+
+        if (!GameMgr.NPCHiroba_eventList[200]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[200] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[200]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+
+        EventReadingStart();
+    }
+
+    
 
     void On_Active1005()
     {
@@ -2367,7 +2273,22 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
+
+    //人間NPC関連のマップイベントは1500～
+    //
+    void On_Active1500()
+    {
+        //お花屋さん押した　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1500; //
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+
     //ヒカリ関連のマップイベントはActive2000～
+    //
     void On_Active2000()
     {
         GameMgr.hiroba_event_placeNum = 2000; //
@@ -2407,11 +2328,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     //その他処理　publicは、同じオブジェクトにつけたHiroba1_Main_Orのcsから読み出し
     //
 
-    /*void CanvasOff()
-    {
-        text_area.SetActive(false);
-        mainlist_controller_obj.gameObject.SetActive(false);
-    }*/
 
     public void ToggleAllOff()
     {

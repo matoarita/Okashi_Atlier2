@@ -1319,7 +1319,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_itemdatabase = _temp_itemscorelist,
 
             //衣装などのサブイベントのフラグ
-            save_GirlLoveSubEvent_stage1_system = GameMgr.GirlLoveSubEvent_stage1,
+            //save_GirlLoveSubEvent_stage1_system = GameMgr.GirlLoveSubEvent_stage1,
 
             //称号リストを記録する
             save_titlecollectionlist = _temp_titlecollectionlist,
@@ -1338,6 +1338,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_masterVolumeparam = GameMgr.MasterVolumeParam,
             save_BGMVolumeParam = GameMgr.BGMVolumeParam,
             save_SeVolumeParam = GameMgr.SeVolumeParam,
+            save_AmbientVolumeParam = GameMgr.AmbientVolumeParam,
 
             //ストーリーモード
             save_Story_Mode = GameMgr.Story_Mode,
@@ -1498,7 +1499,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             }
 
             //衣装などのサブイベントのフラグのみ引継ぎ
-            for (i = 0; i < systemData.save_GirlLoveSubEvent_stage1_system.Length; i++)
+            /*for (i = 0; i < systemData.save_GirlLoveSubEvent_stage1_system.Length; i++)
             {
                 if (i >= 70 && i < 80)
                 {
@@ -1510,7 +1511,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     //Debug.Log("i+ " + i);
                     GameMgr.GirlLoveSubEvent_stage1[i] = systemData.save_GirlLoveSubEvent_stage1_system[i];
                 }
-            }
+            }*/
 
             //称号リスト
             for (count = 0; count < systemData.save_titlecollectionlist.Count; count++)
@@ -1601,9 +1602,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.MasterVolumeParam = systemData.save_masterVolumeparam;
             GameMgr.BGMVolumeParam = systemData.save_BGMVolumeParam;
             GameMgr.SeVolumeParam = systemData.save_SeVolumeParam;
+            GameMgr.AmbientVolumeParam = systemData.save_AmbientVolumeParam;
 
             //ストーリーモード
-            if(GameMgr.Load_GameVersion >= 1.20f) //バージョン1.2以降で追加したので、それ以前のセーブデータではstory_modeは0に。
+            if (GameMgr.Load_GameVersion >= 1.20f) //バージョン1.2以降で追加したので、それ以前のセーブデータではstory_modeは0に。
             {
                 GameMgr.Story_Mode = systemData.save_Story_Mode;
             }

@@ -237,7 +237,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
             //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定
             switch (GameMgr.ContestSelectNum)
             {
-                case 1000: //オレンジーナコンテストA1 クープデュモンド
+                case 1000: //オレンジーナコンテストA1
 
                     GameMgr.ContestRoundNumMax = 3; //そのコンテストの最大のラウンド数
 
@@ -318,7 +318,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
                     break;
 
-                case 4000: //オレンジーナコンテストD1
+                case 4000: //オレンジーナコンテストD1　 クープデュモンド
 
                     GameMgr.ContestRoundNumMax = 3; //そのコンテストの最大のラウンド数
 
@@ -327,19 +327,19 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                         case 1: //一回戦
 
                             GameMgr.Contest_Name = contest_name_origin + "_1";
-                            ContestData_060();
+                            ContestData_001();
                             break;
 
                         case 2: //二回戦
 
                             GameMgr.Contest_Name = contest_name_origin + "_2";
-                            ContestData_061();
+                            ContestData_002();
                             break;
 
                         case 3: //決勝戦
 
                             GameMgr.Contest_Name = contest_name_origin + "_3";
-                            ContestData_062();
+                            ContestData_003();
                             break;
                     }
 
@@ -754,7 +754,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
     }
 
-    //トーナメント形式データ 選手の名前はこっちのcsで決める
+    //トーナメント形式データ トーナメントの選手の名前はこっちのcsで決める
 
     void ContestData_001()
     {

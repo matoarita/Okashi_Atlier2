@@ -448,13 +448,13 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Add(30);
         GameMgr.PrizeScoreAreaList.Add(56);
         GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);        
+        GameMgr.PrizeScoreAreaList.Add(102);        
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("アマクサ");
         GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 

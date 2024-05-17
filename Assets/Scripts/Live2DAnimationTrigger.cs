@@ -41,25 +41,6 @@ public class Live2DAnimationTrigger : MonoBehaviour {
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
-
-        /*switch (GameMgr.Scene_Category_Num)
-        {
-            case 10: //調合メインシーンでやりたい処理
-
-                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
-
-                this.GetComponent<CubismRenderController>().SortingOrder = -500;
-                break;
-
-            case 100: //コンテストシーンでやりたい処理
-
-                character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
-
-                this.GetComponent<CubismRenderController>().SortingOrder = -500;
-                break;
-        }*/
     }
 	
 	// Update is called once per frame

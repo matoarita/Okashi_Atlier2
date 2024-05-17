@@ -206,305 +206,14 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                             if (PlayerStatus.player_girl_expression == 1) //まずい状態直後、ハートが自動で下がる状態に。
                             {
                                 //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
-                                RealTimeControll();
+                                RealTimeHeartControll();
                             }
                         }
                     }                   
                 }
 
                 //フリーモードのときは、時間がリアルタイムで経過　timeLeft2が更新されると、ゲーム時間が5分進む。
-                if (GameMgr.Story_Mode == 1)
-                {                   
-                    if (!GameMgr.scenario_ON)
-                    {
-                        if (GameMgr.compound_status == 110 && GameMgr.compound_select == 0)  //採集中やステータス画面など開いてるときは減らない
-                        {
-                            if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //特定の時間イベント読み中の間もoffに。
-                            {
-
-                                if (timeLeft2 >= 10f * timespeed_range) //timeLeft2は、現実の1秒で1.0ずつ増加する。10カウント＝10秒。そこからtimespeed_rangeで更新時間を早めている。
-                                {
-                                    
-                                    timeLeft2 = 0.0f;
-                                    SetMinuteToHour(5); //5分
-                                    TimeKoushin(0);
-
-
-                                    compound_main.Weather_Change(5.0f);
-
-
-                                    //サブ時間イベントをチェック
-                                    if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        GameMgr.check_GirlLoveTimeEvent_flag = false;
-                                    }
-
-                                    //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
-                                    if (!GameMgr.outgirl_Nowprogress)
-                                    {
-                                        heart_up_auto_param = 1; //自動でハート上がる量　デフォルト
-
-                                        if (pitemlist.KosuCount("aroma_potion3") >= 1)
-                                        {
-                                            heart_up_auto_param += 2;
-                                        }
-                                        if (pitemlist.KosuCount("aroma_potion2") >= 1)
-                                        {
-                                            heart_up_auto_param += 1;
-                                        }
-
-                                        if (GameMgr.hikari_make_okashiFlag)
-                                        {
-                                            GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
-                                            if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
-                                            {
-                                                GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
-
-                                                //お菓子制作。材料チェックと成功率を計算する。
-                                                HikariMakeOkashiJudge();
-
-                                            }
-
-                                            //お菓子を作ってる間、ハート上がる。
-                                            timeIttei4++;                                           
-                                            if (PlayerStatus.player_girl_manpuku >= 10)
-                                            {
-                                                heart_countup_time = 6; //デフォルト
-
-                                                if (pitemlist.KosuCount("memory_feather3") >= 1)
-                                                {
-                                                    heart_countup_time = 2;
-                                                }
-                                                else if (pitemlist.KosuCount("memory_feather2") >= 1)
-                                                {
-                                                    heart_countup_time = 3;
-                                                }
-                                                else if (pitemlist.KosuCount("memory_feather1") >= 1)
-                                                {
-                                                    heart_countup_time = 4;
-                                                }
-
-                                                
-                                                if (PlayerStatus.player_girl_expression >= 4) //機嫌は5段階
-                                                {
-                                                    if (timeIttei4 >= heart_countup_time) //30分ごとに。
-                                                    {
-                                                        timeIttei4 = 0;
-
-                                                        girleat_judge.UpDegHeart(heart_up_auto_param, false);
-                                                    }
-                                                }
-                                                else if (PlayerStatus.player_girl_expression == 3)
-                                                {
-                                                    if (timeIttei4 >= heart_countup_time*2) //60分ごとに。
-                                                    {
-                                                        timeIttei4 = 0;
-
-                                                        girleat_judge.UpDegHeart(heart_up_auto_param, false);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        else //ヒカリがお菓子を作ってないときは、アイテムのみハート上がる。
-                                        {
-                                            timeIttei4++;
-                                            if (PlayerStatus.player_girl_manpuku >= 10)
-                                            {
-                                                heart_countup_time = 12; //デフォルト
-
-                                                if (pitemlist.KosuCount("memory_feather3") >= 1)
-                                                {
-                                                    heart_countup_time = 4;
-                                                }
-                                                else if (pitemlist.KosuCount("memory_feather2") >= 1)
-                                                {
-                                                    heart_countup_time = 6;
-                                                }
-                                                else if (pitemlist.KosuCount("memory_feather1") >= 1)
-                                                {
-                                                    heart_countup_time = 8;
-                                                }
-
-                                                if (PlayerStatus.player_girl_expression >= 4) //機嫌は5段階
-                                                {
-                                                    if (timeIttei4 >= heart_countup_time) //60分ごとに。
-                                                    {
-                                                        timeIttei4 = 0;
-
-                                                        girleat_judge.UpDegHeart(heart_up_auto_param, false);
-                                                    }
-                                                }
-                                            }                                            
-                                        }
-
-                                        //にんじん等のアイテムで、お菓子を作っていなくても常にハートが上がる
-                                        timeIttei5++;
-                                        timeIttei6++;
-                                        timeIttei7++;
-                                        timeIttei8++;
-                                        if (PlayerStatus.player_girl_manpuku >= 10)
-                                        {
-                                            if (PlayerStatus.player_girl_expression >= 3) //機嫌は5段階
-                                            {
-                                                if (pitemlist.KosuCount("pink_ninjin") >= 1)
-                                                {
-                                                    if (timeIttei5 >= 24) //120分ごとに。
-                                                    {
-                                                        timeIttei5 = 0;
-
-                                                        girleat_judge.UpDegHeart(1, false);
-                                                    }
-                                                }
-
-                                                if(GameMgr.BGAcceItemsName["saboten_1"])
-                                                {
-                                                    if (timeIttei6 >= 24) //120分ごとに。
-                                                    {
-                                                        timeIttei6 = 0;
-
-                                                        girleat_judge.UpDegHeart(1, false);
-                                                    }
-                                                }
-                                                else if (GameMgr.BGAcceItemsName["saboten_2"])
-                                                {
-                                                    if (timeIttei6 >= 12) //60分ごとに。
-                                                    {
-                                                        timeIttei6 = 0;
-
-                                                        girleat_judge.UpDegHeart(1, false);
-                                                    }
-                                                }
-                                                else if (GameMgr.BGAcceItemsName["saboten_3"])
-                                                {
-                                                    if (timeIttei6 >= 6) //30分ごとに。
-                                                    {
-                                                        timeIttei6 = 0;
-
-                                                        girleat_judge.UpDegHeart(1, false);
-                                                    }
-                                                }
-
-                                                if (pitemlist.KosuCount("angel_statue1") >= 1)
-                                                {
-                                                    if (timeIttei7 >= 4) //20分ごとに。
-                                                    {
-                                                        timeIttei7 = 0;
-
-                                                        girleat_judge.UpDegHeart(1, false);
-                                                    }
-                                                }
-
-                                                if (pitemlist.KosuCount("angel_statue2") >= 1)
-                                                {
-                                                    if (timeIttei8 >= 4) //20分ごとに。
-                                                    {
-                                                        timeIttei8 = 0;
-
-                                                        girleat_judge.UpDegHeart(2, false);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    //5分を基準に腹もへる。
-                                    if (!GameMgr.outgirl_Nowprogress)
-                                    {
-                                        timeIttei3++;
-
-                                        manpuku_deg_param = 3; //満腹が減る時間間隔　デフォルト 15分 効果は重複する。
-
-                                        //アイテムによって満腹度は減りにくくなる。
-                                        if (pitemlist.KosuCount("hikari_manpuku_deg2") >= 1)
-                                        {
-                                            manpuku_deg_param = manpuku_deg_param * 3;
-                                        }
-                                        if (pitemlist.KosuCount("hikari_manpuku_deg1") >= 1)
-                                        {
-                                            manpuku_deg_param = manpuku_deg_param * 2;
-                                        }
-
-                                        //さらに、食べたいお菓子あげて一定時間満腹減少状態になってるとき。重複する。
-                                        if (pitemlist.KosuCount("hikari_manpuku_deg3") >= 1)
-                                        {
-                                            if (GameMgr.hikari_tabetaiokashi_buf)
-                                            {
-                                                manpuku_deg_param = manpuku_deg_param * 2;
-                                            }
-                                        }
-
-                                        //ねこバッジを持ってる数だけ、さらにお腹が減りにくくなる。
-                                        if (pitemlist.KosuCount("neko_badge3") >= 1)
-                                        {
-                                            manpuku_deg_param = manpuku_deg_param + (1 * pitemlist.KosuCount("neko_badge3"));
-                                        }
-
-
-                                        if (timeIttei3 >= manpuku_deg_param) //1=5分なので、2だと10分で腹減り-1
-                                        {
-                                            timeIttei3 = 0;
-
-                                            //満腹度が減る。
-                                            girl1_status.ManpukuBarKoushin(-1);
-
-                                            //満腹度が0になると、ハートも減り始める。
-                                            if (GameMgr.System_Manpuku_ON)
-                                            {
-                                                if (PlayerStatus.player_girl_manpuku <= 0)
-                                                {
-                                                    girleat_judge.UpDegHeart(-1, false);
-                                                    girl1_status.GirlExpressionKoushin(-3);
-
-                                                    /*if (PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 80)
-                                                    {
-                                                        girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.05f), false);
-                                                    }
-                                                    else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
-                                                    {
-                                                        girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.075f), false);
-                                                    }
-                                                    else if (PlayerStatus.girl1_Love_lv >= 90)
-                                                    {
-                                                        girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.1f), false);
-                                                    }
-                                                    else
-                                                    {
-                                                        girleat_judge.DegHeart(-1, false);
-                                                    }*/
-
-                                                    girl1_status.MotionChange(23);
-                                                }
-                                            }
-                                            else { }
-
-                                            //機嫌も少しずつ収まっていく。
-                                            if (PlayerStatus.player_girl_express_param >= 50)
-                                            {
-                                                girl1_status.GirlExpressionKoushin(-1);
-                                            }
-                                        }                                      
-                                    }
-
-                                    //食べたいお菓子をあげた直後、しばらくハートが上がる特殊状態になる。
-                                    if (GameMgr.hikari_tabetaiokashi_buf)
-                                    {
-                                        GameMgr.hikari_tabetaiokashi_buf_time--;
-
-                                        if(GameMgr.hikari_tabetaiokashi_buf_time <= 0)
-                                        {
-                                            GameMgr.hikari_tabetaiokashi_buf = false; //バフ終了
-                                        }
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-                }
+                //RealTime_Method(); //アトリエ２では、off
 
                 break;
 
@@ -536,6 +245,301 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     }
                 }
                 break;
+        }
+    }
+
+    void RealTime_Method()
+    {
+        if (GameMgr.Story_Mode == 1)
+        {
+            if (!GameMgr.scenario_ON)
+            {
+                if (GameMgr.compound_status == 110 && GameMgr.compound_select == 0)  //採集中やステータス画面など開いてるときは減らない
+                {
+                    if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //特定の時間イベント読み中の間もoffに。
+                    {
+
+                        if (timeLeft2 >= 10f * timespeed_range) //timeLeft2は、現実の1秒で1.0ずつ増加する。10カウント＝10秒。そこからtimespeed_rangeで更新時間を早めている。
+                        {
+
+                            timeLeft2 = 0.0f;
+                            SetMinuteToHour(5); //5分
+                            TimeKoushin(0);
+
+                            compound_main.Weather_Change(5.0f);
+
+
+                            //サブ時間イベントをチェック
+                            /*if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
+                            {
+
+                            }
+                            else
+                            {
+                                GameMgr.check_GirlLoveTimeEvent_flag = false;
+                            }*/
+
+                            //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
+                            if (!GameMgr.outgirl_Nowprogress)
+                            {
+                                heart_up_auto_param = 1; //自動でハート上がる量　デフォルト
+
+                                if (pitemlist.KosuCount("aroma_potion3") >= 1)
+                                {
+                                    heart_up_auto_param += 2;
+                                }
+                                if (pitemlist.KosuCount("aroma_potion2") >= 1)
+                                {
+                                    heart_up_auto_param += 1;
+                                }
+
+                                if (GameMgr.hikari_make_okashiFlag)
+                                {
+                                    GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
+                                    if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
+                                    {
+                                        GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
+
+                                        //お菓子制作。材料チェックと成功率を計算する。
+                                        HikariMakeOkashiJudge();
+
+                                    }
+
+                                    //お菓子を作ってる間、ハート上がる。
+                                    timeIttei4++;
+                                    if (PlayerStatus.player_girl_manpuku >= 10)
+                                    {
+                                        heart_countup_time = 6; //デフォルト
+
+                                        if (pitemlist.KosuCount("memory_feather3") >= 1)
+                                        {
+                                            heart_countup_time = 2;
+                                        }
+                                        else if (pitemlist.KosuCount("memory_feather2") >= 1)
+                                        {
+                                            heart_countup_time = 3;
+                                        }
+                                        else if (pitemlist.KosuCount("memory_feather1") >= 1)
+                                        {
+                                            heart_countup_time = 4;
+                                        }
+
+
+                                        if (PlayerStatus.player_girl_expression >= 4) //機嫌は5段階
+                                        {
+                                            if (timeIttei4 >= heart_countup_time) //30分ごとに。
+                                            {
+                                                timeIttei4 = 0;
+
+                                                girleat_judge.UpDegHeart(heart_up_auto_param, false);
+                                            }
+                                        }
+                                        else if (PlayerStatus.player_girl_expression == 3)
+                                        {
+                                            if (timeIttei4 >= heart_countup_time * 2) //60分ごとに。
+                                            {
+                                                timeIttei4 = 0;
+
+                                                girleat_judge.UpDegHeart(heart_up_auto_param, false);
+                                            }
+                                        }
+                                    }
+                                }
+                                else //ヒカリがお菓子を作ってないときは、アイテムのみハート上がる。
+                                {
+                                    timeIttei4++;
+                                    if (PlayerStatus.player_girl_manpuku >= 10)
+                                    {
+                                        heart_countup_time = 12; //デフォルト
+
+                                        if (pitemlist.KosuCount("memory_feather3") >= 1)
+                                        {
+                                            heart_countup_time = 4;
+                                        }
+                                        else if (pitemlist.KosuCount("memory_feather2") >= 1)
+                                        {
+                                            heart_countup_time = 6;
+                                        }
+                                        else if (pitemlist.KosuCount("memory_feather1") >= 1)
+                                        {
+                                            heart_countup_time = 8;
+                                        }
+
+                                        if (PlayerStatus.player_girl_expression >= 4) //機嫌は5段階
+                                        {
+                                            if (timeIttei4 >= heart_countup_time) //60分ごとに。
+                                            {
+                                                timeIttei4 = 0;
+
+                                                girleat_judge.UpDegHeart(heart_up_auto_param, false);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                //にんじん等のアイテムで、お菓子を作っていなくても常にハートが上がる
+                                timeIttei5++;
+                                timeIttei6++;
+                                timeIttei7++;
+                                timeIttei8++;
+                                if (PlayerStatus.player_girl_manpuku >= 10)
+                                {
+                                    if (PlayerStatus.player_girl_expression >= 3) //機嫌は5段階
+                                    {
+                                        if (pitemlist.KosuCount("pink_ninjin") >= 1)
+                                        {
+                                            if (timeIttei5 >= 24) //120分ごとに。
+                                            {
+                                                timeIttei5 = 0;
+
+                                                girleat_judge.UpDegHeart(1, false);
+                                            }
+                                        }
+
+                                        if (GameMgr.BGAcceItemsName["saboten_1"])
+                                        {
+                                            if (timeIttei6 >= 24) //120分ごとに。
+                                            {
+                                                timeIttei6 = 0;
+
+                                                girleat_judge.UpDegHeart(1, false);
+                                            }
+                                        }
+                                        else if (GameMgr.BGAcceItemsName["saboten_2"])
+                                        {
+                                            if (timeIttei6 >= 12) //60分ごとに。
+                                            {
+                                                timeIttei6 = 0;
+
+                                                girleat_judge.UpDegHeart(1, false);
+                                            }
+                                        }
+                                        else if (GameMgr.BGAcceItemsName["saboten_3"])
+                                        {
+                                            if (timeIttei6 >= 6) //30分ごとに。
+                                            {
+                                                timeIttei6 = 0;
+
+                                                girleat_judge.UpDegHeart(1, false);
+                                            }
+                                        }
+
+                                        if (pitemlist.KosuCount("angel_statue1") >= 1)
+                                        {
+                                            if (timeIttei7 >= 4) //20分ごとに。
+                                            {
+                                                timeIttei7 = 0;
+
+                                                girleat_judge.UpDegHeart(1, false);
+                                            }
+                                        }
+
+                                        if (pitemlist.KosuCount("angel_statue2") >= 1)
+                                        {
+                                            if (timeIttei8 >= 4) //20分ごとに。
+                                            {
+                                                timeIttei8 = 0;
+
+                                                girleat_judge.UpDegHeart(2, false);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            //5分を基準に腹もへる。
+                            if (!GameMgr.outgirl_Nowprogress)
+                            {
+                                timeIttei3++;
+
+                                manpuku_deg_param = 3; //満腹が減る時間間隔　デフォルト 15分 効果は重複する。
+
+                                //アイテムによって満腹度は減りにくくなる。
+                                if (pitemlist.KosuCount("hikari_manpuku_deg2") >= 1)
+                                {
+                                    manpuku_deg_param = manpuku_deg_param * 3;
+                                }
+                                if (pitemlist.KosuCount("hikari_manpuku_deg1") >= 1)
+                                {
+                                    manpuku_deg_param = manpuku_deg_param * 2;
+                                }
+
+                                //さらに、食べたいお菓子あげて一定時間満腹減少状態になってるとき。重複する。
+                                if (pitemlist.KosuCount("hikari_manpuku_deg3") >= 1)
+                                {
+                                    if (GameMgr.hikari_tabetaiokashi_buf)
+                                    {
+                                        manpuku_deg_param = manpuku_deg_param * 2;
+                                    }
+                                }
+
+                                //ねこバッジを持ってる数だけ、さらにお腹が減りにくくなる。
+                                if (pitemlist.KosuCount("neko_badge3") >= 1)
+                                {
+                                    manpuku_deg_param = manpuku_deg_param + (1 * pitemlist.KosuCount("neko_badge3"));
+                                }
+
+
+                                if (timeIttei3 >= manpuku_deg_param) //1=5分なので、2だと10分で腹減り-1
+                                {
+                                    timeIttei3 = 0;
+
+                                    //満腹度が減る。
+                                    girl1_status.ManpukuBarKoushin(-1);
+
+                                    //満腹度が0になると、ハートも減り始める。
+                                    if (GameMgr.System_Manpuku_ON)
+                                    {
+                                        if (PlayerStatus.player_girl_manpuku <= 0)
+                                        {
+                                            girleat_judge.UpDegHeart(-1, false);
+                                            girl1_status.GirlExpressionKoushin(-3);
+
+                                            /*if (PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 80)
+                                            {
+                                                girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.05f), false);
+                                            }
+                                            else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
+                                            {
+                                                girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.075f), false);
+                                            }
+                                            else if (PlayerStatus.girl1_Love_lv >= 90)
+                                            {
+                                                girleat_judge.DegHeart(-1 * (int)(PlayerStatus.girl1_Love_lv * 0.1f), false);
+                                            }
+                                            else
+                                            {
+                                                girleat_judge.DegHeart(-1, false);
+                                            }*/
+
+                                            girl1_status.MotionChange(23);
+                                        }
+                                    }
+                                    else { }
+
+                                    //機嫌も少しずつ収まっていく。
+                                    if (PlayerStatus.player_girl_express_param >= 50)
+                                    {
+                                        girl1_status.GirlExpressionKoushin(-1);
+                                    }
+                                }
+                            }
+
+                            //食べたいお菓子をあげた直後、しばらくハートが上がる特殊状態になる。
+                            if (GameMgr.hikari_tabetaiokashi_buf)
+                            {
+                                GameMgr.hikari_tabetaiokashi_buf_time--;
+
+                                if (GameMgr.hikari_tabetaiokashi_buf_time <= 0)
+                                {
+                                    GameMgr.hikari_tabetaiokashi_buf = false; //バフ終了
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
         }
     }
 
@@ -764,7 +768,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             }
             else if (_mstatus == 1)
             {
-                //入力された日付から、逆算してPlayerStatus.player_dayを計算する必要があり。まだ実装してないので、実装必要。
+                //入力された日付から、逆算してPlayerStatus.player_dayを計算する。
+                CullenderKeisanInverse(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day);
             }
 
             //** 月日の計算　ここまで **//
@@ -779,12 +784,14 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             //20時を超えた場合、寝るなどのイベント発生チェック
             if (PlayerStatus.player_cullent_hour >= GameMgr.EndDay_hour) //20時をこえた
             {
-                DayEndEvent();               
+                DayEndEvent();
             }
-            else if(PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < GameMgr.StartDay_hour) //深夜1時～朝8時未満
+            else if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < GameMgr.StartDay_hour) //深夜1時～朝8時未満
             {
                 DayEndEvent();
             }
+            else 
+            {}
         }
     }
 
@@ -940,11 +947,11 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     }
 
     //他のスクリプトから寝るを選択
-    public void OnSleepMethod()
+    /*void OnSleepMethod()
     {
         GameMgr.sleep_status = 1;
         compound_main.OnSleepReceive();
-    }
+    }*/
 
     public void DeadLine_Setting()
     {
@@ -974,7 +981,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         timeIttei = 0;
     }
 
-    void RealTimeControll()
+    void RealTimeHeartControll()
     {
         if (GameMgr.Degheart_on)
         { }
