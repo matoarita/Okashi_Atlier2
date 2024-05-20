@@ -114,12 +114,15 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Scene_Category_Num = 100;
 
         GameMgr.Scene_Name = "Or_Contest";
-        
+
         /* デバッグ用 */
-        GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
-        GameMgr.Contest_Cate_Ranking = 1;
-        GameMgr.Story_Mode = 1;
-        GameMgr.GirlLoveEvent_num = 10;
+        if (GameMgr.System_DebugItemSet_ON)
+        {
+            GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
+            GameMgr.Contest_Cate_Ranking = 1;
+            GameMgr.Story_Mode = 1;
+            GameMgr.GirlLoveEvent_num = 10;
+        }
         /* */
 
         //宴オブジェクトの読み込み。
@@ -521,7 +524,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
         else
         {
-            _text.text = GameMgr.Contest_ProblemSentence;
+            _text.text = GameMgr.Contest_ProblemSentence + "\n" + GameMgr.Contest_ProblemSentence2;
         }
         
     }

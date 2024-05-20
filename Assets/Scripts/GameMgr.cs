@@ -231,6 +231,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string[] contest_Sweat_Comment = new string[3];
     public static string[] contest_Bitter_Comment = new string[3];
     public static string[] contest_Sour_Comment = new string[3];
+    public static bool contest_Disqualification; //コンテスト失格フラグ
 
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
@@ -548,6 +549,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_Cate_Ranking; //トーナメント形式かランキング形式か
     public static string Contest_Name; //コンテストの名前
     public static string Contest_ProblemSentence; //コンテストの課題の内容
+    public static string Contest_ProblemSentence2; //コンテストの課題の内容
     public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
     public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。 
@@ -1073,6 +1075,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ContestSelectNum = 0;
         Contest_Name = "";
         Contest_ProblemSentence = "";
+        Contest_ProblemSentence2 = "";
         Contest_ON = false;
         EventAfter_MoveEnd = false;
         Status_zero_readOK = false;
@@ -1188,6 +1191,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_okashiSlotName = "";
         contest_TotalScore = 0;
         contest_TotalScoreList.Clear();
+        contest_Disqualification = false;
         contest_PrizeScore = 0;
         PrizeScoreAreaList.Clear();
         PrizeItemList.Clear();

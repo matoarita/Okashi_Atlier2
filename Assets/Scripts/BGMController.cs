@@ -52,6 +52,7 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
         _bgm[0].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam; //シーンのメインBGM
         _bgm[_ambient_num].volume = (1f - _mixRate) * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.AmbientVolumeParam; //シーンの環境音
 
+        //Debug.Log("fade_volume: " + fade_volume);
         switch (SceneManager.GetActiveScene().name)
         {
             case "Compound":

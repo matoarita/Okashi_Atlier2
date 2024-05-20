@@ -3410,6 +3410,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC03_baasan";
                 break;
 
+            case 1230: //OrNPCおそうじアリス
+
+                scenarioLabel = "Or_NPC04_alice";
+                break;
+
             case 1500: //Orお花屋さん
 
                 scenarioLabel = "Hiroba_Or_flower";
@@ -3925,6 +3930,7 @@ public class Utage_scenario : MonoBehaviour
 
         //課題をセット
         engine.Param.TrySetParameter("contest_ProblemSentence", GameMgr.Contest_ProblemSentence);
+        engine.Param.TrySetParameter("contest_ProblemSentence2", GameMgr.Contest_ProblemSentence2);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -3965,6 +3971,9 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]); //審査員２
         engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]); //審査員３
         engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
+
+        //課題のお菓子以外を提出し、失格になった場合フラグがtrue
+        engine.Param.TrySetParameter("contest_Disqualification", GameMgr.contest_Disqualification);
 
         GameMgr.contest_TotalScoreList.Add(GameMgr.contest_TotalScore); //採点時に、各ラウンドごとの得点も保存。賞品獲得時に計算して使う。
 
@@ -4072,32 +4081,39 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
-        if (GameMgr.Contest_Cate_Ranking == 1)
+        if (GameMgr.contest_Disqualification) //課題のお菓子以外を提出し、コンテスト失格の場合
         {
-            
-            //「宴」のシナリオポーズ待ち
-            while (!Engine.IsPausingScenario)
+            //なにもせず、宴のシナリオ終了待ち
+        }
+        else
+        {
+            if (GameMgr.Contest_Cate_Ranking == 1)
             {
-                yield return null;
+
+                //「宴」のシナリオポーズ待ち
+                while (!Engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                GameMgr.Utage_Prizepanel_Type = 0; //順位表を表示する
+                                                   //シーンの黒フェードをオフにする。
+                GameMgr.Utage_Prizepanel_ON = true;
+
+                //元のシナリオにもどる。
+                engine.ResumeScenario();
+
+                //「宴」のシナリオポーズ待ち
+                while (!Engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                GameMgr.Utage_SceneEnd_BlackON = true;
+
+                //元のシナリオにもどる。
+                engine.ResumeScenario();
             }
-
-            GameMgr.Utage_Prizepanel_Type = 0; //順位表を表示する
-            //シーンの黒フェードをオフにする。
-            GameMgr.Utage_Prizepanel_ON = true;
-
-            //元のシナリオにもどる。
-            engine.ResumeScenario();
-
-            //「宴」のシナリオポーズ待ち
-            while (!Engine.IsPausingScenario)
-            {
-                yield return null;
-            }
-
-            GameMgr.Utage_SceneEnd_BlackON = true;
-
-            //元のシナリオにもどる。
-            engine.ResumeScenario();
         }
 
         //「宴」のシナリオ終了待ち
@@ -4110,46 +4126,54 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
-        if (GameMgr.Contest_Cate_Ranking == 0)
+        if (GameMgr.contest_Disqualification) //課題のお菓子以外を提出し、コンテスト失格の場合
         {
-            if (GameMgr.Contest_winner_flag)
+            //そこで終了し、会場外へ。
+            GameMgr.contest_eventEnd_flag = true;
+        }
+        else
+        {
+            if (GameMgr.Contest_Cate_Ranking == 0)
             {
-                //二回戦以降がある場合、再度コンテストスタートから始まる。
-                if (GameMgr.ContestRoundNum < GameMgr.ContestRoundNumMax)
+                if (GameMgr.Contest_winner_flag)
                 {
-                    GameMgr.Contest_Next_flag = true;
+                    //二回戦以降がある場合、再度コンテストスタートから始まる。
+                    if (GameMgr.ContestRoundNum < GameMgr.ContestRoundNumMax)
+                    {
+                        GameMgr.Contest_Next_flag = true;
+                    }
+                    else
+                    {
+                        //決勝戦まで終了したら、コンテストを終了する。
+                        //賞品をゲットする処理が入る。その後、小話がはさまったあと、会場をでる。
+                        //会場をでたあと、外。クリアしたコンテストに応じて、新エリアや採取地を解放する処理。
+                        GameMgr.Contest_ON = false;
+
+                        Debug.Log("コンテスト　本戦終了！！");
+
+                        GameMgr.Contest_PrizeGet_flag = true; //賞品を獲得するイベント発生
+                                                              //各ラウンドの採点を合計
+                        SumContestTotalScore();
+                    }
                 }
                 else
                 {
-                    //決勝戦まで終了したら、コンテストを終了する。
-                    //賞品をゲットする処理が入る。その後、小話がはさまったあと、会場をでる。
-                    //会場をでたあと、外。クリアしたコンテストに応じて、新エリアや採取地を解放する処理。
-                    GameMgr.Contest_ON = false;
-
-                    Debug.Log("コンテスト　本戦終了！！");
-
-                    GameMgr.Contest_PrizeGet_flag = true; //賞品を獲得するイベント発生
-                                                          //各ラウンドの採点を合計
-                    SumContestTotalScore();
+                    //負けた場合　そこで終了し、会場外へ。
+                    GameMgr.contest_eventEnd_flag = true;
                 }
             }
             else
             {
-                //負けた場合　そこで終了し、会場外へ。
-                GameMgr.contest_eventEnd_flag = true;
+                //ランキング形式の場合、とりあえず賞品獲得画面にはいく。賞品がもらえるかは分からない。
+                GameMgr.Contest_ON = false;
+
+                Debug.Log("コンテスト　本戦終了！！");
+
+                GameMgr.Contest_PrizeGet_flag = true; //賞品を獲得するイベント発生
+                                                      //各ラウンドの採点を合計
+
+                SumContestTotalScore();
             }
-        }
-        else
-        {
-            //ランキング形式の場合、とりあえず賞品獲得画面にはいく。賞品がもらえるかは分からない。
-            GameMgr.Contest_ON = false;
-
-            Debug.Log("コンテスト　本戦終了！！");
-
-            GameMgr.Contest_PrizeGet_flag = true; //賞品を獲得するイベント発生
-                                                  //各ラウンドの採点を合計
-
-            SumContestTotalScore();           
         }
     }
 

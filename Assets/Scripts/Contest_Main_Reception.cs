@@ -748,7 +748,10 @@ public class Contest_Main_Reception : MonoBehaviour
 
             GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
             GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
-            FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
+
+            Debug.Log("コンテスト本会場へ移動");
+            StartCoroutine("WaitForGotoContest");
+            
         }
         else
         {
@@ -776,6 +779,13 @@ public class Contest_Main_Reception : MonoBehaviour
             text_scenario(); //テキストの更新
         }
         
+    }
+
+    IEnumerator WaitForGotoContest()
+    {
+        yield return new WaitForSeconds(1.0f); //1秒待つ
+
+        FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime);
     }
 
     void EventReadEnd_Flagcheck()

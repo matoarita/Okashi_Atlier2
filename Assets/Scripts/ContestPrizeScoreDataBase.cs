@@ -124,6 +124,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 PrizeRankingSet08();
                 break;
 
+            case 10800:
+
+                PrizeRankingSet09();
+                break;
+
             case 20000:
 
                 PrizeRankingSet20();
@@ -453,8 +458,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
+        GameMgr.PrizeCharacterList.Add("ジャッキー・チューン");
+        GameMgr.PrizeCharacterList.Add("ナッタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
@@ -657,6 +662,39 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     }
 
     void PrizeRankingSet08()
+    {
+        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        GameMgr.PrizeItemList.Clear();
+        GameMgr.PrizeItemList.Add("nuts"); //5位
+        GameMgr.PrizeItemList.Add("ice_box");
+        GameMgr.PrizeItemList.Add("neko_badge2");
+        GameMgr.PrizeItemList.Add("whisk_magic");
+        GameMgr.PrizeItemList.Add("gold_oven");
+
+        //賞金リスト 5位から順番に入れる
+        GameMgr.PrizeGetMoneyList.Clear();
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(100);
+        GameMgr.PrizeGetMoneyList.Add(500);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(3000);
+
+        //相手の点数リスト
+        GameMgr.PrizeScoreAreaList.Clear();
+        GameMgr.PrizeScoreAreaList.Add(30);
+        GameMgr.PrizeScoreAreaList.Add(56);
+        GameMgr.PrizeScoreAreaList.Add(83);
+        GameMgr.PrizeScoreAreaList.Add(92);
+
+        //参加者名リスト(上位4人) + 5人目がアキラくんになる
+        GameMgr.PrizeCharacterList.Clear();
+        GameMgr.PrizeCharacterList.Add("アマクサ");
+        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+    }
+
+    void PrizeRankingSet09()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();

@@ -41,6 +41,7 @@ public class Contest_Judge : MonoBehaviour {
 
     private string itemName;
     private string item_subType;
+    private string item_subTypeB;
     private int compNum;
 
     private int kettei_itemID;
@@ -139,6 +140,7 @@ public class Contest_Judge : MonoBehaviour {
         {
             itemName = database.items[kettei_itemID].itemName;
             item_subType = database.items[kettei_itemID].itemType_sub.ToString();
+            item_subTypeB = database.items[kettei_itemID].itemType_subB;
 
             //表示用アイテム名
             GameMgr.contest_okashiSlotName = "";
@@ -154,6 +156,7 @@ public class Contest_Judge : MonoBehaviour {
         {
             itemName = pitemlist.player_originalitemlist[kettei_itemID].itemName;
             item_subType = pitemlist.player_originalitemlist[kettei_itemID].itemType_sub.ToString();
+            item_subTypeB = pitemlist.player_originalitemlist[kettei_itemID].itemType_subB;
 
             //表示用アイテム名
             GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[kettei_itemID].item_SlotName;
@@ -169,6 +172,7 @@ public class Contest_Judge : MonoBehaviour {
         {
             itemName = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemName;
             item_subType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
+            item_subTypeB = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_subB;
 
             //表示用アイテム名
             GameMgr.contest_okashiSlotName = pitemlist.player_extremepanel_itemlist[kettei_itemID].item_SlotName;
@@ -191,6 +195,7 @@ public class Contest_Judge : MonoBehaviour {
         //***
 
         judge_flag = false;
+        GameMgr.contest_Disqualification = false;
         //judge_Type = 0; //基本審査員3人で対応。judge_Typeは、どのコンテストかを指定する。
 
         i = 0;
@@ -219,6 +224,13 @@ public class Contest_Judge : MonoBehaviour {
                         Debug.Log("判定番号: " + compNum);
                         break;
                     }
+                    else if (contestSet_database.contest_set[i].girlLike_itemSubtype == item_subTypeB && contestSet_database.contest_set[i].girlLike_itemSubtype != "Non")
+                    {
+                        compNum = contestSet_database.contest_set[i].girlLike_compNum;
+                        judge_flag = true;
+                        Debug.Log("判定番号: " + compNum);
+                        break;
+                    }
                 }
 
                 //~そのシートの検索EndPointまで検索する。Excel上にフラグがある。
@@ -241,7 +253,9 @@ public class Contest_Judge : MonoBehaviour {
             }
 
             GameMgr.contest_TotalScore = 0;
+            GameMgr.contest_Disqualification = true;
             _windowtext.text = "課題のお菓子ではないので、失格！";
+            Debug.Log("課題のお菓子ではないので、失格！");
         }
         else
         {
@@ -281,26 +295,6 @@ public class Contest_Judge : MonoBehaviour {
         //さきほどのset_IDをもとに、好みの値を決定する。このとき、コンテストごとの審査員の好みの判定補正もかける。
         for (count = 0; count < set_ID.Count; count++)
         {
-            /*switch (GameMgr.Contest_Name)
-            {
-                case "Or_Contest_010": //初級クッキーコンテスト
-
-                    //コンテストによっては、女の子の判定と同じ　に　補正をかけたもの もしかすると、全部こっちでいいのかも..。
-                    girl1_status.InitializeStageGirlHungrySet(set_ID[count], count); //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可
-                    girl1_status.girl1_Beauty[1] += 20; //二番目の審査員アントワネット様は、少し見た目点が辛口
-                    girl1_status.girl1_Beauty[2] = 0; //三番目の審査員じいさんは、見た目の点数が入らない
-                    girl1_status.girl1_Crispy[0] -= 10; //一番目のタカノは、少し判定甘目
-                    girl1_status.girl1_Crispy[2] += 20; //じいさんは、食感に関して審査が辛い
-                    break;
-
-                default:
-
-                    //こっちは、Entity_ContestSetDataBaseに登録した、コンテスト専用の判定値
-                    
-                    girl1_status.InitializeStageContestJudgeSet(set_ID[count], count); //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可
-                    //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
-                    break;
-            }*/
 
             girl1_status.InitializeStageContestJudgeSet(set_ID[count], count); //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可
                                                                                //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
@@ -382,37 +376,7 @@ public class Contest_Judge : MonoBehaviour {
             case "First_Contest":
 
                 //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。その代わり見た目の点数が一切入らない。
-                before_tastescore[2] = GameMgr.contest_Taste_Score[2];
-                if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 80)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] >= 180)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] < 0)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
-                }
-
-                total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
-
-                Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。上の食感の値が最終の食感点数");
-                Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
-                Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
+                Contest_ShokukanHosei_1();
 
                 //200点を上限に100点に正規化する。
                 ScoreNormalized(200);
@@ -423,47 +387,20 @@ public class Contest_Judge : MonoBehaviour {
                 
             case "Or_Contest_010":　//クッキー初級コンテスト
 
-                //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。その代わり見た目の点数が一切入らない。
-                before_tastescore[2] = GameMgr.contest_Taste_Score[2];
-                if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 80)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] >= 180)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
-                }
-                else if (GameMgr.contest_Taste_Score[2] < 0)
-                {
-                    GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.7f);
-                }
-
-                total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
-
-                Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。下の食感の値が最終の食感点数");
-                Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
-                Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
+                //審査員３　じいさんだけ、食感の補正
+                Contest_ShokukanHosei_1();               
 
                 //入れた数値を上限に100点に正規化する。
-                ScoreNormalized(200);
+                ScoreNormalized(150);
                 Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
                 Debug.Log("### ###");
                 break;
 
 
             default:
+
+                //審査員３　じいさんだけ、食感の補正
+                Contest_ShokukanHosei_1();
 
                 //入れた数値を上限に100点に正規化する。
                 ScoreNormalized(200);
@@ -492,6 +429,41 @@ public class Contest_Judge : MonoBehaviour {
         //Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
         
 
+    }
+
+    void Contest_ShokukanHosei_1()
+    {
+        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+        if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 80)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 180)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] < 0)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.7f);
+        }
+
+        total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
+
+        Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。下の食感の値が最終の食感点数");
+        Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
+        Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
     }
 
     //点数を、入れた値を上限にして100点に正規化する。

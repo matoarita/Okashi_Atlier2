@@ -120,10 +120,64 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Soda Island Campo";
                                 break;
 
-                                case "Or_Hiroba_Summer_ThemePark_StreetA":
+                                case "Or_Hiroba_Summer_ThemePark_StreetA": //夏エリア　遊園地　右の通り
 
                                 _text = "13番街通り";
                                 _subtext = "Soda 13th Street";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba": //夏エリア　観覧車広場
+
+                                _text = "観覧車エリア";
+                                _subtext = "Ferris wheel Area";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_KanranShaMae": //夏エリア  遊園地　観覧車乗り場
+
+                                _text = "観覧車乗り場";
+                                _subtext = "Ferris wheel Plarform";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumMae": //夏エリア  遊園地　水族館前
+
+                                _text = "水族館エリア";
+                                _subtext = "Aquarium Area";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumEntrance": //夏エリア  遊園地　水族館入口
+
+                                _text = "水族館入口";
+                                _subtext = "Aquarium Entrance";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumMainHall": //夏エリア  遊園地　水族館メイン広場
+
+                                _text = "湖底の森";
+                                _subtext = "Forest of Lake bottom";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumMain2F": //夏エリア  遊園地　水族館メイン2F
+
+                                _text = "翡翠の大広場";
+                                _subtext = "Jade Square";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumMiniHall": //夏エリア  遊園地　水族館ミニホール
+
+                                _text = "暗闇のミニホール";
+                                _subtext = "Mini Hall of darkness";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_AquariumBigWhale": //夏エリア  遊園地　水族館　大水槽
+
+                                _text = "夢見る白くじら";
+                                _subtext = "Aquarium for white whale";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_Pool": //夏エリア  プール入口
+
+                                _text = "プールエリア入口";
+                                _subtext = "Poolside Entrance";
                                 break;
 
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口

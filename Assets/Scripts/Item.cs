@@ -135,6 +135,7 @@ public class Item
         Cake,
         Cake_Mat,
         Cake_base,
+        CheeseCake,
         Castella,       
         Creampuff,
         Crepe,

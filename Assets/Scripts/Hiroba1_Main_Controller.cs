@@ -334,23 +334,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Select = 0; //何もしていない状態
             GameMgr.Scene_Status = 0;
 
-            switch(map_move_num)
-            {
-                case 0: //ブルートパーズの花畑へ移動
-
-                    _place_num = matplace_database.SearchMapString("Bluetopaz_Garden");
-                    GameMgr.Select_place_num = _place_num;
-                    GameMgr.Select_place_name = matplace_database.matplace_lists[_place_num].placeName;
-                    GameMgr.Select_place_day = matplace_database.matplace_lists[_place_num].placeDay;
-
-                    //GameMgr.SceneSelectNum = 13;
-
-                    //音量フェードアウト
-                    sceneBGM.FadeOutBGM(0.5f);
-
-                    FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
-                    break;
-            }
+            MapMove();           
         }
         else
         {
@@ -375,6 +359,27 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             ToggleFlagCheck();
 
             text_scenario(); //テキストの更新
+        }
+    }
+
+    void MapMove()
+    {
+        switch (map_move_num)
+        {
+            case 0: //ブルートパーズの花畑へ移動
+
+                _place_num = matplace_database.SearchMapString("Bluetopaz_Garden");
+                GameMgr.Select_place_num = _place_num;
+                GameMgr.Select_place_name = matplace_database.matplace_lists[_place_num].placeName;
+                GameMgr.Select_place_day = matplace_database.matplace_lists[_place_num].placeDay;
+
+                //GameMgr.SceneSelectNum = 13;
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM(0.5f);
+
+                FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
+                break;
         }
     }
 
@@ -1105,6 +1110,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active200();
                     break;
 
+                case "Or_Hiroba_Summer_MainStreet": //中央噴水
+
+                    On_Active1004_Alice();
+                    break;
+
                 default:
 
                     On_Active1005();
@@ -1743,18 +1753,36 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         GameMgr.hiroba_event_placeNum = 2000; //
 
-        //sceneBGM.FadeOutBGM();
-        //bgm_change_flag = true;
-        GameMgr.hiroba_event_ID = 230000; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
+        if (!GameMgr.NPCHiroba_eventList[2510]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[2510] = true;
 
-        map_move = true; //シナリオ読み終わり後、マップを移動する
-        map_move_num = 0;
-        EventReadingStart();
+            //sceneBGM.FadeOutBGM();
+            //bgm_change_flag = true;
+            GameMgr.hiroba_event_ID = 230000; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
-        //GameMgr.Scene_back_home = true;
-        //シーン読み込み
+            map_move = true; //シナリオ読み終わり後、マップを移動する
+            map_move_num = 0;
 
-        
+            matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズ解禁
+
+            check_event = true;
+
+            EventReadingStart();
+
+            //GameMgr.Scene_back_home = true;
+            //シーン読み込み
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[2510]) //すでにブルートパーズにいったことがある
+            {
+                map_move_num = 0;
+                MapMove();
+            }
+        }       
     }
 
     void On_ShopActive01()
@@ -2097,9 +2125,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //NPCきのこ　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1210; //
 
-        if (!GameMgr.NPCHiroba_eventList[150]) //はじめて
+        if (!GameMgr.NPCHiroba_eventList[130]) //はじめて
         {
-            GameMgr.NPCHiroba_eventList[150] = true;
+            GameMgr.NPCHiroba_eventList[130] = true;
 
             GameMgr.hiroba_event_ID = 0;
             //BGMかえる
@@ -2112,7 +2140,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         if (check_event) { } //上で先にイベント発生したら、以下は読まない。
         else
         {
-            if (GameMgr.NPCHiroba_eventList[150]) //ほかに発生するイベントがなく、すでに友達になった。
+            if (GameMgr.NPCHiroba_eventList[130]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 GameMgr.hiroba_event_ID = 10;
                 //BGMかえる
@@ -2131,9 +2159,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //NPC魔女ばあさん　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1220; //
 
-        if (!GameMgr.NPCHiroba_eventList[200]) //はじめて
+        if (!GameMgr.NPCHiroba_eventList[160]) //はじめて
         {
-            GameMgr.NPCHiroba_eventList[200] = true;
+            GameMgr.NPCHiroba_eventList[160] = true;
 
             GameMgr.hiroba_event_ID = 0;
             //BGMかえる
@@ -2146,7 +2174,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         if (check_event) { } //上で先にイベント発生したら、以下は読まない。
         else
         {
-            if (GameMgr.NPCHiroba_eventList[200]) //ほかに発生するイベントがなく、すでに友達になった。
+            if (GameMgr.NPCHiroba_eventList[160]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 GameMgr.hiroba_event_ID = 10;
                 //BGMかえる
@@ -2160,7 +2188,41 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
-    
+
+    void On_Active1004_Alice()
+    {
+        //NPC魔女ばあさん　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1230; //
+
+        if (!GameMgr.NPCHiroba_eventList[190]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[190] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[190]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+
+        EventReadingStart();
+    }
+
 
     void On_Active1005()
     {

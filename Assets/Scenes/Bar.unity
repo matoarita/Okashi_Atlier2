@@ -4052,6 +4052,12 @@ MonoBehaviour:
   sound52: {fileID: 0}
   sound53: {fileID: 0}
   sound1000: {fileID: 0}
+  Ambient1: {fileID: 0}
+  Ambient2: {fileID: 0}
+  Ambient3: {fileID: 0}
+  Ambient4: {fileID: 0}
+  Ambient5: {fileID: 0}
+  Ambient6: {fileID: 0}
 --- !u!82 &1841630730
 AudioSource:
   m_ObjectHideFlags: 0

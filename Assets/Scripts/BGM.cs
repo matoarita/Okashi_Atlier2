@@ -72,6 +72,8 @@ public class BGM : MonoBehaviour {
     public AudioClip Ambient2; //森の中の虫の鳴き声
     public AudioClip Ambient3; //川のせせらぎ音１
     public AudioClip Ambient4; //川のせせらぎ音２
+    public AudioClip Ambient5; //くじらの鳴き声
+    public AudioClip Ambient6; //春の森の声
 
 
     private AudioClip _send_clip;
@@ -173,8 +175,8 @@ public class BGM : MonoBehaviour {
                     case 11: //アトリエ前
 
                         //_send_clip = sound41;
-                        _send_clip = Ambient2; //疑似的にメインBGMを環境音に。
-                        _send_clip_ambient = Ambient1;
+                        _send_clip = sound1000; //
+                        _send_clip_ambient = Ambient6;
                         break;
 
                     case 20: //オランジーナショップ
@@ -353,9 +355,10 @@ public class BGM : MonoBehaviour {
                             case "Or_Hiroba_Summer_ThemePark_AquariumBigWhale": //夏エリア  遊園地　水族館　大水槽
 
                                 _send_clip = sound53;
+                                _send_clip_ambient = Ambient5;
                                 break;
 
-                            case "Or_Hiroba_Summer_ThemePark_Pool": //夏エリア  プール
+                            case "Or_Hiroba_Summer_ThemePark_Pool": //夏エリア  プール入口
 
                                 _send_clip = sound45;
                                 break;

@@ -24,3 +24,5 @@
 ・MapAmbience_02	VSQSE_0967_singing_of_insect_08			森の中で虫の鳴き声
 ・MapAmbience_03	VSQSE_951_river_15				川・湖のせせらぎ
 ・MapAmbience_04	VSQSE_0649_river_02				川・湖のせせらぎ２
+・MapAmbience_05	audiostock_497746_sample			くじらの鳴き声
+・MapAmbience_06	audiostock_913857_sample			春の森の音

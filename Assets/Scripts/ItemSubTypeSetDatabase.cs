@@ -17,7 +17,7 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
 
     }
 
-    public void SetImageSub(string _subType) //mstatusは、どこのスクリプトから呼ばれたを指定　それぞれで処理を変える
+    public void SetImageSub(string _subType) //
     {
         switch (_subType)
         {
@@ -41,10 +41,10 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_subcategoryText = "クッキー";
                 Crispy_Text();
                 break;
-            case "Cookie_Mat":
+            /*case "Cookie_Mat":
                 GameMgr.Item_subcategoryText = "クッキー";
                 Crispy_Text();
-                break;
+                break;*/
             case "Cookie_Hard":
                 GameMgr.Item_subcategoryText = "ノンシュガークッキー";
                 Hardness_Text();
@@ -63,6 +63,10 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 break;
             case "Cake_Mat":
                 GameMgr.Item_subcategoryText = "ケーキの素材";
+                Fluffy_Text();
+                break;
+            case "CheeseCake":
+                GameMgr.Item_subcategoryText = "チーズケーキ";
                 Fluffy_Text();
                 break;
             case "Castella":
