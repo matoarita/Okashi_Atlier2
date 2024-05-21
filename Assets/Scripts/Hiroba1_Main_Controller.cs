@@ -1779,6 +1779,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[2510]) //すでにブルートパーズにいったことがある
             {
+                matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズ解禁
+
                 map_move_num = 0;
                 MapMove();
             }
