@@ -397,12 +397,19 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_MapEvent_07 = GameMgr.MapEvent_07,         //ベリーファーム
             save_MapEvent_08 = GameMgr.MapEvent_08,         //白猫のおはか
 
+            save_MapEvent_Or = GameMgr.MapEvent_Or,         //オランジーナのマップイベント
+
             //広場でのイベント
-            save_hiroba_event_end = GameMgr.hiroba_event_end,           
+            save_hiroba_event_end = GameMgr.hiroba_event_end,
+            save_NPCHiroba_HikarieventList = GameMgr.NPCHiroba_HikarieventList,
+            save_NPCHiroba_eventList = GameMgr.NPCHiroba_eventList,
+            save_NPCMagic_eventList = GameMgr.NPCMagic_eventList,
+
 
             //ショップのイベントリスト
             save_ShopEvent_stage = GameMgr.ShopEvent_stage,
             save_ShopLvEvent_stage = GameMgr.ShopLVEvent_stage,
+            save_Or_ShopEvent_stage = GameMgr.Or_ShopEvent_stage,
 
             //ショップの在庫
             save_shopzaiko = _temp_shopzaiko,
@@ -744,12 +751,18 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.MapEvent_08 = playerData.save_MapEvent_08;        //白猫のおはか
         }
 
+        GameMgr.MapEvent_Or = playerData.save_MapEvent_Or;
+
         //広場でのイベント
-        GameMgr.hiroba_event_end = playerData.save_hiroba_event_end;       
+        GameMgr.hiroba_event_end = playerData.save_hiroba_event_end;
+        GameMgr.NPCHiroba_HikarieventList = playerData.save_NPCHiroba_HikarieventList;
+        GameMgr.NPCHiroba_eventList = playerData.save_NPCHiroba_eventList;
+        GameMgr.NPCMagic_eventList = playerData.save_NPCMagic_eventList;
 
         //ショップのイベントリスト
         GameMgr.ShopEvent_stage = playerData.save_ShopEvent_stage;
         GameMgr.ShopLVEvent_stage = playerData.save_ShopLvEvent_stage;
+        GameMgr.Or_ShopEvent_stage = playerData.save_Or_ShopEvent_stage;
 
         //酒場のイベントリスト
         GameMgr.BarEvent_stage = playerData.save_BarEvent_stage;

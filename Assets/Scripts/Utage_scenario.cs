@@ -3460,10 +3460,27 @@ public class Utage_scenario : MonoBehaviour
                     yield return null;
                 }
 
-                GameMgr.Scene_Black_ON = true;
+                GameMgr.Utage_SceneEnd_BlackON = true;
 
                 //続きから再度読み込み
                 engine.ResumeScenario();
+        }
+
+        //マップ移動の場合　シーン暗くしておく
+        if (GameMgr.Utage_MapMoveBlackON)
+        {
+            
+            //「宴」のシナリオ終了待ち
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            GameMgr.Utage_MapMoveBlackON = false;
+            GameMgr.Utage_SceneEnd_BlackON = true;
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
         }
 
         //「宴」のシナリオ終了待ち
@@ -3935,6 +3952,19 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
+        //背景切り替えのため、一度シーンに黒をはさむ
+        //「宴」のシナリオ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.Utage_SceneEnd_BlackON = true;
+        //** **//
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
         {
@@ -4083,13 +4113,23 @@ public class Utage_scenario : MonoBehaviour
 
         if (GameMgr.contest_Disqualification) //課題のお菓子以外を提出し、コンテスト失格の場合
         {
-            //なにもせず、宴のシナリオ終了待ち
+            //なにもせず、宴のシナリオポーズ待ち
+            //「宴」のシナリオポーズ待ち
+            while (!Engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            GameMgr.Utage_SceneEnd_BlackON = true;
+
+            //元のシナリオにもどる。
+            engine.ResumeScenario();
         }
         else
         {
             if (GameMgr.Contest_Cate_Ranking == 1)
             {
-
+                //順位表表示
                 //「宴」のシナリオポーズ待ち
                 while (!Engine.IsPausingScenario)
                 {
@@ -4100,9 +4140,37 @@ public class Utage_scenario : MonoBehaviour
                                                    //シーンの黒フェードをオフにする。
                 GameMgr.Utage_Prizepanel_ON = true;
 
+                while (!GameMgr.Utage_Prizepanel_WaitHyouji) //完全にランキングパネル表示されたら、続きを再生
+                {
+                    yield return null;
+                }
+                GameMgr.Utage_Prizepanel_WaitHyouji = false;
+
                 //元のシナリオにもどる。
                 engine.ResumeScenario();
 
+
+                //順位表オフ
+                //「宴」のシナリオポーズ待ち
+                while (!Engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                //順位表をオフにする。
+                GameMgr.Utage_Prizepanel_OFF = true;
+
+                while (!GameMgr.Utage_Prizepanel_WaitHyouji) //完全にランキングパネル表示オフにしたら再生
+                {
+                    yield return null;
+                }
+                GameMgr.Utage_Prizepanel_WaitHyouji = false;
+
+                //元のシナリオにもどる。
+                engine.ResumeScenario();
+
+
+                //プライズ行く前のブラック
                 //「宴」のシナリオポーズ待ち
                 while (!Engine.IsPausingScenario)
                 {

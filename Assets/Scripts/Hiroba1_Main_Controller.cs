@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Hiroba1_Main_Controller : MonoBehaviour {
 
@@ -56,6 +57,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private ScenePlaceNamePanel sceneplace_namepanel;
 
     private GameObject back_atlier_obj;
+    private GameObject scene_black_effect;
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -117,6 +119,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         back_atlier_obj = canvas.transform.Find("BackHomeButtonPanel").gameObject;
         back_atlier_obj.SetActive(false);
+
+        //シーン全てをブラックに消すパネル
+        scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //黒い画面はオフ
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -181,6 +187,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
         EventCheck();
+
+        //宴途中でブラックをオフにする ドアをあけて会場へ移動する演出用
+        if (GameMgr.Utage_SceneEnd_BlackON)
+        {
+            GameMgr.Utage_SceneEnd_BlackON = false;
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
+        }
 
         if (map_move) //マップ移動中は、ウィンドウオフのまま
         {
@@ -378,9 +391,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //音量フェードアウト
                 sceneBGM.FadeOutBGM(0.5f);
 
-                FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
+                StartCoroutine("WaitForGotoMap");
                 break;
         }
+    }
+
+    IEnumerator WaitForGotoMap()
+    {
+        yield return new WaitForSeconds(0.5f); //1秒待つ
+
+        FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
     }
 
 
@@ -1763,6 +1783,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             map_move = true; //シナリオ読み終わり後、マップを移動する
             map_move_num = 0;
+            GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
 
             matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズ解禁
 

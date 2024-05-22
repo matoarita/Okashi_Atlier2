@@ -138,8 +138,13 @@ public class PlayerData
     public bool[] save_MapEvent_07;         //ベリーファーム
     public bool[] save_MapEvent_08;         //白猫のおはか
 
+    public bool[] save_MapEvent_Or = new bool[GameMgr.MapEvent_Or.Length];         //オランジーナのマップイベント
+
     //広場でのイベント
     public bool[] save_hiroba_event_end = new bool[GameMgr.hiroba_event_end.Length]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。
+    public bool[] save_NPCHiroba_HikarieventList = new bool[GameMgr.NPCHiroba_HikarieventList.Length]; //オランジーナ関連広場イベント
+    public bool[] save_NPCHiroba_eventList = new bool[GameMgr.NPCHiroba_eventList.Length]; //オランジーナ関連広場イベント
+    public bool[] save_NPCMagic_eventList = new bool[GameMgr.NPCMagic_eventList.Length]; //オランジーナ関連広場イベント
 
     //お菓子クエストフラグ
     public bool[] save_OkashiQuest_flag_stage1 = new bool[GameMgr.OkashiQuest_flag_stage1.Length]; //各SPイベントのクリアしたかどうかのフラグ。
@@ -211,6 +216,7 @@ public class PlayerData
     //ショップのイベントリスト
     public bool[] save_ShopEvent_stage = new bool[GameMgr.ShopEvent_stage.Length];
     public bool[] save_ShopLvEvent_stage = new bool[GameMgr.ShopLVEvent_stage.Length];
+    public bool[] save_Or_ShopEvent_stage = new bool[GameMgr.Or_ShopEvent_stage.Length];
 
     //ショップの在庫
     public List<ItemSaveKosu> save_shopzaiko = new List<ItemSaveKosu>();

@@ -584,7 +584,10 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
 
                 //成功すると、機嫌が少しよくなる。
-                girl1_status.GirlExpressionKoushin(10);
+                if (!GameMgr.Contest_ON)
+                {
+                    girl1_status.GirlExpressionKoushin(10);
+                }
             }
             else //失敗
             {
@@ -594,11 +597,15 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 _getexp = 5;
                 hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
 
-                //ハートも下がる。
-                girleat_judge.UpDegHeart(-5, false);
+                //コンテスト中は、ハート系は動かない
+                if (!GameMgr.Contest_ON)
+                {
+                    //ハートも下がる。
+                    girleat_judge.UpDegHeart(-5, false);
 
-                //失敗すると、機嫌は下がる。-20で1段階下がる。
-                girl1_status.GirlExpressionKoushin(-10);
+                    //失敗すると、機嫌は下がる。-20で1段階下がる。
+                    girl1_status.GirlExpressionKoushin(-10);
+                }
             }
 
             compound_keisan.Delete_playerItemList(2);

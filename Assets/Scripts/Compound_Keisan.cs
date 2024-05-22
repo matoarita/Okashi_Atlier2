@@ -1897,7 +1897,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
         {
             //ジュースの特殊処理　甘さが青天井で上がることはないように、上限をおさえる。
-            if (_base_itemType_sub == "Juice")
+            if (_base_itemType_sub == "Juice" || _base_itemType_sub == "Soda")
             {
                 if (_basename == "juice_float") //ジュースフロートは、無視する。アイスをのせるたびに、甘さがどんどん下がってしまうため。
                 { }

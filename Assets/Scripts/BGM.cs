@@ -585,7 +585,8 @@ public class BGM : MonoBehaviour {
     }
 
     void BGMMainChange()
-    {
+    {        
+
         _send_clip_ambient = sound1000; //指定がなければ、環境音はデフォルトはoff
 
         switch (SceneManager.GetActiveScene().name)

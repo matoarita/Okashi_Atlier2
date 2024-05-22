@@ -141,6 +141,10 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_subcategoryText = "すみれ砂糖菓子";
                 Tea_Text();
                 break;
+            case "Soda":
+                GameMgr.Item_subcategoryText = "ソーダ";
+                Juice_Text();
+                break;
             case "Rusk":
                 GameMgr.Item_subcategoryText = "ラスク";
                 Crispy_Text();

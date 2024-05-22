@@ -136,6 +136,8 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
             _bgm[_num].clip = _clip;
             _bgm[_num].Play();
         }
+
+        Debug.Log("OnBGMPlay");
     }
 
     //必ずBGMの頭に再生ヘッドを戻して、音を鳴らす
@@ -143,6 +145,8 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
     {
             _bgm[_num].clip = _clip;
             _bgm[_num].Play();
+
+        Debug.Log("OnBGM RestartPlay");
     }
 
     public void BGMStop(int _num)

@@ -385,9 +385,9 @@ public class Contest_Main_Reception : MonoBehaviour
         }
 
         //宴途中でブラックをオフにする ドアをあけて会場へ移動する演出用
-        if (GameMgr.Scene_Black_ON)
+        if (GameMgr.Utage_SceneEnd_BlackON)
         {
-            GameMgr.Scene_Black_ON = false;
+            GameMgr.Utage_SceneEnd_BlackON = false;
             sceneBGM.FadeOutBGM(2.0f);
             scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
         }

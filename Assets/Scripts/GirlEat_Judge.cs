@@ -1690,24 +1690,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             beauty_score = 0;
         }
 
-        //コンテストでは、さらに「風らしさ」などの特殊点を計算
-        GameMgr.Contest_Clear_Failed = false;
-        if (_girlsp1_wind[countNum] > 0)
-        {           
-            spscore1_score = _base_sp_wind - _girlsp1_wind[countNum];
-            Debug.Log("コンテスト　風らしさ計算ON: " + spscore1_score + " お菓子の風らしさ: " + _base_sp_wind + " 判定値: " + _girlsp1_wind[countNum]);
 
-            if (spscore1_score < 0) //合格点に達してない場合は、クリアできない
-            {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("コンテスト　風らしさの点: " + spscore1_score + " 足りなかったので不合格");
-            }
-        }
-        else
-        {
-            spscore1_score = 0;
-            Debug.Log("コンテスト　風らしさ計算OFF");
-        }
+        //さらに「風らしさ」などの特殊点を計算
+        SpScoreKeisan();
+        
+
+
 
         //水っぽい・油っぽいなどの減点点数処理
         Debuf_Param_Judge();
@@ -1948,6 +1936,47 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 total_score = 0;
                 break;
         }*/
+    }
+
+    void SpScoreKeisan()
+    {
+        GameMgr.Contest_Clear_Failed = false;
+
+        //風らしさ
+        if (_girlsp1_wind[countNum] > 0)
+        {
+            spscore1_score = _base_sp_wind - _girlsp1_wind[countNum];
+            Debug.Log("コンテスト　風らしさ計算ON: " + spscore1_score + " お菓子の風らしさ: " + _base_sp_wind + " 判定値: " + _girlsp1_wind[countNum]);
+
+            if (spscore1_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　風らしさの点: " + spscore1_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore1_score = 0;
+            Debug.Log("コンテスト　風らしさ計算OFF");
+        }
+
+        //海らしさ
+        if (_girlsp_score2[countNum] > 0)
+        {
+            spscore2_score = _base_sp_score2 - _girlsp_score2[countNum];
+            Debug.Log("コンテスト　海らしさ計算ON: " + spscore2_score + " お菓子の海らしさ: " + _base_sp_score2 + " 判定値: " + _girlsp_score2[countNum]);
+
+            if (spscore2_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　海らしさの点: " + spscore2_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore2_score = 0;
+            Debug.Log("コンテスト　海らしさ計算OFF");
+        }
     }
 
     //酒場クエスト(Quest_Judge.cs)などからも読み込み

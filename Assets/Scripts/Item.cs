@@ -148,6 +148,7 @@ public class Item
         Financier,
         IceCream,
         Juice,
+        Soda,
         Jelly,
         Maffin,
         Omochi,

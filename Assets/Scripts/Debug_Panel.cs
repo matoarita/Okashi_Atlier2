@@ -743,4 +743,25 @@ public class Debug_Panel : MonoBehaviour {
             DebugLogPanel.SetActive(true);
         }
     }
+
+    public void OnEventFlagResetButton()
+    {
+        //マップ・ショップイベントのリセット
+        for (i = 0; i < GameMgr.MapEvent_Or.Length; i++)
+        {
+            GameMgr.MapEvent_Or[i] = false;
+            GameMgr.Or_ShopEvent_stage[i] = false;
+        }
+
+        //広場NPCイベントフラグの初期化
+        for (i = 0; i < GameMgr.NPCHiroba_eventList.Length; i++)
+        {
+            GameMgr.NPCHiroba_eventList[i] = false;
+            GameMgr.NPCMagic_eventList[i] = false;
+        }
+        for (i = 0; i < GameMgr.NPCHiroba_HikarieventList.Length; i++)
+        {
+            GameMgr.NPCHiroba_HikarieventList[i] = false;
+        }
+    }
 }

@@ -40,7 +40,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_GameOver_ON = false; //エクストラ　ゲームオーバーのONOFF
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
-    public static bool System_DebugItemSet_ON = false; //デバッグ用　アイテムや魔法などを最初からセットする　最終的にはオフにすること
+    public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
 
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
@@ -150,13 +150,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] MapEvent_07 = new bool[Event_num];         //ベリーファーム 
     public static bool[] MapEvent_08 = new bool[Event_num];         //白猫のおはか  
 
-    //2から  まだセーブしてない
+    //2から
     public static bool[] MapEvent_Or = new bool[OrEvent_num];
 
     //広場でのイベント
     public static bool[] hiroba_event_end = new bool[99]; //イベントを読み終えたかどうかを保存するフラグ。配列順は適当。
 
-    //2の広場イベントNPCフラグ　まだセーブしてない
+    //2の広場イベントNPCフラグ
     public static bool[] NPCHiroba_HikarieventList = new bool[GirlLoveSubEvent_stage_num]; //２でのヒカリの広場全般イベントリスト。
     //100~ 散歩道
 
@@ -172,7 +172,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] emeraldShopEvent_stage = new bool[Event_num];
     public static bool[] FarmEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
 
-    //2から  まだセーブしてない
+    //2から
     public static bool[] Or_ShopEvent_stage = new bool[OrEvent_num];
 
     //酒場のうわさ話リスト
@@ -530,8 +530,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Scene_Select; //各シーンごとの状態 今なにを選択しているか
     public static bool Scene_LoadedOn_End; //シーンの読み込み完了フラグ
     public static bool girlEat_ON; //女の子　食べ中のフラグ
-    public static bool Scene_Black_Off; //シーンによっては、このフラグがたつと、宴途中などで、シーンの黒画面をオフにする
-    public static bool Scene_Black_ON; //こっちは黒をONにする
     public static bool Kaigyo_ON; //メッセージウィンドウの改行ボタンをおした。宴ではなく、材料採取の改行時など。
     public static int Comp_kettei_bunki; //調合の、今何の調合をしている最中かを表すステータス
     public static string UseMagicSkill; //使用する魔法・スキルのネーム
@@ -593,7 +591,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool BGTouch_ALLON; //背景オブジェクトの触り判定をオンにする。
     public static bool EatAnim_End; //食べるときのエフェクトアニメの終了を検知
     public static bool Utage_Prizepanel_ON; //コンテスト賞品のシーン再生中、賞品リストを表示する。
+    public static bool Utage_Prizepanel_WaitHyouji; //プライズパネルが完全に開くまで、宴の続きを再生しないフラグ
+    public static bool Utage_Prizepanel_OFF; //賞品リストをオフにする。
     public static bool Utage_SceneEnd_BlackON; //うたげ終了時、シーン移動する際に、ゲーム本編の黒をONにする。でないと、一瞬切り替え表示が見えてしまう。
+    public static bool Scene_Black_Off; //シーンによっては、このフラグがたつと、宴途中などで、シーンの黒画面をオフにする
+    public static bool Utage_MapMoveBlackON; //宴読み終わり後に、マップ移動のとき、シーンをあらかじめブラックに消すフラグ　こっちは、SceneEnd_BlackONをTrueにするため分岐する用
     public static int Utage_Prizepanel_Type; //コンテストのシーン再生中、賞品リストか順位表を表示する際のタイプ指定
     public static bool Ajimi_AfterFlag; //味見直後　テキスト更新用のフラグ
     public static string AjimiAfter_Text; //味見直後　テキスト
@@ -607,6 +609,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<int> ContestItem_supplied_KosuList = new List<int>(); //コンテストで支給されるアイテムの個数
     public static int Cullender_Month; //カレンダーで計算した、入力した日付をもとに月を返す値
     public static int Cullender_Day; //カレンダーで計算した、入力した日付をもとに日を返す値
+    
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -1062,7 +1065,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Scene_LoadedOn_End = false;
         girlEat_ON = false;
         Scene_Black_Off = false;
-        Scene_Black_ON = false;
         Kaigyo_ON = false;
         Comp_kettei_bunki = 0;
         UseMagicSkill = "";
@@ -1103,7 +1105,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         BGTouch_ALLON = false;
         EatAnim_End = false;
         Utage_Prizepanel_ON = false;
+        Utage_Prizepanel_WaitHyouji = false;
+        Utage_Prizepanel_OFF = false;
         Utage_SceneEnd_BlackON = false;
+        Utage_MapMoveBlackON = false;
         Utage_Prizepanel_Type = 0;
         Ajimi_AfterFlag = false;
         Station_TrainGoFlag = false;
@@ -1126,6 +1131,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             NPCHiroba_eventList[system_i] = false;
             NPCMagic_eventList[system_i] = false;
+        }
+        for (system_i = 0; system_i < NPCHiroba_HikarieventList.Length; system_i++)
+        {
+            NPCHiroba_HikarieventList[system_i] = false;
         }
         
 
@@ -1436,8 +1445,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ichigo_collection_list.Add("izet_color_donuts");
         ichigo_collection_list.Add("strawberry_crepe");
         ichigo_collection_list.Add("strawberryblueberry_crepe");
-        ichigo_collection_list.Add("strawberry_parfe");
         ichigo_collection_list.Add("strawberry_ice_cream");
+        ichigo_collection_list.Add("strawberry_parfe");        
         ichigo_collection_list.Add("strawberry_juice");
 
         ichigo_collection_listFlag = new bool[ichigo_collection_list.Count];

@@ -98,6 +98,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private int inputcount;
     private bool StartRead; //シーンに入って最初の一回だけ起動する
     private bool contest_eventStart_flag; //シーン最初にシナリオ開始する
+    private bool Contest_PrizeGetScene; //コンテスト　賞品獲得画面に入ってるフラグ　このシーンのみで使う
+
+    private GameObject BGImagePanel;
+    private GameObject BG_contest_chuubou;
+    private GameObject BG_contest_hall;
+    private GameObject BG_contest_prizeget;
 
     //Live2Dモデルの取得    
     private GameObject _model_root_obj;
@@ -189,7 +195,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         contestPrizePanel = canvas.transform.Find("ContestPrizePanel").gameObject;
         contestPrizePanel.SetActive(false);
-
+        Contest_PrizeGetScene = false;
 
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
@@ -242,7 +248,15 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 }
             }
         }
-        
+
+        //背景取得
+        BGImagePanel = GameObject.FindWithTag("BG");
+        BG_contest_chuubou = BGImagePanel.transform.Find("ContestBG_chuubou").gameObject;
+        BG_contest_hall = BGImagePanel.transform.Find("ContestBG_Hall").gameObject;
+        BG_contest_prizeget = BGImagePanel.transform.Find("ContestBG_PrizeGet").gameObject;
+        BG_contest_chuubou.SetActive(false);
+        BG_contest_hall.SetActive(true);
+        BG_contest_prizeget.SetActive(false);
 
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
@@ -294,6 +308,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_or_event_flag = true;
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
+
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
 
         //二回戦以降、始まる場合の処理　Utage_scenarioの採点後にフラグをたてている。
@@ -311,6 +327,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_or_event_flag = true;
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
+
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
 
         //決勝戦終了後、賞品獲得
@@ -318,6 +336,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         {
             GameMgr.Contest_PrizeGet_flag = false;
 
+            Contest_PrizeGetScene = true;
             contestPrizePanel.SetActive(false); //ランキング戦で一回表示してる可能性があるので、一度オフ
             contestPrizeScore_dataBase.PrizeGet(); //アイテム獲得
 
@@ -331,6 +350,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_or_prizeget_flag = true;
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
+
+            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
 
         //コンテスト終了　会場外へでる。
@@ -368,12 +389,35 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //contest_startbutton_panel.SetActive(false);
             mainUI_panel.SetActive(false);
 
+            //会場の背景を表示
+            if(Contest_PrizeGetScene)
+            {
+                BG_contest_chuubou.SetActive(false);
+                BG_contest_hall.SetActive(false);
+                BG_contest_prizeget.SetActive(true);
+            }
+            else
+            {
+                BG_contest_chuubou.SetActive(false);
+                BG_contest_hall.SetActive(true);
+                BG_contest_prizeget.SetActive(false);
+            }
+            
+
             if (GameMgr.Utage_Prizepanel_ON)
             {
                 GameMgr.Utage_Prizepanel_ON = false;
-                contestPrizePanel.SetActive(true);
-                contestPrizePanel.GetComponent<GraphicRaycaster>().enabled = false; //宴が触れるように。
-                scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.3f);
+                GameMgr.Utage_Prizepanel_WaitHyouji = false;
+
+                StartCoroutine("WaitForRankingPanelOn");                
+            }
+
+            if (GameMgr.Utage_Prizepanel_OFF)
+            {
+                GameMgr.Utage_Prizepanel_OFF = false;
+                GameMgr.Utage_Prizepanel_WaitHyouji = false;
+
+                contestPrizePanel.GetComponent<CanvasGroup>().DOFade(0, 0.5f).OnComplete(OffPrizePanelactive);
             }
 
             if (GameMgr.Utage_SceneEnd_BlackON)
@@ -388,6 +432,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             switch (GameMgr.Scene_Status)
             {
                 case 0:
+
+                    //厨房の背景を表示
+                    BG_contest_chuubou.SetActive(true);
+                    BG_contest_hall.SetActive(false);
 
                     text_area.SetActive(true);
                     //contest_select.SetActive(true);
@@ -499,11 +547,37 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
+    void OnPrizePanelactive()
+    {
+        contestPrizePanel.GetComponent<GraphicRaycaster>().enabled = false; //宴が触れるように。
+                                                                            //scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.3f);
+        GameMgr.Utage_Prizepanel_WaitHyouji = true;
+    }
+
+    void OffPrizePanelactive()
+    {
+        contestPrizePanel.GetComponent<GraphicRaycaster>().enabled = true; //
+        contestPrizePanel.SetActive(false);
+        GameMgr.Utage_Prizepanel_WaitHyouji = true;
+    }
+
+    IEnumerator WaitForRankingPanelOn()
+    {
+        yield return new WaitForSeconds(0.5f); //少し待つ
+
+        contestPrizePanel.SetActive(true);
+        
+        contestPrizePanel.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
+        contestPrizePanel.GetComponent<CanvasGroup>().DOFade(1, 1.0f).OnComplete(OnPrizePanelactive);
+    }
+
     //各コンテストのデータの初期設定
     void ContestDataSetting()
     {
         //DBで初期設定を行っている
         conteststartList_database.ContestSetting();
+
+        //コンテスト場所に応じて背景を設定
 
         //コンテスト支給のものがあれば、このタイミングで追加
         conteststartList_database.AddContest_SurppliedItem();
@@ -780,6 +854,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.scenario_ON = true;
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
         GameMgr.contest_or_contestjudge_flag = true;
+
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
     }
 
 
@@ -804,6 +880,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.scenario_ON = true;
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
         GameMgr.contest_or_limittimeover_flag = true;
+
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
     }
 
    
