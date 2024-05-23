@@ -213,6 +213,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Contest_Reception_Spring";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 0; //バックボタン押したときの戻り先
+                GameMgr.Window_CharaName = "ガトー";
 
                 default_scenetext = "いらっしゃ～い。" + "\n" + "ここは、春コンテストの受付ですよ～。";
                 break;
@@ -223,6 +224,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Contest_Reception_Summer";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 10; //バックボタン押したときの戻り先
+                GameMgr.Window_CharaName = "ガトー";
 
                 default_scenetext = "ハロー！！" + "\n" + "ここは、夏コンテストの受付デース！！";
                 break;
@@ -233,6 +235,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Contest_Reception_Autumn";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 20; //バックボタン押したときの戻り先
+                GameMgr.Window_CharaName = "ガトー";
 
                 default_scenetext = "ようこそ紳士淑女。" + "\n" + "ここは、秋コンテストの受付でございます。";
                 break;
@@ -243,6 +246,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Contest_Reception_Winter";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 30; //バックボタン押したときの戻り先
+                GameMgr.Window_CharaName = "ガトー";
 
                 default_scenetext = "こんばんは..。" + "\n" + "ここは.. 冬コンテストの受付です..。";
                 break;
@@ -295,7 +299,13 @@ public class Contest_Main_Reception : MonoBehaviour
         }
         //** 場所名設定ここまで **//
 
+        //移動時に調合シーンステータスを0に。
+        GameMgr.compound_status = 0;
+        GameMgr.compound_select = 0;
+
         GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
+
         StartRead = false;
         check_event = false;
 

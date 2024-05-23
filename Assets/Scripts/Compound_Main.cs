@@ -2424,7 +2424,7 @@ public class Compound_Main : MonoBehaviour
     void OnGetMatPanel()
     {
         card_view.DeleteCard_DrawView();
-        _text.text = "妹と一緒に材料を取りにいくよ！行き先を選んでね。";
+        _text.text = "にいちゃん！　お外、どこに行く～？";
         GameMgr.compound_status = 20;
 
         StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。

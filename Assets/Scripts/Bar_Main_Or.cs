@@ -49,6 +49,7 @@ public class Bar_Main_Or : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Bar_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
+                GameMgr.Window_CharaName = "フィオナ";
                 break;
 
             case 10: //夏エリア
@@ -56,6 +57,7 @@ public class Bar_Main_Or : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Bar_B1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
                 SettingCharacterPanel(1);
+                GameMgr.Window_CharaName = "フィオナ";
                 break;
 
             case 20: //秋エリア
@@ -63,6 +65,7 @@ public class Bar_Main_Or : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Bar_C1";
                 BGImagePanel.transform.Find("BG_sprite_3").gameObject.SetActive(true);
                 SettingCharacterPanel(2);
+                GameMgr.Window_CharaName = "フィオナ";
                 break;
 
             case 30: //冬エリア
@@ -70,6 +73,7 @@ public class Bar_Main_Or : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Bar_D1";
                 BGImagePanel.transform.Find("BG_sprite_4").gameObject.SetActive(true);
                 SettingCharacterPanel(3);
+                GameMgr.Window_CharaName = "フィオナ";
                 break;
 
             default:
@@ -77,6 +81,7 @@ public class Bar_Main_Or : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Bar_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
+                GameMgr.Window_CharaName = "フィオナ";
                 break;
         }
 

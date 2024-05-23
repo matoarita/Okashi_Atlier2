@@ -105,7 +105,7 @@ public class GetMaterial_Main : MonoBehaviour
         GameMgr.matbgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
 
 
-        
+
         /*
         //
         //背景と場所名の設定 最初にこれを行う
@@ -171,7 +171,13 @@ public class GetMaterial_Main : MonoBehaviour
         }*/
         //** 場所名設定ここまで **//
 
+        //移動時に調合シーンステータスを0に。
+        GameMgr.compound_status = 0;
+        GameMgr.compound_select = 0;
+
         GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
+
         StartRead = false;
 
         text_scenario();

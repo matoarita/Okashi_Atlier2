@@ -36,18 +36,21 @@ public class Farm_Main_Or : MonoBehaviour {
 
                 GameMgr.Scene_Name = "Or_Farm_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
+                GameMgr.Window_CharaName = "モタリケ";
                 break;
 
             case 10: //夏エリア
 
                 GameMgr.Scene_Name = "Or_Farm_B1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
+                GameMgr.Window_CharaName = "モタリケ";
                 break;
 
             default:
 
                 GameMgr.Scene_Name = "Or_Farm_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
+                GameMgr.Window_CharaName = "モタリケ";
                 break;
         }
 

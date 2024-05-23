@@ -49,6 +49,7 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_EmeraldShop_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
+                GameMgr.Window_CharaName = "ねこ";
                 break;
 
             case 10: //夏エリア
@@ -56,6 +57,7 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_EmeraldShop_B1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
                 SettingCharacterPanel(1);
+                GameMgr.Window_CharaName = "ねこ";
                 break;
 
             default:
@@ -63,6 +65,7 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_EmeraldShop_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
+                GameMgr.Window_CharaName = "ねこ";
                 break;
         }
 

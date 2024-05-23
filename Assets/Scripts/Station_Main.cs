@@ -202,7 +202,14 @@ public class Station_Main : MonoBehaviour
         //トグル初期状態
         ToggleSetup();
 
+        //移動時に調合シーンステータスを0に。
+        GameMgr.compound_status = 0;
+        GameMgr.compound_select = 0;
+
         GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
+
+
         StartRead = false;
 
         bgm_change_flag = false;

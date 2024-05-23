@@ -126,6 +126,10 @@ public class Farm_Main_Controller : MonoBehaviour {
         StartRead = false;
         check_event = false;
 
+        //移動時に調合シーンステータスを0に。
+        GameMgr.compound_status = 0;
+        GameMgr.compound_select = 0;
+
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 

@@ -609,7 +609,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<int> ContestItem_supplied_KosuList = new List<int>(); //コンテストで支給されるアイテムの個数
     public static int Cullender_Month; //カレンダーで計算した、入力した日付をもとに月を返す値
     public static int Cullender_Day; //カレンダーで計算した、入力した日付をもとに日を返す値
-    
+    public static bool Window_FaceIcon_OnOff; //顔ぐらふぃっくの表示／非表示
+    public static string Window_CharaName; //顔ぐらふぃっくの非表示のときの名前
+
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用
@@ -1112,6 +1114,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Utage_Prizepanel_Type = 0;
         Ajimi_AfterFlag = false;
         Station_TrainGoFlag = false;
+        Window_FaceIcon_OnOff = false;
+        Window_CharaName = "";
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

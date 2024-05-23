@@ -550,6 +550,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         {
             move_anim_end = false;
             slot_view_status = 0;
+           
 
             //シーン移動のマップは、そのままシーン移動
             switch (GameMgr.Select_place_name)
@@ -861,11 +862,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         if (matplace_database.matplace_lists[_place_num].placeType == 0)
         {
-            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？";
+            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行く？";
         }
         else
         {
-            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行きますか？" + "\n" + "移動費用：" 
+            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行く？" + "\n" + "移動費用：" 
                 + GameMgr.ColorYellow + matplace_database.matplace_lists[_place_num].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
                 + "  " + "体力消費：" + GameMgr.ColorPink + matplace_database.matplace_lists[_place_num].placeHP + "</color>";
         }
@@ -1126,7 +1127,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 StatusPanelOFF();
 
-                _text.text = "移動中 .";
+                //_text.text = "移動中 .";
                 moveanim_panel_image_text.GetComponent<Text>().text = "移動中 .";
                 break;
 
@@ -1143,7 +1144,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     timeOut = 1.0f;
                     move_anim_status = 2;
 
-                    _text.text = "移動中 . .";
+                    //_text.text = "移動中 . .";
                     moveanim_panel_image_text.GetComponent<Text>().text = "移動中 . .";
                 }
                 break;
@@ -1157,7 +1158,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         timeOut = 2.0f; //先へ進んでるときは、少し長く
                         move_anim_status = 3;
 
-                        _text.text = "移動中 . . .";
+                        //_text.text = "移動中 . . .";
                         moveanim_panel_image_text.GetComponent<Text>().text = "移動中 . . .";
                     }
                     else
