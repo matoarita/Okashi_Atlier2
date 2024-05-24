@@ -15,6 +15,7 @@ public class Shop_Main : MonoBehaviour {
         shopmain_Controller.InitSetup();
 
         GameMgr.Scene_Name = "Shop_Grt";
+        GameMgr.Window_CharaName = "プリン";
 
         //ネームプレートの設定
         shopmain_Controller.SceneNamePlateSetting();

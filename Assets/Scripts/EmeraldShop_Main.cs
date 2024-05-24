@@ -19,6 +19,7 @@ public class EmeraldShop_Main : MonoBehaviour {
         emeraldmain_Controller.InitSetup();
 
         GameMgr.Scene_Name = "EmeraldShop_Grt";
+        GameMgr.Window_CharaName = "ドルチェ";
 
         //ネームプレートの設定
         emeraldmain_Controller.SceneNamePlateSetting();

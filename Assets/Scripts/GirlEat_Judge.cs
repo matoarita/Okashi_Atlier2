@@ -1225,7 +1225,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     IEnumerator Girl_Judge_anim_co()
     {
-        judge_result(); //先に判定し、マズイなどがあったら、アニメにも反映する。
+        judge_result(); //先にメインクエストで食べたいお菓子と合っているかを判定
 
         judge_score(0, set_id); //点数の判定。中の数字は、女の子のお菓子の判定か、コンテストでの判定かのタイプ分け
 
@@ -1282,108 +1282,55 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     void judge_result()
     {
         non_spquest_flag = false;
+        dislike_flag = false;
 
         switch (GameMgr.Scene_Name)
         {
             case "Or_Contest": //味見用シーンでの処理
 
                 //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                SettingGirlHungrySet();
+                JudgeGirlCompo(0);　//0=メインクエストとは無関係
+                //SettingGirlHungrySet();
                 break;
 
             default:
 
-                if (GameMgr.GirlLoveEvent_num == 50 && contest_type == 0) //１のコンテストシナリオのときに「あげる」をおすと、こちらの処理
+                if(GameMgr.tutorial_ON)
                 {
-                    SettingGirlHungrySet();
+                    JudgeGirlCompo(0);
                 }
                 else
                 {
-                    switch (girl1_status.OkashiNew_Status)
-                    {
-                        case 0: //メイン
-
-                            JudgeGirlCompo();
-                            break;
-
-                        case 1: //主にチュートリアル
-
-                            SettingGirlHungrySet();
-                            break;
-
-                        case 2: //エクストラ
-
-                            switch (girl1_status.OkashiQuest_ID)
-                            {
-                                /*case 0: //ハートあげる系
-
-                                    //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                                    SettingGirlHungrySet();
-                                    break;*/
-
-                                case 10010: //ヒカリにお菓子覚えさせる系
-
-                                    //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                                    SettingGirlHungrySet();
-                                    break;
-
-                                case 10110: //お茶会
-
-                                    //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。  
-                                    SettingGirlHungrySet();
-                                    break;
-
-                                default: //特殊なものがない限りは、デフォルト。60点以上でクリア
-
-                                    JudgeGirlCompo();
-                                    break;
-                            }
-
-
-                            break;
-                    }
+                    JudgeGirlCompo(1);
                 }
+
                 break;
         }
-
 
         GameMgr.Okashi_dislike_status = dislike_status;
         Debug.Log("dislike_status: " + dislike_status);
     }
 
-    void SettingGirlHungrySet()
-    {
-        non_spquest_flag = true; //そもそも吹き出しに合わない設定
+    //メインクエストで食べたいお菓子を言ってる場合に、girlLikeCompoから3つのセットを判定し、合ってるものがあれば、dislike_flag=trueにする
+    void JudgeGirlCompo(int _status)
+    {       
 
-        //まず、値のセッティング
-        girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //
-        SetGirlTasteInit();
-
-        dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
-        dislike_flag = true;
-        set_id = 0;
-
-        if (database.items[_baseID].Eat_kaisu == 0) //新しい食べ物の場合
+        if (_status == 1) //メインクエスト内での判定　girlLikeCompoの3つのセットとの判定処理を入れる
         {
-            dislike_status = 2;
+            //まず、値のセッティング
+            girl1_status.SetQuestRandomSet(girl1_status.OkashiQuest_ID); //girlLikeCompoから3つのセットを指定
+            SetGirlTasteInit();
+
+            //判定処理
+            DislikeJudge();
+
+
+            //この時点で、girlLikeCompoの３つと違うものであれば、dislike_flagがfalse。
+            Debug.Log("dislike_flag: " + dislike_flag);
         }
-    }
-
-    void JudgeGirlCompo()
-    {
-        //まず、値のセッティング
-        girl1_status.SetQuestRandomSet(girl1_status.OkashiQuest_ID); //girlLikeCompoから3つのセットを指定
-        SetGirlTasteInit();
-
-        //判定処理
-        DislikeJudge();
-
-
-        //この時点で、吹き出しと違うものであれば、dislike_flagがfalse。
-        Debug.Log("dislike_flag: " + dislike_flag);
 
         //
-        //判定処理　パターンB
+        //判定処理
         //
 
         //吹き出しにあっているかいないかの判定。
@@ -1409,7 +1356,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 dislike_status = 1; //1=デフォルトで良い。 2=新しいお菓子だった。　3=まずい。　4=嫌い。 5=今はこれの気分じゃない。
             }
         }
-        else //吹き出しに合っていた場合に、味を判定する。
+        else //girlLikeCompoのどれかのセットに合っていた場合に、味を判定する。
         {
 
         }
@@ -1460,7 +1407,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             Debug.Log("あげたお菓子: " + _basename);
 
-            //判定 嫌いなものがなければbreak。falseだった場合、次のセットを見る。
+            //判定 girlLikeCompoの3つ判定から、どれかが合っていればdislike_flag=true
             if (dislike_flag)
             {
                 break;
@@ -1762,9 +1709,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             Mazui_flag = true;
 
-        }
-        else
-        {
         }
 
         GameMgr.Okashi_totalscore = total_score;
@@ -4530,12 +4474,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
                 break;
 
-                //
-                //
+            //
+            //
 
 
+            //
+            //２～からのクエスト条件判定
+            //
 
-                
+            case 100030:　
+
+                if (PlayerStatus.girl1_Love_lv >= 5)
+                {
+                    Debug.Log("＜エクストラ＞ハートLVが5を超えたので、クエストクリア");
+                    sp_quest_clear = true;
+
+                }
+                break;
+
+            case 100040:
+
+                //コンテストに一度出場すればお話が進む
+                break;
+
         }
 
 

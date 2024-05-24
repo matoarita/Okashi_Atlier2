@@ -19,6 +19,7 @@ public class Farm_Main : MonoBehaviour {
         farmmain_Controller.InitSetup();
 
         GameMgr.Scene_Name = "Farm_Grt";
+        GameMgr.Window_CharaName = "モタリケ";
 
         //ネームプレートの設定
         farmmain_Controller.SceneNamePlateSetting();

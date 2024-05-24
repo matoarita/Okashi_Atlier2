@@ -48,8 +48,12 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
             ev_id = pitemlist.Find_eventitemdatabase("ev01_neko_cookie_recipi");
             pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
 
+            ev_id = pitemlist.Find_eventitemdatabase("rusk_recipi");
+            pitemlist.add_eventPlayerItem(ev_id, 1); //ラスクのレシピを追加
+            pitemlist.EventReadOn("rusk_recipi");
+
             //すでにレシピ100%フラグなど達成してた場合は、引き継がれる要素
-            if (GameMgr.GirlLoveSubEvent_stage1[101])
+            /*if (GameMgr.GirlLoveSubEvent_stage1[101])
             {
                 ev_id = pitemlist.Find_eventitemdatabase("silver_neko_cookie_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //銀のねこクッキーのレシピ
@@ -60,7 +64,7 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
                 ev_id = pitemlist.Find_eventitemdatabase("gold_neko_cookie_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //金のねこクッキーのレシピ
                 pitemlist.EventReadOn("gold_neko_cookie_recipi");
-            }
+            }*/
 
             if (GameMgr.Story_Mode != 0) //エクストラモードの初期設定
             {
@@ -98,10 +102,10 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
             }
 
             //二週目以降、自動で出てくる。
-            if (GameMgr.ending_count >= 1)
+            /*if (GameMgr.ending_count >= 1)
             {
                 matplace_database.matPlaceKaikin("Bar"); //酒場解禁
-            }
+            }*/
 
             //Debug.Log("プレイヤーステータス　アイテム初期化　実行");
             //初期に所持するアイテム

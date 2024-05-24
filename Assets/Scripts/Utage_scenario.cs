@@ -1423,7 +1423,7 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.scenario_flag = 120;
                 GameMgr.tutorial_ON = false;
                 girl1_status.Girl1_Status_Init();
-                girl1_status.OkashiNew_Status = 1;
+                //girl1_status.OkashiNew_Status = 1;
                 break;
 
             default:

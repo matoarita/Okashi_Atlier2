@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
     private QuestSetDataBase questset_database;
+    private PlayerItemList pitemlist;
 
     private TimeController time_controller;
 
@@ -20,6 +21,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private Text quest_clientname;
     private Text quest_area;
     private Text quest_desc;
+    private Text quest_player_kosu;
     private Text item_kosu;
 
     private GameObject quest_text1;
@@ -55,6 +57,9 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
         questname = this.transform.Find("PanelB/Quest_name").GetComponent<Text>();
         item_kosu = this.transform.Find("PanelB/Quest_Kosu").GetComponent<Text>();
         questday = this.transform.Find("PanelB/Quest_Day").GetComponent<Text>();
@@ -66,6 +71,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         quest_clientname = this.transform.Find("PanelB/Quest_ClientName").GetComponent<Text>();
         quest_area = this.transform.Find("PanelB/Quest_Place").GetComponent<Text>();
         quest_desc = this.transform.Find("PanelB/Quest_Comment").GetComponent<Text>();
+        quest_player_kosu = this.transform.Find("PanelB/Quest_PlayerItemKosu").GetComponent<Text>();
 
         _Img = this.transform.Find("PanelB/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
@@ -97,6 +103,14 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         questmoney.text = (_money*_kosu).ToString();
         quest_clientname.text = questset_database.questTakeset[_list].Quest_ClientName;
         quest_desc.text = questset_database.questTakeset[_list].Quest_desc;
+
+        if (questset_database.questTakeset[_list].Quest_itemName == "Non")
+        {
+            quest_player_kosu.text = pitemlist.KosuCountSubType(questset_database.questTakeset[_list].Quest_itemSubtype).ToString();
+        }
+        else {
+            quest_player_kosu.text = pitemlist.KosuCount(questset_database.questTakeset[_list].Quest_itemName).ToString();
+        }
 
         //あと何日
         _Limit_day = time_controller.CullenderKeisanInverse(questset_database.questTakeset[_list].Quest_LimitMonth, questset_database.questTakeset[_list].Quest_LimitDay);

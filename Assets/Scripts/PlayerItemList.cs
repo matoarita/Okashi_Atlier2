@@ -910,7 +910,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         
         for (i = 0; i < player_originalitemlist.Count; i++)
         {
-            if (database.items[_itemid].itemName == player_originalitemlist[i].itemName)
+            if (player_originalitemlist[i].itemName == _itemname)
             {
                 _itemcount += player_originalitemlist[i].ItemKosu;
             }
@@ -918,7 +918,42 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
         for (i = 0; i < player_extremepanel_itemlist.Count; i++)
         {
-            if (database.items[_itemid].itemName == player_extremepanel_itemlist[i].itemName)
+            if (player_extremepanel_itemlist[i].itemName == _itemname)
+            {
+                _itemcount += player_extremepanel_itemlist[i].ItemKosu;
+            }
+        }
+
+        return _itemcount; //該当するIDがない場合 0
+    }
+
+    //アイテムのサブタイプを入力すると、現在の所持数を返す処理。（店売り＋オリジナル＋エクストリームパネル）
+    public int KosuCountSubType(string _item_subtype)
+    {
+        i = 0;
+        _itemcount = 0;
+
+        while (i < database.items.Count)
+        {
+            if (database.items[i].itemType_sub.ToString() == _item_subtype)
+            {
+                _itemcount += playeritemlist[database.items[i].itemName];
+                _itemid = i;
+            }
+            i++;
+        }
+
+        for (i = 0; i < player_originalitemlist.Count; i++)
+        {
+            if (player_originalitemlist[i].itemType_sub.ToString() == _item_subtype)
+            {
+                _itemcount += player_originalitemlist[i].ItemKosu;
+            }
+        }
+
+        for (i = 0; i < player_extremepanel_itemlist.Count; i++)
+        {
+            if (player_extremepanel_itemlist[i].itemType_sub.ToString() == _item_subtype)
             {
                 _itemcount += player_extremepanel_itemlist[i].ItemKosu;
             }

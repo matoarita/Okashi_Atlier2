@@ -1073,16 +1073,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         special_quest.RedrawQuestName();
 
         //そのあと、クエストに応じて、各要素の再設定
-        if (GameMgr.Story_Mode == 0)
-        {
-            girl1_status.OkashiNew_Status = 0;
-        }
-        else
-        {
-            girl1_status.OkashiNew_Status = 2; //エクストラモード
-        }
         girl1_status.special_animatFirst = true;
-        girl1_status.Girl_EatDecide();         
+        girl1_status.Girl_EatDecide();   //食べたいお菓子は、先に上記special_questでメインクエスト依存かランダムかを決める。      
 
         debug_panel.GirlLove_Koushin(PlayerStatus.girl1_Love_exp); //好感度ステータスに応じたキャラの表情やLive2Dモーション更新
         GameMgr.KeyInputOff_flag = true;

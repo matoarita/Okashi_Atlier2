@@ -611,6 +611,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Cullender_Day; //カレンダーで計算した、入力した日付をもとに日を返す値
     public static bool Window_FaceIcon_OnOff; //顔ぐらふぃっくの表示／非表示
     public static string Window_CharaName; //顔ぐらふぃっくの非表示のときの名前
+    public static int EatOkashi_DecideFlag; //食べたいお菓子が、ランダムなのかメインクエストで固定するのかを分岐するフラグ
 
 
     //一時フラグ　アイテムDB関連
@@ -1116,6 +1117,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Station_TrainGoFlag = false;
         Window_FaceIcon_OnOff = false;
         Window_CharaName = "";
+        EatOkashi_DecideFlag = 1; //ランダムで食べたいお菓子決まる
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

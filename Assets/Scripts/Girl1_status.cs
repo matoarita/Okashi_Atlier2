@@ -223,7 +223,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //public bool touchanim_start; //タッチしはじめたら、その他のモーションなどを一時的に止める。
 
     //特定のお菓子か、ランダムから選ぶかのフラグ
-    public int OkashiNew_Status;
     public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
     public string OkashiQuest_Name; //そのときのお菓子のクエストネーム
     public string OkashiQuest_Number; //そのときのお菓子のクエスト番号　文字列で直接表示
@@ -376,7 +375,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         GirlGokigenStatus = 0;
         GirlOishiso_Status = 0;
-        OkashiNew_Status = 1;
         Special_ignore_count = 0;
         special_animatFirst = false;
 
@@ -1021,64 +1019,56 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //デフォルトで１に設定。セット組み合わせの処理にいったときに、２や３に変わる。
         Set_Count = 1;
 
-        //テーブルの決定
 
-        switch (OkashiNew_Status)
+        //前の残りの吹き出しアイテムを削除。
+        if (hukidashiitem != null)
         {
-            case 0: //特定の課題お菓子。メインシナリオ。
+            Destroy(hukidashiitem);
+        }
 
-                //前の残りの吹き出しアイテムを削除。
-                if (hukidashiitem != null)
-                {
-                    Destroy(hukidashiitem);
-                }             
+        //テーブルの決定
+        if (GameMgr.tutorial_ON)
+        {  }
+        else
+        {
+            switch (GameMgr.EatOkashi_DecideFlag) //0だとメインクエストで食べたいお菓子固定。
+            {
+                case 0: //特定の課題お菓子。メインシナリオ。
 
-                //食べたいものはSpcial_Questで決定。ここでは吹き出しだけ設定してる。OkashiQuest_IDをSpecial_Quest.csから選択している。
-                //OkashiQuest_ID = compIDを指定すると、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
-                //Set_compID = OkashiQuest_ID;                
-                SetQuestHukidashiText(OkashiQuest_ID, 0);
+                    //食べたいものはSpcial_Questで決定。ここでは吹き出しだけ設定してる。OkashiQuest_IDをSpecial_Quest.csから選択している。
+                    //OkashiQuest_ID = compIDを指定すると、女の子が食べたいお菓子＜組み合わせ＞がセットされる。
+                    //Set_compID = OkashiQuest_ID;                
+                    SetQuestHukidashiText(OkashiQuest_ID, 0);
 
+                    if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
+                    {
+                        //一度ドアップになり、電球がキラン！　→　そのあと、クエストの吹き出し。最初の一回だけ。
+                        StartCoroutine("Special_StartAnim");
+                    }
 
-                if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
-                {
-                    //一度ドアップになり、電球がキラン！　→　そのあと、クエストの吹き出し。最初の一回だけ。
-                    StartCoroutine("Special_StartAnim");
-                }
+                    break;
 
-                break;
+                case 1: //ランダムで食べる
 
-            case 1: //チュートリアル用の回避
-
-                //前の残りの吹き出しアイテムを削除。
-                if (hukidashiitem != null)
-                {
-                    Destroy(hukidashiitem);
-                }
-
-
-                break;
-
-            case 2: //エクストラモード
-
-                //前の残りの吹き出しアイテムを削除。
-                if (hukidashiitem != null)
-                {
-                    Destroy(hukidashiitem);
-                }               
-
-                if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
-                {
-                    //Set_compID = OkashiQuest_ID;
+                    //ランダムで食べたいお菓子決める
                     RandomEatOkashiDecide();
 
-                    //Debug.Log("エクストラモード　電球ピコ");
-                    //一度ドアップになり、電球がキラン！　→　そのあと、クエストの吹き出し。最初の一回だけ。
-                    StartCoroutine("Special_StartAnim");
-                }
-                break;
+                    if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
+                    {                        
 
-            default:
-                break;
+                        //Debug.Log("エクストラモード　電球ピコ");
+                        //一度ドアップになり、電球がキラン！　→　そのあと、クエストの吹き出し。最初の一回だけ。
+                        StartCoroutine("Special_StartAnim");
+                    }
+                    break;
+
+                case 100: //チュートリアル用の回避
+
+                    break;
+              
+                default:
+                    break;
+            }
         }
     }
 
@@ -1090,10 +1080,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             GameMgr.RandomEatOkashi_counter = 0;
 
-            RandomOkashiDecideMethod();
+            RandomOkashiDecideMethod(); //新しく食べたいお菓子を設定しなおす
         }
         else
         {
+            if(GameMgr.NowEatOkashiID == 0) //まだ設定される前にこっちが呼ばれると、小麦粉に多分なっているので、ねこクッキーをデフォにしとく
+            {
+                GameMgr.NowEatOkashiID = database.SearchItemIDString("neko_cookie");
+            }
             SetQuestHukidashiText(GameMgr.NowEatOkashiID, 1);
         }
     }
@@ -1218,7 +1212,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         InitializeStageGirlHungrySet(_ID, 0);　//comp_Numの値を直接指定
 
         Set_Count = 1;
-        OkashiNew_Status = 1; //チュートリアルなど。直接指定できるときの状態
         //Set_compID = _ID;
 
         //テキストの設定。直接しているか、セット組み合わせエクセルにかかれたキャプションのどちらかが入る。
@@ -1229,7 +1222,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //クエストごとの食べたいお菓子吹き出しテキストの設定
     void SetQuestHukidashiText(int _ID, int _status)
     {
-        switch(_status)
+        switch (_status)
         {
             case 0: //メイン
 
@@ -1246,28 +1239,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 }
 
                 //テキストの設定。セット組み合わせのときは、セット組み合わせ用のメッセージになる。
-                if (GameMgr.GirlLoveEvent_num == 50) //コンテストのときは、この処理をなくしておく。
+
+                if (_ID == 1120) //幻の青色紅茶
                 {
-                    _desc = "にいちゃん！　コンテストは、好きなお菓子を持っていくんだよ～！";
-                    GameMgr.NowEatOkashiName = "コンテスト";
+                    _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "がのみたい！";
                 }
                 else
                 {
-                    if (_ID == 1120) //幻の青色紅茶
-                    {
-                        _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "がのみたい！";
-                    }
-                    else
-                    {
-                        _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
-                    }
-                    GameMgr.NowEatOkashiName = girlLikeCompo_database.girllike_composet[_compID].desc;
+                    _desc = "にいちゃん！　" + girlLikeCompo_database.girllike_composet[_compID].desc + "が食べたい！";
                 }
+                GameMgr.NowEatOkashiName = girlLikeCompo_database.girllike_composet[_compID].desc;
+
                 break;
 
-            case 1: //エクストラ
+            case 1: //ランダム
 
-                if(database.items[_ID].itemType_sub.ToString() == "Coffee" || database.items[_ID].itemType_sub.ToString() == "Coffee_Mat" ||
+                if (database.items[_ID].itemType_sub.ToString() == "Coffee" || database.items[_ID].itemType_sub.ToString() == "Coffee_Mat" ||
                    database.items[_ID].itemType_sub.ToString() == "Juice" || database.items[_ID].itemType_sub.ToString() == "Tea" ||
                    database.items[_ID].itemType_sub.ToString() == "Tea_Mat" || database.items[_ID].itemType_sub.ToString() == "Tea_Potion")
                 {
@@ -1277,13 +1264,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 {
                     _desc = "にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！";
                 }
-                
+
                 GameMgr.NowEatOkashiName = database.items[_ID].itemNameHyouji;
                 GameMgr.NowEatOkashiID = _ID;
 
                 Debug.Log("にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！（or のみたい！）");
                 break;
-        }   
+        }
     }
 
     //girl_eatJudgeから設定
@@ -1417,12 +1404,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     //ヒントをだすか、今食べたいもののどちらかを表示する。3連続で食べたいものが表示されていないなら、4つめは次は必ず食べたいものを表示する。
                     if (_noweat_count >= 3)
                     {
-                        if (GameMgr.Story_Mode != 0)
+                        _noweat_count = 0;
+
+                        if (GameMgr.EatOkashi_DecideFlag == 1) //ランダムで食べるフラグがたってるときにランダムで選ぶ special_questで設定してる
                         {
                             RandomEatOkashiDecide();
-                        }
-
-                        _noweat_count = 0;
+                        }                       
 
                         if (hukidashiitem == null)
                         {

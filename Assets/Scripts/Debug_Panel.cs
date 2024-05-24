@@ -326,8 +326,7 @@ public class Debug_Panel : MonoBehaviour {
             }
             //**              
             
-            girl1_status.OkashiNew_Status = 1; //クエストクリアで、1に戻す。0にすると、次のクエストが開始する。（スペシャル吹き出し登場する）
-            girl1_status.special_animatFirst = false;
+            girl1_status.special_animatFirst = false; //falseにすると、スペシャル吹き出しがでる。
 
             GameMgr.QuestClearflag = false; //クエストクリアフラグ系をオフに。
             GameMgr.QuestClearButton_anim = false;

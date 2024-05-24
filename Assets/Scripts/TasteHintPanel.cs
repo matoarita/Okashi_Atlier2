@@ -22,6 +22,7 @@ public class TasteHintPanel : MonoBehaviour {
     private Text Okashi_lastbitter_param_text;
     private Sprite Okashi_Img;
     private Image Okashi_Icon;
+    private GameObject HikariIcon_Normal;
     private GameObject HikariIcon_Angry;
     private Text OneComment_text;
     private List<string> _one_comment_lib = new List<string>();
@@ -95,13 +96,17 @@ public class TasteHintPanel : MonoBehaviour {
         NowEat_text = this.transform.Find("HintPanel/NowEatText").GetComponent<Text>();
         NowEat_text.text = GameMgr.NowEatOkashiName;
 
+        //顔アイコン
+        HikariIcon_Normal = this.transform.Find("HintPanel/CharaIcon/HikariIcon1").gameObject;
         HikariIcon_Angry = this.transform.Find("HintPanel/CharaIcon/HikariIcon2").gameObject;
         if(GameMgr.Okashi_totalscore <= 30)
         {
+            HikariIcon_Normal.SetActive(false);
             HikariIcon_Angry.SetActive(true);
         }
         else
         {
+            HikariIcon_Normal.SetActive(true);
             HikariIcon_Angry.SetActive(false);
         }
     }

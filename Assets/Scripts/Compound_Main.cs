@@ -700,8 +700,9 @@ public class Compound_Main : MonoBehaviour
         //初期アイテムの取得。一度きり。
         playerDefaultStart_ItemGet.DefaultStartPitem();
 
-        
-        
+        //ウィンドウキャラ名設定
+        GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+
 
 
         ReturnBackHome();
@@ -984,7 +985,7 @@ public class Compound_Main : MonoBehaviour
                     girl1_status.DeleteHukidashiOnly();
                     //girl1_status.Girl_Full();
                     girl1_status.Girl1_Status_Init();
-                    girl1_status.OkashiNew_Status = 1;
+                    //girl1_status.OkashiNew_Status = 1;
                     GameMgr.tutorial_Num = 1; //退避
                     break;
 
@@ -1332,8 +1333,8 @@ public class Compound_Main : MonoBehaviour
                     canvas.SetActive(true);
 
                     compoundselect_onoff_obj.SetActive(true);
-                    OffCompoundSelect();
-                    girleat_toggle.GetComponent<Toggle>().interactable = true;
+                    //OffCompoundSelect();
+                    //girleat_toggle.GetComponent<Toggle>().interactable = true;
                     girl1_status.timeGirl_hungry_status = 1;
 
                     _textmain.text = "お菓子をあげてみよう！";
@@ -1344,6 +1345,9 @@ public class Compound_Main : MonoBehaviour
                 case 285:
 
                     MainCompoundMethod();
+
+                    OffCompoundSelect();
+                    girleat_toggle.GetComponent<Toggle>().interactable = true;
 
                     break;
 
@@ -1844,10 +1848,12 @@ public class Compound_Main : MonoBehaviour
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
 
-                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+                extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止                
+
+                WindowOff();
 
                 text_area.SetActive(true);
-                WindowOff();
+
                 black_panel_A.SetActive(true);
                 StartCoroutine("Sleep_Final_select");
                 break;
@@ -2427,7 +2433,7 @@ public class Compound_Main : MonoBehaviour
         _text.text = "にいちゃん！　お外、どこに行く～？";
         GameMgr.compound_status = 20;
 
-        StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+        StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。        
 
         //BGMを変更
         sceneBGM.OnGetMatStartBGM();
@@ -2511,9 +2517,7 @@ public class Compound_Main : MonoBehaviour
             sleep_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             card_view.DeleteCard_DrawView();
-
-            text_area.SetActive(true);
-
+            
             if (!GameMgr.outgirl_Nowprogress)
             {
                 _text.text = "今日はもう寝る？"; //
@@ -2521,7 +2525,10 @@ public class Compound_Main : MonoBehaviour
             {
                 _text.text = "ヒカリが戻ってくるまで寝る？"; //
             }
-                
+
+            text_area.SetActive(true);
+            text_area.GetComponent<MessageWindow>().CharaNameON();
+
             HintButtonOFF();
 
             GameMgr.compound_status = 50;
@@ -3348,91 +3355,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    
 
-    /*void DefaultStartPitem()
-    {
-        //ゲーム「はじめから」で始まった場合の、最初の一回だけする処理       
-        if (GameMgr.gamestart_recipi_get != true)
-        {
-            //exp_Controller.deleteExtreme_Item();
-
-            GameMgr.gamestart_recipi_get = true; //フラグをONに。  
-
-            //ゲームの一番最初に絶対手に入れるレシピ
-            ev_id = pitemlist.Find_eventitemdatabase("najya_start_recipi");
-            pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
-
-            ev_id = pitemlist.Find_eventitemdatabase("ev01_neko_cookie_recipi");
-            pitemlist.add_eventPlayerItem(ev_id, 1); //クッキーのレシピを追加
-
-            //すでにレシピ100%フラグなど達成してた場合は、引き継がれる要素
-            if (GameMgr.GirlLoveSubEvent_stage1[101])
-            {
-                ev_id = pitemlist.Find_eventitemdatabase("silver_neko_cookie_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //銀のねこクッキーのレシピ
-                pitemlist.EventReadOn("silver_neko_cookie_recipi");
-            }
-            if (GameMgr.GirlLoveSubEvent_stage1[102])
-            {
-                ev_id = pitemlist.Find_eventitemdatabase("gold_neko_cookie_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //金のねこクッキーのレシピ
-                pitemlist.EventReadOn("gold_neko_cookie_recipi");
-            }
-
-            if(GameMgr.Story_Mode != 0) //エクストラモードの初期設定
-            {
-                ev_id = pitemlist.Find_eventitemdatabase("crepe_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //クレープのレシピを追加
-                pitemlist.EventReadOn("crepe_recipi");
-
-                ev_id = pitemlist.Find_eventitemdatabase("rusk_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ラスクのレシピを追加
-                pitemlist.EventReadOn("rusk_recipi");
-
-                ev_id = pitemlist.Find_eventitemdatabase("donuts_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ドーナツのレシピを追加
-                pitemlist.EventReadOn("donuts_recipi");
-
-                //
-                matplace_database.matPlaceKaikin("Farm"); //牧場解禁
-                matplace_database.matPlaceKaikin("BerryFarm"); //ベリーファーム解禁
-                matplace_database.matPlaceKaikin("Lavender_field"); //ラベンダー畑解禁
-                matplace_database.matPlaceKaikin("StrawberryGarden"); //ストロベリーガーデン解禁
-                matplace_database.matPlaceKaikin("HimawariHill"); //ひまわり畑解禁
-                matplace_database.matPlaceKaikin("Hiroba"); //広場解禁
-
-                //装備品は最初からもっている。
-                //pitemlist.addPlayerItemString("milkpan", 1);
-                //pitemlist.addPlayerItemString("pan_knife", 1);
-                //pitemlist.addPlayerItemString("siboribukuro", 1);
-                //pitemlist.addPlayerItemString("whisk", 1);
-                //pitemlist.addPlayerItemString("wind_mixer", 1);
-                //pitemlist.addPlayerItemString("oil_extracter", 1);
-                //pitemlist.addPlayerItemString("juice_mixer", 1);
-                //pitemlist.addPlayerItemString("egg_splitter", 1);
-                //pitemlist.addPlayerItemString("ice_box", 1);
-                pitemlist.addPlayerItemString("flyer", 1);
-            }
-
-            //二週目以降、自動で出てくる。
-            if (GameMgr.ending_count >= 1)
-            {
-                matplace_database.matPlaceKaikin("Bar"); //酒場解禁
-            }
-
-            //Debug.Log("プレイヤーステータス　アイテム初期化　実行");
-            //初期に所持するアイテム
-
-            pitemlist.addPlayerItemString("komugiko", 10);
-            pitemlist.addPlayerItemString("butter", 5);
-            pitemlist.addPlayerItemString("suger", 5);
-            pitemlist.addPlayerItemString("orange", 3);
-            //pitemlist.addPlayerItemString("grape", 2);
-            //pitemlist.addPlayerItemString("stone_oven", 1);
-
-        }
-    }*/
 
     //外へ出る、などのコマンドを増やす系のイベント
     void FlagEvent()
@@ -3477,28 +3400,20 @@ public class Compound_Main : MonoBehaviour
                         }
                         break;
 
-                    case 1: //ぶどうクッキー
+                    case 1: //さくらクッキー
 
-                        if (GameMgr.Story_Mode == 0)
+
+                        if (!GameMgr.MapEvent_Or[0]) //まだ春風の森にいったことがない場合
                         {
-                            if (!GameMgr.MapEvent_01[0]) //まだ森にいったことがない場合
-                            {
-                                _textmain.text = "どうしようかなぁ？" + "\n" + "（むらさきのくだものは、「近くの森」で採れたっけ。）";
-                            }
-                            else
-                            {
-
-                            }
+                            _textmain.text = "どうしようかなぁ？" + "\n" + "（さくらの花びらは、「春風の森」で採れそうだけど..。）";
                         }
+                        else
+                        {
+
+                        }
+
                         break;
 
-                    case 10: //ラスクのとき
-
-                        if (!GameMgr.Beginner_flag[1]) //ラスクのレシピをまだ読んだことが無い
-                        {
-                            _textmain.text = "ラスクのレシピを読もう！　にいちゃん！";
-                        }
-                        break;
                 }
             }
         }

@@ -104,7 +104,8 @@ public class GetMaterial_Main : MonoBehaviour
         map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
         GameMgr.matbgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
 
-
+        //ウィンドウキャラ名設定
+        GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
 
         /*
         //

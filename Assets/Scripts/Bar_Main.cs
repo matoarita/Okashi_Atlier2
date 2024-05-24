@@ -15,6 +15,7 @@ public class Bar_Main : MonoBehaviour
         barmain_Controller.InitSetup();
 
         GameMgr.Scene_Name = "Bar_Grt";
+        GameMgr.Window_CharaName = "フィオナ";
 
         //ネームプレートの設定
         barmain_Controller.SceneNamePlateSetting();

@@ -93,12 +93,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         if (_status == 0)
         {
-            girl1_status.OkashiNew_Status = 0;
             GameMgr.QuestClearflag = false;
         }
         else if (_status == 2) //エクストラ
         {
-            girl1_status.OkashiNew_Status = 2;
             GameMgr.QuestClearflag = false;
         }
         else //ロードから再開された場合の処理
@@ -438,6 +436,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 //イベントお菓子フラグのON/OFF。ONになると、特定のお菓子課題をクリアするまで、ランダムでなくなる。               
                 girl1_status.OkashiQuest_ID = 100000;
                 OkashiQuest_Count = 1;
+                GameMgr.EatOkashi_DecideFlag = 0; //0=食べたいお菓子がランダムでなくなり、メインクエストに固定する
 
                 break;
 
@@ -445,6 +444,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100010;
                 OkashiQuest_Count = 2;
+                GameMgr.EatOkashi_DecideFlag = 0;
 
                 break;
 
@@ -452,6 +452,23 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100020;
                 OkashiQuest_Count = 3;
+                GameMgr.EatOkashi_DecideFlag = 0;
+
+                break;
+
+            case 3: //ハートレベル5以上
+
+                girl1_status.OkashiQuest_ID = 100030;
+                OkashiQuest_Count = 4;
+                GameMgr.EatOkashi_DecideFlag = 1;
+
+                break;
+
+            case 4: //コンテストに出場しよう
+
+                girl1_status.OkashiQuest_ID = 100040;
+                OkashiQuest_Count = 5;
+                GameMgr.EatOkashi_DecideFlag = 1;
 
                 break;
 

@@ -78,6 +78,8 @@ public class ContestListSelectToggle : MonoBehaviour
 
     private int count_1;
 
+    private string _cost_text;
+
 
     void Start()
     {
@@ -217,10 +219,11 @@ public class ContestListSelectToggle : MonoBehaviour
         }
 
         yes_no_panel.SetActive(true);
+        yes.transform.Find("Text").GetComponent<Text>().text = "決定";
         yes.SetActive(true);
         no.SetActive(true);
 
-        _text.text = _nameHyouji + "ですね？" + "\n" + "間違いないですか？";
+        _text.text = _nameHyouji + "ですね？";
 
         //さらにコンテスト詳細のパネルを表示する。
         contest_detailedPanel.SetActive(true);
@@ -237,7 +240,7 @@ public class ContestListSelectToggle : MonoBehaviour
     //
     IEnumerator Contestlist_wait()
     {
-        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、「納品決定」ボタンをおすと、処理再開。
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、「決定」ボタンをおすと、処理再開。
 
         while (yes_selectitem_kettei.onclick != true)
         {
@@ -245,6 +248,67 @@ public class ContestListSelectToggle : MonoBehaviour
         }
 
         yes_selectitem_kettei.onclick = false;
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された。
+
+                _list = conteststartList_database.SearchContestID(contest_listController._ID);
+
+                //Debug.Log("ok");
+                //解除
+
+                sc.PlaySe(0);
+                //sc.PlaySe(25);
+
+                black_effect.SetActive(true);
+
+                yes.transform.Find("Text").GetComponent<Text>().text = "出場する";
+
+                if (conteststartList_database.conteststart_lists[_list].Contest_Cost == 0)
+                {
+                    _cost_text = "無料";
+                }
+                else
+                {
+                    _cost_text = conteststartList_database.conteststart_lists[_list].Contest_Cost.ToString() + GameMgr.MoneyCurrency;
+                }
+
+                _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
+                    + "コンテストはすぐに開始されます。" + "\n"
+                    + "本当に出場しますか？";
+
+                //ほんとに出場するかを最終確認
+                StartCoroutine("Contestlist_FinalCheck");
+
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("cancel");
+
+                _text.text = "今開催しているコンテストです。";
+                OffDetailedWindow();
+
+                break;
+        }
+    }
+
+    //
+    //コンテスト　詳細画面を開き、選択中
+    //
+    IEnumerator Contestlist_FinalCheck()
+    {
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、「決定」ボタンをおすと、処理再開。
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        yes_selectitem_kettei.onclick = false;
+        black_effect.SetActive(false);
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -262,15 +326,16 @@ public class ContestListSelectToggle : MonoBehaviour
 
                     sc.PlaySe(6);
 
-                } else
+                }
+                else
                 {
                     //Debug.Log("ok");
                     //解除
 
                     //sc.PlaySe(0);
                     sc.PlaySe(25);
-                   
-                    yes_no_panel.SetActive(false);                    
+
+                    yes_no_panel.SetActive(false);
                     itemselect_cancel.kettei_on_waiting = false;
                     //back_ShopFirst_btn.interactable = true;
 
@@ -280,7 +345,7 @@ public class ContestListSelectToggle : MonoBehaviour
 
 
                     //ほかに受け付けてるコンテストがあった場合、全てキャンセルし、新しく一個が登録
-                    for(i=0; i< conteststartList_database.conteststart_lists.Count; i++)
+                    for (i = 0; i < conteststartList_database.conteststart_lists.Count; i++)
                     {
                         conteststartList_database.conteststart_lists[i].Contest_Accepted = 0;
                     }
@@ -318,11 +383,12 @@ public class ContestListSelectToggle : MonoBehaviour
 
                 _text.text = "今開催しているコンテストです。";
                 OffDetailedWindow();
-                
+
 
                 break;
         }
     }
+
 
     void OffDetailedWindow()
     {

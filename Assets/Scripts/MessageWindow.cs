@@ -18,13 +18,12 @@ public class MessageWindow : MonoBehaviour {
 
         if (this.gameObject.name == "MessageWindow")
         {
-            FaceIconPanel = this.transform.Find("FaceIconPanel").gameObject;
-            CharaNamePanel = this.transform.Find("CharaName").gameObject;
-            chara_name = CharaNamePanel.GetComponent<Text>();
+            SetInit();
 
             switch (SceneManager.GetActiveScene().name)
             {
-                case "Compound":
+                //Compoundのように、キャラ名と顔グラが混在して表示するシーンでは、Startは設定しないほうがいい。一瞬顔グラがパチっとうつる現象発生。
+                /*case "Compound":
 
                     FaceIconON();
                     break;
@@ -37,6 +36,12 @@ public class MessageWindow : MonoBehaviour {
                 case "Hikari_CompMain":
 
                     FaceIconON();
+                    break;*/
+
+                case "GetMaterial":
+
+                    FaceIconON();
+                    GameMgr.Window_FaceIcon_OnOff = true;
                     break;
 
                 default:
@@ -47,9 +52,21 @@ public class MessageWindow : MonoBehaviour {
         }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void SetInit()
+    {
+        FaceIconPanel = this.transform.Find("FaceIconPanel").gameObject;
+        CharaNamePanel = this.transform.Find("CharaName").gameObject;
+        chara_name = CharaNamePanel.GetComponent<Text>();
+    }
+
+    private void OnEnable()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         if (this.gameObject.name == "MessageWindow")
         {
@@ -59,7 +76,15 @@ public class MessageWindow : MonoBehaviour {
             if (GameMgr.compound_select == 20)
             {
                 GameMgr.Window_FaceIcon_OnOff = true;
-            }           
+            }
+
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "GetMaterial":
+
+                    GameMgr.Window_FaceIcon_OnOff = true;
+                    break;
+            }
 
             if (GameMgr.Window_FaceIcon_OnOff)
             {
@@ -72,14 +97,19 @@ public class MessageWindow : MonoBehaviour {
         }
 	}
 
-    void FaceIconON()
+    //Compound_Mainからも読む
+    public void FaceIconON()
     {
+        SetInit();
+
         FaceIconPanel.SetActive(true);
         CharaNamePanel.SetActive(false);
     }
 
-    void CharaNameON()
+    public void CharaNameON()
     {
+        SetInit();
+
         FaceIconPanel.SetActive(false);
         CharaNamePanel.SetActive(true);
         chara_name.text = GameMgr.Window_CharaName;
