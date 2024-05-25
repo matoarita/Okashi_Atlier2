@@ -763,4 +763,10 @@ public class Debug_Panel : MonoBehaviour {
             GameMgr.NPCHiroba_HikarieventList[i] = false;
         }
     }
+
+    public void OnAreaKaikinButton()
+    {
+        GameMgr.System_DebugAreaKaikin_ON = !GameMgr.System_DebugAreaKaikin_ON;
+        //Debug.Log("GameMgr.System_DebugAreaKaikin_ON: " + GameMgr.System_DebugAreaKaikin_ON);
+    }
 }

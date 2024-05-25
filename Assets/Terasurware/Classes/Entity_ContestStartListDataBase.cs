@@ -36,6 +36,8 @@ public class Entity_ContestStartListDataBase : ScriptableObject
 		public int Contest_RankingType;
 		public int Contest_Accepted;
 		public int GetPatissierPoint;
+		public int ContestVictory;
+		public int ContestFightsCount;
 		public string comment_out;
 		public int read_endflag;
 	}

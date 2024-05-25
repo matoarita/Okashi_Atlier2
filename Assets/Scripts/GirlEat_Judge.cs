@@ -76,6 +76,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private ItemMatPlaceDataBase matplace_database;
     private ItemSubTypeSetDatabase itemsubtypeset_database;
 
+    private ContestStartListDataBase conteststartList_database;
+
     public bool subQuestClear_check;
     private bool HighScore_flag;
     private bool kansou_on; //採点表示の際、事前に「うんめー」などのお菓子の感想を表示するか否か。specialクエストの場合は、表示する。
@@ -112,6 +114,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int i, count;
     private int random;
     private int countNum;
+
+    private int fights_count;
 
     private int kettei_item1; //女の子にあげるアイテムの、アイテムリスト番号。
     private int _toggle_type1; //店売りか、オリジナルのアイテムなのかの判定用
@@ -614,6 +618,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子       
+
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -2748,11 +2755,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
 
         //キャラクタ表情変更
-        if (!Mazui_flag)
+        /*if (!Mazui_flag)
         {
             girl1_status.face_girl_Yorokobi();
             StartCoroutine("OkashiAfterFaceChange");//2秒ぐらいしたら、表情だけすぐに戻す。
-        }
+        }*/
 
         //そのクエストでの最高得点を保持。（マズイときは、失敗フラグ＝0点）
         if (special_quest.special_score_record[special_quest.spquest_set_num] <= total_score)
@@ -2770,12 +2777,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
-    IEnumerator OkashiAfterFaceChange()
+    /*IEnumerator OkashiAfterFaceChange()
     {
         yield return new WaitForSeconds(2.0f);
 
         girl1_status.DefFaceChange();
-    }
+    }*/
 
 
 
@@ -3772,9 +3779,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     GirlHeartEffect.LoveRateChange();
 
                     //表情も一瞬喜びに。
-                    StartCoroutine("GirlHeartUpYorokobiFace");
-                    GameMgr.QuestManzokuFace = true; //おいしかった～の表情
-                    girl1_status.QuestManzoku_counter = 10;
+                    GirlHeartUpYorokobiFace();
+                    GameMgr.QuestManzokuFace = true; //食べた後のおいしかった～の表情　girl1_statusで10秒をカウントし、falseに戻す
+                    girl1_status.QuestManzoku_counter = 15; //食べた直後の満足カウンタ　15秒
 
                     //テキストウィンドウの更新
                     exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
@@ -3842,14 +3849,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }
 
 
-    IEnumerator GirlHeartUpYorokobiFace()
+    void GirlHeartUpYorokobiFace()
     {
 
         girl1_status.face_girl_Yorokobi();
 
-        yield return new WaitForSeconds(3.0f);
+        //yield return new WaitForSeconds(5.0f);
 
-        girl1_status.DefFaceChange();
+        //girl1_status.DefFaceChange();
     }
 
     void NormalCommentEatBunki()
@@ -4211,7 +4218,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
     //
-    //***クエスト　クリア条件関係 こっちは食べたとき用。***
+    //***クエストクリア条件関係 こっちは食べたとき用。***
     //
     void QuestClearJoukenCheck()
     {
@@ -4417,8 +4424,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }
 
     //
-    //クエストクリア条件　ハートやお菓子以外での条件をクリアしたときの判定
-    //ハートあげる系のクエストは、上あたりにある「judge_result()」も更新しないとダメ
+    //クエストクリア条件２　食べたいお菓子以外での条件をクリアしたときの判定
+    //ハートあげる系のクエストや何らかの条件をクリア
     //
     void HeartUpQuestBunkiCheck()
     {
@@ -4482,19 +4489,27 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //２～からのクエスト条件判定
             //
 
-            case 100030:　
+            case 100030:
 
-                if (PlayerStatus.girl1_Love_lv >= 5)
+                /*if (PlayerStatus.girl1_Love_lv >= 5)
                 {
-                    Debug.Log("＜エクストラ＞ハートLVが5を超えたので、クエストクリア");
+                    Debug.Log("ハートLVが5を超えたので、クエストクリア");
                     sp_quest_clear = true;
 
-                }
+                }*/
+
+                
                 break;
 
             case 100040:
 
                 //コンテストに一度出場すればお話が進む
+                /*fights_count = conteststartList_database.ContestAllFightsCount();
+                if (fights_count > 0)
+                {
+                    Debug.Log("コンテストに一回以上出場したので、クエストクリア");
+                    sp_quest_clear = true;
+                }*/
                 break;
 
         }
@@ -5221,7 +5236,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     void EndFlagResetParam()
     {
         subQuestClear_check = false;
-        GameMgr.QuestManzokuFace = false;
+        //GameMgr.QuestManzokuFace = false;
         GameMgr.QuestClearflag = false; //ボタンをおすとまたフラグをオフに。
         GameMgr.QuestClearButton_anim = false;
         GameMgr.QuestClearCommentflag = false;
@@ -5655,15 +5670,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 1:
 
-                _commentDict.Add("..。");
                 _commentDict.Add("さくさく・・。");
                 _commentDict.Add("..おいしい。");
                 break;
 
             case 2:
 
-                _commentDict.Add(".. ..。");
-                _commentDict.Add("..おいしい。");
+                //_commentDict.Add(".. ..。");
+                _commentDict.Add("..おいしい♪");
                 _commentDict.Add("..むむ。いいお味。");
                 break;
 

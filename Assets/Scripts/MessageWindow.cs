@@ -8,6 +8,7 @@ public class MessageWindow : MonoBehaviour {
 
     public bool window_clickon;
 
+    private GameObject SpQuestNamePanel;
     private GameObject FaceIconPanel;
     private GameObject CharaNamePanel;
 
@@ -15,6 +16,11 @@ public class MessageWindow : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        if (this.gameObject.name == "MessageWindowMain")
+        {
+            SpQuestNamePanel = this.transform.Find("SpQuestNamePanel").gameObject;
+        }
 
         if (this.gameObject.name == "MessageWindow")
         {
@@ -95,7 +101,19 @@ public class MessageWindow : MonoBehaviour {
                 CharaNameON();
             }
         }
-	}
+
+        if (this.gameObject.name == "MessageWindowMain")
+        {
+            if(!GameMgr.SPquestPanelOff)
+            {
+                SpQuestNamePanel.SetActive(true);
+            }
+            else //trueのときは、パネル表示をオフにする。
+            {
+                SpQuestNamePanel.SetActive(false);
+            }
+        }
+    }
 
     //Compound_Mainからも読む
     public void FaceIconON()

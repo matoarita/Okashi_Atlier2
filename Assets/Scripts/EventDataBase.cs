@@ -1412,9 +1412,31 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
 
                             //寝る前の月　起きた後の月で、月が変わっていた　家賃発生
-                            moneyStatus_Controller.UseMoney(1000);
+                            moneyStatus_Controller.UseMoney(3000);
 
-                            GameMgr.GirlLoveSubEvent_num = 1500;
+                            GameMgr.GirlLoveSubEvent_num = 1100;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+                        }
+                    }
+                }
+
+                //コンテスト終了後、いったん寝てから発生するイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag[2]) //ねておきたあとにチェック
+                    {
+                        GameMgr.check_SleepEnd_Eventflag[2] = false;
+                        Debug.Log("コンテスト終了後　イベントチェック");
+
+                        if (GameMgr.Contest_afterHomeEventFlag)
+                        {
+                            GameMgr.Contest_afterHomeEventFlag = false;
+
+                            GameMgr.GirlLoveSubEvent_num = 2000;
                             GameMgr.check_GirlLoveSubEvent_flag = false;
 
                             GameMgr.Mute_on = true;

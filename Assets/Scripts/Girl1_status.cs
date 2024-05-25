@@ -707,7 +707,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             //お菓子たべたあと満足状態　5～10秒ほどしたら、戻る。
                             if (GameMgr.QuestManzokuFace)
                             {
-                                QuestManzoku_counter--;
+                                QuestManzoku_counter--; //GirlEat_Judgeでリセットしてる
 
                                 if (QuestManzoku_counter <= 0)
                                 {
@@ -1432,48 +1432,48 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             }
                             else
                             {
-                                //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
-                                random = Random.Range(0, 100);
-                                if (random >= 0 && random < 50)
+                                if (GameMgr.QuestManzokuFace)
                                 {
-                                    _noweat_count++;
+                                    IdleMotionHukidashiSetting(430);
 
-                                    if (GameMgr.hikari_makeokashi_startflag) //もしヒカリお菓子作り中なら、25%ぐらいで、またグルグルのアイドルに戻る
+                                    //表情喜びに。5秒ほどしてすぐ戻す。
+                                    face_girl_Yorokobi();
+                                }
+                                else
+                                {
+                                    //ランダムでヒント内容を出す。 or 今食べたいものをしゃべる。口をタッチしたときと一緒のコメント。
+                                    random = Random.Range(0, 100);
+                                    if (random >= 0 && random < 50)
                                     {
-                                        if (random >= 0 && random < 25)
+                                        _noweat_count++;
+
+                                        if (GameMgr.hikari_makeokashi_startflag) //もしヒカリお菓子作り中なら、25%ぐらいで、またグルグルのアイドルに戻る
                                         {
-                                            random = Random.Range(0, 2);
-                                            switch (random)
+                                            if (random >= 0 && random < 25)
                                             {
-                                                case 0:
+                                                random = Random.Range(0, 2);
+                                                switch (random)
+                                                {
+                                                    case 0:
 
-                                                    FaceMotionPlay(1022);
-                                                    break;
+                                                        FaceMotionPlay(1022);
+                                                        break;
 
-                                                case 1:
+                                                    case 1:
 
-                                                    FaceMotionPlay(1025);
-                                                    break;
+                                                        FaceMotionPlay(1025);
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                IdleChange(); //ランダムモーション＋ヒントを決定
                                             }
                                         }
                                         else
                                         {
                                             IdleChange(); //ランダムモーション＋ヒントを決定
                                         }
-                                    }
-                                    else
-                                    {
-                                        IdleChange(); //ランダムモーション＋ヒントを決定
-                                    }
-                                }
-                                else
-                                {
-                                    if (GameMgr.QuestManzokuFace)
-                                    {
-                                        IdleMotionHukidashiSetting(430);
-
-                                        //表情喜びに。5秒ほどしてすぐ戻す。
-                                        face_girl_Yorokobi();
                                     }
                                     else
                                     {
@@ -2855,7 +2855,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
     //ランダムで仕草　ランダムモーションor口をタップしたときの共通　どのモーションを再生するか＋セリフを決定　モーションがなくても、セリフだけは表示される。
-    public void IdleChange()
+    void IdleChange()
     {      
         //Debug.Log("ランダムモーション　再生");
         hukidashi_number = 0;
@@ -3472,6 +3472,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //レベルが低い時のヒント
                 if (GirlGokigenStatus < 3) //LV 1~2
                 {
+                    FaceMotionPlay(1014);
                     _touchface_comment_lib.Add("まま・・。いつ帰ってくるのかなぁ？");
                     _touchface_comment_lib.Add("まま、会いたいな～。");
                     _touchface_comment_lib.Add("ぱぱに会いたいな～。");

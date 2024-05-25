@@ -41,6 +41,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
+    public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
 
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
@@ -585,8 +586,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_OrganizeDay; //コンテストの開催日
     public static bool Contest_ReadyToStart; //宴の読みが終わってから、コンテストを開始するフラグ
     public static bool Contest_ReadyToStart2; //出場するではいを押した後、すぐにコンテスト開始するフラグ
+    public static bool Contest_afterHomeEventFlag; //コンテスト終了後、家にかえって寝たあとに発生するイベント
     public static bool CharacterTouch_ALLOFF; //キャラの触り判定をオフにする。
-    public static bool CharacterTouch_ALLON; //キャラの触り判定をオンにする。
+    public static bool CharacterTouch_ALLON; //キャラの触り判定をオンにする。   
     public static bool BGTouch_ALLOFF; //背景オブジェクトの触り判定をオフにする。
     public static bool BGTouch_ALLON; //背景オブジェクトの触り判定をオンにする。
     public static bool EatAnim_End; //食べるときのエフェクトアニメの終了を検知
@@ -612,6 +614,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Window_FaceIcon_OnOff; //顔ぐらふぃっくの表示／非表示
     public static string Window_CharaName; //顔ぐらふぃっくの非表示のときの名前
     public static int EatOkashi_DecideFlag; //食べたいお菓子が、ランダムなのかメインクエストで固定するのかを分岐するフラグ
+    public static bool SPquestPanelOff; //メインクエストの表示パネルをオフ　実質自由な時間の始まりを意味する
+    
 
 
     //一時フラグ　アイテムDB関連
@@ -1102,6 +1106,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Money_counterOnly = false;
         Contest_ReadyToStart = false;
         Contest_ReadyToStart2 = false;
+        Contest_afterHomeEventFlag = false;
         CharacterTouch_ALLOFF = false; ; //キャラの触り判定をオフにする。
         CharacterTouch_ALLON = false;
         BGTouch_ALLOFF = false; //背景オブジェクトの触り判定をオフにする。
@@ -1118,6 +1123,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Window_FaceIcon_OnOff = false;
         Window_CharaName = "";
         EatOkashi_DecideFlag = 1; //ランダムで食べたいお菓子決まる
+        SPquestPanelOff = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

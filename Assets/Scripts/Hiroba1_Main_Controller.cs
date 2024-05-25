@@ -953,9 +953,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active2001();
                     break;
 
-                case "Or_Hiroba_Spring_Shoping_Moll": //ハートレベルが10必要
+                case "Or_Hiroba_Spring_Shoping_Moll": //ハートレベルがいくつか必要
 
-                    if(PlayerStatus.girl1_Love_lv < 10)
+                    if(PlayerStatus.girl1_Love_lv < 5)
                     {
                         On_Active2000(); //まだ通れない
                     }

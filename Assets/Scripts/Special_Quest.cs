@@ -437,6 +437,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100000;
                 OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 0; //0=食べたいお菓子がランダムでなくなり、メインクエストに固定する
+                GameMgr.SPquestPanelOff = false; //false = Spクエストパネルを表示する
 
                 break;
 
@@ -445,6 +446,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100010;
                 OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
@@ -453,14 +455,16 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100020;
                 OkashiQuest_Count = 3;
                 GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
-            case 3: //ハートレベル5以上
+            case 3: //ここから自由に探索パート開始
 
                 girl1_status.OkashiQuest_ID = 100030;
                 OkashiQuest_Count = 4;
                 GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = true;
 
                 break;
 
@@ -469,6 +473,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100040;
                 OkashiQuest_Count = 5;
                 GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = true;
 
                 break;
 

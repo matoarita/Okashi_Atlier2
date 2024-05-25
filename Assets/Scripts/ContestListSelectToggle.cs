@@ -363,6 +363,9 @@ public class ContestListSelectToggle : MonoBehaviour
                     GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
                     GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
 
+                    //出場回数+1
+                    conteststartList_database.conteststart_lists[_list].ContestFightsCount++;
+
                     //contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
                     contest_detailedPanel.SetActive(false);
                     contestList_ScrollView_obj.SetActive(false);

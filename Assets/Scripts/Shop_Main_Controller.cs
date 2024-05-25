@@ -899,6 +899,7 @@ public class Shop_Main_Controller : MonoBehaviour {
     {
         //品物追加　いくつかの器具解禁 ShopItemListController.csで、品の追加処理をかいている。
 
+        /*
         //品物追加　かわいいトッピング追加
         if (GameMgr.GirlLoveEvent_num >= 2) //かわいいクッキーイベント開始
         {
@@ -958,7 +959,7 @@ public class Shop_Main_Controller : MonoBehaviour {
             lvevent_loading = true;
             StartCoroutine("Scenario_loading");
         }
-
+        */
     }
 
     IEnumerator UtageEndWait()

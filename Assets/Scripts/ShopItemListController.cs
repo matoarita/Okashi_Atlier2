@@ -709,20 +709,6 @@ public class ShopItemListController : MonoBehaviour
             shop_database.shopitems[i].shop_item_hyouji_on = false;
 
         }
-
-        /*for (i = 0; i < shop_database.farmitems.Count; i++)
-        {
-
-            shop_database.farmitems[i].shop_item_hyouji_on = false;
-
-        }
-
-        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
-        {
-
-            shop_database.emeraldshop_items[i].shop_item_hyouji_on = false;
-
-        }*/
     }
 
     void Check_ONShopListFlag(int flag_num)
@@ -734,21 +720,5 @@ public class ShopItemListController : MonoBehaviour
                 shop_database.shopitems[i].shop_item_hyouji_on = true;
             }
         }
-
-        /*for (i = 0; i < shop_database.farmitems.Count; i++)
-        {
-            if (shop_database.farmitems[i].shop_item_hyouji == flag_num)
-            {
-                shop_database.farmitems[i].shop_item_hyouji_on = true;
-            }
-        }
-
-        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
-        {
-            if (shop_database.emeraldshop_items[i].shop_item_hyouji == flag_num)
-            {
-                shop_database.emeraldshop_items[i].shop_item_hyouji_on = true;
-            }
-        }*/
     }
 }

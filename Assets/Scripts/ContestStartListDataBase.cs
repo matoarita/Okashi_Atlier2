@@ -29,6 +29,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     private int _rankingType;
     private int _accepted;
     private int _getpt;
+    private int _contestVictory;
+    private int _contestFightsCount;
     private string Comment_out;
     private int _read_endflag;
 
@@ -38,6 +40,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     private int count;
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
+
+    private int fights_count;
 
     public List<ContestStartList> conteststart_lists = new List<ContestStartList>(); //
 
@@ -84,6 +88,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 _rankingType = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].Contest_RankingType;
                 _accepted = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].Contest_Accepted;
                 _getpt = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].GetPatissierPoint;
+                _contestVictory = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].ContestVictory;
+                _contestFightsCount = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].ContestFightsCount;
                 Comment_out = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].comment_out;
                 _read_endflag = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].read_endflag;
 
@@ -91,7 +97,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 //ここでリストに追加している
                 conteststart_lists.Add(new ContestStartList(_id, _placenum, FileName, Name, Name_Hyouji, Contest_themeComment,
                     _pmonth, _pday, _endmonth, _endday, _cost, _flag, _patissierRank, _lv, _bringType, _bringmax,
-                    _rankingType, _accepted, _getpt, Comment_out, _read_endflag));
+                    _rankingType, _accepted, _getpt, _contestVictory, _contestFightsCount, Comment_out, _read_endflag));
 
                 ++count;
             }
@@ -121,7 +127,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     public int SearchContestID(int ID)
     {
         i = 0;
-        while (i <= conteststart_lists.Count)
+        while (i < conteststart_lists.Count)
         {
             if (conteststart_lists[i].ContestID == ID)
             {
@@ -137,7 +143,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     public int SearchContestPlaceNum(int ID)
     {
         i = 0;
-        while (i <= conteststart_lists.Count)
+        while (i < conteststart_lists.Count)
         {
             if (conteststart_lists[i].Contest_placeNumID == ID)
             {
@@ -159,7 +165,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         else
         {
             i = 0;
-            while (i <= conteststart_lists.Count)
+            while (i < conteststart_lists.Count)
             {
                 if (conteststart_lists[i].ContestName == Name)
                 {
@@ -176,7 +182,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     public void SetContestAcceptedString(string _name)
     {
         i = 0;
-        while (i <= conteststart_lists.Count)
+        while (i < conteststart_lists.Count)
         {
             if (conteststart_lists[i].ContestName == _name)
             {
@@ -185,6 +191,51 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
             }
             i++;
         }
+    }
+
+    //コンテスト名とランキング順位を入れると、そのコンテストのこれまでの成績を更新する。より上位のものに置き換える
+    public void SetContestVictroyString(string _name, int _rank)
+    {
+        i = 0;
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                if(conteststart_lists[i].ContestVictory != 0)
+                {
+                    if (conteststart_lists[i].ContestVictory > _rank)
+                    {
+                        conteststart_lists[i].ContestVictory = _rank;
+                        break;
+                    }
+                    else
+                    {
+                        break; //前回より順位が低かったので、更新せずbreak
+                    }
+                }
+                else
+                {
+                    conteststart_lists[i].ContestVictory = _rank;
+                    break;
+                }               
+            }
+            i++;
+        }
+    }
+
+    //これまでのコンテストの総出場回数を返す
+    public int ContestAllFightsCount()
+    {
+        i = 0;
+        fights_count = 0;
+
+        while (i < conteststart_lists.Count)
+        {
+            fights_count += conteststart_lists[i].ContestFightsCount;
+            i++;
+        }
+
+        return fights_count;
     }
 
     //ランクを入れると、それに合わせたグレードに表記を変換する

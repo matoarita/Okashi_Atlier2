@@ -340,6 +340,16 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             contestPrizePanel.SetActive(false); //ランキング戦で一回表示してる可能性があるので、一度オフ
             contestPrizeScore_dataBase.PrizeGet(); //アイテム獲得
 
+            //そのコンテストの順位を更新する。1位と2位は、名前の横に王冠がでる。
+            if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
+            {
+
+            }
+            else
+            {
+                conteststartList_database.SetContestVictroyString(GameMgr.Contest_Name, GameMgr.contest_Rank_Count);
+            }
+
             //支給されたアイテムはここで削除
             pitemlist.DeleteContestSurppliedItem();
 
@@ -365,6 +375,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
             //家に帰って寝る
             time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
+            GameMgr.Contest_afterHomeEventFlag = true;
             FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
         }
 
