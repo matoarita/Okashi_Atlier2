@@ -755,6 +755,9 @@ public class Compound_Main : MonoBehaviour
 
         StartRead = false;
 
+        //デバッグ用
+        GameMgr.Contest_afterHomeEventFlag = true;
+
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド

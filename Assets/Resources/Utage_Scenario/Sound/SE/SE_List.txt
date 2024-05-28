@@ -132,8 +132,16 @@ SE表
 ・SE_130	audiostock_1411314				魔法発動音１
 ・SE_131	audiostock_1285222				魔法調合の完成音
 ・SE_132	audiostock_825112				魔法発動音２
-・SE_133							【未使用？　いれた記憶がない】
+・SE_133							【未使用？】魔法発動音３
 ・SE_134	audiostock_718349_sample			観客ブーイング音
 ・SE_135	sei_ge_doa_kisimi05				ドアのきしむ音
 ・SE_136	sei_ge_doa_kisimi02				ドアのきしむ音２
 ・SE_137	sei_ge_doa_tuyoku_cl01				重めのドアを閉める音
+・SE_138	audiostock_1535474_sample			いい匂いがするときのほわわ音
+・SE_139	打撃1						軽い打撃音※打撃を二回鳴らしてる
+・SE_140	audiostock_1497724_sample			素早い場面転換
+・SE_141	audiostock_104457_sample			素早い走る足音
+・SE_142	audiostock_111020_sample			妖精がぴょこって出る音
+・SE_143	茶碗を置く					カタっとした物音
+・SE_144	Party_Popper03-2(Dry)				パンッのクラッカー音
+・SE_145	Wind_Chimes02-01(Up-Wide)			魔法を使うときのキラキラウィンドチャイム音
