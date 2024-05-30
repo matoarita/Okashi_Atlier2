@@ -60,10 +60,10 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
                 _bgm[1].volume = _mixRate * 0.4f * fade_volume * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
                 break;
 
-            case "Bar":
+            /*case "Bar":
 
                 _bgm[1].volume = 0.4f * GameMgr.MasterVolumeParam * GameMgr.BGMVolumeParam;
-                break;
+                break;*/
 
             default:
 

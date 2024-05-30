@@ -135,6 +135,7 @@ public class Quest_Judge : MonoBehaviour {
     private int[] _tp_score;
 
     private string _a;
+    private string _b;
     private int _temp_shokukan;
     private int _temp_kyori;
     private float _temp_ratio;
@@ -431,7 +432,6 @@ public class Quest_Judge : MonoBehaviour {
                             WhiteFadeCanvas.GetComponent<CanvasGroup>().alpha = 0;
                             WhiteFadeCanvas.GetComponent<CanvasGroup>().DOFade(1, 1.0f);*/
 
-                            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         }
                         else
                         {
@@ -823,6 +823,7 @@ public class Quest_Judge : MonoBehaviour {
             chewy_score = 0;
 
             _a = "";
+            _b = "";
             HintText.text = "";
 
             //①指定のトッピングがあるかをチェック。一つでも指定のものがあれば、OK
@@ -917,7 +918,19 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     crispy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "さくさく感がいい感じだわ";
+
+                    if (crispy_score < GameMgr.low_score)
+                    {
+                        _a = "さくさく感がちょっと足りない。";
+                    }
+                    else if (crispy_score >= GameMgr.low_score && crispy_score < GameMgr.high_score)
+                    {
+                        _a = "まあまあのさくさく感";
+                    }
+                    else
+                    {
+                        _a = "さくさく感がいい感じだわ";
+                    }                   
                 }
                 else
                 {
@@ -939,7 +952,19 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     fluffy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "ふんわり感がいい感じだわ";
+
+                    if (fluffy_score < GameMgr.low_score)
+                    {
+                        _a = "ふんわりがちょっと足りない。";
+                    }
+                    else if (fluffy_score >= GameMgr.low_score && fluffy_score < GameMgr.high_score)
+                    {
+                        _a = "まあまあのふんわり具合";
+                    }
+                    else
+                    {
+                        _a = "ふんわり感がいい感じだわ";
+                    }                    
                 }
                 else
                 {
@@ -961,7 +986,19 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     smooth_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "なめらかさはいい感じだわ";
+
+                    if (smooth_score < GameMgr.low_score)
+                    {
+                        _a = "なめらかさがちょっと足りない。";
+                    }
+                    else if (smooth_score >= GameMgr.low_score && smooth_score < GameMgr.high_score)
+                    {
+                        _a = "なめらかさ　まあまあ";
+                    }
+                    else
+                    {
+                        _a = "なめらかさはいい感じだわ";
+                    }                    
                 }
                 else
                 {
@@ -983,8 +1020,20 @@ public class Quest_Judge : MonoBehaviour {
                     _temp_ratio = 1.0f;
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
-                    hardness_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "歯ごたえがいい感じだわ";
+                    hardness_score = (int)(_basescore * _temp_ratio) + _temp_kyori; //basescoreは、現在一律３０点
+
+                    if(hardness_score < GameMgr.low_score)
+                    {
+                        _a = "歯ごたえがちょっと足りない。";
+                    }
+                    else if (hardness_score >= GameMgr.low_score && hardness_score < GameMgr.high_score)
+                    {
+                        _a = "歯ごたえ　まあまあ";
+                    }
+                    else
+                    {
+                        _a = "歯ごたえがいい感じだわ";
+                    }                        
                 }
                 else
                 {
@@ -1006,7 +1055,19 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     jiggly_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "ぷにぷに感がいい感じだわ";
+
+                    if (jiggly_score < GameMgr.low_score)
+                    {
+                        _a = "ぷにぷに感がちょっと足りない。";
+                    }
+                    else if (jiggly_score >= GameMgr.low_score && jiggly_score < GameMgr.high_score)
+                    {
+                        _a = "ぷにぷに感　まあまあ";
+                    }
+                    else
+                    {
+                        _a = "ぷにぷに感がいい感じだわ";
+                    }                  
                 }
                 else
                 {
@@ -1028,7 +1089,19 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     chewy_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "噛みごたえがいい感じだわ";
+
+                    if (chewy_score < GameMgr.low_score)
+                    {
+                        _a = "噛みごたえがちょっと足りない。";
+                    }
+                    else if (chewy_score >= GameMgr.low_score && chewy_score < GameMgr.high_score)
+                    {
+                        _a = "噛みごたえ　まあまあ";
+                    }
+                    else
+                    {
+                        _a = "噛みごたえがいい感じだわ";
+                    }                   
                 }
                 else
                 {
@@ -1050,7 +1123,20 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     juice_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "のどごしがいいね。";
+
+                    if (juice_score < GameMgr.low_score)
+                    {
+                        _a = "のどごしがちょっと足りない。";
+                    }
+                    else if (juice_score >= GameMgr.low_score && juice_score < GameMgr.high_score)
+                    {
+                        _a = "のどごしまあまあ";
+                    }
+                    else
+                    {
+                        _a = "のどごしがいいね。";
+                    }
+                    
                 }
                 else
                 {
@@ -1072,7 +1158,20 @@ public class Quest_Judge : MonoBehaviour {
                     Debug.Log("_temp_ratio: " + _temp_ratio);
 
                     tea_flavor_score = (int)(_basescore * _temp_ratio) + _temp_kyori;
-                    _a = "香りがいい感じだわ";
+
+                    if (tea_flavor_score < GameMgr.low_score)
+                    {
+                        _a = "香りがちょっと足りない。";
+                    }
+                    else if (tea_flavor_score >= GameMgr.low_score && tea_flavor_score < GameMgr.high_score)
+                    {
+                        _a = "香り　まあまあ";
+                    }
+                    else
+                    {
+                        _a = "香りがいい感じだわ";
+                    }
+                    
                 }
                 else
                 {
@@ -1159,7 +1258,20 @@ public class Quest_Judge : MonoBehaviour {
             //見た目点数の計算
             if (_beauty > 0)
             {
-                beauty_score = (_basebeauty - _beauty);
+                beauty_score = _basebeauty - _beauty;
+
+                if (beauty_score < 50)
+                {
+                    _b = "";
+                }
+                else if (beauty_score >= 50 && beauty_score < 100)
+                {
+                    _b = "見た目がいい";
+                }
+                else
+                {
+                    _b = "素晴らしい見た目";
+                }
             }
 
             //最終補正　妹の基準より、やや厳しめにするために、点数を下げる。
@@ -1357,7 +1469,6 @@ public class Quest_Judge : MonoBehaviour {
                     //sc.PlaySe(4);
                     sc.PlaySe(76);
                     sc.PlaySe(31);
-                    sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
                 }
                 else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < GameMgr.high_score) //80点以上
                 {
@@ -1366,7 +1477,7 @@ public class Quest_Judge : MonoBehaviour {
 
                     sc.PlaySe(78);
                     sc.PlaySe(88);
-                    sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
+
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 200) //ハイスコア
                 {
@@ -1376,7 +1487,6 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(78);
                     sc.PlaySe(88);
                     sc.PlaySe(43);
-                    sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
                 }
                 else if (okashi_totalscore >= 250) //250点以上のときは、ファンファーレ
                 {
@@ -1387,12 +1497,11 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(88);
                     sc.PlaySe(43);
                     sceneBGM.PlayFanfare1();
-                    //sceneBGM.NowFadeVolumeONBGM();
                     mute_on = true;
                 }
                 else
                 {
-                    sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
+                    
                 }
 
                 //クエストリザルト画面をだす。
@@ -1431,7 +1540,6 @@ public class Quest_Judge : MonoBehaviour {
 
 
                 WhiteFadeCanvas.SetActive(false);
-                //sceneBGM.FadeInBGM();
 
                 ResetQuestStatus();
                 break;
@@ -1524,7 +1632,6 @@ public class Quest_Judge : MonoBehaviour {
             mute_on = false;
             sceneBGM.StopFanfare();
             sceneBGM.PlaySub();
-            sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
         }
 
         switch (GameMgr.Scene_Category_Num)
@@ -1874,7 +1981,7 @@ public class Quest_Judge : MonoBehaviour {
             SourHintHyouji();
         }
 
-        HintText.text = _a + _sweat_kansou + _bitter_kansou + _sour_kansou;
+        HintText.text = _a + _sweat_kansou + _bitter_kansou + _sour_kansou + _b;
     }
 
     void SweatHintHyouji()

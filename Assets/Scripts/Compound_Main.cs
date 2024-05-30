@@ -755,8 +755,9 @@ public class Compound_Main : MonoBehaviour
 
         StartRead = false;
 
-        //デバッグ用
+        //デバッグ用 本番ではオフにする。コンテスト終了後、寝るが終わったあとに始まるイベントのこと　寝るを押せばすぐに発動するようにしてる。
         GameMgr.Contest_afterHomeEventFlag = true;
+        //
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      

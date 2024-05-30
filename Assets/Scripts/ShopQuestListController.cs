@@ -374,7 +374,7 @@ public class ShopQuestListController : MonoBehaviour
         {
             if (quest_database.questset[j].Quest_ID >= _id)
             {
-                Debug.Log("クエストID: " + quest_database.questset[j].Quest_ID);
+                //Debug.Log("クエストID: " + quest_database.questset[j].Quest_ID);
                 //まずパティシエランクが足りてないのものは表示されない
                 if (quest_database.questset[j].QuestHyouji <= PlayerStatus.player_patissier_Rank)
                 {

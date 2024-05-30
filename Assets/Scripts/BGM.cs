@@ -1033,13 +1033,14 @@ public class BGM : MonoBehaviour {
     public void PlayFanfare1()
     {
         bgmController.BGMStop(0);
-        bgmController.AmbientStop();
-        bgmController.BGMPlay(1, sound34);
+        bgmController.AmbientMute(0);
+        bgmController.BGMPlay(0, sound34);
     }
 
     public void StopFanfare()
     {
-        bgmController.BGMStop(1);
+        bgmController.BGMStop(0);
+        bgmController.AmbientMute(1);
     }
 
 
