@@ -145,3 +145,5 @@ SE表
 ・SE_143	茶碗を置く					カタっとした物音
 ・SE_144	Party_Popper03-2(Dry)				パンッのクラッカー音
 ・SE_145	Wind_Chimes02-01(Up-Wide)			魔法を使うときのキラキラウィンドチャイム音
+・SE_146	audiostock_1411314				【宴用】魔法発動音１　SE130と一緒
+・SE_147	audiostock_5538.mp3				【宴用】失敗爆発音　SE21と一緒

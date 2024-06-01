@@ -181,4 +181,13 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
             i++;
         }
     }
+
+    //デバッグ用　全てのスキルの表示フラグをONにする
+    public void DebugAllSkillFlagKaikin()
+    {
+        for (i = 0; i < magicskill_lists.Count; i++)
+        {
+            magicskill_lists[i].skillFlag = 1;
+        }
+    }
 }

@@ -38,6 +38,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
     private ContestStartListDataBase conteststartList_database;
     private ItemMatPlaceDataBase matplace_database;
+    private MagicSkillListDataBase magicskill_database;
 
     private PlayerItemList pitemlist;
 
@@ -119,6 +120,9 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
         //リストオブジェクトの取得
         mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_999").gameObject;
         
@@ -198,6 +202,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 0: //火のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Fire";
+                GameMgr.Window_CharaName = "テァ";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 13; //バックボタン押したときの戻り先
                 SettingCharacterPanel(1);
@@ -208,7 +213,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 10: //氷のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Ice";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                GameMgr.Window_CharaName = "ジン";
+                SettingBGPanel(1); //Map〇〇のリスト番号を指定
                 backnum = 152; //バックボタン押したときの戻り先
                 SettingCharacterPanel(2);
 
@@ -218,7 +224,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 20: //風のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Wind";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                GameMgr.Window_CharaName = "リース";
+                SettingBGPanel(2); //Map〇〇のリスト番号を指定
                 backnum = 206; //バックボタン押したときの戻り先
                 SettingCharacterPanel(3);
 
@@ -228,17 +235,26 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 30: //光のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Luminous";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                GameMgr.Window_CharaName = "ミラボー";
+                SettingBGPanel(3); //Map〇〇のリスト番号を指定
                 backnum = 13; //バックボタン押したときの戻り先
                 SettingCharacterPanel(0);
 
-                default_scenetext = "あんれま。" + "\n" + "光の魔法を習いにきましたか？";
+                if (!GameMgr.NPCMagic_eventList[10]) //魔法をはじめて教えてもらう前
+                {
+                    default_scenetext = "お、ムッシュ～。" + "\n" + "準備はできてるぜ。";
+                }
+                else
+                {
+                    default_scenetext = "おお、ムッシュ～。" + "\n" + "遊びにきたか？";
+                }
                 break;
 
             case 40: //星のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Star";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                GameMgr.Window_CharaName = "ロマーネ";
+                SettingBGPanel(4); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
                 SettingCharacterPanel(4);
 
@@ -248,7 +264,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 50: //森のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Forest";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                GameMgr.Window_CharaName = "シャルドネ";
+                SettingBGPanel(5); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
                 SettingCharacterPanel(5);
 
@@ -258,7 +275,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 60: //時のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Time";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                GameMgr.Window_CharaName = "ハイネ";
+                SettingBGPanel(6); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
                 SettingCharacterPanel(6);
 
@@ -268,7 +286,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 70: //音のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Sound";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                GameMgr.Window_CharaName = "バーボン";
+                SettingBGPanel(7); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
                 SettingCharacterPanel(7);
 
@@ -278,7 +297,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 80: //心のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Heart";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                GameMgr.Window_CharaName = "ラフロイグ";
+                SettingBGPanel(8); //Map〇〇のリスト番号を指定
                 backnum = 321; //バックボタン押したときの戻り先
                 SettingCharacterPanel(8);
 
@@ -489,12 +509,12 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     {
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
-        if (!check_event)
+        /*if (!check_event)
         {
             switch (GameMgr.Scene_Name)
             {
 
-                case "Or_Bar_A1":
+                case "Or_NPC_MagicHouse_Luminous":
 
                     EventCheck_OrA1();
                     break;
@@ -514,27 +534,23 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                     EventCheck_OrD1();
                     break;
             }           
-        }
+        }*/
     }
 
-    void EventCheck_OrA1()
+    void EventCheck_OrA1() //光
     {
-        if (!GameMgr.NPCMagic_eventList[0]) //はじめて酒場へきた。
+        if (!GameMgr.NPCMagic_eventList[10]) //はじめて魔法教えてもらう
         {
-            GameMgr.NPCMagic_eventList[0] = true;            
+            GameMgr.NPCMagic_eventList[10] = true;
 
-            GameMgr.npc_event_num = 0;
-            GameMgr.npc_event_flag = true;
+            //宴の処理へ
+            GameMgr.hiroba_event_placeNum = 5000; //
+            GameMgr.hiroba_event_ID = 0;
+            GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
             check_event = true;
 
-            EventReadingStart();
-
             //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num = 5;
-            //GameMgr.CompoundEvent_flag = true;
         }
 
         if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
@@ -542,68 +558,84 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         else
         {
         }
+
+        if (check_event)
+        {
+            EventReadingStart();
+
+            CanvasOff();
+        }
     }
 
     void EventCheck_OrB1()
     {
-        if (!GameMgr.NPCMagic_eventList[0]) //はじめて酒場へきた。
+        if (!GameMgr.NPCMagic_eventList[0]) //
         {
             GameMgr.NPCMagic_eventList[0] = true;
 
-            GameMgr.npc_event_num = 0;
-            GameMgr.npc_event_flag = true;
+            //宴の処理へ
+            GameMgr.hiroba_event_placeNum = 5000; //
+            GameMgr.hiroba_event_ID = 0;
+            GameMgr.utage_charaHyouji_flag = true;
 
             check_event = true;
-
-            EventReadingStart();
 
             //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             //GameMgr.CompoundEvent_num = 5;
             //GameMgr.CompoundEvent_flag = true;
+        }
+
+        if (check_event)
+        {
+            EventReadingStart();
+
+            CanvasOff();
         }
     }
 
     void EventCheck_OrC1()
     {
-        if (!GameMgr.NPCMagic_eventList[0]) //はじめて酒場へきた。
+        if (!GameMgr.NPCMagic_eventList[0]) //
         {
             GameMgr.NPCMagic_eventList[0] = true;
 
-            GameMgr.npc_event_num = 0;
-            GameMgr.npc_event_flag = true;
+            //宴の処理へ
+            GameMgr.hiroba_event_placeNum = 5000; //
+            GameMgr.hiroba_event_ID = 0;
+            GameMgr.utage_charaHyouji_flag = true; 
 
             check_event = true;
+        }
 
+        if (check_event)
+        {
             EventReadingStart();
 
-            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num = 5;
-            //GameMgr.CompoundEvent_flag = true;
+            CanvasOff();
         }
     }
 
     void EventCheck_OrD1()
     {
-        if (!GameMgr.NPCMagic_eventList[0]) //はじめて酒場へきた。
+        if (!GameMgr.NPCMagic_eventList[0]) //
         {
             GameMgr.NPCMagic_eventList[0] = true;
 
-            GameMgr.npc_event_num = 0;
-            GameMgr.npc_event_flag = true;
+            //宴の処理へ
+            GameMgr.hiroba_event_placeNum = 5000; //
+            GameMgr.hiroba_event_ID = 0;
+            GameMgr.utage_charaHyouji_flag = true;
 
             check_event = true;
+        }
 
+        if (check_event)
+        {
             EventReadingStart();
 
-            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num = 5;
-            //GameMgr.CompoundEvent_flag = true;
+            CanvasOff();
         }
     }
 
@@ -653,6 +685,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
         GameMgr.Scene_Select = 0; //何もしていない状態
         GameMgr.Scene_Status = 0;
+
+        check_event = false;
 
         //読み終わったら、またウィンドウなどを元に戻す。
         text_area.SetActive(true);
@@ -764,12 +798,30 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     //SubView1
     public void OnSubNPC1_toggle()
     {
-        //コンテストリストメニュー開く
-        //backshopfirst_obj.SetActive(true);
-        //mainlist_controller_obj.SetActive(false);
+        switch (GameMgr.Scene_Name)
+        {
 
-        _text.text = "いらっしゃ～い・・。" + "\n" + "なにかよう？";
+            case "Or_NPC_MagicHouse_Luminous":
 
+                On_ActiveMagicNPC01_talk();
+                break;
+
+            case "Or_Bar_B1":
+
+                On_ActiveMagicNPC01_talk();
+                break;
+
+            case "Or_Bar_C1":
+
+                On_ActiveMagicNPC01_talk();
+                break;
+
+            case "Or_Bar_D1":
+
+                On_ActiveMagicNPC01_talk();
+                break;
+        }
+        
         //カメラ寄る。
         //trans++; //transが1を超えたときに、ズームするように設定されている。
 
@@ -780,7 +832,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     //SubView2
     public void OnSubNPC2_toggle()
     {
-        On_ActiveContestStart();
+        //On_ActiveContestStart();
         
     }
 
@@ -810,20 +862,44 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    void On_ActiveContestStart()
+    void On_ActiveMagicNPC01_talk() //光先生
     {
-        //噴水押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 1000; //
+        if (!GameMgr.NPCMagic_eventList[10]) //魔法をはじめて教えてもらう
+        {
+            GameMgr.NPCMagic_eventList[10] = true;
 
-        //イベント発生フラグをチェック
-        GameMgr.hiroba_event_ID = 0;
+            //宴の処理へ
+            GameMgr.hiroba_event_placeNum = 5000; //
+            GameMgr.hiroba_event_ID = 0;
+            GameMgr.utage_charaHyouji_flag = true;
 
-        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる
-        GameMgr.Contest_ReadyToStart = true;
+            //BGMかえる
+            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            bgm_change_flag = true;
 
-        EventReadingStart();
+            //魔法を使えるようになるフラグ
+            GameMgr.System_MagicUse_Flag = true;
+            magicskill_database.skillHyoujiKaikin("Luminous_Suger");
 
-        CanvasOff();
+            check_event = true;
+        }
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+        }
+
+        if (check_event)
+        {
+            EventReadingStart();
+
+            CanvasOff();
+        }
+        else
+        {
+            _text.text = "ムッシュ。元気か？";
+        }
     }
 
     void CanvasOff()

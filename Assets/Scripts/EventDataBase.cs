@@ -1436,10 +1436,16 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             GameMgr.Contest_afterHomeEventFlag = false;
 
-                            GameMgr.GirlLoveSubEvent_num = 2000;
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                            if (!GameMgr.NPCMagic_eventList[0]) //コンテスト終了後、一回寝て起きる。露店通りへいく
+                            {
+                                GameMgr.NPCMagic_eventList[0] = true;
+                                
+                                GameMgr.GirlLoveSubEvent_num = 2000;
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
+                                GameMgr.Utage_MapMoveON = true;
 
-                            GameMgr.Mute_on = true;
+                                GameMgr.Mute_on = true;
+                            }
                         }
                     }
                 }
@@ -1465,9 +1471,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 ReadGirlLoveEvent();
 
             }
-            else
+            else //全てのイベントチェックし、発生しなかったら、このスクリプトでのイベントチェック完了
             {
-
+                
             }
         }
     }

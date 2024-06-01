@@ -77,6 +77,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Story_Mode; //0が本編。1が、フリーモード（強くてニューゲーム）。
     public static string Scene_Name; //その場所の固有名　主にセーブした場所を記録する。
 
+    //コマンドの解禁フラグ
+    public static bool System_MagicUse_Flag; //魔法の解禁フラグ　セーブまだ
+    public static bool System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ　セーブまだ
+
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;
 
@@ -411,10 +415,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int bar_event_num;
     public static int bar_quest_okashiScore; //酒場のクエストでのお菓子スコア
 
-    //NPCのコマンド
-    public static bool npc_event_flag;  //バーで発生するイベントのフラグ。
-    public static int npc_event_num;
-
     //マップイベント発生フラグ
     public static int map_ev_ID;           //その時のイベント番号
     public static bool map_event_flag;      //マップイベントの、宴を表示する用のフラグ
@@ -599,6 +599,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Scene_Black_Off; //シーンによっては、このフラグがたつと、宴途中などで、シーンの黒画面をオフにする
     public static bool Utage_MapMoveBlackON; //宴読み終わり後に、マップ移動のとき、シーンをあらかじめブラックに消すフラグ　こっちは、SceneEnd_BlackONをTrueにするため分岐する用
     public static int Utage_Prizepanel_Type; //コンテストのシーン再生中、賞品リストか順位表を表示する際のタイプ指定
+    public static bool Utage_MapMoveON; //シナリオ読み後、シーンを移動するフラグ
     public static bool Ajimi_AfterFlag; //味見直後　テキスト更新用のフラグ
     public static string AjimiAfter_Text; //味見直後　テキスト
     public static string GetMat_BackPlaceName; //採取から戻るときの戻り先の指定
@@ -874,6 +875,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GameLoadOn = false;
         saveOK = false;
 
+        System_MagicUse_Flag = false;
+        System_HikariMakeUse_Flag = false;
+
         stage1_clear_girl1_lovelv = 1;
         stage2_clear_girl1_lovelv = 1;
         stage3_clear_girl1_lovelv = 1;
@@ -955,9 +959,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         bar_event_flag = false;
         bar_event_num = 0;
-
-        npc_event_flag = false;
-        npc_event_num = 0;
 
         emeraldshop_event_flag = false;
         emeraldshop_event_num = 0;
@@ -1117,6 +1118,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Utage_Prizepanel_OFF = false;
         Utage_SceneEnd_BlackON = false;
         Utage_MapMoveBlackON = false;
+        Utage_MapMoveON = false;
         Utage_Prizepanel_Type = 0;
         Ajimi_AfterFlag = false;
         Station_TrainGoFlag = false;

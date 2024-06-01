@@ -253,6 +253,7 @@ public class Compound_Main : MonoBehaviour
     private bool GetEmeraldItem;
     private string GetEmeraldItemName;
     private int get_heart;
+    private bool map_move;
 
     private string _todayfood;
     private List<string> _todayfood_lib = new List<string>();
@@ -645,6 +646,7 @@ public class Compound_Main : MonoBehaviour
         Recipi_loading = false;
         check_recipi_flag = false;
         heartget_ON = false;
+        map_move = false;
 
         GameMgr.girlEat_ON = false;
         GameMgr.GirlLove_loading = false;
@@ -818,147 +820,164 @@ public class Compound_Main : MonoBehaviour
             compound_status = GameMgr.compound_status;
             compound_select = GameMgr.compound_select;
 
-            //エクストラモード　お金が0を下回ったらゲームオーバー
-            if (GameMgr.System_GameOver_ON)
-            {
-                if (GameMgr.Story_Mode != 0)
-                {
-                    if (PlayerStatus.player_money <= 0)
-                    {
-                        if (!gameover_loading)
-                        {
-                            gameover_loading = true; //アップデートを更新しないようにしている。
-                                                     //お金が0になったので、ゲーム終了　ぐええ
-                            Debug.Log("ゲームオーバー画面表示");
 
-                            FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+            //宴途中でブラックをオフにする ドアをあけて会場へ移動する演出用
+            if (GameMgr.Utage_SceneEnd_BlackON)
+            {
+                GameMgr.Utage_SceneEnd_BlackON = false;
+                scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
+            }
+
+            if (map_move) //シーン移動中は、デフォルト処理にはそもそも入らないようにする。
+            {
+
+            }
+            else
+            {
+                //エクストラモード　お金が0を下回ったらゲームオーバー
+                if (GameMgr.System_GameOver_ON)
+                {
+                    if (GameMgr.Story_Mode != 0)
+                    {
+                        if (PlayerStatus.player_money <= 0)
+                        {
+                            if (!gameover_loading)
+                            {
+                                gameover_loading = true; //アップデートを更新しないようにしている。
+                                                         //お金が0になったので、ゲーム終了　ぐええ
+                                Debug.Log("ゲームオーバー画面表示");
+
+                                FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+                            }
                         }
                     }
                 }
-            }
 
-            if (GameMgr.scenario_ON != true)
-            {
-                switch (GameMgr.scenario_flag)
+                if (GameMgr.scenario_ON != true)
                 {
-
-                    case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
-
-                        GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
-                                                    //GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-                                                    //GameMgr.compound_status = 1000;
-
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            //上のイベントが先に発生した場合、以下の処理は無視される。以下は、別シーンから戻ってきたときに、何かイベントが発生するかどうか。
-            if (GameMgr.scenario_ON != true)
-            {
-                if (GameMgr.CompoundEvent_flag)
-                {
-                    GameMgr.CompoundEvent_flag = false;
-
-                    if (GameMgr.outgirl_Nowprogress) { } //妹外出中のときは、発生しない
-                    else
+                    switch (GameMgr.scenario_flag)
                     {
-                        GameMgr.CompoundEvent_storynum = GameMgr.CompoundEvent_num;
-                        GameMgr.CompoundEvent_storyflag = true;
-                        GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
 
-                        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-                        GameMgr.compound_status = 1000;
+                        case 110: //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+
+                            GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
+                                                        //GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+                                                        //GameMgr.compound_status = 1000;
+
+                            break;
+
+                        default:
+                            break;
                     }
                 }
-            }
 
-            //スペシャルアニメスタート時まではオフ
-            if (GameMgr.tutorial_ON != true)
-            {
-                if (!girl1_status.special_animatFirst)
+                //上のイベントが先に発生した場合、以下の処理は無視される。以下は、別シーンから戻ってきたときに、何かイベントが発生するかどうか。
+                if (GameMgr.scenario_ON != true)
                 {
-                    WindowOff();
-                }
-            }
-
-            //ピクニックイベント中、お菓子制作中は更新する。
-            if (GameMgr.picnic_event_reading_now)
-            {
-                MainCompoundMethod();
-            }
-
-            //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
-            if (GameMgr.scenario_ON == true)
-            {
-                //Debug.Log("ゲームマネジャー　シナリオON");           
-
-                //チュートリアル
-                TutorialEvent();
-
-            }
-            else //以下が、通常の処理
-            {
-
-                if (GameMgr.girlEat_ON) //お菓子判定中の間は、無条件で、メインの処理は無視する。
-                {
-
-                }
-                else
-                {
-                    if (GameMgr.CompoundSceneStartON) //お菓子調合中もメインの処理は無視。おわったら、サブイベントチェックしてから、メインへ。
+                    if (GameMgr.CompoundEvent_flag)
                     {
+                        GameMgr.CompoundEvent_flag = false;
 
-                    }
-                    else
-                    {
-                        //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
-                        if (!GameMgr.check_GirlLoveEvent_flag)
+                        if (GameMgr.outgirl_Nowprogress) { } //妹外出中のときは、発生しない
+                        else
                         {
-                            Debug.Log("メインイベントチェックON");
+                            GameMgr.CompoundEvent_storynum = GameMgr.CompoundEvent_num;
+                            GameMgr.CompoundEvent_storyflag = true;
+                            GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
 
-                            //メインイベント
-                            eventdatabase.GirlLoveMainEvent();
+                            GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
+                            GameMgr.compound_status = 1000;
+                        }
+                    }
+                }
+
+                //スペシャルアニメスタート時まではオフ
+                if (GameMgr.tutorial_ON != true)
+                {
+                    if (!girl1_status.special_animatFirst)
+                    {
+                        WindowOff();
+                    }
+                }
+
+                //ピクニックイベント中、お菓子制作中は更新する。
+                if (GameMgr.picnic_event_reading_now)
+                {
+                    MainCompoundMethod();
+                }
+
+                
+
+                //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。チュートリアルなどの強制イベントのチェック。
+                if (GameMgr.scenario_ON == true)
+                {
+                    //Debug.Log("ゲームマネジャー　シナリオON");           
+
+                    //チュートリアル
+                    TutorialEvent();
+
+                }
+                else //以下が、通常の処理
+                {
+
+                    if (GameMgr.girlEat_ON) //お菓子判定中の間は、無条件で、メインの処理は無視する。
+                    {
+
+                    }
+                    else
+                    {
+                        if (GameMgr.CompoundSceneStartON) //お菓子調合中もメインの処理は無視。おわったら、サブイベントチェックしてから、メインへ。
+                        {
+
                         }
                         else
                         {
-                            //サブイベントの発生をチェック。
-                            if (!GameMgr.check_GirlLoveSubEvent_flag)
+                            //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
+                            if (!GameMgr.check_GirlLoveEvent_flag)
                             {
-                                Debug.Log("サブイベントチェックON");
+                                Debug.Log("メインイベントチェックON");
 
-                                //好感度に応じて発生するサブイベント
-                                eventdatabase.GirlLove_SubEventMethod();
+                                //メインイベント
+                                eventdatabase.GirlLoveMainEvent();
                             }
                             else
                             {
-                                //時間イベントの発生をチェック。
-                                if (!GameMgr.check_GirlLoveTimeEvent_flag)
+                                //サブイベントの発生をチェック。
+                                if (!GameMgr.check_GirlLoveSubEvent_flag)
                                 {
-                                    Debug.Log("時間イベントチェックON");
+                                    Debug.Log("サブイベントチェックON");
 
-                                    //時間イベント
-                                    eventdatabase.GirlLove_SubTimeEventMethod();
+                                    //好感度に応じて発生するサブイベント
+                                    eventdatabase.GirlLove_SubEventMethod();
                                 }
                                 else
                                 {
-                                    //読んでいないレシピがあれば、読む処理。優先順位二番目。
-                                    if (!check_recipi_flag)
+                                    //時間イベントの発生をチェック。
+                                    if (!GameMgr.check_GirlLoveTimeEvent_flag)
                                     {
+                                        Debug.Log("時間イベントチェックON");
 
-                                        //Debug.Log("チェックレシピ中");
-                                        Check_RecipiFlag();
+                                        //時間イベント
+                                        eventdatabase.GirlLove_SubTimeEventMethod();
                                     }
                                     else
                                     {
+                                        //読んでいないレシピがあれば、読む処理。優先順位二番目。
+                                        if (!check_recipi_flag)
+                                        {
 
-                                        //Debug.Log("compound_status: " + compound_status);
-                                        //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-                                        MainCompoundMethod();
+                                            //Debug.Log("チェックレシピ中");
+                                            Check_RecipiFlag();
+                                        }
+                                        else
+                                        {
+
+                                            //Debug.Log("compound_status: " + compound_status);
+                                            //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
+                                            MainCompoundMethod();
 
 
+                                        }
                                     }
                                 }
                             }
@@ -3075,105 +3094,125 @@ public class Compound_Main : MonoBehaviour
 
         Debug.Log("サブイベント読み終了");
 
+        GameMgr.GirlLove_loading = false;
         GameMgr.girlloveevent_endflag = false;
         GameMgr.scenario_ON = false;
         GameMgr.girl_returnhome_endflag = false;
 
-        sceneBGM.MuteOFFBGM();
-        //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
-        bgm_change_story();
-
-        map_ambience.MuteOFF();
         GameMgr.Mute_on = false;
-
-        mainUI_panel_obj.SetActive(true);
-        //OnCompoundSelect();
-        Extremepanel_obj.SetActive(true);
-        GirlHeartEffect_obj.SetActive(true);
-        girlEat_judge.EffectClear();
-
-        //イベント後に、ハートを獲得するなどの演出がある場合
-        if (GameMgr.SubEvAfterHeartGet)
+       
+        if(GameMgr.Utage_MapMoveON)
         {
-            GameMgr.SubEvAfterHeartGet = false;
+            GameMgr.Utage_MapMoveON = false;
+            map_move = true;
 
-            heartget_ON = false;
-            switch (GameMgr.SubEvAfterHeartGet_num)
+            GameMgr.Contest_afterHomeEventFlag = false;　//シーン移動するときは、コンテスト終了後発生イベントのフラグも一度消しておく。
+
+            //読むシナリオによっては、シーン移動
+            switch (GameMgr.GirlLoveSubEvent_num)
             {
-                case 60:
+                case 2000: //光先生にはじめてあい、魔法教えてもらう。
 
-                    _textmain.text = "ぽんぽんの力で、より元気になってきた。";
-                    //girlEat_judge.loveGetPlusAnimeON(30, false);    
-                    girl1_status.GirlExpressionKoushin(50);
-
+                    GameMgr.SceneSelectNum = 30;
+                    FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
                     break;
+            }
+        }
+        else //シーン移動などしない場合は、以下デフォルトの処理
+        {
+            sceneBGM.MuteOFFBGM();
+            map_ambience.MuteOFF();
+            //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
+            bgm_change_story();
 
-                case 61:
+            mainUI_panel_obj.SetActive(true);
+            //OnCompoundSelect();
+            Extremepanel_obj.SetActive(true);
+            GirlHeartEffect_obj.SetActive(true);
+            girlEat_judge.EffectClear();
 
-                    //玄関音
-                    sc.EnterSound_01();
+            //イベント後に、ハートを獲得するなどの演出がある場合
+            if (GameMgr.SubEvAfterHeartGet)
+            {
+                GameMgr.SubEvAfterHeartGet = false;
 
-                    switch (GameMgr.event_judge_status)
-                    {
-                        case 0:
+                heartget_ON = false;
+                switch (GameMgr.SubEvAfterHeartGet_num)
+                {
+                    case 60:
 
-                            _textmain.text = "あまりピクニックは喜ばなかったようだ..。";
-                            girlEat_judge.UpDegHeart(-1*(int)SujiMap(GameMgr.event_okashi_score, 0, 30, 60, 0), true);
-                            girl1_status.GirlExpressionKoushin(-20);
-                            break;
+                        _textmain.text = "ぽんぽんの力で、より元気になってきた。";
+                        //girlEat_judge.loveGetPlusAnimeON(30, false);    
+                        girl1_status.GirlExpressionKoushin(50);
 
-                        case 1:
+                        break;
 
-                            //get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
-                            get_heart = 10;
-                            _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
-                            girl1_status.GirlExpressionKoushin(10);
+                    case 61:
 
-                            heartget_ON = true;
-                            break;
+                        //玄関音
+                        sc.EnterSound_01();
 
-                        case 2:
+                        switch (GameMgr.event_judge_status)
+                        {
+                            case 0:
 
-                            //get_heart = GameMgr.event_okashi_score;
-                            get_heart = 20;
-                            _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                                _textmain.text = "あまりピクニックは喜ばなかったようだ..。";
+                                girlEat_judge.UpDegHeart(-1 * (int)SujiMap(GameMgr.event_okashi_score, 0, 30, 60, 0), true);
+                                girl1_status.GirlExpressionKoushin(-20);
+                                break;
 
-                            girl1_status.GirlExpressionKoushin(30);
-                            GameMgr.picnic_after = true;
-                            GameMgr.picnic_after_time = 60;
+                            case 1:
 
-                            heartget_ON = true;
-                            break;
+                                //get_heart = GameMgr.event_okashi_score; //GameMgr.event_okashi_score / 5
+                                get_heart = 10;
+                                _textmain.text = "ピクニックを喜んだようだ。" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                                girl1_status.GirlExpressionKoushin(10);
 
-                        case 3:
+                                heartget_ON = true;
+                                break;
 
-                            //get_heart = GameMgr.event_okashi_score;
-                            get_heart = 30;
-                            _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                            case 2:
 
-                            girl1_status.GirlExpressionKoushin(50);
-                            GameMgr.picnic_after = true;
-                            GameMgr.picnic_after_time = 60;
+                                //get_heart = GameMgr.event_okashi_score;
+                                get_heart = 20;
+                                _textmain.text = "ピクニックをとても喜んだようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
 
-                            heartget_ON = true;
-                            break;
+                                girl1_status.GirlExpressionKoushin(30);
+                                GameMgr.picnic_after = true;
+                                GameMgr.picnic_after_time = 60;
 
-                        case 4:
+                                heartget_ON = true;
+                                break;
 
-                            //get_heart = GameMgr.event_okashi_score;
-                            get_heart = 50;
-                            _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+                            case 3:
 
-                            girl1_status.GirlExpressionKoushin(100);
-                            GameMgr.picnic_after = true;
-                            GameMgr.picnic_after_time = 60;
+                                //get_heart = GameMgr.event_okashi_score;
+                                get_heart = 30;
+                                _textmain.text = "ピクニックが最高だったようだ！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
 
-                            heartget_ON = true;
-                            break;
-                    }
-                                       
+                                girl1_status.GirlExpressionKoushin(50);
+                                GameMgr.picnic_after = true;
+                                GameMgr.picnic_after_time = 60;
 
-                    break;
+                                heartget_ON = true;
+                                break;
+
+                            case 4:
+
+                                //get_heart = GameMgr.event_okashi_score;
+                                get_heart = 50;
+                                _textmain.text = "思い出に残るピクニックだった！" + "\n" + "ハート " + GameMgr.ColorPink + get_heart + "</color>" + "上がった！";
+
+                                girl1_status.GirlExpressionKoushin(100);
+                                GameMgr.picnic_after = true;
+                                GameMgr.picnic_after_time = 60;
+
+                                heartget_ON = true;
+                                break;
+                        }
+
+
+                        break;
 
                     /*
                 case 70:
@@ -3246,50 +3285,51 @@ public class Compound_Main : MonoBehaviour
                     GameMgr.girl_express_param += 50;
                     break;*/
 
-                case 100:
+                    case 100:
 
-                    _textmain.text = "ぬいぐるみに喜んだようだ！";
-                    get_heart = 30;
-                    girl1_status.GirlExpressionKoushin(50);
+                        _textmain.text = "ぬいぐるみに喜んだようだ！";
+                        get_heart = 30;
+                        girl1_status.GirlExpressionKoushin(50);
 
-                    heartget_ON = true;
-                    break;
+                        heartget_ON = true;
+                        break;
+                }
+
+                if (heartget_ON)
+                {
+                    if (pitemlist.KosuCount("aroma_potion1") >= 1)
+                    {
+                        get_heart = (int)(get_heart * 1.2f);
+                        girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
+                    }
+                    else
+                    {
+                        girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
+                    }
+                }
+
+
+                StartCoroutine("ReadGirlLoveEventAfter");
+                subevent_after_end = true; //サブイベントアフター演出を読み中            
             }
-
-            if(heartget_ON)
+            else
             {
-                if (pitemlist.KosuCount("aroma_potion1") >= 1)
-                {
-                    get_heart = (int)(get_heart * 1.2f);
-                    girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
-                }
-                else
-                {
-                    girlEat_judge.loveGetPlusAnimeON(get_heart, false); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
-                }
+                //_textmain.text = "";
+                StartMessage(); //テキスト更新
+
+                GameMgr.check_GirlLoveEvent_flag = true;
+                girl1_status.Girl1_Status_Init2();
+                GameMgr.compound_status = 0;
+                //Debug.Log("compound_statusを0にする");
             }
+
+            //腹減りカウント開始
+            girl1_status.GirlEat_Judge_on = true;
+
             
 
-            StartCoroutine("ReadGirlLoveEventAfter");
-            subevent_after_end = true; //サブイベントアフター演出を読み中            
-        }
-        else
-        {
-            //_textmain.text = "";
-            StartMessage(); //テキスト更新
-
-            GameMgr.check_GirlLoveEvent_flag = true;
-            girl1_status.Girl1_Status_Init2();
-            GameMgr.compound_status = 0;
-            //Debug.Log("compound_statusを0にする");
-        }       
-
-        //腹減りカウント開始
-        girl1_status.GirlEat_Judge_on = true;
-
-        GameMgr.GirlLove_loading = false;
-       
-        check_recipi_flag = false;
+            check_recipi_flag = false;
+        }      
        
     }   
 

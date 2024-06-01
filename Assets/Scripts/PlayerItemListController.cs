@@ -126,10 +126,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     void OnEnable()
     {
+
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");   
 
         InitSetUp();
+
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
@@ -143,7 +145,6 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         no_button.SetActive(true);
 
-        ResetKettei_item();
 
         // 調合専用シーンでやりたい処理。
         if (GameMgr.CompoundSceneStartON)
@@ -172,7 +173,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             }
             else //トッピング調合以外
             {
-                reset_and_DrawView();
+                ResetViewCheck();
             }
 
         }
@@ -192,17 +193,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         no_button.SetActive(true);
                     }
 
-                    //アニメーション
-                    /*if (GameMgr.compound_select == 99) //持ち物ひらいたときのデフォ位置
-                    {
-                        this.transform.localPosition = new Vector3(224f, 57f, 0);
-                    }
-                    else
-                    {
-                        this.transform.localPosition = new Vector3(-224f, 57f, 0);
-                    }*/
-
-                    reset_and_DrawView();
+                    ResetViewCheck();
                     break;
 
                 case 20:
@@ -213,7 +204,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             yes_button.SetActive(false);
                             no_button.SetActive(false);
-                            reset_and_DrawView();
+                            ResetViewCheck();
 
                             break;
 
@@ -222,14 +213,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             yes_button.SetActive(false);
                             no_button.SetActive(true);
                             this.transform.localPosition = new Vector3(-180, 63, 0);
-                            reset_and_DrawView();
+                            ResetViewCheck();
                             break;
 
                         case 6: //あげるとき
 
                             yes_button.SetActive(false);
                             no_button.SetActive(true);
-                            reset_and_DrawView();
+                            ResetViewCheck();
 
                             break;
                     }
@@ -244,7 +235,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             yes_button.SetActive(false);
                             no_button.SetActive(false);
-                            reset_and_DrawView();
+                            ResetViewCheck();
 
                             break;
 
@@ -252,7 +243,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             yes_button.SetActive(false);
                             no_button.SetActive(true);
-                            reset_and_DrawView();
+                            ResetViewCheck();
 
                             break;
                     }
@@ -261,14 +252,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 default:
 
-                    reset_and_DrawView();
+                    ResetViewCheck();
                     break;
             }
 
         }
 
+
         //開いたときは、必ず、全てのアイテムは未選択の状態にする。
         ResetAllItemSelected();
+        ResetKettei_item();
     }
     
 
@@ -314,6 +307,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         {
             topping_DrawView_2();
         }
+    }
+
+    //リストビュー更新
+    void ResetViewCheck()
+    {
+        reset_and_DrawView();
     }
 
     // リストビューの描画部分。重要。

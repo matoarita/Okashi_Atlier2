@@ -49,10 +49,14 @@ public class Utage_scenario : MonoBehaviour
 
     private GameObject playeritemlist_onoff;
     private PlayerItemList pitemlist;
+
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private ItemMatPlaceDataBase matplace_database;
-    private ContestCommentDataBase databaseContestComment;    
+    private ContestCommentDataBase databaseContestComment;
+    private MagicSkillListDataBase magicskill_database;
+
+
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
     private MoneyStatus_Controller moneyStatus_Controller;
     private Exp_Controller exp_Controller;
@@ -121,6 +125,9 @@ public class Utage_scenario : MonoBehaviour
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //コンテスト感想データベースの取得
         databaseContestComment = ContestCommentDataBase.Instance.GetComponent<ContestCommentDataBase>();
@@ -1704,6 +1711,24 @@ public class Utage_scenario : MonoBehaviour
         if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
         {
             StartCoroutine("PitemPresent");
+        }
+
+        //イベントによって、シーン移動するときがあるので、ブラック挟むよう
+        switch(GameMgr.GirlLoveSubEvent_num)
+        {
+            case 2000:
+
+                //「宴」のシナリオ終了待ち
+                while (!engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                GameMgr.Utage_SceneEnd_BlackON = true;
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
+                break;
         }
 
         //「宴」のシナリオ終了待ち
@@ -3429,6 +3454,12 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Station";
                 break;
 
+                //魔法NPC 5000~
+            case 5000: //魔法NPC光先生
+
+                scenarioLabel = "Or_MagicNPC01_Hikari";
+                break;
+
             default:
 
                 scenarioLabel = "Hiroba_ichigo";
@@ -3522,6 +3553,9 @@ public class Utage_scenario : MonoBehaviour
                     if (NPC01_Friend_Flag) //ぬねと友達になった
                     {
                         GameMgr.NPCHiroba_eventList[100] = true;
+
+                        //ウィンドアークの本をゲット
+                        magicskill_database.skillHyoujiKaikin("Wind_Ark");
                     }
                     else //選択を間違えたら、一日ほど消える
                     {

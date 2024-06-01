@@ -58,6 +58,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
     public List<GameObject> category_toggle = new List<GameObject>();
     private int category_status;
+    private bool StartRead = false;
 
     void InitSetup()
     {
@@ -76,11 +77,15 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         touchon = Resources.Load<Sprite>("Sprites/Window/sabwindowB");
         touchoff = Resources.Load<Sprite>("Sprites/Window/checkbox");
 
+        i = 0;
         foreach (Transform child in this.transform.Find("CategoryView/Viewport/Content/").transform)
         {
             //Debug.Log(child.name);           
             category_toggle.Add(child.gameObject);
+            category_toggle[i].SetActive(false);
+            i++;
         }
+
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -98,12 +103,27 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].SetInit();
         }
 
+        //今解放済みの魔法のみ、カテゴリーViewも表示
+        if (!StartRead)
+        {
+            ViewFlagCheck();
+        }
+        
 
         i = 0;
         //category_status = 9; //基本がなくなったので、火のスキルがデフォルトになる
     }
 
-    
+    void ViewFlagCheck()
+    {
+        if (GameMgr.NPCMagic_eventList[10]) //光先生に魔法教えてもらった
+        {
+            OnCateViewName("Cate_03");
+        }
+
+        StartRead = true;
+    }
+
 
     // Use this for initialization
     void Start()
@@ -164,6 +184,19 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         }
         category_toggle[1].GetComponent<Toggle>().isOn = true;
         //SkillList_DrawView10();
+
+           
+    }
+
+    void OnCateViewName(string _name)
+    {
+        for (i = 0; i < category_toggle.Count; i++)
+        {
+            if (category_toggle[i].name == _name)
+            {
+                category_toggle[i].SetActive(true);
+            }
+        }
     }
 
     public void SkillList_DrawView() //基本
@@ -725,5 +758,16 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         }
 
         ++list_count;
+    }
+
+    public void DebugAllSkillFlagON()
+    {
+        magicskill_database.DebugAllSkillFlagKaikin();
+        reset_and_DrawView(category_status);
+
+        for (i = 1; i < category_toggle.Count; i++) //0は、トグルデザインのテンプレートなのでONにしない
+        {
+            category_toggle[i].SetActive(true);
+        }
     }
 }

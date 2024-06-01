@@ -9,10 +9,13 @@ public class Compound_BGPanel_A : MonoBehaviour {
     private GameObject canvas;
 
     private SoundController sc;
-
-    private GameObject HikariMakeButton;
+    
     private GameObject text_area;
     private Text _text;
+
+    private GameObject MagicButton;
+    private GameObject LearningButton;
+    private GameObject HikariMakeButton;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -61,6 +64,10 @@ public class Compound_BGPanel_A : MonoBehaviour {
         //デフォルトではOFF
         HikariMakeButton = this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/HikariMakeButton").gameObject;
         HikariMakeButton.SetActive(false);
+        MagicButton = this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/MagicButton").gameObject;
+        MagicButton.SetActive(false);
+        LearningButton = this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/LearningButton").gameObject;
+        LearningButton.SetActive(false);
 
         BlackImage = this.transform.Find("BlackImage").gameObject;
 
@@ -98,12 +105,22 @@ public class Compound_BGPanel_A : MonoBehaviour {
             this.transform.Find("SelectPanel_1").gameObject.SetActive(false);
         }
 
-        if(GameMgr.Story_Mode == 1)
+        //各コマンドのON/OFF
+        CheckCommandFlag();
+    }
+
+    void CheckCommandFlag()
+    {
+        //各コマンドのON/OFF
+        if (GameMgr.System_HikariMakeUse_Flag) //ヒカリお菓子作り解禁
         {
-            if(GameMgr.GirlLoveEvent_num >= 1) //ヒカリお菓子作り解禁
-            {
-                HikariMakeButton.SetActive(true);
-            }
+            HikariMakeButton.SetActive(true);
+        }
+
+        if (GameMgr.System_MagicUse_Flag)
+        {
+            MagicButton.SetActive(true);
+            LearningButton.SetActive(true);
         }
     }
 
@@ -260,4 +277,13 @@ public class Compound_BGPanel_A : MonoBehaviour {
             GameMgr.compound_status = 5;
         }
     }*/
+
+    //デバッグ用　コマンドを解禁する
+    public void DebugCommandKaikinON()
+    {
+        GameMgr.System_HikariMakeUse_Flag = true;
+        GameMgr.System_MagicUse_Flag = true;
+
+        CheckCommandFlag();
+    }
 }
