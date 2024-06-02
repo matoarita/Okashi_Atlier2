@@ -84,9 +84,16 @@ public class SetImage : MonoBehaviour
     private int _rare;
     private int _secretFlag;
 
-    private string[] _slot = new string[10];
+    private string[] _slot;
+    private string[] _koyuslot;
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
     private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用  
+
+    // スロットのデータを保持するリスト。点数とセット。
+    List<string> itemslotInfo = new List<string>();
+
+    // スロットの所持数
+    List<int> itemslotScore = new List<int>();
 
     private Text item_Category;
     private string category;
@@ -216,6 +223,8 @@ public class SetImage : MonoBehaviour
 
     public Vector3 def_scale; //cardview.csからも指定できる
 
+    private int _slot_beauty;
+
     //SEを鳴らす
     public AudioClip sound1;
     public AudioClip sound2;
@@ -324,6 +333,9 @@ public class SetImage : MonoBehaviour
         SlotChangeButton = this.transform.Find("Card_Param_window/Card_Parameter/SlotHyoujiButton").gameObject;
         //TasteSubWindow.SetActive(false);
 
+        _slot = new string[database.items[0].toppingtype.Length];
+        _koyuslot = new string[database.items[0].koyu_toppingtype.Length];
+
         for (i = 0; i < _slotHyouji1.Length; i++)
         {
             _slotHyouji1[i] = "";
@@ -420,6 +432,9 @@ public class SetImage : MonoBehaviour
 
         //スロットをもとに、正式名称を計算するメソッド
         slotchangename = GameObject.FindWithTag("SlotChangeName").gameObject.GetComponent<SlotChangeName>();
+
+        //スロットのスコア計算用
+        InitializeItemSlotDicts();
 
         //新レシピプレファブの取得
         NewRecipi_Prefab1 = (GameObject)Resources.Load("Prefabs/NewRecipiMessage");
@@ -572,6 +587,11 @@ public class SetImage : MonoBehaviour
                     _slot[i] = database.items[check_counter].toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < _koyuslot.Length; i++)
+                {
+                    _koyuslot[i] = database.items[check_counter].koyu_toppingtype[i].ToString();
+                }
+
 
                 break;
 
@@ -662,7 +682,12 @@ public class SetImage : MonoBehaviour
                 for (i = 0; i < _slot.Length; i++)
                 {
                     _slot[i] = pitemlist.player_originalitemlist[check_counter].toppingtype[i].ToString();
-                }                               
+                }
+
+                for (i = 0; i < _koyuslot.Length; i++)
+                {
+                    _koyuslot[i] = pitemlist.player_originalitemlist[check_counter].koyu_toppingtype[i].ToString();
+                }
 
                 break;
 
@@ -753,6 +778,11 @@ public class SetImage : MonoBehaviour
                     _slot[i] = pitemlist.player_extremepanel_itemlist[check_counter].toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < _koyuslot.Length; i++)
+                {
+                    _koyuslot[i] = pitemlist.player_extremepanel_itemlist[check_counter].koyu_toppingtype[i].ToString();
+                }
+
                 break;
 
             case 3: //表示などの確認用のチェック用アイテムリストを選択した場合。これはプレーヤは触れず、内部処理用のもの。セーブもされないTempデータ。
@@ -840,6 +870,11 @@ public class SetImage : MonoBehaviour
                 for (i = 0; i < _slot.Length; i++)
                 {
                     _slot[i] = pitemlist.player_check_itemlist[check_counter].toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < _koyuslot.Length; i++)
+                {
+                    _koyuslot[i] = pitemlist.player_check_itemlist[check_counter].koyu_toppingtype[i].ToString();
                 }
 
                 break;
@@ -944,6 +979,11 @@ public class SetImage : MonoBehaviour
             _slot[i] = pitemlist.player_yosokuitemlist[check_counter].toppingtype[i].ToString();
         }
 
+        for (i = 0; i < _koyuslot.Length; i++)
+        {
+            _koyuslot[i] = pitemlist.player_yosokuitemlist[check_counter].koyu_toppingtype[i].ToString();
+        }
+
         //カード　スロット名 現在は、特に表示はしていない
         Slotname_Hyouji();
 
@@ -1037,6 +1077,11 @@ public class SetImage : MonoBehaviour
         for (i = 0; i < _slot.Length; i++)
         {
             _slot[i] = GameMgr.contestclear_collection_list[check_counter].ItemData.toppingtype[i].ToString();
+        }
+
+        for (i = 0; i < _koyuslot.Length; i++)
+        {
+            _koyuslot[i] = GameMgr.contestclear_collection_list[check_counter].ItemData.koyu_toppingtype[i].ToString();
         }
 
         //カード　スロット名 現在は、特に表示はしていない
@@ -1213,8 +1258,11 @@ public class SetImage : MonoBehaviour
         item_Smooth.text = _smooth_score.ToString();
         item_Hardness.text = _hardness_score.ToString();
 
-        item_Beauty.text = _beauty_score.ToString();
+        //デバッグ用表示　見た目・風らしさ
+        SlotScoreKeisan();
+        item_Beauty.text = _beauty_score.ToString() + " + " + _slot_beauty.ToString();
         item_Spwind.text = _spwind_score.ToString();
+        //
 
         //ゲージの更新
         _Shokukan_slider.value = _shokukan_score;
@@ -1845,6 +1893,76 @@ public class SetImage : MonoBehaviour
         }
     }
 
+    void InitializeItemSlotDicts()
+    {
+        itemslotInfo.Clear();
+        itemslotScore.Clear();
 
-    
+        //Itemスクリプトに登録されているトッピングスロットのデータを取得し、各スコアをつける
+        for (i = 0; i < slotnamedatabase.slotname_lists.Count; i++)
+        {
+            itemslotInfo.Add(slotnamedatabase.slotname_lists[i].slotName);
+            itemslotScore.Add(0);
+        }
+
+    }
+
+    //主に、デバッグの見た目のパラメータ計算用　実際の_basebeautyの値は、スロットの値は含まないが、結局GirlEatJudgeでスロットの見た目の値も加算して計算するので、
+    //ここで表示をして分かりやすく確認
+    void SlotScoreKeisan()
+    {
+        //一回まず各スコアを初期化。
+        for (i = 0; i < itemslotScore.Count; i++)
+        {
+            itemslotScore[i] = 0;
+        }
+
+        //トッピングスロットをみて、一致する効果があれば、所持数+1
+        for (i = 0; i < _slot.Length; i++)
+        {
+            count = 0;
+            //itemslotInfoディクショナリのキーを全て取得
+            foreach (string key in itemslotInfo)
+            {
+                if (_slot[i] == key) //キーと一致するアイテムスロットがあれば、点数を+1
+                {
+                    itemslotScore[count]++;
+                }
+                count++;
+            }
+        }
+
+        //お菓子の固有トッピングスロットも見る。一致する効果があれば、所持数+1。
+        for (i = 0; i < _koyuslot.Length; i++)
+        {
+            count = 0;
+            //itemslotInfoディクショナリのキーを全て取得
+            foreach (string key in itemslotInfo)
+            {
+                if (_koyuslot[i] == key) //キーと一致するアイテムスロットがあれば、点数を+1
+                {
+                    //Debug.Log("_koyutp: " + _koyuslot[i]);
+                    itemslotScore[count]++;
+                }
+                count++;
+            }
+        }
+
+        _slot_beauty = 0;
+        //①  スロットがついていれば、絶対に加算される。スロットネームDBのtotal_scoreを加算する。
+        for (i = 0; i < itemslotScore.Count; i++)
+        {
+
+            //0はNonなので、無視
+            if (i != 0)
+            {
+                //トッピングされているものに応じて、得点+見た目点数。２つは、意味は違うが、実質の計算上一緒なので、topping_scoreは基本0でもいいかも。
+                if (itemslotScore[i] > 0)
+                {
+                    _slot_beauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslotScore[i]; //見た目に対するボーナス得点
+                }
+
+            }
+        }
+    }
 }

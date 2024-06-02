@@ -356,7 +356,7 @@ public class ContestListSelectToggle : MonoBehaviour
                     //ただ、現在すぐ出場するので、フラグも終了後にすぐ消えるので、意味はないかも。
                     conteststartList_database.conteststart_lists[_list].Contest_Accepted = 1; //受付完了フラグ
                     GameMgr.contest_accepted_list.Add(new ContestSaveList(conteststartList_database.conteststart_lists[_list].ContestName,
-                        GameMgr.Contest_OrganizeMonth, GameMgr.Contest_OrganizeDay, 0, conteststartList_database.conteststart_lists[_list].Contest_Accepted));
+                        GameMgr.Contest_OrganizeMonth, GameMgr.Contest_OrganizeDay, 0, conteststartList_database.conteststart_lists[_list].Contest_Accepted, 0, 0));
                     //
 
                     GameMgr.Contest_listnum = _list;

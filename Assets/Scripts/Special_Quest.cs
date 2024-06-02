@@ -463,7 +463,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100030;
                 OkashiQuest_Count = 4;
-                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.EatOkashi_DecideFlag = 1; //0=食べたいお菓子がランダムでなくなり、メインクエストに固定する
                 GameMgr.SPquestPanelOff = true;
 
                 break;

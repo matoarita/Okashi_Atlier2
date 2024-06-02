@@ -721,6 +721,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active07();
                     break;
 
+                case "Or_Hiroba_Spring_RotenStreet":
+
+                    On_Active07();
+                    break;
+
                 case "Or_Hiroba_Summer_Entrance":
 
                     On_Active06();
@@ -1130,7 +1135,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active200();
                     break;
 
-                case "Or_Hiroba_Summer_MainStreet": //中央噴水
+                case "Or_Hiroba_Spring_Shoping_Moll": //
+
+                    On_Active10();
+                    break;
+
+                case "Or_Hiroba_Summer_MainStreet": //
 
                     On_Active1004_Alice();
                     break;
@@ -1385,7 +1395,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
-    
+    void On_Active10()
+    {
+        //_text.text = "春エリア　露店通りへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 14;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
 
     void On_Active50()
     {
@@ -2492,6 +2510,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは裏通りのようだ。" + "\n" + "少し陰になっている。";
+
+                break;
+
+            case "Or_Hiroba_Spring_RotenStreet": //春のエリア商店街　露店通り
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_07").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは露店通りのようだ。";
 
                 break;
 

@@ -917,6 +917,7 @@ public class Shop_Main_Controller : MonoBehaviour {
             }
         }
 
+        
         //品物追加　ラスク　パンナイフ追加
         if (GameMgr.GirlLoveEvent_num >= 10) //ラスクイベント開始
         {

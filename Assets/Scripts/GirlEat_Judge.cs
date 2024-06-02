@@ -1525,7 +1525,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 if (itemslotScore[i] > 0)
                 {
                     topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslotScore[i]; //味に対するボーナス得点
-                    //_basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslotScore[i]; //見た目に対するボーナス得点　ややこしいので廃止
+                    _basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslotScore[i]; //見た目に対するボーナス得点
                 }
 
             }

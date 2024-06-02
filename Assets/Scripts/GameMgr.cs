@@ -78,8 +78,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Scene_Name; //その場所の固有名　主にセーブした場所を記録する。
 
     //コマンドの解禁フラグ
-    public static bool System_MagicUse_Flag; //魔法の解禁フラグ　セーブまだ
-    public static bool System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ　セーブまだ
+    public static bool System_MagicUse_Flag; //魔法の解禁フラグ
+    public static bool System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
 
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;

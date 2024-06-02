@@ -98,6 +98,10 @@ public class PlayerData
     //初期アイテム取得フラグ
     public bool save_gamestart_recipi_get;
 
+    //コマンド解禁フラグ
+    public bool save_System_MagicUse_Flag; //魔法の解禁フラグ
+    public bool save_System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
+
     //クエスト以外で、クリアするのに必要なハート量
     public int save_stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様
     public int save_stageclear_cullentlove; //クエストをクリアするのに、必要なハートの蓄積量。
@@ -284,7 +288,7 @@ public class PlayerData
     //イベントリスト
     public List<ItemSaveFlag> save_event_collection_list = new List<ItemSaveFlag>();
 
-    //コンテストクリアお菓子リスト
+    //コンテストクリアお菓子リスト ※1のころのやつので、2のコンテストとはまったく別物
     public List<ItemSaveFlag> save_contestclear_collection_list = new List<ItemSaveFlag>();
     public List<Item> save_contestclear_collection_listItemData = new List<Item>();
 
@@ -293,6 +297,8 @@ public class PlayerData
 
     //コンテスト現在受け付けてるリスト
     public List<ContestSaveList> save_contest_accepted_list = new List<ContestSaveList>();
+    //コンテスト受賞履歴リスト
+    public List<ContestSaveList> save_contest_data_list = new List<ContestSaveList>();
 
     //エクストリームパネル用のアイテムとタイプ
     public int save_extreme_itemid;

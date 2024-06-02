@@ -209,8 +209,8 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                     else
                     {
-                        //コンテスト一回でも出場したら、光パティシエ先生のところへ行ける
-                        if (conteststartList_database.ContestAllFightsCount() > 0)
+                        //光パティシエ先生のはじめて会うイベントが発生してれば通れる
+                        if (GameMgr.NPCMagic_eventList[0])
                         {
                             this.transform.Find("Background").gameObject.SetActive(true);
                         }

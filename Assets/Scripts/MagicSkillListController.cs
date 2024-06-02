@@ -40,6 +40,8 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
     private Text[] skillExtext;
     private Anim_TextScroll[] skillExtextAnim;
 
+    private GridLayoutGroup grid_layout_content;
+
     private int max;
     private int count;
     private int i;
@@ -70,21 +72,13 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
         //スクロールビュー内の、コンテンツ要素を取得
         content = this.transform.Find("Viewport/Content").gameObject;
+        grid_layout_content = this.transform.Find("CategoryView/Viewport/Content").GetComponent<GridLayoutGroup>();
         skill_Prefab = (GameObject)Resources.Load("Prefabs/magicskillSelectToggle");
         skill_Prefab_learn = (GameObject)Resources.Load("Prefabs/magicskillLearnToggle");
 
         //アイコン背景画像データの取得
         touchon = Resources.Load<Sprite>("Sprites/Window/sabwindowB");
         touchoff = Resources.Load<Sprite>("Sprites/Window/checkbox");
-
-        i = 0;
-        foreach (Transform child in this.transform.Find("CategoryView/Viewport/Content/").transform)
-        {
-            //Debug.Log(child.name);           
-            category_toggle.Add(child.gameObject);
-            category_toggle[i].SetActive(false);
-            i++;
-        }
 
 
         //キャンバスの読み込み
@@ -106,9 +100,21 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         //今解放済みの魔法のみ、カテゴリーViewも表示
         if (!StartRead)
         {
+            i = 0;
+            foreach (Transform child in this.transform.Find("CategoryView/Viewport/Content/").transform)
+            {
+                //Debug.Log(child.name);           
+                category_toggle.Add(child.gameObject);
+                category_toggle[i].SetActive(false);
+                i++;
+            }
+
             ViewFlagCheck();
         }
-        
+
+        //レイアウトの再配置　SetActiveのon/offだけだと、再配置されない
+        grid_layout_content.enabled = false;
+        grid_layout_content.enabled = true;
 
         i = 0;
         //category_status = 9; //基本がなくなったので、火のスキルがデフォルトになる
@@ -119,7 +125,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         if (GameMgr.NPCMagic_eventList[10]) //光先生に魔法教えてもらった
         {
             OnCateViewName("Cate_03");
-        }
+        }       
 
         StartRead = true;
     }
@@ -769,5 +775,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         {
             category_toggle[i].SetActive(true);
         }
+        grid_layout_content.enabled = false;
+        grid_layout_content.enabled = true;
     }
 }

@@ -59,6 +59,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveFlag> _temp_bgacce_flaglist = new List<ItemSaveFlag>();
     private List<Item> _temp_contestclearcollectionlistItemData = new List<Item>();
     private List<ItemSaveFlag> _temp_magicskill_list = new List<ItemSaveFlag>();
+    private List<ContestSaveList> _temp_contestdatabase_list = new List<ContestSaveList>();
 
     private GameObject character_root;
     private GameObject character_move;
@@ -199,6 +200,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 magicskill_database.magicskill_lists[i].skillLv, magicskill_database.magicskill_lists[i].skillUseLv, false));
         }
 
+        //コンテストデータのリスト
+        _temp_contestdatabase_list.Clear();
+        for (i = 0; i < conteststartList_database.conteststart_lists.Count; i++)
+        {
+            _temp_contestdatabase_list.Add(new ContestSaveList(conteststartList_database.conteststart_lists[i].ContestName, 
+                0, 0, 0, 0,
+                conteststartList_database.conteststart_lists[i].ContestFightsCount, conteststartList_database.conteststart_lists[i].ContestVictory));
+        }
+
         //アイテムの前回得点のみ取得
         /*_temp_itemscorelist.Clear();
         for (i = 0; i < database.items.Count; i++)
@@ -311,6 +321,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //初期アイテム取得フラグ
             save_gamestart_recipi_get = GameMgr.gamestart_recipi_get,
+
+            //コマンド解禁フラグ
+            save_System_MagicUse_Flag = GameMgr.System_MagicUse_Flag, //魔法の解禁フラグ
+            save_System_HikariMakeUse_Flag = GameMgr.System_HikariMakeUse_Flag, //ヒカリがお菓子作る解禁フラグ
 
             //クエスト以外で、クリアするのに必要なハート量
             save_stageclear_love = GameMgr.stageclear_love,
@@ -437,6 +451,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //魔法スキルのリスト
             save_magicskill_list = _temp_magicskill_list,
+
+            //コンテスト全般データのリスト
+            save_contest_data_list = _temp_contestdatabase_list,
 
             //コンテスト受付のリスト
             save_contest_accepted_list = GameMgr.contest_accepted_list,
@@ -644,6 +661,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //初期アイテム取得フラグ
         GameMgr.gamestart_recipi_get = playerData.save_gamestart_recipi_get;
+
+        //コマンド解禁フラグ
+        GameMgr.System_MagicUse_Flag = playerData.save_System_MagicUse_Flag; //魔法の解禁フラグ
+        GameMgr.System_HikariMakeUse_Flag = playerData.save_System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
 
         //クエスト以外で、クリアするのに必要なハート量
         GameMgr.stageclear_love = playerData.save_stageclear_love;
@@ -937,6 +958,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             magicskill_database.ReSetSkillParamString(playerData.save_magicskill_list[i].itemName, playerData.save_magicskill_list[i].Param, 
                 playerData.save_magicskill_list[i].Param2, playerData.save_magicskill_list[i].Param3);
+        }
+
+        //コンテスト全般データリストの読み込み　主に出場回数や受賞履歴
+        for (i = 0; i < playerData.save_contest_data_list.Count; i++)
+        {
+            conteststartList_database.ResetContestFightsData(playerData.save_contest_data_list[i].contestName, 
+                playerData.save_contest_data_list[i].FightsCount, playerData.save_contest_data_list[i].Victory);
         }
 
         //コンテスト受付のリスト読み込み　DBの受付中フラグもセットする

@@ -880,6 +880,9 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             //魔法を使えるようになるフラグ
             GameMgr.System_MagicUse_Flag = true;
             magicskill_database.skillHyoujiKaikin("Luminous_Suger");
+            PlayerStatus.player_patissier_job_pt++;
+            //magicskill_database.skillHyoujiKaikin("Luminous_Fruits");
+            //magicskill_database.skillLearnLv_Name("Luminous_Suger", 1);
 
             check_event = true;
         }

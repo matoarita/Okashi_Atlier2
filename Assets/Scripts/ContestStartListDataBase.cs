@@ -1447,6 +1447,19 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
     }
 
+    //ロード時に、コンテストデータを読み込み、フラグを上書きする
+    public void ResetContestFightsData(string _name, int _fightscount, int _victory)
+    {      
+        for(i = 0; i < conteststart_lists.Count; i++)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                conteststart_lists[i].ContestFightsCount = _fightscount;
+                conteststart_lists[i].ContestVictory = _victory;
+            }
+        }
+    }
+
     void Contest_SetStartTime()
     {
         PlayerStatus.player_contest_hour = 10; //コンテストの開始時間
