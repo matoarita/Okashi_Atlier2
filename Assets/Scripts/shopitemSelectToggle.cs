@@ -287,6 +287,7 @@ public class shopitemSelectToggle : MonoBehaviour
             case false: //キャンセルが押された
 
                 //Debug.Log("cancel");
+                itemselect_cancel.kettei_on_waiting = false; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
                 _text.text = "何にしますか？";
 
@@ -299,9 +300,7 @@ public class shopitemSelectToggle : MonoBehaviour
                 back_ShopFirst_btn.interactable = true;
 
                 card_view.DeleteCard_DrawView();
-                blackpanel_A.SetActive(false);
-
-                itemselect_cancel.kettei_on_waiting = false; //トグルが押された時点で、トグル内のボタンyes,noを優先する
+                blackpanel_A.SetActive(false);               
 
 
                 break;
@@ -417,7 +416,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
     void Money_Check()
     {
-        MoneyCheck_Method();          
+        MoneyCheck_Method();
+        //shopitemlistController.ReDraw();
     }
 
     void MoneyCheck_Method()
@@ -431,27 +431,27 @@ public class shopitemSelectToggle : MonoBehaviour
                 case 20:
 
                     player_money = PlayerStatus.player_money;
-                    _cost = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice;
+                    _cost = shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shopitem_costprice; //shopitemlistController.shop_kettei_ID
 
                     break;
 
                 case 40:
 
                     player_money = PlayerStatus.player_money;
-                    _cost = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice;
+                    _cost = shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shopitem_costprice;
 
                     break;
 
                 case 50:
 
-                    switch (shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_dongriType)
+                    switch (shop_database.shopitems[i].shop_dongriType)
                     {
                         case 0: //エメラルどんぐり
 
                             //emeraldonguriID = pitemlist.SearchItemString("emeralDongri");
 
                             player_money = pitemlist.playeritemlist["emeralDongri"];
-                            _cost = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice;
+                            _cost = shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shopitem_costprice;
                             break;
 
                         case 1: //サファイアどんぐり
@@ -459,7 +459,7 @@ public class shopitemSelectToggle : MonoBehaviour
                             //emeraldonguriID = pitemlist.SearchItemString("sapphireDongri");
 
                             player_money = pitemlist.playeritemlist["sapphireDongri"];
-                            _cost = shop_database.shopitems[shopitemlistController.shop_kettei_ID].shop_costprice;
+                            _cost = shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shopitem_costprice;
                             break;
                     }
                             

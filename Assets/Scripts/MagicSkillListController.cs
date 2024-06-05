@@ -122,10 +122,59 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
 
     void ViewFlagCheck()
     {
-        if (GameMgr.NPCMagic_eventList[10]) //光先生に魔法教えてもらった
+        //光
+        if (magicskill_database.skillType_SearchAllLearnCount(2) >= 1) //光先生に魔法教えてもらった
         {
             OnCateViewName("Cate_03");
-        }       
+        }
+
+        //火
+        if (magicskill_database.skillType_SearchAllLearnCount(9) >= 1) //
+        {
+            OnCateViewName("Cate_10");
+        }
+
+        //氷
+        if (magicskill_database.skillType_SearchAllLearnCount(1) >= 1) //
+        {
+            OnCateViewName("Cate_02");
+        }
+
+        //風
+        if (magicskill_database.skillType_SearchAllLearnCount(3) >= 1) //
+        {
+            OnCateViewName("Cate_04");
+        }
+
+        //星
+        if (magicskill_database.skillType_SearchAllLearnCount(4) >= 1) //
+        {
+            OnCateViewName("Cate_05");
+        }
+
+        //森
+        if (magicskill_database.skillType_SearchAllLearnCount(5) >= 1) //
+        {
+            OnCateViewName("Cate_06");
+        }
+
+        //時
+        if (magicskill_database.skillType_SearchAllLearnCount(6) >= 1) //
+        {
+            OnCateViewName("Cate_07");
+        }
+
+        //音
+        if (magicskill_database.skillType_SearchAllLearnCount(7) >= 1) //
+        {
+            OnCateViewName("Cate_08");
+        }
+
+        //心
+        if (magicskill_database.skillType_SearchAllLearnCount(8) >= 1) //
+        {
+            OnCateViewName("Cate_09");
+        }
 
         StartRead = true;
     }
@@ -228,7 +277,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "氷の魔法は何でも冷やす！　アイスクリームに強いよ！";
         }
-        _text_comp.text = "氷の魔法は何でも冷やす！　アイスクリームに強いよ！";
+        _text_comp.text = "氷の魔法は何でも冷やす！" + "\n" + "アイスや冷たいお菓子が得意だよ！";
     }
 
     public void SkillList_DrawView3() //光
@@ -268,7 +317,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "星魔法は、夜や星、天気に関係する変わった魔法！　ソーダが作れる！";
         }
-        _text_comp.text = "星魔法は、夜や星、天気に関係する変わった魔法だよ！" + "\n" + "ソーダが作れる！";
+        _text_comp.text = "星魔法は、夜や星、天気に関係する変わった魔法だよ！" + "\n" + "飲み物に強い魔法だよ！";
     }
 
     public void SkillList_DrawView6() //森
@@ -320,7 +369,7 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
             skillExtextAnim[i].ResetStartPos();
             skillExtext[i].text = "心の魔法は、ハートをお菓子にいっぱいこめるよ！　おいしくなぁれ！";
         }
-        _text_comp.text = "心の魔法は、ハートをお菓子にいっぱいこめるよ！" + "\n" + "おいしくなぁれ！";
+        _text_comp.text = "心の魔法は、ハートをお菓子にいっぱいこめるよ・・☆" + "\n" + "おいしくなぁれ～♪";
     }
 
     public void SkillList_DrawView10() //火

@@ -165,6 +165,26 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         }
     }
 
+    //スキルのカテゴリー番号をいれると、そのカテゴリーのスキルの現在の習得数を返す　カテゴリービュー表示用に使う
+    public int skillType_SearchAllLearnCount(int _cate)
+    {
+        i = 0;
+        count = 0;
+        while (i < magicskill_lists.Count)
+        {
+            if (magicskill_lists[i].skillCategory == _cate)
+            {
+                if(magicskill_lists[i].skillFlag >= 1)
+                {
+                    count++;
+                }
+            }
+            i++;
+        }
+
+        return count;
+    }
+
     //スキルのパラメータセット　アイテム名＋パラメータで、指定したパラムに置き換える。
     public void ReSetSkillParamString(string skillName, int param, int param2, int param3)
     {

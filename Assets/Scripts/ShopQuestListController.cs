@@ -189,8 +189,19 @@ public class ShopQuestListController : MonoBehaviour
 
             //進行中表示はオフ
             _text[5].text = "";
-            _text[6].text = quest_database.questRandomset[i].Quest_AfterDay.ToString();
 
+            if (!GameMgr.System_BarQuest_LimitDayON)
+            {
+                _quest_listitem[list_count].transform.Find("Background/TimeOutText").gameObject.SetActive(false);
+                _quest_listitem[list_count].transform.Find("Background/Text_1").gameObject.SetActive(false);
+            }
+            else
+            {
+                _quest_listitem[list_count].transform.Find("Background/TimeOutText").gameObject.SetActive(true);
+                _quest_listitem[list_count].transform.Find("Background/Text_1").gameObject.SetActive(true);
+                
+                _text[6].text = quest_database.questRandomset[i].Quest_AfterDay.ToString();
+            }
 
             texture2d = quest_database.questRandomset[i].questIcon;
             _Img.sprite = texture2d;
@@ -248,23 +259,35 @@ public class ShopQuestListController : MonoBehaviour
             _text[4].text = _hoshu.ToString();
 
             _text[5].text = "進行中"; //受注マーク
-            //あと何日
-            _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[i].Quest_LimitMonth, quest_database.questTakeset[i].Quest_LimitDay);
-            _Nokori_day = _Limit_day - PlayerStatus.player_day;
 
-            if(_Nokori_day < 0)
+            if (!GameMgr.System_BarQuest_LimitDayON)
             {
-                _text[6].text = "";
-                _text[7].text = "過ぎた";
+                _quest_listitem[list_count].transform.Find("Background/TimeOutText").gameObject.SetActive(false);
+                _quest_listitem[list_count].transform.Find("Background/Text_1").gameObject.SetActive(false);
             }
             else
             {
-                _text[6].text = _Nokori_day.ToString();
-                _text[7].text = "日";
+                _quest_listitem[list_count].transform.Find("Background/TimeOutText").gameObject.SetActive(true);
+                _quest_listitem[list_count].transform.Find("Background/Text_1").gameObject.SetActive(true);
+
+                //あと何日
+                _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[i].Quest_LimitMonth, quest_database.questTakeset[i].Quest_LimitDay);
+                _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+                if (_Nokori_day < 0)
+                {
+                    _text[6].text = "";
+                    _text[7].text = "過ぎた";
+                }
+                else
+                {
+                    _text[6].text = _Nokori_day.ToString();
+                    _text[7].text = "日";
+                }
+
+                /*_text[6].text = quest_database.questTakeset[i].Quest_LimitMonth.ToString() + "/" + 
+                    quest_database.questTakeset[i].Quest_LimitDay.ToString(); //締め切り日時 締切: ○月△日   */
             }
-            
-            /*_text[6].text = quest_database.questTakeset[i].Quest_LimitMonth.ToString() + "/" + 
-                quest_database.questTakeset[i].Quest_LimitDay.ToString(); //締め切り日時 締切: ○月△日   */
 
             texture2d = quest_database.questTakeset[i].questIcon;
             _Img.sprite = texture2d;

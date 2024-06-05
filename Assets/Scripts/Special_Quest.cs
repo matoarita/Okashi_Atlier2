@@ -120,11 +120,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             GameMgr.QuestClearAnim_Flag = true;　//全てのクエストで、クエストボタンなしで次へ。
         }
 
-
-        
-
+       
         //クエストネームの設定
-        QuestNameFind();
+        RedrawQuestName(); //ネーム更新
 
         //◆ボタン表示用
         OkashiQuest_AllCount = QuestCountDict[GameMgr.stage_quest_num];
@@ -464,7 +462,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100030;
                 OkashiQuest_Count = 4;
                 GameMgr.EatOkashi_DecideFlag = 1; //0=食べたいお菓子がランダムでなくなり、メインクエストに固定する
-                GameMgr.SPquestPanelOff = true;
+                //GameMgr.SPquestPanelOff = true;
 
                 break;
 
@@ -473,7 +471,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100040;
                 OkashiQuest_Count = 5;
                 GameMgr.EatOkashi_DecideFlag = 1;
-                GameMgr.SPquestPanelOff = true;
+                //GameMgr.SPquestPanelOff = true;
 
                 break;
 
@@ -704,17 +702,24 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
     void QuestNameFind()
     {
-        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+        if (GameMgr.EatOkashi_DecideFlag == 0)
         {
-            if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+            for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
             {
-                girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
+                if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+                {
+                    girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
 
-                OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
-                OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
-                GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
-                girl1_status.OkashiQuest_Name = OkashiQuest_Name;
+                    OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                    OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
+                    GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
+                    //girl1_status.OkashiQuest_Name = OkashiQuest_Name;
+                }
             }
+        }
+        else
+        {
+            OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
         }
     }
 
@@ -726,9 +731,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         //メイン画面に表示する、現在のクエスト
         questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();
 
+        QuestNameFind();
+
         //現在のクエストネーム更新。
         questname.text = OkashiQuest_Name;
     }
-
     
 }

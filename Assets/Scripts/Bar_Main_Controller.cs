@@ -411,27 +411,28 @@ public class Bar_Main_Controller : MonoBehaviour {
                     break;
             }
 
-            
-            //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
-            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
-            { }
-            else
+            if (GameMgr.System_BarQuest_LimitDayON) //締め切りをONにする GameMgrで直接変えること
             {
-                QuestOutCheck();
-
-                if (questout_flag)
+                //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
+                if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+                { }
+                else
                 {
-                    GameMgr.scenario_ON = true;
+                    QuestOutCheck();
 
-                    GameMgr.bar_event_num = 10000;
-                    GameMgr.bar_event_flag = true;
+                    if (questout_flag)
+                    {
+                        GameMgr.scenario_ON = true;
 
-                    check_event = true;
-                    sceneBGM.MuteBGM();
+                        GameMgr.bar_event_num = 10000;
+                        GameMgr.bar_event_flag = true;
 
-                    StartCoroutine("Scenario_loading");
+                        check_event = true;
+                        sceneBGM.MuteBGM();
+
+                        StartCoroutine("Scenario_loading");
+                    }
                 }
-
             }
 
             if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す

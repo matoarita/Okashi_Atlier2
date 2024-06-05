@@ -4110,7 +4110,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         GameMgr.recipi_read_endflag = false;
 
-        GameMgr.ExtraClear_QuestName = girl1_status.OkashiQuest_Name; //このタイミングで一度現クエストのクエストネームを保存
+        //GameMgr.ExtraClear_QuestName = girl1_status.OkashiQuest_Name; //このタイミングで一度現クエストのクエストネームを保存
         GameMgr.ExtraClear_QuestNum = GameMgr.GirlLoveEvent_num;
         SelectNewOkashiSet();
     }

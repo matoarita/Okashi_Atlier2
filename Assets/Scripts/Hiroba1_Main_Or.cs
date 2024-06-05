@@ -40,13 +40,31 @@ public class Hiroba1_Main_Or : MonoBehaviour
             case 0: //中央噴水 メイン
                 
                 GameMgr.Scene_Name = "Or_Hiroba_CentralPark";
-                SettingBGPanel("Map03"); //Map〇〇のリスト番号を指定
+                SettingBGPanel("Map50"); //Map〇〇のリスト番号を指定
                 break;
 
             case 1: //中央噴水２　散歩道
 
                 GameMgr.Scene_Name = "Or_Hiroba_CentralPark2";
                 SettingBGPanel("Map02"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 2: //中央噴水 左
+
+                GameMgr.Scene_Name = "Or_Hiroba_CentralPark_Left";
+                SettingBGPanel("Map51"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 3: //中央噴水 右
+
+                GameMgr.Scene_Name = "Or_Hiroba_CentralPark_Right";
+                SettingBGPanel("Map52"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 4: //中央噴水 お城前
+
+                GameMgr.Scene_Name = "Or_Hiroba_CentralPark_Castle_Street";
+                SettingBGPanel("Map53"); //Map〇〇のリスト番号を指定
                 break;
 
             case 10: //春エリア

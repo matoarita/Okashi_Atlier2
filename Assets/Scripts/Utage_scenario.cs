@@ -3439,6 +3439,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC04_alice";
                 break;
 
+            case 1240: //OrNPC虹の女の子
+
+                scenarioLabel = "Or_NPC05_niji_girl";
+                break;
+
             case 1500: //Orお花屋さん
 
                 scenarioLabel = "Hiroba_Or_flower";

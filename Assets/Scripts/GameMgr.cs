@@ -33,13 +33,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool WEATHER_TIMEMODE_ON = false; //時間によって朝・昼・夜の背景を変更するかどうか。   
 
-    //エクストラの演出のONOFF
+    //各システムの使用の有無
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
     public static bool System_ExtraResult_ON = false; //エクストラ　道中クエストのリザルト画面とご褒美画面をONにする。
     public static bool System_ExtraStageClearResult_ON = false; //エクストラ　ステージクリア時にリザルト画面とご褒美画面をONにする。
     public static bool System_GameOver_ON = false; //エクストラ　ゲームオーバーのONOFF
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
+    public static bool System_BarQuest_LimitDayON = false; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
+
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
 

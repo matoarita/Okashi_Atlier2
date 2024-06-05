@@ -419,12 +419,27 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             {
                 case "Or_Hiroba_CentralPark": //中央噴水
 
-                    On_Active01();
+                    On_Active31();
                     break;
 
                 case "Or_Hiroba_CentralPark2":
 
                     On_Active01();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Left": //中央噴水　左
+
+                    On_Active01();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Right": //中央噴水　右
+
+                    On_Active03();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
+
+                    On_Active31();
                     break;
 
                 case "Or_Hiroba_Spring_Entrance":
@@ -574,7 +589,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_MainGate_Street":
 
-                    On_Active06();
+                    On_Active30();
                     break;
 
                 case "Or_Hiroba_MainGate_Street2_hiroba":
@@ -611,12 +626,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             {
                 case "Or_Hiroba_CentralPark": //中央噴水でToggle2を押した
 
-                    On_Active02();
+                    On_Active32();
                     break;
 
                 case "Or_Hiroba_CentralPark2":
 
                     On_Active04();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
+
+                    On_Active32();
                     break;
 
                 case "Or_Hiroba_Spring_Entrance":
@@ -669,6 +689,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active1003_Basan();
                     break;
 
+                case "Or_Hiroba_Winter_Street1":
+
+                    On_Active1005_Niji_girl();
+                    break;
+
                 case "Or_Hiroba_Winter_MainHiroba":
 
                     On_Active160();
@@ -698,12 +723,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_CentralPark2":
 
-                    On_Active06();
+                    On_Active31();
                     break;
 
                 case "Or_Hiroba_Spring_Entrance":
 
-                    On_Active06();
+                    On_Active31();
                     break;
 
                 case "Or_Hiroba_Spring_Shoping_Moll":
@@ -728,7 +753,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_Entrance":
 
-                    On_Active06();
+                    On_Active32();
                     break;
 
                 case "Or_Hiroba_Summer_Street":
@@ -818,7 +843,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Autumn_Entrance":
 
-                    On_Active06();
+                    On_Active32();
                     break;
 
                 case "Or_Hiroba_Autumn_Entrance_bridge":
@@ -858,7 +883,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Winter_Entrance":
 
-                    On_Active06();
+                    On_Active31();
                     break;
 
                 case "Or_Hiroba_Winter_EntranceHiroba":
@@ -918,7 +943,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Catsle_Garden":
 
-                    On_Active06();
+                    On_Active33();
                     break;
 
                 case "Or_Hiroba_Catsle_MainStreet":
@@ -956,6 +981,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_CentralPark2": //散歩道
 
                     On_Active2001();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Left": //中央噴水　左
+
+                    On_Active05();
                     break;
 
                 case "Or_Hiroba_Spring_Shoping_Moll": //ハートレベルがいくつか必要
@@ -1088,6 +1118,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active04();
                     break;
 
+                case "Or_Hiroba_CentralPark_Left": //中央噴水　左
+
+                    On_Active04();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Right": //中央噴水　右
+
+                    On_Active02();
+                    break;
+
                 case "Or_Hiroba_Spring_Entrance":
 
                     On_Active1500();
@@ -1135,6 +1175,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active200();
                     break;
 
+                case "Or_Hiroba_CentralPark_Left": //中央噴水　左
+
+                    On_Active30();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Right": //中央噴水　右
+
+                    On_Active30();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
+
+                    On_Active300();
+                    break;
+
                 case "Or_Hiroba_Spring_Shoping_Moll": //
 
                     On_Active10();
@@ -1147,7 +1202,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    On_Active1005();
+                    On_Active1005_Niji_girl();
                     break;
             }
         }
@@ -1165,6 +1220,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_CentralPark": //中央噴水
 
                     On_Active300();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Left": //中央噴水　左
+
+                    On_Active33();
+                    break;
+
+                case "Or_Hiroba_CentralPark_Right": //中央噴水　右
+
+                    On_Active33();
                     break;
 
                 default:
@@ -1304,6 +1369,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     //
     //以下、イベントアクションの処理一覧
     //
+
+    //各エリアの移動
     void On_Active01()
     {
         //_text.text = "春エリアへ移動";
@@ -1344,26 +1411,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    //春エリア
     void On_Active05()
     {
-        //_text.text = "噴水エリア　奥側へ移動";
+        //_text.text = "散歩道へ移動";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み シーン自体は自分を読む
         GameMgr.SceneSelectNum = 1;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
-
-
-    void On_Active06()
-    {
-        //_text.text = "噴水エリア　手前へ移動";
-
-        //GameMgr.Scene_back_home = true;
-        //シーン読み込み
-        GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
-    }
+  
 
     void On_Active07()
     {
@@ -1405,6 +1463,48 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    //中央噴水
+    void On_Active30()
+    {
+        //_text.text = "噴水エリア　手前へ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active31()
+    {
+        //_text.text = "噴水エリア　左へ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 2;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active32()
+    {
+        //_text.text = "噴水エリア　右へ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 3;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active33()
+    {
+        //_text.text = "噴水エリア　お城通りへ移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 4;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    //夏
     void On_Active50()
     {
         //_text.text = "夏エリア入口　奥へ　移動";
@@ -2166,9 +2266,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //NPCきのこ　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1210; //
 
-        if (!GameMgr.NPCHiroba_eventList[130]) //はじめて
+        if (!GameMgr.NPCHiroba_eventList[120]) //はじめて
         {
-            GameMgr.NPCHiroba_eventList[130] = true;
+            GameMgr.NPCHiroba_eventList[120] = true;
 
             GameMgr.hiroba_event_ID = 0;
             //BGMかえる
@@ -2181,7 +2281,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         if (check_event) { } //上で先にイベント発生したら、以下は読まない。
         else
         {
-            if (GameMgr.NPCHiroba_eventList[130]) //ほかに発生するイベントがなく、すでに友達になった。
+            if (GameMgr.NPCHiroba_eventList[120]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 GameMgr.hiroba_event_ID = 10;
                 //BGMかえる
@@ -2199,6 +2299,41 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //NPC魔女ばあさん　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1220; //
+
+        if (!GameMgr.NPCHiroba_eventList[140]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[140] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[140]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+
+        EventReadingStart();
+    }
+
+
+    void On_Active1004_Alice()
+    {
+        //NPCアリス　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1230; //
 
         if (!GameMgr.NPCHiroba_eventList[160]) //はじめて
         {
@@ -2229,15 +2364,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
-
-    void On_Active1004_Alice()
+    void On_Active1005_Niji_girl()
     {
-        //NPC魔女ばあさん　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 1230; //
+        //NPC虹の女の子　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1240; //
 
-        if (!GameMgr.NPCHiroba_eventList[190]) //はじめて
+        if (!GameMgr.NPCHiroba_eventList[180]) //はじめて
         {
-            GameMgr.NPCHiroba_eventList[190] = true;
+            GameMgr.NPCHiroba_eventList[180] = true;
 
             GameMgr.hiroba_event_ID = 0;
             //BGMかえる
@@ -2250,7 +2384,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         if (check_event) { } //上で先にイベント発生したら、以下は読まない。
         else
         {
-            if (GameMgr.NPCHiroba_eventList[190]) //ほかに発生するイベントがなく、すでに友達になった。
+            if (GameMgr.NPCHiroba_eventList[180]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 GameMgr.hiroba_event_ID = 10;
                 //BGMかえる
@@ -2264,77 +2398,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
-
-    void On_Active1005()
-    {
-        //図書館押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 5; //
-
-        //図書室はBGMかえる
-        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-        bgm_change_flag = true;
-
-        if (GameMgr.Story_Mode == 0)
-        {
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-            {
-                case 40: //ドーナツイベント時
-
-                    if (!GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
-                    {
-                        GameMgr.hiroba_event_ID = 5040;
-                    }
-                    else if (GameMgr.hiroba_event_end[4] && !GameMgr.hiroba_event_end[5])
-                    {
-                        GameMgr.hiroba_event_ID = 5041;
-                    }
-                    else if (GameMgr.hiroba_event_end[5])
-                    {
-                        GameMgr.hiroba_event_ID = 5042;
-                    }
-                    break;
-
-                case 50:
-
-                    if (!GameMgr.hiroba_event_end[13])
-                    {
-                        GameMgr.hiroba_event_ID = 5050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-                    else
-                    {
-                        GameMgr.hiroba_event_ID = 5051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    }
-
-                    break;
-
-                default:
-
-                    GameMgr.hiroba_event_ID = 5000; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                    break;
-            }
-        }
-        else
-        {
-            if (GameMgr.GirlLoveEvent_num == 50) //コンテスト時
-            {
-                if (!GameMgr.hiroba_event_end[13])
-                {
-                    GameMgr.hiroba_event_ID = 5050; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                }
-                else
-                {
-                    GameMgr.hiroba_event_ID = 5051; //そのときに呼び出すイベント番号 placeNumとセットで使う。
-                }
-            }
-            else
-            {
-                GameMgr.hiroba_event_ID = 15000;
-            }
-        }
-
-        EventReadingStart();
-    }
+    
 
     void On_Active1006()
     {
@@ -2450,7 +2514,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_CentralPark": //中央噴水
 
                 //移動用リストオブジェクトの取得
-                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_01").gameObject;
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_50").gameObject;
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
@@ -2466,6 +2530,39 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ちいさな散歩道だ。";
+
+                break;
+
+            case "Or_Hiroba_CentralPark_Left": //中央噴水　左
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_51").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オランジーナの街の中央噴水左だ。" + "\n" + "春と冬エリアが見えている";
+
+                break;
+
+            case "Or_Hiroba_CentralPark_Right": //中央噴水　右
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_52").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オランジーナの街の中央噴水右だ。" + "\n" + "夏と秋エリアが見えている";
+
+                break;
+
+            case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_53").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、オランジーナの街のお城前通りだ。";
 
                 break;
 

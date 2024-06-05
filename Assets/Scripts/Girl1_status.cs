@@ -31,6 +31,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private SoundController sc;
 
+    private Special_Quest special_quest;
+
     private Text questname;
     private GameObject questtitle_panel;
 
@@ -224,7 +226,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     //特定のお菓子か、ランダムから選ぶかのフラグ
     public int OkashiQuest_ID; //特定のお菓子、のお菓子セットのID
-    public string OkashiQuest_Name; //そのときのお菓子のクエストネーム
+    //public string OkashiQuest_Name; //そのときのお菓子のクエストネーム
     public string OkashiQuest_Number; //そのときのお菓子のクエスト番号　文字列で直接表示
     public int OkashiQuest_AllCount; //そのステージ内のクエスト総数
     public int OkashiQuest_Count; //そのステージ内のクエストの番号
@@ -295,6 +297,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //スペシャルクエストcsの取得
+        special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
@@ -864,27 +869,27 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     public void CheckGokigen()　//Updateで常にチェック　Title_Main.csからも読まれる
     {
         //女の子の今のご機嫌　ハートレベルに応じた絶対的なもの
-        if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 3) // HLv
+        if (PlayerStatus.girl1_Love_lv >= 1 && PlayerStatus.girl1_Love_lv < 2) // HLv
         {
             //テンションが低すぎて暗い
             GirlGokigenStatus = 0; //1と一緒
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 5) //
+        else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 3) //
         {
             //少し機嫌が悪い
             GirlGokigenStatus = 2;
            
         }
-        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 8) //
+        else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 5) //
         {
-            //ちょっと元気でてきた
+            //少し機嫌が悪い
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 8 && PlayerStatus.girl1_Love_lv < 12) //
+        else if (PlayerStatus.girl1_Love_lv >= 5 && PlayerStatus.girl1_Love_lv < 12) //
         {
-            //だいぶ元気でてきた
+            //ちょっと元気でてきた
             GirlGokigenStatus = 4;
             
         }
@@ -1198,7 +1203,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }    
 
         //現在のクエストネーム更新。Special_Quest.csで、OkashiQuest_Nameは更新している。パネル表示後にネーム更新されるように、ここで描画更新している。
-        questname.text = OkashiQuest_Name;
+        //questname.text = OkashiQuest_Name;
 
         questtitle_panel.SetActive(true);
 
@@ -1271,6 +1276,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 Debug.Log("にいちゃん！　" + database.items[_ID].itemNameHyouji + "が食べたい！（or のみたい！）");
                 break;
         }
+
+        //クエストネームパネルのほうも表示更新する
+        special_quest.RedrawQuestName();
     }
 
     //girl_eatJudgeから設定

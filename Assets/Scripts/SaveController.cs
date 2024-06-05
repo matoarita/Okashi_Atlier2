@@ -1069,9 +1069,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 bgpanelmatome = GameObject.FindWithTag("BG");
                 BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
 
-                
-                questname.text = girl1_status.OkashiQuest_Name;
-
                 GameMgr.extremepanel_Koushin = true;
                 
 

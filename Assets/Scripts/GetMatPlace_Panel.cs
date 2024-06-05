@@ -2082,7 +2082,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
-                    _text.text = "森のいい香りだ。ここはとても落ち着く..。";
+                    _text.text = "春の森のいい香りだ。とてもあたたかい..。";
                 }
                 else
                 {
@@ -2091,11 +2091,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[0] = true;
 
-                        _text.text = "すげぇ～～！森だー！";
+                        _text.text = "さくらの花びらきれい・・。にいちゃん！";
 
                         slot_view_status = 3; //イベント読み込み中用に退避
 
-                        GameMgr.map_ev_ID = 10;
+                        GameMgr.map_ev_ID = 1000;
                         GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                         StartCoroutine(MapEventOn(0));
@@ -2191,14 +2191,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
 
-                        GameMgr.map_ev_ID = 30;
+                        GameMgr.map_ev_ID = 1100;
                         GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                         StartCoroutine(MapEventOn(0));
                     }
                     else
                     {
-                        _text.text = "にいちゃん、お花たくさん～！　いい香り..。";
+                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
                     }
                 }
                 break;

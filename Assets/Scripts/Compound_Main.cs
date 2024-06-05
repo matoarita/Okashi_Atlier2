@@ -3463,7 +3463,7 @@ public class Compound_Main : MonoBehaviour
         }
 
         //メイン画面に表示する、現在のクエスト
-        questname.text = girl1_status.OkashiQuest_Name; //現在のクエストネーム更新
+        //questname.text = girl1_status.OkashiQuest_Name; //現在のクエストネーム更新
     }
 
     
@@ -4163,7 +4163,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     _todayfood_lib.Add("きのこピザ");
                     _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
-                    _todayfood_lib.Add("ヒカリのじゃりパン");
+                    _todayfood_lib.Add("じゃりパン");
                     _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     break;
 

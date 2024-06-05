@@ -60,6 +60,13 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 
                                 break;
 
+                            case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水
+
+                                _text = "オランジーナキャッスル前";
+                                _subtext = "Orangina Castle Street";
+
+                                break;
+
                             case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道
 
                                 _text = "お散歩小道";
@@ -297,7 +304,19 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                             case "Or_Hiroba_MainGate_Entrance": //正門前ゲート
 
                                 _text = "正門前ゲート";
-                                _subtext = "Orangina MainGate";
+                                _subtext = "Orangina Town MainGate";
+                                break;
+
+                            case "Or_Hiroba_Catsle_Garden": //城エリア　前の庭
+
+                                _text = "バラ園";
+                                _subtext = "Orangina Rose Garden";
+                                break;
+
+                            case "Or_Hiroba_Catsle_MainStreet": //城エリア　メインストリート
+
+                                _text = "オランジーナ城門";
+                                _subtext = "Orangina Castle MainGate";
                                 break;
 
                             default:
@@ -324,20 +343,20 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Contest_Out_Summer":
 
-                                _text = "星降る夜の小広場";
-                                _subtext = "Star Nights Campo";
+                                _text = "夏のコンテスト会場";
+                                _subtext = "Summer Contest Hall";
                                 break;
 
                             case "Or_Contest_Out_Autumn":
 
-                                _text = "星降る夜の小広場";
-                                _subtext = "Star Nights Campo";
+                                _text = "秋のコンテスト会場";
+                                _subtext = "Autumn Contest Hall";
                                 break;
 
                             case "Or_Contest_Out_Winter":
 
-                                _text = "星降る夜の小広場";
-                                _subtext = "Star Nights Campo";
+                                _text = "冬のコンテスト会場";
+                                _subtext = "Winter Contest Hall";
                                 break;
 
                         }

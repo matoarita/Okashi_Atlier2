@@ -21,13 +21,16 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private Text quest_clientname;
     private Text quest_area;
     private Text quest_desc;
-    private Text quest_player_kosu;
+    private Text quest_player_kosu;    
     private Text item_kosu;
 
+    private GameObject quest_etc_text1;
     private GameObject quest_text1;
     private GameObject quest_text2;
     private GameObject quest_dayout;
     private GameObject quest_day_today;
+    private GameObject quest_clientpanel;
+    private GameObject quest_commentPanel;
 
     private int _kosu;
     private int _money;
@@ -65,13 +68,16 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         questday = this.transform.Find("PanelB/Quest_Day").GetComponent<Text>();
         quest_text1 = this.transform.Find("PanelB/Quest_Day_text1").gameObject;
         quest_text2 = this.transform.Find("PanelB/Quest_Day_text2").gameObject;
+        quest_etc_text1 = this.transform.Find("PanelB/Text").gameObject;
         quest_dayout = this.transform.Find("PanelB/Quest_Day_Out").gameObject;
         quest_day_today = this.transform.Find("PanelB/Quest_Day_Today").gameObject;
         questmoney = this.transform.Find("PanelB/Quest_Money").GetComponent<Text>();
-        quest_clientname = this.transform.Find("PanelB/Quest_ClientName").GetComponent<Text>();
-        quest_area = this.transform.Find("PanelB/Quest_Place").GetComponent<Text>();
-        quest_desc = this.transform.Find("PanelB/Quest_Comment").GetComponent<Text>();
+        quest_clientname = this.transform.Find("PanelB/ClientPanel/Quest_ClientName").GetComponent<Text>();
+        quest_area = this.transform.Find("PanelB/ClientPanel/Quest_Place").GetComponent<Text>();
+        quest_desc = this.transform.Find("PanelB/CommentPanel/Quest_Comment").GetComponent<Text>();
         quest_player_kosu = this.transform.Find("PanelB/Quest_PlayerItemKosu").GetComponent<Text>();
+        quest_clientpanel = this.transform.Find("PanelB/ClientPanel").gameObject;
+        quest_commentPanel = this.transform.Find("PanelB/CommentPanel").gameObject;
 
         _Img = this.transform.Find("PanelB/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
@@ -112,33 +118,50 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
             quest_player_kosu.text = pitemlist.KosuCount(questset_database.questTakeset[_list].Quest_itemName).ToString();
         }
 
-        //あと何日
-        _Limit_day = time_controller.CullenderKeisanInverse(questset_database.questTakeset[_list].Quest_LimitMonth, questset_database.questTakeset[_list].Quest_LimitDay);
-        _Nokori_day = _Limit_day - PlayerStatus.player_day;
+        if (!GameMgr.System_BarQuest_LimitDayON)
+        {
+            questday.text = "";
+            quest_text1.SetActive(false);
+            quest_text2.SetActive(false);
+            quest_etc_text1.SetActive(false);
 
-        if (_Nokori_day < 0)
-        {
-            questday.text = "";
-            quest_text1.SetActive(false);
-            quest_text2.SetActive(false);
-            quest_dayout.SetActive(true);
-            quest_day_today.SetActive(false);
-        }
-        else if (_Nokori_day == 0)
-        {
-            questday.text = "";
-            quest_text1.SetActive(false);
-            quest_text2.SetActive(false);
-            quest_dayout.SetActive(false);
-            quest_day_today.SetActive(true);
+            quest_clientpanel.transform.localPosition = new Vector3(0, 30, 0);
+            quest_commentPanel.transform.localPosition = new Vector3(0, 20, 0);
         }
         else
         {
-            questday.text = _Nokori_day.ToString();
-            quest_text1.SetActive(true);
-            quest_text2.SetActive(true);
-            quest_dayout.SetActive(false);
-            quest_day_today.SetActive(false);
+            quest_etc_text1.SetActive(true);
+            quest_clientpanel.transform.localPosition = new Vector3(0, 0, 0); //デフォポジション
+            quest_commentPanel.transform.localPosition = new Vector3(0, 0, 0);
+
+            //あと何日
+            _Limit_day = time_controller.CullenderKeisanInverse(questset_database.questTakeset[_list].Quest_LimitMonth, questset_database.questTakeset[_list].Quest_LimitDay);
+            _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+            if (_Nokori_day < 0)
+            {
+                questday.text = "";
+                quest_text1.SetActive(false);
+                quest_text2.SetActive(false);
+                quest_dayout.SetActive(true);
+                quest_day_today.SetActive(false);
+            }
+            else if (_Nokori_day == 0)
+            {
+                questday.text = "";
+                quest_text1.SetActive(false);
+                quest_text2.SetActive(false);
+                quest_dayout.SetActive(false);
+                quest_day_today.SetActive(true);
+            }
+            else
+            {
+                questday.text = _Nokori_day.ToString();
+                quest_text1.SetActive(true);
+                quest_text2.SetActive(true);
+                quest_dayout.SetActive(false);
+                quest_day_today.SetActive(false);
+            }
         }
         
 

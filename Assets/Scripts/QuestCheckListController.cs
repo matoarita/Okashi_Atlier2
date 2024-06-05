@@ -135,21 +135,31 @@ public class QuestCheckListController : MonoBehaviour
 
         _quest_listitem[list_count].transform.Find("Background/Quest_name").GetComponent<Text>().text = _name_Hyouji;
 
-        //あと何日
-        _Limit_day = time_controller.CullenderKeisanInverse(questset_database.questTakeset[i].Quest_LimitMonth, questset_database.questTakeset[i].Quest_LimitDay);
-        _Nokori_day = _Limit_day - PlayerStatus.player_day;
-
-        if (_Nokori_day < 0)
+        if (!GameMgr.System_BarQuest_LimitDayON)
         {
-            _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = "過ぎた..";
-        }
-        else if (_Nokori_day == 0)
-        {
-            _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = "本日";
+            _quest_listitem[list_count].transform.Find("Background/Quest_day").gameObject.SetActive(false);
+            _quest_listitem[list_count].transform.Find("Background/Quest_name").GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
         }
         else
         {
-            _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = _Nokori_day.ToString() + "日";
+            _quest_listitem[list_count].transform.Find("Background/Quest_day").gameObject.SetActive(true);
+
+            //あと何日
+            _Limit_day = time_controller.CullenderKeisanInverse(questset_database.questTakeset[i].Quest_LimitMonth, questset_database.questTakeset[i].Quest_LimitDay);
+            _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+            if (_Nokori_day < 0)
+            {
+                _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = "過ぎた..";
+            }
+            else if (_Nokori_day == 0)
+            {
+                _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = "本日";
+            }
+            else
+            {
+                _quest_listitem[list_count].transform.Find("Background/Quest_day").GetComponent<Text>().text = _Nokori_day.ToString() + "日";
+            }
         }
         
 

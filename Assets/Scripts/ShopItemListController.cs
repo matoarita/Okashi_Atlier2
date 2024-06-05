@@ -357,7 +357,7 @@ public class ShopItemListController : MonoBehaviour
 
                 break;
 
-            case 40: //ファーム ２では使わない
+            case 40: //ファーム
 
                 CheckHyouji(1000, _shop_itemtype);
                 break;

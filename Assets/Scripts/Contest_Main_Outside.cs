@@ -158,6 +158,7 @@ public class Contest_Main_Outside : MonoBehaviour
             i++;
         }
 
+        GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //春のコンテスト会場
