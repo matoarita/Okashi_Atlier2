@@ -3783,13 +3783,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     GameMgr.QuestManzokuFace = true; //食べた後のおいしかった～の表情　girl1_statusで10秒をカウントし、falseに戻す
                     girl1_status.QuestManzoku_counter = 15; //食べた直後の満足カウンタ　15秒
 
+                    //仕送り
+                    if(!GameMgr.System_Shiokuri_ON)
+                    {
+                        GetMoney = 0;
+                    }
+                    else
+                    {
+                        if (GetMoney > 0)
+                        {
+                            moneyStatus_Controller.GetMoney(GetMoney);
+                        }
+                    }
+
                     //テキストウィンドウの更新
                     exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
-
-                    if (GetMoney > 0)
-                    {
-                        moneyStatus_Controller.GetMoney(GetMoney);
-                    }
+                    
 
                     //吹き出しをだす。
                     switch (dislike_status)

@@ -3444,9 +3444,39 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC05_niji_girl";
                 break;
 
+            case 1250: //OrNPCピエロ
+
+                scenarioLabel = "Or_NPC06_piero";
+                break;
+
             case 1500: //Orお花屋さん
 
                 scenarioLabel = "Hiroba_Or_flower";
+                break;
+
+            case 1510: //Orソーダアイランドへのゴンドラ乗り場
+
+                scenarioLabel = "Or_NPC100_soda_guide";
+                break;
+
+            case 1520: //Orソーダアイランド戻りのゴンドラ乗り場
+
+                scenarioLabel = "Or_NPC101_soda_guide_return";
+                break;
+
+            case 1530: //Or水族館受付
+
+                scenarioLabel = "Or_NPC102_aquarium_reception";
+                break;
+
+            case 1540: //Or水族館出る
+
+                scenarioLabel = "Or_NPC103_aquarium_return";
+                break;
+
+            case 1550: //Or遊園地バイキング
+
+                scenarioLabel = "Or_NPC104_park_biking";
                 break;
 
             case 2000: //Orヒカリ広場イベント　通れないとかも含む
@@ -3503,16 +3533,89 @@ public class Utage_scenario : MonoBehaviour
 
         //マップ移動の場合　シーン暗くしておく
         if (GameMgr.Utage_MapMoveBlackON)
-        {
-            
+        {           
             //「宴」のシナリオ終了待ち
             while (!engine.IsPausingScenario)
             {
                 yield return null;
             }
-
             GameMgr.Utage_MapMoveBlackON = false;
-            GameMgr.Utage_SceneEnd_BlackON = true;
+
+
+            switch (scenarioLabel)
+            {
+                case "Or_NPC100_soda_guide": //ソーダゴンドラ乗り場のイベント お金の処理など
+
+                    stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                    switch (stationevent_num)
+                    {
+                        case 0: //キャンセルか所持金足りなかった
+
+                            break;
+
+                        case 1: //のる
+
+                            GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
+                            break;
+                    }
+                    break;
+
+                case "Or_NPC101_soda_guide_return": //ソーダゴンドラ乗り場戻り
+
+                    stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                    switch (stationevent_num)
+                    {
+                        case 0: //キャンセル
+
+                            break;
+
+                        case 1: //のる
+
+                            GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
+                            break;
+
+                        case 2: //のる
+
+                            GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
+                            break;
+                    }
+                    break;
+
+                case "Or_NPC102_aquarium_reception": //Or水族館受付
+
+                    stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                    switch (stationevent_num)
+                    {
+                        case 0: //キャンセル
+
+                            break;
+
+                        case 1: //入る
+
+                            GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
+                            break;
+
+                    }
+                    break;
+
+                case "Or_NPC103_aquarium_return": //Or水族館でる
+
+                    stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                    switch (stationevent_num)
+                    {
+                        case 0: //キャンセル
+
+                            break;
+
+                        case 1: //戻る
+
+                            GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
+                            break;
+
+                    }
+                    break;
+
+            }           
 
             //続きから再度読み込み
             engine.ResumeScenario();
@@ -3528,7 +3631,7 @@ public class Utage_scenario : MonoBehaviour
         //イベント終わりの処理関係
         //
 
-
+        //１の広場イベント
         hiroba_endflag_num = (int)engine.Param.GetParameter("Hiroba_endflag_Num");
         switch(hiroba_endflag_num)
         {
@@ -3547,6 +3650,7 @@ public class Utage_scenario : MonoBehaviour
                 break;
         }
 
+
         //オランジーナフラグ関係
         switch(scenarioLabel)
         {
@@ -3560,7 +3664,7 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.NPCHiroba_eventList[100] = true;
 
                         //ウィンドアークの本をゲット
-                        magicskill_database.skillHyoujiKaikin("Wind_Ark");
+                        magicskill_database.skillHyoujiKaikin("Wind_Twister");
                     }
                     else //選択を間違えたら、一日ほど消える
                     {
@@ -3568,6 +3672,102 @@ public class Utage_scenario : MonoBehaviour
                     }
                 }
                 break;
+
+            case "Or_NPC100_soda_guide": //ソーダゴンドラ乗り場のイベント お金の処理など
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセルか所持金足りなかった
+
+                        GameMgr.Utage_MapMoveON = false;
+                        break;
+
+                    case 1: //のる フリーパスを購入した
+
+                        GameMgr.Utage_MapMoveON = true;
+                        moneyStatus_Controller.UseMoney(5000);
+                        pitemlist.addPlayerItemString("gondra_freepassport", 1); //ゴンドラパスポートゲット
+                        break;
+
+                    case 2: //のる フリーパスをすでに持っている。
+
+                        GameMgr.Utage_MapMoveON = true;
+                        break;
+                }
+                break;
+
+            case "Or_NPC101_soda_guide_return": //ソーダゴンドラ乗り場戻り
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        GameMgr.Utage_MapMoveON = false;
+                        break;
+
+                    case 1: //のる
+
+                        GameMgr.Utage_MapMoveON = true;
+                        break;
+                }
+                break;
+
+            case "Or_NPC102_aquarium_reception": //Or水族館受付
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        GameMgr.Utage_MapMoveON = false;
+                        break;
+
+                    case 1: //入る
+
+                        GameMgr.Utage_MapMoveON = true;
+                        moneyStatus_Controller.UseMoney(2000);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC103_aquarium_return": //Or水族館でる
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        GameMgr.Utage_MapMoveON = false;
+                        break;
+
+                    case 1: //戻る
+
+                        GameMgr.Utage_MapMoveON = true;
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC104_park_biking": //Or遊園地バイキング
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(800);
+                        break;
+
+                }
+                break;
+
 
             case "Station": //駅のイベント お金の処理など
 
@@ -4073,6 +4273,8 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_boss_score", GameMgr.contest_boss_score);
             engine.Param.TrySetParameter("bossContest_name", GameMgr.contest_boss_name);
 
+            GameMgr.contest_Rank_Count = 0; //優勝以外は0で。
+
             if (GameMgr.contest_TotalScore > GameMgr.contest_boss_score) //対戦相手よりも高得点なら、勝ち
             {
                 GameMgr.Contest_winner_flag = true;
@@ -4257,6 +4459,7 @@ public class Utage_scenario : MonoBehaviour
 
                         Debug.Log("コンテスト　本戦終了！！");
 
+                        GameMgr.contest_Rank_Count = 1; //優勝したので1
                         GameMgr.Contest_PrizeGet_flag = true; //賞品を獲得するイベント発生
                                                               //各ラウンドの採点を合計
                         SumContestTotalScore();
@@ -4344,6 +4547,9 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
+
+        //ランクを更新
+        PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param);
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 

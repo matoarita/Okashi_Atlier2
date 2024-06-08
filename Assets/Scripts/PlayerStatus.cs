@@ -139,7 +139,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
         player_renkin_lv = 1;
         player_renkin_exp = 0;
-        player_ninki_param = 10;
+        player_ninki_param = 0;
         player_kaeru_coin = 0;
         player_zairyobox = 5; //カゴの大きさ
         player_zairyobox_lv = 1;
@@ -235,27 +235,34 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     //Rankの数値をもとに、ランク表記に変える。
     public static string SetPatissierRank(int _parank)
     {
-        switch(_parank )
+        //獲得したスターに応じてランクが決まる
+        if(_parank >= 0 && _parank < 3)
         {
-            case 1:
-                return "一つ星";
-
-            case 2:
-                return "二つ星";
-
-            case 3:
-                return "三つ星";
-
-            case 4:
-                return "四つ星";
-
-            case 5:
-                return "五つ星";
-
-            default:
-
-                return "ブラック";
+            player_patissier_Rank = 1;
+            return "ブロンズ";
         }
-        
+        else if (_parank >= 3 && _parank < 6)
+        {
+            player_patissier_Rank = 2;
+            return "シルバー";
+        }
+        else if (_parank >= 6 && _parank < 10)
+        {
+            player_patissier_Rank = 3;
+            return "ゴールド";
+        }
+        else if (_parank >= 10 && _parank < 15)
+        {
+            player_patissier_Rank = 4;
+            return "プラチナ";
+        }
+        else if (_parank >= 15)
+        {
+            player_patissier_Rank = 5;
+            return "ダイア";
+        }
+
+        //例外処理
+        return "なし";
     }
 }

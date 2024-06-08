@@ -1608,8 +1608,8 @@ public class Quest_Judge : MonoBehaviour {
         //ハートも少しプラス
         PlayerStatus.girl1_Love_exp += _getHeart;
 
-        //名声をプラスかマイナス。0は変化なし
-        ninkiStatus_Controller.GetNinki(_getNinki);           
+        //名声をプラスかマイナス。0は変化なし 仕様変更で、人気度＝優勝回数になったので、クエストでは触らない
+        //ninkiStatus_Controller.GetNinki(_getNinki);           
 
         ResetQuestStatus();
     }

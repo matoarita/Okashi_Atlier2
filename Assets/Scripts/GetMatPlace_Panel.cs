@@ -2155,7 +2155,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
 
-                        GameMgr.map_ev_ID = 30;
+                        GameMgr.map_ev_ID = 1800;
                         GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                         StartCoroutine(MapEventOn(0));
@@ -2192,6 +2192,222 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
 
                         GameMgr.map_ev_ID = 1100;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                    }
+                }
+                break;
+
+            case "Aquamarine_Lake":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(101);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[150])
+                    {
+                        GameMgr.MapEvent_Or[150] = true;
+
+                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 1200;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                    }
+                }
+                break;
+
+            case "Emerald_Forest":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(101);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[200])
+                    {
+                        GameMgr.MapEvent_Or[200] = true;
+
+                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 1300;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                    }
+                }
+                break;
+
+            case "Amber_Lake":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(101);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[250])
+                    {
+                        GameMgr.MapEvent_Or[250] = true;
+
+                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 1400;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                    }
+                }
+                break;
+
+            case "Ruby_Plane":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(101);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[300])
+                    {
+                        GameMgr.MapEvent_Or[300] = true;
+
+                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 1500;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                    }
+                }
+                break;
+
+            case "MoonStone_Hill":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(101);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[350])
+                    {
+                        GameMgr.MapEvent_Or[350] = true;
+
+                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 1600;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                    }
+                }
+                break;
+
+            case "Diamond_Mountain":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(101);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[400])
+                    {
+                        GameMgr.MapEvent_Or[400] = true;
+
+                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 1700;
                         GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
 
                         StartCoroutine(MapEventOn(0));

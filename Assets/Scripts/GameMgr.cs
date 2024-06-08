@@ -41,6 +41,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_BarQuest_LimitDayON = false; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
+    public static bool System_Shiokuri_ON = false; //仕送りの有無
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。

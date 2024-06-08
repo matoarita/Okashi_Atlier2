@@ -603,7 +603,7 @@ public class OptionPanel : MonoBehaviour {
         {
             GameMgr.AUTOSAVE_ON = true;
             Autosave_text_obj.SetActive(true);
-            sc.PlaySe(125); //21
+            sc.PlaySe(81); //21
         }
         else
         {

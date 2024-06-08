@@ -245,7 +245,7 @@ public class StatusPanel : MonoBehaviour {
 
         playerMP_param.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
         playerNinki_param.text = PlayerStatus.player_ninki_param.ToString();
-        playerPRank_param.text = PlayerStatus.SetPatissierRank(PlayerStatus.player_patissier_Rank);
+        playerPRank_param.text = PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param);
 
 
         //装備品があった場合、バフ効果も表示        

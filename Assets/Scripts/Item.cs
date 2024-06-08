@@ -187,6 +187,7 @@ public class Item
         Rare,
         Record,
         Etc,
+        EventItem,
         MagicData
     }
 

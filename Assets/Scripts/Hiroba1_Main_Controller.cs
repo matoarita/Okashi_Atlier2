@@ -74,7 +74,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private bool StartRead;
     private bool check_event;
 
-    private bool map_move;
+    //private bool map_move;
     private int map_move_num;
 
     private int _place_num;
@@ -145,7 +145,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 
-        map_move = false;
+        GameMgr.Utage_MapMoveON = false;
 
         StartRead = false;
         check_event = false;
@@ -195,7 +195,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
         }
 
-        if (map_move) //マップ移動中は、ウィンドウオフのまま
+        if (GameMgr.Utage_MapMoveON) //マップ移動中は、ウィンドウオフのまま
         {
             WindowOff();
         }
@@ -340,14 +340,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         GameMgr.scenario_read_endflag = false;
 
-        if (map_move)
+        if (GameMgr.Utage_MapMoveON)
         {
             GameMgr.scenario_ON = false;
 
             GameMgr.Scene_Select = 0; //何もしていない状態
             GameMgr.Scene_Status = 0;
 
-            MapMove();           
+            MapMove(0);           
         }
         else
         {
@@ -375,7 +375,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
     }
 
-    void MapMove()
+    void MapMove(int _status)
     {
         switch (map_move_num)
         {
@@ -391,7 +391,39 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //音量フェードアウト
                 sceneBGM.FadeOutBGM(0.5f);
 
-                StartCoroutine("WaitForGotoMap");
+                if (_status == 0)
+                {
+                    StartCoroutine("WaitForGotoMap");
+                }
+                else
+                {
+                    //_status == 1だと即時移動 宴からの移動なら、0でOK
+                    FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
+                }
+                break;
+
+            case 1510: //ソーダアイランドへ移動
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM(1.0f);
+
+                StartCoroutine("WaitForGotoMap2");
+                break;
+
+            case 1520: //ゴンドラ乗り場へ移動
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM(1.0f);
+
+                StartCoroutine("WaitForGotoMap2");
+                break;
+
+            case 1530: //水族館へ移動
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM(1.0f);
+
+                StartCoroutine("WaitForGotoMap2");
                 break;
         }
     }
@@ -401,6 +433,30 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         yield return new WaitForSeconds(0.5f); //1秒待つ
 
         FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
+    }
+
+    IEnumerator WaitForGotoMap2()
+    {
+        yield return new WaitForSeconds(1.0f); //1秒待つ
+
+        switch (map_move_num)
+        {
+            case 1510:
+
+                On_Active70();
+                break;
+
+            case 1520:
+
+                On_Active54();
+                break;
+
+            case 1530:
+
+                On_Active76();
+                break;
+        }
+        
     }
 
 
@@ -474,7 +530,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_MainStreet_Gondora":
 
-                    On_Active70();
+                    On_Active1510_soda_guide();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_Map":
@@ -492,9 +548,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_NPC_MagicActive02();
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                    On_Active1550_Amupark_biking();
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_AquariumMae":
 
-                    On_Active76();
+                    //On_Active76();
+                    On_Active1530_aquarium_reception();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_AquariumEntrance":
@@ -783,7 +845,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_ThemePark_Map":
 
-                    On_Active54();
+                    On_Active1520_soda_guide_return();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_Enter":
@@ -813,7 +875,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_ThemePark_AquariumEntrance":
 
-                    On_Active75();
+                    //On_Active75();
+                    On_Active1540_aquarium_return();
                     break;
 
                 case "Or_Hiroba_Summer_ThemePark_AquariumMainHall":
@@ -1130,7 +1193,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Spring_Entrance":
 
-                    On_Active1500();
+                    On_Active1500_flower();
                     break;
 
                 case "Or_Hiroba_Spring_Shoping_Moll":
@@ -1148,6 +1211,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active70();
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                    //On_Active70();
+                    On_Active1006_Piero();
+                    break;
+
                 case "Or_Hiroba_Autumn_MainStreet":
 
                     On_Active104();
@@ -1155,7 +1224,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    On_Active1500();
+                    On_Active1500_flower();
                     break;
             }
         }
@@ -1234,7 +1303,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default:
 
-                    On_Active1006();
+                    On_Active1006_Piero();
                     break;
             }
         }
@@ -1309,7 +1378,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             default:
 
-                On_Active1006();
+                On_Active1006_Piero();
                 break;
         }
     }
@@ -1326,7 +1395,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             default:
 
-                On_Active1006();
+                On_Active1006_Piero();
                 break;
         }
     }
@@ -1343,7 +1412,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             default:
 
-                On_Active1006();
+                On_Active1006_Piero();
                 break;
         }
     }
@@ -1360,7 +1429,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             default:
 
-                On_Active1006();
+                On_Active1006_Piero();
                 break;
         }
     }
@@ -1899,7 +1968,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             //bgm_change_flag = true;
             GameMgr.hiroba_event_ID = 230000; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
-            map_move = true; //シナリオ読み終わり後、マップを移動する
+            GameMgr.Utage_MapMoveON = true; //シナリオ読み終わり後、マップを移動する
             map_move_num = 0;
             GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
 
@@ -1921,7 +1990,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズ解禁
 
                 map_move_num = 0;
-                MapMove();
+                MapMove(1);
             }
         }       
     }
@@ -2398,43 +2467,37 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
-    
 
-    void On_Active1006()
+
+    void On_Active1006_Piero()
     {
-        //井戸端の奥さん押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 6; //
+        //NPCピエロ　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1250; //
 
-        if (GameMgr.Story_Mode == 0)
+        if (!GameMgr.NPCHiroba_eventList[200]) //はじめて
         {
-            //イベント発生フラグをチェック
-            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-            {
-                case 40: //ドーナツイベント時
+            GameMgr.NPCHiroba_eventList[200] = true;
 
-                    //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。ベニエのこともあるし、お菓子のレシピや場所のヒント、だったりもする。
-                    rndnum = Random.Range(0, 5);
-                    GameMgr.hiroba_event_ID = 6040 + rndnum;
-                    break;
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
 
-                case 50: //
-
-                    //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。
-                    rndnum = Random.Range(0, 5);
-                    GameMgr.hiroba_event_ID = 6050;
-                    break;
-
-                default:
-
-                    GameMgr.hiroba_event_ID = 6000;
-                    break;
-            }
+            check_event = true;
         }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
         else
         {
-            //ひそひそ　ランダムでひとつ、ヒントかメッセージをだす。
-            rndnum = Random.Range(0, 7);
-            GameMgr.hiroba_event_ID = 16000 + rndnum;
+            if (GameMgr.NPCHiroba_eventList[200]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
         }
 
         EventReadingStart();
@@ -2443,10 +2506,83 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     //人間NPC関連のマップイベントは1500～
     //
-    void On_Active1500()
+    void On_Active1500_flower()
     {
         //お花屋さん押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1500; //
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1510_soda_guide()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1510; //       
+
+        GameMgr.Utage_MapMoveON = true; //シナリオ読み終わり後、マップを移動する
+        map_move_num = 1510;
+        GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
+        
+
+        if(pitemlist.ReturnItemKosu("gondra_freepassport") >= 1)
+        {
+            GameMgr.hiroba_event_ID = 10;
+        }
+        else
+        {
+            GameMgr.hiroba_event_ID = 0;
+        }
+
+        EventReadingStart();
+    }
+
+    void On_Active1520_soda_guide_return()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1520; //       
+
+        GameMgr.Utage_MapMoveON = true; //シナリオ読み終わり後、マップを移動する
+        map_move_num = 1520;
+        GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1530_aquarium_reception()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1530; //       
+
+        GameMgr.Utage_MapMoveON = true; //シナリオ読み終わり後、マップを移動する
+        map_move_num = 1530;
+        GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1540_aquarium_return()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1540; //       
+
+        GameMgr.Utage_MapMoveON = true; //シナリオ読み終わり後、マップを移動する
+        map_move_num = 1540;
+        GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1550_Amupark_biking()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1550; //       
 
         GameMgr.hiroba_event_ID = 0;
 
