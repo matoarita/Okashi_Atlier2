@@ -553,9 +553,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active1550_Amupark_biking();
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_KanranShaMae":
+
+                    On_Active1560_Amupark_kanransha();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_Pool":
+
+                    On_Active1570_Amupark_pool();
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_AquariumMae":
 
-                    //On_Active76();
                     On_Active1530_aquarium_reception();
                     break;
 
@@ -2583,6 +2592,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //NPC宴の処理へ
         GameMgr.hiroba_event_placeNum = 1550; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1560_Amupark_kanransha()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1560; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1570_Amupark_pool()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1570; //       
 
         GameMgr.hiroba_event_ID = 0;
 

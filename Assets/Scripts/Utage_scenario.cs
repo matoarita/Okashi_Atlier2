@@ -3479,6 +3479,16 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC104_park_biking";
                 break;
 
+            case 1560: //Or遊園地観覧車
+
+                scenarioLabel = "Or_NPC105_park_kanransha";
+                break;
+
+            case 1570: //Or遊園地プール
+
+                scenarioLabel = "Or_NPC106_park_pool";
+                break;
+
             case 2000: //Orヒカリ広場イベント　通れないとかも含む
 
                 scenarioLabel = "Hiroba_Or_Hikari";
@@ -3763,6 +3773,40 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(800);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC105_park_kanransha": //Or遊園地観覧車
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(1000);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC106_park_pool": //Or遊園地プール
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(3000);
                         break;
 
                 }
