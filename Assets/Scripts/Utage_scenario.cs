@@ -3489,6 +3489,36 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC106_park_pool";
                 break;
 
+            case 1600: //Or露店りんごあめ
+
+                scenarioLabel = "Or_NPC110_roten_ringoame";
+                break;
+
+            case 1601: //Or露店じゃがバター
+
+                scenarioLabel = "Or_NPC106_park_pool";
+                break;
+
+            case 1602: //Or露店クレープ屋
+
+                scenarioLabel = "Or_NPC106_park_pool";
+                break;
+
+            case 1603: //Or露店ジェラート屋
+
+                scenarioLabel = "Or_NPC106_park_pool";
+                break;
+
+            case 1604: //Or露店条件競売
+
+                scenarioLabel = "Or_NPC106_park_pool";
+                break;
+
+            case 1605: //Or露店カフェラテ
+
+                scenarioLabel = "Or_NPC106_park_pool";
+                break;
+
             case 2000: //Orヒカリ広場イベント　通れないとかも含む
 
                 scenarioLabel = "Hiroba_Or_Hikari";

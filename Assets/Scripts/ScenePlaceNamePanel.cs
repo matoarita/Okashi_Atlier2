@@ -159,13 +159,13 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Hiroba_Summer_ThemePark_AquariumMainHall": //夏エリア  遊園地　水族館メイン広場
 
-                                _text = "湖底の森";
+                                _text = "水族館1F - 「湖底の森」";
                                 _subtext = "Forest of Lake bottom";
                                 break;
 
                             case "Or_Hiroba_Summer_ThemePark_AquariumMain2F": //夏エリア  遊園地　水族館メイン2F
 
-                                _text = "翡翠の大広場";
+                                _text = "水族館2F - 「翡翠の大広場」";
                                 _subtext = "Jade Square";
                                 break;
 
@@ -185,6 +185,18 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                                 _text = "プールエリア入口";
                                 _subtext = "Poolside Entrance";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_StreetA_2": //夏エリア　13番街　奥
+
+                                //_text = "プールエリア入口";
+                                //_subtext = "Soda 13th Street";
+                                break;
+
+                            case "Or_Hiroba_Summer_ThemePark_beachMae": //夏エリア　13番街　ビーチ
+
+                                _text = "13番街　ビーチ";
+                                _subtext = "Soda 13th Beach";
                                 break;
 
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口

@@ -455,6 +455,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 On_Active76();
                 break;
+
+            case 1540:
+
+                On_Active75();
+                break;
+
+            default:
+
+                On_Active75();
+                break;
         }
         
     }
@@ -511,6 +521,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Spring_UraStreet":
 
                     On_NPC_MagicActive04();
+                    break;
+
+                case "Or_Hiroba_Spring_RotenStreet":
+
+                    On_Active1600_Roten_Ringo();
                     break;
 
                 case "Or_Hiroba_Summer_Entrance":
@@ -720,6 +735,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_BarActive01();
                     break;
 
+                case "Or_Hiroba_Spring_RotenStreet":
+
+                    On_Active1601_Roten_PotatoButter();
+                    break;
+
+                case "Or_Hiroba_Spring_RotenStreet2":
+
+                    On_Active1604_Roten_JoukenKyobai();
+                    break;
+
                 case "Or_Hiroba_Summer_MainStreet":
 
                     On_Active52();
@@ -822,6 +847,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active07();
                     break;
 
+                case "Or_Hiroba_Spring_RotenStreet2":
+
+                    On_Active10();
+                    break;
+
                 case "Or_Hiroba_Summer_Entrance":
 
                     On_Active32();
@@ -911,6 +941,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Summer_ThemePark_Pool":
 
                     On_Active74();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_StreetA_2":
+
+                    On_Active72();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_beachMae":
+
+                    On_Active90();
                     break;
 
                 case "Or_Hiroba_Autumn_Entrance":
@@ -1083,6 +1123,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active07();
                     break;
 
+                case "Or_Hiroba_Spring_RotenStreet":
+
+                    On_Active11();
+                    break;
+                    
+
                 case "Or_Hiroba_Summer_Entrance":
 
                     On_Active50();
@@ -1108,6 +1154,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active72();
                     break;
 
+                case "Or_Hiroba_Summer_ThemePark_StreetA":
+
+                    On_Active90();
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
 
                     On_Active74();
@@ -1116,6 +1167,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Summer_ThemePark_KanranShaMae":
 
                     On_Active85();
+                    break;
+
+                case "Or_Hiroba_Summer_ThemePark_StreetA_2":
+
+                    On_Active91();
                     break;
 
                 case "Or_Hiroba_Autumn_MainStreet":
@@ -1208,6 +1264,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Spring_Shoping_Moll":
 
                     On_Active09();
+                    break;
+
+                case "Or_Hiroba_Spring_RotenStreet":
+
+                    On_Active1602_Roten_Crape();
+                    break;
+
+                case "Or_Hiroba_Spring_RotenStreet2":
+
+                    On_Active1605_Roten_Cafelatte();
                     break;
 
                 case "Or_Hiroba_Spring_Oku":
@@ -1308,6 +1374,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_CentralPark_Right": //中央噴水　右
 
                     On_Active33();
+                    break;
+
+                case "Or_Hiroba_Spring_RotenStreet":
+
+                    On_Active1603_Roten_Gelato();
                     break;
 
                 default:
@@ -1541,6 +1612,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    void On_Active11()
+    {
+        //_text.text = "春エリア　露店通り奥へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 15;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
     //中央噴水
     void On_Active30()
     {
@@ -1750,6 +1831,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 170;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active90()
+    {
+        //_text.text = "夏エリア遊園地　13番街　奥へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 175;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active91()
+    {
+        //_text.text = "夏エリア遊園地　13番街　奥へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 176;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -2618,6 +2719,65 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
+    void On_Active1600_Roten_Ringo()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1600; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1601_Roten_PotatoButter()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1601; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1602_Roten_Crape()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1602; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1603_Roten_Gelato()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1603; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1604_Roten_JoukenKyobai()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1604; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1605_Roten_Cafelatte()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1605; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
 
     //ヒカリ関連のマップイベントはActive2000～
     //
@@ -2783,6 +2943,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは露店通りのようだ。";
+
+                break;
+
+            case "Or_Hiroba_Spring_RotenStreet2": //春のエリア商店街　露店通り2
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_08").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは露店通り奥のようだ。";
 
                 break;
 
@@ -2981,6 +3152,28 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、サマー・ドリームス遊園地のプールだ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_StreetA_2": //夏エリア　遊園地　13番街　奥
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_175").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　13番街　奥の細道だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_beachMae": //夏エリア　遊園地　13番街　奥
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_176").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス遊園地　13番街　浜辺だ。";
 
                 break;
 
