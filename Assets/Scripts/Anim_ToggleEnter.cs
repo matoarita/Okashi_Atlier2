@@ -33,24 +33,6 @@ public class Anim_ToggleEnter : MonoBehaviour {
         LoopMotion03();
     }
 
-    public void EnterAnimLoop()
-    {
-        //Debug.Log("ポイント入った");
-        this.transform.Find("Image").gameObject.SetActive(false);
-        this.transform.Find("Image_lightON").gameObject.SetActive(true);
-        //LoopMotion01();
-
-        //LoopMotion02();
-    }
-
-    public void EnterAnimLoopStop()
-    {
-        //Debug.Log("ポイント外れた");
-        //AnimResetStart();
-        this.transform.Find("Image").gameObject.SetActive(true);
-        this.transform.Find("Image_lightON").gameObject.SetActive(false);
-    }
-
     //アニメーションをリスタートする
     void AnimResetStart()
     {

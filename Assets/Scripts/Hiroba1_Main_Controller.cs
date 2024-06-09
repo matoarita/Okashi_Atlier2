@@ -477,9 +477,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     //Npc1
     public void OnNPC1_toggle()
     {
-        if (npc1_toggle.isOn == true)
+        /*if (npc1_toggle.isOn == true)
         {
-            npc1_toggle.isOn = false;
+            npc1_toggle.isOn = false;*/
 
             switch (GameMgr.Scene_Name)
             {
@@ -698,15 +698,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active100();
                     break;
             }
-        }
+        //}
     }
 
     //Npc2
     public void OnNPC2_toggle()
     {
-        if (npc2_toggle.isOn == true)
+        /*if (npc2_toggle.isOn == true)
         {
-            npc2_toggle.isOn = false;
+            npc2_toggle.isOn = false;*/
 
             switch (GameMgr.Scene_Name)
             {
@@ -800,15 +800,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active1001_Nuno();
                     break;
             }
-        }
+        //}
     }
 
     //Npc3
     public void OnNPC3_toggle()
     {
-        if (npc3_toggle.isOn == true)
+        /*if (npc3_toggle.isOn == true)
         {
-            npc3_toggle.isOn = false;
+            npc3_toggle.isOn = false;*/
 
             switch (GameMgr.Scene_Name)
             {
@@ -1073,15 +1073,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active1002_Kinoko();
                     break;
             }
-        }
+        //}
     }
 
     //Npc4
     public void OnNPC4_toggle()
     {
-        if (npc4_toggle.isOn == true)
+        /*if (npc4_toggle.isOn == true)
         {
-            npc4_toggle.isOn = false;
+            npc4_toggle.isOn = false;*/
 
             switch (GameMgr.Scene_Name)
             {
@@ -1229,15 +1229,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active1003_Basan();
                     break;
             }
-        }
+        //}
     }
 
     //Npc5
     public void OnNPC5_toggle()
     {
-        if (npc5_toggle.isOn == true)
+        /*if (npc5_toggle.isOn == true)
         {
-            npc5_toggle.isOn = false;
+            npc5_toggle.isOn = false;*/
 
             switch (GameMgr.Scene_Name)
             {
@@ -1302,15 +1302,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active1500_flower();
                     break;
             }
-        }
+        //}
     }
 
     //Npc6
     public void OnNPC6_toggle()
     {
-        if (npc6_toggle.isOn == true)
+        /*if (npc6_toggle.isOn == true)
         {
-            npc6_toggle.isOn = false;
+            npc6_toggle.isOn = false;*/
 
             switch (GameMgr.Scene_Name)
             {
@@ -1349,15 +1349,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active1005_Niji_girl();
                     break;
             }
-        }
+        //}
     }
 
     //Npc7
     public void OnNPC7_toggle()
     {
-        if (npc7_toggle.isOn == true)
+        /*if (npc7_toggle.isOn == true)
         {
-            npc7_toggle.isOn = false;
+            npc7_toggle.isOn = false;*/
 
             switch (GameMgr.Scene_Name)
             {
@@ -1386,15 +1386,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active1006_Piero();
                     break;
             }
-        }
+        //}
     }
 
     //Npc8
     public void OnNPC8_toggle()
     {
-        if (npc8_toggle.isOn == true)
+        /*if (npc8_toggle.isOn == true)
         {
-            npc8_toggle.isOn = false;
+            npc8_toggle.isOn = false;*/
 
             switch (GameMgr.Scene_Name)
             {
@@ -1408,8 +1408,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_BackHomeActive01();
                     break;
             }
-
-        }
+        //}
     }
 
     //SubView1
@@ -2823,13 +2822,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     public void ToggleAllOff()
     {
-        npc1_toggle.interactable = false;
+        /*npc1_toggle.interactable = false;
         npc2_toggle.interactable = false;
         npc3_toggle.interactable = false;
         npc4_toggle.interactable = false;
         npc5_toggle.interactable = false;
         npc6_toggle.interactable = false;
-        npc7_toggle.interactable = false;
+        npc7_toggle.interactable = false;*/
     }
 
     public void SceneToggleDefaultSetup()
@@ -3458,7 +3457,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         npc7_toggle_text = npc7_toggle_obj.transform.Find("Background/Text").GetComponent<Text>();
         npc8_toggle_text = npc8_toggle_obj.transform.Find("Background/Text").GetComponent<Text>();
 
-        npc1_toggle = npc1_toggle_obj.GetComponent<Toggle>();
+        /*npc1_toggle = npc1_toggle_obj.GetComponent<Toggle>();
         npc2_toggle = npc2_toggle_obj.GetComponent<Toggle>();
         npc3_toggle = npc3_toggle_obj.GetComponent<Toggle>();
         npc4_toggle = npc4_toggle_obj.GetComponent<Toggle>();
@@ -3474,7 +3473,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         npc5_toggle.interactable = true;
         npc6_toggle.interactable = true;
         npc7_toggle.interactable = true;
-        npc8_toggle.interactable = true;
+        npc8_toggle.interactable = true;*/
 
         //一度すべてオフ
         /*foreach (Transform child in mainlist_controller_obj.transform.Find("Viewport/Content_Main").transform)　//子要素（孫は取得しない）までなら、childでOK
