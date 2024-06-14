@@ -422,7 +422,7 @@ public class GetMaterial : MonoBehaviour
                 mat_result();
                 break;
 
-            case 1: //イベント発生
+            case 1: //イベント発生 風がきもちいいなどのセリフ関連
 
                 tansaku_panel.SetActive(true);
                 switch (mat_place)
@@ -1815,7 +1815,10 @@ public class GetMaterial : MonoBehaviour
         _text.text = "とくに何もみつからなかった。";
     }
 
-    //GetMatPlace_Panelから呼び出し
+
+    //
+    //GetMatPlace_Panelから呼び出し 宝箱の抽選
+    //
     public void GetTreasureBox(string _place)
     {
         _TreasureImg.sprite = treasure1Open;
@@ -1997,13 +2000,13 @@ public class GetMaterial : MonoBehaviour
                 treasureInfo.Add(5, "copper_coin");
                 treasureInfo.Add(6, "grape");
 
-                treasureDropDict.Add(0, 10.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 10.0f);
+                treasureDropDict.Add(0, 5.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f);
                 treasureDropDict.Add(2, 20.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(3, 20.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(4, 10.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 25.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(4, 5.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(6, 20.0f);
+                treasureDropDict.Add(6, 30.0f + rare_event_kakuritsu);
 
                 if(GameMgr.Story_Mode == 1)
                 {

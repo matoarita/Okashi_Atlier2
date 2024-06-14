@@ -588,7 +588,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             GameMgr.scenario_ON = true;
 
-            GameMgr.shop_event_num = 0;
+            GameMgr.shop_event_num = 1000;
             GameMgr.shop_event_flag = true;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
@@ -600,6 +600,13 @@ public class Shop_Main_Controller : MonoBehaviour {
             StartCoroutine("Scenario_loading");
 
             //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
+        }
+
+        if (check_event)
+        { }
+        else
+        {
 
         }
     }

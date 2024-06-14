@@ -74,7 +74,7 @@ public class BGM : MonoBehaviour {
     public AudioClip Ambient4; //川のせせらぎ音２
     public AudioClip Ambient5; //くじらの鳴き声
     public AudioClip Ambient6; //春の森の声
-
+    public AudioClip Ambient100; //魔法詠唱中の環境音
 
     private AudioClip _send_clip;
     private AudioClip _send_clip_ambient;
@@ -1011,6 +1011,36 @@ public class BGM : MonoBehaviour {
 
                 _send_clip = sound52;
                 break;
+
+            case 102: //アクアマリン湖
+
+                _send_clip = sound52;
+                break;
+
+            case 103: //エメラルドフォレスト
+
+                _send_clip = sound52;
+                break;
+
+            case 104: //琥珀の湖
+
+                _send_clip = sound52;
+                break;
+
+            case 105: //ルビー平野
+
+                _send_clip = sound52;
+                break;
+
+            case 106: //ムーンストーンの丘
+
+                _send_clip = sound52;
+                break;
+
+            case 107: //ダイアモンド山
+
+                _send_clip = sound52;
+                break;
         }
 
         bgmController.BGMRestartPlay(0, _send_clip);
@@ -1076,6 +1106,18 @@ public class BGM : MonoBehaviour {
     {
         bgmController.BGMStop(0);
         bgmController.AmbientMute(1);
+    }
+
+    //魔法詠唱中の環境音
+    public void PlayMagicAmbient1()
+    {
+        _send_clip_ambient = Ambient100;
+        bgmController.AmbientRestartPlay(_send_clip_ambient);
+    }
+
+    public void StopMagicAmbient()
+    {
+        bgmController.AmbientStop();
     }
 
 

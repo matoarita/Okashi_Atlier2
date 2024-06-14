@@ -117,7 +117,17 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
             //pitemlist.addPlayerItemString("grape", 2);
             //pitemlist.addPlayerItemString("stone_oven", 1);
 
+            //最初から表示するマップフラグ関係
+            MapFlag();
         }
+    }
+
+    void MapFlag()
+    {
+        //GameMgr.NPCHiroba_eventList[2500] = true; //夏エリア解放
+        //GameMgr.NPCHiroba_eventList[2501] = true; //秋エリア解放
+        //GameMgr.NPCHiroba_eventList[2502] = true; //冬エリア解放
+        //GameMgr.NPCHiroba_eventList[2503] = true; //城エリア解放
     }
 
     //オブジェクト・アクセ以外のアイテム以外を全て追加する

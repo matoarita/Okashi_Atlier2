@@ -230,6 +230,8 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         _text.text = magic_text;
         GameMgr.compound_status = 20;
+
+        //sc.PlaySe(148); //魔法選択音
     }
 
     //魔法・スキルを覚える

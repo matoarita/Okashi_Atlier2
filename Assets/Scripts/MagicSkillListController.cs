@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListController>
+public class MagicSkillListController : MonoBehaviour
 {
     //
     //魔法スキルのコントローラー
@@ -79,7 +79,6 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
         //アイコン背景画像データの取得
         touchon = Resources.Load<Sprite>("Sprites/Window/sabwindowB");
         touchoff = Resources.Load<Sprite>("Sprites/Window/checkbox");
-
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -195,7 +194,9 @@ public class MagicSkillListController : SingletonMonoBehaviour<MagicSkillListCon
     //最初開いたときのデフォルトのテキスト
     public void OnDefaultText(int _type)
     {
-        switch(_type)
+        InitSetup();
+
+        switch (_type)
         {
             case 0:
                 _text_comp.text = "どの魔法をつかう？　にいちゃん！";

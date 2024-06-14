@@ -11,9 +11,7 @@ public class HirobaMove_SelectToggle : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-        hiroba_Main = GameObject.FindWithTag("Hiroba_Main");
-        hiroba_mainController = hiroba_Main.GetComponent<Hiroba1_Main_Controller>();
+       
     }
 	
 	// Update is called once per frame
@@ -23,7 +21,10 @@ public class HirobaMove_SelectToggle : MonoBehaviour {
 
     public void OnHirobaToggle()
     {
-        switch(this.gameObject.name)
+        hiroba_Main = GameObject.FindWithTag("Hiroba_Main");
+        hiroba_mainController = hiroba_Main.GetComponent<Hiroba1_Main_Controller>();
+
+        switch (this.gameObject.name)
         {
             case "NPC1_SelectToggle":
 

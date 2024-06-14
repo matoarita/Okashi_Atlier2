@@ -348,7 +348,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //クエストで発生するサブイベント
                 switch (GameMgr.GirlLoveEvent_num)
                 {
-                    case 0: //クッキー
+                    case 0: //クッキー 2でもこれは使う
 
                         //はじめてのお菓子。食べた直後に発生する。
                         if (GameMgr.GirlLoveSubEvent_stage1[0] == false)
@@ -358,7 +358,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                 GameMgr.GirlLoveSubEvent_stage1[0] = true;
 
-                                if (GameMgr.Okashi_dislike_status == 2) //そもそもクッキー以外のものをあげたとき
+                                if (database.items[GameMgr.Okashi_lastID].itemType_sub.ToString() != "Cookie") //そもそもクッキー以外のものをあげたとき
                                 {
                                     if (GameMgr.Okashi_totalscore < GameMgr.low_score) //クリアできないときのヒントをだす。＋クッキーを食べたいなぁ～。
                                     {
@@ -442,13 +442,13 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                         break;
 
-                    case 1: //ぶどうクッキー
+                    case 1: //さくらクッキー
 
                         if (GameMgr.GirlLoveSubEvent_stage1[7] == false) //はじめてぶどうをとってきた
                         {
                             if (GameMgr.check_GetMat_flag)
                             {
-                                if (pitemlist.KosuCount("grape") >= 1)
+                                if (pitemlist.KosuCount("sakura_chip") >= 1)
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[7] = true;
                                     GameMgr.GirlLoveSubEvent_num = 7;
@@ -459,7 +459,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                         break;
 
-                    case 2: //かわいいクッキー
+                    case 2: //茶色クッキー
 
                         if (GameMgr.GirlLoveSubEvent_stage1[8] == false && girl1_status.special_animatFirst == true)
                         {
@@ -471,6 +471,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                         break;
 
+                        /*
                     case 11: //ラスク2
 
                         if (girl1_status.special_animatFirst) //ステージ2-2 はじまってから、ベリーファーム開始
@@ -578,6 +579,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             }
                         }
                         break;
+                        */
                 }
             }
 
@@ -942,7 +944,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 else
                 {
                     //酒場でていなければイベント発生
-                    if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bar")].placeFlag == 1)
+                    if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Bar_A1")].placeFlag == 1)
                     {
 
                     }

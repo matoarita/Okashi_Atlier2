@@ -25,6 +25,8 @@ public class Memo_Result_Skill : MonoBehaviour, IDragHandler, IBeginDragHandler,
     private Text _text;
     private string text_skill_memo;
 
+    private string _skillType;
+
     private SoundController sc;
 
     private GameObject content;
@@ -76,7 +78,19 @@ public class Memo_Result_Skill : MonoBehaviour, IDragHandler, IBeginDragHandler,
         _text = _memoList[0].GetComponent<Text>();
 
         //メモのデータの読み込み
-        text_skill_memo = magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillComment_Full + "\n" + "\n" + "\n";
+        _skillType = "";
+        if (magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillType == 0)
+        {
+            _skillType = "タイプ: " + "パッシブ";
+        }
+        else
+        {
+            _skillType = "タイプ: " + "アクティブ";
+        }
+
+        text_skill_memo = magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillNameHyouji + "\n" +
+            _skillType + "\n" + "\n" + 
+            magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillComment_Full + "\n" + "\n" + "\n";
         _text.text = text_skill_memo;
 
         //チュートリアル時

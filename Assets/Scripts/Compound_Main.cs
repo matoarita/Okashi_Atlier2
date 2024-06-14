@@ -2092,22 +2092,29 @@ public class Compound_Main : MonoBehaviour
 
     void OuthomePanelONOFF()
     {
-        switch (GameMgr.Scene_Name)
+        if (GameMgr.OutEntrance_ON)
         {
-            case "Compound":
+            switch (GameMgr.Scene_Name)
+            {
+                case "Compound":
 
-                mainlist_scrollview_obj.SetActive(false);
-                break;
+                    mainlist_scrollview_obj.SetActive(false);
+                    break;
 
-            case "Or_Compound":
+                case "Or_Compound":
 
-                mainlist_scrollview_obj.SetActive(true);
-                break;
+                    mainlist_scrollview_obj.SetActive(true);
+                    break;
 
-            default:
+                default:
 
-                mainlist_scrollview_obj.SetActive(false);
-                break;
+                    mainlist_scrollview_obj.SetActive(false);
+                    break;
+            }
+        }
+        else
+        {
+            mainlist_scrollview_obj.SetActive(false);
         }
     }
 
@@ -2479,33 +2486,31 @@ public class Compound_Main : MonoBehaviour
 
     public void OnOutHome_toggle() //玄関からアトリエの外へでる
     {
-        if (outhome_toggle.GetComponent<Toggle>().isOn == true)
+
+
+        switch (GameMgr.Scene_Name)
         {
-            outhome_toggle.GetComponent<Toggle>().isOn = false;
+            case "Compound":
 
-            switch (GameMgr.Scene_Name)
-            {
-                case "Compound":
+                OnGetMatPanel(); //採取地画面を直接開く
+                break;
 
-                    OnGetMatPanel(); //採取地画面を直接開く
-                    break;
+            case "Or_Compound":
 
-                case "Or_Compound":
+                //OnGetMatPanel(); //採取地画面を直接開く
 
-                    //OnGetMatPanel(); //採取地画面を直接開く
+                //玄関音　外に一度出るパターン
+                sc.EnterSound_01();
+                GameMgr.SceneSelectNum = 0;
+                FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
+                break;
 
-                    //玄関音　外に一度出るパターン
-                    sc.EnterSound_01();
-                    GameMgr.SceneSelectNum = 0;
-                    FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
-                    break;
+            default:
 
-                default:
-
-                    OnGetMatPanel(); //採取地画面を直接開く
-                    break;
-            }
+                OnGetMatPanel(); //採取地画面を直接開く
+                break;
         }
+
     }
 
     public void OnGirlEat() //女の子にお菓子をあげる
@@ -3607,6 +3612,8 @@ public class Compound_Main : MonoBehaviour
         system_toggle.GetComponent<Toggle>().interactable = false;
         status_toggle.GetComponent<Toggle>().interactable = false;
         hinttaste_toggle.GetComponent<Toggle>().interactable = false;
+        quest_kakuninButton_obj.transform.Find("QuestKakuninButton").GetComponent<Button>().interactable = false;
+        mainlist_scrollview_obj.SetActive(false);
     }
 
     void OnCompoundSelect()
@@ -3623,6 +3630,8 @@ public class Compound_Main : MonoBehaviour
         status_toggle.GetComponent<Toggle>().interactable = true;
         hinttaste_toggle.GetComponent<Toggle>().interactable = true;
         extreme_Button.interactable = true;
+        quest_kakuninButton_obj.transform.Find("QuestKakuninButton").GetComponent<Button>().interactable = true;
+        OuthomePanelONOFF();
     }
 
     //メインシーン内のタッチオブジェクトのONOFF　GirlEat_Judgeやgirl1_statusからも読み出し

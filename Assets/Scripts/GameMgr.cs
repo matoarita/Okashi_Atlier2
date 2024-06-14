@@ -568,6 +568,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_LimitTimeOver_DegScore_flag; //コンテスト制限時間をこえて、減点のフラグ
     public static bool contest_LimitTimeOver_Gameover_flag; //コンテスト制限時間をこえて失格のフラグ
     public static bool contest_LimitTimeOver_After_flag; //コンテスト失格後、なんらかのペナルティやメッセージが発生するフラグ
+    public static List<int> contest_BeautyJudgeScore = new List<int>(); //コンテストの見た目担当の人の見た目審査基準　girlBeautyのこと
     public static bool NewAreaRelease_flag; //なんらかのイベント後、新エリアが解禁されるフラグ
     public static List<int> PrizeScoreAreaList = new List<int>(); //コンテストのランキングスコア、もしくは賞品のスコア範囲のリスト
     public static List<string> PrizeItemList = new List<string>(); //コンテストの優勝のアイテムリスト
@@ -619,6 +620,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Window_CharaName; //顔ぐらふぃっくの非表示のときの名前
     public static int EatOkashi_DecideFlag; //食べたいお菓子が、ランダムなのかメインクエストで固定するのかを分岐するフラグ
     public static bool SPquestPanelOff; //メインクエストの表示パネルをオフ　実質自由な時間の始まりを意味する
+    public static bool OutEntrance_ON; //玄関から外へでるボタンをオンにする
     
 
 
@@ -1129,6 +1131,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Window_CharaName = "";
         EatOkashi_DecideFlag = 1; //ランダムで食べたいお菓子決まる
         SPquestPanelOff = false;
+        OutEntrance_ON = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1219,6 +1222,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_TotalScoreList.Clear();
         contest_Disqualification = false;
         contest_PrizeScore = 0;
+        contest_BeautyJudgeScore.Clear();
         PrizeScoreAreaList.Clear();
         PrizeItemList.Clear();
         PrizeCharacterList.Clear();

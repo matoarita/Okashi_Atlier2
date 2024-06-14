@@ -1222,6 +1222,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _girl_judgenum[i] = girl1_status.girllike_judgeNum[i];
         }
 
+        //コンテストの審査用に使う
+        GameMgr.contest_BeautyJudgeScore.Clear();
+        for (i = 0; i < girl1_status.youso_count; i++)
+        {
+            GameMgr.contest_BeautyJudgeScore.Add(_girlbeauty[i]);
+        }
+
         //一回だけ代入すればよい。
         _girlpowdery = girl1_status.girl1_Powdery;
         _girloily = girl1_status.girl1_Oily;
@@ -1719,6 +1726,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
 
         GameMgr.Okashi_totalscore = total_score;
+
 
         Debug.Log("###  ###");
         Debug.Log("総合点: " + total_score);

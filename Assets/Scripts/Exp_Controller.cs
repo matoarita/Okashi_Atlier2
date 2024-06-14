@@ -517,8 +517,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else //調合失敗
         {
 
-            _text.text = "調合失敗..！ ";
-
             //ゴミアイテムを検索。
             i = 0;
 
@@ -531,9 +529,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     break;
                 }
                 ++i;
-            }
-
-            Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
+            }            
 
             result_kosu = 1;
             NewRecipiFlag = false;
@@ -790,8 +786,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else //失敗した
         {
 
-            _text.text = "調合失敗..！ ";
-
             //ゴミアイテムを検索。
             i = 0;
 
@@ -805,8 +799,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 }
                 ++i;
             }
-
-            Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
 
             result_kosu = 1;
 
@@ -1018,7 +1010,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else //失敗の場合
         {
-            _text.text = "調合失敗..！ ";
 
             //ゴミアイテムを検索。
             i = 0;
@@ -1033,8 +1024,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 }
                 ++i;
             }
-
-            Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
 
             result_kosu = 1;
             NewRecipiFlag = false;
@@ -1227,8 +1216,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else //調合失敗
         {
 
-            _text.text = "調合失敗..！ ";
-
             //ゴミアイテムを検索。
             i = 0;
 
@@ -1242,8 +1229,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 }
                 ++i;
             }
-
-            Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
 
             result_kosu = 1;
             NewRecipiFlag = false;
@@ -2156,9 +2141,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     void Failed_Text()
     {
-        _text.text = "調合失敗..！ ";
+        _text.text = "失敗しちゃった..！"; ;
 
-        Debug.Log("失敗..！");
+        Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
     }
 
     public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score)

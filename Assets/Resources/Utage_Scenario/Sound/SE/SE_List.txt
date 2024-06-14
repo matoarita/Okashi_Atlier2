@@ -147,3 +147,6 @@ SE表
 ・SE_145	Wind_Chimes02-01(Up-Wide)			魔法を使うときのキラキラウィンドチャイム音
 ・SE_146	audiostock_1411314				【宴用】魔法発動音１　SE130と一緒
 ・SE_147	audiostock_5538.mp3				【宴用】失敗爆発音　SE21と一緒
+・SE_148	audiostock_1488438_sample			魔法選択時の決定音２
+・SE_149	audiostock_823846_sample			魔法選択時の決定音
+・SE_150	刀で打ち合う3					カタナがぶつかるようなカキン音

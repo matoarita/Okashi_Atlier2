@@ -471,93 +471,54 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
     //NPC1
     public void OnNPC1_toggle()
     {
-        if (npc1_toggle.isOn == true)
-        {
-            npc1_toggle.isOn = false;
-
-            //中央噴水へ
-            GameMgr.SceneSelectNum = 0;
-            FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
-        }
+        //中央噴水へ
+        GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
     //NPC2
     public void OnNPC2_toggle()
     {
-        if (npc2_toggle.isOn == true)
-        {
-            npc2_toggle.isOn = false;
-
-            mainlist_controller_obj.SetActive(false);
-            OnGetMaterialPanel();
-        }
+        mainlist_controller_obj.SetActive(false);
+        OnGetMaterialPanel();
     }
 
     //NPC3
     public void OnNPC3_toggle()
     {
-        if (npc3_toggle.isOn == true)
-        {
-            npc3_toggle.isOn = false;
-
-            //玄関音
-            sc.EnterSound_01();
-            FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
-        }
+        //玄関音
+        sc.EnterSound_01();
+        FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
     }
 
     //NPC4
     public void OnNPC4_toggle()
     {
-        if (npc4_toggle.isOn == true)
-        {
-            npc4_toggle.isOn = false;
 
-            
-        }
     }
 
     //NPC5
     public void OnNPC5_toggle()
     {
-        if (npc5_toggle.isOn == true)
-        {
-            npc5_toggle.isOn = false;
 
-            
-        }
     }
 
     //NPC6
     public void OnNPC6_toggle()
     {
-        if (npc6_toggle.isOn == true)
-        {
-            npc6_toggle.isOn = false;
 
-            
-        }
     }
 
     //NPC7
     public void OnNPC7_toggle()
     {
-        if (npc7_toggle.isOn == true)
-        {
-            npc7_toggle.isOn = false;
-            
-        }
+
     }
 
     //NPC8
     public void OnNPC8_toggle()
     {
-        if (npc8_toggle.isOn == true)
-        {
-            npc8_toggle.isOn = false;
 
-           
-        }
     }
 
     //SubView1 アトリエ中へ入る

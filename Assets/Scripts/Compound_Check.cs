@@ -122,6 +122,10 @@ public class Compound_Check : MonoBehaviour {
     private int list_count;
     private Sprite texture2d;
 
+    private string magicName;
+    private int magicLearnLv;
+    private int _magic_rate;
+
     // Use this for initialization
     void Start () {
 
@@ -1154,7 +1158,10 @@ public class Compound_Check : MonoBehaviour {
         {
             _itemIDtemp_result.Add(database.items[itemID_1].itemName);
 
+            magicName = magicskill_database.magicskill_lists[itemID_2].skillName;
+            magicLearnLv = magicskill_database.magicskill_lists[itemID_2].skillLv;
             costMP = magicskill_database.magicskill_lists[itemID_2].skillCost;
+
             //消費MPも表示
             _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
             _cost_mptext.text = costMP.ToString();
@@ -1699,6 +1706,22 @@ public class Compound_Check : MonoBehaviour {
         {
             //レシピ達成率に応じて調合成功率あがる + 装備品による確率上昇
             _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + GameMgr.game_Exup_rate + _buf_kakuritsu;
+        }
+
+        //魔法調合の場合は、各スキルのレベルで成功率が上がる
+        //パッシブによるバフ効果で確率が上がる場合は、上記のbufpower_keisan.Buf_CompKakuritsu_Keisan内で計算する
+        _magic_rate = 0;
+        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21)
+        {
+            switch(magicName)
+            {
+                case "Luminous_Suger":
+
+                    _magic_rate = magicLearnLv * 10;
+                    break;
+            }
+
+            _rate += _magic_rate;
         }
 
         Debug.Log("成功基本確率: " + databaseCompo.compoitems[_compID].success_Rate);

@@ -53,8 +53,10 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject recipilist_onoff;
     private RecipiListController recipilistController;
 
-    private GameObject magicskilllistController_onoff;
+    private GameObject magicskilllistController_Learn;
+    private GameObject magicskilllistController_Use;
     private MagicSkillListController magicskilllistController;
+    private MagicSkillListController magicskilllistController_2;
 
     private PlayerItemList pitemlist;
 
@@ -312,8 +314,10 @@ public class CompoundMainController : MonoBehaviour {
             recipilistController = recipilist_onoff.GetComponent<RecipiListController>();
 
             //スキルリストの取得
-            magicskilllistController_onoff = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView").gameObject;
-            magicskilllistController = magicskilllistController_onoff.GetComponent<MagicSkillListController>();
+            magicskilllistController_Learn = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView").gameObject;
+            magicskilllistController_Use = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView2").gameObject;
+            magicskilllistController = magicskilllistController_Learn.GetComponent<MagicSkillListController>();
+            magicskilllistController_2 = magicskilllistController_Use.GetComponent<MagicSkillListController>();
         }
     }
 	
@@ -565,6 +569,9 @@ public class CompoundMainController : MonoBehaviour {
                     //吹き出しも消す
                     girl1_status.DeleteHukidashiOnly();
 
+                    //魔法環境音を止める。
+                    sceneBGM.StopMagicAmbient();
+
                     break;
 
 
@@ -628,8 +635,12 @@ public class CompoundMainController : MonoBehaviour {
                     //各調合画面を一度オフ
                     CompoScreenReset();
 
+                    //ヒカリちゃんを表示する
+                    ReDrawLive2DOrder_Compound();
+                    SetLive2DPos_Compound();
+
                     //ヒカリちゃん表示をオフ
-                    ReSetLive2DOrder_Default();                   
+                    //ReSetLive2DOrder_Default();                   
 
                     playeritemlist_onoff.SetActive(false);
                     recipilist_onoff.SetActive(false);
@@ -639,8 +650,8 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(true);
                     _textcomp.text = magic_text;
 
-                    magicskilllistController_onoff.SetActive(true);
-                    magicskilllistController.OnDefaultText(0);
+                    magicskilllistController_Use.SetActive(true);
+                    magicskilllistController_2.OnDefaultText(0);
 
                     MagicStartPanel.SetActive(true);
                     magic_compo1.SetActive(true);
@@ -650,6 +661,9 @@ public class CompoundMainController : MonoBehaviour {
                     player_mp_panel.SetActive(true);
                     player_mp_panel.transform.Find("player_mp").GetComponent<Text>().text = PlayerStatus.player_mp.ToString();
                     player_mp_panel.transform.Find("player_maxmp").GetComponent<Text>().text = PlayerStatus.player_maxmp.ToString();
+
+                    //環境音鳴らす
+                    sceneBGM.PlayMagicAmbient1();
 
                     break;
 
@@ -663,15 +677,21 @@ public class CompoundMainController : MonoBehaviour {
                     magic_compo2.SetActive(true);
                     player_mp_panel.SetActive(false);
 
-                    magicskilllistController_onoff.SetActive(false);
+                    magicskilllistController_Use.SetActive(false);
                     playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
 
                     recipiMemoButton.SetActive(true);
                     text_area_compound.SetActive(true);
 
+                    //ヒカリちゃん表示をオフ
+                    ReSetLive2DOrder_Default();
+
                     //ヒカリちゃんを表示する
                     //ReDrawLive2DOrder_Compound();
+
+                    //環境音とめる
+                    sceneBGM.StopMagicAmbient();
                     break;
 
                 case 22: //魔法演出画面
@@ -696,6 +716,8 @@ public class CompoundMainController : MonoBehaviour {
                     //ヒカリちゃんを表示する
                     ReDrawLive2DOrder_Compound();
                     Live2DPos_CenterNow(); //このタイミングで位置はセンターにする
+
+                    
                     break;
 
                 case 23: //魔法調合後の完成画面
@@ -747,7 +769,7 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(true);
                     _textcomp.text = magiclearn_text;
 
-                    magicskilllistController_onoff.SetActive(true); //魔法をおぼえるがONになった状態のリストを表示
+                    magicskilllistController_Learn.SetActive(true); //魔法をおぼえるがONになった状態のリストを表示
                     magicskilllistController.OnDefaultText(1);
 
                     MagicLearnPanel.SetActive(true);
@@ -836,7 +858,8 @@ public class CompoundMainController : MonoBehaviour {
        
         playeritemlist_onoff.SetActive(false);
         recipilist_onoff.SetActive(false);
-        magicskilllistController_onoff.SetActive(false);
+        magicskilllistController_Learn.SetActive(false);
+        magicskilllistController_Use.SetActive(false);
 
         recipiMemoButton.SetActive(false);
         recipimemoController_obj.SetActive(false);

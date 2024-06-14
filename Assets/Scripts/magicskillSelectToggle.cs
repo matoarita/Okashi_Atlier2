@@ -43,6 +43,7 @@ public class magicskillSelectToggle : MonoBehaviour
 
     private GameObject yes_no_panel;
     private GameObject compoBG_A;
+    private GameObject magic_Effect_Panel;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -57,6 +58,7 @@ public class magicskillSelectToggle : MonoBehaviour
 
     private int _itemcount; //現在の所持数　店売り＋オリジナル
     private string _item_Namehyouji;
+    private string _skillname;
     private int pitemlist_max;
     private int count;
     private bool selectToggle;
@@ -88,7 +90,15 @@ public class magicskillSelectToggle : MonoBehaviour
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
-        magicskilllistController_obj = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView").gameObject;
+        if (GameMgr.MagicSkillSelectStatus == 0) //魔法を使う場合 
+        {
+            magicskilllistController_obj = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView2").gameObject;
+        }
+        else
+        {
+            magicskilllistController_obj = canvas.transform.Find("MagicSkillList_Panel/MagicSkillList_ScrollView").gameObject;
+        }
+        
         magicskilllistController = magicskilllistController_obj.GetComponent<MagicSkillListController>();
         //back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         //back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
@@ -104,6 +114,8 @@ public class magicskillSelectToggle : MonoBehaviour
 
         blackpanel_A = canvas.transform.Find("Black_Panel_A").gameObject;
         compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
+        magic_Effect_Panel = compoBG_A.transform.Find("MagicStartPanel/magicComp1/MagicEffectPanel").gameObject;
+        OffMagicEffect();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -131,6 +143,15 @@ public class magicskillSelectToggle : MonoBehaviour
         i = 0;
         count = 0;
 
+    }
+
+    void OffMagicEffect()
+    {
+        foreach (Transform child in magic_Effect_Panel.transform)
+        {
+            //Debug.Log(child.name);           
+            child.gameObject.SetActive(false);
+        }
     }
 
 
@@ -179,6 +200,7 @@ public class magicskillSelectToggle : MonoBehaviour
         magicskilllistController.skill_kettei_ID = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_ID; //IDを入れる。
         magicskilllistController.skill_Type = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_type; //
         magicskilllistController.skill_Name = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_name; //使用するスキル英字ネーム
+        _skillname = magicskilllistController.skill_Name;
         _item_Namehyouji = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_nameHyouji; //表示用ネームを入れる。
         magicskilllistController.skill_itemName_Hyouji = _item_Namehyouji;
         magicskilllistController.skill_cost = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_cost;
@@ -203,7 +225,11 @@ public class magicskillSelectToggle : MonoBehaviour
             category_toggle[i].GetComponent<Toggle>().interactable = false;
         }
 
+
         yes_no_panel.SetActive(true);
+
+        //魔法のエフェクトを表示する
+        SkillUseLibrary(0);
 
         magicskilllistController.skill_final_select_flag = true; //確認のフラグ
 
@@ -222,6 +248,7 @@ public class magicskillSelectToggle : MonoBehaviour
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
         compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageOFF();
+        OffMagicEffect(); //エフェクトは消す
 
         switch (yes_selectitem_kettei.kettei1)
         {
@@ -252,7 +279,8 @@ public class magicskillSelectToggle : MonoBehaviour
                 GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
                 GameMgr.UseMagicSkill_ID = magicskilllistController.skill_kettei_ID;
 
-                SkillUseLibrary();                              
+                _skillname = GameMgr.UseMagicSkill;
+                SkillUseLibrary(1);                              
 
                 break;
 
@@ -323,55 +351,172 @@ public class magicskillSelectToggle : MonoBehaviour
     }
 
 
+
+
     //
     //魔法の処理分岐//
     //
 
-    void SkillUseLibrary()
+    void SkillUseLibrary(int _mstatus)
     {
         //PlayerItemListControllerでも以下の魔法分岐を行ってるので、そちらでも書く
 
-        switch (GameMgr.UseMagicSkill)
+        switch (_skillname)
         {
             case "Freezing_Spell":
 
-                GameMgr.compound_status = 21; //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
+                switch(_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21; //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
+                        break;
+                }
+                
                 break;
 
             case "Luminous_Suger":
-                GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい砂糖を選んでね。";
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("effect01_Luminous_Suger");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい砂糖を選んでね。";
+                        break;
+                }
+                
                 break;
 
             case "Luminous_Fruits":
-                GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいフルーツを選んでね。";
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいフルーツを選んでね。";
+                        break;
+                }
+                
                 break;
 
             case "Bake_Beans":
-                GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい豆を選んでね。";
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい豆を選んでね。";
+                        break;
+                }
+                
                 break;
 
             case "Removing_Shells":
-                GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "殻をむく豆を選んでね。";
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "殻をむく豆を選んでね。";
+                        break;
+                }
+                
                 break;
 
             case "Chocolate_Tempering":
-                GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオマスを選んでね。";
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオマスを選んでね。";
+                        break;
+                }
+                
                 break;
 
             case "Wind_Twister":
-                GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
+                        break;
+                }
+                
                 break;
 
             default: //例外処理　通常ここを通ることはない..が、処理を未登録などの場合、ひとまずここを通る。
-                GameMgr.compound_status = 21;
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        break;
+                }
+                
                 break;
+        }
+    }
+
+    void MagicEffectOn(string _effname)
+    {
+        foreach (Transform child in magic_Effect_Panel.transform)
+        {
+            //Debug.Log(child.name);  
+            if(child.gameObject.name == _effname && _effname != "")
+            {
+                child.gameObject.SetActive(true);
+            }           
         }
     }
 }

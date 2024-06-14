@@ -25,6 +25,7 @@ public class HirobaBlockText : MonoBehaviour {
         BlockText_obj = this.transform.Find("Background/BlockText").gameObject;
         BlockText = BlockText_obj.GetComponent<Text>();
 
+        MapDefaultFlag();
         CheckArea();
     }
 
@@ -116,48 +117,8 @@ public class HirobaBlockText : MonoBehaviour {
     {
         switch (ScrollView.name)
         {
-            case "MainList_ScrollView_01":
+            case "MainList_ScrollView_51":
 
-
-                if (this.gameObject.name == "NPC2_SelectToggle")
-                {
-
-                    if (GameMgr.System_DebugAreaKaikin_ON)
-                    {
-                        this.transform.Find("Background").gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        if (GameMgr.NPCHiroba_eventList[2500]) //夏エリア解放
-                        {
-                            this.transform.Find("Background").gameObject.SetActive(true);
-                        }
-                        else
-                        {
-                            this.transform.Find("Background").gameObject.SetActive(false);
-                        }
-
-                    }
-                }
-                if (this.gameObject.name == "NPC3_SelectToggle")
-                {
-                    if (GameMgr.System_DebugAreaKaikin_ON)
-                    {
-                        this.transform.Find("Background").gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        if (GameMgr.NPCHiroba_eventList[2501]) //秋エリア解放
-                        {
-                            this.transform.Find("Background").gameObject.SetActive(true);
-                        }
-                        else
-                        {
-                            this.transform.Find("Background").gameObject.SetActive(false);
-                        }
-                    }
-
-                }
                 if (this.gameObject.name == "NPC5_SelectToggle")
                 {
                     if (GameMgr.System_DebugAreaKaikin_ON)
@@ -177,7 +138,7 @@ public class HirobaBlockText : MonoBehaviour {
                     }
 
                 }
-                if (this.gameObject.name == "NPC7_SelectToggle")
+                /*if (this.gameObject.name == "NPC7_SelectToggle")
                 {
                     if (GameMgr.System_DebugAreaKaikin_ON)
                     {
@@ -195,8 +156,53 @@ public class HirobaBlockText : MonoBehaviour {
                         }
                     }
 
+                }*/
+
+                break;
+
+            case "MainList_ScrollView_52":
+
+                if (this.gameObject.name == "NPC1_SelectToggle")
+                {
+                    if (GameMgr.System_DebugAreaKaikin_ON)
+                    {
+                        this.transform.Find("Background").gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        if (GameMgr.NPCHiroba_eventList[2501]) //秋エリア解放
+                        {
+                            this.transform.Find("Background").gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            this.transform.Find("Background").gameObject.SetActive(false);
+                        }
+                    }
+
                 }
 
+                if (this.gameObject.name == "NPC5_SelectToggle")
+                {
+
+                    if (GameMgr.System_DebugAreaKaikin_ON)
+                    {
+                        this.transform.Find("Background").gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        if (GameMgr.NPCHiroba_eventList[2500]) //夏エリア解放
+                        {
+                            this.transform.Find("Background").gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            this.transform.Find("Background").gameObject.SetActive(false);
+                        }
+
+                    }
+                }
+                
                 break;
 
             case "MainList_ScrollView_04":
@@ -224,5 +230,11 @@ public class HirobaBlockText : MonoBehaviour {
         }
     }
 
-    
+    void MapDefaultFlag()
+    {
+        GameMgr.NPCHiroba_eventList[2500] = true; //夏エリア解放
+        GameMgr.NPCHiroba_eventList[2501] = true; //秋エリア解放
+        GameMgr.NPCHiroba_eventList[2502] = true; //冬エリア解放
+        GameMgr.NPCHiroba_eventList[2503] = true; //城エリア解放
+    }
 }

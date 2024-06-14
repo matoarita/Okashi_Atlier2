@@ -26,3 +26,4 @@
 ・MapAmbience_04	VSQSE_0649_river_02				川・湖のせせらぎ２
 ・MapAmbience_05	audiostock_497746_sample			くじらの鳴き声
 ・MapAmbience_06	audiostock_913857_sample			春の森の音
+・MapAmbience_100	audiostock_517665_sample			魔法詠唱中の音

@@ -3532,7 +3532,7 @@ public class Utage_scenario : MonoBehaviour
                 //魔法NPC 5000~
             case 5000: //魔法NPC光先生
 
-                scenarioLabel = "Or_MagicNPC01_Hikari";
+                scenarioLabel = "Or_MagicNPC01_Light";
                 break;
 
             default:
@@ -4778,7 +4778,7 @@ public class Utage_scenario : MonoBehaviour
         //審査員２の感想をセット。アントワネットは、見た目を重視する。豪華であればあるほど、得点が高い。
         judge_num++;
         CommentID += 4; //４はじまり
-        if (GameMgr.contest_Beauty_Score[judge_num] != 0)
+        if (GameMgr.contest_BeautyJudgeScore[judge_num] != 0) //アントワの審査基準　contest_Beauty_Scoreと違うので注意
         {
             if (GameMgr.contest_Beauty_Score[judge_num] > 50) //アントワとの差　50以上良い
             {

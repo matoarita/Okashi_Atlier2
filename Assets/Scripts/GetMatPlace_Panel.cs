@@ -2206,7 +2206,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Aquamarine_Lake":
 
                 //BGM
-                sceneBGM.OnGetMat_MapBGM(101);
+                sceneBGM.OnGetMat_MapBGM(102);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
@@ -2242,7 +2242,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Emerald_Forest":
 
                 //BGM
-                sceneBGM.OnGetMat_MapBGM(101);
+                sceneBGM.OnGetMat_MapBGM(103);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
@@ -2278,7 +2278,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Amber_Lake":
 
                 //BGM
-                sceneBGM.OnGetMat_MapBGM(101);
+                sceneBGM.OnGetMat_MapBGM(104);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
@@ -2314,7 +2314,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Ruby_Plane":
 
                 //BGM
-                sceneBGM.OnGetMat_MapBGM(101);
+                sceneBGM.OnGetMat_MapBGM(105);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
@@ -2350,7 +2350,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "MoonStone_Hill":
 
                 //BGM
-                sceneBGM.OnGetMat_MapBGM(101);
+                sceneBGM.OnGetMat_MapBGM(106);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
@@ -2386,7 +2386,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             case "Diamond_Mountain":
 
                 //BGM
-                sceneBGM.OnGetMat_MapBGM(101);
+                sceneBGM.OnGetMat_MapBGM(107);
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);

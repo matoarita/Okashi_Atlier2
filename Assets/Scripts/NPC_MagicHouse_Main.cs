@@ -235,10 +235,12 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             case 30: //光のパティシエ魔法の先生
 
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Luminous";
-                GameMgr.Window_CharaName = "ミラボー";
+                GameMgr.Window_CharaName = "ミラボー先生";
                 SettingBGPanel(3); //Map〇〇のリスト番号を指定
                 backnum = 13; //バックボタン押したときの戻り先
                 SettingCharacterPanel(0);
+
+                npc2sub_toggle_obj.SetActive(true);
 
                 if (!GameMgr.NPCMagic_eventList[10]) //魔法をはじめて教えてもらう前
                 {
@@ -832,8 +834,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     //SubView2
     public void OnSubNPC2_toggle()
     {
-        //On_ActiveContestStart();
-        
+        On_ActiveMagicNPC02_explanation();
     }
 
     //SubView3
@@ -908,6 +909,20 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         {
             _text.text = "ムッシュ。元気か？";
         }
+    }
+
+    void On_ActiveMagicNPC02_explanation() //魔法の説明をきく
+    {
+
+        //宴の処理へ
+        GameMgr.hiroba_event_placeNum = 5000; //
+        GameMgr.hiroba_event_ID = 1000;
+        GameMgr.utage_charaHyouji_flag = true;
+
+        //BGMかえる
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        //bgm_change_flag = true;
+
     }
 
     void CanvasOff()

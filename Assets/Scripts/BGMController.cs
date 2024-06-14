@@ -190,6 +190,14 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
         }
     }
 
+    public void AmbientRestartPlay(AudioClip _clip)
+    {
+
+        _bgm[_ambient_num].clip = _clip;
+        _bgm[_ambient_num].Play();
+
+    }
+
     public void AmbientStop()
     {
         _bgm[_ambient_num].Stop();

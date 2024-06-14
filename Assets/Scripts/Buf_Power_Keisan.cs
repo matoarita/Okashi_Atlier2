@@ -8,11 +8,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private HikariOkashiExpTable hikariOkashiExpTable;
 
     private ItemDataBase database;
+    private MagicSkillListDataBase magicskill_database;
 
     private int _buf_findpower;
     private int _buf_kakuritsuup;
     private float _buf_kakuritsuup_f;
     private int _buf_shokukanup;
+    private int _magicup;
 
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
@@ -26,11 +28,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     // Use this for initialization
     void Start () {
 
+        InitSetup();
+    }
+
+    void InitSetup()
+    {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //ヒカリお菓子EXPデータベースの取得
         hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
@@ -41,7 +51,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 		
 	}
 
+    //
     //アイテム発見力のバフ
+    //
     public int Buf_findpower_Keisan()
     {
         _buf_findpower = 0;
@@ -67,8 +79,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         return _buf_findpower;
     }
 
+
+
+    //
     //調合成功率のバフ
     //調合で生成されるアイテムの_itemType_subを指定し、中に補正値をかけばOK
+    //
     public int Buf_CompKakuritsu_Keisan(string _result_item)
     {
         _buf_kakuritsuup = 0;
@@ -139,7 +155,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         return _buf_kakuritsuup;
     }
 
+
+
+
+    //
     //仕送り額のバフ
+    //
     public float Buf_CompFatherMoneyUp_Keisan()
     {
         _buf_kakuritsuup_f = 1.0f;
@@ -154,12 +175,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         return _buf_kakuritsuup_f;
     }
 
+
+
+    //
     //食感などのパラメータのバフ これのみ、ゲームスタート前に一度読み込む可能性あるので、アイテムリストを取得
     //アイテムのサブタイプ(_itemType_sub)を指定し、中で補正をかければOK
+    //
     public int Buf_OkashiParamUp_Keisan(int _status, string _itemType_sub)
     {
-        //プレイヤー所持アイテムリストの取得
-        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+        InitSetup();
 
         _buf_shokukanup = 0;
 
@@ -194,6 +218,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Rusk":
 
                         OvenBuf();
+                        RuskBuf();
                         break;
                     
                 }
@@ -323,6 +348,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         return 0; //なにもない場合や例外は0
     }
 
+
+
+
     void CreamBuf()
     {
         if (pitemlist.KosuCount("whisk_magic") >= 1) //魔力の泡だて器をもっている
@@ -385,6 +413,26 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (pitemlist.KosuCount("cookie_powerup5") >= 1) //
         {
             _buf_shokukanup += 50;
+        }
+
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 5;
+            _buf_shokukanup += _magicup;
+        }
+    }
+
+    void RuskBuf()
+    {
+        
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 5;
+            _buf_shokukanup += _magicup;
         }
     }
 
