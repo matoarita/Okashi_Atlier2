@@ -93,7 +93,8 @@
 ・BGM_91		audiostock_849596_sample		コンテスト終了後の賞品画面のBGM
 ・BGM_92		Excursion(なぐもりず)			魔法の先生のテーマ02
 ・BGM_93		icyalove_07(にんじんわいん)		秘密の花園のテーマ
-・BGM_94		こんとどぅふぇ素材No.0114-ティンクルハロータウン		ブルートパーズの花畑のBGM
+・BGM_94		こんとどぅふぇ素材No.0114-
+			ティンクルハロータウン			ブルートパーズの花畑のBGM
 ・BGM_95		わぁ（なぐもりず）			おとぼけBGM（にいちゃん舞を舞う）
 ・BGM_96		PerituneMaterial_Cerulean_Relics	水族館のテーマ
 ・BGM_97		おやつはパンケーキ（なぐもりず）	ほのぼのシーン２
@@ -101,3 +102,10 @@
 ・BGM_99		audiostock_				おとぼけBGM２　お囃子
 ・BGM_100		Excursion(なぐもりず)			【宴用】魔法の先生のテーマ02　92と同じ
 ・BGM_101		ecossaise				【宴用】チュートリアルのBGM　48と同じ
+・BGM_102		こんとどぅふぇ素材No.0112-ハジマリの森	エメラルドの大森林のBGM
+・BGM_103		Peritune_Kittens_Caprice_loop		アクアマリンの湖のBGM
+・BGM_104		木漏れ日の調べ（なぐもりず）		琥珀の湖のBGM
+・BGM_105		あわ雪村（なぐもりず）			ムーンストーンの丘のBGM
+・BGM_106		こんとどぅふぇ素材No.0083-
+			妖精たちの演奏会			ルビー平野のBGM
+・BGM_107		PerituneMaterial_Windmill_Village_loop	ダイアモンド山のBGM

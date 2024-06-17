@@ -913,7 +913,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
     void On_ActiveMagicNPC02_explanation() //魔法の説明をきく
     {
-
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 5000; //
         GameMgr.hiroba_event_ID = 1000;
@@ -923,6 +922,9 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
         //bgm_change_flag = true;
 
+        EventReadingStart();
+
+        CanvasOff();
     }
 
     void CanvasOff()

@@ -347,6 +347,12 @@ MonoBehaviour:
   sound51: {fileID: 8300000, guid: 1b4c120cdca750346a364f9551f8639d, type: 3}
   sound52: {fileID: 8300000, guid: f34a77a9ae1df7c4ea324d884949ec03, type: 3}
   sound53: {fileID: 8300000, guid: 1854dee2755f2554092e45371a05dc87, type: 3}
+  sound54: {fileID: 8300000, guid: 98027bc8a1cfb274bb8abd0cbe509dad, type: 3}
+  sound55: {fileID: 8300000, guid: 4ea9d2283229c2a41a7a1e03bf5c53db, type: 3}
+  sound56: {fileID: 8300000, guid: 763816d25985e30468650f69be2007fc, type: 3}
+  sound57: {fileID: 8300000, guid: f4ce76858fd8fbd42bbf1ce3ea277065, type: 3}
+  sound58: {fileID: 8300000, guid: 38fb15ed402584f42bbc275e0973c85f, type: 3}
+  sound59: {fileID: 8300000, guid: 881b672f60348994e817b32613b695d2, type: 3}
   sound1000: {fileID: 0}
   Ambient1: {fileID: 8300000, guid: 22aa78a1a6e88e349860f7432c6b446b, type: 3}
   Ambient2: {fileID: 8300000, guid: 0b3dc0f79a0f48d4c96b0dc73904637f, type: 3}

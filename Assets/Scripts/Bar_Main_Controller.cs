@@ -789,6 +789,35 @@ public class Bar_Main_Controller : MonoBehaviour {
         uwasalist_count = 5;
         count = 0;
 
+        //うわさ　エクセルの番号を指定　頭から5ずつをカウント
+        switch (GameMgr.Scene_Name)
+        {
+            case "Bar_Grt":
+
+                GameMgr.UwasaNum_Select = 0;
+                break;
+
+            case "Or_Bar_A1":
+
+                GameMgr.UwasaNum_Select = 10;
+                break;
+
+            case "Or_Bar_B1":
+
+                GameMgr.UwasaNum_Select = 20;
+                break;
+
+            case "Or_Bar_C1":
+
+                GameMgr.UwasaNum_Select = 30;
+                break;
+
+            case "Or_Bar_D1":
+
+                GameMgr.UwasaNum_Select = 40;
+                break;
+        }
+
         //***  うわさリスト選択 ***//
 
         if (GameMgr.Story_Mode == 0)

@@ -31,6 +31,7 @@ public class Utage_scenario : MonoBehaviour
     private int story_num;
     private int shop_talk_number;
     private int shop_uwasa_number;
+    private int shop_uwasa_flag;
     private int shop_hint_number;
     private int hiroba_endflag_num;
     private int stationevent_num;
@@ -3069,7 +3070,9 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Shop_Uwasa_Category", GameMgr.UwasaNum_Select);
         engine.Param.TrySetParameter("Shop_Uwasa_Num", shop_uwasa_number);
+        shop_uwasa_flag = 9999;
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -3087,7 +3090,6 @@ public class Utage_scenario : MonoBehaviour
             {
                 //キャンバスの読み込み
                 canvas = GameObject.FindWithTag("Canvas");
-                //moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
                 //お金の消費
                 if (PlayerStatus.player_money >= 30)
@@ -3109,18 +3111,31 @@ public class Utage_scenario : MonoBehaviour
             {
 
             }
+
+
+            //うわさ話での宴でのフラグ関係を設定
+            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Lavender_field")].placeFlag == 0)
+            {
+                shop_uwasa_flag = 10;
+                matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
+            }
+
+            if (pitemlist.KosuCountEvent("bugget_recipi") >= 0)
+            {
+                shop_uwasa_flag = 11;
+                //レシピを追加
+                pitemlist.add_eventPlayerItemString("bugget_recipi", 1); //パンのレシピ解禁
+            }
+
+            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bluetopaz_Garden")].placeFlag == 0)
+            {
+                shop_uwasa_flag = 100;
+                //いける場所を追加
+                matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズのお花畑解禁
+            }
+            engine.Param.TrySetParameter("Shop_UwasaFlagCheck", shop_uwasa_flag);
         }
 
-        //宴でのフラグ関係を設定
-        if (matplace_database.matplace_lists[matplace_database.SearchMapString("Lavender_field")].placeFlag == 1) {
-            engine.Param.TrySetParameter("UwasaFlag01Check", true);
-        }
-
-        if (pitemlist.KosuCountEvent("bugget_recipi") >= 1)
-        {
-            engine.Param.TrySetParameter("UwasaFlag02Check", true);
-        }
-            
 
         //続きから再度読み込み
         engine.ResumeScenario();
@@ -3130,34 +3145,7 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
-
-        if ((bool)engine.Param.GetParameter("UwasaOn_Flag"))
-        {
-            if (shop_uwasa_number != 9999)
-            {
-
-                //うわさ話をきき、フラグがたつ場合の処理
-                switch (shop_uwasa_number)
-                {
-                    case 0:
-
-                        //いける場所を追加
-                        matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
-                        break;
-
-                    case 1:
-
-                        //レシピを追加
-                        //databaseCompo.CompoON_compoitemdatabase("bugget"); //パンのレシピ解禁
-                        pitemlist.add_eventPlayerItemString("bugget_recipi", 1);
-                        break;
-                }
-            }
-            else
-            {
-
-            }
-        }
+       
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 
@@ -3517,6 +3505,11 @@ public class Utage_scenario : MonoBehaviour
             case 1605: //Or露店カフェラテ
 
                 scenarioLabel = "Or_NPC115_roten_cafelatte";
+                break;
+
+            case 1610: //Orアマクサ
+
+                scenarioLabel = "Hiroba_Or_amakusa";
                 break;
 
             case 2000: //Orヒカリ広場イベント　通れないとかも含む

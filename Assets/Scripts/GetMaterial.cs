@@ -221,6 +221,10 @@ public class GetMaterial : MonoBehaviour
                             _text.text = "うんしょ .";
                             break;
 
+                        case "Or_Old_Ido":
+                            _text.text = "うんしょ .";
+                            break;
+
                         default:
                             _text.text = "探索中 .";
                             break;
@@ -237,6 +241,10 @@ public class GetMaterial : MonoBehaviour
                         switch (mat_place)
                         {
                             case "Ido":
+                                _text.text = "うんしょ . うんしょ . . ";
+                                break;
+
+                            case "Or_Old_Ido":
                                 _text.text = "うんしょ . うんしょ . . ";
                                 break;
 
@@ -470,9 +478,44 @@ public class GetMaterial : MonoBehaviour
                         event_sakuraForest();
                         break;
 
-                    case "Or_Old_Ido":
+                    /*case "Or_Old_Ido":
 
                         event_Forest();
+                        break;*/
+
+                    case "Bluetopaz_Garden":
+
+                        event_BlueTopazGarden();
+                        break;
+
+                    case "Aquamarine_Lake":
+
+                        event_aquamarineLake();
+                        break;
+
+                    case "Emerald_Forest":
+
+                        event_emeraldForest();
+                        break;
+
+                    case "Amber_Lake":
+
+                        event_amberLake();
+                        break;
+
+                    case "Ruby_Plane":
+
+                        event_rubyPlane();
+                        break;
+
+                    case "MoonStone_Hill":
+
+                        event_moonStoneHills();
+                        break;
+
+                    case "Diamond_Mountain":
+
+                        event_diamondMountain();
                         break;
 
                     default:
@@ -570,14 +613,47 @@ public class GetMaterial : MonoBehaviour
                     //2から
                     case "Sakura_Forest":
 
-                        //イベント１
                         treasure_Check();
                         break;
 
                     case "Or_Old_Ido":
 
-                        //イベント１
                         treasure_Check();
+                        break;
+
+                    case "Bluetopaz_Garden":
+
+                        treasure_Check2();
+                        break;
+
+                    case "Aquamarine_Lake":
+
+                        treasure_Check6();
+                        break;
+
+                    case "Emerald_Forest":
+
+                        treasure_Check7();
+                        break;
+
+                    case "Amber_Lake":
+
+                        treasure_Check8();
+                        break;
+
+                    case "Ruby_Plane":
+
+                        treasure_Check9();
+                        break;
+
+                    case "MoonStone_Hill":
+
+                        treasure_Check10();
+                        break;
+
+                    case "Diamond_Mountain":
+
+                        treasure_Check8();
                         break;
 
                     default:
@@ -1331,7 +1407,8 @@ public class GetMaterial : MonoBehaviour
             case 5:
 
                 random_param = Random.Range(2, 6);
-                _text.text = "くん..。くん..。にいちゃん！　このりんご.. おいしいよ♪　シャリシャリ。" + "\n" + "最大体力が " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                _text.text = "くん..。くん..。にいちゃん！　このりんご.. おいしいよ♪　シャリシャリ。" + "\n" 
+                    + "最大体力が " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 PlayerStatus.player_girl_maxlifepoint += random_param;
                 break;
 
@@ -1352,6 +1429,10 @@ public class GetMaterial : MonoBehaviour
                 break;
         }
     }
+
+    //
+    //★★２から★★
+    //
 
     //春風の森
     void event_sakuraForest()
@@ -1382,12 +1463,356 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
-                _text.text = "にいちゃん！！　花びらがひらひら.. きれい～！";
+                _text.text = "にいちゃん！！　花びらがひらひら..。" + "\n" + "きれい～！";
                 break;
 
             default:
 
                 _text.text = "ギャーー！はちが・・！！　にいちゃん！！";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //ブルートパーズお花畑
+    void event_BlueTopazGarden()
+    {
+        random = Random.Range(0, 5);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん。青色のお花がじゅうたんみたい。きれい～♪";
+                break;
+
+            case 1:
+
+                _text.text = "くんくん..。このお花、お茶っぱにできないかなぁ～？";
+                break;
+
+            case 2:
+
+                random_param = Random.Range(2, 4);
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                _text.text = "にいちゃん！　あそこでピクニック～！　持ってきたぱん食べよ♪" + "\n" + 
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+
+            default:
+
+                random_param = Random.Range(2, 4);
+                PlayerStatus.girl1_Love_exp -= random_param;
+                _text.text = "ぐわっ！　ドテっ！　ヒカリはこけてしまった..。" + "\n" +
+                    "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //アクアマリンの湖
+    void event_aquamarineLake()
+    {
+        random = Random.Range(0, 6);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん～・・。とってもしずかな湖。おちつき～・・。";
+                break;
+
+            case 1:
+
+                random_param = Random.Range(1, 4);
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                _text.text = "あ！ちっちゃいリスさんがいる～！（うずうず）" + "\n" +
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                break;
+
+            case 2:
+
+                _text.text = "みずに光があたって、すっごいキラキラしてるよ～♪";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "おっきい水たまりだ～。" + "\n" + "どこまで広がってるのかなぁ？　にいちゃん。";
+                break;
+
+            default:
+
+                random_param = Random.Range(1, 3);
+                PlayerStatus.girl1_Love_exp -= random_param;
+                _text.text = "うわっ..！　ズボッ！　ヒカリはドブにハマってしまった・・！" + "\n" +
+                    "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //エメラルドの大森林
+    void event_emeraldForest()
+    {
+        random = Random.Range(0, 7);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "ふわぁ～・・。にいちゃん。" + "\n" + "光るちょうちょ、キレイ～♪";
+                break;
+
+            case 1:
+
+                _text.text = "あれ..？　なんかへんなきのこ.. 食べれるのかなぁ？" + "\n" + "（妹はマジマジとみている。）";
+                break;
+
+            case 2:
+
+                _text.text = "にいちゃん！　にじ色に光るお花があるよ～？　ふしぎー！！";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                random_param = Random.Range(1, 2);
+                PlayerStatus.player_girl_lifepoint -= random_param;
+                _text.text = "あ。にいちゃん！　雨がぽつぽつふってきたよ・・？" + "\n"
+                    + "体力が " + GameMgr.ColorCyan + random_param + " </color> " + "下がった・・。";
+                break;
+
+            default:
+
+                random_param = Random.Range(1, 3);
+                PlayerStatus.girl1_Love_exp -= random_param;
+                _text.text = "ギャ！にいちゃん.. けむし、いもいもしてる～～・・！！　きもちわるい～・・。" + "\n" +
+                    "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //琥珀の湖
+    void event_amberLake()
+    {
+        random = Random.Range(0, 5);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん。金色に透き通ってる.. フシギな水だね！";
+                break;
+
+            case 1:
+
+                _text.text = "赤にオレンジ.. みどりもある～。色とりどりの木がいっぱい！にいちゃん！";
+                break;
+
+            case 2:
+
+                random_param = Random.Range(3, 5);
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                _text.text = "にいちゃん！　わき水はっけん～♪　ごっくごく.. ぷみゃあ♪" + "\n" +
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+
+            default:
+
+                random_param = Random.Range(2, 5);
+                PlayerStatus.girl1_Love_exp -= random_param;
+                _text.text = "いてて～！　ヒカリは、クワガタに指をはさまれてしまった・・！" + "\n" +
+                    "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //ルビー平野
+    void event_rubyPlane()
+    {
+        random = Random.Range(0, 6);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "にいちゃん！　赤色の実がいっぱいなってる～♪";
+                break;
+
+            case 1:
+
+                _text.text = "きれいな原っぱ♪　こんど、ままを連れてきたいな～♪";
+                break;
+
+            case 2:
+
+                _text.text = "甘くてすっぱい香り～♪　いい材料が多いよ～、にいちゃん！" + "\n" + "妹は、素材を吟味している。";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                random_param = Random.Range(2, 5);
+                PlayerStatus.player_girl_lifepoint += random_param;
+                _text.text = "ぱくっ！　..うんめぇえ～～。でもすっぱ..！" + "\n"
+                    + "体力が " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                break;
+
+            default:
+
+                _text.text = "ぱくっ！　..べっぺっ。ずっぺぇ～..。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //ムーンストーンの丘
+    void event_moonStoneHills()
+    {
+        random = Random.Range(0, 8);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "わぁぁ～♪　にいちゃん！　ぎんいろの草～、きれい～！";
+                break;
+
+            case 1:
+
+                _text.text = "あ！まんまるのおつきさま..。うさぎさん、どこにいるのかなぁ～？";
+                break;
+
+            case 2:
+
+                random_param = Random.Range(3, 5);
+                PlayerStatus.girl1_Love_exp += random_param;
+                _text.text = "あ！　にいちゃん、一番星、みっけ～！！" + "\n" +
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "..ぱぱ、元気にしてるかなぁ～？　..んん、なんでもない。にいちゃん！";
+                break;
+
+            case 5:
+
+                _text.text = "..あれ？　にいちゃん。今、あそこに白いうさぎさん、いたよ～？";
+                break;
+
+            default:
+
+                random_param = Random.Range(2, 5);
+                PlayerStatus.girl1_Love_exp -= random_param;
+                _text.text = "あいて！　ヒカリは、指にトゲがささってしまった！" + "\n" +
+                    "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
+
+    //ダイヤモンド山
+    void event_diamondMountain()
+    {
+        random = Random.Range(0, 8);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "うわぁ～～！　そこかしこに、色とりどりのきれいな石があるよ～♪";
+                break;
+
+            case 1:
+
+                _text.text = "あ！にいちゃん！　宝石みたいな木の実、あるよ～？" + "\n" + "食べれるのかなぁ～？";
+                break;
+
+            case 2:
+
+                _text.text = "キラキラしたとこ～♪　にいちゃん、今度、ここでピクニックだよ～！";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "あ！　宝石、落ちてる！（ヒカリは、拾った石をポケットにしまった！）";
+                break;
+
+            default:
+
+                random_param = Random.Range(2, 5);
+                PlayerStatus.girl1_Love_exp -= random_param;
+                _text.text = "んん..？　にいちゃん、いろんな道があって、ワカラ～～ン..。" + "\n" +
+                    "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
 
                 //音を鳴らす
                 sc.PlaySe(6);
@@ -1810,6 +2235,81 @@ public class GetMaterial : MonoBehaviour
         Treasure_Status = 1;
     }
 
+    void treasure_Check6()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ あそこ！　おさかないっぱいいる！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "調べる";
+        TreasureImage_obj.SetActive(false);
+        //CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
+    void treasure_Check7()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ あそこの草、光るちょうちょ集まってる！　探検してみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "探検";
+        TreasureImage_obj.SetActive(false);
+        //CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
+    void treasure_Check8()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ あそこ！　きらきら光ってる！　探検してみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "探検";
+        TreasureImage_obj.SetActive(false);
+        //CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
+    void treasure_Check9()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ あの草むら、赤く光ってる！　探検してみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "探検";
+        TreasureImage_obj.SetActive(false);
+        //CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
+    void treasure_Check10()
+    {
+        //怪しげな場所
+        //sc.PlaySe(84);
+        _text.text = "にいちゃん！！ あの石のあたり、光りがあたってる！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //_TreasureImg.sprite = treasure1;
+        OpenTreasureButton_obj.SetActive(true);
+        treasure_text.text = "みる";
+        TreasureImage_obj.SetActive(false);
+        //CharacterSDImage.SetActive(false);
+
+        Treasure_Status = 1;
+    }
+
     void treasure_no()
     {
         _text.text = "とくに何もみつからなかった。";
@@ -1876,6 +2376,41 @@ public class GetMaterial : MonoBehaviour
             case "Or_Old_Ido":
 
                 Treasure_Get(7);
+                break;
+
+            case "Bluetopaz_Garden":
+
+                Treasure_Get(10);
+                break;
+
+            case "Aquamarine_Lake":
+
+                Treasure_Get(11);
+                break;
+
+            case "Emerald_Forest":
+
+                Treasure_Get(12);
+                break;
+
+            case "Amber_Lake":
+
+                Treasure_Get(13);
+                break;
+
+            case "Ruby_Plane":
+
+                Treasure_Get(14);
+                break;
+
+            case "MoonStone_Hill":
+
+                Treasure_Get(15);
+                break;
+
+            case "Diamond_Mountain":
+
+                Treasure_Get(16);
                 break;
 
             default:
@@ -2165,6 +2700,112 @@ public class GetMaterial : MonoBehaviour
                     }
                 }
                 break;
+
+
+            //
+            //２から
+            //
+            case 10: //お宝セットテーブル　ブルートパーズ
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "star_powder");
+                treasureInfo.Add(2, "hydrangea");
+                treasureInfo.Add(3, "mint");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 25.0f);
+
+                break;
+
+            case 11: //お宝セットテーブル　アクアマリン
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "peach_white");
+                treasureInfo.Add(2, "strawberry");
+                treasureInfo.Add(3, "blackberry");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 25.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 5.0f + rare_event_kakuritsu);
+
+                break;
+
+            case 12: //お宝セットテーブル　エメラルドの大森林
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "rainbowberry");
+                treasureInfo.Add(2, "emeral_mushroom");
+                treasureInfo.Add(3, "melon_twillight");
+                treasureInfo.Add(4, "lemon");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 20.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 35.0f);
+                treasureDropDict.Add(3, 5.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(4, 20.0f + rare_event_kakuritsu);
+
+                break;
+
+            case 13: //お宝セットテーブル　琥珀の湖
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "maple_syrup");
+                treasureInfo.Add(2, "honey");
+                treasureInfo.Add(3, "muscat");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 30.0f);
+                treasureDropDict.Add(2, 35.0f);
+                treasureDropDict.Add(3, 15.0f + rare_event_kakuritsu);
+
+                break;
+
+            case 14: //お宝セットテーブル　ルビー平野
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "strawberry_satinoka");
+                treasureInfo.Add(2, "cherry");
+                treasureInfo.Add(3, "mint");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 35.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 20.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 25.0f);
+
+                break;
+
+            case 15: //お宝セットテーブル　ムーンストーンの丘
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "star_powder");
+                treasureInfo.Add(2, "orange_of_sun");
+                treasureInfo.Add(3, "moon_stone");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 35.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 20.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 25.0f + rare_event_kakuritsu);
+
+                break;
+
+            case 16: //お宝セットテーブル　ダイアモンド山
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureInfo.Add(1, "blacklotus");
+                treasureInfo.Add(2, "diamond_1");
+                treasureInfo.Add(3, "diamond_2");
+                treasureInfo.Add(4, "diamond_3");
+
+                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 20.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(4, 5.0f + rare_event_kakuritsu);
+
+                break;            
 
             default:
 

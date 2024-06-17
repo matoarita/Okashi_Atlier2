@@ -65,6 +65,12 @@ public class BGM : MonoBehaviour {
     public AudioClip sound51;  //秘密の花園テーマ
     public AudioClip sound52;  //「ブルートパーズの花畑」テーマ
     public AudioClip sound53;  //水族館テーマ
+    public AudioClip sound54;  //「アクアマリンの湖」テーマ
+    public AudioClip sound55;  //「エメラルドの大森林」テーマ
+    public AudioClip sound56;  //「琥珀の湖」テーマ
+    public AudioClip sound57;  //「ルビー平野」テーマ
+    public AudioClip sound58;  //「ムーンストーンの丘」テーマ
+    public AudioClip sound59;  //「ダイアモンド山」テーマ
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -1014,32 +1020,32 @@ public class BGM : MonoBehaviour {
 
             case 102: //アクアマリン湖
 
-                _send_clip = sound52;
+                _send_clip = sound54;
                 break;
 
             case 103: //エメラルドフォレスト
 
-                _send_clip = sound52;
+                _send_clip = sound55;
                 break;
 
             case 104: //琥珀の湖
 
-                _send_clip = sound52;
+                _send_clip = sound56;
                 break;
 
             case 105: //ルビー平野
 
-                _send_clip = sound52;
+                _send_clip = sound57;
                 break;
 
             case 106: //ムーンストーンの丘
 
-                _send_clip = sound52;
+                _send_clip = sound58;
                 break;
 
             case 107: //ダイアモンド山
 
-                _send_clip = sound52;
+                _send_clip = sound59;
                 break;
         }
 

@@ -2213,7 +2213,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
-                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                    _text.text = "木漏れ日を反射して、キラキラした湖だ。";
                 }
                 else
                 {
@@ -2222,7 +2222,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[150] = true;
 
-                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+                        _text.text = "にいちゃん！　大きな湖がとうめいで、宝石みたい～・・。";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2234,7 +2234,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                        _text.text = "にいちゃん、キラキラの水がいっぱい～！";
                     }
                 }
                 break;
@@ -2249,7 +2249,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
-                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                    _text.text = "幻想的な光るちょうちょが、たくさん飛んでいる。";
                 }
                 else
                 {
@@ -2258,7 +2258,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[200] = true;
 
-                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+                        _text.text = "わぁぁ～♪　光るちょうちょがいっぱい～♪";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2270,7 +2270,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                        _text.text = "にいちゃん！　光るちょうちょ、たくさんとんでるよ～！";
                     }
                 }
                 break;
@@ -2285,7 +2285,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
-                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                    _text.text = "黄金色に透き通る湖だ。波一つたっていない静けさだ..。";
                 }
                 else
                 {
@@ -2294,7 +2294,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[250] = true;
 
-                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+                        _text.text = "にいちゃん！　金色に透き通った水、きれい～♪";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2306,7 +2306,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                        _text.text = "にいちゃん！　赤に黄色、緑、たくさんの木がいっぱいだよ～！";
                     }
                 }
                 break;
@@ -2321,7 +2321,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
-                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                    _text.text = "一面真っ赤なベリー畑になっている。いい香りがする。";
                 }
                 else
                 {
@@ -2330,7 +2330,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[300] = true;
 
-                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+                        _text.text = "くんくん.. 甘酸っぱいいい香りがするね♪　にいちゃん！";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2342,7 +2342,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                        _text.text = "にいちゃん、赤いベリーがいっぱいできれい～！";
                     }
                 }
                 break;
@@ -2357,7 +2357,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
-                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                    _text.text = "常に夜で、満点の星空が広がっている。美しい丘だ。";
                 }
                 else
                 {
@@ -2366,7 +2366,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[350] = true;
 
-                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+                        _text.text = "すご～い.. ここはいつでも夜なんだね～。にいちゃん！";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2378,7 +2378,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                        _text.text = "わぁぁ♪　星空にまんまるお月様..。きれいだよ～♪";
                     }
                 }
                 break;
@@ -2393,7 +2393,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
-                    _text.text = "一面に青色のお花が、絨毯のように咲いている。";
+                    _text.text = "色とりどりの宝石が、そこら中に散らばっている。";
                 }
                 else
                 {
@@ -2402,7 +2402,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[400] = true;
 
-                        _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
+                        _text.text = "にいちゃん！　色とりどりのきれい石が、そこら中におちてるよ～！";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2414,7 +2414,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん、青いお花たくさん～！　いい香り..。";
+                        _text.text = "にいちゃん。" + "\n" + "今日は、宝石、たくさん拾ってかえろ～！";
                     }
                 }
                 break;

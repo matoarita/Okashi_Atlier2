@@ -1359,33 +1359,38 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             npc7_toggle.isOn = false;*/
 
-            switch (GameMgr.Scene_Name)
-            {
-                case "Or_Hiroba_CentralPark": //中央噴水
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Hiroba_CentralPark": //中央噴水
 
-                    On_Active300();
-                    break;
+                On_Active300();
+                break;
 
-                case "Or_Hiroba_CentralPark_Left": //中央噴水　左
+            case "Or_Hiroba_CentralPark_Left": //中央噴水　左
 
-                    On_Active33();
-                    break;
+                On_Active33();
+                break;
 
-                case "Or_Hiroba_CentralPark_Right": //中央噴水　右
+            case "Or_Hiroba_CentralPark_Right": //中央噴水　右
 
-                    On_Active33();
-                    break;
+                On_Active33();
+                break;
 
-                case "Or_Hiroba_Spring_RotenStreet":
+            case "Or_Hiroba_Spring_Shoping_Moll":
 
-                    On_Active1603_Roten_Gelato();
-                    break;
+                On_Active1610_Amakusa();
+                break;
 
-                default:
+            case "Or_Hiroba_Spring_RotenStreet":
 
-                    On_Active1006_Piero();
-                    break;
-            }
+                On_Active1603_Roten_Gelato();
+                break;
+
+            default:
+
+                On_Active1006_Piero();
+                break;
+        }
         //}
     }
 
@@ -2773,6 +2778,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //NPC宴の処理へ
         GameMgr.hiroba_event_placeNum = 1605; //       
 
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
+    void On_Active1610_Amakusa()
+    {
+        //お花屋さん押した　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1610; //
         GameMgr.hiroba_event_ID = 0;
 
         EventReadingStart();

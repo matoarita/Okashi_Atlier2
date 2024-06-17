@@ -621,7 +621,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int EatOkashi_DecideFlag; //食べたいお菓子が、ランダムなのかメインクエストで固定するのかを分岐するフラグ
     public static bool SPquestPanelOff; //メインクエストの表示パネルをオフ　実質自由な時間の始まりを意味する
     public static bool OutEntrance_ON; //玄関から外へでるボタンをオンにする
-    
+    public static int UwasaNum_Select; //うわさ番号のDBを指定
 
 
     //一時フラグ　アイテムDB関連

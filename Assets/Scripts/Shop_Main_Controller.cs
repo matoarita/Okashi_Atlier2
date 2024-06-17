@@ -744,6 +744,7 @@ public class Shop_Main_Controller : MonoBehaviour {
         }
     }
 
+    /*
     public void OnCheck_4() //うわさ話　一回100Gとかで、ランダムで有用な情報をきける。
     {
         if (shopon_toggle_uwasa.GetComponent<Toggle>().isOn == true)
@@ -769,7 +770,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             StartCoroutine("UtageEndWait");
         }
-    }
+    }*/
 
     public void OnCheck_5() //ショップ　アイテムを売る
     {
@@ -1008,27 +1009,17 @@ public class Shop_Main_Controller : MonoBehaviour {
     //
     //ショップうわさ関係
     //
+    /*
     void InitUwasaList()
     {
         shopuwasa_List.Clear();
         random_uwasa_select.Clear();
         uwasalist_count = 5;
 
-        //***  うわさリスト選択 ***//
-
         //クッキー作り開始　初期値
         for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
         {
             shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
-        }
-
-        //ラスク
-        if (GameMgr.GirlLoveEvent_stage1[10])
-        {
-            /*for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
-            {
-                shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i+5]);
-            }*/
         }
 
         //
@@ -1067,6 +1058,7 @@ public class Shop_Main_Controller : MonoBehaviour {
             }
         }
     }
+    */
 
     public void SceneNamePlateSetting()
     {
