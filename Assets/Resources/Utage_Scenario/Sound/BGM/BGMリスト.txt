@@ -102,7 +102,7 @@
 ・BGM_99		audiostock_				おとぼけBGM２　お囃子
 ・BGM_100		Excursion(なぐもりず)			【宴用】魔法の先生のテーマ02　92と同じ
 ・BGM_101		ecossaise				【宴用】チュートリアルのBGM　48と同じ
-・BGM_102		こんとどぅふぇ素材No.0112-ハジマリの森	エメラルドの大森林のBGM
+・BGM_102		PerituneMaterial_Sketch_Forest_loop	エメラルドの大森林のBGM
 ・BGM_103		Peritune_Kittens_Caprice_loop		アクアマリンの湖のBGM
 ・BGM_104		木漏れ日の調べ（なぐもりず）		琥珀の湖のBGM
 ・BGM_105		あわ雪村（なぐもりず）			ムーンストーンの丘のBGM

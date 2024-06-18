@@ -1613,9 +1613,9 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                random_param = Random.Range(1, 3);
+                random_param = Random.Range(2, 5);
                 PlayerStatus.girl1_Love_exp -= random_param;
-                _text.text = "ギャ！にいちゃん.. けむし、いもいもしてる～～・・！！　きもちわるい～・・。" + "\n" +
+                _text.text = "ギャ！にいちゃん.. でっかいけむし、いもいもしてる～～・・！！" + "\n" + "きもちわるい～・・。" + "\n" +
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
 
                 //音を鳴らす

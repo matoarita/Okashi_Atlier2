@@ -2222,7 +2222,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[150] = true;
 
-                        _text.text = "にいちゃん！　大きな湖がとうめいで、宝石みたい～・・。";
+                        _text.text = "にいちゃん！" + "\n" + "みずが、キラキラしてる～～♪";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2249,7 +2249,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
-                    _text.text = "幻想的な光るちょうちょが、たくさん飛んでいる。";
+                    _text.text = "幻想的な光るお花が、たくさん咲いている。";
                 }
                 else
                 {
@@ -2258,7 +2258,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[200] = true;
 
-                        _text.text = "わぁぁ～♪　光るちょうちょがいっぱい～♪";
+                        _text.text = "わぁぁ～♪　光るおはながいっぱい～♪";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2270,7 +2270,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん！　光るちょうちょ、たくさんとんでるよ～！";
+                        _text.text = "にいちゃん！　光るおはな、たくさんさいてるよ～！";
                     }
                 }
                 break;
@@ -2402,7 +2402,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[400] = true;
 
-                        _text.text = "にいちゃん！　色とりどりのきれい石が、そこら中におちてるよ～！";
+                        _text.text = "にいちゃん！　色とりどりのほうせき～！";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
 
@@ -2414,7 +2414,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん。" + "\n" + "今日は、宝石、たくさん拾ってかえろ～！";
+                        _text.text = "にいちゃん！" + "\n" + "れあものな石、たくさん拾ってかえろ～ね！";
                     }
                 }
                 break;
