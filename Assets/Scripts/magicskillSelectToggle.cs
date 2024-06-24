@@ -363,6 +363,96 @@ public class magicskillSelectToggle : MonoBehaviour
 
         switch (_skillname)
         {
+            case "Caramelized":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Bake_Beans":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい豆を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Removing_Shells":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "殻をむく豆を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Chocolate_Tempering":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオマスを選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Cookie_SecondBake":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "クッキーを選んでね。";
+                        break;
+                }
+
+                break;
+
             case "Freezing_Spell":
 
                 switch(_mstatus)
@@ -379,6 +469,42 @@ public class magicskillSelectToggle : MonoBehaviour
                         break;
                 }
                 
+                break;
+
+            case "Ice_Cube":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21; //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "水の材料を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "SugerPot":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21; //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
+                        break;
+                }
+
                 break;
 
             case "Luminous_Suger":
@@ -417,7 +543,7 @@ public class magicskillSelectToggle : MonoBehaviour
                 
                 break;
 
-            case "Bake_Beans":
+            case "Buttelfy_illumination":
 
                 switch (_mstatus)
                 {
@@ -429,13 +555,14 @@ public class magicskillSelectToggle : MonoBehaviour
                     case 1: //最終決定後。魔法の次の処理をかく
 
                         GameMgr.compound_status = 21;
-                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい豆を選んでね。";
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                         break;
                 }
-                
+
                 break;
 
-            case "Removing_Shells":
+
+            case "Wind_Ark":
 
                 switch (_mstatus)
                 {
@@ -447,28 +574,10 @@ public class magicskillSelectToggle : MonoBehaviour
                     case 1: //最終決定後。魔法の次の処理をかく
 
                         GameMgr.compound_status = 21;
-                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "殻をむく豆を選んでね。";
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
                         break;
                 }
-                
-                break;
 
-            case "Chocolate_Tempering":
-
-                switch (_mstatus)
-                {
-                    case 0: //魔法選択時のエフェクトを表示
-
-                        MagicEffectOn("");
-                        break;
-
-                    case 1: //最終決定後。魔法の次の処理をかく
-
-                        GameMgr.compound_status = 21;
-                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオマスを選んでね。";
-                        break;
-                }
-                
                 break;
 
             case "Wind_Twister":
@@ -487,6 +596,241 @@ public class magicskillSelectToggle : MonoBehaviour
                         break;
                 }
                 
+                break;
+
+            case "Wind_Heart":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Float_Material":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Bubble_Mist":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいポーションを選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Statue_of_Penguin":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい液体を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Statue_of_Bear":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい液体を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Statue_of_Rabitts":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい液体を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Statue_of_AngelWing":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい液体を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Star_Blessing":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい飲み物を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Latte_Art":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい飲み物を選んでね。";
+                        break;
+                }
+
+                break;
+
+
+            case "Aroma_Potion":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("effect01_Luminous_Suger");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "お花を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Life_Stream":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("effect01_Luminous_Suger");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "AbraCadabra":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("effect01_Luminous_Suger");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "True_of_Myheart":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("effect01_Luminous_Suger");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
+                        break;
+                }
+
                 break;
 
             default: //例外処理　通常ここを通ることはない..が、処理を未登録などの場合、ひとまずここを通る。

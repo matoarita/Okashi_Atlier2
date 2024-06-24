@@ -3212,11 +3212,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 if (_lovecounter >= _slider.maxValue)
                 {
-                    PlayerStatus.girl1_Love_lv++;
-                    if (PlayerStatus.girl1_Love_lv > PlayerStatus.player_patissier_lv)
-                    {
-                        PlayerStatus.player_patissier_lv++; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
-                    }
+                    PlayerStatus.girl1_Love_lv++;                   
 
                     //Maxバリューを再設定
                     Love_Slider_Setting();
@@ -3225,7 +3221,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
 
                     //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
-                    exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、GirlEatJudgeから読むフラグ
+                    exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、パネルの表示
                     exp_table.SkillCheckPatissierLV(PlayerStatus.player_patissier_lv, 1);
                 }
                 else
@@ -3294,6 +3290,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             PlayerStatus.girl1_Love_exp = _ResultGirllove;
         }
+
+        //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
+        exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 0); //2番目が0で、実際のスキルの更新
+        exp_table.SkillCheckPatissierLV(PlayerStatus.player_patissier_lv, 0);
 
         //テキストも更新
         GirlLoveParam_HyoujiKoushin();        

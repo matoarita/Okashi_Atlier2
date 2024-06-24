@@ -25,6 +25,10 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_subcategoryText = "";
                 break;
             //お菓子
+            case "BakedSweets":
+                GameMgr.Item_subcategoryText = "焼きもの";
+                BakedSweats_Text();
+                break;
             case "Biscotti":
                 GameMgr.Item_subcategoryText = "ビスコッティ";
                 Hardness_Text();
@@ -288,6 +292,13 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
         GameMgr.Item_ShokukanTypeText = "なめらか感";
         GameMgr.Item_ShokukanTypeNum = 2; //カードの表記は、なめらかを表示するということ　SetImage.csで指定
         GameMgr.Item_ShokukanTypeScoreNum = 11; //判定はパフェ特有の３つの判定をするということ GirlEadJudge.csで指定
+    }
+
+    void BakedSweats_Text()
+    {
+        GameMgr.Item_ShokukanTypeText = "ほくほく感"; //内容的にはさくさく感と一緒
+        GameMgr.Item_ShokukanTypeNum = 0;
+        GameMgr.Item_ShokukanTypeScoreNum = 0;
     }
 
     void Etc_Text()

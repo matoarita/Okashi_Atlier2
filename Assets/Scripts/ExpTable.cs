@@ -24,10 +24,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
     private int now_level, before_level, before_start_lv;
     private int _temp_lv;
+    private int _dev;
 
     private GameObject canvas;
     private GameObject text_area;
     private Text _text;
+
 
     private List<string> _temp_skill = new List<string>();
 
@@ -69,7 +71,6 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     // Update is called once per frame
     void Update () {
 	
-
         if(canvas == null)
         {
             InitSetup();
@@ -79,6 +80,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     //ハートレベルに応じてスキルを覚えるパターン Girl_Eat_Judgeかデバッグパネルから読む。
     public void SkillCheckHeartLV(int _nowlevel, int _status)
     {
+        //_status = 0 実際に仕上げ回数を増やす　1は、パネルの表示のみ
         _mstatus = _status;
         //レベルがあがるごとに、アイテム発見力があがる。
         /*PlayerStatus.player_girl_findpower = 100 + ((girl1_Love_lv-1) * 10);
@@ -89,75 +91,100 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             PlayerStatus.player_girl_findpower = 999;
         }*/
 
-        switch (_nowlevel)
+        if (_mstatus == 0)
         {
-            case 2:
-
-                //ShiageUp();              
-                break;
-
-            case 3:
-
-                ShiageUp();
-                break;
-
-            case 5:
-
-                //_temp_skill.Add("一度に　2個　トッピングできるようになった！");
-                /*GameMgr.topping_Set_Count = 2;
-
-                if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
-                {
-                    girlEat_judge.LvUpPanel2();
-                }*/
-                break;
-
-            case 6:
-
-                break;
-
-            case 9:
-
-                ShiageUp();
-                break;
-
-            case 12:
-
-                break;
-
-            case 15:
-
-                break;
-
-            case 18:
-
-                ShiageUp();
-                break;
+            ShiageUpCheck(_nowlevel);
         }
-    }    
+        else if (_mstatus == 1)
+        {
+            switch (_nowlevel)
+            {
+                case 2:
+          
+                    break;
+
+                case 3:
+
+                    ShiageUpPanelHyouji();
+                    break;
+
+                case 5:
+
+                    //_temp_skill.Add("一度に　2個　トッピングできるようになった！");
+                    /*GameMgr.topping_Set_Count = 2;
+
+                    if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
+                    {
+                        girlEat_judge.LvUpPanel2();
+                    }*/
+                    break;
+
+                case 6:
+
+                    break;
+
+                case 9:
+
+                    ShiageUpPanelHyouji();
+                    break;
+
+                case 18:
+
+                    ShiageUpPanelHyouji();
+                    break;
+            }
+        }
+            
+    }
+
+    void ShiageUpCheck(int _lv)
+    {
+
+        //こっちが、実際に仕上げ回数を更新する。ハート上がったタイミングで更新のやり方だと、
+        //上がり途中で別シーンとかに移動する可能性があり、その場合仕上げ回数が増えないことになる。ので、それの回避。
+
+        //仕上げできる回数が上がる。
+        if (_lv < 3)
+        {
+            PlayerStatus.player_extreme_kaisu_Max = 1;
+        }
+        else if (_lv >= 3 && _lv < 9)
+        {
+            PlayerStatus.player_extreme_kaisu_Max = 2;
+        }
+        else if (_lv >= 9 && _lv < 18)
+        {
+            PlayerStatus.player_extreme_kaisu_Max = 3;
+        }
+        else if (_lv >= 18)
+        {
+            PlayerStatus.player_extreme_kaisu_Max = 4;
+        }
+
+    }
+
+    void ShiageUpPanelHyouji()
+    {
+        girlEat_judge.LvUpPanel1(1);
+    }
+
 
     //パティシエレベルに応じてスキルを覚えるパターン Girl_Eat_Judgeかデバッグパネルから読む。
     public void SkillCheckPatissierLV(int _nowlevel, int _status)
     {
         _mstatus = _status;
 
-        if(_nowlevel % 1 == 0) //LV〇〇ごとにジョブが1上がる
+        if (PlayerStatus.girl1_Love_lv > PlayerStatus.player_patissier_lv)
         {
-            PlayerStatus.player_patissier_job_pt++;
-            
+            _dev = PlayerStatus.girl1_Love_lv - PlayerStatus.player_patissier_lv;
+            PlayerStatus.player_patissier_lv += _dev; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
+            PlayerStatus.player_patissier_job_pt += _dev;
         }
+
     }
 
-    void ShiageUp()
-    {
-        //仕上げできる回数が１上がる。
-        PlayerStatus.player_extreme_kaisu_Max++;
+    
 
-        if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
-        {
-            girlEat_judge.LvUpPanel1(1);
-        }
-    }
 
     //ハートレベルアップテーブル(パティシエレベルと現在共通）
     void Init_Stage1_LVTable()

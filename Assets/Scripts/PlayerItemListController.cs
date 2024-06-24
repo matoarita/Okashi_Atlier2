@@ -895,10 +895,20 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
         switch (GameMgr.UseMagicSkill)
         {
-            
+            case "Caramelized":
+
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemType_sub_category == "Non") //ツイスターや加工されたものは対象外
+                    {
+                        itemlist_hyouji_Check();
+                    }
+                }
+                break;
+
             case "Bake_Beans":
 
-                if (check_itemType_subB == "a_Cacao" || check_itemType_subB == "a_CoffeeBeans")
+                if (check_itemType_subB == "a_Cacao" || check_itemType_subB == "a_CoffeeBeans" || check_itemType_subB == "a_Maron")
                 {
                     itemlist_hyouji_Check();
                 }
@@ -915,6 +925,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             case "Chocolate_Tempering":
 
                 if (check_itemType_subB == "a_CacaoMass")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Cookie_SecondBake":
+
+                if (check_itemType_sub == "Cookie")
                 {
                     itemlist_hyouji_Check();
                 }
@@ -967,12 +985,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 break;
 
-            case "SugerPot":
+            case "Ice_Cube":
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
-                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                if (check_itemType_sub == "Water")
                 {
-                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    if (check_itemType_sub_category == "Non") //ツイスターや加工されたものは対象外
                     {
                         itemlist_hyouji_Check();
                     }
@@ -980,11 +997,15 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Cookie_SecondBake":
+            case "SugerPot":
 
-                if (check_itemType == "Okashi")
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" || check_itemType_subB == "a_AromaPotion")
                 {
-                    itemlist_hyouji_Check();
+                    if (check_itemType_sub_category == "Non") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
                 }
                 break;
 
@@ -1043,6 +1064,136 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 }
                 break;
+
+            case "Wind_Heart":
+
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Float_Material":
+
+                if (check_itemType_sub == "Suger" || check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Bubble_Mist":
+
+                if (check_itemType_subB == "a_AromaPotion")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Statue_of_Penguin":
+
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                    check_itemType_subB == "a_AppaleilChocolate")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Statue_of_Bear":
+
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                    check_itemType_subB == "a_AppaleilChocolate")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Statue_of_Rabitts":
+
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                    check_itemType_subB == "a_AppaleilChocolate")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Statue_of_AngelWing":
+
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                    check_itemType_subB == "a_AppaleilChocolate")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Star_Blessing":
+
+                if (check_itemType_sub == "Juice" || check_itemType_sub == "Tea")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Latte_Art":
+
+                if (check_itemType_sub == "Coffee")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Aroma_Potion":
+
+                if (check_itemType_sub == "Flower" || check_itemType_subB == "a_Sakura")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Life_Stream":
+
+                if (check_itemType == "Okashi")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "AbraCadabra":
+
+                if (check_itemType == "Okashi")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "True_of_Myheart":
+
+                if (check_itemType == "Okashi")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
 
             default: //例外処理　通常ここを通ることはないが、上で未登録のスキルはここを通る
 

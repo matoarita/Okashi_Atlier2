@@ -690,10 +690,9 @@ public class Debug_Panel : MonoBehaviour {
         //レベルで上がるスキルなどは初期値にしておく。
         PlayerStatus.player_extreme_kaisu_Max = 1;
         GameMgr.topping_Set_Count = 1;
-        for (count = 0; count < PlayerStatus.girl1_Love_lv; count++)
-        {
-            exp_table.SkillCheckHeartLV(count + 1, 0);
-        }
+
+        exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 0);
+
 
 
         //レベル表示も更新

@@ -122,6 +122,7 @@ public class Item
     public enum ItemType_sub
     {
         Non,
+        BakedSweets,
         Bread,
         Bread_Sliced,
         Biscotti,

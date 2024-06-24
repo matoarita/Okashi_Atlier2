@@ -937,18 +937,29 @@ public class Compound_Check : MonoBehaviour {
                 GameMgr.temp_itemID3 = 9999; //9999は空を表す数字
                 itemID_3 = GameMgr.temp_itemID3;
 
-                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non")
+                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non" ||
+                    magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
                 {
                     //常に習得レベルで固定する扱いになるので、判定では使用しない。
                     GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[itemID_2].skillLv;
                 }
-                else //[USE]が入っている時
+                else if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Use")//[USE]が入っている時
                 {
                     magicskill_database.magicskill_lists[itemID_2].skillUseLv = 1; //
                     GameMgr.UseMagicSkillLv = 1;
                 }
-                
-                CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+
+                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
+                {
+                    //調合DBの判定が必要ない魔法の場合　元アイテムをresultItemにして、新たに生成しなおす。
+                    CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
+                    GameMgr.Comp_kettei_bunki = 22;
+                }
+                else
+                {
+                    CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
+                    GameMgr.Comp_kettei_bunki = 21;
+                }
 
                 MagicSelectLv_Panel.SetActive(true);
                 MagicSelectLv_Panel.transform.Find("MagicSkillNameImg/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji;
@@ -961,7 +972,7 @@ public class Compound_Check : MonoBehaviour {
                 //確率に応じて、テキストが変わる。
                 //FinalCheck_Text.text = success_text;
 
-                GameMgr.Comp_kettei_bunki = 21;
+                
                 _text.text = "魔法のレベルを選択してね。";
                 //_text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
                 updown_counter_obj.SetActive(true);
@@ -1154,7 +1165,7 @@ public class Compound_Check : MonoBehaviour {
         }
 
         //魔法調合の場合はこっち
-        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21)
+        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
         {
             _itemIDtemp_result.Add(database.items[itemID_1].itemName);
 
@@ -1166,12 +1177,13 @@ public class Compound_Check : MonoBehaviour {
             _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
             _cost_mptext.text = costMP.ToString();
 
-            if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non")
+            if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non" ||
+                magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
             {
                 _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName);
                 Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName);
             }
-            else //[USE]が入っている時
+            else if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Use")//[USE]が入っている時
             {
                 _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName + GameMgr.UseMagicSkillLv);
                 Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName + GameMgr.UseMagicSkillLv);
@@ -1253,7 +1265,15 @@ public class Compound_Check : MonoBehaviour {
             }
             else
             {
-                resultitemID = Combinationmain.resultitemName;
+                if (GameMgr.Comp_kettei_bunki == 22) //魔法で、調合DBのリザルトアイテムでなく、元アイテムを強化する場合
+                {
+                    resultitemID = database.items[itemID_1].itemName; //元アイテムを指定
+                }
+                else
+                {
+                    resultitemID = Combinationmain.resultitemName;
+                }
+                
                 result_compoID = Combinationmain.result_compID;
                 resultDB_Failed = false;
 
@@ -1265,68 +1285,6 @@ public class Compound_Check : MonoBehaviour {
             }
         }
 
-        //***** 以下は過去のもので、現在使用してない ****
-        /*
-        //①固有の名称同士の組み合わせか、②固有＋サブの組み合わせか、③サブ同士のジャンルで組み合わせが一致していれば、制作する。
-
-        //①３つの入力をもとに、組み合わせ計算するメソッド＜固有名称の組み合わせ確認＞     
-        Combinationmain.Combination(_itemIDtemp_result.ToArray(), _itemKosutemp_result.ToArray(), 0); //決めた３つのアイテム＋それぞれの個数、の配列
-
-        compoDB_select_judge = Combinationmain.compFlag;
-        if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
-        {
-            resultitemID = Combinationmain.resultitemName;
-            result_compoID = Combinationmain.result_compID;
-
-            result_kosuset.Clear();
-            for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
-            {
-                result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
-            }
-        }
-
-
-        //②　①の組み合わせにない場合は、2通りが考えられる。　アイテム名＋サブ＋サブ　か　アイテム名＋アイテム名＋サブの組み合わせ
-        if (compoDB_select_judge == false)
-        {
-            //個数計算していないので、バグあり
-            Combinationmain.Combination2(_itemIDtemp_result.ToArray(), _itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 0);
-
-            compoDB_select_judge = Combinationmain.compFlag;
-            if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
-            {
-                resultitemID = Combinationmain.resultitemName;
-                result_compoID = Combinationmain.result_compID;
-
-                result_kosuset.Clear();
-                for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
-                {
-                    result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
-                }
-            }
-        }
-
-
-        //③固有の組み合わせがなかった場合のみ、サブジャンル同士の組み合わせがないかも見る。サブ＋サブ＋サブ
-
-        if (compoDB_select_judge == false)
-        {
-            Combinationmain.Combination3(_itemSubtype_temp_result.ToArray(), _itemKosutemp_result.ToArray(), 0);
-
-            compoDB_select_judge = Combinationmain.compFlag;
-            if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
-            {
-                resultitemID = Combinationmain.resultitemName;
-                result_compoID = Combinationmain.result_compID;
-
-                result_kosuset.Clear();
-                for (i = 0; i < Combinationmain.result_kosuset.Count; i++)
-                {
-                    result_kosuset.Add(Combinationmain.result_kosuset[i]); //そのときの個数の組み合わせ（CompoDBの左から順番になっている。）も記録。
-                }
-            }
-        }*/
-        /* ************ */
 
         if (compoDB_select_judge) //一致する場合
         {
@@ -1474,6 +1432,7 @@ public class Compound_Check : MonoBehaviour {
 
             //調合判定を行うかどうか+成功確率の表示更新
 
+
             //新規調合の場合　もしくは、　エクストリーム調合の場合。
             if (GameMgr.Comp_kettei_bunki == 2 || GameMgr.Comp_kettei_bunki == 3)
             {
@@ -1488,13 +1447,23 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
             }
-            else if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21)
+            else if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
             {
                 //
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
-                exp_Controller._success_rate = _success_rate;
-                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+                if (!_debug_sw) //魔法のみ、決定時もう一度判定されるので、デバッグONのときは、100%成功にする。
+                {
+                    exp_Controller._success_rate = _success_rate;
+                    kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+                }
+                else
+                {
+                    exp_Controller._success_rate = 100;
+                    kakuritsuPanel.KakuritsuYosoku_Img(100);
+                    Debug.Log("最終成功率デバッグにより: " + "100%");
+                }
             }
+            
 
         }
         //どの調合リストにも当てはまらなかった場合
@@ -1711,7 +1680,7 @@ public class Compound_Check : MonoBehaviour {
         //魔法調合の場合は、各スキルのレベルで成功率が上がる
         //パッシブによるバフ効果で確率が上がる場合は、上記のbufpower_keisan.Buf_CompKakuritsu_Keisan内で計算する
         _magic_rate = 0;
-        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21)
+        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
         {
             switch(magicName)
             {

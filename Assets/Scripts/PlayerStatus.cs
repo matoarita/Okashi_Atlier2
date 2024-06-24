@@ -197,7 +197,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_icecream_lv = 1;
         player_girl_rareokashi_lv = 1;
 
-        player_default_mp = 5; //初期値は5
+        player_default_mp = 12; //初期値は12
         player_maxmp = player_default_mp;
         player_mp = player_maxmp;
         player_patissier_lv = 1;

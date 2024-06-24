@@ -828,4 +828,12 @@ public class MagicSkillListController : MonoBehaviour
         grid_layout_content.enabled = false;
         grid_layout_content.enabled = true;
     }
+
+    public void DebugJobPointMax()
+    {
+        PlayerStatus.player_patissier_job_pt = 99;
+        player_patissierjob_panel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/PlayerJobPanel").gameObject;
+        player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
+        reset_and_DrawView(category_status);
+    }
 }

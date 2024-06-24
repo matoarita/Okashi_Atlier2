@@ -199,7 +199,24 @@ public class Updown_counter : MonoBehaviour {
                             this.transform.localPosition = new Vector3(60, -70, 0);
 
                             _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
-                            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non")
+                            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non" ||
+                                magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+                            {
+                                updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(true);
+                            }
+                            else //[USE]が入っている時
+                            {
+                                updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(false);
+                            }
+                            break;
+
+                        case 22: //魔法のレベル選択時のポス
+
+                            this.transform.localPosition = new Vector3(60, -70, 0);
+
+                            _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+                            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non" ||
+                                magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
                             {
                                 updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(true);
                             }
@@ -312,11 +329,12 @@ public class Updown_counter : MonoBehaviour {
         _count_text.text = GameMgr.updown_kosu.ToString();
 
 
-        if(GameMgr.Comp_kettei_bunki == 21) //魔法選択してスキルレベル選択の場合
+        if(GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22) //魔法選択してスキルレベル選択の場合
         {
             _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
-            if(magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non")
+            if(magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non" ||
+                magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
             {
                 _skillLV = magicskill_database.magicskill_lists[_id].skillLv;
                 GameMgr.updown_kosu = _skillLV;
@@ -1087,12 +1105,13 @@ public class Updown_counter : MonoBehaviour {
         {
             if (GameMgr.compound_select == 21) //魔法処理　アイテム選択画面のとき
             {
-                if(GameMgr.Comp_kettei_bunki == 21) //選択後、スキルレベルを選ぶタイミング
+                if(GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22) //選択後、スキルレベルを選ぶタイミング
                 {
                     //レベル選択しない魔法は、レベル固定のまま
                     _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
-                    if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non")
+                    if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non" ||
+                        magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
                     {
                         //数値に変化なし
                     }
