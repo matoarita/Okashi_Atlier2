@@ -15,6 +15,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _buf_kakuritsuup_f;
     private int _buf_shokukanup;
     private int _magicup;
+    private int _magic_attri;
 
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
@@ -422,6 +423,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 5;
             _buf_shokukanup += _magicup;
         }
+
     }
 
     void RuskBuf()
@@ -434,6 +436,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 5;
             _buf_shokukanup += _magicup;
         }
+
     }
 
     void CandyBuf()
@@ -611,6 +614,48 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         return _buf_shokukanup;
     }
+
+    //特定の魔法で、バフをかける処理
+    //魔法の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK
+    public int Buf_OkashiParamUp_MagicKeisan(int _status, string _magicname)
+    {
+
+        _buf_shokukanup = 0;
+        _magicup = 0;
+
+        switch (_magicname)
+        {
+            case "Cookie_SecondBake":
+
+                if (_status == 0)//さくさくのバフ
+                {
+                    _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") * 30;
+                    _buf_shokukanup += _magicup;
+                }
+                break;
+
+        }
+
+        return _buf_shokukanup;
+    }
+
+    //魔法によって状態が変わる
+    public int Buf_OkashiAttribute_Magic(string _magicname)
+    {
+        _magic_attri = 0;
+
+        switch (_magicname)
+        {
+            case "Cookie_SecondBake":
+
+                _magic_attri = 1; //二度焼きしたというフラグ
+                break;
+
+        }
+
+        return _magic_attri;
+    }
+
 
 
     //ヒカリの作ったお菓子に、バフをかける処理

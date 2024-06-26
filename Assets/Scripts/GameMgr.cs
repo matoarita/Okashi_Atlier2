@@ -1333,7 +1333,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_okashi_ItemData = new Item(9999, "Non", "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
-                        0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0);
+                        0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0);
 
         //お菓子のクリア基準値
         mazui_score = 30;

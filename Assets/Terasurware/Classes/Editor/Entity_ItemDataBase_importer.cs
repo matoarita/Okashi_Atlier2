@@ -114,7 +114,8 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(61); p.Rare = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(62); p.Manpuku = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(63); p.Magic = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(64); p.SecretFlag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(64); p.Attribute1 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(65); p.SecretFlag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

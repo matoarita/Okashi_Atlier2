@@ -56,6 +56,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private string check_itemType_sub;
     private string check_itemType_subB;
     private string check_itemType_sub_category;
+    private int check_attribute1;
     
 
     public List<int> _listcount = new List<int>(); //納品時用の選択番号リスト型
@@ -337,6 +338,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType_sub = database.items[i].itemType_sub.ToString();
             check_itemType_sub_category = database.items[i].itemType_sub_category;
             check_itemType_subB = database.items[i].itemType_subB.ToString();
+            check_attribute1 = database.items[i].Attribute1;
 
             if (pitemlist.playeritemlist[check_itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
             {
@@ -354,6 +356,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType_sub = pitemlist.player_originalitemlist[i].itemType_sub.ToString();
             check_itemType_sub_category = pitemlist.player_originalitemlist[i].itemType_sub_category;
             check_itemType_subB = pitemlist.player_originalitemlist[i].itemType_subB.ToString();
+            check_attribute1 = pitemlist.player_originalitemlist[i].Attribute1;
 
             Check_ListHyouji();
         }
@@ -368,6 +371,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType_sub = pitemlist.player_extremepanel_itemlist[i].itemType_sub.ToString();
             check_itemType_sub_category = pitemlist.player_extremepanel_itemlist[i].itemType_sub_category;
             check_itemType_subB = pitemlist.player_extremepanel_itemlist[i].itemType_subB.ToString();
+            check_attribute1 = pitemlist.player_extremepanel_itemlist[i].Attribute1;
 
             Check_ListHyouji();
         }
@@ -670,6 +674,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType = database.items[i].itemType.ToString();
             check_itemType_sub = database.items[i].itemType_sub.ToString();
             check_itemType_sub_category = database.items[i].itemType_sub_category;
+            check_itemType_subB = database.items[i].itemType_subB.ToString();
+            check_attribute1 = database.items[i].Attribute1;
 
             if (pitemlist.playeritemlist[check_itemName] > 0) //持っている個数が1以上のアイテムのみ、表示。
             {
@@ -686,6 +692,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType = pitemlist.player_originalitemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_originalitemlist[i].itemType_sub.ToString();
             check_itemType_sub_category = pitemlist.player_originalitemlist[i].itemType_sub_category;
+            check_itemType_subB = pitemlist.player_originalitemlist[i].itemType_subB.ToString();
+            check_attribute1 = pitemlist.player_originalitemlist[i].Attribute1;
 
             //Debug.Log("check_itemName check_itemType check_item_Hyouji: " + check_itemName + " " + check_itemType + " " + check_item_Hyouji);
             Check_ListToppingHyouji();
@@ -700,6 +708,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             check_itemType = pitemlist.player_extremepanel_itemlist[i].itemType.ToString();
             check_itemType_sub = pitemlist.player_extremepanel_itemlist[i].itemType_sub.ToString();
             check_itemType_sub_category = pitemlist.player_extremepanel_itemlist[i].itemType_sub_category;
+            check_itemType_subB = pitemlist.player_extremepanel_itemlist[i].itemType_subB.ToString();
+            check_attribute1 = pitemlist.player_extremepanel_itemlist[i].Attribute1;
 
             Check_ListToppingHyouji();
         }
@@ -934,7 +944,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_sub == "Cookie")
                 {
-                    itemlist_hyouji_Check();
+                    if (check_attribute1 == 0) //まだ二度焼きしてないやつだけ
+                    {
+                        itemlist_hyouji_Check();
+                    }
                 }
                 break;
 

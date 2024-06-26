@@ -35,6 +35,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int _rare;
     private int _manpuku;
     private int _magic;
+    private int _attribute1;
     private int _secretFlag;
     private int _total_kosu;
 
@@ -588,6 +589,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _rare = database.items[i].Rare;
                 _manpuku = database.items[i].Manpuku;
                 _magic = database.items[i].Magic;
+                _attribute1 = database.items[i].Attribute1;
                 _secretFlag = database.items[i].SecretFlag;
 
                 for ( k=0; k < _koyutp.Length; k++)
@@ -606,8 +608,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _sp_wind, _sp_score2, _sp_score3, _sp_score4, _sp_score5, _sp_score6, _sp_score7, _sp_score8, _sp_score9, _sp_score10,
             _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, _cost, _sell, 
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
-            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic, 
-            _secretFlag));
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic,
+            _attribute1, _secretFlag));
     }
 
     //エクストリームパネル設定用アイテムを登録する。
@@ -647,6 +649,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _rare = database.items[i].Rare;
                 _manpuku = database.items[i].Manpuku;
                 _magic = database.items[i].Magic;
+                _attribute1 = database.items[i].Attribute1;
                 _secretFlag = database.items[i].SecretFlag;
 
                 for (k = 0; k < _koyutp.Length; k++)
@@ -665,8 +668,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _sp_wind, _sp_score2, _sp_score3, _sp_score4, _sp_score5, _sp_score6, _sp_score7, _sp_score8, _sp_score9, _sp_score10,
             _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
-            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic, 
-            _secretFlag));
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic,
+            _attribute1, _secretFlag));
     }
 
     //ヒカリオリジナルアイテムを登録する。
@@ -707,6 +710,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _rare = database.items[i].Rare;
                 _manpuku = database.items[i].Manpuku;
                 _magic = database.items[i].Magic;
+                _attribute1 = database.items[i].Attribute1;
                 _secretFlag = database.items[i].SecretFlag;
 
                 for (k = 0; k < _koyutp.Length; k++)
@@ -726,8 +730,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _sp_wind, _sp_score2, _sp_score3, _sp_score4, _sp_score5, _sp_score6, _sp_score7, _sp_score8, _sp_score9, _sp_score10,
             _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
-            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic, 
-            _secretFlag));
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic,
+            _attribute1, _secretFlag));
     }
 
     //チェック用のオリジナルアイテムを登録する。
@@ -769,6 +773,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _rare = database.items[i].Rare;
                 _manpuku = database.items[i].Manpuku;
                 _magic = database.items[i].Magic;
+                _attribute1 = database.items[i].Attribute1;
                 _secretFlag = database.items[i].SecretFlag;
 
                 for (k = 0; k < _koyutp.Length; k++)
@@ -788,8 +793,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _sp_wind, _sp_score2, _sp_score3, _sp_score4, _sp_score5, _sp_score6, _sp_score7, _sp_score8, _sp_score9, _sp_score10,
             _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
-            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic, 
-            _secretFlag));
+            _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic,
+            _attribute1, _secretFlag));
     }
 
     //お菓子パネルにすでにセットされてるアイテムを、オリジナルアイテムへコピーする。個数だけは計算したものをいれる。
@@ -831,7 +836,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             player_extremepanel_itemlist[tempID].SetJudge_Num, player_extremepanel_itemlist[tempID].Eat_kaisu, player_extremepanel_itemlist[tempID].HighScore_flag,
             player_extremepanel_itemlist[tempID].last_total_score, player_extremepanel_itemlist[tempID].last_hinttext,
             player_extremepanel_itemlist[tempID].total_kyori, player_extremepanel_itemlist[tempID].Rare, player_extremepanel_itemlist[tempID].Manpuku,
-            player_extremepanel_itemlist[tempID].Magic, 
+            player_extremepanel_itemlist[tempID].Magic,
+            player_extremepanel_itemlist[tempID].Attribute1,
             player_extremepanel_itemlist[tempID].SecretFlag));
     }
 

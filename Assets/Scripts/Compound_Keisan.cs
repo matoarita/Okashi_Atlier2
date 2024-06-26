@@ -34,6 +34,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private int i, j, n, count;
     private int itemNum, DBcount;
+    private int _attri1;
 
     private int total_qbox_money;
 
@@ -1361,6 +1362,18 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 pitemlist.player_originalitemlist[new_item].item_SlotName = itemslotname;
                 itemfullname = itemslotname + pitemlist.player_originalitemlist[new_item].itemNameHyouji;
                 pitemlist.player_originalitemlist[new_item].item_FullName = itemfullname;
+
+                if (hikari_make_flag) //ヒカリお菓子作る場合は、現状魔法は使用できないため以下の処理は無視
+                {
+                }
+                else
+                {
+                    if (Comp_method_bunki == 20) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
+                    {
+                        _attri1 = bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill);
+                        pitemlist.player_originalitemlist[new_item].Attribute1 = _attri1;
+                    }
+                }
                 break;
 
             case 1: //お菓子パネルにセットする場合。通常はこっちが多い。                    
@@ -1434,6 +1447,18 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 pitemlist.player_extremepanel_itemlist[new_item].item_SlotName = itemslotname;
                 itemfullname = itemslotname + pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji;
                 pitemlist.player_extremepanel_itemlist[new_item].item_FullName = itemfullname;
+
+                if (hikari_make_flag) //ヒカリお菓子作る場合は、現状魔法は使用できないため以下の処理は無視
+                {
+                }
+                else
+                {
+                    if (Comp_method_bunki == 20) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
+                    {
+                        _attri1 = bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill);
+                        pitemlist.player_extremepanel_itemlist[new_item].Attribute1 = _attri1;
+                    }
+                }
 
                 break;
         }
@@ -2022,6 +2047,19 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
             }
         }
+
+        //⑦魔法使用による、食感のパラメーター上昇
+        if(Comp_method_bunki == 20)
+        {
+            //A. お菓子の食感ごとに、バフをかける処理
+            _basecrispy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(0, GameMgr.UseMagicSkill); //中の数字でどの食感パラムかの指定
+            _basefluffy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(1, GameMgr.UseMagicSkill);
+            _basesmooth += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(2, GameMgr.UseMagicSkill);
+            _basehardness += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(3, GameMgr.UseMagicSkill);
+            _basejuice += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(4, GameMgr.UseMagicSkill);
+            _basebeauty += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(5, GameMgr.UseMagicSkill);
+            _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, GameMgr.UseMagicSkill);
+        }
     }
 
 
@@ -2200,7 +2238,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], 
-        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0));
+        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
+        0, 0));
     }
 
     void Set_add_originparam()
@@ -2284,7 +2323,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
-        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0));
+        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
+        0, 0));
     }
 
     void Set_add_extremeparam()
@@ -2368,7 +2408,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
-        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0));
+        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
+        0, 0));
     }
 
 

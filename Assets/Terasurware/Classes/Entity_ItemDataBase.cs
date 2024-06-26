@@ -81,6 +81,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int Rare;
 		public int Manpuku;
 		public int Magic;
+		public int Attribute1;
 		public int SecretFlag;
 	}
 }
