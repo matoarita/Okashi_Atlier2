@@ -74,6 +74,7 @@ public class Item
     public int SetJudge_Num;
     public int Rare; //レアリティー
     public int Manpuku; //満腹度
+    public int Magic; //魔法属性　これがついたお菓子を食べると、MPが上がるなどステータス上昇のフラグ
     public int SecretFlag; //隠しアイテムかどうか。隠しアイテムであれば、お菓子手帳のリストには表示されない。
 
     //記載なし
@@ -200,7 +201,8 @@ public class Item
         string type, string subtype, string subtypeB, string subtype_category, int _base_score, float _girl1_like, int cost, int sell, 
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
-        int _judge_num, int _eat_kaisu, int _highscore, int _lasttotal_score, string _hinttext, float _total_kyori, int _rare, int _manpuku, int _secretFlag)
+        int _judge_num, int _eat_kaisu, int _highscore, int _lasttotal_score, string _hinttext, float _total_kyori, int _rare, int _manpuku, int _magic,
+        int _secretFlag)
     {
         itemID = id;
         OriginalitemID = OriginalID;
@@ -313,6 +315,7 @@ public class Item
 
         Rare = _rare;
         Manpuku = _manpuku;
+        Magic = _magic;
         SecretFlag = _secretFlag;
     }
 

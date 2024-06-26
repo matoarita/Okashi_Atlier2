@@ -663,7 +663,7 @@ public class CompoundMainController : MonoBehaviour {
                     player_mp_panel.transform.Find("player_maxmp").GetComponent<Text>().text = PlayerStatus.player_maxmp.ToString();
 
                     //環境音鳴らす
-                    sceneBGM.PlayMagicAmbient1();
+                    //sceneBGM.PlayMagicAmbient1();
 
                     break;
 
@@ -691,7 +691,7 @@ public class CompoundMainController : MonoBehaviour {
                     //ReDrawLive2DOrder_Compound();
 
                     //環境音とめる
-                    sceneBGM.StopMagicAmbient();
+                    //sceneBGM.StopMagicAmbient();
                     break;
 
                 case 22: //魔法演出画面

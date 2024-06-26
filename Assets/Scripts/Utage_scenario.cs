@@ -3405,7 +3405,12 @@ public class Utage_scenario : MonoBehaviour
             case 1001: //コンテスト会場 主に会話イベント
 
                 scenarioLabel = "Hiroba_Or_Contest_ReceptionTalk";
-                break;            
+                break;
+
+            case 1002: //コンテスト会場　説明
+
+                scenarioLabel = "Hiroba_Or_Contest_Explanation";
+                break;
 
             case 1200: //OrNPC白い布
 

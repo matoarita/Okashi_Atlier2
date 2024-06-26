@@ -130,6 +130,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int slot_girlscore, slot_money;
     public int Getlove_exp;
     private int GetMoney;
+    private int GetMP;
     private Text girl_lv;
     private Text girl_param;
     private Color origin_color;
@@ -2810,6 +2811,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         Getlove_exp = 0;
         GetMoney = 0;
+        GetMP = 0;
 
         //前に計算したトータルスコアを元に計算。
 
@@ -2940,6 +2942,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //再計算後、60点以上とれていたら、1は必ず上がる。マイナスにはならない。
             if (Getlove_exp <= 1) { Getlove_exp = 1; }
 
+            //魔法のお菓子を食べた場合、MaxMPが上がる
+            if(database.items[_baseID].Magic == 1)
+            {
+                
+                if (database.items[_baseID].Eat_kaisu <= 1)
+                {
+                    GetMP = 1;
+                    PlayerStatus.player_maxmp += GetMP;
+                }
+                else
+                {
+                    //一回以上食べる場合は、確率で変動
+                    GetMP = 1;
+                    PlayerStatus.player_maxmp += GetMP;
+                }
+            }
 
             //エクストラモード時　さらに計算
             if (GameMgr.Story_Mode == 1)
@@ -3805,7 +3823,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
 
                     //テキストウィンドウの更新
-                    exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score);
+                    exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score, GetMP);
                     
 
                     //吹き出しをだす。

@@ -1399,27 +1399,30 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
 
                 //月日をまたいだ場合、家賃が発生 5月～
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
+                if (GameMgr.System_Yachin_ON)
                 {
-                    if (GameMgr.check_SleepEnd_Eventflag[1]) //ねておきたあとにチェック
+                    if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                    { }
+                    else
                     {
-                        GameMgr.check_SleepEnd_Eventflag[1] = false;
-                        Debug.Log("チェック　本日が月始めかどうか");
-                        
-                        if( PlayerStatus.player_cullent_month > GameMgr.SleepBefore_Month)
+                        if (GameMgr.check_SleepEnd_Eventflag[1]) //ねておきたあとにチェック
                         {
-                            //月はこのタイミングでも更新する。
-                            GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
+                            GameMgr.check_SleepEnd_Eventflag[1] = false;
+                            Debug.Log("チェック　本日が月始めかどうか");
 
-                            //寝る前の月　起きた後の月で、月が変わっていた　家賃発生
-                            moneyStatus_Controller.UseMoney(3000);
+                            if (PlayerStatus.player_cullent_month > GameMgr.SleepBefore_Month)
+                            {
+                                //月はこのタイミングでも更新する。
+                                GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
 
-                            GameMgr.GirlLoveSubEvent_num = 1100;
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                                //寝る前の月　起きた後の月で、月が変わっていた　家賃発生
+                                moneyStatus_Controller.UseMoney(1000);
 
-                            GameMgr.Mute_on = true;
+                                GameMgr.GirlLoveSubEvent_num = 1100;
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                                GameMgr.Mute_on = true;
+                            }
                         }
                     }
                 }

@@ -15,6 +15,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     //女の子のお菓子の好きセットの組み合わせDB
     private GirlLikeCompoDataBase girlLikeCompo_database;
 
+    private ItemDataBase database;
+
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
 
@@ -34,7 +36,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
     private Dictionary<int, int> QuestCountDict;
 
-    private int i;
+    private int i, _ID;
     private int _keta;
     private int _stage_count;
 
@@ -49,6 +51,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         //女の子の好みのお菓子セット組み合わせの取得 ステージ中、メインで使うのはコチラ
         girlLikeCompo_database = GirlLikeCompoDataBase.Instance.GetComponent<GirlLikeCompoDataBase>();
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         special_score_record = new int[GameMgr.GirlLoveEvent_stage1.Length];
 
@@ -724,10 +729,23 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
         else
         {
-            OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
+            _ID = GameMgr.NowEatOkashiID;
+
+            if (database.items[_ID].itemType_sub.ToString() == "Coffee" || database.items[_ID].itemType_sub.ToString() == "Coffee_Mat" ||
+                   database.items[_ID].itemType_sub.ToString() == "Juice" || database.items[_ID].itemType_sub.ToString() == "Tea" ||
+                   database.items[_ID].itemType_sub.ToString() == "Tea_Mat" || database.items[_ID].itemType_sub.ToString() == "Tea_Potion")
+            {
+                OkashiQuest_Name = GameMgr.NowEatOkashiName + "がのみたい！";
+            }
+            else
+            {
+                OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
+            }
+            
         }
     }
 
+    //Girl1_statusからも読み出し
     public void RedrawQuestName()
     {
         //キャンバスの読み込み

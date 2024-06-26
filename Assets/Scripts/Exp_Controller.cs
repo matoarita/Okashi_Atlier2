@@ -177,7 +177,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private string renkin_hyouji;
 
     private int _id1, _id2;
-
+    private string _a, _b, _c;
 
 
     // Use this for initialization
@@ -2146,36 +2146,45 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
     }
 
-    public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score)
+    public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score, int _mp)
     {
 
         text_area = canvas.transform.Find("MessageWindowMain").gameObject; //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
 
-        if(_getmoney > 0)
+        _a = "";
+        _b = "";
+        _c = "";
+
+        if (_getlove_exp != 0)
         {
-            if (_getlove_exp != 0)
-            {
-                _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！" + "\n" +
-                    "ぱぱから仕送り " + GameMgr.ColorYellow + _getmoney + GameMgr.MoneyCurrency + "</color>" + " 送られてきた！";
-            }
-            else
-            {
-                _text.text = "ハートはかわらなかった。" + "\n" +
-                    "ぱぱから仕送り " + GameMgr.ColorYellow + _getmoney + GameMgr.MoneyCurrency + "</color>" + " 送られてきた！";
-            }
+            _a = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！";
         }
         else
         {
-            if (_getlove_exp != 0)
-            {
-                _text.text = "ハートが " + GameMgr.ColorYellow + _getlove_exp + "</color>" + "アップした！";
-            }
-            else
-            {
-                _text.text = "ハートはかわらなかった。";
-            }
+            _a = "ハートはかわらなかった。";
         }
+
+        if (_getmoney > 0)
+        {
+            
+            _b = "\n" + "ぱぱから仕送り " + GameMgr.ColorYellow + _getmoney + GameMgr.MoneyCurrency + "</color>" + " 送られてきた！";
+        }
+        else
+        {
+            _b = "";
+        }
+
+        if (_mp > 0)
+        {
+            _c = "\n" + "MPが " + GameMgr.ColorYellow + _mp + "</color>" + " 上がった！";
+        }
+        else
+        {
+            _c = "";
+        }
+
+        _text.text = _a + _b + _c;
     }
 
     public void GirlDisLikeText(int _getlove_exp)

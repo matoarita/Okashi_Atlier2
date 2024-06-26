@@ -81,6 +81,7 @@ public class BGM : MonoBehaviour {
     public AudioClip Ambient5; //くじらの鳴き声
     public AudioClip Ambient6; //春の森の声
     public AudioClip Ambient100; //魔法詠唱中の環境音
+    public AudioClip Ambient101; //魔法詠唱中の環境音2
 
     private AudioClip _send_clip;
     private AudioClip _send_clip_ambient;
@@ -1117,7 +1118,7 @@ public class BGM : MonoBehaviour {
     //魔法詠唱中の環境音
     public void PlayMagicAmbient1()
     {
-        _send_clip_ambient = Ambient100;
+        _send_clip_ambient = Ambient101;
         bgmController.AmbientRestartPlay(_send_clip_ambient);
     }
 

@@ -215,7 +215,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 backnum = 0; //バックボタン押したときの戻り先
                 GameMgr.Window_CharaName = "ガトー";
 
-                default_scenetext = "いらっしゃ～い。" + "\n" + "ここは、春コンテストの受付ですよ～。";
+                default_scenetext = "いらっシャ～イ！" + "\n" + "ここは、春コンテストの受付デ～スよ～！";
                 break;
 
             case 10: //夏のコンテスト　会場受付
@@ -977,7 +977,7 @@ public class Contest_Main_Reception : MonoBehaviour
         backshopfirst_obj.SetActive(true);
         mainlist_controller_obj.SetActive(false);
 
-        _text.text = "今開催しているコンテストです。";
+        _text.text = "今開催しているコンテストデ～ス！";
 
         //カメラ寄る。
         trans++; //transが1を超えたときに、ズームするように設定されている。
@@ -996,7 +996,7 @@ public class Contest_Main_Reception : MonoBehaviour
     //SubView3
     public void OnSubNPC3_toggle()
     {
-
+        On_ActiveContest_explanation();
     }
 
     //SubView4
@@ -1045,6 +1045,18 @@ public class Contest_Main_Reception : MonoBehaviour
 
         GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる
         GameMgr.Contest_ReadyToStart = true;　//宴読み終わり後、即コンテストを開始する　trueにしなければ、そこでイベント終了
+
+        EventReadingStart();
+
+        CanvasOff();
+    }
+
+    void On_ActiveContest_explanation() //コンテストの説明をきく
+    {
+        //宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1002; //
+        GameMgr.hiroba_event_ID = 0;
+        GameMgr.utage_charaHyouji_flag = true;
 
         EventReadingStart();
 

@@ -577,12 +577,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_patissier_job_pt = playerData.save_player_patissier_job_pt;
         PlayerStatus.player_patissier_Rank = playerData.save_player_patissier_Rank;
 
-        if(PlayerStatus.player_mp == 0) //例外処理　MP初期値が0になるのを回避　セーブデータに新パラメータ追加したてのときは0になるので、それを回避
+        /*if(PlayerStatus.player_mp == 0) //例外処理　MP初期値が0になるのを回避　セーブデータに新パラメータ追加したてのときは0になるので、それを回避
         {
             PlayerStatus.player_mp = PlayerStatus.player_default_mp;
             PlayerStatus.player_maxmp = PlayerStatus.player_default_mp;
             PlayerStatus.player_patissier_lv = 1;
-        }
+        }*/
 
         //妹のステータス
         PlayerStatus.player_girl_findpower = playerData.save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。

@@ -80,6 +80,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int Set_JudgeNum;
 		public int Rare;
 		public int Manpuku;
+		public int Magic;
 		public int SecretFlag;
 	}
 }

@@ -276,7 +276,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         contest_eventStart_flag = false;
 
         //ウィンドウキャラ名設定
-        GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+        //GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+        GameMgr.Window_CharaName = "";
 
         //デバッグ用　最初に所持するアイテム
         if (GameMgr.System_DebugItemSet_ON)

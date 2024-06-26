@@ -1548,7 +1548,7 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "みずに光があたって、すっごいキラキラしてるよ～♪";
+                _text.text = "にいちゃん！　みずに光があたって、すっごいキラキラしてる～♪";
                 break;
 
             case 3:
@@ -1563,9 +1563,9 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                random_param = Random.Range(1, 3);
+                random_param = Random.Range(2, 5);
                 PlayerStatus.girl1_Love_exp -= random_param;
-                _text.text = "うわっ..！　ズボッ！　ヒカリはドブにハマってしまった・・！" + "\n" +
+                _text.text = "うわっ..！　ヒカリはドブにハマってしまった・・！" + "\n" +
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
 
                 //音を鳴らす
@@ -2446,8 +2446,19 @@ public class GetMaterial : MonoBehaviour
 
     void Treasure_GetItem()
     {
+        itemDropKosuDict.Clear();
+
+        //個数
+        itemDropKosuDict.Add(1, 30.0f); //1個　
+        itemDropKosuDict.Add(2, 55.0f); //2個　
+        itemDropKosuDict.Add(3, 15.0f); //3個　
+        itemDropKosuDict.Add(5, 5.0f); //5個　
+
+        itemKosu = ChooseKosu();
+
         _text.text = "にいちゃん！　やったぁ！！" + "\n" +
-            GameMgr.ColorYellow + database.items[database.SearchItemIDString(itemName)].itemNameHyouji + "</color>" + "をみつけた！";
+            GameMgr.ColorYellow + database.items[database.SearchItemIDString(itemName)].itemNameHyouji + "</color>" + 
+            "を" + itemKosu.ToString() + "個" + "みつけた！";
 
         TreasureGetitem_obj.SetActive(true);
         TreasureGetitem_img.sprite = database.items[database.SearchItemIDString(itemName)].itemIcon_sprite;
@@ -2470,7 +2481,7 @@ public class GetMaterial : MonoBehaviour
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
         //_itemid = pitemlist.SearchItemString(itemName);
-        ItemGetforDictionary(itemName, 1);
+        ItemGetforDictionary(itemName, itemKosu);
 
         //音を鳴らす
         switch (Treasure_Status)

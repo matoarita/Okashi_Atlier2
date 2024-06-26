@@ -176,9 +176,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         if (PlayerStatus.girl1_Love_lv > PlayerStatus.player_patissier_lv)
         {
-            _dev = PlayerStatus.girl1_Love_lv - PlayerStatus.player_patissier_lv;
-            PlayerStatus.player_patissier_lv += _dev; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
+            _dev = PlayerStatus.girl1_Love_lv - PlayerStatus.player_patissier_lv;           
             PlayerStatus.player_patissier_job_pt += _dev;
+            PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_lv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
         }
 
     }
