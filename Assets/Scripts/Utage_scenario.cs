@@ -3840,6 +3840,108 @@ public class Utage_scenario : MonoBehaviour
                 }
                 break;
 
+            case "Or_NPC110_roten_ringoame": //Orりんごあめ
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(1000);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC111_roten_potatobutter": //Orじゃがバター
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(400);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC112_roten_crape": //Orクレープ
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(1200);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC113_roten_gelato": //Orジェラート
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(1000);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC114_roten_joukenkyobai": //Or条件競売
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(2000);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC115_roten_cafelatte": //Orカフェラテ
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //のる
+
+                        moneyStatus_Controller.UseMoney(1200);
+                        break;
+
+                }
+                break;
+
 
             case "Station": //駅のイベント お金の処理など
 
