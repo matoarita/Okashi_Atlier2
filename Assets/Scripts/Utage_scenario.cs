@@ -3569,15 +3569,16 @@ public class Utage_scenario : MonoBehaviour
                 engine.ResumeScenario();
         }
 
-        //マップ移動の場合　シーン暗くしておく
+        //広場マップからマップ移動の場合　シーン暗くしておく
         if (GameMgr.Utage_MapMoveBlackON)
-        {           
+        {
+            GameMgr.Utage_MapMoveBlackON = false;
+
             //「宴」のシナリオ終了待ち
             while (!engine.IsPausingScenario)
             {
                 yield return null;
-            }
-            GameMgr.Utage_MapMoveBlackON = false;
+            }           
 
 
             switch (scenarioLabel)
@@ -3592,6 +3593,11 @@ public class Utage_scenario : MonoBehaviour
                             break;
 
                         case 1: //のる
+
+                            GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
+                            break;
+
+                        case 2: //のる（パスすでにもっている）
 
                             GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
                             break;
@@ -3653,6 +3659,10 @@ public class Utage_scenario : MonoBehaviour
                     }
                     break;
 
+                default: //その他シーンで、Utage_MapMoveBlackON=trueになってたら、無条件で黒にする。
+
+                    GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
+                    break;
             }           
 
             //続きから再度読み込み

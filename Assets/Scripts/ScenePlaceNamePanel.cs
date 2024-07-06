@@ -115,6 +115,12 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Summer Dreams MainStreet";
                                 break;
 
+                            case "Or_Hiroba_Summer_MainStreet_Gondora": //夏のエリア　ゴンドラ乗り場
+
+                                _text = "ゴンドラ乗り場";
+                                _subtext = "Summer Dreams Boat-Pier";
+                                break;
+
                             case "Or_Hiroba_Summer_ThemePark_Map": //夏のエリア　遊園地全体マップ
 
                                 _text = "ソーダ・アイランド";

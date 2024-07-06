@@ -271,6 +271,23 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         EventReadingStart();
                     }
                     break;
+
+                case "Or_Hiroba_Spring_Oku": //花園
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[120]) //はじめて秘密の花園へきた。
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[120] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 230100;
+
+                        GameMgr.scenario_ON = true;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                    break;
             }           
         }
     }
@@ -2074,7 +2091,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         GameMgr.hiroba_event_placeNum = 2000; //
 
-        if (!GameMgr.NPCHiroba_eventList[2510]) //はじめて
+        if (!GameMgr.NPCHiroba_eventList[2510]) //ブルートパーズの花畑を初めていく
         {
             GameMgr.NPCHiroba_eventList[2510] = true;
 

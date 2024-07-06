@@ -60,6 +60,7 @@ public class Contest_Main_Outside : MonoBehaviour
     private int gotonum, backnum;
 
     private bool StartRead;
+    private bool check_event;
 
     private string default_scenetext;
 
@@ -255,6 +256,7 @@ public class Contest_Main_Outside : MonoBehaviour
 
         GameMgr.Scene_Status = 0;
         StartRead = false;
+        check_event = false;
 
         text_scenario();
 
@@ -288,8 +290,11 @@ public class Contest_Main_Outside : MonoBehaviour
             
         }
 
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        EventCheck();
+
         //コンテスト失格になった場合の、後処理
-        if(GameMgr.contest_LimitTimeOver_After_flag)
+        if (GameMgr.contest_LimitTimeOver_After_flag)
         {
             GameMgr.contest_LimitTimeOver_After_flag = false;
 
@@ -342,6 +347,33 @@ public class Contest_Main_Outside : MonoBehaviour
 
                 default:
 
+                    break;
+            }
+        }
+    }
+
+    void EventCheck()
+    {
+        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        if (!check_event)
+        {
+            switch (GameMgr.Scene_Name)
+            {
+                case "Or_Contest_Out_Spring":
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[130]) //はじめて春コンテスト前へきた。
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[130] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 240000;
+
+                        GameMgr.scenario_ON = true;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
                     break;
             }
         }
@@ -401,6 +433,7 @@ public class Contest_Main_Outside : MonoBehaviour
         }
 
         GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
         GameMgr.Scene_Select = 0; //何もしていない状態
         GameMgr.Scene_Status = 0;
 

@@ -1058,8 +1058,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_DB_list_Type = 104000; //compNum=100000~を指定
 
-        GameMgr.Contest_ProblemSentence = "テーマ：光お菓子限定";
-        GameMgr.Contest_ProblemSentence2 = "光の魔法で仕上げたお菓子を作ること" + "\n" + "制限時間: 4時間";
+        GameMgr.Contest_ProblemSentence = "テーマ：光のお菓子限定";
+        GameMgr.Contest_ProblemSentence2 = "光をイメージしたお菓子を作ること" + "\n" + "制限時間: 4時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
@@ -1071,7 +1071,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_DB_list_Type = 105000; //compNum=100000~を指定
 
-        GameMgr.Contest_ProblemSentence = "テーマ：光お菓子限定<クッキー除く>";
+        GameMgr.Contest_ProblemSentence = "テーマ：光のお菓子限定<クッキー除く>";
         GameMgr.Contest_ProblemSentence2 = "光の魔法で仕上げたお菓子を作ること" + "\n" + "制限時間: 4時間";
 
         //コンテスト時間指定

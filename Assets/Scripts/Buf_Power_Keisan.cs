@@ -100,15 +100,36 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case "Cookie":
 
                 //めん棒系
-                if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+                if (pitemlist.KosuCount("wood_rod_doillan") >= 1)
                 {
-                    _buf_kakuritsuup += 5;
+                    _buf_kakuritsuup += 15;
                 }
                 else
                 {
-                    if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+                    if (pitemlist.KosuCount("wood_rod_great") >= 1)
                     {
-                        _buf_kakuritsuup += 2;
+                        _buf_kakuritsuup += 12;
+                    }
+                    else
+                    {
+                        if (pitemlist.KosuCount("wood_rod_good") >= 1)
+                        {
+                            _buf_kakuritsuup += 8;
+                        }
+                        else
+                        {
+                            if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+                            {
+                                _buf_kakuritsuup += 5;
+                            }
+                            else
+                            {
+                                if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+                                {
+                                    _buf_kakuritsuup += 2;
+                                }
+                            }
+                        }
                     }
                 }
                 break;
@@ -116,15 +137,36 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case "Cookie_Hard":
 
                 //めん棒系
-                if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+                if (pitemlist.KosuCount("wood_rod_doillan") >= 1)
                 {
-                    _buf_kakuritsuup += 5;
+                    _buf_kakuritsuup += 15;
                 }
                 else
                 {
-                    if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+                    if (pitemlist.KosuCount("wood_rod_great") >= 1)
                     {
-                        _buf_kakuritsuup += 2;
+                        _buf_kakuritsuup += 12;
+                    }
+                    else
+                    {
+                        if (pitemlist.KosuCount("wood_rod_good") >= 1)
+                        {
+                            _buf_kakuritsuup += 8;
+                        }
+                        else
+                        {
+                            if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+                            {
+                                _buf_kakuritsuup += 5;
+                            }
+                            else
+                            {
+                                if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+                                {
+                                    _buf_kakuritsuup += 2;
+                                }
+                            }
+                        }
                     }
                 }
                 break;
@@ -140,15 +182,22 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }*/
 
         //かまどレベルによるバフ
-        if (pitemlist.KosuCount("gold_oven") >= 1) //持ってるだけで効果アップ
+        if (pitemlist.KosuCount("platinum_oven") >= 1) //持ってるだけで効果アップ
         {
-            _buf_kakuritsuup += 20;
+            _buf_kakuritsuup += 30;
         }
         else
         {
-            if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
+            if (pitemlist.KosuCount("gold_oven") >= 1) //持ってるだけで効果アップ
             {
-                _buf_kakuritsuup += 10;
+                _buf_kakuritsuup += 20;
+            }
+            else
+            {
+                if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
+                {
+                    _buf_kakuritsuup += 10;
+                }
             }
         }
 
@@ -254,6 +303,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Cake_Mat":
 
                         OvenBuf();
+                        CakeBuf();
                         break;
 
                     case "Financier":
@@ -354,28 +404,49 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void CreamBuf()
     {
-        if (pitemlist.KosuCount("whisk_magic") >= 1) //魔力の泡だて器をもっている
+        if (pitemlist.KosuCount("whisk_gold") >= 1) //魔力の泡だて器をもっている
         {
-            _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+            _buf_shokukanup = (int)(_buf_shokukanup * 2.2f);
+        }
+        else
+        {
+            if (pitemlist.KosuCount("whisk_silver") >= 1) //魔力の泡だて器をもっている
+            {
+                _buf_shokukanup = (int)(_buf_shokukanup * 1.5f);
+            }
+            else
+            {
+                if (pitemlist.KosuCount("whisk_magic") >= 1) //魔力の泡だて器をもっている
+                {
+                    _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+                }
+            }
         }
     }
 
     void OvenBuf()
     {
         // かまどレベルによるバフ
-        if (PlayerStatus.player_kamado_lv >= 3) //持ってるだけで効果アップ
+        if (PlayerStatus.player_kamado_lv >= 4) //持ってるだけで効果アップ
         {
-            _buf_shokukanup += 150;
+            _buf_shokukanup += 200;
         }
         else
         {
-            if (PlayerStatus.player_kamado_lv >= 2) //持ってるだけで効果アップ
+            if (PlayerStatus.player_kamado_lv >= 3) //持ってるだけで効果アップ
             {
-                _buf_shokukanup += 75;
+                _buf_shokukanup += 150;
             }
             else
             {
-                _buf_shokukanup = 0;
+                if (PlayerStatus.player_kamado_lv >= 2) //持ってるだけで効果アップ
+                {
+                    _buf_shokukanup += 75;
+                }
+                else
+                {
+                    _buf_shokukanup = 0;
+                }
             }
         }
     }
@@ -383,15 +454,36 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void CookieBuf()
     {
         //めん棒系
-        if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+        if (pitemlist.KosuCount("wood_rod_doillan") >= 1)
         {
-            _buf_shokukanup += 20;
+            _buf_shokukanup += 120;
         }
         else
         {
-            if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+            if (pitemlist.KosuCount("wood_rod_great") >= 1)
             {
-                _buf_shokukanup += 5;
+                _buf_shokukanup += 80;
+            }
+            else
+            {
+                if (pitemlist.KosuCount("wood_rod_good") >= 1)
+                {
+                    _buf_shokukanup += 40;
+                }
+                else
+                {
+                    if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+                    {
+                        _buf_shokukanup += 20;
+                    }
+                    else
+                    {
+                        if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+                        {
+                            _buf_shokukanup += 5;
+                        }
+                    }
+                }
             }
         }
 
@@ -420,7 +512,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 5;
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 5; //LV*5
             _buf_shokukanup += _magicup;
         }
 
@@ -469,6 +561,23 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             _buf_shokukanup += 50;
         }
+    }
+
+    void CakeBuf()
+    {
+
+        if (pitemlist.KosuCount("cakemold_stainless") >= 1) //
+        {
+            _buf_shokukanup = (int)(_buf_shokukanup * 2.5f);
+        }
+        else
+        {
+            if (pitemlist.KosuCount("cakemold_black") >= 1) //ケーキ型ブラック
+            {
+                _buf_shokukanup = (int)(_buf_shokukanup * 1.2f);
+            }
+        }
+
     }
 
     void TeaBuf()
@@ -717,19 +826,26 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
 
         // かまどレベル
-        if (pitemlist.KosuCount("gold_oven") >= 1) //持ってるだけで効果アップ
+        if (pitemlist.KosuCount("platinum_oven") >= 1) //持ってるだけで効果アップ
         {
-            PlayerStatus.player_kamado_lv = 3;
+            PlayerStatus.player_kamado_lv = 4;
         }
         else
         {
-            if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
+            if (pitemlist.KosuCount("gold_oven") >= 1) //持ってるだけで効果アップ
             {
-                PlayerStatus.player_kamado_lv = 2;
+                PlayerStatus.player_kamado_lv = 3;
             }
             else
             {
-                PlayerStatus.player_kamado_lv = 1;
+                if (pitemlist.KosuCount("silver_oven") >= 1) //持ってるだけで効果アップ
+                {
+                    PlayerStatus.player_kamado_lv = 2;
+                }
+                else
+                {
+                    PlayerStatus.player_kamado_lv = 1;
+                }
             }
         }
     }
