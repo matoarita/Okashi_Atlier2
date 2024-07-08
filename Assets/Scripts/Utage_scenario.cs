@@ -3005,8 +3005,9 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+        engine.Param.TrySetParameter("Story_progress_Num", GameMgr.GirlLoveEvent_num); //ゲームメインストーリーの進行フラグナンバー
 
-        if(matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
+        if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
         {
             engine.Param.TrySetParameter("Farm_Flag", true);
         }

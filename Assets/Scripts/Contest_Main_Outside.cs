@@ -12,6 +12,8 @@ public class Contest_Main_Outside : MonoBehaviour
 
     private SceneInitSetting sceneinit_setting;
 
+    private SoundController sc;
+
     private GameObject npc1_toggle_obj;
     private GameObject npc2_toggle_obj;
     private GameObject npc3_toggle_obj;
@@ -81,6 +83,9 @@ public class Contest_Main_Outside : MonoBehaviour
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -625,6 +630,9 @@ public class Contest_Main_Outside : MonoBehaviour
     //SubView1 コンテスト中へ入る
     public void OnSubNPC1_toggle()
     {
+        //入店の音
+        sc.PlaySe(150);
+
         //
         GameMgr.SceneSelectNum = gotonum;
         FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);

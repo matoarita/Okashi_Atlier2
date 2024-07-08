@@ -150,3 +150,4 @@ SE表
 ・SE_148	audiostock_1488438_sample			魔法選択時の決定音２
 ・SE_149	audiostock_823846_sample			魔法選択時の決定音
 ・SE_150	刀で打ち合う3					カタナがぶつかるようなカキン音
+・SE_151	audiostock_813342_sample			コンテスト会場入るときのドアベル音

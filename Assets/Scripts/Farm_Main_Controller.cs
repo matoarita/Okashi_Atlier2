@@ -14,6 +14,7 @@ public class Farm_Main_Controller : MonoBehaviour {
     private BGM sceneBGM;
 
     private ItemShopDataBase shop_database;
+    private ItemMatPlaceDataBase matplace_database;
 
     private SoundController sc;
     private SceneInitSetting sceneinit_setting;
@@ -73,6 +74,9 @@ public class Farm_Main_Controller : MonoBehaviour {
 
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
+
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -271,6 +275,8 @@ public class Farm_Main_Controller : MonoBehaviour {
                 pitemlist.addPlayerItemString("egg", 5);
                 pitemlist.addPlayerItemString("milk", 5);
                 pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
+
+                matplace_database.matPlaceKaikin("Or_Farm"); //牧場解禁
             }
 
             

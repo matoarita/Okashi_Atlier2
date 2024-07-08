@@ -100,88 +100,84 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case "Cookie":
 
                 //めん棒系
-                if (pitemlist.KosuCount("wood_rod_doillan") >= 1)
-                {
-                    _buf_kakuritsuup += 15;
-                }
-                else
-                {
-                    if (pitemlist.KosuCount("wood_rod_great") >= 1)
-                    {
-                        _buf_kakuritsuup += 12;
-                    }
-                    else
-                    {
-                        if (pitemlist.KosuCount("wood_rod_good") >= 1)
-                        {
-                            _buf_kakuritsuup += 8;
-                        }
-                        else
-                        {
-                            if (pitemlist.KosuCount("wood_rod_normal") >= 1)
-                            {
-                                _buf_kakuritsuup += 5;
-                            }
-                            else
-                            {
-                                if (pitemlist.KosuCount("wood_rod_boro") >= 1)
-                                {
-                                    _buf_kakuritsuup += 2;
-                                }
-                            }
-                        }
-                    }
-                }
+                KakuritsuUp_WoodRod();
+
+                //かまどレベルによるバフ
+                KakuritsuUp_Oven();
+
                 break;
 
             case "Cookie_Hard":
 
                 //めん棒系
-                if (pitemlist.KosuCount("wood_rod_doillan") >= 1)
-                {
-                    _buf_kakuritsuup += 15;
-                }
-                else
-                {
-                    if (pitemlist.KosuCount("wood_rod_great") >= 1)
-                    {
-                        _buf_kakuritsuup += 12;
-                    }
-                    else
-                    {
-                        if (pitemlist.KosuCount("wood_rod_good") >= 1)
-                        {
-                            _buf_kakuritsuup += 8;
-                        }
-                        else
-                        {
-                            if (pitemlist.KosuCount("wood_rod_normal") >= 1)
-                            {
-                                _buf_kakuritsuup += 5;
-                            }
-                            else
-                            {
-                                if (pitemlist.KosuCount("wood_rod_boro") >= 1)
-                                {
-                                    _buf_kakuritsuup += 2;
-                                }
-                            }
-                        }
-                    }
-                }
+                KakuritsuUp_WoodRod();
+
+                //かまどレベルによるバフ
+                KakuritsuUp_Oven();
                 break;
         }
 
-        if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
-        {
-            _buf_kakuritsuup += 10;
-        }
-        /*if (pitemlist.KosuCount("maneki_cat") >= 1) //持ってるだけで効果アップ
+        //全般
+        if (pitemlist.KosuCount("measuring spoon") >= 1) //持ってるだけで効果アップ
         {
             _buf_kakuritsuup += 5;
-        }*/
+        }
+        /*if (pitemlist.KosuCount("maneki_cat") >= 1) //持ってるだけで効果アップ
+            {
+                _buf_kakuritsuup += 5;
+            }*/
 
-        //かまどレベルによるバフ
+        //魔法成功率
+        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
+        {
+            if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
+            {
+                _buf_kakuritsuup += 10;
+            }
+            
+        }
+
+        return _buf_kakuritsuup;
+    }
+
+    void KakuritsuUp_WoodRod()
+    {
+        if (pitemlist.KosuCount("wood_rod_doillan") >= 1)
+        {
+            _buf_kakuritsuup += 15;
+        }
+        else
+        {
+            if (pitemlist.KosuCount("wood_rod_great") >= 1)
+            {
+                _buf_kakuritsuup += 12;
+            }
+            else
+            {
+                if (pitemlist.KosuCount("wood_rod_good") >= 1)
+                {
+                    _buf_kakuritsuup += 8;
+                }
+                else
+                {
+                    if (pitemlist.KosuCount("wood_rod_normal") >= 1)
+                    {
+                        _buf_kakuritsuup += 5;
+                    }
+                    else
+                    {
+                        if (pitemlist.KosuCount("wood_rod_boro") >= 1)
+                        {
+                            _buf_kakuritsuup += 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void KakuritsuUp_Oven()
+    {
         if (pitemlist.KosuCount("platinum_oven") >= 1) //持ってるだけで効果アップ
         {
             _buf_kakuritsuup += 30;
@@ -200,10 +196,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 }
             }
         }
-
-
-        return _buf_kakuritsuup;
     }
+
 
 
 

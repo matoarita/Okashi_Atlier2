@@ -373,7 +373,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                 quest_database.questTakeset.RemoveAt(_id); //削除
             }
 
-            PlayerStatus.player_ninki_param -= (questout_count * 10); //過ぎてたクエスト*10　人気度が減る
+            PlayerStatus.player_ninki_param -= (questout_count * 1); //過ぎてたクエスト*1　人気度が減る
         }
     }
 

@@ -1329,43 +1329,48 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             npc6_toggle.isOn = false;*/
 
-            switch (GameMgr.Scene_Name)
-            {
-                case "Or_Hiroba_CentralPark": //中央噴水
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Hiroba_CentralPark": //中央噴水
 
-                    On_Active200();
-                    break;
+                On_Active200();
+                break;
 
-                case "Or_Hiroba_CentralPark_Left": //中央噴水　左
+            case "Or_Hiroba_CentralPark_Left": //中央噴水　左
 
-                    On_Active30();
-                    break;
+                On_Active30();
+                break;
 
-                case "Or_Hiroba_CentralPark_Right": //中央噴水　右
+            case "Or_Hiroba_CentralPark_Right": //中央噴水　右
 
-                    On_Active30();
-                    break;
+                On_Active30();
+                break;
 
-                case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
+            case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
 
-                    On_Active300();
-                    break;
+                On_Active300();
+                break;
 
-                case "Or_Hiroba_Spring_Shoping_Moll": //
+            case "Or_Hiroba_Spring_Shoping_Moll": //
 
-                    On_Active10();
-                    break;
+                On_Active10();
+                break;
 
-                case "Or_Hiroba_Summer_MainStreet": //
+            case "Or_Hiroba_Spring_Oku": //
 
-                    On_Active1004_Alice();
-                    break;
+                On_FarmActive01();
+                break;
 
-                default:
+            case "Or_Hiroba_Summer_MainStreet": //
 
-                    On_Active1005_Niji_girl();
-                    break;
-            }
+                On_Active1004_Alice();
+                break;
+
+            default:
+
+                On_Active1005_Niji_girl();
+                break;
+        }
         //}
     }
 
@@ -2220,6 +2225,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //シーン読み込み
         GameMgr.SceneSelectNum = 30;
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+    }
+
+    void On_FarmActive01()
+    {
+        //_text.text = "冬エリアのお店へ入る";
+
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_Farm", GameMgr.SceneFadeTime);
     }
 
     void On_ContestActive01()

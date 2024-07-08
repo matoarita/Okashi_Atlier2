@@ -793,8 +793,8 @@ public class MagicSkillListController : MonoBehaviour
         _toggle_learn_itemID.toggle_skill_nameHyouji = magicskill_database.magicskill_lists[i].skillNameHyouji; //表示用の名前
 
         _text[0].text = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。;
-        _text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
-        _text[2].text = "Lv " + magicskill_database.magicskill_lists[i].skillLv + " / " + magicskill_database.magicskill_lists[i].skillMaxLv;
+        //_text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
+        _text[1].text = "Lv " + magicskill_database.magicskill_lists[i].skillLv + " / " + magicskill_database.magicskill_lists[i].skillMaxLv;
         //_text[3].text = "MP " + magicskill_database.magicskill_lists[i].skillCost; //習得のほうは、表示そもそもしない
 
         texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;

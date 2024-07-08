@@ -1040,11 +1040,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 103000; //compNum=100000~を指定
 
         GameMgr.Contest_ProblemSentence = "テーマ：ラスク";
-        GameMgr.Contest_ProblemSentence2 = "アンティーク市場で手軽に食べられるラスクを作ること。" + "\n" + "制限時間: 4時間";
+        GameMgr.Contest_ProblemSentence2 = "アンティーク市場で手軽に食べられるラスクを作ること。" + "\n" + "制限時間: 5時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位      
+        PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位      
 
         //支給品があれば、追加する
         GameMgr.ContestItem_supplied_List.Clear();

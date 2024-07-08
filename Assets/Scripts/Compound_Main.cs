@@ -3394,11 +3394,11 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
-            case "recipibook_6": //お茶のすすめ
+            /*case "recipibook_6": //お茶のすすめ
 
                 //いける場所を追加
                 matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
-                break;
+                break;*/
 
             default:
                 break;
@@ -4174,8 +4174,11 @@ public class Compound_Main : MonoBehaviour
                     _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     _todayfood_lib.Add("きのこピザ");
                     _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
-                    _todayfood_lib.Add("じゃりパン");
-                    _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
+                    if (pitemlist.KosuCountEvent("bugget_recipi") >= 1)
+                    {
+                        _todayfood_lib.Add("じゃりパン");
+                        _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
+                    }
                     break;
 
                 case 3:
