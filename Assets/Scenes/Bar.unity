@@ -1439,93 +1439,8 @@ Prefab:
     m_Modifications:
     - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
         type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 305.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 268.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: -583
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: -544.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224536732249879606, guid: 000947cd892843b4eb2477df33f02f1e,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 000947cd892843b4eb2477df33f02f1e, type: 2}
@@ -2295,6 +2210,10 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1786019658939342, guid: 8401993819f1c9e4699c0bf4f45449b6, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8401993819f1c9e4699c0bf4f45449b6, type: 2}
@@ -4051,6 +3970,12 @@ MonoBehaviour:
   sound51: {fileID: 0}
   sound52: {fileID: 0}
   sound53: {fileID: 0}
+  sound54: {fileID: 0}
+  sound55: {fileID: 0}
+  sound56: {fileID: 0}
+  sound57: {fileID: 0}
+  sound58: {fileID: 0}
+  sound59: {fileID: 0}
   sound1000: {fileID: 0}
   Ambient1: {fileID: 0}
   Ambient2: {fileID: 0}
@@ -4058,6 +3983,8 @@ MonoBehaviour:
   Ambient4: {fileID: 0}
   Ambient5: {fileID: 0}
   Ambient6: {fileID: 0}
+  Ambient100: {fileID: 0}
+  Ambient101: {fileID: 0}
 --- !u!82 &1841630730
 AudioSource:
   m_ObjectHideFlags: 0

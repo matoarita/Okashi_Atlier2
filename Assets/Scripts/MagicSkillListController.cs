@@ -87,6 +87,13 @@ public class MagicSkillListController : MonoBehaviour
         text_area_comp = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
         _text_comp = text_area_comp.GetComponentInChildren<Text>();
 
+        if (this.gameObject.name == "MagicSkillList_ScrollView")
+        {
+            player_patissierjob_panel = this.transform.Find("PlayerJobPanel").gameObject;
+            player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
+            player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
+        }
+
         skillExTextPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/SkillExTextPanel").gameObject;
         skillExtext = skillExTextPanel.transform.Find("MaskPanel").GetComponentsInChildren<Text>();
         skillExtextAnim = skillExTextPanel.transform.Find("MaskPanel").GetComponentsInChildren<Anim_TextScroll>();
@@ -260,12 +267,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 0;
         reset_and_DrawView(0);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "基本のスキルだよ！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "基本のスキルだよ！";
+            }
+            _text_comp.text = "基本のスキルだよ！";
         }
-        _text_comp.text = "基本のスキルだよ！";
     }
 
     public void SkillList_DrawView2() //氷
@@ -273,12 +284,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 1;
         reset_and_DrawView(1);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "氷の魔法は何でも冷やす！　アイスクリームに強いよ！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "氷の魔法は何でも冷やす！　アイスクリームに強いよ！";
+            }
+            _text_comp.text = "氷の魔法は何でも冷やす！" + "\n" + "アイスや冷たいお菓子が得意だよ！";
         }
-        _text_comp.text = "氷の魔法は何でも冷やす！" + "\n" + "アイスや冷たいお菓子が得意だよ！";
     }
 
     public void SkillList_DrawView3() //光
@@ -286,12 +301,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 2;
         reset_and_DrawView(2);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "光の魔法はきらきら！　フルーツやシュガー、ケーキを光らせたりできるよ！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "光の魔法はきらきら！　フルーツやシュガー、ケーキを光らせたりできるよ！";
+            }
+            _text_comp.text = "光の魔法はきらきら！" + "\n" + "フルーツやシュガー、ケーキを光らせたりできるよ！";
         }
-        _text_comp.text = "光の魔法はきらきら！" + "\n" + "フルーツやシュガー、ケーキを光らせたりできるよ！";
     }
 
     public void SkillList_DrawView4() //風
@@ -299,12 +318,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 3;
         reset_and_DrawView(3);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "風の魔法は少し特殊！　形を自由に作れるよ！　ふわふわのお菓子に強い！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "風の魔法は少し特殊！　形を自由に作れるよ！　ふわふわのお菓子に強い！";
+            }
+            _text_comp.text = "風の魔法は少し特殊！　形を自由に作れるよ！" + "\n" + "クレープとかケーキとかのお菓子が得意だよ！";
         }
-        _text_comp.text = "風の魔法は少し特殊！　形を自由に作れるよ！" + "\n" + "クレープとかケーキとかのお菓子が得意だよ！";
     }
 
 
@@ -313,12 +336,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 4;
         reset_and_DrawView(4);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "星魔法は、夜や星、天気に関係する変わった魔法！　ソーダが作れる！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "星魔法は、夜や星、天気に関係する変わった魔法！　ソーダが作れる！";
+            }
+            _text_comp.text = "星魔法は、夜や星、天気に関係する変わった魔法だよ！" + "\n" + "飲み物に強い魔法だよ！";
         }
-        _text_comp.text = "星魔法は、夜や星、天気に関係する変わった魔法だよ！" + "\n" + "飲み物に強い魔法だよ！";
     }
 
     public void SkillList_DrawView6() //森
@@ -326,12 +353,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 5;
         reset_and_DrawView(5);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "森の魔法は、いろんな植物や木のお菓子を作ったりできるよ！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "森の魔法は、いろんな植物や木のお菓子を作ったりできるよ！";
+            }
+            _text_comp.text = "森の魔法は、いろんな植物や木のお菓子を作ったりできるよ！";
         }
-        _text_comp.text = "森の魔法は、いろんな植物や木のお菓子を作ったりできるよ！";
     }
 
     public void SkillList_DrawView7() //時
@@ -339,12 +370,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 6;
         reset_and_DrawView(6);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "時の魔法は、時間を戻したり早めたりする、ちょっと不思議な魔法だよ！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "時の魔法は、時間を戻したり早めたりする、ちょっと不思議な魔法だよ！";
+            }
+            _text_comp.text = "時の魔法は、時間を戻したり早めたりできる！" + "\n" + "ちょっと不思議な魔法だよ！";
         }
-        _text_comp.text = "時の魔法は、時間を戻したり早めたりできる！" + "\n" + "ちょっと不思議な魔法だよ！";
     }
 
     public void SkillList_DrawView8() //音
@@ -352,12 +387,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 7;
         reset_and_DrawView(7);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "音の魔法は、食感の音や素材に眠る音を聞く.. ベテランの魔法だよ！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "音の魔法は、食感の音や素材に眠る音を聞く.. ベテランの魔法だよ！";
+            }
+            _text_comp.text = "音の魔法は、食感の音や素材に眠る音を聞く.. ベテランの魔法だよ！";
         }
-        _text_comp.text = "音の魔法は、食感の音や素材に眠る音を聞く.. ベテランの魔法だよ！";
     }
 
     public void SkillList_DrawView9() //心
@@ -365,12 +404,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 8;
         reset_and_DrawView(8);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "心の魔法は、ハートをお菓子にいっぱいこめるよ！　おいしくなぁれ！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "心の魔法は、ハートをお菓子にいっぱいこめるよ！　おいしくなぁれ！";
+            }
+            _text_comp.text = "心の魔法は、ハートをお菓子にいっぱいこめるよ・・☆" + "\n" + "おいしくなぁれ～♪";
         }
-        _text_comp.text = "心の魔法は、ハートをお菓子にいっぱいこめるよ・・☆" + "\n" + "おいしくなぁれ～♪";
     }
 
     public void SkillList_DrawView10() //火
@@ -378,12 +421,16 @@ public class MagicSkillListController : MonoBehaviour
 
         category_status = 9;
         reset_and_DrawView(9);
-        for (i = 0; i < skillExtext.Length; i++)
+
+        if (GameMgr.MagicSkillSelectStatus == 1) //1のときは、魔法おぼえる
         {
-            skillExtextAnim[i].ResetStartPos();
-            skillExtext[i].text = "火の魔法はお菓子の基本！　クッキーや焼き菓子に強いよ！";
+            for (i = 0; i < skillExtext.Length; i++)
+            {
+                skillExtextAnim[i].ResetStartPos();
+                skillExtext[i].text = "火の魔法はお菓子の基本！　クッキーや焼き菓子に強いよ！";
+            }
+            _text_comp.text = "火の魔法はお菓子の基本！　クッキーや焼き菓子に強いよ！";
         }
-        _text_comp.text = "火の魔法はお菓子の基本！　クッキーや焼き菓子に強いよ！";
     }
 
     //再度描画
@@ -444,9 +491,12 @@ public class MagicSkillListController : MonoBehaviour
 
         }
 
-        player_patissierjob_panel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/PlayerJobPanel").gameObject;
-        player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
-        player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
+        if (this.gameObject.name == "MagicSkillList_ScrollView")
+        {
+            player_patissierjob_panel = this.transform.Find("PlayerJobPanel").gameObject;
+            player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
+            player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
+        }
     }
 
     // リストビューの描画部分。重要。

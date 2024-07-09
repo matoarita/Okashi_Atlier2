@@ -73,7 +73,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject girl_love_exp_bar;
     private Text girl_param;
     private GameObject moneystatus_panel;
-    private GameObject kaerucoin_panel;
+    //private GameObject kaerucoin_panel;
 
     private GameObject quest_kakuninButton_obj;
     private GameObject quest_CheckPanel_obj;
@@ -568,7 +568,7 @@ public class Compound_Main : MonoBehaviour
         kigen_text = manpuku_bar.transform.Find("KigenText").GetComponent<Text>();
 
         //えめらるどんぐりパネルの取得
-        kaerucoin_panel = canvas.transform.Find("KaeruCoin_Panel").gameObject;
+        //kaerucoin_panel = canvas.transform.Find("MainUIPanel/KaeruCoin_Panel").gameObject;
 
         stageclear_panel = canvas.transform.Find("MainUIPanel/Comp/StageClearButton_Panel").gameObject;
         stageclear_Button = stageclear_panel.transform.Find("StageClear_Button").gameObject;

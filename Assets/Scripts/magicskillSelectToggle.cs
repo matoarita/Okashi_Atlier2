@@ -205,13 +205,19 @@ public class magicskillSelectToggle : MonoBehaviour
         magicskilllistController.skill_itemName_Hyouji = _item_Namehyouji;
         magicskilllistController.skill_cost = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_cost;
 
-        _text.text = _item_Namehyouji + "を使いますか？";
+        //_text.text = _item_Namehyouji + "を使いますか？";
         //card_view.ShopSelectCard_DrawView(1, magicskilllistController.skill_kettei_item1);
 
         Debug.Log(count + "番が押されたよ");
         Debug.Log("アイテム:" + _item_Namehyouji + "が選択されました。");
 
-        compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
+        //①
+        UseKetteiMagicMethod(); //すぐに魔法の次処理画面へ
+
+        //②
+        //以下処理は、使いますかで最終確認する場合の処理　確認したい場合は、チェックを外す
+        /*
+         * compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
 
         //Debug.Log("これでいいですか？");
 
@@ -229,9 +235,9 @@ public class magicskillSelectToggle : MonoBehaviour
         yes_no_panel.SetActive(true);
 
         //魔法のエフェクトを表示する
-        SkillUseLibrary(0);
+        //SkillUseLibrary(0);
 
-        magicskilllistController.skill_final_select_flag = true; //確認のフラグ
+        magicskilllistController.skill_final_select_flag = true; //確認のフラグ*/
 
     }
 
@@ -255,33 +261,7 @@ public class magicskillSelectToggle : MonoBehaviour
 
             case true: //決定が押された。
 
-
-                for (i = 0; i < magicskilllistController._skill_listitem.Count; i++)
-                {
-                    magicskilllistController._skill_listitem[i].GetComponent<Toggle>().interactable = true;
-                    magicskilllistController._skill_listitem[i].GetComponent<Toggle>().isOn = false;
-                }
-                for (i = 0; i < category_toggle.Count; i++)
-                {
-                    category_toggle[i].GetComponent<Toggle>().interactable = true;
-                }
-
-                card_view.DeleteCard_DrawView();
-
-                yes_no_panel.SetActive(false);
-                //back_ShopFirst_btn.interactable = true;
-
-                itemselect_cancel.kettei_on_waiting = false;
-
-                //スキルに応じて、次の処理を決める。
-                //スキルネームが「Freezing_Cookie」なら、それに応じた処理などにケースを分ける。
-                GameMgr.UseMagicSkill = magicskilllistController.skill_Name;
-                GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
-                GameMgr.UseMagicSkill_ID = magicskilllistController.skill_kettei_ID;
-
-                _skillname = GameMgr.UseMagicSkill;
-                SkillUseLibrary(1);                              
-
+                UseKetteiMagicMethod();                                 
                 break;
 
             case false:
@@ -306,6 +286,36 @@ public class magicskillSelectToggle : MonoBehaviour
         }
 
     }
+
+    void UseKetteiMagicMethod()
+    {
+        for (i = 0; i < magicskilllistController._skill_listitem.Count; i++)
+        {
+            magicskilllistController._skill_listitem[i].GetComponent<Toggle>().interactable = true;
+            magicskilllistController._skill_listitem[i].GetComponent<Toggle>().isOn = false;
+        }
+        for (i = 0; i < category_toggle.Count; i++)
+        {
+            category_toggle[i].GetComponent<Toggle>().interactable = true;
+        }
+
+        card_view.DeleteCard_DrawView();
+
+        yes_no_panel.SetActive(false);
+        //back_ShopFirst_btn.interactable = true;
+
+        itemselect_cancel.kettei_on_waiting = false;
+
+        //スキルに応じて、次の処理を決める。
+        //スキルネームが「Freezing_Cookie」なら、それに応じた処理などにケースを分ける。
+        GameMgr.UseMagicSkill = magicskilllistController.skill_Name;
+        GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
+        GameMgr.UseMagicSkill_ID = magicskilllistController.skill_kettei_ID;
+
+        _skillname = GameMgr.UseMagicSkill;
+        SkillUseLibrary(1);
+    }
+
 
     void Skill_Check()
     {

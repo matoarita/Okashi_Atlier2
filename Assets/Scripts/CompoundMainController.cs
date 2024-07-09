@@ -99,7 +99,6 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject player_mp_panel;
 
     private GameObject MagicLearnPanel;
-    private GameObject player_patissierjob_panel;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -222,8 +221,6 @@ public class CompoundMainController : MonoBehaviour {
 
         MagicLearnPanel = compoBG_A.transform.Find("MagicLearnPanel").gameObject;
         MagicLearnPanel.SetActive(false);
-        player_patissierjob_panel = MagicLearnPanel.transform.Find("PlayerJobPanel").gameObject;
-        player_patissierjob_panel.SetActive(true);
 
         //windowテキストエリアの取得
         text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
@@ -773,8 +770,6 @@ public class CompoundMainController : MonoBehaviour {
                     magicskilllistController.OnDefaultText(1);
 
                     MagicLearnPanel.SetActive(true);
-                    player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
-                    player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
 
                     break;
             }
