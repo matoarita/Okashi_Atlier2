@@ -575,7 +575,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<string> PrizeItemList = new List<string>(); //コンテストの優勝のアイテムリスト
     public static List<string> PrizeCharacterList = new List<string>(); //コンテストの参加者リスト
     public static List<int> PrizeGetMoneyList = new List<int>(); //コンテストの優勝の賞金リスト
-    public static int PrizeGetninkiparam; //コンテストの順位で獲得する人気度
+    public static int PrizeGetninkiparam_before; //コンテストの順位で獲得する人気度 補正前
+    public static int Contest_PrizeGetninkiparam; //コンテストの順位で獲得する人気度 最終値
     public static int SceneSelectNum; //シーンの移動先を指定する番号　番号をもとに、移動先シーンのStartでその場所名を決定する
     public static bool Getmat_return_home; //採取地から家に帰ってきたフラグ
     public static int Select_place_num; //採取のDBリスト番号

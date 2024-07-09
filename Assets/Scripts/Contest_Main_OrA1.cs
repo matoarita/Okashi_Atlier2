@@ -194,7 +194,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         yes_no_giveup_panel = canvas.transform.Find("StageClear_Yes_no_Panel/Panel2").gameObject;
 
         contestPrizePanel = canvas.transform.Find("ContestPrizePanel").gameObject;
+        contestPrizePanel.GetComponent<CanvasGroup>().alpha = 0;
         contestPrizePanel.SetActive(false);
+        
         Contest_PrizeGetScene = false;
 
         //黒半透明パネルの取得
@@ -580,9 +582,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.5f); //少し待つ
 
+        contestPrizePanel.GetComponent<CanvasGroup>().alpha = 0;
         contestPrizePanel.SetActive(true);
         
-        contestPrizePanel.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
+        //contestPrizePanel.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
         contestPrizePanel.GetComponent<CanvasGroup>().DOFade(1, 1.0f).OnComplete(OnPrizePanelactive);
     }
 

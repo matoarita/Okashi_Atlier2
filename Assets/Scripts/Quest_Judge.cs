@@ -694,7 +694,7 @@ public class Quest_Judge : MonoBehaviour {
         }
 
         _getMoney = _buy_price * _kosu_default;
-        _getNinki = 1;
+        _getNinki = 0; //納品のみのクエストは、人気度は上がらない
 
         //足りてるので、納品完了の処理
         _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + GameMgr.MoneyCurrency + " を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
@@ -1362,7 +1362,7 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.2f);
                     debug_money_text = "(基準値 * 0.2f)";
-                    _getNinki = -5;
+                    _getNinki = 0;
                     _kanso = "う～ん..。お客さん不満だったみたい。" + "\n" + "次からは気をつけてね。報酬額が少し減った！";
                     
                 }
@@ -1370,84 +1370,84 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.4f);
                     debug_money_text = "(基準値 * 0.4f)";
-                    _getNinki = -1;
+                    _getNinki = 0;
                     _kanso = "ありがとう。　..少しお客さん不満だったみたい。" + "\n" + "次はもっと期待してるわね！";
                 }
                 else if (okashi_totalscore >= 45 && okashi_totalscore < GameMgr.low_score) //45~60
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 0.8f);
                     debug_money_text = "(基準値 * 0.8f)";
-                    _getNinki = 1;
+                    _getNinki = 0;
                     _kanso = "ありがとう！　お客さん喜んでたわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 80) //60~80
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.1f);
                     debug_money_text = "(基準値 * 1.1f)";
-                    _getNinki = 2;
+                    _getNinki = 1;
                     _kanso = "ありがとう！　お客さん、気に入ってたみたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 80 && okashi_totalscore < GameMgr.high_score) //80~100
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.35f);
                     debug_money_text = "(基準値 * 1.35)";
-                    _getNinki = 2;
+                    _getNinki = 1;
                     _kanso = "ありがとう！お客さん、大喜びだったわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";                    
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 120) //100~120
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.5f);
                     debug_money_text = "(基準値 * 1.5f)";
-                    _getNinki = 3;
+                    _getNinki = 1;
                     _kanso = "ありがとう！とても良い出来みたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 120 && okashi_totalscore < 150) //100~120
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.75f);
                     debug_money_text = "(基準値 * 1.75f)";
-                    _getNinki = 3;
+                    _getNinki = 1;
                     _kanso = "グレイトだわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 200) //120~150
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 2.0f);
                     debug_money_text = "(基準値 * 2.0f)";
-                    _getNinki = 5;
+                    _getNinki = 1;
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 200 && okashi_totalscore < 250) //200~
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / 150) * 2.3f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 150) * 2.3f)";
-                    _getNinki = 6;
+                    _getNinki = 2;
                     _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 250 && okashi_totalscore < 300) //250~ ファンファーレ
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / 100) * 1.5f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 1.5f)";
-                    _getNinki = 6;
+                    _getNinki = 2;
                     _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / 100) * 2.5f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 2.5f)";
-                    _getNinki = 10;
+                    _getNinki = 2;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / 100) * 3.0f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 3.0f)";
-                    _getNinki = 15;
+                    _getNinki = 3;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 1000) //1000~
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / 100) * 5.0f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 5.0f)";
-                    _getNinki = 15;
+                    _getNinki = 3;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
 
@@ -1608,8 +1608,8 @@ public class Quest_Judge : MonoBehaviour {
         //ハートも少しプラス
         PlayerStatus.girl1_Love_exp += _getHeart;
 
-        //名声をプラスかマイナス。0は変化なし 仕様変更で、人気度＝優勝回数になったので、クエストでは触らない
-        //ninkiStatus_Controller.GetNinki(_getNinki);           
+        //名声をプラスかマイナス。0は変化なし
+        ninkiStatus_Controller.GetNinki(_getNinki);           
 
         ResetQuestStatus();
     }

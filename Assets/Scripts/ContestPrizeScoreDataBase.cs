@@ -250,7 +250,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 break;
         }
 
-        GameMgr.PrizeGetninkiparam = conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].GetPatissierPoint;
+        GameMgr.PrizeGetninkiparam_before = conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].GetPatissierPoint;
         GameMgr.contest_boss_name = GameMgr.PrizeCharacterList[GameMgr.PrizeCharacterList.Count - 1];
     }
 
@@ -269,7 +269,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                     GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
                     moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                     GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                    //_getninki = 1;
+                    _getninki = 0;
+                    GameMgr.Contest_PrizeGetninkiparam = _getninki;
                     //ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得 最低でも1は入る
                     Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
                     break;
@@ -285,7 +286,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                         GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
                         moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                         GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                        _getninki = (int)(GameMgr.PrizeGetninkiparam * PrizeNinkiRankList[i]);
+                        _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                        GameMgr.Contest_PrizeGetninkiparam = _getninki;
                         ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
                         Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
                         break;
@@ -299,7 +301,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                         GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
                         moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                         GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                        _getninki = (int)(GameMgr.PrizeGetninkiparam * PrizeNinkiRankList[i]);
+                        _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                        GameMgr.Contest_PrizeGetninkiparam = _getninki;
                         ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得　
                         //ninkiStatus_Controller.GetNinki(1); 優勝時のみ、優勝回数として人気＋１
                         Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki); 

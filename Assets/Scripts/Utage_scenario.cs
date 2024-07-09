@@ -4697,6 +4697,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_totalPrize_score", GameMgr.contest_PrizeScore); //総合点
         engine.Param.TrySetParameter("contest_PrizeGetItemName", GameMgr.Contest_PrizeGet_ItemName); //獲得した賞品名
         engine.Param.TrySetParameter("contest_PrizeGetMoney", GameMgr.Contest_PrizeGet_Money);
+        engine.Param.TrySetParameter("contest_PrizeGetNinki", GameMgr.Contest_PrizeGetninkiparam);
         engine.Param.TrySetParameter("contest_ranking_count", GameMgr.contest_Rank_Count); //ランキング形式のとき順位。トーナメントでは使わない。
 
         //「宴」のシナリオを呼び出す
