@@ -275,9 +275,17 @@ public class ContestListSelectToggle : MonoBehaviour
                     _cost_text = conteststartList_database.conteststart_lists[_list].Contest_Cost.ToString() + GameMgr.MoneyCurrency;
                 }
 
-                _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
+                if (!GameMgr.System_Contest_StartNow)
+                {
+                    _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
+                    + "本当に出場しますか？";
+                }
+                else
+                {
+                    _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
                     + "コンテストはすぐに開始されます。" + "\n"
                     + "本当に出場しますか？";
+                }
 
                 //ほんとに出場するかを最終確認
                 StartCoroutine("Contestlist_FinalCheck");
@@ -371,7 +379,10 @@ public class ContestListSelectToggle : MonoBehaviour
                     contestList_ScrollView_obj.SetActive(false);
 
                     //受付した時点で、宴のイベントが開始し、すぐに次の日の朝10時になりコンテスト開始
-                    //_text.text = "ありがとうございます！"; //"コンテスト開催日の、朝10時までにきてくださいね！"
+                    if (!GameMgr.System_Contest_StartNow)
+                    {
+                        _text.text = "ありがとうございます！" + "\n" + "コンテスト開催日の、朝10時までにきてくださいね！"; //
+                    }
                     GameMgr.Contest_ReadyToStart2 = true;
 
                     //FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime); //デバッグ用
@@ -462,6 +473,8 @@ public class ContestListSelectToggle : MonoBehaviour
                 //Debug.Log("ok");
                 //解除
 
+                sc.PlaySe(6);
+
                 _text.text = "キャンセルしました！";
                 yes_no_panel.SetActive(false);
                 back_ShopFirst_btn.interactable = true;
@@ -469,7 +482,7 @@ public class ContestListSelectToggle : MonoBehaviour
                 _list = conteststartList_database.SearchContestID(_id);
                 conteststartList_database.conteststart_lists[_list].Contest_Accepted = 0; //受付キャンセルのフラグ
 
-                //新しく受け付けたコンテストは、リストに追加していく。締め切り日付も保存する。
+                //
                 for (i = 0; i < GameMgr.contest_accepted_list.Count; i++)
                 {
                     if (GameMgr.contest_accepted_list[i].contestName == conteststartList_database.conteststart_lists[_list].ContestName)

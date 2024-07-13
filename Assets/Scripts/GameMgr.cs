@@ -43,11 +43,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
     public static bool System_Shiokuri_ON = false; //仕送りの有無
     public static bool System_Yachin_ON = false; //家賃システムの有無
+    public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
 
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
+
+    //各ハートレベルのブロック
+    public static int System_HeartBlockLv_01 = 4;
 
     //** --ここまで-- **//
 

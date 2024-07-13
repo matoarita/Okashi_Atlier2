@@ -86,22 +86,28 @@ public class Contest_DetailedPanel : MonoBehaviour {
             contest_cost.text = conteststartList_database.conteststart_lists[_list].Contest_Cost.ToString() + GameMgr.MoneyCurrency;
         }
 
-        //月のところが0だった場合、今の日付から〇日後を開催日として計算
-        /*if(conteststartList_database.conteststart_lists[_list].Contest_PMonth == 0)
+        if (!GameMgr.System_Contest_StartNow)
         {
-            time_controller.AfterTimeLimit_Keisan(conteststartList_database.conteststart_lists[_list].Contest_Pday);
-            contest_day.text = GameMgr.Contest_OrganizeMonth + "月 " + GameMgr.Contest_OrganizeDay + "日";
+            //月のところが0だった場合、今の日付から〇日後を開催日として計算
+            if(conteststartList_database.conteststart_lists[_list].Contest_PMonth == 0)
+            {
+                time_controller.AfterTimeLimit_Keisan(conteststartList_database.conteststart_lists[_list].Contest_Pday);
+                contest_day.text = GameMgr.Contest_OrganizeMonth + "月 " + GameMgr.Contest_OrganizeDay + "日";
+            }
+            else
+            {
+                contest_day.text = conteststartList_database.conteststart_lists[_list].Contest_PMonth + "月 " + 
+                    conteststartList_database.conteststart_lists[_list].Contest_Pday + "日";
+            }
         }
         else
         {
-            contest_day.text = conteststartList_database.conteststart_lists[_list].Contest_PMonth + "月 " + 
-                conteststartList_database.conteststart_lists[_list].Contest_Pday + "日";
-        }*/
-        //開催期間で現在は表示
-        contest_day.text = conteststartList_database.conteststart_lists[_list].Contest_PMonth + "/" +
+            //受付後、即開始する場合　開催期間で表示
+            contest_day.text = conteststartList_database.conteststart_lists[_list].Contest_PMonth + "/" +
                 conteststartList_database.conteststart_lists[_list].Contest_Pday + "～" +
                 conteststartList_database.conteststart_lists[_list].Contest_EndMonth + "/" +
                 conteststartList_database.conteststart_lists[_list].Contest_Endday;
+        }
 
 
 

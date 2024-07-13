@@ -52,6 +52,8 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
 
+    private int counter;
+
     public List<ItemMatPlace> matplace_lists = new List<ItemMatPlace>(); //
     public List<ItemMatPlace> matplace_hikariget_lists = new List<ItemMatPlace>(); //
 
@@ -195,5 +197,36 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
             }
             i++;
         }
+    }
+
+    //マップのエリアタイプをいれると、そのエリアのマップの解禁数を返す
+    public int MapType_SearchAllFlagCount(int map_id, int map_category)
+    {
+        i = 0;
+        counter = 0;
+
+        while (i < matplace_lists.Count)
+        {
+            if(matplace_lists[i].matplaceID >= map_id)
+            {
+                if (matplace_lists[i].placeCategory == map_category)
+                {
+                    if(matplace_lists[i].placeFlag == 1)
+                    {
+                        counter++;
+                    }
+                    
+                }
+
+                if (matplace_lists[i].read_end == 1)
+                {
+                    break;
+                }
+            }
+                       
+            i++;
+        }
+
+        return counter;
     }
 }

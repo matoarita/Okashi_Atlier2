@@ -490,6 +490,8 @@ public class Bar_Main_Controller : MonoBehaviour {
 
     void EventCheck_OrA1()
     {
+        matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+
         if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
         {
             GameMgr.Or_ShopEvent_stage[100] = true;
@@ -503,7 +505,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+            
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.CompoundEvent_num = 5;
@@ -513,6 +515,8 @@ public class Bar_Main_Controller : MonoBehaviour {
 
     void EventCheck_OrB1()
     {
+        matplace_database.matPlaceKaikin("Or_Bar_B1"); //酒場解禁
+
         if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
         {
             GameMgr.Or_ShopEvent_stage[100] = true;
@@ -526,7 +530,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+            
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.CompoundEvent_num = 5;
@@ -536,6 +540,8 @@ public class Bar_Main_Controller : MonoBehaviour {
 
     void EventCheck_OrC1()
     {
+        matplace_database.matPlaceKaikin("Or_Bar_C1"); //酒場解禁
+
         if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
         {
             GameMgr.Or_ShopEvent_stage[100] = true;
@@ -549,7 +555,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+            
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.CompoundEvent_num = 5;
@@ -559,6 +565,8 @@ public class Bar_Main_Controller : MonoBehaviour {
 
     void EventCheck_OrD1()
     {
+        matplace_database.matPlaceKaikin("Or_Bar_D1"); //酒場解禁
+
         if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
         {
             GameMgr.Or_ShopEvent_stage[100] = true;
@@ -572,7 +580,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+            
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.CompoundEvent_num = 5;

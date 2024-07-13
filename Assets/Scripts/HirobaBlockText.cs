@@ -56,10 +56,10 @@ public class HirobaBlockText : MonoBehaviour {
                 if(this.gameObject.name == "NPC4_SelectToggle")
                 {
                     //ハートレベルで通れない箇所のチェック
-                    if (PlayerStatus.girl1_Love_lv < 5)
+                    if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_01)
                     {
                         BlockText_obj.SetActive(true);
-                        BlockText.text = "ハートLVが" + "\n" + "5" + "必要";
+                        BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_01.ToString() + "必要";
                     }
                     else
                     {

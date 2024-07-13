@@ -814,6 +814,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
         //コンテストごとに、判定を変える　また、判定はGirlEat_Judgeでも特殊点を判定        
         Debug.Log("コンテスト名前と番号とラウンド数: " + GameMgr.Contest_Name + " " + GameMgr.ContestSelectNum + " " + GameMgr.ContestRoundNum + "回戦");
+        Debug.Log("GameMgr.Contest_DB_list_Type: " + GameMgr.Contest_DB_list_Type);
 
     }
 

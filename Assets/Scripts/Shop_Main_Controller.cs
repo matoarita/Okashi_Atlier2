@@ -582,6 +582,8 @@ public class Shop_Main_Controller : MonoBehaviour {
 
     void EventCheck_OrA1()
     {
+        matplace_database.matPlaceKaikin("Or_Shop_A1"); //ショップ解禁
+
         if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
         {
             GameMgr.Or_ShopEvent_stage[0] = true;
@@ -598,9 +600,7 @@ public class Shop_Main_Controller : MonoBehaviour {
             check_event = true;
 
             StartCoroutine("Scenario_loading");
-
-            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
-
+            
         }
 
         if (check_event)
@@ -613,6 +613,8 @@ public class Shop_Main_Controller : MonoBehaviour {
 
     void EventCheck_OrB1()
     {
+        matplace_database.matPlaceKaikin("Or_Shop_B1"); //ショップ解禁
+
         if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
         {
             GameMgr.Or_ShopEvent_stage[0] = true;
@@ -630,12 +632,14 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+            
         }
     }
 
     void EventCheck_OrC1()
     {
+        matplace_database.matPlaceKaikin("Or_Shop_C1"); //ショップ解禁
+
         if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
         {
             GameMgr.Or_ShopEvent_stage[0] = true;
@@ -653,12 +657,14 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+            
         }
     }
 
     void EventCheck_OrD1()
     {
+        matplace_database.matPlaceKaikin("Or_Shop_D1"); //ショップ解禁
+
         if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
         {
             GameMgr.Or_ShopEvent_stage[0] = true;
@@ -676,7 +682,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+            
         }
     }
 

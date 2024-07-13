@@ -388,7 +388,16 @@ public class Contest_Main_Reception : MonoBehaviour
                 //intパラメーターの値を設定する.
                 maincam_animator.SetInteger("trans", trans);
             }
-            On_ActiveContestStart2();
+
+            if (GameMgr.System_Contest_StartNow)
+            {
+                On_ActiveContestStart2();
+            }
+            else
+            {
+                GameMgr.Scene_Status = 0;
+            }
+                                
         }
         
 
@@ -571,7 +580,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
             check_event = true;
 
-            matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+            matplace_database.matPlaceKaikin("Or_Contest_B1"); //解禁
 
             EventReadingStart();
         }
@@ -606,7 +615,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
             check_event = true;
 
-            matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+            matplace_database.matPlaceKaikin("Or_Contest_C1"); //解禁
 
             EventReadingStart();
         }
@@ -641,7 +650,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
             check_event = true;
 
-            matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+            matplace_database.matPlaceKaikin("Or_Contest_D1"); //解禁
 
             EventReadingStart();
         }
@@ -719,7 +728,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void ContestTimeOverAfter()
     {
-        _text.text = "コンテスト失格になってしまった。" + "\n" + "名声が下がった・・。";
+        _text.text = "コンテスト失格になってしまった。" + "\n" + "人気が下がった・・。";
     }
 
     //MainListController2から読み出し

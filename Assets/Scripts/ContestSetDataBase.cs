@@ -182,6 +182,6 @@ public class ContestSetDataBase : SingletonMonoBehaviour<ContestSetDataBase>
             _non_tp_score, _setkansou, _comment_flag, _search_endflag));
 
         //Debug.Log("GirlLike_tp01: " + girllikeset[count].girlLike_topping[0]);
-        //Debug.Log("id: " + _compnum + " _sp_score1: " + _sp_score1);
+        //Debug.Log("id: " + _compnum + " girlLike_compNum: " + _compnum);
     }
 }

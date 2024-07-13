@@ -126,6 +126,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject Fadeout_Black_obj;
 
+    private bool StartRead = false;
+
     // Use this for initialization
     void Start()
     {
@@ -207,12 +209,22 @@ public class GetMatPlace_Panel : MonoBehaviour {
         MapSelect_BGpanel = getmatplace_panel.transform.Find("MapSelectBGPanel").gameObject;
         MapSelect_Imagepanel_obj.Clear();
 
-        category_toggleList_obj = this.transform.Find("Comp/GetMatPlace_View/CategoryView").gameObject;
-        category_toggle.Clear();
-        foreach (Transform child in this.transform.Find("Comp/GetMatPlace_View/CategoryView/Viewport/Content/").transform)
+        //今解放済みの魔法のみ、カテゴリーViewも表示
+        if (!StartRead)
         {
-            //Debug.Log(child.name);           
-            category_toggle.Add(child.gameObject);
+            i = 0;
+            category_toggleList_obj = this.transform.Find("Comp/GetMatPlace_View/CategoryView").gameObject;
+            category_toggle.Clear();
+
+            foreach (Transform child in this.transform.Find("Comp/GetMatPlace_View/CategoryView/Viewport/Content/").transform)
+            {
+                //Debug.Log(child.name);           
+                category_toggle.Add(child.gameObject);
+                category_toggle[i].SetActive(false);
+                i++;
+            }
+
+            ViewFlagCheck();
         }
 
         content = getmatplace_view.transform.Find("Viewport/Content").gameObject;
@@ -248,9 +260,57 @@ public class GetMatPlace_Panel : MonoBehaviour {
         next_on = false;
         subevent_on = false;
 
+           
+
     }
 
-    
+    void ViewFlagCheck()
+    {
+        switch (GameMgr.Scene_Name)
+        {
+
+            case "Or_Compound":
+
+                //春エリア
+                if (matplace_database.MapType_SearchAllFlagCount(100, 10) >= 1) //
+                {
+                    OnCateViewName("Cate_01");
+                }
+
+                //夏エリア
+                if (matplace_database.MapType_SearchAllFlagCount(100, 20) >= 1) //
+                {
+                    OnCateViewName("Cate_02");
+                }
+
+                //秋エリア
+                if (matplace_database.MapType_SearchAllFlagCount(100, 30) >= 1) //
+                {
+                    OnCateViewName("Cate_03");
+                }
+
+                //冬エリア
+                if (matplace_database.MapType_SearchAllFlagCount(100, 40) >= 1) //
+                {
+                    OnCateViewName("Cate_04");
+                }
+                break;
+        }
+
+        StartRead = true;
+    }
+
+    void OnCateViewName(string _name)
+    {
+        for (i = 0; i < category_toggle.Count; i++)
+        {
+            if (category_toggle[i].name == _name)
+            {
+                category_toggle[i].SetActive(true);
+            }
+        }
+    }
+
 
     // リストビューの描画部分。重要。
     void MapIcon_reset_and_DrawView(int _cate_status)
@@ -305,6 +365,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
                     }
                     category_toggleList_obj.SetActive(true);
+                    
 
                     break;
 

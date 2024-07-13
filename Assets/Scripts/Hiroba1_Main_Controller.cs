@@ -1119,7 +1119,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Spring_Shoping_Moll": //ハートレベルがいくつか必要
 
-                    if(PlayerStatus.girl1_Love_lv < 5)
+                    if(PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_01)
                     {
                         On_Active2000(); //まだ通れない
                     }
