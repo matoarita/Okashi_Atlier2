@@ -632,6 +632,7 @@ public class Contest_Main_Outside : MonoBehaviour
     {
         //入店の音
         sc.PlaySe(150);
+        GameMgr.ShopEnter_ButtonON = true;
 
         //
         GameMgr.SceneSelectNum = gotonum;

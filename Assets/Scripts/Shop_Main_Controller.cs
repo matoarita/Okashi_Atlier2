@@ -208,8 +208,12 @@ public class Shop_Main_Controller : MonoBehaviour {
         }
 
         //入店の音
-        sc.PlaySe(51);
+        if (!GameMgr.ShopEnter_ButtonON) //重複防止 trueのときは音ならさない
+        {
+            sc.PlaySe(51);
 
+        }
+        GameMgr.ShopEnter_ButtonON = false;       
         
 
         StartRead = false;

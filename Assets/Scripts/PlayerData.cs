@@ -150,6 +150,9 @@ public class PlayerData
     public bool[] save_NPCHiroba_eventList = new bool[GameMgr.NPCHiroba_eventList.Length]; //オランジーナ関連広場イベント
     public bool[] save_NPCMagic_eventList = new bool[GameMgr.NPCMagic_eventList.Length]; //オランジーナ関連広場イベント
 
+    //宝箱イベント
+    public int[] save_Treature_getList = new int[GameMgr.Treature_getList.Length];
+
     //お菓子クエストフラグ
     public bool[] save_OkashiQuest_flag_stage1 = new bool[GameMgr.OkashiQuest_flag_stage1.Length]; //各SPイベントのクリアしたかどうかのフラグ。
     public bool[] save_OkashiQuest_flag_stage2 = new bool[GameMgr.OkashiQuest_flag_stage2.Length];

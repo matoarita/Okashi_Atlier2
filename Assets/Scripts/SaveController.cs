@@ -419,6 +419,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_NPCHiroba_eventList = GameMgr.NPCHiroba_eventList,
             save_NPCMagic_eventList = GameMgr.NPCMagic_eventList,
 
+            //宝箱イベント
+            save_Treature_getList = GameMgr.Treature_getList,
 
             //ショップのイベントリスト
             save_ShopEvent_stage = GameMgr.ShopEvent_stage,
@@ -779,6 +781,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.NPCHiroba_HikarieventList = playerData.save_NPCHiroba_HikarieventList;
         GameMgr.NPCHiroba_eventList = playerData.save_NPCHiroba_eventList;
         GameMgr.NPCMagic_eventList = playerData.save_NPCMagic_eventList;
+
+        //宝箱イベント
+        GameMgr.Treature_getList = playerData.save_Treature_getList;
 
         //ショップのイベントリスト
         GameMgr.ShopEvent_stage = playerData.save_ShopEvent_stage;

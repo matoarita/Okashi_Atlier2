@@ -1498,6 +1498,9 @@ public class Compound_Main : MonoBehaviour
                 //時間のチェック。
                 time_controller.TimeKoushin(0); //時間の更新
 
+                //クエストの締め切りチェック（ビックリマークの表示）
+                mainUI_panel_obj.transform.Find("QuestKakuninButtonPanel").GetComponent<QuestKakuninButtonPanel>().Check_LimitMarkDraw();
+
                 //お天気チェック
                 Weather_Change(5.0f);
 

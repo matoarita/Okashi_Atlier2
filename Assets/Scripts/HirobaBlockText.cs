@@ -67,6 +67,71 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                 }
                 break;
+
+            case "MainList_ScrollView_51":
+
+                if (this.gameObject.name == "NPC5_SelectToggle") //冬エリア入口
+                {
+                    //ハートレベルで通れない箇所のチェック
+                    if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_03)
+                    {
+                        BlockText_obj.SetActive(true);
+                        BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_03.ToString() + "必要";
+                    }
+                    else
+                    {
+                        BlockText_obj.SetActive(false);
+                    }
+                }
+                break;
+
+            case "MainList_ScrollView_52":
+
+                if (this.gameObject.name == "NPC1_SelectToggle") //秋エリア入口
+                {
+                    //ハートレベルで通れない箇所のチェック
+                    if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_02)
+                    {
+                        BlockText_obj.SetActive(true);
+                        BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_02.ToString() + "必要";
+                    }
+                    else
+                    {
+                        BlockText_obj.SetActive(false);
+                    }
+                }
+
+                if (this.gameObject.name == "NPC5_SelectToggle") //夏エリア入口
+                {
+                    //ハートレベルで通れない箇所のチェック
+                    if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_01)
+                    {
+                        BlockText_obj.SetActive(true);
+                        BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_01.ToString() + "必要";
+                    }
+                    else
+                    {
+                        BlockText_obj.SetActive(false);
+                    }
+                }
+                break;
+
+            case "MainList_ScrollView_53":
+
+                if (this.gameObject.name == "NPC6_SelectToggle") //城エリア入口
+                {
+                    //ハートレベルで通れない箇所のチェック
+                    if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_04)
+                    {
+                        BlockText_obj.SetActive(true);
+                        BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_04.ToString() + "必要";
+                    }
+                    else
+                    {
+                        BlockText_obj.SetActive(false);
+                    }
+                }
+                break;
         }
     }
 

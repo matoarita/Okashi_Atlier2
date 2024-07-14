@@ -25,6 +25,7 @@ public class Utage_scenario : MonoBehaviour
     private int mainClear_ID;
     private int touchhint_ID;
     private int itemID;
+    private int roten_flag_num;
 
     private int GirlLoveEvent_num;
 
@@ -586,6 +587,26 @@ public class Utage_scenario : MonoBehaviour
 
                 StartCoroutine(Hiroba_Event());
             }
+
+            //道端におちてる宝箱のイベント処理（マップでの宝ゲットとは別の処理）
+            if (GameMgr.hiroba_treasureget_flag)
+            {
+                GameMgr.hiroba_treasureget_flag = false;
+
+                if (GameMgr.utage_charaHyouji_flag)
+                {
+                    ShopInitSetting();
+                    CharacterSpriteSetOFF();
+                }
+
+                if (!sceneBGM)
+                {
+                    //BGMの取得
+                    sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                }
+
+                StartCoroutine(HirobaTreasure_Get());
+            }            
 
             //コンテストシーンでのイベント処理
             if (GameMgr.contest_event_flag)
@@ -3315,6 +3336,34 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
     }
 
+    //お宝ゲットイベント
+    IEnumerator HirobaTreasure_Get()
+    {
+        scenario_loading = true;
+
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        engine.Param.TrySetParameter("Hiroba_TreasureName", GameMgr.hiroba_treasureget_Name);
+        engine.Param.TrySetParameter("TreasureEvent_num", GameMgr.hiroba_treasureget_Num);
+        engine.Param.TrySetParameter("TreasureGet_Kosu", GameMgr.hiroba_treasureget_Kosu);
+        
+
+        scenarioLabel = "Or_HirobaTreasureGet";
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        scenario_loading = false;
+
+        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+    }
+
     //
     // 広場のイベント処理
     //
@@ -3323,6 +3372,8 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        roten_flag_num = 0;
 
         //場所ごとにラベルを変えている
         switch (GameMgr.hiroba_event_placeNum)
@@ -3496,6 +3547,16 @@ public class Utage_scenario : MonoBehaviour
             case 1602: //Or露店クレープ屋
 
                 scenarioLabel = "Or_NPC112_roten_crape";
+
+                if(pitemlist.KosuCountEvent("crepe_recipi") >= 1)
+                {
+                    roten_flag_num = 0;
+                }
+                else
+                {
+                    roten_flag_num = 160201; //クレープのレシピをまだもってない
+                }
+                
                 break;
 
             case 1603: //Or露店ジェラート屋
@@ -3516,6 +3577,11 @@ public class Utage_scenario : MonoBehaviour
             case 1610: //Orアマクサ
 
                 scenarioLabel = "Hiroba_Or_amakusa";
+                break;
+
+            case 1700: //Or広場エリア入口　夏
+
+                scenarioLabel = "Hiroba_Or_AreaEnter";
                 break;
 
             case 2000: //Orヒカリ広場イベント　通れないとかも含む
@@ -3543,6 +3609,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Hiroba_num", GameMgr.hiroba_event_ID);
         engine.Param.TrySetParameter("Hiroba_endflag_Num", 0); //0で初期化
         engine.Param.TrySetParameter("Player_Money", PlayerStatus.player_money);
+        engine.Param.TrySetParameter("Hiroba_rotenflag_Num", roten_flag_num); 
 
         Debug.Log("scenarioLabel: " + scenarioLabel);
         Debug.Log("GameMgr.hiroba_event_ID: " + GameMgr.hiroba_event_ID);
@@ -3897,6 +3964,15 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(1200);
+
+                        if(roten_flag_num == 160201)
+                        {
+                            if (pitemlist.KosuCountEvent("crepe_recipi") <= 0)
+                            {
+                                pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
+                            }
+                        }
+                       
                         break;
 
                 }
@@ -4466,8 +4542,16 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("contest_ranking_num", 1);
                 Debug.Log("対戦相手のスコア: " + GameMgr.contest_boss_score + " 自分のスコア: " + GameMgr.contest_TotalScore + " 勝ち");
             }
+            else if (GameMgr.contest_TotalScore == GameMgr.contest_boss_score) //対戦相手と同数
+            {
+                GameMgr.contest_boss_score = GameMgr.contest_TotalScore + 1;
+                GameMgr.Contest_winner_flag = false;
+                engine.Param.TrySetParameter("contest_ranking_num", 0);
+                Debug.Log("対戦相手のスコア: " + GameMgr.contest_boss_score + " 自分のスコア: " + GameMgr.contest_TotalScore + " 負け");
+            }
             else //負けの場合
             {
+
                 GameMgr.Contest_winner_flag = false;
                 engine.Param.TrySetParameter("contest_ranking_num", 0);
                 Debug.Log("対戦相手のスコア: " + GameMgr.contest_boss_score + " 自分のスコア: " + GameMgr.contest_TotalScore + " 負け");
@@ -4500,10 +4584,17 @@ public class Utage_scenario : MonoBehaviour
                     }
                     else //リストの一番最後
                     {
-                        if (GameMgr.contest_TotalScore >= GameMgr.PrizeScoreAreaList[i - 1])
+                        if (GameMgr.contest_TotalScore > GameMgr.PrizeScoreAreaList[i - 1])
                         {
                             _rank = GameMgr.PrizeScoreAreaList.Count + 1 - i;
                             Debug.Log("順位: " + "優勝");
+                            break;
+                        }
+                        else if (GameMgr.contest_TotalScore == GameMgr.PrizeScoreAreaList[i - 1]) //同数の場合　負け扱いで２位
+                        {
+                            GameMgr.contest_boss_score = GameMgr.contest_TotalScore + 1;
+                            _rank = GameMgr.PrizeScoreAreaList.Count + 2 - i;
+                            Debug.Log("順位: " + _rank + "位");
                             break;
                         }
                     }
@@ -4695,7 +4786,7 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Contest_num", contest_num);
         engine.Param.TrySetParameter("contest_totalPrize_score", GameMgr.contest_PrizeScore); //総合点
-        engine.Param.TrySetParameter("contest_PrizeGetItemName", GameMgr.Contest_PrizeGet_ItemName); //獲得した賞品名
+        engine.Param.TrySetParameter("contest_PrizeGetItemName", GameMgr.Contest_PrizeGet_ItemName); //獲得した賞品名 Nonの場合もある
         engine.Param.TrySetParameter("contest_PrizeGetMoney", GameMgr.Contest_PrizeGet_Money);
         engine.Param.TrySetParameter("contest_PrizeGetNinki", GameMgr.Contest_PrizeGetninkiparam);
         engine.Param.TrySetParameter("contest_ranking_count", GameMgr.contest_Rank_Count); //ランキング形式のとき順位。トーナメントでは使わない。

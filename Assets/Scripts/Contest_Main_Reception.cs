@@ -316,6 +316,13 @@ public class Contest_Main_Reception : MonoBehaviour
 
         text_scenario();
 
+        //入店の音
+        if (!GameMgr.ShopEnter_ButtonON) //重複防止
+        {
+            sc.PlaySe(150);
+        }
+        GameMgr.ShopEnter_ButtonON = false;
+
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
@@ -532,6 +539,8 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventCheck_OrA1()
     {
+        matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+
         if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
         {
             GameMgr.NPCHiroba_eventList[0] = true;
@@ -544,9 +553,7 @@ public class Contest_Main_Reception : MonoBehaviour
             //GameMgr.CompoundEvent_num = 0;
             //GameMgr.CompoundEvent_flag = true;
 
-            check_event = true;
-
-            matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+            check_event = true;           
 
             EventReadingStart();
         }
@@ -566,6 +573,8 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventCheck_OrB1()
     {
+        matplace_database.matPlaceKaikin("Or_Contest_B1"); //解禁
+
         if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
         {
             GameMgr.NPCHiroba_eventList[0] = true;
@@ -578,9 +587,7 @@ public class Contest_Main_Reception : MonoBehaviour
             //GameMgr.CompoundEvent_num = 0;
             //GameMgr.CompoundEvent_flag = true;
 
-            check_event = true;
-
-            matplace_database.matPlaceKaikin("Or_Contest_B1"); //解禁
+            check_event = true;            
 
             EventReadingStart();
         }
@@ -601,6 +608,8 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventCheck_OrC1()
     {
+        matplace_database.matPlaceKaikin("Or_Contest_C1"); //解禁
+
         if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
         {
             GameMgr.NPCHiroba_eventList[0] = true;
@@ -613,9 +622,7 @@ public class Contest_Main_Reception : MonoBehaviour
             //GameMgr.CompoundEvent_num = 0;
             //GameMgr.CompoundEvent_flag = true;
 
-            check_event = true;
-
-            matplace_database.matPlaceKaikin("Or_Contest_C1"); //解禁
+            check_event = true;            
 
             EventReadingStart();
         }
@@ -636,6 +643,8 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventCheck_OrD1()
     {
+        matplace_database.matPlaceKaikin("Or_Contest_D1"); //解禁
+
         if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
         {
             GameMgr.NPCHiroba_eventList[0] = true;
@@ -648,9 +657,7 @@ public class Contest_Main_Reception : MonoBehaviour
             //GameMgr.CompoundEvent_num = 0;
             //GameMgr.CompoundEvent_flag = true;
 
-            check_event = true;
-
-            matplace_database.matPlaceKaikin("Or_Contest_D1"); //解禁
+            check_event = true;            
 
             EventReadingStart();
         }

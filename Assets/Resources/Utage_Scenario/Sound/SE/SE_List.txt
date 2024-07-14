@@ -133,7 +133,7 @@ SE表
 ・SE_131	audiostock_1285222				魔法調合の完成音
 ・SE_132	audiostock_825112				魔法発動音２
 ・SE_133							【未使用？】魔法発動音３
-・SE_134	audiostock_718349_sample			観客ブーイング音
+・SE_134	audiostock_718349				観客ブーイング音
 ・SE_135	sei_ge_doa_kisimi05				ドアのきしむ音
 ・SE_136	sei_ge_doa_kisimi02				ドアのきしむ音２
 ・SE_137	sei_ge_doa_tuyoku_cl01				重めのドアを閉める音
@@ -150,4 +150,4 @@ SE表
 ・SE_148	audiostock_1488438_sample			魔法選択時の決定音２
 ・SE_149	audiostock_823846_sample			魔法選択時の決定音
 ・SE_150	刀で打ち合う3					カタナがぶつかるようなカキン音
-・SE_151	audiostock_813342_sample			コンテスト会場入るときのドアベル音
+・SE_151	audiostock_813342				コンテスト会場入るときのドアベル音

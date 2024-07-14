@@ -254,8 +254,17 @@ public class ContestPrizeController : MonoBehaviour
 
         //ランキング形式の場合 _rank_scoreは賞金の表示になる
         _rank_score = GameMgr.PrizeGetMoneyList[GameMgr.PrizeGetMoneyList.Count - 1 - i].ToString(); //
-        _ID = database.SearchItemIDString(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
-        _name = database.items[_ID].itemNameHyouji;
+        if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i] != "Non")
+        {
+            _ID = database.SearchItemIDString(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
+            _name = database.items[_ID].itemNameHyouji;
+
+        }
+        else
+        {
+            _name = "-";
+        }
+        
 
         Debug.Log("順位: " + _rank_name + " " + _rank_score + "Lp " + _name);
 
@@ -319,8 +328,16 @@ public class ContestPrizeController : MonoBehaviour
         {
             _rank_score = GameMgr.PrizeScoreAreaList[GameMgr.PrizeScoreAreaList.Count - 1 - i].ToString() + "点～";
         }
-        _ID = database.SearchItemIDString(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
-        _name = database.items[_ID].itemNameHyouji;
+        if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i] != "Non")
+        {
+            _ID = database.SearchItemIDString(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
+            _name = database.items[_ID].itemNameHyouji;
+
+        }
+        else
+        {
+            _name = "-";
+        }
 
         Debug.Log("順位: " + _rank_name + " " + _rank_score + "Lp " + _name);
 

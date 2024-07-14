@@ -2477,7 +2477,7 @@ public class GetMaterial : MonoBehaviour
         sequence.Join(TreasureGetitem_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
 
         //アイテムの取得処理
-        pitemlist.addPlayerItemString(itemName, 1);
+        pitemlist.addPlayerItemString(itemName, itemKosu);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
         //_itemid = pitemlist.SearchItemString(itemName);

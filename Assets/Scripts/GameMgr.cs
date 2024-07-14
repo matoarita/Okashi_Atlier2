@@ -50,8 +50,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
-    //各ハートレベルのブロック
+    //各ハートレベル・スターのブロック
     public static int System_HeartBlockLv_01 = 4;
+
+    public static int System_StarBlockLv_01 = 30;
+    public static int System_StarBlockLv_02 = 30;
+    public static int System_StarBlockLv_03 = 30;
+    public static int System_StarBlockLv_04 = 100;
 
     //** --ここまで-- **//
 
@@ -177,6 +182,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //0~ コンテストレセプション 100~白い布
 
     public static bool[] NPCMagic_eventList = new bool[NpcEvent_stage_num]; //主に2でのNPCイベントのフラグリスト
+
+    public static int[] Treature_getList = new int[OrEvent_num]; //道端に落ちてるアイテムなどの宝箱リスト
 
     //ショップのイベントリスト
     public static bool[] ShopEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -628,6 +635,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool SPquestPanelOff; //メインクエストの表示パネルをオフ　実質自由な時間の始まりを意味する
     public static bool OutEntrance_ON; //玄関から外へでるボタンをオンにする
     public static int UwasaNum_Select; //うわさ番号のDBを指定
+    public static bool ShopEnter_ButtonON; //外からボタンを押して入店するフラグ　入店時のSEの重複を防ぐ
+    public static bool hiroba_treasureget_flag; //道端の宝箱拾ったフラグ
+    public static string hiroba_treasureget_Name; //そのお宝の名前
+    public static int hiroba_treasureget_Num; //そのお宝の種類番号
+    public static int hiroba_treasureget_Kosu; //そのお宝の取得個数
 
 
     //一時フラグ　アイテムDB関連
@@ -1138,6 +1150,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         EatOkashi_DecideFlag = 1; //ランダムで食べたいお菓子決まる
         SPquestPanelOff = false;
         OutEntrance_ON = false;
+        ShopEnter_ButtonON = false;
+        hiroba_treasureget_flag = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1162,7 +1176,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             NPCHiroba_HikarieventList[system_i] = false;
         }
+
+        //道端の宝箱リストの初期化
+        for (system_i = 0; system_i < Treature_getList.Length; system_i++)
+        {
+            Treature_getList[system_i] = 0;
+        }
         
+
 
         //好感度サブイベントフラグの初期化
         for (system_i = 0; system_i < GirlLoveSubEvent_stage1.Length; system_i++)

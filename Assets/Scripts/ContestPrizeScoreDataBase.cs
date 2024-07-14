@@ -265,8 +265,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
             {
                 if (GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
                 {
-                    pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
-                    GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                    if (GameMgr.PrizeItemList[i] != "Non")
+                    {
+                        pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
+                        GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                    }
+                    else
+                    {
+                        GameMgr.Contest_PrizeGet_ItemName = "Non";
+                    }
+
                     moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                     GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
                     _getninki = 0;
@@ -282,8 +290,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 {
                     if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1] && GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
                     {
-                        pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
-                        GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                        if (GameMgr.PrizeItemList[i] != "Non")
+                        {
+                            pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
+                            GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                        }
+                        else
+                        {
+                            GameMgr.Contest_PrizeGet_ItemName = "Non";
+                        }
+
                         moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                         GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
                         _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
@@ -297,8 +313,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 {
                     if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1])
                     {
-                        pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
-                        GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                        if (GameMgr.PrizeItemList[i] != "Non")
+                        {
+                            pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
+                            GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                        }
+                        else
+                        {
+                            GameMgr.Contest_PrizeGet_ItemName = "Non";
+                        }
+
                         moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                         GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
                         _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
@@ -440,19 +464,19 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("pocket_tissue"); //5位 ↓
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("lucky_ticket");
-        GameMgr.PrizeItemList.Add("cookie_cushion");
-        GameMgr.PrizeItemList.Add("wood_rod_good");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(300);
-        GameMgr.PrizeGetMoneyList.Add(800);
-        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(700);
+        GameMgr.PrizeGetMoneyList.Add(1000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -473,11 +497,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -496,21 +520,21 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("コーラル");
+        GameMgr.PrizeCharacterList.Add("鳴海・クルセイダー");
+        GameMgr.PrizeCharacterList.Add("秋川どらら");
+        GameMgr.PrizeCharacterList.Add("春山うらら");
     }
 
     void PrizeRankingSet03()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -529,10 +553,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("ミナズキヨーコ");
+        GameMgr.PrizeCharacterList.Add("ＭＩＹＵＫＩ");
+        GameMgr.PrizeCharacterList.Add("ビデ夫人");
+        GameMgr.PrizeCharacterList.Add("冬乃ソラ");
     }
 
     //ラスクブロカント
@@ -540,11 +564,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("pocket_tissue"); //5位
+        GameMgr.PrizeItemList.Add("Non"); //5位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("pocket_tissue");
         GameMgr.PrizeItemList.Add("neko_badge2");
         GameMgr.PrizeItemList.Add("lucky_ticket");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -552,7 +576,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(300);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(2500);
+        GameMgr.PrizeGetMoneyList.Add(2000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -573,11 +597,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
+        GameMgr.PrizeItemList.Add("Non"); //5位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("pocket_tissue");
         GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("lucky_ticket");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -596,10 +620,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("青ずきん");
+        GameMgr.PrizeCharacterList.Add("セレーナ");
+        GameMgr.PrizeCharacterList.Add("アリス");
+        GameMgr.PrizeCharacterList.Add("ミント");
     }
 
     void PrizeRankingSet06()
@@ -629,10 +653,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("トリカイ");
+        GameMgr.PrizeCharacterList.Add("ジョー");
+        GameMgr.PrizeCharacterList.Add("ナベシマ");
+        GameMgr.PrizeCharacterList.Add("満太郎");
     }
 
     void PrizeRankingSet07()
@@ -662,10 +686,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("モーザルト");
+        GameMgr.PrizeCharacterList.Add("ベートウ・ヴェーン");
+        GameMgr.PrizeCharacterList.Add("ハーマウズ");
+        GameMgr.PrizeCharacterList.Add("メンデルス");
     }
 
     void PrizeRankingSet08()
@@ -695,10 +719,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("グレーテル");
+        GameMgr.PrizeCharacterList.Add("アラディーン");
+        GameMgr.PrizeCharacterList.Add("キノピーオ");
+        GameMgr.PrizeCharacterList.Add("白桃姫");
     }
 
     void PrizeRankingSet09()
@@ -728,10 +752,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("ギリガン");
+        GameMgr.PrizeCharacterList.Add("ヴィクター");
+        GameMgr.PrizeCharacterList.Add("ガリー");
+        GameMgr.PrizeCharacterList.Add("中国娘");
     }
 
     void PrizeRankingSet20()
@@ -794,10 +818,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("リリィ");
+        GameMgr.PrizeCharacterList.Add("マリア");
+        GameMgr.PrizeCharacterList.Add("ベル");
+        GameMgr.PrizeCharacterList.Add("アイリス");
     }
 
     void PrizeRankingSet22()
