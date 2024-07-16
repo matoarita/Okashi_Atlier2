@@ -793,6 +793,10 @@ public class itemSelectToggle : MonoBehaviour
                 //表示中リストの、リスト番号を保存。トグルを、isOn=falseする際に、使用する。
                 GameMgr.List_basecount = count;
 
+                //
+                //ベースアイテムの選択は、現在自動で、CompoundMainController.csのほうでやってるので、以下の処理は通っていない。
+                //
+
                 //リスト中の選択された番号を格納。
                 GameMgr.Final_toggle_baseType = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
                 GameMgr.Final_list_baseitemID = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);

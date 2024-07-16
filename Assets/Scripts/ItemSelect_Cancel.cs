@@ -860,7 +860,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
             GameMgr.Comp_kettei_bunki = 10;
 
-            _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" + "一つ目のトッピングアイテムを選択してください。";
+            _text.text = "ベースアイテム: " + database.items[GameMgr.temp_baseitemID].itemNameHyouji + "\n" + "一つ目のトッピングアイテムを選択してください。";
 
             if (GameMgr.tutorial_ON == true)
             {
@@ -918,7 +918,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             GameMgr.Comp_kettei_bunki = 11;
             GameMgr.Final_list_itemID2 = 9999;
 
-            _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" + 
+            _text.text = "ベースアイテム: " + database.items[GameMgr.temp_baseitemID].itemNameHyouji + "\n" + 
                 "一個目: " + database.items[GameMgr.Final_list_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" 
                 + "二個目を選択してください。";
         }
@@ -952,7 +952,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         GameMgr.Comp_kettei_bunki = 12;
 
-        _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" 
+        _text.text = "ベースアイテム: " + database.items[GameMgr.temp_baseitemID].itemNameHyouji + "\n" 
             + "一個目: " + database.items[GameMgr.Final_list_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" 
             + "二個目: " + database.items[GameMgr.Final_list_itemID2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" 
             + "最後に一つ追加できます。";

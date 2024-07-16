@@ -111,6 +111,8 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
     void CheckCommandFlag()
     {
+        //ヒカリが外にいってるときは、選択できない
+
         //各コマンドのON/OFF
         if (GameMgr.System_HikariMakeUse_Flag) //ヒカリお菓子作り解禁
         {
@@ -121,6 +123,19 @@ public class Compound_BGPanel_A : MonoBehaviour {
         {
             MagicButton.SetActive(true);
             LearningButton.SetActive(true);
+        }
+
+        if (GameMgr.outgirl_Nowprogress) //外出中
+        {
+            HikariMakeButton.GetComponent<Button>().interactable = false;
+            MagicButton.GetComponent<Button>().interactable = false;
+            LearningButton.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            HikariMakeButton.GetComponent<Button>().interactable = true;
+            MagicButton.GetComponent<Button>().interactable = true;
+            LearningButton.GetComponent<Button>().interactable = true;
         }
     }
 

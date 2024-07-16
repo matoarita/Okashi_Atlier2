@@ -254,51 +254,69 @@ public class Farm_Main_Controller : MonoBehaviour {
 
     void EventCheck()
     {
-        //強制的に発生するイベントをチェック。はじめてショップへきた時など
+        // 強制的に発生するイベントをチェック。はじめてショップへきた時など
         if (!check_event)
         {
-            if (!GameMgr.FarmEvent_stage[0]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
+            switch (GameMgr.Scene_Name)
             {
-                GameMgr.FarmEvent_stage[0] = true;
-                GameMgr.scenario_ON = true;
+                case "Farm_Grt":
 
-                GameMgr.farm_event_num = 0;
-                GameMgr.farm_event_flag = true;
+                    EventCheck_Grt();
+                    break;
 
-                //メイン画面にもどったときに、イベントを発生させるフラグをON
-                GameMgr.CompoundEvent_num = 10;
-                GameMgr.CompoundEvent_flag = true;
+                case "Or_Farm":
 
-                check_event = true;
-
-                //たまご・牛乳を各５個ずつもらえる。
-                pitemlist.addPlayerItemString("egg", 5);
-                pitemlist.addPlayerItemString("milk", 5);
-                pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
-
-                matplace_database.matPlaceKaikin("Or_Farm"); //牧場解禁
-            }
-
-            
-            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
-            { }
-            else
-            {
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-                    default:
-
-                        break;
-                }
-            }
-
-            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
-            { }
-            else
-            {
-
+                    EventCheck_OrA1();
+                    break;
             }
         }
+            
+    }
+
+    void EventCheck_Grt()
+    {
+
+    }
+
+    void EventCheck_OrA1()
+    {
+        matplace_database.matPlaceKaikin("Or_Farm"); //牧場解禁
+
+        if (!GameMgr.FarmEvent_stage[0]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
+        {
+            GameMgr.FarmEvent_stage[0] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.farm_event_num = 0;
+            GameMgr.farm_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 10;
+            GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            //たまご・牛乳を各５個ずつもらえる。
+            pitemlist.addPlayerItemString("egg", 5);
+            pitemlist.addPlayerItemString("milk", 5);
+            pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
+
+            StartCoroutine("Scenario_loading");
+        }
+
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                default:
+
+                    break;
+            }
+        }
+
     }
 
     public void OnCheck_1() //牧場のショップ　アイテムを買う
@@ -421,6 +439,24 @@ public class Farm_Main_Controller : MonoBehaviour {
 
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
+    }
+
+    IEnumerator Scenario_loading()
+    {
+        //Debug.Log("シナリオ開始");
+
+        while (!GameMgr.scenario_read_endflag)
+        {
+            yield return null;
+        }
+
+        //Debug.Log("シナリオ終了");
+        GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
+
+        check_event = false;
+        GameMgr.Scene_Status = 0;
+
     }
 
     public void SceneNamePlateSetting()
