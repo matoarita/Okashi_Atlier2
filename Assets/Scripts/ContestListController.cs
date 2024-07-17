@@ -223,6 +223,28 @@ public class ContestListController : MonoBehaviour
             _contest_listitem[list_count].transform.Find("AcceptedPanel").gameObject.SetActive(false);
         }
 
+        //過去の順位も表示　3位以上
+        if (conteststartList_database.conteststart_lists[i].ContestVictory <= 3)
+        {
+            switch (conteststartList_database.conteststart_lists[i].ContestVictory)
+            {
+                case 1:
+
+                    _contest_listitem[list_count].transform.Find("VictoryRank/Rank_01").gameObject.SetActive(true);
+                    break;
+
+                case 2:
+
+                    _contest_listitem[list_count].transform.Find("VictoryRank/Rank_02").gameObject.SetActive(true);
+                    break;
+
+                case 3:
+
+                    _contest_listitem[list_count].transform.Find("VictoryRank/Rank_03").gameObject.SetActive(true);
+                    break;
+            }
+        }
+
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
         ++list_count;
     }

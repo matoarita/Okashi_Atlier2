@@ -1334,7 +1334,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }*/
 
+                //
                 //家にNPCが訪問する系のイベント
+                //
+
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1365,6 +1368,12 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         //}
                     }
                 }
+
+
+
+                //
+                //寝ておきたあとにチェックする系のイベント
+                //
 
                 //
                 //コンテストの開催日になった
@@ -1416,7 +1425,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
 
                                 //寝る前の月　起きた後の月で、月が変わっていた　家賃発生
-                                moneyStatus_Controller.UseMoney(1000);
+                                moneyStatus_Controller.UseMoney(GameMgr.System_Yachin_Cost01);
 
                                 GameMgr.GirlLoveSubEvent_num = 1100;
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
@@ -1450,7 +1459,35 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 GameMgr.Utage_MapMoveON = true;
 
                                 GameMgr.Mute_on = true;
+
+                                GameMgr.Contest_afterHomeHeartUpFlag = false; //大き目イベントが発生したときは、ハートアップイベントを中止。
                             }
+                        }
+                    }
+                }
+
+
+                //コンテスト終了後、いったん寝てから発生するイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag[3]) //ねておきたあとにチェック
+                    {
+                        GameMgr.check_SleepEnd_Eventflag[3] = false;
+                        Debug.Log("コンテスト終了後　寝て起きて、ハートが上がるイベントチェック");
+
+                        if (GameMgr.Contest_afterHomeHeartUpFlag)
+                        {
+                            GameMgr.Contest_afterHomeHeartUpFlag = false;
+
+                            GameMgr.GirlLoveSubEvent_num = 1200;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            //GameMgr.Mute_on = true;
+
+                            GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                            GameMgr.SubEvAfterHeartGet_num = 200;
                         }
                     }
                 }

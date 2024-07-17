@@ -1711,6 +1711,10 @@ public class Utage_scenario : MonoBehaviour
         //今食べたいお菓子を設定
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
 
+        //家賃額設定
+        engine.Param.TrySetParameter("YachinCost", GameMgr.System_Yachin_Cost01);
+        
+
         //コンテスト時は、締め切り日も設定
         if (GameMgr.GirlLoveEvent_num == 50)
         {
@@ -3492,6 +3496,16 @@ public class Utage_scenario : MonoBehaviour
             case 1250: //OrNPCピエロ
 
                 scenarioLabel = "Or_NPC06_piero";
+                break;
+
+            case 1260: //OrNPCサボテン
+
+                scenarioLabel = "Or_NPC07_saboten";
+                break;
+
+            case 1270: //OrNPC夏のねこ
+
+                scenarioLabel = "Or_NPC08_summercat";
                 break;
 
             case 1500: //Orお花屋さん

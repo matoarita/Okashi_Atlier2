@@ -42,7 +42,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
     public static bool System_Shiokuri_ON = false; //仕送りの有無
-    public static bool System_Yachin_ON = false; //家賃システムの有無
+    public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
@@ -50,13 +50,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
+    //シーン移動の際の切り替え時間
+    public static float SceneFadeTime = 0.3f;
+
     //各ハートレベル・スターのブロック
     public static int System_HeartBlockLv_01 = 4;
 
     public static int System_StarBlockLv_01 = 30;
-    public static int System_StarBlockLv_02 = 30;
-    public static int System_StarBlockLv_03 = 30;
-    public static int System_StarBlockLv_04 = 100;
+    public static int System_StarBlockLv_02 = 60;
+    public static int System_StarBlockLv_03 = 90;
+    public static int System_StarBlockLv_04 = 130;
+
+    public static int System_Yachin_Cost01 = 1000; //家賃の額
 
     //** --ここまで-- **//
 
@@ -101,10 +106,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool AUTOSAVE_ON = false; //シーンからメインに戻ってきたときや、採取から帰ってきたときにオートセーブするかどうか
 
     //調合シーンでBGM切り替えるかどうかのフラグ
-    public static bool CompoBGMCHANGE_ON = false;
-
-    //シーン移動の際の切り替え時間
-    public static float SceneFadeTime = 0.3f;
+    public static bool CompoBGMCHANGE_ON = false;    
 
     //初期アイテム取得のフラグ
     public static bool gamestart_recipi_get;
@@ -604,6 +606,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_ReadyToStart; //宴の読みが終わってから、コンテストを開始するフラグ
     public static bool Contest_ReadyToStart2; //出場するではいを押した後、すぐにコンテスト開始するフラグ
     public static bool Contest_afterHomeEventFlag; //コンテスト終了後、家にかえって寝たあとに発生するイベント
+    public static bool Contest_afterHomeHeartUpFlag; //コンテスト終了後、寝ておきてから、順位に応じてハートが上がるイベントのフラグ
     public static bool CharacterTouch_ALLOFF; //キャラの触り判定をオフにする。
     public static bool CharacterTouch_ALLON; //キャラの触り判定をオンにする。   
     public static bool BGTouch_ALLOFF; //背景オブジェクトの触り判定をオフにする。
@@ -1131,6 +1134,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_ReadyToStart = false;
         Contest_ReadyToStart2 = false;
         Contest_afterHomeEventFlag = false;
+        Contest_afterHomeHeartUpFlag = false;
         CharacterTouch_ALLOFF = false; ; //キャラの触り判定をオフにする。
         CharacterTouch_ALLON = false;
         BGTouch_ALLOFF = false; //背景オブジェクトの触り判定をオフにする。

@@ -348,9 +348,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             //そのコンテストの順位を更新する。1位と2位は、名前の横に王冠がでる。
             if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
-            {
-
-            }
+            { }
             else
             {
                 conteststartList_database.SetContestVictroyString(GameMgr.Contest_Name, GameMgr.contest_Rank_Count);
@@ -381,7 +379,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
             //家に帰って寝る
             time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
-            GameMgr.Contest_afterHomeEventFlag = true;
+            GameMgr.Contest_afterHomeEventFlag = true;           
+            GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ
+
             FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
         }
 

@@ -305,7 +305,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                         _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
                         GameMgr.Contest_PrizeGetninkiparam = _getninki;
                         ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
-                        Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
+                        Debug.Log("ランク: " + PrizeRankList[i] + " 人気獲得: " + _getninki);
                         break;
                     }
                 }
@@ -355,7 +355,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         PrizeNinkiRankList.Add(0, 0f);
         PrizeNinkiRankList.Add(1, 0f); //
         PrizeNinkiRankList.Add(2, 0.1f); //GetPatissierPointの10分の一
-        PrizeNinkiRankList.Add(3, 0.25f); //4分の一
+        PrizeNinkiRankList.Add(3, 0.5f); //2分の一
         PrizeNinkiRankList.Add(4, 1.0f); //まるっともらえる
     }
 

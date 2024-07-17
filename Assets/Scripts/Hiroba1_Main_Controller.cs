@@ -1343,11 +1343,21 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active70();
                 break;
 
+            case "Or_Hiroba_Summer_MainStreet_Oku":
+
+                On_Active1008_SummerCat();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Enter":
+
+                On_Active1007_Saboten();
+                break;
+
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
 
                 //On_Active70();
                 On_Active1006_Piero();
-                break;
+                break;            
 
             case "Or_Hiroba_Autumn_MainStreet":
 
@@ -2669,7 +2679,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     }
 
 
-
     void On_Active1006_Piero()
     {
         //NPCピエロ　宴の処理へ
@@ -2691,6 +2700,76 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         else
         {
             if (GameMgr.NPCHiroba_eventList[200]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+
+        EventReadingStart();
+    }
+
+
+    void On_Active1007_Saboten()
+    {
+        //NPCおどるサボテン　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1260; //
+
+        if (!GameMgr.NPCHiroba_eventList[220]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[220] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[220]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+
+        EventReadingStart();
+    }
+
+
+    void On_Active1008_SummerCat()
+    {
+        //NPCおどるサボテン　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1270; //
+
+        if (!GameMgr.NPCHiroba_eventList[240]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[240] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[240]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 GameMgr.hiroba_event_ID = 10;
                 //BGMかえる

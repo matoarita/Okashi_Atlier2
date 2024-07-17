@@ -201,8 +201,8 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Hiroba_Summer_ThemePark_beachMae": //夏エリア　13番街　ビーチ
 
-                                _text = "13番街　ビーチ";
-                                _subtext = "Soda 13th Beach";
+                                _text = "13番街　オレンジビーチ前";
+                                _subtext = "Soda 13th OrangeBeach";
                                 break;
 
                             case "Or_Hiroba_Autumn_Entrance": //秋のエリア入口

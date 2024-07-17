@@ -3302,6 +3302,50 @@ public class Compound_Main : MonoBehaviour
 
                         heartget_ON = true;
                         break;
+
+                    case 200: //コンテスト終了後に、順位に応じてハートが上がるイベント
+
+                        
+
+                        if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
+                        {
+                            _textmain.text = "ヒカリは応援している！";
+                            get_heart = 10;
+                        }
+                        else
+                        {
+                            switch (GameMgr.contest_Rank_Count) //順位
+                            {
+                                case 1:
+
+                                    _textmain.text = "ヒカリは喜びのダンスを踊っている！";
+                                    get_heart = 30;
+                                    break;
+
+                                case 2:
+
+                                    _textmain.text = "ヒカリは応援している！";
+                                    get_heart = 20;
+                                    break;
+
+                                case 3:
+
+                                    _textmain.text = "ヒカリは応援している！";
+                                    get_heart = 10;
+                                    break;
+
+                                default:
+
+                                    _textmain.text = "ヒカリは応援している！";
+                                    get_heart = 1;
+                                    break;
+                            }
+                        }
+                        
+                        girl1_status.GirlExpressionKoushin(50);
+
+                        heartget_ON = true;
+                        break;
                 }
 
                 if (heartget_ON)

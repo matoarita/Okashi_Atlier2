@@ -221,6 +221,12 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
             }
             i++;
         }
+
+        //デバッグ用
+        /*for(i=0; i< conteststart_lists.Count; i++)
+        {
+            Debug.Log("コンテスト順位: " + conteststart_lists[i].ContestNameHyouji + ": " + conteststart_lists[i].ContestVictory);
+        }*/
     }
 
     //これまでのコンテストの総出場回数を返す

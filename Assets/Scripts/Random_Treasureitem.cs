@@ -38,9 +38,9 @@ public class Random_Treasureitem : MonoBehaviour {
         sc.PlaySe(1);
         this.gameObject.GetComponent<CanvasGroup>().alpha = 0;
 
-        switch (this.gameObject.name)
+        switch (this.transform.parent.gameObject.name)
         {
-            case "Random_Treasureitem001":
+            case "MainList_ScrollView_05":
 
                 GameMgr.Treature_getList[0] = 1; //1=取得したフラグ
 
@@ -53,17 +53,40 @@ public class Random_Treasureitem : MonoBehaviour {
 
                 hirobaTreasureget_Controller.EventReadingStart();
                 break;
+
+            case "MainList_ScrollView_104":
+
+                GameMgr.Treature_getList[1] = 1; //1=取得したフラグ
+
+                //青ジェム　MPが１上がる
+                GameMgr.hiroba_treasureget_Num = 0; //宝箱番号
+                GameMgr.hiroba_treasureget_Name = "プライムブルー";
+
+                GameMgr.hiroba_treasureget_Kosu = 1;
+                PlayerStatus.player_maxmp++;
+
+                hirobaTreasureget_Controller.EventReadingStart();
+                break;
         }
     }
     
 
     void TresureHyoujiOnCheck()
     {
-        switch (this.gameObject.name)
+        switch (this.transform.parent.gameObject.name)
         {
-            case "Random_Treasureitem001":
+            case "MainList_ScrollView_05":
 
                 if (GameMgr.Treature_getList[0] >= 1)
+                {
+                    this.gameObject.SetActive(false); //すでに取得済ということ
+                }
+
+                break;
+
+            case "MainList_ScrollView_104":
+
+                if (GameMgr.Treature_getList[1] >= 1)
                 {
                     this.gameObject.SetActive(false); //すでに取得済ということ
                 }
