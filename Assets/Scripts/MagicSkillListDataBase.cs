@@ -24,6 +24,8 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     private int success_rate;
     private int cost_time;
     private string skillComment_Full;
+    private string skillJouken_name1;
+    private int skillJouken_lv1;
 
     private int i;
     private int count;
@@ -74,14 +76,16 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 success_rate = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].success_rate;
                 cost_time = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].cost_time;
                 skillComment_Full = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].comment_full;
-
+                skillJouken_name1 = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_Jouken_name1;
+                skillJouken_lv1 = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_Jouken_lv1;
 
                 //ここでリストに追加している
                 if (sheet_no == 0)
                 {
                     magicskill_lists.Add(new MagicSkillList(_id, _koyuid, skillFileName, skillName, skillName_Hyouji, skillComment, 
                         skill_day, skill_cost, skill_flag, skill_lv, skill_maxlv, skill_uselv, skill_lvselect,
-                        skill_type, skill_category, success_rate, cost_time, skillComment_Full));
+                        skill_type, skill_category, success_rate, cost_time, skillComment_Full,
+                        skillJouken_name1, skillJouken_lv1));
                 }
                 ++count;
             }

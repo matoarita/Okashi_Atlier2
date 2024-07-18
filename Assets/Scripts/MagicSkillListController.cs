@@ -532,7 +532,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 0)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -558,7 +558,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 1)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -584,7 +584,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 2)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -610,7 +610,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 3)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -636,7 +636,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 4)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -662,7 +662,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 5)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -688,7 +688,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 6)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -714,7 +714,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 7)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -740,7 +740,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 8)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -766,7 +766,7 @@ public class MagicSkillListController : MonoBehaviour
                     {
                         if (magicskill_database.magicskill_lists[i].skillFlag == 1 && magicskill_database.magicskill_lists[i].skillCategory == 9)
                         {
-                            drawLearnSkill();
+                            LearnJoukenCheck();
                         }
                     }
                 }
@@ -779,6 +779,23 @@ public class MagicSkillListController : MonoBehaviour
                 break;
         }
         
+    }
+
+    void LearnJoukenCheck()
+    {
+        //Debug.Log("magicskill_database.magicskill_lists[i].skill_Jouken_name1: " + magicskill_database.magicskill_lists[i].skill_Jouken_name1);
+        if (magicskill_database.magicskill_lists[i].skill_Jouken_name1 != "Non") //前提条件がある
+        {
+            if (magicskill_database.magicskill_lists[i].skill_Jouken_lv1 <=
+                magicskill_database.skillName_SearchLearnLevel(magicskill_database.magicskill_lists[i].skill_Jouken_name1))
+            {
+                drawLearnSkill();
+            }
+        }
+        else
+        {
+            drawLearnSkill();
+        }
     }
 
 
@@ -882,7 +899,7 @@ public class MagicSkillListController : MonoBehaviour
     public void DebugJobPointMax()
     {
         PlayerStatus.player_patissier_job_pt = 99;
-        player_patissierjob_panel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/PlayerJobPanel").gameObject;
+        player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
         player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
         reset_and_DrawView(category_status);
     }

@@ -68,6 +68,8 @@ public class Entity_magicSkillListDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(15); p.success_rate = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(16); p.cost_time = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(17); p.comment_full = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(18); p.skill_Jouken_name1 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(19); p.skill_Jouken_lv1 = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

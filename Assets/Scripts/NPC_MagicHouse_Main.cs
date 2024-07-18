@@ -880,15 +880,25 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
             //魔法を使えるようになるフラグ
             GameMgr.System_MagicUse_Flag = true;
+            magicskill_database.skillHyoujiKaikin("Beautiful_Power");
             magicskill_database.skillHyoujiKaikin("Luminous_Suger");
+            magicskill_database.skillHyoujiKaikin("Luminous_Fruits");
+
             magicskill_database.skillHyoujiKaikin("Cookie_Study");
+            magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
             magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
+            magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+
+            magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
             magicskill_database.skillHyoujiKaikin("Freezing_Spell");
+
+            magicskill_database.skillHyoujiKaikin("Nappe");
+            magicskill_database.skillHyoujiKaikin("Appaleil_Study");
             magicskill_database.skillHyoujiKaikin("Wind_Ark");
 
+            magicskill_database.skillHyoujiKaikin("True_of_Myheart");
+
             PlayerStatus.player_patissier_job_pt++;
-            //magicskill_database.skillHyoujiKaikin("Luminous_Fruits");
-            //magicskill_database.skillLearnLv_Name("Luminous_Suger", 1);
 
             check_event = true;
         }

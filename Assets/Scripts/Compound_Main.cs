@@ -79,6 +79,9 @@ public class Compound_Main : MonoBehaviour
     private GameObject quest_CheckPanel_obj;
     //private GameObject GetMatStatusButton_obj;
 
+    private GameObject contest_kakuninButton_obj;
+    private GameObject contest_CheckPanel_obj;
+
     private GameObject manpuku_bar;
     private Slider manpuku_slider;
     private Text manpuku_text;
@@ -564,6 +567,11 @@ public class Compound_Main : MonoBehaviour
         quest_kakuninButton_obj = canvas.transform.Find("MainUIPanel/QuestKakuninButtonPanel").gameObject;
         quest_CheckPanel_obj = canvas.transform.Find("QuestKakuninHyoujiPanel").gameObject;
         quest_CheckPanel_obj.SetActive(false);
+
+        //コンテスト確認ボタンの取得
+        contest_kakuninButton_obj = canvas.transform.Find("MainUIPanel/ContestKakuninButtonPanel").gameObject;
+        contest_CheckPanel_obj = canvas.transform.Find("ContestKakuninHyoujiPanel").gameObject;
+        contest_CheckPanel_obj.SetActive(false);
 
         kigen_text = manpuku_bar.transform.Find("KigenText").GetComponent<Text>();
 
@@ -1929,6 +1937,10 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
+            case 140: //コンテスト確認パネル開いてる最中
+
+                break;
+
             case 200: //システム画面を開いたとき
 
                 GameMgr.compound_status = 201;
@@ -2020,6 +2032,7 @@ public class Compound_Main : MonoBehaviour
         moneystatus_panel.SetActive(false);
         //Stagepanel_obj.SetActive(false);
         quest_kakuninButton_obj.SetActive(false);
+        contest_kakuninButton_obj.SetActive(false);
 
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
@@ -2042,6 +2055,7 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj2.SetActive(false);
         moneystatus_panel.SetActive(true);
         quest_kakuninButton_obj.SetActive(true);
+        contest_kakuninButton_obj.SetActive(true);
 
         //Stagepanel_obj.SetActive(true);
 
@@ -2622,6 +2636,15 @@ public class Compound_Main : MonoBehaviour
 
         quest_CheckPanel_obj.SetActive(true);
         quest_CheckPanel_obj.transform.Find("PanelB").gameObject.SetActive(false);
+
+        StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+    }
+
+    public void OnContestGoCheck_button() //コンテストの受注確認　ボタンで押した場合
+    {
+        GameMgr.compound_status = 140;
+
+        contest_CheckPanel_obj.SetActive(true);
 
         StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
     }
@@ -3662,6 +3685,7 @@ public class Compound_Main : MonoBehaviour
         status_toggle.GetComponent<Toggle>().interactable = false;
         hinttaste_toggle.GetComponent<Toggle>().interactable = false;
         quest_kakuninButton_obj.transform.Find("QuestKakuninButton").GetComponent<Button>().interactable = false;
+        contest_kakuninButton_obj.transform.Find("ContestKakuninButton").GetComponent<Button>().interactable = false;
         mainlist_scrollview_obj.SetActive(false);
     }
 
@@ -3680,6 +3704,7 @@ public class Compound_Main : MonoBehaviour
         hinttaste_toggle.GetComponent<Toggle>().interactable = true;
         extreme_Button.interactable = true;
         quest_kakuninButton_obj.transform.Find("QuestKakuninButton").GetComponent<Button>().interactable = true;
+        contest_kakuninButton_obj.transform.Find("ContestKakuninButton").GetComponent<Button>().interactable = true;
         OuthomePanelONOFF();
     }
 

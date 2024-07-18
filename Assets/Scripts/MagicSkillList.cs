@@ -23,12 +23,15 @@ public class MagicSkillList
     public int success_rate; //スキルの成功率　だが、今のとこcompoDBで決定するので使用してない
     public int cost_time;
     public string skillComment_Full; //スキルの詳細な説明
+    public string skill_Jouken_name1; //取得に必要な前提スキル名
+    public int skill_Jouken_lv1; //それの必要レベル
 
     public Sprite skillIcon_sprite;
 
     //ここでリスト化時に渡す引数をあてがいます   
     public MagicSkillList(int id, int koyuid, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
-        int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, int skill_type, int skill_category, int successRate, int costTime, string skill_comment_full)
+        int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, int skill_type, int skill_category, int successRate, int costTime, string skill_comment_full,
+        string skill_jouken_name1, int skill_jouken_lv1)
     {
         magicskillID = id;
         magicskill_koyuID = koyuid;
@@ -47,6 +50,9 @@ public class MagicSkillList
         skillType = skill_type;
         skillCategory = skill_category;
         skillComment_Full = skill_comment_full;
+
+        skill_Jouken_name1 = skill_jouken_name1;
+        skill_Jouken_lv1 = skill_jouken_lv1;
 
         success_rate = successRate;
         cost_time = costTime;
