@@ -5,7 +5,6 @@ using UnityEngine;
 public class ContestKakuninButtonPanel : MonoBehaviour {
 
     private TimeController time_controller;
-    private QuestSetDataBase questset_database;
 
     private GameObject Limit_checkmark_obj;
     private GameObject Limit_checkmark_obj2;
@@ -28,9 +27,6 @@ public class ContestKakuninButtonPanel : MonoBehaviour {
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
-        //クエスト受注データベース取得
-        questset_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
-
         Limit_checkmark_obj = this.transform.Find("ContestKakuninButton/TimeLimitMark").gameObject;
         Limit_checkmark_obj.SetActive(false);
         Limit_checkmark_obj2 = this.transform.Find("ContestKakuninButton/TimeLimitMark2").gameObject;
@@ -51,26 +47,30 @@ public class ContestKakuninButtonPanel : MonoBehaviour {
         counter = 0;
         counter_chouka = 0;
 
+        if (GameMgr.contest_accepted_list.Count > 0)
+        {
+            //あと何日
+            /*Debug.Log("GameMgr.contest_accepted_list[0].Month: " + GameMgr.contest_accepted_list[0].Month +
+                " GameMgr.contest_accepted_list[0].Day: " + GameMgr.contest_accepted_list[0].Day);*/
+            _Limit_day = time_controller.CullenderKeisanInverse(GameMgr.contest_accepted_list[0].Month, GameMgr.contest_accepted_list[0].Day);
+            _Nokori_day = _Limit_day - PlayerStatus.player_day;
 
-        //あと何日
-        _Limit_day = time_controller.CullenderKeisanInverse(GameMgr.contest_accepted_list[0].Month, GameMgr.contest_accepted_list[0].Day);
-        _Nokori_day = _Limit_day - PlayerStatus.player_day;
-
-        if (_Nokori_day == 0)
-        {
-            //コンテスト当日　ビックリマーク表示
-            Limit_checkmark_obj.SetActive(true);
-            Limit_checkmark_obj2.SetActive(false);
-        }
-        else if (_Nokori_day > 0)
-        {
-            Limit_checkmark_obj.SetActive(false);
-            Limit_checkmark_obj2.SetActive(false);
-        }
-        else //超過している場合
-        {
-            Limit_checkmark_obj.SetActive(false);
-            Limit_checkmark_obj2.SetActive(true);
+            if (_Nokori_day == 0)
+            {
+                //コンテスト当日　ビックリマーク表示
+                Limit_checkmark_obj.SetActive(true);
+                Limit_checkmark_obj2.SetActive(false);
+            }
+            else if (_Nokori_day > 0)
+            {
+                Limit_checkmark_obj.SetActive(false);
+                Limit_checkmark_obj2.SetActive(false);
+            }
+            else //超過している場合
+            {
+                Limit_checkmark_obj.SetActive(false);
+                Limit_checkmark_obj2.SetActive(true);
+            }
         }
     }
 }

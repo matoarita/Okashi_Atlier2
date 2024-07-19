@@ -595,27 +595,34 @@ public class BGM : MonoBehaviour {
         {
             case 100: //コンテスト系
 
-                switch (GameMgr.Contest_Name)
+                if (GameMgr.Contest_Cate_Ranking == 0) //トーナメント形式　決勝戦などはBGMをここで個別に変える
                 {
-                    case "Or_Contest_001_1":
+                    switch (GameMgr.Contest_Name)
+                    {
+                        case "Or_Contest_001_1":
 
-                        _send_clip = sound38;
-                        break;
+                            _send_clip = sound38;
+                            break;
 
-                    case "Or_Contest_001_2":
+                        case "Or_Contest_001_2":
 
-                        _send_clip = sound38;
-                        break;
+                            _send_clip = sound38;
+                            break;
 
-                    case "Or_Contest_001_3":
+                        case "Or_Contest_001_3":
 
-                        _send_clip = sound38;
-                        break;
+                            _send_clip = sound38;
+                            break;
 
-                    default:
+                        default: //コンテスト名前を直接指定しなければ、Excelで指定したBGMを鳴らす
 
-                        _send_clip = sound46;
-                        break;
+                            Contest_BGMTranslate();
+                            break;
+                    }
+                }
+                else //ランキング形式
+                {
+                    Contest_BGMTranslate();                   
                 }
 
                 break;
@@ -624,6 +631,27 @@ public class BGM : MonoBehaviour {
         bgmController.BGMRestartPlay(0, _send_clip);
         bgmController.AmbientPlay(_send_clip_ambient);
         bgmController.MixRateChange(0); //bgm[0]に音を切り替える
+    }
+
+    void Contest_BGMTranslate()
+    {
+        switch (GameMgr.Contest_BGMSelect)
+        {
+            case "sound38":
+
+                _send_clip = sound38;
+                break;
+
+            case "sound46":
+
+                _send_clip = sound46;
+                break;
+
+            default:
+
+                _send_clip = sound46;
+                break;
+        }
     }
 
     void BGMMainChange()

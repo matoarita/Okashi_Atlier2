@@ -278,7 +278,8 @@ public class ContestListSelectToggle : MonoBehaviour
                 if (!GameMgr.System_Contest_StartNow)
                 {
                     _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
-                    + "本当に出場しますか？";
+                    + "本当に出場しますか？" + "\n" 
+                    + "※現在受けているコンテストは、キャンセルされます。";
                 }
                 else
                 {

@@ -3637,18 +3637,26 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //コンテスト会場イベントの場合　移動するときに、シーン暗くしておく
-        if(GameMgr.hiroba_event_placeNum == 1000)
+        if (GameMgr.hiroba_event_placeNum == 1000)
         {
-                //「宴」のシナリオ終了待ち
-                while (!engine.IsPausingScenario)
-                {
-                    yield return null;
-                }
+            //「宴」のシナリオ終了待ち
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+            stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
 
+            if (stationevent_num == 0) //やっぱりやめた
+            {
+                GameMgr.Contest_ReadyToStart = false;
+            }
+            else //コンテスト開始する
+            {
                 GameMgr.Utage_SceneEnd_BlackON = true;
+            }
 
-                //続きから再度読み込み
-                engine.ResumeScenario();
+            //続きから再度読み込み
+            engine.ResumeScenario();
         }
 
         //広場マップからマップ移動の場合　シーン暗くしておく
@@ -4538,8 +4546,11 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_comment_num", 3);
         }
 
-        //感想データベースから該当の感想を検索
-        KansouSelect();
+        if (!GameMgr.contest_Disqualification)
+        {
+            //感想データベースから該当の感想を検索
+            KansouSelect();
+        }
 
 
         //その戦いをクリアするかどうかの判定　ランキング、または対戦相手(トーナメント形式)がいるという設定        
@@ -4910,14 +4921,16 @@ public class Utage_scenario : MonoBehaviour
         judge_num = 0;
         SpecialItemFlag = false;
         CommentID = 0;
-
+        
+        //まずは特定のお菓子に反応するかをチェック
         i = 0;
         while (i < databaseContestComment.contestcomment_lists.Count)
         {
-            if (databaseContestComment.contestcomment_lists[i].CommentID >= GameMgr.Contest_DB_list_Type)
+            if (databaseContestComment.contestcomment_lists[i].CommentID >= GameMgr.Contest_commentDB_Select)
             {
                 if (databaseContestComment.contestcomment_lists[i].ItemName != "")
                 {
+                    //特定のお菓子、もしくはお菓子のタイプに反応する
                     if (databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiName ||
                     databaseContestComment.contestcomment_lists[i].ItemName == GameMgr.contest_okashiSubType)
                     {
@@ -4944,7 +4957,7 @@ public class Utage_scenario : MonoBehaviour
             i = 0;
             while (i < databaseContestComment.contestcomment_lists.Count)
             {
-                if (databaseContestComment.contestcomment_lists[i].CommentID >= GameMgr.Contest_DB_list_Type)
+                if (databaseContestComment.contestcomment_lists[i].CommentID >= GameMgr.Contest_commentDB_Select)
                 {
                     if (databaseContestComment.contestcomment_lists[i].ItemName == "Contest_Default")
                     {

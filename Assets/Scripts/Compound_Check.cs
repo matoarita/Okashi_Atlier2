@@ -110,7 +110,7 @@ public class Compound_Check : MonoBehaviour {
     private GameObject MagicSelectLv_Panel;
 
     private int i;
-    private int _rate;
+    private int _rate, _debug_beforerate;
     private int _releaseID;
     private bool newrecipi_flag;
 
@@ -1003,7 +1003,25 @@ public class Compound_Check : MonoBehaviour {
 
                         //MPを消費
                         PlayerStatus.player_mp -= costMP;
-                        //girleat_judge.UpDegHeart(-costMP, false); //ハートを消費するパターン
+                        
+                        //魔法によって、ハートや仕上げ回数も消費する。
+                        switch (GameMgr.UseMagicSkill)
+                        {
+                            case "Cookie_SecondBake":
+
+                                //仕上げ回数も減らす
+                                PlayerStatus.player_extreme_kaisu--;
+                                break;
+
+                            case "Warming_Handmade":
+
+                                girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * 30), false); //ハートを消費するパターン;
+                                                                                                  //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
+
+                                //仕上げ回数も減らす
+                                PlayerStatus.player_extreme_kaisu--;
+                                break;
+                        }
 
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
@@ -1676,6 +1694,7 @@ public class Compound_Check : MonoBehaviour {
             //レシピ達成率に応じて調合成功率あがる + 装備品による確率上昇
             _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp) + GameMgr.game_Exup_rate + _buf_kakuritsu;
         }
+        _debug_beforerate = _rate;
 
         //魔法調合の場合は、各スキルのレベルで成功率が上がる
         //パッシブによるバフ効果で確率が上がる場合は、上記のbufpower_keisan.Buf_CompKakuritsu_Keisan内で計算する
@@ -1684,7 +1703,22 @@ public class Compound_Check : MonoBehaviour {
         {
             switch(magicName)
             {
+                case "Freezing_Spell":
+
+                    _magic_rate = magicLearnLv * 3;
+                    break;
+
+                case "SugerPot":
+
+                    _magic_rate = magicLearnLv * 5;
+                    break;
+
                 case "Luminous_Suger":
+
+                    _magic_rate = magicLearnLv * 10;
+                    break;
+
+                case "Luminous_Fruits":
 
                     _magic_rate = magicLearnLv * 10;
                     break;
@@ -1693,9 +1727,14 @@ public class Compound_Check : MonoBehaviour {
             _rate += _magic_rate;
         }
 
-        Debug.Log("成功基本確率: " + databaseCompo.compoitems[_compID].success_Rate);
+        Debug.Log("成功基本確率(調合DBの値): " + databaseCompo.compoitems[_compID].success_Rate);
+        Debug.Log("手帳成功率(GameMgr.game_Exup_rate): +" + GameMgr.game_Exup_rate);
+        Debug.Log("アイテム系・魔法パッシブのバフ合計: +" + _buf_kakuritsu);
+        Debug.Log("_ex_probabilty_temp: *" + _ex_probabilty_temp);
+        Debug.Log("成功率（魔法バフ前）: " + _debug_beforerate);
+        Debug.Log("魔法使用の習得LVによる成功率バフ: +" + _magic_rate);
         Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _rate);
-        Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);
+        
         Debug.Log("制作時間目安(1分単位): " + databaseCompo.compoitems[_compID].cost_Time);
 
         if (databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない

@@ -46,7 +46,7 @@ public class Random_Treasureitem : MonoBehaviour {
 
                 //青ジェム　MPが１上がる
                 GameMgr.hiroba_treasureget_Num = 0; //宝箱番号
-                GameMgr.hiroba_treasureget_Name = "プライムブルー";
+                GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01; //クリスタルのこと
                 
                 GameMgr.hiroba_treasureget_Kosu = 1;
                 PlayerStatus.player_maxmp++;
@@ -60,7 +60,7 @@ public class Random_Treasureitem : MonoBehaviour {
 
                 //青ジェム　MPが１上がる
                 GameMgr.hiroba_treasureget_Num = 0; //宝箱番号
-                GameMgr.hiroba_treasureget_Name = "プライムブルー";
+                GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01;
 
                 GameMgr.hiroba_treasureget_Kosu = 1;
                 PlayerStatus.player_maxmp++;

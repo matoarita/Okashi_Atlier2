@@ -571,6 +571,24 @@ public class magicskillSelectToggle : MonoBehaviour
 
                 break;
 
+            case "Aroma_Potion":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("effect01_Luminous_Suger");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "お花を選んでね。";
+                        break;
+                }
+
+                break;
+
 
             case "Wind_Ark":
 
@@ -770,8 +788,43 @@ public class magicskillSelectToggle : MonoBehaviour
 
                 break;
 
+            case "Moonlight_Banana":
 
-            case "Aroma_Potion":
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいバナナを選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Weather_Light":
+
+                switch (_mstatus)
+                {
+                    case 0: //魔法選択時のエフェクトを表示
+
+                        MagicEffectOn("");
+                        break;
+
+                    case 1: //最終決定後。魔法の次の処理をかく
+
+                        GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい飲み物を選んでね。";
+                        break;
+                }
+
+                break;
+
+            case "Warming_Handmade":
 
                 switch (_mstatus)
                 {
@@ -783,7 +836,7 @@ public class magicskillSelectToggle : MonoBehaviour
                     case 1: //最終決定後。魔法の次の処理をかく
 
                         GameMgr.compound_status = 21;
-                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "お花を選んでね。";
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                         break;
                 }
 

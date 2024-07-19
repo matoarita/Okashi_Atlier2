@@ -63,6 +63,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int System_Yachin_Cost01 = 1000; //家賃の額
 
+    //重要アイテム名
+    public static string System_TreasureItem01 = "ブルークリスタル";
+
     //** --ここまで-- **//
 
 
@@ -566,7 +569,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Contest_Name; //コンテストの名前
     public static string Contest_ProblemSentence; //コンテストの課題の内容
     public static string Contest_ProblemSentence2; //コンテストの課題の内容
+    public static string Contest_HallBGName; //コンテストの会場背景の指定　stringで
+    public static string Contest_ChubouBGName; //コンテストの会場厨房背景の指定　stringで
+    public static string Contest_BGMSelect; //コンテスト制作中のBGMの指定
     public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
+    public static int Contest_commentDB_Select; //番号に応じて、コメントのDBを指定
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
     public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。 
     public static int contest_boss_score; //コンテスト　対戦相手のスコア
@@ -1112,6 +1119,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_Name = "";
         Contest_ProblemSentence = "";
         Contest_ProblemSentence2 = "";
+        Contest_HallBGName = "";
         Contest_ON = false;
         EventAfter_MoveEnd = false;
         Status_zero_readOK = false;
@@ -1156,6 +1164,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OutEntrance_ON = false;
         ShopEnter_ButtonON = false;
         hiroba_treasureget_flag = false;
+        Contest_commentDB_Select = 0;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

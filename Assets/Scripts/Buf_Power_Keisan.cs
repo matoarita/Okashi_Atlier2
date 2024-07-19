@@ -23,6 +23,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     private int i;
     private int _id;
+    private string _itemType;
     private string _itemType_sub;
     private string _itemType_subB;
 
@@ -92,6 +93,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         //アイテムによって、特定のお菓子のときのみ成功率をあげる。
         _id = database.SearchItemIDString(_result_item);
+        _itemType = database.items[_id].itemType.ToString();
         _itemType_sub = database.items[_id].itemType_sub.ToString();
 
         
@@ -114,6 +116,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 //かまどレベルによるバフ
                 KakuritsuUp_Oven();
+                break;
+
+            case "Chocolate":
+
+                KakuritsuUp_Chocolate();
                 break;
         }
 
@@ -199,6 +206,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     }
 
 
+    void KakuritsuUp_Chocolate()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 2; //LV*10
+            _buf_kakuritsuup += _magicup;
+        }
+    }
+
+
 
 
 
@@ -225,7 +244,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //食感などのパラメータのバフ これのみ、ゲームスタート前に一度読み込む可能性あるので、アイテムリストを取得
     //アイテムのサブタイプ(_itemType_sub)を指定し、中で補正をかければOK
     //
-    public int Buf_OkashiParamUp_Keisan(int _status, string _itemType_sub)
+    public int Buf_OkashiParamUp_Keisan(int _status, string _itemType, string _itemType_sub)
     {
         InitSetup();
 
@@ -278,6 +297,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Appaleil":
 
                         CreamBuf();
+                        AppaleilFluffyBuf();
                         break;
 
                     case "Crepe":
@@ -328,6 +348,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         CreamBuf();
                         break;
+
+                    case "Appaleil_Icecream":
+
+                        CreamBuf();
+                        AppaleilIcecreamBuf();
+                        break;
+
+                    case "Chocolate":
+
+                        ChocolateBuf();
+                        break;
                 }
 
                 AllShokukanBuf();
@@ -364,6 +395,27 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 return _buf_shokukanup;
 
             case 5: //見た目のバフ
+
+                switch (_itemType_sub)
+                {
+                    case "Suger":
+
+                        SugerBuf();
+                        break;
+
+                    case "Cake":
+
+                        CakeBeautyBuf();
+                        break;
+                }
+                
+                switch(_itemType)
+                {
+                    case "Okashi":
+
+                        AllBeautifulBuf();
+                        break;
+                }               
 
                 return _buf_shokukanup;
 
@@ -415,6 +467,39 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
                 }
             }
+        }
+    }
+
+    void ChocolateBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 10; //LV*10
+            _buf_shokukanup += _magicup;
+        }
+    }
+
+    void AppaleilFluffyBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 10; //LV*10
+            _buf_shokukanup += _magicup;
+        }
+    }
+
+    void AppaleilIcecreamBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 10; //LV*10
+            _buf_shokukanup += _magicup;
         }
     }
 
@@ -506,7 +591,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 5; //LV*5
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 10; //LV*10
             _buf_shokukanup += _magicup;
         }
 
@@ -519,7 +604,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 5;
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 10;
             _buf_shokukanup += _magicup;
         }
 
@@ -598,6 +683,28 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+    void SugerBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Luminous_Suger") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Luminous_Suger") * 5; //LV*10
+            _buf_shokukanup += _magicup;
+        }
+    }
+
+    void CakeBeautyBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Nappe") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Nappe") * 15; //LV*10
+            _buf_shokukanup += _magicup;
+        }
+    }
+
     void AllShokukanBuf()
     {
         if (pitemlist.KosuCount("shokukan_powerup1") >= 1) //
@@ -611,6 +718,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (pitemlist.KosuCount("shokukan_powerup3") >= 1) //
         {
             _buf_shokukanup += 50;
+        }
+    }
+
+    void AllBeautifulBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") * 10; //LV*10
+            _buf_shokukanup += _magicup;
         }
     }
 
@@ -718,9 +836,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         return _buf_shokukanup;
     }
 
+
+
     //特定の魔法で、バフをかける処理
     //魔法の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK
-    public int Buf_OkashiParamUp_MagicKeisan(int _status, string _magicname)
+    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname)
     {
 
         _buf_shokukanup = 0;
@@ -734,6 +854,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 {
                     _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") * 30;
                     _buf_shokukanup += _magicup;
+                }
+                break;
+
+            case "Warming_Handmade": //手作りの温もり
+
+                if (_status >= 0 && _status <= 6)//すべての食感
+                {
+                    if (_status != 5) //ただし、見た目はバフを無視。
+                    {
+                        _magicup = (int)(_baseparam * (1.0f + magicskill_database.skillName_SearchLearnLevel("Warming_Handmade") * 0.1));
+                        _buf_shokukanup += _magicup;
+                    }
                 }
                 break;
 

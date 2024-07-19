@@ -105,6 +105,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private GameObject BG_contest_hall;
     private GameObject BG_contest_prizeget;
 
+    private List<GameObject> BG_contest_hall_List = new List<GameObject>();
+    private List<GameObject> BG_contest_chuubou_List = new List<GameObject>();
+
+    private bool contestBG_OK;
+    private bool contestBG_chuubouOK;
+
     //Live2Dモデルの取得    
     private GameObject _model_root_obj;
     private GameObject _model_move;
@@ -126,6 +132,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         {
             GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
             GameMgr.Contest_Cate_Ranking = 1;
+            GameMgr.Contest_HallBGName = "h01";
+            GameMgr.Contest_ChubouBGName = "t01";
+            GameMgr.Contest_BGMSelect = "sound46";
             GameMgr.Story_Mode = 1;
             GameMgr.GirlLoveEvent_num = 10;
         }
@@ -257,8 +266,20 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         BG_contest_hall = BGImagePanel.transform.Find("ContestBG_Hall").gameObject;
         BG_contest_prizeget = BGImagePanel.transform.Find("ContestBG_PrizeGet").gameObject;
         BG_contest_chuubou.SetActive(false);
-        BG_contest_hall.SetActive(true);
+        BG_contest_hall.SetActive(true);        
         BG_contest_prizeget.SetActive(false);
+
+        BG_contest_hall_List.Clear();
+        foreach (Transform obj in BG_contest_hall.transform)
+        {
+            BG_contest_hall_List.Add(obj.gameObject);
+        }
+        BG_contest_chuubou_List.Clear();
+        foreach (Transform obj in BG_contest_chuubou.transform)
+        {
+            BG_contest_chuubou_List.Add(obj.gameObject);
+        }
+        ContestHall_Select(GameMgr.Contest_HallBGName, GameMgr.Contest_ChubouBGName); //会場背景と厨房背景を設定
 
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
@@ -333,6 +354,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_or_event_flag = true;
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
+
+            //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する まだ設定してないのでひとまずoff
+            //ContestHall_Select("h01", "t01");
+            //
 
             scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
@@ -417,6 +442,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             {
                 BG_contest_chuubou.SetActive(false);
                 BG_contest_hall.SetActive(true);
+                //ContestHall_Select();
                 BG_contest_prizeget.SetActive(false);
             }
             
@@ -561,6 +587,54 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                     break;
             }
+        }
+    }
+
+    //コンテストごとに、会場風景が変わる。
+    void ContestHall_Select(string _hallname, string _chuubouname)
+    {
+        for(i=0; i< BG_contest_hall_List.Count; i++)
+        {
+            BG_contest_hall_List[i].SetActive(false);
+        }
+        for (i = 0; i < BG_contest_chuubou_List.Count; i++)
+        {
+            BG_contest_chuubou_List[i].SetActive(false);
+        }
+
+        contestBG_OK = false;
+        i = 0;
+        while (i < BG_contest_hall_List.Count)
+        {
+            if (BG_contest_hall_List[i].name == _hallname)
+            {
+                BG_contest_hall_List[i].SetActive(true);
+                contestBG_OK = true;
+                break;
+            }
+            i++;
+        }
+
+        contestBG_chuubouOK = false;
+        i = 0;
+        while (i < BG_contest_chuubou_List.Count)
+        {
+            if (BG_contest_chuubou_List[i].name == _chuubouname)
+            {
+                BG_contest_chuubou_List[i].SetActive(true);
+                contestBG_chuubouOK = true;
+                break;
+            }
+            i++;
+        }
+
+        if (!contestBG_OK) //例外処理　もし一致する背景がなかった場合　真っ黒になってしまうので、デフォルトを指定
+        {
+            BG_contest_hall_List[0].SetActive(true);
+        }
+        if (!contestBG_chuubouOK) //例外処理　もし一致する背景がなかった場合　真っ黒になってしまうので、デフォルトを指定
+        {
+            BG_contest_chuubou_List[0].SetActive(true);
         }
     }
 

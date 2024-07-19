@@ -54,6 +54,8 @@ public class Contest_Main_Outside : MonoBehaviour
     private BGM sceneBGM;
     public bool bgm_change_flag;
 
+    private GameObject back_atlier_obj;
+
     private GameObject newAreaReleasePanel_obj;
 
     private int ev_id;
@@ -145,6 +147,9 @@ public class Contest_Main_Outside : MonoBehaviour
         sceneplace_namepanel_obj = canvas.transform.Find("MainListPanel/ScenePlaceNamePanel").gameObject;
         sceneplace_namepanel = sceneplace_namepanel_obj.GetComponent<ScenePlaceNamePanel>();
         sceneplace_namepanel_obj.SetActive(false);
+
+        back_atlier_obj = canvas.transform.Find("BackHomeButtonPanel").gameObject;
+        back_atlier_obj.SetActive(false);
 
         newAreaReleasePanel_obj = canvas.transform.Find("NewAreaReleasePanel").gameObject;
         newAreaReleasePanel_obj.SetActive(false);
@@ -327,6 +332,7 @@ public class Contest_Main_Outside : MonoBehaviour
             //placename_panel.SetActive(false);
             mainlist_controller_obj.SetActive(false);
             sceneplace_namepanel_obj.SetActive(false);
+            back_atlier_obj.SetActive(false);
         }
         else
         {
@@ -338,6 +344,7 @@ public class Contest_Main_Outside : MonoBehaviour
                     //placename_panel.SetActive(true);
                     mainlist_controller_obj.SetActive(true);
                     sceneplace_namepanel_obj.SetActive(true);
+                    back_atlier_obj.SetActive(true);
 
                     sceneBGM.MuteOFFBGM();
 

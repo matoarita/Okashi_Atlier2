@@ -825,6 +825,33 @@ public class MagicSkillListController : MonoBehaviour
             _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
         }
 
+        //心系の魔法は、ハートも使用することがあるので、ハートもチェックする。また、スキルによっては仕上げ回数もチェック。
+        switch(magicskill_database.magicskill_lists[i].skillName)
+        {
+            case "Cookie_SecondBake":
+
+                if(PlayerStatus.player_extreme_kaisu == 0)
+                {
+                    _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                }
+                break;
+
+            case "Warming_Handmade":
+
+                if (PlayerStatus.player_extreme_kaisu == 0)
+                {
+                    _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                }
+                else
+                {
+                    if (PlayerStatus.girl1_Love_exp < magicskill_database.magicskill_lists[i].skillLv * 30)
+                    {
+                        _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                    }
+                }
+                break;
+        }
+
         ++list_count;
     }
 

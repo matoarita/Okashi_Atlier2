@@ -165,6 +165,7 @@ public class Item
         Tea_Mat,
         Tea_Potion,
         Appaleil,
+        Appaleil_Icecream,
         Butter,
         Berry,
         Cream,               

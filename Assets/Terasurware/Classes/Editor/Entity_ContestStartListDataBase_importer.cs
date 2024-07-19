@@ -71,8 +71,11 @@ public class Entity_ContestStartListDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(18); p.GetPatissierPoint = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(19); p.ContestVictory = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(20); p.ContestFightsCount = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(21); p.comment_out = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(22); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(21); p.ContestBGName = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(22); p.ContestBGChubouName = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(23); p.ContestBGMSelect = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(24); p.comment_out = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(25); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

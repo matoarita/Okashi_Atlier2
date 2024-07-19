@@ -942,7 +942,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Cookie_SecondBake":
 
-                if (check_itemType_sub == "Cookie")
+                if (check_itemType_sub == "Cookie" || check_itemType_sub == "Cookie_Hard")
                 {
                     if (check_attribute1 == 0) //まだ二度焼きしてないやつだけ
                     {
@@ -1047,6 +1047,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             case "Buttelfy_illumination":
 
                 if (check_itemType == "Okashi")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Aroma_Potion":
+
+                if (check_itemType_sub == "Flower" || check_itemType_subB == "a_Sakura")
                 {
                     itemlist_hyouji_Check();
                 }
@@ -1169,15 +1177,32 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Latte_Art":
 
-                if (check_itemType_sub == "Coffee")
+                if (check_itemType_subB == "a_Cafelatte")
                 {
                     itemlist_hyouji_Check();
                 }
                 break;
 
-            case "Aroma_Potion":
+            case "Moonlight_Banana":
 
-                if (check_itemType_sub == "Flower" || check_itemType_subB == "a_Sakura")
+                if (check_itemType_subB == "a_Banana")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Weather_Light":
+
+                if (check_itemType_sub == "Juice")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+
+            case "Warming_Handmade":
+
+                if (check_itemType == "Okashi")
                 {
                     itemlist_hyouji_Check();
                 }

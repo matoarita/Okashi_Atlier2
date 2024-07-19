@@ -776,6 +776,9 @@ public class Contest_Main_Reception : MonoBehaviour
 
             GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
             GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
+            GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
+            GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
+            GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
 
             GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
             conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。           
@@ -823,82 +826,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventReadEnd_Flagcheck()
     {
-        switch (GameMgr.hiroba_event_ID)
-        {
-            //クエスト４　「ドーナツ作り」～　0番台
-            case 40:
-
-                GameMgr.hiroba_event_end[2] = true;
-                break;
-
-            case 1040:
-
-                GameMgr.hiroba_event_end[0] = true;
-                break;
-
-            case 2045:
-
-                GameMgr.hiroba_event_end[1] = true;
-                break;
-
-            case 3040:
-
-                GameMgr.hiroba_event_end[6] = true;
-                break;
-
-            case 3042:
-
-                ev_id = pitemlist.Find_eventitemdatabase("donuts_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ドーナツのレシピを追加
-
-                GameMgr.hiroba_event_end[8] = true;
-                break;
-
-            case 4040:
-
-                GameMgr.hiroba_event_end[3] = true;
-                break;
-
-            case 4042:
-
-                GameMgr.hiroba_event_end[7] = true;
-                break;
-
-            case 5041:
-
-                GameMgr.hiroba_event_end[4] = true;
-                break;
-
-            case 5042:
-
-                GameMgr.hiroba_event_end[5] = true;
-                break;
-
-            //クエスト５　コンテスト～  10番台
-            case 50:
-
-                GameMgr.hiroba_event_end[10] = true;
-                break;
-
-            case 3050:
-
-                GameMgr.hiroba_event_end[11] = true;
-                break;
-
-            case 4050:
-
-                GameMgr.hiroba_event_end[12] = true;
-                break;
-
-            case 5050:
-
-                GameMgr.hiroba_event_end[13] = true;
-                break;
-
-            default:
-
-                break;
-        }
+        
     }
 
 
