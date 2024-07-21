@@ -725,9 +725,45 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Or_Emerald_Shop", GameMgr.SceneFadeTime);
                     break;
 
+                case "Or_MagicHouseA1":
+
+                    GameMgr.SceneSelectNum = 30;
+                    FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+                    break;
+
                 case "Or_Hiroba1":
 
                     GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_HirobaEnter_A1":
+
+                    GameMgr.SceneSelectNum = 10;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_HirobaEnter_B1":
+
+                    GameMgr.SceneSelectNum = 100;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_HirobaEnter_C1":
+
+                    GameMgr.SceneSelectNum = 200;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_HirobaEnter_D1":
+
+                    GameMgr.SceneSelectNum = 301;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_HirobaEnter_Catsle":
+
+                    GameMgr.SceneSelectNum = 502;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 

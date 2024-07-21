@@ -280,6 +280,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private int mstatus;
 
+    private float _tempature_param;
+    private float _well_done;
+    private float _best_well_done;
+    private float _well_done_kyori;
+    private float _well_done_kyori_hosei;
+
     private float hikari_okashilv_hosei;
     private float hikari_okashilv_paramup;
     private bool hikari_make_flag;
@@ -1783,7 +1789,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //***基本の味の計算方法***
         //各材料の、パラメータをそれぞれ加算する。食感のみ、小麦粉とその他材料の比率をだして、補正がかかる。イメージ。
 
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合・レシピ調合・魔法　のときの計算。
         {
             //材料のパラメータ計算処理。
             AddParam_Method();
@@ -1869,7 +1875,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basejiggly = (int)(_basejiggly * kyori_hosei);
                 _basechewy = (int)(_basechewy * kyori_hosei);
             }
-
+            
         }
 
         //③スロット同士の計算をする。
@@ -2062,6 +2068,80 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basebeauty += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(5, _basebeauty, GameMgr.UseMagicSkill);
             _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, _basetea_flavor, GameMgr.UseMagicSkill);
         }
+
+        //⑧温度管理による、食感の補正
+        //スキル温度管理を使ったとき、温度と時間によって仕上がりがさらに変わる。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときの計算。
+        {
+            _well_done = 0;
+            _best_well_done = 30.0f; //200°で10分ほど焼いたときの焼き具合 60分焼けるけど、クッキーの場合30分以上は基本焦げる
+
+            if (GameMgr.tempature_control_ON)
+            {
+                if (GameMgr.System_tempature_control_Param_time != 0) //時間を0分にしたときは、無視
+                {
+                    Debug.Log("--- 温度管理ON --- ");
+
+                    _tempature_param = SujiMap(GameMgr.System_tempature_control_Param_temp,
+                        GameMgr.System_tempature_control_tempMin, GameMgr.System_tempature_control_tempMax,
+                        1.5f, 5.0f);
+                    _well_done = _tempature_param * GameMgr.System_tempature_control_Param_time;
+
+                    Debug.Log("_tempature_param: " + _tempature_param);
+                    Debug.Log("_well_done: " + _well_done);
+                    Debug.Log("_best_well_done: " + _best_well_done);
+
+                    _well_done_kyori = Mathf.Abs(_best_well_done - _well_done); //ベストな焼き具合と、今回の焼き具合との差　差が近いほど、高得点
+                    Debug.Log("ベスト温度との距離: " + _well_done_kyori);
+
+                    if (_well_done_kyori >= 0 && _well_done_kyori < 3.0)
+                    {
+                        _well_done_kyori_hosei = 3.0f;
+                    }
+                    else if (_well_done_kyori >= 3.0 && _well_done_kyori < 6.0)
+                    {
+                        _well_done_kyori_hosei = 2.0f;
+                    }
+                    else if (_well_done_kyori >= 6.0 && _well_done_kyori < 10.0)
+                    {
+                        _well_done_kyori_hosei = 1.75f;
+                    }
+                    else if (_well_done_kyori >= 10.0 && _well_done_kyori < 15.0)
+                    {
+                        _well_done_kyori_hosei = 1.5f;
+                    }
+                    else if (_well_done_kyori >= 15.0 && _well_done_kyori < 22.0)
+                    {
+                        _well_done_kyori_hosei = 1.4f;
+                    }
+                    else if (_well_done_kyori >= 22.0 && _well_done_kyori < 30.0)
+                    {
+                        _well_done_kyori_hosei = 1.2f;
+                    }
+                    else if (_well_done_kyori >= 30.0 && _well_done_kyori < 45.0)
+                    {
+                        _well_done_kyori_hosei = 0.75f;
+                    }
+                    else if (_well_done_kyori >= 45.0 && _well_done_kyori < 60.0)
+                    {
+                        _well_done_kyori_hosei = 0.5f;
+                    }
+                    else if (_well_done_kyori >= 60.0)
+                    {
+                        _well_done_kyori_hosei = 0.125f;
+                    }
+                    Debug.Log("_well_done_kyori_hosei（温度で食感にかかる補正値*）: " + _well_done_kyori_hosei);
+
+                    //食感に補正値をかける。
+                    _basecrispy = (int)(_basecrispy * _well_done_kyori_hosei);
+                    _basefluffy = (int)(_basefluffy * _well_done_kyori_hosei);
+                    //_basesmooth = (int)(_basesmooth * kyori_hosei);
+                    _basehardness = (int)(_basehardness * _well_done_kyori_hosei);
+                    //_basejiggly = (int)(_basejiggly * kyori_hosei);
+                    //_basechewy = (int)(_basechewy * kyori_hosei);
+                }
+            }
+        }
     }
 
 
@@ -2198,7 +2278,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addcost = database.items[_id].cost_price;
         _addsell = database.items[_id].sell_price;
         _add_itemType = database.items[_id].itemType.ToString();
-        _add_itemType_sub = database.items[_id].itemType_sub.ToString();
+        _add_itemType_sub = database.items[_id].itemType_sub.ToString();        
 
         //店売りアイテムを合成に使う場合。通常トッピング＋固有トッピングどちらも計算
 
@@ -2442,7 +2522,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             AddTasteParam(); //各材料を加算していく。     
         }
         //DivisionTasteparam(); //その後、個数で割り算する。
-        
+
+        //Debug.Log("_additemlist.Count: " + _additemlist.Count);
+        //Debug.Log("_tempbeauty check2 " + _tempbeauty);
     }
 
     void AddTasteParam()
@@ -2461,7 +2543,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _temppowdery += _additemlist[i].Powdery * _additemlist[i].ItemKosu;
         _tempoily += _additemlist[i].Oily * _additemlist[i].ItemKosu;
         _tempwatery += _additemlist[i].Watery * _additemlist[i].ItemKosu;
-        _tempbeauty += _additemlist[i].Beauty * _additemlist[i].ItemKosu; //無くした　→　beuatyはもともとのお菓子のパラメータをベースに使うので、新規調合では計算から除外
+        
         _temptea_flavor += _additemlist[i].Tea_Flavor * _additemlist[i].ItemKosu;
         _tempsp_wind += _additemlist[i].SP_wind * _additemlist[i].ItemKosu;
         _tempsp_score2 += _additemlist[i].SP_Score2 * _additemlist[i].ItemKosu;
@@ -2473,6 +2555,18 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _tempsp_score8 += _additemlist[i].SP_Score8 * _additemlist[i].ItemKosu;
         _tempsp_score9 += _additemlist[i].SP_Score9 * _additemlist[i].ItemKosu;
         _tempsp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;
+
+        if (mstatus != 99) //DB初期化のときのみ、見た目は加算しないようにする。二重に計算されるため。
+        {
+            if (_additemlist[i].itemType.ToString() != "Okashi")
+            {
+                _tempbeauty += _additemlist[i].Beauty * _additemlist[i].ItemKosu; //無くした　→　beuatyはもともとのお菓子のパラメータをベースに使うので、新規調合では計算から除外
+            }
+            else
+            {
+                _tempbeauty = 0; //お菓子タイプの見た目は、加算しない
+            }
+        }
 
         //Debug.Log("_basetea_flavor check " + _temptea_flavor);
         //Debug.Log("_additemlist[i]._Addkosu: " + _additemlist[i]._Addkosu);

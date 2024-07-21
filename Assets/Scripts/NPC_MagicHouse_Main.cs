@@ -250,6 +250,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 {
                     default_scenetext = "おお、ムッシュ～。" + "\n" + "遊びにきたか？";
                 }
+
+                matplace_database.matPlaceKaikin("Or_MagicHouseA1"); //ミラボ先生解禁
                 break;
 
             case 40: //星のパティシエ魔法の先生

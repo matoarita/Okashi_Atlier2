@@ -55,6 +55,7 @@ public class itemSelectToggle : MonoBehaviour
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private QuestSetDataBase quest_database;
+    private MagicSkillListDataBase magicskill_database;
 
     private GameObject yes; //PlayeritemList_ScrollViewの子オブジェクト「yes」ボタン
     private Text yes_text;
@@ -63,6 +64,9 @@ public class itemSelectToggle : MonoBehaviour
 
     private Sprite yes_sprite1;
     private Sprite yes_sprite2;
+
+    private GameObject compound_check_obj;
+    private Compound_Check compound_check;
 
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
@@ -83,22 +87,11 @@ public class itemSelectToggle : MonoBehaviour
     private bool selectToggle;
 
     private int _itemID1;
+    private string _subType;
 
     private int kosusum;
 
-    private List<string> _itemIDtemp_result = new List<string>(); //調合リスト。アイテムネームに変換し、格納しておくためのリスト。itemNameと一致する。
-    private List<string>  _itemSubtype_temp_result = new List<string>(); //調合DBのサブタイプの組み合わせリスト。
-    private List<int> _itemKosutemp_result = new List<int>(); //調合の個数組み合わせ。
-
-    private bool compoDB_select_judge;
-    private string resultitemID;
-    private int result_compoID;
-
-    private int judge_flag; //調合判定を行うか否か
-    private bool compoundsuccess_flag; //成功か失敗か
     private float _success_rate;
-    private int dice;
-    private string success_text;
 
     void Start()
     {
@@ -133,6 +126,9 @@ public class itemSelectToggle : MonoBehaviour
 
             kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
             kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
+
+            compound_check_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Compound_Check").gameObject;
+            compound_check = compound_check_obj.GetComponent<Compound_Check>();
         }
         else
         {
@@ -195,6 +191,9 @@ public class itemSelectToggle : MonoBehaviour
         //クエストデータベースの取得
         quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
 
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -203,7 +202,6 @@ public class itemSelectToggle : MonoBehaviour
         i = 0;
 
         count = 0;
-        judge_flag = 0;
        
     }
 
@@ -751,7 +749,32 @@ public class itemSelectToggle : MonoBehaviour
 
                 yes.SetActive(true);
 
-                GameMgr.final_select_flag = true;
+                //温度管理前に、調合アイテムが該当するかチェック
+                compound_check.CompoundJudge(GameMgr.temp_itemID1, GameMgr.temp_itemID2, GameMgr.temp_itemID3, 0);
+                _subType = database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString();
+
+                if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                {
+                    //焼き菓子かどうかを判定
+                    if (_subType == "BakedSweets" || _subType == "Biscotti" || _subType == "Bread" || _subType == "Cookie" || _subType == "Cookie_Hard" ||
+                        _subType == "Cake_Mat" || _subType == "Castella" || _subType == "Creampuff" || _subType == "Financier" || _subType == "Maffin" ||
+                        _subType == "Pie" || _subType == "Rusk")
+                    {
+                        Debug.Log("温度管理画面を表示する");
+
+                        GameMgr.tempature_control_ON = true;
+                        GameMgr.tempature_control_select_flag = true;
+                    }
+                    else
+                    {
+                        GameMgr.tempature_control_ON = false;
+                        GameMgr.final_select_flag = true;
+                    }
+                }
+                else
+                {
+                    GameMgr.final_select_flag = true;
+                }
 
 
                 break;
@@ -763,8 +786,6 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.Three_cancel();
                 break;
         }
-
-
     }
     
     //オリジナル調合はここまで

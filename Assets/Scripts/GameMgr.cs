@@ -66,6 +66,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //重要アイテム名
     public static string System_TreasureItem01 = "ブルークリスタル";
 
+    //温度の最小・最大
+    public static int System_tempature_control_tempMin = 150;
+    public static int System_tempature_control_tempMax = 230;
     //** --ここまで-- **//
 
 
@@ -542,6 +545,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hikariokashiExpTable_noTypeflag; //ヒカリのお菓子Expテーブルで、どのお菓子タイプにも合わなかった場合。例外処理。スクリプト間の値受け渡し用で一時的。
     public static int MainQuestClear_flag; //メインクエストをクリアしたのか、道中の通常のSPクエストをクリアしたのか、判定するフラグ
     public static bool final_select_flag; //調合シーンで、調合の最終決定の確認
+    public static bool tempature_control_select_flag; //調合シーンで、温度管理画面を開く
+    public static bool tempature_control_Offflag; //温度管理画面を閉じる
+    public static bool tempature_control_ON; //焼き菓子かどうかをチェックし、焼き菓子ならON　最終チェックからキャンセルで戻るときに使用する
+    public static int System_tempature_control_Param_temp; //温度管理画面の温度の値
+    public static int System_tempature_control_Param_time; //温度管理画面の時間の値
     public static bool matbgm_change_flag; //採取地へ行く際のBGM切り替えのフラグ
     public static bool compobgm_change_flag; //調合シーンと元シーンとで、BGMの切り替えを行うフラグ
     public static bool extremepanel_Koushin; //なんらかの調合が終わり、エクストリームパネルの表示を更新するフラグ
@@ -1097,6 +1105,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ExtraClear_QuestName = "";        
         MainQuestClear_flag = 0;
         final_select_flag = false;
+        tempature_control_select_flag = false;
+        tempature_control_Offflag = false;
+        tempature_control_ON = false;
         CompoundSceneStartON = false;
         matbgm_change_flag = false;
         compobgm_change_flag = false;

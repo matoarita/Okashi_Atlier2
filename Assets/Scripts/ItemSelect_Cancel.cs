@@ -29,6 +29,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject quest_Judge_CanvasPanel;
     private GameObject NouhinKetteiPanel_obj;
 
+    private GameObject compound_check_obj;
+    private Compound_Check compound_check;
+
     private GameObject canvas;
 
     private GameObject shopitemlistController_obj;
@@ -53,11 +56,13 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     private GameObject item_tsuika; //PlayeritemList_ScrollViewの子オブジェクト「item_tsuika」ボタン
 
     private ItemDataBase database;
+    private MagicSkillListDataBase magicskill_database;
 
     private GameObject black_effect;
 
-    public int update_ListSelect_Flag;
+    private string _subType;
 
+    public int update_ListSelect_Flag;
     public bool kettei_on_waiting;
 
     private bool playerlist_check_on;
@@ -69,6 +74,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         update_ListSelect_Flag = 0;
         kettei_on_waiting = false;
@@ -113,6 +121,9 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
                 _text = text_area.GetComponentInChildren<Text>();
+
+                compound_check_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Compound_Check").gameObject;
+                compound_check = compound_check_obj.GetComponent<Compound_Check>();
 
                 //まずは、レシピ・それ以外の調合用にオブジェクト取得
                 if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
@@ -323,6 +334,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                     {
                                         yes_selectitem_kettei.onclick = false;
 
+
                                         if (GameMgr.Comp_kettei_bunki == 1) //現在一個目を選択している状態
                                         {
                                             if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
@@ -336,11 +348,34 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                         if (GameMgr.Comp_kettei_bunki == 2) //現在二個目を選択している状態
                                         {
-                                            if (yes_selectitem_kettei.kettei1 == true) //調合二個で決定した状態
+                                            if (yes_selectitem_kettei.kettei1 == true) //調合二個でYes決定した状態
                                             {
+                                                //温度管理前に、調合アイテムが該当するかチェック
+                                                compound_check.CompoundJudge(GameMgr.temp_itemID1, GameMgr.temp_itemID2, GameMgr.temp_itemID3, 0);
+                                                _subType = database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString();
 
-                                                GameMgr.final_select_flag = true;
+                                                if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                                                {
+                                                    //焼き菓子かどうかを判定
+                                                    if (_subType == "BakedSweets" || _subType == "Biscotti" || _subType == "Bread" || _subType == "Cookie" || _subType == "Cookie_Hard" ||
+                                                        _subType == "Cake_Mat" || _subType == "Castella" || _subType == "Creampuff" || _subType == "Financier" || _subType == "Maffin" ||
+                                                        _subType == "Pie" || _subType == "Rusk")
+                                                    {
+                                                        Debug.Log("温度管理画面を表示する");
 
+                                                        GameMgr.tempature_control_ON = true;
+                                                        GameMgr.tempature_control_select_flag = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        GameMgr.tempature_control_ON = false;
+                                                        GameMgr.final_select_flag = true;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    GameMgr.final_select_flag = true;
+                                                }
                                             }
                                             else if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                             {

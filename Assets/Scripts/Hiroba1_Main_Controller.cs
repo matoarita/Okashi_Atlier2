@@ -3124,6 +3124,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default_scenetext = "ここは、スプリングガーデンの入口だ。" + "\n" + "春の商店街へ続く道やコンテスト会場がある。";
 
+                matplace_database.matPlaceKaikin("Or_HirobaEnter_A1"); //春エリア入口解禁
                 break;
 
             case "Or_Hiroba_Spring_Shoping_Moll": //春のエリア商店街
@@ -3189,6 +3190,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、サマー・ドリームスの入口だ。" + "\n" + "青っぽい家が多い。";
+
+                matplace_database.matPlaceKaikin("Or_HirobaEnter_B1"); //夏エリア入口解禁
 
                 break;
 
@@ -3410,6 +3413,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default_scenetext = "ここは、オータム・リーブスの入口だ。" + "\n" + "紅葉の赤やカラフルな色の建物に包まれている。";
 
+                matplace_database.matPlaceKaikin("Or_HirobaEnter_C1"); //秋エリア入口解禁
                 break;
 
             case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋
@@ -3510,6 +3514,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default_scenetext = "ここは、スノーマンズ・レストの入口広場だ。" + "\n" + "夜の真っ暗で幻想的な雰囲気に包まれている。";
 
+                matplace_database.matPlaceKaikin("Or_HirobaEnter_D1"); //冬エリア入口解禁
                 break;
 
             case "Or_Hiroba_Winter_Street1": //冬エリア　広場通り
@@ -3653,6 +3658,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default_scenetext = "ここは、オランジーナ城の入口受付だ。";
 
+                matplace_database.matPlaceKaikin("Or_HirobaEnter_Catsle"); //城エリア入口解禁
                 break;
 
             default:

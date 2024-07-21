@@ -391,7 +391,7 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView02(GameMgr.Final_kettei_kosu2);
 
-                CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+                CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
                 recipiMemoScrollView_obj.SetActive(false);
                 memo_result_obj.SetActive(false);
@@ -490,19 +490,32 @@ public class Compound_Check : MonoBehaviour {
                             exp_Controller.HikariMakeOK();
                         }
 
+                        //温度管理ONにしてたら、画面もオフにする。
+                        if (GameMgr.tempature_control_ON)
+                        {
+                            GameMgr.tempature_control_Offflag = true;
+                        }
+
                         break;
 
                     case false:
 
-                        //Debug.Log("1個目を選択した状態に戻る");
-
-                        recipiMemoButton_obj.SetActive(true);
-                        GameMgr.compound_status = 100;
-                        itemselect_cancel.Two_cancel();
-
-                        if (GameMgr.compound_select == 7)
+                        if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
                         {
-                            text_hikari_makecaption.SetActive(true);
+                            if (GameMgr.tempature_control_ON)
+                            {
+                                Debug.Log("温度管理画面を表示する");
+
+                                GameMgr.tempature_control_select_flag = true;
+                            }
+                            else
+                            {
+                                cancel_Method1();
+                            }
+                        }
+                        else
+                        {
+                            cancel_Method1();
                         }
 
                         break;
@@ -517,7 +530,7 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView03(GameMgr.Final_kettei_kosu3);
 
-                CompoundJudge(); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
+                CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
 
                 recipiMemoScrollView_obj.SetActive(false);
                 memo_result_obj.SetActive(false);
@@ -610,24 +623,33 @@ public class Compound_Check : MonoBehaviour {
                             exp_Controller.HikariMakeOK();
                         }
 
+                        //温度管理ONにしてたら、画面もオフにする。
+                        if (GameMgr.tempature_control_ON)
+                        {
+                            GameMgr.tempature_control_Offflag = true;
+                        }
+
                         break;
 
                     case false:
 
-                        //Debug.Log("三個目はcancel");
-
-                        recipiMemoButton_obj.SetActive(true);
-
-                        GameMgr.compound_status = 100;
-                        itemselect_cancel.Three_cancel();
-
-                        yes.SetActive(true);
-                        yes_text.text = "作る";
-                        YesSetDesign2();
-
-                        if (GameMgr.compound_select == 7)
+                        if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
                         {
-                            text_hikari_makecaption.SetActive(true);
+                            if (GameMgr.tempature_control_ON)
+                            {
+                                Debug.Log("温度管理画面を表示する");
+
+                                GameMgr.tempature_control_select_flag = true;
+                            }
+                            else
+                            {
+                                cancel_Method2();
+                            }
+                        }
+                        else
+                        {
+                            cancel_Method2();
+                            
                         }
 
                         break;
@@ -635,6 +657,40 @@ public class Compound_Check : MonoBehaviour {
                 break;
         }
     }
+
+    void cancel_Method1()
+    {
+        //Debug.Log("1個目を選択した状態に戻る");
+
+        recipiMemoButton_obj.SetActive(true);
+        GameMgr.compound_status = 100;
+        itemselect_cancel.Two_cancel();
+
+        if (GameMgr.compound_select == 7)
+        {
+            text_hikari_makecaption.SetActive(true);
+        }
+    }
+
+    void cancel_Method2()
+    {
+        //Debug.Log("三個目はcancel");
+
+        recipiMemoButton_obj.SetActive(true);
+
+        GameMgr.compound_status = 100;
+        itemselect_cancel.Three_cancel();
+
+        yes.SetActive(true);
+        yes_text.text = "作る";
+        YesSetDesign2();
+
+        if (GameMgr.compound_select == 7)
+        {
+            text_hikari_makecaption.SetActive(true);
+        }
+    }
+    
 
     IEnumerator topping_Final_select()
     {
@@ -654,7 +710,7 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView02(1);
 
-                CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
+                CompoundJudge(itemID_1, itemID_2, itemID_3, baseitemID); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ない場合は、通常通りトッピング。ある場合は、新規作成する。
 
                 _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + "に" + "\n" + "一個目: " + 
                     database.items[itemID_1].itemNameHyouji + " " +
@@ -724,7 +780,7 @@ public class Compound_Check : MonoBehaviour {
 
                 card_view.OKCard_DrawView03(1);
 
-                CompoundJudge(); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
+                CompoundJudge(itemID_1, itemID_2, itemID_3, baseitemID); //エクストリーム調合で、新規作成されるアイテムがないかをチェック。ある場合は、そのレシピを閃く。
 
                 _text.text = "ベースアイテム: " + database.items[baseitemID].itemNameHyouji + "に" + "\n" + 
                     "一個目: " + database.items[itemID_1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" + 
@@ -849,7 +905,7 @@ public class Compound_Check : MonoBehaviour {
         itemID_2 = GameMgr.temp_itemID2;
         itemID_3 = GameMgr.temp_itemID3;
 
-        CompoundJudge(); //食材の距離計算も行う。
+        CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //食材の距離計算も行う。
 
         _text.text = database.items[GameMgr.Final_result_itemID1].itemNameHyouji + "が" +
             databaseCompo.compoitems[GameMgr.Final_result_compID].cmpitem_result_kosu * GameMgr.Final_setCount + 
@@ -952,12 +1008,12 @@ public class Compound_Check : MonoBehaviour {
                 if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
                 {
                     //調合DBの判定が必要ない魔法の場合　元アイテムをresultItemにして、新たに生成しなおす。
-                    CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
+                    CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
                     GameMgr.Comp_kettei_bunki = 22;
                 }
                 else
                 {
-                    CompoundJudge(); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
+                    CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
                     GameMgr.Comp_kettei_bunki = 21;
                 }
 
@@ -999,7 +1055,7 @@ public class Compound_Check : MonoBehaviour {
 
                         magicskill_database.magicskill_lists[itemID_2].skillUseLv = GameMgr.UseMagicSkillLv; //使ったスキルレベルで魔法DBのUSELVも更新
 
-                        CompoundJudge(); //魔法レベルが決定したあと、再び調合判定。
+                        CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //魔法レベルが決定したあと、再び調合判定。
 
                         //MPを消費
                         PlayerStatus.player_mp -= costMP;
@@ -1080,8 +1136,8 @@ public class Compound_Check : MonoBehaviour {
         yes.GetComponent<Image>().sprite = yes_sprite2;
     }
 
-    //調合判定メソッド　Updown_Counterからも読まれる。
-    public void CompoundJudge()
+    //調合判定メソッド　itemSelectToggleからも読まれる。
+    public void CompoundJudge(int tempID_1, int tempID_2, int tempID_3, int basetemp_ID)
     {
         _itemIDtemp_result.Clear();
         _itemKosutemp_result.Clear();
@@ -1092,19 +1148,19 @@ public class Compound_Check : MonoBehaviour {
         //オリジナル調合の場合はこっち
         if (GameMgr.Comp_kettei_bunki == 2 || GameMgr.Comp_kettei_bunki == 3)
         {
-            _itemIDtemp_result.Add(database.items[itemID_1].itemName);
-            _itemIDtemp_result.Add(database.items[itemID_2].itemName);
+            _itemIDtemp_result.Add(database.items[tempID_1].itemName);
+            _itemIDtemp_result.Add(database.items[tempID_2].itemName);
 
-            _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
-            _itemSubtype_temp_result.Add(database.items[itemID_2].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[tempID_1].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[tempID_2].itemType_sub.ToString());
 
-            _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
-            _itemSubtypeB_temp_result.Add(database.items[itemID_2].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[tempID_1].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[tempID_2].itemType_subB.ToString());
 
             _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu1);
             _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu2);
 
-            if (itemID_3 == 9999) //二個しか選択していないときは、9999が入っている。
+            if (tempID_3 == 9999) //二個しか選択していないときは、9999が入っている。
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
@@ -1113,22 +1169,22 @@ public class Compound_Check : MonoBehaviour {
                 _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
-                database.items[itemID_2].Ex_Probability;
+                _ex_probabilty_temp = database.items[tempID_1].Ex_Probability *
+                database.items[tempID_2].Ex_Probability;
 
                 inputcount = 2;
             }
             else
             {
-                _itemIDtemp_result.Add(database.items[itemID_3].itemName);
-                _itemSubtype_temp_result.Add(database.items[itemID_3].itemType_sub.ToString());
-                _itemSubtypeB_temp_result.Add(database.items[itemID_3].itemType_subB.ToString());
+                _itemIDtemp_result.Add(database.items[tempID_3].itemName);
+                _itemSubtype_temp_result.Add(database.items[tempID_3].itemType_sub.ToString());
+                _itemSubtypeB_temp_result.Add(database.items[tempID_3].itemType_subB.ToString());
                 _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
-                database.items[itemID_2].Ex_Probability *
-                database.items[itemID_3].Ex_Probability;
+                _ex_probabilty_temp = database.items[tempID_1].Ex_Probability *
+                database.items[tempID_2].Ex_Probability *
+                database.items[tempID_3].Ex_Probability;
 
                 inputcount = 3;
             }
@@ -1138,21 +1194,21 @@ public class Compound_Check : MonoBehaviour {
         //エクストリーム調合の場合は、こっち。ベース決定アイテムを、temp_resultに入れる。
         else if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
         {
-            _itemIDtemp_result.Add(database.items[baseitemID].itemName);
-            _itemIDtemp_result.Add(database.items[itemID_1].itemName);
+            _itemIDtemp_result.Add(database.items[basetemp_ID].itemName);
+            _itemIDtemp_result.Add(database.items[tempID_1].itemName);
 
-            _itemSubtype_temp_result.Add(database.items[baseitemID].itemType_sub.ToString());
-            _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[basetemp_ID].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[tempID_1].itemType_sub.ToString());
 
-            _itemSubtypeB_temp_result.Add(database.items[baseitemID].itemType_subB.ToString());
-            _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[basetemp_ID].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[tempID_1].itemType_subB.ToString());
 
             _itemKosutemp_result.Add(1);
             //Debug.Log("pitemlistController.final_kettei_kosu1: " + pitemlistController.final_kettei_kosu1);
 
             _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu1);
 
-            if (itemID_2 == 9999) //二個しか選択していないときは、9999が入っている。
+            if (tempID_2 == 9999) //二個しか選択していないときは、9999が入っている。
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
@@ -1161,22 +1217,22 @@ public class Compound_Check : MonoBehaviour {
                 _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[baseitemID].Ex_Probability *
-                database.items[itemID_1].Ex_Probability;
+                _ex_probabilty_temp = database.items[basetemp_ID].Ex_Probability *
+                database.items[tempID_1].Ex_Probability;
 
                 inputcount = 2;
             }
             else
             {
-                _itemIDtemp_result.Add(database.items[itemID_2].itemName);
-                _itemSubtype_temp_result.Add(database.items[itemID_2].itemType_sub.ToString());
-                _itemSubtypeB_temp_result.Add(database.items[itemID_2].itemType_subB.ToString());
+                _itemIDtemp_result.Add(database.items[tempID_2].itemName);
+                _itemSubtype_temp_result.Add(database.items[tempID_2].itemType_sub.ToString());
+                _itemSubtypeB_temp_result.Add(database.items[tempID_2].itemType_subB.ToString());
                 _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu2);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[baseitemID].Ex_Probability *
-                database.items[itemID_1].Ex_Probability *
-                database.items[itemID_2].Ex_Probability;
+                _ex_probabilty_temp = database.items[basetemp_ID].Ex_Probability *
+                database.items[tempID_1].Ex_Probability *
+                database.items[tempID_2].Ex_Probability;
 
                 inputcount = 3;
             }
@@ -1185,40 +1241,40 @@ public class Compound_Check : MonoBehaviour {
         //魔法調合の場合はこっち
         if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
         {
-            _itemIDtemp_result.Add(database.items[itemID_1].itemName);
+            _itemIDtemp_result.Add(database.items[tempID_1].itemName);
 
-            magicName = magicskill_database.magicskill_lists[itemID_2].skillName;
-            magicLearnLv = magicskill_database.magicskill_lists[itemID_2].skillLv;
-            costMP = magicskill_database.magicskill_lists[itemID_2].skillCost;
+            magicName = magicskill_database.magicskill_lists[tempID_2].skillName;
+            magicLearnLv = magicskill_database.magicskill_lists[tempID_2].skillLv;
+            costMP = magicskill_database.magicskill_lists[tempID_2].skillCost;
 
             //消費MPも表示
             _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
             _cost_mptext.text = costMP.ToString();
 
-            if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non" ||
-                magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
+            if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "Non" ||
+                magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "CompNo")
             {
-                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName);
-                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName);
+                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName);
+                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName);
             }
-            else if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Use")//[USE]が入っている時
+            else if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "Use")//[USE]が入っている時
             {
-                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[itemID_2].skillName + GameMgr.UseMagicSkillLv);
-                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[itemID_2].skillName + GameMgr.UseMagicSkillLv);
+                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName + GameMgr.UseMagicSkillLv);
+                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName + GameMgr.UseMagicSkillLv);
             }
 
 
-            _itemSubtype_temp_result.Add(database.items[itemID_1].itemType_sub.ToString());
+            _itemSubtype_temp_result.Add(database.items[tempID_1].itemType_sub.ToString());
             _itemSubtype_temp_result.Add("empty");
 
-            _itemSubtypeB_temp_result.Add(database.items[itemID_1].itemType_subB.ToString());
+            _itemSubtypeB_temp_result.Add(database.items[tempID_1].itemType_subB.ToString());
             _itemSubtypeB_temp_result.Add("empty");
 
             _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu1);
             _itemKosutemp_result.Add(1);
 
 
-            if (itemID_3 == 9999) //二個しか選択していないときは、9999が入っている。
+            if (tempID_3 == 9999) //二個しか選択していないときは、9999が入っている。
             {
                 _itemIDtemp_result.Add("empty");
                 _itemSubtype_temp_result.Add("empty");
@@ -1227,8 +1283,8 @@ public class Compound_Check : MonoBehaviour {
                 _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
-                (float)(magicskill_database.magicskill_lists[itemID_2].success_rate * 0.01);
+                _ex_probabilty_temp = database.items[tempID_1].Ex_Probability *
+                (float)(magicskill_database.magicskill_lists[tempID_2].success_rate * 0.01);
 
                 //魔法の場合、一度に作る個数が増えるほど、確率が10%ほど下がる
                 _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * 0.1);
@@ -1239,15 +1295,15 @@ public class Compound_Check : MonoBehaviour {
             }
             else
             {
-                _itemIDtemp_result.Add(database.items[itemID_3].itemName);
-                _itemSubtype_temp_result.Add(database.items[itemID_3].itemType_sub.ToString());
-                _itemSubtypeB_temp_result.Add(database.items[itemID_3].itemType_subB.ToString());
+                _itemIDtemp_result.Add(database.items[tempID_3].itemName);
+                _itemSubtype_temp_result.Add(database.items[tempID_3].itemType_sub.ToString());
+                _itemSubtypeB_temp_result.Add(database.items[tempID_3].itemType_subB.ToString());
                 _itemKosutemp_result.Add(GameMgr.Final_kettei_kosu3);
 
                 //アイテムごとの確率補正値を、先にここで計算
-                _ex_probabilty_temp = database.items[itemID_1].Ex_Probability *
-                (float)(magicskill_database.magicskill_lists[itemID_2].success_rate * 0.01) *
-                database.items[itemID_3].Ex_Probability;
+                _ex_probabilty_temp = database.items[tempID_1].Ex_Probability *
+                (float)(magicskill_database.magicskill_lists[tempID_2].success_rate * 0.01) *
+                database.items[tempID_3].Ex_Probability;
 
 
                 //魔法の場合、一度に作る個数が増えるほど、確率が10%ほど下がる
@@ -1285,7 +1341,7 @@ public class Compound_Check : MonoBehaviour {
             {
                 if (GameMgr.Comp_kettei_bunki == 22) //魔法で、調合DBのリザルトアイテムでなく、元アイテムを強化する場合
                 {
-                    resultitemID = database.items[itemID_1].itemName; //元アイテムを指定
+                    resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
                 }
                 else
                 {

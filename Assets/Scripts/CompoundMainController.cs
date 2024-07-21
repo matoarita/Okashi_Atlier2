@@ -772,6 +772,9 @@ public class CompoundMainController : MonoBehaviour {
                     MagicLearnPanel.SetActive(true);
 
                     break;
+
+                default://compound=110　最後調合するかどうかの確認中など、待機状態
+                    break;
             }
         }
         else
