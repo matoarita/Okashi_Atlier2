@@ -123,6 +123,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     public int _basesp_score8;
     public int _basesp_score9;
     public int _basesp_score10;
+    public float _base_bestwelldone;
     public int _basepowdery;
     public int _baseoily;
     public int _basewatery;
@@ -167,6 +168,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _addsp_score8;
     private int _addsp_score9;
     private int _addsp_score10;
+    private float _addbest_welldone;
     private int _addbase_score;
     private float _addgirl1_like;
     private int _addcost;
@@ -868,6 +870,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basesp_score8 = pitemlist.player_originalitemlist[_id].SP_Score8;
                     _basesp_score9 = pitemlist.player_originalitemlist[_id].SP_Score9;
                     _basesp_score10 = pitemlist.player_originalitemlist[_id].SP_Score10;
+                    _base_bestwelldone = pitemlist.player_originalitemlist[_id].Best_Welldone;
                     _basegirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
                     _basecost = pitemlist.player_originalitemlist[_id].cost_price;
                     _basesell = pitemlist.player_originalitemlist[_id].sell_price;
@@ -926,6 +929,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basesp_score8 = pitemlist.player_extremepanel_itemlist[_id].SP_Score8;
                     _basesp_score9 = pitemlist.player_extremepanel_itemlist[_id].SP_Score9;
                     _basesp_score10 = pitemlist.player_extremepanel_itemlist[_id].SP_Score10;
+                    _base_bestwelldone = pitemlist.player_extremepanel_itemlist[_id].Best_Welldone;
                     _basegirl1_like = pitemlist.player_extremepanel_itemlist[_id].girl1_itemLike;
                     _basecost = pitemlist.player_extremepanel_itemlist[_id].cost_price;
                     _basesell = pitemlist.player_extremepanel_itemlist[_id].sell_price;
@@ -1109,6 +1113,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesp_score8 = database.items[_id].SP_Score8;
         _basesp_score9 = database.items[_id].SP_Score9;
         _basesp_score10 = database.items[_id].SP_Score10;
+        _base_bestwelldone = database.items[_id].Best_Welldone;
         _basegirl1_like = database.items[_id].girl1_itemLike;
         _basecost = database.items[_id].cost_price;
         _basesell = database.items[_id].sell_price;
@@ -1155,6 +1160,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesp_score8 = database.items[_id].SP_Score8;
         _basesp_score9 = database.items[_id].SP_Score9;
         _basesp_score10 = database.items[_id].SP_Score10;
+        _base_bestwelldone = database.items[_id].Best_Welldone;
         _basegirl1_like = database.items[_id].girl1_itemLike;
         _basecost = database.items[_id].cost_price;
         _basesell = database.items[_id].sell_price;
@@ -1201,6 +1207,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesp_score8 = database.items_gamedefault[_id].SP_Score8;
         _basesp_score9 = database.items_gamedefault[_id].SP_Score9;
         _basesp_score10 = database.items_gamedefault[_id].SP_Score10;
+        _base_bestwelldone = database.items_gamedefault[_id].Best_Welldone;
         _basegirl1_like = database.items_gamedefault[_id].girl1_itemLike;
         _basecost = database.items_gamedefault[_id].cost_price;
         _basesell = database.items_gamedefault[_id].sell_price;
@@ -1261,6 +1268,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesp_score8 = pitemlist.player_yosokuitemlist[_id].SP_Score8;
         _basesp_score9 = pitemlist.player_yosokuitemlist[_id].SP_Score9;
         _basesp_score10 = pitemlist.player_yosokuitemlist[_id].SP_Score10;
+        _base_bestwelldone = pitemlist.player_yosokuitemlist[_id].Best_Welldone;
         _basegirl1_like = pitemlist.player_yosokuitemlist[_id].girl1_itemLike;
         _basecost = pitemlist.player_yosokuitemlist[_id].cost_price;
         _basesell = pitemlist.player_yosokuitemlist[_id].sell_price;
@@ -2074,7 +2082,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときの計算。
         {
             _well_done = 0;
-            _best_well_done = 30.0f; //200°で10分ほど焼いたときの焼き具合 60分焼けるけど、クッキーの場合30分以上は基本焦げる
+            _best_well_done = _base_bestwelldone; //200°で10分ほど焼いたときの焼き具合 60分焼けるけど、クッキーの場合30分以上は基本焦げる
 
             if (GameMgr.tempature_control_ON)
             {
@@ -2273,6 +2281,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addsp_score8 = database.items[_id].SP_Score8;
         _addsp_score9 = database.items[_id].SP_Score9;
         _addsp_score10 = database.items[_id].SP_Score10;
+        _addbest_welldone = database.items[_id].Best_Welldone;
         _addbase_score = database.items[_id].Base_Score;
         _addgirl1_like = database.items[_id].girl1_itemLike;
         _addcost = database.items[_id].cost_price;
@@ -2317,6 +2326,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _additemlist.Add(new Item(0, "", "", _addname, "", "", 0, _addhp, _addday, _addquality, _addexp, 0, _addrich, _addsweat, _addbitter, _addsour,
         _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _addbeauty, 0, _addtea_flavor,
         _addsp_wind, _addsp_score2, _addsp_score3, _addsp_score4, _addsp_score5, _addsp_score6, _addsp_score7, _addsp_score8, _addsp_score9, _addsp_score10,
+        _addbest_welldone,
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], 
@@ -2356,6 +2366,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addsp_score8 = pitemlist.player_originalitemlist[_id].SP_Score8;
         _addsp_score9 = pitemlist.player_originalitemlist[_id].SP_Score9;
         _addsp_score10 = pitemlist.player_originalitemlist[_id].SP_Score10;
+        _addbest_welldone = pitemlist.player_originalitemlist[_id].Best_Welldone;
         _addbase_score = pitemlist.player_originalitemlist[_id].Base_Score;
         _addgirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
         _addcost = pitemlist.player_originalitemlist[_id].cost_price;
@@ -2402,6 +2413,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _additemlist.Add(new Item(0, "", "", _addname, "", "", 0, _addhp, _addday, _addquality, _addexp, 0, _addrich, _addsweat, _addbitter, _addsour,
         _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _addbeauty, 0, _addtea_flavor,
         _addsp_wind, _addsp_score2, _addsp_score3, _addsp_score4, _addsp_score5, _addsp_score6, _addsp_score7, _addsp_score8, _addsp_score9, _addsp_score10,
+        _addbest_welldone,
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
@@ -2441,6 +2453,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addsp_score8 = pitemlist.player_extremepanel_itemlist[_id].SP_Score8;
         _addsp_score9 = pitemlist.player_extremepanel_itemlist[_id].SP_Score9;
         _addsp_score10 = pitemlist.player_extremepanel_itemlist[_id].SP_Score10;
+        _addbest_welldone = pitemlist.player_extremepanel_itemlist[_id].Best_Welldone;
         _addbase_score = pitemlist.player_extremepanel_itemlist[_id].Base_Score;
         _addgirl1_like = pitemlist.player_extremepanel_itemlist[_id].girl1_itemLike;
         _addcost = pitemlist.player_extremepanel_itemlist[_id].cost_price;
@@ -2487,6 +2500,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _additemlist.Add(new Item(0, "", "", _addname, "", "", 0, _addhp, _addday, _addquality, _addexp, 0, _addrich, _addsweat, _addbitter, _addsour,
         _addcrispy, _addfluffy, _addsmooth, _addhardness, _addjiggly, _addchewy, _addpowdery, _addoily, _addwatery, _addbeauty, 0, _addtea_flavor,
         _addsp_wind, _addsp_score2, _addsp_score3, _addsp_score4, _addsp_score5, _addsp_score6, _addsp_score7, _addsp_score8, _addsp_score9, _addsp_score10,
+        _addbest_welldone,
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],

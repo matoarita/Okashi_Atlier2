@@ -580,6 +580,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //時間の項目リセット
         time_controller.ResetTimeFlag();
 
+        //温度管理していた場合は、ここでリセット
+        GameMgr.tempature_control_ON = false;
+
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
     }
@@ -845,6 +848,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //時間の項目リセット
         time_controller.ResetTimeFlag();
 
+        //温度管理していた場合は、ここでリセット
+        GameMgr.tempature_control_ON = false;
+
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
     }
@@ -1075,6 +1081,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //時間の項目リセット
         time_controller.ResetTimeFlag();
 
+        //温度管理していた場合は、ここでリセット
+        GameMgr.tempature_control_ON = false;
+
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
     }
@@ -1280,6 +1289,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
+
+        //温度管理していた場合は、ここでリセット
+        GameMgr.tempature_control_ON = false;
 
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
@@ -1490,6 +1502,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text.text = 
             pitemlist.player_yosokuitemlist[new_item].itemNameHyouji +
             " を登録しました！" + "\n" + "にいちゃん！　ヒカリ、がんばって作る～！";
+
+        //温度管理していた場合は、ここでリセット
+        GameMgr.tempature_control_ON = false;
     }
 
 

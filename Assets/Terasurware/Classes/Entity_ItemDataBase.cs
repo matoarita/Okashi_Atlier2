@@ -53,6 +53,7 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int SP8_sco;
 		public int SP9_sco;
 		public int SP10_sco;
+		public float best_welldone;
 		public string type;
 		public string subtype;
 		public string subtypeB;
