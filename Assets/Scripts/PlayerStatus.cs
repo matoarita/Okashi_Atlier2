@@ -201,7 +201,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_maxmp = player_default_mp;
         player_mp = player_maxmp;
         player_patissier_lv = 1;
-        player_patissier_exp = 0;
+        player_patissier_exp = 0; //現在未使用
         player_patissier_job_pt = 0; //ジョブポイント
         player_patissier_Rank = 1;
 
@@ -236,27 +236,27 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static string SetPatissierRank(int _parank)
     {
         //獲得したスターに応じてランクが決まる
-        if(_parank >= 0 && _parank < 3)
+        if(_parank >= 0 && _parank < 30)
         {
             player_patissier_Rank = 1;
             return "ブロンズ";
         }
-        else if (_parank >= 3 && _parank < 6)
+        else if (_parank >= 30 && _parank < 60)
         {
             player_patissier_Rank = 2;
             return "シルバー";
         }
-        else if (_parank >= 6 && _parank < 10)
+        else if (_parank >= 60 && _parank < 90)
         {
             player_patissier_Rank = 3;
             return "ゴールド";
         }
-        else if (_parank >= 10 && _parank < 15)
+        else if (_parank >= 190 && _parank < 150)
         {
             player_patissier_Rank = 4;
             return "プラチナ";
         }
-        else if (_parank >= 15)
+        else if (_parank >= 150)
         {
             player_patissier_Rank = 5;
             return "ダイア";

@@ -322,8 +322,8 @@ public class CompoundMainController : MonoBehaviour {
 	void Update ()
     {
         
-
         //デバッグ用　使用中アイコン
+        /*
         if (GameMgr.CompoundSceneStartON)
         {
             Debug_CompoIcon.SetActive(true);
@@ -331,7 +331,7 @@ public class CompoundMainController : MonoBehaviour {
         else
         {
             Debug_CompoIcon.SetActive(false);
-        }
+        }*/
 
 
         if (GameMgr.CompoundSceneStartON)

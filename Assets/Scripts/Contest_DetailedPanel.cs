@@ -137,13 +137,9 @@ public class Contest_DetailedPanel : MonoBehaviour {
         {
             contest_condition.text = "誰でも参加可";
         }
-        else if (_Rank > 1 && _Rank <= 3)
+        else if (_Rank > 1)
         {
-            contest_condition.text = "パティシエLv " + "5 以上" + "\n" + "人気ランク　シルバー以上";
-        }
-        else if (_Rank > 3)
-        {
-            contest_condition.text = "パティシエLv " + "5 以上" + "\n" + "人気ランク　ゴールド以上";
+            contest_condition.text = "☆スター" + _Rank + "以上";
         }
 
         contest_theme.text = conteststartList_database.conteststart_lists[_list].Contest_themeComment;

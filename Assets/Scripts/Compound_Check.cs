@@ -243,6 +243,7 @@ public class Compound_Check : MonoBehaviour {
 
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
+                GameMgr.Extreme_On = false;
 
                 //確率パネルの取得・参照先を指定
                 kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
@@ -265,6 +266,7 @@ public class Compound_Check : MonoBehaviour {
 
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
+                GameMgr.Extreme_On = false;
 
                 //確率パネルの取得・参照先を指定
                 kakuritsuPanel_obj = compoBG_A.transform.Find("ExtremeImage/KakuritsuPanel").gameObject;
@@ -288,6 +290,7 @@ public class Compound_Check : MonoBehaviour {
 
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
+                GameMgr.Extreme_On = false;
 
                 FinalCheckPanel.SetActive(true);
                 yes.GetComponent<Button>().interactable = false;
@@ -322,6 +325,7 @@ public class Compound_Check : MonoBehaviour {
 
                 GameMgr.final_select_flag = false;
                 resultitemName_obj.SetActive(true);
+                GameMgr.Extreme_On = false;
 
                 FinalCheckPanel.SetActive(true);
                 yes.GetComponent<Button>().interactable = false;
@@ -355,7 +359,8 @@ public class Compound_Check : MonoBehaviour {
 
                 SelectPaused();
 
-                GameMgr.final_select_flag = false;                
+                GameMgr.final_select_flag = false;
+                GameMgr.Extreme_On = false;
 
                 //確率パネルの取得・参照先を指定
                 kakuritsuPanel_obj = compoBG_A.transform.Find("MagicStartPanel/magicComp2/MagicSelectLv_Panel/KakuritsuPanel").gameObject;
@@ -435,8 +440,6 @@ public class Compound_Check : MonoBehaviour {
                             //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
 
-                            exp_Controller.extreme_on = false;
-
                             if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
                             {
                                 exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
@@ -463,8 +466,6 @@ public class Compound_Check : MonoBehaviour {
                         else if (GameMgr.compound_select == 7)
                         {
                             //ヒカリに作ってもらう。材料の決定
-
-                            exp_Controller.extreme_on = false;
 
                             exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
                             /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
@@ -574,8 +575,6 @@ public class Compound_Check : MonoBehaviour {
                             //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.result_ok = true; //オリジナル調合完了のフラグをたてておく。
 
-                            exp_Controller.extreme_on = false;
-
                             exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
 
                             exp_Controller.result_kosuset.Clear();
@@ -595,9 +594,7 @@ public class Compound_Check : MonoBehaviour {
                         }
                         else if (GameMgr.compound_select == 7)
                         {
-                            //ヒカリに作ってもらう。材料の決定
-
-                            exp_Controller.extreme_on = false;
+                            //ヒカリに作ってもらう。材料の決定                            
 
                             exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
                             /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
@@ -738,7 +735,7 @@ public class Compound_Check : MonoBehaviour {
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
                         {
-                            exp_Controller.extreme_on = true;
+                            GameMgr.Extreme_On = true;
 
                             //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
@@ -747,7 +744,7 @@ public class Compound_Check : MonoBehaviour {
                         }
                         else
                         {
-                            exp_Controller.extreme_on = false;
+                            GameMgr.Extreme_On = false;
 
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
@@ -810,7 +807,7 @@ public class Compound_Check : MonoBehaviour {
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
                         if (compoDB_select_judge == true)
                         {
-                            exp_Controller.extreme_on = true;
+                            GameMgr.Extreme_On = true;
 
                             //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.result_ok = true; //調合完了のフラグをたてておく。
@@ -819,7 +816,7 @@ public class Compound_Check : MonoBehaviour {
                         }
                         else
                         {
-                            exp_Controller.extreme_on = false;
+                            GameMgr.Extreme_On = false;
 
                             //調合成功の場合、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.topping_result_ok = true; //調合完了のフラグをたてておく。
@@ -1059,30 +1056,35 @@ public class Compound_Check : MonoBehaviour {
 
                         //MPを消費
                         PlayerStatus.player_mp -= costMP;
-                        
-                        //魔法によって、ハートや仕上げ回数も消費する。
+
+                        //魔法によって、仕上げ回数も消費する。
+                        if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
+                        {
+                            GameMgr.Extreme_On = true;
+                            //CompNoのお菓子は、仕上げ回数が減る
+                        }
+                        else
+                        {
+                            GameMgr.Extreme_On = false;
+                        }
+
+                        //魔法によって、ハートも消費する。
                         switch (GameMgr.UseMagicSkill)
                         {
                             case "Cookie_SecondBake":
 
-                                //仕上げ回数も減らす
-                                PlayerStatus.player_extreme_kaisu--;
                                 break;
 
                             case "Warming_Handmade":
 
                                 girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * 30), false); //ハートを消費するパターン;
                                                                                                   //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
-
-                                //仕上げ回数も減らす
-                                PlayerStatus.player_extreme_kaisu--;
                                 break;
                         }
 
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
-
-                        exp_Controller.extreme_on = false;
+                      
 
                         exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
                         /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)

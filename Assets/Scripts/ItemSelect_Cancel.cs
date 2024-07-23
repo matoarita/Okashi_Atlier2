@@ -66,6 +66,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
     public bool kettei_on_waiting;
 
     private bool playerlist_check_on;
+    private bool compmainController_check_on;
 
     private int i;
 
@@ -95,12 +96,18 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
         card_view = card_view_obj.GetComponent<CardView>();
 
         //アイテムリストがすでに生成されているかをチェック
+        compmainController_check_on = false;
         playerlist_check_on = false;
         foreach (Transform child in canvas.transform)
         {
             if (child.name == "PlayeritemList_ScrollView")
             {
                 playerlist_check_on = true;
+            }
+
+            if (child.name == "CompoundMainController")
+            {
+                compmainController_check_on = true;
             }
         }
 
@@ -113,8 +120,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
             }
 
-            //レシピ調合のときは、参照するオブジェクトが変わるので、それ対策
-            if (GameMgr.CompoundSceneStartON)
+            //コンポ調合があるシーンでは、取得するテキストやオブジェクトが増える
+            if (compmainController_check_on)
             {
                 kakuritsuPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
                 kakuritsuPanel = kakuritsuPanel_obj.GetComponent<KakuritsuPanel>();
@@ -125,22 +132,11 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 compound_check_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/Compound_Check").gameObject;
                 compound_check = compound_check_obj.GetComponent<Compound_Check>();
 
-                //まずは、レシピ・それ以外の調合用にオブジェクト取得
-                if (GameMgr.compound_select == 1) //レシピ調合のときは、参照するオブジェクトが変わる。
-                {
-                    yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
-                    yes = yes_no_panel.transform.Find("Yes").gameObject;
-                    yes_text = yes.GetComponentInChildren<Text>();
-                    no = yes_no_panel.transform.Find("No").gameObject;
+                //レシピ以外では、アイテムリスト備え付けのyes,noを使う。
+                yes = pitemlistController_obj.transform.Find("Yes").gameObject;
+                yes_text = yes.GetComponentInChildren<Text>();
+                no = pitemlistController_obj.transform.Find("No").gameObject;
 
-                }
-                else
-                {
-                    //レシピ以外では、アイテムリスト備え付けのyes,noを使う。
-                    yes = pitemlistController_obj.transform.Find("Yes").gameObject;
-                    yes_text = yes.GetComponentInChildren<Text>();
-                    no = pitemlistController_obj.transform.Find("No").gameObject;
-                }
             }
             else
             {
@@ -573,6 +569,19 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             break;
 
 
+                        case 1000: //サブイベントで、アイテムを何も選択していない状態
+
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                            {
+                                yes_selectitem_kettei.onclick = false;
+
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+                                    //kettei_on_waiting = false;
+                                    GameMgr.event_pitem_cancel = true; //やめたフラグON
+                                }
+                            }
+                            break;
 
                         default://compound=110　最後調合するかどうかの確認中など、待機状態
                             break;
@@ -682,8 +691,8 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                 }
             }
 
-            //全シーンで共通の処理
-            switch (GameMgr.compound_status)
+            //全シーンで共通の処理（調合のメインシーンでは、上記のcompound_statusのほうを使う）
+            switch (GameMgr.Scene_Status)
             {
                 case 1000: //サブイベントで、アイテムを何も選択していない状態
 

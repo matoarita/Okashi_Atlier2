@@ -286,6 +286,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private float _well_done;
     private float _best_well_done;
     private float _well_done_kyori;
+    private float _well_done_kyori_noabs;
     private float _well_done_kyori_hosei;
 
     private float hikari_okashilv_hosei;
@@ -394,7 +395,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (Comp_method_bunki == 0) //オリジナル調合の場合
         {
             //オリジナル調合の設定
-            if (exp_Controller.extreme_on != true)
+            if (GameMgr.Extreme_On != true)
             {
                 //**重要** 
                 //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
@@ -1730,7 +1731,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     {
 
         total_kosu = 0;
-
+        GameMgr.tempature_control_Param_yakitext = "";
 
         //①まずは、日数やコストなどの、全てのジャンルに共通するパラメータ同士を加算する。料金（_basesell）は、品質に基づいて計算する。
 
@@ -2090,9 +2091,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     Debug.Log("--- 温度管理ON --- ");
 
-                    _tempature_param = SujiMap(GameMgr.System_tempature_control_Param_temp,
-                        GameMgr.System_tempature_control_tempMin, GameMgr.System_tempature_control_tempMax,
-                        1.5f, 5.0f);
+                    _tempature_param = SujiMap(GameMgr.System_tempature_control_Param_temp * GameMgr.System_tempature_control_Param_temp,
+                        GameMgr.System_tempature_control_tempMin * GameMgr.System_tempature_control_tempMin, 
+                        GameMgr.System_tempature_control_tempMax * GameMgr.System_tempature_control_tempMax, 
+                        2.0f, 5.0f); //ここで焼き具合ゲージを決定してる。
                     _well_done = _tempature_param * GameMgr.System_tempature_control_Param_time;
 
                     Debug.Log("_tempature_param: " + _tempature_param);
@@ -2100,43 +2102,88 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     Debug.Log("_best_well_done: " + _best_well_done);
 
                     _well_done_kyori = Mathf.Abs(_best_well_done - _well_done); //ベストな焼き具合と、今回の焼き具合との差　差が近いほど、高得点
+                    _well_done_kyori_noabs = _best_well_done - _well_done;
                     Debug.Log("ベスト温度との距離: " + _well_done_kyori);
 
                     if (_well_done_kyori >= 0 && _well_done_kyori < 3.0)
                     {
-                        _well_done_kyori_hosei = 3.0f;
+                        _well_done_kyori_hosei = 2.5f;
+                        GameMgr.tempature_control_Param_yakitext = "最高の焼き具合だ。";
                     }
                     else if (_well_done_kyori >= 3.0 && _well_done_kyori < 6.0)
                     {
-                        _well_done_kyori_hosei = 2.0f;
+                        _well_done_kyori_hosei = 1.75f;
+                        GameMgr.tempature_control_Param_yakitext = "とてもいい焼き具合だ。";
                     }
                     else if (_well_done_kyori >= 6.0 && _well_done_kyori < 10.0)
                     {
-                        _well_done_kyori_hosei = 1.75f;
+                        _well_done_kyori_hosei = 1.5f;
+                        GameMgr.tempature_control_Param_yakitext = "いい焼き具合に仕上がった。";
                     }
                     else if (_well_done_kyori >= 10.0 && _well_done_kyori < 15.0)
                     {
-                        _well_done_kyori_hosei = 1.5f;
+                        _well_done_kyori_hosei = 1.2f;
+                        GameMgr.tempature_control_Param_yakitext = "ほどよい焼きに仕上がった。";
                     }
                     else if (_well_done_kyori >= 15.0 && _well_done_kyori < 22.0)
                     {
-                        _well_done_kyori_hosei = 1.4f;
+                        _well_done_kyori_hosei = 1.0f;
+                        if(_well_done_kyori_noabs >= 0) //+は焼きが足りない
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "もう少し焼いてもよさそう。";
+                        }
+                        else //-は焼きすぎ
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "少し焼きが強かったかな。";
+                        }                       
                     }
                     else if (_well_done_kyori >= 22.0 && _well_done_kyori < 30.0)
                     {
-                        _well_done_kyori_hosei = 1.2f;
+                        _well_done_kyori_hosei = 0.9f;
+                        if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "もう少し焼いてもよさそう。";
+                        }
+                        else //-は焼きすぎ
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "少し焼きが強かったかな。";
+                        }
                     }
                     else if (_well_done_kyori >= 30.0 && _well_done_kyori < 45.0)
                     {
                         _well_done_kyori_hosei = 0.75f;
+                        if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "焼きが足りなさそうだ..。";
+                        }
+                        else //-は焼きすぎ
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "焼きすぎたかも。";
+                        }
                     }
                     else if (_well_done_kyori >= 45.0 && _well_done_kyori < 60.0)
                     {
                         _well_done_kyori_hosei = 0.5f;
+                        if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "生焼けっぽい..。";
+                        }
+                        else //-は焼きすぎ
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "焼きすぎたかな..。";
+                        }
                     }
                     else if (_well_done_kyori >= 60.0)
                     {
                         _well_done_kyori_hosei = 0.125f;
+                        if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "げ..。生焼けだ..。";
+                        }
+                        else //-は焼きすぎ
+                        {
+                            GameMgr.tempature_control_Param_yakitext = "げ..。焼きすぎた..。";
+                        }
                     }
                     Debug.Log("_well_done_kyori_hosei（温度で食感にかかる補正値*）: " + _well_done_kyori_hosei);
 

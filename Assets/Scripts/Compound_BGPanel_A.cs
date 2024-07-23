@@ -20,6 +20,9 @@ public class Compound_BGPanel_A : MonoBehaviour {
     private GameObject card_view_obj;
     private CardView card_view;
 
+    private GameObject Debug_timeCount_Panel;
+    private Text Debug_timeCount_Panel_text;
+
     private GameObject SelectCompo_panel_1;
     private GameObject BlackImage;
 
@@ -68,6 +71,11 @@ public class Compound_BGPanel_A : MonoBehaviour {
         MagicButton.SetActive(false);
         LearningButton = this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/LearningButton").gameObject;
         LearningButton.SetActive(false);
+
+        //デバッグ用
+        Debug_timeCount_Panel = this.transform.Find("DebugTimeEnshutuPanel").gameObject; //デバッグ用　時間カウントパネル
+        Debug_timeCount_Panel_text = Debug_timeCount_Panel.transform.Find("TimeText").GetComponent<Text>();
+        Debug_timeCount_Panel.SetActive(false);
 
         BlackImage = this.transform.Find("BlackImage").gameObject;
 

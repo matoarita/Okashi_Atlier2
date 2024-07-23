@@ -15,15 +15,15 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
     //ハートレベルのテーブル
     public List<int> stage1_hlvTable = new List<int>();
-    private List<int> skill_patissier_List = new List<int>();
-    private int _hlv_last, _sum;
+    private List<int> stage1_joblvTable = new List<int>();
+    private int _hlv_last, _joblv_last, _sum;
 
     public Dictionary<int, int> exp_table;
 
     private int i, count;
 
-    private int now_level, before_level, before_start_lv;
-    private int _temp_lv;
+    private int now_level, before_lv;
+    private int _lv;
     private int _dev;
 
     private GameObject canvas;
@@ -51,10 +51,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         InitSetup();
 
         //好感度レベルのテーブル初期化
-        Init_Stage1_LVTable();
-        Init_SkillTable();
-
-        skill_patissier_List.Clear();
+        Init_Stage1_heartLVTable();
+        Init_JobTable();
     }
 
     private void InitSetup()
@@ -134,7 +132,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     break;
             }
         }
-            
+
+        //SkillCheckPatissierLV();
     }
 
     void ShiageUpCheck(int _lv)
@@ -169,25 +168,31 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     }
 
 
-    //パティシエレベルに応じてスキルを覚えるパターン Girl_Eat_Judgeかデバッグパネルから読む。
-    public void SkillCheckPatissierLV(int _nowlevel, int _status)
+    //ジョブレベルのチェック　ジョブがあがったらジョブポイントがたまる
+    public void SkillCheckPatissierLV()
     {
-        _mstatus = _status;
 
-        if (PlayerStatus.girl1_Love_lv > PlayerStatus.player_patissier_lv)
+        /*if (PlayerStatus.girl1_Love_lv > PlayerStatus.player_patissier_lv)
         {
             _dev = PlayerStatus.girl1_Love_lv - PlayerStatus.player_patissier_lv;           
             PlayerStatus.player_patissier_job_pt += _dev;
             PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_lv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
-        }
+        }*/
+        before_lv = PlayerStatus.player_patissier_lv;
+        JobLVKoushin();
 
+        if(PlayerStatus.player_patissier_lv > before_lv)
+        {
+            _dev = PlayerStatus.player_patissier_lv - before_lv;
+            PlayerStatus.player_patissier_job_pt += _dev;            
+        }
     }
 
     
 
 
     //ハートレベルアップテーブル(パティシエレベルと現在共通）
-    void Init_Stage1_LVTable()
+    void Init_Stage1_heartLVTable()
     {
         stage1_hlvTable.Clear();
         stage1_hlvTable.Add(15); //LV2。LV1で、次のレベルが上がるまでの好感度値
@@ -221,17 +226,53 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         Debug.Log("stage1_lvTable.Count: " + stage1_lvTable.Count);*/
     }
 
-    void Init_SkillTable()
+    void Init_JobTable()
     {
-        i = 1;
-        while(i<99) //LV３ごとにジョブが1上がる
+        stage1_joblvTable.Clear();
+        stage1_joblvTable.Add(5); //LV2。LV1で、次のレベルが上がるまでの好感度値
+        stage1_joblvTable.Add(10);　//LV3 LV1の分は含めない。
+        stage1_joblvTable.Add(20); //LV4
+        stage1_joblvTable.Add(30); //LV5
+        stage1_joblvTable.Add(40); //LV6
+        stage1_joblvTable.Add(55); //LV7
+        stage1_joblvTable.Add(75); //LV8
+        stage1_joblvTable.Add(95); //LV9
+        stage1_joblvTable.Add(125); //LV10
+        stage1_joblvTable.Add(155); //LV11
+        stage1_joblvTable.Add(185); //LV12
+        stage1_joblvTable.Add(215); //LV13
+        stage1_joblvTable.Add(250); //LV14
+        stage1_joblvTable.Add(300); //LV15
+
+        _joblv_last = stage1_joblvTable.Count;
+        //LV16以上～50まで　50ごとに上がるように設定
+        for (i = 1; i < (50 - _joblv_last); i++)
         {
-            if(i % 3 == 0)
-            {
-                skill_patissier_List.Add(0);
-            }
+            stage1_joblvTable.Add((_joblv_last + i) * 50);
+        }
+        stage1_joblvTable[stage1_joblvTable.Count - 1] = 9999; //最後だけ9999
+
+        //デバッグ用
+        for (i = 0; i < stage1_joblvTable.Count; i++)
+        {
+            Debug.Log("stage1_joblvTable: " + "次のLv" + (i+2) + " " + stage1_joblvTable[i]);
+        }
+        Debug.Log("stage1_joblvTable.Count: " + stage1_joblvTable.Count);
+    }
+
+    //更新後のrenkinExpをいれると、現在のジョブLVに再計算する
+    public void JobLVKoushin()
+    {
+        i = 0;
+        PlayerStatus.player_patissier_lv = 1;
+        while (PlayerStatus.player_renkin_exp >= stage1_joblvTable[i])
+        {
+            //_girllove_param -= stage_levelTable[i];
+            PlayerStatus.player_patissier_lv++;
             i++;
         }
+
+        //
     }
 
     //更新後のHeartExpをいれると、現在のHLVに再計算する

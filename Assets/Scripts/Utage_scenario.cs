@@ -9,7 +9,6 @@ using Live2D.Cubism.Rendering;
 
 public class Utage_scenario : MonoBehaviour
 {
-
     AdvEngine Engine { get { return engine ?? (engine = FindObjectOfType<AdvEngine>()); } }
     public AdvEngine engine;
     public string scenarioLabel; //シナリオラベルを定義しておく必要がある
@@ -82,7 +81,7 @@ public class Utage_scenario : MonoBehaviour
     private int judge_num; //審査員の番号
     private bool SpecialItemFlag;
     private int total_score;
-    private bool eventend_flag;
+    private bool presentevent_end_flag;
     private bool NPCevent_okashicheck;
     private int _rank;
 
@@ -1849,705 +1848,7 @@ public class Utage_scenario : MonoBehaviour
 
     }
 
-    IEnumerator PitemPresent()
-    {
-        //
-        //あげるときの流れは、①「わたす（いく）　or　わたさない（いかない）」　
-        //→　②アイテム選択画面（ピクニックは調合画面）　
-        //→　③採点し、分岐
-        //
-
-        GameMgr.event_pitem_use_select = false;
-
-        //キャンバスの読み込み
-        //canvas = GameObject.FindWithTag("Canvas");
-
-        //アイテムリストオブジェクト取得
-        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-
-        //女の子、お菓子の判定処理オブジェクトの取得
-        GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
-        girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
-
-        //
-        //「宴」のポーズ終了待ち　ピクニックいく、いかないを選択。選択肢がないイベントもあり、その場合eventend_flag = false。
-        while (!engine.IsPausingScenario)
-        {
-            yield return null;
-        }
-
-        //一度ポーズ。ピクニックいく、いかないの判定などで使用。たっていたら、終了する。
-        eventend_flag = (bool)engine.Param.GetParameter("EventEnd_Flag");
-
-        if (eventend_flag) //やめる場合
-        {
-            //アイテムを開いたりする処理は無視して、endにいく。
-            GameMgr.picnic_event_reading_now = false;
-
-            //ここで、宴のパラメータ設定。リセットしておく。
-            engine.Param.TrySetParameter("EventEnd_Flag", false);
-
-            if (GameMgr.Scene_Category_Num == 10)
-            {
-                //いかないを選択したので、ハート獲得演出はキャンセル
-                GameMgr.SubEvAfterHeartGet = false;
-            }
-
-            if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
-            {
-                GameMgr.hiroba_event_ON = false;
-            }
-
-            if(GameMgr.shop_event_ON) //お店イベントで起こった場合
-            {
-                GameMgr.shop_event_ON = false;
-            }
-
-            if (GameMgr.farm_event_ON) //ファームイベントで起こった場合
-            {
-                GameMgr.farm_event_ON = false;
-            }
-
-            if (GameMgr.bar_event_ON) //酒場イベントで起こった場合
-            {
-                GameMgr.bar_event_ON = false;
-            }
-
-            //続きから再度読み込み
-            engine.ResumeScenario();
-        }
-        else //いく場合
-        {
-            canvas.SetActive(true);
-            //ピクニックイベントの場合は、調合画面にはいる。
-            if (GameMgr.picnic_event_reading_now)
-            {
-                //調合画面にはいる。
-                GameMgr.compound_status = 6;
-                compound_Main.MainCompoundMethod();
-
-                //ゲーム上のキャラクタON
-                CharacterLive2DImageON();
-            }
-            else //それ以外、ここでアイテム選択画面を表示。
-            {
-                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-            }
-
-            while (!GameMgr.event_pitem_use_OK && !GameMgr.event_pitem_cancel) //アイテム選択待ちでポーズ
-            {
-                yield return null;
-            }
-
-            if (GameMgr.picnic_event_reading_now)
-            {
-                //ゲーム上のキャラクタOFF
-                CharacterLive2DImageOFF();
-            }
-
-
-            //アイテム渡す場合
-            if (GameMgr.event_pitem_use_OK) 
-            {
-                GameMgr.event_pitem_use_OK = false;
-                NPCevent_okashicheck = false;
-
-                PitemPresentEvent(); //判定処理   
-                PitemDelete(); //アイテム削除処理
-                
-                //続きから再度読み込み
-                engine.ResumeScenario();
-            }
-
-            //やっぱりやめた場合の処理
-            if (GameMgr.event_pitem_cancel)
-            {
-                GameMgr.event_pitem_cancel = false;
-
-                //アイテムを開いたりする処理は無視して、endにいく。
-                GameMgr.picnic_event_reading_now = false;
-
-                playeritemlist_onoff.SetActive(false);
-
-                //ここで、宴のパラメータ設定。リセットしておく。
-                engine.Param.TrySetParameter("EventEnd_Flag", true);
-
-                //続きから再度読み込み
-                engine.ResumeScenario();
-
-                //
-                //「宴」のポーズ終了待ち
-                while (!engine.IsPausingScenario)
-                {
-                    yield return null;
-                }
-
-                if (GameMgr.Scene_Category_Num == 10)
-                {
-                    //いかないを選択したので、ハート獲得演出はキャンセル
-                    GameMgr.SubEvAfterHeartGet = false;
-                }
-
-                if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
-                {
-                    GameMgr.hiroba_event_ON = false;
-                }
-
-                if (GameMgr.shop_event_ON) //お店イベントで起こった場合
-                {
-                    GameMgr.shop_event_ON = false;
-                }
-
-                //ここで、宴のパラメータ設定。リセットしておく。
-                engine.Param.TrySetParameter("EventEnd_Flag", false);
-
-                //続きから再度読み込み
-                engine.ResumeScenario();
-            }
-        }
-
-    }
-
-    void PitemPresentEvent()
-    {
-        //アイテムの判定処理がここで入る。判定値は、妹の判定。
-        if (!GameMgr.KoyuJudge_ON)
-        {
-            total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, GameMgr.NPC_Dislike_UseON); //３番目はコンテストタイプ　1ならコンテストやイベントなど
-        }
-        else
-        {
-            total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, true, GameMgr.KoyuJudge_num, GameMgr.NPC_Dislike_UseON); //4番目は、判定セットを直接指定するか否か。5番目の番号は、GirlLikeSetの番号。
-        }
-        GameMgr.KoyuJudge_ON = false;
-        GameMgr.NPC_Dislike_UseON = false;
-
-        GameMgr.event_okashi_score = total_score;
-        Debug.Log("点数: （通常の固有お菓子判定と一緒のはず）" + total_score);
-
-        //選択したアイテム
-        if (GameMgr.event_kettei_item_Type == 0) //通常
-        {
-            Debug.Log("選択したアイテム: " + database.items[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
-            GameMgr.contest_okashiSlotName = "";
-            GameMgr.contest_okashiNameHyouji = database.items[GameMgr.event_kettei_itemID].itemNameHyouji;
-            itemType_sub = database.items[GameMgr.event_kettei_itemID].itemType_sub.ToString();
-            itemName = database.items[GameMgr.event_kettei_itemID].itemName;
-        }
-        else if (GameMgr.event_kettei_item_Type == 1) //自分が制作したオリジナルアイテム
-        {
-            Debug.Log("選択したアイテム: " + pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
-            GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].item_SlotName;
-            GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
-            itemType_sub = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
-            itemName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemName;
-
-        }
-        else if (GameMgr.event_kettei_item_Type == 2) //自分が制作したオリジナルアイテム
-        {
-            Debug.Log("選択したアイテム: " + pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
-            GameMgr.contest_okashiSlotName = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].item_SlotName;
-            GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
-            itemType_sub = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
-            itemName = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemName;
-
-        }
-
-        //提出したお菓子の名前をセット
-        engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
-        engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);
-
-        //アイテム選択画面をオフ
-        playeritemlist_onoff.SetActive(false);
-
-        //採点
-        if (total_score < GameMgr.mazui_score)
-        {
-            engine.Param.TrySetParameter("Score_num", 0);
-            GameMgr.event_judge_status = 0;
-        }
-        else if (total_score >= GameMgr.mazui_score && total_score < GameMgr.low_score)
-        {
-            engine.Param.TrySetParameter("Score_num", 1);
-            GameMgr.event_judge_status = 1;
-        }
-        else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
-        {
-            engine.Param.TrySetParameter("Score_num", 2);
-            GameMgr.event_judge_status = 2;
-        }
-        else if (total_score >= GameMgr.high_score && total_score < 150)
-        {
-            engine.Param.TrySetParameter("Score_num", 3);
-            GameMgr.event_judge_status = 3;
-        }
-        else if (total_score >= 150)
-        {
-            engine.Param.TrySetParameter("Score_num", 4);
-            GameMgr.event_judge_status = 4;
-        }
-
-        //点数を宴にもセット
-        engine.Param.TrySetParameter("event_okashi_score", total_score);
-
-
-        //ピクニックイベントの場合    
-        if (GameMgr.picnic_event_reading_now)
-        {
-            GameMgr.picnic_event_reading_now = false;
-
-            //お菓子の種類＋高得点だと、行ける場所が変化する。
-            if (total_score < GameMgr.low_score)
-            {
-                engine.Param.TrySetParameter("PicnicPlace_num", 0);
-                Debug.Log(GameMgr.low_score + "点未満なので、ピクニック場所1");
-                picnic_place_num = 1;
-            }
-            else
-            {
-                //さらに150点以上のときはこっちが優先。必然、一番いい反応になる。
-                if (total_score >= 150)
-                {
-                    if (itemType_sub != "Cookie" && itemType_sub != "Cookie_Hard" && itemType_sub != "Rusk")
-                    {
-                        engine.Param.TrySetParameter("PicnicPlace_num", 10);
-                        Debug.Log("クッキー・ラスク以外　かつ　" + "150" + "点以上なので、ピクニック場所3");
-                        picnic_place_num = 3;
-                    }
-                    else
-                    {
-                        if (itemType_sub == "Crepe" || itemType_sub == "Crepe_Mat" || itemType_sub == "Creampuff" || itemType_sub == "Donuts")
-                        {
-                            engine.Param.TrySetParameter("PicnicPlace_num", 1);
-                            Debug.Log("150点以上 クレープ・シュークリーム・ドーナツなので、ピクニック場所2");
-                            picnic_place_num = 2;
-                        }
-                        else
-                        {
-                            engine.Param.TrySetParameter("PicnicPlace_num", 0);
-                            Debug.Log("150点以上だが、基本のお菓子なので、" + "ピクニック場所1");
-                            picnic_place_num = 1;
-                        }
-                    }
-                }
-                else
-                {
-                    //80点以上~150未満かつ以下のお菓子種類だと場所が変化する。
-                    if (total_score >= 80)
-                    {
-                        if (itemType_sub == "Crepe" || itemType_sub == "Crepe_Mat" || itemType_sub == "Creampuff" || itemType_sub == "Donuts")
-                        {
-                            engine.Param.TrySetParameter("PicnicPlace_num", 1);
-                            Debug.Log("80点以上 クレープ・シュークリーム・ドーナツなので、ピクニック場所2");
-                            picnic_place_num = 2;
-                        }
-                        else
-                        {
-                            engine.Param.TrySetParameter("PicnicPlace_num", 0);
-                            Debug.Log("80点以上 特定のお菓子に反応しなかったので、ピクニック場所1");
-                            picnic_place_num = 1;
-                        }
-                    }
-                    else //80未満
-                    {
-                        engine.Param.TrySetParameter("PicnicPlace_num", 0);
-                        Debug.Log("80" + "点未満なので、" + "ピクニック場所1");
-                        picnic_place_num = 1;
-                    }
-                }
-
-            }
-
-            //フラグ解禁など
-            GameMgr.SetBGMCollectionFlag("bgm29", true);
-            switch (picnic_place_num)
-            {
-                case 1:
-
-                    GameMgr.SetBGMCollectionFlag("bgm26", true);
-                    break;
-
-                case 2:
-
-                    GameMgr.SetBGMCollectionFlag("bgm27", true);
-                    break;
-
-                case 3:
-
-                    GameMgr.SetBGMCollectionFlag("bgm28", true);
-                    random = Random.Range(0, 3); //0~2
-                    pitemlist.addPlayerItemString("rich_milk", 3 + random); //リッチミルクをもらえる
-                    break;
-
-                default:
-
-                    break;
-            }
-        }
-        // *** //
-
-
-        //
-        //広場イベント関連のフラグチェック
-        //
-        if (GameMgr.hiroba_event_ON)
-        {
-            GameMgr.hiroba_event_ON = false;
-
-            switch(GameMgr.hiroba_event_placeNum)
-            {
-                case 0: //いちご少女
-
-                    if (!GameMgr.hiroba_ichigo_first)
-                    {
-                        GameMgr.hiroba_ichigo_first = true; //一回でもお菓子をわたしたフラグON　次は、残りのいちごお菓子の個数が聞ける質問が増える。
-                    }
-
-                    //60点以上で、特定のいちごのお菓子だった場合は、殿堂入り。その他は、少しセリフが変わる。
-                    //全てのいちごアイテムコンプリートすると、称号とかアイテムをもらえる。
-                    engine.Param.TrySetParameter("EventJudge_num", 1);
-                    if (GameMgr.event_judge_status >= 2)
-                    {
-                        i = 0;
-                        while (i < GameMgr.ichigo_collection_list.Count)
-                        {
-                            //リストに該当するものがあった。
-                            if (GameMgr.ichigo_collection_list[i] == itemName)
-                            {
-                                GameMgr.ichigo_collection_listFlag[i] = true;
-                                engine.Param.TrySetParameter("EventJudge_num", 0);
-                                break;
-                            }
-                            i++;
-                        }
-                    }
-                    else if (GameMgr.event_judge_status == 1)
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 2);
-                    }
-                    else
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 3);
-                    }
-                    break;
-
-                case 100: //モーセ礼拝堂
-
-                    MosesEventCheck();                   
-                    
-                    break;
-            }
-            
-        }
-        // *** //
-
-        //
-        //メイン画面サブイベント関連のフラグチェック
-        //
-        if (GameMgr.NPC_event_ON)
-        {
-            GameMgr.NPC_event_ON = false;
-
-            switch(GameMgr.GirlLoveSubEvent_num)
-            {
-                case 160:
-
-                    MosesEventCheck();
-                    break;
-            }
-            
-        }
-        // *** //
-
-        //
-        //お店サブイベント関連
-        //
-        if (GameMgr.shop_event_ON) //お店イベントで起こった場合
-        {
-            GameMgr.shop_event_ON = false;
-
-            //判定
-            if (!GameMgr.NPC_DislikeFlag)
-            {
-                //プリンさんクエスト時
-                if (GameMgr.GirlLoveEvent_num == 11)
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", 100);
-                    Debug.Log("プリンさん　お菓子が違ってた");
-
-                    //Teaが違ってた場合、Tea_Potionをみる処理。
-                    if (!NPCevent_okashicheck)
-                    {
-                        NPCevent_okashicheck = true;
-                        GameMgr.shop_event_ON = true;
-                        GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                        GameMgr.KoyuJudge_num = GameMgr.Shop_Okashi_num02;//GirlLikeSetの番号を直接指定
-                        GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
-                        PitemPresentEvent();
-                    }
-                }
-                else
-                {
-                    //もっかい、今度は妹のお菓子の判定値で判定
-                    total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
-
-                    if (total_score < GameMgr.mazui_score) //まずい
-                    { 
-                        engine.Param.TrySetParameter("EventJudge_num", 201);
-                        Debug.Log("プリンさん　お菓子が違ってた");
-                    }
-                    else
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 200);
-                        Debug.Log("プリンさん　お菓子が違ってた");
-                    }
-                }
-
-            }
-            else
-            {
-                //食感、甘さ、苦さ、酸味についてもセリフ
-                engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
-                engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
-                engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
-                engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
-
-                if (GameMgr.event_judge_status >= 2)
-                {
-                    if (GameMgr.event_judge_status == 2 || GameMgr.event_judge_status == 3) //2~は合格。3=100~150。
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 2);
-                        if (!GameMgr.ShopEvent_stage[10])
-                        {
-                            engine.Param.TrySetParameter("ExtraShopClear_Flag", false); 
-                            PlayerStatus.player_money += 2000;
-                        }
-                        else
-                        {
-                            engine.Param.TrySetParameter("ExtraShopClear_Flag", true);
-                        }
-                    }
-                    else
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 3); //4=150以上。
-                        if (!GameMgr.ShopEvent_stage[10]) //初見クリア
-                        {
-                            engine.Param.TrySetParameter("ExtraShopClear_Flag", false);
-                            PlayerStatus.player_money += 10000;
-                            pitemlist.addPlayerItemString("Record_18", 1); //レコード
-                        }
-                        else
-                        {
-                            engine.Param.TrySetParameter("ExtraShopClear_Flag", true);
-
-                            //二度目以降で、レコードはもらってなかった場合
-                            if(pitemlist.KosuCount("Record_18") >= 1)
-                            {
-                                engine.Param.TrySetParameter("ExtraShopClear_Flag_Record", true);
-                            }
-                            else
-                            {
-                                engine.Param.TrySetParameter("ExtraShopClear_Flag_Record", false);
-                                pitemlist.addPlayerItemString("Record_18", 1); //レコード
-                            }
-                        }
-                        
-                    }
-
-                    //そのクエスト内で、最高得点を更新した場合。
-                    if (total_score > GameMgr.Okashi_spquest_MaxScore)
-                    {
-                        GameMgr.Okashi_spquest_MaxScore = total_score;
-                    }
-                    GameMgr.ShopEvent_stage[10] = true; //エクストラ　クエストNo11お店クリアフラグ
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
-                }
-                Debug.Log("プリンさん　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
-            }
-        }
-        // *** //
-
-
-        //
-        //ファームサブイベント関連
-        //
-        if (GameMgr.farm_event_ON) //お店イベントで起こった場合
-        {
-            GameMgr.farm_event_ON = false;
-
-            //判定
-            if (!GameMgr.NPC_DislikeFlag)
-            {
-                if (itemName == "banana_milk") //バナナミルクをあげると、特殊メッセージ
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", 110);
-                    Debug.Log("モタリケ　バナナミルクあげた");
-                }
-                else　//それ以外で、メッセージ分岐
-                {
-                    //もっかい、今度は妹のお菓子の判定値で判定
-                    total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
-
-                    if (total_score < GameMgr.mazui_score) //まずい
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 101);
-                        Debug.Log("モタリケ　お菓子が違ってた");
-                    }
-                    else
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 100);
-                        Debug.Log("モタリケ　お菓子が違ってた");
-                    }           
-                }
-
-            }
-            else
-            {
-                //食感、甘さ、苦さ、酸味についてもセリフ
-                engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
-                engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
-                engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
-                engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
-
-                if (GameMgr.event_judge_status >= 2)
-                {
-                    if (GameMgr.event_judge_status == 2 || GameMgr.event_judge_status == 3) //2~は合格。3=100~150。
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 2);                        
-                    }
-                    else
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 3); //4=150以上。
-                        pitemlist.addPlayerItemString("Record_19", 1); //レコード
-                    }
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
-                }
-                Debug.Log("モタリケ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
-            }
-        }
-        // *** //
-
-
-        //
-        //酒場サブイベント関連
-        //
-        if (GameMgr.bar_event_ON) //お店イベントで起こった場合
-        {
-            GameMgr.bar_event_ON = false;
-
-            //判定
-            if (!GameMgr.NPC_DislikeFlag)
-            {
-                //もっかい、今度は妹のお菓子の判定値で判定
-                total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
-
-                if (total_score < GameMgr.mazui_score) //まずい
-                { 
-                    engine.Param.TrySetParameter("EventJudge_num", 101);
-                    Debug.Log("フィオナ　お菓子が違ってた　まずい");
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", 100);
-                    Debug.Log("フィオナ　お菓子が違ってた　でもおいしい");
-                }
-            }
-            else
-            {
-                //食感、甘さ、苦さ、酸味についてもセリフ
-                engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
-                engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
-                engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
-                engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
-
-                if (GameMgr.event_judge_status >= 2)
-                {
-                    if (total_score < 300)
-                    { 
-                        engine.Param.TrySetParameter("EventJudge_num", 2);
-                    }
-                    else
-                    {
-                        engine.Param.TrySetParameter("EventJudge_num", 3); //
-                        pitemlist.addPlayerItemString("Record_20", 1); //レコード
-                    }
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
-                }
-                Debug.Log("フィオナ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
-            }
-        }
-        // *** //
-    }
-
-    void PitemDelete()
-    {
-        //Debug.Log("アイテム削除");
-        //アイテムの削除
-        if (GameMgr.event_kettei_item_Type == 0) //通常
-        {
-            //削除
-            pitemlist.deletePlayerItem(database.items[GameMgr.event_kettei_itemID].itemName, GameMgr.event_kettei_item_Kosu);
-        }
-        else if (GameMgr.event_kettei_item_Type == 1)//自分が制作したオリジナルアイテム
-        {
-            //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
-            pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
-        }
-        else if (GameMgr.event_kettei_item_Type == 2)//自分が制作したオリジナルアイテム
-        {
-            //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
-            pitemlist.deleteExtremePanelItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
-        }
-    }
-
-    void MosesEventCheck()
-    {
-        if (GameMgr.GirlLoveSubEvent_stage1[161]) //モーセクリア済み
-        {
-            if (GameMgr.event_judge_status >= 2)
-            {
-                engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
-            }
-            else
-            {
-                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
-            }
-        }
-        else
-        {
-            //初回の判定はこちら。こっちは、モーセの食べたいお菓子だったかどうかの判定もする。
-            if (!GameMgr.NPC_DislikeFlag)
-            {
-                engine.Param.TrySetParameter("EventJudge_num", 100);
-                Debug.Log("モーセ　お菓子が違ってた");
-            }
-            else
-            {
-                if (GameMgr.event_judge_status >= 2)
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。3=100以上。4=150以上。
-
-                    pitemlist.addPlayerItemString("whisk_magic", 1); //魔力の泡だて器
-                    pitemlist.addPlayerItemString("Record_15", 1); //レコード
-                    GameMgr.GirlLoveSubEvent_stage1[161] = true; //モーセクリアフラグ
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
-                }
-                Debug.Log("モーセ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
-            }
-        }
-    }
+    
 
 
     //
@@ -3608,7 +2909,7 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Station";
                 break;
 
-                //魔法NPC 5000~
+            //魔法NPC 5000~
             case 5000: //魔法NPC光先生
 
                 scenarioLabel = "Or_MagicNPC01_Light";
@@ -4179,250 +3480,20 @@ public class Utage_scenario : MonoBehaviour
         }
         GameMgr.Contest_yusho_flag = yusho_flag;
 
-
+        //** 1のころのやつ
         //特殊な称号のチェック 後ろのほうが優先順位が高い。
-        SpecialTitleCheck();      
+        //SpecialTitleCheck();      
 
         //コンテストクリアのお菓子リストをチェック
-        if(yusho_flag)
-        {
-            //固有お菓子がないかをチェックし、なければサブをみる。
-            if (GameMgr.contest_okashiName == "tiramisu")
-            {
-                GameMgr.SetContestClearCollectionFlag("contestclear12", true);
-                YushoOkashi_Koushin("contestclear12");
-            }
-            else if (GameMgr.contest_okashiName == "princess_tota")
-            {
-                GameMgr.SetContestClearCollectionFlag("contestclear11", true);
-                YushoOkashi_Koushin("contestclear11");
-            }
-            else
-            {
-                switch (GameMgr.contest_okashiSubType)
-                {
-                    case "Cookie":
+        //ContestYushoClear_OkashiCheck();
+        //**
 
-                        GameMgr.SetContestClearCollectionFlag("contestclear1", true);
-                        YushoOkashi_Koushin("contestclear1");
-                        break;
-
-                    case "Cookie_Mat":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear1", true);
-                        YushoOkashi_Koushin("contestclear1");
-                        break;
-
-                    case "Cookie_Hard": //ノンシュガードロップクッキーは素材の味でクリアになる
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear9", true);
-                        YushoOkashi_Koushin("contestclear9");
-                        break;
-
-                    /*case "Bread": //パン
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear21", true);
-                        break;*/
-
-                    case "Rusk":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear2", true);
-                        YushoOkashi_Koushin("contestclear2");
-                        break;
-
-                    case "Crepe":
-
-                        if (GameMgr.contest_okashiName == "maple_crepe" || GameMgr.contest_okashiName == "honey_crepe") //メープルとハニークレプは生地そのものを味わう。
-                        {
-                            GameMgr.SetContestClearCollectionFlag("contestclear9", true);
-                            YushoOkashi_Koushin("contestclear9");
-                        }
-                        else
-                        {
-                            GameMgr.SetContestClearCollectionFlag("contestclear3", true);
-                            YushoOkashi_Koushin("contestclear3");
-                        }
-                        break;
-
-                    case "Creampuff":
-
-                        if (GameMgr.contest_okashiName == "puff") //クリームなしのシュークリーム生地は、素材系で判定
-                        {
-                            GameMgr.SetContestClearCollectionFlag("contestclear9", true);
-                            YushoOkashi_Koushin("contestclear9");
-                        }
-                        else
-                        {
-                            GameMgr.SetContestClearCollectionFlag("contestclear4", true);
-                            YushoOkashi_Koushin("contestclear4");
-                        }
-                        break;
-
-                    case "Donuts":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear5", true);
-                        YushoOkashi_Koushin("contestclear5");
-                        break;
-
-                    case "Maffin":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear16", true);
-                        YushoOkashi_Koushin("contestclear16");
-                        break;
-
-                    case "Financier":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear17", true);
-                        YushoOkashi_Koushin("contestclear17");
-                        break;
-
-                    case "Biscotti":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear18", true);
-                        YushoOkashi_Koushin("contestclear18");
-                        break;
-
-                    case "PanCake":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear19", true);
-                        YushoOkashi_Koushin("contestclear19");
-                        break;
-
-                    case "Castella":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear20", true);
-                        YushoOkashi_Koushin("contestclear20");
-                        break;
-
-                    case "SumireSuger":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear22", true);
-                        YushoOkashi_Koushin("contestclear22");
-                        break;
-
-                    case "Tea":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear6", true);
-                        YushoOkashi_Koushin("contestclear6");
-                        break;
-
-                    case "Tea_Potion":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear6", true);
-                        YushoOkashi_Koushin("contestclear6");
-                        break;
-
-                    case "Juice":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear7", true);
-                        YushoOkashi_Koushin("contestclear7");
-                        break;
-
-                    case "Coffee_Mat":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear8", true);
-                        YushoOkashi_Koushin("contestclear8");
-                        break;
-
-                    case "Jelly":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear10", true);
-                        YushoOkashi_Koushin("contestclear10");
-                        break;
-
-                    case "Cannoli":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear13", true);
-                        YushoOkashi_Koushin("contestclear13");
-                        break;
-
-                    case "IceCream":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear14", true);
-                        YushoOkashi_Koushin("contestclear14");
-                        break;
-
-                    case "Parfe":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear15", true);
-                        YushoOkashi_Koushin("contestclear15");
-                        break;
-
-                    case "Candy":
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear23", true);
-                        YushoOkashi_Koushin("contestclear23");
-                        break;
-
-                    default: //素材の味でクリアになる。_Mat系
-
-                        GameMgr.SetContestClearCollectionFlag("contestclear9", true);
-                        YushoOkashi_Koushin("contestclear9");
-                        break;
-                }
-            }
-        }
 
         //
         //ED分岐判定　コンテストの点＞ハートレベルによって、EDが分岐する。
         //
 
-        if (yusho_flag == false) // LV4 ノーマルED ED:C
-        {
-            
-            if (PlayerStatus.girl1_Love_exp < 400) //さらにハート数が足りていないとき badED ED:D
-            {
-                engine.Param.TrySetParameter("ED_num", 1);
-                GameMgr.ending_number = 1;
-            }
-            else
-            {               
-                if (PlayerStatus.girl1_Love_exp >= 1200) // 
-                {
-                    engine.Param.TrySetParameter("ED_num", 3);
-                    GameMgr.ending_number = 3;
-                    GameMgr.SetEventCollectionFlag("event3", true);
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("ED_num", 2); //ED C
-                    GameMgr.ending_number = 2;
-                }
-            }
-        }       
-        else if (yusho_flag == true)
-        {
-            if (PlayerStatus.girl1_Love_exp >= 1500) // 
-            {
-                engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
-                GameMgr.ending_number = 4;
-                GameMgr.SetEventCollectionFlag("event3", true);
-                GameMgr.bestend_on_flag = true; //ベストEDをむかえたことがあるフラグ
-            }
-            else
-            {
-                if (PlayerStatus.girl1_Love_exp >= 1200) // 
-                {
-                    engine.Param.TrySetParameter("ED_num", 3); // LV5~ ベスト+優勝ED ED:B
-                    GameMgr.ending_number = 3;
-                    GameMgr.SetEventCollectionFlag("event3", true);
-                }
-                else
-                {
-                    if (PlayerStatus.girl1_Love_exp < 400) //さらにハート数が足りていないとき badED ED:D
-                    {
-                        engine.Param.TrySetParameter("ED_num", 1);
-                        GameMgr.ending_number = 1;
-                    }
-                    else
-                    {
-                        engine.Param.TrySetParameter("ED_num", 2); //ED C
-                        GameMgr.ending_number = 2;
-                    }
-                }
-            }
-        }
-
+        EDBunki_Judge(); //１の頃のED分岐
         
         
 
@@ -4906,15 +3977,7 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.contest_LimitTimeOver_After_flag = true; //失格後、なんらかのメッセージやペナルティが発生する
     }
 
-    void YushoOkashi_Koushin(string _listname)
-    {
-        //前回得点より、今回のお菓子が得点を上回ったら、新しくデータ更新
-        if(GameMgr.contest_TotalScore > GameMgr.GetContestClearCollectionScore(_listname))
-        {
-            GameMgr.SetContestClearCollectionScore(_listname, GameMgr.contest_TotalScore);
-            GameMgr.SetContestClearCollectionItemData(_listname, GameMgr.contest_okashi_ItemData);
-        }
-    }
+    
 
     void KansouSelect()
     {
@@ -5167,6 +4230,1017 @@ public class Utage_scenario : MonoBehaviour
             }
         }
     }
+
+    void ContestYushoClear_OkashiCheck()
+    {
+        if (yusho_flag)
+        {
+            //固有お菓子がないかをチェックし、なければサブをみる。
+            if (GameMgr.contest_okashiName == "tiramisu")
+            {
+                GameMgr.SetContestClearCollectionFlag("contestclear12", true);
+                YushoOkashi_Koushin("contestclear12");
+            }
+            else if (GameMgr.contest_okashiName == "princess_tota")
+            {
+                GameMgr.SetContestClearCollectionFlag("contestclear11", true);
+                YushoOkashi_Koushin("contestclear11");
+            }
+            else
+            {
+                switch (GameMgr.contest_okashiSubType)
+                {
+                    case "Cookie":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear1", true);
+                        YushoOkashi_Koushin("contestclear1");
+                        break;
+
+                    case "Cookie_Mat":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear1", true);
+                        YushoOkashi_Koushin("contestclear1");
+                        break;
+
+                    case "Cookie_Hard": //ノンシュガードロップクッキーは素材の味でクリアになる
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                        YushoOkashi_Koushin("contestclear9");
+                        break;
+
+                    /*case "Bread": //パン
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear21", true);
+                        break;*/
+
+                    case "Rusk":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear2", true);
+                        YushoOkashi_Koushin("contestclear2");
+                        break;
+
+                    case "Crepe":
+
+                        if (GameMgr.contest_okashiName == "maple_crepe" || GameMgr.contest_okashiName == "honey_crepe") //メープルとハニークレプは生地そのものを味わう。
+                        {
+                            GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                            YushoOkashi_Koushin("contestclear9");
+                        }
+                        else
+                        {
+                            GameMgr.SetContestClearCollectionFlag("contestclear3", true);
+                            YushoOkashi_Koushin("contestclear3");
+                        }
+                        break;
+
+                    case "Creampuff":
+
+                        if (GameMgr.contest_okashiName == "puff") //クリームなしのシュークリーム生地は、素材系で判定
+                        {
+                            GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                            YushoOkashi_Koushin("contestclear9");
+                        }
+                        else
+                        {
+                            GameMgr.SetContestClearCollectionFlag("contestclear4", true);
+                            YushoOkashi_Koushin("contestclear4");
+                        }
+                        break;
+
+                    case "Donuts":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear5", true);
+                        YushoOkashi_Koushin("contestclear5");
+                        break;
+
+                    case "Maffin":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear16", true);
+                        YushoOkashi_Koushin("contestclear16");
+                        break;
+
+                    case "Financier":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear17", true);
+                        YushoOkashi_Koushin("contestclear17");
+                        break;
+
+                    case "Biscotti":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear18", true);
+                        YushoOkashi_Koushin("contestclear18");
+                        break;
+
+                    case "PanCake":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear19", true);
+                        YushoOkashi_Koushin("contestclear19");
+                        break;
+
+                    case "Castella":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear20", true);
+                        YushoOkashi_Koushin("contestclear20");
+                        break;
+
+                    case "SumireSuger":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear22", true);
+                        YushoOkashi_Koushin("contestclear22");
+                        break;
+
+                    case "Tea":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear6", true);
+                        YushoOkashi_Koushin("contestclear6");
+                        break;
+
+                    case "Tea_Potion":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear6", true);
+                        YushoOkashi_Koushin("contestclear6");
+                        break;
+
+                    case "Juice":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear7", true);
+                        YushoOkashi_Koushin("contestclear7");
+                        break;
+
+                    case "Coffee_Mat":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear8", true);
+                        YushoOkashi_Koushin("contestclear8");
+                        break;
+
+                    case "Jelly":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear10", true);
+                        YushoOkashi_Koushin("contestclear10");
+                        break;
+
+                    case "Cannoli":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear13", true);
+                        YushoOkashi_Koushin("contestclear13");
+                        break;
+
+                    case "IceCream":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear14", true);
+                        YushoOkashi_Koushin("contestclear14");
+                        break;
+
+                    case "Parfe":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear15", true);
+                        YushoOkashi_Koushin("contestclear15");
+                        break;
+
+                    case "Candy":
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear23", true);
+                        YushoOkashi_Koushin("contestclear23");
+                        break;
+
+                    default: //素材の味でクリアになる。_Mat系
+
+                        GameMgr.SetContestClearCollectionFlag("contestclear9", true);
+                        YushoOkashi_Koushin("contestclear9");
+                        break;
+                }
+            }
+        }
+    }
+
+    void YushoOkashi_Koushin(string _listname)
+    {
+        //前回得点より、今回のお菓子が得点を上回ったら、新しくデータ更新
+        if (GameMgr.contest_TotalScore > GameMgr.GetContestClearCollectionScore(_listname))
+        {
+            GameMgr.SetContestClearCollectionScore(_listname, GameMgr.contest_TotalScore);
+            GameMgr.SetContestClearCollectionItemData(_listname, GameMgr.contest_okashi_ItemData);
+        }
+    }
+
+    void EDBunki_Judge()
+    {
+        if (yusho_flag == false) // LV4 ノーマルED ED:C
+        {
+
+            if (PlayerStatus.girl1_Love_exp < 400) //さらにハート数が足りていないとき badED ED:D
+            {
+                engine.Param.TrySetParameter("ED_num", 1);
+                GameMgr.ending_number = 1;
+            }
+            else
+            {
+                if (PlayerStatus.girl1_Love_exp >= 1200) // 
+                {
+                    engine.Param.TrySetParameter("ED_num", 3);
+                    GameMgr.ending_number = 3;
+                    GameMgr.SetEventCollectionFlag("event3", true);
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("ED_num", 2); //ED C
+                    GameMgr.ending_number = 2;
+                }
+            }
+        }
+        else if (yusho_flag == true)
+        {
+            if (PlayerStatus.girl1_Love_exp >= 1500) // 
+            {
+                engine.Param.TrySetParameter("ED_num", 4); // LV5~ ベスト+優勝ED ED:A　ヒカリパティシエED
+                GameMgr.ending_number = 4;
+                GameMgr.SetEventCollectionFlag("event3", true);
+                GameMgr.bestend_on_flag = true; //ベストEDをむかえたことがあるフラグ
+            }
+            else
+            {
+                if (PlayerStatus.girl1_Love_exp >= 1200) // 
+                {
+                    engine.Param.TrySetParameter("ED_num", 3); // LV5~ ベスト+優勝ED ED:B
+                    GameMgr.ending_number = 3;
+                    GameMgr.SetEventCollectionFlag("event3", true);
+                }
+                else
+                {
+                    if (PlayerStatus.girl1_Love_exp < 400) //さらにハート数が足りていないとき badED ED:D
+                    {
+                        engine.Param.TrySetParameter("ED_num", 1);
+                        GameMgr.ending_number = 1;
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("ED_num", 2); //ED C
+                        GameMgr.ending_number = 2;
+                    }
+                }
+            }
+        }
+    }
+
+
+    IEnumerator PitemPresent()
+    {
+        //
+        //あげるときの流れは、①「わたす（いく）　or　わたさない（いかない）」　
+        //→　②アイテム選択画面（ピクニックは調合画面）　
+        //→　③採点し、分岐
+        //
+
+        GameMgr.event_pitem_use_select = false;
+
+        //キャンバスの読み込み
+        //canvas = GameObject.FindWithTag("Canvas");
+
+        //アイテムリストオブジェクト取得
+        playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+
+        //女の子、お菓子の判定処理オブジェクトの取得
+        GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
+        girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
+
+        //
+        //「宴」のポーズ終了待ち　ピクニックいく、いかないを選択。選択肢がないイベントもあり、その場合eventend_flag = false。
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        //一度ポーズ。ピクニックいく、いかないの判定などで使用。たっていたら、終了する。
+        presentevent_end_flag = (bool)engine.Param.GetParameter("EventEnd_Flag");
+
+        if (presentevent_end_flag) //やめる場合
+        {
+            //アイテムを開いたりする処理は無視して、endにいく。
+            GameMgr.picnic_event_reading_now = false;
+
+            //ここで、宴のパラメータ設定。リセットしておく。
+            engine.Param.TrySetParameter("EventEnd_Flag", false);
+
+            if (GameMgr.Scene_Category_Num == 10)
+            {
+                //いかないを選択したので、ハート獲得演出はキャンセル
+                GameMgr.SubEvAfterHeartGet = false;
+            }
+
+            if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
+            {
+                GameMgr.hiroba_event_ON = false;
+            }
+
+            if (GameMgr.shop_event_ON) //お店イベントで起こった場合
+            {
+                GameMgr.shop_event_ON = false;
+            }
+
+            if (GameMgr.farm_event_ON) //ファームイベントで起こった場合
+            {
+                GameMgr.farm_event_ON = false;
+            }
+
+            if (GameMgr.bar_event_ON) //酒場イベントで起こった場合
+            {
+                GameMgr.bar_event_ON = false;
+            }
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
+        }
+        else //いく場合(プレゼントあげる）
+        {
+            canvas.SetActive(true);
+
+            //ピクニックイベントの場合は、調合画面にはいる。
+            if (GameMgr.picnic_event_reading_now)
+            {
+                //調合画面にはいる。
+                GameMgr.compound_status = 6;
+                compound_Main.MainCompoundMethod();
+
+                //ゲーム上のキャラクタON
+                CharacterLive2DImageON();
+            }
+            else //それ以外、ここでアイテム選択画面を表示。
+            {
+                playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+            }
+
+            while (!GameMgr.event_pitem_use_OK && !GameMgr.event_pitem_cancel) //アイテム選択待ちでポーズ
+            {
+                yield return null;
+            }
+
+            if (GameMgr.picnic_event_reading_now)
+            {
+                //ゲーム上のキャラクタOFF
+                CharacterLive2DImageOFF();
+            }
+
+
+            //アイテム渡す場合
+            if (GameMgr.event_pitem_use_OK)
+            {
+                GameMgr.event_pitem_use_OK = false;
+                NPCevent_okashicheck = false;
+
+                PitemPresentJudge(); //判定処理   
+                PitemDelete(); //アイテム削除処理
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
+            }
+
+            //やっぱりやめた場合の処理
+            if (GameMgr.event_pitem_cancel)
+            {
+                GameMgr.event_pitem_cancel = false;
+
+                //アイテムを開いたりする処理は無視して、endにいく。
+                GameMgr.picnic_event_reading_now = false;
+
+                playeritemlist_onoff.SetActive(false);
+
+                //ここで、宴のパラメータ設定。リセットしておく。
+                engine.Param.TrySetParameter("EventEnd_Flag", true);
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
+
+                //
+                //「宴」のポーズ終了待ち
+                while (!engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                if (GameMgr.Scene_Category_Num == 10)
+                {
+                    //いかないを選択したので、ハート獲得演出はキャンセル
+                    GameMgr.SubEvAfterHeartGet = false;
+                }
+
+                if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
+                {
+                    GameMgr.hiroba_event_ON = false;
+                }
+
+                if (GameMgr.shop_event_ON) //お店イベントで起こった場合
+                {
+                    GameMgr.shop_event_ON = false;
+                }
+
+                //ここで、宴のパラメータ設定。リセットしておく。
+                engine.Param.TrySetParameter("EventEnd_Flag", false);
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
+            }
+        }
+    }
+
+    void PitemPresentJudge()
+    {
+        //アイテムの判定処理がここで入る。判定値は、妹の判定。か固有のSetIDを指定もできる。
+        if (!GameMgr.KoyuJudge_ON)
+        {
+            total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, GameMgr.NPC_Dislike_UseON); //３番目はコンテストタイプ　1ならコンテストやイベントなど
+        }
+        else
+        {
+            total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, true, GameMgr.KoyuJudge_num, GameMgr.NPC_Dislike_UseON); //4番目は、判定セットを直接指定するか否か。5番目の番号は、GirlLikeSetの番号。
+        }
+        GameMgr.KoyuJudge_ON = false;
+        GameMgr.NPC_Dislike_UseON = false;
+
+        GameMgr.event_okashi_score = total_score;
+        Debug.Log("点数: （通常の固有お菓子判定と一緒のはず）" + total_score);
+
+
+        //選択したアイテム　名前などのデータ設定　GameMgr.event_kettei_itemIDは、itemSelectToggleで設定してるはず
+        if (GameMgr.event_kettei_item_Type == 0) //通常
+        {
+            Debug.Log("選択したアイテム: " + database.items[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
+            GameMgr.contest_okashiSlotName = "";
+            GameMgr.contest_okashiNameHyouji = database.items[GameMgr.event_kettei_itemID].itemNameHyouji;
+            itemType_sub = database.items[GameMgr.event_kettei_itemID].itemType_sub.ToString();
+            itemName = database.items[GameMgr.event_kettei_itemID].itemName;
+        }
+        else if (GameMgr.event_kettei_item_Type == 1) //自分が制作したオリジナルアイテム
+        {
+            Debug.Log("選択したアイテム: " + pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
+            GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].item_SlotName;
+            GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
+            itemType_sub = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
+            itemName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemName;
+
+        }
+        else if (GameMgr.event_kettei_item_Type == 2) //自分が制作したオリジナルアイテム
+        {
+            Debug.Log("選択したアイテム: " + pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemNameHyouji + " 個数: " + GameMgr.event_kettei_item_Kosu);
+            GameMgr.contest_okashiSlotName = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].item_SlotName;
+            GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
+            itemType_sub = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
+            itemName = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemName;
+
+        }
+
+
+        //提出したお菓子の名前をセット
+        engine.Param.TrySetParameter("contest_OkashiName", GameMgr.contest_okashiNameHyouji);
+        engine.Param.TrySetParameter("contest_OkashiSlotName", GameMgr.contest_okashiSlotName);
+
+        //アイテム選択画面をオフ
+        playeritemlist_onoff.SetActive(false);
+
+        //採点　一度共通で、ここでチェックして番号もいれる。　各NPCでしきい値が変わる場合、NPCのチェックのところで、個別に変える
+        if (total_score < GameMgr.mazui_score)
+        {
+            engine.Param.TrySetParameter("Score_num", 0);
+            GameMgr.event_judge_status = 0;
+        }
+        else if (total_score >= GameMgr.mazui_score && total_score < GameMgr.low_score)
+        {
+            engine.Param.TrySetParameter("Score_num", 1);
+            GameMgr.event_judge_status = 1;
+        }
+        else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score)
+        {
+            engine.Param.TrySetParameter("Score_num", 2);
+            GameMgr.event_judge_status = 2;
+        }
+        else if (total_score >= GameMgr.high_score && total_score < 150)
+        {
+            engine.Param.TrySetParameter("Score_num", 3);
+            GameMgr.event_judge_status = 3;
+        }
+        else if (total_score >= 150)
+        {
+            engine.Param.TrySetParameter("Score_num", 4);
+            GameMgr.event_judge_status = 4;
+        }
+
+        //点数を宴にもセット
+        engine.Param.TrySetParameter("event_okashi_score", total_score);
+
+
+        //ピクニックイベントの場合    
+        if (GameMgr.picnic_event_reading_now)
+        {
+            GameMgr.picnic_event_reading_now = false;
+
+            Picnic_PresentCheck();            
+        }
+        // *** //
+
+
+        //
+        //広場であげた
+        //
+        if (GameMgr.hiroba_event_ON)
+        {
+            GameMgr.hiroba_event_ON = false;
+
+            switch (GameMgr.hiroba_event_placeNum)
+            {
+                case 0: //いちご少女
+
+                    IchigoPresentCheck();
+                    break;
+
+                case 100: //モーセ礼拝堂
+
+                    MosesPresentCheck();
+                    break;
+
+                //以下オランジーナ関連
+
+                //魔法NPC 5000~
+                case 5000: //魔法NPC光先生
+
+                    NPCMagic_HikariPresentCheck();
+                    break;
+            }
+        }
+        // *** //
+
+        //
+        //メイン画面であげた
+        //
+        if (GameMgr.NPC_event_ON)
+        {
+            GameMgr.NPC_event_ON = false;
+
+            switch (GameMgr.GirlLoveSubEvent_num)
+            {
+                case 160:
+
+                    MosesPresentCheck();
+                    break;
+            }
+        }
+        // *** //
+
+        //
+        //お店であげた
+        //
+        if (GameMgr.shop_event_ON) //お店イベントで起こった場合
+        {
+            GameMgr.shop_event_ON = false;
+
+            PuddingPresentCheck();            
+        }
+        // *** //
+
+
+        //
+        //ファームであげた
+        //
+        if (GameMgr.farm_event_ON) //お店イベントで起こった場合
+        {
+            GameMgr.farm_event_ON = false;
+
+            MotarikePresentCheck();           
+        }
+        // *** //
+
+
+        //
+        //酒場サブイベント関連
+        //
+        if (GameMgr.bar_event_ON) //お店イベントで起こった場合
+        {
+            GameMgr.bar_event_ON = false;
+
+            FionaPresentCheck();            
+        }
+        // *** //
+    }
+
+    void PitemDelete()
+    {
+        //Debug.Log("アイテム削除");
+        //アイテムの削除
+        if (GameMgr.event_kettei_item_Type == 0) //通常
+        {
+            //削除
+            pitemlist.deletePlayerItem(database.items[GameMgr.event_kettei_itemID].itemName, GameMgr.event_kettei_item_Kosu);
+        }
+        else if (GameMgr.event_kettei_item_Type == 1)//自分が制作したオリジナルアイテム
+        {
+            //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
+            pitemlist.deleteOriginalItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+        }
+        else if (GameMgr.event_kettei_item_Type == 2)//自分が制作したオリジナルアイテム
+        {
+            //削除 エクストリームパネルに設定されているお菓子を選んだ場合は、Playeritemlist内部で処理している。
+            pitemlist.deleteExtremePanelItem(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Kosu);
+        }
+    }
+
+
+    void Picnic_PresentCheck()
+    {
+        //お菓子の種類＋高得点だと、行ける場所が変化する。
+        if (total_score < GameMgr.low_score)
+        {
+            engine.Param.TrySetParameter("PicnicPlace_num", 0);
+            Debug.Log(GameMgr.low_score + "点未満なので、ピクニック場所1");
+            picnic_place_num = 1;
+        }
+        else
+        {
+            //さらに150点以上のときはこっちが優先。必然、一番いい反応になる。
+            if (total_score >= 150)
+            {
+                if (itemType_sub != "Cookie" && itemType_sub != "Cookie_Hard" && itemType_sub != "Rusk")
+                {
+                    engine.Param.TrySetParameter("PicnicPlace_num", 10);
+                    Debug.Log("クッキー・ラスク以外　かつ　" + "150" + "点以上なので、ピクニック場所3");
+                    picnic_place_num = 3;
+                }
+                else
+                {
+                    if (itemType_sub == "Crepe" || itemType_sub == "Crepe_Mat" || itemType_sub == "Creampuff" || itemType_sub == "Donuts")
+                    {
+                        engine.Param.TrySetParameter("PicnicPlace_num", 1);
+                        Debug.Log("150点以上 クレープ・シュークリーム・ドーナツなので、ピクニック場所2");
+                        picnic_place_num = 2;
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("PicnicPlace_num", 0);
+                        Debug.Log("150点以上だが、基本のお菓子なので、" + "ピクニック場所1");
+                        picnic_place_num = 1;
+                    }
+                }
+            }
+            else
+            {
+                //80点以上~150未満かつ以下のお菓子種類だと場所が変化する。
+                if (total_score >= 80)
+                {
+                    if (itemType_sub == "Crepe" || itemType_sub == "Crepe_Mat" || itemType_sub == "Creampuff" || itemType_sub == "Donuts")
+                    {
+                        engine.Param.TrySetParameter("PicnicPlace_num", 1);
+                        Debug.Log("80点以上 クレープ・シュークリーム・ドーナツなので、ピクニック場所2");
+                        picnic_place_num = 2;
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("PicnicPlace_num", 0);
+                        Debug.Log("80点以上 特定のお菓子に反応しなかったので、ピクニック場所1");
+                        picnic_place_num = 1;
+                    }
+                }
+                else //80未満
+                {
+                    engine.Param.TrySetParameter("PicnicPlace_num", 0);
+                    Debug.Log("80" + "点未満なので、" + "ピクニック場所1");
+                    picnic_place_num = 1;
+                }
+            }
+
+        }
+
+        //フラグ解禁など
+        GameMgr.SetBGMCollectionFlag("bgm29", true);
+        switch (picnic_place_num)
+        {
+            case 1:
+
+                GameMgr.SetBGMCollectionFlag("bgm26", true);
+                break;
+
+            case 2:
+
+                GameMgr.SetBGMCollectionFlag("bgm27", true);
+                break;
+
+            case 3:
+
+                GameMgr.SetBGMCollectionFlag("bgm28", true);
+                random = Random.Range(0, 3); //0~2
+                pitemlist.addPlayerItemString("rich_milk", 3 + random); //リッチミルクをもらえる
+                break;
+
+            default:
+
+                break;
+        }
+    }
+
+    //
+    //各キャラのプレゼント判定コーナー
+    //
+    void IchigoPresentCheck()
+    {
+        if (!GameMgr.hiroba_ichigo_first)
+        {
+            GameMgr.hiroba_ichigo_first = true; //一回でもお菓子をわたしたフラグON　次は、残りのいちごお菓子の個数が聞ける質問が増える。
+        }
+
+        //60点以上で、特定のいちごのお菓子だった場合は、殿堂入り。その他は、少しセリフが変わる。
+        //全てのいちごアイテムコンプリートすると、称号とかアイテムをもらえる。
+        engine.Param.TrySetParameter("EventJudge_num", 1);
+        if (GameMgr.event_judge_status >= 2)
+        {
+            i = 0;
+            while (i < GameMgr.ichigo_collection_list.Count)
+            {
+                //リストに該当するものがあった。
+                if (GameMgr.ichigo_collection_list[i] == itemName)
+                {
+                    GameMgr.ichigo_collection_listFlag[i] = true;
+                    engine.Param.TrySetParameter("EventJudge_num", 0);
+                    break;
+                }
+                i++; //該当しなかった場合は、1が入るということ
+            }
+        }
+        else if (GameMgr.event_judge_status == 1)
+        {
+            engine.Param.TrySetParameter("EventJudge_num", 2);
+        }
+        else
+        {
+            engine.Param.TrySetParameter("EventJudge_num", 3);
+        }
+    }
+
+    void MosesPresentCheck()
+    {
+        if (GameMgr.GirlLoveSubEvent_stage1[161]) //モーセクリア済み
+        {
+            if (GameMgr.event_judge_status >= 2)
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。
+            }
+            else
+            {
+                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
+            }
+        }
+        else
+        {
+            //初回の判定はこちら。こっちは、モーセの食べたいお菓子だったかどうかの判定もする。
+            if (!GameMgr.NPC_DislikeFlag)
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("モーセ　お菓子が違ってた");
+            }
+            else
+            {
+                if (GameMgr.event_judge_status >= 2)
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 2); //2, 3, 4はひとまず、同じ感想に。0は、まずい。1は、おいしいが、60点にたらず。2~は合格。3=100以上。4=150以上。
+
+                    pitemlist.addPlayerItemString("whisk_magic", 1); //魔力の泡だて器
+                    pitemlist.addPlayerItemString("Record_15", 1); //レコード
+                    GameMgr.GirlLoveSubEvent_stage1[161] = true; //モーセクリアフラグ
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status);
+                }
+                Debug.Log("モーセ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+            }
+        }
+    }
+
+    void PuddingPresentCheck()
+    {
+        //判定
+        if (!GameMgr.NPC_DislikeFlag) //おかしがそもそも違うかどうか
+        {
+            //プリンさんクエスト時
+            if (GameMgr.GirlLoveEvent_num == 11)
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("プリンさん　お菓子が違ってた");
+
+                //Teaが違ってた場合、Tea_Potionをみる処理。
+                if (!NPCevent_okashicheck)
+                {
+                    NPCevent_okashicheck = true;
+                    GameMgr.shop_event_ON = true;
+                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                    GameMgr.KoyuJudge_num = GameMgr.Shop_Okashi_num02;//GirlLikeSetの番号を直接指定
+                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                    PitemPresentJudge();
+                }
+            }
+            else
+            {
+                //もっかい、今度は妹のお菓子の判定値で判定
+                //total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
+
+                if (total_score < GameMgr.mazui_score) //まずい
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 201);
+                    Debug.Log("プリンさん　お菓子が違ってた");
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 200);
+                    Debug.Log("プリンさん　お菓子が違ってた");
+                }
+            }
+
+        }
+        else
+        {
+            //食感、甘さ、苦さ、酸味についてもセリフ
+            engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
+            engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
+            engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
+            engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
+
+            if (GameMgr.event_judge_status >= 2)
+            {
+                if (GameMgr.event_judge_status == 2 || GameMgr.event_judge_status == 3) //2~は合格。3=100~150。
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 2);
+                    if (!GameMgr.ShopEvent_stage[10])
+                    {
+                        engine.Param.TrySetParameter("ExtraShopClear_Flag", false);
+                        PlayerStatus.player_money += 2000;
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("ExtraShopClear_Flag", true);
+                    }
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 3); //4=150以上。
+                    if (!GameMgr.ShopEvent_stage[10]) //初見クリア
+                    {
+                        engine.Param.TrySetParameter("ExtraShopClear_Flag", false);
+                        PlayerStatus.player_money += 10000;
+                        pitemlist.addPlayerItemString("Record_18", 1); //レコード
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("ExtraShopClear_Flag", true);
+
+                        //二度目以降で、レコードはもらってなかった場合
+                        if (pitemlist.KosuCount("Record_18") >= 1)
+                        {
+                            engine.Param.TrySetParameter("ExtraShopClear_Flag_Record", true);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("ExtraShopClear_Flag_Record", false);
+                            pitemlist.addPlayerItemString("Record_18", 1); //レコード
+                        }
+                    }
+
+                }
+
+                //そのクエスト内で、最高得点を更新した場合。
+                if (total_score > GameMgr.Okashi_spquest_MaxScore)
+                {
+                    GameMgr.Okashi_spquest_MaxScore = total_score;
+                }
+                GameMgr.ShopEvent_stage[10] = true; //エクストラ　クエストNo11お店クリアフラグ
+            }
+            else
+            {
+                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+            }
+            Debug.Log("プリンさん　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+        }
+    }
+
+    void MotarikePresentCheck()
+    {
+        //判定
+        if (!GameMgr.NPC_DislikeFlag) //falseであげたお菓子が好みと違う
+        {
+            if (itemName == "banana_milk") //バナナミルクをあげる
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 110); //しかし、バナナミルクなら特殊メッセージ
+                Debug.Log("モタリケ　バナナミルクあげた");
+            }
+            else //それ以外で、メッセージ分岐
+            {
+                //もっかい、今度は妹のお菓子の判定値で判定
+                total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
+
+                if (total_score < GameMgr.mazui_score) //まずい
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 101);
+                    Debug.Log("モタリケ　お菓子が違ってた");
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 100);
+                    Debug.Log("モタリケ　お菓子が違ってた");
+                }
+            }
+
+        }
+        else
+        {
+            //食感、甘さ、苦さ、酸味についてもセリフ
+            engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
+            engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
+            engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
+            engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
+
+            if (GameMgr.event_judge_status >= 2)
+            {
+                if (GameMgr.event_judge_status == 2 || GameMgr.event_judge_status == 3) //2~は合格。3=100~150。
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 2);
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 3); //4=150以上。
+                    pitemlist.addPlayerItemString("Record_19", 1); //レコード
+                }
+            }
+            else
+            {
+                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+            }
+            Debug.Log("モタリケ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+        }
+    }
+
+    void FionaPresentCheck()
+    {
+        //判定
+        if (!GameMgr.NPC_DislikeFlag)
+        {
+            //妹のお菓子の判定値で判定
+            //total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
+
+            if (total_score < GameMgr.mazui_score) //まずい
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 101);
+                Debug.Log("フィオナ　お菓子が違ってた　まずい");
+            }
+            else
+            {
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("フィオナ　お菓子が違ってた　でもおいしい");
+            }
+        }
+        else
+        {
+            //食感、甘さ、苦さ、酸味についてもセリフ
+            engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
+            engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
+            engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
+            engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
+
+            if (GameMgr.event_judge_status >= 2)
+            {
+                if (total_score < 300)
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 2);
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 3); //
+                    pitemlist.addPlayerItemString("Record_20", 1); //レコード
+                }
+            }
+            else
+            {
+                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+            }
+            Debug.Log("フィオナ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+        }
+    }
+
+    void NPCMagic_HikariPresentCheck()
+    {
+        //一点の点数以上で、魔法のおかしなら、次に新しい魔法の本をくれる。
+
+        engine.Param.TrySetParameter("EventJudge_Storynum", 0);
+
+        //〇〇の本をもっていない
+        if (magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") == 0)
+        {
+            engine.Param.TrySetParameter("EventJudge_Storynum", 10);
+            if (total_score >= 100)
+            {
+                //〇〇の本をくれる。    
+                magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+            }
+        }
+        engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+    }
+
+
+
+
 
     //ゲームメイン中のLive2DキャラクタをONにする。
     void CharacterLive2DImageON()

@@ -548,6 +548,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool tempature_control_select_flag; //調合シーンで、温度管理画面を開く
     public static bool tempature_control_Offflag; //温度管理画面を閉じる
     public static bool tempature_control_ON; //焼き菓子かどうかをチェックし、焼き菓子ならON　最終チェックからキャンセルで戻るときに使用する
+    public static string tempature_control_Param_yakitext; //焼き具合のテキスト
     public static int System_tempature_control_Param_temp; //温度管理画面の温度の値
     public static int System_tempature_control_Param_time; //温度管理画面の時間の値
     public static bool matbgm_change_flag; //採取地へ行く際のBGM切り替えのフラグ
@@ -658,6 +659,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string hiroba_treasureget_Name; //そのお宝の名前
     public static int hiroba_treasureget_Num; //そのお宝の種類番号
     public static int hiroba_treasureget_Kosu; //そのお宝の取得個数
+    public static bool Extreme_On; //トッピングや魔法調合から、新規作成扱いにするフラグ
 
 
     //一時フラグ　アイテムDB関連
@@ -1176,6 +1178,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ShopEnter_ButtonON = false;
         hiroba_treasureget_flag = false;
         Contest_commentDB_Select = 0;
+        Extreme_On = false;
+        tempature_control_Param_yakitext = "";
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

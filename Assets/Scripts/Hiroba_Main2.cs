@@ -326,8 +326,8 @@ public class Hiroba_Main2 : MonoBehaviour
     IEnumerator EventReading()
     {
         GameMgr.hiroba_event_flag = true;
-        GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-        GameMgr.compound_status = 1000;
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
 
         //Debug.Log("広場イベント　読み中");
 
@@ -337,8 +337,8 @@ public class Hiroba_Main2 : MonoBehaviour
         }
 
         GameMgr.scenario_read_endflag = false;
-        GameMgr.compound_select = 0; //何もしていない状態
-        GameMgr.compound_status = 0;
+        GameMgr.Scene_Select = 0; //何もしていない状態
+        GameMgr.Scene_Status = 0;
 
         //読み終わったら、またウィンドウなどを元に戻す。
         text_area.SetActive(true);

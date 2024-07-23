@@ -35,6 +35,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     private Toggle npc8_toggle;
 
     private GameObject npc2sub_toggle_obj;
+    private GameObject npc3sub_toggle_obj;
 
     private ContestStartListDataBase conteststartList_database;
     private ItemMatPlaceDataBase matplace_database;
@@ -157,6 +158,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
         npc2sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView2_SelectToggle").gameObject;
         npc2sub_toggle_obj.SetActive(false);
+        npc3sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView3_SelectToggle").gameObject;
+        npc3sub_toggle_obj.SetActive(false);
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -474,6 +477,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                     backshopfirst_obj.SetActive(false);
                     backshopfirst_obj.GetComponent<Button>().interactable = true;
 
+                    ToggleFlagCheck();
+
                     sceneBGM.MuteOFFBGM();
 
                     GameMgr.Scene_Status = 100;
@@ -505,6 +510,21 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 default:
 
                     break;
+            }
+        }
+    }
+
+    void ToggleFlagCheck()
+    {
+        if (GameMgr.SceneSelectNum == 30) //光先生
+        {
+            if (GameMgr.NPCMagic_eventList[10]) //魔法教えてもらったあと
+            {
+                npc3sub_toggle_obj.SetActive(true);
+            }
+            else
+            {
+                npc3sub_toggle_obj.SetActive(false);
             }
         }
     }
@@ -842,7 +862,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     //SubView3
     public void OnSubNPC3_toggle()
     {
-
+        On_ActiveMagicNPC03_present();
     }
 
     //SubView4
@@ -889,7 +909,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             magicskill_database.skillHyoujiKaikin("Cookie_Study");
             magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
             magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
-            magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+            //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
 
             magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
             magicskill_database.skillHyoujiKaikin("Freezing_Spell");
@@ -929,6 +949,25 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         GameMgr.hiroba_event_placeNum = 5000; //
         GameMgr.hiroba_event_ID = 1000;
         GameMgr.utage_charaHyouji_flag = true;
+
+        //BGMかえる
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        //bgm_change_flag = true;
+
+        EventReadingStart();
+
+        CanvasOff();
+    }
+
+    void On_ActiveMagicNPC03_present() //あげる
+    {
+        //宴の処理へ
+        GameMgr.hiroba_event_placeNum = 5000; //
+        GameMgr.hiroba_event_ID = 2000;
+        GameMgr.utage_charaHyouji_flag = true;
+
+        GameMgr.event_pitem_use_select = true; //アイテムあげるイベントを起動
+        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
 
         //BGMかえる
         //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);

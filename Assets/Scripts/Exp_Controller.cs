@@ -132,7 +132,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public int DoubleItemCreated; //一つの調合から、2つ以上のアイテムが生まれる場合のフラグ
 
     public bool NewRecipiflag_check;
-    public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
+    //public bool extreme_on; //エクストリーム調合から、新しいアイテムを閃いた場合は、ON
 
     public bool result_ok; // 調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。Exp_Controllerで指定、Compound_Keisanで使用。
     public bool recipiresult_ok; //レシピ調合完了のフラグ。これがたっていたら、プレイヤーアイテムリストの中身を更新する。そしてフラグをオフに。
@@ -153,6 +153,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private bool magiccompo_anim_on;
     private bool magiccompo_anim_end;
     private float timeOut;
+
+    private GameObject Debug_timeCount_Panel;
+    private Text Debug_timeCount_Panel_text;
+    private float Debug_timeCount;
+    private bool Debug_stopwatch;
 
     private GameObject Compo_Magic_effect_Prefab1;
     private GameObject Compo_Magic_effect_Prefab2;
@@ -178,7 +183,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private int _id1, _id2;
     private string _a, _b, _c;
-
+    private string _yaki;
 
     // Use this for initialization
     void Start () {
@@ -232,14 +237,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         NewRecipiFlag = false;
 
-        extreme_on = false;
+        GameMgr.Extreme_On = false;
         NewRecipiflag_check = false;
 
         i = 0;
         new_item = 0;
 
         Comp_method_bunki = 0;
-        DoubleItemCreated = 0;              
+        DoubleItemCreated = 0;
+
+        Debug_stopwatch = false;
 
         //_temp_extreme_id = 9999;
         //_temp_extremeSetting = false;
@@ -324,7 +331,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         BlackImage = compoBG_A.transform.Find("BlackImage").gameObject; //魔法エフェクト用の半透明で幕
 
         //完成時パネルの取得
-        CompleteImage = compoBG_A.transform.Find("CompletePanel").gameObject; //調合成功時のイメージパネル        
+        CompleteImage = compoBG_A.transform.Find("CompletePanel").gameObject; //調合成功時のイメージパネル 
+
+        Debug_timeCount_Panel = compoBG_A.transform.Find("DebugTimeEnshutuPanel").gameObject; //デバッグ用　時間カウントパネル
+        Debug_timeCount_Panel_text = Debug_timeCount_Panel.transform.Find("TimeText").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -457,22 +467,23 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //レシピ達成率を更新
                 databaseCompo.RecipiCount_database();
 
-                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
-                PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
+                //経験値獲得
+                GetExpMethod();
 
                 //NewRecipiFlag = true;
                 NewRecipi_compoID = result_ID;
 
-                _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
+                //_ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
+                _ex_text = "";
             }
             //すでに作っていたことがある場合
             else if (databaseCompo.compoitems[result_ID].comp_count > 0)
             {
                 //作った回数をカウント
                 databaseCompo.compoitems[result_ID].comp_count++;
-                
-                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
-                PlayerStatus.player_renkin_exp += _getexp; //すでに作ったことがある場合、取得量は少なくなる
+
+                //経験値獲得
+                GetExpMethod();
 
                 _ex_text = "";
             }
@@ -487,13 +498,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
 
-            if (extreme_on) //トッピング調合から、新規作成に分岐した場合
+            if (GameMgr.Extreme_On) //トッピング調合から、新規作成に分岐した場合
             {
                 if (!PlayerStatus.First_extreme_on) //仕上げを一度もやったことがなかったら、フラグをON
                 {
                     PlayerStatus.First_extreme_on = true;
                 }
             }
+
+            //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
+            exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             if (DoubleItemCreated == 0)
@@ -574,9 +588,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //シーンごとの後処理
         SceneAfterSetting();
 
-        //経験値の増減後、レベルアップしたかどうかをチェック
-        //exp_table.Check_LevelUp();
-
         //時間の項目リセット
         time_controller.ResetTimeFlag();
 
@@ -614,7 +625,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
                 //仕上げ回数をリセット
-                if (extreme_on) //トッピングのときに新しいお菓子に変化する場合は回数が減る
+                if (GameMgr.Extreme_On) //トッピングのときに新しいお菓子に変化する場合は回数が減る
                 {
                     //仕上げ回数を減らす
                     PlayerStatus.player_extreme_kaisu--;
@@ -696,8 +707,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //個数の決定
         result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * GameMgr.Final_setCount;
 
-        extreme_on = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。
-
         Comp_method_bunki = 2;
 
         //ウェイトアニメーション開始
@@ -752,16 +761,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //作った回数をカウント
                 databaseCompo.compoitems[result_ID].comp_count++;
 
-                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
-                PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
+                //経験値獲得
+                GetExpMethod();
             }
             else if (databaseCompo.compoitems[result_ID].comp_count > 0)
             {
                 //作った回数をカウント
                 databaseCompo.compoitems[result_ID].comp_count++;
 
-                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
-                PlayerStatus.player_renkin_exp += _getexp; //レシピ調合の場合も同様。すでに作ったことがある場合、取得量は少なくなる
+                //経験値獲得
+                GetExpMethod();
 
             }
 
@@ -773,6 +782,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     PlayerStatus.First_recipi_on = true;
                 }
             }
+
+            //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
+            exp_table.SkillCheckPatissierLV();
 
             //テキストの表示            
             renkin_default_exp_up();
@@ -841,9 +853,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             time_controller.SetMinuteToHourContest(databaseCompo.compoitems[result_ID].cost_Time);
         }
         time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
-
-        //経験値の増減後、レベルアップしたかどうかをチェック
-        //exp_table.Check_LevelUp();
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
@@ -922,8 +931,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //新しいアイテムを閃くかチェック
             if (NewRecipiflag_check != true)
             {
-                _getexp = compound_keisan._getExp;
-                PlayerStatus.player_renkin_exp += _getexp; //エクストリーム経験値。確率が低いものほど、経験値が大きくなる。
+                GetExpMethodTopping();               
 
                 _ex_text = "";
             }
@@ -948,13 +956,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //レシピ達成率を更新
                     databaseCompo.RecipiCount_database();
 
-                    _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
-                    PlayerStatus.player_renkin_exp += _getexp; //エクストリームで新しく閃いた場合の経験値
+                    //経験値獲得
+                    GetExpMethod();
 
                     //NewRecipiFlag = true;
                     NewRecipi_compoID = result_ID;
 
-                    _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
+                    //_ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
+                    _ex_text = "";
 
                     //はじめて、アイテムを制作した場合は、フラグをONに。
                     if (PlayerStatus.First_recipi_on != true)
@@ -969,14 +978,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //作った回数をカウント
                     databaseCompo.compoitems[result_ID].comp_count++;
 
-                    _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
-                    PlayerStatus.player_renkin_exp += _getexp; //エクストリームで新しく閃いた場合の経験値
+                    //経験値獲得
+                    GetExpMethod();
 
                     _ex_text = "";
                 }
 
 
-                extreme_on = false;
+                GameMgr.Extreme_On = false;
             }
 
 
@@ -1001,6 +1010,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             //右側パネルに、作ったやつを表示する。
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
+
+            //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
+            exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             renkin_exp_up();
@@ -1064,7 +1076,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         SceneAfterSetting();
 
         //日数の経過
-        //日数の経過
         if (!GameMgr.Contest_ON)
         {
             time_controller.SetMinuteToHour(15);
@@ -1074,9 +1085,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             time_controller.SetMinuteToHourContest(15);
         }
         time_controller.HikarimakeTimeCheck(15); //ヒカリのお菓子作り時間を計算
-
-        //経験値の増減後、レベルアップしたかどうかをチェック
-        //exp_table.Check_LevelUp();
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
@@ -1165,13 +1173,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //レシピ達成率を更新
                 databaseCompo.RecipiCount_database();
 
-                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
-                PlayerStatus.player_renkin_exp += _getexp; //調合完成のアイテムに対応した経験値がもらえる。
+                //経験値獲得
+                GetExpMethod();                
 
                 //NewRecipiFlag = true;
                 NewRecipi_compoID = result_ID;
 
-                _ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
+                //_ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
+                _ex_text = "";
             }
             //すでに作っていたことがある場合
             else if (databaseCompo.compoitems[result_ID].comp_count > 0)
@@ -1179,8 +1188,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //作った回数をカウント
                 databaseCompo.compoitems[result_ID].comp_count++;
 
-                _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
-                PlayerStatus.player_renkin_exp += _getexp; //すでに作ったことがある場合、取得量は少なくなる
+                //経験値獲得
+                GetExpMethod();
 
                 _ex_text = "";
             }
@@ -1195,13 +1204,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
 
-            if (extreme_on) //トッピング調合から、新規作成に分岐した場合
+            if (GameMgr.Extreme_On) //トッピング・魔法調合から、新規作成に分岐した場合
             {
                 if (!PlayerStatus.First_extreme_on) //仕上げを一度もやったことがなかったら、フラグをON
                 {
                     PlayerStatus.First_extreme_on = true;
                 }
             }
+
+            //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
+            exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             if (DoubleItemCreated == 0)
@@ -1282,10 +1294,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _ex_text = "";
 
         //シーンごとの後処理
-        SceneAfterSetting();
-
-        //経験値の増減後、レベルアップしたかどうかをチェック
-        //exp_table.Check_LevelUp();
+        SceneAfterSetting();        
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
@@ -1352,7 +1361,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //result_ID = GameMgr.Final_result_compID;
 
         Comp_method_bunki = 0;
-        extreme_on = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。ヒカリは、新しいお菓子をひらめくことは、今の仕様では無い。
+        //GameMgr.Extreme_On = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。ヒカリは、新しいお菓子をひらめくことは、今の仕様では無い。
 
 
         //調合の予測処理 予測用オリジナルアイテムを生成　パラメータも予測して表示する（アイテム消費はしない）
@@ -1507,7 +1516,35 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.tempature_control_ON = false;
     }
 
+    void GetExpMethod()
+    {
+        if (GameMgr.System_MagicUse_Flag)
+        {
+            _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
+            //_getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
+            if (_getexp <= 0)
+            {
+                _getexp = 1;
+            }
+            PlayerStatus.player_renkin_exp += _getexp; //すでに作ったことがある場合、取得量は少なくなる
+        } else
+        {
+            _getexp = 0;
+        }
+    }
 
+    void GetExpMethodTopping()
+    {
+        if (GameMgr.System_MagicUse_Flag)
+        {
+            _getexp = compound_keisan._getExp;
+            PlayerStatus.player_renkin_exp += _getexp; //エクストリーム経験値。確率が低いものほど、経験値が大きくなる。
+        }
+        else
+        {
+            _getexp = 0;
+        }
+    }
 
 
     //
@@ -1723,6 +1760,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //一時的にお菓子のHP減少をストップ
                 //extremePanel.LifeAnimeOnFalse();
 
+                Debug_timeCount = 0.0f; //デバッグ用　演出時間の計測
+                Debug_stopwatch = true;
+                Debug_timeCount_Panel.SetActive(true);
+
                 timeOut = 2.0f;
                 compo_anim_status = 1;
 
@@ -1767,7 +1808,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     else
                     {
                         timeOut = 0.5f;
-                        compo_anim_status = 5;
+                        compo_anim_status = 10;
                     }
 
 
@@ -1790,11 +1831,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 if (timeOut <= 0.0)
                 {
                     timeOut = 0.5f;
-                    compo_anim_status = 5;
+                    compo_anim_status = 10;
                 }
                 break;
 
-            case 5: //アニメ終了。判定する
+            case 10: //アニメ終了。判定する
 
 
                 //カードビューのカードアニメもストップ
@@ -1826,7 +1867,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 //Debug.Log("アニメ終了");
                 compo_anim_end = true;
-               
+
+                //デバッグ用計測終了
+                Debug_stopwatch = false;
+
                 break;
 
             default:
@@ -1835,6 +1879,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間減少
         timeOut -= Time.deltaTime;
+
+        //デバッグ用時間計測
+        if(Debug_stopwatch)
+        {
+            Debug_timeCount += Time.deltaTime;
+            Debug_timeCount_Panel_text.text = Debug_timeCount.ToString();
+        }
     }
 
     void CompleteAnim()
@@ -1902,6 +1953,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //一時的にお菓子のHP減少をストップ
                 //extremePanel.LifeAnimeOnFalse();
 
+                Debug_timeCount = 0.0f; //デバッグ用　演出時間の計測
+                Debug_stopwatch = true;
+                Debug_timeCount_Panel.SetActive(true);
+
                 timeOut = 2.0f;
                 compo_anim_status = 1;
 
@@ -1946,7 +2001,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     else
                     {
                         timeOut = 0.5f;
-                        compo_anim_status = 5;
+                        compo_anim_status = 10;
                     }
 
 
@@ -1969,11 +2024,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 if (timeOut <= 0.0)
                 {
                     timeOut = 0.5f;
-                    compo_anim_status = 5;
+                    compo_anim_status = 10;
                 }
                 break;
 
-            case 5: //アニメ終了。判定する
+            case 10: //アニメ終了。判定する
 
 
                 //カードビューのカードアニメもストップ
@@ -1986,6 +2041,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //Debug.Log("アニメ終了");
                 magiccompo_anim_end = true;
 
+                //デバッグ用計測終了
+                Debug_stopwatch = false;
+
                 break;
 
             default:
@@ -1994,6 +2052,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間減少
         timeOut -= Time.deltaTime;
+
+        //デバッグ用時間計測
+        if (Debug_stopwatch)
+        {           
+            Debug_timeCount += Time.deltaTime;
+            Debug_timeCount_Panel_text.text = Debug_timeCount.ToString();
+        }
     }
 
     void CompleteMagicAnim()
@@ -2093,15 +2158,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
-                " が" + result_kosu + "個 できたよ！";
-                //+ "\n" + _ex_text +"パティシエ経験値 " + _getexp + "上がった！";
+                " が" + result_kosu + "個 できたよ！"
+                + "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
                 " が" + result_kosu + "個 できたよ！";
-                //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。";
+                //+ "\n" + _ex_text;
         }
 
         Debug.Log(renkin_hyouji + "が出来ました！");
@@ -2110,22 +2175,36 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     void renkin_exp_up()
     {
+        //Debug.Log("_getexp: " + _getexp);
+
+        _yaki = "";
 
         if (_getexp != 0)
         {
+            if (GameMgr.tempature_control_ON)
+            {
+                _yaki = "　" + GameMgr.tempature_control_Param_yakitext;
+            }
+
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
             pitemlist.player_check_itemlist[new_item].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！";
-            //+ "\n" + _ex_text + "パティシエ経験値 " + _getexp + "上がった！";
+            " が" + result_kosu + "個 できたよ！" + _yaki
+            + "\n" + _ex_text + "ジョブ経験値 " + _getexp + "上がった！";
+            
         }
         else
         {
+            if (GameMgr.tempature_control_ON)
+            {
+                _yaki = "　" + GameMgr.tempature_control_Param_yakitext;
+            }
+
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + 
             pitemlist.player_check_itemlist[new_item].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！";
-            //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。"; ;
+            " が" + result_kosu + "個 できたよ！" + _yaki;
+            //+ "\n" + _ex_text;
         }
 
         Debug.Log(pitemlist.player_check_itemlist[new_item].itemNameHyouji + "が出来ました！");
@@ -2134,20 +2213,31 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     void renkin_exp_up2()
     {
+        _yaki = "";
 
         if (_getexp != 0)
         {
+            if (GameMgr.tempature_control_ON)
+            {
+                _yaki = "　" + GameMgr.tempature_control_Param_yakitext;
+            }
+
             _text.text = "やったね！ " +
             database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！";
-            //+ "\n" + _ex_text +"パティシエ経験値 " + _getexp + "上がった！";
+            " が" + result_kosu + "個 できたよ！" + _yaki
+            + "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
         }
         else
         {
+            if (GameMgr.tempature_control_ON)
+            {
+                _yaki = "　" + GameMgr.tempature_control_Param_yakitext;
+            }
+
             _text.text = "やったね！ " +
             database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！";
-            //+ "\n" + _ex_text +"パティシエ経験値は上がらなかった。";
+            " が" + result_kosu + "個 できたよ！" + _yaki;
+            //+ "\n" + _ex_text;
         }
 
         Debug.Log(database.items[_id1].itemNameHyouji + " " + database.items[_id2].itemNameHyouji + "が出来ました！");
@@ -2228,7 +2318,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     }
 
 
-    //成功判定処理
+    //成功判定処理 Compound_Checkで事前に成功確率は計算し、ここではダイスをふるだけ。
     void CompoundSuccess_judge()
     {
         switch (_success_judge_flag)

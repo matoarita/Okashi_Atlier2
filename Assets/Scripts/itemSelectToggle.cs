@@ -309,7 +309,7 @@ public class itemSelectToggle : MonoBehaviour
 
                         case 6: //わたすとき
 
-                            GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
+                            GameMgr.Scene_Status = 100; //トグルを押して、調合中の状態。
                             itempresent_active();
                             break;
                     }
@@ -343,19 +343,18 @@ public class itemSelectToggle : MonoBehaviour
 
                         case 6: //わたすとき
 
-                            GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
+                            GameMgr.Scene_Status = 100; //トグルを押して、調合中の状態。
                             itempresent_active();
                             break;
 
                     }
                 }
-
                 else // その他シーンでやりたい処理
                 {
                     // シナリオやサブイベントなどを読み中の処理
-                    if (GameMgr.compound_select == 1000)
+                    if (GameMgr.Scene_Select == 1000)
                     {
-                        GameMgr.compound_status = 100; //トグルを押して、調合中の状態。
+                        GameMgr.Scene_Status = 100; //トグルを押して、調合中の状態。
                         itempresent_active();
                     }
                     else
@@ -1684,6 +1683,7 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.kettei_on_waiting = false;
 
                 GameMgr.compound_status = 1000;
+                GameMgr.Scene_Status = 1000;
 
                 break;
         }

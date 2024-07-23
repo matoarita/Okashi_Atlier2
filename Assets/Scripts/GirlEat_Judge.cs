@@ -2881,21 +2881,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
             {
-                Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.3f));
+                Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.2f));
                 GetMoney += (int)(_basecost * 2.2f);
                 GetMoney *= (int)(total_score * 0.01f);
                 girl1_status.GirlExpressionKoushin(50);
             }
             else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
             {
-                Getlove_exp += (int)((total_score * 0.2f) * (_basegirl1_like * 1.5f));
+                Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.3f));
                 GetMoney += (int)(_basecost * 2.5f);
                 GetMoney *= (int)(total_score * 0.01f);
                 girl1_status.GirlExpressionKoushin(70);
             }
-            else if (total_score >= 500) //300~500点を超えた場合、ベース×5
+            else if (total_score >= 500) //500点を超えた場合、ベース×5
             {
-                Getlove_exp += (int)((total_score * 0.4f) * (_basegirl1_like * 1.75f));
+                Getlove_exp += (int)((total_score * 0.11f) * (_basegirl1_like * 1.5f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
                 girl1_status.GirlExpressionKoushin(100);
@@ -2999,15 +2999,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 85)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.5f);
+                Getlove_exp = (int)(Getlove_exp * 0.65f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 90 && PlayerStatus.girl1_Love_lv < 95)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.25f);
+                Getlove_exp = (int)(Getlove_exp * 0.5f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 95 && PlayerStatus.girl1_Love_lv < 99)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.1f);
+                Getlove_exp = (int)(Getlove_exp * 0.3f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 99)
             {
@@ -3240,7 +3240,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
                     exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 1); //2番目が1だと、パネルの表示
-                    exp_table.SkillCheckPatissierLV(PlayerStatus.player_patissier_lv, 1);
+                    //exp_table.SkillCheckPatissierLV();
                 }
                 else
                 {
@@ -3311,7 +3311,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
         exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 0); //2番目が0で、実際のスキルの更新
-        exp_table.SkillCheckPatissierLV(PlayerStatus.player_patissier_lv, 0);
+        //exp_table.SkillCheckPatissierLV();
 
         //テキストも更新
         GirlLoveParam_HyoujiKoushin();        

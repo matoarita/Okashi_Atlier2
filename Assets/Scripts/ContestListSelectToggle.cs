@@ -259,37 +259,49 @@ public class ContestListSelectToggle : MonoBehaviour
                 //Debug.Log("ok");
                 //解除
 
-                sc.PlaySe(0);
-                //sc.PlaySe(25);
-
-                black_effect.SetActive(true);
-
-                yes.transform.Find("Text").GetComponent<Text>().text = "出場する";
-
-                if (conteststartList_database.conteststart_lists[_list].Contest_Cost == 0)
+                //ランクチェック
+                if (PlayerStatus.player_ninki_param >= conteststartList_database.conteststart_lists[_list].Contest_PatissierRank)
                 {
-                    _cost_text = "無料";
+                    sc.PlaySe(0);
+                    //sc.PlaySe(25);
+
+                    black_effect.SetActive(true);
+
+                    yes.transform.Find("Text").GetComponent<Text>().text = "出場する";
+
+
+                    if (conteststartList_database.conteststart_lists[_list].Contest_Cost == 0)
+                    {
+                        _cost_text = "無料";
+                    }
+                    else
+                    {
+                        _cost_text = conteststartList_database.conteststart_lists[_list].Contest_Cost.ToString() + GameMgr.MoneyCurrency;
+                    }
+
+                    if (!GameMgr.System_Contest_StartNow)
+                    {
+                        _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
+                        + "本当に出場しますか？" + "\n"
+                        + "※現在受けているコンテストは、キャンセルされます。";
+                    }
+                    else
+                    {
+                        _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
+                        + "コンテストはすぐに開始されます。" + "\n"
+                        + "本当に出場しますか？";
+                    }
+
+                    //ほんとに出場するかを最終確認
+                    StartCoroutine("Contestlist_FinalCheck");
                 }
                 else
                 {
-                    _cost_text = conteststartList_database.conteststart_lists[_list].Contest_Cost.ToString() + GameMgr.MoneyCurrency;
+                    //ランク足りてない
+                    _text.text = "すみませ～ん！" + "\n" + "ボッチャンは、どうやらランクがまだ足りてないようデ～ス！";
+                    OffDetailedWindow();
+                    sc.PlaySe(6);
                 }
-
-                if (!GameMgr.System_Contest_StartNow)
-                {
-                    _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
-                    + "本当に出場しますか？" + "\n" 
-                    + "※現在受けているコンテストは、キャンセルされます。";
-                }
-                else
-                {
-                    _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
-                    + "コンテストはすぐに開始されます。" + "\n"
-                    + "本当に出場しますか？";
-                }
-
-                //ほんとに出場するかを最終確認
-                StartCoroutine("Contestlist_FinalCheck");
 
                 break;
 
