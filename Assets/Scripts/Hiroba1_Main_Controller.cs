@@ -459,6 +459,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 StartCoroutine("WaitForGotoMap2");
                 break;
+
+            case 1540: //水族館から外へ移動
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM(1.0f);
+
+                StartCoroutine("WaitForGotoMap2");
+                break;
         }
     }
 

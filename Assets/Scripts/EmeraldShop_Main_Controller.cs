@@ -139,6 +139,7 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
 
         text_area = GameObject.FindWithTag("Message_Window");
         _text = text_area.GetComponentInChildren<Text>();
+        text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定
 
         //初期メッセージ
         shopdefault_text = "ニャニャ。よ～見つけなすったね。こんなところを・・。" + "\n" + "それで何がほしいニャ？";

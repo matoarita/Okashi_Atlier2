@@ -315,6 +315,7 @@ public class Contest_Main_Reception : MonoBehaviour
         check_event = false;
 
         text_scenario();
+        text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定
 
         //入店の音
         if (!GameMgr.ShopEnter_ButtonON) //重複防止

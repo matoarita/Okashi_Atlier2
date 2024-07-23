@@ -190,6 +190,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定
 
         //初期メッセージ
         shopdefault_text = "いらっしゃい～。";

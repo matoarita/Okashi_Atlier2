@@ -2857,6 +2857,15 @@ public class Utage_scenario : MonoBehaviour
             case 1601: //Or露店じゃがバター
 
                 scenarioLabel = "Or_NPC111_roten_potatobutter";
+
+                /*if (pitemlist.KosuCountEvent("crepe_recipi") >= 1)
+                {
+                    roten_flag_num = 0;
+                }
+                else
+                {
+                    roten_flag_num = 160101; //じゃがバターのレシピをまだもってない
+                }*/
                 break;
 
             case 1602: //Or露店クレープ屋
@@ -3270,6 +3279,19 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(400);
+                        break;
+
+                    case 2: //のる
+
+                        moneyStatus_Controller.UseMoney(1000);
+
+                        if (roten_flag_num == 160101)
+                        {
+                            if (pitemlist.KosuCountEvent("crepe_recipi") <= 0)
+                            {
+                                pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
+                            }
+                        }
                         break;
 
                 }

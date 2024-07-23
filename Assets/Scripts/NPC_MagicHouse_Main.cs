@@ -366,6 +366,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         check_event = false; //イベントのフラグ
 
         text_scenario();
+        text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      

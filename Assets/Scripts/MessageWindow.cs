@@ -14,20 +14,17 @@ public class MessageWindow : MonoBehaviour {
 
     private Text chara_name;
 
+    private bool StartRead;
+
     // Use this for initialization
     void Start () {
 
-        if (this.gameObject.name == "MessageWindowMain")
-        {
-            SpQuestNamePanel = this.transform.Find("SpQuestNamePanel").gameObject;
-        }
+        //SetInit();
 
-        if (this.gameObject.name == "MessageWindow")
+        /*if (this.gameObject.name == "MessageWindow")
         {
-            SetInit();
-
             switch (SceneManager.GetActiveScene().name)
-            {
+            {*/
                 //Compoundのように、キャラ名と顔グラが混在して表示するシーンでは、Startは設定しないほうがいい。一瞬顔グラがパチっとうつる現象発生。
                 /*case "Compound":
 
@@ -43,7 +40,7 @@ public class MessageWindow : MonoBehaviour {
 
                     FaceIconON();
                     break;*/
-
+        /*
                 case "GetMaterial":
 
                     FaceIconON();
@@ -55,8 +52,7 @@ public class MessageWindow : MonoBehaviour {
                     CharaNameON();
                     break;
             }
-        }
-
+        }*/
     }
 
     void SetInit()
@@ -64,34 +60,73 @@ public class MessageWindow : MonoBehaviour {
         FaceIconPanel = this.transform.Find("FaceIconPanel").gameObject;
         CharaNamePanel = this.transform.Find("CharaName").gameObject;
         chara_name = CharaNamePanel.GetComponent<Text>();
+
+        if (this.gameObject.name == "MessageWindowMain")
+        {
+            SpQuestNamePanel = this.transform.Find("SpQuestNamePanel").gameObject;
+        }        
+
+        StartRead = false;
     }
 
     private void OnEnable()
     {
-
+        DrawIcon();
     }
 
     // Update is called once per frame
     void Update () {
 
+        /*if (!StartRead)
+        {
+            DrawIcon();
+            StartRead = true;
+        }*/
+    }
+
+    public void DrawIcon()
+    {
+        SetInit();
+
         if (this.gameObject.name == "MessageWindow")
         {
             GameMgr.Window_FaceIcon_OnOff = false;
 
-            //採取地選択画面のとき　顔グラをON
-            if (GameMgr.compound_select == 20)
+            switch(GameMgr.Scene_Category_Num)
             {
-                GameMgr.Window_FaceIcon_OnOff = true;
-            }
+                case 10:
 
+                    //採取地選択画面のとき　顔グラをON
+                    if (GameMgr.compound_select == 20)
+                    {
+                        if (!GameMgr.outgirl_Nowprogress)
+                        {
+                            GameMgr.Window_FaceIcon_OnOff = true;
+                        }
+                        else
+                        {
+                            GameMgr.Window_FaceIcon_OnOff = false;
+                        }
+                    }
+                    break;
+            }
+            
             switch (SceneManager.GetActiveScene().name)
             {
                 case "GetMaterial":
 
-                    GameMgr.Window_FaceIcon_OnOff = true;
+                    if (!GameMgr.outgirl_Nowprogress)
+                    {
+                        GameMgr.Window_FaceIcon_OnOff = true;
+                    }
+                    else
+                    {
+                        GameMgr.Window_FaceIcon_OnOff = false;
+                    }
                     break;
             }
 
+            //Debug.Log("GameMgr.Window_FaceIcon_OnOff: " + GameMgr.Window_FaceIcon_OnOff);
             if (GameMgr.Window_FaceIcon_OnOff)
             {
                 FaceIconON();
@@ -104,7 +139,7 @@ public class MessageWindow : MonoBehaviour {
 
         if (this.gameObject.name == "MessageWindowMain")
         {
-            if(!GameMgr.SPquestPanelOff)
+            if (!GameMgr.SPquestPanelOff)
             {
                 SpQuestNamePanel.SetActive(true);
             }
@@ -116,7 +151,7 @@ public class MessageWindow : MonoBehaviour {
     }
 
     //Compound_Mainからも読む
-    public void FaceIconON()
+    void FaceIconON()
     {
         SetInit();
 

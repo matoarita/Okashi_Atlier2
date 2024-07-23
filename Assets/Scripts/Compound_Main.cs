@@ -1786,6 +1786,7 @@ public class Compound_Main : MonoBehaviour
                 WindowOff();
 
                 text_area.SetActive(true);
+                //text_area.GetComponent<MessageWindow>().DrawIcon();
                 //moneystatus_panel.SetActive(true);
                 //GetMatStatusButton_obj.SetActive(true);
 
