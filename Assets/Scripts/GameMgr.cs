@@ -30,6 +30,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     }
 
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
+    public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool WEATHER_TIMEMODE_ON = false; //時間によって朝・昼・夜の背景を変更するかどうか。   
 
@@ -53,8 +54,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //シーン移動の際の切り替え時間
     public static float SceneFadeTime = 0.3f;
 
-    //各ハートレベル・スターのブロック
+    //各ハートレベル・スターのブロック(スターは一旦保留）
     public static int System_HeartBlockLv_01 = 4;
+    public static int System_HeartBlockLv_50 = 15;
+    public static int System_HeartBlockLv_51 = 20;
+    public static int System_HeartBlockLv_52 = 25;
+    public static int System_HeartBlockLv_53 = 30;
 
     public static int System_StarBlockLv_01 = 30;
     public static int System_StarBlockLv_02 = 60;
@@ -69,6 +74,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //温度の最小・最大
     public static int System_tempature_control_tempMin = 150;
     public static int System_tempature_control_tempMax = 230;
+
+    //魔法の演出時間
+    public static float System_magic_playtime_default = 2.0f;
+    public static float System_magic_playtime_def01 = 3.0f;
+
     //** --ここまで-- **//
 
 
@@ -660,6 +670,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hiroba_treasureget_Num; //そのお宝の種類番号
     public static int hiroba_treasureget_Kosu; //そのお宝の取得個数
     public static bool Extreme_On; //トッピングや魔法調合から、新規作成扱いにするフラグ
+    public static bool System_magic_playON; //魔法ミニゲーム画面を使用　成功率などが、確率でなくミニゲームの結果に変わる
+    public static float System_magic_playtime; //魔法の演出時間　魔法によって変わる
+    public static float System_magic_playParamUp; //魔法ミニゲームの結果による、食感補正値
+    public static bool System_magic_playSucess; //魔法ミニゲームで、成功か失敗か
 
 
     //一時フラグ　アイテムDB関連
@@ -1180,6 +1194,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_commentDB_Select = 0;
         Extreme_On = false;
         tempature_control_Param_yakitext = "";
+        System_magic_playtime = 2.0f;
+        System_magic_playSucess = false;
+        System_magic_playON = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

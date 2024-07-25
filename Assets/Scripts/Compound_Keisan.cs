@@ -1963,7 +1963,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。魔法のときはバフをかけない。Comp_method_bunki == 20
         {
             if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
@@ -1998,68 +1998,71 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //⑥ヒカリのお菓子の場合　味に補正かかる。
-        if(mstatus == 2)
+        if (GameMgr.System_HikariMakeUse_Flag)
         {
-            if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+            if (mstatus == 2)
             {
-                //まず、作るお菓子のサブタイプをもとに、計算。制作時間なども計算する。
-                hikari_okashilv_hosei = bufpower_keisan.Buf_HikariOkashiLV_Keisan(_base_itemType_sub);
-                Debug.Log("ヒカリがお菓子作る場合　補正: " + hikari_okashilv_hosei);
-
-                _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_hosei);
-                _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_hosei);
-                _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_hosei);
-                _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_hosei);
-                _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_hosei);
-                //_basebeauty = (int)(1.0f * _basebeauty  * hikari_okashilv_hosei);
-                _basetea_flavor = (int)(1.0f * _basetea_flavor * hikari_okashilv_hosei);
-
-                //専用アイテムがあれば、ヒカリのお菓子さらにパラメータアップ
-                _basecrispy += bufpower_keisan.Buf_HikariParamUp_Keisan(0, _base_itemType_sub); //_base_itemType_subは未使用だが、とりあえず置いてる。
-                _basefluffy += bufpower_keisan.Buf_HikariParamUp_Keisan(1, _base_itemType_sub);
-                _basesmooth += bufpower_keisan.Buf_HikariParamUp_Keisan(2, _base_itemType_sub);
-                _basehardness += bufpower_keisan.Buf_HikariParamUp_Keisan(3, _base_itemType_sub);
-                _basejuice += bufpower_keisan.Buf_HikariParamUp_Keisan(4, _base_itemType_sub);
-                //_basebeauty += bufpower_keisan.Buf_HikariParamUp_Keisan(5, _base_itemType_sub);
-                _basetea_flavor += bufpower_keisan.Buf_HikariParamUp_Keisan(6, _base_itemType_sub);
-            }
-        }
-
-        
-        if (mstatus == 0 || mstatus == 1)
-        {
-            if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
-            {
-                //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合のみ。。
                 if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
                 {
-                    if (_base_itemType == "Okashi")
-                    {
-                        //作るお菓子のサブタイプをもとに、ヒカリのお菓子レベルを算出し、補正値をだす。
-                        hikari_okashilv_paramup = bufpower_keisan.Buf_HikariOkashiLV_HoseiParamUp(_base_itemType_sub);
+                    //まず、作るお菓子のサブタイプをもとに、計算。制作時間なども計算する。
+                    hikari_okashilv_hosei = bufpower_keisan.Buf_HikariOkashiLV_Keisan(_base_itemType_sub);
+                    Debug.Log("ヒカリがお菓子作る場合　補正: " + hikari_okashilv_hosei);
 
-                        _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_paramup);
-                        _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_paramup);
-                        _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_paramup);
-                        _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_paramup);
-                        _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_paramup);
-                        //_basebeauty = (int)(1.0f * _basebeauty  * hikari_okashilv_paramup);
-                        _basetea_flavor = (int)(1.0f * _basetea_flavor * hikari_okashilv_paramup);
-                    }
+                    _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_hosei);
+                    _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_hosei);
+                    _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_hosei);
+                    _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_hosei);
+                    _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_hosei);
+                    //_basebeauty = (int)(1.0f * _basebeauty  * hikari_okashilv_hosei);
+                    _basetea_flavor = (int)(1.0f * _basetea_flavor * hikari_okashilv_hosei);
+
+                    //専用アイテムがあれば、ヒカリのお菓子さらにパラメータアップ
+                    _basecrispy += bufpower_keisan.Buf_HikariParamUp_Keisan(0, _base_itemType_sub); //_base_itemType_subは未使用だが、とりあえず置いてる。
+                    _basefluffy += bufpower_keisan.Buf_HikariParamUp_Keisan(1, _base_itemType_sub);
+                    _basesmooth += bufpower_keisan.Buf_HikariParamUp_Keisan(2, _base_itemType_sub);
+                    _basehardness += bufpower_keisan.Buf_HikariParamUp_Keisan(3, _base_itemType_sub);
+                    _basejuice += bufpower_keisan.Buf_HikariParamUp_Keisan(4, _base_itemType_sub);
+                    //_basebeauty += bufpower_keisan.Buf_HikariParamUp_Keisan(5, _base_itemType_sub);
+                    _basetea_flavor += bufpower_keisan.Buf_HikariParamUp_Keisan(6, _base_itemType_sub);
                 }
+            }
 
-                //⑧ハートボーナス　HLV=99のときは、お菓子の味が1.3倍に上昇。にいちゃんが作る場合のみ。
-                if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+
+            if (mstatus == 0 || mstatus == 1)
+            {
+                if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
                 {
-                    if (PlayerStatus.girl1_Love_lv >= 99)
+                    //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合のみ。。
+                    if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
                     {
-                        _basecrispy = (int)(1.2f * _basecrispy);
-                        _basefluffy = (int)(1.2f * _basefluffy);
-                        _basesmooth = (int)(1.2f * _basesmooth);
-                        _basehardness = (int)(1.2f * _basehardness);
-                        _basejuice = (int)(1.2f * _basejuice);
-                        //_basebeauty = (int)(1.2f * _basebeauty);
-                        _basetea_flavor = (int)(1.2f * _basetea_flavor);
+                        if (_base_itemType == "Okashi")
+                        {
+                            //作るお菓子のサブタイプをもとに、ヒカリのお菓子レベルを算出し、補正値をだす。
+                            hikari_okashilv_paramup = bufpower_keisan.Buf_HikariOkashiLV_HoseiParamUp(_base_itemType_sub);
+
+                            _basecrispy = (int)(1.0f * _basecrispy * hikari_okashilv_paramup);
+                            _basefluffy = (int)(1.0f * _basefluffy * hikari_okashilv_paramup);
+                            _basesmooth = (int)(1.0f * _basesmooth * hikari_okashilv_paramup);
+                            _basehardness = (int)(1.0f * _basehardness * hikari_okashilv_paramup);
+                            _basejuice = (int)(1.0f * _basejuice * hikari_okashilv_paramup);
+                            //_basebeauty = (int)(1.0f * _basebeauty  * hikari_okashilv_paramup);
+                            _basetea_flavor = (int)(1.0f * _basetea_flavor * hikari_okashilv_paramup);
+                        }
+                    }
+
+                    //⑧ハートボーナス　HLV=99のときは、お菓子の味が1.3倍に上昇。にいちゃんが作る場合のみ。
+                    if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+                    {
+                        if (PlayerStatus.girl1_Love_lv >= 99)
+                        {
+                            _basecrispy = (int)(1.2f * _basecrispy);
+                            _basefluffy = (int)(1.2f * _basefluffy);
+                            _basesmooth = (int)(1.2f * _basesmooth);
+                            _basehardness = (int)(1.2f * _basehardness);
+                            _basejuice = (int)(1.2f * _basejuice);
+                            //_basebeauty = (int)(1.2f * _basebeauty);
+                            _basetea_flavor = (int)(1.2f * _basetea_flavor);
+                        }
                     }
                 }
             }

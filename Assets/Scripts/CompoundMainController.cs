@@ -97,6 +97,7 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject magic_compo3;
     private GameObject magic_compo4;
     private GameObject player_mp_panel;
+    private GameObject magic_minigame_Panel;
 
     private GameObject MagicLearnPanel;
 
@@ -218,6 +219,13 @@ public class CompoundMainController : MonoBehaviour {
         magic_compo4.SetActive(false);
         player_mp_panel = MagicStartPanel.transform.Find("PlayerMPPanel").gameObject;
         player_mp_panel.SetActive(true);
+        magic_minigame_Panel = MagicStartPanel.transform.Find("magic_minigamePanel").gameObject;
+        magic_minigame_Panel.SetActive(false);
+
+        foreach(Transform child in magic_minigame_Panel.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
 
         MagicLearnPanel = compoBG_A.transform.Find("MagicLearnPanel").gameObject;
         MagicLearnPanel.SetActive(false);
@@ -700,6 +708,18 @@ public class CompoundMainController : MonoBehaviour {
                     magic_compo2.SetActive(false);
                     magic_compo3.SetActive(true);
 
+                    //魔法によっては、さらにミニゲームの演出画面も開く
+                    switch (GameMgr.UseMagicSkill)
+                    {
+                        case "Cookie_SecondBake":
+
+                            GameMgr.System_magic_playON = true;
+                            magic_minigame_Panel.SetActive(true);
+                            magic_minigame_Panel.transform.Find("SecondBake_Panel").gameObject.SetActive(true);
+                            magic_minigame_Panel.transform.Find("SecondBake_Panel").GetComponent<MiniSecondBake_Panel>().OnStartAnim();
+                            break;
+                    }
+
                     //スキル名表示
                     magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
 
@@ -725,7 +745,11 @@ public class CompoundMainController : MonoBehaviour {
                     //魔法演出画面を開く
                     magic_compo3.SetActive(false);
                     magic_compo4.SetActive(true);
-                  
+
+                    //ミニゲーム演出は閉じ
+                    magic_minigame_Panel.SetActive(false);
+                    GameMgr.System_magic_playON = false;
+
                     text_area_compound.SetActive(false); //専用ウィンドウを表示させてるのでオフ
 
                     //できるアイテムを表示
@@ -853,7 +877,8 @@ public class CompoundMainController : MonoBehaviour {
         compoBGA_imageExtreme.SetActive(false);
         compoBGA_imageHikariMake.SetActive(false);
         MagicStartPanel.SetActive(false);
-       
+        magic_minigame_Panel.SetActive(false);
+
         playeritemlist_onoff.SetActive(false);
         recipilist_onoff.SetActive(false);
         magicskilllistController_Learn.SetActive(false);

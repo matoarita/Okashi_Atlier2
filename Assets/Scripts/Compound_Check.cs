@@ -1068,17 +1068,23 @@ public class Compound_Check : MonoBehaviour {
                             GameMgr.Extreme_On = false;
                         }
 
-                        //魔法によって、ハートも消費する。
+                        //魔法によって、ハートも消費する。さらに、演出時間もここで決定
                         switch (GameMgr.UseMagicSkill)
                         {
                             case "Cookie_SecondBake":
 
+                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_def01;
                                 break;
 
                             case "Warming_Handmade":
 
                                 girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * 30), false); //ハートを消費するパターン;
                                                                                                   //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
+                                break;
+
+                            default:
+
+                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
                                 break;
                         }
 

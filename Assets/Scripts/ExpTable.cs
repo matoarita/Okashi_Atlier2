@@ -245,10 +245,10 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         stage1_joblvTable.Add(300); //LV15
 
         _joblv_last = stage1_joblvTable.Count;
-        //LV16以上～50まで　50ごとに上がるように設定
+        //LV16以上～50まで　100ごとに上がるように設定
         for (i = 1; i < (50 - _joblv_last); i++)
         {
-            stage1_joblvTable.Add((_joblv_last + i) * 50);
+            stage1_joblvTable.Add((_joblv_last + i) * 100);
         }
         stage1_joblvTable[stage1_joblvTable.Count - 1] = 9999; //最後だけ9999
 

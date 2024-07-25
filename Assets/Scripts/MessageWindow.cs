@@ -57,9 +57,12 @@ public class MessageWindow : MonoBehaviour {
 
     void SetInit()
     {
-        FaceIconPanel = this.transform.Find("FaceIconPanel").gameObject;
-        CharaNamePanel = this.transform.Find("CharaName").gameObject;
-        chara_name = CharaNamePanel.GetComponent<Text>();
+        if (this.gameObject.name == "MessageWindow")
+        {
+            FaceIconPanel = this.transform.Find("FaceIconPanel").gameObject;
+            CharaNamePanel = this.transform.Find("CharaName").gameObject;
+            chara_name = CharaNamePanel.GetComponent<Text>();
+        }
 
         if (this.gameObject.name == "MessageWindowMain")
         {

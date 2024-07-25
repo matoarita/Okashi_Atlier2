@@ -542,7 +542,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_CentralPark_Right": //中央噴水　右
 
-                if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_02)
+                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_51) //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_02
                 {
                     On_Active1701(); //まだ通れない
                 }
@@ -1298,7 +1298,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_CentralPark_Left": //中央噴水　左
 
-                if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_03)
+                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_50) //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_03
                 {
                     On_Active1702(); //まだ通れない
                 }
@@ -1310,7 +1310,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_CentralPark_Right": //中央噴水　右
 
-                if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_01)
+                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_52) //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_01
                 {
                     On_Active1700(); //まだ通れない
                 }
@@ -1406,7 +1406,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
 
-                if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_04)
+                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_53) //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_04
                 {
                     On_Active1703(); //まだ通れない
                 }

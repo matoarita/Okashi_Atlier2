@@ -354,8 +354,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         PrizeNinkiRankList.Clear();
         PrizeNinkiRankList.Add(0, 0f);
         PrizeNinkiRankList.Add(1, 0f); //
-        PrizeNinkiRankList.Add(2, 0.1f); //GetPatissierPointの10分の一
-        PrizeNinkiRankList.Add(3, 0.5f); //2分の一
+        PrizeNinkiRankList.Add(2, 0f); //GetPatissierPointの10分の一
+        PrizeNinkiRankList.Add(3, 0f); //2分の一
         PrizeNinkiRankList.Add(4, 1.0f); //まるっともらえる
     }
 
@@ -553,10 +553,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ミナズキヨーコ");
-        GameMgr.PrizeCharacterList.Add("ＭＩＹＵＫＩ");
-        GameMgr.PrizeCharacterList.Add("ビデ夫人");
-        GameMgr.PrizeCharacterList.Add("冬乃ソラ");
+        GameMgr.PrizeCharacterList.Add("ミカズキ");
+        GameMgr.PrizeCharacterList.Add("レピア");
+        GameMgr.PrizeCharacterList.Add("ティリス");
+        GameMgr.PrizeCharacterList.Add("ソラ");
     }
 
     //ラスクブロカント
@@ -587,7 +587,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("メリーナ");
+        GameMgr.PrizeCharacterList.Add("エレノア");
         GameMgr.PrizeCharacterList.Add("レア");
         GameMgr.PrizeCharacterList.Add("ルッカ");
         GameMgr.PrizeCharacterList.Add("リーシュ・デルト");
@@ -621,8 +621,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("青ずきん");
-        GameMgr.PrizeCharacterList.Add("セレーナ");
-        GameMgr.PrizeCharacterList.Add("アリス");
+        GameMgr.PrizeCharacterList.Add("セレン");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
         GameMgr.PrizeCharacterList.Add("ミント");
     }
 
@@ -655,8 +655,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("トリカイ");
         GameMgr.PrizeCharacterList.Add("ジョー");
-        GameMgr.PrizeCharacterList.Add("ナベシマ");
-        GameMgr.PrizeCharacterList.Add("満太郎");
+        GameMgr.PrizeCharacterList.Add("コースケ");
+        GameMgr.PrizeCharacterList.Add("マンタロー");
     }
 
     void PrizeRankingSet07()
@@ -686,8 +686,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("モーザルト");
-        GameMgr.PrizeCharacterList.Add("ベートウ・ヴェーン");
+        GameMgr.PrizeCharacterList.Add("モーツザルト");
+        GameMgr.PrizeCharacterList.Add("ベートー・ヴェーン");
         GameMgr.PrizeCharacterList.Add("ハーマウズ");
         GameMgr.PrizeCharacterList.Add("メンデルス");
     }

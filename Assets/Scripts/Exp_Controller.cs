@@ -1142,8 +1142,24 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else
         {
-            CompoundSuccess_judge();
+            if (GameMgr.System_magic_playON) //魔法ミニゲームの成功率を使う
+            {
+                if (!GameMgr.System_magic_playSucess)
+                {
+                    GameMgr.Result_compound_success = false;
+                }
+                else
+                {
+                    GameMgr.Result_compound_success = true;
+                }
+            }
+            else
+            {
+                CompoundSuccess_judge();
+            }
         }
+
+        
 
         //調合成功
         if (GameMgr.Result_compound_success == true)
@@ -1762,7 +1778,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 Debug_timeCount = 0.0f; //デバッグ用　演出時間の計測
                 Debug_stopwatch = true;
-                Debug_timeCount_Panel.SetActive(true);
+                if (GameMgr.DEBUG_MagicPlayTime_ON)
+                {
+                    Debug_timeCount_Panel.SetActive(true);
+                }
 
                 timeOut = 2.0f;
                 compo_anim_status = 1;
@@ -1955,9 +1974,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 Debug_timeCount = 0.0f; //デバッグ用　演出時間の計測
                 Debug_stopwatch = true;
-                Debug_timeCount_Panel.SetActive(true);
+                if (GameMgr.DEBUG_MagicPlayTime_ON)
+                {
+                    Debug_timeCount_Panel.SetActive(true);
+                }
 
-                timeOut = 2.0f;
+                timeOut = GameMgr.System_magic_playtime;
                 compo_anim_status = 1;
 
                 _text.text = "ガシャ .";
