@@ -56,10 +56,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //各ハートレベル・スターのブロック(スターは一旦保留）
     public static int System_HeartBlockLv_01 = 4;
-    public static int System_HeartBlockLv_50 = 15;
-    public static int System_HeartBlockLv_51 = 20;
-    public static int System_HeartBlockLv_52 = 25;
-    public static int System_HeartBlockLv_53 = 30;
+    public static int System_HeartBlockLv_50 = 37; //冬
+    public static int System_HeartBlockLv_51 = 28; //秋
+    public static int System_HeartBlockLv_52 = 15; //夏
+    public static int System_HeartBlockLv_53 = 45;
 
     public static int System_StarBlockLv_01 = 30;
     public static int System_StarBlockLv_02 = 60;
@@ -69,7 +69,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_Yachin_Cost01 = 1000; //家賃の額
 
     //重要アイテム名
-    public static string System_TreasureItem01 = "ブルークリスタル";
+    public static string System_TreasureItem01 = "クリスタルブルー";
 
     //温度の最小・最大
     public static int System_tempature_control_tempMin = 150;

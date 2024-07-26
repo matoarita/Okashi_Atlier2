@@ -305,6 +305,23 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         EventReadingStart();
                     }
                     break;
+
+                case "Or_Hiroba_Summer_ThemePark_AquariumEntrance": //水族館入口
+
+                    if (!GameMgr.NPCHiroba_HikarieventList[300]) //はじめて水族館へきた。
+                    {
+                        GameMgr.NPCHiroba_HikarieventList[300] = true;
+
+                        GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
+                        GameMgr.hiroba_event_ID = 300000;
+
+                        GameMgr.scenario_ON = true;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                    break;
             }           
         }
     }
@@ -1199,7 +1216,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     On_Active54();
                     break;
 
-                case "Or_Hiroba_Summer_ThemePark_Enter":
+            case "Or_Hiroba_Summer_MainStreet_Gondora":
+
+                On_Active1620_Summer_GentleMan();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Enter":
 
                     On_Active72();
                     break;
@@ -2961,8 +2983,65 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //お花屋さん押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1610; //
-        GameMgr.hiroba_event_ID = 0;
 
+        if (!GameMgr.NPCHiroba_eventList[1030]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[1030] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[1030]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 0;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+        EventReadingStart();
+    }
+
+    void On_Active1620_Summer_GentleMan()
+    {
+        //お花屋さん押した　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1620; //
+
+        if (!GameMgr.NPCHiroba_eventList[1200]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[1200] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[1200]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
         EventReadingStart();
     }
 

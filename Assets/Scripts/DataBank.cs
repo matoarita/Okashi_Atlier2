@@ -13,7 +13,7 @@ public class DataBank
     static Dictionary<string, object> bank = new Dictionary<string, object>();
 
     static readonly string path = "SaveData";
-    static readonly string fullPath = $"{ Application.persistentDataPath }/{ path }";
+    static readonly string fullPath = $"{ Application.dataPath }/{ path }"; // Application.persistentDataPath ←内部の深いところの場所
     static readonly string extension = "dat";
 
     public string SavePath

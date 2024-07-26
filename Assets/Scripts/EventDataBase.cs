@@ -336,7 +336,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         GameMgr.girlloveevent_bunki = 1; //サブイベントの発生のチェック。宴用に分岐。
 
         
-
         if (GameMgr.GirlLove_loading)
         { }
         else
@@ -1333,6 +1332,31 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }*/
+
+                //調合後にチェック　はじめて、各特別なお菓子作ったイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //はじめてルミエメラルドシュガーかルミサファイアシュガー作った
+                    if (!GameMgr.GirlLoveSubEvent_stage1[200])
+                    {
+                        if (database.items[GameMgr.Okashi_makeID].itemName == "lumi_emerald_suger" ||
+                            database.items[GameMgr.Okashi_makeID].itemName == "lumi_sapphire_suger")
+                        {
+                            //メイン画面にもどったときに、イベントを発生させるフラグをON
+                            GameMgr.GirlLoveSubEvent_num = 200;
+                            GameMgr.GirlLoveSubEvent_stage1[200] = true;
+
+                            //GameMgr.Mute_on = true;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            //GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                            //GameMgr.SubEvAfterHeartGet_num = 100;
+                        }
+                    }
+                }
+
 
                 //
                 //家にNPCが訪問する系のイベント

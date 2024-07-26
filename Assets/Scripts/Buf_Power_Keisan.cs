@@ -850,7 +850,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             case "Cookie_SecondBake":
 
-                if (_status == 0)//さくさくのバフ
+                if (_status == 0 || _status == 3)//さくさくか歯ごたえのバフ
                 {
                     _magicup = (int)(_baseparam * 0.1f * GameMgr.System_magic_playParamUp) + (int)(magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") * _baseparam * 0.1f);
                     Debug.Log("補正値: " + _baseparam * 0.1f +  " * " + GameMgr.System_magic_playParamUp + " + " + (int)(magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") * _baseparam * 0.1f));

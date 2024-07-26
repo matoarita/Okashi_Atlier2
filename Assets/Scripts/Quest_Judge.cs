@@ -1609,7 +1609,7 @@ public class Quest_Judge : MonoBehaviour {
         PlayerStatus.girl1_Love_exp += _getHeart;
 
         //名声をプラスかマイナス。0は変化なし
-        ninkiStatus_Controller.GetNinki(_getNinki);           
+        //ninkiStatus_Controller.GetNinki(_getNinki);           
 
         ResetQuestStatus();
     }

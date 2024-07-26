@@ -2903,6 +2903,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Hiroba_Or_amakusa";
                 break;
 
+            case 1620: //Or夏エリア酒好きの紳士
+
+                scenarioLabel = "Or_NPC120_summer_gentleman";
+                break;
+
             case 1700: //Or広場エリア入口　夏
 
                 scenarioLabel = "Hiroba_Or_AreaEnter";

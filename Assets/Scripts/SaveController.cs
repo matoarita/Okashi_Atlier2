@@ -210,14 +210,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //アイテムの前回得点のみ取得
-        /*_temp_itemscorelist.Clear();
+        _temp_itemscorelist.Clear();
         for (i = 0; i < database.items.Count; i++)
         {
             _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
                 database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
                 database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
                 database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
-        }*/
+        }
 
 
         //セーブ保存用のクラスを新規作成。
@@ -881,7 +881,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //アイテムの前回スコアなどを読み込み ゲームデータのほうは、前回スコアは触らない。
-        /*for (count = 0; count < playerData.save_itemdatabase.Count; count++)
+        for (count = 0; count < playerData.save_itemdatabase.Count; count++)
         {
             i = 0;
             while (i < database.items.Count)
@@ -908,7 +908,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 i++;
             }                 
             
-        }*/
+        }
 
         //調合のフラグ＋調合回数を記録　お菓子手帳はゲーム中用（PlayerData）と、あとの図鑑用（SystemData）で別々に分けて保存する。
         for (count = 0; count < playerData.save_itemCompodatabase.Count; count++)
@@ -1173,9 +1173,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             {
                 pitemlist.playeritemlist[database.items[i].itemName] = 0;
             }
-
-            //どんぐりはリスタートで必ず消す。
-            //database.items[i].HighScore_flag = 0;
         }
 
         //ヒカリ制作フラグも必ず消す。
@@ -1271,10 +1268,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
             }*/
 
-            _temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
+            /*_temp_itemscorelist.Add(new ItemSaveparam(database.items[i].itemID, database.items[i].itemName, database.items[i].Eat_kaisu, database.items[i].HighScore_flag, database.items[i].last_total_score,
                     database.items[i].last_rich_score, database.items[i].last_sweat_score, database.items[i].last_bitter_score, database.items[i].last_sour_score,
                     database.items[i].last_crispy_score, database.items[i].last_fluffy_score, database.items[i].last_smooth_score, database.items[i].last_hardness_score,
-                    database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
+                    database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));*/
         }
 
         //称号リスト
@@ -1504,7 +1501,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             }*/
             
             //アイテムの前回スコアなどを読み込み
-            for (count = 0; count < systemData.save_itemdatabase.Count; count++)
+            /*for (count = 0; count < systemData.save_itemdatabase.Count; count++)
             {
                 i = 0;
                 while (i < database.items.Count)
@@ -1531,7 +1528,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     i++;
                 }
 
-            }
+            }*/
 
             //衣装などのサブイベントのフラグのみ引継ぎ
             /*for (i = 0; i < systemData.save_GirlLoveSubEvent_stage1_system.Length; i++)
