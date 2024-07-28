@@ -405,7 +405,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         matplace_toggle.Add(Instantiate(matplace_toggle_obj, content.transform));
         map_icon = matplace_database.matplace_lists[i].mapIcon_sprite;
         matplace_toggle[count].transform.Find("Background").GetComponent<Image>().sprite = map_icon;
-        matplace_toggle[count].transform.Find("Background").GetComponentInChildren<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+        matplace_toggle[count].transform.Find("Label").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_flag = matplace_database.matplace_lists[i].placeFlag;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_default_flag = matplace_database.matplace_lists[i].placeDefaultFlag;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにリスト配列番号を割り振っておく。

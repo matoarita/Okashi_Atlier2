@@ -2880,7 +2880,16 @@ public class Utage_scenario : MonoBehaviour
                 {
                     roten_flag_num = 160201; //クレープのレシピをまだもってない
                 }
-                
+
+                if (pitemlist.KosuCountEvent("choco_crepe_recipi") >= 1)
+                {
+                    roten_flag_num = 0;
+                }
+                else
+                {
+                    roten_flag_num = 160210; //クレープのレシピをまだもってない
+                }
+
                 break;
 
             case 1603: //Or露店ジェラート屋
@@ -3315,14 +3324,28 @@ public class Utage_scenario : MonoBehaviour
 
                         moneyStatus_Controller.UseMoney(1200);
 
-                        if(roten_flag_num == 160201)
+                        if (roten_flag_num == 160201)
                         {
                             if (pitemlist.KosuCountEvent("crepe_recipi") <= 0)
                             {
                                 pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
                             }
                         }
-                       
+
+                        break;
+
+                    case 2: //のる
+
+                        moneyStatus_Controller.UseMoney(1500);
+
+                        if (roten_flag_num == 160210)
+                        {
+                            if (pitemlist.KosuCountEvent("crepe_recipi") <= 0)
+                            {
+                                pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
+                            }
+                        }
+
                         break;
 
                 }

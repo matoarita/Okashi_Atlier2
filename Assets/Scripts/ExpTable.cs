@@ -17,6 +17,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     public List<int> stage1_hlvTable = new List<int>();
     private List<int> stage1_joblvTable = new List<int>();
     private int _hlv_last, _joblv_last, _sum;
+    private int _last_htable;
 
     public Dictionary<int, int> exp_table;
 
@@ -210,22 +211,34 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         stage1_hlvTable.Add(1350); //LV14
         stage1_hlvTable.Add(1500); //LV15
 
-        _hlv_last = stage1_hlvTable.Count;
         //LV16以上～99まで　ハートレベル*100ごとに上がるように設定
+        _hlv_last = stage1_hlvTable.Count; //上にいれたとこまでの最後　この場合14が入る     
+        _last_htable = stage1_hlvTable[stage1_hlvTable.Count - 1]; //最後にいれた数字　1500が入っている
+        for (i = 1; i < (30 - _hlv_last); i++)
+        {
+            stage1_hlvTable.Add(_last_htable + i * 100); //14+i=15～から入っていく
+        }
+
+        //LV30以上～99まで　ハートレベル*100ごとに上がるように設定
+        _hlv_last = stage1_hlvTable.Count; //上にいれたとこまでの最後
+        _last_htable = stage1_hlvTable[stage1_hlvTable.Count - 1]; //最後にいれた数字　更新
         for (i = 1; i < (99 - _hlv_last); i++)
         {
-            stage1_hlvTable.Add((_hlv_last + i) * 100);
+            stage1_hlvTable.Add(_last_htable + i * 150); //30+i=31～から入っていく
         }
-        stage1_hlvTable[stage1_hlvTable.Count - 1] = 9999; //最後だけ9999
+
+        //LV99ラストにいくための経験値
+        stage1_hlvTable[stage1_hlvTable.Count - 1] = 15000; //最後の数字 LV98→LV99までが、ここで設定した値になる。
 
         //デバッグ用
-        /*for (i = 0; i < stage1_lvTable.Count; i++)
+        /*for (i = 0; i < stage1_hlvTable.Count; i++)
         {
-            Debug.Log("stage1_levelTable: " + "次のLv" + (i+2) + " " + stage1_lvTable[i]);
+            Debug.Log("stage1_hlvTable: " + "次のLv" + (i+2) + " " + stage1_hlvTable[i]);
         }
-        Debug.Log("stage1_lvTable.Count: " + stage1_lvTable.Count);*/
+        Debug.Log("stage1_hlvTable.Count: " + stage1_hlvTable.Count);*/
     }
 
+    //ジョブのレベルアップテーブル
     void Init_JobTable()
     {
         stage1_joblvTable.Clear();
@@ -253,11 +266,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         stage1_joblvTable[stage1_joblvTable.Count - 1] = 9999; //最後だけ9999
 
         //デバッグ用
-        for (i = 0; i < stage1_joblvTable.Count; i++)
+        /*for (i = 0; i < stage1_joblvTable.Count; i++)
         {
             Debug.Log("stage1_joblvTable: " + "次のLv" + (i+2) + " " + stage1_joblvTable[i]);
         }
-        Debug.Log("stage1_joblvTable.Count: " + stage1_joblvTable.Count);
+        Debug.Log("stage1_joblvTable.Count: " + stage1_joblvTable.Count);*/
     }
 
     //更新後のrenkinExpをいれると、現在のジョブLVに再計算する
