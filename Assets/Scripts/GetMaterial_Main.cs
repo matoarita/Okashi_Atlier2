@@ -105,7 +105,14 @@ public class GetMaterial_Main : MonoBehaviour
         GameMgr.matbgm_change_flag = false; //BGMをmainListControllerの宴のほうで変えたかどうかのフラグ。変えてた場合、trueで、宴終了後に元のBGMに切り替える。
 
         //ウィンドウキャラ名設定
-        GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+        if (!GameMgr.outgirl_Nowprogress)
+        {
+            GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+        }
+        else
+        {
+            GameMgr.Window_CharaName = GameMgr.player_Name_First;
+        }
 
         /*
         //

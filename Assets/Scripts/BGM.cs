@@ -304,6 +304,21 @@ public class BGM : MonoBehaviour {
                                 _send_clip = sound41;
                                 break;
 
+                            case "Or_Hiroba_Spring_Oku_Garden": //春エリア　裏通り奥の庭
+
+                                _send_clip = sound51;
+                                break;
+
+                            case "Or_Hiroba_Spring_Out_Plain": //春エリア　離れの草原
+
+                                _send_clip = sound51;
+                                break;
+
+                            case "Or_Hiroba_Spring_Out_MagicHouseLake": //春エリア　静けさの湖　ミラボー先生の家前
+
+                                _send_clip = sound51;
+                                break;
+
                             case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
 
                                 _send_clip = sound49;

@@ -788,6 +788,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //女の子の名前
     public static string mainGirl_Name;
     public static string player_Name; //主人公の名前
+    public static string player_Name_First;
 
     //ゲーム共通の固有の色
     public static string ColorYellow;
@@ -899,6 +900,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //メインの女の子名前
         mainGirl_Name = "ヒカリ";
+        player_Name_First = "アキラ";
         player_Name = "アキラ・ノワゼット";
 
         //ゴールドマスターのライン

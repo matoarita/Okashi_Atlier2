@@ -240,7 +240,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.Scene_Name = "Or_NPC_MagicHouse_Luminous";
                 GameMgr.Window_CharaName = "ミラボー先生";
                 SettingBGPanel(3); //Map〇〇のリスト番号を指定
-                backnum = 13; //バックボタン押したときの戻り先
+                backnum = 22; //バックボタン押したときの戻り先
                 SettingCharacterPanel(0);
 
                 npc2sub_toggle_obj.SetActive(true);

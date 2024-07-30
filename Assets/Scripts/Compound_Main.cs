@@ -2480,7 +2480,19 @@ public class Compound_Main : MonoBehaviour
     void OnGetMatPanel()
     {
         card_view.DeleteCard_DrawView();
-        _text.text = "にいちゃん！　お外、どこに行く～？";
+
+        //ウィンドウキャラ名設定
+        if (!GameMgr.outgirl_Nowprogress)
+        {
+            GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+            _text.text = "にいちゃん！　お外、どこに行く～？";
+        }
+        else
+        {
+            GameMgr.Window_CharaName = GameMgr.player_Name_First;
+            _text.text = "どこに行こうかな？";
+        }
+        
         GameMgr.compound_status = 20;
 
         StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。        
@@ -2568,9 +2580,11 @@ public class Compound_Main : MonoBehaviour
             
             if (!GameMgr.outgirl_Nowprogress)
             {
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
                 _text.text = "今日はもう寝る？"; //
             } else
             {
+                GameMgr.Window_CharaName = GameMgr.player_Name_First;
                 _text.text = "ヒカリが戻ってくるまで寝る？"; //
             }
 

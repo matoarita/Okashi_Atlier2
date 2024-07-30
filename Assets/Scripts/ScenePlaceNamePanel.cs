@@ -97,6 +97,36 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "";
                                 break;
 
+                            case "Or_Hiroba_Spring_RotenStreet": //春のエリア露店通り
+
+                                _text = "スプリングガーデン　露店通り";
+                                _subtext = "Spring Garden Festival Street";
+                                break;
+
+                            case "Or_Hiroba_Spring_RotenStreet2": //春のエリア露店通り2
+
+                                _text = "スプリングガーデン　喫茶店前";
+                                _subtext = "Spring Garden Cafe Street";
+                                break;
+
+                            case "Or_Hiroba_Spring_Oku_Garden": //春のエリア裏通り　奥の庭
+
+                                _text = "裏通りの庭";
+                                _subtext = "Backstreet Garden";
+                                break;
+
+                            case "Or_Hiroba_Spring_Out_Plain": //春のエリア　離れの草原
+
+                                _text = "離れの草原";
+                                _subtext = "Grassland outside the area";
+                                break;
+
+                            case "Or_Hiroba_Spring_Out_MagicHouseLake": //春のエリア　静けさの湖　ミラボー先生の家前
+
+                                _text = "静けさの湖";
+                                _subtext = "Lake of Tranquility";
+                                break;
+
                             case "Or_Hiroba_Summer_Entrance": //夏のエリア入口
 
                                 _text = "サマー・ドリームス入口";

@@ -1318,7 +1318,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //背景のSEを止める。
                 map_ambience.FadeOut();
 
-                _text.text = "もどるぞ～！";
+                if (!GameMgr.outgirl_Nowprogress)
+                {
+                    _text.text = "もどるぞ～！";
+                }
+                else
+                {
+                    //_text.text = "もどるぞ～！";
+                }
+                
                 moveanim_panel_image_text.GetComponent<Text>().text = "帰還中 .";
                 break;
 
