@@ -109,3 +109,5 @@
 ・BGM_106		こんとどぅふぇ素材No.0083-
 			妖精たちの演奏会			ルビー平野のBGM
 ・BGM_107		PerituneMaterial_Windmill_Village_loop	ダイアモンド山のBGM
+・BGM_108		audiostock_807050_sample		【宴用】オープニングの映画風スタートBGM
+・BGM_109		audiostock_1385237_sample		【宴用】オープニングの映画風スタートBGM2 静か

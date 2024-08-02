@@ -50,7 +50,7 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
 
             ev_id = pitemlist.Find_eventitemdatabase("rusk_recipi");
             pitemlist.add_eventPlayerItem(ev_id, 1); //ラスクのレシピを追加
-            pitemlist.EventReadOn("rusk_recipi");
+            //pitemlist.EventReadOn("rusk_recipi");
 
             //すでにレシピ100%フラグなど達成してた場合は、引き継がれる要素
             /*if (GameMgr.GirlLoveSubEvent_stage1[101])
@@ -66,7 +66,7 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
                 pitemlist.EventReadOn("gold_neko_cookie_recipi");
             }*/
 
-            if (GameMgr.Story_Mode != 0) //エクストラモードの初期設定
+            /*if (GameMgr.Story_Mode != 0) //エクストラモードの初期設定
             {
                 ev_id = pitemlist.Find_eventitemdatabase("crepe_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //クレープのレシピを追加
@@ -99,7 +99,7 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
                 //pitemlist.addPlayerItemString("egg_splitter", 1);
                 //pitemlist.addPlayerItemString("ice_box", 1);
                 pitemlist.addPlayerItemString("flyer", 1);
-            }
+            }*/
 
             //二週目以降、自動で出てくる。
             /*if (GameMgr.ending_count >= 1)

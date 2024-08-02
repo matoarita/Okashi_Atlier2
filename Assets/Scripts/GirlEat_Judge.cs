@@ -4104,7 +4104,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //高得点のときは、ここで特別スチルがでる。ExtraOkashiQuestComment_numは宴設定用
         if (total_score >= GameMgr.high_score_2)
         {
-            GameMgr.ExtraOkashiQuestComment_num = girl1_status.OkashiQuest_ID + 100000;
+            GameMgr.ExtraOkashiQuestComment_num = girl1_status.OkashiQuest_ID + 10000;
         }
         else
         {
