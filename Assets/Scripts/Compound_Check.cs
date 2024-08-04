@@ -1265,11 +1265,12 @@ public class Compound_Check : MonoBehaviour {
                 _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName);
                 Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName);
             }
-            else if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "Use")//[USE]が入っている時
+            //USEは、使用時に魔法のレベルを選択できるモード　パラメータ数が膨大になるので、今回は見送り
+            /*else if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "Use")//[USE]が入っている時
             {
                 _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName + GameMgr.UseMagicSkillLv);
                 Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName + GameMgr.UseMagicSkillLv);
-            }
+            }*/
 
 
             _itemSubtype_temp_result.Add(database.items[tempID_1].itemType_sub.ToString());

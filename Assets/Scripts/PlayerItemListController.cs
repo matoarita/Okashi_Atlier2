@@ -942,7 +942,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Cookie_SecondBake":
 
-                if (check_itemType_sub == "Cookie" || check_itemType_sub == "Cookie_Hard")
+                if (check_itemType_sub == "Cookie" || check_itemType_sub == "Cookie_Hard" || check_itemType_sub == "Cookie_Mat")
                 {
                     if (check_attribute1 == 0) //まだ二度焼きしてないやつだけ
                     {

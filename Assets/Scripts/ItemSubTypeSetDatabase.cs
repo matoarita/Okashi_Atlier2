@@ -45,10 +45,10 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_subcategoryText = "クッキー";
                 Crispy_Text();
                 break;
-            /*case "Cookie_Mat":
+            case "Cookie_Mat":
                 GameMgr.Item_subcategoryText = "クッキー";
                 Crispy_Text();
-                break;*/
+                break;
             case "Cookie_Hard":
                 GameMgr.Item_subcategoryText = "ノンシュガークッキー";
                 Hardness_Text();

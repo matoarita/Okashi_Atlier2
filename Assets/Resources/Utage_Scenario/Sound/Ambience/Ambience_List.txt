@@ -17,6 +17,7 @@
 ・Ambience_17		VSQSE_0828_morning_countryside_05		鳥の鳴き声　雨上がり後<宴で使用>
 ・Ambience_18		audiostock_532849				雨上がり後ぴちゃぴちゃ<宴で使用>
 ・Ambience_19		audiostock_1089295				野鳥の春声<宴で使用>
+・Ambience_20		audiostock_1170506_sample			電車走行中のガタンガタン音<宴で使用>
 
 マップで使う環境音は「Map_Ambience」フォルダに入れる。内容は同じでも、宴とデータは共有しないようにする。
 
