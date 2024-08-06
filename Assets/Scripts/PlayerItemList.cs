@@ -121,6 +121,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
                 ++count;
 
+                //Debug.Log(" _itemname: " + _itemname);
             }
 
             ++sheet_no;
