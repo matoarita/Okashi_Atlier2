@@ -209,7 +209,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         MapSelect_BGpanel = getmatplace_panel.transform.Find("MapSelectBGPanel").gameObject;
         MapSelect_Imagepanel_obj.Clear();
 
-        //今解放済みの魔法のみ、カテゴリーViewも表示
+        //今解放済みの、カテゴリーViewも表示
         if (!StartRead)
         {
             i = 0;
@@ -2524,5 +2524,19 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 }
                 break;
         }
+    }
+
+    public void Debug_AllMapFlagON()
+    {
+        for(i=0; i < matplace_database.matplace_lists.Count; i++)
+        {
+            if(matplace_database.matplace_lists[i].placeDefaultFlag == 9999)
+            {
+                matplace_database.matplace_lists[i].placeFlag = 1;
+            }
+        }
+        
+        ViewFlagCheck();
+        MapIcon_reset_and_DrawView(category_status);
     }
 }
