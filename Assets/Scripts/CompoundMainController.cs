@@ -36,7 +36,6 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject text_hikari_makecaption;
 
     private BGM sceneBGM;
-    private Map_Ambience map_ambience;
 
     private SceneInitSetting sceneinit_setting;
 
@@ -100,6 +99,10 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject magic_minigame_Panel;
 
     private GameObject MagicLearnPanel;
+
+    private GameObject SpecialwhiteEffect;
+    private GameObject SpecialOkashiEffectView;
+    private List<GameObject> sp_okashieffect_List = new List<GameObject>();
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -167,7 +170,6 @@ public class CompoundMainController : MonoBehaviour {
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-        //map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
 
         
 
@@ -250,6 +252,10 @@ public class CompoundMainController : MonoBehaviour {
 
         //ピクニック用のテキスト取得
         picnic_itemText = compoBG_A.transform.Find("SelectPanel_1/Picnic_yesno/ItemText/Text").GetComponent<Text>();
+
+        //スペシャル演出用のホワイト
+        SpecialwhiteEffect = compoBG_A.transform.Find("SpecialOkashiWhiteEffect").gameObject; //スペシャル演出用のホワイト
+        SpecialOkashiEffectView = compoBG_A.transform.Find("SpecialOkashiEffectView").gameObject;
 
 
         //Live2Dモデルの取得 
@@ -575,7 +581,7 @@ public class CompoundMainController : MonoBehaviour {
                     girl1_status.DeleteHukidashiOnly();
 
                     //魔法環境音を止める。
-                    sceneBGM.StopMagicAmbient();
+                    sceneBGM.StopAmbient();
 
                     break;
 
@@ -668,7 +674,7 @@ public class CompoundMainController : MonoBehaviour {
                     player_mp_panel.transform.Find("player_maxmp").GetComponent<Text>().text = PlayerStatus.player_maxmp.ToString();
 
                     //環境音鳴らす
-                    //sceneBGM.PlayMagicAmbient1();
+                    //sceneBGM.PlayAmbient(0);
 
                     break;
 
@@ -696,7 +702,7 @@ public class CompoundMainController : MonoBehaviour {
                     //ReDrawLive2DOrder_Compound();
 
                     //環境音とめる
-                    //sceneBGM.StopMagicAmbient();
+                    //sceneBGM.StopAmbient();
                     break;
 
                 case 22: //魔法演出画面
@@ -887,6 +893,17 @@ public class CompoundMainController : MonoBehaviour {
         recipiMemoButton.SetActive(false);
         recipimemoController_obj.SetActive(false);
         memoResult_obj.SetActive(false);
+
+        SpecialwhiteEffect.SetActive(false);
+        SpecialOkashiEffectView.SetActive(false);
+        SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
+
+        sp_okashieffect_List.Clear();
+        foreach (Transform child in SpecialOkashiEffectView.transform)
+        {
+            sp_okashieffect_List.Add(child.gameObject);
+            child.gameObject.SetActive(false);
+        }
     }
 
     public void OnCancelCompound_Select() //調合画面から元シーンに戻るとき

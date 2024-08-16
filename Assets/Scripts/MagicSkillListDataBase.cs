@@ -211,7 +211,10 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     {
         for (i = 0; i < magicskill_lists.Count; i++)
         {
-            magicskill_lists[i].skillFlag = 1;
+            if (magicskill_lists[i].skillFlag != 9999)
+            {
+                magicskill_lists[i].skillFlag = 1;
+            }
         }
     }
 }

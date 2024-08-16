@@ -45,6 +45,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Shiokuri_ON = false; //仕送りの有無
     public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
+    public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -674,6 +675,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float System_magic_playtime; //魔法の演出時間　魔法によって変わる
     public static float System_magic_playParamUp; //魔法ミニゲームの結果による、食感補正値
     public static bool System_magic_playSucess; //魔法ミニゲームで、成功か失敗か
+    public static bool Special_OkashiEnshutsuFlag; //特定のおかしをはじめて作成するときに、特別演出が発生するフラグ
+    public static string Special_OkashiEnshutsuName; //演出の指定
 
 
     //一時フラグ　アイテムDB関連
@@ -1199,6 +1202,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_magic_playtime = 2.0f;
         System_magic_playSucess = false;
         System_magic_playON = false;
+        Special_OkashiEnshutsuFlag = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

@@ -80,6 +80,7 @@ public class BGM : MonoBehaviour {
     public AudioClip Ambient4; //川のせせらぎ音２
     public AudioClip Ambient5; //くじらの鳴き声
     public AudioClip Ambient6; //春の森の声
+    public AudioClip Ambient7; //温度管理の焚火音
     public AudioClip Ambient100; //魔法詠唱中の環境音
     public AudioClip Ambient101; //魔法詠唱中の環境音2
 
@@ -95,6 +96,7 @@ public class BGM : MonoBehaviour {
 
     }
 	
+
 	// Update is called once per frame
 	void Update () {
         
@@ -1158,14 +1160,26 @@ public class BGM : MonoBehaviour {
         bgmController.AmbientMute(1);
     }
 
-    //魔法詠唱中の環境音
-    public void PlayMagicAmbient1()
+    //環境音を鳴らす
+    public void PlayAmbient(int _select_num)
     {
-        _send_clip_ambient = Ambient101;
+        switch(_select_num)
+        {
+            case 0: //魔法詠唱中の環境音
+
+                _send_clip_ambient = Ambient101;
+                break;
+
+            case 1: //温度管理時の環境音　焚火の燃える音
+
+                _send_clip_ambient = Ambient7;
+                break;
+        }
+        
         bgmController.AmbientRestartPlay(_send_clip_ambient);
     }
 
-    public void StopMagicAmbient()
+    public void StopAmbient()
     {
         bgmController.AmbientStop();
     }

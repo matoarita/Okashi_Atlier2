@@ -1328,6 +1328,7 @@ public class Compound_Check : MonoBehaviour {
         resultitemID = "gomi_1"; //どの調合組み合わせのパターンにも合致しなかった場合は、ゴミのIDが入っている。調合DBのゴミのitemNameを入れると、後で数値に変換してくれる。現在は、500に変換される。
         compoDB_select_judge = false;
         resultDB_Failed = false;
+        GameMgr.Special_OkashiEnshutsuFlag = false;
 
         //判定処理//
 
@@ -1382,8 +1383,7 @@ public class Compound_Check : MonoBehaviour {
 
         //stringのリザルドアイテムを、アイテムIDに変換。
         GameMgr.Final_result_itemID1 = database.SearchItemIDString(resultitemID);
-        GameMgr.Final_result_compID = result_compoID;
-
+        GameMgr.Final_result_compID = result_compoID;        
 
         //制作時間の予想を表示
         _hour = 0;
@@ -1440,6 +1440,7 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller.NewRecipiFlag = false;
                 newrecipi_flag = false;
             }
+
 
             //例外処理　二個以上同時にできる場合は、新しいレシピとしては登録されない
             if (exp_Controller.DoubleItemCreated == 1)
@@ -1546,8 +1547,13 @@ public class Compound_Check : MonoBehaviour {
                     Debug.Log("最終成功率デバッグにより: " + "100%");
                 }
             }
-            
 
+
+            //
+            //特定のアイテムのとき＋初めて作る場合　スペシャル演出のフラグがたつ
+            //
+            SpecialEnshutu_Check();
+            
         }
         //どの調合リストにも当てはまらなかった場合
         else
@@ -1585,7 +1591,27 @@ public class Compound_Check : MonoBehaviour {
         //判定予測処理　ここまで//
     }
 
-
+    //特定のお菓子つくったときに、特殊スチルが表示されるのを判定
+    void SpecialEnshutu_Check()
+    {
+        if (GameMgr.System_SpecialOkashiEnshutu_ON)
+        {
+            if (newrecipi_flag)
+            {
+                //オリジナル調合系か魔法調合のときのみ
+                if (GameMgr.Comp_kettei_bunki == 2 || GameMgr.Comp_kettei_bunki == 3 ||
+                GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
+                {
+                    //特定のアイテムかを判定
+                    if (database.items[GameMgr.Final_result_itemID1].itemName == "neko_cookie") //cheese_cake
+                    {                      
+                        GameMgr.Special_OkashiEnshutsuName = "panel01";
+                        GameMgr.Special_OkashiEnshutsuFlag = true;
+                    }
+                }
+            }
+        }
+    }
 
     void SelectPaused()
     {

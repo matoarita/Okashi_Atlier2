@@ -172,6 +172,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private GameObject BlackImage;
 
+    private GameObject SpecialwhiteEffect;
+    private GameObject SpecialOkashiEffectView;
+    private List<GameObject> sp_okashieffect_List = new List<GameObject>();
+
     private GameObject CompleteImage;
 
     //エクストリームパネルで制作したお菓子の一時保存用パラメータ。シーン移動しても、削除されない。
@@ -329,6 +333,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //黒半透明パネルの取得
         BlackImage = compoBG_A.transform.Find("BlackImage").gameObject; //魔法エフェクト用の半透明で幕
+
+        //スペシャル演出用のホワイト
+        SpecialwhiteEffect = compoBG_A.transform.Find("SpecialOkashiWhiteEffect").gameObject; //スペシャル演出用のホワイト
+        SpecialOkashiEffectView = compoBG_A.transform.Find("SpecialOkashiEffectView").gameObject;
+
+        sp_okashieffect_List.Clear();
+        foreach (Transform child in SpecialOkashiEffectView.transform)
+        {
+            sp_okashieffect_List.Add(child.gameObject);
+        }
 
         //完成時パネルの取得
         CompleteImage = compoBG_A.transform.Find("CompletePanel").gameObject; //調合成功時のイメージパネル 
@@ -520,8 +534,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //完成エフェクト
-            ResultEffect_OK(0);
-            CompleteAnim(); //完成背景切り替え＋アニメ
+            if (GameMgr.Special_OkashiEnshutsuFlag) //trueのときの特別演出では通常エフェクト表示しない
+            {
+                EffectListClear();
+            }
+            else
+            {
+                ResultEffect_OK(0);
+                CompleteAnim(); //完成背景切り替え＋アニメ
+            }
 
             //調合完了＋成功
             GameMgr.ResultComplete_flag = 1;
@@ -639,15 +660,39 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             new_item = result_item;
 
-            switch(_status)
+            //カード表示の演出　レアなおかしをはじめて作るときは、特別な登場 Compound_Checkで事前に演出するかどうか判定
+            if (GameMgr.Special_OkashiEnshutsuFlag) //trueのときに特別演出　特別スチルが表示される
             {
-                case 0: //通常調合時のリザルトカード表示
-                    card_view.ResultCard_DrawView(3, new_item);
-                    break;
+                BlackImage.GetComponent<CanvasGroup>().alpha = 0;
 
-                case 1: //魔法調合時のリザルトカード表示
-                    card_view.MagicResultCard_DrawView(3, new_item);
-                    break;
+                SpecialOkashiEffectView.SetActive(true);
+                for(i=0; i< sp_okashieffect_List.Count; i++)
+                {
+                    if (sp_okashieffect_List[i].gameObject.name == GameMgr.Special_OkashiEnshutsuName)
+                    {
+                        sp_okashieffect_List[i].SetActive(true);
+                    }
+                    if (sp_okashieffect_List[i].gameObject.name == "CloseButton")
+                    {
+                        sp_okashieffect_List[i].SetActive(true);
+                    }
+                }
+
+                SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 1;
+                SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
+            }
+            else
+            {
+                switch (_status)
+                {
+                    case 0: //通常調合時のリザルトカード表示
+                        card_view.ResultCard_DrawView(3, new_item);
+                        break;
+
+                    case 1: //魔法調合時のリザルトカード表示
+                        card_view.MagicResultCard_DrawView(3, new_item);
+                        break;
+                }
             }
             
         }
@@ -790,8 +835,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             renkin_default_exp_up();
 
             //完成エフェクト
-            ResultEffect_OK(0);
-            CompleteAnim(); //完成背景切り替え＋アニメ
+            if (GameMgr.Special_OkashiEnshutsuFlag) //trueのときの特別演出では通常エフェクト表示しない
+            {
+                EffectListClear();
+            }
+            else
+            {
+                ResultEffect_OK(0);
+                CompleteAnim(); //完成背景切り替え＋アニメ
+            }
 
             //調合完了＋成功
             GameMgr.ResultComplete_flag = 1;
@@ -1018,8 +1070,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             renkin_exp_up();
 
             //完成エフェクト
-            ResultEffect_OK(0);
-            CompleteAnim(); //完成背景切り替え＋アニメ
+            if (GameMgr.Special_OkashiEnshutsuFlag) //trueのときの特別演出では通常エフェクト表示しない
+            {
+                EffectListClear();
+            }
+            else
+            {
+                ResultEffect_OK(0);
+                CompleteAnim(); //完成背景切り替え＋アニメ
+            }
 
             //調合完了＋成功
             GameMgr.ResultComplete_flag = 1;
@@ -1242,8 +1301,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //完成エフェクト
-            ResultEffect_OK(1);
-            CompleteMagicAnim(); //完成背景切り替え＋アニメ
+            if (GameMgr.Special_OkashiEnshutsuFlag) //trueのときの特別演出では通常エフェクト表示しない
+            {
+                EffectListClear();
+            }
+            else
+            {
+                ResultEffect_OK(1);
+                CompleteMagicAnim(); //完成背景切り替え＋アニメ
+            }
 
             //調合完了＋成功
             GameMgr.ResultComplete_flag = 1;
@@ -1842,6 +1908,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     compo_anim_status = 4;
 
                     _text.text = "ガシャ　ガシャ　ガシャ . . . . ";
+
+                    //スペシャルなお菓子演出が入る場合、ここらへんでホワイトアウト
+                    if (GameMgr.Special_OkashiEnshutsuFlag)
+                    {
+                        SpecialwhiteEffect.SetActive(true);
+                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+                    }
                 }
                 break;
 
@@ -2038,6 +2111,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     compo_anim_status = 4;
 
                     _text.text = "ガシャ　ガシャ　ガシャ . . . . ";
+
+                    //スペシャルなお菓子演出が入る場合、ここらへんでホワイトアウト
+                    if(GameMgr.Special_OkashiEnshutsuFlag)
+                    {
+                        SpecialwhiteEffect.SetActive(true);
+                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+                    }
                 }
                 break;
 

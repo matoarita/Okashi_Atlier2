@@ -15,6 +15,8 @@ public class TempatureControlPanel : MonoBehaviour {
     private GameObject text_area; //Scene「Compund」の、テキスト表示エリアのこと。Mainにはありません。初期化も、Compoundでメニューが開かれたときに、リセットされるようになっています。
     private Text _text; //同じく、Scene「Compund」用。
 
+    private BGM sceneBGM;
+
     private GameObject itemselect_cancel_obj;
     private ItemSelect_Cancel itemselect_cancel;
 
@@ -43,13 +45,16 @@ public class TempatureControlPanel : MonoBehaviour {
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+
         //テキストウィンドウの取得
         text_area = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
 
         //各ゲージ
-        _text_temp = this.transform.Find("Comp/temp_counter/counter_num").GetComponent<Text>();
-        _text_time = this.transform.Find("Comp/time_counter/counter_num").GetComponent<Text>();
+        _text_temp = this.transform.Find("Comp/ParameterPanel/temp_counter/counter_num").GetComponent<Text>();
+        _text_time = this.transform.Find("Comp/ParameterPanel/time_counter/counter_num").GetComponent<Text>();
 
         _tempMax = GameMgr.System_tempature_control_tempMax;
         _tempMin = GameMgr.System_tempature_control_tempMin;
@@ -78,7 +83,9 @@ public class TempatureControlPanel : MonoBehaviour {
             _skillname = magicskill_database.magicskill_lists[magicskill_database.SearchSkillString("Temperature_of_Control")].skillNameHyouji;
             _text.text = "温度と時間を設定してね。" + "\n" + "※0分に設定すると、「" + _skillname + "」を使用しない。";
 
-            
+            //環境音鳴らす
+            sceneBGM.PlayAmbient(1);
+
             StartCoroutine("Tempature_select"); //決定かキャンセルを待つ状態
         }
 
@@ -102,6 +109,9 @@ public class TempatureControlPanel : MonoBehaviour {
         }
 
         yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        //環境音とめる
+        sceneBGM.StopAmbient();
 
         switch (yes_selectitem_kettei.kettei1)
         {

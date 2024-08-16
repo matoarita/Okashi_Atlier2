@@ -4246,12 +4246,13 @@ public class Compound_Main : MonoBehaviour
             {
                 case 1:
                     
-                    _todayfood_lib.Add("じゃがバター");
-                    _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));                    
+                                      
                     _todayfood_lib.Add("じゃがいもとお豆のスープ");
                     _todayfoodexpence_lib.Add((int)(60f * _todayfood_buf));
                     _todayfood_lib.Add("パン");
                     _todayfoodexpence_lib.Add((int)(50f * _todayfood_buf));
+                    _todayfood_lib.Add("みそパン");
+                    _todayfoodexpence_lib.Add((int)(80f * _todayfood_buf));
                     _todayfood_lib.Add("ゆでじゃが");
                     _todayfoodexpence_lib.Add((int)(70f * _todayfood_buf));
                     _todayfood_lib.Add("野菜の端っこゆで");
@@ -4265,6 +4266,11 @@ public class Compound_Main : MonoBehaviour
                     if (pitemlist.KosuCountEvent("bugget_recipi") >= 1)
                     {
                         _todayfood_lib.Add("じゃりパン");
+                        _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
+                    }
+                    if (pitemlist.KosuCountEvent("potatebutter_recipi") >= 1)
+                    {
+                        _todayfood_lib.Add("じゃがバター");
                         _todayfoodexpence_lib.Add((int)(30f * _todayfood_buf));
                     }
                     break;

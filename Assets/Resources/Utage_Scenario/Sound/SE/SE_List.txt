@@ -137,7 +137,7 @@ SE表
 ・SE_135	sei_ge_doa_kisimi05				ドアのきしむ音
 ・SE_136	sei_ge_doa_kisimi02				ドアのきしむ音２
 ・SE_137	sei_ge_doa_tuyoku_cl01				重めのドアを閉める音
-・SE_138	audiostock_1535474_sample			いい匂いがするときのほわわ音
+・SE_138	audiostock_1535474				いい匂いがするときのほわわ音
 ・SE_139	打撃1						軽い打撃音※打撃を二回鳴らしてる
 ・SE_140	audiostock_1497724_sample			素早い場面転換
 ・SE_141	audiostock_104457_sample			素早い走る足音
@@ -147,8 +147,8 @@ SE表
 ・SE_145	Wind_Chimes02-01(Up-Wide)			魔法を使うときのキラキラウィンドチャイム音
 ・SE_146	audiostock_1411314				【宴用】魔法発動音１　SE130と一緒
 ・SE_147	audiostock_5538.mp3				【宴用】失敗爆発音　SE21と一緒
-・SE_148	audiostock_1488438_sample			魔法選択時の決定音２
-・SE_149	audiostock_823846_sample			魔法選択時の決定音
+・SE_148	audiostock_1488438_sample			魔法選択時の決定音２ 現在未使用
+・SE_149	audiostock_823846_sample			魔法選択時の決定音　現在未使用
 ・SE_150	刀で打ち合う3					カタナがぶつかるようなカキン音
 ・SE_151	audiostock_813342				コンテスト会場入るときのドアベル音
 ・SE_152	蒸気機関車の汽笛1				蒸気機関車の汽笛の音

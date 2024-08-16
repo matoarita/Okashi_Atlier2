@@ -998,6 +998,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 break;
 
+            case "Freezing_OverRun":
+
+                if (check_itemType_subB == "a_AppaleiliceCream")
+                {
+                        itemlist_hyouji_Check();
+                }
+                break;
+
             case "Ice_Cube":
 
                 if (check_itemType_sub == "Water")
@@ -1088,8 +1096,55 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Wind_Heart":
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
-                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                if (check_itemType_subB == "a_AppaleilChocolate")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Wind_FlatBar":
+
+                if (check_itemType_subB == "a_AppaleilChocolate")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Wind_Crown":
+
+                if (check_itemType_subB == "a_AppaleilChocolate")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Wind_Roll":
+
+                if (check_itemName == "langue_de_chat")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
+            case "Wind_Pen":
+
+                if (check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1117,7 +1172,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Penguin":
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                if (check_itemType_sub == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
@@ -1130,7 +1185,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Bear":
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                if (check_itemType_sub == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
@@ -1143,7 +1198,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Rabitts":
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                if (check_itemType_sub == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
@@ -1156,7 +1211,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_AngelWing":
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
+                if (check_itemType_sub == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない

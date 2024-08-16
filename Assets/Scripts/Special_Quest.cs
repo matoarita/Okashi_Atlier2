@@ -453,7 +453,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 2: //茶色クッキー
+            case 2: //かわいいクッキー
 
                 girl1_status.OkashiQuest_ID = 100020;
                 OkashiQuest_Count = 3;
