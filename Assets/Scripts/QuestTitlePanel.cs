@@ -59,7 +59,7 @@ public class QuestTitlePanel : MonoBehaviour {
 
         okashiImage = this.transform.Find("OkashiImage/Image").GetComponent<Image>();
 
-        questpanel_text.text = special_quest.OkashiQuest_Name;
+        questpanel_text.text = GameMgr.MainQuestTitleName;
 
         if (GameMgr.Story_Mode == 0)
         {

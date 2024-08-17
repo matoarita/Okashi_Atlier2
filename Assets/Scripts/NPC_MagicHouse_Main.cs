@@ -897,6 +897,10 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             GameMgr.hiroba_event_ID = 0;
             GameMgr.utage_charaHyouji_flag = true;
 
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num = 110;
+            GameMgr.CompoundEvent_flag = true;
+
             //BGMかえる
             sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
             bgm_change_flag = true;
@@ -909,15 +913,15 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
             magicskill_database.skillHyoujiKaikin("Cookie_Study");
             magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
-            magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
+            //magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
             //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
 
-            magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
-            magicskill_database.skillHyoujiKaikin("Freezing_Spell");
+            //magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
+            //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
 
-            magicskill_database.skillHyoujiKaikin("Nappe");
-            magicskill_database.skillHyoujiKaikin("Appaleil_Study");
-            magicskill_database.skillHyoujiKaikin("Wind_Ark");
+            //magicskill_database.skillHyoujiKaikin("Nappe");
+            //magicskill_database.skillHyoujiKaikin("Appaleil_Study");
+            //magicskill_database.skillHyoujiKaikin("Wind_Ark");
 
             magicskill_database.skillHyoujiKaikin("True_of_Myheart");
 

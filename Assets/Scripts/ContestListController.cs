@@ -166,10 +166,8 @@ public class ContestListController : MonoBehaviour
                     }
 
                     //条件をみたせば、flag>=2以上のものもだす。パティシエランクが〇〇以上など。
-                    /*if (conteststartList_database.conteststart_lists[i].Contest_Flag == 2)
-                    {
-                        DrawContest();
-                    }*/
+                    ContestJoukenCheck();
+                    
                 }
 
 
@@ -249,6 +247,27 @@ public class ContestListController : MonoBehaviour
         ++list_count;
     }
     
+    //条件をみたすと、さらにコンテストが表示追加される
+    void ContestJoukenCheck()
+    {
+        //クッキーコンテストを2位以上で通過
+        if (PlayerStatus.player_ninki_param >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 2)
+            {
+                DrawContest();
+            }
+        }
+
+        //だいたい、ラスクかフィナンシェを2位以上で通過　クッキーを一位でもいい。
+        if (PlayerStatus.player_ninki_param >= 3)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 3)
+            {
+                DrawContest();
+            }
+        }
+    }
     
 
     public void OnContestList_Draw()

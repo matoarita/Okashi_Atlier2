@@ -175,6 +175,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject SpecialwhiteEffect;
     private GameObject SpecialOkashiEffectView;
     private List<GameObject> sp_okashieffect_List = new List<GameObject>();
+    private Image SpecialOkashi_ItemImg;
+    private Sprite texture2d;
 
     private GameObject CompleteImage;
 
@@ -337,6 +339,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //スペシャル演出用のホワイト
         SpecialwhiteEffect = compoBG_A.transform.Find("SpecialOkashiWhiteEffect").gameObject; //スペシャル演出用のホワイト
         SpecialOkashiEffectView = compoBG_A.transform.Find("SpecialOkashiEffectView").gameObject;
+        SpecialOkashi_ItemImg = compoBG_A.transform.Find("SpecialOkashiEffectView/panel01/ItemImg").GetComponent<Image>();
 
         sp_okashieffect_List.Clear();
         foreach (Transform child in SpecialOkashiEffectView.transform)
@@ -551,7 +554,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else //調合失敗
         {
-
+            if (GameMgr.Special_OkashiEnshutsuFlag) //特別演出　失敗したら白をとく
+            {
+                SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
+            }
+             
             //ゴミアイテムを検索。
             i = 0;
 
@@ -665,6 +672,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 BlackImage.GetComponent<CanvasGroup>().alpha = 0;
 
+                //効果音ならす
+                sc.PlaySe(78);
+                sc.PlaySe(88);
+
                 SpecialOkashiEffectView.SetActive(true);
                 for(i=0; i< sp_okashieffect_List.Count; i++)
                 {
@@ -677,6 +688,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         sp_okashieffect_List[i].SetActive(true);
                     }
                 }
+
+                texture2d = database.items[GameMgr.Okashi_makeID].itemIcon_sprite;
+                SpecialOkashi_ItemImg.sprite = texture2d;
 
                 SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 1;
                 SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
@@ -852,6 +866,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else //失敗した
         {
+            if (GameMgr.Special_OkashiEnshutsuFlag) //特別演出　失敗したら白をとく
+            {
+                SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
+            }
 
             //ゴミアイテムを検索。
             i = 0;
@@ -1318,6 +1336,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else //調合失敗
         {
+            if (GameMgr.Special_OkashiEnshutsuFlag) //特別演出　失敗したら白をとく
+            {
+                SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
+            }
 
             //ゴミアイテムを検索。
             i = 0;
@@ -1908,7 +1930,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     compo_anim_status = 4;
 
                     _text.text = "ガシャ　ガシャ　ガシャ . . . . ";
+                }
+                break;
 
+            case 4:
+
+                if (timeOut <= 1.5)
+                {
                     //スペシャルなお菓子演出が入る場合、ここらへんでホワイトアウト
                     if (GameMgr.Special_OkashiEnshutsuFlag)
                     {
@@ -1916,9 +1944,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
                     }
                 }
-                break;
-
-            case 4:
 
                 if (timeOut <= 0.0)
                 {
@@ -2112,16 +2137,21 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     _text.text = "ガシャ　ガシャ　ガシャ . . . . ";
 
+                    
+                }
+                break;
+
+            case 4:
+
+                if (timeOut <= 1.5)
+                {
                     //スペシャルなお菓子演出が入る場合、ここらへんでホワイトアウト
-                    if(GameMgr.Special_OkashiEnshutsuFlag)
+                    if (GameMgr.Special_OkashiEnshutsuFlag)
                     {
                         SpecialwhiteEffect.SetActive(true);
                         SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
                     }
                 }
-                break;
-
-            case 4:
 
                 if (timeOut <= 0.0)
                 {
@@ -2228,7 +2258,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 1: //魔法調合用のエフェクトと効果音
                 sc.PlaySe(130);
-                sc.PlaySe(132);
+                //sc.PlaySe(132);
                 sc.PlaySe(78);
                 break;
         }

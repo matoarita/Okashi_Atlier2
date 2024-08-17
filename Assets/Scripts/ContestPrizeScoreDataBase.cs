@@ -355,8 +355,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         PrizeNinkiRankList.Add(0, 0f);
         PrizeNinkiRankList.Add(1, 0f); //
         PrizeNinkiRankList.Add(2, 0f); //GetPatissierPointの10分の一
-        PrizeNinkiRankList.Add(3, 0f); //2分の一
-        PrizeNinkiRankList.Add(4, 1.0f); //まるっともらえる
+        PrizeNinkiRankList.Add(3, 0.3f); //3分の一
+        PrizeNinkiRankList.Add(4, 1.0f); //一位　まるっともらえる
     }
 
     //トーナメント形式の賞品設定　選手名はContestStartListDBで決める
@@ -476,7 +476,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(300);
         GameMgr.PrizeGetMoneyList.Add(700);
-        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -487,12 +487,13 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
+        GameMgr.PrizeCharacterList.Add("ユン・ハンポー");
         GameMgr.PrizeCharacterList.Add("ジャッキー・チューン");
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //オランジーナ・パティスリーアワード
     void PrizeRankingSet02()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -520,12 +521,13 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("コーラル");
-        GameMgr.PrizeCharacterList.Add("鳴海・クルセイダー");
+        GameMgr.PrizeCharacterList.Add("ク・ル・ルゥ");
+        GameMgr.PrizeCharacterList.Add("クルセイダー生まれのナル");
         GameMgr.PrizeCharacterList.Add("秋川どらら");
         GameMgr.PrizeCharacterList.Add("春山うらら");
     }
 
+    //ベオルブ家のディナー
     void PrizeRankingSet03()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -553,10 +555,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ミカズキ");
+        GameMgr.PrizeCharacterList.Add("キリコ");
         GameMgr.PrizeCharacterList.Add("レピア");
         GameMgr.PrizeCharacterList.Add("ティリス");
-        GameMgr.PrizeCharacterList.Add("ソラ");
+        GameMgr.PrizeCharacterList.Add("ソアーラ");
     }
 
     //ラスクブロカント
@@ -568,7 +570,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("pocket_tissue");
         GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("lucky_ticket");
+        GameMgr.PrizeItemList.Add("wood_rod_good");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -593,6 +595,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("リーシュ・デルト");
     }
 
+    //ルミエール・エピファニア
     void PrizeRankingSet05()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -620,12 +623,13 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("青ずきん");
-        GameMgr.PrizeCharacterList.Add("セレン");
-        GameMgr.PrizeCharacterList.Add("おそうじアリス");
         GameMgr.PrizeCharacterList.Add("ミント");
+        GameMgr.PrizeCharacterList.Add("セリーヌ");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
+        GameMgr.PrizeCharacterList.Add("黒ずきん");
     }
 
+    //ルミエール・カンデラ
     void PrizeRankingSet06()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -659,6 +663,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("マンタロー");
     }
 
+    //ガレット・デ・ロワ
     void PrizeRankingSet07()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -686,12 +691,13 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("モーツザルト");
-        GameMgr.PrizeCharacterList.Add("ベートー・ヴェーン");
-        GameMgr.PrizeCharacterList.Add("ハーマウズ");
-        GameMgr.PrizeCharacterList.Add("メンデルス");
+        GameMgr.PrizeCharacterList.Add("モーツァー・ルト");
+        GameMgr.PrizeCharacterList.Add("ベントウ・ヴェーン");
+        GameMgr.PrizeCharacterList.Add("ハウマウズ");
+        GameMgr.PrizeCharacterList.Add("メローネ・デルス");
     }
 
+    //ディオ・ショコラ・チャンピオンシップ
     void PrizeRankingSet08()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -725,6 +731,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("白桃姫");
     }
 
+    //登録なし
     void PrizeRankingSet09()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -758,6 +765,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("中国娘");
     }
 
+    //ひんやりお菓子コンテスト
     void PrizeRankingSet20()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -785,12 +793,13 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("ギリガン");
+        GameMgr.PrizeCharacterList.Add("ヴィクター");
+        GameMgr.PrizeCharacterList.Add("ガリー");
+        GameMgr.PrizeCharacterList.Add("中国娘");
     }
 
+    //フライング・ソーダコンテスト
     void PrizeRankingSet21()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる

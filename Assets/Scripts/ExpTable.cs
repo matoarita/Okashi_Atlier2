@@ -134,7 +134,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             }
         }
 
-        //SkillCheckPatissierLV();
+        SkillCheckPatissierLV();
     }
 
     void ShiageUpCheck(int _lv)
@@ -172,13 +172,19 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     //ジョブレベルのチェック　ジョブがあがったらジョブポイントがたまる
     public void SkillCheckPatissierLV()
     {
-
-        /*if (PlayerStatus.girl1_Love_lv > PlayerStatus.player_patissier_lv)
+        //ハートレベルに連動してレベル上がるパターン
+        if (PlayerStatus.girl1_Love_lv > PlayerStatus.player_patissier_lv)
         {
             _dev = PlayerStatus.girl1_Love_lv - PlayerStatus.player_patissier_lv;           
             PlayerStatus.player_patissier_job_pt += _dev;
             PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_lv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
-        }*/
+        } else //例外処理
+        {
+            PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_lv;
+        }
+
+        //ジョブ経験値に合わせてレベル上がるパターン
+        /*
         before_lv = PlayerStatus.player_patissier_lv;
         JobLVKoushin();
 
@@ -186,7 +192,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             _dev = PlayerStatus.player_patissier_lv - before_lv;
             PlayerStatus.player_patissier_job_pt += _dev;            
-        }
+        }*/
     }
 
     

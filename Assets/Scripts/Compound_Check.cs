@@ -1603,15 +1603,61 @@ public class Compound_Check : MonoBehaviour {
                 GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
                 {
                     //特定のアイテムかを判定
-                    if (database.items[GameMgr.Final_result_itemID1].itemName == "neko_cookie") //cheese_cake
-                    {                      
-                        GameMgr.Special_OkashiEnshutsuName = "panel01";
-                        GameMgr.Special_OkashiEnshutsuFlag = true;
-                    }
+                    SpecialEnshutu_DB();
+                    
                 }
             }
         }
     }
+
+    //特定のアイテムかを判定 特別演出が発生する
+    void SpecialEnshutu_DB()
+    {
+        if (database.items[GameMgr.Final_result_itemID1].itemName == "neko_cookie")
+        {
+            GameMgr.Special_OkashiEnshutsuName = "panel01";
+            GameMgr.Special_OkashiEnshutsuFlag = true;
+        }
+
+        if (database.items[GameMgr.Final_result_itemID1].itemName == "cheese_cake")
+        {
+            GameMgr.Special_OkashiEnshutsuName = "panel01";
+            GameMgr.Special_OkashiEnshutsuFlag = true;
+        }
+
+        if (database.items[GameMgr.Final_result_itemID1].itemName == "fantasian")
+        {
+            GameMgr.Special_OkashiEnshutsuName = "panel01";
+            GameMgr.Special_OkashiEnshutsuFlag = true;
+        }
+
+        if (database.items[GameMgr.Final_result_itemID1].itemName == "fantasian_in_nightdream")
+        {
+            GameMgr.Special_OkashiEnshutsuName = "panel01";
+            GameMgr.Special_OkashiEnshutsuFlag = true;
+        }
+
+        if (database.items[GameMgr.Final_result_itemID1].itemName == "aquamarine_chocolate")
+        {
+            GameMgr.Special_OkashiEnshutsuName = "panel01";
+            GameMgr.Special_OkashiEnshutsuFlag = true;
+        }
+
+        if (database.items[GameMgr.Final_result_itemID1].itemName == "lumi_emerald_neko_cookie")
+        {
+            GameMgr.Special_OkashiEnshutsuName = "panel01";
+            GameMgr.Special_OkashiEnshutsuFlag = true;
+        }
+
+        if (database.items[GameMgr.Final_result_itemID1].itemName == "forget_me_not")
+        {
+            GameMgr.Special_OkashiEnshutsuName = "panel01";
+            GameMgr.Special_OkashiEnshutsuFlag = true;
+        }
+    }
+
+
+
 
     void SelectPaused()
     {

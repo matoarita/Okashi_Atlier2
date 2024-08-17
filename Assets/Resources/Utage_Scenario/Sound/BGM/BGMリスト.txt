@@ -90,7 +90,7 @@
 ・BGM_88		PerituneMaterial_Teatime_loop		大会コンテスト受付のBGM
 ・BGM_89		PerituneMaterial_Memories2		サクラフォレストのBGM
 ・BGM_90		audiostock_157663			夏エリアのBGM
-・BGM_91		audiostock_849596_sample		コンテスト終了後の賞品画面のBGM
+・BGM_91		audiostock_849596			コンテスト終了後の賞品画面のBGM
 ・BGM_92		Excursion(なぐもりず)			魔法の先生のテーマ02
 ・BGM_93		icyalove_07(にんじんわいん)		秘密の花園のテーマ
 ・BGM_94		こんとどぅふぇ素材No.0114-
@@ -111,3 +111,4 @@
 ・BGM_107		PerituneMaterial_Windmill_Village_loop	ダイアモンド山のBGM
 ・BGM_108		audiostock_807050_sample		【宴用】オープニングの映画風スタートBGM
 ・BGM_109		audiostock_1385237_sample		【宴用】オープニングの映画風スタートBGM2 静か
+・BGM_110		こんとどぅふぇ素材No.0037-Dimanche	オランジーナ酒場用BGM

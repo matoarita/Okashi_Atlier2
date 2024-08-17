@@ -49,7 +49,7 @@ public class Bar_Main_Or : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Bar_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
-                GameMgr.Window_CharaName = "フィオナ";
+                GameMgr.Window_CharaName = "ルーティ";
                 break;
 
             case 10: //夏エリア

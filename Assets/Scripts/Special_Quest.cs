@@ -462,7 +462,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 3: //ここから自由に探索パート開始
+            case 3: //ここから自由に探索パート開始 エデンのてがかりを探そう
 
                 girl1_status.OkashiQuest_ID = 100030;
                 OkashiQuest_Count = 4;
@@ -720,8 +720,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 {
                     girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
 
-                    OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
-                    OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
+                    OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;                   
                     GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
                     //girl1_status.OkashiQuest_Name = OkashiQuest_Name;
                 }
@@ -742,6 +741,16 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
             }
             
+        }
+
+        //クエスト開始時のタイトル名検索
+        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+        {
+            if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+            {
+                GameMgr.MainQuestTitleName = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
+            }
         }
     }
 

@@ -133,11 +133,11 @@ public class Contest_DetailedPanel : MonoBehaviour {
         contest_lv.text = _contest_Grade;　//
 
         _Rank = conteststartList_database.conteststart_lists[_list].Contest_PatissierRank;
-        if (_Rank <= 1)
+        if (_Rank <= 0)
         {
             contest_condition.text = "誰でも参加可";
         }
-        else if (_Rank > 1)
+        else if (_Rank > 0)
         {
             contest_condition.text = "☆スター" + _Rank + "以上";
         }

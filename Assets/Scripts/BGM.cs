@@ -71,6 +71,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound57;  //「ルビー平野」テーマ
     public AudioClip sound58;  //「ムーンストーンの丘」テーマ
     public AudioClip sound59;  //「ダイアモンド山」テーマ
+    public AudioClip sound60;  //オランジーナ酒場のBGM
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -221,22 +222,22 @@ public class BGM : MonoBehaviour {
                         {
                             case "Or_Bar_A1":
 
-                                _send_clip = sound29;
+                                _send_clip = sound60;
                                 break;
 
                             case "Or_Bar_B1":
 
-                                _send_clip = sound29;
+                                _send_clip = sound60;
                                 break;
 
                             case "Or_Bar_C1":
 
-                                _send_clip = sound29;
+                                _send_clip = sound60;
                                 break;
 
                             case "Or_Bar_D1":
 
-                                _send_clip = sound29;
+                                _send_clip = sound60;
                                 break;
                         }
                                 

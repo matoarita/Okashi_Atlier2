@@ -298,6 +298,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_placeNum = 1610; //アマクサイベント
                         GameMgr.hiroba_event_ID = 10000;
 
+                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                        GameMgr.CompoundEvent_num = 100;
+                        GameMgr.CompoundEvent_flag = true;
+
                         GameMgr.scenario_ON = true;
 
                         check_event = true;

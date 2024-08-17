@@ -56,7 +56,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float SceneFadeTime = 0.3f;
 
     //各ハートレベル・スターのブロック(スターは一旦保留）
-    public static int System_HeartBlockLv_01 = 4;
+    public static int System_HeartBlockLv_01 = 5; //秘密の花園
     public static int System_HeartBlockLv_50 = 37; //冬
     public static int System_HeartBlockLv_51 = 28; //秋
     public static int System_HeartBlockLv_52 = 15; //夏
@@ -70,7 +70,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_Yachin_Cost01 = 1000; //家賃の額
 
     //重要アイテム名
-    public static string System_TreasureItem01 = "クリスタルブルー";
+    public static string System_TreasureItem01 = "ブルージェム";
 
     //温度の最小・最大
     public static int System_tempature_control_tempMin = 150;
@@ -677,6 +677,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_magic_playSucess; //魔法ミニゲームで、成功か失敗か
     public static bool Special_OkashiEnshutsuFlag; //特定のおかしをはじめて作成するときに、特別演出が発生するフラグ
     public static string Special_OkashiEnshutsuName; //演出の指定
+    public static string MainQuestTitleName; //メインクエストのタイトル
 
 
     //一時フラグ　アイテムDB関連
@@ -1203,6 +1204,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_magic_playSucess = false;
         System_magic_playON = false;
         Special_OkashiEnshutsuFlag = false;
+        MainQuestTitleName = "";
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
