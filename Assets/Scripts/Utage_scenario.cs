@@ -2769,6 +2769,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Hiroba_Or_Contest_Explanation";
                 break;
 
+            case 1003: //コンテスト会場　失格
+
+                scenarioLabel = "Hiroba_Or_Contest_Fire";
+                break;
+
             case 1200: //OrNPC白い布
 
                 scenarioLabel = "Or_NPC01_none";

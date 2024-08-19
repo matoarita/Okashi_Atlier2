@@ -1441,9 +1441,25 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (GameMgr.check_SleepEnd_Eventflag[1]) //ねておきたあとにチェック
                         {
                             GameMgr.check_SleepEnd_Eventflag[1] = false;
-                            Debug.Log("チェック　本日が月始めかどうか");
+                            Debug.Log("チェック　本日が１０・２０・３０日かどうか");
+                            Debug.Log("本日の日: " + PlayerStatus.player_cullent_day); 
 
-                            if (PlayerStatus.player_cullent_month > GameMgr.SleepBefore_Month)
+                            if(PlayerStatus.player_cullent_day % 10 == 0)
+                            {
+                                //月はこのタイミングでも更新する。
+                                GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
+
+                                //家賃発生
+                                moneyStatus_Controller.UseMoney(GameMgr.System_Yachin_Cost02);
+
+                                GameMgr.GirlLoveSubEvent_num = 1100;
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                                GameMgr.Mute_on = true;
+                            }
+
+                            //月はじめバージョン
+                            /*if (PlayerStatus.player_cullent_month > GameMgr.SleepBefore_Month)
                             {
                                 //月はこのタイミングでも更新する。
                                 GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
@@ -1455,7 +1471,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
 
                                 GameMgr.Mute_on = true;
-                            }
+                            }*/
                         }
                     }
                 }

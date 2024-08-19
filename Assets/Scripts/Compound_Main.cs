@@ -3348,7 +3348,7 @@ public class Compound_Main : MonoBehaviour
 
                         if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
                         {
-                            _textmain.text = "ヒカリは応援している！";
+                            _textmain.text = "ヒカリの勇気が少しわいてきた！";
                             get_heart = 10;
                         }
                         else

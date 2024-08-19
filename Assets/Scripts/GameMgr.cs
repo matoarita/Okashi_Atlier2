@@ -67,7 +67,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_StarBlockLv_03 = 90;
     public static int System_StarBlockLv_04 = 130;
 
-    public static int System_Yachin_Cost01 = 1000; //家賃の額
+    public static int System_Yachin_Cost01 = 1000; //家賃の額 月始めバージョン
+    public static int System_Yachin_Cost02 = 500; //10日ごとバージョン
 
     //重要アイテム名
     public static string System_TreasureItem01 = "ブルージェム";

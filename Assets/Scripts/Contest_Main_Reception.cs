@@ -60,6 +60,7 @@ public class Contest_Main_Reception : MonoBehaviour
     private GameObject contest_detailedPanel;
     private GameObject time_panel;
     private GameObject money_panel;
+    private GameObject ninki_panel;
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -76,6 +77,10 @@ public class Contest_Main_Reception : MonoBehaviour
     private int i, rndnum;
     private int backnum;
     private int contest_list, _id;
+
+    private int _Limit_day;
+    private int _Nokori_day;
+    private bool questout_flag;
 
     private bool StartRead;
     private bool flag_chk;
@@ -192,6 +197,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
         time_panel = canvas.transform.Find("TimePanel").gameObject;
         money_panel = canvas.transform.Find("MoneyStatus_panel").gameObject;
+        ninki_panel = canvas.transform.Find("NinkiStatusPanel").gameObject;
 
         //
         //背景と場所名の設定 最初にこれを行う
@@ -437,6 +443,7 @@ public class Contest_Main_Reception : MonoBehaviour
             contestList_ScrollView_obj.SetActive(false);
             time_panel.SetActive(false);
             money_panel.SetActive(false);
+            ninki_panel.SetActive(false);
         }
         else
         {
@@ -452,6 +459,7 @@ public class Contest_Main_Reception : MonoBehaviour
                     contestList_ScrollView_obj.SetActive(false);
                     time_panel.SetActive(true);
                     money_panel.SetActive(true);
+                    ninki_panel.SetActive(true);
 
                     sceneBGM.MuteOFFBGM();
 
@@ -485,6 +493,7 @@ public class Contest_Main_Reception : MonoBehaviour
                     text_area.SetActive(false);
                     time_panel.SetActive(false);
                     money_panel.SetActive(false);
+                    ninki_panel.SetActive(false);
                     break;
 
                 case 51:　//賞品リスト閉じるボタンおした
@@ -493,6 +502,7 @@ public class Contest_Main_Reception : MonoBehaviour
                     text_area.SetActive(true);
                     time_panel.SetActive(true);
                     money_panel.SetActive(true);
+                    ninki_panel.SetActive(true);
                     GameMgr.Scene_Status = 100;
                     break;
 
@@ -504,6 +514,59 @@ public class Contest_Main_Reception : MonoBehaviour
 
                     break;
             }
+        }
+    }
+
+    void ContestLimitCheck()
+    {
+        questout_flag = false;
+
+        //まず、日付がこえていないかどうか
+        for (i = 0; i < GameMgr.contest_accepted_list.Count; i++)
+        {
+            _Limit_day = time_controller.CullenderKeisanInverse(GameMgr.contest_accepted_list[i].Month, GameMgr.contest_accepted_list[i].Day);
+            _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+            if (_Nokori_day < 0)
+            {
+                Debug.Log("コンテスト　日づけ超過あり: " + i + " " + GameMgr.contest_accepted_list[i].contestName);
+                questout_flag = true;
+            }
+        }
+
+        //次に、朝10時をこえたかどうか
+        if(PlayerStatus.player_cullent_hour > 10) //11時~はアウト
+        {
+            Debug.Log("コンテスト　朝10時すぎた");
+            questout_flag = true;
+        }
+        else if (PlayerStatus.player_cullent_hour == 10) //10時ちょうどのとき　5分ぐらいならOK
+        {
+            if (PlayerStatus.player_contest_minute > 5) //5分こえたらアウト
+            {
+                Debug.Log("コンテスト　朝10時すぎた");
+                questout_flag = true;
+            }
+        }
+
+        if (questout_flag) //超えてるものがあった場合、複数の可能性あるので、逆から削除していく。
+        {
+
+            PlayerStatus.player_ninki_param -= 1; //過ぎてたら人気度が減る
+            //PlayerStatus.girl1_Love_exp -= questout_count * 10; //過ぎてたクエスト*10 ハートが減る
+            if (PlayerStatus.player_ninki_param <= 0)
+            {
+                PlayerStatus.player_ninki_param = 0;
+            }
+
+            //今うけてるコンテストは中止
+            //ほかに受け付けてるコンテストがあった場合、全てキャンセル
+            for (i = 0; i < conteststartList_database.conteststart_lists.Count; i++)
+            {
+                conteststartList_database.conteststart_lists[i].Contest_Accepted = 0;
+            }
+            GameMgr.contest_accepted_list.Clear();
+            //
         }
     }
 
@@ -535,6 +598,28 @@ public class Contest_Main_Reception : MonoBehaviour
                     break;
 
             }           
+        }
+
+        //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            ContestLimitCheck();
+
+            if (questout_flag)
+            {
+                GameMgr.scenario_ON = true;
+
+                GameMgr.hiroba_event_placeNum = 1003; //レセプションのイベント場所番号 時間過ぎて失格の番号
+                GameMgr.hiroba_event_ID = 0;
+
+                sceneBGM.MuteBGM();
+
+                check_event = true;
+
+                EventReadingStart();
+            }
         }
     }
 
@@ -708,6 +793,10 @@ public class Contest_Main_Reception : MonoBehaviour
         {
             npc2sub_toggle_obj.SetActive(false);
         }
+
+        //オブジェクト配列変わった後に、一度オフ→オンにしなおすと、コンテストの再配置がされる。はず。
+        mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main").gameObject.SetActive(false);
+        mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main").gameObject.SetActive(true);
     }
 
     void NewAreaFlagCheck()

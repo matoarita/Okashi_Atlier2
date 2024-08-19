@@ -528,6 +528,10 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 npc3sub_toggle_obj.SetActive(false);
             }
         }
+
+        //オブジェクト配列変わった後に、一度オフ→オンにしなおすと、コンテストの再配置がされる。
+        mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main").gameObject.SetActive(false);
+        mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main").gameObject.SetActive(true);
     }
 
     void EventCheck()
@@ -925,7 +929,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
             magicskill_database.skillHyoujiKaikin("True_of_Myheart");
 
-            PlayerStatus.player_patissier_job_pt++;
+            //PlayerStatus.player_patissier_job_pt++;
 
             check_event = true;
         }

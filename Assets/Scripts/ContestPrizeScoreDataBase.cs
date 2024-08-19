@@ -487,7 +487,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ユン・ハンポー");
+        GameMgr.PrizeCharacterList.Add("ユン・ピー");
         GameMgr.PrizeCharacterList.Add("ジャッキー・チューン");
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
@@ -582,10 +582,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
+        GameMgr.PrizeScoreAreaList.Add(45);
         GameMgr.PrizeScoreAreaList.Add(56);
         GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(102);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();

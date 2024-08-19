@@ -294,6 +294,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 {
                     OnCateViewName("Cate_04");
                 }
+
+                //採取地
+                if (matplace_database.MapType_SearchAllFlagCount(100, 100) >= 1) //
+                {
+                    OnCateViewName("Cate_10");
+                }
                 break;
         }
 
@@ -499,6 +505,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
     public void MapList_DrawView4() //冬エリア
     {
         category_status = 40;
+        MapIcon_reset_and_DrawView(category_status);
+    }
+
+    public void MapList_DrawView10() //採取地
+    {
+        category_status = 100;
         MapIcon_reset_and_DrawView(category_status);
     }
 

@@ -524,7 +524,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            exp_table.SkillCheckPatissierLV();
+            //exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             if (DoubleItemCreated == 0)
@@ -843,7 +843,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            exp_table.SkillCheckPatissierLV();
+            //exp_table.SkillCheckPatissierLV();
 
             //テキストの表示            
             renkin_default_exp_up();
@@ -1082,7 +1082,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            exp_table.SkillCheckPatissierLV();
+            //exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             renkin_exp_up();
@@ -1306,7 +1306,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            exp_table.SkillCheckPatissierLV();
+            //exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             if (DoubleItemCreated == 0)
@@ -2290,8 +2290,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
-                " が" + result_kosu + "個 できたよ！"
-                + "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
+                " が" + result_kosu + "個 できたよ！";
+                //+ "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
         }
         else
         {
@@ -2321,8 +2321,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
             pitemlist.player_check_itemlist[new_item].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！" + _yaki
-            + "\n" + _ex_text + "ジョブ経験値 " + _getexp + "上がった！";
+            " が" + result_kosu + "個 できたよ！" + _yaki;
+            //+ "\n" + _ex_text + "ジョブ経験値 " + _getexp + "上がった！";
             
         }
         else
@@ -2356,8 +2356,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             _text.text = "やったね！ " +
             database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！" + _yaki
-            + "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
+            " が" + result_kosu + "個 できたよ！" + _yaki;
+            //+ "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
         }
         else
         {
