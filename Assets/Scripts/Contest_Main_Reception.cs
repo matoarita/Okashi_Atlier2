@@ -549,7 +549,7 @@ public class Contest_Main_Reception : MonoBehaviour
             }
         }
 
-        if (questout_flag) //超えてるものがあった場合、複数の可能性あるので、逆から削除していく。
+        if (questout_flag) //超えてるものがあった場合。
         {
 
             PlayerStatus.player_ninki_param -= 1; //過ぎてたら人気度が減る
@@ -605,20 +605,23 @@ public class Contest_Main_Reception : MonoBehaviour
         { }
         else
         {
-            ContestLimitCheck();
-
-            if (questout_flag)
+            if (GameMgr.contest_accepted_list.Count > 0)
             {
-                GameMgr.scenario_ON = true;
+                ContestLimitCheck();
 
-                GameMgr.hiroba_event_placeNum = 1003; //レセプションのイベント場所番号 時間過ぎて失格の番号
-                GameMgr.hiroba_event_ID = 0;
+                if (questout_flag)
+                {
+                    GameMgr.scenario_ON = true;
 
-                sceneBGM.MuteBGM();
+                    GameMgr.hiroba_event_placeNum = 1003; //レセプションのイベント場所番号 時間過ぎて失格の番号
+                    GameMgr.hiroba_event_ID = 0;
 
-                check_event = true;
+                    sceneBGM.MuteBGM();
 
-                EventReadingStart();
+                    check_event = true;
+
+                    EventReadingStart();
+                }
             }
         }
     }

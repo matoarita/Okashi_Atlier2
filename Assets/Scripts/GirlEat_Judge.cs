@@ -134,6 +134,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private Text girl_lv;
     private Text girl_param;
     private Color origin_color;
+    private int hint_ID;
 
     private int _beforeGirllove;
     private int _ResultGirllove;
@@ -4560,7 +4561,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
     //
-    //食べたあとのヒント関係の処理
+    //食べたあとのお菓子ヒント関係の処理 ヒカリの採点画面でのテキスト表示
     //
     void SetHintText(int _hintstatus)
     {
@@ -4588,9 +4589,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
         }
         _special_kansou = _temp_spkansou;
-
+        
         if (!non_spquest_flag)
         {
+            hint_ID = girl1_status.OkashiQuest_ID;
+
             //条件判定
             switch (girl1_status.OkashiQuest_ID)
             {
@@ -4791,11 +4794,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
 
         }
-        else //クエスト以外のお菓子をあげたときの感想・ヒント。そもそもお菓子を間違えている場合。
+        else //クエスト以外のお菓子をあげたときの感想・ヒント。２はこっちがメイン。
         {
 
             //条件判定
-            switch (girl1_status.OkashiQuest_ID)
+            /*switch (girl1_status.OkashiQuest_ID)
             {
                 case 1300: //シュークリーム１
 
@@ -4807,8 +4810,30 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         tpcheck_utagebunki = 1;
                     }
                     break;
-            }
+            }*/
 
+            //お菓子の名前ごとに、ヒントがでるやつがある。バターなしラスクなど。
+            //100000~台　ただし、girl1_status.OkashiQuest_IDの番号とは無関係。
+
+            if (total_score < GameMgr.low_score) //60点未満のときにでるヒント
+            {
+                switch(_basename)
+                {
+                    case "rusk":
+
+                        if (databaseCompo.SearchCompoFlagString("rusk_butter") >= 1) //すでにバターラスクの作り方知ってたら出なくなる。
+                        { }
+                        else
+                        {
+                            hint_ID = 0;
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                            tpcheck_utagebunki = 100000;
+                        }
+                        break;
+                }                   
+            }
+            
         }
 
         //
@@ -4817,7 +4842,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (tpcheck_utageON) //宴でもヒント表示するか否か。宴で表示する場合、他の宴イベントのあとに表示される。
             {
                 GameMgr.okashinontphint_flag = true;
-                GameMgr.okashinontphint_ID = girl1_status.OkashiQuest_ID + tpcheck_utagebunki;
+                GameMgr.okashinontphint_ID = hint_ID + tpcheck_utagebunki;
             }
         }
         else

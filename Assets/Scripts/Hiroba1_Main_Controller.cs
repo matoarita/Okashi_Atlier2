@@ -302,6 +302,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.CompoundEvent_num = 100;
                         GameMgr.CompoundEvent_flag = true;
 
+                        //BGMかえる
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        bgm_change_flag = true;
+
                         GameMgr.scenario_ON = true;
 
                         check_event = true;
@@ -3081,6 +3085,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //アマクサ
         GameMgr.hiroba_event_placeNum = 1610; //
         GameMgr.hiroba_event_ID = 0;
+
+        //BGMかえる
+        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        bgm_change_flag = true;
 
         /*if (check_event) { } //上で先にイベント発生したら、以下は読まない。
         else
