@@ -70,15 +70,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private GameObject DebugTimecountUp_button;
     private GameObject DebugTimecountDown_button;
 
-    private GameObject clock_hari1;
-    private GameObject clock_hari2;
-
-    private Transform clock_hari1Transform;
-    private Transform clock_hari2Transform;
-
-    private Vector3 localAngle1;
-    private Vector3 localAngle2;
-
     private int heart_countup_time;
     private int heart_up_auto_param;
     private int manpuku_deg_param;

@@ -23,6 +23,14 @@ public class TempatureControlPanel : MonoBehaviour {
     private GameObject selectitem_kettei_obj;
     private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
 
+    private Slider time_slider;
+
+    private GameObject temp_hari;
+    private Transform temp_hariTransform;
+    private Vector3 localAngle1;
+
+    private float angle_f;
+
     private string _skillname;
 
     private int _tempature, _time;
@@ -56,17 +64,28 @@ public class TempatureControlPanel : MonoBehaviour {
         _text_temp = this.transform.Find("Comp/ParameterPanel/temp_counter/counter_num").GetComponent<Text>();
         _text_time = this.transform.Find("Comp/ParameterPanel/time_counter/counter_num").GetComponent<Text>();
 
-        _tempMax = GameMgr.System_tempature_control_tempMax;
-        _tempMin = GameMgr.System_tempature_control_tempMin;
+        time_slider = this.transform.Find("Comp/ParameterPanel/TimeWatch/TimeSlider").GetComponent<Slider>();
+        temp_hari = this.transform.Find("Comp/ParameterPanel/TempatureWatch/TempClockRoot").gameObject;
+        temp_hariTransform = temp_hari.transform;
+        localAngle1 = temp_hariTransform.localEulerAngles;
+
+        _tempMax = GameMgr.System_tempature_control_tempMax; //230
+        _tempMin = GameMgr.System_tempature_control_tempMin; //150
         _timeMax = 60;
         _timeMin = 0;
 
 
-        GameMgr.System_tempature_control_Param_temp = 150;
+        GameMgr.System_tempature_control_Param_temp = _tempMin;
         GameMgr.System_tempature_control_Param_time = 30;       
 
         _text_temp.text = GameMgr.System_tempature_control_Param_temp.ToString();
         _text_time.text = GameMgr.System_tempature_control_Param_time.ToString();
+
+        time_slider.maxValue = _timeMax;
+        time_slider.value = GameMgr.System_tempature_control_Param_time;
+
+        //温度計表示    
+        TempClockHyouji();
     }
 	
 	// Update is called once per frame
@@ -150,6 +169,19 @@ public class TempatureControlPanel : MonoBehaviour {
     {
         _text_temp.text = GameMgr.System_tempature_control_Param_temp.ToString();
         _text_time.text = GameMgr.System_tempature_control_Param_time.ToString();
+
+        time_slider.value = GameMgr.System_tempature_control_Param_time;
+
+        //温度計表示    
+        TempClockHyouji();        
+    }
+
+    void TempClockHyouji()
+    {
+        angle_f = SujiMap(GameMgr.System_tempature_control_Param_temp, GameMgr.System_tempature_control_tempMin, GameMgr.System_tempature_control_tempMax,
+            120, -120); //150~230 を　角度　-120~120に変換
+        localAngle1.z = angle_f; // ローカル座標を基準に、z軸を軸にした回転
+        temp_hariTransform.localEulerAngles = localAngle1; // 回転角度を設定
     }
 
     //温度を→で増減する
@@ -253,5 +285,11 @@ public class TempatureControlPanel : MonoBehaviour {
     public void OnTimeSlider_ValueChange()
     {
 
+    }
+
+    //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
+    float SujiMap(float value, float start1, float stop1, float start2, float stop2)
+    {
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
     }
 }

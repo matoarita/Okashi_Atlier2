@@ -826,17 +826,17 @@ public class MagicSkillListController : MonoBehaviour
         }
 
         //心系の魔法は、ハートも使用することがあるので、ハートもチェックする。また、スキルによっては仕上げ回数もチェック。
-        switch(magicskill_database.magicskill_lists[i].skillName)
+        switch (magicskill_database.magicskill_lists[i].skillName)
         {
-            case "Cookie_SecondBake":
+            case "Cookie_SecondBake": //仕上げ回数チェック
 
-                if(PlayerStatus.player_extreme_kaisu == 0)
+                if (PlayerStatus.player_extreme_kaisu == 0)
                 {
                     _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
                 }
                 break;
 
-            case "Warming_Handmade":
+            case "Warming_Handmade": //仕上げ回数＋ハート
 
                 if (PlayerStatus.player_extreme_kaisu == 0)
                 {
@@ -850,6 +850,25 @@ public class MagicSkillListController : MonoBehaviour
                     }
                 }
                 break;
+
+            /*case "Moonlight_Banana": //夜6時以降じゃないと使えない
+
+                if (!GameMgr.Contest_ON)
+                {
+                    if (PlayerStatus.player_cullent_hour < 18)
+                    {
+                        _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                    }
+                }
+                else
+                {
+                    if (PlayerStatus.player_contest_hour < 18)
+                    {
+                        _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
+                    }
+                }
+                
+                break;*/
         }
 
         ++list_count;

@@ -20,6 +20,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private MagicSkillListDataBase magicskill_database;
 
     private Exp_Controller exp_Controller;
 
@@ -307,6 +308,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -1328,9 +1332,19 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 MakeMethod(_status);
             }
-            else //例外処理。卵白と卵黄が同時にできる場合など。
+            else //2個以上できる場合。卵白と卵黄が同時にできる場合など。
             {
                 MakeMethodExt();
+            }
+
+            //MPリジェネがある場合、制作したタイミングでMPも回復する。
+            if (magicskill_database.skillName_SearchLearnLevel("MP_Regenaration") > 0)
+            {
+                PlayerStatus.player_mp += magicskill_database.skillName_SearchLearnLevel("MP_Regenaration") * 1;
+                if(PlayerStatus.player_mp >= PlayerStatus.player_maxmp)
+                {
+                    PlayerStatus.player_mp = PlayerStatus.player_maxmp;
+                }
             }
         }
         else //ヒカリが作る場合
@@ -1339,7 +1353,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 MakeMethod(_status);
             }
-            else //例外処理。卵白と卵黄が同時にできる場合など。
+            else //2個以上できる場合。卵白と卵黄が同時にできる場合など。
             {
                 MakeMethodExt();
             }

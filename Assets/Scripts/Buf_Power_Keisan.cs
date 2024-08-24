@@ -408,8 +408,16 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         CakeBeautyBuf();
                         break;
                 }
-                
-                switch(_itemType)
+
+                switch (_itemType_sub)
+                {
+                    case "Coffee":
+
+                        CoffeeBeautyBuf();
+                        break;
+                }
+
+                switch (_itemType)
                 {
                     case "Okashi":
 
@@ -438,6 +446,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         TeaBuf();
                         break;
                 }
+
+                AllShokukanBuf();
 
                 return _buf_shokukanup;
         }
@@ -694,6 +704,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+    
+
     void CakeBeautyBuf()
     {
         //魔法のバフ
@@ -728,6 +740,25 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") >= 1)
         {
             _magicup = magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") * 10; //LV*10
+            _buf_shokukanup += _magicup;
+        }
+    }
+
+    //星魔法関係
+    void CoffeeBeautyBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Latte_Art") >= 1)
+        {
+            if (magicskill_database.skillName_SearchLearnLevel("Star_Gazer") > 0)//星魔法は、天体観測のレベルでさらに効果があがる
+            {
+                _magicup = magicskill_database.skillName_SearchLearnLevel("Latte_Art") * 30 * magicskill_database.skillName_SearchLearnLevel("Star_Gazer"); //LV*10
+            }
+            else
+            {
+                _magicup = magicskill_database.skillName_SearchLearnLevel("Latte_Art") * 30; //LV*10
+            }
             _buf_shokukanup += _magicup;
         }
     }
@@ -792,6 +823,66 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }                
             }            
+        }
+
+        if (magicskill_database.skillName_SearchLearnLevel("Star_Gazer") > 0) //星魔法　天体観測の効果が働く
+        {
+            if (_basename == "lumi_banana")
+            {
+                switch (_status)
+                {
+                    case 0: //さくさく感のバフ
+
+                        if (_basename == "lumi_banana")
+                        {
+                            _buf_shokukanup += magicskill_database.skillName_SearchLearnLevel("Star_Gazer") * 30;
+                        }
+
+                        return _buf_shokukanup;
+
+                    case 1: //ふわふわ感のバフ
+
+                        if (_basename == "lumi_banana")
+                        {
+                            _buf_shokukanup += magicskill_database.skillName_SearchLearnLevel("Star_Gazer") * 30;
+                        }
+
+                        return _buf_shokukanup;
+
+                    case 2: //なめらか感のバフ
+
+                        if (_basename == "lumi_banana")
+                        {
+                            _buf_shokukanup += magicskill_database.skillName_SearchLearnLevel("Star_Gazer") * 30;
+                        }
+                        break;
+
+                    case 3: //歯ごたえ感のバフ
+
+                        if (_basename == "lumi_banana")
+                        {
+                            _buf_shokukanup += magicskill_database.skillName_SearchLearnLevel("Star_Gazer") * 30;
+                        }
+
+                        return _buf_shokukanup;
+
+                    case 4: //ジュースのバフ
+
+                        break;
+
+                    case 5: //見た目のバフ
+
+                        if (_basename == "lumi_banana")
+                        {
+                            _buf_shokukanup += magicskill_database.skillName_SearchLearnLevel("Star_Gazer") * 15;
+                        }
+                        break;
+
+                    case 6: //香りのバフ
+
+                        break;
+                }
+            }
         }
 
         return _buf_shokukanup;
