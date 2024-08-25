@@ -226,7 +226,7 @@ public class PlayerData
     public bool[] save_Or_ShopEvent_stage = new bool[GameMgr.Or_ShopEvent_stage.Length];
 
     //ショップの在庫
-    public List<ItemSaveKosu> save_shopzaiko = new List<ItemSaveKosu>();
+    public List<ItemSaveFlag> save_shopzaiko = new List<ItemSaveFlag>();
     public List<ItemSaveKosu> save_farmzaiko = new List<ItemSaveKosu>();
     public List<ItemSaveKosu> save_emeraldshop_zaiko = new List<ItemSaveKosu>();
 

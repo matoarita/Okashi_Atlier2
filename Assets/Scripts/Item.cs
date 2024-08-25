@@ -76,7 +76,7 @@ public class Item
     public int SetJudge_Num;
     public int Rare; //レアリティー
     public int Manpuku; //満腹度
-    public int Magic; //魔法属性　これがついたお菓子を食べると、MPが上がるなどステータス上昇のフラグ
+    public int Magic; //魔法属性　これがついたお菓子を食べると、MPが上がるなどステータス上昇のフラグ　魔法のおかしであることを示すフラグ
     public int Attribute1; //お菓子の状態１　二度焼きで、すでに二度焼きした状態を1にする。
     public int SecretFlag; //隠しアイテムかどうか。隠しアイテムであれば、お菓子手帳のリストには表示されない。
 
@@ -173,6 +173,7 @@ public class Item
         Cream,               
         Egg,
         Fruits,
+        GlowFruits,
         Komugiko,
         Milk,
         Pate,

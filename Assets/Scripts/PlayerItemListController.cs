@@ -415,7 +415,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             {
                                 itemlist_hyouji_Check();
                             }
-                            else if (check_itemType_sub == "Source")
+                            else if (check_itemType_sub == "Source" || check_itemType_sub == "GlowFruits")
                             {
                                 itemlist_hyouji_Check();
                             }
@@ -907,12 +907,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         {
             case "Caramelized":
 
-                if (check_itemType == "Okashi")
+                if (check_itemType_subB == "a_SourceSyrup")
                 {
-                    if (check_itemType_sub_category == "Non") //ツイスターや加工されたものは対象外
-                    {
-                        itemlist_hyouji_Check();
-                    }
+                    itemlist_hyouji_Check();
                 }
                 break;
 
@@ -942,7 +939,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Cookie_SecondBake":
 
-                if (check_itemType_sub == "Cookie" || check_itemType_sub == "Cookie_Hard" || check_itemType_sub == "Cookie_Mat")
+                if (check_itemType_sub == "Cookie" || check_itemType_sub == "Cookie_Hard" || check_itemType_sub == "Cookie_Mat" ||
+                    check_itemType_sub == "Bread" || check_itemType_sub == "Biscotti" || check_itemType_sub == "Financier" || 
+                    check_itemType_sub == "Maffin" || check_itemType_sub == "Rusk")
                 {
                     if (check_attribute1 == 0) //まだ二度焼きしてないやつだけ
                     {
@@ -964,7 +963,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 if (_lv >= 2) //水・ミルク系全般
                 {
-                    if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilChocolateBar" ||
+                    if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilChocolateTwister" ||
+                        check_itemType_subB == "a_AppaleilChocolateBar" || check_itemType_subB == "a_AppaleilChocolateTwisterHeart" ||
+                        check_itemType_subB == "a_AppaleilChocolateCrown" ||
                         check_itemType_subB == "a_AppaleilJelly" ||
                         check_itemType_sub == "Water" || check_itemType_sub == "Milk")
                     {
@@ -1058,7 +1059,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Buttelfy_illumination":
 
-                if (check_itemType == "Okashi")
+                if (check_itemType_sub == "Cake")
                 {
                     itemlist_hyouji_Check();
                 }
@@ -1250,9 +1251,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Weather_Light":
+            case "Magic_Soda":
 
-                if (check_itemType_sub == "Juice")
+                if (check_itemType_sub == "Soda")
                 {
                     itemlist_hyouji_Check();
                 }

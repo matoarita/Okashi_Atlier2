@@ -355,7 +355,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         PrizeNinkiRankList.Add(0, 0f);
         PrizeNinkiRankList.Add(1, 0f); //
         PrizeNinkiRankList.Add(2, 0f); //GetPatissierPointの10分の一
-        PrizeNinkiRankList.Add(3, 0.3f); //3分の一
+        PrizeNinkiRankList.Add(3, 0f); //3分の一
         PrizeNinkiRankList.Add(4, 1.0f); //一位　まるっともらえる
     }
 
@@ -521,8 +521,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ク・ル・ルゥ");
-        GameMgr.PrizeCharacterList.Add("クルセイダー生まれのナル");
+        GameMgr.PrizeCharacterList.Add("クルルゥ");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("秋川どらら");
         GameMgr.PrizeCharacterList.Add("春山うらら");
     }
@@ -591,8 +591,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("エレノア");
         GameMgr.PrizeCharacterList.Add("レア");
-        GameMgr.PrizeCharacterList.Add("ルッカ");
-        GameMgr.PrizeCharacterList.Add("リーシュ・デルト");
+        GameMgr.PrizeCharacterList.Add("ルカティエル");
+        GameMgr.PrizeCharacterList.Add("リーシュ");
     }
 
     //ルミエール・エピファニア

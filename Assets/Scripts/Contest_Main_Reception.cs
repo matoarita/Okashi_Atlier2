@@ -532,20 +532,23 @@ public class Contest_Main_Reception : MonoBehaviour
                 Debug.Log("コンテスト　日づけ超過あり: " + i + " " + GameMgr.contest_accepted_list[i].contestName);
                 questout_flag = true;
             }
-        }
 
-        //次に、朝10時をこえたかどうか
-        if(PlayerStatus.player_cullent_hour > 10) //11時~はアウト
-        {
-            Debug.Log("コンテスト　朝10時すぎた");
-            questout_flag = true;
-        }
-        else if (PlayerStatus.player_cullent_hour == 10) //10時ちょうどのとき　5分ぐらいならOK
-        {
-            if (PlayerStatus.player_contest_minute > 5) //5分こえたらアウト
+            if (_Nokori_day == 0) //当日のとき
             {
-                Debug.Log("コンテスト　朝10時すぎた");
-                questout_flag = true;
+                //次に、朝10時をこえたかどうか
+                if (PlayerStatus.player_cullent_hour > 10) //11時~はアウト
+                {
+                    Debug.Log("コンテスト　朝10時すぎた");
+                    questout_flag = true;
+                }
+                else if (PlayerStatus.player_cullent_hour == 10) //10時ちょうどのとき　5分ぐらいならOK
+                {
+                    if (PlayerStatus.player_contest_minute > 5) //5分こえたらアウト
+                    {
+                        Debug.Log("コンテスト　朝10時すぎた");
+                        questout_flag = true;
+                    }
+                }
             }
         }
 

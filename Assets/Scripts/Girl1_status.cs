@@ -1109,7 +1109,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 if (database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemType.ToString() == "Okashi")
                 {
                     if (database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_cookie" ||
-                       database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_crepe")
+                       database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_crepe" ||
+                       database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "murasaki_mushroom_cookie")
                     {
 
                     }

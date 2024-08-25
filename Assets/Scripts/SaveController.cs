@@ -48,9 +48,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveKosu> _temp_emeralditemlist = new List<ItemSaveKosu>();
     private List<ItemSaveCompoFlag> _temp_cmpflaglist = new List<ItemSaveCompoFlag>();
     private List<ItemSaveKosu> _tempmap_placeflaglist = new List<ItemSaveKosu>();
-    private List<ItemSaveKosu> _temp_shopzaiko = new List<ItemSaveKosu>();
-    private List<ItemSaveKosu> _temp_farmzaiko = new List<ItemSaveKosu>();
-    private List<ItemSaveKosu> _temp_emeraldshop_zaiko = new List<ItemSaveKosu>();
+    private List<ItemSaveFlag> _temp_shopzaiko = new List<ItemSaveFlag>();
+    //private List<ItemSaveKosu> _temp_farmzaiko = new List<ItemSaveKosu>();
+    //private List<ItemSaveKosu> _temp_emeraldshop_zaiko = new List<ItemSaveKosu>();
     private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
     private List<ItemSaveFlag> _temp_titlecollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_eventcollectionlist = new List<ItemSaveFlag>();
@@ -168,7 +168,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_shopzaiko.Clear();
         for (i = 0; i < shop_database.shopitems.Count; i++)
         {
-            _temp_shopzaiko.Add(new ItemSaveKosu(shop_database.shopitems[i].shop_itemName, shop_database.shopitems[i].shop_itemzaiko, 0));
+            _temp_shopzaiko.Add(new ItemSaveFlag(shop_database.shopitems[i].shop_itemName, shop_database.shopitems[i].shop_ID, shop_database.shopitems[i].shop_itemzaiko, 0, false));
         }
 
         //牧場の在庫のみ取得
@@ -429,8 +429,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ショップの在庫
             save_shopzaiko = _temp_shopzaiko,
-            save_farmzaiko = _temp_farmzaiko,
-            save_emeraldshop_zaiko = _temp_emeraldshop_zaiko,
+            //save_farmzaiko = _temp_farmzaiko,
+            //save_emeraldshop_zaiko = _temp_emeraldshop_zaiko,
 
             //酒場のイベントリスト
             save_BarEvent_stage = GameMgr.BarEvent_stage,
@@ -947,7 +947,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //ショップの在庫読み込み
         for (i = 0; i < playerData.save_shopzaiko.Count; i++)
         {
-            shop_database.ReSetShopItemString(playerData.save_shopzaiko[i].itemName, playerData.save_shopzaiko[i].itemKosu);
+            shop_database.ReSetShopItemIDZaiko(playerData.save_shopzaiko[i].Param, playerData.save_shopzaiko[i].Param2);
         }
         /*for (i = 0; i < playerData.save_farmzaiko.Count; i++)
         {

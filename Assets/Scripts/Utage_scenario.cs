@@ -1711,7 +1711,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
 
         //家賃額設定
-        engine.Param.TrySetParameter("YachinCost", GameMgr.System_Yachin_Cost01);
+        engine.Param.TrySetParameter("YachinCost", GameMgr.System_Yachin_Cost02);
         
 
         //コンテスト時は、締め切り日も設定

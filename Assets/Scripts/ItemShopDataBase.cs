@@ -224,6 +224,21 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
         }
     }
 
+    //ショップID＋個数で、指定した在庫数に変更する。
+    public void ReSetShopItemIDZaiko(int _shopID, int count_kosu)
+    {
+        i = 0;
+        while (i < shopitems.Count)
+        {
+            if (shopitems[i].shop_ID == _shopID)
+            {
+                shopitems[i].shop_itemzaiko = count_kosu;
+                break;
+            }
+            i++;
+        }
+    }
+
     //ショップIDを入れると、DBのリスト番号を返す
     public int SeartchShopID(int _shopID)
     {

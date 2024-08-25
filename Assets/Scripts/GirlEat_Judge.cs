@@ -2945,9 +2945,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             //魔法のお菓子を食べた場合、MaxMPが上がる
             if(database.items[_baseID].Magic == 1)
-            {
-                
-                if (database.items[_baseID].Eat_kaisu <= 1)
+            {              
+                if (database.items[_baseID].Eat_kaisu < 1)
                 {
                     GetMP = 1;
                     PlayerStatus.player_maxmp += GetMP;
@@ -2955,8 +2954,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 else
                 {
                     //一回以上食べる場合は、確率で変動
-                    GetMP = 1;
-                    PlayerStatus.player_maxmp += GetMP;
+                    random = Random.Range(0, 10);
+                    if (random <= 5)
+                    {
+                        GetMP = 1;
+                        PlayerStatus.player_maxmp += GetMP;
+                    }
                 }
             }
 

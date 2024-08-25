@@ -1026,9 +1026,9 @@ public class Compound_Check : MonoBehaviour {
                 //FinalCheck_Text.text = success_text;
 
                 
-                _text.text = "魔法のレベルを選択してね。";
+                _text.text = GameMgr.UseMagicSkill_nameHyouji + " を使いますか？";
                 //_text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
-                updown_counter_obj.SetActive(true);
+                //updown_counter_obj.SetActive(true);
                 yes_no_panel_magic.SetActive(true);
 
                 //Debug.Log("成功確率は、" + databaseCompo.compoitems[resultitemID].success_Rate);
