@@ -144,6 +144,7 @@ public class Compound_Main : MonoBehaviour
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private EventDataBase eventdatabase;
+    private MagicSkillListDataBase magicskill_database;
 
     private PlayerDefaultStartItemGet playerDefaultStart_ItemGet;
 
@@ -337,6 +338,9 @@ public class Compound_Main : MonoBehaviour
 
         //イベントデータベースの取得
         eventdatabase = EventDataBase.Instance.GetComponent<EventDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //ゲーム最初に所持するアイテムを決定するスクリプト
         playerDefaultStart_ItemGet = PlayerDefaultStartItemGet.Instance.GetComponent<PlayerDefaultStartItemGet>();
@@ -2826,6 +2830,91 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    //レシピの番号チェック。ゲットしたアイテム以外に、コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。
+    void Recipi_FlagON_Method()
+    {
+
+        switch (pitemlist.eventitemlist[recipi_num].event_itemName)
+        {
+            case "ev02_orangeneko_cookie_memo": //オレンジネコクッキー閃きのメモ
+
+                //オレンジジャムの作り方を解禁
+                databaseCompo.CompoON_compoitemdatabase("orange_jam");
+
+                break;
+
+            case "najya_start_recipi": //ナジャのお菓子作りの基本                
+
+                //databaseCompo.CompoON_compoitemdatabase("neko_cookie");
+                //databaseCompo.CompoON_compoitemdatabase("appaleil");
+
+                break;
+
+            case "financier_recipi": //フィナンシェ
+
+                databaseCompo.CompoON_compoitemdatabase("kogashi_butter");
+
+                break;
+
+            case "bisucouti_recipi": //ビスコッティ
+
+                //databaseCompo.CompoON_compoitemdatabase("baking_mix");
+                //databaseCompo.CompoON_compoitemdatabase("biscotti");
+
+                break;
+
+            case "recipibook_4": //アイスの実の森　ゲットすると、アイスクリームレシピも自動で追加される。
+
+                ev_id = pitemlist.Find_eventitemdatabase("ice_cream_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
+
+                break;
+
+            /*case "recipibook_6": //お茶のすすめ
+
+                //いける場所を追加
+                matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
+                break;*/
+
+            //魔法の本
+            case "mg_firstmagic_book": //初心者向けおかし魔法の本
+
+                magicskill_database.skillHyoujiKaikin("Beautiful_Power");
+                magicskill_database.skillHyoujiKaikin("Luminous_Suger");
+                magicskill_database.skillHyoujiKaikin("Luminous_Fruits");
+
+                magicskill_database.skillHyoujiKaikin("Cookie_Study");
+                magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
+
+                //magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
+                //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
+
+                //magicskill_database.skillHyoujiKaikin("Nappe");
+                //magicskill_database.skillHyoujiKaikin("Appaleil_Study");
+                //magicskill_database.skillHyoujiKaikin("Wind_Ark");
+
+                magicskill_database.skillHyoujiKaikin("True_of_Myheart");
+
+                break;
+
+            case "mg_secondbake_book":
+
+                magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+                break;
+
+            case "mg_controltempature_book":
+                magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
+                break;
+
+            case "mg_windtwister_book":
+                magicskill_database.skillHyoujiKaikin("Wind_Twister");
+                break;
+
+            default:
+                break;
+        }
+    }
+
 
     IEnumerator Girl_present_Final_select()
     {
@@ -3440,56 +3529,7 @@ public class Compound_Main : MonoBehaviour
         //Debug.Log("compound_statusを0にする");
     }
 
-    //レシピの番号チェック。ゲットしたアイテム以外に、コンポ調合アイテムを解禁し、レシピリストに表示されるようにする。
-    void Recipi_FlagON_Method()
-    {
-        
-        switch (pitemlist.eventitemlist[recipi_num].event_itemName)
-        {
-            case "ev02_orangeneko_cookie_memo": //オレンジネコクッキー閃きのメモ
-
-                //オレンジジャムの作り方を解禁
-                databaseCompo.CompoON_compoitemdatabase("orange_jam");
-
-                break;
-
-            case "najya_start_recipi": //ナジャのお菓子作りの基本                
-
-                //databaseCompo.CompoON_compoitemdatabase("neko_cookie");
-                //databaseCompo.CompoON_compoitemdatabase("appaleil");
-
-                break;
-
-            case "financier_recipi": //フィナンシェ
-
-                databaseCompo.CompoON_compoitemdatabase("kogashi_butter");
-
-                break;
-
-            case "bisucouti_recipi": //ビスコッティ
-
-                //databaseCompo.CompoON_compoitemdatabase("baking_mix");
-                //databaseCompo.CompoON_compoitemdatabase("biscotti");
-
-                break;
-
-            case "recipibook_4": //アイスの実の森　ゲットすると、アイスクリームレシピも自動で追加される。
-
-                ev_id = pitemlist.Find_eventitemdatabase("ice_cream_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
-
-                break;
-
-            /*case "recipibook_6": //お茶のすすめ
-
-                //いける場所を追加
-                matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
-                break;*/
-
-            default:
-                break;
-        }
-    }
+    
 
 
 

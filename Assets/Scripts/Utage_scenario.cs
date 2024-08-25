@@ -38,6 +38,7 @@ public class Utage_scenario : MonoBehaviour
     private int contest_num;
     private string itemType_sub;
     private string itemName;
+    private int item_magic;
     private bool NPC01_Friend_Flag;
 
     private int re_flag;
@@ -84,6 +85,7 @@ public class Utage_scenario : MonoBehaviour
     private bool presentevent_end_flag;
     private bool NPCevent_okashicheck;
     private int _rank;
+    private int ev_id, mirabo_clearscore;
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -1589,6 +1591,7 @@ public class Utage_scenario : MonoBehaviour
             {
                 recipi_Name = pitemlist.eventitemlist[j].event_itemName;
                 re_flag = pitemlist.eventitemlist[j].ev_Re_flag_num;
+                engine.Param.TrySetParameter("MagicBookName", pitemlist.eventitemlist[j].event_itemNameHyouji);
                 break;
             }
             j++;
@@ -2940,6 +2943,8 @@ public class Utage_scenario : MonoBehaviour
             //魔法NPC 5000~
             case 5000: //魔法NPC光先生
 
+                //ミラボ先生の友好度をセット
+                engine.Param.TrySetParameter("event_NPC_FriendPoint", GameMgr.NPC_FriendPoint[0]);
                 scenarioLabel = "Or_MagicNPC01_Light";
                 break;
 
@@ -3131,8 +3136,9 @@ public class Utage_scenario : MonoBehaviour
                     {
                         GameMgr.NPCHiroba_eventList[100] = true;
 
-                        //ウィンドアークの本をゲット
-                        magicskill_database.skillHyoujiKaikin("Wind_Twister");
+                        //ウィンドツイスターの本をゲット
+                        ev_id = pitemlist.Find_eventitemdatabase("mg_windtwister_book");
+                        pitemlist.add_eventPlayerItem(ev_id, 1); //
                     }
                     else //選択を間違えたら、一日ほど消える
                     {
@@ -4724,6 +4730,7 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.contest_okashiNameHyouji = database.items[GameMgr.event_kettei_itemID].itemNameHyouji;
             itemType_sub = database.items[GameMgr.event_kettei_itemID].itemType_sub.ToString();
             itemName = database.items[GameMgr.event_kettei_itemID].itemName;
+            item_magic = database.items[GameMgr.event_kettei_itemID].Magic;
         }
         else if (GameMgr.event_kettei_item_Type == 1) //自分が制作したオリジナルアイテム
         {
@@ -4732,6 +4739,7 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.contest_okashiNameHyouji = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
             itemType_sub = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
             itemName = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].itemName;
+            item_magic = pitemlist.player_originalitemlist[GameMgr.event_kettei_itemID].Magic;
 
         }
         else if (GameMgr.event_kettei_item_Type == 2) //自分が制作したオリジナルアイテム
@@ -4741,7 +4749,7 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemNameHyouji;
             itemType_sub = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemType_sub.ToString();
             itemName = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].itemName;
-
+            item_magic = pitemlist.player_extremepanel_itemlist[GameMgr.event_kettei_itemID].Magic;
         }
 
 
@@ -4817,7 +4825,7 @@ public class Utage_scenario : MonoBehaviour
                 //魔法NPC 5000~
                 case 5000: //魔法NPC光先生
 
-                    NPCMagic_HikariPresentCheck();
+                    NPCMagic_MiraboPresentCheck();
                     break;
             }
         }
@@ -5275,20 +5283,67 @@ public class Utage_scenario : MonoBehaviour
         }
     }
 
-    void NPCMagic_HikariPresentCheck()
-    {
-        //一点の点数以上で、魔法のおかしなら、次に新しい魔法の本をくれる。
+    void NPCMagic_MiraboPresentCheck()
+    {       
 
-        engine.Param.TrySetParameter("EventJudge_Storynum", 0);
-
-        //〇〇の本をもっていない
-        if (magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") == 0)
+        if (item_magic == 0)
         {
-            engine.Param.TrySetParameter("EventJudge_Storynum", 10);
-            if (total_score >= 100)
+            //魔法のおかしじゃなかった場合
+            engine.Param.TrySetParameter("event_magicOK", 0);
+        }
+        else
+        {
+            engine.Param.TrySetParameter("event_magicOK", 1);
+
+            //一点の点数以上で、魔法のおかしなら、次に新しい魔法の本をくれる。
+            switch (GameMgr.NPC_FriendPoint[0])
             {
-                //〇〇の本をくれる。    
-                magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+                case 50: //LV1
+
+                    mirabo_clearscore = 100; //クリア点
+
+                    engine.Param.TrySetParameter("EventJudge_Storynum", 10);
+                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
+                    if (total_score >= mirabo_clearscore)
+                    {
+                        //魔法の本の名称を登録
+                        ev_id = pitemlist.Find_eventitemdatabase("mg_secondbake_book");
+                        engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
+
+                        //〇〇の本をくれる。    
+                        //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+                        pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加 
+
+                        GameMgr.NPC_FriendPoint[0] += 5; //クリアしたら友好度が+
+                    }
+
+                    break;
+
+                case 55: //LV2
+
+                    mirabo_clearscore = 120; //クリア点
+
+                    engine.Param.TrySetParameter("EventJudge_Storynum", 10);
+                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
+                    if (total_score >= mirabo_clearscore)
+                    {
+                        //魔法の本の名称を登録
+                        ev_id = pitemlist.Find_eventitemdatabase("mg_controltempature_book");
+                        engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
+
+                        //〇〇の本をくれる。    
+                        //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");                    
+                        pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加 
+
+                        GameMgr.NPC_FriendPoint[0] += 5; //クリアしたら友好度が+
+                    }
+
+                    break;
+
+                default: //その他　本はもらえない
+
+                    engine.Param.TrySetParameter("EventJudge_Storynum", 0);
+                    break;
             }
         }
         engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。

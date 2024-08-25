@@ -16,6 +16,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Event_num = 30;
     public static int Uwasa_num = 100;
     public static int NpcEvent_stage_num = 3000;
+    public static int NpcEvent_people_num = 300;
     public static int OrEvent_num = 1000;
 
     //** --ここまで-- **//
@@ -201,7 +202,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] NPCHiroba_eventList = new bool[NpcEvent_stage_num]; //主に2でのNPCイベントのフラグリスト　配列の番号で各キャラを指定 100~ とか　200~とか
     //0~ コンテストレセプション 100~白い布
 
-    public static bool[] NPCMagic_eventList = new bool[NpcEvent_stage_num]; //主に2でのNPCイベントのフラグリスト
+    public static bool[] NPCMagic_eventList = new bool[NpcEvent_stage_num]; //主に2での魔法NPCイベントのフラグリスト
+
+    //NPCの友好度ポイント　各NPCの進行度を数値で表したもの　50からはじまり、ミラボー先生なら、あげたときにクリアしたら+10。そして次の魔法の本に..。という具合。
+    public static int[] NPC_FriendPoint = new int[NpcEvent_people_num]; //300人分はいる
 
     public static int[] Treature_getList = new int[OrEvent_num]; //道端に落ちてるアイテムなどの宝箱リスト
 
@@ -1230,6 +1234,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             NPCHiroba_HikarieventList[system_i] = false;
         }
+
+        //NPC友好度の初期化 50はじまり
+        for (system_i = 0; system_i < NPC_FriendPoint.Length; system_i++)
+        {
+            NPC_FriendPoint[system_i] = 50;
+        }
+        
 
         //道端の宝箱リストの初期化
         for (system_i = 0; system_i < Treature_getList.Length; system_i++)

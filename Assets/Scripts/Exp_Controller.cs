@@ -557,6 +557,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             if (GameMgr.Special_OkashiEnshutsuFlag) //特別演出　失敗したら白をとく
             {
                 SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
+                SpecialwhiteEffect.SetActive(false);
             }
              
             //ゴミアイテムを検索。
@@ -869,6 +870,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             if (GameMgr.Special_OkashiEnshutsuFlag) //特別演出　失敗したら白をとく
             {
                 SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
+                SpecialwhiteEffect.SetActive(false);
             }
 
             //ゴミアイテムを検索。
@@ -1339,6 +1341,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             if (GameMgr.Special_OkashiEnshutsuFlag) //特別演出　失敗したら白をとく
             {
                 SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
+                SpecialwhiteEffect.SetActive(false);
             }
 
             //ゴミアイテムを検索。
