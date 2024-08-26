@@ -1494,6 +1494,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         GameMgr.check_GetMat_flag = true; //採取地帰ってきたよのフラグ
         GameMgr.check_GirlLoveEvent_flag = false; //再度イベントチェック
+        GameMgr.compound_status = 0;
         //Debug.Log("イベントチェックON");
     }
 

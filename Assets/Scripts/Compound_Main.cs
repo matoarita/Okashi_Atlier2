@@ -1508,7 +1508,7 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.IdleMotionReset();
 
                 //時間のチェック。
-                time_controller.TimeKoushin(0); //時間の更新
+                //time_controller.TimeKoushin(0); //時間の更新
 
                 //コンテスト・クエストの締め切りチェック（ビックリマークの表示）
                 mainUI_panel_obj.transform.Find("QuestKakuninButtonPanel").GetComponent<QuestKakuninButtonPanel>().Check_LimitMarkDraw();
@@ -1547,15 +1547,20 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
-                    if (GameMgr.ResultOFF) //リザルト画面開き中のときは、タイムチェックしない
-                    {  }
+                    if (GameMgr.Getmat_return_home) //採取から返ってきたばかりのときはタイムチェックしない
+                    { }
                     else
-                    {
-                        if (!GameMgr.ReadGirlLoveTimeEvent_reading_now)
+                    { 
+                        if (GameMgr.ResultOFF) //リザルト画面開き中のときは、タイムチェックしない
+                        { }
+                        else
                         {
-                            Debug.Log("時間更新＆チェック");
-                            time_controller.TimeCheck_flag = true;
-                            time_controller.TimeKoushin(0); //時間の更新     
+                            if (!GameMgr.ReadGirlLoveTimeEvent_reading_now)
+                            {
+                                Debug.Log("時間更新＆チェック");
+                                time_controller.TimeCheck_flag = true;
+                                time_controller.TimeKoushin(0); //時間の更新     
+                            }
                         }
                     }
                 }
@@ -1633,39 +1638,39 @@ public class Compound_Main : MonoBehaviour
 
                     //お菓子以外で、条件を満たしていないかクエストクリアチェック
                     girlEat_judge.ExtraSPQuestClearCheck();
+                   
+                }
 
+                //採取地から家に帰ってきたときの処理
+                if (GameMgr.Getmat_return_home)
+                {
+                    GameMgr.Getmat_return_home = false;
 
-                    //採取地から家に帰ってきたときの処理
-                    if (GameMgr.Getmat_return_home)
+                    //リザルトパネルを表示する
+                    getmatplace.ResultPanelOn();
+
+                    //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
+                    if (GameMgr.OsotoIkitaiFlag)
                     {
-                        GameMgr.Getmat_return_home = false;
+                        GameMgr.OsotoIkitaiFlag = false;
+                        girlEat_judge.loveGetPlusAnimeON(5, false);
+                        _textmain.text = "お外にいって、喜んだようだ。";
+                        girl1_status.GirlExpressionKoushin(20);
+                    }
+                    else
+                    {
+                        _textmain.text = "家に戻ってきた。どうしようかなぁ？";
+                    }
+                    //ハートゲージを更新。
+                    HeartGuageTextKoushin();
 
-                        //リザルトパネルを表示する
-                        getmatplace.ResultPanelOn();
+                    //オートセーブ
+                    if (GameMgr.AUTOSAVE_ON)
+                    {
+                        save_controller.OnSaveMethod();
+                        Debug.Log("オートセーブ完了");
 
-                        //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
-                        if (GameMgr.OsotoIkitaiFlag)
-                        {
-                            GameMgr.OsotoIkitaiFlag = false;
-                            girlEat_judge.loveGetPlusAnimeON(5, false);
-                            _textmain.text = "お外にいって、喜んだようだ。";
-                            girl1_status.GirlExpressionKoushin(20);
-                        }
-                        else
-                        {
-                            _textmain.text = "家に戻ってきた。どうしようかなぁ？";
-                        }
-                        //ハートゲージを更新。
-                        HeartGuageTextKoushin();
-
-                        //オートセーブ
-                        if (GameMgr.AUTOSAVE_ON)
-                        {
-                            save_controller.OnSaveMethod();
-                            Debug.Log("オートセーブ完了");
-
-                            AutoSaveCompleteText();
-                        }
+                        AutoSaveCompleteText();
                     }
                 }
 
