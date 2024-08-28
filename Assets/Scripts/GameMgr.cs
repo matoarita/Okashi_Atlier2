@@ -33,6 +33,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
+    public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。
     public static bool WEATHER_TIMEMODE_ON = false; //時間によって朝・昼・夜の背景を変更するかどうか。   
 
     //各システムの使用の有無
@@ -1869,11 +1870,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各サブイベントのNPCのお菓子判定番号
     public static void InitSubNPCEvent_OkashiJudgeLibrary()
     {
-        Mose_Okashi_num01 = 5000; //モーセ
-        Shop_Okashi_num01 = 5010; //プリンさん　エクストラ　クエストNo11 お茶会用
-        Shop_Okashi_num02 = 5011; //プリンさん　エクストラ　クエストNo11 お茶会用
-        Farm_Okashi_num01 = 5020; //モタリケさん　エクストラ
-        Bar_Okashi_num01 = 5030; //フィオナさん　エクストラ
+        Mose_Okashi_num01 = 100000; //モーセ
+        Shop_Okashi_num01 = 100010; //プリンさん　エクストラ　クエストNo11 お茶会用
+        Shop_Okashi_num02 = 100011; //プリンさん　エクストラ　クエストNo11 お茶会用
+        Farm_Okashi_num01 = 100020; //モタリケさん　エクストラ
+        Bar_Okashi_num01 = 100030; //フィオナさん　エクストラ
     }
 
     //ヒカリのお菓子経験値テーブル

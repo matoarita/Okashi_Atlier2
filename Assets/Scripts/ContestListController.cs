@@ -250,7 +250,7 @@ public class ContestListController : MonoBehaviour
     //条件をみたすと、さらにコンテストが表示追加される
     void ContestJoukenCheck()
     {
-        //クッキーコンテストを2位以上で通過
+        //一位で登場
         if (PlayerStatus.player_ninki_param >= 1)
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 2)
@@ -263,6 +263,52 @@ public class ContestListController : MonoBehaviour
         if (PlayerStatus.player_ninki_param >= 3)
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 3)
+            {
+                DrawContest();
+            }
+        }
+
+        //スター１５以上
+        if (PlayerStatus.player_ninki_param >= 15)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 4)
+            {
+                DrawContest();
+            }
+        }
+
+        //スター３０以上
+        if (PlayerStatus.player_ninki_param >= 30)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 5)
+            {
+                DrawContest();
+            }
+        }
+
+
+
+
+        //エデンコンテスト系の登場
+        if (PlayerStatus.player_ninki_param >= 10)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100)
+            {
+                DrawContest();
+            }
+        }
+
+        if (PlayerStatus.player_ninki_param >= 10)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200)
+            {
+                DrawContest();
+            }
+        }
+
+        if (PlayerStatus.player_ninki_param >= 10)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 300)
             {
                 DrawContest();
             }

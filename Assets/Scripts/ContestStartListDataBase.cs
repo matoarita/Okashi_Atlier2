@@ -1083,7 +1083,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.ContestItem_supplied_KosuList.Add(2);
     }
 
-    void ContestRankingData_104() //光り限定お菓子コンテスト１
+    void ContestRankingData_104() //ルミエールエピファニア
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_DB_list_Type = 104000; //compNum=100000~を指定
@@ -1097,7 +1097,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位          
     }
 
-    void ContestRankingData_105() //光り限定お菓子コンテスト２
+    void ContestRankingData_105() //ルミエールカンデラ
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_DB_list_Type = 105000; //compNum=100000~を指定

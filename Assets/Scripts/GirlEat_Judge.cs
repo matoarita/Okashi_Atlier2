@@ -3883,7 +3883,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //特殊条件でセリフが変わる。
         if (_basename == "strange_tea" && total_score >= GameMgr.low_score) //へんな草ティーがおいしく作れた
         {
-            GameMgr.okashiafter_ID = 5000;
+            GameMgr.okashiafter_ID = 100000;
         }
     }
 

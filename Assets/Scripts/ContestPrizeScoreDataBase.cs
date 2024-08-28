@@ -556,9 +556,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("キリコ");
-        GameMgr.PrizeCharacterList.Add("レピア");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("レイナート");
         GameMgr.PrizeCharacterList.Add("ティリス");
-        GameMgr.PrizeCharacterList.Add("ソアーラ");
     }
 
     //ラスクブロカント
@@ -589,7 +589,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("エレノア");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("レア");
         GameMgr.PrizeCharacterList.Add("ルカティエル");
         GameMgr.PrizeCharacterList.Add("リーシュ");
@@ -616,10 +616,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
         GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
+        GameMgr.PrizeScoreAreaList.Add(67);
         GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(112);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -650,17 +650,17 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(75);
+        GameMgr.PrizeScoreAreaList.Add(99);
+        GameMgr.PrizeScoreAreaList.Add(131);
+        GameMgr.PrizeScoreAreaList.Add(152);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
-        GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("トリカイ");
-        GameMgr.PrizeCharacterList.Add("ジョー");
-        GameMgr.PrizeCharacterList.Add("コースケ");
-        GameMgr.PrizeCharacterList.Add("マンタロー");
+        GameMgr.PrizeCharacterList.Clear();        
+        GameMgr.PrizeCharacterList.Add("セリーヌ");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
+        GameMgr.PrizeCharacterList.Add("黒ずきん");
+        GameMgr.PrizeCharacterList.Add("ミント");
     }
 
     //ガレット・デ・ロワ
@@ -691,10 +691,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("モーツァー・ルト");
-        GameMgr.PrizeCharacterList.Add("ベントウ・ヴェーン");
-        GameMgr.PrizeCharacterList.Add("ハウマウズ");
-        GameMgr.PrizeCharacterList.Add("メローネ・デルス");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("ベントー・ヴェン");
+        GameMgr.PrizeCharacterList.Add("ハーマウズ");
+        GameMgr.PrizeCharacterList.Add("メンデルス");
     }
 
     //ディオ・ショコラ・チャンピオンシップ
@@ -727,7 +727,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("グレーテル");
         GameMgr.PrizeCharacterList.Add("アラディーン");
-        GameMgr.PrizeCharacterList.Add("キノピーオ");
+        GameMgr.PrizeCharacterList.Add("キノ・ピオ");
         GameMgr.PrizeCharacterList.Add("白桃姫");
     }
 
@@ -793,10 +793,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ギリガン");
-        GameMgr.PrizeCharacterList.Add("ヴィクター");
-        GameMgr.PrizeCharacterList.Add("ガリー");
-        GameMgr.PrizeCharacterList.Add("中国娘");
+        GameMgr.PrizeCharacterList.Add("バニラ");
+        GameMgr.PrizeCharacterList.Add("ギュント");
+        GameMgr.PrizeCharacterList.Add("ノーマリィ");
+        GameMgr.PrizeCharacterList.Add("ウリル");
     }
 
     //フライング・ソーダコンテスト
