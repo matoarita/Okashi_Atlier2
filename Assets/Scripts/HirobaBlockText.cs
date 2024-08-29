@@ -63,7 +63,16 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                     else
                     {
-                        BlockText_obj.SetActive(false);
+                        //ハートで進めるイベントが発生して、それからブロックが消える。
+                        if (GameMgr.NPCHiroba_blockReleaseList[0])
+                        {
+                            BlockText_obj.SetActive(false);
+                        }
+                        else
+                        {
+                            BlockText_obj.SetActive(true);
+                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_01.ToString() + "必要";
+                        }
                     }
                 }
                 break;
@@ -81,7 +90,17 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                     else
                     {
-                        BlockText_obj.SetActive(false);
+                        //ハートで進めるイベントが発生して、それからブロックが消える。
+                        if (GameMgr.NPCHiroba_blockReleaseList[1])
+                        {
+                            BlockText_obj.SetActive(false);
+                        }
+                        else
+                        {
+                            BlockText_obj.SetActive(true);
+                            //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_03.ToString() + "必要";
+                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_50.ToString() + "必要";
+                        }
                     }
                 }
                 break;
@@ -99,7 +118,17 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                     else
                     {
-                        BlockText_obj.SetActive(false);
+                        //ハートで進めるイベントが発生して、それからブロックが消える。
+                        if (GameMgr.NPCHiroba_blockReleaseList[2])
+                        {
+                            BlockText_obj.SetActive(false);
+                        }
+                        else
+                        {
+                            BlockText_obj.SetActive(true);
+                            //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_02.ToString() + "必要";
+                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_51.ToString() + "必要";
+                        }
                     }
                 }
 
@@ -114,7 +143,17 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                     else
                     {
-                        BlockText_obj.SetActive(false);
+                        //ハートで進めるイベントが発生して、それからブロックが消える。
+                        if (GameMgr.NPCHiroba_blockReleaseList[3])
+                        {
+                            BlockText_obj.SetActive(false);
+                        }
+                        else
+                        {
+                            BlockText_obj.SetActive(true);
+                            //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_01.ToString() + "必要";
+                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_52.ToString() + "必要";
+                        }
                     }
                 }
                 break;
@@ -132,7 +171,17 @@ public class HirobaBlockText : MonoBehaviour {
                     }
                     else
                     {
-                        BlockText_obj.SetActive(false);
+                        //ハートで進めるイベントが発生して、それからブロックが消える。
+                        if (GameMgr.NPCHiroba_blockReleaseList[4])
+                        {
+                            BlockText_obj.SetActive(false);
+                        }
+                        else
+                        {
+                            BlockText_obj.SetActive(true);
+                            //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_04.ToString() + "必要";
+                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_53.ToString() + "必要";
+                        }
                     }
                 }
                 break;

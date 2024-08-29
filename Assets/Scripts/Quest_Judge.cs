@@ -1258,7 +1258,7 @@ public class Quest_Judge : MonoBehaviour {
             //見た目点数の計算
             if (_beauty > 0)
             {
-                beauty_score = _basebeauty - _beauty;
+                beauty_score = girlEat_judge.BeautyKeisanBase(_basebeauty, _beauty);
 
                 if (beauty_score < 50)
                 {

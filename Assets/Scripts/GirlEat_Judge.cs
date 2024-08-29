@@ -201,11 +201,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int _baseSetjudge_num;
     private string[] _basetp;
     private string[] _koyutp;
+    private int _beauty_basicscore;
 
     private int _basegirl1_manpuku;
 
     private string _baseitemtype;
     private string _baseitemtype_sub;
+    private string _baseitemtype_subB;
 
     //private string _basename;
     //private int _basemp;
@@ -320,6 +322,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int _temp_kyori;
     private float _temp_deg;
     private float _temp_ratio;
+    public int _temp_beautyscore;
     public int topping_score;
     public int topping_flag_point;
     public bool topping_flag;
@@ -941,6 +944,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basegirl1_like = database.items[kettei_item1].girl1_itemLike;
                 _baseitemtype = database.items[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = database.items[kettei_item1].itemType_sub.ToString();
+                _baseitemtype_subB = database.items[kettei_item1].itemType_subB;
                 _basecost = database.items[kettei_item1].cost_price;
                 _baseSetjudge_num = database.items[kettei_item1].SetJudge_Num;
                 _basejuice = database.items[kettei_item1].Juice;
@@ -995,6 +999,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basegirl1_like = pitemlist.player_originalitemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_originalitemlist[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = pitemlist.player_originalitemlist[kettei_item1].itemType_sub.ToString();
+                _baseitemtype_subB = pitemlist.player_originalitemlist[kettei_item1].itemType_subB;
                 _basecost = pitemlist.player_originalitemlist[kettei_item1].cost_price;
                 _baseSetjudge_num = pitemlist.player_originalitemlist[kettei_item1].SetJudge_Num;
                 _basejuice = pitemlist.player_originalitemlist[kettei_item1].Juice;
@@ -1049,6 +1054,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basegirl1_like = pitemlist.player_extremepanel_itemlist[kettei_item1].girl1_itemLike;
                 _baseitemtype = pitemlist.player_extremepanel_itemlist[kettei_item1].itemType.ToString();
                 _baseitemtype_sub = pitemlist.player_extremepanel_itemlist[kettei_item1].itemType_sub.ToString();
+                _baseitemtype_subB = pitemlist.player_extremepanel_itemlist[kettei_item1].itemType_subB;
                 _basecost = pitemlist.player_extremepanel_itemlist[kettei_item1].cost_price;
                 _baseSetjudge_num = pitemlist.player_extremepanel_itemlist[kettei_item1].SetJudge_Num;
                 _basejuice = pitemlist.player_extremepanel_itemlist[kettei_item1].Juice;
@@ -1402,7 +1408,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 {
                     dislike_flag = false;
                 }
-                else if (_girl_subtype[count] == _baseitemtype_sub) //お菓子の種別が一致している。
+                else if (_girl_subtype[count] == _baseitemtype_sub || _girl_subtype[count] == _baseitemtype_subB) //お菓子の種別が一致している。
                 {
                     dislike_flag = true;
                 }
@@ -1643,15 +1649,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("トッピングスコア: " + topping_score);
 
         //見た目点数の計算
-        if (_girlbeauty[countNum] > 0)
-        {
-            beauty_score = _basebeauty - _girlbeauty[countNum];
-            Debug.Log("見た目点: " + beauty_score + " お菓子の見た目: " + _basebeauty + " 判定値: " + _girlbeauty[countNum]);
-        }
-        else
-        {
-            beauty_score = 0;
-        }
+        beauty_score = BeautyKeisanBase(_basebeauty, _girlbeauty[countNum]);
 
 
         //さらに「風らしさ」などの特殊点を計算
@@ -1897,6 +1895,36 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 total_score = 0;
                 break;
         }*/
+    }
+
+    public int BeautyKeisanBase(int _beauty, int _judgebeauty)
+    {
+        _beauty_basicscore = GameMgr.System_Beauty_BasicScore; //基準となる見た目の得点
+
+        if (_judgebeauty > 0)
+        {
+            _temp_kyori = _beauty - _judgebeauty;
+            _temp_deg = 1.0f * _beauty / _judgebeauty;
+
+            if (_temp_kyori >= 0) //好みよりも、お菓子の食感の値が、大きい。
+            {
+                Debug.Log("_beauty_deg: " + _temp_deg);
+
+                _temp_beautyscore = (int)(_beauty_basicscore * _temp_deg);
+            }
+            else
+            {
+                _temp_beautyscore = 0;
+            }
+        }
+        else
+        {
+            _temp_beautyscore = 0;
+        }
+
+        Debug.Log("見た目ベース: " + _beauty + " 判定値: " + _judgebeauty + " 見た目得点: " + _temp_beautyscore);
+
+        return _temp_beautyscore;
     }
 
     void SpScoreKeisan()
@@ -2875,14 +2903,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
             {
-                Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.15f));
+                Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.15f));
                 GetMoney += (int)(_basecost * 2.0f);
                 GetMoney *= (int)(total_score * 0.01f);
                 girl1_status.GirlExpressionKoushin(40);
             }
             else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
             {
-                Getlove_exp += (int)((total_score * 0.17f) * (_basegirl1_like * 1.2f));
+                Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.2f));
                 GetMoney += (int)(_basecost * 2.2f);
                 GetMoney *= (int)(total_score * 0.01f);
                 girl1_status.GirlExpressionKoushin(50);

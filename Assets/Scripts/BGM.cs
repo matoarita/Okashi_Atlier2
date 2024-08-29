@@ -72,6 +72,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound58;  //「ムーンストーンの丘」テーマ
     public AudioClip sound59;  //「ダイアモンド山」テーマ
     public AudioClip sound60;  //オランジーナ酒場のBGM
+    public AudioClip sound61;  //ゲームオーバーのBGM
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -172,6 +173,11 @@ public class BGM : MonoBehaviour {
             case "Station":
 
                 _send_clip = sound23;
+                break;
+
+            case "999_Gameover":
+
+                _send_clip = sound61;
                 break;
 
             default:

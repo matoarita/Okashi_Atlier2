@@ -607,7 +607,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    On_Active03();
+                    if (GameMgr.NPCHiroba_blockReleaseList[2])
+                    {
+                        On_Active03();
+                    }
+                    else
+                    {
+                        GameMgr.NPCHiroba_blockReleaseList[2] = true; //
+                        On_BlockReleaseActive1(0);
+                    }                   
                 }
 
                 break;
@@ -1237,7 +1245,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    On_Active08();
+                    if (GameMgr.NPCHiroba_blockReleaseList[0])
+                    {
+                        On_Active08();
+                    }
+                    else
+                    {
+                        GameMgr.NPCHiroba_blockReleaseList[0] = true; //秘密の花園が解放されるイベント
+                        On_BlockReleaseActive1(0);
+                    }                   
                 }
 
                 break;
@@ -1397,7 +1413,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    On_Active04();
+                    if (GameMgr.NPCHiroba_blockReleaseList[1])
+                    {
+                        On_Active04();
+                    }
+                    else
+                    {
+                        GameMgr.NPCHiroba_blockReleaseList[1] = true; //
+                        On_BlockReleaseActive1(0);
+                    }
+                    
                 }
                 break;
 
@@ -1409,7 +1434,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    On_Active02();
+                    if (GameMgr.NPCHiroba_blockReleaseList[3])
+                    {
+                        On_Active02();
+                    }
+                    else
+                    {
+                        GameMgr.NPCHiroba_blockReleaseList[3] = true; //
+                        On_BlockReleaseActive1(0);
+                    }
+                    
                 }
 
                 break;
@@ -1505,7 +1539,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    On_Active300();
+                    if (GameMgr.NPCHiroba_blockReleaseList[4])
+                    {
+                        On_Active300();
+                    }
+                    else
+                    {
+                        GameMgr.NPCHiroba_blockReleaseList[4] = true; //
+                        On_BlockReleaseActive1(0);
+                    }
+                    
                 }               
                 break;
 
@@ -3221,11 +3264,25 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     }
 
 
+    //広場ブロック解放イベント
+    void On_BlockReleaseActive1(int _id)
+    {
+        GameMgr.hiroba_event_placeNum = 2100; //
+
+        //BGMかえる
+        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        bgm_change_flag = true;
+
+        GameMgr.hiroba_event_ID = _id; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
+
+
+        EventReadingStart();
+    }
+
+
     //
     //その他処理　publicは、同じオブジェクトにつけたHiroba1_Main_Orのcsから読み出し
     //
-
-
     public void ToggleAllOff()
     {
         /*npc1_toggle.interactable = false;

@@ -68,10 +68,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             }
         }*/
       
-        if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
+        /*if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
         {
             _buf_findpower += 100;
-        }
+        }*/
 
         if (pitemlist.KosuCount("compass") >= 1) //持ってるだけで効果アップ
         {
@@ -122,6 +122,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 KakuritsuUp_Chocolate();
                 break;
+
+            case "Cake_MatCream":
+
+                KakuritsuUp_CakeMatCream();
+                break;
         }
 
         //全般
@@ -139,9 +144,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
             {
+                _buf_kakuritsuup += 5;
+            }
+
+            if (pitemlist.KosuCount("star_pendant") >= 1) //持ってるだけで効果アップ
+            {
                 _buf_kakuritsuup += 10;
             }
-            
+
+            if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
+            {
+                _buf_kakuritsuup += 15;
+            }
         }
 
         return _buf_kakuritsuup;
@@ -217,7 +231,22 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+    void KakuritsuUp_CakeMatCream()
+    {
 
+        if (pitemlist.KosuCount("cake_rolltable") < 1) //所持してないと成功率下がる
+        {
+            _buf_kakuritsuup -= 40;
+        }
+
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Nappe") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Nappe") * 3; //LV*10
+            _buf_kakuritsuup += _magicup;
+        }
+    }
 
 
 
@@ -314,7 +343,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         OvenBuf();
                         break;
 
-                    case "Cake_Mat":
+                    case "Cake_MatSponge":
 
                         OvenBuf();
                         CakeBuf();
@@ -667,7 +696,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             }
         }
 
-    }
+    }    
+
+    
 
     void TeaBuf()
     {

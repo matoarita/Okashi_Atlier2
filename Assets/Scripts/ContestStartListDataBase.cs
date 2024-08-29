@@ -881,11 +881,12 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
         GameMgr.Contest_DB_list_Type = 30000; //compNum=20000~を指定  
         GameMgr.Contest_commentDB_Select = 20000;
-        GameMgr.Contest_ProblemSentence = "至高のチョコレート（Aランク）" + "\n" + "テーマ：「風」をテーマにした美しいチョコレート";
+        GameMgr.Contest_ProblemSentence = "テーマ：焼き菓子";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。焼き菓子を作ってください。" + "\n" + "制限時間: 6時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+        PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 80; //一回戦相手の点数
         GameMgr.contest_boss_name = "ハーマイオニー";
@@ -895,28 +896,30 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     {
         GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 21000;
-        GameMgr.Contest_ProblemSentence = "自由課題" + "\n" + "テーマ：「海」をテーマにした自由なお菓子";
+        GameMgr.Contest_ProblemSentence = "テーマ：光魔法を使った自由なお菓子";
+        GameMgr.Contest_ProblemSentence2 = "光魔法で仕上げたかわいいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 90; //
-        GameMgr.contest_boss_name = "ジャッキー・チェン";
+        GameMgr.contest_boss_score = 113; //
+        GameMgr.contest_boss_name = "ミント";
     }
 
     void ContestData_022()
     {
         GameMgr.Contest_DB_list_Type = 32000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 22000;
-        GameMgr.Contest_ProblemSentence = "至高のケーキ" + "\n" + "テーマ：「愛」をテーマにした至高のケーキ";
+        GameMgr.Contest_ProblemSentence = "テーマ：「愛」をテーマにした至高のケーキ";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。焼き菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 97; //
-        GameMgr.contest_boss_name = "アマクサ";
+        GameMgr.contest_boss_score = 150; //
+        GameMgr.contest_boss_name = "オキタ";
     }
 
     void ContestData_040()

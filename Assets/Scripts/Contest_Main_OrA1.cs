@@ -343,6 +343,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         if(GameMgr.Contest_Next_flag)
         {
             GameMgr.Contest_Next_flag = false;
+            pitemlist.deleteAllExtremePanelItem(); //先ほど提出したお菓子を削除
+            GameMgr.extremepanel_Koushin = true; //パネルの表示更新
 
             GameMgr.ContestRoundNum++;
             ContestDataSetting();
@@ -410,8 +412,25 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
         }
 
+        //コンテスト終了　エデンコンテストで負けた
+        if (GameMgr.contest_eventEdenLoser_flag)
+        {
+            GameMgr.contest_eventEdenLoser_flag = false;
+            GameMgr.Contest_ON = false;
+            GameMgr.contest_MainMatchStart = false;
+            PlayerStatus.player_contest_second = 0;
+
+            //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+            //家に帰って寝る
+            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
+            //GameMgr.Contest_afterHomeEventFlag = true;
+            //GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ
+
+            FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+        }
+
         //制限時間を少し超えた場合、注意のパネルがでる
-        if(GameMgr.contest_LimitTimeOver_DegScore_flag)
+        if (GameMgr.contest_LimitTimeOver_DegScore_flag)
         {
             timelimitover_panel.SetActive(true);
         }

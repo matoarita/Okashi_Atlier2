@@ -458,7 +458,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                         break;
 
-                    case 2: //茶色クッキー
+                    case 2: //かわいいクッキー
 
                         if (GameMgr.GirlLoveSubEvent_stage1[8] == false && girl1_status.special_animatFirst == true)
                         {
@@ -625,13 +625,63 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
 
             //
-            //メインクエストに関係しないサブイベント関係は、60番台～
+            //サブイベント・ハートで進むなどのイベント関係は、60番台～
             //
 
             if(GameMgr.outgirl_Nowprogress)
             { }
             else
             {
+
+                //
+                //ハートレベル系のイベント
+                //
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartBlockLv_01 && GameMgr.GirlLoveSubEvent_stage1[300] == false) //HLV5~ 秘密の花園発見
+                    {
+                        GameMgr.GirlLoveSubEvent_num = 300;
+                        GameMgr.GirlLoveSubEvent_stage1[300] = true;
+
+                        GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                        GameMgr.Mute_on = true;
+                    }
+                }
+
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //モーセ家にくる
+                    if (PlayerStatus.girl1_Love_lv >= 10) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
+                    {
+                        //random = Random.Range(0, 100);
+                        //Debug.Log("モーセくるイベント　10以下で成功: " + random);
+                        //if (random <= 10)
+                        //{
+                        if (!GameMgr.GirlLoveSubEvent_stage1[160]) //160番～　サブイベントNPC系　フラグ３つか５つずつぐらい余分をとっておく。
+                        {
+                            GameMgr.GirlLoveSubEvent_num = 160;
+                            GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
+                            GameMgr.NPC_event_ON = true;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+
+                            //下は、使うときだけtrueにすればOK
+                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
+                            GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                            GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
+                            GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                        }
+                        //}
+                    }
+                }
+
                 //キラキラポンポン 発生すると、さらに親睦を深めて、BGMが変わる。
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -655,22 +705,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
-                //ピクニック
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 0) //エクストラモードでは、サブイベントチェックでピクニックは発生しない
-                    {
-                        //クレープ以降　一回目は必ず発生               
-                        if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
-                            && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
-                        {
-                            PicnicEvent();
-                        }
-                    }
-                }
-               
+
 
                 /*
                 //エクストラモードのみのイベント　どっこいステーキ
@@ -869,6 +904,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
                 //GirlLoveSubEvent_stage1 サブイベントは69まで。70~は、衣装買ったときのセリフが入っている。
                 */
+              
+
 
                 //
                 //ビギナー系のサブイベント関係は、80番台～
@@ -1228,7 +1265,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
 
 
-                //置物や土産を買った 100番台～ 周回しても、フラグは引継ぎ。二度目以上の発生はない。
+                //置物や土産を買った 100番台～
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1342,7 +1379,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (!GameMgr.GirlLoveSubEvent_stage1[200])
                     {
                         if (database.items[GameMgr.Okashi_makeID].itemName == "lumi_emerald_suger" ||
-                            database.items[GameMgr.Okashi_makeID].itemName == "lumi_sapphire_suger")
+                            database.items[GameMgr.Okashi_makeID].itemName == "lumi_sapphire_suger" ||
+                            database.items[GameMgr.Okashi_makeID].itemName == "lumi_pink_suger")
                         {
                             //メイン画面にもどったときに、イベントを発生させるフラグをON
                             GameMgr.GirlLoveSubEvent_num = 200;
@@ -1355,43 +1393,27 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             //GameMgr.SubEvAfterHeartGet_num = 100;
                         }
                     }
-                }
 
-
-                //
-                //家にNPCが訪問する系のイベント
-                //
-
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    //モーセ家にくる
-                    if (PlayerStatus.girl1_Love_lv >= 10) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
+                    //はじめてルミフルーツ作った
+                    if (!GameMgr.GirlLoveSubEvent_stage1[201])
                     {
-                        //random = Random.Range(0, 100);
-                        //Debug.Log("モーセくるイベント　10以下で成功: " + random);
-                        //if (random <= 10)
-                        //{
-                        if (!GameMgr.GirlLoveSubEvent_stage1[160]) //160番～　サブイベントNPC系　フラグ３つか５つずつぐらい余分をとっておく。
+                        if (database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "GlowFruits")
                         {
-                            GameMgr.GirlLoveSubEvent_num = 160;
-                            GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
-                            GameMgr.NPC_event_ON = true;
+                            //メイン画面にもどったときに、イベントを発生させるフラグをON
+                            GameMgr.GirlLoveSubEvent_num = 201;
+                            GameMgr.GirlLoveSubEvent_stage1[201] = true;
 
+                            //GameMgr.Mute_on = true;
                             GameMgr.check_GirlLoveSubEvent_flag = false;
 
-                            GameMgr.Mute_on = true;
-
-                            //下は、使うときだけtrueにすればOK
-                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
-                            GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                            GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
-                            GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                            //GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                            //GameMgr.SubEvAfterHeartGet_num = 100;
                         }
-                        //}
                     }
                 }
+
+
+                
 
 
 
@@ -1444,6 +1466,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             Debug.Log("チェック　本日が１０・２０・３０日かどうか");
                             Debug.Log("本日の日: " + PlayerStatus.player_cullent_day); 
 
+                            //10日ごとチェックバージョン
                             if(PlayerStatus.player_cullent_day % 10 == 0)
                             {
                                 //月はこのタイミングでも更新する。
@@ -1596,7 +1619,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 Debug.Log("外出イベント　抽選スタート　20以下で成功: " + random);
                                 Debug.Log("機嫌度player_girl_express_param: " + PlayerStatus.player_girl_express_param);
 
-                                picnic_exprob = (int)(40f * PlayerStatus.player_girl_express_param * 0.01f); //20%の確率で発生。10~13時
+                                picnic_exprob = (int)(40f * PlayerStatus.player_girl_express_param * 0.01f); //20%の確率で発生。player_girl_express_paramは大体50。10~13時
                                 if (picnic_exprob <= 0)
                                 {
                                     picnic_exprob = 0;
@@ -1655,24 +1678,26 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }               
             }
 
-            /*if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
+            //ピクニック
+            if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                //ピクニックイベントチェック
+                if (!GameMgr.outgirl_Nowprogress)
                 {
-                    //ピクニックイベントチェック
-                    if (!GameMgr.outgirl_Nowprogress)
+                    if (GameMgr.PicnicSkipFlag) { } //ピクニックスキップON
+                    else
                     {
-                        if (GameMgr.PicnicSkipFlag) { } //ピクニックスキップON
-                        else
+                        //クレープ以降　一回目は必ず発生               
+                        if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
+                        && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
                         {
-                            if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
-                                && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
-                            {
-                                PicnicEvent();
-                            }
+                            PicnicEvent();
                         }
                     }
-                }*/
+                }
+            }
 
             //最後のタイミングで、決定したサブイベントの宴を再生
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //サブイベント発生した

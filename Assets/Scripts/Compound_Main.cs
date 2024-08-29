@@ -2884,7 +2884,7 @@ public class Compound_Main : MonoBehaviour
             //魔法の本
             case "mg_firstmagic_book": //初心者向けおかし魔法の本
 
-                magicskill_database.skillHyoujiKaikin("Beautiful_Power");
+                //magicskill_database.skillHyoujiKaikin("Beautiful_Power");
                 magicskill_database.skillHyoujiKaikin("Luminous_Suger");
                 magicskill_database.skillHyoujiKaikin("Luminous_Fruits");
 
@@ -2913,6 +2913,14 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_windtwister_book":
                 magicskill_database.skillHyoujiKaikin("Wind_Twister");
+                break;
+
+            case "mg_freezespell_book":
+                magicskill_database.skillHyoujiKaikin("Freezing_Spell");
+                break;
+
+            case "mg_beautifulpower_book":
+                magicskill_database.skillHyoujiKaikin("Beautiful_Power");
                 break;
 
             default:

@@ -2935,6 +2935,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Hiroba_Or_Hikari";
                 break;
 
+            case 2100: //Or広場ブロック解放イベント
+
+                scenarioLabel = "Hiroba_Or_BlockRelease";
+                break;
+
             case 3000: //駅のイベント
 
                 scenarioLabel = "Station";
@@ -3810,6 +3815,7 @@ public class Utage_scenario : MonoBehaviour
                     yield return null;
                 }
 
+                //終わった後の、コンテスト感想シーンでの順位表表示
                 GameMgr.Utage_Prizepanel_Type = 0; //順位表を表示する
                                                    //シーンの黒フェードをオフにする。
                 GameMgr.Utage_Prizepanel_ON = true;
@@ -3852,6 +3858,23 @@ public class Utage_scenario : MonoBehaviour
                 }
 
                 GameMgr.Utage_SceneEnd_BlackON = true;
+
+                //元のシナリオにもどる。
+                engine.ResumeScenario();
+            }
+            else //トーナメント形式
+            {
+                //勝ち負けが終わり、イエードンパフが終わった後
+                //「宴」のシナリオポーズ待ち
+                while (!Engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                if (!GameMgr.Contest_winner_flag) //負けた場合、シーン移動する
+                {
+                    GameMgr.Utage_SceneEnd_BlackON = true;
+                }
 
                 //元のシナリオにもどる。
                 engine.ResumeScenario();
@@ -3902,7 +3925,10 @@ public class Utage_scenario : MonoBehaviour
                 else
                 {
                     //負けた場合　そこで終了し、会場外へ。
-                    GameMgr.contest_eventEnd_flag = true;
+                    //エデンコンテストで負けた場合は、ゲームオーバー
+                    Debug.Log("コンテスト　本戦終了！！　敗退..");
+                    //GameMgr.contest_eventEnd_flag = true;
+                    GameMgr.contest_eventEdenLoser_flag = true;
                 }
             }
             else

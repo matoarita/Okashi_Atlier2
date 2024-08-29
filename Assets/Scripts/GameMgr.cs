@@ -72,6 +72,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_Yachin_Cost01 = 1000; //家賃の額 月始めバージョン
     public static int System_Yachin_Cost02 = 500; //10日ごとバージョン
 
+    //見た目点数の基準点
+    public static int System_Beauty_BasicScore = 30; //見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
+
+
     //重要アイテム名
     public static string System_TreasureItem01 = "ブルージェム";
 
@@ -201,7 +205,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //100~ 散歩道
 
     public static bool[] NPCHiroba_eventList = new bool[NpcEvent_stage_num]; //主に2でのNPCイベントのフラグリスト　配列の番号で各キャラを指定 100~ とか　200~とか
-    //0~ コンテストレセプション 100~白い布
+                                                                             //0~ コンテストレセプション 100~白い布
 
     public static bool[] NPCMagic_eventList = new bool[NpcEvent_stage_num]; //主に2での魔法NPCイベントのフラグリスト
 
@@ -209,6 +213,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] NPC_FriendPoint = new int[NpcEvent_people_num]; //300人分はいる
 
     public static int[] Treature_getList = new int[OrEvent_num]; //道端に落ちてるアイテムなどの宝箱リスト
+    public static bool[] NPCHiroba_blockReleaseList = new bool[OrEvent_num]; //主に2での広場ブロックを解除するイベントリスト
 
     //ショップのイベントリスト
     public static bool[] ShopEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -520,7 +525,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
     public static int Scene_Category_Num;           //Compound=10, Compound_Entrance=11, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, 
                                                     //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130, Station=140, NPCMagicHouse=150
-                                                    //NPC_Catsle=160, 200_omake=200, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
+                                                    //NPC_Catsle=160, 200_omake=200, 999_Gameover=999, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
 
 
     //その他、一時的なフラグ
@@ -612,6 +617,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Contest_PrizeGet_ItemName; //獲得した賞品のアイテム名
     public static int Contest_PrizeGet_Money; //獲得した賞金
     public static bool contest_eventEnd_flag; //コンテストイベント全て終了
+    public static bool contest_eventEdenLoser_flag; //エデンコンテストで途中で負けてしまった場合
     public static bool contest_LimitTimeOver_DegScore_flag; //コンテスト制限時間をこえて、減点のフラグ
     public static bool contest_LimitTimeOver_Gameover_flag; //コンテスト制限時間をこえて失格のフラグ
     public static bool contest_LimitTimeOver_After_flag; //コンテスト失格後、なんらかのペナルティやメッセージが発生するフラグ
@@ -1094,6 +1100,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ExtraClear_QuestItemRank = 1;
 
         contest_eventEnd_flag = false;
+        contest_eventEdenLoser_flag = false;
         contest_LimitTimeOver_DegScore_flag = false;
         contest_LimitTimeOver_Gameover_flag = false;
         contest_LimitTimeOver_After_flag = false;
@@ -1247,6 +1254,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < Treature_getList.Length; system_i++)
         {
             Treature_getList[system_i] = 0;
+        }
+
+        //ブロックリリースフラグリストの初期化
+        for (system_i = 0; system_i < NPCHiroba_blockReleaseList.Length; system_i++)
+        {
+            NPCHiroba_blockReleaseList[system_i] = false;
         }
         
 

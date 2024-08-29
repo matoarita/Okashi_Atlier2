@@ -18,7 +18,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     private MoneyStatus_Controller moneyStatus_Controller;
     private NinkiStatus_Controller ninkiStatus_Controller;
 
-    private int i;
+    private int i, ev_id;
     private int _getninki;
 
     void Start()
@@ -267,8 +267,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 {
                     if (GameMgr.PrizeItemList[i] != "Non")
                     {
-                        pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
-                        GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                        GetPlayerItem();
                     }
                     else
                     {
@@ -292,8 +291,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                     {
                         if (GameMgr.PrizeItemList[i] != "Non")
                         {
-                            pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
-                            GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                            GetPlayerItem();                                                       
                         }
                         else
                         {
@@ -315,8 +313,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                     {
                         if (GameMgr.PrizeItemList[i] != "Non")
                         {
-                            pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
-                            GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+                            GetPlayerItem();
                         }
                         else
                         {
@@ -336,6 +333,20 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
             }
             i++;
+        }
+    }
+
+    void GetPlayerItem()
+    {
+        if (pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[i]) == 9999) //イベントアイテムが該当してないか先にチェック
+        {
+            pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
+            GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+        }
+        else //イベントアイテム該当してた場合は、イベントアイテムを追加する処理に。
+        {
+            ev_id = pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[i]);
+            pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
         }
     }
 
@@ -601,10 +612,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
         GameMgr.PrizeItemList.Add("Non"); //5位
-        GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("pocket_tissue");
-        GameMgr.PrizeItemList.Add("neko_badge2");
         GameMgr.PrizeItemList.Add("lucky_ticket");
+        GameMgr.PrizeItemList.Add("emerald_suger");
+        GameMgr.PrizeItemList.Add("green_pendant");
+        GameMgr.PrizeItemList.Add("mg_beautifulpower_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
