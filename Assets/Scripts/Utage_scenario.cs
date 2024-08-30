@@ -929,6 +929,10 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //環境音は先にとめる。
+        if (!map_ambience)
+        {
+            map_ambience = GameObject.FindWithTag("Map_Ambience").gameObject.GetComponent<Map_Ambience>();
+        }
         map_ambience.Mute();
 
         //ゲーム上のキャラクタOFF
@@ -943,9 +947,14 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
-       
+
 
         //音を止めて、宿屋のジングル
+        if (!sceneBGM)
+        {
+            //BGMの取得
+            sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        }
         sceneBGM.MuteBGM(); //BGMとめる
 
         //続きから再度読み込み
@@ -3603,6 +3612,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Contest_num", contest_num);
         engine.Param.TrySetParameter("Round_num", GameMgr.ContestRoundNum); //〇回戦かを指定
         engine.Param.TrySetParameter("contest_ranking_Type", GameMgr.Contest_Cate_Ranking); //トーナメントかランキング形式か 
+        engine.Param.TrySetParameter("contest_NameHyouji", GameMgr.Contest_NameHyouji); //コンテスト名前表記
+        engine.Param.TrySetParameter("bossContest_name", GameMgr.contest_boss_name);
 
         //課題をセット
         engine.Param.TrySetParameter("contest_ProblemSentence", GameMgr.Contest_ProblemSentence);
@@ -3875,6 +3886,10 @@ public class Utage_scenario : MonoBehaviour
                 {
                     GameMgr.Utage_SceneEnd_BlackON = true;
                 }
+                else //勝った場合も、シーンのほうで黒フェードを管理するのでシーンブラックをオンに。
+                {
+                    GameMgr.Utage_SceneEnd_BlackON = true;
+                }
 
                 //元のシナリオにもどる。
                 engine.ResumeScenario();
@@ -3905,7 +3920,7 @@ public class Utage_scenario : MonoBehaviour
                     //二回戦以降がある場合、再度コンテストスタートから始まる。
                     if (GameMgr.ContestRoundNum < GameMgr.ContestRoundNumMax)
                     {
-                        GameMgr.Contest_Next_flag = true;
+                        GameMgr.Contest_Next_flag = true;                        
                     }
                     else
                     {

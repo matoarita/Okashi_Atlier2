@@ -32,6 +32,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
+    public static bool DEBUG_TasteSPScore_ON = true; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。
     public static bool WEATHER_TIMEMODE_ON = false; //時間によって朝・昼・夜の背景を変更するかどうか。   
@@ -598,6 +599,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ContestRoundNumMax; //その大会のMaxのラウンド数
     public static int Contest_Cate_Ranking; //トーナメント形式かランキング形式か
     public static string Contest_Name; //コンテストの名前
+    public static string Contest_NameHyouji; //コンテストの名前日本語表記
     public static string Contest_ProblemSentence; //コンテストの課題の内容
     public static string Contest_ProblemSentence2; //コンテストの課題の内容
     public static string Contest_HallBGName; //コンテストの会場背景の指定　stringで
@@ -1163,6 +1165,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MagicSkillSelectStatus = 0;
         ContestSelectNum = 0;
         Contest_Name = "";
+        Contest_NameHyouji = "";
         Contest_ProblemSentence = "";
         Contest_ProblemSentence2 = "";
         Contest_HallBGName = "";

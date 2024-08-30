@@ -2623,26 +2623,40 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _tempwatery += _additemlist[i].Watery * _additemlist[i].ItemKosu;
         
         _temptea_flavor += _additemlist[i].Tea_Flavor * _additemlist[i].ItemKosu;
-        _tempsp_wind += _additemlist[i].SP_wind * _additemlist[i].ItemKosu;
-        _tempsp_score2 += _additemlist[i].SP_Score2 * _additemlist[i].ItemKosu;
-        _tempsp_score3 += _additemlist[i].SP_Score3 * _additemlist[i].ItemKosu;
-        _tempsp_score4 += _additemlist[i].SP_Score4 * _additemlist[i].ItemKosu;
-        _tempsp_score5 += _additemlist[i].SP_Score5 * _additemlist[i].ItemKosu;
-        _tempsp_score6 += _additemlist[i].SP_Score6 * _additemlist[i].ItemKosu;
-        _tempsp_score7 += _additemlist[i].SP_Score7 * _additemlist[i].ItemKosu;
-        _tempsp_score8 += _additemlist[i].SP_Score8 * _additemlist[i].ItemKosu;
-        _tempsp_score9 += _additemlist[i].SP_Score9 * _additemlist[i].ItemKosu;
-        _tempsp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;
+        
 
         if (mstatus != 99) //DB初期化のときのみ、見た目は加算しないようにする。二重に計算されるため。
         {
             if (_additemlist[i].itemType.ToString() != "Okashi")
             {
                 _tempbeauty += _additemlist[i].Beauty * _additemlist[i].ItemKosu; //無くした　→　beuatyはもともとのお菓子のパラメータをベースに使うので、新規調合では計算から除外
+
+                //SP系も同じ計算
+                _tempsp_wind += _additemlist[i].SP_wind * _additemlist[i].ItemKosu;
+                _tempsp_score2 += _additemlist[i].SP_Score2 * _additemlist[i].ItemKosu;
+                _tempsp_score3 += _additemlist[i].SP_Score3 * _additemlist[i].ItemKosu;
+                _tempsp_score4 += _additemlist[i].SP_Score4 * _additemlist[i].ItemKosu;
+                _tempsp_score5 += _additemlist[i].SP_Score5 * _additemlist[i].ItemKosu;
+                _tempsp_score6 += _additemlist[i].SP_Score6 * _additemlist[i].ItemKosu;
+                _tempsp_score7 += _additemlist[i].SP_Score7 * _additemlist[i].ItemKosu;
+                _tempsp_score8 += _additemlist[i].SP_Score8 * _additemlist[i].ItemKosu;
+                _tempsp_score9 += _additemlist[i].SP_Score9 * _additemlist[i].ItemKosu;
+                _tempsp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;
             }
             else
             {
                 _tempbeauty = 0; //お菓子タイプの見た目は、加算しない
+
+                _tempsp_wind = 0;
+                _tempsp_score2 = 0;
+                _tempsp_score3 = 0;
+                _tempsp_score4 = 0;
+                _tempsp_score5 = 0;
+                _tempsp_score6 = 0;
+                _tempsp_score7 = 0;
+                _tempsp_score8 = 0;
+                _tempsp_score9 = 0;
+                _tempsp_score10 = 0;
             }
         }
 

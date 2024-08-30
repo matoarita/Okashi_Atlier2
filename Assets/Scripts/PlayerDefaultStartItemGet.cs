@@ -52,6 +52,9 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
             pitemlist.add_eventPlayerItem(ev_id, 1); //ラスクのレシピを追加
             //pitemlist.EventReadOn("rusk_recipi");
 
+            ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_01");
+            pitemlist.add_eventPlayerItem(ev_id, 1); //エデンのレシピ01を追加
+
             //すでにレシピ100%フラグなど達成してた場合は、引き継がれる要素
             /*if (GameMgr.GirlLoveSubEvent_stage1[101])
             {

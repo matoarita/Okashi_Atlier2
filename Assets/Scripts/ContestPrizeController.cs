@@ -134,12 +134,13 @@ public class ContestPrizeController : MonoBehaviour
 
         if(GameMgr.Contest_Cate_Ranking == 0) //トーナメント形式の表示
         {
-            i = 0;
+            DrawContest_TounamentPrize01();
+            /*i = 0;
             while (i < GameMgr.PrizeItemList.Count)
             {
                 DrawContest_TounamentPrize01();
                 i++;
-            }
+            }*/
         }
         else //ランキング形式の表示
         {
@@ -256,9 +257,9 @@ public class ContestPrizeController : MonoBehaviour
         _rank_score = GameMgr.PrizeGetMoneyList[GameMgr.PrizeGetMoneyList.Count - 1 - i].ToString(); //
         if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i] != "Non")
         {
-            _ID = database.SearchItemIDString(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
-            _name = database.items[_ID].itemNameHyouji;
-
+            HyoujiPlayerItem(GameMgr.PrizeItemList.Count - 1 - i);
+            //_ID = database.SearchItemIDString(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
+            //_name = database.items[_ID].itemNameHyouji;
         }
         else
         {
@@ -292,31 +293,27 @@ public class ContestPrizeController : MonoBehaviour
         //_Img = _contest_listitem[list_count].transform.Find("Background/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
         //一位から順番に更新
-        switch(i)
+        switch(GameMgr.ContestRoundNum)
         {
             case 0:
-                _rank_name = "S"; //一位　二位の数字
                 break;
 
             case 1:
-                _rank_name = "A";
+                _rank_name = "銅賞"; //負けるとゲームオーバーなので実質使わない
                 break;
 
             case 2:
-                _rank_name = "B";
+                _rank_name = "銀賞"; //負けるとゲームオーバーなので実質使わない
                 break;
 
             case 3:
-                _rank_name = "C";
+                _rank_name = "優勝";
                 break;
 
-            case 4:
-                _rank_name = "D";
-                break;
-        }        
+        }
 
         //トーナメント形式
-        if(i == 0)
+        /*if(i == 0)
         {
             _rank_score = GameMgr.PrizeScoreAreaList[GameMgr.PrizeScoreAreaList.Count - 1 - i].ToString() + "点～";
         }
@@ -327,25 +324,27 @@ public class ContestPrizeController : MonoBehaviour
         else
         {
             _rank_score = GameMgr.PrizeScoreAreaList[GameMgr.PrizeScoreAreaList.Count - 1 - i].ToString() + "点～";
-        }
-        if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i] != "Non")
-        {
-            _ID = database.SearchItemIDString(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
-            _name = database.items[_ID].itemNameHyouji;
+        }*/
 
+        //賞品リスト
+        _rank_score = GameMgr.PrizeGetMoneyList[GameMgr.PrizeGetMoneyList.Count - 1].ToString();
+        if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1] != "Non")
+        {
+            HyoujiPlayerItem(GameMgr.PrizeItemList.Count - 1);
         }
         else
         {
             _name = "-";
         }
 
-        Debug.Log("順位: " + _rank_name + " " + _rank_score + "Lp " + _name);
+        Debug.Log("順位: " + _rank_name + " " + "賞品 " + _name);
 
 
         _contest_listitem[list_count].transform.Find("Background/Rank_name").GetComponent<Text>().text = _rank_name;
-        _contest_listitem[list_count].transform.Find("Background/Rank_Score").GetComponent<Text>().text = _rank_score;
-        _contest_listitem[list_count].transform.Find("Background/Rank_Score").gameObject.SetActive(true);
-        _contest_listitem[list_count].transform.Find("Background/Rank_Money").gameObject.SetActive(false);
+        _contest_listitem[list_count].transform.Find("Background/Rank_Money/text").GetComponent<Text>().text = _rank_score;
+        //_contest_listitem[list_count].transform.Find("Background/Rank_Score").GetComponent<Text>().text = _rank_score; //点数表示　今は使ってないのでオフ
+        _contest_listitem[list_count].transform.Find("Background/Rank_Score").gameObject.SetActive(false);
+        _contest_listitem[list_count].transform.Find("Background/Rank_Money").gameObject.SetActive(true);
         _contest_listitem[list_count].transform.Find("Background/Prize_ItemName").GetComponent<Text>().text = _name;
         _contest_listitem[list_count].transform.Find("Background/Prize_ItemName").gameObject.SetActive(true);
         _contest_listitem[list_count].transform.Find("Background/Prize_characterName").gameObject.SetActive(false);
@@ -358,6 +357,19 @@ public class ContestPrizeController : MonoBehaviour
         ++list_count;
     }
 
+    void HyoujiPlayerItem(int _listid)
+    {
+        if (pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[_listid]) == 9999) //イベントアイテムが該当してないか先にチェック
+        {
+            _ID = database.SearchItemIDString(GameMgr.PrizeItemList[_listid]);
+            _name = database.items[_ID].itemNameHyouji;            
+        }
+        else //イベントアイテム該当してた場合は、イベントアイテムを追加する処理に。
+        {
+            _ID = pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[_listid]);
+            _name = pitemlist.eventitemlist[_ID].event_itemNameHyouji;
+        }
+    }
 
     public void OnContestPrize_Draw()
     {      

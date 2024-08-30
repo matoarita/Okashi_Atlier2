@@ -75,7 +75,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 break;
         }
 
-        //GameMgr.PrizeGetninkiparam = conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].GetPatissierPoint;
+        GameMgr.PrizeGetninkiparam_before = conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].GetPatissierPoint;
+        //ContestStartListDBのほうで、指定しているのでここではボス名入力不要
         //GameMgr.contest_boss_name = GameMgr.PrizeCharacterList[GameMgr.PrizeCharacterList.Count - 1];
     }
 
@@ -257,14 +258,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     //Contest_Main_OrA1から読む
     public void PrizeGet()
     {
-        //5段階ぐらいで分ける？
-        i = 0;
-        while (i <= GameMgr.PrizeScoreAreaList.Count)
+        if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
         {
-            if (i == 0)
+            //トーナメント形式の賞品獲得
+            //負けるとそこでゲームオーバーなので、実質決勝戦優勝したときだけ、ここで賞品獲得
+            switch (GameMgr.ContestRoundNum)
             {
-                if (GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
-                {
+                case 3:
+
+                    i = GameMgr.PrizeItemList.Count - 1;
+
                     if (GameMgr.PrizeItemList[i] != "Non")
                     {
                         GetPlayerItem();
@@ -276,40 +279,25 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
                     moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                     GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                    _getninki = 0;
-                    GameMgr.Contest_PrizeGetninkiparam = _getninki;
-                    //ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得 最低でも1は入る
-                    Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
-                    break;
-                }
-            }
-            else
-            {
-                if (i != GameMgr.PrizeScoreAreaList.Count)
-                {
-                    if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1] && GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
-                    {
-                        if (GameMgr.PrizeItemList[i] != "Non")
-                        {
-                            GetPlayerItem();                                                       
-                        }
-                        else
-                        {
-                            GameMgr.Contest_PrizeGet_ItemName = "Non";
-                        }
 
-                        moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
-                        GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                        _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
-                        GameMgr.Contest_PrizeGetninkiparam = _getninki;
-                        ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
-                        Debug.Log("ランク: " + PrizeRankList[i] + " 人気獲得: " + _getninki);
-                        break;
-                    }
-                }
-                else //リストの一番最後
+                    _getninki = GameMgr.PrizeGetninkiparam_before;
+                    GameMgr.Contest_PrizeGetninkiparam = _getninki;
+                    ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得　
+                                                                //ninkiStatus_Controller.GetNinki(1); 優勝時のみ、優勝回数として人気＋１
+                    Debug.Log("ランク: " + "優勝" + "人気獲得: " + _getninki);
+                    break;
+            }
+
+        }
+        else //ランキング形式の賞品獲得
+        {
+            //5段階ぐらいで分ける？
+            i = 0;
+            while (i <= GameMgr.PrizeScoreAreaList.Count)
+            {
+                if (i == 0)
                 {
-                    if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1])
+                    if (GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
                     {
                         if (GameMgr.PrizeItemList[i] != "Non")
                         {
@@ -322,17 +310,64 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
                         moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                         GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                        _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                        _getninki = 0;
                         GameMgr.Contest_PrizeGetninkiparam = _getninki;
-                        ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得　
-                        //ninkiStatus_Controller.GetNinki(1); 優勝時のみ、優勝回数として人気＋１
-                        Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki); 
+                        //ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得 最低でも1は入る
+                        Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
                         break;
                     }
                 }
+                else
+                {
+                    if (i != GameMgr.PrizeScoreAreaList.Count)
+                    {
+                        if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1] && GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
+                        {
+                            if (GameMgr.PrizeItemList[i] != "Non")
+                            {
+                                GetPlayerItem();
+                            }
+                            else
+                            {
+                                GameMgr.Contest_PrizeGet_ItemName = "Non";
+                            }
 
+                            moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
+                            GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
+                            _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                            GameMgr.Contest_PrizeGetninkiparam = _getninki;
+                            ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
+                            Debug.Log("ランク: " + PrizeRankList[i] + " 人気獲得: " + _getninki);
+                            break;
+                        }
+                    }
+                    else //リストの一番最後
+                    {
+                        if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1])
+                        {
+                            if (GameMgr.PrizeItemList[i] != "Non")
+                            {
+                                GetPlayerItem();
+                            }
+                            else
+                            {
+                                GameMgr.Contest_PrizeGet_ItemName = "Non";
+                            }
+
+                            moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
+                            GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
+                            _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                            GameMgr.Contest_PrizeGetninkiparam = _getninki;
+                            ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得　
+                                                                        //ninkiStatus_Controller.GetNinki(1); 優勝時のみ、優勝回数として人気＋１
+                            Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
+                            break;
+                        }
+                    }
+
+                }
+                i++;
             }
-            i++;
         }
     }
 
@@ -347,6 +382,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         {
             ev_id = pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[i]);
             pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
+            GameMgr.Contest_PrizeGet_ItemName = pitemlist.eventitemlist[ev_id].event_itemNameHyouji;
         }
     }
 
@@ -373,29 +409,25 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     //トーナメント形式の賞品設定　選手名はContestStartListDBで決める
     void PrizeSet01()
     {
-        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        //賞品リスト　トーナメントは3回戦なので3つまで。
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //3位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("card_alice");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
 
         //トーナメント形式では使わない　boss_scoreに直接いれるため
         //相手の点数リスト 5位から順番に入れる
-        GameMgr.PrizeScoreAreaList.Clear();
+        /*GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(60);
         GameMgr.PrizeScoreAreaList.Add(120);
         GameMgr.PrizeScoreAreaList.Add(180);
-        GameMgr.PrizeScoreAreaList.Add(240);
+        GameMgr.PrizeScoreAreaList.Add(240);*/
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる 最下位から順番に入れる
         /*GameMgr.PrizeCharacterList.Clear();
@@ -407,59 +439,47 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
     void PrizeSet02()
     {
-        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        //賞品リスト　トーナメントは3回戦なので3つまで。
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //3位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("eden_recipi_02");
 
-        //賞金リスト 5位から順番に入れる
+        //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
     }
 
     void PrizeSet03()
     {
-        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        //賞品リスト　トーナメントは3回戦なので3つまで。
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //3位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("eden_recipi_03");
 
-        //賞金リスト 5位から順番に入れる
+        //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
     }
 
     void PrizeSet04()
     {
-        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        //賞品リスト　トーナメントは3回戦なので3つまで。
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //3位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("eden_recipi_04");
 
-        //賞金リスト 5位から順番に入れる
+        //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
     }
     //
 

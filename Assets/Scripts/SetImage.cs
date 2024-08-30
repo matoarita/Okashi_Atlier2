@@ -34,6 +34,7 @@ public class SetImage : MonoBehaviour
     private Image newrecipi_Img_hyouji;
 
     private GameObject BlackImage;
+    private GameObject debugTaste_ScorePanel;
 
     private PlayerItemList pitemlist;
     private ExpTable exp_table;
@@ -121,6 +122,15 @@ public class SetImage : MonoBehaviour
 
     private Text item_Beauty;
     private Text item_Spwind;
+    private Text item_Sp_score2;
+    private Text item_Sp_score3;
+    private Text item_Sp_score4;
+    private Text item_Sp_score5;
+    private Text item_Sp_score6;
+    private Text item_Sp_score7;
+    private Text item_Sp_score8;
+    private Text item_Sp_score9;
+    private Text item_Sp_score10;
 
     private Text item_lastRich;
     private Text item_lastSweat;
@@ -244,7 +254,21 @@ public class SetImage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GameMgr.DEBUG_TasteSPScore_ON)
+        {
+            debugTaste_ScorePanel.SetActive(true);
+        }
+        else
+        {
+            if (GameMgr.DEBUG_MODE)
+            {
+                debugTaste_ScorePanel.SetActive(true);
+            }
+            else
+            {
+                debugTaste_ScorePanel.SetActive(false);
+            }
+        }
     }
 
     private void OnEnable()
@@ -372,8 +396,18 @@ public class SetImage : MonoBehaviour
         item_Watery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemWatery").gameObject.GetComponent<Text>(); //粉っぽいの値
 
         //デバッグ用　見た目などのパラメータ
-        item_Beauty = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/DebugTasteScorePanel/ItemBeautyScore").gameObject.GetComponent<Text>(); //見た目の値
-        item_Spwind = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/DebugTasteScorePanel/ItemSP_windScore").gameObject.GetComponent<Text>();
+        debugTaste_ScorePanel = this.transform.Find("Card_Param_window/Card_Parameter/DebugTasteScorePanel").gameObject;
+        item_Beauty = debugTaste_ScorePanel.transform.Find("ItemBeautyScore").gameObject.GetComponent<Text>(); //見た目の値
+        item_Spwind = debugTaste_ScorePanel.transform.Find("ItemSP_windScore").gameObject.GetComponent<Text>(); //風
+        item_Sp_score2 = debugTaste_ScorePanel.transform.Find("ItemSP_Score2").gameObject.GetComponent<Text>(); //海
+        item_Sp_score3 = debugTaste_ScorePanel.transform.Find("ItemSP_Score3").gameObject.GetComponent<Text>(); //愛
+        item_Sp_score4 = debugTaste_ScorePanel.transform.Find("ItemSP_Score4").gameObject.GetComponent<Text>(); //宇宙
+        item_Sp_score5 = debugTaste_ScorePanel.transform.Find("ItemSP_Score5").gameObject.GetComponent<Text>(); //大人
+        item_Sp_score6 = debugTaste_ScorePanel.transform.Find("ItemSP_Score6").gameObject.GetComponent<Text>(); //子供
+        item_Sp_score7 = debugTaste_ScorePanel.transform.Find("ItemSP_Score7").gameObject.GetComponent<Text>(); //メルヘン
+        item_Sp_score8 = debugTaste_ScorePanel.transform.Find("ItemSP_Score8").gameObject.GetComponent<Text>(); //芸術
+
+        
 
         //スロット表示
         item_Slot[0] = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Slot/Panel/ScrollView/Viewport/Content/ItemSlot_01").gameObject.GetComponent<Text>(); //Slot01の値
@@ -1262,6 +1296,13 @@ public class SetImage : MonoBehaviour
         SlotScoreKeisan();
         item_Beauty.text = _beauty_score.ToString() + " + " + _slot_beauty.ToString();
         item_Spwind.text = _spwind_score.ToString();
+        item_Sp_score2.text = _sp_score2.ToString();
+        item_Sp_score3.text = _sp_score3.ToString();
+        item_Sp_score4.text = _sp_score4.ToString();
+        item_Sp_score5.text = _sp_score5.ToString();
+        item_Sp_score6.text = _sp_score6.ToString();
+        item_Sp_score7.text = _sp_score7.ToString();
+        item_Sp_score8.text = _sp_score8.ToString();
         //
 
         //ゲージの更新
