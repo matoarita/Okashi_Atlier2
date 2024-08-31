@@ -307,7 +307,7 @@ public class GetMaterial : MonoBehaviour
         mat_cost = matplace_database.matplace_lists[index].placeCost;
         mat_place = matplace_database.matplace_lists[index].placeName;
 
-        //妹のハートがある程度ないと、先へ進めない。
+        //妹の体力がある程度ないと、先へ進めない。
         if (PlayerStatus.player_girl_lifepoint < matplace_database.matplace_lists[index].placeHP && matplace_database.matplace_lists[index].placeType != 0)
         {
             _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（これ以上は、動けないようだ。）";
@@ -337,6 +337,12 @@ public class GetMaterial : MonoBehaviour
                 if (matplace_database.matplace_lists[index].placeType != 0)
                 {
                     GirlLifeDegKeisan(matplace_database.matplace_lists[index].placeHP);
+                }
+
+                //ゆめくい沼だと、ハートも減る。
+                if (matplace_database.matplace_lists[index].placeName == "DreamEater_Swamp")
+                {
+                    GirlHeartDegKeisan(30);
                 }
 
                 //腹も減る
@@ -399,6 +405,18 @@ public class GetMaterial : MonoBehaviour
         if (PlayerStatus.player_girl_lifepoint >= 99) //体力の上限99
         {
             PlayerStatus.player_girl_lifepoint = 99;
+        }
+
+    }
+
+    //入れた数値分、ハートを減らす処理
+    void GirlHeartDegKeisan(int _deghp)
+    {
+        PlayerStatus.girl1_Love_exp -= _deghp;
+
+        if (PlayerStatus.girl1_Love_exp <= 0) //体力の下限0
+        {
+            PlayerStatus.girl1_Love_exp = 0;
         }
 
     }
@@ -518,6 +536,11 @@ public class GetMaterial : MonoBehaviour
                         event_diamondMountain();
                         break;
 
+                    case "DreamEater_Swamp":
+
+                        event_dreameater_Swamp();
+                        break;
+
                     default:
 
                         //イベント１
@@ -552,6 +575,11 @@ public class GetMaterial : MonoBehaviour
                     case "HimawariHill":
 
                         rare_event_HimawariHill(); //ただレアアイテムがたまにでる。
+                        break;
+
+                    case "Emerald_Forest":
+
+                        rare_event_EmeraldForest(); //ただレアアイテムがたまにでる。
                         break;
 
                     default:
@@ -654,6 +682,11 @@ public class GetMaterial : MonoBehaviour
                     case "Diamond_Mountain":
 
                         treasure_Check8();
+                        break;
+
+                    case "DreamEater_Swamp":
+
+                        treasure_no();
                         break;
 
                     default:
@@ -1794,7 +1827,7 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "キラキラしたとこ～♪　にいちゃん、今度、ここでピクニックだよ～！";
+                _text.text = "キラキラしたとこ～♪　にいちゃん、また、ここでピクニックしよう～♪";
                 break;
 
             case 3:
@@ -1804,7 +1837,7 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
-                _text.text = "あ！　宝石、落ちてる！（ヒカリは、拾った石をポケットにしまった！）";
+                _text.text = "あ！　宝石～♪" + "\n" + "（ヒカリは、拾った石をポケットにしまった！）";
                 break;
 
             default:
@@ -1822,6 +1855,53 @@ public class GetMaterial : MonoBehaviour
         }
     }
 
+
+    //ゆめくい沼
+    void event_dreameater_Swamp()
+    {
+        random = Random.Range(0, 8);
+
+        switch (random)
+        {
+            case 0:
+
+                _text.text = "ぎゃ～！！　にいちゃん！　ほ、ほねが・・そこに・・。";
+                break;
+
+            case 1:
+
+                _text.text = "・・にいちゃん。なんかどんよりする～・・。";
+                break;
+
+            case 2:
+
+                _text.text = "ひぃ！　あ、あしに・・" + "\n" + "へんなナマコみたいな生き物があたった・・！！";
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            case 4:
+
+                _text.text = "・・。";
+                break;
+
+            default:
+
+                random_param = Random.Range(10, 100);
+                PlayerStatus.girl1_Love_exp -= random_param;
+                _text.text = "..。　にいちゃん..。ちょっときもちわるい..。" + "\n" +
+                    "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
+
+                //音を鳴らす
+                sc.PlaySe(6);
+
+
+                break;
+        }
+    }
 
 
 
@@ -1953,6 +2033,47 @@ public class GetMaterial : MonoBehaviour
                 {
                     event_itemGet01();
                 }*/
+
+                break;
+        }
+    }
+
+    void rare_event_EmeraldForest()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                event_itemGet02(1);
+                break;
+
+            case 1:
+
+                event_itemGet01();
+                break;
+
+            default:
+
+                if (player_girl_findpower_final >= 150 && !GameMgr.MapEvent_Or[210]) //夢喰い沼見つけたらもう出ない。      
+                {
+                    if (GameMgr.NPCHiroba_eventList[270]) //白クジラに場所を教えてもらっている
+                    {
+                        //夢喰い沼を発見
+                        _text.text = "にいちゃん！！ なんか抜け道があるよ？";
+                        getmatplace_panel.next_flag = 210;
+                        NextButton_obj.SetActive(true);
+                    }
+                    else
+                    {
+                        event_itemGet01();
+                    }
+                }
+                else
+                {
+                    event_itemGet01();
+                }
 
                 break;
         }
@@ -2137,6 +2258,15 @@ public class GetMaterial : MonoBehaviour
                     eventDict.Add(2, 0.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント
                     eventDict.Add(3, 10.0f + rare_event_kakuritsu_hosei); //お宝発見
                 }*/
+                break;
+
+            case "Emerald_Forest":
+
+                eventDict = new Dictionary<int, float>();
+                eventDict.Add(0, 70.0f); //採集
+                eventDict.Add(1, 15.0f); //20%でイベント発生
+                eventDict.Add(2, 10.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント　バードサンクチュアリ発見かお金拾うやつ
+                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
                 break;
 
             default:

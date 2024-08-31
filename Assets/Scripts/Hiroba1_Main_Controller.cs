@@ -1333,6 +1333,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active91();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_AquariumBigWhale":
+
+                On_Active1009_WhiteWhale();
+                break;
+
             case "Or_Hiroba_Autumn_MainStreet":
 
                 On_ShopActive03();
@@ -2944,6 +2949,83 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         else
         {
             if (GameMgr.NPCHiroba_eventList[240]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                GameMgr.hiroba_event_ID = 10;
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+
+        EventReadingStart();
+    }
+
+    void On_Active1009_WhiteWhale()
+    {
+        //NPC白クジラ　宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1280; //
+
+        if (!GameMgr.NPCHiroba_eventList[260]) //はじめて　学長に会っていないと、「・・・」で話が進まない？
+        {
+            GameMgr.NPCHiroba_eventList[260] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+        else
+        {
+            //一回あった状態で、３つのレシピを所持してる。夢喰い沼を教えてくれる。
+            if(pitemlist.KosuCountEvent("eden_recipi_02") >= 1 && 
+                pitemlist.KosuCountEvent("eden_recipi_03") >= 1 && 
+                pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
+            {
+
+                if (!GameMgr.NPCHiroba_eventList[270]) //ほかに発生するイベントがなく、すでに友達になった。
+                {
+                    if (PlayerStatus.girl1_Love_exp >= 5000) //ハートが5000以上なら場所を教えてくれる。
+                    {
+                        GameMgr.NPCHiroba_eventList[270] = true;
+
+                        GameMgr.hiroba_event_ID = 100;
+                        //BGMかえる
+                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        //bgm_change_flag = true;
+
+                        check_event = true;
+                    }
+                    else
+                    {
+                        //まだハートが足りてないとき　こころが強くないので教えられないと断られる
+                        GameMgr.hiroba_event_ID = 102;
+                        //BGMかえる
+                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        //bgm_change_flag = true;
+
+                        check_event = true;
+                    }
+                }
+                else
+                {
+                    GameMgr.hiroba_event_ID = 101;
+                    //BGMかえる
+                    //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                    //bgm_change_flag = true;
+
+                    check_event = true;
+                }
+            }            
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[260]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 GameMgr.hiroba_event_ID = 10;
                 //BGMかえる

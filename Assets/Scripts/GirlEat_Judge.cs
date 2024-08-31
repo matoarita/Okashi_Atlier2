@@ -2889,46 +2889,59 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     Getlove_exp = 1;
                 }
             }
-            else if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //ベース×2
+            else
             {
-                Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 0.7f));
-                GetMoney += (int)(_basecost * 1.0f);
-                girl1_status.GirlExpressionKoushin(20);
+                if (GameMgr.System_HeartUpwithScore_ON)
+                {
+                    Getlove_exp += (int)(total_score * 0.1f); //単純に点数の10分の1がハート量になるバージョン
+                    GetMoney += (int)(_basecost * 1.0f);
+                    girl1_status.GirlExpressionKoushin(20);
+                }
+                else
+                {
+                    if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //ベース×2
+                    {
+                        Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 0.7f));
+                        GetMoney += (int)(_basecost * 1.0f);
+                        girl1_status.GirlExpressionKoushin(20);
+                    }
+                    else if (total_score >= GameMgr.high_score && total_score < GameMgr.high_score_2) //ベース×3
+                    {
+                        Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                        GetMoney += (int)(_basecost * 1.5f);
+                        girl1_status.GirlExpressionKoushin(30);
+                    }
+                    else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
+                    {
+                        Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.15f));
+                        GetMoney += (int)(_basecost * 2.0f);
+                        GetMoney *= (int)(total_score * 0.01f);
+                        girl1_status.GirlExpressionKoushin(40);
+                    }
+                    else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
+                    {
+                        Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.2f));
+                        GetMoney += (int)(_basecost * 2.2f);
+                        GetMoney *= (int)(total_score * 0.01f);
+                        girl1_status.GirlExpressionKoushin(50);
+                    }
+                    else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
+                    {
+                        Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.3f));
+                        GetMoney += (int)(_basecost * 2.5f);
+                        GetMoney *= (int)(total_score * 0.01f);
+                        girl1_status.GirlExpressionKoushin(70);
+                    }
+                    else if (total_score >= 500) //500点を超えた場合、ベース×5
+                    {
+                        Getlove_exp += (int)((total_score * 0.11f) * (_basegirl1_like * 1.5f));
+                        GetMoney += (int)(_basecost * 2.0f);
+                        GetMoney *= (int)(total_score * 0.01f);
+                        girl1_status.GirlExpressionKoushin(100);
+                    }
+                }
             }
-            else if (total_score >= GameMgr.high_score && total_score < GameMgr.high_score_2) //ベース×3
-            {
-                Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
-                GetMoney += (int)(_basecost * 1.5f);
-                girl1_status.GirlExpressionKoushin(30);
-            }
-            else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
-            {
-                Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.15f));
-                GetMoney += (int)(_basecost * 2.0f);
-                GetMoney *= (int)(total_score * 0.01f);
-                girl1_status.GirlExpressionKoushin(40);
-            }
-            else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
-            {
-                Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.2f));
-                GetMoney += (int)(_basecost * 2.2f);
-                GetMoney *= (int)(total_score * 0.01f);
-                girl1_status.GirlExpressionKoushin(50);
-            }
-            else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
-            {
-                Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.3f));
-                GetMoney += (int)(_basecost * 2.5f);
-                GetMoney *= (int)(total_score * 0.01f);
-                girl1_status.GirlExpressionKoushin(70);
-            }
-            else if (total_score >= 500) //500点を超えた場合、ベース×5
-            {
-                Getlove_exp += (int)((total_score * 0.11f) * (_basegirl1_like * 1.5f));
-                GetMoney += (int)(_basecost * 2.0f);
-                GetMoney *= (int)(total_score * 0.01f);
-                girl1_status.GirlExpressionKoushin(100);
-            }
+            
 
             //そのお菓子を食べた回数でお金取得を割り算。同じお菓子を何度あげても、だんだんお金は上がらなくなってくる。
             /*if (database.items[_baseID].Eat_kaisu == 0)

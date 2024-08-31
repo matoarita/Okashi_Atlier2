@@ -205,7 +205,7 @@ public class Contest_Main_Outside : MonoBehaviour
 
             case 30: //冬のコンテスト会場
 
-                GameMgr.Scene_Name = "Or_Contest_Out_Autumn";
+                GameMgr.Scene_Name = "Or_Contest_Out_Winter";
                 SettingBGPanel(3); //Map〇〇のリスト番号を指定
                 gotonum = 30; //会場受付シーンの指定
                 backnum = 306; //バックボタン押したときの戻り先

@@ -1834,6 +1834,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 GameMgr.Select_place_num = matplace_database.SearchMapString(GameMgr.Select_place_name); //次回より、「外へでる」ですぐ行けるよう、フラグ解放
                 break;
 
+            case 210: //ゆめくい沼を発見
+
+                GameMgr.Select_place_name = "DreamEater_Swamp"; //移動後の場所を指定
+                GameMgr.Select_place_num = matplace_database.SearchMapString(GameMgr.Select_place_name); //次回より、「外へでる」ですぐ行けるよう、フラグ解放
+                break;
+
             default:
 
                 break;
@@ -2533,6 +2539,45 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     else
                     {
                         _text.text = "にいちゃん！" + "\n" + "れあものな石、たくさん拾ってかえろ～ね！";
+                    }
+                }
+                break;
+
+            case "DreamEater_Swamp":
+
+                //BGM
+                sceneBGM.OnGetMat_MapBGM(107);
+
+                //背景エフェクト
+                map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
+                {
+                    _text.text = "沼にあまりつかると、夢をくわれてしまうらしい・・。";
+                }
+                else
+                {
+                    //イベントチェック
+                    if (!GameMgr.MapEvent_Or[450])
+                    {
+                        GameMgr.MapEvent_Or[450] = true;
+
+                        _text.text = "にいちゃん。なんかどろどろした沼～！！";
+
+                        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+
+                        GameMgr.map_ev_ID = 1900;
+                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+                        //次回以降、夢くい沼にいけるようになる。
+                        matplace_database.matPlaceKaikin("DreamEater_Swamp");
+
+                        StartCoroutine(MapEventOn(0));
+                    }
+                    else
+                    {
+                        _text.text = "にいちゃん！" + "\n" + "なんか胸のあたりがざわざわするよ～・・。";
                     }
                 }
                 break;

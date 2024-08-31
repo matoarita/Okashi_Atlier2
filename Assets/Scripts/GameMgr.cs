@@ -49,6 +49,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
+    public static bool System_HeartUpwithScore_ON = true; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、各お菓子の上昇補正に依存。
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。

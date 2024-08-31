@@ -436,8 +436,8 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋
 
-                                _send_clip = sound1000;
-                                //_send_clip = sound43;
+                                //_send_clip = sound1000;
+                                _send_clip = sound43;
                                 _send_clip_ambient = Ambient4;
                                 break;
 

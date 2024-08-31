@@ -839,17 +839,17 @@ public class Bar_Main_Controller : MonoBehaviour {
         }
 
         //***  うわさリスト選択 ***//
-
+        //ハートレベルかスターで増えていく
         if (GameMgr.Story_Mode == 0)
         {
-            //クッキー作り開始　初期値
+            //初期値
             for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
             {
                 shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i]);
             }
 
-            //ラスク
-            if (GameMgr.GirlLoveEvent_stage1[10])
+            //
+            if (PlayerStatus.player_ninki_param >= 5)
             {
                 count++;
                 for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
@@ -857,8 +857,8 @@ public class Bar_Main_Controller : MonoBehaviour {
                     shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
                 }
             }
-            //クレープ
-            if (GameMgr.GirlLoveEvent_stage1[20])
+            //
+            if (PlayerStatus.player_ninki_param >= 10)
             {
                 count++;
                 for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
@@ -866,8 +866,8 @@ public class Bar_Main_Controller : MonoBehaviour {
                     shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
                 }
             }
-            //シュークリーム
-            if (GameMgr.GirlLoveEvent_stage1[30])
+            //
+            if (PlayerStatus.player_ninki_param >= 15)
             {
                 count++;
                 for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
@@ -875,8 +875,8 @@ public class Bar_Main_Controller : MonoBehaviour {
                     shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
                 }
             }
-            //ドーナツ
-            if (GameMgr.GirlLoveEvent_stage1[40])
+            //
+            if (PlayerStatus.player_ninki_param >= 20)
             {
                 count++;
                 for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
@@ -884,8 +884,17 @@ public class Bar_Main_Controller : MonoBehaviour {
                     shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
                 }
             }
-            //コンテスト
-            if (GameMgr.GirlLoveEvent_stage1[50])
+            //
+            if (PlayerStatus.player_ninki_param >= 25)
+            {
+                count++;
+                for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ
+                {
+                    shopuwasa_List.Add(GameMgr.ShopUwasa_stage1[i + (5 * count)]);
+                }
+            }
+            //
+            if (PlayerStatus.player_ninki_param >= 30)
             {
                 count++;
                 for (i = 0; i < uwasalist_count; i++) //頭から５個ずつ

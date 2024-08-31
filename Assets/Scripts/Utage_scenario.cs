@@ -2434,7 +2434,6 @@ public class Utage_scenario : MonoBehaviour
                 if (PlayerStatus.player_money >= 30)
                 {
                     GameMgr.ShopUwasa_stage1[shop_uwasa_number] = true;
-                    //GameMgr.ShopUwasa_stage1[GameMgr.uwasa_number] = true;
                     moneyStatus_Controller.UseMoney(30); //うわさ話をきくをONにしたので、-30G
 
                     //ここで、宴で呼び出したいイベント番号を設定する。
@@ -2453,25 +2452,125 @@ public class Utage_scenario : MonoBehaviour
 
 
             //うわさ話での宴でのフラグ関係を設定
-            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Lavender_field")].placeFlag == 0)
+            switch(GameMgr.UwasaNum_Select)
             {
-                shop_uwasa_flag = 10;
-                matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
-            }
+                case 0: //ガレット村
 
-            if (pitemlist.KosuCountEvent("bugget_recipi") >= 0)
-            {
-                shop_uwasa_flag = 11;
-                //レシピを追加
-                pitemlist.add_eventPlayerItemString("bugget_recipi", 1); //パンのレシピ解禁
-            }
+                    switch (shop_uwasa_number)
+                    {
+                        case 0:
 
-            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bluetopaz_Garden")].placeFlag == 0)
-            {
-                shop_uwasa_flag = 100;
-                //いける場所を追加
-                matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズのお花畑解禁
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Lavender_field")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
+                            }
+                            break;
+
+                        case 1:
+
+                            if (pitemlist.KosuCountEvent("bugget_recipi") == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //レシピを追加
+                                pitemlist.add_eventPlayerItemString("bugget_recipi", 1); //パンのレシピ解禁
+                            }
+                            break;
+                    }
+                    break;
+
+                case 10: //春の酒場
+
+                    switch(shop_uwasa_number)
+                    {
+                        case 0:
+
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bluetopaz_Garden")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //いける場所を追加
+                                matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズのお花畑解禁
+                            }
+                            break;
+
+                        case 1:
+
+                            if (pitemlist.KosuCountEvent("bugget_recipi") == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //レシピを追加
+                                pitemlist.add_eventPlayerItemString("bugget_recipi", 1); //パンのレシピ解禁
+                            }
+                            break;
+
+                        case 8:
+
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Aquamarine_Lake")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //いける場所を追加
+                                matplace_database.matPlaceKaikin("Aquamarine_Lake"); //アクアマリンの湖解禁
+                            }
+                            break;
+
+                        case 10:
+
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Emerald_Forest")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //いける場所を追加
+                                matplace_database.matPlaceKaikin("Emerald_Forest"); //エメラルドの大森林解禁
+                            }
+                            break;
+
+                        case 19:
+
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Amber_Lake")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //いける場所を追加
+                                matplace_database.matPlaceKaikin("Amber_Lake"); //琥珀の湖解禁
+                            }
+                            break;
+
+                        case 22:
+
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Ruby_Plane")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //いける場所を追加
+                                matplace_database.matPlaceKaikin("Ruby_Plane"); //ルビー平野解禁
+                            }
+                            break;
+
+                        case 25:
+
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("MoonStone_Hill")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //いける場所を追加
+                                matplace_database.matPlaceKaikin("MoonStone_Hill"); //ムーンストーンの丘解禁
+                            }
+                            break;
+
+                        case 33:
+
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Diamond_Mountain")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //いける場所を追加
+                                matplace_database.matPlaceKaikin("Diamond_Mountain"); //ダイアモンド山解禁
+                            }
+                            break;
+                    }                    
+                    
+                    break;
+
+                default:
+
+                    break;
             }
+            
             engine.Param.TrySetParameter("Shop_UwasaFlagCheck", shop_uwasa_flag);
         }
 
@@ -2824,6 +2923,11 @@ public class Utage_scenario : MonoBehaviour
             case 1270: //OrNPC夏のねこ
 
                 scenarioLabel = "Or_NPC08_summercat";
+                break;
+
+            case 1280: //OrNPC白くじら
+
+                scenarioLabel = "Or_NPC09_whitewhale";
                 break;
 
             case 1500: //Orお花屋さん
