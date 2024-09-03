@@ -1715,17 +1715,17 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                _text.text = "にいちゃん！　赤色の実がいっぱいなってる～♪";
+                _text.text = "にいちゃん！　赤色の実が、草むらにかくれてるよ～♪";
                 break;
 
             case 1:
 
-                _text.text = "きれいな原っぱ♪　こんど、ままを連れてきたいな～♪";
+                _text.text = "きれいな原っぱ～♪　こんど、ままを連れてきたいな～♪";
                 break;
 
             case 2:
 
-                _text.text = "甘くてすっぱい香り～♪　いい材料が多いよ～、にいちゃん！" + "\n" + "妹は、素材を吟味している。";
+                _text.text = "甘くてすっぱい香り～♪　いちごに、これがラズベリーと・・。" + "\n" + "妹は、素材を吟味している。";
                 break;
 
             case 3:
@@ -2909,11 +2909,13 @@ public class GetMaterial : MonoBehaviour
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
                 treasureInfo.Add(1, "strawberry_satinoka");
                 treasureInfo.Add(2, "cherry");
-                treasureInfo.Add(3, "mint");
+                treasureInfo.Add(3, "strawberry");
+                treasureInfo.Add(3, "raspberry");
 
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
-                treasureDropDict.Add(1, 35.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(2, 20.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 20.0f);
+                treasureDropDict.Add(3, 30.0f);
                 treasureDropDict.Add(3, 25.0f);
 
                 break;
