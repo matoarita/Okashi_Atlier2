@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 199646595740399936}
   - component: {fileID: 95382426905924876}
   - component: {fileID: 223342240243642044}
+  - component: {fileID: 114510311798772562}
   m_Layer: 0
   m_Name: Particle_Compo6
   m_TagString: Untagged
@@ -47,6 +48,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114510311798772562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1161448273543568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f17e99fd0bb5734591f8e156733c5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color_test: {r: 0, g: 0, b: 0, a: 0}
+  color_red: {r: 1, g: 0.47345376, b: 0.47345376, a: 0.747}
+  color_green: {r: 0.33823532, g: 1, b: 0.58924955, a: 0.74509805}
 --- !u!198 &198922002067589612
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -197,7 +212,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.38235295, g: 0.5144016, b: 1, a: 0.759}
+      maxColor: {r: 0.38235295, g: 0.5144016, b: 1, a: 0.74509805}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0.5441177, b: 0.5441177, a: 1}

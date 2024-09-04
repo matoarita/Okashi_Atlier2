@@ -35,6 +35,7 @@ public class PlayerData
     public int save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
     public int save_girl_love_exp; //妹の好感度
     public int save_girl_love_lv; //妹の好感度レベル
+    public int save_girl_love_maxlv; //妹の好感度レベルマックス
     public int save_player_girl_lifepoint; //妹の体力
     public int save_player_girl_maxlifepoint; //妹のMAX体力
     public int save_player_girl_maxlifepoint_system; //妹のMAX体力 システム引継ぎ用

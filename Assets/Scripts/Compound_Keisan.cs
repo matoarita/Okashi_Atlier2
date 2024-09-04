@@ -2099,6 +2099,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //スキル温度管理を使ったとき、温度と時間によって仕上がりがさらに変わる。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときの計算。
         {
+            GameMgr.tempature_control_USE = false; //毎回まずはリセット
             _well_done = 0;
             _best_well_done = _base_bestwelldone; //200°で10分ほど焼いたときの焼き具合 60分焼けるけど、クッキーの場合30分以上は基本焦げる
 
@@ -2107,6 +2108,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 if (GameMgr.System_tempature_control_Param_time != 0) //時間を0分にしたときは、無視
                 {
                     Debug.Log("--- 温度管理ON --- ");
+                    GameMgr.tempature_control_USE = true;
 
                     _tempature_param = SujiMap(GameMgr.System_tempature_control_Param_temp * GameMgr.System_tempature_control_Param_temp,
                         GameMgr.System_tempature_control_tempMin * GameMgr.System_tempature_control_tempMin, 
@@ -2211,6 +2213,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basehardness = (int)(_basehardness * _well_done_kyori_hosei);
                     //_basejiggly = (int)(_basejiggly * kyori_hosei);
                     //_basechewy = (int)(_basechewy * kyori_hosei);
+                }
+                else
+                {
+                    GameMgr.tempature_control_USE = false;
                 }
             }
         }

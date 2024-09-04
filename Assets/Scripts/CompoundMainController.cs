@@ -739,8 +739,9 @@ public class CompoundMainController : MonoBehaviour {
                     //ヒカリちゃんを表示する
                     ReDrawLive2DOrder_Compound();
                     Live2DPos_CenterNow(); //このタイミングで位置はセンターにする
+                    MotionLive2D_Magic_eisho(); //詠唱モーション
 
-                    
+
                     break;
 
                 case 23: //魔法調合後の完成画面
@@ -960,6 +961,7 @@ public class CompoundMainController : MonoBehaviour {
     //調合シーンに入った時の、キャラクタ位置や状態など更新
     void SetLive2DPos_Compound()
     {
+        Debug.Log("Live2Dポスとモーションをリセット");
         if (character_On)
         {
             //位置変更 右に。 すでに右位置にいる場合は、この処理は省略
@@ -991,6 +993,13 @@ public class CompoundMainController : MonoBehaviour {
                 Live2DPos_Compound(); //また元の右位置に戻す
             }
         }
+    }
+
+    //魔法詠唱のモーション指定
+    void MotionLive2D_Magic_eisho()
+    {
+        trans_motion = 3;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
     }
 
     //さらに、表示するときのコマンド

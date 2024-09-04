@@ -2577,7 +2577,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
-                        _text.text = "にいちゃん！" + "\n" + "なんか胸のあたりがざわざわするよ～・・。";
+                        _text.text = "にいちゃん！" + "\n" + "なんかざわざわする～・・。";
                     }
                 }
                 break;

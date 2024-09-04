@@ -249,6 +249,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_girl_findpower = PlayerStatus.player_girl_findpower, //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
             save_girl_love_exp = PlayerStatus.girl1_Love_exp, //妹の好感度
             save_girl_love_lv = PlayerStatus.girl1_Love_lv, //妹の好感度レベル
+            save_girl_love_maxlv = PlayerStatus.girl1_Love_maxlv, //妹の好感度マックスレベル
             save_player_girl_lifepoint = PlayerStatus.player_girl_lifepoint, //妹の体力
             save_player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力
             save_player_girl_eatCount = PlayerStatus.player_girl_eatCount, //妹が食べたお菓子の回数
@@ -591,6 +592,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_girl_findpower = playerData.save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
         PlayerStatus.girl1_Love_exp = playerData.save_girl_love_exp; //妹の好感度
         PlayerStatus.girl1_Love_lv = playerData.save_girl_love_lv; //妹の好感度レベル
+        PlayerStatus.girl1_Love_maxlv = playerData.save_girl_love_maxlv; //妹の好感度マックスレベル
         PlayerStatus.player_girl_lifepoint = playerData.save_player_girl_lifepoint; //妹の体力
         PlayerStatus.player_girl_maxlifepoint = playerData.save_player_girl_maxlifepoint; //妹のMax体力
         PlayerStatus.player_girl_eatCount = playerData.save_player_girl_eatCount; //妹が食べたお菓子の回数

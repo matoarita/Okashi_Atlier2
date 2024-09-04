@@ -168,6 +168,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab_kiraexplode;   
     private List<GameObject> _listEffect = new List<GameObject>();
 
+    private ParticleSystem.MainModule main;
+    private ParticleSystem compo1_particle;
+    private ParticleSystem compo2_particle;
+    private Color p_color1;
+    private Color p_color2;
+
     private GameObject HikariMake_effect_Particle_KiraExplode;
 
     private GameObject BlackImage;
@@ -279,7 +285,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Compo_Magic_effect_Prefab4 = (GameObject)Resources.Load("Prefabs/Particle_Compo4");
         Compo_Magic_effect_Prefab5 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
         Compo_Magic_effect_Prefab6 = (GameObject)Resources.Load("Prefabs/Particle_Compo6");
-        Compo_Magic_effect_Prefab_kiraexplode = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");
+        Compo_Magic_effect_Prefab_kiraexplode = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");        
 
         compo_anim_status = 0;
         compo_anim_on = false;
@@ -1858,11 +1864,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         .SetEase(Ease.InOutSine);
                 }
 
-                //エフェクト生成＋アニメ開始
-                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
+                //パーティクルエフェクト生成＋アニメ開始
+                StartParticleEffect(0); //0は通常調合
+                
 
-                //音を鳴らす
-                sc.PlaySe(10);
+                
 
                 //一時的にお菓子のHP減少をストップ
                 //extremePanel.LifeAnimeOnFalse();
@@ -1902,13 +1908,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         compo_anim_status = 3;
 
                         //エフェクト生成＋アニメ開始
-                        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab6));
-
-                        //色を変更 難しい..。
-                        //ParticleSystem.MainModule main = _listEffect[0].gameObject.GetComponent<ParticleSystem>().main;
-                        //main.startColor = Color.red;
-                        //_listEffect[0].gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", Color.red);
-                        //_listEffect[0].gameObject.GetComponents<Renderer>().material.SetColor("_TintColor", Color.red);
+                        AddParticleEffect(0);
 
                         //音を鳴らす
                         sc.PlaySe(89);
@@ -1938,13 +1938,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 4:
 
-                if (timeOut <= 1.5)
+                if (timeOut <= 1.0)
                 {
                     //スペシャルなお菓子演出が入る場合、ここらへんでホワイトアウト
                     if (GameMgr.Special_OkashiEnshutsuFlag)
                     {
                         SpecialwhiteEffect.SetActive(true);
-                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 0.8f);
                     }
                 }
 
@@ -2007,6 +2007,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             Debug_timeCount_Panel_text.text = Debug_timeCount.ToString();
         }
     }
+    
 
     void CompleteAnim()
     {
@@ -2064,11 +2065,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 }*/
 
                 //エフェクト生成＋アニメ開始
-                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
-
-                //音を鳴らす シュイイイン
-                sc.PlaySe(129);
-                sc.PlaySe(131);
+                StartParticleEffect(1); //1は魔法調合時                
 
                 //一時的にお菓子のHP減少をストップ
                 //extremePanel.LifeAnimeOnFalse();
@@ -2108,13 +2105,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         compo_anim_status = 3;
 
                         //エフェクト生成＋アニメ開始
-                        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab6));
-
-                        //色を変更 難しい..。
-                        //ParticleSystem.MainModule main = _listEffect[0].gameObject.GetComponent<ParticleSystem>().main;
-                        //main.startColor = Color.red;
-                        //_listEffect[0].gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", Color.red);
-                        //_listEffect[0].gameObject.GetComponents<Renderer>().material.SetColor("_TintColor", Color.red);
+                        AddParticleEffect(0);
 
                         //音を鳴らす
                         sc.PlaySe(89);
@@ -2146,13 +2137,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 4:
 
-                if (timeOut <= 1.5)
+                if (timeOut <= 1.0)
                 {
                     //スペシャルなお菓子演出が入る場合、ここらへんでホワイトアウト
                     if (GameMgr.Special_OkashiEnshutsuFlag)
                     {
                         SpecialwhiteEffect.SetActive(true);
-                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 0.8f);
                     }
                 }
 
@@ -2216,7 +2207,68 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         sequence2.Join(CompleteImage.transform.Find("Image").GetComponent<CanvasGroup>().DOFade(1, 0.2f));*/
     }
 
+    void StartParticleEffect(int _colorstatus)
+    {
+        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
 
+        switch(_colorstatus)
+        {
+            case 1: //魔法調合時
+
+                //音を鳴らす キラララーン
+                sc.PlaySe(129);
+                sc.PlaySe(131);
+
+                //パーティクルと色の取得
+                /*compo1_particle = _listEffect[0].GetComponent<ParticleSystem>();
+                p_color1 = _listEffect[0].GetComponent<Particle_Compo1>().color_red;
+
+                main = compo1_particle.main;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color1); //色の指定*/
+                break;
+
+            default:
+
+                //音を鳴らす　シュイイイン
+                sc.PlaySe(10);
+
+                //通常調合　温度管理使用時、色が赤になる。
+                if (GameMgr.tempature_control_USE)
+                {
+                    //パーティクルと色の取得
+                    compo1_particle = _listEffect[0].GetComponent<ParticleSystem>();
+                    p_color1 = _listEffect[0].GetComponent<Particle_Compo1>().color_red;
+
+                    main = compo1_particle.main;
+                    main.startColor = new ParticleSystem.MinMaxGradient(p_color1); //色の指定
+                }
+                break;
+        }
+        
+    }
+
+    void AddParticleEffect(int _colorstatus)
+    {
+        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab6));
+
+        switch (_colorstatus)
+        {
+            case 1: //魔法調合時
+
+                //パーティクルと色の取得
+                compo2_particle = _listEffect[1].GetComponent<ParticleSystem>();
+                p_color2 = _listEffect[1].GetComponent<Particle_Compo1>().color_red;
+
+                main = compo2_particle.main;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color2); //色の指定
+                break;
+
+            default:
+
+                break;
+        }
+
+    }
 
 
     public void EffectListClear()

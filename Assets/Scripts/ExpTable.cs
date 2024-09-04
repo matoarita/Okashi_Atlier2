@@ -122,12 +122,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                     break;
 
-                case 9:
+                case 15:
 
                     ShiageUpPanelHyouji();
                     break;
 
-                case 18:
+                case 30:
 
                     ShiageUpPanelHyouji();
                     break;
@@ -148,15 +148,15 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             PlayerStatus.player_extreme_kaisu_Max = 1;
         }
-        else if (_lv >= 3 && _lv < 9)
+        else if (_lv >= 3 && _lv < 15)
         {
             PlayerStatus.player_extreme_kaisu_Max = 2;
         }
-        else if (_lv >= 9 && _lv < 18)
+        else if (_lv >= 15 && _lv < 30)
         {
             PlayerStatus.player_extreme_kaisu_Max = 3;
         }
-        else if (_lv >= 18)
+        else if (_lv >= 30)
         {
             PlayerStatus.player_extreme_kaisu_Max = 4;
         }
@@ -173,14 +173,14 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     public void SkillCheckPatissierLV()
     {
         //ハートレベルに連動してレベル上がるパターン
-        if (PlayerStatus.girl1_Love_lv > PlayerStatus.player_patissier_lv)
+        if (PlayerStatus.girl1_Love_maxlv > PlayerStatus.player_patissier_lv)
         {
-            _dev = PlayerStatus.girl1_Love_lv - PlayerStatus.player_patissier_lv;           
+            _dev = PlayerStatus.girl1_Love_maxlv - PlayerStatus.player_patissier_lv;           
             PlayerStatus.player_patissier_job_pt += _dev;
-            PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_lv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
+            PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
         } else //例外処理
         {
-            PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_lv;
+            PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv;
         }
 
         //ジョブ経験値に合わせてレベル上がるパターン
@@ -304,6 +304,10 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             //_girllove_param -= stage_levelTable[i];
             PlayerStatus.girl1_Love_lv++;
             i++;
+        }
+        if (PlayerStatus.girl1_Love_maxlv <= PlayerStatus.girl1_Love_lv) //maxlvの上限更新
+        {
+            PlayerStatus.girl1_Love_maxlv = PlayerStatus.girl1_Love_lv;
         }
 
         //
