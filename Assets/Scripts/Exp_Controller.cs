@@ -25,6 +25,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private Compound_Main compound_Main;
 
     private HikariMakeStartPanel Hikarimake_StartPanel;
+    private HikariOkashiExpTable hikariOkashiExpTable;
 
     private TimeController time_controller;
 
@@ -104,6 +105,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public int set_kaisu; //オリジナル調合時、その組み合わせで何個作るか、の個数
 
     private int _getexp;
+    private int _getexp2;
 
     //プレイヤーが選んだ個数の組み合わせセット。Compound_Check.csから書き出す。
     public List<int> result_kosuset = new List<int>();
@@ -231,6 +233,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //お金の増減用コントローラーの取得
         moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
+
+        //ヒカリお菓子EXPデータベースの取得
+        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -444,6 +449,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             CompoundSuccess_judge();
         }
+
+        //調合の成功有無にかかわらず、お菓子の経験値をあげる。
+        OkashiExpUp();
 
         //調合成功
         if (GameMgr.Result_compound_success == true)
@@ -804,6 +812,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             CompoundSuccess_judge();
         }
+
+        //調合の成功有無にかかわらず、お菓子の経験値をあげる。
+        OkashiExpUp();
 
         //調合成功
         if (GameMgr.Result_compound_success == true)
@@ -1244,7 +1255,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
         }
 
-        
+        //調合の成功有無にかかわらず、お菓子の経験値をあげる。
+        OkashiExpUp();
 
         //調合成功
         if (GameMgr.Result_compound_success == true)
@@ -1657,6 +1669,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _getexp = 0;
         }
+    }
+
+    //おかしレベルの経験値とレベルアップ処理　出来たおかしの種類に応じて、そのおかしの経験値もあがる。
+    void OkashiExpUp()
+    {
+        _getexp2 = 2;
+        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[result_item].itemType_sub.ToString(), _getexp2, 1, 0);
     }
 
 
@@ -2209,7 +2228,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     void StartParticleEffect(int _colorstatus)
     {
-        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
+        
 
         switch(_colorstatus)
         {
@@ -2228,6 +2247,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 break;
 
             default:
+
+                //キラパーティクルON
+                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab1));
 
                 //音を鳴らす　シュイイイン
                 sc.PlaySe(10);

@@ -170,15 +170,15 @@ public class StatusPanel : MonoBehaviour {
         InitHikariOkashiParam_View();
 
         HikariParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/HikariParam_Toggle").gameObject;
-        HikariParam_Toggle_obj.SetActive(false);
+        HikariParam_Toggle_obj.SetActive(true);
 
-        if(GameMgr.Story_Mode == 1)
+        /*if(GameMgr.Story_Mode == 1)
         {
             if(GameMgr.GirlLoveEvent_num >= 0) //エクストラ最初から表示
             {
                 HikariParam_Toggle_obj.SetActive(true);
             }
-        }
+        }*/
 
         /* メインステータス画面更新 */
         this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/StatusMain_Toggle").GetComponent<Toggle>().isOn = true;
@@ -523,7 +523,7 @@ public class StatusPanel : MonoBehaviour {
                     hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_chocolate_lv.ToString();
                     hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_chocolate_lv];
                     hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_chocolate_exp;
-                    hikariokashiparam_list[i].SetActive(false); //チョコレートは現在使わないのでOFF
+                    //hikariokashiparam_list[i].SetActive(false); //チョコレートは現在使わないのでOFF
                     break;
                 case 4: //クレープ
                     nowlv = PlayerStatus.player_girl_crepe_lv;

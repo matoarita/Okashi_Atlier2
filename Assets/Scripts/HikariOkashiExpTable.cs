@@ -10,6 +10,8 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
     private int _nowexp, _nowlv;
     private string _itemType_subtext;
 
+    private ItemSubTypeSetDatabase itemsubtypeset_database;
+
     private int Type_Num;
 
     // Use this for initialization
@@ -26,10 +28,15 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
     {
         GameMgr.hikariokashiExpTable_noTypeflag = false;
 
+        itemsubtypeset_database = ItemSubTypeSetDatabase.Instance.GetComponent<ItemSubTypeSetDatabase>();
+
         //モード説明
         //_mode=0, ヒカリがお菓子作った際のお菓子レベル計算
         //_mode=1, Buf_Power_Keisanでバフ計算するときに使用。
 
+        itemsubtypeset_database.SetImageSub(_itemType_sub);
+
+        /*
         switch (_itemType_sub)
         {
             case "Appaleil":
@@ -150,18 +157,23 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 Type_Num = 99;
                 GameMgr.hikariokashiExpTable_noTypeflag = true;
                 break;
+        }*/
+
+        if(GameMgr.Item_OkashiSubType_Num == 99)
+        {
+            GameMgr.hikariokashiExpTable_noTypeflag = true;
         }
 
         switch (_mode)
         {
             case 0:
 
-                LVKeisanMethod(Type_Num, _status, _getExp);
+                LVKeisanMethod(GameMgr.Item_OkashiSubType_Num, _status, _getExp);
                 break;
 
             case 1:
 
-                NowLvSetting(Type_Num);
+                NowLvSetting(GameMgr.Item_OkashiSubType_Num);
                 break;
         }
     }
@@ -185,7 +197,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 PlayerStatus.player_girl_appaleil_exp += _getexp;
                 _nowexp = PlayerStatus.player_girl_appaleil_exp;
                 _nowlv = PlayerStatus.player_girl_appaleil_lv;
-                Check_OkashilvUP();
+                Check_OkashilvUP2();
                 PlayerStatus.player_girl_appaleil_exp = _nowexp;
                 PlayerStatus.player_girl_appaleil_lv = _nowlv;
                 _itemType_subtext = "生地";
@@ -328,7 +340,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 Check_OkashilvUP();
                 PlayerStatus.player_girl_rareokashi_exp = _nowexp;
                 PlayerStatus.player_girl_rareokashi_lv = _nowlv;
-                _itemType_subtext = "レアお菓子";
+                _itemType_subtext = "高級";
                 break;
 
             case 13: //ケーキ生地
@@ -350,7 +362,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 _itemType_subtext = "ケーキ";
                 break;
 
-            case 14: //パン系（ラスク扱い）
+            case 14: //パン系（ラスク扱いなので11とほぼ内容同じ）
 
                 if (_status == 0)
                 {
@@ -518,7 +530,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
     }
 
     //少し難しめのお菓子の経験テーブル
-    /*void Check_OkashilvUP2()
+    void Check_OkashilvUP2()
     {
         if (_nowlv >= 9) //9がカンスト
         { }
@@ -530,5 +542,5 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 _nowlv++;
             }
         }
-    }*/
+    }
 }

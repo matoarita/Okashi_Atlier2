@@ -230,8 +230,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_okashiparam_NameList.Add("jelly", "ゼリー");
         player_girl_okashiparam_NameList.Add("juice", "ジュース");
         player_girl_okashiparam_NameList.Add("tea", "ティー");
-        player_girl_okashiparam_NameList.Add("icecream", "アイスクリーム");
-        player_girl_okashiparam_NameList.Add("rareokashi", "レアお菓子");
+        player_girl_okashiparam_NameList.Add("icecream", "アイス");
+        player_girl_okashiparam_NameList.Add("rareokashi", "高級");
     }
 
     //Rankの数値をもとに、ランク表記に変える。

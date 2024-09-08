@@ -668,6 +668,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string GetMat_BackPlaceName; //採取から戻るときの戻り先の指定
     public static bool Station_TrainGoFlag; //電車にのるフラグ
     public static string Item_subcategoryText; //カード表示するときのサブカテゴリーの日本語表記
+    public static int Item_OkashiSubType_Num; //おかしのサブカテゴリーの番号　ヒカリのお菓子経験値処理などで使う。
     public static string Item_ShokukanTypeText; //そのときの食感の表示
     public static int Item_ShokukanTypeNum; //どの食感を選んでいるかを番号で指定　その後の各スクリプトの処理で分岐して使用する
     public static int Item_ShokukanTypeScoreNum; //どの食感で、どの判定を使うかを指定
@@ -796,7 +797,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool NPC_Dislike_UseON;
 
     public static Dictionary<int, int> Hikariokashi_Exptable = new Dictionary<int, int>();
-    //public static Dictionary<int, int> Hikariokashi_Exptable2 = new Dictionary<int, int>();
+    public static Dictionary<int, int> Hikariokashi_Exptable2 = new Dictionary<int, int>();
 
     //各NPCお菓子判定番号
     public static int Mose_Okashi_num01;
@@ -1912,7 +1913,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable.Add(9, 9999);
 
         //少し難しめのお菓子は、レベルも上がりにくくなる。
-        /*Hikariokashi_Exptable2.Clear();
+        Hikariokashi_Exptable2.Clear();
 
         Hikariokashi_Exptable2.Add(1, 30);
         Hikariokashi_Exptable2.Add(2, 70);
@@ -1922,6 +1923,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable2.Add(6, 800);
         Hikariokashi_Exptable2.Add(7, 1200);
         Hikariokashi_Exptable2.Add(8, 1500);
-        Hikariokashi_Exptable2.Add(9, 9999);*/
+        Hikariokashi_Exptable2.Add(9, 9999);
     }
 }
