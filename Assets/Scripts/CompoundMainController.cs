@@ -528,6 +528,12 @@ public class CompoundMainController : MonoBehaviour {
 
                     //ヒカリちゃんを表示しない。デフォルト描画順
                     ReSetLive2DOrder_Default();
+
+                    //モーションは、6を通るたびに必ず、調合わくわくモーションに戻す。アンカーも必ずリセット。
+                    trans_motion = 2000;
+                    live2d_animator.SetInteger("trans_compmotion", trans_motion);
+                    Anchor_Pos.transform.localPosition = new Vector3(-0.5f, 0.05f, -5f);
+
                     GameMgr.QuestManzokuFace = false; //おいしかった表情は、調合シーンに入るとリセットされる。
 
                     
@@ -649,6 +655,11 @@ public class CompoundMainController : MonoBehaviour {
                     //ヒカリちゃんを表示する
                     ReDrawLive2DOrder_Compound();
                     SetLive2DPos_Compound();
+
+                    //専用うねうねアイドルモーション
+                    trans_motion = 2031;
+                    live2d_animator.SetInteger("trans_compmotion", trans_motion);
+                    Anchor_Pos.transform.localPosition = new Vector3(-0.4f, 0.134f, -5f); //調合シーンで　位置右のときは、x=-0.5が目線正面になる。
 
                     //ヒカリちゃん表示をオフ
                     //ReSetLive2DOrder_Default();                   
@@ -979,14 +990,14 @@ public class CompoundMainController : MonoBehaviour {
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f); //OriCompoMotion
                 live2d_animator.SetInteger("trans_nade", 0);
-            }           
+            }   
             
             if (GameMgr.ResultComplete_flag != 0) //なんらかの調合をしたあとに、再度ここの処理に戻った場合　生地とか作って戻ってくるとき
             {
                 GameMgr.ResultComplete_flag = 0; //調合完了フラグ　画面に戻るたびリセットされる
 
                 trans_motion = 11;
-                live2d_animator.SetInteger("trans_motion", trans_motion);
+                live2d_animator.SetInteger("trans_motion", trans_motion); //11はDefaultPosition
                 //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f); //OriCompoMotion
                 live2d_animator.SetInteger("trans_nade", 0);
 
@@ -1070,13 +1081,13 @@ public class CompoundMainController : MonoBehaviour {
         character_move.transform.position = new Vector3(0f, 0, 0);
         //character_move.transform.DOMove(new Vector3(0f, 0, 0), 0.2f); //少し間を置くことで、キャラが一瞬真ん中に映るのを防ぐ
 
+
         GameMgr.live2d_posmove_flag = false;
         Anchor_Pos.transform.localPosition = new Vector3(0.0f, 0.134f, -5f);
         girl1_status.HukidashiFlag = true;
         girl1_status.tween_start = false;
         girl1_status.IdleMotionReset();
         girl1_status.DefFaceChange();
-
         GameMgr.CharacterTouch_ALLON = true; //タッチもできるように。
     }
 

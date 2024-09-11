@@ -53,7 +53,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound39;  //オランジーナ調合メインのBGM予定1
     public AudioClip sound40;  //オランジーナ調合メインのBGM予定2
     public AudioClip sound41;  //オランジーナ街BGM
-    public AudioClip sound42;  //魔法の先生のテーマ01
+    public AudioClip sound42;  //お城エリアBGM
     public AudioClip sound43;  //秋エリアBGM
     public AudioClip sound44;  //冬エリアBGM
     public AudioClip sound45;  //夏エリア遊園地BGM
@@ -73,6 +73,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound59;  //「ダイアモンド山」テーマ
     public AudioClip sound60;  //オランジーナ酒場のBGM
     public AudioClip sound61;  //ゲームオーバーのBGM
+    public AudioClip sound62;  //プラトン女王様のテーマ
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -534,17 +535,17 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Catsle_Garden": //城エリア　大通り前庭
 
-                                _send_clip = sound44;
+                                _send_clip = sound42;
                                 break;
 
                             case "Or_Hiroba_Catsle_MainStreet": //城エリア　大通り
 
-                                _send_clip = sound44;
+                                _send_clip = sound42;
                                 break;
 
                             case "Or_Hiroba_Catsle_MainEntrance": //城エリア　入口受付
 
-                                _send_clip = sound44;
+                                _send_clip = sound42;
                                 break;
 
                             default:
@@ -592,9 +593,9 @@ public class BGM : MonoBehaviour {
                         _send_clip = sound50;
                         break;
 
-                    case 160: //城のBGM
+                    case 160: //城のBGM 女王様のテーマ曲
 
-                        _send_clip = sound42;
+                        _send_clip = sound62;
                         break;
 
                     default:

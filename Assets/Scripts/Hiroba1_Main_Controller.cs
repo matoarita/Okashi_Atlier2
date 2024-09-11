@@ -1538,7 +1538,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
 
-                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_53) //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_04
+                if (PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_04) 
+                    //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_04 //PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_53
                 {
                     On_Active1703(); //まだ通れない
                 }

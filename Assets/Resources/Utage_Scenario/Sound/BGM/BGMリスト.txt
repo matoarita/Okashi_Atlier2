@@ -82,7 +82,7 @@
 ・BGM_80		PerituneMaterial_EpicBattle_Deity_loop	大会コンテスト調合時のBGM
 ・BGM_81		PerituneMaterial_Laid_Back3_Retro_loop	２のアトリエ調合メインBGM予定
 ・BGM_82		PerituneMaterial_Cafe_Seaside_loop	２のオランジーナ街BGM
-・BGM_83		Lethargic-Witch(なぐもりず)		魔法の先生のテーマ01
+・BGM_83		PerituneMaterial_Afternoon_Garden_loop	お城エリアのBGM
 ・BGM_84		PerituneMaterial_Snowy_Day3_loop	冬エリアのBGM
 ・BGM_85		Paysage de Strahlburg(なぐもりず)	秋エリアのBGM (古いaudiostock_872985_sample)
 ・BGM_86		PerituneMaterial_Holiday3		夏エリア遊園地のBGM
@@ -112,3 +112,4 @@
 ・BGM_108		audiostock_807050_sample		【宴用】オープニングの映画風スタートBGM
 ・BGM_109		audiostock_1385237_sample		【宴用】オープニングの映画風スタートBGM2 静か
 ・BGM_110		こんとどぅふぇ素材No.0037-Dimanche	オランジーナ酒場用BGM
+・BGM_111		PerituneMaterial_Powder_Snow_loop	プラトン女王様のテーマ

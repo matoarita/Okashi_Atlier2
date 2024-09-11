@@ -2227,9 +2227,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     }
 
     void StartParticleEffect(int _colorstatus)
-    {
-        
-
+    {      
         switch(_colorstatus)
         {
             case 1: //魔法調合時
@@ -2263,6 +2261,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                     main = compo1_particle.main;
                     main.startColor = new ParticleSystem.MinMaxGradient(p_color1); //色の指定
+                }
+                else
+                {
                 }
                 break;
         }

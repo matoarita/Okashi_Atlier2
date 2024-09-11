@@ -419,6 +419,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_NPCHiroba_HikarieventList = GameMgr.NPCHiroba_HikarieventList,
             save_NPCHiroba_eventList = GameMgr.NPCHiroba_eventList,
             save_NPCMagic_eventList = GameMgr.NPCMagic_eventList,
+            save_NPCHiroba_blockReleaseList = GameMgr.NPCHiroba_blockReleaseList,
             save_NPC_FriendPoint = GameMgr.NPC_FriendPoint,
 
             //宝箱イベント
@@ -784,6 +785,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.NPCHiroba_HikarieventList = playerData.save_NPCHiroba_HikarieventList;
         GameMgr.NPCHiroba_eventList = playerData.save_NPCHiroba_eventList;
         GameMgr.NPCMagic_eventList = playerData.save_NPCMagic_eventList;
+        GameMgr.NPCHiroba_blockReleaseList = playerData.save_NPCHiroba_blockReleaseList;
         GameMgr.NPC_FriendPoint = playerData.save_NPC_FriendPoint;
 
         //宝箱イベント

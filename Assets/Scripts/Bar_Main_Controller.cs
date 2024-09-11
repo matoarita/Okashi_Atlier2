@@ -515,9 +515,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             check_event = true;
 
-            StartCoroutine("Scenario_loading");
-
-            
+            StartCoroutine("Scenario_loading");           
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.CompoundEvent_num = 5;
@@ -541,8 +539,6 @@ public class Bar_Main_Controller : MonoBehaviour {
             check_event = true;
 
             StartCoroutine("Scenario_loading");
-
-            
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.CompoundEvent_num = 5;

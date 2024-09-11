@@ -11,6 +11,9 @@ public class HirobaBlockText : MonoBehaviour {
     private GameObject BlockText_obj;
     private Text BlockText;
 
+    private int _player_check;
+    private int _block_check;
+
     // Use this for initialization
     void Start () {
 
@@ -56,10 +59,13 @@ public class HirobaBlockText : MonoBehaviour {
                 if(this.gameObject.name == "NPC4_SelectToggle")
                 {
                     //ハートレベルで通れない箇所のチェック
-                    if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_01)
+                    _player_check = PlayerStatus.girl1_Love_lv;
+                    _block_check = GameMgr.System_HeartBlockLv_01; //
+
+                    if (_player_check < _block_check)
                     {
                         BlockText_obj.SetActive(true);
-                        BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_01.ToString() + "必要";
+                        BlockTextHyouji(_block_check, 0);
                     }
                     else
                     {
@@ -71,7 +77,7 @@ public class HirobaBlockText : MonoBehaviour {
                         else
                         {
                             BlockText_obj.SetActive(true);
-                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_01.ToString() + "必要";
+                            BlockTextHyouji(_block_check, 0);
                         }
                     }
                 }
@@ -82,11 +88,13 @@ public class HirobaBlockText : MonoBehaviour {
                 if (this.gameObject.name == "NPC5_SelectToggle") //冬エリア入口
                 {
                     //ハートレベルで通れない箇所のチェック
-                    if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_50) //PlayerStatus.player_ninki_param GameMgr.System_StarBlockLv_03
+                    _player_check = PlayerStatus.girl1_Love_lv;
+                    _block_check = GameMgr.System_HeartBlockLv_50; //GameMgr.System_StarBlockLv_03
+
+                    if (_player_check < _block_check) //PlayerStatus.player_ninki_param 
                     {
                         BlockText_obj.SetActive(true);
-                        //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_03.ToString() + "必要";
-                        BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_50.ToString() + "必要";
+                        BlockTextHyouji(_block_check, 0);
                     }
                     else
                     {
@@ -98,8 +106,7 @@ public class HirobaBlockText : MonoBehaviour {
                         else
                         {
                             BlockText_obj.SetActive(true);
-                            //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_03.ToString() + "必要";
-                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_50.ToString() + "必要";
+                            BlockTextHyouji(_block_check, 0);
                         }
                     }
                 }
@@ -110,11 +117,13 @@ public class HirobaBlockText : MonoBehaviour {
                 if (this.gameObject.name == "NPC1_SelectToggle") //秋エリア入口
                 {
                     //ハートレベルで通れない箇所のチェック
-                    if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_51) //GameMgr.System_StarBlockLv_02
+                    _player_check = PlayerStatus.girl1_Love_lv;
+                    _block_check = GameMgr.System_HeartBlockLv_51; //GameMgr.System_StarBlockLv_02
+
+                    if (_player_check < _block_check) //
                     {
                         BlockText_obj.SetActive(true);
-                        //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_02.ToString() + "必要";
-                        BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_51.ToString() + "必要";
+                        BlockTextHyouji(_block_check, 0);
                     }
                     else
                     {
@@ -126,8 +135,7 @@ public class HirobaBlockText : MonoBehaviour {
                         else
                         {
                             BlockText_obj.SetActive(true);
-                            //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_02.ToString() + "必要";
-                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_51.ToString() + "必要";
+                            BlockTextHyouji(_block_check, 0);
                         }
                     }
                 }
@@ -135,11 +143,13 @@ public class HirobaBlockText : MonoBehaviour {
                 if (this.gameObject.name == "NPC5_SelectToggle") //夏エリア入口
                 {
                     //ハートレベルで通れない箇所のチェック
-                    if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_52) //GameMgr.System_StarBlockLv_01
+                    _player_check = PlayerStatus.girl1_Love_lv;
+                    _block_check = GameMgr.System_HeartBlockLv_52; //GameMgr.System_StarBlockLv_01
+
+                    if (_player_check < _block_check) //
                     {
                         BlockText_obj.SetActive(true);
-                        //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_01.ToString() + "必要";
-                        BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_52.ToString() + "必要";
+                        BlockTextHyouji(_block_check, 0);
                     }
                     else
                     {
@@ -151,8 +161,7 @@ public class HirobaBlockText : MonoBehaviour {
                         else
                         {
                             BlockText_obj.SetActive(true);
-                            //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_01.ToString() + "必要";
-                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_52.ToString() + "必要";
+                            BlockTextHyouji(_block_check, 0);
                         }
                     }
                 }
@@ -163,11 +172,13 @@ public class HirobaBlockText : MonoBehaviour {
                 if (this.gameObject.name == "NPC6_SelectToggle") //城エリア入口
                 {
                     //ハートレベルで通れない箇所のチェック
-                    if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_53) //GameMgr.System_StarBlockLv_04
+                    _player_check = PlayerStatus.player_ninki_param;
+                    _block_check = GameMgr.System_StarBlockLv_04; //GameMgr.System_StarBlockLv_04
+
+                    if (_player_check < _block_check) //
                     {
                         BlockText_obj.SetActive(true);
-                        //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_04.ToString() + "必要";
-                        BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_53.ToString() + "必要";
+                        BlockTextHyouji(_block_check, 1); //1はスターでブロック
                     }
                     else
                     {
@@ -179,14 +190,28 @@ public class HirobaBlockText : MonoBehaviour {
                         else
                         {
                             BlockText_obj.SetActive(true);
-                            //BlockText.text = "スターが" + "\n" + "★" + GameMgr.System_StarBlockLv_04.ToString() + "必要";
-                            BlockText.text = "ハートLVが" + "\n" + GameMgr.System_HeartBlockLv_53.ToString() + "必要";
+                            BlockTextHyouji(_block_check, 1);
                         }
                     }
                 }
                 break;
         }
     }
+
+    void BlockTextHyouji(int _num, int _status)
+    {
+        switch(_status)
+        {
+            case 0:
+                BlockText.text = "ハートLVが" + "\n" + _num.ToString() + "必要";
+                break;
+
+            case 1:
+                BlockText.text = "スターが" + "\n" + "★" + _num.ToString() + "必要";
+                break;
+        }
+    }
+
 
     void NPCEventCheck()
     {

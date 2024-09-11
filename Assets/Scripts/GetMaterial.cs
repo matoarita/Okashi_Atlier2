@@ -1737,6 +1737,7 @@ public class GetMaterial : MonoBehaviour
 
                 random_param = Random.Range(2, 5);
                 PlayerStatus.player_girl_lifepoint += random_param;
+                sc.PlaySe(17);
                 _text.text = "ぱくっ！　..うんめぇえ～～。でもすっぱ..！" + "\n"
                     + "体力が " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 break;
@@ -1774,6 +1775,7 @@ public class GetMaterial : MonoBehaviour
 
                 random_param = Random.Range(3, 5);
                 PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
                 _text.text = "あ！　にいちゃん、一番星、みっけ～！！" + "\n" +
                     "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 break;
@@ -1817,17 +1819,31 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
-                _text.text = "うわぁ～～！　そこかしこに、色とりどりのきれいな石があるよ～♪";
+                random_param = Random.Range(3, 7);
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                _text.text = "うわぁ～～！　そこかしこに、色とりどりのきれいな石があるよ～♪" + "\n" +
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+
                 break;
 
             case 1:
 
-                _text.text = "あ！にいちゃん！　宝石みたいな木の実、あるよ～？" + "\n" + "食べれるのかなぁ～？";
+                random_param = Random.Range(3, 7);
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                _text.text = "あ！にいちゃん！　宝石みたいな木の実、あるよ～？" + "\n" + "食べれるのかなぁ～？" + "\n" +
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
                 break;
 
             case 2:
 
-                _text.text = "キラキラしたとこ～♪　にいちゃん、また、ここでピクニックしよう～♪";
+                random_param = Random.Range(3, 10);
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                _text.text = "キラキラしたとこ～♪　にいちゃん、また、ここでピクニックしよう～♪" + "\n" +
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+
                 break;
 
             case 3:
@@ -1837,12 +1853,17 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
-                _text.text = "あ！　宝石～♪" + "\n" + "（ヒカリは、拾った石をポケットにしまった！）";
+                random_param = Random.Range(3, 10);
+                PlayerStatus.girl1_Love_exp += random_param;
+                sc.PlaySe(17);
+                _text.text = "あ！　宝石～♪" + "\n" + "（ヒカリは、拾った石をポケットにしまった！）" + "\n" +
+                    "ハートが " + GameMgr.ColorPink + random_param + " </color> " + "上がった！";
+
                 break;
 
             default:
 
-                random_param = Random.Range(2, 5);
+                random_param = Random.Range(5, 15);
                 PlayerStatus.girl1_Love_exp -= random_param;
                 _text.text = "んん..？　にいちゃん、いろんな道があって、ワカラ～～ン..。" + "\n" +
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
@@ -2941,12 +2962,14 @@ public class GetMaterial : MonoBehaviour
                 treasureInfo.Add(2, "diamond_1");
                 treasureInfo.Add(3, "diamond_2");
                 treasureInfo.Add(4, "diamond_3");
+                treasureInfo.Add(5, "rainbowberry");
 
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(2, 40.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(3, 20.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(4, 5.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(5, 10.0f + rare_event_kakuritsu);
 
                 break;            
 

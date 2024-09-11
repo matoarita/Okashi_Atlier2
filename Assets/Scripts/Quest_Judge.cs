@@ -1486,7 +1486,7 @@ public class Quest_Judge : MonoBehaviour {
 
                     sc.PlaySe(78);
                     sc.PlaySe(88);
-                    sc.PlaySe(43);
+                    //sc.PlaySe(43); 同時に5つ以上のSEはならないので一旦オフ
                 }
                 else if (okashi_totalscore >= 250) //250点以上のときは、ファンファーレ
                 {
@@ -1495,7 +1495,7 @@ public class Quest_Judge : MonoBehaviour {
 
                     sc.PlaySe(78);
                     sc.PlaySe(88);
-                    sc.PlaySe(43);
+                    //sc.PlaySe(43);
                     sceneBGM.PlayFanfare1();
                     mute_on = true;
                 }

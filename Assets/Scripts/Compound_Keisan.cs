@@ -1746,6 +1746,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         total_kosu = 0;
         GameMgr.tempature_control_Param_yakitext = "";
+        GameMgr.tempature_control_USE = false; //毎回まずはリセット
 
         //①まずは、日数やコストなどの、全てのジャンルに共通するパラメータ同士を加算する。料金（_basesell）は、品質に基づいて計算する。
 
@@ -2099,7 +2100,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //スキル温度管理を使ったとき、温度と時間によって仕上がりがさらに変わる。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときの計算。
         {
-            GameMgr.tempature_control_USE = false; //毎回まずはリセット
+            
             _well_done = 0;
             _best_well_done = _base_bestwelldone; //200°で10分ほど焼いたときの焼き具合 60分焼けるけど、クッキーの場合30分以上は基本焦げる
 

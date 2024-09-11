@@ -625,7 +625,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
 
             //
-            //サブイベント・ハートで進むなどのイベント関係は、60番台～
+            //サブイベント・ハートで進むなどのイベント関係
             //
 
             if(GameMgr.outgirl_Nowprogress)
@@ -904,7 +904,28 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
                 //GirlLoveSubEvent_stage1 サブイベントは69まで。70~は、衣装買ったときのセリフが入っている。
                 */
-              
+
+                //
+                //スターで発生するイベント系
+                //
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //スター10?で、お城へいけるように。手紙がくる。
+                    if (PlayerStatus.player_ninki_param >= GameMgr.System_StarBlockLv_04 && GameMgr.GirlLoveSubEvent_stage1[500] == false) 
+                    {
+                        GameMgr.GirlLoveSubEvent_num = 500;
+                        GameMgr.GirlLoveSubEvent_stage1[500] = true;
+
+                        GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                        GameMgr.Mute_on = true;
+                    }
+                }
+
+
+
 
 
                 //

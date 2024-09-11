@@ -2896,9 +2896,7 @@ public class Compound_Main : MonoBehaviour
 
                 //magicskill_database.skillHyoujiKaikin("Nappe");
                 //magicskill_database.skillHyoujiKaikin("Appaleil_Study");
-                //magicskill_database.skillHyoujiKaikin("Wind_Ark");
-
-                magicskill_database.skillHyoujiKaikin("True_of_Myheart");
+                //magicskill_database.skillHyoujiKaikin("Wind_Ark");                
 
                 break;
 
@@ -2921,6 +2919,16 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_beautifulpower_book":
                 magicskill_database.skillHyoujiKaikin("Beautiful_Power");
+                break;
+
+            case "mg_aromapotion_book":
+                magicskill_database.skillHyoujiKaikin("Aroma_Potion");
+                magicskill_database.skillLearnLv_Name("Aroma_Potion", 1); //アロマポーションはLV1習得すみの状態
+                break;
+
+            case "mg_TrueofMyheart_book":
+                magicskill_database.skillHyoujiKaikin("True_of_Myheart");
+                magicskill_database.skillLearnLv_Name("True_of_Myheart", 1); //真実のハートはLV1習得すみの状態
                 break;
 
             default:

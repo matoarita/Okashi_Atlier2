@@ -188,7 +188,8 @@ public class NPC_Catsle_Main : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 backnum = 501; //バックボタン押したときの戻り先
 
-                default_scenetext = "うむ..。なにか、用かな？";
+                default_scenetext = "いらっしゃい。";
+                GameMgr.Window_CharaName = "プラトン";
                 break;
         }
 
@@ -345,17 +346,25 @@ public class NPC_Catsle_Main : MonoBehaviour
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
         if (!check_event)
         {
-            if (!GameMgr.NPCHiroba_eventList[0]) //はじめて酒場へきた。
+            if (!GameMgr.NPCHiroba_eventList[1500]) //はじめて城へきた。
             {
-                GameMgr.NPCHiroba_eventList[0] = true;
+                GameMgr.NPCHiroba_eventList[1500] = true;
 
-                GameMgr.hiroba_event_placeNum = 1001; //レセプションの、主にはじめてきたときなどのイベント番号
-                GameMgr.hiroba_event_ID = 1000;
+                GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
+                GameMgr.hiroba_event_ID = 100;
                 GameMgr.hiroba_event_flag = true;
+                GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
 
                 check_event = true;
 
                 EventReadingStart();
+
+                ev_id = pitemlist.Find_eventitemdatabase("mg_aromapotion_book");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加
 
                 //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
 
@@ -420,6 +429,8 @@ public class NPC_Catsle_Main : MonoBehaviour
 
         GameMgr.Scene_Select = 0; //何もしていない状態
         GameMgr.Scene_Status = 0;
+
+        check_event = false;
 
         //読み終わったら、またウィンドウなどを元に戻す。
         text_area.SetActive(true);
@@ -532,23 +543,86 @@ public class NPC_Catsle_Main : MonoBehaviour
     //SubView1
     public void OnSubNPC1_toggle()
     {
-        //コンテストリストメニュー開く
-        //backshopfirst_obj.SetActive(true);
-        //mainlist_controller_obj.SetActive(false);
+        if (!check_event)
+        {
+            if (GameMgr.NPCHiroba_eventList[1510]) //すでに真実のハートを教えてもらった
+            {
+                GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
+                GameMgr.hiroba_event_ID = 201;
+                GameMgr.hiroba_event_flag = true;
+                GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
-        _text.text = "いらっしゃ～い・・。" + "\n" + "なにかよう？";
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
 
-        //カメラ寄る。
-        //trans++; //transが1を超えたときに、ズームするように設定されている。
+                check_event = true;
 
-        //intパラメーターの値を設定する.
-        //maincam_animator.SetInteger("trans", trans);
+                EventReadingStart();
+            }
+            else
+            {
+                //一回あった状態以降、３つのレシピを所持した状態で会話。「真実のハート」を教えてくれる。
+                if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
+                pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
+                pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
+                {
+                    if (!GameMgr.NPCHiroba_eventList[1510]) //はじめて城へきたイベント終了後の会話　ほかにフラグもたってない場合はここがデフォルト
+                    {
+                        GameMgr.NPCHiroba_eventList[1510] = true;
+
+                        GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
+                        GameMgr.hiroba_event_ID = 200;
+                        GameMgr.hiroba_event_flag = true;
+                        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+
+                        ev_id = pitemlist.Find_eventitemdatabase("mg_TrueofMyheart_book");
+                        pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加
+
+                        //最後のエデンレシピをゲット
+                        ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_05");
+                        pitemlist.add_eventPlayerItem(ev_id, 1); //最後のエデンレシピを追加
+
+                        //BGMかえる
+                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        //bgm_change_flag = true;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                }
+                else
+                {
+                    if (GameMgr.NPCHiroba_eventList[1500]) //はじめて城へきたイベント終了後の会話　ほかにフラグもたってない場合はここがデフォルト
+                    {
+                        GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
+                        GameMgr.hiroba_event_ID = 101;
+                        GameMgr.hiroba_event_flag = true;
+                        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+
+                        //BGMかえる
+                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        //bgm_change_flag = true;
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                }
+            }
+
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
+            {
+            }
+        }
     }
 
     //SubView2
     public void OnSubNPC2_toggle()
     {
-        On_ActiveContestStart();
         
     }
 
@@ -576,22 +650,6 @@ public class NPC_Catsle_Main : MonoBehaviour
         //戻る
         GameMgr.SceneSelectNum = backnum;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
-    }
-
-    void On_ActiveContestStart()
-    {
-        //噴水押した　宴の処理へ
-        GameMgr.hiroba_event_placeNum = 1000; //
-
-        //イベント発生フラグをチェック
-        GameMgr.hiroba_event_ID = 0;
-
-        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる
-        GameMgr.Contest_ReadyToStart = true;
-
-        EventReadingStart();
-
-        CanvasOff();
     }
 
     void CanvasOff()

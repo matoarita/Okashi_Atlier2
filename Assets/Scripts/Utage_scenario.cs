@@ -2930,6 +2930,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC09_whitewhale";
                 break;
 
+            case 1400: //OrNPCプラトン女王
+
+                scenarioLabel = "Hiroba_Or_Queen_puraton";
+                break;
+
             case 1500: //Orお花屋さん
 
                 scenarioLabel = "Hiroba_Or_flower";

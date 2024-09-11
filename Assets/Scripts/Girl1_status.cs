@@ -718,7 +718,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                 {
                                     GameMgr.QuestManzokuFace = false;
 
-                                    //DefFaceChange();
+                                    DefFaceChange();
                                     //DeleteHukidashi();
                                 }
                             }
@@ -3753,6 +3753,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 430:
 
+                FaceMotionPlay(1006);
                 _touchface_comment_lib.Add("兄ちゃん！お菓子おいしかった！ありがと～♪");
                 break;
 
