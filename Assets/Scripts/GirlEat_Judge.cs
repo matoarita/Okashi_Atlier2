@@ -1722,7 +1722,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (total_score < GameMgr.mazui_score) //total_scoreが30より下だと、マズイ。
         {
             Mazui_flag = true;
-
+            GameMgr.ending_on = false; //まずかったときは、EDいく分岐があってもここでoffになる。
         }
 
         GameMgr.Okashi_totalscore = total_score;
@@ -3289,6 +3289,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
                     exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 1); //2番目が1だと、パネルの表示
+                    exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
                     //exp_table.SkillCheckPatissierLV();
                 }
                 else
@@ -3357,10 +3358,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             PlayerStatus.girl1_Love_exp = _ResultGirllove;
         }
-
-        //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
-        exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
-        //exp_table.SkillCheckPatissierLV();
+        
 
         //テキストも更新
         GirlLoveParam_HyoujiKoushin();        
@@ -5912,7 +5910,32 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         return total_score;
     }
 
+    //Result_Panelから読みだす　EDに行く際の演出から、イベントシーンへ
+    public void EndingON_Method()
+    {
+        StartCoroutine("EndingStart");
+    }
 
+    IEnumerator EndingStart()
+    {
+        yield return new WaitForSeconds(7.0f); //5秒待つ
+
+        ScoreHyoujiPanel.GetComponent<Result_Panel>().FadeOutKillWindow();
+    }
+
+    public void OnEndingScenario()
+    {
+        ScoreHyoujiPanel.SetActive(false);
+
+        //EDシナリオスタート
+        GameMgr.girlloveevent_bunki = 2;
+        GameMgr.GirlLoveEvent_num = 100;
+        GameMgr.girlEat_ON = false;
+        GameMgr.Mute_on = true;
+        GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
+
+        compound_Main.ReadGirlLoveEvent_Fire();
+    }
 
     void Touch_WindowInteractOFF()
     {

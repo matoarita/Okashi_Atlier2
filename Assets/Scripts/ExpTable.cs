@@ -92,7 +92,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         if (_mstatus == 0)
         {
-            ShiageUpCheck(_nowlevel);
+            SkillLVCheck(_nowlevel);
         }
         else if (_mstatus == 1)
         {
@@ -109,22 +109,29 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 5:
 
-                    //_temp_skill.Add("一度に　2個　トッピングできるようになった！");
-                    /*GameMgr.topping_Set_Count = 2;
-
-                    if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
-                    {
-                        girlEat_judge.LvUpPanel2();
-                    }*/
+                    
                     break;
 
                 case 6:
 
                     break;
 
+                case 13: //複数個同時にのせられるようになる。パネル表記はなしで、ハートイベントなどで知らせる。
+
+
+                    break;
+
                 case 15:
 
                     ShiageUpPanelHyouji();
+                    break;
+
+                case 20: //二種類～同時トッピングできるようになる。
+
+                    if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
+                    {
+                        girlEat_judge.LvUpPanel2();
+                    }
                     break;
 
                 case 30:
@@ -137,7 +144,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         SkillCheckPatissierLV();
     }
 
-    void ShiageUpCheck(int _lv)
+    void SkillLVCheck(int _lv)
     {
 
         //こっちが、実際に仕上げ回数を更新する。ハート上がったタイミングで更新のやり方だと、
@@ -161,6 +168,26 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             PlayerStatus.player_extreme_kaisu_Max = 4;
         }
 
+        //複数個まとめて数のせる
+        if (_lv < 13)
+        {
+            GameMgr.System_Topping_Multiple_Flag = false;
+        }
+        else if (_lv >= 13)
+        {
+            GameMgr.System_Topping_Multiple_Flag = true;
+        }
+
+        //二種類～同時トッピング
+        if (_lv < 20)
+        {
+            GameMgr.topping_Set_Count = 1; //デフォルト
+        }
+        else if(_lv >= 20)
+        {
+            //_temp_skill.Add("一度に　2個　トッピングできるようになった！");
+            GameMgr.topping_Set_Count = 2;
+        }
     }
 
     void ShiageUpPanelHyouji()

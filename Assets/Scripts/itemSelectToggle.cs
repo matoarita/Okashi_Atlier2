@@ -873,7 +873,15 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView02(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示
-                updown_counter_obj.SetActive(false);
+
+                if (GameMgr.System_Topping_Multiple_Flag)
+                {
+                    updown_counter_obj.SetActive(true);
+                }
+                else
+                {
+                    updown_counter_obj.SetActive(false);
+                }
 
                 SelectPaused();
 
@@ -922,7 +930,15 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView03(GameMgr.Final_toggle_Type2, GameMgr.Final_list_itemID2); //選択したアイテム2枚目をカードで表示
-                updown_counter_obj.SetActive(false);
+
+                if (GameMgr.System_Topping_Multiple_Flag)
+                {
+                    updown_counter_obj.SetActive(true);
+                }
+                else
+                {
+                    updown_counter_obj.SetActive(false);
+                }
 
                 SelectPaused();
 
@@ -975,7 +991,15 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("これでいいですか？");
 
                 card_view.SelectCard_DrawView04(GameMgr.Final_toggle_Type3, GameMgr.Final_list_itemID3); //選択したアイテム2枚目をカードで表示
-                updown_counter_obj.SetActive(false);
+
+                if (GameMgr.System_Topping_Multiple_Flag)
+                {
+                    updown_counter_obj.SetActive(true);
+                }
+                else
+                {
+                    updown_counter_obj.SetActive(false);
+                }
 
                 SelectPaused();
 
@@ -1026,7 +1050,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 itemselect_cancel.kettei_on_waiting = false;                
 
-                _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + " " + "1個" + "\n" 
+                _text.text = "ベースアイテム: " + database.items[GameMgr.temp_baseitemID].itemNameHyouji + " " + "1個" + "\n" 
                     + "トッピングアイテム一個目を選択してください。";
                 //Debug.Log("ベースアイテム選択完了！");
                 break;
@@ -1065,8 +1089,14 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 11; //ベースアイテムと一個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
 
-                //pitemlistController.final_kettei_kosu1 = GameMgr.updown_kosu;
-                GameMgr.Final_kettei_kosu1 = 1;
+                if (GameMgr.System_Topping_Multiple_Flag)
+                {
+                    GameMgr.Final_kettei_kosu1 = GameMgr.updown_kosu;
+                }
+                else
+                {
+                    GameMgr.Final_kettei_kosu1 = 1;
+                }
 
                 card_view.OKCard_DrawView02(1);
                 //yes.SetActive(false);
@@ -1076,12 +1106,13 @@ public class itemSelectToggle : MonoBehaviour
 
                 if (GameMgr.topping_Set_Count == 1) //トッピングが一度に一個のとき
                 {
+                    Debug.Log("トッピング一個で確定");
                     GameMgr.final_select_flag = true; //ここにfinalをいれることで、一個だけしかトッピングできないようにする。
                 }
                 else 
                 {
                     itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
-                    _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" + "一個目: "
+                    _text.text = "ベースアイテム: " + database.items[GameMgr.temp_baseitemID].itemNameHyouji + "\n" + "一個目: "
                     + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" + "二個目を選択するか、決定を押してね。";
                 }
 
@@ -1129,7 +1160,15 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 12; //ベースアイテムと一個目・二個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
 
-                GameMgr.Final_kettei_kosu2 = GameMgr.updown_kosu;
+                if (GameMgr.System_Topping_Multiple_Flag)
+                {
+                    GameMgr.Final_kettei_kosu2 = GameMgr.updown_kosu;
+                }
+                else
+                {
+                    GameMgr.Final_kettei_kosu2 = 1;
+                }
+                
 
                 card_view.OKCard_DrawView03(1);
                 //yes.SetActive(false);
@@ -1139,12 +1178,13 @@ public class itemSelectToggle : MonoBehaviour
 
                 if (GameMgr.topping_Set_Count == 2) //トッピングが一度に２個のとき
                 {
+                    Debug.Log("トッピング二個で確定");
                     GameMgr.final_select_flag = true; //ここにfinalをいれることで、二個のトッピングになる。
                 }
                 else
                 {
                     itemselect_cancel.kettei_on_waiting = false; //finalをいれたときは、こっちはオフで大丈夫。
-                    _text.text = "ベースアイテム: " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "\n" +
+                    _text.text = "ベースアイテム: " + database.items[GameMgr.temp_baseitemID].itemNameHyouji + "\n" +
                     "一個目: " + database.items[GameMgr.temp_itemID1].itemNameHyouji + " " + GameMgr.Final_kettei_kosu1 + "個" + "\n" +
                     "二個目: " + database.items[GameMgr.temp_itemID2].itemNameHyouji + " " + GameMgr.Final_kettei_kosu2 + "個" + "\n" + "最後に一つ追加できます。";
                 }
@@ -1195,8 +1235,15 @@ public class itemSelectToggle : MonoBehaviour
                 itemselect_cancel.update_ListSelect_Flag = 13; //ベースアイテムと一個目・二個目・三個目を選択できないようにする。
                 itemselect_cancel.update_ListSelect();
 
-                GameMgr.Final_kettei_kosu3 = GameMgr.updown_kosu;
-
+                if (GameMgr.System_Topping_Multiple_Flag)
+                {
+                    GameMgr.Final_kettei_kosu3 = GameMgr.updown_kosu;
+                }
+                else
+                {
+                    GameMgr.Final_kettei_kosu3 = 1;
+                }
+                
                 updown_counter_obj.SetActive(false);
 
                 card_view.OKCard_DrawView04();

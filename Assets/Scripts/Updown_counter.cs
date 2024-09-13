@@ -359,6 +359,11 @@ public class Updown_counter : MonoBehaviour {
                 this.transform.localPosition = new Vector3(0, -87, 0);
                 break;
 
+            case 2: //トッピング調合の場合の、カウンターの位置
+
+                this.transform.localPosition = new Vector3(50, -87, 0);
+                break;
+
             case 3: //オリジナル調合の場合の、カウンターの位置
 
                 this.transform.localPosition = new Vector3(0, -87, 0);

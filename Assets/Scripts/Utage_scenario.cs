@@ -1713,7 +1713,12 @@ public class Utage_scenario : MonoBehaviour
             GirlLoveEvent_num = GameMgr.GirlLoveSubEvent_num;
             scenarioLabel = "GirlLove_EventSub"; //イベントレシピタグのシナリオを再生。
         }
-        
+        else if (GameMgr.girlloveevent_bunki == 2)
+        {
+            GirlLoveEvent_num = GameMgr.GirlLoveEvent_num;
+            scenarioLabel = "GirlLove_EDEvent"; //イベントレシピタグのシナリオを再生。
+        }
+
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
@@ -1766,6 +1771,19 @@ public class Utage_scenario : MonoBehaviour
                 //続きから再度読み込み
                 engine.ResumeScenario();
                 break;
+        }
+        if(GameMgr.ending_on)
+        {
+            //「宴」のシナリオ終了待ち
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            GameMgr.Utage_SceneEnd_BlackON = true;
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
         }
 
         //「宴」のシナリオ終了待ち

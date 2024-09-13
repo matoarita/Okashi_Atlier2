@@ -124,6 +124,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //コマンドの解禁フラグ
     public static bool System_MagicUse_Flag; //魔法の解禁フラグ
     public static bool System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
+    public static bool System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
 
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;
@@ -506,7 +507,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string[] contest_judge3_comment = new string[4];
 
     //エンディングのフラッグ
-    public static bool ending_on;       //コンテストメインで、エンディングシーンへ移動するためのフラグ
+    public static bool ending_on;       //エンディングシーンへ移動するためのフラグ
     public static bool ending_on2;      //BadEDの場合。EDムービーなし。
     public static int ending_number;    //エンディング番号    
 
@@ -957,6 +958,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         System_MagicUse_Flag = false;
         System_HikariMakeUse_Flag = false;
+        System_Topping_Multiple_Flag = false;
 
         stage1_clear_girl1_lovelv = 1;
         stage2_clear_girl1_lovelv = 1;
@@ -1511,8 +1513,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             DecoItems[system_i] = false;
         }*/
 
-        //一度に仕上げできる回数
-        topping_Set_Count = 1;
+        //一度に仕上げできる回数 初期値
+        topping_Set_Count = 2;
 
         //メインBGMの番号
         mainBGM_Num = 0;

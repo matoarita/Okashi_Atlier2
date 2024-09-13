@@ -35,6 +35,7 @@ public class Compound_Main : MonoBehaviour
     private SaveController save_controller;
     private keyManager keymanager;
     private SceneInitSetting sceneinit_setting;
+    private ExpTable exp_table;
 
     private GameObject canvas;
 
@@ -288,6 +289,7 @@ public class Compound_Main : MonoBehaviour
 
     private Color color_set;
     private bool StartRead;
+    private int _baseID;
 
     // Use this for initialization
     void Start()
@@ -344,6 +346,9 @@ public class Compound_Main : MonoBehaviour
 
         //ゲーム最初に所持するアイテムを決定するスクリプト
         playerDefaultStart_ItemGet = PlayerDefaultStartItemGet.Instance.GetComponent<PlayerDefaultStartItemGet>();
+
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
 
         //キー入力受付コントローラーの取得
         keymanager = keyManager.Instance.GetComponent<keyManager>();
@@ -1496,6 +1501,9 @@ public class Compound_Main : MonoBehaviour
 
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
+
+                //覚えたスキルやステータスを毎回チェックし、ぬけがないか更新。
+                exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
 
                 //
                 //アニメーション、キャラの表情関係
@@ -2972,6 +2980,14 @@ public class Compound_Main : MonoBehaviour
 
                 ClickPanel_1.SetActive(false);
                 ClickPanel_2.SetActive(false);
+
+                //あげたお菓子がエデンだった場合　最終イベントが発生しEDへ　ただし、まずかったり油っこいなどがあった場合はふつうに失敗
+                _baseID = pitemlist.player_extremepanel_itemlist[0].itemID;
+                if(database.items[database.SearchItemID(_baseID)].itemName == "Eden")
+                {
+                    GameMgr.ending_on = true;
+                    GameMgr.ending_number = 1;
+                }
                 break;
 
             case false:
@@ -3274,6 +3290,11 @@ public class Compound_Main : MonoBehaviour
                     GameMgr.SceneSelectNum = 30;
                     FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
                     break;
+            }
+
+            if(GameMgr.ending_on)
+            {
+                FadeManager.Instance.LoadScene("100_Ending", 0.3f);
             }
         }
         else //シーン移動などしない場合は、以下デフォルトの処理

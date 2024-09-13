@@ -47,6 +47,7 @@ public class Result_Panel : MonoBehaviour
     private Animator chara_animator;
 
     private Sequence sequence;
+    private Sequence sequence2;
 
     private int getlove_exp;
     private int Total_score;
@@ -215,13 +216,28 @@ public class Result_Panel : MonoBehaviour
             .SetRelative()); //元の位置から30px上に置いておく。
                              //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
 
-        //移動のアニメ
-        /*sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
-            .SetEase(Ease.OutExpo));*/
-        sequence.Append(Resultimage.transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.3f)
-            .SetRelative()
-            .SetEase(Ease.OutExpo) //30px上から、元の位置に戻る。
-            .OnComplete(() => UpdateCoin(Total_score))); //②数字演出開始　再生終了時
+        if (GameMgr.ending_on) //トゥルーEDの場合、特別な演出がはいる
+        {
+            countTime = 2000 * 0.03f; //1ごとに0.03fで表示する
+
+            //数字の上限がきりなく上がる。その最中にウィンドウがオフになり、そのまま宴イベントへ。
+            sequence.Append(Resultimage.transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.3f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo) //30px上から、元の位置に戻る。
+                .OnComplete(() => UpdateCoin(5000))); //②数字演出開始　再生終了時
+
+            girlEat_judge.EndingON_Method();
+        }
+        else
+        {
+            //移動のアニメ
+            /*sequence.Append(transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.2f)
+                .SetEase(Ease.OutExpo));*/
+            sequence.Append(Resultimage.transform.DOLocalMove(new Vector3(0f, -30f, 0), 0.3f)
+                .SetRelative()
+                .SetEase(Ease.OutExpo) //30px上から、元の位置に戻る。
+                .OnComplete(() => UpdateCoin(Total_score))); //②数字演出開始　再生終了時
+        }
 
         sequence.Join(Resultimage.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
@@ -265,8 +281,13 @@ public class Result_Panel : MonoBehaviour
     void EndCountUpAnim()
     {
         _poncount = 0;
-       
-        StartCoroutine("StarPon"); //満足度の☆表示              
+
+        if (GameMgr.ending_on) //トゥルーEDの場合、★表示にいくまえにフェードアウトして消えるので表示不要
+        { }
+        else
+        {
+            StartCoroutine("StarPon"); //満足度の☆表示
+        }
     }
 
     IEnumerator StarPon()
@@ -551,5 +572,22 @@ public class Result_Panel : MonoBehaviour
     public void ResultButtonOn()
     {
         girlEat_judge.ResultPanel_On();
+    }
+
+    //EDの演出の際に使用　ウィンドウをフェードアウトし、アニメーションもストップ
+    public void FadeOutKillWindow()
+    {
+        Sequence sequence2 = DOTween.Sequence();
+
+        sequence2.Append(this.GetComponent<CanvasGroup>().DOFade(0, 2.0f))
+                .OnComplete(() => EndFadeOutWindow()); //再生終了時
+        ;
+    }
+
+    void EndFadeOutWindow()
+    {
+        coinTween.Kill(true);
+        //宴を発火
+        girlEat_judge.OnEndingScenario();
     }
 }
