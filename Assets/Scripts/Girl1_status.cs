@@ -257,6 +257,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int _noweat_count;
     private int _hlv_last;
     private int hukidashi_number;
+    private int _id;
 
     private Text girl_param;
     private Slider _slider; //好感度バーを取得
@@ -1108,12 +1109,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             {
                 if (database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemType.ToString() == "Okashi")
                 {
-                    if (database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_cookie" ||
-                       database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "shishamo_crepe" ||
-                       database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemName == "murasaki_mushroom_cookie")
-                    {
-
-                    }
+                    _id = database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result);
+                    if (database.items[_id].itemName == "shishamo_cookie" || database.items[_id].itemName == "shishamo_crepe" ||
+                       database.items[_id].itemName == "murasaki_mushroom_cookie" ||
+                       database.items[_id].itemType_subB == "a_Cake_Mat" || database.items[_id].itemType_subB == "a_CookieSource")
+                    { }
                     else
                     {
                         girlRandomEat_List.Add(database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result));

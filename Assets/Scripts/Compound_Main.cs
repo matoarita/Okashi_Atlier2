@@ -2925,6 +2925,14 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Freezing_Spell");
                 break;
 
+            case "mg_caramelized_book":
+                magicskill_database.skillHyoujiKaikin("Caramelized");
+                break;
+
+            case "mg_rainbowrain_book":
+                magicskill_database.skillHyoujiKaikin("Rainbow_Rain");
+                break;
+
             case "mg_beautifulpower_book":
                 magicskill_database.skillHyoujiKaikin("Beautiful_Power");
                 break;

@@ -506,6 +506,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string[] contest_judge2_comment = new string[4];
     public static string[] contest_judge3_comment = new string[4];
 
+    //ミラボ先生のプレゼントリスト
+    public static List<string> mirabo_present_list = new List<string>(); //
+
     //エンディングのフラッグ
     public static bool ending_on;       //エンディングシーンへ移動するためのフラグ
     public static bool ending_on2;      //BadEDの場合。EDムービーなし。
@@ -1498,6 +1501,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //各サブNPCのお菓子判定番号をセット
         InitSubNPCEvent_OkashiJudgeLibrary();
 
+        //ミラボ先生プレゼントリスト設定
+        InitMirabo_PresentLibrary();
+
         //ヒカリのお菓子経験値テーブルをセット
         InitHikariOkashi_ExpTable();
 
@@ -1897,6 +1903,19 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Shop_Okashi_num02 = 100011; //プリンさん　エクストラ　クエストNo11 お茶会用
         Farm_Okashi_num01 = 100020; //モタリケさん　エクストラ
         Bar_Okashi_num01 = 100030; //フィオナさん　エクストラ
+    }
+
+    //ミラボ先生のプレゼントリストの初期化　メイン魔法の本
+    public static void InitMirabo_PresentLibrary()
+    {
+        mirabo_present_list.Clear();
+
+        //あげる順に登録
+        mirabo_present_list.Add("mg_secondbake_book");
+        mirabo_present_list.Add("mg_controltempature_book");
+        mirabo_present_list.Add("mg_freezespell_book");
+        mirabo_present_list.Add("mg_caramelized_book");
+        mirabo_present_list.Add("mg_rainbowrain_book");
     }
 
     //ヒカリのお菓子経験値テーブル

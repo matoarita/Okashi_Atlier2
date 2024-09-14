@@ -76,6 +76,7 @@ public class Utage_scenario : MonoBehaviour
 
     private int i, j;
     private int random;
+    private int counter;
     private string recipi_Name;
     private int _itemid;
     private int CommentID;
@@ -3086,6 +3087,31 @@ public class Utage_scenario : MonoBehaviour
 
                 //ミラボ先生の友好度をセット
                 engine.Param.TrySetParameter("event_NPC_FriendPoint", GameMgr.NPC_FriendPoint[0]);
+
+                //クリア済の魔法本リストをチェック　次にあげる本教えてくれる
+                counter = 0;
+                for (i=0; i<10; i++)
+                {
+                    if(GameMgr.NPCMagic_eventList[100+i]) //trueの数をみる。
+                    {
+                        counter++;
+                    }
+                }
+                if (counter < GameMgr.mirabo_present_list.Count) //プレゼントリストを超えてる場合、あげる本がない
+                {
+                    ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[counter]);
+                    engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
+                    engine.Param.TrySetParameter("Event_tempcheck", 0);
+                }
+                else
+                {
+                    //あげる本がなくなった
+                    //ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[0]);
+                    engine.Param.TrySetParameter("event_get_magicbook", "");
+                    engine.Param.TrySetParameter("Event_tempcheck", 1);
+                }
+                
+
                 scenarioLabel = "Or_MagicNPC01_Light";
                 break;
 
@@ -5452,72 +5478,128 @@ public class Utage_scenario : MonoBehaviour
     }
 
     void NPCMagic_MiraboPresentCheck()
-    {       
-
-        if (item_magic == 0)
+    {
+        if (GameMgr.event_judge_status == 0) //まずいとき　友好度が下がる。
         {
-            //魔法のおかしじゃなかった場合
-            engine.Param.TrySetParameter("event_magicOK", 0);
+            GameMgr.NPC_FriendPoint[0] -= 3;
+            if (GameMgr.NPC_FriendPoint[0] <= 0)
+            {
+                GameMgr.NPC_FriendPoint[0] = 0;
+            }
+
+            engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+        }
+        else
+        {           
+            if (item_magic == 0)
+            {
+                //魔法のおかしじゃなかった場合
+                engine.Param.TrySetParameter("event_magicOK", 0);
+                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+            }
+            else
+            {
+                engine.Param.TrySetParameter("event_magicOK", 1);
+                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+
+                //一点の点数以上で、魔法のおかしなら、次に新しい魔法の本をくれる。
+                if (GameMgr.NPC_FriendPoint[0] >= 50 && GameMgr.NPC_FriendPoint[0] < 55) //LV1
+                {
+                    mirabo_clearscore = 100; //クリア点
+                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
+
+                    Mirabo_Clearcheck(100, 0);
+                }
+                else if (GameMgr.NPC_FriendPoint[0] >= 55 && GameMgr.NPC_FriendPoint[0] < 60) //LV2
+                {
+
+                    mirabo_clearscore = 120; //クリア点
+                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
+
+                    Mirabo_Clearcheck(101, 1);
+                }
+                else if (GameMgr.NPC_FriendPoint[0] >= 60 && GameMgr.NPC_FriendPoint[0] < 65) //LV3
+                {
+                    mirabo_clearscore = 175; //クリア点
+                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
+
+                    Mirabo_Clearcheck(102, 2);
+                    
+                }
+                else if (GameMgr.NPC_FriendPoint[0] >= 65 && GameMgr.NPC_FriendPoint[0] < 70) //LV4
+                {
+                    mirabo_clearscore = 220; //クリア点
+                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
+
+                    Mirabo_Clearcheck(103, 3);
+
+                }
+                else if (GameMgr.NPC_FriendPoint[0] >= 70 && GameMgr.NPC_FriendPoint[0] < 75) //LV5
+                {
+                    mirabo_clearscore = 260; //クリア点
+                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
+
+                    Mirabo_Clearcheck(104, 4);
+
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("event_magicOK", 2); //魔法の本がもうない
+
+                    mirabo_clearscore = 100; //クリア点　本がもうない場合、100をこえたら何かランダムでアイテムくれる。
+                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
+
+                    if (total_score >= mirabo_clearscore)
+                    {
+                        GameMgr.event_judge_status = 3;
+
+                        engine.Param.TrySetParameter("EventJudge_Storynum", 0); //ランダムアイテム
+                        GameMgr.NPC_FriendPoint[0] += 2; //クリアしたら友好度が+
+
+                    }
+                    else
+                    {
+                        GameMgr.event_judge_status = 1;
+                    }
+                    
+                }                
+            }
+        }
+    }
+
+    void Mirabo_Clearcheck(int _evnum, int _mgbooknum)
+    {
+        if (total_score >= mirabo_clearscore)
+        {
+            GameMgr.event_judge_status = 3;
+
+            if (GameMgr.NPCMagic_eventList[_evnum]) //クリア済の場合、ランダムアイテムに変わる。
+            {
+                engine.Param.TrySetParameter("EventJudge_Storynum", 100);
+
+                GameMgr.NPC_FriendPoint[0] += 3; //クリアしたら友好度が+
+            }
+            else
+            {
+                engine.Param.TrySetParameter("EventJudge_Storynum", 10); //10=本をもらえる
+
+                //魔法の本の名称を登録
+                ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[_mgbooknum]);
+                engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
+
+                //〇〇の本をくれる。    
+                //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");                    
+                pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加 
+
+                GameMgr.NPC_FriendPoint[0] += 5; //クリアしたら友好度が+
+                GameMgr.NPCMagic_eventList[_evnum] = true;
+            }
         }
         else
         {
-            engine.Param.TrySetParameter("event_magicOK", 1);
-
-            //一点の点数以上で、魔法のおかしなら、次に新しい魔法の本をくれる。
-            switch (GameMgr.NPC_FriendPoint[0])
-            {
-                case 50: //LV1
-
-                    mirabo_clearscore = 100; //クリア点
-
-                    engine.Param.TrySetParameter("EventJudge_Storynum", 10);
-                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
-                    if (total_score >= mirabo_clearscore)
-                    {
-                        //魔法の本の名称を登録
-                        ev_id = pitemlist.Find_eventitemdatabase("mg_secondbake_book");
-                        engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
-
-                        //〇〇の本をくれる。    
-                        //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
-                        pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加 
-
-                        GameMgr.NPC_FriendPoint[0] += 5; //クリアしたら友好度が+
-                    }
-
-                    break;
-
-                case 55: //LV2
-
-                    mirabo_clearscore = 120; //クリア点
-
-                    engine.Param.TrySetParameter("EventJudge_Storynum", 10);
-                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
-                    if (total_score >= mirabo_clearscore)
-                    {
-                        //魔法の本の名称を登録
-                        ev_id = pitemlist.Find_eventitemdatabase("mg_controltempature_book");
-                        engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
-
-                        //〇〇の本をくれる。    
-                        //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");                    
-                        pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加 
-
-                        GameMgr.NPC_FriendPoint[0] += 5; //クリアしたら友好度が+
-                    }
-
-                    break;
-
-                default: //その他　本はもらえない
-
-                    engine.Param.TrySetParameter("EventJudge_Storynum", 0);
-                    break;
-            }
+            GameMgr.event_judge_status = 1;
         }
-        engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
     }
-
-
 
 
 

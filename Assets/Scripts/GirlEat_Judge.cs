@@ -2941,7 +2941,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                 }
             }
-            
+
 
             //そのお菓子を食べた回数でお金取得を割り算。同じお菓子を何度あげても、だんだんお金は上がらなくなってくる。
             /*if (database.items[_baseID].Eat_kaisu == 0)
@@ -2965,7 +2965,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Getlove_exp = (int)(Getlove_exp * 0.75f);
             }
-            else if (database.items[_baseID].Eat_kaisu >= 5 && database.items[_baseID].Eat_kaisu < 7) {
+            else if (database.items[_baseID].Eat_kaisu >= 5 && database.items[_baseID].Eat_kaisu < 7)
+            {
                 Getlove_exp = (int)(Getlove_exp * 0.5f);
             }
             else if (database.items[_baseID].Eat_kaisu >= 7 && database.items[_baseID].Eat_kaisu < 15)
@@ -2985,8 +2986,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (Getlove_exp <= 1) { Getlove_exp = 1; }
 
             //魔法のお菓子を食べた場合、MaxMPが上がる
-            if(database.items[_baseID].Magic == 1)
-            {              
+            if (database.items[_baseID].Magic == 1)
+            {
                 if (database.items[_baseID].Eat_kaisu < 1)
                 {
                     GetMP = 1;
@@ -3004,38 +3005,36 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
             }
 
-            //エクストラモード時　さらに計算
-            if (GameMgr.Story_Mode == 1)
+            //食べたいおかしをあげたときの処理
+            //Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
+            GameMgr.RandomEatOkashi_counter++;
+
+            if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
             {
-                //Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
-                GameMgr.RandomEatOkashi_counter++;
+                Debug.Log("食べたいお菓子をあげた　ハート*1.3倍");
 
-                if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
+                GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
+                GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
+
+                Getlove_exp = (int)(Getlove_exp * 1.3f);
+                PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
+
+                if (PlayerStatus.player_girl_eatCount_tabetai >= 999)
                 {
-                    Debug.Log("エクストラ　食べたいお菓子をあげた　ハート*1.3倍");
-
-                    GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
-                    GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
-
-                    Getlove_exp = (int)(Getlove_exp * 1.3f);
-                    PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
-
-                    if (PlayerStatus.player_girl_eatCount_tabetai >= 999)
-                    {
-                        PlayerStatus.player_girl_eatCount_tabetai = 999; //999でカンスト
-                    }
-
-                    //体力も上がる。
-                    PlayerStatus.player_girl_maxlifepoint += 1;
-
-                    //機嫌もよくなる。
-                    girl1_status.GirlExpressionKoushin(20);
-
-                    //次で食べたいお菓子が強制的に変わる。
-                    GameMgr.RandomEatOkashi_counter = 0;
-                    girl1_status.RandomOkashiDecideMethod();
+                    PlayerStatus.player_girl_eatCount_tabetai = 999; //999でカンスト
                 }
+
+                //体力も上がる。
+                //PlayerStatus.player_girl_maxlifepoint += 1;
+
+                //機嫌もよくなる。
+                girl1_status.GirlExpressionKoushin(20);
+
+                //次で食べたいお菓子が強制的に変わる。
+                GameMgr.RandomEatOkashi_counter = 0;
+                girl1_status.RandomOkashiDecideMethod();
             }
+
 
             //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
             if (PlayerStatus.girl1_Love_lv >= 70 && PlayerStatus.girl1_Love_lv < 80)
@@ -3060,7 +3059,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
 
             //ハート　装備品による補正
-            if(pitemlist.KosuCount("aroma_potion1") >= 1)
+            if (pitemlist.KosuCount("aroma_potion1") >= 1)
             {
                 Getlove_exp = (int)(Getlove_exp * 1.2f);
             }

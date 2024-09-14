@@ -732,7 +732,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
             if (database.items[_ID].itemType_sub.ToString() == "Coffee" || database.items[_ID].itemType_sub.ToString() == "Coffee_Mat" ||
                    database.items[_ID].itemType_sub.ToString() == "Juice" || database.items[_ID].itemType_sub.ToString() == "Tea" ||
-                   database.items[_ID].itemType_sub.ToString() == "Tea_Mat" || database.items[_ID].itemType_sub.ToString() == "Tea_Potion")
+                   database.items[_ID].itemType_sub.ToString() == "Tea_Mat" || database.items[_ID].itemType_sub.ToString() == "Tea_Potion" || 
+                   database.items[_ID].itemType_sub.ToString() == "Soda")
             {
                 OkashiQuest_Name = GameMgr.NowEatOkashiName + "がのみたい！";
             }
