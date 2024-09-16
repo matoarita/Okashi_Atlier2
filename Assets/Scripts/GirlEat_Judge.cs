@@ -1910,7 +1910,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Debug.Log("_beauty_deg: " + _temp_deg);
 
-                _temp_beautyscore = (int)(_beauty_basicscore * _temp_deg);
+                if(_temp_kyori >= 10) //差が10をこえたときに、はじめて見た目の点数が加算される。
+                {
+                    //_temp_beautyscore = _temp_kyori; //加算方式
+                    _temp_beautyscore = (int)(_beauty_basicscore * _temp_deg) - _beauty_basicscore; //
+                }
+                else
+                {
+                    _temp_beautyscore = 0;
+                }
+                
+                //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg); //倍率方式
+                //_temp_beautyscore -= GameMgr.System_Beauty_BasicScore + 10; 
             }
             else
             {
@@ -2025,7 +2036,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else if (Mathf.Abs(_taste_result) < 15) //+-5~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 75;
+            taste_score = 55;
             taste_level = 6;
         }
         else if (Mathf.Abs(_taste_result) < 30) //+-15~29　かなりいい感じ
@@ -2037,19 +2048,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else if (Mathf.Abs(_taste_result) < 60) //+-29~59  いい感じ
         {
             Debug.Log(_taste_type + "Good!");
-            taste_score = 35;
+            taste_score = 25;
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) < 90) //+-60~89　ちょっと足りない
         {
             Debug.Log(_taste_type + "Normal");
-            taste_score = 20;
+            taste_score = 10;
             taste_level = 4;
         }
-        else if (Mathf.Abs(_taste_result) < 90) //+-90~149　全然足りない
+        else if (Mathf.Abs(_taste_result) < 120) //+-90~119　全然足りない
         {
             Debug.Log(_taste_type + "poor");
-            taste_score = 3;
+            taste_score = -20;
             taste_level = 3;
         }
         else if (Mathf.Abs(_taste_result) <= 150) //+-150~249
@@ -2075,55 +2086,55 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             taste_score = 100;
             taste_level = 8;
         }
-        else if (Mathf.Abs(_taste_result) < 3) //+-1~2　絶妙な塩梅
+        else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 75;
+            taste_score = 60;
             taste_level = 7;
         }
         else if (Mathf.Abs(_taste_result) < 8) //+-3~7　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 65;
+            taste_score = 35;
             taste_level = 6;
         }
         else if (Mathf.Abs(_taste_result) < 15) //+-8~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 50;
+            taste_score = 20;
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) < 23) //+15~22  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 40;
+            taste_score = 12;
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) < 40) //+-23~39　かなりいい感じ
         {
             Debug.Log(_taste_type + "Well!");
-            taste_score = 30;
+            taste_score = 5;
             taste_level = 4;
         }
         else if (Mathf.Abs(_taste_result) < 60) //+-29~59  いい感じ
         {
             Debug.Log(_taste_type + "Good!");
-            taste_score = 10;
+            taste_score = 0;
             taste_level = 4;
         }
         else if (Mathf.Abs(_taste_result) < 90) //+-60~89　ちょっと足りない
         {
             Debug.Log(_taste_type + "Normal");
-            taste_score = 5;
+            taste_score = 0;
             taste_level = 4;
         }
-        else if (Mathf.Abs(_taste_result) < 90) //+-90~149　全然足りない
+        else if (Mathf.Abs(_taste_result) < 120) //+-90~119　全然足りない
         {
             Debug.Log(_taste_type + "poor");
-            taste_score = 0;
+            taste_score = -30;
             taste_level = 3;
         }
-        else if (Mathf.Abs(_taste_result) <= 150) //+-150~249
+        else if (Mathf.Abs(_taste_result) <= 150) //+-119~149
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -60;
@@ -2140,114 +2151,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
     void ShokukanScore_keisan(string _temp_baseitemtype_sub)
-    {
-
-        /*switch (_temp_baseitemtype_sub)
-        {
-            case "Biscotti":
-                Hardness_Score();
-                break;
-            case "Bread":
-                Crispy_Score();
-                break;
-            case "Bread_Sliced":
-                Crispy_Score();
-                break;
-            case "Cookie":
-                Crispy_Score();
-                break;
-            case "Cookie_Mat":
-                Crispy_Score();
-                break;
-            case "Cookie_Hard":
-                Hardness_Score();
-                break;
-            case "Chocolate":
-                Smooth_Score();
-                break;
-            case "Chocolate_Mat":
-                Smooth_Score();
-                break;
-            case "Cake":
-                Fluffy_Score();
-                break;
-            case "Cake_Mat":
-                Fluffy_Score();
-                break;
-            case "Castella":
-                Fluffy_Score();
-                break;
-            case "Cannoli":
-                Crispy_Score();
-                break;
-            case "Candy":
-                Hardness_Score();
-                break;
-            case "Crepe":
-                Fluffy_Score();
-                break;
-            case "Crepe_Mat":
-                Fluffy_Score();
-                break;
-            case "Creampuff":
-                Fluffy_Score();
-                break;
-            case "Coffee":
-                Tea_Score();
-                break;
-            case "Coffee_Mat":
-                Tea_Score();
-                break;
-            case "Donuts":
-                Fluffy_Score();
-                break;
-            case "Financier":
-                Fluffy_Score();
-                break;
-            case "IceCream":
-                Smooth_Score();
-                break;
-            case "Juice":
-                Juice_Score();
-                break;
-            case "Jelly":
-                Hardness_Score();
-                Smooth_Score();
-                break;
-            case "Maffin":
-                Fluffy_Score();
-                break;
-            case "PanCake":
-                Fluffy_Score();
-                break;
-            case "Parfe":
-                Crispy_Score();
-                Fluffy_Score();
-                Smooth_Score();
-                break;
-            case "Pie":
-                Crispy_Score();
-                break;
-            case "Rusk":
-                Crispy_Score();
-                break;
-            case "SumireSuger":
-                Tea_Score();
-                break;
-            case "Tea":
-                Tea_Score();
-                break;
-            case "Tea_Mat":
-                Tea_Score();
-                break;
-            case "Tea_Potion":
-                Tea_Score();
-                break;
-
-            default:
-                Crispy_Score();
-                break;
-        }*/
+    {        
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
         itemsubtypeset_database.SetImageSub(_temp_baseitemtype_sub);

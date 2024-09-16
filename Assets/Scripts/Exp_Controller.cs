@@ -2253,18 +2253,21 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 sc.PlaySe(10);
 
                 //通常調合　温度管理使用時、色が赤になる。
-                if (GameMgr.tempature_control_USE)
+                if (GameMgr.tempature_control_ON)
                 {
-                    //パーティクルと色の取得
-                    compo1_particle = _listEffect[0].GetComponent<ParticleSystem>();
-                    p_color1 = _listEffect[0].GetComponent<Particle_Compo1>().color_red;
+                    if (GameMgr.System_tempature_control_Param_time != 0) //時間を0分にしたときは、無視
+                    {
+                        Debug.Log("温度管理ONでパーティクル赤になる");
+                        //パーティクルと色の取得
+                        compo1_particle = _listEffect[0].GetComponent<ParticleSystem>();
+                        p_color1 = _listEffect[0].GetComponent<Particle_Compo1>().color_red;
 
-                    main = compo1_particle.main;
-                    main.startColor = new ParticleSystem.MinMaxGradient(p_color1); //色の指定
+                        main = compo1_particle.main;
+                        main.startColor = new ParticleSystem.MinMaxGradient(p_color1); //色の指定
+                    }
                 }
                 else
-                {
-                }
+                { }
                 break;
         }
         

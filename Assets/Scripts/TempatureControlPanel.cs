@@ -134,7 +134,6 @@ public class TempatureControlPanel : MonoBehaviour {
 
         switch (yes_selectitem_kettei.kettei1)
         {
-
             case true:
 
                 //Debug.Log("ok");
@@ -148,6 +147,7 @@ public class TempatureControlPanel : MonoBehaviour {
 
                 Debug.Log("温度管理画面をcancel");
 
+                GameMgr.tempature_control_ON = false;
                 GameMgr.compound_status = 100;
                 this.transform.Find("Comp").gameObject.SetActive(false);
 

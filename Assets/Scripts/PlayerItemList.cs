@@ -891,6 +891,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             else if (player_extremepanel_itemlist[_id].ItemKosu > 0)
             {
                 ExtremeToCopyOriginalItem(player_extremepanel_itemlist[0].ItemKosu);
+                deleteAllExtremePanelItem();
             }
 
         }      

@@ -580,7 +580,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool tempature_control_select_flag; //調合シーンで、温度管理画面を開く
     public static bool tempature_control_Offflag; //温度管理画面を閉じる
     public static bool tempature_control_ON; //焼き菓子かどうかをチェックし、焼き菓子ならON　最終チェックからキャンセルで戻るときに使用する
-    public static bool tempature_control_USE; //温度管理の使用の有無。時間が0分に設定だと、温度管理は使用しないことになる。
     public static string tempature_control_Param_yakitext; //焼き具合のテキスト
     public static int System_tempature_control_Param_temp; //温度管理画面の温度の値
     public static int System_tempature_control_Param_time; //温度管理画面の時間の値
@@ -1157,7 +1156,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         tempature_control_select_flag = false;
         tempature_control_Offflag = false;
         tempature_control_ON = false;
-        tempature_control_USE = false;
         CompoundSceneStartON = false;
         matbgm_change_flag = false;
         compobgm_change_flag = false;

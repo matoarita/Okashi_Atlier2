@@ -1497,15 +1497,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     void MakeMethodExt()
     {
-        if (databaseCompo.compoitems[result_compID].cmpitem_Name == "egg_split")
+        if (databaseCompo.compoitems[result_compID].cmpitemID_result2 != "Non")
         {
-            pitemlist.addPlayerItemString("egg_white", result_kosu);
-            pitemlist.addPlayerItemString("egg_yellow", result_kosu);
-        }
-        if (databaseCompo.compoitems[result_compID].cmpitem_Name == "egg_split_premiaum")
-        {
-            pitemlist.addPlayerItemString("egg_premiaum_white", result_kosu);
-            pitemlist.addPlayerItemString("egg_premiaum_yellow", result_kosu);
+            pitemlist.addPlayerItemString(databaseCompo.compoitems[result_compID].cmpitemID_result, result_kosu);
+            pitemlist.addPlayerItemString(databaseCompo.compoitems[result_compID].cmpitemID_result2, result_kosu);
         }
     }
 
@@ -1746,7 +1741,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         total_kosu = 0;
         GameMgr.tempature_control_Param_yakitext = "";
-        GameMgr.tempature_control_USE = false; //毎回まずはリセット
 
         //①まずは、日数やコストなどの、全てのジャンルに共通するパラメータ同士を加算する。料金（_basesell）は、品質に基づいて計算する。
 
@@ -2109,7 +2103,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 if (GameMgr.System_tempature_control_Param_time != 0) //時間を0分にしたときは、無視
                 {
                     Debug.Log("--- 温度管理ON --- ");
-                    GameMgr.tempature_control_USE = true;
+                    
 
                     _tempature_param = SujiMap(GameMgr.System_tempature_control_Param_temp * GameMgr.System_tempature_control_Param_temp,
                         GameMgr.System_tempature_control_tempMin * GameMgr.System_tempature_control_tempMin, 
@@ -2217,7 +2211,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    GameMgr.tempature_control_USE = false;
+                    
                 }
             }
         }
