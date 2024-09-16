@@ -1201,6 +1201,19 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
+            case "Statue_of_Cat":
+
+                if (check_itemType_sub == "a_AppaleilMizuame" ||
+                    check_itemType_subB == "a_AppaleilChocolate")
+                {
+                    if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
+                    {
+                        itemlist_hyouji_Check();
+                    }
+
+                }
+                break;
+
             case "Statue_of_Rabitts":
 
                 if (check_itemType_sub == "a_AppaleilMizuame" ||
@@ -1229,7 +1242,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Star_Blessing":
 
-                if (check_itemType_sub == "Juice" || check_itemType_sub == "Tea")
+                if (check_itemType_sub == "Juice" || check_itemType_sub == "Tea" || check_itemType_sub == "Soda")
                 {
                     itemlist_hyouji_Check();
                 }
@@ -1254,6 +1267,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             case "Magic_Soda":
 
                 if (check_itemType_sub == "Soda")
+                {
+                    itemlist_hyouji_Check();
+                }
+                break;
+
+            case "Rainbow_Rain":
+
+                if (check_itemType_sub == "Soda" || check_itemType_sub == "Berry")
                 {
                     itemlist_hyouji_Check();
                 }

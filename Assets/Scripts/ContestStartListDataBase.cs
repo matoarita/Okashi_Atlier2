@@ -915,8 +915,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     {
         GameMgr.Contest_DB_list_Type = 32000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 22000;
-        GameMgr.Contest_ProblemSentence = "テーマ：「愛」をテーマにした至高のケーキ";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。焼き菓子を作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence = "テーマ：アイスクリーム";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。極上アイスクリームを作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();

@@ -81,6 +81,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //重要アイテム名
     public static string System_TreasureItem01 = "ブルージェム";
 
+    //真実のハートのハート消費量
+    public static int System_trueheart_cost = 5000;
+
     //温度の最小・最大
     public static int System_tempature_control_tempMin = 150;
     public static int System_tempature_control_tempMax = 230;
@@ -508,6 +511,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //ミラボ先生のプレゼントリスト
     public static List<string> mirabo_present_list = new List<string>(); //
+    public static List<string> mirabo_present_list_sub = new List<string>();
 
     //エンディングのフラッグ
     public static bool ending_on;       //エンディングシーンへ移動するためのフラグ
@@ -1502,7 +1506,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         InitSubNPCEvent_OkashiJudgeLibrary();
 
         //ミラボ先生プレゼントリスト設定
-        InitMirabo_PresentLibrary();
+        InitMirabo_PresentLibraryMain();
+        InitMirabo_PresentLibrarySub();
 
         //ヒカリのお菓子経験値テーブルをセット
         InitHikariOkashi_ExpTable();
@@ -1906,7 +1911,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     }
 
     //ミラボ先生のプレゼントリストの初期化　メイン魔法の本
-    public static void InitMirabo_PresentLibrary()
+    public static void InitMirabo_PresentLibraryMain()
     {
         mirabo_present_list.Clear();
 
@@ -1916,6 +1921,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mirabo_present_list.Add("mg_freezespell_book");
         mirabo_present_list.Add("mg_caramelized_book");
         mirabo_present_list.Add("mg_rainbowrain_book");
+    }
+
+    public static void InitMirabo_PresentLibrarySub() //こっちはランダムアイテムテーブル
+    {
+        mirabo_present_list_sub.Clear();
+
+        //テーブル1
+        mirabo_present_list_sub.Add("orange");
+        mirabo_present_list_sub.Add("grape");
+        mirabo_present_list_sub.Add("emerald_suger");
     }
 
     //ヒカリのお菓子経験値テーブル

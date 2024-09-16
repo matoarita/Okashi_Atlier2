@@ -125,6 +125,8 @@ public class Compound_Check : MonoBehaviour {
     private string magicName;
     private int magicLearnLv;
     private int _magic_rate;
+    private int _playerhour;
+    private int _uselv;
 
     // Use this for initialization
     void Start () {
@@ -1082,6 +1084,18 @@ public class Compound_Check : MonoBehaviour {
                                                                                                   //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
                                 break;
 
+                            case "True_of_Myheart":
+
+                                if (PlayerStatus.girl1_Love_exp >= GameMgr.System_trueheart_cost)
+                                {
+                                    girleat_judge.UpDegHeart(-GameMgr.System_trueheart_cost, false); //ハートを消費するパターン;
+                                }
+                                else //足りてないときは、演出が入るが失敗になる。
+                                {
+                                    exp_Controller._success_rate = 0;
+                                }
+                                break;
+
                             default:
 
                                 GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
@@ -1265,6 +1279,35 @@ public class Compound_Check : MonoBehaviour {
                 _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName);
                 Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName);
             }
+            else if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "MS")//[MS]が入っている時 マジックソーダの判定　時間帯で番号が変わる。
+            {
+                _playerhour = PlayerStatus.player_cullent_hour;
+                _uselv = 1;
+
+                if (_playerhour >= 0 && _playerhour < 11 )
+                {
+                    _uselv = 1;
+                }
+                else if (_playerhour >= 11 && _playerhour < 14)
+                {
+                    _uselv = 2;
+                }
+                else if (_playerhour >= 14 && _playerhour < 17)
+                {
+                    _uselv = 3;
+                }
+                else if (_playerhour >= 17 && _playerhour < 18)
+                {
+                    _uselv = 4;
+                }
+                else if (_playerhour >= 18)
+                {
+                    _uselv = 5;
+                }
+
+                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName + _uselv);
+                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName + _uselv);
+            }
             //USEは、使用時に魔法のレベルを選択できるモード　パラメータ数が膨大になるので、今回は見送り
             /*else if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "Use")//[USE]が入っている時
             {
@@ -1432,7 +1475,7 @@ public class Compound_Check : MonoBehaviour {
                     success_text = "新しいお菓子を思いつきそう..？";
                     newrecipi_flag = true;
                     exp_Controller.NewRecipiFlag = true;
-                    //kakuritsuPanel.KakuritsuYosoku_NewImg(); //??にする。
+                    //kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
                 }
             }
             else
@@ -1538,7 +1581,16 @@ public class Compound_Check : MonoBehaviour {
                 if (!_debug_sw) //魔法のみ、決定時もう一度判定されるので、デバッグONのときは、100%成功にする。
                 {
                     exp_Controller._success_rate = _success_rate;
-                    kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+
+                    //スキルによっては、成否判定がミニゲームだったりするので、その場合表示が??
+                    if( magicName == "Cookie_SecondBake" || magicName == "AbraCadabra")
+                    {
+                        kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
+                    }
+                    else
+                    {
+                        kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
+                    }                    
                 }
                 else
                 {

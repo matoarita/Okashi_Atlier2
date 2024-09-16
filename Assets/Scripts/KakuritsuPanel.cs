@@ -32,7 +32,7 @@ public class KakuritsuPanel : MonoBehaviour {
         srate_hyouji.text = _srate.ToString("f1");
     }
 
-    public void KakuritsuYosoku_NewImg()
+    public void KakuritsuYosoku_HatenaImg()
     {
         srate_hyouji = this.transform.Find("Image/Kakuritsu_param").gameObject.GetComponent<Text>();
         srate_hyouji.text = "??.?";

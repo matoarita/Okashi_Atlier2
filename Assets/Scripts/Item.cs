@@ -178,6 +178,7 @@ public class Item
         GlowFruits,
         Komugiko,
         Milk,
+        Nuts,
         Pate,
         Suger,
         SumireSuger,

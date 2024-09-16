@@ -75,10 +75,12 @@ public class Utage_scenario : MonoBehaviour
     private int picnic_place_num;
 
     private int i, j;
-    private int random;
+    private int random, random2;
     private int counter;
     private string recipi_Name;
     private int _itemid;
+    private int _itemKosu;
+    private string _itemNameHyouji;
     private int CommentID;
     private int judge_num; //審査員の番号
     private bool SpecialItemFlag;
@@ -5493,8 +5495,12 @@ public class Utage_scenario : MonoBehaviour
         {           
             if (item_magic == 0)
             {
-                //魔法のおかしじゃなかった場合
+                //魔法のおかしじゃなかった場合 ランダムでアイテムくれる
                 engine.Param.TrySetParameter("event_magicOK", 0);
+
+                Mirabo_RandomItemSelect();
+                
+
                 engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
             }
             else
@@ -5553,6 +5559,8 @@ public class Utage_scenario : MonoBehaviour
                     {
                         GameMgr.event_judge_status = 3;
 
+                        Mirabo_RandomItemSelect();
+
                         engine.Param.TrySetParameter("EventJudge_Storynum", 0); //ランダムアイテム
                         GameMgr.NPC_FriendPoint[0] += 2; //クリアしたら友好度が+
 
@@ -5575,6 +5583,8 @@ public class Utage_scenario : MonoBehaviour
 
             if (GameMgr.NPCMagic_eventList[_evnum]) //クリア済の場合、ランダムアイテムに変わる。
             {
+                Mirabo_RandomItemSelect();
+
                 engine.Param.TrySetParameter("EventJudge_Storynum", 100);
 
                 GameMgr.NPC_FriendPoint[0] += 3; //クリアしたら友好度が+
@@ -5599,6 +5609,21 @@ public class Utage_scenario : MonoBehaviour
         {
             GameMgr.event_judge_status = 1;
         }
+    }
+
+    void Mirabo_RandomItemSelect()
+    {
+        random = Random.Range(0, GameMgr.mirabo_present_list_sub.Count); //
+        random2 = Random.Range(0, 3); //個数
+
+        _itemid = database.SearchItemIDString(GameMgr.mirabo_present_list_sub[random]);
+        _itemNameHyouji = database.items[_itemid].itemNameHyouji;
+        _itemKosu = 1 + random2;
+
+        pitemlist.addPlayerItemString(database.items[_itemid].itemName, _itemKosu); //
+
+        engine.Param.TrySetParameter("event_get_item", _itemNameHyouji);
+        engine.Param.TrySetParameter("event_get_itemKosu", _itemKosu);
     }
 
 
