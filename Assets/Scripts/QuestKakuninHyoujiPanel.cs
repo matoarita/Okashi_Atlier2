@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
     private QuestSetDataBase questset_database;
     private PlayerItemList pitemlist;
 
+    private SoundController sc;
     private TimeController time_controller;
 
     private GameObject NoQuestText_obj;
@@ -62,6 +64,9 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         questname = this.transform.Find("PanelB/Quest_name").GetComponent<Text>();
         item_kosu = this.transform.Find("PanelB/Quest_Kosu").GetComponent<Text>();
@@ -203,5 +208,28 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
         GameMgr.compound_status = 110;
         this.gameObject.SetActive(false);
+    }
+
+    public void OnMoveBarA()
+    {
+        //入店の音
+        sc.PlaySe(38);
+        sc.PlaySe(51);
+
+        GameMgr.ShopEnter_ButtonON = true;
+
+        GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+    }
+
+    public void OnMoveBarB()
+    {
+        //入店の音
+        sc.PlaySe(38);
+        sc.PlaySe(51);
+        GameMgr.ShopEnter_ButtonON = true;
+
+        GameMgr.SceneSelectNum = 20;
+        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
     }
 }

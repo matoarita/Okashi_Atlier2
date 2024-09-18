@@ -166,4 +166,44 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         GameMgr.compound_status = 110;
         this.gameObject.SetActive(false);
     }
+
+    public void OnMoveContestA()
+    {
+        //入店の音
+        sc.PlaySe(150);
+        GameMgr.ShopEnter_ButtonON = true;
+
+        GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+    }
+
+    public void OnMoveContestB()
+    {
+        //入店の音
+        sc.PlaySe(150);
+        GameMgr.ShopEnter_ButtonON = true;
+
+        GameMgr.SceneSelectNum = 10;
+        FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+    }
+
+    public void OnMoveContestC()
+    {
+        //入店の音
+        sc.PlaySe(150);
+        GameMgr.ShopEnter_ButtonON = true;
+
+        GameMgr.SceneSelectNum = 20;
+        FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+    }
+
+    public void OnMoveContestD()
+    {
+        //入店の音
+        sc.PlaySe(150);
+        GameMgr.ShopEnter_ButtonON = true;
+
+        GameMgr.SceneSelectNum = 30;
+        FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+    }
 }

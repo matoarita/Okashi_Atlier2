@@ -223,8 +223,8 @@ public class Bar_Main_Controller : MonoBehaviour {
         //入店の音
         if (!GameMgr.ShopEnter_ButtonON) //重複防止 trueのときは音ならさない
         {
+            sc.PlaySe(38);
             sc.PlaySe(51);
-
         }
         GameMgr.ShopEnter_ButtonON = false;
 

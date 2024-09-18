@@ -974,7 +974,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 if (_lv >= 3) //くだもの
                 {
-                    if (check_itemType_sub == "Fruits")
+                    if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
                     {
                         itemlist_hyouji_Check();
                     }
