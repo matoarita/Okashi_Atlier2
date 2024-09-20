@@ -1315,7 +1315,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (_base_itemType == "Mat" || _base_itemType == "Potion")
         {
             //アイテム取得処理
-            GetItemMethod(0); //生地・ポーション系作ったときは何もせず、オリジナルアイテムに登録
+            if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" || 
+                _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "WhipeedCream")
+            {
+                GetItemMethod(0); //生地作ったときは各ステータスオリジナルのものなので、オリジナルアイテムに登録
+            }
+            else
+            {
+                GetItemMethod(2); //上記以外は店売りアイテムとして登録
+            }
         }
         else
         {
@@ -1492,6 +1500,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
 
                 break;
+
+            case 2:
+
+                MakeMethodMaterial();
+                break;
         }
     }
 
@@ -1502,6 +1515,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             pitemlist.addPlayerItemString(databaseCompo.compoitems[result_compID].cmpitemID_result, result_kosu);
             pitemlist.addPlayerItemString(databaseCompo.compoitems[result_compID].cmpitemID_result2, result_kosu);
         }
+    }
+
+    //店売りアイテムとして作る場合　フルーツなどの材料やトッピングアイテムが出来る場合
+    void MakeMethodMaterial()
+    {
+        pitemlist.addPlayerItemString(databaseCompo.compoitems[result_compID].cmpitemID_result, result_kosu);
     }
 
 

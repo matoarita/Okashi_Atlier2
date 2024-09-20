@@ -731,7 +731,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             {
                 //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
                 if (check_itemType == "Potion" || check_itemType_sub_category == "Potion" ||
-                    check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" ||
+                    check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" || check_itemType_sub == "Harb" ||
                     check_itemType_sub == "Nuts" || check_itemType_sub == "IceCream"
                     )
                 {
@@ -974,7 +974,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 if (_lv >= 3) //くだもの
                 {
-                    if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
+                    if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" || check_itemType_sub == "Harb")
                     {
                         itemlist_hyouji_Check();
                     }
@@ -1048,7 +1048,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Luminous_Fruits":
 
-                if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
+                if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" || check_itemType_sub == "Harb")
                 {
                     if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
                     {

@@ -89,6 +89,7 @@ public class Utage_scenario : MonoBehaviour
     private bool NPCevent_okashicheck;
     private int _rank;
     private int ev_id, mirabo_clearscore;
+    private int _evnum, _mgbooknum;
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -3091,21 +3092,15 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("event_NPC_FriendPoint", GameMgr.NPC_FriendPoint[0]);
 
                 //クリア済の魔法本リストをチェック　次にあげる本教えてくれる
-                counter = 0;
-                for (i=0; i<10; i++)
+                Mirabo_MagicBookCount();
+
+                if (counter < GameMgr.mirabo_present_list.Count) 
                 {
-                    if(GameMgr.NPCMagic_eventList[100+i]) //trueの数をみる。
-                    {
-                        counter++;
-                    }
-                }
-                if (counter < GameMgr.mirabo_present_list.Count) //プレゼントリストを超えてる場合、あげる本がない
-                {
-                    ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[counter]);
+                    ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[_mgbooknum]);
                     engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
                     engine.Param.TrySetParameter("Event_tempcheck", 0);
                 }
-                else
+                else //プレゼントリストを超えてる場合、あげる本がない
                 {
                     //あげる本がなくなった
                     //ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[0]);
@@ -5499,7 +5494,7 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("event_magicOK", 0);
 
                 Mirabo_RandomItemSelect();
-                
+                GameMgr.NPC_FriendPoint[0] += 1; //クリアしたら友好度が+
 
                 engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
             }
@@ -5507,45 +5502,30 @@ public class Utage_scenario : MonoBehaviour
             {
                 engine.Param.TrySetParameter("event_magicOK", 1);
                 engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+                engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
 
                 //一点の点数以上で、魔法のおかしなら、次に新しい魔法の本をくれる。
                 if (GameMgr.NPC_FriendPoint[0] >= 50 && GameMgr.NPC_FriendPoint[0] < 55) //LV1
-                {
-                    mirabo_clearscore = 100; //クリア点
-                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
-
-                    Mirabo_Clearcheck(100, 0);
+                {                   
+                    Mirabo_Clearcheck(1);
                 }
                 else if (GameMgr.NPC_FriendPoint[0] >= 55 && GameMgr.NPC_FriendPoint[0] < 60) //LV2
                 {
-
-                    mirabo_clearscore = 120; //クリア点
-                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
-
-                    Mirabo_Clearcheck(101, 1);
+                    Mirabo_Clearcheck(2);
                 }
                 else if (GameMgr.NPC_FriendPoint[0] >= 60 && GameMgr.NPC_FriendPoint[0] < 65) //LV3
                 {
-                    mirabo_clearscore = 175; //クリア点
-                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
-
-                    Mirabo_Clearcheck(102, 2);
+                    Mirabo_Clearcheck(3);
                     
                 }
                 else if (GameMgr.NPC_FriendPoint[0] >= 65 && GameMgr.NPC_FriendPoint[0] < 70) //LV4
                 {
-                    mirabo_clearscore = 220; //クリア点
-                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
-
-                    Mirabo_Clearcheck(103, 3);
+                    Mirabo_Clearcheck(4);
 
                 }
                 else if (GameMgr.NPC_FriendPoint[0] >= 70 && GameMgr.NPC_FriendPoint[0] < 75) //LV5
                 {
-                    mirabo_clearscore = 260; //クリア点
-                    engine.Param.TrySetParameter("event_okashi_clearscore", mirabo_clearscore);
-
-                    Mirabo_Clearcheck(104, 4);
+                    Mirabo_Clearcheck(5);
 
                 }
                 else
@@ -5575,23 +5555,28 @@ public class Utage_scenario : MonoBehaviour
         }
     }
 
-    void Mirabo_Clearcheck(int _evnum, int _mgbooknum)
+    void Mirabo_Clearcheck(int _stageLV)
     {
+        //最初にクリア済フラグの数をみて、それとステージレベルを比較する。
+        //ステージレベルに足りてないときは、先にまだもらってない本を優先してゲットする。
+        Mirabo_MagicBookCount();
+
+
         if (total_score >= mirabo_clearscore)
         {
             GameMgr.event_judge_status = 3;
 
-            if (GameMgr.NPCMagic_eventList[_evnum]) //クリア済の場合、ランダムアイテムに変わる。
-            {
+            if (counter >= _stageLV) //クリア済の場合、ランダムアイテムに変わる。
+                {
                 Mirabo_RandomItemSelect();
 
                 engine.Param.TrySetParameter("EventJudge_Storynum", 100);
 
-                GameMgr.NPC_FriendPoint[0] += 3; //クリアしたら友好度が+
+                GameMgr.NPC_FriendPoint[0] += 5; //クリアしたら友好度が+
             }
-            else
+            else if(counter < _stageLV)
             {
-                engine.Param.TrySetParameter("EventJudge_Storynum", 10); //10=本をもらえる
+                engine.Param.TrySetParameter("EventJudge_Storynum", 10); //10=本をもらえる                
 
                 //魔法の本の名称を登録
                 ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[_mgbooknum]);
@@ -5601,7 +5586,7 @@ public class Utage_scenario : MonoBehaviour
                 //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");                    
                 pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加 
 
-                GameMgr.NPC_FriendPoint[0] += 5; //クリアしたら友好度が+
+                GameMgr.NPC_FriendPoint[0] += 5; //クリアしたら友好度が+                
                 GameMgr.NPCMagic_eventList[_evnum] = true;
             }
         }
@@ -5624,6 +5609,60 @@ public class Utage_scenario : MonoBehaviour
 
         engine.Param.TrySetParameter("event_get_item", _itemNameHyouji);
         engine.Param.TrySetParameter("event_get_itemKosu", _itemKosu);
+    }
+
+    void Mirabo_MagicBookCount()
+    {
+        //クリア済の魔法本リストをチェック　次にあげる本教えてくれる
+        counter = 0;
+        for (i = 0; i < 10; i++)
+        {
+            if (GameMgr.NPCMagic_eventList[100 + i]) //trueの数をみる。
+            {
+                counter++;
+            }
+        }
+
+        //次にあげる本とフラグの指定
+
+        //例えば、stageLV3なのにフラグはまだ0の可能性もある。なので、フラグの頭から順番に本をゲットできるようにする。
+        switch (counter)
+        {
+            case 0:
+
+                _evnum = 100;
+                _mgbooknum = 0;
+                mirabo_clearscore = 100; //クリア点
+                break;
+
+            case 1:
+
+                _evnum = 101;
+                _mgbooknum = 1;
+                mirabo_clearscore = 120; //クリア点
+                break;
+
+            case 2:
+
+                _evnum = 102;
+                _mgbooknum = 2;
+                mirabo_clearscore = 175; //クリア点
+                break;
+
+            case 3:
+
+                _evnum = 103;
+                _mgbooknum = 3;
+                mirabo_clearscore = 220; //クリア点
+                break;
+
+            case 4:
+
+                _evnum = 104;
+                _mgbooknum = 4;
+                mirabo_clearscore = 270; //クリア点
+                break;
+        }
     }
 
 
