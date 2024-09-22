@@ -17,7 +17,7 @@
 ・Ambience_17		VSQSE_0828_morning_countryside_05		鳥の鳴き声　雨上がり後<宴で使用>
 ・Ambience_18		audiostock_532849				雨上がり後ぴちゃぴちゃ<宴で使用>
 ・Ambience_19		audiostock_1089295				野鳥の春声<宴で使用>
-・Ambience_20		audiostock_1170506_sample			電車走行中のガタンガタン音<宴で使用>
+・Ambience_20		audiostock_1170506				電車走行中のガタンガタン音<宴で使用>
 ・Ambience_21		audiostock_913857				春の森の音<宴で使用> MapAmbience_06と一緒
 
 マップで使う環境音は「Map_Ambience」フォルダに入れる。内容は同じでも、宴とデータは共有しないようにする。
@@ -26,8 +26,8 @@
 ・MapAmbience_02	VSQSE_0967_singing_of_insect_08			森の中で虫の鳴き声
 ・MapAmbience_03	VSQSE_951_river_15				川・湖のせせらぎ
 ・MapAmbience_04	VSQSE_0649_river_02				川・湖のせせらぎ２
-・MapAmbience_05	audiostock_497746_sample			くじらの鳴き声
+・MapAmbience_05	audiostock_497746				くじらの鳴き声
 ・MapAmbience_06	audiostock_913857				春の森の音
-・MapAmbience_07	audiostock_905177_sample			かまどの薪の音＜温度管理画面で使用＞
-・MapAmbience_100	audiostock_517665_sample			魔法詠唱中の音
-・MapAmbience_101	audiostock_150122_sample			魔法詠唱中の音2
+・MapAmbience_07	audiostock_905177				かまどの薪の音＜温度管理画面で使用＞
+・MapAmbience_100	audiostock_517665_sample			魔法詠唱中の音＜未使用＞
+・MapAmbience_101	audiostock_150122_sample			魔法詠唱中の音2＜未使用＞

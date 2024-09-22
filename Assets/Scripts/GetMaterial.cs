@@ -10,6 +10,7 @@ public class GetMaterial : MonoBehaviour
     private GameObject canvas;
 
     private GameObject text_area;
+    private MessageWindow msg_window;
     private Text _text;
     private GameObject text_kaigyo_button;
     private GameObject text_kaigyo_buttonPanel;
@@ -142,6 +143,7 @@ public class GetMaterial : MonoBehaviour
         //テキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        msg_window = text_area.GetComponentInChildren<MessageWindow>();
         text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
         text_kaigyo_buttonPanel = canvas.transform.Find("MessageWindow/KaigyoButtonPanel").gameObject;
 
@@ -205,6 +207,12 @@ public class GetMaterial : MonoBehaviour
 
                     //音を鳴らす
                     sc.PlaySe(24);
+
+                    //顔アイコンも切り替え
+                    if (!GameMgr.outgirl_Nowprogress)
+                    {
+                        msg_window.Setting_WindowIcon(1); //探索中ノーマル顔
+                    }
 
                     NextButton_obj.SetActive(false);
                     OpenTreasureButton_obj.SetActive(false);
@@ -310,6 +318,8 @@ public class GetMaterial : MonoBehaviour
         //妹の体力がある程度ないと、先へ進めない。
         if (PlayerStatus.player_girl_lifepoint < matplace_database.matplace_lists[index].placeHP && matplace_database.matplace_lists[index].placeType != 0)
         {
+            //顔アイコンも切り替え
+            msg_window.Setting_WindowIcon(11); //痛い顔
             _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（これ以上は、動けないようだ。）";
         }
         else
@@ -377,6 +387,8 @@ public class GetMaterial : MonoBehaviour
                 }
                 else
                 {
+                    //顔アイコンも切り替え
+                    msg_window.Setting_WindowIcon(7); //よろこび
                     _text.text = "もうカゴがいっぱいだよ～。";
                 }
             }
@@ -794,6 +806,8 @@ public class GetMaterial : MonoBehaviour
         {
             if (PlayerStatus.player_zairyobox >= cullent_total_mat)
             {
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(2); //上機嫌
             }
             else
             {
@@ -803,6 +817,9 @@ public class GetMaterial : MonoBehaviour
                 }
                 else
                 {
+                    //顔アイコンも切り替え
+                    msg_window.Setting_WindowIcon(32); //上機嫌
+
                     _tansaku_result_temp.Add("もうカゴがいっぱい。");
                     getmatplace_panel.SisterOn1();
                 }
@@ -1547,7 +1564,7 @@ public class GetMaterial : MonoBehaviour
 
                 random_param = Random.Range(2, 4);
                 PlayerStatus.girl1_Love_exp -= random_param;
-                _text.text = "ぐわっ！　ドテっ！　ヒカリはこけてしまった..。" + "\n" +
+                _text.text = "ぐわっ！　ヒカリはこけてしまった..。" + "\n" +
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
 
                 //音を鳴らす
@@ -1959,6 +1976,9 @@ public class GetMaterial : MonoBehaviour
 
                 if (player_girl_findpower_final >= 120 && !GameMgr.MapEvent_06[0]) //バードサンクチュアリ見つけたらもう出ない。      
                 {
+                    //顔アイコンも切り替え
+                    msg_window.Setting_WindowIcon(13); //おどろき
+
                     //バードサンクチュアリを発見
                     _text.text = "にいちゃん！！ なんか抜け道があるよ？";
                     getmatplace_panel.next_flag = 100;
@@ -2081,6 +2101,9 @@ public class GetMaterial : MonoBehaviour
                 {
                     if (GameMgr.NPCHiroba_eventList[270]) //白クジラに場所を教えてもらっている
                     {
+                        //顔アイコンも切り替え
+                        msg_window.Setting_WindowIcon(13); //おどろき
+
                         //夢喰い沼を発見
                         _text.text = "にいちゃん！！ なんか抜け道があるよ？";
                         getmatplace_panel.next_flag = 210;
@@ -2107,6 +2130,9 @@ public class GetMaterial : MonoBehaviour
     {
         _text.text = "にいちゃん。みてみて！　キラキラな石！" +
                         "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone1")].itemNameHyouji + "</color>" + "をみつけた！";
+
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(7); //よろこび
 
         //アイテムの取得処理
         pitemlist.addPlayerItemString("kirakira_stone1", 1);
@@ -2148,7 +2174,10 @@ public class GetMaterial : MonoBehaviour
                             "\n" + GameMgr.ColorYellow + _getMoney + "</color>" + "ルピアをみつけた！";
 
             //所持金をプラス
-            moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
+            moneyStatus_Controller.GetMoney(_getMoney); //アニメつき 
+
+            //顔アイコンも切り替え
+            msg_window.Setting_WindowIcon(18); //よろこび
 
             //音を鳴らす
             sc.PlaySe(1);
@@ -2178,6 +2207,9 @@ public class GetMaterial : MonoBehaviour
             //所持金をプラス
             moneyStatus_Controller.GetMoney(_getMoney); //アニメつき  
 
+            //顔アイコンも切り替え
+            msg_window.Setting_WindowIcon(7); //よろこび
+
             //音を鳴らす
             sc.PlaySe(1);
         }
@@ -2185,6 +2217,9 @@ public class GetMaterial : MonoBehaviour
 
     void event_itemGet03()
     {
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(7); //よろこび
+
         _text.text = "にいちゃん。みてみて！　テカテカしてる石！" +
                         "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone2")].itemNameHyouji + "</color>" + "をみつけた！";
 
@@ -2201,6 +2236,9 @@ public class GetMaterial : MonoBehaviour
 
     void event_itemGet04()
     {
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(18); //よろこび
+
         _text.text = "にいちゃん。みてみて！　くるくる渦巻きの石！" +
                         "\n" + GameMgr.ColorYellow + database.items[database.SearchItemIDString("kirakira_stone3")].itemNameHyouji + "</color>" + "をみつけた！";
 
@@ -2316,6 +2354,9 @@ public class GetMaterial : MonoBehaviour
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ なんかあやしい草むらがあるよ..？　しらべる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(13); //おどろき
+
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
         treasure_text.text = "調べる";
@@ -2332,6 +2373,9 @@ public class GetMaterial : MonoBehaviour
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ きれいなお花畑！　探検してみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(18); //おどろき
+
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
         treasure_text.text = "探検";
@@ -2346,6 +2390,9 @@ public class GetMaterial : MonoBehaviour
         //怪しげな場所
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ あやしげな木があるよ！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(13); //おどろき
 
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
@@ -2362,6 +2409,9 @@ public class GetMaterial : MonoBehaviour
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ あそこにへんな家があるよ！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(13); //おどろき
+
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
         treasure_text.text = "調べる";
@@ -2376,6 +2426,9 @@ public class GetMaterial : MonoBehaviour
         //怪しげな場所
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ あそこに、ねこが集まってるよ！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(13); //おどろき
 
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
@@ -2392,6 +2445,9 @@ public class GetMaterial : MonoBehaviour
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ あそこ！　おさかないっぱいいる！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(13); //おどろき
+
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
         treasure_text.text = "調べる";
@@ -2406,6 +2462,9 @@ public class GetMaterial : MonoBehaviour
         //怪しげな場所
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ あそこの草、光るちょうちょ集まってる！　探検してみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(18); //おどろき
 
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
@@ -2422,6 +2481,9 @@ public class GetMaterial : MonoBehaviour
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ あそこ！　きらきら光ってる！　探検してみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(18); //おどろき
+
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
         treasure_text.text = "探検";
@@ -2437,6 +2499,9 @@ public class GetMaterial : MonoBehaviour
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ あの草むら、赤く光ってる！　探検してみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
 
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(13); //おどろき
+
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
         treasure_text.text = "探検";
@@ -2451,6 +2516,9 @@ public class GetMaterial : MonoBehaviour
         //怪しげな場所
         //sc.PlaySe(84);
         _text.text = "にいちゃん！！ あの石のあたり、光りがあたってる！　みてみる？" + "\n" + "（体力を" + GameMgr.ColorPink + "３つ" + "</color>" + "消費するよ。）";
+
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(13); //おどろき
 
         //_TreasureImg.sprite = treasure1;
         OpenTreasureButton_obj.SetActive(true);
@@ -2587,6 +2655,8 @@ public class GetMaterial : MonoBehaviour
 
         if (itemName == "Non") //はずれ
         {
+            //顔アイコンも切り替え
+            msg_window.Setting_WindowIcon(38); //棒目でなき～
             _text.text = "にいちゃん..。なにもなかった～..。";
         }
         else
@@ -2606,6 +2676,9 @@ public class GetMaterial : MonoBehaviour
         itemDropKosuDict.Add(5, 5.0f); //5個　
 
         itemKosu = ChooseKosu();
+
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(18); //おどろき
 
         _text.text = "にいちゃん！　やったぁ！！" + "\n" +
             GameMgr.ColorYellow + database.items[database.SearchItemIDString(itemName)].itemNameHyouji + "</color>" + 

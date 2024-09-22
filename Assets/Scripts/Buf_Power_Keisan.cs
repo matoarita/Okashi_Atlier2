@@ -20,6 +20,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
     private int hikari_okashiLV;
+    private float _a, _b;
 
     private int i;
     private int _id;
@@ -157,6 +158,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 _buf_kakuritsuup += 15;
             }
         }
+
+        //ヒカリのおかし経験値とLVによって、成功率も上昇する。
+        hikariBuf_okashilv(_itemType_sub);
+        _b = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.0f, 3.0f); //LV1~9までで、1.0~3.0倍まで上昇 LV1だと、バフはかからない
+        _buf_kakuritsuup += (int)(10 * _b); 
 
         return _buf_kakuritsuup;
     }
@@ -1133,7 +1139,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void HikariOkashilv_Keisan(string _itemType_sub)
     {
         //食感への補正
-        _buf_hikari_okashiparam = 0.1f + SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 1.5f);
+        _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 2.5f);
+        _buf_hikari_okashiparam = 0.1f + _a * _a;
 
         //最終的にかかる時間は、Exp_Controllerで計算
         GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.1f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍
@@ -1194,7 +1201,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         else
         {
             hikari_okashiLV = GameMgr.hikarimakeokashi_nowlv;
-            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.3f); //LV1~9までで、1.0~1.3倍まで上昇
+            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 3.0f); //LV1~9までで、1.0~1.3倍まで上昇
         }
 
         return _buf_hikari_okashi_paramup;

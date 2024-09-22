@@ -31,6 +31,12 @@ public class ContestKakuninButtonPanel : MonoBehaviour {
         Limit_checkmark_obj.SetActive(false);
         Limit_checkmark_obj2 = this.transform.Find("ContestKakuninButton/TimeLimitMark2").gameObject;
         Limit_checkmark_obj2.SetActive(false);
+
+        if (!GameMgr.System_ContestIcon_OnFlag)
+        {
+            this.transform.Find("ContestKakuninButton").gameObject.SetActive(false);
+        }
+        
     } 
 
 	// Update is called once per frame

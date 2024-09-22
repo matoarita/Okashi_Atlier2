@@ -130,7 +130,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                     if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
                     {
-                        girlEat_judge.LvUpPanel2();
+                        girlEat_judge.LvUpPanel3();
                     }
                     break;
 
@@ -192,7 +192,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
     void ShiageUpPanelHyouji()
     {
-        girlEat_judge.LvUpPanel1(1);
+        girlEat_judge.LvUpPanel2(1);
     }
 
 

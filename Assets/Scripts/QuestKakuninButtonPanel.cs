@@ -35,6 +35,11 @@ public class QuestKakuninButtonPanel : MonoBehaviour {
         Limit_checkmark_obj.SetActive(false);
         Limit_checkmark_obj2 = this.transform.Find("QuestKakuninButton/TimeLimitMark2").gameObject;
         Limit_checkmark_obj2.SetActive(false);
+
+        if (!GameMgr.System_BarQuestIcon_OnFlag)
+        {
+            this.transform.Find("QuestKakuninButton").gameObject.SetActive(false);
+        }
     } 
 
 	// Update is called once per frame

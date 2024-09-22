@@ -49,7 +49,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
-    public static bool System_HeartUpwithScore_ON = true; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、各お菓子の上昇補正に依存。
+    public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -59,8 +59,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //シーン移動の際の切り替え時間
     public static float SceneFadeTime = 0.3f;
 
-    //各ハートレベル・スターのブロック(スターは一旦保留）
-    public static int System_HeartBlockLv_01 = 5; //秘密の花園
+    //各ハートレベル・スターのブロック
+    public static int System_HeartBlockLv_01 = 4; //秘密の花園
     public static int System_HeartBlockLv_50 = 37; //冬
     public static int System_HeartBlockLv_51 = 28; //秋
     public static int System_HeartBlockLv_52 = 15; //夏
@@ -128,6 +128,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_MagicUse_Flag; //魔法の解禁フラグ
     public static bool System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
     public static bool System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
+    public static bool System_ContestIcon_OnFlag; //コンテストアイコンをONにする
+    public static bool System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
 
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;
@@ -753,7 +755,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     private int ev_id;
 
     private float timeLeft;
-    public static int Game_timeCount; //ゲーム内共通の時間
+    public static int Game_timeCount; //ゲーム内プレイ時間　はじめからおすとカウント開始
 
     //ゲームの現在の状態を表すステータス
     public static int compound_status; //メイン　各シーン共通で使われるので注意。
@@ -965,6 +967,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_MagicUse_Flag = false;
         System_HikariMakeUse_Flag = false;
         System_Topping_Multiple_Flag = false;
+        System_ContestIcon_OnFlag = false;
+        System_BarQuestIcon_OnFlag = false;
 
         stage1_clear_girl1_lovelv = 1;
         stage2_clear_girl1_lovelv = 1;

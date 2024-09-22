@@ -281,6 +281,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_placeNum = 1500; //お花屋さんイベント
                         GameMgr.hiroba_event_ID = 10000;
 
+                        //BGMかえる
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        bgm_change_flag = true;
+
                         GameMgr.scenario_ON = true;
 
                         check_event = true;
@@ -1252,7 +1256,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     else
                     {
                         GameMgr.NPCHiroba_blockReleaseList[0] = true; //秘密の花園が解放されるイベント
-                        On_BlockReleaseActive1(0);
+                        On_BlockReleaseActive1(10); //hiroba_numの指定
                     }                   
                 }
 
@@ -3048,6 +3052,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //お花屋さん押した　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1500; //
         GameMgr.hiroba_event_ID = 0;
+
+        //BGMかえる
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        //bgm_change_flag = true;
 
         EventReadingStart();
     }

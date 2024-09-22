@@ -761,6 +761,15 @@ public class Debug_Panel : MonoBehaviour {
         {
             GameMgr.NPCHiroba_HikarieventList[i] = false;
         }
+
+        //女の子イベントフラグリセット　ハートで発生するイベント系
+        for (i = 0; i < 10; i++)
+        {
+            GameMgr.GirlLoveSubEvent_stage1[300+i] = false;
+        }
+        GameMgr.GirlLoveSubEvent_stage1[160] = false; //モーセ　最終的に使わないけど、ひとまず。
+
+
     }
 
     public void OnAreaKaikinButton()

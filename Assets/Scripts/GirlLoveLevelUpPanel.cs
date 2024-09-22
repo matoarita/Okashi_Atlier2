@@ -36,12 +36,12 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
 
         _comp = this.transform.Find("Comp").gameObject;
 
-        glovelv_param = this.transform.Find("Comp/HeartLvupImage/LvParam").GetComponent<Text>();
+        glovelv_param = this.transform.Find("Comp/HeartPanel/HeartLvupImage/LvParam").GetComponent<Text>();
         glovelv_param.text = PlayerStatus.girl1_Love_lv.ToString();
 
-        glovestatus_param = this.transform.Find("Comp/HeartLvupImage/GenkiMessage").GetComponent<Text>();
+        glovestatus_param = this.transform.Find("Comp/HeartPanel/HeartLvupImage/GenkiMessage").GetComponent<Text>();        
 
-        switch(PlayerStatus.girl1_Love_lv)
+        switch (PlayerStatus.girl1_Love_lv)
         {
             case 1:
 
@@ -96,7 +96,7 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
     void StartAnim()
     {
         OnPanelflag = true;
-        sc.PlaySe(19); //ファンファーレ
+        //sc.PlaySe(19); //ファンファーレ
 
         Sequence sequence = DOTween.Sequence();
 
@@ -137,22 +137,52 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
     //どのパネルを表示するかを指定する。デフォルトは、HLV上がった！
     public void SelectPanel_1()
     {
-        this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(true);
-        this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(false);
-        this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(false);
+        sc.PlaySe(19); //ファンファーレ
+
+        offAllPanel();
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage").gameObject.SetActive(true);
+        //this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(true);
+        //this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(false);
+        //this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(false);
     }
 
     public void SelectPanel_2(int _kaisu) //仕上げ回数あがった
     {
-        this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(false);
-        this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(true);
-        this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(false);
+        sc.PlaySe(19); //ファンファーレ
+
+        offAllPanel();
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage2").gameObject.SetActive(true);
+        //this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(false);
+        //this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(true);
+        //this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(false);
     }
 
     public void SelectPanel_3() //同時に2個仕上げできるようになった
     {
-        this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(false);
-        this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(false);
-        this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(true);
+        sc.PlaySe(19); //ファンファーレ
+
+        offAllPanel();
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage3").gameObject.SetActive(true);
+        //this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(false);
+        //this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(false);
+        //this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(true);
+    }
+
+    public void SelectPanel_4(int _mp) //MPがあがった
+    {
+        offAllPanel();
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage4").gameObject.SetActive(true);
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage4/LvParam").GetComponent<Text>().text = _mp.ToString();
+        //this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(false);
+        //this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(false);
+        //this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(true);
+    }
+
+    void offAllPanel()
+    {
+        foreach (Transform obj in this.transform.Find("Comp/HeartPanel").transform)
+        {
+            obj.gameObject.SetActive(false);
+        }
     }
 }

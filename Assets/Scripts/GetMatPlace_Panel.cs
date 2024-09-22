@@ -54,6 +54,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private GameObject text_area;
     private Text _text;
+    private MessageWindow msg_window;
     private GameObject text_kaigyo_button;
     private GameObject text_kaigyo_buttonPanel;
     private string _temp_tx;
@@ -154,6 +155,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        msg_window = text_area.GetComponentInChildren<MessageWindow>();
         text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
         text_kaigyo_buttonPanel = canvas.transform.Find("MessageWindow/KaigyoButtonPanel").gameObject;
 
@@ -891,6 +893,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
+                        //顔アイコンも切り替え
+                        msg_window.Setting_WindowIcon(11); //痛い顔
                         _text.text = "にいちゃん。からだがグタグタでもう動けねぇ～・・。" + "\n" + "（寝て、" + GameMgr.ColorYellow + "体力を回復" + "</color>" + "しよう。）";
                     }
 
@@ -1031,6 +1035,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
+                        //顔アイコンも切り替え
+                        msg_window.Setting_WindowIcon(12); //イヤ
                         _text.text = "にいちゃん。お金が足りないよ～・・。";
                     }
 
@@ -1332,6 +1338,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 if (!GameMgr.outgirl_Nowprogress)
                 {
+                    //顔アイコンも切り替え
+                    msg_window.Setting_WindowIcon(7); //よろこび
                     _text.text = "もどるぞ～！";
                 }
                 else
@@ -1624,6 +1632,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         slot_view_status = 2;
 
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(1); //ノーマル
         _text.text = "家に戻る？";
 
         if(text_kaigyo_button.activeSelf)
@@ -1692,6 +1702,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 yes_no_panel.SetActive(false);
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(32); //上機嫌閉じ顔
                 _text.text = "";
 
                 if (text_kaigyo_active)

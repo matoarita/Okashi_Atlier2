@@ -1161,9 +1161,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Float_Material":
 
-                if (check_itemType_sub == "Suger" || check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
+                if (check_itemType_sub == "Suger" || 
+                    check_itemType_sub == "Fruits" || check_itemType_sub == "GlowFruits"
+                    || check_itemType_sub == "Berry")
                 {
-                    itemlist_hyouji_Check();
+                    if (check_itemType_subB != "a_SugerSimple") //基本の砂糖などは外す
+                    {
+                        itemlist_hyouji_Check();
+                    }
                 }
                 break;
 

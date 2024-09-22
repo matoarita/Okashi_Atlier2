@@ -74,6 +74,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound60;  //オランジーナ酒場のBGM
     public AudioClip sound61;  //ゲームオーバーのBGM
     public AudioClip sound62;  //プラトン女王様のテーマ
+    public AudioClip sound63;  //夏のお店のテーマ
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -207,7 +208,7 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Shop_B1":
 
-                                _send_clip = sound27;
+                                _send_clip = sound63;
                                 break;
 
                             case "Or_Shop_C1":

@@ -102,6 +102,9 @@ public class PlayerData
     //コマンド解禁フラグ
     public bool save_System_MagicUse_Flag; //魔法の解禁フラグ
     public bool save_System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
+    public bool save_System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
+    public bool save_System_ContestIcon_OnFlag; //コンテストアイコンをONにする
+    public bool save_System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
 
     //クエスト以外で、クリアするのに必要なハート量
     public int save_stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様

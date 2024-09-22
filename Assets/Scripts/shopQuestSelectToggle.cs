@@ -31,6 +31,7 @@ public class shopQuestSelectToggle : MonoBehaviour
     private GameObject pitemlistController_obj;
     private PlayerItemListController pitemlistController;
     private Exp_Controller exp_Controller;
+    private TimeController time_controller;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -83,9 +84,12 @@ public class shopQuestSelectToggle : MonoBehaviour
     private int _itemcount;
     private bool selectToggle;
 
+    private int _Limit_day, _Nokori_day;
+
     private int kettei_item1; //このスクリプトは、プレファブのインスタンスに取り付けているので、各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
 
     private int count_1;
+    private int penalty_on;
 
 
     void Start()
@@ -153,6 +157,9 @@ public class shopQuestSelectToggle : MonoBehaviour
 
         //クエストデータベースの取得
         quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -637,7 +644,24 @@ public class shopQuestSelectToggle : MonoBehaviour
         shopquestlistController._ID = quest_database.questTakeset[toggle_Listnum]._ID; //IDを入れる。
 
 
-        _text.text = "選んだ依頼をキャンセルするの？" + "\n" + "（人気が少し落ちるかも。）";
+        //締め切りから数えて3日以内だとペナルティ　それ以上ならペナルティなし
+
+        //あと何日
+        _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[toggle_Listnum].Quest_LimitMonth, quest_database.questTakeset[toggle_Listnum].Quest_LimitDay);
+        _Nokori_day = _Limit_day - PlayerStatus.player_day;
+        if (_Nokori_day >= 3)
+        {
+            penalty_on = 0;
+            _text.text = "選んだ依頼をキャンセルする？" + "\n" + "今ならまだ、お客さんも大丈夫そうよ。";
+        }
+        else
+        {
+            penalty_on = 1;
+            //ペナルティ　お客さんからの友好度が下がる
+            _text.text = "選んだ依頼をキャンセルするの？" + "\n" + "もしかすると、お客さんガッカリしちゃうかも・・。";
+        }
+
+
 
         Debug.Log(toggle_Listnum + "番が押されたよ");
         Debug.Log("受注クエスト: " + quest_database.questTakeset[toggle_Listnum].Quest_itemName + "が選択されました。");
@@ -690,13 +714,21 @@ public class shopQuestSelectToggle : MonoBehaviour
                 //その後、クエストリストから選んだやつを削除
                 quest_database.questTakeset.RemoveAt(toggle_Listnum);
 
-                //人気が少し下がる
-                PlayerStatus.player_ninki_param -= 10;
+                if(penalty_on == 0)
+                {
+                    _text.text = "キャンセルしたわ！" + "\n" + "次からは、納品できるように頑張ってね～。";
+                }
+                else if (penalty_on == 1) //ペナルティあり
+                {
+                    //人気が少し下がる
+                    //PlayerStatus.player_ninki_param -= 10;
+                    PlayerStatus.girl1_Love_exp -= 20;
+                    _text.text = "キャンセルしたわ！" + "\n" + "お客さん少し悲しんでたみたい..。" + "\n" + "次からは、納品できるように頑張ってね～。"; ;
+                }
+
 
                 //画面の更新
-                shopquestlistController.reset_and_DrawView();
-
-                _text.text = "キャンセルしたわ！" + "\n" + "次からは、納品できるように頑張ってね～。";
+                shopquestlistController.reset_and_DrawView();                
 
                 //音を鳴らす。
                 sc.PlaySe(21);

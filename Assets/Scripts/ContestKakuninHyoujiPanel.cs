@@ -7,6 +7,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
     private PlayerItemList pitemlist;
     private ContestStartListDataBase conteststartList_database;
+    private ItemMatPlaceDataBase matplace_database;
 
     private TimeController time_controller;
 
@@ -29,6 +30,9 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
     private GameObject quest_day_today;
     private GameObject quest_clientpanel;
     private GameObject contest_commentPanel;
+
+    private GameObject contest_placelist;
+    private GameObject placeicon_obj;
 
     private int i, _kosu;
     private int _money;
@@ -63,6 +67,9 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
@@ -74,11 +81,13 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         contestmoney = this.transform.Find("PanelB/OnPanel/Contest_Money").GetComponent<Text>();
         contest_desc = this.transform.Find("PanelB/OnPanel/CommentPanel/Contest_Comment").GetComponent<Text>();
         contest_commentPanel = this.transform.Find("PanelB/OnPanel/CommentPanel").gameObject;
+        contest_placelist = this.transform.Find("PanelB/OffPanel/ScrollView/Viewport/Content").gameObject;
 
         _Img = this.transform.Find("PanelB/OnPanel/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
         ContestOn_obj = this.transform.Find("PanelB/OnPanel").gameObject; //
         NoContestText_obj = this.transform.Find("PanelB/OffPanel").gameObject; //
+
 
         //受注コンテストがあるかをチェック　そのリスト番号もいれとく
         ContestAccepted_ON = false;
@@ -92,6 +101,74 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                 break;
             }
             i++;
+        }
+
+        for(i =0; i< matplace_database.matplace_lists.Count; i++)
+        {
+            switch(matplace_database.matplace_lists[i].placeName)
+            {
+                case "Or_Contest_A1":
+
+                    if(matplace_database.matplace_lists[i].placeFlag == 1)
+                    {
+                        placeicon_obj = contest_placelist.transform.Find("ContestMoveButtonA_Panel").gameObject;
+                        placeicon_obj.SetActive(true);
+                        placeicon_obj.transform.Find("ContestMoveButtonA/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
+                        placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "春会場";
+                    }
+                    else
+                    {
+                        contest_placelist.transform.Find("ContestMoveButtonA_Panel").gameObject.SetActive(false);
+                    }
+                    break;
+
+                case "Or_Contest_B1":
+
+                    if (matplace_database.matplace_lists[i].placeFlag == 1)
+                    {
+                        placeicon_obj = contest_placelist.transform.Find("ContestMoveButtonB_Panel").gameObject;
+                        placeicon_obj.SetActive(true);
+                        placeicon_obj.transform.Find("ContestMoveButtonB/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
+                        placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "夏会場";
+                    }
+                    else
+                    {
+                        contest_placelist.transform.Find("ContestMoveButtonB_Panel").gameObject.SetActive(false);
+                    }
+                    break;
+
+                case "Or_Contest_C1":
+
+                    if (matplace_database.matplace_lists[i].placeFlag == 1)
+                    {
+                        placeicon_obj = contest_placelist.transform.Find("ContestMoveButtonC_Panel").gameObject;
+                        placeicon_obj.SetActive(true);
+                        placeicon_obj.transform.Find("ContestMoveButtonC/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
+                        placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "秋会場";
+                    }
+                    else
+                    {
+                        contest_placelist.transform.Find("ContestMoveButtonC_Panel").gameObject.SetActive(false);
+                    }
+                    break;
+
+                case "Or_Contest_D1":
+
+                    if (matplace_database.matplace_lists[i].placeFlag == 1)
+                    {
+                        placeicon_obj = contest_placelist.transform.Find("ContestMoveButtonD_Panel").gameObject;
+                        placeicon_obj.SetActive(true);
+                        placeicon_obj.transform.Find("ContestMoveButtonD/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
+                        placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "冬会場";
+                    }
+                    else
+                    {
+                        contest_placelist.transform.Find("ContestMoveButtonD_Panel").gameObject.SetActive(false);
+                    }
+                    break;
+            }
+            contest_placelist.SetActive(false);
+            contest_placelist.SetActive(true); //scrollの整列しなおし
         }
     }
 

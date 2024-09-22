@@ -486,14 +486,17 @@ public class ContestListSelectToggle : MonoBehaviour
                 //Debug.Log("ok");
                 //解除
 
-                sc.PlaySe(6);
+                sc.PlaySe(25);
 
                 _text.text = "キャンセルしました！";
                 yes_no_panel.SetActive(false);
-                back_ShopFirst_btn.interactable = true;
+                back_ShopFirst_btn.interactable = true;                
 
                 _list = conteststartList_database.SearchContestID(_id);
                 conteststartList_database.conteststart_lists[_list].Contest_Accepted = 0; //受付キャンセルのフラグ
+
+                //半分費用返ってくる。
+                moneyStatus_Controller.GetMoney(conteststartList_database.conteststart_lists[_list].Contest_Cost/2);
 
                 //
                 for (i = 0; i < GameMgr.contest_accepted_list.Count; i++)

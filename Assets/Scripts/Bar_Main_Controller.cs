@@ -503,6 +503,10 @@ public class Bar_Main_Controller : MonoBehaviour {
     void EventCheck_OrA1()
     {
         matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
+        if (!GameMgr.System_BarQuestIcon_OnFlag)
+        {
+            GameMgr.System_BarQuestIcon_OnFlag = true;
+        }
 
         if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
         {
@@ -526,6 +530,10 @@ public class Bar_Main_Controller : MonoBehaviour {
     void EventCheck_OrB1()
     {
         matplace_database.matPlaceKaikin("Or_Bar_B1"); //酒場解禁
+        if (!GameMgr.System_BarQuestIcon_OnFlag)
+        {
+            GameMgr.System_BarQuestIcon_OnFlag = true;
+        }
 
         if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
         {
@@ -549,6 +557,10 @@ public class Bar_Main_Controller : MonoBehaviour {
     void EventCheck_OrC1()
     {
         matplace_database.matPlaceKaikin("Or_Bar_C1"); //酒場解禁
+        if (!GameMgr.System_BarQuestIcon_OnFlag)
+        {
+            GameMgr.System_BarQuestIcon_OnFlag = true;
+        }
 
         if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
         {
@@ -574,6 +586,10 @@ public class Bar_Main_Controller : MonoBehaviour {
     void EventCheck_OrD1()
     {
         matplace_database.matPlaceKaikin("Or_Bar_D1"); //酒場解禁
+        if (!GameMgr.System_BarQuestIcon_OnFlag)
+        {
+            GameMgr.System_BarQuestIcon_OnFlag = true;
+        }
 
         if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
         {

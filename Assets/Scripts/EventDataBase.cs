@@ -640,7 +640,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-                    if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartBlockLv_01 && GameMgr.GirlLoveSubEvent_stage1[300] == false) //HLV5~ 秘密の花園発見
+                    if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartBlockLv_01 && GameMgr.GirlLoveSubEvent_stage1[300] == false) //秘密の花園へいこうよ
                     {
                         GameMgr.GirlLoveSubEvent_num = 300;
                         GameMgr.GirlLoveSubEvent_stage1[300] = true;

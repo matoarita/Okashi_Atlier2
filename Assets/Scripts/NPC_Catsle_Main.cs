@@ -186,7 +186,7 @@ public class NPC_Catsle_Main : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_NPC_Catsle_King";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
-                backnum = 501; //バックボタン押したときの戻り先
+                backnum = 502; //バックボタン押したときの戻り先
 
                 default_scenetext = "いらっしゃい。";
                 GameMgr.Window_CharaName = "プラトン";

@@ -632,6 +632,10 @@ public class Contest_Main_Reception : MonoBehaviour
     void EventCheck_OrA1()
     {
         matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+        if (!GameMgr.System_ContestIcon_OnFlag)
+        {
+            GameMgr.System_ContestIcon_OnFlag = true;
+        }
 
         if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
         {
@@ -666,6 +670,10 @@ public class Contest_Main_Reception : MonoBehaviour
     void EventCheck_OrB1()
     {
         matplace_database.matPlaceKaikin("Or_Contest_B1"); //解禁
+        if (!GameMgr.System_ContestIcon_OnFlag)
+        {
+            GameMgr.System_ContestIcon_OnFlag = true;
+        }
 
         if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
         {
@@ -701,6 +709,10 @@ public class Contest_Main_Reception : MonoBehaviour
     void EventCheck_OrC1()
     {
         matplace_database.matPlaceKaikin("Or_Contest_C1"); //解禁
+        if (!GameMgr.System_ContestIcon_OnFlag)
+        {
+            GameMgr.System_ContestIcon_OnFlag = true;
+        }
 
         if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
         {
@@ -736,6 +748,10 @@ public class Contest_Main_Reception : MonoBehaviour
     void EventCheck_OrD1()
     {
         matplace_database.matPlaceKaikin("Or_Contest_D1"); //解禁
+        if (!GameMgr.System_ContestIcon_OnFlag)
+        {
+            GameMgr.System_ContestIcon_OnFlag = true;
+        }
 
         if (!GameMgr.NPCHiroba_eventList[0]) //はじめてきた
         {

@@ -1904,12 +1904,12 @@ public class Compound_Check : MonoBehaviour {
 
                 case "Luminous_Suger":
 
-                    _magic_rate = magicLearnLv * 10;
+                    _magic_rate = magicLearnLv * 5;
                     break;
 
                 case "Luminous_Fruits":
 
-                    _magic_rate = magicLearnLv * 10;
+                    _magic_rate = magicLearnLv * 5;
                     break;
             }
 

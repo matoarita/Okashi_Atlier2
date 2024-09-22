@@ -1912,16 +1912,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 if(_temp_kyori >= 10) //差が10をこえたときに、はじめて見た目の点数が加算される。
                 {
-                    //_temp_beautyscore = _temp_kyori; //加算方式
-                    _temp_beautyscore = (int)(_beauty_basicscore * _temp_deg) - _beauty_basicscore; //
+                    _temp_beautyscore = _temp_kyori; //加算方式
+                    //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg); //倍率方式
+                    //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg) - _beauty_basicscore; //倍率方式2
                 }
                 else
                 {
                     _temp_beautyscore = 0;
-                }
-                
-                //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg); //倍率方式
-                //_temp_beautyscore -= GameMgr.System_Beauty_BasicScore + 10; 
+                }                
             }
             else
             {
@@ -2904,7 +2902,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     if (random <= 5)
                     {
                         GetMP = 1;
-                        PlayerStatus.player_maxmp += GetMP;
+                        PlayerStatus.player_maxmp += GetMP;                        
                     }
                 }
             }
@@ -3188,7 +3186,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     Love_Slider_Setting();
 
                     //分かりやすくするように、レベルアップ時のパネルも表示
-                    _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+                    LvUpPanel1();
+                    //_listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
 
                     //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
                     exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 1); //2番目が1だと、パネルの表示
@@ -3774,7 +3773,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     //テキストウィンドウの更新
                     exp_Controller.GirlLikeText(Getlove_exp, GetMoney, total_score, GetMP);
-                    
+                                        
 
                     //吹き出しをだす。
                     switch (dislike_status)
@@ -5301,6 +5300,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         GameMgr.check_GirlLoveSubEvent_flag = false; //サブイベントが発生するかをチェック
         GameMgr.check_OkashiAfter_flag = true; //食べた直後～、というフラグ
+
+        //判定終了時のタイミングで表示するパネル類
+
+        //MPあがったときはパネルも表示する
+        if (GetMP >= 1)
+        {
+            LvUpPanel4(GetMP);
+        }
     }
 
     
@@ -5869,17 +5876,31 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }
 
     //ExpTableから読み出し
-    public void LvUpPanel1(int _kaisu) //仕上げ回数あがった
+    public void LvUpPanel1() //LVあがった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_1();
+    }
+
+    public void LvUpPanel2(int _kaisu) //仕上げ回数あがった
     {
         _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_2(_kaisu);
     }
 
-    public void LvUpPanel2() //同時に2個仕上げできるようになった
+    public void LvUpPanel3() //同時に2個仕上げできるようになった
     {
         _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_3();
     }
+
+    public void LvUpPanel4(int _mp) //MPが上がった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_4(_mp);
+    }
+
+
 
     //エフェクトをすぐに全て削除
     public void EffectClear()

@@ -8,6 +8,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
     private QuestSetDataBase questset_database;
     private PlayerItemList pitemlist;
+    private ItemMatPlaceDataBase matplace_database;
 
     private SoundController sc;
     private TimeController time_controller;
@@ -34,12 +35,17 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private GameObject quest_clientpanel;
     private GameObject quest_commentPanel;
 
+    private GameObject bar_placelist;
+    private GameObject placeicon_obj;
+
     private int _kosu;
     private int _money;
     private string _area;
 
     private int _Limit_day;
     private int _Nokori_day;
+
+    private int i;
 
     // Use this for initialization
     void Start () {
@@ -62,6 +68,9 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
@@ -83,10 +92,50 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         quest_player_kosu = this.transform.Find("PanelB/Quest_PlayerItemKosu").GetComponent<Text>();
         quest_clientpanel = this.transform.Find("PanelB/ClientPanel").gameObject;
         quest_commentPanel = this.transform.Find("PanelB/CommentPanel").gameObject;
+        bar_placelist = this.transform.Find("PanelA/QuestCheckList_ScrollView/ScrollView/Viewport/Content").gameObject;
 
         _Img = this.transform.Find("PanelB/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
         NoQuestText_obj = this.transform.Find("PanelA/QuestCheckList_ScrollView/NoQuestText").gameObject; //
+
+        for (i = 0; i < matplace_database.matplace_lists.Count; i++)
+        {
+            switch (matplace_database.matplace_lists[i].placeName)
+            {
+                case "Or_Bar_A1":
+
+                    if (matplace_database.matplace_lists[i].placeFlag == 1)
+                    {
+                        placeicon_obj = bar_placelist.transform.Find("BarMoveButtonA_Panel").gameObject;
+                        placeicon_obj.SetActive(true);
+                        placeicon_obj.transform.Find("BarMoveButtonA/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
+                        placeicon_obj.transform.Find("BarMoveButtonA/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+                    }
+                    else
+                    {
+                        bar_placelist.transform.Find("BarMoveButtonA_Panel").gameObject.SetActive(false);
+                    }
+                    break;
+
+                case "Or_Bar_C1":
+
+                    if (matplace_database.matplace_lists[i].placeFlag == 1)
+                    {
+                        placeicon_obj = bar_placelist.transform.Find("BarMoveButtonB_Panel").gameObject;
+                        placeicon_obj.SetActive(true);
+                        placeicon_obj.transform.Find("BarMoveButtonB/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
+                        placeicon_obj.transform.Find("BarMoveButtonB/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+                    }
+                    else
+                    {
+                        bar_placelist.transform.Find("BarMoveButtonB_Panel").gameObject.SetActive(false);
+                    }
+                    break;
+                
+            }
+            bar_placelist.SetActive(false);
+            bar_placelist.SetActive(true); //scrollの整列しなおし
+        }
     }
 
     private void OnEnable()
