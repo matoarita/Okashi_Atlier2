@@ -61,10 +61,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //各ハートレベル・スターのブロック
     public static int System_HeartBlockLv_01 = 4; //秘密の花園
-    public static int System_HeartBlockLv_50 = 37; //冬
-    public static int System_HeartBlockLv_51 = 28; //秋
-    public static int System_HeartBlockLv_52 = 15; //夏
-    public static int System_HeartBlockLv_53 = 45;
+    public static int System_HeartBlockLv_50 = 20; //冬
+    public static int System_HeartBlockLv_51 = 13; //秋
+    public static int System_HeartBlockLv_52 = 10; //夏
+    public static int System_HeartBlockLv_53 = 45; //城
 
     public static int System_StarBlockLv_01 = 30;
     public static int System_StarBlockLv_02 = 60;

@@ -761,9 +761,14 @@ public class Debug_Panel : MonoBehaviour {
         {
             GameMgr.NPCHiroba_HikarieventList[i] = false;
         }
+        for (i = 0; i < GameMgr.NPCHiroba_blockReleaseList.Length; i++)
+        {
+            GameMgr.NPCHiroba_blockReleaseList[i] = false;
+        }
+        
 
         //女の子イベントフラグリセット　ハートで発生するイベント系
-        for (i = 0; i < 10; i++)
+            for (i = 0; i < 10; i++)
         {
             GameMgr.GirlLoveSubEvent_stage1[300+i] = false;
         }

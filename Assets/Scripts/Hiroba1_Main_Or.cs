@@ -352,7 +352,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
                 break;
 
-            case 400: //正門前ストリート
+            case 400: //正門前ストリート 願いの橋
 
                 GameMgr.Scene_Name = "Or_Hiroba_MainGate_Street";
                 SettingBGPanel("Map400"); //Map〇〇のリスト番号を指定

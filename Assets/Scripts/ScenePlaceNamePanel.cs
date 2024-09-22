@@ -339,8 +339,8 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Hiroba_MainGate_Street": //正門前ストリート
 
-                                _text = "正門前ストリート";
-                                _subtext = "MainGate Street";
+                                _text = "願いの橋";
+                                _subtext = "Bridge of Wishes";
                                 break;
 
                             case "Or_Hiroba_MainGate_Street2_hiroba": //お菓子街道

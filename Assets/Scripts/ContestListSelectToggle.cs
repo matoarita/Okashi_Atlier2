@@ -298,7 +298,7 @@ public class ContestListSelectToggle : MonoBehaviour
                 else
                 {
                     //ランク足りてない
-                    _text.text = "すみませ～ん！" + "\n" + "ボッチャンは、どうやらランクがまだ足りてないようデ～ス！";
+                    _text.text = "すみませ～ん！" + "\n" + "ボッチャンは、どうやらスターがまだ足りてないようデ～スね・・！";
                     OffDetailedWindow();
                     sc.PlaySe(6);
                 }

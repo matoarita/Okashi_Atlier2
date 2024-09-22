@@ -18,6 +18,7 @@ public class MessageWindow : MonoBehaviour {
     private Sprite hikari_faceicon_11_mazui2;
     private Sprite hikari_faceicon_12_iya;
     private Sprite hikari_faceicon_13_surprise;
+    private Sprite hikari_faceicon_17_mazui3;
     private Sprite hikari_faceicon_18_surprise2;
     private Sprite hikari_faceicon_32_joukigen2;
     private Sprite hikari_faceicon_38_nakinagarauttae_bou;
@@ -40,6 +41,7 @@ public class MessageWindow : MonoBehaviour {
         hikari_faceicon_11_mazui2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_11_Mazui2");
         hikari_faceicon_12_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_12_Iya");
         hikari_faceicon_13_surprise = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_13_Surprise");
+        hikari_faceicon_17_mazui3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_17_Mazui3");
         hikari_faceicon_18_surprise2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_18_Surprise2");
         hikari_faceicon_32_joukigen2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_32_Joukigen2");
         hikari_faceicon_38_nakinagarauttae_bou = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_38_nakinagarauttae_bou");
@@ -221,6 +223,11 @@ public class MessageWindow : MonoBehaviour {
                 window_FaceImg.sprite = hikari_faceicon_13_surprise;
                 break;
 
+            case 17:
+
+                window_FaceImg.sprite = hikari_faceicon_17_mazui3;
+                break;
+                
             case 18:
 
                 window_FaceImg.sprite = hikari_faceicon_18_surprise2;
