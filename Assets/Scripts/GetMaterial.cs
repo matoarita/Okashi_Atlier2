@@ -1498,6 +1498,8 @@ public class GetMaterial : MonoBehaviour
 
             case 1:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(18); //きらきら顔
                 _text.text = "あ！しろいちょうちょ～～。（妹はサボっている。）";
                 break;
 
@@ -1518,6 +1520,8 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
                 _text.text = "ギャーー！はちが・・！！　にいちゃん！！";
 
                 //音を鳴らす
@@ -1547,6 +1551,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(7); //よろこび
+
                 random_param = Random.Range(2, 4);
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
@@ -1561,6 +1568,9 @@ public class GetMaterial : MonoBehaviour
 
 
             default:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
 
                 random_param = Random.Range(2, 4);
                 PlayerStatus.girl1_Love_exp -= random_param;
@@ -1589,6 +1599,9 @@ public class GetMaterial : MonoBehaviour
 
             case 1:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(18); //きらきら顔
+
                 random_param = Random.Range(1, 4);
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
@@ -1608,14 +1621,17 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
-                _text.text = "おっきい水たまりだ～。" + "\n" + "どこまで広がってるのかなぁ？　にいちゃん。";
+                _text.text = "おっきい水たまりだねぇ～。" + "\n" + "どこまで広がってるのかなぁ？　にいちゃん。";
                 break;
 
             default:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
+
                 random_param = Random.Range(2, 5);
                 PlayerStatus.girl1_Love_exp -= random_param;
-                _text.text = "うわっ..！　ヒカリはドブにハマってしまった・・！" + "\n" +
+                _text.text = "ドボン..！　ヒカリはドブにハマってしまった・・！" + "\n" +
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
 
                 //音を鳴らす
@@ -1645,6 +1661,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(18); //きらきら顔
+
                 _text.text = "にいちゃん！　にじ色に光るお花があるよ～？　ふしぎー！！";
                 break;
 
@@ -1663,9 +1682,12 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
+
                 random_param = Random.Range(2, 5);
                 PlayerStatus.girl1_Love_exp -= random_param;
-                _text.text = "ギャ！にいちゃん.. でっかいけむし、いもいもしてる～～・・！！" + "\n" + "きもちわるい～・・。" + "\n" +
+                _text.text = "ギャ！　にいちゃん.. でっかいけむし、いもいもしてる～～・・！！" + "\n"+
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
 
                 //音を鳴らす
@@ -1695,6 +1717,9 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(18); //きらきら顔
+
                 random_param = Random.Range(3, 5);
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
@@ -1709,6 +1734,9 @@ public class GetMaterial : MonoBehaviour
 
 
             default:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
 
                 random_param = Random.Range(2, 5);
                 PlayerStatus.girl1_Love_exp -= random_param;
@@ -1742,7 +1770,7 @@ public class GetMaterial : MonoBehaviour
 
             case 2:
 
-                _text.text = "甘くてすっぱい香り～♪　いちごに、これがラズベリー・・もぐもぐ♪" + "\n" + "妹は、素材を吟味している。";
+                _text.text = "甘くてすっぱい香り～♪　いちごに、ラズベリー・・もぐもぐ♪" + "\n" + "妹は、素材をつまみ食いしている！";
                 break;
 
             case 3:
@@ -1760,6 +1788,9 @@ public class GetMaterial : MonoBehaviour
                 break;
 
             default:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
 
                 _text.text = "ぱくっ！　..べっぺっ。ずっぺぇ～..。";
 
@@ -1804,7 +1835,7 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
-                _text.text = "..ぱぱ、元気にしてるかなぁ～？　..んん、なんでもない。にいちゃん！";
+                _text.text = "..まま、元気にしてるかなぁ～？　..ん、なんでもない。にいちゃん！";
                 break;
 
             case 5:
@@ -1813,6 +1844,9 @@ public class GetMaterial : MonoBehaviour
                 break;
 
             default:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
 
                 random_param = Random.Range(2, 5);
                 PlayerStatus.girl1_Love_exp -= random_param;
@@ -1835,6 +1869,9 @@ public class GetMaterial : MonoBehaviour
         switch (random)
         {
             case 0:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(18); //きらきら顔
 
                 random_param = Random.Range(3, 7);
                 PlayerStatus.girl1_Love_exp += random_param;
@@ -1870,6 +1907,9 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(18); //きらきら顔
+
                 random_param = Random.Range(3, 10);
                 PlayerStatus.girl1_Love_exp += random_param;
                 sc.PlaySe(17);
@@ -1880,9 +1920,12 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(38); //泣きボウ目
+
                 random_param = Random.Range(5, 15);
                 PlayerStatus.girl1_Love_exp -= random_param;
-                _text.text = "んん..？　にいちゃん、いろんな道があって、ワカラ～～ン..。" + "\n" +
+                _text.text = "んん..？　にいちゃん、道がいっぱいあって、迷子になっちゃう～..。" + "\n" +
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
 
                 //音を鳴らす
@@ -1903,16 +1946,22 @@ public class GetMaterial : MonoBehaviour
         {
             case 0:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
                 _text.text = "ぎゃ～！！　にいちゃん！　ほ、ほねが・・そこに・・。";
                 break;
 
             case 1:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(11); //きもちわるい顔
                 _text.text = "・・にいちゃん。なんかどんよりする～・・。";
                 break;
 
             case 2:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(17); //ギャー顔
                 _text.text = "ひぃ！　あ、あしに・・" + "\n" + "へんなナマコみたいな生き物があたった・・！！";
                 break;
 
@@ -1923,10 +1972,15 @@ public class GetMaterial : MonoBehaviour
 
             case 4:
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(11); //きもちわるい顔
                 _text.text = "・・。";
                 break;
 
             default:
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(11); //きもちわるい顔
 
                 random_param = Random.Range(10, 100);
                 PlayerStatus.girl1_Love_exp -= random_param;

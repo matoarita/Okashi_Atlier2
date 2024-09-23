@@ -676,6 +676,7 @@ public class Utage_scenario : MonoBehaviour
     {
         character = GameObject.FindWithTag("Character");
 
+        //Live2D立ち絵を使う場合、追加でここで読み込み登録　どちらを使うかはシーンで直接on/offすればOK
         switch(GameMgr.Scene_Name)
         {
             case "Or_Shop_A1":
