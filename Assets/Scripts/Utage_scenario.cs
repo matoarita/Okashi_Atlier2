@@ -3109,7 +3109,6 @@ public class Utage_scenario : MonoBehaviour
                     engine.Param.TrySetParameter("Event_tempcheck", 1);
                 }
                 
-
                 scenarioLabel = "Or_MagicNPC01_Light";
                 break;
 
@@ -3911,6 +3910,7 @@ public class Utage_scenario : MonoBehaviour
                     {
                         if (GameMgr.contest_TotalScore > GameMgr.PrizeScoreAreaList[i - 1])
                         {
+                            GameMgr.contest_boss_score = GameMgr.PrizeScoreAreaList[i - 1];
                             _rank = GameMgr.PrizeScoreAreaList.Count + 1 - i;
                             Debug.Log("順位: " + "優勝");
                             break;
@@ -4877,15 +4877,12 @@ public class Utage_scenario : MonoBehaviour
                     GameMgr.SubEvAfterHeartGet = false;
                 }
 
-                if (GameMgr.hiroba_event_ON) //広場イベントで起こった場合。
-                {
-                    GameMgr.hiroba_event_ON = false;
-                }
-
-                if (GameMgr.shop_event_ON) //お店イベントで起こった場合
-                {
-                    GameMgr.shop_event_ON = false;
-                }
+                //各イベントでおこったシーンのフラグは一度リセット
+                GameMgr.NPC_event_ON = false;
+                GameMgr.hiroba_event_ON = false;
+                GameMgr.shop_event_ON = false;
+                GameMgr.farm_event_ON = false;
+                GameMgr.bar_event_ON = false;
 
                 //ここで、宴のパラメータ設定。リセットしておく。
                 engine.Param.TrySetParameter("EventEnd_Flag", false);
@@ -4981,6 +4978,7 @@ public class Utage_scenario : MonoBehaviour
 
         //点数を宴にもセット
         engine.Param.TrySetParameter("event_okashi_score", total_score);
+        engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //ひとまずセットはしておく。個別にNPCで分岐変える可能性あり。
 
 
         //ピクニックイベントの場合    
@@ -5013,6 +5011,11 @@ public class Utage_scenario : MonoBehaviour
                     break;
 
                 //以下オランジーナ関連
+
+                case 2100: //Or広場ブロック解放イベント
+
+                    NPCBlockCheck();
+                    break;
 
                 //魔法NPC 5000~
                 case 5000: //魔法NPC光先生
@@ -5666,6 +5669,47 @@ public class Utage_scenario : MonoBehaviour
         }
     }
 
+    //エリアブロック　おかし判定
+    void NPCBlockCheck()
+    {
+        switch(GameMgr.hiroba_event_ID)
+        {
+            case 100:
+
+                if (GameMgr.event_judge_status >= 1) //60点以上　クリアしたので、エリア入口フラグ解禁
+                {
+                    GameMgr.NPCHiroba_blockReleaseList[3] = true;
+                }
+                break;
+
+            case 110:
+
+                if (total_score >= 150) //クリアしたので、エリア入口フラグ解禁
+                {
+                    GameMgr.NPCHiroba_blockReleaseList[2] = true;
+                    engine.Param.TrySetParameter("EventJudge_num", 2);
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 1);
+                }
+                break;
+
+            case 120:
+
+                if (total_score >= 220) //クリアしたので、エリア入口フラグ解禁　冬だけショートケーキ限定　まだ判定は入れてない
+                {
+                    GameMgr.NPCHiroba_blockReleaseList[1] = true;
+                    engine.Param.TrySetParameter("EventJudge_num", 2);
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 1);
+                }
+                break;
+        }
+        
+    }
 
 
     //ゲームメイン中のLive2DキャラクタをONにする。

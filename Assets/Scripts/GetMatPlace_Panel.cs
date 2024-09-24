@@ -1169,7 +1169,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         GameMgr.Select_place_num = i;
                     }
                 }
-                
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(32); //棒目ヒヒ　目とじとか
 
                 //背景のセッティング
                 SetMapBG(GameMgr.Select_place_name);
@@ -1177,6 +1179,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //ステータスパネルをON
                 StatusPanelON();
 
+                //各マップのイベントなどの初期設定
                 MapSetting_01();
                 MapSetting_02();
 

@@ -58,7 +58,7 @@ public class Shop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_Shop_B1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
                 SettingCharacterPanel(1);
-                GameMgr.Window_CharaName = "プリン";
+                GameMgr.Window_CharaName = "エクレア";
                 break;
 
             case 20: //秋エリア
@@ -66,7 +66,7 @@ public class Shop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_Shop_C1";
                 BGImagePanel.transform.Find("BG_sprite_3").gameObject.SetActive(true);
                 SettingCharacterPanel(2);
-                GameMgr.Window_CharaName = "プリン";
+                GameMgr.Window_CharaName = "マダム・フリーデ";
                 break;
 
             case 30: //冬エリア
@@ -74,7 +74,7 @@ public class Shop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_Shop_D1";
                 BGImagePanel.transform.Find("BG_sprite_4").gameObject.SetActive(true);
                 SettingCharacterPanel(3);
-                GameMgr.Window_CharaName = "プリン";
+                GameMgr.Window_CharaName = "ピティヴィエ";
                 break;
 
             default:

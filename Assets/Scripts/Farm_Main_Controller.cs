@@ -229,7 +229,7 @@ public class Farm_Main_Controller : MonoBehaviour {
                         maincam_animator.SetInteger("trans", trans);
                     }
 
-                    _text.text = "ここは牧場だ。";
+                    _text.text = "いらっしゃ～い。";
 
                     break;
 

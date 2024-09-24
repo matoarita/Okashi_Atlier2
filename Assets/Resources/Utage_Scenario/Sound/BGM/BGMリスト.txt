@@ -98,7 +98,7 @@
 ・BGM_95		わぁ（なぐもりず）			おとぼけBGM（にいちゃん舞を舞う）
 ・BGM_96		PerituneMaterial_Cerulean_Relics	水族館のテーマ
 ・BGM_97		おやつはパンケーキ（なぐもりず）	ほのぼのシーン２
-・BGM_98		audiostock_1523480			春エリア露店通りのBGM
+・BGM_98		audiostock_1523480			【宴用】春エリア露店通りのBGM
 ・BGM_99		audiostock_				おとぼけBGM２　お囃子
 ・BGM_100		Excursion(なぐもりず)			【宴用】魔法の先生のテーマ02　92と同じ
 ・BGM_101		ecossaise				【宴用】チュートリアルのBGM　48と同じ
@@ -115,3 +115,4 @@
 ・BGM_111		PerituneMaterial_Powder_Snow_loop	プラトン女王様のテーマ
 ・BGM_112		こんとどぅふぇ素材No.0051-散歩道	【宴用】イリスさんのテーマ
 ・BGM_113		こんとどぅふぇ素材No.0175-ここなっつかふぇ	夏エリアお店のテーマ
+・BGM_114		audiostock_1523480			春エリア露店通りのBGM　98と同じ

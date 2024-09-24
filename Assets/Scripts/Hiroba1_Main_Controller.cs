@@ -617,8 +617,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     else
                     {
-                        GameMgr.NPCHiroba_blockReleaseList[2] = true; //
-                        On_BlockReleaseActive1(0);
+                        //GameMgr.NPCHiroba_blockReleaseList[2] = true; //
+                        GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+                        On_BlockReleaseActive1(110);
                     }                   
                 }
 
@@ -811,7 +813,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_MainGate_Entrance":
 
-                On_Active201();
+                On_Active203();
                 break;
 
             case "Or_Hiroba_Catsle_Garden":
@@ -834,98 +836,103 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             npc2_toggle.isOn = false;*/
 
-            switch (GameMgr.Scene_Name)
-            {
-                case "Or_Hiroba_CentralPark": //中央噴水でToggle2を押した
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Hiroba_CentralPark": //中央噴水でToggle2を押した
 
-                    On_Active32();
-                    break;
+                On_Active32();
+                break;
 
-                case "Or_Hiroba_CentralPark2":
+            case "Or_Hiroba_CentralPark2":
 
-                    On_Active04();
-                    break;
+                On_Active04();
+                break;
 
-                case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
+            case "Or_Hiroba_CentralPark_Castle_Street": //中央噴水　お城前
 
-                    On_Active32();
-                    break;
+                On_Active32();
+                break;
 
-                case "Or_Hiroba_Spring_Entrance":
+            case "Or_Hiroba_Spring_Entrance":
 
-                    On_Active05();
-                    break;
+                On_Active05();
+                break;
 
-                case "Or_Hiroba_Spring_Shoping_Moll":
+            case "Or_Hiroba_Spring_Shoping_Moll":
 
-                    On_BarActive01();
-                    break;
+                On_BarActive01();
+                break;
 
-                case "Or_Hiroba_Spring_RotenStreet":
+            case "Or_Hiroba_Spring_RotenStreet":
 
-                    On_Active1601_Roten_PotatoButter();
-                    break;
+                On_Active1601_Roten_PotatoButter();
+                break;
 
-                case "Or_Hiroba_Spring_RotenStreet2":
+            case "Or_Hiroba_Spring_RotenStreet2":
 
-                    On_Active1604_Roten_JoukenKyobai();
-                    break;
+                On_Active1604_Roten_JoukenKyobai();
+                break;
 
-                case "Or_Hiroba_Summer_MainStreet":
+            case "Or_Hiroba_Summer_MainStreet":
 
-                    On_Active52();
-                    break;
+                On_Active52();
+                break;
 
-                case "Or_Hiroba_Summer_ThemePark_Enter":
+            case "Or_Hiroba_Summer_ThemePark_Enter":
 
-                    On_Active73();
-                    break;
+                On_Active73();
+                break;
 
-                case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
 
-                    On_Active75();
-                    break;
+                On_Active75();
+                break;
 
-                case "Or_Hiroba_Summer_ThemePark_AquariumMainHall":
+            case "Or_Hiroba_Summer_ThemePark_AquariumMainHall":
 
-                    On_Active79();
-                    break;
+                On_Active79();
+                break;
 
-                case "Or_Hiroba_Summer_ThemePark_AquariumMain2F":
+            case "Or_Hiroba_Summer_ThemePark_AquariumMain2F":
 
-                    On_BarActive02();
-                    break;
+                On_BarActive02();
+                break;
 
-                case "Or_Hiroba_Autumn_Entrance":
+            case "Or_Hiroba_Autumn_Entrance":
 
-                    On_Active1001_Nuno();
-                    break;
+                On_Active1001_Nuno();
+                break;
 
-                case "Or_Hiroba_Autumn_MainStreet":
+            case "Or_Hiroba_Autumn_MainStreet":
 
-                    On_Active1002_Kinoko();
-                    break;
+                On_Active1002_Kinoko();
+                break;
 
-                case "Or_Hiroba_Winter_EntranceHiroba":
+            case "Or_Hiroba_Winter_EntranceHiroba":
 
-                    On_Active1003_Basan();
-                    break;
+                On_Active1003_Basan();
+                break;
 
-                case "Or_Hiroba_Winter_Street1":
+            case "Or_Hiroba_Winter_Street1":
 
-                    On_Active1005_Niji_girl();
-                    break;
+                On_Active1005_Niji_girl();
+                break;
 
-                case "Or_Hiroba_Winter_MainHiroba":
+            case "Or_Hiroba_Winter_MainHiroba":
 
-                    On_Active160();
-                    break;
+                On_Active160();
+                break;
 
-                default:
+            case "Or_Hiroba_MainGate_Big_hiroba":
 
-                    On_Active1001_Nuno();
-                    break;
-            }
+                On_Active201();
+                break;
+
+            default:
+
+                On_Active1001_Nuno();
+                break;
+        }
         //}
     }
 
@@ -970,7 +977,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Spring_RotenStreet":
 
-                On_Active07();
+                //On_Active07();
+                On_Active12();
                 break;
 
             case "Or_Hiroba_Spring_RotenStreet2":
@@ -978,10 +986,20 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active10();
                 break;
 
+            case "Or_Hiroba_Spring_BarStreet":
+
+                On_Active07();
+                break;
+
+            case "Or_Hiroba_Spring_Flower_Campo":
+
+                On_Active08();
+                break;
+
             case "Or_Hiroba_Spring_Oku_Garden":
 
                 On_Active09();
-                break;
+                break;            
 
             case "Or_Hiroba_Spring_Out_Plain":
 
@@ -1186,12 +1204,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_MainGate_Street2_hiroba":
 
-                On_Active202();
+                On_Active203();                
                 break;
 
             case "Or_Hiroba_MainGate_Entrance":
 
                 On_StationActive01();
+                break;
+
+            case "Or_Hiroba_MainGate_Big_hiroba":
+                
+                On_Active202();
                 break;
 
             case "Or_Hiroba_Catsle_Garden":
@@ -1267,6 +1290,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_ContestActive01();
                 break;
 
+            case "Or_Hiroba_Spring_BarStreet":
+
+                On_Active10();
+                break;
+
             case "Or_Hiroba_Spring_UraStreet":
 
                 On_Active15(); //On_Active07
@@ -1275,6 +1303,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_RotenStreet":
 
                 On_Active11();
+                break;
+
+            case "Or_Hiroba_Spring_Flower_Campo":
+
+                On_FarmActive01();
                 break;
 
             case "Or_Hiroba_Spring_Oku_Garden":
@@ -1416,6 +1449,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_CentralPark_Left": //中央噴水　左
 
+                //冬エリア入口
                 if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_50) //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_03
                 {
                     On_Active1702(); //まだ通れない
@@ -1428,8 +1462,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     else
                     {
-                        GameMgr.NPCHiroba_blockReleaseList[1] = true; //
-                        On_BlockReleaseActive1(0);
+                        //GameMgr.NPCHiroba_blockReleaseList[1] = true; //
+                        GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+                        On_BlockReleaseActive1(120);
                     }
                     
                 }
@@ -1437,6 +1473,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_CentralPark_Right": //中央噴水　右
 
+                //夏エリア入口
                 if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_52) //PlayerStatus.player_ninki_param < GameMgr.System_StarBlockLv_01
                 {
                     On_Active1700(); //まだ通れない
@@ -1449,8 +1486,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     else
                     {
-                        GameMgr.NPCHiroba_blockReleaseList[3] = true; //
-                        On_BlockReleaseActive1(0);
+                        //GameMgr.NPCHiroba_blockReleaseList[3] = true; //ねこにおかしをあげて、クリアするまでは通れない。
+                        GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。
+                        GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ
+                        On_BlockReleaseActive1(100);
                     }
                     
                 }
@@ -1475,6 +1514,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_RotenStreet2":
 
                 On_Active1605_Roten_Cafelatte();
+                break;
+
+            case "Or_Hiroba_Spring_BarStreet":
+
+                On_BarActive01();
                 break;
 
             case "Or_Hiroba_Spring_Oku":
@@ -1564,12 +1608,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Spring_Shoping_Moll": //
 
-                On_Active10();
+                //On_Active10();
+                On_Active12();
                 break;
 
             case "Or_Hiroba_Spring_Oku": //
 
-                On_FarmActive01();
+                //On_FarmActive01();
+                On_Active13();
                 break;
 
             case "Or_Hiroba_Summer_MainStreet": //
@@ -1857,6 +1903,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 15;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active12()
+    {
+        //_text.text = "春エリア商店街へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 16;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active13()
+    {
+        //_text.text = "春エリア商店街へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 17;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -2299,6 +2365,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 402;
+        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+    }
+
+    void On_Active203()
+    {
+        //_text.text = "オランジーナ大広場　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 403;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
@@ -3511,6 +3587,28 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 break;
 
+            case "Or_Hiroba_Spring_BarStreet": //春のエリア商店街　露店通り2
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_14").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは酒場前のようだ。";
+
+                break;
+
+            case "Or_Hiroba_Spring_Flower_Campo": //春のエリア商店街　奥の右の小道
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_13").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは秘密の花園の小道だ。";
+
+                break;
+
             case "Or_Hiroba_Spring_Oku_Garden": //春のエリア 裏通り奥の庭
 
                 //移動用リストオブジェクトの取得
@@ -3986,6 +4084,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、正門前のゲートだ。";
+
+                break;
+
+            case "Or_Hiroba_MainGate_Big_hiroba": //オランジーナ大広場
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_403").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、正門前の大広場だ。";
 
                 break;
 

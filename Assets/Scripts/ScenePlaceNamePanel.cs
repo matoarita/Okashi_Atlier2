@@ -91,6 +91,12 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Secret of FlowerGarden";
                                 break;
 
+                            case "Or_Hiroba_Spring_Flower_Campo": //春のエリア奥　右の小道
+
+                                _text = "牧場へ向かう道";
+                                _subtext = "The Road to Farm";
+                                break;
+
                             case "Or_Hiroba_Spring_UraStreet": //春のエリア裏通り
 
                                 _text = "";
@@ -99,14 +105,20 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Hiroba_Spring_RotenStreet": //春のエリア露店通り
 
-                                _text = "スプリングガーデン　露店通り";
+                                _text = "春の露店通り";
                                 _subtext = "Spring Garden Festival Street";
                                 break;
 
                             case "Or_Hiroba_Spring_RotenStreet2": //春のエリア露店通り2
 
-                                _text = "スプリングガーデン　喫茶店前";
+                                _text = "カフェ モナムール前";
                                 _subtext = "Spring Garden Cafe Street";
+                                break;
+
+                            case "Or_Hiroba_Spring_BarStreet": //春のエリア酒場前
+
+                                _text = "酒場前";
+                                _subtext = "Spring Garden Bar Street";
                                 break;
 
                             case "Or_Hiroba_Spring_Oku_Garden": //春のエリア裏通り　奥の庭
@@ -355,6 +367,12 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Orangina Town MainGate";
                                 break;
 
+                            case "Or_Hiroba_MainGate_Big_hiroba": //オランジーナ大広場
+
+                                _text = "オランジーナ大広場";
+                                _subtext = "Orangina Main Square";
+                                break;
+
                             case "Or_Hiroba_Catsle_Garden": //城エリア　前の庭
 
                                 _text = "バラ園";
@@ -365,6 +383,12 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                                 _text = "オランジーナ城門";
                                 _subtext = "Orangina Castle MainGate";
+                                break;
+
+                            case "Or_Hiroba_Catsle_MainEntrance": //城エリア　入口受付
+
+                                _text = "オランジーナ城入口";
+                                _subtext = "Orangina Castle Entrance";
                                 break;
 
                             default:

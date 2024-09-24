@@ -222,7 +222,14 @@ public class ContestPrizeController : MonoBehaviour
         //一位から順番に更新
         _rank_name = i + 1 + "位"; //一位　二位の数字
 
-        _rank_score = final_PrizeScoreList[i].ToString() + "点"; //一位の得点
+        if (i == 0)
+        {
+            _rank_score = GameMgr.contest_boss_score.ToString() + "点"; //一位の得点 プレイヤーと同数のときに、Utage_Scenarioで+1して更新してるので、それを反映
+        }
+        else
+        {
+            _rank_score = final_PrizeScoreList[i].ToString() + "点"; //一位の得点
+        }
         _name = final_PrizeCharacterNameList[i]; //名前             
         
         Debug.Log("順位: " + _rank_name + " " + _rank_score + " " + _name);

@@ -666,13 +666,13 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             GameMgr.GirlLoveSubEvent_num = 160;
                             GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
-                            GameMgr.NPC_event_ON = true;
-
+                            
                             GameMgr.check_GirlLoveSubEvent_flag = false;
 
                             GameMgr.Mute_on = true;
 
                             //下は、使うときだけtrueにすればOK
+                            GameMgr.NPC_event_ON = true; //アイテム選択画面だすときに、どのシーンで選択しているかを判定するフラグ
                             GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
                             GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
                             GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定

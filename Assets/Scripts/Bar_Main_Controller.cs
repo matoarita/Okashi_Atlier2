@@ -737,7 +737,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             {
                 case "Or_Bar_A1": //春エリア
 
-                    GameMgr.SceneSelectNum = 11;
+                    GameMgr.SceneSelectNum = 16;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 

@@ -157,6 +157,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             {
                 _buf_kakuritsuup += 15;
             }
+
+            if (pitemlist.KosuCount("blue_jemstone") >= 1) //持ってるだけで効果アップ
+            {
+                _buf_kakuritsuup += pitemlist.KosuCount("blue_jemstone") * 1;
+            }
         }
 
         //ヒカリのおかし経験値とLVによって、成功率も上昇する。

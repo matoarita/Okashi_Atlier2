@@ -75,6 +75,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound61;  //ゲームオーバーのBGM
     public AudioClip sound62;  //プラトン女王様のテーマ
     public AudioClip sound63;  //夏のお店のテーマ
+    public AudioClip sound64;  //春露店通りのBGM
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -300,6 +301,11 @@ public class BGM : MonoBehaviour {
                                 _send_clip = sound51;
                                 break;
 
+                            case "Or_Hiroba_Spring_Flower_Campo": //秘密の花園 右の小道
+
+                                _send_clip = sound51;
+                                break;
+
                             case "Or_Hiroba_Spring_UraStreet": //春のエリア裏通り
 
                                 _send_clip = sound41;
@@ -307,13 +313,18 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Spring_RotenStreet": //春のエリア露店通り
 
-                                _send_clip = sound41;
+                                _send_clip = sound64;
                                 break;
 
                             case "Or_Hiroba_Spring_RotenStreet2": //春のエリア露店通り奥
 
-                                _send_clip = sound41;
+                                _send_clip = sound64;
                                 break;
+
+                            case "Or_Hiroba_Spring_BarStreet": //春のエリア酒場前
+
+                                _send_clip = sound41;
+                                break;                           
 
                             case "Or_Hiroba_Spring_Oku_Garden": //春エリア　裏通り奥の庭
 
@@ -530,6 +541,11 @@ public class BGM : MonoBehaviour {
                                 break;
 
                             case "Or_Hiroba_MainGate_Entrance": //正門前ゲート
+
+                                _send_clip = sound41;
+                                break;
+
+                            case "Or_Hiroba_MainGate_Big_hiroba": //正門前ゲート
 
                                 _send_clip = sound41;
                                 break;

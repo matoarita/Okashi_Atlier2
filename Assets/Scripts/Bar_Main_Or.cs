@@ -65,7 +65,7 @@ public class Bar_Main_Or : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Bar_C1";
                 BGImagePanel.transform.Find("BG_sprite_3").gameObject.SetActive(true);
                 SettingCharacterPanel(2);
-                GameMgr.Window_CharaName = "フィオナ";
+                GameMgr.Window_CharaName = "アプリコット";
                 break;
 
             case 30: //冬エリア

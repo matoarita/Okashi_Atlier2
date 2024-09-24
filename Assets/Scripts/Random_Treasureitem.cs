@@ -8,6 +8,8 @@ public class Random_Treasureitem : MonoBehaviour {
 
     private SoundController sc;
 
+    private PlayerItemList pitemlist;
+
     private GameObject hirobaTreasureget_Controller_obj;
     private HirobaTreasureGetController hirobaTreasureget_Controller;
 
@@ -22,6 +24,9 @@ public class Random_Treasureitem : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
         hirobaTreasureget_Controller_obj = canvas.transform.Find("HirobaTreasureGetController").gameObject;
         hirobaTreasureget_Controller = hirobaTreasureget_Controller_obj.GetComponent<HirobaTreasureGetController>();
 
@@ -35,7 +40,7 @@ public class Random_Treasureitem : MonoBehaviour {
 
     public void GetTreasureItem()
     {
-        sc.PlaySe(1);
+        //sc.PlaySe(1);
         this.gameObject.GetComponent<CanvasGroup>().alpha = 0;
 
         switch (this.transform.parent.gameObject.name)
@@ -44,12 +49,15 @@ public class Random_Treasureitem : MonoBehaviour {
 
                 GameMgr.Treature_getList[0] = 1; //1=取得したフラグ
 
-                //青ジェム　MPが１上がる
+                //青ジェム　もってると、魔法の成功率が１上がる
                 GameMgr.hiroba_treasureget_Num = 0; //宝箱番号
                 GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01; //クリスタルのこと
                 
                 GameMgr.hiroba_treasureget_Kosu = 1;
-                PlayerStatus.player_maxmp++;
+
+                //アイテムの取得処理
+                pitemlist.addPlayerItemString("blue_jemstone", 1);
+                //PlayerStatus.player_maxmp++;
 
                 hirobaTreasureget_Controller.EventReadingStart();
                 break;
@@ -58,12 +66,15 @@ public class Random_Treasureitem : MonoBehaviour {
 
                 GameMgr.Treature_getList[1] = 1; //1=取得したフラグ
 
-                //青ジェム　MPが１上がる
+                //青ジェム　もってると、魔法の成功率が１上がる
                 GameMgr.hiroba_treasureget_Num = 0; //宝箱番号
                 GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01;
 
                 GameMgr.hiroba_treasureget_Kosu = 1;
-                PlayerStatus.player_maxmp++;
+
+                //アイテムの取得処理
+                pitemlist.addPlayerItemString("blue_jemstone", 1);
+                //PlayerStatus.player_maxmp++;
 
                 hirobaTreasureget_Controller.EventReadingStart();
                 break;
