@@ -312,19 +312,6 @@ public class Contest_Main_Outside : MonoBehaviour
             ContestTimeOverAfter();
         }
 
-        //コンテスト終了後　フラグ解放などのイベント発生
-        if (GameMgr.NewAreaRelease_flag)
-        {
-            GameMgr.NewAreaRelease_flag = false;
-
-            //フラグをチェックし、必要ならONにする。
-            NewAreaFlagCheck();
-
-            GameMgr.scenario_ON = true;
-            newAreaReleasePanel_obj.SetActive(true);
-            GameMgr.Scene_Status = 0;
-            //sceneBGM.MuteBGM();
-        }
 
         //宴のシナリオ表示（イベント進行中かどうか）を優先するかどうかをまず判定する。
         if (GameMgr.scenario_ON == true)
@@ -393,11 +380,6 @@ public class Contest_Main_Outside : MonoBehaviour
     }
 
     void ToggleFlagCheck()
-    {
-
-    }
-
-    void NewAreaFlagCheck()
     {
 
     }

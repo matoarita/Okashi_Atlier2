@@ -157,6 +157,12 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Summer Dreams MainStreet";
                                 break;
 
+                            case "Or_Hiroba_Summer_MainStreet_Shop": //夏のエリア　ショップ前
+
+                                _text = "マリトッツォ材料店通り";
+                                _subtext = "Summer Dreams ShopStreet";
+                                break;
+
                             case "Or_Hiroba_Summer_MainStreet_Gondora": //夏のエリア　ゴンドラ乗り場
 
                                 _text = "ゴンドラ乗り場";

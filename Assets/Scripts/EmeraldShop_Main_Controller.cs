@@ -367,12 +367,15 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
         {
             shopon_toggle_back.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
+            //店のドア音
+            sc.PlaySe(38);
+            sc.PlaySe(51);
 
             switch (GameMgr.Scene_Name)
             {
                 case "Or_EmeraldShop_A1": //春エリア
 
-                    GameMgr.SceneSelectNum = 11;
+                    GameMgr.SceneSelectNum = 20;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 

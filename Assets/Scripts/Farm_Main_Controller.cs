@@ -347,6 +347,7 @@ public class Farm_Main_Controller : MonoBehaviour {
 
             GameMgr.Scene_Status = 2; //話すを押したときのフラグ
             GameMgr.Scene_Select = 2;
+            GameMgr.utage_charaHyouji_flag = true;
 
             //_text.text = "（..今はしゃべる気がないようだ。）";
 
@@ -396,13 +397,13 @@ public class Farm_Main_Controller : MonoBehaviour {
 
             switch (GameMgr.Scene_Name)
             {
-                case "Or_Farm_A1": //春エリア
+                case "Or_Farm": //春エリア
 
-                    GameMgr.SceneSelectNum = 11;
+                    GameMgr.SceneSelectNum = 17;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 
-                case "Or_Farm_B1": //夏エリア
+                case "Or_Farm_B1": //夏エリア 使ってない
 
                     GameMgr.SceneSelectNum = 100;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);

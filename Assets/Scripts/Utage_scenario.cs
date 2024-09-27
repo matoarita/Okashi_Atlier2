@@ -40,6 +40,7 @@ public class Utage_scenario : MonoBehaviour
     private string itemName;
     private int item_magic;
     private bool NPC01_Friend_Flag;
+    private bool live2d_use;
 
     private int re_flag;
     private int ev_flag;
@@ -150,6 +151,7 @@ public class Utage_scenario : MonoBehaviour
 
         FadeAnim_flag = false;
         NPCevent_okashicheck = false;
+        live2d_use = false;
     }
 
     void Update()
@@ -676,14 +678,15 @@ public class Utage_scenario : MonoBehaviour
     {
         character = GameObject.FindWithTag("Character");
 
-        //Live2D立ち絵を使う場合、追加でここで読み込み登録　どちらを使うかはシーンで直接on/offすればOK
-        switch(GameMgr.Scene_Name)
+        //Live2D立ち絵を使う場合、追加でここで読み込み登録　どちらを使うかはシーンで直接on/offとlive2d_useフラグの2点で管理
+        switch (GameMgr.Scene_Name)
         {
             case "Or_Shop_A1":
 
                 _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
                 _renderController = _model.GetComponent<CubismRenderController>();
                 live2d_animator = _model.GetComponent<Animator>();
+                live2d_use = true;
                 break;
 
             case "Or_Shop_B1":
@@ -691,6 +694,7 @@ public class Utage_scenario : MonoBehaviour
                 _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
                 _renderController = _model.GetComponent<CubismRenderController>();
                 live2d_animator = _model.GetComponent<Animator>();
+                live2d_use = false;
                 break;
 
             case "Or_Shop_C1":
@@ -698,6 +702,7 @@ public class Utage_scenario : MonoBehaviour
                 _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
                 _renderController = _model.GetComponent<CubismRenderController>();
                 live2d_animator = _model.GetComponent<Animator>();
+                live2d_use = false;
                 break;
 
             case "Or_Shop_D1":
@@ -705,6 +710,7 @@ public class Utage_scenario : MonoBehaviour
                 _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
                 _renderController = _model.GetComponent<CubismRenderController>();
                 live2d_animator = _model.GetComponent<Animator>();
+                live2d_use = false;
                 break;
 
             case "Shop_Grt":
@@ -712,6 +718,7 @@ public class Utage_scenario : MonoBehaviour
                 _model = character.transform.Find("CharacterImage/CharacterImage01/puddingsan_Live2D").FindCubismModel();
                 _renderController = _model.GetComponent<CubismRenderController>();
                 live2d_animator = _model.GetComponent<Animator>();
+                live2d_use = true;
                 break;
         }
     }
@@ -2379,8 +2386,14 @@ public class Utage_scenario : MonoBehaviour
 
         if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
         {
-            CharacterLive2DSubNPCImageOFF();
-            //CharacterSpriteSetOFF();
+            if (live2d_use)
+            {
+                CharacterLive2DSubNPCImageOFF();
+            }
+            else
+            {
+                CharacterSpriteSetOFF();
+            }
         }
 
         //「宴」のシナリオを呼び出す
@@ -4187,14 +4200,14 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.contest_eventEnd_flag = true;
 
         //大会勝利後、フラグがたってる場合は、新エリア解禁フラグ　トーナメント形式（エデンレシピ）のときは、ひとまず新エリア解禁
-        if (GameMgr.Contest_Cate_Ranking == 0)
+        /*if (GameMgr.Contest_Cate_Ranking == 0)
         {
             GameMgr.NewAreaRelease_flag = true; //新エリア解禁フラグ
         }
         else
         {
 
-        }
+        }*/
         
     }
 

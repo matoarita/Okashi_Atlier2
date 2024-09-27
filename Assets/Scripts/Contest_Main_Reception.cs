@@ -367,19 +367,6 @@ public class Contest_Main_Reception : MonoBehaviour
             ContestTimeOverAfter();
         }
 
-        //コンテスト終了後　フラグ解放などのイベント発生
-        if (GameMgr.NewAreaRelease_flag)
-        {
-            GameMgr.NewAreaRelease_flag = false;
-
-            //フラグをチェックし、必要ならONにする。
-            NewAreaFlagCheck();
-
-            GameMgr.scenario_ON = true;
-            newAreaReleasePanel_obj.SetActive(true);
-            GameMgr.Scene_Status = 0;
-            //sceneBGM.MuteBGM();
-        }
 
         //コンテストリスト選択後、出場するをおすと、宴開始してコンテストシーンへ
         if(GameMgr.Contest_ReadyToStart2)
@@ -821,11 +808,6 @@ public class Contest_Main_Reception : MonoBehaviour
         mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main").gameObject.SetActive(true);
     }
 
-    void NewAreaFlagCheck()
-    {
-
-    }
-
     void InitSetting()
     {
         if (playeritemlist_onoff == null)
@@ -895,7 +877,7 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
             conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。           
 
-            
+            GameMgr.Before_Patissier_Rank = PlayerStatus.player_patissier_Rank; //チェック用に、更新前のパティシエランクとっておく
 
             Debug.Log("コンテスト本会場へ移動");
             StartCoroutine("WaitForGotoContest");

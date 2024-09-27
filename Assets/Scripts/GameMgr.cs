@@ -109,6 +109,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool itemuse_recipi_flag;    //レシピリストから選択したときの、宴を表示する用のフラグ
     public static int recipi_read_ID;       //その時のイベント番号
     public static bool recipi_read_endflag; //レシピを読み終えたときのフラグ
+    public static bool newarea_read_endflag; //新エリアフラグチェックパネルを読み、閉じたときのフラグ
+
 
     public static int stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様
 
@@ -235,6 +237,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //酒場のうわさ話リスト
     public static bool[] ShopUwasa_stage1 = new bool[Uwasa_num]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
+
+    //スターランクご褒美解禁リスト　セーブまだしてない
+    public static bool[] StarRank_ReleaseList = new bool[Uwasa_num]; //スターランクに応じて、エリア解禁などのご褒美が発生するイベントのフラグ
 
 
     //コンテストのイベントリスト
@@ -704,6 +709,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Special_OkashiEnshutsuFlag; //特定のおかしをはじめて作成するときに、特別演出が発生するフラグ
     public static string Special_OkashiEnshutsuName; //演出の指定
     public static string MainQuestTitleName; //メインクエストのタイトル
+    public static int Before_Patissier_Rank; //コンテスト前のパティシエランク　優勝などしたあと、スター獲得してランクも変動する　そのレベルチェック用
 
 
     //一時フラグ　アイテムDB関連
@@ -1014,6 +1020,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         recipi_read_flag = false;
         recipi_read_endflag = false;
+        newarea_read_endflag = false;
 
         touchhint_flag = false;
 
@@ -1236,6 +1243,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_magic_playON = false;
         Special_OkashiEnshutsuFlag = false;
         MainQuestTitleName = "";
+        Before_Patissier_Rank = 1;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1319,6 +1327,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < ShopUwasa_stage1.Length; system_i++)
         {
             ShopUwasa_stage1[system_i] = false;
+        }
+
+        for (system_i = 0; system_i < StarRank_ReleaseList.Length; system_i++)
+        {
+            StarRank_ReleaseList[system_i] = false;
         }
 
         //コンテストイベントフラグの初期化

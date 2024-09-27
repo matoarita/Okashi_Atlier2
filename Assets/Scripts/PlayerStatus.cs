@@ -28,6 +28,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_patissier_exp; //パティシエLV用だが、LVはハートLVに依存するので、現在未使用。使ってもいい。
     public static int player_patissier_job_pt;
     public static int player_patissier_Rank;
+    public static string player_patissier_Rank_hyouki; //ランクの名前　セーブ不要
+    public static List<string> player_patissier_Rank_hyoukiList = new List<string>();　//ランクの名前　配列番号から呼び出せる　セーブ不要
     public static int player_ninki_param; //名声値はこれを使う。名声が上昇すると、パティシエランクが上がる。
 
     //妹のステータス
@@ -208,6 +210,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_patissier_Rank = 1;
 
         InitTitleCollectionLibrary();
+        SettingPRankHyouki();
 
         player_girl_okashiparam_Count = 15;
         //セーブデータがあれば、次にそこから読み込んで、更新
@@ -234,37 +237,52 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_okashiparam_NameList.Add("rareokashi", "高級");
     }
 
-    //Rankの数値をもとに、ランク表記に変える。
-    public static string SetPatissierRank(int _parank)
+    //Rankの数値をもとに、ランク表記に変える。Status_Panel, Compound_Mainから呼び出し
+    public static void SetPatissierRank(int _parank) //PlayerStatus.player_ninki_paramを入れる
     {
+        
         //獲得したスターに応じてランクが決まる
-        if(_parank >= 0 && _parank < 30)
+        if (_parank >= 0 && _parank < 5)
         {
             player_patissier_Rank = 1;
-            return "ブロンズ";
+            player_patissier_Rank_hyouki = player_patissier_Rank_hyoukiList[0];
         }
-        else if (_parank >= 30 && _parank < 60)
+        else if (_parank >= 5 && _parank < 12)
         {
             player_patissier_Rank = 2;
-            return "シルバー";
+            player_patissier_Rank_hyouki = player_patissier_Rank_hyoukiList[1];
         }
-        else if (_parank >= 60 && _parank < 90)
+        else if (_parank >= 12 && _parank < 20)
         {
             player_patissier_Rank = 3;
-            return "ゴールド";
+            player_patissier_Rank_hyouki = player_patissier_Rank_hyoukiList[2];
         }
-        else if (_parank >= 190 && _parank < 150)
+        else if (_parank >= 20 && _parank < 40)
         {
             player_patissier_Rank = 4;
-            return "プラチナ";
+            player_patissier_Rank_hyouki = player_patissier_Rank_hyoukiList[3];
         }
-        else if (_parank >= 150)
+        else if (_parank >= 40)
         {
             player_patissier_Rank = 5;
-            return "ダイア";
+            player_patissier_Rank_hyouki = player_patissier_Rank_hyoukiList[4];
         }
+        else
+        {
+            //例外処理
+            player_patissier_Rank = 0;
+            player_patissier_Rank_hyouki = "なし";
+        }
+    }
 
-        //例外処理
-        return "なし";
+    public static void SettingPRankHyouki()
+    {
+        player_patissier_Rank_hyoukiList.Clear();
+
+        player_patissier_Rank_hyoukiList.Add("ブロンズ");
+        player_patissier_Rank_hyoukiList.Add("シルバー");
+        player_patissier_Rank_hyoukiList.Add("ゴールド");
+        player_patissier_Rank_hyoukiList.Add("プラチナ");
+        player_patissier_Rank_hyoukiList.Add("ダイア");
     }
 }

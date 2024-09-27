@@ -224,11 +224,18 @@ public class ContestPrizeController : MonoBehaviour
 
         if (i == 0)
         {
-            _rank_score = GameMgr.contest_boss_score.ToString() + "点"; //一位の得点 プレイヤーと同数のときに、Utage_Scenarioで+1して更新してるので、それを反映
+            if (GameMgr.Contest_winner_flag)
+            {
+                _rank_score = GameMgr.contest_TotalScore.ToString() + "点"; //優勝したので、アキラの得点
+            }
+            else
+            {
+                _rank_score = GameMgr.contest_boss_score.ToString() + "点"; //一位の得点 プレイヤーと同数のときに、Utage_Scenarioで+1して更新してるので、それを反映
+            }
         }
         else
         {
-            _rank_score = final_PrizeScoreList[i].ToString() + "点"; //一位の得点
+            _rank_score = final_PrizeScoreList[i].ToString() + "点"; //一位以外の得点
         }
         _name = final_PrizeCharacterNameList[i]; //名前             
         

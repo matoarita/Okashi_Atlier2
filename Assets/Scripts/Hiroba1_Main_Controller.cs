@@ -1526,6 +1526,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_MapActive01();
                 break;
 
+            case "Or_Hiroba_Spring_Oku_Garden":
+
+                On_EmeralShopActive01();
+                break;
+
             case "Or_Hiroba_Summer_MainStreet":
 
                 On_Active70();
@@ -2499,6 +2504,19 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //シーン読み込み
         GameMgr.SceneSelectNum = 30;
         FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+    }
+
+    void On_EmeralShopActive01()
+    {
+        //_text.text = "春エリアの酒場へ入る";
+
+        //入店の音
+        sc.ShopEnterSound01();
+        GameMgr.ShopEnter_ButtonON = true;
+
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 0;
+        FadeManager.Instance.LoadScene("Or_Emerald_Shop", GameMgr.SceneFadeTime);
     }
 
     void On_BarActive01()

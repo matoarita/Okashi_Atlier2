@@ -52,7 +52,7 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Window_CharaName = "ねこ";
                 break;
 
-            case 10: //夏エリア
+            case 10: //夏エリア 使わない予定
 
                 GameMgr.Scene_Name = "Or_EmeraldShop_B1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);

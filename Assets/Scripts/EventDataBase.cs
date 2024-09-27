@@ -324,8 +324,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                 ReadGirlLoveEvent();
-
             }
+            else //全てのイベントチェックし、発生しなかったら、このスクリプトでのイベントチェック完了
+            { }
 
         }
     }
@@ -625,7 +626,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
 
             //
-            //サブイベント・ハートで進むなどのイベント関係
+            //サブイベント・ハート・スターで進むなどのイベント関係
             //
 
             if(GameMgr.outgirl_Nowprogress)
@@ -651,259 +652,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    //モーセ家にくる
-                    if (PlayerStatus.girl1_Love_lv >= 10) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
-                    {
-                        //random = Random.Range(0, 100);
-                        //Debug.Log("モーセくるイベント　10以下で成功: " + random);
-                        //if (random <= 10)
-                        //{
-                        if (!GameMgr.GirlLoveSubEvent_stage1[160]) //160番～　サブイベントNPC系　フラグ３つか５つずつぐらい余分をとっておく。
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 160;
-                            GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
-                            
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            //下は、使うときだけtrueにすればOK
-                            GameMgr.NPC_event_ON = true; //アイテム選択画面だすときに、どのシーンで選択しているかを判定するフラグ
-                            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
-                            GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                            GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
-                            GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
-                        }
-                        //}
-                    }
-                }
-
-                //キラキラポンポン 発生すると、さらに親睦を深めて、BGMが変わる。
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (PlayerStatus.girl1_Love_lv >= 15 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
-                    {
-                        GameMgr.GirlLoveSubEvent_num = 60;
-                        GameMgr.GirlLoveSubEvent_stage1[60] = true;
-
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                        GameMgr.Mute_on = true;
-
-                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                        GameMgr.SubEvAfterHeartGet_num = 60;
-
-                        //イベントCG解禁
-                        GameMgr.SetEventCollectionFlag("event1", true);
-                        GameMgr.SetEventCollectionFlag("event2", true);
-                    }
-                }
-
-
-
-                /*
-                //エクストラモードのみのイベント　どっこいステーキ
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 40 && GameMgr.GirlLoveSubEvent_stage1[63] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 63;
-                            GameMgr.GirlLoveSubEvent_stage1[63] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-                        }
-                    }
-                }
-
-                //エクストラモードのみのイベント　すみれのお花のお菓子
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 50 && GameMgr.GirlLoveSubEvent_stage1[62] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 62;
-                            GameMgr.GirlLoveSubEvent_stage1[62] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            //天気も変更
-                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
-                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
-
-                            //イベントCG解禁
-                            //GameMgr.SetEventCollectionFlag("event1", true);
-                            //GameMgr.SetEventCollectionFlag("event2", true);
-                        }
-                    }
-                }
-
-                //エクストラモードのみのイベント　カマキリ
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 60 && GameMgr.GirlLoveSubEvent_stage1[69] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 69;
-                            GameMgr.GirlLoveSubEvent_stage1[69] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            //天気も変更
-                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
-                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
-
-                            //イベントCG解禁
-                            //GameMgr.SetEventCollectionFlag("event1", true);
-                            //GameMgr.SetEventCollectionFlag("event2", true);
-                        }
-                    }
-                }
-
-                //エクストラモードのみのイベント　わたあめ
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 70 && GameMgr.GirlLoveSubEvent_stage1[64] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 64;
-                            GameMgr.GirlLoveSubEvent_stage1[64] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            //天気も変更
-                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
-                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
-                        }
-                    }
-                }
-
-                //エクストラモードのみのイベント　クリスタルキャッチャー
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 80 && GameMgr.GirlLoveSubEvent_stage1[65] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 65;
-                            GameMgr.GirlLoveSubEvent_stage1[65] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            pitemlist.addPlayerItemString("heart_jewery", 1); //ハート宝石ゲット
-                            if (PlayerStatus.player_money >= 100)
-                            {
-                                PlayerStatus.player_money -= 100; //100ルピア消費
-                            }
-                            else
-                            {
-                                PlayerStatus.player_money = 0;
-                            }
-
-                            //天気も変更
-                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
-                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
-                        }
-                    }
-                }
-
-                //エクストラモードのみのイベント　カミナリ
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 90 && GameMgr.GirlLoveSubEvent_stage1[66] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 66;
-                            GameMgr.GirlLoveSubEvent_stage1[66] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            //天気も変更
-                            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
-                            PlayerStatus.player_day = PlayerStatus.player_day + 1;
-                        }
-                    }
-                }
-
-                //エクストラモードのみのイベント　ハートレベル99 レコードをゲット
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 99 && GameMgr.GirlLoveSubEvent_stage1[67] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 67;
-                            GameMgr.GirlLoveSubEvent_stage1[67] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            pitemlist.addPlayerItemString("Record_16", 1); //レコード
-                            pitemlist.addPlayerItemString("rubyDongri", 1); //るびーどんぐり
-                        }
-                    }
-                }
-
-                //エクストラモードのみのイベント　ヒカリに食べたいお菓子あげた回数50回超えた　レコードゲット
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.Story_Mode == 1)
-                    {
-                        if (PlayerStatus.player_girl_eatCount_tabetai >= 50 && GameMgr.GirlLoveSubEvent_stage1[68] == false) //
-                        {
-                            GameMgr.GirlLoveSubEvent_num = 68;
-                            GameMgr.GirlLoveSubEvent_stage1[68] = true;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.Mute_on = true;
-
-                            pitemlist.addPlayerItemString("Record_17", 1); //レコード
-                        }
-                    }
-                }
-                //GirlLoveSubEvent_stage1 サブイベントは69まで。70~は、衣装買ったときのセリフが入っている。
-                */
+                //Heartevent_Grt(); //１の頃のイベント
+                
 
                 //
                 //スターで発生するイベント系
@@ -1598,9 +1348,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
             }
             else //全てのイベントチェックし、発生しなかったら、このスクリプトでのイベントチェック完了
-            {
-                
-            }
+            {  }
         }
     }
 
@@ -1729,10 +1477,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
                 ReadGirlLoveTimeEvent();
-
             }
+            else //全てのイベントチェックし、発生しなかったら、このスクリプトでのイベントチェック完了
+            { }
         }
     }
+
+
+
 
     //外出カウンタリセット　compound_mainからも読まれる。
     public void outGirlCounterReset()
@@ -1879,5 +1631,266 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         getmatplace_panel.slot_view_status = 0;
 
         ReadGirlLoveEvent();
+    }
+
+
+    //
+    //** イベントデータベース **//
+    //
+    void Heartevent_Grt()
+    {
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            //モーセ家にくる
+            if (PlayerStatus.girl1_Love_lv >= 10) //PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 12 && GameMgr.GirlLoveEvent_num >= 1
+            {
+                //random = Random.Range(0, 100);
+                //Debug.Log("モーセくるイベント　10以下で成功: " + random);
+                //if (random <= 10)
+                //{
+                if (!GameMgr.GirlLoveSubEvent_stage1[160]) //160番～　サブイベントNPC系　フラグ３つか５つずつぐらい余分をとっておく。
+                {
+                    GameMgr.GirlLoveSubEvent_num = 160;
+                    GameMgr.GirlLoveSubEvent_stage1[160] = true; //イベント初発生の分をフラグっておく。
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+
+                    //下は、使うときだけtrueにすればOK
+                    GameMgr.NPC_event_ON = true; //アイテム選択画面だすときに、どのシーンで選択しているかを判定するフラグ
+                    GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
+                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                    GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
+                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                }
+                //}
+            }
+        }
+
+        //キラキラポンポン 発生すると、さらに親睦を深めて、BGMが変わる。
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (PlayerStatus.girl1_Love_lv >= 15 && GameMgr.GirlLoveSubEvent_stage1[60] == false) //4になったときのサブイベントを使う。
+            {
+                GameMgr.GirlLoveSubEvent_num = 60;
+                GameMgr.GirlLoveSubEvent_stage1[60] = true;
+
+                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                GameMgr.Mute_on = true;
+
+                GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                GameMgr.SubEvAfterHeartGet_num = 60;
+
+                //イベントCG解禁
+                GameMgr.SetEventCollectionFlag("event1", true);
+                GameMgr.SetEventCollectionFlag("event2", true);
+            }
+        }
+
+
+
+        /*
+        //エクストラモードのみのイベント　どっこいステーキ
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (PlayerStatus.girl1_Love_lv >= 40 && GameMgr.GirlLoveSubEvent_stage1[63] == false) //
+                {
+                    GameMgr.GirlLoveSubEvent_num = 63;
+                    GameMgr.GirlLoveSubEvent_stage1[63] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+                }
+            }
+        }
+
+        //エクストラモードのみのイベント　すみれのお花のお菓子
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (PlayerStatus.girl1_Love_lv >= 50 && GameMgr.GirlLoveSubEvent_stage1[62] == false) //
+                {
+                    GameMgr.GirlLoveSubEvent_num = 62;
+                    GameMgr.GirlLoveSubEvent_stage1[62] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+
+                    //天気も変更
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                    PlayerStatus.player_day = PlayerStatus.player_day + 1;
+
+                    //イベントCG解禁
+                    //GameMgr.SetEventCollectionFlag("event1", true);
+                    //GameMgr.SetEventCollectionFlag("event2", true);
+                }
+            }
+        }
+
+        //エクストラモードのみのイベント　カマキリ
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (PlayerStatus.girl1_Love_lv >= 60 && GameMgr.GirlLoveSubEvent_stage1[69] == false) //
+                {
+                    GameMgr.GirlLoveSubEvent_num = 69;
+                    GameMgr.GirlLoveSubEvent_stage1[69] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+
+                    //天気も変更
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                    PlayerStatus.player_day = PlayerStatus.player_day + 1;
+
+                    //イベントCG解禁
+                    //GameMgr.SetEventCollectionFlag("event1", true);
+                    //GameMgr.SetEventCollectionFlag("event2", true);
+                }
+            }
+        }
+
+        //エクストラモードのみのイベント　わたあめ
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (PlayerStatus.girl1_Love_lv >= 70 && GameMgr.GirlLoveSubEvent_stage1[64] == false) //
+                {
+                    GameMgr.GirlLoveSubEvent_num = 64;
+                    GameMgr.GirlLoveSubEvent_stage1[64] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+
+                    //天気も変更
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                    PlayerStatus.player_day = PlayerStatus.player_day + 1;
+                }
+            }
+        }
+
+        //エクストラモードのみのイベント　クリスタルキャッチャー
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (PlayerStatus.girl1_Love_lv >= 80 && GameMgr.GirlLoveSubEvent_stage1[65] == false) //
+                {
+                    GameMgr.GirlLoveSubEvent_num = 65;
+                    GameMgr.GirlLoveSubEvent_stage1[65] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+
+                    pitemlist.addPlayerItemString("heart_jewery", 1); //ハート宝石ゲット
+                    if (PlayerStatus.player_money >= 100)
+                    {
+                        PlayerStatus.player_money -= 100; //100ルピア消費
+                    }
+                    else
+                    {
+                        PlayerStatus.player_money = 0;
+                    }
+
+                    //天気も変更
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                    PlayerStatus.player_day = PlayerStatus.player_day + 1;
+                }
+            }
+        }
+
+        //エクストラモードのみのイベント　カミナリ
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (PlayerStatus.girl1_Love_lv >= 90 && GameMgr.GirlLoveSubEvent_stage1[66] == false) //
+                {
+                    GameMgr.GirlLoveSubEvent_num = 66;
+                    GameMgr.GirlLoveSubEvent_stage1[66] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+
+                    //天気も変更
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0); //次の日の朝に。
+                    PlayerStatus.player_day = PlayerStatus.player_day + 1;
+                }
+            }
+        }
+
+        //エクストラモードのみのイベント　ハートレベル99 レコードをゲット
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (PlayerStatus.girl1_Love_lv >= 99 && GameMgr.GirlLoveSubEvent_stage1[67] == false) //
+                {
+                    GameMgr.GirlLoveSubEvent_num = 67;
+                    GameMgr.GirlLoveSubEvent_stage1[67] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+
+                    pitemlist.addPlayerItemString("Record_16", 1); //レコード
+                    pitemlist.addPlayerItemString("rubyDongri", 1); //るびーどんぐり
+                }
+            }
+        }
+
+        //エクストラモードのみのイベント　ヒカリに食べたいお菓子あげた回数50回超えた　レコードゲット
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.Story_Mode == 1)
+            {
+                if (PlayerStatus.player_girl_eatCount_tabetai >= 50 && GameMgr.GirlLoveSubEvent_stage1[68] == false) //
+                {
+                    GameMgr.GirlLoveSubEvent_num = 68;
+                    GameMgr.GirlLoveSubEvent_stage1[68] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+
+                    pitemlist.addPlayerItemString("Record_17", 1); //レコード
+                }
+            }
+        }
+        //GirlLoveSubEvent_stage1 サブイベントは69まで。70~は、衣装買ったときのセリフが入っている。
+        */
     }
 }
