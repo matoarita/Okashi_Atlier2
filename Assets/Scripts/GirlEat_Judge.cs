@@ -1447,6 +1447,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //クッキーの場合はさくさく感など。大きいパラメータをまず見る。次に甘さ・苦さ・酸味が、女の子の好みに近いかどうか。
         Mazui_flag = false; //初期化
+        GameMgr.MazuiFlag_ON = false;
         countNum = _setCountNum;
         total_score = 0;
 
@@ -1722,6 +1723,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (total_score < GameMgr.mazui_score) //total_scoreが30より下だと、マズイ。
         {
             Mazui_flag = true;
+            GameMgr.MazuiFlag_ON = true; //宴で使えるように、GameMgrにしたまずいフラグ
             GameMgr.ending_on = false; //まずかったときは、EDいく分岐があってもここでoffになる。
         }
 
@@ -2111,13 +2113,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else if (Mathf.Abs(_taste_result) < 40) //+-23~39　かなりいい感じ
         {
             Debug.Log(_taste_type + "Well!");
-            taste_score = 5;
+            taste_score = 7;
             taste_level = 4;
         }
         else if (Mathf.Abs(_taste_result) < 60) //+-29~59  いい感じ
         {
             Debug.Log(_taste_type + "Good!");
-            taste_score = 0;
+            taste_score = 5;
             taste_level = 4;
         }
         else if (Mathf.Abs(_taste_result) < 90) //+-60~89　ちょっと足りない
@@ -3012,6 +3014,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //好感度取得
         PlayerStatus.girl1_Love_exp += _param;
 
+        //0以下になったら、下限は0
+        if (PlayerStatus.girl1_Love_exp <= 0)
+        {
+            PlayerStatus.girl1_Love_exp = 0;
+        }
+
         //レベルの再計算とゲージの更新
         exp_table.HeartLVKoushin();
 
@@ -3042,6 +3050,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (PlayerStatus.girl1_Love_exp <= 0)
         {
             PlayerStatus.girl1_Love_exp = 0;
+
+            //機嫌も元に戻る
+            girl1_status.GirlExpressionKoushin(30);
         }
 
         GirlLoveParam_HyoujiKoushin();        

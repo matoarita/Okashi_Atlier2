@@ -200,7 +200,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                             timeIttei++;
                             if (PlayerStatus.player_girl_expression == 1) //まずい状態直後、ハートが自動で下がる状態に。
                             {
-                                //試験的に導入。秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
+                                //秒ごとにリアルタイムに時間がすすみ、ハートが減っていく。
                                 RealTimeHeartControll();
                             }
                         }
@@ -987,7 +987,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     void RealTimeHeartControll()
     {
-        if (GameMgr.Degheart_on)
+        if (GameMgr.Degheart_on) //ハート下がっている途中は、時間で下がる機能を一時的にオフにする
         { }
         else
         {

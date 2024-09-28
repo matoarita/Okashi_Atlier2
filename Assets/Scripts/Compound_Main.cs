@@ -1031,10 +1031,10 @@ public class Compound_Main : MonoBehaviour
     void TutorialEvent()
     {
         //チュートリアルモードがONになったら、この中の処理が始まる。
-        if (GameMgr.tutorial_ON == true)
+        if (GameMgr.tutorial_ON)
         {
             Touch_ALLOFF();
-            girl1_status.HukidashiFlag = false;
+            //girl1_status.HukidashiFlag = false;
 
             switch (GameMgr.tutorial_Num)
             {
@@ -1055,6 +1055,8 @@ public class Compound_Main : MonoBehaviour
                 case 10: //宴ポーズ。エクストリームパネルを押そう！で、待機。
 
                     canvas.SetActive(true);
+                    special_quest.RedrawQuestName();
+
                     MainCompoundMethod();
                     compoundselect_onoff_obj.SetActive(false);
                     OffCompoundSelectnoExtreme();
@@ -1067,9 +1069,12 @@ public class Compound_Main : MonoBehaviour
 
                     MainCompoundMethod();
 
-                    compoundselect_onoff_obj.SetActive(false);
+                    mainUI_panel_obj.SetActive(false);
+                    //compoundselect_onoff_obj.SetActive(false);
                     text_area_compound.SetActive(false);
 
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     compoBGA_image.GetComponent<Image>().raycastTarget = false;
                     compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
                     compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
@@ -1089,9 +1094,12 @@ public class Compound_Main : MonoBehaviour
 
                     MainCompoundMethod();
 
-                    compoundselect_onoff_obj.SetActive(false);
+                    mainUI_panel_obj.SetActive(false);
+                    //compoundselect_onoff_obj.SetActive(false);
                     text_area_compound.SetActive(false);
 
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
                     compoBGA_image.GetComponent<Image>().raycastTarget = false;
                     compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
                     compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
@@ -1115,9 +1123,12 @@ public class Compound_Main : MonoBehaviour
                     select_extreme_button.interactable = true;
                     select_no_button.interactable = true;
 
-                    compoundselect_onoff_obj.SetActive(false);
+                    mainUI_panel_obj.SetActive(false);
+                    //compoundselect_onoff_obj.SetActive(false);
                     text_area_compound.SetActive(false);
 
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     compoBGA_image.GetComponent<Image>().raycastTarget = false;
                     compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
                     compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
@@ -1129,12 +1140,12 @@ public class Compound_Main : MonoBehaviour
 
                     break;
 
-                case 30: //宴がポーズ状態。右のレシピメモを押そう。
+                case 30: //宴がポーズ状態。右上のレシピメモを押そう。
 
                     recipiMemoButton.GetComponent<Button>().interactable = true;
 
                     text_area_compound.SetActive(true);
-                    _text.text = "右上の「レシピをみる」ボタンを押して" + "\n" + "クッキーを作ってみよう！";
+                    _textcomp.text = "右上の「レシピをみる」ボタンを押して" + "\n" + "クッキーを作ってみよう！";
                     break;
 
                 case 40: //メモ画面を開いた。
@@ -1146,7 +1157,7 @@ public class Compound_Main : MonoBehaviour
 
                     pitemlistController.Oninteract();
                     text_area_compound.SetActive(true);
-                    _text.text = "左のリストから、" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"; ;
+                    _textcomp.text = "左のリストから、" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"; ;
 
                     GameMgr.tutorial_Num = 55;
                     break;
@@ -1170,7 +1181,7 @@ public class Compound_Main : MonoBehaviour
                 case 75:
 
                     text_area_compound.SetActive(true);
-                    _text.text = "カードを押してみよう！";
+                    _textcomp.text = "カードを押してみよう！";
                     break;
 
                 case 80: //ボタンを押し、元の画面に戻る。
@@ -1186,13 +1197,13 @@ public class Compound_Main : MonoBehaviour
                     //Debug.Log("GameMgr.チュートリアルNo: " + GameMgr.tutorial_Num);
                     MainCompoundMethod();
 
-                    compoundselect_onoff_obj.SetActive(false);
+                    //compoundselect_onoff_obj.SetActive(false);
                     OffCompoundSelect();
                     text_area_compound.SetActive(false);
 
                     //girl1_status.Girl_EatDecide();
                     girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
-
+                    
                     GameMgr.tutorial_Num = 95; //退避
 
                     break;
@@ -1202,6 +1213,7 @@ public class Compound_Main : MonoBehaviour
                     MainCompoundMethod();
                     canvas.SetActive(true);
                     compoundselect_onoff_obj.SetActive(true);
+                    //special_quest.RedrawQuestName();
 
                     _textmain.text = "お菓子をあげてみよう！";
 
@@ -1255,6 +1267,11 @@ public class Compound_Main : MonoBehaviour
                     break;
 
                 case 140:
+                   
+                    //一回機嫌はリセットする
+                    girl1_status.GirlExpressionKoushin(50);
+                    MainCompoundMethod();
+                    girl1_status.DefFaceChange();
 
                     extreme_Button.interactable = true;
                     canvas.SetActive(true);
@@ -1267,6 +1284,10 @@ public class Compound_Main : MonoBehaviour
 
                     MainCompoundMethod();
 
+                    mainUI_panel_obj.SetActive(false);
+
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     select_original_button.interactable = false;
                     select_extreme_button.interactable = false;
                     select_recipi_button.interactable = false;
@@ -1279,6 +1300,9 @@ public class Compound_Main : MonoBehaviour
 
                     MainCompoundMethod();
 
+                    mainUI_panel_obj.SetActive(false);
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
                     select_recipi_button.interactable = true;
                     text_area_compound.SetActive(true);
 
@@ -1288,10 +1312,13 @@ public class Compound_Main : MonoBehaviour
                 case 165: //レシピ調合中
 
                     MainCompoundMethod();
+                    mainUI_panel_obj.SetActive(false);
                     break;
 
                 case 170: //れしぴ調合完了！
 
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     text_area_compound.SetActive(false);
                     break;
 
@@ -1300,7 +1327,7 @@ public class Compound_Main : MonoBehaviour
                     card_view.SetinteractiveOn();
 
                     text_area_compound.SetActive(true);
-                    _text.text = "カードを押してみよう！";
+                    _textcomp.text = "カードを押してみよう！";
                     break;
 
                 case 190: //元の画面に戻る
@@ -1326,6 +1353,9 @@ public class Compound_Main : MonoBehaviour
 
                     MainCompoundMethod();
 
+                    mainUI_panel_obj.SetActive(false);
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     select_original_button.interactable = false;
                     select_extreme_button.interactable = true;
                     select_recipi_button.interactable = false;
@@ -1336,6 +1366,8 @@ public class Compound_Main : MonoBehaviour
 
                 case 220:
 
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
                     //MainCompoundMethod();
                     text_area_compound.SetActive(true);
 
@@ -1347,6 +1379,9 @@ public class Compound_Main : MonoBehaviour
 
                     MainCompoundMethod();
 
+                    mainUI_panel_obj.SetActive(false);
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     text_area_compound.SetActive(false);
 
                     break;
@@ -1355,6 +1390,9 @@ public class Compound_Main : MonoBehaviour
 
                     MainCompoundMethod();
 
+                    mainUI_panel_obj.SetActive(false);
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     text_area_compound.SetActive(true);
 
                     GameMgr.tutorial_Num = 245; //退避
@@ -1420,6 +1458,9 @@ public class Compound_Main : MonoBehaviour
                     girl1_status.DeleteHukidashiOnly();
                     canvas.SetActive(false);
 
+                    girl1_status.Girl1_Status_Init2(); //腹減り状態=0にして、Timeoutが0.5s　すぐに電球出る状態
+                    girl1_status.GirlExpressionKoushin(50); //機嫌は元に戻す
+
                     break;
 
                 default:
@@ -1480,6 +1521,8 @@ public class Compound_Main : MonoBehaviour
                     //腹減りカウント開始
                     girl1_status.GirlEat_Judge_on = true;
 
+                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
+                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
                     compoBGA_image.GetComponent<Image>().raycastTarget = true;
                     compoBGA_imageOri.GetComponent<Image>().raycastTarget = true;
                     compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = true;
@@ -1705,16 +1748,18 @@ public class Compound_Main : MonoBehaviour
                 }
 
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
-                if (GameMgr.check_CompoAfter_flag)
+                if (!GameMgr.tutorial_ON)
                 {
-                    GameMgr.check_CompoAfter_flag = false;
+                    if (GameMgr.check_CompoAfter_flag)
+                    {
+                        GameMgr.check_CompoAfter_flag = false;
 
-                    Debug.Log("調合後に、サブイベントチェック入る");
-                    
-                    GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
-                    GameMgr.check_GirlLoveTimeEvent_flag = false; //時間イベントもチェック
-                }
-               
+                        Debug.Log("調合後に、サブイベントチェック入る");
+
+                        GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
+                        GameMgr.check_GirlLoveTimeEvent_flag = false; //時間イベントもチェック
+                    }
+                }              
 
                 GameMgr.Status_zero_readOK = true;
 

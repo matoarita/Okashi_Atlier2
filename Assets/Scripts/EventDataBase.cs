@@ -652,8 +652,24 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    //ヒカリがお菓子作り覚える LV12~
+                    if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartLVevent_01 && GameMgr.GirlLoveSubEvent_stage1[301] == false) 
+                    {
+                        GameMgr.GirlLoveSubEvent_num = 301;
+                        GameMgr.GirlLoveSubEvent_stage1[301] = true;
+
+                        GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                        GameMgr.Mute_on = true;
+                    }
+                }
+
                 //Heartevent_Grt(); //１の頃のイベント
-                
+
 
                 //
                 //スターで発生するイベント系

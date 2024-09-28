@@ -156,3 +156,5 @@ SE表
 ・SE_154	audiostock_175671.mp3				【宴で使用】シュイイーーン　調合中ためる音　SE_11と同じ
 ・SE_155	audiostock_142318				【宴で使用】魔法のようなルラララ音 SE_73と同じ
 ・SE_156	sei_ge_doa_nokku_dondon01			ドアを激しくノックする音
+・SE_157	audiostock_52742				蒸気機関車のブレーキ音
+・SE_158	audiostock_836229_sample			ポコっと軽くこずく音

@@ -159,6 +159,9 @@ public class PlayerData
     //宝箱イベント
     public int[] save_Treature_getList = new int[GameMgr.Treature_getList.Length];
 
+    //スターランクご褒美解禁リスト
+    public bool[] save_StarRank_ReleaseList = new bool[GameMgr.StarRank_ReleaseList.Length];
+
     //お菓子クエストフラグ
     public bool[] save_OkashiQuest_flag_stage1 = new bool[GameMgr.OkashiQuest_flag_stage1.Length]; //各SPイベントのクリアしたかどうかのフラグ。
     public bool[] save_OkashiQuest_flag_stage2 = new bool[GameMgr.OkashiQuest_flag_stage2.Length];

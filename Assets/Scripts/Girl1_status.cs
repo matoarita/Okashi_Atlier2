@@ -678,18 +678,21 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             }
 
                             
-                        }                       
+                        }
 
                         //一定時間たつとヒントを出すか、アイドルモーションを再生。同時に食べたいものを指定する。
-                        if (timeOut2 <= 0.0f)
+                        if (!GameMgr.tutorial_ON) //チュートリアル中は、ランダムモーションは発生しない
                         {
-                            rnd = Random.Range(0.0f, 5.0f);
-                            timeOut2 = Default_hukidashi_nexttime + rnd;
-                            timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
+                            if (timeOut2 <= 0.0f)
+                            {
+                                rnd = Random.Range(0.0f, 5.0f);
+                                timeOut2 = Default_hukidashi_nexttime + rnd;
+                                timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
-                            Girl_EatDecide();
+                                Girl_EatDecide();
 
-                            Girl1_Hint(Default_hukidashi_hyoujitime); //ランダムセリフ＋モーションを決定する
+                                Girl1_Hint(Default_hukidashi_hyoujitime); //ランダムセリフ＋モーションを決定する
+                            }
                         }
 
                         

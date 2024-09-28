@@ -71,10 +71,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_StarBlockLv_03 = 90;
     public static int System_StarBlockLv_04 = 10; //城スター
 
+    public static int System_HeartLVevent_01 = 12; //ヒカリがお菓子作りを覚えるイベント発生
+
     public static int System_Yachin_Cost01 = 1000; //家賃の額 月始めバージョン
     public static int System_Yachin_Cost02 = 500; //10日ごとバージョン
 
-    //見た目点数の基準点
+    //見た目点数の基準点※現在未使用
     public static int System_Beauty_BasicScore = 30; //見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
 
 
@@ -238,7 +240,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //酒場のうわさ話リスト
     public static bool[] ShopUwasa_stage1 = new bool[Uwasa_num]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
 
-    //スターランクご褒美解禁リスト　セーブまだしてない
+    //スターランクご褒美解禁リスト
     public static bool[] StarRank_ReleaseList = new bool[Uwasa_num]; //スターランクに応じて、エリア解禁などのご褒美が発生するイベントのフラグ
 
 
@@ -710,6 +712,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Special_OkashiEnshutsuName; //演出の指定
     public static string MainQuestTitleName; //メインクエストのタイトル
     public static int Before_Patissier_Rank; //コンテスト前のパティシエランク　優勝などしたあと、スター獲得してランクも変動する　そのレベルチェック用
+    public static bool MazuiFlag_ON; //30点以下の時にフラグがたつ　まずかったとき
 
 
     //一時フラグ　アイテムDB関連
@@ -1244,6 +1247,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Special_OkashiEnshutsuFlag = false;
         MainQuestTitleName = "";
         Before_Patissier_Rank = 1;
+        MazuiFlag_ON = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

@@ -116,8 +116,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                     break;
 
-                case 13: //複数個同時にのせられるようになる。パネル表記はなしで、ハートイベントなどで知らせる。
-
+                case 13: //ヒカリのおかし作り解禁
 
                     break;
 
@@ -128,10 +127,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 20: //二種類～同時トッピングできるようになる。
 
-                    if (_mstatus == 1) //GirlEatJudgeから読んだ場合、パネルを生成する
-                    {
-                        girlEat_judge.LvUpPanel3();
-                    }
+                    girlEat_judge.LvUpPanel3();
+                    break;
+
+                case 25: //複数個同時にのせられるようになる。パネル表記はなしで、ハートイベントなどで知らせる。
+
                     break;
 
                 case 30:
@@ -167,15 +167,16 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             PlayerStatus.player_extreme_kaisu_Max = 4;
         }
+        
 
-        //複数個まとめて数のせる
-        if (_lv < 13)
+        //ヒカリお菓子作り覚える
+        if (_lv < GameMgr.System_HeartLVevent_01)
         {
-            GameMgr.System_Topping_Multiple_Flag = false;
+            GameMgr.System_HikariMakeUse_Flag = false; //
         }
-        else if (_lv >= 13)
+        else if (_lv >= GameMgr.System_HeartLVevent_01)
         {
-            GameMgr.System_Topping_Multiple_Flag = true;
+            GameMgr.System_HikariMakeUse_Flag = true;
         }
 
         //二種類～同時トッピング
@@ -187,6 +188,16 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             //_temp_skill.Add("一度に　2個　トッピングできるようになった！");
             GameMgr.topping_Set_Count = 2;
+        }
+
+        //複数個まとめて数のせる
+        if (_lv < 25)
+        {
+            GameMgr.System_Topping_Multiple_Flag = false;
+        }
+        else if (_lv >= 25)
+        {
+            GameMgr.System_Topping_Multiple_Flag = true;
         }
     }
 

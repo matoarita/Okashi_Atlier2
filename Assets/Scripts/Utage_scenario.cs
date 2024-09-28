@@ -1282,7 +1282,17 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.tutorial_Progress = false;
 
         GameMgr.tutorial_Num = 110;
+        CharacterLive2DImageOFF();
 
+        //採点がまずいのときはセリフが変わる。
+        if (GameMgr.MazuiFlag_ON)
+        {
+            engine.Param.TrySetParameter("Tutorial_bunki_num", 0);
+        }
+        else
+        {
+            engine.Param.TrySetParameter("Tutorial_bunki_num", 1);
+        }
         //続きから再度読み込み
         engine.ResumeScenario();
 
@@ -1448,11 +1458,19 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
         GameMgr.tutorial_Progress = false;
-
         GameMgr.tutorial_Num = 290;
 
         CharacterLive2DImageOFF();
 
+        //採点がまずいのときはセリフが変わる。
+        if (GameMgr.MazuiFlag_ON)
+        {
+            engine.Param.TrySetParameter("Tutorial_bunki_num", 0);
+        }
+        else
+        {
+            engine.Param.TrySetParameter("Tutorial_bunki_num", 1);
+        }
         //続きから再度読み込み
         engine.ResumeScenario();
 

@@ -64,13 +64,13 @@ public class QuestTitlePanel : MonoBehaviour {
         if (GameMgr.Story_Mode == 0)
         {
             questpanel_num.text = special_quest.OkashiQuest_Number;
-            questpanel_num_obj.SetActive(true);
+            //questpanel_num_obj.SetActive(true);
             text_quest.SetActive(true);
             text_extra.SetActive(false);
         }
         else
         {
-            questpanel_num_obj.SetActive(false);
+            //questpanel_num_obj.SetActive(false);
             text_quest.SetActive(false);
             text_extra.SetActive(true);
         }

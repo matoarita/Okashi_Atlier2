@@ -127,7 +127,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
        
         //クエストネームの設定
-        RedrawQuestName(); //ネーム更新
+        //RedrawQuestName(); //ネーム更新
 
         //◆ボタン表示用
         OkashiQuest_AllCount = QuestCountDict[GameMgr.stage_quest_num];
@@ -712,45 +712,54 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
     void QuestNameFind()
     {
-        if (GameMgr.EatOkashi_DecideFlag == 0)
+        if (GameMgr.tutorial_ON)
         {
+            //チュートリアル時
+            GameMgr.NowEatOkashiName = database.items[database.SearchItemIDString("neko_cookie")].itemNameHyouji;
+            OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
+        }
+        else
+        {
+            if (GameMgr.EatOkashi_DecideFlag == 0)
+            {
+                for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                {
+                    if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+                    {
+                        girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
+
+                        OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                        GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
+                        //girl1_status.OkashiQuest_Name = OkashiQuest_Name;
+                    }
+                }
+            }
+            else
+            {
+                _ID = GameMgr.NowEatOkashiID;
+
+                if (database.items[_ID].itemType_sub.ToString() == "Coffee" || database.items[_ID].itemType_sub.ToString() == "Coffee_Mat" ||
+                       database.items[_ID].itemType_sub.ToString() == "Juice" || database.items[_ID].itemType_sub.ToString() == "Tea" ||
+                       database.items[_ID].itemType_sub.ToString() == "Tea_Mat" || database.items[_ID].itemType_sub.ToString() == "Tea_Potion" ||
+                       database.items[_ID].itemType_sub.ToString() == "Soda")
+                {
+                    OkashiQuest_Name = GameMgr.NowEatOkashiName + "がのみたい！";
+                }
+                else
+                {
+                    OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
+                }
+
+            }
+
+            //クエスト開始時のタイトル名検索
             for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
             {
                 if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
                 {
-                    girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
-
-                    OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;                   
-                    GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
-                    //girl1_status.OkashiQuest_Name = OkashiQuest_Name;
+                    GameMgr.MainQuestTitleName = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                    OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
                 }
-            }
-        }
-        else
-        {
-            _ID = GameMgr.NowEatOkashiID;
-
-            if (database.items[_ID].itemType_sub.ToString() == "Coffee" || database.items[_ID].itemType_sub.ToString() == "Coffee_Mat" ||
-                   database.items[_ID].itemType_sub.ToString() == "Juice" || database.items[_ID].itemType_sub.ToString() == "Tea" ||
-                   database.items[_ID].itemType_sub.ToString() == "Tea_Mat" || database.items[_ID].itemType_sub.ToString() == "Tea_Potion" || 
-                   database.items[_ID].itemType_sub.ToString() == "Soda")
-            {
-                OkashiQuest_Name = GameMgr.NowEatOkashiName + "がのみたい！";
-            }
-            else
-            {
-                OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
-            }
-            
-        }
-
-        //クエスト開始時のタイトル名検索
-        for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
-        {
-            if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
-            {
-                GameMgr.MainQuestTitleName = girlLikeCompo_database.girllike_composet[i].spquest_name1;
-                OkashiQuest_sprite = girlLikeCompo_database.girllike_composet[i].itemIcon_sprite;
             }
         }
     }

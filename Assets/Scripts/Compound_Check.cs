@@ -1665,11 +1665,11 @@ public class Compound_Check : MonoBehaviour {
     //特定のアイテムかを判定 特別演出が発生する
     void SpecialEnshutu_DB()
     {
-        if (database.items[GameMgr.Final_result_itemID1].itemName == "neko_cookie")
+        /*if (database.items[GameMgr.Final_result_itemID1].itemName == "neko_cookie")
         {
             GameMgr.Special_OkashiEnshutsuName = "panel01";
             GameMgr.Special_OkashiEnshutsuFlag = true;
-        }
+        }*/
 
         if (database.items[GameMgr.Final_result_itemID1].itemName == "cheese_cake")
         {
