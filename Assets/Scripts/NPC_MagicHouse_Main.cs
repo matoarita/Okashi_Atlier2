@@ -902,7 +902,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             GameMgr.utage_charaHyouji_flag = true;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 110;
+            GameMgr.CompoundEvent_num[110] = true;
             GameMgr.CompoundEvent_flag = true;
 
             //BGMかえる

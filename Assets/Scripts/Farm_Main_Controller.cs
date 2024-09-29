@@ -292,7 +292,7 @@ public class Farm_Main_Controller : MonoBehaviour {
             GameMgr.farm_event_flag = true;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 10;
+            GameMgr.CompoundEvent_num[20] = true;
             GameMgr.CompoundEvent_flag = true;
 
             check_event = true;

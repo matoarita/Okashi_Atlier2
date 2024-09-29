@@ -303,7 +303,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_ID = 10000;
 
                         //メイン画面にもどったときに、イベントを発生させるフラグをON
-                        GameMgr.CompoundEvent_num = 100;
+                        GameMgr.CompoundEvent_num[100] = true;
                         GameMgr.CompoundEvent_flag = true;
 
                         //BGMかえる

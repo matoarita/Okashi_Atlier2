@@ -495,7 +495,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             StartCoroutine("Scenario_loading");
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 5;
+            //GameMgr.CompoundEvent_num = 5;
             GameMgr.CompoundEvent_flag = true;
         }
     }
@@ -519,10 +519,10 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             check_event = true;
 
-            StartCoroutine("Scenario_loading");           
+            StartCoroutine("Scenario_loading");
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_num[10] = true;
             GameMgr.CompoundEvent_flag = true;
         }
     }
@@ -549,7 +549,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             StartCoroutine("Scenario_loading");
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_num[10] = true;
             GameMgr.CompoundEvent_flag = true;
         }
     }
@@ -575,10 +575,10 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            
+
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_num[10] = true;
             GameMgr.CompoundEvent_flag = true;
         }
     }
@@ -604,10 +604,10 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
 
-            
+
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
-            GameMgr.CompoundEvent_num = 5;
+            GameMgr.CompoundEvent_num[10] = true;
             GameMgr.CompoundEvent_flag = true;
         }
     }

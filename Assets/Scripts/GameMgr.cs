@@ -227,6 +227,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] Treature_getList = new int[OrEvent_num]; //道端に落ちてるアイテムなどの宝箱リスト
     public static bool[] NPCHiroba_blockReleaseList = new bool[OrEvent_num]; //主に2での広場ブロックを解除するイベントリスト
 
+    //別シーンから、家に帰ってきたときに発生するイベントリスト
+    public static bool[] CompoundEvent_num = new bool[GirlLoveSubEvent_stage_num]; //まだセーブしてない
+    public static bool[] CompoundEvent_readend = new bool[GirlLoveSubEvent_stage_num]; //読み終わったフラグ
+
     //ショップのイベントリスト
     public static bool[] ShopEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
     public static bool[] ShopLVEvent_stage = new bool[Event_num]; //パティシエレベルなどに応じたイベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -532,8 +536,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int farm_event_num;
 
     //別シーンから家にもどってきたときに、イベント発生するかどうかのフラグ
-    public static bool CompoundEvent_flag;
-    public static int CompoundEvent_num; //別シーンから、どのイベントを呼び出すかを、指定する。
+    public static bool CompoundEvent_flag;    
     public static bool CompoundEvent_storyflag;
     public static int CompoundEvent_storynum; //メインシーンから、宴に移る際に、どのシナリオを読むかを指定する。
 
@@ -560,6 +563,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool check_GirlLoveEvent_flag;
     public static bool check_GirlLoveSubEvent_flag;
     public static bool check_GirlLoveTimeEvent_flag;
+    public static bool check_ReturnHomeEvent_flag;
     public static bool check_CompoAfter_flag;
     public static bool check_GetMat_flag;
     public static bool check_OkashiAfter_flag;
@@ -713,6 +717,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string MainQuestTitleName; //メインクエストのタイトル
     public static int Before_Patissier_Rank; //コンテスト前のパティシエランク　優勝などしたあと、スター獲得してランクも変動する　そのレベルチェック用
     public static bool MazuiFlag_ON; //30点以下の時にフラグがたつ　まずかったとき
+    public static int GirlLoveEvent_bunki_status; //0だと通常のGirlLoveEvent、1だと、家に帰ってきたときに発生するイベント
 
 
     //一時フラグ　アイテムDB関連
@@ -1105,8 +1110,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         event_pitem_use_OK = false;
         event_pitem_cancel = false;
 
-        CompoundEvent_flag = false;
-        CompoundEvent_num = 0;
+        CompoundEvent_flag = false;        
         CompoundEvent_storyflag = false;
         CompoundEvent_storynum = 0;
 
@@ -1152,6 +1156,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         check_GirlLoveEvent_flag = false;
         check_GirlLoveSubEvent_flag = false;
         check_GirlLoveTimeEvent_flag = false;
+        check_ReturnHomeEvent_flag = false;
         check_CompoAfter_flag = false;
         check_GetMat_flag = false;
         check_OkashiAfter_flag = false;       
@@ -1278,7 +1283,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             NPC_FriendPoint[system_i] = 50;
         }
-        
+
+        //別シーンから、家に帰ってきたときに発生するイベントリスト
+        for (system_i = 0; system_i < CompoundEvent_num.Length; system_i++)
+        {
+            CompoundEvent_num[system_i] = false;
+            CompoundEvent_readend[system_i] = false;
+        }
+
 
         //道端の宝箱リストの初期化
         for (system_i = 0; system_i < Treature_getList.Length; system_i++)

@@ -676,6 +676,7 @@ public class Compound_Main : MonoBehaviour
         heartget_ON = false;
         map_move = false;
 
+        GameMgr.GirlLoveEvent_bunki_status = 0;
         GameMgr.girlEat_ON = false;
         GameMgr.GirlLove_loading = false;
         GameMgr.check_GirlLoveEvent_flag = false;
@@ -907,18 +908,9 @@ public class Compound_Main : MonoBehaviour
                 {
                     if (GameMgr.CompoundEvent_flag)
                     {
-                        GameMgr.CompoundEvent_flag = false;
+                        //GameMgr.CompoundEvent_flag = false;
 
-                        if (GameMgr.outgirl_Nowprogress) { } //妹外出中のときは、発生しない
-                        else
-                        {
-                            GameMgr.CompoundEvent_storynum = GameMgr.CompoundEvent_num;
-                            GameMgr.CompoundEvent_storyflag = true;
-                            GameMgr.scenario_ON = true; //これがONのときは、調合シーンの、調合ボタンなどはオフになり、シナリオを優先する。「Utage_scenario.cs」のUpdateが同時に走っている。
-
-                            GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
-                            GameMgr.compound_status = 1000;
-                        }
+                        eventdatabase.ReturnHomeCompoundEvent();
                     }
                 }
 
@@ -3470,7 +3462,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
         GameMgr.compound_status = 1000;
 
-        while (GameMgr.girlEat_ON)
+        while (GameMgr.girlEat_ON) //女の子　食べ中のフラグ
         {
             yield return null;
         }
@@ -3496,7 +3488,15 @@ public class Compound_Main : MonoBehaviour
         ResetLive2DPos_Face();
 
         GameMgr.scenario_ON = true;
-        GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        if (GameMgr.GirlLoveEvent_bunki_status == 0) //通常は0で、ここで処理してOK
+        {
+            GameMgr.girlloveevent_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+        }
+        else if (GameMgr.GirlLoveEvent_bunki_status == 1) //家から帰ってきたときのイベントのみ、フラグの変数が変わる。
+        {
+            GameMgr.CompoundEvent_storyflag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+        }
 
         while (!GameMgr.girlloveevent_endflag)
         {
@@ -3505,8 +3505,10 @@ public class Compound_Main : MonoBehaviour
 
         Debug.Log("サブイベント読み終了");
 
+        GameMgr.GirlLoveEvent_bunki_status = 0;
         GameMgr.GirlLove_loading = false;
         GameMgr.girlloveevent_endflag = false;
+        //GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
         GameMgr.girl_returnhome_endflag = false;
 
@@ -3710,6 +3712,15 @@ public class Compound_Main : MonoBehaviour
                         heartget_ON = true;
                         break;
 
+                    case 110:
+
+                        _textmain.text = "ほんの少し、ヒカリの勇気がわいてきた！";
+                        get_heart = 15;
+                        girl1_status.GirlExpressionKoushin(50);
+
+                        heartget_ON = true;
+                        break;
+
                     case 200: //コンテスト終了後に、順位に応じてハートが上がるイベント
 
                        
@@ -3784,8 +3795,6 @@ public class Compound_Main : MonoBehaviour
 
             //腹減りカウント開始
             girl1_status.GirlEat_Judge_on = true;
-
-            
 
             check_recipi_flag = false;
         }      

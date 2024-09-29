@@ -331,6 +331,61 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
+    //家に帰ってきたときに発生するイベント
+    public void ReturnHomeCompoundEvent()
+    {
+        if (GameMgr.GirlLove_loading)
+        { }
+        else
+        {
+            GameMgr.check_ReturnHomeEvent_flag = true;
+
+            ReturnHome_check(0); //プリンさん再会して、お店から帰ってきた
+            ReturnHome_check(10); //酒場はじめていって帰ってきた
+            ReturnHome_check(20); //牧場はじめていって帰ってきた
+            ReturnHome_check(30); //コンテストはじめていって帰ってきた
+            ReturnHome_check(100); //アマクサにエデンのありか聞いて帰ってきた
+            ReturnHome_check(110); //ミラボ先生にはじめて会って帰ってきた
+
+            //最後のタイミングで、決定したサブイベントの宴を再生
+            if (!GameMgr.check_ReturnHomeEvent_flag) //サブイベント発生した
+            {
+                girl1_status.HukidashiFlag = false;
+
+                //クエスト発生
+                Debug.Log("家に帰ってきたときに発生するイベントの発生");
+
+                GameMgr.GirlLoveEvent_bunki_status = 1; //家に帰ってきたときに発生するイベントとして、分岐する　リセットは、イベント終了後と、Compシーン最初
+
+                //イベント発動時は、ひとまず好感度ハートがバーに吸収されるか、感想を言い終えるまで待つ。
+                ReadGirlLoveEvent();
+            }
+            else //全てのイベントチェックし、発生しなかったら、このスクリプトでのイベントチェック完了
+            {
+                GameMgr.CompoundEvent_flag = false; //家にかえったらイベント発生確認するフラグ　読み終えたのでfalseに。
+            }
+
+        }
+    }
+
+    void ReturnHome_check(int _num)
+    {
+        if (!GameMgr.check_ReturnHomeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.CompoundEvent_num[_num] && !GameMgr.CompoundEvent_readend[_num]) //発生かつ、まだ読みおわってないイベント
+            {
+                GameMgr.CompoundEvent_storynum = _num;
+                GameMgr.CompoundEvent_readend[_num] = true;
+
+                GameMgr.check_ReturnHomeEvent_flag = false;
+
+                //GameMgr.Mute_on = true;
+            }
+        }
+    }
+
     //SPお菓子とは別で、パティシエレベルor好感度が一定に達すると発生するサブイベント Compound_Mainから読み出す。
     public void GirlLove_SubEventMethod()
     {

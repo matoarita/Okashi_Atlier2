@@ -633,8 +633,8 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.hiroba_event_ID = 1000;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num = 0;
-            //GameMgr.CompoundEvent_flag = true;
+            GameMgr.CompoundEvent_num[30] = true;
+            GameMgr.CompoundEvent_flag = true;
 
             check_event = true;           
 

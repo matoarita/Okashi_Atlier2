@@ -1567,7 +1567,8 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false;
 
         GameMgr.scenario_ON = false;
-        GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+        GameMgr.girlloveevent_endflag = true; //シナリオを読み終えたフラグ
+        //GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
     }
 
     //
