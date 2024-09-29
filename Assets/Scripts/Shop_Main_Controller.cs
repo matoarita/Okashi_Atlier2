@@ -432,14 +432,14 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             //GameMgr.CompoundEvent_num = 0;
-            GameMgr.CompoundEvent_flag = true;
+            //GameMgr.CompoundEvent_flag = true;
 
             check_event = true;
 
             StartCoroutine("Scenario_loading");
         }
 
-
+        /*
         if (check_event)
         { }
         else
@@ -547,7 +547,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                             //メイン画面にもどったときに、イベントを発生させるフラグをON
                             //GameMgr.CompoundEvent_num = 20;
-                            GameMgr.CompoundEvent_flag = true;
+                            //GameMgr.CompoundEvent_flag = true;
 
                             //村の広場にいけるようになる。
                             matplace_database.matPlaceKaikin("Hiroba");
@@ -569,7 +569,7 @@ public class Shop_Main_Controller : MonoBehaviour {
                             GameMgr.shop_event_num = 50;
                             GameMgr.shop_event_flag = true;
 
-                            GameMgr.CompoundEvent_flag = false; //もし一度もショップへきたことなかった場合は、帰ってきてもヒカリが「なに買ってきたの？」と聞くイベントは発生しない。
+                            //GameMgr.CompoundEvent_flag = false; //もし一度もショップへきたことなかった場合は、帰ってきてもヒカリが「なに買ってきたの？」と聞くイベントは発生しない。
 
                             check_event = true;
 
@@ -582,7 +582,7 @@ public class Shop_Main_Controller : MonoBehaviour {
                         break;
                 }
             }
-        }
+        }*/
     }
 
     void EventCheck_OrA1()
@@ -609,6 +609,34 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             StartCoroutine("Scenario_loading");
             
+        }
+
+        if (check_event)
+        {
+        }
+        else
+        {
+            //イベント発生フラグをチェック
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+
+                case 2: //かわいい材料を探しに来た。
+
+                    if (!GameMgr.Or_ShopEvent_stage[1])
+                    {
+                        GameMgr.Or_ShopEvent_stage[1] = true;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 2;
+                        GameMgr.shop_event_flag = true;
+
+                        check_event = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+
+                    break;
+            }
         }
 
         if (check_event)

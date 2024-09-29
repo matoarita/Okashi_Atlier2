@@ -343,9 +343,13 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             ReturnHome_check(0); //プリンさん再会して、お店から帰ってきた
             ReturnHome_check(10); //酒場はじめていって帰ってきた
             ReturnHome_check(20); //牧場はじめていって帰ってきた
-            ReturnHome_check(30); //コンテストはじめていって帰ってきた
-            ReturnHome_check(100); //アマクサにエデンのありか聞いて帰ってきた
+            ReturnHome_check(30); //コンテストはじめていって帰ってきた            
             ReturnHome_check(110); //ミラボ先生にはじめて会って帰ってきた
+
+            if (!GameMgr.CompoundEvent_num[30]) //コンテストについて知ったので、アマクサ帰りのコンテストどこ～？イベントは発生しなくなる。
+            {
+                ReturnHome_check(100); //アマクサにエデンのありか聞いて帰ってきた
+            }
 
             //最後のタイミングで、決定したサブイベントの宴を再生
             if (!GameMgr.check_ReturnHomeEvent_flag) //サブイベント発生した

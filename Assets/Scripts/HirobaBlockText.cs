@@ -56,7 +56,7 @@ public class HirobaBlockText : MonoBehaviour {
         {
             case "MainList_ScrollView_04":
 
-                if(this.gameObject.name == "NPC4_SelectToggle")
+                if(this.gameObject.name == "NPC4_SelectToggle") //秘密の花園
                 {
                     //ハートレベルで通れない箇所のチェック
                     _player_check = PlayerStatus.girl1_Love_lv;
