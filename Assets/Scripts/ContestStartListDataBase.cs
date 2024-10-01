@@ -1152,7 +1152,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
-    void ContestRankingData_108()
+    void ContestRankingData_108() //フィナンシェバターズカップ
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_DB_list_Type = 108000; //compNum=100000~を指定
@@ -1488,17 +1488,18 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位          
     }
 
-    void ContestRankingData_407() //チーズケーキ・パティスリーアワード
+    void ContestRankingData_407() //夢見るチョコレート選手権
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_DB_list_Type = 167000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：チョコ";
+        GameMgr.Contest_ProblemSentence2 = "夢見る女の子のための、かわいいチョコレートを作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位          
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
     //

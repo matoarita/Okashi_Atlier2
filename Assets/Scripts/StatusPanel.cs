@@ -18,6 +18,7 @@ public class StatusPanel : MonoBehaviour {
     private SoundController sc;
 
     private ExpTable exp_table;
+    private HikariOkashiExpTable hikariokashi_exp_table;
 
     private Compound_Main compound_Main;
     private Girl1_status girl1_status;
@@ -120,7 +121,10 @@ public class StatusPanel : MonoBehaviour {
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         //経験値テーブルを取得
-        exp_table = GameObject.FindWithTag("ExpTable").GetComponent<ExpTable>();
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
+
+        //ヒカリ経験値テーブルを取得
+        hikariokashi_exp_table = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
 
         //アクセサリーのスタート　配列番号
         Acce_Startnum = 6;     
@@ -502,95 +506,65 @@ public class StatusPanel : MonoBehaviour {
             switch(i)
             {
                 case 0: //アパレイユ
-                    nowlv = PlayerStatus.player_girl_appaleil_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_appaleil_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_appaleil_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_appaleil_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_appaleil_lv, PlayerStatus.player_girl_appaleil_exp, 1);
                     break;
                 case 1: //クリーム
-                    nowlv = PlayerStatus.player_girl_cream_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_cream_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_cream_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_cream_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_cream_lv, PlayerStatus.player_girl_cream_exp, 0);
                     break;
                 case 2: //クッキー
-                    nowlv = PlayerStatus.player_girl_cookie_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_cookie_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_cookie_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_cookie_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_cookie_lv, PlayerStatus.player_girl_cookie_exp, 0);
                     break;
                 case 3: //チョコレート
-                    nowlv = PlayerStatus.player_girl_chocolate_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_chocolate_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_chocolate_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_chocolate_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_chocolate_lv, PlayerStatus.player_girl_chocolate_exp, 0);
                     //hikariokashiparam_list[i].SetActive(false); //チョコレートは現在使わないのでOFF
                     break;
                 case 4: //クレープ
-                    nowlv = PlayerStatus.player_girl_crepe_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_crepe_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_crepe_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_crepe_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_crepe_lv, PlayerStatus.player_girl_crepe_exp, 0);
                     break;
                 case 5: //シュークリーム
-                    nowlv = PlayerStatus.player_girl_creampuff_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_creampuff_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_creampuff_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_creampuff_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_creampuff_lv, PlayerStatus.player_girl_creampuff_exp, 0);
                     break;
                 case 6: //ドーナツ
-                    nowlv = PlayerStatus.player_girl_donuts_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_donuts_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_donuts_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_donuts_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_donuts_lv, PlayerStatus.player_girl_donuts_exp, 0);
                     break;
                 case 7: //ケーキ
-                    nowlv = PlayerStatus.player_girl_cake_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_cake_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_cake_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_cake_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_cake_lv, PlayerStatus.player_girl_cake_exp, 0);
                     break;
                 case 8: //ラスク
-                    nowlv = PlayerStatus.player_girl_rusk_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_rusk_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_rusk_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_rusk_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_rusk_lv, PlayerStatus.player_girl_rusk_exp, 0);
                     break;
                 case 9: //キャンディ
-                    nowlv = PlayerStatus.player_girl_candy_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_candy_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_candy_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_candy_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_candy_lv, PlayerStatus.player_girl_candy_exp, 0);
                     break;
                 case 10: //ゼリー
-                    nowlv = PlayerStatus.player_girl_jelly_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_jelly_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_jelly_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_jelly_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_jelly_lv, PlayerStatus.player_girl_jelly_exp, 0);
                     break;
                 case 11: //ジュース
-                    nowlv = PlayerStatus.player_girl_juice_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_juice_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_juice_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_juice_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_juice_lv, PlayerStatus.player_girl_juice_exp, 0);
                     break;
                 case 12: //ティー
-                    nowlv = PlayerStatus.player_girl_tea_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_tea_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_tea_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_tea_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_tea_lv, PlayerStatus.player_girl_tea_exp, 0);
                     break;
                 case 13: //アイスクリーム
-                    nowlv = PlayerStatus.player_girl_icecream_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_icecream_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_icecream_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_icecream_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_icecream_lv, PlayerStatus.player_girl_icecream_exp, 0);
                     break;
                 case 14: //レアお菓子
-                    nowlv = PlayerStatus.player_girl_rareokashi_lv;
-                    hikariokashiparam_list[i].transform.Find("LvText").GetComponent<Text>().text = PlayerStatus.player_girl_rareokashi_lv.ToString();
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[PlayerStatus.player_girl_rareokashi_lv];
-                    hikariokashiparam_list[i].transform.Find("param_guage").GetComponent<Slider>().value = PlayerStatus.player_girl_rareokashi_exp;
+
+                    SetOkashiLV(i, PlayerStatus.player_girl_rareokashi_lv, PlayerStatus.player_girl_rareokashi_exp, 0);
                     break;
             }   
             
@@ -603,5 +577,21 @@ public class StatusPanel : MonoBehaviour {
         HikariOkashiParamView2.transform.Find("HikariOkashiParam2_A/ParamText").GetComponent<Text>().text = PlayerStatus.player_girl_eatCount_tabetai.ToString();
         HikariOkashiParamView2.transform.Find("HikariOkashiParam2_B/ParamText").GetComponent<Text>().text = PlayerStatus.player_girl_eatCount.ToString();
         HikariOkashiParamView2.transform.Find("HikariOkashiParam2_C/ParamText").GetComponent<Text>().text = databaseCompo.Hikarimake_Totalcount().ToString();
+    }
+
+    void SetOkashiLV(int _id, int _lv, int _exp, int _tableType)
+    {
+        nowlv = _lv;
+        hikariokashiparam_list[_id].transform.Find("LvText").GetComponent<Text>().text = nowlv.ToString();
+        if(_tableType == 0)
+        {
+            hikariokashiparam_list[_id].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable[nowlv];
+        }
+        else if (_tableType == 1)
+        {
+            hikariokashiparam_list[_id].transform.Find("param_guage").GetComponent<Slider>().maxValue = GameMgr.Hikariokashi_Exptable2[nowlv];
+        }
+        
+        hikariokashiparam_list[_id].transform.Find("param_guage").GetComponent<Slider>().value = _exp;
     }
 }

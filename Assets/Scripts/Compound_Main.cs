@@ -2964,6 +2964,8 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Cookie_Study");
                 magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
 
+                magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+
                 //magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
                 //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
 
@@ -2973,38 +2975,149 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
+            case "mg_beautifulpower_book":
+                magicskill_database.skillHyoujiKaikin("Beautiful_Power");
+                break;
+
+            case "mg_buttelfy_illumination_book":
+
+                magicskill_database.skillHyoujiKaikin("Buttelfy_illumination");
+                break;
+
+            case "mg_mp_regenaration_book":
+
+                magicskill_database.skillHyoujiKaikin("MP_Regenaration");
+                break;
+
+            case "mg_summon_mirabo_book":
+
+                magicskill_database.skillHyoujiKaikin("Summon_Mirabo");
+                break;
+
             case "mg_secondbake_book":
 
                 magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
                 break;
-
+            
             case "mg_controltempature_book":
                 magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
                 break;
 
-            case "mg_windtwister_book":
-                magicskill_database.skillHyoujiKaikin("Wind_Twister");
+            case "mg_bake_beans_book":
+                magicskill_database.skillHyoujiKaikin("Bake_Beans");
+                break;
+
+            case "mg_chocolatetempering_book":
+                magicskill_database.skillHyoujiKaikin("Chocolate_Tempering");
+                break;
+
+            case "mg_caramelized_book":
+                magicskill_database.skillHyoujiKaikin("Caramelized");
+                break;
+            
+            case "mg_heart_of_icecream_book":
+                magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
                 break;
 
             case "mg_freezespell_book":
                 magicskill_database.skillHyoujiKaikin("Freezing_Spell");
                 break;
 
-            case "mg_caramelized_book":
-                magicskill_database.skillHyoujiKaikin("Caramelized");
+            case "mg_freezing_overrun_book":
+                magicskill_database.skillHyoujiKaikin("Freezing_OverRun");
+                break;
+
+            case "mg_nappe_book":
+                magicskill_database.skillHyoujiKaikin("Nappe");
+                break;
+
+            case "mg_appaleil_study_book":
+                magicskill_database.skillHyoujiKaikin("Appaleil_Study");
+                break;
+
+            case "mg_windarc_book":
+                magicskill_database.skillHyoujiKaikin("Wind_Ark");
+                break;
+
+            case "mg_windtwister_book":
+                magicskill_database.skillHyoujiKaikin("Wind_Twister");
+                break;
+
+            case "mg_windroll_book":
+                magicskill_database.skillHyoujiKaikin("Wind_Roll");
+                break;
+
+            case "mg_windpencil_book":
+                magicskill_database.skillHyoujiKaikin("Wind_Pen");
+                break;
+
+            case "mg_float_material_book":
+                magicskill_database.skillHyoujiKaikin("Float_Material");
+                break;
+
+            case "mg_bubblemist_book":
+                magicskill_database.skillHyoujiKaikin("Bubble_Mist");
+                break;
+
+            case "mg_statue_of_material_book":
+                magicskill_database.skillHyoujiKaikin("Statue_of_Penguin");
+                magicskill_database.skillHyoujiKaikin("Statue_of_Bear");
+                magicskill_database.skillHyoujiKaikin("Statue_of_Cat");
+                magicskill_database.skillHyoujiKaikin("Statue_of_Rabitts");
+                magicskill_database.skillHyoujiKaikin("Statue_of_AngelWing");
+                break;
+
+            case "mg_star_gazer_book":
+                magicskill_database.skillHyoujiKaikin("Star_Gazer");
+                break;
+
+            case "mg_star_blessing_book":
+                magicskill_database.skillHyoujiKaikin("Star_Blessing");
+                break;
+
+            case "mg_latte_art_book":
+                magicskill_database.skillHyoujiKaikin("Latte_Art");
+                break;
+
+            case "mg_moonlight_banana_book":
+                magicskill_database.skillHyoujiKaikin("Moonlight_Banana");
+                break;
+
+            case "mg_magic_soda_book":
+                magicskill_database.skillHyoujiKaikin("Magic_Soda");
                 break;
 
             case "mg_rainbowrain_book":
                 magicskill_database.skillHyoujiKaikin("Rainbow_Rain");
                 break;
-
-            case "mg_beautifulpower_book":
-                magicskill_database.skillHyoujiKaikin("Beautiful_Power");
-                break;
-
+            
             case "mg_aromapotion_book":
                 magicskill_database.skillHyoujiKaikin("Aroma_Potion");
                 magicskill_database.skillLearnLv_Name("Aroma_Potion", 1); //アロマポーションはLV1習得すみの状態
+                break;
+
+            case "mg_plant_growth_book":
+                magicskill_database.skillHyoujiKaikin("Plant_Growth");
+                break;
+
+            case "mg_time_illusion_book":
+                magicskill_database.skillHyoujiKaikin("Time_illusion");
+                break;
+
+            case "mg_time_return_book":
+                magicskill_database.skillHyoujiKaikin("Time_Return");
+                break;
+
+            case "mg_warming_handmade_book":
+                magicskill_database.skillHyoujiKaikin("Warming_Handmade");
+                break;
+
+            case "mg_life_stream_book":
+                magicskill_database.skillHyoujiKaikin("Life_Stream");
+                break;
+
+            case "mg_abracadabra_book":
+                magicskill_database.skillHyoujiKaikin("AbraCadabra");
                 break;
 
             case "mg_TrueofMyheart_book":

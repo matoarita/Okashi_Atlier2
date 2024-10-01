@@ -334,7 +334,14 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
                             moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                             GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                            _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                            if(i == 3) //2位
+                            {
+                                _getninki = 1;
+                            } else
+                            {
+                                _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                            }
+                            
                             GameMgr.Contest_PrizeGetninkiparam = _getninki;
                             ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
                             Debug.Log("ランク: " + PrizeRankList[i] + " 人気獲得: " + _getninki);
@@ -518,7 +525,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ユン・ピー");
+        GameMgr.PrizeCharacterList.Add("サモ・ハーン");
         GameMgr.PrizeCharacterList.Add("ジャッキー・チューン");
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
@@ -552,10 +559,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("クルルゥ");
+        GameMgr.PrizeCharacterList.Add("クルル");
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
-        GameMgr.PrizeCharacterList.Add("秋川どらら");
-        GameMgr.PrizeCharacterList.Add("春山うらら");
+        GameMgr.PrizeCharacterList.Add("フィリス");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
     //ベオルブ家のディナー
@@ -623,7 +630,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("レア");
         GameMgr.PrizeCharacterList.Add("ルカティエル");
-        GameMgr.PrizeCharacterList.Add("リーシュ");
+        GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
     }
 
     //ルミエール・エピファニア
@@ -657,7 +664,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ミント");
         GameMgr.PrizeCharacterList.Add("セリーヌ");
         GameMgr.PrizeCharacterList.Add("おそうじアリス");
-        GameMgr.PrizeCharacterList.Add("黒ずきん");
+        GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
     }
 
     //ルミエール・カンデラ
@@ -689,9 +696,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();        
         GameMgr.PrizeCharacterList.Add("セリーヌ");
-        GameMgr.PrizeCharacterList.Add("おそうじアリス");
-        GameMgr.PrizeCharacterList.Add("黒ずきん");
         GameMgr.PrizeCharacterList.Add("ミント");
+        GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
     }
 
     //ガレット・デ・ロワ
@@ -756,10 +763,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("グレーテル");
-        GameMgr.PrizeCharacterList.Add("アラディーン");
-        GameMgr.PrizeCharacterList.Add("キノ・ピオ");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("白桃姫");
+        GameMgr.PrizeCharacterList.Add("キノ・ピオ");
+        GameMgr.PrizeCharacterList.Add("黒ずきん");
     }
 
     //登録なし
@@ -825,9 +832,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("バニラ");
-        GameMgr.PrizeCharacterList.Add("ギュント");
-        GameMgr.PrizeCharacterList.Add("ノーマリィ");
-        GameMgr.PrizeCharacterList.Add("ウリル");
+        GameMgr.PrizeCharacterList.Add("戦士ギュント");
+        GameMgr.PrizeCharacterList.Add("ノーマ・リリィ");
+        GameMgr.PrizeCharacterList.Add("ウリユ");
     }
 
     //フライング・ソーダコンテスト
@@ -858,12 +865,13 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("リリィ");
-        GameMgr.PrizeCharacterList.Add("マリア");
+        GameMgr.PrizeCharacterList.Add("ノーマ・リリィ");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("ベル");
         GameMgr.PrizeCharacterList.Add("アイリス");
     }
 
+    //ボンボヤージュ・カップ
     void PrizeRankingSet22()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -897,6 +905,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //おみやげおかしコンテスト
     void PrizeRankingSet23()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -930,6 +939,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //スカーレットマイスター
     void PrizeRankingSet24()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -963,6 +973,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //遥かなる蒼賞
     void PrizeRankingSet25()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -996,6 +1007,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //マジックパティスリー・アワード
     void PrizeRankingSet26()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1029,6 +1041,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //プラム洋菓子技術コンテスト
     void PrizeRankingSet27()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1062,6 +1075,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //クレープ・ドゥ・シャノワール
     void PrizeRankingSet40()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1091,10 +1105,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("アマクサ");
         GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("秋川どらら");
+        GameMgr.PrizeCharacterList.Add("春山うらら");
     }
 
+    //アデュルティ・ガトー
     void PrizeRankingSet41()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1128,6 +1143,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //メルヘンランド♪カップ
     void PrizeRankingSet42()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1161,6 +1177,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //キラキラ・ボンボンズ
     void PrizeRankingSet43()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1194,6 +1211,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //英国ティータイムコンテスト
     void PrizeRankingSet44()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1227,6 +1245,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //ピエスモンテ
     void PrizeRankingSet45()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1260,6 +1279,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //コンチェルティーノ・イン・ブルー
     void PrizeRankingSet46()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1293,6 +1313,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //ビジョウ・パティスリー・カップ
     void PrizeRankingSet47()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1326,6 +1347,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //クワイットスノウ
     void PrizeRankingSet60()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1359,6 +1381,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //アムール・チョコレイト・コンテスト
     void PrizeRankingSet61()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1392,6 +1415,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //ネオユニバース・カップ
     void PrizeRankingSet62()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1425,6 +1449,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //フェド・フルラージュ
     void PrizeRankingSet63()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1458,6 +1483,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //ルミエール・ドゥ・ソレイユ
     void PrizeRankingSet64()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1491,6 +1517,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //ミルフイユ・ドゥ・パリ
     void PrizeRankingSet65()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1524,6 +1551,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //チーズケーキ・パティスリーアワード
     void PrizeRankingSet66()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1557,6 +1585,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
+    //夢見るチョコレート選手権
     void PrizeRankingSet67()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる

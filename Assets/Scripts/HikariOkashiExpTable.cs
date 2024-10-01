@@ -16,8 +16,8 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
 
     // Use this for initialization
     void Start () {
-		
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -35,129 +35,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
         //_mode=1, Buf_Power_Keisanでバフ計算するときに使用。
 
         itemsubtypeset_database.SetImageSub(_itemType_sub);
-
-        /*
-        switch (_itemType_sub)
-        {
-            case "Appaleil":
-                Type_Num = 0;
-                break;
-            case "Water":
-                Type_Num = 0;
-                break;
-            case "Cream":
-                Type_Num = 15;
-                break;
-            case "WhipeedCream":
-                Type_Num = 15;
-                break;
-            case "Biscotti":
-                Type_Num = 11;
-                break;
-            case "Bread":
-                Type_Num = 14;
-                break;
-            case "Bread_Sliced":
-                Type_Num = 14;
-                break;
-            case "Cookie":
-                Type_Num = 1;
-                break;
-            case "Cookie_Mat":
-                Type_Num = 1;
-                break;
-            case "Cookie_Hard":
-                Type_Num = 1;
-                break;
-            case "Chocolate":
-                Type_Num = 2;
-                break;
-            case "Chocolate_Mat":
-                Type_Num = 2;
-                break;
-            case "Cake":
-                Type_Num = 10;
-                break;
-            case "Cake_Mat":
-                Type_Num = 13;
-                break;
-            case "Castella":
-                Type_Num = 10;
-                break;
-            case "Cannoli":
-                Type_Num = 4;
-                break;
-            case "Candy":
-                Type_Num = 3;
-                break;
-            case "Crepe":
-                Type_Num = 4;
-                break;
-            case "Crepe_Mat":
-                Type_Num = 4;
-                break;
-            case "Creampuff":
-                Type_Num = 5;
-                break;
-            case "Coffee":
-                Type_Num = 20;
-                break;
-            case "Coffee_Mat":
-                Type_Num = 20;
-                break;
-            case "Donuts":
-                Type_Num = 6;
-                break;
-            case "Financier":
-                Type_Num = 10;
-                break;
-            case "IceCream":
-                Type_Num = 9;
-                break;
-            case "Juice":
-                Type_Num = 7;
-                break;
-            case "Jelly":
-                Type_Num = 8;
-                break;
-            case "Maffin":
-                Type_Num = 10;
-                break;
-            case "PanCake":
-                Type_Num = 10;
-                break;
-            case "Parfe":
-                Type_Num = 9;
-                break;
-            case "Pie":
-                Type_Num = 10;
-                break;
-            case "Rusk":
-                Type_Num = 11;
-                break;
-            case "SumireSuger":
-                Type_Num = 12;
-                break;
-            case "Tea":
-                Type_Num = 20;
-                break;
-            case "Tea_Mat":
-                Type_Num = 20;
-                break;
-            case "Tea_Potion":
-                Type_Num = 20;                
-                break;
-            case "Source": //マジパンなど
-                Type_Num = 0;
-                break;
-            case "Potion": //不気味なポーションなど
-                Type_Num = 0;
-                break;
-            default: //一致しないものは何もしない
-                Type_Num = 99;
-                GameMgr.hikariokashiExpTable_noTypeflag = true;
-                break;
-        }*/
+        
 
         if(GameMgr.Item_OkashiSubType_Num == 99)
         {
@@ -515,6 +393,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
 
     void Check_OkashilvUP()
     {
+
         if (_nowlv >= 9) //9がカンスト
         {
             _nowexp = 0;
@@ -532,6 +411,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
     //少し難しめのお菓子の経験テーブル
     void Check_OkashilvUP2()
     {
+
         if (_nowlv >= 9) //9がカンスト
         { }
         else
@@ -543,4 +423,5 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
             }
         }
     }
+
 }

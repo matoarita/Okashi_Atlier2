@@ -1947,11 +1947,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mirabo_present_list.Clear();
 
         //あげる順に登録
-        mirabo_present_list.Add("mg_secondbake_book");
+        //mirabo_present_list.Add("mg_secondbake_book"); //初心者向けの本でおぼえるようにした
         mirabo_present_list.Add("mg_controltempature_book");
         mirabo_present_list.Add("mg_freezespell_book");
         mirabo_present_list.Add("mg_caramelized_book");
         mirabo_present_list.Add("mg_rainbowrain_book");
+        mirabo_present_list.Add("mg_summon_mirabo_book");
     }
 
     public static void InitMirabo_PresentLibrarySub() //こっちはランダムアイテムテーブル
