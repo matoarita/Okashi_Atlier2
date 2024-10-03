@@ -915,6 +915,9 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             ev_id = pitemlist.Find_eventitemdatabase("mg_firstmagic_book");
             pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加            
 
+            //エメラルドシュガー５つもくれる。
+            pitemlist.addPlayerItemString("emerald_suger", 5);
+
             //PlayerStatus.player_patissier_job_pt++;
 
             check_event = true;

@@ -113,7 +113,8 @@
 ・BGM_109		audiostock_1385237			【宴用】オープニングの映画風スタートBGM2 静か
 ・BGM_110		こんとどぅふぇ素材No.0037-Dimanche	オランジーナ酒場用BGM
 ・BGM_111		PerituneMaterial_Powder_Snow_loop	プラトン女王様のテーマ
-・BGM_112		こんとどぅふぇ素材No.0051-散歩道	【宴用】イリスさんのテーマ
+・BGM_112		こんとどぅふぇ素材No.0051-散歩道	【宴用】イリスさんのテーマ１　現在ギャグ系に使う
 ・BGM_113		こんとどぅふぇ素材No.0175-ここなっつかふぇ	夏エリアお店のテーマ
 ・BGM_114		audiostock_1523480			春エリア露店通りのBGM　98と同じ
 ・BGM_115		PerituneMaterial_Powder_Snow_loop	【宴用】プラトン女王様のテーマ　111と同じ
+・BGM_116		harunoyokan				【宴用】イリスさんのテーマ２　こっちが本当

@@ -78,6 +78,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private int map_move_num;
 
     private int _place_num;
+    private int talkrot;
 
     // Use this for initialization
     void Start () {
@@ -149,6 +150,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         StartRead = false;
         check_event = false;
+        talkrot = 0;
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -3356,7 +3358,23 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[1200]) //ほかに発生するイベントがなく、すでに友達になった。
             {
-                GameMgr.hiroba_event_ID = 10;
+                //頭から順番に会話をまわしていく。
+                switch(talkrot)
+                {
+                    case 0:
+                        GameMgr.hiroba_event_ID = 10;
+                        talkrot++;
+                        break;
+                    case 1:
+                        GameMgr.hiroba_event_ID = 11;
+                        talkrot++;
+                        break;
+                    case 2:
+                        GameMgr.hiroba_event_ID = 12;
+                        //talkrot=0;
+                        break;
+                }
+                
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                 //bgm_change_flag = true;
