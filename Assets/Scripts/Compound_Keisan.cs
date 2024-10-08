@@ -135,6 +135,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     public string[] _basetp;
     public string _base_itemType;
     public string _base_itemType_sub;
+    public string _base_itemType_subB;
     public int _base_extreme_kaisu;
     public int _base_item_hyouji;
     public string _base_itemdesc;
@@ -881,6 +882,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basesell = pitemlist.player_originalitemlist[_id].sell_price;
                     _base_itemType = pitemlist.player_originalitemlist[_id].itemType.ToString();
                     _base_itemType_sub = pitemlist.player_originalitemlist[_id].itemType_sub.ToString();
+                    _base_itemType_subB = pitemlist.player_originalitemlist[_id].itemType_subB.ToString();
                     _base_extreme_kaisu = pitemlist.player_originalitemlist[_id].ExtremeKaisu;
                     _base_item_hyouji = pitemlist.player_originalitemlist[_id].item_Hyouji;
                     _base_itemdesc = pitemlist.player_originalitemlist[_id].itemDesc;
@@ -940,6 +942,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basesell = pitemlist.player_extremepanel_itemlist[_id].sell_price;
                     _base_itemType = pitemlist.player_extremepanel_itemlist[_id].itemType.ToString();
                     _base_itemType_sub = pitemlist.player_extremepanel_itemlist[_id].itemType_sub.ToString();
+                    _base_itemType_subB = pitemlist.player_extremepanel_itemlist[_id].itemType_subB.ToString();
                     _base_extreme_kaisu = pitemlist.player_extremepanel_itemlist[_id].ExtremeKaisu;
                     _base_item_hyouji = pitemlist.player_extremepanel_itemlist[_id].item_Hyouji;
                     _base_itemdesc = pitemlist.player_extremepanel_itemlist[_id].itemDesc;
@@ -1124,6 +1127,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesell = database.items[_id].sell_price;
         _base_itemType = database.items[_id].itemType.ToString();
         _base_itemType_sub = database.items[_id].itemType_sub.ToString();
+        _base_itemType_subB = database.items[_id].itemType_subB.ToString();
         _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
         _base_item_hyouji = database.items[_id].item_Hyouji;
         _base_itemdesc = database.items[_id].itemDesc;
@@ -1171,6 +1175,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesell = database.items[_id].sell_price;
         _base_itemType = database.items[_id].itemType.ToString();
         _base_itemType_sub = database.items[_id].itemType_sub.ToString();
+        _base_itemType_subB = database.items[_id].itemType_subB.ToString();
         _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
         _base_item_hyouji = database.items[_id].item_Hyouji;
         _base_itemdesc = database.items[_id].itemDesc;
@@ -1218,6 +1223,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesell = database.items_gamedefault[_id].sell_price;
         _base_itemType = database.items_gamedefault[_id].itemType.ToString();
         _base_itemType_sub = database.items_gamedefault[_id].itemType_sub.ToString();
+        _base_itemType_subB = database.items_gamedefault[_id].itemType_subB.ToString();
         _base_extreme_kaisu = database.items_gamedefault[_id].ExtremeKaisu;
         _base_item_hyouji = database.items_gamedefault[_id].item_Hyouji;
         _base_itemdesc = database.items_gamedefault[_id].itemDesc;
@@ -1279,6 +1285,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesell = pitemlist.player_yosokuitemlist[_id].sell_price;
         _base_itemType = pitemlist.player_yosokuitemlist[_id].itemType.ToString();
         _base_itemType_sub = pitemlist.player_yosokuitemlist[_id].itemType_sub.ToString();
+        _base_itemType_subB = pitemlist.player_yosokuitemlist[_id].itemType_subB.ToString();
         _base_extreme_kaisu = pitemlist.player_yosokuitemlist[_id].ExtremeKaisu;
         _base_item_hyouji = pitemlist.player_yosokuitemlist[_id].item_Hyouji;
         _base_itemdesc = pitemlist.player_yosokuitemlist[_id].itemDesc;
@@ -1316,7 +1323,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             //アイテム取得処理
             if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" || 
-                _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "WhipeedCream")
+                _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "WhipeedCream" ||
+                _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater")
             {
                 GetItemMethod(0); //生地作ったときは各ステータスオリジナルのものなので、オリジナルアイテムに登録
             }

@@ -318,9 +318,16 @@ public class GetMaterial : MonoBehaviour
         //妹の体力がある程度ないと、先へ進めない。
         if (PlayerStatus.player_girl_lifepoint < matplace_database.matplace_lists[index].placeHP && matplace_database.matplace_lists[index].placeType != 0)
         {
-            //顔アイコンも切り替え
-            msg_window.Setting_WindowIcon(11); //痛い顔
-            _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（これ以上は、動けないようだ。）";
+            if (GameMgr.outgirl_Nowprogress)
+            {
+                _text.text = "もうヘトヘトだ・・。これ以上、今日はやめとこう。";
+            }
+            else
+            {
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(11); //痛い顔
+                _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（これ以上は、動けないようだ。）";
+            }
         }
         else
         {
