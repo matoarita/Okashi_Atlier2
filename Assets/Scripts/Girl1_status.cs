@@ -425,7 +425,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
 
         //ステージごとに、女の子が食べたいお菓子のセットを初期化
-        InitializeStageGirlHungrySet(0, 0); //とりあえず0で初期化
+        InitializeStageGirlHungrySet(0, 0, 0); //とりあえず0で初期化
 
     }
 
@@ -891,31 +891,31 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             GirlGokigenStatus = 3;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 12) //
+        else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 20) //
         {
             //ちょっと元気でてきた
             GirlGokigenStatus = 4;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 12 && PlayerStatus.girl1_Love_lv < 15) //
+        else if (PlayerStatus.girl1_Love_lv >= 20 && PlayerStatus.girl1_Love_lv < 35) //
         {
             //元気
             GirlGokigenStatus = 5;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 15 && PlayerStatus.girl1_Love_lv < 20) //
+        else if (PlayerStatus.girl1_Love_lv >= 35 && PlayerStatus.girl1_Love_lv < 40) //
         {
             //最高に上機嫌
             GirlGokigenStatus = 6;
             
         }
-        else if (PlayerStatus.girl1_Love_lv >= 20 && PlayerStatus.girl1_Love_lv < 25) //
+        else if (PlayerStatus.girl1_Love_lv >= 40 && PlayerStatus.girl1_Love_lv < 45) //
         {
             //最高に上機嫌
             GirlGokigenStatus = 7;
 
         }
-        else if (PlayerStatus.girl1_Love_lv >= 25 && PlayerStatus.girl1_Love_lv < 50)
+        else if (PlayerStatus.girl1_Love_lv >= 45 && PlayerStatus.girl1_Love_lv < 50)
         {
             //最高に上機嫌
             GirlGokigenStatus = 8;
@@ -984,11 +984,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
             case 5:
-                face_girl_Joukigen();
+                face_girl_Normal();
                 break;
 
             case 6:
-                face_girl_Tereru4();
+                face_girl_Joukigen();
                 break;
 
             case 7:
@@ -1218,7 +1218,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //チュートリアルで使用
     public void SetOneQuest(int _ID)
     {
-        InitializeStageGirlHungrySet(_ID, 0);　//comp_Numの値を直接指定
+        InitializeStageGirlHungrySet(_ID, 0, 0);　//comp_Numの値を直接指定
 
         Set_Count = 1;
         //Set_compID = _ID;
@@ -1328,7 +1328,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //さきほどのset_IDをもとに、好みの値を決定する。
         for (count = 0; count < Set_Count; count++)
         {
-            InitializeStageGirlHungrySet(set_ID[count], count);
+            InitializeStageGirlHungrySet(set_ID[count], count, 0);
 
         }
     }
@@ -1759,7 +1759,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }
     }
 
-    public void InitializeStageGirlHungrySet(int _id, int _set_num)
+    public void InitializeStageGirlHungrySet(int _id, int _set_num, int _mstatus)
     {
         //IDをセット。「compNum」の値で指定する。
 
@@ -1967,7 +1967,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         girl1_Jiggly[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_jiggly;
         girl1_Juice[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_juice;
 
-        girl1_Beauty[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_beauty;
+        if (_mstatus == 0) //通常
+        {
+            girl1_Beauty[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_beauty;
+        }
+        else //コンテストで女の子好み使用する場合　3人目の審査員はbeautyの判定をしない 2人目の審査員は少し判定値高くなる
+        {
+            if (_set_num == 2)
+            {
+                girl1_Beauty[_set_num] = 0;
+            }
+            else if (_set_num == 1)
+            {
+                girl1_Beauty[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_beauty + 20;
+            }
+            else
+            {
+                girl1_Beauty[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_beauty;
+            }
+        }
         girl1_Tea_Flavor[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_tea_flavor;
 
         girl1_SP1_Wind[_set_num] = girlLikeSet_database.girllikeset[setID].girlLike_sp1_Wind;

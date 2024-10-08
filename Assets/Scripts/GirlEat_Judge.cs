@@ -1363,7 +1363,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //クエストとは無関係に、お菓子を判定する。お菓子ごとの設定された判定に従って、お菓子の判定。
 
             //お菓子の判定値をセッティング
-            girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
+            girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0, 0); //compNum, セットする配列番号　の順　
             SetGirlTasteInit();
 
             dislike_flag = true;
@@ -5794,11 +5794,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //お菓子の判定値をセッティング
         if (!KoyuJudgeON)
         {
-            girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0); //compNum, セットする配列番号　の順　
+            girl1_status.InitializeStageGirlHungrySet(_baseSetjudge_num, 0, 0); //compNum, セットする配列番号　の順　
         }
         else
         {
-            girl1_status.InitializeStageGirlHungrySet(Koyunum, 0); //外部から、判定のセット番号を直接指定もできる。その場合、KoyuJudgeON=True
+            girl1_status.InitializeStageGirlHungrySet(Koyunum, 0, 0); //外部から、判定のセット番号を直接指定もできる。その場合、KoyuJudgeON=True
         }
         SetGirlTasteInit();
         girl1_status.Set_Count = 1;

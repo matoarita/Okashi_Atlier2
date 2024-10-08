@@ -2140,17 +2140,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                     if (_well_done_kyori >= 0 && _well_done_kyori < 3.0)
                     {
-                        _well_done_kyori_hosei = 2.5f;
+                        _well_done_kyori_hosei = 2.0f;
                         GameMgr.tempature_control_Param_yakitext = "最高の焼き具合だ。";
                     }
                     else if (_well_done_kyori >= 3.0 && _well_done_kyori < 6.0)
                     {
-                        _well_done_kyori_hosei = 1.75f;
+                        _well_done_kyori_hosei = 1.5f;
                         GameMgr.tempature_control_Param_yakitext = "とてもいい焼き具合だ。";
                     }
                     else if (_well_done_kyori >= 6.0 && _well_done_kyori < 10.0)
                     {
-                        _well_done_kyori_hosei = 1.5f;
+                        _well_done_kyori_hosei = 1.35f;
                         GameMgr.tempature_control_Param_yakitext = "いい焼き具合に仕上がった。";
                     }
                     else if (_well_done_kyori >= 10.0 && _well_done_kyori < 15.0)

@@ -225,6 +225,7 @@ public class Contest_Main : MonoBehaviour {
         {
             default: //ヒカリ１のときのコンテスト番号 0
 
+                GameMgr.Contest_JudgeType = 0;
                 GameMgr.Contest_DB_list_Type = 10000; //girlLikeSetのcompNumの10000～を参照するようにしている。コンテストを分ける場合、compNumの数字で分ければOK.
                 GameMgr.Contest_Name = "First_Contest";
                 break;

@@ -84,6 +84,7 @@ public class Quest_Judge : MonoBehaviour {
     private int i, count, list_count;
     public bool nouhinOK_flag;
     private int nouhinOK_status;
+    private bool okashicheck_OK;
 
     private int _getMoney;
     private int _getNinki;
@@ -107,6 +108,8 @@ public class Quest_Judge : MonoBehaviour {
 
     private string _filename;
     private string _itemname;
+    private string _itemname2;
+    private string _itemname3;
     private string _itemsubtype;
 
     private int _kosu_default;
@@ -171,6 +174,7 @@ public class Quest_Judge : MonoBehaviour {
     private string[] _koyutp;
     private string _base_itemType;
     private string _base_itemType_sub;
+    private string _base_itemType_subB;
     private int _base_extreme_kaisu;
     private int _base_item_hyouji;
 
@@ -828,11 +832,12 @@ public class Quest_Judge : MonoBehaviour {
 
             //①指定のトッピングがあるかをチェック。一つでも指定のものがあれば、OK
 
-            nouhinOK_status = 2; //先にNGはたてておく。
+            nouhinOK_status = 0; //先にOKでリセット
+            okashicheck_OK = false;
             slot_ok = true;
 
             //納品用スコアがすべて０の場合、トッピングを計算しないので、無視する。
-            for (i=0; i < itemslot_NouhinScore.Count; i++)
+            /*for (i=0; i < itemslot_NouhinScore.Count; i++)
             {
                 //Debug.Log("納品スコア" + itemslotInfo[i] + " " + itemslot_NouhinScore[i]);
                 //0はNonなので、無視
@@ -886,7 +891,7 @@ public class Quest_Judge : MonoBehaviour {
             {
                 //ほしいトッピングのっていないので、マイナス
                 okashi_score -= 50;
-            }
+            }*/
 
 
             //②味パラメータの計算。GirlEat_Judgeのをそのまま流用。
@@ -1183,34 +1188,11 @@ public class Quest_Judge : MonoBehaviour {
                 }
             }
 
-            //特定のお菓子の判定。一致していない場合は、③は計算するまでもなく不正解となる。
-            if (_itemname == "Non") //特に指定なし
-            {
-                //③お菓子の種別の計算
-                if (_itemsubtype == "Non") //特に指定なし
-                {
-
-                }
-                else if (_itemsubtype == _base_itemType_sub) //お菓子の種別が一致している。
-                {
-
-                }
-                else
-                {
-                    //不正解。そもそも違うお菓子を納品している。
-                    nouhinOK_status = 1;
-                }
-            }
-            else if (_itemname == _basename) //お菓子の名前が一致している。
-            {
-                //サブは計算せず、特定のお菓子自体が正解なら、正解
-
-            }
-            else
-            {
-                //不正解。そもそも違うお菓子を納品している。
-                nouhinOK_status = 1;
-            }
+            //特定のお菓子の判定。一致しているかチェック。itemNameには、固有名、サブタイプ、サブタイプBどれを入れてもOK。Nonが入ってると無視する。
+            OkashiTypeJudge(_itemname);
+            OkashiTypeJudge(_itemname2);
+            OkashiTypeJudge(_itemname3);
+            OkashiTypeJudge2(_itemsubtype);
 
             //④トッピングスロットをみて、スコアを加算する。アイテムについているスロットの点数を加算する。
             for (i = 0; i < itemslot_PitemScore.Count; i++)
@@ -1339,6 +1321,64 @@ public class Quest_Judge : MonoBehaviour {
 
         StartCoroutine("Okashi_Judge_Anim2");
         
+    }
+
+    void OkashiTypeJudge(string _name)
+    {
+        if (okashicheck_OK) //お菓子OKがでてたら、チェックはせずそのままOKで。
+        {
+
+        }
+        else
+        {
+            if (_name == "Non") //特に指定なしなら次をみる
+            {
+                okashicheck_OK = false;
+            }
+            else if (_name == _basename || _name == _base_itemType_sub || _name == _base_itemType_subB) //お菓子の名前かサブタイプ系が一致している。
+            {
+                //サブは計算せず、特定のお菓子自体が正解なら、正解　ここで抜けてOK
+                nouhinOK_status = 0;
+                okashicheck_OK = true;
+            }
+            else
+            {
+                //不正解。次をみる。
+                okashicheck_OK = false;
+                //nouhinOK_status = 1;
+            }
+        }
+    }
+
+    //最後にサブタイプを一回チェック　これでダメなら、違うお菓子なので不正解に。
+    void OkashiTypeJudge2(string _nameSub)
+    {
+        if (okashicheck_OK) //お菓子OKがでてたら、チェックはせずそのままOKで。
+        {
+
+        }
+        else
+        {
+            //③お菓子の種別の計算
+            if (_nameSub == "Non") //特に指定なし
+            {
+                //不正解。そもそも違うお菓子を納品している。
+                nouhinOK_status = 1;
+                okashicheck_OK = false;
+            }
+            else if (_nameSub == _base_itemType_sub || _nameSub == _base_itemType_subB) //お菓子の種別が一致している。
+            {
+                //正解
+                nouhinOK_status = 0;
+                okashicheck_OK = true;
+            }
+            else
+            {
+                //不正解。そもそも違うお菓子を納品している。
+                nouhinOK_status = 1;
+                okashicheck_OK = false;
+            }
+        }
     }
 
     IEnumerator Okashi_Judge_Anim2()
@@ -1653,6 +1693,8 @@ public class Quest_Judge : MonoBehaviour {
             "###  好みの比較　結果　###"
             + "\n" + "\n" + "判定用お菓子セットの番号: " + _questID
             + "\n" + "\n" + "判定アイテム名: " + _itemname
+            + "\n" + "判定アイテム名2: " + _itemname2
+            + "\n" + "判定アイテム名3: " + _itemname3
             + "\n" + "判定サブタイプ: " + _itemsubtype
             + "\n" + "\n" + "あまさ: " + _basesweat
             + "\n" + " お客さんの好みの甘さ: " + _sweat
@@ -1697,6 +1739,8 @@ public class Quest_Judge : MonoBehaviour {
         _questID = quest_database.questTakeset[_count].Quest_ID;    //基本判定のときは、使わない
 
         _itemname = quest_database.questTakeset[_count].Quest_itemName;
+        _itemname2 = quest_database.questTakeset[_count].Quest_itemName2;
+        _itemname3 = quest_database.questTakeset[_count].Quest_itemName3;
         _itemsubtype = quest_database.questTakeset[_count].Quest_itemSubtype;
 
         _kosu_min = quest_database.questTakeset[_count].Quest_kosu_min;
@@ -1794,6 +1838,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basesell = database.items[_id].sell_price;
                 _base_itemType = database.items[_id].itemType.ToString();
                 _base_itemType_sub = database.items[_id].itemType_sub.ToString();
+                _base_itemType_subB = database.items[_id].itemType_subB.ToString();
                 _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
                 _base_item_hyouji = database.items[_id].item_Hyouji;
 
@@ -1844,6 +1889,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basesell = pitemlist.player_originalitemlist[_id].sell_price;
                 _base_itemType = pitemlist.player_originalitemlist[_id].itemType.ToString();
                 _base_itemType_sub = pitemlist.player_originalitemlist[_id].itemType_sub.ToString();
+                _base_itemType_subB = pitemlist.player_originalitemlist[_id].itemType_subB.ToString();
                 _base_extreme_kaisu = pitemlist.player_originalitemlist[_id].ExtremeKaisu;
                 _base_item_hyouji = pitemlist.player_originalitemlist[_id].item_Hyouji;
 
@@ -1891,6 +1937,7 @@ public class Quest_Judge : MonoBehaviour {
                 _basesell = pitemlist.player_extremepanel_itemlist[_id].sell_price;
                 _base_itemType = pitemlist.player_extremepanel_itemlist[_id].itemType.ToString();
                 _base_itemType_sub = pitemlist.player_extremepanel_itemlist[_id].itemType_sub.ToString();
+                _base_itemType_subB = pitemlist.player_extremepanel_itemlist[_id].itemType_subB.ToString();
                 _base_extreme_kaisu = pitemlist.player_extremepanel_itemlist[_id].ExtremeKaisu;
                 _base_item_hyouji = pitemlist.player_extremepanel_itemlist[_id].item_Hyouji;
 

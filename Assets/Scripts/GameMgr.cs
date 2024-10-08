@@ -71,7 +71,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_StarBlockLv_03 = 90;
     public static int System_StarBlockLv_04 = 10; //城スター
 
-    public static int System_HeartLVevent_01 = 12; //ヒカリがお菓子作りを覚えるイベント発生
+    public static int System_HeartLVevent_01 = 10; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 1000; //家賃の額 月始めバージョン
     public static int System_Yachin_Cost02 = 500; //10日ごとバージョン
@@ -629,6 +629,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Contest_BGMSelect; //コンテスト制作中のBGMの指定
     public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
     public static int Contest_commentDB_Select; //番号に応じて、コメントのDBを指定
+    public static int Contest_JudgeType; //コンテストによって、女の子の好み判定のほうを使用する場合もあり
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
     public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。 
     public static int contest_boss_score; //コンテスト　対戦相手のスコア
@@ -1194,6 +1195,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Result_compound_success = false;
         MagicSkillSelectStatus = 0;
         ContestSelectNum = 0;
+        Contest_JudgeType = 0;
         Contest_Name = "";
         Contest_NameHyouji = "";
         Contest_ProblemSentence = "";

@@ -3039,14 +3039,14 @@ public class Utage_scenario : MonoBehaviour
 
                 scenarioLabel = "Or_NPC111_roten_potatobutter";
 
-                /*if (pitemlist.KosuCountEvent("crepe_recipi") >= 1)
+                if (pitemlist.KosuCountEvent("potatebutter_recipi") >= 1)
                 {
-                    roten_flag_num = 0;
+                    roten_flag_num = 0; //二回目以降は、体力全回復
                 }
                 else
                 {
                     roten_flag_num = 160101; //じゃがバターのレシピをまだもってない
-                }*/
+                }
                 break;
 
             case 1602: //Or露店クレープ屋
@@ -3498,21 +3498,29 @@ public class Utage_scenario : MonoBehaviour
 
                         break;
 
-                    case 1: //のる
+                    case 1: //じゃがバター買う
 
                         moneyStatus_Controller.UseMoney(400);
+                        GameMgr.NPC_FriendPoint[1] += 1; //友好度上がる
+
+                        PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_lifepoint + (PlayerStatus.player_girl_maxlifepoint / 2); //体力半分回復
                         break;
 
-                    case 2: //のる
+                    case 2: //ポテトの宝石箱
 
                         moneyStatus_Controller.UseMoney(1000);
+                        GameMgr.NPC_FriendPoint[1] += 3; //友好度上がる
 
                         if (roten_flag_num == 160101)
                         {
-                            if (pitemlist.KosuCountEvent("crepe_recipi") <= 0)
+                            if (pitemlist.KosuCountEvent("potatebutter_recipi") <= 0)
                             {
-                                pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
+                                pitemlist.add_eventPlayerItemString("potatebutter_recipi", 1); //じゃがバターのレシピをゲット
                             }
+                        }
+                        else if (roten_flag_num == 0)
+                        {
+                            PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;
                         }
                         break;
 

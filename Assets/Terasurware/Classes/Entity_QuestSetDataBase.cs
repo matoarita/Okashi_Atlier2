@@ -25,6 +25,8 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int HighType;
 		public string file_name;
 		public string quest_itemName;
+		public string quest_itemName2;
+		public string quest_itemName3;
 		public string quest_itemsubtype;
 		public int kosu_default;
 		public int kosu_min;

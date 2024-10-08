@@ -43,6 +43,7 @@ public class Contest_Judge : MonoBehaviour {
     private string item_subType;
     private string item_subTypeB;
     private int compNum;
+    private int _baseSetjudge_num;
 
     private int kettei_itemID;
     private int kettei_itemType;
@@ -141,6 +142,7 @@ public class Contest_Judge : MonoBehaviour {
             itemName = database.items[kettei_itemID].itemName;
             item_subType = database.items[kettei_itemID].itemType_sub.ToString();
             item_subTypeB = database.items[kettei_itemID].itemType_subB;
+            _baseSetjudge_num = database.items[kettei_itemID].SetJudge_Num;
 
             //表示用アイテム名
             GameMgr.contest_okashiSlotName = "";
@@ -157,6 +159,7 @@ public class Contest_Judge : MonoBehaviour {
             itemName = pitemlist.player_originalitemlist[kettei_itemID].itemName;
             item_subType = pitemlist.player_originalitemlist[kettei_itemID].itemType_sub.ToString();
             item_subTypeB = pitemlist.player_originalitemlist[kettei_itemID].itemType_subB;
+            _baseSetjudge_num = pitemlist.player_originalitemlist[kettei_itemID].SetJudge_Num;
 
             //表示用アイテム名
             GameMgr.contest_okashiSlotName = pitemlist.player_originalitemlist[kettei_itemID].item_SlotName;
@@ -173,6 +176,7 @@ public class Contest_Judge : MonoBehaviour {
             itemName = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemName;
             item_subType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
             item_subTypeB = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_subB;
+            _baseSetjudge_num = pitemlist.player_extremepanel_itemlist[kettei_itemID].SetJudge_Num;
 
             //表示用アイテム名
             GameMgr.contest_okashiSlotName = pitemlist.player_extremepanel_itemlist[kettei_itemID].item_SlotName;
@@ -198,50 +202,58 @@ public class Contest_Judge : MonoBehaviour {
         GameMgr.contest_Disqualification = false;
         //judge_Type = 0; //基本審査員3人で対応。judge_Typeは、どのコンテストかを指定する。
 
-        i = 0;
-        while (i < contestSet_database.contest_set.Count)
+        if (GameMgr.Contest_JudgeType == 0) //1のときは、女の子の好み判定を使用する　自由課題など)
         {
-            if (contestSet_database.contest_set[i].girlLike_compNum >= GameMgr.Contest_DB_list_Type)
+            i = 0;
+            while (i < contestSet_database.contest_set.Count)
             {
-                if (contestSet_database.contest_set[i].girlLike_itemName != "Non") //固有名がはいってる場合は、固有名をみる。
+                if (contestSet_database.contest_set[i].girlLike_compNum >= GameMgr.Contest_DB_list_Type)
                 {
-                    //固有のアイテム名と一致するかどうかを判定。
-                    if (contestSet_database.contest_set[i].girlLike_itemName == itemName)
+                    if (contestSet_database.contest_set[i].girlLike_itemName != "Non") //固有名がはいってる場合は、固有名をみる。
                     {
-                        //一致した場合の番号を入れる。
-                        compNum = contestSet_database.contest_set[i].girlLike_compNum;
-                        judge_flag = true;
-                        Debug.Log("判定番号: " + compNum);
-                        break;
+                        //固有のアイテム名と一致するかどうかを判定。
+                        if (contestSet_database.contest_set[i].girlLike_itemName == itemName)
+                        {
+                            //一致した場合の番号を入れる。
+                            compNum = contestSet_database.contest_set[i].girlLike_compNum;
+                            judge_flag = true;
+                            Debug.Log("判定番号: " + compNum);
+                            break;
+                        }
                     }
-                }
-                else//固有名が入ってない場合は、サブタイプをみる。
-                {
-                    if (contestSet_database.contest_set[i].girlLike_itemSubtype == item_subType && contestSet_database.contest_set[i].girlLike_itemSubtype != "Non")
+                    else//固有名が入ってない場合は、サブタイプをみる。
                     {
-                        compNum = contestSet_database.contest_set[i].girlLike_compNum;
-                        judge_flag = true;
-                        Debug.Log("判定番号: " + compNum);
-                        break;
+                        if (contestSet_database.contest_set[i].girlLike_itemSubtype == item_subType && contestSet_database.contest_set[i].girlLike_itemSubtype != "Non")
+                        {
+                            compNum = contestSet_database.contest_set[i].girlLike_compNum;
+                            judge_flag = true;
+                            Debug.Log("判定番号: " + compNum);
+                            break;
+                        }
+                        else if (contestSet_database.contest_set[i].girlLike_itemSubtype == item_subTypeB && contestSet_database.contest_set[i].girlLike_itemSubtype != "Non")
+                        {
+                            compNum = contestSet_database.contest_set[i].girlLike_compNum;
+                            judge_flag = true;
+                            Debug.Log("判定番号: " + compNum);
+                            break;
+                        }
                     }
-                    else if (contestSet_database.contest_set[i].girlLike_itemSubtype == item_subTypeB && contestSet_database.contest_set[i].girlLike_itemSubtype != "Non")
+
+                    //~そのシートの検索EndPointまで検索する。Excel上にフラグがある。
+                    if (contestSet_database.contest_set[i].girlLike__search_endflag == 1)
                     {
-                        compNum = contestSet_database.contest_set[i].girlLike_compNum;
-                        judge_flag = true;
-                        Debug.Log("判定番号: " + compNum);
+                        judge_flag = false;
                         break;
                     }
                 }
 
-                //~そのシートの検索EndPointまで検索する。Excel上にフラグがある。
-                if (contestSet_database.contest_set[i].girlLike__search_endflag == 1)
-                {
-                    judge_flag = false;
-                    break;
-                }
+                i++;
             }
-
-            i++;
+        }
+        else if(GameMgr.Contest_JudgeType == 1)
+        {
+            judge_flag = true;
+            Debug.Log("判定番号: " + _baseSetjudge_num);
         }
 
         if (!judge_flag)
@@ -259,48 +271,77 @@ public class Contest_Judge : MonoBehaviour {
         }
         else
         {
-            //審査員判定
-            Contest_Judge_method(kettei_itemID, kettei_itemType, compNum);
+            if (GameMgr.Contest_JudgeType == 0) //1のときは、女の子の好み判定を使用する　自由課題など)
+            {
+                //審査員判定
+                Contest_Judge_method(kettei_itemID, kettei_itemType, compNum, 0);
+            }
+            else if (GameMgr.Contest_JudgeType == 1)
+            {
+                //審査員判定
+                Contest_Judge_method(kettei_itemID, kettei_itemType, _baseSetjudge_num, 1);
+            }
         }
     }
 
     //選んだアイテムを審査委員が判定するメソッド
-    public void Contest_Judge_method(int value1, int value2, int judge_num) //judge_typeは、コンテストを指定
+    public void Contest_Judge_method(int value1, int value2, int judge_num, int _mstatus) //judge_typeは、コンテストを指定
     {
-        //一度、決定したアイテムのリスト番号と、タイプを取得
-        kettei_item1 = value1;
-        _toggle_type1 = value2;
-
-        //** 判定用に、コンテストの好み値(GirlLikeSet)をセッティング
-        set1_ID = judge_num; //審査員１の好み
-        set2_ID = judge_num + 1; //審査員２の好み
-        set3_ID = judge_num + 2; //審査員３の好み
-
-        set_ID.Clear();
-
-        //set_idにリストの番号をセット
-        if (set1_ID != 9999)
+        if (_mstatus == 0) //ContestSetの判定値を使う
         {
-            set_ID.Add(set1_ID);
-        }
-        if (set2_ID != 9999)
-        {
-            set_ID.Add(set2_ID);
-        }
-        if (set3_ID != 9999)
-        {
-            set_ID.Add(set3_ID);
-        }
+            //一度、決定したアイテムのリスト番号と、タイプを取得
+            kettei_item1 = value1;
+            _toggle_type1 = value2;
 
-        //さきほどのset_IDをもとに、好みの値を決定する。このとき、コンテストごとの審査員の好みの判定補正もかける。
-        for (count = 0; count < set_ID.Count; count++)
-        {
+            //** 判定用に、コンテストの好み値(GirlLikeSet)をセッティング
+            set1_ID = judge_num; //審査員１の好み
+            set2_ID = judge_num + 1; //審査員２の好み
+            set3_ID = judge_num + 2; //審査員３の好み
 
-            girl1_status.InitializeStageContestJudgeSet(set_ID[count], count); //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可
-                                                                               //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
+            set_ID.Clear();
+
+            //set_idにリストの番号をセット
+            if (set1_ID != 9999)
+            {
+                set_ID.Add(set1_ID);
+            }
+            if (set2_ID != 9999)
+            {
+                set_ID.Add(set2_ID);
+            }
+            if (set3_ID != 9999)
+            {
+                set_ID.Add(set3_ID);
+            }
+
+            //さきほどのset_IDをもとに、好みの値を決定する。このとき、コンテストごとの審査員の好みの判定補正もかける。
+            for (count = 0; count < set_ID.Count; count++)
+            {
+                girl1_status.InitializeStageContestJudgeSet(set_ID[count], count); //compNum, セットする配列番号　の順　セットの番号は現状３つまで設定可
+                                                                                   //Debug.Log("set_ID: " + count + " : " + set_ID[count]);
+            }
+
+            Set_Count = set_ID.Count;
         }
+        else if (_mstatus == 1) //女の子の判定値を使う
+        {
+            //一度、決定したアイテムのリスト番号と、タイプを取得
+            kettei_item1 = value1;
+            _toggle_type1 = value2;
 
-        Set_Count = set_ID.Count;
+            set_ID.Clear();
+            set_ID.Add(_baseSetjudge_num);
+            set_ID.Add(_baseSetjudge_num);
+            set_ID.Add(_baseSetjudge_num);
+
+            //さきほどのset_IDをもとに、好みの値を決定する。このとき、コンテストごとの審査員の好みの判定補正もかける。
+            for (count = 0; count < set_ID.Count; count++)
+            {
+                girl1_status.InitializeStageGirlHungrySet(set_ID[count], count, 1); //compNum, セットする配列番号　の順　 3番目の数字は、コンテストで女の子好みを使用する場合の設定
+            }
+
+            Set_Count = set_ID.Count;
+        }
 
 
         //**
@@ -392,7 +433,7 @@ public class Contest_Judge : MonoBehaviour {
 
                 //入れた数値を上限に100点に正規化する。
                 ScoreNormalized(150);
-                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
+                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
                 Debug.Log("### ###");
                 break;
 

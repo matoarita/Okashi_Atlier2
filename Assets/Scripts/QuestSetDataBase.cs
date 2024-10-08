@@ -17,6 +17,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
     private string _filename;
     private string _itemname;
+    private string _itemname2;
+    private string _itemname3;
     private string _itemsubtype;
 
     private int _kosu_default;
@@ -98,7 +100,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                 SetParam();
 
                 //ここでリストに追加している
-                questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
+                questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3, 
+                    _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
                     _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
                     _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));              
@@ -129,6 +132,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         _filename = excel_questset_database.sheets[sheet_no].list[count].file_name;
         _itemname = excel_questset_database.sheets[sheet_no].list[count].quest_itemName;
+        _itemname2 = excel_questset_database.sheets[sheet_no].list[count].quest_itemName2;
+        _itemname3 = excel_questset_database.sheets[sheet_no].list[count].quest_itemName3;
         _itemsubtype = excel_questset_database.sheets[sheet_no].list[count].quest_itemsubtype;
 
         _kosu_default = excel_questset_database.sheets[sheet_no].list[count].kosu_default;
@@ -186,6 +191,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         _filename = questset[count].Quest_FileName;
         _itemname = questset[count].Quest_itemName;
+        _itemname2 = questset[count].Quest_itemName2;
+        _itemname3 = questset[count].Quest_itemName3;
         _itemsubtype = questset[count].Quest_itemSubtype;
 
         _kosu_min = questset[count].Quest_kosu_min;
@@ -242,7 +249,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _read_endflag = questset[count].read_endflag;
 
         //ここでリストに追加している
-        questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
+        questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3, 
+            _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
             _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));
@@ -264,6 +272,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         _filename = questRandomset[count].Quest_FileName;
         _itemname = questRandomset[count].Quest_itemName;
+        _itemname2 = questRandomset[count].Quest_itemName2;
+        _itemname3 = questRandomset[count].Quest_itemName3;
         _itemsubtype = questRandomset[count].Quest_itemSubtype;
 
         _kosu_min = questRandomset[count].Quest_kosu_min;
@@ -315,7 +325,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _read_endflag = questRandomset[count].read_endflag;
 
         //ここでリストに追加している
-        questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
+        questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3, 
+            _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
             _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));

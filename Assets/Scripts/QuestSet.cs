@@ -20,6 +20,8 @@ public class QuestSet
     public Sprite questIcon;      //アイコン
     public string Quest_FileName;
     public string Quest_itemName;
+    public string Quest_itemName2;
+    public string Quest_itemName3;
     public string Quest_itemSubtype;
 
     public int Quest_kosu_default;
@@ -58,7 +60,7 @@ public class QuestSet
 
     //ここでリスト化時に渡す引数をあてがいます   
     public QuestSet(int id, int _questID, int _questType, int _questHyouji, int _questHyoujiHeart, int _hightype, 
-        string fileName, string _itemname, string _itemsubtype, 
+        string fileName, string _itemname, string _itemname2, string _itemname3, string _itemsubtype, 
         int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, 
         int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
         string tp01, string tp02, string tp03, string tp04, string tp05, int tp_score_01, int tp_score_02, int tp_score_03, int tp_score_04, int tp_score_05,
@@ -74,6 +76,8 @@ public class QuestSet
         Quest_FileName = fileName;
         questIcon = Resources.Load<Sprite>("Sprites/Items/" + Quest_FileName);
         Quest_itemName = _itemname;
+        Quest_itemName2 = _itemname2;
+        Quest_itemName3 = _itemname3;
         Quest_itemSubtype = _itemsubtype;
 
         Quest_kosu_default = _kosu_default;

@@ -48,6 +48,7 @@ public class ContestListController : MonoBehaviour
     public int _count; //選択したリスト番号が入る。
     public int _ID; //ショップデータベースIDが入る。
 
+    private int _listID;
     private int read_ID;
 
     private int rand;
@@ -250,6 +251,9 @@ public class ContestListController : MonoBehaviour
     //条件をみたすと、さらにコンテストが表示追加される
     void ContestJoukenCheck()
     {
+
+        //春コンテスト　条件
+
         //一位で登場
         if (PlayerStatus.player_ninki_param >= 1)
         {
@@ -267,8 +271,8 @@ public class ContestListController : MonoBehaviour
                 DrawContest();
             }
         }
-
-        //スター１５以上
+       
+        //スター１５以上　オランジーナパティスリーアワード
         if (PlayerStatus.player_ninki_param >= 15)
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 4)
@@ -277,8 +281,9 @@ public class ContestListController : MonoBehaviour
             }
         }
 
-        //スター３０以上
-        if (PlayerStatus.player_ninki_param >= 30)
+        //ルミエールエピファニア一位クリアで春コン最後がでる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_060");        
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 5)
             {
@@ -286,10 +291,107 @@ public class ContestListController : MonoBehaviour
             }
         }
 
+        //夏コンテスト
+
+        //ひんやりおかしコンテストクリアで、次がでる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_200");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 10)
+            {
+                DrawContest();
+            }
+        }
+
+        //はるかなる青賞で次でる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_250");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 11)
+            {
+                DrawContest();
+            }
+        }
+
+        //スカーレットマイスタクリアで最後がでる。
+        _listID = conteststartList_database.SearchContestString("Or_Contest_240");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 12)
+            {
+                DrawContest();
+            }
+        }
+
+
+        //秋コンテスト
+
+        //クレープドゥシャノワールコンテストクリアで、次がでる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_400");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 20)
+            {
+                DrawContest();
+            }
+        }
+
+        //キラキラボンボンズコンテストクリアで、次がでる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_430");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 21)
+            {
+                DrawContest();
+            }
+        }
+
+        //ピエスモンテ彫刻お菓子コンテストクリアで、次がでる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_450");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 22)
+            {
+                DrawContest();
+            }
+        }
 
 
 
-        //エデンコンテスト系の登場
+        //冬コンテスト
+
+        //クワイットスノウコンテストクリアで、次がでる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_600");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 30)
+            {
+                DrawContest();
+            }
+        }
+
+        //イルフェドゥコンテストクリアで、次がでる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_640");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 31)
+            {
+                DrawContest();
+            }
+        }
+
+        //ミルフイユ・ドゥ・パリコンテストクリアで、次がでる
+        _listID = conteststartList_database.SearchContestString("Or_Contest_650");
+        if (conteststartList_database.conteststart_lists[_listID].ContestVictory >= 1)
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 32)
+            {
+                DrawContest();
+            }
+        }
+
+
+        //エデンコンテスト系の登場　スターでもいいし、特定のイベントクリアしたら出現でもいい
         if (PlayerStatus.player_ninki_param >= 10)
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100)

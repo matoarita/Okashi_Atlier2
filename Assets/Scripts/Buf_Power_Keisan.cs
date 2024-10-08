@@ -1206,7 +1206,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         else
         {
             hikari_okashiLV = GameMgr.hikarimakeokashi_nowlv;
-            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 3.0f); //LV1~9までで、1.0~1.3倍まで上昇
+            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.8f); //LV1~9までで、1.0~1.8倍まで上昇
         }
 
         return _buf_hikari_okashi_paramup;
