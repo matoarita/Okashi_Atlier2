@@ -227,6 +227,11 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_OkashiSubType_Num = 0;
                 Etc_Text();
                 break;
+            case "Appaleil_Icecream":
+                GameMgr.Item_subcategoryText = "アイス水溶液";
+                GameMgr.Item_OkashiSubType_Num = 0;
+                Etc_Text();
+                break;
             case "Pate":
                 GameMgr.Item_subcategoryText = "生地";
                 GameMgr.Item_OkashiSubType_Num = 0;

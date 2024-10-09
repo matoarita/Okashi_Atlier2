@@ -34,7 +34,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private int _cullent_minute;
     private int _stage_limit_day;
     private int month, day;
-    private int hour, minute;
+    private int hour, minute, second;
     private int cullent_hour_clock;
 
     private int limit_month, limit_day;
@@ -1282,6 +1282,33 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         GameMgr.Contest_OrganizeDay = day;
     }
 
+    //入れた時間（秒数）を時間/分/秒になおす
+    public void SetPlayTime(int _time)
+    {
+        minute = 0;
+        hour = 0;
+        second = 0;
+
+        while (_time > 3600) //3600秒より大きいならその分を減らし、hourのカウントを+1
+        {
+            _time -= 3600;
+            hour++;
+        }
+
+        while (_time > 60) //60秒より大きいならその分を減らし、minuteのカウントを+1
+        {
+            _time -= 60;
+            minute++;
+        }
+
+        second = _time;
+
+        //残った秒が秒数
+        GameMgr.System_tempTime_Hour = hour;
+        GameMgr.System_tempTime_Minute = minute;
+        GameMgr.System_tempTime_Second = second;
+
+    }
 
     void GameSpeedRange()
     {

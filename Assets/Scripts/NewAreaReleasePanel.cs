@@ -42,6 +42,10 @@ public class NewAreaReleasePanel : MonoBehaviour {
     void Update () {
 		
 	}
+    public void Set_PatissierRank(string _prank_text)
+    {
+        rank_toptext.text = "ランクが　" + _prank_text + "　になりました！";
+    }
 
     public void Set_GohoubiPanel(string _gohoubitext, Sprite _icon)
     {

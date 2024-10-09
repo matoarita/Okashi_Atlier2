@@ -69,6 +69,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
     private int i, count;
     private int _itemID;
+    private string _saveslotname;
+    private string _loadslotname;
 
     // Use this for initialization
     void Start () {
@@ -118,9 +120,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 	}
 
     //セーブ処理
-    public void OnSaveMethod()
+    public void OnSaveMethod(int _slot)
     {
         GameMgr.saveOK = true;
+        GameMgr.System_save_nowslot = _slot;
 
         //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
         DataBank bank = DataBank.Open();
@@ -522,8 +525,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //ゲームスピード
             save_GameSpeedParam = GameMgr.GameSpeedParam,
 
+            //ストーリーモード
+            save_Story_Mode = GameMgr.Story_Mode,
+
             //セーブしたシーンの場所
             save_Scene_Name = GameMgr.Scene_Name,
+
+            //ゲーム内プレイ時間
+            save_Game_timeCount = GameMgr.Game_timeCount,
         };
 
         //デバッグ用
@@ -531,12 +540,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //Debug.Log(playerData);
 
         //データの一時保存。bankに、playerDataを「player1」という名前で現在のデータを保存。
-        bank.Store("player1", playerData);
+        _saveslotname = "player" + _slot.ToString();
+        bank.Store(_saveslotname, playerData);
         Debug.Log("bank.Store()");
 
         //一時データを永続的に保存。永続保存するときは、一度、一時データに保存しておく。
-        bank.Save("player1");
-        Debug.Log("bank.Save(player1)");
+        bank.Save(_saveslotname);
+        Debug.Log("bank.Save" + " " + _saveslotname);
 
         //システムデータもセーブ
         SystemsaveCheck();
@@ -544,20 +554,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     }
 
     //ロード処理
-    public void OnLoadMethod()
+    public void OnLoadMethod(int _slot)
     {
         //ロード前は一度初期化
         ResetAllParam();
 
         SystemloadCheck(); //システムデータロード
-        PlayerDataLoad();
+        PlayerDataLoad(_slot);
         
 
         //セーブデータがあるかチェック
         if (GameMgr.saveOK)
         {
             LoadingContents();
-            Debug.Log("ロード完了");
+            //Debug.Log("ロード完了");
         }
         else
         {
@@ -1032,8 +1042,22 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         if (playerData.save_GameSpeedParam < 1 || playerData.save_GameSpeedParam > 6) { GameMgr.GameSpeedParam = 3; } //例外処理
         else { GameMgr.GameSpeedParam = playerData.save_GameSpeedParam; }
 
+        //ストーリーモード
+        if (GameMgr.Load_GameVersion >= 1.20f) //バージョン1.2以降で追加したので、それ以前のセーブデータではstory_modeは0に。
+        {
+            GameMgr.Story_Mode = playerData.save_Story_Mode;
+        }
+        else //そもそも古いバージョンではセーブデータ自体がない。その場合、デタラメな数値が入る可能性があるので、その際の例外処理
+        {
+            GameMgr.Story_Mode = 0; //強制的に本編のモードに。
+        }
+
+        //ゲーム内プレイ時間
+        GameMgr.Game_timeCount = playerData.save_Game_timeCount;
+
         //セーブしたシーンの場所
         GameMgr.Scene_Name = playerData.save_Scene_Name;
+        //Debug.Log("Scene name: " + GameMgr.Scene_Name);
 
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
@@ -1050,6 +1074,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         
         //まずはシーンを移動する。その後、移動先シーンからDrawGameScreenを読み出し
         GameMgr.GameLoadOn = true;
+        FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene(GameMgr.Scene_Name, 0.3f);
         
     }
@@ -1206,8 +1231,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     }
 
     //ロードの準備
-    void PlayerDataLoad()
+    void PlayerDataLoad(int _slotnum)
     {
+        GameMgr.System_save_nowslot = _slotnum;
+
         //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
         DataBank bank = DataBank.Open();
 
@@ -1218,14 +1245,60 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         playerData = new PlayerData();
 
         //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
-        bank.Load<PlayerData>("player1");
-        //Debug.Log("ロード完了");
-
+        _loadslotname = "player" + _slotnum.ToString();
+        bank.Load<PlayerData>(_loadslotname);
+        
         //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
-        playerData = bank.Get<PlayerData>("player1");
+        playerData = bank.Get<PlayerData>(_loadslotname);
+        Debug.Log("ロード完了" + " " + _loadslotname);
 
     }
 
+    //セーブデータのチェック　セーブの有無 セーブロードパネルから読み込み
+    public void PlayerDataSaveCheck()
+    {
+        //セーブデータを管理するデータバンクのインスタンスを取得します(シングルトン)
+        DataBank bank = DataBank.Open();
+
+        Debug.Log("DataBank.Open()");
+        Debug.Log($"save path of bank is { bank.SavePath }");
+
+        //初期化(念のため)
+        playerData = new PlayerData();
+
+        //全セーブデータ16個を先に読み、セーブがあるかどうかを確認する
+        for (i = 0; i < GameMgr.System_SaveSlot_Count; i++)
+        {
+            //永続的に保存しておいたデータを、一時データに読み込む。bankに読み込まれる。
+            bank.Load<PlayerData>("player" + i.ToString());
+            //Debug.Log("ロード完了");
+
+            //一時データに再度読み込んだので、Getすると、再びパラメータを取得できる。
+            playerData = bank.Get<PlayerData>("player" + i.ToString());
+
+            if (playerData != null) //nullでなければセーブはある
+            {
+                Debug.Log("セーブスロット: " + "player" + i.ToString() + " 〇");
+
+                GameMgr.System_savepanel_slot[i] = true;
+                GameMgr.System_savepanel_playtime[i] = playerData.save_Game_timeCount;
+            }
+            else
+            {
+                GameMgr.System_savepanel_slot[i] = false;
+                Debug.Log("セーブスロット: " + "player" + i.ToString() + " Non");
+            }
+        }
+
+    }
+
+
+
+
+
+    //
+    //システムデータ関連//
+    //
 
     //システムデータのセーブ
     public void SystemsaveCheck()
@@ -1389,9 +1462,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_BGMVolumeParam = GameMgr.BGMVolumeParam,
             save_SeVolumeParam = GameMgr.SeVolumeParam,
             save_AmbientVolumeParam = GameMgr.AmbientVolumeParam,
-
-            //ストーリーモード
-            save_Story_Mode = GameMgr.Story_Mode,
 
             //バージョン情報
             save_GameVersion = GameMgr.GameVersion,
@@ -1652,17 +1722,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.MasterVolumeParam = systemData.save_masterVolumeparam;
             GameMgr.BGMVolumeParam = systemData.save_BGMVolumeParam;
             GameMgr.SeVolumeParam = systemData.save_SeVolumeParam;
-            GameMgr.AmbientVolumeParam = systemData.save_AmbientVolumeParam;
-
-            //ストーリーモード
-            if (GameMgr.Load_GameVersion >= 1.20f) //バージョン1.2以降で追加したので、それ以前のセーブデータではstory_modeは0に。
-            {
-                GameMgr.Story_Mode = systemData.save_Story_Mode;
-            }
-            else //そもそも古いバージョンではセーブデータ自体がない。その場合、デタラメな数値が入る可能性があるので、その際の例外処理
-            {
-                GameMgr.Story_Mode = 0; //強制的に本編のモードに。
-            }        
+            GameMgr.AmbientVolumeParam = systemData.save_AmbientVolumeParam;   
 
             
             Debug.Log("システムロード完了");

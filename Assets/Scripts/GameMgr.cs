@@ -94,6 +94,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float System_magic_playtime_default = 2.0f;
     public static float System_magic_playtime_def01 = 3.0f;
 
+    //セーブ個数
+    public static int System_SaveSlot_Count = 14;
+
     //** --ここまで-- **//
 
 
@@ -137,6 +140,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;
+
+    //ゲーム内プレイ時間　はじめからおすとカウント開始
+    public static int Game_timeCount; 
 
     //オートセーブのON/OFF
     public static bool AUTOSAVE_ON = false; //シーンからメインに戻ってきたときや、採取から帰ってきたときにオートセーブするかどうか
@@ -719,6 +725,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Before_Patissier_Rank; //コンテスト前のパティシエランク　優勝などしたあと、スター獲得してランクも変動する　そのレベルチェック用
     public static bool MazuiFlag_ON; //30点以下の時にフラグがたつ　まずかったとき
     public static int GirlLoveEvent_bunki_status; //0だと通常のGirlLoveEvent、1だと、家に帰ってきたときに発生するイベント
+    public static int SaveLoadPanel_mode; //数字でセーブ画面を開いているか、ロード画面を開いているかを指定
+    public static int System_tempTime_Hour; //入れた秒数を時間/分/秒に戻してリターンする用の変数 TimeControllerで使用してる
+    public static int System_tempTime_Minute; //返り値が複数種類なので、GameMgrを介している
+    public static int System_tempTime_Second;
 
 
     //一時フラグ　アイテムDB関連
@@ -770,7 +780,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     private int ev_id;
 
     private float timeLeft;
-    public static int Game_timeCount; //ゲーム内プレイ時間　はじめからおすとカウント開始
 
     //ゲームの現在の状態を表すステータス
     public static int compound_status; //メイン　各シーン共通で使われるので注意。
@@ -883,6 +892,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int Shopday; //ショップ入ったら更新する日付。その日を記録する。
     public static bool Sale_ON; //セール判定　日付をまたいだら、OFFに。
+
+    //セーブパネル表示用
+    public static bool[] System_savepanel_slot = new bool[System_SaveSlot_Count]; //そこのスロットにセーブデータがあるかどうか
+    public static string[] System_savepanel_title = new string[System_SaveSlot_Count];
+    public static int[] System_savepanel_playtime = new int[System_SaveSlot_Count];
+    public static int System_save_nowslot; //現在使用しているセーブスロット　セーブしたときにスロット番号も更新　オートセーブでここの番号を使用
 
     //ロードしたセーブデータのバージョン情報
     public static float Load_GameVersion;
@@ -1550,6 +1565,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             CollectionItems.Add(false);
         }
+
+        //セーブデータの有無確認フラグ
+        for (system_i = 0; system_i < System_savepanel_slot.Length; system_i++)
+        {
+            System_savepanel_slot[system_i] = false;
+        }
+        System_save_nowslot = 0;
 
         //飾りアイテムの初期化
         /*for (system_i = 0; system_i < DecoItems.Length; system_i++)

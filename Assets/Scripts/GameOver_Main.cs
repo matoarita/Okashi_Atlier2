@@ -58,6 +58,6 @@ public class GameOver_Main : MonoBehaviour {
     public void LoadButton()
     {
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
-        save_controller.OnLoadMethod();
+        save_controller.OnLoadMethod(GameMgr.System_save_nowslot);
     }
 }

@@ -812,7 +812,7 @@ public class Compound_Main : MonoBehaviour
             //オートセーブ
             if (GameMgr.AUTOSAVE_ON)
             {
-                save_controller.OnSaveMethod();
+                save_controller.OnSaveMethod(GameMgr.System_save_nowslot);
                 Debug.Log("オートセーブ完了");
 
                 AutoSaveCompleteText();
@@ -1732,7 +1732,7 @@ public class Compound_Main : MonoBehaviour
                     //オートセーブ
                     if (GameMgr.AUTOSAVE_ON)
                     {
-                        save_controller.OnSaveMethod();
+                        save_controller.OnSaveMethod(GameMgr.System_save_nowslot);
                         Debug.Log("オートセーブ完了");
 
                         AutoSaveCompleteText();
@@ -3244,6 +3244,7 @@ public class Compound_Main : MonoBehaviour
                 newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜春エリア＞";
                 newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                 newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
+                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num+1]);
                 matplace_database.matPlaceKaikin("Aquamarine_Lake");
                 break;
 
@@ -3254,6 +3255,7 @@ public class Compound_Main : MonoBehaviour
                 newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜夏エリア＞";
                 newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                 newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
+                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num + 1]);
                 matplace_database.matPlaceKaikin("Emerald_Forest");
                 break;
 
@@ -3264,6 +3266,7 @@ public class Compound_Main : MonoBehaviour
                 newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜秋エリア＞";
                 newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                 newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
+                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num + 1]);
                 matplace_database.matPlaceKaikin("Amber_Lake");
                 break;
 
@@ -3274,6 +3277,7 @@ public class Compound_Main : MonoBehaviour
                 newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜冬エリア＞";
                 newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                 newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
+                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num + 1]);
                 matplace_database.matPlaceKaikin("MoonStone_Hill");
 
                 //ダイヤモンド山
@@ -3281,6 +3285,7 @@ public class Compound_Main : MonoBehaviour
                 newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜冬エリア＞";
                 newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                 newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
+                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num + 1]);
                 matplace_database.matPlaceKaikin("Diamond_Mountain");
                 break;
         }

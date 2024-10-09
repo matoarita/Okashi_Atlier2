@@ -20,6 +20,7 @@ public class SystemSelectPanel : MonoBehaviour {
 
     private Compound_Main compound_Main;
 
+    private GameObject saveload_panel;
     private GameObject option_panel;
     private GameObject extraoption_panel;
     private GameObject titleback_panel;
@@ -32,6 +33,16 @@ public class SystemSelectPanel : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        
+    }
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    void Setting_init()
+    {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
@@ -49,7 +60,7 @@ public class SystemSelectPanel : MonoBehaviour {
         //オプションパネルの取得
         extraoption_panel = canvas.transform.Find("OptionPanel/ExtraOptionList").gameObject;
 
-        titleback_panel = canvas.transform.Find("SystemPanel/TitleBackKakunin").gameObject;
+        titleback_panel = canvas.transform.Find("SystemPanel/SystemSelectPanel/TitleBackKakunin").gameObject;
         titleback_panel.SetActive(false);
         titleback_text = titleback_panel.transform.Find("MessageWindow/Text").GetComponent<Text>();
         yes_text = titleback_panel.transform.Find("Yes_Clear/Text").GetComponent<Text>();
@@ -64,7 +75,12 @@ public class SystemSelectPanel : MonoBehaviour {
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
-        no_button = canvas.transform.Find("SystemPanel/No").gameObject;
+        no_button = canvas.transform.Find("SystemPanel/SystemSelectPanel/No").gameObject;
+        no_button.SetActive(true);
+
+        //セーブロードパネルの取得
+        saveload_panel = canvas.transform.Find("SystemPanel/SaveLoadPanel").gameObject;
+        saveload_panel.SetActive(false);
 
         loadButton_obj = this.transform.Find("Scroll View/Viewport/Content/LoadButton").gameObject;
 
@@ -81,20 +97,11 @@ public class SystemSelectPanel : MonoBehaviour {
 
         CheckButtonStatus();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     private void OnEnable()
     {
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-        no_button = canvas.transform.Find("SystemPanel/No").gameObject;
-        no_button.SetActive(true);
-
-        CheckButtonStatus();
+        Setting_init();
+        
     }
 
     void CheckButtonStatus()
@@ -109,26 +116,32 @@ public class SystemSelectPanel : MonoBehaviour {
         }
     }
 
-    //セーブ
+    //セーブ用画面を開く
     public void OnSaveButton()
     {
-        titleback_panel.SetActive(true);
+        GameMgr.SaveLoadPanel_mode = 0;
+        saveload_panel.SetActive(true);
+
+        /*titleback_panel.SetActive(true);
         titleback_text.text = "セーブするの？";
         yes_text.text = "セーブする";
         no_button.SetActive(false);
 
-        StartCoroutine("Save_kakunin");       
+        StartCoroutine("Save_kakunin");*/
     }
 
-    //ロード
+    //ロード用画面を開く
     public void OnLoadButton()
     {
-        titleback_panel.SetActive(true);
+        GameMgr.SaveLoadPanel_mode = 1;
+        saveload_panel.SetActive(true);
+
+        /*titleback_panel.SetActive(true);
         titleback_text.text = "ロードするの？";
         yes_text.text = "ロードする";
         no_button.SetActive(false);
 
-        StartCoroutine("Load_kakunin");
+        StartCoroutine("Load_kakunin");*/
     }
 
     //オプション
@@ -159,6 +172,7 @@ public class SystemSelectPanel : MonoBehaviour {
         
     }
 
+    /*
     IEnumerator Save_kakunin()
     {
 
@@ -250,7 +264,7 @@ public class SystemSelectPanel : MonoBehaviour {
 
                 break;
         }
-    }
+    }*/
 
     IEnumerator Title_kakunin()
     {

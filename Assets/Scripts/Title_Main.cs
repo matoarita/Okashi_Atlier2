@@ -17,6 +17,8 @@ public class Title_Main : MonoBehaviour {
 
     private Girl1_status girl1_status;
 
+    private GameObject system_panel;
+    private GameObject saveload_panel;
     private GameObject option_panel_obj;
     private GameObject galleryButton_obj;
     private GameObject freeModeButton_obj;
@@ -60,6 +62,9 @@ public class Title_Main : MonoBehaviour {
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子   
 
+        system_panel = canvas.transform.Find("SystemPanel").gameObject;
+        saveload_panel = canvas.transform.Find("SystemPanel/SaveLoadPanel").gameObject;
+        saveload_panel.SetActive(false);
         option_panel_obj = canvas.transform.Find("OptionPanel").gameObject;
         galleryButton_obj = canvas.transform.Find("TitleMenu/Viewport/Content/GalleryButton").gameObject;
         freeModeButton_obj = canvas.transform.Find("TitleMenu/Viewport/Content/GameStartButton_2").gameObject;
@@ -180,8 +185,11 @@ public class Title_Main : MonoBehaviour {
 
     public void OnLoadButton()
     {
-        FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
-        save_controller.OnLoadMethod();
+        GameMgr.SaveLoadPanel_mode = 1;
+        saveload_panel.SetActive(true);
+
+        //FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
+        //save_controller.OnLoadMethod(GameMgr.System_save_nowslot);
 
     }
 

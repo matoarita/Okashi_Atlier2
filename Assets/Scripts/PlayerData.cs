@@ -368,6 +368,9 @@ public class PlayerData
     //ストーリーモード
     public int save_Story_Mode;
 
+    //ゲーム内プレイ時間
+    public int save_Game_timeCount;
+
     //セーブした場所
     public string save_Scene_Name;
 
