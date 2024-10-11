@@ -1424,28 +1424,28 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.1f);
                     debug_money_text = "(基準値 * 1.1f)";
-                    _getNinki = 1;
+                    _getNinki = 0;
                     _kanso = "ありがとう！　お客さん、気に入ってたみたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 80 && okashi_totalscore < GameMgr.high_score) //80~100
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.35f);
                     debug_money_text = "(基準値 * 1.35)";
-                    _getNinki = 1;
+                    _getNinki = 0;
                     _kanso = "ありがとう！お客さん、大喜びだったわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";                    
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 120) //100~120
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.5f);
                     debug_money_text = "(基準値 * 1.5f)";
-                    _getNinki = 1;
+                    _getNinki = 0;
                     _kanso = "ありがとう！とても良い出来みたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 120 && okashi_totalscore < 150) //100~120
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * 1.75f);
                     debug_money_text = "(基準値 * 1.75f)";
-                    _getNinki = 1;
+                    _getNinki = 0;
                     _kanso = "グレイトだわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 200) //120~150
@@ -1473,7 +1473,7 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     _getMoney = (int)(_buy_price * _kosu_default * (okashi_totalscore / 100) * 2.5f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 2.5f)";
-                    _getNinki = 2;
+                    _getNinki = 3;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
@@ -1519,7 +1519,7 @@ public class Quest_Judge : MonoBehaviour {
                     sc.PlaySe(88);
 
                 }
-                else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 200) //ハイスコア
+                else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 250) //ハイスコア
                 {
                     sc.PlaySe(76);
                     sc.PlaySe(31);
@@ -1648,8 +1648,11 @@ public class Quest_Judge : MonoBehaviour {
         //ハートも少しプラス
         PlayerStatus.girl1_Love_exp += _getHeart;
 
-        //名声をプラスかマイナス。0は変化なし
-        //ninkiStatus_Controller.GetNinki(_getNinki);           
+        if (GameMgr.System_QuestStarGet_ON)
+        {
+            //名声をプラスかマイナス。0は変化なし
+            ninkiStatus_Controller.GetNinki(_getNinki);
+        }
 
         ResetQuestStatus();
     }

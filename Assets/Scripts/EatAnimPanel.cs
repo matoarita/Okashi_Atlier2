@@ -1,17 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EatAnimPanel : MonoBehaviour {
 
     private SoundController sc;
     private GameObject EatStartEffect;
 
+    private Image PlateImg;
+
+    private Sprite _plate_sprite1;
+    private Sprite _plate_sprite2;
+
     // Use this for initialization
     void Start () {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        PlateImg = this.transform.Find("Plate").GetComponent<Image>();
 
         EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
         EatStartEffect.SetActive(false);

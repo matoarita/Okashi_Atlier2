@@ -443,7 +443,7 @@ public class Hiroba_Main3 : MonoBehaviour
 
                     //下は、使うときだけtrueにすればOK
                     GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                    GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
+                    GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[0];//GirlLikeSetの番号を直接指定
                     GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
                 }
                 else
@@ -898,7 +898,7 @@ public class Hiroba_Main3 : MonoBehaviour
 
                     //下は、使うときだけtrueにすればOK
                     GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                    GameMgr.KoyuJudge_num = GameMgr.Mose_Okashi_num01;//GirlLikeSetの番号を直接指定
+                    GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[0];//GirlLikeSetの番号を直接指定
                     GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
                 }
                 else

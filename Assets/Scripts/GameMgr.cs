@@ -42,7 +42,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_ExtraResult_ON = false; //エクストラ　道中クエストのリザルト画面とご褒美画面をONにする。
     public static bool System_ExtraStageClearResult_ON = false; //エクストラ　ステージクリア時にリザルト画面とご褒美画面をONにする。
     public static bool System_GameOver_ON = false; //エクストラ　ゲームオーバーのONOFF
-    public static bool System_HikariMake_OnichanTimeCost_ON = true; //エクストラ　おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
+    public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
     public static bool System_Shiokuri_ON = false; //仕送りの有無
@@ -50,6 +50,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
+    public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -96,6 +97,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //セーブ個数
     public static int System_SaveSlot_Count = 14;
+
+    //条件競売のスコア
+    public static int joukenkyobai_enemy_score = 258;
 
     //** --ここまで-- **//
 
@@ -833,11 +837,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static Dictionary<int, int> Hikariokashi_Exptable2 = new Dictionary<int, int>();
 
     //各NPCお菓子判定番号
-    public static int Mose_Okashi_num01;
-    public static int Shop_Okashi_num01;
-    public static int Shop_Okashi_num02;
-    public static int Farm_Okashi_num01;
-    public static int Bar_Okashi_num01;
+    public static int[] NPC_OkashiJudge_num = new int[NpcEvent_people_num];
 
     //女の子の名前
     public static string mainGirl_Name;
@@ -1958,11 +1958,17 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各サブイベントのNPCのお菓子判定番号
     public static void InitSubNPCEvent_OkashiJudgeLibrary()
     {
-        Mose_Okashi_num01 = 100000; //モーセ
-        Shop_Okashi_num01 = 100010; //プリンさん　エクストラ　クエストNo11 お茶会用
-        Shop_Okashi_num02 = 100011; //プリンさん　エクストラ　クエストNo11 お茶会用
-        Farm_Okashi_num01 = 100020; //モタリケさん　エクストラ
-        Bar_Okashi_num01 = 100030; //フィオナさん　エクストラ
+        for (system_i = 0; system_i < NPC_OkashiJudge_num.Length; system_i++)
+        {
+            NPC_OkashiJudge_num[0] = 0;
+        }
+
+        NPC_OkashiJudge_num[0] = 100000; //モーセ
+        NPC_OkashiJudge_num[1] = 100010; //プリンさん　エクストラ　クエストNo11 お茶会用
+        NPC_OkashiJudge_num[2] = 100011; //プリンさん　エクストラ　クエストNo11 お茶会用
+        NPC_OkashiJudge_num[3] = 100020; //モタリケさん　エクストラ
+        NPC_OkashiJudge_num[4] = 100030; //フィオナさん　エクストラ
+        NPC_OkashiJudge_num[50] = 100040; //条件競売01
     }
 
     //ミラボ先生のプレゼントリストの初期化　メイン魔法の本

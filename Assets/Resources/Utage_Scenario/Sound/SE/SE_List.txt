@@ -132,7 +132,7 @@ SE表
 ・SE_130	audiostock_1411314				魔法発動音１
 ・SE_131	audiostock_1285222				魔法調合の完成音
 ・SE_132	audiostock_825112				魔法発動音２
-・SE_133	audiostock_1382587_sample			【未使用？】魔法発動音３
+・SE_133	audiostock_1382587_sample			※【未使用？】魔法発動音３
 ・SE_134	audiostock_718349				観客ブーイング音
 ・SE_135	sei_ge_doa_kisimi05				ドアのきしむ音
 ・SE_136	sei_ge_doa_kisimi02				ドアのきしむ音２
@@ -147,8 +147,8 @@ SE表
 ・SE_145	Wind_Chimes02-01(Up-Wide)			魔法を使うときのキラキラウィンドチャイム音
 ・SE_146	audiostock_1411314				【宴用】魔法発動音１　SE130と一緒
 ・SE_147	audiostock_5538.mp3				【宴用】失敗爆発音　SE21と一緒
-・SE_148	audiostock_1488438_sample			魔法選択時の決定音２ 現在未使用
-・SE_149	audiostock_823846_sample			魔法選択時の決定音　現在未使用
+・SE_148	audiostock_1488438_sample			※魔法選択時の決定音２ 現在未使用
+・SE_149	audiostock_823846_sample			※魔法選択時の決定音　現在未使用
 ・SE_150	刀で打ち合う3					カタナがぶつかるようなカキン音
 ・SE_151	audiostock_813342				コンテスト会場入るときのドアベル音
 ・SE_152	蒸気機関車の汽笛1				蒸気機関車の汽笛の音
@@ -158,3 +158,5 @@ SE表
 ・SE_156	sei_ge_doa_nokku_dondon01			ドアを激しくノックする音
 ・SE_157	audiostock_52742				蒸気機関車のブレーキ音
 ・SE_158	audiostock_836229_sample			ポコっと軽くこずく音
+・SE_159	audiostock_972326_sample			回復する音
+・SE_160	Explosion02-1(Long)				爆発音

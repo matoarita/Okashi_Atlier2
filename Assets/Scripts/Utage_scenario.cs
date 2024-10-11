@@ -3033,15 +3033,39 @@ public class Utage_scenario : MonoBehaviour
             case 1600: //Or露店りんごあめ
 
                 scenarioLabel = "Or_NPC110_roten_ringoame";
+
+                if (pitemlist.KosuCountEvent("applecandy_recipi") >= 1)
+                {
+                    roten_flag_num = 0; //二回目以降は、体力全回復
+                }
+                else
+                {
+                    roten_flag_num = 160001; //りんごあめのレシピをまだもってない
+                }
                 break;
 
             case 1601: //Or露店じゃがバター
 
                 scenarioLabel = "Or_NPC111_roten_potatobutter";
 
+                
                 if (pitemlist.KosuCountEvent("potatebutter_recipi") >= 1)
                 {
-                    roten_flag_num = 0; //二回目以降は、体力全回復
+                    if (GameMgr.NPC_FriendPoint[1] >= 65)
+                    {
+                        if (pitemlist.KosuCountEvent("potatemix_recipi") >= 1)
+                        {
+                            roten_flag_num = 0; //二回目以降は、体力全回復
+                        }
+                        else
+                        {
+                            roten_flag_num = 160102; //ポテト宝石箱のレシピをまだもってない
+                        }
+                    }
+                    else
+                    {
+                        roten_flag_num = 0; //二回目以降は、体力全回復
+                    }
                 }
                 else
                 {
@@ -3062,20 +3086,35 @@ public class Utage_scenario : MonoBehaviour
                     roten_flag_num = 160201; //クレープのレシピをまだもってない
                 }
 
-                if (pitemlist.KosuCountEvent("choco_crepe_recipi") >= 1)
-                {
-                    roten_flag_num = 0;
-                }
-                else
-                {
-                    roten_flag_num = 160210; //クレープのレシピをまだもってない
-                }
-
                 break;
 
             case 1603: //Or露店ジェラート屋
 
                 scenarioLabel = "Or_NPC113_roten_gelato";
+
+                if(GameMgr.NPC_FriendPoint[4] >= 55) //友好度が55以上でジェラート買うと、レシピをもらえる
+                {
+                    if (pitemlist.KosuCountEvent("gelato_recipi") >= 1)
+                    {
+                        roten_flag_num = 0; //二回目以降は、体力回復
+                    }
+                    else
+                    {
+                        roten_flag_num = 160302; //ジェラートのレシピをまだもってない
+                    }
+                }
+                else
+                {
+                    if (GameMgr.NPC_FriendPoint[4] == 50) //50始まりなので気を付ける
+                    {
+                        roten_flag_num = 160301; //はじめてジェラート食べる
+                    }
+                    else
+                    {
+                        roten_flag_num = 0; //友好度がまだたりてないとレシピはもらえない。体力回復
+                    }
+                }
+                
                 break;
 
             case 1604: //Or露店条件競売
@@ -3098,7 +3137,7 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC120_summer_gentleman";
                 break;
 
-            case 1700: //Or広場エリア入口　夏
+            case 1700: //Or広場エリア入口
 
                 scenarioLabel = "Hiroba_Or_AreaEnter";
                 break;
@@ -3484,6 +3523,19 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(1000);
+                        GameMgr.NPC_FriendPoint[2] += 2; //友好度上がる
+
+                        if (roten_flag_num == 160001)
+                        {
+                            if (pitemlist.KosuCountEvent("applecandy_recipi") <= 0)
+                            {
+                                pitemlist.add_eventPlayerItemString("applecandy_recipi", 1); //りんごあめのレシピをゲット
+                            }
+                        }
+                        else if (roten_flag_num == 0)
+                        {
+                            PlayerStatus.player_girl_lifepoint += 20;
+                        }
                         break;
 
                 }
@@ -3503,7 +3555,8 @@ public class Utage_scenario : MonoBehaviour
                         moneyStatus_Controller.UseMoney(400);
                         GameMgr.NPC_FriendPoint[1] += 1; //友好度上がる
 
-                        PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_lifepoint + (PlayerStatus.player_girl_maxlifepoint / 2); //体力半分回復
+                        //PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_lifepoint + (PlayerStatus.player_girl_maxlifepoint / 2); //体力半分回復
+                        PlayerStatus.player_girl_lifepoint += 10; //体力+10
                         break;
 
                     case 2: //ポテトの宝石箱
@@ -3518,9 +3571,17 @@ public class Utage_scenario : MonoBehaviour
                                 pitemlist.add_eventPlayerItemString("potatebutter_recipi", 1); //じゃがバターのレシピをゲット
                             }
                         }
+                        else if (roten_flag_num == 160102)
+                        {
+                            if (pitemlist.KosuCountEvent("potatemix_recipi") <= 0)
+                            {
+                                pitemlist.add_eventPlayerItemString("potatemix_recipi", 1); //ポテトの宝石箱のレシピをゲット
+                            }
+                        }
                         else if (roten_flag_num == 0)
                         {
-                            PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;
+                            //PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;
+                            PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_lifepoint + (PlayerStatus.player_girl_maxlifepoint / 2); //体力半分回復
                         }
                         break;
 
@@ -3539,6 +3600,7 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(1200);
+                        GameMgr.NPC_FriendPoint[3] += 2; //友好度上がる
 
                         if (roten_flag_num == 160201)
                         {
@@ -3547,19 +3609,28 @@ public class Utage_scenario : MonoBehaviour
                                 pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
                             }
                         }
+                        else if (roten_flag_num == 0)
+                        {
+                            PlayerStatus.player_girl_lifepoint += 20;
+                        }
 
                         break;
 
                     case 2: //のる
 
                         moneyStatus_Controller.UseMoney(1500);
+                        GameMgr.NPC_FriendPoint[3] += 3; //友好度上がる
 
-                        if (roten_flag_num == 160210)
+                        if (roten_flag_num == 160201)
                         {
                             if (pitemlist.KosuCountEvent("crepe_recipi") <= 0)
                             {
                                 pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
                             }
+                        }
+                        else if (roten_flag_num == 0)
+                        {
+                            PlayerStatus.player_girl_lifepoint += 30;
                         }
 
                         break;
@@ -3579,6 +3650,20 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(1000);
+                        GameMgr.NPC_FriendPoint[4] += 2; //友好度上がる
+
+                        if (roten_flag_num == 160302)
+                        {
+                            if (pitemlist.KosuCountEvent("gelato_recipi") <= 0)
+                            {
+                                pitemlist.add_eventPlayerItemString("gelato_recipi", 1); //ジェラートのレシピをゲット
+                                magicskill_database.skillHyoujiKaikin("Freezing_OverRun"); //ジェラートフリーズ解禁
+                            }
+                        }
+                        else if (roten_flag_num == 0 || roten_flag_num == 160301)
+                        {
+                            PlayerStatus.player_mp = PlayerStatus.player_mp + (PlayerStatus.player_maxmp / 2); //ジェラットはMP回復
+                        }
                         break;
 
                 }
@@ -3593,9 +3678,15 @@ public class Utage_scenario : MonoBehaviour
 
                         break;
 
-                    case 1: //のる
+                    case 1: //負けた
 
                         moneyStatus_Controller.UseMoney(2000);
+                        break;
+
+                    case 2: //勝った
+
+                        moneyStatus_Controller.GetMoney(20000);
+                        //なんらかのさねじろう先生フラグがたってもいいかも。
                         break;
 
                 }
@@ -4844,7 +4935,7 @@ public class Utage_scenario : MonoBehaviour
             //続きから再度読み込み
             engine.ResumeScenario();
         }
-        else //いく場合(プレゼントあげる）
+        else //いく場合(もしくは、プレゼントあげる場合）
         {
             canvas.SetActive(true);
 
@@ -5051,6 +5142,11 @@ public class Utage_scenario : MonoBehaviour
                     break;
 
                 //以下オランジーナ関連
+
+                case 1604: //Or露店条件競売
+
+                    NPCJoukenKyobai_Clearcheck();
+                    break;
 
                 case 2100: //Or広場ブロック解放イベント
 
@@ -5327,15 +5423,13 @@ public class Utage_scenario : MonoBehaviour
                     NPCevent_okashicheck = true;
                     GameMgr.shop_event_ON = true;
                     GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-                    GameMgr.KoyuJudge_num = GameMgr.Shop_Okashi_num02;//GirlLikeSetの番号を直接指定
+                    GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[2];//GirlLikeSetの番号を直接指定
                     GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
                     PitemPresentJudge();
                 }
             }
             else
             {
-                //もっかい、今度は妹のお菓子の判定値で判定
-                //total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
 
                 if (total_score < GameMgr.mazui_score) //まずい
                 {
@@ -5516,6 +5610,40 @@ public class Utage_scenario : MonoBehaviour
             }
             Debug.Log("フィオナ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
         }
+    }
+
+    void NPCJoukenKyobai_Clearcheck()
+    {
+        total_score = total_score / 3; //得点を単純に1/3にされる
+
+        if (!GameMgr.NPC_DislikeFlag) //あげたお菓子が好みと違う
+        {
+            GameMgr.event_judge_status = 100;
+            Debug.Log("あげたお菓子が課題と違う");
+        }
+        else
+        {
+            if (total_score >= GameMgr.joukenkyobai_enemy_score)
+            {
+                GameMgr.event_judge_status = 2;
+                //engine.Param.TrySetParameter("EventJudge_Storynum", 100);           
+            }
+            else
+            {
+                if (total_score >= GameMgr.high_score)
+                {
+                    GameMgr.event_judge_status = 1;
+                }
+                else
+                {
+                    GameMgr.event_judge_status = 0;
+                }
+            }
+        }
+
+        engine.Param.TrySetParameter("event_enemy_score", GameMgr.joukenkyobai_enemy_score);
+        engine.Param.TrySetParameter("event_okashi_score", total_score); //点数を再度入れ直し
+        engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
     }
 
     void NPCMagic_MiraboPresentCheck()

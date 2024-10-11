@@ -413,7 +413,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         PrizeNinkiRankList.Add(4, 1.0f); //一位　まるっともらえる
     }
 
-    //トーナメント形式の賞品設定　選手名はContestStartListDBで決める
+    //トーナメント形式の賞品設定　選手名はContestStartListDBで決める 1・2回戦敗退は何ももらえない
     void PrizeSet01()
     {
         //賞品リスト　トーナメントは3回戦なので3つまで。
@@ -608,7 +608,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("pocket_tissue");
         GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("wood_rod_good");
+        GameMgr.PrizeItemList.Add("teaset_wizard");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -808,10 +808,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
+        GameMgr.PrizeItemList.Add("Non"); //5位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("gold_oven");
 
         //賞金リスト 5位から順番に入れる
@@ -819,8 +819,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(800);
+        GameMgr.PrizeGetMoneyList.Add(1500);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -833,7 +833,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("バニラ");
         GameMgr.PrizeCharacterList.Add("戦士ギュント");
-        GameMgr.PrizeCharacterList.Add("ノーマ・リリィ");
+        GameMgr.PrizeCharacterList.Add("ノーマリィ");
         GameMgr.PrizeCharacterList.Add("ウリユ");
     }
 
@@ -842,9 +842,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
+        GameMgr.PrizeItemList.Add("Non"); //5位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("whisk_magic");
         GameMgr.PrizeItemList.Add("gold_oven");
 
@@ -865,7 +865,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ノーマ・リリィ");
+        GameMgr.PrizeCharacterList.Add("ノーマリィ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("ベル");
         GameMgr.PrizeCharacterList.Add("アイリス");
@@ -880,7 +880,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("ice_box");
         GameMgr.PrizeItemList.Add("neko_badge2");
         GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("residual_heatstone");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -892,10 +892,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(67);
+        GameMgr.PrizeScoreAreaList.Add(88);
+        GameMgr.PrizeScoreAreaList.Add(95);
+        GameMgr.PrizeScoreAreaList.Add(120);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();

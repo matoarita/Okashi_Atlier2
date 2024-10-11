@@ -174,7 +174,14 @@ public class StatusPanel : MonoBehaviour {
         InitHikariOkashiParam_View();
 
         HikariParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/HikariParam_Toggle").gameObject;
-        HikariParam_Toggle_obj.SetActive(true);
+        if (GameMgr.System_HikariMakeUse_Flag) //ヒカリお菓子作り解禁
+        {
+            HikariParam_Toggle_obj.SetActive(true);
+        }
+        else
+        {
+            HikariParam_Toggle_obj.SetActive(false);
+        }
 
         /*if(GameMgr.Story_Mode == 1)
         {

@@ -1671,11 +1671,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
     }
 
-    //おかしレベルの経験値とレベルアップ処理　出来たおかしの種類に応じて、そのおかしの経験値もあがる。
+    //おかしレベルの経験値とレベルアップ処理　ヒカリの経験値だけど、おにいちゃんが作っても上がる、という仕様。だったが、現在オフ
     void OkashiExpUp()
     {
+        /*
         _getexp2 = 2;
         hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[result_item].itemType_sub.ToString(), _getexp2, 1, 0);
+        */
     }
 
 

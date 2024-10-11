@@ -28,6 +28,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private string _itemType_sub;
     private string _itemType_subB;
 
+    private float _tempature_param;
+    private float _well_done;
+    private float _best_well_done;
+    private float _well_done_kyori;
+    private float _well_done_kyori_noabs;
+    private float _well_done_kyori_hosei;
+    private float _yonetsu_hosei;
+
     // Use this for initialization
     void Start () {
 
@@ -125,6 +133,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 break;
 
             case "Cake_MatCream":
+
+                KakuritsuUp_CakeMatCream();
+                break;
+
+            case "Parfe":
 
                 KakuritsuUp_CakeMatCream();
                 break;
@@ -257,6 +270,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _magicup = magicskill_database.skillName_SearchLearnLevel("Nappe") * 3; //LV*10
             _buf_kakuritsuup += _magicup;
         }
+    }
+
+    void KakuritsuUp_Parfe()
+    {
+
+        if (pitemlist.KosuCount("glass_bowl") < 1) //所持してないと成功率下がる
+        {
+            _buf_kakuritsuup -= 20;
+        }
+
+
     }
 
 
@@ -454,6 +478,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Coffee":
 
                         CoffeeBeautyBuf();
+                        break;
+                }
+
+                switch (_itemType_sub)
+                {
+                    case "Parfe":
+
+                        ParfeBeautyBuf();
                         break;
                 }
 
@@ -756,6 +788,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             _magicup = magicskill_database.skillName_SearchLearnLevel("Nappe") * 15; //LV*10
             _buf_shokukanup += _magicup;
+        }
+    }
+
+    void ParfeBeautyBuf()
+    {
+        if (pitemlist.KosuCount("glass_bowl") >= 1) //もってないと、見た目が下がる
+        {
+            _buf_shokukanup -= 70;
         }
     }
 
@@ -1210,6 +1250,121 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
 
         return _buf_hikari_okashi_paramup;
+    }
+
+
+    //温度管理によるバフの計算
+    public float TempatureControlKeisan()
+    {
+        _tempature_param = SujiMap(GameMgr.System_tempature_control_Param_temp * GameMgr.System_tempature_control_Param_temp,
+                        GameMgr.System_tempature_control_tempMin * GameMgr.System_tempature_control_tempMin,
+                        GameMgr.System_tempature_control_tempMax * GameMgr.System_tempature_control_tempMax,
+                        2.0f, 5.0f); //ここで焼き具合ゲージを決定してる。
+        _well_done = _tempature_param * GameMgr.System_tempature_control_Param_time;
+
+        Debug.Log("_tempature_param: " + _tempature_param);
+        Debug.Log("_well_done: " + _well_done);
+        Debug.Log("_best_well_done: " + _best_well_done);
+
+        _well_done_kyori = Mathf.Abs(_best_well_done - _well_done); //ベストな焼き具合と、今回の焼き具合との差　差が近いほど、高得点
+        _well_done_kyori_noabs = _best_well_done - _well_done;
+        Debug.Log("ベスト温度との距離: " + _well_done_kyori);
+
+        //余熱石をもってると、さらに温度管理の効果あがる
+        if (pitemlist.KosuCount("residual_heatstone") >= 1) //持ってるだけで効果アップ
+        {
+            _yonetsu_hosei = 1.3f;
+            Debug.Log("余熱石　補正あり: " + _yonetsu_hosei);
+        }
+        else
+        {
+            _yonetsu_hosei = 1.0f;
+            Debug.Log("余熱石　補正なし: " + _yonetsu_hosei);
+        }
+
+        if (_well_done_kyori >= 0 && _well_done_kyori < 3.0)
+        {
+            _well_done_kyori_hosei = 2.0f * _yonetsu_hosei;
+            GameMgr.tempature_control_Param_yakitext = "最高の焼き具合だ。";
+        }
+        else if (_well_done_kyori >= 3.0 && _well_done_kyori < 6.0)
+        {
+            _well_done_kyori_hosei = 1.5f * _yonetsu_hosei;
+            GameMgr.tempature_control_Param_yakitext = "とてもいい焼き具合だ。";
+        }
+        else if (_well_done_kyori >= 6.0 && _well_done_kyori < 10.0)
+        {
+            _well_done_kyori_hosei = 1.35f * _yonetsu_hosei;
+            GameMgr.tempature_control_Param_yakitext = "いい焼き具合に仕上がった。";
+        }
+        else if (_well_done_kyori >= 10.0 && _well_done_kyori < 15.0)
+        {
+            _well_done_kyori_hosei = 1.2f * _yonetsu_hosei;
+            GameMgr.tempature_control_Param_yakitext = "ほどよい焼きに仕上がった。";
+        }
+        else if (_well_done_kyori >= 15.0 && _well_done_kyori < 22.0)
+        {
+            _well_done_kyori_hosei = 1.0f * _yonetsu_hosei;
+            if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+            {
+                GameMgr.tempature_control_Param_yakitext = "もう少し焼いてもよさそう。";
+            }
+            else //-は焼きすぎ
+            {
+                GameMgr.tempature_control_Param_yakitext = "少し焼きが強かったかな。";
+            }
+        }
+        else if (_well_done_kyori >= 22.0 && _well_done_kyori < 30.0)
+        {
+            _well_done_kyori_hosei = 0.9f * _yonetsu_hosei;
+            if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+            {
+                GameMgr.tempature_control_Param_yakitext = "もう少し焼いてもよさそう。";
+            }
+            else //-は焼きすぎ
+            {
+                GameMgr.tempature_control_Param_yakitext = "少し焼きが強かったかな。";
+            }
+        }
+        else if (_well_done_kyori >= 30.0 && _well_done_kyori < 45.0)
+        {
+            _well_done_kyori_hosei = 0.75f * _yonetsu_hosei;
+            if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+            {
+                GameMgr.tempature_control_Param_yakitext = "焼きが足りなさそうだ..。";
+            }
+            else //-は焼きすぎ
+            {
+                GameMgr.tempature_control_Param_yakitext = "焼きすぎたかも。";
+            }
+        }
+        else if (_well_done_kyori >= 45.0 && _well_done_kyori < 60.0)
+        {
+            _well_done_kyori_hosei = 0.5f * _yonetsu_hosei;
+            if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+            {
+                GameMgr.tempature_control_Param_yakitext = "生焼けっぽい..。";
+            }
+            else //-は焼きすぎ
+            {
+                GameMgr.tempature_control_Param_yakitext = "焼きすぎたかな..。";
+            }
+        }
+        else if (_well_done_kyori >= 60.0)
+        {
+            _well_done_kyori_hosei = 0.125f * _yonetsu_hosei;
+            if (_well_done_kyori_noabs >= 0) //+は焼きが足りない
+            {
+                GameMgr.tempature_control_Param_yakitext = "げ..。生焼けだ..。";
+            }
+            else //-は焼きすぎ
+            {
+                GameMgr.tempature_control_Param_yakitext = "げ..。焼きすぎた..。";
+            }
+        }
+        Debug.Log("_well_done_kyori_hosei（温度で食感にかかる補正値*）: " + _well_done_kyori_hosei);
+
+        return _well_done_kyori_hosei;
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
