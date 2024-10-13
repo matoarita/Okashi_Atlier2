@@ -160,3 +160,5 @@ SE表
 ・SE_158	audiostock_836229_sample			ポコっと軽くこずく音
 ・SE_159	audiostock_972326_sample			回復する音
 ・SE_160	Explosion02-1(Long)				爆発音
+・SE_161	audiostock_1314889_sample			だいじなアイテムとったときの音
+・SE_162	PerituneMaterial_J_Heartwarming2		エデンレシピとったときの重要音

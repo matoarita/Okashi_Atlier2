@@ -115,12 +115,13 @@ public class SetImage : MonoBehaviour
     private Text item_Fluffy;
     private Text item_Smooth;
     private Text item_Hardness;
+    private Text item_Beauty;
 
     private Text item_Powdery;
     private Text item_Oily;
     private Text item_Watery;
 
-    private Text item_Beauty;
+    private Text item_Beauty_debug;
     private Text item_Spwind;
     private Text item_Sp_score2;
     private Text item_Sp_score3;
@@ -222,6 +223,7 @@ public class SetImage : MonoBehaviour
     private Slider _Fluffy_slider;
     private Slider _Smooth_slider;
     private Slider _Hardness_slider;
+    private Slider _Beauty_slider;
 
     private Slider _Shokukan_lastslider;
     private Slider _Sweat_lastslider;
@@ -233,7 +235,7 @@ public class SetImage : MonoBehaviour
 
     public Vector3 def_scale; //cardview.csからも指定できる
 
-    private int _slot_beauty;
+    private int _slot_beauty, total_beauty;
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -383,13 +385,14 @@ public class SetImage : MonoBehaviour
         item_Sweat = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatScore").gameObject.GetComponent<Text>(); //甘さの値
         item_Bitter = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBitterScore").gameObject.GetComponent<Text>(); //苦さの値
         item_Sour = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourScore").gameObject.GetComponent<Text>(); //すっぱさの値
+        item_Beauty = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBeautyScore").gameObject.GetComponent<Text>();
 
         //item_Rich = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window/ItemRichScore").gameObject.GetComponent<Text>(); //味のコクの値
         item_Shokukan = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanScore").gameObject.GetComponent<Text>(); //食感の値
         item_Crispy = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/CrispyScore").gameObject.GetComponent<Text>(); //さくさくの値
         item_Fluffy = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/FluffyScore").gameObject.GetComponent<Text>(); //ふわふわの値
         item_Smooth = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/SmoothScore").gameObject.GetComponent<Text>(); //なめらかの値
-        item_Hardness = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/HardnessScore").gameObject.GetComponent<Text>(); //かたさの値
+        item_Hardness = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/HardnessScore").gameObject.GetComponent<Text>(); //かたさの値        
 
         item_Powdery = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemPowdery").gameObject.GetComponent<Text>(); //粉っぽいの値
         item_Oily = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemOily").gameObject.GetComponent<Text>(); //粉っぽいの値
@@ -397,7 +400,7 @@ public class SetImage : MonoBehaviour
 
         //デバッグ用　見た目などのパラメータ
         debugTaste_ScorePanel = this.transform.Find("Card_Param_window/Card_Parameter/DebugTasteScorePanel").gameObject;
-        item_Beauty = debugTaste_ScorePanel.transform.Find("ItemBeautyScore").gameObject.GetComponent<Text>(); //見た目の値
+        item_Beauty_debug = debugTaste_ScorePanel.transform.Find("ItemBeautyScore").gameObject.GetComponent<Text>(); //見た目の値デバッグ用
         item_Spwind = debugTaste_ScorePanel.transform.Find("ItemSP_windScore").gameObject.GetComponent<Text>(); //風
         item_Sp_score2 = debugTaste_ScorePanel.transform.Find("ItemSP_Score2").gameObject.GetComponent<Text>(); //海
         item_Sp_score3 = debugTaste_ScorePanel.transform.Find("ItemSP_Score3").gameObject.GetComponent<Text>(); //愛
@@ -435,11 +438,13 @@ public class SetImage : MonoBehaviour
         _Sweat_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSweatBar").gameObject.GetComponent<Slider>();
         _Bitter_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBitterBar").gameObject.GetComponent<Slider>();
         _Sour_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemSourBar").gameObject.GetComponent<Slider>();
+        _Beauty_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemBeautyBar").gameObject.GetComponent<Slider>();
 
         _Crispy_slider = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/CrispyBar").gameObject.GetComponent<Slider>();
         _Fluffy_slider = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/FluffyBar").gameObject.GetComponent<Slider>();
         _Smooth_slider = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/SmoothBar").gameObject.GetComponent<Slider>();
         _Hardness_slider = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow/HardnessBar").gameObject.GetComponent<Slider>();
+        
 
         //前回のスコア関係
         item_lastShokukan_Type = this.transform.Find("Card_Param_window2/Card_Parameter/Card_Param_Window_Taste/TxCrispy").gameObject.GetComponent<Text>();
@@ -1278,11 +1283,14 @@ public class SetImage : MonoBehaviour
             //最終的なテキストを表示 "\n"で改行
             item_Category.text = category + " - " + GameMgr.Item_subcategoryText;
         }
-            
+
 
         /* カテゴリーここまで */
 
         //甘さ・苦さ・酸味の表示
+        SlotScoreKeisan(); //スロットの見た目の値も表示用に計算
+        total_beauty = _beauty_score + _slot_beauty;
+
         //item_Rich.text = _rich_score.ToString();
         item_Sweat.text = _sweat_score.ToString();
         item_Bitter.text = _bitter_score.ToString();
@@ -1291,10 +1299,10 @@ public class SetImage : MonoBehaviour
         item_Fluffy.text = _fluffy_score.ToString();
         item_Smooth.text = _smooth_score.ToString();
         item_Hardness.text = _hardness_score.ToString();
+        item_Beauty.text = total_beauty.ToString();
 
-        //デバッグ用表示　見た目・風らしさ
-        SlotScoreKeisan();
-        item_Beauty.text = _beauty_score.ToString() + " + " + _slot_beauty.ToString();
+        //デバッグ用表示　見た目・風らしさ      
+        item_Beauty_debug.text = _beauty_score.ToString() + " + " + _slot_beauty.ToString();
         item_Spwind.text = _spwind_score.ToString();
         item_Sp_score2.text = _sp_score2.ToString();
         item_Sp_score3.text = _sp_score3.ToString();
@@ -1314,6 +1322,7 @@ public class SetImage : MonoBehaviour
         _Fluffy_slider.value = _fluffy_score;
         _Smooth_slider.value = _smooth_score;
         _Hardness_slider.value = _hardness_score;
+        _Beauty_slider.value = total_beauty;
 
 
         //粉っぽさなどの、マイナス要素の表示
