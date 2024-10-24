@@ -561,7 +561,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _sp_wind, int _sp_score2, int _sp_score3, int _sp_score4, int _sp_score5, int _sp_score6, int _sp_score7, int _sp_score8, int _sp_score9, int _sp_score10,
         float _girl1_like, int _cost, int _sell, 
         string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10, 
-        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori)
+        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori,
+        string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
+        int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10)
     {
         //トッピングアイテムを追加の際は、アイテム名（_name）＋任意の数字のパラメータ。ファイルネームやアイコンなどは共通なので、データベースから取得。
 
@@ -613,7 +615,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, _cost, _sell, 
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic,
-            _attribute1, _secretFlag));
+            _attribute1, _secretFlag,
+            _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
+            MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10));
     }
 
     //エクストリームパネル設定用アイテムを登録する。
@@ -623,7 +627,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _sp_wind, int _sp_score2, int _sp_score3, int _sp_score4, int _sp_score5, int _sp_score6, int _sp_score7, int _sp_score8, int _sp_score9, int _sp_score10,
         float _girl1_like, int _cost, int _sell,
         string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10,
-        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori)
+        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori,
+        string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
+        int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10)
     {
         //トッピングアイテムを追加の際は、アイテム名（_name）＋任意の数字のパラメータ。ファイルネームやアイコンなどは共通なので、データベースから取得。
 
@@ -675,7 +681,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic,
-            _attribute1, _secretFlag));
+            _attribute1, _secretFlag,
+            _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
+            MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10));
     }
 
     //ヒカリオリジナルアイテムを登録する。
@@ -685,7 +693,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _sp_wind, int _sp_score2, int _sp_score3, int _sp_score4, int _sp_score5, int _sp_score6, int _sp_score7, int _sp_score8, int _sp_score9, int _sp_score10,
         float _girl1_like, int _cost, int _sell,
         string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10,
-        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori)
+        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori,
+        string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
+        int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10)
     {
 
         player_yosokuitemlist.Clear();
@@ -739,7 +749,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic,
-            _attribute1, _secretFlag));
+            _attribute1, _secretFlag,
+            _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
+            MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10));
     }
 
     //チェック用のオリジナルアイテムを登録する。
@@ -750,7 +762,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _sp_wind, int _sp_score2, int _sp_score3, int _sp_score4, int _sp_score5, int _sp_score6, int _sp_score7, int _sp_score8, int _sp_score9, int _sp_score10,
         float _girl1_like, int _cost, int _sell,
         string _tp01, string _tp02, string _tp03, string _tp04, string _tp05, string _tp06, string _tp07, string _tp08, string _tp09, string _tp10,
-        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori)
+        int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori,
+        string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
+        int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10)
     {
 
         player_check_itemlist.Clear();
@@ -804,7 +818,9 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, _cost, _sell,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10, _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4],
             _itemkosu, extreme_kaisu, _item_hyouji, _judge_num, _eat_kaisu, _highscore_flag, _lasttotal_score, _hinttext, _total_kyori, _rare, _manpuku, _magic,
-            _attribute1, _secretFlag));
+            _attribute1, _secretFlag,
+            _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
+            MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10));
     }
 
     //お菓子パネルにすでにセットされてるアイテムを、オリジナルアイテムへコピーする。個数だけは計算したものをいれる。
@@ -849,7 +865,15 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             player_extremepanel_itemlist[tempID].total_kyori, player_extremepanel_itemlist[tempID].Rare, player_extremepanel_itemlist[tempID].Manpuku,
             player_extremepanel_itemlist[tempID].Magic,
             player_extremepanel_itemlist[tempID].Attribute1,
-            player_extremepanel_itemlist[tempID].SecretFlag));
+            player_extremepanel_itemlist[tempID].SecretFlag,
+            player_extremepanel_itemlist[tempID].item_MagicSlot[0], player_extremepanel_itemlist[tempID].item_MagicSlot[1], player_extremepanel_itemlist[tempID].item_MagicSlot[2],
+            player_extremepanel_itemlist[tempID].item_MagicSlot[3], player_extremepanel_itemlist[tempID].item_MagicSlot[4], player_extremepanel_itemlist[tempID].item_MagicSlot[5],
+            player_extremepanel_itemlist[tempID].item_MagicSlot[6], player_extremepanel_itemlist[tempID].item_MagicSlot[7], player_extremepanel_itemlist[tempID].item_MagicSlot[8],
+            player_extremepanel_itemlist[tempID].item_MagicSlot[9],
+            player_extremepanel_itemlist[tempID].item_MagicSlotValue[0], player_extremepanel_itemlist[tempID].item_MagicSlotValue[1], player_extremepanel_itemlist[tempID].item_MagicSlotValue[2],
+            player_extremepanel_itemlist[tempID].item_MagicSlotValue[3], player_extremepanel_itemlist[tempID].item_MagicSlotValue[4], player_extremepanel_itemlist[tempID].item_MagicSlotValue[5],
+            player_extremepanel_itemlist[tempID].item_MagicSlotValue[6], player_extremepanel_itemlist[tempID].item_MagicSlotValue[7], player_extremepanel_itemlist[tempID].item_MagicSlotValue[8],
+            player_extremepanel_itemlist[tempID].item_MagicSlotValue[9]));
     }
 
     void KoyuID_Set()

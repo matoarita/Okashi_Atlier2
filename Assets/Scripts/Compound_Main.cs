@@ -2970,7 +2970,7 @@ public class Compound_Main : MonoBehaviour
                 //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
 
                 //magicskill_database.skillHyoujiKaikin("Nappe");
-                //magicskill_database.skillHyoujiKaikin("Appaleil_Study");
+                magicskill_database.skillHyoujiKaikin("Appaleil_Study");
                 //magicskill_database.skillHyoujiKaikin("Wind_Ark");                
 
                 break;
@@ -3020,6 +3020,7 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case "mg_freezespell_book":
+                magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
                 magicskill_database.skillHyoujiKaikin("Freezing_Spell");
                 break;
 
@@ -3072,6 +3073,7 @@ public class Compound_Main : MonoBehaviour
                 break;
 
             case "mg_star_blessing_book":
+                magicskill_database.skillHyoujiKaikin("Star_Gazer");
                 magicskill_database.skillHyoujiKaikin("Star_Blessing");
                 break;
 

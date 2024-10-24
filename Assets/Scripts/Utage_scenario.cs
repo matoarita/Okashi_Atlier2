@@ -5811,29 +5811,36 @@ public class Utage_scenario : MonoBehaviour
 
                 _evnum = 101;
                 _mgbooknum = 1;
-                mirabo_clearscore = 120; //クリア点
+                mirabo_clearscore = 150; //クリア点
                 break;
 
             case 2:
 
                 _evnum = 102;
                 _mgbooknum = 2;
-                mirabo_clearscore = 175; //クリア点
+                mirabo_clearscore = 200; //クリア点
                 break;
 
             case 3:
 
                 _evnum = 103;
                 _mgbooknum = 3;
-                mirabo_clearscore = 220; //クリア点
+                mirabo_clearscore = 250; //クリア点
                 break;
 
             case 4:
 
                 _evnum = 104;
                 _mgbooknum = 4;
-                mirabo_clearscore = 270; //クリア点
+                mirabo_clearscore = 320; //クリア点
                 break;
+
+            /*case 5:
+
+                _evnum = 105;
+                _mgbooknum = 5;
+                mirabo_clearscore = 400; //クリア点
+                break;*/
         }
     }
 

@@ -151,14 +151,14 @@ public class Farm_Main_Controller : MonoBehaviour {
             }
         }
 
-        if (GameMgr.Story_Mode == 1)
+        /*if (GameMgr.Story_Mode == 1)
         {
             //あるクエスト以降、モタリケにお菓子わたせる。
             if (GameMgr.GirlLoveEvent_num >= 11)
             {
                 farm_toggle_present.SetActive(true);
             }
-        }
+        }*/
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -276,19 +276,52 @@ public class Farm_Main_Controller : MonoBehaviour {
 
     void EventCheck_Grt()
     {
-
-    }
-
-    void EventCheck_OrA1()
-    {
-        matplace_database.matPlaceKaikin("Or_Farm"); //牧場解禁
-
         if (!GameMgr.FarmEvent_stage[0]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
         {
             GameMgr.FarmEvent_stage[0] = true;
             GameMgr.scenario_ON = true;
 
             GameMgr.farm_event_num = 0;
+            GameMgr.farm_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.CompoundEvent_num[20] = true;
+            GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            //たまご・牛乳を各５個ずつもらえる。
+            pitemlist.addPlayerItemString("egg", 5);
+            pitemlist.addPlayerItemString("milk", 5);
+            pitemlist.add_eventPlayerItemString("whippedcream_recipi", 1);
+
+            StartCoroutine("Scenario_loading");
+        }
+
+
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
+            {
+                default:
+
+                    break;
+            }
+        }
+    }
+
+    void EventCheck_OrA1()
+    {
+        matplace_database.matPlaceKaikin("Or_Farm"); //牧場解禁
+
+        if (!GameMgr.Or_ShopEvent_stage[200]) //はじめて牧場をおとずれる。プリンさんからたまごの話をきいてから、フラグがたつ。
+        {
+            GameMgr.Or_ShopEvent_stage[200] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.farm_event_num = 1000;
             GameMgr.farm_event_flag = true;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
@@ -351,10 +384,20 @@ public class Farm_Main_Controller : MonoBehaviour {
 
             //_text.text = "（..今はしゃべる気がないようだ。）";
 
+            switch (GameMgr.Scene_Name)
+            {
+                case "Farm_Grt":
 
+                    GameMgr.talk_number = 100;
+                    break;
+
+                case "Or_Farm":
+
+                    GameMgr.talk_number = 1000;
+                    break;
+            }
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
-            GameMgr.talk_flag = true;
-            GameMgr.talk_number = 100;
+            GameMgr.talk_flag = true;            
 
             StartCoroutine("UtageEndWait");
         }
@@ -397,15 +440,15 @@ public class Farm_Main_Controller : MonoBehaviour {
 
             switch (GameMgr.Scene_Name)
             {
+                case "Farm_Grt":
+
+                    //GameMgr.SceneSelectNum = 17;
+                    FadeManager.Instance.LoadScene("Compound", GameMgr.SceneFadeTime);
+                    break;
+
                 case "Or_Farm": //春エリア
 
                     GameMgr.SceneSelectNum = 17;
-                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
-                    break;
-
-                case "Or_Farm_B1": //夏エリア 使ってない
-
-                    GameMgr.SceneSelectNum = 100;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 

@@ -80,10 +80,10 @@ public class Item
     public int Attribute1; //お菓子の状態１　二度焼きで、すでに二度焼きした状態を1にする。
     public int SecretFlag; //隠しアイテムかどうか。隠しアイテムであれば、お菓子手帳のリストには表示されない。
 
-    //記載なし
+    //以下パラメータはExcel上には記載なし
     public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
 
-    //以下パラメータはExcel上には記載なし
+    //
     public int Eat_kaisu;
     public int HighScore_flag;
     public int last_total_score;
@@ -102,6 +102,8 @@ public class Item
     public string last_hinttext;
     public string item_SlotName; //スロット名部分のみの名称。色変更用に。
     public string item_FullName; //スロット名も含めた最終の名称。オリジナルアイテムリスト用で使う。
+    public string[] item_MagicSlot = new string[10]; //魔法の状態を記録するスロット。最初はNon。魔法を付与すると、お菓子になんらかの状態が保存される。
+    public int[] item_MagicSlotValue = new int[10]; //各魔法スロットの量　魔法によってどのぐらい効果がかかっているか。
     //ここまで
 
     //トッピングスロット
@@ -217,7 +219,9 @@ public class Item
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
         int _judge_num, int _eat_kaisu, int _highscore, int _lasttotal_score, string _hinttext, float _total_kyori, int _rare, int _manpuku, int _magic,
-        int _attribute1, int _secretFlag)
+        int _attribute1, int _secretFlag,
+        string MS01, string MS02, string MS03, string MS04, string MS05, string MS06, string MS07, string MS08, string MS09, string MS10,
+        int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10)
     {
         itemID = id;
         OriginalitemID = OriginalID;
@@ -311,6 +315,16 @@ public class Item
         Eat_kaisu = _eat_kaisu;
         HighScore_flag = _highscore;
 
+        Rare = _rare;
+        Manpuku = _manpuku;
+        Magic = _magic;
+
+        Attribute1 = _attribute1;
+        SecretFlag = _secretFlag;
+
+        //以下、Excelに記載はなし
+        total_kyori = _total_kyori;
+
         last_total_score = _lasttotal_score;
         last_rich_score = 0;
         last_sweat_score = 0;
@@ -328,14 +342,27 @@ public class Item
         item_SlotName = "";
         item_FullName = item_SlotName + itemNameHyouji; //何もしなければ、アイテム名が入っている。
 
-        total_kyori = _total_kyori;
+        item_MagicSlot[0] = MS01;
+        item_MagicSlot[1] = MS02;
+        item_MagicSlot[2] = MS03;
+        item_MagicSlot[3] = MS04;
+        item_MagicSlot[4] = MS05;
+        item_MagicSlot[5] = MS06;
+        item_MagicSlot[6] = MS07;
+        item_MagicSlot[7] = MS08;
+        item_MagicSlot[8] = MS09;
+        item_MagicSlot[9] = MS10;
 
-        Rare = _rare;
-        Manpuku = _manpuku;
-        Magic = _magic;
-
-        Attribute1 = _attribute1;
-        SecretFlag = _secretFlag;
+        item_MagicSlotValue[0] = 0;
+        item_MagicSlotValue[1] = 0;
+        item_MagicSlotValue[2] = 0;
+        item_MagicSlotValue[3] = 0;
+        item_MagicSlotValue[4] = 0;
+        item_MagicSlotValue[5] = 0;
+        item_MagicSlotValue[6] = 0;
+        item_MagicSlotValue[7] = 0;
+        item_MagicSlotValue[8] = 0;
+        item_MagicSlotValue[9] = 0;
     }
 
 }

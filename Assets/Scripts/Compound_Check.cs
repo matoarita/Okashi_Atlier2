@@ -127,6 +127,7 @@ public class Compound_Check : MonoBehaviour {
     private int _magic_rate;
     private int _playerhour;
     private int _uselv;
+    private int _compNo_check;
 
     // Use this for initialization
     void Start () {
@@ -992,6 +993,7 @@ public class Compound_Check : MonoBehaviour {
                 GameMgr.temp_itemID3 = 9999; //9999は空を表す数字
                 itemID_3 = GameMgr.temp_itemID3;
 
+                //使うスキルLVを決定
                 if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non" ||
                     magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
                 {
@@ -1004,16 +1006,18 @@ public class Compound_Check : MonoBehaviour {
                     GameMgr.UseMagicSkillLv = 1;
                 }
 
+                //CompNoの判定　CompNoは該当するCompoがある場合は、そこで新規生成。ない場合、失敗とはならず、元アイテムをresultItemにして新たに生成しなおし。
                 if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
                 {
                     //調合DBの判定が必要ない魔法の場合　元アイテムをresultItemにして、新たに生成しなおす。
-                    CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
                     GameMgr.Comp_kettei_bunki = 22;
+                    CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
+
                 }
                 else
                 {
-                    CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定
                     GameMgr.Comp_kettei_bunki = 21;
+                    CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。GameMgr.Comp_kettei_bunki=20で判定                  
                 }
 
                 MagicSelectLv_Panel.SetActive(true);
@@ -1027,7 +1031,7 @@ public class Compound_Check : MonoBehaviour {
                 //確率に応じて、テキストが変わる。
                 //FinalCheck_Text.text = success_text;
 
-                
+
                 _text.text = GameMgr.UseMagicSkill_nameHyouji + " を使いますか？";
                 //_text.text = "魔法のレベルを選択してね。" + "\n" + "（魔法によっては、固定されているものもあります。）";
                 //updown_counter_obj.SetActive(true);
@@ -1054,7 +1058,8 @@ public class Compound_Check : MonoBehaviour {
 
                         magicskill_database.magicskill_lists[itemID_2].skillUseLv = GameMgr.UseMagicSkillLv; //使ったスキルレベルで魔法DBのUSELVも更新
 
-                        CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //魔法レベルが決定したあと、再び調合判定。
+                        //Debug.Log("二度目チェック");
+                        //CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //使う魔法レベルが決定したあと、そのレベルに沿って再び調合判定。※ただし、現在固定のため、不要。
 
                         //MPを消費
                         PlayerStatus.player_mp -= costMP;
@@ -1063,12 +1068,25 @@ public class Compound_Check : MonoBehaviour {
                         if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
                         {
                             GameMgr.Extreme_On = true;
-                            //CompNoのお菓子は、仕上げ回数が減る
+                            //CompNoのお菓子は、仕上げ回数が減る     
+
+                            if (_compNo_check == 0)
+                            {
+                                exp_Controller.Comp_method_bunki = 20;
+                            }
+                            else if (_compNo_check == 1)
+                            {
+                                //元アイテムの値を活かすための分岐に設定　トッピング処理と同じことをする
+                                exp_Controller.Comp_method_bunki = 22;
+                            }
                         }
                         else
                         {
                             GameMgr.Extreme_On = false;
+                            exp_Controller.Comp_method_bunki = 20;
                         }
+
+                        
 
                         //魔法によって、ハートも消費する。さらに、演出時間もここで決定
                         switch (GameMgr.UseMagicSkill)
@@ -1104,7 +1122,7 @@ public class Compound_Check : MonoBehaviour {
 
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
-                      
+
 
                         exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
                         /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
@@ -1141,7 +1159,7 @@ public class Compound_Check : MonoBehaviour {
 
                         break;
                 }
-                              
+
                 break;
         }
     }
@@ -1166,6 +1184,7 @@ public class Compound_Check : MonoBehaviour {
         _itemSubtype_temp_result.Clear();
         _itemSubtypeB_temp_result.Clear();
         _ex_probabilty_temp = 1.0f;
+        _compNo_check = 0; 
 
         //オリジナル調合の場合はこっち
         if (GameMgr.Comp_kettei_bunki == 2 || GameMgr.Comp_kettei_bunki == 3)
@@ -1368,7 +1387,9 @@ public class Compound_Check : MonoBehaviour {
 
         i = 0;
 
-        resultitemID = "gomi_1"; //どの調合組み合わせのパターンにも合致しなかった場合は、ゴミのIDが入っている。調合DBのゴミのitemNameを入れると、後で数値に変換してくれる。現在は、500に変換される。
+        //先に失敗の場合をデフォルトに設定。
+        //どの調合組み合わせのパターンにも合致しなかった場合は、ゴミのIDが入っている。調合DBのゴミのitemNameを入れると、後で数値に変換してくれる。現在は、500に変換される。
+        resultitemID = "gomi_1"; 
         compoDB_select_judge = false;
         resultDB_Failed = false;
         GameMgr.Special_OkashiEnshutsuFlag = false;
@@ -1381,10 +1402,9 @@ public class Compound_Check : MonoBehaviour {
         compoDB_select_judge = Combinationmain.compFlag;
         if (compoDB_select_judge) //一致するものがあれば、resultitemの名前を入れる。
         {
+            //CompoDBの組み合わせで、resultItem=Failed(失敗)が指定されるものを引いた場合　その調合は失敗になる。
             if (Combinationmain.resultitemName == "Failed")
-            {
-                //CompoDBの組み合わせで失敗が指定されるものを引いた場合　その調合は失敗になる。
-
+            {                
                 resultitemID = "gomi_1";
                 result_compoID = Combinationmain.result_compID;
                 compoDB_select_judge = false;
@@ -1392,14 +1412,7 @@ public class Compound_Check : MonoBehaviour {
             }
             else
             {
-                if (GameMgr.Comp_kettei_bunki == 22) //魔法で、調合DBのリザルトアイテムでなく、元アイテムを強化する場合
-                {
-                    resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
-                }
-                else
-                {
-                    resultitemID = Combinationmain.resultitemName;
-                }
+                resultitemID = Combinationmain.resultitemName;
                 
                 result_compoID = Combinationmain.result_compID;
                 resultDB_Failed = false;
@@ -1421,6 +1434,15 @@ public class Compound_Check : MonoBehaviour {
             if (databaseCompo.compoitems[result_compoID].cmpitemID_result2 != "Non")
             {
                 exp_Controller.DoubleItemCreated = 1;
+            }
+        }
+        else //一致しない場合
+        {
+            //魔法で、調合DBのリザルトアイテムでなく、元アイテムを強化する場合は失敗とならず、元アイテムを新たに生成しなおして、魔法のバフをかける。
+            if (GameMgr.Comp_kettei_bunki == 22) 
+            {
+                resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
+                _compNo_check = 1; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。
             }
         }
 
@@ -1625,10 +1647,17 @@ public class Compound_Check : MonoBehaviour {
                 else
                 {
                     //トッピングは100％成功なので、exp_Controller._success_judge_flag や exp_Controller._success_rateの設定は不要　exp_Controllerで直接指定してる
-                    _success_rate = 100f;                    
+                    _success_rate = 100f;
                     kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //ふつうにトッピングするときは、100%成功
 
                 }
+            }
+            //魔法のCompNoの場合で、新アイテム生成に該当しない場合
+            else if (GameMgr.Comp_kettei_bunki == 22)
+            {
+                //
+                _success_rate = 75f;
+                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //
             }
             else
             {

@@ -913,6 +913,11 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
+            case "Fire_Flowers":
+
+                NonDrinkHyouji();
+                break;
+
             case "Bake_Beans":
 
                 if (check_itemType_subB == "a_Cacao" || check_itemType_subB == "a_CoffeeBeans" || check_itemType_subB == "a_Maron")
@@ -1059,10 +1064,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Buttelfy_illumination":
 
-                if (check_itemType_sub == "Cake")
-                {
-                    itemlist_hyouji_Check();
-                }
+                NonDrinkHyouji();
                 break;
 
             case "Aroma_Potion":
@@ -1073,10 +1075,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Wind_Ark":
+            case "Wind_Ark": //おかし+液体チョコか水あめ
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
-                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                if (check_itemType == "Okashi" ||
+                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilMizuame")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1088,8 +1090,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Wind_Twister":
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" ||
-                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" || check_itemType_sub == "Juice" ||
+                    check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1159,11 +1161,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Float_Material":
+            case "Float_Material": //シュガーのみ
 
-                if (check_itemType_sub == "Suger" || 
-                    check_itemType_sub == "Fruits" || check_itemType_sub == "GlowFruits"
-                    || check_itemType_sub == "Berry")
+                if (check_itemType_sub == "Suger") //check_itemType_sub == "Fruits" || check_itemType_sub == "GlowFruits" || check_itemType_sub == "Berry"
                 {
                     if (check_itemType_subB != "a_SugerSimple") //基本の砂糖などは外す
                     {
@@ -1174,15 +1174,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Bubble_Mist":
 
-                if (check_itemType_subB == "a_AromaPotion")
-                {
-                    itemlist_hyouji_Check();
-                }
+                NonDrinkHyouji();
                 break;
 
             case "Statue_of_Penguin":
 
-                if (check_itemType_sub == "a_AppaleilMizuame" ||
+                if (check_itemType_subB == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
@@ -1195,7 +1192,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Bear":
 
-                if (check_itemType_sub == "a_AppaleilMizuame" ||
+                if (check_itemType_subB == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
@@ -1208,7 +1205,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Cat":
 
-                if (check_itemType_sub == "a_AppaleilMizuame" ||
+                if (check_itemType_subB == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
@@ -1221,7 +1218,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Rabitts":
 
-                if (check_itemType_sub == "a_AppaleilMizuame" ||
+                if (check_itemType_subB == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
@@ -1234,7 +1231,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_AngelWing":
 
-                if (check_itemType_sub == "a_AppaleilMizuame" ||
+                if (check_itemType_subB == "a_AppaleilMizuame" ||
                     check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
@@ -1245,7 +1242,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Star_Blessing":
+            case "Star_Blessing": //コーヒーは除外
 
                 if (check_itemType_sub == "Juice" || check_itemType_sub == "Tea" || check_itemType_sub == "Soda")
                 {
@@ -1296,32 +1293,36 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Life_Stream":
 
-                if (check_itemType == "Okashi")
-                {
-                    itemlist_hyouji_Check();
-                }
+                NonDrinkHyouji();
                 break;
 
             case "AbraCadabra":
 
-                if (check_itemType == "Okashi")
-                {
-                    itemlist_hyouji_Check();
-                }
+                NonDrinkHyouji();
                 break;
 
             case "True_of_Myheart":
 
-                if (check_itemType == "Okashi")
-                {
-                    itemlist_hyouji_Check();
-                }
+                NonDrinkHyouji();
                 break;
 
 
             default: //例外処理　通常ここを通ることはないが、上で未登録のスキルはここを通る
 
                 break;
+        }
+    }
+
+    //ドリンクを除き、おかしを表示する
+    void NonDrinkHyouji()
+    {
+        if (check_itemType == "Okashi") //check_itemType_subB == "a_AromaPotion"
+        {
+            if (check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Juice"
+                && check_itemType_sub != "Soda" && check_itemType_sub != "Bread")
+            {
+                itemlist_hyouji_Check();
+            }
         }
     }
 

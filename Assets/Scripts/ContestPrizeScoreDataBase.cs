@@ -493,11 +493,14 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
 
 
+
+
+
     //
     //ランキング形式
     //
 
-    //クッキー初級コンテスト
+    //〇クッキー初級コンテスト
     void PrizeRankingSet01()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -531,7 +534,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //オランジーナ・パティスリーアワード
+    //〇オランジーナ・パティスリーアワード　ケーキかクリームブリュレ
     void PrizeRankingSet02()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -539,23 +542,23 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("whisk_magic");
+        GameMgr.PrizeItemList.Add("mg_windarc_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
+        GameMgr.PrizeGetMoneyList.Add(300);
         GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(91);
+        GameMgr.PrizeScoreAreaList.Add(121);
+        GameMgr.PrizeScoreAreaList.Add(135);
+        GameMgr.PrizeScoreAreaList.Add(151);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -565,7 +568,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //ベオルブ家のディナー
+    //〇ベオルブ家のディナー　自由課題
     void PrizeRankingSet03()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -574,32 +577,32 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("strawberry_sponge_cake_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(2500);
+        GameMgr.PrizeGetMoneyList.Add(4000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(75);
+        GameMgr.PrizeScoreAreaList.Add(107);
+        GameMgr.PrizeScoreAreaList.Add(125);
+        GameMgr.PrizeScoreAreaList.Add(132);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("キリコ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
-        GameMgr.PrizeCharacterList.Add("レイナート");
+        GameMgr.PrizeCharacterList.Add("レイナート君");
         GameMgr.PrizeCharacterList.Add("ティリス");
     }
 
-    //ラスクブロカント
+    //〇ラスクブロカント
     void PrizeRankingSet04()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -629,11 +632,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("レア");
-        GameMgr.PrizeCharacterList.Add("ルカティエル");
+        GameMgr.PrizeCharacterList.Add("ルッカティエル");
         GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
     }
 
-    //ルミエール・エピファニア
+    //〇ルミエール・エピファニア
     void PrizeRankingSet05()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -642,15 +645,15 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("lucky_ticket");
         GameMgr.PrizeItemList.Add("emerald_suger");
         GameMgr.PrizeItemList.Add("green_pendant");
-        GameMgr.PrizeItemList.Add("mg_beautifulpower_book");
+        GameMgr.PrizeItemList.Add("mg_bake_beans_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(4000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -667,24 +670,24 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
     }
 
-    //ルミエール・カンデラ
-    void PrizeRankingSet06()
+    //〇ルミエール・カンデラ
+    void PrizeRankingSet06() //光ラスクか光チーズケーキ　光りジュース
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_beautifulpower_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(4000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -701,84 +704,84 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("おそうじアリス");
     }
 
-    //ガレット・デ・ロワ
+    //〇ガレット・デ・ロワ　オペラ・ザッハトルテ・ファンタジアン　終盤レベル
     void PrizeRankingSet07()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_buttelfy_illumination_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(20000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(165);
+        GameMgr.PrizeScoreAreaList.Add(189);
+        GameMgr.PrizeScoreAreaList.Add(200);
+        GameMgr.PrizeScoreAreaList.Add(254);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
-        GameMgr.PrizeCharacterList.Add("ベントー・ヴェン");
+        GameMgr.PrizeCharacterList.Add("モルツァート");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("ハーマウズ");
-        GameMgr.PrizeCharacterList.Add("メンデルス");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //ディオ・ショコラ・チャンピオンシップ
+    //〇ディオ・ショコラ・チャンピオンシップ チョコで一番　終盤レベル
     void PrizeRankingSet08()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("aquamarine_chocolate_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(15000);
+        GameMgr.PrizeGetMoneyList.Add(30000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(135);
+        GameMgr.PrizeScoreAreaList.Add(212);
+        GameMgr.PrizeScoreAreaList.Add(267);
+        GameMgr.PrizeScoreAreaList.Add(301);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("白桃姫");
-        GameMgr.PrizeCharacterList.Add("キノ・ピオ");
+        GameMgr.PrizeCharacterList.Add("キノ・ピノ");
         GameMgr.PrizeCharacterList.Add("黒ずきん");
     }
 
-    //登録なし
+    //〇フィナンシェバターズカップ
     void PrizeRankingSet09()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -790,20 +793,20 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
         GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(99);
+        GameMgr.PrizeScoreAreaList.Add(113);
+        GameMgr.PrizeScoreAreaList.Add(131);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ギリガン");
         GameMgr.PrizeCharacterList.Add("ヴィクター");
         GameMgr.PrizeCharacterList.Add("ガリー");
-        GameMgr.PrizeCharacterList.Add("中国娘");
+        GameMgr.PrizeCharacterList.Add("にゃ");
     }
 
-    //ひんやりお菓子コンテスト
+    //〇ひんやりお菓子コンテスト
     void PrizeRankingSet20()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -811,8 +814,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("maritozzo_recipi");
+        GameMgr.PrizeItemList.Add("cream_brulee_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -824,20 +827,20 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(67);
+        GameMgr.PrizeScoreAreaList.Add(102);
+        GameMgr.PrizeScoreAreaList.Add(111);
+        GameMgr.PrizeScoreAreaList.Add(132);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("バニラ");
         GameMgr.PrizeCharacterList.Add("戦士ギュント");
-        GameMgr.PrizeCharacterList.Add("ノーマリィ");
+        GameMgr.PrizeCharacterList.Add("バニラ");
+        GameMgr.PrizeCharacterList.Add("ノーマリー");
         GameMgr.PrizeCharacterList.Add("ウリユ");
     }
 
-    //フライング・ソーダコンテスト
+    //〇フライング・ソーダコンテスト　ソーダ限定
     void PrizeRankingSet21()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -845,50 +848,50 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("cheese_cake_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(700);
+        GameMgr.PrizeGetMoneyList.Add(1200);
+        GameMgr.PrizeGetMoneyList.Add(2000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(67);
+        GameMgr.PrizeScoreAreaList.Add(75);
+        GameMgr.PrizeScoreAreaList.Add(98);
+        GameMgr.PrizeScoreAreaList.Add(125);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ノーマリィ");
+        GameMgr.PrizeCharacterList.Add("ノーマリー");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("ベル");
-        GameMgr.PrizeCharacterList.Add("アイリス");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
     }
 
-    //ボンボヤージュ・カップ
+    //〇ボンボヤージュ・カップ　ジュース系
     void PrizeRankingSet22()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
+        GameMgr.PrizeItemList.Add("Non"); //5位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("choco_banana_recipi");
         GameMgr.PrizeItemList.Add("residual_heatstone");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(2500);
+        GameMgr.PrizeGetMoneyList.Add(4000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -899,22 +902,22 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("ミント");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
+        GameMgr.PrizeCharacterList.Add("エリカ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //おみやげおかしコンテスト
+    //〇おみやげおかしコンテスト　チョコばなな・マリトッツォ・シュークリーム・ふわころ等　こどもが喜びそう、または持ち帰りが簡単なお菓子系で一番
     void PrizeRankingSet23()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_magic_soda_book");
+        GameMgr.PrizeItemList.Add("langue de chat_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -922,75 +925,75 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(117);
+        GameMgr.PrizeScoreAreaList.Add(125);
+        GameMgr.PrizeScoreAreaList.Add(138);
+        GameMgr.PrizeScoreAreaList.Add(167);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
+        GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
     }
 
-    //スカーレットマイスター
+    //〇スカーレットマイスター　いちご系のおかしで一番をとる
     void PrizeRankingSet24()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("juice_mixer_high");
+        GameMgr.PrizeItemList.Add("montblanc_cake_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(3500);
+        GameMgr.PrizeGetMoneyList.Add(5000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(176);
+        GameMgr.PrizeScoreAreaList.Add(189);
+        GameMgr.PrizeScoreAreaList.Add(221);
+        GameMgr.PrizeScoreAreaList.Add(260);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
+        GameMgr.PrizeCharacterList.Add("ノーマリー");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("エリカ");
     }
 
-    //遥かなる蒼賞
+    //〇遥かなる蒼賞　海をテーマにしたチョコレート
     void PrizeRankingSet25()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("bushdenoel_cake_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(7000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -1001,30 +1004,30 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("戦士ギュント");
+        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("ノーマリー");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //マジックパティスリー・アワード
+    //マジックパティスリー・アワード　魔法おかし限定　見た目が変わっているお菓子でクリア　難しい　ウィンドツイスター系・ライフストリームのおかし・マジックソーダ・フォーゲットの上位種
     void PrizeRankingSet26()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_moonlight_banana_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(1111);
+        GameMgr.PrizeGetMoneyList.Add(2222);
+        GameMgr.PrizeGetMoneyList.Add(3333);
+        GameMgr.PrizeGetMoneyList.Add(7777);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -1035,587 +1038,587 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("シスターリーシュ");
+        GameMgr.PrizeCharacterList.Add("ノーマリー");
+        GameMgr.PrizeCharacterList.Add("ベル");
     }
 
-    //プラム洋菓子技術コンテスト
+    //プラム洋菓子技術コンテスト　ケーキ限定　難易度高い　点数がともかくでない
     void PrizeRankingSet27()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("forgetmenot_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(20000);
+        GameMgr.PrizeGetMoneyList.Add(50000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(310);
+        GameMgr.PrizeScoreAreaList.Add(370);
+        GameMgr.PrizeScoreAreaList.Add(465);
+        GameMgr.PrizeScoreAreaList.Add(568);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("ミント");
+        GameMgr.PrizeCharacterList.Add("黒ずきん");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("キノ・ピノ");
     }
 
-    //クレープ・ドゥ・シャノワール
+    //〇クレープ・ドゥ・シャノワール　クレープ系　クレープは屋台で手に入れるので、入手のヒントがないと困るかも。
     void PrizeRankingSet40()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_nappe_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
+        GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
         GameMgr.PrizeGetMoneyList.Add(3000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(113);
+        GameMgr.PrizeScoreAreaList.Add(125);
+        GameMgr.PrizeScoreAreaList.Add(137);
+        GameMgr.PrizeScoreAreaList.Add(153);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("秋川どらら");
-        GameMgr.PrizeCharacterList.Add("春山うらら");
+        GameMgr.PrizeCharacterList.Add("クルル");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");
+        GameMgr.PrizeCharacterList.Add("シリウス");
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
     }
 
-    //アデュルティ・ガトー
+    //〇アデュルティ・ガトー　大人なお菓子
     void PrizeRankingSet41()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("affo_gato_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(7000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(139);
+        GameMgr.PrizeScoreAreaList.Add(156);
+        GameMgr.PrizeScoreAreaList.Add(177);
+        GameMgr.PrizeScoreAreaList.Add(228);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("クルル");
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("シリウス");
     }
 
-    //メルヘンランド♪カップ
+    //〇メルヘンランド♪カップ　メルヘンなお菓子　通らないと、先へ進めない
     void PrizeRankingSet42()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("patipati_soda_recipi");
+        GameMgr.PrizeItemList.Add("sachertorte_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(7000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(125);
+        GameMgr.PrizeScoreAreaList.Add(176);
+        GameMgr.PrizeScoreAreaList.Add(194);
+        GameMgr.PrizeScoreAreaList.Add(265);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("ミント");
+        GameMgr.PrizeCharacterList.Add("ベル");
+        GameMgr.PrizeCharacterList.Add("クルル");
     }
 
-    //キラキラ・ボンボンズ
+    //〇キラキラ・ボンボンズ　あめに限らず　りんごあめ・チョコばなな系・じゃがバター・宝石キャンディ・琥珀糖・パチパチソーダなど
     void PrizeRankingSet43()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_float_material_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(4000);
+        GameMgr.PrizeGetMoneyList.Add(7000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(201);
+        GameMgr.PrizeScoreAreaList.Add(233);
+        GameMgr.PrizeScoreAreaList.Add(256);
+        GameMgr.PrizeScoreAreaList.Add(302);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("クルル");
     }
 
-    //英国ティータイムコンテスト
+    //〇英国ティータイムコンテスト
     void PrizeRankingSet44()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("teaset_wedgewood");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(7000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(13000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(105);
+        GameMgr.PrizeScoreAreaList.Add(134);
+        GameMgr.PrizeScoreAreaList.Add(147);
+        GameMgr.PrizeScoreAreaList.Add(172);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("フランソワ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("メイドのエリヤ");
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
     }
 
-    //ピエスモンテ
+    //〇ピエスモンテ　場を彩る彫刻お菓子　造形系魔法で作るおかし・ウィンドツイスター・フローティング　彫刻お菓子は特殊な判定で、見た目のみを判定する
     void PrizeRankingSet45()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_life_stream_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(13000);
+        GameMgr.PrizeGetMoneyList.Add(15000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(163);
+        GameMgr.PrizeScoreAreaList.Add(245);
+        GameMgr.PrizeScoreAreaList.Add(289);
+        GameMgr.PrizeScoreAreaList.Add(321);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("フランソワ");
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("ジョーカー");
     }
 
-    //コンチェルティーノ・イン・ブルー
+    //〇コンチェルティーノ・イン・ブルー　青をテーマにしたお菓子　アクアマリンチョコやブルーチョコ、レーブドゥヴィオレッタ、すみれの青紅茶　ファンタジア手に入るから結構重要
     void PrizeRankingSet46()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("fantasian_cake_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(7000);
+        GameMgr.PrizeGetMoneyList.Add(15000);
+        GameMgr.PrizeGetMoneyList.Add(20000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(255);
+        GameMgr.PrizeScoreAreaList.Add(276);
+        GameMgr.PrizeScoreAreaList.Add(298);
+        GameMgr.PrizeScoreAreaList.Add(354);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("シリウス");
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
+        GameMgr.PrizeCharacterList.Add("クルル");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //ビジョウ・パティスリー・カップ
+    //〇ビジョウ・パティスリー・カップ　鉱石お菓子限定　宝石キャンディ（点数低い）・鉱石マフィン・琥珀糖　お花のシュガーで作るおかし（未実装）
     void PrizeRankingSet47()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("jewery_master_proof");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(15000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(154);
+        GameMgr.PrizeScoreAreaList.Add(196);
+        GameMgr.PrizeScoreAreaList.Add(205);
+        GameMgr.PrizeScoreAreaList.Add(224);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("メイドのエリヤ");
+        GameMgr.PrizeCharacterList.Add("フランソワ");
+        GameMgr.PrizeCharacterList.Add("ジョーカー");
+        GameMgr.PrizeCharacterList.Add("クルル");
     }
 
-    //クワイットスノウ
+    //〇クワイットスノウ　自由課題
     void PrizeRankingSet60()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_latte_art_book");
+        GameMgr.PrizeItemList.Add("confiserie_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
         GameMgr.PrizeGetMoneyList.Add(3000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(94);
+        GameMgr.PrizeScoreAreaList.Add(123);
+        GameMgr.PrizeScoreAreaList.Add(140);
+        GameMgr.PrizeScoreAreaList.Add(177);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("エルメス");
+        GameMgr.PrizeCharacterList.Add("アイリン");
+        GameMgr.PrizeCharacterList.Add("メイドのエリヤ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //アムール・チョコレイト・コンテスト
+    //〇アムール・チョコレイト・コンテスト　愛の点数が高いチョコレート
     void PrizeRankingSet61()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("strawberry_milfiyu_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(6000);
+        GameMgr.PrizeGetMoneyList.Add(12000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(98);
+        GameMgr.PrizeScoreAreaList.Add(181);
+        GameMgr.PrizeScoreAreaList.Add(227);
+        GameMgr.PrizeScoreAreaList.Add(245);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("アイリン");
+        GameMgr.PrizeCharacterList.Add("ユディー");
+        GameMgr.PrizeCharacterList.Add("シャリー");
+        GameMgr.PrizeCharacterList.Add("クラリス");
     }
 
-    //ネオユニバース・カップ
+    //〇ネオユニバース・カップ　宇宙をテーマにしたお菓子　チーズケーキ・シリウスやプルート、ソーダギャラクシーのみ　レシピ解放してないとクリアは難しい
     void PrizeRankingSet62()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("wood_rod_doillan");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(16000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(159);
+        GameMgr.PrizeScoreAreaList.Add(212);
+        GameMgr.PrizeScoreAreaList.Add(253);
+        GameMgr.PrizeScoreAreaList.Add(275);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("マドカ");
+        GameMgr.PrizeCharacterList.Add("リディア");
+        GameMgr.PrizeCharacterList.Add("シャルロット");
     }
 
-    //フェド・フルラージュ
+    //〇フェド・フルラージュ　お花がテーマのお菓子限定　お花のクッキーやフローラルバターを使ったケーキかチョコ、チーズケーキにフリーズフラワーをトッピングしたものなど
     void PrizeRankingSet63()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_star_blessing_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(20000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(267);
+        GameMgr.PrizeScoreAreaList.Add(298);
+        GameMgr.PrizeScoreAreaList.Add(310);
+        GameMgr.PrizeScoreAreaList.Add(343);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
+        GameMgr.PrizeCharacterList.Add("シャリー");
+        GameMgr.PrizeCharacterList.Add("シャルロット");
+        GameMgr.PrizeCharacterList.Add("イリス");
     }
 
-    //ルミエール・ドゥ・ソレイユ
+    //〇ルミエール・ドゥ・ソレイユ　あたたかいお菓子限定　アフォガートやアップルパイ
     void PrizeRankingSet64()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_warming_handmade_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(15000);
+        GameMgr.PrizeGetMoneyList.Add(30000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(186);
+        GameMgr.PrizeScoreAreaList.Add(211);
+        GameMgr.PrizeScoreAreaList.Add(245);
+        GameMgr.PrizeScoreAreaList.Add(367);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("シャリー");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
+        GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
+        GameMgr.PrizeCharacterList.Add("クラリス");
     }
 
-    //ミルフイユ・ドゥ・パリ
+    //〇ミルフイユ・ドゥ・パリ
     void PrizeRankingSet65()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("cakemold_stainless");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(20000);
+        GameMgr.PrizeGetMoneyList.Add(30000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(272);
+        GameMgr.PrizeScoreAreaList.Add(276);
+        GameMgr.PrizeScoreAreaList.Add(287);
+        GameMgr.PrizeScoreAreaList.Add(339);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
+        GameMgr.PrizeCharacterList.Add("ミント");
+        GameMgr.PrizeCharacterList.Add("クラリス");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //チーズケーキ・パティスリーアワード
+    //〇チーズケーキ・パティスリーアワード　チーズケーキ限定　
     void PrizeRankingSet66()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("gold_oven");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(15000);
+        GameMgr.PrizeGetMoneyList.Add(25000);
+        GameMgr.PrizeGetMoneyList.Add(35000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(168);
+        GameMgr.PrizeScoreAreaList.Add(337);
+        GameMgr.PrizeScoreAreaList.Add(391);
+        GameMgr.PrizeScoreAreaList.Add(435);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
+        GameMgr.PrizeCharacterList.Add("シャルロット");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("エリー");
+        GameMgr.PrizeCharacterList.Add("クラリス");
     }
 
-    //夢見るチョコレート選手権
+    //〇夢見るチョコレート選手権　愛＋メルヘンが高いチョコレート（チョコケーキも可）のお菓子　ウィンドアークを使ったチョコケーキ・天使の羽根のチョコ
     void PrizeRankingSet67()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
         GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("nuts"); //5位
-        GameMgr.PrizeItemList.Add("ice_box");
-        GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("platinum_oven");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
-        GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+        GameMgr.PrizeGetMoneyList.Add(15000);
+        GameMgr.PrizeGetMoneyList.Add(25000);
+        GameMgr.PrizeGetMoneyList.Add(50000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(422);
+        GameMgr.PrizeScoreAreaList.Add(465);
+        GameMgr.PrizeScoreAreaList.Add(524);
+        GameMgr.PrizeScoreAreaList.Add(607);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("アマクサ");
-        GameMgr.PrizeCharacterList.Add("ジャッキー・チェン");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポートマン");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("アイリン");
+        GameMgr.PrizeCharacterList.Add("クルル");
+        GameMgr.PrizeCharacterList.Add("クラリス");
     }
 }

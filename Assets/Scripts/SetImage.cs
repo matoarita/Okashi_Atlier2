@@ -68,6 +68,7 @@ public class SetImage : MonoBehaviour
     private Text item_Name;
     private string _name;
     private string item_SlotName;
+    private GameObject itemEffectPanel;
 
     private Text item_Rank;
     private Text item_RankDesc;
@@ -88,7 +89,9 @@ public class SetImage : MonoBehaviour
     private string[] _slot;
     private string[] _koyuslot;
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
-    private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用  
+    private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用 
+    private string[] _magicslot;
+    private int[] _msvalue;
 
     // スロットのデータを保持するリスト。点数とセット。
     List<string> itemslotInfo = new List<string>();
@@ -361,6 +364,8 @@ public class SetImage : MonoBehaviour
 
         _slot = new string[database.items[0].toppingtype.Length];
         _koyuslot = new string[database.items[0].koyu_toppingtype.Length];
+        _magicslot = new string[database.items[0].item_MagicSlot.Length];
+        _msvalue = new int[database.items[0].item_MagicSlotValue.Length];
 
         for (i = 0; i < _slotHyouji1.Length; i++)
         {
@@ -428,10 +433,15 @@ public class SetImage : MonoBehaviour
         kosu_panel.SetActive(false);
         kosu_text = this.transform.Find("Item_card_template/ItemKosu_Panel/ItemKosu").gameObject.GetComponent<Text>();
 
+        //シークレット表示
         secret_panel = this.transform.Find("Item_card_template/SecretPanel").gameObject;
         //secret_panel.SetActive(false);
 
+        //HLV99ボーナス
         hlvbonus_panel = this.transform.Find("Item_card_template/HlvBonusPanel").gameObject;
+
+        //魔法のエフェクトパネル
+        itemEffectPanel = this.transform.Find("Item_card_template/ItemEffectPanel").gameObject; //エフェクトパネル
 
         //各パラメータバーの取得
         _Shokukan_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanBar").gameObject.GetComponent<Slider>();
@@ -631,6 +641,11 @@ public class SetImage : MonoBehaviour
                     _koyuslot[i] = database.items[check_counter].koyu_toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < _magicslot.Length; i++)
+                {
+                    _magicslot[i] = database.items[check_counter].item_MagicSlot[i].ToString();
+                    _msvalue[i] = database.items[check_counter].item_MagicSlotValue[i];
+                }
 
                 break;
 
@@ -728,6 +743,12 @@ public class SetImage : MonoBehaviour
                     _koyuslot[i] = pitemlist.player_originalitemlist[check_counter].koyu_toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < _magicslot.Length; i++)
+                {
+                    _magicslot[i] = pitemlist.player_originalitemlist[check_counter].item_MagicSlot[i].ToString();
+                    _msvalue[i] = pitemlist.player_originalitemlist[check_counter].item_MagicSlotValue[i];
+                }
+
                 break;
 
             case 2: //エクストリームパネルに設定したアイテムリストを選択した場合
@@ -822,6 +843,12 @@ public class SetImage : MonoBehaviour
                     _koyuslot[i] = pitemlist.player_extremepanel_itemlist[check_counter].koyu_toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < _magicslot.Length; i++)
+                {
+                    _magicslot[i] = pitemlist.player_extremepanel_itemlist[check_counter].item_MagicSlot[i].ToString();
+                    _msvalue[i] = pitemlist.player_extremepanel_itemlist[check_counter].item_MagicSlotValue[i];
+                }
+
                 break;
 
             case 3: //表示などの確認用のチェック用アイテムリストを選択した場合。これはプレーヤは触れず、内部処理用のもの。セーブもされないTempデータ。
@@ -914,6 +941,12 @@ public class SetImage : MonoBehaviour
                 for (i = 0; i < _koyuslot.Length; i++)
                 {
                     _koyuslot[i] = pitemlist.player_check_itemlist[check_counter].koyu_toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < _magicslot.Length; i++)
+                {
+                    _magicslot[i] = pitemlist.player_check_itemlist[check_counter].item_MagicSlot[i].ToString();
+                    _msvalue[i] = pitemlist.player_check_itemlist[check_counter].item_MagicSlotValue[i];
                 }
 
                 break;
@@ -1023,6 +1056,12 @@ public class SetImage : MonoBehaviour
             _koyuslot[i] = pitemlist.player_yosokuitemlist[check_counter].koyu_toppingtype[i].ToString();
         }
 
+        for (i = 0; i < _magicslot.Length; i++)
+        {
+            _magicslot[i] = pitemlist.player_yosokuitemlist[check_counter].item_MagicSlot[i].ToString();
+            _msvalue[i] = pitemlist.player_yosokuitemlist[check_counter].item_MagicSlotValue[i];
+        }
+
         //カード　スロット名 現在は、特に表示はしていない
         Slotname_Hyouji();
 
@@ -1123,6 +1162,12 @@ public class SetImage : MonoBehaviour
             _koyuslot[i] = GameMgr.contestclear_collection_list[check_counter].ItemData.koyu_toppingtype[i].ToString();
         }
 
+        for (i = 0; i < _magicslot.Length; i++)
+        {
+            _magicslot[i] = GameMgr.contestclear_collection_list[check_counter].ItemData.item_MagicSlot[i].ToString();
+            _msvalue[i] = GameMgr.contestclear_collection_list[check_counter].ItemData.item_MagicSlotValue[i];
+        }
+
         //カード　スロット名 現在は、特に表示はしていない
         Slotname_Hyouji();
 
@@ -1131,10 +1176,12 @@ public class SetImage : MonoBehaviour
     }
 
     void DrawCardParam()
-    {
-    
+    {    
         // texture2dを使い、Spriteを作って、反映させる
         item_Icon.sprite = texture2d;
+
+        //魔法がかかってるおかしは、エフェクトパネルもON/OFF
+        DrawMagicEffect();
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
         if (_secretFlag == 1) //シークレットは少しカードの柄が変わる。
@@ -1260,6 +1307,7 @@ public class SetImage : MonoBehaviour
 
                 Tea_Text();
                 break;
+
 
             case 90: //食感
 
@@ -1651,6 +1699,33 @@ public class SetImage : MonoBehaviour
     {
         item_Shokukan_Type.text = "-";
         item_lastShokukan_Type.text = "-";
+    }
+
+    void DrawMagicEffect()
+    {
+        for (i = 0; i < _magicslot.Length; i++)
+        {
+            if (_magicslot[i] == GameMgr.System_MagicSlotName01) //FireFlowerの場合　花火が周りにとびちるエフェクト
+            {
+                itemEffectPanel.transform.Find("effect01_Fire").gameObject.SetActive(true);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName02) //Butterflyの場合、光のちょうちょがとぶ
+            {
+                itemEffectPanel.transform.Find("effect02_Butterfly").gameObject.SetActive(true);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName03) //Bubbleは泡がでる
+            {
+                itemEffectPanel.transform.Find("effect03_Bubble").gameObject.SetActive(true);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName04) //Starは星くずがキラキラする
+            {
+                itemEffectPanel.transform.Find("effect04_Star").gameObject.SetActive(true);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName05) //WindArc　風の円弧が周りにとびちる
+            {
+                itemEffectPanel.transform.Find("effect05_Arc").gameObject.SetActive(true);
+            }
+        }
     }
 
 

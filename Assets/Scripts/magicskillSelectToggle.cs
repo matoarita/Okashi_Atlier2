@@ -385,16 +385,22 @@ public class magicskillSelectToggle : MonoBehaviour
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい豆を選んでね。";
                 break;
 
+            case "Fire_Flowers":
+
+                GameMgr.compound_status = 21;
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
+                break;
+
             case "Removing_Shells":
 
                 GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "殻をむく豆を選んでね。";
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "豆を選んでね。";
                 break;
 
             case "Chocolate_Tempering":
 
                 GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "テンパリングするカカオマスを選んでね。";
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいカカオマスを選んでね。";
                 break;
 
             case "Cookie_SecondBake":
@@ -472,7 +478,7 @@ public class magicskillSelectToggle : MonoBehaviour
             case "Bubble_Mist":
 
                 GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいポーションを選んでね。";
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "Statue_of_Penguin":

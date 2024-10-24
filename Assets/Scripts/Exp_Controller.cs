@@ -1209,7 +1209,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //コンポ調合データベースのIDを代入
         result_ID = GameMgr.Final_result_compID;
 
-        Comp_method_bunki = 20;
+        //Comp_method_bunki = 20;
 
         //ウェイトアニメーション開始
         pitemlistController_obj.SetActive(false);
@@ -1272,10 +1272,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //調合処理
             Compo_1(1);
 
-            //完成アイテムの、レシピフラグをONにする。
-            _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
-            databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
-            Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
+            if (Comp_method_bunki == 20)
+            {
+                //完成アイテムの、レシピフラグをONにする。
+                _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
+                databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+                Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
+            }
+            //CompNoの場合は、レシピ上書きは不要
 
             //作ったことがあるかどうかをチェック
             if (databaseCompo.compoitems[result_ID].comp_count == 0)

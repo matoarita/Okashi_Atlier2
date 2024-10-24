@@ -139,6 +139,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     public int _base_extreme_kaisu;
     public int _base_item_hyouji;
     public string _base_itemdesc;
+    public string[] _baseMS;
+    public int[] _baseMSvalue;
 
     private string _addname;
     private int _addhp;
@@ -180,6 +182,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private string _add_itemType;
     private string _add_itemType_sub;
     private int _addkosu;
+    private string _addMS;
+    private int _addMSvalue;
 
     //_baseに加算する前に、一時的に計算する用。
     private int _temphp;
@@ -331,6 +335,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _temptp = new string[database.items[0].toppingtype.Length];
         _addkoyutp = new string[database.items[0].koyu_toppingtype.Length];
         _slotHyouji1 = new string[database.items[0].toppingtype.Length];
+        _baseMS = new string[database.items[0].item_MagicSlot.Length];
+        _baseMSvalue = new int[database.items[0].item_MagicSlotValue.Length];
 
         //アイテムデータベースの味パラムを初期化。初期化は、ゲーム起動時の一回のみ。
         ResetDefaultTasteParam();
@@ -542,26 +548,40 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             final_select_kaisu = 1;
         }
 
-        if (Comp_method_bunki == 20) //魔法調合の場合　アイテムDBに、あえて空のアイテムデータを用意し、それを計算する 他、処理はオリジナルと一緒
+        if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合の場合　アイテムDBに、あえて空のアイテムデータを用意し、それを計算する 他、処理はオリジナルと一緒
         {
-            //オリジナル調合の設定
+            if (Comp_method_bunki == 20)
+            {
+                kettei_item1 = GameMgr.Final_list_itemID1;
+                kettei_item2 = database.SearchItemIDString("magic_comp_setting");
+                kettei_item3 = 9999;
 
-            //**重要** 
-            //kettei_itemは、プレイヤーリストのリスト番号が入っている。店売り 0, 1, 2, 3... , オリジナルリスト 0, 1, 2...といった具合。
-            //店売りの場合は、実質アイテムIDと数字は一緒。
-            //toggle_typeは、店売り(=0)か、オリジナルアイテム(=1)の判定。
+                toggle_type1 = GameMgr.Final_toggle_Type1;
+                toggle_type2 = 0;
+                toggle_type3 = 0;
 
-            kettei_item1 = GameMgr.Final_list_itemID1;
-            kettei_item2 = database.SearchItemIDString("magic_comp_setting");
-            kettei_item3 = 9999;
+                final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
+                final_kette_kosu2 = 0;
+                final_kette_kosu3 = 0;
+            }
+            else if (Comp_method_bunki == 22) //こっちはトッピング調合として扱うため、一個ずれる
+            {
+                base_kettei_item = GameMgr.Final_list_itemID1;
+                kettei_item1 = database.SearchItemIDString("magic_comp_setting");
+                kettei_item2 = 9999;
+                kettei_item3 = 9999;
 
-            toggle_type1 = GameMgr.Final_toggle_Type1;
-            toggle_type2 = 0;
-            toggle_type3 = 0;
+                base_toggle_type = GameMgr.Final_toggle_Type1;
+                toggle_type1 = 0;
+                toggle_type2 = 0;
+                toggle_type3 = 0;
+                
 
-            final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
-            final_kette_kosu2 = 0;
-            final_kette_kosu3 = 0;
+                base_kosu = 1;
+                final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
+                final_kette_kosu2 = 0;
+                final_kette_kosu3 = 0;
+            }
 
             _before_itemtype_Sub = "";
 
@@ -743,6 +763,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addtp = new string[database.items[0].toppingtype.Length];
         _temptp = new string[database.items[0].toppingtype.Length];
         _addkoyutp = new string[database.items[0].koyu_toppingtype.Length];
+        _baseMS = new string[database.items[0].item_MagicSlot.Length];
+        _baseMSvalue = new int[database.items[0].item_MagicSlotValue.Length];
 
         mstatus = _mstatus;
         hikari_make_flag = false;
@@ -800,6 +822,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basetp[i] = database.items[_id].toppingtype[i].ToString();
             }
 
+            for (i = 0; i < database.items[_id].item_MagicSlot.Length; i++)
+            {
+                _baseMS[i] = database.items[_id].item_MagicSlot[i].ToString();
+                _baseMSvalue[i] = database.items[_id].item_MagicSlotValue[i];
+            }
+
             /*if (_mstatus == 99)
             {
                 for (i = 0; i < database.items[_id].toppingtype.Length; i++)
@@ -817,7 +845,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
         }
-        else if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //生地合成、もしくはトッピング調合の場合。　一個目に選んだアイテムをベースに、リザルトアイテムにする。
+        else if (Comp_method_bunki == 1 || Comp_method_bunki == 3 || Comp_method_bunki == 22) //生地合成、もしくはトッピング調合の場合。
+            //もしくは、魔法調合でCompNoが入ってて、新規作成されない場合。
+            //一個目に選んだアイテムをベースに、リザルトアイテムにする。
         {
             switch (base_toggle_type)
             {
@@ -832,6 +862,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     for (i = 0; i < database.items[_id].toppingtype.Length; i++)
                     {
                         _basetp[i] = database.items[_id].toppingtype[i].ToString();
+                    }
+
+                    for (i = 0; i < database.items[_id].item_MagicSlot.Length; i++)
+                    {
+                        _baseMS[i] = database.items[_id].item_MagicSlot[i].ToString();
+                        _baseMSvalue[i] = database.items[_id].item_MagicSlotValue[i];
                     }
 
                     break;
@@ -894,6 +930,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                         _basetp[i] = pitemlist.player_originalitemlist[_id].toppingtype[i].ToString();
                     }
 
+                    for (i = 0; i < database.items[_id].item_MagicSlot.Length; i++)
+                    {
+                        _baseMS[i] = pitemlist.player_originalitemlist[_id].item_MagicSlot[i].ToString();
+                        _baseMSvalue[i] = pitemlist.player_originalitemlist[_id].item_MagicSlotValue[i];
+                    }
+
                     break;
 
                 case 2: //お菓子パネルアイテムリストから選択している場合
@@ -901,6 +943,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     //さらに、オリジナルのプレイヤーアイテムリストの番号を参照する。
 
                     _id = base_kettei_item;
+                    Debug.Log("base_kettei_item: " + base_kettei_item);
 
                     //各パラメータを取得
                     _baseID = pitemlist.player_extremepanel_itemlist[_id].itemID;
@@ -952,6 +995,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     for (i = 0; i < database.items[_id].toppingtype.Length; i++)
                     {
                         _basetp[i] = pitemlist.player_extremepanel_itemlist[_id].toppingtype[i].ToString();
+                    }
+
+                    for (i = 0; i < database.items[_id].item_MagicSlot.Length; i++)
+                    {
+                        _baseMS[i] = pitemlist.player_extremepanel_itemlist[_id].item_MagicSlot[i].ToString();
+                        _baseMSvalue[i] = pitemlist.player_extremepanel_itemlist[_id].item_MagicSlotValue[i];
                     }
 
                     break;
@@ -1024,7 +1073,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
             _basegirl1_like, _basecost, _basesell,
             _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-            result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
+            result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
+            _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
+            _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9]);
 
             new_item = pitemlist.player_yosokuitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1295,6 +1346,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basetp[i] = pitemlist.player_yosokuitemlist[_id].toppingtype[i].ToString();
         }
 
+        for (i = 0; i < database.items[_id].item_MagicSlot.Length; i++)
+        {
+            _baseMS[i] = pitemlist.player_yosokuitemlist[_id].item_MagicSlot[i].ToString();
+            _baseMSvalue[i] = pitemlist.player_yosokuitemlist[_id].item_MagicSlotValue[i];
+        }
+
         if (_status == 0)
         {
             //アイテム取得処理
@@ -1317,7 +1374,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
         _basegirl1_like, _basecost, _basesell,
         _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-        result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
+        result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
+        _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
+        _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9]);
 
         if (_base_itemType == "Mat" || _base_itemType == "Potion")
         {
@@ -1391,7 +1450,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
                 _basegirl1_like, _basecost, _basesell,
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
+                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
+                _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
+                _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9]);
 
                 new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1414,7 +1475,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    if (Comp_method_bunki == 20) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
+                    if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
                     {
                         _attri1 = bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill);
                         pitemlist.player_originalitemlist[new_item].Attribute1 = _attri1;
@@ -1434,7 +1495,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        if (Comp_method_bunki == 3) //トッピング調合の場合  お菓子パネルのお菓子を削除し、新しく登録するのみ。
+                        if (Comp_method_bunki == 3 || Comp_method_bunki == 22) //トッピング調合の場合  お菓子パネルのお菓子を削除し、新しく登録するのみ。
                         {
                             pitemlist.ExtremeToCopyOriginalItem(pitemlist.player_extremepanel_itemlist[0].ItemKosu - 1); //仮に3個同時とか作ってた場合もあるので、-1で計算。
                         }
@@ -1477,7 +1538,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
                 _basegirl1_like, _basecost, _basesell,
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori);
+                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
+                _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
+                _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9]);
 
                 new_item = pitemlist.player_extremepanel_itemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1500,7 +1563,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    if (Comp_method_bunki == 20) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
+                    if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
                     {
                         _attri1 = bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill);
                         pitemlist.player_extremepanel_itemlist[new_item].Attribute1 = _attri1;
@@ -1782,7 +1845,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //トッピングのときのみ、ベース個数を含む。
-        if (Comp_method_bunki == 1 || Comp_method_bunki == 3)
+        if (Comp_method_bunki == 1 || Comp_method_bunki == 3 || Comp_method_bunki == 22)
         {
             total_kosu += base_kosu;
         }
@@ -1834,7 +1897,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //***基本の味の計算方法***
         //各材料の、パラメータをそれぞれ加算する。食感のみ、小麦粉とその他材料の比率をだして、補正がかかる。イメージ。
 
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合・レシピ調合・魔法　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法　のときの計算。
         {
             //材料のパラメータ計算処理。
             AddParam_Method();
@@ -1930,7 +1993,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
 
         //④トッピングのときの計算。加算する。
-        if (Comp_method_bunki == 3)//
+        if (Comp_method_bunki == 3 || Comp_method_bunki == 22)//
         {
             for (i = 0; i < _additemlist.Count; i++)
             {
@@ -1972,7 +2035,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basejuice = _basesweat + _basebitter + _basesour;
 
         //新規作成時の特殊処理
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合　または　レシピ調合　のときの計算。
         {
             //ジュースの特殊処理　甘さが青天井で上がることはないように、上限をおさえる。
             if (_base_itemType_sub == "Juice" || _base_itemType_sub == "Soda")
@@ -2036,6 +2099,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //⑥ヒカリのお菓子の場合　味に補正かかる。
         if (GameMgr.System_HikariMakeUse_Flag)
         {
+            //ヒカリ制作の場合
             if (mstatus == 2)
             {
                 if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
@@ -2063,10 +2127,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
             }
 
-
+            //mstatus=0,1はおにいちゃんの場合
             if (mstatus == 0 || mstatus == 1)
             {
-                if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合　または　レシピ調合　のときの計算。
+                if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合　または　レシピ調合　または魔法　のときの計算。
                 {
                     //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合のみ。。
                     /*if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
@@ -2105,7 +2169,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //⑦魔法使用による、食感のパラメーター上昇
-        if(Comp_method_bunki == 20)
+        if(Comp_method_bunki == 20 || Comp_method_bunki == 22)
         {
             //A. お菓子の食感ごとに、バフをかける処理
             _basecrispy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(0, _basecrispy, GameMgr.UseMagicSkill); //中の数字でどの食感パラムかの指定
@@ -2115,13 +2179,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basejuice += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(4, _basejuice, GameMgr.UseMagicSkill);
             _basebeauty += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(5, _basebeauty, GameMgr.UseMagicSkill);
             _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, _basetea_flavor, GameMgr.UseMagicSkill);
+
+            //ここで魔法スロット追加
+            AddMagicSlot_Method();
         }
 
         //⑧温度管理による、食感の補正
         //スキル温度管理を使ったとき、温度と時間によって仕上がりがさらに変わる。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときの計算。
-        {
-            
+        {           
             _well_done = 0;
             _best_well_done = _base_bestwelldone; //200°で10分ほど焼いたときの焼き具合 60分焼けるけど、クッキーの場合30分以上は基本焦げる
 
@@ -2243,6 +2309,132 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
     }
 
+    void AddMagicSlot_Method()
+    {
+        //重複した場合は、個別にスロットに入れる。すでに魔法がある場合は、ベースの空のスロットに上書きしていく。
+        //ベースの空スロットがなくなった時点で、それ以上合成はできない。
+
+        _addMSvalue = 0;
+        //魔法に応じて、入れるスロット名を先にセットしておく。同時に、各SPスコアや見た目の値も計算する。
+        switch (GameMgr.UseMagicSkill)
+        {
+            case "Fire_Flowers":
+                _addMS = GameMgr.System_MagicSlotName01;
+                _addMSvalue = 10;
+                break;
+
+            case "Buttelfy_illumination":
+                _addMS = GameMgr.System_MagicSlotName02;
+                _addMSvalue = 10;
+                break;
+
+            case "Bubble_Mist":
+                _addMS = GameMgr.System_MagicSlotName03;
+                _addMSvalue = 10;
+                break;
+
+            case "Star_Blessing":
+                _addMS = GameMgr.System_MagicSlotName04;
+                _addMSvalue = 10;
+                break;
+
+            case "Wind_Ark":
+                _addMS = GameMgr.System_MagicSlotName05;
+                _addMSvalue = 10;
+                break;
+
+            default:
+                _addMS = "Non";               
+                break;
+        }
+
+        if (!GameMgr.System_MagicSlot_MultipleON)
+        {
+            if (_addMS == "Non") { }
+            else
+            {
+                if (_baseMS[0] == _addMS) //ベースに入っているトッピングと、_addが重複の場合。
+                {
+                    //効果を加算する
+                    _baseMSvalue[0] += _addMSvalue;
+                }
+                else
+                {
+                    _baseMS[0] = _addMS;
+                    _baseMSvalue[0] = _addMSvalue;
+                }
+            }
+        }
+        else
+        {
+            if (_addMS == "Non") { }
+            else
+            {
+                //加算トッピングの一個目をもとに、ベースのスロット一個目から順番にみていく。
+                //Debug.Log(_addtp[i]);
+                j = 0;
+                while (j < _baseMS.Length) //ベースが全て空でない場合、全て無視したまま、処理だけ続く。
+                {
+
+                    if (_baseMS[j] == "Non") //ベースが空の場合は、そこに_addトッピングを入れる。
+                    {
+                        //Debug.Log(_baseMS[j]);
+                        _baseMS[j] = _addMS;
+                        _baseMSvalue[j] = _addMSvalue;
+                        break;
+                    }
+                    else if (_baseMS[j] == _addMS) //ベースに入っているトッピングと、_addが重複の場合。
+                    {
+                        //効果を加算する
+                        _baseMSvalue[j] += _addMSvalue;
+                        break;
+                    }
+                    else //ベースが空でない場合。
+                    {
+                        //無視して、次の_baseトッピングのスロットを見る。
+                    }
+
+                    j++;
+                }
+            }
+        }
+
+        //最後にSPスコアや見た目の計算
+        for(i=0; i< _baseMS.Length; i++)
+        {
+            if (_baseMS[i] == GameMgr.System_MagicSlotName01) //FireFlower
+            {
+                _basesp_score8 = _basesp_score8 + (_baseMSvalue[i] * 3); //芸術性
+                _basebeauty += _baseMSvalue[i];
+            }
+            if (_baseMS[i] == GameMgr.System_MagicSlotName02) //Butterfly
+            {
+                _basesp_score6 = _basesp_score6 + (_baseMSvalue[i] * 3); //子供っぽい
+                _basesp_score7 = _basesp_score7 + (_baseMSvalue[i] * 3); //メルヘン
+                _basesp_score8 = _basesp_score8 + (_baseMSvalue[i] * 3); //芸術性
+                _basesp_score9 = _basesp_score9 + (_baseMSvalue[i] * 3); //光らしさ
+                _basebeauty += _baseMSvalue[i];
+            }
+            if (_baseMS[i] == GameMgr.System_MagicSlotName03) //BubbleMist
+            {
+                _basesp_score2 = _basesp_score2 + (_baseMSvalue[i] * 3); //海らしさ
+                _basebeauty += _baseMSvalue[i];
+            }
+            if (_baseMS[i] == GameMgr.System_MagicSlotName04) //StarBlessing
+            {
+                _basesp_score6 = _basesp_score6 + (_baseMSvalue[i] * 3); //子供っぽい
+                _basesp_score7 = _basesp_score7 + (_baseMSvalue[i] * 3); //メルヘン
+                _basebeauty += _baseMSvalue[i];
+            }
+            if (_baseMS[i] == GameMgr.System_MagicSlotName05) //WindArc
+            {
+                _basesp_wind = _basesp_wind + (_baseMSvalue[i] * 3);
+                _basebeauty += _baseMSvalue[i];
+            }
+        }
+        
+    }
+
 
 
     void Set_addparam()
@@ -2300,7 +2492,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _addkoyutp[i] = database.items[_id].koyu_toppingtype[i].ToString();
             }
         }
-        else if (Comp_method_bunki == 3) //トッピング時。通常トッピング＋固有トッピングどちらも計算
+        else if (Comp_method_bunki == 3 || Comp_method_bunki == 22) //トッピング時。通常トッピング＋固有トッピングどちらも計算
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -2313,7 +2505,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
-        if (Comp_method_bunki == 20) //魔法調合時 計算時の個数は1の時のパラメータで計算する
+        if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合時 計算時の個数は1の時のパラメータで計算する
         {
 
             _addkosu = 1;
@@ -2328,7 +2520,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], 
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
-        0, 0));
+        0, 0,
+        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
     }
 
     void Set_add_originparam()
@@ -2387,7 +2580,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _addkoyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
             }
         }
-        else if (Comp_method_bunki == 3) //トッピング時
+        else if (Comp_method_bunki == 3 || Comp_method_bunki == 22) //トッピング時
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -2401,7 +2594,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
-        if (Comp_method_bunki == 20) //魔法調合時 計算時の個数は1の時のパラメータで計算する
+        if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合時 計算時の個数は1の時のパラメータで計算する
         {
             _addkosu = 1;
         }
@@ -2415,7 +2608,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
-        0, 0));
+        0, 0,
+        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
     }
 
     void Set_add_extremeparam()
@@ -2474,7 +2668,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _addkoyutp[i] = pitemlist.player_extremepanel_itemlist[_id].koyu_toppingtype[i].ToString();
             }
         }
-        else if (Comp_method_bunki == 3) //トッピング時
+        else if (Comp_method_bunki == 3 || Comp_method_bunki == 22) //トッピング時
         {
             for (i = 0; i < database.items[_id].toppingtype.Length; i++)
             {
@@ -2488,7 +2682,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
-        if (Comp_method_bunki == 20) //魔法調合時 計算時の個数は1の時のパラメータで計算する
+        if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合時 計算時の個数は1の時のパラメータで計算する
         {
             _addkosu = 1;
         }
@@ -2502,7 +2696,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
-        0, 0));
+        0, 0,
+        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
     }
 
 
@@ -2655,7 +2850,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         deleteOriginalList.Clear();
         deleteExtremeList.Clear();
 
-        if (Comp_method_bunki == 1 || Comp_method_bunki == 3) //生地合成、もしくはトッピング調合などの場合、ベースアイテムを、プレイヤーのアイテムリストから選んでる場合は、ベースアイテムの削除処理を行う。
+        if (Comp_method_bunki == 1 || Comp_method_bunki == 3 || Comp_method_bunki == 22) //生地合成、もしくはトッピング調合などの場合、ベースアイテムを、プレイヤーのアイテムリストから選んでる場合は、ベースアイテムの削除処理を行う。
         {
 
             //ベースアイテムを削除する。
@@ -3091,6 +3286,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         Debug.Log("スロット8: " + _basetp[7]);
         Debug.Log("スロット9: " + _basetp[8]);
         Debug.Log("スロット10: " + _basetp[9]);
+
+        Debug.Log("魔法状態1: " + _baseMS[0] + " " + _baseMSvalue[0]);
+        Debug.Log("魔法状態2: " + _baseMS[1] + " " + _baseMSvalue[1]);
+        Debug.Log("魔法状態3: " + _baseMS[2] + " " + _baseMSvalue[2]);
+        Debug.Log("魔法状態4: " + _baseMS[3] + " " + _baseMSvalue[3]);
+        Debug.Log("魔法状態5: " + _baseMS[4] + " " + _baseMSvalue[4]);
+        Debug.Log("魔法状態6: " + _baseMS[5] + " " + _baseMSvalue[5]);
+        Debug.Log("魔法状態7: " + _baseMS[6] + " " + _baseMSvalue[6]);
+        Debug.Log("魔法状態8: " + _baseMS[7] + " " + _baseMSvalue[7]);
+        Debug.Log("魔法状態9: " + _baseMS[8] + " " + _baseMSvalue[8]);
+        Debug.Log("魔法状態10: " + _baseMS[9] + " " + _baseMSvalue[9]);
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

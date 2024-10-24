@@ -51,6 +51,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
     public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
+    public static bool System_MagicSlot_MultipleON = true; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -101,6 +102,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //条件競売のスコア
     public static int joukenkyobai_enemy_score = 258;
 
+    //魔法状態のスロット名
+    public static string System_MagicSlotName01 = "FireFlower";
+    public static string System_MagicSlotName02 = "Butterfly";
+    public static string System_MagicSlotName03 = "Bubble";
+    public static string System_MagicSlotName04 = "Star";
+    public static string System_MagicSlotName05 = "Arc";
     //** --ここまで-- **//
 
 
@@ -1502,7 +1509,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_okashi_ItemData = new Item(9999, "Non", "orange", "Non" + "Non" + " " + "Non", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
-                        0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0);
+                        0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         //お菓子のクリア基準値
         mazui_score = 30;
@@ -1981,7 +1989,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mirabo_present_list.Add("mg_controltempature_book");
         mirabo_present_list.Add("mg_freezespell_book");
         mirabo_present_list.Add("mg_caramelized_book");
-        mirabo_present_list.Add("mg_rainbowrain_book");
+        mirabo_present_list.Add("mg_rainbowrain_book");        
         mirabo_present_list.Add("mg_summon_mirabo_book");
     }
 

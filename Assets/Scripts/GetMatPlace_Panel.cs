@@ -1755,6 +1755,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 timeOut = 1.0f;
                 treasure_anim_status = 1;
 
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(32); //棒目でヒヒって顔
+
                 switch (get_material.Treasure_Status)
                 {
                     case 0: //宝箱
