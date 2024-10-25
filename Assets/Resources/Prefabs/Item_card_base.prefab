@@ -6211,7 +6211,6 @@ GameObject:
   - component: {fileID: 224259752460574850}
   - component: {fileID: 222180390927811534}
   - component: {fileID: 114756904007056244}
-  - component: {fileID: 223598933718642272}
   m_Layer: 0
   m_Name: ItemIcon
   m_TagString: Untagged
@@ -40608,26 +40607,6 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!223 &223598933718642272
-Canvas:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1869741223721760}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 5200
   m_TargetDisplay: 0
 --- !u!223 &223604927559668754
 Canvas:

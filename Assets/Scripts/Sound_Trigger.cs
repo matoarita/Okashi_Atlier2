@@ -142,6 +142,17 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(18);
                 break;
 
+            case "QuickSaveButton": //クイックセーブを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(28);
+
+                break;
+
             case "SlotHyoujiButton": //スロット表示切替を押したときのSE
 
                 //ポインタが入ったときに鳴る音

@@ -151,10 +151,13 @@ public class SaveloadListSelectToggle : MonoBehaviour {
                 //解除
                 save_controller.OnSaveMethod(_toggleID);
                 _textmain.text = (_toggleID+1).ToString() + "番 に" + "セーブしました。";
-                //GameMgr.compound_status = 0;
+                
                 titleback_panel.SetActive(false);
 
                 saveload_panel.GetComponent<SaveLoadPanel>().ReDraw();
+
+                GameMgr.compound_status = 0;
+                system_panel.SetActive(false);
 
                 break;
 

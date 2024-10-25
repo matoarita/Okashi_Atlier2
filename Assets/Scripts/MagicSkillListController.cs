@@ -113,10 +113,10 @@ public class MagicSkillListController : MonoBehaviour
                 category_toggle.Add(child.gameObject);
                 category_toggle[i].SetActive(false);
                 i++;
-            }
-
-            ViewFlagCheck();
+            }            
         }
+
+        ViewFlagCheck();
 
         //レイアウトの再配置　SetActiveのon/offだけだと、再配置されない
         grid_layout_content.enabled = false;
@@ -241,13 +241,18 @@ public class MagicSkillListController : MonoBehaviour
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         Debug.Log("OnEnable MagicPanel");
 
-        for (i = 0; i < category_toggle.Count; i++)
+        //表示初期　光魔法を表示する　セレクトパネルから押したときのみ
+        if (GameMgr.MagicPanel_DefaultHyouji)
         {
-            category_toggle[i].GetComponent<Toggle>().isOn = false;
-        }
-        category_toggle[1].GetComponent<Toggle>().isOn = true;
-        //SkillList_DrawView10();
+            GameMgr.MagicPanel_DefaultHyouji = false;
 
+            for (i = 0; i < category_toggle.Count; i++)
+            {
+                category_toggle[i].GetComponent<Toggle>().isOn = false;
+            }
+            category_toggle[1].GetComponent<Toggle>().isOn = true; //0はトグルのプレファブ元なので、1からはじまって1~9まで。
+            //SkillList_DrawView10();
+        }
            
     }
 

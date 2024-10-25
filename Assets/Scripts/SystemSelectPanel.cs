@@ -20,6 +20,7 @@ public class SystemSelectPanel : MonoBehaviour {
 
     private Compound_Main compound_Main;
 
+    private GameObject system_panel;
     private GameObject saveload_panel;
     private GameObject option_panel;
     private GameObject extraoption_panel;
@@ -27,6 +28,8 @@ public class SystemSelectPanel : MonoBehaviour {
     private Text titleback_text;
     private Text yes_text;
     private GameObject loadButton_obj;
+    private GameObject quicksaveButton_obj;
+    private Text qsave_slot_text;
 
     private GameObject no_button;
 
@@ -69,6 +72,8 @@ public class SystemSelectPanel : MonoBehaviour {
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.GetComponentInChildren<Text>();
 
+        system_panel = canvas.transform.Find("SystemPanel").gameObject;
+
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
 
@@ -83,16 +88,23 @@ public class SystemSelectPanel : MonoBehaviour {
         saveload_panel.SetActive(false);
 
         loadButton_obj = this.transform.Find("Scroll View/Viewport/Content/LoadButton").gameObject;
+        quicksaveButton_obj = this.transform.Find("Scroll View/Viewport/Content/QuickSaveButton").gameObject;
+        qsave_slot_text = quicksaveButton_obj.transform.Find("Slotnumtext").GetComponent<Text>();
 
         if (GameMgr.saveOK)
         {
             //ロードボタンを表示
             loadButton_obj.GetComponent<Button>().interactable = true;
+            quicksaveButton_obj.GetComponent<Button>().interactable = true;
             //loadButton_obj.SetActive(true);
+
+            qsave_slot_text.text = (GameMgr.System_save_nowslot + 1).ToString() + "番";
         }
         else
         {
             loadButton_obj.GetComponent<Button>().interactable = false;
+            quicksaveButton_obj.GetComponent<Button>().interactable = false;
+            qsave_slot_text.text = "";
         }
 
         CheckButtonStatus();
@@ -121,13 +133,16 @@ public class SystemSelectPanel : MonoBehaviour {
     {
         GameMgr.SaveLoadPanel_mode = 0;
         saveload_panel.SetActive(true);
+    }
 
-        /*titleback_panel.SetActive(true);
-        titleback_text.text = "セーブするの？";
-        yes_text.text = "セーブする";
-        no_button.SetActive(false);
+    //クイックセーブする
+    public void OnQuickSaveButton()
+    {
+        save_controller.OnSaveMethod(GameMgr.System_save_nowslot);
+        _textmain.text = (GameMgr.System_save_nowslot + 1).ToString() + "番 に" + "セーブしました。";
 
-        StartCoroutine("Save_kakunin");*/
+        GameMgr.compound_status = 0;
+        system_panel.SetActive(false);
     }
 
     //ロード用画面を開く
@@ -135,13 +150,6 @@ public class SystemSelectPanel : MonoBehaviour {
     {
         GameMgr.SaveLoadPanel_mode = 1;
         saveload_panel.SetActive(true);
-
-        /*titleback_panel.SetActive(true);
-        titleback_text.text = "ロードするの？";
-        yes_text.text = "ロードする";
-        no_button.SetActive(false);
-
-        StartCoroutine("Load_kakunin");*/
     }
 
     //オプション
@@ -171,100 +179,7 @@ public class SystemSelectPanel : MonoBehaviour {
         StartCoroutine("Title_kakunin");
         
     }
-
-    /*
-    IEnumerator Save_kakunin()
-    {
-
-        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-
-            case true: //決定が押された。これでいいですか？の確認。
-
-                //Debug.Log("ok");
-                //解除
-                save_controller.OnSaveMethod();
-                _textmain.text = "セーブしました。";
-                GameMgr.compound_status = 0;
-                titleback_panel.SetActive(false);
-                this.transform.parent.gameObject.SetActive(false);
-
-                //ロードボタンを表示
-                loadButton_obj.GetComponent<Button>().interactable = true;
-
-                break;
-
-            case false: //キャンセルが押された
-
-                //Debug.Log("cancel");
-                titleback_panel.SetActive(false);
-                no_button.SetActive(true);
-
-                break;
-        }
-    }
-
-    IEnumerator Load_kakunin()
-    {
-
-        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
-
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-
-            case true: //決定が押された。これでいいですか？の確認。
-
-                //Debug.Log("ok");
-                //解除
-
-                //音量フェードアウト
-                //sceneBGM.FadeOutBGM();
-                sceneBGM.NowFadeVolumeOFFBGM(); //
-
-                save_controller.OnLoadMethod(); //Loadメソッド内でシーン移動している
-
-                if (GameMgr.saveOK)
-                {
-                    _textmain.text = "ロードしました。";
-                }
-                else
-                {
-                    _textmain.text = "セーブデータがありません。";
-                }
-                
-                //GameMgr.compound_status = 0;
-                titleback_panel.SetActive(false);
-                this.transform.parent.gameObject.SetActive(false);
-
-                break;
-
-            case false: //キャンセルが押された
-
-                //Debug.Log("cancel");
-                titleback_panel.SetActive(false);
-                no_button.SetActive(true);
-
-                break;
-        }
-    }*/
+   
 
     IEnumerator Title_kakunin()
     {

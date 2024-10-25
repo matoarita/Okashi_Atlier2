@@ -629,6 +629,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int UseMagicSkill_ID; //使用するスキルのID    
     public static int UseMagicSkillLv; //使用するスキルの使用レベル
     public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐    
+    public static bool MagicPanel_DefaultHyouji; //魔法パネル開いたときに、デフォルトの光魔法を表示する
     public static bool EventAfter_MoveEnd; //なんらかのイベント終了後、すぐにヒカリを元の位置に戻す
     public static bool Status_zero_readOK; //メインステータスを読み終わったよ～のフラグ　その後に、ヒカリが戻ってくるなどの処理を挟む用
     public static int OkashiMake_PanelSetType; //さっき作ったお菓子が、パネルにセットされるお菓子かどうか。生地などはセットされず、すぐ調合画面を戻す
@@ -1224,6 +1225,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_ProblemSentence2 = "";
         Contest_HallBGName = "";
         Contest_ON = false;
+        MagicPanel_DefaultHyouji = false;
         EventAfter_MoveEnd = false;
         Status_zero_readOK = false;
         OkashiMake_PanelSetType = 0;

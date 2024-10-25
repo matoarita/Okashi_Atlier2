@@ -253,6 +253,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         _text.text = magic_text;
         GameMgr.compound_status = 20;
+        GameMgr.MagicPanel_DefaultHyouji = true;
 
         //sc.PlaySe(148); //魔法選択音
     }
@@ -265,6 +266,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         _text.text = magic_text;
         GameMgr.compound_status = 30;
+        GameMgr.MagicPanel_DefaultHyouji = true;
     }
 
     public void BlackImageON()

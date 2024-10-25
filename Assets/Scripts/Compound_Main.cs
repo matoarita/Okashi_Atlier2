@@ -3065,7 +3065,7 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Statue_of_Bear");
                 magicskill_database.skillHyoujiKaikin("Statue_of_Cat");
                 magicskill_database.skillHyoujiKaikin("Statue_of_Rabitts");
-                magicskill_database.skillHyoujiKaikin("Statue_of_AngelWing");
+                //magicskill_database.skillHyoujiKaikin("Statue_of_AngelWing");
                 break;
 
             case "mg_star_gazer_book":
