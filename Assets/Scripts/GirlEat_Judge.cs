@@ -2207,6 +2207,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Crispy_Score();
                 break;
         }
+
+        shokukan_mes = GameMgr.Item_ShokukanTypeText;
     }
 
 
@@ -2241,8 +2243,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //crispy_score = _basecrispy;
         shokukan_baseparam = _basecrispy;
         shokukan_score += crispy_score;
-        shokukan_mes = "さくさく感";
-        Debug.Log("サクサク度ベース: " + _basecrispy + " 判定値: " + _girlcrispy[countNum] + " サクサク度の点: " + crispy_score);
+        //shokukan_mes = GameMgr.Item_ShokukanTypeText;
+        Debug.Log(GameMgr.Item_ShokukanTypeText + "ベース: " + _basecrispy + " 判定値: " + _girlcrispy[countNum] + " " + GameMgr.Item_ShokukanTypeText + "の点: " + crispy_score);
     }
 
     void Fluffy_Score()
@@ -2275,7 +2277,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //fluffy_score = _basefluffy;
         shokukan_baseparam = _basefluffy;
         shokukan_score += fluffy_score;
-        shokukan_mes = "ふわふわ感";
+        //shokukan_mes = "ふわふわ感";
         Debug.Log("ふわふわ度ベース: " + _basefluffy + " 判定値: " + _girlfluffy[countNum] + " ふわふわ度の点: " + fluffy_score);
     }
 
@@ -2309,7 +2311,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //smooth_score = _basesmooth;
         shokukan_baseparam = _basesmooth;
         shokukan_score += smooth_score;
-        shokukan_mes = "なめらか感";
+        //shokukan_mes = "なめらか感";
         Debug.Log("なめらかベース: " + _basesmooth + " 判定値: " + _girlsmooth[countNum] + " なめらかの点: " + smooth_score);
     }
 
@@ -2343,7 +2345,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //hardness_score = _basehardness;
         shokukan_baseparam = _basehardness;
         shokukan_score += hardness_score;
-        shokukan_mes = "歯ごたえ";
+        //shokukan_mes = "歯ごたえ";
         Debug.Log("歯ごたえベース: " + _basehardness + " 判定値: " + _girlhardness[countNum] + " 歯ごたえの点: " + hardness_score);
     }
 
@@ -2377,7 +2379,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         shokukan_baseparam = _basejuice;
         shokukan_score += juice_score;
-        shokukan_mes = "のどごし";
+        //shokukan_mes = "のどごし";
         Debug.Log("のどごしベース: " + _basejuice + " 判定値: " + _girljuice[countNum] + " のどごしの点: " + juice_score);
     }
 
@@ -2410,7 +2412,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         shokukan_baseparam = _basetea_flavor;
         shokukan_score += tea_flavor_score;
-        shokukan_mes = "香り";
+        //shokukan_mes = "香り";
         Debug.Log("香りベース: " + _basetea_flavor + " 判定値: " + _girltea_flavor[countNum] + " 香り(tea_flavor)の点: " + tea_flavor_score);
     }
 

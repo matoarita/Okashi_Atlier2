@@ -752,9 +752,37 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             //_text.text = "なぁに？お話する？";
 
+            switch (GameMgr.Scene_Name)
+            {
+                case "Shop_Grt":
+
+                    GameMgr.talk_number = 100;
+                    break;
+
+                case "Or_Shop_A1":
+
+                    GameMgr.talk_number = 100;
+                    break;
+
+                case "Or_Shop_B1":
+
+                    GameMgr.talk_number = 1000;
+                    break;
+
+                case "Or_Shop_C1":
+
+                    GameMgr.talk_number = 2000;
+                    break;
+
+                case "Or_Shop_D1":
+
+                    GameMgr.talk_number = 3000;
+                    break;
+            }
+
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
-            GameMgr.talk_number = 100;
+            
             GameMgr.utage_charaHyouji_flag = true;
 
             StartCoroutine("UtageEndWait");

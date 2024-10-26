@@ -1389,7 +1389,8 @@ public class Compound_Check : MonoBehaviour {
 
         //先に失敗の場合をデフォルトに設定。
         //どの調合組み合わせのパターンにも合致しなかった場合は、ゴミのIDが入っている。調合DBのゴミのitemNameを入れると、後で数値に変換してくれる。現在は、500に変換される。
-        resultitemID = "gomi_1"; 
+        resultitemID = "gomi_1";
+        result_compoID = 0; //とりあえずこれは0にリセット。
         compoDB_select_judge = false;
         resultDB_Failed = false;
         GameMgr.Special_OkashiEnshutsuFlag = false;
@@ -1442,6 +1443,7 @@ public class Compound_Check : MonoBehaviour {
             if (GameMgr.Comp_kettei_bunki == 22) 
             {
                 resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
+                result_compoID = databaseCompo.SearchCompoIDString("Magic_CompNo_empty");
                 _compNo_check = 1; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。
             }
         }

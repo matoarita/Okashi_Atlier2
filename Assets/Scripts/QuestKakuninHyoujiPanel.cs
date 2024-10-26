@@ -41,6 +41,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private int _kosu;
     private int _money;
     private string _area;
+    private int _quest_opennum;
 
     private int _Limit_day;
     private int _Nokori_day;
@@ -87,7 +88,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         quest_day_today = this.transform.Find("PanelB/Quest_Day_Today").gameObject;
         questmoney = this.transform.Find("PanelB/Quest_Money").GetComponent<Text>();
         quest_clientname = this.transform.Find("PanelB/ClientPanel/Quest_ClientName").GetComponent<Text>();
-        quest_area = this.transform.Find("PanelB/ClientPanel/Quest_Place").GetComponent<Text>();
+        quest_area = this.transform.Find("PanelB/ClientPanel/Quest_PlaceButton/Quest_Place").GetComponent<Text>();
         quest_desc = this.transform.Find("PanelB/CommentPanel/Quest_Comment").GetComponent<Text>();
         quest_player_kosu = this.transform.Find("PanelB/Quest_PlayerItemKosu").GetComponent<Text>();
         quest_clientpanel = this.transform.Find("PanelB/ClientPanel").gameObject;
@@ -154,7 +155,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     //PanelBを描画する 受注リストのリスト配列番号を受け取って、中身を更新
     public void UpdateQuestDetailedPanel(int _list)
     {
-
+        _quest_opennum = _list;
         _money = questset_database.questTakeset[_list].Quest_buy_price;
         _kosu = questset_database.questTakeset[_list].Quest_kosu_default;
 
@@ -233,7 +234,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
             case 30:
 
-                _area = "秋酒場";
+                _area = "秋酒場さんま亭";
                 break;
 
             case 40:
@@ -280,5 +281,51 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
         GameMgr.SceneSelectNum = 20;
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+    }
+
+    void OnMoveBarScene(int _num)
+    {
+        //入店の音
+        sc.PlaySe(38);
+        sc.PlaySe(51);
+        GameMgr.ShopEnter_ButtonON = true;
+
+        GameMgr.SceneSelectNum = _num;
+        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+    }
+
+    public void OnMoveBarButton()
+    {
+        switch (questset_database.questTakeset[_quest_opennum].Quest_AreaType)
+        {
+            case 10:
+
+                //_area = "春酒場よいどれ亭";
+                OnMoveBarScene(0);
+                break;
+
+            case 20:
+
+                //_area = "夏酒場";
+                OnMoveBarScene(10);
+                break;
+
+            case 30:
+
+                //_area = "秋酒場";
+                OnMoveBarScene(20);
+                break;
+
+            case 40:
+
+                //_area = "冬酒場";
+                OnMoveBarScene(30);
+                break;
+
+            default:
+
+                //_area = "ガレット酒場";
+                break;
+        }
     }
 }
