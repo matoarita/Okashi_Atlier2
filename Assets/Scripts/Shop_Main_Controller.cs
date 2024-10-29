@@ -761,22 +761,47 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                 case "Or_Shop_A1":
 
-                    GameMgr.talk_number = 100;
-                    break;
-
-                case "Or_Shop_B1":
-
                     GameMgr.talk_number = 1000;
                     break;
 
-                case "Or_Shop_C1":
+                case "Or_Shop_B1": //エクレア姉さん
 
                     GameMgr.talk_number = 2000;
+
+                    /*
+                    if (GameMgr.NPCHiroba_eventList[1200]) //ショップの女の子　イベントフラグ
+                    {
+                        //頭から順番に会話をまわしていく。
+                        switch (talkrot)
+                        {
+                            case 0:
+                                GameMgr.talk_number = 2000;
+                                talkrot++;
+                                break;
+                            case 1:
+                                GameMgr.talk_number = 2001;
+                                talkrot++;
+                                break;
+                            case 2:
+                                GameMgr.talk_number = 2002;
+                                //talkrot=0;
+                                break;
+                        }
+
+                        //BGMかえる
+                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        //bgm_change_flag = true;
+                    }*/
                     break;
 
-                case "Or_Shop_D1":
+                case "Or_Shop_C1": //マダム・オペラのばあさん
 
                     GameMgr.talk_number = 3000;
+                    break;
+
+                case "Or_Shop_D1": //ピティヴィエさん
+
+                    GameMgr.talk_number = 4000;
                     break;
             }
 

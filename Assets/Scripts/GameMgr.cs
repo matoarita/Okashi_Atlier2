@@ -156,10 +156,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Game_timeCount; 
 
     //オートセーブのON/OFF
-    public static bool AUTOSAVE_ON = false; //シーンからメインに戻ってきたときや、採取から帰ってきたときにオートセーブするかどうか
+    public static bool AUTOSAVE_ON; //シーンからメインに戻ってきたときや、採取から帰ってきたときにオートセーブするかどうか
 
     //調合シーンでBGM切り替えるかどうかのフラグ
-    public static bool CompoBGMCHANGE_ON = false;    
+    public static bool CompoBGMCHANGE_ON;    
 
     //初期アイテム取得のフラグ
     public static bool gamestart_recipi_get;
@@ -1007,6 +1007,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_Topping_Multiple_Flag = false;
         System_ContestIcon_OnFlag = false;
         System_BarQuestIcon_OnFlag = false;
+
+        AUTOSAVE_ON = false;
+        CompoBGMCHANGE_ON = false;
 
         stage1_clear_girl1_lovelv = 1;
         stage2_clear_girl1_lovelv = 1;

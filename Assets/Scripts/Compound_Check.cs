@@ -1645,12 +1645,14 @@ public class Compound_Check : MonoBehaviour {
                     exp_Controller._success_judge_flag = 2; //必ず失敗する
                     success_text = "これは.. 失敗かも？";
                     kakuritsuPanel.KakuritsuYosoku_Img(0);
+                    Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + "必ず失敗");
                 }
                 else
                 {
                     //トッピングは100％成功なので、exp_Controller._success_judge_flag や exp_Controller._success_rateの設定は不要　exp_Controllerで直接指定してる
                     _success_rate = 100f;
                     kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //ふつうにトッピングするときは、100%成功
+                    Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + "トッピング 100%成功");
 
                 }
             }
@@ -1659,7 +1661,10 @@ public class Compound_Check : MonoBehaviour {
             {
                 //
                 _success_rate = 75f;
+                exp_Controller._success_judge_flag = 1; //判定処理を行う。
+                exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //
+                Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _success_rate);
             }
             else
             {
@@ -1667,6 +1672,7 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller._success_judge_flag = 2; //必ず失敗する
                 success_text = "これは.. 失敗かも？";
                 kakuritsuPanel.KakuritsuYosoku_Img(0);
+                Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + "必ず失敗");
             }
 
         }

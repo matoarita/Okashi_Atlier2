@@ -2545,6 +2545,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case 0: //必ず成功
 
                 GameMgr.Result_compound_success = true;
+                Debug.Log("最終成功率: " + "100% 必ず成功: ");
                 break;
 
             case 1: //判定処理を行う
@@ -2570,6 +2571,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case 2: //必ず失敗
 
                 GameMgr.Result_compound_success = false;
+                Debug.Log("最終成功率: " + "0% 必ず失敗");
                 break;
         }
 

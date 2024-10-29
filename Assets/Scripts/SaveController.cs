@@ -146,11 +146,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //エメラルドアイテムの所持数取得
-        /*_temp_emeralditemlist.Clear();
+        _temp_emeralditemlist.Clear();
         for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
             _temp_emeralditemlist.Add(new ItemSaveKosu(pitemlist.emeralditemlist[i].event_itemName, pitemlist.emeralditemlist[i].ev_itemKosu, 0));
-        }*/
+        }
 
         //調合フラグと調合回数の取得
         _temp_cmpflaglist.Clear();
@@ -305,9 +305,29 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             save_special_animatFirst = girl1_status.special_animatFirst,
 
+            //ステージ１クリア時の好感度を保存
+            save_stage1_clear_girl1_loveexp = GameMgr.stage1_clear_girl1_loveexp,
+            save_stage2_clear_girl1_loveexp = GameMgr.stage2_clear_girl1_loveexp,
+            save_stage3_clear_girl1_loveexp = GameMgr.stage3_clear_girl1_loveexp,
+
+            save_stage1_clear_girl1_lovelv = GameMgr.stage1_clear_girl1_lovelv,
+            save_stage2_clear_girl1_lovelv = GameMgr.stage2_clear_girl1_lovelv,
+            save_stage3_clear_girl1_lovelv = GameMgr.stage3_clear_girl1_lovelv,
+
+            //オートセーブフラグ
+            save_Autosave_ON = GameMgr.AUTOSAVE_ON,
+
+            //調合シーンでBGM切り替えるフラグ
+            save_CompoBGMChange_ON = GameMgr.CompoBGMCHANGE_ON,
+
+            //スキップ系フラグ
+            save_SleepSkipFlag = GameMgr.SleepSkipFlag,
+            save_PicnicSkipFlag = GameMgr.PicnicSkipFlag,
+            save_OutGirlSkipFlag = GameMgr.OutGirlSkipFlag,
+
             //コスチューム番号
-            //save_costume_num = GameMgr.Costume_Num,
-            //save_acce_num = GameMgr.Accesory_Num,
+            save_costume_num = GameMgr.Costume_Num,
+            save_acce_num = GameMgr.Accesory_Num,
 
             //飾っているアイテムのリスト
             save_BGAcceItemsName = _temp_bgacce_flaglist,
@@ -479,7 +499,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_eventitemlist = _temp_eventitemlist,
 
             //プレイヤーのエメラルドアイテムリスト。
-            //save_player_emeralditemlist = _temp_emeralditemlist,
+            save_player_emeralditemlist = _temp_emeralditemlist,
 
             //アイテムリスト＜オリジナル＞
             save_player_originalitemlist = pitemlist.player_originalitemlist,
@@ -666,9 +686,29 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         girl1_status.special_animatFirst = playerData.save_special_animatFirst;
 
+        //ステージ１クリア時の好感度を保存
+        GameMgr.stage1_clear_girl1_loveexp = playerData.save_stage1_clear_girl1_loveexp;
+        GameMgr.stage2_clear_girl1_loveexp = playerData.save_stage2_clear_girl1_loveexp;
+        GameMgr.stage3_clear_girl1_loveexp = playerData.save_stage3_clear_girl1_loveexp;
+
+        GameMgr.stage1_clear_girl1_lovelv = playerData.save_stage1_clear_girl1_lovelv;
+        GameMgr.stage2_clear_girl1_lovelv = playerData.save_stage2_clear_girl1_lovelv;
+        GameMgr.stage3_clear_girl1_lovelv = playerData.save_stage3_clear_girl1_lovelv;
+
+        //オートセーブフラグ
+        GameMgr.AUTOSAVE_ON = playerData.save_Autosave_ON;
+
+        //調合シーンでBGM切り替えるフラグ
+        GameMgr.CompoBGMCHANGE_ON = playerData.save_CompoBGMChange_ON;
+
+        //スキップ系フラグ
+        GameMgr.SleepSkipFlag = playerData.save_SleepSkipFlag;
+        GameMgr.PicnicSkipFlag = playerData.save_PicnicSkipFlag;
+        GameMgr.OutGirlSkipFlag = playerData.save_OutGirlSkipFlag;
+
         //コスチューム番号
-        //GameMgr.Costume_Num = playerData.save_costume_num;
-        //GameMgr.Accesory_Num = playerData.save_acce_num;
+        GameMgr.Costume_Num = playerData.save_costume_num;
+        GameMgr.Accesory_Num = playerData.save_acce_num;
 
         //コレクションに登録したアイテムのリスト
         GameMgr.CollectionItems = playerData.save_CollectionItems;
@@ -996,7 +1036,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //コンテスト全般データリストの読み込み　主に出場回数や受賞履歴
         for (i = 0; i < playerData.save_contest_data_list.Count; i++)
         {
-            conteststartList_database.ResetContestFightsData(playerData.save_contest_data_list[i].contestName, 
+            conteststartList_database.SetContestFightsData(playerData.save_contest_data_list[i].contestName, 
                 playerData.save_contest_data_list[i].FightsCount, playerData.save_contest_data_list[i].Victory);
         }
 
@@ -1192,6 +1232,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //魔法の初期化
         magicskill_database.ResetDefaultMapExcel();
+
+        //コンテストの優勝記録の初期化
+        conteststartList_database.ResetDefaultFightsData();
 
         //各ショップのイベントアイテムの在庫の初期化
         shop_database.ShopZaiko_Reset();
@@ -1403,16 +1446,16 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_bestend_on_flag = GameMgr.bestend_on_flag,
 
             //ステージ１クリア時の好感度を保存
-            save_stage1_clear_girl1_loveexp = GameMgr.stage1_clear_girl1_loveexp,
+            /*save_stage1_clear_girl1_loveexp = GameMgr.stage1_clear_girl1_loveexp,
             save_stage2_clear_girl1_loveexp = GameMgr.stage2_clear_girl1_loveexp,
             save_stage3_clear_girl1_loveexp = GameMgr.stage3_clear_girl1_loveexp,
 
             save_stage1_clear_girl1_lovelv = GameMgr.stage1_clear_girl1_lovelv,
             save_stage2_clear_girl1_lovelv = GameMgr.stage2_clear_girl1_lovelv,
-            save_stage3_clear_girl1_lovelv = GameMgr.stage3_clear_girl1_lovelv,
+            save_stage3_clear_girl1_lovelv = GameMgr.stage3_clear_girl1_lovelv,*/
 
             //オートセーブフラグ
-            save_Autosave_ON = GameMgr.AUTOSAVE_ON,
+            /*save_Autosave_ON = GameMgr.AUTOSAVE_ON,
 
             //調合シーンでBGM切り替えるフラグ
             save_CompoBGMChange_ON = GameMgr.CompoBGMCHANGE_ON,
@@ -1420,20 +1463,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //スキップ系フラグ
             save_SleepSkipFlag = GameMgr.SleepSkipFlag,
             save_PicnicSkipFlag = GameMgr.PicnicSkipFlag,
-            save_OutGirlSkipFlag = GameMgr.OutGirlSkipFlag,
-
-            //save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
-            //save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
+            save_OutGirlSkipFlag = GameMgr.OutGirlSkipFlag,           
 
             //コスチューム番号
             save_costume_num = GameMgr.Costume_Num,
-            save_acce_num = GameMgr.Accesory_Num,
+            save_acce_num = GameMgr.Accesory_Num,*/
+
+            //save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
+            //save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
 
             //アイテムリスト＜どんぐりと装備品関係＞
             //save_dongurilist = _tempdongrilist,
 
             //エメラルドアイテム
-            save_player_emeralditemlist = _temp_emeralditemlist,
+            //save_player_emeralditemlist = _temp_emeralditemlist,
 
             //調合のフラグ＋調合回数を記録する
             save_itemCompodatabase = _temp_cmpflaglist,
@@ -1510,20 +1553,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //セーブやED関係
             GameMgr.saveOK = systemData.save_saveOK;
-            GameMgr.ending_count = systemData.save_ending_count;
+            GameMgr.ending_count = systemData.save_ending_count; //全セーブデータから共通
             GameMgr.bestend_on_flag = systemData.save_bestend_on_flag;
 
             //ステージ１クリア時の好感度を保存
-            GameMgr.stage1_clear_girl1_loveexp = systemData.save_stage1_clear_girl1_loveexp;
+            /*GameMgr.stage1_clear_girl1_loveexp = systemData.save_stage1_clear_girl1_loveexp;
             GameMgr.stage2_clear_girl1_loveexp = systemData.save_stage2_clear_girl1_loveexp;
             GameMgr.stage3_clear_girl1_loveexp = systemData.save_stage3_clear_girl1_loveexp;
 
             GameMgr.stage1_clear_girl1_lovelv = systemData.save_stage1_clear_girl1_lovelv;
             GameMgr.stage2_clear_girl1_lovelv = systemData.save_stage2_clear_girl1_lovelv;
-            GameMgr.stage3_clear_girl1_lovelv = systemData.save_stage3_clear_girl1_lovelv;
+            GameMgr.stage3_clear_girl1_lovelv = systemData.save_stage3_clear_girl1_lovelv;*/
 
             //オートセーブフラグ
-            GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
+            /*GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
 
             //スキップ系フラグ
             GameMgr.SleepSkipFlag = systemData.save_SleepSkipFlag;
@@ -1532,6 +1575,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //調合シーンでBGM切り替えるフラグ
             GameMgr.CompoBGMCHANGE_ON = systemData.save_CompoBGMChange_ON;
+            
+            //コスチューム番号
+            GameMgr.Costume_Num = systemData.save_costume_num;
+            GameMgr.Accesory_Num = systemData.save_acce_num;*/
 
             //PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
             /*if (systemData.save_player_girl_maxlifepoint_system != 0) //ver途中から引継ぎするように仕様変更。なので例外処理をいれる。
@@ -1543,10 +1590,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 PlayerStatus.player_girl_maxlifepoint = PlayerStatus.player_girl_maxlifepoint_default;
             }*/
 
-            //コスチューム番号
-            GameMgr.Costume_Num = systemData.save_costume_num;
-            GameMgr.Accesory_Num = systemData.save_acce_num;
-            
             //アイテムリスト＜どんぐりと装備品＞
             /*for (i = 0; i < systemData.save_dongurilist.Count; i++)
             {
@@ -1554,11 +1597,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             }*/
 
             //プレイヤーのエメラルドアイテムリスト。
-            for (i = 0; i < systemData.save_player_emeralditemlist.Count; i++)
+            /*for (i = 0; i < systemData.save_player_emeralditemlist.Count; i++)
             {
                 pitemlist.ReSetEmeraldItemString(systemData.save_player_emeralditemlist[i].itemName, systemData.save_player_emeralditemlist[i].itemKosu);
-            }
-            
+            }*/
+
             //調合のフラグ＋調合回数を読み込み システムデータでは、ヒカリのお菓子制作フラグはONになったものだけ更新する。
             /*for (count = 0; count < systemData.save_itemCompodatabase.Count; count++)
             {
@@ -1587,7 +1630,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     i++;
                 }
             }*/
-            
+
             //アイテムの前回スコアなどを読み込み
             /*for (count = 0; count < systemData.save_itemdatabase.Count; count++)
             {

@@ -83,6 +83,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     private bool questout_flag;
     private List<int> questout_deleteList = new List<int>();
     private int _id;
+    private int talkrot;
 
     // Use this for initialization
     void Start () {
@@ -205,17 +206,10 @@ public class Bar_Main_Controller : MonoBehaviour {
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 
-        StartRead = false;
-        check_event = false; //イベントのフラグ
+        talkrot = 0;
 
-        if (GameMgr.Story_Mode == 1)
-        {
-            //あるクエスト以降、フィオナにお菓子わたせる。
-            if (GameMgr.GirlLoveEvent_num >= 11)
-            {
-                shopon_toggle_present.SetActive(true);
-            }
-        }
+        StartRead = false;
+        check_event = false; //イベントのフラグ       
 
         //入店のタイミングでのみ、クエスト更新
         shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
@@ -298,6 +292,8 @@ public class Bar_Main_Controller : MonoBehaviour {
                     placename_panel.SetActive(true);
                     black_effect.SetActive(false);
                     sceneBGM.MuteOFFBGM();
+
+                    ButtonFlagCheck();
 
                     if (GameMgr.Story_Mode == 1)
                     {
@@ -386,6 +382,48 @@ public class Bar_Main_Controller : MonoBehaviour {
             {
                 PlayerStatus.girl1_Love_exp = 0;
             }
+        }
+    }
+
+    void ButtonFlagCheck()
+    {
+        switch (GameMgr.Scene_Name)
+        {
+            case "Bar_Grt":
+
+                if (GameMgr.Story_Mode == 1)
+                {
+                    //あるクエスト以降、フィオナにお菓子わたせる。
+                    if (GameMgr.GirlLoveEvent_num >= 11)
+                    {
+                        shopon_toggle_present.SetActive(true);
+                    }
+                }
+                shopon_toggle_talk.SetActive(false);
+                shopon_toggle_uwasa.SetActive(true);
+                break;
+
+            case "Or_Bar_A1":
+
+                shopon_toggle_talk.SetActive(true);
+                shopon_toggle_uwasa.SetActive(true);
+                break;
+
+            case "Or_Bar_B1":
+
+                
+                break;
+
+            case "Or_Bar_C1":
+
+                shopon_toggle_talk.SetActive(true);
+                shopon_toggle_uwasa.SetActive(false);
+                break;
+
+            case "Or_Bar_D1":
+
+                
+                break;
         }
     }
 
@@ -629,9 +667,63 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             //_text.text = "なぁに？お話する？";
 
+            switch (GameMgr.Scene_Name)
+            {
+                case "Bar_Grt":
+
+                    GameMgr.talk_number = 100;
+                    break;
+
+                case "Or_Bar_A1": //ルーティさん
+
+                    GameMgr.talk_number = 1000;
+
+                    /*
+                    if (GameMgr.NPCHiroba_eventList[1200]) //酒場の女の子　イベントフラグ
+                    {
+                        //頭から順番に会話をまわしていく。
+                        switch (talkrot)
+                        {
+                            case 0:
+                                GameMgr.talk_number = 1000;
+                                talkrot++;
+                                break;
+                            case 1:
+                                GameMgr.talk_number = 1001;
+                                talkrot++;
+                                break;
+                            case 2:
+                                GameMgr.talk_number = 1002;
+                                //talkrot=0;
+                                break;
+                        }
+
+                        //BGMかえる
+                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        //bgm_change_flag = true;
+                    }*/
+                    break;
+
+                case "Or_Bar_B1":
+
+                    GameMgr.talk_number = 2000;
+                    break;
+
+                case "Or_Bar_C1": //アプリコットのお姉さん
+
+                    GameMgr.talk_number = 3000;
+                    break;
+
+                case "Or_Bar_D1":
+
+                    GameMgr.talk_number = 4000;
+                    break;
+            }
+
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
-            GameMgr.talk_number = 100;
+
+            GameMgr.utage_charaHyouji_flag = true;
 
             StartCoroutine("UtageEndWait");
         }

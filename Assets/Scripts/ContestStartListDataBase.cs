@@ -1569,7 +1569,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     }
 
     //ロード時に、コンテストデータを読み込み、フラグを上書きする
-    public void ResetContestFightsData(string _name, int _fightscount, int _victory)
+    public void SetContestFightsData(string _name, int _fightscount, int _victory)
     {      
         for(i = 0; i < conteststart_lists.Count; i++)
         {
@@ -1578,6 +1578,16 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 conteststart_lists[i].ContestFightsCount = _fightscount;
                 conteststart_lists[i].ContestVictory = _victory;
             }
+        }
+    }
+
+    //優勝記録と戦った回数の初期化
+    public void ResetDefaultFightsData()
+    {
+        for (i = 0; i < conteststart_lists.Count; i++)
+        {
+                conteststart_lists[i].ContestFightsCount = 0;
+                conteststart_lists[i].ContestVictory = 0;
         }
     }
 
