@@ -140,7 +140,7 @@ SE表
 ・SE_138	audiostock_1535474				いい匂いがするときのほわわ音
 ・SE_139	打撃1						軽い打撃音※打撃を二回鳴らしてる
 ・SE_140	audiostock_1497724_sample			素早い場面転換
-・SE_141	audiostock_104457_sample			素早い走る足音
+・SE_141	足音1(Springin)					素早い走る足音
 ・SE_142	audiostock_111020_sample			妖精がぴょこって出る音
 ・SE_143	茶碗を置く					カタっとした物音
 ・SE_144	Party_Popper03-2(Dry)				パンッのクラッカー音
@@ -160,5 +160,11 @@ SE表
 ・SE_158	audiostock_836229_sample			ポコっと軽くこずく音
 ・SE_159	audiostock_972326_sample			回復する音
 ・SE_160	Explosion02-1(Long)				爆発音
-・SE_161	audiostock_1314889_sample			だいじなアイテムとったときの音
+・SE_161	audiostock_1314889_sample			だいじなアイテムとったときの音（まだ未使用）
 ・SE_162	PerituneMaterial_J_Heartwarming2		エデンレシピとったときの重要音
+・SE_163	page09.mp3					【宴で使用】レシピメモ開くときの軽い紙の音 SE_35と同じ
+・SE_164	audiostock_1123553_sample			だいじなアイテムとったときの音2
+・SE_165	audiostock_1586892_sample			噴水勢いよく噴射！
+・SE_166	audiostock_481446_sample			噴水噴射後の降り注ぐ音
+・SE_167	audiostock_1466827_sample			噴水がぶっかかる音
+・SE_168	audiostock_387727_sample			噴水の出始めの音

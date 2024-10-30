@@ -924,7 +924,7 @@ public class CompoundMainController : MonoBehaviour {
         {
             if (GameMgr.CompoBGMCHANGE_ON)
             {
-                if (GameMgr.compobgm_change_flag == true)
+                if (GameMgr.compobgm_change_flag)
                 {
                     GameMgr.compobgm_change_flag = false;
                     sceneBGM.OnChangeCompoBGMFade();

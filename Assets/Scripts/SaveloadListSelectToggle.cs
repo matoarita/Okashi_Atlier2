@@ -192,6 +192,9 @@ public class SaveloadListSelectToggle : MonoBehaviour {
                 //Debug.Log("ok");
                 //解除
 
+                //別トグル押せると困るので、トルグオフ
+                saveload_panel.GetComponent<SaveLoadPanel>().Offinteract();
+
                 //音量フェードアウト
                 //sceneBGM.FadeOutBGM();
                 sceneBGM.NowFadeVolumeOFFBGM(); //

@@ -340,15 +340,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         {
             GameMgr.check_ReturnHomeEvent_flag = true;
 
-            ReturnHome_check(0); //プリンさん再会して、お店から帰ってきた
-            ReturnHome_check(10); //酒場はじめていって帰ってきた
-            ReturnHome_check(20); //牧場はじめていって帰ってきた
-            ReturnHome_check(30); //コンテストはじめていって帰ってきた            
-            ReturnHome_check(110); //ミラボ先生にはじめて会って帰ってきた
+            ReturnHome_check(0, false); //プリンさん再会して、お店から帰ってきた
+            ReturnHome_check(10, false); //酒場はじめていって帰ってきた
+            ReturnHome_check(20, false); //牧場はじめていって帰ってきた
+            ReturnHome_check(30, true); //コンテストはじめていって帰ってきた            
+            ReturnHome_check(110, false); //ミラボ先生にはじめて会って帰ってきた
 
             if (!GameMgr.CompoundEvent_num[30]) //コンテストについて知ったので、アマクサ帰りのコンテストどこ～？イベントは発生しなくなる。
             {
-                ReturnHome_check(100); //アマクサにエデンのありか聞いて帰ってきた
+                ReturnHome_check(100, true); //アマクサにエデンのありか聞いて帰ってきた
             }
 
             //最後のタイミングで、決定したサブイベントの宴を再生
@@ -372,7 +372,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
-    void ReturnHome_check(int _num)
+    void ReturnHome_check(int _num, bool utagebgm_ON) //二個目は宴のBGMをonにする。
     {
         if (!GameMgr.check_ReturnHomeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
         { }
@@ -385,7 +385,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 GameMgr.check_ReturnHomeEvent_flag = false;
 
-                //GameMgr.Mute_on = true;
+                if (utagebgm_ON)
+                {
+                    GameMgr.Mute_on = true;
+                }
+                else
+                {
+                    GameMgr.Mute_on = false;
+                }
             }
         }
     }

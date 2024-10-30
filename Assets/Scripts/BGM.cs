@@ -86,6 +86,7 @@ public class BGM : MonoBehaviour {
     public AudioClip Ambient5; //くじらの鳴き声
     public AudioClip Ambient6; //春の森の声
     public AudioClip Ambient7; //温度管理の焚火音
+    public AudioClip Ambient8; //噴水の音
     public AudioClip Ambient100; //魔法詠唱中の環境音
     public AudioClip Ambient101; //魔法詠唱中の環境音2
 
@@ -264,6 +265,7 @@ public class BGM : MonoBehaviour {
                             case "Or_Hiroba_CentralPark": //中央噴水
 
                                 _send_clip = sound41;
+                                _send_clip_ambient = Ambient8;
                                 break;
 
                             case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道
@@ -1019,7 +1021,7 @@ public class BGM : MonoBehaviour {
     public void OnCompoundBGM()
     {
         bgmController.BGMStop(1);
-        bgmController.BGMPlay(1, sound2);
+        bgmController.BGMRestartPlay(1, sound2);
 
         bgmController.FadeStatusChange(3);
     }
@@ -1198,6 +1200,11 @@ public class BGM : MonoBehaviour {
             case 1: //温度管理時の環境音　焚火の燃える音
 
                 _send_clip_ambient = Ambient7;
+                break;
+
+            default:
+
+                //現在入っている_send_clip_ambientをそのまま鳴らす
                 break;
         }
         

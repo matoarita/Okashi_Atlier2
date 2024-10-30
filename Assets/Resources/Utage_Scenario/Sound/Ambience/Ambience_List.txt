@@ -29,5 +29,6 @@
 ・MapAmbience_05	audiostock_497746				くじらの鳴き声
 ・MapAmbience_06	audiostock_913857				春の森の音
 ・MapAmbience_07	audiostock_905177				かまどの薪の音＜温度管理画面で使用＞
+・MapAmbience_08	audiostock_397220_sample			噴水の環境音
 ・MapAmbience_100	audiostock_517665_sample			魔法詠唱中の音＜未使用＞
 ・MapAmbience_101	audiostock_150122_sample			魔法詠唱中の音2＜未使用＞

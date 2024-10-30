@@ -217,7 +217,7 @@ public class SaveLoadPanel : MonoBehaviour {
     {
         for(i=0; i < _listitem.Count; i++)
         {
-            _listitem[i].GetComponent<Toggle>().interactable = false;
+            _listitem[i].transform.Find("SaveONButton").GetComponent<Button>().interactable = false;
         }
     }
 
@@ -226,7 +226,7 @@ public class SaveLoadPanel : MonoBehaviour {
     {
         for (i = 0; i < _listitem.Count; i++)
         {
-            _listitem[i].GetComponent<Toggle>().interactable = true;
+            _listitem[i].transform.Find("SaveONButton").GetComponent<Button>().interactable = true;
         }
     }
 

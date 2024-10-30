@@ -45,6 +45,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     private PlayerItemList pitemlist;
 
+    private TimeController time_controller;
+
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
 
@@ -127,6 +129,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //移動用リストオブジェクトの初期化
         foreach (Transform child in canvas.transform.Find("MainListPanel").transform)　//子要素（孫は取得しない）までなら、childでOK
@@ -265,6 +270,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_ID = 220000;
 
                         GameMgr.scenario_ON = true;
+
+                        //BGMかえる
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        sceneBGM.StopAmbient();
+                        bgm_change_flag = true;                        
 
                         check_event = true;
 
@@ -466,6 +476,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             {
                 bgm_change_flag = false;
                 sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
+                sceneBGM.PlayAmbient(9999); //指定なしで、マップデフォルトのアンビエントをまた鳴らす
             }
 
             ToggleFlagCheck();
@@ -497,7 +508,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 else
                 {
                     //_status == 1だと即時移動 宴からの移動なら、0でOK
-                    FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
+                    GoAreaMove("GetMaterial");
+                    //FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
                 }
                 break;
 
@@ -539,7 +551,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.5f); //1秒待つ
 
-        FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
+        GoAreaMove("GetMaterial");
+        //FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
     }
 
     IEnumerator WaitForGotoMap2()
@@ -1817,7 +1830,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み シーン自体は自分を読む
         GameMgr.SceneSelectNum = 10;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active02()
@@ -1828,7 +1841,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //メインシーン読み込み
         GameMgr.SceneSelectNum = 100;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active03()
@@ -1838,7 +1851,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //メインシーン読み込み
         GameMgr.SceneSelectNum = 200;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active04()
@@ -1848,7 +1861,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //メインシーン読み込み
         GameMgr.SceneSelectNum = 300;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     //春エリア
@@ -1859,7 +1872,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み シーン自体は自分を読む
         GameMgr.SceneSelectNum = 1;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
   
 
@@ -1870,7 +1883,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 11;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active08()
@@ -1880,7 +1893,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 12;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active09()
@@ -1890,7 +1903,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 13;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active10()
@@ -1900,7 +1913,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 14;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active11()
@@ -1910,7 +1923,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 15;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active12()
@@ -1920,7 +1933,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 16;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active13()
@@ -1930,7 +1943,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 17;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active15()
@@ -1940,7 +1953,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 20;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active16()
@@ -1950,7 +1963,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 21;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active17()
@@ -1960,7 +1973,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 22;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     //中央噴水
@@ -1971,7 +1984,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active31()
@@ -1981,7 +1994,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 2;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active32()
@@ -1991,7 +2004,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 3;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active33()
@@ -2001,7 +2014,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 4;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     //夏
@@ -2012,7 +2025,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 101;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active51()
@@ -2022,7 +2035,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 102;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active52()
@@ -2032,7 +2045,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 103;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active53()
@@ -2042,7 +2055,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 104;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active54()
@@ -2052,7 +2065,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 105;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active70()
@@ -2062,7 +2075,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 150;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active71()
@@ -2072,7 +2085,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 151;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active72()
@@ -2082,7 +2095,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 152;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active73()
@@ -2092,7 +2105,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 153;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active74()
@@ -2102,7 +2115,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 154;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active75()
@@ -2112,7 +2125,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 155;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active76()
@@ -2122,7 +2135,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 156;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active77()
@@ -2132,7 +2145,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 157;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active78()
@@ -2142,7 +2155,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 158;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active79()
@@ -2152,7 +2165,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 159;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active80()
@@ -2162,7 +2175,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 160;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active85()
@@ -2172,7 +2185,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 170;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active90()
@@ -2182,7 +2195,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 175;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active91()
@@ -2192,7 +2205,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 176;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active100()
@@ -2202,7 +2215,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 201;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active101()
@@ -2212,7 +2225,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 202;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active102()
@@ -2222,7 +2235,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 203;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active103()
@@ -2232,7 +2245,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 204;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active104()
@@ -2242,7 +2255,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 205;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active105()
@@ -2252,7 +2265,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 206;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active106()
@@ -2262,7 +2275,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 207;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active150()
@@ -2272,7 +2285,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 301;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active151()
@@ -2282,7 +2295,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 302;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active152()
@@ -2292,7 +2305,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 303;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active153()
@@ -2302,7 +2315,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 304;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active154()
@@ -2312,7 +2325,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 305;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active155()
@@ -2322,7 +2335,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 306;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active160()
@@ -2332,7 +2345,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 320;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active161()
@@ -2342,7 +2355,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 321;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active200()
@@ -2352,7 +2365,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 400;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active201()
@@ -2362,7 +2375,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 401;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active202()
@@ -2372,7 +2385,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 402;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active203()
@@ -2382,7 +2395,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 403;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active300()
@@ -2392,7 +2405,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //メインシーン読み込み
         GameMgr.SceneSelectNum = 500;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active301()
@@ -2402,7 +2415,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //メインシーン読み込み
         GameMgr.SceneSelectNum = 501;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_Active302()
@@ -2412,7 +2425,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //メインシーン読み込み
         GameMgr.SceneSelectNum = 502;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Hiroba1");
     }
 
     void On_MapActive01()
@@ -2466,7 +2479,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Shop");
     }
 
     void On_ShopActive02()
@@ -2479,7 +2492,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 10;
-        FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Shop");
     }
 
     void On_ShopActive03()
@@ -2492,7 +2505,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 20;
-        FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Shop");
     }
 
     void On_ShopActive04()
@@ -2505,7 +2518,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 30;
-        FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Shop");
+        //FadeManager.Instance.LoadScene("Or_Shop", GameMgr.SceneFadeTime);
     }
 
     void On_EmeralShopActive01()
@@ -2518,7 +2532,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Emerald_Shop", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Emerald_Shop");
     }
 
     void On_BarActive01()
@@ -2531,7 +2545,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Bar");
     }
 
     void On_BarActive02()
@@ -2544,7 +2558,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 10;
-        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Bar");
     }
 
     void On_BarActive03()
@@ -2557,7 +2571,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 20;
-        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Bar");
     }
 
     void On_BarActive04()
@@ -2570,7 +2584,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 30;
-        FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Bar");
     }
 
     void On_FarmActive01()
@@ -2579,7 +2593,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Farm", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Farm");
     }
 
     void On_ContestActive01()
@@ -2589,7 +2603,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Outside_the_Contest");
     }
 
     void On_ContestActive02()
@@ -2599,7 +2613,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 10;
-        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Outside_the_Contest");
     }
 
     void On_ContestActive03()
@@ -2609,7 +2623,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 20;
-        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Outside_the_Contest");
     }
 
     void On_ContestActive04()
@@ -2619,7 +2633,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 30;
-        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Outside_the_Contest");
     }
 
     void On_NPC_MagicActive01()
@@ -2632,7 +2646,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_NPC_MagicHouse");
     }
 
     void On_NPC_MagicActive02()
@@ -2645,7 +2659,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 10;
-        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_NPC_MagicHouse");
     }
 
     void On_NPC_MagicActive03()
@@ -2658,7 +2672,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 20;
-        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_NPC_MagicHouse");
     }
 
     void On_NPC_MagicActive04()
@@ -2671,7 +2685,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 30;
-        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_NPC_MagicHouse");
+       
     }
 
     void On_NPC_MagicActive05()
@@ -2684,7 +2699,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 40;
-        FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_NPC_MagicHouse");
     }
 
     void On_NPC_CatsleActive01()
@@ -2694,7 +2709,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_NPC_Catsle", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_NPC_Catsle");        
     }
 
     void On_StationActive01()
@@ -2704,7 +2719,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 100;
-        FadeManager.Instance.LoadScene("Station", GameMgr.SceneFadeTime);
+        GoAreaMove("Station");        
     }
 
     void On_BackHomeActive01()
@@ -2713,7 +2728,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //GameMgr.Scene_back_home = true;
         //アトリエに戻る
-        FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
+        GoAreaMove("Or_Compound_Enterance");
+        //FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
     }
 
     void On_Active1000()
@@ -2785,6 +2801,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         EventReadingStart();
 
+    }
+
+    void GoAreaMove(string _scenename) //マップ移動　移動に10分かかる
+    {
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        time_controller.SetMinuteToHour(10);
+        time_controller.TimeKoushin(0);
+        FadeManager.Instance.LoadScene(_scenename, GameMgr.SceneFadeTime);
     }
 
     void On_Active1001_Nuno()
@@ -3150,8 +3174,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GameMgr.hiroba_event_ID = 0;
 
         //BGMかえる
-        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-        //bgm_change_flag = true;
+        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        bgm_change_flag = true;
 
         EventReadingStart();
     }

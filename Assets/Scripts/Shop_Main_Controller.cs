@@ -227,18 +227,42 @@ public class Shop_Main_Controller : MonoBehaviour {
 
     void SceneFlagcheck()
     {
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Name)
         {
-            case "Shop":
+            case "Shop_Grt":
 
-                if (GameMgr.Story_Mode == 1)
+                /*if (GameMgr.Story_Mode == 1)
                 {
                     //あるクエスト以降、プリンさんにお菓子渡せる。
                     if (GameMgr.GirlLoveEvent_num >= 11)
                     {
                         shopon_toggle_present.SetActive(true);
                     }
+                }*/
+                break;
+
+            case "Or_Shop_A1":
+
+                if (GameMgr.GirlLoveEvent_num >= 3) //「外へでる」がでるようになってから、お店の外にでれるようになる。
+                {
+                    shopon_toggle_back.SetActive(true);
                 }
+                else
+                {
+                    shopon_toggle_back.SetActive(false);
+                }
+                break;
+
+            case "Or_Shop_B1": //エクレア姉さん
+               
+                break;
+
+            case "Or_Shop_C1": //マダム・オペラのばあさん
+
+                break;
+
+            case "Or_Shop_D1": //ピティヴィエさん
+
                 break;
         }
     }
@@ -318,6 +342,8 @@ public class Shop_Main_Controller : MonoBehaviour {
                         {
                             playeritemlist_onoff.SetActive(false);
                         }
+
+                        SceneFlagcheck();
 
                         //_text.text = shopdefault_text;
 
