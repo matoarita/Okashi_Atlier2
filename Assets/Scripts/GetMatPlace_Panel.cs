@@ -973,6 +973,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     void KakuninPlace()
     {
+
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(5); //にっこり
+
         if (matplace_database.matplace_lists[_place_num].placeType == 0)
         {
             _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行く？";
@@ -1047,6 +1051,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     //Debug.Log("ok");
                     //解除
 
+                    //顔アイコンも切り替え
+                    msg_window.Setting_WindowIcon(2); //上機嫌
+
                     itemselect_cancel.kettei_on_waiting = false;
 
                     yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
@@ -1101,6 +1108,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 All_Off();
 
                 _text.text = "行き先を選んでね。";
+
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(1); //ノーマル
                 break;
         }
 

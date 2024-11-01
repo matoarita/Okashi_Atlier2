@@ -75,8 +75,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int System_HeartLVevent_01 = 10; //ヒカリがお菓子作りを覚えるイベント発生
 
-    public static int System_Yachin_Cost01 = 1000; //家賃の額 月始めバージョン
-    public static int System_Yachin_Cost02 = 500; //10日ごとバージョン
+    public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
+    public static int System_Yachin_Cost02 = 3000; //〇日ごとバージョン
+    public static int System_Yachin_Day = 10; //〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
+
+    public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
 
     //見た目点数の基準点※現在未使用
     public static int System_Beauty_BasicScore = 30; //見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
@@ -141,6 +144,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage_quest_num_sub; //クエスト番号
     public static int Story_Mode; //0が本編。1が、フリーモード（強くてニューゲーム）。
     public static string Scene_Name; //その場所の固有名　主にセーブした場所を記録する。
+    public static int MainQuest_Mesnum; //ゲームの進捗状況を表すメッセージ番号　これに応じて、メインクエメッセージが変わる。街へでてみよう！等。
 
     //コマンドの解禁フラグ
     public static bool System_MagicUse_Flag; //魔法の解禁フラグ
@@ -542,6 +546,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ミラボ先生のプレゼントリスト
     public static List<string> mirabo_present_list = new List<string>(); //
     public static List<string> mirabo_present_list_sub = new List<string>();
+
+    //メインクエの指示メッセージリスト
+    public static Dictionary<int, string> mainquest_message_list = new Dictionary<int, string>();
 
     //エンディングのフラッグ
     public static bool ending_on;       //エンディングシーンへ移動するためのフラグ
@@ -1030,6 +1037,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //ストーリーモード
         Story_Mode = 0; //0=本編　1=エクストラモード　初期値は0でOK
         GameSpeedParam = 3;
+
+        MainQuest_Mesnum = 0;
 
         SleepSkipFlag = false;
         PicnicSkipFlag = false;
@@ -1566,6 +1575,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //各サブNPCのお菓子判定番号をセット
         InitSubNPCEvent_OkashiJudgeLibrary();
 
+        //メインクエ指示メッセージのリスト
+        InitMainQuest_Library();
+
         //ミラボ先生プレゼントリスト設定
         InitMirabo_PresentLibraryMain();
         InitMirabo_PresentLibrarySub();
@@ -1982,6 +1994,19 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         NPC_OkashiJudge_num[3] = 100020; //モタリケさん　エクストラ
         NPC_OkashiJudge_num[4] = 100030; //フィオナさん　エクストラ
         NPC_OkashiJudge_num[50] = 100040; //条件競売01
+    }
+
+    public static void InitMainQuest_Library() //メインクエ指針のメッセージリスト　使うかはまだ分からない
+    {
+        mainquest_message_list.Clear();
+
+        //テーブル1
+        mainquest_message_list.Add(0, "メイン: 街へ出てみよう！");
+        mainquest_message_list.Add(1, "メイン: コンテスト会場を探そう！");
+        mainquest_message_list.Add(2, "メイン: コンテストにでてみよう！");
+        mainquest_message_list.Add(3, "メイン: 春の露店通りへ行こう！");
+        mainquest_message_list.Add(5, "メイン: 家賃3000ルピアをためよう！");
+        mainquest_message_list.Add(10, "メイン: エデンのレシピを探そう！");
     }
 
     //ミラボ先生のプレゼントリストの初期化　メイン魔法の本

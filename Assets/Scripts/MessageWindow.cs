@@ -14,6 +14,9 @@ public class MessageWindow : MonoBehaviour {
 
     private Sprite hikari_faceicon_01_normal;
     private Sprite hikari_faceicon_02_joukigen;
+    private Sprite hikari_faceicon_03_bad;
+    private Sprite hikari_faceicon_04_littlefine;
+    private Sprite hikari_faceicon_05_fine;
     private Sprite hikari_faceicon_07_yorokobi;
     private Sprite hikari_faceicon_11_mazui2;
     private Sprite hikari_faceicon_12_iya;
@@ -21,6 +24,7 @@ public class MessageWindow : MonoBehaviour {
     private Sprite hikari_faceicon_17_mazui3;
     private Sprite hikari_faceicon_18_surprise2;
     private Sprite hikari_faceicon_32_joukigen2;
+    private Sprite hikari_faceicon_35_metoji;
     private Sprite hikari_faceicon_38_nakinagarauttae_bou;
 
     private Image window_FaceImg;
@@ -37,6 +41,9 @@ public class MessageWindow : MonoBehaviour {
         //顔アイコン画像登録
         hikari_faceicon_01_normal = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_01_Normal");
         hikari_faceicon_02_joukigen = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_02_Joukigen");
+        hikari_faceicon_03_bad = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_03_Bad");
+        hikari_faceicon_04_littlefine = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_04_Little_fine");
+        hikari_faceicon_05_fine = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_05_Fine");
         hikari_faceicon_07_yorokobi = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_07_Yorokobi");
         hikari_faceicon_11_mazui2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_11_Mazui2");
         hikari_faceicon_12_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_12_Iya");
@@ -44,6 +51,7 @@ public class MessageWindow : MonoBehaviour {
         hikari_faceicon_17_mazui3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_17_Mazui3");
         hikari_faceicon_18_surprise2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_18_Surprise2");
         hikari_faceicon_32_joukigen2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_32_Joukigen2");
+        hikari_faceicon_35_metoji = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_35_Metoji");
         hikari_faceicon_38_nakinagarauttae_bou = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_38_nakinagarauttae_bou");
     }
 
@@ -191,7 +199,7 @@ public class MessageWindow : MonoBehaviour {
 
     void SetFaceIcon(int _num)
     {
-        switch(_num)
+        switch (_num)
         {
             case 1:
 
@@ -201,6 +209,21 @@ public class MessageWindow : MonoBehaviour {
             case 2:
 
                 window_FaceImg.sprite = hikari_faceicon_02_joukigen;
+                break;
+
+            case 3:
+
+                window_FaceImg.sprite = hikari_faceicon_03_bad;
+                break;
+
+            case 4:
+
+                window_FaceImg.sprite = hikari_faceicon_04_littlefine;
+                break;
+
+            case 5:
+
+                window_FaceImg.sprite = hikari_faceicon_05_fine;
                 break;
 
             case 7:
@@ -217,7 +240,7 @@ public class MessageWindow : MonoBehaviour {
 
                 window_FaceImg.sprite = hikari_faceicon_12_iya;
                 break;
-               
+
             case 13:
 
                 window_FaceImg.sprite = hikari_faceicon_13_surprise;
@@ -227,7 +250,7 @@ public class MessageWindow : MonoBehaviour {
 
                 window_FaceImg.sprite = hikari_faceicon_17_mazui3;
                 break;
-                
+
             case 18:
 
                 window_FaceImg.sprite = hikari_faceicon_18_surprise2;
@@ -238,11 +261,16 @@ public class MessageWindow : MonoBehaviour {
                 window_FaceImg.sprite = hikari_faceicon_32_joukigen2;
                 break;
 
+            case 35:
+
+                window_FaceImg.sprite = hikari_faceicon_35_metoji;
+                break;                
+
             case 38:
 
                 window_FaceImg.sprite = hikari_faceicon_38_nakinagarauttae_bou;
                 break;
-                
+
         }
     }
 }

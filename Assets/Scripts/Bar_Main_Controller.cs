@@ -391,14 +391,14 @@ public class Bar_Main_Controller : MonoBehaviour {
         {
             case "Bar_Grt":
 
-                if (GameMgr.Story_Mode == 1)
+                /*if (GameMgr.Story_Mode == 1)
                 {
                     //あるクエスト以降、フィオナにお菓子わたせる。
                     if (GameMgr.GirlLoveEvent_num >= 11)
                     {
                         shopon_toggle_present.SetActive(true);
                     }
-                }
+                }*/
                 shopon_toggle_talk.SetActive(false);
                 shopon_toggle_uwasa.SetActive(true);
                 break;
@@ -407,7 +407,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
                 shopon_toggle_talk.SetActive(true);
                 shopon_toggle_uwasa.SetActive(true);
-                if (GameMgr.GirlLoveEvent_num >= 3) //「外へでる」がでるようになってから、お店の外にでれるようになる。
+                if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
                 {
                     shopon_toggle_back.SetActive(true);
                 }

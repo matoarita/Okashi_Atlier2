@@ -243,7 +243,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             case "Or_Shop_A1":
 
-                if (GameMgr.GirlLoveEvent_num >= 3) //「外へでる」がでるようになってから、お店の外にでれるようになる。
+                if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
                 {
                     shopon_toggle_back.SetActive(true);
                 }

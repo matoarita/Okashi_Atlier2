@@ -11,6 +11,8 @@ public class Bar_Main_Or : MonoBehaviour
 
     private GameObject BGImagePanel;
     private List<GameObject> BGImg_List = new List<GameObject>();
+    private GameObject BGImage_effectPanel;
+    private List<GameObject> BGImg_effectList = new List<GameObject>();
     private int i;
 
     private GameObject CharacterPanel;
@@ -21,6 +23,7 @@ public class Bar_Main_Or : MonoBehaviour
         barmain_Controller.InitSetup();
 
         BGImagePanel = GameObject.FindWithTag("BG");
+        BGImage_effectPanel = GameObject.FindWithTag("MapBG_Effect");
 
         BGImg_List.Clear();
         i = 0;
@@ -29,6 +32,16 @@ public class Bar_Main_Or : MonoBehaviour
             //Debug.Log(child.name);           
             BGImg_List.Add(child.gameObject);
             BGImg_List[i].SetActive(false);
+            i++;
+        }
+
+        BGImg_effectList.Clear();
+        i = 0;
+        foreach (Transform child in BGImage_effectPanel.transform)
+        {
+            //Debug.Log(child.name);           
+            BGImg_effectList.Add(child.gameObject);
+            BGImg_effectList[i].SetActive(false);
             i++;
         }
 
@@ -48,6 +61,7 @@ public class Bar_Main_Or : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_Bar_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
+                BGImage_effectPanel.transform.Find("placeeffect_01").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
                 GameMgr.Window_CharaName = "ルーティ";
                 break;

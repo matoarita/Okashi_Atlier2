@@ -87,6 +87,9 @@ public class Compound_Main : MonoBehaviour
     private GameObject contest_kakuninButton_obj;
     private GameObject contest_CheckPanel_obj;
 
+    private GameObject gameQuestPanel;
+    private GameObject yachinPanel;
+
     private GameObject manpuku_bar;
     private Slider manpuku_slider;
     private Text manpuku_text;
@@ -591,6 +594,12 @@ public class Compound_Main : MonoBehaviour
         contest_kakuninButton_obj = canvas.transform.Find("MainUIPanel/ContestKakuninButtonPanel").gameObject;
         contest_CheckPanel_obj = canvas.transform.Find("ContestKakuninHyoujiPanel").gameObject;
         contest_CheckPanel_obj.SetActive(false);
+
+        //メインクエ表示パネルの取得
+        gameQuestPanel = canvas.transform.Find("MainUIPanel/Comp/GameQuestPanel").gameObject;
+
+        //家賃パネルの取得
+        yachinPanel = canvas.transform.Find("MainUIPanel/Comp/YachinPanel").gameObject;
 
         kigen_text = manpuku_bar.transform.Find("KigenText").GetComponent<Text>();
 
@@ -1562,6 +1571,17 @@ public class Compound_Main : MonoBehaviour
                 //覚えたスキルやステータスを毎回チェックし、ぬけがないか更新。
                 exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
 
+                //メインクエのメッセージ更新
+                if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
+                {
+                    gameQuestPanel.SetActive(true);
+                    gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
+                }
+                else
+                {
+                    gameQuestPanel.SetActive(false); //本編はじまるまでは表示しない
+                }                
+
                 //
                 //アニメーション、キャラの表情関係
                 //
@@ -2111,6 +2131,8 @@ public class Compound_Main : MonoBehaviour
         //Stagepanel_obj.SetActive(false);
         quest_kakuninButton_obj.SetActive(false);
         contest_kakuninButton_obj.SetActive(false);
+        gameQuestPanel.SetActive(false);
+        yachinPanel.SetActive(false);
 
         stageclear_panel.SetActive(false);        
         hinttaste_toggle.SetActive(false);
@@ -2134,6 +2156,8 @@ public class Compound_Main : MonoBehaviour
         moneystatus_panel.SetActive(true);
         quest_kakuninButton_obj.SetActive(true);
         contest_kakuninButton_obj.SetActive(true);
+        gameQuestPanel.SetActive(true);
+        yachinPanel.SetActive(true);
 
         //Stagepanel_obj.SetActive(true);
 
@@ -2762,6 +2786,7 @@ public class Compound_Main : MonoBehaviour
 
         //腹減りカウント一時停止
         girl1_status.GirlEatJudgecounter_OFF();
+        girl1_status.hukidasiOff(); //ふきだしオフ
 
         compoBGA_image.GetComponent<Image>().raycastTarget = false; //このときだけ、背景画像のタッチ判定をオフにする。そうしないと、宴がクリックに反応しなくなる。
         compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
@@ -2789,6 +2814,7 @@ public class Compound_Main : MonoBehaviour
         Recipi_loading = false;
 
         girl1_status.GirlEat_Judge_on = true;
+        girl1_status.hukidasiOn(); //ふきだしオン
 
         compoBGA_image.GetComponent<Image>().raycastTarget = true;
         compoBGA_imageOri.GetComponent<Image>().raycastTarget = true;
@@ -2798,6 +2824,7 @@ public class Compound_Main : MonoBehaviour
         text_area_Main.SetActive(true);
         black_panel_A.GetComponent<Image>().raycastTarget = true;
         OnCompoundSelect();
+
         //yes_no_panel.SetActive(true);
         GameMgr.compound_status = 60;
     }

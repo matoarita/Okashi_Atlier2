@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 118800264}
   m_Layer: 0
   m_Name: MapBG_Effect
-  m_TagString: Untagged
+  m_TagString: MapBG_Effect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4320,7 +4320,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1245830017
+  randomSeed: -799807531
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7824,7 +7824,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: -750
   m_RenderMode: 1
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -7904,7 +7904,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -206546502
+  randomSeed: -1452012161
   InitialModule:
     serializedVersion: 3
     enabled: 1

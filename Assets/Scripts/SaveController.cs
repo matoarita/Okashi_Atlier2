@@ -551,6 +551,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //セーブしたシーンの場所
             save_Scene_Name = GameMgr.Scene_Name,
 
+            //メインクエの進行状況のメッセージ番号
+            save_MainQuest_Mesnum = GameMgr.MainQuest_Mesnum,
+
             //ゲーム内プレイ時間
             save_Game_timeCount = GameMgr.Game_timeCount,
         };
@@ -1099,6 +1102,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Scene_Name = playerData.save_Scene_Name;
         //Debug.Log("Scene name: " + GameMgr.Scene_Name);
 
+        //メインクエの進行状況のメッセージ番号
+        GameMgr.MainQuest_Mesnum = playerData.save_MainQuest_Mesnum;
+
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
         /*for (i= 0; i < GameMgr.GirlLoveEvent_stage1.Length; i++)
@@ -1111,7 +1117,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //
         //画面の更新処理
         //
-        
+
         //まずはシーンを移動する。その後、移動先シーンからDrawGameScreenを読み出し
         GameMgr.GameLoadOn = true;
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);

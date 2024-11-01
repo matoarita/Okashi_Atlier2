@@ -374,6 +374,9 @@ public class PlayerData
     //セーブした場所
     public string save_Scene_Name;
 
+    //メインクエの進行状況の番号
+    public int save_MainQuest_Mesnum;
+
     //ゲームバージョン情報
     public float save_GameVersion;
     public string save_GameSaveDaytime;

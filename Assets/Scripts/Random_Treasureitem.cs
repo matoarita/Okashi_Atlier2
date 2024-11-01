@@ -30,7 +30,7 @@ public class Random_Treasureitem : MonoBehaviour {
         hirobaTreasureget_Controller_obj = canvas.transform.Find("HirobaTreasureGetController").gameObject;
         hirobaTreasureget_Controller = hirobaTreasureget_Controller_obj.GetComponent<HirobaTreasureGetController>();
 
-        TresureHyoujiOnCheck();
+        TresureOnCheck(0);
     }
 	
 	// Update is called once per frame
@@ -43,67 +43,69 @@ public class Random_Treasureitem : MonoBehaviour {
         //sc.PlaySe(1);
         this.gameObject.GetComponent<CanvasGroup>().alpha = 0;
 
-        switch (this.transform.parent.gameObject.name)
-        {
-            case "MainList_ScrollView_05":
+        TresureOnCheck(1);
+    }
 
-                GameMgr.Treature_getList[0] = 1; //1=取得したフラグ
-
-                //青ジェム　もってると、魔法の成功率が１上がる
-                GameMgr.hiroba_treasureget_Num = 0; //宝箱番号
-                GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01; //クリスタルのこと
-                
-                GameMgr.hiroba_treasureget_Kosu = 1;
-
-                //アイテムの取得処理
-                pitemlist.addPlayerItemString("blue_jemstone", 1);
-                //PlayerStatus.player_maxmp++;
-
-                hirobaTreasureget_Controller.EventReadingStart();
-                break;
-
-            case "MainList_ScrollView_104":
-
-                GameMgr.Treature_getList[1] = 1; //1=取得したフラグ
-
-                //青ジェム　もってると、魔法の成功率が１上がる
-                GameMgr.hiroba_treasureget_Num = 0; //宝箱番号
-                GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01;
-
-                GameMgr.hiroba_treasureget_Kosu = 1;
-
-                //アイテムの取得処理
-                pitemlist.addPlayerItemString("blue_jemstone", 1);
-                //PlayerStatus.player_maxmp++;
-
-                hirobaTreasureget_Controller.EventReadingStart();
-                break;
-        }
+    void GetTreasure()
+    {
+        hirobaTreasureget_Controller.EventReadingStart();
+        this.gameObject.SetActive(false);
     }
     
 
-    void TresureHyoujiOnCheck()
+    void TresureOnCheck(int _mstatus)
     {
         switch (this.transform.parent.gameObject.name)
         {
             case "MainList_ScrollView_05":
 
-                if (GameMgr.Treature_getList[0] >= 1)
+                if (_mstatus == 0)
                 {
-                    this.gameObject.SetActive(false); //すでに取得済ということ
+                    if (GameMgr.Treature_getList[0] >= 1)
+                    {
+                        this.gameObject.SetActive(false); //すでに取得済ということ
+                    }
+                }
+                else
+                {
+                    GameMgr.Treature_getList[0] = 1; //1=取得したフラグ
+
+                    ItemGet01();
+                    GetTreasure();
                 }
 
                 break;
 
             case "MainList_ScrollView_104":
 
-                if (GameMgr.Treature_getList[1] >= 1)
+                if (_mstatus == 0)
                 {
-                    this.gameObject.SetActive(false); //すでに取得済ということ
+                    if (GameMgr.Treature_getList[1] >= 1)
+                    {
+                        this.gameObject.SetActive(false); //すでに取得済ということ
+                    }
+                }
+                else
+                {
+                    GameMgr.Treature_getList[1] = 1; //1=取得したフラグ
+
+                    ItemGet01();
+                    GetTreasure();
                 }
 
                 break;
         }                
     }
 
+    void ItemGet01()
+    {
+        //青ジェム　もってると、魔法の成功率が１上がる
+        GameMgr.hiroba_treasureget_Num = 0; //宝箱番号 メッセージが変わる 基本0のままでOK
+        GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01;
+        GameMgr.hiroba_treasureget_Kosu = 1;
+
+        //アイテムの取得処理
+        pitemlist.addPlayerItemString("blue_jemstone", 1);
+        //PlayerStatus.player_maxmp++;
+    }
 }

@@ -393,6 +393,20 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 {
                     GameMgr.Mute_on = false;
                 }
+
+                //メインクエ指示変更
+                switch(_num)
+                {
+                    case 30:
+
+                        GameMgr.MainQuest_Mesnum = 2;
+                        break;
+
+                    case 100:
+
+                        GameMgr.MainQuest_Mesnum = 1;
+                        break;
+                }
             }
         }
     }
@@ -1320,15 +1334,24 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             Debug.Log("本日の日: " + PlayerStatus.player_cullent_day); 
 
                             //10日ごとチェックバージョン
-                            if(PlayerStatus.player_cullent_day % 10 == 0)
+                            if(PlayerStatus.player_cullent_day % GameMgr.System_Yachin_Day == 0)
                             {
                                 //月はこのタイミングでも更新する。
                                 GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
 
-                                //家賃発生
-                                moneyStatus_Controller.UseMoney(GameMgr.System_Yachin_Cost02);
-
-                                GameMgr.GirlLoveSubEvent_num = 1100;
+                                //家賃発生　事前に所持金をチェックし、払えない場合はお手付きかゲームオーバー
+                                if(PlayerStatus.player_money < GameMgr.System_Yachin_Cost02)
+                                {
+                                    //払えない場合
+                                    GameMgr.GirlLoveSubEvent_num = 1100;
+                                }
+                                else
+                                {
+                                    //払える
+                                    moneyStatus_Controller.UseMoney(GameMgr.System_Yachin_Cost02);
+                                    GameMgr.GirlLoveSubEvent_num = 1100;
+                                }
+                                                                
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
 
                                 GameMgr.Mute_on = true;
