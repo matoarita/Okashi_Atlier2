@@ -2807,7 +2807,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //日数の経過。場所ごとに、移動までの日数が変わる。
         time_controller.SetMinuteToHour(10);
-        time_controller.TimeKoushin(0);
+        time_controller.TimeKoushin(0, false);
         FadeManager.Instance.LoadScene(_scenename, GameMgr.SceneFadeTime);
     }
 

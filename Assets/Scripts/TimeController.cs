@@ -64,7 +64,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     private int total_day;
 
-    public bool TimeCheck_flag; //調合メインメソッドのトップ画面で起動開始
     public bool TimeReturnHomeSleep_Status; //兄が帰ってきたあと、少しセリフ変わる。 
 
     private GameObject DebugTimecountUp_button;
@@ -91,7 +90,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         timeIttei8 = 0;
 
         timeDegHeart_flag = false;
-        TimeCheck_flag = false;
         TimeReturnHomeSleep_Status = false;
     }
 
@@ -167,7 +165,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                 default:
 
-                    TimeKoushin(0); //時間の更新　初期
+                    TimeKoushin(0, false); //時間の更新　初期
                     break;
             }
 
@@ -261,7 +259,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                         timeLeft2 = 0.0f;
                         SetMinuteToHour(5); //5分
-                        TimeKoushin(0);
+                        TimeKoushin(0, true);
 
                         compound_main.Weather_Change(5.0f);
 
@@ -736,16 +734,16 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     }
 
     //現在の月日・現在時刻を計算する。また、イベントチェックも行う。
-    public void TimeKoushin(int _mstatus)
+    public void TimeKoushin(int _mstatus, bool sleep_check)
     {
-        
+
         if (GameMgr.TimeUSE_FLAG) //TRUEのときは使用。オフにするときは、TimePanelのゲームオブジェクトもオフにする。
         {
 
             /* 時刻の計算 */
 
             //現在時刻を計算 この時点で、25時 ○○分とかの可能性もあり。そのときに、player_dayへの変換もする。
-            TimeKeisan();            
+            TimeKeisan();
 
             //
             /* 月日の計算 */
@@ -759,12 +757,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 PlayerStatus.player_day = 1;
             }
 
-                      
+
 
             //カレンダー変換機能
             if (_mstatus == 0)
             {
-                CullenderKeisan(PlayerStatus.player_day);              
+                CullenderKeisan(PlayerStatus.player_day);
 
                 //現在の月と日を更新しておく。
                 PlayerStatus.player_cullent_month = month;
@@ -783,19 +781,25 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             Weather_Judge_Method();
 
 
-            //時刻と月日の計算後にイベントチェック
+            //時刻と月日の計算後に寝るかどうかイベントチェック
+            if (sleep_check)
+            {
+                //20時を超えた場合、寝るなどのイベント発生チェック
+                if (PlayerStatus.player_cullent_hour >= GameMgr.EndDay_hour) //20時をこえた
+                {
+                    DayEndEvent();
+                }
+                else if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < GameMgr.StartDay_hour) //深夜1時～朝8時未満
+                {
+                    DayEndEvent();
+                }
+                else
+                { }
 
-            //20時を超えた場合、寝るなどのイベント発生チェック
-            if (PlayerStatus.player_cullent_hour >= GameMgr.EndDay_hour) //20時をこえた
-            {
-                DayEndEvent();
+                //寝るイベントチェックが入ったら、エリア解禁チェックイベントをチェックする。
+                GameMgr.NewAreaRelease_flag = false; //スターに応じて、エリア解禁をするチェック こっちはfalseでOK
+                Debug.Log("スターに応じて、エリア解禁をするチェック このタイミングでON");
             }
-            else if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < GameMgr.StartDay_hour) //深夜1時～朝8時未満
-            {
-                DayEndEvent();
-            }
-            else 
-            {}
         }
     }
 
@@ -848,22 +852,18 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     void DayEndEvent()
     {
         //一日が経った。
-        if (TimeCheck_flag) //Compound_MainでTimeCheck_flagをtrueにしている。
-        {
-            TimeCheck_flag = false;
 
-            //寝るイベントが発生
-            if (TimeReturnHomeSleep_Status) //兄が帰ってきたあとのセリフ
-            {
-                TimeReturnHomeSleep_Status = false;
-                GameMgr.sleep_status = 2;
-            }
-            else
-            {
-                GameMgr.sleep_status = 0;
-            }
-            compound_main.OnSleepReceive();
+        //寝るイベントが発生
+        if (TimeReturnHomeSleep_Status) //兄が帰ってきたあとのセリフ
+        {
+            TimeReturnHomeSleep_Status = false;
+            GameMgr.sleep_status = 2;
         }
+        else
+        {
+            GameMgr.sleep_status = 0;
+        }
+        compound_main.OnSleepReceive();
     }
 
     void TimeKeisan()
@@ -1201,13 +1201,13 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     public void OnDebugTimeCountUpButton()
     {
         SetMinuteToHour(30); //+30分
-        TimeKoushin(0);
+        TimeKoushin(0, false);
     }
 
     public void OnDebugTimeCountDownButton()
     {
         SetMinuteToHour(-30); //-30分
-        TimeKoushin(0);
+        TimeKoushin(0, false);
     }
 
     //時間をいれると、その経過時間をチェックし、お菓子を作ってないかを判定 Exp_Controllerから読み出し。
@@ -1268,7 +1268,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         PlayerStatus.player_cullent_minute = _minute;
 
         //日付更新
-        TimeKoushin(1);
+        TimeKoushin(1, true);
 
         //天気も変更
         //Weather_ChangeNow(1.0f);

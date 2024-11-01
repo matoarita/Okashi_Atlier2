@@ -348,7 +348,7 @@ public class GetMaterial : MonoBehaviour
                 //日数の経過
                 //PlayerStatus.player_time += 6; //場所に関係なく、一回とるごとに30分
                 time_controller.SetMinuteToHour(30);
-                time_controller.TimeKoushin(0);
+                time_controller.TimeKoushin(0, false);
 
                 //妹の体力消費 一回の行動でマップに応じた量減る。
                 if (matplace_database.matplace_lists[index].placeType != 0)

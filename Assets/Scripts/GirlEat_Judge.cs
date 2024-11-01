@@ -3256,13 +3256,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //発生したハートが全てなくなったら、実際の好感度の変動と、表示も更新。 ハートが上がるアニメ中に、ハートが下がる可能性もある。（TimeControllerからの処理で）
     IEnumerator WaitForHeartEnd()
     {
-        while (heart_count > 0)
+        while (heart_count > 0 || GameMgr.compound_status != 110) //ハートが全てなくなる＆画面を何も開いてないとき（Compound_Status=110のときのみ）で、以下イベントチェックまで進む。
         {
             yield return null;
         }
 
         //ハートゲージ更新のアニメは終了
         heart_animON = false;
+        Debug.Log("ハートゲージ更新アニメは終了");
 
         //実際の好感度を反映
         if (PlayerStatus.girl1_Love_lv >= 99)

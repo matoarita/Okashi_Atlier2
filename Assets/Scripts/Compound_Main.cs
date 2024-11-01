@@ -694,7 +694,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.check_CompoAfter_flag = false;
         GameMgr.check_GetMat_flag = false;
         GameMgr.check_OkashiAfter_flag = false;
-        GameMgr.EventAfter_MoveEnd = false;
+        GameMgr.Sleep_CheckEnd = false;
         GameMgr.Status_zero_readOK = false;
 
 
@@ -964,59 +964,79 @@ public class Compound_Main : MonoBehaviour
                         }
                         else
                         {
-                            //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
-                            if (!GameMgr.check_GirlLoveEvent_flag)
-                            {
-                                Debug.Log("メインイベントチェックON");
-
-                                //メインイベント
-                                eventdatabase.GirlLoveMainEvent();
-                            }
+                            if (GameMgr.ResultOFF) //リザルト画面開き中のときは、イベントチェックしない
+                            { }
                             else
                             {
-                                //サブイベントの発生をチェック。
-                                if (!GameMgr.check_GirlLoveSubEvent_flag)
-                                {
-                                    Debug.Log("サブイベントチェックON");
-
-                                    //好感度に応じて発生するサブイベント
-                                    eventdatabase.GirlLove_SubEventMethod();
-                                }
+                                if (GameMgr.Sleep_CheckEnd) //眠り中はイベントチェックしない
+                                { }
                                 else
                                 {
-                                    //時間イベントの発生をチェック。
-                                    if (!GameMgr.check_GirlLoveTimeEvent_flag)
+                                    //まずイベントチェック前に、採取から帰ってきてたら、採取パネル表示して閉じるまでを優先
+                                    if (GameMgr.Getmat_return_home)
                                     {
-                                        Debug.Log("時間イベントチェックON");
+                                        GameMgr.Getmat_return_home = false;
 
-                                        //時間イベント
-                                        eventdatabase.GirlLove_SubTimeEventMethod();
+                                        GetMatReturnCheck(); //ここを通過したあと、ResultOFF=trueにする。なので、一回しかここは通らない。
                                     }
                                     else
                                     {
-                                        //スターに応じて、エリア解禁をするチェック
-                                        if (!GameMgr.NewAreaRelease_flag)
+                                        //クエストクリア時、次のお菓子イベントが発生するかどうかのチェック。
+                                        if (!GameMgr.check_GirlLoveEvent_flag)
                                         {
-                                            Debug.Log("スターチェック＆新エリア解禁チェック中");
-                                            Check_NewAreaFlag();
+                                            Debug.Log("メインイベントチェックON");
+
+                                            //メインイベント
+                                            eventdatabase.GirlLoveMainEvent();
                                         }
                                         else
                                         {
-                                            //読んでいないレシピがあれば、読む処理。優先順位二番目。
-                                            if (!check_recipi_flag)
+                                            //サブイベントの発生をチェック。
+                                            if (!GameMgr.check_GirlLoveSubEvent_flag)
                                             {
+                                                Debug.Log("サブイベントチェックON");
 
-                                                //Debug.Log("チェックレシピ中");
-                                                Check_RecipiFlag();
+                                                //好感度に応じて発生するサブイベント
+                                                eventdatabase.GirlLove_SubEventMethod();
                                             }
                                             else
                                             {
+                                                //時間イベントの発生をチェック。
+                                                if (!GameMgr.check_GirlLoveTimeEvent_flag)
+                                                {
+                                                    Debug.Log("時間イベントチェックON");
 
-                                                //Debug.Log("compound_status: " + compound_status);
-                                                //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
-                                                MainCompoundMethod();
+                                                    //時間イベント　ヒカリが採取から帰ってくるのチェックもここ。
+                                                    eventdatabase.GirlLove_SubTimeEventMethod();
+                                                }
+                                                else
+                                                {
+                                                    //スターに応じて、エリア解禁をするチェック　EventDataBaseのTimeの最後にチェックをONにする
+                                                    if (!GameMgr.NewAreaRelease_flag)
+                                                    {
+                                                        Debug.Log("スターチェック＆新エリア解禁チェック中");
+                                                        Check_NewAreaFlag();
+                                                    }
+                                                    else
+                                                    {
+                                                        //読んでいないレシピがあれば、読む処理。優先順位二番目。
+                                                        if (!check_recipi_flag)
+                                                        {
+
+                                                            //Debug.Log("チェックレシピ中");
+                                                            Check_RecipiFlag();
+                                                        }
+                                                        else
+                                                        {
+
+                                                            //Debug.Log("compound_status: " + compound_status);
+                                                            //メインの調合処理　各ボタンを押すと、中の処理が動き始める。
+                                                            MainCompoundMethod();
 
 
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -1504,6 +1524,36 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    void GetMatReturnCheck()
+    {
+        //リザルトパネルを表示する
+        getmatplace.ResultPanelOn();
+
+        //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
+        if (GameMgr.OsotoIkitaiFlag)
+        {
+            GameMgr.OsotoIkitaiFlag = false;
+            girlEat_judge.loveGetPlusAnimeON(5, false);
+            _textmain.text = "お外にいって、喜んだようだ。";
+            girl1_status.GirlExpressionKoushin(20);
+        }
+        else
+        {
+            _textmain.text = "家に戻ってきた。どうしようかなぁ？";
+        }
+        //ハートゲージを更新。
+        HeartGuageTextKoushin();
+
+        //オートセーブ
+        if (GameMgr.AUTOSAVE_ON)
+        {
+            save_controller.OnSaveMethod(GameMgr.System_save_nowslot);
+            Debug.Log("オートセーブ完了");
+
+            AutoSaveCompleteText();
+        }
+    }
+
 
     //メインの調合シーンの処理  Utageからも読まれる。
     public void MainCompoundMethod()
@@ -1592,9 +1642,6 @@ public class Compound_Main : MonoBehaviour
                 girl1_status.tween_start = false;
                 girl1_status.IdleMotionReset();
 
-                //時間のチェック。
-                //time_controller.TimeKoushin(0); //時間の更新
-
                 //コンテスト・クエストの締め切りチェック（ビックリマークの表示）
                 mainUI_panel_obj.transform.Find("QuestKakuninButtonPanel").GetComponent<QuestKakuninButtonPanel>().Check_LimitMarkDraw();
                 mainUI_panel_obj.transform.Find("ContestKakuninButtonPanel").GetComponent<ContestKakuninButtonPanel>().Check_LimitMarkDraw();
@@ -1602,56 +1649,8 @@ public class Compound_Main : MonoBehaviour
                 //お天気チェック
                 Weather_Change(5.0f);
 
-                //妹が外出していて（または調合終了して）、よる７時をまわってから、自分が家にかえってきた場合は、先に妹は家に帰っている。
-                if (PlayerStatus.player_cullent_hour >= 19 && GameMgr.outgirl_Nowprogress)
-                {
-                    GameMgr.outgirl_Nowprogress = false;
-                    GameMgr.outgirl_event_ON = false;
-                    eventdatabase.outGirlCounterReset(); //次の外出るイベントまでの日数カウンタ                   
-
-                    if (GameMgr.ResultOFF) //採取から帰ってきた場合
-                    {
-                        GameMgr.ReadGirlLoveTimeEvent_reading_now = true; 
-                        GameMgr.girl_returnhome_flag = true;
-                        GameMgr.girl_returnhome_num = 0;
-                    }
-                    else //お店などから帰ってきた場合
-                    {
-                        GameMgr.ReadGirlLoveTimeEvent_reading_now = true; 
-                        GameMgr.girl_returnhome_flag = true;
-                        GameMgr.girl_returnhome_num = 0;
-
-                        GameMgr.girlloveevent_bunki = 1;
-                        GameMgr.GirlLoveSubEvent_num = 153;
-                        GameMgr.GirlLoveSubEvent_stage1[153] = true; //イベント初発生の分をフラグっておく。
-                        GameMgr.girl_returnhome_endflag = true;
-
-                        getmatplace.OnHikariOkaeri_Fire();
-                        ReadGirlLoveEvent_Fire();
-                    }
-                }
-                else
-                {
-                    if (GameMgr.Getmat_return_home) //採取から返ってきたばかりのときはタイムチェックしない
-                    { }
-                    else
-                    { 
-                        if (GameMgr.ResultOFF) //リザルト画面開き中のときは、タイムチェックしない
-                        { }
-                        else
-                        {
-                            if (!GameMgr.ReadGirlLoveTimeEvent_reading_now)
-                            {
-                                Debug.Log("時間更新＆チェック");
-                                time_controller.TimeCheck_flag = true;
-                                time_controller.TimeKoushin(0); //時間の更新     
-                            }
-                        }
-                    }
-                }
-
-                //外出時の処理
-                if (!GameMgr.outgirl_Nowprogress) 
+                //外出時のキャラクタ表示処理
+                if (!GameMgr.outgirl_Nowprogress)
                 {
                     CharacterLive2DImageON();
                     Touch_ALLON();
@@ -1683,7 +1682,7 @@ public class Compound_Main : MonoBehaviour
                     if (GameMgr.matbgm_change_flag == true)
                     {
                         GameMgr.matbgm_change_flag = false;
-                       
+
                         sceneBGM.OnMainBGM();
                     }
                     /*if (GameMgr.CompoBGMCHANGE_ON)
@@ -1700,8 +1699,24 @@ public class Compound_Main : MonoBehaviour
                 map_ambience.MuteOFF();
 
                 //イベントに応じてコマンドを増やす関係
-                FlagEvent();                                                                    
+                FlagEvent();
 
+
+                //時間更新＆寝るイベントチェック
+                if (GameMgr.ResultOFF) //リザルト画面開き中のときは、タイムチェックしない
+                { }
+                else
+                {
+                    if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //ヒカリが外出から帰ってきて、採取パネルやほめるイベントを読み中　全て終わったらfalseになる。
+                    {
+                        Debug.Log("時間更新＆チェック＆寝るチェック");
+                        //time_controller.TimeCheck_flag = true;
+                        time_controller.TimeKoushin(0, true); //時間の更新&寝るイベントのチェック　寝るチェック後に、エリア解禁チェックフラグを入れる 
+                    }
+                }
+
+
+                //最初の一回だけ、吹き出しアニメスタート。
                 if (!subevent_after_end)
                 {
                     if (GameMgr.tutorial_ON != true)
@@ -1723,41 +1738,10 @@ public class Compound_Main : MonoBehaviour
 
                     //お菓子以外で、条件を満たしていないかクエストクリアチェック
                     girlEat_judge.ExtraSPQuestClearCheck();
-                   
+
                 }
 
-                //採取地から家に帰ってきたときの処理
-                if (GameMgr.Getmat_return_home)
-                {
-                    GameMgr.Getmat_return_home = false;
-
-                    //リザルトパネルを表示する
-                    getmatplace.ResultPanelOn();
-
-                    //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
-                    if (GameMgr.OsotoIkitaiFlag)
-                    {
-                        GameMgr.OsotoIkitaiFlag = false;
-                        girlEat_judge.loveGetPlusAnimeON(5, false);
-                        _textmain.text = "お外にいって、喜んだようだ。";
-                        girl1_status.GirlExpressionKoushin(20);
-                    }
-                    else
-                    {
-                        _textmain.text = "家に戻ってきた。どうしようかなぁ？";
-                    }
-                    //ハートゲージを更新。
-                    HeartGuageTextKoushin();
-
-                    //オートセーブ
-                    if (GameMgr.AUTOSAVE_ON)
-                    {
-                        save_controller.OnSaveMethod(GameMgr.System_save_nowslot);
-                        Debug.Log("オートセーブ完了");
-
-                        AutoSaveCompleteText();
-                    }
-                }
+                
 
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
                 if (!GameMgr.tutorial_ON)
@@ -1870,7 +1854,6 @@ public class Compound_Main : MonoBehaviour
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
                 Touch_ALLOFF();
-                time_controller.TimeCheck_flag = false;
 
                 //おいしそ～状態は、元に戻る。
                 if (girl1_status.GirlOishiso_Status == 1)
@@ -3174,14 +3157,10 @@ public class Compound_Main : MonoBehaviour
             not_read_total = 0;
             NewAreaCheck_loading = false;
             starrank_kaikin_ON = false;
-
-            //スターランク＋新エリアチェック中の状態
-            GameMgr.compound_select = 1100;
-            GameMgr.compound_status = 1100;
-
+            
             //まず、現在のスターランクをチェックする。
             PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param); //パティシエランクのチェックとセット　現在の状態に更新　念のため
-            if (GameMgr.Before_Patissier_Rank < PlayerStatus.player_patissier_Rank) //_before_prankは会場移動時に更新
+            if (GameMgr.Before_Patissier_Rank < PlayerStatus.player_patissier_Rank) //_before_prankは、チェック後に、更新する。
             {
                 //ランクがあがった！　次に各レベルでの、フラグ解禁を頭から全てチェック　そのランクまでの間の解禁を全て発生させる。一気にLVが上がっても、ちゃんと全部解禁できる。
                 
@@ -3198,6 +3177,10 @@ public class Compound_Main : MonoBehaviour
 
                     if (!GameMgr.StarRank_ReleaseList[i])
                     {
+                        //スターランク＋新エリアチェック中の状態
+                        GameMgr.compound_select = 1100;
+                        GameMgr.compound_status = 1100;
+
                         GameMgr.StarRank_ReleaseList[i] = true;
                         newarea_num = i;
 
@@ -3224,11 +3207,10 @@ public class Compound_Main : MonoBehaviour
             {
                 //falseのままなら、チェック終了
                 GameMgr.Before_Patissier_Rank = PlayerStatus.player_patissier_Rank;
-                GameMgr.NewAreaRelease_flag = true;
-                GameMgr.compound_status = 0; //ここまでで、チェックの処理が全て完了したので、status=0にする。
+                GameMgr.NewAreaRelease_flag = true;               
 
                 //終わったら再開
-                girl1_status.GirlEat_Judge_on = true;
+                //girl1_status.GirlEat_Judge_on = true;
 
                 Debug.Log("新エリア解禁フラグ　全てチェック完了");
             }
@@ -3259,7 +3241,9 @@ public class Compound_Main : MonoBehaviour
         }
 
         GameMgr.newarea_read_endflag = false;
-        NewAreaCheck_loading = false; 
+        NewAreaCheck_loading = false;
+
+        GameMgr.compound_status = 0; //ここまでで、チェックの処理が全て完了したので、status=0にする。
     }
 
     void NewAreaKaikin_Library(int _num)
@@ -3927,7 +3911,7 @@ public class Compound_Main : MonoBehaviour
 
 
                 StartCoroutine("ReadGirlLoveEventAfter");
-                subevent_after_end = true; //サブイベントアフター演出を読み中            
+                         
             }
             else
             {
@@ -3950,22 +3934,23 @@ public class Compound_Main : MonoBehaviour
 
     IEnumerator ReadGirlLoveEventAfter()
     {
+        subevent_after_end = true; //サブイベントアフター演出を読み中   
         while (girlEat_judge.heart_count > 0)
         {
             yield return null;
           
         }
-        
-        GameMgr.check_GirlLoveEvent_flag = true;
-        girl1_status.Girl1_Status_Init2();
-        GameMgr.compound_status = 0;
+
         subevent_after_end = false;
+
+        girl1_status.Girl1_Status_Init2();
+        GameMgr.compound_status = 0;       
         //Debug.Log("compound_statusを0にする");
 
         //ハートがすべてなくなってから、再度サブイベントチェック
+        GameMgr.check_GirlLoveEvent_flag = true;
         GameMgr.check_GirlLoveSubEvent_flag = false;
-        GameMgr.NewAreaRelease_flag = false; //スターに応じて、エリア解禁をするチェック こっちはfalseでOK
-        Debug.Log("スターに応じて、エリア解禁をするチェック このタイミングでON");
+        
     }
 
     
@@ -4043,7 +4028,7 @@ public class Compound_Main : MonoBehaviour
     //眠りの宴シナリオを呼び出す際に使用。TimeControllerからも読み出し
     public void OnSleepReceive()
     {
-        GameMgr.EventAfter_MoveEnd = true;
+        GameMgr.Sleep_CheckEnd = true;
         StartCoroutine("SleepDayEnd");
     }
 
@@ -4096,7 +4081,7 @@ public class Compound_Main : MonoBehaviour
         SleepAfter_FlagReset();
 
         //月日も更新しておく カレンダー更新
-        time_controller.TimeKoushin(0);
+        time_controller.TimeKoushin(0, false);
 
         //寝るイベント発生時に、ピクニックイベントのカウンタが+1進む。        
         GameMgr.picnic_count--;
@@ -4117,9 +4102,9 @@ public class Compound_Main : MonoBehaviour
         }
 
         //寝たらスリープフラグもOFFに。
-        GameMgr.EventAfter_MoveEnd = false;
+        GameMgr.Sleep_CheckEnd = false;
 
-        //サブイベントの発生チェック　コンテストの発生もないかここでチェックする
+        //寝た後のサブイベントの発生チェック　コンテストの発生もないかここでチェックする
         GameMgr.check_GirlLoveSubEvent_flag = false;
         for (i = 0; i < GameMgr.check_SleepEnd_Eventflag.Length; i++) //寝ておきたあとにイベント発生するものがないか全てチェック
         {

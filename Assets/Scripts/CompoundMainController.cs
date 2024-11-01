@@ -503,9 +503,6 @@ public class CompoundMainController : MonoBehaviour {
                         }
                     }
 
-                    //念のため、調合シーンに入ったら、寝るフラグがたたないように強制オフにしてる。
-                    time_controller.TimeCheck_flag = false;
-
                     //各調合画面を一度オフ
                     CompoScreenReset();
 
@@ -840,7 +837,7 @@ public class CompoundMainController : MonoBehaviour {
             {
                 case 0:
 
-                    if (!GameMgr.EventAfter_MoveEnd) //寝るイベント発生などのフラグ
+                    if (!GameMgr.Sleep_CheckEnd) //寝るイベント発生などのフラグ
                     {
                         if (GameMgr.ResultComplete_flag != 0) //厨房から帰ってくるときの動き
                         {

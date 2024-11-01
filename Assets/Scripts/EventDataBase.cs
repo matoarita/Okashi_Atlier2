@@ -1430,8 +1430,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }
-
-
+               
                 //
             }
 
@@ -1453,7 +1452,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
             }
             else //全てのイベントチェックし、発生しなかったら、このスクリプトでのイベントチェック完了
-            {  }
+            { }
         }
     }
 
@@ -1542,10 +1541,19 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                             }
                         }
-                        else if (PlayerStatus.player_cullent_hour >= 18)
+                        else if (PlayerStatus.player_cullent_hour >= 18 && PlayerStatus.player_cullent_hour < 19)
                         {
                             //18時を超えたら、必ず帰ってくる。ただいま～
                             OutGirlReturnHome();
+                            GameMgr.check_GirlLoveTimeEvent_flag = false;
+                        }
+                        else if (PlayerStatus.player_cullent_hour >= 19)
+                        {
+                            Debug.Log("19時以降兄が家にかえってきたあと、ヒカリが採取に出てた場合、先にヒカリが帰っておりおかえり～というイベント");
+                            
+                            OutGirlReturnHome2();
+                            ReadGirlLoveEvent();
+
                             GameMgr.check_GirlLoveTimeEvent_flag = false;
                         }
                     }
@@ -1608,19 +1616,69 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         outGirlCounterReset(); //次の外出るイベントまでの日数カウンタ
         //GameMgr.outgirl_Nowprogress = false;
 
-        //GameMgr.check_GirlLoveTimeEvent_flag = false;
         GameMgr.outgirl_returnhome_reading_now = true;
         GameMgr.ReadGirlLoveTimeEvent_reading_now = true; //152が終わったときに、フラグもoffにする。
 
         PlayerStatus.player_girl_manpuku -= 30;
 
-        //取得アイテムの計算
+        //ヒカリ取得アイテムの計算
         OutGirlGetItems();
 
         //外にいくたびに、アイテム発見力も少し上がる。
         PlayerStatus.player_girl_findpower += 5; //20ごとに一回探索回数が増える
 
         StartCoroutine("eventOutGirlReturnHome_end");　//シナリオ読み終わり待ち
+    }
+
+    //
+    void OutGirlReturnHome2()
+    {
+        GameMgr.GirlLoveSubEvent_num = 153;
+        GameMgr.GirlLoveSubEvent_stage1[153] = true; //イベント初発生の分をフラグっておく。
+        GameMgr.girlloveevent_bunki = 1;
+
+        GameMgr.outgirl_event_ON = false;
+        outGirlCounterReset(); //次の外出るイベントまでの日数カウンタ      
+        GameMgr.outgirl_Nowprogress = false;                           
+
+        GameMgr.ReadGirlLoveTimeEvent_reading_now = true;
+        GameMgr.girl_returnhome_flag = true;
+        GameMgr.girl_returnhome_num = 0;        
+        
+        GameMgr.girl_returnhome_endflag = true;
+
+        StartCoroutine("HikariOkaeri");
+    }
+
+    IEnumerator HikariOkaeri()
+    {
+        while (GameMgr.girl_returnhome_endflag)
+        {
+            yield return null;
+        }
+        GameMgr.girl_returnhome_endflag = false;
+
+        //ヒカリ取得アイテムの計算
+        OutGirlGetItems();
+
+        getmatplace_panel.ResultPanelOn();
+        GameMgr.girl_returnhome_endflag2 = true;
+        GameMgr.girl_returnhome_num = 1;
+
+        while (GameMgr.girl_returnhome_endflag2)
+        {
+            yield return null;
+        }
+        GameMgr.girl_returnhome_endflag2 = false;
+
+        Debug.Log("GetmatPlace 時間更新＆チェック");
+        //メインシーンのデフォルトに戻る。
+        //time_controller.TimeCheck_flag = true; //寝るかどうかの判定する   
+        time_controller.TimeReturnHomeSleep_Status = true;
+        time_controller.TimeKoushin(0, false);
+        girl1_status.hukidasiOn();
+
+        GameMgr.ReadGirlLoveTimeEvent_reading_now = false;
     }
 
     //GetMatPlace_Panelからも読み出し

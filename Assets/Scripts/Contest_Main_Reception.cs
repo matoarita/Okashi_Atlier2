@@ -877,7 +877,7 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
             conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。           
 
-            GameMgr.Before_Patissier_Rank = PlayerStatus.player_patissier_Rank; //チェック用に、更新前のパティシエランクとっておく
+            //GameMgr.Before_Patissier_Rank = PlayerStatus.player_patissier_Rank; //チェック用に、更新前のパティシエランクとっておく
 
             Debug.Log("コンテスト本会場へ移動");
             StartCoroutine("WaitForGotoContest");
