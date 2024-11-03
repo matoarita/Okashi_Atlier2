@@ -538,6 +538,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //画面のアニメ
         OpenAnim();
 
+        //顔アイコンも切り替え
+        MatPlaceDefault_Face();
+
         //時刻によって、背景の絵の天気を変える。
         /*if (GameMgr.Story_Mode != 0)
         {
@@ -1109,14 +1112,18 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 _text.text = "行き先を選んでね。";
 
-                //顔アイコンも切り替え
-                msg_window.Setting_WindowIcon(1); //ノーマル
+                MatPlaceDefault_Face();
                 break;
         }
 
     }
 
-
+    //Compound_Mainからも読み込み
+    void MatPlaceDefault_Face()
+    {
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(1); //ノーマル
+    }
 
 
 

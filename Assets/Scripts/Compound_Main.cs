@@ -18,6 +18,7 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject text_area;
     private Text _text;
+    private MessageWindow msg_window;
 
     private GameObject text_area_Main;
     private Text _textmain;
@@ -452,6 +453,7 @@ public class Compound_Main : MonoBehaviour
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        msg_window = text_area.GetComponentInChildren<MessageWindow>();
         text_area_Main = canvas.transform.Find("MessageWindowMain").gameObject;
         _textmain = text_area_Main.transform.Find("Text").GetComponent<Text>();
         text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
@@ -518,7 +520,10 @@ public class Compound_Main : MonoBehaviour
         
         Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
         character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
+        live2d_animator.Play("Idle", motion_layer_num, 0.0f); //デフォルトアイドルモーションセット
+        live2d_animator.Update(0f);
 
+        //メイン調合のコマンドオブジェクト取得
         compoundselect_onoff_obj = canvas.transform.Find("MainUIPanel/Comp/CompoundSelect_ScrollView").gameObject;
 
         //女の子の反映用ハートエフェクト取得
@@ -743,8 +748,6 @@ public class Compound_Main : MonoBehaviour
         //ウィンドウキャラ名設定
         GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
 
-
-
         ReturnBackHome();
 
         //セーブがあるかどうかをチェック
@@ -794,7 +797,14 @@ public class Compound_Main : MonoBehaviour
         }
 
         StartRead = false;
-        
+
+
+        //現在の時間計算（寝るチェックなし）
+        time_controller.TimeKoushin(0, false);
+
+        //家賃日までの日数計算
+        yachinPanel.GetComponent<YachinPanel>().YachinHyouji();
+
 
         //デバッグ用 本番ではオフにする。コンテスト終了後、寝るが終わったあとに始まるイベントのこと　寝るを押せばすぐに発動するようにしてる。
         //GameMgr.Contest_afterHomeEventFlag = true;
@@ -1604,7 +1614,7 @@ public class Compound_Main : MonoBehaviour
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
                                
-                OnCompoundSelect();
+                OnCompoundSelect();               
 
                 //ステージ更新
                 mainUI_panel_obj.GetComponent<MainUIPanel>().StageNumKoushin();
@@ -1617,6 +1627,9 @@ public class Compound_Main : MonoBehaviour
 
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
+
+                //家賃日までの日数計算
+                yachinPanel.GetComponent<YachinPanel>().YachinHyouji();
 
                 //覚えたスキルやステータスを毎回チェックし、ぬけがないか更新。
                 exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
@@ -1640,7 +1653,7 @@ public class Compound_Main : MonoBehaviour
                 //Anchor_Pos.transform.localPosition = new Vector3(0f, 0.134f, -5f);
                 girl1_status.HukidashiFlag = true;
                 girl1_status.tween_start = false;
-                girl1_status.IdleMotionReset();
+                girl1_status.IdleMotionReset(0); // 0は即時切り替え
 
                 //コンテスト・クエストの締め切りチェック（ビックリマークの表示）
                 mainUI_panel_obj.transform.Find("QuestKakuninButtonPanel").GetComponent<QuestKakuninButtonPanel>().Check_LimitMarkDraw();
@@ -1710,7 +1723,6 @@ public class Compound_Main : MonoBehaviour
                     if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //ヒカリが外出から帰ってきて、採取パネルやほめるイベントを読み中　全て終わったらfalseになる。
                     {
                         Debug.Log("時間更新＆チェック＆寝るチェック");
-                        //time_controller.TimeCheck_flag = true;
                         time_controller.TimeKoushin(0, true); //時間の更新&寝るイベントのチェック　寝るチェック後に、エリア解禁チェックフラグを入れる 
                     }
                 }

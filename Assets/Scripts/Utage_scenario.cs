@@ -1688,6 +1688,7 @@ public class Utage_scenario : MonoBehaviour
         scenarioLabel = "Event_Recipi"; //イベントレシピタグのシナリオを再生。
 
         scenario_loading = true;
+        shop_uwasa_flag = 9999;
 
         //ここで、宴のパラメータ設定
 
@@ -1703,9 +1704,16 @@ public class Utage_scenario : MonoBehaviour
             }
             j++;
         }
+        engine.Param.TrySetParameter("Ev_flag", ev_flag);
 
-        engine.Param.TrySetParameter("Ev_flag", ev_flag);        
-
+        //マップなどのフラグチェック
+        if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bluetopaz_Garden")].placeFlag == 0)
+        {
+            shop_uwasa_flag = 1;
+            //いける場所を追加
+            matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズのお花畑解禁
+        }
+        engine.Param.TrySetParameter("Shop_UwasaFlagCheck", shop_uwasa_flag);
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -1716,7 +1724,7 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
-        if(ev_flag == 40 && !GameMgr.Beginner_flag[1]) //ラスクのレシピを初めて読んだ
+        if (ev_flag == 40 && !GameMgr.Beginner_flag[1]) //ラスクのレシピを初めて読んだ
         {
             GameMgr.Beginner_flag[1] = true;
         }

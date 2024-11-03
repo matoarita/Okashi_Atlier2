@@ -863,7 +863,7 @@ public class CompoundMainController : MonoBehaviour {
                     else
                     {
 
-                        trans_motion = 11; //位置をもとに戻す。
+                        trans_motion = 12; //位置をもとに戻す。12は、元に戻したあとデフォルトアイドルモーションに遷移。
                         live2d_animator.SetInteger("trans_motion", trans_motion);
                         girl1_status.DefFaceChange();
                     }
@@ -980,10 +980,10 @@ public class CompoundMainController : MonoBehaviour {
                 //女の子アニメーション初期化
                 girl1_status.face_girl_Normal();
                 girl1_status.AddMotionAnimReset();
-                girl1_status.IdleMotionReset();
+                girl1_status.IdleMotionReset(0);
 
                 //もし、リターンホーム中にすぐにシーン切り替えた場合用に、Live2D自体の位置もリセット。
-                trans_motion = 11;
+                trans_motion = 11; //11は、位置を元に戻したあと調合時のアイドルモーションに遷移。
                 live2d_animator.SetInteger("trans_motion", trans_motion);
                 //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f); //OriCompoMotion
                 live2d_animator.SetInteger("trans_nade", 0);
@@ -993,7 +993,7 @@ public class CompoundMainController : MonoBehaviour {
             {
                 GameMgr.ResultComplete_flag = 0; //調合完了フラグ　画面に戻るたびリセットされる
 
-                trans_motion = 11;
+                trans_motion = 11; //11は、位置を元に戻したあと調合時のアイドルモーションに遷移。
                 live2d_animator.SetInteger("trans_motion", trans_motion); //11はDefaultPosition
                 //live2d_animator.Play("OriCompoMotion", motion_layer_num, 0.0f); //OriCompoMotion
                 live2d_animator.SetInteger("trans_nade", 0);
@@ -1083,7 +1083,7 @@ public class CompoundMainController : MonoBehaviour {
         Anchor_Pos.transform.localPosition = new Vector3(0.0f, 0.134f, -5f);
         girl1_status.HukidashiFlag = true;
         girl1_status.tween_start = false;
-        girl1_status.IdleMotionReset();
+        girl1_status.IdleMotionReset(0);
         girl1_status.DefFaceChange();
         GameMgr.CharacterTouch_ALLON = true; //タッチもできるように。
     }
@@ -1092,7 +1092,7 @@ public class CompoundMainController : MonoBehaviour {
     public void ResetLive2D_ModelPos()
     {        
         //Live2D自体の位置もリセット。
-        trans_motion = 11;
+        trans_motion = 12; //12は、元に戻したあとデフォルトアイドルモーションに遷移。
         live2d_animator.SetInteger("trans_motion", trans_motion);
         live2d_animator.SetInteger("trans_nade", 0);
 

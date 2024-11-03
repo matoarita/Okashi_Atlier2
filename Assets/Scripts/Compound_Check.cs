@@ -125,6 +125,7 @@ public class Compound_Check : MonoBehaviour {
     private string magicName;
     private int magicLearnLv;
     private int _magic_rate;
+    private int _final_costtime;
     private int _playerhour;
     private int _uselv;
     private int _compNo_check;
@@ -1455,7 +1456,21 @@ public class Compound_Check : MonoBehaviour {
         //制作時間の予想を表示
         _hour = 0;
         _minutes = 0;
-        _costTime = databaseCompo.compoitems[GameMgr.Final_result_compID].cost_Time;
+
+        //魔法調合の場合の時間指定
+        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
+        {
+            _costTime = GameMgr.UseMagicSkill_TimeCost;
+            //制作時間を早めるバフをかけるならココ。
+            _final_costtime = _costTime; //_costTimeは、後ろの処理で値が変動するので、_finalに総時間（分）を入れる。
+        }
+        else
+        { //通常の調合時間
+            _costTime = databaseCompo.compoitems[GameMgr.Final_result_compID].cost_Time;
+            //制作時間を早めるバフをかけるならココ。
+            _final_costtime = _costTime;
+        }
+
         while (_costTime >= 60)
         {
             _costTime = _costTime - 60;
@@ -1659,12 +1674,19 @@ public class Compound_Check : MonoBehaviour {
             //魔法のCompNoの場合で、新アイテム生成に該当しない場合
             else if (GameMgr.Comp_kettei_bunki == 22)
             {
-                //
-                _success_rate = 75f;
-                exp_Controller._success_judge_flag = 1; //判定処理を行う。
-                exp_Controller._success_rate = _success_rate;
-                kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //
-                Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _success_rate);
+                //スキルによっては、成否判定がミニゲームだったりするので、その場合表示が??
+                if (magicName == "Cookie_SecondBake" || magicName == "AbraCadabra")
+                {
+                    kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
+                }
+                else
+                {
+                    _success_rate = 75f;
+                    exp_Controller._success_judge_flag = 1; //判定処理を行う。
+                    exp_Controller._success_rate = _success_rate;
+                    kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //
+                    Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _success_rate);
+                }
             }
             else
             {
@@ -1909,8 +1931,8 @@ public class Compound_Check : MonoBehaviour {
         _buf_kakuritsu = 0;
         _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan(databaseCompo.compoitems[_compID].cmpitemID_result); //にいちゃん・ヒカリが作るとき共通でバフかかる
         databaseCompo.RecipiCount_database();
-       
-        
+
+
         if (GameMgr.compound_select == 7) //ヒカリが作るときの成功率計算
         {
             _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp * GameMgr.hikari_make_okashiTime_successrate_buf);
@@ -1961,7 +1983,7 @@ public class Compound_Check : MonoBehaviour {
         Debug.Log("魔法使用の習得LVによる成功率バフ: +" + _magic_rate);
         Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _rate);
         
-        Debug.Log("制作時間目安(1分単位): " + databaseCompo.compoitems[_compID].cost_Time);
+        Debug.Log("制作時間目安(1分単位): " + _final_costtime);
 
         if (databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない
         {

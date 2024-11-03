@@ -28,7 +28,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     private ItemDataBase database; 
 
-    private List<int> calender = new List<int>();
+    //private List<int> calender = new List<int>(); //カレンダーデータ　各月
+
     private int _cullent_time;
     private int _cullent_hour;
     private int _cullent_minute;
@@ -115,6 +116,13 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
         //カレンダー初期化
+        //SetCallender();
+              
+        timespeed_range = 1.0f;       
+    }
+
+    /*void SetCallender()
+    {
         calender.Clear();
 
         calender.Add(31); //１月
@@ -129,9 +137,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         calender.Add(31); //１０月
         calender.Add(30); //１１月
         calender.Add(31); //１２月       
-      
-        timespeed_range = 1.0f;       
-    }
+    }*/
 
     private void OnEnable()
     {
@@ -810,9 +816,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         day = 0;
 
         count = 0;
-        while (count < calender.Count)
+        while (count < GameMgr.System_calender.Count)
         {
-            if (_cullent_day > calender[count]) { _cullent_day -= calender[count]; }
+            if (_cullent_day > GameMgr.System_calender[count]) { _cullent_day -= GameMgr.System_calender[count]; }
             else //その月の日付
             {
                 month = count + 1; //月　0始まりなので、足す１
@@ -839,7 +845,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         count = 0;
         while (count < _month-1) //まず月をもとに、前月までの総日数をだす
         {
-            total_day += calender[count];
+            total_day += GameMgr.System_calender[count];
             ++count;
         }
 
@@ -963,9 +969,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
         //締め切り日も計算
         count = 0;
-        while (count < calender.Count)
+        while (count < GameMgr.System_calender.Count)
         {
-            if (_stage_limit_day > calender[count]) { _stage_limit_day -= calender[count]; }
+            if (_stage_limit_day > GameMgr.System_calender[count]) { _stage_limit_day -= GameMgr.System_calender[count]; }
             else //その月の日付
             {
                 limit_month = count + 1; //月　0始まりなので、足す１
@@ -1268,7 +1274,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         PlayerStatus.player_cullent_minute = _minute;
 
         //日付更新
-        TimeKoushin(1, true);
+        TimeKoushin(1, false);
 
         //天気も変更
         //Weather_ChangeNow(1.0f);

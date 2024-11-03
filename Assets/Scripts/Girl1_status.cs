@@ -47,11 +47,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private float Default_hungry_cooltime;
     private float Default_hukidashi_hyoujitime;
     private float Default_hukidashi_nexttime;
+    private float hukidashi_hyouji_t;
     public int timeGirl_hungry_status; //今、お腹が空いているか、空いてないかの状態
     public int touchGirl_status; //今、どこを触っているかの番号
     public int QuestManzoku_counter; //お菓子たべて満足～から何秒で元に戻るかの時間 girleat_judgeから読み出し
 
-    public bool GirlEat_Judge_on;
+    public bool GirlEat_Judge_on; //吹き出しやランダムモーションを発生するまでの時間をカウントONにするフラグ ONにすると、ランダムモーションや吹き出しが自動で出てくるようになる
     public int GirlGokigenStatus; //女の子の現在のご機嫌の状態。6段階ほどあり、好感度が上がるにつれて、だんだん見た目が元気になっていく。
     public int GirlOishiso_Status; //食べたあとの、「おいしそ～」の状態。この状態では、アイドルモーションが少し変化する。
 
@@ -77,7 +78,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int MazuiStatus;
     private int touchhint_num;
 
-    public bool WaitHint_on;   
+    public bool WaitHint_on; //吹き出し表示中ですよ～のフラグ
     private string _hintrandom;
     private List<string> _hintrandomDict = new List<string>();
 
@@ -442,7 +443,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 switch (GameMgr.Scene_Category_Num)
                 {
                     case 10: //メイン調合
-                        
+
                         //カメラの取得
                         main_cam = Camera.main;
                         maincam_animator = main_cam.GetComponent<Animator>();
@@ -491,7 +492,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         character = GameObject.FindWithTag("Character");
                         live2d_animator = _model_obj.GetComponent<Animator>();
 
-                        GirlEat_Judge_on = false;
+                        GirlEat_Judge_on = true;
                         break;
 
                     case 1000: //タイトル画面
@@ -502,7 +503,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         character = GameObject.FindWithTag("Character");
                         live2d_animator = _model_obj.GetComponent<Animator>();
 
-                        GirlEat_Judge_on = false;
+                        GirlEat_Judge_on = true;
 
                         break;
                 }
@@ -513,226 +514,251 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 Emo_effect_Prefab3 = (GameObject)Resources.Load("Prefabs/Emo_Angry_Anim");
             }
 
-            switch (GameMgr.Scene_Category_Num)
+            if (hukidashiPrefab == null)
             {
-                case 10:
-
-                    if (special_animatFirst != true) //ピコンでるまでは触れない
-                    {
-                        GameMgr.CharacterTouch_ALLOFF = true;
-                    }
-
-                    //女の子の今のご機嫌チェック
-                    CheckGokigen();
-
-                    //必ず1秒ずつ減るカウンタ
-                    timeOutSec -= Time.deltaTime;
-
-                    if (GameMgr.outgirl_Nowprogress)
-                    { }
-                    else
-                    {
-                        //trueだと腹減りカウントが進む。
-                        if (GirlEat_Judge_on)
-                        {
-                            timeOut -= Time.deltaTime; //腹減りのカウンタ
-                            timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
-
-                        }
-
-                        if (WaitHint_on) //吹き出しを表示中
-                        {
-                            timeOutHint -= Time.deltaTime;
-
-                            if (timeOutHint <= 0.0f)
-                            {
-                                //吹き出しが残っていたら、削除。
-                                if (hukidashiitem != null)
-                                {
-                                    DeleteHukidashi();
-                                }
-
-                                WaitHint_on = false;
-                                GirlEat_Judge_on = true;
-                                Girl1_touchtwintail_count = 0;
-
-                                if (GirlOishiso_Status != 0) //成功　もしくはしっぱい
-                                {
-                                    GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
-                                    DefFaceChange();
-                                }
-
-                                //アイドルモーションの更新
-                                IdleMotionReset();
-
-                                _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-                            }
-                        }
-                    }
-                    break;
+                //Prefab内の、コンテンツ要素を取得       
+                hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
             }
-        }
-
-        if (hukidashiPrefab == null)
-        {
-            //Prefab内の、コンテンツ要素を取得       
-            hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
-        }
 
 
-        if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしない。
-        {
-
-        }
-        else {
-
-            //タッチを終えたら、カウントスタートし、数秒後に元の状態にリセット
-            if (Girl1_touch_end) //Touch_Controllからtrueにしている。なので、女の子がいるシーンでないと、この中の処理は走らない。
+            if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしないし、女の子の表情やランダムモーション関連の動作は一時ストップ
+            { }
+            else
             {
-                WaitHint_on = false;
-                timeOut3 -= Time.deltaTime;
 
-                //一定時間がたち、元の状態に戻る。
-                if (timeOut3 <= 0.0f)
+                if (special_animatFirst != true) //ピコンでるまでは触れない
                 {
-                    GirlEat_Judge_on = true;
-
-                    _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-                    Girl1_touch_end = false;
-                    CubismLookFlag = false;
-
-                    //表情をリセット
-                    switch (GameMgr.compound_status)
-                    {
-                        case 4: //調合中のシーン
-                            face_girl_Normal();
-                            break;
-
-                        default:
-                            DefFaceChange();
-                            break;
-                    }
-
-                    //吹き出し・ハングリーステータスをリセット
-                    ResetHukidashi();
+                    GameMgr.CharacterTouch_ALLOFF = true;
                 }
-            }
 
-            switch (GameMgr.Scene_Category_Num)
-            {
-                case 10:
 
-                    if (GameMgr.compound_status == 110) //トップ画面のときだけ発動
+                //タッチ終了後の挙動
+                if (GameMgr.Scene_Category_Num == 10 || GameMgr.Scene_Category_Num == 100 || GameMgr.Scene_Category_Num == 1000) //調合シーンorコンテスト中orタイトル
+                {
+                    //タッチを終えたら、カウントスタートし、数秒後に元の状態にリセット
+                    if (Girl1_touch_end) //Touch_Controllからtrueにしている。なので、女の子がいるシーンでないと、この中の処理は走らない。
                     {
-                        //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
-                        if (timeOut <= 0.0f)
+                        WaitHint_on = false;
+                        timeOut3 -= Time.deltaTime;
+
+                        //一定時間がたち、元の状態に戻る。
+                        if (timeOut3 <= 0.0f)
                         {
-                            switch (timeGirl_hungry_status)
+                            Girl1_touch_end = false;
+
+                            GirlEat_Judge_on = true;
+                            _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                            CubismLookFlag = false;
+
+                            //表情をリセット
+                            switch (GameMgr.compound_status)
                             {
-                                //timeGirl_hungry_status = 0: 満腹
-                                //timeGirl_hungry_status = 1: 腹減った
-                                //timeGirl_hungry_status = 2: あげた直後
-
-                                case 0: //満腹状態のとき
-
-                                    timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
-
-                                    rnd = Random.Range(30.0f, 60.0f);
-                                    timeOut = Default_hungry_cooltime + rnd;
-                                    Girl_EatDecide();
-
-                                    //キャラクタ表情変更
-                                    DefFaceChange();
-
-                                    break;
-
-                                case 1: //腹減ったのとき
-
-                                    _model.GetComponent<CubismEyeBlinkController>().enabled = true;
-                                    timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
-
-                                    rnd = Random.Range(1.0f, 2.0f);
-                                    timeOut = Default_hungry_cooltime + rnd;
-                                    DeleteHukidashiOnly();
-
-                                    //キャラクタ表情変更
-                                    DefFaceChange();
-                                    break;
-
-                                case 2: //お菓子をあげたあとの状態。
-
-                                    timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
-
-                                    timeOut = Default_hungry_cooltime;
-                                    DeleteHukidashiOnly();
-
-                                    //キャラクタ表情変更
-                                    DefFaceChange();
-                                    
+                                case 4: //調合中のシーン
+                                    face_girl_Normal();
                                     break;
 
                                 default:
-
-                                    timeOut = Default_hungry_cooltime;
+                                    DefFaceChange();
                                     break;
                             }
 
-                            
+                            //吹き出し・ハングリーステータスをリセット
+                            ResetHukidashi();
                         }
+                    }
+                }
+
+                //ランダムモーション挙動
+                switch (GameMgr.Scene_Category_Num)
+                {
+                    case 10:
+
+                        if (GameMgr.compound_status == 110) //トップ画面のときだけ発動
+                        {
+                            //女の子の今のご機嫌チェック
+                            CheckGokigen();
+
+                            //必ず1秒ずつ減るカウンタ
+                            timeOutSec -= Time.deltaTime;
+
+                            if (GameMgr.outgirl_Nowprogress)
+                            { }
+                            else
+                            {
+                                //trueだと腹減りカウントが進む。
+                                if (GirlEat_Judge_on)
+                                {
+                                    timeOut -= Time.deltaTime; //腹減りのカウンタ
+                                    timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
+                                }
+
+                                //吹き出しを表示中
+                                HukidashiHyoujiChu();
+                            }
+
+                            //一定時間たつと、女の子はお腹がへって、お菓子を欲しがる。
+                            if (timeOut <= 0.0f)
+                            {
+                                switch (timeGirl_hungry_status)
+                                {
+                                    //timeGirl_hungry_status = 0: 満腹
+                                    //timeGirl_hungry_status = 1: 腹減った
+                                    //timeGirl_hungry_status = 2: あげた直後
+
+                                    case 0: //満腹状態のとき
+
+                                        timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
+
+                                        rnd = Random.Range(30.0f, 60.0f);
+                                        timeOut = Default_hungry_cooltime + rnd;
+                                        Girl_EatDecide();
+
+                                        //キャラクタ表情変更
+                                        DefFaceChange();
+
+                                        break;
+
+                                    case 1: //腹減ったのとき
+
+                                        _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                                        timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
+
+                                        rnd = Random.Range(1.0f, 2.0f);
+                                        timeOut = Default_hungry_cooltime + rnd;
+                                        DeleteHukidashiOnly();
+
+                                        //キャラクタ表情変更
+                                        DefFaceChange();
+                                        break;
+
+                                    case 2: //お菓子をあげたあとの状態。
+
+                                        timeGirl_hungry_status = 0; //お腹がいっぱいの状態に切り替え。吹き出しが消え、しばらく何もなし。
+
+                                        timeOut = Default_hungry_cooltime;
+                                        DeleteHukidashiOnly();
+
+                                        //キャラクタ表情変更
+                                        DefFaceChange();
+
+                                        break;
+
+                                    default:
+
+                                        timeOut = Default_hungry_cooltime;
+                                        break;
+                                }
+
+
+                            }
+
+                            //一定時間たつとヒントを出すか、アイドルモーションを再生。同時に食べたいものを指定する。
+                            if (!GameMgr.tutorial_ON) //チュートリアル中は、ランダムモーションは発生しない
+                            {
+                                if (timeOut2 <= 0.0f)
+                                {
+                                    rnd = Random.Range(0.0f, 5.0f);
+                                    timeOut2 = Default_hukidashi_nexttime + rnd;
+                                    timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
+
+                                    //女の子が食べたいものを決める
+                                    Girl_EatDecide();
+
+                                    //ランダムセリフ＋モーションを決定する
+                                    Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
+                                }
+                            }
+
+
+                            //常に1秒をカウントするカウンタ
+                            if (timeOutSec <= 0.0f)
+                            {
+                                timeOutSec = 1.0f;
+
+                                //ピクニック後、余韻のカウンタ
+                                if (GameMgr.picnic_after)
+                                {
+                                    GameMgr.picnic_after_time--;
+
+                                    if (GameMgr.picnic_after_time <= 0)
+                                    {
+                                        GameMgr.picnic_after = false;
+                                    }
+                                }
+
+                                //お菓子たべたあと満足状態　5～10秒ほどしたら、戻る。
+                                if (GameMgr.QuestManzokuFace)
+                                {
+                                    QuestManzoku_counter--; //GirlEat_Judgeでリセットしてる
+
+                                    if (QuestManzoku_counter <= 0)
+                                    {
+                                        GameMgr.QuestManzokuFace = false;
+
+                                        DefFaceChange();
+                                        //DeleteHukidashi();
+                                    }
+                                }
+                            }
+
+                        }
+                        break;
+
+                    case 100: //コンテスト中　ランダムモーション
+
+                        //trueだと腹減りカウントが進む。
+                        if (GirlEat_Judge_on)
+                        {
+                            //timeOut -= Time.deltaTime; //腹減りのカウンタ
+                            timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
+                        }
+
+                        //吹き出しを表示中の挙動
+                        HukidashiHyoujiChu();
 
                         //一定時間たつとヒントを出すか、アイドルモーションを再生。同時に食べたいものを指定する。
-                        if (!GameMgr.tutorial_ON) //チュートリアル中は、ランダムモーションは発生しない
+                        if (timeOut2 <= 0.0f)
                         {
-                            if (timeOut2 <= 0.0f)
-                            {
-                                rnd = Random.Range(0.0f, 5.0f);
-                                timeOut2 = Default_hukidashi_nexttime + rnd;
-                                timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
+                            rnd = Random.Range(0.0f, 5.0f);
+                            timeOut2 = Default_hukidashi_nexttime + rnd;
 
-                                Girl_EatDecide();
+                            //ランダムセリフ＋モーションを決定する
+                            Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
 
-                                Girl1_Hint(Default_hukidashi_hyoujitime); //ランダムセリフ＋モーションを決定する
-                            }
+                            //timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
+                            //Girl_EatDecide();
+                        }
+                        break;
+
+                    case 1000: //タイトル　ランダムモーション
+
+                        //trueだと腹減りカウントが進む。
+                        if (GirlEat_Judge_on)
+                        {
+                            //timeOut -= Time.deltaTime; //腹減りのカウンタ
+                            timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
                         }
 
-                        
+                        //吹き出しを表示中
+                        HukidashiHyoujiChu();
 
-                        //常に1秒をカウントするカウンタ
-                        if (timeOutSec <= 0.0f)
+                        //一定時間たつとヒントを出すか、アイドルモーションを再生。同時に食べたいものを指定する。
+                        if (timeOut2 <= 0.0f)
                         {
-                            timeOutSec = 1.0f;
+                            rnd = Random.Range(0.0f, 5.0f);
+                            timeOut2 = Default_hukidashi_nexttime + rnd;
 
-                            //ピクニック後、余韻のカウンタ
-                            if (GameMgr.picnic_after)
-                            {
-                                GameMgr.picnic_after_time--;
+                            //ランダムセリフ＋モーションを決定する
+                            Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
 
-                                if (GameMgr.picnic_after_time <= 0)
-                                {
-                                    GameMgr.picnic_after = false;
-                                }
-                            }
-
-                            //お菓子たべたあと満足状態　5～10秒ほどしたら、戻る。
-                            if (GameMgr.QuestManzokuFace)
-                            {
-                                QuestManzoku_counter--; //GirlEat_Judgeでリセットしてる
-
-                                if (QuestManzoku_counter <= 0)
-                                {
-                                    GameMgr.QuestManzokuFace = false;
-
-                                    DefFaceChange();
-                                    //DeleteHukidashi();
-                                }
-                            }
+                            //timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
+                            //Girl_EatDecide();
                         }
+                        break;
 
-                    }
-                    break;
-
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
         }
         
@@ -818,6 +844,38 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             make_Idlemotion_start = false;
             trans_makemotion = 9999;
             live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
+        }
+    }
+
+    void HukidashiHyoujiChu()
+    {
+        if (WaitHint_on) //吹き出しを表示中
+        {
+            timeOutHint -= Time.deltaTime;
+
+            if (timeOutHint <= 0.0f)
+            {
+                //吹き出しが残っていたら、削除。
+                if (hukidashiitem != null)
+                {
+                    DeleteHukidashi();
+                }
+
+                WaitHint_on = false;
+                GirlEat_Judge_on = true;
+                Girl1_touchtwintail_count = 0;
+
+                if (GirlOishiso_Status != 0) //成功　もしくはしっぱい
+                {
+                    GirlOishiso_Status = 0; //またおいしそ～状態から戻る。
+                    DefFaceChange();
+                }
+
+                //アイドルモーションの更新
+                IdleMotionReset(1);
+
+                _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+            }
         }
     }
 
@@ -1398,7 +1456,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //
     // らんだむで表示される女の子のセリフ。ヒントか、好感度によって変わる反応
     //
-    public void Girl1_Hint(float _temptimehint)
+    public void Girl1_RandomMessage_Motion(float _temptimehint)
     {
 
         switch (GameMgr.Scene_Category_Num)
@@ -1408,7 +1466,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 //まだ一度も調合していない
                 if (PlayerStatus.First_recipi_on != true)
                 {
-                    IdleMotionHukidashiSetting(400);
+                    IdleMotionHukidashiSetting(400); //ランダムモーションと吹き出しも一緒に生成 
                 }
                 else
                 {
@@ -1434,19 +1492,19 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     {
                         if (PlayerStatus.player_girl_expression == 1) //まずいのあとは、怒ってとりとめのない会話がなくなる。
                         {
-                            IdleMotionHukidashiSetting(410);
+                            IdleMotionHukidashiSetting(410); //ランダムモーションと吹き出しも一緒に生成 
                         }
                         else
                         {
                             if (GameMgr.picnic_after)
                             {
-                                IdleMotionHukidashiSetting(420);
+                                IdleMotionHukidashiSetting(420); //ランダムモーションと吹き出しも一緒に生成 
                             }
                             else
                             {
                                 if (GameMgr.QuestManzokuFace)
                                 {
-                                    IdleMotionHukidashiSetting(430);
+                                    IdleMotionHukidashiSetting(430); //ランダムモーションと吹き出しも一緒に生成 
 
                                     //表情喜びに。5秒ほどしてすぐ戻す。
                                     face_girl_Yorokobi();
@@ -1479,18 +1537,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                             }
                                             else
                                             {
-                                                IdleChange(); //ランダムモーション＋ヒントを決定
+                                                IdleChange(); //デフォルト　女の子のハートレベルに沿って各モーションをランダムで再生する
                                             }
                                         }
                                         else
                                         {
-                                            IdleChange(); //ランダムモーション＋ヒントを決定
+                                            IdleChange(); //デフォルト　女の子のハートレベルに沿って各モーションをランダムで再生する
                                         }
                                     }
                                     else
                                     {
                                         _noweat_count++;
-                                        IdleChange(); //ランダムモーション＋ヒントを決定
+                                        IdleChange(); //デフォルト　女の子のハートレベルに沿って各モーションをランダムで再生する
                                     }
                                 }
                             }
@@ -1501,27 +1559,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 100: //コンテスト中
 
-                random = Random.Range(0, 100);
-                if (random >= 0 && random < 50)
-                {
-                    random = Random.Range(0, 2);
-                    switch (random)
-                    {
-                        case 0:
-
-                            FaceMotionPlay(1022);
-                            break;
-
-                        case 1:
-
-                            FaceMotionPlay(1025);
-                            break;
-                    }
-                }
-                else
-                {
-                    IdleMotionHukidashiSetting(1000); //吹き出しも一緒に生成
-                }
+                IdleMotionHukidashiSetting(1000); //ランダムモーションと吹き出しも一緒に生成               
                 break;
 
             case 1000: //タイトルのときのセリフ
@@ -1529,10 +1567,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 random = Random.Range(0, 100);
                 if (random < 20)
                 {                   
-                    IdleMotionHukidashiSetting(440);
+                    IdleMotionHukidashiSetting(440); //ランダムモーションと吹き出しも一緒に生成   
                 }
                 else
                 {
+                    //デフォルト　女の子のハートレベルに沿って各モーションをランダムで再生する
                     IdleChange();
                 }
                 break;
@@ -1541,87 +1580,134 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
     //アニメーションをアイドル状態に戻す。Compound_Mainからも読まれる。
-    public void IdleMotionReset()
+    public void IdleMotionReset(int _nowchange)
     {
         if (GameMgr.ResultComplete_flag != 0) //厨房から帰ってくるときアニメ再生中は、こっちは動かさないようにする。
         {  }
         else
         {
-            //Idleにリセット
-            if (!GameMgr.hikari_makeokashi_startflag)
+            switch (GameMgr.Scene_Category_Num)
             {
-                live2d_animator.Play("Idle", motion_layer_num, 0.0f);
-                //make_Idlemotion_start = true;
-                //trans_makemotion = 10; //Idleにリセット
-                //live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
-            }
-            else
-            {
-                //ヒカリがお菓子作り中の場合のIdle　この場合のみ、trans_makemotionで指定しているので、trans_motionとの間違いに気を付ける。
-                if (PlayerStatus.girl1_Love_lv < 80)
-                {
-                    switch(PlayerStatus.player_girl_expression)
+                case 100: //コンテスト中の場合のアイドル
+
+                    //Idleにリセット
+                    if (!GameMgr.hikari_makeokashi_startflag)
                     {
-                        case 1: //怒り
+                        //コンテスト中のアイドル
+                        if (_nowchange == 0) //即時変える
+                        {
+                            live2d_animator.Play("facemotion_32", motion_layer_num, 0.0f);
+                            live2d_animator.Update(0f);
+                        }                       
+                        else
+                        {
+                            facemotion_start = true;
+                            trans_motion = 1032; //Idleにリセット
+                            live2d_animator.SetInteger("trans_motion", trans_motion);
+                        }
+                    }
+                    else
+                    {
+                        //ヒカリがお菓子作り中の場合のIdle　この場合のみ、trans_makemotionで指定しているので、trans_motionとの間違いに気を付ける。
+                        HikariMakeStatus_IdleMotion();
 
-                            trans_makemotion = 500;
-                            break;
+                    }
+                    break;
 
-                        case 2: //不機嫌
-                            trans_makemotion = 400;
-                            break;
+                default: //メイン調合シーンなど　通常
 
-                        default:
-
-                            //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
-                            trans_makemotion = 100;
-                            break;
+                    //Idleにリセット
+                    if (!GameMgr.hikari_makeokashi_startflag)
+                    {
+                        //デフォルトのアイドル
+                        if (_nowchange == 0) //即時変える
+                        {
+                            live2d_animator.Play("Idle", motion_layer_num, 0.0f);
+                            live2d_animator.Update(0f);
+                        }
+                        else
+                        {
+                            make_Idlemotion_start = true;
+                            trans_makemotion = 9999999; //Idleにリセット
+                            live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
+                        }
+                            
+                    }
+                    else
+                    {
+                        //ヒカリがお菓子作り中の場合のIdle　この場合のみ、trans_makemotionで指定しているので、trans_motionとの間違いに気を付ける。
+                        HikariMakeStatus_IdleMotion();                       
                     }
 
-                    make_Idlemotion_start = true;
-                    live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
-                }
-                else
-                {
-                    switch (PlayerStatus.player_girl_expression)
-                    {
-                        case 1: //怒り
+                    _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+                    break;
+            }
+                    
+        }
+    }
 
-                            trans_makemotion = 500;
-                            break;
+    void HikariMakeStatus_IdleMotion()
+    {
+        if (PlayerStatus.girl1_Love_lv < 80)
+        {
+            switch (PlayerStatus.player_girl_expression)
+            {
+                case 1: //怒り
 
-                        case 2: //不機嫌
-                            trans_makemotion = 400;
-                            break;
+                    trans_makemotion = 500;
+                    break;
 
-                        default:
+                case 2: //不機嫌
+                    trans_makemotion = 400;
+                    break;
 
-                            random = Random.Range(0, 10);
-                            if (random >= 0 && random < 4)
-                            {
-                                //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);                              
-                                trans_makemotion = 100;
-                                
-                            }
-                            else if (random >= 4 && random < 7)
-                            {
-                                //live2d_animator.Play("Idle_hikariMake2", motion_layer_num, 0.0f); //ヤムチャの歌をうたいながら
-                                trans_makemotion = 200;
-                            }
-                            else if (random >= 7 && random < 10)
-                            {
-                                //live2d_animator.Play("Idle_hikariMake3", motion_layer_num, 0.0f); //棒目で上機嫌
-                                trans_makemotion = 300;
-                            }
-                            break;
-                    }
+                default:
 
-                    make_Idlemotion_start = true;
-                    live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
-                }
+                    //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);
+                    trans_makemotion = 100;
+                    break;
             }
 
-            _model.GetComponent<CubismEyeBlinkController>().enabled = true;
+            make_Idlemotion_start = true;
+            live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
+        }
+        else
+        {
+            switch (PlayerStatus.player_girl_expression)
+            {
+                case 1: //怒り
+
+                    trans_makemotion = 500;
+                    break;
+
+                case 2: //不機嫌
+                    trans_makemotion = 400;
+                    break;
+
+                default:
+
+                    random = Random.Range(0, 10);
+                    if (random >= 0 && random < 4)
+                    {
+                        //live2d_animator.Play("Idle_hikariMake", motion_layer_num, 0.0f);                              
+                        trans_makemotion = 100;
+
+                    }
+                    else if (random >= 4 && random < 7)
+                    {
+                        //live2d_animator.Play("Idle_hikariMake2", motion_layer_num, 0.0f); //ヤムチャの歌をうたいながら
+                        trans_makemotion = 200;
+                    }
+                    else if (random >= 7 && random < 10)
+                    {
+                        //live2d_animator.Play("Idle_hikariMake3", motion_layer_num, 0.0f); //棒目で上機嫌
+                        trans_makemotion = 300;
+                    }
+                    break;
+            }
+
+            make_Idlemotion_start = true;
+            live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
         }
     }
 
@@ -1676,7 +1762,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         
 
         //15秒ほど表示したら、また食べたいお菓子を表示か削除
-        WaitHint_on = true;
+        WaitHint_on = true; //吹き出し表示中ですよ～のフラグ
         timeOutHint = _timehint;
         GirlEat_Judge_on = false;
     }
@@ -2714,7 +2800,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         else
         {
             //ランダムで吹き出しの内容を出し、モーション。
-            Girl1_Hint(Default_hukidashi_hyoujitime);
+            Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
         }
 
     }
@@ -2881,7 +2967,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         trans_motion = _trans_motion;
         live2d_animator.SetInteger("trans_motion", trans_motion);
         facemotion_start = true;
-        timeOut2 = 35.0f; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
+
+        live2d_animator.Update(0f);
+        var state = live2d_animator.GetCurrentAnimatorStateInfo(0);
+        if(state.length >= 15.0f)
+        {
+            //timeOut2 = 35.0f; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
+            timeOut2 = state.length; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
+        }
+        
     }
 
     //ランダムで仕草　ランダムモーションor口をタップしたときの共通　どのモーションを再生するか＋セリフを決定　モーションがなくても、セリフだけは表示される。
@@ -3203,15 +3297,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         }        
     }   
 
+    //ランダムで吹き出しを生成する＋同時にモーションも動かすことも可能
     void IdleMotionHukidashiSetting(int _motion_num)
     {
-        if (hukidashiitem == null)
-        {
-            hukidasiInit(Default_hukidashi_hyoujitime);
-        }
-
+        
         _touchface_comment_lib.Clear();
         GameMgr.OsotoIkitaiFlag = false;
+        hukidashi_hyouji_t = Default_hukidashi_hyoujitime;
 
         switch (_motion_num)
         {
@@ -3259,10 +3351,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 if (!GameMgr.hikari_make_okashiFlag)
                 {
-                    FaceMotionPlay(1006);
-                    _touchface_comment_lib.Add("ちょっと元気でてきた。");
-                    _touchface_comment_lib.Add("えへへ♪　にいちゃん、お菓子また作って～♪");
-                    _touchface_comment_lib.Add("うひひ。エメラルどんぐり、また集めなきゃ。");
+                    random = Random.Range(0, 2);
+                    switch (random)
+                    {
+                        case 0:
+
+                            FaceMotionPlay(1006);
+                            _touchface_comment_lib.Add("ちょっと元気でてきた。");
+                            _touchface_comment_lib.Add("うひひ。エメラルどんぐり、また集めなきゃ。");
+                            break;
+
+                        case 1:
+
+                            FaceMotionPlay(1015);
+                            _touchface_comment_lib.Add("えへへ♪　にいちゃん、お菓子また作って～♪");
+                            break;
+                    }
+                    
                 }
                 else
                 {
@@ -3786,9 +3891,43 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1000: //コンテスト中
 
-                _touchface_comment_lib.Add("..いっぱい作る～！！");
-                _touchface_comment_lib.Add("ぐ～るぐ～る☆");
-                _touchface_comment_lib.Add("..あわわ。粉入れすぎちゃった..。");
+                random = Random.Range(0, 100);
+                if (random >= 0 && random < 70) //70%の確率であたふたモーション
+                {
+                    random = Random.Range(0, 3);
+                    switch (random)
+                    {
+                        case 0:
+
+                            FaceMotionPlay(1033);
+                            _touchface_comment_lib.Add("..いっぱい作る～！！");
+                            break;
+
+                        case 1:
+
+                            FaceMotionPlay(1033); //生地ぐるぐる泣きながら
+                            _touchface_comment_lib.Add("あたふた..。みんな作るのはやいよ～・・。");
+                            break;
+
+                        case 2:
+
+                            FaceMotionPlay(1034); //あたふた青ざめた顔であせる
+                            _touchface_comment_lib.Add("..あわわ。粉入れすぎちゃった..。");
+                            break;
+                    }
+                }
+                else
+                {
+                    FaceMotionPlay(1032); //コンテストあたふたアイドル
+                    _touchface_comment_lib.Add("..ど、どうしよ..。にいちゃん～・・。");
+                    _touchface_comment_lib.Add("わたたた～..。");
+                    _touchface_comment_lib.Add("あたふた..。あたふた..。");
+                    _touchface_comment_lib.Add("じ、じかんがないよ～・・。にいちゃん！");
+                    _touchface_comment_lib.Add("にいちゃん！ ..はやく、はやく～！");
+                    _touchface_comment_lib.Add("わ～！　隣の人、もうあんなに作ってる..！");
+                }
+                            
+                hukidashi_hyouji_t = 10.0f;
                 break;
 
             default:
@@ -3799,6 +3938,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         random = Random.Range(0, _touchface_comment_lib.Count);
         _hintrandom = _touchface_comment_lib[random];
+
+        //吹き出しの生成
+        if (hukidashiitem == null)
+        {
+            hukidasiInit(hukidashi_hyouji_t);
+        }
         hukidashiitem.GetComponent<TextController>().SetText(_hintrandom);
     }
 

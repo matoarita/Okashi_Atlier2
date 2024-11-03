@@ -1279,7 +1279,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
                 Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
             }
-            //CompNoの場合は、レシピ上書きは不要
+            //CompNo=22の場合は、レシピ上書きは不要
 
             //作ったことがあるかどうかをチェック
             if (databaseCompo.compoitems[result_ID].comp_count == 0)
@@ -1409,16 +1409,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         magic_result_ok = false;
 
-        //日数の経過
+        //魔法使用時の日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time);           
+            time_controller.SetMinuteToHour(GameMgr.UseMagicSkill_TimeCost);
         }
         else
         {
-            time_controller.SetMinuteToHourContest(databaseCompo.compoitems[result_ID].cost_Time);
+            time_controller.SetMinuteToHourContest(GameMgr.UseMagicSkill_TimeCost);
         }
-        time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
+        time_controller.HikarimakeTimeCheck(GameMgr.UseMagicSkill_TimeCost); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 

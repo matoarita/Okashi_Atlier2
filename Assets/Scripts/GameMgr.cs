@@ -32,7 +32,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
-    public static bool DEBUG_TasteSPScore_ON = true; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
+    public static bool DEBUG_TasteSPScore_ON = false; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。
     public static bool WEATHER_TIMEMODE_ON = false; //時間によって朝・昼・夜の背景を変更するかどうか。   
@@ -635,6 +635,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string UseMagicSkill_nameHyouji; //使用する魔法・スキルのネームの表示用
     public static int UseMagicSkill_ID; //使用するスキルのID    
     public static int UseMagicSkillLv; //使用するスキルの使用レベル
+    public static int UseMagicSkill_TimeCost; //使用するスキルでの経過時間
     public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐    
     public static bool MagicPanel_DefaultHyouji; //魔法パネル開いたときに、デフォルトの光魔法を表示する
     public static bool Sleep_CheckEnd; //睡眠イベントのフラグ
@@ -904,6 +905,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //現在の天気の状態
     public static int BG_cullent_weather;
     public static int BG_before_weather;
+
+    //カレンダーデータ　各月
+    public static List<int> System_calender = new List<int>();
 
     public static int Shopday; //ショップ入ったら更新する日付。その日を記録する。
     public static bool Sale_ON; //セール判定　日付をまたいだら、OFFに。
@@ -1585,6 +1589,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //ヒカリのお菓子経験値テーブルをセット
         InitHikariOkashi_ExpTable();
 
+        //カレンダーデータセット
+        SetCallender();
+
         CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
         {
@@ -2060,5 +2067,24 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable2.Add(7, 1200);
         Hikariokashi_Exptable2.Add(8, 1500);
         Hikariokashi_Exptable2.Add(9, 9999);
+    }
+
+    //カレンダーのデータ
+    public static void SetCallender()
+    {
+        System_calender.Clear();
+
+        System_calender.Add(31); //１月
+        System_calender.Add(28); //２月
+        System_calender.Add(31); //３月
+        System_calender.Add(30); //４月
+        System_calender.Add(31); //５月
+        System_calender.Add(30); //６月
+        System_calender.Add(31); //７月
+        System_calender.Add(31); //８月
+        System_calender.Add(30); //９月
+        System_calender.Add(31); //１０月
+        System_calender.Add(30); //１１月
+        System_calender.Add(31); //１２月       
     }
 }

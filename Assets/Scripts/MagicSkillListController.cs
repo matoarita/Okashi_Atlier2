@@ -53,6 +53,7 @@ public class MagicSkillListController : MonoBehaviour
     public int skill_kettei_ID; //スキルデータベースIDが入る。
     public int skill_Type;
     public int skill_cost; //消費MP
+    public int skill_timecost; //消費時間
     public string skill_Name;
     public string skill_itemName_Hyouji; //最終的なスキル名がはいる。
 
@@ -816,6 +817,7 @@ public class MagicSkillListController : MonoBehaviour
         _toggle_itemID.toggle_skill_type = magicskill_database.magicskill_lists[i].skillType; //スキルがパッシヴかアクティブか
         _toggle_itemID.toggle_skill_name = magicskill_database.magicskill_lists[i].skillName; //データ上のスキル名
         _toggle_itemID.toggle_skill_nameHyouji = magicskill_database.magicskill_lists[i].skillNameHyouji; //表示用の名前
+        _toggle_itemID.toggle_skill_timecost = magicskill_database.magicskill_lists[i].cost_time; //時間消費
 
         _text[0].text = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。;
         _text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。

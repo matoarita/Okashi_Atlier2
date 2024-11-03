@@ -53,6 +53,7 @@ public class magicskillSelectToggle : MonoBehaviour
     public string toggle_skill_nameHyouji; //表示用名前
     public int toggle_skill_type; //リストの要素に、スキルタイプを保持
     public int toggle_skill_cost;
+    public int toggle_skill_timecost;
 
     private int i;
 
@@ -204,6 +205,7 @@ public class magicskillSelectToggle : MonoBehaviour
         _item_Namehyouji = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_nameHyouji; //表示用ネームを入れる。
         magicskilllistController.skill_itemName_Hyouji = _item_Namehyouji;
         magicskilllistController.skill_cost = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_cost;
+        magicskilllistController.skill_timecost = magicskilllistController._skill_listitem[count].GetComponent<magicskillSelectToggle>().toggle_skill_timecost;
 
         //_text.text = _item_Namehyouji + "を使いますか？";
         //card_view.ShopSelectCard_DrawView(1, magicskilllistController.skill_kettei_item1);
@@ -311,6 +313,7 @@ public class magicskillSelectToggle : MonoBehaviour
         GameMgr.UseMagicSkill = magicskilllistController.skill_Name;
         GameMgr.UseMagicSkill_nameHyouji = magicskilllistController.skill_itemName_Hyouji;
         GameMgr.UseMagicSkill_ID = magicskilllistController.skill_kettei_ID;
+        GameMgr.UseMagicSkill_TimeCost = magicskilllistController.skill_timecost;
 
         _skillname = GameMgr.UseMagicSkill;
         SkillUseLibrary(1);
