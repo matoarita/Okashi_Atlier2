@@ -26,6 +26,8 @@ public class Memo_Result_Skill : MonoBehaviour, IDragHandler, IBeginDragHandler,
     private string text_skill_memo;
 
     private string _skillType;
+    private string _skillJouken;
+    private int _id;
 
     private SoundController sc;
 
@@ -88,9 +90,29 @@ public class Memo_Result_Skill : MonoBehaviour, IDragHandler, IBeginDragHandler,
             _skillType = "タイプ: " + "アクティブ";
         }
 
-        text_skill_memo = magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillNameHyouji + "\n" +
-            _skillType + "\n" + "\n" + 
+        //前提条件
+        if (magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skill_Jouken_name1 != "Non")
+        {
+            _id = magicskill_database.SearchSkillString(magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skill_Jouken_name1);
+            _skillJouken = "前提条件: " + magicskill_database.magicskill_lists[_id].skillNameHyouji + " LV" + magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skill_Jouken_lv1.ToString() + "以上";
+        }
+        else
+        {
+            _skillJouken = "";
+        }
+
+        if(_skillJouken == "")
+        {
+            text_skill_memo = magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillNameHyouji + "\n" +
+            _skillType + "\n" + "\n" +
             magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillComment_Full + "\n" + "\n" + "\n";
+        } else
+        {
+            text_skill_memo = magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillNameHyouji + "\n" +
+            _skillType + "\n" + "\n" + _skillJouken + "\n" + "\n" +
+            magicskill_database.magicskill_lists[GameMgr.UseMagicSkill_ID].skillComment_Full + "\n" + "\n" + "\n";
+        }
+        
         _text.text = text_skill_memo;
 
         //チュートリアル時

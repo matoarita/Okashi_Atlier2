@@ -91,6 +91,9 @@ public class Utage_scenario : MonoBehaviour
     private int _rank;
     private int ev_id, mirabo_clearscore;
     private int _evnum, _mgbooknum;
+    private bool resipi_getflag;
+    private bool resipi_getflag_afteritemuse; //アイテム途中で使う場合、pauseを一回拾うので、そのあとでフラグたつようにする。
+    private int pause_or_endnum;
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -152,6 +155,8 @@ public class Utage_scenario : MonoBehaviour
         FadeAnim_flag = false;
         NPCevent_okashicheck = false;
         live2d_use = false;
+        resipi_getflag = false;
+        resipi_getflag_afteritemuse = false;
     }
 
     void Update()
@@ -866,7 +871,8 @@ public class Utage_scenario : MonoBehaviour
         //Debug.Log("GameMgr.CGGallery_num: " + GameMgr.CGGallery_num);
 
         //音を止める
-        sceneBGM.MuteBGM();
+        BGMMute();
+        //sceneBGM.MuteBGM();
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -890,7 +896,8 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //BGMを再開
-        sceneBGM.MuteOFFBGM();
+        BGMMuteOFF();
+        //sceneBGM.MuteOFFBGM();
 
         scenario_loading = false;
 
@@ -961,13 +968,9 @@ public class Utage_scenario : MonoBehaviour
         }
 
 
-        //音を止めて、宿屋のジングル
-        if (!sceneBGM)
-        {
-            //BGMの取得
-            sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-        }
-        sceneBGM.MuteBGM(); //BGMとめる
+        //音を止めて、宿屋のジングル        
+        BGMMute();
+        
 
         //続きから再度読み込み
         engine.ResumeScenario();
@@ -1005,7 +1008,7 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //BGMを再開
-        sceneBGM.MuteOFFBGM();
+        BGMMuteOFF();        
         map_ambience.MuteOFF();
 
         scenario_loading = false;
@@ -1761,7 +1764,8 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);       
+        engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
+        engine.Param.TrySetParameter("Talk_num", GameMgr.GirlTalk_num);
 
         //今食べたいお菓子を設定
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
@@ -2853,6 +2857,8 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         roten_flag_num = 0;
+        resipi_getflag = false;
+        resipi_getflag_afteritemuse = false;
 
         //場所ごとにラベルを変えている
         switch (GameMgr.hiroba_event_placeNum)
@@ -2996,6 +3002,12 @@ public class Utage_scenario : MonoBehaviour
             case 1400: //OrNPCプラトン女王
 
                 scenarioLabel = "Hiroba_Or_Queen_puraton";
+                switch(GameMgr.hiroba_event_ID)
+                {
+                    case 200:
+                        resipi_getflag = true;
+                        break;
+                }
                 break;
 
             case 1500: //Orお花屋さん
@@ -3049,6 +3061,7 @@ public class Utage_scenario : MonoBehaviour
                 else
                 {
                     roten_flag_num = 160001; //りんごあめのレシピをまだもってない
+                    resipi_getflag = true;
                 }
                 break;
 
@@ -3068,6 +3081,7 @@ public class Utage_scenario : MonoBehaviour
                         else
                         {
                             roten_flag_num = 160102; //ポテト宝石箱のレシピをまだもってない
+                            resipi_getflag = true;
                         }
                     }
                     else
@@ -3078,6 +3092,7 @@ public class Utage_scenario : MonoBehaviour
                 else
                 {
                     roten_flag_num = 160101; //じゃがバターのレシピをまだもってない
+                    resipi_getflag = true;
                 }
                 break;
 
@@ -3092,6 +3107,7 @@ public class Utage_scenario : MonoBehaviour
                 else
                 {
                     roten_flag_num = 160201; //クレープのレシピをまだもってない
+                    resipi_getflag = true;
                 }
 
                 break;
@@ -3109,6 +3125,7 @@ public class Utage_scenario : MonoBehaviour
                     else
                     {
                         roten_flag_num = 160302; //ジェラートのレシピをまだもってない
+                        resipi_getflag = true;
                     }
                 }
                 else
@@ -3179,6 +3196,7 @@ public class Utage_scenario : MonoBehaviour
                     ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[_mgbooknum]);
                     engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
                     engine.Param.TrySetParameter("Event_tempcheck", 0);
+                    resipi_getflag = true;
                 }
                 else //プレゼントリストを超えてる場合、あげる本がない
                 {
@@ -3202,6 +3220,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Player_Money", PlayerStatus.player_money);
         engine.Param.TrySetParameter("Hiroba_rotenflag_Num", roten_flag_num);
         engine.Param.TrySetParameter("Talk_num", 0); //ランダム会話などでの、会話番号指定
+        engine.Param.TrySetParameter("EndOrPause_Num", 0); //ポーズOrエンドどちらかを判定する番号　基本0=エンドでリセットしておく。
 
         Debug.Log("scenarioLabel: " + scenarioLabel);
         Debug.Log("GameMgr.hiroba_event_ID: " + GameMgr.hiroba_event_ID);
@@ -3210,8 +3229,18 @@ public class Utage_scenario : MonoBehaviour
         Engine.JumpScenario(scenarioLabel);
 
         if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
-        {
+        {           
             StartCoroutine("PitemPresent");
+
+            if (resipi_getflag) //もしレシピゲットフラグがたつ場合は、アイテム使用後のpauseを解消してから。EndorPause待ちする。
+            {
+                resipi_getflag_afteritemuse = true;
+                //アイテムわたすイベントの終了待ち
+                while (resipi_getflag_afteritemuse)
+                {
+                    yield return null;
+                }
+            }
         }
 
         //コンテスト会場イベントの場合　移動するときに、シーン暗くしておく
@@ -3337,11 +3366,48 @@ public class Utage_scenario : MonoBehaviour
             engine.ResumeScenario();
         }
 
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
+        //エンド待ち部分
+        if (!resipi_getflag) //何もなければ、End待つだけ
         {
-            yield return null;
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario)
+            {
+                yield return null;
+            }
         }
+        else //レシピをとる可能性がある場合は、pauseも待つ。
+        {
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndOrPauseScenario)
+            {
+                yield return null;
+            }
+            pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。
+
+            //ポーズの場合
+            if(pause_or_endnum == 1)
+            {
+                //BGMをオフにする。
+                BGMMute();
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
+
+                //「宴」のシナリオ終了待ち
+                while (!Engine.IsEndScenario)
+                {
+                    yield return null;
+                }
+
+                //BGMを再開
+                BGMMuteOFF();
+            }
+            else //エンドは、そのままエンドなので流して終了
+            { }
+            
+        }
+
+
 
         //
         //イベント終わりの処理関係
@@ -3528,7 +3594,7 @@ public class Utage_scenario : MonoBehaviour
 
                         break;
 
-                    case 1: //のる
+                    case 1: //買う
 
                         moneyStatus_Controller.UseMoney(1000);
                         GameMgr.NPC_FriendPoint[2] += 2; //友好度上がる
@@ -4940,6 +5006,11 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.bar_event_ON = false;
             }
 
+            if (resipi_getflag) //もしレシピゲットフラグがたつ場合は、アイテム使用後のpauseを解消してから。EndorPause待ちする。
+            {
+                resipi_getflag_afteritemuse = false;
+            }
+
             //続きから再度読み込み
             engine.ResumeScenario();
         }
@@ -4983,6 +5054,11 @@ public class Utage_scenario : MonoBehaviour
                 PitemPresentJudge(); //判定処理   
                 PitemDelete(); //アイテム削除処理
 
+                if (resipi_getflag) //もしレシピゲットフラグがたつ場合は、アイテム使用後のpauseを解消してから。EndorPause待ちする。
+                {
+                    resipi_getflag_afteritemuse = false;
+                }
+
                 //続きから再度読み込み
                 engine.ResumeScenario();
             }
@@ -5022,6 +5098,11 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.shop_event_ON = false;
                 GameMgr.farm_event_ON = false;
                 GameMgr.bar_event_ON = false;
+
+                if (resipi_getflag) //もしレシピゲットフラグがたつ場合は、アイテム使用後のpauseを解消してから。EndorPause待ちする。
+                {
+                    resipi_getflag_afteritemuse = false;
+                }
 
                 //ここで、宴のパラメータ設定。リセットしておく。
                 engine.Param.TrySetParameter("EventEnd_Flag", false);
@@ -5943,5 +6024,21 @@ public class Utage_scenario : MonoBehaviour
     void CharacterSpriteSetOFF()
     {
         character.GetComponent<FadeCharacter>().SetOff();
+    }
+
+    //音関係
+    void BGMMute()
+    {
+        if (!sceneBGM)
+        {
+            //BGMの取得
+            sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        }
+        sceneBGM.MuteBGM(); //BGMとめる
+    }
+
+    void BGMMuteOFF()
+    {
+        sceneBGM.MuteOFFBGM();
     }
 }

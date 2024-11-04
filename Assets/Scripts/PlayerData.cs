@@ -136,6 +136,10 @@ public class PlayerData
     //ビギナーフラグ
     public bool[] save_Beginner_flag = new bool[GameMgr.Beginner_flag.Length];
 
+    //家賃関係フラグ
+    public int save_yachin_counter;
+    public int save_yachin_otetsuki_count;
+
     //マップイベントフラグ
     public bool[] save_MapEvent_01;         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。
     public bool[] save_MapEvent_02;         //井戸。

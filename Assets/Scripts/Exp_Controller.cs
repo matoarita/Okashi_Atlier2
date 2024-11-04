@@ -1240,7 +1240,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             if (GameMgr.System_magic_playON) //魔法ミニゲームの成功率を使う
             {
-                if (!GameMgr.System_magic_playSucess)
+                if (!GameMgr.System_magic_playSuccess)
                 {
                     GameMgr.Result_compound_success = false;
                 }

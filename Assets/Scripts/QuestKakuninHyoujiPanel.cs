@@ -42,6 +42,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private int _money;
     private string _area;
     private int _quest_opennum;
+    private int[] _movetime = new int[10];
 
     private int _Limit_day;
     private int _Nokori_day;
@@ -99,6 +100,11 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
         NoQuestText_obj = this.transform.Find("PanelA/QuestCheckList_ScrollView/NoQuestText").gameObject; //
 
+        for (i = 0; i < _movetime.Length; i++)
+        {
+            _movetime[i] = 0;
+        }
+
         for (i = 0; i < matplace_database.matplace_lists.Count; i++)
         {
             switch (matplace_database.matplace_lists[i].placeName)
@@ -111,6 +117,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("BarMoveButtonA/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("BarMoveButtonA/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+                        _movetime[0] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
                     {
@@ -126,6 +133,7 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("BarMoveButtonB/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("BarMoveButtonB/Text").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
+                        _movetime[2] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
                     {
@@ -265,8 +273,10 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         //入店の音
         sc.PlaySe(38);
         sc.PlaySe(51);
-
         GameMgr.ShopEnter_ButtonON = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        TimeKoushin_AfterSceneMove(_movetime[0]);
 
         GameMgr.SceneSelectNum = 0;
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
@@ -279,16 +289,22 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         sc.PlaySe(51);
         GameMgr.ShopEnter_ButtonON = true;
 
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        TimeKoushin_AfterSceneMove(_movetime[2]);
+
         GameMgr.SceneSelectNum = 20;
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
     }
 
-    void OnMoveBarScene(int _num)
+    void OnMoveBarScene(int _num, int _day)
     {
         //入店の音
         sc.PlaySe(38);
         sc.PlaySe(51);
         GameMgr.ShopEnter_ButtonON = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        TimeKoushin_AfterSceneMove(_day);
 
         GameMgr.SceneSelectNum = _num;
         FadeManager.Instance.LoadScene("Or_Bar", GameMgr.SceneFadeTime);
@@ -301,25 +317,25 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
             case 10:
 
                 //_area = "春酒場よいどれ亭";
-                OnMoveBarScene(0);
+                OnMoveBarScene(0, _movetime[0]);
                 break;
 
             case 20:
 
                 //_area = "夏酒場";
-                OnMoveBarScene(10);
+                OnMoveBarScene(10, _movetime[1]);
                 break;
 
             case 30:
 
                 //_area = "秋酒場";
-                OnMoveBarScene(20);
+                OnMoveBarScene(20, _movetime[2]);
                 break;
 
             case 40:
 
                 //_area = "冬酒場";
-                OnMoveBarScene(30);
+                OnMoveBarScene(30, _movetime[3]);
                 break;
 
             default:
@@ -327,5 +343,11 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
                 //_area = "ガレット酒場";
                 break;
         }
+    }
+
+    void TimeKoushin_AfterSceneMove(int _time)
+    {
+        GameMgr.SceneMoveAfter_Koushin = true; //コンテスト会場いってから、時間を変動
+        GameMgr.SceneMoveAfter_TimeParam = _time;
     }
 }

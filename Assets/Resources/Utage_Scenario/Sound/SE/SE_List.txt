@@ -86,7 +86,7 @@ SE表
 ・SE_84		audiostock_52941				【宴で使用　SE32と同一】お金シャキン
 ・SE_85		audiostock_390280				宝箱を発見した音
 ・SE_86		audiostock_891100				宝箱をガチャガチャ
-・SE_87		audiostock_66346				宝箱を開けたときの獲得音
+・SE_87		audiostock_66346				宝箱を開けたときのアイテム獲得音
 ・SE_88		audiostock_39891				宝箱を開けたときの音
 ・SE_89		audiostock_856263				クエストクリアキラキラ音
 ・SE_90		audiostock_175671.mp3				シュイイーーン２　新規レシピ時に、さらに調合ためる音
@@ -160,7 +160,7 @@ SE表
 ・SE_158	audiostock_836229_sample			ポコっと軽くこずく音
 ・SE_159	audiostock_972326_sample			回復する音
 ・SE_160	Explosion02-1(Long)				爆発音
-・SE_161	audiostock_1314889_sample			だいじなアイテムとったときの音（まだ未使用）
+・SE_161	audiostock_1314889_sample			だいじなアイテムとったときの音
 ・SE_162	PerituneMaterial_J_Heartwarming2		エデンレシピとったときの重要音
 ・SE_163	page09.mp3					【宴で使用】レシピメモ開くときの軽い紙の音 SE_35と同じ
 ・SE_164	audiostock_1123553_sample			だいじなアイテムとったときの音2

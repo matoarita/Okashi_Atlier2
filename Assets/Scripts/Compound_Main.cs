@@ -2609,6 +2609,9 @@ public class Compound_Main : MonoBehaviour
         TimePanel_obj1.SetActive(false);
         BGImageTemaePanel.SetActive(false);
         //TimePanel_obj2.SetActive(true);
+
+        //お金のアニメはすぐ止めて表記更新
+        moneyStatus_Controller.DrawMoneyHyouji();
     }
 
     public void OnOutHome_toggle() //玄関からアトリエの外へでる

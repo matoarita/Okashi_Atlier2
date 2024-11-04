@@ -31,32 +31,38 @@ public class MessageWindow : MonoBehaviour {
 
     private Text chara_name;
 
-    private bool StartRead;
+    private bool StartRead = false;
 
     // Use this for initialization
     void Start () {
 
         //SetInit();
 
-        //顔アイコン画像登録
-        hikari_faceicon_01_normal = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_01_Normal");
-        hikari_faceicon_02_joukigen = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_02_Joukigen");
-        hikari_faceicon_03_bad = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_03_Bad");
-        hikari_faceicon_04_littlefine = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_04_Little_fine");
-        hikari_faceicon_05_fine = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_05_Fine");
-        hikari_faceicon_07_yorokobi = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_07_Yorokobi");
-        hikari_faceicon_11_mazui2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_11_Mazui2");
-        hikari_faceicon_12_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_12_Iya");
-        hikari_faceicon_13_surprise = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_13_Surprise");
-        hikari_faceicon_17_mazui3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_17_Mazui3");
-        hikari_faceicon_18_surprise2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_18_Surprise2");
-        hikari_faceicon_32_joukigen2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_32_Joukigen2");
-        hikari_faceicon_35_metoji = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_35_Metoji");
-        hikari_faceicon_38_nakinagarauttae_bou = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_38_nakinagarauttae_bou");
     }
 
     void SetInit()
     {
+        if (!StartRead)
+        {
+            //顔アイコン画像登録
+            hikari_faceicon_01_normal = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_01_Normal");
+            hikari_faceicon_02_joukigen = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_02_Joukigen");
+            hikari_faceicon_03_bad = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_03_Bad");
+            hikari_faceicon_04_littlefine = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_04_Little_fine");
+            hikari_faceicon_05_fine = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_05_Fine");
+            hikari_faceicon_07_yorokobi = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_07_Yorokobi");
+            hikari_faceicon_11_mazui2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_11_Mazui2");
+            hikari_faceicon_12_iya = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_12_Iya");
+            hikari_faceicon_13_surprise = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_13_Surprise");
+            hikari_faceicon_17_mazui3 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_17_Mazui3");
+            hikari_faceicon_18_surprise2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_18_Surprise2");
+            hikari_faceicon_32_joukigen2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_32_Joukigen2");
+            hikari_faceicon_35_metoji = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_35_Metoji");
+            hikari_faceicon_38_nakinagarauttae_bou = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_38_nakinagarauttae_bou");            
+
+            StartRead = true;
+        }
+
         if (this.gameObject.name == "MessageWindow")
         {
             FaceIconPanel = this.transform.Find("FaceIconPanel").gameObject;
@@ -68,9 +74,7 @@ public class MessageWindow : MonoBehaviour {
         if (this.gameObject.name == "MessageWindowMain")
         {
             SpQuestNamePanel = this.transform.Find("SpQuestNamePanel").gameObject;
-        }        
-
-        StartRead = false;
+        }
     }
 
     private void OnEnable()
@@ -81,11 +85,6 @@ public class MessageWindow : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        /*if (!StartRead)
-        {
-            DrawIcon();
-            StartRead = true;
-        }*/
     }
 
     public void DrawIcon()
@@ -194,6 +193,7 @@ public class MessageWindow : MonoBehaviour {
     }
     public void Setting_WindowIcon(int _facenum)
     {
+        SetInit();
         SetFaceIcon(_facenum);
     }
 

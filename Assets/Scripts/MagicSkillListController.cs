@@ -795,12 +795,16 @@ public class MagicSkillListController : MonoBehaviour
             if (magicskill_database.magicskill_lists[i].skill_Jouken_lv1 <=
                 magicskill_database.skillName_SearchLearnLevel(magicskill_database.magicskill_lists[i].skill_Jouken_name1))
             {
-                drawLearnSkill();
+                drawLearnSkill(0);
+            }
+            else
+            {
+                drawLearnSkill(1); //前提を満たしてない場合、表示はするがインタラクトはオフ
             }
         }
         else
         {
-            drawLearnSkill();
+            drawLearnSkill(0);
         }
     }
 
@@ -878,10 +882,11 @@ public class MagicSkillListController : MonoBehaviour
                 break;*/
         }
 
+
         ++list_count;
     }
 
-    void drawLearnSkill()
+    void drawLearnSkill(int _mstatus)
     {
 
         _skill_listitem.Add(Instantiate(skill_Prefab_learn, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
@@ -928,6 +933,13 @@ public class MagicSkillListController : MonoBehaviour
 
         //ジョブポイント足りなかったら押せない
         if (PlayerStatus.player_patissier_job_pt < 1)
+        {
+            _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
+            _skill_listitem[list_count].transform.Find("Background_LearnOK/SkillLvupButton").gameObject.SetActive(false);
+        }
+
+        //前提条件みたしてないと、押せない　説明は見れる
+        if (_mstatus == 1)
         {
             _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
             _skill_listitem[list_count].transform.Find("Background_LearnOK/SkillLvupButton").gameObject.SetActive(false);

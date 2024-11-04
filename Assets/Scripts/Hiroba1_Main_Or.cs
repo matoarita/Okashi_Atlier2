@@ -8,6 +8,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
 { 
 
     private Hiroba1_Main_Controller hiroba1_mainController;
+    private TimeController time_controller;
 
     private GameObject BGImagePanel;
     private List<GameObject> BGImg_List = new List<GameObject>();
@@ -17,8 +18,11 @@ public class Hiroba1_Main_Or : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         hiroba1_mainController = this.GetComponent<Hiroba1_Main_Controller>();
-        hiroba1_mainController.InitSetup(); //先にコントローラーのstartは起動        
+        hiroba1_mainController.InitSetup(); //先にコントローラーのstartは起動      
 
         //
         //背景と場所名の設定 最初にこれを行う
@@ -471,6 +475,10 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
         //ネームプレートを表示
         hiroba1_mainController.SceneNamePlateSetting();
+
+        //広場シーン移動で時間経過
+        time_controller.SetMinuteToHour(GameMgr.System_HirobaMove_Time);
+        time_controller.TimeKoushin(0, false);
 
         //シーン読み込み完了時のメソッド
         //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      

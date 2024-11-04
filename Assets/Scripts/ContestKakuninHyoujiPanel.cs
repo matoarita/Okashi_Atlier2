@@ -39,6 +39,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
     private int _list;
     private int gotonum;
     private string _area;
+    private int[] _movetime = new int[10];
 
     private bool ContestAccepted_ON;
 
@@ -103,7 +104,12 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
             i++;
         }
 
-        for(i =0; i< matplace_database.matplace_lists.Count; i++)
+        for (i = 0; i < _movetime.Length; i++)
+        {
+            _movetime[i] = 0;
+        }
+
+        for (i =0; i< matplace_database.matplace_lists.Count; i++)
         {
             switch(matplace_database.matplace_lists[i].placeName)
             {
@@ -115,6 +121,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("ContestMoveButtonA/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "春会場";
+                        _movetime[0] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
                     {
@@ -130,6 +137,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("ContestMoveButtonB/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "夏会場";
+                        _movetime[1] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
                     {
@@ -145,6 +153,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("ContestMoveButtonC/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "秋会場";
+                        _movetime[2] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
                     {
@@ -160,6 +169,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("ContestMoveButtonD/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "冬会場";
+                        _movetime[3] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
                     {
@@ -219,18 +229,30 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         //エリア判定
         if (conteststartList_database.conteststart_lists[_list].ContestID >= 3000)
         {
+            //日数の経過。場所ごとに、移動までの日数が変わる。        
+            TimeKoushin_AfterSceneMove(_movetime[3]);
+
             gotonum = 30;
         }
         else if (conteststartList_database.conteststart_lists[_list].ContestID >= 2000)
         {
+            //日数の経過。場所ごとに、移動までの日数が変わる。        
+            TimeKoushin_AfterSceneMove(_movetime[2]);
+
             gotonum = 20;
         }
         else if (conteststartList_database.conteststart_lists[_list].ContestID >= 1000)
         {
+            //日数の経過。場所ごとに、移動までの日数が変わる。        
+            TimeKoushin_AfterSceneMove(_movetime[1]);
+
             gotonum = 10;
         }
         else
         {
+            //日数の経過。場所ごとに、移動までの日数が変わる。        
+            TimeKoushin_AfterSceneMove(_movetime[0]);
+
             gotonum = 0;
         }
         GameMgr.SceneSelectNum = gotonum;
@@ -250,6 +272,9 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         sc.PlaySe(150);
         GameMgr.ShopEnter_ButtonON = true;
 
+        //日数の経過。場所ごとに、移動までの日数が変わる。        
+        TimeKoushin_AfterSceneMove(_movetime[0]);
+
         GameMgr.SceneSelectNum = 0;
         FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
     }
@@ -259,6 +284,9 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         //入店の音
         sc.PlaySe(150);
         GameMgr.ShopEnter_ButtonON = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。        
+        TimeKoushin_AfterSceneMove(_movetime[1]);
 
         GameMgr.SceneSelectNum = 10;
         FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
@@ -270,6 +298,9 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         sc.PlaySe(150);
         GameMgr.ShopEnter_ButtonON = true;
 
+        //日数の経過。場所ごとに、移動までの日数が変わる。        
+        TimeKoushin_AfterSceneMove(_movetime[2]);
+
         GameMgr.SceneSelectNum = 20;
         FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
     }
@@ -280,7 +311,16 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         sc.PlaySe(150);
         GameMgr.ShopEnter_ButtonON = true;
 
+        //日数の経過。場所ごとに、移動までの日数が変わる。        
+        TimeKoushin_AfterSceneMove(_movetime[3]);
+
         GameMgr.SceneSelectNum = 30;
         FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+    }
+
+    void TimeKoushin_AfterSceneMove(int _time)
+    {
+        GameMgr.SceneMoveAfter_Koushin = true; //コンテスト会場いってから、時間を変動
+        GameMgr.SceneMoveAfter_TimeParam = _time;
     }
 }

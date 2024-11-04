@@ -211,6 +211,15 @@ public class Bar_Main_Controller : MonoBehaviour {
         StartRead = false;
         check_event = false; //イベントのフラグ       
 
+        //時間の更新 シーン移動後に時間を更新する場合
+        if (GameMgr.SceneMoveAfter_Koushin)
+        {
+            GameMgr.SceneMoveAfter_Koushin = false;
+
+            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam);
+            time_controller.TimeKoushin(0, false);
+        }
+
         //入店のタイミングでのみ、クエスト更新
         shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
 
@@ -874,6 +883,10 @@ public class Bar_Main_Controller : MonoBehaviour {
         sc.PlaySe(51);
 
         GameMgr.Scene_back_home = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time);
+        time_controller.TimeKoushin(0, false);
 
         //メインシーン読み込み
         FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);

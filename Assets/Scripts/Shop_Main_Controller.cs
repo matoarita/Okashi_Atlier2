@@ -16,6 +16,8 @@ public class Shop_Main_Controller : MonoBehaviour {
     private ItemShopDataBase shop_database;
     private ItemMatPlaceDataBase matplace_database;
 
+    private TimeController time_controller;
+
     private SceneInitSetting sceneinit_setting;
 
     private SoundController sc;
@@ -117,6 +119,9 @@ public class Shop_Main_Controller : MonoBehaviour {
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         //吹き出しプレファブの取得
         hukidasi_sub_Prefab = (GameObject)Resources.Load("Prefabs/Emo_Hukidashi_Anim");
 
@@ -206,6 +211,15 @@ public class Shop_Main_Controller : MonoBehaviour {
             {
 
             }
+        }
+
+        //時間の更新 シーン移動後に時間を更新する場合
+        if (GameMgr.SceneMoveAfter_Koushin)
+        {
+            GameMgr.SceneMoveAfter_Koushin = false;
+
+            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam);
+            time_controller.TimeKoushin(0, false);
         }
 
         //入店の音
@@ -1002,6 +1016,10 @@ public class Shop_Main_Controller : MonoBehaviour {
         sc.PlaySe(51);
 
         GameMgr.Scene_back_home = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time);
+        time_controller.TimeKoushin(0, false);
 
         //メインシーン読み込み
         FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);

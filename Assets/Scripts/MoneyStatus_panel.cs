@@ -20,7 +20,7 @@ public class MoneyStatus_panel : MonoBehaviour {
     private GameObject _getmoneyPrefab;
     private Text _getmoney_text;
 
-    private int _counter_pmoney; //増減中のプレイヤーのお金の表記
+    //private int _counter_pmoney; //増減中のプレイヤーのお金の表記
     private bool start_flag;
     private bool moneyanim_on;
     private int _deg;
@@ -28,6 +28,7 @@ public class MoneyStatus_panel : MonoBehaviour {
     private int list_size;
 
     private float timeOut;
+    private float timeOutMoney;
 
     // Use this for initialization
     void Start () {
@@ -45,9 +46,11 @@ public class MoneyStatus_panel : MonoBehaviour {
         //Debug.Log("moneypanel_localPos: " + moneypanel_localPos);
 
         DrawMoney();
-        
 
-        _deg = 1;
+        timeOut = 0.1f; //お金のSE更新間隔
+        timeOutMoney = 0.016f; //お金の更新間隔
+
+        GameMgr.Money_counterDeg = 1;
         GameMgr.Money_counterAnim_on = false;
         start_flag = false;
     }
@@ -62,71 +65,84 @@ public class MoneyStatus_panel : MonoBehaviour {
             CounterOnTextOBJ(GameMgr.Money_counterParam);
         }
 
-        if (GameMgr.Money_counterAnim_on == true)
+        if (GameMgr.Money_counterAnim_on)
         {
-            if (GameMgr.Money_counterAnim_StartSetting)
+            if (!start_flag)
             {
-                GameMgr.Money_counterAnim_StartSetting = false;
-
                 StartSetting();
-            }
-
-            if (_counter_pmoney > PlayerStatus.player_money )
-            {
-                _counter_pmoney -= _deg;
-
-                if(_counter_pmoney <= PlayerStatus.player_money) //等しくなった、もしくは超えてしまったとき　アニメが終わる
-                {
-                    _counter_pmoney = PlayerStatus.player_money;
-                    GameMgr.Money_counterAnim_on = false;
-                }
-            }
-            else if (_counter_pmoney < PlayerStatus.player_money)
-            {
-                _counter_pmoney += _deg;
-
-                if (_counter_pmoney >= PlayerStatus.player_money) //等しくなった、もしくは超えてしまったとき　アニメが終わる
-                {
-                    _counter_pmoney = PlayerStatus.player_money;
-                    GameMgr.Money_counterAnim_on = false;
-                }
-            } 
-            else //ちょうど等しい場合
-            {
-                _counter_pmoney = PlayerStatus.player_money;
-                GameMgr.Money_counterAnim_on = false;
-            }
-
-            //表記を更新
-            _money_text.text = _counter_pmoney.ToString();
-
-            //アニメが終了したタイミングでリセットする
-            if (!GameMgr.Money_counterAnim_on)
-            {
-                start_flag = false;
-            }
-
-            if (_counter_pmoney >= 999999)
-            {
-                _money_text.text = "999999";
-            }
-            else if (_counter_pmoney <= 0)
-            {
-                _money_text.text = "0";
             }
 
             //時間減少
             timeOut -= Time.deltaTime;
+            timeOutMoney -= Time.deltaTime;
 
             if (timeOut <= 0.0)
             {
                 //アニメ中は、音がチャリチャリ鳴り続ける。ゼルダのルピー音
                 sc.PlaySe(29);
-                timeOut = 0.12f;
+                timeOut = 0.12f;               
             }
+
+            if (timeOutMoney <= 0.0)
+            {
+                timeOutMoney = 0.016f;
+
+                if (GameMgr.Money_counter_pmoney > PlayerStatus.player_money)
+                {
+                    GameMgr.Money_counter_pmoney -= GameMgr.Money_counterDeg;
+
+                    if (GameMgr.Money_counter_pmoney <= PlayerStatus.player_money) //等しくなった、もしくは超えてしまったとき　アニメが終わる
+                    {
+                        GameMgr.Money_counter_pmoney = PlayerStatus.player_money;
+                        GameMgr.Money_counterAnim_on = false;
+                    }
+                }
+                else if (GameMgr.Money_counter_pmoney < PlayerStatus.player_money)
+                {
+                    GameMgr.Money_counter_pmoney += GameMgr.Money_counterDeg;
+
+                    if (GameMgr.Money_counter_pmoney >= PlayerStatus.player_money) //等しくなった、もしくは超えてしまったとき　アニメが終わる
+                    {
+                        GameMgr.Money_counter_pmoney = PlayerStatus.player_money;
+                        GameMgr.Money_counterAnim_on = false;
+                    }
+                }
+                else //ちょうど等しい場合
+                {
+                    GameMgr.Money_counter_pmoney = PlayerStatus.player_money;
+                    GameMgr.Money_counterAnim_on = false;
+                }
+
+                //表記を更新
+                _money_text.text = GameMgr.Money_counter_pmoney.ToString();
+
+                if (GameMgr.Money_counter_pmoney >= 999999)
+                {
+                    _money_text.text = "999999";
+                }
+                else if (GameMgr.Money_counter_pmoney <= 0)
+                {
+                    _money_text.text = "0";
+                }
+            }
+
+            //アニメが終了したタイミングでリセットする
+            if (!GameMgr.Money_counterAnim_on)
+            {
+                start_flag = false;
+            }            
+            
         } else
         {
             DrawMoney();
+        }
+
+        //アニメをとめてすぐに表記を更新する
+        if(GameMgr.Money_counterAnim_StopDraw)
+        {
+            GameMgr.Money_counterAnim_StopDraw = false;
+
+            money_Draw_StopAnim();
         }
     }
 
@@ -152,6 +168,7 @@ public class MoneyStatus_panel : MonoBehaviour {
         
     }
 
+    //アニメ前の初期設定
     void StartSetting()
     {
         CounterOnTextOBJ(GameMgr.Money_counterParam);
@@ -163,11 +180,12 @@ public class MoneyStatus_panel : MonoBehaviour {
         else //アニメ最初の場合のみ
         {
             //お金　アニメ前のスタート値
-            _counter_pmoney = GameMgr.Money_StartParam;
+            GameMgr.Money_counter_pmoney = GameMgr.Money_StartParam;
             start_flag = true;
         }
         
-        timeOut = 0.1f; //お金の更新間隔
+        timeOut = 0.1f; //お金のSE更新間隔
+        timeOutMoney = 0.016f; //お金の更新間隔
     }
 
     void CounterOnTextOBJ(int _money)
@@ -186,9 +204,16 @@ public class MoneyStatus_panel : MonoBehaviour {
         }
     }
 
-    //表示をすぐに更新
-    public void money_Draw()
+    //表示をすぐに更新 アニメもすぐにストップ
+    void money_Draw_StopAnim()
     {
+        start_flag = false;
+        GameMgr.Money_counterAnim_on = false;
+
+        //表記カウンタ類もリセット
+        GameMgr.Money_StartParam = PlayerStatus.player_money;
+        GameMgr.Money_counter_pmoney = PlayerStatus.player_money;
+
         _money_text.text = PlayerStatus.player_money.ToString();
     }
 }

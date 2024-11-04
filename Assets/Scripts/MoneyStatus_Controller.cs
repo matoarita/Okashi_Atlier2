@@ -35,6 +35,13 @@ public class MoneyStatus_Controller : SingletonMonoBehaviour<MoneyStatus_Control
         PlayerStatus.player_money += _getmoney;
         GameMgr.Money_counterParam = _getmoney;
 
+        //増減値も変動        
+        GameMgr.Money_counterDeg = _getmoney / GameMgr.System_MoneyDeg_Time; //1秒を10回で更新してるので、30で約3秒
+        if (GameMgr.Money_counterDeg < 1)
+        {
+            GameMgr.Money_counterDeg = 1; //最低でも1は動く　小数点以下の可能性があるため
+        }
+
         if (PlayerStatus.player_money >= 999999)
         {
             PlayerStatus.player_money = 999999;
@@ -43,7 +50,7 @@ public class MoneyStatus_Controller : SingletonMonoBehaviour<MoneyStatus_Control
 
         
         GameMgr.Money_counterAnim_on = true;
-        GameMgr.Money_counterAnim_StartSetting = true;
+        //GameMgr.Money_counterAnim_StartSetting = true;
     }
 
     //お金が減った
@@ -59,6 +66,13 @@ public class MoneyStatus_Controller : SingletonMonoBehaviour<MoneyStatus_Control
         PlayerStatus.player_money -= _usemoney;
         GameMgr.Money_counterParam = -(_usemoney);
 
+        //増減値も変動        
+        GameMgr.Money_counterDeg = _usemoney / GameMgr.System_MoneyDeg_Time; //1秒を10回で更新してるので、30で約3秒
+        if(GameMgr.Money_counterDeg < 1)
+        {
+            GameMgr.Money_counterDeg = 1;  //最低でも1は動く　小数点以下の可能性があるため
+        }
+
         if (PlayerStatus.player_money <= 0)
         {
             PlayerStatus.player_money = 0;
@@ -67,7 +81,7 @@ public class MoneyStatus_Controller : SingletonMonoBehaviour<MoneyStatus_Control
 
         
         GameMgr.Money_counterAnim_on = true;
-        GameMgr.Money_counterAnim_StartSetting = true;
+        //GameMgr.Money_counterAnim_StartSetting = true;
     }
 
     //表示をすぐに更新 こっちは＋、-両方OK
@@ -89,5 +103,11 @@ public class MoneyStatus_Controller : SingletonMonoBehaviour<MoneyStatus_Control
         }
 
         GameMgr.Money_counterOnly = true;
+    }
+
+    //表示をすぐに更新　アニメをすぐ止める
+    public void DrawMoneyHyouji()
+    {
+        GameMgr.Money_counterAnim_StopDraw = true; //実際の表記はmoneystatus_panelで更新
     }
 }

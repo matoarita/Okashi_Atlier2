@@ -370,6 +370,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //ビギナーフラグ
             save_Beginner_flag = GameMgr.Beginner_flag,
 
+            //家賃関係フラグ
+            save_yachin_counter = GameMgr.yachin_counter,
+            save_yachin_otetsuki_count = GameMgr.yachin_otetsuki_count,
+
             //お菓子クエストフラグ
             save_OkashiQuest_flag_stage1 = GameMgr.OkashiQuest_flag_stage1, //各SPイベントのクリアしたかどうかのフラグ。
             save_OkashiQuest_flag_stage2 = GameMgr.OkashiQuest_flag_stage2,
@@ -750,6 +754,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //ビギナーフラグ
         GameMgr.Beginner_flag = playerData.save_Beginner_flag;
+
+        //家賃関係フラグ
+        GameMgr.yachin_counter = playerData.save_yachin_counter;
+        GameMgr.yachin_otetsuki_count = playerData.save_yachin_otetsuki_count;
 
         //お菓子クエストフラグ
         GameMgr.OkashiQuest_flag_stage1 = playerData.save_OkashiQuest_flag_stage1; //各SPイベントのクリアしたかどうかのフラグ。

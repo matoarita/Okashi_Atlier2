@@ -16,6 +16,8 @@ public class Farm_Main_Controller : MonoBehaviour {
     private ItemShopDataBase shop_database;
     private ItemMatPlaceDataBase matplace_database;
 
+    private TimeController time_controller;
+
     private SoundController sc;
     private SceneInitSetting sceneinit_setting;
 
@@ -83,6 +85,9 @@ public class Farm_Main_Controller : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -159,6 +164,15 @@ public class Farm_Main_Controller : MonoBehaviour {
                 farm_toggle_present.SetActive(true);
             }
         }*/
+
+        //時間の更新 シーン移動後に時間を更新する場合
+        if (GameMgr.SceneMoveAfter_Koushin)
+        {
+            GameMgr.SceneMoveAfter_Koushin = false;
+
+            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam);
+            time_controller.TimeKoushin(0, false);
+        }
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -467,6 +481,10 @@ public class Farm_Main_Controller : MonoBehaviour {
         sc.PlaySe(51);
 
         GameMgr.Scene_back_home = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time);
+        time_controller.TimeKoushin(0, false);
 
         //メインシーン読み込み
         FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);

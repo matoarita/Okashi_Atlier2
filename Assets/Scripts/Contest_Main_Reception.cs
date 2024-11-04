@@ -323,6 +323,15 @@ public class Contest_Main_Reception : MonoBehaviour
         text_scenario();
         text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定
 
+        //時間の更新 シーン移動後に時間を更新する場合
+        if (GameMgr.SceneMoveAfter_Koushin)
+        {
+            GameMgr.SceneMoveAfter_Koushin = false;
+
+            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam);
+            time_controller.TimeKoushin(0, false);
+        }
+
         //入店の音
         if (!GameMgr.ShopEnter_ButtonON) //重複防止
         {

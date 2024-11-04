@@ -432,7 +432,29 @@ public class Contest_Judge : MonoBehaviour {
                 Contest_ShokukanHosei_1();               
 
                 //入れた数値を上限に100点に正規化する。
-                ScoreNormalized(150);
+                ScoreNormalized(150); //75%
+                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                Debug.Log("### ###");
+                break;
+
+            case "Or_Contest_050":　//ラスク
+
+                //審査員３　じいさんだけ、食感の補正
+                Contest_ShokukanHosei_1();
+
+                //入れた数値を上限に100点に正規化する。
+                ScoreNormalized(150); //75%
+                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                Debug.Log("### ###");
+                break;
+
+            case "Or_Contest_100":　//フィナンシェ
+
+                //審査員３　じいさんだけ、食感の補正
+                Contest_ShokukanHosei_1();
+
+                //入れた数値を上限に100点に正規化する。
+                ScoreNormalized(150); //75%
                 Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
                 Debug.Log("### ###");
                 break;
@@ -444,8 +466,8 @@ public class Contest_Judge : MonoBehaviour {
                 Contest_ShokukanHosei_1();
 
                 //入れた数値を上限に100点に正規化する。
-                ScoreNormalized(200);
-                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
+                ScoreNormalized(200); //50%
+                Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
                 Debug.Log("### ###");
                 break;
         }
@@ -506,6 +528,10 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
         Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
     }
+
+
+
+
 
     //点数を、入れた値を上限にして100点に正規化する。
     void ScoreNormalized(int _max)

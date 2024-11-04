@@ -61,6 +61,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //シーン移動の際の切り替え時間
     public static float SceneFadeTime = 0.3f;
 
+    //お金増減のアニメ終了までの秒数 60fpsで1秒　
+    public static int System_MoneyDeg_Time = 120; //2秒 値が大きいほど、一回の変動値が小さいので、時間が長くなる 60で約一秒
+
+    //広場から戻るときの経過時間
+    public static int System_BackHome_Time = 20; //分
+
+    //広場移動の経過時間
+    public static int System_HirobaMove_Time = 10; //分
+
     //各ハートレベル・スターのブロック
     public static int System_HeartBlockLv_01 = 4; //秘密の花園
     public static int System_HeartBlockLv_50 = 20; //冬
@@ -210,6 +219,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //4:体力がはじめて0になった
     //5:お金がはじめて1000を下回った
     //はじめての調合、はじめての仕上げは、PlayerStatusで管理
+
+    //家賃をはじめて支払った
+    public static int yachin_counter; //家賃BBAがきた回数
+    public static int yachin_otetsuki_count; //お手付きの回数　３回目までたまるとゲームオーバー
 
     //好感度やパティシエレベルで発生するサブイベントのフラグ   
     public static bool[] GirlLoveSubEvent_stage1 = new bool[GirlLoveSubEvent_stage_num];
@@ -687,10 +700,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Select_place_day; //採取地までにかかる日数
     public static Dictionary<string, int> GetMat_ResultList = new Dictionary<string, int>(); //採取で取得したアイテムのリスト　名前と個数
     public static bool Money_counterAnim_on; //所持金お金動くアニメON
-    public static bool Money_counterAnim_StartSetting; //そのとき最初だけ初期設定
+    public static bool Money_counterAnim_StopDraw; //アニメをすぐとめて表示を更新する
     public static bool Money_counterOnly; //アニメはなしで、カウンタを生成する
     public static int Money_counterParam; //そのときの入ったお金
     public static int Money_StartParam; //アニメ前の始まりのお金
+    public static int Money_counterDeg; //お金の増減値　額が大きいときは、この値も大きくなり時間は一定で。
+    public static int Money_counter_pmoney; //お金増減中の表記　パネルが複数あるので、共通させるためにあえてここの一つのパラメータを動かす
     public static int Contest_OrganizeMonth; //コンテストの開催月
     public static int Contest_OrganizeDay; //コンテストの開催日
     public static bool Contest_ReadyToStart; //宴の読みが終わってから、コンテストを開始するフラグ
@@ -738,7 +753,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_magic_playON; //魔法ミニゲーム画面を使用　成功率などが、確率でなくミニゲームの結果に変わる
     public static float System_magic_playtime; //魔法の演出時間　魔法によって変わる
     public static float System_magic_playParamUp; //魔法ミニゲームの結果による、食感補正値
-    public static bool System_magic_playSucess; //魔法ミニゲームで、成功か失敗か
+    public static bool System_magic_playSuccess; //魔法ミニゲームで、成功か失敗か
     public static bool Special_OkashiEnshutsuFlag; //特定のおかしをはじめて作成するときに、特別演出が発生するフラグ
     public static string Special_OkashiEnshutsuName; //演出の指定
     public static string MainQuestTitleName; //メインクエストのタイトル
@@ -749,6 +764,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_tempTime_Hour; //入れた秒数を時間/分/秒に戻してリターンする用の変数 TimeControllerで使用してる
     public static int System_tempTime_Minute; //返り値が複数種類なので、GameMgrを介している
     public static int System_tempTime_Second;
+    public static bool SceneMoveAfter_Koushin; //シーン移動後にパラメータを変動させるフラグ　現在時間など。移動前に変動させると困るやつはここで。
+    public static int SceneMoveAfter_TimeParam; //シーン移動後、時間を変動
+    public static int GirlTalk_num; //女の子イベント会話中の分岐を決める番号
 
 
     //一時フラグ　アイテムDB関連
@@ -1083,6 +1101,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Prologue_storyflag = false;
 
+        yachin_counter = 0;
+        yachin_otetsuki_count = 0;
+
         shop_event_flag = false;
         shop_lvevent_flag = false;
         shop_event_num = 0;
@@ -1255,11 +1276,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_Next_flag = false;
         Contest_PrizeGet_flag = false;
         contest_Rank_Count = 1;
+        Money_counterDeg = 1;
         SceneSelectNum = 0;
         Getmat_return_home = false;
         Money_counterAnim_on = false;
-        Money_counterAnim_StartSetting = false;
+        Money_counterAnim_StopDraw = false;
         Money_counterOnly = false;
+        Money_counter_pmoney = 0;
         Contest_ReadyToStart = false;
         Contest_ReadyToStart2 = false;
         Contest_afterHomeEventFlag = false;
@@ -1289,12 +1312,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Extreme_On = false;
         tempature_control_Param_yakitext = "";
         System_magic_playtime = 2.0f;
-        System_magic_playSucess = false;
+        System_magic_playSuccess = false;
         System_magic_playON = false;
         Special_OkashiEnshutsuFlag = false;
         MainQuestTitleName = "";
         Before_Patissier_Rank = 1;
         MazuiFlag_ON = false;
+        SceneMoveAfter_Koushin = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

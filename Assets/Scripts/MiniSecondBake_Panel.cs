@@ -67,6 +67,10 @@ public class MiniSecondBake_Panel : MonoBehaviour {
                 _guage_param = guage_length;
                 stop_watch = false;
                 Debug.Log("stop_watch: " + stop_watch);
+
+                //焼すぎで失敗
+                GameMgr.System_magic_playSuccess = false;
+                Debug.Log("セカンドベイク　焼すぎで失敗");
             }
             _tempslider.value = _guage_param;
             //Debug.Log("_guage_param: " + _guage_param);
@@ -99,7 +103,7 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         Debug.Log("stop_watch: " + stop_watch);
 
         //初期設定
-        GameMgr.System_magic_playSucess = true;
+        GameMgr.System_magic_playSuccess = true;
         GameMgr.System_magic_playParamUp = 1.0f;
 
         //ピキーン音ならす
@@ -129,7 +133,8 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         else if (_guage_param >= 500)
         {
             //焼すぎで失敗
-            GameMgr.System_magic_playSucess = false;
+            GameMgr.System_magic_playSuccess = false;
+            Debug.Log("セカンドベイク　焼すぎで失敗");
         }
     }
 }
