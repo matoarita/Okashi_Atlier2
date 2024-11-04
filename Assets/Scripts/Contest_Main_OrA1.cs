@@ -513,7 +513,15 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                     _model_move.SetActive(true);
                     live2d_animator.SetLayerWeight(3, 0.0f); //宴用表情はオフにしておく。
-                    GameMgr.CharacterTouch_ALLON = true; //タッチもオンにする。
+                    if (GameMgr.CompoAfter_BackGirl) //戻り中の間はタッチはできない girl1_status内でもUpdateでオフにしている。効力強い。
+                    {
+                        GameMgr.CharacterTouch_ALLOFF = true; //
+                    }
+                    else
+                    {
+                        GameMgr.CharacterTouch_ALLON = true; //タッチもオンにする。
+                    }
+                    
                     girl1_status.IdleMotionReset(0); //コンテスト用アイドルモーションにリセット 0は即時切り替え
 
                     if (!StartRead) //シーン最初だけ読み込む

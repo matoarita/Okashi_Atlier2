@@ -564,7 +564,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("クルル");
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
-        GameMgr.PrizeCharacterList.Add("フィリス");
+        GameMgr.PrizeCharacterList.Add("魔女ティリス");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
@@ -599,7 +599,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("キリコ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("レイナート君");
-        GameMgr.PrizeCharacterList.Add("ティリス");
+        GameMgr.PrizeCharacterList.Add("魔女ティリス");
     }
 
     //〇ラスクブロカント
@@ -631,7 +631,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
-        GameMgr.PrizeCharacterList.Add("レア");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("ルッカティエル");
         GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
     }

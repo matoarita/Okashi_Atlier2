@@ -3395,16 +3395,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         canvas.SetActive(false);
         GameMgr.CharacterTouch_ALLOFF = true;
 
-        GameMgr.emeralDonguri_status = emeraldonguri_status; //0=85点以上　1=100点以上
-        GameMgr.emeralDonguri_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-        while (!GameMgr.recipi_read_endflag)
-        {
-            yield return null;
-        }
-
-        GameMgr.recipi_read_endflag = false;
-
         switch (emeraldonguri_status)
         {
             case 0:
@@ -3412,7 +3402,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //エメラルどんぐり一個もらえる。
                 pitemlist.addPlayerItemString("emeralDongri", 1);
                 //ついでに妹の体力が上がる。
-                PlayerStatus.player_girl_maxlifepoint++;
+                PlayerStatus.player_girl_maxlifepoint += GameMgr.System_Emeraldongri_life;
+                GameMgr.emeralDonguri_lifeparam = GameMgr.System_Emeraldongri_life;
                 break;
 
             case 1:
@@ -3422,7 +3413,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //サファイアどんぐり一個もらえる。
                 pitemlist.addPlayerItemString("sapphireDongri", 1);
                 //ついでに妹の体力が上がる。
-                PlayerStatus.player_girl_maxlifepoint += 3;
+                PlayerStatus.player_girl_maxlifepoint += GameMgr.System_Sapphiredongri_life;
+                GameMgr.emeralDonguri_lifeparam = GameMgr.System_Sapphiredongri_life;
                 break;
 
             default:
@@ -3430,10 +3422,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //エメラルどんぐり一個もらえる。
                 pitemlist.addPlayerItemString("emeralDongri", 1);
                 //ついでに妹の体力が上がる。
-                PlayerStatus.player_girl_maxlifepoint++;
+                PlayerStatus.player_girl_maxlifepoint += GameMgr.System_Emeraldongri_life;
+                GameMgr.emeralDonguri_lifeparam = GameMgr.System_Emeraldongri_life;
                 break;
 
         }
+
+        
+        GameMgr.emeralDonguri_status = emeraldonguri_status; //0=85点以上　1=100点以上
+        GameMgr.emeralDonguri_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        while (!GameMgr.recipi_read_endflag)
+        {
+            yield return null;
+        }
+
+        GameMgr.recipi_read_endflag = false;
 
 
         //はじめてエメラルどんぐりをゲットしたら、怪しげな館登場

@@ -96,6 +96,7 @@ public class TempatureControlPanel : MonoBehaviour {
             GameMgr.tempature_control_select_flag = false;
 
             GameMgr.compound_status = 110;
+            //GameMgr.tempature_control_ON = true;
             this.transform.Find("Comp").gameObject.SetActive(true);
             this.transform.Find("Comp/Yes_no_Panel_temp").gameObject.SetActive(true);
 
@@ -139,6 +140,15 @@ public class TempatureControlPanel : MonoBehaviour {
                 //Debug.Log("ok");
 
                 GameMgr.final_select_flag = true; //オリジナル調合の最終確認 Compound_Checkで確認
+
+                if (GameMgr.System_tempature_control_Param_time != 0) //時間を0分にしたときは、無視
+                {
+                    GameMgr.tempature_control_ON = true;
+                }
+                else
+                {
+                    GameMgr.tempature_control_ON = false;
+                }
 
                 this.transform.Find("Comp/Yes_no_Panel_temp").gameObject.SetActive(false); //yes noボタンだけオフ
                 break;

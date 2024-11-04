@@ -1254,13 +1254,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
 
     //温度管理によるバフの計算
-    public float TempatureControlKeisan()
+    public float TempatureControlKeisan(float _basewelldone, int _control_temp, int _control_time)
     {
-        _tempature_param = SujiMap(GameMgr.System_tempature_control_Param_temp * GameMgr.System_tempature_control_Param_temp,
+        _best_well_done = _basewelldone;
+
+        _tempature_param = SujiMap(_control_temp * _control_temp,
                         GameMgr.System_tempature_control_tempMin * GameMgr.System_tempature_control_tempMin,
                         GameMgr.System_tempature_control_tempMax * GameMgr.System_tempature_control_tempMax,
                         2.0f, 5.0f); //ここで焼き具合ゲージを決定してる。
-        _well_done = _tempature_param * GameMgr.System_tempature_control_Param_time;
+        _well_done = _tempature_param * _control_time;
 
         Debug.Log("_tempature_param: " + _tempature_param);
         Debug.Log("_well_done: " + _well_done);

@@ -843,6 +843,8 @@ public class CompoundMainController : MonoBehaviour {
                         {
                             Debug.Log("厨房から戻ってくる動き。");
 
+                            GameMgr.CompoAfter_BackGirl = true; //戻り中のフラグ
+
                             //腹減りカウント一時停止
                             girl1_status.GirlEatJudgecounter_OFF();
                             girl1_status.ResetHukidashi();
@@ -854,6 +856,7 @@ public class CompoundMainController : MonoBehaviour {
                             live2d_animator.SetInteger("trans_expression", trans_expression);
 
                             //
+                            StartCoroutine("Waitminute_BackGirl");
                         }
                         else
                         {
@@ -883,6 +886,13 @@ public class CompoundMainController : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    IEnumerator Waitminute_BackGirl() //3秒ほどたつと、必ず元の場所に戻ったことにする。すると、ヒカリのタッチ判定が復活。
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        GameMgr.CompoAfter_BackGirl = false; //戻り中のフラグ
     }
 
     void CompoScreenReset()

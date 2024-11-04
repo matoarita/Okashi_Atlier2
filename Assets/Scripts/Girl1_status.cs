@@ -531,6 +531,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     GameMgr.CharacterTouch_ALLOFF = true;
                 }
 
+                if (GameMgr.CompoAfter_BackGirl) //戻り中の間はタッチはできない
+                {
+                    GameMgr.CharacterTouch_ALLOFF = true;
+                }
 
                 //タッチ終了後の挙動
                 if (GameMgr.Scene_Category_Num == 10 || GameMgr.Scene_Category_Num == 100 || GameMgr.Scene_Category_Num == 1000) //調合シーンorコンテスト中orタイトル
@@ -3907,12 +3911,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                             FaceMotionPlay(1033); //生地ぐるぐる泣きながら
                             _touchface_comment_lib.Add("あたふた..。みんな作るのはやいよ～・・。");
+                            _touchface_comment_lib.Add("えっと・・。大さじって何ｇだっけ？にいちゃん～・・。");
                             break;
 
                         case 2:
 
                             FaceMotionPlay(1034); //あたふた青ざめた顔であせる
                             _touchface_comment_lib.Add("..あわわ。粉入れすぎちゃった..。");
+                            _touchface_comment_lib.Add("..バターがとけないよ～..。");
                             break;
                     }
                 }
@@ -3920,7 +3926,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 {
                     FaceMotionPlay(1032); //コンテストあたふたアイドル
                     _touchface_comment_lib.Add("..ど、どうしよ..。にいちゃん～・・。");
-                    _touchface_comment_lib.Add("わたたた～..。");
+                    _touchface_comment_lib.Add("わた。わた..。");
                     _touchface_comment_lib.Add("あたふた..。あたふた..。");
                     _touchface_comment_lib.Add("じ、じかんがないよ～・・。にいちゃん！");
                     _touchface_comment_lib.Add("にいちゃん！ ..はやく、はやく～！");

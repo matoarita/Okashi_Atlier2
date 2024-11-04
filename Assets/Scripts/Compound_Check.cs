@@ -437,6 +437,12 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
 
+                        //温度管理ONにしてたら、温度管理画面をオフにする。
+                        if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                        {
+                            GameMgr.tempature_control_Offflag = true;
+                        }
+
                         if (GameMgr.compound_select == 3)
                         {
                             //選んだ二つをもとに、一つのアイテムを生成する。そして、調合完了！
@@ -495,11 +501,7 @@ public class Compound_Check : MonoBehaviour {
                             exp_Controller.HikariMakeOK();
                         }
 
-                        //温度管理ONにしてたら、画面もオフにする。
-                        if (GameMgr.tempature_control_ON)
-                        {
-                            GameMgr.tempature_control_Offflag = true;
-                        }
+                        
 
                         break;
 
@@ -572,6 +574,12 @@ public class Compound_Check : MonoBehaviour {
                 {
                     case true:
 
+                        //温度管理ONにしてたら、温度管理画面をオフにする。
+                        if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                        {
+                            GameMgr.tempature_control_Offflag = true;
+                        }
+
                         if (GameMgr.compound_select == 3)
                         {
                             //選んだ三つをもとに、一つのアイテムを生成する。
@@ -622,13 +630,7 @@ public class Compound_Check : MonoBehaviour {
                             Off_Flag_Setting();
 
                             exp_Controller.HikariMakeOK();
-                        }
-
-                        //温度管理ONにしてたら、画面もオフにする。
-                        if (GameMgr.tempature_control_ON)
-                        {
-                            GameMgr.tempature_control_Offflag = true;
-                        }
+                        }                       
 
                         break;
 

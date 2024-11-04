@@ -796,6 +796,7 @@ public class Compound_Main : MonoBehaviour
             Touch_ALLOFF();
         }
 
+        GameMgr.CompoAfter_BackGirl = false;
         StartRead = false;
 
 
@@ -1666,8 +1667,17 @@ public class Compound_Main : MonoBehaviour
                 if (!GameMgr.outgirl_Nowprogress)
                 {
                     CharacterLive2DImageON();
-                    Touch_ALLON();
-                    sleep_toggle.GetComponent<Toggle>().interactable = true;
+
+                    if (GameMgr.CompoAfter_BackGirl) //戻り中の間はタッチはできない　girl1_status内でもUpdateでオフにしている。効力強い。
+                    {
+                        Touch_ALLOFF();
+                    }
+                    else
+                    {
+                        Touch_ALLON();
+                    }
+
+                    //sleep_toggle.GetComponent<Toggle>().interactable = true;
                     if (GameMgr.QuestClearflag)
                     {
                         stageclear_Button.GetComponent<Toggle>().interactable = true;
@@ -3657,6 +3667,7 @@ public class Compound_Main : MonoBehaviour
         //GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
         GameMgr.girl_returnhome_endflag = false;
+        GameMgr.CompoAfter_BackGirl = false; //戻り中に発生した場合は、戻ったことにしてfalseに。
 
         GameMgr.Mute_on = false;
        

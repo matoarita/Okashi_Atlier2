@@ -406,7 +406,7 @@ public class Quest_Judge : MonoBehaviour {
                     eat_hukidashitext.text = ".";
                     sc.PlaySe(7);
 
-                    _text.text = "鑑定中.";
+                    _text.text = "納品中.";
 
                     break;
 
@@ -419,7 +419,7 @@ public class Quest_Judge : MonoBehaviour {
 
                         eat_hukidashitext.text = ". .";
 
-                        _text.text = "鑑定中. .";
+                        _text.text = "納品中. .";
 
                     }
                     break;

@@ -761,7 +761,7 @@ public class itemSelectToggle : MonoBehaviour
                     {
                         Debug.Log("温度管理画面を表示する");
 
-                        GameMgr.tempature_control_ON = true;
+                        //GameMgr.tempature_control_ON = true;
                         GameMgr.tempature_control_select_flag = true;
                     }
                     else

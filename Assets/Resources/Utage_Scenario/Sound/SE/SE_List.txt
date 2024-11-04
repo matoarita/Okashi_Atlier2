@@ -141,7 +141,7 @@ SE表
 ・SE_139	打撃1						軽い打撃音※打撃を二回鳴らしてる
 ・SE_140	audiostock_1497724_sample			素早い場面転換
 ・SE_141	足音1(Springin)					素早い走る足音
-・SE_142	audiostock_111020_sample			妖精がぴょこって出る音
+・SE_142	Motion-Eating05-1				妖精がぴょこって出る音
 ・SE_143	茶碗を置く					カタっとした物音
 ・SE_144	Party_Popper03-2(Dry)				パンッのクラッカー音
 ・SE_145	Wind_Chimes02-01(Up-Wide)			魔法を使うときのキラキラウィンドチャイム音
@@ -168,3 +168,6 @@ SE表
 ・SE_166	audiostock_481446_sample			噴水噴射後の降り注ぐ音
 ・SE_167	audiostock_1466827_sample			噴水がぶっかかる音
 ・SE_168	audiostock_387727_sample			噴水の出始めの音
+・SE_169	Onoma-Sparkle10-1(Short)			スター獲得のキラキラ音
+・SE_170	audiostock_383264_sample			そしゃく音　猫っぽい
+・SE_171	飲み込む音　ゴクリ(DOVA)			飲み込む音

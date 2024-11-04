@@ -193,6 +193,9 @@ public class PlayerData
     public int save_hikari_make_okashiKosu;
     public int save_hikari_make_success_count;
     public int save_hikari_make_failed_count;
+    public bool save_hikari_tempature_control_ON; //ヒカリにお菓子作ってもらうで温度管理をON
+    public int save_hikari_tempature_param_time;
+    public int save_hikari_tempature_param_temp;
 
     //クリアお菓子の情報
     public int save_SpecialQuestClear_okashiItemID;

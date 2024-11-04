@@ -107,7 +107,7 @@ public class Touch_Controll : MonoBehaviour
             Touch_OnAllOFF();
         }
 
-        //キャラの触り判定をオフにする。　どこのスクリプトからでも呼べる。
+        //キャラの触り判定をオンにする。　どこのスクリプトからでも呼べる。
         if (GameMgr.CharacterTouch_ALLON)
         {
             //Debug.Log("タッチ　オールON Touch_Controll.cs");

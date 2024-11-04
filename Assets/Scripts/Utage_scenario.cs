@@ -2255,7 +2255,8 @@ public class Utage_scenario : MonoBehaviour
         scenarioLabel = "EmeralDonguri"; //イベントレシピタグのシナリオを再生。
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("EmeralDongri_num", GameMgr.emeralDonguri_status);      
+        engine.Param.TrySetParameter("EmeralDongri_num", GameMgr.emeralDonguri_status);
+        engine.Param.TrySetParameter("Dongri_Status", GameMgr.emeralDonguri_lifeparam);
 
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();

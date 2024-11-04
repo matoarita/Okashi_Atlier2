@@ -45,7 +45,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
-    public static bool System_Shiokuri_ON = false; //仕送りの有無
+    public static bool System_Shiokuri_ON = true; //仕送りの有無
     public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
@@ -92,6 +92,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //見た目点数の基準点※現在未使用
     public static int System_Beauty_BasicScore = 30; //見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
+
+    //どんぐりで上がる体力値
+    public static int System_Emeraldongri_life = 1;
+    public static int System_Sapphiredongri_life = 2;
 
 
     //重要アイテム名
@@ -355,14 +359,17 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float hikari_make_okashi_totalkyori;
     public static int hikari_make_okashiKosu; //ヒカリが現在制作したお菓子の個数
     public static int hikari_make_success_count; //ヒカリが制作に成功した数
-    public static int hikari_make_failed_count; //ヒカリが制作に失敗した数
-    public static bool hikari_make_Allfailed; //すべて失敗して材料がなくなってしまった 
-    public static bool hikari_zairyo_no_flag; //作る材料が単になくなった場合
+    public static int hikari_make_failed_count; //ヒカリが制作に失敗した数    
+    public static bool hikari_tempature_control_ON; //ヒカリにお菓子作ってもらうで温度管理をON
+    public static int hikari_tempature_param_time;
+    public static int hikari_tempature_param_temp;
 
     public static int hikari_makeokashi_startcounter; //これはセーブ不要。10秒ほどたったら、元のアイドルモーションにもどすためのタイマー
     public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
     public static float hikari_make_okashiTime_costbuf; //セーブ不要。お菓子作りにかかる時間をお菓子LVによって補正かける。かかる時間okashiTimeCostを保存しているので、こっちはセーブ不要
     public static float hikari_make_okashiTime_successrate_buf; //こっちも、hikari_make_success_rateを保存すれば、保存不要。
+    public static bool hikari_make_Allfailed; //すべて失敗して材料がなくなってしまった 　セーブ不要
+    public static bool hikari_zairyo_no_flag; //作る材料が単になくなった場合　セーブ不要
 
     //オプションの設定　マスター音量など
     public static float MasterVolumeParam;
@@ -464,6 +471,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //エメラルどんぐりゲット時の会話
     public static bool emeralDonguri_flag;  //高得点時、エメラルどんぐりをくれるイベント発生のフラグ
     public static int emeralDonguri_status;
+    public static int emeralDonguri_lifeparam; //どんぐりで上がる体力
 
     //妹の口をクリックしたときのヒント表示フラグ
     public static int touchhint_ID;
@@ -767,6 +775,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool SceneMoveAfter_Koushin; //シーン移動後にパラメータを変動させるフラグ　現在時間など。移動前に変動させると困るやつはここで。
     public static int SceneMoveAfter_TimeParam; //シーン移動後、時間を変動
     public static int GirlTalk_num; //女の子イベント会話中の分岐を決める番号
+    public static bool CompoAfter_BackGirl; //調合後元の位置まで戻ってくるまでの間のフラグ
 
 
     //一時フラグ　アイテムDB関連
@@ -1236,6 +1245,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         tempature_control_select_flag = false;
         tempature_control_Offflag = false;
         tempature_control_ON = false;
+        hikari_tempature_control_ON = false;
         CompoundSceneStartON = false;
         matbgm_change_flag = false;
         compobgm_change_flag = false;
@@ -1319,6 +1329,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Before_Patissier_Rank = 1;
         MazuiFlag_ON = false;
         SceneMoveAfter_Koushin = false;
+        CompoAfter_BackGirl = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
