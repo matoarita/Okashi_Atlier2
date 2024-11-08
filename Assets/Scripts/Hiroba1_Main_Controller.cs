@@ -1397,7 +1397,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Autumn_DepartMae":
 
-                On_Active103();
+                //On_Active103();
+                On_Active104();
                 break;
 
             case "Or_Hiroba_Autumn_UraStreet":
@@ -1641,6 +1642,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Summer_MainStreet": //
 
                 On_Active1004_Alice();
+                break;
+
+            case "Or_Hiroba_Autumn_MainStreet": //
+
+                On_BarActive03();
                 break;
 
             default:
@@ -2250,7 +2256,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_Active104()
     {
-        //_text.text = "秋エリア　裏通りへ　移動";
+        //_text.text = "秋エリア　コンサートホール前へ　移動";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み

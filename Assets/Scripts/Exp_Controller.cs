@@ -1483,6 +1483,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             Hikarimake_StartPanel.GetYosokuItem();
         }
 
+        //温度管理ONにしてたら、ヒカリの温度を設定しておく。
+        if (GameMgr.tempature_control_ON)
+        {
+            GameMgr.hikari_tempature_control_ON = true;
+            GameMgr.hikari_tempature_param_time = GameMgr.System_tempature_control_Param_time;
+            GameMgr.hikari_tempature_param_temp = GameMgr.System_tempature_control_Param_temp;
+        }
+        else
+        {
+            GameMgr.hikari_tempature_control_ON = false;
+        }
+
         //リザルトアイテムを代入
         //result_item = GameMgr.Final_result_itemID1;
 
@@ -1511,17 +1523,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_okashi_compID = GameMgr.Final_result_compID;
         GameMgr.hikari_make_success_rate = _success_rate;
 
-        //温度管理ONにしてたら、ヒカリの温度を設定しておく。
-        if (GameMgr.tempature_control_ON)
-        {
-            GameMgr.hikari_tempature_control_ON = true;
-            GameMgr.hikari_tempature_param_time = GameMgr.System_tempature_control_Param_time;
-            GameMgr.hikari_tempature_param_temp = GameMgr.System_tempature_control_Param_temp;
-        }
-        else
-        {
-            GameMgr.hikari_tempature_control_ON = false;
-        }
+        
 
         //オリジナルアイテムかお菓子パネルのリストを選択していたら、アイテムの固有IDを保存しておく。
         if (GameMgr.hikari_kettei_toggleType[0] == 1)

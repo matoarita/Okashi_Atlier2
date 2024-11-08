@@ -267,7 +267,10 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                         SetMinuteToHour(5); //5分
                         TimeKoushin(0, true);
 
-                        compound_main.Weather_Change(5.0f);
+                        if (GameMgr.WEATHER_TIMEMODE_ON)
+                        {
+                            compound_main.Weather_Change(5.0f);
+                        }
 
 
                         //サブ時間イベントをチェック
@@ -1277,7 +1280,10 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         TimeKoushin(1, false);
 
         //天気も変更
-        //Weather_ChangeNow(1.0f);
+        /*if (GameMgr.WEATHER_TIMEMODE_ON)
+        {
+            Weather_ChangeNow(1.0f);
+        }*/
     }
 
     //コンテストで開催日時を計算するのに使用　入れた日数を、現在の日数に足して、何月何日に変換して戻す Contest_DetailedPanel.csから読み出し

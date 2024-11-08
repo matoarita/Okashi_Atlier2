@@ -16,8 +16,6 @@ public class Quest_Judge : MonoBehaviour {
     private BGM sceneBGM;
     private bool mute_on;
 
-    private GameObject shopMain_obj;
-    private Shop_Main shopMain;
     private GameObject barMain_obj;
     private Bar_Main barMain;
 
@@ -1210,10 +1208,11 @@ public class Quest_Judge : MonoBehaviour {
                     {
                         topping_score += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslot_PitemScore[i];
                         //_basebeauty += slotnamedatabase.slotname_lists[i].slot_Beauty * itemslot_PitemScore[i]; //見た目に対するボーナス得点　ややこしいので廃止
-                        _slotmoney += slotnamedatabase.slotname_lists[i].slot_totalScore * itemslot_PitemScore[i];
+                        _slotmoney += slotnamedatabase.slotname_lists[i].slot_Money * itemslot_PitemScore[i];
                     }
                 }
             }
+            Debug.Log("_slotmoney(最初の計算): " + _slotmoney);
 
             //クエストによっては、トッピングによって、さらに追加得点。
             for (i = 0; i < itemslot_NouhinScore.Count;  i++)
@@ -1323,8 +1322,6 @@ public class Quest_Judge : MonoBehaviour {
         DeleteOriginalItem();
         DeleteExtremeItem();
 
-
-
         StartCoroutine("Okashi_Judge_Anim2");
         
     }
@@ -1405,6 +1402,8 @@ public class Quest_Judge : MonoBehaviour {
                 //味によって、取得のお金が増減する。おいしいと、お金もちょっとプラス。
 
                 _baseMoney = basemoney_keisan();
+                Debug.Log("_baseMoney: " + _baseMoney);
+
                 if (okashi_totalscore < 30) //粗悪なお菓子だと、マイナス評価
                 {
                     _getMoney = (int)(_baseMoney * 0.2f);
@@ -1459,35 +1458,35 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     _getMoney = (int)(_baseMoney * 2.0f);
                     debug_money_text = "(基準値 * 2.0f)";
-                    _getNinki = 1;
+                    _getNinki = 0;
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 200 && okashi_totalscore < 250) //200~
                 {
                     _getMoney = (int)(_baseMoney * (okashi_totalscore / 150) * 2.3f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 150) * 2.3f)";
-                    _getNinki = 2;
+                    _getNinki = 0;
                     _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 250 && okashi_totalscore < 300) //250~ ファンファーレ
                 {
                     _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 1.5f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 1.5f)";
-                    _getNinki = 2;
+                    _getNinki = 0;
                     _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
                 {
                     _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 2.5f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 2.5f)";
-                    _getNinki = 3;
+                    _getNinki = 1;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
                 {
                     _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 3.0f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 3.0f)";
-                    _getNinki = 3;
+                    _getNinki = 2;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 1000) //1000~
@@ -1626,6 +1625,7 @@ public class Quest_Judge : MonoBehaviour {
 
     int basemoney_keisan()
     {
+        //Debug.Log("_slotmoney: " + _slotmoney);
         return _buy_price * _kosu_default + _slotmoney;
     }
     
@@ -1665,6 +1665,9 @@ public class Quest_Judge : MonoBehaviour {
             //名声をプラスかマイナス。0は変化なし
             ninkiStatus_Controller.GetNinki(_getNinki);
         }
+
+        //もしスターをゲットしてた場合は、スターゲットの会話を表示
+
 
         ResetQuestStatus();
     }
@@ -1739,7 +1742,8 @@ public class Quest_Judge : MonoBehaviour {
             + "\n" + "\n" + "### ###"
             + "\n" + "\n" + "お金の取得式: " + "\n" + debug_money_text
             + "\n" + "\n" + "基準値(_buy_price * _kosu_default + _slotmoney): " + _baseMoney
-            + "\n" + "\n" + "okashi_totalscore / GameMgr.high_score 計算: "
+            + "\n" + "\n" + "_slotmoney: " + _slotmoney
+            //+ "\n" + "\n" + "okashi_totalscore / GameMgr.high_score 計算: "
             + "\n" + "\n" + "お金の取得合計: " + _getMoney
             + "\n" + "\n" + "ハートの取得合計: " + _getHeart;
     }

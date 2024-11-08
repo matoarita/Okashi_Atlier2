@@ -26,6 +26,7 @@ public class MessageWindow : MonoBehaviour {
     private Sprite hikari_faceicon_32_joukigen2;
     private Sprite hikari_faceicon_35_metoji;
     private Sprite hikari_faceicon_38_nakinagarauttae_bou;
+    private Sprite hikari_faceicon_43_Bad2;
 
     private Image window_FaceImg;
 
@@ -58,7 +59,8 @@ public class MessageWindow : MonoBehaviour {
             hikari_faceicon_18_surprise2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_18_Surprise2");
             hikari_faceicon_32_joukigen2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_32_Joukigen2");
             hikari_faceicon_35_metoji = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_35_Metoji");
-            hikari_faceicon_38_nakinagarauttae_bou = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_38_nakinagarauttae_bou");            
+            hikari_faceicon_38_nakinagarauttae_bou = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_38_nakinagarauttae_bou");
+            hikari_faceicon_43_Bad2 = Resources.Load<Sprite>("Utage_Scenario/Texture/Character/Hikari/Icon/" + "Icon_face_43_Bad2");
 
             StartRead = true;
         }
@@ -269,6 +271,11 @@ public class MessageWindow : MonoBehaviour {
             case 38:
 
                 window_FaceImg.sprite = hikari_faceicon_38_nakinagarauttae_bou;
+                break;
+
+            case 43:
+
+                window_FaceImg.sprite = hikari_faceicon_43_Bad2;
                 break;
 
         }

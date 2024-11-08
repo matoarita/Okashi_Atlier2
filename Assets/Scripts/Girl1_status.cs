@@ -531,6 +531,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     GameMgr.CharacterTouch_ALLOFF = true;
                 }
 
+
                 if (GameMgr.CompoAfter_BackGirl) //戻り中の間はタッチはできない
                 {
                     GameMgr.CharacterTouch_ALLOFF = true;
@@ -613,7 +614,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                                         timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
 
-                                        rnd = Random.Range(30.0f, 60.0f);
+                                        rnd = Random.Range(10.0f, 20.0f);
                                         timeOut = Default_hungry_cooltime + rnd;
                                         Girl_EatDecide();
 
@@ -645,6 +646,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                                         //キャラクタ表情変更
                                         DefFaceChange();
 
+                                        //GameMgr.NowEatOkashiName = "まんぞく～♪";
+                                        //GameMgr.NowEatOkashiID = 9999;
                                         break;
 
                                     default:
@@ -730,7 +733,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
 
                             //timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
-                            //Girl_EatDecide();
                         }
                         break;
 
@@ -756,7 +758,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
 
                             //timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
-                            //Girl_EatDecide();
                         }
                         break;
 
@@ -850,6 +851,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             live2d_animator.SetInteger("trans_makemotion", trans_makemotion);
         }
     }
+
+
+
 
     void HukidashiHyoujiChu()
     {
@@ -1202,7 +1206,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     IEnumerator Special_StartAnim()
     {
-        if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
+        if (!special_animatFirst) //最初の一回だけ、吹き出しアニメスタート
         {
             special_animstart_flag = true;
             special_animstart_endflag = false;
@@ -2357,630 +2361,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     }
 
 
-    //
-    //タッチ関係
-    //
-
-    //頭　一回タッチ
-    public void Touchhair_Start()
-    {
-        Girl1_touchhair_status = 0;
-        Girl1_touchhair_count = 0;
-        Girl1_touchhair_start = true;
-        Girl1_touch_end = false;
-        CubismLookFlag = true; //目線追従する。
-        //touchanim_start = true;
-        GirlEat_Judge_on = false;
-
-        //一回タッチするだけだと、「いてっ」って感じの反応
-        touch_startreset();
-
-        //タップモーション　ランダムで決定
-        Random_TapMotion();
-      
-    }
-
-    //頭　ドラッグで触り続けた場合
-    public void TouchSisterHair()
-    {
-        switch (Girl1_touchhair_status)
-        {
-
-            case 0: //初期化
-
-                Girl1_touchhair_start = true;
-                Girl1_touch_end = false;
-                GirlEat_Judge_on = false;
-
-                //5秒以内に髪の毛を何度か触ると、ちょっと照れる。
-                Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 1;
-
-                live2d_animator.SetInteger("trans_nade", 0); //リセット
-
-                //Init_touchHeadComment();
-                //_touchhead_comment = _touchhead_comment_lib[0];
-                //hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
-
-                //キャラクタ表情変更
-                //face_girl_Surprise();
-
-                break;
-
-            case 1: //髪の毛触る回数カウント中
-
-                Girl1_touch_end = false;
-
-                Girl1_touchhair_count++;               
-
-                if (Girl1_touchhair_count >= 3) //〇回以上触ると、ステータスが1段階上がる。
-                {
-                    Girl1_touchhair_status = 2;
-                }
-                break;
-
-            case 2:
-
-                touch_startreset();
-                Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 3;              
-
-                Init_touchHeadComment();
-                _touchhead_comment = _touchhead_comment_lib[1];
-                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
-
-                //キャラクタ表情・モーション変更
-                HairTouch_Motion();
-
-                break;
-
-            case 3: //髪の毛触る回数カウント中＜2段階目＞
-
-                Girl1_touchhair_count++;
-
-                if (Girl1_touchhair_count >= 3) //〇回以上触ると、ステータスが1段階上がる。
-                {
-                    Girl1_touchhair_status = 4;
-                }
-                break;
-
-            case 4:
-
-                touch_startreset();
-                Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 5;
-
-                Init_touchHeadComment();
-                _touchhead_comment = _touchhead_comment_lib[2];
-                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
-
-                //表情変化２
-                HairTouch_Motion2();
-                
-
-                break;
-
-            case 5:
-
-                Girl1_touchhair_count++;
-
-                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
-                {
-                    Girl1_touchhair_status = 6;
-                }
-
-                break;
-
-            case 6:
-
-                touch_startreset();
-                Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 7;
-
-                Init_touchHeadComment();
-                _touchhead_comment = _touchhead_comment_lib[3];
-                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
-
-                //表情変化３
-                if (GirlGokigenStatus >= 4)
-                {
-                    HairTouch_Motion3();
-                }
-
-                break;
-
-            case 7:
-
-                Girl1_touchhair_count++;
-
-                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
-                {
-                    Girl1_touchhair_status = 8;
-                }
-
-                break;
-
-            case 8:
-
-                touch_startreset();
-                Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 9;
-
-                Init_touchHeadComment();
-                _touchhead_comment = _touchhead_comment_lib[4];
-                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
-
-                break;
-
-            case 9:
-
-                Girl1_touchhair_count++;
-
-                if (Girl1_touchhair_count >= 30) //〇回以上触ると、ステータスが1段階上がる。
-                {
-                    Girl1_touchhair_status = 10;
-                }
-
-                break;
-
-            case 10:
-
-                touch_startreset();
-                Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 11;
-
-                Init_touchHeadComment();
-                _touchhead_comment = _touchhead_comment_lib[5];
-                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
-
-                //キャラクタ表情変更　ちょっと嫌そう？真顔に。
-                live2d_animator.SetInteger("trans_nade", 20);
-
-                break;
-
-            case 11:
-
-                Girl1_touchhair_count++;
-
-                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
-                {
-                    Girl1_touchhair_status = 12;
-                }
-
-                break;
-
-            case 12:
-
-                touch_startreset();
-                Girl1_touchhair_count = 0;
-                Girl1_touchhair_status = 13;
-
-                Init_touchHeadComment();
-                _touchhead_comment = _touchhead_comment_lib[6];
-                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
-
-                //音鳴らす
-                sc.PlaySe(45);
-
-                //キャラクタ表情変更  怒る
-                live2d_animator.SetInteger("trans_nade", 21);
-
-                //エモ
-                _listEffect.Add(Instantiate(Emo_effect_Prefab3, character.transform));
-                break;
-
-            case 13:
-
-                Girl1_touchhair_count++;
-
-                break;
-
-            default:
-                break;
-        }             
-        
-    }
-
-    //髪なでなで時のモーションセット1
-    void HairTouch_Motion()
-    {
-        weightTween.Kill(); //フェードアウト中なら中断する
-        tween_start = false;
-
-        switch (GirlGokigenStatus)
-        {
-            case 0:
-
-                live2d_animator.SetInteger("trans_nade", 5);
-                break;
-
-            case 1:
-
-                live2d_animator.SetInteger("trans_nade", 5);
-                break;
-
-            case 2:
-
-                live2d_animator.SetInteger("trans_nade", 5);
-                break;
-
-            case 3:
-
-                live2d_animator.SetInteger("trans_nade", 5);
-                break;
-
-            case 4:
-
-                live2d_animator.SetInteger("trans_nade", 5);
-                break;
-
-            case 5:
-
-                live2d_animator.SetInteger("trans_nade", 5);
-                break;
-
-            case 6:
-
-                live2d_animator.SetInteger("trans_nade", 5);
-                break;
-
-            default:
-
-                live2d_animator.SetInteger("trans_nade", 5);
-                break;
-        }
-        
-    }
-
-    //髪なでなで時のモーションセット2
-    void HairTouch_Motion2()
-    {
-
-        switch (GirlGokigenStatus)
-        {
-            case 0: 
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            case 1: 
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            case 2: 
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            case 3: 
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            case 4: 
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            case 5: 
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            case 6:
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-
-            default:
-
-                live2d_animator.SetInteger("trans_nade", 10);
-                break;
-        }
-    }
-
-    //髪なでなで時のモーションセット3
-    void HairTouch_Motion3()
-    {
-
-        switch (GirlGokigenStatus)
-        {
-            case 0: 
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            case 1: 
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            case 2: 
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            case 3: 
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            case 4: 
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            case 5:
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            case 6:
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-
-            default:
-
-                live2d_animator.SetInteger("trans_nade", 11);
-                break;
-        }
-    }
-
-
-    //ツインテール　一回さわった
-    public void Touchtwintail_Start()
-    {
-        touch_startreset();
-
-        Girl1_touchtwintail_count = 0;
-        Girl1_touchtwintail_start = true;
-        CubismLookFlag = true; //目線追従する。
-
-        //タップモーション
-        live2d_animator.Play("tapmotion_01", motion_layer_num, 0.0f); //tapmotion_01は、頭なでなで・ツインテール共通のモーション タップ系は、.Playですぐに再生で問題ない
-        live2d_animator.SetInteger("trans_tap", 0);
-    }
-
-    //ツインテール　ドラッグで触り続けた場合
-    public void TouchSisterTwinTail()
-    {
-        touch_startreset();
-        Init_touchTwintailComment();
-
-        //コメント順番に表示
-        if (Girl1_touchtwintail_count >= _touchtwintail_comment_lib.Count)
-        {
-            Girl1_touchtwintail_flag = true; //ツインテールに関する全てのコメントを表示した
-            Girl1_touchtwintail_count = 0;
-            StartCoroutine("WaitTwintailSeconds");
-        }
-
-        if (!Girl1_touchtwintail_flag)
-        {
-            _touchtwintail_comment = _touchtwintail_comment_lib[Girl1_touchtwintail_count];
-            hukidashiitem.GetComponent<TextController>().SetText(_touchtwintail_comment);
-        }
-        else
-        {
-            hukidashiitem.GetComponent<TextController>().SetText("..。");
-        }
-        Girl1_touchtwintail_count++;
-
-        if(Girl1_touchtwintail_count >= 4)
-        {
-            if (GirlGokigenStatus >= 5 && GirlGokigenStatus < 6)
-            {
-                //鼻歌に遷移
-                live2d_animator.SetInteger("trans_tap", 10);
-            }
-            else if (GirlGokigenStatus >= 6)
-            {
-                //鼻歌に遷移
-                live2d_animator.SetInteger("trans_tap", 11);
-            }
-
-        }
-    }
-
-    IEnumerator WaitTwintailSeconds()
-    {
-        yield return new WaitForSeconds(10.0f);
-
-        Girl1_touchtwintail_flag = false;
-    }
-
-
-
-
-    //口のあたりをクリックすると、ヒントを表示する。
-    public void TouchSisterFace()
-    {        
-        if (hukidashion)
-        {
-            DeleteHukidashiOnly(); //必ず吹き出しを一度削除する
-        }
-        else
-        {
-            //ランダムで吹き出しの内容を出し、モーション。
-            Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
-        }
-
-    }
-
-
-    //リボン
-    public void TouchRibbon_Start()
-    {
-        touch_startreset();
-
-        Girl1_touchchest_start = true;
-        CubismLookFlag = true; //目線追従する。
-
-        //タップモーション
-        live2d_animator.Play("tapmotion_03_1", motion_layer_num, 0.0f);
-
-    }
-
-    public void TouchSisterRibbon()
-    {        
-        //コメントランダム
-        //random = Random.Range(0, _touchface_comment_lib.Count);
-        //_touchface_comment = _touchface_comment_lib[random];
-
-        hukidashiitem.GetComponent<TextController>().SetText("お母さんが誕生日にくれたリボンだよ～。うひひ。");
-
-        //タップモーション
-        live2d_animator.Play("tapmotion_03_1", motion_layer_num, 0.0f);
-
-    }
-
-    //手
-    public void TouchHand_Start()
-    {
-        touch_startreset();
-
-        Girl1_touchchest_start = true;
-        CubismLookFlag = true; //目線追従する。
-
-        //タップモーション
-        live2d_animator.Play("tapmotion_03_1", motion_layer_num, 0.0f);
-    }
-
-    public void TouchSisterHand()
-    {
-
-        //吹き出し内容の決定
-        Init_touchHandComment();
-
-        random = Random.Range(0, _touchhand_comment_lib.Count);
-        _touchhand_comment = _touchhand_comment_lib[random];
-
-        hukidashiitem.GetComponent<TextController>().SetText(_touchhand_comment);
-    }
-
-    //胸
-    public void TouchChest_Start()
-    {
-        touch_startreset();
-
-        Girl1_touchchest_start = true;
-        CubismLookFlag = true; //目線追従する。
-
-        //タップモーション　最初触った一回だけ発動        
-        live2d_animator.Play("tapmotion_02", motion_layer_num, 0.0f);
-        
-    }
-
-    public void TouchSisterChest()
-    {       
-        //吹き出し内容の決定
-        Init_touchChestComment();
-
-        random = Random.Range(0, _touchchest_comment_lib.Count);
-        _touchchest_comment = _touchchest_comment_lib[random];
-
-        hukidashiitem.GetComponent<TextController>().SetText(_touchchest_comment);
-
-    }
-
-    //花
-    public void TouchFlower()
-    {
-        touch_startreset();
-
-        hukidashiitem.GetComponent<TextController>().SetText("お兄ちゃん。それは花だよ。しおれてたら、お水をあげてね。");
-    }
-
-
-    //タップモーション　ランダムで決定
-    void Random_TapMotion()
-    {
-
-        random = Random.Range(0, 3);
-
-        switch(random)
-        {
-            case 0:
-
-                live2d_animator.Play("tapmotion_03_1", motion_layer_num, 0.0f);
-                hukidashiitem.GetComponent<TextController>().SetText("うわっ！");
-                break;
-
-            case 1:
-
-                live2d_animator.Play("tapmotion_03_2", motion_layer_num, 0.0f);
-                hukidashiitem.GetComponent<TextController>().SetText("あいたっ！");
-                break;
-
-            case 2:
-
-                live2d_animator.Play("tapmotion_03_3", motion_layer_num, 0.0f);
-                hukidashiitem.GetComponent<TextController>().SetText("いてぃっ！");
-                break;
-        }
-    }
-
-    void touch_startreset() //触り始め共通でリセットする項目。
-    {
-        
-        if (hukidashiitem == null)
-        {
-            hukidasiInit(Default_hukidashi_hyoujitime);
-        }
-        /*
-        weightTween.Kill(); //フェードアウト中なら中断する
-        tween_start = false;*/
-    }   
-
-    //ランダムで左右に動く 現在未使用
-    void IdleMoveX()
-    {
-        rnd = Random.Range(2.0f, -2.0f);
-
-        MoveXMethod(rnd);
-        
-    }
-
-    void MoveXMethod(float _move)
-    {
-        sequence_girlmove = DOTween.Sequence();
-
-        sequence_girlmove.Append(character_move.transform.DOMoveX(_move, 3.0f)
-        .SetEase(Ease.InOutSine));
-
-        sequence_girlmove2 = DOTween.Sequence().SetLoops(3);
-        sequence_girlmove2.Append(character_move.transform.DOMoveY(0.1f, 0.5f))
-            .SetRelative();
-        sequence_girlmove2.Append(character_move.transform.DOMoveY(-0.1f, 0.5f))
-            .SetRelative();
-    }
-
-    //移動した位置を元に戻す。
-    public void ResetCharacterPosition()
-    {
-        character_move.transform.DOMoveX(0, 0.0f);
-    }
-
-    //FaceMotionの数字を入れると、それを再生。かつ再生フラグもたてる。.Playを使うよりも、アニメの遷移をなめらかにする処理。Debug_Panelからも読み込み。
-    public void FaceMotionPlay(int _trans_motion)
-    {
-        _model.GetComponent<CubismEyeBlinkController>().enabled = false;
-
-        trans_motion = _trans_motion;
-        live2d_animator.SetInteger("trans_motion", trans_motion);
-        facemotion_start = true;
-
-        live2d_animator.Update(0f);
-        var state = live2d_animator.GetCurrentAnimatorStateInfo(0);
-        if(state.length >= 15.0f)
-        {
-            //timeOut2 = 35.0f; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
-            timeOut2 = state.length; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
-        }
-        
-    }
+    
 
     //ランダムで仕草　ランダムモーションor口をタップしたときの共通　どのモーションを再生するか＋セリフを決定　モーションがなくても、セリフだけは表示される。
     void IdleChange()
@@ -3160,7 +2541,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 case 3:
 
-                    if (GameMgr.Story_Mode != 0)
+                    if (GameMgr.WEATHER_TIMEMODE_ON)
                     {
                         //朝～夜　時間に合わせたセリフモーション                  
                         IdleMotionHukidashiSetting(200);
@@ -3606,7 +2987,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 break;
 
 
-            case 100:
+            case 100: //ヒントだす
 
                 //レベルが低い時のヒント
                 if (GirlGokigenStatus < 3) //LV 1~2
@@ -4034,6 +3415,636 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {                           
         IdleMotionHukidashiSetting(_motion_num);
     }
+
+    //ランダムで左右に動く 現在未使用
+    void IdleMoveX()
+    {
+        rnd = Random.Range(2.0f, -2.0f);
+
+        MoveXMethod(rnd);
+
+    }
+
+    void MoveXMethod(float _move)
+    {
+        sequence_girlmove = DOTween.Sequence();
+
+        sequence_girlmove.Append(character_move.transform.DOMoveX(_move, 3.0f)
+        .SetEase(Ease.InOutSine));
+
+        sequence_girlmove2 = DOTween.Sequence().SetLoops(3);
+        sequence_girlmove2.Append(character_move.transform.DOMoveY(0.1f, 0.5f))
+            .SetRelative();
+        sequence_girlmove2.Append(character_move.transform.DOMoveY(-0.1f, 0.5f))
+            .SetRelative();
+    }
+
+    //移動した位置を元に戻す。
+    public void ResetCharacterPosition()
+    {
+        character_move.transform.DOMoveX(0, 0.0f);
+    }
+
+    //FaceMotionの数字を入れると、それを再生。かつ再生フラグもたてる。.Playを使うよりも、アニメの遷移をなめらかにする処理。Debug_Panelからも読み込み。
+    public void FaceMotionPlay(int _trans_motion)
+    {
+        _model.GetComponent<CubismEyeBlinkController>().enabled = false;
+
+        trans_motion = _trans_motion;
+        live2d_animator.SetInteger("trans_motion", trans_motion);
+        facemotion_start = true;
+
+        live2d_animator.Update(0f);
+        var state = live2d_animator.GetCurrentAnimatorStateInfo(0);
+        if (state.length >= 15.0f)
+        {
+            //timeOut2 = 35.0f; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
+            timeOut2 = state.length; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
+        }
+
+    }
+
+
+
+
+    //
+    //タッチ関係
+    //
+
+    //頭　一回タッチ
+    public void Touchhair_Start()
+    {
+        Girl1_touchhair_status = 0;
+        Girl1_touchhair_count = 0;
+        Girl1_touchhair_start = true;
+        Girl1_touch_end = false;
+        CubismLookFlag = true; //目線追従する。
+        //touchanim_start = true;
+        GirlEat_Judge_on = false;
+
+        //一回タッチするだけだと、「いてっ」って感じの反応
+        touch_startreset();
+
+        //タップモーション　ランダムで決定
+        Random_TapMotion();
+
+    }
+
+    //頭　ドラッグで触り続けた場合
+    public void TouchSisterHair()
+    {
+        switch (Girl1_touchhair_status)
+        {
+
+            case 0: //初期化
+
+                Girl1_touchhair_start = true;
+                Girl1_touch_end = false;
+                GirlEat_Judge_on = false;
+
+                //5秒以内に髪の毛を何度か触ると、ちょっと照れる。
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 1;
+
+                live2d_animator.SetInteger("trans_nade", 0); //リセット
+
+                //Init_touchHeadComment();
+                //_touchhead_comment = _touchhead_comment_lib[0];
+                //hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
+
+                //キャラクタ表情変更
+                //face_girl_Surprise();
+
+                break;
+
+            case 1: //髪の毛触る回数カウント中
+
+                Girl1_touch_end = false;
+
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 3) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 2;
+                }
+                break;
+
+            case 2:
+
+                touch_startreset();
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 3;
+
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[1];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
+
+                //キャラクタ表情・モーション変更
+                HairTouch_Motion();
+
+                break;
+
+            case 3: //髪の毛触る回数カウント中＜2段階目＞
+
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 3) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 4;
+                }
+                break;
+
+            case 4:
+
+                touch_startreset();
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 5;
+
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[2];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
+
+                //表情変化２
+                HairTouch_Motion2();
+
+
+                break;
+
+            case 5:
+
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 6;
+                }
+
+                break;
+
+            case 6:
+
+                touch_startreset();
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 7;
+
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[3];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
+
+                //表情変化３
+                if (GirlGokigenStatus >= 4)
+                {
+                    HairTouch_Motion3();
+                }
+
+                break;
+
+            case 7:
+
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 8;
+                }
+
+                break;
+
+            case 8:
+
+                touch_startreset();
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 9;
+
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[4];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
+
+                break;
+
+            case 9:
+
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 30) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 10;
+                }
+
+                break;
+
+            case 10:
+
+                touch_startreset();
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 11;
+
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[5];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
+
+                //キャラクタ表情変更　ちょっと嫌そう？真顔に。
+                live2d_animator.SetInteger("trans_nade", 20);
+
+                break;
+
+            case 11:
+
+                Girl1_touchhair_count++;
+
+                if (Girl1_touchhair_count >= 7) //〇回以上触ると、ステータスが1段階上がる。
+                {
+                    Girl1_touchhair_status = 12;
+                }
+
+                break;
+
+            case 12:
+
+                touch_startreset();
+                Girl1_touchhair_count = 0;
+                Girl1_touchhair_status = 13;
+
+                Init_touchHeadComment();
+                _touchhead_comment = _touchhead_comment_lib[6];
+                hukidashiitem.GetComponent<TextController>().SetText(_touchhead_comment);
+
+                //音鳴らす
+                sc.PlaySe(45);
+
+                //キャラクタ表情変更  怒る
+                live2d_animator.SetInteger("trans_nade", 21);
+
+                //エモ
+                _listEffect.Add(Instantiate(Emo_effect_Prefab3, character.transform));
+                break;
+
+            case 13:
+
+                Girl1_touchhair_count++;
+
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    //髪なでなで時のモーションセット1
+    void HairTouch_Motion()
+    {
+        weightTween.Kill(); //フェードアウト中なら中断する
+        tween_start = false;
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+
+                live2d_animator.SetInteger("trans_nade", 5);
+                break;
+
+            case 1:
+
+                live2d_animator.SetInteger("trans_nade", 5);
+                break;
+
+            case 2:
+
+                live2d_animator.SetInteger("trans_nade", 5);
+                break;
+
+            case 3:
+
+                live2d_animator.SetInteger("trans_nade", 5);
+                break;
+
+            case 4:
+
+                live2d_animator.SetInteger("trans_nade", 5);
+                break;
+
+            case 5:
+
+                live2d_animator.SetInteger("trans_nade", 5);
+                break;
+
+            case 6:
+
+                live2d_animator.SetInteger("trans_nade", 5);
+                break;
+
+            default:
+
+                live2d_animator.SetInteger("trans_nade", 5);
+                break;
+        }
+
+    }
+
+    //髪なでなで時のモーションセット2
+    void HairTouch_Motion2()
+    {
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 1:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 2:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 3:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 4:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 5:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            case 6:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+
+            default:
+
+                live2d_animator.SetInteger("trans_nade", 10);
+                break;
+        }
+    }
+
+    //髪なでなで時のモーションセット3
+    void HairTouch_Motion3()
+    {
+
+        switch (GirlGokigenStatus)
+        {
+            case 0:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 1:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 2:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 3:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 4:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 5:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            case 6:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+
+            default:
+
+                live2d_animator.SetInteger("trans_nade", 11);
+                break;
+        }
+    }
+
+
+    //ツインテール　一回さわった
+    public void Touchtwintail_Start()
+    {
+        touch_startreset();
+
+        Girl1_touchtwintail_count = 0;
+        Girl1_touchtwintail_start = true;
+        CubismLookFlag = true; //目線追従する。
+
+        //タップモーション
+        live2d_animator.Play("tapmotion_01", motion_layer_num, 0.0f); //tapmotion_01は、頭なでなで・ツインテール共通のモーション タップ系は、.Playですぐに再生で問題ない
+        live2d_animator.SetInteger("trans_tap", 0);
+    }
+
+    //ツインテール　ドラッグで触り続けた場合
+    public void TouchSisterTwinTail()
+    {
+        touch_startreset();
+        Init_touchTwintailComment();
+
+        //コメント順番に表示
+        if (Girl1_touchtwintail_count >= _touchtwintail_comment_lib.Count)
+        {
+            Girl1_touchtwintail_flag = true; //ツインテールに関する全てのコメントを表示した
+            Girl1_touchtwintail_count = 0;
+            StartCoroutine("WaitTwintailSeconds");
+        }
+
+        if (!Girl1_touchtwintail_flag)
+        {
+            _touchtwintail_comment = _touchtwintail_comment_lib[Girl1_touchtwintail_count];
+            hukidashiitem.GetComponent<TextController>().SetText(_touchtwintail_comment);
+        }
+        else
+        {
+            hukidashiitem.GetComponent<TextController>().SetText("..。");
+        }
+        Girl1_touchtwintail_count++;
+
+        if (Girl1_touchtwintail_count >= 4)
+        {
+            if (GirlGokigenStatus >= 5 && GirlGokigenStatus < 6)
+            {
+                //鼻歌に遷移
+                live2d_animator.SetInteger("trans_tap", 10);
+            }
+            else if (GirlGokigenStatus >= 6)
+            {
+                //鼻歌に遷移
+                live2d_animator.SetInteger("trans_tap", 11);
+            }
+
+        }
+    }
+
+    IEnumerator WaitTwintailSeconds()
+    {
+        yield return new WaitForSeconds(10.0f);
+
+        Girl1_touchtwintail_flag = false;
+    }
+
+
+
+
+    //口のあたりをクリックすると、ヒントを表示する。
+    public void TouchSisterFace()
+    {
+        if (hukidashion)
+        {
+            DeleteHukidashiOnly(); //必ず吹き出しを一度削除する
+        }
+        else
+        {
+            //ランダムで吹き出しの内容を出し、モーション。
+            Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
+        }
+
+    }
+
+
+    //リボン
+    public void TouchRibbon_Start()
+    {
+        touch_startreset();
+
+        Girl1_touchchest_start = true;
+        CubismLookFlag = true; //目線追従する。
+
+        //タップモーション
+        live2d_animator.Play("tapmotion_03_1", motion_layer_num, 0.0f);
+
+    }
+
+    public void TouchSisterRibbon()
+    {
+        //コメントランダム
+        //random = Random.Range(0, _touchface_comment_lib.Count);
+        //_touchface_comment = _touchface_comment_lib[random];
+
+        hukidashiitem.GetComponent<TextController>().SetText("お母さんが誕生日にくれたリボンだよ～。うひひ。");
+
+        //タップモーション
+        live2d_animator.Play("tapmotion_03_1", motion_layer_num, 0.0f);
+
+    }
+
+    //手
+    public void TouchHand_Start()
+    {
+        touch_startreset();
+
+        Girl1_touchchest_start = true;
+        CubismLookFlag = true; //目線追従する。
+
+        //タップモーション
+        live2d_animator.Play("tapmotion_03_1", motion_layer_num, 0.0f);
+    }
+
+    public void TouchSisterHand()
+    {
+
+        //吹き出し内容の決定
+        Init_touchHandComment();
+
+        random = Random.Range(0, _touchhand_comment_lib.Count);
+        _touchhand_comment = _touchhand_comment_lib[random];
+
+        hukidashiitem.GetComponent<TextController>().SetText(_touchhand_comment);
+    }
+
+    //胸
+    public void TouchChest_Start()
+    {
+        touch_startreset();
+
+        Girl1_touchchest_start = true;
+        CubismLookFlag = true; //目線追従する。
+
+        //タップモーション　最初触った一回だけ発動        
+        live2d_animator.Play("tapmotion_02", motion_layer_num, 0.0f);
+
+    }
+
+    public void TouchSisterChest()
+    {
+        //吹き出し内容の決定
+        Init_touchChestComment();
+
+        random = Random.Range(0, _touchchest_comment_lib.Count);
+        _touchchest_comment = _touchchest_comment_lib[random];
+
+        hukidashiitem.GetComponent<TextController>().SetText(_touchchest_comment);
+
+    }
+
+    //花
+    public void TouchFlower()
+    {
+        touch_startreset();
+
+        hukidashiitem.GetComponent<TextController>().SetText("お兄ちゃん。それは花だよ。しおれてたら、お水をあげてね。");
+    }
+
+
+    //タップモーション　ランダムで決定
+    void Random_TapMotion()
+    {
+
+        random = Random.Range(0, 3);
+
+        switch (random)
+        {
+            case 0:
+
+                live2d_animator.Play("tapmotion_03_1", motion_layer_num, 0.0f);
+                hukidashiitem.GetComponent<TextController>().SetText("うわっ！");
+                break;
+
+            case 1:
+
+                live2d_animator.Play("tapmotion_03_2", motion_layer_num, 0.0f);
+                hukidashiitem.GetComponent<TextController>().SetText("あいたっ！");
+                break;
+
+            case 2:
+
+                live2d_animator.Play("tapmotion_03_3", motion_layer_num, 0.0f);
+                hukidashiitem.GetComponent<TextController>().SetText("いてぃっ！");
+                break;
+        }
+    }
+
+    void touch_startreset() //触り始め共通でリセットする項目。
+    {
+
+        if (hukidashiitem == null)
+        {
+            hukidasiInit(Default_hukidashi_hyoujitime);
+        }
+        /*
+        weightTween.Kill(); //フェードアウト中なら中断する
+        tween_start = false;*/
+    }
+
+    
 
     void Init_touchHeadComment()
     {

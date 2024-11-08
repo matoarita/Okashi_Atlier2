@@ -3219,6 +3219,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Hiroba_num", GameMgr.hiroba_event_ID);
         engine.Param.TrySetParameter("Hiroba_endflag_Num", 0); //0で初期化
         engine.Param.TrySetParameter("Player_Money", PlayerStatus.player_money);
+        engine.Param.TrySetParameter("GondraCost", GameMgr.System_gondra_cost);
         engine.Param.TrySetParameter("Hiroba_rotenflag_Num", roten_flag_num);
         engine.Param.TrySetParameter("Talk_num", 0); //ランダム会話などでの、会話番号指定
         engine.Param.TrySetParameter("EndOrPause_Num", 0); //ポーズOrエンドどちらかを判定する番号　基本0=エンドでリセットしておく。
@@ -3470,7 +3471,7 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる フリーパスを購入した
 
                         GameMgr.Utage_MapMoveON = true;
-                        moneyStatus_Controller.UseMoney(5000);
+                        moneyStatus_Controller.UseMoney(GameMgr.System_gondra_cost);
                         pitemlist.addPlayerItemString("gondra_freepassport", 1); //ゴンドラパスポートゲット
                         break;
 

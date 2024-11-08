@@ -144,10 +144,12 @@ public class TempatureControlPanel : MonoBehaviour {
                 if (GameMgr.System_tempature_control_Param_time != 0) //時間を0分にしたときは、無視
                 {
                     GameMgr.tempature_control_ON = true;
+                    Debug.Log("温度管理をON");
                 }
                 else
                 {
                     GameMgr.tempature_control_ON = false;
+                    Debug.Log("温度管理をOFF");
                 }
 
                 this.transform.Find("Comp/Yes_no_Panel_temp").gameObject.SetActive(false); //yes noボタンだけオフ
@@ -156,6 +158,7 @@ public class TempatureControlPanel : MonoBehaviour {
             case false:
 
                 Debug.Log("温度管理画面をcancel");
+                Debug.Log("温度管理をOFF");
 
                 GameMgr.tempature_control_ON = false;
                 GameMgr.compound_status = 100;

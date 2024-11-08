@@ -287,7 +287,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
                 SettingBGPanel("Map204"); //Map〇〇のリスト番号を指定
                 break;
 
-            case 205: //秋エリア　裏通り
+            case 205: //秋エリア　裏通り　コンサートホール前
 
                 GameMgr.Scene_Name = "Or_Hiroba_Autumn_UraStreet";
                 SettingBGPanel("Map205"); //Map〇〇のリスト番号を指定

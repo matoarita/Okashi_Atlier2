@@ -1055,7 +1055,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     //解除
 
                     //顔アイコンも切り替え
-                    msg_window.Setting_WindowIcon(2); //上機嫌
+                    msg_window.Setting_WindowIcon(7); //よろこび
 
                     itemselect_cancel.kettei_on_waiting = false;
 
@@ -1716,7 +1716,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //妹の体力がないと、先へ進めない。井戸や近くの森は、ハートがなくても採れる。
         if (PlayerStatus.player_girl_lifepoint < 3)　//PlayerStatus.player_girl_lifepoint
         {
-            _text.text = "にいちゃん。やっぱりこわいよう..。" + "\n" + "（体力が足りないようだ。）";
+            if (GameMgr.outgirl_Nowprogress)
+            {
+                _text.text = "体がくたくただ。探索はやめとこう..。";
+            }
+            else
+            {
+                //顔アイコンも切り替え
+                msg_window.Setting_WindowIcon(43); //痛い顔
+                _text.text = "にいちゃん。やっぱりこわいよう..。" + "\n" + "（体力が足りないようだ。）";
+            }
         }
         else
         {

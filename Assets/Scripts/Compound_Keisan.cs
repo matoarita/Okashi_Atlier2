@@ -2186,28 +2186,27 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //⑧温度管理による、食感の補正
         //スキル温度管理を使ったとき、温度と時間によって仕上がりがさらに変わる。
-        if (GameMgr.System_HikariMakeUse_Flag)
+
+        //ヒカリ制作の場合　事前に設定した温度で焼き具合を決めてくれる
+        if (mstatus == 2)
         {
-            //ヒカリ制作の場合　事前に設定した温度で焼き具合を決めてくれる
-            if (mstatus == 2)
+            _best_well_done = _base_bestwelldone; //200°で10分ほど焼いたときの焼き具合 60分焼けるけど、クッキーの場合30分以上は基本焦げる
+
+            if (GameMgr.hikari_tempature_control_ON)
             {
-                _best_well_done = _base_bestwelldone; //200°で10分ほど焼いたときの焼き具合 60分焼けるけど、クッキーの場合30分以上は基本焦げる
+                Debug.Log("--- ヒカリ温度管理ON --- ");
 
-                if (GameMgr.hikari_tempature_control_ON)
-                {
-                    Debug.Log("--- ヒカリ温度管理ON --- ");
+                _well_done_kyori_hosei = bufpower_keisan.TempatureControlKeisan(_best_well_done, GameMgr.hikari_tempature_param_temp, GameMgr.hikari_tempature_param_time);
 
-                    _well_done_kyori_hosei = bufpower_keisan.TempatureControlKeisan(_best_well_done, GameMgr.hikari_tempature_param_temp, GameMgr.hikari_tempature_param_time);
-
-                    //食感に補正値をかける。
-                    _basecrispy = (int)(_basecrispy * _well_done_kyori_hosei);
-                    _basefluffy = (int)(_basefluffy * _well_done_kyori_hosei);
-                    //_basesmooth = (int)(_basesmooth * kyori_hosei);
-                    _basehardness = (int)(_basehardness * _well_done_kyori_hosei);
-                    //_basejiggly = (int)(_basejiggly * kyori_hosei);
-                    //_basechewy = (int)(_basechewy * kyori_hosei);
-                }
+                //食感に補正値をかける。
+                _basecrispy = (int)(_basecrispy * _well_done_kyori_hosei);
+                _basefluffy = (int)(_basefluffy * _well_done_kyori_hosei);
+                //_basesmooth = (int)(_basesmooth * kyori_hosei);
+                _basehardness = (int)(_basehardness * _well_done_kyori_hosei);
+                //_basejiggly = (int)(_basejiggly * kyori_hosei);
+                //_basechewy = (int)(_basechewy * kyori_hosei);
             }
+
         }
         else
         {
@@ -2220,7 +2219,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     Debug.Log("--- 温度管理ON --- ");
 
-                    _well_done_kyori_hosei = bufpower_keisan.TempatureControlKeisan(_best_well_done, GameMgr.System_tempature_control_Param_temp , GameMgr.System_tempature_control_Param_time);
+                    _well_done_kyori_hosei = bufpower_keisan.TempatureControlKeisan(_best_well_done, GameMgr.System_tempature_control_Param_temp, GameMgr.System_tempature_control_Param_time);
 
                     //食感に補正値をかける。
                     _basecrispy = (int)(_basecrispy * _well_done_kyori_hosei);

@@ -2915,30 +2915,33 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
             GameMgr.RandomEatOkashi_counter++;
 
-            if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
+            if (GameMgr.NowEatOkashiID != 9999)
             {
-                Debug.Log("食べたいお菓子をあげた　ハート*1.3倍");
-
-                GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
-                GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
-
-                Getlove_exp = (int)(Getlove_exp * 1.3f);
-                PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
-
-                if (PlayerStatus.player_girl_eatCount_tabetai >= 999)
+                if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
-                    PlayerStatus.player_girl_eatCount_tabetai = 999; //999でカンスト
+                    Debug.Log("食べたいお菓子をあげた　ハート*1.3倍");
+
+                    GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
+                    GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
+
+                    Getlove_exp = (int)(Getlove_exp * 1.3f);
+                    PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
+
+                    if (PlayerStatus.player_girl_eatCount_tabetai >= 999)
+                    {
+                        PlayerStatus.player_girl_eatCount_tabetai = 999; //999でカンスト
+                    }
+
+                    //体力も上がる。
+                    //PlayerStatus.player_girl_maxlifepoint += 1;
+
+                    //機嫌もよくなる。
+                    girl1_status.GirlExpressionKoushin(20);
+
+                    //次で食べたいお菓子が強制的に変わる。
+                    GameMgr.RandomEatOkashi_counter = 0;
+                    girl1_status.RandomOkashiDecideMethod();
                 }
-
-                //体力も上がる。
-                //PlayerStatus.player_girl_maxlifepoint += 1;
-
-                //機嫌もよくなる。
-                girl1_status.GirlExpressionKoushin(20);
-
-                //次で食べたいお菓子が強制的に変わる。
-                GameMgr.RandomEatOkashi_counter = 0;
-                girl1_status.RandomOkashiDecideMethod();
             }
 
 

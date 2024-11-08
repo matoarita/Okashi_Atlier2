@@ -325,7 +325,7 @@ public class GetMaterial : MonoBehaviour
             else
             {
                 //顔アイコンも切り替え
-                msg_window.Setting_WindowIcon(11); //痛い顔
+                msg_window.Setting_WindowIcon(43); //痛い顔
                 _text.text = "にいちゃん。足が痛くてもう動けないよ～・・。" + "\n" + "（これ以上は、動けないようだ。）";
             }
         }
@@ -805,6 +805,8 @@ public class GetMaterial : MonoBehaviour
 
         if (_tansaku_result_temp.Count == 0)
         {
+            //顔アイコンも切り替え
+            msg_window.Setting_WindowIcon(38); //棒目でなき～
             _text.text = "特に何も見つからなかった。";
             //音を鳴らす
             sc.PlaySe(6);
@@ -2734,6 +2736,8 @@ public class GetMaterial : MonoBehaviour
 
     void treasure_no()
     {
+        //顔アイコンも切り替え
+        msg_window.Setting_WindowIcon(38); //棒目でなき～
         _text.text = "とくに何もみつからなかった。";
     }
 

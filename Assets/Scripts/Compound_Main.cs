@@ -627,10 +627,10 @@ public class Compound_Main : MonoBehaviour
         //Hikari_CompMainの「BGPanelMatome」とそれ以下は、削除しても大丈夫なオブジェクト。デバッグ用に一応残しているだけ。
 
 
-        bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel").gameObject;
-        BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel").gameObject;
+        bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel/BGOutimg_sc01").gameObject;
+        BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel/BGimg_sc02").gameObject;
         BGImageTemaePanel = GameObject.FindWithTag("BGImageTemaePanel");
-        BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect").gameObject;
+        BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect/effect_sc01").gameObject;
         bg_accessory_panel = bgpanelmatome.transform.Find("BGAccessory").gameObject;
 
         //飾りアイテムのセット        
@@ -639,7 +639,7 @@ public class Compound_Main : MonoBehaviour
         
 
         bg_weather_image.Clear();
-        foreach (Transform child in bgweather_image_panel.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        foreach (Transform child in bgweather_image_panel.transform) //
         {
             bg_weather_image.Add(child.gameObject);
         }
@@ -656,13 +656,13 @@ public class Compound_Main : MonoBehaviour
             bgeffect_obj.Add(child.gameObject);
         }
 
-        particleEm_Light1 = BG_effectpanel.transform.Find("BG_Particle_Light").GetComponent<ParticleSystem>().emission;
+        /*particleEm_Light1 = BG_effectpanel.transform.Find("BG_Particle_Light").GetComponent<ParticleSystem>().emission;
         particleEm_Light2 = BG_effectpanel.transform.Find("BG_Particle_Light_Ball").GetComponent<ParticleSystem>().emission;
         particleEm_Light3 = BG_effectpanel.transform.Find("BG_Particle_Light_Kira").GetComponent<ParticleSystem>().emission;
         particleEm_Light4 = BG_effectpanel.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
         particleEm_Light5 = BG_effectpanel.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
         particleEm_Light6 = BG_effectpanel.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
-        particleEm_Light7 = BG_effectpanel.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;
+        particleEm_Light7 = BG_effectpanel.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;*/
 
         //BGアクセサリー系のパーティクル
         particleEm_CandleLight1 = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
@@ -4284,6 +4284,7 @@ public class Compound_Main : MonoBehaviour
     {
         //BGM.csのほうが強い
 
+        /*
         map_ambience.Stop();
 
         if (GameMgr.Story_Mode == 0)
@@ -4319,13 +4320,23 @@ public class Compound_Main : MonoBehaviour
         else
         {
 
-        }
+        }*/
     }
 
     //ストーリー進行に応じて、背景の天気+エフェクトも変わる。Save_Controllerからも読まれる。
     public void Change_BGimage()
     {
-        if (GameMgr.Story_Mode == 0)
+        //天気モードONのときのみ　変更
+        if (GameMgr.WEATHER_TIMEMODE_ON)
+        {
+            DrawALLOFFBG();
+            RealTimeBGSetInit();
+
+            //時間をチェックし、背景を自動で変更。
+            Weather_ChangeNow(0.0f);
+        }
+
+        /*if (GameMgr.Story_Mode == 0)
         {
             if (GameMgr.GirlLoveEvent_num >= 0) //デフォルト　雨
             {
@@ -4411,11 +4422,49 @@ public class Compound_Main : MonoBehaviour
 
             //時間をチェックし、背景を自動で変更。
             Weather_ChangeNow(0.0f);
+        }*/
+    }
+
+    public void Weather_Change(float _changetime) //TimeControllerからも読み出し
+    {
+        //天気モードONのときのみ　変更
+        if (GameMgr.WEATHER_TIMEMODE_ON)
+        {
+            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
+            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
+
+            if (GameMgr.BG_cullent_weather != 2) //朝起きたては、強制的にCompound_MainのOnMorningBG()で変更するので、朝の判定のみ削除。お昼～夜まではチェック。
+            {
+                if (GameMgr.BG_cullent_weather != GameMgr.BG_before_weather)
+                {
+                    GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
+
+                    //天気アニメ変更をトリガー
+                    BG_RealtimeChange(_changetime); //背景更新
+                    Debug.Log("天気を変更　秒数: " + _changetime);
+                }
+            }
         }
     }
 
-    //TimeControllerから読む。天気の表示処理。背景をリアルタイムに変更する処理。
-    public void BG_RealtimeChange(float _changetime)
+    //現在時刻に合わせて、即背景を変更。前時間と現在時間の比較計算をしない。ロード直後はこっちを使用。（うまくbeforeとcullentの値の切り替えが出来なかったため。）
+    public void Weather_ChangeNow(float _changetime)
+    {
+        //天気モードONのときのみ　変更
+        if (GameMgr.WEATHER_TIMEMODE_ON)
+        {
+            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
+            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
+            GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
+
+            //天気アニメ変更をトリガー
+            BG_RealtimeChange(_changetime); //背景更新
+            Debug.Log("天気を変更　秒数: " + _changetime);
+        }
+    }
+
+    //天気の表示処理。背景をリアルタイムに変更する処理。
+    void BG_RealtimeChange(float _changetime)
     {
         DOTween.Kill(t1);
         DOTween.Kill(t2);
@@ -4447,13 +4496,13 @@ public class Compound_Main : MonoBehaviour
                 t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
                 t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
-                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);*/
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -4470,13 +4519,13 @@ public class Compound_Main : MonoBehaviour
                 t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
                 t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
-                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);*/
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -4495,13 +4544,13 @@ public class Compound_Main : MonoBehaviour
                 t5 = BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
                 t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
-                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(5);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(1);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);*/
 
                 //BGアクセサリー系
                 particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -4522,13 +4571,13 @@ public class Compound_Main : MonoBehaviour
                 t7 = BG_Imagepanel.transform.Find("BG_sprite_evening").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
                 color_set = new Color(77f / 255f, 79f / 255f, 98f / 255f);
                 t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
-                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(200);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(1);*/
 
                 //BGアクセサリー系
                 particleEm_CandleLight1_obj.SetActive(true);
@@ -4542,43 +4591,7 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-    public void Weather_Change(float _changetime) //TimeControllerからも読み出し
-    {
-        //フリーモードのときのみ　変更
-        if (GameMgr.Story_Mode == 1)
-        {
-            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
-            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
-
-            if (GameMgr.BG_cullent_weather != 2) //朝起きたては、強制的にCompound_MainのOnMorningBG()で変更するので、朝の判定のみ削除。お昼～夜まではチェック。
-            {
-                if (GameMgr.BG_cullent_weather != GameMgr.BG_before_weather)
-                {
-                    GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
-
-                    //天気アニメ変更をトリガー
-                    BG_RealtimeChange(_changetime); //背景更新
-                    Debug.Log("天気を変更　秒数: " + _changetime);
-                }
-            }
-        }
-    }
-
-    //現在時刻に合わせて、即背景を変更。前時間と現在時間の比較計算をしない。ロード直後はこっちを使用。（うまくbeforeとcullentの値の切り替えが出来なかったため。）
-    public void Weather_ChangeNow(float _changetime)
-    {
-        //フリーモードのときのみ　変更
-        if (GameMgr.Story_Mode == 1)
-        {
-            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
-            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
-            GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
-
-            //天気アニメ変更をトリガー
-            BG_RealtimeChange(_changetime); //背景更新
-            Debug.Log("天気を変更　秒数: " + _changetime);
-        }
-    }
+    
     
     void ManpukuKoushin()
     {
@@ -4652,10 +4665,10 @@ public class Compound_Main : MonoBehaviour
             bgwall_sprite[i].SetActive(false);
             bgwall_sprite[i].GetComponent<SpriteRenderer>().DOFade(1, 0.0f);
         }
-        for (i = 0; i < bgeffect_obj.Count; i++)
+        /*for (i = 0; i < bgeffect_obj.Count; i++)
         {
             bgeffect_obj[i].SetActive(false);
-        }
+        }*/
         
     }
 
@@ -4676,13 +4689,13 @@ public class Compound_Main : MonoBehaviour
         color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
         t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, 0.0f);
 
-        particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+        /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
         particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
         particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
         particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-        particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+        particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);*/
 
         //BGアクセサリー系
         particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -4697,8 +4710,10 @@ public class Compound_Main : MonoBehaviour
     //即座に朝背景に変更。Utageの寝るイベントから呼び出し
     public void OnMorningBG()
     {
-        RealTimeBGSetInit();
-
+        if (GameMgr.WEATHER_TIMEMODE_ON)
+        {
+            RealTimeBGSetInit();
+        }
     }
 
     public void HeartGuageTextKoushin()
@@ -4809,7 +4824,18 @@ public class Compound_Main : MonoBehaviour
                     
                     break;
 
-                case 9:
+                case 10:
+
+                    
+                    _todayfood_lib.Add("黄金じゃがバター焼き");
+                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
+                    _todayfood_lib.Add("エビグラタン");
+                    _todayfoodexpence_lib.Add((int)(220f * _todayfood_buf));
+                    _todayfood_lib.Add("マッシュルームパスタ");
+                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
+                    break;
+
+                case 15:
 
                     _todayfood_lib.Add("あったかじゃがいもポタージュ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
@@ -4818,19 +4844,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("じゃがいもりだくさんのペスカトーレ");
                     _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
                     _todayfood_lib.Add("うまうまステーキ");
-                    _todayfoodexpence_lib.Add((int)(450f * _todayfood_buf));
-                    break;
-
-                case 13:
-
-                    _todayfood_lib.Add("黄金じゃがバター焼き");
-                    _todayfoodexpence_lib.Add((int)(200f * _todayfood_buf));
-                    _todayfood_lib.Add("エビグラタン");
-                    _todayfoodexpence_lib.Add((int)(220f * _todayfood_buf));
-                    _todayfood_lib.Add("マッシュルームパスタ");
-                    _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
-                    _todayfood_lib.Add("厚切りアルプス牛ロースステーキ");
-                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(350f * _todayfood_buf));
                     break;
 
                 case 18:
@@ -4842,7 +4856,7 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("たこペペロンチーノ");
                     _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("巨大イカの逆襲パスタ・オリーブ仕上げ");
-                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(400f * _todayfood_buf));
                     _todayfood_lib.Add("ジャンボ・えびふら～い");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
@@ -4856,6 +4870,8 @@ public class Compound_Main : MonoBehaviour
                     _todayfood_lib.Add("巨大なエビ・ドリア");
                     _todayfoodexpence_lib.Add((int)(300f * _todayfood_buf));
                     _todayfood_lib.Add("なすとひき肉のチーズペンネ");
+                    _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
+                    _todayfood_lib.Add("厚切りアルプス牛ロースステーキ");
                     _todayfoodexpence_lib.Add((int)(500f * _todayfood_buf));
                     break;
 
@@ -4909,7 +4925,7 @@ public class Compound_Main : MonoBehaviour
                 case 90:
 
                     _todayfood_lib.Add("ロイヤルポテト焼き");
-                    _todayfoodexpence_lib.Add((int)(3000f * _todayfood_buf));
+                    _todayfoodexpence_lib.Add((int)(2000f * _todayfood_buf));
                     _todayfood_lib.Add("スタースパゲティ");
                     _todayfoodexpence_lib.Add((int)(3000f * _todayfood_buf));
                     _todayfood_lib.Add("ステーキ・シャトーブリアン");

@@ -35,7 +35,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool DEBUG_TasteSPScore_ON = false; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。
-    public static bool WEATHER_TIMEMODE_ON = false; //時間によって朝・昼・夜の背景を変更するかどうか。   
+    public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
 
     //各システムの使用の有無
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
@@ -103,6 +103,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //真実のハートのハート消費量
     public static int System_trueheart_cost = 5000;
+
+    //ゴンドラ乗り場の料金
+    public static int System_gondra_cost = 2000;
 
     //温度の最小・最大
     public static int System_tempature_control_tempMin = 150;

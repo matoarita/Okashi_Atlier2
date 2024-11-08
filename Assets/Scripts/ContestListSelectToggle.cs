@@ -220,8 +220,11 @@ public class ContestListSelectToggle : MonoBehaviour
 
         yes_no_panel.SetActive(true);
         yes.transform.Find("Text").GetComponent<Text>().text = "決定";
+        no.transform.Find("Text").GetComponent<Text>().text = "キャンセル";
         yes.SetActive(true);
         no.SetActive(true);
+        
+        
 
         _text.text = _nameHyouji + "ですね？";
 
@@ -448,13 +451,21 @@ public class ContestListSelectToggle : MonoBehaviour
 
         _id = toggle_ID;
 
+        contest_listController._ID = _id;
+        _list = conteststartList_database.SearchContestID(_id);
+
+        GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
+        GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
+
         yes_no_panel.SetActive(true);
+        yes.transform.Find("Text").GetComponent<Text>().text = "キャンセル";
+        no.transform.Find("Text").GetComponent<Text>().text = "やめる";
         yes.SetActive(true);
         no.SetActive(true);
 
         _list = conteststartList_database.SearchContestID(_id);
         _nameHyouji = conteststartList_database.conteststart_lists[_list].ContestNameHyouji;
-        _text.text = _nameHyouji + "の出場をキャンセルしますか？" + "\n" + "※出場費用は、半分返ってきます。";
+        _text.text = _nameHyouji + "の出場をキャンセルしますか？" + "　" + "※出場費用は、半分返ってきます。";
 
         //さらにコンテスト詳細のパネルを表示する。
         contest_detailedPanel.SetActive(true);
