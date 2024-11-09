@@ -2812,7 +2812,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     void GoAreaMove(string _scenename) //マップ移動　移動に10分かかる
     {
         //日数の経過。場所ごとに、移動までの日数が変わる。
-        time_controller.SetMinuteToHour(10);
+        time_controller.SetMinuteToHour(GameMgr.System_HirobaMove_Time, 1);
         time_controller.TimeKoushin(0, false);
         FadeManager.Instance.LoadScene(_scenename, GameMgr.SceneFadeTime);
     }

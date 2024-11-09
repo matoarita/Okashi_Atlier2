@@ -328,7 +328,7 @@ public class Contest_Main_Reception : MonoBehaviour
         {
             GameMgr.SceneMoveAfter_Koushin = false;
 
-            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam);
+            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1);
             time_controller.TimeKoushin(0, false);
         }
 

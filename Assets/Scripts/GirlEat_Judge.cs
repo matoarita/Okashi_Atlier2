@@ -2821,28 +2821,28 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {
                         Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.15f));
                         GetMoney += (int)(_basecost * 2.0f);
-                        GetMoney *= (int)(total_score * 0.01f);
+                        //GetMoney *= (int)(total_score * 0.01f);
                         girl1_status.GirlExpressionKoushin(40);
                     }
                     else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
                     {
                         Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.2f));
                         GetMoney += (int)(_basecost * 2.2f);
-                        GetMoney *= (int)(total_score * 0.01f);
+                        //GetMoney *= (int)(total_score * 0.01f);
                         girl1_status.GirlExpressionKoushin(50);
                     }
                     else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
                     {
                         Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.3f));
                         GetMoney += (int)(_basecost * 2.5f);
-                        GetMoney *= (int)(total_score * 0.01f);
+                        //GetMoney *= (int)(total_score * 0.01f);
                         girl1_status.GirlExpressionKoushin(70);
                     }
                     else if (total_score >= 500) //500点を超えた場合、ベース×5
                     {
                         Getlove_exp += (int)((total_score * 0.11f) * (_basegirl1_like * 1.5f));
                         GetMoney += (int)(_basecost * 2.0f);
-                        GetMoney *= (int)(total_score * 0.01f);
+                        GetMoney *= (int)(total_score * 0.005f); //最低でも2.5倍～
                         girl1_status.GirlExpressionKoushin(100);
                     }
                 }
@@ -2973,7 +2973,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Getlove_exp = (int)(Getlove_exp * 1.2f);
             }
 
-            //お金関係　装備品による補正
+            //仕送りお金関係　装備品による補正
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
             GetMoney = (int)(GetMoney * _buf_moneyup / 2);
 

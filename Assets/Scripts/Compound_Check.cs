@@ -124,6 +124,7 @@ public class Compound_Check : MonoBehaviour {
 
     private string magicName;
     private int magicLearnLv;
+    private int magic_usecount;
     private int _magic_rate;
     private int _final_costtime;
     private int _playerhour;
@@ -1067,6 +1068,9 @@ public class Compound_Check : MonoBehaviour {
                         //MPを消費
                         PlayerStatus.player_mp -= costMP;
 
+                        //その魔法を使った回数をカウント
+                        magicskill_database.magicskill_lists[itemID_2].skill_usecount++;
+
                         //魔法によって、仕上げ回数も消費する。
                         if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
                         {
@@ -1290,6 +1294,7 @@ public class Compound_Check : MonoBehaviour {
             magicName = magicskill_database.magicskill_lists[tempID_2].skillName;
             magicLearnLv = magicskill_database.magicskill_lists[tempID_2].skillLv;
             costMP = magicskill_database.magicskill_lists[tempID_2].skillCost;
+            magic_usecount = magicskill_database.magicskill_lists[tempID_2].skill_usecount;
 
             //消費MPも表示
             _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
@@ -1463,13 +1468,27 @@ public class Compound_Check : MonoBehaviour {
         if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
         {
             _costTime = GameMgr.UseMagicSkill_TimeCost;
+
             //制作時間を早めるバフをかけるならココ。
-            _final_costtime = _costTime; //_costTimeは、後ろの処理で値が変動するので、_finalに総時間（分）を入れる。
+            _costTime = _costTime - bufpower_keisan.Buf_CompoTimeMagic_Keisan(GameMgr.UseMagicSkill);
+            if(_costTime <= 1)
+            {
+                _costTime = 1;
+            }
+
+            _final_costtime = _costTime; //_costTimeは、このあとの処理で値が変動するので、_finalに総時間（分）を入れる。
         }
         else
         { //通常の調合時間
             _costTime = databaseCompo.compoitems[GameMgr.Final_result_compID].cost_Time;
+
             //制作時間を早めるバフをかけるならココ。
+            _costTime = _costTime - bufpower_keisan.Buf_CompoTime_Keisan(resultitemID);
+            if (_costTime <= 1)
+            {
+                _costTime = 1;
+            }
+
             _final_costtime = _costTime;
         }
 
@@ -1951,28 +1970,7 @@ public class Compound_Check : MonoBehaviour {
         _magic_rate = 0;
         if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
         {
-            switch(magicName)
-            {
-                case "Freezing_Spell":
-
-                    _magic_rate = magicLearnLv * 3;
-                    break;
-
-                case "SugerPot":
-
-                    _magic_rate = magicLearnLv * 5;
-                    break;
-
-                case "Luminous_Suger":
-
-                    _magic_rate = magicLearnLv * 5;
-                    break;
-
-                case "Luminous_Fruits":
-
-                    _magic_rate = magicLearnLv * 5;
-                    break;
-            }
+            _magic_rate = bufpower_keisan.Buf_CompKakuritsuMagic_Keisan(magicName);
 
             _rate += _magic_rate;
         }

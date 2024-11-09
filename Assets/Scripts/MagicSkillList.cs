@@ -28,6 +28,9 @@ public class MagicSkillList
 
     public Sprite skillIcon_sprite;
 
+    //excelには記載してない
+    public int skill_usecount; //その魔法の使用回数　使えば使うほど、成功率があがるなど
+
     //ここでリスト化時に渡す引数をあてがいます   
     public MagicSkillList(int id, int koyuid, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
         int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, int skill_type, int skill_category, int successRate, int costTime, string skill_comment_full,
@@ -58,6 +61,9 @@ public class MagicSkillList
         cost_time = costTime;
 
         skillIcon_sprite = Resources.Load<Sprite>("Sprites/Skill_Icon/" + fileName);
+
+        //Excel記載してない
+        skill_usecount = 0;
     }
 
 }

@@ -1772,7 +1772,7 @@ public class Utage_scenario : MonoBehaviour
 
         //家賃額設定
         engine.Param.TrySetParameter("YachinCost", GameMgr.System_Yachin_Cost02);
-        
+        engine.Param.TrySetParameter("YachinDay", GameMgr.System_Yachin_Day);
 
         //コンテスト時は、締め切り日も設定
         if (GameMgr.GirlLoveEvent_num == 50)
@@ -5916,22 +5916,23 @@ public class Utage_scenario : MonoBehaviour
 
                 _evnum = 103;
                 _mgbooknum = 3;
-                mirabo_clearscore = 250; //クリア点
+                mirabo_clearscore = 230; //クリア点
                 break;
 
             case 4:
 
                 _evnum = 104;
                 _mgbooknum = 4;
-                mirabo_clearscore = 320; //クリア点
+                mirabo_clearscore = 300; //クリア点
                 break;
 
-            /*case 5:
+            case 5:
 
                 _evnum = 105;
                 _mgbooknum = 5;
                 mirabo_clearscore = 400; //クリア点
-                break;*/
+                break;
+
         }
     }
 

@@ -1625,7 +1625,6 @@ public class Quest_Judge : MonoBehaviour {
 
     int basemoney_keisan()
     {
-        //Debug.Log("_slotmoney: " + _slotmoney);
         return _buy_price * _kosu_default + _slotmoney;
     }
     

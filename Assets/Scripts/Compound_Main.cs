@@ -158,6 +158,7 @@ public class Compound_Main : MonoBehaviour
     private PlayerDefaultStartItemGet playerDefaultStart_ItemGet;
 
     private GameObject bgpanelmatome;
+    private GameObject bgpanelmatome_debug;
     private Touch_Controll_Item bg_touch_controll;
     private GameObject BG_Imagepanel;
     private GameObject BGImageTemaePanel;
@@ -621,22 +622,40 @@ public class Compound_Main : MonoBehaviour
 
 
         //背景天気オブジェクトの取得
-        bgpanelmatome = GameObject.FindWithTag("BG");
-        bg_touch_controll = bgpanelmatome.transform.Find("BGAccessory").GetComponent<Touch_Controll_Item>();
-        //★注意　タグ「BG」が、Compoundのメインシーンと、Hikari_CompMainで被っているので、Hikari_CompMainでチェックするとき以外は、Hikari_CompMainの「BGPanelMatome」はオフにする。
-        //Hikari_CompMainの「BGPanelMatome」とそれ以下は、削除しても大丈夫なオブジェクト。デバッグ用に一応残しているだけ。
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Hikari_CompMain": //こっちはデバッグ用
 
+                bgpanelmatome_debug = GameObject.FindWithTag("BG_Debug");
+                bg_touch_controll = bgpanelmatome_debug.transform.Find("BGAccessory").GetComponent<Touch_Controll_Item>();
 
-        bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel/BGOutimg_sc01").gameObject;
-        BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel/BGimg_sc02").gameObject;
-        BGImageTemaePanel = GameObject.FindWithTag("BGImageTemaePanel");
-        BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect/effect_sc01").gameObject;
-        bg_accessory_panel = bgpanelmatome.transform.Find("BGAccessory").gameObject;
+                bgweather_image_panel = bgpanelmatome_debug.transform.Find("BGImageWindowOutPanel/BGOutimg_sc01").gameObject;
+                BG_Imagepanel = bgpanelmatome_debug.transform.Find("BGImagePanel/BGimg_sc02").gameObject;
+                BGImageTemaePanel = GameObject.FindWithTag("BGImageTemaePanel");
+                BG_effectpanel = bgpanelmatome_debug.transform.Find("BG_Effect/effect_sc01").gameObject;
+                bg_accessory_panel = bgpanelmatome_debug.transform.Find("BGAccessory").gameObject;
+                break;
+
+            default:
+
+                bgpanelmatome_debug = GameObject.FindWithTag("BG_Debug");
+                bgpanelmatome_debug.SetActive(false);
+
+                bgpanelmatome = GameObject.FindWithTag("BG");
+                bg_touch_controll = bgpanelmatome.transform.Find("BGAccessory").GetComponent<Touch_Controll_Item>();
+
+                bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel/BGOutimg_sc01").gameObject;
+                BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel/BGimg_sc02").gameObject;
+                BGImageTemaePanel = GameObject.FindWithTag("BGImageTemaePanel");
+                BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect/effect_sc01").gameObject;
+                bg_accessory_panel = bgpanelmatome.transform.Find("BGAccessory").gameObject;                
+                break;
+        }
 
         //飾りアイテムのセット        
         BGAccetrigger = bg_accessory_panel.GetComponent<BGAcceTrigger>();
         BGAccetrigger.DrawBGAcce();
-        
+
 
         bg_weather_image.Clear();
         foreach (Transform child in bgweather_image_panel.transform) //
@@ -670,6 +689,7 @@ public class Compound_Main : MonoBehaviour
 
         particleEm_CandleLight1_obj = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").gameObject;
         particleEm_MiniHouseLight1_obj = bg_accessory_panel.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").gameObject;
+
 
         //飾りアイテムはオランジーナではひとまず使わない
         switch (GameMgr.Scene_Name)
@@ -3038,6 +3058,10 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
                 break;
 
+            case "mg_fire_flowers_book":
+                magicskill_database.skillHyoujiKaikin("Fire_Flowers");
+                break;
+                
             case "mg_bake_beans_book":
                 magicskill_database.skillHyoujiKaikin("Bake_Beans");
                 break;

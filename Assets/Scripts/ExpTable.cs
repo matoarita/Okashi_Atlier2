@@ -208,29 +208,43 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
 
     //ジョブレベルのチェック　ジョブがあがったらジョブポイントがたまる
-    public void SkillCheckPatissierLV()
-    {
-        //ハートレベルに連動してレベル上がるパターン
-        if (PlayerStatus.girl1_Love_maxlv > PlayerStatus.player_patissier_lv)
+    void SkillCheckPatissierLV()
+    {       
+        if (PlayerStatus.player_patissier_lv < GameMgr.System_patissier_maxlv) //パティシエLV上限よりも下の場合のみ
         {
-            _dev = PlayerStatus.girl1_Love_maxlv - PlayerStatus.player_patissier_lv;           
-            PlayerStatus.player_patissier_job_pt += _dev;
-            PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
-        } else //例外処理
-        {
-            PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv;
+            //ハートレベルに連動してレベル上がるパターン
+            if (PlayerStatus.girl1_Love_maxlv > PlayerStatus.player_patissier_lv)
+            {
+                if (PlayerStatus.girl1_Love_maxlv >= GameMgr.System_patissier_maxlv) //マックスレベルと同じか超えそうになった場合
+                {
+                    _dev = GameMgr.System_patissier_maxlv - PlayerStatus.player_patissier_lv;
+                    PlayerStatus.player_patissier_job_pt += _dev;
+                    PlayerStatus.player_patissier_lv = GameMgr.System_patissier_maxlv;
+                }
+                else
+                {
+                    _dev = PlayerStatus.girl1_Love_maxlv - PlayerStatus.player_patissier_lv;
+                    PlayerStatus.player_patissier_job_pt += _dev;
+                    PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
+
+                }
+            }
+            else //例外処理
+            {
+                PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv;
+            }
+
+            //ジョブ経験値に合わせてレベル上がるパターン
+            /*
+            before_lv = PlayerStatus.player_patissier_lv;
+            JobLVKoushin();
+
+            if(PlayerStatus.player_patissier_lv > before_lv)
+            {
+                _dev = PlayerStatus.player_patissier_lv - before_lv;
+                PlayerStatus.player_patissier_job_pt += _dev;            
+            }*/
         }
-
-        //ジョブ経験値に合わせてレベル上がるパターン
-        /*
-        before_lv = PlayerStatus.player_patissier_lv;
-        JobLVKoushin();
-
-        if(PlayerStatus.player_patissier_lv > before_lv)
-        {
-            _dev = PlayerStatus.player_patissier_lv - before_lv;
-            PlayerStatus.player_patissier_job_pt += _dev;            
-        }*/
     }
 
     

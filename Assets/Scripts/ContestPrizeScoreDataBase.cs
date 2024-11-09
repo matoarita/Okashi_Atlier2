@@ -543,7 +543,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("mg_windarc_book");
+        GameMgr.PrizeItemList.Add("mg_fire_flowers_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();

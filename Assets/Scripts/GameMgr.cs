@@ -82,11 +82,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_StarBlockLv_03 = 90;
     public static int System_StarBlockLv_04 = 10; //城スター
 
-    public static int System_HeartLVevent_01 = 10; //ヒカリがお菓子作りを覚えるイベント発生
+    public static int System_HeartLVevent_01 = 9; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
     public static int System_Yachin_Cost02 = 3000; //〇日ごとバージョン
-    public static int System_Yachin_Day = 10; //〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
+    public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
 
@@ -97,7 +97,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_Emeraldongri_life = 1;
     public static int System_Sapphiredongri_life = 2;
 
-
     //重要アイテム名
     public static string System_TreasureItem01 = "ブルージェム";
 
@@ -105,7 +104,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_trueheart_cost = 5000;
 
     //ゴンドラ乗り場の料金
-    public static int System_gondra_cost = 2000;
+    public static int System_gondra_cost = 2000;    
 
     //温度の最小・最大
     public static int System_tempature_control_tempMin = 150;
@@ -114,6 +113,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //魔法の演出時間
     public static float System_magic_playtime_default = 2.0f;
     public static float System_magic_playtime_def01 = 3.0f;
+
+    //パティシエレベルの上限
+    public static int System_patissier_maxlv = 50;
 
     //セーブ個数
     public static int System_SaveSlot_Count = 14;
@@ -2064,6 +2066,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mirabo_present_list.Add("mg_controltempature_book");
         mirabo_present_list.Add("mg_freezespell_book");
         mirabo_present_list.Add("mg_caramelized_book");
+        mirabo_present_list.Add("mg_windarc_book");
         mirabo_present_list.Add("mg_rainbowrain_book");        
         mirabo_present_list.Add("mg_summon_mirabo_book");
     }

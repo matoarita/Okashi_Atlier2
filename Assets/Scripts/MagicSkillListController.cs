@@ -92,6 +92,7 @@ public class MagicSkillListController : MonoBehaviour
         {
             player_patissierjob_panel = this.transform.Find("PlayerJobPanel").gameObject;
             player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
+            player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
             player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
         }
 
@@ -501,6 +502,7 @@ public class MagicSkillListController : MonoBehaviour
         {
             player_patissierjob_panel = this.transform.Find("PlayerJobPanel").gameObject;
             player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
+            player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
             player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
         }
     }
@@ -965,6 +967,7 @@ public class MagicSkillListController : MonoBehaviour
     {
         PlayerStatus.player_patissier_job_pt = 99;
         player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
+        player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
         player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
         reset_and_DrawView(category_status);
     }

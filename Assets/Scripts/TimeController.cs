@@ -37,6 +37,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private int month, day;
     private int hour, minute, second;
     private int cullent_hour_clock;
+    private int _m_temp;
 
     private int limit_month, limit_day;
 
@@ -264,7 +265,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     {
 
                         timeLeft2 = 0.0f;
-                        SetMinuteToHour(5); //5分
+                        SetMinuteToHour(5, 0); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
                         TimeKoushin(0, true);
 
                         if (GameMgr.WEATHER_TIMEMODE_ON)
@@ -959,12 +960,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
        
     }
 
-    //他のスクリプトから寝るを選択
-    /*void OnSleepMethod()
-    {
-        GameMgr.sleep_status = 1;
-        compound_main.OnSleepReceive();
-    }*/
 
     public void DeadLine_Setting()
     {
@@ -1030,8 +1025,10 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
 
     //入力された分単位の時間を、時間と分にわけて、現在の時間に加算する。マイナスの場合、引き算する。
-    public void SetMinuteToHour(int _m)
+    public void SetMinuteToHour(int _m, int _hikarimake)
     {
+        _m_temp = _m;
+
         if (_m >= 0)
         {
             minute = 0;
@@ -1081,6 +1078,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //入力された分を、時間と分に直し加算する。
         PlayerStatus.player_cullent_hour += hour;
         PlayerStatus.player_cullent_minute += minute;
+
+        //ヒカリのお菓子の制作時間も計算する
+        if(_hikarimake != 0)
+        {
+            HikarimakeTimeCheck(_m_temp);
+        }
     }
 
     //入力された分単位の時間を、時間と分にわけて、現在の時間に加算し、予測時間をだす。実際の加算はしない。Returnは時間のみ。
@@ -1209,13 +1212,13 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     public void OnDebugTimeCountUpButton()
     {
-        SetMinuteToHour(30); //+30分
+        SetMinuteToHour(30, 1); //+30分
         TimeKoushin(0, false);
     }
 
     public void OnDebugTimeCountDownButton()
     {
-        SetMinuteToHour(-30); //-30分
+        SetMinuteToHour(-30, 1); //-30分
         TimeKoushin(0, false);
     }
 

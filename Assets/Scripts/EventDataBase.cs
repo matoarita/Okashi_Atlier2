@@ -411,6 +411,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
+    
+
     //SPお菓子とは別で、パティシエレベルor好感度が一定に達すると発生するサブイベント Compound_Mainから読み出す。
     public void GirlLove_SubEventMethod()
     {
@@ -717,36 +719,20 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //
                 //ハートレベル系のイベント
                 //
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartBlockLv_01 && GameMgr.GirlLoveSubEvent_stage1[300] == false) //秘密の花園へいこうよ
-                    {
-                        GameMgr.GirlLoveSubEvent_num = 300;
-                        GameMgr.GirlLoveSubEvent_stage1[300] = true;
+                HeartEvent_check(GameMgr.System_HeartBlockLv_01, 300, 1); //秘密の花園へいこうよ
+                HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1); //ヒカリお菓子作る
 
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                        GameMgr.Mute_on = true;
-                    }
-                }
-
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    //ヒカリがお菓子作り覚える LV12~
-                    if (PlayerStatus.girl1_Love_lv >= GameMgr.System_HeartLVevent_01 && GameMgr.GirlLoveSubEvent_stage1[301] == false) 
-                    {
-                        GameMgr.GirlLoveSubEvent_num = 301;
-                        GameMgr.GirlLoveSubEvent_stage1[301] = true;
-
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                        GameMgr.Mute_on = true;
-                    }
-                }
+                //LV3ごとに発生するイベント
+                HeartEvent_check(3, 350, 1);
+                HeartEvent_check(6, 351, 1);
+                //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
+                HeartEvent_check(12, 353, 1);
+                HeartEvent_check(15, 354, 1);
+                HeartEvent_check(18, 355, 1);
+                HeartEvent_check(21, 356, 1);
+                HeartEvent_check(24, 357, 1);
+                HeartEvent_check(27, 358, 1);
+                HeartEvent_check(30, 359, 1);
 
                 //Heartevent_Grt(); //１の頃のイベント
 
@@ -754,21 +740,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //
                 //スターで発生するイベント系
                 //
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    //スター10?で、お城へいけるように。手紙がくる。
-                    if (PlayerStatus.player_ninki_param >= GameMgr.System_StarBlockLv_04 && GameMgr.GirlLoveSubEvent_stage1[500] == false) 
-                    {
-                        GameMgr.GirlLoveSubEvent_num = 500;
-                        GameMgr.GirlLoveSubEvent_stage1[500] = true;
-
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                        GameMgr.Mute_on = true;
-                    }
-                }
+                StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
 
 
 
@@ -787,9 +759,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (GameMgr.GirlLoveSubEvent_stage1[80] == false)
                         {
-                            GameMgr.GirlLoveSubEvent_stage1[80] = true;
-                            GameMgr.GirlLoveSubEvent_num = 80;
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                            Event_startcheck(80, 0, false, false);
                         }
                     }
                 }
@@ -832,11 +802,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (PlayerStatus.player_girl_lifepoint <= 0)
                         {
                             GameMgr.Beginner_flag[4] = true;
-                            GameMgr.GirlLoveSubEvent_stage1[82] = true;
-                            GameMgr.GirlLoveSubEvent_num = 82;
-
-                            GameMgr.Mute_on = true;
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                            Event_startcheck(82, 1, false, false);
                         }
                     }
                 }
@@ -859,11 +825,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             if (PlayerStatus.player_money <= 1000)
                             {
                                 GameMgr.Beginner_flag[5] = true;
-                                GameMgr.GirlLoveSubEvent_stage1[83] = true;
-                                GameMgr.GirlLoveSubEvent_num = 83;
-
-                                GameMgr.Mute_on = true;
-                                GameMgr.check_GirlLoveSubEvent_flag = false;
+                                Event_startcheck(83, 1, false, false);
                             }
                         }
                     }
@@ -901,11 +863,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 pitemlist.player_extremepanel_itemlist[0].Powdery > GameMgr.Watery_Line)
                             {
                                 GameMgr.Beginner_flag[6] = true;
-                                GameMgr.GirlLoveSubEvent_stage1[85] = true;
-                                GameMgr.GirlLoveSubEvent_num = 85;
-
-                                GameMgr.Mute_on = true;
-                                GameMgr.check_GirlLoveSubEvent_flag = false;
+                                Event_startcheck(85, 1, false, false);
                             }
                             else
                             {
@@ -919,11 +877,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     if (pitemlist.player_extremepanel_itemlist[0].Watery > GameMgr.Watery_Line)
                                     {
                                         GameMgr.Beginner_flag[6] = true;
-                                        GameMgr.GirlLoveSubEvent_stage1[85] = true;
-                                        GameMgr.GirlLoveSubEvent_num = 85;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        Event_startcheck(85, 1, false, false);
                                     }
                                 }
                             }
@@ -951,16 +905,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[70])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 70;
-                                        GameMgr.GirlLoveSubEvent_stage1[70] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 70;
+                                        Event_startcheck(70, 1, true, true);
                                     }
                                     break;
 
@@ -968,16 +913,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[71])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 71;
-                                        GameMgr.GirlLoveSubEvent_stage1[71] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 71;
+                                        Event_startcheck(71, 1, true, true);
                                     }
                                     break;
 
@@ -985,16 +921,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[72])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 72;
-                                        GameMgr.GirlLoveSubEvent_stage1[72] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 72;
+                                        Event_startcheck(72, 1, true, true);
                                     }
                                     break;
 
@@ -1002,16 +929,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[73])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 73;
-                                        GameMgr.GirlLoveSubEvent_stage1[73] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 73;
+                                        Event_startcheck(73, 1, true, true);
                                     }
                                     break;
 
@@ -1019,16 +937,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[74])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 74;
-                                        GameMgr.GirlLoveSubEvent_stage1[74] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 74;
+                                        Event_startcheck(74, 1, true, true);
                                     }
                                     break;
 
@@ -1036,16 +945,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[75])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 75;
-                                        GameMgr.GirlLoveSubEvent_stage1[75] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 75;
+                                        Event_startcheck(75, 1, true, true);
                                     }
                                     break;
 
@@ -1053,16 +953,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[76])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 76;
-                                        GameMgr.GirlLoveSubEvent_stage1[76] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 76;
+                                        Event_startcheck(76, 1, true, true);
                                     }
                                     break;
 
@@ -1070,16 +961,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[77])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 77;
-                                        GameMgr.GirlLoveSubEvent_stage1[77] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 77;
+                                        Event_startcheck(77, 1, true, true);
                                     }
                                     break;
 
@@ -1087,16 +969,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[78])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 78;
-                                        GameMgr.GirlLoveSubEvent_stage1[78] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 78;
+                                        Event_startcheck(78, 1, true, true);
                                     }
                                     break;
 
@@ -1104,16 +977,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[79])
                                     {
-                                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                                        GameMgr.GirlLoveSubEvent_num = 79;
-                                        GameMgr.GirlLoveSubEvent_stage1[79] = true;
-
-                                        GameMgr.Mute_on = true;
-                                        GameMgr.check_GirlLoveSubEvent_flag = false;
-                                        GetEmeraldItem = true;
-
-                                        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                                        GameMgr.SubEvAfterHeartGet_num = 79;
+                                        Event_startcheck(79, 1, true, true);
                                     }
                                     break;
 
@@ -1141,15 +1005,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (pitemlist.KosuCount("kuma_nuigurumi") >= 1)
                         {
-                            //メイン画面にもどったときに、イベントを発生させるフラグをON
-                            GameMgr.GirlLoveSubEvent_num = 100;
-                            GameMgr.GirlLoveSubEvent_stage1[100] = true;
-
-                            GameMgr.Mute_on = true;
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                            GameMgr.SubEvAfterHeartGet_num = 100;
+                            Event_startcheck(100, 1, false, true);
                         }
                     }
                 }
@@ -1161,12 +1017,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 {
                     if (GameMgr.game_Recipi_archivement_rate >= 100.0f && GameMgr.GirlLoveSubEvent_stage1[101] == false) //4になったときのサブイベントを使う。
                     {
-                        GameMgr.GirlLoveSubEvent_num = 101;
-                        GameMgr.GirlLoveSubEvent_stage1[101] = true;
-
-                        GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                        GameMgr.Mute_on = true;
+                        Event_startcheck(101, 1, false, false);
 
                         ev_id = pitemlist.Find_eventitemdatabase("silver_neko_cookie_recipi");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //銀のねこクッキーのレシピを追加
@@ -1249,15 +1100,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             database.items[GameMgr.Okashi_makeID].itemName == "lumi_sapphire_suger" ||
                             database.items[GameMgr.Okashi_makeID].itemName == "lumi_pink_suger")
                         {
-                            //メイン画面にもどったときに、イベントを発生させるフラグをON
-                            GameMgr.GirlLoveSubEvent_num = 200;
-                            GameMgr.GirlLoveSubEvent_stage1[200] = true;
-
-                            //GameMgr.Mute_on = true;
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            //GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                            //GameMgr.SubEvAfterHeartGet_num = 100;
+                            Event_startcheck(200, 0, false, false);
                         }
                     }
 
@@ -1266,15 +1109,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "GlowFruits")
                         {
-                            //メイン画面にもどったときに、イベントを発生させるフラグをON
-                            GameMgr.GirlLoveSubEvent_num = 201;
-                            GameMgr.GirlLoveSubEvent_stage1[201] = true;
-
-                            //GameMgr.Mute_on = true;
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                            //GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                            //GameMgr.SubEvAfterHeartGet_num = 100;
+                            Event_startcheck(201, 0, false, false);
                         }
                     }
                 }
@@ -1466,7 +1301,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             }
 
 
-
             //フラグは必ずリセット           
             GameMgr.check_OkashiAfter_flag = false;
             GameMgr.check_GetMat_flag = false;
@@ -1624,6 +1458,80 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             }
             else //全てのイベントチェックし、発生しなかったら、このスクリプトでのイベントチェック完了
             { }
+        }
+    }
+
+    void HeartEvent_check(int _lv, int _evnum, int _bgm)
+    {
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (PlayerStatus.girl1_Love_lv >= _lv && GameMgr.GirlLoveSubEvent_stage1[_evnum] == false)
+            {
+                GameMgr.GirlLoveSubEvent_num = _evnum;
+                GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
+
+                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                if (_bgm == 1) //宴BGMに切り替え
+                {
+                    GameMgr.Mute_on = true;
+                }
+
+                switch(_evnum)
+                {
+                    case 350: //りんごのハンカチゲット
+
+                        pitemlist.addPlayerItemString("crepe_powerup4", 1);
+                        break;
+                }
+            }
+        }
+    }
+
+    void StarEvent_check(int _lv, int _evnum, int _bgm)
+    {
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            //スター10?で、お城へいけるように。手紙がくる。
+            if (PlayerStatus.player_ninki_param >= _lv && GameMgr.GirlLoveSubEvent_stage1[_evnum] == false)
+            {
+                GameMgr.GirlLoveSubEvent_num = _evnum;
+                GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
+
+                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                if (_bgm == 1) //宴BGMに切り替え
+                {
+                    GameMgr.Mute_on = true;
+                }
+            }
+        }
+    }
+
+    void Event_startcheck(int _evnum, int _bgm, bool _getemerald, bool _subheart)
+    {
+        //メイン画面にもどったときに、イベントを発生させるフラグをON
+        GameMgr.GirlLoveSubEvent_num = _evnum;
+        GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
+
+        GameMgr.check_GirlLoveSubEvent_flag = false;
+
+        if (_bgm == 1) //宴BGMに切り替え
+        {
+            GameMgr.Mute_on = true;
+        }
+        if (_getemerald) //コスチュームアイテムのときは、ここをtrueにする。
+        {
+            GetEmeraldItem = true;
+        }
+        if (_subheart)
+        {
+            GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+            GameMgr.SubEvAfterHeartGet_num = _evnum;
         }
     }
 

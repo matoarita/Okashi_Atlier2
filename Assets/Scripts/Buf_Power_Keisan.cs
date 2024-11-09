@@ -14,8 +14,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _buf_kakuritsuup;
     private float _buf_kakuritsuup_f;
     private int _buf_shokukanup;
+    private int _buf_compotime_up;
     private int _magicup;
     private int _magic_attri;
+    private int _magic_rate;
+    private int _magicLearnLv;
+    private int _magic_kakuritsu;
 
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
@@ -23,7 +27,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _a, _b;
 
     private int i;
-    private int _id;
+    private int _id, _magicid, _magicid2;
     private string _itemType;
     private string _itemType_sub;
     private string _itemType_subB;
@@ -108,23 +112,46 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         
         switch (_itemType_sub)
         {
+            case "Biscotti":
+
+                //かまどレベルによるバフ
+                KakuritsuUp_Oven();
+                break;
+
+            case "Bread":
+
+                //かまどレベルによるバフ
+                KakuritsuUp_Oven();
+                break;
+
             case "Cookie":
 
                 //めん棒系
                 KakuritsuUp_WoodRod();
-
                 //かまどレベルによるバフ
                 KakuritsuUp_Oven();
+                //魔法でのバフ
+                KakuritsuUp_Cookie();
+                break;
 
+            case "Cookie_Mat":
+
+                //めん棒系
+                KakuritsuUp_WoodRod();
+                //かまどレベルによるバフ
+                KakuritsuUp_Oven();
+                //魔法でのバフ
+                KakuritsuUp_Cookie();
                 break;
 
             case "Cookie_Hard":
 
                 //めん棒系
                 KakuritsuUp_WoodRod();
-
                 //かまどレベルによるバフ
                 KakuritsuUp_Oven();
+                //魔法でのバフ
+                KakuritsuUp_Cookie();
                 break;
 
             case "Chocolate":
@@ -137,9 +164,35 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 KakuritsuUp_CakeMatCream();
                 break;
 
+            case "Financier":
+
+                //かまどレベルによるバフ
+                KakuritsuUp_Oven();
+                break;            
+
+            case "IceCream":
+
+                KakuritsuUp_IceCream();
+                break;
+
+            case "Maffin":
+
+                //かまどレベルによるバフ
+                KakuritsuUp_Oven();
+                break;
+
             case "Parfe":
 
-                KakuritsuUp_CakeMatCream();
+                KakuritsuUp_Parfe();
+                break;
+
+            case "Rusk":
+
+                //かまどレベルによるバフ
+                KakuritsuUp_Oven();
+
+                //魔法でのバフ
+                KakuritsuUp_Cookie();
                 break;
         }
 
@@ -153,7 +206,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 _buf_kakuritsuup += 5;
             }*/
 
-        //魔法成功率
+        //魔法使用時の成功率
         if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
         {
             if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
@@ -177,12 +230,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             }
         }
 
-        //ヒカリのおかし経験値とLVによって、成功率も上昇する。
-        hikariBuf_okashilv(_itemType_sub);
-        _b = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.0f, 3.0f); //LV1~9までで、1.0~3.0倍まで上昇 LV1だと、バフはかからない
-        _buf_kakuritsuup += (int)(10 * _b); 
+        //成功率　ヒカリのおかし経験値とLVによって、成功率も上昇する。
+        KakuritsuUp_HikariBuf();
 
         return _buf_kakuritsuup;
+    }
+
+    void KakuritsuUp_HikariBuf()
+    {
+        hikariBuf_okashilv(_itemType_sub);
+        _b = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.0f, 3.0f); //LV1~9までで、1.0~3.0倍まで上昇 LV1だと、バフはかからない 最大30%までアップ
+        _buf_kakuritsuup += (int)(10 * _b);
     }
 
     void KakuritsuUp_WoodRod()
@@ -243,6 +301,16 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+    void KakuritsuUp_Cookie()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 1; //LV*1
+            _buf_kakuritsuup += _magicup;
+        }
+    }
 
     void KakuritsuUp_Chocolate()
     {
@@ -272,6 +340,25 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+    void KakuritsuUp_IceCream()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 2; //LV*2
+            _buf_kakuritsuup += _magicup;
+        }
+
+        //フリージングの習得LVでもちょっと成功率上がる
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Freezing_Spell") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Freezing_Spell") * 1; //LV*1
+            _buf_kakuritsuup += _magicup;
+        }
+    }
+
     void KakuritsuUp_Parfe()
     {
 
@@ -280,9 +367,168 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _buf_kakuritsuup -= 20;
         }
 
-
     }
 
+    //
+    //調合成功率　魔法使用時のバフ
+    //魔法名を指定し、中に補正値をかけばOK
+    //
+    public int Buf_CompKakuritsuMagic_Keisan(string _magic_name)
+    {
+        _magic_rate = 0;
+        _magicLearnLv = magicskill_database.skillName_SearchLearnLevel(_magic_name);
+        _magicid = magicskill_database.SearchSkillString(_magic_name);
+
+        switch (_magic_name)
+        {
+            case "Freezing_Spell":
+
+                _magic_rate = _magicLearnLv * 3;
+                break;
+
+            case "SugerPot":
+
+                _magic_rate = _magicLearnLv * 5;
+                break;
+
+            case "Luminous_Suger":
+
+                _magic_rate = _magicLearnLv * 5;
+                break;
+
+            case "Luminous_Fruits":
+
+                _magic_rate = _magicLearnLv * 5;
+                break;
+        }
+
+        //各スキルの使用回数に応じて、成功率が少し上がる。
+        _magic_kakuritsu = (int)(magicskill_database.magicskill_lists[_magicid].skill_usecount * 0.3f);
+        if(_magic_kakuritsu >= 30) //30%が上限
+        {
+            _magic_kakuritsu = 30;
+        }
+        _magic_rate = _magic_rate + _magic_kakuritsu;
+
+        return _magic_rate;
+    }
+
+
+
+
+    //
+    //制作時間のバフ（短縮される）
+    //調合で生成されるアイテムの_itemType_subを指定し、中に補正値をかけばOK
+    //
+    public int Buf_CompoTime_Keisan(string _result_item)
+    {
+        _buf_compotime_up = 0;
+
+        //アイテムによって、特定のお菓子のときのみ成功率をあげる。
+        _id = database.SearchItemIDString(_result_item);
+        _itemType = database.items[_id].itemType.ToString();
+        _itemType_sub = database.items[_id].itemType_sub.ToString();
+
+
+        switch (_itemType_sub)
+        {
+            case "Cookie":
+
+                //CostTimeUp_Cookie();
+
+                break;
+
+            case "Cookie_Hard":
+
+                //CostTimeUp_Cookie();
+                break;
+
+            case "Chocolate":
+
+
+                break;
+
+            case "Cake_MatCream":
+
+
+                break;
+
+            case "IceCream": //フリージングでアイスを作る場合は、こっちは通らないので注意　下のFreezing_Spellでかく
+
+                CostTimeUp_IceCream();
+                break;
+
+            case "Parfe":
+
+                CostTimeUp_IceCream();
+                break;
+        }
+
+        //全般
+        /*if (pitemlist.KosuCount("measuring spoon") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_kakuritsuup += 5;
+        }*/
+
+        return _buf_compotime_up;
+    }
+
+    void CostTimeUp_Cookie()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        _magicid = magicskill_database.SearchSkillString("Cookie_Study");
+        if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
+        {
+            _magicup = magicskill_database.magicskill_lists[_magicid].skillLv * 3; //LV*10
+            _buf_compotime_up += _magicup;
+        }
+    }
+
+    void CostTimeUp_IceCream()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        _magicid = magicskill_database.SearchSkillString("Heart_of_Icecream");
+        if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
+        {                       
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.02f); //costtimeの2％
+            _buf_compotime_up += _magicup;
+        }
+    }
+
+    //特定の魔法使用時の制作時間を短縮する
+    public int Buf_CompoTimeMagic_Keisan(string _magicname)
+    {
+        _buf_compotime_up = 0;    
+
+        //たとえば、祝福状態なら、制作時間が10%短縮されるなど。もココで書けばおｋ
+        switch (_magicname)
+        {
+            case "Freezing_Spell": //アイス制作やフローズンベリーなど使うとき デフォルトでは、等しく2時間かかる
+
+                CostTimeUpMagic_IceCream();
+                break;
+            
+        }
+
+        Debug.Log("魔法制作時間短縮: " + _buf_compotime_up + "分");
+        return _buf_compotime_up;
+    }
+
+    void CostTimeUpMagic_IceCream()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        _magicid = magicskill_database.SearchSkillString("Heart_of_Icecream");
+        _magicid2 = magicskill_database.SearchSkillString("Freezing_Spell");
+        if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
+        {
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid2].cost_time * 0.04f); //costtimeの4％
+            //Debug.Log("magicskill_database.magicskill_lists[_magicid].cost_time: " + magicskill_database.magicskill_lists[_magicid].cost_time);
+            _buf_compotime_up += _magicup;
+        }
+    }
 
 
     //
@@ -1008,7 +1254,6 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         return _buf_shokukanup;
     }
-
 
 
     //特定の魔法で、バフをかける処理
