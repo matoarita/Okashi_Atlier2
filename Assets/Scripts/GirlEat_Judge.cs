@@ -2435,7 +2435,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 default:
 
-                    //エクストラモード時、そのクエストで食べた回数をカウント。
+                    //そのクエストで食べた回数をカウント。
                     GameMgr.Okashi_spquest_eatkaisu++;
 
                     //好感度とお金を計算
@@ -3208,7 +3208,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
                     exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 1); //2番目が1だと、パネルの表示
                     exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
-                    //exp_table.SkillCheckPatissierLV();
+                                                                                   //exp_table.SkillCheckPatissierLV();
+                    //ステータスもランダムであがる。
+                    exp_table.StatusUp(); //
                 }
                 else
                 {
@@ -4880,6 +4882,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
+        //さっき食べたお菓子の情報
         //temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
 
         //if (last_score_kousin)
@@ -5919,6 +5922,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_4(_mp);
+    }
+
+    public void LvUpPanel5(string _statustext, int _param) //ステータスが上がった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_5(_statustext, _param);
     }
 
 

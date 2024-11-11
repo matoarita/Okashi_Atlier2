@@ -16,6 +16,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private CardView card_view;
     private Transform resulttransform;
 
+    private GameObject GirlEat_judge_obj;
+    private GirlEat_Judge girlEat_judge;
+
     private Exp_Controller exp_Controller;
 
     private SoundController sc;
@@ -82,6 +85,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private int _getexp;
     private int _nowexp, _nowlv;
     private string _itemType_subtext;
+    private int getheart;
 
     // Use this for initialization
     void Start () {
@@ -119,6 +123,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //女の子、お菓子の判定処理オブジェクトの取得
+        GirlEat_judge_obj = GameObject.FindWithTag("GirlEat_Judge");
+        girlEat_judge = GirlEat_judge_obj.GetComponent<GirlEat_Judge>();
 
         //コンポBGパネルの取得
         compoBG_A = this.transform.parent.gameObject;
@@ -553,8 +561,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
         {
             case true:
 
+                //
                 //うけとる処理
-
+                //
                 
                 //カード表示
                 sc.PlaySe(17);
@@ -571,7 +580,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 _nowlv = GameMgr.hikarimakeokashi_nowlv;
 
                 //ハートも少し上がる。
-                //PlayerStatus.girl1_Love_exp += _getexp;
+                getheart = _getexp;
+                girlEat_judge.loveGetPlusAnimeON(getheart, true); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
 
                 if (GameMgr.hikari_make_doubleItemCreated == 0)
                 {

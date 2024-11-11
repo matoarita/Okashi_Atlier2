@@ -15,7 +15,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _buf_kakuritsuup_f;
     private int _buf_shokukanup;
     private int _buf_compotime_up;
-    private int _magicup;
+    private int _statusup, _magicup;
     private int _magic_attri;
     private int _magic_rate;
     private int _magicLearnLv;
@@ -233,6 +233,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //成功率　ヒカリのおかし経験値とLVによって、成功率も上昇する。
         KakuritsuUp_HikariBuf();
 
+        //ステータスによる成功率バフ
+        KakuritsuUp_PStatusBuf();
+
         return _buf_kakuritsuup;
     }
 
@@ -241,6 +244,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         hikariBuf_okashilv(_itemType_sub);
         _b = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.0f, 3.0f); //LV1~9までで、1.0~3.0倍まで上昇 LV1だと、バフはかからない 最大30%までアップ
         _buf_kakuritsuup += (int)(10 * _b);
+    }
+
+    void KakuritsuUp_PStatusBuf()
+    {
+        _statusup = 0;
+        _statusup = (int)(PlayerStatus.player_okashi_kakuritsuup * 0.2f); //5で1%上昇ぐらい？
+        _buf_kakuritsuup += _statusup;
     }
 
     void KakuritsuUp_WoodRod()
@@ -410,10 +420,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
         _magic_rate = _magic_rate + _magic_kakuritsu;
 
+        //ステータスによる魔法成功率バフ
+        KakuritsuUpMagic_PStatusBuf();
+
         return _magic_rate;
     }
 
-
+    void KakuritsuUpMagic_PStatusBuf()
+    {
+        _statusup = 0;
+        _statusup = (int)(PlayerStatus.player_okashi_magic_kakuritsuup * 0.34f); //3で1%上昇ぐらい？
+        _buf_kakuritsuup += _statusup;
+    }
 
 
     //
@@ -470,7 +488,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _buf_kakuritsuup += 5;
         }*/
 
+        //ステータスによる時間短縮バフ
+        CostTimeUp_PStatusBuf();
+
         return _buf_compotime_up;
+    }
+
+    void CostTimeUp_PStatusBuf()
+    {
+        _statusup = 0;
+        _statusup = (int)(PlayerStatus.player_okashi_costtimeup * 0.5f); //2で1分上昇ぐらい？
+        _buf_compotime_up += _statusup;
     }
 
     void CostTimeUp_Cookie()
@@ -512,8 +540,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             
         }
 
+        //ステータスによる魔法時間短縮バフ
+        CostTimeUpMagic_PStatusBuf();
+
         Debug.Log("魔法制作時間短縮: " + _buf_compotime_up + "分");
         return _buf_compotime_up;
+    }
+
+    void CostTimeUpMagic_PStatusBuf()
+    {
+        _statusup = 0;
+        _statusup = (int)(PlayerStatus.player_okashi_magic_costtimeup * 0.5f); //2で1分上昇ぐらい？
+        _buf_compotime_up += _statusup;
     }
 
     void CostTimeUpMagic_IceCream()
@@ -598,6 +636,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 AllShokukanBuf();
 
+                //ステータスによる食感バフ
+                Shokukanup_PStatusBuf(0);
+
                 return _buf_shokukanup;
 
             case 1: //ふわふわ感のバフ
@@ -648,6 +689,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 AllShokukanBuf();
 
+                //ステータスによる食感バフ
+                Shokukanup_PStatusBuf(1);
+
                 return _buf_shokukanup;
 
             case 2: //なめらか感のバフ
@@ -673,6 +717,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 AllShokukanBuf();
 
+                //ステータスによる食感バフ
+                Shokukanup_PStatusBuf(2);
+
                 return _buf_shokukanup;
 
             case 3: //歯ごたえ感のバフ
@@ -696,11 +743,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 AllShokukanBuf();
 
+                //ステータスによる食感バフ
+                Shokukanup_PStatusBuf(3);
+
                 return _buf_shokukanup;
 
             case 4: //ジュースのバフ
 
                 AllShokukanBuf();
+
+                //ステータスによる食感バフ
+                Shokukanup_PStatusBuf(4);
 
                 return _buf_shokukanup;
 
@@ -767,14 +820,58 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 AllShokukanBuf();
 
+                //ステータスによる食感バフ
+                Shokukanup_PStatusBuf(6);
+
                 return _buf_shokukanup;
         }
 
         return 0; //なにもない場合や例外は0
     }
 
+    void Shokukanup_PStatusBuf(int _mstatus)
+    {
+        _statusup = 0;
 
+        switch(_mstatus)
+        {
+            case 0:
 
+                _statusup = (int)(PlayerStatus.player_okashi_crispyup * 2.0f); //1で1上昇ぐらい？
+                break;
+
+            case 1:
+
+                _statusup = (int)(PlayerStatus.player_okashi_fluffyup * 2.0f); //2で1分上昇ぐらい？
+                break;
+
+            case 2:
+
+                _statusup = (int)(PlayerStatus.player_okashi_smoothup * 2.0f); //2で1分上昇ぐらい？
+                break;
+
+            case 3:
+
+                _statusup = (int)(PlayerStatus.player_okashi_hardnessup * 2.0f); //2で1分上昇ぐらい？
+                break;
+
+            case 4: //ジューズ
+
+                _statusup = (int)(PlayerStatus.player_okashi_juiceup * 2.0f); //2で1分上昇ぐらい？
+                break;
+
+            case 5: //見た目なので、現在なし
+
+                break;
+
+            case 6: //香り
+
+                _statusup = (int)(PlayerStatus.player_okashi_tea_flavorup * 2.0f); //2で1分上昇ぐらい？
+                break;
+        }
+
+        _buf_shokukanup += _statusup;
+    }
 
     void CreamBuf()
     {

@@ -110,9 +110,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_tempature_control_tempMin = 150;
     public static int System_tempature_control_tempMax = 230;
 
-    //魔法の演出時間
-    public static float System_magic_playtime_default = 2.0f;
-    public static float System_magic_playtime_def01 = 3.0f;
+    //調合時の演出時間
+    public static float System_compo_playtime_default = 2.0f; //通常調合時の演出時間　トータルで3秒ほど。
+    public static float System_magic_playtime_default = 2.0f; //エフェクトのみの時間　トータルで3秒ほど。
+    public static float System_magic_playtime_01 = 3.0f; //ミニゲームある場合の時間　トータルで4秒ほどになる。Compound_Check内で入れる。
 
     //パティシエレベルの上限
     public static int System_patissier_maxlv = 50;
@@ -1191,6 +1192,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         CGGallery_readflag = false;
 
+        Okashi_lastID = 0;
         Okashi_totalscore = 0;
         Okashi_last_totalscore = 0;
         Okashi_dislike_status = 0;

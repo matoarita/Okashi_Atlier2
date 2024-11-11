@@ -32,6 +32,21 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static List<string> player_patissier_Rank_hyoukiList = new List<string>();　//ランクの名前　配列番号から呼び出せる　セーブ不要
     public static int player_ninki_param; //名声値はこれを使う。名声が上昇すると、パティシエランクが上がる。
 
+    //プレイヤのおかしステータス　そのままバフになる
+    public static int player_okashi_kakuritsuup; //お菓子制作時の成功率アップ
+    public static int player_okashi_costtimeup; //お菓子制作時の制作時間を短縮
+    public static int player_okashi_shokukanup; //お菓子の食感を全体的にあげる
+    public static int player_okashi_crispyup; //サクサク感を底上げする
+    public static int player_okashi_fluffyup; //ふわふわ感を底上げする
+    public static int player_okashi_smoothup; //なめらか感を底上げする
+    public static int player_okashi_hardnessup; //歯ごたえ感を底上げする
+    public static int player_okashi_juiceup; //のどごしを底上げする
+    public static int player_okashi_tea_flavorup; //香りを底上げする
+    public static int player_okashi_magic_kakuritsuup; //魔法使用時の成功率アップ
+    public static int player_okashi_magic_costtimeup; //魔法使用時の時間短縮
+    public static int player_okashi_magic_koukaup; //魔法の効果を底上げする
+
+
     //妹のステータス
     //好感度のexpとlvだけは、girl1_statusに登録。
     public static int girl1_Love_exp;               //女の子の好感度値のこと。ゲーム中に、お菓子をあげることで変動する。
@@ -208,6 +223,19 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_patissier_exp = 0; //現在未使用
         player_patissier_job_pt = 0; //ジョブポイント
         player_patissier_Rank = 1;
+
+        player_okashi_kakuritsuup = 0;
+        player_okashi_costtimeup = 0;
+        player_okashi_shokukanup = 0;
+        player_okashi_crispyup = 0;
+        player_okashi_fluffyup = 0;
+        player_okashi_smoothup = 0;
+        player_okashi_hardnessup = 0;
+        player_okashi_juiceup = 0;
+        player_okashi_tea_flavorup = 0;
+        player_okashi_magic_kakuritsuup = 0;
+        player_okashi_magic_costtimeup = 0;
+        player_okashi_magic_koukaup = 0;
 
         InitTitleCollectionLibrary();
         SettingPRankHyouki();

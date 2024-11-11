@@ -276,9 +276,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                         //サブ時間イベントをチェック
                         /*if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
-                        {
-
-                        }
+                        { }
                         else
                         {
                             GameMgr.check_GirlLoveTimeEvent_flag = false;

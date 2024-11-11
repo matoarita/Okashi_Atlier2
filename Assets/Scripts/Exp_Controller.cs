@@ -64,6 +64,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private KaeruCoin_Controller kaeruCoin_Controller;
 
+    private GameObject compoundMainController_obj;
+
     private ExpTable exp_table;
     private SoundController sc;
 
@@ -330,6 +332,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     void CompInitSetting()
     {
+        //コントローラ取得
+        compoundMainController_obj = canvas.transform.Find("CompoundMainController").gameObject;
+
         //コンポBGパネルの取得
         compoBG_A = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A").gameObject;
 
@@ -1919,7 +1924,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     Debug_timeCount_Panel.SetActive(true);
                 }
 
-                timeOut = 2.0f;
+                timeOut = GameMgr.System_compo_playtime_default;
                 compo_anim_status = 1;
 
                 _text.text = "ガシャ .";
@@ -2230,8 +2235,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         //完成～出来たー！という変化をつけるために、背景を変える。
         
-
-
         //アニメーション
         /*//まず、初期値。
         Sequence sequence2 = DOTween.Sequence();
@@ -2347,8 +2350,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab_kiraexplode));
         _listEffect[3].GetComponent<Canvas>().worldCamera = Camera.main;
 
+
         //音を鳴らす　ブィィン！
-        switch(_status)
+        switch (_status)
         {
             case 0: //通常調合用のエフェクトと効果音
 
@@ -2358,13 +2362,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 break;
 
             case 1: //魔法調合用のエフェクトと効果音
-                sc.PlaySe(130);
-                //sc.PlaySe(132);
-                sc.PlaySe(78);
-                break;
-        }
-        
 
+                //CompoundMainControllerで処理
+                compoundMainController_obj.GetComponent<CompoundMainController>().MagicResultEffect_Panel();
+
+                //sc.PlaySe(130);
+                //sc.PlaySe(132);
+                //sc.PlaySe(78);
+                break;
+        }        
     }
 
     void ResultEffect_NG()

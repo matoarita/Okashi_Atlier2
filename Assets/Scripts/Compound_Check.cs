@@ -1100,17 +1100,19 @@ public class Compound_Check : MonoBehaviour {
                         {
                             case "Cookie_SecondBake":
 
-                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_def01;
+                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_01;
                                 break;
 
                             case "Warming_Handmade":
 
+                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
                                 girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * 30), false); //ハートを消費するパターン;
                                                                                                   //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
                                 break;
 
                             case "True_of_Myheart":
 
+                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
                                 if (PlayerStatus.girl1_Love_exp >= GameMgr.System_trueheart_cost)
                                 {
                                     girleat_judge.UpDegHeart(-GameMgr.System_trueheart_cost, false); //ハートを消費するパターン;

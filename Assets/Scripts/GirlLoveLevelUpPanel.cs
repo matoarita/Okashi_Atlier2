@@ -173,9 +173,14 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
         offAllPanel();
         this.transform.Find("Comp/HeartPanel/HeartLvupImage4").gameObject.SetActive(true);
         this.transform.Find("Comp/HeartPanel/HeartLvupImage4/LvParam").GetComponent<Text>().text = _mp.ToString();
-        //this.transform.Find("Comp/HeartLvupImage").gameObject.SetActive(false);
-        //this.transform.Find("Comp/HeartLvupImage2").gameObject.SetActive(false);
-        //this.transform.Find("Comp/HeartLvupImage3").gameObject.SetActive(true);
+    }
+
+    public void SelectPanel_5(string _statustext, int _param) //ステータスがあがった
+    {
+        offAllPanel();
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage5").gameObject.SetActive(true);
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage5/Text").GetComponent<Text>().text = _statustext + "　が";
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage5/StatusParam").GetComponent<Text>().text = _param.ToString();
     }
 
     void offAllPanel()

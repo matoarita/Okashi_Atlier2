@@ -30,6 +30,19 @@ public class PlayerData
     public int save_player_patissier_job_pt;
     public int save_player_patissier_Rank;
 
+    public int save_player_okashi_kakuritsuup; //お菓子制作時の成功率アップ
+    public int save_player_okashi_costtimeup; //お菓子制作時の制作時間を短縮
+    public int save_player_okashi_shokukanup; //お菓子の食感を全体的にあげる
+    public int save_player_okashi_crispyup; //サクサク感を底上げする
+    public int save_player_okashi_fluffyup; //ふわふわ感を底上げする
+    public int save_player_okashi_smoothup; //なめらか感を底上げする
+    public int save_player_okashi_hardnessup; //歯ごたえ感を底上げする
+    public int save_player_okashi_juiceup; //のどごしを底上げする
+    public int save_player_okashi_tea_flavorup; //香りを底上げする
+    public int save_player_okashi_magic_kakuritsuup; //魔法使用時の成功率アップ
+    public int save_player_okashi_magic_costtimeup; //魔法使用時の時間短縮
+    public int save_player_okashi_magic_koukaup; //魔法の効果を底上げする
+
 
     //妹のステータス
     public int save_player_girl_findpower; //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。

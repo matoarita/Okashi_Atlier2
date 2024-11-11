@@ -123,7 +123,6 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
-    //public bool girlEat_ON; //食べ中のフラグ
 
     private GameObject Extremepanel_obj;
     private ExtremePanel extreme_panel;
@@ -799,7 +798,7 @@ public class Compound_Main : MonoBehaviour
             Debug.Log("エンディング回数: " + GameMgr.ending_count);
         }
 
-        Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
+        //Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
 
         //固有IDがないオリジナルアイテムを自動で削除する　バージョン更新用
         pitemlist.DeleteETCOriginalKoyuIDItem();
@@ -820,7 +819,7 @@ public class Compound_Main : MonoBehaviour
         StartRead = false;
 
 
-        //現在の時間計算（寝るチェックなし）
+        //現在の時間計算（寝るチェックなしで時間のみ更新）
         time_controller.TimeKoushin(0, false);
 
         //家賃日までの日数計算
@@ -1752,7 +1751,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     if (!GameMgr.ReadGirlLoveTimeEvent_reading_now) //ヒカリが外出から帰ってきて、採取パネルやほめるイベントを読み中　全て終わったらfalseになる。
                     {
-                        Debug.Log("時間更新＆チェック＆寝るチェック");
+                        Debug.Log("時間更新チェック＆寝るチェック");
                         time_controller.TimeKoushin(0, true); //時間の更新&寝るイベントのチェック　寝るチェック後に、エリア解禁チェックフラグを入れる 
                     }
                 }

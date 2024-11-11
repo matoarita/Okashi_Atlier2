@@ -247,6 +247,19 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_patissier_job_pt = PlayerStatus.player_patissier_job_pt,
             save_player_patissier_Rank = PlayerStatus.player_patissier_Rank,
 
+            save_player_okashi_kakuritsuup = PlayerStatus.player_okashi_kakuritsuup, //お菓子制作時の成功率アップ
+            save_player_okashi_costtimeup = PlayerStatus.player_okashi_costtimeup, //お菓子制作時の制作時間を短縮
+            save_player_okashi_shokukanup = PlayerStatus.player_okashi_shokukanup, //お菓子の食感を全体的にあげる
+            save_player_okashi_crispyup = PlayerStatus.player_okashi_crispyup, //サクサク感を底上げする
+            save_player_okashi_fluffyup = PlayerStatus.player_okashi_fluffyup, //ふわふわ感を底上げする
+            save_player_okashi_smoothup = PlayerStatus.player_okashi_smoothup, //なめらか感を底上げする
+            save_player_okashi_hardnessup = PlayerStatus.player_okashi_hardnessup, //歯ごたえ感を底上げする
+            save_player_okashi_juiceup = PlayerStatus.player_okashi_juiceup, //のどごしを底上げする
+            save_player_okashi_tea_flavorup = PlayerStatus.player_okashi_tea_flavorup, //香りを底上げする
+            save_player_okashi_magic_kakuritsuup = PlayerStatus.player_okashi_magic_kakuritsuup, //魔法使用時の成功率アップ
+            save_player_okashi_magic_costtimeup = PlayerStatus.player_okashi_magic_costtimeup, //魔法使用時の時間短縮
+            save_player_okashi_magic_koukaup = PlayerStatus.player_okashi_magic_koukaup, //魔法の効果を底上げする
+
 
             //妹のステータス
             save_player_girl_findpower = PlayerStatus.player_girl_findpower, //妹のアイテム発見力。高いと、マップの隠し場所を発見できたりする。
@@ -627,6 +640,19 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_patissier_exp = playerData.save_player_patissier_exp;
         PlayerStatus.player_patissier_job_pt = playerData.save_player_patissier_job_pt;
         PlayerStatus.player_patissier_Rank = playerData.save_player_patissier_Rank;
+
+        PlayerStatus.player_okashi_kakuritsuup = playerData.save_player_okashi_kakuritsuup; //お菓子制作時の成功率アップ
+        PlayerStatus.player_okashi_costtimeup = playerData.save_player_okashi_costtimeup; //お菓子制作時の制作時間を短縮
+        PlayerStatus.player_okashi_shokukanup = playerData.save_player_okashi_shokukanup; //お菓子の食感を全体的にあげる
+        PlayerStatus.player_okashi_crispyup = playerData.save_player_okashi_crispyup; //サクサク感を底上げする
+        PlayerStatus.player_okashi_fluffyup = playerData.save_player_okashi_fluffyup; //ふわふわ感を底上げする
+        PlayerStatus.player_okashi_smoothup = playerData.save_player_okashi_smoothup; //なめらか感を底上げする
+        PlayerStatus.player_okashi_hardnessup = playerData.save_player_okashi_hardnessup; //歯ごたえ感を底上げする
+        PlayerStatus.player_okashi_juiceup = playerData.save_player_okashi_juiceup; //のどごしを底上げする
+        PlayerStatus.player_okashi_tea_flavorup = playerData.save_player_okashi_tea_flavorup; //香りを底上げする
+        PlayerStatus.player_okashi_magic_kakuritsuup = playerData.save_player_okashi_magic_kakuritsuup; //魔法使用時の成功率アップ
+        PlayerStatus.player_okashi_magic_costtimeup = playerData.save_player_okashi_magic_costtimeup; //魔法使用時の時間短縮
+        PlayerStatus.player_okashi_magic_koukaup = playerData.save_player_okashi_magic_koukaup; //魔法の効果を底上げする
 
         /*if(PlayerStatus.player_mp == 0) //例外処理　MP初期値が0になるのを回避　セーブデータに新パラメータ追加したてのときは0になるので、それを回避
         {

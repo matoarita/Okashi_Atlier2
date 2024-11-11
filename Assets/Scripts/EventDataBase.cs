@@ -1412,10 +1412,19 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             OutGirlReturnHome();
                             GameMgr.check_GirlLoveTimeEvent_flag = false;
                         }
-                        else if (PlayerStatus.player_cullent_hour >= 19)
+                        else if (PlayerStatus.player_cullent_hour >= 19 && PlayerStatus.player_cullent_hour <= 24)
                         {
                             Debug.Log("19時以降兄が家にかえってきたあと、ヒカリが採取に出てた場合、先にヒカリが帰っておりおかえり～というイベント");
                             
+                            OutGirlReturnHome2();
+                            ReadGirlLoveEvent();
+
+                            GameMgr.check_GirlLoveTimeEvent_flag = false;
+                        }
+                        else if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < 8)
+                        {
+                            Debug.Log("19時以降兄が家にかえってきたあと、ヒカリが採取に出てた場合、先にヒカリが帰っておりおかえり～というイベント");
+
                             OutGirlReturnHome2();
                             ReadGirlLoveEvent();
 

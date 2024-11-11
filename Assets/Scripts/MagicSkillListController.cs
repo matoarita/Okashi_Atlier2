@@ -42,10 +42,13 @@ public class MagicSkillListController : MonoBehaviour
 
     private GridLayoutGroup grid_layout_content;
 
+    private GameObject compoundMainController_obj;
+
     private int max;
     private int count;
     private int i;
     private int rnd;
+    private int _p;
     private int shop_hyouji_flag;
 
     //一時保存用変数
@@ -970,5 +973,27 @@ public class MagicSkillListController : MonoBehaviour
         player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
         player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
         reset_and_DrawView(category_status);
+    }
+
+    public void DebugJobPoint50()
+    {
+        _p = GameMgr.System_patissier_maxlv - PlayerStatus.player_patissier_lv;
+        PlayerStatus.player_patissier_job_pt += _p;
+        PlayerStatus.player_patissier_lv = GameMgr.System_patissier_maxlv;
+
+        player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
+        player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
+        player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
+        reset_and_DrawView(category_status);
+    }
+
+    public void DebugMPMax()
+    {
+        PlayerStatus.player_maxmp = 99;
+        PlayerStatus.player_mp = PlayerStatus.player_maxmp;
+
+        compoundMainController_obj = canvas.transform.Find("CompoundMainController").gameObject;
+        compoundMainController_obj.GetComponent<CompoundMainController>().HyoujiMPPanel();
+        
     }
 }

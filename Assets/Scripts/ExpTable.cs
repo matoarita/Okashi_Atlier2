@@ -12,6 +12,8 @@ using UnityEngine.UI;
 
 public class ExpTable : SingletonMonoBehaviour<ExpTable>
 {
+    private ItemDataBase database;
+    private ItemSubTypeSetDatabase itemsubtypeset_database;
 
     //ハートレベルのテーブル
     public List<int> stage1_hlvTable = new List<int>();
@@ -30,7 +32,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     private GameObject canvas;
     private GameObject text_area;
     private Text _text;
-
+    private string _subtype;
+    private int random, random2;
 
     private List<string> _temp_skill = new List<string>();
 
@@ -65,6 +68,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         girlEat_judge = GirlEat_Judge.Instance.GetComponent<GirlEat_Judge>();
+
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //アイテムサブタイプの表記を分けるデータベース
+        itemsubtypeset_database = ItemSubTypeSetDatabase.Instance.GetComponent<ItemSubTypeSetDatabase>();
     }
 
     // Update is called once per frame
@@ -81,6 +90,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     {
         //_status = 0 実際に仕上げ回数を増やす　1は、パネルの表示のみ
         _mstatus = _status;
+
         //レベルがあがるごとに、アイテム発見力があがる。
         /*PlayerStatus.player_girl_findpower = 100 + ((girl1_Love_lv-1) * 10);
 
@@ -139,8 +149,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     ShiageUpPanelHyouji();
                     break;
             }
-        }
+        }        
 
+        //スキルのチェック
         SkillCheckPatissierLV();
     }
 
@@ -204,6 +215,68 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     void ShiageUpPanelHyouji()
     {
         girlEat_judge.LvUpPanel2(1);
+    }
+
+    //ハートLVアップ時にステータス上がる
+    public void StatusUp()
+    {
+        _subtype = database.items[GameMgr.Okashi_lastID].itemType_sub.ToString();
+        itemsubtypeset_database.SetImageSub(_subtype); //さっき食べたおかしのサブタイプをみる
+
+        //①直前に食べたおかしの種類によって、上がるパラメータが決まる
+        random = Random.Range(1, 10);
+        switch (GameMgr.Item_ShokukanTypeNum)
+        {
+            case 0: //さくさく
+
+                girlEat_judge.LvUpPanel5("さくさく", random);
+                break;
+
+            case 1: //ふわふわ
+
+                girlEat_judge.LvUpPanel5("ふわふわ", random);
+                break;
+
+            case 2: //なめらか
+
+                girlEat_judge.LvUpPanel5("なめらか", random);
+                break;
+
+            case 3: //歯ごたえ
+
+                girlEat_judge.LvUpPanel5("歯ごたえ", random);
+                break;
+
+            case 4: //のどごし
+
+                girlEat_judge.LvUpPanel5("のどごし", random);
+                break;
+
+            case 5: //香り
+
+                girlEat_judge.LvUpPanel5("香り", random);
+                break;
+        }
+
+        //②ランダムで、おかし成功率か時間短縮が上がる。
+        //魔法のおかしだと、魔法の効果、成功率が上がる。
+
+        //おかしの成功率系判定
+        random = Random.Range(0, 10);
+        if(random <= 7) //70%ぐらい？
+        {
+            random2 = Random.Range(1, 3);
+            if (database.items[GameMgr.Okashi_lastID].Magic == 0)
+            {
+                PlayerStatus.player_okashi_kakuritsuup += random2;
+                girlEat_judge.LvUpPanel5("おかしの成功率", random2);
+            } else
+            {
+                //魔法のおかしの場合
+                PlayerStatus.player_okashi_magic_kakuritsuup += random2;
+                girlEat_judge.LvUpPanel5("魔法の成功率", random2);
+            }
+        }
     }
 
 

@@ -36,6 +36,7 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject text_hikari_makecaption;
 
     private BGM sceneBGM;
+    private SoundController sc;
 
     private SceneInitSetting sceneinit_setting;
 
@@ -97,6 +98,7 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject magic_compo4;
     private GameObject player_mp_panel;
     private GameObject magic_minigame_Panel;
+    private GameObject magic_resulteffect_Panel;
 
     private GameObject MagicLearnPanel;
 
@@ -152,6 +154,9 @@ public class CompoundMainController : MonoBehaviour {
 
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         Debug_CompoIcon = this.transform.Find("Debug_CompIcon").gameObject;
         Debug_CompoIcon.SetActive(false);
@@ -221,10 +226,17 @@ public class CompoundMainController : MonoBehaviour {
         magic_compo4.SetActive(false);
         player_mp_panel = MagicStartPanel.transform.Find("PlayerMPPanel").gameObject;
         player_mp_panel.SetActive(true);
-        magic_minigame_Panel = MagicStartPanel.transform.Find("magic_minigamePanel").gameObject;
+        magic_minigame_Panel = MagicStartPanel.transform.Find("magic_effect_minigamePanel").gameObject;
         magic_minigame_Panel.SetActive(false);
+        magic_resulteffect_Panel = MagicStartPanel.transform.Find("magic_result_effect").gameObject;
+        magic_resulteffect_Panel.SetActive(false);
 
-        foreach(Transform child in magic_minigame_Panel.transform)
+        foreach (Transform child in magic_minigame_Panel.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        foreach (Transform child in magic_resulteffect_Panel.transform)
         {
             child.gameObject.SetActive(false);
         }
@@ -722,17 +734,8 @@ public class CompoundMainController : MonoBehaviour {
                     magic_compo2.SetActive(false);
                     magic_compo3.SetActive(true);
 
-                    //魔法によっては、さらにミニゲームの演出画面も開く
-                    switch (GameMgr.UseMagicSkill)
-                    {
-                        case "Cookie_SecondBake":
-
-                            GameMgr.System_magic_playON = true;
-                            magic_minigame_Panel.SetActive(true);
-                            magic_minigame_Panel.transform.Find("SecondBake_Panel").gameObject.SetActive(true);
-                            magic_minigame_Panel.transform.Find("SecondBake_Panel").GetComponent<MiniSecondBake_Panel>().OnStartAnim();
-                            break;
-                    }
+                    //魔法によっては、エフェクト表示かorミニゲームの演出画面も開く
+                    Magic_Effect_or_minigamePanel();                    
 
                     //スキル名表示
                     magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
@@ -887,6 +890,7 @@ public class CompoundMainController : MonoBehaviour {
             }
         }
     }
+    
 
     IEnumerator Waitminute_BackGirl() //3秒ほどたつと、必ず元の場所に戻ったことにする。すると、ヒカリのタッチ判定が復活。
     {
@@ -902,7 +906,8 @@ public class CompoundMainController : MonoBehaviour {
         compoBGA_imageExtreme.SetActive(false);
         compoBGA_imageHikariMake.SetActive(false);
         MagicStartPanel.SetActive(false);
-        magic_minigame_Panel.SetActive(false);
+
+        
 
         playeritemlist_onoff.SetActive(false);
         recipilist_onoff.SetActive(false);
@@ -921,6 +926,18 @@ public class CompoundMainController : MonoBehaviour {
         foreach (Transform child in SpecialOkashiEffectView.transform)
         {
             sp_okashieffect_List.Add(child.gameObject);
+            child.gameObject.SetActive(false);
+        }
+
+        magic_minigame_Panel.SetActive(false);
+        magic_resulteffect_Panel.SetActive(false);
+        foreach (Transform child in magic_minigame_Panel.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        foreach (Transform child in magic_resulteffect_Panel.transform)
+        {
             child.gameObject.SetActive(false);
         }
     }
@@ -972,8 +989,72 @@ public class CompoundMainController : MonoBehaviour {
         itemselect_cancel.update_ListSelect(); //アイテム選択時の、リストの表示処理
     }
 
-    //Live2D関連コマンド
+    //
+    //魔法演出関連
+    //
+    void Magic_Effect_or_minigamePanel()
+    {
+        switch (GameMgr.UseMagicSkill)
+        {
+            case "Cookie_SecondBake":
 
+                GameMgr.System_magic_playON = true; //ミニゲーム上での成功率判定に切り替え
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("SecondBake").gameObject.SetActive(true);
+                magic_minigame_Panel.transform.Find("SecondBake").GetComponent<MiniSecondBake_Panel>().OnStartAnim(); //ミニゲームの開始
+                break;
+
+            case "Freezing_Spell":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Freezing_Spell").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ           
+                break;
+
+            case "Luminous_Suger":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Luminous_Suger").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ           
+                break;
+        }
+    }
+
+    //完成時のエフェクトと効果音 Exp_Controllerから読み込み
+    public void MagicResultEffect_Panel()
+    {
+        switch (GameMgr.UseMagicSkill)
+        {
+            case "Freezing_Spell":
+
+                magic_resulteffect_Panel.SetActive(true);
+                magic_resulteffect_Panel.transform.Find("Freezing_Spell").gameObject.SetActive(true);
+
+                Sound_magicresult1();
+                break;
+
+            case "Luminous_Suger":
+
+                magic_resulteffect_Panel.SetActive(true);
+                magic_resulteffect_Panel.transform.Find("Luminous_Suger").gameObject.SetActive(true);
+
+                Sound_magicresult1();
+                break;
+
+            default:
+
+                Sound_magicresult1();               
+                break;
+        }
+    }
+
+    void Sound_magicresult1()
+    {
+        sc.PlaySe(130);
+        //sc.PlaySe(132);
+        sc.PlaySe(78);
+    }
+
+
+    //Live2D関連コマンド
     //調合シーンに入った時の、Live2D処理。
 
     //調合シーンに入った時の、キャラクタ位置や状態など更新
@@ -1109,5 +1190,10 @@ public class CompoundMainController : MonoBehaviour {
         ResetLive2D_DefaultStatus();
     }
 
-    
+    //MPパネルの更新
+    public void HyoujiMPPanel()
+    {
+        player_mp_panel.transform.Find("player_mp").GetComponent<Text>().text = PlayerStatus.player_mp.ToString();
+        player_mp_panel.transform.Find("player_maxmp").GetComponent<Text>().text = PlayerStatus.player_maxmp.ToString();
+    }
 }
