@@ -31,7 +31,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     }
 
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
-    public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
+    public static bool DEBUG_MagicPlayTime_ON = true; //デバッグ　魔法の演出時間を表示する。
     public static bool DEBUG_TasteSPScore_ON = false; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。
@@ -100,6 +100,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //重要アイテム名
     public static string System_TreasureItem01 = "ブルージェム";
 
+    //ステータス名前
+    public static string System_PStatusName1 = "技術";
+    public static string System_PStatusName2 = "早さ";
+    public static string System_PStatusName3 = "ちえ";
+
     //真実のハートのハート消費量
     public static int System_trueheart_cost = 5000;
 
@@ -112,7 +117,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //調合時の演出時間
     public static float System_compo_playtime_default = 2.0f; //通常調合時の演出時間　トータルで3秒ほど。
-    public static float System_magic_playtime_default = 2.0f; //エフェクトのみの時間　トータルで3秒ほど。
+    public static float System_magic_playtime_default = 3.0f; //エフェクトのみの時間　トータルで4秒ほど。新規作成エフェクトが入って7秒。
     public static float System_magic_playtime_01 = 3.0f; //ミニゲームある場合の時間　トータルで4秒ほどになる。Compound_Check内で入れる。
 
     //パティシエレベルの上限

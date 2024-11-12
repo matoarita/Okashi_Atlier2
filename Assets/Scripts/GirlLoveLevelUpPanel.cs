@@ -120,18 +120,19 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
 
     IEnumerator EndAnim()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(4.0f);
 
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(_comp.GetComponent<CanvasGroup>().DOFade(0, 0.3f)
+        sequence.Append(_comp.GetComponent<CanvasGroup>().DOFade(0, 0.5f)
             .OnComplete(OffObj));       
     }
 
     void OffObj()
     {
         OnPanelflag = false;
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 
     //どのパネルを表示するかを指定する。デフォルトは、HLV上がった！

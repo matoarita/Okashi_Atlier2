@@ -209,16 +209,7 @@ public class Bar_Main_Controller : MonoBehaviour {
         talkrot = 0;
 
         StartRead = false;
-        check_event = false; //イベントのフラグ       
-
-        //時間の更新 シーン移動後に時間を更新する場合
-        if (GameMgr.SceneMoveAfter_Koushin)
-        {
-            GameMgr.SceneMoveAfter_Koushin = false;
-
-            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1);
-            time_controller.TimeKoushin(0, false);
-        }
+        check_event = false; //イベントのフラグ              
 
         //入店のタイミングでのみ、クエスト更新
         shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
@@ -250,6 +241,15 @@ public class Bar_Main_Controller : MonoBehaviour {
             StartRead = true;
             sceneBGM.PlaySub();
             sceneBGM.NowFadeVolumeONBGM();
+
+            //時間の更新 シーン移動後に時間を更新する場合
+            if (GameMgr.SceneMoveAfter_Koushin)
+            {
+                GameMgr.SceneMoveAfter_Koushin = false;
+
+                time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1);
+                time_controller.TimeKoushin(0, false);
+            }
         }
 
         //強制的に発生するイベントをチェック。

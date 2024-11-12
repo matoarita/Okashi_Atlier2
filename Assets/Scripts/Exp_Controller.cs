@@ -169,7 +169,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab4;
     private GameObject Compo_Magic_effect_Prefab5;
     private GameObject Compo_Magic_effect_Prefab6;
-    private GameObject Compo_Magic_effect_Prefab_kiraexplode;   
+    private GameObject Compo_Magic_effect_Prefab_kiraexplode;
     private List<GameObject> _listEffect = new List<GameObject>();
 
     private ParticleSystem.MainModule main;
@@ -292,7 +292,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Compo_Magic_effect_Prefab4 = (GameObject)Resources.Load("Prefabs/Particle_Compo4");
         Compo_Magic_effect_Prefab5 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
         Compo_Magic_effect_Prefab6 = (GameObject)Resources.Load("Prefabs/Particle_Compo6");
-        Compo_Magic_effect_Prefab_kiraexplode = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");        
+        Compo_Magic_effect_Prefab_kiraexplode = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");
 
         compo_anim_status = 0;
         compo_anim_on = false;
@@ -1516,7 +1516,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //使用する材料と個数を別に保存する。すぐにはアイテムの使用はせず、時間イベントに合わせて、処理を行う。
         GameMgr.hikari_kettei_item[0] = GameMgr.Final_list_itemID1; //店売りかオリジナルアイテムのリスト配列番号
         GameMgr.hikari_kettei_item[1] = GameMgr.Final_list_itemID2;
-        GameMgr.hikari_kettei_item[2] = GameMgr.Final_list_itemID3;
+        if (GameMgr.temp_itemID3 == 9999) //3こ目選択せず、空の場合
+        {
+            GameMgr.hikari_kettei_item[2] = GameMgr.temp_itemID3;
+        }
+        else
+        {
+            GameMgr.hikari_kettei_item[2] = GameMgr.Final_list_itemID3;
+        }
         GameMgr.hikari_kettei_toggleType[0] = GameMgr.Final_toggle_Type1;
         GameMgr.hikari_kettei_toggleType[1] = GameMgr.Final_toggle_Type2;
         GameMgr.hikari_kettei_toggleType[2] = GameMgr.Final_toggle_Type3;
@@ -2340,21 +2347,22 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _listEffect.Clear();
 
 
-        //リザルト時のエフェクト生成＋アニメ開始
+        //リザルト時のエフェクト生成＋アニメ開始 通常と魔法で共通
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab2));
         _listEffect[0].GetComponent<Canvas>().worldCamera = Camera.main;
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab3));
         _listEffect[1].GetComponent<Canvas>().worldCamera = Camera.main;
         _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab5));
         _listEffect[2].GetComponent<Canvas>().worldCamera = Camera.main;
-        _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab_kiraexplode));
-        _listEffect[3].GetComponent<Canvas>().worldCamera = Camera.main;
-
+        
 
         //音を鳴らす　ブィィン！
         switch (_status)
         {
             case 0: //通常調合用のエフェクトと効果音
+
+                _listEffect.Add(Instantiate(Compo_Magic_effect_Prefab_kiraexplode)); //カード周りのチラチラ光り
+                _listEffect[3].GetComponent<Canvas>().worldCamera = Camera.main;
 
                 sc.PlaySe(4);
                 sc.PlaySe(27);

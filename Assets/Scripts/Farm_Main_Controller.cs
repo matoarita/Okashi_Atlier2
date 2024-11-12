@@ -163,16 +163,7 @@ public class Farm_Main_Controller : MonoBehaviour {
             {
                 farm_toggle_present.SetActive(true);
             }
-        }*/
-
-        //時間の更新 シーン移動後に時間を更新する場合
-        if (GameMgr.SceneMoveAfter_Koushin)
-        {
-            GameMgr.SceneMoveAfter_Koushin = false;
-
-            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1);
-            time_controller.TimeKoushin(0, false);
-        }
+        }*/        
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -191,6 +182,15 @@ public class Farm_Main_Controller : MonoBehaviour {
             StartRead = true;
             sceneBGM.PlaySub();
             sceneBGM.NowFadeVolumeONBGM();
+
+            //時間の更新 シーン移動後に時間を更新する場合
+            if (GameMgr.SceneMoveAfter_Koushin)
+            {
+                GameMgr.SceneMoveAfter_Koushin = false;
+
+                time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1);
+                time_controller.TimeKoushin(0, false);
+            }
         }
 
         //イベント発生フラグをチェック

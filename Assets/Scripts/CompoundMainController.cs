@@ -100,6 +100,11 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject magic_minigame_Panel;
     private GameObject magic_resulteffect_Panel;
 
+    private GameObject compo_particle_obj;
+    private ParticleSystem.MainModule main;
+    private ParticleSystem compo_particle;
+    private Color p_color;
+
     private GameObject MagicLearnPanel;
 
     private GameObject SpecialwhiteEffect;
@@ -230,6 +235,9 @@ public class CompoundMainController : MonoBehaviour {
         magic_minigame_Panel.SetActive(false);
         magic_resulteffect_Panel = MagicStartPanel.transform.Find("magic_result_effect").gameObject;
         magic_resulteffect_Panel.SetActive(false);
+        compo_particle_obj = magic_resulteffect_Panel.transform.Find("Particle_KiraExplode_result").gameObject;
+        compo_particle = compo_particle_obj.GetComponent<ParticleSystem>();
+        main = compo_particle.main;
 
         foreach (Transform child in magic_minigame_Panel.transform)
         {
@@ -1028,6 +1036,10 @@ public class CompoundMainController : MonoBehaviour {
                 magic_resulteffect_Panel.SetActive(true);
                 magic_resulteffect_Panel.transform.Find("Freezing_Spell").gameObject.SetActive(true);
 
+                compo_particle_obj.SetActive(true);
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_blue;               
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+
                 Sound_magicresult1();
                 break;
 
@@ -1035,6 +1047,10 @@ public class CompoundMainController : MonoBehaviour {
 
                 magic_resulteffect_Panel.SetActive(true);
                 magic_resulteffect_Panel.transform.Find("Luminous_Suger").gameObject.SetActive(true);
+
+                compo_particle_obj.SetActive(true);
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_yellow;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
 
                 Sound_magicresult1();
                 break;

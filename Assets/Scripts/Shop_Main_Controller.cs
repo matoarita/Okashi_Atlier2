@@ -211,16 +211,7 @@ public class Shop_Main_Controller : MonoBehaviour {
             {
 
             }
-        }
-
-        //時間の更新 シーン移動後に時間を更新する場合
-        if (GameMgr.SceneMoveAfter_Koushin)
-        {
-            GameMgr.SceneMoveAfter_Koushin = false;
-
-            time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1);
-            time_controller.TimeKoushin(0, false);
-        }
+        }        
 
         //入店の音
         if (!GameMgr.ShopEnter_ButtonON) //重複防止 trueのときは音ならさない
@@ -293,6 +284,15 @@ public class Shop_Main_Controller : MonoBehaviour {
             StartRead = true;
             sceneBGM.PlaySub();
             sceneBGM.NowFadeVolumeONBGM();
+
+            //時間の更新 シーン移動後に時間を更新する場合
+            if (GameMgr.SceneMoveAfter_Koushin)
+            {
+                GameMgr.SceneMoveAfter_Koushin = false;
+
+                time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1);
+                time_controller.TimeKoushin(0, false);
+            }
         }
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など

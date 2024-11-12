@@ -269,12 +269,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             if (database.items[GameMgr.Okashi_lastID].Magic == 0)
             {
                 PlayerStatus.player_okashi_kakuritsuup += random2;
-                girlEat_judge.LvUpPanel5("おかしの成功率", random2);
+                girlEat_judge.LvUpPanel5(GameMgr.System_PStatusName1, random2);
             } else
             {
                 //魔法のおかしの場合
                 PlayerStatus.player_okashi_magic_kakuritsuup += random2;
-                girlEat_judge.LvUpPanel5("魔法の成功率", random2);
+                girlEat_judge.LvUpPanel5(GameMgr.System_PStatusName3, random2);
             }
         }
     }
