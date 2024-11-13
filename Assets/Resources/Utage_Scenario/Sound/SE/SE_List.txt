@@ -172,3 +172,6 @@ SE表
 ・SE_170	audiostock_383264_sample			そしゃく音　猫っぽい
 ・SE_171	飲み込む音　ゴクリ(DOVA)			飲み込む音
 ・SE_172	Quiz-Question03-1				ジャン！　クイズの出題音
+・SE_173	audiostock_116289_sample			【魔法の音】キーン　光が細く飛んでいく音
+・SE_174	audiostock_241560_sample			【魔法の音】光が発生する音　キュラララ
+・SE_175	Onoma-Sparkle05-2(High)				【魔法の音】光をためる音
