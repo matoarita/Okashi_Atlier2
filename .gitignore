@@ -31,6 +31,9 @@ ExportedObj/
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 
+# Live2D Demo Directry
+Assets/Live2D/Cubism/Samples
+
 # Builds
 *.apk
 *.unitypackage

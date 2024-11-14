@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright(c) Live2D Inc. All rights reserved.
  *
  * Use of this source code is governed by the Live2D Open Software license
@@ -14,12 +14,19 @@ Shader "Live2D Cubism/Unlit"
         [PerRendererData] _MainTex("Main Texture", 2D) = "white" {}
         [PerRendererData] cubism_ModelOpacity("Model Opacity", Float) = 1
 
+        // Extension Color settings.
+        [PerRendererData] cubism_MultiplyColor("Multiply Color", Color) = (1.0, 1.0, 1.0, 1.0)
+        [PerRendererData] cubism_ScreenColor("Screen Color", Color) = (0.0, 0.0, 0.0, 1.0)
 
         // Blend settings.
         _SrcColor("Source Color", Int) = 0
         _DstColor("Destination Color", Int) = 0
         _SrcAlpha("Source Alpha", Int) = 0
         _DstAlpha("Destination Alpha", Int) = 0
+
+
+        // Culling setting.
+        _Cull("Culling", Int) = 0
 
 
         // Mask settings.
@@ -40,7 +47,7 @@ Shader "Live2D Cubism/Unlit"
             "CanUseSpriteAtlas" = "True"
         }
 
-        Cull     Off
+        Cull     [_Cull]
         Lighting Off
         ZWrite   Off
         Blend    [_SrcColor][_DstColor], [_SrcAlpha][_DstAlpha]
@@ -50,7 +57,8 @@ Shader "Live2D Cubism/Unlit"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile CUBISM_MASK_ON CUBISM_MASK_OFF CUBISM_INVERT_ON
+            #pragma multi_compile _ CUBISM_INVERT_ON
+            #pragma multi_compile _ CUBISM_MASK_ON
 
 
             #include "UnityCG.cginc"
@@ -79,6 +87,8 @@ Shader "Live2D Cubism/Unlit"
 
 
             sampler2D _MainTex;
+            fixed4 cubism_MultiplyColor;
+            fixed4 cubism_ScreenColor;
 
 
             // Include Cubism specific shader variables.
@@ -109,8 +119,14 @@ Shader "Live2D Cubism/Unlit"
 
             fixed4 frag (v2f IN) : SV_Target
             {
-                fixed4 OUT = tex2D(_MainTex, IN.texcoord) * IN.color;
+                fixed4 textureColor = tex2D(_MainTex, IN.texcoord);
 
+                // Multiply
+                textureColor.rgb *= cubism_MultiplyColor.rgb;
+                // Screen
+                textureColor.rgb = (textureColor.rgb + cubism_ScreenColor.rgb) - (textureColor.rgb * cubism_ScreenColor.rgb);
+
+                fixed4 OUT = textureColor * IN.color;
 
                 // Apply Cubism alpha to color.
                 CUBISM_APPLY_ALPHA(IN, OUT);

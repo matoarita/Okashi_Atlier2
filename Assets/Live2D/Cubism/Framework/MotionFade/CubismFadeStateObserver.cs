@@ -141,6 +141,7 @@ namespace Live2D.Cubism.Framework.MotionFade
             }
 
             _cubismFadeMotionList = fadeController.CubismFadeMotionList;
+            _isStateTransitionFinished = false;
 
             _layerIndex = layerIndex;
             _layerWeight = (_layerIndex == 0)
@@ -224,6 +225,7 @@ namespace Live2D.Cubism.Framework.MotionFade
                                         ? -1
                                         : playingMotion.StartTime + playingMotion.Motion.MotionLength;
                 playingMotion.IsLooping = animatorClipInfo[i].clip.isLooping;
+                playingMotion.Weight = 0.0f;
 
                 _playingMotions.Add(playingMotion);
             }
