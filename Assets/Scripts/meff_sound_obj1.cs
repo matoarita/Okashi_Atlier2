@@ -28,16 +28,28 @@ public class meff_sound_obj1 : MonoBehaviour {
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
     }
 
-    public void OnSound01()
+    public void OnSound01() //光りがとんでいく音
     {
         //Debug.Log("OnSound01()");
         sc.PlaySe(172);
     }
 
-    public void OnSound02()
+    public void OnSound02() //光りが収束したときの音
     {
         //Debug.Log("OnSound02()");
         sc.PlaySe(173);
-        sc.PlaySe(174);
+        sc.PlaySe(174); 
+    }
+
+    public void OnSound20() //凍り付いたときの音
+    {
+        //Debug.Log("OnSound02()");
+        sc.PlaySe(175);
+    }
+
+    public void OnSound21() //氷発生の音
+    {
+        //Debug.Log("OnSound02()");
+        sc.PlaySe(176);
     }
 }

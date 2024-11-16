@@ -1053,7 +1053,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Luminous_Fruits":
 
-                if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" || check_itemType_sub == "Harb")
+                if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
                 {
                     if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
                     {
@@ -1069,7 +1069,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Aroma_Potion":
 
-                if (check_itemType_sub == "Flower" || check_itemType_subB == "a_Sakura")
+                if (check_itemType_sub == "Flower" || check_itemType_subB == "a_Sakura" || check_itemType_sub == "Harb")
                 {
                     itemlist_hyouji_Check();
                 }

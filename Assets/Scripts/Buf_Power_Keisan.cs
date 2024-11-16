@@ -26,7 +26,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int hikari_okashiLV;
     private float _a, _b;
 
-    private int i;
+    private int i, rnd;
     private int _id, _magicid, _magicid2;
     private string _itemType;
     private string _itemType_sub;
@@ -1374,6 +1374,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 }
                 break;
 
+            case "Chocolate_Tempering":
+
+                if (_status == 2)//なめらかのバフ
+                {
+                    _magicup = (int)(_baseparam * 0.3f * GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3) + 
+                        (int)(magicskill_database.skillName_SearchLearnLevel("Chocolate_Tempering") * _baseparam * 0.1f);
+                    Debug.Log("補正値: " + _baseparam * 0.1f + " * " + GameMgr.System_magic_playParamUp + " + " + (int)(magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") * _baseparam * 0.1f));
+                    Debug.Log("テンパリングの最終バフ: " + _magicup);
+                    _buf_shokukanup += _magicup;
+                }
+                break;
+
             case "Warming_Handmade": //手作りの温もり
 
                 if (_status >= 0 && _status <= 6)//すべての食感
@@ -1386,13 +1398,26 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 }
                 break;
 
+            case "AbraCadabra": //アブタラカブタラ
+
+                if (_status >= 0 && _status <= 6)//すべての食感
+                {
+                    if (_status != 5) //ただし、見た目はバフを無視。
+                    {
+                        rnd = Random.Range(0,300);
+                        _magicup = rnd;
+                        _buf_shokukanup += _magicup;
+                    }
+                }
+                break;
+
         }
 
         return _buf_shokukanup;
     }
 
     //魔法によって状態が変わる
-    public int Buf_OkashiAttribute_Magic(string _magicname)
+    public void Buf_OkashiAttribute_Magic(string _magicname, int _id)
     {
         _magic_attri = 0;
 
@@ -1401,11 +1426,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case "Cookie_SecondBake":
 
                 _magic_attri = 1; //二度焼きしたというフラグ
+                pitemlist.player_originalitemlist[_id].Attribute1 = _magic_attri;
                 break;
 
         }
-
-        return _magic_attri;
     }
 
 

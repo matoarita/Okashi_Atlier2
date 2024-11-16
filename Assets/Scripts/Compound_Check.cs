@@ -997,21 +997,21 @@ public class Compound_Check : MonoBehaviour {
                 GameMgr.temp_itemID3 = 9999; //9999は空を表す数字
                 itemID_3 = GameMgr.temp_itemID3;
 
-                //使うスキルLVを決定
-                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Non" ||
-                    magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
-                {
-                    //常に習得レベルで固定する扱いになるので、判定では使用しない。
-                    GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[itemID_2].skillLv;
-                }
-                else if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Use")//[USE]が入っている時
+                //使うスキルLVを決定 現在は固定 Use使ってない
+                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Use")//[USE]が入っている時
                 {
                     magicskill_database.magicskill_lists[itemID_2].skillUseLv = 1; //
                     GameMgr.UseMagicSkillLv = 1;
                 }
+                else
+                {
+                    //常に習得レベルで固定する扱いになるので、判定では使用しない。
+                    GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[itemID_2].skillLv;
+                }
 
                 //CompNoの判定　CompNoは該当するCompoがある場合は、そこで新規生成。ない場合、失敗とはならず、元アイテムをresultItemにして新たに生成しなおし。
-                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
+                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo" || 
+                    magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
                 {
                     //調合DBの判定が必要ない魔法の場合　元アイテムをresultItemにして、新たに生成しなおす。
                     GameMgr.Comp_kettei_bunki = 22;
@@ -1072,7 +1072,8 @@ public class Compound_Check : MonoBehaviour {
                         magicskill_database.magicskill_lists[itemID_2].skill_usecount++;
 
                         //魔法によって、仕上げ回数も消費する。
-                        if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo")
+                        if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo" ||
+                            magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
                         {
                             GameMgr.Extreme_On = true;
                             //CompNoのお菓子は、仕上げ回数が減る     
@@ -1092,42 +1093,7 @@ public class Compound_Check : MonoBehaviour {
                             GameMgr.Extreme_On = false;
                             exp_Controller.Comp_method_bunki = 20;
                         }
-
-                        
-
-                        //魔法によって、ハートも消費する。さらに、演出時間もここで決定
-                        switch (GameMgr.UseMagicSkill)
-                        {
-                            case "Cookie_SecondBake":
-
-                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_01;
-                                break;
-
-                            case "Warming_Handmade":
-
-                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
-                                girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * 30), false); //ハートを消費するパターン;
-                                                                                                  //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
-                                break;
-
-                            case "True_of_Myheart":
-
-                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
-                                if (PlayerStatus.girl1_Love_exp >= GameMgr.System_trueheart_cost)
-                                {
-                                    girleat_judge.UpDegHeart(-GameMgr.System_trueheart_cost, false); //ハートを消費するパターン;
-                                }
-                                else //足りてないときは、演出が入るが失敗になる。
-                                {
-                                    exp_Controller._success_rate = 0;
-                                }
-                                break;
-
-                            default:
-
-                                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
-                                break;
-                        }
+                       
 
                         //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                         exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
@@ -1302,13 +1268,7 @@ public class Compound_Check : MonoBehaviour {
             _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
             _cost_mptext.text = costMP.ToString();
 
-            if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "Non" ||
-                magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "CompNo")
-            {
-                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName);
-                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName);
-            }
-            else if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "MS")//[MS]が入っている時 マジックソーダの判定　時間帯で番号が変わる。
+            if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "MS")//[MS]が入っている時 マジックソーダの判定　時間帯で番号が変わる。
             {
                 _playerhour = PlayerStatus.player_cullent_hour;
                 _uselv = 1;
@@ -1336,6 +1296,11 @@ public class Compound_Check : MonoBehaviour {
 
                 _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName + _uselv);
                 Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName + _uselv);
+            }
+            else
+            { //Non, CompNo, Abraなどデフォルト
+                _itemIDtemp_result.Add(magicskill_database.magicskill_lists[tempID_2].skillName);
+                Debug.Log("魔法名とLV: " + magicskill_database.magicskill_lists[tempID_2].skillName);
             }
             //USEは、使用時に魔法のレベルを選択できるモード　パラメータ数が膨大になるので、今回は見送り
             /*else if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "Use")//[USE]が入っている時
@@ -1452,9 +1417,24 @@ public class Compound_Check : MonoBehaviour {
             //魔法で、調合DBのリザルトアイテムでなく、元アイテムを強化する場合は失敗とならず、元アイテムを新たに生成しなおして、魔法のバフをかける。
             if (GameMgr.Comp_kettei_bunki == 22) 
             {
-                resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
-                result_compoID = databaseCompo.SearchCompoIDString("Magic_CompNo_empty");
-                _compNo_check = 1; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。
+                switch (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect)
+                {
+                    case "CompNo":
+
+                        resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
+                        result_compoID = databaseCompo.SearchCompoIDString("Magic_CompNo_empty");
+                        _compNo_check = 1; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。
+                        break;
+
+                    case "Abra": //アブタラカブタラで、ランダムでお菓子が生成される　自分が覚えてないやつがでる。全部覚えてる場合は、覚えてるものからランダム。
+
+                        resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
+                        result_compoID = databaseCompo.SearchCompoIDString("Magic_CompNo_empty");
+                        _compNo_check = 1; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。
+                        //アブタラを使うと、元アイテムのパラメータを受け継いだまま、まったく別のお菓子にする。あとで調整はいるかも。
+                        break;
+                }
+                
             }
         }
 
@@ -1645,7 +1625,7 @@ public class Compound_Check : MonoBehaviour {
                     exp_Controller._success_rate = _success_rate;
 
                     //スキルによっては、成否判定がミニゲームだったりするので、その場合表示が??
-                    if( magicName == "Cookie_SecondBake" || magicName == "AbraCadabra")
+                    if( magicName == "Cookie_SecondBake" || magicName == "Chocolate_Tempering" || magicName == "AbraCadabra")
                     {
                         kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
                     }
@@ -1698,9 +1678,18 @@ public class Compound_Check : MonoBehaviour {
             else if (GameMgr.Comp_kettei_bunki == 22)
             {
                 //スキルによっては、成否判定がミニゲームだったりするので、その場合表示が??
-                if (magicName == "Cookie_SecondBake" || magicName == "AbraCadabra")
+                if (magicName == "Cookie_SecondBake" || magicName == "Chocolate_Tempering")
                 {
                     kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
+                }
+                else if (magicName == "AbraCadabra")
+                {
+                    _success_rate = 85f;
+                    exp_Controller._success_judge_flag = 1; //判定処理を行う。
+                    exp_Controller._success_rate = _success_rate;
+                    kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
+                    //kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //
+                    Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _success_rate);
                 }
                 else
                 {

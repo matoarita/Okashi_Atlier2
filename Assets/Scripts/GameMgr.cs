@@ -118,7 +118,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //調合時の演出時間
     public static float System_compo_playtime_default = 2.0f; //通常調合時の演出時間　トータルで3秒ほど。
     public static float System_magic_playtime_default = 3.0f; //エフェクトのみの時間　トータルで4秒ほど。新規作成エフェクトが入って7秒。
-    public static float System_magic_playtime_01 = 3.0f; //ミニゲームある場合の時間　トータルで4秒ほどになる。Compound_Check内で入れる。
+    public static float System_magic_playtime_01 = 3.0f; //セカンドベイク　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
+    public static float System_magic_playtime_02 = 4.0f; //テンパリング　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
 
     //パティシエレベルの上限
     public static int System_patissier_maxlv = 50;
@@ -772,6 +773,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_magic_playON; //魔法ミニゲーム画面を使用　成功率などが、確率でなくミニゲームの結果に変わる
     public static float System_magic_playtime; //魔法の演出時間　魔法によって変わる
     public static float System_magic_playParamUp; //魔法ミニゲームの結果による、食感補正値
+    public static float System_magic_playParamUp2;
+    public static float System_magic_playParamUp3;
     public static bool System_magic_playSuccess; //魔法ミニゲームで、成功か失敗か
     public static bool Special_OkashiEnshutsuFlag; //特定のおかしをはじめて作成するときに、特別演出が発生するフラグ
     public static string Special_OkashiEnshutsuName; //演出の指定

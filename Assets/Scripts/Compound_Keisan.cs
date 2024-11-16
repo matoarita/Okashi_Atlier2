@@ -1477,8 +1477,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
                     {
-                        _attri1 = bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill);
-                        pitemlist.player_originalitemlist[new_item].Attribute1 = _attri1;
+                        bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill, new_item);
                     }
                 }
                 break;
@@ -1565,8 +1564,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
                     {
-                        _attri1 = bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill);
-                        pitemlist.player_extremepanel_itemlist[new_item].Attribute1 = _attri1;
+                        bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill, new_item);
                     }
                 }
 

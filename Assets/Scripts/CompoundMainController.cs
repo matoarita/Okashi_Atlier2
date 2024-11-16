@@ -136,6 +136,7 @@ public class CompoundMainController : MonoBehaviour {
 
     private int i;
     private int _id;
+    private string _meffect_resultname;
 
     private GameObject Debug_CompoIcon;
 
@@ -1004,24 +1005,232 @@ public class CompoundMainController : MonoBehaviour {
     {
         switch (GameMgr.UseMagicSkill)
         {
-            case "Cookie_SecondBake":
+            case "Cookie_SecondBake": //OK
 
                 GameMgr.System_magic_playON = true; //ミニゲーム上での成功率判定に切り替え
                 magic_minigame_Panel.SetActive(true);
                 magic_minigame_Panel.transform.Find("SecondBake").gameObject.SetActive(true);
                 magic_minigame_Panel.transform.Find("SecondBake").GetComponent<MiniSecondBake_Panel>().OnStartAnim(); //ミニゲームの開始
+                magiceffect_result_setting(2);
+                break;
+
+            case "Chocolate_Tempering":
+
+                GameMgr.System_magic_playON = true; //ミニゲーム上での成功率判定に切り替え
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Chocolate_Tempering").gameObject.SetActive(true);
+                magic_minigame_Panel.transform.Find("Chocolate_Tempering").GetComponent<MiniChocolate_Tempering_Panel>().OnStartAnim(); //ミニゲームの開始
+                magiceffect_result_setting(2);
                 break;
 
             case "Freezing_Spell":
 
                 magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Freezing_Spell").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ           
+                magic_minigame_Panel.transform.Find("Freezing_Spell").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ    
+                magiceffect_result_setting(0);
                 break;
-
-            case "Luminous_Suger":
+            
+            case "Luminous_Suger": //OK
 
                 magic_minigame_Panel.SetActive(true);
                 magic_minigame_Panel.transform.Find("Luminous_Suger").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ           
+                magiceffect_result_setting(1);
+                break;
+
+            case "Luminous_Fruits":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Luminous_Fruits").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ   
+                magiceffect_result_setting(1);
+                break;
+
+            case "Buttelfy_illumination":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Buttelfy_illumination").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ      
+                magiceffect_result_setting(1);
+                break;
+
+            case "Fire_Flowers":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Fire_Flowers").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ   
+                magiceffect_result_setting(2);
+                break;
+
+            case "Caramelized":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Caramelized").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ     
+                magiceffect_result_setting(2);
+                break;
+
+            case "Bake_Beans":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Bake_Beans").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ  
+                magiceffect_result_setting(2);
+                break;
+
+            case "Freezing_OverRun":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Freezing_OverRun").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ     
+                magiceffect_result_setting(0);
+                break;
+
+            case "SugerPot":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("SugerPot").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(0);
+                break;
+
+            case "Wind_Ark":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Wind_Ark").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Wind_Twister":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Wind_Twister").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Wind_Crown":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Wind_Crown").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Wind_Roll":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Wind_Roll").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Wind_Pen":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Wind_Pen").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Float_Material":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Float_Material").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Bubble_Mist":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Bubble_Mist").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Statue_of_Penguin":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Statue_of_Penguin").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Statue_of_Bear":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Statue_of_Bear").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Statue_of_Cat":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Statue_of_Cat").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Statue_of_Rabitts":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Statue_of_Rabitts").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(3);
+                break;
+
+            case "Star_Blessing":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Star_Blessing").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(4);
+                break;
+
+            case "Latte_Art":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Latte_Art").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(4);
+                break;
+
+            case "Moonlight_Banana":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Moonlight_Banana").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(4);
+                break;
+
+            case "Magic_Soda":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Magic_Soda").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(4);
+                break;
+
+            case "Rainbow_Rain":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Rainbow_Rain").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(4);
+                break;
+
+            case "Aroma_Potion":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Aroma_Potion").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(5);
+                break;
+
+            case "Warming_Handmade":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Warming_Handmade").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(9);
+                break;
+
+            case "Life_Stream":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("Life_Stream").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(9);
+                break;
+
+            case "AbraCadabra":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("AbraCadabra").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(9);
+                break;
+
+            case "True_of_Myheart":
+
+                magic_minigame_Panel.SetActive(true);
+                magic_minigame_Panel.transform.Find("True_of_Myheart").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                magiceffect_result_setting(9);
                 break;
         }
     }
@@ -1029,12 +1238,19 @@ public class CompoundMainController : MonoBehaviour {
     //完成時のエフェクトと効果音 Exp_Controllerから読み込み
     public void MagicResultEffect_Panel()
     {
-        switch (GameMgr.UseMagicSkill)
+        //各エフェクトの設定は、上のminigamepanel内のmagiceffect_result_settingでやる
+        magic_resulteffect_Panel.SetActive(true);
+        magic_resulteffect_Panel.transform.Find(_meffect_resultname).gameObject.SetActive(true);
+        compo_particle_obj.SetActive(true);
+
+        Sound_magicresult1();
+
+        /*switch (GameMgr.UseMagicSkill)
         {
             case "Freezing_Spell":
 
                 magic_resulteffect_Panel.SetActive(true);
-                magic_resulteffect_Panel.transform.Find("Freezing_Spell").gameObject.SetActive(true);
+                magic_resulteffect_Panel.transform.Find("Ice_Result").gameObject.SetActive(true);
 
                 compo_particle_obj.SetActive(true);
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_blue;               
@@ -1046,7 +1262,7 @@ public class CompoundMainController : MonoBehaviour {
             case "Luminous_Suger":
 
                 magic_resulteffect_Panel.SetActive(true);
-                magic_resulteffect_Panel.transform.Find("Luminous_Suger").gameObject.SetActive(true);
+                magic_resulteffect_Panel.transform.Find("Luminous_Result").gameObject.SetActive(true);
 
                 compo_particle_obj.SetActive(true);
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_yellow;
@@ -1059,7 +1275,78 @@ public class CompoundMainController : MonoBehaviour {
 
                 Sound_magicresult1();               
                 break;
+        }*/
+    }
+
+    void magiceffect_result_setting(int _effect_select)
+    {
+        switch(_effect_select)
+        {
+            case 0: //氷
+
+                _meffect_resultname = "Ice_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_blue;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
+
+            case 1: //光
+
+                _meffect_resultname = "Luminous_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_yellow;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
+
+            case 2: //火
+
+                _meffect_resultname = "Fire_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_red;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
+
+            case 3: //風
+
+                _meffect_resultname = "Wind_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_green;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
+
+            case 4: //星
+
+                _meffect_resultname = "Star_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_purple;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
+
+            case 5: //森
+
+                _meffect_resultname = "Forest_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_mint;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
+
+            case 6: //時
+
+                _meffect_resultname = "Time_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_orange;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
+
+            case 7: //音
+
+                _meffect_resultname = "Music_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_mint;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
+
+            case 9: //ハート
+
+                _meffect_resultname = "Heart_Result";
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_pink;
+                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                break;
         }
+        
+
     }
 
     void Sound_magicresult1()
@@ -1070,9 +1357,13 @@ public class CompoundMainController : MonoBehaviour {
     }
 
 
+
+
+
+
+
     //Live2D関連コマンド
     //調合シーンに入った時の、Live2D処理。
-
     //調合シーンに入った時の、キャラクタ位置や状態など更新
     void SetLive2DPos_Compound()
     {

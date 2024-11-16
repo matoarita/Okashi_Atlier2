@@ -53,7 +53,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GirlEat_Main girlEat_scene;
 
     private GameObject GirlEat_judge_obj;
-    private GirlEat_Judge girlEat_judge;
+    private GirlEat_Judge girleat_judge;
 
     private Girl1_status girl1_status;
 
@@ -1214,6 +1214,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //コンポ調合データベースのIDを代入
         result_ID = GameMgr.Final_result_compID;
 
+        //演出時間を決定 ハート消費もここで決定
+        MagicEnshutuTimeKettei();
+
         //Comp_method_bunki = 20;
 
         //ウェイトアニメーション開始
@@ -2238,6 +2241,50 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
     }
 
+    void MagicEnshutuTimeKettei()
+    {
+        girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
+
+        //魔法によって、ハートも消費する。さらに、演出時間もここで決定
+        switch (GameMgr.UseMagicSkill)
+        {
+            case "Cookie_SecondBake":
+
+                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_01;
+                break;
+
+            case "Chocolate_Tempering":
+
+                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_02;
+                break;
+
+            case "Warming_Handmade":
+
+                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
+                girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * 30), false); //ハートを消費するパターン;
+                                                                                  //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
+                break;
+
+            case "True_of_Myheart":
+
+                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
+                if (PlayerStatus.girl1_Love_exp >= GameMgr.System_trueheart_cost)
+                {
+                    girleat_judge.UpDegHeart(-GameMgr.System_trueheart_cost, false); //ハートを消費するパターン;
+                }
+                else //足りてないときは、演出が入るが失敗になる。ハートは消費しない
+                {
+                    _success_rate = 0;
+                }
+                break;
+
+            default:
+
+                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
+                break;
+        }
+    }
+
     void CompleteMagicAnim()
     {
         //完成～出来たー！という変化をつけるために、背景を変える。
@@ -2265,6 +2312,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //音を鳴らす キラララーン
                 sc.PlaySe(129);
                 sc.PlaySe(131);
+                //sc.PlaySe(177);
 
                 //パーティクルと色の取得
                 /*compo1_particle = _listEffect[0].GetComponent<ParticleSystem>();

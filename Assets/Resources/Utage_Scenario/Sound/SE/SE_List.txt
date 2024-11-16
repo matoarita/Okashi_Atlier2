@@ -175,3 +175,6 @@ SE表
 ・SE_173	audiostock_116289_sample			【魔法の音】キーン　光が細く飛んでいく音
 ・SE_174	audiostock_241560_sample			【魔法の音】光が発生する音　キュラララ
 ・SE_175	Onoma-Sparkle05-2(High)				【魔法の音】光をためる音
+・SE_176	audiostock_63566_sample				【魔法の音】凍り付く音
+・SE_177	Onoma-Flash02-1(Low-Dry)			【魔法の音】氷が発生する音
+・SE_178	audiostock_1301312_sample			【魔法の音】魔法チャージ音※未使用
