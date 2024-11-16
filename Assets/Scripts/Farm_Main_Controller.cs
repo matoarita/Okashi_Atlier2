@@ -234,6 +234,8 @@ public class Farm_Main_Controller : MonoBehaviour {
                     GameMgr.Scene_Select = 0;
                     GameMgr.Scene_Status = 100;
 
+                    SceneDefaultMessage();
+
                     if (trans == 1) //カメラが寄っていたら、デフォに戻す。
                     {
                         //カメラ寄る。
@@ -243,7 +245,7 @@ public class Farm_Main_Controller : MonoBehaviour {
                         maincam_animator.SetInteger("trans", trans);
                     }
 
-                    _text.text = "いらっしゃ～い。";
+                    
 
                     break;
 
@@ -381,7 +383,7 @@ public class Farm_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Status = 1; //ショップのシーンに入っている、というフラグ
             GameMgr.Scene_Select = 1;
 
-            _text.text = "ぎょ～さん買っていきぃ！";
+            _text.text = GameMgr.System_Shop_text2;
 
         }
     }
@@ -525,6 +527,12 @@ public class Farm_Main_Controller : MonoBehaviour {
     public void SceneNamePlateSetting()
     {
         placename_panel.GetComponent<PlaceNamePanel>().OnSceneNamePlate();
+    }
+
+    public void SceneDefaultMessage()
+    {
+        //初期メッセージ
+        _text.text = GameMgr.System_Shop_text1;
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

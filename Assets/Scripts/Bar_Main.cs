@@ -16,9 +16,14 @@ public class Bar_Main : MonoBehaviour
 
         GameMgr.Scene_Name = "Bar_Grt";
         GameMgr.Window_CharaName = "フィオナ";
+        GameMgr.System_Shop_text1 = "いらっしゃい～。";
+        GameMgr.System_Shop_text2 = "いまは、こんな依頼があるわよ。どれをうける？";
 
         //ネームプレートの設定
         barmain_Controller.SceneNamePlateSetting();
+
+        //お店の初期メッセージ
+        barmain_Controller.SceneDefaultMessage();
 
         //シーン読み込み完了時のメソッド
         //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      

@@ -220,61 +220,65 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     //ハートLVアップ時にステータス上がる
     public void StatusUp()
     {
-        _subtype = database.items[GameMgr.Okashi_lastID].itemType_sub.ToString();
-        itemsubtypeset_database.SetImageSub(_subtype); //さっき食べたおかしのサブタイプをみる
-
-        //①直前に食べたおかしの種類によって、上がるパラメータが決まる
-        random = Random.Range(1, 10);
-        switch (GameMgr.Item_ShokukanTypeNum)
+        if (GameMgr.System_HeartLV_StatusUp)
         {
-            case 0: //さくさく
+            _subtype = database.items[GameMgr.Okashi_lastID].itemType_sub.ToString();
+            itemsubtypeset_database.SetImageSub(_subtype); //さっき食べたおかしのサブタイプをみる
 
-                girlEat_judge.LvUpPanel5("さくさく", random);
-                break;
-
-            case 1: //ふわふわ
-
-                girlEat_judge.LvUpPanel5("ふわふわ", random);
-                break;
-
-            case 2: //なめらか
-
-                girlEat_judge.LvUpPanel5("なめらか", random);
-                break;
-
-            case 3: //歯ごたえ
-
-                girlEat_judge.LvUpPanel5("歯ごたえ", random);
-                break;
-
-            case 4: //のどごし
-
-                girlEat_judge.LvUpPanel5("のどごし", random);
-                break;
-
-            case 5: //香り
-
-                girlEat_judge.LvUpPanel5("香り", random);
-                break;
-        }
-
-        //②ランダムで、おかし成功率か時間短縮が上がる。
-        //魔法のおかしだと、魔法の効果、成功率が上がる。
-
-        //おかしの成功率系判定
-        random = Random.Range(0, 10);
-        if(random <= 7) //70%ぐらい？
-        {
-            random2 = Random.Range(1, 3);
-            if (database.items[GameMgr.Okashi_lastID].Magic == 0)
+            //①直前に食べたおかしの種類によって、上がるパラメータが決まる
+            random = Random.Range(1, 10);
+            switch (GameMgr.Item_ShokukanTypeNum)
             {
-                PlayerStatus.player_okashi_kakuritsuup += random2;
-                girlEat_judge.LvUpPanel5(GameMgr.System_PStatusName1, random2);
-            } else
+                case 0: //さくさく
+
+                    girlEat_judge.LvUpPanel5("さくさく", random);
+                    break;
+
+                case 1: //ふわふわ
+
+                    girlEat_judge.LvUpPanel5("ふわふわ", random);
+                    break;
+
+                case 2: //なめらか
+
+                    girlEat_judge.LvUpPanel5("なめらか", random);
+                    break;
+
+                case 3: //歯ごたえ
+
+                    girlEat_judge.LvUpPanel5("歯ごたえ", random);
+                    break;
+
+                case 4: //のどごし
+
+                    girlEat_judge.LvUpPanel5("のどごし", random);
+                    break;
+
+                case 5: //香り
+
+                    girlEat_judge.LvUpPanel5("香り", random);
+                    break;
+            }
+
+            //②ランダムで、おかし成功率か時間短縮が上がる。
+            //魔法のおかしだと、魔法の効果、成功率が上がる。
+
+            //おかしの成功率系判定
+            random = Random.Range(0, 10);
+            if (random <= 7) //70%ぐらい？
             {
-                //魔法のおかしの場合
-                PlayerStatus.player_okashi_magic_kakuritsuup += random2;
-                girlEat_judge.LvUpPanel5(GameMgr.System_PStatusName3, random2);
+                random2 = Random.Range(1, 3);
+                if (database.items[GameMgr.Okashi_lastID].Magic == 0)
+                {
+                    PlayerStatus.player_okashi_kakuritsuup += random2;
+                    girlEat_judge.LvUpPanel5(GameMgr.System_PStatusName1, random2);
+                }
+                else
+                {
+                    //魔法のおかしの場合
+                    PlayerStatus.player_okashi_magic_kakuritsuup += random2;
+                    girlEat_judge.LvUpPanel5(GameMgr.System_PStatusName3, random2);
+                }
             }
         }
     }
@@ -355,11 +359,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         _last_htable = stage1_hlvTable[stage1_hlvTable.Count - 1]; //最後にいれた数字　更新
         for (i = 1; i < (99 - _hlv_last); i++)
         {
-            stage1_hlvTable.Add(_last_htable + i * 150); //30+i=31～から入っていく
+            stage1_hlvTable.Add(_last_htable + i * 100); //30+i=31～から入っていく 
         }
 
         //LV99ラストにいくための経験値
-        stage1_hlvTable[stage1_hlvTable.Count - 1] = 15000; //最後の数字 LV98→LV99までが、ここで設定した値になる。
+        stage1_hlvTable[stage1_hlvTable.Count - 1] = 9999; //最後の数字 LV98→LV99までが、ここで設定した値になる。
 
         //デバッグ用
         /*for (i = 0; i < stage1_hlvTable.Count; i++)

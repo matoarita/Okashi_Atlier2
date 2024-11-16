@@ -1528,7 +1528,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("一個目はcancel");
 
-                _text.text = "売るアイテムを選択してね。";
+                _text.text = GameMgr.System_Shop_text7;
 
                 for (i = 0; i < pitemlistController._listitem.Count; i++)
                 {
@@ -1552,9 +1552,9 @@ public class itemSelectToggle : MonoBehaviour
     IEnumerator shop_sell_Final_select()
     {
 
-        _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "を　" + GameMgr.Final_kettei_kosu1 + "個 売りますか？" + "\n" +
+        _text.text = database.items[GameMgr.temp_itemID1].itemNameHyouji + "を　" + GameMgr.Final_kettei_kosu1 + "個 " + GameMgr.System_Shop_text8 + "\n" +
             "全部で　" + GameMgr.ColorYellow + database.items[GameMgr.temp_itemID1].sell_price * GameMgr.Final_kettei_kosu1 + 
-            " " + GameMgr.MoneyCurrency + "</color>" + "で買い取ります。";
+            " " + GameMgr.MoneyCurrency + "</color>" + GameMgr.System_Shop_text9;
 
         updown_counter.UpdownButton_InteractALLOFF();
 
@@ -1595,7 +1595,7 @@ public class itemSelectToggle : MonoBehaviour
 
                 //Debug.Log("cancel");
 
-                _text.text = "何を売りますか？";
+                _text.text = GameMgr.System_Shop_text7;
 
                 for (i = 0; i < pitemlistController._listitem.Count; i++)
                 {

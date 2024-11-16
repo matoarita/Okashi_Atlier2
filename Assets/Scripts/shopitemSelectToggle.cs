@@ -213,20 +213,20 @@ public class shopitemSelectToggle : MonoBehaviour
         if (shopitemlistController.shop_itemType == 1) //レシピを選択したとき
         {
             _id = pitemlist.SearchEventItemID(shopitemlistController.shop_kettei_item1); //IDをもとにevent_itemsの配列番号に変換
-            _text.text = _item_Namehyouji + "を何個買いますか？";
+            _text.text = _item_Namehyouji + "を何個" + GameMgr.System_Shop_text4;
             card_view.ShopSelectCard_DrawView(1, _id);
         }
         else if (shopitemlistController.shop_itemType == 5) //エメラルドショップのアイテムを選択したとき
         {
             _id = pitemlist.SearchEmeraldItemID(shopitemlistController.shop_kettei_item1);
             _itemcount = pitemlist.KosuCountEmerald(pitemlist.emeralditemlist[_id].event_itemName);
-            _text.text = _item_Namehyouji + "を買いますか？" + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+            _text.text = _item_Namehyouji + "を" + GameMgr.System_Shop_text4 + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
         }
         else //それ以外の通常のアイテムは個数が表示
         {
             _id = database.SearchItemID(shopitemlistController.shop_kettei_item1); //IDをもとにitemsの配列番号に変換
             _itemcount = pitemlist.KosuCount(database.items[_id].itemName);
-            _text.text = _item_Namehyouji + "を買いますか？" + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
+            _text.text = _item_Namehyouji + "を" + GameMgr.System_Shop_text4 + "\n" + "個数を選択してください。" + "\n" + "現在の所持数: " + _itemcount;
             card_view.ShopSelectCard_DrawView(0, _id);
         }
 
@@ -289,7 +289,7 @@ public class shopitemSelectToggle : MonoBehaviour
                 //Debug.Log("cancel");
                 itemselect_cancel.kettei_on_waiting = false; //トグルが押された時点で、トグル内のボタンyes,noを優先する
 
-                _text.text = "何にしますか？";
+                _text.text = GameMgr.System_Shop_text6;
 
                 //キャンセル時、リストのインタラクティブ解除。その時、プレイヤーの所持金をチェックし、足りないものはOFF表示にする。
                 Money_Check();
@@ -318,13 +318,13 @@ public class shopitemSelectToggle : MonoBehaviour
                 {
                     case 0: //エメラルどんぐり
 
-                        _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
+                        _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個" + GameMgr.System_Shop_text4 + "\n" +
             "エメラルどんぐり　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + "個</color>" + "いただくよ。";
                         break;
 
                     case 1: //サファイアどんぐり
 
-                        _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
+                        _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個" + GameMgr.System_Shop_text4 + "\n" +
             "サファイアどんぐり　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + "個</color>" + "いただくよ。";
                         break;
                 }
@@ -333,8 +333,8 @@ public class shopitemSelectToggle : MonoBehaviour
 
             default:
 
-                _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個 買いますか？" + "\n" +
-            "お金が　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + GameMgr.MoneyCurrency + "　</color>" + "かかります。";
+                _text.text = shopitemlistController.shop_itemName_Hyouji + "を　" + shopitemlistController.shop_final_itemkosu_1 + "個" + GameMgr.System_Shop_text4 + "\n" +
+            "お金が　" + GameMgr.ColorYellow + shopitemlistController.shop_costprice * shopitemlistController.shop_final_itemkosu_1 + GameMgr.MoneyCurrency + "　</color>" + GameMgr.System_Shop_text5;
                 break;
         }
 
@@ -390,7 +390,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 //Debug.Log("cancel");
 
-                _text.text = "何にしますか？";
+                _text.text = GameMgr.System_Shop_text6;
 
                 //キャンセル時、リストのインタラクティブ解除。その時、プレイヤーの所持金をチェックし、足りないものはOFF表示にする。
                 Money_Check();

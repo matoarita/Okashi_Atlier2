@@ -273,8 +273,8 @@ public class ScenePlaceNamePanel : MonoBehaviour {
 
                             case "Or_Hiroba_Autumn_DepartMae": //秋エリア　百貨店前
 
-                                _text = "オータム・リーブス" + "\n" + "憩いの噴水広場";
-                                _subtext = "Autumn Leaves Fountain";
+                                _text = "オータム・リーブス" + "\n" + "悠久の時計広場";
+                                _subtext = "Autumn Leaves ClockSquare";
                                 break;
 
                             case "Or_Hiroba_Autumn_BarStreet": //秋エリア　酒場通り

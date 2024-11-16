@@ -1003,6 +1003,7 @@ public class CompoundMainController : MonoBehaviour {
     //
     void Magic_Effect_or_minigamePanel()
     {
+        //ミニゲーム系
         switch (GameMgr.UseMagicSkill)
         {
             case "Cookie_SecondBake": //OK
@@ -1022,216 +1023,227 @@ public class CompoundMainController : MonoBehaviour {
                 magic_minigame_Panel.transform.Find("Chocolate_Tempering").GetComponent<MiniChocolate_Tempering_Panel>().OnStartAnim(); //ミニゲームの開始
                 magiceffect_result_setting(2);
                 break;
+        }
 
-            case "Freezing_Spell":
+        if (GameMgr.System_MagicEffect_USE)
+        {
+            //エフェクトのみ
+            switch (GameMgr.UseMagicSkill)
+            {
+                case "Freezing_Spell":
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Freezing_Spell").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ    
-                magiceffect_result_setting(0);
-                break;
-            
-            case "Luminous_Suger": //OK
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Freezing_Spell").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ    
+                    magiceffect_result_setting(0);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Luminous_Suger").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ           
-                magiceffect_result_setting(1);
-                break;
+                case "Luminous_Suger": //OK
 
-            case "Luminous_Fruits":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Luminous_Suger").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ           
+                    magiceffect_result_setting(1);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Luminous_Fruits").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ   
-                magiceffect_result_setting(1);
-                break;
+                case "Luminous_Fruits":
 
-            case "Buttelfy_illumination":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Luminous_Fruits").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ   
+                    magiceffect_result_setting(1);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Buttelfy_illumination").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ      
-                magiceffect_result_setting(1);
-                break;
+                case "Buttelfy_illumination":
 
-            case "Fire_Flowers":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Buttelfy_illumination").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ      
+                    magiceffect_result_setting(1);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Fire_Flowers").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ   
-                magiceffect_result_setting(2);
-                break;
+                case "Fire_Flowers":
 
-            case "Caramelized":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Fire_Flowers").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ   
+                    magiceffect_result_setting(2);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Caramelized").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ     
-                magiceffect_result_setting(2);
-                break;
+                case "Caramelized":
 
-            case "Bake_Beans":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Caramelized").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ     
+                    magiceffect_result_setting(2);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Bake_Beans").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ  
-                magiceffect_result_setting(2);
-                break;
+                case "Bake_Beans":
 
-            case "Freezing_OverRun":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Bake_Beans").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ  
+                    magiceffect_result_setting(2);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Freezing_OverRun").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ     
-                magiceffect_result_setting(0);
-                break;
+                case "Freezing_OverRun":
 
-            case "SugerPot":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Freezing_OverRun").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ     
+                    magiceffect_result_setting(0);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("SugerPot").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(0);
-                break;
+                case "SugerPot":
 
-            case "Wind_Ark":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("SugerPot").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(0);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Wind_Ark").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Wind_Ark":
 
-            case "Wind_Twister":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Wind_Ark").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Wind_Twister").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Wind_Twister":
 
-            case "Wind_Crown":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Wind_Twister").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Wind_Crown").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Wind_Crown":
 
-            case "Wind_Roll":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Wind_Crown").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Wind_Roll").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Wind_Roll":
 
-            case "Wind_Pen":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Wind_Roll").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Wind_Pen").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Wind_Pen":
 
-            case "Float_Material":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Wind_Pen").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Float_Material").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Float_Material":
 
-            case "Bubble_Mist":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Float_Material").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Bubble_Mist").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Bubble_Mist":
 
-            case "Statue_of_Penguin":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Bubble_Mist").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Statue_of_Penguin").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Statue_of_Penguin":
 
-            case "Statue_of_Bear":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Statue_of_Penguin").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Statue_of_Bear").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Statue_of_Bear":
 
-            case "Statue_of_Cat":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Statue_of_Bear").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Statue_of_Cat").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Statue_of_Cat":
 
-            case "Statue_of_Rabitts":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Statue_of_Cat").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Statue_of_Rabitts").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(3);
-                break;
+                case "Statue_of_Rabitts":
 
-            case "Star_Blessing":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Statue_of_Rabitts").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(3);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Star_Blessing").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(4);
-                break;
+                case "Star_Blessing":
 
-            case "Latte_Art":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Star_Blessing").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(4);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Latte_Art").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(4);
-                break;
+                case "Latte_Art":
 
-            case "Moonlight_Banana":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Latte_Art").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(4);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Moonlight_Banana").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(4);
-                break;
+                case "Moonlight_Banana":
 
-            case "Magic_Soda":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Moonlight_Banana").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(4);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Magic_Soda").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(4);
-                break;
+                case "Magic_Soda":
 
-            case "Rainbow_Rain":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Magic_Soda").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(4);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Rainbow_Rain").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(4);
-                break;
+                case "Rainbow_Rain":
 
-            case "Aroma_Potion":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Rainbow_Rain").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(4);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Aroma_Potion").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(5);
-                break;
+                case "Aroma_Potion":
 
-            case "Warming_Handmade":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Aroma_Potion").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(5);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Warming_Handmade").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(9);
-                break;
+                case "Warming_Handmade":
 
-            case "Life_Stream":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Warming_Handmade").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(9);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("Life_Stream").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(9);
-                break;
+                case "Life_Stream":
 
-            case "AbraCadabra":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Life_Stream").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(9);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("AbraCadabra").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(9);
-                break;
+                case "AbraCadabra":
 
-            case "True_of_Myheart":
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("AbraCadabra").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(9);
+                    break;
 
-                magic_minigame_Panel.SetActive(true);
-                magic_minigame_Panel.transform.Find("True_of_Myheart").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
-                magiceffect_result_setting(9);
-                break;
+                case "True_of_Myheart":
+
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("True_of_Myheart").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
+                    magiceffect_result_setting(9);
+                    break;
+            }
+        }
+        else
+        {
+            magiceffect_result_setting(1); //光りで統一
         }
     }
 
@@ -1244,38 +1256,6 @@ public class CompoundMainController : MonoBehaviour {
         compo_particle_obj.SetActive(true);
 
         Sound_magicresult1();
-
-        /*switch (GameMgr.UseMagicSkill)
-        {
-            case "Freezing_Spell":
-
-                magic_resulteffect_Panel.SetActive(true);
-                magic_resulteffect_Panel.transform.Find("Ice_Result").gameObject.SetActive(true);
-
-                compo_particle_obj.SetActive(true);
-                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_blue;               
-                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
-
-                Sound_magicresult1();
-                break;
-
-            case "Luminous_Suger":
-
-                magic_resulteffect_Panel.SetActive(true);
-                magic_resulteffect_Panel.transform.Find("Luminous_Result").gameObject.SetActive(true);
-
-                compo_particle_obj.SetActive(true);
-                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_yellow;
-                main.startColor = new ParticleSystem.MinMaxGradient(p_color);
-
-                Sound_magicresult1();
-                break;
-
-            default:
-
-                Sound_magicresult1();               
-                break;
-        }*/
     }
 
     void magiceffect_result_setting(int _effect_select)

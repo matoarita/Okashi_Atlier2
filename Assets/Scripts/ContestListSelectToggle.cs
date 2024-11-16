@@ -226,7 +226,7 @@ public class ContestListSelectToggle : MonoBehaviour
         
         
 
-        _text.text = _nameHyouji + "ですね？";
+        _text.text = _nameHyouji + GameMgr.ContestRep_text2;
 
         //さらにコンテスト詳細のパネルを表示する。
         contest_detailedPanel.SetActive(true);
@@ -285,14 +285,14 @@ public class ContestListSelectToggle : MonoBehaviour
                     if (!GameMgr.System_Contest_StartNow)
                     {
                         _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
-                        + "本当に出場しますか？" + "\n";
+                        + GameMgr.ContestRep_text7 + "\n";
                         //+ "※現在受けているコンテストは、キャンセルされます。";
                     }
                     else
                     {
                         _text.text = "出場費用: " + GameMgr.ColorYellow + _cost_text + "</color>" + "\n"
                         + "コンテストはすぐに開始されます。" + "\n"
-                        + "本当に出場しますか？";
+                        + GameMgr.ContestRep_text7;
                     }
 
                     //ほんとに出場するかを最終確認
@@ -301,7 +301,7 @@ public class ContestListSelectToggle : MonoBehaviour
                 else
                 {
                     //ランク足りてない
-                    _text.text = "すみませ～ん！" + "\n" + "ボッチャンは、どうやらスターがまだ足りてないようデ～スね・・！";
+                    _text.text = GameMgr.ContestRep_text3;
                     OffDetailedWindow();
                     sc.PlaySe(6);
                 }
@@ -312,7 +312,7 @@ public class ContestListSelectToggle : MonoBehaviour
 
                 //Debug.Log("cancel");
 
-                _text.text = "今開催しているコンテストです。";
+                _text.text = GameMgr.ContestRep_text4;
                 OffDetailedWindow();
 
                 break;
@@ -344,7 +344,7 @@ public class ContestListSelectToggle : MonoBehaviour
                 //ここで登録料　お金チェック
                 if (PlayerStatus.player_money < conteststartList_database.conteststart_lists[_list].Contest_Cost)
                 {
-                    _text.text = "あら！" + "\n" + "どうやら登録料が足りてないようですね。";
+                    _text.text = GameMgr.ContestRep_text5;
 
                     OffDetailedWindow();
 
@@ -397,7 +397,7 @@ public class ContestListSelectToggle : MonoBehaviour
                     //受付した時点で、宴のイベントが開始し、すぐに次の日の朝10時になりコンテスト開始
                     if (!GameMgr.System_Contest_StartNow)
                     {
-                        _text.text = "ありがとうございます！" + "\n" + "コンテスト開催日の、朝10時までにきてくださいね！"; //
+                        _text.text = GameMgr.ContestRep_text6; //
                     }
                     GameMgr.Contest_ReadyToStart2 = true;
 
@@ -411,7 +411,7 @@ public class ContestListSelectToggle : MonoBehaviour
 
                 //Debug.Log("cancel");
 
-                _text.text = "今開催しているコンテストです。";
+                _text.text = GameMgr.ContestRep_text4;
                 OffDetailedWindow();
 
 
@@ -535,7 +535,7 @@ public class ContestListSelectToggle : MonoBehaviour
                 }
                 contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
 
-                _text.text = "今開催しているコンテストです。";
+                _text.text = GameMgr.ContestRep_text4;
                 yes_no_panel.SetActive(false);
                 back_ShopFirst_btn.interactable = true;
 

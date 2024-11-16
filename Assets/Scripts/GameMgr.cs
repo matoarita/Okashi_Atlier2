@@ -36,6 +36,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
+    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
 
     //各システムの使用の有無
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
@@ -51,7 +52,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
     public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
-    public static bool System_MagicSlot_MultipleON = true; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
+    public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
+    public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -791,6 +793,23 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int GirlTalk_num; //女の子イベント会話中の分岐を決める番号
     public static bool CompoAfter_BackGirl; //調合後元の位置まで戻ってくるまでの間のフラグ
 
+    //セリフ関連の一時変数
+    public static string ContestRep_text1;
+    public static string ContestRep_text2;
+    public static string ContestRep_text3;
+    public static string ContestRep_text4;
+    public static string ContestRep_text5;
+    public static string ContestRep_text6;
+    public static string ContestRep_text7;
+    public static string System_Shop_text1;
+    public static string System_Shop_text2;
+    public static string System_Shop_text3;
+    public static string System_Shop_text4;
+    public static string System_Shop_text5;
+    public static string System_Shop_text6;
+    public static string System_Shop_text7;
+    public static string System_Shop_text8;
+    public static string System_Shop_text9;
 
     //一時フラグ　アイテムDB関連
     public static string ResultItem_nameHyouji; //完成したアイテム名表示用

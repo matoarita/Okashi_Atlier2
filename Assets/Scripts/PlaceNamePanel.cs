@@ -77,6 +77,12 @@ public class PlaceNamePanel : MonoBehaviour {
 
                         break;
 
+                    case 50: //エメラルショップ
+
+                        SetSceneName(GameMgr.Scene_Name);
+
+                        break;
+
                     case 60: //オランジーナ広場系 広場系は、ScenePlaceNamePanelで設定
 
                         break;

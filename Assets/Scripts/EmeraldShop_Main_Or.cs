@@ -49,7 +49,9 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_EmeraldShop_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
-                GameMgr.Window_CharaName = "ねこ";
+                GameMgr.Window_CharaName = "ドルチェ";
+                GameMgr.System_Shop_text1 = "ニャニャ。よ～見つけなすったね。こんなところを・・。" + "\n" + "それで何がほしいニャ？";
+                GameMgr.System_Shop_text2 = "何がほしいのかえ？";
                 break;
 
             case 10: //夏エリア 使わない予定
@@ -57,7 +59,9 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_EmeraldShop_B1";
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
                 SettingCharacterPanel(1);
-                GameMgr.Window_CharaName = "ねこ";
+                GameMgr.Window_CharaName = "ドルチェ";
+                GameMgr.System_Shop_text1 = "ニャニャ。よ～見つけなすったね。こんなところを・・。" + "\n" + "それで何がほしいニャ？";
+                GameMgr.System_Shop_text2 = "何がほしいのかえ？";
                 break;
 
             default:
@@ -65,12 +69,17 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_EmeraldShop_A1";
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
-                GameMgr.Window_CharaName = "ねこ";
+                GameMgr.Window_CharaName = "ドルチェ";
+                GameMgr.System_Shop_text1 = "ニャニャ。よ～見つけなすったね。こんなところを・・。" + "\n" + "それで何がほしいニャ？";
+                GameMgr.System_Shop_text2 = "何がほしいのかえ？";
                 break;
         }
 
         //ネームプレートの設定
         emeraldmain_Controller.SceneNamePlateSetting();
+
+        //お店の初期メッセージ
+        emeraldmain_Controller.SceneDefaultMessage();
 
         //シーン読み込み完了時のメソッド
         //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      

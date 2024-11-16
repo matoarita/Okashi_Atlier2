@@ -352,14 +352,14 @@ public class Shop_Main_Controller : MonoBehaviour {
                         placename_panel.SetActive(true);
                         black_effect.SetActive(false);
 
+                        SceneDefaultMessage();
+
                         if (playeritemlist_onoff != null && playeritemlist_onoff.activeInHierarchy)
                         {
                             playeritemlist_onoff.SetActive(false);
                         }
 
                         SceneFlagcheck();
-
-                        //_text.text = shopdefault_text;
 
                         GameMgr.Scene_Select = 0;
                         GameMgr.Scene_Status = 100;
@@ -776,7 +776,7 @@ public class Shop_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Status = 1; //ショップのシーンに入っている、というフラグ
             GameMgr.Scene_Select = 1;
 
-            _text.text = "何を買うの？";
+            _text.text = GameMgr.System_Shop_text2;
 
         }
     }
@@ -922,7 +922,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
             playeritemlist_onoff.SetActive(true); //プレイヤーアイテムリスト画面を表示。
 
-            _text.text = "フルーツや材料は、買い取りをしてるわよ。" + "\n" + "何を売るの？";
+            _text.text = GameMgr.System_Shop_text3;
 
         }
     }
@@ -1202,6 +1202,13 @@ public class Shop_Main_Controller : MonoBehaviour {
     public void SceneNamePlateSetting()
     {
         placename_panel.GetComponent<PlaceNamePanel>().OnSceneNamePlate();
+    }
+
+    public void SceneDefaultMessage()
+    {
+        //初期メッセージ
+        shopdefault_text = GameMgr.System_Shop_text1;
+        _text.text = shopdefault_text;
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

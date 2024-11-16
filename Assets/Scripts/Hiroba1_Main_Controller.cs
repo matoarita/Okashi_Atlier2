@@ -1154,7 +1154,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Autumn_UraStreet":
 
-                On_Active101();
+                //On_Active101();
+                On_Active102();
                 break;
 
             case "Or_Hiroba_Autumn_UraStreet2":

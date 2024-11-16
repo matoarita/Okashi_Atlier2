@@ -41,6 +41,7 @@ public class Contest_Main_Reception : MonoBehaviour
     private Toggle npc8_toggle;
 
     private GameObject npc2sub_toggle_obj;
+    private GameObject npc3sub_toggle_obj;
 
     private ContestStartListDataBase conteststartList_database;
     private ItemMatPlaceDataBase matplace_database;
@@ -91,6 +92,8 @@ public class Contest_Main_Reception : MonoBehaviour
     private GameObject BGImagePanel;
     private List<GameObject> BGImg_List = new List<GameObject>();
     private List<GameObject> BGImg_List_mago = new List<GameObject>();
+
+    private GameObject CharacterPanel;
 
     // Use this for initialization
     void Start()
@@ -175,6 +178,9 @@ public class Contest_Main_Reception : MonoBehaviour
         npc2sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView2_SelectToggle").gameObject;
         npc2sub_toggle_obj.SetActive(false);
 
+        npc3sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView3_SelectToggle").gameObject;
+        npc3sub_toggle_obj.SetActive(true);
+
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
         debug_panel_init.DebugPanel_init(); //パネルの初期化
@@ -214,6 +220,20 @@ public class Contest_Main_Reception : MonoBehaviour
             i++;
         }
 
+        //キャラの設定　複数いる場合
+        CharacterPanel = GameObject.FindWithTag("Character");
+        i = 0;
+        foreach (Transform child in CharacterPanel.transform.Find("CharacterImage").transform)　//
+        {
+            //Debug.Log(child.name);           
+            child.gameObject.SetActive(false);
+            i++;
+        }
+
+        //Debug ** //
+        //GameMgr.SceneSelectNum = 30;
+        // ** //
+
         //受付シーンで、10個ぐらいコンテストのリスト一覧をだし、そこで指定すると、以下のコンテスト番号を決定
         switch (GameMgr.SceneSelectNum)
         {
@@ -223,43 +243,58 @@ public class Contest_Main_Reception : MonoBehaviour
                 //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
                 GameMgr.Scene_Name = "Or_Contest_Reception_Spring";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                SettingCharacterPanel(0);
                 backnum = 0; //バックボタン押したときの戻り先
                 GameMgr.Window_CharaName = "ガトー";
+                npc3sub_toggle_obj.SetActive(true);
 
                 default_scenetext = "いらっシャ～イ！" + "\n" + "ここは、春コンテストの受付デ～スよ～！";
+                SettingCharacterComment(0);                
                 break;
 
             case 10: //夏のコンテスト　会場受付
 
                 //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
                 GameMgr.Scene_Name = "Or_Contest_Reception_Summer";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                SettingBGPanel(1); //Map〇〇のリスト番号を指定
+                SettingCharacterPanel(1);
                 backnum = 10; //バックボタン押したときの戻り先
-                GameMgr.Window_CharaName = "ガトー";
+                GameMgr.Window_CharaName = "ガトー"; //ジョニー
+                npc3sub_toggle_obj.SetActive(false);
 
-                default_scenetext = "ハロー！！" + "\n" + "ここは、夏コンテストの受付デース！！";
+                //default_scenetext = "ハロー！！" + "\n" + "ここは、夏コンテストの受付だぜ！！";
+                default_scenetext = "ハロー！！" + "\n" + "ここは、夏コンテストの受付デ～スよ～！！";
+                SettingCharacterComment(0);                
                 break;
 
             case 20: //秋のコンテスト　会場受付
 
                 //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
                 GameMgr.Scene_Name = "Or_Contest_Reception_Autumn";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                SettingBGPanel(2); //Map〇〇のリスト番号を指定
+                SettingCharacterPanel(2);
                 backnum = 20; //バックボタン押したときの戻り先
-                GameMgr.Window_CharaName = "ガトー";
+                GameMgr.Window_CharaName = "ガトー"; //ミズタニ
+                npc3sub_toggle_obj.SetActive(false);
 
-                default_scenetext = "ようこそ紳士淑女。" + "\n" + "ここは、秋コンテストの受付でございます。";
+                //default_scenetext = "ようこそ紳士淑女。" + "\n" + "ここは、秋コンテストの受付でございます。";
+                default_scenetext = "ようこそ紳士淑女。" + "\n" + "ここは、秋コンテストの受付でございマース！";
+                SettingCharacterComment(0);                
                 break;
 
             case 30: //冬のコンテスト　会場受付
 
                 //GameMgr.ContestSelectNum = 10000; //どのコンテストかを指定する Contest_Main_Orでコンテストの設定を決めてる　コンテスト名はその中で決めてる
                 GameMgr.Scene_Name = "Or_Contest_Reception_Winter";
-                SettingBGPanel(0); //Map〇〇のリスト番号を指定
+                SettingBGPanel(3); //Map〇〇のリスト番号を指定
+                SettingCharacterPanel(3);
                 backnum = 30; //バックボタン押したときの戻り先
-                GameMgr.Window_CharaName = "ガトー";
+                GameMgr.Window_CharaName = "ガトー"; //ジェリ～オバケ
+                npc3sub_toggle_obj.SetActive(false);
 
-                default_scenetext = "こんばんは..。" + "\n" + "ここは.. 冬コンテストの受付です..。";
+                //default_scenetext = "どろどろ～！" + "\n" + "ひゅ～！　ここは、冬コンテストの受付ダヨ～！";
+                default_scenetext = "ようこそ..。" + "\n" + "ここは、冬コンテストの受付でございマース・・。" + "寒いデースね・・。ブルブル。";
+                SettingCharacterComment(0);               
                 break;
 
         }
@@ -348,6 +383,82 @@ public class Contest_Main_Reception : MonoBehaviour
             i++;
         }
         BGImg_List_mago[0].gameObject.SetActive(true); //朝の画像一番上オブジェクトをON
+    }
+
+    void SettingCharacterPanel(int _num)
+    {
+        switch (_num)
+        {
+            case 0: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage01").gameObject.SetActive(true);
+                break;
+
+            case 1: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage02").gameObject.SetActive(true);
+                break;
+
+            case 2: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage03").gameObject.SetActive(true);
+                break;
+
+            case 3: //
+
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage04").gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    void SettingCharacterComment(int _num)
+    {
+        switch (_num)
+        {
+            case 0: //
+
+                GameMgr.ContestRep_text1 = "今開催しているコンテストデ～ス！";
+                GameMgr.ContestRep_text2 = "ですね？";
+                GameMgr.ContestRep_text3 = "すみませ～ん！" + "\n" + "ボッチャンは、どうやらスターがまだ足りてないようデ～スね・・！";
+                GameMgr.ContestRep_text4 = "今開催しているコンテストデ～ス！";
+                GameMgr.ContestRep_text5 = "あら！" + "\n" + "どうやら登録料が足りてないようですね。";
+                GameMgr.ContestRep_text6 = "ありがとうございます！" + "\n" + "コンテスト開催日の、朝10時までにきてくだサ～イね！";
+                GameMgr.ContestRep_text7 = "本当に出場しマースか？";
+                break;
+
+            case 1: //
+
+                GameMgr.ContestRep_text1 = "今開催中のコンテストだぞ！";
+                GameMgr.ContestRep_text2 = "だな？";
+                GameMgr.ContestRep_text3 = "Oh～～！" + "\n" + "おまえさん、どうやらスターが足りてないようだぜェ・・！";
+                GameMgr.ContestRep_text4 = "今開催中のコンテストだぞ！";
+                GameMgr.ContestRep_text5 = "Ohhhh！" + "\n" + "金が足りてねぇみてぇだぜぇ。";
+                GameMgr.ContestRep_text6 = "サンキュー！いい度胸だ！" + "\n" + "コンテスト開催日の、朝10時までにきてな！";
+                GameMgr.ContestRep_text7 = "本当に出るのか？";
+                break;
+
+            case 2: //
+
+                GameMgr.ContestRep_text1 = "今開催中のコンテストです。";
+                GameMgr.ContestRep_text2 = "ですな？";
+                GameMgr.ContestRep_text3 = "ふむ・・。" + "\n" + "どうやらスターがまだ足りてないみたいですねぇ。";
+                GameMgr.ContestRep_text4 = "今開催中のコンテストです。";
+                GameMgr.ContestRep_text5 = "おっと・・。" + "\n" + "お手持ちが足りないようですよ・・？";
+                GameMgr.ContestRep_text6 = "ありがとうございます！" + "\n" + "コンテスト開催日の、朝10時までにくるのですよ。";
+                GameMgr.ContestRep_text7 = "本当に出場して良いのですな？";
+                break;
+
+            case 3: //
+
+                GameMgr.ContestRep_text1 = "今開催中のコンテストだよ！";
+                GameMgr.ContestRep_text2 = "かい？";
+                GameMgr.ContestRep_text3 = "ぎゅぅ～～・・。" + "\n" + "スターがまだ足りてないみたいだよぉ～・・。";
+                GameMgr.ContestRep_text4 = "今開催中のコンテストだよ！";
+                GameMgr.ContestRep_text5 = "ありゃ・・。" + "\n" + "お金が足りてないヨォ～・・！";
+                GameMgr.ContestRep_text6 = "ありがと！" + "\n" + "コンテスト開催日の、朝10時までにくるんだよ～♪";
+                GameMgr.ContestRep_text7 = "本当に出るの～？";
+                break;
+        }
     }
 
     void Update()
@@ -1031,7 +1142,7 @@ public class Contest_Main_Reception : MonoBehaviour
         backshopfirst_obj.SetActive(true);
         mainlist_controller_obj.SetActive(false);
 
-        _text.text = "今開催しているコンテストデ～ス！";
+        _text.text = GameMgr.ContestRep_text1;
 
         //カメラ寄る。
         trans++; //transが1を超えたときに、ズームするように設定されている。

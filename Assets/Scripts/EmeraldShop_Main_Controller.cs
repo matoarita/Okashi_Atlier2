@@ -248,7 +248,8 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
                     placename_panel.SetActive(true);
                     black_effect.SetActive(false);
 
-                    _text.text = shopdefault_text;
+                    //_text.text = shopdefault_text;
+                    SceneDefaultMessage();
 
                     GameMgr.Scene_Select = 0;
                     GameMgr.Scene_Status = 100;
@@ -297,21 +298,18 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
         if (!check_event)
         {
 
-            if (!GameMgr.emeraldShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+            switch (GameMgr.Scene_Name)
             {
-                GameMgr.emeraldShopEvent_stage[0] = true;
-                GameMgr.scenario_ON = true;
+                case "EmeraldShop_Grt":
 
-                GameMgr.emeraldshop_event_num = 0;
-                GameMgr.emeraldshop_event_flag = true;
+                    EventCheck_Grt();
+                    break;
 
-                //メイン画面にもどったときに、イベントを発生させるフラグをON
-                //GameMgr.CompoundEvent_num = 0;
-                //GameMgr.CompoundEvent_flag = true;
+                case "Or_EmeraldShop_A1":
 
-                check_event = true;
+                    EventCheck_OrA1();
+                    break;
 
-                StartCoroutine("Scenario_loading");
             }
 
 
@@ -319,20 +317,52 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
             { }
             else
             {
-                switch (GameMgr.GirlLoveEvent_num) //現在発生中のスペシャルイベント番号にそって、イベントを発生させる。
-                {
-                    default:
-
-                        break;
-                }
-            }
-
-            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
-            { }
-            else
-            {
 
             }
+
+        }
+    }
+
+    void EventCheck_Grt()
+    {
+        if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
+        {
+            GameMgr.BarEvent_stage[0] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.bar_event_num = 0;
+            GameMgr.bar_event_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 5;
+            //GameMgr.CompoundEvent_flag = true;
+        }
+    }
+
+    void EventCheck_OrA1()
+    {
+        matplace_database.matPlaceKaikin("Or_EmeraldShop_A1"); //エメラルショップ解禁
+
+        if (!GameMgr.emeraldShopEvent_stage[0]) //調合パート開始時にアトリエへ初めて入る。一番最初に工房へ来た時のセリフ。チュートリアルするかどうか。
+        {
+            GameMgr.emeraldShopEvent_stage[0] = true;
+            GameMgr.scenario_ON = true;
+
+            GameMgr.emeraldshop_event_num = 0;
+            GameMgr.emeraldshop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num = 0;
+            //GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
         }
     }
 
@@ -350,7 +380,7 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Status = 1; //ショップのシーンに入っている、というフラグ
             GameMgr.Scene_Select = 1;
 
-            _text.text = "何がほしいのかえ？";
+            _text.text = GameMgr.System_Shop_text2;
 
         }
     }
@@ -455,6 +485,13 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
     public void SceneNamePlateSetting()
     {
         placename_panel.GetComponent<PlaceNamePanel>().OnSceneNamePlate();
+    }
+
+    public void SceneDefaultMessage()
+    {
+        //初期メッセージ
+        shopdefault_text = GameMgr.System_Shop_text1;
+        _text.text = shopdefault_text;
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

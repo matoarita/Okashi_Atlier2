@@ -55,6 +55,10 @@ public class Bar_Main_Or : MonoBehaviour
             i++;
         }
 
+        //Debug ** //
+        //GameMgr.SceneSelectNum = 20;
+        // ** //
+
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //春エリア
@@ -64,6 +68,8 @@ public class Bar_Main_Or : MonoBehaviour
                 BGImage_effectPanel.transform.Find("placeeffect_01").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
                 GameMgr.Window_CharaName = "ルーティ";
+                GameMgr.System_Shop_text1 = "いらっしゃい～。";
+                GameMgr.System_Shop_text2 = "いまは、こんな依頼があるわよ。どれをうける？";
                 break;
 
             case 10: //夏エリア
@@ -72,6 +78,8 @@ public class Bar_Main_Or : MonoBehaviour
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
                 SettingCharacterPanel(1);
                 GameMgr.Window_CharaName = "フィオナ";
+                GameMgr.System_Shop_text1 = "いらっしゃい～。";
+                GameMgr.System_Shop_text2 = "いまは、こんな依頼があるわよ。どれをうける？";
                 break;
 
             case 20: //秋エリア
@@ -80,6 +88,8 @@ public class Bar_Main_Or : MonoBehaviour
                 BGImagePanel.transform.Find("BG_sprite_3").gameObject.SetActive(true);
                 SettingCharacterPanel(2);
                 GameMgr.Window_CharaName = "アプリコット";
+                GameMgr.System_Shop_text1 = "いらっしゃ～い。";
+                GameMgr.System_Shop_text2 = "いまは、こんな依頼があるわ。" + "\n" + "どれにする？";
                 break;
 
             case 30: //冬エリア
@@ -88,6 +98,8 @@ public class Bar_Main_Or : MonoBehaviour
                 BGImagePanel.transform.Find("BG_sprite_4").gameObject.SetActive(true);
                 SettingCharacterPanel(3);
                 GameMgr.Window_CharaName = "フィオナ";
+                GameMgr.System_Shop_text1 = "いらっしゃい～。";
+                GameMgr.System_Shop_text2 = "いまは、こんな依頼があるわよ。どれをうける？";
                 break;
 
             default:
@@ -96,11 +108,16 @@ public class Bar_Main_Or : MonoBehaviour
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
                 GameMgr.Window_CharaName = "フィオナ";
+                GameMgr.System_Shop_text1 = "いらっしゃい～。";
+                GameMgr.System_Shop_text2 = "いまは、こんな依頼があるわよ。どれをうける？";
                 break;
         }
 
         //ネームプレートの設定
         barmain_Controller.SceneNamePlateSetting();
+
+        //お店の初期メッセージ
+        barmain_Controller.SceneDefaultMessage();
 
         //シーン読み込み完了時のメソッド
         //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      

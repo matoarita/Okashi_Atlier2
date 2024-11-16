@@ -303,6 +303,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                     sceneBGM.MuteOFFBGM();
 
                     ButtonFlagCheck();
+                    SceneDefaultMessage();
 
                     if (GameMgr.Story_Mode == 1)
                     {
@@ -761,7 +762,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Status = 3; //クエストを押したときのフラグ
             GameMgr.Scene_Select = 3;
 
-            _text.text = "いまは、こんな依頼があるわよ。どれをうける？";
+            _text.text = GameMgr.System_Shop_text2;
 
             //カメラ寄る。
             trans++; //transが1を超えたときに、ズームするように設定されている。
@@ -858,7 +859,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
                 case "Or_Bar_C1": //秋エリア
 
-                    GameMgr.SceneSelectNum = 204;
+                    GameMgr.SceneSelectNum = 202;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 
@@ -1087,6 +1088,13 @@ public class Bar_Main_Controller : MonoBehaviour {
     public void SceneNamePlateSetting()
     {
         placename_panel.GetComponent<PlaceNamePanel>().OnSceneNamePlate();
+    }
+
+    public void SceneDefaultMessage()
+    {
+        //初期メッセージ
+        shopdefault_text = GameMgr.System_Shop_text1;
+        _text.text = shopdefault_text;
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

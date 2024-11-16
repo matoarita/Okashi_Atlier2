@@ -43,6 +43,10 @@ public class Shop_Main_Or : MonoBehaviour {
             i++;
         }
 
+        //Debug ** //
+        //GameMgr.SceneSelectNum = 30;
+        // ** //
+
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //春エリア
@@ -51,6 +55,15 @@ public class Shop_Main_Or : MonoBehaviour {
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
                 GameMgr.Window_CharaName = "プリン";
+                GameMgr.System_Shop_text1 = "いらっしゃい～。";
+                GameMgr.System_Shop_text2 = "何を買うの？";
+                GameMgr.System_Shop_text3 = "フルーツや材料は、買い取りをしてるわよ。" + "\n" + "何を売るの？";
+                GameMgr.System_Shop_text4 = "買いますか？";
+                GameMgr.System_Shop_text5 = "かかるわよ。";
+                GameMgr.System_Shop_text6 = "何にしますか？";
+                GameMgr.System_Shop_text7 = "売るアイテムを選択してね。";
+                GameMgr.System_Shop_text8 = "売りますか？";
+                GameMgr.System_Shop_text9 = "で買い取るわよ。";
                 break;
 
             case 10: //夏エリア
@@ -59,6 +72,15 @@ public class Shop_Main_Or : MonoBehaviour {
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
                 SettingCharacterPanel(1);
                 GameMgr.Window_CharaName = "エクレア";
+                GameMgr.System_Shop_text1 = "いらっしゃいませ～。";
+                GameMgr.System_Shop_text2 = "ゆっくり見ていってね。";
+                GameMgr.System_Shop_text3 = "フルーツや材料は、買い取りをしてるわ。" + "\n" + "何か売る？";
+                GameMgr.System_Shop_text4 = "買う？";
+                GameMgr.System_Shop_text5 = "かかるわ。";
+                GameMgr.System_Shop_text6 = "ほかは、何か買う？";
+                GameMgr.System_Shop_text7 = "ほかは、何か売る？";
+                GameMgr.System_Shop_text8 = "売りますか？";
+                GameMgr.System_Shop_text9 = "で買い取るわ。";
                 break;
 
             case 20: //秋エリア
@@ -66,7 +88,16 @@ public class Shop_Main_Or : MonoBehaviour {
                 GameMgr.Scene_Name = "Or_Shop_C1";
                 BGImagePanel.transform.Find("BG_sprite_3").gameObject.SetActive(true);
                 SettingCharacterPanel(2);
-                GameMgr.Window_CharaName = "マダム・フリーデ";
+                GameMgr.Window_CharaName = "マダム・オペラ";
+                GameMgr.System_Shop_text1 = "いらっしゃいませ。";
+                GameMgr.System_Shop_text2 = "良い品を厳選して置いてるわよ。";
+                GameMgr.System_Shop_text3 = "ここは買取りもしています。" + "\n" + "何か、売りますか？";
+                GameMgr.System_Shop_text4 = "買いますか？";
+                GameMgr.System_Shop_text5 = "かかります。";
+                GameMgr.System_Shop_text6 = "ほかは、何か買いますか？";
+                GameMgr.System_Shop_text7 = "ほかは、何か売りますか？";
+                GameMgr.System_Shop_text8 = "売りますか？";
+                GameMgr.System_Shop_text9 = "で買い取るわ。";
                 break;
 
             case 30: //冬エリア
@@ -75,6 +106,15 @@ public class Shop_Main_Or : MonoBehaviour {
                 BGImagePanel.transform.Find("BG_sprite_4").gameObject.SetActive(true);
                 SettingCharacterPanel(3);
                 GameMgr.Window_CharaName = "ピティヴィエ";
+                GameMgr.System_Shop_text1 = "いらっしゃ～い。";
+                GameMgr.System_Shop_text2 = "倉庫においてたものだけど.. 欲しいものあるかしら？";
+                GameMgr.System_Shop_text3 = "フルーツや材料は、買い取りをしてるの。" + "\n" + "何か、売る～？";
+                GameMgr.System_Shop_text4 = "買う～？";
+                GameMgr.System_Shop_text5 = "かかるわね～。";
+                GameMgr.System_Shop_text6 = "なにかほかに買う～？";
+                GameMgr.System_Shop_text7 = "なにかほかに売る～？";
+                GameMgr.System_Shop_text8 = "売りますか？";
+                GameMgr.System_Shop_text9 = "で買い取るわ～。";
                 break;
 
             default:
@@ -83,11 +123,23 @@ public class Shop_Main_Or : MonoBehaviour {
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
                 GameMgr.Window_CharaName = "プリン";
+                GameMgr.System_Shop_text1 = "いらっしゃい～。";
+                GameMgr.System_Shop_text2 = "何を買うの？";
+                GameMgr.System_Shop_text3 = "フルーツや材料は、買い取りをしてるわよ。" + "\n" + "何を売るの？";
+                GameMgr.System_Shop_text4 = "買いますか？";
+                GameMgr.System_Shop_text5 = "かかるわよ。";
+                GameMgr.System_Shop_text6 = "何にしますか？";
+                GameMgr.System_Shop_text7 = "売るアイテムを選択してね。";
+                GameMgr.System_Shop_text8 = "売りますか？";
+                GameMgr.System_Shop_text9 = "で買い取るわよ。";
                 break;
         }
 
         //ネームプレートの設定
         shopmain_Controller.SceneNamePlateSetting();
+
+        //お店の初期メッセージ
+        shopmain_Controller.SceneDefaultMessage();
 
         //シーン読み込み完了時のメソッド
         //SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
