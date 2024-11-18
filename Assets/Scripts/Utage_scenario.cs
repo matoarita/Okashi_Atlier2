@@ -93,6 +93,7 @@ public class Utage_scenario : MonoBehaviour
     private int _evnum, _mgbooknum;
     private bool resipi_getflag;
     private bool resipi_getflag_afteritemuse; //アイテム途中で使う場合、pauseを一回拾うので、そのあとでフラグたつようにする。
+    private bool bgm_changeflag; //宴の途中で選択肢をはいにしたときに、そのタイミングでゲームのBGMと宴BGMを切り替える
     private int pause_or_endnum;
 
     private bool tutorial_flag;
@@ -157,6 +158,7 @@ public class Utage_scenario : MonoBehaviour
         live2d_use = false;
         resipi_getflag = false;
         resipi_getflag_afteritemuse = false;
+        bgm_changeflag = false;
     }
 
     void Update()
@@ -2860,6 +2862,7 @@ public class Utage_scenario : MonoBehaviour
         roten_flag_num = 0;
         resipi_getflag = false;
         resipi_getflag_afteritemuse = false;
+        bgm_changeflag = false;
 
         //場所ごとにラベルを変えている
         switch (GameMgr.hiroba_event_placeNum)
@@ -3039,16 +3042,19 @@ public class Utage_scenario : MonoBehaviour
             case 1550: //Or遊園地バイキング
 
                 scenarioLabel = "Or_NPC104_park_biking";
+                bgm_changeflag = true; //途中で乗るを押した場合にBGMを切り替え
                 break;
 
             case 1560: //Or遊園地観覧車
 
                 scenarioLabel = "Or_NPC105_park_kanransha";
+                bgm_changeflag = true;
                 break;
 
             case 1570: //Or遊園地プール
 
                 scenarioLabel = "Or_NPC106_park_pool";
+                bgm_changeflag = true;
                 break;
 
             case 1600: //Or露店りんごあめ
@@ -3369,7 +3375,7 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //エンド待ち部分
-        if (!resipi_getflag) //何もなければ、End待つだけ
+        if (!resipi_getflag && !bgm_changeflag) //何もなければ、End待つだけ
         {
             //「宴」のシナリオ終了待ち
             while (!Engine.IsEndScenario)
@@ -3404,7 +3410,7 @@ public class Utage_scenario : MonoBehaviour
                 //BGMを再開
                 BGMMuteOFF();
             }
-            else //エンドは、そのままエンドなので流して終了
+            else //エンドは、そのままエンドなので流して終了　pause_or_endnum == 0は、EndScenarioを押したときのみ。Pauseしたのにpause_or_endnum == 0は使わない
             { }
             
         }

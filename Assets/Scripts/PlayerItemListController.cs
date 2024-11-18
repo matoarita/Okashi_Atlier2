@@ -972,6 +972,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         check_itemType_subB == "a_AppaleilChocolateBar" || check_itemType_subB == "a_AppaleilChocolateTwisterHeart" ||
                         check_itemType_subB == "a_AppaleilChocolateCrown" ||
                         check_itemType_subB == "a_AppaleilJelly" ||
+                        check_itemType_subB == "a_AppaleilTwister" ||
                         check_itemType_sub == "Water" || check_itemType_sub == "Milk")
                     {
                         itemlist_hyouji_Check();
@@ -979,14 +980,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 if (_lv >= 3) //くだもの
                 {
-                    if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" || check_itemType_sub == "Harb")
+                    if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
                     {
                         itemlist_hyouji_Check();
                     }
                 }
                 if (_lv >= 4) //おはな
                 {
-                    if (check_itemType_sub == "Flower")
+                    if (check_itemType_sub == "Flower" || check_itemType_sub == "Harb")
                     {
                         itemlist_hyouji_Check();
                     }

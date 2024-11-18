@@ -36,7 +36,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
-    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
 
     //各システムの使用の有無
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
@@ -119,7 +119,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //調合時の演出時間
     public static float System_compo_playtime_default = 2.0f; //通常調合時の演出時間　トータルで3秒ほど。
-    public static float System_magic_playtime_default = 3.0f; //エフェクトのみの時間　トータルで4秒ほど。新規作成エフェクトが入って7秒。
+    public static float System_magic_playtime_default = 3.3f; //エフェクトのみの時間　トータルで4秒ほど。新規作成エフェクトが入って7秒。エフェクトなしのときは、2.0fがちょうどよい。
     public static float System_magic_playtime_01 = 3.0f; //セカンドベイク　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
     public static float System_magic_playtime_02 = 4.0f; //テンパリング　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
 

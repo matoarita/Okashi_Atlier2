@@ -38,18 +38,26 @@ public class meff_sound_obj1 : MonoBehaviour {
     {
         //Debug.Log("OnSound02()");
         sc.PlaySe(173);
-        sc.PlaySe(174); 
+        sc.PlaySe(174);
+        sc.PlaySe(177);
     }
 
     public void OnSound20() //凍り付いたときの音
     {
         //Debug.Log("OnSound02()");
-        sc.PlaySe(175);
+        sc.PlaySe(175);        
     }
 
     public void OnSound21() //氷発生の音
     {
         //Debug.Log("OnSound02()");
-        sc.PlaySe(176);
+        sc.PlaySe(176);       
+    }
+
+    public void OnSound22() //チャージの音
+    {
+        //Debug.Log("OnSound02()");
+        sc.PlaySe(177);
+        //sc.PlaySe(178);
     }
 }
