@@ -1039,11 +1039,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Luminous_Suger":
 
-                if (check_itemType_sub == "Suger")
+                if (check_itemType_subB == "a_Suger")
                 {
                     if (check_itemType_subB != "a_SugerSimple") //シンプルな砂糖は光らせれない
                     {
-
                         if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
                         {
                             itemlist_hyouji_Check();

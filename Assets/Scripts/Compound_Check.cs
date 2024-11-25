@@ -27,6 +27,7 @@ public class Compound_Check : MonoBehaviour {
 
     private Exp_Controller exp_Controller;
 
+    private Compound_Keisan compound_keisan;
     private Buf_Power_Keisan bufpower_keisan;
     private int _buf_kakuritsu;
 
@@ -179,6 +180,9 @@ public class Compound_Check : MonoBehaviour {
 
         //バフ効果計算メソッドの取得
         bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
+
+        //調合計算メソッド取得
+        compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
 
         //カード表示用オブジェクトの取得
         card_view_obj = GameObject.FindWithTag("CardView");
@@ -1904,15 +1908,18 @@ public class Compound_Check : MonoBehaviour {
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(false);
             resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(true);
 
-            if (GameMgr.compound_select == 7)
+            //個数の予測計算
+            if (GameMgr.compound_select == 7) //ヒカリが作るときの個数計算予測
             {
-                resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = "1";
+                bufpower_keisan.hikariBuf_okashilv(database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString());
             }
-            else
-            {
-                resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
-                databaseCompo.compoitems[GameMgr.Final_result_compID].cmpitem_result_kosu.ToString(); //個数
-            }
+
+            //以下は共通
+            compound_keisan.ResultKosuKeisan(GameMgr.compound_select, GameMgr.Final_result_compID, 1,
+                itemID_1, itemID_2, itemID_3, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3);
+            
+            if (GameMgr.Result_Kosu < 1) { GameMgr.Result_Kosu = 1; } //最低一個はできる
+            resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Result_Kosu.ToString();
         }
         else //新しいお菓子を思いつきそうな場合。アイコンは「？」とかになる。
         {
@@ -1925,15 +1932,18 @@ public class Compound_Check : MonoBehaviour {
             resultitem_Hyouji.transform.Find("newrecipi_BG").gameObject.SetActive(true);
             resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(false);
 
-            if (GameMgr.compound_select == 7)
+            //個数の予測計算
+            if (GameMgr.compound_select == 7) //ヒカリが作るときの個数計算予測
             {
-                resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = "1";
+                bufpower_keisan.hikariBuf_okashilv(database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString());
             }
-            else
-            {
-                resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text =
-                databaseCompo.compoitems[GameMgr.Final_result_compID].cmpitem_result_kosu.ToString(); //個数
-            }
+
+            //以下は共通
+            compound_keisan.ResultKosuKeisan(GameMgr.compound_select, GameMgr.Final_result_compID, 1,
+                itemID_1, itemID_2, itemID_3, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3);
+
+            if (GameMgr.Result_Kosu < 1) { GameMgr.Result_Kosu = 1; } //最低一個はできる
+            resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Result_Kosu.ToString();
         }
     }
 

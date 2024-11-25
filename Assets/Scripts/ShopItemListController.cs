@@ -163,7 +163,7 @@ public class ShopItemListController : MonoBehaviour
         if (category_toggle[0].GetComponent<Toggle>().isOn == true)
         {
             category_status = 0;
-            reset_and_DrawView();
+            ReDraw();
         }
     }
 
@@ -172,7 +172,7 @@ public class ShopItemListController : MonoBehaviour
         if (category_toggle[1].GetComponent<Toggle>().isOn == true)
         {
             category_status = 1;
-            reset_and_DrawView_Topping();
+            ReDraw();
         }
     }
 
@@ -181,7 +181,7 @@ public class ShopItemListController : MonoBehaviour
         if (category_toggle[2].GetComponent<Toggle>().isOn == true)
         {
             category_status = 2;
-            reset_and_DrawView_Machine();
+            ReDraw();
         }
     }
 
@@ -190,7 +190,7 @@ public class ShopItemListController : MonoBehaviour
         if (category_toggle[3].GetComponent<Toggle>().isOn == true)
         {
             category_status = 3;
-            reset_and_DrawView_Recipi();
+            ReDraw();
         }
     }
 
@@ -199,7 +199,7 @@ public class ShopItemListController : MonoBehaviour
         if (category_toggle[4].GetComponent<Toggle>().isOn == true)
         {
             category_status = 4;
-            reset_and_DrawView_Etc();
+            ReDraw();
         }
     }
 
@@ -718,5 +718,14 @@ public class ShopItemListController : MonoBehaviour
                 shop_database.shopitems[i].shop_item_hyouji_on = true;
             }
         }
+    }
+
+    public void OnZaikoMax()
+    {
+        for (i = 0; i < shop_database.shopitems.Count; i++)
+        {
+            shop_database.shopitems[i].shop_itemzaiko = shop_database.shopitems[i].shop_itemzaiko_max;
+        }
+        ReDraw();
     }
 }

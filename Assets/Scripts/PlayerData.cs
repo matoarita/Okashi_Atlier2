@@ -204,6 +204,7 @@ public class PlayerData
     public int save_hikari_make_doubleItemCreated;
     public float save_hikari_make_okashi_totalkyori;
     public int save_hikari_make_okashiKosu;
+    public float save_hikari_make_okashiKosu_buf;
     public int save_hikari_make_success_count;
     public int save_hikari_make_failed_count;
     public bool save_hikari_tempature_control_ON; //ヒカリにお菓子作ってもらうで温度管理をON

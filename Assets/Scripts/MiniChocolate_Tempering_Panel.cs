@@ -103,7 +103,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         {
             //時間減少
             timeOut += Time.deltaTime;
-            Debug.Log("timeOut: " + timeOut);
+            //Debug.Log("timeOut: " + timeOut);
 
             if (timeOut >= 0.016f)
             {
@@ -174,6 +174,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
     {
         Debug.Log("魔法ミニゲームOnStart");
 
+        GameMgr.System_magic_playON = true; //ミニゲーム上での成功率判定に切り替え
         StartCoroutine(WaitForMiniGame());
         
     }
@@ -270,27 +271,31 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         sc.PlaySe(16);
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
-        if (_guage_param >= 0 && _guage_param < 90)
+        if (_guage_param2 >= 0 && _guage_param2 < 40)
         {
-            GameMgr.System_magic_playParamUp2 = 0.5f;
+            GameMgr.System_magic_playParamUp2 = 0.1f;
 
             //冷やしすぎで失敗
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング2段階目　冷やしすぎで失敗");
         }
-        else if (_guage_param >= 90 && _guage_param < 130)
+        else if (_guage_param2 >= 40 && _guage_param2 < 130)
+        {
+            GameMgr.System_magic_playParamUp2 = 0.5f;
+        }
+        else if (_guage_param2 >= 90 && _guage_param2 < 130)
         {
             GameMgr.System_magic_playParamUp2 = 2.0f;
         }
-        else if (_guage_param >= 130 && _guage_param < 400)
+        else if (_guage_param2 >= 130 && _guage_param2 < 400)
         {
             GameMgr.System_magic_playParamUp2 = 1.3f;
         }
-        else if (_guage_param >= 400 && _guage_param < 500)
+        else if (_guage_param2 >= 400 && _guage_param2 < 500)
         {
             GameMgr.System_magic_playParamUp2 = 0.7f;
         }
-        else if (_guage_param >= 500)
+        else if (_guage_param2 >= 500)
         {
             //焼すぎで失敗
             GameMgr.System_magic_playSuccess = false;
@@ -317,23 +322,23 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         sc.PlaySe(16);
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
-        if (_guage_param >= 0 && _guage_param < 100)
+        if (_guage_param3 >= 0 && _guage_param3 < 100)
         {
             GameMgr.System_magic_playParamUp3 = 0.5f;
         }
-        else if (_guage_param >= 100 && _guage_param < 200)
+        else if (_guage_param3 >= 100 && _guage_param3 < 200)
         {
             GameMgr.System_magic_playParamUp3 = 1.1f;
         }
-        else if (_guage_param >= 200 && _guage_param < 230)
+        else if (_guage_param3 >= 200 && _guage_param3 < 230)
         {
             GameMgr.System_magic_playParamUp3 = 2.0f;
         }
-        else if (_guage_param >= 230 && _guage_param < 270)
+        else if (_guage_param3 >= 230 && _guage_param3 < 270)
         {
             GameMgr.System_magic_playParamUp3 = 0.9f;
         }
-        else if (_guage_param >= 230)
+        else if (_guage_param3 >= 230)
         {
             //焼すぎで失敗
             GameMgr.System_magic_playSuccess = false;

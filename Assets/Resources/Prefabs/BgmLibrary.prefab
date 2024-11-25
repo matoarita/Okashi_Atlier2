@@ -112,7 +112,7 @@ MonoBehaviour:
   sound63: {fileID: 8300000, guid: 2c92164749139994a92a22aff37ff843, type: 3}
   sound64: {fileID: 8300000, guid: e89c449546efc0b468b5f9c3095d6322, type: 3}
   sound65: {fileID: 8300000, guid: 5da3c78a05fa45d4aa428fa21f1a30fb, type: 3}
-  sound66: {fileID: 0}
+  sound66: {fileID: 8300000, guid: 57f97c7c9444f0b4fa0e4200821f367b, type: 3}
   sound67: {fileID: 8300000, guid: 80be5954b4fdde34ebd594dddc254105, type: 3}
   sound68: {fileID: 8300000, guid: 54a1616ee4252ff4299d6b63dc6d8743, type: 3}
   sound69: {fileID: 8300000, guid: 2fe8ac5554c619c4a96c1a7795c00f76, type: 3}

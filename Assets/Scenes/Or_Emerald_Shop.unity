@@ -3427,6 +3427,12 @@ MonoBehaviour:
   sound62: {fileID: 0}
   sound63: {fileID: 0}
   sound64: {fileID: 0}
+  sound65: {fileID: 0}
+  sound66: {fileID: 0}
+  sound67: {fileID: 0}
+  sound68: {fileID: 0}
+  sound69: {fileID: 0}
+  sound70: {fileID: 0}
   sound1000: {fileID: 0}
   Ambient1: {fileID: 0}
   Ambient2: {fileID: 0}
@@ -4591,7 +4597,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -300
-  m_Sprite: {fileID: 21300000, guid: 2bd53180c9294d84eb78a22f182dc544, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fc2cc9dbca8dae945901b391347b61f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

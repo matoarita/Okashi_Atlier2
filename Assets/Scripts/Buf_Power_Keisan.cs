@@ -24,7 +24,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
     private int hikari_okashiLV;
-    private float _a, _b;
+    private float _a, _b, _kosuhosei;
 
     private int i, rnd;
     private int _id, _magicid, _magicid2;
@@ -1539,6 +1539,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             //どのお菓子タイプにもあてはまらなかったら、計算しない。
             GameMgr.hikari_make_okashiTime_costbuf = 1.0f;
             GameMgr.hikari_make_okashiTime_successrate_buf = 1.0f;
+            GameMgr.hikari_make_okashiKosu_buf = 1.0f;
+            GameMgr.hikari_make_okashiKosu_buf_keisan = 1.0f;
         }
         else
         {
@@ -1550,8 +1552,27 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void HikariOkashilv_Keisan(string _itemType_sub)
     {
         //食感への補正
-        _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 2.5f);
-        _buf_hikari_okashiparam = 0.1f + _a * _a;
+        _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.6f, 1.9f); //最大LVで、にいちゃんの2倍上がる
+        _buf_hikari_okashiparam = 0.1f + _a;
+
+        //個数の補正　最終的ににいちゃんと同じ数 低いうちは3個ほどマイナスになる。
+        if(hikari_okashiLV >= 1.0f && hikari_okashiLV < 3.0f)
+        {
+            _kosuhosei = 3.0f;
+        }
+        else if (hikari_okashiLV >= 3.0f && hikari_okashiLV < 6.0f)
+        {
+            _kosuhosei = 2.0f;
+        }
+        else if (hikari_okashiLV >= 7.0f && hikari_okashiLV < 9.0f)
+        {
+            _kosuhosei = 1.0f;
+        }
+        else if (hikari_okashiLV >= 9.0f)
+        {
+            _kosuhosei = 0.5f;
+        }
+        GameMgr.hikari_make_okashiKosu_buf_keisan = _kosuhosei;
 
         //最終的にかかる時間は、Exp_Controllerで計算
         GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.1f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍

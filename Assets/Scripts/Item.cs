@@ -77,7 +77,7 @@ public class Item
     public int Rare; //レアリティー
     public int Manpuku; //満腹度
     public int Magic; //魔法属性　これがついたお菓子を食べると、MPが上がるなどステータス上昇のフラグ　魔法のおかしであることを示すフラグ
-    public int Attribute1; //お菓子の状態１　二度焼きで、すでに二度焼きした状態を1にする。
+    public int Attribute1; //お菓子の状態1　二度焼きで、すでに二度焼きした状態を1にする。
     public int SecretFlag; //隠しアイテムかどうか。隠しアイテムであれば、お菓子手帳のリストには表示されない。
 
     //以下パラメータはExcel上には記載なし
@@ -104,6 +104,8 @@ public class Item
     public string item_FullName; //スロット名も含めた最終の名称。オリジナルアイテムリスト用で使う。
     public string[] item_MagicSlot = new string[10]; //魔法の状態を記録するスロット。最初はNon。魔法を付与すると、お菓子になんらかの状態が保存される。
     public int[] item_MagicSlotValue = new int[10]; //各魔法スロットの量　魔法によってどのぐらい効果がかかっているか。
+    public int Attribute2; //お菓子の状態2　フローティングで浮いた状態を1にする。
+    public int Attribute3; //お菓子の状態3　アブタラで変化した状態を1にする。（2度掛けはできない）
     //ここまで
 
     //トッピングスロット
@@ -319,7 +321,7 @@ public class Item
         Manpuku = _manpuku;
         Magic = _magic;
 
-        Attribute1 = _attribute1;
+        Attribute1 = _attribute1;       
         SecretFlag = _secretFlag;
 
         //以下、Excelに記載はなし
@@ -353,16 +355,19 @@ public class Item
         item_MagicSlot[8] = MS09;
         item_MagicSlot[9] = MS10;
 
-        item_MagicSlotValue[0] = 0;
-        item_MagicSlotValue[1] = 0;
-        item_MagicSlotValue[2] = 0;
-        item_MagicSlotValue[3] = 0;
-        item_MagicSlotValue[4] = 0;
-        item_MagicSlotValue[5] = 0;
-        item_MagicSlotValue[6] = 0;
-        item_MagicSlotValue[7] = 0;
-        item_MagicSlotValue[8] = 0;
-        item_MagicSlotValue[9] = 0;
+        item_MagicSlotValue[0] = MSvalue01;
+        item_MagicSlotValue[1] = MSvalue02;
+        item_MagicSlotValue[2] = MSvalue03;
+        item_MagicSlotValue[3] = MSvalue04;
+        item_MagicSlotValue[4] = MSvalue05;
+        item_MagicSlotValue[5] = MSvalue06;
+        item_MagicSlotValue[6] = MSvalue07;
+        item_MagicSlotValue[7] = MSvalue08;
+        item_MagicSlotValue[8] = MSvalue09;
+        item_MagicSlotValue[9] = MSvalue10;
+
+        Attribute2 = 0;
+        Attribute3 = 0;
     }
 
 }

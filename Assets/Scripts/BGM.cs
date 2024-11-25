@@ -81,7 +81,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound67;  //コンテスト会場のBGM2 秋
     public AudioClip sound68;  //コンテスト会場のBGM3 夏ヒップホップ
     public AudioClip sound69;  //コンテスト会場のBGM4 冬
-    public AudioClip sound70;  //酒場BGM　秋のイメージ曲　※未使用
+    public AudioClip sound70;  //酒場BGM　秋のイメージ曲
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -226,7 +226,7 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Shop_D1":
 
-                                _send_clip = sound27;
+                                _send_clip = sound66;
                                 break;
                         }
                         
@@ -248,7 +248,7 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Bar_C1":
 
-                                _send_clip = sound60;
+                                _send_clip = sound70;
                                 break;
 
                             case "Or_Bar_D1":
@@ -614,13 +614,14 @@ public class BGM : MonoBehaviour {
                         {
                             case "Or_Contest_Reception_Spring":
 
-                                _send_clip = sound47;
-                                //_send_clip = sound67;
+                                //_send_clip = sound47;
+                                _send_clip = sound67;
                                 break;
 
                             case "Or_Contest_Reception_Summer":
 
-                                _send_clip = sound68;
+                                //_send_clip = sound68;
+                                _send_clip = sound67;
                                 //_send_clip_ambient = Ambient4;
                                 break;
 
@@ -631,7 +632,8 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Contest_Reception_Winter":
 
-                                _send_clip = sound69;
+                                //_send_clip = sound69;
+                                _send_clip = sound67;
                                 break;
 
                         }

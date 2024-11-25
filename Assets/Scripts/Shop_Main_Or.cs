@@ -104,6 +104,7 @@ public class Shop_Main_Or : MonoBehaviour {
 
                 GameMgr.Scene_Name = "Or_Shop_D1";
                 BGImagePanel.transform.Find("BG_sprite_4").gameObject.SetActive(true);
+                //BGImagePanel.transform.Find("BG_sprite_4").GetComponent<VideoPlayer>
                 SettingCharacterPanel(3);
                 GameMgr.Window_CharaName = "ピティヴィエ";
                 GameMgr.System_Shop_text1 = "いらっしゃ～い。";

@@ -737,7 +737,7 @@ public class CompoundMainController : MonoBehaviour {
                 case 22: //魔法演出画面
 
                     GameMgr.compound_status = 4; //演出中
-                    GameMgr.compound_select = 22;
+                    //GameMgr.compound_select = 22;
 
                     //魔法演出画面を開く
                     magic_compo2.SetActive(false);
@@ -767,7 +767,7 @@ public class CompoundMainController : MonoBehaviour {
                 case 23: //魔法調合後の完成画面
 
                     GameMgr.compound_status = 4; //演出中
-                    GameMgr.compound_select = 23;
+                    //GameMgr.compound_select = 23;
 
                     //魔法演出画面を開く
                     magic_compo3.SetActive(false);
@@ -775,7 +775,6 @@ public class CompoundMainController : MonoBehaviour {
 
                     //ミニゲーム演出は閉じ
                     magic_minigame_Panel.SetActive(false);
-                    GameMgr.System_magic_playON = false;
 
                     text_area_compound.SetActive(false); //専用ウィンドウを表示させてるのでオフ
 
@@ -1008,7 +1007,6 @@ public class CompoundMainController : MonoBehaviour {
         {
             case "Cookie_SecondBake": //OK
 
-                GameMgr.System_magic_playON = true; //ミニゲーム上での成功率判定に切り替え
                 magic_minigame_Panel.SetActive(true);
                 magic_minigame_Panel.transform.Find("SecondBake").gameObject.SetActive(true);
                 magic_minigame_Panel.transform.Find("SecondBake").GetComponent<MiniSecondBake_Panel>().OnStartAnim(); //ミニゲームの開始
@@ -1017,7 +1015,6 @@ public class CompoundMainController : MonoBehaviour {
 
             case "Chocolate_Tempering":
 
-                GameMgr.System_magic_playON = true; //ミニゲーム上での成功率判定に切り替え
                 magic_minigame_Panel.SetActive(true);
                 magic_minigame_Panel.transform.Find("Chocolate_Tempering").gameObject.SetActive(true);
                 magic_minigame_Panel.transform.Find("Chocolate_Tempering").GetComponent<MiniChocolate_Tempering_Panel>().OnStartAnim(); //ミニゲームの開始

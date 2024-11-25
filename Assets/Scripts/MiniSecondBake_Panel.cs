@@ -83,6 +83,7 @@ public class MiniSecondBake_Panel : MonoBehaviour {
     {
         Debug.Log("魔法ミニゲームOnStart");
 
+        GameMgr.System_magic_playON = true; //ミニゲーム上での成功率判定に切り替え
         StartCoroutine(WaitForMiniGame());
         
     }

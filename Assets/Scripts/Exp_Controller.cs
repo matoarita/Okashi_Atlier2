@@ -466,13 +466,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 set_kaisu = 1;
             }
-            //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数set_kaisuは、Compound_Checkから参照。
-            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
-
+            
             //調合処理
             Compo_1(0);
 
-
+            
 
             //チュートリアルのときは、一時的にOFF
             if (GameMgr.tutorial_ON == true)
@@ -739,6 +737,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 card_view.ResultCard_DrawView2(0, _id1, _id2);
             }
         }
+
+        //Compound_Keisanで先に計算してる
+        result_kosu = GameMgr.Result_Kosu; //
     }
 
     //使ってない
@@ -784,7 +785,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         result_ID = GameMgr.Final_result_compID;
 
         //個数の決定
-        result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * GameMgr.Final_setCount;
+        //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * GameMgr.Final_setCount;
 
         Comp_method_bunki = 2;
 
@@ -1248,13 +1249,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             if (GameMgr.System_magic_playON) //魔法ミニゲームの成功率を使う
             {
+                Debug.Log("魔法ミニゲームの成功率を使用する");
                 if (!GameMgr.System_magic_playSuccess)
                 {
                     GameMgr.Result_compound_success = false;
+                    Debug.Log("魔法ミニゲーム失敗");
                 }
                 else
                 {
                     GameMgr.Result_compound_success = true;
+                    Debug.Log("魔法ミニゲーム成功");
                 }
             }
             else
@@ -1262,6 +1266,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 CompoundSuccess_judge();
             }
         }
+        GameMgr.System_magic_playON = false;
 
         //調合の成功有無にかかわらず、お菓子の経験値をあげる。
         OkashiExpUp();
@@ -1275,7 +1280,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 set_kaisu = 1;
             }
             //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数set_kaisuは、Compound_Checkから参照。
-            result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
+            //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
 
             //調合処理
             Compo_1(1);
@@ -1537,8 +1542,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_okashiID = GameMgr.Final_result_itemID1;
         GameMgr.hikari_make_okashi_compID = GameMgr.Final_result_compID;
         GameMgr.hikari_make_success_rate = _success_rate;
+        GameMgr.hikari_make_okashiKosu_buf = GameMgr.hikari_make_okashiKosu_buf_keisan; //お菓子レベルに応じて、お菓子個数のバフをbufpower_keisan内で計算しここで確定・保存。
 
-        
 
         //オリジナルアイテムかお菓子パネルのリストを選択していたら、アイテムの固有IDを保存しておく。
         if (GameMgr.hikari_kettei_toggleType[0] == 1)
@@ -2453,14 +2458,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
-                " が" + result_kosu + "個 できたよ！";
+                " が " + result_kosu + "個 できたよ！";
                 //+ "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
         }
         else
         {
             _text.text = "やったね！ " +
                 renkin_hyouji +
-                " が" + result_kosu + "個 できたよ！";
+                " が " + result_kosu + "個 できたよ！";
                 //+ "\n" + _ex_text;
         }
 
@@ -2484,7 +2489,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
             pitemlist.player_check_itemlist[new_item].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！" + _yaki;
+            " が " + result_kosu + "個 できたよ！" + _yaki;
             //+ "\n" + _ex_text + "ジョブ経験値 " + _getexp + "上がった！";
             
         }
@@ -2498,7 +2503,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" + 
             pitemlist.player_check_itemlist[new_item].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！" + _yaki;
+            " が " + result_kosu + "個 できたよ！" + _yaki;
             //+ "\n" + _ex_text;
         }
 
@@ -2519,7 +2524,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             _text.text = "やったね！ " +
             database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！" + _yaki;
+            " が " + result_kosu + "個 できたよ！" + _yaki;
             //+ "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
         }
         else
@@ -2531,7 +2536,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             _text.text = "やったね！ " +
             database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
-            " が" + result_kosu + "個 できたよ！" + _yaki;
+            " が " + result_kosu + "個 できたよ！" + _yaki;
             //+ "\n" + _ex_text;
         }
 

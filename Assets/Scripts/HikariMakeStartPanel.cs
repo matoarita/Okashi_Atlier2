@@ -86,6 +86,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private int _nowexp, _nowlv;
     private string _itemType_subtext;
     private int getheart;
+    private int result_kosu;
 
     // Use this for initialization
     void Start () {
@@ -492,8 +493,12 @@ public class HikariMakeStartPanel : MonoBehaviour {
         black_Image.SetActive(true);
         text_area.SetActive(true);
 
+        compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
+        //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
+        result_kosu = GameMgr.Result_Kosu;
         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "が　" + 
-            GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　できてるよ。" + "うけとる？";
+            GameMgr.ColorYellow + result_kosu.ToString() + "</color>" + "個　できてるよ。" + "うけとる？";
         TakeResultCard_DrawView(0);
 
         StartCoroutine("Select2_finalcheck");
@@ -524,7 +529,12 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
     void SelectHyouji_OnOFF()
     {
-        if (GameMgr.hikari_make_okashiKosu < 1)
+        compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
+        //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
+        result_kosu = GameMgr.Result_Kosu;
+
+        if (result_kosu < 1)
         {
             select_obj_1.GetComponent<Button>().interactable = false;
         }
@@ -589,7 +599,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                     {
                         sc.PlaySe(19);
                         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
-                    GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！"
+                    GameMgr.ColorYellow + result_kosu.ToString() + "</color>" + "個　うけとった！"
                     + "\n" + "ヒカリは　" + GameMgr.ColorYellow + database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "</color>" + "　を　おぼえた！"
                     + "\n" + _itemType_subtext + "経験値: " + GameMgr.hikarimakeokashi_finalgetexp + "アップ！　"
                     + _itemType_subtext + "LV: " + _nowlv;
@@ -597,7 +607,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                     else
                     {
                         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
-                    GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！"
+                    GameMgr.ColorYellow + result_kosu.ToString() + "</color>" + "個　うけとった！"
                     + "\n" + _itemType_subtext + "経験値: " + GameMgr.hikarimakeokashi_finalgetexp + "アップ！　"
                     + _itemType_subtext + "LV: " + _nowlv;
                     }
@@ -605,7 +615,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 else //卵白卵黄などの例外処理
                 {
                     _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
-                    GameMgr.ColorYellow + GameMgr.hikari_make_okashiKosu.ToString() + "</color>" + "個　うけとった！";
+                    GameMgr.ColorYellow + result_kosu.ToString() + "</color>" + "個　うけとった！";
                 }                
 
                 //ヒカリがそのお菓子作った回数をカウント
@@ -742,13 +752,19 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
     void paramHyoujiKoushin()
     {
-        makeokasi_kosu.text = GameMgr.hikari_make_okashiKosu.ToString();
+        
         if (!GameMgr.hikari_make_okashiFlag)
         {
+            makeokasi_kosu.text = "-";
             timecost_kosu.text = "-";
         }
         else
         {
+            compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
+            //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
+            result_kosu = GameMgr.Result_Kosu;
+            makeokasi_kosu.text = result_kosu.ToString();
             timecost_kosu.text = (GameMgr.hikari_make_okashiTimeCost / 60.0f).ToString("F1");
         }
     }

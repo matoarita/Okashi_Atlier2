@@ -412,6 +412,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_hikari_make_doubleItemCreated = GameMgr.hikari_make_doubleItemCreated,
             save_hikari_make_okashi_totalkyori = GameMgr.hikari_make_okashi_totalkyori,
             save_hikari_make_okashiKosu = GameMgr.hikari_make_okashiKosu,
+            save_hikari_make_okashiKosu_buf = GameMgr.hikari_make_okashiKosu_buf,
             save_hikari_make_success_count = GameMgr.hikari_make_success_count,
             save_hikari_make_failed_count = GameMgr.hikari_make_failed_count,
             save_hikari_tempature_control_ON = GameMgr.hikari_tempature_control_ON,
@@ -811,6 +812,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.hikari_make_doubleItemCreated = playerData.save_hikari_make_doubleItemCreated;
         GameMgr.hikari_make_okashi_totalkyori = playerData.save_hikari_make_okashi_totalkyori;
         GameMgr.hikari_make_okashiKosu = playerData.save_hikari_make_okashiKosu;
+        GameMgr.hikari_make_okashiKosu_buf = playerData.save_hikari_make_okashiKosu_buf;
         GameMgr.hikari_make_success_count = playerData.save_hikari_make_success_count;
         GameMgr.hikari_make_failed_count = playerData.save_hikari_make_failed_count;
         GameMgr.hikari_tempature_control_ON = playerData.save_hikari_tempature_control_ON;

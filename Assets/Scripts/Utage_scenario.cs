@@ -3014,6 +3014,11 @@ public class Utage_scenario : MonoBehaviour
                 }
                 break;
 
+            case 1410: //OrNPC城　受付メイド
+
+                scenarioLabel = "Or_NPC130_catsle_meidoman";
+                break;
+
             case 1500: //Orお花屋さん
 
                 scenarioLabel = "Hiroba_Or_flower";
@@ -3167,6 +3172,11 @@ public class Utage_scenario : MonoBehaviour
             case 1620: //Or夏エリア酒好きの紳士
 
                 scenarioLabel = "Or_NPC120_summer_gentleman";
+                break;
+
+            case 1621: //Or夏エリアアリアちゃん
+
+                scenarioLabel = "Or_NPC121_summer_ariachan";
                 break;
 
             case 1700: //Or広場エリア入口
@@ -3357,6 +3367,23 @@ public class Utage_scenario : MonoBehaviour
                             break;
 
                         case 1: //戻る
+
+                            GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
+                            break;
+
+                    }
+                    break;
+
+                case "Or_NPC130_catsle_meidoman": //Or城受付　女王の間に入る
+
+                    stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                    switch (stationevent_num)
+                    {
+                        case 0: //キャンセル
+
+                            break;
+
+                        case 1: //進む
 
                             GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
                             break;
@@ -3786,6 +3813,24 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(1200);
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC130_catsle_meidoman": //Or城受付　女王の間に入る
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        GameMgr.Utage_MapMoveON = false;
+                        break;
+
+                    case 1: //進む
+
+                        GameMgr.Utage_MapMoveON = true;
                         break;
 
                 }

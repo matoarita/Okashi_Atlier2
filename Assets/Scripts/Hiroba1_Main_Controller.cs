@@ -513,12 +513,20 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 break;
 
+            case 1410: //女王の間へ移動
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM(1.0f);
+
+                StartCoroutine(WaitForGotoMap2(1));
+                break;
+
             case 1510: //ソーダアイランドへ移動
 
                 //音量フェードアウト
                 sceneBGM.FadeOutBGM(1.0f);
 
-                StartCoroutine("WaitForGotoMap2");
+                StartCoroutine(WaitForGotoMap2(2));
                 break;
 
             case 1520: //ゴンドラ乗り場へ移動
@@ -526,7 +534,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //音量フェードアウト
                 sceneBGM.FadeOutBGM(1.0f);
 
-                StartCoroutine("WaitForGotoMap2");
+                StartCoroutine(WaitForGotoMap2(3));
                 break;
 
             case 1530: //水族館へ移動
@@ -534,7 +542,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //音量フェードアウト
                 sceneBGM.FadeOutBGM(1.0f);
 
-                StartCoroutine("WaitForGotoMap2");
+                StartCoroutine(WaitForGotoMap2(4));
                 break;
 
             case 1540: //水族館から外へ移動
@@ -542,7 +550,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //音量フェードアウト
                 sceneBGM.FadeOutBGM(1.0f);
 
-                StartCoroutine("WaitForGotoMap2");
+                StartCoroutine(WaitForGotoMap2(5));
                 break;
         }
     }
@@ -555,28 +563,33 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //FadeManager.Instance.LoadScene("GetMaterial", GameMgr.SceneFadeTime);
     }
 
-    IEnumerator WaitForGotoMap2()
+    IEnumerator WaitForGotoMap2(int _status)
     {
         yield return new WaitForSeconds(1.0f); //1秒待つ
 
-        switch (map_move_num)
+        switch (_status)
         {
-            case 1510:
+            case 1:
+
+                On_QueenEnterActive();
+                break;
+
+            case 2:
 
                 On_Active70();
                 break;
 
-            case 1520:
+            case 3:
 
                 On_Active54();
                 break;
 
-            case 1530:
+            case 4:
 
                 On_Active76();
                 break;
 
-            case 1540:
+            case 5:
 
                 On_Active75();
                 break;
@@ -1546,6 +1559,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_Oku_Garden":
 
                 On_EmeralShopActive01();
+                break;
+
+            case "Or_Hiroba_Summer_Entrance":
+
+                On_Active1621_Summer_Ariachan();
                 break;
 
             case "Or_Hiroba_Summer_MainStreet":
@@ -2711,12 +2729,67 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     void On_NPC_CatsleActive01()
     {
+        //宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1410; //
+
+        if (!GameMgr.NPCHiroba_eventList[1600]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[1600] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;            
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[1600]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                //頭から順番に会話をまわしていく。
+                switch (talkrot)
+                {
+                    case 0:
+
+                        GameMgr.Utage_MapMoveON = true; //シナリオ読み終わり後、マップを移動する
+                        map_move_num = 1410;
+                        GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
+
+                        GameMgr.hiroba_event_ID = 10;
+                        talkrot++;
+                        break;
+                    case 1:
+                        GameMgr.hiroba_event_ID = 11;
+                        talkrot++;
+                        break;
+                    case 2:
+                        GameMgr.hiroba_event_ID = 12;
+                        //talkrot=0;
+                        break;
+                }
+
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+        EventReadingStart();
+             
+    }
+
+    void On_QueenEnterActive()
+    {
         //_text.text = "城へ入る";
 
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 0;
-        GoAreaMove("Or_NPC_Catsle");        
+        GoAreaMove("Or_NPC_Catsle"); 
     }
 
     void On_StationActive01()
@@ -3414,6 +3487,55 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         break;
                 }
                 
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+            }
+        }
+        EventReadingStart();
+    }
+
+    void On_Active1621_Summer_Ariachan()
+    {
+        //宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1621; //
+
+        if (!GameMgr.NPCHiroba_eventList[1220]) //はじめて
+        {
+            GameMgr.NPCHiroba_eventList[1220] = true;
+
+            GameMgr.hiroba_event_ID = 0;
+            //BGMかえる
+            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            //bgm_change_flag = true;
+
+            check_event = true;
+        }
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+            if (GameMgr.NPCHiroba_eventList[1220]) //ほかに発生するイベントがなく、すでに友達になった。
+            {
+                //頭から順番に会話をまわしていく。
+                switch (talkrot)
+                {
+                    case 0:
+                        GameMgr.hiroba_event_ID = 10;
+                        talkrot++;
+                        break;
+                    case 1:
+                        GameMgr.hiroba_event_ID = 11;
+                        talkrot++;
+                        break;
+                    case 2:
+                        GameMgr.hiroba_event_ID = 12;
+                        //talkrot=0;
+                        break;
+                }
+
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                 //bgm_change_flag = true;

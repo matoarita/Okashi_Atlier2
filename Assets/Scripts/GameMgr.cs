@@ -372,6 +372,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikari_make_doubleItemCreated;
     public static float hikari_make_okashi_totalkyori;
     public static int hikari_make_okashiKosu; //ヒカリが現在制作したお菓子の個数
+    public static float hikari_make_okashiKosu_buf; //個数に補正かける。こっちは保存する。
     public static int hikari_make_success_count; //ヒカリが制作に成功した数
     public static int hikari_make_failed_count; //ヒカリが制作に失敗した数    
     public static bool hikari_tempature_control_ON; //ヒカリにお菓子作ってもらうで温度管理をON
@@ -382,8 +383,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
     public static float hikari_make_okashiTime_costbuf; //セーブ不要。お菓子作りにかかる時間をお菓子LVによって補正かける。かかる時間okashiTimeCostを保存しているので、こっちはセーブ不要
     public static float hikari_make_okashiTime_successrate_buf; //こっちも、hikari_make_success_rateを保存すれば、保存不要。
+    public static float hikari_make_okashiKosu_buf_keisan; //個数バフ計算用。保存はしない。
     public static bool hikari_make_Allfailed; //すべて失敗して材料がなくなってしまった 　セーブ不要
     public static bool hikari_zairyo_no_flag; //作る材料が単になくなった場合　セーブ不要
+    
 
     //オプションの設定　マスター音量など
     public static float MasterVolumeParam;
