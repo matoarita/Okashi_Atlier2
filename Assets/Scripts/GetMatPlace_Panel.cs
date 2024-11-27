@@ -432,6 +432,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
                 {
                     matplace_toggle[i].SetActive(true);
+                    //時間が遅いと、選択off
+                    if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //19時こえたとき　もう外にでれない
+                    {
+                        matplace_toggle[i].GetComponent<Toggle>().interactable = false;
+                    }
                 }
                 else
                 {
@@ -445,6 +450,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
             else if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 1)
             {
                 matplace_toggle[i].SetActive(true);
+                //時間が遅いと、選択off
+                if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //19時こえたとき　もう外にでれない
+                {
+                    matplace_toggle[i].GetComponent<Toggle>().interactable = false;
+                }
             }
         }
     }
@@ -542,7 +552,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         MatPlaceDefault_Face();
 
         //時刻によって、背景の絵の天気を変える。
-        /*if (GameMgr.Story_Mode != 0)
+        if (GameMgr.WEATHER_TIMEMODE_ON)
         {
             //まずリセット
             MapSelect_Imagepanel_obj.Clear();
@@ -574,7 +584,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 case 5: //夕方
 
-                    MapSelect_Imagepanel_obj[1].SetActive(true);
+                    //MapSelect_Imagepanel_obj[1].SetActive(true);
                     break;
 
                 case 6: //夜
@@ -583,7 +593,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     break;
             }
-        }*/
+        }
 
         move_anim_on = false;
         modoru_anim_on = false;
@@ -911,8 +921,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         if (GameMgr.Story_Mode == 0)
                         {
                             //_yosokutime = PlayerStatus.player_time + matplace_database.matplace_lists[_place_num].placeDay; //行きの時間だけ計算
-                            _yosokutime = time_controller.YosokuMinuteToHour(matplace_database.matplace_lists[_place_num].placeDay);
-                            if (_yosokutime >= GameMgr.EndDay_hour) //20時をこえるかどうか。
+                            //_yosokutime = time_controller.YosokuMinuteToHour(matplace_database.matplace_lists[_place_num].placeDay);
+                            if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
                             {
                                 //20時を超えるので、妹に止められる。
                                 if (GameMgr.outgirl_Nowprogress)

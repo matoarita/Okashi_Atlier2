@@ -2638,15 +2638,31 @@ public class Compound_Main : MonoBehaviour
         card_view.DeleteCard_DrawView();
 
         //ウィンドウキャラ名設定
-        if (!GameMgr.outgirl_Nowprogress)
+        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //19時こえたとき　もう外にでれない
         {
-            GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-            _text.text = "にいちゃん！　お外、どこに行く～？";
+            if (!GameMgr.outgirl_Nowprogress)
+            {
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                _text.text = "にいちゃん！　もう遅いからやめとこ～。";
+            }
+            else
+            {
+                GameMgr.Window_CharaName = GameMgr.player_Name_First;
+                _text.text = "さすがに夜だし、やめとこうかな。";
+            }
         }
         else
         {
-            GameMgr.Window_CharaName = GameMgr.player_Name_First;
-            _text.text = "どこに行こうかな？";
+            if (!GameMgr.outgirl_Nowprogress)
+            {
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                _text.text = "にいちゃん！　お外、どこに行く～？";
+            }
+            else
+            {
+                GameMgr.Window_CharaName = GameMgr.player_Name_First;
+                _text.text = "どこに行こうかな？";
+            }
         }
         
         GameMgr.compound_status = 20;

@@ -179,38 +179,36 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
         //天気対応
         if (GameMgr.WEATHER_TIMEMODE_ON)
         {
-            if (GameMgr.Story_Mode != 0)
+            switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
             {
+                case 1:
 
-                switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
-                {
-                    case 1:
+                    break;
 
-                        break;
+                case 2: //深夜→朝
 
-                    case 2: //深夜→朝
+                    break;
 
-                        break;
+                case 3: //朝
 
-                    case 3: //朝
+                    break;
 
-                        break;
+                case 4: //昼
 
-                    case 4: //昼
+                    break;
 
-                        break;
+                case 5: //夕方
 
-                    case 5: //夕方
+                    //BGImg_List_mago[1].gameObject.SetActive(true);
+                    break;
 
-                        BGImg_List_mago[1].gameObject.SetActive(true);
-                        break;
+                case 6: //夜
 
-                    case 6: //夜
-
-                        BGImg_List_mago[2].gameObject.SetActive(true);
-                        break;
-                }
+                    BGImg_List_mago[2].gameObject.SetActive(true);
+                    default_scenetext = "アトリエ前だ。夜なので、虫の鳴き声が聞こえる。";
+                    break;
             }
+
         }
         //** 場所名設定ここまで **//
 
@@ -380,83 +378,7 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
             sceneBGM.FadeInBGM(0.5f);
         }
 
-        //読み終わったフラグをたてる
-        switch(GameMgr.hiroba_event_ID)
-        {
-            //クエスト４　「ドーナツ作り」～　0番台
-            case 40:
-
-                GameMgr.hiroba_event_end[2] = true;                
-                break;
-
-            case 1040:
-
-                GameMgr.hiroba_event_end[0] = true;
-                break;
-
-            case 2045:
-
-                GameMgr.hiroba_event_end[1] = true;
-                break;
-
-            case 3040:
-
-                GameMgr.hiroba_event_end[6] = true;
-                break;
-
-            case 3042:
-
-                ev_id = pitemlist.Find_eventitemdatabase("donuts_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ドーナツのレシピを追加
-
-                GameMgr.hiroba_event_end[8] = true;
-                break;
-
-            case 4040:
-
-                GameMgr.hiroba_event_end[3] = true;
-                break;
-
-            case 4042:
-
-                GameMgr.hiroba_event_end[7] = true;
-                break;
-
-            case 5041:
-
-                GameMgr.hiroba_event_end[4] = true;
-                break;
-
-            case 5042:
-
-                GameMgr.hiroba_event_end[5] = true;
-                break;
-
-            //クエスト５　コンテスト～  10番台
-            case 50:
-
-                GameMgr.hiroba_event_end[10] = true;
-                break;
-
-            case 3050:
-
-                GameMgr.hiroba_event_end[11] = true;
-                break;
-
-            case 4050:
-
-                GameMgr.hiroba_event_end[12] = true;
-                break;
-
-            case 5050:
-
-                GameMgr.hiroba_event_end[13] = true;
-                break;
-
-            default:
-
-                break;
-        }
+        
 
         ToggleFlagCheck();
 

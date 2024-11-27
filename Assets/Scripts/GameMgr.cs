@@ -963,8 +963,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Haraheri_Msg;
 
     //一日のはじまり・終わりの時間
-    public static int StartDay_hour;
-    public static int EndDay_hour;
+    public static int StartDay_hour = 8;
+    public static int EndDay_hour = 20;
+    public static int NightDay_hour = 19;
 
     //寝る前の現在の月日
     public static int SleepBefore_Month;
@@ -1057,8 +1058,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GoldMasterMoneyLine = 100000;
 
         //日が終わる時間
-        StartDay_hour = 8;
-        EndDay_hour = 20; //20時
+        //StartDay_hour = 8;
+        //EndDay_hour = 20; //20時
     }
 	
 	// Update is called once per frame

@@ -811,12 +811,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             GameMgr.BG_cullent_weather = 4;
 
         }
-        else if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 19)
+        else if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < GameMgr.NightDay_hour)
         {
             GameMgr.BG_cullent_weather = 5;
 
         }
-        else if (PlayerStatus.player_cullent_hour >= 19)
+        else if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour)
         {
             GameMgr.BG_cullent_weather = 6;
         }
