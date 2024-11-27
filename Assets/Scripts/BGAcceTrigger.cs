@@ -22,6 +22,12 @@ public class BGAcceTrigger : MonoBehaviour {
     private bool saboten_onoff;
     private bool minihouse_onoff;
 
+    private ParticleSystem.EmissionModule particleEm_CandleLight1;
+    private ParticleSystem.EmissionModule particleEm_MiniHouseLight1;
+
+    private GameObject particleEm_CandleLight1_obj;
+    private GameObject particleEm_MiniHouseLight1_obj;
+
     private List<string> _temp_Accename = new List<string>();
 
     // Use this for initialization
@@ -37,6 +43,16 @@ public class BGAcceTrigger : MonoBehaviour {
         candle_onoff = false;
         saboten_onoff = false;
         minihouse_onoff = false;
+    }
+
+    void Init_Setting()
+    {
+        //BGアクセサリー系のパーティクル
+        particleEm_CandleLight1 = this.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
+        particleEm_MiniHouseLight1 = this.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").GetComponent<ParticleSystem>().emission;
+
+        particleEm_CandleLight1_obj = this.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").gameObject;
+        particleEm_MiniHouseLight1_obj = this.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").gameObject;
     }
 	
 	// Update is called once per frame
@@ -578,6 +594,15 @@ public class BGAcceTrigger : MonoBehaviour {
     //朝～夜で状態が変わる
     public void WeatherChangeMorning()
     {
+        Init_Setting();
+
+        //BGアクセサリー系
+        particleEm_CandleLight1_obj.SetActive(false);
+        particleEm_MiniHouseLight1_obj.SetActive(false);
+
+        particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+        particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
         //アロマキャンドル
         if (GameMgr.BGAcceItemsName["aroma_candle1"])
         {
@@ -607,6 +632,14 @@ public class BGAcceTrigger : MonoBehaviour {
 
     public void WeatherChangeNight()
     {
+        Init_Setting();
+
+        //BGアクセサリー系
+        particleEm_CandleLight1_obj.SetActive(true);
+        particleEm_MiniHouseLight1_obj.SetActive(true);
+
+        particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+        particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
 
         //アロマキャンドル
         if (GameMgr.BGAcceItemsName["aroma_candle1"])

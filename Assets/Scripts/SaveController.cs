@@ -171,7 +171,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_shopzaiko.Clear();
         for (i = 0; i < shop_database.shopitems.Count; i++)
         {
-            _temp_shopzaiko.Add(new ItemSaveFlag(shop_database.shopitems[i].shop_itemName, shop_database.shopitems[i].shop_ID, shop_database.shopitems[i].shop_itemzaiko, 0, false));
+            _temp_shopzaiko.Add(new ItemSaveFlag(shop_database.shopitems[i].shop_itemName, shop_database.shopitems[i].shop_ID, shop_database.shopitems[i].shop_itemzaiko, 
+                0, 0, 0, false));
         }
 
         //牧場の在庫のみ取得
@@ -192,7 +193,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_bgacce_flaglist.Clear();
         foreach (string key in GameMgr.BGAcceItemsName.Keys)
         {
-            _temp_bgacce_flaglist.Add(new ItemSaveFlag(key, 0, 0, 0, GameMgr.BGAcceItemsName[key]));
+            _temp_bgacce_flaglist.Add(new ItemSaveFlag(key, 0, 0, 0, 0, 0, GameMgr.BGAcceItemsName[key]));
         }
 
         //魔法スキルフラグリスト bool型は使用してないのでfalseにしてる
@@ -200,7 +201,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < magicskill_database.magicskill_lists.Count; i++)
         {
             _temp_magicskill_list.Add(new ItemSaveFlag(magicskill_database.magicskill_lists[i].skillName, magicskill_database.magicskill_lists[i].skillFlag, 
-                magicskill_database.magicskill_lists[i].skillLv, magicskill_database.magicskill_lists[i].skillUseLv, false));
+                magicskill_database.magicskill_lists[i].skillLv, magicskill_database.magicskill_lists[i].skillUseLv,
+                magicskill_database.magicskill_lists[i].skill_usecount, 0, false));
         }
 
         //コンテストデータのリスト
@@ -386,6 +388,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //家賃関係フラグ
             save_yachin_counter = GameMgr.yachin_counter,
             save_yachin_otetsuki_count = GameMgr.yachin_otetsuki_count,
+            save_yachin_tainou_count = GameMgr.yachin_tainou_count,
 
             //お菓子クエストフラグ
             save_OkashiQuest_flag_stage1 = GameMgr.OkashiQuest_flag_stage1, //各SPイベントのクリアしたかどうかのフラグ。
@@ -788,6 +791,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //家賃関係フラグ
         GameMgr.yachin_counter = playerData.save_yachin_counter;
         GameMgr.yachin_otetsuki_count = playerData.save_yachin_otetsuki_count;
+        GameMgr.yachin_tainou_count = playerData.save_yachin_tainou_count;
 
         //お菓子クエストフラグ
         GameMgr.OkashiQuest_flag_stage1 = playerData.save_OkashiQuest_flag_stage1; //各SPイベントのクリアしたかどうかのフラグ。
@@ -1075,7 +1079,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < playerData.save_magicskill_list.Count; i++)
         {
             magicskill_database.ReSetSkillParamString(playerData.save_magicskill_list[i].itemName, playerData.save_magicskill_list[i].Param, 
-                playerData.save_magicskill_list[i].Param2, playerData.save_magicskill_list[i].Param3);
+                playerData.save_magicskill_list[i].Param2, playerData.save_magicskill_list[i].Param3, playerData.save_magicskill_list[i].Param4,
+                playerData.save_magicskill_list[i].Param5);
         }
 
         //コンテスト全般データリストの読み込み　主に出場回数や受賞履歴
@@ -1460,14 +1465,14 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_titlecollectionlist.Clear();
         for (i = 0; i < GameMgr.title_collection_list.Count; i++)
         {
-            _temp_titlecollectionlist.Add(new ItemSaveFlag(GameMgr.title_collection_list[i].titleName, 0, 0, 0, GameMgr.title_collection_list[i].Flag));
+            _temp_titlecollectionlist.Add(new ItemSaveFlag(GameMgr.title_collection_list[i].titleName, 0, 0, 0, 0, 0, GameMgr.title_collection_list[i].Flag));
         }
 
         //イベントリスト
         _temp_eventcollectionlist.Clear();
         for (i = 0; i < GameMgr.event_collection_list.Count; i++)
         {
-            _temp_eventcollectionlist.Add(new ItemSaveFlag(GameMgr.event_collection_list[i].titleName, 0, 0, 0, GameMgr.event_collection_list[i].Flag));
+            _temp_eventcollectionlist.Add(new ItemSaveFlag(GameMgr.event_collection_list[i].titleName, 0, 0, 0, 0, 0, GameMgr.event_collection_list[i].Flag));
         }
 
         //コンテストクリアお菓子リスト
@@ -1475,7 +1480,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_contestclearcollectionlistItemData.Clear();
         for (i = 0; i < GameMgr.contestclear_collection_list.Count; i++)
         {
-            _temp_contestclearcollectionlist.Add(new ItemSaveFlag(GameMgr.contestclear_collection_list[i].titleName, GameMgr.contestclear_collection_list[i].Score, 0, 0, GameMgr.contestclear_collection_list[i].Flag));
+            _temp_contestclearcollectionlist.Add(new ItemSaveFlag(GameMgr.contestclear_collection_list[i].titleName, GameMgr.contestclear_collection_list[i].Score, 
+                0, 0, 0, 0, GameMgr.contestclear_collection_list[i].Flag));
             _temp_contestclearcollectionlistItemData.Add(GameMgr.contestclear_collection_list[i].ItemData);
         }
 
@@ -1483,7 +1489,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_bgmcollectionlist.Clear();
         for (i = 0; i < GameMgr.bgm_collection_list.Count; i++)
         {
-            _temp_bgmcollectionlist.Add(new ItemSaveFlag(GameMgr.bgm_collection_list[i].titleName, 0, 0, 0, GameMgr.bgm_collection_list[i].Flag));
+            _temp_bgmcollectionlist.Add(new ItemSaveFlag(GameMgr.bgm_collection_list[i].titleName, 0, 0, 0, 0, 0, GameMgr.bgm_collection_list[i].Flag));
         }
 
         //システムデータに、セーブしたかどうかのフラグをセット

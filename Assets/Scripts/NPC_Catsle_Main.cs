@@ -356,8 +356,8 @@ public class NPC_Catsle_Main : MonoBehaviour
                 GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
                 //BGMかえる
-                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                //bgm_change_flag = true;
+                sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                bgm_change_flag = true;
 
                 check_event = true;
 

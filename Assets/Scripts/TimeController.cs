@@ -213,9 +213,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 }
 
                 //時間がリアルタイムで経過　timeLeft2が更新されると、ゲーム時間が5分進む。
-                if (GameMgr.System_REALTIMEMODE_ON)
+                if (GameMgr.System_REALTIME_GIRLSTATUS_ON)
                 {
-                    RealTime_Method(); //アトリエ２では、off
+                    RealTime_Method(); //
                 }
 
                 break;
@@ -265,26 +265,32 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     {
 
                         timeLeft2 = 0.0f;
-                        SetMinuteToHour(5, 0); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
-                        TimeKoushin(0, true);
 
-                        if (GameMgr.WEATHER_TIMEMODE_ON)
+                        //**実際のゲーム時間にも影響 **//
+                        if (GameMgr.System_REALTIMEMODE_ON)
                         {
-                            compound_main.Weather_Change(5.0f);
+                            SetMinuteToHour(5, 0); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
+                            TimeKoushin(0, true);
+
+                            if (GameMgr.WEATHER_TIMEMODE_ON)
+                            {
+                                compound_main.Weather_Change();
+                            }
+
+                            //サブ時間イベントをチェック
+                            if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
+                            { }
+                            else
+                            {
+                                GameMgr.check_GirlLoveTimeEvent_flag = false;
+                            }
                         }
-
-
-                        //サブ時間イベントをチェック
-                        /*if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
-                        { }
-                        else
-                        {
-                            GameMgr.check_GirlLoveTimeEvent_flag = false;
-                        }*/
+                        //** **//
 
                         //ヒカリがお菓子を作ってる場合、ここでお菓子制作時間を計算
                         if (!GameMgr.outgirl_Nowprogress)
                         {
+                            //ハート上がる量の決定
                             heart_up_auto_param = 1; //自動でハート上がる量　デフォルト
 
                             if (pitemlist.KosuCount("aroma_potion3") >= 1)
@@ -296,16 +302,19 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                 heart_up_auto_param += 1;
                             }
 
+                            //ヒカリお菓子作り中のステータス
                             if (GameMgr.hikari_make_okashiFlag)
                             {
-                                GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
-                                if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
+                                if (GameMgr.System_REALTIMEMODE_ON)
                                 {
-                                    GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
+                                    GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
+                                    if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
+                                    {
+                                        GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
 
-                                    //お菓子制作。材料チェックと成功率を計算する。
-                                    HikariMakeOkashiJudge();
-
+                                        //お菓子制作。材料チェックと成功率を計算する。
+                                        HikariMakeOkashiJudge();
+                                    }
                                 }
 
                                 //お菓子を作ってる間、ハート上がる。
@@ -706,40 +715,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         }
     }
 
-    //天気状態の更新
-    void Weather_Judge_Method()
-    {
-        //Debug.Log("天気チェック");
-        if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < 8)
-        {
-            GameMgr.BG_cullent_weather = 1;
-
-        }
-        else if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour < 11)
-        {
-            GameMgr.BG_cullent_weather = 2;
-
-        }
-        else if (PlayerStatus.player_cullent_hour >= 11 && PlayerStatus.player_cullent_hour < 13)
-        {
-            GameMgr.BG_cullent_weather = 3;
-
-        }
-        else if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour < 16)
-        {
-            GameMgr.BG_cullent_weather = 4;
-
-        }
-        else if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 19)
-        {
-            GameMgr.BG_cullent_weather = 5;
-
-        }
-        else if (PlayerStatus.player_cullent_hour >= 19)
-        {
-            GameMgr.BG_cullent_weather = 6;
-        }
-    }
+    
 
     //現在の月日・現在時刻を計算する。また、イベントチェックも行う。
     public void TimeKoushin(int _mstatus, bool sleep_check)
@@ -808,6 +784,41 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 GameMgr.NewAreaRelease_flag = false; //スターに応じて、エリア解禁をするチェック こっちはfalseでOK
                 Debug.Log("スターに応じて、エリア解禁をするチェック このタイミングでON");
             }
+        }
+    }
+
+    //天気状態の更新
+    void Weather_Judge_Method()
+    {
+        //Debug.Log("天気チェック");
+        if (PlayerStatus.player_cullent_hour >= 0 && PlayerStatus.player_cullent_hour < 8)
+        {
+            GameMgr.BG_cullent_weather = 1;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour < 11)
+        {
+            GameMgr.BG_cullent_weather = 2;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 11 && PlayerStatus.player_cullent_hour < 13)
+        {
+            GameMgr.BG_cullent_weather = 3;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour < 16)
+        {
+            GameMgr.BG_cullent_weather = 4;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 16 && PlayerStatus.player_cullent_hour < 19)
+        {
+            GameMgr.BG_cullent_weather = 5;
+
+        }
+        else if (PlayerStatus.player_cullent_hour >= 19)
+        {
+            GameMgr.BG_cullent_weather = 6;
         }
     }
 

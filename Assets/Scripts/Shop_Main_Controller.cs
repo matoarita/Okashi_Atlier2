@@ -70,6 +70,7 @@ public class Shop_Main_Controller : MonoBehaviour {
     private bool lvevent_loading;
 
     private int shop_hyouji_flag;
+    private int talkrot;
 
     //public int shop_status;
     //public int shop_scene; //どのシーンを選択しているかを判別
@@ -687,25 +688,6 @@ public class Shop_Main_Controller : MonoBehaviour {
     {
         matplace_database.matPlaceKaikin("Or_Shop_B1"); //ショップ解禁
 
-        if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
-        {
-            GameMgr.Or_ShopEvent_stage[0] = true;
-
-            GameMgr.scenario_ON = true;
-
-            GameMgr.shop_event_num = 0;
-            GameMgr.shop_event_flag = true;
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num[0] = true;
-            //GameMgr.CompoundEvent_flag = true;
-
-            check_event = true;
-
-            StartCoroutine("Scenario_loading");
-
-            
-        }
     }
 
     void EventCheck_OrC1()
@@ -802,32 +784,46 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                 case "Or_Shop_B1": //エクレア姉さん
 
-                    GameMgr.talk_number = 2000;
 
-                    /*
-                    if (GameMgr.NPCHiroba_eventList[1200]) //ショップの女の子　イベントフラグ
+                    if (!GameMgr.Or_ShopEvent_stage[20]) //はじめてお店へきた。
                     {
-                        //頭から順番に会話をまわしていく。
+                        GameMgr.Or_ShopEvent_stage[20] = true;
+
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 2000;
+                        GameMgr.shop_event_flag = true;
+
+                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                        //GameMgr.CompoundEvent_num[0] = true;
+                        //GameMgr.CompoundEvent_flag = true;
+
+                        check_event = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+                    else
+                    {
+                        GameMgr.talk_number = 2000;
+
+                        //日でランダムに話が切り替わる
                         switch (talkrot)
                         {
                             case 0:
-                                GameMgr.talk_number = 2000;
-                                talkrot++;
+                                GameMgr.hiroba_event_ID = 10;
+                                //talkrot++;
                                 break;
                             case 1:
-                                GameMgr.talk_number = 2001;
-                                talkrot++;
+                                GameMgr.hiroba_event_ID = 11;
+                                //talkrot++;
                                 break;
                             case 2:
-                                GameMgr.talk_number = 2002;
+                                GameMgr.hiroba_event_ID = 12;
                                 //talkrot=0;
                                 break;
                         }
+                    }
 
-                        //BGMかえる
-                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                        //bgm_change_flag = true;
-                    }*/
                     break;
 
                 case "Or_Shop_C1": //マダム・オペラのばあさん
@@ -841,12 +837,19 @@ public class Shop_Main_Controller : MonoBehaviour {
                     break;
             }
 
-            GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
-            GameMgr.talk_flag = true;
-            
-            GameMgr.utage_charaHyouji_flag = true;
+            if (check_event) //話すをおしたときに、自動でイベントが発生した場合、そっちを優先する
+            {
 
-            StartCoroutine("UtageEndWait");
+            }
+            else
+            {
+                GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
+                GameMgr.talk_flag = true;
+
+                GameMgr.utage_charaHyouji_flag = true;
+
+                StartCoroutine("UtageEndWait");
+            }
         }
     }
 

@@ -982,23 +982,32 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub == "Fruits" || check_itemType_sub == "Berry")
                     {
-                        itemlist_hyouji_Check();
+                        if (check_itemType_subB != "a_FrozenFruits") //すでに冷凍したものはダメ
+                        {
+                            itemlist_hyouji_Check();
+                        }
                     }
                 }
                 if (_lv >= 4) //おはな
                 {
                     if (check_itemType_sub == "Flower" || check_itemType_sub == "Harb")
                     {
-                        itemlist_hyouji_Check();
+                        if (check_itemType_subB != "a_Freezeflower") //すでに冷凍したものはダメ
+                        {
+                            itemlist_hyouji_Check();
+                        }
                     }
                 }
                 if (_lv >= 5) //お菓子全て
                 {
                     if (check_itemType == "Okashi")
                     {
-                        if (check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Bread")
+                        if (check_itemType_sub != "IceCream" && check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Bread")
                         {
-                            itemlist_hyouji_Check();
+                            if (check_itemType_subB != "a_FreezeJelly") //すでに冷凍したものはダメ
+                            {
+                                itemlist_hyouji_Check();
+                            }
                         }
                     }
                 }

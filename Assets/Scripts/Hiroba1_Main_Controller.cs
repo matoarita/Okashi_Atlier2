@@ -2759,11 +2759,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
 
                         GameMgr.hiroba_event_ID = 10;
-                        talkrot++;
+                        //talkrot++;
                         break;
                     case 1:
                         GameMgr.hiroba_event_ID = 11;
-                        talkrot++;
+                        //talkrot++;
                         break;
                     case 2:
                         GameMgr.hiroba_event_ID = 12;
@@ -3497,6 +3497,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
+    //アリアちゃん
     void On_Active1621_Summer_Ariachan()
     {
         //宴の処理へ
@@ -3519,8 +3520,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[1220]) //ほかに発生するイベントがなく、すでに友達になった。
             {
+                GameMgr.hiroba_event_ID = 10;
+
                 //頭から順番に会話をまわしていく。
-                switch (talkrot)
+                /*switch (talkrot)
                 {
                     case 0:
                         GameMgr.hiroba_event_ID = 10;
@@ -3534,7 +3537,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_ID = 12;
                         //talkrot=0;
                         break;
-                }
+                }*/
 
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);

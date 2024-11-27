@@ -385,6 +385,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //
     public int Buf_CompKakuritsuMagic_Keisan(string _magic_name)
     {
+        _magic_kakuritsu = 0;
         _magic_rate = 0;
         _magicLearnLv = magicskill_database.skillName_SearchLearnLevel(_magic_name);
         _magicid = magicskill_database.SearchSkillString(_magic_name);
@@ -413,12 +414,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
 
         //各スキルの使用回数に応じて、成功率が少し上がる。
-        _magic_kakuritsu = (int)(magicskill_database.magicskill_lists[_magicid].skill_usecount * 0.3f);
+        _magic_kakuritsu = (int)(magicskill_database.magicskill_lists[_magicid].skill_usecount * 0.334f); //3回使えば+1%
         if(_magic_kakuritsu >= 30) //30%が上限
         {
             _magic_kakuritsu = 30;
         }
         _magic_rate = _magic_rate + _magic_kakuritsu;
+        Debug.Log("その魔法を使った回数: " + magicskill_database.magicskill_lists[_magicid].skill_usecount + " 成功率up: " + _magic_kakuritsu);
 
         //ステータスによる魔法成功率バフ
         KakuritsuUpMagic_PStatusBuf();

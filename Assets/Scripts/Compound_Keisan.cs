@@ -1145,6 +1145,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             Debug.Log("_compo_select: " + _compo_select + "魔法調合の場合の、最終個数指定");
             //result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
+
+            switch(GameMgr.UseMagicSkill)
+            {
+                case "Aroma_Potion": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
+
+                    final_kette_kosu1 = 1 * GameMgr.UseMagicSkillLv; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                    break;
+            }
             result_kosu = final_kette_kosu1;
         }
         else if (_compo_select == 7) //ヒカリお菓子作りの個数

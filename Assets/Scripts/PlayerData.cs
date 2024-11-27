@@ -152,6 +152,7 @@ public class PlayerData
     //家賃関係フラグ
     public int save_yachin_counter;
     public int save_yachin_otetsuki_count;
+    public int save_yachin_tainou_count;
 
     //マップイベントフラグ
     public bool[] save_MapEvent_01;         //各エリアのマップイベント。一度読んだイベントは、発生しない。近くの森。

@@ -9,6 +9,8 @@ public class Bar_Main_Or : MonoBehaviour
 
     private Bar_Main_Controller barmain_Controller;
 
+    private ItemMatPlaceDataBase matplace_database;
+
     private GameObject BGImagePanel;
     private List<GameObject> BGImg_List = new List<GameObject>();
     private GameObject BGImage_effectPanel;
@@ -17,8 +19,13 @@ public class Bar_Main_Or : MonoBehaviour
 
     private GameObject CharacterPanel;
 
+    private string _name_hyouji;
+
     void Start()
     {
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
         barmain_Controller = this.GetComponent<Bar_Main_Controller>();
         barmain_Controller.InitSetup();
 
@@ -64,6 +71,9 @@ public class Bar_Main_Or : MonoBehaviour
             case 0: //春エリア
 
                 GameMgr.Scene_Name = "Or_Bar_A1";
+                _name_hyouji = matplace_database.matplace_lists[matplace_database.SearchMapString(GameMgr.Scene_Name)].placeNameHyouji;
+                GameMgr.scene_BarName = _name_hyouji;
+
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 BGImage_effectPanel.transform.Find("placeeffect_01").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
@@ -75,6 +85,9 @@ public class Bar_Main_Or : MonoBehaviour
             case 10: //夏エリア
 
                 GameMgr.Scene_Name = "Or_Bar_B1";
+                _name_hyouji = matplace_database.matplace_lists[matplace_database.SearchMapString(GameMgr.Scene_Name)].placeNameHyouji;
+                GameMgr.scene_BarName = _name_hyouji;
+
                 BGImagePanel.transform.Find("BG_sprite_2").gameObject.SetActive(true);
                 SettingCharacterPanel(1);
                 GameMgr.Window_CharaName = "フィオナ";
@@ -85,16 +98,22 @@ public class Bar_Main_Or : MonoBehaviour
             case 20: //秋エリア
 
                 GameMgr.Scene_Name = "Or_Bar_C1";
+                _name_hyouji = matplace_database.matplace_lists[matplace_database.SearchMapString(GameMgr.Scene_Name)].placeNameHyouji;
+                GameMgr.scene_BarName = _name_hyouji;
+
                 BGImagePanel.transform.Find("BG_sprite_3").gameObject.SetActive(true);
                 SettingCharacterPanel(2);
-                GameMgr.Window_CharaName = "アプリコット";
-                GameMgr.System_Shop_text1 = "いらっしゃ～い。";
-                GameMgr.System_Shop_text2 = "いまは、こんな依頼があるわ。" + "\n" + "どれにする？";
+                GameMgr.Window_CharaName = "アプリコット";               
+                GameMgr.System_Shop_text1 = "うふ～ん・・。ようこそ、" + _name_hyouji + "へ♪";
+                GameMgr.System_Shop_text2 = "いまは、こんな依頼があるわ～ん♪" + "\n" + "どれにする？";
                 break;
 
             case 30: //冬エリア
 
                 GameMgr.Scene_Name = "Or_Bar_D1";
+                _name_hyouji = matplace_database.matplace_lists[matplace_database.SearchMapString(GameMgr.Scene_Name)].placeNameHyouji;
+                GameMgr.scene_BarName = _name_hyouji;
+
                 BGImagePanel.transform.Find("BG_sprite_4").gameObject.SetActive(true);
                 SettingCharacterPanel(3);
                 GameMgr.Window_CharaName = "フィオナ";
@@ -105,6 +124,9 @@ public class Bar_Main_Or : MonoBehaviour
             default:
 
                 GameMgr.Scene_Name = "Or_Bar_A1";
+                _name_hyouji = matplace_database.matplace_lists[matplace_database.SearchMapString(GameMgr.Scene_Name)].placeNameHyouji;
+                GameMgr.scene_BarName = _name_hyouji;
+
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
                 GameMgr.Window_CharaName = "フィオナ";

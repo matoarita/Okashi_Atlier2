@@ -428,6 +428,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //GameMgr.Contest_afterHomeEventFlag = true;
             //GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ
 
+            GameMgr.SceneSelectNum = 0;
             FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
         }
 

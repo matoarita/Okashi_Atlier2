@@ -755,7 +755,14 @@ public class HikariMakeStartPanel : MonoBehaviour {
         
         if (!GameMgr.hikari_make_okashiFlag)
         {
-            makeokasi_kosu.text = "-";
+            if (GameMgr.Result_Kosu >= 1)
+            {
+                makeokasi_kosu.text = GameMgr.Result_Kosu.ToString();
+            }
+            else
+            {
+                makeokasi_kosu.text = "-";
+            }
             timecost_kosu.text = "-";
         }
         else

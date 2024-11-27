@@ -34,8 +34,14 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     private Toggle npc7_toggle;
     private Toggle npc8_toggle;
 
+    private GameObject npc1sub_toggle_obj;
     private GameObject npc2sub_toggle_obj;
     private GameObject npc3sub_toggle_obj;
+    private GameObject npc4sub_toggle_obj;
+    private GameObject npc5sub_toggle_obj;
+    private GameObject npc6sub_toggle_obj;
+    private GameObject npc7sub_toggle_obj;
+    private GameObject npc8sub_toggle_obj;
 
     private ContestStartListDataBase conteststartList_database;
     private ItemMatPlaceDataBase matplace_database;
@@ -156,6 +162,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         npc7_toggle.interactable = true;
         npc8_toggle.interactable = true;
 
+        npc1sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView1_SelectToggle").gameObject;
+        npc1sub_toggle_obj.SetActive(true);
         npc2sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView2_SelectToggle").gameObject;
         npc2sub_toggle_obj.SetActive(false);
         npc3sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView3_SelectToggle").gameObject;
@@ -255,6 +263,32 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 }
 
                 matplace_database.matPlaceKaikin("Or_MagicHouseA1"); //ミラボ先生解禁
+
+                //各月で5の倍数の日はいなくなり、水浴びしてる。
+                if(PlayerStatus.player_cullent_day % 5 == 0)
+                {
+                    GameMgr.NPC_mirabo_mizuabi = true;
+                    Debug.Log("ミラボ先生水浴びいってる");
+
+                    CharacterPanel.SetActive(false);
+
+                    GameMgr.Window_CharaName = "";
+                    default_scenetext = "あれ。ミラボー先生。" + "\n" + "どうやら留守のようだ・・。";
+
+                    npc1sub_toggle_obj.SetActive(false);
+                    npc3sub_toggle_obj.SetActive(false);
+                    npc2sub_toggle_obj.SetActive(false);
+                }
+                else
+                {
+                    GameMgr.NPC_mirabo_mizuabi = false;
+                    CharacterPanel.SetActive(true);
+
+                    npc1sub_toggle_obj.SetActive(true);
+                    npc3sub_toggle_obj.SetActive(true);
+                    npc2sub_toggle_obj.SetActive(true);
+                }
+                
                 break;
 
             case 40: //星のパティシエ魔法の先生
@@ -924,9 +958,19 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         }
 
         if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
-        { }
+        {  }
         else
         {
+            if (GameMgr.NPCMagic_eventList[10]) //魔法教えてもらったあと　ふつうの選択肢に。
+            {
+
+                //宴の処理へ
+                GameMgr.hiroba_event_placeNum = 5000; //
+                GameMgr.hiroba_event_ID = 10;
+                GameMgr.utage_charaHyouji_flag = true;
+
+                check_event = true;
+            }
         }
 
         if (check_event)

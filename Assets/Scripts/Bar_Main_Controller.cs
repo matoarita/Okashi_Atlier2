@@ -492,7 +492,34 @@ public class Bar_Main_Controller : MonoBehaviour {
                     {
                         GameMgr.scenario_ON = true;
 
-                        GameMgr.bar_event_num = 10000;
+                        switch (GameMgr.Scene_Name)
+                        {
+                            case "Bar_Grt":
+
+                                GameMgr.bar_event_num = 10000;
+                                break;
+
+                            case "Or_Bar_A1":
+
+                                GameMgr.bar_event_num = 10000;
+                                break;
+
+                            case "Or_Bar_B1":
+
+                                GameMgr.bar_event_num = 10000;
+                                break;
+
+                            case "Or_Bar_C1":
+
+                                GameMgr.bar_event_num = 20000;
+                                break;
+
+                            case "Or_Bar_D1":
+
+                                GameMgr.bar_event_num = 10000;
+                                break;
+                        }
+                        
                         GameMgr.bar_event_flag = true;
 
                         check_event = true;
@@ -618,25 +645,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             GameMgr.System_BarQuestIcon_OnFlag = true;
         }
 
-        if (!GameMgr.Or_ShopEvent_stage[100]) //はじめて酒場へきた。
-        {
-            GameMgr.Or_ShopEvent_stage[100] = true;
-
-            GameMgr.scenario_ON = true;
-
-            GameMgr.bar_event_num = 0;
-            GameMgr.bar_event_flag = true;
-
-            check_event = true;
-
-            StartCoroutine("Scenario_loading");
-
-
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num[10] = true;
-            //GameMgr.CompoundEvent_flag = true;
-        }
+        
     }
 
     void EventCheck_OrD1()
@@ -695,31 +704,6 @@ public class Bar_Main_Controller : MonoBehaviour {
                 case "Or_Bar_A1": //ルーティさん
 
                     GameMgr.talk_number = 1000;
-
-                    /*
-                    if (GameMgr.NPCHiroba_eventList[1200]) //酒場の女の子　イベントフラグ
-                    {
-                        //頭から順番に会話をまわしていく。
-                        switch (talkrot)
-                        {
-                            case 0:
-                                GameMgr.talk_number = 1000;
-                                talkrot++;
-                                break;
-                            case 1:
-                                GameMgr.talk_number = 1001;
-                                talkrot++;
-                                break;
-                            case 2:
-                                GameMgr.talk_number = 1002;
-                                //talkrot=0;
-                                break;
-                        }
-
-                        //BGMかえる
-                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                        //bgm_change_flag = true;
-                    }*/
                     break;
 
                 case "Or_Bar_B1":
@@ -728,8 +712,27 @@ public class Bar_Main_Controller : MonoBehaviour {
                     break;
 
                 case "Or_Bar_C1": //アプリコットのお姉さん
+                   
+                    if (!GameMgr.Or_ShopEvent_stage[140]) //はじめて酒場へきた。
+                    {
+                        GameMgr.Or_ShopEvent_stage[140] = true;
 
-                    GameMgr.talk_number = 3000;
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.bar_event_num = 1000;
+                        GameMgr.bar_event_flag = true;
+
+                        check_event = true;
+
+                        StartCoroutine("Scenario_loading");
+
+                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                        //GameMgr.CompoundEvent_num[10] = true;
+                        //GameMgr.CompoundEvent_flag = true;
+                    }else
+                    {
+                        GameMgr.talk_number = 3000;
+                    }
                     break;
 
                 case "Or_Bar_D1":
@@ -738,12 +741,19 @@ public class Bar_Main_Controller : MonoBehaviour {
                     break;
             }
 
-            GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
-            GameMgr.talk_flag = true;
+            if (check_event) //話すをおしたときに、自動でイベントが発生した場合、そっちを優先する
+            {
 
-            GameMgr.utage_charaHyouji_flag = true;
+            }
+            else
+            {
+                GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
+                GameMgr.talk_flag = true;
 
-            StartCoroutine("UtageEndWait");
+                GameMgr.utage_charaHyouji_flag = true;
+
+                StartCoroutine("UtageEndWait");
+            }
         }
     }
 

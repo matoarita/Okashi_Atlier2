@@ -12,6 +12,7 @@ public class GameOver_Main : MonoBehaviour {
     private BGM sceneBGM;
 
     private SaveController save_controller;
+    private SoundController sc;
 
     private bool StartRead;
 
@@ -25,6 +26,9 @@ public class GameOver_Main : MonoBehaviour {
 
         save_controller = SaveController.Instance.GetComponent<SaveController>();
 
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
 
@@ -32,7 +36,24 @@ public class GameOver_Main : MonoBehaviour {
         canvas = GameObject.FindWithTag("Canvas");
 
         gameover_text = canvas.transform.Find("HyoujiPanel/GameOverText").GetComponent<Text>();
-        gameover_text.text = "にいちゃ～ん..。" + "\n" + "エデンとれなかった..。" + "\n" + "もうママに、" + "\n" + "会えないのかなぁ～・・？";
+
+        switch (GameMgr.SceneSelectNum)
+        {
+            case 0: //エデンコンテストで負けた
+
+                gameover_text.text = "にいちゃ～ん..。" + "\n" + "エデンとれなかった..。" + "\n" + "もうママに、" + "\n" + "会えないのかなぁ～・・？";
+                break;
+
+            case 10: //家賃が払えなかった
+
+                gameover_text.text = "にいちゃ～ん..。" + "\n" + "サーカス楽しいけど..。" + "\n" + "はやくママに、" + "\n" + "会いたいなぁ～・・。";
+                break;
+
+            default:
+
+                gameover_text.text = "にいちゃ～ん..。" + "\n" + "エデンとれなかった..。" + "\n" + "もうママに、" + "\n" + "会えないのかなぁ～・・？";
+                break;
+        }               
 
         StartRead = false;
     }
@@ -51,12 +72,14 @@ public class GameOver_Main : MonoBehaviour {
 
     public void TitleBackButton()
     {
+        //sc.PlaySe(28);
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         FadeManager.Instance.LoadScene("001_Title", 0.3f);
     }
 
     public void LoadButton()
     {
+        sc.PlaySe(28);
         FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         save_controller.OnLoadMethod(GameMgr.System_save_nowslot);
     }

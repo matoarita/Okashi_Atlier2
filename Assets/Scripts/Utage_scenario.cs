@@ -775,9 +775,11 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
         
         engine.Param.TrySetParameter("Story_num", story_num);
+        engine.Param.TrySetParameter("BarName", GameMgr.scene_BarName);
+        engine.Param.TrySetParameter("StationEvent_num", 0);
 
         //ショップのときのフラグ関係
-        if(scenarioLabel == "Shop_Event")
+        if (scenarioLabel == "Shop_Event")
         {
             if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
             {
@@ -827,9 +829,11 @@ public class Utage_scenario : MonoBehaviour
 
         if (GameMgr.Scene_Category_Num == 20 || GameMgr.Scene_Category_Num == 30 || GameMgr.Scene_Category_Num == 40)
         {
+            stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
             if (scenarioLabel == "Shop_Event")
             {
-                switch (story_num)
+                switch (story_num) //GameMgr.shop_event_numなどのこと
                 {
                     case 20:
 
@@ -984,7 +988,7 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
-        if (GameMgr.Story_Mode == 1)
+        if (GameMgr.WEATHER_TIMEMODE_ON)
         {
             //このタイミングで、背景は朝にしておく。
             compound_Main.OnMorningBG();
@@ -1773,8 +1777,10 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
 
         //家賃額設定
-        engine.Param.TrySetParameter("YachinCost", GameMgr.System_Yachin_Cost02);
+        engine.Param.TrySetParameter("YachinCost", GameMgr.Yachin_Cost_cullent);
         engine.Param.TrySetParameter("YachinDay", GameMgr.System_Yachin_Day);
+        engine.Param.TrySetParameter("YachinOtetsukiCount", GameMgr.yachin_otetsuki_count);
+        engine.Param.TrySetParameter("YachinTainouCount", GameMgr.yachin_tainou_count);
 
         //コンテスト時は、締め切り日も設定
         if (GameMgr.GirlLoveEvent_num == 50)
@@ -1803,6 +1809,20 @@ public class Utage_scenario : MonoBehaviour
         //イベントによって、シーン移動するときがあるので、ブラック挟むよう
         switch(GameMgr.GirlLoveSubEvent_num)
         {
+            case 1110: //家賃払えなくてゲームオーバーへ
+
+                //「宴」のシナリオ終了待ち
+                while (!engine.IsPausingScenario)
+                {
+                    yield return null;
+                }
+
+                GameMgr.Utage_SceneEnd_BlackON = true;
+
+                //続きから再度読み込み
+                engine.ResumeScenario();
+                break;
+
             case 2000:
 
                 //「宴」のシナリオ終了待ち
@@ -1817,6 +1837,7 @@ public class Utage_scenario : MonoBehaviour
                 engine.ResumeScenario();
                 break;
         }
+
         if(GameMgr.ending_on)
         {
             //「宴」のシナリオ終了待ち
@@ -2408,6 +2429,7 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
         engine.Param.TrySetParameter("Story_progress_Num", GameMgr.GirlLoveEvent_num); //ゲームメインストーリーの進行フラグナンバー
+        engine.Param.TrySetParameter("StationEvent_num", 0);
 
         if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
         {
@@ -2444,7 +2466,9 @@ public class Utage_scenario : MonoBehaviour
             yield return null;
         }
 
-        if( (bool)engine.Param.GetParameter("Farm_Flag") )
+        stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
+        if ((bool)engine.Param.GetParameter("Farm_Flag"))
         {
             matplace_database.matPlaceKaikin("Or_Farm"); //牧場解禁
         }
@@ -2452,6 +2476,44 @@ public class Utage_scenario : MonoBehaviour
         {
             matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
         }
+
+        switch (GameMgr.Scene_Name)
+        {
+            case "Shop_Grt":
+
+                break;
+
+            case "Or_Shop_A1":
+
+                break;
+
+            case "Or_Shop_B1": //エクレア姉さん
+
+                switch (GameMgr.hiroba_event_ID) //
+                {
+                    case 10: //最初の選択肢
+
+                        if(stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
+                        {
+                            if (GameMgr.NPC_FriendPoint[31] <= GameMgr.System_NPC_FriendPoint_StartPoint) //初回のみ上がる
+                            {
+                                GameMgr.NPC_FriendPoint[31]++;
+                            }
+                        }
+                        break;
+                }
+                break;
+
+            case "Or_Shop_C1": //マダム・オペラのばあさん
+
+                break;
+
+            case "Or_Shop_D1": //ピティヴィエさん
+
+                break;
+        }
+        
+
 
         if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
         {
@@ -2462,7 +2524,7 @@ public class Utage_scenario : MonoBehaviour
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 
-        
+
         GameMgr.scenario_ON = false;
 
     }
@@ -2700,6 +2762,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+        engine.Param.TrySetParameter("StationEvent_num", 0);
 
         if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
         {
@@ -2746,6 +2809,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+        engine.Param.TrySetParameter("StationEvent_num", 0);
 
         if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
         {
@@ -2764,6 +2828,44 @@ public class Utage_scenario : MonoBehaviour
         while (!Engine.IsEndScenario)
         {
             yield return null;
+        }
+
+        stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
+        switch (GameMgr.Scene_Name)
+        {
+            case "Bar_Grt":
+
+                break;
+
+            case "Or_Bar_A1":
+
+                break;
+
+            case "Or_Bar_B1": //
+               
+                break;
+
+            case "Or_Bar_C1": //アプリコットさん
+
+                /*switch (GameMgr.hiroba_event_ID) //
+                {
+                    case 10: //最初の選択肢*/
+
+                if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
+                {
+                    if (GameMgr.NPC_FriendPoint[41] <= GameMgr.System_NPC_FriendPoint_StartPoint) //初回のみ上がる
+                    {
+                        GameMgr.NPC_FriendPoint[41]++;
+                    }
+                }
+                //break;
+                //}
+                break;
+
+            case "Or_Bar_D1": //
+
+                break;
         }
 
         if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する

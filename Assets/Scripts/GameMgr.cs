@@ -34,7 +34,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool DEBUG_MagicPlayTime_ON = true; //デバッグ　魔法の演出時間を表示する。
     public static bool DEBUG_TasteSPScore_ON = false; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
-    public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。
+    public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
+    public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
     public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
 
@@ -125,6 +126,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //パティシエレベルの上限
     public static int System_patissier_maxlv = 50;
+
+    //友好度の初期値
+    public static int System_NPC_FriendPoint_StartPoint = 50;
 
     //セーブ個数
     public static int System_SaveSlot_Count = 14;
@@ -240,7 +244,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //家賃をはじめて支払った
     public static int yachin_counter; //家賃BBAがきた回数
-    public static int yachin_otetsuki_count; //お手付きの回数　３回目までたまるとゲームオーバー
+    public static int yachin_otetsuki_count; //お手付きの回数　2回目までたまるとゲームオーバー
+    public static int yachin_tainou_count; //家賃滞納した回数
 
     //好感度やパティシエレベルで発生するサブイベントのフラグ   
     public static bool[] GirlLoveSubEvent_stage1 = new bool[GirlLoveSubEvent_stage_num];
@@ -795,6 +800,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int SceneMoveAfter_TimeParam; //シーン移動後、時間を変動
     public static int GirlTalk_num; //女の子イベント会話中の分岐を決める番号
     public static bool CompoAfter_BackGirl; //調合後元の位置まで戻ってくるまでの間のフラグ
+    public static int Yachin_Cost_cullent; //現在払うべき家賃の額
+    public static string scene_BarName; //酒場の名前表示
+    public static bool NPC_mirabo_mizuabi; //ミラボー先生の水浴びフラグ
 
     //セリフ関連の一時変数
     public static string ContestRep_text1;
@@ -1148,6 +1156,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         yachin_counter = 0;
         yachin_otetsuki_count = 0;
+        yachin_tainou_count = 0;
 
         shop_event_flag = false;
         shop_lvevent_flag = false;
@@ -1367,6 +1376,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MazuiFlag_ON = false;
         SceneMoveAfter_Koushin = false;
         CompoAfter_BackGirl = false;
+        scene_BarName = "";
+        NPC_mirabo_mizuabi = false;
+
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1395,7 +1407,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //NPC友好度の初期化 50はじまり
         for (system_i = 0; system_i < NPC_FriendPoint.Length; system_i++)
         {
-            NPC_FriendPoint[system_i] = 50;
+            NPC_FriendPoint[system_i] = System_NPC_FriendPoint_StartPoint;
         }
 
         //別シーンから、家に帰ってきたときに発生するイベントリスト

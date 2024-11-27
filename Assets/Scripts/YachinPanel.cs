@@ -7,12 +7,18 @@ public class YachinPanel : MonoBehaviour {
 
     private TimeController time_controller;
 
+    private GameObject costtext_obj;
+    private GameObject costtext_obj2;
+    private GameObject otetsuki_obj;
+
     private Text costtext;
+    private Text costtext2;
     private Text nokoriday_text;
 
     private int i, count;
     private int month_max;
     private int yachin_day, nokori_day;
+    private int cullent_yachin;
 
     private bool month_matagu; //月をまたぐ場合　当月残り日数＋次の月の家賃デイを追加
 
@@ -32,7 +38,12 @@ public class YachinPanel : MonoBehaviour {
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
 
+        costtext_obj = this.transform.Find("Panel/cost_text").gameObject;
+        costtext_obj2 = this.transform.Find("Panel/cost_text2").gameObject;
+        otetsuki_obj = this.transform.Find("Panel/OtetsukiImg").gameObject;
+
         costtext = this.transform.Find("Panel/cost_text").GetComponent<Text>();
+        costtext2 = this.transform.Find("Panel/cost_text2").GetComponent<Text>();
         nokoriday_text = this.transform.Find("Panel/day_text").GetComponent<Text>();
     }
 
@@ -40,7 +51,24 @@ public class YachinPanel : MonoBehaviour {
     {
         InitSetting();
 
-        costtext.text = GameMgr.System_Yachin_Cost02.ToString();
+        //Debug.Log("GameMgr.yachin_otetsuki_count: " + GameMgr.yachin_otetsuki_count);
+
+        if (GameMgr.yachin_otetsuki_count >= 1)
+        {
+            costtext_obj.SetActive(false);
+            costtext_obj2.SetActive(true);
+            costtext2.text = GameMgr.Yachin_Cost_cullent.ToString();
+
+            otetsuki_obj.SetActive(true);
+        }
+        else
+        {
+            costtext_obj.SetActive(true);
+            costtext_obj2.SetActive(false);
+            costtext.text = GameMgr.Yachin_Cost_cullent.ToString();
+
+            otetsuki_obj.SetActive(false);
+        }
 
         //現在の日付を確認し、家賃まで何日か計算する
         yachinday_keisan();
@@ -107,6 +135,29 @@ public class YachinPanel : MonoBehaviour {
         {
             //月をまたいだ場合
             nokori_day = yachin_day + GameMgr.System_Yachin_Day;
+        }
+    }
+
+    public void Setting_CullentYachin()
+    {
+        cullent_yachin = GameMgr.System_Yachin_Cost02;
+
+        //現在の家賃額を設定
+        switch (GameMgr.yachin_otetsuki_count)
+        {
+            case 0:
+
+                GameMgr.Yachin_Cost_cullent = cullent_yachin; //払う額の設定
+                break;
+
+            case 1:
+                GameMgr.Yachin_Cost_cullent = cullent_yachin * 2; //払う額の設定
+                break;
+
+            default:
+
+                GameMgr.Yachin_Cost_cullent = cullent_yachin; //払う額の設定
+                break;
         }
     }
 }

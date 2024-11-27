@@ -190,7 +190,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     }
 
     //スキルのパラメータセット　アイテム名＋パラメータで、指定したパラムに置き換える。
-    public void ReSetSkillParamString(string skillName, int param, int param2, int param3)
+    public void ReSetSkillParamString(string skillName, int param, int param2, int param3, int param4, int param5)
     {
         i = 0;
         while (i < magicskill_lists.Count)
@@ -200,6 +200,8 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 magicskill_lists[i].skillFlag = param;
                 magicskill_lists[i].skillLv = param2;
                 magicskill_lists[i].skillUseLv = param3;
+                magicskill_lists[i].skill_usecount = param4;
+                //param5 空
                 break;
             }
             i++;

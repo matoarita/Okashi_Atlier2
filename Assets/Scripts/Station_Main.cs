@@ -146,6 +146,7 @@ public class Station_Main : MonoBehaviour
                 mainlist_controller_obj.SetActive(true);
 
                 default_scenetext = "ガレット村の駅についた。";
+                GameMgr.Window_CharaName = "";
                 break;
 
             case 100: //オランジーナ　駅
@@ -156,6 +157,7 @@ public class Station_Main : MonoBehaviour
                 mainlist_controller_obj.SetActive(true);
 
                 default_scenetext = "オランジーナ駅についた。";
+                GameMgr.Window_CharaName = "";
                 break;
 
         }

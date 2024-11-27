@@ -160,28 +160,17 @@ public class Compound_Main : MonoBehaviour
     private GameObject bgpanelmatome_debug;
     private Touch_Controll_Item bg_touch_controll;
     private GameObject BG_Imagepanel;
+    private Animator BGImg_dayAnim;
     private GameObject BGImageTemaePanel;
     private List<GameObject> bgwall_sprite = new List<GameObject>();
 
     private GameObject BG_effectpanel;
     private List<GameObject> bgeffect_obj = new List<GameObject>();
 
+    private BG_Effect_Particle BG_effectpanel_Effect;
+
     private GameObject bgweather_image_panel;
     private List<GameObject> bg_weather_image = new List<GameObject>();
-
-    private ParticleSystem.EmissionModule particleEm_Light1;
-    private ParticleSystem.EmissionModule particleEm_Light2;
-    private ParticleSystem.EmissionModule particleEm_Light3;
-    private ParticleSystem.EmissionModule particleEm_Light4;
-    private ParticleSystem.EmissionModule particleEm_Light5;
-    private ParticleSystem.EmissionModule particleEm_Light6;
-    private ParticleSystem.EmissionModule particleEm_Light7;
-
-    private ParticleSystem.EmissionModule particleEm_CandleLight1;
-    private ParticleSystem.EmissionModule particleEm_MiniHouseLight1;
-
-    private GameObject particleEm_CandleLight1_obj;
-    private GameObject particleEm_MiniHouseLight1_obj;
 
     //Live2Dモデルの取得
     private GameObject _model_obj;
@@ -270,6 +259,7 @@ public class Compound_Main : MonoBehaviour
     private string GetEmeraldItemName;
     private int get_heart;
     private bool map_move;
+    private string _bg_str1, _bg_str2, _bg_str3;
 
     private string _todayfood;
     private List<string> _todayfood_lib = new List<string>();
@@ -296,7 +286,7 @@ public class Compound_Main : MonoBehaviour
 
     private int motion_layer_num = 1;
 
-    private Tween t1, t2, t3, t4, t5, t6, t7, t8;
+    private int daynum;
 
     private Color color_set;
     private bool StartRead;
@@ -517,7 +507,7 @@ public class Compound_Main : MonoBehaviour
         live2d_animator = _model_obj.GetComponent<Animator>();
         live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
         GameMgr.ResultComplete_flag = 0; //調合が完了したよフラグ
-        
+
         Anchor_Pos = character_move.transform.Find("Anchor_1").gameObject;
         character_touch_controll = character_root.transform.Find("CharacterMove/Character").GetComponent<Touch_Controll>();
         live2d_animator.Play("Idle", motion_layer_num, 0.0f); //デフォルトアイドルモーションセット
@@ -621,6 +611,9 @@ public class Compound_Main : MonoBehaviour
 
 
         //背景天気オブジェクトの取得
+
+
+        //デバッグシーンとゲーム用シーンで分ける
         switch (SceneManager.GetActiveScene().name)
         {
             case "Hikari_CompMain": //こっちはデバッグ用
@@ -630,31 +623,48 @@ public class Compound_Main : MonoBehaviour
 
                 bgweather_image_panel = bgpanelmatome_debug.transform.Find("BGImageWindowOutPanel/BGOutimg_sc01").gameObject;
                 BG_Imagepanel = bgpanelmatome_debug.transform.Find("BGImagePanel/BGimg_sc02").gameObject;
+                BGImg_dayAnim = BG_Imagepanel.GetComponent<Animator>();
                 BGImageTemaePanel = GameObject.FindWithTag("BGImageTemaePanel");
                 BG_effectpanel = bgpanelmatome_debug.transform.Find("BG_Effect/effect_sc01").gameObject;
+                BG_effectpanel_Effect = bgpanelmatome_debug.transform.Find("BG_Effect").GetComponent<BG_Effect_Particle>();
+                BG_effectpanel_Effect.SetEffectName("effect_sc01"); //使うエフェクトネームをパーティクル自身にも保存
                 bg_accessory_panel = bgpanelmatome_debug.transform.Find("BGAccessory").gameObject;
+                bg_accessory_panel.SetActive(false);
                 break;
 
-            default:
+            default: //ゲームシーン全般
 
                 bgpanelmatome_debug = GameObject.FindWithTag("BG_Debug");
                 bgpanelmatome_debug.SetActive(false);
 
                 bgpanelmatome = GameObject.FindWithTag("BG");
-                bg_touch_controll = bgpanelmatome.transform.Find("BGAccessory").GetComponent<Touch_Controll_Item>();
 
-                bgweather_image_panel = bgpanelmatome.transform.Find("BGImageWindowOutPanel/BGOutimg_sc01").gameObject;
-                BG_Imagepanel = bgpanelmatome.transform.Find("BGImagePanel/BGimg_sc02").gameObject;
-                BGImageTemaePanel = GameObject.FindWithTag("BGImageTemaePanel");
-                BG_effectpanel = bgpanelmatome.transform.Find("BG_Effect/effect_sc01").gameObject;
-                bg_accessory_panel = bgpanelmatome.transform.Find("BGAccessory").gameObject;                
+                switch (GameMgr.Scene_Name)
+                {
+                    case "Compound": //前の村ではON
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc01", "BGimg_sc01", "effect_sc01");
+                        bg_accessory_panel.SetActive(true);
+                        break;
+
+                    case "Or_Compound": //飾りアイテムはオランジーナではひとまず使わない
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc03", "effect_sc03");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    default:
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc03", "effect_sc03");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+                }
+
                 break;
         }
-
-        //飾りアイテムのセット        
-        BGAccetrigger = bg_accessory_panel.GetComponent<BGAcceTrigger>();
-        BGAccetrigger.DrawBGAcce();
-
 
         bg_weather_image.Clear();
         foreach (Transform child in bgweather_image_panel.transform) //
@@ -674,29 +684,10 @@ public class Compound_Main : MonoBehaviour
             bgeffect_obj.Add(child.gameObject);
         }
 
-        /*particleEm_Light1 = BG_effectpanel.transform.Find("BG_Particle_Light").GetComponent<ParticleSystem>().emission;
-        particleEm_Light2 = BG_effectpanel.transform.Find("BG_Particle_Light_Ball").GetComponent<ParticleSystem>().emission;
-        particleEm_Light3 = BG_effectpanel.transform.Find("BG_Particle_Light_Kira").GetComponent<ParticleSystem>().emission;
-        particleEm_Light4 = BG_effectpanel.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
-        particleEm_Light5 = BG_effectpanel.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
-        particleEm_Light6 = BG_effectpanel.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
-        particleEm_Light7 = BG_effectpanel.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;*/
 
-        //BGアクセサリー系のパーティクル
-        particleEm_CandleLight1 = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").GetComponent<ParticleSystem>().emission;
-        particleEm_MiniHouseLight1 = bg_accessory_panel.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").GetComponent<ParticleSystem>().emission;
-
-        particleEm_CandleLight1_obj = bg_accessory_panel.transform.Find("Candle/cgw01_candle_Live2D/BG_Particle_CandleLight").gameObject;
-        particleEm_MiniHouseLight1_obj = bg_accessory_panel.transform.Find("MiniHouse/minihouse_Live2D/BG_Particle_HouseLight").gameObject;
-
-
-        //飾りアイテムはオランジーナではひとまず使わない
-        switch (GameMgr.Scene_Name)
-        {
-            case "Or_Compound":
-                bg_accessory_panel.SetActive(false);
-                break;
-        }
+        //飾りアイテムのセット        
+        BGAccetrigger = bg_accessory_panel.GetComponent<BGAcceTrigger>();
+        BGAccetrigger.DrawBGAcce();
 
         Change_BGimage();
 
@@ -823,7 +814,9 @@ public class Compound_Main : MonoBehaviour
         time_controller.TimeKoushin(0, false);
 
         //家賃日までの日数計算
-        yachinPanel.GetComponent<YachinPanel>().YachinHyouji();
+        yachinPanel.GetComponent<YachinPanel>().Setting_CullentYachin();
+        yachinPanel.GetComponent<YachinPanel>().YachinHyouji();       
+
 
 
         //デバッグ用 本番ではオフにする。コンテスト終了後、寝るが終わったあとに始まるイベントのこと　寝るを押せばすぐに発動するようにしてる。
@@ -833,6 +826,44 @@ public class Compound_Main : MonoBehaviour
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
+    }
+
+    void SetBGObj(string _bgoutimg, string _bgimg, string _effimg)
+    {
+        //まず外、背景の家中、エフェクトの３つを背景オブジェクト全てオフ
+        foreach (Transform child in bgpanelmatome.transform.Find("BGImageWindowOutPanel").transform) //
+        {
+            child.gameObject.SetActive(false);
+        }
+        foreach (Transform child in bgpanelmatome.transform.Find("BGImagePanel").transform) //
+        {
+            child.gameObject.SetActive(false);
+        }
+        foreach (Transform child in bgpanelmatome.transform.Find("BG_Effect").transform) //
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        //その後、該当シーンのものを表示
+        BGImageTemaePanel = GameObject.FindWithTag("BGImageTemaePanel");
+
+        _bg_str1 = "BGImageWindowOutPanel/" + _bgoutimg;
+        bgweather_image_panel = bgpanelmatome.transform.Find(_bg_str1).gameObject;
+        bgweather_image_panel.SetActive(true);
+
+        _bg_str2 = "BGImagePanel/" + _bgimg;
+        BG_Imagepanel = bgpanelmatome.transform.Find(_bg_str2).gameObject;
+        BGImg_dayAnim = BG_Imagepanel.GetComponent<Animator>();
+        BG_Imagepanel.SetActive(true);
+
+        _bg_str3 = "BG_Effect/" + _effimg;
+        BG_effectpanel = bgpanelmatome.transform.Find(_bg_str3).gameObject;
+        BG_effectpanel.SetActive(true);
+        BG_effectpanel_Effect = bgpanelmatome.transform.Find("BG_Effect").GetComponent<BG_Effect_Particle>();
+        BG_effectpanel_Effect.SetEffectName(_effimg); //使うエフェクトネームをパーティクル自身にも保存
+
+        bg_accessory_panel = bgpanelmatome.transform.Find("BGAccessory").gameObject;
+        bg_touch_controll = bg_accessory_panel.GetComponent<Touch_Controll_Item>();
     }
 
     //家に帰ってきたときの処理
@@ -846,7 +877,7 @@ public class Compound_Main : MonoBehaviour
             sc.EnterSound_01();
 
             //時間をチェックし、背景を自動で変更 　フリーモードのときのみチェックしてる
-            Weather_Change(0.0f);
+            Weather_Change();
 
             //オートセーブ
             if (GameMgr.AUTOSAVE_ON)
@@ -1648,7 +1679,8 @@ public class Compound_Main : MonoBehaviour
                 //装備品アイテムの効果計算
                 bufpower_keisan.CheckEquip_Keisan();
 
-                //家賃日までの日数計算
+                //家賃日までの日数計算と金額設定
+                yachinPanel.GetComponent<YachinPanel>().Setting_CullentYachin();
                 yachinPanel.GetComponent<YachinPanel>().YachinHyouji();
 
                 //覚えたスキルやステータスを毎回チェックし、ぬけがないか更新。
@@ -1680,7 +1712,7 @@ public class Compound_Main : MonoBehaviour
                 mainUI_panel_obj.transform.Find("ContestKakuninButtonPanel").GetComponent<ContestKakuninButtonPanel>().Check_LimitMarkDraw();
 
                 //お天気チェック
-                Weather_Change(5.0f);
+                Weather_Change();
 
                 //外出時のキャラクタ表示処理
                 if (!GameMgr.outgirl_Nowprogress)
@@ -3704,6 +3736,12 @@ public class Compound_Main : MonoBehaviour
             //読むシナリオによっては、シーン移動
             switch (GameMgr.GirlLoveSubEvent_num)
             {
+                case 1110: //家賃払えなかったのでゲームオーバー　ゲームオーバーへ飛ぶ
+
+                    GameMgr.SceneSelectNum = 10;
+                    FadeManager.Instance.LoadScene("999_Gameover", GameMgr.SceneFadeTime);
+                    break;
+
                 case 2000: //光先生にはじめてあい、魔法教えてもらう。
 
                     GameMgr.SceneSelectNum = 30;
@@ -4352,11 +4390,11 @@ public class Compound_Main : MonoBehaviour
         //天気モードONのときのみ　変更
         if (GameMgr.WEATHER_TIMEMODE_ON)
         {
-            DrawALLOFFBG();
+            //DrawALLOFFBG();
             RealTimeBGSetInit();
 
             //時間をチェックし、背景を自動で変更。
-            Weather_ChangeNow(0.0f);
+            Weather_ChangeNow();
         }
 
         /*if (GameMgr.Story_Mode == 0)
@@ -4448,7 +4486,7 @@ public class Compound_Main : MonoBehaviour
         }*/
     }
 
-    public void Weather_Change(float _changetime) //TimeControllerからも読み出し
+    public void Weather_Change() //TimeControllerからも読み出し
     {
         //天気モードONのときのみ　変更
         if (GameMgr.WEATHER_TIMEMODE_ON)
@@ -4463,15 +4501,15 @@ public class Compound_Main : MonoBehaviour
                     GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
 
                     //天気アニメ変更をトリガー
-                    BG_RealtimeChange(_changetime); //背景更新
-                    Debug.Log("天気を変更　秒数: " + _changetime);
+                    BG_RealtimeChange(); //背景更新
+                    Debug.Log("天気を変更");
                 }
             }
         }
     }
 
     //現在時刻に合わせて、即背景を変更。前時間と現在時間の比較計算をしない。ロード直後はこっちを使用。（うまくbeforeとcullentの値の切り替えが出来なかったため。）
-    public void Weather_ChangeNow(float _changetime)
+    public void Weather_ChangeNow()
     {
         //天気モードONのときのみ　変更
         if (GameMgr.WEATHER_TIMEMODE_ON)
@@ -4481,133 +4519,62 @@ public class Compound_Main : MonoBehaviour
             GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
 
             //天気アニメ変更をトリガー
-            BG_RealtimeChange(_changetime); //背景更新
-            Debug.Log("天気を変更　秒数: " + _changetime);
+            BG_RealtimeChange(); //背景更新
+            Debug.Log("天気を変更");
         }
     }
 
     //天気の表示処理。背景をリアルタイムに変更する処理。
-    void BG_RealtimeChange(float _changetime)
+    void BG_RealtimeChange()
     {
-        DOTween.Kill(t1);
-        DOTween.Kill(t2);
-        DOTween.Kill(t3);
-        DOTween.Kill(t4);
-        DOTween.Kill(t5);
-        DOTween.Kill(t6);
-        DOTween.Kill(t7);
-        DOTween.Kill(t8);
-
         switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
         {
             case 1:
 
+                BG_effectpanel_Effect.Koushin();
                 break;
 
             case 2: //深夜→朝
 
-                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(1, _changetime);
-                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(1, _changetime)
-                    .OnComplete(RealTimeBGSetInit);
-                color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
-                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
+                daynum = 100;
+                BGImg_dayAnim.SetInteger("daystatus", daynum);
+                BG_effectpanel_Effect.Koushin();
+
+                bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
 
             case 3: //朝
 
-                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
-                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
-                /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
-                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
-                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);*/
-
-                //BGアクセサリー系
-                particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                daynum = 0;
+                BGImg_dayAnim.SetInteger("daystatus", daynum);
+                BG_effectpanel_Effect.Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
 
             case 4: //昼
 
-                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-
-                t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
-                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
-                /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(1);
-                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);*/
-
-                //BGアクセサリー系
-                particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                daynum = 0;
+                BGImg_dayAnim.SetInteger("daystatus", daynum);
+                BG_effectpanel_Effect.Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
 
             case 5: //夕方
 
-                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-
-                t4 = bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t5 = BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
-                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
-                /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
-                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(5);
-                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(1);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);*/
-
-                //BGアクセサリー系
-                particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                daynum = 0;
+                BGImg_dayAnim.SetInteger("daystatus", daynum);
+                BG_effectpanel_Effect.Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
 
             case 6: //夜
 
-                t1 = bgweather_image_panel.transform.Find("BG_windowout_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t2 = BG_Imagepanel.transform.Find("BG_sprite_morning").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t3 = bgweather_image_panel.transform.Find("BG_windowout_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t4 = bgweather_image_panel.transform.Find("BG_windowout_noon").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t5 = BG_Imagepanel.transform.Find("BG_sprite_sunny").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-
-                t6 = bgweather_image_panel.transform.Find("BG_windowout_evening").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                t7 = BG_Imagepanel.transform.Find("BG_sprite_evening").GetComponent<SpriteRenderer>().DOFade(0, _changetime);
-                color_set = new Color(77f / 255f, 79f / 255f, 98f / 255f);
-                t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, _changetime);
-                /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(200);
-                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(1);*/
-
-                //BGアクセサリー系
-                particleEm_CandleLight1_obj.SetActive(true);
-                particleEm_MiniHouseLight1_obj.SetActive(true);
-
-                particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
-                particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                daynum = 3;
+                BGImg_dayAnim.SetInteger("daystatus", daynum);
+                BG_effectpanel_Effect.Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeNight();
                 break;
@@ -4675,7 +4642,7 @@ public class Compound_Main : MonoBehaviour
     }
 
     
-
+    /*
     void DrawALLOFFBG()
     {
         for (i = 0; i < bg_weather_image.Count; i++)
@@ -4688,46 +4655,15 @@ public class Compound_Main : MonoBehaviour
             bgwall_sprite[i].SetActive(false);
             bgwall_sprite[i].GetComponent<SpriteRenderer>().DOFade(1, 0.0f);
         }
-        /*for (i = 0; i < bgeffect_obj.Count; i++)
+        for (i = 0; i < bgeffect_obj.Count; i++)
         {
             bgeffect_obj[i].SetActive(false);
-        }*/
-        
-    }
+        }       
+    }*/
 
     void RealTimeBGSetInit()
     {
-        for (i = 0; i < bg_weather_image.Count; i++)
-        {
-            bg_weather_image[i].SetActive(true);
-            bg_weather_image[i].GetComponent<SpriteRenderer>().DOFade(1, 0.0f);
-        }
-        for (i = 0; i < bgwall_sprite.Count; i++)
-        {
-            bgwall_sprite[i].SetActive(true);
-            bgwall_sprite[i].GetComponent<SpriteRenderer>().DOFade(1, 0.0f);
-        }
-        bgweather_image_panel.transform.Find("BG_windowout_white").gameObject.SetActive(false);
-
-        color_set = new Color(178f / 255f, 168f / 255f, 162f / 255f);
-        t8 = bg_accessory_panel.transform.Find("tana").GetComponent<SpriteRenderer>().DOColor(color_set, 0.0f);
-
-        /*particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
-        particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-        particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-        particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
-        particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-        particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-        particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);*/
-
-        //BGアクセサリー系
-        particleEm_CandleLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-        particleEm_MiniHouseLight1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-
-        particleEm_CandleLight1_obj.SetActive(false);
-        particleEm_MiniHouseLight1_obj.SetActive(false);
-
-        bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
+        //bgweather_image_panel.transform.Find("BG_windowout_white").gameObject.SetActive(false);
     }
 
     //即座に朝背景に変更。Utageの寝るイベントから呼び出し
@@ -4736,6 +4672,10 @@ public class Compound_Main : MonoBehaviour
         if (GameMgr.WEATHER_TIMEMODE_ON)
         {
             RealTimeBGSetInit();
+
+            //背景を朝に変更
+            GameMgr.BG_cullent_weather = 2;
+            Weather_ChangeNow();
         }
     }
 
