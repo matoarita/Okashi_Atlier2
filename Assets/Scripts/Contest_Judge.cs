@@ -340,6 +340,9 @@ public class Contest_Judge : MonoBehaviour {
                 girl1_status.InitializeStageGirlHungrySet(set_ID[count], count, 1); //compNum, セットする配列番号　の順　 3番目の数字は、コンテストで女の子好みを使用する場合の設定
             }
 
+            // 各判定用パラメータに、さらにコンテストごとに補正をかける。
+            Contest_Score_JudgeHoseiLibrary(0);
+
             Set_Count = set_ID.Count;
         }
 
@@ -377,7 +380,7 @@ public class Contest_Judge : MonoBehaviour {
 
         //先に算出しておいて、あとで、審査員一人一人のコメント＋点数を演出して出す。宴へ戻る。
     }
-
+   
 
     void judge_result_contest()
     {
@@ -404,6 +407,16 @@ public class Contest_Judge : MonoBehaviour {
             GameMgr.contest_Sweat_Comment[count] = girlEat_judge._contest_sweat_kansou;
             GameMgr.contest_Bitter_Comment[count] = girlEat_judge._contest_bitter_kansou;
             GameMgr.contest_Sour_Comment[count] = girlEat_judge._contest_sour_kansou;
+            GameMgr.contest_Sp_Score1[count] = girlEat_judge.spscore1_score;
+            GameMgr.contest_Sp_Score2[count] = girlEat_judge.spscore2_score;
+            GameMgr.contest_Sp_Score3[count] = girlEat_judge.spscore3_score;
+            GameMgr.contest_Sp_Score4[count] = girlEat_judge.spscore4_score;
+            GameMgr.contest_Sp_Score5[count] = girlEat_judge.spscore5_score;
+            GameMgr.contest_Sp_Score6[count] = girlEat_judge.spscore6_score;
+            GameMgr.contest_Sp_Score7[count] = girlEat_judge.spscore7_score;
+            GameMgr.contest_Sp_Score8[count] = girlEat_judge.spscore8_score;
+            GameMgr.contest_Sp_Score9[count] = girlEat_judge.spscore9_score;
+            GameMgr.contest_Sp_Score10[count] = girlEat_judge.spscore10_score;
 
             count++;
             
@@ -412,67 +425,8 @@ public class Contest_Judge : MonoBehaviour {
         //
         //各コンテスト審査員ごとの判定分け　補正がけ
         //
-        switch(GameMgr.Contest_Name)
-        {
-            case "First_Contest":
+        Contest_Score_JudgeHoseiLibrary(1);
 
-                //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。その代わり見た目の点数が一切入らない。
-                Contest_ShokukanHosei_1();
-
-                //200点を上限に100点に正規化する。
-                ScoreNormalized(200);
-                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
-                Debug.Log("### ###");
-                break;
-
-                
-            case "Or_Contest_010":　//クッキー初級コンテスト
-
-                //審査員３　じいさんだけ、食感の補正
-                Contest_ShokukanHosei_1();               
-
-                //入れた数値を上限に100点に正規化する。
-                ScoreNormalized(150); //75%
-                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
-                Debug.Log("### ###");
-                break;
-
-            case "Or_Contest_050":　//ラスク
-
-                //審査員３　じいさんだけ、食感の補正
-                Contest_ShokukanHosei_1();
-
-                //入れた数値を上限に100点に正規化する。
-                ScoreNormalized(150); //75%
-                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
-                Debug.Log("### ###");
-                break;
-
-            case "Or_Contest_100":　//フィナンシェ
-
-                //審査員３　じいさんだけ、食感の補正
-                Contest_ShokukanHosei_1();
-
-                //入れた数値を上限に100点に正規化する。
-                ScoreNormalized(150); //75%
-                Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
-                Debug.Log("### ###");
-                break;
-
-
-            default:
-
-                //審査員３　じいさんだけ、食感の補正
-                Contest_ShokukanHosei_1();
-
-                //入れた数値を上限に100点に正規化する。
-                ScoreNormalized(200); //50%
-                Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
-                Debug.Log("### ###");
-                break;
-        }
-
-        
 
         //さらに提出が遅れた場合減点
         if (GameMgr.contest_LimitTimeOver_DegScore_flag)
@@ -492,6 +446,210 @@ public class Contest_Judge : MonoBehaviour {
         //Debug.Log("審査員２　見た目：" + GameMgr.contest_Beauty_Score[1] + "点");
         
 
+    } 
+
+    //審査員の個別の判定補正＋判定値にSPスコア関連補正　各コンテスト個別に設定する
+    void Contest_Score_JudgeHoseiLibrary(int _status)
+    {
+        switch (GameMgr.Contest_Name)
+        {
+
+            case "First_Contest":
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+
+                }
+                else
+                {
+                    //審査員３　じいさんだけ、食感の補正　食感がよいほど、得点が上がりやすくなる。その代わり見た目の点数が一切入らない。
+                    Contest_ShokukanHosei_1();
+
+                    //200点を上限に100点に正規化する。
+                    ScoreNormalized(200);
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
+                    Debug.Log("### ###");
+                }
+                break;
+
+
+            case "Or_Contest_010":　//クッキー初級コンテスト
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+
+                }
+                else
+                {
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(150); //75%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                    Debug.Log("### ###");
+                }
+                break;
+
+            case "Or_Contest_050":　//ラスク
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+
+                }
+                else
+                {
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(150); //75%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                    Debug.Log("### ###");
+                }
+                break;
+
+            case "Or_Contest_100":　//フィナンシェ
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+
+                }
+                else
+                {
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(150); //75%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                    Debug.Log("### ###");
+                }
+                break;       
+
+            case "Or_Contest_410":　//アデュルティ・ガトー
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score5[i] = 10; //大人の値が最低10は必要
+                    }
+
+                    Debug.Log("判定値追加： 大人 " + 10);
+                    Debug.Log("### ###");
+                }
+                else //審査員の判定に補正
+                {
+                    
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(200); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
+                    Debug.Log("### ###");
+
+                    //SpScoreの値によって全体の点数に補正
+                    if (GameMgr.contest_Sp_Score5[0] <= 50) //50以下なら点数が半分に。
+                    {
+                        for (i = 0; i < GameMgr.contest_Score.Length; i++)
+                        {
+                            total_score[i] = (int)(total_score[i] * 0.5f);
+                        }
+                    }
+                }
+                    
+                break;
+
+            case "Or_Contest_420":　//メルヘンランド♪カップ
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score7[i] = 10; //メルヘンの値が最低10は必要
+                    }
+
+                    Debug.Log("判定値追加： メルヘン " + 10);
+                    Debug.Log("### ###");
+                }
+                else //審査員の判定に補正
+                {
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(200); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
+                    Debug.Log("### ###");
+
+                    //SpScoreの値によって全体の点数に補正
+                    if (GameMgr.contest_Sp_Score7[0] <= 50) //50以下なら点数が半分に。
+                    {
+                        for (i = 0; i < GameMgr.contest_Score.Length; i++)
+                        {
+                            total_score[i] = (int)(total_score[i] * 0.5f);
+                        }
+                    }
+                }
+
+                break;
+
+            case "Or_Contest_430":　//キラキラ・ボンボンズ
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score6[i] = 10; //子供の値が最低10は必要
+                    }
+
+                    Debug.Log("判定値追加： 子供 " + 10);
+                    Debug.Log("### ###");
+                }
+                else //審査員の判定に補正
+                {
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(200); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
+                    Debug.Log("### ###");
+
+                    //SpScoreの値によって全体の点数に補正
+                    if (GameMgr.contest_Sp_Score6[0] <= 50) //50以下なら点数が半分に。
+                    {
+                        for (i = 0; i < GameMgr.contest_Score.Length; i++)
+                        {
+                            total_score[i] = (int)(total_score[i] * 0.5f);
+                        }
+                    }
+                }
+
+                break;
+
+            default:
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+
+                }
+                else
+                {
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(200); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
+                    Debug.Log("### ###");
+                }
+                break;
+        }
     }
 
     void Contest_ShokukanHosei_1()
@@ -528,8 +686,6 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
         Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
     }
-
-
 
 
 

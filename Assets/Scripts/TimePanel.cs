@@ -7,6 +7,8 @@ using DG.Tweening;
 
 public class TimePanel : MonoBehaviour {
 
+    private TimeController time_controller;
+
     private GameObject _month_obj1;
     private GameObject _monthday_obj1;
     private GameObject _month_obj2;
@@ -55,6 +57,9 @@ public class TimePanel : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         _month_obj1 = this.transform.Find("TimeHyouji_1/Image/calender_bg/Month").gameObject;
         _month_text1 = _month_obj1.GetComponent<Text>();
@@ -299,5 +304,15 @@ public class TimePanel : MonoBehaviour {
             DebugTimecountUp_button.SetActive(false);
             DebugTimecountDown_button.SetActive(false);
         }
+    }
+
+    public void Debug_TimeCountUp()
+    {
+        time_controller.OnDebugTimeCountUpButton();
+    }
+
+    public void Debug_TimeCountDown()
+    {
+        time_controller.OnDebugTimeCountDownButton();
     }
 }

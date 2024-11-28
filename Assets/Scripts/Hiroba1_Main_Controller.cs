@@ -66,7 +66,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private GameObject canvas;
 
     private BGM sceneBGM;
-    public bool bgm_change_flag;
+    private bool bgm_change_flag;
 
     private int ev_id;
 
@@ -448,10 +448,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
 
         GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
 
         if (GameMgr.Utage_MapMoveON)
         {
-            GameMgr.scenario_ON = false;
 
             GameMgr.Scene_Select = 0; //何もしていない状態
             GameMgr.Scene_Status = 0;
@@ -460,7 +460,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         }
         else
         {
-            GameMgr.scenario_ON = false;
 
             GameMgr.Scene_Select = 0; //何もしていない状態
             GameMgr.Scene_Status = 0;

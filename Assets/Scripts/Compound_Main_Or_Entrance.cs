@@ -61,6 +61,8 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
     private int i, rndnum;
 
     private bool StartRead;
+    private bool bgm_change_flag;
+    private bool check_event;
 
     private string default_scenetext;
 
@@ -345,13 +347,14 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
 
 
     //MainListController2から読み出し
-    public void EventReadingStart()
+    void EventReadingStart()
     {
         StartCoroutine("EventReading");
     }
 
     IEnumerator EventReading()
     {
+        GameMgr.scenario_ON = true;
         GameMgr.hiroba_event_flag = true;
         GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
         GameMgr.Scene_Status = 1000;
@@ -364,6 +367,7 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
         }
 
         GameMgr.scenario_read_endflag = false;
+        GameMgr.scenario_ON = false;
         GameMgr.Scene_Select = 0; //何もしていない状態
         GameMgr.Scene_Status = 0;
 
@@ -371,14 +375,17 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
         text_area.SetActive(false);
         mainlist_controller_obj.SetActive(true);
 
+        check_event = false;
+
         //音を戻す。
-        if (GameMgr.matbgm_change_flag)
+        if (bgm_change_flag)
         {
-            GameMgr.matbgm_change_flag = false;
-            sceneBGM.FadeInBGM(0.5f);
+            bgm_change_flag = false;
+            sceneBGM.FadeInBGM(GameMgr.System_default_sceneFadeBGMTime);
+            sceneBGM.PlayAmbient(9999); //指定なしで、マップデフォルトのアンビエントをまた鳴らす
         }
 
-        
+
 
         ToggleFlagCheck();
 
@@ -393,9 +400,17 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
     //NPC1
     public void OnNPC1_toggle()
     {
-        //中央噴水へ
-        GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
+        {
+            //にいちゃん　夜遅いから、今日はもう寝よう～
+            On_Active_CompoEnterEvent();
+        }
+        else
+        {
+            //中央噴水へ
+            GameMgr.SceneSelectNum = 0;
+            FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        }
     }
 
     //NPC2
@@ -479,9 +494,41 @@ public class Compound_Main_Or_Entrance : MonoBehaviour
     //SubView6
     public void OnSubNPC6_toggle()
     {
-        //中央噴水へ
-        GameMgr.SceneSelectNum = 0;
-        FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
+        {
+            //にいちゃん　夜遅いから、今日はもう寝よう～
+            On_Active_CompoEnterEvent();
+        }
+        else
+        {
+            //中央噴水へ
+            GameMgr.SceneSelectNum = 0;
+            FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+        }
+    }
+
+    void On_Active_CompoEnterEvent()
+    {
+        GameMgr.hiroba_event_placeNum = 2200; //
+
+        //if (!GameMgr.NPCHiroba_eventList[100]) //はじめて
+        //{
+        GameMgr.hiroba_event_ID = 0;
+        //BGMかえる
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        //bgm_change_flag = true;
+
+        check_event = true;
+        //}
+
+        if (check_event) { } //上で先にイベント発生したら、以下は読まない。
+        else
+        {
+
+        }
+
+        EventReadingStart();
+
     }
 
     void OnGetMaterialPanel()

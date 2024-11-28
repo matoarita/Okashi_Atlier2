@@ -1957,7 +1957,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore1_score = 0;
-            Debug.Log("コンテスト　風らしさ計算OFF");
+            //Debug.Log("コンテスト　風らしさ計算OFF");
         }
 
         //海らしさ
@@ -1975,7 +1975,133 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore2_score = 0;
-            Debug.Log("コンテスト　海らしさ計算OFF");
+            //Debug.Log("コンテスト　海らしさ計算OFF");
+        }
+
+        //愛
+        if (_girlsp_score3[countNum] > 0)
+        {
+            spscore3_score = _base_sp_score3 - _girlsp_score3[countNum];
+            Debug.Log("コンテスト　愛らしさ計算ON: " + spscore3_score + " お菓子の愛らしさ: " + _base_sp_score3 + " 判定値: " + _girlsp_score3[countNum]);
+
+            if (spscore3_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　愛らしさの点: " + spscore3_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore3_score = 0;
+            //Debug.Log("コンテスト　愛らしさ計算OFF");
+        }
+
+        //宇宙
+        if (_girlsp_score4[countNum] > 0)
+        {
+            spscore4_score = _base_sp_score4 - _girlsp_score4[countNum];
+            Debug.Log("コンテスト　宇宙らしさ計算ON: " + spscore4_score + " お菓子の宇宙らしさ: " + _base_sp_score4 + " 判定値: " + _girlsp_score4[countNum]);
+
+            if (spscore4_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　宇宙らしさの点: " + spscore4_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore4_score = 0;
+            //Debug.Log("コンテスト　宇宙らしさ計算OFF");
+        }
+
+        //大人
+        if (_girlsp_score5[countNum] > 0)
+        {
+            spscore5_score = _base_sp_score5 - _girlsp_score5[countNum];
+            Debug.Log("コンテスト　大人らしさ計算ON: " + spscore5_score + " お菓子の大人らしさ: " + _base_sp_score5 + " 判定値: " + _girlsp_score5[countNum]);
+
+            if (spscore5_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　大人らしさの点: " + spscore5_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore5_score = 0;
+            //Debug.Log("コンテスト　愛らしさ計算OFF");
+        }
+
+        //子供っぽい
+        if (_girlsp_score6[countNum] > 0)
+        {
+            spscore6_score = _base_sp_score6 - _girlsp_score6[countNum];
+            Debug.Log("コンテスト　子供らしさ計算ON: " + spscore6_score + " お菓子の子供らしさ: " + _base_sp_score6 + " 判定値: " + _girlsp_score6[countNum]);
+
+            if (spscore6_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　子供らしさの点: " + spscore6_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore6_score = 0;
+            //Debug.Log("コンテスト　愛らしさ計算OFF");
+        }
+
+        //メルヘン
+        if (_girlsp_score7[countNum] > 0)
+        {
+            spscore7_score = _base_sp_score7 - _girlsp_score7[countNum];
+            Debug.Log("コンテスト　メルヘンらしさ計算ON: " + spscore7_score + " お菓子のメルヘンらしさ: " + _base_sp_score7 + " 判定値: " + _girlsp_score7[countNum]);
+
+            if (spscore7_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　メルヘンらしさの点: " + spscore7_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore7_score = 0;
+            //Debug.Log("コンテスト　愛らしさ計算OFF");
+        }
+
+        //芸術性
+        if (_girlsp_score8[countNum] > 0)
+        {
+            spscore8_score = _base_sp_score8 - _girlsp_score8[countNum];
+            Debug.Log("コンテスト　芸術性計算ON: " + spscore8_score + " お菓子の芸術性: " + _base_sp_score8 + " 判定値: " + _girlsp_score8[countNum]);
+
+            if (spscore8_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　芸術性の点: " + spscore8_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore8_score = 0;
+            //Debug.Log("コンテスト　愛らしさ計算OFF");
+        }
+
+        //光らしさ
+        if (_girlsp_score9[countNum] > 0)
+        {
+            spscore9_score = _base_sp_score9 - _girlsp_score9[countNum];
+            Debug.Log("コンテスト　光らしさ計算ON: " + spscore9_score + " お菓子の光らしさ: " + _base_sp_score9 + " 判定値: " + _girlsp_score9[countNum]);
+
+            if (spscore9_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("コンテスト　光らしさの点: " + spscore9_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore9_score = 0;
+            //Debug.Log("コンテスト　愛らしさ計算OFF");
         }
     }
 

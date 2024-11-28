@@ -694,50 +694,14 @@ public class Shop_Main_Controller : MonoBehaviour {
     {
         matplace_database.matPlaceKaikin("Or_Shop_C1"); //ショップ解禁
 
-        if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
-        {
-            GameMgr.Or_ShopEvent_stage[0] = true;
-
-            GameMgr.scenario_ON = true;
-
-            GameMgr.shop_event_num = 0;
-            GameMgr.shop_event_flag = true;
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num[0] = true;
-            //GameMgr.CompoundEvent_flag = true;
-
-            check_event = true;
-
-            StartCoroutine("Scenario_loading");
-
-            
-        }
+        
     }
 
     void EventCheck_OrD1()
     {
         matplace_database.matPlaceKaikin("Or_Shop_D1"); //ショップ解禁
 
-        if (!GameMgr.Or_ShopEvent_stage[0]) //はじめてお店へきた。
-        {
-            GameMgr.Or_ShopEvent_stage[0] = true;
-
-            GameMgr.scenario_ON = true;
-
-            GameMgr.shop_event_num = 0;
-            GameMgr.shop_event_flag = true;
-
-            //メイン画面にもどったときに、イベントを発生させるフラグをON
-            //GameMgr.CompoundEvent_num[0] = true;
-            //GameMgr.CompoundEvent_flag = true;
-
-            check_event = true;
-
-            StartCoroutine("Scenario_loading");
-
-            
-        }
+        
     }
 
     public void OnCheck_1() //ショップ　アイテムを買う
@@ -784,6 +748,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                 case "Or_Shop_B1": //エクレア姉さん
 
+                    GameMgr.talk_number = 2000;
 
                     if (!GameMgr.Or_ShopEvent_stage[20]) //はじめてお店へきた。
                     {
@@ -803,10 +768,8 @@ public class Shop_Main_Controller : MonoBehaviour {
                         StartCoroutine("Scenario_loading");
                     }
                     else
-                    {
-                        GameMgr.talk_number = 2000;
-
-                        //日でランダムに話が切り替わる
+                    {                       
+                        //日でランダムに話が切り替わる ・・予定
                         switch (talkrot)
                         {
                             case 0:
@@ -829,11 +792,55 @@ public class Shop_Main_Controller : MonoBehaviour {
                 case "Or_Shop_C1": //マダム・オペラのばあさん
 
                     GameMgr.talk_number = 3000;
+
+                    if (!GameMgr.Or_ShopEvent_stage[40]) //はじめてお店へきた。
+                    {
+                        GameMgr.Or_ShopEvent_stage[40] = true;
+
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 3000;
+                        GameMgr.shop_event_flag = true;
+
+                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                        //GameMgr.CompoundEvent_num[0] = true;
+                        //GameMgr.CompoundEvent_flag = true;
+
+                        check_event = true;
+
+                        StartCoroutine("Scenario_loading");
+
+
+                    }
+                    else
+                    {  }
                     break;
 
                 case "Or_Shop_D1": //ピティヴィエさん
 
                     GameMgr.talk_number = 4000;
+
+                    if (!GameMgr.Or_ShopEvent_stage[60]) //はじめてお店へきた。
+                    {
+                        GameMgr.Or_ShopEvent_stage[60] = true;
+
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.shop_event_num = 4000;
+                        GameMgr.shop_event_flag = true;
+
+                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                        //GameMgr.CompoundEvent_num[0] = true;
+                        //GameMgr.CompoundEvent_flag = true;
+
+                        check_event = true;
+
+                        StartCoroutine("Scenario_loading");
+
+
+                    }
+                    else
+                    { }
                     break;
             }
 

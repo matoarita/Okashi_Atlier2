@@ -931,6 +931,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                 }
                                 else
                                 {
+                                    //顔アイコンも切り替え
+                                    msg_window.Setting_WindowIcon(12); //イヤ顔
                                     _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
                                 }
                                 All_Off();

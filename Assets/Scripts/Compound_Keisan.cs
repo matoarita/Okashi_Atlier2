@@ -562,7 +562,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 toggle_type3 = 0;
 
                 final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
-                final_kette_kosu2 = 0;
+                final_kette_kosu2 = 1;
                 final_kette_kosu3 = 0;
             }
             else if (Comp_method_bunki == 22) //こっちはトッピング調合として扱うため、一個ずれる
@@ -580,7 +580,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                 base_kosu = 1;
                 final_kette_kosu1 = GameMgr.Final_kettei_kosu1;
-                final_kette_kosu2 = 0;
+                final_kette_kosu2 = 1;
                 final_kette_kosu3 = 0;
             }
 
@@ -2626,7 +2626,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合時 計算時の個数は1の時のパラメータで計算する
         {
 
-            _addkosu = 1;
+            //_addkosu = 1;
         }
 
         //Debug.Log("_addkosu: " + _addkosu);
@@ -2714,7 +2714,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合時 計算時の個数は1の時のパラメータで計算する
         {
-            _addkosu = 1;
+            //_addkosu = 1;
         }
 
         //Debug.Log("_addkosu: " + _addkosu);
@@ -2802,7 +2802,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合時 計算時の個数は1の時のパラメータで計算する
         {
-            _addkosu = 1;
+            //_addkosu = 1;
         }
 
         //Debug.Log("_addkosu: " + _addkosu);

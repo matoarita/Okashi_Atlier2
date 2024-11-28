@@ -3296,6 +3296,11 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Hiroba_Or_BlockRelease";
                 break;
 
+            case 2200: //Orヒカリ　調合家のエントランス
+
+                scenarioLabel = "Hiroba_Or_CompoEntrance";
+                break;
+
             case 3000: //駅のイベント
 
                 scenarioLabel = "Station";

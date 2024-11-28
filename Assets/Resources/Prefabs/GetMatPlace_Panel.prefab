@@ -37235,9 +37235,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnDebugTimeCountUpButton
+      - m_Target: {fileID: 114418891998737370}
+        m_TargetAssemblyTypeName: TimePanel, Assembly-CSharp
+        m_MethodName: Debug_TimeCountUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -43695,9 +43695,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnDebugTimeCountDownButton
+      - m_Target: {fileID: 114418891998737370}
+        m_TargetAssemblyTypeName: TimePanel, Assembly-CSharp
+        m_MethodName: Debug_TimeCountDown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

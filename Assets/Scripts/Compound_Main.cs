@@ -689,8 +689,6 @@ public class Compound_Main : MonoBehaviour
         BGAccetrigger = bg_accessory_panel.GetComponent<BGAcceTrigger>();
         BGAccetrigger.DrawBGAcce();
 
-        Change_BGimage();
-
         /* --- */
 
 
@@ -780,10 +778,7 @@ public class Compound_Main : MonoBehaviour
             GameMgr.MesaggeKoushinON = true;
             StartRead = false;
             StartMessage();
-
-            //時間をチェックし、背景を自動で変更
-            Change_BGimage();
-
+            
             character_move.transform.position = new Vector3(0f, 0, 0); //念のため、ゼロにリセット            
 
             Debug.Log("エンディング回数: " + GameMgr.ending_count);
@@ -815,7 +810,10 @@ public class Compound_Main : MonoBehaviour
 
         //家賃日までの日数計算
         yachinPanel.GetComponent<YachinPanel>().Setting_CullentYachin();
-        yachinPanel.GetComponent<YachinPanel>().YachinHyouji();       
+        yachinPanel.GetComponent<YachinPanel>().YachinHyouji();
+
+        //時間をチェックし、背景を自動で変更
+        Change_BGimage();
 
 
 
@@ -4517,7 +4515,7 @@ public class Compound_Main : MonoBehaviour
                     GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
 
                     //天気アニメ変更をトリガー
-                    BG_RealtimeChange(); //背景更新
+                    BG_RealtimeChange(0); //背景更新
                     Debug.Log("天気を変更");
                 }
             }
@@ -4535,13 +4533,13 @@ public class Compound_Main : MonoBehaviour
             GameMgr.BG_before_weather = GameMgr.BG_cullent_weather;
 
             //天気アニメ変更をトリガー
-            BG_RealtimeChange(); //背景更新
-            Debug.Log("天気を変更");
+            BG_RealtimeChange(1); //背景更新
+            Debug.Log("天気を変更　即時");
         }
     }
 
     //天気の表示処理。背景をリアルタイムに変更する処理。
-    void BG_RealtimeChange()
+    void BG_RealtimeChange(int _status)
     {
         switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
         {
@@ -4552,7 +4550,13 @@ public class Compound_Main : MonoBehaviour
 
             case 2: //深夜→朝
 
-                daynum = 100;
+                if (_status == 1) //即時切替
+                {
+                    BGImg_dayAnim.Play("BGimg_dayanim");
+                }
+                else
+                { }
+                daynum = 0;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
                 BG_effectpanel_Effect.Koushin();
 
@@ -4561,6 +4565,12 @@ public class Compound_Main : MonoBehaviour
 
             case 3: //朝
 
+                if (_status == 1) //即時切替
+                {
+                    BGImg_dayAnim.Play("BGimg_dayanim");
+                }
+                else
+                { }
                 daynum = 0;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
                 BG_effectpanel_Effect.Koushin();
@@ -4570,6 +4580,12 @@ public class Compound_Main : MonoBehaviour
 
             case 4: //昼
 
+                if (_status == 1) //即時切替
+                {
+                    BGImg_dayAnim.Play("BGimg_dayanim");
+                }
+                else
+                { }
                 daynum = 0;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
                 BG_effectpanel_Effect.Koushin();
@@ -4579,6 +4595,12 @@ public class Compound_Main : MonoBehaviour
 
             case 5: //夕方
 
+                if (_status == 1) //即時切替
+                {
+                    BGImg_dayAnim.Play("BGimg_dayanim");
+                }
+                else
+                { }
                 daynum = 0;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
                 BG_effectpanel_Effect.Koushin();
@@ -4588,6 +4610,12 @@ public class Compound_Main : MonoBehaviour
 
             case 6: //夜
 
+                if (_status == 1) //即時切替
+                {
+                    BGImg_dayAnim.Play("BGimg_dayanim4");
+                }
+                else
+                { }
                 daynum = 3;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
                 BG_effectpanel_Effect.Koushin();

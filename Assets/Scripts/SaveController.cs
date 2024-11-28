@@ -1374,7 +1374,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             if (playerData != null) //nullでなければセーブはある
             {
-                Debug.Log("セーブスロット: " + "player" + i.ToString() + " 〇");
+                //Debug.Log("セーブスロット: " + "player" + i.ToString() + " 〇");
 
                 GameMgr.System_savepanel_slot[i] = true;
                 GameMgr.System_savepanel_playtime[i] = playerData.save_Game_timeCount;
@@ -1382,7 +1382,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             else
             {
                 GameMgr.System_savepanel_slot[i] = false;
-                Debug.Log("セーブスロット: " + "player" + i.ToString() + " Non");
+                //Debug.Log("セーブスロット: " + "player" + i.ToString() + " Non");
             }
         }
 

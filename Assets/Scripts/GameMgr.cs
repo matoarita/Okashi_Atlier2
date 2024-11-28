@@ -18,6 +18,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int NpcEvent_stage_num = 3000;
     public static int NpcEvent_people_num = 300;
     public static int OrEvent_num = 1000;
+    public static int ContestJudgeman_num = 3; //審査員の人数
 
     //** --ここまで-- **//
 
@@ -345,18 +346,28 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ExtraClear_QuestItemRank;      //エクストラクエストクリア時のご褒美のランク
 
     //コンテスト審査員の点数
-    public static int[] contest_Score = new int[3];
+    public static int[] contest_Score = new int[ContestJudgeman_num];
     public static int contest_TotalScore;
     public static List<int> contest_TotalScoreList = new List<int>();
     public static int contest_PrizeScore; //各ラウンドのトータルスコアの合計値　賞品獲得の計算で使う
-    public static int[] contest_Taste_Score = new int[3];
-    public static int[] contest_Beauty_Score = new int[3];
-    public static int[] contest_Sweat_Score = new int[3];
-    public static int[] contest_Bitter_Score = new int[3];
-    public static int[] contest_Sour_Score = new int[3];
-    public static string[] contest_Sweat_Comment = new string[3];
-    public static string[] contest_Bitter_Comment = new string[3];
-    public static string[] contest_Sour_Comment = new string[3];
+    public static int[] contest_Taste_Score = new int[ContestJudgeman_num];
+    public static int[] contest_Beauty_Score = new int[ContestJudgeman_num];
+    public static int[] contest_Sweat_Score = new int[ContestJudgeman_num];
+    public static int[] contest_Bitter_Score = new int[ContestJudgeman_num];
+    public static int[] contest_Sour_Score = new int[ContestJudgeman_num];
+    public static string[] contest_Sweat_Comment = new string[ContestJudgeman_num];
+    public static string[] contest_Bitter_Comment = new string[ContestJudgeman_num];
+    public static string[] contest_Sour_Comment = new string[ContestJudgeman_num];
+    public static int[] contest_Sp_Score1 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score2 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score3 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score4 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score5 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score6 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score7 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score8 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score9 = new int[ContestJudgeman_num];
+    public static int[] contest_Sp_Score10 = new int[ContestJudgeman_num];
     public static bool contest_Disqualification; //コンテスト失格フラグ
 
     //お菓子の一度にトッピングできる回数
@@ -1493,6 +1504,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             contest_Sweat_Comment[system_i] = "";
             contest_Bitter_Comment[system_i] = "";
             contest_Sour_Comment[system_i] = "";
+            contest_Sp_Score1[system_i] = 0;
+            contest_Sp_Score2[system_i] = 0;
+            contest_Sp_Score3[system_i] = 0;
+            contest_Sp_Score4[system_i] = 0;
+            contest_Sp_Score5[system_i] = 0;
+            contest_Sp_Score6[system_i] = 0;
+            contest_Sp_Score7[system_i] = 0;
+            contest_Sp_Score8[system_i] = 0;
+            contest_Sp_Score9[system_i] = 0;
+            contest_Sp_Score10[system_i] = 0;
         }
         contest_okashiName = "";
         contest_okashiNameHyouji = "";
