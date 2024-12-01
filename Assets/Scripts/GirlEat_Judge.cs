@@ -3484,15 +3484,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //最終のガールパラムのLVとexpの表示を更新する。
     void GirlLoveParam_HyoujiKoushin()
     {
-        //テキストも更新
-        girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
-        girl_param.color = origin_color; //色をもどす
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10: //調合シーンのみ更新
 
-        //スライダ設定とハートLVの表記も更新
-        Love_Slider_Setting();
+                //テキストも更新
+                girl_param.text = PlayerStatus.girl1_Love_exp.ToString();
+                girl_param.color = origin_color; //色をもどす
 
-        //実際の値でスライダを更新
-        Slider_Koushin(PlayerStatus.girl1_Love_exp);
+                //スライダ設定とハートLVの表記も更新
+                Love_Slider_Setting();
+
+                //実際の値でスライダを更新
+                Slider_Koushin(PlayerStatus.girl1_Love_exp);
+
+                break;
+        }
     }
 
     

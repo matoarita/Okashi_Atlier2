@@ -1543,34 +1543,40 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_okashi_compID = GameMgr.Final_result_compID;
         GameMgr.hikari_make_success_rate = _success_rate;
         GameMgr.hikari_make_okashiKosu_buf = GameMgr.hikari_make_okashiKosu_buf_keisan; //お菓子レベルに応じて、お菓子個数のバフをbufpower_keisan内で計算しここで確定・保存。
-
+        //Debug.Log("ヒカリが作るチェック　GameMgr.hikari_make_okashiKosu_buf: " + GameMgr.hikari_make_okashiKosu_buf);
 
         //オリジナルアイテムかお菓子パネルのリストを選択していたら、アイテムの固有IDを保存しておく。
         if (GameMgr.hikari_kettei_toggleType[0] == 1)
         {
             GameMgr.hikari_kettei_originalID[0] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[0]].OriginalitemID;
+            Debug.Log("GameMgr.hikari_kettei_originalID[0]: " + GameMgr.hikari_kettei_originalID[0]);
         }
         else if (GameMgr.hikari_kettei_toggleType[0] == 2)
         {
             GameMgr.hikari_kettei_originalID[0] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[0]].OriginalitemID;
+            Debug.Log("GameMgr.hikari_kettei_originalID[0]: " + GameMgr.hikari_kettei_originalID[0]);
         }
         if (GameMgr.hikari_kettei_toggleType[1] == 1)
         {
             GameMgr.hikari_kettei_originalID[1] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[1]].OriginalitemID;
+            Debug.Log("GameMgr.hikari_kettei_originalID[1]: " + GameMgr.hikari_kettei_originalID[1]);
         }
         else if (GameMgr.hikari_kettei_toggleType[1] == 2)
         {
             GameMgr.hikari_kettei_originalID[1] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[1]].OriginalitemID;
+            Debug.Log("GameMgr.hikari_kettei_originalID[1]: " + GameMgr.hikari_kettei_originalID[1]);
         }
         if (GameMgr.hikari_kettei_item[2] != 9999)
         {
             if (GameMgr.hikari_kettei_toggleType[2] == 1)
             {
                 GameMgr.hikari_kettei_originalID[2] = pitemlist.player_originalitemlist[GameMgr.hikari_kettei_item[2]].OriginalitemID;
+                Debug.Log("GameMgr.hikari_kettei_originalID[2]: " + GameMgr.hikari_kettei_originalID[2]);
             }
             else if (GameMgr.hikari_kettei_toggleType[2] == 2)
             {
                 GameMgr.hikari_kettei_originalID[2] = pitemlist.player_extremepanel_itemlist[GameMgr.hikari_kettei_item[2]].OriginalitemID;
+                Debug.Log("GameMgr.hikari_kettei_originalID[2]: " + GameMgr.hikari_kettei_originalID[2]);
             }
         }
         //Debug.Log("GameMgr.hikari_kettei_originalID[0]; " + GameMgr.hikari_kettei_originalID[0]);
@@ -2261,6 +2267,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case "Chocolate_Tempering":
 
                 GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_02;
+                break;
+
+            case "Bake_Beans":
+
+                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_03;
                 break;
 
             case "Warming_Handmade":

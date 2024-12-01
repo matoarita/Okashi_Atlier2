@@ -126,3 +126,4 @@
 ・BGM_122		Take-a-break				酒場秋のイメージ曲
 ・BGM_123		PerituneMaterial_Poema2_loop		冬エリアお店ピティヴィエさんのテーマの曲 旧:audiostock_911845_sample
 ・BGM_124		PerituneMaterial_Flap_loop		大会コンテスト調合時のBGM03　エデンイメージ
+・BGM_125		audiostock_849596			【宴用】コンテスト終了後の賞品画面のBGM　91と同じ

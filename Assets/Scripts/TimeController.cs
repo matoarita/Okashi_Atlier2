@@ -650,7 +650,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     void HikariKosuCheckMethod()
     {
         itemkosu_check = false;
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < GameMgr.SystemCount_itemSetting; i++)
         {
             if (i == 2 && GameMgr.hikari_kettei_item[2] == 9999) //3個目が空のときは9999入ってて、無視
             {
@@ -658,11 +658,18 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             }
             else
             {
+                /* デバッグ用 */
                 /*Debug.Log("オリジナルアイテムリスト総数: " + pitemlist.player_originalitemlist.Count);
-                Debug.Log("GameMgr.hikari_kettei_originalID[i]: " + GameMgr.hikari_kettei_originalID[i]);
-                Debug.Log("GameMgr.hikari_kettei_toggleType[i]: " + GameMgr.hikari_kettei_toggleType[i]);
-                Debug.Log("pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]): " + 
-                    pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]));*/
+                for (i = 0; i < GameMgr.SystemCount_itemSetting; i++)
+                {
+                    Debug.Log("i = " + i);
+                    Debug.Log("GameMgr.hikari_kettei_toggleType: " + GameMgr.hikari_kettei_toggleType[i]);
+                    Debug.Log("GameMgr.hikari_kettei_item(type=0のとき。店売りアイテムID) : " + GameMgr.hikari_kettei_item[i]);
+                    Debug.Log("GameMgr.hikari_kettei_originalID(type=1 or 2の時のアイテム固有ID) : " + GameMgr.hikari_kettei_originalID[i]);                   
+                    Debug.Log("pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID): " +
+                        pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]));
+                }*/
+                //** **//
 
                 if (GameMgr.hikari_kettei_toggleType[i] == 0) //店売りアイテム
                 {
@@ -679,7 +686,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                         }
                     }
                 }
-                else if (GameMgr.hikari_kettei_toggleType[i] == 1) //オリジナルアイテム
+                else if (GameMgr.hikari_kettei_toggleType[i] != 0) //オリジナルアイテムかエクストリームアイテム
                 {
                     if (pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]) == 9999)
                     {
@@ -688,29 +695,33 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     }
                     else
                     {
-                        if (pitemlist.player_originalitemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu < GameMgr.hikari_kettei_kosu[i])
+                        //その固有IDのアイテムが今、オリジナルかエクストリームに入っているかをチェックする。
+                        if(pitemlist.ReturnOriginalKoyuIDtoItemType(GameMgr.hikari_kettei_originalID[i]) == 1)
                         {
-                            //終了
-                            itemkosu_check = true;
+                            if (pitemlist.player_originalitemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu < GameMgr.hikari_kettei_kosu[i])
+                            {
+                                //終了
+                                itemkosu_check = true;
+                            }
+                        }
+                        else if (pitemlist.ReturnOriginalKoyuIDtoItemType(GameMgr.hikari_kettei_originalID[i]) == 2)
+                        {
+                            if (pitemlist.player_extremepanel_itemlist.Count == 0) //念のため、エクストリーム今ない状態でチェックしないようにする
+                            {
+                                //例外　もしなかった場合
+                                itemkosu_check = true;
+                            }
+                            else
+                            {
+                                if (pitemlist.player_extremepanel_itemlist[0].ItemKosu < GameMgr.hikari_kettei_kosu[i])
+                                {
+                                    //終了
+                                    itemkosu_check = true;
+                                }
+                            }
                         }
                     }
-                }
-                else if (GameMgr.hikari_kettei_toggleType[i] == 2) //エクストリームアイテム
-                {
-                    if (pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]) == 9999)
-                    {
-                        //例外　もしなかった場合
-                        itemkosu_check = true;
-                    }
-                    else
-                    {
-                        if (pitemlist.player_extremepanel_itemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu < GameMgr.hikari_kettei_kosu[i])
-                        {
-                            //終了
-                            itemkosu_check = true;
-                        }
-                    }
-                }
+                }               
             }
         }
     }

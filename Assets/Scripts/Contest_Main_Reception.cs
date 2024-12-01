@@ -55,6 +55,7 @@ public class Contest_Main_Reception : MonoBehaviour
     private RecipiListController recipilistController;
 
     private TimeController time_controller;
+    private ContestListController contestListController;
 
     private GameObject mainlist_controller_obj;
     private GameObject contestList_ScrollView_obj;
@@ -82,10 +83,12 @@ public class Contest_Main_Reception : MonoBehaviour
     private int _Limit_day;
     private int _Nokori_day;
     private bool questout_flag;
+    private string _contestname;
 
     private bool StartRead;
     private bool flag_chk;
     private bool check_event;
+    private int contest_newrelease;
 
     private string default_scenetext;
 
@@ -193,6 +196,7 @@ public class Contest_Main_Reception : MonoBehaviour
         newAreaReleasePanel_obj = canvas.transform.Find("NewAreaReleasePanel").gameObject;
         newAreaReleasePanel_obj.SetActive(false);
 
+        contestListController = canvas.transform.Find("ContestListPanel/ContestList_ScrollView").GetComponent<ContestListController>();
         contestList_ScrollView_obj = canvas.transform.Find("ContestListPanel/ContestList_ScrollView").gameObject;
         contestList_ScrollView_obj.SetActive(false);
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
@@ -710,6 +714,7 @@ public class Contest_Main_Reception : MonoBehaviour
             }           
         }
 
+        
         //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
         if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
         { }
@@ -732,6 +737,40 @@ public class Contest_Main_Reception : MonoBehaviour
 
                     EventReadingStart();
                 }
+            }
+        }
+
+        //新コンテストがないかチェック
+        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+        { }
+        else
+        {
+            contest_newrelease = 9999;
+            contest_newrelease = contestListController.ContestJoukenLibrary();
+
+            switch(contest_newrelease)
+            {
+                case 1: //新しいコンテスト解禁
+
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.hiroba_event_placeNum = 1001; //レセプション会話イベント
+                    GameMgr.hiroba_event_ID = 2000;
+
+                    sceneBGM.MuteBGM();
+
+                    check_event = true;
+
+                    EventReadingStart();
+                    break;
+
+                case 9999: //なにもなし
+
+                    break;
+
+                default:
+
+                    break;
             }
         }
     }
@@ -1192,8 +1231,20 @@ public class Contest_Main_Reception : MonoBehaviour
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 1000; //
 
-        //イベント発生フラグをチェック
-        GameMgr.hiroba_event_ID = 0;
+        _contestname = GameMgr.contest_accepted_list[0].contestName;
+
+        //エデンコンのときは、セリフが変わる
+        if (_contestname == "Or_Contest_002" || _contestname == "Or_Contest_003" || _contestname == "Or_Contest_004")
+        {
+            sceneBGM.MuteBGM();
+            GameMgr.hiroba_event_ID = 20;
+        }
+        else
+        {
+            //イベント発生フラグをチェック
+            GameMgr.hiroba_event_ID = 0;
+        }
+
 
         GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる
         GameMgr.Contest_ReadyToStart = true; //宴読み終わり後、即コンテストを開始する　trueにしなければ、そこでイベント終了

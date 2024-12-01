@@ -180,3 +180,4 @@ SE表
 ・SE_178	audiostock_1072576_sample			【魔法の音】魔法チャージ中の氷のキラキラ音
 ・SE_179	audiostock_1105077_sample			【魔法の音】魔法凍っていく途中の音※使ってない
 ・SE_180	audiostock_78445_sample				【魔法の音】凍り付く音２　※未使用　いい音なので保存
+・SE_181	Anime_Motion08-1(High)				【魔法の音】フルーツの足音

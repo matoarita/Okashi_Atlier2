@@ -449,6 +449,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 //個数リセット
                 GameMgr.hikari_make_okashiKosu = 0;
+                GameMgr.Result_Kosu = 0;
+                GameMgr.hikari_make_success_count = 0;
+                GameMgr.hikari_make_failed_count = 0;
 
                 sc.PlaySe(76);
                 ResultHikariMakeCardView_andOFF();
@@ -469,6 +472,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 //個数リセット
                 GameMgr.hikari_make_okashiKosu = 0;
+                GameMgr.Result_Kosu = 0;
+                GameMgr.hikari_make_success_count = 0;
+                GameMgr.hikari_make_failed_count = 0;
 
                 sc.PlaySe(46);
                 ResultHikariMakeCardView_andOFF();
@@ -589,6 +595,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 _itemType_subtext = GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji;
                 _nowlv = GameMgr.hikarimakeokashi_nowlv;
 
+                GameMgr.Result_Kosu = 0;
+                GameMgr.hikari_make_success_count = 0;
+                GameMgr.hikari_make_failed_count = 0;
+
                 //ハートも少し上がる。
                 getheart = _getexp;
                 girlEat_judge.loveGetPlusAnimeON(getheart, true); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
@@ -703,6 +713,10 @@ public class HikariMakeStartPanel : MonoBehaviour {
         SelectHyouji_OnOFF();
         paramHyoujiKoushin();
         CharaIconChange();
+
+        //表示更新
+        hikari_success_text.text = GameMgr.hikari_make_success_count.ToString();
+        hikari_failed_text.text = GameMgr.hikari_make_failed_count.ToString();
     }
 
     public void GetYosokuItem()

@@ -478,6 +478,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //スターランクご褒美解禁リスト
             save_StarRank_ReleaseList = GameMgr.StarRank_ReleaseList,
 
+            //コンテスト新解禁フラグリスト
+            save_Contest_NewReleaseList = GameMgr.Contest_NewReleaseList,
+
             //ショップのイベントリスト
             save_ShopEvent_stage = GameMgr.ShopEvent_stage,
             save_ShopLvEvent_stage = GameMgr.ShopLVEvent_stage,
@@ -901,6 +904,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //スターランクご褒美解禁リスト
         GameMgr.StarRank_ReleaseList = playerData.save_StarRank_ReleaseList;
+
+        //コンテスト新解禁フラグリスト
+        GameMgr.Contest_NewReleaseList = playerData.save_Contest_NewReleaseList;
 
         //ショップのイベントリスト
         GameMgr.ShopEvent_stage = playerData.save_ShopEvent_stage;

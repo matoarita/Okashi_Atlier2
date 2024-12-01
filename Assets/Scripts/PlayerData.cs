@@ -180,6 +180,9 @@ public class PlayerData
     //スターランクご褒美解禁リスト
     public bool[] save_StarRank_ReleaseList = new bool[GameMgr.StarRank_ReleaseList.Length];
 
+    //コンテスト新解禁フラグリスト
+    public bool[] save_Contest_NewReleaseList = new bool[GameMgr.Contest_NewReleaseList.Length]; //条件満たしたら新コンテストが解禁
+
     //お菓子クエストフラグ
     public bool[] save_OkashiQuest_flag_stage1 = new bool[GameMgr.OkashiQuest_flag_stage1.Length]; //各SPイベントのクリアしたかどうかのフラグ。
     public bool[] save_OkashiQuest_flag_stage2 = new bool[GameMgr.OkashiQuest_flag_stage2.Length];

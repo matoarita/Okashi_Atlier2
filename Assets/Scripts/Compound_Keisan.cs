@@ -1155,7 +1155,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
             result_kosu = final_kette_kosu1;
         }
-        else if (_compo_select == 7) //ヒカリお菓子作りの個数
+        else if (_compo_select == 7) //ヒカリお菓子作りの個数 set_kaisuがヒカリが作った回数
         {           
             if (databaseCompo.compoitems[result_compID].KeisanMethod != "Non" && databaseCompo.compoitems[result_compID].KeisanMethod != "Use")
             {
@@ -1167,8 +1167,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * _set_kaisu;
             }
            
-            Debug.Log("ヒカリ制作の個数: 元" + result_kosu + " 個数のバフ" + GameMgr.hikari_make_okashiKosu_buf);
+            Debug.Log("ヒカリ制作の個数: 元" + result_kosu + " 個数のバフ（右の数字で割り算）: " + GameMgr.hikari_make_okashiKosu_buf);
             result_kosu = (int)(result_kosu / GameMgr.hikari_make_okashiKosu_buf);
+
+            if (GameMgr.hikari_make_success_count >= 1) //一回でも成功してたら、最低一個はできる。
+            {
+                if(result_kosu == 0) { result_kosu = 1; }               
+            }
             Debug.Log("ヒカリ制作の最終個数: " + result_kosu + "個");
         }
         GameMgr.Result_Kosu = result_kosu;

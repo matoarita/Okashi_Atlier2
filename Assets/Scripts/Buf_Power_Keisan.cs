@@ -1574,7 +1574,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             _kosuhosei = 0.5f;
         }
-        GameMgr.hikari_make_okashiKosu_buf_keisan = _kosuhosei;
+        GameMgr.hikari_make_okashiKosu_buf_keisan = _kosuhosei; //Exp_Controllerでhikari_make_okashiKosu_bufに入れて確定させる
 
         //最終的にかかる時間は、Exp_Controllerで計算
         GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.1f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍

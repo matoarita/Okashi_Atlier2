@@ -15,14 +15,7 @@ public class ClothToggle : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
-        //ステータスパネルの取得
-        status_panel = canvas.transform.Find("StatusPanel").gameObject;
-
-        //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+        
 
         //Fetch the Toggle GameObject
         m_Toggle = GetComponent<Toggle>();
@@ -36,6 +29,21 @@ public class ClothToggle : MonoBehaviour {
         {
             ToggleValueChanged(m_Toggle);
         });
+    }
+
+    void InitSetting()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //ステータスパネルの取得
+        status_panel = canvas.transform.Find("StatusPanel").gameObject;
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //Fetch the Toggle GameObject
+        m_Toggle = GetComponent<Toggle>();
     }
 	
 	// Update is called once per frame
@@ -60,6 +68,7 @@ public class ClothToggle : MonoBehaviour {
 
     public void OnCostumeToggle()
     {
+        InitSetting();
         status_panel.GetComponent<StatusPanel>().OnCostumeChange();
     }
 }

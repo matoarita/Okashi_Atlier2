@@ -42,6 +42,12 @@ public class meff_sound_obj1 : MonoBehaviour {
         sc.PlaySe(177);
     }
 
+    public void OnSound03() //フルーツのぷにゅ音
+    {
+        //Debug.Log("OnSound02()");
+        sc.PlaySe(180);
+    }
+
     public void OnSound20() //凍り付いたときの音
     {
         //Debug.Log("OnSound02()");
@@ -60,4 +66,5 @@ public class meff_sound_obj1 : MonoBehaviour {
         sc.PlaySe(177);
         //sc.PlaySe(178);
     }
+
 }

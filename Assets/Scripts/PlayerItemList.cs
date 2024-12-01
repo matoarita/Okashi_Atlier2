@@ -320,6 +320,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         //オリジナルアイテムリストも見る。
         for (i = 0; i < player_originalitemlist.Count; i++)
         {
+            //Debug.Log("player_originalitemlist[i].OriginalitemID: " + i + " " + player_originalitemlist[i].OriginalitemID);
             if (player_originalitemlist[i].OriginalitemID == originalID)
             {
                 return i;
@@ -329,6 +330,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         //エクストリームパネルもみる
         for (i = 0; i < player_extremepanel_itemlist.Count; i++)
         {
+            //Debug.Log("player_extremepanel_itemlist[i].OriginalitemID: " + i + " " + player_extremepanel_itemlist[i].OriginalitemID);
             if (player_extremepanel_itemlist[i].OriginalitemID == originalID)
             {
                 return i;

@@ -15,10 +15,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int GirlLoveSubEvent_stage_num = 1000;
     public static int Event_num = 30;
     public static int Uwasa_num = 100;
+    public static int ReleaseEvent_num = 100;
     public static int NpcEvent_stage_num = 3000;
     public static int NpcEvent_people_num = 300;
     public static int OrEvent_num = 1000;
     public static int ContestJudgeman_num = 3; //審査員の人数
+    public static int SystemCount_itemSetting = 3; //調合時に入れるアイテムの枠　現在3個まで入れれる
 
     //** --ここまで-- **//
 
@@ -119,11 +121,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_tempature_control_tempMin = 150;
     public static int System_tempature_control_tempMax = 230;
 
-    //調合時の演出時間
+    //調合時の演出時間 ExpControllerで設定
     public static float System_compo_playtime_default = 2.0f; //通常調合時の演出時間　トータルで3秒ほど。
     public static float System_magic_playtime_default = 3.3f; //エフェクトのみの時間　トータルで4秒ほど。新規作成エフェクトが入って7秒。エフェクトなしのときは、2.0fがちょうどよい。
     public static float System_magic_playtime_01 = 3.0f; //セカンドベイク　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
     public static float System_magic_playtime_02 = 4.0f; //テンパリング　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
+    public static float System_magic_playtime_03 = 1.8f; //豆焼き　時間短い
 
     //パティシエレベルの上限
     public static int System_patissier_maxlv = 50;
@@ -303,8 +306,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] ShopUwasa_stage1 = new bool[Uwasa_num]; //うわさ話のリスト。シナリオの進行度に合わせて、リストは変わっていく。５個ずつぐらい？
 
     //スターランクご褒美解禁リスト
-    public static bool[] StarRank_ReleaseList = new bool[Uwasa_num]; //スターランクに応じて、エリア解禁などのご褒美が発生するイベントのフラグ
+    public static bool[] StarRank_ReleaseList = new bool[ReleaseEvent_num]; //スターランクに応じて、エリア解禁などのご褒美が発生するイベントのフラグ
 
+    //コンテスト新解禁フラグリスト
+    public static bool[] Contest_NewReleaseList = new bool[ReleaseEvent_num]; //条件満たしたら新コンテストが解禁
 
     //コンテストのイベントリスト
     public static bool[] ContestEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
@@ -1487,6 +1492,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             StarRank_ReleaseList[system_i] = false;
         }
+
+        for (system_i = 0; system_i < Contest_NewReleaseList.Length; system_i++)
+        {
+            Contest_NewReleaseList[system_i] = false;
+        }
+
+        
 
         //コンテストイベントフラグの初期化
         for (system_i = 0; system_i < ContestEvent_stage.Length; system_i++)
