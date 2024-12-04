@@ -56,6 +56,10 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
     private int hikari_make_totalcount;
 
+    private List<int> random_db = new List<int>();
+    private int rnd, k;
+    private int compo_neco_cookieID;
+
     //調合データベース。3つのアイテムの組み合わせを見て、一個のアイテムを決定する。
     //アイテム番号が低いものをベースに、残りの番号との組み合わせを見る。番号は、アイテムID。
 
@@ -271,5 +275,54 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         }
 
         return hikari_make_totalcount;
+    }
+
+    //アブラカタブラ用　調合DBからまだ覚えてないやつを一個ランダムで選択し、そのIDを返す
+    public int Random_CompoNewRecipi()
+    {
+        random_db.Clear();
+
+        for (j = 0; j < compoitems.Count; j++)
+        {
+            if (compoitems[j].cmpitem_Name == "neko_cookie")
+            {
+                compo_neco_cookieID = compoitems[j].cmpitemID;
+            }
+        }
+
+        j = 0;
+        while (j < compoitems.Count)
+        {
+            if (compoitems[j].cmpitemID >= compo_neco_cookieID) //クッキー以降のIDを選択する
+            {
+                if (compoitems[j].cmpitem_flag == 0)
+                {
+                    if (compoitems[j].cmpitemID_result2 == "Non") //二個できる系のやつは除外　素材のことが多いから。
+                    {
+                        random_db.Add(j); //compoのリスト番号
+                    }
+                }
+            }
+
+            if (compoitems[j].cmpitemID >= 10000) //魔法系の素材やおかしは出ない
+            {
+                break;
+            }
+            j++;
+        }
+
+        if (random_db.Count != 0)
+        {
+            rnd = Random.Range(0, random_db.Count);
+            k = random_db[rnd];
+            //Debug.Log("選ばれたcompoリスト番号: " + k + " compoID:" + compoitems[k].cmpitemID);
+
+            return k;
+        }
+        else
+        {
+            //すべてのレシピをだしている場合
+            return 0;
+        }
     }
 }

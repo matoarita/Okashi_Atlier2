@@ -552,7 +552,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法調合の場合　アイテムDBに、あえて空のアイテムデータを用意し、それを計算する 他、処理はオリジナルと一緒
         {
             if (Comp_method_bunki == 20)
-            {
+            {                
                 kettei_item1 = GameMgr.Final_list_itemID1;
                 kettei_item2 = database.SearchItemIDString("magic_comp_setting");
                 kettei_item3 = 9999;
@@ -603,6 +603,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             //パラメータを取得
             result_item = GameMgr.Final_result_itemID1;
+            //Debug.Log("生成アイテム: " + database.items[result_item].itemName);
 
             //コンポ調合データベースのIDを代入
             result_compID = GameMgr.Final_result_compID;
@@ -3017,7 +3018,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 DeleteMethod2();
             }
         }
-        else if (Comp_method_bunki == 0 || Comp_method_bunki == 20)
+        else if (Comp_method_bunki == 0 || Comp_method_bunki == 20) //オリジナルか魔法調合
         {
             final_kette_kosu1 = final_kette_kosu1 * final_select_kaisu;
             final_kette_kosu2 = final_kette_kosu2 * final_select_kaisu;

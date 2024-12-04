@@ -500,6 +500,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //コンテストのイベントリスト
             save_ContestEvent_stage = GameMgr.ContestEvent_stage,
 
+            //白紙のメモ保存
+            save_System_WhiteMemo_text = GameMgr.System_WhiteMemo_text,
+
             //コンテスト審査員の点数
             save_contest_Score = GameMgr.contest_Score,
             save_contest_TotalScore = GameMgr.contest_TotalScore,
@@ -921,6 +924,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //コンテストのイベントリスト
         GameMgr.ContestEvent_stage = playerData.save_ContestEvent_stage;
+
+        //白紙のメモ保存
+        GameMgr.System_WhiteMemo_text = playerData.save_System_WhiteMemo_text;
 
         //コンテスト審査員の点数
         GameMgr.contest_Score = playerData.save_contest_Score;

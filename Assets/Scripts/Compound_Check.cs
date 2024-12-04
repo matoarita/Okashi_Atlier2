@@ -113,6 +113,7 @@ public class Compound_Check : MonoBehaviour {
     private int i;
     private int _rate, _debug_beforerate;
     private int _releaseID;
+    private int _Abra_id;
     private bool newrecipi_flag;
 
     private GameObject finalcheck_Prefab; //調合最終チェック用のアイテムプレファブ
@@ -1432,9 +1433,22 @@ public class Compound_Check : MonoBehaviour {
 
                     case "Abra": //アブタラカブタラで、ランダムでお菓子が生成される　自分が覚えてないやつがでる。全部覚えてる場合は、覚えてるものからランダム。
 
-                        resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
-                        result_compoID = databaseCompo.SearchCompoIDString("Magic_CompNo_empty");
-                        _compNo_check = 1; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。
+                        _Abra_id = databaseCompo.Random_CompoNewRecipi();
+                        resultitemID = databaseCompo.compoitems[_Abra_id].cmpitemID_result;
+                        result_compoID = databaseCompo.SearchCompoIDString(resultitemID);
+
+                        //itemselectToggleで選んだやつがベースアイテムとして入ってる
+                        //GameMgr.Final_list_itemID1 = database.SearchItemIDString(resultitemID);
+                        //GameMgr.Final_toggle_Type1 = 0;
+                        //GameMgr.Final_kettei_kosu1 = 1;
+                        Debug.Log("アブラで生成されるアイテム: " + resultitemID);
+                        //Debug.Log("GameMgr.Final_list_itemID1: " + GameMgr.Final_list_itemID1 + " " + database.items[GameMgr.Final_list_itemID1].itemName);
+                        _compNo_check = 0; //compNoを通り、新規作成
+
+                        //resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
+                        //_compNo_check = 1; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。
+
+                        //result_compoID = databaseCompo.SearchCompoIDString("Magic_CompNo_empty");                                                
                         //アブタラを使うと、元アイテムのパラメータを受け継いだまま、まったく別のお菓子にする。あとで調整はいるかも。
                         break;
                 }
@@ -1444,7 +1458,9 @@ public class Compound_Check : MonoBehaviour {
 
         //stringのリザルドアイテムを、アイテムIDに変換。
         GameMgr.Final_result_itemID1 = database.SearchItemIDString(resultitemID);
-        GameMgr.Final_result_compID = result_compoID;        
+        GameMgr.Final_result_compID = result_compoID;
+
+        //Debug.Log("GameMgr.Final_result_itemID1: " + GameMgr.Final_result_itemID1 + " 生成アイテム: " + database.items[GameMgr.Final_result_itemID1].itemName);
 
         //制作時間の予想を表示
         _hour = 0;

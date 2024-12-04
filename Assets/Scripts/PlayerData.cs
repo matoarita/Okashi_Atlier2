@@ -273,6 +273,9 @@ public class PlayerData
     //コンテストのイベントリスト
     public bool[] save_ContestEvent_stage = new bool[GameMgr.ContestEvent_stage.Length];
 
+    //白紙のメモ保存
+    public string[] save_System_WhiteMemo_text = new string[GameMgr.System_WhiteMemo_text.Length];
+
     //コンテスト審査員の点数
     public int[] save_contest_Score = new int[GameMgr.contest_Score.Length];
     public int save_contest_TotalScore;

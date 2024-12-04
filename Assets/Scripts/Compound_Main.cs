@@ -709,6 +709,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.check_OkashiAfter_flag = false;
         GameMgr.Sleep_CheckEnd = false;
         GameMgr.Status_zero_readOK = false;
+        GameMgr.Utage_MapMoveON = false;
 
 
         gameover_loading = false;
@@ -3101,6 +3102,7 @@ public class Compound_Main : MonoBehaviour
             
             case "mg_controltempature_book":
                 magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
+                magicskill_database.skillLearnLv_Name("Temperature_of_Control", 1); //入手時点でLV1習得すみの状態
                 break;
 
             case "mg_fire_flowers_book":
@@ -3142,6 +3144,7 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_windarc_book":
                 magicskill_database.skillHyoujiKaikin("Wind_Ark");
+                magicskill_database.skillLearnLv_Name("Wind_Ark", 1); //入手時点でLV1習得すみの状態
                 break;
 
             case "mg_windtwister_book":
@@ -3742,6 +3745,7 @@ public class Compound_Main : MonoBehaviour
        
         if(GameMgr.Utage_MapMoveON)
         {
+            Debug.Log("Utage_MapMoveON");
             GameMgr.Utage_MapMoveON = false;
             map_move = true;
 
@@ -4211,6 +4215,7 @@ public class Compound_Main : MonoBehaviour
         {
             GameMgr.check_SleepEnd_Eventflag[i] = true;
         }
+
     }
 
     void OnSleep_HikariReturnBack()

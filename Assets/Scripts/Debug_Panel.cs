@@ -665,6 +665,7 @@ public class Debug_Panel : MonoBehaviour {
                 break;
             }
         }
+        PlayerStatus.girl1_Love_maxlv = PlayerStatus.girl1_Love_lv;
 
         //スライダマックスバリューも更新
         if (PlayerStatus.girl1_Love_lv <= 1)
@@ -691,7 +692,7 @@ public class Debug_Panel : MonoBehaviour {
         PlayerStatus.player_extreme_kaisu_Max = 1;
         GameMgr.topping_Set_Count = 1;
 
-        exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_lv, 0);
+        exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0);
 
 
 
@@ -768,9 +769,9 @@ public class Debug_Panel : MonoBehaviour {
         
 
         //女の子イベントフラグリセット　ハートで発生するイベント系
-            for (i = 0; i < 10; i++)
+        for (i = 300; i < GameMgr.GirlLoveSubEvent_stage1.Length; i++)
         {
-            GameMgr.GirlLoveSubEvent_stage1[300+i] = false;
+            GameMgr.GirlLoveSubEvent_stage1[i] = false;
         }
         GameMgr.GirlLoveSubEvent_stage1[160] = false; //モーセ　最終的に使わないけど、ひとまず。
 

@@ -786,10 +786,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(100);
         GameMgr.PrizeGetMoneyList.Add(500);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(1500);
+        GameMgr.PrizeGetMoneyList.Add(2500);
+        GameMgr.PrizeGetMoneyList.Add(4000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -803,7 +803,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ギリガン");
         GameMgr.PrizeCharacterList.Add("ヴィクター");
         GameMgr.PrizeCharacterList.Add("ガリー");
-        GameMgr.PrizeCharacterList.Add("にゃ");
+        GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
     }
 
     //〇ひんやりお菓子コンテスト

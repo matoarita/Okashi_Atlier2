@@ -186,6 +186,8 @@ public class GetMaterial_Main : MonoBehaviour
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
 
+        GameMgr.Utage_MapMoveON = false; //ほかの場所からイベントで移動することあるのでOFFに。
+
         StartRead = false;
 
         text_scenario();

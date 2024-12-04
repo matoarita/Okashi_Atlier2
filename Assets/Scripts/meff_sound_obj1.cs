@@ -67,4 +67,24 @@ public class meff_sound_obj1 : MonoBehaviour {
         //sc.PlaySe(178);
     }
 
+    public void OnSound23() //ジェラートが凍り付く音
+    {
+        //Debug.Log("OnSound02()");
+        sc.PlaySe(185);
+        sc.PlaySe(186);
+    }
+
+    public void OnSound30() //炎の着火音
+    {
+        //Debug.Log("OnSound02()");
+        sc.PlaySe(181);
+        sc.PlaySe(183);
+    }
+
+    public void OnSound31() //炎の発射音
+    {
+        //Debug.Log("OnSound02()");
+        sc.PlaySe(182);
+        //sc.PlaySe(183);
+    }
 }

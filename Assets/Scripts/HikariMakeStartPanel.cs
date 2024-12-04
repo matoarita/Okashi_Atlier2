@@ -595,10 +595,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 _itemType_subtext = GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji;
                 _nowlv = GameMgr.hikarimakeokashi_nowlv;
 
-                GameMgr.Result_Kosu = 0;
-                GameMgr.hikari_make_success_count = 0;
-                GameMgr.hikari_make_failed_count = 0;
-
+                
                 //ハートも少し上がる。
                 getheart = _getexp;
                 girlEat_judge.loveGetPlusAnimeON(getheart, true); //trueにしておくと、ハートゲット後に、クエストクリアをチェック

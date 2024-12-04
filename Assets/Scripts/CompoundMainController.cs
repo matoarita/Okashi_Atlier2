@@ -756,10 +756,13 @@ public class CompoundMainController : MonoBehaviour {
                     //ヒカリちゃん表示をオフ
                     //ReSetLive2DOrder_Default();
 
-                    //ヒカリちゃんを表示する
-                    ReDrawLive2DOrder_Compound();
-                    Live2DPos_CenterNow(); //このタイミングで位置はセンターにする
-                    MotionLive2D_Magic_eisho(); //詠唱モーション
+                    if (GameMgr.System_Hikari_MagicEnshutuON)
+                    {
+                        //ヒカリちゃんを表示する
+                        ReDrawLive2DOrder_Compound();
+                        Live2DPos_CenterNow(); //このタイミングで位置はセンターにする
+                        MotionLive2D_Magic_eisho(); //詠唱モーション
+                    }
 
 
                     break;

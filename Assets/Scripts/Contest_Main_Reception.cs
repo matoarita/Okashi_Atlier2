@@ -562,6 +562,8 @@ public class Contest_Main_Reception : MonoBehaviour
             {
                 case 0:
 
+                    
+
                     text_area.SetActive(true);
                     //placename_panel.SetActive(true);
                     mainlist_controller_obj.SetActive(true);

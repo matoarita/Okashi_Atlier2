@@ -58,6 +58,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
     public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
+    public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -115,7 +116,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_trueheart_cost = 5000;
 
     //ゴンドラ乗り場の料金
-    public static int System_gondra_cost = 2000;    
+    public static int System_gondra_cost = 5000;    
 
     //温度の最小・最大
     public static int System_tempature_control_tempMin = 150;
@@ -313,6 +314,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //コンテストのイベントリスト
     public static bool[] ContestEvent_stage = new bool[Event_num]; //各イベント読んだかどうかのフラグ。一度読めばONになり、それ以降発生しない。
+
+    //白紙のメモ保存
+    public static string[] System_WhiteMemo_text = new string[10];
 
     //お菓子イベントクリアのフラグ
     public static bool[] OkashiQuest_flag_stage1 = new bool[Event_num]; //各イベントのクリアしたかどうかのフラグ。
@@ -819,6 +823,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Yachin_Cost_cullent; //現在払うべき家賃の額
     public static string scene_BarName; //酒場の名前表示
     public static bool NPC_mirabo_mizuabi; //ミラボー先生の水浴びフラグ
+    public static int System_WhiteMemo_Num; //開かれている白紙メモの番号
+
 
     //セリフ関連の一時変数
     public static string ContestRep_text1;
@@ -1557,6 +1563,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             contest_judge2_comment[system_i] = "";
             contest_judge3_comment[system_i] = "";
         }
+
+        //白紙メモの初期化
+        for (system_i = 0; system_i < System_WhiteMemo_text.Length; system_i++)
+        {
+            System_WhiteMemo_text[system_i] = "";
+        }
+        
 
         //ヒカリの作るアイテムリスト初期化
         for (system_i = 0; system_i < hikari_kettei_item.Length; system_i++)

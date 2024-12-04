@@ -3329,7 +3329,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     //分かりやすくするように、レベルアップ時のパネルも表示
                     LvUpPanel1();
-                    //_listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
 
                     //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
                     exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 1); //2番目が1だと、パネルの表示
@@ -4115,10 +4114,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         //レベルアップパネルは一時オフ
         GameMgr.QuestClearButton_anim = true;
-        for (i = 0; i < _listlvup_obj.Count; i++)
+        //Debug.Log("_listlvup_obj.Count: " + _listlvup_obj.Count);
+        HeartLvUpPanel_obj.SetActive(false);
+        /*for (i = 0; i < _listlvup_obj.Count; i++)
         {
             _listlvup_obj[i].SetActive(false);
-        }
+        }*/
 
         canvas.SetActive(true);
         stageclear_panel.SetActive(true);
@@ -4147,13 +4148,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         girl1_status.face_girl_Fine();
 
         //まだレベルアップパネルステータス開いてたらONにする。
-        for (i = 0; i < _listlvup_obj.Count; i++)
+        HeartLvUpPanel_obj.SetActive(true);
+        /*for (i = 0; i < _listlvup_obj.Count; i++)
         {
             if (_listlvup_obj[i].GetComponent<GirlLoveLevelUpPanel>().OnPanelflag)
             {
                 _listlvup_obj[i].SetActive(true);
             }
-        }
+        }*/
     }
 
 

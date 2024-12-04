@@ -126,7 +126,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                     break;
 
-                case 13: //ヒカリのおかし作り解禁
+                case 9: //ヒカリのおかし作り解禁
 
                     break;
 

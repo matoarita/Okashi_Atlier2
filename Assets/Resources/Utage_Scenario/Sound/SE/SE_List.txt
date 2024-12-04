@@ -181,3 +181,9 @@ SE表
 ・SE_179	audiostock_1105077_sample			【魔法の音】魔法凍っていく途中の音※使ってない
 ・SE_180	audiostock_78445_sample				【魔法の音】凍り付く音２　※未使用　いい音なので保存
 ・SE_181	Anime_Motion08-1(High)				【魔法の音】フルーツの足音
+・SE_182	audiostock_247655_sample			【魔法の音】ボン燃えてからボボボボ
+・SE_183	audiostock_1414824_sample			【魔法の音】炎の発射音
+・SE_184	audiostock_1402719_sample			【魔法の音】炎の着火音
+・SE_185	audiostock_857161_sample			【魔法の音】発射音２　※未使用　いい音なので保存　★あたりに使えるかも
+・SE_186	audiostock_798940_sample			【魔法の音】魔法凍っていく途中の音２
+・SE_187	audiostock_869671_sample			【魔法の音】魔法凍っていく途中の音３

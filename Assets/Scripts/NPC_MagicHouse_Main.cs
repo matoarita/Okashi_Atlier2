@@ -264,30 +264,37 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
                 matplace_database.matPlaceKaikin("Or_MagicHouseA1"); //ミラボ先生解禁
 
+
                 //各月で5の倍数の日はいなくなり、水浴びしてる。
-                if(PlayerStatus.player_cullent_day % 5 == 0)
-                {
-                    GameMgr.NPC_mirabo_mizuabi = true;
-                    Debug.Log("ミラボ先生水浴びいってる");
-
-                    CharacterPanel.SetActive(false);
-
-                    GameMgr.Window_CharaName = "";
-                    default_scenetext = "あれ。ミラボー先生。" + "\n" + "どうやら留守のようだ・・。";
-
-                    npc1sub_toggle_obj.SetActive(false);
-                    npc3sub_toggle_obj.SetActive(false);
-                    npc2sub_toggle_obj.SetActive(false);
-                }
+                if (GameMgr.NPC_FriendPoint[0] <= 60) //友好度60以下では発生しない
+                {  }
                 else
                 {
-                    GameMgr.NPC_mirabo_mizuabi = false;
-                    CharacterPanel.SetActive(true);
+                    if (PlayerStatus.player_cullent_day % 5 == 0)
+                    {
+                        GameMgr.NPC_mirabo_mizuabi = true;
+                        Debug.Log("ミラボ先生水浴びいってる");
 
-                    npc1sub_toggle_obj.SetActive(true);
-                    npc3sub_toggle_obj.SetActive(true);
-                    npc2sub_toggle_obj.SetActive(true);
+                        CharacterPanel.SetActive(false);
+
+                        GameMgr.Window_CharaName = "";
+                        default_scenetext = "あれ。ミラボー先生。" + "\n" + "どうやら留守のようだ・・。";
+
+                        npc1sub_toggle_obj.SetActive(false);
+                        npc3sub_toggle_obj.SetActive(false);
+                        npc2sub_toggle_obj.SetActive(false);
+                    }
+                    else
+                    {
+                        GameMgr.NPC_mirabo_mizuabi = false;
+                        CharacterPanel.SetActive(true);
+
+                        npc1sub_toggle_obj.SetActive(true);
+                        npc3sub_toggle_obj.SetActive(true);
+                        npc2sub_toggle_obj.SetActive(true);
+                    }
                 }
+                
                 
                 break;
 

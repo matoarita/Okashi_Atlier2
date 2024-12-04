@@ -28,6 +28,10 @@ public class TasteHintPanel : MonoBehaviour {
     private List<string> _one_comment_lib = new List<string>();
     private string _one_comment;
     private Text NowEat_text;
+    private InputField hakushi_inputField;
+
+    private GameObject hintpanel_obj1;
+    private GameObject hintpanel_obj2;
 
     private int random;
     private bool ev_yusen;
@@ -61,44 +65,49 @@ public class TasteHintPanel : MonoBehaviour {
 
         compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
-        Okashi_lasthint_text = this.transform.Find("HintPanel/HintText").GetComponent<Text>();
+        hintpanel_obj1 = this.transform.Find("HintPanel/Panel_1").gameObject;
+        hintpanel_obj1.SetActive(true);
+        hintpanel_obj2 = this.transform.Find("HintPanel/Panel_2").gameObject;
+        hintpanel_obj2.SetActive(false);
+
+        Okashi_lasthint_text = hintpanel_obj1.transform.Find("HintText").GetComponent<Text>();
         Okashi_lasthint_text.text = GameMgr.Okashi_lasthint;
 
-        Okashi_lastname_text = this.transform.Find("HintPanel/OkashiName").GetComponent<Text>();
+        Okashi_lastname_text = hintpanel_obj1.transform.Find("OkashiName").GetComponent<Text>();
         Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.Okashi_lastslot + "</color>" + GameMgr.Okashi_lastname;
 
-        Okashi_lastscore_text = this.transform.Find("HintPanel/OkashiScore").GetComponent<Text>();
+        Okashi_lastscore_text = hintpanel_obj1.transform.Find("OkashiScore").GetComponent<Text>();
         Okashi_lastscore_text.text = GameMgr.Okashi_last_totalscore.ToString();
 
-        Okashi_lastshokukan_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelA/PanelA_Param/Text").GetComponent<Text>();
+        Okashi_lastshokukan_param_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelA/PanelA_Param/Text").GetComponent<Text>();
         Okashi_lastshokukan_param_text.text = GameMgr.Okashi_lastshokukan_param.ToString();
 
-        Okashi_lastshokukan_mes_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelA/PanelA_Title/Text").GetComponent<Text>();
+        Okashi_lastshokukan_mes_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelA/PanelA_Title/Text").GetComponent<Text>();
         Okashi_lastshokukan_mes_text.text = GameMgr.Okashi_lastshokukan_mes;
 
-        Okashi_lastsweat_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelB/PanelB_Param/Text").GetComponent<Text>();
+        Okashi_lastsweat_param_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelB/PanelB_Param/Text").GetComponent<Text>();
         Okashi_lastsweat_param_text.text = GameMgr.Okashi_lastsweat_param.ToString();
 
-        Okashi_lastsour_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelC/PanelC_Param/Text").GetComponent<Text>();
+        Okashi_lastsour_param_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelC/PanelC_Param/Text").GetComponent<Text>();
         Okashi_lastsour_param_text.text = GameMgr.Okashi_lastsour_param.ToString();
 
-        Okashi_lastbitter_param_text = this.transform.Find("HintPanel/TasteParamScrollView/Viewport/Content/PanelD/PanelD_Param/Text").GetComponent<Text>();
+        Okashi_lastbitter_param_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelD/PanelD_Param/Text").GetComponent<Text>();
         Okashi_lastbitter_param_text.text = GameMgr.Okashi_lastbitter_param.ToString();
 
         Okashi_Img = database.items[GameMgr.Okashi_lastID].itemIcon_sprite;
-        Okashi_Icon = this.transform.Find("HintPanel/OkashiImage").GetComponent<Image>(); //画像アイコン
+        Okashi_Icon = hintpanel_obj1.transform.Find("OkashiImage").GetComponent<Image>(); //画像アイコン
         Okashi_Icon.sprite = Okashi_Img;
 
-        OneComment_text = this.transform.Find("HintPanel/OneCommentText").GetComponent<Text>();
+        OneComment_text = hintpanel_obj1.transform.Find("OneCommentText").GetComponent<Text>();
         OneComment_text.text = "";
         RandomOneComment();
 
-        NowEat_text = this.transform.Find("HintPanel/NowEatText").GetComponent<Text>();
+        NowEat_text = hintpanel_obj1.transform.Find("NowEatText").GetComponent<Text>();
         NowEat_text.text = GameMgr.NowEatOkashiName;
 
         //顔アイコン
-        HikariIcon_Normal = this.transform.Find("HintPanel/CharaIcon/HikariIcon1").gameObject;
-        HikariIcon_Angry = this.transform.Find("HintPanel/CharaIcon/HikariIcon2").gameObject;
+        HikariIcon_Normal = hintpanel_obj1.transform.Find("CharaIcon/HikariIcon1").gameObject;
+        HikariIcon_Angry = hintpanel_obj1.transform.Find("CharaIcon/HikariIcon2").gameObject;
         if(GameMgr.Okashi_totalscore <= 30)
         {
             HikariIcon_Normal.SetActive(false);
@@ -109,6 +118,10 @@ public class TasteHintPanel : MonoBehaviour {
             HikariIcon_Normal.SetActive(true);
             HikariIcon_Angry.SetActive(false);
         }
+
+        //白紙メモ関係
+        hakushi_inputField = hintpanel_obj2.transform.Find("Scroll View/Viewport/Content/InputField(Legacy)").GetComponent<InputField>();
+        GameMgr.System_WhiteMemo_Num = 0;
     }
 
     public void BackOption()
@@ -240,5 +253,36 @@ public class TasteHintPanel : MonoBehaviour {
             _one_comment_lib.Add("にいちゃん、材料が足りなくなってきたから、ショップへ、材料買いにいこ～よ～。");
             ev_yusen = true;
         }
+    }
+
+    public void WhiteMemoSave()
+    {
+        //開かれている白紙めもの番号に応じてセーブするstringを変える
+
+        switch (GameMgr.System_WhiteMemo_Num)
+        {
+            case 0:
+
+                GameMgr.System_WhiteMemo_text[GameMgr.System_WhiteMemo_Num] = hakushi_inputField.text;
+                break;
+        }
+    }
+
+    //味のメモ　デフォルト
+    public void OnMemoToggle_1()
+    {
+        hintpanel_obj1.SetActive(true);
+        hintpanel_obj2.SetActive(false);
+    }
+
+    //白紙のメモ１
+    public void OnMemoToggle_white1()
+    {
+        hintpanel_obj1.SetActive(false);
+        hintpanel_obj2.SetActive(true);
+
+        GameMgr.System_WhiteMemo_Num = 0;
+
+        hakushi_inputField.text = GameMgr.System_WhiteMemo_text[GameMgr.System_WhiteMemo_Num];
     }
 }

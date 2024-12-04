@@ -413,7 +413,9 @@ public class ContestListController : MonoBehaviour
     //条件チェックライブラリー　新しく解放したものがあればフラグをたてる Contest_Main_Receptionから読み出し
     public int ContestJoukenLibrary()
     {
-        InitSetting();
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
+
         contest_new = 0;
 
         switch (GameMgr.Scene_Name)
