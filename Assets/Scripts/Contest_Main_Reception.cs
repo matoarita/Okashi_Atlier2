@@ -1031,6 +1031,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
             GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
             GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
+            GameMgr.Contest_BringType = conteststartList_database.conteststart_lists[_id].Contest_BringType;
             GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
             GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
             GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
@@ -1039,6 +1040,16 @@ public class Contest_Main_Reception : MonoBehaviour
             conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。           
 
             //GameMgr.Before_Patissier_Rank = PlayerStatus.player_patissier_Rank; //チェック用に、更新前のパティシエランクとっておく
+
+            //素材持ち込み不可の場合、一時的に預かりリストへ持ち物を預ける
+            if(GameMgr.Contest_BringType == 1) //素材のみ持ち込みOK
+            {
+                pitemlist.Keep_PitemList(1);
+            }
+            else if (GameMgr.Contest_BringType == 2) //素材持ち込み×
+            {
+                pitemlist.Keep_PitemList(2);
+            }
 
             Debug.Log("コンテスト本会場へ移動");
             StartCoroutine("WaitForGotoContest");

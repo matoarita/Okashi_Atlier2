@@ -709,6 +709,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ContestRoundNum; //今何回戦か
     public static int ContestRoundNumMax; //その大会のMaxのラウンド数
     public static int Contest_Cate_Ranking; //トーナメント形式かランキング形式か
+    public static int Contest_BringType; //コンテスト　素材持ち込みの形式
     public static string Contest_Name; //コンテストの名前
     public static string Contest_NameHyouji; //コンテストの名前日本語表記
     public static string Contest_ProblemSentence; //コンテストの課題の内容

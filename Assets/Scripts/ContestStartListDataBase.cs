@@ -1198,11 +1198,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：ひんやりしたお菓子";
-        GameMgr.Contest_ProblemSentence2 = "アイスやゼリーなど、冷たいお菓子を作ってください。" + "\n" + "制限時間: 4時間";
+        GameMgr.Contest_ProblemSentence2 = "アイスやゼリーなど、冷たいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位          
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
     void ContestRankingData_201() //フライング・ソーダコンテスト

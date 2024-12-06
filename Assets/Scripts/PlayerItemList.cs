@@ -86,6 +86,11 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //お菓子パネルにセッティングするアイテムチェック用のリスト。こちらも保存されず、架空のtemp所持リストで扱う。
     public List<Item> player_check_itemlist = new List<Item>();
 
+    //コンテスト素材持ち込み不可の場合、預かり用の一時アイテムリスト(エクストリームは、コンテスト出場時にオリジナルへ移動するので不要)
+    public Dictionary<string, int> keep_playeritemlist = new Dictionary<string, int>();
+    public List<Item> keep_player_originalitemlist = new List<Item>();
+    public Dictionary<string, int> temp_dic = new Dictionary<string, int>(); //素材のみOKなどの選別用
+
     // Use this for initialization
     void Start () {
 
@@ -1173,5 +1178,89 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
         //最後にリストもクリア
         GameMgr.ContestItem_supplied_List.Clear();
+    }
+
+    //コンテスト素材持ち込み不可用に、一時的にアイテムを預かる処理
+    public void Keep_PitemList(int _status)
+    {
+        temp_dic.Clear();
+        keep_playeritemlist.Clear();
+        keep_player_originalitemlist.Clear();
+
+        switch (_status)
+        {
+            case 1: //生地など自分で作った素材＋魔法アイテムは持ち込めない 店売りの材料のみOK
+
+                foreach (string key in playeritemlist.Keys)
+                {
+                    //Debug.Log("キーは" + key + "です。");
+
+                    //生地or魔法アイテムを判別した場合、keepに入れた後に、それらアイテムを削除リストに保持して、一番最後に削除
+                    tempID = database.SearchItemIDString(key);
+                    if(database.items[tempID].itemType_sub.ToString() == "Source" || database.items[tempID].itemType_sub.ToString() == "Appaleil"
+                        || database.items[tempID].itemType_sub.ToString() == "Appaleil_Icecream" || database.items[tempID].itemType_sub.ToString() == "Cream"
+                        || database.items[tempID].itemType_sub.ToString() == "GlowFruits"
+                        || database.items[tempID].itemType_subB == "a_LumiSuger")
+                    {
+                        temp_dic.Add(key, playeritemlist[key]);
+                    }
+                }
+                keep_playeritemlist = new Dictionary<string, int>(temp_dic); //一時保存
+
+                //オリジナルの処理
+                keep_player_originalitemlist = new List<Item>(player_originalitemlist);
+
+                //削除処理
+                foreach (string key in temp_dic.Keys)
+                {
+                    playeritemlist[key] = 0;
+                }
+                player_originalitemlist.Clear();
+                break;
+
+            case 2: //素材持ち込み全て不可　ただ、器具などはOKということ
+
+                foreach (string key in playeritemlist.Keys)
+                {
+                    //Debug.Log("キーは" + key + "です。");
+
+                    //生地or魔法アイテムを判別した場合、keepに入れた後に、それらアイテムを削除リストに保持して、一番最後に削除
+                    tempID = database.SearchItemIDString(key);
+                    if (database.items[tempID].itemType.ToString() == "Mat" || database.items[tempID].itemType.ToString() == "Potion")
+                    {
+                        temp_dic.Add(key, playeritemlist[key]);
+                    }
+                }
+                keep_playeritemlist = new Dictionary<string, int>(temp_dic); //一時保存
+
+                //オリジナルの処理
+                keep_player_originalitemlist = new List<Item>(player_originalitemlist);
+
+                //削除処理
+                foreach (string key in temp_dic.Keys)
+                {
+                    playeritemlist[key] = 0;
+                }
+                player_originalitemlist.Clear();
+                break;
+        }
+        
+    }
+
+    //コンテストで一時預かりしてたアイテムを返す
+    public void Contest_ReturnKeepItem()
+    {
+        if(keep_playeritemlist.Count >= 0)
+        {
+            foreach (string key in keep_playeritemlist.Keys)
+            {
+                playeritemlist[key] = keep_playeritemlist[key];
+            }
+        }
+
+        if (keep_player_originalitemlist.Count >= 0)
+        {
+            player_originalitemlist = new List<Item>(keep_player_originalitemlist);
+        }
     }
 }

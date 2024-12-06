@@ -93,6 +93,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
     private int i, count;
     private int _rank;
+    private int _id;
     private bool judge_flag;
     private int judge_Type, DB_list_Type;
     private int inputcount;
@@ -126,35 +127,41 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Scene_Category_Num = 100;
 
         GameMgr.Scene_Name = "Or_Contest";
-
-        /* デバッグ用 */
-        if (GameMgr.System_DebugItemSet_ON)
-        {
-            GameMgr.ContestSelectNum = 10000; //コンテストの会場番号　現在デバッグ用　//大会の場合、1回戦　2回戦　決勝戦とかをGameMgr.ContestRoundNumで決める。
-            GameMgr.Contest_Cate_Ranking = 1;
-            GameMgr.Contest_HallBGName = "h01";
-            GameMgr.Contest_ChubouBGName = "t01";
-            GameMgr.Contest_BGMSelect = "sound46";
-            GameMgr.Story_Mode = 1;
-            GameMgr.GirlLoveEvent_num = 10;
-        }
-        /* */
-
+       
         //宴オブジェクトの読み込み。
         SceneManager.LoadScene("Utage", LoadSceneMode.Additive); //宴のテキストシーンを読み込み
 
         //キャンバスの取得
         canvas = GameObject.FindWithTag("Canvas");
+        
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
+        contestPrizeScore_dataBase = ContestPrizeScoreDataBase.Instance.GetComponent<ContestPrizeScoreDataBase>();
+
+        /* デバッグ用 */
+        //GameMgr.System_DebugItemSet_ON = true;
+        if (GameMgr.System_DebugItemSet_ON)
+        {
+            _id = conteststartList_database.SearchContestString("Or_Contest_100"); //コンテストの会場番号　コンテスト名いれたらOK
+
+            GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
+            GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
+            GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
+            GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
+            GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
+
+            //GameMgr.Story_Mode = 1;
+            GameMgr.GirlLoveEvent_num = 10;
+            GameMgr.System_MagicUse_Flag = true;
+            GameMgr.System_HikariMakeUse_Flag = true;
+        }
+        /* */
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
-
-        //コンテスト全般データベースの取得
-        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
-        contestPrizeScore_dataBase = ContestPrizeScoreDataBase.Instance.GetComponent<ContestPrizeScoreDataBase>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
@@ -302,6 +309,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
         GameMgr.Window_CharaName = "";
 
+        
         //デバッグ用　最初に所持するアイテム
         if (GameMgr.System_DebugItemSet_ON)
         {
@@ -381,10 +389,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             else
             {
                 conteststartList_database.SetContestVictroyString(GameMgr.Contest_Name, GameMgr.contest_Rank_Count);
-            }
-
-            //支給されたアイテムはここで削除
-            pitemlist.DeleteContestSurppliedItem();
+            }            
 
             GameMgr.scenario_ON = true;
 
@@ -397,7 +402,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
 
-        //コンテスト終了　会場外へでる。
+        //コンテスト終了　会場外へでる。時間過ぎて失格もここを通る。
         if (GameMgr.contest_eventEnd_flag)
         {
             GameMgr.contest_eventEnd_flag = false;
@@ -405,7 +410,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
 
-            //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+            //支給されたアイテムはここで削除
+            PlayerItem_Delete_Return();
+
             //家に帰って寝る
             time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
             GameMgr.Contest_afterHomeEventFlag = true;           
@@ -503,7 +510,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     BG_contest_hall.SetActive(false);
 
                     text_area.SetActive(true);
-                    //contest_select.SetActive(true);
+                    contest_select.SetActive(true);
                     //contest_startbutton_panel.SetActive(true);
 
                     yes_no_panel.SetActive(false);
@@ -564,6 +571,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     yes_no_panel.SetActive(true);
                     yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
                     black_panel_A.SetActive(true);
+                    contest_select.SetActive(false);
 
                     //腹減りカウント一時停止
                     girl1_status.GirlEatJudgecounter_OFF();
@@ -878,7 +886,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
 
         //支給されたアイテムはここで削除
-        pitemlist.DeleteContestSurppliedItem();
+        PlayerItem_Delete_Return();       
 
         StartCoroutine("WaitForGiveUpContest");
     }
@@ -892,7 +900,18 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
     }
 
+    //支給アイテム削除や一時預かりアイテムを返す処理
+    void PlayerItem_Delete_Return()
+    {
+        //支給されたアイテムはここで削除
+        pitemlist.DeleteContestSurppliedItem();
 
+        //素材持ち込み不可などの場合、アイテムを返してくれる
+        if (GameMgr.Contest_BringType != 0) //
+        {
+            pitemlist.Contest_ReturnKeepItem();
+        }
+    }
 
 
     //審査員におかしを提出する
@@ -1009,7 +1028,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
    
   
-
+    //デバッグ用
     void Debug_StartItem()
     {
         //pitemlist.addPlayerItemString("komugiko", 10);

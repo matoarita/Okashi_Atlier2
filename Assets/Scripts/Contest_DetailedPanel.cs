@@ -119,14 +119,26 @@ public class Contest_DetailedPanel : MonoBehaviour {
         {
             contest_rankingtype.text = "ランキング";
         }
-        
-        if(conteststartList_database.conteststart_lists[_list].Contest_BringType == 0)
+
+        switch (conteststartList_database.conteststart_lists[_list].Contest_BringType)
         {
-            contest_bringtype.text = "〇";
-        }
-        else
-        {
-            contest_bringtype.text = "×";
+            case 0:
+
+                contest_bringtype.text = "〇";
+                break;
+
+            case 1:
+                contest_bringtype.text = "素材のみOK";
+                break;
+
+            case 2:
+                contest_bringtype.text = "持ち込み不可";
+                break;
+
+            default:
+
+                contest_bringtype.text = "〇";
+                break;
         }
 
         _contest_Grade = conteststartList_database.RankToGradeText(conteststartList_database.conteststart_lists[_list].Contest_Lv);

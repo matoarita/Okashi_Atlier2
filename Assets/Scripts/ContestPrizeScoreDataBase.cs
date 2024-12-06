@@ -732,10 +732,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("モルツァート");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
-        GameMgr.PrizeCharacterList.Add("ハーマウズ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("メデル・スーン");
+        GameMgr.PrizeCharacterList.Add("ハーマウズ");
+        GameMgr.PrizeCharacterList.Add("モルツァー・ルト三世");
     }
 
     //〇ディオ・ショコラ・チャンピオンシップ チョコで一番　終盤レベル
