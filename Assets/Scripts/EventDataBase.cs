@@ -1473,7 +1473,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             Debug.Log("19時以降兄が家にかえってきたあと、ヒカリが採取に出てた場合、先にヒカリが帰っておりおかえり～というイベント");
                             
                             OutGirlReturnHome2();
-                            ReadGirlLoveEvent();
 
                             GameMgr.check_GirlLoveTimeEvent_flag = false;
                         }
@@ -1482,7 +1481,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             Debug.Log("19時以降兄が家にかえってきたあと、ヒカリが採取に出てた場合、先にヒカリが帰っておりおかえり～というイベント");
 
                             OutGirlReturnHome2();
-                            ReadGirlLoveEvent();
 
                             GameMgr.check_GirlLoveTimeEvent_flag = false;
                         }
@@ -1506,6 +1504,44 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
                         {
                             PicnicEvent();
+                        }
+                    }
+                }
+            }
+
+            //最後エデンのイベント
+            if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                //エデンイベントチェック
+                if (!GameMgr.outgirl_Nowprogress)
+                {
+                    //一回目食べている
+                    if (GameMgr.GirlLoveSubEvent_stage1[600])
+                    {
+                        //くじらさんから満月の夜を聞いていた
+                        if (GameMgr.NPCHiroba_eventList[271])
+                        {
+                            if (PlayerStatus.player_cullent_month == GameMgr.System_Fullmoon_month &&
+                               PlayerStatus.player_cullent_day == GameMgr.System_Fullmoon_day &&
+                               PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour)
+                            {
+                                if (pitemlist.KosuCount("Eden") >= 1)
+                                {
+                                    GameMgr.ending_on = true;
+
+                                    //満月の夜にエデン食べたのでED
+                                    GameMgr.girlloveevent_bunki = 2;
+                                    GameMgr.GirlLoveEvent_num = 100;
+                                    GameMgr.girlEat_ON = false;
+                                    GameMgr.Mute_on = true;
+                                    GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
+                                    GameMgr.ending_number = 1;
+
+                                    GameMgr.check_GirlLoveTimeEvent_flag = false;
+                                }
+                            }
                         }
                     }
                 }

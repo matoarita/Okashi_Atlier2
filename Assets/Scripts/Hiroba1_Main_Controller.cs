@@ -3207,21 +3207,83 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     {
                         //まだハートが足りてないとき　こころが強くないので教えられないと断られる
                         GameMgr.hiroba_event_ID = 102;
-                        //BGMかえる
-                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                        //bgm_change_flag = true;
 
                         check_event = true;
                     }
                 }
                 else
-                {
-                    GameMgr.hiroba_event_ID = 101;
-                    //BGMかえる
-                    //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                    //bgm_change_flag = true;
+                { //すでに夢喰い沼の場所を教えてくれてる
 
-                    check_event = true;
+                    //エデンを一回食べたことがある　満月の夜に食べるとよいと、教えてくれる。
+                    if (GameMgr.GirlLoveSubEvent_stage1[600])
+                    {
+                        if (!GameMgr.NPCHiroba_eventList[271])
+                        {
+                            GameMgr.NPCHiroba_eventList[271] = true;
+                            GameMgr.hiroba_event_ID = 110;
+
+                            check_event = true;
+
+                            //満月の夜の日を設定　カレントデイから5日後
+                            time_controller.CullenderKeisan(PlayerStatus.player_day + 5);
+                            GameMgr.System_Fullmoon_month = GameMgr.Cullender_Month;
+                            GameMgr.System_Fullmoon_day = GameMgr.Cullender_Day;
+                        }
+                        else
+                        {
+                            //満月の夜を過ぎてた場合、次の満月を教えてくれる　再設定
+                            if(PlayerStatus.player_cullent_month > GameMgr.System_Fullmoon_month) //超えたので再設定
+                            {
+                                GameMgr.hiroba_event_ID = 112; //
+
+                                check_event = true;
+
+                                //満月の夜の日を設定　カレントデイから5日後
+                                time_controller.CullenderKeisan(PlayerStatus.player_day + 5);
+                                GameMgr.System_Fullmoon_month = GameMgr.Cullender_Month;
+                                GameMgr.System_Fullmoon_day = GameMgr.Cullender_Day;
+                            }
+                            else if (PlayerStatus.player_cullent_month < GameMgr.System_Fullmoon_month)
+                            {
+                                GameMgr.hiroba_event_ID = 111; //満月の夜にエデンを食べろを繰り返す
+
+                                check_event = true;
+                            }
+                            else //月は一緒の場合、日をみる
+                            {
+                                if (PlayerStatus.player_cullent_day > GameMgr.System_Fullmoon_day) //超えた場合は再設定
+                                {
+                                    GameMgr.hiroba_event_ID = 112; //満月の夜にエデンを食べろを繰り返す
+
+                                    check_event = true;
+
+                                    //満月の夜の日を設定　カレントデイから5日後
+                                    time_controller.CullenderKeisan(PlayerStatus.player_day + 5);
+                                    GameMgr.System_Fullmoon_month = GameMgr.Cullender_Month;
+                                    GameMgr.System_Fullmoon_day = GameMgr.Cullender_Day;
+                                }
+                                else if (PlayerStatus.player_cullent_day < GameMgr.System_Fullmoon_day) //未満の場合は、繰り返す
+                                {
+                                    GameMgr.hiroba_event_ID = 111; //満月の夜にエデンを食べろを繰り返す
+
+                                    check_event = true;
+                                }
+                                else //今日の場合　再設定はせず、セリフのみ変わる
+                                {
+                                    GameMgr.hiroba_event_ID = 113; //満月の夜にエデンを食べろを繰り返す
+
+                                    check_event = true;
+                                }
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        GameMgr.hiroba_event_ID = 101;
+
+                        check_event = true;
+                    }
                 }
             }            
         }

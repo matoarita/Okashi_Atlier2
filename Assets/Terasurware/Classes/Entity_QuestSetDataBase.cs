@@ -60,6 +60,7 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int limit_day;
 		public int area_Type;
 		public string ClientName;
+		public int ClientNumber;
 		public string quest_Title;
 		public string desc;
 		public int read_endflag;

@@ -368,6 +368,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_System_ContestIcon_OnFlag = GameMgr.System_ContestIcon_OnFlag, //コンテストアイコンをONにする
             save_System_BarQuestIcon_OnFlag = GameMgr.System_BarQuestIcon_OnFlag, //酒場ご依頼アイコンをONにする
 
+            //満月の夜の月と日
+            save_System_Fullmoon_month = GameMgr.System_Fullmoon_month,
+            save_System_Fullmoon_day = GameMgr.System_Fullmoon_day,
+
             //クエスト以外で、クリアするのに必要なハート量
             save_stageclear_love = GameMgr.stageclear_love,
 
@@ -776,6 +780,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.System_Topping_Multiple_Flag = playerData.save_System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
         GameMgr.System_ContestIcon_OnFlag = playerData.save_System_ContestIcon_OnFlag; //コンテストアイコンをONにする
         GameMgr.System_BarQuestIcon_OnFlag = playerData.save_System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
+
+        //満月の夜の月と日
+        GameMgr.System_Fullmoon_month = playerData.save_System_Fullmoon_month;
+        GameMgr.System_Fullmoon_day = playerData.save_System_Fullmoon_day;
 
         //クエスト以外で、クリアするのに必要なハート量
         GameMgr.stageclear_love = playerData.save_stageclear_love;

@@ -1301,12 +1301,18 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
         //日付更新
         TimeKoushin(1, false);
+        
+    }
 
+    //調合シーンの天気をすぐに変更
+    public void SetWeatherNow()
+    {
         //天気も変更
-        /*if (GameMgr.WEATHER_TIMEMODE_ON)
+        if (GameMgr.WEATHER_TIMEMODE_ON)
         {
-            Weather_ChangeNow(1.0f);
-        }*/
+            Weather_Judge_Method();
+            compound_main.Weather_ChangeNow();
+        }
     }
 
     //コンテストで開催日時を計算するのに使用　入れた日数を、現在の日数に足して、何月何日に変換して戻す Contest_DetailedPanel.csから読み出し

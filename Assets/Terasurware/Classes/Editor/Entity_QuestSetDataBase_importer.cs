@@ -93,9 +93,10 @@ public class Entity_QuestSetDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(40); p.limit_day = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(41); p.area_Type = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(42); p.ClientName = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(43); p.quest_Title = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(44); p.desc = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(45); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(43); p.ClientNumber = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(44); p.quest_Title = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(45); p.desc = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(46); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

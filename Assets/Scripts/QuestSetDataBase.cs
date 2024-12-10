@@ -58,6 +58,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     public int _quest_LimitDay;
     public int _quest_AreaType; //
     public string _quest_ClientName; //
+    public int _quest_ClientNumber;
 
     private string _title;
     private string _desc;
@@ -104,7 +105,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                     _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
                     _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
-                    _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));              
+                    _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));              
 
                 ++count;
             }
@@ -173,6 +174,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _quest_LimitDay = excel_questset_database.sheets[sheet_no].list[count].limit_day;
         _quest_AreaType = excel_questset_database.sheets[sheet_no].list[count].area_Type;
         _quest_ClientName = excel_questset_database.sheets[sheet_no].list[count].ClientName;
+        _quest_ClientNumber = excel_questset_database.sheets[sheet_no].list[count].ClientNumber;
 
         _title = excel_questset_database.sheets[sheet_no].list[count].quest_Title;
         _desc = excel_questset_database.sheets[sheet_no].list[count].desc;
@@ -243,6 +245,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _quest_LimitDay = questset[count].Quest_LimitDay;
         _quest_AreaType = questset[count].Quest_AreaType;
         _quest_ClientName = questset[count].Quest_ClientName;
+        _quest_ClientNumber = questset[count].Quest_ClientNumber;
 
         _title = questset[count].Quest_Title;
         _desc = questset[count].Quest_desc;
@@ -253,7 +256,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
-            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));
+            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));
     }
 
 
@@ -319,6 +322,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         _quest_AreaType = questRandomset[count].Quest_AreaType;
         _quest_ClientName = questRandomset[count].Quest_ClientName;
+        _quest_ClientNumber = questRandomset[count].Quest_ClientNumber;
 
         _title = questRandomset[count].Quest_Title;
         _desc = questRandomset[count].Quest_desc;
@@ -329,7 +333,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
-            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _title, _desc, _read_endflag));
+            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));
     }
 
     public void ResetQuestTakeSet()

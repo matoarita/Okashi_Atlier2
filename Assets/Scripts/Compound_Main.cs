@@ -3440,10 +3440,46 @@ public class Compound_Main : MonoBehaviour
 
                 //あげたお菓子がエデンだった場合　最終イベントが発生しEDへ　ただし、まずかったり油っこいなどがあった場合はふつうに失敗
                 _baseID = pitemlist.player_extremepanel_itemlist[0].itemID;
-                if(database.items[database.SearchItemID(_baseID)].itemName == "Eden")
+                if(database.items[database.SearchItemID(_baseID)].itemName == "Eden") //Eden neko_cookie
                 {
-                    GameMgr.ending_on = true;
-                    GameMgr.ending_number = 1;
+                    //一回目　食べると何も起こらない　二回目、くじらさんと話してから5日後の19時以降に食べると、EDが発生
+                    if(!GameMgr.GirlLoveSubEvent_stage1[600])
+                    {
+                        GameMgr.ending_on = true;
+                        //GameMgr.ending_number = 1;
+                        //GameMgr.Ending_counterenshutu_on = true;
+                    }
+                    else
+                    {
+                        //くじらさんから満月の夜を聞いていた
+                        if(GameMgr.NPCHiroba_eventList[271])
+                        {
+                            //5日後の19時以降
+                            if (PlayerStatus.player_cullent_month == GameMgr.System_Fullmoon_month &&
+                               PlayerStatus.player_cullent_day == GameMgr.System_Fullmoon_day &&
+                               PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour)
+                            {
+                                GameMgr.ending_on = true;
+                                GameMgr.Fullmoon_judge_on = true;
+                                GameMgr.ending_number = 1;
+                                //GameMgr.Ending_counterenshutu_on = true;
+                            }
+                            else
+                            {
+                                GameMgr.ending_on = true;
+                                GameMgr.Fullmoon_judge_on = false;
+                                //GameMgr.ending_number = 1;
+                                //GameMgr.Ending_counterenshutu_on = true;
+                            }
+
+                        }
+                        else
+                        {
+                            GameMgr.ending_on = true;
+                            GameMgr.Fullmoon_judge_on = false; //満月の夜を知らない場合　再度、なにもおこらない
+                        }
+                    }
+                    
                 }
                 break;
 
@@ -3784,6 +3820,8 @@ public class Compound_Main : MonoBehaviour
             Extremepanel_obj.SetActive(true);
             GirlHeartEffect_obj.SetActive(true);
             girlEat_judge.EffectClear();
+
+            GameMgr.ending_on = false;
 
             //イベント後に、ハートを獲得するなどの演出がある場合
             if (GameMgr.SubEvAfterHeartGet)

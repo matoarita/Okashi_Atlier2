@@ -2301,6 +2301,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             if (GameMgr.hikari_tempature_control_ON)
             {
                 Debug.Log("--- ヒカリ温度管理ON --- ");
+                Debug.Log("さくさく・ふわふわ・歯ごたえに補正がかかる");
 
                 _well_done_kyori_hosei = bufpower_keisan.TempatureControlKeisan(_best_well_done, GameMgr.hikari_tempature_param_temp, GameMgr.hikari_tempature_param_time);
 
@@ -2324,6 +2325,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 if (GameMgr.tempature_control_ON)
                 {
                     Debug.Log("--- 温度管理ON --- ");
+                    Debug.Log("さくさく・ふわふわ・歯ごたえに補正がかかる");
 
                     _well_done_kyori_hosei = bufpower_keisan.TempatureControlKeisan(_best_well_done, GameMgr.System_tempature_control_Param_temp, GameMgr.System_tempature_control_Param_time);
 

@@ -832,7 +832,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(23); //0 or 23
+                SE_point_click(30); //0 or 23(カッ) or 30（ぽこ）
                 break;
 
         }

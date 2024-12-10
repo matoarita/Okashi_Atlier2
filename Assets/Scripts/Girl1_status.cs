@@ -3045,6 +3045,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
                             break;
 
+                        case 3:
+
+                            FaceMotionPlay(1017);
+                            _touchface_comment_lib.Add("にいちゃん。コンテストにでて、エデンのレシピさがそ～♪");
+                            break;
+
                         default:
 
                             FaceMotionPlay(1018);

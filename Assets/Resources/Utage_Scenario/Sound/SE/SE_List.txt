@@ -157,7 +157,7 @@ SE表
 ・SE_155	audiostock_142318				【宴で使用】魔法のようなルラララ音 SE_73と同じ
 ・SE_156	sei_ge_doa_nokku_dondon01			ドアを激しくノックする音
 ・SE_157	audiostock_52742				蒸気機関車のブレーキ音
-・SE_158	ピコッ						ポコっと軽くこずく音
+・SE_158	ポカンとげんこつ				ポコっと軽くこずく音
 ・SE_159	audiostock_972326_sample			回復する音
 ・SE_160	Explosion02-1(Long)				爆発音
 ・SE_161	audiostock_1314889_sample			だいじなアイテムとったときの音

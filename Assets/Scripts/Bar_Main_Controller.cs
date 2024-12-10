@@ -1095,6 +1095,46 @@ public class Bar_Main_Controller : MonoBehaviour {
         }
     }
 
+    //Quest_Judgeから読み出し　スターをとったときに宴表示
+    public void StarGetEvent()
+    {
+        switch (GameMgr.Scene_Name)
+        {
+            case "Bar_Grt":
+
+                GameMgr.bar_event_num = 11000;
+                break;
+
+            case "Or_Bar_A1": //ルーティさん
+
+                GameMgr.bar_event_num = 11000;
+                break;
+
+            case "Or_Bar_B1":
+
+                GameMgr.bar_event_num = 11000;
+                break;
+
+            case "Or_Bar_C1": //アプリコットのお姉さん
+
+                GameMgr.bar_event_num = 21000;
+                break;
+
+            case "Or_Bar_D1":
+
+                GameMgr.bar_event_num = 21000;
+                break;
+        }
+
+        GameMgr.scenario_ON = true;
+     
+        GameMgr.bar_event_flag = true;
+
+        check_event = true;
+
+        StartCoroutine("Scenario_loading");
+    }
+
     public void SceneNamePlateSetting()
     {
         placename_panel.GetComponent<PlaceNamePanel>().OnSceneNamePlate();

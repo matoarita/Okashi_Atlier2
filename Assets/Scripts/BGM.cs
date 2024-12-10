@@ -93,6 +93,7 @@ public class BGM : MonoBehaviour {
     public AudioClip Ambient6; //春の森の声
     public AudioClip Ambient7; //温度管理の焚火音
     public AudioClip Ambient8; //噴水の音
+    public AudioClip Ambient9; //夜の虫の鳴き声
     public AudioClip Ambient100; //魔法詠唱中の環境音
     public AudioClip Ambient101; //魔法詠唱中の環境音2
 
@@ -201,8 +202,21 @@ public class BGM : MonoBehaviour {
                     case 11: //アトリエ前
 
                         //_send_clip = sound41;
-                        _send_clip = sound1000; //
-                        _send_clip_ambient = Ambient6;
+                        _send_clip = sound1000; //空
+
+                        //天気モードONのときのみ　変更
+                        if (GameMgr.WEATHER_TIMEMODE_ON)
+                        {
+                            if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour)
+                            {
+                                _send_clip_ambient = Ambient9; //夜　虫の鳴き声
+                            }
+                            else
+                            {
+                                _send_clip_ambient = Ambient6;
+                            }
+                        }
+                        
                         break;
 
                     case 20: //オランジーナショップ

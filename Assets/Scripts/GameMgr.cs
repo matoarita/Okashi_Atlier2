@@ -66,7 +66,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
     //シーン移動の際の切り替え時間
-    public static float SceneFadeTime = 0.3f;
+    public static float SceneFadeTime = 0.5f;
 
     //お金増減のアニメ終了までの秒数 60fpsで1秒　
     public static int System_MoneyDeg_Time = 120; //2秒 値が大きいほど、一回の変動値が小さいので、時間が長くなる 60で約一秒
@@ -188,6 +188,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
     public static bool System_ContestIcon_OnFlag; //コンテストアイコンをONにする
     public static bool System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
+
+    //満月の夜の月と日
+    public static int System_Fullmoon_month;
+    public static int System_Fullmoon_day;
 
     //セーブしたかどうかを保存しておくフラグ
     public static bool saveOK;
@@ -823,8 +827,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool CompoAfter_BackGirl; //調合後元の位置まで戻ってくるまでの間のフラグ
     public static int Yachin_Cost_cullent; //現在払うべき家賃の額
     public static string scene_BarName; //酒場の名前表示
+    public static int System_BarGetNinki; //依頼でスター獲得時のパラム
     public static bool NPC_mirabo_mizuabi; //ミラボー先生の水浴びフラグ
     public static int System_WhiteMemo_Num; //開かれている白紙メモの番号
+    public static bool Ending_counterenshutu_on; //エンディングイベント入る際、数字カウンタのフェード演出を入れる。
+    public static bool Fullmoon_judge_on; //満月の夜かそうでないか
 
 
     //セリフ関連の一時変数
@@ -1401,8 +1408,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SceneMoveAfter_Koushin = false;
         CompoAfter_BackGirl = false;
         scene_BarName = "";
+        System_BarGetNinki = 0;
         NPC_mirabo_mizuabi = false;
-
+        Ending_counterenshutu_on = false;
+        Fullmoon_judge_on = false;
+        System_Fullmoon_month = 4;
+        System_Fullmoon_day = 1;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

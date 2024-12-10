@@ -637,6 +637,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //時間の項目リセット
         time_controller.ResetTimeFlag();
 
+        //調合シーンのときは、夜のチェック
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10: //調合シーン
+
+                time_controller.SetWeatherNow();
+                break;
+        }
+
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
 
@@ -952,6 +961,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //時間の項目リセット
         time_controller.ResetTimeFlag();
 
+        //調合シーンのときは、夜のチェック
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10: //調合シーン
+
+                time_controller.SetWeatherNow();
+                break;
+        }
+
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
 
@@ -1190,6 +1208,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
+
+        //調合シーンのときは、夜のチェック
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10: //調合シーン
+
+                time_controller.SetWeatherNow();
+                break;
+        }
 
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
@@ -1440,6 +1467,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
+
+        //調合シーンのときは、夜のチェック
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 10: //調合シーン
+
+                time_controller.SetWeatherNow();
+                break;
+        }
 
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;

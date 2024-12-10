@@ -216,7 +216,7 @@ public class Result_Panel : MonoBehaviour
             .SetRelative()); //元の位置から30px上に置いておく。
                              //sequence.Join(this.GetComponent<CanvasGroup>().DOFade(0, 0.0f));
 
-        if (GameMgr.ending_on) //トゥルーEDの場合、特別な演出がはいる
+        if (GameMgr.Ending_counterenshutu_on) //トゥルーEDの場合、特別な演出がはいる
         {
             countTime = 2000 * 0.03f; //1ごとに0.03fで表示する
 
@@ -282,7 +282,7 @@ public class Result_Panel : MonoBehaviour
     {
         _poncount = 0;
 
-        if (GameMgr.ending_on) //トゥルーEDの場合、★表示にいくまえにフェードアウトして消えるので表示不要
+        if (GameMgr.Ending_counterenshutu_on) //トゥルーEDの場合、★表示にいくまえにフェードアウトして消えるので表示不要
         { }
         else
         {

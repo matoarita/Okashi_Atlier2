@@ -119,6 +119,10 @@ public class PlayerData
     public bool save_System_ContestIcon_OnFlag; //コンテストアイコンをONにする
     public bool save_System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
 
+    //満月の夜の月と日
+    public int save_System_Fullmoon_month;
+    public int save_System_Fullmoon_day;
+
     //クエスト以外で、クリアするのに必要なハート量
     public int save_stageclear_love; //そのクエストをクリアするのに、必要なハート数。クエストで食べたいお菓子とは別に、ある程度新しいお菓子をあげても、クリアできる、という仕様
     public int save_stageclear_cullentlove; //クエストをクリアするのに、必要なハートの蓄積量。

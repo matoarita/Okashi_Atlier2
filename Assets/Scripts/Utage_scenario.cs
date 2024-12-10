@@ -777,6 +777,10 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Story_num", story_num);
         engine.Param.TrySetParameter("BarName", GameMgr.scene_BarName);
         engine.Param.TrySetParameter("StationEvent_num", 0);
+        if (GameMgr.System_BarGetNinki > 0)
+        {
+            engine.Param.TrySetParameter("Bar_PrizeGetNinki", GameMgr.System_BarGetNinki);
+        }
 
         //ショップのときのフラグ関係
         if (scenarioLabel == "Shop_Event")
@@ -3346,6 +3350,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Hiroba_rotenflag_Num", roten_flag_num);
         engine.Param.TrySetParameter("Talk_num", 0); //ランダム会話などでの、会話番号指定
         engine.Param.TrySetParameter("EndOrPause_Num", 0); //ポーズOrエンドどちらかを判定する番号　基本0=エンドでリセットしておく。
+        engine.Param.TrySetParameter("Fullmoon_Month", GameMgr.System_Fullmoon_month);
+        engine.Param.TrySetParameter("Fullmoon_Day", GameMgr.System_Fullmoon_day);
 
         Debug.Log("scenarioLabel: " + scenarioLabel);
         Debug.Log("GameMgr.hiroba_event_ID: " + GameMgr.hiroba_event_ID);

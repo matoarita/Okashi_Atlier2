@@ -126,6 +126,7 @@ MonoBehaviour:
   Ambient6: {fileID: 8300000, guid: 61065ea350e626644b93d3be4ade3ec3, type: 3}
   Ambient7: {fileID: 8300000, guid: 9dbc30a22a925a749a1b35cc44ddd00f, type: 3}
   Ambient8: {fileID: 8300000, guid: b04cdc175acff8244ab90e392a622a8e, type: 3}
+  Ambient9: {fileID: 8300000, guid: e8115d5880ff76847a175604cb036fbc, type: 3}
   Ambient100: {fileID: 8300000, guid: f8587da73cff119459fbfd4eae909e3b, type: 3}
   Ambient101: {fileID: 8300000, guid: 274a41f94ac7a47408378921d7d87ba3, type: 3}
 --- !u!82 &82406673194409636

@@ -17,7 +17,7 @@ public class Quest_Judge : MonoBehaviour {
     private bool mute_on;
 
     private GameObject barMain_obj;
-    private Bar_Main barMain;
+    private Bar_Main_Controller barMain;
 
     private GameObject MoneyStatus_Panel_obj;
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -94,6 +94,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _Qid;
     private int _questID;
     private int _qitemID;
+    private int _clientnum;
 
     private int del_itemid;
     private int del_itemkosu;
@@ -265,7 +266,8 @@ public class Quest_Judge : MonoBehaviour {
 
 
         //**クエストパネル関係取得　酒場のみのオブジェクトなので気を付ける
-
+        barMain_obj = GameObject.FindWithTag("Bar_Main");
+        barMain = barMain_obj.transform.GetComponent<Bar_Main_Controller>();
         quest_Judge_CanvasPanel = canvas.transform.Find("Quest_Judge_CanvasPanel").gameObject;
         shopquestlistController_obj = quest_Judge_CanvasPanel.transform.Find("ShopQuestList_ScrollView").gameObject;
         shopquestlistController = shopquestlistController_obj.GetComponent<ShopQuestListController>();
@@ -365,11 +367,8 @@ public class Quest_Judge : MonoBehaviour {
         switch (GameMgr.Scene_Category_Num)
         {
             case 30:
-
-                
+               
                 break;
-
-
         }
     }
 
@@ -701,6 +700,7 @@ public class Quest_Judge : MonoBehaviour {
         _baseMoney = basemoney_keisan();
         _getMoney = _baseMoney;
         _getNinki = 0; //納品のみのクエストは、人気度は上がらない
+        BarNPC_FriendPointUP(1); //友好度は上がる
 
         //足りてるので、納品完了の処理
         _text.text = "報酬 " + GameMgr.ColorYellow + _getMoney + "</color>" + GameMgr.MoneyCurrency + " を受け取った！" + "\n" + "ありがとう！お客さんもとても喜んでいるわ！";
@@ -1460,6 +1460,7 @@ public class Quest_Judge : MonoBehaviour {
                     debug_money_text = "(基準値 * 2.0f)";
                     _getNinki = 0;
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
+                    BarNPC_FriendPointUP(1);
                 }
                 else if (okashi_totalscore >= 200 && okashi_totalscore < 250) //200~
                 {
@@ -1467,13 +1468,15 @@ public class Quest_Judge : MonoBehaviour {
                     debug_money_text = "(基準値 * (okashi_totalscore / 150) * 2.3f)";
                     _getNinki = 0;
                     _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
+                    BarNPC_FriendPointUP(1);
                 }
-                else if (okashi_totalscore >= 250 && okashi_totalscore < 300) //250~ ファンファーレ
+                else if (okashi_totalscore >= 250 && okashi_totalscore < 300) //250~ ここから下ファンファーレ
                 {
                     _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 1.5f);
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 1.5f)";
-                    _getNinki = 0;
+                    _getNinki = 1;
                     _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
+                    BarNPC_FriendPointUP(2);
                 }
                 else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
                 {
@@ -1481,6 +1484,7 @@ public class Quest_Judge : MonoBehaviour {
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 2.5f)";
                     _getNinki = 1;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
+                    BarNPC_FriendPointUP(2);
                 }
                 else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
                 {
@@ -1488,6 +1492,7 @@ public class Quest_Judge : MonoBehaviour {
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 3.0f)";
                     _getNinki = 2;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
+                    BarNPC_FriendPointUP(5);
                 }
                 else if (okashi_totalscore >= 1000) //1000~
                 {
@@ -1495,6 +1500,7 @@ public class Quest_Judge : MonoBehaviour {
                     debug_money_text = "(基準値 * (okashi_totalscore / 100) * 5.0f)";
                     _getNinki = 3;
                     _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
+                    BarNPC_FriendPointUP(5);
                 }
 
                 _getHeart = (int)(okashi_totalscore * 0.1f);
@@ -1661,11 +1667,18 @@ public class Quest_Judge : MonoBehaviour {
 
         if (GameMgr.System_QuestStarGet_ON)
         {
+            GameMgr.System_BarGetNinki = 0;
+
             //名声をプラスかマイナス。0は変化なし
             ninkiStatus_Controller.GetNinki(_getNinki);
-        }
+            GameMgr.System_BarGetNinki = _getNinki;
 
-        //もしスターをゲットしてた場合は、スターゲットの会話を表示
+            if (_getNinki > 0)
+            {
+                //もしスターをゲットしてた場合は、スターゲットの会話を表示
+                barMain.StarGetEvent();
+            }
+        }
 
 
         ResetQuestStatus();
@@ -1700,6 +1713,30 @@ public class Quest_Judge : MonoBehaviour {
            
         }
         
+    }
+
+    void BarNPC_FriendPointUP(int _point)
+    {
+        switch (_clientnum)
+        {
+            case 0: //大富豪
+
+                break;
+
+            case 100: //ルーティ
+
+                GameMgr.NPC_FriendPoint[40] += _point;
+                break;
+
+            case 101: //アプリコットさん
+
+                GameMgr.NPC_FriendPoint[41] += _point;
+                break;
+
+            default:
+
+                break;
+        }
     }
 
     void DebugTasteText()
@@ -1782,6 +1819,8 @@ public class Quest_Judge : MonoBehaviour {
         _juice = quest_database.questTakeset[_count].Quest_juice;
         _beauty = quest_database.questTakeset[_count].Quest_beauty;
         _tea_flavor = quest_database.questTakeset[_count].Quest_tea_flavor;
+
+        _clientnum = quest_database.questTakeset[_count].Quest_ClientNumber;
 
         for (i = 0; i < _tp.Length; i++)
         {
