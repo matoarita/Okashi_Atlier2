@@ -16,6 +16,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _buf_shokukanup;
     private int _buf_compotime_up;
     private int _statusup, _magicup;
+    private int original_shokukan_p;
     private int _magic_attri;
     private int _magic_rate;
     private int _magicLearnLv;
@@ -108,8 +109,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _id = database.SearchItemIDString(_result_item);
         _itemType = database.items[_id].itemType.ToString();
         _itemType_sub = database.items[_id].itemType_sub.ToString();
+        _itemType_subB = database.items[_id].itemType_subB.ToString();
 
-        
         switch (_itemType_sub)
         {
             case "Biscotti":
@@ -448,7 +449,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _id = database.SearchItemIDString(_result_item);
         _itemType = database.items[_id].itemType.ToString();
         _itemType_sub = database.items[_id].itemType_sub.ToString();
-
+        _itemType_subB = database.items[_id].itemType_subB.ToString();
 
         switch (_itemType_sub)
         {
@@ -594,11 +595,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //食感などのパラメータのバフ これのみ、ゲームスタート前に一度読み込む可能性あるので、アイテムリストを取得
     //アイテムのサブタイプ(_itemType_sub)を指定し、中で補正をかければOK
     //
-    public int Buf_OkashiParamUp_Keisan(int _status, string _itemType, string _itemType_sub)
+    public int Buf_OkashiParamUp_Keisan(int _status, int _origin_param, string _result_item)
     {
         InitSetup();
 
         _buf_shokukanup = 0;
+
+        _id = database.SearchItemIDString(_result_item);
+        _itemType = database.items[_id].itemType.ToString();
+        _itemType_sub = database.items[_id].itemType_sub.ToString();
+        _itemType_subB = database.items[_id].itemType_subB.ToString();
+
+        original_shokukan_p = _origin_param;
+        
 
         switch (_status)
         {
@@ -635,6 +644,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                     
                 }
+
+                //光りおかしにかかるバフ
+                MagicGlowBuf();                
 
                 AllShokukanBuf();
 
@@ -689,6 +701,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }
 
+                //光りおかしにかかるバフ
+                MagicGlowBuf();
+
                 AllShokukanBuf();
 
                 //ステータスによる食感バフ
@@ -717,6 +732,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }
 
+                //光りおかしにかかるバフ
+                MagicGlowBuf();
+
                 AllShokukanBuf();
 
                 //ステータスによる食感バフ
@@ -743,6 +761,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }
 
+                //光りおかしにかかるバフ
+                MagicGlowBuf();
+
                 AllShokukanBuf();
 
                 //ステータスによる食感バフ
@@ -751,6 +772,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 return _buf_shokukanup;
 
             case 4: //ジュースのバフ
+
+                //光りおかしにかかるバフ
+                MagicGlowBuf();
 
                 AllShokukanBuf();
 
@@ -796,7 +820,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         AllBeautifulBuf();
                         break;
-                }               
+                }
+
+                //光りおかしにかかるバフ
+                MagicGlowBuf();
 
                 return _buf_shokukanup;
 
@@ -819,6 +846,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         TeaBuf();
                         break;
                 }
+
+                //光りおかしにかかるバフ
+                MagicGlowBuf();
 
                 AllShokukanBuf();
 
@@ -1024,6 +1054,70 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     }
 
+    void MagicGlowBuf()
+    {
+        switch (_itemType_subB)
+        {
+            case "a_GlowCookie":
+
+                MagicGlowBuf_method();
+                
+                break;
+
+            case "a_GlowCookie_Hard":
+
+                MagicGlowBuf_method();
+                break;
+
+            case "a_GlowRusk":
+
+                MagicGlowBuf_method();
+                break;
+
+            case "a_GlowPudding":
+
+                MagicGlowBuf_method();
+                break;
+
+            case "a_GlowCheeseCake":
+
+                MagicGlowBuf_method();
+                break;
+
+            case "a_GlowCake":
+
+                MagicGlowBuf_method();
+                break;
+
+            case "a_GlowJuice":
+
+                MagicGlowBuf_method();
+                break;
+
+            case "a_GlowJelly":
+
+                MagicGlowBuf_method();
+                break;
+
+            case "a_GlowCandy":
+
+                MagicGlowBuf_method();
+                break;
+        }       
+
+    }
+
+    void MagicGlowBuf_method()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") >= 1)
+        {
+            _magicup = original_shokukan_p * magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") * 6 / 100; //元の値の6%上昇
+            _buf_shokukanup += _magicup;
+        }
+    }
+
     void RuskBuf()
     {
         
@@ -1163,12 +1257,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void AllBeautifulBuf()
     {
         //魔法のバフ
-        _magicup = 0;
+        /*_magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") >= 1)
         {
             _magicup = magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") * 10; //LV*10
             _buf_shokukanup += _magicup;
-        }
+        }*/
     }
 
     //星魔法関係
@@ -1650,7 +1744,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _tempature_param = SujiMap(_control_temp * _control_temp,
                         GameMgr.System_tempature_control_tempMin * GameMgr.System_tempature_control_tempMin,
                         GameMgr.System_tempature_control_tempMax * GameMgr.System_tempature_control_tempMax,
-                        2.0f, 5.0f); //ここで焼き具合ゲージを決定してる。
+                        2.0f, 6.0f); //ここで焼き具合ゲージを決定してる。
         _well_done = _tempature_param * _control_time;
 
         Debug.Log("_tempature_param: " + _tempature_param);

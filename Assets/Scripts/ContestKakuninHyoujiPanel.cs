@@ -21,8 +21,13 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
     private Text contestname;
     private Text contestday;
+    private Text contest_sozaimotikomi;
     private Text contestmoney;
     private Text contest_desc;
+
+    private Button ContestGo_Button;
+    private GameObject nightcheck_text1;
+    private GameObject nightcheck_text2;
 
     private GameObject quest_text1;
     private GameObject quest_text2;
@@ -79,10 +84,17 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
 
         contestname = this.transform.Find("PanelB/OnPanel/Contest_Title").GetComponent<Text>();
         contestday = this.transform.Find("PanelB/OnPanel/Contest_Day").GetComponent<Text>();
+        contest_sozaimotikomi = this.transform.Find("PanelB/OnPanel/Contest_MatAccept").GetComponent<Text>();
         contestmoney = this.transform.Find("PanelB/OnPanel/Contest_Money").GetComponent<Text>();
         contest_desc = this.transform.Find("PanelB/OnPanel/CommentPanel/Contest_Comment").GetComponent<Text>();
         contest_commentPanel = this.transform.Find("PanelB/OnPanel/CommentPanel").gameObject;
         contest_placelist = this.transform.Find("PanelB/OffPanel/ScrollView/Viewport/Content").gameObject;
+
+        ContestGo_Button = this.transform.Find("PanelB/OnPanel/ContestGoButton").GetComponent<Button>();
+        nightcheck_text1 = this.transform.Find("PanelB/OffPanel/nightcheck_text").gameObject;
+        nightcheck_text2 = this.transform.Find("PanelB/OnPanel/nightcheck_text").gameObject;
+        nightcheck_text1.SetActive(false);
+        nightcheck_text2.SetActive(false);
 
         _Img = this.transform.Find("PanelB/OnPanel/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
@@ -196,6 +208,8 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
             NoContestText_obj.SetActive(true);
             ContestOn_obj.SetActive(false);
         }
+
+        NightCheck();
     }
 
     //PanelBを描画する 受注リストのリスト配列番号を受け取って、中身を更新
@@ -214,10 +228,47 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         contestname.text = conteststartList_database.conteststart_lists[_list].ContestNameHyouji;     
         contest_desc.text = conteststartList_database.conteststart_lists[_list].Contest_themeComment;
         contestday.text = GameMgr.contest_accepted_list[0].Month.ToString() + "/" + GameMgr.contest_accepted_list[0].Day.ToString();
-
+        if(conteststartList_database.conteststart_lists[_list].Contest_BringType == 0)
+        {
+            contest_sozaimotikomi.text = "〇";
+        }
+        else if (conteststartList_database.conteststart_lists[_list].Contest_BringType == 1)
+        {
+            contest_sozaimotikomi.text = "基本素材のみ";
+        }
+        else if (conteststartList_database.conteststart_lists[_list].Contest_BringType == 2)
+        {
+            contest_sozaimotikomi.text = "全て不可";
+        }
+                
 
         //texture2d = questset_database.questTakeset[_list].questIcon;
         //_Img.sprite = texture2d;
+    }
+
+    void NightCheck()
+    {
+        //夜をチェックしボタンをonoff
+        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour)
+        {
+            ContestGo_Button.interactable = false;
+            contest_placelist.transform.Find("ContestMoveButtonA_Panel/ContestMoveButtonA").gameObject.GetComponent<Button>().interactable = false;
+            contest_placelist.transform.Find("ContestMoveButtonB_Panel/ContestMoveButtonB").gameObject.GetComponent<Button>().interactable = false;
+            contest_placelist.transform.Find("ContestMoveButtonC_Panel/ContestMoveButtonC").gameObject.GetComponent<Button>().interactable = false;
+            contest_placelist.transform.Find("ContestMoveButtonD_Panel/ContestMoveButtonD").gameObject.GetComponent<Button>().interactable = false;
+            nightcheck_text1.SetActive(true);
+            nightcheck_text2.SetActive(true);
+        }
+        else
+        {
+            ContestGo_Button.interactable = true;
+            contest_placelist.transform.Find("ContestMoveButtonA_Panel/ContestMoveButtonA").gameObject.GetComponent<Button>().interactable = true;
+            contest_placelist.transform.Find("ContestMoveButtonB_Panel/ContestMoveButtonB").gameObject.GetComponent<Button>().interactable = true;
+            contest_placelist.transform.Find("ContestMoveButtonC_Panel/ContestMoveButtonC").gameObject.GetComponent<Button>().interactable = true;
+            contest_placelist.transform.Find("ContestMoveButtonD_Panel/ContestMoveButtonD").gameObject.GetComponent<Button>().interactable = true;
+            nightcheck_text1.SetActive(false);
+            nightcheck_text2.SetActive(false);
+        }
     }
 
     public void OnContestGoCheck()

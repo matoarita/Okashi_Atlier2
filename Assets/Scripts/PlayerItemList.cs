@@ -1199,6 +1199,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                     tempID = database.SearchItemIDString(key);
                     if(database.items[tempID].itemType_sub.ToString() == "Source" || database.items[tempID].itemType_sub.ToString() == "Appaleil"
                         || database.items[tempID].itemType_sub.ToString() == "Appaleil_Icecream" || database.items[tempID].itemType_sub.ToString() == "Cream"
+                        || database.items[tempID].itemType_sub.ToString() == "WhipeedCream"
                         || database.items[tempID].itemType_sub.ToString() == "GlowFruits"
                         || database.items[tempID].itemType_subB == "a_LumiSuger")
                     {

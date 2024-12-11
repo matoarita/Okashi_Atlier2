@@ -128,11 +128,11 @@ public class Contest_DetailedPanel : MonoBehaviour {
                 break;
 
             case 1:
-                contest_bringtype.text = "素材のみOK";
+                contest_bringtype.text = "基本素材のみ";
                 break;
 
             case 2:
-                contest_bringtype.text = "持ち込み不可";
+                contest_bringtype.text = "全て不可";
                 break;
 
             default:

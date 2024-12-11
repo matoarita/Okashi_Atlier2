@@ -897,7 +897,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 80; //一回戦相手の点数
-        GameMgr.contest_boss_name = "ハーマイオニー";
+        GameMgr.contest_boss_name = "エリカ";
     }
 
     void ContestData_021()
@@ -912,8 +912,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 245; //
-        GameMgr.contest_boss_name = "エリカ";
+        GameMgr.contest_boss_score = 225; //
+        GameMgr.contest_boss_name = "シスター・リーシュ";
     }
 
     void ContestData_022()
@@ -1137,7 +1137,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 105000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
-        GameMgr.Contest_ProblemSentence = "テーマ：光のお菓子限定<クッキー除く>";
+        GameMgr.Contest_ProblemSentence = "テーマ：光のお菓子限定";
         GameMgr.Contest_ProblemSentence2 = "光の魔法で仕上げたお菓子を作ること" + "\n" + "制限時間: 4時間";
 
         //コンテスト時間指定

@@ -154,14 +154,6 @@ public class Bar_Main_Controller : MonoBehaviour {
         //自分の持ってるお金などのステータス
         ninki_status_obj = canvas.transform.Find("NinkiStatus_panel").gameObject;
         ninki_status_obj.SetActive(false);
-        /*if (GameMgr.Story_Mode == 0)
-        {
-            ninki_status_obj.SetActive(false);
-        }
-        else
-        {
-            ninki_status_obj.SetActive(true);
-        }*/
 
         //場所名前パネル
         placename_panel = canvas.transform.Find("PlaceNamePanel").gameObject;
@@ -276,7 +268,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             placename_panel.SetActive(false);
             black_effect.SetActive(false);
 
-            if (GameMgr.Story_Mode == 1)
+            if (GameMgr.System_BarNinkiHyouji_ON)
             {
                 ninki_status_obj.SetActive(false);
             }
@@ -305,7 +297,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                     ButtonFlagCheck();
                     SceneDefaultMessage();
 
-                    if (GameMgr.Story_Mode == 1)
+                    if (GameMgr.System_BarNinkiHyouji_ON)
                     {
                         ninki_status_obj.SetActive(true);
                     }

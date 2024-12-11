@@ -365,6 +365,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
 
+            //じつは一日休んでるので、MPは全回復
+            PlayerStatus.player_mp = PlayerStatus.player_maxmp;
+
             //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する まだ設定してないのでひとまずoff
             //ContestHall_Select("h01", "t01");
             //
@@ -610,6 +613,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     break;
 
                 case 500: //調合用
+
+                    contest_select.SetActive(false);
 
                     //調合終了まち
                     if (GameMgr.CompoundSceneStartON == false)
@@ -919,6 +924,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     {
         yes_no_submit_panel.SetActive(true);
         black_panel_A.SetActive(true);
+        contest_select.SetActive(false);
 
         //腹減りカウント一時停止
         girl1_status.GirlEatJudgecounter_OFF();

@@ -27,6 +27,9 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private Text quest_player_kosu;    
     private Text item_kosu;
 
+    private Button questGo_Button;
+    private GameObject nightcheck_text;
+
     private GameObject quest_etc_text1;
     private GameObject quest_text1;
     private GameObject quest_text2;
@@ -95,6 +98,10 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         quest_clientpanel = this.transform.Find("PanelB/ClientPanel").gameObject;
         quest_commentPanel = this.transform.Find("PanelB/CommentPanel").gameObject;
         bar_placelist = this.transform.Find("PanelA/QuestCheckList_ScrollView/ScrollView/Viewport/Content").gameObject;
+
+        questGo_Button = this.transform.Find("PanelB/ClientPanel/Quest_PlaceButton").GetComponent<Button>();
+        nightcheck_text = this.transform.Find("PanelB/ClientPanel/NightCheck_text").gameObject;
+        nightcheck_text.SetActive(false);
 
         _Img = this.transform.Find("PanelB/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
@@ -259,6 +266,18 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
 
         texture2d = questset_database.questTakeset[_list].questIcon;
         _Img.sprite = texture2d;
+
+        //夜チェックし、ボタンのonoff
+        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour)
+        {
+            questGo_Button.interactable = false;
+            nightcheck_text.SetActive(true);
+        }
+        else
+        {
+            questGo_Button.interactable = true;
+            nightcheck_text.SetActive(false);
+        }
     }
 
     public void BackOption()

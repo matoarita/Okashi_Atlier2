@@ -182,6 +182,7 @@ public class Item
         Harb,        
         Komugiko,
         Milk,
+        Material,
         Nuts,
         Pate,
         Suger,

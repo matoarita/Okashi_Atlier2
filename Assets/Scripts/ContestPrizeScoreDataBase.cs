@@ -733,9 +733,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
-        GameMgr.PrizeCharacterList.Add("メデル・スーン");
+        GameMgr.PrizeCharacterList.Add("メデル・スゾーン");
         GameMgr.PrizeCharacterList.Add("ハーマウズ");
-        GameMgr.PrizeCharacterList.Add("モルツァー・ルト三世");
+        GameMgr.PrizeCharacterList.Add("モルツァート三世");
     }
 
     //〇ディオ・ショコラ・チャンピオンシップ チョコで一番　終盤レベル
@@ -766,9 +766,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("黄ずきん");
         GameMgr.PrizeCharacterList.Add("白桃姫");
-        GameMgr.PrizeCharacterList.Add("キノ・ピノ");
+        GameMgr.PrizeCharacterList.Add("青ずきん");
         GameMgr.PrizeCharacterList.Add("黒ずきん");
     }
 
@@ -834,7 +834,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("戦士ギュント");
+        GameMgr.PrizeCharacterList.Add("ギュント");
         GameMgr.PrizeCharacterList.Add("バニラ");
         GameMgr.PrizeCharacterList.Add("ノーマリー");
         GameMgr.PrizeCharacterList.Add("ウリユ");
@@ -897,15 +897,15 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(67);
         GameMgr.PrizeScoreAreaList.Add(88);
-        GameMgr.PrizeScoreAreaList.Add(95);
-        GameMgr.PrizeScoreAreaList.Add(120);
+        GameMgr.PrizeScoreAreaList.Add(132);
+        GameMgr.PrizeScoreAreaList.Add(150);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ミント");
-        GameMgr.PrizeCharacterList.Add("おそうじアリス");
-        GameMgr.PrizeCharacterList.Add("エリカ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("ウリユ");
     }
 
     //〇おみやげおかしコンテスト　チョコばなな・マリトッツォ・シュークリーム・ふわころ等　こどもが喜びそう、または持ち帰りが簡単なお菓子系で一番
@@ -936,10 +936,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("ウリユ");
         GameMgr.PrizeCharacterList.Add("おそうじアリス");
-        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
-        GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
+        GameMgr.PrizeCharacterList.Add("ミント");
+        GameMgr.PrizeCharacterList.Add("エリカ");
     }
 
     //〇スカーレットマイスター　いちご系のおかしで一番をとる
@@ -997,14 +997,14 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(178);
+        GameMgr.PrizeScoreAreaList.Add(212);
+        GameMgr.PrizeScoreAreaList.Add(245);
+        GameMgr.PrizeScoreAreaList.Add(272);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("戦士ギュント");
+        GameMgr.PrizeCharacterList.Add("ウリユ");
         GameMgr.PrizeCharacterList.Add("エリカ");
         GameMgr.PrizeCharacterList.Add("ノーマリー");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
@@ -1031,17 +1031,17 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(92);
+        GameMgr.PrizeScoreAreaList.Add(138);
+        GameMgr.PrizeScoreAreaList.Add(191);
+        GameMgr.PrizeScoreAreaList.Add(234);
+        GameMgr.PrizeScoreAreaList.Add(367);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("シスターリーシュ");
         GameMgr.PrizeCharacterList.Add("ノーマリー");
-        GameMgr.PrizeCharacterList.Add("ベル");
+        GameMgr.PrizeCharacterList.Add("カリン");
     }
 
     //プラム洋菓子技術コンテスト　ケーキ限定　難易度高い　点数がともかくでない
@@ -1075,7 +1075,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ミント");
         GameMgr.PrizeCharacterList.Add("黒ずきん");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
-        GameMgr.PrizeCharacterList.Add("キノ・ピノ");
+        GameMgr.PrizeCharacterList.Add("ベル");
     }
 
     //〇クレープ・ドゥ・シャノワール　クレープ系　クレープは屋台で手に入れるので、入手のヒントがないと困るかも。
@@ -1380,7 +1380,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("エルメス");
         GameMgr.PrizeCharacterList.Add("アイリン");
-        GameMgr.PrizeCharacterList.Add("メイドのエリヤ");
+        GameMgr.PrizeCharacterList.Add("エリヤ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 

@@ -2164,6 +2164,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basecrispy = _basefluffy;
                 _basefluffy = 0;
             }
+            if(_basename == "brioche") //ブリオッシュは、歯ごたえ（強力粉の値）をふわふわに変換
+            {
+                _basefluffy += _basehardness;
+                _basefluffy += (int)(_basecrispy * 0.2f); //さくさくも若干影響する
+                _basehardness = 0;
+            }
         }
 
 
@@ -2173,13 +2179,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //_before_itemtype_Sub != _base_itemType_sub クリーム系からまたクリーム系が出来る場合は、バフがかからないよう、重複防止処理
             {
                 //A. お菓子の食感ごとに、バフをかける処理
-                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _base_itemType, _base_itemType_sub); //中の数字でどの食感パラムかの指定
-                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _base_itemType, _base_itemType_sub);
-                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _base_itemType, _base_itemType_sub);
-                _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _base_itemType, _base_itemType_sub);
-                _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _base_itemType, _base_itemType_sub);
-                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_Keisan(5, _base_itemType, _base_itemType_sub);
-                _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_Keisan(6, _base_itemType, _base_itemType_sub);
+                _basecrispy += bufpower_keisan.Buf_OkashiParamUp_Keisan(0, _basecrispy, _basename); //中の数字でどの食感パラムかの指定
+                _basefluffy += bufpower_keisan.Buf_OkashiParamUp_Keisan(1, _basefluffy, _basename);
+                _basesmooth += bufpower_keisan.Buf_OkashiParamUp_Keisan(2, _basesmooth, _basename);
+                _basehardness += bufpower_keisan.Buf_OkashiParamUp_Keisan(3, _basehardness, _basename);
+                _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _basejuice, _basename);
+                _basebeauty += bufpower_keisan.Buf_OkashiParamUp_Keisan(5, _basebeauty, _basename);
+                _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_Keisan(6, _basetea_flavor, _basename);
 
                 //B. 固有のお菓子のみにバフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(0, _basename); //中の数字でどの食感パラムかの指定
