@@ -558,10 +558,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int shop_lvevent_num;
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
+    public static int chara_talk_number; //キャラ会話での番号　日によって変わる
     public static bool uwasa_flag;       //ショップの「うわさ話」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int uwasa_number;      //その時のうわさ話番号。
     public static bool shop_hint;
     public static int shop_hint_num;
+
+    public static int chara_talk_countA = 3; //キャラ会話のバリエーション数 日で割って、順ぐりに０～２の感じで繰り返す
+
 
     //バーのコマンド
     public static bool bar_event_flag;  //バーで発生するイベントのフラグ。
@@ -833,6 +837,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_WhiteMemo_Num; //開かれている白紙メモの番号
     public static bool Ending_counterenshutu_on; //エンディングイベント入る際、数字カウンタのフェード演出を入れる。
     public static bool Fullmoon_judge_on; //満月の夜かそうでないか
+    public static bool Contest_pastVictory_on; //コンテスト過去に優勝したことがある場合　セリフが変わりスターもらえない
 
 
     //セリフ関連の一時変数
@@ -1415,6 +1420,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Fullmoon_judge_on = false;
         System_Fullmoon_month = 4;
         System_Fullmoon_day = 1;
+        Contest_pastVictory_on = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

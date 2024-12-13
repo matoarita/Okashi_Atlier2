@@ -46,6 +46,7 @@ public class ShopQuestListController : MonoBehaviour
 
     public bool SetQuestInit; //ショップ入店時に、クエストをリセットするフラグ。shop_mainから読み出し。
     public int _count; //選択したリスト番号が入る。
+    public int _toggle_Listnum;
     public int _ID; //ショップデータベースIDが入る。
     public int questID; //選択したアイテムのアイテムIDが入る。通常アイテムなら、アイテムID、イベントアイテムならイベントリストのアイテムID。
     public int questType;
@@ -233,72 +234,115 @@ public class ShopQuestListController : MonoBehaviour
 
         for (i = 0; i < quest_database.questTakeset.Count; i++)
         {
-
-            _quest_listitem.Add(Instantiate(questitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
-            _text = _quest_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
-            _Img = _quest_listitem[list_count].transform.Find("Background/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
-
-            _toggle_itemID = _quest_listitem[list_count].GetComponent<shopQuestSelectToggle>();
-            _toggle_itemID.toggle_Listnum = i;
-            _toggle_itemID.toggle_ID = quest_database.questTakeset[i]._ID; //DBのID。上から順番
-            _toggle_itemID.toggle_quest_ID = quest_database.questTakeset[i].Quest_ID; //クエスト固有のID
-            _toggle_itemID.toggle_quest_type = quest_database.questTakeset[i].QuestType; //クエストのタイプ　0なら材料採取　1ならお菓子系。1は、プレイヤーが選択
-
-
-            item_name_Hyouji = quest_database.questTakeset[i].Quest_Title; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
-            item_name = quest_database.questTakeset[i].Quest_itemName;
-            _toggle_itemID.toggle_itemID = pitemlist.SearchItemString(item_name);
-
-            _text[0].text = item_name_Hyouji;
-
-            item_kosu = quest_database.questTakeset[i].Quest_kosu_default;
-
-            _text[2].text = item_kosu.ToString(); //価格
-
-            _hoshu = quest_database.questTakeset[i].Quest_buy_price * item_kosu;
-            _text[4].text = _hoshu.ToString();
-
-            _text[5].text = "進行中"; //受注マーク
-
-            if (!GameMgr.System_BarQuest_LimitDayON)
+            switch (GameMgr.Scene_Name)
             {
-                _quest_listitem[list_count].transform.Find("Background/TimeOutText").gameObject.SetActive(false);
-                _quest_listitem[list_count].transform.Find("Background/Text_1").gameObject.SetActive(false);
+                case "Or_Bar_A1":
+
+                    if(quest_database.questTakeset[i].Quest_AreaType == 10)
+                    {
+                        DrawContents();
+                    }
+                    break;
+
+                case "Or_Bar_B1":
+
+                    if (quest_database.questTakeset[i].Quest_AreaType == 20)
+                    {
+                        DrawContents();
+                    }
+                    break;
+
+                case "Or_Bar_C1":
+
+                    if (quest_database.questTakeset[i].Quest_AreaType == 30)
+                    {
+                        DrawContents();
+                    }
+                    break;
+
+                case "Or_Bar_D1":
+
+                    if (quest_database.questTakeset[i].Quest_AreaType == 40)
+                    {
+                        DrawContents();
+                    }
+                    break;
+
+                default:
+
+                    DrawContents();
+                    break;
+            } 
+            
+
+        }
+    }
+
+    void DrawContents()
+    {
+        _quest_listitem.Add(Instantiate(questitem_Prefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
+        _text = _quest_listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、３つのテキストコンポを格納する。
+        _Img = _quest_listitem[list_count].transform.Find("Background/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
+
+        _toggle_itemID = _quest_listitem[list_count].GetComponent<shopQuestSelectToggle>();
+        _toggle_itemID.toggle_Listnum = i;
+        _toggle_itemID.toggle_ID = quest_database.questTakeset[i]._ID; //DBのID。上から順番
+        _toggle_itemID.toggle_quest_ID = quest_database.questTakeset[i].Quest_ID; //クエスト固有のID
+        _toggle_itemID.toggle_quest_type = quest_database.questTakeset[i].QuestType; //クエストのタイプ　0なら材料採取　1ならお菓子系。1は、プレイヤーが選択
+
+
+        item_name_Hyouji = quest_database.questTakeset[i].Quest_Title; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。
+        item_name = quest_database.questTakeset[i].Quest_itemName;
+        _toggle_itemID.toggle_itemID = pitemlist.SearchItemString(item_name);
+
+        _text[0].text = item_name_Hyouji;
+
+        item_kosu = quest_database.questTakeset[i].Quest_kosu_default;
+
+        _text[2].text = item_kosu.ToString(); //価格
+
+        _hoshu = quest_database.questTakeset[i].Quest_buy_price * item_kosu;
+        _text[4].text = _hoshu.ToString();
+
+        _text[5].text = "進行中"; //受注マーク
+
+        if (!GameMgr.System_BarQuest_LimitDayON)
+        {
+            _quest_listitem[list_count].transform.Find("Background/TimeOutText").gameObject.SetActive(false);
+            _quest_listitem[list_count].transform.Find("Background/Text_1").gameObject.SetActive(false);
+        }
+        else
+        {
+            _quest_listitem[list_count].transform.Find("Background/TimeOutText").gameObject.SetActive(true);
+            _quest_listitem[list_count].transform.Find("Background/Text_1").gameObject.SetActive(true);
+
+            //あと何日
+            _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[i].Quest_LimitMonth, quest_database.questTakeset[i].Quest_LimitDay);
+            _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+            if (_Nokori_day < 0)
+            {
+                _text[6].text = "";
+                _text[7].text = "過ぎた";
             }
             else
             {
-                _quest_listitem[list_count].transform.Find("Background/TimeOutText").gameObject.SetActive(true);
-                _quest_listitem[list_count].transform.Find("Background/Text_1").gameObject.SetActive(true);
-
-                //あと何日
-                _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[i].Quest_LimitMonth, quest_database.questTakeset[i].Quest_LimitDay);
-                _Nokori_day = _Limit_day - PlayerStatus.player_day;
-
-                if (_Nokori_day < 0)
-                {
-                    _text[6].text = "";
-                    _text[7].text = "過ぎた";
-                }
-                else
-                {
-                    _text[6].text = _Nokori_day.ToString();
-                    _text[7].text = "日";
-                }
-
-                /*_text[6].text = quest_database.questTakeset[i].Quest_LimitMonth.ToString() + "/" + 
-                    quest_database.questTakeset[i].Quest_LimitDay.ToString(); //締め切り日時 締切: ○月△日   */
+                _text[6].text = _Nokori_day.ToString();
+                _text[7].text = "日";
             }
 
-            texture2d = quest_database.questTakeset[i].questIcon;
-            _Img.sprite = texture2d;
-
-            _quest_listitem[list_count].transform.Find("Background/CancelButton").gameObject.SetActive(true);
-
-            //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
-
-            ++list_count;
-
+            /*_text[6].text = quest_database.questTakeset[i].Quest_LimitMonth.ToString() + "/" + 
+                quest_database.questTakeset[i].Quest_LimitDay.ToString(); //締め切り日時 締切: ○月△日   */
         }
+
+        texture2d = quest_database.questTakeset[i].questIcon;
+        _Img.sprite = texture2d;
+
+        _quest_listitem[list_count].transform.Find("Background/CancelButton").gameObject.SetActive(true);
+
+        //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
+
+        ++list_count;
     }
 
     public void OnQuestList()

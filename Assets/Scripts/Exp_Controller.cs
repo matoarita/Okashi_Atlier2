@@ -200,6 +200,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private int _id1, _id2;
     private string _a, _b, _c;
     private string _yaki;
+    private float _magic_enshututime;
+    private float _magic_enshututime2;
 
     // Use this for initialization
     void Start () {
@@ -2292,6 +2294,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
 
+        if (GameMgr.System_MagicEffect_USE)
+        {
+            _magic_enshututime = GameMgr.System_magic_playtime_default;
+            _magic_enshututime2 = GameMgr.System_magic_playtime_03;
+        }
+        else
+        {
+            _magic_enshututime = GameMgr.System_compo_playtime_default;
+            _magic_enshututime2 = GameMgr.System_compo_playtime_default;
+        }
+
         //魔法によって、ハートも消費する。さらに、演出時間もここで決定
         switch (GameMgr.UseMagicSkill)
         {
@@ -2307,19 +2320,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case "Bake_Beans":
 
-                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_03;
+                GameMgr.System_magic_playtime = _magic_enshututime2;
                 break;
 
             case "Warming_Handmade":
 
-                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
+                GameMgr.System_magic_playtime = _magic_enshututime;
                 girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * 30), false); //ハートを消費するパターン;
                                                                                   //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
                 break;
 
             case "True_of_Myheart":
 
-                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
+                GameMgr.System_magic_playtime = _magic_enshututime;
                 if (PlayerStatus.girl1_Love_exp >= GameMgr.System_trueheart_cost)
                 {
                     girleat_judge.UpDegHeart(-GameMgr.System_trueheart_cost, false); //ハートを消費するパターン;
@@ -2332,7 +2345,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             default:
 
-                GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_default;
+                GameMgr.System_magic_playtime = _magic_enshututime;
                 break;
         }
     }

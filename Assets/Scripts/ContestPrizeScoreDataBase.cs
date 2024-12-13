@@ -258,6 +258,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     //Contest_Main_OrA1から読む
     public void PrizeGet()
     {
+        GameMgr.Contest_pastVictory_on = false;
+
         if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
         {
             //トーナメント形式の賞品獲得
@@ -337,9 +339,19 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                             if(i == 3) //2位
                             {
                                 _getninki = 1;
-                            } else
+                            }
+                            else
                             {
-                                _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                                //過去優勝したことがある
+                                if (conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 1)
+                                {
+                                    _getninki = 0;
+                                    GameMgr.Contest_pastVictory_on = true;
+                                }
+                                else
+                                {
+                                    _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                                }
                             }
                             
                             GameMgr.Contest_PrizeGetninkiparam = _getninki;
@@ -363,7 +375,17 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
                             moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                             GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                            _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+
+                            //過去優勝したことがある
+                            if (conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 1)
+                            {
+                                _getninki = 0;
+                                GameMgr.Contest_pastVictory_on = true;
+                            }
+                            else
+                            {
+                                _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                            }
                             GameMgr.Contest_PrizeGetninkiparam = _getninki;
                             ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得　
                                                                         //ninkiStatus_Controller.GetNinki(1); 優勝時のみ、優勝回数として人気＋１
@@ -834,10 +856,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ギュント");
-        GameMgr.PrizeCharacterList.Add("バニラ");
-        GameMgr.PrizeCharacterList.Add("ノーマリー");
-        GameMgr.PrizeCharacterList.Add("ウリユ");
+        GameMgr.PrizeCharacterList.Add("ミント");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("おそうじアリス");       
+        GameMgr.PrizeCharacterList.Add("ジェラット");
     }
 
     //〇フライング・ソーダコンテスト　ソーダ限定
@@ -868,7 +890,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ノーマリー");
+        GameMgr.PrizeCharacterList.Add("ジェラット");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("ベル");
         GameMgr.PrizeCharacterList.Add("おそうじアリス");
@@ -902,9 +924,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ミント");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
-        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("ギュント");
+        GameMgr.PrizeCharacterList.Add("バニラ");
+        GameMgr.PrizeCharacterList.Add("ノーマリー");
         GameMgr.PrizeCharacterList.Add("ウリユ");
     }
 
@@ -936,10 +958,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ウリユ");
+        GameMgr.PrizeCharacterList.Add("エリカ");
         GameMgr.PrizeCharacterList.Add("おそうじアリス");
         GameMgr.PrizeCharacterList.Add("ミント");
-        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("ウリユ");
     }
 
     //〇スカーレットマイスター　いちご系のおかしで一番をとる

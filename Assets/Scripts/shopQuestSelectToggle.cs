@@ -347,6 +347,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         }
 
         shopquestlistController._count = count; //カウントしたリスト番号を保持
+        shopquestlistController._toggle_Listnum = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_Listnum; //takeset上のリスト番号
         shopquestlistController._ID = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_ID; //IDを入れる。
         shopquestlistController.questID = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_quest_ID; //クエスト固有IDを入れる
         shopquestlistController.questType = shopquestlistController._quest_listitem[count].GetComponent<shopQuestSelectToggle>().toggle_quest_type; //クエストのタイプをいれる
@@ -411,7 +412,7 @@ public class shopQuestSelectToggle : MonoBehaviour
         else if (shopquestlistController.questType == 1)
         {
             //足りてるかどうかを事前チェック。材料系を納品する場合、のみ
-            questjudge.Quest_result(shopquestlistController._count, false);
+            questjudge.Quest_result(shopquestlistController._toggle_Listnum, false);
             if (questjudge.nouhinOK_flag)
             {
 
@@ -464,7 +465,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                     nouhinToggle.interactable = true;
 
                     //足りてるかどうかをチェック、材料アイテムなら即納品。
-                    questjudge.Quest_result(shopquestlistController._count, true);
+                    questjudge.Quest_result(shopquestlistController._toggle_Listnum, true);  //shopquestlistController._count
                 }
 
                 break;
@@ -522,7 +523,7 @@ public class shopQuestSelectToggle : MonoBehaviour
 
                 //お菓子の判定処理
                 //_listcountのidごとに、それぞれ計算する。
-                questjudge.Okashi_Judge(shopquestlistController._count);
+                questjudge.Okashi_Judge(shopquestlistController._toggle_Listnum);  //shopquestlistController._count
 
                 shopquestlistController.nouhin_select_on = 0;
                 shopquestlistController.final_select_flag = false;

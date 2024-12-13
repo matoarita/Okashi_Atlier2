@@ -2432,6 +2432,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number); 
         engine.Param.TrySetParameter("Story_progress_Num", GameMgr.GirlLoveEvent_num); //ゲームメインストーリーの進行フラグナンバー
         engine.Param.TrySetParameter("StationEvent_num", 0);
 
@@ -2766,6 +2767,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
         engine.Param.TrySetParameter("StationEvent_num", 0);
 
         if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
@@ -2813,6 +2815,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
         engine.Param.TrySetParameter("StationEvent_num", 0);
 
         if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
@@ -4511,6 +4514,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_PrizeGetMoney", GameMgr.Contest_PrizeGet_Money);
         engine.Param.TrySetParameter("contest_PrizeGetNinki", GameMgr.Contest_PrizeGetninkiparam);
         engine.Param.TrySetParameter("contest_ranking_count", GameMgr.contest_Rank_Count); //ランキング形式のとき順位。トーナメントでは使わない。
+        engine.Param.TrySetParameter("ContestPastVictory_Flag", GameMgr.Contest_pastVictory_on); //過去、優勝したことがあるかどうか。
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);

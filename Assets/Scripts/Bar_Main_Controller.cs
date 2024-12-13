@@ -696,6 +696,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                 case "Or_Bar_A1": //ルーティさん
 
                     GameMgr.talk_number = 1000;
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA; //0~2までを繰り返す。はず
                     break;
 
                 case "Or_Bar_B1":
@@ -724,6 +725,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                     }else
                     {
                         GameMgr.talk_number = 3000;
+                        GameMgr.chara_talk_number = 0;
                     }
                     break;
 

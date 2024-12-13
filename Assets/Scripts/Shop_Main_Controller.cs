@@ -749,6 +749,8 @@ public class Shop_Main_Controller : MonoBehaviour {
                 case "Or_Shop_B1": //エクレア姉さん
 
                     GameMgr.talk_number = 2000;
+                    //日でランダムに話が切り替わる
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
 
                     if (!GameMgr.Or_ShopEvent_stage[20]) //はじめてお店へきた。
                     {
@@ -768,30 +770,15 @@ public class Shop_Main_Controller : MonoBehaviour {
                         StartCoroutine("Scenario_loading");
                     }
                     else
-                    {                       
-                        //日でランダムに話が切り替わる ・・予定
-                        switch (talkrot)
-                        {
-                            case 0:
-                                GameMgr.hiroba_event_ID = 10;
-                                //talkrot++;
-                                break;
-                            case 1:
-                                GameMgr.hiroba_event_ID = 11;
-                                //talkrot++;
-                                break;
-                            case 2:
-                                GameMgr.hiroba_event_ID = 12;
-                                //talkrot=0;
-                                break;
-                        }
-                    }
+                    {  }
 
                     break;
 
                 case "Or_Shop_C1": //マダム・オペラのばあさん
 
                     GameMgr.talk_number = 3000;
+                    //日でランダムに話が切り替わる
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
 
                     if (!GameMgr.Or_ShopEvent_stage[40]) //はじめてお店へきた。
                     {
@@ -819,6 +806,8 @@ public class Shop_Main_Controller : MonoBehaviour {
                 case "Or_Shop_D1": //ピティヴィエさん
 
                     GameMgr.talk_number = 4000;
+                    //日でランダムに話が切り替わる
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
 
                     if (!GameMgr.Or_ShopEvent_stage[60]) //はじめてお店へきた。
                     {
