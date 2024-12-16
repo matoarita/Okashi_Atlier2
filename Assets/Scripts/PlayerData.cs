@@ -116,6 +116,7 @@ public class PlayerData
     public bool save_System_MagicUse_Flag; //魔法の解禁フラグ
     public bool save_System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
     public bool save_System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
+    public int save_System_Topping_Multiple_Max;
     public bool save_System_ContestIcon_OnFlag; //コンテストアイコンをONにする
     public bool save_System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
 

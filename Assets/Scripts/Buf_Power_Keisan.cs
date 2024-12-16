@@ -9,6 +9,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     private ItemDataBase database;
     private MagicSkillListDataBase magicskill_database;
+    private ItemCompoundDataBase databaseCompo;
 
     private int _buf_findpower;
     private int _buf_kakuritsuup;
@@ -54,6 +55,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //調合組み合わせデータベースの取得
+        databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
@@ -101,7 +105,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //調合成功率のバフ
     //調合で生成されるアイテムの_itemType_subを指定し、中に補正値をかけばOK
     //
-    public int Buf_CompKakuritsu_Keisan(string _result_item)
+    public int Buf_CompKakuritsu_Keisan(string _result_item, int _compID)
     {
         _buf_kakuritsuup = 0;
 
@@ -231,6 +235,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             }
         }
 
+        //一回でも成功したことがあれば、+3%ほど成功率が上昇する。
+        if(databaseCompo.compoitems[_compID].cmpitem_flag >= 1 && databaseCompo.compoitems[_compID].cmpitem_flag != 9999) //9999は除外するので計算しない
+        {
+            _buf_kakuritsuup += 3;
+        }
+
         //成功率　ヒカリのおかし経験値とLVによって、成功率も上昇する。
         KakuritsuUp_HikariBuf();
 
@@ -339,7 +349,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("cake_rolltable") < 1) //所持してないと成功率下がる
         {
-            _buf_kakuritsuup -= 40;
+            _buf_kakuritsuup += 30;
         }
 
         //魔法のバフ
@@ -411,6 +421,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case "Luminous_Fruits":
 
                 _magic_rate = _magicLearnLv * 5;
+                break;
+
+            case "Aroma_Potion":
+
+                _magic_rate = _magicLearnLv * 3;
                 break;
         }
 
@@ -1648,7 +1663,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void HikariOkashilv_Keisan(string _itemType_sub)
     {
         //食感への補正
-        _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.6f, 1.9f); //最大LVで、にいちゃんの2倍上がる
+        _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.5f, 1.4f); //最大LVで、にいちゃんの1.5倍上がる あまりやると強すぎ
         _buf_hikari_okashiparam = 0.1f + _a;
 
         //個数の補正　最終的ににいちゃんと同じ数 低いうちは3個ほどマイナスになる。
@@ -1713,7 +1728,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         Debug.Log("GameMgr.hikari_make_okashiTime_successrate_buf: " + GameMgr.hikari_make_okashiTime_successrate_buf + " " + "hikari_okashiLV: " + hikari_okashiLV);
     }
 
-    //ヒカリのお菓子レベルに応じて、にいちゃんが作るお菓子のパラメータにもバフがかかる計算。
+    //ヒカリのお菓子レベルに応じて、にいちゃんが作るお菓子のパラメータにもバフがかかる計算。現在はかからない仕様。
     public float Buf_HikariOkashiLV_HoseiParamUp(string _itemType_sub)
     {
         _buf_hikari_okashi_paramup = 1.0f;

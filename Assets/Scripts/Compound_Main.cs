@@ -4037,6 +4037,17 @@ public class Compound_Main : MonoBehaviour
 
                         heartget_ON = true;
                         break;
+
+                    case 210: //コンテスト終了　失格だった場合
+
+
+                        _textmain.text = "ヒカリは励ましている！";
+                        get_heart = 5;                        
+
+                        girl1_status.GirlExpressionKoushin(50);
+
+                        heartget_ON = true;
+                        break;
                 }
 
                 if (heartget_ON)

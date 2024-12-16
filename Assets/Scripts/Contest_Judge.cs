@@ -200,6 +200,7 @@ public class Contest_Judge : MonoBehaviour {
 
         judge_flag = false;
         GameMgr.contest_Disqualification = false;
+        GameMgr.contest_Disqualification2 = false;
         //judge_Type = 0; //基本審査員3人で対応。judge_Typeは、どのコンテストかを指定する。
 
         if (GameMgr.Contest_JudgeType == 0) //1のときは、女の子の好み判定を使用する　自由課題など)
@@ -375,7 +376,21 @@ public class Contest_Judge : MonoBehaviour {
         }
         else
         {
+            sum = 0;
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                GameMgr.contest_Score[i] = Random.Range(3, 20);
+                sum += total_score[i];
+            }
+
+            GameMgr.contest_TotalScore = sum / GameMgr.contest_Score.Length;
+            if (GameMgr.contest_TotalScore < 0)
+            {
+                GameMgr.contest_TotalScore = 0;
+            }
+
             _windowtext.text = "特殊点に届かなかった..。不合格！";
+            GameMgr.contest_Disqualification2 = true;
         }
 
         //先に算出しておいて、あとで、審査員一人一人のコメント＋点数を演出して出す。宴へ戻る。
@@ -491,11 +506,63 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 break;
 
+            case "Or_Contest_030":　//ベオルヴ家のディナー　クッキー系はかなり減点
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    switch (GameMgr.contest_okashiSubType)
+                    {
+                        case "Cookie":
+
+                            for (i = 0; i < set_ID.Count; i++)
+                            {
+                                girl1_status.girl1_like_set_score[i] = -150; //
+                            }
+
+                            Debug.Log("判定値追加： 固有スコア " + -150);
+                            Debug.Log("### ###");
+                            break;
+
+                        case "Cookie_Hard":
+
+                            for (i = 0; i < set_ID.Count; i++)
+                            {
+                                girl1_status.girl1_like_set_score[i] = -150; //
+                            }
+
+                            Debug.Log("判定値追加： 固有スコア " + -150);
+                            Debug.Log("### ###");
+                            break;
+
+                        case "Cookie_Mat":
+
+                            for (i = 0; i < set_ID.Count; i++)
+                            {
+                                girl1_status.girl1_like_set_score[i] = -200; //
+                            }
+
+                            Debug.Log("判定値追加： 固有スコア " + -200);
+                            Debug.Log("### ###");
+                            break;
+                    }
+                }
+                else
+                {
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(200); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                    Debug.Log("### ###");
+                }
+                break;
+
             case "Or_Contest_050":　//ラスク
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    
                 }
                 else
                 {
@@ -551,13 +618,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    if (GameMgr.contest_Sp_Score5[0] <= 50) //50以下なら点数が半分に。
-                    {
-                        for (i = 0; i < GameMgr.contest_Score.Length; i++)
-                        {
-                            total_score[i] = (int)(total_score[i] * 0.5f);
-                        }
-                    }
+                    SpScoreHosei_1(GameMgr.contest_Sp_Score5[0]);
                 }
                     
                 break;
@@ -586,13 +647,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    if (GameMgr.contest_Sp_Score7[0] <= 50) //50以下なら点数が半分に。
-                    {
-                        for (i = 0; i < GameMgr.contest_Score.Length; i++)
-                        {
-                            total_score[i] = (int)(total_score[i] * 0.5f);
-                        }
-                    }
+                    SpScoreHosei_1(GameMgr.contest_Sp_Score7[0]);                   
                 }
 
                 break;
@@ -621,13 +676,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    if (GameMgr.contest_Sp_Score6[0] <= 50) //50以下なら点数が半分に。
-                    {
-                        for (i = 0; i < GameMgr.contest_Score.Length; i++)
-                        {
-                            total_score[i] = (int)(total_score[i] * 0.5f);
-                        }
-                    }
+                    SpScoreHosei_1(GameMgr.contest_Sp_Score6[0]);
                 }
 
                 break;
@@ -687,7 +736,59 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
     }
 
-
+    //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK
+    void SpScoreHosei_1(int _spscore)
+    {
+        if (_spscore >= 0 && _spscore < 13) //半分に
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] * 0.5f);
+            }
+        }
+        else if (_spscore >= 13 && _spscore < 20) //ふつう
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] * 1.0f);
+            }
+        }
+        else if (_spscore >= 20 && _spscore < 25) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.5f));
+            }
+        }
+        else if (_spscore >= 25 && _spscore < 35) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.8f));
+            }
+        }
+        else if (_spscore >= 35 && _spscore < 45) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 2.0f));
+            }
+        }
+        else if (_spscore >= 45 && _spscore < 60) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 2.5f));
+            }
+        }
+        else if (_spscore >= 60) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 3.0f));
+            }
+        }
+    }
 
     //点数を、入れた値を上限にして100点に正規化する。
     void ScoreNormalized(int _max)

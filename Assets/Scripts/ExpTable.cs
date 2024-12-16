@@ -209,6 +209,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         else if (_lv >= 25)
         {
             GameMgr.System_Topping_Multiple_Flag = true;
+            GameMgr.System_Topping_Multiple_Max = 2;
+
+            if (_lv >= 35)
+            {
+                GameMgr.System_Topping_Multiple_Max = 3;
+            }
         }
     }
 

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 160
+  controlID: 56
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 92
+  controlID: 34
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -588,7 +588,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6878f9ffaa78f9ff3488f9ffae94f9ffd2a5f9ff04b4f9ff2abff9ffe2e9fbffc27bfcff3484fcff4689fcff588dfcffbe0cfdff9414fdff8628fdff0830fdff8831fdff3a32fdff2637fdff103bfdffc642fdff2caffdffb47ffeff2688feff368bfeff788efeff58b6feff7ac5feff1cc6feffa2eefeff46effeffe8effeff8af0feff2cf1feffcef1feffd6f1feff78f2feff7825ffff1c26ffff04fbffff
+      m_ExpandedIDs: 7a78f9ffbc78f9ff4688f9ffc094f9ffe4a5f9ff16b4f9ff3cbff9fff4e9fbffd47bfcff4684fcff5889fcff6a8dfcffd00cfdffa614fdff9828fdff1a30fdff9a31fdff4c32fdff3837fdff223bfdffd842fdff3eaffdffc67ffeff3888feff488bfeff8a8efeff6ab6feff8cc5feff2ec6feffb4eefeff58effefffaeffeff9cf0feff3ef1feffe0f1feffe8f1feff8af2feff8a25ffff2e26ffff04fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -696,22 +696,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Excel
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Excel
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 664d0100
-    m_LastClickedID: 85350
+    scrollPos: {x: 0, y: 524}
+    m_SelectedIDs: 5c4f0100
+    m_LastClickedID: 85852
     m_ExpandedIDs: 00000000c44c0100c64c0100c84c0100ca4c0100cc4c0100ce4c0100d04c0100d24c0100d44c0100d64c0100d84c010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -771,18 +771,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100b0940000fed100007a560100a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad000000000000b65501009e710000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Entity_compoItemDataBase
-      m_OriginalName: Entity_compoItemDataBase
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 86298
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:
@@ -792,7 +792,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 3635}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 189

@@ -890,7 +890,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("ジェラット");
+        GameMgr.PrizeCharacterList.Add("ウリユ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("ベル");
         GameMgr.PrizeCharacterList.Add("おそうじアリス");
@@ -1130,7 +1130,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("クルル");
         GameMgr.PrizeCharacterList.Add("おそうじアリス");
-        GameMgr.PrizeCharacterList.Add("シリウス");
+        GameMgr.PrizeCharacterList.Add("クラリス");
         GameMgr.PrizeCharacterList.Add("フォルトーネ");
     }
 
@@ -1165,7 +1165,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("クルル");
         GameMgr.PrizeCharacterList.Add("フォルトーネ");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
-        GameMgr.PrizeCharacterList.Add("シリウス");
+        GameMgr.PrizeCharacterList.Add("シャルロット");
     }
 
     //〇メルヘンランド♪カップ　メルヘンなお菓子　通らないと、先へ進めない
@@ -1192,7 +1192,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Add(125);
         GameMgr.PrizeScoreAreaList.Add(176);
         GameMgr.PrizeScoreAreaList.Add(194);
-        GameMgr.PrizeScoreAreaList.Add(265);
+        GameMgr.PrizeScoreAreaList.Add(235);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1332,7 +1332,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("シリウス");
+        GameMgr.PrizeCharacterList.Add("クラリス");
         GameMgr.PrizeCharacterList.Add("フォルトーネ");
         GameMgr.PrizeCharacterList.Add("クルル");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
@@ -1395,8 +1395,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(94);
         GameMgr.PrizeScoreAreaList.Add(123);
-        GameMgr.PrizeScoreAreaList.Add(140);
-        GameMgr.PrizeScoreAreaList.Add(177);
+        GameMgr.PrizeScoreAreaList.Add(135);
+        GameMgr.PrizeScoreAreaList.Add(152);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1429,15 +1429,15 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(98);
         GameMgr.PrizeScoreAreaList.Add(181);
-        GameMgr.PrizeScoreAreaList.Add(227);
-        GameMgr.PrizeScoreAreaList.Add(245);
+        GameMgr.PrizeScoreAreaList.Add(197);
+        GameMgr.PrizeScoreAreaList.Add(225);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("アイリン");
         GameMgr.PrizeCharacterList.Add("ユディー");
         GameMgr.PrizeCharacterList.Add("シャリー");
-        GameMgr.PrizeCharacterList.Add("クラリス");
+        GameMgr.PrizeCharacterList.Add("シュバルツヴェルダー");
     }
 
     //〇ネオユニバース・カップ　宇宙をテーマにしたお菓子　チーズケーキ・シリウスやプルート、ソーダギャラクシーのみ　レシピ解放してないとクリアは難しい
@@ -1505,7 +1505,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("フォルトーネ");
         GameMgr.PrizeCharacterList.Add("シャリー");
         GameMgr.PrizeCharacterList.Add("シャルロット");
-        GameMgr.PrizeCharacterList.Add("イリス");
+        GameMgr.PrizeCharacterList.Add("カリン");
     }
 
     //〇ルミエール・ドゥ・ソレイユ　あたたかいお菓子限定　アフォガートやアップルパイ
@@ -1539,7 +1539,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("シャリー");
         GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
         GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
-        GameMgr.PrizeCharacterList.Add("クラリス");
+        GameMgr.PrizeCharacterList.Add("シュバルツヴェルダー");
     }
 
     //〇ミルフイユ・ドゥ・パリ
@@ -1607,7 +1607,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("シャルロット");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("エリー");
-        GameMgr.PrizeCharacterList.Add("クラリス");
+        GameMgr.PrizeCharacterList.Add("シュバルツヴェルダー");
     }
 
     //〇夢見るチョコレート選手権　愛＋メルヘンが高いチョコレート（チョコケーキも可）のお菓子　ウィンドアークを使ったチョコケーキ・天使の羽根のチョコ
@@ -1641,6 +1641,6 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("アイリン");
         GameMgr.PrizeCharacterList.Add("クルル");
-        GameMgr.PrizeCharacterList.Add("クラリス");
+        GameMgr.PrizeCharacterList.Add("シュバルツヴェルダー");
     }
 }

@@ -265,7 +265,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_girl_okashiparam_NameList.Add("rareokashi", "高級");
     }
 
-    //Rankの数値をもとに、ランク表記に変える。Status_Panel, Compound_Mainから呼び出し
+    //Rankの数値をもとに、ランク表記に変える。Status_Panel, Compound_Mainから呼び出し　このランクを順番に、エリア解禁関係もチェックする。
     public static void SetPatissierRank(int _parank) //PlayerStatus.player_ninki_paramを入れる
     {
         

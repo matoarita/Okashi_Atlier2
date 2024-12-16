@@ -654,16 +654,46 @@ public class Updown_counter : MonoBehaviour {
                                     case 0:
 
                                         _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_baseitemID].itemName]; //ベース決定アイテムの所持数
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     case 1:
 
                                         _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_baseitemID].ItemKosu;
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     case 2:
 
                                         _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_baseitemID].ItemKosu;
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     default:
@@ -679,16 +709,45 @@ public class Updown_counter : MonoBehaviour {
                                     case 0:
 
                                         _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID1].itemName]; //一個目の決定アイテムの所持数
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if(_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }else
+                                        {  }                                        
                                         break;
 
                                     case 1:
 
                                         _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].ItemKosu;
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     case 2:
 
                                         _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].ItemKosu;
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     default:
@@ -703,17 +762,47 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID2].itemName]; //二個目の決定アイテムの所持数                           
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID2].itemName]; //二個目の決定アイテムの所持数  
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     case 1:
 
                                         _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].ItemKosu;
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     case 2:
 
                                         _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].ItemKosu;
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     default:
@@ -728,17 +817,47 @@ public class Updown_counter : MonoBehaviour {
                                 {
                                     case 0:
 
-                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID3].itemName]; //三個目の決定アイテムの所持数                           
+                                        _zaiko_max = pitemlist.playeritemlist[database.items[GameMgr.Final_list_itemID3].itemName]; //三個目の決定アイテムの所持数  
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     case 1:
 
                                         _zaiko_max = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].ItemKosu;
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     case 2:
 
                                         _zaiko_max = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].ItemKosu;
+
+                                        if (GameMgr.System_Topping_Multiple_Flag)
+                                        {
+                                            if (_zaiko_max >= GameMgr.System_Topping_Multiple_Max)
+                                            {
+                                                _zaiko_max = GameMgr.System_Topping_Multiple_Max;
+                                            }
+                                        }
+                                        else
+                                        { }
                                         break;
 
                                     default:

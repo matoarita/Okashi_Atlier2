@@ -473,9 +473,9 @@ public class ContestListController : MonoBehaviour
 
                 //夏コンテスト
 
-                //ひんやりおかしコンテストクリアで、次がでる
+                //ひんやりおかしコンテストクリアで、次がでる 1位か2位
                 _listID = conteststartList_database.SearchContestString("Or_Contest_200");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[10])
                     {

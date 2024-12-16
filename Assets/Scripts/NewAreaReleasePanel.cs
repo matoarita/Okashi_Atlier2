@@ -42,6 +42,8 @@ public class NewAreaReleasePanel : MonoBehaviour {
     void Update () {
 		
 	}
+
+    //Compound_Mainから読み出し
     public void Set_PatissierRank(string _prank_text)
     {
         rank_toptext.text = "ランクが　" + _prank_text + "　になりました！";

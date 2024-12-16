@@ -1757,47 +1757,15 @@ public class Compound_Check : MonoBehaviour {
     //特定のアイテムかを判定 特別演出が発生する
     void SpecialEnshutu_DB()
     {
-        /*if (database.items[GameMgr.Final_result_itemID1].itemName == "neko_cookie")
+        foreach(string items in GameMgr.SPEnshutu_itemlist.Keys)
         {
-            GameMgr.Special_OkashiEnshutsuName = "panel01";
-            GameMgr.Special_OkashiEnshutsuFlag = true;
-        }*/
-
-        if (database.items[GameMgr.Final_result_itemID1].itemName == "cheese_cake")
-        {
-            GameMgr.Special_OkashiEnshutsuName = "panel01";
-            GameMgr.Special_OkashiEnshutsuFlag = true;
-        }
-
-        if (database.items[GameMgr.Final_result_itemID1].itemName == "fantasian")
-        {
-            GameMgr.Special_OkashiEnshutsuName = "panel01";
-            GameMgr.Special_OkashiEnshutsuFlag = true;
-        }
-
-        if (database.items[GameMgr.Final_result_itemID1].itemName == "fantasian_in_nightdream")
-        {
-            GameMgr.Special_OkashiEnshutsuName = "panel01";
-            GameMgr.Special_OkashiEnshutsuFlag = true;
-        }
-
-        if (database.items[GameMgr.Final_result_itemID1].itemName == "aquamarine_chocolate")
-        {
-            GameMgr.Special_OkashiEnshutsuName = "panel01";
-            GameMgr.Special_OkashiEnshutsuFlag = true;
-        }
-
-        if (database.items[GameMgr.Final_result_itemID1].itemName == "lumi_emerald_neko_cookie")
-        {
-            GameMgr.Special_OkashiEnshutsuName = "panel01";
-            GameMgr.Special_OkashiEnshutsuFlag = true;
-        }
-
-        if (database.items[GameMgr.Final_result_itemID1].itemName == "forget_me_not")
-        {
-            GameMgr.Special_OkashiEnshutsuName = "panel01";
-            GameMgr.Special_OkashiEnshutsuFlag = true;
-        }
+            if(database.items[GameMgr.Final_result_itemID1].itemName == items)
+            {
+                GameMgr.Special_OkashiEnshutsuName = GameMgr.SPEnshutu_itemlist[items];
+                GameMgr.Special_OkashiEnshutsuFlag = true;
+                break;
+            }
+        }        
     }
 
 
@@ -1968,7 +1936,7 @@ public class Compound_Check : MonoBehaviour {
     public int Kakuritsu_Keisan(int _compID)
     {
         _buf_kakuritsu = 0;
-        _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan(databaseCompo.compoitems[_compID].cmpitemID_result); //にいちゃん・ヒカリが作るとき共通でバフかかる
+        _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan(databaseCompo.compoitems[_compID].cmpitemID_result, _compID); //にいちゃん・ヒカリが作るとき共通でバフかかる
         databaseCompo.RecipiCount_database();
 
 

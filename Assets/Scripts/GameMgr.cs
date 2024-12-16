@@ -187,6 +187,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_MagicUse_Flag; //魔法の解禁フラグ
     public static bool System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
     public static bool System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
+    public static int System_Topping_Multiple_Max; //トッピングでのせられる個数限界
     public static bool System_ContestIcon_OnFlag; //コンテストアイコンをONにする
     public static bool System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
 
@@ -383,6 +384,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] contest_Sp_Score9 = new int[ContestJudgeman_num];
     public static int[] contest_Sp_Score10 = new int[ContestJudgeman_num];
     public static bool contest_Disqualification; //コンテスト失格フラグ
+    public static bool contest_Disqualification2; //特殊点足りなかったフラグ
 
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
@@ -619,6 +621,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static List<string> mirabo_present_list = new List<string>(); //
     public static List<string> mirabo_present_list_sub = new List<string>();
 
+    //特別演出をするお菓子リスト
+    public static Dictionary<string, string> SPEnshutu_itemlist = new Dictionary<string, string>();
+
     //メインクエの指示メッセージリスト
     public static Dictionary<int, string> mainquest_message_list = new Dictionary<int, string>();
 
@@ -731,6 +736,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_JudgeType; //コンテストによって、女の子の好み判定のほうを使用する場合もあり
     public static bool Contest_ON; //コンテストの最中のフラグ　調合時にBGMを変わらないようにするなどのフラグ
     public static bool Contest_Clear_Failed; //特殊点が足りないなどの場合、コンテスト不合格のフラグがたつ。trueで不合格。 
+    public static string Contest_Spscore_text; //特殊点の名前
     public static int contest_boss_score; //コンテスト　対戦相手のスコア
     public static string contest_boss_name; //コンテスト　対戦相手の名前
     public static int contest_Rank_Count; //コンテスト　ランキングで何位だったか
@@ -1126,6 +1132,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_Topping_Multiple_Flag = false;
         System_ContestIcon_OnFlag = false;
         System_BarQuestIcon_OnFlag = false;
+        System_Topping_Multiple_Max = 1;
 
         AUTOSAVE_ON = false;
         CompoBGMCHANGE_ON = false;
@@ -1559,6 +1566,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_TotalScore = 0;
         contest_TotalScoreList.Clear();
         contest_Disqualification = false;
+        contest_Disqualification2 = false;
         contest_PrizeScore = 0;
         contest_BeautyJudgeScore.Clear();
         PrizeScoreAreaList.Clear();
@@ -1735,6 +1743,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //ミラボ先生プレゼントリスト設定
         InitMirabo_PresentLibraryMain();
         InitMirabo_PresentLibrarySub();
+
+        //特別演出するお菓子の設定
+        Init_SpecialEnshutu_Library();
 
         //ヒカリのお菓子経験値テーブルをセット
         InitHikariOkashi_ExpTable();
@@ -2189,6 +2200,28 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mirabo_present_list_sub.Add("orange");
         mirabo_present_list_sub.Add("grape");
         mirabo_present_list_sub.Add("emerald_suger");
+    }
+
+    //特別演出が入るおかしテーブル
+    public static void Init_SpecialEnshutu_Library()
+    {
+        SPEnshutu_itemlist.Clear();
+
+        SPEnshutu_itemlist.Add("cheese_cake", "panel01");
+        SPEnshutu_itemlist.Add("fantasian", "panel01");
+        SPEnshutu_itemlist.Add("fantasian_in_nightdream", "panel01");
+        SPEnshutu_itemlist.Add("aquamarine_chocolate", "panel01");
+        SPEnshutu_itemlist.Add("lumi_emerald_neko_cookie", "panel01");
+        SPEnshutu_itemlist.Add("forget_me_not", "panel01");
+        SPEnshutu_itemlist.Add("strawberry_sponge_cake", "panel01");
+        SPEnshutu_itemlist.Add("mont_blanc", "panel01");
+        SPEnshutu_itemlist.Add("tiramisu", "panel01");
+        SPEnshutu_itemlist.Add("sachertorte", "panel01");
+        SPEnshutu_itemlist.Add("opera", "panel01");
+        SPEnshutu_itemlist.Add("bush_de_noel", "panel01");
+        SPEnshutu_itemlist.Add("Eden", "panel01");
+        SPEnshutu_itemlist.Add("chocolate_black", "panel01");
+        SPEnshutu_itemlist.Add("princess_tota", "panel01");
     }
 
     //ヒカリのお菓子経験値テーブル

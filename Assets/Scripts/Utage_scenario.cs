@@ -2690,6 +2690,16 @@ public class Utage_scenario : MonoBehaviour
                             }
                             break;
 
+                        case 29:
+
+                            if (matplace_database.matplace_lists[matplace_database.SearchMapString("Ruby_Plane")].placeFlag == 0)
+                            {
+                                shop_uwasa_flag = 1;
+                                //いける場所を追加
+                                matplace_database.matPlaceKaikin("Ruby_Plane"); //ルビー平野解禁
+                            }
+                            break;
+
                         case 33:
 
                             if (matplace_database.matplace_lists[matplace_database.SearchMapString("Diamond_Mountain")].placeFlag == 0)
@@ -4195,9 +4205,13 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_score2", GameMgr.contest_Score[1]); //審査員２
         engine.Param.TrySetParameter("contest_score3", GameMgr.contest_Score[2]); //審査員３
         engine.Param.TrySetParameter("contest_total_score", GameMgr.contest_TotalScore);
+        engine.Param.TrySetParameter("contest_SpScore_text", GameMgr.Contest_Spscore_text);
 
         //課題のお菓子以外を提出し、失格になった場合フラグがtrue
         engine.Param.TrySetParameter("contest_Disqualification", GameMgr.contest_Disqualification);
+
+        //特殊点が足りなかった場合フラグがtrue
+        engine.Param.TrySetParameter("contest_Disqualification2", GameMgr.contest_Disqualification2);
 
         GameMgr.contest_TotalScoreList.Add(GameMgr.contest_TotalScore); //採点時に、各ラウンドごとの得点も保存。賞品獲得時に計算して使う。
 
@@ -4219,7 +4233,7 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_comment_num", 3);
         }
 
-        if (!GameMgr.contest_Disqualification)
+        if (!GameMgr.contest_Disqualification && !GameMgr.contest_Disqualification2)
         {
             //感想データベースから該当の感想を検索
             KansouSelect();
@@ -4326,7 +4340,7 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
-        if (GameMgr.contest_Disqualification) //課題のお菓子以外を提出し、コンテスト失格の場合
+        if (GameMgr.contest_Disqualification || GameMgr.contest_Disqualification2) //課題のお菓子以外を提出し、コンテスト失格の場合　または特殊点足りず不合格の場合
         {
             //なにもせず、宴のシナリオポーズ待ち
             //「宴」のシナリオポーズ待ち
@@ -4431,7 +4445,7 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
-        if (GameMgr.contest_Disqualification) //課題のお菓子以外を提出し、コンテスト失格の場合
+        if (GameMgr.contest_Disqualification || GameMgr.contest_Disqualification2) //課題のお菓子以外を提出し、コンテスト失格の場合　または特殊点が足りず不合格
         {
             //そこで終了し、会場外へ。
             GameMgr.contest_eventEnd_flag = true;
