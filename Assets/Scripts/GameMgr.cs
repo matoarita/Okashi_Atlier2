@@ -324,6 +324,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //白紙のメモ保存
     public static string[] System_WhiteMemo_text = new string[10];
 
+    //特別な思い出イベントリスト　回想シーンでONOFFを見る
+    public static Dictionary<string, bool> HikariOmoide_Eventlist = new Dictionary<string, bool>();
+    public static int HikariOmoide_Count; //集めた思い出の個数
+
     //お菓子イベントクリアのフラグ
     public static bool[] OkashiQuest_flag_stage1 = new bool[Event_num]; //各イベントのクリアしたかどうかのフラグ。
     public static bool[] OkashiQuest_flag_stage2 = new bool[Event_num];
@@ -624,6 +628,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //特別演出をするお菓子リスト
     public static Dictionary<string, string> SPEnshutu_itemlist = new Dictionary<string, string>();
 
+    //150点以上で発生するイベントリスト
+    public static Dictionary<string, int> Highscore_SPEventlist = new Dictionary<string, int>();
+
     //メインクエの指示メッセージリスト
     public static Dictionary<int, string> mainquest_message_list = new Dictionary<int, string>();
 
@@ -684,7 +691,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Degheart_on; //ハート下がっている途中は、時間で下がる機能を一時的にオフにするフラグ
     public static bool utage_charaHyouji_flag; //イベントで、宴キャラクタの表示をONにするかOFFにするか
     public static int RandomEatOkashi_counter; //食べたいお菓子が変わるまでのカウンタ
-    public static bool specialsubevent_flag1; //お菓子の採点が777のときに、サブイベントを呼び出すときのフラグ
+    public static bool SpecialSubevent_EatAfterflag; //お菓子の採点が777のときに、サブイベントを呼び出すときのフラグ
+    public static int SpecialSubevent_Num; //そのときのサブイベント番号
     public static string hikarimakeokashi_itemTypeSub_nameHyouji; //ヒカリのお菓子Expテーブルの各お菓子の名前表記。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_nowlv; //ヒカリのお菓子Expテーブルで、現在のお菓子レベル。スクリプト間の値受け渡し用で一時的。
     public static int hikarimakeokashi_finalgetexp; //ヒカリのお菓子経験値　最終獲得値。一時的。
@@ -844,6 +852,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Ending_counterenshutu_on; //エンディングイベント入る際、数字カウンタのフェード演出を入れる。
     public static bool Fullmoon_judge_on; //満月の夜かそうでないか
     public static bool Contest_pastVictory_on; //コンテスト過去に優勝したことがある場合　セリフが変わりスターもらえない
+    public static bool Contest_Cookie_VictoryHoleinOne; //くっきーコンテストに初出場して初優勝
 
 
     //セリフ関連の一時変数
@@ -1326,7 +1335,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SubEvAfterHeartGet_num = 0;
         utage_charaHyouji_flag = false;
         RandomEatOkashi_counter = 0;
-        specialsubevent_flag1 = false;
+        SpecialSubevent_EatAfterflag = false;
         hikariokashiExpTable_noTypeflag = false;
         Okashi_Extra_SpEvent_Start = false;
         ExtraClear_QuestName = "";        
@@ -1428,6 +1437,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_Fullmoon_month = 4;
         System_Fullmoon_day = 1;
         Contest_pastVictory_on = false;
+        Contest_Cookie_VictoryHoleinOne = false;
+        HikariOmoide_Count = 0;
+        Contest_Spscore_text = "";
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1746,6 +1758,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //特別演出するお菓子の設定
         Init_SpecialEnshutu_Library();
+
+        //150点以上で発生する特別イベント設定
+        Init_HighScoreSpecialSubEvent_Library();
+
+        //ヒカリの思い出イベントリスト　回想シーン
+        Init_HikariOmoideEvent_Library();
 
         //ヒカリのお菓子経験値テーブルをセット
         InitHikariOkashi_ExpTable();
@@ -2202,7 +2220,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mirabo_present_list_sub.Add("emerald_suger");
     }
 
-    //特別演出が入るおかしテーブル
+    //特別演出が入るおかしテーブル Compound_Checkに機能があり
     public static void Init_SpecialEnshutu_Library()
     {
         SPEnshutu_itemlist.Clear();
@@ -2224,6 +2242,25 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SPEnshutu_itemlist.Add("princess_tota", "panel01");
     }
 
+    //150点以上のとき、特別な思い出イベントが発生するおかしテーブル GirlEat_Judgeに機能があり
+    public static void Init_HighScoreSpecialSubEvent_Library()
+    {
+        Highscore_SPEventlist.Clear();
+
+        Highscore_SPEventlist.Add("huwakoro", 220); //右の番号は、GirlLoveSubEvent_numの番号
+        Highscore_SPEventlist.Add("maritozzo", 221);
+    }
+
+    //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない
+    public static void Init_HikariOmoideEvent_Library()
+    {
+        HikariOmoide_Eventlist.Clear();
+
+        HikariOmoide_Eventlist.Add("huwakoro", false); //右の番号は、GirlLoveSubEvent_numの番号
+        HikariOmoide_Eventlist.Add("maritozzo", false);
+    }
+
+    
     //ヒカリのお菓子経験値テーブル
     public static void InitHikariOkashi_ExpTable()
     {

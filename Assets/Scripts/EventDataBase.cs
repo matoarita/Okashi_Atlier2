@@ -1051,9 +1051,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 {
                     if (GameMgr.Story_Mode == 1)
                     {
-                        if (GameMgr.specialsubevent_flag1 == true && GameMgr.GirlLoveSubEvent_stage1[103] == false) //
+                        if (GameMgr.SpecialSubevent_EatAfterflag == true && GameMgr.GirlLoveSubEvent_stage1[103] == false) //
                         {
-                            GameMgr.specialsubevent_flag1 = false;
+                            GameMgr.SpecialSubevent_EatAfterflag = false;
 
                             GameMgr.GirlLoveSubEvent_num = 103;
                             GameMgr.GirlLoveSubEvent_stage1[103] = true;
@@ -1114,8 +1114,21 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //食べた後にチェック　１５０点以上で特別なイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.SpecialSubevent_EatAfterflag) //
+                    {
+                        GameMgr.SpecialSubevent_EatAfterflag = false;
 
-                
+                        Event_startcheck(GameMgr.SpecialSubevent_Num, 1, false, false);
+                    }
+                }
+
+
+
 
 
 
@@ -1314,13 +1327,23 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             if (!GameMgr.NPCMagic_eventList[0]) //コンテスト終了後、一回寝て起きる。露店通りへいく
                             {
                                 GameMgr.NPCMagic_eventList[0] = true;
-                                
-                                GameMgr.GirlLoveSubEvent_num = 2000;
-                                GameMgr.check_GirlLoveSubEvent_flag = false;
-                                GameMgr.Utage_MapMoveON = true;
 
+                                if (!GameMgr.Contest_Cookie_VictoryHoleinOne)
+                                {
+                                    GameMgr.GirlLoveSubEvent_num = 2000;
+                                    GameMgr.Utage_MapMoveON = true;
+                                }
+                                else
+                                {
+                                    GameMgr.GirlLoveSubEvent_num = 2001; //初回出場でいきなり優勝した
+                                    GameMgr.Utage_MapMoveON = false;
+                                }
+
+                                GameMgr.Contest_Cookie_VictoryHoleinOne = false;
+                                
                                 GameMgr.Mute_on = true;
 
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
                                 GameMgr.Contest_afterHomeHeartUpFlag = false; //大き目イベントが発生したときは、ハートアップイベントを中止。
                             }
                         }
@@ -1551,7 +1574,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 {
                                     GameMgr.ending_on = true;
 
-                                    //満月の夜にエデン食べたのでED
+                                    //満月の夜にエデン持っているのでED
                                     GameMgr.girlloveevent_bunki = 2;
                                     GameMgr.GirlLoveEvent_num = 100;
                                     GameMgr.girlEat_ON = false;

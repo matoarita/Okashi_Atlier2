@@ -347,6 +347,33 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                     break;
 
+                case "Or_Hiroba_Spring_RotenStreet": //春エリア　露店通り
+
+                    if (GameMgr.NPCMagic_eventList[0] && !GameMgr.NPCMagic_eventList[1]) //コンテスト後くやしいぜ～が発生してるが、まだミラボ先生には会ってない
+                    {
+                        GameMgr.NPCMagic_eventList[1] = true;
+
+                        GameMgr.hiroba_event_placeNum = 5000; //魔法先生のイベント　開始は広場から
+                        GameMgr.hiroba_event_ID = 1;
+
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.Utage_MapMoveON = true;
+                        map_move_num = 2000;
+                        GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
+
+                        //BGMかえる
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        sceneBGM.StopAmbient();
+                        bgm_change_flag = true;
+
+
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
+                    break;
+
                 case "Or_Hiroba_Summer_ThemePark_Map": //遊園地入口マップ
 
                     if (!GameMgr.NPCHiroba_HikarieventList[250]) //はじめて水族館へきた。
@@ -551,6 +578,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 StartCoroutine(WaitForGotoMap2(5));
                 break;
+
+            case 2000: //光先生にはじめてあい、魔法教えてもらう。
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM(1.0f);
+
+                StartCoroutine(WaitForGotoMap2(6));                
+                break;
         }
     }
 
@@ -591,6 +626,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case 5:
 
                 On_Active75();
+                break;
+
+            case 6:
+
+                GameMgr.SceneSelectNum = 30;
+                FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
                 break;
 
             default:

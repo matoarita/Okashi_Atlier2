@@ -98,30 +98,7 @@ public class ContestListSelectToggle : MonoBehaviour
         m_Toggle.onValueChanged.AddListener(delegate
         {
             ToggleValueChanged(m_Toggle);
-        });
-
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
-
-        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-        updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
-        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
-
-        contest_listController_obj = canvas.transform.Find("ContestListPanel/ContestList_ScrollView").gameObject;
-        contest_listController = contest_listController_obj.GetComponent<ContestListController>();
-        back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
-        back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
-
-        contest_detailedPanel = canvas.transform.Find("ContestListPanel/Contest_DetailedPanel").gameObject;
-        contestList_ScrollView_obj = canvas.transform.Find("ContestListPanel/ContestList_ScrollView").gameObject;
-
-        yes_no_panel = canvas.transform.Find("Yes_no_Panel_ContestSelect").gameObject;
-        yes_no_panel.SetActive(false);
-
-        yes = yes_no_panel.transform.Find("Yes_ContestKettei").gameObject;
-        no = yes_no_panel.transform.Find("No").gameObject;
+        });        
 
         selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
         yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
@@ -142,10 +119,7 @@ public class ContestListSelectToggle : MonoBehaviour
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
         //サウンドコントローラーの取得
-        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
-
-        //黒半透明パネルの取得
-        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();       
 
         text_area = GameObject.FindWithTag("Message_Window"); //調合シーン移動し、そのシーン内にあるCompundSelectというオブジェクトを検出
         _text = text_area.GetComponentInChildren<Text>();
@@ -165,9 +139,40 @@ public class ContestListSelectToggle : MonoBehaviour
 
     }
 
+    void InitSetting()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
+
+        //pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
+        //pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        updown_counter_obj = canvas.transform.Find("updown_counter(Clone)").gameObject;
+        updown_counter = updown_counter_obj.GetComponent<Updown_counter>();
+
+        contest_listController_obj = canvas.transform.Find("ContestListPanel/ContestList_ScrollView").gameObject;
+        contest_listController = contest_listController_obj.GetComponent<ContestListController>();
+        back_ShopFirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
+        back_ShopFirst_btn = back_ShopFirst_obj.GetComponent<Button>();
+
+        contest_detailedPanel = canvas.transform.Find("ContestListPanel/Contest_DetailedPanel").gameObject;
+        contestList_ScrollView_obj = canvas.transform.Find("ContestListPanel/ContestList_ScrollView").gameObject;
+
+        yes_no_panel = canvas.transform.Find("Yes_no_Panel_ContestSelect").gameObject;
+        yes_no_panel.SetActive(false);
+
+        yes = yes_no_panel.transform.Find("Yes_ContestKettei").gameObject;
+        no = yes_no_panel.transform.Find("No").gameObject;
+
+        //黒半透明パネルの取得
+        black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
+    }
+
     //Output the new state of the Toggle into Text
     void ToggleValueChanged(Toggle change)
     {
+        InitSetting();
+        
         //m_Text.text = "New Value : " + m_Toggle.isOn;
         if (m_Toggle.isOn == true)
         {
@@ -176,7 +181,7 @@ public class ContestListSelectToggle : MonoBehaviour
             back_ShopFirst_btn.interactable = false;
             contestSelect_active();
 
-        }
+        }        
     }
 
 

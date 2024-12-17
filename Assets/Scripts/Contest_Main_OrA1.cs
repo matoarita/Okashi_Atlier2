@@ -419,7 +419,14 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //家に帰って寝る
             time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
             GameMgr.Contest_afterHomeEventFlag = true;           
-            GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ            
+            GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ     
+            
+            //初回コンテストで、クッキー優勝した場合フラグがたつ
+            if(GameMgr.Contest_Name == "Or_Contest_010" &&
+                GameMgr.contest_Rank_Count == 1 && !GameMgr.NPCMagic_eventList[0])
+            {
+                GameMgr.Contest_Cookie_VictoryHoleinOne = true;
+            }
 
             FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
         }

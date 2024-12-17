@@ -1774,7 +1774,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     database.items[_baseID].last_beauty_score = _basebeauty;
 
                     //last_score_kousin = true;
-                   
+
                 }
 
                 //100点以上で、さらに高得点を一度もとったことがなければ、えめらるどんぐり一個もらえる
@@ -1802,21 +1802,43 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //食べたお菓子のスコアを保存する。
                 GameMgr.Okashi_last_totalscore = total_score;
 
-                //エクストラモード
-                if (GameMgr.Story_Mode == 1)
+                //食べた後、１５０点以上で特定のお菓子の場合、ヒカリとの特別イベントが発生
+                if (total_score >= GameMgr.high_score_2) //ゲーム中に150点以上でた
                 {
-                    if (total_score >= 777) //ゲーム中に777点以上をだすと、レコードがもらえる。未実装。
+                    foreach(string items in GameMgr.Highscore_SPEventlist.Keys)
                     {
-                        //GameMgr.specialsubevent_flag1 = true;
-                    }
+                        if (_basename == items)
+                        {
+                            //さらに思い出イベントリストをチェックし、一致するおかしの名前があれば、そのイベントは思い出イベントでもあるので、回想シーン用にフラグ解禁する
+                            foreach (string items2 in GameMgr.HikariOmoide_Eventlist.Keys)
+                            {
+                                if (items == items2)
+                                {
+                                    GameMgr.HikariOmoide_Eventlist[items2] = true;
+                                    break;
+                                }
+                            }
 
-                    //そのクエスト内で、最高得点を更新した場合。
-                    if (total_score > GameMgr.Okashi_spquest_MaxScore)
-                    {
-                        GameMgr.Okashi_spquest_MaxScore = total_score;
-                    }
+                            GameMgr.SpecialSubevent_EatAfterflag = true;
+                            GameMgr.SpecialSubevent_Num = GameMgr.Highscore_SPEventlist[items];
+                            break;
 
+                        }
+                    }                    
                 }
+
+                /*
+                if (total_score >= 777) //ゲーム中に777点以上をだすと、レコードがもらえる。未実装。
+                {
+                    //GameMgr.SpecialSubevent_EatAfterflag = true;
+                }
+
+                //そのクエスト内で、最高得点を更新した場合。
+                if (total_score > GameMgr.Okashi_spquest_MaxScore)
+                {
+                    GameMgr.Okashi_spquest_MaxScore = total_score;
+                }*/
+
 
                 break;
 
@@ -2129,26 +2151,26 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //Debug.Log("コンテスト　芸術性計算OFF");
         }
 
-        //光らしさ
+        //鉱石らしさ
         if (_girlsp_score9[countNum] > 0)
         {
-            GameMgr.Contest_Spscore_text = "光らしさ";
+            GameMgr.Contest_Spscore_text = "鉱石らしさ";
 
             spscore9_score = _base_sp_score9 - _girlsp_score9[countNum];
-            spscore9_score_debugtext = "コンテスト　光らしさ計算ON: " + spscore9_score + " お菓子の光らしさ: " + _base_sp_score9 + " 判定値: " + _girlsp_score9[countNum];
+            spscore9_score_debugtext = "コンテスト　鉱石らしさ計算ON: " + spscore9_score + " お菓子の鉱石らしさ: " + _base_sp_score9 + " 判定値: " + _girlsp_score9[countNum];
             Debug.Log(spscore9_score_debugtext);
 
             if (spscore9_score < 0) //合格点に達してない場合は、クリアできない
             {
                 GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("コンテスト　光らしさの点: " + spscore9_score + " 足りなかったので不合格");
+                Debug.Log("コンテスト　鉱石らしさの点: " + spscore9_score + " 足りなかったので不合格");
             }
         }
         else
         {
             spscore9_score = 0;
-            spscore9_score_debugtext = "コンテスト　光らしさ計算OFF";
-            //Debug.Log("コンテスト　光らしさ計算OFF");
+            spscore9_score_debugtext = "コンテスト　鉱石らしさ計算OFF";
+            //Debug.Log("コンテスト　鉱石らしさ計算OFF");
         }
     }
 
@@ -4037,12 +4059,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     void GirlHeartUpYorokobiFace()
     {
-
         girl1_status.face_girl_Yorokobi();
-
-        //yield return new WaitForSeconds(5.0f);
-
-        //girl1_status.DefFaceChange();
     }
 
     void NormalCommentEatBunki()

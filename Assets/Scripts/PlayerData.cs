@@ -281,6 +281,10 @@ public class PlayerData
     //白紙のメモ保存
     public string[] save_System_WhiteMemo_text = new string[GameMgr.System_WhiteMemo_text.Length];
 
+    //特別な思い出イベントリスト　回想シーンでONOFFを見る
+    public Dictionary<string, bool> save_HikariOmoide_Eventlist = new Dictionary<string, bool>();
+    public int save_HikariOmoide_Count; //集めた思い出の個数
+
     //コンテスト審査員の点数
     public int[] save_contest_Score = new int[GameMgr.contest_Score.Length];
     public int save_contest_TotalScore;

@@ -508,6 +508,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //白紙のメモ保存
             save_System_WhiteMemo_text = GameMgr.System_WhiteMemo_text,
 
+            //思い出リスト保存
+            save_HikariOmoide_Eventlist = new Dictionary<string, bool>(GameMgr.HikariOmoide_Eventlist),
+            save_HikariOmoide_Count = GameMgr.HikariOmoide_Count,
+
             //コンテスト審査員の点数
             save_contest_Score = GameMgr.contest_Score,
             save_contest_TotalScore = GameMgr.contest_TotalScore,
@@ -937,6 +941,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //白紙のメモ保存
         GameMgr.System_WhiteMemo_text = playerData.save_System_WhiteMemo_text;
+
+        //思い出リスト保存
+        GameMgr.HikariOmoide_Eventlist = new Dictionary<string, bool>(playerData.save_HikariOmoide_Eventlist);
+        GameMgr.HikariOmoide_Count = playerData.save_HikariOmoide_Count;
 
         //コンテスト審査員の点数
         GameMgr.contest_Score = playerData.save_contest_Score;

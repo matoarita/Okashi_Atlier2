@@ -1776,6 +1776,7 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
         engine.Param.TrySetParameter("Talk_num", GameMgr.GirlTalk_num);
+        engine.Param.TrySetParameter("StationEvent_num", 0);
 
         //今食べたいお菓子を設定
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
@@ -1835,7 +1836,17 @@ public class Utage_scenario : MonoBehaviour
                     yield return null;
                 }
 
-                GameMgr.Utage_SceneEnd_BlackON = true;
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                if (stationevent_num == 0)
+                {
+                    GameMgr.NPCMagic_eventList[1] = true; //ミラボ先生に会うまでのイベントフラグがtrueになる。
+                    GameMgr.Utage_SceneEnd_BlackON = true;
+                }
+                else
+                {
+                    //マップ移動はしない　露店通りへいったときにイベントが自動で発生するようになる
+                    GameMgr.Utage_MapMoveON = false;
+                }
 
                 //続きから再度読み込み
                 engine.ResumeScenario();
