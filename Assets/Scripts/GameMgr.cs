@@ -2249,6 +2249,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Highscore_SPEventlist.Add("huwakoro", 220); //右の番号は、GirlLoveSubEvent_numの番号
         Highscore_SPEventlist.Add("maritozzo", 221);
+        Highscore_SPEventlist.Add("strawberry_sponge_cake", 222);
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない
@@ -2258,6 +2259,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         HikariOmoide_Eventlist.Add("huwakoro", false); //右の番号は、GirlLoveSubEvent_numの番号
         HikariOmoide_Eventlist.Add("maritozzo", false);
+        HikariOmoide_Eventlist.Add("strawberry_sponge_cake", false);
     }
 
     

@@ -3211,13 +3211,13 @@ public class GetMaterial : MonoBehaviour
                 treasureInfo.Add(1, "strawberry_satinoka");
                 treasureInfo.Add(2, "cherry");
                 treasureInfo.Add(3, "strawberry");
-                treasureInfo.Add(3, "raspberry");
+                treasureInfo.Add(4, "raspberry");
 
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
                 treasureDropDict.Add(2, 20.0f);
                 treasureDropDict.Add(3, 30.0f);
-                treasureDropDict.Add(3, 25.0f);
+                treasureDropDict.Add(4, 25.0f);
 
                 break;
 
