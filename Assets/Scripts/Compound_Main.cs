@@ -2674,7 +2674,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.matbgm_change_flag = true;
 
         //音ならす
-        sc.PlaySe(36);
+        //sc.PlaySe(36);
 
         getmatplace.SetInit();
         getmatplace_panel.SetActive(true);

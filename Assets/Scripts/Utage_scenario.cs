@@ -518,7 +518,10 @@ public class Utage_scenario : MonoBehaviour
                     case 40:
                         StartCoroutine(Farm_Talk());
                         break;
-                   
+                    case 170: //広場NPC
+                        StartCoroutine(NPC_Hiroba_Talk());
+                        break;
+
                 }
             }
 
@@ -2443,7 +2446,8 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
-        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number); 
+        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
+        engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
         engine.Param.TrySetParameter("Story_progress_Num", GameMgr.GirlLoveEvent_num); //ゲームメインストーリーの進行フラグナンバー
         engine.Param.TrySetParameter("StationEvent_num", 0);
 
@@ -2526,6 +2530,21 @@ public class Utage_scenario : MonoBehaviour
 
             case "Or_Shop_D1": //ピティヴィエさん
 
+                break;
+
+            case "Or_Bar_A1": //ルーティさん
+
+                switch(GameMgr.sp_talk_number)
+                {
+                    case 100:
+
+                        if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
+                        {
+                            GameMgr.NPC_pahupahu_point = 0;
+                            GameMgr.NPC_FriendPoint[40] += 2;
+                        }
+                        break;
+                }
                 break;
         }
         
@@ -2789,6 +2808,7 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
         engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
+        engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
         engine.Param.TrySetParameter("StationEvent_num", 0);
 
         if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
@@ -2824,6 +2844,55 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
+    // NPC広場の「話す」コマンド
+    //
+    IEnumerator NPC_Hiroba_Talk()
+    {
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
+
+        scenarioLabel = "Hiroba_Or_NPC_Talk"; //ショップ話すタグのシナリオを再生。
+
+        scenario_loading = true;
+
+        //ここで、宴で呼び出したいイベント番号を設定する。
+        engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
+        engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
+        engine.Param.TrySetParameter("StationEvent_num", 0);
+
+        if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
+        {
+            CharacterSpriteSetOFF();
+        }
+
+        //「宴」のシナリオを呼び出す
+        Engine.JumpScenario(scenarioLabel);
+
+        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
+        {
+            StartCoroutine("PitemPresent");
+        }
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndScenario)
+        {
+            yield return null;
+        }
+
+        if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
+        {
+            GameMgr.utage_charaHyouji_flag = false;
+            CharacterSpriteFadeON();
+        }
+
+        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
+
+
+        GameMgr.scenario_ON = false;
+
+    }
+
+    //
     // 酒場の「話す」コマンド
     //
     IEnumerator Bar_Talk()
@@ -2837,6 +2906,7 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
         engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
+        engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
         engine.Param.TrySetParameter("StationEvent_num", 0);
 
         if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
@@ -3309,10 +3379,15 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC121_summer_ariachan";
                 break;
 
+            case 1622: //Or夏エリア イケメンパティシエ
+
+                scenarioLabel = "Or_NPC122_summer_ikemen";
+                break;
+
             case 1700: //Or広場エリア入口
 
                 scenarioLabel = "Hiroba_Or_AreaEnter";
-                break;
+                break;            
 
             case 2000: //Orヒカリ広場イベント　通れないとかも含む
 

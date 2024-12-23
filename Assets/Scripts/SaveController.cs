@@ -347,6 +347,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //飾っているアイテムのリスト
             save_BGAcceItemsName = _temp_bgacce_flaglist,
 
+            //食器セットの番号
+            save_PlateSetNum = GameMgr.PlateSetNum,
+
             //コレクションに登録したアイテムのリスト
             save_CollectionItems = GameMgr.CollectionItems,
 
@@ -476,6 +479,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_NPCMagic_eventList = GameMgr.NPCMagic_eventList,
             save_NPCHiroba_blockReleaseList = GameMgr.NPCHiroba_blockReleaseList,
             save_NPC_FriendPoint = GameMgr.NPC_FriendPoint,
+            save_NPC_pahupahu_point = GameMgr.NPC_pahupahu_point,
 
             //宝箱イベント
             save_Treature_getList = GameMgr.Treature_getList,
@@ -915,6 +919,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.NPCMagic_eventList = playerData.save_NPCMagic_eventList;
         GameMgr.NPCHiroba_blockReleaseList = playerData.save_NPCHiroba_blockReleaseList;
         GameMgr.NPC_FriendPoint = playerData.save_NPC_FriendPoint;
+        GameMgr.NPC_pahupahu_point = playerData.save_NPC_pahupahu_point;
 
         //宝箱イベント
         GameMgr.Treature_getList = playerData.save_Treature_getList;
@@ -962,6 +967,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             GameMgr.SetBGAcceFlag(playerData.save_BGAcceItemsName[i].itemName, playerData.save_BGAcceItemsName[i].Flag);
         }
+
+        //食器セットの番号
+        GameMgr.PlateSetNum = playerData.save_PlateSetNum;
 
         //アイテムリスト＜デフォルト＞
         for (i = 0; i < playerData.save_playeritemlist.Count; i++)

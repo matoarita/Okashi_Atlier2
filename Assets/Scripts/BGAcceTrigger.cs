@@ -578,7 +578,7 @@ public class BGAcceTrigger : MonoBehaviour {
         if (GameMgr.BGAcceItemsName[_accenum])
         {
             //飾りONのときの音
-            sc.PlaySe(33); //ポニョ音
+            sc.PlaySe(187); //装着音
 
         }
         else

@@ -117,6 +117,8 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
             pitemlist.addPlayerItemString("butter", 5);
             pitemlist.addPlayerItemString("suger", 5);
             pitemlist.addPlayerItemString("orange", 3);
+
+            pitemlist.addPlayerItemString("teaset_normal", 1);
             //pitemlist.addPlayerItemString("grape", 2);
             //pitemlist.addPlayerItemString("stone_oven", 1);
 

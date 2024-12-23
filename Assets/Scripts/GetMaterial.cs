@@ -3238,7 +3238,7 @@ public class GetMaterial : MonoBehaviour
             case 16: //お宝セットテーブル　ダイアモンド山
 
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureInfo.Add(1, "blacklotus");
+                treasureInfo.Add(1, "star_powder");
                 treasureInfo.Add(2, "diamond_1");
                 treasureInfo.Add(3, "diamond_2");
                 treasureInfo.Add(4, "diamond_3");

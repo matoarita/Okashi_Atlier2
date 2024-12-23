@@ -2032,6 +2032,48 @@ public class SetImage : MonoBehaviour
 
     }
 
+    public void UseToggleSetInit(int _toggletype, int _kettei_item1)
+    {
+        this.transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
+        foreach (Transform child in this.transform.Find("CardUseSelect_ScrollView/Viewport/Content/").transform) //
+        {
+            child.gameObject.SetActive(false);
+        }
+        this.transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardCancel_Toggle").gameObject.SetActive(true);
+
+        //飾るアイテム表示
+        foreach (string key in GameMgr.BGAcceItemsName.Keys)
+        {
+            if (key == database.items[_kettei_item1].itemName)
+            {
+                //this.transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
+                this.transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardDeco_Toggle").gameObject.SetActive(true);
+            }
+        }
+
+        //食器アイテム表示
+        foreach (string key2 in GameMgr.PlateSetItemsName.Keys)
+        {
+            if (key2 == database.items[_kettei_item1].itemName)
+            {
+                //this.transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
+                this.transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardPlate_Toggle").gameObject.SetActive(true);
+            }
+        }
+
+        //コレクションアイテムは、「コレクション」ボタンを表示する。
+        /*
+        for( i=0; i< GameMgr.CollectionItemsName.Count; i++)
+        {
+            if(database.items[_kettei_item1].itemName == GameMgr.CollectionItemsName[i])
+            {
+                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
+                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardCollect_Toggle").gameObject.SetActive(true);
+            }
+        }
+        */
+    }
+
     //主に、デバッグの見た目のパラメータ計算用　実際の_basebeautyの値は、スロットの値は含まないが、結局GirlEatJudgeでスロットの見た目の値も加算して計算するので、
     //ここで表示をして分かりやすく確認
     void SlotScoreKeisan()

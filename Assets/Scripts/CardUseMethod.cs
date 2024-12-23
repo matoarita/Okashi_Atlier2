@@ -57,6 +57,27 @@ public class CardUseMethod : MonoBehaviour
 
     }
 
+    public void OnPlateSetAction()
+    {
+        itemID = this.GetComponent<SetImage>().itemID;
+
+        foreach (string key in GameMgr.PlateSetItemsName.Keys)
+        {
+            if (key == database.items[database.SearchItemID(itemID)].itemName)
+            {
+                //this.transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
+                this.transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardPlate_Toggle").gameObject.SetActive(true);
+                GameMgr.PlateSetNum = GameMgr.PlateSetItemsName[key];
+                break;
+            }           
+        }
+        
+        //bgpanelmatome = GameObject.FindWithTag("BG");
+        //BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
+
+        //BGAccetrigger.BGAcceOn(database.items[database.SearchItemID(itemID)].itemName); //ヒンメリだったら、himmeliを入力している。
+    }
+
     public void OnCollectAction() //コレクションに登録する
     {
         //キャンバスの読み込み

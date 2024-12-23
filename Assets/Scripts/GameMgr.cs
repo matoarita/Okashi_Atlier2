@@ -220,7 +220,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //コレクションに登録したアイテムのリスト
     public static List<bool> CollectionItems = new List<bool>(); //登録済みか否か。こっちはセーブ必要。
-    public static List<string> CollectionItemsName = new List<string>(); //登録済みか否か。こっちはセーブ不要。    
+    public static List<string> CollectionItemsName = new List<string>(); //登録済みか否か。こっちはセーブ不要。   
+
+    //食器セットのリスト
+    public static Dictionary<string, int> PlateSetItemsName = new Dictionary<string, int>(); //こっちはセーブ不要。
+    public static int PlateSetNum;
 
     //現在覚えているレシピの数と達成率。調合成功率アップのパーセント
     public static int game_Cullent_recipi_count;
@@ -294,6 +298,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int[] Treature_getList = new int[OrEvent_num]; //道端に落ちてるアイテムなどの宝箱リスト
     public static bool[] NPCHiroba_blockReleaseList = new bool[OrEvent_num]; //主に2での広場ブロックを解除するイベントリスト
+    public static int NPC_pahupahu_point; //ルーティのマッサージポイント　これがたまらないとマッサージしてくれない
 
     //別シーンから、家に帰ってきたときに発生するイベントリスト
     public static bool[] CompoundEvent_num = new bool[GirlLoveSubEvent_stage_num]; //まだセーブしてない
@@ -549,6 +554,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int low_score;
     public static int high_score;
     public static int high_score_2;
+    public static int high_score_3;
 
     //水っぽさなどの基準値
     public static int Watery_Line;
@@ -565,6 +571,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
     public static int chara_talk_number; //キャラ会話での番号　日によって変わる
+    public static int sp_talk_number; //キャラ会話　特定の行動に対しての会話の中身が変わる　ルーティのマッサージなど
     public static bool uwasa_flag;       //ショップの「うわさ話」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int uwasa_number;      //その時のうわさ話番号。
     public static bool shop_hint;
@@ -655,7 +662,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
     public static int Scene_Category_Num;           //Compound=10, Compound_Entrance=11, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, 
                                                     //Contest=100, Contest_Outside=110, Contest_Recption=120, GetMaterial_Scene=130, Station=140, NPCMagicHouse=150
-                                                    //NPC_Catsle=160, 200_omake=200, 999_Gameover=999, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
+                                                    //NPC_Catsle=160, NPC_Hiroba=170, 200_omake=200, 999_Gameover=999, 001_Title=1000, 読み専用シーン=5000, 回避用=9999
 
 
     //その他、一時的なフラグ
@@ -1216,6 +1223,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         shop_event_num = 0;
         talk_flag = false;
         talk_number = 0;
+        sp_talk_number = 0;
         uwasa_flag = false;
         uwasa_number = 0;
         shop_hint = false;
@@ -1440,6 +1448,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_Cookie_VictoryHoleinOne = false;
         HikariOmoide_Count = 0;
         Contest_Spscore_text = "";
+        PlateSetNum = 0;
+        NPC_pahupahu_point = 0;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1705,6 +1715,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         low_score = 60;
         high_score = 100;
         high_score_2 = 150;
+        high_score_3 = 250; //お菓子の高得点で思い出イベントが発生する点数
 
         //水っぽさなどのマイナス効果の基準
         Watery_Line = 50;
@@ -1730,6 +1741,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //コレクションアイテムリストDBと、登録リスト初期化
         InitCollectionItemsLibrary();
         InitBGAcceItemsLibrary();
+        InitPlateSetItemsLibrary();
 
         //いちご少女の殿堂入りリスト初期化
         InitIchigoOkashiLibrary();
@@ -1845,6 +1857,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             BGAcceItemsName.Add("Non");
         }*/
+    }
+
+    //食器セット
+    public static void InitPlateSetItemsLibrary()
+    {
+        //DecoItemsの配列数分まで用意
+        PlateSetItemsName.Clear();
+        PlateSetItemsName.Add("teaset_normal", 0); //デフォルト
+        PlateSetItemsName.Add("teaset_wizard", 1);
+        PlateSetItemsName.Add("teaset_flower", 2);
     }
 
     //いちごお菓子コレクションのリスト　ItemNameとそろえる。

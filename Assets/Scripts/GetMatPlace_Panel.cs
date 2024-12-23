@@ -750,12 +750,18 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                     GameMgr.SceneSelectNum = 0;
                     FadeManager.Instance.LoadScene("Or_Emerald_Shop", GameMgr.SceneFadeTime);
-                    break;
+                    break;                
 
                 case "Or_MagicHouseA1":
 
                     GameMgr.SceneSelectNum = 30;
                     FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+                    break;
+
+                case "Or_Hiroba_Summer_SweetsHouse":
+
+                    GameMgr.SceneSelectNum = 0;
+                    FadeManager.Instance.LoadScene("Or_NPC_Hiroba", GameMgr.SceneFadeTime);
                     break;
 
                 case "Or_Hiroba1":

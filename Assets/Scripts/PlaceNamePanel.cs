@@ -98,6 +98,12 @@ public class PlaceNamePanel : MonoBehaviour {
 
                         break;
 
+                    case 170: //NPC広場系
+
+                        SetSceneName(GameMgr.Scene_Name);
+
+                        break;
+
                     default:
 
                         break;

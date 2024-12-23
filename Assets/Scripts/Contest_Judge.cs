@@ -379,7 +379,8 @@ public class Contest_Judge : MonoBehaviour {
             sum = 0;
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                GameMgr.contest_Score[i] = Random.Range(3, 20);
+                total_score[i] = Random.Range(3, 20);
+                GameMgr.contest_Score[i] = total_score[i];
                 sum += total_score[i];
             }
 

@@ -135,6 +135,9 @@ public class PlayerData
     //飾っているアイテムのリスト
     public List<ItemSaveFlag> save_BGAcceItemsName = new List<ItemSaveFlag>();
 
+    //食器セットの番号
+    public int save_PlateSetNum;
+
     //コレクションに登録したアイテムのリスト
     public List<bool> save_CollectionItems = new List<bool>();
 
@@ -178,6 +181,7 @@ public class PlayerData
     public bool[] save_NPCMagic_eventList = new bool[GameMgr.NPCMagic_eventList.Length]; //オランジーナ関連広場イベント
     public int[] save_NPC_FriendPoint = new int[GameMgr.NpcEvent_people_num]; //各NPCの友好度
     public bool[] save_NPCHiroba_blockReleaseList = new bool[GameMgr.NPCHiroba_blockReleaseList.Length]; //広場のブロックリストフラグイベント
+    public int save_NPC_pahupahu_point; //ルーティのマッサージポイント　これがたまらないとマッサージしてくれない
 
     //宝箱イベント
     public int[] save_Treature_getList = new int[GameMgr.Treature_getList.Length];

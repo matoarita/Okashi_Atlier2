@@ -12,20 +12,49 @@ public class EatAnimPanel : MonoBehaviour {
 
     private Sprite _plate_sprite1;
     private Sprite _plate_sprite2;
+    private Sprite _plate_sprite3;
+    private Sprite _plate_sprite4;
+    private Sprite _plate_sprite5;
 
     // Use this for initialization
     void Start () {
 
+        InitSetting();
+    }
+	
+    void InitSetting()
+    {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        PlateImg = this.transform.Find("Plate").GetComponent<Image>();
+        PlateImg = this.transform.Find("Plate/plate_img1").GetComponent<Image>();
 
         EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
         EatStartEffect.SetActive(false);
 
+        _plate_sprite1 = Resources.Load<Sprite>("Sprites/Icon/PlateImg_01");
+        _plate_sprite2 = Resources.Load<Sprite>("Sprites/Icon/PlateImg_02");
+        _plate_sprite3 = Resources.Load<Sprite>("Sprites/Icon/PlateImg_03");
+
+        switch (GameMgr.PlateSetNum)
+        {
+            case 0:
+
+                PlateImg.sprite = _plate_sprite1;
+                break;
+
+            case 1:
+
+                PlateImg.sprite = _plate_sprite2;
+                break;
+
+            case 2:
+
+                PlateImg.sprite = _plate_sprite3;
+                break;
+        }
     }
-	
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -39,9 +68,10 @@ public class EatAnimPanel : MonoBehaviour {
 
     public void Effect_Start()
     {
+        InitSetting();
+
         //食べ始めアニメエフェクト
-        EatStartEffect.SetActive(true);
-        
+        EatStartEffect.SetActive(true);       
     }
 
 

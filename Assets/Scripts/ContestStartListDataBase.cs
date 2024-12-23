@@ -929,7 +929,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 273; //
-        GameMgr.contest_boss_name = "イケメンパティシエ";
+        GameMgr.contest_boss_name = "ノア";
     }
 
     void ContestData_040()
@@ -978,7 +978,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 300; //
-        GameMgr.contest_boss_name = "盲目の少女プリエラ";
+        GameMgr.contest_boss_name = "盲目の少女ベル";
     }
 
     void ContestData_060()
@@ -1030,7 +1030,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 590; //
-        GameMgr.contest_boss_name = "アキラの兄ちゃん？";
+        GameMgr.contest_boss_name = "シュバルツヴェルダー";
     }
 
     //

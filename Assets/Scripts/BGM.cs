@@ -666,6 +666,18 @@ public class BGM : MonoBehaviour {
                         _send_clip = sound62;
                         break;
 
+                    case 170: //NPC広場系
+
+                        switch (GameMgr.Scene_Name)
+                        {
+                            case "Or_Hiroba_Summer_SweetsHouse":
+
+                                _send_clip = sound63;
+                                break;
+                        }
+
+                        break;
+
                     default:
 
                         _send_clip = sound1;

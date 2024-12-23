@@ -244,6 +244,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(34);
                 break;
 
+            case "GetMaterial_Toggle": //レシピ開くときの音
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(36);
+                break;
+
             case "Recipi_Toggle": //レシピ開くときの音
 
                 //ポインタが入ったときに鳴る音
@@ -717,10 +727,29 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_enter(2);
 
 
-                //クリックしたときに鳴る音。
+                //クリックしたときに鳴る音。ONとOFFで音変えるので、ここでは何もしない
                 //SE_point_click(36);
                 break;
-          
+
+            case "CardPlate_Toggle":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(187);
+                break;
+
+            case "CardCancel_Toggle": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(18);
+                break;
 
             case "Speed1": //ゲーム中の時間速度変更のボタン音
 

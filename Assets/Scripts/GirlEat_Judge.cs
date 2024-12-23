@@ -1802,8 +1802,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //食べたお菓子のスコアを保存する。
                 GameMgr.Okashi_last_totalscore = total_score;
 
-                //食べた後、１５０点以上で特定のお菓子の場合、ヒカリとの特別イベントが発生
-                if (total_score >= GameMgr.high_score_2) //ゲーム中に150点以上でた
+                //食べた後、２５０点以上で特定のお菓子の場合、ヒカリとの特別イベントが発生
+                if (total_score >= GameMgr.high_score_3) //ゲーム中に250点以上でた
                 {
                     foreach(string items in GameMgr.Highscore_SPEventlist.Keys)
                     {
@@ -1843,6 +1843,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
 
             case 1:
+
+                break;
+
+            default: //NPCの採点などに流用した場合など　こっち
 
                 break;
         }
@@ -6043,7 +6047,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
       
 
         //判定
-        judge_score(SetType, 0); //SetTypeは、0=女の子か1=コンテスト用かの判定。
+        judge_score(2, 0); //SetTypeは、0=女の子か1=コンテスト用 2=その他かの判定。
 
         //他に、食感スコアと見た目スコアも、反映させている。 returnは使ってないけど。
         return total_score;

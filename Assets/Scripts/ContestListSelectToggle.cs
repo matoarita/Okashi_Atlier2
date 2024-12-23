@@ -187,7 +187,7 @@ public class ContestListSelectToggle : MonoBehaviour
 
     /* ### コンテストリスト表示中のシーン ### */
 
-    public void contestSelect_active()
+    void contestSelect_active()
     {
 
         //アイテムを選択したときの処理（トグルの処理）
@@ -446,6 +446,8 @@ public class ContestListSelectToggle : MonoBehaviour
     //すでに受けてるコンテストをキャンセルする
     public void OnCancel_Contest()
     {
+        InitSetting();
+
         //Debug.Log("コンテストキャンセル　おした　ContestID: " + toggle_ID);
 
         //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。

@@ -128,7 +128,7 @@ SE表
 ・SE_126	間抜け3_sukosi_hayai				時間スピード変更音　少し早い
 ・SE_127	間抜け3_hayai					時間スピード変更音　早い
 ・SE_128	audiostock_1411013				スキル習得時の音
-・SE_129	audiostock_104039				衣装装備時　キラリ音
+・SE_129	audiostock_1513268				衣装装備時　布音 旧:audiostock_104039 キラリ音
 ・SE_130	audiostock_1411314				魔法発動音１
 ・SE_131	audiostock_1285222				魔法調合の完成音
 ・SE_132	audiostock_825112				魔法発動音２
@@ -158,18 +158,18 @@ SE表
 ・SE_156	sei_ge_doa_nokku_dondon01			ドアを激しくノックする音
 ・SE_157	audiostock_52742				蒸気機関車のブレーキ音
 ・SE_158	ポカンとげんこつ				ポコっと軽くこずく音
-・SE_159	audiostock_972326_sample			回復する音
+・SE_159	audiostock_972326				回復する音
 ・SE_160	Explosion02-1(Long)				爆発音
-・SE_161	audiostock_1314889_sample			だいじなアイテムとったときの音
+・SE_161	audiostock_1314889				だいじなアイテムとったときの音
 ・SE_162	PerituneMaterial_J_Heartwarming2		エデンレシピとったときの重要音
 ・SE_163	page09.mp3					【宴で使用】レシピメモ開くときの軽い紙の音 SE_35と同じ
-・SE_164	audiostock_1123553_sample			だいじなアイテムとったときの音2
-・SE_165	audiostock_1586892_sample			噴水勢いよく噴射！
-・SE_166	audiostock_481446_sample			噴水噴射後の降り注ぐ音
-・SE_167	audiostock_1466827_sample			噴水がぶっかかる音
-・SE_168	audiostock_387727_sample			噴水の出始めの音
+・SE_164	audiostock_1123553_sample			だいじなアイテムとったときの音2　※使わないかも？
+・SE_165	audiostock_1586892				噴水勢いよく噴射！
+・SE_166	audiostock_481446				噴水噴射後の降り注ぐ音
+・SE_167	水をバシャッとかける1				水がぶっかかる音
+・SE_168	水・水道01					噴水の出始めの音　旧:audiostock_387727
 ・SE_169	きらきら輝く1					スター獲得のキラキラ音
-・SE_170	audiostock_383264_sample			そしゃく音　猫っぽい
+・SE_170	audiostock_383264				そしゃく音　猫っぽい
 ・SE_171	飲み込む音　ゴクリ(DOVA)			飲み込む音
 ・SE_172	Quiz-Question03-1				ジャン！　クイズの出題音
 ・SE_173	audiostock_116289_sample			【魔法の音】キーン　光が細く飛んでいく音
@@ -187,3 +187,5 @@ SE表
 ・SE_185	audiostock_857161_sample			【魔法の音】発射音２　※未使用　いい音なので保存　★あたりに使えるかも
 ・SE_186	audiostock_798940_sample			【魔法の音】魔法凍っていく途中の音２
 ・SE_187	audiostock_869671_sample			【魔法の音】魔法凍っていく途中の音３
+・SE_188	audiostock_1550440				アイテムの装着音
+・SE_189	audiostock_852771				ヒカリから受け取ったおかしをパネルにセットする音

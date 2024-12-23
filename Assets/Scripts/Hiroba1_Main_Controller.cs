@@ -1444,6 +1444,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active1009_WhiteWhale();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_beachMae":
+
+                On_NPC_HirobaActive01();
+                break;
+
             case "Or_Hiroba_Autumn_MainStreet":
 
                 On_ShopActive03();
@@ -2765,6 +2770,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //シーン読み込み
         GameMgr.SceneSelectNum = 40;
         GoAreaMove("Or_NPC_MagicHouse");
+    }
+
+    void On_NPC_HirobaActive01()
+    {
+        //_text.text = "夏エリアのケーキショップへ入る";
+
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 0;
+        GoAreaMove("Or_NPC_Hiroba");
     }
 
     void On_NPC_CatsleActive01()
@@ -4163,6 +4177,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、サマー・ドリームス遊園地　13番街　浜辺だ。";
+
+                break;
+
+            case "Or_Hiroba_Summer_CakeShop_Mae": //夏エリア　遊園地　13番街　奥
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_177").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、サマー・ドリームス　ケーキショップ前だ。";
 
                 break;
 

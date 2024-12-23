@@ -711,42 +711,9 @@ public class CardView : SingletonMonoBehaviour<CardView>
         //位置とスケール
         Draw1();
 
-        //アイテムによっては、使用するかどうかのビューも表示する。
-        UseToggleSetInit(); //まず初期化
+        //アイテムによって、使用するかどうかのビューも表示する。
+        _cardImage.UseToggleSetInit(_toggleType, _kettei_item1); //まず初期化
 
-        //飾れるアイテムは、「飾る」を表示 共通でキャンセルは表示
-        _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
-
-        foreach (string key in GameMgr.BGAcceItemsName.Keys)
-        {
-            if (key == database.items[_kettei_item1].itemName)
-            {
-                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
-                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardDeco_Toggle").gameObject.SetActive(true);
-            }
-        }
-
-        //コレクションアイテムは、「コレクション」ボタンを表示する。
-        /*
-        for( i=0; i< GameMgr.CollectionItemsName.Count; i++)
-        {
-            if(database.items[_kettei_item1].itemName == GameMgr.CollectionItemsName[i])
-            {
-                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
-                _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardCollect_Toggle").gameObject.SetActive(true);
-            }
-        }
-        */
-    }
-
-    void UseToggleSetInit()
-    {
-        _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView").gameObject.SetActive(true);
-        foreach (Transform child in _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/").transform) //
-        {
-            child.gameObject.SetActive(false);
-        }
-        _cardImage_obj[0].transform.Find("CardUseSelect_ScrollView/Viewport/Content/CardCancel_Toggle").gameObject.SetActive(true);
     }
 
     //
