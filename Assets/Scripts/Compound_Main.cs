@@ -244,6 +244,7 @@ public class Compound_Main : MonoBehaviour
 
     private int i, j, _id, ev_id;
     private int random;
+    private int lot_count;
     private int nokori_kaisu;
     private int event_num;
     private int recipi_num;
@@ -3072,7 +3073,7 @@ public class Compound_Main : MonoBehaviour
 
                 //magicskill_database.skillHyoujiKaikin("Nappe");
                 magicskill_database.skillHyoujiKaikin("Appaleil_Study");
-                //magicskill_database.skillHyoujiKaikin("Wind_Ark");                
+                magicskill_database.skillHyoujiKaikin("Wind_Ark");
 
                 break;
 
@@ -3132,6 +3133,10 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_freezing_overrun_book":
                 magicskill_database.skillHyoujiKaikin("Freezing_OverRun");
+                break;
+
+            case "mg_sugerpot_book":
+                magicskill_database.skillHyoujiKaikin("SugerPot");
                 break;
 
             case "mg_nappe_book":
@@ -4188,22 +4193,40 @@ public class Compound_Main : MonoBehaviour
 
     IEnumerator SleepDayEnd()
     {
+        
         //今日の食事がランダムで決まる
         InitTodayFoodLibrary();
         if(_todayfood_lib.Count <= 0)
         {
             _todayfood = "じゃがバター";
             _todayfoodexpence = 30;
+
+            _todayfoodexpence += (Random.Range(0, 10) - 5);
         } else
         {
-            random = Random.Range(0, _todayfood_lib.Count);
-            _todayfood = _todayfood_lib[random];
-            _todayfoodexpence = _todayfoodexpence_lib[random];
+            RandomFoodLottery();
+
+            lot_count = 0;
+            while (lot_count < 5)
+            {
+                if (_todayfoodexpence > PlayerStatus.player_money) //所持金が足りないときは、もう一度抽選
+                {
+                    RandomFoodLottery();
+                }else
+                {
+                    break;
+                }
+                lot_count++;
+            }
+
+            if(lot_count >= 5) //全部抽選して、全て所持金が足りなかった場合　０ルピアのパンを食べる。
+            {
+                _todayfood = "パンのきれはじ";
+                _todayfoodexpence = 0;
+            }
         }
         
-
-        random = Random.Range(0, 10);
-        _todayfoodexpence += (random-5);
+        
         GameMgr.MgrTodayFood = _todayfood;
         GameMgr.Foodexpenses = _todayfoodexpence;
 
@@ -4265,6 +4288,15 @@ public class Compound_Main : MonoBehaviour
             GameMgr.check_SleepEnd_Eventflag[i] = true;
         }
 
+    }
+
+    void RandomFoodLottery()
+    {
+        random = Random.Range(0, _todayfood_lib.Count);
+        _todayfood = _todayfood_lib[random];
+        _todayfoodexpence = _todayfoodexpence_lib[random];
+
+        _todayfoodexpence += (Random.Range(0, 10) - 5);
     }
 
     void OnSleep_HikariReturnBack()
@@ -4803,7 +4835,15 @@ public class Compound_Main : MonoBehaviour
         }
         else if (PlayerStatus.girl1_Love_lv >= 35)
         {
+            _todayfood_buf = 2.2f;
+        }
+        else if (PlayerStatus.girl1_Love_lv >= 50)
+        {
             _todayfood_buf = 2.5f;
+        }
+        else if (PlayerStatus.girl1_Love_lv >= 75)
+        {
+            _todayfood_buf = 3.0f;
         }
 
         for (i = 1; i <= PlayerStatus.girl1_Love_lv; i++)

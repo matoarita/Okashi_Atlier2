@@ -2531,21 +2531,7 @@ public class Utage_scenario : MonoBehaviour
             case "Or_Shop_D1": //ピティヴィエさん
 
                 break;
-
-            case "Or_Bar_A1": //ルーティさん
-
-                switch(GameMgr.sp_talk_number)
-                {
-                    case 100:
-
-                        if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
-                        {
-                            GameMgr.NPC_pahupahu_point = 0;
-                            GameMgr.NPC_FriendPoint[40] += 2;
-                        }
-                        break;
-                }
-                break;
+           
         }
         
 
@@ -2936,8 +2922,19 @@ public class Utage_scenario : MonoBehaviour
 
                 break;
 
-            case "Or_Bar_A1":
+            case "Or_Bar_A1": //ルーティさん
 
+                switch (GameMgr.sp_talk_number)
+                {
+                    case 100:
+
+                        if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
+                        {
+                            GameMgr.NPC_pahupahu_point = 0;
+                            GameMgr.NPC_FriendPoint[40] += 2;
+                        }
+                        break;
+                }
                 break;
 
             case "Or_Bar_B1": //

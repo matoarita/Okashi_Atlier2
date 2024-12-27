@@ -40,7 +40,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
-    public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
 
     //各システムの使用の有無
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
@@ -860,6 +860,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Fullmoon_judge_on; //満月の夜かそうでないか
     public static bool Contest_pastVictory_on; //コンテスト過去に優勝したことがある場合　セリフが変わりスターもらえない
     public static bool Contest_Cookie_VictoryHoleinOne; //くっきーコンテストに初出場して初優勝
+    public static bool System_shop_defaulttext_koushin;
 
 
     //セリフ関連の一時変数
@@ -1446,10 +1447,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_Fullmoon_day = 1;
         Contest_pastVictory_on = false;
         Contest_Cookie_VictoryHoleinOne = false;
+        System_shop_defaulttext_koushin = false;
         HikariOmoide_Count = 0;
         Contest_Spscore_text = "";
         PlateSetNum = 0;
-        NPC_pahupahu_point = 0;
+        NPC_pahupahu_point = 10;
+        System_WhiteMemo_Num = 0;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -2227,7 +2230,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         mirabo_present_list.Add("mg_controltempature_book");
         mirabo_present_list.Add("mg_freezespell_book");
         mirabo_present_list.Add("mg_caramelized_book");
-        mirabo_present_list.Add("mg_windarc_book");
+        mirabo_present_list.Add("mg_sugerpot_book");
         mirabo_present_list.Add("mg_rainbowrain_book");        
         mirabo_present_list.Add("mg_summon_mirabo_book");
     }

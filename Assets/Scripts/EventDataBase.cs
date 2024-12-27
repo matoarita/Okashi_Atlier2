@@ -19,6 +19,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private TimeController time_controller;
     private Exp_Controller exp_Controller;
     private MoneyStatus_Controller moneyStatus_Controller;
+    private ContestStartListDataBase conteststartList_database;
 
     private GetMatPlace_Panel getmatplace_panel;
     private GetMaterial get_material;
@@ -44,6 +45,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -1345,7 +1349,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
                                 GameMgr.Contest_afterHomeHeartUpFlag = false; //大き目イベントが発生したときは、ハートアップイベントを中止。
-                            }
+                            }                            
                         }
                     }
                 }
@@ -1395,7 +1399,40 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }
-               
+
+                //寝て起きた後、NPCがくるイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag[4]) //ねておきたあとにチェック
+                    {
+                        GameMgr.check_SleepEnd_Eventflag[4] = false;
+                        Debug.Log("コンテスト終了後　NPCがくるチェック");
+
+                        //コンテスト初出場し、ミラボ先生にあった後から、発生する
+                        if (GameMgr.NPCMagic_eventList[0])
+                        {
+                            if (conteststartList_database.ReturnVictoryCount(1) >= 1) //一位のトータル取得数をゲット
+                            {
+                                //一位を一回以上取った場合、アマクサが初優勝時にほめてくれるイベント発生
+                                if (!GameMgr.NPCHiroba_eventList[1031])
+                                {
+                                    GameMgr.NPCHiroba_eventList[1031] = true;
+
+                                    GameMgr.GirlLoveSubEvent_num = 3000;
+                                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    GameMgr.Mute_on = true;
+
+                                    //アマノシャンメリーと白紙メモくれる
+                                    pitemlist.addPlayerItemString("amano_champmery", 1);
+                                    pitemlist.add_eventPlayerItemString("MemoWhite", 1);                                    
+                                }
+                            }
+                        }
+                    }
+                }
+
                 //
             }
 

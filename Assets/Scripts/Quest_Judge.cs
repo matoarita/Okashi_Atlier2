@@ -663,7 +663,8 @@ public class Quest_Judge : MonoBehaviour {
                 yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
             }
         }
-         
+
+        GameMgr.System_shop_defaulttext_koushin = false;
     }
 
     /*
@@ -707,7 +708,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             case "Or_Bar_A1":
 
-                GameMgr.NPC_pahupahu_point += 1;
+                GameMgr.NPC_pahupahu_point += Random.Range(1, 3);
                 break;
         }
 
@@ -1510,11 +1511,11 @@ public class Quest_Judge : MonoBehaviour {
 
                         if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 200) //
                         {
-                            GameMgr.NPC_pahupahu_point += 1;
+                            GameMgr.NPC_pahupahu_point += Random.Range(1, 3);
                         }
                         else if(okashi_totalscore >= 200) //
                         {
-                            GameMgr.NPC_pahupahu_point += 2;
+                            GameMgr.NPC_pahupahu_point += Random.Range(2, 5);
                         }
                         break;
                 }
@@ -1643,7 +1644,8 @@ public class Quest_Judge : MonoBehaviour {
                 ResetQuestStatus();
                 break;*/
         }
-        
+
+        GameMgr.System_shop_defaulttext_koushin = false;
     }
 
     void CostHosei_1()

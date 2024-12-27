@@ -45,6 +45,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     private int sheet_no; //アイテムが格納されているシート番号
 
     private int fights_count;
+    private int total_count;
 
     public List<ContestStartList> conteststart_lists = new List<ContestStartList>(); //
 
@@ -1589,6 +1590,21 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 conteststart_lists[i].ContestFightsCount = 0;
                 conteststart_lists[i].ContestVictory = 0;
         }
+    }
+
+    //順位を何回とったかのカウントを取得する　順位をいれると、その順位の取得数合計を返す
+    public int ReturnVictoryCount(int _rank)
+    {
+        total_count = 0;
+        for (i = 0; i < conteststart_lists.Count; i++)
+        {
+            if(conteststart_lists[i].ContestVictory == _rank)
+            {
+                total_count++;
+            }
+        }
+
+        return total_count;
     }
 
     void Contest_SetStartTime()

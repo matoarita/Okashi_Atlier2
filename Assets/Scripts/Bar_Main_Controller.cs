@@ -190,6 +190,7 @@ public class Bar_Main_Controller : MonoBehaviour {
         shopdefault_text = "いらっしゃい～。";
         _text.text = shopdefault_text;
         text_area.SetActive(false);
+        GameMgr.System_shop_defaulttext_koushin = false;
 
         //移動時に調合シーンステータスを0に。
         GameMgr.compound_status = 0;
@@ -295,7 +296,12 @@ public class Bar_Main_Controller : MonoBehaviour {
                     sceneBGM.MuteOFFBGM();
 
                     ButtonFlagCheck();
-                    SceneDefaultMessage();
+
+                    if (GameMgr.System_shop_defaulttext_koushin) {
+                        GameMgr.System_shop_defaulttext_koushin = false;
+
+                        SceneDefaultMessage();
+                    }
 
                     if (GameMgr.System_BarNinkiHyouji_ON)
                     {
@@ -684,6 +690,8 @@ public class Bar_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Status = 2; //眺めるを押したときのフラグ
             GameMgr.Scene_Select = 2;
 
+            GameMgr.System_shop_defaulttext_koushin = true;
+
             //_text.text = "なぁに？お話する？";
 
             switch (GameMgr.Scene_Name)
@@ -777,6 +785,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Select = 3;
 
             _text.text = GameMgr.System_Shop_text2;
+            GameMgr.System_shop_defaulttext_koushin = true;
 
             //カメラ寄る。
             trans++; //transが1を超えたときに、ズームするように設定されている。

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class TasteHintPanel : MonoBehaviour {
@@ -28,13 +29,17 @@ public class TasteHintPanel : MonoBehaviour {
     private List<string> _one_comment_lib = new List<string>();
     private string _one_comment;
     private Text NowEat_text;
-    private InputField hakushi_inputField;
+    private TMP_InputField hakushi_inputField;
 
     private GameObject hintpanel_obj1;
     private GameObject hintpanel_obj2;
 
-    private int random;
+    private GameObject category_view;
+    private List<GameObject> view_toggle = new List<GameObject>();
+
+    private int i, random;
     private bool ev_yusen;
+    private int whitememo_kosu;
 
     // Use this for initialization
     void Start () {
@@ -120,8 +125,60 @@ public class TasteHintPanel : MonoBehaviour {
         }
 
         //白紙メモ関係
-        hakushi_inputField = hintpanel_obj2.transform.Find("Scroll View/Viewport/Content/InputField(Legacy)").GetComponent<InputField>();
+        view_toggle.Clear();
+        category_view = this.transform.Find("HintPanel/CategoryView/Viewport/Content").gameObject;
+        foreach(Transform obj in category_view.transform)
+        {
+            view_toggle.Add(obj.gameObject);
+            obj.gameObject.SetActive(false);
+            if(obj.name == "WhiteMemoToggle_Taste") { obj.gameObject.SetActive(true); }
+        }
+        hakushi_inputField = hintpanel_obj2.transform.Find("Scroll View/Viewport/Content/InputField_TMP").GetComponent<TMP_InputField>();
         GameMgr.System_WhiteMemo_Num = 0;
+
+        //持ってるメモの枚数でトグルをON
+        whitememo_kosu = pitemlist.ReturnEventItemKosu("MemoWhite");
+        switch(whitememo_kosu)
+        {
+            case 1:
+
+                for (i = 0; i < view_toggle.Count; i++)
+                {
+                    WhiteMemo_ON(i, "WhiteMemoToggle_1");                    
+                }
+                break;
+
+            case 2:
+
+                for (i = 0; i < view_toggle.Count; i++)
+                {
+                    WhiteMemo_ON(i, "WhiteMemoToggle_1");
+                    WhiteMemo_ON(i, "WhiteMemoToggle_2");
+                }
+                break;
+
+            case 3:
+
+                for (i = 0; i < view_toggle.Count; i++)
+                {
+                    WhiteMemo_ON(i, "WhiteMemoToggle_1");
+                    WhiteMemo_ON(i, "WhiteMemoToggle_2");
+                    WhiteMemo_ON(i, "WhiteMemoToggle_3");
+                }
+                break;
+
+            default:
+
+                break;
+        }
+    }
+
+    void WhiteMemo_ON(int _list, string _name)
+    {
+        if (view_toggle[_list].name == _name)
+        {
+            view_toggle[_list].SetActive(true);
+        }
     }
 
     public void BackOption()
@@ -257,11 +314,23 @@ public class TasteHintPanel : MonoBehaviour {
 
     public void WhiteMemoSave()
     {
+        Debug.Log("白紙メモ　セーブ");
+
         //開かれている白紙めもの番号に応じてセーブするstringを変える
 
         switch (GameMgr.System_WhiteMemo_Num)
         {
             case 0:
+
+                GameMgr.System_WhiteMemo_text[GameMgr.System_WhiteMemo_Num] = hakushi_inputField.text;
+                break;
+
+            case 1:
+
+                GameMgr.System_WhiteMemo_text[GameMgr.System_WhiteMemo_Num] = hakushi_inputField.text;
+                break;
+
+            case 2:
 
                 GameMgr.System_WhiteMemo_text[GameMgr.System_WhiteMemo_Num] = hakushi_inputField.text;
                 break;
@@ -278,10 +347,47 @@ public class TasteHintPanel : MonoBehaviour {
     //白紙のメモ１
     public void OnMemoToggle_white1()
     {
+        GameMgr.System_WhiteMemo_Num = 0;
+
+        WhiteMemo_Draw();
+    }
+
+    //白紙のメモ２
+    public void OnMemoToggle_white2()
+    {
+        GameMgr.System_WhiteMemo_Num = 1;
+        
+        WhiteMemo_Draw();
+    }
+
+    //白紙のメモ３
+    public void OnMemoToggle_white3()
+    {
+        GameMgr.System_WhiteMemo_Num = 2;
+
+        WhiteMemo_Draw();
+    }
+
+    //白紙のメモ４
+    public void OnMemoToggle_white4()
+    {
+        GameMgr.System_WhiteMemo_Num = 3;
+
+        WhiteMemo_Draw();
+    }
+
+    //白紙のメモ５
+    public void OnMemoToggle_white5()
+    {
+        GameMgr.System_WhiteMemo_Num = 4;
+
+        WhiteMemo_Draw();
+    }
+
+    void WhiteMemo_Draw()
+    {
         hintpanel_obj1.SetActive(false);
         hintpanel_obj2.SetActive(true);
-
-        GameMgr.System_WhiteMemo_Num = 0;
 
         hakushi_inputField.text = GameMgr.System_WhiteMemo_text[GameMgr.System_WhiteMemo_Num];
     }

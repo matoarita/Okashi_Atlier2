@@ -319,6 +319,26 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return _total_kosu; //0個　持っていないときは、0
     }
 
+    //イベントアイテムリストに、名前をいれると、所持個数を返してくれるメソッド
+    public int ReturnEventItemKosu(string itemName)
+    {
+        _total_kosu = 0;
+
+        //オリジナルアイテムリストも見る。
+        for (i = 0; i < eventitemlist.Count; i++)
+        {
+            if (eventitemlist[i].event_itemName == itemName)
+            {
+                if (eventitemlist[i].ev_itemKosu > 0)
+                {
+                    _total_kosu += eventitemlist[i].ev_itemKosu;
+                }
+            }
+        }
+
+        return _total_kosu; //0個　持っていないときは、0
+    }
+
     //アイテムリストに、固有ID（string）をいれると、配列番号を返すメソッド オリジナルとお菓子パネル両方を見る
     public int ReturnOriginalKoyuIDtoItemID(string originalID)
     {
@@ -485,7 +505,6 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     //イベントアイテムを追加
     public void add_eventPlayerItem(int ev_id, int count_kosu)
     {
-
         eventitemlist[ev_id].ev_itemKosu = eventitemlist[ev_id].ev_itemKosu + count_kosu;
 
         if (eventitemlist[ev_id].ev_itemKosu > 99)
@@ -540,6 +559,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
     }
 
+    //イベントアイテム名＋個数で、個数分増やす
     public void add_eventPlayerItemString(string itemName, int count_kosu)
     {
         event_id = Find_eventitemdatabase(itemName);
