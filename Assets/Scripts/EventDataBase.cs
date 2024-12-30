@@ -31,6 +31,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private int picnic_exprob;
     private int ev_id;
     private bool _fire;
+    private string _basename, _baseitemtype_sub, _baseitemtype_subB;
 
     private List<int> map_list = new List<int>();
 
@@ -723,11 +724,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //
                 //ハートレベル系のイベント
                 //
-                HeartEvent_check(GameMgr.System_HeartBlockLv_01, 300, 1); //秘密の花園へいこうよ
+                //HeartEvent_check(GameMgr.System_HeartBlockLv_01, 300, 1); //秘密の花園へいこうよ
                 HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1); //ヒカリお菓子作る
 
                 //LV3ごとに発生するイベント
-                HeartEvent_check(3, 350, 1);
+                /*HeartEvent_check(3, 350, 1);
                 HeartEvent_check(6, 351, 1);
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
                 HeartEvent_check(12, 353, 1);
@@ -736,7 +737,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 HeartEvent_check(21, 356, 1);
                 HeartEvent_check(24, 357, 1);
                 HeartEvent_check(27, 358, 1);
-                HeartEvent_check(30, 359, 1);
+                HeartEvent_check(30, 359, 1);*/
 
                 //Heartevent_Grt(); //１の頃のイベント
 
@@ -745,9 +746,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //スターで発生するイベント系
                 //
                 StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
-
-
-
 
 
                 //
@@ -1097,11 +1095,44 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-                    //はじめてルミエメラルドシュガーかルミサファイアシュガー作った
-                    if (!GameMgr.GirlLoveSubEvent_stage1[200])
+                    _basename = database.items[GameMgr.Okashi_makeID].itemName;
+                    _baseitemtype_sub = database.items[GameMgr.Okashi_makeID].itemType_sub.ToString();
+                    _baseitemtype_subB = database.items[GameMgr.Okashi_makeID].itemType_subB.ToString();
+
+                    //はじめてルミエメラルドシュガー作ったなど
+                    foreach (string items in GameMgr.OkashiAtFirst_eventlist.Keys)
+                    {
+                        if (_basename == items)
+                        {
+                            if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_basename]])
+                            {
+                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_basename], 0, false, false);
+                                break;
+                            }                            
+                        }
+
+                        if (_baseitemtype_sub == items)
+                        {
+                            if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub]])
+                            {
+                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub], 0, false, false);
+                                break;
+                            }                           
+                        }
+
+                        if (_baseitemtype_subB == items)
+                        {
+                            if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB]])
+                            {
+                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB], 0, false, false);
+                                break;
+                            }                           
+                        }
+                    }
+                    
+                    /*if (!GameMgr.GirlLoveSubEvent_stage1[200])
                     {
                         if (database.items[GameMgr.Okashi_makeID].itemName == "lumi_emerald_suger" ||
-                            database.items[GameMgr.Okashi_makeID].itemName == "lumi_sapphire_suger" ||
                             database.items[GameMgr.Okashi_makeID].itemName == "lumi_pink_suger")
                         {
                             Event_startcheck(200, 0, false, false);
@@ -1116,6 +1147,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             Event_startcheck(201, 0, false, false);
                         }
                     }
+
+                    //はじめてルミサファイアシュガー作った
+                    if (!GameMgr.GirlLoveSubEvent_stage1[202])
+                    {
+                        if (database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "lumi_sapphire_suger")
+                        {
+                            Event_startcheck(202, 0, false, false);
+                        }
+                    }*/
                 }
 
                 //食べた後にチェック　１５０点以上で特別なイベント

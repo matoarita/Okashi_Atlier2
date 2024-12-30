@@ -679,5 +679,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: BGPanelMatome
       objectReference: {fileID: 0}
+    - target: {fileID: 1682533454651788982, guid: 5722b6398b5d23b46a60a6d6f00ecebf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682533455180093281, guid: 5722b6398b5d23b46a60a6d6f00ecebf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5722b6398b5d23b46a60a6d6f00ecebf, type: 3}

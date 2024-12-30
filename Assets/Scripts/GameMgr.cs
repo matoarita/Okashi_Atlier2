@@ -51,11 +51,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
     public static bool System_Shiokuri_ON = true; //仕送りの有無
-    public static bool System_Yachin_ON = true; //家賃システムの有無
+    public static bool System_Yachin_ON = false; //家賃システムの有無
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
-    public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
+    public static bool System_QuestStarGet_ON = false; //酒場の依頼で、スターも上がる仕様にする。
     public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
     public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
@@ -578,6 +578,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int shop_hint_num;
 
     public static int chara_talk_countA = 3; //キャラ会話のバリエーション数 日で割って、順ぐりに０～２の感じで繰り返す
+    public static int chara_talk_countB = 5;
 
 
     //バーのコマンド
@@ -637,6 +638,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //150点以上で発生するイベントリスト
     public static Dictionary<string, int> Highscore_SPEventlist = new Dictionary<string, int>();
+
+    //はじめておかし作ったイベントリスト
+    public static Dictionary<string, int> OkashiAtFirst_eventlist = new Dictionary<string, int>();
 
     //メインクエの指示メッセージリスト
     public static Dictionary<int, string> mainquest_message_list = new Dictionary<int, string>();
@@ -1777,6 +1781,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //150点以上で発生する特別イベント設定
         Init_HighScoreSpecialSubEvent_Library();
 
+        //はじめてお菓子作ったイベント設定
+        Init_OkashiAtFirstEvent_Library();
+
         //ヒカリの思い出イベントリスト　回想シーン
         Init_HikariOmoideEvent_Library();
 
@@ -1865,7 +1872,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //食器セット
     public static void InitPlateSetItemsLibrary()
     {
-        //DecoItemsの配列数分まで用意
+        //DecoItemsでも設定する
         PlateSetItemsName.Clear();
         PlateSetItemsName.Add("teaset_normal", 0); //デフォルト
         PlateSetItemsName.Add("teaset_wizard", 1);
@@ -2287,7 +2294,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Add("strawberry_sponge_cake", false);
     }
 
-    
+    //はじめて作ったお菓子のイベントリスト
+    public static void Init_OkashiAtFirstEvent_Library()
+    {
+        OkashiAtFirst_eventlist.Clear();
+
+        OkashiAtFirst_eventlist.Add("lumi_emerald_suger", 200); //
+        OkashiAtFirst_eventlist.Add("lumi_pink_suger", 200);
+        OkashiAtFirst_eventlist.Add("GlowFruits", 201);
+        OkashiAtFirst_eventlist.Add("lumi_sapphire_suger", 202);
+        OkashiAtFirst_eventlist.Add("a_ChocolateTwister", 203);
+        OkashiAtFirst_eventlist.Add("ice_statue_twister", 204);
+    }
+
+
     //ヒカリのお菓子経験値テーブル
     public static void InitHikariOkashi_ExpTable()
     {

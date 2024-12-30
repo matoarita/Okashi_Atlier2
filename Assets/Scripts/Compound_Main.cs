@@ -816,8 +816,7 @@ public class Compound_Main : MonoBehaviour
 
         //時間をチェックし、背景を自動で変更
         Change_BGimage();
-
-
+        
 
         //デバッグ用 本番ではオフにする。コンテスト終了後、寝るが終わったあとに始まるイベントのこと　寝るを押せばすぐに発動するようにしてる。
         //GameMgr.Contest_afterHomeEventFlag = true;
@@ -2279,7 +2278,8 @@ public class Compound_Main : MonoBehaviour
 
                 case "Or_Compound":
 
-                    mainlist_scrollview_obj.SetActive(true);
+                    //mainlist_scrollview_obj.SetActive(true);
+                    mainlist_scrollview_obj.SetActive(false);
                     break;
 
                 default:
@@ -3068,8 +3068,8 @@ public class Compound_Main : MonoBehaviour
 
                 magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
 
-                //magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
-                //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
+                magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
+                magicskill_database.skillHyoujiKaikin("Freezing_Spell");
 
                 //magicskill_database.skillHyoujiKaikin("Nappe");
                 magicskill_database.skillHyoujiKaikin("Appaleil_Study");

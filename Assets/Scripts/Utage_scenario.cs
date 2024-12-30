@@ -3445,6 +3445,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("GondraCost", GameMgr.System_gondra_cost);
         engine.Param.TrySetParameter("Hiroba_rotenflag_Num", roten_flag_num);
         engine.Param.TrySetParameter("Talk_num", 0); //ランダム会話などでの、会話番号指定
+        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
         engine.Param.TrySetParameter("EndOrPause_Num", 0); //ポーズOrエンドどちらかを判定する番号　基本0=エンドでリセットしておく。
         engine.Param.TrySetParameter("Fullmoon_Month", GameMgr.System_Fullmoon_month);
         engine.Param.TrySetParameter("Fullmoon_Day", GameMgr.System_Fullmoon_day);

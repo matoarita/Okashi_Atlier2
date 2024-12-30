@@ -87,6 +87,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     private GameObject CharacterPanel;
 
     private bool check_event;
+    private int talkrot;
 
     // Use this for initialization
     void Start()
@@ -405,6 +406,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
         StartRead = false;
         check_event = false; //イベントのフラグ
+        talkrot = 0;
 
         text_scenario();
         text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定
@@ -975,6 +977,13 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 GameMgr.hiroba_event_placeNum = 5000; //
                 GameMgr.hiroba_event_ID = 10;
                 GameMgr.utage_charaHyouji_flag = true;
+
+                if (talkrot >= 5)
+                {
+                    talkrot = 0;
+                }
+                GameMgr.chara_talk_number = talkrot; //ランダム会話 0~4まで順ぐり               
+                talkrot++;
 
                 check_event = true;
             }
