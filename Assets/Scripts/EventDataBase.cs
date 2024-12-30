@@ -100,7 +100,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.GirlLoveEvent_stage1[event_num] = true; //0番がtrueになってたら、現在は、ステージ１－１のクエストが発生中という意味。
 
                             //クッキー作りのクエスト発生
-                            Debug.Log("好感度イベント１をON: クッキーが食べたい　開始");
+                            Debug.Log("ハートメインイベント１をON: 開始");
 
                             GameMgr.check_GirlLoveEvent_flag = true; //GirlLoveEventは発生しない。
 
@@ -139,7 +139,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                            
 
                                     //クエスト発生
-                                    Debug.Log("好感度イベント２をON: ラスクが食べたい　開始");
+                                    Debug.Log("ハートメインイベント２をON: 開始");
 
 
                                     special_quest.SetSpecialOkashi(10, 0);
@@ -177,9 +177,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.picnic_count = 3; //ピクニックこのイベント以降、カウント開始する。
 
                                     //クエスト発生
-                                    Debug.Log("好感度イベント３をON: クレープが食べたい　開始");
+                                    Debug.Log("ハートメインイベント３をON: 開始");
 
-                                    special_quest.SetSpecialOkashi(20, 0);
+                                    special_quest.SetSpecialOkashi(40, 0);
                                 }
                                 else
                                 {
@@ -209,7 +209,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.check_GirlLoveEvent_flag = false;
 
                                     //クエスト発生
-                                    Debug.Log("好感度イベント４をON: シュークリームが食べたい　開始");
+                                    Debug.Log("ハートメインイベント４をON: 開始");
 
 
                                     special_quest.SetSpecialOkashi(30, 0);
@@ -242,7 +242,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.check_GirlLoveEvent_flag = false;
 
                                     //クエスト発生
-                                    Debug.Log("好感度イベント５をON: ドーナツが食べたい　開始");
+                                    Debug.Log("ハートメインイベント５をON: 開始");
 
 
                                     special_quest.SetSpecialOkashi(40, 0);
@@ -279,7 +279,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.stage1_limit_day = PlayerStatus.player_day + 7;
 
                                     //クエスト発生
-                                    Debug.Log("ステージ１ラストイベントをON: コンテスト　開始");
+                                    Debug.Log("ハートラストイベントをON: 開始");
 
                                     //イベントCG解禁
                                     GameMgr.SetEventCollectionFlag("event10", true);
@@ -1900,14 +1900,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 GameMgr.picnic_event_reading_now = true; //ピクニックイベント発生のフラグ　宴で使用
                 GameMgr.picnic_count = 3; //次のピクニックイベントまでの日数カウンタ
 
-                if (GameMgr.Story_Mode == 0)
+                GameMgr.check_GirlLoveTimeEvent_flag = false;
+                /*if (GameMgr.Story_Mode == 0)
                 {
                     GameMgr.check_GirlLoveSubEvent_flag = false;
                 }
                 else
                 {
                     GameMgr.check_GirlLoveTimeEvent_flag = false;
-                }
+                }*/
 
                 GameMgr.Mute_on = true;
                 GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。

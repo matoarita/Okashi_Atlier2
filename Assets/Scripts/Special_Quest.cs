@@ -16,6 +16,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     private GirlLikeCompoDataBase girlLikeCompo_database;
 
     private ItemDataBase database;
+    private PlayerItemList pitemlist;
+    private ItemMatPlaceDataBase matplace_database;
 
     private GameObject compound_Main_obj;
     private Compound_Main compound_Main;
@@ -54,6 +56,12 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         special_score_record = new int[GameMgr.GirlLoveEvent_stage1.Length];
 
@@ -466,8 +474,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100030;
                 OkashiQuest_Count = 4;
-                GameMgr.EatOkashi_DecideFlag = 1; //0=食べたいお菓子がランダムでなくなり、メインクエストに固定する                
-                //GameMgr.SPquestPanelOff = true;
+                GameMgr.EatOkashi_DecideFlag = 0; //0=食べたいお菓子がランダムでなくなり、メインクエストに固定する   1=食べたいお菓子がランダム表示              
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
@@ -475,26 +483,30 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100040;
                 OkashiQuest_Count = 5;
-                GameMgr.EatOkashi_DecideFlag = 1;
-                //GameMgr.SPquestPanelOff = true;
+                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
-            case 10: //ラスク食べたい
+            case 10: //クッキーコンテストで優勝しよう！
 
-                girl1_status.OkashiQuest_ID = 1100;
+                girl1_status.OkashiQuest_ID = 100100;
                 OkashiQuest_Count = 1;
+                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
-            case 11: //すっぱいラスク食べたい
+            case 11: //プラトンアカデミーコンテストで優勝しよう！
 
-                girl1_status.OkashiQuest_ID = 1110;
+                girl1_status.OkashiQuest_ID = 100110;
                 OkashiQuest_Count = 2;
+                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
-            case 12: //幻の青色紅茶食べたい＜13ラスクからの分岐＞
+            /*case 12: //幻の青色紅茶食べたい＜13ラスクからの分岐＞
 
                 girl1_status.OkashiQuest_ID = 1120;
                 OkashiQuest_Count = 3;
@@ -506,9 +518,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1130;
                 OkashiQuest_Count = 2;
 
-                break;
+                break;*/
 
-            case 20: //クレープ食べたい
+            /*case 20: //クレープ食べたい
 
                 girl1_status.OkashiQuest_ID = 1200;
                 OkashiQuest_Count = 1;
@@ -542,14 +554,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 5;
 
                 break;
-
-
-            /*case 29: //クレープ＜20クレープからの分岐１＞ 200点クレープ
-
-                girl1_status.OkashiQuest_ID = 1290;
-                OkashiQuest_Count = 2;
-
-                break;*/
 
 
             case 30: //シュークリーム食べたい
@@ -588,29 +592,49 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 1340;
                 OkashiQuest_Count = 5;
 
+                break;*/
+
+            case 40: //最後　エデンそろったので、女王様と白クジラにあいにいく
+
+                girl1_status.OkashiQuest_ID = 100400;
+                OkashiQuest_Count = 1;
+                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.SPquestPanelOff = false;
+
+                //Debug エデンレシピそろったことにする
+                pitemlist.add_eventPlayerItemString("eden_recipi_03", 1);
+                pitemlist.add_eventPlayerItemString("eden_recipi_04", 1);
+                // //
+
                 break;
 
-            case 40: //ドーナツ食べたい
+            case 41: //最後　エデンそろったので、女王様と白クジラにあいにいく
 
-                girl1_status.OkashiQuest_ID = 1400;
+                girl1_status.OkashiQuest_ID = 100410;
                 OkashiQuest_Count = 1;
+                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
             case 50: //ステージ１ラスト　コンテスト開始
 
-                girl1_status.OkashiQuest_ID = 1500;
-
+                girl1_status.OkashiQuest_ID = 100500;
                 OkashiQuest_Count = 1;
+                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.SPquestPanelOff = false;
+
                 break;
 
             default:
                 break;
         }
 
+        //各クエスト開始時にフラグがたつ場合ここで処理
         if(_spquest_setnum >= 3)
         {
-            GameMgr.OutEntrance_ON = true;
+            //GameMgr.OutEntrance_ON = true;
+            matplace_database.ReSetMapFlagString("Or_Hiroba1", 1);
         }
     }
 
@@ -671,7 +695,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(100120, 12);
         QuestDict.Add(100130, 13);
         QuestDict.Add(100140, 14);
-        //QuestDict.Add(100500, 50);
+        QuestDict.Add(100400, 40);
+        QuestDict.Add(100410, 41);
+        QuestDict.Add(100500, 50);
     }
 
     void InitQuestCount() //ステージごとの、クエストの総数　1なら、クエスト3個など。クエストの進行度を表示する◆ボタン用に使う。
@@ -697,6 +723,10 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         QuestCountDict.Add(1, 5);
         QuestCountDict.Add(2, 5);
+        QuestCountDict.Add(3, 5);
+        QuestCountDict.Add(4, 5);
+        QuestCountDict.Add(5, 5);
+        QuestCountDict.Add(6, 1);
     }
 
     //GirlLikeCompoのクエストのIDを入れると、GirlloveEventNumに変換して、SPクエストを指定する。GirlEatJudgeから読み出し。

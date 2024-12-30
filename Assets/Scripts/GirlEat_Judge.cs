@@ -111,7 +111,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject text_area;
     private Text _windowtext;
 
-    private int i, count;
+    private int i, count, _id;
     private int random;
     private int countNum;
 
@@ -4427,6 +4427,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
 
+
+
     //
     //***クエストクリア条件関係 こっちは食べたとき用。***
     //
@@ -4708,18 +4710,56 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 }*/
 
+                _id = matplace_database.SearchMapString("Or_Contest_A1");
+                if (matplace_database.matplace_lists[_id].placeFlag == 1)
+                {
+                    Debug.Log("街へでて、コンテスト会場をみつけた。クエストクリア");
+                    sp_quest_clear = true;
+                }
                 
                 break;
 
             case 100040:
 
                 //コンテストに一度出場すればお話が進む
-                /*fights_count = conteststartList_database.ContestAllFightsCount();
+                fights_count = conteststartList_database.ContestAllFightsCount();
                 if (fights_count > 0)
                 {
                     Debug.Log("コンテストに一回以上出場したので、クエストクリア");
                     sp_quest_clear = true;
-                }*/
+                }
+                break;
+
+            case 100100:
+
+                //クッキーコンテスト初級で優勝すると先へ進める
+                _id = conteststartList_database.SearchContestString("Or_Contest_010");
+                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
+                {
+                    Debug.Log("クッキーコンテスト初級で優勝したので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100110:
+
+                //プラトンアカデミーコンテストで優勝すると先へ進める
+                _id = conteststartList_database.SearchContestString("Or_Contest_002");
+                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
+                {
+                    Debug.Log("エデンコンテスト①で優勝したので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100400:
+
+                //白クジラと女王様に会う
+                if (GameMgr.NPCHiroba_eventList[1510] && GameMgr.NPCHiroba_eventList[270])
+                {
+                    Debug.Log("白クジラと女王様と会う、クエストクリア");
+                    sp_quest_clear = true;
+                }
                 break;
 
         }
@@ -4731,6 +4771,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
 
     }
+
+
+
+
 
 
 
@@ -5196,6 +5240,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
     //
     //スコア表示パネルを押したらこのメソッドが呼び出し
+    //ステージのメインクエストをクリア　次ステージへ
     //
     public void ResultPanel_On()
     {
@@ -5271,6 +5316,32 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     GameMgr.GirlLoveEvent_stage1[30] = true;
                     GameMgr.GirlLoveEvent_stage1[40] = true;
 
+                    break;
+
+                //２～から
+                case 100000: //set_compIDの下一桁が0番台
+
+                    GameMgr.OkashiQuest_flag_stage1[0] = true;
+                    break;
+
+                case 100100: 
+
+                    GameMgr.OkashiQuest_flag_stage1[1] = true;
+                    break;
+
+                case 100200: 
+
+                    GameMgr.OkashiQuest_flag_stage1[2] = true;
+                    break;
+
+                case 100300: 
+
+                    GameMgr.OkashiQuest_flag_stage1[3] = true;
+                    break;
+
+                case 100400: 
+
+                    GameMgr.OkashiQuest_flag_stage1[4] = true;
                     break;
 
                 default:
@@ -6073,6 +6144,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //EDシナリオスタート
         GameMgr.Ending_counterenshutu_on = false;
 
+        //エデン食べたのでED
+        GameMgr.girlloveevent_bunki = 2;
+        GameMgr.GirlLoveEvent_num = 100;
+        GameMgr.girlEat_ON = false;
+        GameMgr.Mute_on = true;
+        GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
+
+        /*
         //一回目　食べると何も起こらない　二回目、くじらさんと話してから5日後の19時以降に食べると、EDが発生
         if (!GameMgr.GirlLoveSubEvent_stage1[600])
         {
@@ -6108,7 +6187,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
             }
             
-        }
+        }*/
             
 
         compound_Main.ReadGirlLoveEvent_Fire();

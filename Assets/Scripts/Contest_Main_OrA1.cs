@@ -387,7 +387,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //そのコンテストの順位を更新する。1位と2位は、名前の横に王冠がでる。
             if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
             {
-                conteststartList_database.SetContestVictroyString(GameMgr.Contest_Name, GameMgr.contest_Rank_Count);
+                contest_name_origin = conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestName;
+                conteststartList_database.SetContestVictroyString(contest_name_origin, GameMgr.contest_Rank_Count);
             }
             else
             {

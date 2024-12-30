@@ -579,7 +579,7 @@ public class NPC_Catsle_Main : MonoBehaviour
                         ev_id = pitemlist.Find_eventitemdatabase("mg_TrueofMyheart_book");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加
 
-                        //最後のエデンレシピをゲット
+                        //最後のエデンレシピ「ハートのレシピ」をゲット
                         ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_05");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //最後のエデンレシピを追加
 

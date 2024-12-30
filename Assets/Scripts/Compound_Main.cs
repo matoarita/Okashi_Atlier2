@@ -2278,8 +2278,8 @@ public class Compound_Main : MonoBehaviour
 
                 case "Or_Compound":
 
-                    //mainlist_scrollview_obj.SetActive(true);
-                    mainlist_scrollview_obj.SetActive(false);
+                    mainlist_scrollview_obj.SetActive(true);
+                    //mainlist_scrollview_obj.SetActive(false);
                     break;
 
                 default:
@@ -3447,8 +3447,12 @@ public class Compound_Main : MonoBehaviour
                 _baseID = pitemlist.player_extremepanel_itemlist[0].itemID;
                 if(database.items[database.SearchItemID(_baseID)].itemName == "Eden") //Eden neko_cookie
                 {
+                    GameMgr.ending_on = true;
+                    GameMgr.Fullmoon_judge_on = true;
+                    GameMgr.ending_number = 1;
+
                     //一回目　食べると何も起こらない　二回目、くじらさんと話してから5日後の19時以降に食べると、EDが発生
-                    if(!GameMgr.GirlLoveSubEvent_stage1[600])
+                    /*if(!GameMgr.GirlLoveSubEvent_stage1[600])
                     {
                         GameMgr.ending_on = true;
                         //GameMgr.ending_number = 1;
@@ -3483,8 +3487,8 @@ public class Compound_Main : MonoBehaviour
                             GameMgr.ending_on = true;
                             GameMgr.Fullmoon_judge_on = false; //満月の夜を知らない場合　再度、なにもおこらない
                         }
-                    }
-                    
+                    }*/
+
                 }
                 break;
 

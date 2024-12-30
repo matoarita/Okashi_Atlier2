@@ -262,6 +262,10 @@ public class ContestListController : MonoBehaviour
             {
                 DrawContest();
             }
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100) //プラトンアカデミー
+            {
+                DrawContest();
+            }
         }
 
         //ラスククリアででる。

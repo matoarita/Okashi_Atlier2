@@ -274,7 +274,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         //BGMかえる
                         sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         sceneBGM.StopAmbient();
-                        bgm_change_flag = true;                        
+                        bgm_change_flag = true;
+
+                        GameMgr.Utage_MapMoveON = true;
+                        map_move_num = 3000;
+                        GameMgr.Utage_MapMoveBlackON = true;
 
                         check_event = true;
 
@@ -376,9 +380,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 case "Or_Hiroba_Summer_ThemePark_Map": //遊園地入口マップ
 
-                    if (!GameMgr.NPCHiroba_HikarieventList[250]) //はじめて水族館へきた。
+                    if (!GameMgr.NPCHiroba_HikarieventList[250]) //はじめてソーダアイランドきた
                     {
                         GameMgr.NPCHiroba_HikarieventList[250] = true;
+
+                        matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
 
                         GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
                         GameMgr.hiroba_event_ID = 290000;
@@ -586,6 +592,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 StartCoroutine(WaitForGotoMap2(6));                
                 break;
+
+            case 3000: //噴水後、すぐにコンテストへ移動
+
+                //音量フェードアウト
+                sceneBGM.FadeOutBGM(1.0f);
+
+                StartCoroutine(WaitForGotoMap2(10));
+                break;
         }
     }
 
@@ -632,6 +646,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 GameMgr.SceneSelectNum = 30;
                 FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
+                break;
+
+            case 10:
+
+                On_ContestActive01(); //春コンテスト会場外へ移動
+                //GameMgr.SceneSelectNum = 0;
+                //FadeManager.Instance.LoadScene("Or_NPC_MagicHouse", GameMgr.SceneFadeTime);
                 break;
 
             default:
@@ -2142,7 +2163,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         //_text.text = "夏エリア遊園地　全体マップへ　移動";
 
-        //GameMgr.Scene_back_home = true;
+        //GameMgr.Scene_back_home = true;       
+
         //シーン読み込み
         GameMgr.SceneSelectNum = 150;
         GoAreaMove("Or_Hiroba1");
