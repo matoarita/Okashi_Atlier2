@@ -630,61 +630,7 @@ public class Contest_Main_Reception : MonoBehaviour
         }
     }
 
-    void ContestLimitCheck()
-    {
-        questout_flag = false;
-
-        //まず、日付がこえていないかどうか
-        for (i = 0; i < GameMgr.contest_accepted_list.Count; i++)
-        {
-            _Limit_day = time_controller.CullenderKeisanInverse(GameMgr.contest_accepted_list[i].Month, GameMgr.contest_accepted_list[i].Day);
-            _Nokori_day = _Limit_day - PlayerStatus.player_day;
-
-            if (_Nokori_day < 0)
-            {
-                Debug.Log("コンテスト　日づけ超過あり: " + i + " " + GameMgr.contest_accepted_list[i].contestName);
-                questout_flag = true;
-            }
-
-            if (_Nokori_day == 0) //当日のとき
-            {
-                //次に、朝10時をこえたかどうか
-                if (PlayerStatus.player_cullent_hour > 10) //11時~はアウト
-                {
-                    Debug.Log("コンテスト　朝10時すぎた");
-                    questout_flag = true;
-                }
-                else if (PlayerStatus.player_cullent_hour == 10) //10時ちょうどのとき　5分ぐらいならOK
-                {
-                    if (PlayerStatus.player_contest_minute > 5) //5分こえたらアウト
-                    {
-                        Debug.Log("コンテスト　朝10時すぎた");
-                        questout_flag = true;
-                    }
-                }
-            }
-        }
-
-        if (questout_flag) //超えてるものがあった場合。
-        {
-
-            PlayerStatus.player_ninki_param -= 1; //過ぎてたら人気度が減る
-            //PlayerStatus.girl1_Love_exp -= questout_count * 10; //過ぎてたクエスト*10 ハートが減る
-            if (PlayerStatus.player_ninki_param <= 0)
-            {
-                PlayerStatus.player_ninki_param = 0;
-            }
-
-            //今うけてるコンテストは中止
-            //ほかに受け付けてるコンテストがあった場合、全てキャンセル
-            for (i = 0; i < conteststartList_database.conteststart_lists.Count; i++)
-            {
-                conteststartList_database.conteststart_lists[i].Contest_Accepted = 0;
-            }
-            GameMgr.contest_accepted_list.Clear();
-            //
-        }
-    }
+    
 
     void EventCheck()
     {
@@ -716,28 +662,35 @@ public class Contest_Main_Reception : MonoBehaviour
             }           
         }
 
-        
+
         //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
-        if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
-        { }
+        if (GameMgr.System_Contest_StartNow) //コンテストすぐ開始の場合は、チェック不要
+        {
+
+        }
         else
         {
-            if (GameMgr.contest_accepted_list.Count > 0)
+            if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
+            { }
+            else
             {
-                ContestLimitCheck();
-
-                if (questout_flag)
+                if (GameMgr.contest_accepted_list.Count > 0)
                 {
-                    GameMgr.scenario_ON = true;
+                    ContestLimitCheck();
 
-                    GameMgr.hiroba_event_placeNum = 1003; //レセプションのイベント場所番号 時間過ぎて失格の番号
-                    GameMgr.hiroba_event_ID = 0;
+                    if (questout_flag)
+                    {
+                        GameMgr.scenario_ON = true;
 
-                    sceneBGM.MuteBGM();
+                        GameMgr.hiroba_event_placeNum = 1003; //レセプションのイベント場所番号 時間過ぎて失格の番号
+                        GameMgr.hiroba_event_ID = 0;
 
-                    check_event = true;
+                        sceneBGM.MuteBGM();
 
-                    EventReadingStart();
+                        check_event = true;
+
+                        EventReadingStart();
+                    }
                 }
             }
         }
@@ -932,6 +885,62 @@ public class Contest_Main_Reception : MonoBehaviour
 
     }
 
+    void ContestLimitCheck()
+    {
+        questout_flag = false;
+
+        //まず、日付がこえていないかどうか
+        for (i = 0; i < GameMgr.contest_accepted_list.Count; i++)
+        {
+            _Limit_day = time_controller.CullenderKeisanInverse(GameMgr.contest_accepted_list[i].Month, GameMgr.contest_accepted_list[i].Day);
+            _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+            if (_Nokori_day < 0)
+            {
+                Debug.Log("コンテスト　日づけ超過あり: " + i + " " + GameMgr.contest_accepted_list[i].contestName);
+                questout_flag = true;
+            }
+
+            if (_Nokori_day == 0) //当日のとき
+            {
+                //次に、朝10時をこえたかどうか
+                if (PlayerStatus.player_cullent_hour > 10) //11時~はアウト
+                {
+                    Debug.Log("コンテスト　朝10時すぎた");
+                    questout_flag = true;
+                }
+                else if (PlayerStatus.player_cullent_hour == 10) //10時ちょうどのとき　5分ぐらいならOK
+                {
+                    if (PlayerStatus.player_contest_minute > 5) //5分こえたらアウト
+                    {
+                        Debug.Log("コンテスト　朝10時すぎた");
+                        questout_flag = true;
+                    }
+                }
+            }
+        }
+
+        if (questout_flag) //超えてるものがあった場合。
+        {
+
+            PlayerStatus.player_ninki_param -= 1; //過ぎてたら人気度が減る
+            //PlayerStatus.girl1_Love_exp -= questout_count * 10; //過ぎてたクエスト*10 ハートが減る
+            if (PlayerStatus.player_ninki_param <= 0)
+            {
+                PlayerStatus.player_ninki_param = 0;
+            }
+
+            //今うけてるコンテストは中止
+            //ほかに受け付けてるコンテストがあった場合、全てキャンセル
+            for (i = 0; i < conteststartList_database.conteststart_lists.Count; i++)
+            {
+                conteststartList_database.conteststart_lists[i].Contest_Accepted = 0;
+            }
+            GameMgr.contest_accepted_list.Clear();
+            //
+        }
+    }
+
     void ToggleFlagCheck()
     {
         Debug.Log("チェック　本日がコンテスト開催日かどうか");
@@ -993,7 +1002,7 @@ public class Contest_Main_Reception : MonoBehaviour
         _text.text = "コンテスト失格になってしまった。" + "\n" + "人気が下がった・・。";
     }
 
-    //MainListController2から読み出し
+    //
     public void EventReadingStart()
     {
         StartCoroutine("EventReading");
@@ -1222,10 +1231,20 @@ public class Contest_Main_Reception : MonoBehaviour
 
     }
 
-    //SubView5
+    //SubView5 アトリエに戻る
     public void OnSubNPC5_toggle()
     {
+        //入店の音
+        sc.PlaySe(150);
 
+        GameMgr.Scene_back_home = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1);
+        time_controller.TimeKoushin(0, false);
+
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
     }
 
     //SubView6　立ち去る

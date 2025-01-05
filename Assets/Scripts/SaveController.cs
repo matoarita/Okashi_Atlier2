@@ -317,6 +317,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             save_First_recipi_on = PlayerStatus.First_recipi_on,
             save_First_extreme_on = PlayerStatus.First_extreme_on,
+            save_First_magicokashi_on = PlayerStatus.First_magicokashi_on,
 
             save_special_animatFirst = girl1_status.special_animatFirst,
 
@@ -742,6 +743,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         PlayerStatus.First_recipi_on = playerData.save_First_recipi_on;
         PlayerStatus.First_extreme_on = playerData.save_First_extreme_on;
+        PlayerStatus.First_magicokashi_on = playerData.save_First_magicokashi_on;
 
         girl1_status.special_animatFirst = playerData.save_special_animatFirst;
 

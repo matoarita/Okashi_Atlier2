@@ -14,6 +14,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     private GameObject text_area;
     private Text _text;
 
+    private SoundController sc;
+
     private SceneInitSetting sceneinit_setting;
 
     private GameObject npc1_toggle_obj;
@@ -107,6 +109,9 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -282,7 +287,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                         default_scenetext = "あれ。ミラボー先生。" + "\n" + "どうやら留守のようだ・・。";
 
                         npc1sub_toggle_obj.SetActive(false);
-                        npc3sub_toggle_obj.SetActive(false);
+                        //npc3sub_toggle_obj.SetActive(false);
                         npc2sub_toggle_obj.SetActive(false);
                     }
                     else
@@ -291,7 +296,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                         CharacterPanel.SetActive(true);
 
                         npc1sub_toggle_obj.SetActive(true);
-                        npc3sub_toggle_obj.SetActive(true);
+                        //npc3sub_toggle_obj.SetActive(true);
                         npc2sub_toggle_obj.SetActive(true);
                     }
                 }
@@ -410,6 +415,13 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
         text_scenario();
         text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定
+
+        //入店の音
+        if (!GameMgr.ShopEnter_ButtonON) //重複防止
+        {
+            sc.PlaySe(150);
+        }
+        GameMgr.ShopEnter_ButtonON = false;
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
@@ -560,7 +572,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
     void ToggleFlagCheck()
     {
-        if (GameMgr.SceneSelectNum == 30) //光先生
+        /*if (GameMgr.SceneSelectNum == 30) //光先生
         {
             if (GameMgr.NPCMagic_eventList[10]) //魔法教えてもらったあと
             {
@@ -570,7 +582,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             {
                 npc3sub_toggle_obj.SetActive(false);
             }
-        }
+        }*/
 
         //オブジェクト配列変わった後に、一度オフ→オンにしなおすと、コンテストの再配置がされる。
         mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main").gameObject.SetActive(false);
@@ -919,15 +931,28 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
     }
 
-    //SubView5
+    //SubView5  アトリエに戻る
     public void OnSubNPC5_toggle()
     {
+        //入店の音
+        sc.PlaySe(150);
 
+        GameMgr.Scene_back_home = true;
+
+        //日数の経過。場所ごとに、移動までの日数が変わる。
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1);
+        time_controller.TimeKoushin(0, false);
+
+        //メインシーン読み込み
+        FadeManager.Instance.LoadScene("Or_Compound", GameMgr.SceneFadeTime);
     }
 
     //SubView6　立ち去る
     public void OnSubNPC6_toggle()
     {
+        //入店の音
+        sc.PlaySe(150);
+
         //戻る
         GameMgr.SceneSelectNum = backnum;
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);

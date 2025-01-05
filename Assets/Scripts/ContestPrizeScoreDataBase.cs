@@ -56,7 +56,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         {
             case 1000:
 
-                PrizeSet01();
+                //PrizeSet01();
+                PrizeSet02();
                 break;
 
             case 2000:

@@ -22,7 +22,9 @@ public class GameQuestPanel : MonoBehaviour {
     public void TextKoushin()
     {
         //進行具合に応じて、メインクエのテキストが変わる。
-        quest_text.text = GameMgr.mainquest_message_list[GameMgr.MainQuest_Mesnum];
+        //quest_text.text = GameMgr.mainquest_message_list[GameMgr.MainQuest_Mesnum];
+        quest_text.text = GameMgr.System_spquest_message;
+
         //Debug.Log("メインクエメッセージ: " + GameMgr.mainquest_message_list[GameMgr.MainQuest_Mesnum]);
 
         /*switch (GameMgr.MainQuest_Mesnum)

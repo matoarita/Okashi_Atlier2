@@ -5290,6 +5290,7 @@ public class Utage_scenario : MonoBehaviour
             if (GameMgr.picnic_event_reading_now)
             {
                 //調合画面にはいる。
+                GameMgr.CompoundSceneStartON = true;
                 GameMgr.compound_status = 6;
                 compound_Main.MainCompoundMethod();
 

@@ -1074,8 +1074,9 @@ public class Compound_Main : MonoBehaviour
                                                     //スターに応じて、エリア解禁をするチェック　EventDataBaseのTimeの最後にチェックをONにする
                                                     if (!GameMgr.NewAreaRelease_flag)
                                                     {
-                                                        Debug.Log("スターチェック＆新エリア解禁チェック中");
-                                                        Check_NewAreaFlag();
+                                                        Debug.Log("スターチェック＆新エリア解禁チェック　現在チェック無視");
+                                                        //Check_NewAreaFlag();
+                                                        GameMgr.NewAreaRelease_flag = true;
                                                     }
                                                     else
                                                     {
@@ -1800,20 +1801,7 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                }
-
-
-                if (girl1_status.special_animatFirst) //SPアニメ終わったあとにチェック
-                {
-
-                    //SceneStart_flag = true; //シーンの最初のみこの処理をいれる。
-
-                    //お菓子以外で、条件を満たしていないかクエストクリアチェック
-                    girlEat_judge.ExtraSPQuestClearCheck();
-
-                }
-
-                
+                }               
 
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
                 if (!GameMgr.tutorial_ON)
@@ -1827,7 +1815,28 @@ public class Compound_Main : MonoBehaviour
                         GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
                         GameMgr.check_GirlLoveTimeEvent_flag = false; //時間イベントもチェック
                     }
-                }              
+                }
+
+                //お菓子以外で、条件を満たしていないかクエストクリアチェック
+                if (girl1_status.special_animatFirst) //SPアニメ終わったあとにチェック
+                {
+                    //全てのイベントが終わったあとに、ここをチェックする。
+                    if (!GameMgr.Sleep_CheckEnd) //寝るチェックが終了
+                    {
+                        if (GameMgr.check_GirlLoveSubEvent_flag && GameMgr.check_GirlLoveTimeEvent_flag)
+                        {
+                            if (GameMgr.ResultOFF) //リザルト画面開き中のときは、タイムチェックしない
+                            {
+                            }
+                            else
+                            {
+                                //お菓子以外で、条件を満たしていないかクエストクリアチェック
+                                girlEat_judge.ExtraSPQuestClearCheck();
+                            }
+                        }
+                    }
+
+                }
 
                 GameMgr.Status_zero_readOK = true;
 
@@ -2298,16 +2307,14 @@ public class Compound_Main : MonoBehaviour
     {
         stageclear_panel.SetActive(false);
 
-        //5個クエストをクリアしたら、クリアボタンがでる。
-        if (GameMgr.GirlLoveEvent_num == 50)
+        //小クエストをクリアしたら、ステージ最後にクリアボタンがでる。
+        if (GameMgr.GirlLoveEvent_num == 10 || GameMgr.GirlLoveEvent_num == 13)
         {
             //stageclear_toggle.SetActive(true);
             stageclear_panel.SetActive(true);
             stageclear_Button.SetActive(true);
             stageclear_button_text.text = "コンテストへ";
 
-            if (GameMgr.Story_Mode == 1)
-            {
                 if (GameMgr.outgirl_Nowprogress)
                 {
                     stageclear_button_toggle.interactable = false;
@@ -2316,7 +2323,6 @@ public class Compound_Main : MonoBehaviour
                 {
                     stageclear_button_toggle.interactable = true;
                 }
-            }
         }
         else
         {
@@ -2786,9 +2792,25 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            if (GameMgr.GirlLoveEvent_num == 50)
+            if (GameMgr.GirlLoveEvent_num == 10 || GameMgr.GirlLoveEvent_num == 13)
             {
-                if (pitemlist.player_extremepanel_itemlist.Count == 0)
+                if (!GameMgr.QuestClearflag)
+                {
+                    _text.text = "コンテストに出るの？";
+                    GameMgr.compound_status = 40;
+                    yes_no_clear_panel.SetActive(true);
+                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
+                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+                }
+                else
+                {
+                    _text.text = "次のお話にすすむ？　おにいちゃん。";
+
+                    GameMgr.compound_status = 42;
+                    yes_no_clear_okashi_panel.SetActive(true);
+                }
+
+                /*if (pitemlist.player_extremepanel_itemlist.Count == 0)
                 {
                     //お菓子を作ってないと、コンテストへ進めない。
                     _text.text = "お兄ちゃん..。まだお菓子を作ってないよ～。";
@@ -2804,7 +2826,7 @@ public class Compound_Main : MonoBehaviour
                     yes_no_clear_panel.SetActive(true);
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
                     yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
-                }
+                }*/
             }
             else
             {
@@ -3062,11 +3084,15 @@ public class Compound_Main : MonoBehaviour
                 //magicskill_database.skillHyoujiKaikin("Beautiful_Power");
                 magicskill_database.skillHyoujiKaikin("Luminous_Suger");
                 magicskill_database.skillHyoujiKaikin("Luminous_Fruits");
+                //magicskill_database.skillHyoujiKaikin("Buttelfy_illumination");
 
                 magicskill_database.skillHyoujiKaikin("Cookie_Study");
                 magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
+                magicskill_database.skillHyoujiKaikin("Caramelized");
 
+                magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
                 magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+                magicskill_database.skillHyoujiKaikin("Fire_Flowers");
 
                 magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
                 magicskill_database.skillHyoujiKaikin("Freezing_Spell");
@@ -3074,6 +3100,11 @@ public class Compound_Main : MonoBehaviour
                 //magicskill_database.skillHyoujiKaikin("Nappe");
                 magicskill_database.skillHyoujiKaikin("Appaleil_Study");
                 magicskill_database.skillHyoujiKaikin("Wind_Ark");
+
+                //magicskill_database.skillHyoujiKaikin("Star_Gazer");
+                //magicskill_database.skillHyoujiKaikin("Star_Blessing");
+                //magicskill_database.skillHyoujiKaikin("Latte_Art");
+                //magicskill_database.skillHyoujiKaikin("Magic_Soda");
 
                 break;
 
@@ -3617,9 +3648,11 @@ public class Compound_Main : MonoBehaviour
                 {
                     case 1:
 
-                        GameMgr.stage1_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
-                        GameMgr.stage1_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
-                        FadeManager.Instance.LoadScene("Contest", 0.3f);
+                        //GameMgr.stage1_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
+                        //GameMgr.stage1_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
+
+                        GameMgr.SceneSelectNum = 0;
+                        FadeManager.Instance.LoadScene("Or_Contest_Reception", 0.3f);
                         break;
 
                     case 2:

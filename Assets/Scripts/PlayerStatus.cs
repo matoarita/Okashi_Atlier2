@@ -133,6 +133,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     public static bool First_recipi_on; //はじめて調合したフラグ
     public static bool First_extreme_on; //はじめて仕上げをしたフラグ
+    public static bool First_magicokashi_on; //はじめて魔法調合したフラグ
 
 
     // Update is called once per frame
@@ -182,6 +183,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
         First_recipi_on = false;
         First_extreme_on = false;
+        First_magicokashi_on = false;
 
         //お菓子経験値
         player_girl_appaleil_exp = 0;

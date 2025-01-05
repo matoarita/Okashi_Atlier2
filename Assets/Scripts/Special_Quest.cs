@@ -118,8 +118,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
 
         GameMgr.QuestClearAnim_Flag = false; //クエスト前に一度falseでリセット
+        GameMgr.Contest_BGMON = false;
 
-        
         if (GameMgr.Story_Mode == 0)
         {
             //Stage1_Normal(spquest_set_num);
@@ -474,7 +474,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100030;
                 OkashiQuest_Count = 4;
-                GameMgr.EatOkashi_DecideFlag = 0; //0=食べたいお菓子がランダムでなくなり、メインクエストに固定する   1=食べたいお菓子がランダム表示              
+                GameMgr.EatOkashi_DecideFlag = 1; //0=食べたいお菓子がランダムでなくなり、メインクエストに固定する   1=食べたいお菓子がランダム表示              
                 GameMgr.SPquestPanelOff = false;
 
                 break;
@@ -483,122 +483,65 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100040;
                 OkashiQuest_Count = 5;
-                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
                 break;
 
-            case 10: //クッキーコンテストで優勝しよう！
+            case 10: //コンテストに出場しよう
 
                 girl1_status.OkashiQuest_ID = 100100;
                 OkashiQuest_Count = 1;
-                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
+                GameMgr.Contest_BGMON = true;
 
                 break;
 
-            case 11: //プラトンアカデミーコンテストで優勝しよう！
+            case 11: //露店通りへ行こう
 
                 girl1_status.OkashiQuest_ID = 100110;
                 OkashiQuest_Count = 2;
-                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
                 break;
 
-            /*case 12: //幻の青色紅茶食べたい＜13ラスクからの分岐＞
+            case 12: //まほうのお菓子を作ってみよう！
 
-                girl1_status.OkashiQuest_ID = 1120;
+                girl1_status.OkashiQuest_ID = 100120;
                 OkashiQuest_Count = 3;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
-            case 13: //キラキララスク食べたい＜10ラスクからの分岐１＞
+            case 13: //春コンテストで優勝しよう！
 
-                girl1_status.OkashiQuest_ID = 1130;
-                OkashiQuest_Count = 2;
-
-                break;*/
-
-            /*case 20: //クレープ食べたい
-
-                girl1_status.OkashiQuest_ID = 1200;
-                OkashiQuest_Count = 1;
-
-                break;
-
-            case 21: //オレンジクレープ食べたい
-
-                girl1_status.OkashiQuest_ID = 1210;
-                OkashiQuest_Count = 2;
-
-                break;
-
-            case 22: //アイス食べたい
-
-                girl1_status.OkashiQuest_ID = 1240;
-                OkashiQuest_Count = 3;
-
-                break;
-
-            case 23: //ジェム・ボンボン 宝石のような見た目のお菓子を食べたい
-
-                girl1_status.OkashiQuest_ID = 1220;
+                girl1_status.OkashiQuest_ID = 100130;
                 OkashiQuest_Count = 4;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
+                GameMgr.Contest_BGMON = true;
 
                 break;
 
-            case 24: //豪華なベリークレープ食べたい
+            case 20: //プラトンアカデミーコンテストで優勝しよう！
 
-                girl1_status.OkashiQuest_ID = 1230;
-                OkashiQuest_Count = 5;
-
-                break;
-
-
-            case 30: //シュークリーム食べたい
-
-                girl1_status.OkashiQuest_ID = 1300;
+                girl1_status.OkashiQuest_ID = 100200;
                 OkashiQuest_Count = 1;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
 
                 break;
 
-            case 31: //ラズベリーシュークリーム食べたい
 
-                girl1_status.OkashiQuest_ID = 1310;
-                OkashiQuest_Count = 2;
-
-
-                break;
-
-            case 32: //カフェオーレシュークリーム食べたい
-
-                girl1_status.OkashiQuest_ID = 1320;
-                OkashiQuest_Count = 3;
-
-
-                break;
-
-            case 33: //ティラミス食べたい
-
-                girl1_status.OkashiQuest_ID = 1330;
-                OkashiQuest_Count = 4;
-
-
-                break;
-
-            case 34: //150点以上のシュークリーム食べたい
-
-                girl1_status.OkashiQuest_ID = 1340;
-                OkashiQuest_Count = 5;
-
-                break;*/
 
             case 40: //最後　エデンそろったので、女王様と白クジラにあいにいく
 
                 girl1_status.OkashiQuest_ID = 100400;
                 OkashiQuest_Count = 1;
-                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
                 //Debug エデンレシピそろったことにする
@@ -612,7 +555,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100410;
                 OkashiQuest_Count = 1;
-                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
                 break;
@@ -621,7 +564,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100500;
                 OkashiQuest_Count = 1;
-                GameMgr.EatOkashi_DecideFlag = 0;
+                GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
                 break;
@@ -635,6 +578,27 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         {
             //GameMgr.OutEntrance_ON = true;
             matplace_database.ReSetMapFlagString("Or_Hiroba1", 1);
+        }
+
+        if (_spquest_setnum >= 11)
+        {
+            //GameMgr.OutEntrance_ON = true;
+            matplace_database.ReSetMapFlagString("Or_Hiroba1_Roten", 1);
+        }
+
+        if (_spquest_setnum >= 20)
+        {
+            //GameMgr.OutEntrance_ON = true;
+            matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
+            matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);
+            matplace_database.ReSetMapFlagString("Emerald_Forest", 1);
+            matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);
+
+            matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
+
+            matplace_database.ReSetMapFlagString("Or_Shop_D1", 1);
+            matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
+            matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
         }
     }
 
@@ -695,6 +659,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(100120, 12);
         QuestDict.Add(100130, 13);
         QuestDict.Add(100140, 14);
+        QuestDict.Add(100200, 20);
         QuestDict.Add(100400, 40);
         QuestDict.Add(100410, 41);
         QuestDict.Add(100500, 50);
@@ -750,19 +715,33 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
         else
         {
+            for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+            {
+                if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
+                {
+                    girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
+
+                    OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                    GameMgr.System_spquest_message = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                    GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
+                    //girl1_status.OkashiQuest_Name = OkashiQuest_Name;
+                }
+            }
+
             if (GameMgr.EatOkashi_DecideFlag == 0)
             {
-                for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
+                /*for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
                 {
                     if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
                     {
                         girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
 
                         OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
+                        GameMgr.System_spquest_message = girlLikeCompo_database.girllike_composet[i].spquest_name1;
                         GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
                         //girl1_status.OkashiQuest_Name = OkashiQuest_Name;
                     }
-                }
+                }*/
             }
             else
             {
@@ -779,7 +758,6 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 {
                     OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
                 }
-
             }
 
             //クエスト開始時のタイトル名検索

@@ -1537,7 +1537,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case "Cookie_SecondBake":
 
                 _magic_attri = 1; //二度焼きしたというフラグ
-                pitemlist.player_originalitemlist[_id].Attribute1 = _magic_attri;
+                pitemlist.player_extremepanel_itemlist[_id].Attribute1 = _magic_attri;
                 break;
 
         }

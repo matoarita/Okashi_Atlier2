@@ -770,6 +770,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 
+                case "Or_Hiroba1_Roten":
+
+                    GameMgr.SceneSelectNum = 14;
+                    FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
+                    break;
+
                 case "Or_Hiroba1":
 
                     GameMgr.SceneSelectNum = 0;

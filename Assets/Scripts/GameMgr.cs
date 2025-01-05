@@ -52,7 +52,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
     public static bool System_Shiokuri_ON = true; //仕送りの有無
     public static bool System_Yachin_ON = false; //家賃システムの有無
-    public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
+    public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
     public static bool System_QuestStarGet_ON = false; //酒場の依頼で、スターも上がる仕様にする。
@@ -865,6 +865,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_pastVictory_on; //コンテスト過去に優勝したことがある場合　セリフが変わりスターもらえない
     public static bool Contest_Cookie_VictoryHoleinOne; //くっきーコンテストに初出場して初優勝
     public static bool System_shop_defaulttext_koushin;
+    public static string System_spquest_message;
+    public static bool Contest_BGMON; //コンテスト出場日に、コンテストBGMに変える
 
 
     //セリフ関連の一時変数
@@ -1457,6 +1459,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         PlateSetNum = 0;
         NPC_pahupahu_point = 10;
         System_WhiteMemo_Num = 0;
+        Contest_BGMON = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

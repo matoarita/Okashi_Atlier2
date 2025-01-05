@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 31
-    y: 82
+    x: 8
+    y: 73
     width: 1860
     height: 916
   m_ShowMode: 4
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 49
+  controlID: 88
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 38
+  controlID: 138
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -591,8 +591,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 948
-    y: 112
+    x: 925
+    y: 103
     width: 322
     height: 845
   m_ViewDataDictionary: {fileID: 0}
@@ -605,7 +605,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 4c04c8fea004c8fec60bc8fe3e18c8feb824c8fee235c8fe1c44c8fe424fc8fe2c83cafe1c15cbfe8e1dcbfea022cbfeb226cbfe18a6cbfeeeadcbfee0c1cbfe68c9cbfef0cacbfea0cbcbfe94d0cbfe86d4cbfe44dccbfeb248ccfea419cdfe1622cdfe2625cdfe6828cdfe4650cdfe685fcdfe0a60cdfe9088cdfe3489cdfed689cdfe788acdfe1a8bcdfebc8bcdfec48bcdfe668ccdfe66bfcdfe0ac0cdfe2a694dff580080ff04fbffff50660000266700008669000078870000
+      m_ExpandedIDs: 680ed1ffb20ed1ffc012d1ff361fd1ffae2bd1ffd03cd1fff84ad1ff1c56d1fffa89d3ffe61bd4ff5624d4ff6629d4ff762dd4ffdaacd4ffaeb4d4ff9ec8d4ff1ed0d4ff9ad1d4ffecd1d4ffd2d6d4ffb8dad4ff62e2d4ffb64ed5ffa81fd6ff1828d6ff262bd6ff622ed6ff3e56d6ff5265d6fff265d6ff748ed6ff148fd6ffb48fd6ff5490d6fff490d6ff9491d6ff9a91d6ff3a92d6ff38c5d6ffdac5d6ff16cfd6ff66cfd6ff8ad6d6ff02e3d6ff7cefd6ffa000d7ffd20ed7fff819d7ffe24dd9ffd2dfd9ff44e8d9ff56edd9ff68f1d9ffce70daffa478daff968cdaff1894daff9895daff4896daff349bdaff1e9fdaffd4a6daff3a13dbff2ce4dbff9eecdbffaeefdbfff0f2dbffce1adcfff029dcff922adcff1853dcffbc53dcff5e54dcff0055dcffa255dcff4456dcff4c56dcffee56dcffee89dcff928adcff0e96dcff5896dcff6c9adcffe6a6dcff62b3dcff88c4dcffb4d2dcffdcdddcffbe11dfffaea3dfff22acdfff36b1dfff4ab5dfffb234e0ff8a3ce0ff7e50e0ff0858e0ff9059e0ffe659e0ffd85ee0ffca62e0ff806ae0ffe0d6e0ffdca7e1ff50b0e1ff62b3e1ffa2b6e1ff82dee1ff9aede1ff3eeee1ffc416e2ff6817e2ff0c18e2ffb018e2ff5419e2fff819e2ff021ae2ffa61ae2ffa84de2ff4e4ee2fff857e2ff4258e2ff505ce2ffc668e2ff3e75e2ff6086e2ff8894e2ffac9fe2ff8ad3e4ff7665e5ffe66de5fff672e5ff0677e5ff6af6e5ff3efee5ff2e12e6ffae19e6ff2a1be6ff7c1be6ff6220e6ff4824e6fff22be6ff4698e6ff3869e7ffa871e7ffb674e7fff277e7ffce9fe7ffe2aee7ff82afe7ff04d8e7ffa4d8e7ff44d9e7ffe4d9e7ff84dae7ff24dbe7ff2adbe7ffcadbe7ffc80ee8ff6a0fe8ffa618e8fff618e8ff1a20e8ff922ce8ff0c39e8ff304ae8ff6258e8ff8863e8ff7297eaff6229ebffd431ebffe636ebfff83aebff5ebaebff34c2ebff26d6ebffa8ddebff28dfebffd8dfebffc4e4ebffaee8ebff64f0ebffca5cecffbc2dedff2e36edff3e39edff803cedff5e64edff8073edff2274edffa89cedff4c9dedffee9dedff909eedff329fedffd49fedffdc9fedff7ea0edff7ed3edff22d4edff78e1edffc8e1edffece8edff64f5edffde01eeff0213eeff3421eeff5a2ceeff4460f0ff34f2f0ffa6faf0ffb8fff0ffca03f1ff3083f1ff068bf1fff89ef1ff7aa6f1fffaa7f1ffaaa8f1ff96adf1ff80b1f1ff36b9f1ff9c25f2ff8ef6f2ff00fff2ff1002f3ff5205f3ff302df3ff523cf3fff43cf3ff7a65f3ff1e66f3ffc066f3ff6267f3ff0468f3ffa668f3ffae68f3ff5069f3ff509cf3fff49cf3fffca8f3ff46a9f3ff54adf3ffcab9f3ff42c6f3ff64d7f3ff8ce5f3ffb0f0f3ff8e24f6ff7ab6f6ffeabef6fffac3f6ff0ac8f6ff6e47f7ff424ff7ff3263f7ffb26af7ff2e6cf7ff806cf7ff6671f7ff4c75f7fff67cf7ff4ae9f7ff3cbaf8ffacc2f8ffbac5f8fff6c8f8ffd2f0f8ffe6fff8ff8600f9ff0829f9ffa829f9ff482af9ffe82af9ff882bf9ff282cf9ff2e2cf9ffce2cf9ffcc5ff9ff6e60f9ffc069f9ff146af9ff3e71f9ffba7df9ff388af9ff609bf9ff96a9f9ffc0b4f9ffaee8fbffa27afcff1883fcff2e88fcff448cfcffae0bfdff8813fdff7e27fdff0a2ffdff9630fdff4a31fdff4236fdff383afdfffa41fdff6caefdff687ffeffde87fefff28afeff388efeff1ab6feff40c5feffe6c5feff70eefeff18effeffbeeffeff64f0feff0af1feffb0f1feffbcf1feff62f2feff6625ffff0e26ffff04fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -650,8 +650,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1629
-    y: 112
+    x: 1606
+    y: 103
     width: 261
     height: 845
   m_ViewDataDictionary: {fileID: 0}
@@ -693,8 +693,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1272
-    y: 112
+    x: 1249
+    y: 103
     width: 355
     height: 845
   m_ViewDataDictionary: {fileID: 0}
@@ -713,23 +713,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Resources/Excel
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Resources/Excel
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 523}
-    m_SelectedIDs: 466a0100
-    m_LastClickedID: 92742
-    m_ExpandedIDs: 00000000444d0100464d0100484d01004a4d01004c4d01004e4d0100504d0100524d0100544d0100564d0100584d010000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: fe4d0100
+    m_LastClickedID: 85502
+    m_ExpandedIDs: 00000000d44d0100d64d0100d84d0100da4d0100dc4d0100de4d0100e04d0100e24d0100e44d0100e64d0100e84d010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -757,7 +757,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d68c0000
     m_LastClickedID: 36054
-    m_ExpandedIDs: 00000000444d0100464d0100484d01004a4d01004c4d01004e4d0100504d0100524d0100544d0100564d0100584d0100
+    m_ExpandedIDs: 00000000d44d0100d64d0100d84d0100da4d0100dc4d0100de4d0100e04d0100e24d0100e44d0100e64d0100e84d0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -784,19 +784,19 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: d2ad0100b0940000fed100007a560100a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad000000000000b65501009e710000a46101003c4e0100164e0100
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: d2ad0100b0940000fed100007a560100a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad000000000000b65501009e710000a46101003c4e0100164e01009e270000c22f0000783b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Hiroba1_Main_Or
-      m_OriginalName: Hiroba1_Main_Or
+      m_Name: Entity_matplaceItemDataBase
+      m_OriginalName: Entity_matplaceItemDataBase
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 7412
+      m_UserData: 86058
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -809,7 +809,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 66}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 189
@@ -834,8 +834,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 31
-    y: 444
+    x: 8
+    y: 435
     width: 916
     height: 513
   m_ViewDataDictionary: {fileID: 0}
@@ -928,8 +928,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 31
-    y: 112
+    x: 8
+    y: 103
     width: 916
     height: 311
   m_ViewDataDictionary: {fileID: 0}
@@ -1211,9 +1211,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -18.574242, y: 28.669594, z: 0}
+    m_Target: {x: 45.85034, y: 25.301579, z: 90}
     speed: 2
-    m_Value: {x: -18.574242, y: 28.669594, z: 0}
+    m_Value: {x: 45.85034, y: 25.301579, z: 90}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1264,9 +1264,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 61.846584
+    m_Target: 47.895493
     speed: 2
-    m_Value: 61.846584
+    m_Value: 47.895493
   m_Ortho:
     m_Target: 1
     speed: 2

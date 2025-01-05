@@ -2302,7 +2302,7 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                if (player_girl_findpower_final >= 150 && !GameMgr.MapEvent_Or[210]) //夢喰い沼見つけたらもう出ない。      
+                if (!GameMgr.MapEvent_Or[210]) //夢喰い沼見つけたらもう出ない。      
                 {
                     if (GameMgr.NPCHiroba_eventList[270]) //白クジラに場所を教えてもらっている
                     {

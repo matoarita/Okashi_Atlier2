@@ -329,10 +329,19 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         {
             contest_eventStart_flag = true;
             GameMgr.Contest_ON = true;
-
-            //さらにどのコンテストに現在出場しているかを指定
-            GameMgr.ContestRoundNum = 1; //一回戦
+           
             GameMgr.contest_TotalScoreList.Clear();
+
+            if (GameMgr.Contest_Cate_Ranking == 0)
+            {
+                //さらに何回戦かを初期設定
+                GameMgr.ContestRoundNum = 3; //〇回戦　トーナメントは、とりあえず現在決勝戦スタート
+            }
+            else
+            {
+                GameMgr.ContestRoundNum = 1;
+            }
+
             ContestDataSetting();            
 
             GameMgr.scenario_ON = true;

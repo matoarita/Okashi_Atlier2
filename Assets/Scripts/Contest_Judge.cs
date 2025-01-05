@@ -53,6 +53,7 @@ public class Contest_Judge : MonoBehaviour {
     private bool judge_flag;
     private int judge_Type;
 
+    private float contest_bairitsu_hosei;
 
     public int[] total_score;
     private float _temp_score;
@@ -103,7 +104,7 @@ public class Contest_Judge : MonoBehaviour {
         girlEat_judge = GirlEat_Judge.Instance.GetComponent<GirlEat_Judge>();
 
         //BGMの取得
-        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();        
 
         //要素数の初期化
         total_score = new int[girl1_status.youso_count];
@@ -372,7 +373,8 @@ public class Contest_Judge : MonoBehaviour {
 
             _windowtext.text = "審査員１　点数：" + total_score[0] + "点" + "\n" +
                 "審査員２　点数：" + total_score[1] + "点" + "\n" +
-                "審査員３　点数：" + total_score[2] + "点";
+                "審査員３　点数：" + total_score[2] + "点" + "\n" + 
+                "総合得点：" + GameMgr.contest_TotalScore + "点";
         }
         else
         {
@@ -483,7 +485,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //200点を上限に100点に正規化する。
                     ScoreNormalized(200);
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.5");
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
                 break;
@@ -501,8 +503,8 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(150); //75%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                    ScoreNormalized(100); //75%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
                 break;
@@ -554,7 +556,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(200); //50%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
                 break;
@@ -572,7 +574,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(150); //75%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
                 break;
@@ -590,7 +592,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(150); //75%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "*0.75");
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
                 break;       
@@ -615,7 +617,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(200); //50%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
@@ -644,7 +646,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(200); //50%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
@@ -673,7 +675,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(200); //50%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
@@ -695,7 +697,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(200); //50%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + "* 0.5");
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
                 break;
@@ -800,6 +802,12 @@ public class Contest_Judge : MonoBehaviour {
             _temp_score = SujiMap(total_score[i], 0, _max, 0, 100);
             total_score[i] = (int)_temp_score;
         }
+        contest_bairitsu_hosei = 100 / _max;
+
+        //デバッグパネルの取得
+        debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
+        debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();       
+        debug_taste_resultText.text += "\n" + "\n" + "コンテスト倍率補正: " + contest_bairitsu_hosei.ToString();
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

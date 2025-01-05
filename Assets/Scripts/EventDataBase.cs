@@ -179,7 +179,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     //クエスト発生
                                     Debug.Log("ハートメインイベント３をON: 開始");
 
-                                    special_quest.SetSpecialOkashi(40, 0);
+                                    special_quest.SetSpecialOkashi(20, 0);
                                 }
                                 else
                                 {
@@ -212,7 +212,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     Debug.Log("ハートメインイベント４をON: 開始");
 
 
-                                    special_quest.SetSpecialOkashi(30, 0);
+                                    special_quest.SetSpecialOkashi(40, 0);
                                 }
                                 else
                                 {
@@ -1370,6 +1370,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                             if (!GameMgr.NPCMagic_eventList[0]) //コンテスト終了後、一回寝て起きる。露店通りへいく
                             {
+                                matplace_database.ReSetMapFlagString("Or_Hiroba1_Roten", 1);
+
                                 GameMgr.NPCMagic_eventList[0] = true;
 
                                 if (!GameMgr.Contest_Cookie_VictoryHoleinOne)

@@ -98,6 +98,7 @@ public class PlayerData
 
     public bool save_First_recipi_on; //はじめて調合したフラグ
     public bool save_First_extreme_on; //はじめて仕上げをしたフラグ
+    public bool save_First_magicokashi_on; //はじめてまほう調合したフラグ
 
     public bool save_special_animatFirst; //SPクエスト最初表示したかどうかのフラグ
 

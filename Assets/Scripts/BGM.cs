@@ -788,7 +788,8 @@ public class BGM : MonoBehaviour {
             case "Or_Compound":
 
                 //Debug.Log("BGM　オランジーナ調合シーン");
-                _send_clip = sound40;
+                //_send_clip = sound40;
+                BGMDefault();
                 //_send_clip_ambient = Ambient1;
 
                 break;
@@ -853,23 +854,23 @@ public class BGM : MonoBehaviour {
 
     void Story_BGMSelect()
     {
-        if (GameMgr.GirlLoveEvent_stage1[50]) //コンテストの日の曲
+        if (GameMgr.Contest_BGMON) //コンテストの日の曲
         {
             _send_clip = sound10;
         }
         else
         {
-            if (GameMgr.GirlLoveSubEvent_stage1[60]) //HLV15~できらぽんイベント発生後
+            /*if (GameMgr.GirlLoveSubEvent_stage1[60]) //HLV15~できらぽんイベント発生後
             {
                 _send_clip = sound19;
             }
             else
-            {
+            {*/
                 switch (GameMgr.mainBGM_Num)
                 {
                     case 0:
 
-                        _send_clip = sound20;
+                        _send_clip = sound40;
                         break;
 
                     case 1:
@@ -901,7 +902,7 @@ public class BGM : MonoBehaviour {
                         _send_clip = sound19;
                         break;
                 }
-            }
+            //}
         }
     }
 

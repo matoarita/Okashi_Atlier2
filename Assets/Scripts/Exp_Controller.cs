@@ -1360,8 +1360,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 {
                     PlayerStatus.First_recipi_on = true;
                 }
-            }
-
+            }           
 
             if (GameMgr.Extreme_On) //トッピング・魔法調合から、新規作成に分岐した場合
             {

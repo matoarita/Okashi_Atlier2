@@ -1089,6 +1089,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         _baseID = database.SearchItemID(_baseID); //アイテムIDを、itemsリストの番号に変換
 
+        //おかしの基礎得点　ここで設定も可能
+        //_basescore = 60;
 
         //一回まず各スコアを初期化。
         for (i = 0; i < itemslotScore.Count; i++)
@@ -1738,6 +1740,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             GameMgr.ending_on = false; //まずかったときは、EDいく分岐があってもここでoffになる。
         }
 
+        //はじめて、魔法おかしを作ったらフラグをONに。
+        if (!GameMgr.tutorial_ON)
+        {
+            if (database.items[_baseID].Magic == 1)
+            {
+                if (PlayerStatus.First_magicokashi_on != true)
+                {
+                    PlayerStatus.First_magicokashi_on = true;
+                }
+            }
+        }
+
         GameMgr.Okashi_totalscore = total_score;
 
 
@@ -1949,10 +1963,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Debug.Log("_beauty_deg: " + _temp_deg);
 
-                if(_temp_kyori >= 10) //差が10をこえたときに、はじめて見た目の点数が加算される。
+                if(_temp_kyori >= 0) //差が10をこえたときに、はじめて見た目の点数が加算される。
                 {
-                    _temp_beautyscore = _temp_kyori; //加算方式
-                    //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg); //倍率方式
+                    //_temp_beautyscore = _temp_kyori; //加算方式
+                    _temp_beautyscore = (int)(_beauty_basicscore * _temp_deg); //倍率方式
                     //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg) - _beauty_basicscore; //倍率方式2
                 }
                 else
@@ -2425,6 +2439,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Debug.Log("_temp_deg: " + _temp_deg);
 
                 crispy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                //crispy_score = _basecrispy - _girlcrispy[countNum];
             }
             else
             {
@@ -2459,6 +2474,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 Debug.Log("_temp_deg: " + _temp_deg);
 
                 fluffy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                //fluffy_score = _basefluffy - _girlfluffy[countNum];
             }
             else
             {
@@ -4732,16 +4748,47 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 100100:
 
-                //クッキーコンテスト初級で優勝すると先へ進める
+                //クッキーコンテスト出場したら先へ進む
                 _id = conteststartList_database.SearchContestString("Or_Contest_010");
-                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_id].ContestVictory != 0)
                 {
-                    Debug.Log("クッキーコンテスト初級で優勝したので、クエストクリア");
+                    Debug.Log("コンテスト初出場した。クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;
 
             case 100110:
+
+                //春の露店通りへ行くと先へ進める 具体的には、ミラボ先生一回目にあった時点でクリア
+                if (GameMgr.NPCMagic_eventList[1])
+                {
+                    Debug.Log("露店通りへ行きミラボ先生に会った。クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100120:
+
+                //まほうのおかしを作る
+                if (PlayerStatus.First_magicokashi_on)
+                {
+                    Debug.Log("まほうのお菓子作ったので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100130:
+
+                //プラトンアカデミーコンテストで優勝すると先へ進める
+                _id = conteststartList_database.SearchContestString("Or_Contest_002");
+                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
+                {
+                    Debug.Log("エデンコンテスト①で優勝したので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100200:
 
                 //プラトンアカデミーコンテストで優勝すると先へ進める
                 _id = conteststartList_database.SearchContestString("Or_Contest_002");
@@ -6171,7 +6218,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 //満月の夜でない　またなんでもない日に食べた場合　なにもおこらない
                 GameMgr.girlloveevent_bunki = 2; //EDイベントを指定
-                GameMgr.GirlLoveEvent_num = 11;
+                GameMgr.GirlLoveEvent_gameQuestPanel.SetActive(false); //本編はじまるまでは表示しないnum = 11;
                 GameMgr.girlEat_ON = false;
                 GameMgr.Mute_on = true;
                 GameMgr.ending_on = false;
@@ -6188,7 +6235,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             
         }*/
-            
+
 
         compound_Main.ReadGirlLoveEvent_Fire();
     }

@@ -415,14 +415,14 @@ public class Bar_Main_Controller : MonoBehaviour {
 
                 shopon_toggle_talk.SetActive(true);
                 shopon_toggle_uwasa.SetActive(true);
-                if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
+                /*if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
                 {
                     shopon_toggle_back.SetActive(true);
                 }
                 else
                 {
                     shopon_toggle_back.SetActive(false);
-                }
+                }*/
                 break;
 
             case "Or_Bar_B1":
