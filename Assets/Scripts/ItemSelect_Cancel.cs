@@ -352,20 +352,23 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                                                 if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
                                                 {
-                                                    //焼き菓子かどうかを判定
-                                                    if (_subType == "BakedSweets" || _subType == "Biscotti" || _subType == "Bread" || _subType == "Cookie" || _subType == "Cookie_Hard" ||
-                                                        _subType == "Cake_Mat" || _subType == "Castella" || _subType == "Creampuff" || _subType == "Financier" || _subType == "Maffin" ||
-                                                        _subType == "Pie" || _subType == "Rusk")
-                                                    {
-                                                        Debug.Log("温度管理画面を表示する");
+                                                    //GameMgr.tempature_control_ON = false;
+                                                    GameMgr.final_select_flag = true;
 
-                                                        GameMgr.tempature_control_ON = true;
-                                                        GameMgr.tempature_control_select_flag = true;
-                                                    }
-                                                    else
+                                                    foreach (string _type in GameMgr.OkashiTempatureControl_list)
                                                     {
-                                                        GameMgr.tempature_control_ON = false;
-                                                        GameMgr.final_select_flag = true;
+                                                        //焼き菓子かどうかを判定
+                                                        if (_subType == _type)
+                                                        {
+                                                            Debug.Log("温度管理画面を表示する");
+
+                                                            //GameMgr.tempature_control_ON = true;
+                                                            GameMgr.tempature_control_select_flag = true;
+                                                            GameMgr.final_select_flag = false;
+                                                            break;
+                                                        }
+                                                        else
+                                                        { }
                                                     }
                                                 }
                                                 else

@@ -77,7 +77,7 @@ public class Item
     public int Rare; //レアリティー
     public int Manpuku; //満腹度
     public int Magic; //魔法属性　これがついたお菓子を食べると、MPが上がるなどステータス上昇のフラグ　魔法のおかしであることを示すフラグ
-    public int Attribute1; //お菓子の状態1　二度焼きで、すでに二度焼きした状態を1にする。
+    public int NotEat; //ヒカリがたべたい～で出てこないおかしのフラグ
     public int SecretFlag; //隠しアイテムかどうか。隠しアイテムであれば、お菓子手帳のリストには表示されない。
 
     //以下パラメータはExcel上には記載なし
@@ -104,6 +104,7 @@ public class Item
     public string item_FullName; //スロット名も含めた最終の名称。オリジナルアイテムリスト用で使う。
     public string[] item_MagicSlot = new string[10]; //魔法の状態を記録するスロット。最初はNon。魔法を付与すると、お菓子になんらかの状態が保存される。
     public int[] item_MagicSlotValue = new int[10]; //各魔法スロットの量　魔法によってどのぐらい効果がかかっているか。
+    public int Attribute1; //お菓子の状態1　二度焼きで、すでに二度焼きした状態を1にする。
     public int Attribute2; //お菓子の状態2　フローティングで浮いた状態を1にする。
     public int Attribute3; //お菓子の状態3　アブタラで変化した状態を1にする。（2度掛けはできない）
     //ここまで
@@ -144,7 +145,8 @@ public class Item
         Cake,
         Cake_Mat,
         Cake_MatSponge,
-        Cake_MatCream,
+        Cake_MatSpongeBaked,
+        Cake_MatCream,       
         Cake_base,
         CheeseCake,
         Castella,       
@@ -222,7 +224,7 @@ public class Item
         string tp01, string tp02, string tp03, string tp04, string tp05, string tp06, string tp07, string tp08, string tp09, string tp10, 
         string koyu_tp1, string koyu_tp2, string koyu_tp3, string koyu_tp4, string koyu_tp5, int itemkosu, int extreme_kaisu, int _item_hyouji, 
         int _judge_num, int _eat_kaisu, int _highscore, int _lasttotal_score, string _hinttext, float _total_kyori, int _rare, int _manpuku, int _magic,
-        int _attribute1, int _secretFlag,
+        int _noteat, int _secretFlag,
         string MS01, string MS02, string MS03, string MS04, string MS05, string MS06, string MS07, string MS08, string MS09, string MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10)
     {
@@ -322,7 +324,7 @@ public class Item
         Manpuku = _manpuku;
         Magic = _magic;
 
-        Attribute1 = _attribute1;       
+        NotEat = _noteat;
         SecretFlag = _secretFlag;
 
         //以下、Excelに記載はなし
@@ -367,6 +369,7 @@ public class Item
         item_MagicSlotValue[8] = MSvalue09;
         item_MagicSlotValue[9] = MSvalue10;
 
+        Attribute1 = 0;
         Attribute2 = 0;
         Attribute3 = 0;
     }

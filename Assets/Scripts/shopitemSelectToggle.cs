@@ -444,7 +444,7 @@ public class shopitemSelectToggle : MonoBehaviour
 
                 case 50:
 
-                    switch (shop_database.shopitems[i].shop_dongriType)
+                    switch (shopitemlistController._shop_listitem[i].GetComponent<shopitemSelectToggle>().toggle_shopitem_dongri_type)
                     {
                         case 0: //エメラルどんぐり
 

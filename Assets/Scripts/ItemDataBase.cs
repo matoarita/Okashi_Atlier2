@@ -66,7 +66,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
     private int _rare;
     private int _manpuku;
     private int _magic;
-    private int _attribute1;
+    private int _noteat;
     private int _secretFlag;
 
     private int _cost;
@@ -207,7 +207,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                 _manpuku = excel_itemdatabase.sheets[sheet_no].list[count].Manpuku;
                 _magic = excel_itemdatabase.sheets[sheet_no].list[count].Magic;
 
-                _attribute1 = excel_itemdatabase.sheets[sheet_no].list[count].Attribute1;
+                _noteat = excel_itemdatabase.sheets[sheet_no].list[count].NotEat;
                 _secretFlag = excel_itemdatabase.sheets[sheet_no].list[count].SecretFlag;
 
                 _juice = _sweat + _bitter + _sour;
@@ -220,7 +220,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like, 
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _magic,
-                    _attribute1, _secretFlag,
+                    _noteat, _secretFlag,
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
                 //comp_hoseiでバグらないようにするための、クローン
                 items_gamedefault.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
@@ -230,7 +230,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like,
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _magic,
-                    _attribute1, _secretFlag,
+                    _noteat, _secretFlag,
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
                 //システムデータ保存用のアイテムデータリスト
                 items_system.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
@@ -240,7 +240,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     _type, _subtype, _subtypeB, _subtype_category, _base_score, _girl1_like,
                     _cost, _sell, _tp01, _tp02, _tp03, _tp04, _tp05, _tp06, _tp07, _tp08, _tp09, _tp10,
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _magic,
-                    _attribute1, _secretFlag,
+                    _noteat, _secretFlag,
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 
                 ++count;

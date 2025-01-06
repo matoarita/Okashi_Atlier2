@@ -642,6 +642,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //はじめておかし作ったイベントリスト
     public static Dictionary<string, int> OkashiAtFirst_eventlist = new Dictionary<string, int>();
 
+    //温度管理対象のおかしリスト
+    public static List<string> OkashiTempatureControl_list = new List<string>();
+
     //メインクエの指示メッセージリスト
     public static Dictionary<int, string> mainquest_message_list = new Dictionary<int, string>();
 
@@ -1787,6 +1790,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //はじめてお菓子作ったイベント設定
         Init_OkashiAtFirstEvent_Library();
 
+        //温度管理対象お菓子リストの設定
+        Init_OkashiTempatureControl_Library();
+
         //ヒカリの思い出イベントリスト　回想シーン
         Init_HikariOmoideEvent_Library();
 
@@ -2308,6 +2314,25 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiAtFirst_eventlist.Add("lumi_sapphire_suger", 202);
         OkashiAtFirst_eventlist.Add("a_ChocolateTwister", 203);
         OkashiAtFirst_eventlist.Add("ice_statue_twister", 204);
+    }
+
+    //温度管理をかけるお菓子のリスト SubTypeを記入する
+    public static void Init_OkashiTempatureControl_Library()
+    {
+        OkashiTempatureControl_list.Clear();
+
+        OkashiTempatureControl_list.Add("BakedSweets");
+        OkashiTempatureControl_list.Add("Biscotti");
+        OkashiTempatureControl_list.Add("Bread");
+        OkashiTempatureControl_list.Add("Cookie");
+        OkashiTempatureControl_list.Add("Cookie_Hard");
+        OkashiTempatureControl_list.Add("Cake_MatSpongeBaked");
+        OkashiTempatureControl_list.Add("Castella");
+        OkashiTempatureControl_list.Add("Creampuff");
+        OkashiTempatureControl_list.Add("Financier");
+        OkashiTempatureControl_list.Add("Maffin");
+        OkashiTempatureControl_list.Add("Pie");
+        OkashiTempatureControl_list.Add("Rusk");
     }
 
 

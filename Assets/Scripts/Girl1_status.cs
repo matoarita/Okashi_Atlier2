@@ -1176,16 +1176,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {
             if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)
             {
-                if (database.items[database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result)].itemType.ToString() == "Okashi")
-                {
-                    _id = database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result);
-                    if (database.items[_id].itemName == "shishamo_cookie" || database.items[_id].itemName == "shishamo_crepe" ||
-                       database.items[_id].itemName == "murasaki_mushroom_cookie" ||
-                       database.items[_id].itemType_subB == "a_Cake_Mat" || database.items[_id].itemType_subB == "a_CookieSource")
+                _id = database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result);
+
+                if (database.items[_id].itemType.ToString() == "Okashi")
+                {                    
+                    if (database.items[_id].NotEat == 1) //食べたくないに設定されてるものは表示されない
                     { }
                     else
                     {
-                        girlRandomEat_List.Add(database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result));
+                        girlRandomEat_List.Add(_id);
                         //Debug.Log("databaseCompo.compoitems[i].cmpitemID_result: " + databaseCompo.compoitems[i].cmpitemID_result);
                     }
 

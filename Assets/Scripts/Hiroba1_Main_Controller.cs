@@ -1862,7 +1862,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         switch (GameMgr.Scene_Name)
         {
-            case "Or_Hiroba_Spring_Shoping_Moll": //中央噴水
+            case "Or_Hiroba_CentralPark": //中央噴水
+
+                On_Active04();
+                break;
+
+            case "Or_Hiroba_Spring_Shoping_Moll": //
 
                 On_Active04();
                 break;

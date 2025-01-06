@@ -6,6 +6,8 @@ public class SpecialOkashiEffectView : MonoBehaviour {
 
     private Exp_Controller exp_Controller;
 
+    private SoundController sc;
+
     // Use this for initialization
     void Start () {
 		
@@ -21,6 +23,11 @@ public class SpecialOkashiEffectView : MonoBehaviour {
     {
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
+
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        sc.PlaySe(0);
 
         GameMgr.Special_OkashiEnshutsuFlag = false;
         exp_Controller.EffectListClear();

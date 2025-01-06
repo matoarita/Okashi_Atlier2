@@ -394,7 +394,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         if (check_itemType == "Okashi" || check_itemType == "Potion" || check_itemType_sub_category == "Potion")
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
 
                         break;
@@ -406,22 +406,22 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             if (check_itemName == "komugiko" || check_itemName == "butter" ||
                                 check_itemName == "suger")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                         }
                         else
                         {
                             if (check_itemType == "Mat" || check_itemType_sub_category == "Mat")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             else if (check_itemType_sub == "Source" || check_itemType_sub == "GlowFruits")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             else if (check_itemType_sub == "Garbage" || check_itemType_sub == "Machine")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                         }
                         break;
@@ -431,7 +431,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         if (check_itemType_sub == "Pate" || check_itemType_sub == "Cookie_base" ||
                             check_itemType_sub == "Pie_base" || check_itemType_sub == "Chocorate_base" || check_itemType_sub == "Cake_base")
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
                         break;
 
@@ -439,19 +439,19 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         if (check_itemType == "Mat" || check_itemType == "Okashi" || check_itemType_sub_category == "Mat")
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
                         else if (check_itemType_sub == "Source" )
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
                         else if (check_itemType_sub == "Garbage" || check_itemType_sub == "Machine")
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
                         else if (check_itemType == "Potion" || check_itemType_sub_category == "Potion")
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
 
                         break;
@@ -474,13 +474,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             if (check_itemType == "Okashi")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
                         case 99: //メニュー画面を開いたとき
 
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                             break;
 
                         case 1000: //イベント
@@ -488,13 +488,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             if (check_itemType == "Okashi")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
                         default:
 
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                             break;
                     }
                 }
@@ -507,7 +507,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             //お菓子のみ表示
                             if (check_itemType == "Okashi")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
@@ -518,7 +518,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                                     check_itemType_sub == "Rare" || check_itemType_sub == "Equip" || check_itemType_sub == "Garbage" || check_itemType_sub == "Object")
                             {
 
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
@@ -527,13 +527,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             //お菓子のみ表示
                             if (check_itemType == "Okashi")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
                         default:
 
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                             break;
                     }
                 }
@@ -546,7 +546,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             //お菓子のみ表示
                             if (check_itemType == "Okashi")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
@@ -556,7 +556,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             if (check_itemType == "Mat" || check_itemType_sub == "Rare")
                             {
 
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
@@ -565,13 +565,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                             //お菓子のみ表示
                             if (check_itemType == "Okashi")
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
                         default:
 
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                             break;
                     }
                 }
@@ -579,7 +579,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType == "Okashi")
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
                 }
             }
@@ -611,7 +611,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     //お菓子タイプのみ表示
                     if (database.items[i].itemType.ToString() == "Okashi")
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -629,7 +629,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 //お菓子タイプのみ表示
                 if (pitemlist.player_originalitemlist[i].itemType.ToString() == "Okashi")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
             }
         }
@@ -645,7 +645,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 //お菓子タイプのみ表示
                 if (pitemlist.player_extremepanel_itemlist[i].itemType.ToString() == "Okashi")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
 
             }
@@ -724,7 +724,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 //チュートリアル時は、とりあえずオレンジだけ表示
                 if (check_itemName == "orange")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
             }
             else
@@ -735,15 +735,15 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     check_itemType_sub == "Nuts" || check_itemType_sub == "IceCream"
                     )
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
             }
         }
     }
 
-    void itemlist_hyouji_Check()
+    void itemlist_hyouji_Check(int _chk_Type)
     {
-        switch(check_itemListType)
+        switch(_chk_Type)
         {
             case 0: //アイテムリスト
 
@@ -909,20 +909,20 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_subB == "a_SourceSyrup")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
             case "Fire_Flowers":
 
-                NonDrinkHyouji();
+                NonDrinkHyouji(1);
                 break;
 
             case "Bake_Beans":
 
                 if (check_itemType_subB == "a_Cacao" || check_itemType_subB == "a_CoffeeBeans" || check_itemType_subB == "a_Maron")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -930,7 +930,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_subB == "a_CacaoRoasted")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -938,7 +938,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_subB == "a_CacaoMass")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -950,7 +950,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_attribute1 == 0) //まだ二度焼きしてないやつだけ
                     {
-                        itemlist_hyouji_Check();
+                        if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                        {
+                            itemlist_hyouji_Check(check_itemListType);
+                        }
                     }
                 }
                 break;
@@ -963,7 +966,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_subB == "a_AppaleiliceCream")
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
                 }
                 if (_lv >= 2) //水・ミルク系全般
@@ -975,7 +978,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         check_itemType_subB == "a_AppaleilTwister" ||
                         check_itemType_sub == "Water" || check_itemType_sub == "Milk")
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
                 }
                 if (_lv >= 3) //くだもの
@@ -984,7 +987,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     {
                         if (check_itemType_subB != "a_FrozenFruits") //すでに冷凍したものはダメ
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
                     }
                 }
@@ -994,7 +997,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     {
                         if (check_itemType_subB != "a_Freezeflower") //すでに冷凍したものはダメ
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
                     }
                 }
@@ -1006,7 +1009,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                         {
                             if (check_itemType_subB != "a_FreezeJelly") //すでに冷凍したものはダメ
                             {
-                                itemlist_hyouji_Check();
+                                itemlist_hyouji_Check(check_itemListType);
                             }
                         }
                     }
@@ -1018,7 +1021,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_subB == "a_AppaleiliceCream")
                 {
-                        itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -1028,7 +1031,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category == "Non") //ツイスターや加工されたものは対象外
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1040,7 +1043,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category == "Non") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1054,7 +1057,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                     {
                         if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
                         {
-                            itemlist_hyouji_Check();
+                            itemlist_hyouji_Check(check_itemListType);
                         }
                     }
                 }
@@ -1066,21 +1069,21 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Glow") //一回グローされたものはもうグローできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
                 }
                 break;
 
             case "Buttelfy_illumination":
 
-                NonDrinkHyouji();
+                NonDrinkHyouji(1);
                 break;
 
             case "Aroma_Potion":
 
                 if (check_itemType_sub == "Flower" || check_itemType_subB == "a_Sakura" || check_itemType_sub == "Harb")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -1091,7 +1094,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1104,7 +1107,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1116,7 +1119,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1128,7 +1131,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1140,7 +1143,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1152,7 +1155,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1164,7 +1167,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1176,14 +1179,14 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_subB != "a_SugerSimple") //基本の砂糖などは外す
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
                 }
                 break;
 
             case "Bubble_Mist":
 
-                NonDrinkHyouji();
+                NonDrinkHyouji(1);
                 break;
 
             case "Statue_of_Penguin":
@@ -1193,7 +1196,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1206,7 +1209,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1219,7 +1222,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1232,7 +1235,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1245,7 +1248,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
-                        itemlist_hyouji_Check();
+                        itemlist_hyouji_Check(check_itemListType);
                     }
 
                 }
@@ -1255,7 +1258,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_sub == "Juice" || check_itemType_sub == "Tea" || check_itemType_sub == "Soda")
                 {
-                    itemlist_hyouji_Check();
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
                 }
                 break;
 
@@ -1263,7 +1269,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_subB == "a_Cafelatte")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -1271,7 +1277,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_subB == "a_Banana")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -1279,7 +1285,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_sub == "Soda")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -1287,7 +1293,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_sub == "Soda" || check_itemType_sub == "Berry")
                 {
-                    itemlist_hyouji_Check();
+                    itemlist_hyouji_Check(check_itemListType);
                 }
                 break;
 
@@ -1296,23 +1302,26 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType == "Okashi")
                 {
-                    itemlist_hyouji_Check();
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
                 }
                 break;
 
             case "Life_Stream":
 
-                NonDrinkHyouji();
+                NonDrinkHyouji(0);
                 break;
 
             case "AbraCadabra":
 
-                NonDrinkHyouji();
+                NonDrinkHyouji(1);
                 break;
 
             case "True_of_Myheart":
 
-                NonDrinkHyouji();
+                NonDrinkHyouji(1);
                 break;
 
 
@@ -1323,14 +1332,24 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     }
 
     //ドリンクを除き、おかしを表示する
-    void NonDrinkHyouji()
+    void NonDrinkHyouji(int _status)
     {
         if (check_itemType == "Okashi") //check_itemType_subB == "a_AromaPotion"
         {
             if (check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Juice"
                 && check_itemType_sub != "Soda" && check_itemType_sub != "Bread")
             {
-                itemlist_hyouji_Check();
+                if (_status == 0) //1は、さらにパネルのもののみ表示　0は今あるお菓子全て
+                {
+                    itemlist_hyouji_Check(check_itemListType);
+                }
+                else
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
             }
         }
     }

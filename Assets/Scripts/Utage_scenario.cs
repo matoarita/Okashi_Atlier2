@@ -3449,6 +3449,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("EndOrPause_Num", 0); //ポーズOrエンドどちらかを判定する番号　基本0=エンドでリセットしておく。
         engine.Param.TrySetParameter("Fullmoon_Month", GameMgr.System_Fullmoon_month);
         engine.Param.TrySetParameter("Fullmoon_Day", GameMgr.System_Fullmoon_day);
+        engine.Param.TrySetParameter("TrueHeartCost", GameMgr.System_trueheart_cost);
 
         Debug.Log("scenarioLabel: " + scenarioLabel);
         Debug.Log("GameMgr.hiroba_event_ID: " + GameMgr.hiroba_event_ID);

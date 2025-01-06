@@ -1646,7 +1646,7 @@ public class Compound_Check : MonoBehaviour {
                     exp_Controller._success_rate = _success_rate;
 
                     //スキルによっては、成否判定がミニゲームだったりするので、その場合表示が??
-                    if( magicName == "Cookie_SecondBake" || magicName == "Chocolate_Tempering" || magicName == "AbraCadabra")
+                    if( magicName == "Cookie_SecondBake" || magicName == "Chocolate_Tempering" || magicName == "AbraCadabra" || magicName == "True_of_Myheart")
                     {
                         kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
                     }

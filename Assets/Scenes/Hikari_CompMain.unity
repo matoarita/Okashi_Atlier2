@@ -14058,6 +14058,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CompoundMainController
       objectReference: {fileID: 0}
+    - target: {fileID: 1497096654110086, guid: 727e3eb346bb17e478838d3c21581f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729830811305934, guid: 727e3eb346bb17e478838d3c21581f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114321553000757454, guid: 727e3eb346bb17e478838d3c21581f3d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

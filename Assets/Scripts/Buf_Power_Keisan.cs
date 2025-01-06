@@ -169,6 +169,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 KakuritsuUp_CakeMatCream();
                 break;
 
+            case "Cake_MatSpongeBaked":
+
+                KakuritsuUp_CakeMatSpongeBaked();
+                break;
+
             case "Financier":
 
                 //かまどレベルによるバフ
@@ -346,7 +351,6 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void KakuritsuUp_CakeMatCream()
     {
-
         if (pitemlist.KosuCount("cake_rolltable") < 1) //所持してないと成功率下がる
         {
             _buf_kakuritsuup += 30;
@@ -357,6 +361,23 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (magicskill_database.skillName_SearchLearnLevel("Nappe") >= 1)
         {
             _magicup = magicskill_database.skillName_SearchLearnLevel("Nappe") * 3; //LV*10
+            _buf_kakuritsuup += _magicup;
+        }
+    }
+
+    void KakuritsuUp_CakeMatSpongeBaked()
+    {
+        
+        if (pitemlist.KosuCount("cakemold_black") < 1 || pitemlist.KosuCount("cakemold_stainless") < 1) //所持してないと元の成功率が低いまま　所持すると上がる
+        {
+            _buf_kakuritsuup += 30;
+        }
+
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1) //アパレイユのお勉強で、ケーキ生地を焼くときの成功率が上がる
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 5; //LV*10
             _buf_kakuritsuup += _magicup;
         }
     }
@@ -633,6 +654,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Appaleil":
 
                         CreamBuf();
+                        AppaleilBuf();
                         break;
 
                     case "Bread":
@@ -677,7 +699,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Appaleil":
 
                         CreamBuf();
-                        AppaleilFluffyBuf();
+                        AppaleilBuf();
                         break;
 
                     case "Crepe":
@@ -733,6 +755,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Appaleil":
 
                         CreamBuf();
+                        AppaleilBuf();
                         break;
 
                     case "Appaleil_Icecream":
@@ -761,6 +784,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 switch (_itemType_sub)
                 {
+                    case "Appaleil":
+
+                        AppaleilBuf();
+                        break;
+
                     case "Biscotti":
 
                         OvenBuf();
@@ -953,7 +981,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
-    void AppaleilFluffyBuf()
+    void AppaleilBuf()
     {
         //魔法のバフ
         _magicup = 0;

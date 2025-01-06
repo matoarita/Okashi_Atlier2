@@ -592,6 +592,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);
             matplace_database.ReSetMapFlagString("Emerald_Forest", 1);
+            matplace_database.ReSetMapFlagString("Aquamarine_Lake", 1);
             matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);
 
             matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
