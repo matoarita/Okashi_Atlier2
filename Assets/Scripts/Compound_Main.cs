@@ -3090,7 +3090,7 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
                 magicskill_database.skillHyoujiKaikin("Caramelized");
 
-                magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
+                //magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
                 magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
                 magicskill_database.skillHyoujiKaikin("Fire_Flowers");
 

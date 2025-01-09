@@ -201,6 +201,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int _baseSetjudge_num;
     private string[] _basetp;
     private string[] _koyutp;
+    private string[] _baseMS;
+    private int[] _baseMSvalue;
     private int _beauty_basicscore;
 
     private int _basegirl1_manpuku;
@@ -725,6 +727,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         _basetp = new string[database.items[0].toppingtype.Length];
         _koyutp = new string[database.items[0].koyu_toppingtype.Length];
+        _baseMS = new string[database.items[0].item_MagicSlot.Length];
+        _baseMSvalue = new int[database.items[0].item_MagicSlotValue.Length];
     }
 
     //ロード時に必ずリセットされる項目
@@ -971,6 +975,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _koyutp[i] = database.items[kettei_item1].koyu_toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < database.items[kettei_item1].item_MagicSlot.Length; i++)
+                {
+                    _baseMS[i] = database.items[kettei_item1].item_MagicSlot[i].ToString();
+                    _baseMSvalue[i] = database.items[kettei_item1].item_MagicSlotValue[i];
+                }
+
                 break;
 
             case 1:
@@ -1024,6 +1034,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 for (i = 0; i < pitemlist.player_originalitemlist[kettei_item1].koyu_toppingtype.Length; i++)
                 {
                     _koyutp[i] = pitemlist.player_originalitemlist[kettei_item1].koyu_toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < pitemlist.player_originalitemlist[kettei_item1].item_MagicSlot.Length; i++)
+                {
+                    _baseMS[i] = pitemlist.player_originalitemlist[kettei_item1].item_MagicSlot[i].ToString();
+                    _baseMSvalue[i] = pitemlist.player_originalitemlist[kettei_item1].item_MagicSlotValue[i];
                 }
 
                 break;
@@ -1081,6 +1097,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _koyutp[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].koyu_toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < pitemlist.player_extremepanel_itemlist[kettei_item1].item_MagicSlot.Length; i++)
+                {
+                    _baseMS[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].item_MagicSlot[i].ToString();
+                    _baseMSvalue[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].item_MagicSlotValue[i];
+                    Debug.Log("_baseMS[i]: " + _baseMS[i] + " " + "パラメータ: " + _baseMSvalue[i]);
+                }
+
                 break;
 
             default:
@@ -1090,7 +1113,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _baseID = database.SearchItemID(_baseID); //アイテムIDを、itemsリストの番号に変換
 
         //おかしの基礎得点　ここで設定も可能
-        //_basescore = 60;
+        //_basescore = 40;
 
         //一回まず各スコアを初期化。
         for (i = 0; i < itemslotScore.Count; i++)
@@ -1653,14 +1676,48 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
-
-
         //女の子の食べたいトッピングがあるにも関わらず、そのトッピングが一つものっていなかった。
         if (topping_all_non && !topping_flag)
         {
             topping_score += girl1_status.girl1_NonToppingScoreSet[countNum]; //点数がマイナスに働く。
         }
         Debug.Log("トッピングスコア: " + topping_score);
+
+        //さらに、演出スロットをみて、かかってる魔法スロットごとに特殊点を加算　_baseMSvalue[i]は、使用時のLVが入っている
+        for (i = 0; i < _baseMS.Length; i++)
+        {
+            switch (_baseMS[i])
+            {
+                case "Fire_Flowers":
+
+                    _basebeauty += 30*_baseMSvalue[i];
+                    _base_sp_score6 += 10*_baseMSvalue[i]; //子供っぽさを足す
+                    _base_sp_score8 += 10*_baseMSvalue[i]; //芸術性を足す　パーティのお客さん向け
+                    break;
+
+                case "Buttelfy_illumination":
+
+                    _basebeauty += 40*_baseMSvalue[i];
+                    _base_sp_score7 += 20*_baseMSvalue[i]; //メルヘンを足す
+                    break;
+
+                case "Bubble_Mist":
+
+                    _basebeauty += 30*_baseMSvalue[i];
+                    _base_sp_score2 += 20*_baseMSvalue[i]; //海らしさを加算
+                    break;
+
+                case "Star_Blessing":
+
+                    _basebeauty += _baseMSvalue[i];
+                    break;
+
+                case "Wind_Ark":
+
+                    _basebeauty += _baseMSvalue[i];
+                    break;
+            }
+        }
 
         //見た目点数の計算
         beauty_score = BeautyKeisanBase(_basebeauty, _girlbeauty[countNum]);
@@ -1965,8 +2022,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 if(_temp_kyori >= 0) //差が10をこえたときに、はじめて見た目の点数が加算される。
                 {
-                    //_temp_beautyscore = _temp_kyori; //加算方式
-                    _temp_beautyscore = (int)(_beauty_basicscore * _temp_deg); //倍率方式
+                    _temp_beautyscore = _temp_kyori; //加算方式
+                    //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg); //倍率方式
                     //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg) - _beauty_basicscore; //倍率方式2
                 }
                 else
@@ -1982,7 +2039,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             _temp_beautyscore = 0;
-        }
+        }        
 
         Debug.Log("見た目ベース: " + _beauty + " 判定値: " + _judgebeauty + " 見た目得点: " + _temp_beautyscore);
 
@@ -5412,7 +5469,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
             else
             {
-                if (!GameMgr.high_score_flag) //通常クリア
+                /*if (!GameMgr.high_score_flag) //通常クリア
                 {
                     _set_MainQuestID = _temp_count;
                 }
@@ -5426,7 +5483,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     {                        
                         _set_MainQuestID = _temp_count + 1;
                     }
-                }
+                }*/
             }
 
             StartCoroutine("MainQuestClearEvent");

@@ -9,6 +9,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     private GameObject text_area;
     private Text _text;
+    private bool text_area_hyouji_on;
 
     private SceneInitSetting sceneinit_setting;
 
@@ -115,6 +116,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //windowテキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
         _text = text_area.GetComponentInChildren<Text>();
+        text_area_hyouji_on = false;
 
         sceneplace_namepanel_obj = canvas.transform.Find("MainListPanel/ScenePlaceNamePanel").gameObject;
         sceneplace_namepanel = sceneplace_namepanel_obj.GetComponent<ScenePlaceNamePanel>();
@@ -219,7 +221,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 {
                     case 0:
 
-                        text_area.SetActive(false);
+                        if (!text_area_hyouji_on)
+                        {
+                            text_area.SetActive(false);
+                        }
+                        else
+                        {
+                            text_area.SetActive(true);
+                        }
+
                         //placename_panel.SetActive(true);
                         mainlist_controller_obj.SetActive(true);
                         sceneplace_namepanel_obj.SetActive(true);
@@ -500,7 +510,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             check_event = false;
 
             //読み終わったら、またウィンドウなどを元に戻す。
-            text_area.SetActive(false);
+            if (!text_area_hyouji_on)
+            {
+                text_area.SetActive(false);
+            }
+            else
+            {
+                text_area.SetActive(true);
+            }
             mainlist_controller_obj.SetActive(true);
 
             //音を戻す。
@@ -1845,7 +1862,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         switch (GameMgr.Scene_Name)
         {
-            case "Or_Hiroba_Spring_Shoping_Moll": //中央噴水
+            case "Or_Hiroba_CentralPark": //中央噴水
+
+                On_ContestActive01(); //会場前へ
+                break;
+
+            case "Or_Hiroba_Spring_Shoping_Moll": //
 
                 On_Active04();
                 break;
@@ -1864,7 +1886,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_Active04();
+                On_Active01();
                 break;
 
             case "Or_Hiroba_Spring_Shoping_Moll": //
@@ -3815,8 +3837,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは、オランジーナの街の中央噴水だ。" + "\n" + "大きい噴水がある。";
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                default_scenetext = "にいちゃん！　おっきい噴水があるよ～！";
 
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
                 break;
 
             case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道

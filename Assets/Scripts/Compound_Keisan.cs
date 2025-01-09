@@ -2452,27 +2452,27 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             case "Fire_Flowers":
                 _addMS = GameMgr.System_MagicSlotName01;
-                _addMSvalue = 10;
+                _addMSvalue = GameMgr.UseMagicSkillLv;
                 break;
 
             case "Buttelfy_illumination":
                 _addMS = GameMgr.System_MagicSlotName02;
-                _addMSvalue = 10;
+                _addMSvalue = GameMgr.UseMagicSkillLv;
                 break;
 
             case "Bubble_Mist":
                 _addMS = GameMgr.System_MagicSlotName03;
-                _addMSvalue = 10;
+                _addMSvalue = GameMgr.UseMagicSkillLv;
                 break;
 
             case "Star_Blessing":
                 _addMS = GameMgr.System_MagicSlotName04;
-                _addMSvalue = 10;
+                _addMSvalue = GameMgr.UseMagicSkillLv;
                 break;
 
             case "Wind_Ark":
                 _addMS = GameMgr.System_MagicSlotName05;
-                _addMSvalue = 10;
+                _addMSvalue = GameMgr.UseMagicSkillLv;
                 break;
 
             default:
@@ -2531,8 +2531,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
-        //最後にSPスコアや見た目の計算
-        for(i=0; i< _baseMS.Length; i++)
+        //最後にSPスコアや見た目の計算　現在は、おかしを食べた時についてたスロットで評価するようにしてるのでここではOFF
+        /*for(i=0; i< _baseMS.Length; i++)
         {
             if (_baseMS[i] == GameMgr.System_MagicSlotName01) //FireFlower
             {
@@ -2563,7 +2563,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesp_wind = _basesp_wind + (_baseMSvalue[i] * 3);
                 _basebeauty += _baseMSvalue[i];
             }
-        }
+        }*/
         
     }
 

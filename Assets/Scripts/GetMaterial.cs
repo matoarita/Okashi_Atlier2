@@ -3180,7 +3180,7 @@ public class GetMaterial : MonoBehaviour
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
                 treasureInfo.Add(1, "rainbowberry");
                 treasureInfo.Add(2, "emeral_mushroom");
-                treasureInfo.Add(3, "melon_twillight");
+                treasureInfo.Add(3, "pink_suger");
                 treasureInfo.Add(4, "lemon");
 
                 treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。

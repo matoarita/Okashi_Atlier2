@@ -272,6 +272,11 @@ public class MagicSkillListController : MonoBehaviour
         }
     }
 
+    public void ReDrawView()
+    {
+        reset_and_DrawView(category_status);
+    }
+
     public void SkillList_DrawView() //基本
     {
 
@@ -836,60 +841,66 @@ public class MagicSkillListController : MonoBehaviour
         texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
         _Img.sprite = texture2d;
 
-        if(PlayerStatus.player_mp < magicskill_database.magicskill_lists[i].skillCost)
-        {
-            _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
-        }
-
-        //心系の魔法は、ハートも使用することがあるので、ハートもチェックする。また、スキルによっては仕上げ回数もチェック。
-        switch (magicskill_database.magicskill_lists[i].skillName)
-        {
-            case "Cookie_SecondBake": //仕上げ回数チェック
-
-                if (PlayerStatus.player_extreme_kaisu == 0)
-                {
-                    _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
-                }
-                break;
-
-            case "Warming_Handmade": //仕上げ回数＋ハート
-
-                if (PlayerStatus.player_extreme_kaisu == 0)
-                {
-                    _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
-                }
-                else
-                {
-                    if (PlayerStatus.girl1_Love_exp < magicskill_database.magicskill_lists[i].skillLv * 30)
-                    {
-                        _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
-                    }
-                }
-                break;
-
-            /*case "Moonlight_Banana": //夜6時以降じゃないと使えない
-
-                if (!GameMgr.Contest_ON)
-                {
-                    if (PlayerStatus.player_cullent_hour < 18)
-                    {
-                        _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
-                    }
-                }
-                else
-                {
-                    if (PlayerStatus.player_contest_hour < 18)
-                    {
-                        _skill_listitem[list_count].GetComponent<Toggle>().interactable = false;
-                    }
-                }
-                
-                break;*/
-        }
-
+        UseHyouji_method(list_count, i);       
 
         ++list_count;
     }
+
+    void UseHyouji_method(int _list, int _id)
+    {
+        if (PlayerStatus.player_mp < magicskill_database.magicskill_lists[_id].skillCost)
+        {
+            _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
+        }
+
+        //CompNoの魔法は、仕上げ回数を消費する
+        if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+        {
+            if (PlayerStatus.player_extreme_kaisu == 0)
+            {
+                _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
+            }
+        }
+
+        //心系の魔法は、ハートも使用することがあるので、ハートもチェックする。また、スキルによっては仕上げ回数もチェック。
+        switch (magicskill_database.magicskill_lists[_id].skillName)
+        {
+
+            case "Warming_Handmade": //仕上げ回数＋ハート
+
+                if (PlayerStatus.girl1_Love_exp < magicskill_database.magicskill_lists[_id].skillLv * 30)
+                {
+                    _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
+                }
+                break;
+
+                /*case "Moonlight_Banana": //夜6時以降じゃないと使えない
+
+                    if (!GameMgr.Contest_ON)
+                    {
+                        if (PlayerStatus.player_cullent_hour < 18)
+                        {
+                            _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
+                        }
+                    }
+                    else
+                    {
+                        if (PlayerStatus.player_contest_hour < 18)
+                        {
+                            _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
+                        }
+                    }
+
+                    break;*/
+        }
+    }
+
+    public void UseHyouji_ONOFF(int _list, int _id)
+    {
+        UseHyouji_method(_list, _id);
+    }
+
+
 
     void drawLearnSkill(int _mstatus)
     {
@@ -952,6 +963,29 @@ public class MagicSkillListController : MonoBehaviour
 
         ++list_count;
     }
+
+    public void LearnHyouji_ONOFF(int _list, int _id)
+    {
+        if (magicskill_database.magicskill_lists[_id].skill_Jouken_name1 != "Non") //前提条件がある
+        {
+            if (magicskill_database.magicskill_lists[_id].skill_Jouken_lv1 <=
+                magicskill_database.skillName_SearchLearnLevel(magicskill_database.magicskill_lists[_id].skill_Jouken_name1))
+            {
+                
+            }
+            else
+            {
+                _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
+                _skill_listitem[_list].transform.Find("Background_LearnOK/SkillLvupButton").gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            
+        }
+    }
+
+    
 
     public void DebugAllSkillFlagON()
     {

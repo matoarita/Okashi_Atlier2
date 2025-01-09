@@ -915,7 +915,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Fire_Flowers":
 
-                NonDrinkHyouji(1);
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
                 break;
 
             case "Bake_Beans":
@@ -1076,7 +1082,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Buttelfy_illumination":
 
-                NonDrinkHyouji(1);
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
                 break;
 
             case "Aroma_Potion":
@@ -1087,10 +1099,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Wind_Ark": //おかし+液体チョコか水あめ
+            case "Wind_Ark": //液体チョコか水あめ
 
-                if (check_itemType == "Okashi" ||
-                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilMizuame")
+                if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilMizuame")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1321,7 +1332,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "True_of_Myheart":
 
-                NonDrinkHyouji(1);
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
                 break;
 
 

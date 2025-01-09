@@ -733,6 +733,8 @@ public class Contest_Main_Reception : MonoBehaviour
     void EventCheck_OrA1()
     {
         matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+        matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
+
         if (!GameMgr.System_ContestIcon_OnFlag)
         {
             GameMgr.System_ContestIcon_OnFlag = true;
@@ -1198,18 +1200,34 @@ public class Contest_Main_Reception : MonoBehaviour
     //SubView1
     public void OnSubNPC1_toggle()
     {
-        //コンテストリストメニュー開く
-        contestList_ScrollView_obj.SetActive(true);
-        backshopfirst_obj.SetActive(true);
-        mainlist_controller_obj.SetActive(false);
+        if (GameMgr.GirlLoveEvent_num >= 10)
+        {
+            //コンテストリストメニュー開く
+            contestList_ScrollView_obj.SetActive(true);
+            backshopfirst_obj.SetActive(true);
+            mainlist_controller_obj.SetActive(false);
 
-        _text.text = GameMgr.ContestRep_text1;
+            _text.text = GameMgr.ContestRep_text1;
 
-        //カメラ寄る。
-        trans++; //transが1を超えたときに、ズームするように設定されている。
+            //カメラ寄る。
+            trans++; //transが1を超えたときに、ズームするように設定されている。
 
-        //intパラメーターの値を設定する.
-        maincam_animator.SetInteger("trans", trans);
+            //intパラメーターの値を設定する.
+            maincam_animator.SetInteger("trans", trans);
+        }
+        else
+        {
+            GameMgr.scenario_ON = true;
+
+            GameMgr.hiroba_event_placeNum = 1001; //レセプション会話イベント
+            GameMgr.hiroba_event_ID = 1100;
+
+            sceneBGM.MuteBGM();
+
+            check_event = true;
+
+            EventReadingStart();
+        }
     }
 
     //SubView2

@@ -441,7 +441,7 @@ public class SetImage : MonoBehaviour
         hlvbonus_panel = this.transform.Find("Item_card_template/HlvBonusPanel").gameObject;
 
         //魔法のエフェクトパネル
-        itemEffectPanel = this.transform.Find("Item_card_template/ItemEffectPanel").gameObject; //エフェクトパネル
+        itemEffectPanel = this.transform.Find("Item_card_template/ItemCardEffectPanel").gameObject; //エフェクトパネル
 
         //各パラメータバーの取得
         _Shokukan_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanBar").gameObject.GetComponent<Slider>();
@@ -1703,6 +1703,7 @@ public class SetImage : MonoBehaviour
 
     void DrawMagicEffect()
     {
+        
         for (i = 0; i < _magicslot.Length; i++)
         {
             if (_magicslot[i] == GameMgr.System_MagicSlotName01) //FireFlowerの場合　花火が周りにとびちるエフェクト

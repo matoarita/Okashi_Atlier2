@@ -136,7 +136,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.check_GirlLoveEvent_flag = false;
 
                                     //レシピの追加
-                                    pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                            
+                                    //pitemlist.add_eventPlayerItemString("rusk_recipi", 1);//ラスクのレシピを追加                            
 
                                     //クエスト発生
                                     Debug.Log("ハートメインイベント２をON: 開始");
@@ -1368,7 +1368,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             GameMgr.Contest_afterHomeEventFlag = false;
 
-                            if (!GameMgr.NPCMagic_eventList[0]) //コンテスト終了後、一回寝て起きる。露店通りへいく
+                            /*if (!GameMgr.NPCMagic_eventList[0]) //コンテスト終了後、一回寝て起きる。露店通りへいく
                             {
                                 matplace_database.ReSetMapFlagString("Or_Hiroba1_Roten", 1);
 
@@ -1391,7 +1391,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
                                 GameMgr.Contest_afterHomeHeartUpFlag = false; //大き目イベントが発生したときは、ハートアップイベントを中止。
-                            }                            
+                            }*/                            
                         }
                     }
                 }

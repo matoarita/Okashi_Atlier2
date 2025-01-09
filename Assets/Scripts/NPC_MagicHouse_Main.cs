@@ -174,6 +174,8 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         npc2sub_toggle_obj.SetActive(false);
         npc3sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView3_SelectToggle").gameObject;
         npc3sub_toggle_obj.SetActive(false);
+        npc5sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView5_SelectToggle").gameObject;
+        npc5sub_toggle_obj.SetActive(true);
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -262,10 +264,12 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 if (!GameMgr.NPCMagic_eventList[10]) //魔法をはじめて教えてもらう前
                 {
                     default_scenetext = "お、ムッシュ～。" + "\n" + "準備はできてるぜ。";
+                    npc5sub_toggle_obj.SetActive(false);
                 }
                 else
                 {
                     default_scenetext = "おお、ムッシュ～。" + "\n" + "遊びにきたか？";
+                    npc5sub_toggle_obj.SetActive(true);
                 }
 
                 matplace_database.matPlaceKaikin("Or_MagicHouseA1"); //ミラボ先生解禁
@@ -572,17 +576,19 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
     void ToggleFlagCheck()
     {
-        /*if (GameMgr.SceneSelectNum == 30) //光先生
+        if (GameMgr.SceneSelectNum == 30) //光先生
         {
             if (GameMgr.NPCMagic_eventList[10]) //魔法教えてもらったあと
             {
-                npc3sub_toggle_obj.SetActive(true);
+                //npc3sub_toggle_obj.SetActive(true);
+                npc5sub_toggle_obj.SetActive(true);
             }
             else
             {
-                npc3sub_toggle_obj.SetActive(false);
+                //npc3sub_toggle_obj.SetActive(false);
+                npc5sub_toggle_obj.SetActive(false);
             }
-        }*/
+        }
 
         //オブジェクト配列変わった後に、一度オフ→オンにしなおすと、コンテストの再配置がされる。
         mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main").gameObject.SetActive(false);

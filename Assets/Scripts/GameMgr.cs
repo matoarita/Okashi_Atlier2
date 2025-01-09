@@ -56,6 +56,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
     public static bool System_QuestStarGet_ON = false; //酒場の依頼で、スターも上がる仕様にする。
+    public static bool System_ContestStarGet_ON = true; //コンテストで、スターが上がる仕様にする。
     public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
     public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
@@ -143,11 +144,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int joukenkyobai_enemy_score = 258;
 
     //魔法状態のスロット名
-    public static string System_MagicSlotName01 = "FireFlower";
-    public static string System_MagicSlotName02 = "Butterfly";
-    public static string System_MagicSlotName03 = "Bubble";
-    public static string System_MagicSlotName04 = "Star";
-    public static string System_MagicSlotName05 = "Arc";
+    public static string System_MagicSlotName01 = "Fire_Flowers";
+    public static string System_MagicSlotName02 = "Buttelfy_illumination";
+    public static string System_MagicSlotName03 = "Bubble_Mist";
+    public static string System_MagicSlotName04 = "Star_Blessing";
+    public static string System_MagicSlotName05 = "Wind_Ark";
     //** --ここまで-- **//
 
 
@@ -497,8 +498,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool sp_okashi_hintflag;
 
     //スペシャルお菓子を食べた後の感想フラグ
-    public static int sp_okashi_ID;         //食べた瞬間に表示する感想
-    public static bool sp_okashi_flag;      //食べた瞬間に表示する感想
+    public static int sp_okashibefore_ID;         //食べた瞬間に表示する感想
     public static int okashiafter_ID;       //採点表示のあとに表示する感想
     public static bool okashiafter_flag;    //採点表示のあとに表示する感想
     public static int okashihint_ID;        //SPお菓子以外のものをあげたとき、感想も出す場合はON
@@ -1682,7 +1682,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //お菓子感想フラグ
         sp_okashi_hintflag = false;
-        sp_okashi_flag = false;
+
         okashiafter_flag = false;
         okashihint_flag = false;
         okashinontphint_flag = false;

@@ -331,6 +331,8 @@ public class magicskillSelectToggle : MonoBehaviour
         {
             magicskilllistController._skill_listitem[i].GetComponent<Toggle>().interactable = true;
             magicskilllistController._skill_listitem[i].GetComponent<Toggle>().isOn = false;
+
+            magicskilllistController.UseHyouji_ONOFF(i, magicskilllistController._skill_listitem[i].GetComponent<magicskillLearnToggle>().toggle_skill_ID);
         }
 
         for (i = 0; i < category_toggle.Count; i++)

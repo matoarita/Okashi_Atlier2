@@ -1241,18 +1241,33 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             }
             GameMgr.camerazoom_endflag = false;
 
-            //最初にお菓子にまつわるヒントやお話。宴へとぶ。SpOkashiBeforeコメント。
-            
+            //最初にお菓子にまつわるヒントやお話。宴へとぶ。SpOkashiBeforeコメント。            
             if (GameMgr.Story_Mode == 0)
             {
-                GameMgr.sp_okashi_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
+                GameMgr.sp_okashibefore_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
+
+                //クッキーコンテスト優勝してた場合、少し分岐変わる
+                switch(GameMgr.sp_okashibefore_ID)
+                {
+                    case 100110:
+
+                        if (!GameMgr.Contest_Cookie_VictoryHoleinOne)
+                        {
+                            GameMgr.sp_okashibefore_ID = OkashiQuest_ID;
+                        }
+                        else
+                        {
+                            GameMgr.sp_okashibefore_ID = OkashiQuest_ID + 1; //初回出場でいきなり優勝した
+                        }
+                        GameMgr.Contest_Cookie_VictoryHoleinOne = false;
+                        break;
+                }            
             }
             else //エクストラで呼び出すシナリオ。処理的には、同じ。
             {
-                //GameMgr.sp_okashi_ID = 10000;
-                GameMgr.sp_okashi_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
+                GameMgr.sp_okashibefore_ID = OkashiQuest_ID; //GirlLikeCompoSetの_set_compIDが入っている。
             }
-            //Debug.Log("OkashiQuest_ID: " + OkashiQuest_ID);
+            Debug.Log("SPおかしbeforeクエスト開始 GameMgr.sp_okashibefore_ID: " + GameMgr.sp_okashibefore_ID);
 
             GameMgr.scenario_ON = true;
             GameMgr.sp_okashi_hintflag = true; //->宴の処理へ移行する。「Utage_scenario.cs」

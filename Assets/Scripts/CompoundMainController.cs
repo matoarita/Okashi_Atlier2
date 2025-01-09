@@ -692,6 +692,7 @@ public class CompoundMainController : MonoBehaviour {
 
                     magicskilllistController_Use.SetActive(true);
                     magicskilllistController_2.OnDefaultText(0);
+                    magicskilllistController_2.ReDrawView();
 
                     MagicStartPanel.SetActive(true);
                     magic_compo1.SetActive(true);

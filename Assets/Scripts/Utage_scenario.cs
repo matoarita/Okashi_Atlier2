@@ -379,21 +379,10 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.sp_okashi_hintflag = false;
 
                 ContestInitSetting();
-                sp_Okashi_ID = GameMgr.sp_okashi_ID;
+                sp_Okashi_ID = GameMgr.sp_okashibefore_ID;
 
                 //SPお菓子食べる前のふきだし
                 StartCoroutine(SpOkashiComment_HintHyouji());
-            }
-
-            if (GameMgr.sp_okashi_flag == true)
-            {
-                GameMgr.sp_okashi_flag = false;
-
-                ContestInitSetting();
-                sp_Okashi_ID = GameMgr.sp_okashi_ID;
-
-                //SPお菓子食べたあとの感想テキストを表示
-                StartCoroutine(SpOkashiComment_Hyouji());
             }
 
             if (GameMgr.okashiafter_flag == true)
@@ -2134,34 +2123,7 @@ public class Utage_scenario : MonoBehaviour
 
     }
 
-    //
-    // SPお菓子 食べた瞬間の感想表示
-    //
-    IEnumerator SpOkashiComment_Hyouji()
-    {
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "SpOkashi"; //イベントレシピタグのシナリオを再生。
-
-        scenario_loading = true;
-
-        //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("SpOkashi_num", sp_Okashi_ID);
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-
-        GameMgr.recipi_read_endflag = true; //読み終えたフラグ
-
-        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
-
-    }
 
     //
     // お菓子 食べたあと　採点表示のあとの感想表示

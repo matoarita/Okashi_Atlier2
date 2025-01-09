@@ -332,7 +332,7 @@ public class Contest_Main_Outside : MonoBehaviour
                     //placename_panel.SetActive(true);
                     mainlist_controller_obj.SetActive(true);
                     sceneplace_namepanel_obj.SetActive(true);
-                    back_atlier_obj.SetActive(true);
+                    //back_atlier_obj.SetActive(true);
 
                     sceneBGM.MuteOFFBGM();
 

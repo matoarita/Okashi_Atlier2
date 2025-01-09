@@ -283,7 +283,14 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                     moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
                     GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
 
-                    _getninki = GameMgr.PrizeGetninkiparam_before;
+                    if (GameMgr.System_ContestStarGet_ON)
+                    {
+                        _getninki = GameMgr.PrizeGetninkiparam_before;
+                    }
+                    else
+                    {
+                        _getninki = 0;
+                    }
                     GameMgr.Contest_PrizeGetninkiparam = _getninki;
                     ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得　
                                                                 //ninkiStatus_Controller.GetNinki(1); 優勝時のみ、優勝回数として人気＋１
@@ -339,7 +346,14 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                             GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
                             if(i == 3) //2位
                             {
-                                _getninki = 1;
+                                if (GameMgr.System_ContestStarGet_ON)
+                                {
+                                    _getninki = 1; //２位だと1もらえる
+                                }
+                                else
+                                {
+                                    _getninki = 0;
+                                }
                             }
                             else
                             {
@@ -429,11 +443,23 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     void PrizeNinkiRankDict()
     {
         PrizeNinkiRankList.Clear();
-        PrizeNinkiRankList.Add(0, 0f);
-        PrizeNinkiRankList.Add(1, 0f); //
-        PrizeNinkiRankList.Add(2, 0f); //GetPatissierPointの10分の一
-        PrizeNinkiRankList.Add(3, 0f); //3分の一
-        PrizeNinkiRankList.Add(4, 1.0f); //一位　まるっともらえる
+        if (GameMgr.System_ContestStarGet_ON)
+        {           
+            PrizeNinkiRankList.Add(0, 0f);
+            PrizeNinkiRankList.Add(1, 0f); //
+            PrizeNinkiRankList.Add(2, 0f); //GetPatissierPointの10分の一
+            PrizeNinkiRankList.Add(3, 0f); //3分の一
+            PrizeNinkiRankList.Add(4, 1.0f); //一位　まるっともらえる
+        }
+        else
+        {
+            //スター獲得できない仕様
+            PrizeNinkiRankList.Add(0, 0f);
+            PrizeNinkiRankList.Add(1, 0f); //
+            PrizeNinkiRankList.Add(2, 0f); //GetPatissierPointの10分の一
+            PrizeNinkiRankList.Add(3, 0f); //3分の一
+            PrizeNinkiRankList.Add(4, 0f); //一位　まるっともらえる
+        }
     }
 
     //トーナメント形式の賞品設定　選手名はContestStartListDBで決める 1・2回戦敗退は何ももらえない

@@ -127,6 +127,7 @@ public class Compound_Check : MonoBehaviour {
     private string magicName;
     private int magicLearnLv;
     private int magic_usecount;
+    private int magicRate;
     private int _magic_rate;
     private int _final_costtime;
     private int _playerhour;
@@ -1266,6 +1267,7 @@ public class Compound_Check : MonoBehaviour {
 
             magicName = magicskill_database.magicskill_lists[tempID_2].skillName;
             magicLearnLv = magicskill_database.magicskill_lists[tempID_2].skillLv;
+            magicRate = magicskill_database.magicskill_lists[tempID_2].success_rate;
             costMP = magicskill_database.magicskill_lists[tempID_2].skillCost;
             magic_usecount = magicskill_database.magicskill_lists[tempID_2].skill_usecount;
 
@@ -1703,18 +1705,9 @@ public class Compound_Check : MonoBehaviour {
                 {
                     kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
                 }
-                else if (magicName == "AbraCadabra")
-                {
-                    _success_rate = 85f;
-                    exp_Controller._success_judge_flag = 1; //判定処理を行う。
-                    exp_Controller._success_rate = _success_rate;
-                    kakuritsuPanel.KakuritsuYosoku_HatenaImg(); //??にする。
-                    //kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //
-                    Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + _success_rate);
-                }
                 else
                 {
-                    _success_rate = 75f;
+                    _success_rate = magicRate;
                     exp_Controller._success_judge_flag = 1; //判定処理を行う。
                     exp_Controller._success_rate = _success_rate;
                     kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //

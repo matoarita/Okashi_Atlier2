@@ -976,7 +976,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 10; //LV*10
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 30; //LV*10
             _buf_shokukanup += _magicup;
         }
     }
@@ -987,7 +987,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 10; //LV*10
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 30; //LV*10
             _buf_shokukanup += _magicup;
         }
     }
@@ -998,7 +998,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 10; //LV*10
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 30; //LV*10
             _buf_shokukanup += _magicup;
         }
     }
@@ -1091,7 +1091,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 10; //LV*10
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 30; //LV*10
             _buf_shokukanup += _magicup;
         }
 

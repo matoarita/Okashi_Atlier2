@@ -577,13 +577,22 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         if(_spquest_setnum >= 3)
         {
             //GameMgr.OutEntrance_ON = true;
-            matplace_database.ReSetMapFlagString("Or_Hiroba1", 1);
+            matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //
+            /*if (!GameMgr.NPCHiroba_eventList[0])
+            {
+                matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //
+            }
+            else
+            {
+                matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
+            }*/
         }
 
         if (_spquest_setnum >= 11)
         {
             //GameMgr.OutEntrance_ON = true;
             matplace_database.ReSetMapFlagString("Or_Hiroba1_Roten", 1);
+            GameMgr.NPCMagic_eventList[0] = true; //露店通りイベント発生フラグ
         }
 
         if (_spquest_setnum >= 20)
