@@ -58,6 +58,7 @@ public class Contest_Judge : MonoBehaviour {
     public int[] total_score;
     private float _temp_score;
     private int[] before_tastescore;
+    private int[] before_beautyscore;
 
     private int rnd, rnd2;
     private int set_id;
@@ -109,7 +110,7 @@ public class Contest_Judge : MonoBehaviour {
         //要素数の初期化
         total_score = new int[girl1_status.youso_count];
         before_tastescore = new int[girl1_status.youso_count];
-
+        before_beautyscore = new int[girl1_status.youso_count];
     }
 	
 	// Update is called once per frame
@@ -444,7 +445,7 @@ public class Contest_Judge : MonoBehaviour {
         //各コンテスト審査員ごとの判定分け　補正がけ
         //
         Contest_Score_JudgeHoseiLibrary(1);
-
+        girlEat_judge.ContestDebugTextLog();
 
         //さらに提出が遅れた場合減点
         if (GameMgr.contest_LimitTimeOver_DegScore_flag)
@@ -499,6 +500,9 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else
                 {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
@@ -551,6 +555,9 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else
                 {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
@@ -569,6 +576,9 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else
                 {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
@@ -587,6 +597,9 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else
                 {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
@@ -611,7 +624,9 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else //審査員の判定に補正
                 {
-                    
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
@@ -640,6 +655,8 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else //審査員の判定に補正
                 {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -669,6 +686,8 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else //審査員の判定に補正
                 {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -684,6 +703,27 @@ public class Contest_Judge : MonoBehaviour {
 
                 break;
 
+            case "Or_Contest_002":　//プラトンアカデミー
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+
+                }
+                else
+                {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(160); //75%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+                break;
+
             default:
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
@@ -692,6 +732,9 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 else
                 {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
@@ -732,11 +775,82 @@ public class Contest_Judge : MonoBehaviour {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.7f);
         }
 
-        total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
+        total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]); //補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
 
         Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。下の食感の値が最終の食感点数");
         Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
         Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
+    }
+
+    void Contest_BeautyHosei_1()
+    {
+        before_beautyscore[0] = GameMgr.contest_Beauty_Score[0];
+        before_beautyscore[1] = GameMgr.contest_Beauty_Score[1];
+        if (GameMgr.contest_Beauty_Score[1] >= 0 && GameMgr.contest_Beauty_Score[1] < 30)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 0.5f) * -1; //低すぎるとかなりマイナス
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 30 && GameMgr.contest_Beauty_Score[1] < 45)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 0.75f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 45 && GameMgr.contest_Beauty_Score[1] < 60)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.0f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 60 && GameMgr.contest_Beauty_Score[1] < 70)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.2f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 70 && GameMgr.contest_Beauty_Score[1] < 80)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.4f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 80 && GameMgr.contest_Beauty_Score[1] < 90)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.6f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 90 && GameMgr.contest_Beauty_Score[1] < 110)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.8f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 110 && GameMgr.contest_Beauty_Score[1] < 130)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 130 && GameMgr.contest_Beauty_Score[1] < 150)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.25f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 150 && GameMgr.contest_Beauty_Score[1] < 220)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.35f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 220 && GameMgr.contest_Beauty_Score[1] < 270)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.5f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 270 && GameMgr.contest_Beauty_Score[1] < 320)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.75f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] >= 320)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 3.0f);
+        }
+        else if (GameMgr.contest_Beauty_Score[1] < 0)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 0.5f) * -1; //低すぎるとかなりマイナス
+        }
+
+        //GameMgr.contest_Beauty_Score[0] = GameMgr.contest_Beauty_Score[1]; //アントワネット補正後、タカノの見た目点数にも補正
+        //total_score[0] = total_score[0] + (GameMgr.contest_Beauty_Score[0] - before_beautyscore[0]);
+
+        total_score[1] = total_score[1] + (GameMgr.contest_Beauty_Score[1] - before_beautyscore[1]); //補正前に、一回before_beautyscore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
+
+        Debug.Log("審査員２　アントワネット王妃は、見た目で得点にバフがかかる。下の食感の値が最終の食感点数");
+        Debug.Log("審査員２　見た目補正前：" + before_beautyscore[1] + "点");
+        Debug.Log("審査員２　見た目補正後：" + GameMgr.contest_Taste_Score[1] + "点");
     }
 
     //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK
@@ -802,12 +916,12 @@ public class Contest_Judge : MonoBehaviour {
             _temp_score = SujiMap(total_score[i], 0, _max, 0, 100);
             total_score[i] = (int)_temp_score;
         }
-        contest_bairitsu_hosei = 100 / _max;
+        contest_bairitsu_hosei = 100.0f / _max;
 
         //デバッグパネルの取得
         debug_panel = canvas.transform.Find("Debug_Panel(Clone)").GetComponent<Debug_Panel>();
         debug_taste_resultText = canvas.transform.Find("Debug_Panel(Clone)/Hyouji/OkashiTaste_Scroll View/Viewport/Content/Text").GetComponent<Text>();       
-        debug_taste_resultText.text += "\n" + "\n" + "コンテスト倍率補正: " + contest_bairitsu_hosei.ToString();
+        debug_taste_resultText.text += "\n" + "\n" + "\n" + "\n" + "コンテスト倍率補正: " + contest_bairitsu_hosei.ToString("f2");
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式

@@ -748,6 +748,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_BringType; //コンテスト　素材持ち込みの形式
     public static string Contest_Name; //コンテストの名前
     public static string Contest_NameHyouji; //コンテストの名前日本語表記
+    public static string Contest_Name_Round; //コンテストの名前　トーナメント形式で今何回戦かまで表記
     public static string Contest_ProblemSentence; //コンテストの課題の内容
     public static string Contest_ProblemSentence2; //コンテストの課題の内容
     public static string Contest_HallBGName; //コンテストの会場背景の指定　stringで

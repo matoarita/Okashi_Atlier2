@@ -6461,6 +6461,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             + "\n" + "\n" + "総合得点: " + total_score;
     }
 
+    public void ContestDebugTextLog()
+    {
+        //デバッグ用　コンテスト計算結果の表示
+
+        debug_taste_resultText.text +=
+            "\n" + "\n" + "###  補正後　結果　###"
+        + "\n" + "\n" + "食感補正後点: " + GameMgr.contest_Taste_Score[0] + " " + GameMgr.contest_Taste_Score[1] + " " + GameMgr.contest_Taste_Score[2]
+        + "\n" + "\n" + "見た目補正後点: " + GameMgr.contest_Beauty_Score[0] + " " + GameMgr.contest_Beauty_Score[1] + " " + GameMgr.contest_Beauty_Score[2];
+    }
+
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
     float SujiMap(float value, float start1, float stop1, float start2, float stop2)
     {

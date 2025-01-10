@@ -294,6 +294,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         contestPrizeScore_dataBase = ContestPrizeScoreDataBase.Instance.GetComponent<ContestPrizeScoreDataBase>();
 
         contest_name_origin = conteststart_lists[SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestName;
+        GameMgr.Contest_Name = contest_name_origin;
         GameMgr.Contest_NameHyouji = conteststart_lists[SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestNameHyouji;
 
         if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
@@ -311,19 +312,19 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                     {
                         case 1: //一回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_1";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_1";
                             ContestData_001();
                             break;
 
                         case 2: //二回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_2";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_2";
                             ContestData_002();
                             break;
 
                         case 3: //決勝戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_3";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_3";
                             ContestData_003();
                             break;
                     }
@@ -338,19 +339,19 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                     {
                         case 1: //一回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_1";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_1";
                             ContestData_020();
                             break;
 
                         case 2: //二回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_2";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_2";
                             ContestData_021();
                             break;
 
                         case 3: //決勝戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_3";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_3";
                             ContestData_022();
                             break;
                     }
@@ -365,19 +366,19 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                     {
                         case 1: //一回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_1";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_1";
                             ContestData_040();
                             break;
 
                         case 2: //二回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_2";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_2";
                             ContestData_041();
                             break;
 
                         case 3: //決勝戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_3";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_3";
                             ContestData_042();
                             break;
                     }
@@ -392,19 +393,19 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                     {
                         case 1: //一回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_1";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_1";
                             ContestData_060();
                             break;
 
                         case 2: //二回戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_2";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_2";
                             ContestData_061();
                             break;
 
                         case 3: //決勝戦
 
-                            GameMgr.Contest_Name = contest_name_origin + "_3";
+                            GameMgr.Contest_Name_Round = GameMgr.Contest_Name + "_3";
                             ContestData_062();
                             break;
                     }
