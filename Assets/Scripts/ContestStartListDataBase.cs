@@ -871,18 +871,20 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
     void ContestData_003()
     {
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 22000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 22000;
-        GameMgr.Contest_ProblemSentence = "テーマ：「愛」をテーマにした至高のケーキ";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。おいしいケーキを作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた至高の一品を作ってください。" + "\n" + "制限時間: 8時間";
+        //GameMgr.Contest_ProblemSentence = "テーマ：アイスクリーム";
+        //GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。極上アイスクリームを作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 97; //
-        GameMgr.contest_boss_name = "アマクサ";
+        GameMgr.contest_boss_score = 133; //
+        GameMgr.contest_boss_name = "ハーマイオニー";
     }
 
     void ContestData_020()
@@ -933,7 +935,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 133; //
-        GameMgr.contest_boss_name = "ノア";
+        GameMgr.contest_boss_name = "イセヤ";
     }
 
     void ContestData_040()

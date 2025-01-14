@@ -22,27 +22,7 @@ public class GameQuestPanel : MonoBehaviour {
     public void TextKoushin()
     {
         //進行具合に応じて、メインクエのテキストが変わる。
-        //quest_text.text = GameMgr.mainquest_message_list[GameMgr.MainQuest_Mesnum];
         quest_text.text = GameMgr.System_spquest_message;
-
-        //Debug.Log("メインクエメッセージ: " + GameMgr.mainquest_message_list[GameMgr.MainQuest_Mesnum]);
-
-        /*switch (GameMgr.MainQuest_Mesnum)
-        {
-            case 0: //一番最初は、ガールおかしあげるイベ終わって、街へでようとなる。なので、街へでてみよう！
-
-                quest_text.text = GameMgr.mainquest_message_list[0];
-                break;
-
-            case 1: //
-
-                quest_text.text = GameMgr.mainquest_message_list[1];
-                break;
-
-            case 2: //
-
-                quest_text.text = GameMgr.mainquest_message_list[2];
-                break;
-        }*/
+        Debug.Log("メインクエメッセージ: " + GameMgr.System_spquest_message);
     }
 }

@@ -62,6 +62,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private GameObject back_atlier_obj;
     private GameObject scene_black_effect;
 
+    private GameObject Character_panel;
+    private List<GameObject> Character_list = new List<GameObject>();
+
     private Debug_Panel_Init debug_panel_init;
 
     private GameObject canvas;
@@ -122,6 +125,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         sceneplace_namepanel = sceneplace_namepanel_obj.GetComponent<ScenePlaceNamePanel>();
         sceneplace_namepanel_obj.SetActive(false);
 
+        Character_panel = canvas.transform.Find("Character_Panel").gameObject;
+
         back_atlier_obj = canvas.transform.Find("BackHomeButtonPanel").gameObject;
         back_atlier_obj.SetActive(false);
 
@@ -139,6 +144,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         foreach (Transform child in canvas.transform.Find("MainListPanel").transform)　//子要素（孫は取得しない）までなら、childでOK
         {
             //Debug.Log(child.name);           
+            child.gameObject.SetActive(false);
+        }
+
+        //キャラクタ表示の初期化
+        Character_list.Clear();
+        foreach (Transform child in Character_panel.transform)　//子要素（孫は取得しない）までなら、childでOK
+        {
+            //Debug.Log(child.name);        
+            Character_list.Add(child.gameObject);
             child.gameObject.SetActive(false);
         }
 
@@ -483,6 +497,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
         GameMgr.Scene_Status = 1000;
 
+        //キャラ表示パネルも一時的にオフ
+        Character_panel.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
+
         //Debug.Log("広場イベント　読み中");
 
         while (!GameMgr.scenario_read_endflag)
@@ -519,6 +536,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 text_area.SetActive(true);
             }
             mainlist_controller_obj.SetActive(true);
+
+            //キャラ表示パネルを戻す
+            Character_panel.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
 
             //音を戻す。
             if (bgm_change_flag)
@@ -646,7 +666,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case 3:
 
-                On_Active54();
+                //On_Active54();
+                On_BackHomeActive02();
                 break;
 
             case 4:
@@ -1058,12 +1079,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_CentralPark2":
 
-                On_Active31();
+                //On_Active31();
+                On_Active30();
                 break;
 
             case "Or_Hiroba_Spring_Entrance":
 
-                On_Active31();
+                //On_Active31();
+                On_Active30();
                 break;
 
             case "Or_Hiroba_Spring_Shoping_Moll":
@@ -1336,7 +1359,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Catsle_MainEntrance":
 
-                On_Active301();
+                On_BackHomeActive02();
+                //On_Active301();
                 break;
 
             default:
@@ -1833,6 +1857,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_ShopActive01();
                 break;
 
+            case "Or_Hiroba_Catsle_MainEntrance":
+
+                On_NPC_CatsleActive01();
+                break;
+
             default:
 
                 On_ShopActive01();
@@ -1848,7 +1877,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_Shoping_Moll": //中央噴水
 
                 On_BarActive01();
-                break;
+                break;           
 
             default:
 
@@ -1926,6 +1955,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_CentralPark": //中央噴水
 
                 On_Active04();
+                break;
+
+            case "Or_Hiroba_Catsle_MainEntrance":
+
+                On_BackHomeActive02();
+                //On_Active301();
                 break;
 
             default:
@@ -2915,6 +2950,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //FadeManager.Instance.LoadScene("Or_Compound_Enterance", GameMgr.SceneFadeTime);
     }
 
+    void On_BackHomeActive02()
+    {
+        //玄関音
+        sc.EnterSound_01();
+        //sc.EnterSound_03();
+
+        GameMgr.Scene_back_home = true;
+
+        GoAreaMove("Or_Compound");
+    }
+
     void On_Active1000()
     {
         //いちご少女押した　宴の処理へ
@@ -3304,6 +3350,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         //BGMかえる
                         //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         //bgm_change_flag = true;
+
+                        matplace_database.ReSetMapFlagString("DreamEater_Swamp", 1); //ゆめくいぬま発見
 
                         check_event = true;
                     }
@@ -4499,16 +4547,28 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 break;
 
-            case "Or_Hiroba_Catsle_MainEntrance": //城エリア　大通り
+            case "Or_Hiroba_Catsle_MainEntrance": //城エリア　入口
 
                 //移動用リストオブジェクトの取得
                 mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_502").gameObject;
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは、オランジーナ城の入口受付だ。";
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                default_scenetext = "にいちゃん！　・・なんか怖そうなおにいちゃんがいる。";
 
                 matplace_database.matPlaceKaikin("Or_HirobaEnter_Catsle"); //城エリア入口解禁
+                
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
+                foreach (GameObject child in Character_list)
+                {
+                    if(child.name == "chara_obj_01")
+                    {
+                        child.SetActive(true);
+                        break;
+                    }
+                }
                 break;
 
             default:

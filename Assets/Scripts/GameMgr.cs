@@ -182,7 +182,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int stage_quest_num_sub; //クエスト番号
     public static int Story_Mode; //0が本編。1が、フリーモード（強くてニューゲーム）。
     public static string Scene_Name; //その場所の固有名　主にセーブした場所を記録する。
-    public static int MainQuest_Mesnum; //ゲームの進捗状況を表すメッセージ番号　これに応じて、メインクエメッセージが変わる。街へでてみよう！等。
 
     //コマンドの解禁フラグ
     public static bool System_MagicUse_Flag; //魔法の解禁フラグ
@@ -645,9 +644,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //温度管理対象のおかしリスト
     public static List<string> OkashiTempatureControl_list = new List<string>();
 
-    //メインクエの指示メッセージリスト
-    public static Dictionary<int, string> mainquest_message_list = new Dictionary<int, string>();
-
     //エンディングのフラッグ
     public static bool ending_on;       //エンディングシーンへ移動するためのフラグ
     public static bool ending_on2;      //BadEDの場合。EDムービーなし。
@@ -871,6 +867,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_shop_defaulttext_koushin;
     public static string System_spquest_message;
     public static bool Contest_BGMON; //コンテスト出場日に、コンテストBGMに変える
+    public static bool Contest_PanelON; //コンテスト出場日に、コンテストへ行くボタンを常時表示する。
 
 
     //セリフ関連の一時変数
@@ -1184,8 +1181,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Story_Mode = 0; //0=本編　1=エクストラモード　初期値は0でOK
         GameSpeedParam = 3;
 
-        MainQuest_Mesnum = 0;
-
         SleepSkipFlag = false;
         PicnicSkipFlag = false;
         OutGirlSkipFlag = false;
@@ -1464,6 +1459,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         NPC_pahupahu_point = 10;
         System_WhiteMemo_Num = 0;
         Contest_BGMON = false;
+        Contest_PanelON = false;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1774,9 +1770,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //各サブNPCのお菓子判定番号をセット
         InitSubNPCEvent_OkashiJudgeLibrary();
-
-        //メインクエ指示メッセージのリスト
-        InitMainQuest_Library();
 
         //ミラボ先生プレゼントリスト設定
         InitMirabo_PresentLibraryMain();
@@ -2222,19 +2215,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         NPC_OkashiJudge_num[3] = 100020; //モタリケさん　エクストラ
         NPC_OkashiJudge_num[4] = 100030; //フィオナさん　エクストラ
         NPC_OkashiJudge_num[50] = 100040; //条件競売01
-    }
-
-    public static void InitMainQuest_Library() //メインクエ指針のメッセージリスト　使うかはまだ分からない
-    {
-        mainquest_message_list.Clear();
-
-        //テーブル1
-        mainquest_message_list.Add(0, "メイン: 街へ出てみよう！");
-        mainquest_message_list.Add(1, "メイン: コンテスト会場を探そう！");
-        mainquest_message_list.Add(2, "メイン: コンテストにでてみよう！");
-        mainquest_message_list.Add(3, "メイン: 春の露店通りへ行こう！");
-        mainquest_message_list.Add(5, "メイン: 家賃3000ルピアをためよう！");
-        mainquest_message_list.Add(10, "メイン: エデンのレシピを探そう！");
     }
 
     //ミラボ先生のプレゼントリストの初期化　メイン魔法の本

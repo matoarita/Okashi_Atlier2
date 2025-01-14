@@ -733,7 +733,7 @@ public class Contest_Main_Reception : MonoBehaviour
     void EventCheck_OrA1()
     {
         matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
-        matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
+        //matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
 
         if (!GameMgr.System_ContestIcon_OnFlag)
         {

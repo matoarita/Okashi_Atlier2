@@ -14,6 +14,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 {
     private ItemDataBase database;
     private ItemSubTypeSetDatabase itemsubtypeset_database;
+    private MagicSkillListDataBase magicskill_database;
 
     //ハートレベルのテーブル
     public List<int> stage1_hlvTable = new List<int>();
@@ -28,6 +29,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     private int now_level, before_lv;
     private int _lv;
     private int _dev;
+    private string _namehyouji;
 
     private GameObject canvas;
     private GameObject text_area;
@@ -74,6 +76,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         //アイテムサブタイプの表記を分けるデータベース
         itemsubtypeset_database = ItemSubTypeSetDatabase.Instance.GetComponent<ItemSubTypeSetDatabase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
     }
 
     // Update is called once per frame
@@ -118,16 +123,32 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     break;
 
                 case 5:
-
                     
                     break;
 
                 case 6:
 
+                    MagicLearnPanelHyouji("Caramelized");                   
+                    break;
+
+                case 8:
+
+                    MagicLearnPanelHyouji("Heart_of_Icecream");
+                    MagicLearnPanelHyouji("Freezing_Spell");
                     break;
 
                 case 9: //ヒカリのおかし作り解禁
 
+                    break;
+
+                case 10:
+
+                    MagicLearnPanelHyouji("SugerPot");
+                    break;
+
+                case 12:
+
+                    MagicLearnPanelHyouji("Buttelfy_illumination");
                     break;
 
                 case 15:
@@ -202,6 +223,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
 
         //複数個まとめて数のせる
+        /*
         if (_lv < 25)
         {
             GameMgr.System_Topping_Multiple_Flag = false;
@@ -215,12 +237,45 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             {
                 GameMgr.System_Topping_Multiple_Max = 3;
             }
+        }*/
+
+        //魔法をおぼえる
+        if (GameMgr.System_MagicUse_Flag)
+        {
+            if (_lv >= 6)
+            {
+                magicskill_database.skillHyoujiKaikin("Caramelized");
+                magicskill_database.skillLearnLv_Name("Caramelized", 1);
+            }
+            if (_lv >= 8)
+            {
+                magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
+                magicskill_database.skillLearnLv_Name("Heart_of_Icecream", 1);
+                magicskill_database.skillHyoujiKaikin("Freezing_Spell");
+                magicskill_database.skillLearnLv_Name("Freezing_Spell", 1);
+            }
+            if (_lv >= 10)
+            {
+                magicskill_database.skillHyoujiKaikin("SugerPot");
+                magicskill_database.skillLearnLv_Name("SugerPot", 1);
+            }
+            if (_lv >= 12)
+            {
+                magicskill_database.skillHyoujiKaikin("Buttelfy_illumination");
+                magicskill_database.skillLearnLv_Name("Buttelfy_illumination", 1);
+            }
         }
     }
 
     void ShiageUpPanelHyouji()
     {
         girlEat_judge.LvUpPanel2(1);
+    }
+
+    void MagicLearnPanelHyouji(string _magicname)
+    {
+        _namehyouji = magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(_magicname)].skillNameHyouji;        
+        girlEat_judge.LvUpPanel6(_namehyouji);
     }
 
     //ハートLVアップ時にステータス上がる

@@ -766,7 +766,7 @@ public class Compound_Main : MonoBehaviour
         //二週目以降はエメラルショップはじめからでてる。
         if (GameMgr.ending_count >= 1)
         {
-            matplace_database.matPlaceKaikin("Emerald_Shop");
+            matplace_database.matPlaceKaikin("Or_EmeraldShop_A1");
         }
 
         //ロード画面から読み込んだ際の処理
@@ -1687,7 +1687,9 @@ public class Compound_Main : MonoBehaviour
                 exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
 
                 //メインクエのメッセージ更新
-                if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
+                gameQuestPanel.SetActive(true);
+                gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
+                /*if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
                 {
                     gameQuestPanel.SetActive(true);
                     gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
@@ -1695,7 +1697,7 @@ public class Compound_Main : MonoBehaviour
                 else
                 {
                     gameQuestPanel.SetActive(false); //本編はじまるまでは表示しない
-                }                
+                }         */       
 
                 //
                 //アニメーション、キャラの表情関係
@@ -2308,21 +2310,28 @@ public class Compound_Main : MonoBehaviour
         stageclear_panel.SetActive(false);
 
         //小クエストをクリアしたら、ステージ最後にクリアボタンがでる。
-        if (GameMgr.GirlLoveEvent_num == 10 || GameMgr.GirlLoveEvent_num == 13)
+        if (GameMgr.Contest_PanelON)
         {
             //stageclear_toggle.SetActive(true);
             stageclear_panel.SetActive(true);
             stageclear_Button.SetActive(true);
-            stageclear_button_text.text = "コンテストへ";
+            if (!GameMgr.QuestClearflag)
+            {
+                stageclear_button_text.text = "コンテストへ";
+            }
+            else
+            {
+                stageclear_button_text.text = "お話をすすめる";
+            }
 
-                if (GameMgr.outgirl_Nowprogress)
-                {
-                    stageclear_button_toggle.interactable = false;
-                }
-                else
-                {
-                    stageclear_button_toggle.interactable = true;
-                }
+            if (GameMgr.outgirl_Nowprogress)
+            {
+                stageclear_button_toggle.interactable = false;
+            }
+            else
+            {
+                stageclear_button_toggle.interactable = true;
+            }
         }
         else
         {
@@ -2792,7 +2801,7 @@ public class Compound_Main : MonoBehaviour
 
             card_view.DeleteCard_DrawView();
 
-            if (GameMgr.GirlLoveEvent_num == 10 || GameMgr.GirlLoveEvent_num == 13)
+            if (GameMgr.Contest_PanelON)
             {
                 if (!GameMgr.QuestClearflag)
                 {
@@ -3072,11 +3081,12 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
-            /*case "recipibook_6": //お茶のすすめ
+            case "recipibook_11": //クレープのレシピ大全　ゲットすると、基本クレープレシピも自動で追加される。
 
-                //いける場所を追加
-                matplace_database.matPlaceKaikin("Lavender_field"); //アメジストの湖畔解禁
-                break;*/
+                ev_id = pitemlist.Find_eventitemdatabase("crepe_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
+
+                break;
 
             //魔法の本
             case "mg_firstmagic_book": //初心者向けおかし魔法の本
@@ -3088,14 +3098,14 @@ public class Compound_Main : MonoBehaviour
 
                 magicskill_database.skillHyoujiKaikin("Cookie_Study");
                 magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
-                magicskill_database.skillHyoujiKaikin("Caramelized");
+                //magicskill_database.skillHyoujiKaikin("Caramelized");
 
                 //magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
                 magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
                 magicskill_database.skillHyoujiKaikin("Fire_Flowers");
 
-                magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
-                magicskill_database.skillHyoujiKaikin("Freezing_Spell");
+                //magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
+                //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
 
                 //magicskill_database.skillHyoujiKaikin("Nappe");
                 magicskill_database.skillHyoujiKaikin("Appaleil_Study");

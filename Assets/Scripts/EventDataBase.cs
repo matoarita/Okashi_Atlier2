@@ -173,7 +173,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.check_GirlLoveEvent_flag = false;
 
                                     //レシピの追加
-                                    pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加        
+                                    //pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピを追加   
+                                    
                                     GameMgr.picnic_count = 3; //ピクニックこのイベント以降、カウント開始する。
 
                                     //クエスト発生
@@ -397,20 +398,6 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 else
                 {
                     GameMgr.Mute_on = false;
-                }
-
-                //メインクエ指示変更
-                switch(_num)
-                {
-                    case 30:
-
-                        GameMgr.MainQuest_Mesnum = 2;
-                        break;
-
-                    case 100:
-
-                        GameMgr.MainQuest_Mesnum = 1;
-                        break;
                 }
             }
         }
@@ -1129,33 +1116,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             }                           
                         }
                     }
-                    
-                    /*if (!GameMgr.GirlLoveSubEvent_stage1[200])
-                    {
-                        if (database.items[GameMgr.Okashi_makeID].itemName == "lumi_emerald_suger" ||
-                            database.items[GameMgr.Okashi_makeID].itemName == "lumi_pink_suger")
-                        {
-                            Event_startcheck(200, 0, false, false);
-                        }
-                    }
 
-                    //はじめてルミフルーツ作った
-                    if (!GameMgr.GirlLoveSubEvent_stage1[201])
-                    {
-                        if (database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "GlowFruits")
-                        {
-                            Event_startcheck(201, 0, false, false);
-                        }
-                    }
-
-                    //はじめてルミサファイアシュガー作った
-                    if (!GameMgr.GirlLoveSubEvent_stage1[202])
-                    {
-                        if (database.items[GameMgr.Okashi_makeID].itemType_sub.ToString() == "lumi_sapphire_suger")
-                        {
-                            Event_startcheck(202, 0, false, false);
-                        }
-                    }*/
                 }
 
                 //食べた後にチェック　１５０点以上で特別なイベント

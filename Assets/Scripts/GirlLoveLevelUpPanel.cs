@@ -184,6 +184,13 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
         this.transform.Find("Comp/HeartPanel/HeartLvupImage5/StatusParam").GetComponent<Text>().text = _param.ToString();
     }
 
+    public void SelectPanel_6(string _magicname) //魔法をおぼえた
+    {
+        offAllPanel();
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage6").gameObject.SetActive(true);
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage6/MagicName").GetComponent<Text>().text = _magicname;
+    }
+
     void offAllPanel()
     {
         foreach (Transform obj in this.transform.Find("Comp/HeartPanel").transform)

@@ -119,6 +119,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         GameMgr.QuestClearAnim_Flag = false; //クエスト前に一度falseでリセット
         GameMgr.Contest_BGMON = false;
+        GameMgr.Contest_PanelON = false;
 
         if (GameMgr.Story_Mode == 0)
         {
@@ -495,6 +496,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 GameMgr.Contest_BGMON = true;
+                GameMgr.Contest_PanelON = true;
 
                 break;
 
@@ -523,10 +525,11 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 GameMgr.Contest_BGMON = true;
+                GameMgr.Contest_PanelON = true;
 
                 break;
 
-            case 20: //プラトンアカデミーコンテストで優勝しよう！
+            case 20: //お城へいってみよう！
 
                 girl1_status.OkashiQuest_ID = 100200;
                 OkashiQuest_Count = 1;
@@ -535,7 +538,16 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
+            case 21: //エデン2をゲットしよう！
 
+                girl1_status.OkashiQuest_ID = 100210;
+                OkashiQuest_Count = 2;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
+                //GameMgr.Contest_BGMON = true;
+                GameMgr.Contest_PanelON = true;
+
+                break;
 
             case 40: //最後　エデンそろったので、女王様と白クジラにあいにいく
 
@@ -574,7 +586,12 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
 
         //各クエスト開始時にフラグがたつ場合ここで処理
-        if(_spquest_setnum >= 3)
+        if (_spquest_setnum >= 0)
+        {
+            matplace_database.ReSetMapFlagString("Or_EmeraldShop_A1", 1); //エメラルショップはじめからでている。
+        }
+       
+        if (_spquest_setnum >= 3)
         {
             //GameMgr.OutEntrance_ON = true;
             matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //
@@ -590,25 +607,36 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         if (_spquest_setnum >= 11)
         {
-            //GameMgr.OutEntrance_ON = true;
             matplace_database.ReSetMapFlagString("Or_Hiroba1_Roten", 1);
             GameMgr.NPCMagic_eventList[0] = true; //露店通りイベント発生フラグ
         }
 
         if (_spquest_setnum >= 20)
         {
-            //GameMgr.OutEntrance_ON = true;
+            matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);            
+        }
+
+        if (_spquest_setnum >= 21)
+        {
             matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
-            matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);
             matplace_database.ReSetMapFlagString("Emerald_Forest", 1);
             matplace_database.ReSetMapFlagString("Aquamarine_Lake", 1);
-            matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);
+            matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);            
+        }
 
+        if (_spquest_setnum >= 40)
+        {
             matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
+            matplace_database.ReSetMapFlagString("Or_Bar_C1", 1);
 
             matplace_database.ReSetMapFlagString("Or_Shop_D1", 1);
             matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
             matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
+        }
+
+        if (_spquest_setnum >= 41)
+        {
+            matplace_database.ReSetMapFlagString("DreamEater_Swamp", 1); //ゆめくいぬま発見
         }
     }
 
@@ -670,6 +698,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(100130, 13);
         QuestDict.Add(100140, 14);
         QuestDict.Add(100200, 20);
+        QuestDict.Add(100210, 21);
         QuestDict.Add(100400, 40);
         QuestDict.Add(100410, 41);
         QuestDict.Add(100500, 50);
@@ -739,20 +768,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             }
 
             if (GameMgr.EatOkashi_DecideFlag == 0)
-            {
-                /*for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)
-                {
-                    if (girlLikeCompo_database.girllike_composet[i].set_ID == girl1_status.OkashiQuest_ID)
-                    {
-                        girlLikeCompo_database.girllike_composet[i].clearFlag = true; //クリアした
-
-                        OkashiQuest_Name = girlLikeCompo_database.girllike_composet[i].spquest_name1;
-                        GameMgr.System_spquest_message = girlLikeCompo_database.girllike_composet[i].spquest_name1;
-                        GameMgr.NextQuestID = girlLikeCompo_database.girllike_composet[i].next_ID;
-                        //girl1_status.OkashiQuest_Name = OkashiQuest_Name;
-                    }
-                }*/
-            }
+            { }
             else
             {
                 _ID = GameMgr.NowEatOkashiID;

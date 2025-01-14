@@ -57,6 +57,7 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject magicskilllistController_Use;
     private MagicSkillListController magicskilllistController;
     private MagicSkillListController magicskilllistController_2;
+    private MagicSkillListDataBase magicskill_database;
 
     private PlayerItemList pitemlist;
 
@@ -135,7 +136,7 @@ public class CompoundMainController : MonoBehaviour {
     private int trans_position;
 
     private int i;
-    private int _id;
+    private int _id, _category;
     private string _meffect_resultname;
 
     private GameObject Debug_CompoIcon;
@@ -163,6 +164,9 @@ public class CompoundMainController : MonoBehaviour {
 
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         Debug_CompoIcon = this.transform.Find("Debug_CompIcon").gameObject;
         Debug_CompoIcon.SetActive(false);
@@ -1244,7 +1248,47 @@ public class CompoundMainController : MonoBehaviour {
         }
         else
         {
-            magiceffect_result_setting(1); //光りで統一
+            _category = magicskill_database.SearchSkillCategory(GameMgr.UseMagicSkill);
+            switch(_category)
+            {
+                case 1: //氷
+                    magiceffect_result_setting(0); //
+                    break;
+
+                case 2: //光
+                    magiceffect_result_setting(1); //
+                    break;
+
+                case 3: //風
+                    magiceffect_result_setting(3); //
+                    break;
+
+                case 4: //星
+                    magiceffect_result_setting(4); //
+                    break;
+
+                case 5: //森
+                    magiceffect_result_setting(5); //
+                    break;
+
+                case 6: //時
+                    magiceffect_result_setting(6); //
+                    break;
+
+                case 7: //音
+                    magiceffect_result_setting(7); //
+                    break;
+
+                case 8: //心
+                    magiceffect_result_setting(9); //
+                    break;
+
+                case 9: //火
+                    magiceffect_result_setting(2); //
+                    break;
+
+            }
+            
         }
     }
 

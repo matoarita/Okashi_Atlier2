@@ -146,6 +146,23 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         return 0;
     }
 
+    //スキル名をいれると、そのスキルの属性を返す
+    public int SearchSkillCategory(string _name)
+    {
+        i = 0;
+        while (i < magicskill_lists.Count)
+        {
+            if (magicskill_lists[i].skillName == _name)
+            {
+                return magicskill_lists[i].skillCategory;
+            }
+            i++;
+        }
+
+        //一致しなかった場合はエラー　ひとまず0を返す
+        return 0;
+    }
+
     //スキル名をいれると、そのスキルのIDを返すメソッド
     public int SearchSkillString(string Name)
     {

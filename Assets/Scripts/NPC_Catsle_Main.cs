@@ -366,8 +366,6 @@ public class NPC_Catsle_Main : MonoBehaviour
                 ev_id = pitemlist.Find_eventitemdatabase("mg_aromapotion_book");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加
 
-                //matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
-
                 //メイン画面にもどったときに、イベントを発生させるフラグをON
                 //GameMgr.CompoundEvent_num = 5;
                 //GameMgr.CompoundEvent_flag = true;

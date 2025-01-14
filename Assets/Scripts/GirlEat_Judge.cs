@@ -4265,6 +4265,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         canvas.SetActive(true);
         stageclear_panel.SetActive(true);
         stageclear_panel.transform.Find("ClearButton_Effect/SPClearTojoSe").GetComponent<PlayerRankTojoSE>().OnTriggerFlag(0);
+        stageclear_Button.transform.Find("TextPlate/Text").GetComponent<Text>().text = "お話をすすめる";
         playableDirector.enabled = true;
         playableDirector.Play();
 
@@ -4837,7 +4838,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case 100130:
 
                 //プラトンアカデミーコンテストで優勝すると先へ進める
-                _id = conteststartList_database.SearchContestString("Or_Contest_002");
+                _id = conteststartList_database.SearchContestString("Or_Contest_001");
                 if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
                 {
                     Debug.Log("エデンコンテスト①で優勝したので、クエストクリア");
@@ -4847,11 +4848,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 100200:
 
-                //プラトンアカデミーコンテストで優勝すると先へ進める
+                //お城へいって、女王様と初対面するとクリア
+                if (GameMgr.NPCHiroba_eventList[1500])
+                {
+                    Debug.Log("お城いったので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100210:
+
+                //夏コンテストで優勝すると先へ進める
                 _id = conteststartList_database.SearchContestString("Or_Contest_002");
                 if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
                 {
-                    Debug.Log("エデンコンテスト①で優勝したので、クエストクリア");
+                    Debug.Log("エデンコンテスト②で優勝したので、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;
@@ -6354,6 +6365,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_5(_statustext, _param);
+    }
+
+    public void LvUpPanel6(string _magicname) //同時に2個仕上げできるようになった
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_6(_magicname);
     }
 
 

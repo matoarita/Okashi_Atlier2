@@ -595,9 +595,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //セーブしたシーンの場所
             save_Scene_Name = GameMgr.Scene_Name,
 
-            //メインクエの進行状況のメッセージ番号
-            save_MainQuest_Mesnum = GameMgr.MainQuest_Mesnum,
-
             //ゲーム内プレイ時間
             save_Game_timeCount = GameMgr.Game_timeCount,
         };
@@ -1188,9 +1185,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //セーブしたシーンの場所
         GameMgr.Scene_Name = playerData.save_Scene_Name;
         //Debug.Log("Scene name: " + GameMgr.Scene_Name);
-
-        //メインクエの進行状況のメッセージ番号
-        GameMgr.MainQuest_Mesnum = playerData.save_MainQuest_Mesnum;
 
         //デバッグ用
         //Debug.Log("ロード　GameMgr.GirlLoveEvent_num:" + GameMgr.GirlLoveEvent_num);
