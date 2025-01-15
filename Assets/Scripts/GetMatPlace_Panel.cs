@@ -471,6 +471,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
         category_toggle[0].GetComponent<Toggle>().isOn = true;
 
+        ViewFlagCheck();
+
         switch (GameMgr.Scene_Name)
         {
             case "Compound":

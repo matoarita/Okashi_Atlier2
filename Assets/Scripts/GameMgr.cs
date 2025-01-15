@@ -868,6 +868,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_spquest_message;
     public static bool Contest_BGMON; //コンテスト出場日に、コンテストBGMに変える
     public static bool Contest_PanelON; //コンテスト出場日に、コンテストへ行くボタンを常時表示する。
+    public static int Contest_MainStoryPlaceNum; //そのときにいく会場場所
 
 
     //セリフ関連の一時変数
@@ -1460,6 +1461,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_WhiteMemo_Num = 0;
         Contest_BGMON = false;
         Contest_PanelON = false;
+        Contest_MainStoryPlaceNum = 0;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {

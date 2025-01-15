@@ -199,6 +199,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int _basescore;
     private float _basegirl1_like;
     private int _baseSetjudge_num;
+    private int _basemagic;
+    private int _basemagicslot_on;
     private string[] _basetp;
     private string[] _koyutp;
     private string[] _baseMS;
@@ -964,6 +966,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseSetjudge_num = database.items[kettei_item1].SetJudge_Num;
                 _basejuice = database.items[kettei_item1].Juice;
                 _basegirl1_manpuku = database.items[kettei_item1].Manpuku;
+                _basemagic = database.items[kettei_item1].Magic;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -1025,6 +1028,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseSetjudge_num = pitemlist.player_originalitemlist[kettei_item1].SetJudge_Num;
                 _basejuice = pitemlist.player_originalitemlist[kettei_item1].Juice;
                 _basegirl1_manpuku = pitemlist.player_originalitemlist[kettei_item1].Manpuku;
+                _basemagic = pitemlist.player_originalitemlist[kettei_item1].Magic;
 
                 for (i = 0; i < pitemlist.player_originalitemlist[kettei_item1].toppingtype.Length; i++)
                 {
@@ -1086,6 +1090,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _baseSetjudge_num = pitemlist.player_extremepanel_itemlist[kettei_item1].SetJudge_Num;
                 _basejuice = pitemlist.player_extremepanel_itemlist[kettei_item1].Juice;
                 _basegirl1_manpuku = pitemlist.player_extremepanel_itemlist[kettei_item1].Manpuku;
+                _basemagic = pitemlist.player_extremepanel_itemlist[kettei_item1].Magic;
 
                 for (i = 0; i < pitemlist.player_extremepanel_itemlist[kettei_item1].toppingtype.Length; i++)
                 {
@@ -1684,6 +1689,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("トッピングスコア: " + topping_score);
 
         //さらに、演出スロットをみて、かかってる魔法スロットごとに特殊点を加算　_baseMSvalue[i]は、使用時のLVが入っている
+        _basemagicslot_on = 0;
         for (i = 0; i < _baseMS.Length; i++)
         {
             switch (_baseMS[i])
@@ -1693,28 +1699,33 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _basebeauty += 30*_baseMSvalue[i];
                     _base_sp_score6 += 10*_baseMSvalue[i]; //子供っぽさを足す
                     _base_sp_score8 += 10*_baseMSvalue[i]; //芸術性を足す　パーティのお客さん向け
+                    _basemagicslot_on = 1;
                     break;
 
                 case "Buttelfy_illumination":
 
                     _basebeauty += 40*_baseMSvalue[i];
                     _base_sp_score7 += 20*_baseMSvalue[i]; //メルヘンを足す
+                    _basemagicslot_on = 1;
                     break;
 
                 case "Bubble_Mist":
 
                     _basebeauty += 30*_baseMSvalue[i];
                     _base_sp_score2 += 20*_baseMSvalue[i]; //海らしさを加算
+                    _basemagicslot_on = 1;
                     break;
 
                 case "Star_Blessing":
 
                     _basebeauty += _baseMSvalue[i];
+                    _basemagicslot_on = 1;
                     break;
 
                 case "Wind_Ark":
 
                     _basebeauty += _baseMSvalue[i];
+                    _basemagicslot_on = 1;
                     break;
             }
         }
@@ -1800,7 +1811,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //はじめて、魔法おかしを作ったらフラグをONに。
         if (!GameMgr.tutorial_ON)
         {
-            if (database.items[_baseID].Magic == 1)
+            if (_basemagic == 1 || _basemagicslot_on == 1)
             {
                 if (PlayerStatus.First_magicokashi_on != true)
                 {
@@ -5467,36 +5478,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             MainQuestText.text = _mainquest_name;
 
             //宴の「MainQuestClear」タブを指定
-            if (GameMgr.Story_Mode == 0)
+            if (!GameMgr.high_score_flag) //通常クリア
             {
-                if (!GameMgr.high_score_flag) //通常クリア
-                {
-                    _set_MainQuestID = _temp_count;
-                }
-                else //ハイスコアクリア　直前で食べたお菓子で100~だせばフラグがたつ。
-                {
-                    _set_MainQuestID = _temp_count + 1;
-                }
+                _set_MainQuestID = _temp_count;
             }
-            else
+            else //ハイスコアクリア　直前で食べたお菓子で100~だせばフラグがたつ。
             {
-                /*if (!GameMgr.high_score_flag) //通常クリア
-                {
-                    _set_MainQuestID = _temp_count;
-                }
-                else //ハイスコアクリア　直前で食べたお菓子で100~だせばフラグがたつ。
-                {
-                    if (!GameMgr.high_score_flag2) //さらに一定の高得点水準をだしたかどうか
-                    {
-                        _set_MainQuestID = _temp_count;
-                    }
-                    else //150~クリア
-                    {                        
-                        _set_MainQuestID = _temp_count + 1;
-                    }
-                }*/
+                _set_MainQuestID = _temp_count + 1;
             }
 
+            Debug.Log("メインクエスト番号: " + _set_MainQuestID);
             StartCoroutine("MainQuestClearEvent");
 
         }

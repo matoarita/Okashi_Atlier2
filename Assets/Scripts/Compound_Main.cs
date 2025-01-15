@@ -3658,10 +3658,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     case 1:
 
-                        //GameMgr.stage1_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
-                        //GameMgr.stage1_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
-
-                        GameMgr.SceneSelectNum = 0;
+                        GameMgr.SceneSelectNum = GameMgr.Contest_MainStoryPlaceNum;
                         FadeManager.Instance.LoadScene("Or_Contest_Reception", 0.3f);
                         break;
 

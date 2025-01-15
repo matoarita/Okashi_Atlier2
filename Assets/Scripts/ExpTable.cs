@@ -131,10 +131,16 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     MagicLearnPanelHyouji("Caramelized");                   
                     break;
 
-                case 8:
+                case 7:
 
                     MagicLearnPanelHyouji("Heart_of_Icecream");
                     MagicLearnPanelHyouji("Freezing_Spell");
+                    break;
+
+                case 8:
+
+                    MagicLearnPanelHyouji("Bake_Beans");
+                    MagicLearnPanelHyouji("Chocolate_Tempering");
                     break;
 
                 case 9: //ヒカリのおかし作り解禁
@@ -247,12 +253,19 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 magicskill_database.skillHyoujiKaikin("Caramelized");
                 magicskill_database.skillLearnLv_Name("Caramelized", 1);
             }
-            if (_lv >= 8)
+            if (_lv >= 7)
             {
                 magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
                 magicskill_database.skillLearnLv_Name("Heart_of_Icecream", 1);
                 magicskill_database.skillHyoujiKaikin("Freezing_Spell");
                 magicskill_database.skillLearnLv_Name("Freezing_Spell", 1);
+            }
+            if (_lv >= 8)
+            {
+                magicskill_database.skillHyoujiKaikin("Bake_Beans");
+                magicskill_database.skillLearnLv_Name("Bake_Beans", 1);
+                magicskill_database.skillHyoujiKaikin("Chocolate_Tempering");
+                magicskill_database.skillLearnLv_Name("Chocolate_Tempering", 1);
             }
             if (_lv >= 10)
             {

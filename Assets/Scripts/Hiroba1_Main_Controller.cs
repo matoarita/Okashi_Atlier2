@@ -315,7 +315,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Spring_Entrance":
 
                     if (!GameMgr.NPCHiroba_eventList[1000]) //イリスさんと再開
-                    {
+                    {                       
                         GameMgr.NPCHiroba_eventList[1000] = true;
 
                         GameMgr.hiroba_event_placeNum = 1500; //お花屋さんイベント
@@ -328,6 +328,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.scenario_ON = true;
 
                         check_event = true;
+
+                        matplace_database.matPlaceKaikin("Or_HirobaEnter_A1"); //解禁
 
                         EventReadingStart();
                     }
@@ -1857,11 +1859,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_ShopActive01();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                On_Active75();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumMae":
+
+                On_Active1530_aquarium_reception();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Pool":
+
+                On_Active1570_Amupark_pool();
+                break;
+
             case "Or_Hiroba_Catsle_MainEntrance":
 
                 On_NPC_CatsleActive01();
-                break;
-
+                break;            
+                
             default:
 
                 On_ShopActive01();
@@ -1877,7 +1894,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_Shoping_Moll": //中央噴水
 
                 On_BarActive01();
-                break;           
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                On_Active1550_Amupark_biking();
+                break;
 
             default:
 
@@ -1901,6 +1923,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active04();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                On_Active1560_Amupark_kanransha();
+                break;
+
             default:
 
                 On_Active1006_Piero();
@@ -1921,6 +1948,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_Shoping_Moll": //
 
                 On_Active04();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                On_Active85();
                 break;
 
             default:
@@ -1957,11 +1989,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active04();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                On_Active71();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_AquariumMae":
+
+                On_Active73();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Pool":
+
+                On_Active73();
+                break;
+
             case "Or_Hiroba_Catsle_MainEntrance":
 
                 On_BackHomeActive02();
                 //On_Active301();
-                break;
+                break;           
 
             default:
 
@@ -4166,7 +4213,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは、サマー・ドリームス遊園地　観覧車広場だ。";
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                default_scenetext = "にいちゃん！　乗り物いっぱいあるよ～！";
+
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
 
                 break;
 
@@ -4188,7 +4239,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは、サマー・ドリームス遊園地　水族館前だ。";
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                default_scenetext = "にいちゃん！　水族館おっっきい～～！！";
+
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
 
                 break;
 
@@ -4254,7 +4309,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは、サマー・ドリームス遊園地のプールだ。";
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                default_scenetext = "にいちゃん！　ここプ～ル？" + "\n" + "早く泳ぎたいなぁ～！";
+
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
 
                 break;
 

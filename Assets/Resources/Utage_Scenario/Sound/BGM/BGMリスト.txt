@@ -127,3 +127,6 @@
 ・BGM_123		PerituneMaterial_Poema2_loop		冬エリアお店ピティヴィエさんのテーマの曲 旧:audiostock_911845_sample
 ・BGM_124		PerituneMaterial_Flap_loop		大会コンテスト調合時のBGM03　エデンイメージ
 ・BGM_125		audiostock_849596			【宴用】コンテスト終了後の賞品画面のBGM　91と同じ
+・BGM_126		audiostock_111376_sample		【宴用】エデンコンテスト開始のファンファーレ
+・BGM_127		PerituneMaterial_Harvest_Festival_loop	【宴用】エデンコンテスト会場BGM
+・BGM_128		PerituneMaterial_NoWay3_loop		【宴用】ハーマイオニーのテーマ

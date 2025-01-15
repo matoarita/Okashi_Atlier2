@@ -497,6 +497,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.SPquestPanelOff = false;
                 GameMgr.Contest_BGMON = true;
                 GameMgr.Contest_PanelON = true;
+                GameMgr.Contest_MainStoryPlaceNum = 0;
 
                 break;
 
@@ -526,6 +527,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.SPquestPanelOff = false;
                 GameMgr.Contest_BGMON = true;
                 GameMgr.Contest_PanelON = true;
+                GameMgr.Contest_MainStoryPlaceNum = 0;
 
                 break;
 
@@ -546,6 +548,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.SPquestPanelOff = false;
                 //GameMgr.Contest_BGMON = true;
                 GameMgr.Contest_PanelON = true;
+                GameMgr.Contest_MainStoryPlaceNum = 10;
 
                 break;
 
@@ -594,15 +597,17 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         if (_spquest_setnum >= 3)
         {
             //GameMgr.OutEntrance_ON = true;
-            matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //
-            /*if (!GameMgr.NPCHiroba_eventList[0])
+            //matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //
+
+            if (!GameMgr.NPCHiroba_eventList[0])
             {
                 matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //
             }
             else
             {
                 matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
-            }*/
+                matplace_database.ReSetMapFlagString("Or_HirobaEnter_A1", 1); //かわりに春エリア入口に自動でいけるようになる
+            }
         }
 
         if (_spquest_setnum >= 11)

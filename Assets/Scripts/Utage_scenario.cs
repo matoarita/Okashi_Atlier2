@@ -922,10 +922,6 @@ public class Utage_scenario : MonoBehaviour
             if (GameMgr.SleepSkipFlag) //スキップON
             {
                 engine.Param.TrySetParameter("Sleep_num", 10);
-
-                //キャラ背後のハートもオフにする。
-                GirlHeartEffect_obj.SetActive(false);
-
             }
             else
             {
@@ -1002,12 +998,6 @@ public class Utage_scenario : MonoBehaviour
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
-
-        if(GameMgr.SleepSkipFlag)
-        {
-                //キャラ背後のハートONに。
-                GirlHeartEffect_obj.SetActive(true);           
-        }
 
         //BGMを再開
         BGMMuteOFF();        
@@ -2076,12 +2066,6 @@ public class Utage_scenario : MonoBehaviour
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 
-        if(GameMgr.Story_Mode == 1)
-        {
-            //キャラ背後のハートもオフにする。
-            GirlHeartEffect_obj.SetActive(false);
-        }
-
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -2110,12 +2094,6 @@ public class Utage_scenario : MonoBehaviour
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
-
-        if (GameMgr.Story_Mode == 1)
-        {
-            //キャラ背後のハートもオンにする。
-            GirlHeartEffect_obj.SetActive(true);
-        }
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 
@@ -2334,12 +2312,6 @@ public class Utage_scenario : MonoBehaviour
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 
-        if (GameMgr.Story_Mode == 1)
-        {
-            //キャラ背後のハートもオフにする。
-            GirlHeartEffect_obj.SetActive(false);
-        }
-
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
@@ -2351,11 +2323,6 @@ public class Utage_scenario : MonoBehaviour
 
         //ゲーム上のキャラクタON
         CharacterLive2DImageON();
-
-        if (GameMgr.Story_Mode == 1)
-        {
-            GirlHeartEffect_obj.SetActive(true);
-        }
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 
@@ -6216,6 +6183,9 @@ public class Utage_scenario : MonoBehaviour
 
         //宴用の表情モードはオフに。
         live2d_animator.SetLayerWeight(3, 0.0f);
+
+        //キャラ背後のハートをオンにする。
+        GirlHeartEffect_obj.SetActive(true);
     }
 
     //ゲームメイン中のLive2DキャラクタをOFFにする。
@@ -6225,6 +6195,9 @@ public class Utage_scenario : MonoBehaviour
 
         //宴用の表情モードに切り替える。
         live2d_animator.SetLayerWeight(3, 1.0f);
+
+        //キャラ背後のハートもオフにする。
+        GirlHeartEffect_obj.SetActive(false);
     }
 
     //ゲームサブキャラ・NPCのLive2DキャラクタをONにする。

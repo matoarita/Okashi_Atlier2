@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 143
+  controlID: 17
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 151
+  controlID: 93
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -273,8 +273,8 @@ MonoBehaviour:
     y: 332
     width: 899
     height: 534
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -605,7 +605,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 7891f3ffc891f3ffec98f3ff64a5f3ffdeb1f3ff02c3f3ff34d1f3ff5edcf3ff4e10f6ff3ea2f6ffb0aaf6ffc2aff6ffd4b3f6ff3a33f7ff103bf7ff024ff7ff8456f7ff0458f7ffb458f7ffa05df7ff8a61f7ff4069f7ffa6d5f7ff2ea7f8ffa0aff8ffb0b2f8fff2b5f8ffd0ddf8fff2ecf8ff94edf8ff1a16f9ffbe16f9ff6017f9ff0218f9ffa418f9ff4619f9ff4e19f9fff019f9fff04cf9ff944df9ff525df9ffa25df9ffcc64f9ff4871f9ffc67df9ffee8ef9ff249df9ff52a8f9ff46dcfbff3a6efcffb076fcffc67bfcffdc7ffcff46fffcff2007fdff161bfdffa222fdff2e24fdffe224fdffda29fdffd02dfdff9235fdff04a2fdff9673feff0c7cfeff207ffeff6682feff48aafeff6eb9feff14bafeff9ee2feff46e3feffece3feff92e4feff38e5feffdee5feffeae5feff90e6feff9419ffff3c1affff04fbffff76660000e46900005a6f0000
+      m_ExpandedIDs: 604bc7ffaa4bc7ffb84fc7ff2e5cc7ffa668c7ffc879c7fff087c7ff1893c7fffcc6c9ffe858caff5861caff6866caff786acaffdce9caffb0f1caffa005cbff200dcbff9c0ecbffee0ecbffd413cbffba17cbff641fcbffb88bcbff405dccffb065ccffbe68ccfffa6bccffd693ccffeaa2ccff8aa3ccff0cccccffacccccff4ccdccffeccdccff8cceccff2ccfccff32cfccffd2cfccffd002cdff7203cdff88d5cdff9ae1cdffa0f0cdff74f9cdffc4f9cdffe800ceff600dceffda19cefffe2aceff3039ceff5a44ceff3e78d0ff2e0ad1ffa012d1ffb217d1ffc41bd1ff2a9bd1ff00a3d1fff2b6d1ff74bed1fff4bfd1ffa4c0d1ff90c5d1ff7ac9d1ff30d1d1ff963dd2ffb80fd3ff3018d3ff401bd3ff801ed3ff6246d3ff8455d3ff2656d3ffb27ed3ff567fd3fff87fd3ff9a80d3ff3c81d3ffde81d3ffe681d3ff8882d3ffd2b5d3ff76b6d3ff20bad3ff74bad3ff9ac1d3ff12ced3ff8cdad3ffb0ebd3ffe2f9d3ff0c05d4fff038d6ffe0cad6ff52d3d6ff64d8d6ff76dcd6ffdc5bd7ffb263d7ffa477d7ff2c7fd7ffb480d7ff6481d7ff5886d7ff4a8ad7ff0892d7ff76fed7ff9ed0d8ff16d9d8ff26dcd8ff66dfd8ff4807d9ff6a16d9ff0c17d9ff983fd9ff3c40d9ffde40d9ff8041d9ff2242d9ffc442d9ffcc42d9ff6e43d9ffb876d9ff5c77d9ff48afdbff124ff2ffe4b5f8ffa6b1fcff00c1fcff58cdfcff4c54fdff5a54fdff8689fdff9489fdffeca0fdfffaa0fdff78abfdff82e3fdff7ef6fdff8cf6fdff36f9fdff3206feff244efeff324efeff20d2feff9ce6feffaae6feff88edfeff4e28ffff04fbffff847201002a740100b876010084770100b8780100c87a0100fc820100348a0100b68c01008c8d010086930100389701007a980100c69f01002ea0010074a001008aa00100fea301003eab0100d2ec0100e6ed010096ee01000cf20100c6f2010070f40100c6f4010072d90600e4e10600a4f306006207070078070700e26609008868090014810900e8940900aaf31200be271300c2ea1300f0ea1300949f1400f8a11400f8a914000cab1400
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -713,22 +713,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Utage_Scenario
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Utage_Scenario
+  - Assets/Scenes
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 523}
-    m_SelectedIDs: dc500100
-    m_LastClickedID: 86236
+    m_SelectedIDs: c06b0100
+    m_LastClickedID: 93120
     m_ExpandedIDs: 000000008e4e0100904e0100924e0100944e0100964e0100984e01009a4e01009c4e01009e4e0100a04e0100a24e010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -788,15 +788,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100b0940000fed100007a560100a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad000000000000b65501009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: HirobaOr_Scenario
-      m_OriginalName: HirobaOr_Scenario
+      m_Name: Or_Contest_Reception
+      m_OriginalName: Or_Contest_Reception
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 86252
+      m_UserData: 93200
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -1211,9 +1211,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.7889813, y: -11.692716, z: 90.3475}
+    m_Target: {x: 247.03143, y: 196.90833, z: 0}
     speed: 2
-    m_Value: {x: 0.7889813, y: -11.692716, z: 90.3475}
+    m_Value: {x: 247.03143, y: 196.90833, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1264,9 +1264,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 59.069202
+    m_Target: 60.240852
     speed: 2
-    m_Value: 59.069202
+    m_Value: 60.240852
   m_Ortho:
     m_Target: 1
     speed: 2
