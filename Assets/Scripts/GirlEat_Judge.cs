@@ -1926,6 +1926,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 1:
 
+                //コンテスト用に保存
+                if (countNum == 0)
+                {
+                    GameMgr.contest_lasthint_text = _contest_sweat_kansou + "\n" + _contest_bitter_kansou + "\n" + _contest_sour_kansou;
+                }               
+                if (countNum == 2)
+                {
+                    GameMgr.contest_lasthint_text = _shokukan_kansou + "\n" + GameMgr.contest_lasthint_text;
+                }
+                GameMgr.contest_shokukan_param = shokukan_baseparam;
+                GameMgr.contest_shokukan_mes = shokukan_mes;
+                GameMgr.contest_sweat_param = _basesweat; //
+                GameMgr.contest_sour_param = _basesour; //
+                GameMgr.contest_bitter_param = _basebitter; //
                 break;
 
             default: //NPCの採点などに流用した場合など　こっち
@@ -5258,8 +5272,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //さっき食べたお菓子の情報
         //temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
 
-        //if (last_score_kousin)
-        //{
         database.items[_baseID].last_hinttext = temp_hint_text;
         GameMgr.Okashi_lasthint = temp_hint_text;
         GameMgr.Okashi_lastname = _basenameHyouji;
@@ -5270,7 +5282,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.Okashi_lastsweat_param = _basesweat;
         GameMgr.Okashi_lastsour_param = _basesour;
         GameMgr.Okashi_lastbitter_param = _basebitter;
-        //}
     }
 
 
@@ -6077,7 +6088,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             _shokukan_kansou = GameMgr.ColorGold + "食感 S: " + "神の" + shokukan_mes + "！！" + "</color>";
             _shopgirl_shokukan_kansou = "神の" + shokukan_mes + "ね！　最高の味わいだと思うわ！";
-        }
+        }        
     }
 
 

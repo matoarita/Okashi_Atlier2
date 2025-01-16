@@ -61,6 +61,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
     public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
     public static bool System_BarNinkiHyouji_ON = true; //酒場でスターパネルを表示する
+    public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -395,6 +396,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_Disqualification; //コンテスト失格フラグ
     public static bool contest_Disqualification2; //特殊点足りなかったフラグ
 
+    //コンテストに提出したお菓子   セーブまだ 
+    public static string contest_okashiName;
+    public static string contest_okashiNameHyouji;
+    public static string contest_okashiSubType;
+    public static string contest_okashiSlotName;
+    public static int contest_okashiID;
+    public static string contest_lasthint_text; //
+    public static int contest_shokukan_param; //
+    public static string contest_shokukan_mes; //
+    public static int contest_sweat_param; //
+    public static int contest_sour_param; //
+    public static int contest_bitter_param; //
+    public static Item contest_okashi_ItemData;
+
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
 
@@ -610,15 +625,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_or_prizeget_flag;
     public static bool contest_or_limittimeover_flag;
     public static int contest_event_num;
-    public static bool contest_MainMatchStart; //コンテスト実際の試合開始の合図
-
-    //コンテストに提出したお菓子    
-    public static string contest_okashiName;
-    public static string contest_okashiNameHyouji;
-    public static string contest_okashiSubType;
-    public static string contest_okashiSlotName;
-    public static int contest_okashiID;
-    public static Item contest_okashi_ItemData;
+    public static bool contest_MainMatchStart; //コンテスト実際の試合開始の合図   
 
     public static bool special_shogo_flag;
     public static int special_shogo_num;

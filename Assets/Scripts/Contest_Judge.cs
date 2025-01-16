@@ -185,7 +185,7 @@ public class Contest_Judge : MonoBehaviour {
             GameMgr.contest_okashiName = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemName;
             GameMgr.contest_okashiNameHyouji = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemNameHyouji;
             GameMgr.contest_okashiSubType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
-            GameMgr.contest_okashiID = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemID;
+            GameMgr.contest_okashiID = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemID;            
 
             GameMgr.contest_okashi_ItemData = pitemlist.player_extremepanel_itemlist[kettei_itemID];
             Debug.Log("コンテストお菓子　itemType:2 セッティングOK");

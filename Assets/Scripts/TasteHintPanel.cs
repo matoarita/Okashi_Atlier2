@@ -13,6 +13,7 @@ public class TasteHintPanel : MonoBehaviour {
 
     private ItemDataBase database;
 
+    private Text Okashi_hint_title;
     private Text Okashi_lasthint_text;
     private Text Okashi_lastname_text;
     private Text Okashi_lastscore_text;
@@ -30,6 +31,11 @@ public class TasteHintPanel : MonoBehaviour {
     private string _one_comment;
     private Text NowEat_text;
     private TMP_InputField hakushi_inputField;
+
+    private GameObject charaIcon_obj;
+    private GameObject hinttext_obj;
+    private GameObject hinttextcontest_obj;
+    private Text Okashi_contesthint_text;
 
     private GameObject hintpanel_obj1;
     private GameObject hintpanel_obj2;
@@ -75,54 +81,37 @@ public class TasteHintPanel : MonoBehaviour {
         hintpanel_obj2 = this.transform.Find("HintPanel/Panel_2").gameObject;
         hintpanel_obj2.SetActive(false);
 
+        charaIcon_obj = hintpanel_obj1.transform.Find("CharaIcon").gameObject;
+        hinttext_obj = hintpanel_obj1.transform.Find("HintText").gameObject;
+        hinttextcontest_obj = hintpanel_obj1.transform.Find("HintTextContest").gameObject;
+        hinttextcontest_obj.SetActive(false);
+
+        Okashi_hint_title = hintpanel_obj1.transform.Find("HintTitle").GetComponent<Text>();
         Okashi_lasthint_text = hintpanel_obj1.transform.Find("HintText").GetComponent<Text>();
-        Okashi_lasthint_text.text = GameMgr.Okashi_lasthint;
+        Okashi_contesthint_text = hintpanel_obj1.transform.Find("HintTextContest").GetComponent<Text>();
 
         Okashi_lastname_text = hintpanel_obj1.transform.Find("OkashiName").GetComponent<Text>();
-        Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.Okashi_lastslot + "</color>" + GameMgr.Okashi_lastname;
-
         Okashi_lastscore_text = hintpanel_obj1.transform.Find("OkashiScore").GetComponent<Text>();
-        Okashi_lastscore_text.text = GameMgr.Okashi_last_totalscore.ToString();
 
         Okashi_lastshokukan_param_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelA/PanelA_Param/Text").GetComponent<Text>();
-        Okashi_lastshokukan_param_text.text = GameMgr.Okashi_lastshokukan_param.ToString();
-
         Okashi_lastshokukan_mes_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelA/PanelA_Title/Text").GetComponent<Text>();
-        Okashi_lastshokukan_mes_text.text = GameMgr.Okashi_lastshokukan_mes;
 
         Okashi_lastsweat_param_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelB/PanelB_Param/Text").GetComponent<Text>();
-        Okashi_lastsweat_param_text.text = GameMgr.Okashi_lastsweat_param.ToString();
-
         Okashi_lastsour_param_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelC/PanelC_Param/Text").GetComponent<Text>();
-        Okashi_lastsour_param_text.text = GameMgr.Okashi_lastsour_param.ToString();
-
         Okashi_lastbitter_param_text = hintpanel_obj1.transform.Find("TasteParamScrollView/Viewport/Content/PanelD/PanelD_Param/Text").GetComponent<Text>();
-        Okashi_lastbitter_param_text.text = GameMgr.Okashi_lastbitter_param.ToString();
 
         Okashi_Img = database.items[GameMgr.Okashi_lastID].itemIcon_sprite;
         Okashi_Icon = hintpanel_obj1.transform.Find("OkashiImage").GetComponent<Image>(); //画像アイコン
         Okashi_Icon.sprite = Okashi_Img;
 
         OneComment_text = hintpanel_obj1.transform.Find("OneCommentText").GetComponent<Text>();
-        OneComment_text.text = "";
-        RandomOneComment();
-
         NowEat_text = hintpanel_obj1.transform.Find("NowEatText").GetComponent<Text>();
-        NowEat_text.text = GameMgr.NowEatOkashiName;
 
         //顔アイコン
         HikariIcon_Normal = hintpanel_obj1.transform.Find("CharaIcon/HikariIcon1").gameObject;
         HikariIcon_Angry = hintpanel_obj1.transform.Find("CharaIcon/HikariIcon2").gameObject;
-        if(GameMgr.Okashi_totalscore <= 30)
-        {
-            HikariIcon_Normal.SetActive(false);
-            HikariIcon_Angry.SetActive(true);
-        }
-        else
-        {
-            HikariIcon_Normal.SetActive(true);
-            HikariIcon_Angry.SetActive(false);
-        }
+
+        Hikari_TasteHintDraw();
 
         //白紙メモ関係
         view_toggle.Clear();
@@ -132,6 +121,7 @@ public class TasteHintPanel : MonoBehaviour {
             view_toggle.Add(obj.gameObject);
             obj.gameObject.SetActive(false);
             if(obj.name == "WhiteMemoToggle_Taste") { obj.gameObject.SetActive(true); }
+            if (obj.name == "WhiteMemoToggle_TasteContest") { obj.gameObject.SetActive(true); }
         }
         hakushi_inputField = hintpanel_obj2.transform.Find("Scroll View/Viewport/Content/InputField_TMP").GetComponent<TMP_InputField>();
         GameMgr.System_WhiteMemo_Num = 0;
@@ -187,6 +177,83 @@ public class TasteHintPanel : MonoBehaviour {
         GameMgr.compound_status = 0;
         this.gameObject.SetActive(false);
 
+    }
+
+    void Hikari_TasteHintDraw()
+    {
+        charaIcon_obj.SetActive(true);
+        hinttext_obj.SetActive(true);
+        hinttextcontest_obj.SetActive(false);
+
+        Okashi_hint_title.text = "◆さっき食べたおかしメモ";
+
+        Okashi_lasthint_text.text = GameMgr.Okashi_lasthint;
+
+        Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.Okashi_lastslot + "</color>" + GameMgr.Okashi_lastname;
+        Okashi_lastscore_text.text = GameMgr.Okashi_last_totalscore.ToString();
+
+        Okashi_lastshokukan_param_text.text = GameMgr.Okashi_lastshokukan_param.ToString();
+        Okashi_lastshokukan_mes_text.text = GameMgr.Okashi_lastshokukan_mes;
+
+        Okashi_lastsweat_param_text.text = GameMgr.Okashi_lastsweat_param.ToString();
+        Okashi_lastsour_param_text.text = GameMgr.Okashi_lastsour_param.ToString();
+        Okashi_lastbitter_param_text.text = GameMgr.Okashi_lastbitter_param.ToString();
+
+        Okashi_Img = database.items[GameMgr.Okashi_lastID].itemIcon_sprite;
+        Okashi_Icon.sprite = Okashi_Img;
+
+        OneComment_text.text = "";
+        RandomOneComment();
+
+        NowEat_text.text = GameMgr.NowEatOkashiName;
+
+        //顔アイコン
+        if (GameMgr.Okashi_totalscore <= 30)
+        {
+            HikariIcon_Normal.SetActive(false);
+            HikariIcon_Angry.SetActive(true);
+        }
+        else
+        {
+            HikariIcon_Normal.SetActive(true);
+            HikariIcon_Angry.SetActive(false);
+        }
+    }
+
+    void Contest_TasteHintDraw()
+    {
+        charaIcon_obj.SetActive(false);
+        hinttext_obj.SetActive(false);
+        hinttextcontest_obj.SetActive(true);
+
+        Okashi_hint_title.text = "◆前回コンテストのおかし";
+
+        Okashi_contesthint_text.text = GameMgr.contest_lasthint_text;
+
+        Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.contest_okashiSlotName + "</color>" + GameMgr.contest_okashiNameHyouji;
+        Okashi_lastscore_text.text = GameMgr.contest_TotalScore.ToString();
+
+        Okashi_lastshokukan_param_text.text = GameMgr.contest_shokukan_param.ToString();
+        Okashi_lastshokukan_mes_text.text = GameMgr.contest_shokukan_mes;
+
+        Okashi_lastsweat_param_text.text = GameMgr.contest_sweat_param.ToString();
+        Okashi_lastsour_param_text.text = GameMgr.contest_sour_param.ToString();
+        Okashi_lastbitter_param_text.text = GameMgr.contest_bitter_param.ToString();
+
+        Okashi_Img = database.items[database.SearchItemID(GameMgr.contest_okashiID)].itemIcon_sprite;
+        Okashi_Icon.sprite = Okashi_Img;
+
+        //顔アイコン じいさんとかになる
+        /*if (GameMgr.Okashi_totalscore <= 30)
+        {
+            HikariIcon_Normal.SetActive(false);
+            HikariIcon_Angry.SetActive(true);
+        }
+        else
+        {
+            HikariIcon_Normal.SetActive(true);
+            HikariIcon_Angry.SetActive(false);
+        }*/
     }
 
     void RandomOneComment()
@@ -342,6 +409,17 @@ public class TasteHintPanel : MonoBehaviour {
     {
         hintpanel_obj1.SetActive(true);
         hintpanel_obj2.SetActive(false);
+
+        Hikari_TasteHintDraw();
+    }
+
+    //味のメモ　コンテスト
+    public void OnMemoToggle_2()
+    {
+        hintpanel_obj1.SetActive(true);
+        hintpanel_obj2.SetActive(false);
+
+        Contest_TasteHintDraw();
     }
 
     //白紙のメモ１

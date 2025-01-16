@@ -441,14 +441,20 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
 
-            //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
-            //家に帰って寝る
-            time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
-            //GameMgr.Contest_afterHomeEventFlag = true;
-            //GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ
-
-            GameMgr.SceneSelectNum = 0;
-            FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+            if (!GameMgr.System_ContestGameOver_ON)
+            {
+                //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+                //家に帰って寝る
+                time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
+                //GameMgr.Contest_afterHomeEventFlag = true;
+                //GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ
+                FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
+            }
+            else
+            {
+                GameMgr.SceneSelectNum = 0;
+                FadeManager.Instance.LoadScene("999_Gameover", 0.3f);
+            }
         }
 
         //制限時間を少し超えた場合、注意のパネルがでる
