@@ -99,13 +99,13 @@ public class Random_Treasureitem : MonoBehaviour {
 
     void ItemGet01()
     {
-        //青ジェム　もってると、魔法の成功率が１上がる
+        //青ジェム　もってると、MaxMPが1上がる
         GameMgr.hiroba_treasureget_Num = 0; //宝箱番号 メッセージが変わる 基本0のままでOK
         GameMgr.hiroba_treasureget_Name = GameMgr.System_TreasureItem01;
         GameMgr.hiroba_treasureget_Kosu = 1;
 
         //アイテムの取得処理
         pitemlist.addPlayerItemString("blue_jemstone", 1);
-        //PlayerStatus.player_maxmp++;
+        PlayerStatus.player_maxmp++;
     }
 }

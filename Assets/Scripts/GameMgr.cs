@@ -396,7 +396,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_Disqualification; //コンテスト失格フラグ
     public static bool contest_Disqualification2; //特殊点足りなかったフラグ
 
-    //コンテストに提出したお菓子   セーブまだ 
+    //コンテストに提出したお菓子
     public static string contest_okashiName;
     public static string contest_okashiNameHyouji;
     public static string contest_okashiSubType;

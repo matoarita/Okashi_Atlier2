@@ -521,6 +521,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_contest_Score = GameMgr.contest_Score,
             save_contest_TotalScore = GameMgr.contest_TotalScore,
 
+            //コンテストに提出したおかし
+            save_contest_okashiName = GameMgr.contest_okashiName,
+            save_contest_okashiNameHyouji = GameMgr.contest_okashiNameHyouji,
+            save_contest_okashiSubType = GameMgr.contest_okashiSubType,
+            save_contest_okashiSlotName = GameMgr.contest_okashiSlotName,
+            save_contest_okashiID = GameMgr.contest_okashiID,
+            save_contest_lasthint_text = GameMgr.contest_lasthint_text,
+            save_contest_shokukan_param = GameMgr.contest_shokukan_param,
+            save_contest_shokukan_mes = GameMgr.contest_shokukan_mes,
+            save_contest_sweat_param = GameMgr.contest_sweat_param,
+            save_contest_sour_param = GameMgr.contest_sour_param,
+            save_contest_bitter_param = GameMgr.contest_bitter_param,
+            save_contest_okashi_ItemData = GameMgr.contest_okashi_ItemData,
+
             //牧場のイベントリスト
             save_FarmEvent_stage = GameMgr.FarmEvent_stage,
 
@@ -953,6 +967,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //コンテスト審査員の点数
         GameMgr.contest_Score = playerData.save_contest_Score;
         GameMgr.contest_TotalScore = playerData.save_contest_TotalScore;
+
+        //コンテストに提出したおかし
+        GameMgr.contest_okashiName = playerData.save_contest_okashiName;
+        GameMgr.contest_okashiNameHyouji = playerData.save_contest_okashiNameHyouji;
+        GameMgr.contest_okashiSubType = playerData.save_contest_okashiSubType;
+        GameMgr.contest_okashiSlotName = playerData.save_contest_okashiSlotName;
+        GameMgr.contest_okashiID = playerData.save_contest_okashiID;
+        GameMgr.contest_lasthint_text = playerData.save_contest_lasthint_text;
+        GameMgr.contest_shokukan_param = playerData.save_contest_shokukan_param;
+        GameMgr.contest_shokukan_mes = playerData.save_contest_shokukan_mes;
+        GameMgr.contest_sweat_param = playerData.save_contest_sweat_param;
+        GameMgr.contest_sour_param = playerData.save_contest_sour_param;
+        GameMgr.contest_bitter_param = playerData.save_contest_bitter_param;
+        GameMgr.contest_okashi_ItemData = playerData.save_contest_okashi_ItemData;
 
         //牧場のイベントリスト
         GameMgr.FarmEvent_stage = playerData.save_FarmEvent_stage;

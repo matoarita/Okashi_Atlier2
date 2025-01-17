@@ -168,10 +168,6 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
             {
                 shop_database.shopitems[i].shop_itemzaiko = shop_database.shopitems[i].shop_itemzaiko_max;
             }
-            else
-            {
-
-            }
         }        
 
         //入店の音

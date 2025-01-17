@@ -52,6 +52,10 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Window_CharaName = "ドルチェ";
                 GameMgr.System_Shop_text1 = "ニャニャ。よ～見つけなすったね。こんなところを・・。" + "\n" + "それで何がほしいニャ？";
                 GameMgr.System_Shop_text2 = "何がほしいのかえ？";
+                GameMgr.System_Shop_text3 = ""; //買取時のメッセージ
+                GameMgr.System_Shop_text4 = "買う？";
+                GameMgr.System_Shop_text5 = "かかるよ。";
+                GameMgr.System_Shop_text6 = "何にする？";
                 break;
 
             case 10: //夏エリア 使わない予定
@@ -62,6 +66,10 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Window_CharaName = "ドルチェ";
                 GameMgr.System_Shop_text1 = "ニャニャ。よ～見つけなすったね。こんなところを・・。" + "\n" + "それで何がほしいニャ？";
                 GameMgr.System_Shop_text2 = "何がほしいのかえ？";
+                GameMgr.System_Shop_text3 = ""; //買取時のメッセージ
+                GameMgr.System_Shop_text4 = "買う？";
+                GameMgr.System_Shop_text5 = "かかるよ。";
+                GameMgr.System_Shop_text6 = "何にする？";
                 break;
 
             default:
@@ -72,6 +80,10 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 GameMgr.Window_CharaName = "ドルチェ";
                 GameMgr.System_Shop_text1 = "ニャニャ。よ～見つけなすったね。こんなところを・・。" + "\n" + "それで何がほしいニャ？";
                 GameMgr.System_Shop_text2 = "何がほしいのかえ？";
+                GameMgr.System_Shop_text3 = ""; //買取時のメッセージ
+                GameMgr.System_Shop_text4 = "買う？";
+                GameMgr.System_Shop_text5 = "かかるよ。";
+                GameMgr.System_Shop_text6 = "何にする？";
                 break;
         }
 

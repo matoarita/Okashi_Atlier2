@@ -3749,7 +3749,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
         //はじめてエメラルどんぐりをゲットしたら、怪しげな館登場
-        matplace_database.matPlaceKaikin("Emerald_Shop"); //怪しげな館解禁
+        matplace_database.matPlaceKaikin("Or_EmeraldShop_A1"); //怪しげな館解禁
 
         canvas.SetActive(true);
         emerarudonguri_end = true;
@@ -4209,6 +4209,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //触れなくなる
         compound_Main.WindowOn(); //ウィンドウは表示
         Touch_WindowInteractOFF(); //その後触れなくする。
+        //stageclear_Button.GetComponent<Toggle>().interactable = false;   
+        stageclear_Button.SetActive(false);
 
         girl1_status.GirlEat_Judge_on = false;
         girl1_status.WaitHint_on = false;
@@ -4239,6 +4241,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Touch_WindowInteractOFF();
         QuestClearEffectPanel.SetActive(true);
         sceneBGM.MuteBGM();
+        
 
         while (!GameMgr.qclear_effect_endflag)
         {
@@ -4882,6 +4885,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
 
             case 100210:
+
+                //水族館へ行き、白クジラと会話すればクリア
+                if (GameMgr.NPCHiroba_eventList[260])
+                {
+                    Debug.Log("白くじらに会ったので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100220:
 
                 //夏コンテストで優勝すると先へ進める
                 _id = conteststartList_database.SearchContestString("Or_Contest_002");
@@ -6324,7 +6337,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 GameMgr.CharacterTouch_ALLOFF = true;
                 compound_Main.OffCompoundSelect();
                 compound_Main.OnCompoundSelectObj();
-                hinttaste_toggle.SetActive(false);
+                hinttaste_toggle.SetActive(false);               
                 break;
         }
     }

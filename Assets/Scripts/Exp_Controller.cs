@@ -1822,12 +1822,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             //かごの大きさ計算やバフの計算は「Buf_Power_keisan.cs」
             //プレイヤーアイテムリストに追加。
             pitemlist.addPlayerItem(database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName, result_kosu);
-            
+
+            if (database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName == "blue_jemstone")
+            {
+                PlayerStatus.player_maxmp += result_kosu * 1; //ジェムを買った場合、マックスMPがここで上がる。
+                Debug.Log("ブルージェムを購入 " + result_kosu + "個");
+            }
         }
         else //トッピングなど
         {
             //プレイヤーアイテムリストに追加。
-            pitemlist.addPlayerItem(database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName, result_kosu);
+            pitemlist.addPlayerItem(database.items[database.SearchItemID(shopbuy_kettei_item1)].itemName, result_kosu);            
         }
 
         switch (GameMgr.Scene_Category_Num)

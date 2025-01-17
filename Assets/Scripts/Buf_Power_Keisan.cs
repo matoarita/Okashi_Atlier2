@@ -15,8 +15,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _buf_kakuritsuup;
     private float _buf_kakuritsuup_f;
     private int _buf_shokukanup;
+    private float _buf_kyori;
     private int _buf_compotime_up;
     private int _statusup, _magicup;
+    private float _magicup_f;
     private int original_shokukan_p;
     private int _magic_attri;
     private int _magic_rate;
@@ -226,18 +228,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             if (pitemlist.KosuCount("star_pendant") >= 1) //持ってるだけで効果アップ
             {
-                _buf_kakuritsuup += 10;
+                _buf_kakuritsuup += 7;
             }
 
             if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
             {
-                _buf_kakuritsuup += 15;
+                _buf_kakuritsuup += 10;
             }
 
-            if (pitemlist.KosuCount("blue_jemstone") >= 1) //持ってるだけで効果アップ
+            /*if (pitemlist.KosuCount("blue_jemstone") >= 1) //持ってるだけで効果アップ
             {
                 _buf_kakuritsuup += pitemlist.KosuCount("blue_jemstone") * 1;
-            }
+            }*/
         }
 
         //一回でも成功したことがあれば、+3%ほど成功率が上昇する。
@@ -502,11 +504,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case "Chocolate":
 
-
                 break;
 
             case "Cake_MatCream":
-
 
                 break;
 
@@ -972,13 +972,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void ChocolateBuf()
     {
-        //魔法のバフ
-        _magicup = 0;
-        if (magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") >= 1)
-        {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 30; //LV*10
-            _buf_shokukanup += _magicup;
-        }
+        
     }
 
     void AppaleilBuf()
@@ -994,13 +988,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void AppaleilIcecreamBuf()
     {
-        //魔法のバフ
-        _magicup = 0;
-        if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)
-        {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 30; //LV*10
-            _buf_shokukanup += _magicup;
-        }
+        
     }
 
     void OvenBuf()
@@ -1086,15 +1074,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             _buf_shokukanup += 50;
         }
-
-        //魔法のバフ
-        _magicup = 0;
-        if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
-        {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 30; //LV*10
-            _buf_shokukanup += _magicup;
-        }
-
+        
     }
 
     void MagicGlowBuf()
@@ -1571,7 +1551,74 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+    //
+    //配合比率の距離に補正をかける。
+    //アイテムのサブタイプ(_itemType_sub)を指定し、中で補正をかければOK
+    //
+    public float Buf_KyoriHosei_Keisan(float _param, string _result_item)
+    {
+        InitSetup();
 
+        _buf_kyori = _param;
+
+        _id = database.SearchItemIDString(_result_item);
+        _itemType = database.items[_id].itemType.ToString();
+        _itemType_sub = database.items[_id].itemType_sub.ToString();
+        _itemType_subB = database.items[_id].itemType_subB.ToString();
+
+        switch(_itemType_sub)
+        {
+            
+            case "Cookie":
+
+                //魔法のバフ
+                _magicup_f = 0;
+                if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
+                {
+                    _magicup_f = 1.0f + magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 0.1f; //LV*0.1
+                    _buf_kyori = _buf_kyori * _magicup_f;
+                    
+                }
+                break;
+
+            case "Cookie_Hard":
+
+                //魔法のバフ
+                _magicup_f = 0;
+                if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
+                {
+                    _magicup_f = 1.0f + magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 0.1f; //LV*0.1
+                    _buf_kyori = _buf_kyori * _magicup_f;
+
+                }
+                break;
+
+            case "Chocolate":
+
+                //魔法のバフ
+                _magicup_f = 0;
+                if (magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") >= 1)
+                {
+                    _magicup_f = 1.0f + magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 0.1f; //LV*
+                    _buf_kyori = _buf_kyori * _magicup_f;
+                }
+                break;
+
+            case "Appaleil_Icecream":
+
+                //魔法のバフ
+                _magicup_f = 0;
+                if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)
+                {
+                    _magicup_f = 1.0f + magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 0.2f; //LV*10
+                    _buf_kyori = _buf_kyori * _magicup_f;
+                }
+                break;
+        }
+
+        Debug.Log("材料距離　補正後: " + _buf_kyori + " 種類: " + _itemType_sub);
+        return _buf_kyori; //なにもない場合は、そのまま入れた数値が変える。
+    }
 
     //ヒカリの作ったお菓子に、バフをかける処理
     public int Buf_HikariParamUp_Keisan(int _status, string _itemType_sub)

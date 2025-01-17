@@ -294,6 +294,20 @@ public class PlayerData
     public int[] save_contest_Score = new int[GameMgr.contest_Score.Length];
     public int save_contest_TotalScore;
 
+    //コンテストに提出したおかし
+    public string save_contest_okashiName;
+    public string save_contest_okashiNameHyouji;
+    public string save_contest_okashiSubType;
+    public string save_contest_okashiSlotName;
+    public int save_contest_okashiID;
+    public string save_contest_lasthint_text; //
+    public int save_contest_shokukan_param; //
+    public string save_contest_shokukan_mes; //
+    public int save_contest_sweat_param; //
+    public int save_contest_sour_param; //
+    public int save_contest_bitter_param; //
+    public Item save_contest_okashi_ItemData;
+
     //牧場のイベントリスト
     public bool[] save_FarmEvent_stage = new bool[GameMgr.FarmEvent_stage.Length];
 

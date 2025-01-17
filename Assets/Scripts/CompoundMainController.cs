@@ -559,7 +559,6 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.QuestManzokuFace = false; //おいしかった表情は、調合シーンに入るとリセットされる。
 
                     
-
                     if (pitemlist.player_extremepanel_itemlist.Count > 0 && PlayerStatus.player_extreme_kaisu > 0) //extreme_panel.extreme_kaisu
                     {
                         select_extreme_button.interactable = true;
@@ -610,6 +609,8 @@ public class CompoundMainController : MonoBehaviour {
 
                     //魔法環境音を止める。
                     sceneBGM.StopAmbient();
+
+
 
                     break;
 

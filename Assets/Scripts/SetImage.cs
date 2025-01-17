@@ -1543,8 +1543,17 @@ public class SetImage : MonoBehaviour
             {
                 case "Appaleil":
 
+                    DrawTasteWindow1();                   
+                    break;
+
+                case "Appaleil_Icecream":
+
                     DrawTasteWindow1();
-                    
+                    break;
+
+                case "Source":
+
+                    DrawTasteWindow1();
                     break;
 
                 case "Cream":
@@ -1567,24 +1576,19 @@ public class SetImage : MonoBehaviour
                     Card_param_obj2.SetActive(false);
                     break;
 
-                case "Pate":
-                    //Card_param_obj.SetActive(true);
+                case "Nuts":
+                    Card_param_obj.SetActive(true);
+                    Card_param_obj2.SetActive(false);
                     break;
 
-                case "Cookie_base":
-                    //Card_param_obj.SetActive(true);
+                case "Harb":
+                    Card_param_obj.SetActive(true);
+                    Card_param_obj2.SetActive(false);
                     break;
 
-                case "Pie_base":
-                    //Card_param_obj.SetActive(true);
-                    break;
-
-                case "Chocolate_base":
-                    //Card_param_obj.SetActive(true);
-                    break;
-
-                case "Cake_base":
-                    //Card_param_obj.SetActive(true);
+                case "Vegetable":
+                    Card_param_obj.SetActive(true);
+                    Card_param_obj2.SetActive(false);
                     break;
 
                 default:
@@ -1628,9 +1632,9 @@ public class SetImage : MonoBehaviour
 
     void DrawTasteWindow1()
     {
-        Card_param_obj.SetActive(true);
+        Card_param_obj.SetActive(true); //
         Card_param_obj2.SetActive(false);
-        TasteSubWindow.SetActive(true);
+        TasteSubWindow.SetActive(true); //生地系のときに、下にさくさく感とかを表示
         Slot_SubWindow.SetActive(false);
         SlotChangeButtonON();
         taste_slot_flag = true; //現在テイストサブウィンドウを表示

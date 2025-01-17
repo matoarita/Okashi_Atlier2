@@ -540,10 +540,19 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 21: //エデン2をゲットしよう！
+            case 21: //水族館へ行こう！
 
                 girl1_status.OkashiQuest_ID = 100210;
                 OkashiQuest_Count = 2;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
+
+                break;
+
+            case 22: //エデン2をゲットしよう！
+
+                girl1_status.OkashiQuest_ID = 100220;
+                OkashiQuest_Count = 3;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 //GameMgr.Contest_BGMON = true;
@@ -591,7 +600,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         //各クエスト開始時にフラグがたつ場合ここで処理
         if (_spquest_setnum >= 0)
         {
-            matplace_database.ReSetMapFlagString("Or_EmeraldShop_A1", 1); //エメラルショップはじめからでている。
+            
         }
        
         if (_spquest_setnum >= 3)
@@ -704,6 +713,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(100140, 14);
         QuestDict.Add(100200, 20);
         QuestDict.Add(100210, 21);
+        QuestDict.Add(100220, 22);
         QuestDict.Add(100400, 40);
         QuestDict.Add(100410, 41);
         QuestDict.Add(100500, 50);

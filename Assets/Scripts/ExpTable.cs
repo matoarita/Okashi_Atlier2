@@ -250,33 +250,35 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             if (_lv >= 6)
             {
-                magicskill_database.skillHyoujiKaikin("Caramelized");
-                magicskill_database.skillLearnLv_Name("Caramelized", 1);
+                Magic_Learn("Caramelized");               
             }
             if (_lv >= 7)
             {
-                magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
-                magicskill_database.skillLearnLv_Name("Heart_of_Icecream", 1);
-                magicskill_database.skillHyoujiKaikin("Freezing_Spell");
-                magicskill_database.skillLearnLv_Name("Freezing_Spell", 1);
+                Magic_Learn("Heart_of_Icecream");
+                Magic_Learn("Freezing_Spell");
             }
             if (_lv >= 8)
             {
-                magicskill_database.skillHyoujiKaikin("Bake_Beans");
-                magicskill_database.skillLearnLv_Name("Bake_Beans", 1);
-                magicskill_database.skillHyoujiKaikin("Chocolate_Tempering");
-                magicskill_database.skillLearnLv_Name("Chocolate_Tempering", 1);
+                Magic_Learn("Bake_Beans");
+                Magic_Learn("Chocolate_Tempering");
             }
             if (_lv >= 10)
             {
-                magicskill_database.skillHyoujiKaikin("SugerPot");
-                magicskill_database.skillLearnLv_Name("SugerPot", 1);
+                Magic_Learn("SugerPot");
             }
             if (_lv >= 12)
             {
-                magicskill_database.skillHyoujiKaikin("Buttelfy_illumination");
-                magicskill_database.skillLearnLv_Name("Buttelfy_illumination", 1);
+                Magic_Learn("Buttelfy_illumination");
             }
+        }
+    }
+
+    void Magic_Learn(string _magicname)
+    {
+        if (magicskill_database.skillName_SearchLearnLevel(_magicname) < 1)
+        {
+            magicskill_database.skillHyoujiKaikin(_magicname);
+            magicskill_database.skillLearnLv_Name(_magicname, 1);
         }
     }
 

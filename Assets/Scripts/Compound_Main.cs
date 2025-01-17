@@ -910,8 +910,11 @@ public class Compound_Main : MonoBehaviour
                 //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
                 bgm_change_story();
                 sceneBGM.OnMainBGM();
-                sceneBGM.NowFadeVolumeONBGM();
-               
+                if (!GameMgr.Contest_afterHomeEventFlag) //コンテストから帰ってきた直後はBGMはオフのまま
+                {
+                    sceneBGM.NowFadeVolumeONBGM();
+                }
+
                 PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param); //パティシエランクのチェックとセット　現在の状態に更新
 
                 OuthomePanelONOFF();               
@@ -1771,8 +1774,13 @@ public class Compound_Main : MonoBehaviour
                         }
                     }*/
                 }
-                sceneBGM.MuteOFFBGM();
-                map_ambience.MuteOFF();
+                if (!GameMgr.Contest_afterHomeEventFlag) //コンテストから帰ってきた直後はBGMはオフのまま
+                {
+                    sceneBGM.NowFadeVolumeONBGM();
+                    sceneBGM.MuteOFFBGM();
+                    map_ambience.MuteOFF();
+                    
+                }
 
                 //イベントに応じてコマンドを増やす関係
                 FlagEvent();

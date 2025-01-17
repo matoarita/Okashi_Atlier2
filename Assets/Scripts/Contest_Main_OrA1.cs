@@ -917,7 +917,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
         GameMgr.Contest_ON = false;
-        FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+
+        FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
+        //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
     }
 
     //支給アイテム削除や一時預かりアイテムを返す処理

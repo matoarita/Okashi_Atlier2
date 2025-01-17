@@ -2047,38 +2047,47 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 if (totalkyori >= 0 && totalkyori < 0.1)
                 {
                     kyori_hosei = 2.0f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 0.1 && totalkyori < 0.5)
                 {
                     kyori_hosei = 1.5f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 0.5 && totalkyori < 1.0)
                 {
                     kyori_hosei = 1.35f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 1.0 && totalkyori < 2.0)
                 {
                     kyori_hosei = 1.2f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 2.0 && totalkyori < 4.0)
                 {
                     kyori_hosei = 1.0f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 4.0 && totalkyori < 5.0)
                 {
                     kyori_hosei = 0.75f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 5.0 && totalkyori < 6.0)
                 {
                     kyori_hosei = 0.5f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 6.0 && totalkyori < 8.0)
                 {
                     kyori_hosei = 0.25f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
                 else if (totalkyori >= 8.0)
                 {
                     kyori_hosei = 0.125f;
+                    kyori_hosei = bufpower_keisan.Buf_KyoriHosei_Keisan(kyori_hosei, _basename);
                 }
 
                 //食感に補正値をかける。
