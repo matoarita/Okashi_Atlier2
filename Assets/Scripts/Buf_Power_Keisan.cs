@@ -208,6 +208,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 break;
         }
 
+        switch(_itemType_subB)
+        {
+            case "a_CacaoMass":
+
+                KakuritsuUp_CacaoMass();
+                break;
+        }
+
         //全般
         if (pitemlist.KosuCount("measuring spoon") >= 1) //持ってるだけで効果アップ
         {
@@ -411,6 +419,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _buf_kakuritsuup -= 20;
         }
 
+    }
+
+    void KakuritsuUp_CacaoMass()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 2; //LV*10
+            _buf_kakuritsuup += _magicup;
+        }
     }
 
     //

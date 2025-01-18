@@ -189,7 +189,7 @@ SE表
 ・SE_187	audiostock_869671_sample			【魔法の音】魔法凍っていく途中の音３
 ・SE_188	audiostock_1550440				アイテムの装着音
 ・SE_189	audiostock_852771				ヒカリから受け取ったおかしをパネルにセットする音
-・SE_190	audiostock_1225139_sample			【宴用】エデンコンキャラクタ登場時のヒット音　ジャン！
-・SE_191	audiostock_117338_sample			【宴用】エデンコンキャラクタ登場時のヒット音　ジャジャン！二回
+・SE_190	audiostock_205395_sample			【宴用】エデンコンキャラクタ登場時のヒット音　ジャン！
+・SE_191	audiostock_117338_sample			【未使用】
 ・SE_192	audiostock_976689_sample			【宴用】エデンコン結果発表時のファンファーレ勝利
 ・SE_193	audiostock_939021_sample			【宴用】エデンコン結果発表時のファンファーレ負け

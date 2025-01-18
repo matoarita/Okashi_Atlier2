@@ -978,7 +978,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 if (_lv >= 2) //水・ミルク系全般
                 {
                     if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilChocolateTwister" ||
-                        check_itemType_subB == "a_AppaleilChocolateBar" || check_itemType_subB == "a_AppaleilChocolateTwisterHeart" ||
+                        check_itemType_subB == "a_AppaleilChocolateBar" || check_itemType_subB == "a_AppaleilChocolateHeart" ||
                         check_itemType_subB == "a_AppaleilChocolateCrown" ||
                         check_itemType_subB == "a_AppaleilJelly" ||
                         check_itemType_subB == "a_AppaleilTwister" ||

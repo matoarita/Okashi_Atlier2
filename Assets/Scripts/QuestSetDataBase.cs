@@ -40,6 +40,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
     private int _juice;
     private int _beauty;
+    private int _tea_flavor;
 
     private string _tp01;
     private string _tp02;
@@ -103,7 +104,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                 //ここでリストに追加している
                 questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3, 
                     _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
-                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
+                    _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
                     _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
                     _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));              
 
@@ -156,6 +157,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         _juice = excel_questset_database.sheets[sheet_no].list[count].juice;
         _beauty = excel_questset_database.sheets[sheet_no].list[count].beauty;
+        _tea_flavor = excel_questset_database.sheets[sheet_no].list[count].tea_flavor;
 
         _tp01 = excel_questset_database.sheets[sheet_no].list[count].topping01;
         _tp02 = excel_questset_database.sheets[sheet_no].list[count].topping02;
@@ -217,6 +219,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         _juice = questset[count].Quest_juice;
         _beauty = questset[count].Quest_beauty;
+        _tea_flavor = questset[count].Quest_tea_flavor;
 
         _tp01 = questset[count].Quest_topping[0];
         _tp02 = questset[count].Quest_topping[1];
@@ -254,7 +257,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         //ここでリストに追加している
         questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3, 
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
-            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
             _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));
     }
@@ -299,6 +302,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         _juice = questRandomset[count].Quest_juice;
         _beauty = questRandomset[count].Quest_beauty;
+        _tea_flavor = questRandomset[count].Quest_tea_flavor;
 
         _tp01 = questRandomset[count].Quest_topping[0];
         _tp02 = questRandomset[count].Quest_topping[1];
@@ -331,7 +335,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         //ここでリストに追加している
         questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3, 
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
-            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
             _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));
     }

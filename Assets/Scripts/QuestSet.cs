@@ -63,7 +63,7 @@ public class QuestSet
     public QuestSet(int id, int _questID, int _questType, int _questHyouji, int _questHyoujiHeart, int _hightype, 
         string fileName, string _itemname, string _itemname2, string _itemname3, string _itemsubtype, 
         int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, 
-        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty,
+        int _rich, int _sweat, int _bitter, int _sour, int _crispy, int _fluffy, int _smooth, int _hardness, int _jiggly, int _chewy, int _juice, int _beauty, int _tea_flavor,
         string tp01, string tp02, string tp03, string tp04, string tp05, int tp_score_01, int tp_score_02, int tp_score_03, int tp_score_04, int tp_score_05,
         int _quest_afterday, int _quest_limitmonth, int _quest_limitday, int _quest_areaType, string _quest_clientname, int _quest_clientnum, 
         string _title, string _setkansou, int _read_endflag)
@@ -101,6 +101,7 @@ public class QuestSet
 
         Quest_juice = _juice;
         Quest_beauty = _beauty;
+        Quest_tea_flavor = _tea_flavor;
 
         Quest_topping[0] = tp01;
         Quest_topping[1] = tp02;

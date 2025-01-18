@@ -513,6 +513,27 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 break;
 
+            case "Or_Contest_002":　//サマードリームスフェスティバル
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+
+                }
+                else
+                {
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(175); //
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+                break;
+
 
             case "Or_Contest_010":　//クッキー初級コンテスト
 
@@ -741,7 +762,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(200); //50%
+                    ScoreNormalized(150); //75%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }

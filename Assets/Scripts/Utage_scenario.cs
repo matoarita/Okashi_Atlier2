@@ -40,7 +40,10 @@ public class Utage_scenario : MonoBehaviour
     private string itemName;
     private int item_magic;
     private bool NPC01_Friend_Flag;
+    private bool Costume_sukumizu_flag;
     private bool live2d_use;
+    private int trans_costume;
+    private int before_costume;
 
     private int re_flag;
     private int ev_flag;
@@ -3186,6 +3189,16 @@ public class Utage_scenario : MonoBehaviour
 
                 scenarioLabel = "Or_NPC106_park_pool";
                 bgm_changeflag = true;
+
+                //すく水持ってるかどうか
+                if (pitemlist.KosuCountEmerald("Sukumizu_Costume") >= 1)
+                {
+                    Costume_sukumizu_flag = true;
+                }
+                else
+                {
+                    Costume_sukumizu_flag = false;
+                }
                 break;
 
             case 1600: //Or露店りんごあめ
@@ -3379,6 +3392,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Fullmoon_Month", GameMgr.System_Fullmoon_month);
         engine.Param.TrySetParameter("Fullmoon_Day", GameMgr.System_Fullmoon_day);
         engine.Param.TrySetParameter("TrueHeartCost", GameMgr.System_trueheart_cost);
+        engine.Param.TrySetParameter("Costume_Sukumizu_Flag", Costume_sukumizu_flag);
+
 
         Debug.Log("scenarioLabel: " + scenarioLabel);
         Debug.Log("GameMgr.hiroba_event_ID: " + GameMgr.hiroba_event_ID);
@@ -3562,6 +3577,23 @@ public class Utage_scenario : MonoBehaviour
             //ポーズの場合
             if(pause_or_endnum == 1)
             {
+                switch (scenarioLabel)
+                {
+                    case "Or_NPC106_park_pool": //Or遊園地プール　Yes押したので水着にここで着替える
+
+                        Debug.Log("スク水に着替え");
+
+                        //広場のヒカリLive2Dを取得
+                        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                        live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
+
+                        before_costume = GameMgr.Costume_Num;
+                        GameMgr.Costume_Num = 2;
+                        trans_costume = GameMgr.Costume_Num;
+                        live2d_animator.SetInteger("trans_costume", trans_costume);
+                        break;
+                }
+
                 //BGMをオフにする。
                 BGMMute();
 
@@ -3572,6 +3604,18 @@ public class Utage_scenario : MonoBehaviour
                 while (!Engine.IsEndScenario)
                 {
                     yield return null;
+                }
+
+                switch (scenarioLabel)
+                {
+                    case "Or_NPC106_park_pool": //Or遊園地プール　水着着替えてたので、元に戻す
+
+                        Debug.Log("着替え元に戻す");
+
+                        GameMgr.Costume_Num = before_costume;
+                        trans_costume = GameMgr.Costume_Num;
+                        live2d_animator.SetInteger("trans_costume", trans_costume);
+                        break;
                 }
 
                 //BGMを再開

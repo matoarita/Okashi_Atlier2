@@ -1145,16 +1145,103 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         else if (_compo_select == 21) //魔法調合の場合
         {
             Debug.Log("_compo_select: " + _compo_select + "魔法調合の場合の、最終個数指定");
-            //result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
 
-            switch(GameMgr.UseMagicSkill)
+            if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_LvSelect == "CompNo")
             {
-                case "Aroma_Potion": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
-
-                    final_kette_kosu1 = 1 * GameMgr.UseMagicSkillLv; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                    break;
+                result_kosu = final_kette_kosu1; //元のアイテムになにかをかける魔法も、元アイテム一個にかけるので生成も一個
             }
-            result_kosu = final_kette_kosu1;
+            else
+            {
+                switch (GameMgr.UseMagicSkill)
+                {
+                    case "Aroma_Potion": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
+
+                        final_kette_kosu1 = 1 * GameMgr.UseMagicSkillLv; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Luminous_Suger": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Luminous_Fruits": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Bake_Beans": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Wind_Ark": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Wind_Twister": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Wind_Heart": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Wind_FlatBar": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Wind_Crown": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Wind_Roll": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Wind_Pen": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Statue_of_Penguin": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Statue_of_Bear": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Statue_of_Cat": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Statue_of_Rabitts": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    case "Rainbow_Rain": //入れた個数だけできる
+
+                        result_kosu = final_kette_kosu1;
+                        break;
+
+                    default: //その他　フリージングやテンパリングなど。compoDBを指定するものは、compoDBの個数
+
+                        result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
+                        break;
+                }
+            }
+            
         }
         else if (_compo_select == 7) //ヒカリお菓子作りの個数 set_kaisuがヒカリが作った回数
         {           
