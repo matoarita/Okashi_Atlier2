@@ -1722,11 +1722,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _basemagicslot_on = 1;
                     break;
 
-                case "Wind_Ark":
+                /*case "Wind_Ark":
 
                     _basebeauty += _baseMSvalue[i];
                     _basemagicslot_on = 1;
-                    break;
+                    break;*/
             }
         }
 
@@ -4901,6 +4901,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
                 {
                     Debug.Log("エデンコンテスト②で優勝したので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100300:
+
+                //秋コンテストで優勝すると先へ進める
+                _id = conteststartList_database.SearchContestString("Or_Contest_003");
+                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
+                {
+                    Debug.Log("エデンコンテスト③で優勝したので、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;

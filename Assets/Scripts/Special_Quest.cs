@@ -561,6 +561,18 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
+            case 30: //エデン3をゲットしよう！
+
+                girl1_status.OkashiQuest_ID = 100300;
+                OkashiQuest_Count = 1;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
+                //GameMgr.Contest_BGMON = true;
+                GameMgr.Contest_PanelON = true;
+                GameMgr.Contest_MainStoryPlaceNum = 20;
+
+                break;
+
             case 40: //最後　エデンそろったので、女王様と白クジラにあいにいく
 
                 girl1_status.OkashiQuest_ID = 100400;
@@ -638,11 +650,15 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);            
         }
 
-        if (_spquest_setnum >= 40)
+        if (_spquest_setnum >= 30)
         {
             matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
             matplace_database.ReSetMapFlagString("Or_Bar_C1", 1);
+            matplace_database.ReSetMapFlagString("Or_HirobaEnter_C1", 1);
+        }
 
+        if (_spquest_setnum >= 40)
+        {
             matplace_database.ReSetMapFlagString("Or_Shop_D1", 1);
             matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
             matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
@@ -714,6 +730,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(100200, 20);
         QuestDict.Add(100210, 21);
         QuestDict.Add(100220, 22);
+        QuestDict.Add(100300, 30);
         QuestDict.Add(100400, 40);
         QuestDict.Add(100410, 41);
         QuestDict.Add(100500, 50);

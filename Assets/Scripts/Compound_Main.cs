@@ -3152,7 +3152,7 @@ public class Compound_Main : MonoBehaviour
             
             case "mg_controltempature_book":
                 magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
-                magicskill_database.skillLearnLv_Name("Temperature_of_Control", 1); //入手時点でLV1習得すみの状態
+                //magicskill_database.skillLearnLv_Name("Temperature_of_Control", 1); //入手時点でLV1習得すみの状態
                 break;
 
             case "mg_fire_flowers_book":
@@ -3203,6 +3203,7 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_windtwister_book":
                 magicskill_database.skillHyoujiKaikin("Wind_Twister");
+                magicskill_database.skillLearnLv_Name("Wind_Twister", 1); //入手時点でLV1習得すみの状態
                 break;
 
             case "mg_windroll_book":

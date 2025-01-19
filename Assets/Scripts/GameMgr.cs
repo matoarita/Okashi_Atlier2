@@ -60,7 +60,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
     public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
-    public static bool System_BarNinkiHyouji_ON = true; //酒場でスターパネルを表示する
+    public static bool System_BarNinkiHyouji_ON = false; //酒場でスターパネルを表示する
     public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること

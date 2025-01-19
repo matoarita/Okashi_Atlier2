@@ -18,6 +18,7 @@ public class MagicSkillList
     public int skillMaxLv; //スキルの最大LV
     public int skillUseLv; //スキルを使うLV　習得LVよりも下のLVをあえて使いたい場合などで使用
     public string skill_LvSelect; //スキルを使うとき、レベルを指定するかどうか。Nonのときは固定レベルで、今覚えているLVの最大で使用する。調合時は、レベル数値を無視する。
+    public string skill_KosuSelect; //生成時の個数の指定
     public int skillType;   //パッシヴかアクティブスキルか
     public int skillCategory; //スキルの属性　基本、火、氷、光、風、心
     public int success_rate; //スキルの成功率　だが、今のとこcompoDBで決定するので使用してない
@@ -33,7 +34,7 @@ public class MagicSkillList
 
     //ここでリスト化時に渡す引数をあてがいます   
     public MagicSkillList(int id, int koyuid, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
-        int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, int skill_type, int skill_category, int successRate, int costTime, string skill_comment_full,
+        int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, string skill_kosuselect, int skill_type, int skill_category, int successRate, int costTime, string skill_comment_full,
         string skill_jouken_name1, int skill_jouken_lv1)
     {
         magicskillID = id;
@@ -50,6 +51,7 @@ public class MagicSkillList
         skillMaxLv = skill_maxlv;
         skillUseLv = skill_uselv;
         skill_LvSelect = skill_lvselect;
+        skill_KosuSelect = skill_kosuselect;
         skillType = skill_type;
         skillCategory = skill_category;
         skillComment_Full = skill_comment_full;

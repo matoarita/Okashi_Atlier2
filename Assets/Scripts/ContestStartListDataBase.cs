@@ -934,7 +934,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 133; //
+        GameMgr.contest_boss_score = 176; //
         GameMgr.contest_boss_name = "イセヤ";
     }
 
@@ -967,24 +967,26 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 210; //
+        GameMgr.contest_boss_score = 172; //
         GameMgr.contest_boss_name = "フォルトーネ";
     }
 
     void ContestData_042()
     {
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 42000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 22000;
-        GameMgr.Contest_ProblemSentence = "テーマ：ケーキ";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。おいしいケーキを作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。腕によりをかけた至高の一品を作ってください。" + "\n" + "制限時間: 8時間";
+        //GameMgr.Contest_ProblemSentence = "テーマ：ケーキ";
+        //GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。おいしいケーキを作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 300; //
-        GameMgr.contest_boss_name = "盲目の少女ベル";
+        GameMgr.contest_boss_score = 258; //
+        GameMgr.contest_boss_name = "ベル";
     }
 
     void ContestData_060()

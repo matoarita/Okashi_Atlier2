@@ -172,6 +172,8 @@ public class Quest_Judge : MonoBehaviour {
     private int _basesell;
     private string[] _basetp;
     private string[] _koyutp;
+    private string[] _baseMS;
+    private int[] _baseMSvalue;
     private string _base_itemType;
     private string _base_itemType_sub;
     private string _base_itemType_subB;
@@ -348,8 +350,11 @@ public class Quest_Judge : MonoBehaviour {
         //初期化
         _basetp = new string[database.items[0].toppingtype.Length];
         _koyutp = new string[database.items[0].koyu_toppingtype.Length];
+        _baseMS = new string[database.items[0].item_MagicSlot.Length];
+        _baseMSvalue = new int[database.items[0].item_MagicSlotValue.Length];
         _tp = new string[quest_database.questset[0].Quest_topping.Length];
         _tp_score = new int[quest_database.questset[0].Quest_tp_score.Length];
+        
 
         InitializeItemSlotDicts();
 
@@ -1504,8 +1509,14 @@ public class Quest_Judge : MonoBehaviour {
                     }                   
                 }
 
+                //マジックスロットついてたらさらに報酬が上乗せ
+                for (i = 0; i < _baseMS.Length; i++)
+                {
+                    _getMoney += _baseMSvalue[i] * 300; //種類によらず一個ついてたら+300 MSValueはUseLVが入ってるので、LVが高いと報酬上がる
+                }
+
                 //ルーティのマッサージポイント
-                switch(GameMgr.Scene_Name)
+                switch (GameMgr.Scene_Name)
                 {
                     case "Or_Bar_A1":
 
@@ -2016,6 +2027,12 @@ public class Quest_Judge : MonoBehaviour {
                     _koyutp[i] = database.items[_id].koyu_toppingtype[i].ToString();
                 }
 
+                for (i = 0; i < database.items[_id].item_MagicSlot.Length; i++)
+                {
+                    _baseMS[i] = database.items[_id].item_MagicSlot[i].ToString();
+                    _baseMSvalue[i] = database.items[_id].item_MagicSlotValue[i];
+                }
+
                 break;
 
             case 1: //オリジナルプレイヤーアイテムリストから選択している場合
@@ -2066,6 +2083,12 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     _koyutp[i] = pitemlist.player_originalitemlist[_id].koyu_toppingtype[i].ToString();
                 }
+
+                for (i = 0; i < database.items[_id].item_MagicSlot.Length; i++)
+                {
+                    _baseMS[i] = pitemlist.player_originalitemlist[_id].item_MagicSlot[i].ToString();
+                    _baseMSvalue[i] = pitemlist.player_originalitemlist[_id].item_MagicSlotValue[i];
+                }
                 break;
 
             case 2: //お菓子パネル設定アイテムリストから選択している場合
@@ -2113,6 +2136,12 @@ public class Quest_Judge : MonoBehaviour {
                 for (i = 0; i < database.items[_id].koyu_toppingtype.Length; i++)
                 {
                     _koyutp[i] = pitemlist.player_extremepanel_itemlist[_id].koyu_toppingtype[i].ToString();
+                }
+
+                for (i = 0; i < database.items[_id].item_MagicSlot.Length; i++)
+                {
+                    _baseMS[i] = pitemlist.player_extremepanel_itemlist[_id].item_MagicSlot[i].ToString();
+                    _baseMSvalue[i] = pitemlist.player_extremepanel_itemlist[_id].item_MagicSlotValue[i];
                 }
                 break;
         }

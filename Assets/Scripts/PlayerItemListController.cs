@@ -1113,8 +1113,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Wind_Twister":
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" || check_itemType_sub == "Juice" ||
-                    check_itemType_subB == "a_AppaleilChocolate")
+                if (check_itemType_sub == "Water" || check_itemType_sub == "Juice" ||
+                    check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleiliceCream")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1197,7 +1197,13 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Bubble_Mist":
 
-                NonDrinkHyouji(1);
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
                 break;
 
             case "Statue_of_Penguin":

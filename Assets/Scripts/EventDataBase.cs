@@ -213,7 +213,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     Debug.Log("ハートメインイベント４をON: 開始");
 
 
-                                    special_quest.SetSpecialOkashi(40, 0);
+                                    special_quest.SetSpecialOkashi(30, 0);
                                 }
                                 else
                                 {

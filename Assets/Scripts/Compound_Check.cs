@@ -1471,7 +1471,7 @@ public class Compound_Check : MonoBehaviour {
         //魔法調合の場合の時間指定
         if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
         {
-            _costTime = GameMgr.UseMagicSkill_TimeCost;
+            _costTime = GameMgr.UseMagicSkill_TimeCost; //魔法DBのコストタイムを使用　全スキル共通
 
             //制作時間を早めるバフをかけるならココ。
             _costTime = _costTime - bufpower_keisan.Buf_CompoTimeMagic_Keisan(GameMgr.UseMagicSkill);

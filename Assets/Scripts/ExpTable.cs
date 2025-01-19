@@ -157,9 +157,30 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     MagicLearnPanelHyouji("Buttelfy_illumination");
                     break;
 
+                case 13:
+
+                    MagicLearnPanelHyouji("Bubble_Mist");
+                    break;
+
+                case 14:
+
+                    MagicLearnPanelHyouji("Wind_Crown");
+                    MagicLearnPanelHyouji("Wind_Pen");
+                    break;
+
                 case 15:
 
                     ShiageUpPanelHyouji();
+                    break;
+
+                case 18:
+
+                    MagicLearnPanelHyouji("Star_Blessing");
+                    break;
+
+                case 19:
+
+                    MagicLearnPanelHyouji("Latte_Art");
                     break;
 
                 case 20: //二種類～同時トッピングできるようになる。
@@ -167,13 +188,33 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     girlEat_judge.LvUpPanel3();
                     break;
 
+                case 21:
+
+                    MagicLearnPanelHyouji("Magic_Soda");
+                    break;
+
                 case 25: //複数個同時にのせられるようになる。パネル表記はなしで、ハートイベントなどで知らせる。
 
+                    break;
+
+                case 26:
+
+                    MagicLearnPanelHyouji("Rainbow_Rain");
+                    break;
+
+                case 28:
+
+                    MagicLearnPanelHyouji("Warming_Handmade");
                     break;
 
                 case 30:
 
                     ShiageUpPanelHyouji();
+                    break;
+
+                case 35:
+
+                    MagicLearnPanelHyouji("Moonlight_Banana");
                     break;
             }
         }        
@@ -269,6 +310,39 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             if (_lv >= 12)
             {
                 Magic_Learn("Buttelfy_illumination");
+            }
+            if (_lv >= 13)
+            {
+                Magic_Learn("Bubble_Mist");
+            }
+            if (_lv >= 14)
+            {
+                Magic_Learn("Wind_Crown");
+                Magic_Learn("Wind_Pen");
+            }
+            if (_lv >= 18)
+            {
+                Magic_Learn("Star_Blessing");
+            }
+            if (_lv >= 19)
+            {
+                Magic_Learn("Latte_Art");
+            }
+            if (_lv >= 21)
+            {
+                Magic_Learn("Magic_Soda");
+            }
+            if (_lv >= 26)
+            {
+                Magic_Learn("Rainbow_Rain");
+            }
+            if (_lv >= 28)
+            {
+                Magic_Learn("Warming_Handmade");
+            }
+            if (_lv >= 35)
+            {
+                Magic_Learn("Moonlight_Banana");
             }
         }
     }

@@ -867,7 +867,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Autumn_MainStreet":
 
-                On_Active102();
+                //On_Active102();
+                On_ContestActive03();
                 break;
 
             case "Or_Hiroba_Autumn_DepartMae":
@@ -1082,13 +1083,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_CentralPark2":
 
                 //On_Active31();
-                On_Active30();
+                //On_Active30();
+                On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Spring_Entrance":
 
                 //On_Active31();
-                On_Active30();
+                //On_Active30();
+                On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Spring_Shoping_Moll":
@@ -1245,7 +1248,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Autumn_Entrance":
 
-                On_Active32();
+                //On_Active32();
+                On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Autumn_Entrance_bridge":
