@@ -8,6 +8,7 @@ using DG.Tweening;
 public class MiniSecondBake_Panel : MonoBehaviour {
 
     private SoundController sc;
+    private MagicSkillListDataBase magicskill_database;
 
     private bool stop_watch;
     private float timeOut;
@@ -18,6 +19,9 @@ public class MiniSecondBake_Panel : MonoBehaviour {
     private int _guage_param;
 
     private Slider _tempslider;
+
+    private int _magiclv;
+    private float _speed_hosei;
 
     // Use this for initialization
     void Start () {
@@ -30,6 +34,11 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        _magiclv = magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake");
+
         timeOut = 0.0f;
         stop_watch = false;
         //Debug.Log("stop_watch: " + stop_watch);
@@ -38,7 +47,20 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         timeMax = 3.0f;
         guage_length = 600; //スライダの長さ　手動で入力
         _interval = guage_length / timeMax; //スピード
-        _interval = _interval * 1.5f; //さらにスピード補正　早い
+
+        switch (_magiclv) //LV1で1.5f がデフォ速度 めちゃはや
+        {
+            case 1:
+                _speed_hosei = 1.5f;
+                break;
+            case 2:
+                _speed_hosei = 1.25f;
+                break;
+            case 3:
+                _speed_hosei = 1.15f;
+                break;
+        }
+        _interval = _interval * _speed_hosei; //さらにスピード補正　早い
         //Debug.Log("_interval: " + _interval);
 
         _tempslider = this.transform.Find("Comp/Slider").GetComponent<Slider>();
@@ -61,7 +83,7 @@ public class MiniSecondBake_Panel : MonoBehaviour {
             timeOut += Time.deltaTime;
             //Debug.Log("timeOut: " + timeOut);
 
-            _guage_param = (int)(_interval * timeOut);
+            _guage_param = (int)(_interval * timeOut * timeOut);
             if(_guage_param >= guage_length)
             {
                 _guage_param = guage_length;
@@ -115,17 +137,21 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         {
             GameMgr.System_magic_playParamUp = 0.5f;
         }
-        else if (_guage_param >= 100 && _guage_param < 400)
+        else if (_guage_param >= 100 && _guage_param < 250)
         {
             GameMgr.System_magic_playParamUp = 1.1f;
         }
-        else if (_guage_param >= 400 && _guage_param < 430)
+        else if (_guage_param >= 250 && _guage_param < 400)
         {
             GameMgr.System_magic_playParamUp = 1.3f;
         }
+        else if (_guage_param >= 400 && _guage_param < 430)
+        {
+            GameMgr.System_magic_playParamUp = 1.75f;
+        }
         else if (_guage_param >= 440 && _guage_param < 460)
         {
-            GameMgr.System_magic_playParamUp = 2.0f;
+            GameMgr.System_magic_playParamUp = 3.0f;
         }
         else if (_guage_param >= 460 && _guage_param < 500)
         {

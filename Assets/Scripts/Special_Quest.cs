@@ -655,6 +655,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
             matplace_database.ReSetMapFlagString("Or_Bar_C1", 1);
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_C1", 1);
+
+            matplace_database.ReSetMapFlagString("Amber_Lake", 1);
         }
 
         if (_spquest_setnum >= 40)

@@ -1371,11 +1371,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：子供向けのお菓子";
-        GameMgr.Contest_ProblemSentence2 = "子供が喜びそうな、子供向けのお菓子を作ってください。" + "\n" + "制限時間: 4時間";
+        GameMgr.Contest_ProblemSentence2 = "子供が喜びそうな、子供向けのお菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位          
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
     void ContestRankingData_304() //英国ティータイムコンテスト
@@ -1400,8 +1400,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 145000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
-        GameMgr.Contest_ProblemSentence = "テーマ：彫刻お菓子限定";
-        GameMgr.Contest_ProblemSentence2 = "見た目が華やかで場を彩る彫刻お菓子を作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence = "テーマ：派手なお菓子限定";
+        GameMgr.Contest_ProblemSentence2 = "見た目が華やかで場を彩るお菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
@@ -1416,11 +1416,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：青をテーマにしたお菓子";
-        GameMgr.Contest_ProblemSentence2 = "青をイメージした美しいお菓子を作ってください。" + "\n" + "制限時間: 6時間";
+        GameMgr.Contest_ProblemSentence2 = "青をイメージした美しいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位          
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
     void ContestRankingData_307() //ビジョウ・パティスリー・カップ

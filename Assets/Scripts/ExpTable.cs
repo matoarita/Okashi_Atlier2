@@ -193,6 +193,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     MagicLearnPanelHyouji("Magic_Soda");
                     break;
 
+                case 22:
+
+                    ShiageUpPanelHyouji();
+                    break;
+
                 case 25: //複数個同時にのせられるようになる。パネル表記はなしで、ハートイベントなどで知らせる。
 
                     break;
@@ -212,9 +217,19 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     ShiageUpPanelHyouji();
                     break;
 
+                case 31:
+
+                    MagicLearnPanelHyouji("Statue_of_Bear");
+                    break;
+
                 case 35:
 
                     MagicLearnPanelHyouji("Moonlight_Banana");
+                    break;
+
+                case 40:
+
+                    ShiageUpPanelHyouji();
                     break;
             }
         }        
@@ -238,13 +253,21 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             PlayerStatus.player_extreme_kaisu_Max = 2;
         }
-        else if (_lv >= 15 && _lv < 30)
+        else if (_lv >= 15 && _lv < 22)
         {
             PlayerStatus.player_extreme_kaisu_Max = 3;
         }
-        else if (_lv >= 30)
+        else if (_lv >= 22 && _lv < 30)
         {
             PlayerStatus.player_extreme_kaisu_Max = 4;
+        }
+        else if (_lv >= 30 && _lv < 40)
+        {
+            PlayerStatus.player_extreme_kaisu_Max = 5;
+        }
+        else if (_lv >= 40)
+        {
+            PlayerStatus.player_extreme_kaisu_Max = 6;
         }
         
 
@@ -339,6 +362,10 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             if (_lv >= 28)
             {
                 Magic_Learn("Warming_Handmade");
+            }
+            if (_lv >= 31)
+            {
+                Magic_Learn("Statue_of_Bear");
             }
             if (_lv >= 35)
             {

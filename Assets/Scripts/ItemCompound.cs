@@ -27,6 +27,7 @@ public class ItemCompound
     public float cmpitem_bestkosu2;
     public float cmpitem_bestkosu3;
     public int cmpitem_flag;
+    public int cmpitem_systemflag;
 
     public int cost_Time;
 
@@ -47,7 +48,7 @@ public class ItemCompound
     //ここでリスト化時に渡す引数をあてがいます   
     public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, 
         string result_item, int _result_kosu, string result_item2, int _result_kosu2, int _kosu1, int _kosu2, int _kosu3, float _bestkosu1, float _bestkosu2, float _bestkosu3, 
-        int _flag, int cost_time, int srate, int renkin_bexp, string _keisanm, int _comp_count, string _release_recipi, int _recipi_count, 
+        int _flag, int _sysflag, int cost_time, int srate, int renkin_bexp, string _keisanm, int _comp_count, string _release_recipi, int _recipi_count, 
         int _buf_kouka_on, int _secretFlag, int _hikari_make_count)
     {
         cmpitemID = id;
@@ -71,6 +72,7 @@ public class ItemCompound
         cmpitem_bestkosu2 = _bestkosu2;
         cmpitem_bestkosu3 = _bestkosu3;
         cmpitem_flag = _flag;
+        cmpitem_systemflag = _sysflag;
 
         cost_Time = cost_time;
 

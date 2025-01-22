@@ -8,6 +8,7 @@ using DG.Tweening;
 public class MiniChocolate_Tempering_Panel : MonoBehaviour {
 
     private SoundController sc;
+    private MagicSkillListDataBase magicskill_database;
 
     private bool stop_watch;
     private float timeOut;
@@ -34,6 +35,8 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
     private Slider _tempslider3;
 
     private int _status;
+    private int _magiclv;
+    private float _speed_hosei;
 
     // Use this for initialization
     void Start () {
@@ -45,6 +48,11 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
     {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        _magiclv = magicskill_database.skillName_SearchLearnLevel("Chocolate_Tempering");
 
         timeOut = 0.0f;
         stop_watch = false;
@@ -62,19 +70,33 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         guage_length2 = 600; //スライダの長さ　手動で入力
         guage_length3 = 600; //スライダの長さ　手動で入力
 
+        switch(_magiclv) //LV1で1.5f がデフォ速度 めちゃはや
+        {
+            case 1:
+                _speed_hosei = 1.5f;
+                break;
+            case 2:
+                _speed_hosei = 1.25f;
+                break;
+            case 3:
+                _speed_hosei = 1.0f;
+                break;
+        }
+        //_speed_hosei = 1.7f - (0.2f * _magiclv); //LV1で1.5f がデフォ速度
+
         //一本目
         _interval = guage_length / timeMax; //スピード
-        _interval = _interval * 1.5f; //さらにスピード補正　早い
+        _interval = _interval * _speed_hosei; //さらにスピード補正　早い
         //Debug.Log("_interval: " + _interval);
 
         //二本目
         _interval2 = guage_length2 / timeMax2; //スピード
-        _interval2 = _interval2 * 1.5f; //さらにスピード補正　早い
+        _interval2 = _interval2 * _speed_hosei; //さらにスピード補正　早い
         //Debug.Log("_interval: " + _interval);
 
         //三本目
         _interval3 = guage_length3 / timeMax3; //スピード
-        _interval3 = _interval3 * 1.5f; //さらにスピード補正　早い
+        _interval3 = _interval3 * _speed_hosei; //さらにスピード補正　早い
         //Debug.Log("_interval: " + _interval);
 
         _tempslider = this.transform.Find("Comp/Slider").GetComponent<Slider>();
@@ -230,19 +252,19 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param >= 100 && _guage_param < 400)
         {
-            GameMgr.System_magic_playParamUp = 1.1f;
+            GameMgr.System_magic_playParamUp = 1.0f;
         }
         else if (_guage_param >= 400 && _guage_param < 430)
         {
-            GameMgr.System_magic_playParamUp = 1.3f;
+            GameMgr.System_magic_playParamUp = 1.1f;
         }
         else if (_guage_param >= 440 && _guage_param < 490)
         {
-            GameMgr.System_magic_playParamUp = 2.0f;
+            GameMgr.System_magic_playParamUp = 1.2f;
         }
         else if (_guage_param >= 490 && _guage_param < 500)
         {
-            GameMgr.System_magic_playParamUp = 1.3f;
+            GameMgr.System_magic_playParamUp = 1.1f;
         }
         else if (_guage_param >= 500)
         {
@@ -279,17 +301,17 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング2段階目　冷やしすぎで失敗");
         }
-        else if (_guage_param2 >= 40 && _guage_param2 < 130)
+        else if (_guage_param2 >= 40 && _guage_param2 < 90)
         {
-            GameMgr.System_magic_playParamUp2 = 0.5f;
+            GameMgr.System_magic_playParamUp2 = 0.9f;
         }
         else if (_guage_param2 >= 90 && _guage_param2 < 130)
         {
-            GameMgr.System_magic_playParamUp2 = 2.0f;
+            GameMgr.System_magic_playParamUp2 = 1.3f;
         }
         else if (_guage_param2 >= 130 && _guage_param2 < 400)
         {
-            GameMgr.System_magic_playParamUp2 = 1.3f;
+            GameMgr.System_magic_playParamUp2 = 1.2f;
         }
         else if (_guage_param2 >= 400 && _guage_param2 < 500)
         {
@@ -328,15 +350,15 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param3 >= 100 && _guage_param3 < 200)
         {
-            GameMgr.System_magic_playParamUp3 = 1.1f;
+            GameMgr.System_magic_playParamUp3 = 1.75f;
         }
         else if (_guage_param3 >= 200 && _guage_param3 < 230)
         {
-            GameMgr.System_magic_playParamUp3 = 2.0f;
+            GameMgr.System_magic_playParamUp3 = 2.5f;
         }
         else if (_guage_param3 >= 230 && _guage_param3 < 270)
         {
-            GameMgr.System_magic_playParamUp3 = 0.9f;
+            GameMgr.System_magic_playParamUp3 = 1.5f;
         }
         else if (_guage_param3 >= 230)
         {

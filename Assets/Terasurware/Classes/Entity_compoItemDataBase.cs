@@ -36,6 +36,7 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public float best_kosu2;
 		public float best_kosu3;
 		public int cmp_flag;
+		public int cmp_systemflag;
 		public int cost_time;
 		public int success_rate;
 		public int renkin_Bexp;

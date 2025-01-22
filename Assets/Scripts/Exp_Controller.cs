@@ -622,12 +622,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time, 1);   //ヒカリのお菓子作り時間を計算        
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1);      
         }
         else
         {
             //コンテストのときは、コンテスト時間を計算
-            time_controller.SetMinuteToHourContest(databaseCompo.compoitems[result_ID].cost_Time);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime);
         }
         //time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
@@ -952,11 +952,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(databaseCompo.compoitems[result_ID].cost_Time, 1);  //ヒカリのお菓子作り時間を計算          
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1);    
         }
         else
         {
-            time_controller.SetMinuteToHourContest(databaseCompo.compoitems[result_ID].cost_Time);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime);
         }
         //time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
@@ -1466,11 +1466,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //魔法使用時の日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(GameMgr.UseMagicSkill_TimeCost, 1); //ヒカリのお菓子作り時間を計算
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1); //ヒカリのお菓子作り時間を計算
         }
         else
         {
-            time_controller.SetMinuteToHourContest(GameMgr.UseMagicSkill_TimeCost);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime);
         }
         //time_controller.HikarimakeTimeCheck(GameMgr.UseMagicSkill_TimeCost); //ヒカリのお菓子作り時間を計算
 

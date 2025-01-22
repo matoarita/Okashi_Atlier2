@@ -107,7 +107,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         while (count < databaseCompo.compoitems.Count)
         {
             //cmp_flag=9999の場合、その組み合わせは無視する。
-            if (databaseCompo.compoitems[count].cmpitem_flag == 9999) {
+            if (databaseCompo.compoitems[count].cmpitem_systemflag == 9999) {
 
             }
             else
@@ -203,7 +203,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         while (count < databaseCompo.compoitems.Count)
         {
             //cmp_flag=9999の場合、その組み合わせは無視する。
-            if (databaseCompo.compoitems[count].cmpitem_flag == 9999)
+            if (databaseCompo.compoitems[count].cmpitem_systemflag == 9999)
             {
 
             }
@@ -955,7 +955,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         while (count < databaseCompo.compoitems.Count)
         {
             //cmp_flag=9999の場合、その組み合わせは無視する。
-            if (databaseCompo.compoitems[count].cmpitem_flag == 9999)
+            if (databaseCompo.compoitems[count].cmpitem_systemflag == 9999)
             {
 
             }
@@ -1116,7 +1116,7 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
             else
             {
                 //cmp_flag=9999の場合、その組み合わせは無視する。
-                if (databaseCompo.compoitems[count].cmpitem_flag == 9999)
+                if (databaseCompo.compoitems[count].cmpitem_systemflag == 9999)
                 { }
                 else
                 {

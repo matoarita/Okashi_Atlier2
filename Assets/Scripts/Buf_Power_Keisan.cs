@@ -523,6 +523,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case "Chocolate":
 
+                CostTimeUp_Chocolate();
                 break;
 
             case "Cake_MatCream":
@@ -583,6 +584,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+    void CostTimeUp_Chocolate()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        _magicid = magicskill_database.SearchSkillString("Chocolate_Philosophy");
+        if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
+        {
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.02f); //costtimeの2％
+            _buf_compotime_up += _magicup;
+        }
+    }
+
     //特定の魔法使用時の制作時間を短縮する
     public int Buf_CompoTimeMagic_Keisan(string _magicname)
     {
@@ -620,7 +633,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicid2 = magicskill_database.SearchSkillString("Freezing_Spell");
         if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
         {
-            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid2].cost_time * 0.04f); //costtimeの4％
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid2].cost_time * 0.1f); //costtimeの10％
             //Debug.Log("magicskill_database.magicskill_lists[_magicid].cost_time: " + magicskill_database.magicskill_lists[_magicid].cost_time);
             _buf_compotime_up += _magicup;
         }
@@ -1505,8 +1518,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 if (_status == 0 || _status == 3)//さくさくか歯ごたえのバフ
                 {
-                    _magicup = (int)(_baseparam * 0.1f * GameMgr.System_magic_playParamUp) + (int)(magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") * _baseparam * 0.1f);
-                    Debug.Log("補正値: " + _baseparam * 0.1f +  " * " + GameMgr.System_magic_playParamUp + " + " + (int)(magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") * _baseparam * 0.1f));
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake");
+                    _magicup = (int)(_baseparam * 0.3f * GameMgr.System_magic_playParamUp) + (int)(_magicLearnLv * _baseparam * 0.3f);
+
+                    Debug.Log("補正値: " + "_baseparam * 0.3f" +  " * " + GameMgr.System_magic_playParamUp + " + " + "_baseparam * 0.3f" + " * " + "セカンドベイク習得LV: " + _magicLearnLv);
+                    Debug.Log("各ゲージ補正値: " + GameMgr.System_magic_playParamUp);
                     Debug.Log("セカンドベイクの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
@@ -1516,10 +1532,30 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 if (_status == 2)//なめらかのバフ
                 {
-                    _magicup = (int)(_baseparam * 0.3f * GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3) + 
-                        (int)(magicskill_database.skillName_SearchLearnLevel("Chocolate_Tempering") * _baseparam * 0.1f);
-                    Debug.Log("補正値: " + _baseparam * 0.1f + " * " + GameMgr.System_magic_playParamUp + " + " + (int)(magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake") * _baseparam * 0.1f));
+                    //_magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Chocolate_Tempering");
+                    _magicup = (int)(_baseparam * 0.3f * GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3 *
+                        (1.0f + magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 0.3f)) + 
+                        (int)(_baseparam * 0.3f);
+
+                    Debug.Log("_baseparam: " + _baseparam);
+                    Debug.Log("補正値: " + "_baseparam * 0.3f" + " + " 
+                        + "_baseparam * 0.3f" + " * " + GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3 + " * " + 
+                        "(1.0f + チョコレート哲学習得LV*0.3f): " + (1.0f + magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 0.3f));
+                    Debug.Log("各ゲージ補正値: " + GameMgr.System_magic_playParamUp + " " + GameMgr.System_magic_playParamUp2 + " " + GameMgr.System_magic_playParamUp3);
                     Debug.Log("テンパリングの最終バフ: " + _magicup);
+                    _buf_shokukanup += _magicup;
+                }
+                break;
+
+            case "Wind_Ark":
+
+                if (_status == 1 || _status == 2)//ふわふわかなめらかのバフ
+                {
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Wind_Ark");
+                    _magicup = (int)(_magicLearnLv * _baseparam * 0.1f);
+
+                    Debug.Log("_baseparam * 0.1f" + " * " + "ウィンドアーク習得LV: " + _magicLearnLv);
+                    Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
                 break;
@@ -1635,7 +1671,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 break;
         }
 
-        Debug.Log("材料距離　補正後: " + _buf_kyori + " 種類: " + _itemType_sub);
+        //Debug.Log("材料距離　補正後: " + _buf_kyori + " 種類: " + _itemType_sub);
         return _buf_kyori; //なにもない場合は、そのまま入れた数値が変える。
     }
 

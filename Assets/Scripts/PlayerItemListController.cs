@@ -1099,9 +1099,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Wind_Ark": //液体チョコか水あめ
+            case "Wind_Ark": //液体チョコか生地かアイス水溶液
 
-                if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_AppaleilMizuame")
+                if (check_itemType_subB == "a_AppaleilChocolate" || check_itemType_subB == "a_Appaleil" || check_itemType_subB == "a_AppaleiliceCream"
+                    || check_itemType_subB == "a_AppaleilJelly")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1208,8 +1209,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Penguin":
 
-                if (check_itemType_subB == "a_AppaleilMizuame" ||
-                    check_itemType_subB == "a_AppaleilChocolate")
+                if (check_itemType_subB == "a_AppaleilChocolate") //check_itemType_subB == "a_AppaleilMizuame"
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1221,8 +1221,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Bear":
 
-                if (check_itemType_subB == "a_AppaleilMizuame" ||
-                    check_itemType_subB == "a_AppaleilChocolate")
+                if (check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1234,8 +1233,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Cat":
 
-                if (check_itemType_subB == "a_AppaleilMizuame" ||
-                    check_itemType_subB == "a_AppaleilChocolate")
+                if (check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1247,8 +1245,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_Rabitts":
 
-                if (check_itemType_subB == "a_AppaleilMizuame" ||
-                    check_itemType_subB == "a_AppaleilChocolate")
+                if (check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1260,8 +1257,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Statue_of_AngelWing":
 
-                if (check_itemType_subB == "a_AppaleilMizuame" ||
-                    check_itemType_subB == "a_AppaleilChocolate")
+                if (check_itemType_subB == "a_AppaleilChocolate")
                 {
                     if (check_itemType_sub_category != "Twister") //ツイスターや加工されたものはもうツイストできない
                     {
@@ -1286,7 +1282,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_subB == "a_Cafelatte")
                 {
-                    itemlist_hyouji_Check(check_itemListType);
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
                 }
                 break;
 
@@ -1302,7 +1301,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_sub == "Soda")
                 {
-                    itemlist_hyouji_Check(check_itemListType);
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
                 }
                 break;
 

@@ -1481,9 +1481,11 @@ public class Compound_Check : MonoBehaviour {
             }
 
             _final_costtime = _costTime; //_costTimeは、このあとの処理で値が変動するので、_finalに総時間（分）を入れる。
+            GameMgr.Compo_FinalCostTime = _final_costtime;
         }
         else
-        { //通常の調合時間
+        { 
+            //通常の調合時間
             _costTime = databaseCompo.compoitems[GameMgr.Final_result_compID].cost_Time;
 
             //制作時間を早めるバフをかけるならココ。
@@ -1494,6 +1496,7 @@ public class Compound_Check : MonoBehaviour {
             }
 
             _final_costtime = _costTime;
+            GameMgr.Compo_FinalCostTime = _final_costtime;
         }
 
         while (_costTime >= 60)

@@ -62,6 +62,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
     public static bool System_BarNinkiHyouji_ON = false; //酒場でスターパネルを表示する
     public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
+    public static bool System_ContestEdenFinalStart_ON = true; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -116,7 +117,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_PStatusName3 = "ちえ";
 
     //真実のハートのハート消費量
-    public static int System_trueheart_cost = 5000;
+    public static int System_trueheart_cost = 3000;
 
     //ゴンドラ乗り場の料金
     public static int System_gondra_cost = 5000;    
@@ -876,6 +877,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_BGMON; //コンテスト出場日に、コンテストBGMに変える
     public static bool Contest_PanelON; //コンテスト出場日に、コンテストへ行くボタンを常時表示する。
     public static int Contest_MainStoryPlaceNum; //そのときにいく会場場所
+    public static int Compo_FinalCostTime; //バフも計算したあとの、最終の調合にかかる時間
 
 
     //セリフ関連の一時変数

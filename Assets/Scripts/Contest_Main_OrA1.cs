@@ -335,7 +335,15 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             if (GameMgr.Contest_Cate_Ranking == 0)
             {
                 //さらに何回戦かを初期設定
-                GameMgr.ContestRoundNum = 3; //〇回戦　トーナメントは、とりあえず現在決勝戦スタート
+                if(!GameMgr.System_ContestEdenFinalStart_ON)
+                {
+                    GameMgr.ContestRoundNum = 1; //〇回戦　一回戦からスタート
+                }
+                else
+                {
+                    GameMgr.ContestRoundNum = 3; //〇回戦　決勝戦スタート
+                }
+                
             }
             else
             {

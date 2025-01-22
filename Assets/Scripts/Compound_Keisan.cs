@@ -1516,6 +1516,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             //アイテム取得処理
             if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" || 
                 _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "WhipeedCream" ||
+                _base_itemType_sub == "Figure" ||
                 _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater")
             {
                 GetItemMethod(0); //生地作ったときは各ステータスオリジナルのものなので、オリジナルアイテムに登録
@@ -2175,7 +2176,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basejuice = _basesweat + _basebitter + _basesour;
 
         //新規作成時の特殊処理
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合　または　レシピ調合　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
         {
             //ジュースの特殊処理　甘さが青天井で上がることはないように、上限をおさえる。
             if (_base_itemType_sub == "Juice" || _base_itemType_sub == "Soda")
@@ -2204,6 +2205,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basefluffy += (int)(_basecrispy * 0.2f); //さくさくも若干影響する
                 _basehardness = 0;
             }
+            if (_basename == "ice_candy_fruits" || _basename == "ice_candy_twister") //フルーツアイスキャンディは、ジュースをなめらかに変換
+            {
+                _basesmooth += _basejuice;
+                //_basehardness = 0;
+            }
+
         }
 
 

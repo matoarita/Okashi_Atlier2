@@ -1161,7 +1161,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("フォルトーネ");
     }
 
-    //〇アデュルティ・ガトー　大人なお菓子
+    //〇アデュルティ・ガトー　大人なお菓子　チョコorコーヒーorカンノーリorオペラやモンブランなどの大人おかし
     void PrizeRankingSet41()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -1182,10 +1182,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(139);
-        GameMgr.PrizeScoreAreaList.Add(156);
-        GameMgr.PrizeScoreAreaList.Add(177);
-        GameMgr.PrizeScoreAreaList.Add(228);
+        GameMgr.PrizeScoreAreaList.Add(89);
+        GameMgr.PrizeScoreAreaList.Add(126);
+        GameMgr.PrizeScoreAreaList.Add(157);
+        GameMgr.PrizeScoreAreaList.Add(198);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1250,10 +1250,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(201);
-        GameMgr.PrizeScoreAreaList.Add(233);
-        GameMgr.PrizeScoreAreaList.Add(256);
-        GameMgr.PrizeScoreAreaList.Add(302);
+        GameMgr.PrizeScoreAreaList.Add(135);
+        GameMgr.PrizeScoreAreaList.Add(178);
+        GameMgr.PrizeScoreAreaList.Add(189);
+        GameMgr.PrizeScoreAreaList.Add(245);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1319,9 +1319,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(163);
-        GameMgr.PrizeScoreAreaList.Add(245);
-        GameMgr.PrizeScoreAreaList.Add(289);
-        GameMgr.PrizeScoreAreaList.Add(321);
+        GameMgr.PrizeScoreAreaList.Add(215);
+        GameMgr.PrizeScoreAreaList.Add(249);
+        GameMgr.PrizeScoreAreaList.Add(301);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
