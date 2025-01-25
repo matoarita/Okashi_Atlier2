@@ -451,6 +451,11 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
 
     IEnumerator UtageEndWait()
     {
+        GameMgr.utage_charaHyouji_flag = true;
+
+        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        GameMgr.Scene_Status = 1000;
+
         while (GameMgr.scenario_ON)
         {
             yield return null;
@@ -463,6 +468,7 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
     IEnumerator Scenario_loading()
     {
         //Debug.Log("シナリオ開始");
+        GameMgr.utage_charaHyouji_flag = true;
 
         while (!GameMgr.scenario_read_endflag)
         {

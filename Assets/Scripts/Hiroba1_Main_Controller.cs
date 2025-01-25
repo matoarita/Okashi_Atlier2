@@ -149,7 +149,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //キャラクタ表示の初期化
         Character_list.Clear();
-        foreach (Transform child in Character_panel.transform)　//子要素（孫は取得しない）までなら、childでOK
+        foreach (Transform child in Character_panel.transform.Find("CharacterImage").transform)　//子要素（孫は取得しない）までなら、childでOK
         {
             //Debug.Log(child.name);        
             Character_list.Add(child.gameObject);
@@ -4218,7 +4218,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                default_scenetext = "にいちゃん！　乗り物いっぱいあるよ～！";
+                default_scenetext = "にいちゃん！" + "\n" + "のりもの、いっぱいあるよ～！";
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;
@@ -4618,7 +4618,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                default_scenetext = "にいちゃん！　・・なんか怖そうなおにいちゃんがいる。";
+                default_scenetext = "にいちゃん！" + "\n" + "・・なんか怖そうなおにいちゃんがいる。";
 
                 matplace_database.matPlaceKaikin("Or_HirobaEnter_Catsle"); //城エリア入口解禁
                 
@@ -4626,7 +4626,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 text_area_hyouji_on = true;
                 foreach (GameObject child in Character_list)
                 {
-                    if(child.name == "chara_obj_01")
+                    if(child.name == "CharacterImage01")
                     {
                         child.SetActive(true);
                         break;

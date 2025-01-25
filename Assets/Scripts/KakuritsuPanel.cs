@@ -29,6 +29,11 @@ public class KakuritsuPanel : MonoBehaviour {
     public void KakuritsuYosoku_Img( float _srate )
     {
         srate_hyouji = this.transform.Find("Image/Kakuritsu_param").gameObject.GetComponent<Text>();
+
+        if(_srate >= 100f) //万が一100%こえてたら、表記上は100%にする。
+        {
+            _srate = 100f;
+        }
         srate_hyouji.text = _srate.ToString("f1");
     }
 

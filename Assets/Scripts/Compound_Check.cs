@@ -1710,7 +1710,12 @@ public class Compound_Check : MonoBehaviour {
                 }
                 else
                 {
-                    _success_rate = magicRate;
+                    _magic_rate = bufpower_keisan.Buf_CompKakuritsuMagic_Keisan(magicName);
+                    _success_rate = magicRate + _magic_rate;
+                    if(_success_rate >= 100)
+                    {
+                        _success_rate = 100f;
+                    }
                     exp_Controller._success_judge_flag = 1; //判定処理を行う。
                     exp_Controller._success_rate = _success_rate;
                     kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //
@@ -1988,7 +1993,7 @@ public class Compound_Check : MonoBehaviour {
         return _rate;
     }
  
-    void RateJougenCheck()
+    void RateJougenCheck() //Compoに該当する調合は、100%以上でも、上限98%にされる
     {
         if (_rate >= 98) //99~は、全て98で上限
         {

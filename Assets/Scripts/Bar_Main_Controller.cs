@@ -744,6 +744,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                     {
                         GameMgr.talk_number = 3000;
                         GameMgr.chara_talk_number = 0;
+
                     }
                     break;
 
@@ -762,7 +763,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                 GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
                 GameMgr.talk_flag = true;
 
-                GameMgr.utage_charaHyouji_flag = true;
+                //GameMgr.utage_charaHyouji_flag = true;
 
                 StartCoroutine("UtageEndWait");
             }
@@ -919,6 +920,8 @@ public class Bar_Main_Controller : MonoBehaviour {
 
     IEnumerator UtageEndWait()
     {
+        GameMgr.utage_charaHyouji_flag = true;
+
         GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
         GameMgr.Scene_Status = 1000;
 
@@ -934,6 +937,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     IEnumerator Scenario_loading()
     {
         //Debug.Log("シナリオ開始");
+        GameMgr.utage_charaHyouji_flag = true;
 
         while (!GameMgr.scenario_read_endflag)
         {

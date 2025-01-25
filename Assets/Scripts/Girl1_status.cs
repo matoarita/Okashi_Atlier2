@@ -948,13 +948,13 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         else if (PlayerStatus.girl1_Love_lv >= 2 && PlayerStatus.girl1_Love_lv < 3) //
         {
             //少し機嫌が悪い
-            GirlGokigenStatus = 2;
+            GirlGokigenStatus = 3;
            
         }
         else if (PlayerStatus.girl1_Love_lv >= 3 && PlayerStatus.girl1_Love_lv < 4) //
         {
             //少し機嫌が悪い
-            GirlGokigenStatus = 3;
+            GirlGokigenStatus = 4;
             
         }
         else if (PlayerStatus.girl1_Love_lv >= 4 && PlayerStatus.girl1_Love_lv < 20) //

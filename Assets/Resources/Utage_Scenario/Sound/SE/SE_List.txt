@@ -139,9 +139,9 @@ SE表
 ・SE_137	sei_ge_doa_tuyoku_cl01				重めのドアを閉める音
 ・SE_138	audiostock_1535474				いい匂いがするときのほわわ音
 ・SE_139	打撃1						軽い打撃音※打撃を二回鳴らしてる
-・SE_140	audiostock_1497724_sample			素早い場面転換
+・SE_140	audiostock_1497724				素早い場面転換
 ・SE_141	足音1(Springin)					素早い走る足音
-・SE_142	Motion-Eating05-1				妖精がぴょこって出る音
+・SE_142	audiostock_111020				妖精がぴょこって出る音
 ・SE_143	茶碗を置く					カタっとした物音
 ・SE_144	Party_Popper03-2(Dry)				パンッのクラッカー音
 ・SE_145	Wind_Chimes02-01(Up-Wide)			魔法を使うときのキラキラウィンドチャイム音
@@ -181,7 +181,7 @@ SE表
 ・SE_179	audiostock_1105077_sample			【魔法の音】魔法凍っていく途中の音※使ってない
 ・SE_180	audiostock_78445_sample				【魔法の音】凍り付く音２　※未使用　いい音なので保存
 ・SE_181	Anime_Motion08-1(High)				【魔法の音】フルーツの足音
-・SE_182	audiostock_247655_sample			【魔法の音】ボン燃えてからボボボボ
+・SE_182	audiostock_247655				【魔法の音】ボン燃えてからボボボボ
 ・SE_183	audiostock_1414824_sample			【魔法の音】炎の発射音
 ・SE_184	audiostock_1402719_sample			【魔法の音】炎の着火音
 ・SE_185	audiostock_857161_sample			【魔法の音】発射音２　※未使用　いい音なので保存　★あたりに使えるかも
@@ -193,3 +193,9 @@ SE表
 ・SE_191	audiostock_117338_sample			【未使用】
 ・SE_192	audiostock_976689_sample			【宴用】エデンコン結果発表時のファンファーレ勝利
 ・SE_193	audiostock_939021_sample			【宴用】エデンコン結果発表時のファンファーレ負け
+・SE_194	くつろぎスタジオ - ［紙14］破る			紙を破る音１
+・SE_195	くつろぎスタジオ - ［紙16］破る			紙を破る音２
+・SE_196	audiostock_247655				【宴用】ボン燃えてからボボボボ SE_182と同じ
+・SE_197	間抜け1						コミカルながっかり音　※現在未使用　どこかで使ってもいいかも。
+・SE_198	audiostock_1096779_sample			妖精登場音　ボワン
+・SE_199	Electromagnetic_Buzzer06-01(Dry)		乗り物アトラクション開始ブザー音

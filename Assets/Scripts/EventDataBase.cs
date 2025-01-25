@@ -732,7 +732,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //
                 //スターで発生するイベント系
                 //
-                StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
+                //StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
 
 
                 //
@@ -1093,7 +1093,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_basename]])
                             {
-                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_basename], 0, false, false);
+                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_basename], 1, false, false);
                                 break;
                             }                            
                         }
@@ -1102,7 +1102,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub]])
                             {
-                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub], 0, false, false);
+                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub], 1, false, false);
                                 break;
                             }                           
                         }
@@ -1111,7 +1111,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB]])
                             {
-                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB], 0, false, false);
+                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB], 1, false, false);
                                 break;
                             }                           
                         }

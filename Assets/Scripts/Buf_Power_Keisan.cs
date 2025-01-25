@@ -225,30 +225,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             {
                 _buf_kakuritsuup += 5;
             }*/
-
-        //魔法使用時の成功率
-        if (GameMgr.Comp_kettei_bunki == 20 || GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22)
-        {
-            if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
-            {
-                _buf_kakuritsuup += 5;
-            }
-
-            if (pitemlist.KosuCount("star_pendant") >= 1) //持ってるだけで効果アップ
-            {
-                _buf_kakuritsuup += 7;
-            }
-
-            if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
-            {
-                _buf_kakuritsuup += 10;
-            }
-
-            /*if (pitemlist.KosuCount("blue_jemstone") >= 1) //持ってるだけで効果アップ
-            {
-                _buf_kakuritsuup += pitemlist.KosuCount("blue_jemstone") * 1;
-            }*/
-        }
+       
 
         //一回でも成功したことがあれば、+3%ほど成功率が上昇する。
         if(databaseCompo.compoitems[_compID].cmpitem_flag >= 1 && databaseCompo.compoitems[_compID].cmpitem_flag != 9999) //9999は除外するので計算しない
@@ -471,9 +448,30 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 break;
         }
 
+        //装備品による成功率アップ
+        if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
+        {
+            _magic_rate += 3;
+        }
+
+        if (pitemlist.KosuCount("star_pendant") >= 1) //持ってるだけで効果アップ
+        {
+            _magic_rate += 5;
+        }
+
+        if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
+        {
+            _magic_rate += 7;
+        }
+
+        /*if (pitemlist.KosuCount("blue_jemstone") >= 1) //持ってるだけで効果アップ
+        {
+            _magic_rate += pitemlist.KosuCount("blue_jemstone") * 1;
+        }*/
+
         //各スキルの使用回数に応じて、成功率が少し上がる。
         _magic_kakuritsu = (int)(magicskill_database.magicskill_lists[_magicid].skill_usecount * 0.334f); //3回使えば+1%
-        if(_magic_kakuritsu >= 30) //30%が上限
+        if (_magic_kakuritsu >= 30) //30%が上限
         {
             _magic_kakuritsu = 30;
         }
@@ -541,6 +539,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 break;
         }
 
+        switch (_itemType_subB)
+        {
+            case "a_CacaoMass":
+
+                CostTimeUp_Chocolate();
+                break;
+        }
+
         //全般
         /*if (pitemlist.KosuCount("measuring spoon") >= 1) //持ってるだけで効果アップ
         {
@@ -591,7 +597,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicid = magicskill_database.SearchSkillString("Chocolate_Philosophy");
         if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
         {
-            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.02f); //costtimeの2％
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.03f); //costtimeの3％
             _buf_compotime_up += _magicup;
         }
     }

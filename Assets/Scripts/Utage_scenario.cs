@@ -470,8 +470,8 @@ public class Utage_scenario : MonoBehaviour
 
                 GameMgr.shop_event_flag = false;
                 story_num = GameMgr.shop_event_num;
-                CharacterLive2DSubNPCImageOFF();
-                //CharacterSpriteSetOFF();
+
+                UtageCharacterHyouji(); //宴のキャラクタを表示する 
 
                 scenarioLabel = "Shop_Event";
                 StartCoroutine(Scenario_Start());
@@ -484,8 +484,8 @@ public class Utage_scenario : MonoBehaviour
 
                 GameMgr.shop_lvevent_flag = false;
                 story_num = GameMgr.shop_lvevent_num;
-                CharacterLive2DSubNPCImageOFF();
-                //CharacterSpriteSetOFF();
+
+                UtageCharacterHyouji(); //宴のキャラクタを表示する 
 
                 scenarioLabel = "Shop_LvEvent";
                 StartCoroutine(Scenario_Start());
@@ -499,19 +499,25 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.talk_flag = false;
                 shop_talk_number = GameMgr.talk_number;
 
+                UtageCharacterHyouji(); //宴のキャラクタを表示する 
+
                 switch (GameMgr.Scene_Category_Num)
                 {
                     case 20:
+                        scenarioLabel = "Shop_Talk"; //ショップ話すタグのシナリオを再生。
                         StartCoroutine(Shop_Talk());
                         break;
                     case 30:
-                        StartCoroutine(Bar_Talk());
+                        scenarioLabel = "Bar_Talk"; //ショップ話すタグのシナリオを再生。
+                        StartCoroutine(Shop_Talk());
                         break;
                     case 40:
-                        StartCoroutine(Farm_Talk());
+                        scenarioLabel = "Farm_Talk"; //ショップ話すタグのシナリオを再生。
+                        StartCoroutine(Shop_Talk());
                         break;
                     case 170: //広場NPC
-                        StartCoroutine(NPC_Hiroba_Talk());
+                        scenarioLabel = "Hiroba_Or_NPC_Talk"; //ショップ話すタグのシナリオを再生。
+                        StartCoroutine(Shop_Talk());
                         break;
 
                 }
@@ -542,7 +548,8 @@ public class Utage_scenario : MonoBehaviour
 
                 GameMgr.farm_event_flag = false;
                 story_num = GameMgr.farm_event_num;
-                CharacterSpriteSetOFF();
+
+                UtageCharacterHyouji(); //宴のキャラクタを表示する 
 
                 scenarioLabel = "Farm_Event";
                 StartCoroutine(Scenario_Start());
@@ -554,7 +561,8 @@ public class Utage_scenario : MonoBehaviour
 
                 GameMgr.bar_event_flag = false;
                 story_num = GameMgr.bar_event_num;
-                CharacterSpriteSetOFF();
+
+                UtageCharacterHyouji(); //宴のキャラクタを表示する               
 
                 scenarioLabel = "Bar_Event";
                 StartCoroutine(Scenario_Start());
@@ -569,7 +577,8 @@ public class Utage_scenario : MonoBehaviour
 
                 GameMgr.emeraldshop_event_flag = false;
                 story_num = GameMgr.emeraldshop_event_num;
-                CharacterSpriteSetOFF();
+
+                UtageCharacterHyouji();
 
                 scenarioLabel = "emeraldShop_Event";
                 StartCoroutine(Emerald_Shop());
@@ -580,13 +589,11 @@ public class Utage_scenario : MonoBehaviour
             //広場系シーンでのイベント処理
             if (GameMgr.hiroba_event_flag)
             {
+                ShopInitSetting();
+
                 GameMgr.hiroba_event_flag = false;
 
-                if (GameMgr.utage_charaHyouji_flag)
-                {
-                    ShopInitSetting();
-                    CharacterSpriteSetOFF();
-                }
+                UtageCharacterHyouji(); //宴のキャラクタを表示する    
 
                 if (!sceneBGM)
                 {
@@ -722,6 +729,26 @@ public class Utage_scenario : MonoBehaviour
                 live2d_animator = _model.GetComponent<Animator>();
                 live2d_use = true;
                 break;
+
+            default:
+
+                live2d_use = false;
+                break;
+        }
+    }
+
+    void UtageCharacterHyouji()
+    {
+        if (GameMgr.utage_charaHyouji_flag)
+        {
+            if (live2d_use)
+            {
+                CharacterLive2DSubNPCImageOFF();
+            }
+            else
+            {
+                CharacterSpriteSetOFF();
+            }
         }
     }
 
@@ -2370,9 +2397,7 @@ public class Utage_scenario : MonoBehaviour
     //
     IEnumerator Shop_Talk()
     {
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        scenarioLabel = "Shop_Talk"; //ショップ話すタグのシナリオを再生。
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち        
 
         scenario_loading = true;
 
@@ -2390,18 +2415,6 @@ public class Utage_scenario : MonoBehaviour
         if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Bar_A1")].placeFlag == 1)
         {
             engine.Param.TrySetParameter("Bar_Flag", true);
-        }
-
-        if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
-        {
-            if (live2d_use)
-            {
-                CharacterLive2DSubNPCImageOFF();
-            }
-            else
-            {
-                CharacterSpriteSetOFF();
-            }
         }
 
         //「宴」のシナリオを呼び出す
@@ -2463,16 +2476,64 @@ public class Utage_scenario : MonoBehaviour
             case "Or_Shop_D1": //ピティヴィエさん
 
                 break;
-           
+
+            case "Bar_Grt":
+
+                break;
+
+            case "Or_Bar_A1": //ルーティさん
+
+                switch (GameMgr.sp_talk_number)
+                {
+                    case 100:
+
+                        if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
+                        {
+                            GameMgr.NPC_pahupahu_point = 0;
+                            GameMgr.NPC_FriendPoint[40] += 2;
+                        }
+                        break;
+                }
+                break;
+
+            case "Or_Bar_B1": //
+
+                break;
+
+            case "Or_Bar_C1": //アプリコットさん
+
+                /*switch (GameMgr.hiroba_event_ID) //
+                {
+                    case 10: //最初の選択肢*/
+
+                if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
+                {
+                    if (GameMgr.NPC_FriendPoint[41] <= GameMgr.System_NPC_FriendPoint_StartPoint) //初回のみ上がる
+                    {
+                        GameMgr.NPC_FriendPoint[41]++;
+                    }
+                }
+                //break;
+                //}
+                break;
+
+            case "Or_Bar_D1": //
+
+                break;
         }
         
-
-
         if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
         {
             GameMgr.utage_charaHyouji_flag = false;
-            CharacterLive2DSubNPCImageON();
-            //CharacterSpriteFadeON();
+
+            if (live2d_use)
+            {
+                CharacterLive2DSubNPCImageON();
+            }
+            else
+            {
+                CharacterSpriteFadeON();
+            }
         }
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
@@ -2713,13 +2774,11 @@ public class Utage_scenario : MonoBehaviour
     }
 
     //
-    // ファームの「話す」コマンド
+    // ファームの「話す」コマンド　ShopTalkに移行　問題なければ削除でOK
     //
-    IEnumerator Farm_Talk()
+    /*IEnumerator Farm_Talk()
     {
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        scenarioLabel = "Farm_Talk"; //ショップ話すタグのシナリオを再生。
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち       
 
         scenario_loading = true;
 
@@ -2759,16 +2818,16 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
-    }
+    }*/
 
     //
-    // NPC広場の「話す」コマンド
+    // NPC広場の「話す」コマンド ShopTalkに移行　問題なければ削除でOK
     //
-    IEnumerator NPC_Hiroba_Talk()
+    /*IEnumerator NPC_Hiroba_Talk()
     {
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
-        scenarioLabel = "Hiroba_Or_NPC_Talk"; //ショップ話すタグのシナリオを再生。
+        
 
         scenario_loading = true;
 
@@ -2808,16 +2867,14 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
-    }
+    }*/
 
     //
-    // 酒場の「話す」コマンド
+    // 酒場の「話す」コマンド ShopTalkに移行　問題なければ削除でOK
     //
-    IEnumerator Bar_Talk()
+    /*IEnumerator Bar_Talk()
     {
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        scenarioLabel = "Bar_Talk"; //ショップ話すタグのシナリオを再生。
+        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち       
 
         scenario_loading = true;
 
@@ -2875,9 +2932,7 @@ public class Utage_scenario : MonoBehaviour
 
             case "Or_Bar_C1": //アプリコットさん
 
-                /*switch (GameMgr.hiroba_event_ID) //
-                {
-                    case 10: //最初の選択肢*/
+
 
                 if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
                 {
@@ -2886,8 +2941,6 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.NPC_FriendPoint[41]++;
                     }
                 }
-                //break;
-                //}
                 break;
 
             case "Or_Bar_D1": //
@@ -2906,7 +2959,7 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
-    }
+    }*/
 
     IEnumerator Emerald_Shop()
     {
