@@ -539,6 +539,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             }
             mainlist_controller_obj.SetActive(true);
 
+            
+
             //キャラ表示パネルを戻す
             Character_panel.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
 
@@ -552,6 +554,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             ToggleFlagCheck();
 
+            //テキストあらたに変わってたら更新
+            SceneToggleDefaultSetup();
             text_scenario(); //テキストの更新
         }
     }
@@ -4244,7 +4248,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                default_scenetext = "にいちゃん！　水族館おっっきい～～！！";
+                default_scenetext = "にいちゃん！" + "\n" + "これが水族館？　おっっきい～～！！";
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;
@@ -4314,7 +4318,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                default_scenetext = "にいちゃん！　ここプ～ル？" + "\n" + "早く泳ぎたいなぁ～！";
+                if (!GameMgr.System_PoolEnd)
+                {
+                    default_scenetext = "にいちゃん！　ここプ～ル？" + "\n" + "早く泳ぎたいなぁ～！";
+                }
+                else
+                {
+                    default_scenetext = "プール最高だった！" + "\n" + "にいちゃん。楽しかったね～♪";
+                }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;

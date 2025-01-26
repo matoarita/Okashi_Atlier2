@@ -192,13 +192,18 @@ SE表
 ・SE_190	audiostock_205395_sample			【宴用】エデンコンキャラクタ登場時のヒット音　ジャン！
 ・SE_191	audiostock_117338_sample			【未使用】
 ・SE_192	audiostock_976689_sample			【宴用】エデンコン結果発表時のファンファーレ勝利
-・SE_193	audiostock_939021_sample			【宴用】エデンコン結果発表時のファンファーレ負け
+・SE_193	audiostock_939021_sample			【宴用】エデンコン結果発表時のファンファーレ負け　※使わないかも
 ・SE_194	くつろぎスタジオ - ［紙14］破る			紙を破る音１
 ・SE_195	くつろぎスタジオ - ［紙16］破る			紙を破る音２
 ・SE_196	audiostock_247655				【宴用】ボン燃えてからボボボボ SE_182と同じ
 ・SE_197	間抜け1						コミカルながっかり音　※現在未使用　どこかで使ってもいいかも。
 ・SE_198	audiostock_1096779_sample			妖精登場音　ボワン
 ・SE_199	Electromagnetic_Buzzer06-01(Dry)		乗り物アトラクション開始ブザー音
-・SE_200	audiostock_1058331_sample			バイキング動作音１　ツー
-・SE_201	audiostock_125613_sample			バイキング動作音２　プシュー
-・SE_202	audiostock_1071332_sample			バイキング動作音３　ビュン！
+・SE_200	audiostock_1058331				バイキング動作音１　ツー
+・SE_201	audiostock_125613				バイキング動作音２　プシュー
+・SE_202	audiostock_1083946				バイキング動作音３　ビュン！
+・SE_203	audiostock_408939				バイキング動作音４　キィィン！ジェット通過音
+・SE_204	audiostock_770972				観覧車カタカタ音
+・SE_205	笛ピッピー1					笛ピッピー音
+・SE_206	シーン切り替え1					場面転換の音　トゥルルル
+・SE_207	Hand-Foley-Clap04-2(High)			ハイタッチの音

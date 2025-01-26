@@ -741,14 +741,24 @@ public class Utage_scenario : MonoBehaviour
     {
         if (GameMgr.utage_charaHyouji_flag)
         {
-            if (live2d_use)
+            switch (GameMgr.Scene_Category_Num)
             {
-                CharacterLive2DSubNPCImageOFF();
-            }
-            else
-            {
-                CharacterSpriteSetOFF();
-            }
+                case 60: //広場シーンのこと　広場シーンのみ、HirobaMainController内でキャラ表示ON/OFFしてるので、参照するとエラーになる。いつか直したほうがいいかも。
+
+                    break;
+
+                default:
+
+                    if (live2d_use)
+                    {
+                        CharacterLive2DSubNPCImageOFF();
+                    }
+                    else
+                    {
+                        CharacterSpriteSetOFF();
+                    }
+                    break;
+            }            
         }
     }
 
@@ -2773,193 +2783,7 @@ public class Utage_scenario : MonoBehaviour
 
     }
 
-    //
-    // ファームの「話す」コマンド　ShopTalkに移行　問題なければ削除でOK
-    //
-    /*IEnumerator Farm_Talk()
-    {
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち       
-
-        scenario_loading = true;
-
-        //ここで、宴で呼び出したいイベント番号を設定する。
-        engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
-        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
-        engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
-        engine.Param.TrySetParameter("StationEvent_num", 0);
-
-        if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
-        {
-            CharacterSpriteSetOFF();
-        }
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
-        {
-            StartCoroutine("PitemPresent");
-        }
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-        
-        if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
-        {
-            GameMgr.utage_charaHyouji_flag = false;
-            CharacterSpriteFadeON();
-        }
-
-        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
-
-
-        GameMgr.scenario_ON = false;
-
-    }*/
-
-    //
-    // NPC広場の「話す」コマンド ShopTalkに移行　問題なければ削除でOK
-    //
-    /*IEnumerator NPC_Hiroba_Talk()
-    {
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
-
-        
-
-        scenario_loading = true;
-
-        //ここで、宴で呼び出したいイベント番号を設定する。
-        engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
-        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
-        engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
-        engine.Param.TrySetParameter("StationEvent_num", 0);
-
-        if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
-        {
-            CharacterSpriteSetOFF();
-        }
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
-        {
-            StartCoroutine("PitemPresent");
-        }
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-
-        if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
-        {
-            GameMgr.utage_charaHyouji_flag = false;
-            CharacterSpriteFadeON();
-        }
-
-        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
-
-
-        GameMgr.scenario_ON = false;
-
-    }*/
-
-    //
-    // 酒場の「話す」コマンド ShopTalkに移行　問題なければ削除でOK
-    //
-    /*IEnumerator Bar_Talk()
-    {
-        while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち       
-
-        scenario_loading = true;
-
-        //ここで、宴で呼び出したいイベント番号を設定する。
-        engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
-        engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
-        engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
-        engine.Param.TrySetParameter("StationEvent_num", 0);
-
-        if (GameMgr.utage_charaHyouji_flag) //宴のキャラクタを表示する
-        {
-            CharacterSpriteSetOFF();
-        }
-
-        //「宴」のシナリオを呼び出す
-        Engine.JumpScenario(scenarioLabel);
-
-        if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
-        {
-            StartCoroutine("PitemPresent");
-        }
-
-        //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
-        {
-            yield return null;
-        }
-
-        stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
-
-        switch (GameMgr.Scene_Name)
-        {
-            case "Bar_Grt":
-
-                break;
-
-            case "Or_Bar_A1": //ルーティさん
-
-                switch (GameMgr.sp_talk_number)
-                {
-                    case 100:
-
-                        if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
-                        {
-                            GameMgr.NPC_pahupahu_point = 0;
-                            GameMgr.NPC_FriendPoint[40] += 2;
-                        }
-                        break;
-                }
-                break;
-
-            case "Or_Bar_B1": //
-               
-                break;
-
-            case "Or_Bar_C1": //アプリコットさん
-
-
-
-                if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
-                {
-                    if (GameMgr.NPC_FriendPoint[41] <= GameMgr.System_NPC_FriendPoint_StartPoint) //初回のみ上がる
-                    {
-                        GameMgr.NPC_FriendPoint[41]++;
-                    }
-                }
-                break;
-
-            case "Or_Bar_D1": //
-
-                break;
-        }
-
-        if (GameMgr.utage_charaHyouji_flag) //ゲームキャラクタを表示する
-        {
-            GameMgr.utage_charaHyouji_flag = false;
-            CharacterSpriteFadeON();
-        }
-
-        scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
-
-
-        GameMgr.scenario_ON = false;
-
-    }*/
+    
 
     IEnumerator Emerald_Shop()
     {
@@ -3668,6 +3492,8 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.Costume_Num = before_costume;
                         trans_costume = GameMgr.Costume_Num;
                         live2d_animator.SetInteger("trans_costume", trans_costume);
+
+                        GameMgr.System_PoolEnd = true; //プールに入り終わった
                         break;
                 }
 

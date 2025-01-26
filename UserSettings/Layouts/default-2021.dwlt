@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1840
     height: 916
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 98
+  controlID: 68
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 29
+  controlID: 131
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,8 +244,8 @@ MonoBehaviour:
     y: 0
     width: 899
     height: 332
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -637,9 +637,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 9a5b0100
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 90cefcfff825ffff04fbffff02910100
+      m_ExpandedIDs: a41004fff41004ff181804ff902404ff0a3104ff2e4204ff605004ff8a5b04fff4ae06ffe44007ff564907ff684e07ff7a5207ffe0d107ffb6d907ffa8ed07ff2af507ffaaf607ff5af707ff46fc07ff300008ffe60708ff4c7408ffdc4509ff4e4e09ff5e5109ffa05409ff7e7c09ffa08b09ff428c09ffc8b409ff6cb509ff0eb609ffb0b609ff52b709fff4b709fffcb709ff9eb809ffa6eb09ff4aec09ff8a3057ff028559ffb0c567ff72f77aff04fbffffc6cc3200d4d432002c1e37003a263700
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -747,22 +747,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Utage_Scenario/Texture/Bg
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Utage_Scenario/Texture/Bg
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 223}
-    m_SelectedIDs: ac4e0100
-    m_LastClickedID: 85676
+    scrollPos: {x: 0, y: 523}
+    m_SelectedIDs: f26b0100
+    m_LastClickedID: 93170
     m_ExpandedIDs: 000000009e4e0100a04e0100a24e0100a44e0100a64e0100a84e0100aa4e0100ac4e0100ae4e0100b04e0100b24e010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -822,15 +822,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100b0940000fed100007a560100a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad000000000000b65501009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: HirobaOr_Scenario
-      m_OriginalName: HirobaOr_Scenario
+      m_Name: Hiroba1_Main_Controller
+      m_OriginalName: Hiroba1_Main_Controller
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 93212
+      m_UserData: 7206
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -843,7 +843,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 66}
+    m_ScrollPosition: {x: 0, y: 1637}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 189
@@ -1245,9 +1245,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: -0.15477753, z: 90}
+    m_Target: {x: -5.0424395, y: 0.70075303, z: 243.4595}
     speed: 2
-    m_Value: {x: 0, y: -0.15477753, z: 90}
+    m_Value: {x: -5.0424395, y: 0.70075303, z: 243.4595}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1298,9 +1298,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 24.732069
+    m_Target: 56.349827
     speed: 2
-    m_Value: 24.732069
+    m_Value: 56.349827
   m_Ortho:
     m_Target: 1
     speed: 2

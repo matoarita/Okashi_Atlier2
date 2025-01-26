@@ -121,8 +121,8 @@
 ・BGM_117		PerituneMaterial_Nightmare_loop		【宴用】家賃BBAの取り立てテーマ曲
 ・BGM_118		Jardin Botanique			秋エリアお店マダムオペラの曲
 ・BGM_119		Le Musée				大会コンテスト受付のBGM2 秋イメージ
-・BGM_120		audiostock_1126077_sample		大会コンテスト受付のBGM3 夏イメージヒップホップ
-・BGM_121		Cafe-con-Cerveza			大会コンテスト受付のBGM4 冬イメージ
+・BGM_120		audiostock_1126077_sample		大会コンテスト受付のBGM3 夏イメージヒップホップ　※未使用
+・BGM_121		Cafe-con-Cerveza			大会コンテスト受付のBGM4 冬イメージ　※未使用
 ・BGM_122		Take-a-break				酒場秋のイメージ曲
 ・BGM_123		PerituneMaterial_Poema2_loop		冬エリアお店ピティヴィエさんのテーマの曲 旧:audiostock_911845_sample
 ・BGM_124		PerituneMaterial_Flap_loop		大会コンテスト調合時のBGM03　エデンイメージ
@@ -130,3 +130,5 @@
 ・BGM_126		audiostock_111376_sample		【宴用】エデンコンテスト開始のファンファーレ
 ・BGM_127		PerituneMaterial_Harvest_Festival_loop	【宴用】エデンコンテスト会場BGM
 ・BGM_128		PerituneMaterial_NoWay3_loop		【宴用】ハーマイオニーのテーマ
+・BGM_129		pianosketch_04_そらをみながら		【宴用】ヒカリと良い雰囲気の音楽
+・BGM_130		Peritune_Gentle_Brew_loop		【宴用】ヒカリと良い雰囲気の音楽２
