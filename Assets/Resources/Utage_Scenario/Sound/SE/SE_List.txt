@@ -199,3 +199,6 @@ SE表
 ・SE_197	間抜け1						コミカルながっかり音　※現在未使用　どこかで使ってもいいかも。
 ・SE_198	audiostock_1096779_sample			妖精登場音　ボワン
 ・SE_199	Electromagnetic_Buzzer06-01(Dry)		乗り物アトラクション開始ブザー音
+・SE_200	audiostock_1058331_sample			バイキング動作音１　ツー
+・SE_201	audiostock_125613_sample			バイキング動作音２　プシュー
+・SE_202	audiostock_1071332_sample			バイキング動作音３　ビュン！
