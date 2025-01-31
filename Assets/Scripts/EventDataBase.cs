@@ -1582,11 +1582,13 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (GameMgr.PicnicSkipFlag) { } //ピクニックスキップON
                     else
                     {
-                        //クレープ以降　一回目は必ず発生               
-                        if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14
-                        && GameMgr.GirlLoveEvent_num >= 20) //12時から15時の間に、サイコロふる
+                        //HLV12~  
+                        if (PlayerStatus.girl1_Love_lv >= 12)
                         {
-                            PicnicEvent();
+                            if (PlayerStatus.player_cullent_hour >= 12 && PlayerStatus.player_cullent_hour <= 14) //12時から15時の間に、サイコロふる
+                            {
+                                PicnicEvent();
+                            }
                         }
                     }
                 }
@@ -1848,7 +1850,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
             if (GameMgr.GirlLoveSubEvent_stage1[61])
             {
-                picnic_exprob = 60; //60%の確率で発生。
+                picnic_exprob = 30; //30%の確率で発生。
             }
             else
             {
@@ -1861,17 +1863,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
                 GameMgr.picnic_event_ON = false;
                 GameMgr.picnic_event_reading_now = true; //ピクニックイベント発生のフラグ　宴で使用
-                GameMgr.picnic_count = 3; //次のピクニックイベントまでの日数カウンタ
+                GameMgr.picnic_count = 5; //次のピクニックイベントまでの日数カウンタ
 
                 GameMgr.check_GirlLoveTimeEvent_flag = false;
-                /*if (GameMgr.Story_Mode == 0)
-                {
-                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                }
-                else
-                {
-                    GameMgr.check_GirlLoveTimeEvent_flag = false;
-                }*/
 
                 GameMgr.Mute_on = true;
                 GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。

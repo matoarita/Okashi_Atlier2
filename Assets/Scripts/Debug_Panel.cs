@@ -453,7 +453,6 @@ public class Debug_Panel : MonoBehaviour {
                     compound_Main_obj = GameObject.FindWithTag("Compound_Main");
                     compound_Main = compound_Main_obj.GetComponent<Compound_Main>();
 
-                    compound_Main.bgm_change_story();
                     compound_Main.ChangeBGM();
                     compound_Main.Change_BGimage();
 

@@ -441,6 +441,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
     void Stage2_Main(int _spquest_setnum)
     {
+        GameMgr.mainBGM_Num = 0; //リセット　後ろで更新
+
         switch (_spquest_setnum)
         {
             case 0: //２の最初　やはりオリジナルクッキーを食べたい
@@ -590,7 +592,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             case 41: //最後　エデンそろったので、女王様と白クジラにあいにいく
 
                 girl1_status.OkashiQuest_ID = 100410;
-                OkashiQuest_Count = 1;
+                OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
@@ -639,15 +641,19 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         if (_spquest_setnum >= 20)
         {
-            matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);            
+            matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);
+            GameMgr.mainBGM_Num = 1;
         }
-
         if (_spquest_setnum >= 21)
         {
             matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
             matplace_database.ReSetMapFlagString("Emerald_Forest", 1);
             matplace_database.ReSetMapFlagString("Aquamarine_Lake", 1);
-            matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);            
+            matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);           
+        }
+        if (_spquest_setnum >= 22)
+        {
+            matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 0);            
         }
 
         if (_spquest_setnum >= 30)
@@ -657,6 +663,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_C1", 1);
 
             matplace_database.ReSetMapFlagString("Amber_Lake", 1);
+
+            GameMgr.mainBGM_Num = 2;
         }
 
         if (_spquest_setnum >= 40)

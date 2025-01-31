@@ -132,3 +132,6 @@
 ・BGM_128		PerituneMaterial_NoWay3_loop		【宴用】ハーマイオニーのテーマ
 ・BGM_129		pianosketch_04_そらをみながら		【宴用】ヒカリと良い雰囲気の音楽
 ・BGM_130		Peritune_Gentle_Brew_loop		【宴用】ヒカリと良い雰囲気の音楽２
+・BGM_131		Peritune_Gentle_Brew_loop		メインテーマ曲系　BGM130と同じ
+・BGM_132		Cafe-con-Cerveza			【宴用】ベルのテーマ　BGM_121と同じ
+・BGM_133		Peritune_Petite_Walk_loop		メインテーマ曲系2

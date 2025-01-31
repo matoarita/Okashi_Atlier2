@@ -128,7 +128,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 6:
 
-                    MagicLearnPanelHyouji("Caramelized");                   
+                    MagicLearnPanelHyouji("Cookie_SecondBake");                   
                     break;
 
                 case 7:
@@ -138,9 +138,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     break;
 
                 case 8:
-
-                    MagicLearnPanelHyouji("Bake_Beans");
-                    MagicLearnPanelHyouji("Chocolate_Tempering");
+                    
                     break;
 
                 case 9: //ヒカリのおかし作り解禁
@@ -148,6 +146,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     break;
 
                 case 10:
+
+                    MagicLearnPanelHyouji("Bake_Beans");
+                    MagicLearnPanelHyouji("Chocolate_Tempering");
+                    break;
+
+                case 11:
 
                     MagicLearnPanelHyouji("SugerPot");
                     break;
@@ -314,19 +318,19 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             if (_lv >= 6)
             {
-                Magic_Learn("Caramelized");               
+                Magic_Learn("Cookie_SecondBake");               
             }
             if (_lv >= 7)
             {
                 Magic_Learn("Heart_of_Icecream");
                 Magic_Learn("Freezing_Spell");
             }
-            if (_lv >= 8)
+            if (_lv >= 10)
             {
                 Magic_Learn("Bake_Beans");
                 Magic_Learn("Chocolate_Tempering");
             }
-            if (_lv >= 10)
+            if (_lv >= 11)
             {
                 Magic_Learn("SugerPot");
             }

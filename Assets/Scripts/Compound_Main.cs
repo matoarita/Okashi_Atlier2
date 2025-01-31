@@ -908,9 +908,8 @@ public class Compound_Main : MonoBehaviour
             if (!StartRead) //シーン最初だけ読み込む
             {
                 StartRead = true;
-                //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
-                bgm_change_story();
-                sceneBGM.OnMainBGM();
+                
+                sceneBGM.OnMainBGM(); //メインBGMを変更　ハートレベルに応じてBGMも切り替わる場合。
                 if (!GameMgr.Contest_afterHomeEventFlag) //コンテストから帰ってきた直後はBGMはオフのまま
                 {
                     sceneBGM.NowFadeVolumeONBGM();
@@ -1756,25 +1755,14 @@ public class Compound_Main : MonoBehaviour
                 //音関係
                 if (!GameMgr.tutorial_ON)
                 {
-                    //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
-                    bgm_change_story();
-
                     if (GameMgr.matbgm_change_flag == true)
                     {
                         GameMgr.matbgm_change_flag = false;
 
-                        sceneBGM.OnMainBGM();
+                        sceneBGM.OnMainBGM(); //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
                     }
-                    /*if (GameMgr.CompoBGMCHANGE_ON)
-                    {
-                        if (GameMgr.compobgm_change_flag == true)
-                        {
-                            GameMgr.compobgm_change_flag = false;
-                            sceneBGM.OnMainBGMFade();         
-                            //sceneBGM.OnMainBGM(); //即座に切り替え
-                        }
-                    }*/
                 }
+
                 if (!GameMgr.Contest_afterHomeEventFlag) //コンテストから帰ってきた直後はBGMはオフのまま
                 {
                     sceneBGM.NowFadeVolumeONBGM();
@@ -3110,7 +3098,8 @@ public class Compound_Main : MonoBehaviour
                 //magicskill_database.skillHyoujiKaikin("Caramelized");
 
                 //magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
-                magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+                //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
+                magicskill_database.skillHyoujiKaikin("Caramelized");
                 magicskill_database.skillHyoujiKaikin("Fire_Flowers");
 
                 //magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
@@ -3871,8 +3860,8 @@ public class Compound_Main : MonoBehaviour
         {
             sceneBGM.MuteOFFBGM();
             map_ambience.MuteOFF();
-            //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
-            bgm_change_story();
+            
+            //sceneBGM.OnMainBGM(); //メインBGMを変更　ハートレベルに応じてBGMも切り替わる。
 
             mainUI_panel_obj.SetActive(true);
             //OnCompoundSelect();
@@ -4492,50 +4481,6 @@ public class Compound_Main : MonoBehaviour
     {
         ClickPanel_1.SetActive(false);
         ClickPanel_2.SetActive(false);
-    }
-
-    //クエスト進行・ハートレベルに応じてBGMが変わる。デバッグパネルからもアクセス
-    public void bgm_change_story()
-    {
-        //BGM.csのほうが強い
-
-        /*
-        map_ambience.Stop();
-
-        if (GameMgr.Story_Mode == 0)
-        {
-            if (GameMgr.GirlLoveEvent_num == 50) //コンテスト　のどかなはれ
-            {
-                GameMgr.mainBGM_Num = 4; //コンテスト　鳥の鳴き声が外でなく
-                map_ambience.OnSunnyDayBird();
-            }
-            else
-            {
-                //最初のBGM
-                if (PlayerStatus.girl1_Love_lv >= 1) //デフォルト　雨
-                {
-                    GameMgr.mainBGM_Num = 0; //雨はじまり                
-                }
-                if (GameMgr.GirlLoveEvent_num == 0) //最初は雨
-                {
-                    map_ambience.OnRainyDay(); //背景のSEを鳴らす。
-                }
-                if (GameMgr.GirlLoveEvent_num >= 1) //雨やむ
-                {
-                    map_ambience.Stop();
-                }
-                if (GameMgr.GirlLoveEvent_num >= 10) //ラスクでBGM変化
-                {
-                    GameMgr.mainBGM_Num = 2; //少し明るい　ラスクのBGM
-                    map_ambience.Stop();
-                }
-
-            }
-        }
-        else
-        {
-
-        }*/
     }
 
     //ストーリー進行に応じて、背景の天気+エフェクトも変わる。Save_Controllerからも読まれる。

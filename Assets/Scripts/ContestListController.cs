@@ -397,7 +397,7 @@ public class ContestListController : MonoBehaviour
 
 
         //エデンコンテスト系の登場　スターでもいいし、特定のイベントクリアしたら出現でもいい
-        if (GameMgr.Contest_NewReleaseList[40])
+        /*if (GameMgr.Contest_NewReleaseList[40])
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100)
             {
@@ -419,7 +419,7 @@ public class ContestListController : MonoBehaviour
             {
                 DrawContest();
             }
-        }
+        }*/
     }
 
     //条件チェックライブラリー　新しく解放したものがあればフラグをたてる Contest_Main_Receptionから読み出し
@@ -519,14 +519,14 @@ public class ContestListController : MonoBehaviour
                 }
 
                 //エデンコンテスト系の登場　スターでもいいし、特定のイベントクリアしたら出現でもいい
-                if (PlayerStatus.player_ninki_param >= 10)
+                /*if (PlayerStatus.player_ninki_param >= 10)
                 {
                     if (!GameMgr.Contest_NewReleaseList[40])
                     {
                         GameMgr.Contest_NewReleaseList[40] = true;
                         contest_new = 1;
                     }
-                }
+                }*/
                 break;
 
             case "Or_Contest_Reception_Autumn":
@@ -566,14 +566,14 @@ public class ContestListController : MonoBehaviour
                     }
                 }
 
-                if (PlayerStatus.player_ninki_param >= 10)
+                /*if (PlayerStatus.player_ninki_param >= 10)
                 {
                     if (!GameMgr.Contest_NewReleaseList[41])
                     {
                         GameMgr.Contest_NewReleaseList[41] = true;
                         contest_new = 1;
                     }
-                }
+                }*/
                 break;
 
             case "Or_Contest_Reception_Winter":
@@ -613,14 +613,14 @@ public class ContestListController : MonoBehaviour
                     }
                 }
 
-                if (PlayerStatus.player_ninki_param >= 10)
+                /*if (PlayerStatus.player_ninki_param >= 10)
                 {
                     if (!GameMgr.Contest_NewReleaseList[42])
                     {
                         GameMgr.Contest_NewReleaseList[42] = true;
                         contest_new = 1;
                     }
-                }
+                }*/
                 break;
 
         }

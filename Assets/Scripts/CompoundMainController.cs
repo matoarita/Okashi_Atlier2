@@ -519,7 +519,7 @@ public class CompoundMainController : MonoBehaviour {
                         {
                             if (GameMgr.CompoBGMCHANGE_ON)
                             {
-                                if (GameMgr.compobgm_change_flag != true)
+                                if (!GameMgr.compobgm_change_flag)
                                 {
                                     sceneBGM.OnCompoundBGM();
                                     GameMgr.compobgm_change_flag = true;

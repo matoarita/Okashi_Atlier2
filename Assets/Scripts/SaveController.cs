@@ -334,7 +334,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_Autosave_ON = GameMgr.AUTOSAVE_ON,
 
             //調合シーンでBGM切り替えるフラグ
-            save_CompoBGMChange_ON = GameMgr.CompoBGMCHANGE_ON,
+            //save_CompoBGMChange_ON = GameMgr.CompoBGMCHANGE_ON,
 
             //スキップ系フラグ
             save_SleepSkipFlag = GameMgr.SleepSkipFlag,
@@ -771,7 +771,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.AUTOSAVE_ON = playerData.save_Autosave_ON;
 
         //調合シーンでBGM切り替えるフラグ
-        GameMgr.CompoBGMCHANGE_ON = playerData.save_CompoBGMChange_ON;
+        //GameMgr.CompoBGMCHANGE_ON = playerData.save_CompoBGMChange_ON;
 
         //スキップ系フラグ
         GameMgr.SleepSkipFlag = playerData.save_SleepSkipFlag;

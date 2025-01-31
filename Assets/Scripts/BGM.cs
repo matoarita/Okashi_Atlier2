@@ -82,6 +82,8 @@ public class BGM : MonoBehaviour {
     public AudioClip sound68;  //コンテスト会場のBGM3 夏ヒップホップ
     public AudioClip sound69;  //コンテスト会場のBGM4 冬
     public AudioClip sound70;  //酒場BGM　秋のイメージ曲
+    public AudioClip sound71;  //オランジーナ調合メインのBGM3
+    public AudioClip sound72;  //オランジーナ調合メインのBGM4
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -788,28 +790,26 @@ public class BGM : MonoBehaviour {
             case "Or_Compound":
 
                 //Debug.Log("BGM　オランジーナ調合シーン");
-                //_send_clip = sound40;
-                BGMDefault();
-                //_send_clip_ambient = Ambient1;
 
-                break;
-
-            default:
-
-                if (GameMgr.Story_Mode == 0)
+                if (GameMgr.userBGM_Num == 0) //デフォルト　ユーザーが1をおした場合、デフォルトのBGM
                 {
                     BGMDefault();
                 }
                 else
                 {
-                    if (GameMgr.userBGM_Num == 0) //デフォルト　ユーザーが1をおした場合、デフォルトのBGM
-                    {
-                        BGMDefault();
-                    }
-                    else
-                    {
-                        OngakuZukanSelect();
-                    }
+                    OngakuZukanSelect();
+                }
+                break;
+
+            default:
+
+                if (GameMgr.userBGM_Num == 0) //デフォルト　ユーザーが1をおした場合、デフォルトのBGM
+                {
+                    BGMDefault();
+                }
+                else
+                {
+                    OngakuZukanSelect();
                 }
                 break;
         }
@@ -820,23 +820,7 @@ public class BGM : MonoBehaviour {
     {
         if (GameMgr.Story_Mode == 0)
         {
-            switch (GameMgr.stage_number)
-            {
-                case 1:
-
-                    Story_BGMSelect();
-                    break;
-
-                case 2:
-
-                    _send_clip = sound6;
-                    break;
-
-                case 3:
-
-                    _send_clip = sound7;
-                    break;
-            }
+            Story_BGMSelect();
         }
         else
         {
@@ -860,12 +844,16 @@ public class BGM : MonoBehaviour {
         }
         else
         {
-            /*if (GameMgr.GirlLoveSubEvent_stage1[60]) //HLV15~できらぽんイベント発生後
+            if (GameMgr.MainBGMChange_HeartLV) //ハートLVに応じてBGMが変わる場合　こっち
             {
-                _send_clip = sound19;
+                if (PlayerStatus.girl1_Love_lv >= 1) //デフォルト
+                {
+                    _send_clip = sound40;
+                }
             }
             else
-            {*/
+            {
+                //デフォルトのBGM　進捗によりBGMが変わる　Special_questで指定
                 switch (GameMgr.mainBGM_Num)
                 {
                     case 0:
@@ -874,17 +862,18 @@ public class BGM : MonoBehaviour {
                         break;
 
                     case 1:
-                        _send_clip = sound11;
+
+                        _send_clip = sound71;
                         break;
 
                     case 2:
 
-                        _send_clip = sound21;
+                        _send_clip = sound72;
                         break;
 
                     case 3:
 
-                        _send_clip = sound1;
+                        _send_clip = sound21;
                         break;
 
                     case 4:
@@ -902,7 +891,7 @@ public class BGM : MonoBehaviour {
                         _send_clip = sound19;
                         break;
                 }
-            //}
+            }
         }
     }
 
@@ -1065,6 +1054,7 @@ public class BGM : MonoBehaviour {
         }
     }
 
+    //Compound_Mainから読み出し
     public void OnMainBGM()
     {
         BGMMainChange();
@@ -1074,18 +1064,19 @@ public class BGM : MonoBehaviour {
         bgmController.MixRateChange(0);
     }
 
-    //メインBGMと調合時のBGMシーンをミックスしながら切り替える
+    //調合時のBGMシーン→メインBGMに、ミックスしながら切り替える
     public void OnChangeCompoBGMFade()
     {
-        bgmController.FadeStatusChange(4);
+        bgmController.MixFadeStatusChange(4);
     }
 
     public void OnCompoundBGM()
     {
+        _send_clip = sound40; //1のとき　sound2
         bgmController.BGMStop(1);
-        bgmController.BGMRestartPlay(1, sound2);
+        bgmController.BGMRestartPlay(1, _send_clip); //調合中のBGM
 
-        bgmController.FadeStatusChange(3);
+        bgmController.MixFadeStatusChange(3);
     }
 
     public void OnGetMatStartBGM()
@@ -1314,13 +1305,13 @@ public class BGM : MonoBehaviour {
 
     public void NowFadeVolumeONBGM() //ただちにフェードのボリュームをもとに戻す。
     {
-        bgmController.FadeStatusChange(100); //フェード途中の場合は、強制的に待機状態にして、1にすぐ切り替える
+        //bgmController.FadeStatusChange(100); //フェード途中の場合は、強制的に待機状態にして、1にすぐ切り替える
         bgmController.FadeVolumeChange(1.0f);
     }
 
     public void NowFadeVolumeOFFBGM() //ただちにフェードのボリュームを0にする。ミュートと、効果的には一緒。
     {
-        bgmController.FadeStatusChange(100);
+        //bgmController.FadeStatusChange(100);
         bgmController.FadeVolumeChange(0.0f);
     }
 }

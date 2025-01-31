@@ -69,6 +69,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
+    //調合シーンでBGM切り替えるかどうかのフラグ
+    public static bool CompoBGMCHANGE_ON = false;
+
+    //ゲームの進行度でBGMを切り替えるか、ハートLVで切り替えるかの選択 trueならハートLVに応じてBGMが変わる
+    public static bool MainBGMChange_HeartLV = false;
+
     //シーン移動の際の切り替え時間
     public static float SceneFadeTime = 0.5f;
 
@@ -205,9 +211,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //オートセーブのON/OFF
     public static bool AUTOSAVE_ON; //シーンからメインに戻ってきたときや、採取から帰ってきたときにオートセーブするかどうか
-
-    //調合シーンでBGM切り替えるかどうかのフラグ
-    public static bool CompoBGMCHANGE_ON;    
+      
 
     //初期アイテム取得のフラグ
     public static bool gamestart_recipi_get;
@@ -1170,7 +1174,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_Topping_Multiple_Max = 1;
 
         AUTOSAVE_ON = false;
-        CompoBGMCHANGE_ON = false;
+        //CompoBGMCHANGE_ON = false;
 
         stage1_clear_girl1_lovelv = 1;
         stage2_clear_girl1_lovelv = 1;

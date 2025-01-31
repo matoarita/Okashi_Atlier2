@@ -9,9 +9,10 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
 
     private AudioSource[] _bgm = new AudioSource[3];
 
-    public float _mixRate = 0;
+    private float _mixRate;
 
     private int fade_status;
+    private int mixfade_status;
     private float fade_volume;
     private float _fadedeg;
 
@@ -40,7 +41,9 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
             _bgm[i].loop = true;
         }
 
+        _mixRate = 0f;
         fade_status = 100; //0=fade_out  2=fade_in 100=待機状態
+        mixfade_status = 100;
         fade_volume = 1.0f;
         _fadedeg = 0.03f; //フェードの音量減少量
         //_bgm[1]の調合用BGMやファンファーレを設定　_bgm[0]から切り替える
@@ -71,7 +74,8 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
                 break;
         }
 
-        switch(fade_status)
+        //こっちは使ってない
+        /*switch(fade_status)
         {
             case 0: //フェードアウトがON
 
@@ -97,23 +101,32 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
                 }
                 break;
 
+            case 100: //待機状態
+
+                break;
+        }*/
+
+        switch (mixfade_status)
+        {
             case 3: //ミックスフェードで切り替え　0 -> 1
 
+                //Debug.Log("BGMフェードステータス: " + fade_status);
                 _mixRate += _fadedeg;
                 if (_mixRate >= 1.0f)
                 {
-                    _mixRate = 1;
-                    fade_status = 100;
+                    _mixRate = 1.0f;
+                    mixfade_status = 100;
                 }
                 break;
 
             case 4: //ミックスフェードで切り替え　1 -> 0
 
+                //Debug.Log("BGMフェードステータス: " + fade_status);
                 _mixRate -= _fadedeg;
                 if (_mixRate < 0.0f)
                 {
-                    _mixRate = 0;
-                    fade_status = 100;
+                    _mixRate = 0.0f;
+                    mixfade_status = 100;
                 }
                 break;
 
@@ -121,7 +134,6 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
 
                 break;
         }
-
     }
 
 
@@ -226,9 +238,14 @@ public class BGMController : SingletonMonoBehaviour<BGMController>
         _mixRate = _rate;
     }
 
-    public void FadeStatusChange(int _status)
+    /*public void FadeStatusChange(int _status)
     {
         fade_status = _status;
+    }*/
+
+    public void MixFadeStatusChange(int _status) //mixrateのほうをフェードさせるときに使う　メインと調合BGMの切り替え
+    {
+        mixfade_status = _status;
     }
 
     public void FadeVolumeChange(float _volume)
