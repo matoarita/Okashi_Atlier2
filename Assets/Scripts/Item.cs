@@ -104,8 +104,9 @@ public class Item
     public string item_FullName; //スロット名も含めた最終の名称。オリジナルアイテムリスト用で使う。
     public string[] item_MagicSlot = new string[10]; //魔法の状態を記録するスロット。最初はNon。魔法を付与すると、お菓子になんらかの状態が保存される。
     public int[] item_MagicSlotValue = new int[10]; //各魔法スロットの量　魔法によってどのぐらい効果がかかっているか。
+
     public int Attribute1; //お菓子の状態1　二度焼きで、すでに二度焼きした状態を1にする。
-    public int Attribute2; //お菓子の状態2　フローティングで浮いた状態を1にする。
+    public int Attribute2; //お菓子の状態2　ウィンドアークかけた回数
     public int Attribute3; //お菓子の状態3　アブタラで変化した状態を1にする。（2度掛けはできない）
     //ここまで
 
@@ -226,7 +227,8 @@ public class Item
         int _judge_num, int _eat_kaisu, int _highscore, int _lasttotal_score, string _hinttext, float _total_kyori, int _rare, int _manpuku, int _magic,
         int _noteat, int _secretFlag,
         string MS01, string MS02, string MS03, string MS04, string MS05, string MS06, string MS07, string MS08, string MS09, string MS10,
-        int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10)
+        int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
+        int _attri1, int _attri2, int _attri3)
     {
         itemID = id;
         OriginalitemID = OriginalID;
@@ -369,9 +371,9 @@ public class Item
         item_MagicSlotValue[8] = MSvalue09;
         item_MagicSlotValue[9] = MSvalue10;
 
-        Attribute1 = 0;
-        Attribute2 = 0;
-        Attribute3 = 0;
+        Attribute1 = _attri1;
+        Attribute2 = _attri2;
+        Attribute3 = _attri3;
     }
 
 }

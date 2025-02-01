@@ -4222,7 +4222,6 @@ public class Compound_Main : MonoBehaviour
 
         //メイン画面に表示する、現在のクエスト
         special_quest.RedrawQuestName();
-        //questname.text = girl1_status.OkashiQuest_Name; //現在のクエストネーム更新
     }
 
     

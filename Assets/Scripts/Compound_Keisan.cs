@@ -142,6 +142,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     public string _base_itemdesc;
     public string[] _baseMS;
     public int[] _baseMSvalue;
+    public int _baseattri1;
+    public int _baseattri2;
+    public int _baseattri3;
 
     private string _addname;
     private int _addhp;
@@ -924,6 +927,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _base_extreme_kaisu = pitemlist.player_originalitemlist[_id].ExtremeKaisu;
                     _base_item_hyouji = pitemlist.player_originalitemlist[_id].item_Hyouji;
                     _base_itemdesc = pitemlist.player_originalitemlist[_id].itemDesc;
+                    _baseattri1 = pitemlist.player_originalitemlist[_id].Attribute1;
+                    _baseattri2 = pitemlist.player_originalitemlist[_id].Attribute2;
+                    _baseattri3 = pitemlist.player_originalitemlist[_id].Attribute3;
 
                     _base_extreme_kaisu--;
 
@@ -991,6 +997,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _base_extreme_kaisu = pitemlist.player_extremepanel_itemlist[_id].ExtremeKaisu;
                     _base_item_hyouji = pitemlist.player_extremepanel_itemlist[_id].item_Hyouji;
                     _base_itemdesc = pitemlist.player_extremepanel_itemlist[_id].itemDesc;
+                    _baseattri1 = pitemlist.player_extremepanel_itemlist[_id].Attribute1;
+                    _baseattri2 = pitemlist.player_extremepanel_itemlist[_id].Attribute2;
+                    _baseattri3 = pitemlist.player_extremepanel_itemlist[_id].Attribute3;
 
                     _base_extreme_kaisu--;
 
@@ -1057,7 +1066,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
             result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
             _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
-            _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9]);
+            _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
+            _baseattri1, _baseattri2, _baseattri3);
 
             new_item = pitemlist.player_yosokuitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1311,6 +1321,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
         _base_item_hyouji = database.items[_id].item_Hyouji;
         _base_itemdesc = database.items[_id].itemDesc;
+        _baseattri1 = database.items[_id].Attribute1;
+        _baseattri2 = database.items[_id].Attribute2;
+        _baseattri3 = database.items[_id].Attribute3;
     }
 
     void Setup_Param02()
@@ -1359,6 +1372,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
         _base_item_hyouji = database.items[_id].item_Hyouji;
         _base_itemdesc = database.items[_id].itemDesc;
+        _baseattri1 = database.items[_id].Attribute1;
+        _baseattri2 = database.items[_id].Attribute2;
+        _baseattri3 = database.items[_id].Attribute3;
     }
 
     void Setup_Param03()
@@ -1407,6 +1423,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_extreme_kaisu = database.items_gamedefault[_id].ExtremeKaisu;
         _base_item_hyouji = database.items_gamedefault[_id].item_Hyouji;
         _base_itemdesc = database.items_gamedefault[_id].itemDesc;
+        _baseattri1 = database.items_gamedefault[_id].Attribute1;
+        _baseattri2 = database.items_gamedefault[_id].Attribute2;
+        _baseattri3 = database.items_gamedefault[_id].Attribute3;
     }
 
     //HikariMakeStartPanelから読み出し
@@ -1473,6 +1492,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_extreme_kaisu = pitemlist.player_yosokuitemlist[_id].ExtremeKaisu;
         _base_item_hyouji = pitemlist.player_yosokuitemlist[_id].item_Hyouji;
         _base_itemdesc = pitemlist.player_yosokuitemlist[_id].itemDesc;
+        _baseattri1 = pitemlist.player_yosokuitemlist[_id].Attribute1;
+        _baseattri2 = pitemlist.player_yosokuitemlist[_id].Attribute2;
+        _baseattri3 = pitemlist.player_yosokuitemlist[_id].Attribute3;
 
         for (i = 0; i < database.items[_id].toppingtype.Length; i++)
         {
@@ -1509,7 +1531,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
         result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
         _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
-        _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9]);
+        _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
+        _baseattri1, _baseattri2, _baseattri3);
 
         if (_base_itemType == "Mat" || _base_itemType == "Potion")
         {
@@ -1586,7 +1609,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
                 result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
                 _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
-                _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9]);
+                _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
+                _baseattri1, _baseattri2, _baseattri3);
 
                 new_item = pitemlist.player_originalitemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1611,7 +1635,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
                     {
-                        bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill, new_item);
+                        bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill, new_item, 1);
                     }
                 }
                 break;
@@ -1673,7 +1697,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
                 result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
                 _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
-                _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9]);
+                _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
+                _baseattri1, _baseattri2, _baseattri3);
 
                 new_item = pitemlist.player_extremepanel_itemlist.Count - 1; //最後に追加されたアイテムが、さっき作った新規アイテムなので、そのIDを入れて置き、リザルトで表示
 
@@ -1698,7 +1723,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
                     {
-                        bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill, new_item);
+                        bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill, new_item, 2);
                     }
                 }
 
@@ -2694,7 +2719,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], 
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
         0, 0,
-        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0));
     }
 
     void Set_add_originparam()
@@ -2782,7 +2808,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
         0, 0,
-        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0));
     }
 
     void Set_add_extremeparam()
@@ -2870,7 +2897,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
         0, 0,
-        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+        "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0));
     }
 
 

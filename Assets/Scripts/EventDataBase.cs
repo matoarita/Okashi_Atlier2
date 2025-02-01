@@ -1314,49 +1314,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }
-
-                //コンテスト終了後、いったん寝てから発生するイベント
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.check_SleepEnd_Eventflag[2]) //ねておきたあとにチェック
-                    {
-                        GameMgr.check_SleepEnd_Eventflag[2] = false;
-                        Debug.Log("コンテスト終了後　イベントチェック");
-
-                        if (GameMgr.Contest_afterHomeEventFlag)
-                        {
-                            GameMgr.Contest_afterHomeEventFlag = false;
-
-                            /*if (!GameMgr.NPCMagic_eventList[0]) //コンテスト終了後、一回寝て起きる。露店通りへいく
-                            {
-                                matplace_database.ReSetMapFlagString("Or_Hiroba1_Roten", 1);
-
-                                GameMgr.NPCMagic_eventList[0] = true;
-
-                                if (!GameMgr.Contest_Cookie_VictoryHoleinOne)
-                                {
-                                    GameMgr.GirlLoveSubEvent_num = 2000;
-                                    GameMgr.Utage_MapMoveON = true;
-                                }
-                                else
-                                {
-                                    GameMgr.GirlLoveSubEvent_num = 2001; //初回出場でいきなり優勝した
-                                    GameMgr.Utage_MapMoveON = false;
-                                }
-
-                                GameMgr.Contest_Cookie_VictoryHoleinOne = false;
-                                
-                                GameMgr.Mute_on = true;
-
-                                GameMgr.check_GirlLoveSubEvent_flag = false;
-                                GameMgr.Contest_afterHomeHeartUpFlag = false; //大き目イベントが発生したときは、ハートアップイベントを中止。
-                            }*/                            
-                        }
-                    }
-                }
-
+               
 
                 //コンテスト終了後、いったん寝てから発生するイベント
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -1399,6 +1357,38 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.check_GirlLoveSubEvent_flag = false;
                             GameMgr.contest_Disqualification = false;
                             GameMgr.contest_Disqualification2 = false;
+                        }
+                    }
+                }
+
+                //コンテスト終了後、いったん寝てから発生するイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag[2]) //ねておきたあとにチェック
+                    {
+                        GameMgr.check_SleepEnd_Eventflag[2] = false;
+                        Debug.Log("コンテスト終了後　イベントチェック");
+
+                        if (GameMgr.Contest_afterHomeEventFlag)
+                        {
+                            GameMgr.Contest_afterHomeEventFlag = false;
+
+                            //夏コンテスト優勝した場合、エデンをゲットしたぞ～のイベント
+                            if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1) //一位をゲットしてた＝エデン２をゲット
+                            {
+                                //エデン二枚目を見るイベント
+                                if (!GameMgr.GirlLoveSubEvent_stage1[400])
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[400] = true;
+
+                                    GameMgr.GirlLoveSubEvent_num = 400;
+                                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    GameMgr.Mute_on = true;
+
+                                }
+                            }
                         }
                     }
                 }

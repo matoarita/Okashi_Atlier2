@@ -29,6 +29,9 @@ public class Contest_DetailedPanel : MonoBehaviour {
     private int _list;
     private int _Rank;
 
+    private string colorString;
+    private Color newColor;
+
     private string _contest_Grade;
 
     // Use this for initialization
@@ -79,7 +82,7 @@ public class Contest_DetailedPanel : MonoBehaviour {
 
         if(conteststartList_database.conteststart_lists[_list].Contest_Cost <= 0)
         {
-            contest_cost.text = "無料";
+            contest_cost.text = "-";
         }
         else
         {
@@ -125,19 +128,35 @@ public class Contest_DetailedPanel : MonoBehaviour {
             case 0:
 
                 contest_bringtype.text = "〇";
+
+                colorString = "#323232";
+                ColorUtility.TryParseHtmlString(colorString, out newColor);
+                contest_bringtype.color = newColor;
                 break;
 
             case 1:
                 contest_bringtype.text = "基本素材のみ";
+
+                colorString = "#A437BF";
+                ColorUtility.TryParseHtmlString(colorString, out newColor);
+                contest_bringtype.color = newColor;
                 break;
 
             case 2:
                 contest_bringtype.text = "全て不可";
+
+                colorString = "#B23333";
+                ColorUtility.TryParseHtmlString(colorString, out newColor);
+                contest_bringtype.color = newColor;
                 break;
 
             default:
 
                 contest_bringtype.text = "〇";
+
+                colorString = "#323232";
+                ColorUtility.TryParseHtmlString(colorString, out newColor);
+                contest_bringtype.color = newColor;
                 break;
         }
 

@@ -4434,8 +4434,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             GameMgr.ExtraClear_QuestNum = GameMgr.GirlLoveEvent_num;
             SelectNewOkashiSet();*/
         }
-
-        //
         else
         {
             SelectNewOkashiSet();
@@ -4541,7 +4539,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         if (GameMgr.NextQuestID % 100 != 0) //次クエが100番台以外
         {           
-
             if (GameMgr.Story_Mode == 0)
             {
                 special_quest.SetSpecialOkashiDict(GameMgr.NextQuestID, 0);

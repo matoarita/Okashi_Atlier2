@@ -1396,6 +1396,20 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("1個目　アイテムID:" + GameMgr.temp_itemID1 + " " + database.items[GameMgr.temp_itemID1].itemNameHyouji + "が選択されました。");
                 //Debug.Log("これでいいですか？");
 
+                //対象アイテムの情報を使う場合 ここに記入
+                if(GameMgr.Final_toggle_Type1 == 0)
+                {
+                    GameMgr.UseMagic_ItemAttri2 = database.items[GameMgr.Final_list_itemID1].Attribute2;
+                }
+                else if (GameMgr.Final_toggle_Type1 == 1)
+                {
+                    GameMgr.UseMagic_ItemAttri2 = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute2;
+                }
+                else if (GameMgr.Final_toggle_Type1 == 2)
+                {
+                    GameMgr.UseMagic_ItemAttri2 = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute2;
+                }
+
                 card_view.SelectCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示。トグルタイプとリスト番号を入れると、表示してくれる。
                 updown_counter_obj.SetActive(true);
 

@@ -122,7 +122,7 @@
 ・BGM_118		Jardin Botanique			秋エリアお店マダムオペラの曲
 ・BGM_119		Le Musée				大会コンテスト受付のBGM2 秋イメージ
 ・BGM_120		audiostock_1126077_sample		大会コンテスト受付のBGM3 夏イメージヒップホップ　※未使用
-・BGM_121		Cafe-con-Cerveza			大会コンテスト受付のBGM4 冬イメージ　※未使用
+・BGM_121		Cafe-con-Cerveza			【宴用】べるのテーマ
 ・BGM_122		Take-a-break				酒場秋のイメージ曲
 ・BGM_123		PerituneMaterial_Poema2_loop		冬エリアお店ピティヴィエさんのテーマの曲 旧:audiostock_911845_sample
 ・BGM_124		PerituneMaterial_Flap_loop		大会コンテスト調合時のBGM03　エデンイメージ
@@ -133,5 +133,5 @@
 ・BGM_129		pianosketch_04_そらをみながら		【宴用】ヒカリと良い雰囲気の音楽
 ・BGM_130		Peritune_Gentle_Brew_loop		【宴用】ヒカリと良い雰囲気の音楽２
 ・BGM_131		Peritune_Gentle_Brew_loop		メインテーマ曲系　BGM130と同じ
-・BGM_132		Cafe-con-Cerveza			【宴用】ベルのテーマ　BGM_121と同じ
+・BGM_132		Gourmet Reviewers à Strahlburg		【宴用】コンテスト　お菓子判定中の曲２
 ・BGM_133		Peritune_Petite_Walk_loop		メインテーマ曲系2

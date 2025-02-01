@@ -307,7 +307,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int NPC_pahupahu_point; //ルーティのマッサージポイント　これがたまらないとマッサージしてくれない
 
     //別シーンから、家に帰ってきたときに発生するイベントリスト
-    public static bool[] CompoundEvent_num = new bool[GirlLoveSubEvent_stage_num]; //まだセーブしてない
+    public static bool[] CompoundEvent_num = new bool[GirlLoveSubEvent_stage_num]; //セーブ不要
     public static bool[] CompoundEvent_readend = new bool[GirlLoveSubEvent_stage_num]; //読み終わったフラグ
 
     //ショップのイベントリスト
@@ -745,6 +745,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int UseMagicSkill_TimeCost; //使用するスキルでの経過時間
     public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐    
     public static bool MagicPanel_DefaultHyouji; //魔法パネル開いたときに、デフォルトの光魔法を表示する
+    public static int UseMagic_ItemAttri2; //対象アイテムのアトリビュートを一時保存　魔法使用の際、参照して使う
     public static bool Sleep_CheckEnd; //睡眠イベントのフラグ
     public static bool Status_zero_readOK; //メインステータスを読み終わったよ～のフラグ　その後に、ヒカリが戻ってくるなどの処理を挟む用
     public static int OkashiMake_PanelSetType; //さっき作ったお菓子が、パネルにセットされるお菓子かどうか。生地などはセットされず、すぐ調合画面を戻す
@@ -754,6 +755,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ContestRoundNumMax; //その大会のMaxのラウンド数
     public static int Contest_Cate_Ranking; //トーナメント形式かランキング形式か
     public static int Contest_BringType; //コンテスト　素材持ち込みの形式
+    public static int Contest_CostMoney; //そのコンテストの参加費
     public static string Contest_Name; //コンテストの名前
     public static string Contest_NameHyouji; //コンテストの名前日本語表記
     public static string Contest_Name_Round; //コンテストの名前　トーナメント形式で今何回戦かまで表記
@@ -1735,7 +1737,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
-                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0);
 
         //お菓子のクリア基準値
         mazui_score = 30;

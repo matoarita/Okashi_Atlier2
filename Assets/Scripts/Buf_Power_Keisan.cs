@@ -24,6 +24,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _magic_rate;
     private int _magicLearnLv;
     private int _magic_kakuritsu;
+    private int _attri2;
 
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
@@ -419,6 +420,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magic_rate = 0;
         _magicLearnLv = magicskill_database.skillName_SearchLearnLevel(_magic_name);
         _magicid = magicskill_database.SearchSkillString(_magic_name);
+        _attri2 = GameMgr.UseMagic_ItemAttri2; //魔法使用時のitemselecttoggleで参照
 
         switch (_magic_name)
         {
@@ -445,6 +447,23 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case "Aroma_Potion":
 
                 _magic_rate = _magicLearnLv * 3;
+                break;
+
+            case "Wind_Ark":
+
+                Debug.Log("そのアイテムのAttri2: " + _attri2);
+                if (_attri2 < 3)
+                {
+                    _magic_rate = (int)(-5f * _attri2 * 1.5f); //重ね掛けするほど、確率が減っていく
+                }
+                else if (_attri2 >= 3 && _attri2 < 6)
+                {
+                    _magic_rate = (int)(-5f * _attri2 * 2.5f); //重ね掛けするほど、確率が減っていく
+                }
+                else if (_attri2 >= 6)
+                {
+                    _magic_rate = (int)(-5f * _attri2 * 3.0f); //重ね掛けするほど、確率が減っていく 6回以上はほぼ０
+                }
                 break;
         }
 
@@ -1555,12 +1574,21 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case "Wind_Ark":
 
-                if (_status == 1 || _status == 2)//ふわふわかなめらかのバフ
+                if (_status == 1)//ふわふわのバフ
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Wind_Ark");
-                    _magicup = (int)(_magicLearnLv * _baseparam * 0.1f);
+                    _magicup = (int)(_baseparam * (0.3f + _magicLearnLv * 0.2));
 
-                    Debug.Log("_baseparam * 0.1f" + " * " + "ウィンドアーク習得LV: " + _magicLearnLv);
+                    Debug.Log("_baseparam * (0.3f + ウィンドアーク習得LV * 0.2f) 習得LV: " + _magicLearnLv);
+                    Debug.Log("ウィンドアークの最終バフ: " + _magicup);
+                    _buf_shokukanup += _magicup;
+                }
+                if (_status == 2)//なめらかのバフ
+                {
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Wind_Ark");
+                    _magicup = (int)(_baseparam * (0.2f + _magicLearnLv * 0.15));
+
+                    Debug.Log("_baseparam * (0.2f + ウィンドアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
@@ -1597,7 +1625,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     }
 
     //魔法によって状態が変わる
-    public void Buf_OkashiAttribute_Magic(string _magicname, int _id)
+    public void Buf_OkashiAttribute_Magic(string _magicname, int _id, int _toggleType)
     {
         _magic_attri = 0;
 
@@ -1606,9 +1634,29 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             case "Cookie_SecondBake":
 
                 _magic_attri = 1; //二度焼きしたというフラグ
-                pitemlist.player_extremepanel_itemlist[_id].Attribute1 = _magic_attri;
+                if(_toggleType == 1)
+                {
+                    pitemlist.player_originalitemlist[_id].Attribute1 = _magic_attri;
+                }
+                else if (_toggleType == 2)
+                {
+                    pitemlist.player_extremepanel_itemlist[_id].Attribute1 = _magic_attri;
+                }
+                
                 break;
 
+            case "Wind_Ark":
+
+                _magic_attri = 1; //ウィンドアークかけた回数
+                if (_toggleType == 1)
+                {
+                    pitemlist.player_originalitemlist[_id].Attribute2 += _magic_attri;
+                }
+                else if (_toggleType == 2)
+                {
+                    pitemlist.player_extremepanel_itemlist[_id].Attribute2 += _magic_attri;
+                }              
+                break;
         }
     }
 

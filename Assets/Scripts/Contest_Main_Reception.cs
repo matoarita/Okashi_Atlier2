@@ -56,6 +56,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     private TimeController time_controller;
     private ContestListController contestListController;
+    private MoneyStatus_Controller moneyStatus_Controller;
 
     private GameObject mainlist_controller_obj;
     private GameObject contestList_ScrollView_obj;
@@ -142,6 +143,9 @@ public class Contest_Main_Reception : MonoBehaviour
 
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //お金オブジェクトの取得
+        moneyStatus_Controller = MoneyStatus_Controller.Instance.GetComponent<MoneyStatus_Controller>();
 
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
@@ -1047,6 +1051,9 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
             GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
 
+            //出場回数+1
+            conteststartList_database.conteststart_lists[_id].ContestFightsCount++;
+
             GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
             conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。           
 
@@ -1060,6 +1067,12 @@ public class Contest_Main_Reception : MonoBehaviour
             else if (GameMgr.Contest_BringType == 2) //素材持ち込み×
             {
                 pitemlist.Keep_PitemList(2);
+            }
+
+            //すぐコンテスト開始のときは、参加決定したので、このタイミングで参加費を支払う
+            if (GameMgr.System_Contest_StartNow)
+            {
+                moneyStatus_Controller.UseMoney(GameMgr.Contest_CostMoney);
             }
 
             Debug.Log("コンテスト本会場へ移動");
@@ -1282,6 +1295,9 @@ public class Contest_Main_Reception : MonoBehaviour
         GameMgr.hiroba_event_placeNum = 1000; //
 
         _contestname = GameMgr.contest_accepted_list[0].contestName;
+
+        _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[0].contestName);
+        GameMgr.Contest_BringType = conteststartList_database.conteststart_lists[_id].Contest_BringType;　//0=OK, 1=基本素材のみ, 2=全て不可
 
         //エデンコンのときは、セリフが変わる
         if (_contestname == "Or_Contest_002" || _contestname == "Or_Contest_003" || _contestname == "Or_Contest_004")

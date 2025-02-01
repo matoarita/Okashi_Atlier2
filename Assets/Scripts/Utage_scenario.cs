@@ -3269,6 +3269,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Fullmoon_Month", GameMgr.System_Fullmoon_month);
         engine.Param.TrySetParameter("Fullmoon_Day", GameMgr.System_Fullmoon_day);
         engine.Param.TrySetParameter("TrueHeartCost", GameMgr.System_trueheart_cost);
+        engine.Param.TrySetParameter("contest_bring_Type", GameMgr.Contest_BringType);
         engine.Param.TrySetParameter("Costume_Sukumizu_Flag", Costume_sukumizu_flag);
 
 

@@ -119,172 +119,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }*/
     }
 
-    //コンテスト名をいれると、そのコンテストを解禁する
-    public void contestHyoujiKaikin(string _name)
-    {
-        for (i = 0; i < conteststart_lists.Count; i++)
-        {
-            if (conteststart_lists[i].ContestName == _name)
-            {
-                conteststart_lists[i].Contest_Flag = 1;
-            }
-        }
-    }
-
-    //コンテストIDをいれると、そのコンテストのリストIDを返すメソッド
-    public int SearchContestID(int ID)
-    {
-        i = 0;
-        while (i < conteststart_lists.Count)
-        {
-            if (conteststart_lists[i].ContestID == ID)
-            {
-                return i;
-            }
-            i++;
-        }
-
-        return 9999; //見つからなかった場合、9999
-    }
-
-    //コンテストplace_numをいれると、そのコンテストのリストIDを返すメソッド
-    public int SearchContestPlaceNum(int ID)
-    {
-        i = 0;
-        while (i < conteststart_lists.Count)
-        {
-            if (conteststart_lists[i].Contest_placeNumID == ID)
-            {
-                return i;
-            }
-            i++;
-        }
-
-        return 9999; //見つからなかった場合、9999
-    }
-
-    //コンテスト名をいれると、そのコンテストのリストIDを返すメソッド
-    public int SearchContestString(string Name)
-    {
-        if (Name == "Non")
-        {
-            return 9999;
-        }
-        else
-        {
-            i = 0;
-            while (i < conteststart_lists.Count)
-            {
-                if (conteststart_lists[i].ContestName == Name)
-                {
-                    return i;
-                }
-                i++;
-            }
-
-            return 9999; //見つからなかった場合、9999
-        }
-    }
-
-    //コンテスト名をいれると、そのコンテストの受付フラグをONにする
-    public void SetContestAcceptedString(string _name)
-    {
-        i = 0;
-        while (i < conteststart_lists.Count)
-        {
-            if (conteststart_lists[i].ContestName == _name)
-            {
-                conteststart_lists[i].Contest_Accepted = 1;
-                break;
-            }
-            i++;
-        }
-    }
-
-    //コンテスト名とランキング順位を入れると、そのコンテストのこれまでの成績を更新する。より上位のものに置き換える
-    public void SetContestVictroyString(string _name, int _rank)
-    {
-        i = 0;
-        while (i < conteststart_lists.Count)
-        {
-            if (conteststart_lists[i].ContestName == _name)
-            {
-                if(conteststart_lists[i].ContestVictory != 0)
-                {
-                    if (conteststart_lists[i].ContestVictory > _rank)
-                    {
-                        conteststart_lists[i].ContestVictory = _rank;
-                        break;
-                    }
-                    else
-                    {
-                        break; //前回より順位が低かったので、更新せずbreak
-                    }
-                }
-                else
-                {
-                    conteststart_lists[i].ContestVictory = _rank;
-                    break;
-                }               
-            }
-            i++;
-        }
-
-        //デバッグ用
-        /*for(i=0; i< conteststart_lists.Count; i++)
-        {
-            Debug.Log("コンテスト順位: " + conteststart_lists[i].ContestNameHyouji + ": " + conteststart_lists[i].ContestVictory);
-        }*/
-    }
-
-    //これまでのコンテストの総出場回数を返す
-    public int ContestAllFightsCount()
-    {
-        i = 0;
-        fights_count = 0;
-
-        while (i < conteststart_lists.Count)
-        {
-            fights_count += conteststart_lists[i].ContestFightsCount;
-            i++;
-        }
-
-        return fights_count;
-    }
-
-    //ランクを入れると、それに合わせたグレードに表記を変換する
-    public string RankToGradeText(int _rank)
-    {
-        switch (_rank)
-        {
-            case 1:
-
-                return "★"; //優しい　一番簡単・ありふれたの意味
-                            //return "Gentle";　//優しい　一番簡単・ありふれたの意味
-
-            case 2:
-
-                return "★★";
-            //return "IPA-1"; //国際パティシエ協会の略
-
-            case 3:
-
-                return "★★★";
-            //return "G3";
-
-            case 4:
-
-                return "★★★★";
-            //return "G2";
-
-            case 5:
-
-                return "★★★★★";
-                //return "G1";
-        }
-
-        return "-"; //例外処理
-    }
+    
 
     //
     //コンテスト設定
@@ -1560,6 +1395,173 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
     //
 
+    //コンテスト名をいれると、そのコンテストを解禁する
+    public void contestHyoujiKaikin(string _name)
+    {
+        for (i = 0; i < conteststart_lists.Count; i++)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                conteststart_lists[i].Contest_Flag = 1;
+            }
+        }
+    }
+
+    //コンテストIDをいれると、そのコンテストのリストIDを返すメソッド
+    public int SearchContestID(int ID)
+    {
+        i = 0;
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestID == ID)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
+    }
+
+    //コンテストplace_numをいれると、そのコンテストのリストIDを返すメソッド
+    public int SearchContestPlaceNum(int ID)
+    {
+        i = 0;
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].Contest_placeNumID == ID)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
+    }
+
+    //コンテスト名をいれると、そのコンテストのリストIDを返すメソッド
+    public int SearchContestString(string Name)
+    {
+        if (Name == "Non")
+        {
+            return 9999;
+        }
+        else
+        {
+            i = 0;
+            while (i < conteststart_lists.Count)
+            {
+                if (conteststart_lists[i].ContestName == Name)
+                {
+                    return i;
+                }
+                i++;
+            }
+
+            return 9999; //見つからなかった場合、9999
+        }
+    }
+
+    //コンテスト名をいれると、そのコンテストの受付フラグをONにする
+    public void SetContestAcceptedString(string _name)
+    {
+        i = 0;
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                conteststart_lists[i].Contest_Accepted = 1;
+                break;
+            }
+            i++;
+        }
+    }
+
+    //コンテスト名とランキング順位を入れると、そのコンテストのこれまでの成績を更新する。より上位のものに置き換える
+    public void SetContestVictroyString(string _name, int _rank)
+    {
+        i = 0;
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                if (conteststart_lists[i].ContestVictory != 0)
+                {
+                    if (conteststart_lists[i].ContestVictory > _rank)
+                    {
+                        conteststart_lists[i].ContestVictory = _rank;
+                        break;
+                    }
+                    else
+                    {
+                        break; //前回より順位が低かったので、更新せずbreak
+                    }
+                }
+                else
+                {
+                    conteststart_lists[i].ContestVictory = _rank;
+                    break;
+                }
+            }
+            i++;
+        }
+
+        //デバッグ用
+        /*for(i=0; i< conteststart_lists.Count; i++)
+        {
+            Debug.Log("コンテスト順位: " + conteststart_lists[i].ContestNameHyouji + ": " + conteststart_lists[i].ContestVictory);
+        }*/
+    }
+
+    //これまでのコンテストの総出場回数を返す
+    public int ContestAllFightsCount()
+    {
+        i = 0;
+        fights_count = 0;
+
+        while (i < conteststart_lists.Count)
+        {
+            fights_count += conteststart_lists[i].ContestFightsCount;
+            i++;
+        }
+
+        return fights_count;
+    }
+
+    //ランクを入れると、それに合わせたグレードに表記を変換する
+    public string RankToGradeText(int _rank)
+    {
+        switch (_rank)
+        {
+            case 1:
+
+                return "★"; //優しい　一番簡単・ありふれたの意味
+                            //return "Gentle";　//優しい　一番簡単・ありふれたの意味
+
+            case 2:
+
+                return "★★";
+            //return "IPA-1"; //国際パティシエ協会の略
+
+            case 3:
+
+                return "★★★";
+            //return "G3";
+
+            case 4:
+
+                return "★★★★";
+            //return "G2";
+
+            case 5:
+
+                return "★★★★★";
+                //return "G1";
+        }
+
+        return "-"; //例外処理
+    }
+
     //支給品アイテム　あれば追加する処理　コンテスト後、削除される。
     public void AddContest_SurppliedItem()
     {
@@ -1612,6 +1614,22 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
 
         return total_count;
+    }
+
+    //名前を入れると、そのコンテストの最高順位を返す
+    public int SearchContestVictory(string _name)
+    {
+        i = 0;
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                return conteststart_lists[i].ContestVictory;
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
     }
 
     void Contest_SetStartTime()

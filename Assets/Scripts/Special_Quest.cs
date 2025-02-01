@@ -672,6 +672,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Or_Shop_D1", 1);
             matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
             matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
+
+            matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
         }
 
         if (_spquest_setnum >= 41)

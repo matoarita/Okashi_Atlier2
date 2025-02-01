@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class AddPlayerItemButton : MonoBehaviour {
 
+    private GameObject canvas;
+
     private ItemDataBase database;
 
     private PlayerItemList pitemlist;
@@ -19,6 +21,14 @@ public class AddPlayerItemButton : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        
+
+    }
+
+    void InitSetting()
+    {
+        //キャンバスの読み込み
+        canvas = GameObject.FindWithTag("Canvas");
 
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
@@ -26,9 +36,8 @@ public class AddPlayerItemButton : MonoBehaviour {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
-        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
     }
 
     // Update is called once per frame
@@ -39,33 +48,34 @@ public class AddPlayerItemButton : MonoBehaviour {
 
     public void OnClickAddSkillButton()
     {
-        
         Allitem_Add();
     }
 
     public void OnClickAddSkillButton2()
     {
+        InitSetting();
+
         //どんぐり追加
         pitemlist.addPlayerItem("emeralDongri", 5);
-        pitemlist.addPlayerItem("sapphireDongri", 5);
-
-        //基本アイテムのみ追加。
-        /*pitemlist.addPlayerItem("komugiko", 5);
-        pitemlist.addPlayerItem("butter", 5);
-        pitemlist.addPlayerItem("suger", 5);
-        pitemlist.addPlayerItem("orange", 5);
-        pitemlist.addPlayerItem("nuts", 5);
-
-        pitemlist.addPlayerItem("neko_cookie", 5);*/
-
-        //pitemlist.addOriginalItem("neko_cookie", 0, 0, 20, 5, 0.95f, 99, 99, 50, 30, 30, 0, 0, 0, 0, 0, 50, 50, 50, 20, 50, 50, "Orange", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 5, 3, 1);
+        pitemlist.addPlayerItem("sapphireDongri", 5);       
 
         pitemlistController.AddItemList();
+    }
 
+    public void OnClickAddSkillButton3()
+    {
+        InitSetting();
+
+        //ALLPotionのみ追加
+        pitemlist.addPlayerItem("ALL_potion", 5);
+
+        pitemlistController.AddItemList();
     }
 
     public void OnClickDeleteItem()
     {
+        InitSetting();
+
         //デバッグ用　すべてのアイテムを減らす。
         for (i = 0; i < database.items.Count; i++)
         {
@@ -85,8 +95,24 @@ public class AddPlayerItemButton : MonoBehaviour {
         pitemlistController.AddItemList();
     }
 
+    public void OnClickStarAdd()
+    {
+        //デバッグ用　スターを追加
+
+        PlayerStatus.player_ninki_param += 5;
+    }
+
+    public void OnClickStarDeg()
+    {
+        //デバッグ用　スターを追加
+
+        PlayerStatus.player_ninki_param -= 5;
+    }
+
     void Allitem_Add()
     {
+        InitSetting();
+
         /*rand = Random.Range(0, database.items[database.sheet_topendID[1]].itemID);
             _randID = database.items[rand].itemID;*/
 

@@ -1016,7 +1016,8 @@ public class Compound_Check : MonoBehaviour {
                 }
 
                 //CompNoの判定　CompNoは該当するCompoがある場合は、そこで新規生成。ない場合、失敗とはならず、元アイテムをresultItemにして新たに生成しなおし。
-                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo" || 
+                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo" ||
+                    magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Buf" ||
                     magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
                 {
                     //調合DBの判定が必要ない魔法の場合　元アイテムをresultItemにして、新たに生成しなおす。
@@ -1079,19 +1080,26 @@ public class Compound_Check : MonoBehaviour {
 
                         //魔法によって、仕上げ回数も消費する。
                         if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo" ||
+                            magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Buf" ||
                             magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
                         {
-                            GameMgr.Extreme_On = true;
-                            //CompNoのお菓子は、仕上げ回数が減る     
-
+                            
                             if (_compNo_check == 0)
                             {
                                 exp_Controller.Comp_method_bunki = 20;
+                                GameMgr.Extreme_On = true; //仕上げ回数が減る     
                             }
                             else if (_compNo_check == 1)
                             {
                                 //元アイテムの値を活かすための分岐に設定　トッピング処理と同じことをする
                                 exp_Controller.Comp_method_bunki = 22;
+                                GameMgr.Extreme_On = true; //CompNoのお菓子は、仕上げ回数が減る     
+                            }
+                            else if (_compNo_check == 2)
+                            {
+                                //元アイテムの値を活かすための分岐に設定　トッピング処理と同じことをする
+                                exp_Controller.Comp_method_bunki = 22;
+                                GameMgr.Extreme_On = false; //Bufは仕上げ回数減らない    
                             }
                         }
                         else
@@ -1431,6 +1439,13 @@ public class Compound_Check : MonoBehaviour {
                         resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
                         result_compoID = databaseCompo.SearchCompoIDString("Magic_CompNo_empty");
                         _compNo_check = 1; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。
+                        break;
+
+                    case "Buf":
+
+                        resultitemID = database.items[tempID_1].itemName; //元アイテムを指定
+                        result_compoID = databaseCompo.SearchCompoIDString("Magic_CompNo_empty");
+                        _compNo_check = 2; //compNoを通ったが、新規作成ではなく元アイテムをベースにトッピングする処理にする。ただし仕上げ回数は減らない。
                         break;
 
                     case "Abra": //アブタラカブタラで、ランダムでお菓子が生成される　自分が覚えてないやつがでる。全部覚えてる場合は、覚えてるものからランダム。

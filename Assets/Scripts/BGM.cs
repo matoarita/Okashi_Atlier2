@@ -84,6 +84,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound70;  //酒場BGM　秋のイメージ曲
     public AudioClip sound71;  //オランジーナ調合メインのBGM3
     public AudioClip sound72;  //オランジーナ調合メインのBGM4
+    public AudioClip sound73;  //大会コンテストのBGM エデンコンテスト2
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -754,6 +755,11 @@ public class BGM : MonoBehaviour {
                 _send_clip = sound46;
                 break;
 
+            case "sound73":
+
+                _send_clip = sound73;
+                break;
+
             default:
 
                 _send_clip = sound46;
@@ -1193,12 +1199,14 @@ public class BGM : MonoBehaviour {
 
     public void OnMainClearResultBGM()
     {
-        bgmController.BGMPlay(2, sound10);
+        //Debug.Log("メインクエストクリア　BGMON");
+        bgmController.BGMRestartPlay(2, sound10);
         bgmController.BGMVolume(2);
     }
 
     public void OnMainClearResultBGMOFF()
     {
+        //Debug.Log("メインクエストクリア　BGMOFF");
         bgmController.DoFadeBGM(2);
     }
 

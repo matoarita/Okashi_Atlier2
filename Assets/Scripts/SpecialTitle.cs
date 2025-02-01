@@ -40,6 +40,7 @@ public class SpecialTitle
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0,
                         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
-                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0);
     }
 }

@@ -368,10 +368,8 @@ public class ContestListSelectToggle : MonoBehaviour
                     itemselect_cancel.kettei_on_waiting = false;
                     //back_ShopFirst_btn.interactable = true;
 
-                    //お金支払い
-                    moneyStatus_Controller.UseMoney(conteststartList_database.conteststart_lists[_list].Contest_Cost);
-
-
+                    //お金支払い　コストを入れておく
+                    GameMgr.Contest_CostMoney = conteststartList_database.conteststart_lists[_list].Contest_Cost;                   
 
                     //ほかに受け付けてるコンテストがあった場合、全てキャンセルし、新しく一個が登録
                     for (i = 0; i < conteststartList_database.conteststart_lists.Count; i++)
@@ -391,20 +389,22 @@ public class ContestListSelectToggle : MonoBehaviour
                     GameMgr.Contest_listnum = _list;
                     GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
                     GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
-
-                    //出場回数+1
-                    conteststartList_database.conteststart_lists[_list].ContestFightsCount++;
+                    GameMgr.Contest_BringType = conteststartList_database.conteststart_lists[_list].Contest_BringType;　//0=OK, 1=基本素材のみ, 2=全て不可                   
 
                     //contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
                     contest_detailedPanel.SetActive(false);
                     contestList_ScrollView_obj.SetActive(false);
 
-                    //受付した時点で、宴のイベントが開始し、すぐに次の日の朝10時になりコンテスト開始
-                    if (!GameMgr.System_Contest_StartNow)
+                    //Trueのときは、受付した時点で、宴のイベントが開始し、すぐに次の日の朝10時になりコンテスト開始
+                    if (GameMgr.System_Contest_StartNow)
+                    {  }
+                    else
                     {
                         _text.text = GameMgr.ContestRep_text6; //
+                        moneyStatus_Controller.UseMoney(GameMgr.Contest_CostMoney); //すぐ開始でなければ、このタイミングで参加費を支払う
                     }
-                    GameMgr.Contest_ReadyToStart2 = true;
+
+                    GameMgr.Contest_ReadyToStart2 = true; //カメラを一回戻す処理
 
                     //FadeManager.Instance.LoadScene("Or_Contest_A1", GameMgr.SceneFadeTime); //デバッグ用
                 }
