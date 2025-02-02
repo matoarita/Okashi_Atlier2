@@ -1375,7 +1375,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {
                 case "True_of_Myheart":
 
-                    girleat_judge.UpDegHeart(-GameMgr.System_trueheart_cost, false); //ハートを消費するパターン;                    
+                    girleat_judge.UpDegHeart(-100, false); //ハートを消費するパターン;     //GameMgr.System_trueheart_cost               
                     break;
 
                 default:

@@ -1077,6 +1077,27 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }*/
 
+                //はじめてアイテムをとったときのイベントチェック さくら花びらとかは、GirlLoveEvent_numの影響うけるので、上でチェックしてる
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                {
+                }
+                else
+                {
+                    if (GameMgr.check_GetMat_flag)
+                    {
+                        if (GameMgr.GirlLoveSubEvent_stage1[401] == false) //はじめてブラックロータスをとってきた
+                        {
+                            if (pitemlist.KosuCount("sakura_chip") >= 1)
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[401] = true;
+                                GameMgr.GirlLoveSubEvent_num = 401;
+
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
+                            }
+                        }
+                    }
+                }
+
                 //調合後にチェック　はじめて、各特別なお菓子作ったイベント
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }

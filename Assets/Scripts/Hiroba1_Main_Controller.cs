@@ -3402,11 +3402,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.NPCHiroba_eventList[270] = true;
 
                         GameMgr.hiroba_event_ID = 100;
-                        //BGMかえる
-                        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                        //bgm_change_flag = true;
 
-                        matplace_database.ReSetMapFlagString("DreamEater_Swamp", 1); //ゆめくいぬま発見
+                        //BGMかえる
+                        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                        bgm_change_flag = true;
+
+                        //matplace_database.ReSetMapFlagString("DreamEater_Swamp", 1); //ゆめくいぬま発見
 
                         check_event = true;
                     }

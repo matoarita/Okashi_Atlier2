@@ -5001,7 +5001,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 100400:
 
-                //白クジラと女王様に会う
+                //白クジラと女王様に会う 白クジラは、ハートをエデン必要LVまであげて、夢喰い沼を教えてもらうまでが条件
                 if (GameMgr.NPCHiroba_eventList[1510] && GameMgr.NPCHiroba_eventList[270])
                 {
                     Debug.Log("白クジラと女王様と会う、クエストクリア");

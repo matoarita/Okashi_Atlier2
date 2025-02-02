@@ -2607,6 +2607,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         GameMgr.MapEvent_Or[450] = true;
 
+                        //顔アイコンも切り替え
+                        msg_window.Setting_WindowIcon(11); //いや顔
                         _text.text = "にいちゃん。なんかどろどろした沼～！！";
 
                         slot_view_status = 3; //イベント読み込み中用に退避                           
@@ -2622,6 +2624,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     }
                     else
                     {
+                        //顔アイコンも切り替え
+                        msg_window.Setting_WindowIcon(11); //いや顔
                         _text.text = "にいちゃん！" + "\n" + "なんかざわざわする～・・。";
                     }
                 }

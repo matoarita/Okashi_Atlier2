@@ -2295,11 +2295,6 @@ public class GetMaterial : MonoBehaviour
                 event_itemGet02(1);
                 break;
 
-            case 1:
-
-                event_itemGet01();
-                break;
-
             default:
 
                 if (!GameMgr.MapEvent_Or[210]) //夢喰い沼見つけたらもう出ない。      
@@ -2526,11 +2521,33 @@ public class GetMaterial : MonoBehaviour
 
             case "Emerald_Forest":
 
-                eventDict = new Dictionary<int, float>();
-                eventDict.Add(0, 70.0f); //採集
-                eventDict.Add(1, 15.0f); //20%でイベント発生
-                eventDict.Add(2, 10.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント　バードサンクチュアリ発見かお金拾うやつ
-                eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
+                if (GameMgr.NPCHiroba_eventList[270]) //白クジラに場所を教えてもらっている
+                {
+                    if (!GameMgr.MapEvent_Or[210]) //夢喰い沼発見前　ちょっと発見確率上がる     
+                    {
+                        eventDict = new Dictionary<int, float>();
+                        eventDict.Add(0, 50.0f); //採集
+                        eventDict.Add(1, 10.0f); //20%でイベント発生
+                        eventDict.Add(2, 35.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント　バードサンクチュアリ発見かお金拾うやつ
+                        eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
+                    }
+                    else
+                    {
+                        eventDict = new Dictionary<int, float>();
+                        eventDict.Add(0, 70.0f); //採集
+                        eventDict.Add(1, 15.0f); //20%でイベント発生
+                        eventDict.Add(2, 10.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント　バードサンクチュアリ発見かお金拾うやつ
+                        eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
+                    }
+                }
+                else
+                {
+                    eventDict = new Dictionary<int, float>();
+                    eventDict.Add(0, 70.0f); //採集
+                    eventDict.Add(1, 15.0f); //20%でイベント発生
+                    eventDict.Add(2, 10.0f + rare_event_kakuritsu_hosei); //発見力があがることで発生しやすくなるレアイベント　バードサンクチュアリ発見かお金拾うやつ
+                    eventDict.Add(3, 5.0f + (rare_event_kakuritsu_hosei * 0.3f)); //お宝発見
+                }
                 break;
 
             default:
