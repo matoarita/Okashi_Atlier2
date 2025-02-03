@@ -1351,23 +1351,31 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             GameMgr.Contest_afterHomeHeartUpFlag = false;
 
-                            if (GameMgr.contest_Disqualification || GameMgr.contest_Disqualification2) //失格だった場合はこっち
+                            if (GameMgr.contest_LimitTimeOver_After_flag) //時間過ぎて失格の場合はこっち
                             {
-                                if (GameMgr.contest_Disqualification)
-                                {
-                                    GameMgr.GirlLoveSubEvent_num = 1210;
-                                    GameMgr.SubEvAfterHeartGet_num = 210;
-                                }
-                                if (GameMgr.contest_Disqualification2)
-                                {
-                                    GameMgr.GirlLoveSubEvent_num = 1211;
-                                    GameMgr.SubEvAfterHeartGet_num = 210;
-                                }
+                                GameMgr.GirlLoveSubEvent_num = 1212;
+                                GameMgr.SubEvAfterHeartGet_num = 211;
                             }
                             else
                             {
-                                GameMgr.GirlLoveSubEvent_num = 1200;
-                                GameMgr.SubEvAfterHeartGet_num = 200;
+                                if (GameMgr.contest_Disqualification || GameMgr.contest_Disqualification2) //提出おかしが違って失格だった場合はこっち
+                                {
+                                    if (GameMgr.contest_Disqualification)
+                                    {
+                                        GameMgr.GirlLoveSubEvent_num = 1210;
+                                        GameMgr.SubEvAfterHeartGet_num = 210;
+                                    }
+                                    if (GameMgr.contest_Disqualification2)
+                                    {
+                                        GameMgr.GirlLoveSubEvent_num = 1211;
+                                        GameMgr.SubEvAfterHeartGet_num = 210;
+                                    }
+                                }
+                                else
+                                {
+                                    GameMgr.GirlLoveSubEvent_num = 1200;
+                                    GameMgr.SubEvAfterHeartGet_num = 200;
+                                }
                             }
                             
                             
@@ -1378,6 +1386,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.check_GirlLoveSubEvent_flag = false;
                             GameMgr.contest_Disqualification = false;
                             GameMgr.contest_Disqualification2 = false;
+                            GameMgr.contest_LimitTimeOver_After_flag = false;
                         }
                     }
                 }

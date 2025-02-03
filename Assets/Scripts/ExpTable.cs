@@ -177,6 +177,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     ShiageUpPanelHyouji();
                     break;
 
+                case 17:
+
+                    MagicUpPanelHyouji(1);
+                    break;
+
                 case 18:
 
                     MagicLearnPanelHyouji("Star_Blessing");
@@ -396,6 +401,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     {
         _namehyouji = magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(_magicname)].skillNameHyouji;        
         girlEat_judge.LvUpPanel6(_namehyouji);
+    }
+
+    void MagicUpPanelHyouji(int _mp)
+    {
+        PlayerStatus.player_maxmp += _mp;
+        girlEat_judge.LvUpPanel4(_mp);
     }
 
     //ハートLVアップ時にステータス上がる

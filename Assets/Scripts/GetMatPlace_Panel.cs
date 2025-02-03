@@ -938,61 +938,27 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     //時間が20時をこえないかチェック
                     if (GameMgr.TimeUSE_FLAG)
                     {
-                        if (GameMgr.Story_Mode == 0)
+                        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
                         {
-                            //_yosokutime = PlayerStatus.player_time + matplace_database.matplace_lists[_place_num].placeDay; //行きの時間だけ計算
-                            //_yosokutime = time_controller.YosokuMinuteToHour(matplace_database.matplace_lists[_place_num].placeDay);
-                            if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
+                            //20時を超えるので、妹に止められる。
+                            if (GameMgr.outgirl_Nowprogress)
                             {
-                                //20時を超えるので、妹に止められる。
-                                if (GameMgr.outgirl_Nowprogress)
-                                {
-                                    _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
-                                }
-                                else
-                                {
-                                    //顔アイコンも切り替え
-                                    msg_window.Setting_WindowIcon(12); //イヤ顔
-                                    _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
-                                }
-                                All_Off();
+                                _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
                             }
                             else
                             {
-                                KakuninPlace();
-                                break;
+                                //顔アイコンも切り替え
+                                msg_window.Setting_WindowIcon(12); //イヤ顔
+                                _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
                             }
+                            All_Off();
                         }
                         else
                         {
-                            //エクストラモードだと、19時以降は、採取地にはもう移動できない。
-                            if (GameMgr.BG_cullent_weather == 6)
-                            {
-                                if (matplace_database.matplace_lists[_place_num].placeType == 0)
-                                {
-                                    KakuninPlace();
-                                    break;
-                                }
-                                else
-                                {
-                                    //20時を超えるので、妹に止められる。
-                                    if (GameMgr.outgirl_Nowprogress)
-                                    {
-                                        _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
-                                    }
-                                    else
-                                    {
-                                        _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
-                                    }
-                                    All_Off();
-                                }
-                            }
-                            else
-                            {
-                                KakuninPlace();
-                                break;
-                            }
+                            KakuninPlace();
+                            break;
                         }
+
                     }
                     else
                     {
@@ -1008,7 +974,29 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     void KakuninPlace()
     {
+        if(matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba1_Roten" ||
+            matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba_Summer_SodaIsland" ||
+            matplace_database.matplace_lists[_place_num].placeName == "Or_HirobaEnter_Catsle")
+        {
+            //露店通り・ソーダアイランド・お城は、ヒカリがいないと行けない
+            if (GameMgr.outgirl_Nowprogress)
+            {
+                _text.text = "ヒカリがいないから、行ってもしょうがないな・・。";
+            }
+            else
+            {
+                KakuninPlaceCheck();
+            }
+        }
+        else
+        {
+            KakuninPlaceCheck();
+        }
+        
+    }
 
+    void KakuninPlaceCheck()
+    {
         //顔アイコンも切り替え
         msg_window.Setting_WindowIcon(5); //にっこり
 
@@ -1018,12 +1006,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
         else
         {
-            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行く？" + "\n" + "移動費用：" 
+            _text.text = matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ行く？" + "\n" + "移動費用："
                 + GameMgr.ColorYellow + matplace_database.matplace_lists[_place_num].placeCost.ToString() + GameMgr.MoneyCurrency + "</color>"
                 + "  " + "体力消費：" + GameMgr.ColorPink + matplace_database.matplace_lists[_place_num].placeHP + "</color>";
         }
 
-        
+
         GameMgr.Select_place_num = _place_num;
         GameMgr.Select_place_name = matplace_database.matplace_lists[_place_num].placeName;
         GameMgr.Select_place_day = matplace_database.matplace_lists[_place_num].placeDay;

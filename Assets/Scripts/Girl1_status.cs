@@ -29,6 +29,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
 
+    private PlayerItemList pitemlist;
+
     private SoundController sc;
 
     private Special_Quest special_quest;
@@ -302,6 +304,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //スペシャルクエストcsの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
+
+        //プレイヤー所持アイテムリストの取得
+        pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         // スロットの効果と点数データベースの初期化
         InitializeItemSlotDicts();
@@ -3062,7 +3067,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         case 3:
 
                             FaceMotionPlay(1017);
-                            _touchface_comment_lib.Add("にいちゃん。コンテストにでて、エデンのレシピさがそ～♪");
+                            if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
+                                pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
+                                pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
+                            {
+                                _touchface_comment_lib.Add("エデンの材料さがそ～。にいちゃん！");
+                            }
+                            else
+                            {
+                                _touchface_comment_lib.Add("にいちゃん。コンテストにでて、エデンのレシピさがそ～♪");
+                            }
                             break;
 
                         default:
@@ -4726,14 +4740,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //機嫌状態の処理
     public void GirlExpressionKoushin(int _param)
     {
-        if (_param >= 0)
-        {
-            PlayerStatus.player_girl_express_param += _param;
-        }
-        else
-        {
-            PlayerStatus.player_girl_express_param += _param;
-        }
+        //入れた数値分上昇する　マイナスなら減る
+        PlayerStatus.player_girl_express_param += _param;
 
         if (PlayerStatus.player_girl_express_param <= 0)
         {

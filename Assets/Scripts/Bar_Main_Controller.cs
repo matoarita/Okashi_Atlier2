@@ -643,7 +643,23 @@ public class Bar_Main_Controller : MonoBehaviour {
             GameMgr.System_BarQuestIcon_OnFlag = true;
         }
 
-        
+        if (!GameMgr.Or_ShopEvent_stage[140]) //はじめて酒場へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[140] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.bar_event_num = 1000;
+            GameMgr.bar_event_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num[10] = true;
+            //GameMgr.CompoundEvent_flag = true;
+        }
     }
 
     void EventCheck_OrD1()
@@ -707,9 +723,9 @@ public class Bar_Main_Controller : MonoBehaviour {
                     GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA; //0~2までを繰り返す。はず
 
                     //マッサージポイントで、マッサージしてくれるかどうか変わる
-                    if(GameMgr.NPC_pahupahu_point >= 10)
+                    if (GameMgr.NPC_pahupahu_point >= 10)
                     {
-                        GameMgr.sp_talk_number = 100;                        
+                        GameMgr.sp_talk_number = 100;
                     }
                     else
                     {
@@ -723,29 +739,10 @@ public class Bar_Main_Controller : MonoBehaviour {
                     break;
 
                 case "Or_Bar_C1": //アプリコットのお姉さん
-                   
-                    if (!GameMgr.Or_ShopEvent_stage[140]) //はじめて酒場へきた。
-                    {
-                        GameMgr.Or_ShopEvent_stage[140] = true;
 
-                        GameMgr.scenario_ON = true;
+                    GameMgr.talk_number = 3000;
+                    GameMgr.chara_talk_number = 0;
 
-                        GameMgr.bar_event_num = 1000;
-                        GameMgr.bar_event_flag = true;
-
-                        check_event = true;
-
-                        StartCoroutine("Scenario_loading");
-
-                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                        //GameMgr.CompoundEvent_num[10] = true;
-                        //GameMgr.CompoundEvent_flag = true;
-                    }else
-                    {
-                        GameMgr.talk_number = 3000;
-                        GameMgr.chara_talk_number = 0;
-
-                    }
                     break;
 
                 case "Or_Bar_D1":

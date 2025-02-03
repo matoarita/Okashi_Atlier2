@@ -688,20 +688,69 @@ public class Shop_Main_Controller : MonoBehaviour {
     {
         matplace_database.matPlaceKaikin("Or_Shop_B1"); //ショップ解禁
 
+        if (!GameMgr.Or_ShopEvent_stage[20]) //はじめてお店へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[20] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_event_num = 2000;
+            GameMgr.shop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num[0] = true;
+            //GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+        }
     }
 
     void EventCheck_OrC1()
     {
         matplace_database.matPlaceKaikin("Or_Shop_C1"); //ショップ解禁
 
-        
+        if (!GameMgr.Or_ShopEvent_stage[40]) //はじめてお店へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[40] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_event_num = 3000;
+            GameMgr.shop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num[0] = true;
+            //GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+        }
     }
 
     void EventCheck_OrD1()
     {
         matplace_database.matPlaceKaikin("Or_Shop_D1"); //ショップ解禁
 
-        
+        if (!GameMgr.Or_ShopEvent_stage[60]) //はじめてお店へきた。
+        {
+            GameMgr.Or_ShopEvent_stage[60] = true;
+
+            GameMgr.scenario_ON = true;
+
+            GameMgr.shop_event_num = 4000;
+            GameMgr.shop_event_flag = true;
+
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            //GameMgr.CompoundEvent_num[0] = true;
+            //GameMgr.CompoundEvent_flag = true;
+
+            check_event = true;
+
+            StartCoroutine("Scenario_loading");
+        }
     }
 
     public void OnCheck_1() //ショップ　アイテムを買う
@@ -751,27 +800,7 @@ public class Shop_Main_Controller : MonoBehaviour {
                     GameMgr.talk_number = 2000;
                     //日でランダムに話が切り替わる
                     GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
-
-                    if (!GameMgr.Or_ShopEvent_stage[20]) //はじめてお店へきた。
-                    {
-                        GameMgr.Or_ShopEvent_stage[20] = true;
-
-                        GameMgr.scenario_ON = true;
-
-                        GameMgr.shop_event_num = 2000;
-                        GameMgr.shop_event_flag = true;
-
-                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                        //GameMgr.CompoundEvent_num[0] = true;
-                        //GameMgr.CompoundEvent_flag = true;
-
-                        check_event = true;
-
-                        StartCoroutine("Scenario_loading");
-                    }
-                    else
-                    {  }
-
+                    
                     break;
 
                 case "Or_Shop_C1": //マダム・オペラのばあさん
@@ -779,28 +808,7 @@ public class Shop_Main_Controller : MonoBehaviour {
                     GameMgr.talk_number = 3000;
                     //日でランダムに話が切り替わる
                     GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
-
-                    if (!GameMgr.Or_ShopEvent_stage[40]) //はじめてお店へきた。
-                    {
-                        GameMgr.Or_ShopEvent_stage[40] = true;
-
-                        GameMgr.scenario_ON = true;
-
-                        GameMgr.shop_event_num = 3000;
-                        GameMgr.shop_event_flag = true;
-
-                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                        //GameMgr.CompoundEvent_num[0] = true;
-                        //GameMgr.CompoundEvent_flag = true;
-
-                        check_event = true;
-
-                        StartCoroutine("Scenario_loading");
-
-
-                    }
-                    else
-                    {  }
+                    
                     break;
 
                 case "Or_Shop_D1": //ピティヴィエさん
@@ -808,28 +816,7 @@ public class Shop_Main_Controller : MonoBehaviour {
                     GameMgr.talk_number = 4000;
                     //日でランダムに話が切り替わる
                     GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
-
-                    if (!GameMgr.Or_ShopEvent_stage[60]) //はじめてお店へきた。
-                    {
-                        GameMgr.Or_ShopEvent_stage[60] = true;
-
-                        GameMgr.scenario_ON = true;
-
-                        GameMgr.shop_event_num = 4000;
-                        GameMgr.shop_event_flag = true;
-
-                        //メイン画面にもどったときに、イベントを発生させるフラグをON
-                        //GameMgr.CompoundEvent_num[0] = true;
-                        //GameMgr.CompoundEvent_flag = true;
-
-                        check_event = true;
-
-                        StartCoroutine("Scenario_loading");
-
-
-                    }
-                    else
-                    { }
+                    
                     break;
             }
 

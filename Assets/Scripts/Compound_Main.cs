@@ -4086,15 +4086,26 @@ public class Compound_Main : MonoBehaviour
                         heartget_ON = true;
                         break;
 
-                    case 210: //コンテスト終了　失格だった場合
+                    case 210: //コンテスト終了　提出おかしが違って失格だった場合
 
 
                         _textmain.text = "ヒカリは励ましている！";
                         get_heart = 5;                        
 
-                        girl1_status.GirlExpressionKoushin(50);
+                        girl1_status.GirlExpressionKoushin(10);
 
                         heartget_ON = true;
+                        break;
+
+                    case 211: //コンテスト終了　時間がすぎて失格だった場合
+
+
+                        _textmain.text = "ヒカリは励ましている！";
+                        get_heart = 0;
+
+                        girl1_status.GirlExpressionKoushin(10);
+
+                        heartget_ON = false;
                         break;
                 }
 
@@ -4315,10 +4326,17 @@ public class Compound_Main : MonoBehaviour
         moneyStatus_Controller.UseMoney(GameMgr.Foodexpenses);
 
         //腹が回復する。
-        if (PlayerStatus.player_girl_manpuku <= 20)
+        if (GameMgr.System_Manpuku_ON)
         {
-            PlayerStatus.player_girl_manpuku = 10;
+            if (PlayerStatus.player_girl_manpuku <= 20)
+            {
+                PlayerStatus.player_girl_manpuku = 10;
+            }
         }
+        else
+        {
+            PlayerStatus.player_girl_manpuku = 50; //満腹機能使ってないときは、常に50を保つ。
+        }       
 
         //寝たらスリープフラグもOFFに。
         GameMgr.Sleep_CheckEnd = false;
