@@ -885,6 +885,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_MainStoryPlaceNum; //そのときにいく会場場所
     public static int Compo_FinalCostTime; //バフも計算したあとの、最終の調合にかかる時間
     public static bool System_PoolEnd; //プールに入り終わったフラグ
+    public static bool QuestClearButton_EnshutuStart; //クエストクリアボタン演出が始まったフラグ
 
 
     //セリフ関連の一時変数
@@ -1478,6 +1479,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_BGMON = false;
         Contest_PanelON = false;
         System_PoolEnd = false;
+        QuestClearButton_EnshutuStart = false;
         Contest_MainStoryPlaceNum = 0;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)

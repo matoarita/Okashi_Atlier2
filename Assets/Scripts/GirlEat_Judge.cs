@@ -3576,7 +3576,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 if (_lovecounter >= _slider.maxValue)
                 {
                     PlayerStatus.girl1_Love_lv++;     
-                    if(PlayerStatus.girl1_Love_maxlv <= PlayerStatus.girl1_Love_lv) //maxlvの上限更新
+                    if(PlayerStatus.girl1_Love_maxlv < PlayerStatus.girl1_Love_lv) //maxlvの上限更新
                     {
                         PlayerStatus.girl1_Love_maxlv = PlayerStatus.girl1_Love_lv;
                     }
@@ -3669,10 +3669,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //リセット
         Getlove_exp = 0;
 
-        //好感度によって発生するサブイベントがないかチェック
-        GameMgr.check_GirlLoveSubEvent_flag = false;
+        if (GameMgr.QuestClearButton_EnshutuStart) { } //ボタン演出中は、チェックがなくなる
+        else
+        {
+            //好感度によって発生するサブイベントがないかチェック
+            GameMgr.check_GirlLoveSubEvent_flag = false;
+        }
 
-        //エクストラモード　ハート判定
+        //クエストクリアチェック
         HeartUpQuestBunkiCheck();
     }
 
@@ -4292,6 +4296,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //
     IEnumerator QuestClearStart()
     {
+        //ボタン演出が始まる瞬間から、その他のサブイベント発生などは一時オフ
+        GameMgr.check_GirlLoveSubEvent_flag = true; //サブイベントが発生するかをチェック
+        GameMgr.check_GirlLoveTimeEvent_flag = true;
+        GameMgr.QuestClearButton_EnshutuStart = true;
+
         //触れなくなる
         compound_Main.WindowOn(); //ウィンドウは表示
         Touch_WindowInteractOFF(); //その後触れなくする。
@@ -4358,6 +4367,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             QuestClearMethod(); //次のSPクエストを開始
 
             ResetResult();
+
+            GameMgr.QuestClearButton_EnshutuStart = false;
         }
 
     }
@@ -4371,10 +4382,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.QuestClearButton_anim = true;
         //Debug.Log("_listlvup_obj.Count: " + _listlvup_obj.Count);
         HeartLvUpPanel_obj.SetActive(false);
-        /*for (i = 0; i < _listlvup_obj.Count; i++)
-        {
-            _listlvup_obj[i].SetActive(false);
-        }*/
 
         canvas.SetActive(true);
         stageclear_panel.SetActive(true);
@@ -4393,6 +4400,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         stageclear_panel.transform.Find("ClearButton_Effect").gameObject.SetActive(false);
 
         GameMgr.QuestClearflag = true;
+        GameMgr.QuestClearButton_EnshutuStart = false;
 
         //お菓子の判定処理を終了
         EndCompJudge();
@@ -4405,13 +4413,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //まだレベルアップパネルステータス開いてたらONにする。
         HeartLvUpPanel_obj.SetActive(true);
-        /*for (i = 0; i < _listlvup_obj.Count; i++)
-        {
-            if (_listlvup_obj[i].GetComponent<GirlLoveLevelUpPanel>().OnPanelflag)
-            {
-                _listlvup_obj[i].SetActive(true);
-            }
-        }*/
     }
 
 

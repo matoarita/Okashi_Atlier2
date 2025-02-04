@@ -456,13 +456,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 {
                     _magic_rate = (int)(-5f * _attri2 * 1.5f); //重ね掛けするほど、確率が減っていく
                 }
-                else if (_attri2 >= 3 && _attri2 < 6)
+                else if (_attri2 >= 3 && _attri2 < 4)
                 {
-                    _magic_rate = (int)(-5f * _attri2 * 2.5f); //重ね掛けするほど、確率が減っていく
+                    _magic_rate = (int)(-5f * _attri2 * 3.0f); //重ね掛けするほど、確率が減っていく
+                }
+                else if (_attri2 >= 4 && _attri2 < 6)
+                {
+                    _magic_rate = (int)(-5f * _attri2 * 3.5f); //重ね掛けするほど、確率が減っていく
                 }
                 else if (_attri2 >= 6)
                 {
-                    _magic_rate = (int)(-5f * _attri2 * 3.0f); //重ね掛けするほど、確率が減っていく 6回以上はほぼ０
+                    _magic_rate = (int)(-5f * _attri2 * 4.0f); //重ね掛けするほど、確率が減っていく 6回以上はほぼ０
                 }
                 break;
         }
@@ -1530,8 +1534,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
 
     //特定の魔法で、バフをかける処理
-    //魔法の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK
-    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname)
+    //魔法の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK  各アトリは必要に応じて要素数増やす
+    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname, int _attri2)
     {
 
         _buf_shokukanup = 0;
@@ -1577,18 +1581,37 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 if (_status == 1)//ふわふわのバフ
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Wind_Ark");
-                    _magicup = (int)(_baseparam * (0.3f + _magicLearnLv * 0.2));
 
-                    Debug.Log("_baseparam * (0.3f + ウィンドアーク習得LV * 0.2f) 習得LV: " + _magicLearnLv);
+                    if (_attri2 < 3) //重ね掛け2回までだと効果が小さい
+                    {
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.1f)); //大体元値の1.2倍
+                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
+                    }
+                    else
+                    {    //3回以上重ね掛けするとき、効果が大きくなる                    
+                        _magicup = (int)(_baseparam * (0.3f + _magicLearnLv * 0.2f)); //大体元値の1.5倍
+                        Debug.Log("_baseparam * (0.3f + ウィンドアーク習得LV * 0.2f) 習得LV: " + _magicLearnLv);
+                    }
+
+                    
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
                 if (_status == 2)//なめらかのバフ
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Wind_Ark");
-                    _magicup = (int)(_baseparam * (0.2f + _magicLearnLv * 0.15));
 
-                    Debug.Log("_baseparam * (0.2f + ウィンドアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
+                    if (_attri2 < 3) //重ね掛け2回までだと効果が小さい
+                    {
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.05f)); //大体元値の1.15倍
+                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.05f) 習得LV: " + _magicLearnLv);
+                    }
+                    else
+                    {    //3回以上重ね掛けするとき、効果が大きくなる 
+                        _magicup = (int)(_baseparam * (0.2f + _magicLearnLv * 0.15f)); //1.35倍
+                        Debug.Log("_baseparam * (0.2f + ウィンドアーク習得LV * 0.15f) 習得LV: " + _magicLearnLv);
+                    }
+                                                               
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
@@ -1600,7 +1623,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 {
                     if (_status != 5) //ただし、見た目はバフを無視。
                     {
-                        _magicup = (int)(_baseparam * (1.0f + magicskill_database.skillName_SearchLearnLevel("Warming_Handmade") * 0.1));
+                        _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Warming_Handmade");
+                        _magicup = (int)(_baseparam * (0.2f + _magicLearnLv * 0.05f));
+
+                        Debug.Log("_baseparam * (0.2f + 手作りの温もり習得LV * 0.05f) 習得LV: " + _magicLearnLv); //大体1.3倍
+                        Debug.Log("手作りの温もりの最終バフ: " + _magicup);
                         _buf_shokukanup += _magicup;
                     }
                 }

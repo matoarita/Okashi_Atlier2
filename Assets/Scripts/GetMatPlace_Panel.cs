@@ -1867,7 +1867,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 GameMgr.Select_place_num = matplace_database.SearchMapString(GameMgr.Select_place_name); //次回より、「外へでる」ですぐ行けるよう、フラグ解放
                 break;
 
-            case 210: //ゆめくい沼を発見
+            case 450: //ゆめくい沼を発見
 
                 GameMgr.Select_place_name = "DreamEater_Swamp"; //移動後の場所を指定
                 GameMgr.Select_place_num = matplace_database.SearchMapString(GameMgr.Select_place_name); //次回より、「外へでる」ですぐ行けるよう、フラグ解放

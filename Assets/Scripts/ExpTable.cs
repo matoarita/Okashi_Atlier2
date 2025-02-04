@@ -91,7 +91,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 	}
 
     //ハートレベルに応じてスキルを覚えるパターン Girl_Eat_Judgeかデバッグパネルから読む。
-    public void SkillCheckHeartLV(int _nowlevel, int _status)
+    public void SkillCheckHeartLV(int _maxlevel, int _status)
     {
         //_status = 0 実際に仕上げ回数を増やす　1は、パネルの表示のみ
         _mstatus = _status;
@@ -107,11 +107,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         if (_mstatus == 0)
         {
-            SkillLVCheck(_nowlevel);
+            SkillLVCheck(_maxlevel);
         }
         else if (_mstatus == 1)
         {
-            switch (_nowlevel)
+            switch (_maxlevel)
             {
                 case 2:
           
@@ -615,9 +615,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         //
     }
 
-    //更新後のHeartExpをいれると、現在のHLVに再計算する
+    //更新後のHeartExpをいれると、現在のHLVに再計算する　Girleat_judgeから読み出し
     public void HeartLVKoushin()
     {
+        now_level = PlayerStatus.girl1_Love_lv; //MaxLVではなく、一時的にMaxより下がってる可能性があるので、それを考慮してこんな入れ方に。
+
+        //**再計算**//
         i = 0;
         PlayerStatus.girl1_Love_lv = 1;
         while (PlayerStatus.girl1_Love_exp >= stage1_hlvTable[i])
@@ -626,9 +629,34 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             PlayerStatus.girl1_Love_lv++;
             i++;
         }
-        if (PlayerStatus.girl1_Love_maxlv <= PlayerStatus.girl1_Love_lv) //maxlvの上限更新
+        //**  **//
+
+        if (now_level < PlayerStatus.girl1_Love_lv)
+        {
+            //レベルアップ時のパネルも表示
+            girlEat_judge.LvUpPanel1();
+        }
+
+        //スキルチェックは、MaxLVを更新したときだけ
+        if (PlayerStatus.girl1_Love_maxlv < PlayerStatus.girl1_Love_lv) //maxlvの上限更新
         {
             PlayerStatus.girl1_Love_maxlv = PlayerStatus.girl1_Love_lv;
+
+            //ステータスもチェック
+            
+            //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
+            SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 1); //2番目が1だと、パネルの表示
+            SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
+                                                                           //exp_table.SkillCheckPatissierLV();
+
+            //ステータスもランダムであがる。
+            StatusUp(); //
+
+            //好感度によって発生するサブイベントがないかチェック
+            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+            //お菓子以外で、条件を満たしていないかクエストクリアチェック
+            girlEat_judge.ExtraSPQuestClearCheck();
         }
 
         //

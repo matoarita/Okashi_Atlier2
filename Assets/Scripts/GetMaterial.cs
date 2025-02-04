@@ -2133,7 +2133,7 @@ public class GetMaterial : MonoBehaviour
                 //顔アイコンも切り替え
                 msg_window.Setting_WindowIcon(11); //きもちわるい顔
 
-                random_param = Random.Range(10, 100);
+                random_param = Random.Range(10, 50);
                 PlayerStatus.girl1_Love_exp -= random_param;
                 _text.text = "..。　にいちゃん..。ちょっときもちわるい..。" + "\n" +
                     "ハートが " + GameMgr.ColorCyan + random_param + " </color> " + "下がった..。";
@@ -2297,7 +2297,7 @@ public class GetMaterial : MonoBehaviour
 
             default:
 
-                if (!GameMgr.MapEvent_Or[210]) //夢喰い沼見つけたらもう出ない。      
+                if (!GameMgr.MapEvent_Or[450]) //夢喰い沼見つけたらもう出ない。      
                 {
                     if (GameMgr.NPCHiroba_eventList[270]) //白クジラに場所を教えてもらっている
                     {
@@ -2306,7 +2306,7 @@ public class GetMaterial : MonoBehaviour
 
                         //夢喰い沼を発見
                         _text.text = "にいちゃん！！ なんか抜け道があるよ？";
-                        getmatplace_panel.next_flag = 210;
+                        getmatplace_panel.next_flag = 450;
                         NextButton_obj.SetActive(true);
                     }
                     else
@@ -2523,7 +2523,7 @@ public class GetMaterial : MonoBehaviour
 
                 if (GameMgr.NPCHiroba_eventList[270]) //白クジラに場所を教えてもらっている
                 {
-                    if (!GameMgr.MapEvent_Or[210]) //夢喰い沼発見前　ちょっと発見確率上がる     
+                    if (!GameMgr.MapEvent_Or[450]) //夢喰い沼発見前　ちょっと発見確率上がる     
                     {
                         eventDict = new Dictionary<int, float>();
                         eventDict.Add(0, 50.0f); //採集
