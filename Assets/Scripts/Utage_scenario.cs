@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Utage;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -98,6 +99,7 @@ public class Utage_scenario : MonoBehaviour
     private bool resipi_getflag_afteritemuse; //アイテム途中で使う場合、pauseを一回拾うので、そのあとでフラグたつようにする。
     private bool bgm_changeflag; //宴の途中で選択肢をはいにしたときに、そのタイミングでゲームのBGMと宴BGMを切り替える
     private int pause_or_endnum;
+    private bool omoide_flag;
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -3060,12 +3062,19 @@ public class Utage_scenario : MonoBehaviour
 
                 scenarioLabel = "Or_NPC105_park_kanransha";
                 bgm_changeflag = true;
+               
+                omoide_flag = GameMgr.SearchHikariOmoideFlag("event_kanransha");
+                //Debug.Log("観覧車イベントフラグ: " + omoide_flag);
+                engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
                 break;
 
             case 1570: //Or遊園地プール
 
                 scenarioLabel = "Or_NPC106_park_pool";
                 bgm_changeflag = true;
+
+                omoide_flag = GameMgr.SearchHikariOmoideFlag("event_pool");
+                engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
 
                 //すく水持ってるかどうか
                 if (pitemlist.KosuCountEmerald("Sukumizu_Costume") >= 1)
@@ -3271,6 +3280,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("TrueHeartCost", GameMgr.System_trueheart_cost);
         engine.Param.TrySetParameter("contest_bring_Type", GameMgr.Contest_BringType);
         engine.Param.TrySetParameter("Costume_Sukumizu_Flag", Costume_sukumizu_flag);
+        engine.Param.TrySetParameter("magic_lvpoint", GameMgr.System_MagicLVPoint);
 
 
         Debug.Log("scenarioLabel: " + scenarioLabel);
@@ -3662,6 +3672,12 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(1000);
+                        omoide_flag = GameMgr.SearchHikariOmoideFlag("event_kanransha");
+                        if(!omoide_flag)
+                        {
+                            GameMgr.SetHikariOmoideFlag("event_kanransha", true);
+                            //Debug.Log("イベント観覧車　思い出フラグをTrue");
+                        }
                         break;
 
                 }
@@ -3679,6 +3695,12 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(3000);
+                        omoide_flag = GameMgr.SearchHikariOmoideFlag("event_pool");
+                        if (!omoide_flag)
+                        {
+                            GameMgr.SetHikariOmoideFlag("event_pool", true);
+                            //Debug.Log("イベント観覧車　思い出フラグをTrue");
+                        }
                         break;
 
                 }

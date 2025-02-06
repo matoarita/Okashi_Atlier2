@@ -94,6 +94,7 @@ public class MagicSkillListController : MonoBehaviour
         if (this.gameObject.name == "MagicSkillList_ScrollView")
         {
             player_patissierjob_panel = this.transform.Find("PlayerJobPanel").gameObject;
+            player_patissierjob_panel.transform.Find("text_magicLVName").GetComponent<Text>().text = GameMgr.System_MagicLVPoint;
             player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
             player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
             player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();

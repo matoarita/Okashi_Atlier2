@@ -1881,22 +1881,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //食べたお菓子のスコアを保存する。
                 GameMgr.Okashi_last_totalscore = total_score;
 
-                //食べた後、２５０点以上で特定のお菓子の場合、ヒカリとの特別イベントが発生
-                if (total_score >= GameMgr.high_score_3) //ゲーム中に250点以上でた
+                //食べた後、〇〇点以上で特定のお菓子の場合、ヒカリとの特別イベントが発生
+                if (total_score >= GameMgr.sp_omoide_high_score)
                 {
                     foreach(string items in GameMgr.Highscore_SPEventlist.Keys)
                     {
                         if (_basename == items)
                         {
                             //さらに思い出イベントリストをチェックし、一致するおかしの名前があれば、そのイベントは思い出イベントでもあるので、回想シーン用にフラグ解禁する
-                            foreach (string items2 in GameMgr.HikariOmoide_Eventlist.Keys)
-                            {
-                                if (items == items2)
-                                {
-                                    GameMgr.HikariOmoide_Eventlist[items2] = true;
-                                    break;
-                                }
-                            }
+                            GameMgr.SetHikariOmoideFlag(items, true);
 
                             GameMgr.SpecialSubevent_EatAfterflag = true;
                             GameMgr.SpecialSubevent_Num = GameMgr.Highscore_SPEventlist[items];

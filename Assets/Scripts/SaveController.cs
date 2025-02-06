@@ -7,6 +7,9 @@ using System; //DateTimeを使用する為追加。
 
 public class SaveController : SingletonMonoBehaviour<SaveController>
 {
+    //**注意**//
+    //Dictionaryは、このSaveスクリプトでは、そのままコピーしたり保存することができない。
+    //ItemSaveFlagなどのクラスを使って、Listで保存すること！**//
 
     //保存するものリスト
     //☆GameMgrのパラメータ全般。シナリオ・イベントのフラグ類
@@ -49,8 +52,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveCompoFlag> _temp_cmpflaglist = new List<ItemSaveCompoFlag>();
     private List<ItemSaveKosu> _tempmap_placeflaglist = new List<ItemSaveKosu>();
     private List<ItemSaveFlag> _temp_shopzaiko = new List<ItemSaveFlag>();
-    //private List<ItemSaveKosu> _temp_farmzaiko = new List<ItemSaveKosu>();
-    //private List<ItemSaveKosu> _temp_emeraldshop_zaiko = new List<ItemSaveKosu>();
     private List<ItemSaveparam> _temp_itemscorelist = new List<ItemSaveparam>();
     private List<ItemSaveFlag> _temp_titlecollectionlist = new List<ItemSaveFlag>();
     private List<ItemSaveFlag> _temp_eventcollectionlist = new List<ItemSaveFlag>();
@@ -60,6 +61,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<Item> _temp_contestclearcollectionlistItemData = new List<Item>();
     private List<ItemSaveFlag> _temp_magicskill_list = new List<ItemSaveFlag>();
     private List<ContestSaveList> _temp_contestdatabase_list = new List<ContestSaveList>();
+    private List<ItemSaveFlag> _temp_HikariOmoide_Eventlist = new List<ItemSaveFlag>();
 
     private GameObject character_root;
     private GameObject character_move;
@@ -71,6 +73,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private int _itemID;
     private string _saveslotname;
     private string _loadslotname;
+    private string _name;
 
     // Use this for initialization
     void Start () {
@@ -175,19 +178,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 0, 0, 0, false));
         }
 
-        //牧場の在庫のみ取得
-        /*_temp_farmzaiko.Clear();
-        for (i = 0; i < shop_database.farmitems.Count; i++)
+        //思い出イベントのリスト
+        _temp_HikariOmoide_Eventlist.Clear();
+        foreach (string items in GameMgr.HikariOmoide_Eventlist.Keys)
         {
-            _temp_farmzaiko.Add(new ItemSaveKosu(shop_database.farmitems[i].shop_itemName, shop_database.farmitems[i].shop_itemzaiko,0));
+            _temp_HikariOmoide_Eventlist.Add(new ItemSaveFlag(items, 0, 0, 0, 0, 0, GameMgr.HikariOmoide_Eventlist[items]));
         }
-
-        //エメラルドショップの在庫のみ取得
-        _temp_emeraldshop_zaiko.Clear();
-        for (i = 0; i < shop_database.emeraldshop_items.Count; i++)
-        {
-            _temp_emeraldshop_zaiko.Add(new ItemSaveKosu(shop_database.emeraldshop_items[i].shop_itemName, shop_database.emeraldshop_items[i].shop_itemzaiko, 0));
-        }*/
 
         //背景アイテムの表示フラグリスト
         _temp_bgacce_flaglist.Clear();
@@ -498,8 +494,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ショップの在庫
             save_shopzaiko = _temp_shopzaiko,
-            //save_farmzaiko = _temp_farmzaiko,
-            //save_emeraldshop_zaiko = _temp_emeraldshop_zaiko,
 
             //酒場のイベントリスト
             save_BarEvent_stage = GameMgr.BarEvent_stage,
@@ -514,7 +508,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_System_WhiteMemo_text = GameMgr.System_WhiteMemo_text,
 
             //思い出リスト保存
-            save_HikariOmoide_Eventlist = new Dictionary<string, bool>(GameMgr.HikariOmoide_Eventlist),
+            save_HikariOmoide_Eventlist = _temp_HikariOmoide_Eventlist,
             save_HikariOmoide_Count = GameMgr.HikariOmoide_Count,
 
             //コンテスト審査員の点数
@@ -959,11 +953,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //白紙のメモ保存
         GameMgr.System_WhiteMemo_text = playerData.save_System_WhiteMemo_text;
-
-        //思い出リスト保存
-        GameMgr.HikariOmoide_Eventlist = new Dictionary<string, bool>(playerData.save_HikariOmoide_Eventlist);
-        GameMgr.HikariOmoide_Count = playerData.save_HikariOmoide_Count;
-
+        
         //コンテスト審査員の点数
         GameMgr.contest_Score = playerData.save_contest_Score;
         GameMgr.contest_TotalScore = playerData.save_contest_TotalScore;
@@ -1131,14 +1121,20 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             shop_database.ReSetShopItemIDZaiko(playerData.save_shopzaiko[i].Param, playerData.save_shopzaiko[i].Param2);
         }
-        /*for (i = 0; i < playerData.save_farmzaiko.Count; i++)
+
+        //思い出リスト保存
+        for (i = 0; i < playerData.save_HikariOmoide_Eventlist.Count; i++)
         {
-            shop_database.ReSetFarmItemString(playerData.save_farmzaiko[i].itemName, playerData.save_farmzaiko[i].itemKosu);
+            _name = playerData.save_HikariOmoide_Eventlist[i].itemName;
+            if (GameMgr.HikariOmoide_Eventlist.ContainsKey(_name))
+            {
+                GameMgr.HikariOmoide_Eventlist[_name] = playerData.save_HikariOmoide_Eventlist[i].Flag;
+                Debug.Log("思い出イベントフラグ　読み込み: " + _name + " " + playerData.save_HikariOmoide_Eventlist[i].Flag);
+            }
+            //Keyが無かった場合は、無視
+            else { }
         }
-        for (i = 0; i < playerData.save_emeraldshop_zaiko.Count; i++)
-        {
-            shop_database.ReSetEmeraldItemString(playerData.save_emeraldshop_zaiko[i].itemName, playerData.save_emeraldshop_zaiko[i].itemKosu);
-        }*/
+        GameMgr.HikariOmoide_Count = playerData.save_HikariOmoide_Count;
 
         //魔法スキルリストの読み込み
         for (i = 0; i < playerData.save_magicskill_list.Count; i++)

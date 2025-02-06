@@ -122,6 +122,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_PStatusName2 = "早さ";
     public static string System_PStatusName3 = "ちえ";
 
+    public static string System_MagicLVPoint = "ジョブポイント";
+
     //真実のハートのハート消費量
     public static int System_trueheart_cost = 3000;
 
@@ -573,7 +575,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int low_score;
     public static int high_score;
     public static int high_score_2;
-    public static int high_score_3;
+    public static int sp_omoide_high_score;
 
     //水っぽさなどの基準値
     public static int Watery_Line;
@@ -1747,7 +1749,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         low_score = 60;
         high_score = 100;
         high_score_2 = 150;
-        high_score_3 = 250; //お菓子の高得点で思い出イベントが発生する点数
+        sp_omoide_high_score = 150; //お菓子の高得点で思い出イベントが発生する点数
 
         //水っぽさなどのマイナス効果の基準
         Watery_Line = 50;
@@ -2223,6 +2225,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         else { }
     }
 
+    
+
     //各サブイベントのNPCのお菓子判定番号
     public static void InitSubNPCEvent_OkashiJudgeLibrary()
     {
@@ -2291,9 +2295,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         Highscore_SPEventlist.Clear();
 
-        Highscore_SPEventlist.Add("huwakoro", 220); //右の番号は、GirlLoveSubEvent_numの番号
-        Highscore_SPEventlist.Add("maritozzo", 221);
-        Highscore_SPEventlist.Add("strawberry_sponge_cake", 222);
+        Highscore_SPEventlist.Add("huwakoro", 250); //右の番号は、GirlLoveSubEvent_numの番号
+        Highscore_SPEventlist.Add("maritozzo", 251);
+        Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない
@@ -2301,9 +2305,40 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         HikariOmoide_Eventlist.Clear();
 
-        HikariOmoide_Eventlist.Add("huwakoro", false); //右の番号は、GirlLoveSubEvent_numの番号
+        HikariOmoide_Eventlist.Add("huwakoro", false); //
         HikariOmoide_Eventlist.Add("maritozzo", false);
         HikariOmoide_Eventlist.Add("strawberry_sponge_cake", false);
+
+        HikariOmoide_Eventlist.Add("event_kanransha", false);
+        HikariOmoide_Eventlist.Add("event_pool", false);
+    }
+
+    //思い出イベントの現在のフラグを取得
+    public static bool SearchHikariOmoideFlag(string _name)
+    {
+        foreach (string items in HikariOmoide_Eventlist.Keys)
+        {
+            //Debug.Log("思い出イベントフラグ取得中: " + items);
+            if (items == _name)
+            {
+                return HikariOmoide_Eventlist[items];
+            }
+        }
+
+        return false;
+    }
+
+    //思い出イベントのフラグをセット
+    public static void SetHikariOmoideFlag(string _name, bool _flag)
+    {
+        //Debug.Log("思い出イベントフラグセットの処理入る");
+        if (HikariOmoide_Eventlist.ContainsKey(_name))
+        {
+            HikariOmoide_Eventlist[_name] = _flag;
+            Debug.Log("思い出イベントフラグをセット: " + _name + " " + HikariOmoide_Eventlist[_name]);
+        }
+        //Keyが無かった場合は、無視
+        else { }
     }
 
     //はじめて作ったお菓子のイベントリスト
@@ -2317,6 +2352,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiAtFirst_eventlist.Add("lumi_sapphire_suger", 202);
         OkashiAtFirst_eventlist.Add("a_ChocolateTwister", 203);
         OkashiAtFirst_eventlist.Add("ice_statue_twister", 204);
+        OkashiAtFirst_eventlist.Add("potion_blacklotus", 205);
+        OkashiAtFirst_eventlist.Add("cream_row_dream", 206);
+        OkashiAtFirst_eventlist.Add("appaleil_mixer_black", 207);
+        OkashiAtFirst_eventlist.Add("eden_unfinished", 208);
+        OkashiAtFirst_eventlist.Add("Eden", 209);
     }
 
     //温度管理をかけるお菓子のリスト SubTypeを記入する

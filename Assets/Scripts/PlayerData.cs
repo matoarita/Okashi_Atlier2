@@ -271,8 +271,6 @@ public class PlayerData
 
     //ショップの在庫
     public List<ItemSaveFlag> save_shopzaiko = new List<ItemSaveFlag>();
-    public List<ItemSaveKosu> save_farmzaiko = new List<ItemSaveKosu>();
-    public List<ItemSaveKosu> save_emeraldshop_zaiko = new List<ItemSaveKosu>();
 
     //酒場のイベントリスト
     public bool[] save_BarEvent_stage = new bool[GameMgr.BarEvent_stage.Length];
@@ -287,7 +285,7 @@ public class PlayerData
     public string[] save_System_WhiteMemo_text = new string[GameMgr.System_WhiteMemo_text.Length];
 
     //特別な思い出イベントリスト　回想シーンでONOFFを見る
-    public Dictionary<string, bool> save_HikariOmoide_Eventlist = new Dictionary<string, bool>();
+    public List<ItemSaveFlag> save_HikariOmoide_Eventlist = new List<ItemSaveFlag>();
     public int save_HikariOmoide_Count; //集めた思い出の個数
 
     //コンテスト審査員の点数

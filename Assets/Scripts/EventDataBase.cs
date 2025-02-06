@@ -713,8 +713,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //
                 //HeartEvent_check(GameMgr.System_HeartBlockLv_01, 300, 1); //秘密の花園へいこうよ
                 HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1); //ヒカリお菓子作る
+                HeartEvent_check(20, 302, 1); //ヒカリ二個トッピング仕上げできるようになる
 
-                //LV3ごとに発生するイベント
+                //LV3ごとに発生するイベント 350番台～
                 /*HeartEvent_check(3, 350, 1);
                 HeartEvent_check(6, 351, 1);
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
@@ -1087,7 +1088,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (GameMgr.GirlLoveSubEvent_stage1[401] == false) //はじめてブラックロータスをとってきた
                         {
-                            if (pitemlist.KosuCount("sakura_chip") >= 1)
+                            if (pitemlist.KosuCount("blacklotus") >= 1)
                             {
                                 GameMgr.GirlLoveSubEvent_stage1[401] = true;
                                 GameMgr.GirlLoveSubEvent_num = 401;

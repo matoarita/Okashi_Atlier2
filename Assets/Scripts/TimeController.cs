@@ -267,7 +267,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     if (timeLeft2 >= 1f * timespeed_range) //timeLeft2は、現実の1秒で1.0ずつ増加する。1カウント＝1f=1秒。そこからtimespeed_rangeで更新時間を早めている。
                     {
                         timeLeft2 = 0.0f;
-                        Debug.Log("ハート自動 カウント");
+                        //Debug.Log("ハート自動 カウント");
 
                         //**実際のゲーム時間にも影響 **//
                         //ゲーム時間が5sで5分進む。
