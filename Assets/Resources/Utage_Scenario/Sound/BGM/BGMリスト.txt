@@ -135,3 +135,11 @@
 ・BGM_131		Peritune_Gentle_Brew_loop		メインテーマ曲系　BGM130と同じ
 ・BGM_132		Gourmet Reviewers à Strahlburg		【宴用】コンテスト　お菓子判定中の曲２
 ・BGM_133		Peritune_Petite_Walk_loop		メインテーマ曲系2
+・BGM_134		12 優しい気持ち				切ないほのぼの曲１　※使わないかも。
+・BGM_135		11 心海					切ないほのぼの曲２（ままに会ったとき）
+・BGM_136		PerituneMaterial_Dawning_Tale		夢の中に入る　決意の曲
+・BGM_137		PerituneMaterial_Piano_Melancholy	悲しいときに流れる曲５
+・BGM_138		PerituneMaterial_Endless_Woods_inst	ED前の曲２
+・BGM_139		21メロンソーダの点滴			エデン食べた時のトリップ音楽
+・BGM_140		02放課後スリーピング			エデン食べた時のトリップ音楽２　※こっちは現在使わない
+・BGM_141		audiostock_127709_sample		悲しいときに流れる曲６

@@ -215,8 +215,12 @@ public class AAA_TotalResult : MonoBehaviour {
         _model_move.SetActive(false);              
         
         chara_animator = _model_root_obj.GetComponent<Animator>();
-        chara_animator.SetInteger("trans_anim", 0);        
+        chara_animator.SetInteger("trans_anim", 0);
 
+        //音は必ず元に戻す
+        sceneBGM.NowFadeVolumeONBGM();
+        sceneBGM.MuteOFFBGM();
+        //map_ambience.MuteOFF();
 
         //総合得点
         total_score = 0;

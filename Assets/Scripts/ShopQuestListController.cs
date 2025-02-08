@@ -379,10 +379,54 @@ public class ShopQuestListController : MonoBehaviour
 
         }
 
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Bar_A1":
+
+                AddQuestListHyouji();
+                break;
+
+            case "Or_Bar_C1":
+
+                AddQuestListHyouji2();
+                break;
+
+            default:
+
+                AddQuestListHyouji();
+                break;
+        }
+        
+    }
+
+    void AddQuestListHyouji()
+    {
         //ハートレベルに応じて、さらに追加するクエスト（レベル5～から追加されていく）　たんに数が増える
         if (PlayerStatus.girl1_Love_lv >= 5)
         {
             quest2_count_add = Mathf.FloorToInt(PlayerStatus.girl1_Love_lv / 5); //LV5ごとに一個ずつ表示されるクエストが増えていく。
+            if (quest2_count_add >= 10) //10個まで
+            {
+                quest2_count_add = 10;
+            }
+
+            for (i = 0; i < quest2_count_add; i++)
+            {
+                rand = Random.Range(0, selectquestDB.Count);
+
+                quest_database.RandomNewSetInit(selectquestDB[rand]);
+
+            }
+        }
+    }
+
+    void AddQuestListHyouji2()
+    {
+        //ハートレベルに応じて、さらに追加するクエスト（レベル5～から追加されていく）　たんに数が増える
+        if (PlayerStatus.girl1_Love_lv >= 20)
+        {
+            quest2_count_add = Mathf.FloorToInt((PlayerStatus.girl1_Love_lv-20) / 5); //LV5ごとに一個ずつ表示されるクエストが増えていく。
+
             if (quest2_count_add >= 10) //10個まで
             {
                 quest2_count_add = 10;

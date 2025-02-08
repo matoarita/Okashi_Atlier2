@@ -63,6 +63,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarNinkiHyouji_ON = false; //酒場でスターパネルを表示する
     public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
     public static bool System_ContestEdenFinalStart_ON = true; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
+    public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　trueなら、採点パネル表示前 falseなら後
 
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -2284,10 +2285,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SPEnshutu_itemlist.Add("tiramisu", "panel01");
         SPEnshutu_itemlist.Add("sachertorte", "panel01");
         SPEnshutu_itemlist.Add("opera", "panel01");
-        SPEnshutu_itemlist.Add("bush_de_noel", "panel01");
-        SPEnshutu_itemlist.Add("Eden", "panel01");
+        SPEnshutu_itemlist.Add("bush_de_noel", "panel01");       
         SPEnshutu_itemlist.Add("chocolate_black", "panel01");
         SPEnshutu_itemlist.Add("princess_tota", "panel01");
+        SPEnshutu_itemlist.Add("cream_row_dream", "panel01");
+        SPEnshutu_itemlist.Add("blacklotus_sponge_cake", "panel01");
+        SPEnshutu_itemlist.Add("Eden", "panel01");
     }
 
     //150点以上のとき、特別な思い出イベントが発生するおかしテーブル GirlEat_Judgeに機能があり

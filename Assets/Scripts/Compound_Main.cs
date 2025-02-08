@@ -925,16 +925,19 @@ public class Compound_Main : MonoBehaviour
             compound_select = GameMgr.compound_select;
 
 
-            //宴途中でブラックをオフにする ドアをあけて会場へ移動する演出用
+            //宴途中でブラックをオフにする 他シーンへ移動する演出用
             if (GameMgr.Utage_SceneEnd_BlackON)
             {
+                Debug.Log("シーン全体　ブラックアウト");
                 GameMgr.Utage_SceneEnd_BlackON = false;
                 scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
+                canvas.SetActive(true);
+                map_move = true;
             }
 
             if (map_move) //シーン移動中は、デフォルト処理にはそもそも入らないようにする。
             {
-
+                //Debug.Log("シーン移動中");
             }
             else
             {
@@ -3831,8 +3834,7 @@ public class Compound_Main : MonoBehaviour
         {
             Debug.Log("Utage_MapMoveON");
             GameMgr.Utage_MapMoveON = false;
-            map_move = true;
-
+            
             GameMgr.Contest_afterHomeEventFlag = false;　//シーン移動するときは、コンテスト終了後発生イベントのフラグも一度消しておく。
 
             //読むシナリオによっては、シーン移動

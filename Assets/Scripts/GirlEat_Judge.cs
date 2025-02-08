@@ -1304,26 +1304,34 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         GameMgr.camerazoom_endflag = false;
 
+
         if (!GameMgr.tutorial_ON)
         {
-            //お菓子を食べた後のちょっとした感想をだす。
-            if (dislike_status == 1 || dislike_status == 2 || dislike_status == 6)
+            if (GameMgr.ending_on && GameMgr.System_EdenEventStart_EatTiming) //もしエデンを食べていた場合、ここでエンディング系のイベントが発生する
             {
-                StartCoroutine("Girl_Comment");
+                OnEndingScenario();
             }
-            else if (dislike_status == 3 || dislike_status == 4)//まずいとき
+            else
             {
-                StartCoroutine("Girl_Comment");
-            }
-            else if (dislike_status == 5)
-            {
-                canvas.SetActive(true);
-                Girl_reaction();
-            }
+                //お菓子を食べた後のちょっとした感想をだす。
+                if (dislike_status == 1 || dislike_status == 2 || dislike_status == 6)
+                {
+                    StartCoroutine("Girl_Comment");
+                }
+                else if (dislike_status == 3 || dislike_status == 4)//まずいとき
+                {
+                    StartCoroutine("Girl_Comment");
+                }
+                else if (dislike_status == 5)
+                {
+                    canvas.SetActive(true);
+                    Girl_reaction();
+                }
 
-            if (!GameMgr.Beginner_flag[0]) //はじめてクッキーをあげた場合に、ON
-            {
-                GameMgr.Beginner_flag[0] = true;
+                if (!GameMgr.Beginner_flag[0]) //はじめてクッキーをあげた場合に、ON
+                {
+                    GameMgr.Beginner_flag[0] = true;
+                }
             }
         }
         else
@@ -1332,6 +1340,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             canvas.SetActive(true);
             Girl_reaction();
         }
+        
     }
 
 
@@ -5607,7 +5616,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if (!GameMgr.tutorial_ON)
             {
-                if (GameMgr.ending_on) //もしエデンを食べていた場合、ここでエンディング系のイベントが発生する
+                if (GameMgr.ending_on && !GameMgr.System_EdenEventStart_EatTiming) //もしエデンを食べていた場合、採点パネル表示後、エンディング系のイベントが発生する
                 {
                     OnEndingScenario();
                 }
