@@ -111,7 +111,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject text_area;
     private Text _windowtext;
 
-    private int i, count, _id;
+    private int i, j, count, _id;
     private int random;
     private int countNum;
 
@@ -206,6 +206,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private string[] _baseMS;
     private int[] _baseMSvalue;
     private int _beauty_basicscore;
+
+    private List<string> _MS_mariage = new List<string>();
+    private List<int> _MS_pointup = new List<int>();
 
     private int _basegirl1_manpuku;
 
@@ -921,7 +924,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         contest_type = _Type;
 
         //アイテムパラメータの取得
-
+        _MS_mariage.Clear();
+        _MS_pointup.Clear();
         switch (_toggle_type1)
         {
             case 0:
@@ -983,6 +987,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _baseMS[i] = database.items[kettei_item1].item_MagicSlot[i].ToString();
                     _baseMSvalue[i] = database.items[kettei_item1].item_MagicSlotValue[i];
                 }
+
+                _MS_mariage.Add(database.items[kettei_item1].MS1_mariage);
+                _MS_mariage.Add(database.items[kettei_item1].MS2_mariage);
+                _MS_mariage.Add(database.items[kettei_item1].MS3_mariage);
+                _MS_pointup.Add(database.items[kettei_item1].MS1_pointup);
+                _MS_pointup.Add(database.items[kettei_item1].MS2_pointup);
+                _MS_pointup.Add(database.items[kettei_item1].MS3_pointup);
 
                 break;
 
@@ -1046,6 +1057,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _baseMSvalue[i] = pitemlist.player_originalitemlist[kettei_item1].item_MagicSlotValue[i];
                 }
 
+                _MS_mariage.Add(pitemlist.player_originalitemlist[kettei_item1].MS1_mariage);
+                _MS_mariage.Add(pitemlist.player_originalitemlist[kettei_item1].MS2_mariage);
+                _MS_mariage.Add(pitemlist.player_originalitemlist[kettei_item1].MS3_mariage);
+                _MS_pointup.Add(pitemlist.player_originalitemlist[kettei_item1].MS1_pointup);
+                _MS_pointup.Add(pitemlist.player_originalitemlist[kettei_item1].MS2_pointup);
+                _MS_pointup.Add(pitemlist.player_originalitemlist[kettei_item1].MS3_pointup);
+
                 break;
 
             case 2:
@@ -1108,6 +1126,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _baseMSvalue[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].item_MagicSlotValue[i];
                     Debug.Log("_baseMS[i]: " + _baseMS[i] + " " + "パラメータ: " + _baseMSvalue[i]);
                 }
+
+                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS1_mariage);
+                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS2_mariage);
+                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS3_mariage);
+                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS1_pointup);
+                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS2_pointup);
+                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS3_pointup);
 
                 break;
 
@@ -1698,41 +1723,59 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _basemagicslot_on = 0;
         for (i = 0; i < _baseMS.Length; i++)
         {
-            switch (_baseMS[i])
+            if (_baseMS[i] == GameMgr.System_MagicSlotName01) //FireFlowerの場合　花火が周りにとびちるエフェクト
             {
-                case "Fire_Flowers":
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName01) //FireFlowers
+                    {
+                        _basebeauty += _MS_pointup[j] * _baseMSvalue[i];
+                        _base_sp_score6 += _MS_pointup[j] / 3 * _baseMSvalue[i]; //子供っぽさを足す
+                        _base_sp_score8 += _MS_pointup[j] / 5 * _baseMSvalue[i]; //芸術性を足す　パーティのお客さん向け
+                    }
+                }
+                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
+            }
+            if (_baseMS[i] == GameMgr.System_MagicSlotName02) //Butterfly
+            {
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName02)
+                    {
+                        _basebeauty += _MS_pointup[j] * _baseMSvalue[i];
+                        _base_sp_score7 += _MS_pointup[j]/3 * _baseMSvalue[i]; //メルヘンを足す
+                    }
+                }
+                _basemagicslot_on = 1;
+            }
+            if (_baseMS[i] == GameMgr.System_MagicSlotName03) //Bubble
+            {
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName03)
+                    {
+                        _basebeauty += _MS_pointup[j] * _baseMSvalue[i];
+                        _base_sp_score2 += _MS_pointup[j]/2 * _baseMSvalue[i]; //海らしさを加算
+                    }
+                }
 
-                    _basebeauty += 30*_baseMSvalue[i];
-                    _base_sp_score6 += 10*_baseMSvalue[i]; //子供っぽさを足す
-                    _base_sp_score8 += 10*_baseMSvalue[i]; //芸術性を足す　パーティのお客さん向け
-                    _basemagicslot_on = 1;
-                    break;
+                _basemagicslot_on = 1;
+            }
+            if (_baseMS[i] == GameMgr.System_MagicSlotName04) //Star
+            {
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName04)
+                    {
+                        _basebeauty += _MS_pointup[j] * _baseMSvalue[i];
+                    }
+                }
 
-                case "Buttelfy_illumination":
-
-                    _basebeauty += 40*_baseMSvalue[i];
-                    _base_sp_score7 += 20*_baseMSvalue[i]; //メルヘンを足す
-                    _basemagicslot_on = 1;
-                    break;
-
-                case "Bubble_Mist":
-
-                    _basebeauty += 30*_baseMSvalue[i];
-                    _base_sp_score2 += 20*_baseMSvalue[i]; //海らしさを加算
-                    _basemagicslot_on = 1;
-                    break;
-
-                case "Star_Blessing":
-
-                    _basebeauty += _baseMSvalue[i];
-                    _basemagicslot_on = 1;
-                    break;
-
-                /*case "Wind_Ark":
-
-                    _basebeauty += _baseMSvalue[i];
-                    _basemagicslot_on = 1;
-                    break;*/
+                _basemagicslot_on = 1;
+            }
+            if (_baseMS[i] == GameMgr.System_MagicSlotName05) //WindArc
+            {
+                
             }
         }
 

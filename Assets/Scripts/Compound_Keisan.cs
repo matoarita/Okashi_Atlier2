@@ -2553,8 +2553,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 if (_baseMS[0] == _addMS) //ベースに入っているトッピングと、_addが重複の場合。
                 {
-                    //効果を加算する
-                    _baseMSvalue[0] += _addMSvalue;
+                    //効果を加算しない
+                    _baseMSvalue[0] = _addMSvalue;
                 }
                 else
                 {
@@ -2583,8 +2583,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else if (_baseMS[j] == _addMS) //ベースに入っているトッピングと、_addが重複の場合。
                     {
-                        //効果を加算する
-                        _baseMSvalue[j] += _addMSvalue;
+                        //効果を加算しない
+                        _baseMSvalue[j] = _addMSvalue;
                         break;
                     }
                     else //ベースが空でない場合。
@@ -2720,7 +2720,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0));
+        0, 0, 0,
+        "Non", 0, "Non", 0, "Non", 0));
     }
 
     void Set_add_originparam()
@@ -2809,7 +2810,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0));
+        0, 0, 0,
+        "Non", 0, "Non", 0, "Non", 0));
     }
 
     void Set_add_extremeparam()
@@ -2898,7 +2900,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0));
+        0, 0, 0,
+        "Non", 0, "Non", 0, "Non", 0));
     }
 
 

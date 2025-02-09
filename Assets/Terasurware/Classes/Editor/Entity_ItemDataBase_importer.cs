@@ -117,6 +117,12 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(64); p.Magic = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(65); p.NotEat = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(66); p.SecretFlag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(67); p.MS1_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(68); p.MS1_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(69); p.MS2_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(70); p.MS2_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(71); p.MS3_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(72); p.MS3_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

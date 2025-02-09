@@ -84,6 +84,12 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int Magic;
 		public int NotEat;
 		public int SecretFlag;
+		public string MS1_mariage;
+		public int MS1_pointup;
+		public string MS2_mariage;
+		public int MS2_pointup;
+		public string MS3_mariage;
+		public int MS3_pointup;
 	}
 }
 

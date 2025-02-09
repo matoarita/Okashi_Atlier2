@@ -38,6 +38,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int _magic;    
     private int _noteat;
     private int _secretFlag;
+    private string _ms1_mariage;
+    private int _ms1_pointup;
+    private string _ms2_mariage;
+    private int _ms2_pointup;
+    private string _ms3_mariage;
+    private int _ms3_pointup;
     private int _total_kosu;
 
     private string ev_fileName, ev_itemName, ev_itemNameHyouji;
@@ -624,6 +630,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _magic = database.items[i].Magic;                
                 _noteat = database.items[i].NotEat;
                 _secretFlag = database.items[i].SecretFlag;
+                _ms1_mariage = database.items[i].MS1_mariage;
+                _ms1_pointup = database.items[i].MS1_pointup;
+                _ms2_mariage = database.items[i].MS2_mariage;
+                _ms2_pointup = database.items[i].MS2_pointup;
+                _ms3_mariage = database.items[i].MS3_mariage;
+                _ms3_pointup = database.items[i].MS3_pointup;
 
                 for ( k=0; k < _koyutp.Length; k++)
                 {
@@ -646,7 +658,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _noteat, _secretFlag,
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
-            Attri1, Attri2, Attri3));
+            Attri1, Attri2, Attri3,
+            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup));
     }
 
     //エクストリームパネル設定用アイテムを登録する。
@@ -692,6 +705,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _magic = database.items[i].Magic;               
                 _noteat = database.items[i].NotEat;
                 _secretFlag = database.items[i].SecretFlag;
+                _ms1_mariage = database.items[i].MS1_mariage;
+                _ms1_pointup = database.items[i].MS1_pointup;
+                _ms2_mariage = database.items[i].MS2_mariage;
+                _ms2_pointup = database.items[i].MS2_pointup;
+                _ms3_mariage = database.items[i].MS3_mariage;
+                _ms3_pointup = database.items[i].MS3_pointup;
 
                 for (k = 0; k < _koyutp.Length; k++)
                 {
@@ -714,7 +733,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _noteat, _secretFlag,
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
-            Attri1, Attri2, Attri3));
+            Attri1, Attri2, Attri3,
+            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup));
     }
 
     //ヒカリオリジナルアイテムを登録する。
@@ -761,6 +781,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _magic = database.items[i].Magic;               
                 _noteat = database.items[i].NotEat;
                 _secretFlag = database.items[i].SecretFlag;
+                _ms1_mariage = database.items[i].MS1_mariage;
+                _ms1_pointup = database.items[i].MS1_pointup;
+                _ms2_mariage = database.items[i].MS2_mariage;
+                _ms2_pointup = database.items[i].MS2_pointup;
+                _ms3_mariage = database.items[i].MS3_mariage;
+                _ms3_pointup = database.items[i].MS3_pointup;
 
                 for (k = 0; k < _koyutp.Length; k++)
                 {
@@ -784,7 +810,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _noteat, _secretFlag,
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
-            Attri1, Attri2, Attri3));
+            Attri1, Attri2, Attri3,
+            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup));
     }
 
     //チェック用のオリジナルアイテムを登録する。
@@ -832,6 +859,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
                 _magic = database.items[i].Magic;               
                 _noteat = database.items[i].NotEat;
                 _secretFlag = database.items[i].SecretFlag;
+                _ms1_mariage = database.items[i].MS1_mariage;
+                _ms1_pointup = database.items[i].MS1_pointup;
+                _ms2_mariage = database.items[i].MS2_mariage;
+                _ms2_pointup = database.items[i].MS2_pointup;
+                _ms3_mariage = database.items[i].MS3_mariage;
+                _ms3_pointup = database.items[i].MS3_pointup;
 
                 for (k = 0; k < _koyutp.Length; k++)
                 {
@@ -855,7 +888,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _noteat, _secretFlag,
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
-            Attri1, Attri2, Attri3));
+            Attri1, Attri2, Attri3,
+            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup));
     }
 
     //お菓子パネルにすでにセットされてるアイテムを、オリジナルアイテムへコピーする。個数だけは計算したものをいれる。
@@ -910,7 +944,10 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             player_extremepanel_itemlist[tempID].item_MagicSlotValue[6], player_extremepanel_itemlist[tempID].item_MagicSlotValue[7], player_extremepanel_itemlist[tempID].item_MagicSlotValue[8],
             player_extremepanel_itemlist[tempID].item_MagicSlotValue[9],
             player_extremepanel_itemlist[tempID].Attribute1, player_extremepanel_itemlist[tempID].Attribute2,
-            player_extremepanel_itemlist[tempID].Attribute3));
+            player_extremepanel_itemlist[tempID].Attribute3,
+            player_extremepanel_itemlist[tempID].MS1_mariage, player_extremepanel_itemlist[tempID].MS1_pointup,
+            player_extremepanel_itemlist[tempID].MS2_mariage, player_extremepanel_itemlist[tempID].MS2_pointup,
+            player_extremepanel_itemlist[tempID].MS3_mariage, player_extremepanel_itemlist[tempID].MS3_pointup));
     }
 
     void KoyuID_Set()

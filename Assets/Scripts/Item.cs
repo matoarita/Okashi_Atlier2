@@ -80,6 +80,13 @@ public class Item
     public int NotEat; //ヒカリがたべたい～で出てこないおかしのフラグ
     public int SecretFlag; //隠しアイテムかどうか。隠しアイテムであれば、お菓子手帳のリストには表示されない。
 
+    public string MS1_mariage;
+    public int MS1_pointup;
+    public string MS2_mariage;
+    public int MS2_pointup;
+    public string MS3_mariage;
+    public int MS3_pointup;
+
     //以下パラメータはExcel上には記載なし
     public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
 
@@ -228,7 +235,8 @@ public class Item
         int _noteat, int _secretFlag,
         string MS01, string MS02, string MS03, string MS04, string MS05, string MS06, string MS07, string MS08, string MS09, string MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int _attri1, int _attri2, int _attri3)
+        int _attri1, int _attri2, int _attri3,
+        string _ms1_mariage, int _ms1_pointup, string _ms2_mariage, int _ms2_pointup, string _ms3_mariage, int _ms3_pointup)
     {
         itemID = id;
         OriginalitemID = OriginalID;
@@ -374,6 +382,13 @@ public class Item
         Attribute1 = _attri1;
         Attribute2 = _attri2;
         Attribute3 = _attri3;
+
+        MS1_mariage = _ms1_mariage;
+        MS2_mariage = _ms2_mariage;
+        MS3_mariage = _ms3_mariage;
+        MS1_pointup = _ms1_pointup;
+        MS2_pointup = _ms2_pointup;
+        MS3_pointup = _ms3_pointup;
     }
 
 }

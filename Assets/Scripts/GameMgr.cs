@@ -1743,7 +1743,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0);
+                        0, 0, 0, "Non", 0, "Non", 0, "Non", 0);
 
         //お菓子のクリア基準値
         mazui_score = 30;
