@@ -2203,39 +2203,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //新規作成時の特殊処理
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
         {
-            //ジュースの特殊処理　甘さが青天井で上がることはないように、上限をおさえる。
-            if (_base_itemType_sub == "Juice" || _base_itemType_sub == "Soda")
-            {
-                if (_basename == "juice_float") //ジュースフロートは、無視する。アイスをのせるたびに、甘さがどんどん下がってしまうため。
-                { }
-                else
-                {
-                    if (_basesweat >= 50)
-                    {
-                        _add_hoseiparam = (_basesweat - 50) / 2;
-                        _basesweat = 50 + _add_hoseiparam;
-                    }
-                }
-            }
-
-            //特殊処理。カンノーリ生地ができるときは、生地をフライヤーであげるので、ふわふわ感をサクサク感に変換する。
-            if (_basename == "crepe_flyed")
-            {
-                _basecrispy = _basefluffy;
-                _basefluffy = 0;
-            }
-            if(_basename == "brioche") //ブリオッシュは、歯ごたえ（強力粉の値）をふわふわに変換
-            {
-                _basefluffy += _basehardness;
-                _basefluffy += (int)(_basecrispy * 0.2f); //さくさくも若干影響する
-                _basehardness = 0;
-            }
-            if (_basename == "ice_candy_fruits" || _basename == "ice_candy_twister") //フルーツアイスキャンディは、ジュースをなめらかに変換
-            {
-                _basesmooth += _basejuice;
-                //_basehardness = 0;
-            }
-
+            Okashi_SpecialKeisan();           
         }
 
 
@@ -2410,6 +2378,66 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     //_basechewy = (int)(_basechewy * kyori_hosei);
                 }
             }
+        }
+    }
+
+    void Okashi_SpecialKeisan()
+    {
+        //ジュースの特殊処理　甘さが青天井で上がることはないように、上限をおさえる。
+        if (_base_itemType_sub == "Juice" || _base_itemType_sub == "Soda")
+        {
+            if (_basename == "juice_float") //ジュースフロートは、無視する。アイスをのせるたびに、甘さがどんどん下がってしまうため。
+            { }
+            else
+            {
+                if (_basesweat >= 50)
+                {
+                    _add_hoseiparam = (_basesweat - 50) / 2;
+                    _basesweat = 50 + _add_hoseiparam;
+                }
+            }
+        }
+
+        //特殊処理。カンノーリ生地ができるときは、生地をフライヤーであげるので、ふわふわ感をサクサク感に変換する。
+        if (_basename == "crepe_flyed")
+        {
+            _basecrispy = _basefluffy;
+            _basefluffy = 0;
+        }
+        if (_basename == "brioche") //ブリオッシュは、歯ごたえ（強力粉の値）をふわふわに変換
+        {
+            _basefluffy += _basehardness;
+            _basefluffy += (int)(_basecrispy * 0.2f); //さくさくも若干影響する
+            _basehardness = 0;
+        }
+        if (_basename == "cream_brulee") //クリームブリュレは、生地のなめらかさも半分足す
+        {
+            _basefluffy += _basesmooth/2;
+        }
+        //ただのアイスキャンディは、元の水のなめらかさと砂糖のなめらかがそのまま食感になるので必要ない
+        if (_basename == "ice_candy_fruits" || _basename == "ice_candy_twister") //フルーツアイスキャンディは、ジュースをなめらかに変換          
+        {
+            _basesmooth += _basejuice;
+            //_basehardness = 0;
+        }
+        if (_base_itemType_sub == "Soda") //ソーダは、のどごしになめらかの値も影響する
+        {
+            _basejuice += _basesmooth / 2;
+        }
+        if (_basename == "bitter_potion") //ビターポーションはビターのみ抽出
+        {
+            _basesweat = 0;
+            _basesour = 0;
+        }
+        if (_basename == "sour_potion") //サワーポーションなども同じような処理
+        {
+            _basesweat = 0;
+            _basebitter = 0;
+        }
+        if (_basename == "sweat_potion") //
+        {
+            _basebitter = 0;
+            _basesour = 0;
         }
     }
 
