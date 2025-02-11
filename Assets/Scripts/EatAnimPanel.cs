@@ -8,6 +8,15 @@ public class EatAnimPanel : MonoBehaviour {
     private SoundController sc;
     private GameObject EatStartEffect;
 
+    private ItemDataBase database;
+
+    private GameObject effectPrefab;
+    private GameObject effectPrefab_Init;
+    private GameObject itemEffectPanel;
+
+    private Sprite texture2d;
+    private Image itemImage;
+
     private Image PlateImg;
 
     private Sprite _plate_sprite1;
@@ -27,6 +36,10 @@ public class EatAnimPanel : MonoBehaviour {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
+        itemImage = this.transform.Find("ItemImage").GetComponent<Image>();        
+        
         PlateImg = this.transform.Find("Plate/plate_img1").GetComponent<Image>();
 
         EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
@@ -53,6 +66,18 @@ public class EatAnimPanel : MonoBehaviour {
                 PlateImg.sprite = _plate_sprite3;
                 break;
         }
+
+        //魔法のエフェクトパネル
+        if (effectPrefab_Init == null)
+        {
+            effectPrefab = (GameObject)Resources.Load("Prefabs/ItemCardEffectPanel");
+            effectPrefab_Init = Instantiate(effectPrefab, this.transform.Find("ItemImage").transform);
+            effectPrefab_Init.name = "ItemCardEffectPanel";
+            effectPrefab_Init.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        itemEffectPanel = this.transform.Find("ItemImage/ItemCardEffectPanel").gameObject; //エフェクトパネル
+
+        
     }
 
 	// Update is called once per frame
@@ -72,6 +97,18 @@ public class EatAnimPanel : MonoBehaviour {
 
         //食べ始めアニメエフェクト
         EatStartEffect.SetActive(true);       
+    }
+
+    public void ItemSetting(string[] _MS, string _itemname) //GirlEat_Judgeから読み出し
+    {
+        InitSetting();
+
+        //アイテムデータ設定
+        texture2d = database.items[database.SearchItemIDString(_itemname)].itemIcon_sprite;
+        itemImage.sprite = texture2d;
+
+        //アイテムのマジックスロットをみて、魔法エフェクトも表示
+        itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_MS, 2); //2番目の数字は、アクセスする場所を指定　2=お菓子をあげるとき
     }
 
 

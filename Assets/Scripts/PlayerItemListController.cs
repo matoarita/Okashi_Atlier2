@@ -999,7 +999,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 if (_lv >= 4) //おはな
                 {
-                    if (check_itemType_sub == "Flower" || check_itemType_sub == "Harb")
+                    if (check_itemType_sub == "Flower")
                     {
                         if (check_itemType_subB != "a_Freezeflower") //すでに冷凍したものはダメ
                         {
@@ -1043,9 +1043,10 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "SugerPot":
+            case "SugerPot": //水は表示しない　砂糖水と炭酸水は表示
 
-                if (check_itemType_sub == "Water" || check_itemType_sub == "Milk" || check_itemType_subB == "a_AromaPotion")
+                if (check_itemType_sub == "Milk" || check_itemType_subB == "a_AromaPotion" || check_itemType_subB == "a_SugerWater"
+                    || check_itemType_subB == "a_WaterSoda")
                 {
                     if (check_itemType_sub_category == "Non") //ツイスターや加工されたものはもうツイストできない
                     {

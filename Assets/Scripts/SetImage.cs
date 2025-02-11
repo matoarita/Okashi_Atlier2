@@ -68,6 +68,9 @@ public class SetImage : MonoBehaviour
     private Text item_Name;
     private string _name;
     private string item_SlotName;
+
+    private GameObject effectPrefab;
+    private GameObject effectPrefab_Init;
     private GameObject itemEffectPanel;
 
     private Text item_Rank;
@@ -470,7 +473,14 @@ public class SetImage : MonoBehaviour
         hlvbonus_panel = this.transform.Find("Item_card_template/HlvBonusPanel").gameObject;
 
         //魔法のエフェクトパネル
-        itemEffectPanel = this.transform.Find("Item_card_template/ItemCardEffectPanel").gameObject; //エフェクトパネル
+        if (effectPrefab_Init == null)
+        {
+            effectPrefab = (GameObject)Resources.Load("Prefabs/ItemCardEffectPanel");
+            effectPrefab_Init = Instantiate(effectPrefab, this.transform);
+            effectPrefab_Init.name = "ItemCardEffectPanel";
+            effectPrefab_Init.transform.localPosition = new Vector3(0, 40, 0);
+        }
+        itemEffectPanel = this.transform.Find("ItemCardEffectPanel").gameObject; //エフェクトパネル
 
         //各パラメータバーの取得
         _Shokukan_slider = this.transform.Find("Card_Param_window/Card_Parameter/Card_Param_Window_Taste/ItemShokukanBar").gameObject.GetComponent<Slider>();
@@ -1788,6 +1798,7 @@ public class SetImage : MonoBehaviour
         aisho_text3 = "";
         _compatible = 0;
 
+        //魔法の食感計算の表示部分
         for (i = 0; i < _magicslot.Length; i++)
         {
             Debug.Log("_magicslot " + i + ": " + _magicslot[i]);
@@ -1806,8 +1817,7 @@ public class SetImage : MonoBehaviour
                     }
                 }
                 MS_aisho_database(_compatible);
-                item_MS_aisho.text = "花火: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;
-                itemEffectPanel.transform.Find("effect01_Fire").gameObject.SetActive(true);
+                item_MS_aisho.text = "花火: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;                
             }
             if (_magicslot[i] == GameMgr.System_MagicSlotName02) //Butterflyの場合、光のちょうちょがとぶ
             {
@@ -1823,8 +1833,7 @@ public class SetImage : MonoBehaviour
                     }
                 }
                 MS_aisho_database(_compatible);
-                item_MS_aisho.text = "ちょうちょ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;
-                itemEffectPanel.transform.Find("effect02_Butterfly").gameObject.SetActive(true);
+                item_MS_aisho.text = "ちょうちょ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;               
             }
             if (_magicslot[i] == GameMgr.System_MagicSlotName03) //Bubbleは泡がでる
             {
@@ -1842,8 +1851,7 @@ public class SetImage : MonoBehaviour
                     }
                 }
                 MS_aisho_database(_compatible);
-                item_MS_aisho.text = "あわあわ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;
-                itemEffectPanel.transform.Find("effect03_Bubble").gameObject.SetActive(true);
+                item_MS_aisho.text = "あわあわ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;               
             }
             if (_magicslot[i] == GameMgr.System_MagicSlotName04) //Starは星くずがキラキラする
             {
@@ -1857,14 +1865,16 @@ public class SetImage : MonoBehaviour
                     }
                 }
                 MS_aisho_database(_compatible);
-                item_MS_aisho.text = "星屑: " + _ms_aisho + "　" + aisho_text1;
-                itemEffectPanel.transform.Find("effect04_Star").gameObject.SetActive(true);
+                item_MS_aisho.text = "星屑: " + _ms_aisho + "　" + aisho_text1;                
             }
             if (_magicslot[i] == GameMgr.System_MagicSlotName05) //WindArc　風の円弧が周りにとびちる
             {
-                itemEffectPanel.transform.Find("effect05_Arc").gameObject.SetActive(true);
+                
             }
         }
+
+        //魔法のエフェクト表示部分
+        itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_magicslot, 0); //2番目の数字は、アクセスする場所を指定　0=カードから
     }
 
     void MS_aisho_database(int _compa)

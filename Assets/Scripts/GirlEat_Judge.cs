@@ -786,9 +786,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     girl1_status.DeleteHukidashiOnly();
 
                     //食べ始めのアニメーションをスタート
-                    EatAnimPanel.SetActive(true);
-                    texture2d = database.items[database.SearchItemIDString(_basename)].itemIcon_sprite;
-                    EatAnimPanel_itemImage.sprite = texture2d;
+                    EatAnimPanel.GetComponent<EatAnimPanel>().ItemSetting(_baseMS, _basename);
+                    EatAnimPanel.SetActive(true);                    
+                                        
 
                     //カメラ寄る。
                     trans = 2; //transが1を超えたときに、ズームするように設定されている。
@@ -2374,25 +2374,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         Debug.Log("SPScore補正前: " + _score);
 
-        if (_score > 0f && _score <= 10f)
+        if (_score > 0f && _score <= 100f)
+        {
+            _score = _score * 1.0f;
+        }
+        else if (_score > 100f && _score <= 200f)
+        {
+            _score = _score * 1.2f;
+        }
+        else if (_score > 200f)
         {
             _score = _score * 1.3f;
-        }
-        else if (_score > 10f && _score <= 20f)
-        {
-            _score = _score * 1.75f;
-        }
-        else if (_score > 20f && _score <= 45f)
-        {
-            _score = _score * 2.0f;
-        }
-        else if (_score > 45f && _score <= 70f)
-        {
-            _score = _score * 2.5f;
-        }
-        else if (_score > 70f)
-        {
-            _score = _score * 3.3f;
         }
 
         Debug.Log("SPScore補正後点: " + _score);
@@ -3262,8 +3254,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
                     {
                         Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.3f));
-                        GetMoney += (int)(_basecost * 2.5f);
-                        //GetMoney *= (int)(total_score * 0.01f);
+                        GetMoney += (int)(_basecost * 3.0f);
+                        GetMoney += (int)(total_score * 1.5f); //ボーナスでトータル得点数お金入る
                         girl1_status.GirlExpressionKoushin(70);
                     }
                     else if (total_score >= 500) //500点を超えた場合、ベース×5

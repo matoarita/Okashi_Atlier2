@@ -34,7 +34,6 @@ public class ExtremePanel : MonoBehaviour {
 
     private Image item_Icon;
     private Text extreme_Param;
-
     private Text extreme_itemName;
 
     private Slider _hpslider; //お菓子のHPバーを取得
@@ -48,6 +47,10 @@ public class ExtremePanel : MonoBehaviour {
     public int Okashi_moneypram_int;
 
     private Button extreme_Button;
+
+    private GameObject effectPrefab;
+    private GameObject effectPrefab_Init;
+    private GameObject itemEffectPanel;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -72,8 +75,12 @@ public class ExtremePanel : MonoBehaviour {
 
     private SoundController sc;
 
+    private int i;
+
     //時間
     private float timeOut;
+
+    private string[] _magicslot;
 
     // Use this for initialization
     void Start () {
@@ -134,6 +141,17 @@ public class ExtremePanel : MonoBehaviour {
 
         particle_effect = this.transform.Find("Comp/Particle_Kirakira_3").gameObject;
         particle_effect.SetActive(false);
+
+        //魔法のエフェクトパネル
+        if (effectPrefab_Init == null)
+        {
+            effectPrefab = (GameObject)Resources.Load("Prefabs/ItemCardEffectPanel");
+            effectPrefab_Init = Instantiate(effectPrefab, this.transform.Find("Comp").transform);
+            effectPrefab_Init.name = "ItemCardEffectPanel";
+            effectPrefab_Init.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        itemEffectPanel = this.transform.Find("Comp/ItemCardEffectPanel").gameObject; //エフェクトパネル
+        _magicslot = new string[database.items[0].item_MagicSlot.Length];
 
         item_Icon.color = new Color(1, 1, 1, 0);
 
@@ -204,6 +222,15 @@ public class ExtremePanel : MonoBehaviour {
         //エフェクトの表示
         image_effect.SetActive(true);
         particle_effect.SetActive(true);
+
+        itemEffectPanel.SetActive(true);
+        //アイテムのマジックスロットをみて、魔法エフェクトも表示
+        for (i = 0; i < _magicslot.Length; i++)
+        {
+            _magicslot[i] = pitemlist.player_extremepanel_itemlist[_id].item_MagicSlot[i].ToString();
+        }
+
+        itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_magicslot, 1); //2番目の数字は、アクセスする場所を指定　1=お菓子パネルから
     }
 
     void EmptyExtremeHyouji()
@@ -215,6 +242,8 @@ public class ExtremePanel : MonoBehaviour {
 
         image_effect.SetActive(false);
         particle_effect.SetActive(false);
+
+        itemEffectPanel.SetActive(false);
     }
 
     public void OnClick_ExtremeButton()
