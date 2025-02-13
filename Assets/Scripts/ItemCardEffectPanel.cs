@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemCardEffectPanel : MonoBehaviour
 {
+    //こっちは、エフェクト表示用
+
     private int i, j;
     private ParticleSystemRenderer m_ParticleSystem;
 

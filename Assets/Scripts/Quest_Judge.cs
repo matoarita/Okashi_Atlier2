@@ -921,13 +921,13 @@ public class Quest_Judge : MonoBehaviour {
 
             //rich_score = girlEat_judge.TasteKeisanBase(_rich, rich_result, "味のコク: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
 
-            sweat_score = girlEat_judge.TasteKeisanBase(_sweat, sweat_result, _base_itemType_sub, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
+            sweat_score = girlEat_judge.TasteKeisanBase(_sweat, sweat_result, _base_itemType_sub, _basegirl1_like, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
             sweat_level = girlEat_judge.taste_level;
 
-            bitter_score = girlEat_judge.TasteKeisanBase(_bitter, bitter_result, _base_itemType_sub, "苦み: ");
+            bitter_score = girlEat_judge.TasteKeisanBase(_bitter, bitter_result, _base_itemType_sub, _basegirl1_like, "苦み: ");
             bitter_level = girlEat_judge.taste_level;
 
-            sour_score = girlEat_judge.TasteKeisanBase(_sour, sour_result, _base_itemType_sub, "酸味: ");
+            sour_score = girlEat_judge.TasteKeisanBase(_sour, sour_result, _base_itemType_sub, _basegirl1_like, "酸味: ");
             sour_level = girlEat_judge.taste_level;
 
             //書き方が少し違うけど、GirlEat_Judgeでやってることとほぼ一緒

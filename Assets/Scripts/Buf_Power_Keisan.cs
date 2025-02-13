@@ -174,7 +174,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case "Cake_MatSpongeBaked":
 
-                KakuritsuUp_CakeMatSpongeBaked();
+                KakuritsuUp_CakeMatSpongeBaked(0);
+                break;
+
+            case "CheeseCake":
+
+                KakuritsuUp_CakeMatSpongeBaked(1);
                 break;
 
             case "Financier":
@@ -339,7 +344,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void KakuritsuUp_CakeMatCream()
     {
-        if (pitemlist.KosuCount("cake_rolltable") < 1) //所持してないと成功率下がる
+        if (pitemlist.KosuCount("cake_rolltable") < 1) //所持すると成功率あがる
         {
             _buf_kakuritsuup += 30;
         }
@@ -353,12 +358,21 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
-    void KakuritsuUp_CakeMatSpongeBaked()
+    void KakuritsuUp_CakeMatSpongeBaked(int _mstatus)
     {
         
-        if (pitemlist.KosuCount("cakemold_black") < 1 || pitemlist.KosuCount("cakemold_stainless") < 1) //所持してないと元の成功率が低いまま　所持すると上がる
+        if (pitemlist.KosuCount("cakemold_black") < 1 && pitemlist.KosuCount("cakemold_stainless") < 1) //所持してないと元の成功率が低いまま　所持すると上がる
         {
-            _buf_kakuritsuup += 30;
+            Debug.Log("ケーキ型をもってないので、ケーキ生地成功率-50%（チーズケーキは-30%）");
+
+            if (_mstatus == 0)
+            {
+                _buf_kakuritsuup -= 50;
+            }
+            else if (_mstatus == 1) //チーズケーキの場合
+            {
+                _buf_kakuritsuup -= 30;
+            }
         }
 
         //魔法のバフ
@@ -394,7 +408,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("glass_bowl") < 1) //所持してないと成功率下がる
         {
-            _buf_kakuritsuup -= 20;
+            _buf_kakuritsuup -= 50;
         }
 
     }
@@ -1316,10 +1330,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void ParfeBeautyBuf()
     {
-        if (pitemlist.KosuCount("glass_bowl") >= 1) //もってないと、見た目が下がる
+        /*if (pitemlist.KosuCount("glass_bowl") >= 1) //もってないと、見た目が下がる
         {
-            _buf_shokukanup -= 70;
-        }
+            _buf_shokukanup -= 50;
+        }*/
     }
 
     void AllShokukanBuf()
@@ -1589,8 +1603,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     }
                     else
                     {    //3回以上重ね掛けするとき、効果が大きくなる                    
-                        _magicup = (int)(_baseparam * (0.3f + _magicLearnLv * 0.2f)); //大体元値の1.5倍
-                        Debug.Log("_baseparam * (0.3f + ウィンドアーク習得LV * 0.2f) 習得LV: " + _magicLearnLv);
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.15f)); //大体元値の1.25倍
+                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.15f) 習得LV: " + _magicLearnLv);
                     }
 
                     
@@ -1608,8 +1622,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     }
                     else
                     {    //3回以上重ね掛けするとき、効果が大きくなる 
-                        _magicup = (int)(_baseparam * (0.2f + _magicLearnLv * 0.15f)); //1.35倍
-                        Debug.Log("_baseparam * (0.2f + ウィンドアーク習得LV * 0.15f) 習得LV: " + _magicLearnLv);
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.1f)); //1.2倍
+                        Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
                     }
                                                                
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);

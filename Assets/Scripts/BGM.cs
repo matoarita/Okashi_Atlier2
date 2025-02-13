@@ -85,6 +85,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound71;  //オランジーナ調合メインのBGM3
     public AudioClip sound72;  //オランジーナ調合メインのBGM4
     public AudioClip sound73;  //大会コンテストのBGM エデンコンテスト2
+    public AudioClip sound74;  //おまけのシーンBGM
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -137,6 +138,11 @@ public class BGM : MonoBehaviour {
             case "001_Title":
 
                 _send_clip = sound24;
+                break;
+
+            case "200_Omake":
+
+                _send_clip = sound74;
                 break;
 
             case "Farm":

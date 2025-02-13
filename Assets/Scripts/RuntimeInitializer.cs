@@ -205,6 +205,10 @@ public class RuntimeInitializer : MonoBehaviour
         var ItemSubTypeSetDatabase_init = new GameObject("ItemSubTypeSetDatabase", typeof(ItemSubTypeSetDatabase));
         GameObject.DontDestroyOnLoad(ItemSubTypeSetDatabase_init);
 
+        //魔法エフェクトの計算処理用データベース
+        var ItemCardEffectDataBase_init = new GameObject("ItemCardEffectDataBase", typeof(ItemCardEffectDataBase));
+        GameObject.DontDestroyOnLoad(ItemCardEffectDataBase_init);
+
         //ゲーム最初で所持するアイテムなどを設定するスクリプト
         var player_defaultstart_ItemGet_init = new GameObject("PlayerDefaultStartItemGet", typeof(PlayerDefaultStartItemGet));
         GameObject.DontDestroyOnLoad(player_defaultstart_ItemGet_init);

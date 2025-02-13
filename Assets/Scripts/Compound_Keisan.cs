@@ -1158,13 +1158,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "CompNo")
             {
-                result_kosu = final_kette_kosu1; //元のアイテムになにかをかける魔法も、元アイテム一個にかけるので生成も一個 final_kette_kosu1にしてるけど、1個でもいい
+                result_kosu = final_kette_kosu1 * _set_kaisu; //元のアイテムになにかをかける魔法も、元アイテム一個にかけるので生成も一個 final_kette_kosu1にしてるけど、1個でもいい
             }
             else
             {
                 if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "KetteiKosu")
                 {
-                    result_kosu = final_kette_kosu1; //入れた個数だけできる
+                    result_kosu = final_kette_kosu1 * _set_kaisu; //入れた個数だけできる
                 }
                 else
                 {
@@ -1172,14 +1172,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     {
                         case "Aroma_Potion": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
 
-                            final_kette_kosu1 = 1 * GameMgr.UseMagicSkillLv; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            result_kosu = final_kette_kosu1;
+                            //final_kette_kosu1 = 1 * GameMgr.UseMagicSkillLv; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                            result_kosu = 1 * GameMgr.UseMagicSkillLv * _set_kaisu; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
                             break;
 
                         case "SugerPot": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
 
-                            final_kette_kosu1 = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            result_kosu = final_kette_kosu1;
+                            //final_kette_kosu1 = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                            //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1;                          
                             break;
 
                         default: //その他　フリージングやテンパリングなど。compoDBを指定するものは、compoDBの個数
@@ -3086,7 +3087,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         deleteOriginalList.Clear();
         deleteExtremeList.Clear();
 
-        if (Comp_method_bunki == 1 || Comp_method_bunki == 3 || Comp_method_bunki == 22) //生地合成、もしくはトッピング調合などの場合、ベースアイテムを、プレイヤーのアイテムリストから選んでる場合は、ベースアイテムの削除処理を行う。
+        //生地合成、もしくはトッピング調合などの場合、ベースアイテムを、プレイヤーのアイテムリストから選んでる場合は、ベースアイテムの削除処理を行う。
+        if (Comp_method_bunki == 1 || Comp_method_bunki == 3 || Comp_method_bunki == 22)             
         {
 
             //ベースアイテムを削除する。
@@ -3096,7 +3098,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                     _id = base_kettei_item;
 
-                    pitemlist.deletePlayerItem(database.items[_id].itemName, 1);
+                    if (Comp_method_bunki == 22) //魔法調合でCompNoやBufの場合
+                    {
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, final_kette_kosu1);                     
+                    }
+                    else
+                    {
+                        pitemlist.deletePlayerItem(database.items[_id].itemName, base_kosu);
+                    }
                     break;
 
                 case 1: //オリジナルアイテムリストから選択している。
@@ -3104,7 +3113,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _id = base_kettei_item;
 
                     //オリジナルアイテムリストから削除するときは、一度削除用リストにIDをとりまとめて、後で、まとめて、降順で削除していく。
-                    deleteOriginalList.Add(_id, 1);
+                    if (Comp_method_bunki == 22) //魔法調合でCompNoやBufの場合
+                    {
+                        deleteOriginalList.Add(_id, final_kette_kosu1);
+                    }
+                    else
+                    {                        
+                        deleteOriginalList.Add(_id, base_kosu);
+                    }
                     break;
 
                 case 2: //お菓子パネルアイテムリストから選択している。
@@ -3112,7 +3128,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _id = base_kettei_item;
 
                     //オリジナルアイテムリストから削除するときは、一度削除用リストにIDをとりまとめて、後で、まとめて、降順で削除していく。
-                    deleteExtremeList.Add(_id, 1);
+                    if (Comp_method_bunki == 22) //魔法調合でCompNoやBufの場合
+                    {
+                        deleteExtremeList.Add(_id, final_kette_kosu1);
+                    }
+                    else
+                    {
+                        deleteExtremeList.Add(_id, base_kosu);
+                    }
                     break;
 
                 default:
@@ -3130,7 +3153,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 DeleteMethod2();
             }
         }
-        else if (Comp_method_bunki == 0 || Comp_method_bunki == 20) //オリジナルか魔法調合
+        else if (Comp_method_bunki == 0 || Comp_method_bunki == 20) //オリジナルか魔法調合の新規作成時
         {
             final_kette_kosu1 = final_kette_kosu1 * final_select_kaisu;
             final_kette_kosu2 = final_kette_kosu2 * final_select_kaisu;

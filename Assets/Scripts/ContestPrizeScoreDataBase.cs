@@ -591,8 +591,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("whisk_magic");
-        GameMgr.PrizeItemList.Add("mg_fire_flowers_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -965,7 +965,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("mg_magic_soda_book");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("langue de chat_recipi");
 
         //賞金リスト 5位から順番に入れる
@@ -1203,7 +1203,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("patipati_soda_recipi");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("sachertorte_recipi");
 
         //賞金リスト 5位から順番に入れる
@@ -1238,7 +1238,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("mg_float_material_book");
+        GameMgr.PrizeItemList.Add("patipati_soda_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -1407,7 +1407,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("mg_latte_art_book");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("confiserie_recipi");
 
         //賞金リスト 5位から順番に入れる

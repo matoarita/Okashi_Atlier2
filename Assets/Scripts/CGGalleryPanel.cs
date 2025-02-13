@@ -52,14 +52,14 @@ public class CGGalleryPanel : MonoBehaviour {
         LButton_obj = this.transform.Find("CGSelectPanel/LButton").gameObject;       
 
         //ページ数表示の設定　１ページ4枚ずつ表示
-        max_page_nokori = GameMgr.event_collection_list.Count % page_stillcount;
+        max_page_nokori = GameMgr.HikariOmoide_Eventlist.Count % page_stillcount;
         if(max_page_nokori > 0)
         {
-            max_page = (GameMgr.event_collection_list.Count / page_stillcount) + 1;
+            max_page = (GameMgr.HikariOmoide_Eventlist.Count / page_stillcount) + 1;
         }
         else
         {
-            max_page = GameMgr.event_collection_list.Count / page_stillcount;
+            max_page = GameMgr.HikariOmoide_Eventlist.Count / page_stillcount;
         }
 
         //1ページ目から表示
@@ -105,10 +105,10 @@ public class CGGalleryPanel : MonoBehaviour {
 
         for (i = 0; i < eventlist_List.Count; i++)
         {
-            if (GameMgr.event_collection_list[(_count - 1) * page_stillcount + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
+            if (GameMgr.HikariOmoide_Eventlist[(_count - 1) * page_stillcount + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
             {
-                eventlist_List[i].transform.Find("Text").GetComponent<Text>().text = GameMgr.event_collection_list[(_count - 1) * page_stillcount + i].titleNameHyouji;
-                eventlist_List[i].transform.Find("Img").GetComponent<Image>().sprite = GameMgr.event_collection_list[(_count - 1) * page_stillcount + i].imgIcon_sprite;
+                eventlist_List[i].transform.Find("Text").GetComponent<Text>().text = GameMgr.HikariOmoide_Eventlist[(_count - 1) * page_stillcount + i].titleNameHyouji;
+                eventlist_List[i].transform.Find("Img").GetComponent<Image>().sprite = GameMgr.HikariOmoide_Eventlist[(_count - 1) * page_stillcount + i].imgIcon_sprite;
                 eventlist_List[i].GetComponent<Button>().interactable = true;
                 eventlist_List[i].GetComponent<GalleryPanel>()._id = (_count - 1) * page_stillcount + i; //IDも振っておく。GameMgr.event_collection_listの配列と一緒。
             }
@@ -158,7 +158,7 @@ public class CGGalleryPanel : MonoBehaviour {
 
         for (i = 0; i < eventlist_List.Count; i++)
         {
-            if (GameMgr.event_collection_list[_count - 1 + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
+            if (GameMgr.HikariOmoide_Eventlist[_count - 1 + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
             {
                 eventlist_List[i].GetComponent<Button>().interactable = false;
                 eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = false;
@@ -175,7 +175,7 @@ public class CGGalleryPanel : MonoBehaviour {
 
         for (i = 0; i < eventlist_List.Count; i++)
         {
-            if (GameMgr.event_collection_list[_count - 1 + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
+            if (GameMgr.HikariOmoide_Eventlist[_count - 1 + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
             {
                 eventlist_List[i].GetComponent<Button>().interactable = true;
                 eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = true;

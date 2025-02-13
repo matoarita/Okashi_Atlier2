@@ -642,6 +642,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         if (_spquest_setnum >= 20)
         {
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);
+            matplace_database.ReSetMapFlagString("Or_Contest_A1", 1);
             GameMgr.mainBGM_Num = 1;
         }
         if (_spquest_setnum >= 21)
@@ -661,6 +662,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
             matplace_database.ReSetMapFlagString("Or_Bar_C1", 1);
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_C1", 1);
+            matplace_database.ReSetMapFlagString("Or_Contest_B1", 1);
 
             matplace_database.ReSetMapFlagString("Amber_Lake", 1);
 
@@ -672,6 +674,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Or_Shop_D1", 1);
             matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
             matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
+            matplace_database.ReSetMapFlagString("Or_Contest_C1", 1);
 
             matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
         }

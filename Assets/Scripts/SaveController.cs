@@ -180,9 +180,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //思い出イベントのリスト
         _temp_HikariOmoide_Eventlist.Clear();
-        foreach (string items in GameMgr.HikariOmoide_Eventlist.Keys)
+        for (i = 0; i < GameMgr.HikariOmoide_Eventlist.Count; i++)
         {
-            _temp_HikariOmoide_Eventlist.Add(new ItemSaveFlag(items, 0, 0, 0, 0, 0, GameMgr.HikariOmoide_Eventlist[items]));
+            _temp_HikariOmoide_Eventlist.Add(new ItemSaveFlag(GameMgr.HikariOmoide_Eventlist[i].titleName, 0, 0, 0, 0, 0, GameMgr.HikariOmoide_Eventlist[i].Flag));
         }
 
         //背景アイテムの表示フラグリスト
@@ -1126,13 +1126,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < playerData.save_HikariOmoide_Eventlist.Count; i++)
         {
             _name = playerData.save_HikariOmoide_Eventlist[i].itemName;
-            if (GameMgr.HikariOmoide_Eventlist.ContainsKey(_name))
-            {
-                GameMgr.HikariOmoide_Eventlist[_name] = playerData.save_HikariOmoide_Eventlist[i].Flag;
-                Debug.Log("思い出イベントフラグ　読み込み: " + _name + " " + playerData.save_HikariOmoide_Eventlist[i].Flag);
-            }
-            //Keyが無かった場合は、無視
-            else { }
+            GameMgr.SetHikariOmoideFlag(_name, playerData.save_HikariOmoide_Eventlist[i].Flag);            
         }
         GameMgr.HikariOmoide_Count = playerData.save_HikariOmoide_Count;
 

@@ -48,6 +48,7 @@ public class SetImage : MonoBehaviour
     private SlotNameDataBase slotnamedatabase;
     private SlotChangeName slotchangename;
     private ItemSubTypeSetDatabase itemsubtypeset_database;
+    private ItemCardEffectDataBase itemCardEffect_database;
 
     private Sprite texture2d;
     private Texture2D card_template_1;
@@ -95,22 +96,6 @@ public class SetImage : MonoBehaviour
     private string[] _slotHyouji2 = new string[10]; //日本語に変換後の表記を格納する。フルネーム用 
     private string[] _magicslot;
     private int[] _msvalue;
-
-    private List<string> _MS_mariage = new List<string>();
-    private List<int> _MS_pointup = new List<int>();
-    private int _compatible;
-    private string _ms_aisho;
-    private string aisho_text1, aisho_text2, aisho_text3;
-    private int _ms_sp_score1;
-    private int _ms_sp_score2;
-    private int _ms_sp_score3;
-    private int _ms_sp_score4;
-    private int _ms_sp_score5;
-    private int _ms_sp_score6;
-    private int _ms_sp_score7;
-    private int _ms_sp_score8;
-    private int _ms_sp_score9;
-    private int _ms_sp_score10;
 
     // スロットのデータを保持するリスト。点数とセット。
     List<string> itemslotInfo = new List<string>();
@@ -359,6 +344,9 @@ public class SetImage : MonoBehaviour
         //アイテムサブタイプの表記を分けるデータベース
         itemsubtypeset_database = ItemSubTypeSetDatabase.Instance.GetComponent<ItemSubTypeSetDatabase>();
 
+        //魔法エフェクトの計算データベース
+        itemCardEffect_database = ItemCardEffectDataBase.Instance.GetComponent<ItemCardEffectDataBase>();
+
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
@@ -584,8 +572,6 @@ public class SetImage : MonoBehaviour
     //カード描画用のパラメータ読み込み
     void Card_draw()
     {
-        _MS_mariage.Clear();
-        _MS_pointup.Clear();
 
         switch (Pitem_or_Origin)
         {
@@ -687,13 +673,6 @@ public class SetImage : MonoBehaviour
                     _magicslot[i] = database.items[check_counter].item_MagicSlot[i].ToString();
                     _msvalue[i] = database.items[check_counter].item_MagicSlotValue[i];
                 }
-
-                _MS_mariage.Add(database.items[check_counter].MS1_mariage);
-                _MS_mariage.Add(database.items[check_counter].MS2_mariage);
-                _MS_mariage.Add(database.items[check_counter].MS3_mariage);
-                _MS_pointup.Add(database.items[check_counter].MS1_pointup);
-                _MS_pointup.Add(database.items[check_counter].MS2_pointup);
-                _MS_pointup.Add(database.items[check_counter].MS3_pointup);
 
                 break;
 
@@ -797,13 +776,6 @@ public class SetImage : MonoBehaviour
                     _msvalue[i] = pitemlist.player_originalitemlist[check_counter].item_MagicSlotValue[i];
                 }
 
-                _MS_mariage.Add(pitemlist.player_originalitemlist[check_counter].MS1_mariage);
-                _MS_mariage.Add(pitemlist.player_originalitemlist[check_counter].MS2_mariage);
-                _MS_mariage.Add(pitemlist.player_originalitemlist[check_counter].MS3_mariage);
-                _MS_pointup.Add(pitemlist.player_originalitemlist[check_counter].MS1_pointup);
-                _MS_pointup.Add(pitemlist.player_originalitemlist[check_counter].MS2_pointup);
-                _MS_pointup.Add(pitemlist.player_originalitemlist[check_counter].MS3_pointup);
-
                 break;
 
             case 2: //エクストリームパネルに設定したアイテムリストを選択した場合
@@ -904,13 +876,6 @@ public class SetImage : MonoBehaviour
                     _msvalue[i] = pitemlist.player_extremepanel_itemlist[check_counter].item_MagicSlotValue[i];
                 }
 
-                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[check_counter].MS1_mariage);
-                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[check_counter].MS2_mariage);
-                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[check_counter].MS3_mariage);
-                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[check_counter].MS1_pointup);
-                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[check_counter].MS2_pointup);
-                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[check_counter].MS3_pointup);
-
                 break;
 
             case 3: //表示などの確認用のチェック用アイテムリストを選択した場合。これはプレーヤは触れず、内部処理用のもの。セーブもされないTempデータ。
@@ -1010,13 +975,6 @@ public class SetImage : MonoBehaviour
                     _magicslot[i] = pitemlist.player_check_itemlist[check_counter].item_MagicSlot[i].ToString();
                     _msvalue[i] = pitemlist.player_check_itemlist[check_counter].item_MagicSlotValue[i];
                 }
-
-                _MS_mariage.Add(pitemlist.player_check_itemlist[check_counter].MS1_mariage);
-                _MS_mariage.Add(pitemlist.player_check_itemlist[check_counter].MS2_mariage);
-                _MS_mariage.Add(pitemlist.player_check_itemlist[check_counter].MS3_mariage);
-                _MS_pointup.Add(pitemlist.player_check_itemlist[check_counter].MS1_pointup);
-                _MS_pointup.Add(pitemlist.player_check_itemlist[check_counter].MS2_pointup);
-                _MS_pointup.Add(pitemlist.player_check_itemlist[check_counter].MS3_pointup);
 
                 break;
 
@@ -1131,13 +1089,6 @@ public class SetImage : MonoBehaviour
             _msvalue[i] = pitemlist.player_yosokuitemlist[check_counter].item_MagicSlotValue[i];
         }
 
-        _MS_mariage.Add(pitemlist.player_yosokuitemlist[check_counter].MS1_mariage);
-        _MS_mariage.Add(pitemlist.player_yosokuitemlist[check_counter].MS2_mariage);
-        _MS_mariage.Add(pitemlist.player_yosokuitemlist[check_counter].MS3_mariage);
-        _MS_pointup.Add(pitemlist.player_yosokuitemlist[check_counter].MS1_pointup);
-        _MS_pointup.Add(pitemlist.player_yosokuitemlist[check_counter].MS2_pointup);
-        _MS_pointup.Add(pitemlist.player_yosokuitemlist[check_counter].MS3_pointup);
-
         //カード　スロット名 現在は、特に表示はしていない
         Slotname_Hyouji();
 
@@ -1243,13 +1194,6 @@ public class SetImage : MonoBehaviour
             _magicslot[i] = GameMgr.contestclear_collection_list[check_counter].ItemData.item_MagicSlot[i].ToString();
             _msvalue[i] = GameMgr.contestclear_collection_list[check_counter].ItemData.item_MagicSlotValue[i];
         }
-
-        _MS_mariage.Add(GameMgr.contestclear_collection_list[check_counter].ItemData.MS1_mariage);
-        _MS_mariage.Add(GameMgr.contestclear_collection_list[check_counter].ItemData.MS2_mariage);
-        _MS_mariage.Add(GameMgr.contestclear_collection_list[check_counter].ItemData.MS3_mariage);
-        _MS_pointup.Add(GameMgr.contestclear_collection_list[check_counter].ItemData.MS1_pointup);
-        _MS_pointup.Add(GameMgr.contestclear_collection_list[check_counter].ItemData.MS2_pointup);
-        _MS_pointup.Add(GameMgr.contestclear_collection_list[check_counter].ItemData.MS3_pointup);
 
         //カード　スロット名 現在は、特に表示はしていない
         Slotname_Hyouji();
@@ -1793,111 +1737,13 @@ public class SetImage : MonoBehaviour
         Debug.Log("魔法エフェクト　カード表示check");
 
         item_MS_aisho.text = "";
-        aisho_text1 = "";
-        aisho_text2 = "";
-        aisho_text3 = "";
-        _compatible = 0;
 
         //魔法の食感計算の表示部分
-        for (i = 0; i < _magicslot.Length; i++)
-        {
-            Debug.Log("_magicslot " + i + ": " + _magicslot[i]);
-            if (_magicslot[i] == GameMgr.System_MagicSlotName01) //FireFlowerの場合　花火が周りにとびちるエフェクト
-            {
-                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
-                {
-                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName01) //FireFlowers
-                    {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score6 = _MS_pointup[j]/3 * _msvalue[i]; //子供っぽさを足す
-                        _ms_sp_score8 = _MS_pointup[j]/5 * _msvalue[i]; //芸術性を足す　パーティのお客さん向け         
-
-                        aisho_text1 = "見た目 + " + _compatible.ToString();
-                        aisho_text2 = "子供っぽい + " + _ms_sp_score6.ToString();
-                    }
-                }
-                MS_aisho_database(_compatible);
-                item_MS_aisho.text = "花火: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;                
-            }
-            if (_magicslot[i] == GameMgr.System_MagicSlotName02) //Butterflyの場合、光のちょうちょがとぶ
-            {
-                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
-                {
-                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName02)
-                    {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score7 = _MS_pointup[j]/3 * _msvalue[i]; //メルヘンを足す
-
-                        aisho_text1 = "見た目 + " + _compatible.ToString();
-                        aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
-                    }
-                }
-                MS_aisho_database(_compatible);
-                item_MS_aisho.text = "ちょうちょ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;               
-            }
-            if (_magicslot[i] == GameMgr.System_MagicSlotName03) //Bubbleは泡がでる
-            {
-                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
-                {
-                    //Debug.Log("_MS_mariage " + j + ": " + _MS_mariage[j]);
-                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName03)
-                    {
-                        //Debug.Log("あわあわ一致　テキスト表示");
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score2 = _MS_pointup[j] / 2 * _msvalue[i]; //海らしさを加算
-
-                        aisho_text1 = "見た目 + " + _compatible.ToString();
-                        aisho_text2 = "海らしさ + " + _ms_sp_score2.ToString();
-                    }
-                }
-                MS_aisho_database(_compatible);
-                item_MS_aisho.text = "あわあわ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;               
-            }
-            if (_magicslot[i] == GameMgr.System_MagicSlotName04) //Starは星くずがキラキラする
-            {
-                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
-                {
-                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName04)
-                    {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-
-                        aisho_text1 = "見た目 + " + _compatible.ToString();
-                    }
-                }
-                MS_aisho_database(_compatible);
-                item_MS_aisho.text = "星屑: " + _ms_aisho + "　" + aisho_text1;                
-            }
-            if (_magicslot[i] == GameMgr.System_MagicSlotName05) //WindArc　風の円弧が周りにとびちる
-            {
-                
-            }
-        }
+        itemCardEffect_database.MagicEffect_SlotKeisan(_magicslot, _msvalue, itemID, 0);
+        item_MS_aisho.text = itemCardEffect_database.item_MS_aisho;       
 
         //魔法のエフェクト表示部分
         itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_magicslot, 0); //2番目の数字は、アクセスする場所を指定　0=カードから
-    }
-
-    void MS_aisho_database(int _compa)
-    {
-        _ms_aisho = "";       
-
-        if (_compa >= 0 && _compa < 5)
-        {
-            _ms_aisho = "-";
-            aisho_text1 = "相性なし";
-        }
-        else if (_compa >= 5 && _compa < 10)
-        {
-            _ms_aisho = "△";
-        }
-        else if (_compa >= 10 && _compa < 30)
-        {
-            _ms_aisho = "〇";
-        }
-        else if (_compa >= 30)
-        {
-            _ms_aisho = "◎";
-        }
     }
 
     //調合完了後、カードのボタンを押すと呼び出される。

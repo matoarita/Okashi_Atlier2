@@ -75,6 +75,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private ItemCompoundDataBase databaseCompo;
     private ItemMatPlaceDataBase matplace_database;
     private ItemSubTypeSetDatabase itemsubtypeset_database;
+    private ItemCardEffectDataBase itemCardEffect_database;
 
     private ContestStartListDataBase conteststartList_database;
 
@@ -206,9 +207,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private string[] _baseMS;
     private int[] _baseMSvalue;
     private int _beauty_basicscore;
-
-    private List<string> _MS_mariage = new List<string>();
-    private List<int> _MS_pointup = new List<int>();
 
     private int _basegirl1_manpuku;
 
@@ -645,6 +643,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
+        //魔法エフェクトの計算データベース
+        itemCardEffect_database = ItemCardEffectDataBase.Instance.GetComponent<ItemCardEffectDataBase>();
+
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
@@ -924,8 +925,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         contest_type = _Type;
 
         //アイテムパラメータの取得
-        _MS_mariage.Clear();
-        _MS_pointup.Clear();
         switch (_toggle_type1)
         {
             case 0:
@@ -987,13 +986,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _baseMS[i] = database.items[kettei_item1].item_MagicSlot[i].ToString();
                     _baseMSvalue[i] = database.items[kettei_item1].item_MagicSlotValue[i];
                 }
-
-                _MS_mariage.Add(database.items[kettei_item1].MS1_mariage);
-                _MS_mariage.Add(database.items[kettei_item1].MS2_mariage);
-                _MS_mariage.Add(database.items[kettei_item1].MS3_mariage);
-                _MS_pointup.Add(database.items[kettei_item1].MS1_pointup);
-                _MS_pointup.Add(database.items[kettei_item1].MS2_pointup);
-                _MS_pointup.Add(database.items[kettei_item1].MS3_pointup);
 
                 break;
 
@@ -1057,13 +1049,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _baseMSvalue[i] = pitemlist.player_originalitemlist[kettei_item1].item_MagicSlotValue[i];
                 }
 
-                _MS_mariage.Add(pitemlist.player_originalitemlist[kettei_item1].MS1_mariage);
-                _MS_mariage.Add(pitemlist.player_originalitemlist[kettei_item1].MS2_mariage);
-                _MS_mariage.Add(pitemlist.player_originalitemlist[kettei_item1].MS3_mariage);
-                _MS_pointup.Add(pitemlist.player_originalitemlist[kettei_item1].MS1_pointup);
-                _MS_pointup.Add(pitemlist.player_originalitemlist[kettei_item1].MS2_pointup);
-                _MS_pointup.Add(pitemlist.player_originalitemlist[kettei_item1].MS3_pointup);
-
                 break;
 
             case 2:
@@ -1126,13 +1111,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _baseMSvalue[i] = pitemlist.player_extremepanel_itemlist[kettei_item1].item_MagicSlotValue[i];
                     Debug.Log("_baseMS[i]: " + _baseMS[i] + " " + "パラメータ: " + _baseMSvalue[i]);
                 }
-
-                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS1_mariage);
-                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS2_mariage);
-                _MS_mariage.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS3_mariage);
-                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS1_pointup);
-                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS2_pointup);
-                _MS_pointup.Add(pitemlist.player_extremepanel_itemlist[kettei_item1].MS3_pointup);
 
                 break;
 
@@ -1572,17 +1550,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("判定番号: " + _girl_judgenum[countNum]);
 
         //甘味
-        sweat_score = TasteKeisanBase(_girlsweat[countNum], sweat_result, _baseitemtype_sub, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
+        sweat_score = TasteKeisanBase(_girlsweat[countNum], sweat_result, _baseitemtype_sub, _basegirl1_like, "甘味: "); //クエストの値, お菓子の値-クエストの値, デバッグ表示用。返り値は、点数。
         sweat_level = taste_level;
         Debug.Log("甘み点: " + sweat_score);
 
         //苦み
-        bitter_score = TasteKeisanBase(_girlbitter[countNum], bitter_result, _baseitemtype_sub, "苦み: ");
+        bitter_score = TasteKeisanBase(_girlbitter[countNum], bitter_result, _baseitemtype_sub, _basegirl1_like, "苦み: ");
         bitter_level = taste_level;
         Debug.Log("苦味点: " + bitter_score);
 
         //酸味
-        sour_score = TasteKeisanBase(_girlsour[countNum], sour_result, _baseitemtype_sub, "酸味: ");
+        sour_score = TasteKeisanBase(_girlsour[countNum], sour_result, _baseitemtype_sub, _basegirl1_like, "酸味: ");
         sour_level = taste_level;
         Debug.Log("酸味点: " + sour_score);
 
@@ -1719,65 +1697,24 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         Debug.Log("トッピングスコア: " + topping_score);
 
+
         //さらに、演出スロットをみて、かかってる魔法スロットごとに特殊点を加算　_baseMSvalue[i]は、使用時のLVが入っている
         _basemagicslot_on = 0;
-        for (i = 0; i < _baseMS.Length; i++)
-        {
-            if (_baseMS[i] == GameMgr.System_MagicSlotName01) //FireFlowerの場合　花火が周りにとびちるエフェクト
-            {
-                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
-                {
-                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName01) //FireFlowers
-                    {
-                        _basebeauty += _MS_pointup[j] * _baseMSvalue[i];
-                        _base_sp_score6 += _MS_pointup[j] / 3 * _baseMSvalue[i]; //子供っぽさを足す
-                        _base_sp_score8 += _MS_pointup[j] / 5 * _baseMSvalue[i]; //芸術性を足す　パーティのお客さん向け
-                    }
-                }
-                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
-            }
-            if (_baseMS[i] == GameMgr.System_MagicSlotName02) //Butterfly
-            {
-                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
-                {
-                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName02)
-                    {
-                        _basebeauty += _MS_pointup[j] * _baseMSvalue[i];
-                        _base_sp_score7 += _MS_pointup[j]/3 * _baseMSvalue[i]; //メルヘンを足す
-                    }
-                }
-                _basemagicslot_on = 1;
-            }
-            if (_baseMS[i] == GameMgr.System_MagicSlotName03) //Bubble
-            {
-                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
-                {
-                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName03)
-                    {
-                        _basebeauty += _MS_pointup[j] * _baseMSvalue[i];
-                        _base_sp_score2 += _MS_pointup[j]/2 * _baseMSvalue[i]; //海らしさを加算
-                    }
-                }
+        itemCardEffect_database.MagicEffect_SlotKeisan(_baseMS, _baseMSvalue, _baseID, 1);
 
-                _basemagicslot_on = 1;
-            }
-            if (_baseMS[i] == GameMgr.System_MagicSlotName04) //Star
-            {
-                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
-                {
-                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName04)
-                    {
-                        _basebeauty += _MS_pointup[j] * _baseMSvalue[i];
-                    }
-                }
-
-                _basemagicslot_on = 1;
-            }
-            if (_baseMS[i] == GameMgr.System_MagicSlotName05) //WindArc
-            {
-                
-            }
-        }
+        _basebeauty += itemCardEffect_database._compatible;
+        _base_sp_wind += itemCardEffect_database._ms_sp_score1;
+        _base_sp_score2 += itemCardEffect_database._ms_sp_score2;
+        _base_sp_score3 += itemCardEffect_database._ms_sp_score3;
+        _base_sp_score4 += itemCardEffect_database._ms_sp_score4;
+        _base_sp_score5 += itemCardEffect_database._ms_sp_score5;
+        _base_sp_score6 += itemCardEffect_database._ms_sp_score6;
+        _base_sp_score7 += itemCardEffect_database._ms_sp_score7;
+        _base_sp_score8 += itemCardEffect_database._ms_sp_score8;
+        _base_sp_score9 += itemCardEffect_database._ms_sp_score9;
+        _base_sp_score10 += itemCardEffect_database._ms_sp_score10;
+        _basemagicslot_on = itemCardEffect_database._basemagicslot_on;
+        
 
         //見た目点数の計算
         beauty_score = BeautyKeisanBase(_basebeauty, _girlbeauty[countNum]);
@@ -2392,7 +2329,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }
 
     //酒場クエスト(Quest_Judge.cs)などからも読み込み
-    public int TasteKeisanBase(int _girltaste, int _taste_result, string _tasteitemtype_sub, string _taste_Type)
+    public int TasteKeisanBase(int _girltaste, int _taste_result, string _tasteitemtype_sub, float _girllike, string _taste_Type)
     {
         if (_girltaste == 0) //クエスト判定の値が0なら、そもそも判定しない。
         {
@@ -2407,22 +2344,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 case "Cookie":
 
-                    TasteScore_keisan2(_taste_result, _taste_Type);     //_taste_resultは、sweat_resultなどの、女の子の好みからお菓子の数値を引いた差の値。差をいれると、点数計算 
+                    TasteScore_keisan2(_taste_result, _taste_Type, _girllike);     //_taste_resultは、sweat_resultなどの、女の子の好みからお菓子の数値を引いた差の値。差をいれると、点数計算 
                     break;
 
                 case "Cookie_Hard":
 
-                    TasteScore_keisan2(_taste_result, _taste_Type);
+                    TasteScore_keisan2(_taste_result, _taste_Type, _girllike);
                     break;
 
                 case "Rusk":
 
-                    TasteScore_keisan2(_taste_result, _taste_Type);
+                    TasteScore_keisan2(_taste_result, _taste_Type, _girllike);
                     break;
 
                 default:
 
-                    TasteScore_keisan(_taste_result, _taste_Type); 
+                    TasteScore_keisan(_taste_result, _taste_Type, _girllike); 
                     break;
             }
                   
@@ -2431,7 +2368,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         return taste_score;
     }
 
-    void TasteScore_keisan(int _taste_result, string _taste_type)
+    void TasteScore_keisan(int _taste_result, string _taste_type, float _girllike)
     {
         if (Mathf.Abs(_taste_result) == 0)
         {
@@ -2496,7 +2433,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     }
 
     //クッキーを基準にした味
-    void TasteScore_keisan2(int _taste_result, string _taste_type)
+    void TasteScore_keisan2(int _taste_result, string _taste_type, float _girllike)
     {
         if (Mathf.Abs(_taste_result) == 0)
         {
@@ -2510,22 +2447,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             taste_score = 60;
             taste_level = 7;
         }
-        else if (Mathf.Abs(_taste_result) < 8) //+-3~7　絶妙な塩梅
+        else if (Mathf.Abs(_taste_result) < 12) //+-3~7　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 35;
+            taste_score = 45;
             taste_level = 6;
         }
-        else if (Mathf.Abs(_taste_result) < 15) //+-8~14  すばらしい
+        else if (Mathf.Abs(_taste_result) < 20) //+-8~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 20;
+            taste_score = 35;
             taste_level = 5;
         }
-        else if (Mathf.Abs(_taste_result) < 23) //+15~22  すばらしい
+        else if (Mathf.Abs(_taste_result) < 30) //+15~22  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 12;
+            taste_score = 15;
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) < 40) //+-23~39　かなりいい感じ

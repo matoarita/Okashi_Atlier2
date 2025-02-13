@@ -1084,18 +1084,18 @@ public class Compound_Check : MonoBehaviour {
                             magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
                         {
                             
-                            if (_compNo_check == 0)
+                            if (_compNo_check == 0) //Abra
                             {
                                 exp_Controller.Comp_method_bunki = 20;
                                 GameMgr.Extreme_On = true; //仕上げ回数が減る     
                             }
-                            else if (_compNo_check == 1)
+                            else if (_compNo_check == 1) //CompNo
                             {
                                 //元アイテムの値を活かすための分岐に設定　トッピング処理と同じことをする
                                 exp_Controller.Comp_method_bunki = 22;
                                 GameMgr.Extreme_On = true; //CompNoのお菓子は、仕上げ回数が減る     
                             }
-                            else if (_compNo_check == 2)
+                            else if (_compNo_check == 2) //Buf
                             {
                                 //元アイテムの値を活かすための分岐に設定　トッピング処理と同じことをする
                                 exp_Controller.Comp_method_bunki = 22;

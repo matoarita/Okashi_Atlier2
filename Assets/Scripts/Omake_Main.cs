@@ -10,6 +10,8 @@ public class Omake_Main : MonoBehaviour {
     private SaveController save_controller;
     private SoundController sc;
 
+    private BGM sceneBGM;
+
     private Debug_Panel_Init debug_panel_init;
 
     private Girl1_status girl1_status;
@@ -60,6 +62,11 @@ public class Omake_Main : MonoBehaviour {
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子   
+
+        //BGMの取得
+        sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+        sceneBGM.PlaySub();
+        sceneBGM.NowFadeVolumeONBGM();
 
         cg_gallerypanel_obj = canvas.transform.Find("CGGalleryPanel").gameObject;
         sp_titlepanel_obj = canvas.transform.Find("SpecialTitleListPanel").gameObject;

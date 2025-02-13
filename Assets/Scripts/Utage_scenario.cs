@@ -911,7 +911,7 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         //ここで、宴のパラメータ設定
-        engine.Param.TrySetParameter("TextRead_num", GameMgr.CGGallery_num);
+        engine.Param.TrySetParameter("TextRead_num", GameMgr.CGGallery_num); //思い出リストに振ったID番号を選択
         //Debug.Log("GameMgr.CGGallery_num: " + GameMgr.CGGallery_num);
 
         //音を止める

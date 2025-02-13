@@ -339,7 +339,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string[] System_WhiteMemo_text = new string[10];
 
     //特別な思い出イベントリスト　回想シーンでONOFFを見る
-    public static Dictionary<string, bool> HikariOmoide_Eventlist = new Dictionary<string, bool>();
+    public static List<SpecialTitle> HikariOmoide_Eventlist = new List<SpecialTitle>(); //イベントの名前リスト。
+    //public static Dictionary<string, bool> HikariOmoide_Eventlist = new Dictionary<string, bool>();
     public static int HikariOmoide_Count; //集めた思い出の個数
 
     //お菓子イベントクリアのフラグ
@@ -481,13 +482,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] ichigo_collection_listFlag; //いちごのお菓子のコレクションフラグ。
     public static List<string> ichigo_collection_list = new List<string>(); //いちごのお菓子の名前リスト。こっちはセーブ不要。
 
-    //獲得称号リストのフラグ
+    //獲得称号リストのフラグ 2は未使用
     public static List<SpecialTitle> title_collection_list = new List<SpecialTitle>(); //称号の名前リスト。
 
-    //獲得スチルリストのフラグ
+    //獲得スチルリストのフラグ 2は未使用
     public static List<SpecialTitle> event_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。
 
-    //獲得コンテストお菓子リストのフラグ
+    //獲得コンテストお菓子リストのフラグ 2は未使用
     public static List<SpecialTitle> contestclear_collection_list = new List<SpecialTitle>(); //イベントの名前リスト。 
     
     //獲得音楽図鑑のフラグ
@@ -2303,28 +2304,28 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
     }
 
-    //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない
+    //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない　先頭のIDが、そのまま宴のCGの呼び出し番号になる
     public static void Init_HikariOmoideEvent_Library()
     {
         HikariOmoide_Eventlist.Clear();
 
-        HikariOmoide_Eventlist.Add("huwakoro", false); //
-        HikariOmoide_Eventlist.Add("maritozzo", false);
-        HikariOmoide_Eventlist.Add("strawberry_sponge_cake", false);
+        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキの思い出", false, "EventCG_Icon/cg_gallery_icon_2"));
 
-        HikariOmoide_Eventlist.Add("event_kanransha", false);
-        HikariOmoide_Eventlist.Add("event_pool", false);
+        HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "プール", false, "EventCG_Icon/cg_gallery_icon_2"));
     }
 
     //思い出イベントの現在のフラグを取得
     public static bool SearchHikariOmoideFlag(string _name)
     {
-        foreach (string items in HikariOmoide_Eventlist.Keys)
+        for (system_i = 0; system_i < HikariOmoide_Eventlist.Count; system_i++)
         {
             //Debug.Log("思い出イベントフラグ取得中: " + items);
-            if (items == _name)
+            if (HikariOmoide_Eventlist[system_i].titleName == _name)
             {
-                return HikariOmoide_Eventlist[items];
+                return HikariOmoide_Eventlist[system_i].Flag;
             }
         }
 
@@ -2335,13 +2336,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void SetHikariOmoideFlag(string _name, bool _flag)
     {
         //Debug.Log("思い出イベントフラグセットの処理入る");
-        if (HikariOmoide_Eventlist.ContainsKey(_name))
+        for (system_i = 0; system_i < HikariOmoide_Eventlist.Count; system_i++)
         {
-            HikariOmoide_Eventlist[_name] = _flag;
-            Debug.Log("思い出イベントフラグをセット: " + _name + " " + HikariOmoide_Eventlist[_name]);
+            //Debug.Log("思い出イベントフラグ取得中: " + items);
+            if (HikariOmoide_Eventlist[system_i].titleName == _name)
+            {
+                HikariOmoide_Eventlist[system_i].Flag = _flag;
+            }
         }
-        //Keyが無かった場合は、無視
-        else { }
     }
 
     //はじめて作ったお菓子のイベントリスト
