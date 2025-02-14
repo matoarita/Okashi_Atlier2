@@ -78,6 +78,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private GameObject contest_select;
     private GameObject conteston_toggle_01;
     private GameObject conteston_toggle_giveup;
+    private GameObject hinttaste_toggle;
+    private GameObject okashihint_panel;
 
     private GameObject mainUI_panel;
 
@@ -297,6 +299,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         contest_select = canvas.transform.Find("MainUIPanel/Contest_Select").gameObject;
         conteston_toggle_01 = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_01").gameObject;
         conteston_toggle_giveup = contest_select.transform.Find("Viewport/Content/ContestOn_Toggle_GiveUp").gameObject;
+        hinttaste_toggle = canvas.transform.Find("MainUIPanel/HintTaste_Toggle").gameObject;
+
+        //お菓子ヒントパネルの取得
+        okashihint_panel = canvas.transform.Find("TasteHintPanel").gameObject;
 
         timelimitover_panel = canvas.transform.Find("MainUIPanel/TimeOverPanel").gameObject;
         timelimitover_panel.SetActive(false);
@@ -537,6 +543,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                     text_area.SetActive(true);
                     contest_select.SetActive(true);
+                    hinttaste_toggle.SetActive(true);
                     //contest_startbutton_panel.SetActive(true);
 
                     yes_no_panel.SetActive(false);
@@ -598,6 +605,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);
                     black_panel_A.SetActive(true);
                     contest_select.SetActive(false);
+                    hinttaste_toggle.SetActive(false);
 
                     //腹減りカウント一時停止
                     girl1_status.GirlEatJudgecounter_OFF();
@@ -635,9 +643,30 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                     break;
 
+                case 250: //お菓子ヒントボタンおした
+
+                    GameMgr.compound_status = 251;
+                    GameMgr.compound_select = 250;
+
+                    //腹減りカウント一時停止
+                    girl1_status.GirlEatJudgecounter_OFF();
+
+                    //extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
+
+                    okashihint_panel.SetActive(true); //お菓子ヒントパネルを表示。
+
+                    mainUI_panel.SetActive(false);
+
+                    break;
+
+                case 251: //お菓子ヒント画面選択中
+
+                    break;
+
                 case 500: //調合用
 
                     contest_select.SetActive(false);
+                    hinttaste_toggle.SetActive(false);
 
                     //調合終了まち
                     if (GameMgr.CompoundSceneStartON == false)
@@ -849,7 +878,18 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         }
     }
 
+    public void OnTasteHint_Toggle() //お菓子ヒントボタンを押した
+    {
+        if (hinttaste_toggle.GetComponent<Toggle>().isOn == true)
+        {
+            hinttaste_toggle.GetComponent<Toggle>().isOn = false;
 
+            card_view.DeleteCard_DrawView();
+
+            GameMgr.Scene_Status = 250;
+
+        }
+    }
 
 
     public void OnCheck_GiveUp() //諦める
@@ -950,6 +990,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         yes_no_submit_panel.SetActive(true);
         black_panel_A.SetActive(true);
         contest_select.SetActive(false);
+        hinttaste_toggle.SetActive(false);
 
         //腹減りカウント一時停止
         girl1_status.GirlEatJudgecounter_OFF();

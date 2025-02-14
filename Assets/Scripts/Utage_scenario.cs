@@ -913,6 +913,7 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("TextRead_num", GameMgr.CGGallery_num); //思い出リストに振ったID番号を選択
         //Debug.Log("GameMgr.CGGallery_num: " + GameMgr.CGGallery_num);
+        engine.Param.TrySetParameter("HikariOmoide_Flag", true);
 
         //音を止める
         BGMMute();

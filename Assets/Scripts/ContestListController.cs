@@ -264,15 +264,30 @@ public class ContestListController : MonoBehaviour
             }
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100) //プラトンアカデミー
             {
-                DrawContest();
+                if (conteststartList_database.SearchContestVictory("Or_Contest_001") == 1)
+                { }
+                else
+                {
+                    DrawContest();
+                }
             }
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200) //サマードリームスフェスティバル
             {
-                DrawContest();
+                if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1)
+                { }
+                else
+                {
+                    DrawContest();
+                }
             }
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 300) //アルクアンシェル
             {
-                DrawContest();
+                if (conteststartList_database.SearchContestVictory("Or_Contest_003") == 1)
+                { }
+                else
+                {
+                    DrawContest();
+                }
             }
         }
 

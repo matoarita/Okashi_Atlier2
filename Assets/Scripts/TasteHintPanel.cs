@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class TasteHintPanel : MonoBehaviour {
 
-    private Compound_Main compound_Main;
+    //private Compound_Main compound_Main;
     private Girl1_status girl1_status;
     private PlayerItemList pitemlist;
 
@@ -74,7 +74,7 @@ public class TasteHintPanel : MonoBehaviour {
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
-        compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
+        //compound_Main = GameObject.FindWithTag("Compound_Main").GetComponent<Compound_Main>();
 
         hintpanel_obj1 = this.transform.Find("HintPanel/Panel_1").gameObject;
         hintpanel_obj1.SetActive(true);
@@ -175,6 +175,7 @@ public class TasteHintPanel : MonoBehaviour {
     {
 
         GameMgr.compound_status = 0;
+        GameMgr.Scene_Status = 0;
         this.gameObject.SetActive(false);
 
     }

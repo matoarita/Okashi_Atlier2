@@ -1122,7 +1122,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             shop_database.ReSetShopItemIDZaiko(playerData.save_shopzaiko[i].Param, playerData.save_shopzaiko[i].Param2);
         }
 
-        //思い出リスト保存
+        //思い出リスト読み込み
         for (i = 0; i < playerData.save_HikariOmoide_Eventlist.Count; i++)
         {
             _name = playerData.save_HikariOmoide_Eventlist[i].itemName;
@@ -1527,6 +1527,16 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             _temp_eventcollectionlist.Add(new ItemSaveFlag(GameMgr.event_collection_list[i].titleName, 0, 0, 0, 0, 0, GameMgr.event_collection_list[i].Flag));
         }
 
+        //思い出リスト保存
+        _temp_HikariOmoide_Eventlist.Clear();
+        for (i = 0; i < GameMgr.HikariOmoide_Eventlist.Count; i++)
+        {
+            if (GameMgr.HikariOmoide_Eventlist[i].Flag) //フラグがtrueで解禁されてるやつだけシステムにセーブする
+            {
+                _temp_HikariOmoide_Eventlist.Add(new ItemSaveFlag(GameMgr.HikariOmoide_Eventlist[i].titleName, 0, 0, 0, 0, 0, GameMgr.HikariOmoide_Eventlist[i].Flag));
+            }
+        }        
+
         //コンテストクリアお菓子リスト
         _temp_contestclearcollectionlist.Clear();
         _temp_contestclearcollectionlistItemData.Clear();
@@ -1598,6 +1608,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //イベントリストを記録する
             save_event_collection_list = _temp_eventcollectionlist,
+
+            //思い出イベントリスト保存
+            save_HikariOmoide_Eventlist = _temp_HikariOmoide_Eventlist,
 
             //コンテストクリアお菓子リストを記録する
             save_contestclear_collection_list = _temp_contestclearcollectionlist,
@@ -1812,6 +1825,22 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                     i++;
                 }
             }
+
+            //思い出リスト読み込み
+            for (count = 0; count < systemData.save_HikariOmoide_Eventlist.Count; count++)
+            {
+                i = 0;
+                while (i < GameMgr.HikariOmoide_Eventlist.Count)
+                {
+                    if (systemData.save_HikariOmoide_Eventlist[count].itemName == GameMgr.HikariOmoide_Eventlist[i].titleName)
+                    {
+                        GameMgr.HikariOmoide_Eventlist[i].Flag = systemData.save_HikariOmoide_Eventlist[count].Flag;
+                        break;
+                    }
+                    i++;
+                }
+            }
+
 
             //コンテストクリアお菓子リスト
             for (count = 0; count < systemData.save_contestclear_collection_list.Count; count++)

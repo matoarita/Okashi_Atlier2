@@ -37,7 +37,7 @@ public class Omake_Main : MonoBehaviour {
     Coroutine _waitSeconds;
 
     private int i;
-
+    private bool StartRead;
 
     // Use this for initialization
     void Start () {
@@ -65,8 +65,7 @@ public class Omake_Main : MonoBehaviour {
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
-        sceneBGM.PlaySub();
-        sceneBGM.NowFadeVolumeONBGM();
+        
 
         cg_gallerypanel_obj = canvas.transform.Find("CGGalleryPanel").gameObject;
         sp_titlepanel_obj = canvas.transform.Find("SpecialTitleListPanel").gameObject;
@@ -95,8 +94,9 @@ public class Omake_Main : MonoBehaviour {
         recipilist_onoff.SetActive(false);
 
         isLoading = false;
+        StartRead = false;
 
-        //システムロード
+        //システムデータのみロード
         save_controller.SystemloadCheck();
 
         //デバッグ用コマンド
@@ -126,6 +126,12 @@ public class Omake_Main : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (!StartRead) //シーン最初だけ読み込む
+        {
+            StartRead = true;
+            sceneBGM.PlaySub();
+            sceneBGM.NowFadeVolumeONBGM();
+        }
     }
  
 
