@@ -696,57 +696,72 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     {
         Comp_method_bunki = 2;
 
-        i = 0;
-        while (i < database.items.Count)
+        if (databaseCompo.compoitems[result_compID].cmpitemID >= 0 && databaseCompo.compoitems[result_compID].cmpitemID < 10000)
         {
-            if (databaseCompo.compoitems[result_compID].cmpitemID_1 == database.items[i].itemName)
+            i = 0;
+            while (i < database.items.Count)
             {
-                kettei_item1 = i;
-                break;
+                if (databaseCompo.compoitems[result_compID].cmpitemID_1 == database.items[i].itemName)
+                {
+                    kettei_item1 = i;
+                    break;
+                }
+                i++;
             }
-            i++;
-        }
 
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_compID].cmpitemID_2 == database.items[i].itemName)
+            i = 0;
+            while (i < database.items.Count)
             {
-                kettei_item2 = i;
-                break;
+                if (databaseCompo.compoitems[result_compID].cmpitemID_2 == database.items[i].itemName)
+                {
+                    kettei_item2 = i;
+                    break;
+                }
+                i++;
             }
-            i++;
-        }
 
-        i = 0;
-        while (i < database.items.Count)
-        {
-            if (databaseCompo.compoitems[result_compID].cmpitemID_3 == database.items[i].itemName)
+            i = 0;
+            while (i < database.items.Count)
             {
-                kettei_item3 = i;
-                break;
+                if (databaseCompo.compoitems[result_compID].cmpitemID_3 == database.items[i].itemName)
+                {
+                    kettei_item3 = i;
+                    break;
+                }
+                i++;
             }
-            i++;
+
+            final_kette_kosu1 = databaseCompo.compoitems[result_compID].cmpitem_kosu1;
+            final_kette_kosu2 = databaseCompo.compoitems[result_compID].cmpitem_kosu2;
+            final_kette_kosu3 = databaseCompo.compoitems[result_compID].cmpitem_kosu3;
+
+            if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
+            {
+                kettei_item2 = 9999;
+                kettei_item3 = 9999;
+            }
+
+            if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
+            {
+                kettei_item3 = 9999;
+            }
+        }
+        //魔法調合DBから初期値決める場合
+        else if (databaseCompo.compoitems[result_compID].cmpitemID >= 10000)
+        {
+            kettei_item1 = database.SearchItemIDString(databaseCompo.compoitems[result_compID].cmpitemID_1);
+            kettei_item2 = database.SearchItemIDString("magic_comp_setting");
+            kettei_item3 = 9999;
+
+            final_kette_kosu1 = databaseCompo.compoitems[result_compID].cmpitem_kosu1;
+            final_kette_kosu2 = 1;
+            final_kette_kosu3 = 0;
         }
 
         toggle_type1 = 0;
         toggle_type2 = 0;
         toggle_type3 = 0;
-
-        final_kette_kosu1 = databaseCompo.compoitems[result_compID].cmpitem_kosu1;
-        final_kette_kosu2 = databaseCompo.compoitems[result_compID].cmpitem_kosu2;
-        final_kette_kosu3 = databaseCompo.compoitems[result_compID].cmpitem_kosu3;
-
-        if (final_kette_kosu2 == 9999) //2個目が空の場合、トッピングは一個のみ。
-        {
-            kettei_item2 = 9999;
-            kettei_item3 = 9999;
-        }
-
-        if (final_kette_kosu3 == 9999) //3個目が空の場合、トッピングは二個のみ。
-        {
-            kettei_item3 = 9999;
-        }
+        
 
         //**ここまで**
     }

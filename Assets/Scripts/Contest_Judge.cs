@@ -472,7 +472,7 @@ public class Contest_Judge : MonoBehaviour {
     {
         switch (GameMgr.Contest_Name)
         {
-
+            //1の頃のコンテスト
             case "First_Contest":
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
@@ -492,6 +492,7 @@ public class Contest_Judge : MonoBehaviour {
                 break;
 
 
+            //２～
             case "Or_Contest_001":　//プラトンアカデミー
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
@@ -502,6 +503,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -523,6 +525,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -544,6 +547,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -566,6 +570,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -621,6 +626,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -642,6 +648,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -663,6 +670,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -690,6 +698,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -721,6 +730,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -752,6 +762,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -778,6 +789,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
 
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
@@ -824,6 +836,17 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員３　じいさんは食感のみ、得点にバフがかかる。下の食感の値が最終の食感点数");
         Debug.Log("審査員３　食感補正前：" + before_tastescore[2] + "点");
         Debug.Log("審査員３　食感補正後：" + GameMgr.contest_Taste_Score[2] + "点");
+    }
+
+    void Contest_ShokukanHosei_10() //アントワネット王妃は、見た目の比重を大きくするため、食感の点数は影響を下げる。
+    {
+        before_tastescore[1] = GameMgr.contest_Taste_Score[1];        
+
+        total_score[1] = (int)(GameMgr.contest_Taste_Score[1] * 0.7f); //
+
+        Debug.Log("審査員２　王妃は食感の点数は少し下がる。下の食感の値が最終の食感点数");
+        Debug.Log("審査員２　食感補正前：" + before_tastescore[1] + "点");
+        Debug.Log("審査員２　食感補正後：" + GameMgr.contest_Taste_Score[1] + "点");
     }
 
     void Contest_BeautyHosei_1()
