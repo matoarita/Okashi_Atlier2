@@ -3319,6 +3319,11 @@ public class Utage_scenario : MonoBehaviour
             {
                 GameMgr.Contest_ReadyToStart = false;
             }
+            else if (stationevent_num == 2) //やっぱりやめた かつ　素材もちこみ説明でNOだしたので、受注リストを削除
+            {
+                GameMgr.Contest_ReadyToStart = false;
+                GameMgr.Contest_AcceptedDelete = true;
+            }
             else //コンテスト開始する
             {
                 GameMgr.Utage_SceneEnd_BlackON = true;

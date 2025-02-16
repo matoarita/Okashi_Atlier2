@@ -583,6 +583,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     GameMgr.Status_zero_readOK = true;
                     GameMgr.contest_MainMatchStart = true; //本戦開始の合図　TimeControllerで時間が進み始める
 
+                    //エクストリームパネル表示更新
+                    GameMgr.extremepanel_Koushin = true;
+
                     //制限時間　30分を超えた場合、失格フラグ
                     if (GameMgr.contest_LimitTimeOver_Gameover_flag)
                     {

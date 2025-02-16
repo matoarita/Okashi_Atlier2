@@ -59,7 +59,8 @@ public class Entity_shopItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(6); p.shop_buy_price = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(7); p.item_hyouji = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(8); p.item_hyouji_on = (cell == null ? false : cell.BooleanCellValue);
-					cell = row.GetCell(9); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.area_num = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(10); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

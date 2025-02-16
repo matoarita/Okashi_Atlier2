@@ -545,6 +545,19 @@ public class Contest_Main_Reception : MonoBehaviour
             scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
         }
 
+        //受注のコンテストリストを削除
+        if(GameMgr.Contest_AcceptedDelete)
+        {
+            GameMgr.Contest_AcceptedDelete = false;
+
+            if (GameMgr.contest_accepted_list[0] != null)
+            {
+                _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[0].contestName);
+                conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。
+                GameMgr.contest_accepted_list.RemoveAt(0); //受付していたコンテストは削除
+            }
+        }
+
         //シーンイベントのチェック
         EventCheck();
 
@@ -1042,6 +1055,7 @@ public class Contest_Main_Reception : MonoBehaviour
                 pitemlist.deleteAllExtremePanelItem();
             }
 
+            contest_list = 0;
             _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
 
             GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
@@ -1053,6 +1067,9 @@ public class Contest_Main_Reception : MonoBehaviour
 
             //出場回数+1
             conteststartList_database.conteststart_lists[_id].ContestFightsCount++;
+
+            //MPは回復
+            PlayerStatus.player_mp = PlayerStatus.player_maxmp;
 
             GameMgr.contest_accepted_list.RemoveAt(contest_list); //受付していたコンテストは削除
             conteststartList_database.conteststart_lists[_id].Contest_Accepted = 0; //DBのフラグもオフに。           

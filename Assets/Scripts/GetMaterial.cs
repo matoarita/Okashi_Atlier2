@@ -33,6 +33,7 @@ public class GetMaterial : MonoBehaviour
     private ItemDataBase database;
 
     private ItemMatPlaceDataBase matplace_database;
+    private MagicSkillListDataBase magicskill_database;
 
     private GameObject TansakuLoding_Panel;
 
@@ -58,6 +59,7 @@ public class GetMaterial : MonoBehaviour
     private float randomPoint;
     private float rare_event_kakuritsu;
     private float rare_event_kakuritsu_hosei;
+    private float rare_item_kakuritsu_up; //通常探索時のレアアイテム発見率の上昇
 
     //private int rare_eventitem_max;
 
@@ -139,6 +141,9 @@ public class GetMaterial : MonoBehaviour
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //テキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -308,6 +313,9 @@ public class GetMaterial : MonoBehaviour
         
         index = _index; //採取地IDの決定
 
+        //プレイヤーのアイテム発見力をバフつきで計算
+        Keisan_FindPower();
+
         // 入手できるアイテムのデータベース
         ResetItemDicts();
         InitializeDicts(_index);
@@ -372,8 +380,7 @@ public class GetMaterial : MonoBehaviour
                     }
                 }
 
-                //プレイヤーのアイテム発見力をバフつきで計算
-                Keisan_FindPower();                
+                           
 
                 //ウェイトアニメ
                 mat_anim_on = true;
@@ -935,6 +942,12 @@ public class GetMaterial : MonoBehaviour
                 ++i;
             }
 
+            //スキルがあれば、個数+1
+            if (magicskill_database.skillName_SearchLearnLevel("Rare_FindUP") >= 1)
+            {
+                kettei_kosu[_count] = kettei_kosu[_count] + 1;
+            }
+
             cullent_total_mat += kettei_kosu[_count]; //現在拾った材料の数
 
             _tansaku_result_temp.Add("<color=#E37BB5>" + database.items[kettei_item[_count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[_count] + "個　手に入れた！");
@@ -1038,10 +1051,12 @@ public class GetMaterial : MonoBehaviour
         itemrareInfo.Add(0, matplace_database.matplace_lists[_index].dropRare1);
         itemrareInfo.Add(1, matplace_database.matplace_lists[_index].dropRare2);
         itemrareInfo.Add(2, matplace_database.matplace_lists[_index].dropRare3);
-        
+
+
+        //アイテム発見力上昇で、レアもドロップ率少し上がる。
         itemrareDropDict.Add(0, matplace_database.matplace_lists[_index].dropRareProb1);
-        itemrareDropDict.Add(1, matplace_database.matplace_lists[_index].dropRareProb2);
-        itemrareDropDict.Add(2, matplace_database.matplace_lists[_index].dropRareProb3);
+        itemrareDropDict.Add(1, matplace_database.matplace_lists[_index].dropRareProb2 + rare_item_kakuritsu_up);
+        itemrareDropDict.Add(2, matplace_database.matplace_lists[_index].dropRareProb3 + rare_item_kakuritsu_up);
        
         itemrareDropKosuDict.Add(1, 95.0f); //1個
         itemrareDropKosuDict.Add(2, 5.0f); //2個
@@ -1088,8 +1103,8 @@ public class GetMaterial : MonoBehaviour
         itemrareInfo.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRare3);
 
         itemrareDropDict.Add(0, matplace_database.matplace_hikariget_lists[_index].dropRareProb1);
-        itemrareDropDict.Add(1, matplace_database.matplace_hikariget_lists[_index].dropRareProb2);
-        itemrareDropDict.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRareProb3);
+        itemrareDropDict.Add(1, matplace_database.matplace_hikariget_lists[_index].dropRareProb2 + rare_item_kakuritsu_up);
+        itemrareDropDict.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRareProb3 + rare_item_kakuritsu_up);
 
         itemrareDropKosuDict.Add(1, 95.0f); //1個
         itemrareDropKosuDict.Add(2, 5.0f); //2個
@@ -3708,18 +3723,25 @@ public class GetMaterial : MonoBehaviour
         }
     }
 
+    //プレイヤーのアイテム発見力をバフつきで計算
     void Keisan_FindPower()
     {
-        //プレイヤーのアイテム発見力をバフつきで計算
         _buf_findpower = bufpower_keisan.Buf_findpower_Keisan(); //プレイヤー装備品計算
-        player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower;
-        _findpower_girl_getmat = player_girl_findpower_final - PlayerStatus.player_girl_findpower_def;
+        player_girl_findpower_final = PlayerStatus.player_girl_findpower + _buf_findpower; //元の発見力+装備バフ
+        _findpower_girl_getmat = player_girl_findpower_final - PlayerStatus.player_girl_findpower_def; //現在の発見力-初期値（100）＝上昇分
 
         //レアイベントの発生確率。アイテム発見力が上がることで、上昇する。 現在のアイテム発見力　- 100 に0.1倍したもの。
         rare_event_kakuritsu = _findpower_girl_getmat * 0.1f;
         if (rare_event_kakuritsu >= 50.0f)
         {
             rare_event_kakuritsu = 50.0f;
+        }
+
+        //通常探索時のレアアイテム発見率上昇
+        rare_item_kakuritsu_up = _findpower_girl_getmat * 0.05f; //例 150なら、50*0.05 = 2.5%上昇
+        if (rare_item_kakuritsu_up >= 30.0f)
+        {
+            rare_item_kakuritsu_up = 30.0f;
         }
     }
 }

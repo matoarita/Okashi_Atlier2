@@ -25,6 +25,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
     private int _dongriType;
     private int _itemhyouji;
     private bool _itemhyouji_on;
+    private int _area_num;
     private int _read_endflag;
 
     private int i;
@@ -60,7 +61,8 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
                 InitShopDB_Common();
 
                 //ここでリストに追加している
-                shopitems.Add(new ItemShop(_shopID, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, _itemType, _dongriType, _itemhyouji, _itemhyouji_on, _read_endflag));
+                shopitems.Add(new ItemShop(_shopID, _itemID, _icon, _name, _name_hyouji, _cost, _sell, _zaiko, 
+                    _itemType, _dongriType, _itemhyouji, _itemhyouji_on, _area_num, _read_endflag));
 
                 ++count;
             }
@@ -102,6 +104,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
         _sell = excel_shopitemdatabase.sheets[sheet_no].list[count].shop_buy_price;
         _itemhyouji = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji;
         _itemhyouji_on = excel_shopitemdatabase.sheets[sheet_no].list[count].item_hyouji_on;
+        _area_num = excel_shopitemdatabase.sheets[sheet_no].list[count].area_num;
         _read_endflag = excel_shopitemdatabase.sheets[sheet_no].list[count].read_endflag;
 
         //Debug.Log("ショップ_itemType: " + _itemType);
@@ -224,7 +227,7 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
         }
     }
 
-    //ショップID＋個数で、指定した在庫数に変更する。
+    //ショップID＋個数で、指定した在庫数に変更する。IDだと、Excel上変わる可能性あるのでSaveControllerでは使用しない。
     public void ReSetShopItemIDZaiko(int _shopID, int count_kosu)
     {
         i = 0;
@@ -234,6 +237,24 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
             {
                 shopitems[i].shop_itemzaiko = count_kosu;
                 break;
+            }
+            i++;
+        }
+    }
+
+    //ショップアイテム名＋エリア番号＋個数で、指定した在庫数に変更する。
+    public void ReSetShopItemZaiko_ItemNameArea(string _itemname, int _area_num, int count_kosu)
+    {
+        i = 0;
+        while (i < shopitems.Count)
+        {
+            if (shopitems[i].area_num == _area_num)
+            {
+                if (shopitems[i].shop_itemName == _itemname)
+                {
+                    shopitems[i].shop_itemzaiko = count_kosu;
+                    break;
+                }                
             }
             i++;
         }

@@ -1671,7 +1671,10 @@ public class Compound_Main : MonoBehaviour
                 select_recipi_button.interactable = true;
                 select_no_button.interactable = true;
                                
-                OnCompoundSelect();               
+                OnCompoundSelect();
+
+                //エクストリームパネル表示更新
+                GameMgr.extremepanel_Koushin = true;
 
                 //ステージ更新
                 mainUI_panel_obj.GetComponent<MainUIPanel>().StageNumKoushin();
@@ -3131,6 +3134,11 @@ public class Compound_Main : MonoBehaviour
             case "mg_mp_regenaration_book":
 
                 magicskill_database.skillHyoujiKaikin("MP_Regenaration");
+                break;
+
+            case "mg_rare_findUP_book":
+
+                magicskill_database.skillHyoujiKaikin("Rare_FindUP");
                 break;
 
             case "mg_summon_mirabo_book":

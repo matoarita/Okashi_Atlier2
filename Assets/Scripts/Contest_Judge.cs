@@ -842,7 +842,8 @@ public class Contest_Judge : MonoBehaviour {
     {
         before_tastescore[1] = GameMgr.contest_Taste_Score[1];        
 
-        total_score[1] = (int)(GameMgr.contest_Taste_Score[1] * 0.7f); //
+        total_score[1] = total_score[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.7f) - before_tastescore[1]; 
+        //補正前に、一回before_tastescore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
 
         Debug.Log("審査員２　王妃は食感の点数は少し下がる。下の食感の値が最終の食感点数");
         Debug.Log("審査員２　食感補正前：" + before_tastescore[1] + "点");

@@ -174,7 +174,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_shopzaiko.Clear();
         for (i = 0; i < shop_database.shopitems.Count; i++)
         {
-            _temp_shopzaiko.Add(new ItemSaveFlag(shop_database.shopitems[i].shop_itemName, shop_database.shopitems[i].shop_ID, shop_database.shopitems[i].shop_itemzaiko, 
+            _temp_shopzaiko.Add(new ItemSaveFlag(shop_database.shopitems[i].shop_itemName, shop_database.shopitems[i].area_num, shop_database.shopitems[i].shop_itemzaiko, 
                 0, 0, 0, false));
         }
 
@@ -1119,7 +1119,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //ショップの在庫読み込み
         for (i = 0; i < playerData.save_shopzaiko.Count; i++)
         {
-            shop_database.ReSetShopItemIDZaiko(playerData.save_shopzaiko[i].Param, playerData.save_shopzaiko[i].Param2);
+            shop_database.ReSetShopItemZaiko_ItemNameArea(playerData.save_shopzaiko[i].itemName, playerData.save_shopzaiko[i].Param, playerData.save_shopzaiko[i].Param2);
         }
 
         //思い出リスト読み込み
