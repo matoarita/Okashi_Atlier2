@@ -125,7 +125,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         sceneplace_namepanel = sceneplace_namepanel_obj.GetComponent<ScenePlaceNamePanel>();
         sceneplace_namepanel_obj.SetActive(false);
 
-        Character_panel = canvas.transform.Find("Character_Panel").gameObject;
+        Character_panel = canvas.transform.Find("Character_Panel").gameObject; //広場シーンのみ、ゲームキャラと宴の表示の切り替えをこのパネルでやっている。
+        //ので、GameMgr.utage_charaHyouji_flagは使ってないので、注意。
 
         back_atlier_obj = canvas.transform.Find("BackHomeButtonPanel").gameObject;
         back_atlier_obj.SetActive(false);
@@ -168,6 +169,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GameMgr.Scene_Select = 0;
 
         GameMgr.Utage_MapMoveON = false;
+        GameMgr.utage_charaHyouji_flag = false;
 
         StartRead = false;
         check_event = false;
@@ -220,6 +222,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         if (GameMgr.Utage_MapMoveON) //マップ移動中は、ウィンドウオフのまま
         {
+            Debug.Log("マップ移動中　ウィンドウオフのまま");
             WindowOff();
         }
         else
@@ -293,16 +296,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
                         GameMgr.hiroba_event_ID = 220000;
 
-                        GameMgr.scenario_ON = true;
-
                         //BGMかえる
                         sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         sceneBGM.StopAmbient();
                         bgm_change_flag = true;
 
-                        GameMgr.Utage_MapMoveON = true;
-                        map_move_num = 3000;
-                        GameMgr.Utage_MapMoveBlackON = true;
+                        //GameMgr.Utage_MapMoveON = true;
+                        //map_move_num = 3000;
+                        //GameMgr.Utage_MapMoveBlackON = true;
 
                         check_event = true;
 
@@ -324,8 +325,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         //BGMかえる
                         sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         bgm_change_flag = true;
-
-                        GameMgr.scenario_ON = true;
 
                         check_event = true;
 
@@ -352,8 +351,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                         bgm_change_flag = true;
 
-                        GameMgr.scenario_ON = true;
-
                         check_event = true;
 
                         EventReadingStart();
@@ -369,8 +366,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
                         GameMgr.hiroba_event_ID = 230100;
 
-                        GameMgr.scenario_ON = true;
-
                         check_event = true;
 
                         EventReadingStart();
@@ -385,8 +380,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                         GameMgr.hiroba_event_placeNum = 5000; //魔法先生のイベント　開始は広場から
                         GameMgr.hiroba_event_ID = 1;
-
-                        GameMgr.scenario_ON = true;
 
                         GameMgr.Utage_MapMoveON = true;
                         map_move_num = 2000;
@@ -415,8 +408,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
                         GameMgr.hiroba_event_ID = 290000;
 
-                        GameMgr.scenario_ON = true;
-
                         check_event = true;
 
                         EventReadingStart();
@@ -431,8 +422,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                         GameMgr.hiroba_event_placeNum = 2000; //ヒカリの広場でのイベント
                         GameMgr.hiroba_event_ID = 300000;
-
-                        GameMgr.scenario_ON = true;
 
                         check_event = true;
 
@@ -1115,8 +1104,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Spring_RotenStreet":
 
-                //On_Active07();
-                On_Active12();
+                //On_Active30();
+                On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Spring_RotenStreet2":
@@ -1867,6 +1856,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_ShopActive01();
                 break;
 
+            case "Or_Hiroba_Spring_RotenStreet":
+
+                On_Active1600_Roten_Ringo();
+                break;
+
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
 
                 On_Active75();
@@ -1899,9 +1893,19 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         switch (GameMgr.Scene_Name)
         {
-            case "Or_Hiroba_Spring_Shoping_Moll": //中央噴水
+            case "Or_Hiroba_CentralPark": //中央噴水
 
                 On_BarActive01();
+                break;
+
+            case "Or_Hiroba_Spring_Shoping_Moll": //
+
+                On_BarActive01();
+                break;
+
+            case "Or_Hiroba_Spring_RotenStreet":
+
+                On_Active1601_Roten_PotatoButter();
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
@@ -1931,6 +1935,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active04();
                 break;
 
+            case "Or_Hiroba_Spring_RotenStreet":
+
+                On_Active1602_Roten_Crape();
+                break;
+
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
 
                 On_Active1560_Amupark_kanransha();
@@ -1958,6 +1967,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active04();
                 break;
 
+            case "Or_Hiroba_Spring_RotenStreet":
+
+                On_Active1603_Roten_Gelato();
+                break;
+
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
 
                 On_Active85();
@@ -1977,7 +1991,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_Active04();
+                On_Active10();
+                break;
+
+            case "Or_Hiroba_Spring_RotenStreet":
+
+                On_Active11();
                 break;
 
             default:
@@ -1995,6 +2014,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_CentralPark": //中央噴水
 
                 On_Active04();
+                break;
+
+            case "Or_Hiroba_Spring_RotenStreet":
+
+                On_Active30();
+                //On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
@@ -4044,7 +4069,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは露店通りのようだ。";
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                default_scenetext = "にいちゃん！　なんかいっぱいお店がある～！";
+
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
 
                 break;
 

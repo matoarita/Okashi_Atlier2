@@ -347,7 +347,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             GameMgr.check_ReturnHomeEvent_flag = true;
 
             ReturnHome_check(0, false); //プリンさん再会して、お店から帰ってきた
-            ReturnHome_check(10, false); //酒場はじめていって帰ってきた
+            //ReturnHome_check(10, false); //酒場はじめていって帰ってきた
             ReturnHome_check(20, false); //牧場はじめていって帰ってきた
             ReturnHome_check(30, true); //コンテストはじめていって帰ってきた            
             ReturnHome_check(110, false); //ミラボ先生にはじめて会って帰ってきた
@@ -1078,20 +1078,39 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }*/
 
-                //はじめてアイテムをとったときのイベントチェック さくら花びらとかは、GirlLoveEvent_numの影響うけるので、上でチェックしてる
+                //ヒント系
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
                 {
+                    if (GameMgr.GirlLoveSubEvent_stage1[421] == false) 
+                    {
+                        if (GameMgr.NPCHiroba_eventList[1031]) //アマクサが家にきて宴会するイベント直後
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[421] = true;
+                            GameMgr.GirlLoveSubEvent_num = 421;
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                        }
+                    }
                 }
+
+
+                //
+                //はじめてアイテムをとったときのイベントチェック さくら花びらとかは、GirlLoveEvent_numの影響うけるので、上でチェックしてる
+                //
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                {}
                 else
                 {
                     if (GameMgr.check_GetMat_flag)
                     {
-                        if (GameMgr.GirlLoveSubEvent_stage1[401] == false) //はじめてブラックロータスをとってきた
+                        if (GameMgr.GirlLoveSubEvent_stage1[405] == false) //はじめてブラックロータスをとってきた
                         {
                             if (pitemlist.KosuCount("blacklotus") >= 1)
                             {
-                                GameMgr.GirlLoveSubEvent_stage1[401] = true;
-                                GameMgr.GirlLoveSubEvent_num = 401;
+                                GameMgr.GirlLoveSubEvent_stage1[405] = true;
+                                GameMgr.GirlLoveSubEvent_num = 405;
 
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
                             }
@@ -1099,7 +1118,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //
                 //調合後にチェック　はじめて、各特別なお菓子作ったイベント
+                //
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1141,7 +1162,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 }
 
+                //
                 //食べた後にチェック　１５０点以上で特別なイベント
+                //
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1405,6 +1428,21 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (GameMgr.Contest_afterHomeEventFlag)
                         {
                             GameMgr.Contest_afterHomeEventFlag = false;
+
+                            //コンテスト一回でたあと、コンテストメモについてのイベント
+                            if (conteststartList_database.SearchContestVictory("Or_Contest_010") != 0) //クッキーコンテストでとりあえず出場し順位入った。
+                            {
+                                //エデン二枚目を見るイベント
+                                if (!GameMgr.GirlLoveSubEvent_stage1[420])
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[420] = true;
+
+                                    GameMgr.GirlLoveSubEvent_num = 420;
+                                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    GameMgr.Mute_on = true;
+
+                                }
+                            }
 
                             //夏コンテスト優勝した場合、エデンをゲットしたぞ～のイベント
                             if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1) //一位をゲットしてた＝エデン２をゲット

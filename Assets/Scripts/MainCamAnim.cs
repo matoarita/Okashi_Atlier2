@@ -16,6 +16,8 @@ public class MainCamAnim : MonoBehaviour {
         main_cam = Camera.main;
         maincam_animator = main_cam.GetComponent<Animator>();
         trans = maincam_animator.GetInteger("trans");
+
+        GameMgr.camerazoom_endflag = false;
     }
 	
 	// Update is called once per frame

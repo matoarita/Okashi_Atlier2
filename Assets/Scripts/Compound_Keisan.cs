@@ -749,7 +749,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //魔法調合DBから初期値決める場合
         else if (databaseCompo.compoitems[result_compID].cmpitemID >= 10000)
         {
-            kettei_item1 = database.SearchItemIDString(databaseCompo.compoitems[result_compID].cmpitemID_1);
+            if (database.SearchItemIDString(databaseCompo.compoitems[result_compID].cmpitemID_1) != 9999)
+            {
+                kettei_item1 = database.SearchItemIDString(databaseCompo.compoitems[result_compID].cmpitemID_1);
+            }
             kettei_item2 = database.SearchItemIDString("magic_comp_setting");
             kettei_item3 = 9999;
 

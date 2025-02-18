@@ -64,6 +64,7 @@ public class Contest_Main_Reception : MonoBehaviour
     private GameObject time_panel;
     private GameObject money_panel;
     private GameObject ninki_panel;
+    
 
     private Debug_Panel_Init debug_panel_init;
 
@@ -98,6 +99,7 @@ public class Contest_Main_Reception : MonoBehaviour
     private List<GameObject> BGImg_List_mago = new List<GameObject>();
 
     private GameObject CharacterPanel;
+    private List<GameObject> Character_list = new List<GameObject>();
 
     // Use this for initialization
     void Start()
@@ -229,11 +231,13 @@ public class Contest_Main_Reception : MonoBehaviour
         }
 
         //キャラの設定　複数いる場合
+        Character_list.Clear();
         CharacterPanel = GameObject.FindWithTag("Character");
         i = 0;
         foreach (Transform child in CharacterPanel.transform.Find("CharacterImage").transform)　//
         {
-            //Debug.Log(child.name);           
+            //Debug.Log(child.name);  
+            Character_list.Add(child.gameObject);
             child.gameObject.SetActive(false);
             i++;
         }
@@ -518,14 +522,8 @@ public class Contest_Main_Reception : MonoBehaviour
                 maincam_animator.SetInteger("trans", trans);
             }
 
-            if (GameMgr.System_Contest_StartNow)
-            {
-                On_ActiveContestStart2();
-            }
-            else
-            {
-                GameMgr.Scene_Status = 0;
-            }
+            GameMgr.scenario_ON = true;
+            StartCoroutine("WaitForCameraReset");            
                                 
         }
         
@@ -580,7 +578,6 @@ public class Contest_Main_Reception : MonoBehaviour
                 case 0:
 
                     
-
                     text_area.SetActive(true);
                     //placename_panel.SetActive(true);
                     mainlist_controller_obj.SetActive(true);
@@ -750,7 +747,7 @@ public class Contest_Main_Reception : MonoBehaviour
     void EventCheck_OrA1()
     {
         //matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
-        matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
+        //matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
 
         if (!GameMgr.System_ContestIcon_OnFlag)
         {
@@ -1021,6 +1018,25 @@ public class Contest_Main_Reception : MonoBehaviour
         _text.text = "コンテスト失格になってしまった。" + "\n" + "人気が下がった・・。";
     }
 
+    IEnumerator WaitForCameraReset()
+    {
+        yield return new WaitForSeconds(0.3f); //秒待つ
+
+        /*while (!GameMgr.camerazoom_endflag)
+        {
+            yield return null;
+        }*/
+
+        if (GameMgr.System_Contest_StartNow)
+        {
+            On_ActiveContestStart2();
+        }
+        else
+        {
+            GameMgr.Scene_Status = 0;
+        }
+    }
+
     //
     public void EventReadingStart()
     {
@@ -1034,6 +1050,10 @@ public class Contest_Main_Reception : MonoBehaviour
         GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
         GameMgr.Scene_Status = 1000;
 
+        //キャラ表示パネルも一時的にオフ
+        //CharacterPanel.GetComponent<FadeCharacter>().FadeImageOff();
+        CharacterPanel.GetComponent<FadeCharacter>().SetOff();
+
         //Debug.Log("広場イベント　読み中");
 
         while (!GameMgr.scenario_read_endflag)
@@ -1043,6 +1063,9 @@ public class Contest_Main_Reception : MonoBehaviour
 
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
+
+        //キャラ表示パネルオン
+        CharacterPanel.GetComponent<FadeCharacter>().SetOn();
 
         if (GameMgr.Contest_ReadyToStart) //コンテスト開始のイベントだった場合は、このタイミングでコンテスト本番スタート
         {
@@ -1252,7 +1275,7 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.hiroba_event_placeNum = 1001; //レセプション会話イベント
             GameMgr.hiroba_event_ID = 1100;
 
-            sceneBGM.MuteBGM();
+            //sceneBGM.MuteBGM();
 
             check_event = true;
 

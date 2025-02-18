@@ -178,7 +178,7 @@ public class Contest_Main_Outside : MonoBehaviour
                 GameMgr.Scene_Name = "Or_Contest_Out_Spring";
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 gotonum = 0; //会場受付シーンの指定
-                backnum = 12; //バックボタン押したときの戻り先
+                backnum = 0; //バックボタン押したときの戻り先 //12秘密の花園
 
                 default_scenetext = "にいちゃん！！ おっきい建物～！！";
                 break;

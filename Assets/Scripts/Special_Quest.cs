@@ -117,21 +117,18 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         }
 
-        GameMgr.QuestClearAnim_Flag = false; //クエスト前に一度falseでリセット
+        GameMgr.QuestClearAnim_Flag = true; //クエスト前trueにセット //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
         GameMgr.Contest_BGMON = false;
         GameMgr.Contest_PanelON = false;
 
         if (GameMgr.Story_Mode == 0)
         {
             //Stage1_Normal(spquest_set_num);
-            Stage2_Main(spquest_set_num);
-            //全てのクエストで、クエストクリア時にクエストボタンを登場させる。
-            GameMgr.QuestClearAnim_Flag = true;
+            Stage2_Main(spquest_set_num);           
         }
         else
         {
             Stage1_Extra(spquest_set_num); //エクストラ
-            GameMgr.QuestClearAnim_Flag = true;　//全てのクエストで、クエストボタンなしで次へ。
         }
 
        

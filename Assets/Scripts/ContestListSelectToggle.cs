@@ -267,8 +267,8 @@ public class ContestListSelectToggle : MonoBehaviour
                 //Debug.Log("ok");
                 //解除
 
-                //ランクチェック
-                if (PlayerStatus.player_ninki_param >= conteststartList_database.conteststart_lists[_list].Contest_PatissierRank)
+                //ランクチェック PlayerStatus.player_ninki_param
+                if (PlayerStatus.girl1_Love_lv >= conteststartList_database.conteststart_lists[_list].Contest_PatissierRank)
                 {
                     sc.PlaySe(0);
                     //sc.PlaySe(25);

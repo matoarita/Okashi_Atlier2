@@ -711,6 +711,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.Sleep_CheckEnd = false;
         GameMgr.Status_zero_readOK = false;
         GameMgr.Utage_MapMoveON = false;
+        GameMgr.utage_charaHyouji_flag = false;
 
 
         gameover_loading = false;

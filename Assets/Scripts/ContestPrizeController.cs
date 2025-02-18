@@ -307,7 +307,8 @@ public class ContestPrizeController : MonoBehaviour
         //_Img = _contest_listitem[list_count].transform.Find("Background/ImageIcon").GetComponent<Image>(); //アイテムの画像データ
 
         //一位から順番に更新
-        switch(GameMgr.ContestRoundNum)
+        _rank_name = "優勝";
+        /*switch(GameMgr.ContestRoundNum)
         {
             case 0:
                 break;
@@ -324,7 +325,7 @@ public class ContestPrizeController : MonoBehaviour
                 _rank_name = "優勝";
                 break;
 
-        }
+        }*/
 
         //トーナメント形式
         /*if(i == 0)

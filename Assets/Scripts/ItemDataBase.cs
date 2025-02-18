@@ -315,7 +315,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
     public int GetItemFirstEat(string _itemname)
     {
         i = 0;
-        while(i<items.Count)
+        while(i < items.Count)
         {
             if(items[i].itemName == _itemname)
             {
@@ -357,7 +357,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
     {
 
         i = 0;
-        while (i <= items.Count)
+        while (i < items.Count)
         {
             if (items[i].itemID == _itemID)
             {
@@ -380,7 +380,7 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
         else
         {
             i = 0;
-            while (i <= items.Count)
+            while (i < items.Count)
             {
                 if (items[i].itemName == Name)
                 {

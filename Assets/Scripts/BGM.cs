@@ -86,6 +86,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound72;  //オランジーナ調合メインのBGM4
     public AudioClip sound73;  //大会コンテストのBGM エデンコンテスト2
     public AudioClip sound74;  //おまけのシーンBGM
+    public AudioClip sound75;  //イリスさんのテーマ
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -319,7 +320,7 @@ public class BGM : MonoBehaviour {
 
                             case "Or_Hiroba_Spring_Entrance": //春のエリア入口
 
-                                _send_clip = sound41;
+                                _send_clip = sound75;
                                 break;
 
                             case "Or_Hiroba_Spring_Shoping_Moll": //春のエリア商店街

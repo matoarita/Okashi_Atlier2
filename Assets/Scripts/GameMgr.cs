@@ -39,7 +39,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。    
-    public static bool WEATHER_TIMEMODE_ON = false; //時間によって朝・昼・夜の背景を変更するかどうか。   
+    public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
     public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
 
     //各システムの使用の有無
@@ -64,11 +64,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
     public static bool System_ContestEdenFinalStart_ON = true; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
     public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　trueなら、採点パネル表示前 falseなら後
-
+    
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
 
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
+
+    //食感の計算方法の切り替え 0=_basescoreと比率をかける計算 1=単純に、判定値から引き算のみ
+    public static int System_GirlEat_ShokukanParamKeisan = 1;
 
     //調合シーンでBGM切り替えるかどうかのフラグ
     public static bool CompoBGMCHANGE_ON = false;
@@ -1747,6 +1750,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, "Non", 0, "Non", 0, "Non", 0);
+        contest_okashiID = 0;
+        contest_lasthint_text = ""; //
+        contest_shokukan_param = 0; //
+        contest_shokukan_mes = ""; //
+        contest_sweat_param = 0; //
+        contest_sour_param = 0; //
+        contest_bitter_param = 0;
 
         //お菓子のクリア基準値
         mazui_score = 30;

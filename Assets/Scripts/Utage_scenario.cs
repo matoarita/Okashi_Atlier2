@@ -2869,9 +2869,10 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         roten_flag_num = 0;
+        bgm_changeflag = false;
         resipi_getflag = false;
         resipi_getflag_afteritemuse = false;
-        bgm_changeflag = false;
+        
 
         //場所ごとにラベルを変えている
         switch (GameMgr.hiroba_event_placeNum)
@@ -3338,6 +3339,8 @@ public class Utage_scenario : MonoBehaviour
         {
             GameMgr.Utage_MapMoveBlackON = false;
 
+            Debug.Log("GameMgr.Utage_MapMoveBlackON ON");
+
             //「宴」のシナリオ終了待ち
             while (!engine.IsPausingScenario)
             {
@@ -3461,6 +3464,8 @@ public class Utage_scenario : MonoBehaviour
         }
         else //レシピをとる可能性がある場合は、pauseも待つ。
         {
+            Debug.Log("レシピゲットフラグ=true Or BGM宴途中変更フラグ=true");
+
             //「宴」のシナリオ終了待ち
             while (!Engine.IsEndOrPauseScenario)
             {
@@ -3954,14 +3959,13 @@ public class Utage_scenario : MonoBehaviour
         }
        
 
-
+        /*
         if (GameMgr.utage_charaHyouji_flag)
         {
             GameMgr.utage_charaHyouji_flag = false;
             CharacterSpriteSetON();
 
-        }
-
+        }*/
         
 
         //

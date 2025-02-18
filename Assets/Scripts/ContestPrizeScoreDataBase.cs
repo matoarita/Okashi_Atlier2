@@ -694,7 +694,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("lucky_ticket");
         GameMgr.PrizeItemList.Add("emerald_suger");
         GameMgr.PrizeItemList.Add("teaset_flower");
-        GameMgr.PrizeItemList.Add("mg_bake_beans_book");
+        GameMgr.PrizeItemList.Add("mg_rare_findUP_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();

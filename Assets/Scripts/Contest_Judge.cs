@@ -63,6 +63,8 @@ public class Contest_Judge : MonoBehaviour {
     private int rnd, rnd2;
     private int set_id;
 
+    private string _shokukan_kansou;
+
     //女の子の好み組み合わせセットのデータ
     private int _compID;
     private int set1_ID;
@@ -447,6 +449,9 @@ public class Contest_Judge : MonoBehaviour {
         Contest_Score_JudgeHoseiLibrary(1);
         girlEat_judge.ContestDebugTextLog();
 
+        //じいさんの食感感想 メモに表示用
+        Contest_ShokukanHintHyouji(GameMgr.contest_Taste_Score[2], GameMgr.contest_shokukan_mes);
+
         //さらに提出が遅れた場合減点
         if (GameMgr.contest_LimitTimeOver_DegScore_flag)
         {
@@ -531,7 +536,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(175); //
+                    ScoreNormalized(200); //
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -818,18 +823,26 @@ public class Contest_Judge : MonoBehaviour {
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 180)
+        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 300)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.8f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 300 && GameMgr.contest_Taste_Score[2] < 500)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.1f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 500 && GameMgr.contest_Taste_Score[2] < 750)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.5f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 750)
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
-        }
-        else if (GameMgr.contest_Taste_Score[2] >= 180)
-        {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 4.0f);
         }
         else if (GameMgr.contest_Taste_Score[2] < 0)
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.7f);
-        }
+        }        
 
         total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]); //補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
 
@@ -973,6 +986,41 @@ public class Contest_Judge : MonoBehaviour {
                 total_score[i] = (int)(total_score[i] + (_spscore * 3.0f));
             }
         }
+    }
+
+    void Contest_ShokukanHintHyouji(int shokukan_score, string shokukan_mes)
+    {
+        //食感に関するヒント
+        if (shokukan_score < 20) //
+        {
+            _shokukan_kansou = GameMgr.ColorRedDeep + "食感 F: " + shokukan_mes + "が全然足りない..。" + "</color>";
+        }
+        else if (shokukan_score >= 20 && shokukan_score < 40) //
+        {
+            _shokukan_kansou = GameMgr.ColorRedDeep + "食感 C: " + shokukan_mes + "がもっとほしい" + "</color>";
+        }
+        else if (shokukan_score >= 40 && shokukan_score < GameMgr.low_score) //
+        {
+            _shokukan_kansou = "食感 B: " + "まあまあの" + shokukan_mes;
+        }
+        else if (shokukan_score >= GameMgr.low_score && shokukan_score < GameMgr.high_score) //
+        {
+            _shokukan_kansou = "食感 B+: " + "ほどほどに良い" + shokukan_mes;
+        }
+        else if (shokukan_score >= GameMgr.high_score && shokukan_score < 200) //
+        {
+            _shokukan_kansou = "食感 A: " + "良い" + shokukan_mes;
+        }
+        else if (shokukan_score >= 200 && shokukan_score < 350) //
+        {
+            _shokukan_kansou = GameMgr.ColorPink + "食感 A+: " + "絶妙な" + shokukan_mes + "</color>";
+        }
+        else if (shokukan_score >= 350) //
+        {
+            _shokukan_kansou = GameMgr.ColorGold + "食感 S: " + "神の" + shokukan_mes + "！！" + "</color>";
+        }
+
+        GameMgr.contest_lasthint_text = _shokukan_kansou + "\n" + GameMgr.contest_lasthint_text;
     }
 
     //点数を、入れた値を上限にして100点に正規化する。

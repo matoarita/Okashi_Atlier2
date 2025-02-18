@@ -170,7 +170,8 @@ public class Contest_DetailedPanel : MonoBehaviour {
         }
         else if (_Rank > 0)
         {
-            contest_condition.text = "☆スター" + _Rank + "以上";
+            //contest_condition.text = "☆スター" + _Rank + "以上";
+            contest_condition.text = "ハートLv " + _Rank + "\n" + " 以上";
         }
 
         contest_theme.text = conteststartList_database.conteststart_lists[_list].Contest_themeComment;

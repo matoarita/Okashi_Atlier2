@@ -52,7 +52,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private Text Result_Text;
     private string _result_text;
     public string _sweat_kansou, _bitter_kansou, _sour_kansou; //UtageScenarioからも読み出し
-    public string _contest_sweat_kansou, _contest_bitter_kansou, _contest_sour_kansou; //Contestからも読み出し
+    public string _contest_sweat_kansou, _contest_bitter_kansou, _contest_sour_kansou, _contest_beautykansou; //Contestからも読み出し
     public string _shopgirl_sweat_kansou, _shopgirl_bitter_kansou, _shopgirl_sour_kansou, _shopgirl_shokukan_kansou; //UtageScenarioからも読み出し
     public string _shokukan_kansou;
     private string _temp_spkansou, _special_kansou;
@@ -1909,11 +1909,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 if (countNum == 0)
                 {
                     GameMgr.contest_lasthint_text = _contest_sweat_kansou + "\n" + _contest_bitter_kansou + "\n" + _contest_sour_kansou;
-                }               
-                if (countNum == 2)
+                }       
+                //食感と見た目は、審査員の補正後、Contest_Judgeで感想を追加
+                /*if (countNum == 2) //最後に、0で入れた味の感想の頭に食感感想を追加してる。
                 {
                     GameMgr.contest_lasthint_text = _shokukan_kansou + "\n" + GameMgr.contest_lasthint_text;
-                }
+                }*/
+                //** **//
+
                 GameMgr.contest_shokukan_param = shokukan_baseparam;
                 GameMgr.contest_shokukan_mes = shokukan_mes;
                 GameMgr.contest_sweat_param = _basesweat; //
@@ -2580,8 +2583,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _temp_ratio = 1.0f;
                 Debug.Log("_temp_deg: " + _temp_deg);
 
-                crispy_score = (int)(_basescore * _temp_ratio * _temp_deg);
-                //crispy_score = _basecrispy - _girlcrispy[countNum];
+                if (GameMgr.System_GirlEat_ShokukanParamKeisan == 0)
+                {
+                    crispy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                }
+                else if (GameMgr.System_GirlEat_ShokukanParamKeisan == 1)
+                {
+                    crispy_score = _basecrispy - _girlcrispy[countNum];
+                }
             }
             else
             {
@@ -2615,8 +2624,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _temp_ratio = 1.0f;
                 Debug.Log("_temp_deg: " + _temp_deg);
 
-                fluffy_score = (int)(_basescore * _temp_ratio * _temp_deg);
-                //fluffy_score = _basefluffy - _girlfluffy[countNum];
+                if (GameMgr.System_GirlEat_ShokukanParamKeisan == 0)
+                {
+                    fluffy_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                }
+                else if (GameMgr.System_GirlEat_ShokukanParamKeisan == 1)
+                {
+                    fluffy_score = _basefluffy - _girlfluffy[countNum];
+                }
             }
             else
             {
@@ -2650,7 +2665,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _temp_ratio = 1.0f;
                 Debug.Log("_temp_deg: " + _temp_deg);
 
-                smooth_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                if (GameMgr.System_GirlEat_ShokukanParamKeisan == 0)
+                {
+                    smooth_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                }
+                else if (GameMgr.System_GirlEat_ShokukanParamKeisan == 1)
+                {
+                    smooth_score = _basesmooth - _girlsmooth[countNum];
+                }                
             }
             else
             {
@@ -2684,7 +2706,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _temp_ratio = 1.0f;
                 Debug.Log("_temp_deg: " + _temp_deg);
 
-                hardness_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                if (GameMgr.System_GirlEat_ShokukanParamKeisan == 0)
+                {
+                    hardness_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                }
+                else if (GameMgr.System_GirlEat_ShokukanParamKeisan == 1)
+                {
+                    hardness_score = _basehardness - _girlhardness[countNum];
+                }              
             }
             else
             {
@@ -2718,7 +2747,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _temp_ratio = 1.0f;
                 Debug.Log("_temp_deg: " + _temp_deg);
 
-                juice_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                if (GameMgr.System_GirlEat_ShokukanParamKeisan == 0)
+                {
+                    juice_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                }
+                else if (GameMgr.System_GirlEat_ShokukanParamKeisan == 1)
+                {
+                    juice_score = _basejuice - _girljuice[countNum];
+                }               
             }
             else
             {
@@ -2752,7 +2788,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _temp_ratio = 1.0f;
                 Debug.Log("_temp_deg: " + _temp_deg);
 
-                tea_flavor_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                if (GameMgr.System_GirlEat_ShokukanParamKeisan == 0)
+                {
+                    tea_flavor_score = (int)(_basescore * _temp_ratio * _temp_deg);
+                }
+                else if (GameMgr.System_GirlEat_ShokukanParamKeisan == 1)
+                {
+                    tea_flavor_score = _basetea_flavor - _girltea_flavor[countNum];
+                }               
             }
             else
             {
@@ -4270,6 +4313,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //
     IEnumerator QuestClearStart()
     {
+        Debug.Log("クエストクリアイベントスタート　UI触れなくなる");
+
         //ボタン演出が始まる瞬間から、その他のサブイベント発生などは一時オフ
         GameMgr.check_GirlLoveSubEvent_flag = true; //サブイベントが発生するかをチェック
         GameMgr.check_GirlLoveTimeEvent_flag = true;
@@ -4298,9 +4343,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         emerarudonguri_end = false;
 
         //全てのハートがなくなるまで待つ。
-        while (heart_count > 0)
+        /*while (heart_count > 0)
         {
             yield return null;
+        }*/
+
+        //一時的に現在のハートを表示オフに。これで、先にクエストクリア演出が終わる。
+        for (i = 0; i < _listHeart.Count; i++)
+        {
+            _listHeart[i].SetActive(false);
         }
 
         yield return new WaitForSeconds(1.0f);
@@ -4331,7 +4382,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //ボタンが登場する演出
             StartCoroutine("ClearButtonAnim");
         }
-        else //SPクエストクリアで、ボタン登場演出がない場合。次へ。
+        else //SPクエストクリアで、ボタン登場演出がない場合。次へ。現在の仕様だと、こっちは通らない。
         {
             //お菓子の判定処理を終了
 
@@ -4349,13 +4400,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
 
-
+    
     IEnumerator ClearButtonAnim()
     {
         //レベルアップパネルは一時オフ
         GameMgr.QuestClearButton_anim = true;
         //Debug.Log("_listlvup_obj.Count: " + _listlvup_obj.Count);
-        HeartLvUpPanel_obj.SetActive(false);
+        HeartLvUpPanel_obj.SetActive(false);        
 
         canvas.SetActive(true);
         stageclear_panel.SetActive(true);
@@ -4387,6 +4438,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //まだレベルアップパネルステータス開いてたらONにする。
         HeartLvUpPanel_obj.SetActive(true);
+
+        //現在のハートを表示オンに。
+        for (i = 0; i < _listHeart.Count; i++)
+        {
+            _listHeart[i].SetActive(true);
+        }
     }
 
 
@@ -4870,8 +4927,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 }*/
 
-                _id = matplace_database.SearchMapString("Or_Contest_A1");
-                if (matplace_database.matplace_lists[_id].placeFlag == 1)
+                //_id = matplace_database.SearchMapString("Or_Contest_A1");
+                if (GameMgr.NPCHiroba_eventList[0]) //ガトーさんに会場で会った
                 {
                     Debug.Log("街へでて、コンテスト会場をみつけた。クエストクリア");
                     sp_quest_clear = true;

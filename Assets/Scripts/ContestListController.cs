@@ -271,7 +271,7 @@ public class ContestListController : MonoBehaviour
                     DrawContest();
                 }
             }
-            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200) //サマードリームスフェスティバル
+            /*if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200) //サマードリームスフェスティバル
             {
                 if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1)
                 { }
@@ -288,7 +288,7 @@ public class ContestListController : MonoBehaviour
                 {
                     DrawContest();
                 }
-            }
+            }*/
         }
 
         //ラスククリアででる。
@@ -412,29 +412,39 @@ public class ContestListController : MonoBehaviour
 
 
         //エデンコンテスト系の登場　スターでもいいし、特定のイベントクリアしたら出現でもいい
-        /*if (GameMgr.Contest_NewReleaseList[40])
+        if (GameMgr.Contest_NewReleaseList[40])
         {
-            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100)
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200)
             {
-                DrawContest();
+                if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1)
+                { }
+                else
+                {
+                    DrawContest();
+                }
             }
         }
 
         if (GameMgr.Contest_NewReleaseList[41])
         {
-            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200)
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 300)
             {
-                DrawContest();
+                if (conteststartList_database.SearchContestVictory("Or_Contest_003") == 1)
+                { }
+                else
+                {
+                    DrawContest();
+                }
             }
         }
 
         if (GameMgr.Contest_NewReleaseList[42])
         {
-            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 300)
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 400)
             {
                 DrawContest();
             }
-        }*/
+        }
     }
 
     //条件チェックライブラリー　新しく解放したものがあればフラグをたてる Contest_Main_Receptionから読み出し
@@ -534,14 +544,14 @@ public class ContestListController : MonoBehaviour
                 }
 
                 //エデンコンテスト系の登場　スターでもいいし、特定のイベントクリアしたら出現でもいい
-                /*if (PlayerStatus.player_ninki_param >= 10)
+                if (PlayerStatus.player_ninki_param >= 10)
                 {
                     if (!GameMgr.Contest_NewReleaseList[40])
                     {
                         GameMgr.Contest_NewReleaseList[40] = true;
                         contest_new = 1;
                     }
-                }*/
+                }
                 break;
 
             case "Or_Contest_Reception_Autumn":
@@ -565,7 +575,7 @@ public class ContestListController : MonoBehaviour
                 {
                     if (!GameMgr.Contest_NewReleaseList[21])
                     {
-                        GameMgr.Contest_NewReleaseList[20] = true;
+                        GameMgr.Contest_NewReleaseList[21] = true;
                         contest_new = 1;
                     }
                 }
@@ -574,21 +584,21 @@ public class ContestListController : MonoBehaviour
                 _listID = conteststartList_database.SearchContestString("Or_Contest_450");
                 if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
                 {
-                    if (!GameMgr.Contest_NewReleaseList[21])
+                    if (!GameMgr.Contest_NewReleaseList[22])
                     {
-                        GameMgr.Contest_NewReleaseList[20] = true;
+                        GameMgr.Contest_NewReleaseList[22] = true;
                         contest_new = 1;
                     }
                 }
 
-                /*if (PlayerStatus.player_ninki_param >= 10)
+                if (PlayerStatus.player_ninki_param >= 20)
                 {
                     if (!GameMgr.Contest_NewReleaseList[41])
                     {
                         GameMgr.Contest_NewReleaseList[41] = true;
                         contest_new = 1;
                     }
-                }*/
+                }
                 break;
 
             case "Or_Contest_Reception_Winter":
