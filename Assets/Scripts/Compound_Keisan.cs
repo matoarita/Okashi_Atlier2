@@ -21,6 +21,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private MagicSkillListDataBase magicskill_database;
+    private ItemCardEffectDataBase itemCardEffect_database;
 
     private Exp_Controller exp_Controller;
 
@@ -320,6 +321,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        //魔法エフェクトの計算データベース
+        itemCardEffect_database = ItemCardEffectDataBase.Instance.GetComponent<ItemCardEffectDataBase>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -2564,38 +2568,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //ベースの空スロットがなくなった時点で、それ以上合成はできない。
 
         _addMSvalue = 0;
+        _addMS = "Non";
+
         //魔法に応じて、入れるスロット名を先にセットしておく。各SPスコアや見た目の値はgirleat_judgeで計算
-        switch (GameMgr.UseMagicSkill)
-        {
-            case "Fire_Flowers":
-                _addMS = GameMgr.System_MagicSlotName01;
-                _addMSvalue = GameMgr.UseMagicSkillLv;
-                break;
+        itemCardEffect_database.AddMagicSlot_Keisan(GameMgr.UseMagicSkill, GameMgr.UseMagicSkillLv);
+        _addMS = itemCardEffect_database._addMS;
+        _addMSvalue = itemCardEffect_database._addMSvalue;
 
-            case "Buttelfy_illumination":
-                _addMS = GameMgr.System_MagicSlotName02;
-                _addMSvalue = GameMgr.UseMagicSkillLv;
-                break;
-
-            case "Bubble_Mist":
-                _addMS = GameMgr.System_MagicSlotName03;
-                _addMSvalue = GameMgr.UseMagicSkillLv;
-                break;
-
-            case "Star_Blessing":
-                _addMS = GameMgr.System_MagicSlotName04;
-                _addMSvalue = GameMgr.UseMagicSkillLv;
-                break;
-
-            /*case "Wind_Ark":
-                _addMS = GameMgr.System_MagicSlotName05;
-                _addMSvalue = GameMgr.UseMagicSkillLv;
-                break;*/
-
-            default:
-                _addMS = "Non";               
-                break;
-        }
 
         if (!GameMgr.System_MagicSlot_MultipleON)
         {

@@ -903,6 +903,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             yes_no_giveup_panel.SetActive(true);
             black_panel_A.SetActive(true);
+            contest_select.SetActive(false);
+            hinttaste_toggle.SetActive(false);
 
             //腹減りカウント一時停止
             girl1_status.GirlEatJudgecounter_OFF();

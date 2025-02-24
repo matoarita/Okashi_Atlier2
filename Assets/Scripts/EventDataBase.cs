@@ -1085,7 +1085,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 {
                     if (GameMgr.GirlLoveSubEvent_stage1[421] == false) 
                     {
-                        if (GameMgr.NPCHiroba_eventList[1031]) //アマクサが家にきて宴会するイベント直後
+                        if (conteststartList_database.SearchContestVictory("Or_Contest_010") == 1 ||
+                            conteststartList_database.SearchContestVictory("Or_Contest_010") == 2) //クッキーコンテストで1位か2位に入った。ラスクコンテスト解禁されるタイミング
                         {
                             GameMgr.GirlLoveSubEvent_stage1[421] = true;
                             GameMgr.GirlLoveSubEvent_num = 421;

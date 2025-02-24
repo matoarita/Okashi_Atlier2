@@ -77,6 +77,9 @@ public class NPC_Catsle_Main : MonoBehaviour
     private List<GameObject> BGImg_List = new List<GameObject>();
     private List<GameObject> BGImg_List_mago = new List<GameObject>();
 
+    private GameObject CharacterPanel;
+    private List<GameObject> Character_list = new List<GameObject>();
+
     // Use this for initialization
     void Start()
     {
@@ -180,6 +183,18 @@ public class NPC_Catsle_Main : MonoBehaviour
             i++;
         }
 
+        //キャラの設定　複数いる場合
+        Character_list.Clear();
+        CharacterPanel = GameObject.FindWithTag("Character");
+        i = 0;
+        foreach (Transform child in CharacterPanel.transform.Find("CharacterImage").transform)　//
+        {
+            //Debug.Log(child.name);    
+            Character_list.Add(child.gameObject);
+            child.gameObject.SetActive(false);
+            i++;
+        }
+
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //お城の先生　こころの魔法の先生 玉座前
@@ -190,6 +205,7 @@ public class NPC_Catsle_Main : MonoBehaviour
 
                 default_scenetext = "いらっしゃい。";
                 GameMgr.Window_CharaName = "プラトン";
+                CharacterPanel.transform.Find("CharacterImage/CharacterImage01").gameObject.SetActive(true);
                 break;
         }
 
@@ -353,7 +369,7 @@ public class NPC_Catsle_Main : MonoBehaviour
                 GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
                 GameMgr.hiroba_event_ID = 100;
                 GameMgr.hiroba_event_flag = true;
-                GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+                //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
                 //BGMかえる
                 sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
@@ -415,6 +431,9 @@ public class NPC_Catsle_Main : MonoBehaviour
         GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
         GameMgr.Scene_Status = 1000;
 
+        //キャラ表示パネルも一時的にオフ
+        CharacterPanel.GetComponent<FadeCharacter>().SetOff();
+
         //Debug.Log("広場イベント　読み中");
 
         while (!GameMgr.scenario_read_endflag)
@@ -427,6 +446,9 @@ public class NPC_Catsle_Main : MonoBehaviour
 
         GameMgr.Scene_Select = 0; //何もしていない状態
         GameMgr.Scene_Status = 0;
+
+        //キャラ表示パネルオン
+        CharacterPanel.GetComponent<FadeCharacter>().SetOn();
 
         check_event = false;
 
@@ -548,7 +570,7 @@ public class NPC_Catsle_Main : MonoBehaviour
                 GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
                 GameMgr.hiroba_event_ID = 201;
                 GameMgr.hiroba_event_flag = true;
-                GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+                //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
@@ -572,7 +594,7 @@ public class NPC_Catsle_Main : MonoBehaviour
                         GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
                         GameMgr.hiroba_event_ID = 200;
                         GameMgr.hiroba_event_flag = true;
-                        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+                        //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
                         ev_id = pitemlist.Find_eventitemdatabase("mg_TrueofMyheart_book");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加
@@ -597,7 +619,7 @@ public class NPC_Catsle_Main : MonoBehaviour
                         GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
                         GameMgr.hiroba_event_ID = 101;
                         GameMgr.hiroba_event_flag = true;
-                        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+                        //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
                         //BGMかえる
                         //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);

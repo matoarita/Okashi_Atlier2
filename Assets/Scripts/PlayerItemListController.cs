@@ -1056,6 +1056,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
+            case "Mnemonic":
+
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
+                break;
+
             case "Luminous_Suger":
 
                 if (check_itemType_subB == "a_Suger")
@@ -1082,6 +1093,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 break;
 
             case "Buttelfy_illumination":
+
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
+                break;
+
+            case "Glitter":
 
                 if (check_itemType == "Okashi")
                 {
@@ -1318,7 +1340,40 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 break;
 
 
+            case "Spring_Pharmacy":
+
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
+                break;
+
+            case "Saint_Fleur":
+
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
+                break;
+
             case "Warming_Handmade":
+
+                if (check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
+                }
+                break;
+
+            case "Santiman":
 
                 if (check_itemType == "Okashi")
                 {

@@ -193,6 +193,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 KakuritsuUp_IceCream();
                 break;
 
+            case "Juice":
+
+                //魔法でのバフ
+                KakuritsuUp_Soda();
+                break;
+
             case "Maffin":
 
                 //かまどレベルによるバフ
@@ -211,6 +217,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 //魔法でのバフ
                 KakuritsuUp_Cookie();
+                break;
+
+            case "Soda":
+
+                //魔法でのバフ
+                KakuritsuUp_Soda();
                 break;
         }
 
@@ -420,6 +432,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") >= 1)
         {
             _magicup = magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 2; //LV*10
+            _buf_kakuritsuup += _magicup;
+        }
+    }
+
+    void KakuritsuUp_Soda()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Soda_Study") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Soda_Study") * 5; //LV*5%
             _buf_kakuritsuup += _magicup;
         }
     }

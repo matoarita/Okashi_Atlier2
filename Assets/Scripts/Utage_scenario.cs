@@ -595,7 +595,7 @@ public class Utage_scenario : MonoBehaviour
 
                 GameMgr.hiroba_event_flag = false;
 
-                UtageCharacterHyouji(); //宴のキャラクタを表示する    
+                //UtageCharacterHyouji(); //宴のキャラクタを表示する    
 
                 if (!sceneBGM)
                 {
@@ -3956,16 +3956,7 @@ public class Utage_scenario : MonoBehaviour
                         break;
                 }
                 break;
-        }
-       
-
-        /*
-        if (GameMgr.utage_charaHyouji_flag)
-        {
-            GameMgr.utage_charaHyouji_flag = false;
-            CharacterSpriteSetON();
-
-        }*/
+        }      
         
 
         //

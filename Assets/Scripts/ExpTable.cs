@@ -128,13 +128,13 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 6:
 
-                    MagicLearnPanelHyouji("Cookie_SecondBake");                   
+                    //MagicLearnPanelHyouji("Cookie_SecondBake");                   
                     break;
 
                 case 7:
 
-                    MagicLearnPanelHyouji("Heart_of_Icecream");
-                    MagicLearnPanelHyouji("Freezing_Spell");
+                    //MagicLearnPanelHyouji("Heart_of_Icecream");
+                    //MagicLearnPanelHyouji("Freezing_Spell");
                     break;
 
                 case 8:
@@ -147,29 +147,29 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 10:
 
-                    MagicLearnPanelHyouji("Bake_Beans");
-                    MagicLearnPanelHyouji("Chocolate_Tempering");
+                    //MagicLearnPanelHyouji("Bake_Beans");
+                    //MagicLearnPanelHyouji("Chocolate_Tempering");
                     break;
 
                 case 11:
 
-                    MagicLearnPanelHyouji("SugerPot");
+                    //MagicLearnPanelHyouji("SugerPot");
                     break;
 
                 case 12:
 
-                    MagicLearnPanelHyouji("Buttelfy_illumination");
+                    //MagicLearnPanelHyouji("Buttelfy_illumination");
                     break;
 
                 case 13:
 
-                    MagicLearnPanelHyouji("Bubble_Mist");
+                    //MagicLearnPanelHyouji("Bubble_Mist");
                     break;
 
                 case 14:
 
-                    MagicLearnPanelHyouji("Wind_Crown");
-                    MagicLearnPanelHyouji("Wind_Pen");
+                    //MagicLearnPanelHyouji("Wind_Crown");
+                    //MagicLearnPanelHyouji("Wind_Pen");
                     break;
 
                 case 15:
@@ -184,12 +184,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 18:
 
-                    MagicLearnPanelHyouji("Star_Blessing");
+                    //MagicLearnPanelHyouji("Star_Blessing");
                     break;
 
                 case 19:
 
-                    MagicLearnPanelHyouji("Latte_Art");
+                    //MagicLearnPanelHyouji("Latte_Art");
                     break;
 
                 case 20: //二種類～同時トッピングできるようになる。
@@ -199,7 +199,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 21:
 
-                    MagicLearnPanelHyouji("Magic_Soda");
+                    //MagicLearnPanelHyouji("Magic_Soda");
                     break;
 
                 case 22:
@@ -218,7 +218,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 28:
 
-                    MagicLearnPanelHyouji("Warming_Handmade");
+                    //MagicLearnPanelHyouji("Warming_Handmade");
                     break;
 
                 case 30:
@@ -228,12 +228,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 31:
 
-                    MagicLearnPanelHyouji("Statue_of_Bear");
+                    //MagicLearnPanelHyouji("Statue_of_Bear");
                     break;
 
                 case 35:
 
-                    MagicLearnPanelHyouji("Moonlight_Banana");
+                    //MagicLearnPanelHyouji("Moonlight_Banana");
                     break;
 
                 case 40:
@@ -321,7 +321,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         //魔法をおぼえる
         if (GameMgr.System_MagicUse_Flag)
         {
-            if (_lv >= 6)
+            /*if (_lv >= 6)
             {
                 Magic_Learn("Cookie_SecondBake");               
             }
@@ -363,23 +363,23 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             if (_lv >= 21)
             {
                 Magic_Learn("Magic_Soda");
-            }
+            }*/
             if (_lv >= 26)
             {
                 Magic_Learn("Rainbow_Rain");
             }
-            if (_lv >= 28)
+            /*if (_lv >= 28)
             {
                 Magic_Learn("Warming_Handmade");
             }
             if (_lv >= 31)
             {
                 Magic_Learn("Statue_of_Bear");
-            }
-            if (_lv >= 35)
+            }*/
+            /*if (_lv >= 35)
             {
                 Magic_Learn("Moonlight_Banana");
-            }
+            }*/
         }
     }
 

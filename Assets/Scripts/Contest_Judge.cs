@@ -863,41 +863,42 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員２　食感補正後：" + GameMgr.contest_Taste_Score[1] + "点");
     }
 
-    void Contest_BeautyHosei_1()
+    void Contest_BeautyHosei_1() //contest_Beauty_Scoreは、judge_beautyからベースを単純に引いた点数
     {
-        before_beautyscore[0] = GameMgr.contest_Beauty_Score[0];
+        //before_beautyscore[0] = GameMgr.contest_Beauty_Score[0];
         before_beautyscore[1] = GameMgr.contest_Beauty_Score[1];
-        if (GameMgr.contest_Beauty_Score[1] >= 0 && GameMgr.contest_Beauty_Score[1] < 30)
+
+        if (GameMgr.contest_Beauty_Score[1] >= 0 && GameMgr.contest_Beauty_Score[1] < 30) //とりあえず基準値は満たした
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 0.5f) * -1; //低すぎるとかなりマイナス
+            GameMgr.contest_Beauty_Score[1] = 30;
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 30 && GameMgr.contest_Beauty_Score[1] < 45)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 0.75f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.1f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 45 && GameMgr.contest_Beauty_Score[1] < 60)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.0f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.2f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 60 && GameMgr.contest_Beauty_Score[1] < 70)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.2f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.3f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 70 && GameMgr.contest_Beauty_Score[1] < 80)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.4f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.5f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 80 && GameMgr.contest_Beauty_Score[1] < 90)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.6f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.8f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 90 && GameMgr.contest_Beauty_Score[1] < 110)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.8f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 110 && GameMgr.contest_Beauty_Score[1] < 130)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.1f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 130 && GameMgr.contest_Beauty_Score[1] < 150)
         {
@@ -919,9 +920,13 @@ public class Contest_Judge : MonoBehaviour {
         {
             GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 3.0f);
         }
-        else if (GameMgr.contest_Beauty_Score[1] < 0)
+        else if (GameMgr.contest_Beauty_Score[1] < 0 && GameMgr.contest_Beauty_Score[1] >= -50)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 0.5f) * -1; //低すぎるとかなりマイナス
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 0.5f); //基準値に達していないと、かなりマイナス
+        }
+        else if (GameMgr.contest_Beauty_Score[1] < -50)
+        {
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.0f); //基準値に達していないと、かなりマイナス
         }
 
         //GameMgr.contest_Beauty_Score[0] = GameMgr.contest_Beauty_Score[1]; //アントワネット補正後、タカノの見た目点数にも補正

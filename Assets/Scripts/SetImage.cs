@@ -1416,7 +1416,8 @@ public class SetImage : MonoBehaviour
         {
             item_Oily.text = "";
         }
-        if (item_type_sub == "Juice" || item_type_sub == "Tea" || item_type_sub == "Tea_Potion" || item_type_sub == "Coffee_Mat" || item_type_sub == "Coffee")
+        if (item_type_sub == "Juice" || item_type_sub == "Soda" || item_type_sub == "Tea" || item_type_sub == "Tea_Potion" || 
+            item_type_sub == "Coffee_Mat" || item_type_sub == "Coffee")
         {
             item_Watery.text = "";
         }
@@ -1490,67 +1491,7 @@ public class SetImage : MonoBehaviour
             item_HighScoreFlag_2.SetActive(false);
         }       
 
-        //品質の表示
-        /*
-        if (_quality_score <= 0)
-        {
-            _quality = "";
-        }
-        else if (_quality_score > 0 && _quality_score <= 20)
-        {
-            _quality = "F";
-            _quality_bar = "★";
-        }
-        else if (_quality_score > 20 && _quality_score <= 30)
-        {
-            _quality = "D";
-            _quality_bar = "★★";
-        }
-        else if (_quality_score > 30 && _quality_score <= 40)
-        {
-            _quality = "D+";
-            _quality_bar = "★★+";
-        }
-        else if (_quality_score > 40 && _quality_score <= 60) //50が平均値
-        {
-            _quality = "C";
-            _quality_bar = "★★★";
-        }
-        else if (_quality_score > 60 && _quality_score <= 70)
-        {
-            _quality = "B";
-            _quality_bar = "★★★★";
-        }
-        else if (_quality_score > 70 && _quality_score <= 80)
-        {
-            _quality = "B+";
-            _quality_bar = "★★★★+";
-        }
-        else if (_quality_score > 80 && _quality_score <= 88)
-        {
-            _quality = "A";
-            _quality_bar = "★★★★★";
-        }
-        else if (_quality_score > 88 && _quality_score <= 93)
-        {
-            _quality = "S";
-            _quality_bar = "★★★★★★";
-        }
-        else if (_quality_score > 95 && _quality_score <= 99)
-        {
-            _quality = "SS";
-            _quality_bar = "★★★★★★";
-        }
-        else if (_quality_score > 100)
-        {
-            _quality = "SSS+";
-            _quality_bar = "★★★★★★★";
-        }
-
-        item_Quality.text = _quality;
-        item_Quality_Bar.text = _quality_bar;
-        item_Quality_Score.text = _quality_score.ToString();
-        */
+        
 
         //名称デフォルト
         item_Name.text = _name;

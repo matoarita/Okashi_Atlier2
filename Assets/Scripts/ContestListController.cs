@@ -262,6 +262,7 @@ public class ContestListController : MonoBehaviour
             {
                 DrawContest();
             }
+
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100) //プラトンアカデミー
             {
                 if (conteststartList_database.SearchContestVictory("Or_Contest_001") == 1)
@@ -461,9 +462,9 @@ public class ContestListController : MonoBehaviour
 
                 //春コンテスト　条件
 
-                //クッキー一位で登場
+                //クッキー1位or2位で登場
                 _listID = conteststartList_database.SearchContestString("Or_Contest_010");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[0])
                     {

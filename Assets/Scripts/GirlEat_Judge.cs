@@ -2141,10 +2141,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //Debug.Log("コンテスト　愛らしさ計算OFF");
         }
 
-        //宇宙
+        //夏らしさ
         if (_girlsp_score4[countNum] > 0)
         {
-            GameMgr.Contest_Spscore_text = "宇宙らしさ";
+            GameMgr.Contest_Spscore_text = "夏らしさ";
 
             spscore4_score = _base_sp_score4 - _girlsp_score4[countNum];
 
@@ -2153,19 +2153,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore4_score = SpScore_HoseiA(spscore4_score);
             }
 
-            spscore4_score_debugtext = "・お菓子の宇宙らしさ: " + _base_sp_score4 + " 判定値: " + _girlsp_score4[countNum] + " 点数: " + spscore4_score;
+            spscore4_score_debugtext = "・お菓子の夏らしさ: " + _base_sp_score4 + " 判定値: " + _girlsp_score4[countNum] + " 点数: " + spscore4_score;
             Debug.Log(spscore4_score_debugtext);
 
             if (spscore4_score < 0) //合格点に達してない場合は、クリアできない
             {
                 GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("宇宙らしさの点: " + spscore4_score + " 足りなかったので不合格");
+                Debug.Log("夏らしさの点: " + spscore4_score + " 足りなかったので不合格");
             }
         }
         else
         {
             spscore4_score = 0;
-            spscore4_score_debugtext = "・宇宙らしさ計算OFF";
+            spscore4_score_debugtext = "・夏らしさ計算OFF";
             //Debug.Log("コンテスト　宇宙らしさ計算OFF");
         }
 
@@ -2306,6 +2306,34 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             spscore9_score = 0;
             spscore9_score_debugtext = "・キラキラ感計算OFF";
+            //Debug.Log("コンテスト　鉱石らしさ計算OFF");
+        }
+
+        //和風感
+        if (_girlsp_score10[countNum] > 0)
+        {
+            GameMgr.Contest_Spscore_text = "和風感";
+
+            spscore10_score = _base_sp_score10 - _girlsp_score10[countNum];
+
+            if (spscore10_score > 0) //判定値があり超えていた場合　加点される
+            {
+                spscore10_score = SpScore_HoseiA(spscore10_score);
+            }
+
+            spscore10_score_debugtext = "・お菓子の和風感: " + _base_sp_score10 + " 判定値: " + _girlsp_score10[countNum] + " 点数: " + spscore10_score;
+            Debug.Log(spscore10_score_debugtext);
+
+            if (spscore10_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                GameMgr.Contest_Clear_Failed = true;
+                Debug.Log("和風感の点: " + spscore10_score + " 足りなかったので不合格");
+            }
+        }
+        else
+        {
+            spscore10_score = 0;
+            spscore10_score_debugtext = "・和風感計算OFF";
             //Debug.Log("コンテスト　鉱石らしさ計算OFF");
         }
     }

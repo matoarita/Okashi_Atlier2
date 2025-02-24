@@ -163,6 +163,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_MagicSlotName03 = "Bubble_Mist";
     public static string System_MagicSlotName04 = "Star_Blessing";
     public static string System_MagicSlotName05 = "Wind_Ark";
+    public static string System_MagicSlotName06 = "Mnemonic";
+    public static string System_MagicSlotName07 = "Glitter";
+    public static string System_MagicSlotName08 = "Spring_Pharmacy";
+    public static string System_MagicSlotName09 = "Saint_Fleur";
+    public static string System_MagicSlotName10 = "Santiman";
     //** --ここまで-- **//
 
 

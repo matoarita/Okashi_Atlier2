@@ -625,8 +625,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             }
             else
             {
-                matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
-                matplace_database.ReSetMapFlagString("Or_HirobaEnter_A1", 1); //かわりに春エリア入口に自動でいけるようになる
+                //matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
+                //matplace_database.ReSetMapFlagString("Or_HirobaEnter_A1", 1); //かわりに春エリア入口に自動でいけるようになる
             }
         }
 

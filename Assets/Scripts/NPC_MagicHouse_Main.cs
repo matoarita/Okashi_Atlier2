@@ -87,6 +87,7 @@ public class NPC_MagicHouse_Main : MonoBehaviour
     private List<GameObject> BGImg_List_mago = new List<GameObject>();
 
     private GameObject CharacterPanel;
+    private List<GameObject> Character_list = new List<GameObject>();
 
     private bool check_event;
     private int talkrot;
@@ -207,11 +208,13 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         }
 
         //キャラの設定　複数いる場合
+        Character_list.Clear();
         CharacterPanel = GameObject.FindWithTag("Character");
         i = 0;
         foreach (Transform child in CharacterPanel.transform.Find("CharacterImage").transform)　//
         {
-            //Debug.Log(child.name);           
+            //Debug.Log(child.name);    
+            Character_list.Add(child.gameObject);
             child.gameObject.SetActive(false);
             i++;
         }
@@ -636,7 +639,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             //宴の処理へ
             GameMgr.hiroba_event_placeNum = 5000; //
             GameMgr.hiroba_event_ID = 0;
-            GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
             check_event = true;
 
@@ -666,7 +668,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             //宴の処理へ
             GameMgr.hiroba_event_placeNum = 5000; //
             GameMgr.hiroba_event_ID = 0;
-            GameMgr.utage_charaHyouji_flag = true;
 
             check_event = true;
 
@@ -694,7 +695,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             //宴の処理へ
             GameMgr.hiroba_event_placeNum = 5000; //
             GameMgr.hiroba_event_ID = 0;
-            GameMgr.utage_charaHyouji_flag = true; 
 
             check_event = true;
         }
@@ -716,7 +716,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             //宴の処理へ
             GameMgr.hiroba_event_placeNum = 5000; //
             GameMgr.hiroba_event_ID = 0;
-            GameMgr.utage_charaHyouji_flag = true;
 
             check_event = true;
         }
@@ -763,6 +762,9 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
         GameMgr.Scene_Status = 1000;
 
+        //キャラ表示パネルも一時的にオフ
+        CharacterPanel.GetComponent<FadeCharacter>().SetOff();
+
         //Debug.Log("広場イベント　読み中");
 
         while (!GameMgr.scenario_read_endflag)
@@ -775,6 +777,9 @@ public class NPC_MagicHouse_Main : MonoBehaviour
 
         GameMgr.Scene_Select = 0; //何もしていない状態
         GameMgr.Scene_Status = 0;
+
+        //キャラ表示パネルオン
+        CharacterPanel.GetComponent<FadeCharacter>().SetOn();
 
         check_event = false;
 
@@ -973,7 +978,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
             //宴の処理へ
             GameMgr.hiroba_event_placeNum = 5000; //
             GameMgr.hiroba_event_ID = 0;
-            GameMgr.utage_charaHyouji_flag = true;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.CompoundEvent_num[110] = true;
@@ -1007,7 +1011,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
                 //宴の処理へ
                 GameMgr.hiroba_event_placeNum = 5000; //
                 GameMgr.hiroba_event_ID = 10;
-                GameMgr.utage_charaHyouji_flag = true;
 
                 if (talkrot >= 5)
                 {
@@ -1037,7 +1040,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 5000; //
         GameMgr.hiroba_event_ID = 1000;
-        GameMgr.utage_charaHyouji_flag = true;
 
         //BGMかえる
         //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
@@ -1053,7 +1055,6 @@ public class NPC_MagicHouse_Main : MonoBehaviour
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 5000; //
         GameMgr.hiroba_event_ID = 2000;
-        GameMgr.utage_charaHyouji_flag = true;
 
         GameMgr.event_pitem_use_select = true; //アイテムあげるイベントを起動
         GameMgr.hiroba_event_ON = true; //アイテムを使うときに、広場イベントかどうかフラグ

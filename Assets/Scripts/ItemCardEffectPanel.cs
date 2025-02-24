@@ -51,25 +51,57 @@ public class ItemCardEffectPanel : MonoBehaviour
             {
                 DrawParticle("effect05_Arc", _mstatus);
             }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName06) //WindArc　風の円弧が周りにとびちる
+            {
+                DrawParticle("effect06_Mnemonic", _mstatus);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName07) //WindArc　風の円弧が周りにとびちる
+            {
+                DrawParticle("effect07_Glitter", _mstatus);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName08) //WindArc　風の円弧が周りにとびちる
+            {
+                DrawParticle("effect08_Sakura", _mstatus);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName09) //WindArc　風の円弧が周りにとびちる
+            {
+                DrawParticle("effect09_Flower", _mstatus);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName10) //WindArc　風の円弧が周りにとびちる
+            {
+                DrawParticle("effect10_Heart", _mstatus);
+            }
         }
     }
 
     void DrawParticle(string _pname, int _status)
     {
         this.transform.Find(_pname).gameObject.SetActive(true);
-        m_ParticleSystem = this.transform.Find(_pname).GetChild(0).GetComponent<ParticleSystemRenderer>();
+        //m_ParticleSystem = this.transform.Find(_pname).GetChild(0).GetComponent<ParticleSystemRenderer>();
 
         if (_status == 1) //お菓子パネルで表示する場合　描画順変える
         {           
-            m_ParticleSystem.sortingOrder = 500;
+            foreach(Transform child in this.transform.Find(_pname).transform)
+            {
+                m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
+                m_ParticleSystem.sortingOrder = 500;
+            }           
         }
         else if (_status == 2) //お菓子あげるときに表示する場合　描画順変える
         {
-            m_ParticleSystem.sortingOrder = 660;
+            foreach (Transform child in this.transform.Find(_pname).transform)
+            {
+                m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
+                m_ParticleSystem.sortingOrder = 660;
+            }          
         }
         else //デフォ　元のオーダー使う　5010とかになってる
         {
-            m_ParticleSystem.sortingOrder = 5010;
+            foreach (Transform child in this.transform.Find(_pname).transform)
+            {
+                m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
+                m_ParticleSystem.sortingOrder = 5010;
+            }           
         }
     }
 }

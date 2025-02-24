@@ -34,6 +34,9 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
     public int _ms_sp_score10;
     public int _basemagicslot_on;
 
+    public string _addMS;
+    public int _addMSvalue;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +50,73 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         
     }
 
+    public void AddMagicSlot_Keisan(string _magicname, int _value)
+    {
+        _addMS = "Non";
+        _addMSvalue = 0;
+
+        switch (_magicname)
+        {
+            case "Fire_Flowers":
+                _addMS = GameMgr.System_MagicSlotName01;
+                _addMSvalue = _value;
+                break;
+
+            case "Buttelfy_illumination":
+                _addMS = GameMgr.System_MagicSlotName02;
+                _addMSvalue = _value;
+                break;
+
+            case "Bubble_Mist":
+                _addMS = GameMgr.System_MagicSlotName03;
+                _addMSvalue = _value;
+                break;
+
+            case "Star_Blessing":
+                _addMS = GameMgr.System_MagicSlotName04;
+                _addMSvalue = _value;
+                break;
+
+            /*case "Wind_Ark":
+                _addMS = GameMgr.System_MagicSlotName05;
+                _addMSvalue = _value;
+                break;*/
+
+            case "Mnemonic":
+                _addMS = GameMgr.System_MagicSlotName06;
+                _addMSvalue = _value;
+                break;
+
+            case "Glitter":
+                _addMS = GameMgr.System_MagicSlotName07;
+                _addMSvalue = _value;
+                break;
+
+            case "Spring_Pharmacy":
+                _addMS = GameMgr.System_MagicSlotName08;
+                _addMSvalue = _value;
+                break;
+
+            case "Saint_Fleur":
+                _addMS = GameMgr.System_MagicSlotName09;
+                _addMSvalue = _value;
+                break;
+
+            case "Santiman":
+                _addMS = GameMgr.System_MagicSlotName10;
+                _addMSvalue = _value;
+                break;
+
+            default:
+                
+                break;
+        }
+    }
+
+
+    //
+    //MagicSlotの計算用＋カード表示用
+    //
     public void MagicEffect_SlotKeisan(string[] _magicslot, int[] _msvalue, int _itemID, int _mstatus) //_mstatusは、アクセスする元のオブジェクト場所
     {
         _MS_mariage.Clear();
@@ -97,17 +167,20 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
                         _ms_sp_score6 = _MS_pointup[j] / 3 * _msvalue[i]; //子供っぽさを足す
-                        _ms_sp_score8 = _MS_pointup[j] / 5 * _msvalue[i]; //芸術性を足す　パーティのお客さん向け         
+                        _ms_sp_score4 = _MS_pointup[j] / 2 * _msvalue[i]; //夏らしさを足す        
 
                         aisho_text1 = "見た目 + " + _compatible.ToString();
-                        aisho_text2 = "子供っぽい + " + _ms_sp_score6.ToString();
+                        aisho_text2 = "夏らしさ + " + _ms_sp_score4.ToString();
+                        aisho_text3 = "子供っぽい + " + _ms_sp_score6.ToString();
+                        
                     }
                 }
                 MS_aisho_database(_compatible);
-                item_MS_aisho = "花火: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;
+                item_MS_aisho = "花火: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
             }
+
             if (_magicslot[i] == GameMgr.System_MagicSlotName02) //Butterflyの場合、光のちょうちょがとぶ
             {
                 for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
@@ -122,10 +195,11 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     }
                 }
                 MS_aisho_database(_compatible);
-                item_MS_aisho = "ちょうちょ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;
+                item_MS_aisho = "ちょうちょ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
             }
+
             if (_magicslot[i] == GameMgr.System_MagicSlotName03) //Bubbleは泡がでる
             {
                 for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
@@ -142,10 +216,11 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     }
                 }
                 MS_aisho_database(_compatible);
-                item_MS_aisho = "あわあわ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2;
+                item_MS_aisho = "あわあわ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
             }
+
             if (_magicslot[i] == GameMgr.System_MagicSlotName04) //Starは星くずがキラキラする
             {
                 for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
@@ -162,8 +237,104 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
             }
+
             if (_magicslot[i] == GameMgr.System_MagicSlotName05) //WindArc　風の円弧が周りにとびちる
             {
+                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
+            }
+
+            if (_magicslot[i] == GameMgr.System_MagicSlotName06) //Mnemonic 貝殻やおさかなを飛ばす魔法
+            {
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName06)
+                    {
+                        _compatible = _MS_pointup[j] * _msvalue[i];
+                        _ms_sp_score2 = _MS_pointup[j] / 2 * _msvalue[i]; //海らしさを加算
+
+                        aisho_text1 = "見た目 + " + _compatible.ToString();
+                        aisho_text2 = "海らしさ + " + _ms_sp_score2.ToString();
+                    }
+                }
+                MS_aisho_database(_compatible);
+                item_MS_aisho = "貝殻: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
+
+                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
+            }
+
+            if (_magicslot[i] == GameMgr.System_MagicSlotName07) //Glitter 光りのキラキラを飛ばす魔法
+            {
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName07)
+                    {
+                        _compatible = _MS_pointup[j] * _msvalue[i];
+                        _ms_sp_score9 = _MS_pointup[j] / 2 * _msvalue[i]; //光らしさを加算
+
+                        aisho_text1 = "見た目 + " + _compatible.ToString();
+                        aisho_text2 = "光らしさ + " + _ms_sp_score9.ToString();
+                    }
+                }
+                MS_aisho_database(_compatible);
+                item_MS_aisho = "キラキラ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
+
+                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
+            }
+
+            if (_magicslot[i] == GameMgr.System_MagicSlotName08) //Spring_Pharmacy さくらの花びらを飛ばす魔法
+            {
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName08)
+                    {
+                        _compatible = _MS_pointup[j] * _msvalue[i];
+                        _ms_sp_score10 = _MS_pointup[j] / 2 * _msvalue[i]; //和風感を加算
+
+                        aisho_text1 = "見た目 + " + _compatible.ToString();
+                        aisho_text2 = "和風感 + " + _ms_sp_score10.ToString();
+                    }
+                }
+                MS_aisho_database(_compatible);
+                item_MS_aisho = "さくら: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
+
+                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
+            }
+
+            if (_magicslot[i] == GameMgr.System_MagicSlotName09) //Saint_Fleur お花を飛ばす魔法
+            {
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName09)
+                    {
+                        _compatible = _MS_pointup[j] * _msvalue[i];
+                        _ms_sp_score7 = _MS_pointup[j] / 2 * _msvalue[i]; //和風感を加算
+
+                        aisho_text1 = "見た目 + " + _compatible.ToString();
+                        aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
+                    }
+                }
+                MS_aisho_database(_compatible);
+                item_MS_aisho = "お花: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
+
+                _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
+            }
+
+            if (_magicslot[i] == GameMgr.System_MagicSlotName10) //Santiman ハートを飛ばす魔法
+            {
+                for (j = 0; j < _MS_mariage.Count; j++) //おかしごとのその魔法との相性をみて、相性が入ってれば加点　なければ0点か減点。
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName10)
+                    {
+                        _compatible = _MS_pointup[j] * _msvalue[i];
+                        _ms_sp_score3 = _MS_pointup[j] / 2 * _msvalue[i]; //和風感を加算
+
+                        aisho_text1 = "見た目 + " + _compatible.ToString();
+                        aisho_text2 = "愛らしさ + " + _ms_sp_score3.ToString();
+                    }
+                }
+                MS_aisho_database(_compatible);
+                item_MS_aisho = "ハート: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
+
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
             }
         }
@@ -178,15 +349,15 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
             _ms_aisho = "-";
             aisho_text1 = "相性なし";
         }
-        else if (_compa >= 5 && _compa < 10)
+        else if (_compa >= 5 && _compa < 20)
         {
             _ms_aisho = "△";
         }
-        else if (_compa >= 10 && _compa < 30)
+        else if (_compa >= 20 && _compa < 50)
         {
             _ms_aisho = "〇";
         }
-        else if (_compa >= 30)
+        else if (_compa >= 50)
         {
             _ms_aisho = "◎";
         }
