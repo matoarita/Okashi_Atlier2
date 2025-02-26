@@ -1582,12 +1582,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             case "Cookie_SecondBake":
 
-                if (_status == 0 || _status == 3)//さくさくか歯ごたえのバフ
+                if (_status == 0 || _status == 1 || _status == 3)//さくさくか歯ごたえかふわふわのバフ
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake");
-                    _magicup = (int)(_baseparam * 0.3f * GameMgr.System_magic_playParamUp) + (int)(_magicLearnLv * _baseparam * 0.3f);
+                    _magicup = _baseparam + (int)(_baseparam * 0.1f * (GameMgr.System_magic_playParamUp + _magicLearnLv * 0.2f));
 
-                    Debug.Log("補正値: " + "_baseparam * 0.3f" +  " * " + GameMgr.System_magic_playParamUp + " + " + "_baseparam * 0.3f" + " * " + "セカンドベイク習得LV: " + _magicLearnLv);
+                    Debug.Log("補正値: " + "_baseparam" + " + " + "_baseparam * 0.1f" + " * " + GameMgr.System_magic_playParamUp + " + 0.2f * セカンドベイク習得LV: " + _magicLearnLv);
                     Debug.Log("各ゲージ補正値: " + GameMgr.System_magic_playParamUp);
                     Debug.Log("セカンドベイクの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;

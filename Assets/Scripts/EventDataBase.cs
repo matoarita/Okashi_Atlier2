@@ -1459,6 +1459,36 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                 }
                             }
+
+                            //エデンコンテストでたけど、シンプルなおかしを提出した＆優勝しなかった場合
+                            if (conteststartList_database.SearchContestVictory("Or_Contest_001") != 0 ||
+                                conteststartList_database.SearchContestVictory("Or_Contest_002") != 0 ||
+                                conteststartList_database.SearchContestVictory("Or_Contest_003") != 0) //
+                            {
+                                if(conteststartList_database.SearchContestVictory(GameMgr.Contest_Name) != 1) //さっきでてたコンテストで優勝じゃなかった
+                                {
+                                    _baseitemtype_subB = database.items[database.SearchItemID(GameMgr.contest_okashiID)].itemType_subB;
+
+                                    //シンプルなクッキーやラスクなどを提出していた場合
+                                    if (_baseitemtype_subB == "a_Cookie" || _baseitemtype_subB == "a_Cookie_Hard" || _baseitemtype_subB == "a_Rusk"
+                                        || _baseitemtype_subB == "a_Crepe_Mat" || _baseitemtype_subB == "a_Crepe_Mat" || _baseitemtype_subB == "a_CreampuffSimple"
+                                        || _baseitemtype_subB == "a_Cake_Mat" || _baseitemtype_subB == "a_Bread" || _baseitemtype_subB == "a_Bread_Sliced"
+                                        || _baseitemtype_subB == "a_JuiceSimple")
+                                    {
+                                        //エデンコンでは、単純なおかしは点数が出ないというヒントをいう
+                                        if (!GameMgr.GirlLoveSubEvent_stage1[422])
+                                        {
+                                            GameMgr.GirlLoveSubEvent_stage1[422] = true;
+
+                                            GameMgr.GirlLoveSubEvent_num = 422;
+                                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                                            GameMgr.Mute_on = true;
+
+                                        }
+                                    }
+                                }
+                                
+                            }
                         }
                     }
                 }

@@ -769,7 +769,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_BringType; //コンテスト　素材持ち込みの形式
     public static int Contest_CostMoney; //そのコンテストの参加費
     public static bool Contest_AcceptedDelete; //コンテスト　受注してたコンテストをリストから削除する
-    public static string Contest_Name; //コンテストの名前
+    public static string Contest_Name; //コンテストの名前　次のコンテストに出場するまでは、この名前は前回でてたコンテストの名前にもなる。
     public static string Contest_NameHyouji; //コンテストの名前日本語表記
     public static string Contest_Name_Round; //コンテストの名前　トーナメント形式で今何回戦かまで表記
     public static string Contest_ProblemSentence; //コンテストの課題の内容

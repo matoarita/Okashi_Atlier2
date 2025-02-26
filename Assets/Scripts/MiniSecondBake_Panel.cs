@@ -139,23 +139,23 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         }
         else if (_guage_param >= 100 && _guage_param < 250)
         {
-            GameMgr.System_magic_playParamUp = 1.1f;
+            GameMgr.System_magic_playParamUp = 1.0f;
         }
         else if (_guage_param >= 250 && _guage_param < 400)
         {
-            GameMgr.System_magic_playParamUp = 1.3f;
+            GameMgr.System_magic_playParamUp = 1.1f;
         }
         else if (_guage_param >= 400 && _guage_param < 430)
         {
-            GameMgr.System_magic_playParamUp = 1.75f;
+            GameMgr.System_magic_playParamUp = 1.2f;
         }
         else if (_guage_param >= 440 && _guage_param < 460)
         {
-            GameMgr.System_magic_playParamUp = 3.0f;
+            GameMgr.System_magic_playParamUp = 1.35f;
         }
         else if (_guage_param >= 460 && _guage_param < 500)
         {
-            GameMgr.System_magic_playParamUp = 1.3f;
+            GameMgr.System_magic_playParamUp = 1.2f;
         }
         else if (_guage_param >= 500)
         {
