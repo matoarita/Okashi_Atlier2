@@ -102,8 +102,9 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
 
         //黒パネルの取得
         black_effect = canvas.transform.Find("BlackBG").gameObject;
-        if (!GameMgr.emeraldShopEvent_stage[0]) { black_effect.SetActive(true); }
-        else { black_effect.SetActive(false); }
+        black_effect.SetActive(false);
+        /*if (!GameMgr.emeraldShopEvent_stage[0]) { black_effect.SetActive(true); }
+        else { black_effect.SetActive(false); }*/
 
         character = GameObject.FindWithTag("Character");
         character.GetComponent<FadeCharacter>().SetOff();
@@ -321,14 +322,14 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
 
     void EventCheck_Grt()
     {
-        if (!GameMgr.BarEvent_stage[0]) //はじめて酒場へきた。
+        if (!GameMgr.emeraldShopEvent_stage[0]) //
         {
-            GameMgr.BarEvent_stage[0] = true;
+            GameMgr.emeraldShopEvent_stage[0] = true;
 
             GameMgr.scenario_ON = true;
 
-            GameMgr.bar_event_num = 0;
-            GameMgr.bar_event_flag = true;
+            GameMgr.emeraldshop_event_num = 0;
+            GameMgr.emeraldshop_event_flag = true;
 
             check_event = true;
 
@@ -349,7 +350,7 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
             GameMgr.emeraldShopEvent_stage[0] = true;
             GameMgr.scenario_ON = true;
 
-            GameMgr.emeraldshop_event_num = 0;
+            GameMgr.emeraldshop_event_num = 1000;
             GameMgr.emeraldshop_event_flag = true;
 
             //メイン画面にもどったときに、イベントを発生させるフラグをON

@@ -3040,51 +3040,77 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     }
                 }
                 //ごきげんに応じて、ヒントをだす。
-                else if (GirlGokigenStatus >= 4) //
+                else if (GirlGokigenStatus >= 4) 
                 {
                     random = Random.Range(0, 5); //0~4
 
-                    switch (random)
+                    if (GameMgr.Contest_PanelON) //コンテスト開催中だとセリフが変わる。
                     {
-                        case 0:
+                        switch (random)
+                        {
+                            case 0:
 
-                            FaceMotionPlay(2000);
-                            _touchface_comment_lib.Add("にいちゃん。今日のご飯は、ビールと枝豆の炊き込みご飯だよ♪");
-                            break;
+                                FaceMotionPlay(2000);
+                                _touchface_comment_lib.Add("にいちゃん！　コンテスト・・わくわくだね！");
+                                break;
 
-                        case 1:
+                            case 1:
 
-                            FaceMotionPlay(2000);
-                            _touchface_comment_lib.Add("にいちゃん。今日のお夕飯は、じゃがバターとシチューだよ～♪");
-                            break;
+                                FaceMotionPlay(1005);
+                                _touchface_comment_lib.Add("ちゃんと準備できたかなぁ～？");
+                                break;
 
-                        case 2:
+                            default:
 
-                            FaceMotionPlay(1017);
-                            _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
-                            break;
+                                FaceMotionPlay(1014);
+                                _touchface_comment_lib.Add("お砂糖とバター・・忘れないようにしないと。あせあせ。");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (random)
+                        {
+                            case 0:
 
-                        case 3:
+                                FaceMotionPlay(2000);
+                                _touchface_comment_lib.Add("にいちゃん。今日のご飯は、ビールと枝豆の炊き込みご飯だよ♪");
+                                break;
 
-                            FaceMotionPlay(1017);
-                            if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
-                                pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
-                                pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
-                            {
-                                _touchface_comment_lib.Add("エデンの材料さがそ～。にいちゃん！");
-                            }
-                            else
-                            {
-                                _touchface_comment_lib.Add("にいちゃん。コンテストにでて、エデンのレシピさがそ～♪");
-                            }
-                            break;
+                            case 1:
 
-                        default:
+                                FaceMotionPlay(2000);
+                                _touchface_comment_lib.Add("にいちゃん。今日のお夕飯は、じゃがバターとシチューだよ～♪");
+                                break;
 
-                            FaceMotionPlay(1018);
-                            _touchface_comment_lib.Add("にいちゃん。伝説のお菓子のレシピが・・。どこかにあるらしいよ。");
-                            _touchface_comment_lib.Add("にいちゃん。同じ素材でも上位素材があるよ。採取地で、ごくまれに採れるらしいよ！");
-                            break;
+                            case 2:
+
+                                FaceMotionPlay(1017);
+                                _touchface_comment_lib.Add("今までにたべたクッキーの枚数をおぼえてる？");
+                                break;
+
+                            case 3:
+
+                                FaceMotionPlay(1017);
+                                if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
+                                    pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
+                                    pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
+                                {
+                                    _touchface_comment_lib.Add("エデンの材料さがそ～。にいちゃん！");
+                                }
+                                else
+                                {
+                                    _touchface_comment_lib.Add("にいちゃん。コンテストにでて、エデンのレシピさがそ～♪");
+                                }
+                                break;
+
+                            default:
+
+                                FaceMotionPlay(1018);
+                                _touchface_comment_lib.Add("にいちゃん。伝説のお菓子のレシピが・・。どこかにあるらしいよ。");
+                                _touchface_comment_lib.Add("にいちゃん。同じ素材でも上位素材があるよ。採取地で、ごくまれに採れるらしいよ！");
+                                break;
+                        }
                     }
 
                 }
