@@ -62,6 +62,7 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
     //public int shop_scene; //どのシーンを選択しているかを判別
 
     private int i;
+    private int talkrot;
 
     // Use this for initialization
     void Start () {
@@ -161,6 +162,7 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
 
         StartRead = false;
         check_event = false;
+        talkrot = 0;
 
         //シーン読み込みのたびに、ショップの在庫をMaxにしておく。イベントアイテムは補充しない。
         for (i = 0; i < shop_database.shopitems.Count; i++)
@@ -391,14 +393,41 @@ public class EmeraldShop_Main_Controller : MonoBehaviour {
             GameMgr.Scene_Status = 2; //眺めるを押したときのフラグ
             GameMgr.Scene_Select = 2;
 
-            _text.text = "..（今はしゃべる気がないようだ。）";
+            //_text.text = "..（今はしゃべる気がないようだ。）";
 
-            /*
-            GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
-            GameMgr.talk_flag = true;
-            GameMgr.talk_number = 100;
+            switch (GameMgr.Scene_Name)
+            {
+                case "EmeraldShop_Grt":
 
-            StartCoroutine("UtageEndWait");*/
+                    GameMgr.talk_number = 100;
+                    break;
+
+                case "Or_EmeraldShop_A1":
+
+                    GameMgr.talk_number = 1000;
+
+                    if (talkrot >= 3)
+                    {
+                        talkrot = 0;
+                    }
+                    GameMgr.chara_talk_number = talkrot; //ランダム会話順ぐり               
+                    talkrot++;
+                    break;
+            }
+
+            if (check_event) //話すをおしたときに、自動でイベントが発生した場合、そっちを優先する
+            {
+
+            }
+            else
+            {
+                GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
+                GameMgr.talk_flag = true;
+
+                //GameMgr.utage_charaHyouji_flag = true;
+
+                StartCoroutine("UtageEndWait");
+            }
         }
     }
 

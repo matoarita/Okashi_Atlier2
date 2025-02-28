@@ -3051,7 +3051,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             case 0:
 
                                 FaceMotionPlay(2000);
-                                _touchface_comment_lib.Add("にいちゃん！　コンテスト・・わくわくだね！");
+                                _touchface_comment_lib.Add("にいちゃん！　コンテスト・・わくわくだぜ～！");
                                 break;
 
                             case 1:
@@ -3063,7 +3063,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             default:
 
                                 FaceMotionPlay(1014);
-                                _touchface_comment_lib.Add("お砂糖とバター・・忘れないようにしないと。あせあせ。");
+                                _touchface_comment_lib.Add("お砂糖とバター・・忘れないようにせんと。あせあせ。");
                                 break;
                         }
                     }

@@ -930,7 +930,7 @@ public class Contest_Judge : MonoBehaviour {
         //before_beautyscore[0] = GameMgr.contest_Beauty_Score[0];
         before_beautyscore[1] = GameMgr.contest_Beauty_Score[1];
 
-        if (GameMgr.contest_Beauty_Score[1] >= 0 && GameMgr.contest_Beauty_Score[1] < 30) //とりあえず基準値は満たした
+        if (GameMgr.contest_Beauty_Score[1] > 0 && GameMgr.contest_Beauty_Score[1] < 30) //とりあえず基準値は満たした
         {
             GameMgr.contest_Beauty_Score[1] = 30;
         }
@@ -982,13 +982,9 @@ public class Contest_Judge : MonoBehaviour {
         {
             GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 3.0f);
         }
-        else if (GameMgr.contest_Beauty_Score[1] < 0 && GameMgr.contest_Beauty_Score[1] >= -50)
+        else if (GameMgr.contest_Beauty_Score[1] <= 0)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 0.5f); //基準値に達していないと、かなりマイナス
-        }
-        else if (GameMgr.contest_Beauty_Score[1] < -50)
-        {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.0f); //基準値に達していないと、かなりマイナス
+            GameMgr.contest_Beauty_Score[1] = 0; //基準値に達していない
         }
 
         //GameMgr.contest_Beauty_Score[0] = GameMgr.contest_Beauty_Score[1]; //アントワネット補正後、タカノの見た目点数にも補正

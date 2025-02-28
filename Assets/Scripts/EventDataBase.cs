@@ -713,19 +713,19 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //
                 //HeartEvent_check(GameMgr.System_HeartBlockLv_01, 300, 1); //秘密の花園へいこうよ
                 HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1); //ヒカリお菓子作る
+                
+                //HLVごとに発生するイベント 350番台～
+                HeartEvent_check(15, 350, 1);
                 HeartEvent_check(20, 302, 1); //ヒカリ二個トッピング仕上げできるようになる
-
-                //LV3ごとに発生するイベント 350番台～
-                /*HeartEvent_check(3, 350, 1);
-                HeartEvent_check(6, 351, 1);
+                HeartEvent_check(25, 351, 1);
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
-                HeartEvent_check(12, 353, 1);
-                HeartEvent_check(15, 354, 1);
-                HeartEvent_check(18, 355, 1);
-                HeartEvent_check(21, 356, 1);
-                HeartEvent_check(24, 357, 1);
-                HeartEvent_check(27, 358, 1);
-                HeartEvent_check(30, 359, 1);*/
+                HeartEvent_check(30, 353, 1);
+                HeartEvent_check(40, 354, 1);
+                //HeartEvent_check(50, 355, 1);
+                //HeartEvent_check(60, 356, 1);
+                //HeartEvent_check(70, 357, 1);
+                HeartEvent_check(80, 358, 1);
+                HeartEvent_check(90, 359, 1);
 
                 //Heartevent_Grt(); //１の頃のイベント
 

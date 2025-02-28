@@ -2027,7 +2027,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 Debug.Log("_beauty_deg: " + _temp_deg);
 
-                if(_temp_kyori >= 0) //差が10をこえたときに、はじめて見た目の点数が加算される。
+                if(_temp_kyori >= 0) //
                 {
                     _temp_beautyscore = _temp_kyori; //加算方式
                     //_temp_beautyscore = (int)(_beauty_basicscore * _temp_deg); //倍率方式
@@ -4377,9 +4377,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }*/
 
         //一時的に現在のハートを表示オフに。これで、先にクエストクリア演出が終わる。
-        for (i = 0; i < _listHeart.Count; i++)
+        if (heart_count > 0)
         {
-            _listHeart[i].SetActive(false);
+            for (i = 0; i < _listHeart.Count; i++)
+            {
+                _listHeart[i].SetActive(false);
+            }
         }
 
         yield return new WaitForSeconds(1.0f);
@@ -4468,9 +4471,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         HeartLvUpPanel_obj.SetActive(true);
 
         //現在のハートを表示オンに。
-        for (i = 0; i < _listHeart.Count; i++)
+        if (heart_count > 0)
         {
-            _listHeart[i].SetActive(true);
+            for (i = 0; i < _listHeart.Count; i++)
+            {
+                _listHeart[i].SetActive(true);
+            }
         }
     }
 

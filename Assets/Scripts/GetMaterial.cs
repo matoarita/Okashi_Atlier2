@@ -74,6 +74,7 @@ public class GetMaterial : MonoBehaviour
 
     private int random, random_param;
     private int i, count, empty;
+    private int _getstatus;
     private int index;
     private int _itemid;
     private int _getMoney;
@@ -308,9 +309,9 @@ public class GetMaterial : MonoBehaviour
 
 
 
-    public void GetRandomMaterials(int _index) //材料を３つランダムでゲットする処理
+    public void GetRandomMaterials(int _index, int _mstatus) //材料を３つランダムでゲットする処理
     {
-        
+        _getstatus = _mstatus;
         index = _index; //採取地IDの決定
 
         //プレイヤーのアイテム発見力をバフつきで計算
@@ -466,12 +467,17 @@ public class GetMaterial : MonoBehaviour
             event_num = 0;
         }
 
+        if(_getstatus == 1) //夢喰い沼でイベント発生中は、必ず何も拾えない。
+        {
+            event_num = 10;
+        }
+
         switch (event_num)
         {
             case 0: //アイテム取得
 
                 //アイテムの取得
-                mat_result();
+                mat_result(0);
                 break;
 
             case 1: //イベント発生 風がきもちいいなどのセリフ関連
@@ -590,7 +596,7 @@ public class GetMaterial : MonoBehaviour
                     case "BerryFarm":
 
                         //アイテムの取得
-                        mat_result();
+                        mat_result(0);
                         break;
 
                     case "Lavender_field":
@@ -611,7 +617,7 @@ public class GetMaterial : MonoBehaviour
                     default:
 
                         //アイテムの取得
-                        mat_result();
+                        mat_result(0);
                         break;
                 }
 
@@ -724,17 +730,23 @@ public class GetMaterial : MonoBehaviour
                 
                 break;
 
+            case 10: //特殊イベント　アイテム必ず何も拾わない
+
+                //アイテムの取得
+                mat_result(1);
+                break;
+
             default:
 
                 tansaku_panel.SetActive(true);
                 //アイテムの取得
-                mat_result();
+                mat_result(0);
                 break;
         }
 
     }
 
-    void mat_result()
+    void mat_result(int _mat_status)
     {
         _tansaku_result_temp.Clear();
 
@@ -747,30 +759,34 @@ public class GetMaterial : MonoBehaviour
             rare_box_count = 1;
         }
 
-        switch (mat_place)
+        if (_mat_status == 0) //_status=0でなければ、採取の処理を無視し、必ず空になる。
         {
-            case "Ido":
+            switch (mat_place)
+            {
+                case "Ido":
 
-                //井戸は一回のみ
-                ItemGetMethod(0);
-                break;
+                    //井戸は一回のみ
+                    ItemGetMethod(0);
+                    break;
 
-            default:
+                default:
 
-                for (count = 0; count < tansaku_count + box_count; count++) //3回繰り返す
-                {
-                    ItemGetMethod(count);
+                    for (count = 0; count < tansaku_count + box_count; count++) //3回繰り返す
+                    {
+                        ItemGetMethod(count);
 
-                }
-                break;
+                    }
+                    break;
+            }
+
+
+            //通常アイテムとは別に、レアアイテムのドロップも抽選する。
+            for (count = 0; count < 1 + rare_box_count; count++) //1回繰り返す
+            {
+                RareItemGetMethod(count);
+            }
         }
-
-            
-        //通常アイテムとは別に、レアアイテムのドロップも抽選する。
-        for (count = 0; count < 1 + rare_box_count; count++) //1回繰り返す
-        {
-            RareItemGetMethod(count);            
-        }
+        else { }
 
 
 

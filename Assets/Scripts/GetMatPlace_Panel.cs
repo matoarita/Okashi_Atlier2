@@ -90,6 +90,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private int i, j, count;
     private int select_num;
     private float _return_blackTime;
+    private int dream_counter;
 
     private bool move_anim_on;
     private bool move_anim_end;
@@ -105,6 +106,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     private int _yosokutime;
     private int mat_cost;
+
+    private bool mapevent_chk;
+    private bool bgmchange_flag;
 
     private GameObject category_toggleList_obj;
     private int category_status;
@@ -259,11 +263,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         slot_view_status = 0;
 
+
         next_on = false;
         subevent_on = false;
-
-           
-
+        mapevent_chk = false;
+        bgmchange_flag = false;
     }
 
     void ViewFlagCheck()
@@ -1183,6 +1187,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 slot_tansaku_button_obj.SetActive(true);
                 OpenTreasureButton_obj.SetActive(false);
                 NextButton_obj.SetActive(false);
+                dream_counter = 0;
 
                 /*if (!next_on)//先へ進まない場合は、リセットしない。
                 {
@@ -1485,7 +1490,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         if(_status == 0)
         {
-            slot_view_status = 1; //通常の材料集めシーンに切り替え
+            slot_view_status = 1; //通常の材料集めシーンに切り替え       
+            
+            if(bgmchange_flag)
+            {
+                bgmchange_flag = false;
+                //音量フェードイン
+                sceneBGM.MuteOFFBGM();
+                sceneBGM.FadeInBGM(0.5f);
+            }            
         }
         else //マップでサブイベントも読み込んだ場合
         {
@@ -1495,6 +1508,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             Slot_ViewON();
         }
 
+        bgmchange_flag = false;
     }
 
     void StatusPanelOFF()
@@ -1634,7 +1648,58 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
     public void OnTansaku() //探索ボタンをおした
     {
-        get_material.GetRandomMaterials(GameMgr.Select_place_num);
+        mapevent_chk = false;
+
+        //イベントが発生する場合は、先にそちらをチェック
+        switch (GameMgr.Select_place_name)
+        {
+            case "DreamEater_Swamp":
+
+                if (!GameMgr.MapEvent_Or[451])
+                {
+                    dream_counter++;
+
+                    if(dream_counter < 1) 
+                    {
+                        get_material.GetRandomMaterials(GameMgr.Select_place_num, 1); //必ず空になる。
+                    }
+                    else //〇回目探索したら、イベントが発生
+                    {
+                        dream_counter = 0;
+                        GameMgr.MapEvent_Or[451] = true;
+                        OnMapEvent(1901, true); //2個目はtrueなら、宴のBGMを使う
+                    }
+                    
+                    mapevent_chk = true;
+                }
+
+                if (!mapevent_chk) //先にイベント発生してたら以下チェックしない
+                {
+                    if (!GameMgr.MapEvent_Or[452])
+                    {
+                        dream_counter++;
+
+                        if (dream_counter < 3)
+                        {
+                            get_material.GetRandomMaterials(GameMgr.Select_place_num, 1); //必ず空になる。
+                        }
+                        else //〇回目探索したら、イベントが発生
+                        {
+                            GameMgr.MapEvent_Or[452] = true;
+                            OnMapEvent(1902, true); //2個目はtrueなら、宴のBGMを使う
+                        }
+
+                        mapevent_chk = true;
+                    }
+                }
+                break;
+        }
+
+
+        if (!mapevent_chk) //上でイベントが発生してなければ、通常の探索
+        {
+            get_material.GetRandomMaterials(GameMgr.Select_place_num, 0);
+        }
     }
 
     public void OnModoru() //街へ戻るをおした
@@ -2619,6 +2684,23 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 }
                 break;
         }
+    }
+
+    //マップイベントを発生させるときに使う
+    void OnMapEvent(int _ev_num, bool _bgm_status)
+    {
+        slot_view_status = 3; //イベント読み込み中用に退避                           
+
+        GameMgr.map_ev_ID = _ev_num;
+        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
+
+        if (_bgm_status)
+        {
+            bgmchange_flag = true;
+            sceneBGM.MuteBGM(); //宴のBGMを使う
+        }
+
+        StartCoroutine(MapEventOn(0));
     }
 
     public void Debug_AllMapFlagON()

@@ -517,6 +517,10 @@ public class Utage_scenario : MonoBehaviour
                         scenarioLabel = "Farm_Talk"; //ショップ話すタグのシナリオを再生。
                         StartCoroutine(Shop_Talk());
                         break;
+                    case 50:
+                        scenarioLabel = "emeraldShop_Talk"; //ショップ話すタグのシナリオを再生。
+                        StartCoroutine(Shop_Talk());
+                        break;
                     case 170: //広場NPC
                         scenarioLabel = "Hiroba_Or_NPC_Talk"; //ショップ話すタグのシナリオを再生。
                         StartCoroutine(Shop_Talk());
