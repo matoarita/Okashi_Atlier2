@@ -108,6 +108,20 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         }
     }
 
+    //スキル名をいれると、そのスキルを未習得にする。
+    public void skillHyoujiDelete(string _name)
+    {
+        for (i = 0; i < magicskill_lists.Count; i++)
+        {
+            if (magicskill_lists[i].skillName == _name)
+            {
+                magicskill_lists[i].skillFlag = 0;
+                magicskill_lists[i].skillLv = 0;
+                magicskill_lists[i].skillUseLv = 0;
+            }
+        }
+    }
+
     //スキル名とレベルをいれると、そのスキルをそのレベルまで習得する
     public void skillLearnLv_Name(string _name, int _lv)
     {
@@ -235,6 +249,18 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
             if (magicskill_lists[i].skillFlag != 9999)
             {
                 magicskill_lists[i].skillFlag = 1;
+            }
+        }
+    }
+
+    //デバッグ用　全てのスキルの表示フラグをOFFにする
+    public void DebugAllSkillFlagOFF()
+    {
+        for (i = 0; i < magicskill_lists.Count; i++)
+        {
+            if (magicskill_lists[i].skillFlag != 9999)
+            {
+                magicskill_lists[i].skillFlag = 0;
             }
         }
     }

@@ -1444,6 +1444,20 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
         totalkyori = kyori1 + kyori2 + kyori3;
         GameMgr.hikari_make_okashi_totalkyori = totalkyori; //ヒカリが作るお菓子のときに使用する。
         //Debug.Log("ベスト配合との距離: " + totalkyori);
+        /*if (databaseCompo.compoitems[kyori_compID].cmpitem_Name == "bugget")
+        {
+            Debug.Log("ベスト配合との距離 計算直後 totalkyori: " + totalkyori);
+            Debug.Log(kyori_kosuSet[0] + " - " + databaseCompo.compoitems[kyori_compID].cmpitem_bestkosu1 + " = " + " kyori1: " + kyori1);
+            Debug.Log(kyori_kosuSet[1] + " - " + databaseCompo.compoitems[kyori_compID].cmpitem_bestkosu2 + " = " + " kyori2: " + kyori2);
+            if (databaseCompo.compoitems[kyori_compID].cmpitem_kosu3 != 9999)
+            {
+                Debug.Log(kyori_kosuSet[2] + " - " + databaseCompo.compoitems[kyori_compID].cmpitem_bestkosu3 + " = " + " kyori3: " + kyori3);
+            }
+            else
+            {
+                Debug.Log("kyori3: " + kyori3);
+            }                
+        }*/
 
         if (mstatus != 99)
         {
@@ -1471,6 +1485,14 @@ public class CombinationMain : SingletonMonoBehaviour<CombinationMain>
     //主に、ゲーム初期化時にお菓子のデータをセッティングするときに使う　Compound_Keisanから読み出し
     public float GetKyoriKeisan(int getcompID, int[] getkosuSet)
     {
+        /*if (databaseCompo.compoitems[getcompID].cmpitem_Name == "bugget")
+        {
+            for(i=0; i< getkosuSet.Length; i++)
+            {
+                Debug.Log("getkosuSet[i]: " + getkosuSet[i]);
+            }            
+        }*/
+
         Kyori_Keisan3(getcompID, getkosuSet);
 
         if (databaseCompo.compoitems[getcompID].KeisanMethod != "Non")

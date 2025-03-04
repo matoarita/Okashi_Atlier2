@@ -80,7 +80,7 @@ public class Entity_compoItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(28); p.release_recipi = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(29); p.recipi_count = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(30); p.buf_kouka_on = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(31); p.seacretFlag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(31); p.DefaultKeisan = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

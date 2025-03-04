@@ -186,7 +186,7 @@ public class TasteHintPanel : MonoBehaviour {
         hinttext_obj.SetActive(true);
         hinttextcontest_obj.SetActive(false);
 
-        Okashi_hint_title.text = "◆さっき食べたおかしメモ";
+        Okashi_hint_title.text = "◆ さっき食べたおかしメモ ◆";
 
         Okashi_lasthint_text.text = GameMgr.Okashi_lasthint;
 
@@ -227,7 +227,7 @@ public class TasteHintPanel : MonoBehaviour {
         hinttext_obj.SetActive(false);
         hinttextcontest_obj.SetActive(true);
 
-        Okashi_hint_title.text = "◆前回コンテストのおかし";
+        Okashi_hint_title.text = "◆ 前回コンテストのおかし ◆";
 
         Okashi_contesthint_text.text = GameMgr.contest_lasthint_text;
 

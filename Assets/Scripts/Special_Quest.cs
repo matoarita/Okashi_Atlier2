@@ -513,7 +513,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 girl1_status.OkashiQuest_ID = 100120;
                 OkashiQuest_Count = 3;
-                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.EatOkashi_DecideFlag = 0;
                 GameMgr.SPquestPanelOff = false;
 
                 break;
@@ -524,7 +524,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 4;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
-                GameMgr.Contest_BGMON = true;
+                //GameMgr.Contest_BGMON = true;
                 GameMgr.Contest_PanelON = true;
                 GameMgr.Contest_MainStoryPlaceNum = 0;
 

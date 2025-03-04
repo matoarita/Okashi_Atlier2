@@ -47,7 +47,7 @@ public class Entity_compoItemDataBase : ScriptableObject
 		public string release_recipi;
 		public int recipi_count;
 		public int buf_kouka_on;
-		public int seacretFlag;
+		public int DefaultKeisan;
 	}
 }
 

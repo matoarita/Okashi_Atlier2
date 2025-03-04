@@ -325,6 +325,11 @@ public class ShopQuestListController : MonoBehaviour
                 _text[6].text = "";
                 _text[7].text = "過ぎた";
             }
+            else if (_Nokori_day == 0)
+            {
+                _text[6].text = "";
+                _text[7].text = "本日";
+            }
             else
             {
                 _text[6].text = _Nokori_day.ToString();

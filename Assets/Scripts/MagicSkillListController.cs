@@ -1031,4 +1031,10 @@ public class MagicSkillListController : MonoBehaviour
         compoundMainController_obj.GetComponent<CompoundMainController>().HyoujiMPPanel();
         
     }
+
+    public void DebugMagicAllReset()
+    {
+        magicskill_database.DebugAllSkillFlagOFF();
+        reset_and_DrawView(category_status);
+    }
 }

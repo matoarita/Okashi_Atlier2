@@ -128,13 +128,13 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 6:
 
-                    //MagicLearnPanelHyouji("Cookie_SecondBake");                   
+                    //MagicLearnPanelHyouji("Cookie_SecondBake");  
                     break;
 
                 case 7:
 
                     //MagicLearnPanelHyouji("Heart_of_Icecream");
-                    //MagicLearnPanelHyouji("Freezing_Spell");
+                    MagicLearnPanelHyouji("Freezing_Spell");
                     break;
 
                 case 8:
@@ -147,8 +147,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 10:
 
-                    //MagicLearnPanelHyouji("Bake_Beans");
-                    //MagicLearnPanelHyouji("Chocolate_Tempering");
+                    MagicLearnPanelHyouji("Bake_Beans");
+                    MagicLearnPanelHyouji("Chocolate_Tempering");
                     break;
 
                 case 11:
@@ -241,6 +241,14 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     ShiageUpPanelHyouji();
                     break;
             }
+
+            if (_maxlevel >= 3 && GameMgr.System_MagicUse_Flag) //レベルが4以上から、LV1ごとにMPが+1
+            {
+                if (_maxlevel % 1 == 0)
+                {
+                    MagicUpPanelHyouji(1);
+                }
+            }
         }        
 
         //スキルのチェック
@@ -324,10 +332,10 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             /*if (_lv >= 6)
             {
                 Magic_Learn("Cookie_SecondBake");               
-            }
+            }*/
             if (_lv >= 7)
             {
-                Magic_Learn("Heart_of_Icecream");
+                //Magic_Learn("Heart_of_Icecream");
                 Magic_Learn("Freezing_Spell");
             }
             if (_lv >= 10)
@@ -335,7 +343,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 Magic_Learn("Bake_Beans");
                 Magic_Learn("Chocolate_Tempering");
             }
-            if (_lv >= 11)
+            /*if (_lv >= 11)
             {
                 Magic_Learn("SugerPot");
             }

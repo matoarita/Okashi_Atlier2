@@ -1347,8 +1347,9 @@ public class Compound_Check : MonoBehaviour {
                 _ex_probabilty_temp = database.items[tempID_1].Ex_Probability *
                 (float)(magicskill_database.magicskill_lists[tempID_2].success_rate * 0.01);
 
-                //魔法の場合、一度に作る個数が増えるほど、確率が10%ほど下がる
-                _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * 0.1);
+                //魔法の場合、一度に作る個数が増えるほど、確率が5%ほど下がる
+                _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * GameMgr.kosu_probabilty_debuf);
+                _ex_probabilty_temp += GameMgr.kosu_probabilty_debuf; //一個だけなら下がらない
 
                 //Debug.Log("_ex_probabilty_temp: " + _ex_probabilty_temp);
 
@@ -1367,8 +1368,9 @@ public class Compound_Check : MonoBehaviour {
                 database.items[tempID_3].Ex_Probability;
 
 
-                //魔法の場合、一度に作る個数が増えるほど、確率が10%ほど下がる
-                _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * 0.1);
+                //魔法の場合、一度に作る個数が増えるほど、確率が5%ほど下がる
+                _ex_probabilty_temp -= (float)(GameMgr.Final_kettei_kosu1 * GameMgr.kosu_probabilty_debuf);
+                _ex_probabilty_temp += GameMgr.kosu_probabilty_debuf; //一個だけなら下がらない
 
                 inputcount = 3;
             }
@@ -2018,6 +2020,12 @@ public class Compound_Check : MonoBehaviour {
         if (_rate < 0)
         {
             _rate = 0;
+        }
+
+        //手帳達成率が98%を上回る場合、手帳達成率が優先される
+        if(GameMgr.game_Exup_rate >= _rate)
+        {
+            _rate = GameMgr.game_Exup_rate;
         }
     }
 

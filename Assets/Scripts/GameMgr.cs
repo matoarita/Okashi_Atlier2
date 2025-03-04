@@ -51,7 +51,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
     public static bool System_Shiokuri_ON = true; //仕送りの有無
-    public static bool System_Yachin_ON = false; //家賃システムの有無
+    public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
@@ -106,7 +106,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_HeartLVevent_01 = 9; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
-    public static int System_Yachin_Cost02 = 3000; //〇日ごとバージョン
+    public static int System_Yachin_Cost02 = 1500; //〇日ごとバージョン
     public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
@@ -129,7 +129,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_MagicLVPoint = "ジョブポイント";
 
     //真実のハートのハート消費量
-    public static int System_trueheart_cost = 3000;
+    public static int System_trueheart_cost = 2000;
 
     //ゴンドラ乗り場の料金
     public static int System_gondra_cost = 5000;    
@@ -156,6 +156,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //条件競売のスコア
     public static int joukenkyobai_enemy_score = 258;
+
+    //魔法使用の場合、個数で減る確率 0.05なら、2個目以降から、5％ずつ減っていくということ
+    public static float kosu_probabilty_debuf = 0.07f;
 
     //魔法状態のスロット名
     public static string System_MagicSlotName01 = "Fire_Flowers";

@@ -3132,6 +3132,11 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Buttelfy_illumination");
                 break;
 
+            case "mg_glitter_book":
+
+                magicskill_database.skillHyoujiKaikin("Glitter");
+                break;
+
             case "mg_mp_regenaration_book":
 
                 magicskill_database.skillHyoujiKaikin("MP_Regenaration");
@@ -3188,6 +3193,10 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_sugerpot_book":
                 magicskill_database.skillHyoujiKaikin("SugerPot");
+                break;
+
+            case "mg_mnemonic_book":
+                magicskill_database.skillHyoujiKaikin("Mnemonic");
                 break;
 
             case "mg_nappe_book":
@@ -3264,6 +3273,14 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_plant_growth_book":
                 magicskill_database.skillHyoujiKaikin("Plant_Growth");
+                break;
+
+            case "mg_spring_pharmacy_book":
+                magicskill_database.skillHyoujiKaikin("Spring_Pharmacy");
+                break;
+
+            case "mg_saint_fleur_book":
+                magicskill_database.skillHyoujiKaikin("Saint_Fleur");
                 break;
 
             case "mg_time_illusion_book":

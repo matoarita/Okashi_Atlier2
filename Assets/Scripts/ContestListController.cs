@@ -48,7 +48,7 @@ public class ContestListController : MonoBehaviour
     public int _count; //選択したリスト番号が入る。
     public int _ID; //ショップデータベースIDが入る。
 
-    private int _listID;
+    private int _listID, _listID2;
     private int read_ID;
 
     private int rand;
@@ -262,16 +262,7 @@ public class ContestListController : MonoBehaviour
             {
                 DrawContest();
             }
-
-            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100) //プラトンアカデミー
-            {
-                if (conteststartList_database.SearchContestVictory("Or_Contest_001") == 1)
-                { }
-                else
-                {
-                    DrawContest();
-                }
-            }
+            
             /*if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200) //サマードリームスフェスティバル
             {
                 if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1)
@@ -292,6 +283,19 @@ public class ContestListController : MonoBehaviour
             }*/
         }
 
+        if (GameMgr.GirlLoveEvent_num >= 13) //招待状がくるので、リストに表示
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100) //プラトンアカデミー
+            {
+                if (conteststartList_database.SearchContestVictory("Or_Contest_001") == 1)
+                { }
+                else
+                {
+                    DrawContest();
+                }
+            }
+        }
+
         //ラスククリアででる。
         if (GameMgr.Contest_NewReleaseList[1])
         {
@@ -310,10 +314,19 @@ public class ContestListController : MonoBehaviour
             }
         }
 
-        //ルミエールエピファニア一位クリアで春コン最後がでる    
+        //ルミエールエピファニアクリアでルミエールカンデラ
         if (GameMgr.Contest_NewReleaseList[3])
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 5)
+            {
+                DrawContest();
+            }
+        }
+
+        //ルミエールカンデラ一位クリアで春コン最後がでる    
+        if (GameMgr.Contest_NewReleaseList[4])
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 6)
             {
                 DrawContest();
             }
@@ -475,7 +488,9 @@ public class ContestListController : MonoBehaviour
 
                 //ラスククリアででる。
                 _listID = conteststartList_database.SearchContestString("Or_Contest_050");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                _listID2 = conteststartList_database.SearchContestString("Or_Contest_100");
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2 ||
+                    conteststartList_database.conteststart_lists[_listID2].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID2].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[1])
                     {
@@ -486,7 +501,7 @@ public class ContestListController : MonoBehaviour
 
                 //ベオルブ家クリアで　オランジーナパティスリーアワード
                 _listID = conteststartList_database.SearchContestString("Or_Contest_030");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[2])
                     {
@@ -495,13 +510,24 @@ public class ContestListController : MonoBehaviour
                     }
                 }
 
-                //ルミエールエピファニア一位クリアで春コン最後がでる
+                //ルミエールエピファニアクリアでルミエールカンデラ
                 _listID = conteststartList_database.SearchContestString("Or_Contest_060");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[3])
                     {
                         GameMgr.Contest_NewReleaseList[3] = true;
+                        contest_new = 1;
+                    }
+                }
+
+                //ルミエールカンデラ一位クリアで春コン最後がでる
+                _listID = conteststartList_database.SearchContestString("Or_Contest_070");
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                {
+                    if (!GameMgr.Contest_NewReleaseList[4])
+                    {
+                        GameMgr.Contest_NewReleaseList[4] = true;
                         contest_new = 1;
                     }
                 }
@@ -524,7 +550,7 @@ public class ContestListController : MonoBehaviour
 
                 //はるかなる青賞で次でる
                 _listID = conteststartList_database.SearchContestString("Or_Contest_250");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[11])
                     {
@@ -535,7 +561,7 @@ public class ContestListController : MonoBehaviour
 
                 //スカーレットマイスタクリアで最後がでる。
                 _listID = conteststartList_database.SearchContestString("Or_Contest_240");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[12])
                     {
@@ -561,7 +587,7 @@ public class ContestListController : MonoBehaviour
 
                 //クレープドゥシャノワールコンテストクリアで、次がでる
                 _listID = conteststartList_database.SearchContestString("Or_Contest_400");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[20])
                     {
@@ -572,7 +598,7 @@ public class ContestListController : MonoBehaviour
 
                 //キラキラボンボンズコンテストクリアで、次がでる
                 _listID = conteststartList_database.SearchContestString("Or_Contest_430");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[21])
                     {
@@ -583,7 +609,7 @@ public class ContestListController : MonoBehaviour
 
                 //ピエスモンテ彫刻お菓子コンテストクリアで、次がでる
                 _listID = conteststartList_database.SearchContestString("Or_Contest_450");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[22])
                     {
@@ -592,7 +618,7 @@ public class ContestListController : MonoBehaviour
                     }
                 }
 
-                if (PlayerStatus.player_ninki_param >= 20)
+                if (PlayerStatus.player_ninki_param >= 15)
                 {
                     if (!GameMgr.Contest_NewReleaseList[41])
                     {
@@ -608,7 +634,7 @@ public class ContestListController : MonoBehaviour
 
                 //クワイットスノウコンテストクリアで、次がでる
                 _listID = conteststartList_database.SearchContestString("Or_Contest_600");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[30])
                     {
@@ -619,7 +645,7 @@ public class ContestListController : MonoBehaviour
 
                 //イルフェドゥコンテストクリアで、次がでる
                 _listID = conteststartList_database.SearchContestString("Or_Contest_640");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[31])
                     {
@@ -630,7 +656,7 @@ public class ContestListController : MonoBehaviour
 
                 //ミルフイユ・ドゥ・パリコンテストクリアで、次がでる
                 _listID = conteststartList_database.SearchContestString("Or_Contest_650");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[32])
                     {

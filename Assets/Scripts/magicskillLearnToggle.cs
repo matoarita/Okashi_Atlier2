@@ -61,6 +61,8 @@ public class magicskillLearnToggle : MonoBehaviour
     private int count;
     private bool selectToggle;
 
+    private GameObject debug_deletebutton;
+
     private List<GameObject> category_toggle = new List<GameObject>();
 
     private int kettei_item1; //このスクリプトは、プレファブのインスタンスに取り付けているので、各プレファブ共通で、変更できる値が必要。そのパラメータは、PlayerItemListControllerで管理する。
@@ -116,6 +118,8 @@ public class magicskillLearnToggle : MonoBehaviour
         card_view_obj = GameObject.FindWithTag("CardView");
         card_view = card_view_obj.GetComponent<CardView>();
 
+        debug_deletebutton = this.transform.Find("DebugDeleteButton").gameObject;
+        debug_deletebutton.SetActive(false);
 
         //カテゴリータブの取得
         category_toggle.Clear();
@@ -142,6 +146,16 @@ public class magicskillLearnToggle : MonoBehaviour
 
             magicskilllistController.skill_final_select_flag = false;
             StartCoroutine("skilllearn_Final_select");
+        }
+
+        //デバッグ
+        if (GameMgr.DEBUG_MODE)
+        {
+            debug_deletebutton.SetActive(true);
+        }
+        else
+        {
+            debug_deletebutton.SetActive(false);
         }
     }
 
@@ -334,6 +348,12 @@ public class magicskillLearnToggle : MonoBehaviour
         magicskilllistController.ReDraw();
     }
 
+    //デバッグ　ボタンおすと、そのスキルの表示と習得をオフにする。
+    public void DebugResetSkillFlag()
+    {
+        magicskill_database.skillHyoujiDelete(toggle_skill_name);
+        magicskilllistController.ReDraw();
+    }
 
     //
     //魔法おぼえる処理分岐//

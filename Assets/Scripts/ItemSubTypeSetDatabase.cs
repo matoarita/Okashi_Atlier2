@@ -305,8 +305,8 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
     void Crispy_Text()
     {
         GameMgr.Item_ShokukanTypeText = "さくさく感";
-        GameMgr.Item_ShokukanTypeNum = 0;
-        GameMgr.Item_ShokukanTypeScoreNum = 0;
+        GameMgr.Item_ShokukanTypeNum = 0; //Set_Imageでの表示を指定　0ならさくさく感と表示
+        GameMgr.Item_ShokukanTypeScoreNum = 0; //Girleat_judgeでの判定
     }
 
     void Fluffy_Text()
@@ -348,7 +348,7 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
     {
         GameMgr.Item_ShokukanTypeText = "歯ごたえ";
         GameMgr.Item_ShokukanTypeNum = 3;
-        GameMgr.Item_ShokukanTypeScoreNum = 10;
+        GameMgr.Item_ShokukanTypeScoreNum = 10; //表示は歯ごたえになるが、girleat_judgeでの判定は、10の判定を使用するということ
     }
 
     void Parfe_Text()

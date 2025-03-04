@@ -3051,7 +3051,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             case 0:
 
                                 FaceMotionPlay(2000);
-                                _touchface_comment_lib.Add("にいちゃん！　コンテスト・・わくわくだぜ～！");
+                                _touchface_comment_lib.Add("にいちゃん！　コンテスト・・わくわく～！");
                                 break;
 
                             case 1:

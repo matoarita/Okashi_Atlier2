@@ -855,7 +855,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 368; //
+        GameMgr.contest_boss_score = 228; //
         GameMgr.contest_boss_name = "クラリス";
     }
 
@@ -872,7 +872,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 590; //
+        GameMgr.contest_boss_score = 333; //
         GameMgr.contest_boss_name = "シュバルツヴェルダー";
     }
 
@@ -885,7 +885,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_100() //クッキーノービスカップ
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題で使用する（コンテストに固有の判定入れなくてよい）
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題で使用する（コンテストに固有の判定入れなくてよい）
         GameMgr.Contest_DB_list_Type = 100000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -910,7 +910,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_101() //オランジーナ・パティスリーアワード　ここで少し大き目のコンテスト
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題で使用する（コンテストに固有の判定入れなくてよい）
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題で使用する（コンテストに固有の判定入れなくてよい）
         GameMgr.Contest_DB_list_Type = 101000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -940,7 +940,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_103() //ラスク・ブロカント
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 103000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -961,42 +961,42 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_104() //ルミエールエピファニア
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 104000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：光のお菓子限定";
-        GameMgr.Contest_ProblemSentence2 = "光をイメージしたお菓子を作ること" + "\n" + "制限時間: 4時間";
+        GameMgr.Contest_ProblemSentence2 = "光をイメージしたお菓子を作ること" + "\n" + "制限時間: 6時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位          
+        PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位          
     }
 
-    void ContestRankingData_105() //ルミエールカンデラ 光りのラスクか光魔法のチーズケーキ　光りジュース
+    void ContestRankingData_105() //ルミエールカンデラ SP9キラキラ感も採点の対象になる
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 105000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：光のお菓子限定";
-        GameMgr.Contest_ProblemSentence2 = "光の魔法で仕上げたお菓子を作ること" + "\n" + "制限時間: 4時間";
+        GameMgr.Contest_ProblemSentence2 = "光の魔法で仕上げたお菓子を作ること" + "\n" + "制限時間: 6時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位          
+        PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位          
     }
 
     void ContestRankingData_106() //ガレットデロワ　オペラ・ザッハトルテ・ファンタジアン基準
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 106000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：おいしいケーキ";
-        GameMgr.Contest_ProblemSentence2 = "春の王様にふさわしい豪華なケーキを作ること" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence2 = "春の大精霊様にふさわしい豪華なケーキを作ること" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
@@ -1006,7 +1006,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_107() //ディオ・ショコラ・チャンピオンシップ　遥かなる蒼・チョコ全般なら全部OK
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 107000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 

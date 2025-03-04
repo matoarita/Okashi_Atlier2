@@ -312,7 +312,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void KakuritsuUp_Oven()
     {
-        if (pitemlist.KosuCount("platinum_oven") >= 1) //持ってるだけで効果アップ
+        /*if (pitemlist.KosuCount("platinum_oven") >= 1) //持ってるだけで効果アップ
         {
             _buf_kakuritsuup += 30;
         }
@@ -329,6 +329,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     _buf_kakuritsuup += 10;
                 }
             }
+        }*/
+
+        //よねつ石の効果で食感上がる
+        if (pitemlist.KosuCount("residual_heatstone") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_kakuritsuup += 5;
         }
     }
 
@@ -356,10 +362,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void KakuritsuUp_CakeMatCream()
     {
-        if (pitemlist.KosuCount("cake_rolltable") < 1) //所持すると成功率あがる
+        /*if (pitemlist.KosuCount("cake_rolltable") < 1) //所持すると成功率あがる
         {
             _buf_kakuritsuup += 30;
-        }
+        }*/
 
         //魔法のバフ
         _magicup = 0;
@@ -373,17 +379,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void KakuritsuUp_CakeMatSpongeBaked(int _mstatus)
     {
         
-        if (pitemlist.KosuCount("cakemold_black") < 1 && pitemlist.KosuCount("cakemold_stainless") < 1) //所持してないと元の成功率が低いまま　所持すると上がる
+        if (pitemlist.KosuCount("cakemold_stainless") > 1) //所持すると成功率上がる
         {
-            Debug.Log("ケーキ型をもってないので、ケーキ生地成功率-50%（チーズケーキは-30%）");
-
             if (_mstatus == 0)
             {
-                _buf_kakuritsuup -= 50;
+                _buf_kakuritsuup += 30;
             }
             else if (_mstatus == 1) //チーズケーキの場合
             {
-                _buf_kakuritsuup -= 30;
+                _buf_kakuritsuup += 30;
             }
         }
 
@@ -1106,13 +1110,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             {
                 if (PlayerStatus.player_kamado_lv >= 2) //持ってるだけで効果アップ
                 {
-                    _buf_shokukanup += 75;
+                    _buf_shokukanup += 50;
                 }
                 else
                 {
                     _buf_shokukanup = 0;
                 }
             }
+        }
+
+        //よねつ石の効果で食感上がる
+        if (pitemlist.KosuCount("residual_heatstone") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_shokukanup += 10;
         }
     }
 
@@ -1790,7 +1800,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
 
         //Debug.Log("材料距離　補正後: " + _buf_kyori + " 種類: " + _itemType_sub);
-        return _buf_kyori; //なにもない場合は、そのまま入れた数値が変える。
+        return _buf_kyori; //なにもない場合は、そのまま入れた数値がかえる。
     }
 
     //ヒカリの作ったお菓子に、バフをかける処理
@@ -2021,7 +2031,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //余熱石をもってると、さらに温度管理の効果あがる
         if (pitemlist.KosuCount("residual_heatstone") >= 1) //持ってるだけで効果アップ
         {
-            _yonetsu_hosei = 1.3f;
+            _yonetsu_hosei = 1.2f;
             Debug.Log("余熱石　補正あり: " + _yonetsu_hosei);
         }
         else

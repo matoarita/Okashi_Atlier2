@@ -45,6 +45,15 @@ public class YachinPanel : MonoBehaviour {
         costtext = this.transform.Find("Panel/cost_text").GetComponent<Text>();
         costtext2 = this.transform.Find("Panel/cost_text2").GetComponent<Text>();
         nokoriday_text = this.transform.Find("Panel/day_text").GetComponent<Text>();
+
+        if(GameMgr.System_Yachin_ON)
+        {
+            this.transform.Find("Panel").gameObject.SetActive(true);
+        }
+        else
+        {
+            this.transform.Find("Panel").gameObject.SetActive(false);
+        }
     }
 
     public void YachinHyouji()

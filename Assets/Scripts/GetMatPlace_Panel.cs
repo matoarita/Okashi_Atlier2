@@ -1926,9 +1926,16 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
         switch (next_flag)
         {
-            case 100: //バードサンクチュアリを発見
+            case 1000: //バードサンクチュアリを発見
 
                 GameMgr.Select_place_name = "BirdSanctuali"; //移動後の場所を指定
+                GameMgr.Select_place_num = matplace_database.SearchMapString(GameMgr.Select_place_name); //次回より、「外へでる」ですぐ行けるよう、フラグ解放
+                break;
+
+            //2~から
+            case 100: //ブルートパーズを発見
+
+                GameMgr.Select_place_name = "Bluetopaz_Garden"; //移動後の場所を指定
                 GameMgr.Select_place_num = matplace_database.SearchMapString(GameMgr.Select_place_name); //次回より、「外へでる」ですぐ行けるよう、フラグ解放
                 break;
 

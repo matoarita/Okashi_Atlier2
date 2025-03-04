@@ -45,6 +45,7 @@ public class Utage_scenario : MonoBehaviour
     private bool live2d_use;
     private int trans_costume;
     private int before_costume;
+    private int maprelease_flagchk;
 
     private int re_flag;
     private int ev_flag;
@@ -1679,6 +1680,23 @@ public class Utage_scenario : MonoBehaviour
             j++;
         }
 
+        //採取地開放などのイベントチェック
+        maprelease_flagchk = 0;
+        switch (recipi_Name)
+        {
+            case "recipibook_6":
+
+                //マップなどのフラグチェック
+                if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bluetopaz_Garden")].placeFlag == 0)
+                {
+                    maprelease_flagchk = 1;
+                    //いける場所を追加
+                    matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズのお花畑解禁
+                }
+                engine.Param.TrySetParameter("MapRelease_FlagCheck", maprelease_flagchk);
+                break;
+        }
+
         engine.Param.TrySetParameter("Re_flag", re_flag);
       
 
@@ -1747,15 +1765,7 @@ public class Utage_scenario : MonoBehaviour
             j++;
         }
         engine.Param.TrySetParameter("Ev_flag", ev_flag);
-
-        //マップなどのフラグチェック
-        if (matplace_database.matplace_lists[matplace_database.SearchMapString("Bluetopaz_Garden")].placeFlag == 0)
-        {
-            shop_uwasa_flag = 1;
-            //いける場所を追加
-            matplace_database.matPlaceKaikin("Bluetopaz_Garden"); //ブルートパーズのお花畑解禁
-        }
-        engine.Param.TrySetParameter("Shop_UwasaFlagCheck", shop_uwasa_flag);
+       
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -3709,7 +3719,7 @@ public class Utage_scenario : MonoBehaviour
 
                     case 1: //のる
 
-                        moneyStatus_Controller.UseMoney(3000);
+                        moneyStatus_Controller.UseMoney(160);
                         omoide_flag = GameMgr.SearchHikariOmoideFlag("event_pool");
                         if (!omoide_flag)
                         {
@@ -4681,28 +4691,28 @@ public class Utage_scenario : MonoBehaviour
         CommentID += 4; //４はじまり
         if (GameMgr.contest_BeautyJudgeScore[judge_num] != 0) //アントワの審査基準　contest_Beauty_Scoreと違うので注意
         {
-            if (GameMgr.contest_Beauty_Score[judge_num] > 50) //アントワとの差　50以上良い
+            if (GameMgr.contest_Beauty_Score[judge_num] >= 100) //アントワとの差　100以上良い
             {
                 engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_1);
                 engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_2);
                 engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_3);
                 engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_4);
             }
-            else if (GameMgr.contest_Beauty_Score[judge_num] > 0 && GameMgr.contest_Beauty_Score[judge_num] <= 50) //アントワとの差 50以内
+            else if (GameMgr.contest_Beauty_Score[judge_num] >= 50 && GameMgr.contest_Beauty_Score[judge_num] < 100) //アントワとの差
             {
                 engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_1);
                 engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_2);
                 engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_3);
                 engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_4);
             }
-            else if (GameMgr.contest_Beauty_Score[judge_num] > -40 && GameMgr.contest_Beauty_Score[judge_num] <= 0) //アントワとの差
+            else if (GameMgr.contest_Beauty_Score[judge_num] >= 0 && GameMgr.contest_Beauty_Score[judge_num] < 50) //アントワとの差
             {
                 engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_1);
                 engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_2);
                 engine.Param.TrySetParameter("contest_judge2_comment3", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_3);
                 engine.Param.TrySetParameter("contest_judge2_comment4", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_4);
             }
-            else if (GameMgr.contest_Beauty_Score[judge_num] <= -40) //アントワとの差 -40より下
+            else if (GameMgr.contest_Beauty_Score[judge_num] < 0) //アントワとの差 基準に達していない
             {
                 engine.Param.TrySetParameter("contest_judge2_comment1", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_1);
                 engine.Param.TrySetParameter("contest_judge2_comment2", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_2);

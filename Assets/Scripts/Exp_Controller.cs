@@ -122,6 +122,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     public float _rate_final;
     public int _success_judge_flag; // 0=必ず成功, 1=計算する, 2=必ず失敗
     private int dice; //確率計算用サイコロ
+    private int _seed1, _seed2;
 
     //private string[] _slot = new string[10];
     private string[] _slotHyouji1 = new string[10]; //日本語に変換後の表記を格納する。スロット覧用
@@ -2709,7 +2710,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _rate_final = _success_rate; //_success_rateは、事前にCompound_checkで計算したものを代入してるだけ。
 
                 //サイコロをふる
-                dice = Random.Range(1, 100); //1~100までのサイコロをふる。
+                _seed1 = Random.Range(1, 100); //1~100までのサイコロをふる。
+                _seed2 = Random.Range(1, 100); //1~100までのサイコロをふる。
+                dice = _seed1 * _seed2 / 100; //0と100付近の数がでにくいランダム
 
                 Debug.Log("最終成功確率: " + _rate_final + " " + "ダイスの目: " + dice);
 

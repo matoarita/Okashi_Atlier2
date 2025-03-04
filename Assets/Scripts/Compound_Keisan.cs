@@ -37,6 +37,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int i, j, n, count;
     private int itemNum, DBcount;
     private int _attri1;
+    private bool Kosu_keisanmethod;
 
     private int total_qbox_money;
 
@@ -370,28 +371,31 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             if (databaseCompo.compoitems[DBcount].cmpitem_Name != "") //名前が空白の場合は無視する
             {
-                //パラメータを取得
-                itemNum = 0;
-                while (itemNum < database.items.Count)
+                if (databaseCompo.compoitems[DBcount].DefaultKeisan != 0) //デフォルト計算に設定してないやつも無視する
                 {
-                    if (databaseCompo.compoitems[DBcount].cmpitem_Name == database.items[itemNum].itemName)
+                    //パラメータを取得
+                    itemNum = 0;
+                    while (itemNum < database.items.Count)
                     {
-                        result_item = itemNum;
-                        break;
+                        if (databaseCompo.compoitems[DBcount].cmpitem_Name == database.items[itemNum].itemName)
+                        {
+                            result_item = itemNum;
+                            break;
+                        }
+                        itemNum++;
                     }
-                    itemNum++;
-                }
 
-                if (itemNum >= database.items.Count) //なかった場合は、次を見る。
-                {
+                    if (itemNum >= database.items.Count) //なかった場合は、次を見る。
+                    {
 
-                }
-                else
-                {
-                    //コンポ調合データベースのIDを代入
-                    result_compID = DBcount;
+                    }
+                    else
+                    {
+                        //コンポ調合データベースのIDを代入
+                        result_compID = DBcount;
 
-                    Topping_Compound_Method(99);
+                        Topping_Compound_Method(99);
+                    }
                 }
             }
         }
@@ -768,9 +772,38 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         toggle_type1 = 0;
         toggle_type2 = 0;
         toggle_type3 = 0;
-        
+
+        //デバッグ用
+        if(databaseCompo.compoitems[result_compID].cmpitem_Name == "bugget")
+        {
+            DebugLogKetteiItem();
+        }
+
 
         //**ここまで**
+    }
+
+    void DebugLogKetteiItem()
+    {
+        Debug.Log("###");
+        Debug.Log("調合ネーム: " + databaseCompo.compoitems[result_compID].cmpitem_Name);
+        Debug.Log("kettei_item1: " + kettei_item1 + " Name: " + database.items[kettei_item1].itemName);
+        Debug.Log("kettei_item2: " + kettei_item2);
+        if (kettei_item2 != 9999)
+        {
+            Debug.Log("kettei_item2 Name: " + database.items[kettei_item2].itemName);
+        }
+        Debug.Log("kettei_item3: " + kettei_item3);        
+        if (kettei_item3 != 9999)
+        {
+            Debug.Log("kettei_item3 Name: " + database.items[kettei_item3].itemName);
+        }
+        Debug.Log("_toggle_type1: " + toggle_type1);
+        Debug.Log("_toggle_type2: " + toggle_type2);
+        Debug.Log("_toggle_type3: " + toggle_type3);
+        Debug.Log("final_kettei_kosu1: " + final_kette_kosu1);
+        Debug.Log("final_kettei_kosu2: " + final_kette_kosu2);
+        Debug.Log("final_kettei_kosu3: " + final_kette_kosu3);
     }
 
 
@@ -1043,7 +1076,19 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
-
+        if (databaseCompo.compoitems[result_compID].KeisanMethod != "Non" && databaseCompo.compoitems[result_compID].KeisanMethod != "Use")
+        {
+            Kosu_keisanmethod = true; //CompoDBで、個数指定したいアイテム名の名前かタイプ(Sub,SubB)で指定。
+                                      //これで指定すると、指定アイテム一個分のパラメータで、リザルトはfinal_kettei_kosu分になる。
+                                      //魔法調合の場合、魔法の「KetteiKosu」指定（その場合CompoDBではNon表記）か、CompoDBのKeisanMethod指定のどっちかを使えばOK。被っても、たぶん大丈夫。
+                                      //魔法の「KetteiKosu」指定の場合、下のほうで処理している。
+                                      //ただし、「KetteiKosu」指定のみだと、元アイテムを入れた個数が、加算処理に反映されるので、(AddParamMethod()で、対応させてない）
+                                      //出来上がるアイテムが、店売りアイテムの場合のみに限定すること。ルミベリーなどは大丈夫ということ。
+        }
+        else
+        {
+            Kosu_keisanmethod = false;
+        }
 
 
         AddParamMethod(); //決定されたベースアイテムに、選んだアイテムの値を加算する処理
@@ -1144,7 +1189,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         
         if (_compo_select == 3) //オリジナル調合の場合
         {
-            if (databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Non" && databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Use")
+            if (Kosu_keisanmethod)
             {
                 //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
                 Kosu_ExpSetting(_result_cmpID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _kosu1, _kosu2, _kosu3);
@@ -1156,7 +1201,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (_compo_select == 1) //レシピ調合の場合
         {
-            if (databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Non" && databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Use")
+            if (Kosu_keisanmethod)
             {
                 //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
                 Kosu_ExpSetting(_result_cmpID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _kosu1, _kosu2, _kosu3);
@@ -1216,7 +1261,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (_compo_select == 7) //ヒカリお菓子作りの個数 set_kaisuがヒカリが作った回数
         {           
-            if (databaseCompo.compoitems[result_compID].KeisanMethod != "Non" && databaseCompo.compoitems[result_compID].KeisanMethod != "Use")
+            if (Kosu_keisanmethod)
             {
                 //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
                 Kosu_ExpSetting(result_compID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _kosu1, _kosu2, _kosu3);                
@@ -1460,6 +1505,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //コンポ調合データベースのIDを代入
         result_compID = GameMgr.hikari_make_okashi_compID;
         //result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * GameMgr.hikari_make_okashiKosu; //compoDBの回数も含む個数
+
+        if (databaseCompo.compoitems[result_compID].KeisanMethod != "Non" && databaseCompo.compoitems[result_compID].KeisanMethod != "Use")
+        {
+            Kosu_keisanmethod = true;
+        }
+        else
+        {
+            Kosu_keisanmethod = false;
+        }
 
         ResultKosuKeisan(7, result_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
                     GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
@@ -1841,7 +1895,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
                 else
                 {
-                    _addkosu = final_kette_kosu1;
+                    if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                    {
+                        _addkosu = 1;
+                    }
+                    else
+                    {
+                        _addkosu = final_kette_kosu1;
+                    }
+                    
                     //Debug.Log("_id: " + _id);
                     //各パラメータを取得
                     Set_addparam();
@@ -1854,7 +1916,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 //Debug.Log("一個目オリジナルアイテム");
 
                 _id = kettei_item1;
-                _addkosu = final_kette_kosu1;
+                if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                {
+                    _addkosu = 1;
+                }
+                else
+                {
+                    _addkosu = final_kette_kosu1;
+                }
                 //Debug.Log("_id: " + _id);
                 //各パラメータを取得
                 Set_add_originparam();
@@ -1866,7 +1935,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 //Debug.Log("一個目オリジナルアイテム");
 
                 _id = kettei_item1;
-                _addkosu = final_kette_kosu1;
+                if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                {
+                    _addkosu = 1;
+                }
+                else
+                {
+                    _addkosu = final_kette_kosu1;
+                }
                 //Debug.Log("_id: " + _id);
                 //各パラメータを取得
                 Set_add_extremeparam();
@@ -1902,7 +1978,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        _addkosu = final_kette_kosu2;
+                        if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                        {
+                            _addkosu = 1;
+                        }
+                        else
+                        {
+                            _addkosu = final_kette_kosu2;
+                        }
                         //Debug.Log("_id: " + _id);
                         //各パラメータを取得
                         Set_addparam();
@@ -1915,7 +1998,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     //Debug.Log("二個目オリジナルアイテム");
 
                     _id = kettei_item2;
-                    _addkosu = final_kette_kosu2;
+                    if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                    {
+                        _addkosu = 1;
+                    }
+                    else
+                    {
+                        _addkosu = final_kette_kosu2;
+                    }
                     //Debug.Log("_id: " + _id);
                     //各パラメータを取得
                     Set_add_originparam();
@@ -1927,7 +2017,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     //Debug.Log("二個目オリジナルアイテム");
 
                     _id = kettei_item2;
-                    _addkosu = final_kette_kosu2;
+                    if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                    {
+                        _addkosu = 1;
+                    }
+                    else
+                    {
+                        _addkosu = final_kette_kosu2;
+                    }
                     //Debug.Log("_id: " + _id);
                     //各パラメータを取得
                     Set_add_extremeparam();
@@ -1961,7 +2058,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        _addkosu = final_kette_kosu3;
+                        if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                        {
+                            _addkosu = 1;
+                        }
+                        else
+                        {
+                            _addkosu = final_kette_kosu3;
+                        }
 
                         //各パラメータを取得
                         Set_addparam();
@@ -1972,7 +2076,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 case 1: //オリジナルプレイヤーアイテムリストから選択している場合
 
                     _id = kettei_item3;
-                    _addkosu = final_kette_kosu3;
+                    if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                    {
+                        _addkosu = 1;
+                    }
+                    else
+                    {
+                        _addkosu = final_kette_kosu3;
+                    }
 
                     //各パラメータを取得
                     Set_add_originparam();
@@ -1982,7 +2093,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 case 2: //お菓子パネルアイテムリストから選択している場合
 
                     _id = kettei_item3;
-                    _addkosu = final_kette_kosu3;
+                    if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
+                    {
+                        _addkosu = 1;
+                    }
+                    else
+                    {
+                        _addkosu = final_kette_kosu3;
+                    }
 
                     //各パラメータを取得
                     Set_add_extremeparam();
@@ -2052,10 +2170,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (mstatus == 99)
         {
+            kyori_kosuSet.Clear();
             kyori_kosuSet.Add(final_kette_kosu1);
             kyori_kosuSet.Add(final_kette_kosu2);
             kyori_kosuSet.Add(final_kette_kosu3);
-            totalkyori = Combinationmain.GetKyoriKeisan(result_compID, kyori_kosuSet.ToArray()); //初期化のときは、ここで距離をとってくる
+            totalkyori = Combinationmain.GetKyoriKeisan(result_compID, kyori_kosuSet.ToArray()); //初期化のときは、ここで距離をとってくる            
         }
         else
         {
@@ -2079,6 +2198,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法　のときの計算。
         {
+            //デバッグ用
+            if (mstatus == 99)
+            {               
+                //Debug_AddKeisanCheck("bugget", 0);
+            }
+
             //材料のパラメータ計算処理。
             AddParam_Method();
 
@@ -2108,6 +2233,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basesp_score8 += _tempsp_score8;
             _basesp_score9 += _tempsp_score9;
             _basesp_score10 += _tempsp_score10;
+
+            //デバッグ用
+            if (mstatus == 99)
+            {                
+                //Debug_AddKeisanCheck("bugget", 10);
+            }
 
 
             if (keisan_method_flag == 1) //1=ベスト配合との距離の補正をかける。
@@ -2171,9 +2302,39 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basehardness = (int)(_basehardness * kyori_hosei);
                 _basejiggly = (int)(_basejiggly * kyori_hosei);
                 _basechewy = (int)(_basechewy * kyori_hosei);
-            }
-            
+            }           
         }
+
+        //お菓子のタイプによって、食感の伸び率に補正がかかる。簡単なおかしは、60点までは伸びるが、100点以降はとたんに伸びなくなる。など
+        switch(_base_itemType_sub)
+        {
+            case "Rusk":
+
+                if(_basecrispy < 60) //60までは伸びる
+                {
+                }
+                else if(_basecrispy >= 60 && _basecrispy < 80)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.9f);
+                }
+                else if (_basecrispy >= 80 && _basecrispy < 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.85f);
+                }
+                else if (_basecrispy >= 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.8f);
+                }
+                break;
+        }
+
+        //デバッグ用
+        if (mstatus == 99)
+        {           
+            //Debug_AddKeisanCheck("bugget", 20);
+        }
+
+        
 
         //③スロット同士の計算をする。
         AddSlot_Method();
@@ -3511,6 +3672,36 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 pitemlist.deleteOriginalItem(deletePair.Key, deletePair.Value);
                 //Debug.Log("delete_originID: " + deletePair.Key + " 個数:" + deletePair.Value);
             }
+        }
+    }
+
+    void Debug_AddKeisanCheck(string _cmpname, int _debugstatus)
+    {
+        if (databaseCompo.compoitems[result_compID].cmpitem_Name == _cmpname)
+        {
+            switch(_debugstatus)
+            {
+                case 0:
+
+                    Debug.Log("ゲーム初期設定　パラメータ確認　加算前");
+                    break;
+
+                case 10:
+
+                    Debug.Log("ゲーム初期設定　パラメータ確認　加算後　距離計算前");
+                    break;
+
+                case 20:
+
+                    Debug.Log("ゲーム初期設定　パラメータ確認　距離計算後");
+                    Debug.Log("ベスト配合との距離 totalkyori: " + totalkyori);
+                    Debug.Log("kyori補正　この値を、各食感の値に掛け算: " + kyori_hosei); 
+                    break;
+            }
+            Debug.Log("_basecrispy: " + _basecrispy);
+            Debug.Log("_basefluffy: " + _basefluffy);
+            Debug.Log("_basesmooth: " + _basesmooth);
+            Debug.Log("_basehardness: " + _basehardness);            
         }
     }
 

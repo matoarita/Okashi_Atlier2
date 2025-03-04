@@ -2013,7 +2013,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_Active04();
+                //On_Active04();
+                On_FarmActive01();
                 break;
 
             case "Or_Hiroba_Spring_RotenStreet":

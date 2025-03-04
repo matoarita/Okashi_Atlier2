@@ -614,6 +614,13 @@ public class GetMaterial : MonoBehaviour
                         rare_event_EmeraldForest(); //ただレアアイテムがたまにでる。
                         break;
 
+                    //2から
+                    case "Sakura_Forest":
+
+                        //レアイベント
+                        rare_event_SakuraForest(); //ブルートパーズ花畑発見など
+                        break;
+
                     default:
 
                         //アイテムの取得
@@ -2217,7 +2224,7 @@ public class GetMaterial : MonoBehaviour
 
                     //バードサンクチュアリを発見
                     _text.text = "にいちゃん！！ なんか抜け道があるよ？";
-                    getmatplace_panel.next_flag = 100;
+                    getmatplace_panel.next_flag = 1000;
                     NextButton_obj.SetActive(true);
                 }
                 else
@@ -2254,18 +2261,6 @@ public class GetMaterial : MonoBehaviour
 
                 event_itemGet01();
 
-                /*if (player_girl_findpower_final >= 150 && !GameMgr.MapEvent_06[0]) 
-                {
-                    //アイスの実の森を発見
-                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
-                    getmatplace_panel.next_flag = 100;
-                    NextButton_obj.SetActive(true);
-                }
-                else
-                {
-                    event_itemGet01();
-                }*/
-
                 break;
         }
     }
@@ -2298,18 +2293,6 @@ public class GetMaterial : MonoBehaviour
             default:
 
                 event_itemGet04();
-
-                /*if (player_girl_findpower_final >= 150 && !GameMgr.MapEvent_06[0]) 
-                {
-                    //アイスの実の森を発見
-                    _text.text = "にいちゃん！！ なんか抜け道があるよ？";
-                    getmatplace_panel.next_flag = 100;
-                    NextButton_obj.SetActive(true);
-                }
-                else
-                {
-                    event_itemGet01();
-                }*/
 
                 break;
         }
@@ -2344,6 +2327,48 @@ public class GetMaterial : MonoBehaviour
                     {
                         event_itemGet01();
                     }
+                }
+                else
+                {
+                    event_itemGet01();
+                }
+
+                break;
+        }
+    }
+
+    void rare_event_SakuraForest()
+    {
+        random = Random.Range(0, 10);
+
+        switch (random)
+        {
+            case 0:
+
+                event_itemGet02(1);
+                break;
+
+            case 1:
+
+                event_itemGet02(1);
+                break;
+
+            case 3:
+
+                event_itemGet01();
+                break;
+
+            default:
+
+                if (player_girl_findpower_final >= 120 && !GameMgr.MapEvent_Or[100]) //ブルートパーズ花畑見つけたらもう出ない。      
+                {
+                    //顔アイコンも切り替え
+                    msg_window.Setting_WindowIcon(13); //おどろき
+
+                    //バードサンクチュアリを発見
+                    _text.text = "にいちゃん！！ あっちに抜け道があるよ？";
+                    getmatplace_panel.next_flag = 100;
+                    NextButton_obj.SetActive(true);
                 }
                 else
                 {

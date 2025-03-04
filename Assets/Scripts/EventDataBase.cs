@@ -1078,23 +1078,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }*/
 
-                //ヒント系
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-                { }
-                else
-                {
-                    if (GameMgr.GirlLoveSubEvent_stage1[421] == false) 
-                    {
-                        if (conteststartList_database.SearchContestVictory("Or_Contest_010") == 1 ||
-                            conteststartList_database.SearchContestVictory("Or_Contest_010") == 2) //クッキーコンテストで1位か2位に入った。ラスクコンテスト解禁されるタイミング
-                        {
-                            GameMgr.GirlLoveSubEvent_stage1[421] = true;
-                            GameMgr.GirlLoveSubEvent_num = 421;
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-                        }
-                    }
-                }
+                
 
 
                 //
@@ -1429,7 +1413,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (GameMgr.Contest_afterHomeEventFlag)
                         {
                             GameMgr.Contest_afterHomeEventFlag = false;
-
+                            
                             //コンテスト一回でたあと、コンテストメモについてのイベント
                             if (conteststartList_database.SearchContestVictory("Or_Contest_010") != 0) //クッキーコンテストでとりあえず出場し順位入った。
                             {
@@ -1465,7 +1449,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 conteststartList_database.SearchContestVictory("Or_Contest_002") != 0 ||
                                 conteststartList_database.SearchContestVictory("Or_Contest_003") != 0) //
                             {
-                                if(conteststartList_database.SearchContestVictory(GameMgr.Contest_Name) != 1) //さっきでてたコンテストで優勝じゃなかった
+                                if (conteststartList_database.SearchContestVictory(GameMgr.Contest_Name) != 1) //さっきでてたコンテストで優勝じゃなかった
                                 {
                                     _baseitemtype_subB = database.items[database.SearchItemID(GameMgr.contest_okashiID)].itemType_subB;
 
@@ -1487,7 +1471,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                         }
                                     }
                                 }
-                                
+
                             }
                         }
                     }
@@ -1526,7 +1510,30 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
-                //
+                //寝て起きた後、ヒントが発生するイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag[5]) //ねておきたあとにチェック
+                    {
+                        GameMgr.check_SleepEnd_Eventflag[5] = false;
+                        Debug.Log("コンテスト終了後　ヒント発生チェック");
+
+                        //ヒント系
+                        if (GameMgr.GirlLoveSubEvent_stage1[421] == false)
+                        {
+                            if (conteststartList_database.SearchContestVictory("Or_Contest_010") == 1 ||
+                                conteststartList_database.SearchContestVictory("Or_Contest_010") == 2) //クッキーコンテストで1位か2位に入った。ラスクコンテスト解禁されるタイミング
+                            {
+                                GameMgr.GirlLoveSubEvent_stage1[421] = true;
+                                GameMgr.GirlLoveSubEvent_num = 421;
+
+                                GameMgr.check_GirlLoveSubEvent_flag = false;
+                            }
+                        }
+                    }
+                }
             }
 
 
@@ -1662,7 +1669,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             }
 
             //ピクニック
-            if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            /*if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
             else
             {
@@ -1682,7 +1689,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }
-            }
+            }*/
 
             //最後エデンのイベント
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
