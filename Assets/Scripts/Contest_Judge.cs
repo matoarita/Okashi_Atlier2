@@ -47,6 +47,7 @@ public class Contest_Judge : MonoBehaviour {
     private string item_subTypeB;
     private int compNum;
     private int _baseSetjudge_num;
+    private int _baseMagic;
 
     private string[] _baseMS;
     private int[] _baseMSvalue;
@@ -161,6 +162,7 @@ public class Contest_Judge : MonoBehaviour {
             item_subType = database.items[kettei_itemID].itemType_sub.ToString();
             item_subTypeB = database.items[kettei_itemID].itemType_subB;
             _baseSetjudge_num = database.items[kettei_itemID].SetJudge_Num;
+            _baseMagic = database.items[kettei_itemID].Magic;
 
             for (i = 0; i < database.items[kettei_itemID].item_MagicSlot.Length; i++)
             {
@@ -185,6 +187,7 @@ public class Contest_Judge : MonoBehaviour {
             item_subType = pitemlist.player_originalitemlist[kettei_itemID].itemType_sub.ToString();
             item_subTypeB = pitemlist.player_originalitemlist[kettei_itemID].itemType_subB;
             _baseSetjudge_num = pitemlist.player_originalitemlist[kettei_itemID].SetJudge_Num;
+            _baseMagic = pitemlist.player_originalitemlist[kettei_itemID].Magic;
 
             for (i = 0; i < pitemlist.player_originalitemlist[kettei_itemID].item_MagicSlot.Length; i++)
             {
@@ -209,6 +212,7 @@ public class Contest_Judge : MonoBehaviour {
             item_subType = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_sub.ToString();
             item_subTypeB = pitemlist.player_extremepanel_itemlist[kettei_itemID].itemType_subB;
             _baseSetjudge_num = pitemlist.player_extremepanel_itemlist[kettei_itemID].SetJudge_Num;
+            _baseMagic = pitemlist.player_extremepanel_itemlist[kettei_itemID].Magic;
 
             for (i = 0; i < pitemlist.player_extremepanel_itemlist[kettei_itemID].item_MagicSlot.Length; i++)
             {
@@ -229,7 +233,7 @@ public class Contest_Judge : MonoBehaviour {
         }
 
         //おかしにかかっている演出魔法を見る
-        _basemagicslot_Name = "";
+        _basemagicslot_Name = "Non";
         itemCardEffect_database.MagicEffect_SlotKeisan(_baseMS, _baseMSvalue, itemID, 0);
         //おかしにかかってる演出魔法
         _basemagicslot_Name = itemCardEffect_database._basemagicslot_Name;
@@ -550,7 +554,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -578,7 +583,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -606,7 +612,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -634,7 +641,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -676,7 +684,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -714,7 +723,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -739,16 +749,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-                    /*if (GameMgr.contest_okashiSubType == "Cookie" || GameMgr.contest_okashiSubType == "Cookie_Hard" || GameMgr.contest_okashiSubType == "Cookie_Mat")
-                    {
-                        for (i = 0; i < set_ID.Count; i++)
-                        {
-                            girl1_status.girl1_like_set_score[i] = -10; //
-                        }
-
-                        Debug.Log("判定値追加： 固有スコア " + -10);
-                        Debug.Log("### ###");
-                    }*/
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
 
                     //見た目の審査基準が高め
                     girl1_status.girl1_Beauty[1] = 100;
@@ -789,7 +791,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-                    
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -836,7 +839,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-                  
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -884,12 +888,15 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score9[i] = 3; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
+                        girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
                     }
 
-                    Debug.Log("判定値追加： キラキラ感 " + 3);
+                    Debug.Log("判定値追加： キラキラ感 " + 10);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1)
@@ -908,6 +915,9 @@ public class Contest_Judge : MonoBehaviour {
                     ScoreNormalized(150); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
+
+                    //SpScoreの値によって全体の点数に補正
+                    //SpScoreHosei_1(GameMgr.contest_Sp_Score9[0]);
                 }
 
                 break;
@@ -929,7 +939,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -967,7 +978,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -993,7 +1005,8 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -1012,18 +1025,264 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
-                break;       
+                break;
+
+            case "Or_Contest_200":　//ひんやりお菓子
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+                }
+                else if (_status == 1)
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(130); //75%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+                break;
+
+            case "Or_Contest_230":　//おみやげおかし クッキーかラスクを除く　子ども向けのおかし
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subType == "Cookie" || item_subType == "Cookie_Hard" || item_subType == "Cookie_Mat" || item_subType == "Rusk")
+                    {
+                        judge_flag = false;
+                    }
+                    else
+                    { }
+                }
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score6[i] = 1; //子供の値が最低1は必要
+                    }
+
+                    Debug.Log("判定値追加： 子供 " + 1);
+                    Debug.Log("### ###");
+                }
+                else if (_status == 1)
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(150); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+
+                    //SpScoreの値によって全体の点数に補正
+                    //SpScoreHosei_1(GameMgr.contest_Sp_Score6[0]);
+                }
+
+                break;
+
+            case "Or_Contest_250":　//遥かなる蒼
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subType == "Chocolate")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }
+                }
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score2[i] = 10; //海らしさの値が最低10は必要
+                    }
+
+                    Debug.Log("判定値追加： 海らしさ " + 10);
+                    Debug.Log("### ###");
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(170); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_Sp_Score2[0]);
+                }
+
+                break;
+
+            case "Or_Contest_260":　//マジックパティスリーアワード
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    //魔法のお菓子属性がついてるか、演出まほうがついてたらOK
+                    if (_basemagicslot_Name != "Non" || _baseMagic != 0)
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }
+                }
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(170); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+
+                break;
+
+            case "Or_Contest_270":　//プラム洋菓子技術コンテスト
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subType == "Cake" || item_subType == "CheeseCake" || item_subType == "PanCake" || item_subType == "Castella" || item_subType == "Maffin"
+                        || item_subTypeB == "a_CookieCake")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }
+                }
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(200); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+
+                break;
+
+            case "Or_Contest_400":　//クレープ・ドゥ・シャノワール
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subType == "Crepe" || item_subType == "Crepe_Mat")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }
+                }
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(150); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+
+                break;
 
             case "Or_Contest_410":　//アデュルティ・ガトー
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score5[i] = 3; //大人の値が最低3は必要
+                        girl1_status.girl1_SP_Score5[i] = 10; //大人の値が最低3は必要
                     }
 
-                    Debug.Log("判定値追加： 大人 " + 3);
+                    Debug.Log("判定値追加： 大人 " + 10);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -1053,12 +1312,15 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score7[i] = 3; //メルヘンの値が最低3は必要
+                        girl1_status.girl1_SP_Score7[i] = 10; //メルヘンの値が最低3は必要
                     }
 
-                    Debug.Log("判定値追加： メルヘン " + 3);
+                    Debug.Log("判定値追加： メルヘン " + 10);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -1088,12 +1350,15 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score6[i] = 3; //子供の値が最低3は必要
+                        girl1_status.girl1_SP_Score6[i] = 10; //子供の値が最低3は必要
                     }
 
-                    Debug.Log("判定値追加： 子供 " + 3);
+                    Debug.Log("判定値追加： 子供 " + 10);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -1118,13 +1383,132 @@ public class Contest_Judge : MonoBehaviour {
                 }
 
                 break;
-            
+
+            case "Or_Contest_440":　//英国ティータイムコンテスト
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subType == "Tea")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }
+                }
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(170); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+
+                break;
+
+            case "Or_Contest_450":　//ピエスモンテ 彫刻おかし限定
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subTypeB == "a_IceCreamTwister" || item_subTypeB == "a_IceCandyTwister" || item_subTypeB == "a_ChocolateTwister"
+                        || item_subTypeB == "a_CookieCake"
+                        || itemName == "fantasian" || itemName == "fantasian_in_nightdream" || itemName == "princess_tota" || itemName == "slimejelly_freezed"
+                        || itemName == "potate_jewerybox"
+                        || itemName == "bush_de_noel" || itemName == "bush_de_noel_buttefly")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }
+                }
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                   
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員全員　食感の値下げる。
+                    Contest_ShokukanHosei_20();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(100); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+
+                break;
+
+            case "Or_Contest_470":　//ビジョウ・パティスリー・カップ
+
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低3は必要
+                    }
+
+                    Debug.Log("判定値追加： キラキラ感 " + 10);
+                    Debug.Log("### ###");
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(180); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+
+                break;
 
             default:
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
                 }
                 else if (_status == 1)
                 {
@@ -1145,6 +1529,13 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 break;
         }
+    }
+
+    //コンテスト共通で適用する補正　じいさんの見た目判定をなくす。
+    void Contest_KyotuHosei_1()
+    {
+        //じいさんの見た目判定を0に。
+        girl1_status.girl1_Beauty[2] = 0;
     }
 
     //とくていのお菓子に反応して点数を補正する
@@ -1253,6 +1644,22 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員２　食感補正後：" + GameMgr.contest_Taste_Score[1] + "点");
     }
 
+    void Contest_ShokukanHosei_20() //審査員全員　見た目の比重を大きくするため、食感の点数は影響を下げる。
+    {
+        before_tastescore[0] = GameMgr.contest_Taste_Score[0];
+        before_tastescore[1] = GameMgr.contest_Taste_Score[1];
+        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+
+        total_score[0] = total_score[0] + (int)(GameMgr.contest_Taste_Score[0] * 0.7f) - before_tastescore[0];
+        total_score[1] = total_score[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.7f) - before_tastescore[1];
+        total_score[2] = total_score[2] + (int)(GameMgr.contest_Taste_Score[2] * 0.7f) - before_tastescore[2];
+        //補正前に、一回before_tastescore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
+
+        Debug.Log("審査員全員　食感の点数少し下がる。下の食感の値が最終の食感点数");
+        Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
+        Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
+    }
+
     void Contest_BeautyHosei_1() //contest_Beauty_Scoreは、judge_beautyからベースを単純に引いた点数
     {
         //before_beautyscore[0] = GameMgr.contest_Beauty_Score[0];
@@ -1323,6 +1730,13 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員２　アントワネット王妃は、見た目で得点にバフがかかる。下の食感の値が最終の食感点数");
         Debug.Log("審査員２　見た目補正前：" + before_beautyscore[1] + "点");
         Debug.Log("審査員２　見た目補正後：" + GameMgr.contest_Taste_Score[1] + "点");
+    }
+
+    void Contest_BeautyHosei_2() //じいさんの補正　見た目の点数が0になる。
+    {
+        GameMgr.contest_Beauty_Score[2] = 0;
+
+        Debug.Log("審査員３　じいさん　見た目点数を0に。");
     }
 
     //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK

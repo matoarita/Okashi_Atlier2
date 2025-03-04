@@ -1919,7 +1919,7 @@ public class Compound_Check : MonoBehaviour {
 
             //以下は共通
             compound_keisan.ResultKosuKeisan(GameMgr.compound_select, GameMgr.Final_result_compID, 1,
-                itemID_1, itemID_2, itemID_3, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3);
+                itemID_1, itemID_2, itemID_3, 0, 0, 0, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3);
             
             if (GameMgr.Result_Kosu < 1) { GameMgr.Result_Kosu = 1; } //最低一個はできる
             resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Result_Kosu.ToString();
@@ -1943,7 +1943,7 @@ public class Compound_Check : MonoBehaviour {
 
             //以下は共通
             compound_keisan.ResultKosuKeisan(GameMgr.compound_select, GameMgr.Final_result_compID, 1,
-                itemID_1, itemID_2, itemID_3, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3);
+                itemID_1, itemID_2, itemID_3, 0, 0, 0, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3);
 
             if (GameMgr.Result_Kosu < 1) { GameMgr.Result_Kosu = 1; } //最低一個はできる
             resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Result_Kosu.ToString();

@@ -352,6 +352,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private string tpcheck_slot;
     private bool tpcheck_utageON;
     private int tpcheck_utagebunki;
+    private int spscore_deg;
+    private int spscore_deg_base;
 
     public int total_score;
 
@@ -2068,6 +2070,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     void SpScoreKeisan()
     {
         GameMgr.Contest_Clear_Failed = false;
+        spscore_deg = 5;
+        spscore_deg_base = -30;
 
         //風らしさ
         if (_girlsp1_wind[countNum] > 0)
@@ -2080,15 +2084,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 spscore1_score = SpScore_HoseiA(spscore1_score);
             }
+           
+            if (spscore1_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                //GameMgr.Contest_Clear_Failed = true;  //Onにすると、足りなかったときに強制的にコンテスト失格になる。
+                spscore1_score = spscore1_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("風らしさの点: " + spscore1_score + " 足りなかった");
+            }
 
             spscore1_score_debugtext = "・お菓子の風らしさ: " + _base_sp_wind + " 判定値: " + _girlsp1_wind[countNum] + " 点数: " + spscore1_score;
             Debug.Log(spscore1_score_debugtext);
-
-            if (spscore1_score < 0) //合格点に達してない場合は、クリアできない
-            {
-                GameMgr.Contest_Clear_Failed = true;               
-                Debug.Log("風らしさの点: " + spscore1_score + " 足りなかったので不合格");
-            }
         }
         else
         {
@@ -2109,14 +2114,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore2_score = SpScore_HoseiA(spscore2_score);
             }
 
-            spscore2_score_debugtext = "・お菓子の海らしさ: " + _base_sp_score2 + " 判定値: " + _girlsp_score2[countNum] + " 点数: " + spscore2_score;
-            Debug.Log(spscore2_score_debugtext);
-
             if (spscore2_score < 0) //合格点に達してない場合は、クリアできない
             {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("海らしさの点: " + spscore2_score + " 足りなかったので不合格");
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore2_score = spscore2_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("海らしさの点: " + spscore2_score + " 足りなかった");
             }
+
+            spscore2_score_debugtext = "・お菓子の海らしさ: " + _base_sp_score2 + " 判定値: " + _girlsp_score2[countNum] + " 点数: " + spscore2_score;
+            Debug.Log(spscore2_score_debugtext);
         }
         else
         {
@@ -2136,15 +2142,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 spscore3_score = SpScore_HoseiA(spscore3_score);
             }
+ 
+            if (spscore3_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore3_score = spscore3_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("愛らしさの点: " + spscore3_score + " 足りなかった");
+            }
 
             spscore3_score_debugtext = "・お菓子の愛らしさ: " + _base_sp_score3 + " 判定値: " + _girlsp_score3[countNum] + " 点数: " + spscore3_score;
             Debug.Log(spscore3_score_debugtext);
-
-            if (spscore3_score < 0) //合格点に達してない場合は、クリアできない
-            {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("愛らしさの点: " + spscore3_score + " 足りなかったので不合格");
-            }
         }
         else
         {
@@ -2164,15 +2171,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 spscore4_score = SpScore_HoseiA(spscore4_score);
             }
+            
+            if (spscore4_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore4_score = spscore4_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("夏らしさの点: " + spscore4_score + " 足りなかった");
+            }
 
             spscore4_score_debugtext = "・お菓子の夏らしさ: " + _base_sp_score4 + " 判定値: " + _girlsp_score4[countNum] + " 点数: " + spscore4_score;
             Debug.Log(spscore4_score_debugtext);
-
-            if (spscore4_score < 0) //合格点に達してない場合は、クリアできない
-            {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("夏らしさの点: " + spscore4_score + " 足りなかったので不合格");
-            }
         }
         else
         {
@@ -2192,15 +2200,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 spscore5_score = SpScore_HoseiA(spscore5_score);
             }
+            
+            if (spscore5_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore5_score = spscore5_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("大人らしさの点: " + spscore5_score + " 足りなかった");
+            }
 
             spscore5_score_debugtext = "・お菓子の大人らしさ: " + _base_sp_score5 + " 判定値: " + _girlsp_score5[countNum] + " 点数: " + spscore5_score;
             Debug.Log(spscore5_score_debugtext);
-
-            if (spscore5_score < 0) //合格点に達してない場合は、クリアできない
-            {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("大人らしさの点: " + spscore5_score + " 足りなかったので不合格");
-            }
         }
         else
         {
@@ -2221,14 +2230,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore6_score = SpScore_HoseiA(spscore6_score);
             }
 
-            spscore6_score_debugtext = "・お菓子の子供らしさ: " + _base_sp_score6 + " 判定値: " + _girlsp_score6[countNum] + " 点数: " + spscore6_score;
-            Debug.Log(spscore6_score_debugtext);
-
             if (spscore6_score < 0) //合格点に達してない場合は、クリアできない
             {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("子供らしさの点: " + spscore6_score + " 足りなかったので不合格");
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore6_score = spscore6_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("子供らしさの点: " + spscore6_score + " 足りなかった");
             }
+
+            spscore6_score_debugtext = "・お菓子の子供らしさ: " + _base_sp_score6 + " 判定値: " + _girlsp_score6[countNum] + " 点数: " + spscore6_score;
+            Debug.Log(spscore6_score_debugtext);
         }
         else
         {
@@ -2249,14 +2259,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore7_score = SpScore_HoseiA(spscore7_score);
             }
 
-            spscore7_score_debugtext = "・お菓子のメルヘンらしさ: " + _base_sp_score7 + " 判定値: " + _girlsp_score7[countNum] + " 点数: " + spscore7_score;
-            Debug.Log(spscore7_score_debugtext);
-
             if (spscore7_score < 0) //合格点に達してない場合は、クリアできない
             {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("メルヘンらしさの点: " + spscore7_score + " 足りなかったので不合格");
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore7_score = spscore7_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("メルヘンらしさの点: " + spscore7_score + " 足りなかった");
             }
+
+            spscore7_score_debugtext = "・お菓子のメルヘンらしさ: " + _base_sp_score7 + " 判定値: " + _girlsp_score7[countNum] + " 点数: " + spscore7_score;
+            Debug.Log(spscore7_score_debugtext);
         }
         else
         {
@@ -2276,15 +2287,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 spscore8_score = SpScore_HoseiA(spscore8_score);
             }
+ 
+            if (spscore8_score < 0) //合格点に達してない場合は、クリアできない
+            {
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore8_score = spscore8_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("芸術性の点: " + spscore8_score + " 足りなかった");
+            }
 
             spscore8_score_debugtext = "・お菓子の芸術性: " + _base_sp_score8 + " 判定値: " + _girlsp_score8[countNum] + " 点数: " + spscore8_score;
             Debug.Log(spscore8_score_debugtext);
-
-            if (spscore8_score < 0) //合格点に達してない場合は、クリアできない
-            {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("芸術性の点: " + spscore8_score + " 足りなかったので不合格");
-            }
         }
         else
         {
@@ -2305,14 +2317,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore9_score = SpScore_HoseiA(spscore9_score);
             }
 
-            spscore9_score_debugtext = "・お菓子のキラキラ感: " + _base_sp_score9 + " 判定値: " + _girlsp_score9[countNum] + " 点数: " + spscore9_score;
-            Debug.Log(spscore9_score_debugtext);
-
             if (spscore9_score < 0) //合格点に達してない場合は、クリアできない
             {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("キラキラ感の点: " + spscore9_score + " 足りなかったので不合格");
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore9_score = spscore9_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("キラキラ感の点: " + spscore9_score + " 足りなかった");
             }
+
+            spscore9_score_debugtext = "・お菓子のキラキラ感: " + _base_sp_score9 + " 判定値: " + _girlsp_score9[countNum] + " 点数: " + spscore9_score;
+            Debug.Log(spscore9_score_debugtext);
         }
         else
         {
@@ -2333,14 +2346,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore10_score = SpScore_HoseiA(spscore10_score);
             }
 
-            spscore10_score_debugtext = "・お菓子の和風感: " + _base_sp_score10 + " 判定値: " + _girlsp_score10[countNum] + " 点数: " + spscore10_score;
-            Debug.Log(spscore10_score_debugtext);
-
             if (spscore10_score < 0) //合格点に達してない場合は、クリアできない
             {
-                GameMgr.Contest_Clear_Failed = true;
-                Debug.Log("和風感の点: " + spscore10_score + " 足りなかったので不合格");
+                //GameMgr.Contest_Clear_Failed = true;
+                spscore10_score = spscore10_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+                Debug.Log("和風感の点: " + spscore10_score + " 足りなかった");
             }
+
+            spscore10_score_debugtext = "・お菓子の和風感: " + _base_sp_score10 + " 判定値: " + _girlsp_score10[countNum] + " 点数: " + spscore10_score;
+            Debug.Log(spscore10_score_debugtext);
         }
         else
         {

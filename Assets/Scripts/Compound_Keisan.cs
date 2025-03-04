@@ -1113,7 +1113,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             //最終的に生成されるアイテムの個数を決定
             ResultKosuKeisan(GameMgr.compound_select, result_compID, final_select_kaisu, 
-                kettei_item1, kettei_item2, kettei_item3, final_kette_kosu1, final_kette_kosu2, final_kette_kosu3);            
+                kettei_item1, kettei_item2, kettei_item3, toggle_type1, toggle_type2, toggle_type3, final_kette_kosu1, final_kette_kosu2, final_kette_kosu3);            
 
             // アイテムリストの削除処理 //
             Delete_playerItemList(0);
@@ -1183,154 +1183,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             database.items[itemNum].SP_Score10 = _basesp_score10;
         }
     }
-
-    public void ResultKosuKeisan(int _compo_select, int _result_cmpID, int _set_kaisu, int _kettei_id1, int _kettei_id2, int _kettei_id3, int _kosu1, int _kosu2, int _kosu3)
-    {
-        
-        if (_compo_select == 3) //オリジナル調合の場合
-        {
-            if (Kosu_keisanmethod)
-            {
-                //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
-                Kosu_ExpSetting(_result_cmpID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _kosu1, _kosu2, _kosu3);
-            }
-            else
-            {
-                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
-            }
-        }
-        else if (_compo_select == 1) //レシピ調合の場合
-        {
-            if (Kosu_keisanmethod)
-            {
-                //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
-                Kosu_ExpSetting(_result_cmpID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _kosu1, _kosu2, _kosu3);
-            }
-            else
-            {
-                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
-            }
-        }
-        else if (_compo_select == 2) //トッピング調合の場合
-        {
-            result_kosu = 1;
-        }
-        /*else if (exp_Controller.roast_result_ok == true) //「焼く」の場合
-        {
-            result_kosu = GameMgr.Final_kettei_kosu1;
-        }*/
-        else if (_compo_select == 21) //魔法調合の場合
-        {
-            Debug.Log("_compo_select: " + _compo_select + "魔法調合の場合の、最終個数指定");
-
-            if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "CompNo")
-            {
-                result_kosu = final_kette_kosu1 * _set_kaisu; //元のアイテムになにかをかける魔法も、元アイテム一個にかけるので生成も一個 final_kette_kosu1にしてるけど、1個でもいい
-            }
-            else
-            {
-                if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "KetteiKosu")
-                {
-                    result_kosu = final_kette_kosu1 * _set_kaisu; //入れた個数だけできる
-                }
-                else
-                {
-                    switch (GameMgr.UseMagicSkill)
-                    {
-                        case "Aroma_Potion": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
-
-                            //final_kette_kosu1 = 1 * GameMgr.UseMagicSkillLv; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            result_kosu = 1 * GameMgr.UseMagicSkillLv * _set_kaisu; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            break;
-
-                        case "SugerPot": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
-
-                            //final_kette_kosu1 = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1;                          
-                            break;
-
-                        default: //その他　フリージングやテンパリングなど。compoDBを指定するものは、compoDBの個数
-
-                            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
-                            break;
-                    }
-                }               
-            }
-            
-        }
-        else if (_compo_select == 7) //ヒカリお菓子作りの個数 set_kaisuがヒカリが作った回数
-        {           
-            if (Kosu_keisanmethod)
-            {
-                //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
-                Kosu_ExpSetting(result_compID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _kosu1, _kosu2, _kosu3);                
-            }
-            else
-            {
-                result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * _set_kaisu;
-            }
-           
-            Debug.Log("ヒカリ制作の個数: 元" + result_kosu + " 個数のバフ（右の数字で割り算）: " + GameMgr.hikari_make_okashiKosu_buf);
-            result_kosu = (int)(result_kosu / GameMgr.hikari_make_okashiKosu_buf);
-
-            if (GameMgr.hikari_make_success_count >= 1) //一回でも成功してたら、最低一個はできる。
-            {
-                if(result_kosu == 0) { result_kosu = 1; }               
-            }
-            Debug.Log("ヒカリ制作の最終個数: " + result_kosu + "個");
-        }
-        GameMgr.Result_Kosu = result_kosu;
-    }
-
-    void Kosu_ExpSetting(int _result_cmpID, int _set_kaisu, int _kettei_id1, int _kettei_id2, int _kettei_id3, int _kosu1, int _kosu2, int _kosu3)
-    {
-        Debug.Log("特定材料選んだ　その材料を入れた個数にする。（たまご割りなど）");
-        Kosu_ExSetting = false;
-
-        //特定の材料をdatabaseCompo.compoitems[result_compID].KeisanMethodで指定した場合、その材料を入れた個数がそのままリザルト個数になる
-        _id = _kettei_id1;
-        if (database.items[_id].itemName == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
-            database.items[_id].itemType_sub.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
-            database.items[_id].itemType_subB.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod)
-        {
-            Debug.Log("個数指定: " + database.items[_id].itemName + " " + _kosu1);
-            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu * _kosu1;
-            Kosu_ExSetting = true;
-        }
-
-        _id = _kettei_id2;
-        if (_id != 9999)
-        {
-            if (database.items[_id].itemName == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
-            database.items[_id].itemType_sub.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
-            database.items[_id].itemType_subB.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod)
-            {
-                Debug.Log("個数指定: " + database.items[_id].itemName + " " + _kosu2);
-                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu * _kosu2;
-                Kosu_ExSetting = true;
-            }
-        }
-
-        _id = _kettei_id3;
-        if (_id != 9999)
-        {
-            if (database.items[_id].itemName == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
-                database.items[_id].itemType_sub.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
-                database.items[_id].itemType_subB.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod)
-            {
-                Debug.Log("個数指定: " + database.items[_id].itemName + " " + _kosu3);
-                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu * _kosu3;
-                Kosu_ExSetting = true;
-            }
-        }
-
-        if (!Kosu_ExSetting)
-        {
-            Debug.Log("やっぱり特定材料での個数指定しない");
-            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
-        }
-    }
+    
 
     void Setup_Param01(int _status)
     {
@@ -1516,6 +1369,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         ResultKosuKeisan(7, result_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+                    GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
                     GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
         
         
@@ -1827,6 +1681,205 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     {
         pitemlist.addPlayerItemString(databaseCompo.compoitems[result_compID].cmpitemID_result, result_kosu);
     }
+
+    //個数計算メソッド
+    public void ResultKosuKeisan(int _compo_select, int _result_cmpID, int _set_kaisu, int _kettei_id1, int _kettei_id2, int _kettei_id3, int _toggletype1, int _toggletype2, int _toggletype3, int _kosu1, int _kosu2, int _kosu3)
+    {
+        if (_compo_select == 3) //オリジナル調合の場合
+        {
+            if (Kosu_keisanmethod)
+            {
+                //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
+                Kosu_ExpSetting(_result_cmpID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _toggletype1, _toggletype2, _toggletype3, _kosu1, _kosu2, _kosu3);
+            }
+            else
+            {
+                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
+            }
+        }
+        else if (_compo_select == 1) //レシピ調合の場合
+        {
+            if (Kosu_keisanmethod)
+            {
+                //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
+                Kosu_ExpSetting(_result_cmpID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _toggletype1, _toggletype2, _toggletype3, _kosu1, _kosu2, _kosu3);
+            }
+            else
+            {
+                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
+            }
+        }
+        else if (_compo_select == 2) //トッピング調合の場合
+        {
+            result_kosu = 1;
+        }
+        /*else if (exp_Controller.roast_result_ok == true) //「焼く」の場合
+        {
+            result_kosu = GameMgr.Final_kettei_kosu1;
+        }*/
+        else if (_compo_select == 21) //魔法調合の場合
+        {
+            Debug.Log("_compo_select: " + _compo_select + "魔法調合の場合の、最終個数指定");
+
+            if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "CompNo")
+            {
+                result_kosu = final_kette_kosu1 * _set_kaisu; //元のアイテムになにかをかける魔法も、元アイテム一個にかけるので生成も一個 final_kette_kosu1にしてるけど、1個でもいい
+            }
+            else
+            {
+                if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "KetteiKosu")
+                {
+                    result_kosu = final_kette_kosu1 * _set_kaisu; //入れた個数だけできる
+                }
+                else
+                {
+                    switch (GameMgr.UseMagicSkill)
+                    {
+                        case "Aroma_Potion": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
+
+                            //final_kette_kosu1 = 1 * GameMgr.UseMagicSkillLv; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                            result_kosu = 1 * GameMgr.UseMagicSkillLv * _set_kaisu; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                            break;
+
+                        case "SugerPot": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
+
+                            //final_kette_kosu1 = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                            //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1;
+                            break;
+
+                        default: //その他　フリージングやテンパリングなど。compoDBを指定するものは、compoDBの個数
+
+                            if (Kosu_keisanmethod)
+                            {
+                                //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
+                                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _kosu1 * _set_kaisu;
+                            }
+                            else
+                            {
+                                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
+                            }
+                            break;
+                    }
+                }
+            }
+
+        }
+        else if (_compo_select == 7) //ヒカリお菓子作りの個数 set_kaisuがヒカリが作った回数
+        {
+            if (Kosu_keisanmethod)
+            {
+                //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
+                Kosu_ExpSetting(result_compID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _toggletype1, _toggletype2, _toggletype3, _kosu1, _kosu2, _kosu3);
+            }
+            else
+            {
+                result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * _set_kaisu;
+            }
+
+            Debug.Log("ヒカリ制作の個数: 元" + result_kosu + " 個数のバフ（右の数字で割り算）: " + GameMgr.hikari_make_okashiKosu_buf);
+            result_kosu = (int)(result_kosu / GameMgr.hikari_make_okashiKosu_buf);
+
+            if (GameMgr.hikari_make_success_count >= 1) //一回でも成功してたら、最低一個はできる。
+            {
+                if (result_kosu == 0) { result_kosu = 1; }
+            }
+            Debug.Log("ヒカリ制作の最終個数: " + result_kosu + "個");
+        }
+        GameMgr.Result_Kosu = result_kosu;
+    }
+
+    void Kosu_ExpSetting(int _result_cmpID, int _set_kaisu, int _kettei_id1, int _kettei_id2, int _kettei_id3, int _toggletype1, int _toggletype2, int _toggletype3, int _kosu1, int _kosu2, int _kosu3)
+    {
+        Debug.Log("特定材料選んだ　その材料を入れた個数にする。（たまご割りなど）");
+        Kosu_ExSetting = false;
+
+        //プレイヤーアイテムかエクストリームアイテムのIDをアイテムDBのIDに戻す。
+        if (_toggletype1 == 0)
+        {
+            _id = _kettei_id1;
+        }
+        else if (_toggletype1 == 1)
+        {
+            _id = database.SearchItemID(pitemlist.player_originalitemlist[_kettei_id1].itemID);
+        }
+        else if (_toggletype1 == 2)
+        {
+            _id = database.SearchItemID(pitemlist.player_extremepanel_itemlist[_kettei_id1].itemID);
+        }
+
+        //特定の材料をdatabaseCompo.compoitems[result_compID].KeisanMethodで指定した場合、その材料を入れた個数がそのままリザルト個数になる           
+        //Debug.Log("database.items[_id].itemName: " + database.items[_id].itemName + " " + database.items[_id].itemType_sub.ToString() + " " + database.items[_id].itemType_subB.ToString());
+        if (database.items[_id].itemName == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
+            database.items[_id].itemType_sub.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
+            database.items[_id].itemType_subB.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod)
+        {
+            Debug.Log("個数指定: " + database.items[_id].itemName + " " + _kosu1);
+            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu * _kosu1;
+            Kosu_ExSetting = true;
+        }
+
+        //プレイヤーアイテムかエクストリームアイテムのIDをアイテムDBのIDに戻す。
+        if (_toggletype2 == 0)
+        {
+            _id = _kettei_id2;
+        }
+        else if (_toggletype2 == 1)
+        {
+            _id = database.SearchItemID(pitemlist.player_originalitemlist[_kettei_id2].itemID);
+        }
+        else if (_toggletype2 == 2)
+        {
+            _id = database.SearchItemID(pitemlist.player_extremepanel_itemlist[_kettei_id2].itemID);
+        }
+
+        //Debug.Log("database.items[_id].itemName: " + database.items[_id].itemName + " " + database.items[_id].itemType_sub.ToString() + " " + database.items[_id].itemType_subB.ToString());
+        if (_id != 9999)
+        {
+            if (database.items[_id].itemName == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
+            database.items[_id].itemType_sub.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
+            database.items[_id].itemType_subB.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod)
+            {
+                Debug.Log("個数指定: " + database.items[_id].itemName + " " + _kosu2);
+                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu * _kosu2;
+                Kosu_ExSetting = true;
+            }
+        }
+
+        //プレイヤーアイテムかエクストリームアイテムのIDをアイテムDBのIDに戻す。
+        if (_toggletype3 == 0)
+        {
+            _id = _kettei_id3;
+        }
+        else if (_toggletype3 == 1)
+        {
+            _id = database.SearchItemID(pitemlist.player_originalitemlist[_kettei_id3].itemID);
+        }
+        else if (_toggletype3 == 2)
+        {
+            _id = database.SearchItemID(pitemlist.player_extremepanel_itemlist[_kettei_id3].itemID);
+        }
+
+        if (_id != 9999)
+        {
+            if (database.items[_id].itemName == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
+                database.items[_id].itemType_sub.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod ||
+                database.items[_id].itemType_subB.ToString() == databaseCompo.compoitems[_result_cmpID].KeisanMethod)
+            {
+                Debug.Log("個数指定: " + database.items[_id].itemName + " " + _kosu3);
+                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu * _kosu3;
+                Kosu_ExSetting = true;
+            }
+        }
+
+        if (!Kosu_ExSetting)
+        {
+            Debug.Log("やっぱり特定材料での個数指定しない");
+            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
+        }
+    }
+
+
 
 
 

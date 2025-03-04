@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 17
+  controlID: 156
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 78
+  controlID: 94
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -690,7 +690,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: cae6f7ff1ae7f7ff44eef7ffc0faf7ff3e07f8ff6618f8ff9e26f8ffcc31f8ff3a85faff4a1cfbffc024fbffd629fbffec2dfbffdaadfbffb4b5fbffaac9fbff36d1fbffc2d2fbff76d3fbff6ed8fbff64dcfbff26e4fbff1c51fcff7427fdffea2ffdfffe32fdff4436fdff265efdff566dfdfffc6dfdff8696fdff2e97fdffd497fdff7a98fdff2099fdffc699fdffd299fdff789afdff84cdfdff2ccefdff94a9fefff2abfeff58acfeff68acfefff220fffffc20ffff1021ffff6a23ffff04fbfffffc6f010038700100
+      m_ExpandedIDs: c414f9ff1815f9ff421cf9ffbe28f9ff3c35f9ff6446f9ff9c54f9ffca5ff9ff38b3fbff484afcffbe52fcffd457fcffea5bfcffd8dbfcffb2e3fcffa8f7fcff34fffcffc000fdff7401fdff6c06fdff620afdff2412fdff1a7ffdff7255feffe85dfefffc60feff4264feff248cfeff549bfefffa9bfeff84c4feff2cc5feffd2c5feff78c6feff1ec7feffc4c7feffd0c7feff76c8feff82fbfeff2afcfeff04fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -798,22 +798,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Excel
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Excel
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 4e6e0100
-    m_LastClickedID: 93774
+    scrollPos: {x: 0, y: 523}
+    m_SelectedIDs: 18530100
+    m_LastClickedID: 86808
     m_ExpandedIDs: 00000000f0500100f2500100f4500100f6500100f8500100fa500100fc500100fe50010000510100025101000451010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -873,15 +873,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100b0940000fed100007a560100a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100e0d50000603d010000000000eea1000054550100fc6301002aa000003ad40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Entity_magicSkillListDataBase
-      m_OriginalName: Entity_magicSkillListDataBase
+      m_Name: Entity_GirlLikeSetCompoDataBase
+      m_OriginalName: Entity_GirlLikeSetCompoDataBase
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 89584
+      m_UserData: 86842
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -894,7 +894,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 300}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 182

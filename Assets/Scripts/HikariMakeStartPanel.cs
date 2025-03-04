@@ -500,6 +500,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         text_area.SetActive(true);
 
         compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+                    GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
                     GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
         //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
         result_kosu = GameMgr.Result_Kosu;
@@ -536,6 +537,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
     void SelectHyouji_OnOFF()
     {
         compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+                    GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
                     GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
         //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
         result_kosu = GameMgr.Result_Kosu;
@@ -779,6 +781,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         else
         {
             compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+                    GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
                     GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
             //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
             result_kosu = GameMgr.Result_Kosu;
