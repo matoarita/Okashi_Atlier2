@@ -180,7 +180,6 @@ public class magicskillLearnToggle : MonoBehaviour
     {
 
         //アイテムを選択したときの処理（トグルの処理）
-
         count = 0;
 
         while (count < magicskilllistController._skill_listitem.Count)
@@ -198,7 +197,6 @@ public class magicskillLearnToggle : MonoBehaviour
         magicskilllistController.skill_itemName_Hyouji = _item_Namehyouji;
         magicskilllistController.skill_cost = magicskilllistController._skill_listitem[count].GetComponent<magicskillLearnToggle>().toggle_skill_cost;
 
-        _text.text = _item_Namehyouji + "をおぼえる？";
         //card_view.ShopSelectCard_DrawView(1, magicskilllistController.skill_kettei_item1);
 
         Debug.Log(count + "番が押されたよ");
@@ -206,6 +204,7 @@ public class magicskillLearnToggle : MonoBehaviour
 
         //blackpanel_A.SetActive(true);
         compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
+        yes_no_panel.SetActive(true);
 
         //Debug.Log("これでいいですか？");
 
@@ -218,13 +217,12 @@ public class magicskillLearnToggle : MonoBehaviour
         {
             category_toggle[i].GetComponent<Toggle>().interactable = false;
         }
+        
+        _text.text = _item_Namehyouji + "をおぼえる？";
 
-        yes_no_panel.SetActive(true);
-
-        magicskilllistController.skill_final_select_flag = true; //確認のフラグ
-
+        //magicskilllistController.skill_final_select_flag = true; //確認のフラグ
+        StartCoroutine("skilllearn_Final_select");
     }
-
 
     IEnumerator skilllearn_Final_select()
     {
@@ -335,17 +333,78 @@ public class magicskillLearnToggle : MonoBehaviour
 
     public void OnSkillLevelUpButton_ON()
     {
-        magicskill_database.magicskill_lists[toggle_skill_ID].skillLv++;
+        //アイテムを選択したときの処理（トグルの処理）
+        itemselect_cancel.kettei_on_waiting = true; //トグルが押された時点で、トグル内のボタンyes,noを優先する
+        GameMgr.compound_status = 100; //トグルを押して、調合中の状態。All_cancelで、status=4に戻る。status=4でキャンセルすると、最初の調合選択シーンに戻る。
 
-        //JPを消費
-        PlayerStatus.player_patissier_job_pt--;
+        compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
+        yes_no_panel.SetActive(true);
 
-        //上限処理
-        if (magicskill_database.magicskill_lists[toggle_skill_ID].skillLv > magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv)
+        StartCoroutine("skillLvup_Final_select");
+        //magicskilllistController.skill_final_select_flag = true; //確認のフラグ        
+    }
+
+    IEnumerator skillLvup_Final_select()
+    {
+        _text.text = toggle_skill_nameHyouji + "のLVをあげる？" + "\n" + "ジョブポイントを 1 消費するよ。";
+
+        while (yes_selectitem_kettei.onclick != true)
         {
-            magicskill_database.magicskill_lists[toggle_skill_ID].skillLv = magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv;
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
         }
-        magicskilllistController.ReDraw();
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+        compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageOFF();
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された。
+                
+                card_view.DeleteCard_DrawView();
+
+                yes_no_panel.SetActive(false);
+                //back_ShopFirst_btn.interactable = true;
+
+                itemselect_cancel.kettei_on_waiting = false;
+
+                magicskill_database.magicskill_lists[toggle_skill_ID].skillLv++;
+
+                //JPを消費
+                PlayerStatus.player_patissier_job_pt--;
+
+                //上限処理
+                if (magicskill_database.magicskill_lists[toggle_skill_ID].skillLv > magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv)
+                {
+                    magicskill_database.magicskill_lists[toggle_skill_ID].skillLv = magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv;
+                }
+                magicskilllistController.ReDraw();
+
+                _text.text = toggle_skill_nameHyouji + "のLVが 1 上がった！！";
+
+                break;
+
+            case false:
+
+                //Debug.Log("cancel");
+
+                _text.text = "どの魔法をおぼえる？";
+
+                //キャンセル時、リストのインタラクティブ解除。
+                Skill_Check();
+
+                card_view.DeleteCard_DrawView();
+
+                yes_selectitem_kettei.kettei1 = false;
+                yes_no_panel.SetActive(false);
+
+                itemselect_cancel.kettei_on_waiting = false;
+                GameMgr.compound_status = 4;
+                //back_ShopFirst_btn.interactable = true;
+
+                break;
+        }
+
     }
 
     //デバッグ　ボタンおすと、そのスキルの表示と習得をオフにする。

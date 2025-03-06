@@ -818,7 +818,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音。
-                SE_point_click(127);
+                SE_point_click(30); //127
                 break;
 
             case "ContestRecep1_SelectToggle":

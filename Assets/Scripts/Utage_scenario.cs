@@ -3819,7 +3819,7 @@ public class Utage_scenario : MonoBehaviour
 
                     case 1: //のる
 
-                        moneyStatus_Controller.UseMoney(1200);
+                        moneyStatus_Controller.UseMoney(600);
                         GameMgr.NPC_FriendPoint[3] += 2; //友好度上がる
 
                         if (roten_flag_num == 160201)
@@ -3838,7 +3838,7 @@ public class Utage_scenario : MonoBehaviour
 
                     case 2: //のる
 
-                        moneyStatus_Controller.UseMoney(1500);
+                        moneyStatus_Controller.UseMoney(1000);
                         GameMgr.NPC_FriendPoint[3] += 3; //友好度上がる
 
                         if (roten_flag_num == 160201)
