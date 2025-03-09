@@ -1942,12 +1942,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _id = kettei_item1;
 
                 //器具は、除外
-                if (database.items[_id].itemType_sub.ToString() == "Machine")
+                /*if (database.items[_id].itemType_sub.ToString() == "Machine")
                 {
 
                 }
                 else
-                {
+                {*/
                     if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
                     {
                         _addkosu = 1;
@@ -1960,7 +1960,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     //Debug.Log("_id: " + _id);
                     //各パラメータを取得
                     Set_addparam();
-                }
+                //}
 
                 break;
 
@@ -2025,12 +2025,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _id = kettei_item2;
 
                     //器具は、除外
-                    if (database.items[_id].itemType_sub.ToString() == "Machine")
+                    /*if (database.items[_id].itemType_sub.ToString() == "Machine")
                     {
 
                     }
                     else
-                    {
+                    {*/
                         if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
                         {
                             _addkosu = 1;
@@ -2042,7 +2042,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                         //Debug.Log("_id: " + _id);
                         //各パラメータを取得
                         Set_addparam();
-                    }
+                    //}
 
                     break;
 
@@ -2105,12 +2105,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _id = kettei_item3;
 
                     //器具は、除外
-                    if (database.items[_id].itemType_sub.ToString() == "Machine")
+                    /*if (database.items[_id].itemType_sub.ToString() == "Machine")
                     {
 
                     }
                     else
-                    {
+                    {*/
                         if (Kosu_keisanmethod) //たまご割りみたいに、入れたたまごの数がそのままリザルト個数になる場合。品質は、元のアイテム一個分で計算
                         {
                             _addkosu = 1;
@@ -2122,7 +2122,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                         //各パラメータを取得
                         Set_addparam();
-                    }
+                    //}
 
                     break;
 

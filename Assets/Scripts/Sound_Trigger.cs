@@ -385,7 +385,7 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(0);
                 break;
 
-            case "ShopOn_Toggle_Buy":
+            /*case "ShopOn_Toggle_Buy":
 
                 //ポインタが入ったときに鳴る音
                 SE_point_enter(2);
@@ -405,6 +405,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(23);
                 break;
 
+            case "ShopOn_Toggle_Uwasa":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                SE_point_click(23);
+                break;
+
             case "ShopOn_Toggle_Talk":
 
                 //ポインタが入ったときに鳴る音
@@ -413,6 +423,16 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音。
                 SE_point_click(23);
+                break;*/
+
+            case "ShopOn_Toggle_Back2":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音。
+                //SE_point_click(23);
                 break;
 
             case "ClothToggle":
@@ -851,6 +871,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(34);
                 break;
 
+            case "Quest_PlaceButton": //yesを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(46);
+                break;
+
             default: //特に指定がない場合
 
                 //Debug.Log("リストボタンを押した");
@@ -861,7 +891,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音
-                SE_point_click(30); //0 or 23(カッ) or 30（ぽこ）
+                SE_point_click(23); //0 or 23(カッ) or 30（ぽこ）
                 break;
 
         }

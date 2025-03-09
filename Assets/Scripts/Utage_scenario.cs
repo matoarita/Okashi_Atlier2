@@ -46,6 +46,7 @@ public class Utage_scenario : MonoBehaviour
     private int trans_costume;
     private int before_costume;
     private int maprelease_flagchk;
+    private int sp_score_judgenum;
 
     private int re_flag;
     private int ev_flag;
@@ -90,6 +91,7 @@ public class Utage_scenario : MonoBehaviour
     private int CommentID;
     private int judge_num; //審査員の番号
     private bool SpecialItemFlag;
+    private bool ContestKoyuCommentFlag;
     private int total_score;
     private bool presentevent_end_flag;
     private bool NPCevent_okashicheck;
@@ -4601,6 +4603,7 @@ public class Utage_scenario : MonoBehaviour
     {
         judge_num = 0;
         SpecialItemFlag = false;
+        ContestKoyuCommentFlag = false;
         CommentID = 0;
         
         //まずは特定のお菓子に反応するかをチェック
@@ -4632,7 +4635,7 @@ public class Utage_scenario : MonoBehaviour
             i++;
         }
 
-        //特定のお菓子に反応しなかったので、デフォルトのコメントになる。
+        //特定のお菓子に反応しなかったので、次のそのコンテストでのデフォルトのコメント(エクセルシート下部あたり入れるなら）になる。
         if (!SpecialItemFlag)
         {
             i = 0;
@@ -4643,13 +4646,42 @@ public class Utage_scenario : MonoBehaviour
                     if (databaseContestComment.contestcomment_lists[i].ItemName == "Contest_Default")
                     {
                         CommentID = i;
-                        Debug.Log("審査員のコメント　デフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
+                        ContestKoyuCommentFlag = true;
+                        Debug.Log("審査員のコメント　その大会のデフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
                         break;
-                    }                   
+                    }
+
+                    //~そのシートの検索EndPointまで検索する。Excel上にフラグがある。
+                    if (databaseContestComment.contestcomment_lists[i].Search_flag == 1)
+                    {
+                        ContestKoyuCommentFlag = false;
+                        break;
+                    }
                 }
                 i++;
             }
         }
+
+        //もし、コンテストごとのデフォコメントも該当なかった場合は、共通のコメントを拾う。
+        //特定のお菓子に反応しなかったので、次のそのコンテストでのデフォルトのコメントになる。
+        if (!SpecialItemFlag && !ContestKoyuCommentFlag)
+        {
+            i = 0;
+            while (i < databaseContestComment.contestcomment_lists.Count)
+            {
+                if (databaseContestComment.contestcomment_lists[i].CommentID >= 100000)
+                {
+                    if (databaseContestComment.contestcomment_lists[i].ItemName == "Contest_Default")
+                    {
+                        CommentID = i;
+                        Debug.Log("審査員のコメント　共通デフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
+                        break;
+                    }
+                }
+                i++;
+            }
+        }
+
 
         //審査員１の感想をセット
         if (GameMgr.contest_Score[judge_num] > GameMgr.high_score) //100~
@@ -4758,6 +4790,52 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_judge3_comment2", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_2);
             engine.Param.TrySetParameter("contest_judge3_comment3", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_3);
             engine.Param.TrySetParameter("contest_judge3_comment4", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_4);
+        }
+
+        //審査員２のSPScore感想をセット。感想はアントワネット様に合わせる。
+        judge_num = 1;
+        sp_score_judgenum = 1000000; //       
+        if (GameMgr.contest_SPJudgeCommentNum != 0) //0だとSPscoreは判定なし
+        {
+            CommentID = databaseContestComment.SearchCommentID(sp_score_judgenum + (100 * GameMgr.contest_SPJudgeCommentNum)); //1000000＋100番台でSPscore感想を指定
+            engine.Param.TrySetParameter("contest_SpScore_CommentFlag", true);
+
+            if (GameMgr.contest_SPScoreJudge >= 40) //アントワとの差　100以上良い
+            {
+                engine.Param.TrySetParameter("contest_spjudge1_comment1", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_1);
+                engine.Param.TrySetParameter("contest_spjudge1_comment2", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_2);
+                engine.Param.TrySetParameter("contest_spjudge1_comment3", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_3);
+                engine.Param.TrySetParameter("contest_spjudge1_comment4", databaseContestComment.contestcomment_lists[CommentID + 0].Comment_4);
+            }
+            else if (GameMgr.contest_SPScoreJudge >= 20 && GameMgr.contest_SPScoreJudge < 40) //アントワとの差
+            {
+                engine.Param.TrySetParameter("contest_spjudge1_comment1", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_1);
+                engine.Param.TrySetParameter("contest_spjudge1_comment2", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_2);
+                engine.Param.TrySetParameter("contest_spjudge1_comment3", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_3);
+                engine.Param.TrySetParameter("contest_spjudge1_comment4", databaseContestComment.contestcomment_lists[CommentID + 1].Comment_4);
+            }
+            else if (GameMgr.contest_SPScoreJudge >= 0 && GameMgr.contest_SPScoreJudge < 20) //アントワとの差
+            {
+                engine.Param.TrySetParameter("contest_spjudge1_comment1", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_1);
+                engine.Param.TrySetParameter("contest_spjudge1_comment2", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_2);
+                engine.Param.TrySetParameter("contest_spjudge1_comment3", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_3);
+                engine.Param.TrySetParameter("contest_spjudge1_comment4", databaseContestComment.contestcomment_lists[CommentID + 2].Comment_4);
+            }
+            else if (GameMgr.contest_SPScoreJudge < 0) //アントワとの差 基準に達していない
+            {
+                engine.Param.TrySetParameter("contest_spjudge1_comment1", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_1);
+                engine.Param.TrySetParameter("contest_spjudge1_comment2", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_2);
+                engine.Param.TrySetParameter("contest_spjudge1_comment3", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_3);
+                engine.Param.TrySetParameter("contest_spjudge1_comment4", databaseContestComment.contestcomment_lists[CommentID + 3].Comment_4);
+            }
+        }
+        else //SpScoreをそもそも判定しない場合のセリフ
+        {
+            engine.Param.TrySetParameter("contest_SpScore_CommentFlag", false);
+            engine.Param.TrySetParameter("contest_spjudge1_comment1", "");
+            engine.Param.TrySetParameter("contest_spjudge1_comment2", "");
+            engine.Param.TrySetParameter("contest_spjudge1_comment3", "");
+            engine.Param.TrySetParameter("contest_spjudge1_comment4", "");
         }
     }
 

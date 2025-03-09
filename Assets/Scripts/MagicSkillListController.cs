@@ -39,6 +39,7 @@ public class MagicSkillListController : MonoBehaviour
     private GameObject skillExTextPanel;
     private Text[] skillExtext;
     private Anim_TextScroll[] skillExtextAnim;
+    private GameObject eff_learn_obj;
 
     private GridLayoutGroup grid_layout_content;
 
@@ -98,11 +99,13 @@ public class MagicSkillListController : MonoBehaviour
             player_patissierjob_panel.transform.Find("player_Plv").GetComponent<Text>().text = PlayerStatus.player_patissier_lv.ToString();
             player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
             player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
+            eff_learn_obj = this.transform.Find("eff_learn").gameObject;
         }
 
         skillExTextPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/SkillExTextPanel").gameObject;
         skillExtext = skillExTextPanel.transform.Find("MaskPanel").GetComponentsInChildren<Text>();
         skillExtextAnim = skillExTextPanel.transform.Find("MaskPanel").GetComponentsInChildren<Anim_TextScroll>();
+        
 
         for (i = 0; i < skillExtext.Length; i++)
         {
@@ -986,7 +989,31 @@ public class MagicSkillListController : MonoBehaviour
         }
     }
 
-    
+    public void DrawLearnEffect(int _effnum)
+    {
+        switch(_effnum)
+        {
+            case 0:
+
+                eff_learn_obj.transform.Find("eff_learn_02").gameObject.SetActive(true);
+                break;
+
+            case 1:
+
+                eff_learn_obj.transform.Find("eff_learn_01").gameObject.SetActive(true);
+                break;
+        }
+
+        StartCoroutine("OffKearnEffect");
+    }
+
+    IEnumerator OffKearnEffect()
+    {
+        yield return new WaitForSeconds(2f); //2秒待つ
+
+        eff_learn_obj.transform.Find("eff_learn_01").gameObject.SetActive(false);
+        eff_learn_obj.transform.Find("eff_learn_02").gameObject.SetActive(false);
+    }
 
     public void DebugAllSkillFlagON()
     {

@@ -259,6 +259,12 @@ public class magicskillLearnToggle : MonoBehaviour
 
                 itemselect_cancel.kettei_on_waiting = false;
 
+                //パキーン習得エフェクト
+                magicskilllistController.DrawLearnEffect(0);
+
+                //テキスト更新
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "をおぼえた！！";
+
                 //スキルに応じて、次の処理を決める。
                 //スキルネームが「Freezing_Cookie」なら、それに応じた処理などにケースを分ける。
                 GameMgr.UseMagicSkill = magicskilllistController.skill_Name;
@@ -368,6 +374,12 @@ public class magicskillLearnToggle : MonoBehaviour
 
                 itemselect_cancel.kettei_on_waiting = false;
 
+                //テキスト更新
+                _text.text = toggle_skill_nameHyouji + "のLVが 1 上がった！！";
+
+                //パキーン習得エフェクト
+                magicskilllistController.DrawLearnEffect(1);
+
                 magicskill_database.magicskill_lists[toggle_skill_ID].skillLv++;
 
                 //JPを消費
@@ -378,9 +390,7 @@ public class magicskillLearnToggle : MonoBehaviour
                 {
                     magicskill_database.magicskill_lists[toggle_skill_ID].skillLv = magicskill_database.magicskill_lists[toggle_skill_ID].skillMaxLv;
                 }
-                magicskilllistController.ReDraw();
-
-                _text.text = toggle_skill_nameHyouji + "のLVが 1 上がった！！";
+                magicskilllistController.ReDraw();               
 
                 break;
 

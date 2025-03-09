@@ -73,6 +73,7 @@ public class Contest_Judge : MonoBehaviour {
 
     private string _shokukan_kansou;
     private string _beauty_kansou;
+    private string _spscore_kansou;
 
     //女の子の好み組み合わせセットのデータ
     private int _compID;
@@ -395,6 +396,7 @@ public class Contest_Judge : MonoBehaviour {
             }
 
             // 各判定用パラメータに、さらにコンテストごとに補正をかける。
+            GameMgr.contest_SPJudgeCommentNum = 0; //コンテストコメント番号リセット
             Contest_Score_JudgeHoseiLibrary(0);
 
             Set_Count = set_ID.Count;
@@ -490,7 +492,10 @@ public class Contest_Judge : MonoBehaviour {
 
             count++;
             
-        }      
+        }
+
+        //コンテストSPスコア判定する場合　どの値の点数をみるか
+        Contest_SPScoreJudgeCheck(GameMgr.contest_SPJudgeCommentNum);
 
         //
         //各コンテスト審査員ごとの判定分け　補正がけ
@@ -503,6 +508,10 @@ public class Contest_Judge : MonoBehaviour {
 
         //アントワネットの見た目感想 メモに表示用
         Contest_BeuatyHintHyouji(GameMgr.contest_Beauty_Score[1], "");
+
+        //SPスコアの感想　メモに表示
+        Contest_SPScoreHintHyouji(GameMgr.contest_SPScoreJudge, GameMgr.Contest_Spscore_text);
+
 
         //さらに提出が遅れた場合減点
         if (GameMgr.contest_LimitTimeOver_DegScore_flag)
@@ -895,6 +904,7 @@ public class Contest_Judge : MonoBehaviour {
                     {
                         girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
                     }
+                    GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
 
                     Debug.Log("判定値追加： キラキラ感 " + 10);
                     Debug.Log("### ###");
@@ -917,7 +927,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    //SpScoreHosei_1(GameMgr.contest_Sp_Score9[0]);
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
                 }
 
                 break;
@@ -1074,6 +1084,7 @@ public class Contest_Judge : MonoBehaviour {
                     {
                         girl1_status.girl1_SP_Score6[i] = 1; //子供の値が最低1は必要
                     }
+                    GameMgr.contest_SPJudgeCommentNum = 6; //コンテストコメント番号
 
                     Debug.Log("判定値追加： 子供 " + 1);
                     Debug.Log("### ###");
@@ -1096,7 +1107,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    //SpScoreHosei_1(GameMgr.contest_Sp_Score6[0]);
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
                 }
 
                 break;
@@ -1124,6 +1135,7 @@ public class Contest_Judge : MonoBehaviour {
                     {
                         girl1_status.girl1_SP_Score2[i] = 10; //海らしさの値が最低10は必要
                     }
+                    GameMgr.contest_SPJudgeCommentNum = 2; //コンテストコメント番号
 
                     Debug.Log("判定値追加： 海らしさ " + 10);
                     Debug.Log("### ###");
@@ -1146,7 +1158,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_Sp_Score2[0]);
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
                 }
 
                 break;
@@ -1279,10 +1291,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score5[i] = 10; //大人の値が最低3は必要
+                        girl1_status.girl1_SP_Score5[i] = 5; //大人の値が最低3は必要
                     }
+                    GameMgr.contest_SPJudgeCommentNum = 5; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： 大人 " + 10);
+                    Debug.Log("判定値追加： 大人 " + 5);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -1303,7 +1316,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_Sp_Score5[0]);
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
                 }
                     
                 break;
@@ -1317,10 +1330,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score7[i] = 10; //メルヘンの値が最低3は必要
+                        girl1_status.girl1_SP_Score7[i] = 5; //メルヘンの値が最低3は必要
                     }
+                    GameMgr.contest_SPJudgeCommentNum = 7; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： メルヘン " + 10);
+                    Debug.Log("判定値追加： メルヘン " + 5);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -1341,7 +1355,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_Sp_Score7[0]);                   
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);                   
                 }
 
                 break;
@@ -1355,10 +1369,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score6[i] = 10; //子供の値が最低3は必要
+                        girl1_status.girl1_SP_Score6[i] = 5; //子供の値が最低3は必要
                     }
+                    GameMgr.contest_SPJudgeCommentNum = 6; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： 子供 " + 10);
+                    Debug.Log("判定値追加： 子供 " + 5);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -1379,7 +1394,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_Sp_Score6[0]);
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
                 }
 
                 break;
@@ -1479,6 +1494,7 @@ public class Contest_Judge : MonoBehaviour {
                     {
                         girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低3は必要
                     }
+                    GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
 
                     Debug.Log("判定値追加： キラキラ感 " + 10);
                     Debug.Log("### ###");
@@ -1499,6 +1515,9 @@ public class Contest_Judge : MonoBehaviour {
                     ScoreNormalized(180); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
+
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
                 }
 
                 break;
@@ -1742,53 +1761,60 @@ public class Contest_Judge : MonoBehaviour {
     //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK
     void SpScoreHosei_1(int _spscore)
     {
-        if (_spscore >= 0 && _spscore < 13) //半分に
-        {
-            for (i = 0; i < GameMgr.contest_Score.Length; i++)
-            {
-                total_score[i] = (int)(total_score[i] * 0.5f);
-            }
-        }
-        else if (_spscore >= 13 && _spscore < 20) //ふつう
+        if (_spscore >= 0 && _spscore < 5) //少し上がる
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
                 total_score[i] = (int)(total_score[i] * 1.0f);
             }
         }
-        else if (_spscore >= 20 && _spscore < 25) //SpScoreに補正して加算
+        else if (_spscore >= 5 && _spscore < 20) //ふつう
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] * 1.1f);
+            }
+        }
+        else if (_spscore >= 20 && _spscore < 40) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.3f));
+            }
+        }
+        else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
                 total_score[i] = (int)(total_score[i] + (_spscore * 1.5f));
             }
         }
-        else if (_spscore >= 25 && _spscore < 35) //SpScoreに補正して加算
+        else if (_spscore >= 60 && _spscore < 80) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.75f));
+            }
+        }
+        else if (_spscore >= 80 && _spscore < 100) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
                 total_score[i] = (int)(total_score[i] + (_spscore * 1.8f));
             }
         }
-        else if (_spscore >= 35 && _spscore < 45) //SpScoreに補正して加算
+        else if (_spscore >= 100) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 2.0f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.85f));
             }
         }
-        else if (_spscore >= 45 && _spscore < 60) //SpScoreに補正して加算
+        else if (_spscore < 0) //足りてないと0.75
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 2.5f));
-            }
-        }
-        else if (_spscore >= 60) //SpScoreに補正して加算
-        {
-            for (i = 0; i < GameMgr.contest_Score.Length; i++)
-            {
-                total_score[i] = (int)(total_score[i] + (_spscore * 3.0f));
+                total_score[i] = (int)(total_score[i] * 0.75f);
             }
         }
     }
@@ -1854,6 +1880,95 @@ public class Contest_Judge : MonoBehaviour {
 
 
         GameMgr.contest_lasthint_text = GameMgr.contest_lasthint_text + "\n" + _beauty_kansou;
+    }
+
+    void Contest_SPScoreJudgeCheck(int _num) //
+    {
+        switch(_num)
+        {
+            case 1: //各SPスコアの値　そのコンテストでの判定用点数
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score1[0];
+                break;
+
+            case 2:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score2[0];
+                break;
+
+            case 3:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score3[0];
+                break;
+
+            case 4:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score4[0];
+                break;
+
+            case 5:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score5[0];
+                break;
+
+            case 6:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score6[0];
+                break;
+
+            case 7:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score7[0];
+                break;
+
+            case 8:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score8[0];
+                break;
+
+            case 9:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score9[0];
+                break;
+
+            case 10:
+
+                GameMgr.contest_SPScoreJudge = GameMgr.contest_Sp_Score10[0];
+                break;
+
+            default:
+
+                GameMgr.contest_SPScoreJudge = 0;
+                break;
+        }
+    }
+
+    void Contest_SPScoreHintHyouji(int sp_score, string _sptext)
+    {
+        //SPScoreに関するヒント
+        if (sp_score < 0) //
+        {
+            _spscore_kansou = GameMgr.ColorRedDeep + _sptext + " D: " + _sptext + "が全然足りない..。" + "</color>";
+        }
+        else if (sp_score >= 0 && sp_score < 40) //
+        {
+            _spscore_kansou = _sptext + " B: " + _sptext + "もう少し欲しいですわ。";
+        }
+        else if (sp_score >= 40 && sp_score < 60) //
+        {
+            _spscore_kansou = _sptext + " A: " + _sptext + "が出てますね。";
+        }
+        else if (sp_score >= 60 && sp_score < 100) //
+        {
+            _spscore_kansou = GameMgr.ColorPink + _sptext + " A+: " + _sptext + "がよく出ていい感じ！！" + "</color>";
+        }
+        else if (sp_score >= 100) //
+        {
+            _spscore_kansou = GameMgr.ColorGold + _sptext + " S: " + _sptext + "がパーフェクトです！！" + "</color>";
+        }
+
+
+        GameMgr.contest_lasthint_text = GameMgr.contest_lasthint_text + "\n" + _spscore_kansou;
     }
 
     //点数を、入れた値を上限にして100点に正規化する。

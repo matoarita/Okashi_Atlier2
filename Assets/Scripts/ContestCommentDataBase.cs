@@ -68,4 +68,20 @@ public class ContestCommentDataBase : SingletonMonoBehaviour<ContestCommentDataB
         //ここでリストに追加している
         contestcomment_lists.Add(new ContestComment(_id, _commentid, itemName, _setid, comment_1, comment_2, comment_3, comment_4, search_flag));
     }
+
+    //CommentIDをいれると、その配列番号を返す
+    public int SearchCommentID(int _ID)
+    {
+        i = 0;
+        while (i <= contestcomment_lists.Count)
+        {
+            if (contestcomment_lists[i].CommentID == _ID)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return 0; //見つからなかった場合、0　基本はあるはずだが、なかった例外の場合にバグらないように。
+    }
 }

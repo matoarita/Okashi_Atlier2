@@ -2056,11 +2056,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _temp_beautyscore = 0;
         }
 
-        //マジックスロットになにかついていたら、見た目が+20　必ず加算される
-        if(_basemagicslot_on == 1)
+        //マジックスロットになにかついていたら、見た目が+20　必ず加算される ItemCardEffectDBで計算するようにした
+        /*if(_basemagicslot_on == 1)
         {
             _temp_beautyscore += 20;
-        }
+        }*/
 
         Debug.Log("見た目ベース: " + _beauty + " 判定値: " + _judgebeauty + " 見た目得点: " + _temp_beautyscore);
 

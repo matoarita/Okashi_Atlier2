@@ -290,9 +290,9 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     public void OnMoveBarA()
     {
         //入店の音
-        sc.PlaySe(38);
-        sc.PlaySe(51);
-        GameMgr.ShopEnter_ButtonON = true;
+        //sc.PlaySe(38);
+        //sc.PlaySe(51);
+        //GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
         TimeKoushin_AfterSceneMove(_movetime[0]);
@@ -304,9 +304,9 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     public void OnMoveBarB()
     {
         //入店の音
-        sc.PlaySe(38);
-        sc.PlaySe(51);
-        GameMgr.ShopEnter_ButtonON = true;
+        //sc.PlaySe(38);
+        //sc.PlaySe(51);
+        //GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
         TimeKoushin_AfterSceneMove(_movetime[2]);
@@ -318,9 +318,9 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     void OnMoveBarScene(int _num, int _day)
     {
         //入店の音
-        sc.PlaySe(38);
-        sc.PlaySe(51);
-        GameMgr.ShopEnter_ButtonON = true;
+        //sc.PlaySe(38);
+        //sc.PlaySe(51);
+        //GameMgr.ShopEnter_ButtonON = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
         TimeKoushin_AfterSceneMove(_day);

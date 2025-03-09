@@ -1861,6 +1861,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active1600_Roten_Ringo();
                 break;
 
+            case "Or_Hiroba_Spring_RotenStreet2":
+
+                On_Active1605_Roten_Cafelatte();
+                break;
+
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
 
                 On_Active75();
@@ -1906,6 +1911,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_RotenStreet":
 
                 On_Active1601_Roten_PotatoButter();
+                break;
+
+            case "Or_Hiroba_Spring_RotenStreet2":
+
+                On_Active1604_Roten_JoukenKyobai();
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
@@ -2021,6 +2031,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 On_Active30();
                 //On_BackHomeActive02();
+                break;
+
+            case "Or_Hiroba_Spring_RotenStreet2":
+
+                On_Active10();
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":

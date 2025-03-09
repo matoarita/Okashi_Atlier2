@@ -801,6 +801,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool contest_LimitTimeOver_Gameover_flag; //コンテスト制限時間をこえて失格のフラグ
     public static bool contest_LimitTimeOver_After_flag; //コンテスト失格後、なんらかのペナルティやメッセージが発生するフラグ
     public static List<int> contest_BeautyJudgeScore = new List<int>(); //コンテストの見た目担当の人の見た目審査基準　girlBeautyのこと
+    public static int contest_SPJudgeCommentNum;
+    public static int contest_SPScoreJudge; //判定用　SPScoreの点数
     public static bool NewAreaRelease_flag; //なんらかのイベント後、新エリアが解禁されるフラグ
     public static List<int> PrizeScoreAreaList = new List<int>(); //コンテストのランキングスコア、もしくは賞品のスコア範囲のリスト
     public static List<string> PrizeItemList = new List<string>(); //コンテストの優勝のアイテムリスト

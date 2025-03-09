@@ -1175,10 +1175,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(2000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(4000);
         GameMgr.PrizeGetMoneyList.Add(5000);
-        GameMgr.PrizeGetMoneyList.Add(7000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -1209,17 +1209,17 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(4000);
         GameMgr.PrizeGetMoneyList.Add(5000);
-        GameMgr.PrizeGetMoneyList.Add(7000);
-        GameMgr.PrizeGetMoneyList.Add(10000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(125);
-        GameMgr.PrizeScoreAreaList.Add(176);
-        GameMgr.PrizeScoreAreaList.Add(194);
-        GameMgr.PrizeScoreAreaList.Add(235);
+        GameMgr.PrizeScoreAreaList.Add(106);
+        GameMgr.PrizeScoreAreaList.Add(122);
+        GameMgr.PrizeScoreAreaList.Add(142);
+        GameMgr.PrizeScoreAreaList.Add(165);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1246,14 +1246,14 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(2000);
         GameMgr.PrizeGetMoneyList.Add(4000);
-        GameMgr.PrizeGetMoneyList.Add(7000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
+        GameMgr.PrizeScoreAreaList.Add(89);
         GameMgr.PrizeScoreAreaList.Add(135);
-        GameMgr.PrizeScoreAreaList.Add(178);
-        GameMgr.PrizeScoreAreaList.Add(189);
-        GameMgr.PrizeScoreAreaList.Add(245);
+        GameMgr.PrizeScoreAreaList.Add(159);
+        GameMgr.PrizeScoreAreaList.Add(185);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1278,9 +1278,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
         GameMgr.PrizeGetMoneyList.Add(7000);
         GameMgr.PrizeGetMoneyList.Add(10000);
-        GameMgr.PrizeGetMoneyList.Add(13000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -1311,9 +1311,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2500);
         GameMgr.PrizeGetMoneyList.Add(5000);
-        GameMgr.PrizeGetMoneyList.Add(10000);
-        GameMgr.PrizeGetMoneyList.Add(13000);
         GameMgr.PrizeGetMoneyList.Add(15000);
 
         //相手の点数リスト
@@ -1345,10 +1345,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(3000);
-        GameMgr.PrizeGetMoneyList.Add(7000);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2500);
+        GameMgr.PrizeGetMoneyList.Add(5000);
         GameMgr.PrizeGetMoneyList.Add(15000);
-        GameMgr.PrizeGetMoneyList.Add(20000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();

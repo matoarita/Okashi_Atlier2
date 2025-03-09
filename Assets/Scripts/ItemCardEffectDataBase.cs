@@ -256,8 +256,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
                         _ms_sp_score2 = _MS_pointup[j] / 2 * _msvalue[i]; //äCÇÁÇµÇ≥Çâ¡éZ
+                        _ms_sp_score6 = _MS_pointup[j] / 2 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑
 
                         aisho_text2 = "äCÇÁÇµÇ≥ + " + _ms_sp_score2.ToString();
+                        aisho_text3 = "éqãüÇ¡Ç€Ç¢ + " + _ms_sp_score6.ToString();
                     }
                 }
                 MS_aisho_database(_compatible, _msvalue[i]);
@@ -351,25 +353,25 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
         if (_compa >= 0 && _compa < 5)
         {
-            _add_magicbeauty = 0;
-            _ms_aisho = "-";
-            aisho_text1 = "ëäê´Ç»Çµ";            
+            _add_magicbeauty = 10;
+            _ms_aisho = "Å£";
+            aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
         }
-        else if (_compa >= 5 && _compa < 15)
+        else if (_compa >= 5 && _compa < 20)
         {
-            _add_magicbeauty = 10 + (_magiclv * 5);
+            _add_magicbeauty = 10 + _compa + (_magiclv * 5);
             _ms_aisho = "Å¢";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
         }
-        else if (_compa >= 15 && _compa < 50)
+        else if (_compa >= 20 && _compa < 50)
         {
-            _add_magicbeauty = 20 + (_magiclv * 10);
+            _add_magicbeauty = 10 + _compa + (_magiclv * 10);
             _ms_aisho = "ÅZ";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
         }
         else if (_compa >= 50)
         {
-            _add_magicbeauty = 30 + (_magiclv * 15);
+            _add_magicbeauty = 10 + _compa + (_magiclv * 15);
             _ms_aisho = "Åù";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
         }
