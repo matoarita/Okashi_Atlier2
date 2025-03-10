@@ -372,6 +372,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //満月の夜の月と日
             save_System_Fullmoon_month = GameMgr.System_Fullmoon_month,
             save_System_Fullmoon_day = GameMgr.System_Fullmoon_day,
+            
 
             //クエスト以外で、クリアするのに必要なハート量
             save_stageclear_love = GameMgr.stageclear_love,
@@ -659,9 +660,15 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_extreme_kaisu_Max = playerData.save_player_extreme_kaisu_Max; //仕上げ可能回数
         PlayerStatus.player_extreme_kaisu = playerData.save_player_extreme_kaisu;//現在の仕上げ可能回数
 
-        PlayerStatus.player_ninki_param = playerData.save_player_ninki_param; //人気度。いるかな？とりあえず置き
+        PlayerStatus.player_ninki_param = playerData.save_player_ninki_param; //人気度。
         PlayerStatus.player_zairyobox_lv = playerData.save_player_zairyobox_lv; // 材料カゴの大きさ
         PlayerStatus.player_zairyobox = playerData.save_player_zairyobox; // 材料カゴの大きさ
+
+        //人気度beforeの更新
+        if (!GameMgr.DEBUG_StarPanelCheck)
+        {
+            GameMgr.Before_Player_ninkiparam = PlayerStatus.player_ninki_param;
+        }
 
         PlayerStatus.player_mp = playerData.save_player_mp;
         PlayerStatus.player_maxmp = playerData.save_player_maxmp;
@@ -932,7 +939,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.Treature_getList = playerData.save_Treature_getList;
 
         //スターランクご褒美解禁リスト
-        GameMgr.StarRank_ReleaseList = playerData.save_StarRank_ReleaseList;
+        if (!GameMgr.DEBUG_StarPanelCheck)
+        {
+            GameMgr.StarRank_ReleaseList = playerData.save_StarRank_ReleaseList;
+        }
 
         //コンテスト新解禁フラグリスト
         GameMgr.Contest_NewReleaseList = playerData.save_Contest_NewReleaseList;

@@ -715,7 +715,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1); //ヒカリお菓子作る
                 
                 //HLVごとに発生するイベント 350番台～
-                HeartEvent_check(15, 350, 1);
+                //HeartEvent_check(15, 350, 1);
                 HeartEvent_check(20, 302, 1); //ヒカリ二個トッピング仕上げできるようになる
                 HeartEvent_check(25, 351, 1);
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
@@ -735,6 +735,12 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //
                 //StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
 
+                //
+                //スターパネル解放で発生するリリースイベント系
+                //
+                //StarRank_ReleaseListの配列番号をみる　例)1 = starが7のときに解放されるイベントのこと GameMgr.Star_Eventlistを参照
+                //2番目はsubEventのnum
+                StarReleaseEvent_check(1, 359, 1); 
 
                 //
                 //ビギナー系のサブイベント関係は、80番台～
@@ -1761,27 +1767,41 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 {
                     GameMgr.Mute_on = true;
                 }
-
-                switch(_evnum)
-                {
-                    case 350: //りんごのハンカチゲット
-
-                        pitemlist.addPlayerItemString("crepe_powerup4", 1);
-                        break;
-                }
             }
         }
     }
 
-    void StarEvent_check(int _lv, int _evnum, int _bgm)
+    void StarEvent_check(int _starparam, int _evnum, int _bgm)
     {
         if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
         { }
         else
         {
             //スター10?で、お城へいけるように。手紙がくる。
-            if (PlayerStatus.player_ninki_param >= _lv && GameMgr.GirlLoveSubEvent_stage1[_evnum] == false)
+            if (PlayerStatus.player_ninki_param >= _starparam && GameMgr.GirlLoveSubEvent_stage1[_evnum] == false)
             {
+                GameMgr.GirlLoveSubEvent_num = _evnum;
+                GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
+
+                GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                if (_bgm == 1) //宴BGMに切り替え
+                {
+                    GameMgr.Mute_on = true;
+                }
+            }
+        }
+    }
+
+    void StarReleaseEvent_check(int _starev, int _evnum, int _bgm)
+    {
+        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+        { }
+        else
+        {
+            if (GameMgr.StarRank_ReleaseList[_starev] == true && GameMgr.GirlLoveSubEvent_stage1[_evnum] == false)
+            {
+                Debug.Log("EvDB スターのイベントの発生GameMgr.GirlLoveSubEvent_num: " + _evnum);
                 GameMgr.GirlLoveSubEvent_num = _evnum;
                 GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
 

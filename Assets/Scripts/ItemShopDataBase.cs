@@ -126,7 +126,8 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
 
                     _itemID = pitemlist.eventitemlist[i].ev_ItemID;
                     //Debug.Log("イベントアイテムID: " + _itemID);
-                    _icon = Resources.Load<Sprite>("Sprites/" + pitemlist.eventitemlist[i].event_fileName);
+                    //_icon = Resources.Load<Sprite>("Sprites/" + pitemlist.eventitemlist[i].event_fileName);
+                    _icon = pitemlist.eventitemlist[i].itemIcon_sprite;
                     _name_hyouji = pitemlist.eventitemlist[i].event_itemNameHyouji;
 
                     break;
@@ -150,7 +151,8 @@ public class ItemShopDataBase : SingletonMonoBehaviour<ItemShopDataBase>
 
                     _itemID = pitemlist.emeralditemlist[i].ev_ItemID;
                     //Debug.Log("エメラルドアイテムID: " + _itemID);
-                    _icon = Resources.Load<Sprite>("Sprites/" + pitemlist.emeralditemlist[i].event_fileName);
+                    //_icon = Resources.Load<Sprite>("Sprites/" + pitemlist.emeralditemlist[i].event_fileName);
+                    _icon = pitemlist.emeralditemlist[i].itemIcon_sprite;
                     _name_hyouji = pitemlist.emeralditemlist[i].event_itemNameHyouji;
 
                     break;

@@ -142,6 +142,16 @@ public class Sound_Trigger : MonoBehaviour {
                 SE_point_click(18);
                 break;
 
+            case "CloseButton": //noを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(18);
+                break;
+
             case "QuickSaveButton": //クイックセーブを押したときのSE
 
                 //ポインタが入ったときに鳴る音

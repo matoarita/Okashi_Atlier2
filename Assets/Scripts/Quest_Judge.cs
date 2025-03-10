@@ -89,6 +89,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _getHeart;
     private string _kanso;
     private int _baseMoney;
+    private int _MSMoney;
 
     private int _id;
     private int _Qid;
@@ -1510,9 +1511,11 @@ public class Quest_Judge : MonoBehaviour {
                 }
 
                 //マジックスロットついてたらさらに報酬が上乗せ
+                _MSMoney = 0;
                 for (i = 0; i < _baseMS.Length; i++)
                 {
-                    _getMoney += _baseMSvalue[i] * 300; //種類によらず一個ついてたら+300 MSValueはUseLVが入ってるので、LVが高いと報酬上がる
+                    _MSMoney = _baseMSvalue[i] * 200;
+                    _getMoney += _MSMoney; //種類によらず一個ついてたら+300 MSValueはUseLVが入ってるので、LVが高いと報酬上がる
                 }
 
                 //ルーティのマッサージポイント
@@ -1897,6 +1900,7 @@ public class Quest_Judge : MonoBehaviour {
             + "\n" + "\n" + "お金の取得式: " + "\n" + debug_money_text
             + "\n" + "\n" + "基準値(_buy_price * _kosu_default + _slotmoney): " + _baseMoney
             + "\n" + "\n" + "_slotmoney: " + _slotmoney
+            + "\n" + "\n" + "マジックスロットでお金追加(_MSMoney): " + _MSMoney
             //+ "\n" + "\n" + "okashi_totalscore / GameMgr.high_score 計算: "
             + "\n" + "\n" + "お金の取得合計: " + _getMoney
             + "\n" + "\n" + "ハートの取得合計: " + _getHeart;

@@ -36,6 +36,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
     public static bool DEBUG_TasteSPScore_ON = false; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
+    public static bool DEBUG_StarPanelCheck = true; //デバッグ　trueだと、ninkiparam_beforeが更新されないので、ゲームロード時にスターパネルが0から始まる 本編では必ずfalseにする
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。    
@@ -662,6 +663,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //特別演出をするお菓子リスト
     public static Dictionary<string, string> SPEnshutu_itemlist = new Dictionary<string, string>();
 
+    //スターで発生するイベントリスト　左が目標スター, 右がそのとき発生するイベント番号
+    public static Dictionary<int, int> Star_Eventlist = new Dictionary<int, int>();
+
     //150点以上で発生するイベントリスト
     public static Dictionary<string, int> Highscore_SPEventlist = new Dictionary<string, int>();
 
@@ -877,6 +881,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Special_OkashiEnshutsuName; //演出の指定
     public static string MainQuestTitleName; //メインクエストのタイトル
     public static int Before_Patissier_Rank; //コンテスト前のパティシエランク　優勝などしたあと、スター獲得してランクも変動する　そのレベルチェック用
+    public static int Before_Player_ninkiparam; //コンテスト前の人気度　もしスター獲得したとき、この値と比較して、スタースタンプラリーを進めたりする。
     public static bool MazuiFlag_ON; //30点以下の時にフラグがたつ　まずかったとき
     public static int GirlLoveEvent_bunki_status; //0だと通常のGirlLoveEvent、1だと、家に帰ってきたときに発生するイベント
     public static int SaveLoadPanel_mode; //数字でセーブ画面を開いているか、ロード画面を開いているかを指定
@@ -1500,6 +1505,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_PoolEnd = false;
         QuestClearButton_EnshutuStart = false;
         Contest_MainStoryPlaceNum = 0;
+        Before_Player_ninkiparam = 0;
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1825,6 +1831,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //特別演出するお菓子の設定
         Init_SpecialEnshutu_Library();
+
+        //スターイベントリスト設定
+        Init_StarEventEvent_Library();
 
         //150点以上で発生する特別イベント設定
         Init_HighScoreSpecialSubEvent_Library();
@@ -2316,6 +2325,19 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SPEnshutu_itemlist.Add("Eden", "panel01");
     }
 
+    //スターイベントのリスト　左が必要スター、右が発生するStarRank_ReleaseListの番号　解放内容は、StarStampPanelに記述
+    public static void Init_StarEventEvent_Library()
+    {
+        Star_Eventlist.Clear();
+
+        Star_Eventlist.Add(3, 0);
+        Star_Eventlist.Add(7, 1);
+        Star_Eventlist.Add(9, 2);
+        Star_Eventlist.Add(15, 3);
+        Star_Eventlist.Add(18, 4);
+        Star_Eventlist.Add(20, 5);
+    }
+
     //150点以上のとき、特別な思い出イベントが発生するおかしテーブル GirlEat_Judgeに機能があり
     public static void Init_HighScoreSpecialSubEvent_Library()
     {
@@ -2323,7 +2345,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Highscore_SPEventlist.Add("huwakoro", 250); //右の番号は、GirlLoveSubEvent_numの番号
         Highscore_SPEventlist.Add("maritozzo", 251);
-        Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
+        //Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない　先頭のIDが、そのまま宴のCGの呼び出し番号になる
@@ -2354,7 +2376,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         return false;
     }
 
-    //思い出イベントのフラグをセット
+    //名前をいれると思い出イベントのフラグをセット
     public static void SetHikariOmoideFlag(string _name, bool _flag)
     {
         //Debug.Log("思い出イベントフラグセットの処理入る");

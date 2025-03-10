@@ -888,6 +888,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         //アニメーション開始。
         cardcompo_anim_on = true;
+
+        //StartCoroutine("WaitScaleAnim"); //2秒ほどたってから、だんだんスケールもちっちゃくなるアニメ
     }
 
     //ボインとはじくようなアニメ
@@ -916,6 +918,16 @@ public class CardView : SingletonMonoBehaviour<CardView>
             sequence.Join(_cardImage_obj[0].GetComponent<CanvasGroup>().DOFade(1, 0.2f));
         }
 
+    }
+
+    IEnumerator WaitScaleAnim()
+    {
+        yield return new WaitForSeconds(2.3f); //2秒待つ
+
+        for (i = 0; i < _cardImage_obj.Count; i++)
+        {
+            _cardImage_obj[i].transform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 2.0f);
+        }
     }
 
 

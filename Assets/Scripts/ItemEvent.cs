@@ -10,6 +10,7 @@ public class ItemEvent
 {
     public int ev_ItemID;
     public string event_fileName;
+    public Sprite itemIcon_sprite;      //アイコン
     public string event_itemName;
     public string event_itemNameHyouji;
     public int event_cost_price;
@@ -30,6 +31,7 @@ public class ItemEvent
     {
         ev_ItemID = id;
         event_fileName = file_Name;
+        itemIcon_sprite = Resources.Load<Sprite>("Sprites/" + file_Name);
         event_itemName = ev_item;
         event_itemNameHyouji = ev_itemNameHyouji;
 

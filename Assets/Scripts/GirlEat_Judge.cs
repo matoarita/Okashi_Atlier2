@@ -6628,7 +6628,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_6(_magicname);
     }
 
-
+    //ハートLVあっぷパネルの削除
+    public void ListLVUPClear()
+    {
+        if (_listlvup_obj.Count > 0)
+        {
+            _listlvup_obj.Clear();
+        }
+    }
 
     //エフェクトをすぐに全て削除
     public void EffectClear()

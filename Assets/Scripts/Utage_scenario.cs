@@ -1981,6 +1981,11 @@ public class Utage_scenario : MonoBehaviour
 
                     matplace_database.matPlaceKaikin("Or_Bar_A1"); //酒場解禁
                     break;
+
+                case 350: //りんごのハンカチゲット
+
+                    pitemlist.addPlayerItemString("crepe_powerup4", 1);
+                    break;
             }
         }
 

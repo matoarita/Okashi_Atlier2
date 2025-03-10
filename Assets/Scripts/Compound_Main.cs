@@ -72,8 +72,10 @@ public class Compound_Main : MonoBehaviour
     private Button select_sister_shop_button;
     private Button select_no_button;
 
+    private GameObject starStampPanel;
     private GameObject newAreaRelease_Panel;
     private string newarea_gohoubitext;
+    private string newarea_titletext;
     private Sprite newarea_gohoubiicon;
 
     private GameObject girl_love_exp_bar;
@@ -249,6 +251,7 @@ public class Compound_Main : MonoBehaviour
     private int event_num;
     private int recipi_num;
     private int newarea_num;
+    private int newarea_star;
     private int comp_ID;
     private int clear_love;
     private int recipi_id;
@@ -259,6 +262,7 @@ public class Compound_Main : MonoBehaviour
     private bool GetEmeraldItem;
     private string GetEmeraldItemName;
     private int get_heart;
+    private int get_star;
     private bool map_move;
     private string _bg_str1, _bg_str2, _bg_str3;
 
@@ -411,6 +415,9 @@ public class Compound_Main : MonoBehaviour
         select_sister_shop_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/SellButton").gameObject;
         select_sister_shop_button = select_sister_shop_button_obj.GetComponent<Button>();
         select_no_button = selectPanel_1.transform.Find("No").GetComponent<Button>();
+
+        starStampPanel = canvas.transform.Find("StarStampPanel").gameObject;
+        starStampPanel.SetActive(false);
 
         newAreaRelease_Panel = canvas.transform.Find("NewAreaReleasePanel").gameObject;
         newAreaRelease_Panel.SetActive(false);
@@ -1020,15 +1027,11 @@ public class Compound_Main : MonoBehaviour
                 {
 
                     if (GameMgr.girlEat_ON) //お菓子判定中の間は、無条件で、メインの処理は無視する。
-                    {
-
-                    }
+                    { }
                     else
                     {
                         if (GameMgr.CompoundSceneStartON) //お菓子調合中もメインの処理は無視。おわったら、サブイベントチェックしてから、メインへ。
-                        {
-
-                        }
+                        { }
                         else
                         {
                             if (GameMgr.ResultOFF) //リザルト画面開き中のときは、イベントチェックしない
@@ -1081,9 +1084,9 @@ public class Compound_Main : MonoBehaviour
                                                     //スターに応じて、エリア解禁をするチェック　EventDataBaseのTimeの最後にチェックをONにする
                                                     if (!GameMgr.NewAreaRelease_flag)
                                                     {
-                                                        Debug.Log("スターチェック＆新エリア解禁チェック　現在チェック無視");
-                                                        //Check_NewAreaFlag();
-                                                        GameMgr.NewAreaRelease_flag = true;
+                                                        //Debug.Log("スターイベント＆解禁チェック");
+                                                        Check_NewAreaFlag();
+                                                        //GameMgr.NewAreaRelease_flag = true;
                                                     }
                                                     else
                                                     {
@@ -1877,6 +1880,7 @@ public class Compound_Main : MonoBehaviour
                 //ReSetLive2DOrder_Default();
                 map_ambience.Mute();
 
+                girlEat_judge.ListLVUPClear();
                 StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
                 
                 break;
@@ -1903,6 +1907,7 @@ public class Compound_Main : MonoBehaviour
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
+                girlEat_judge.ListLVUPClear();
 
                 text_area.SetActive(true);
                 WindowOff();
@@ -1958,6 +1963,7 @@ public class Compound_Main : MonoBehaviour
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
+                girlEat_judge.ListLVUPClear();
 
                 //吹き出しも消す
                 girl1_status.DeleteHukidashiOnly();
@@ -2010,6 +2016,7 @@ public class Compound_Main : MonoBehaviour
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
+                girlEat_judge.ListLVUPClear();
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
@@ -2050,6 +2057,7 @@ public class Compound_Main : MonoBehaviour
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
+                girlEat_judge.ListLVUPClear();
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止                
 
@@ -2071,6 +2079,8 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.compound_select = 60;
                 recipilist_onoff.SetActive(true);
 
+                girlEat_judge.ListLVUPClear();
+
                 WindowOff();
                 break;
 
@@ -2084,6 +2094,8 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.compound_status = 99;
                 GameMgr.compound_select = 99;
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+
+                girlEat_judge.ListLVUPClear();
 
                 WindowOff();
 
@@ -2103,10 +2115,12 @@ public class Compound_Main : MonoBehaviour
 
             case 130: //クエスト確認パネル開いてる最中
 
+                girlEat_judge.ListLVUPClear();
                 break;
 
             case 140: //コンテスト確認パネル開いてる最中
 
+                girlEat_judge.ListLVUPClear();
                 break;
 
             case 200: //システム画面を開いたとき
@@ -2116,6 +2130,7 @@ public class Compound_Main : MonoBehaviour
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
+                girlEat_judge.ListLVUPClear();
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
@@ -2136,6 +2151,7 @@ public class Compound_Main : MonoBehaviour
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
+                girlEat_judge.ListLVUPClear();
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
@@ -2156,6 +2172,7 @@ public class Compound_Main : MonoBehaviour
 
                 //腹減りカウント一時停止
                 girl1_status.GirlEatJudgecounter_OFF();
+                girlEat_judge.ListLVUPClear();
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
@@ -3323,158 +3340,54 @@ public class Compound_Main : MonoBehaviour
         else //レシピを読み込み中でない。
         {
             //所持しているが、まだ読んでいないレシピがないか、チェックする。
-
-            i = 0;
-            not_read_total = 0;
             NewAreaCheck_loading = false;
             starrank_kaikin_ON = false;
-            
-            //まず、現在のスターランクをチェックする。
-            PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param); //パティシエランクのチェックとセット　現在の状態に更新　念のため
-            if (GameMgr.Before_Patissier_Rank < PlayerStatus.player_patissier_Rank) //_before_prankは、チェック後に、更新する。
+
+            if (GameMgr.Before_Player_ninkiparam < PlayerStatus.player_ninki_param) //コンテスト前の人気と獲得後の人気を比較し、取得したスターをチェックする。
             {
-                //ランクがあがった！　次に各レベルでの、フラグ解禁を頭から全てチェック　そのランクまでの間の解禁を全て発生させる。一気にLVが上がっても、ちゃんと全部解禁できる。
-                
-                i = 0;
-                while (i < GameMgr.StarRank_ReleaseList.Length)
-                {
-                    //
-                    if (i == PlayerStatus.player_patissier_Rank - 1) //
-                    {
-                        //全て解禁リストチェックしたので、ブレイクし終了
-                        starrank_kaikin_ON = false;
-                        break;
-                    }
+                //get_star = PlayerStatus.player_ninki_param - GameMgr.Before_Player_ninkiparam;
 
-                    if (!GameMgr.StarRank_ReleaseList[i])
-                    {
-                        //スターランク＋新エリアチェック中の状態
-                        GameMgr.compound_select = 1100;
-                        GameMgr.compound_status = 1100;
+                //スターランク＋新エリアチェック中の状態
+                GameMgr.compound_select = 1100;
+                GameMgr.compound_status = 1100;
 
-                        GameMgr.StarRank_ReleaseList[i] = true;
-                        newarea_num = i;
+                //現在のスターランクをチェックする。スターランクは現在未使用。
+                PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param); //パティシエランクのチェックとセット　現在の状態に更新　念のため
 
-                        //解禁パネルを発生する
-                        starrank_kaikin_ON = true;
-                        NewAreaCheck_loading = true; //解禁パネル表示中のフラグ
-
-                        //宴を読むイベントがあるなら、ここで入れれば多分OK
-
-                        //パネルを実際に表示し、ボタン押すまで表示
-                        StartCoroutine("Newarea_Check_Method");
-                        break;
-                    }
-                    
-                    i++;
-                }
+                //もし、獲得したスターがあれば、このタイミングでスタンプラリーを開き、アニメーション
+                //フラグの解放なども、スターパネルのほうでチェックしている。
+                starStampPanel.SetActive(true);
+                //starrank_kaikin_ON = true;
+                NewAreaCheck_loading = true; //スタースタンプパネル表示中のフラグ                
             }
             else
             {
-                starrank_kaikin_ON = false;
+                GameMgr.NewAreaRelease_flag = true;
             }
+           
 
-            if(!starrank_kaikin_ON)
+            /*if (!starrank_kaikin_ON) //アニメの移動などすべてが終わったら、ここを通って終了
             {
                 //falseのままなら、チェック終了
-                GameMgr.Before_Patissier_Rank = PlayerStatus.player_patissier_Rank;
+                //GameMgr.Before_Patissier_Rank = PlayerStatus.player_patissier_Rank;
+                GameMgr.Before_Player_ninkiparam = PlayerStatus.player_ninki_param;
                 GameMgr.NewAreaRelease_flag = true;               
 
                 //終わったら再開
                 //girl1_status.GirlEat_Judge_on = true;
 
                 Debug.Log("新エリア解禁フラグ　全てチェック完了");
-            }
+            }*/
         }
     }
-
-    IEnumerator Newarea_Check_Method()
+    
+    //StarStampPanelから読み出し
+    public void EndStarReleaseCheck()
     {
-        Touch_ALLOFF();
-        compoundselect_onoff_obj.SetActive(false);
-        Extremepanel_obj.SetActive(false);
-        text_area.SetActive(false);
-        text_area_Main.SetActive(false);
-
-        //腹減りカウント一時停止
-        girl1_status.GirlEatJudgecounter_OFF();
-        GameMgr.newarea_read_endflag = true;
-
-        /* 新エリア　フラグ解禁処理 */
-        newAreaRelease_Panel.SetActive(true);
-        NewAreaKaikin_Library(newarea_num); //フラグの解禁項目をチェックし、その後パネルの表示用オブジェクトに更新する。
-        Debug.Log("新エリア解禁: 解禁LV" + newarea_num + 1 + " を読んだ");
-
-
-        while (!GameMgr.newarea_read_endflag)
-        {
-            yield return null;
-        }
-
-        GameMgr.newarea_read_endflag = false;
         NewAreaCheck_loading = false;
-
+        GameMgr.check_GirlLoveSubEvent_flag = false;
         GameMgr.compound_status = 0; //ここまでで、チェックの処理が全て完了したので、status=0にする。
     }
-
-    void NewAreaKaikin_Library(int _num)
-    {
-        switch(_num + 1)
-        {
-            case 1: //最初の解禁
-
-                //アクアマリンの湖
-                _id = matplace_database.SearchMapString("Aquamarine_Lake");
-                newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜春エリア＞";
-                newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num+1]);
-                matplace_database.matPlaceKaikin("Aquamarine_Lake");
-                break;
-
-            case 2: //2番目の解禁
-
-                //エメラルドの大森林
-                _id = matplace_database.SearchMapString("Emerald_Forest");
-                newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜夏エリア＞";
-                newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num + 1]);
-                matplace_database.matPlaceKaikin("Emerald_Forest");
-                break;
-
-            case 3: //3番目の解禁
-
-                //琥珀の湖
-                _id = matplace_database.SearchMapString("Amber_Lake");
-                newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜秋エリア＞";
-                newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num + 1]);
-                matplace_database.matPlaceKaikin("Amber_Lake");
-                break;
-
-            case 4: //4番目の解禁
-
-                //ムーンストーンの丘
-                _id = matplace_database.SearchMapString("MoonStone_Hill");
-                newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜冬エリア＞";
-                newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num + 1]);
-                matplace_database.matPlaceKaikin("MoonStone_Hill");
-
-                //ダイヤモンド山
-                _id = matplace_database.SearchMapString("Diamond_Mountain");
-                newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "　が　解放されました！　＜冬エリア＞";
-                newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_GohoubiPanel(newarea_gohoubitext, newarea_gohoubiicon);
-                newAreaRelease_Panel.GetComponent<NewAreaReleasePanel>().Set_PatissierRank(PlayerStatus.player_patissier_Rank_hyoukiList[_num + 1]);
-                matplace_database.matPlaceKaikin("Diamond_Mountain");
-                break;
-        }
-    }
-
 
     IEnumerator Girl_present_Final_select()
     {
@@ -3771,13 +3684,13 @@ public class Compound_Main : MonoBehaviour
 
     public void ReadGirlLoveEvent_Fire() //EventDataBaseやGetMatPlace_Panelから読み出し
     {
-        Debug.Log("ReadGirlLoveEvent_Fire");
+        Debug.Log("ReadGirlLoveEvent発生");
         StartCoroutine("ReadGirlLoveEvent");
     }
 
     public void ReadGirlLoveTimeEvent_Fire() //EventDataBaseから読み出し 時間イベントからの読み出し
     {
-        Debug.Log("ReadGirlLoveTimeEvent_Fire");
+        Debug.Log("ReadGirlLoveTimeEvent発生");
         GameMgr.compound_status = 0; //採取地選択画面など開いてる場合、被る可能性があるので、一度画面をリセット
         MainCompoundMethod(); //ただし、こっちを通す場合は、Muteが解除されるバグがあったので、使用に気を付ける。        
         StartCoroutine("ReadGirlLoveEvent");
@@ -3799,6 +3712,7 @@ public class Compound_Main : MonoBehaviour
         //腹減りカウント一時停止
         girl1_status.GirlEatJudgecounter_OFF();
         girl1_status.Girl1_Status_Init();
+        girlEat_judge.ListLVUPClear();
 
         GameMgr.compound_select = 1000; //シナリオイベント読み中の状態
         GameMgr.compound_status = 1000;

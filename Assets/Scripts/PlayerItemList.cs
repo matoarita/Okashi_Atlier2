@@ -553,6 +553,24 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
     }
 
+    //エメラルドアイテム名前をいれると、そのアイテムの(配列番号)を返すメソッド
+    public int SearchEmeraldItemStringID(string _itemName)
+    {
+
+        i = 0;
+        while (i <= emeralditemlist.Count)
+        {
+            if (emeralditemlist[i].event_itemName == _itemName)
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return 9999; //見つからなかった場合、9999
+
+    }
+
     //エメラルドアイテムを追加
     public void add_EmeraldPlayerItem(int ev_id, int count_kosu)
     {
