@@ -229,17 +229,32 @@ public class TasteHintPanel : MonoBehaviour {
 
         Okashi_hint_title.text = "◆ 前回コンテストのおかし ◆";
 
-        Okashi_contesthint_text.text = GameMgr.contest_lasthint_text;
+        if (!GameMgr.contest_last_Disqualification)
+        {
+            Okashi_contesthint_text.text = GameMgr.contest_lasthint_text;
+
+            Okashi_lastshokukan_param_text.text = GameMgr.contest_shokukan_param.ToString();
+            Okashi_lastshokukan_mes_text.text = GameMgr.contest_shokukan_mes;
+
+            Okashi_lastsweat_param_text.text = GameMgr.contest_sweat_param.ToString();
+            Okashi_lastsour_param_text.text = GameMgr.contest_sour_param.ToString();
+            Okashi_lastbitter_param_text.text = GameMgr.contest_bitter_param.ToString();
+        }
+        else
+        {
+            Okashi_contesthint_text.text = "課題のおかしに達していなかったため、失格・・。";
+
+            Okashi_lastshokukan_param_text.text = "0";
+            Okashi_lastshokukan_mes_text.text = "-";
+
+            Okashi_lastsweat_param_text.text = "0";
+            Okashi_lastsour_param_text.text = "0";
+            Okashi_lastbitter_param_text.text = "0";
+        }
 
         Okashi_lastname_text.text = GameMgr.ColorGold + GameMgr.contest_okashiSlotName + "</color>" + GameMgr.contest_okashiNameHyouji;
         Okashi_lastscore_text.text = GameMgr.contest_TotalScore.ToString();
-
-        Okashi_lastshokukan_param_text.text = GameMgr.contest_shokukan_param.ToString();
-        Okashi_lastshokukan_mes_text.text = GameMgr.contest_shokukan_mes;
-
-        Okashi_lastsweat_param_text.text = GameMgr.contest_sweat_param.ToString();
-        Okashi_lastsour_param_text.text = GameMgr.contest_sour_param.ToString();
-        Okashi_lastbitter_param_text.text = GameMgr.contest_bitter_param.ToString();
+       
 
         Okashi_Img = database.items[database.SearchItemID(GameMgr.contest_okashiID)].itemIcon_sprite;
         Okashi_Icon.sprite = Okashi_Img;

@@ -2661,6 +2661,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _basejuice += _basesmooth / 2;
         }
+        if (_base_itemType_subB == "a_ChocolateTwister" || _base_itemType_subB == "a_ChocolateCrown") //ツイスターとクラウンは、食感が半減。見た目と芸術性で勝負する。
+        {
+            _basecrispy = _basecrispy / 2;
+            _basefluffy = _basefluffy / 2;
+            _basesmooth = _basesmooth / 2;
+            _basehardness = _basehardness / 2;
+        }
         if (_basename == "figure_bear_choco" || _basename == "figure_bear_whitechoco") //トッピング用くまさんは、なめらかを落とす
         {
             _basesmooth = _basesmooth / 8;

@@ -299,6 +299,7 @@ public class PlayerData
     public string save_contest_okashiSlotName;
     public int save_contest_okashiID;
     public string save_contest_lasthint_text; //
+    public bool save_contest_last_Disqualification;
     public int save_contest_shokukan_param; //
     public string save_contest_shokukan_mes; //
     public int save_contest_sweat_param; //

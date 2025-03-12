@@ -27,6 +27,8 @@ public class StarStampPanel : MonoBehaviour
     private string newarea_titletext;
     private Sprite newarea_gohoubiicon;
 
+    private Text star_hyoujiparam;
+
     private int _before_ninki;
     private bool ButtonON;
     private bool InitCheck;
@@ -95,6 +97,9 @@ public class StarStampPanel : MonoBehaviour
                 }
             }
         }
+
+        //åªç›ÇÃÅöêîÇï\é¶
+        star_hyoujiparam.text = _chara_temp_star.ToString();
     }
 
     void InitSetting()
@@ -130,6 +135,9 @@ public class StarStampPanel : MonoBehaviour
         newAreaRelease_Panel = canvas.transform.Find("NewAreaReleasePanel").gameObject;
         newAreaRelease_Panel.SetActive(false);
 
+        star_hyoujiparam = this.transform.Find("StarParamPanel/StarParamText").GetComponent<Text>();
+        
+
         dot_pos.Clear();
         foreach(Transform child in this.transform.Find("Stamprally/pos/SugorokuBoard").transform)
         {
@@ -161,6 +169,8 @@ public class StarStampPanel : MonoBehaviour
         Debug.Log("åªç›ÇÃêlãC: " + PlayerStatus.player_ninki_param);
         character_obj.transform.localPosition = dot_pos[_before_ninki];
         _chara_temp_star = _before_ninki;
+
+        star_hyoujiparam.text = _chara_temp_star.ToString();
 
         InitCheck = true;       
     }

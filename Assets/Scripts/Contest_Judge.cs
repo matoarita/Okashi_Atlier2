@@ -251,6 +251,7 @@ public class Contest_Judge : MonoBehaviour {
         judge_flag = false;
         GameMgr.contest_Disqualification = false;
         GameMgr.contest_Disqualification2 = false;
+        GameMgr.contest_last_Disqualification = false;
         //judge_Type = 0; //基本審査員3人で対応。judge_Typeは、どのコンテストかを指定する。
 
         if (GameMgr.Contest_JudgeType == 0) //1のときは、女の子の好み判定を使用する　自由課題など)
@@ -321,6 +322,7 @@ public class Contest_Judge : MonoBehaviour {
 
             GameMgr.contest_TotalScore = 0;
             GameMgr.contest_Disqualification = true;
+            GameMgr.contest_last_Disqualification = true;
             _windowtext.text = "課題のお菓子ではないので、失格！";
             Debug.Log("課題のお菓子ではないので、失格！");
         }
@@ -432,6 +434,7 @@ public class Contest_Judge : MonoBehaviour {
         }
         else
         {
+            //現在はこっちは使用せず。判定のほうで減点するようにしている。
             sum = 0;
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
@@ -447,7 +450,7 @@ public class Contest_Judge : MonoBehaviour {
             }
 
             _windowtext.text = "特殊点に届かなかった..。不合格！";
-            GameMgr.contest_Disqualification2 = true;
+            GameMgr.contest_Disqualification2 = true; 
         }
 
         //先に算出しておいて、あとで、審査員一人一人のコメント＋点数を演出して出す。宴へ戻る。

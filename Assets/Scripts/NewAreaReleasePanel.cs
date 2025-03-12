@@ -101,6 +101,8 @@ public class NewAreaReleasePanel : MonoBehaviour {
     //ボインとはじくようなアニメ
     void Result_animOn()
     {
+        sc.PlaySe(4);
+        sc.PlaySe(27);
         AnimPoyon();      
 
     }

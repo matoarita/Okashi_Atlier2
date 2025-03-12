@@ -39,7 +39,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool DEBUG_StarPanelCheck = true; //デバッグ　trueだと、ninkiparam_beforeが更新されないので、ゲームロード時にスターパネルが0から始まる 本編では必ずfalseにする
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
-    public static bool System_REALTIMEMODE_ON = false; //リアルタイムに時間を進める。    
+    public static bool System_REALTIMEMODE_ON = true; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
     public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
 
@@ -424,6 +424,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string contest_okashiSlotName;
     public static int contest_okashiID;
     public static string contest_lasthint_text; //
+    public static bool contest_last_Disqualification; //課題のおかしでないため失格した場合　保存用
     public static int contest_shokukan_param; //
     public static string contest_shokukan_mes; //
     public static int contest_sweat_param; //
@@ -2336,6 +2337,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Star_Eventlist.Add(15, 3);
         Star_Eventlist.Add(18, 4);
         Star_Eventlist.Add(20, 5);
+        Star_Eventlist.Add(22, 6);
+        Star_Eventlist.Add(27, 7);
+        Star_Eventlist.Add(30, 8);
+        Star_Eventlist.Add(32, 9);
     }
 
     //150点以上のとき、特別な思い出イベントが発生するおかしテーブル GirlEat_Judgeに機能があり

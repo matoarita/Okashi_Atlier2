@@ -90,6 +90,10 @@ public class Compound_Main : MonoBehaviour
     private GameObject contest_kakuninButton_obj;
     private GameObject contest_CheckPanel_obj;
 
+    private GameObject starPanel_kakuninButton_obj;
+    private GameObject starPanel_obj;
+
+
     private GameObject gameQuestPanel;
     private GameObject yachinPanel;
 
@@ -597,6 +601,19 @@ public class Compound_Main : MonoBehaviour
         contest_kakuninButton_obj = canvas.transform.Find("MainUIPanel/ContestKakuninButtonPanel").gameObject;
         contest_CheckPanel_obj = canvas.transform.Find("ContestKakuninHyoujiPanel").gameObject;
         contest_CheckPanel_obj.SetActive(false);
+
+        starPanel_kakuninButton_obj = canvas.transform.Find("MainUIPanel/StarPanelKakuninButtonPanel").gameObject;
+        starPanel_obj = canvas.transform.Find("StarStampPanel").gameObject;
+        starPanel_obj.SetActive(false);
+
+        if(PlayerStatus.player_ninki_param > 0) //スターをとるまではパネルをオフ
+        {
+            starPanel_kakuninButton_obj.transform.Find("StarKakuninButton").gameObject.SetActive(true);
+        }
+        else
+        {
+            starPanel_kakuninButton_obj.transform.Find("StarKakuninButton").gameObject.SetActive(false);
+        }
 
         //メインクエ表示パネルの取得
         gameQuestPanel = canvas.transform.Find("MainUIPanel/Comp/GameQuestPanel").gameObject;
@@ -2123,6 +2140,11 @@ public class Compound_Main : MonoBehaviour
                 girlEat_judge.ListLVUPClear();
                 break;
 
+            case 150: //スターパネル開いてる最中
+
+                girlEat_judge.ListLVUPClear();
+                break;
+
             case 200: //システム画面を開いたとき
 
                 GameMgr.compound_status = 201;
@@ -2218,6 +2240,7 @@ public class Compound_Main : MonoBehaviour
         //Stagepanel_obj.SetActive(false);
         quest_kakuninButton_obj.SetActive(false);
         contest_kakuninButton_obj.SetActive(false);
+        starPanel_kakuninButton_obj.SetActive(false);
         gameQuestPanel.SetActive(false);
         yachinPanel.SetActive(false);
 
@@ -2243,6 +2266,7 @@ public class Compound_Main : MonoBehaviour
         moneystatus_panel.SetActive(true);
         quest_kakuninButton_obj.SetActive(true);
         contest_kakuninButton_obj.SetActive(true);
+        starPanel_kakuninButton_obj.SetActive(true);
         gameQuestPanel.SetActive(true);
         yachinPanel.SetActive(true);
 
@@ -2888,6 +2912,15 @@ public class Compound_Main : MonoBehaviour
         GameMgr.compound_status = 140;
 
         contest_CheckPanel_obj.SetActive(true);
+
+        StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
+    }
+
+    public void OnStarPanelOpen_button() //スターパネルを開いた　ボタンで押した場合
+    {
+        GameMgr.compound_status = 150;
+
+        starPanel_obj.SetActive(true);
 
         StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。
     }
@@ -4355,6 +4388,7 @@ public class Compound_Main : MonoBehaviour
         hinttaste_toggle.GetComponent<Toggle>().interactable = false;
         quest_kakuninButton_obj.transform.Find("QuestKakuninButton").GetComponent<Button>().interactable = false;
         contest_kakuninButton_obj.transform.Find("ContestKakuninButton").GetComponent<Button>().interactable = false;
+        starPanel_kakuninButton_obj.transform.Find("StarKakuninButton").GetComponent<Button>().interactable = false;
         mainlist_scrollview_obj.SetActive(false);
     }
 
@@ -4374,6 +4408,7 @@ public class Compound_Main : MonoBehaviour
         extreme_Button.interactable = true;
         quest_kakuninButton_obj.transform.Find("QuestKakuninButton").GetComponent<Button>().interactable = true;
         contest_kakuninButton_obj.transform.Find("ContestKakuninButton").GetComponent<Button>().interactable = true;
+        starPanel_kakuninButton_obj.transform.Find("StarKakuninButton").GetComponent<Button>().interactable = true;
         OuthomePanelONOFF();
     }
 

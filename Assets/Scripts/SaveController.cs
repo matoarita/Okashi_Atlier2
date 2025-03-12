@@ -523,6 +523,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_contest_okashiSlotName = GameMgr.contest_okashiSlotName,
             save_contest_okashiID = GameMgr.contest_okashiID,
             save_contest_lasthint_text = GameMgr.contest_lasthint_text,
+            save_contest_last_Disqualification = GameMgr.contest_last_Disqualification,
             save_contest_shokukan_param = GameMgr.contest_shokukan_param,
             save_contest_shokukan_mes = GameMgr.contest_shokukan_mes,
             save_contest_sweat_param = GameMgr.contest_sweat_param,
@@ -975,6 +976,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.contest_okashiSlotName = playerData.save_contest_okashiSlotName;
         GameMgr.contest_okashiID = playerData.save_contest_okashiID;
         GameMgr.contest_lasthint_text = playerData.save_contest_lasthint_text;
+        GameMgr.contest_last_Disqualification = playerData.save_contest_last_Disqualification;
         GameMgr.contest_shokukan_param = playerData.save_contest_shokukan_param;
         GameMgr.contest_shokukan_mes = playerData.save_contest_shokukan_mes;
         GameMgr.contest_sweat_param = playerData.save_contest_sweat_param;

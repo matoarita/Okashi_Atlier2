@@ -1019,17 +1019,17 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //調合判定。エクストリーム調合の確率も含め計算する。
 
         //チュートリアルモードのときは100%成功
-        /*if (GameMgr.tutorial_ON == true)
+        if (GameMgr.tutorial_ON == true)
         {
             GameMgr.Result_compound_success = true;
         }
         else
         {
             CompoundSuccess_judge();
-        }*/
+        }
 
-        //エクストリーム調合は必ず成功　トッピングなので。
-        GameMgr.Result_compound_success = true;
+        //エクストリーム調合は必ず成功　トッピングなので。Failedをひく可能性あるので、ここはなしになった。
+        //GameMgr.Result_compound_success = true;
 
 
         if (GameMgr.Result_compound_success == true)

@@ -1652,7 +1652,7 @@ public class Compound_Check : MonoBehaviour {
                 exp_Controller._success_rate = _success_rate;
                 kakuritsuPanel.KakuritsuYosoku_Img(_success_rate);
             }
-            else if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12)
+            else if (GameMgr.Comp_kettei_bunki == 11 || GameMgr.Comp_kettei_bunki == 12) //トッピング調合
             {
                 //
                 exp_Controller._success_judge_flag = 1; //判定処理を行う。
@@ -1710,7 +1710,8 @@ public class Compound_Check : MonoBehaviour {
                 }
                 else
                 {
-                    //トッピングは100％成功なので、exp_Controller._success_judge_flag や exp_Controller._success_rateの設定は不要　exp_Controllerで直接指定してる
+                    //トッピングは100％成功
+                    exp_Controller._success_judge_flag = 0; //必ず成功
                     _success_rate = 100f;
                     kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //ふつうにトッピングするときは、100%成功
                     Debug.Log("最終成功率(ヒカリの場合、ヒカリ成功率）: " + "トッピング 100%成功");
