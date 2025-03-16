@@ -33,42 +33,52 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Debug.unityLogger.logEnabled = true; // ←falseでログを止める
     }
 
+    //** 本編では必ずfalseにする項目 **//
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
     public static bool DEBUG_TasteSPScore_ON = false; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
-    public static bool DEBUG_StarPanelCheck = true; //デバッグ　trueだと、ninkiparam_beforeが更新されないので、ゲームロード時にスターパネルが0から始まる 本編では必ずfalseにする
+    public static bool DEBUG_StarPanelCheck = false; //デバッグ　trueだと、ninkiparam_beforeが更新されないので、ゲームロード時にスターパネルが0から始まる 本編では必ずfalseにする
+    public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
+    public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
+    //** **//
+
+    //ゲーム基本システムの使用有無
     public static bool RESULTPANEL_ON = true; //ED後、リザルトを表示するか否か。 
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = true; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
     public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
 
-    //各システムの使用の有無
+    //各システムの使用の有無   
+    public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
+    public static bool System_Shiokuri_ON = true; //仕送りの有無
+    public static bool System_Yachin_ON = true; //家賃システムの有無
+
+    public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
+    public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
+    public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
+
+    public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
+    public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
+    public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
+    public static bool System_BarNinkiHyouji_ON = false; //酒場で人気パネルを表示する
+    public static bool System_QuestStarGet_ON = false; //酒場の依頼で、スターも上がる仕様にする。
+
+    public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
+    public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
+    public static bool System_ContestStarGet_ON = true; //コンテストで、スターが上がる仕様にする。
+    public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
+    public static bool System_ContestEdenFinalStart_ON = true; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
+    public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　CompoundMain→GirlEat_Judgeで発生　trueなら、採点パネル表示前 falseなら後
+
+    //多分使わない
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
     public static bool System_ExtraResult_ON = false; //エクストラ　道中クエストのリザルト画面とご褒美画面をONにする。
     public static bool System_ExtraStageClearResult_ON = false; //エクストラ　ステージクリア時にリザルト画面とご褒美画面をONにする。
-    public static bool System_GameOver_ON = false; //エクストラ　ゲームオーバーのONOFF
-    public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
-    public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
-    public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
-    public static bool System_Shiokuri_ON = true; //仕送りの有無
-    public static bool System_Yachin_ON = true; //家賃システムの有無
-    public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
-    public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
-    public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
-    public static bool System_QuestStarGet_ON = false; //酒場の依頼で、スターも上がる仕様にする。
-    public static bool System_ContestStarGet_ON = true; //コンテストで、スターが上がる仕様にする。
-    public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
-    public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
-    public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
-    public static bool System_BarNinkiHyouji_ON = false; //酒場でスターパネルを表示する
-    public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
-    public static bool System_ContestEdenFinalStart_ON = true; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
-    public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　trueなら、採点パネル表示前 falseなら後
-    
-    public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
-    public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
+    public static bool System_GameOver_ON = false; //ゲームオーバーのONOFF
 
+    
+    //ゲーム共通のパラメータデータ
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
     //食感の計算方法の切り替え 0=_basescoreと比率をかける計算 1=単純に、判定値から引き算のみ
@@ -1766,7 +1776,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, "Non", 0, "Non", 0, "Non", 0);
+                        0, 0, 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0);
         contest_okashiID = 0;
         contest_lasthint_text = ""; //
         contest_shokukan_param = 0; //

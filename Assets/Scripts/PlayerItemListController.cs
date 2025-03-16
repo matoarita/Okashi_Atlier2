@@ -40,6 +40,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private Sprite texture2d;
     private Image _Img;
 
+    private GameObject _MagicIcon;
+
     private string item_name;
     private int item_kosu;
 
@@ -769,6 +771,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
         _Img = _listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _MagicIcon = _listitem[list_count].transform.Find("Background/MagicIcon").gameObject;
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
@@ -790,6 +793,15 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         texture2d = database.items[i].itemIcon_sprite;
         _Img.sprite = texture2d;
 
+        if(database.items[i].Attribute2 > 0) //ウィンドアークをかけた回数でアイコン表示
+        {
+            _MagicIcon.SetActive(true);
+        }
+        else
+        {
+            _MagicIcon.SetActive(false);
+        }
+
         ++list_count;
     }
 
@@ -800,6 +812,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
         _Img = _listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _MagicIcon = _listitem[list_count].transform.Find("Background/MagicIcon").gameObject;
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
@@ -827,6 +840,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         texture2d = pitemlist.player_originalitemlist[i].itemIcon_sprite;
         _Img.sprite = texture2d;
 
+        //ウィンドアークをかけた回数でアイコン表示
+        if (pitemlist.player_originalitemlist[i].Attribute2 > 0) 
+        {
+            _MagicIcon.SetActive(true);
+        }
+        else
+        {
+            _MagicIcon.SetActive(false);
+        }
+
         ++list_count;
     }
 
@@ -837,6 +860,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         _listitem.Add(Instantiate(textPrefab, content.transform)); //Instantiateで、プレファブのオブジェクトのインスタンスを生成。名前を_listitem配列に順番にいれる。2つ目は、contentの子の位置に作る？という意味かも。
         _text = _listitem[list_count].GetComponentsInChildren<Text>(); //GetComponentInChildren<Text>()で、さっき_listitem[i]に入れたインスタンスの中の、テキストコンポーネントを、_textにアタッチ。_text.textで、内容を変更可能。
         _Img = _listitem[list_count].transform.Find("Background/Image").GetComponent<Image>(); //アイテムの画像データ
+        _MagicIcon = _listitem[list_count].transform.Find("Background/MagicIcon").gameObject;
 
         _toggle_itemID = _listitem[list_count].GetComponent<itemSelectToggle>();
 
@@ -863,6 +887,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         //画像を変更
         texture2d = pitemlist.player_extremepanel_itemlist[i].itemIcon_sprite;
         _Img.sprite = texture2d;
+
+        //ウィンドアークをかけた回数でアイコン表示
+        if (pitemlist.player_extremepanel_itemlist[i].Attribute2 > 0) 
+        {
+            _MagicIcon.SetActive(true);
+        }
+        else
+        {
+            _MagicIcon.SetActive(false);
+        }
 
         ++list_count;
     }

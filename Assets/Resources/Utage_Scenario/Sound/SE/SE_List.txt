@@ -209,3 +209,5 @@ SE表
 ・SE_207	Hand-Foley-Clap04-2(High)			ハイタッチの音
 ・SE_208	お皿落とす					お皿落として割れる音
 ・SE_209	audiostock_42215				足音ぷに音　SE_56の単音を抜き出し
+・SE_210	audiostock_96913_sample				スターイベント発生時のためる音
+・SE_211	audiostock_108915_sample			スターイベントパネル登場時の余韻のきらきら音

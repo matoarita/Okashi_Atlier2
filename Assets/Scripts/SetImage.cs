@@ -168,6 +168,10 @@ public class SetImage : MonoBehaviour
     private GameObject secret_panel;
     private GameObject hlvbonus_panel;
 
+    private GameObject magicview_content;
+    private GameObject magicPrefab;
+    private List<GameObject> _magicicon_listitem = new List<GameObject>();
+
     private int i, j, count;
 
     private int _quality_score;
@@ -198,6 +202,10 @@ public class SetImage : MonoBehaviour
     private int _sp_score8;
     private int _sp_score9;
     private int _sp_score10;
+
+    private int _attri1;
+    private int _attri2;
+    private int _attri3;
 
     private int _powdery_score;
     private int _oily_score;
@@ -381,6 +389,11 @@ public class SetImage : MonoBehaviour
             _slotHyouji1[i] = "";
             _slotHyouji2[i] = "";
         }
+
+        magicPrefab = (GameObject)Resources.Load("Prefabs/card_magiciconObj");
+        magicview_content = this.transform.Find("Item_card_template/MagicIconView/Viewport/Content").gameObject;
+        
+        
 
         //各要素の取得
         item_Icon = this.transform.Find("Item_card_template/ItemIcon").gameObject.GetComponent<Image>(); //画像アイコン
@@ -640,6 +653,10 @@ public class SetImage : MonoBehaviour
                 _sp_score9 = database.items[check_counter].SP_Score9;
                 _sp_score10 = database.items[check_counter].SP_Score10;
 
+                _attri1 = database.items[check_counter].Attribute1;
+                _attri2 = database.items[check_counter].Attribute2;
+                _attri3 = database.items[check_counter].Attribute3;
+
                 //前回の味読み込み
                 //_lastquality_score = database.items[check_counter].Quality;
                 _lastrich_score = database.items[check_counter].last_rich_score;
@@ -737,6 +754,10 @@ public class SetImage : MonoBehaviour
                 _sp_score8 = pitemlist.player_originalitemlist[check_counter].SP_Score8;
                 _sp_score9 = pitemlist.player_originalitemlist[check_counter].SP_Score9;
                 _sp_score10 = pitemlist.player_originalitemlist[check_counter].SP_Score10;
+
+                _attri1 = pitemlist.player_originalitemlist[check_counter].Attribute1;
+                _attri2 = pitemlist.player_originalitemlist[check_counter].Attribute2;
+                _attri3 = pitemlist.player_originalitemlist[check_counter].Attribute3;
 
                 _powdery_score = pitemlist.player_originalitemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_originalitemlist[check_counter].Oily;
@@ -839,6 +860,10 @@ public class SetImage : MonoBehaviour
                 _sp_score9 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score9;
                 _sp_score10 = pitemlist.player_extremepanel_itemlist[check_counter].SP_Score10;
 
+                _attri1 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute1;
+                _attri2 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute2;
+                _attri3 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute3;
+
                 _powdery_score = pitemlist.player_extremepanel_itemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_extremepanel_itemlist[check_counter].Oily;
                 _watery_score = pitemlist.player_extremepanel_itemlist[check_counter].Watery;
@@ -938,6 +963,10 @@ public class SetImage : MonoBehaviour
                 _sp_score8 = pitemlist.player_check_itemlist[check_counter].SP_Score8;
                 _sp_score9 = pitemlist.player_check_itemlist[check_counter].SP_Score9;
                 _sp_score10 = pitemlist.player_check_itemlist[check_counter].SP_Score10;
+
+                _attri1 = pitemlist.player_check_itemlist[check_counter].Attribute1;
+                _attri2 = pitemlist.player_check_itemlist[check_counter].Attribute2;
+                _attri3 = pitemlist.player_check_itemlist[check_counter].Attribute3;
 
                 _powdery_score = pitemlist.player_check_itemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_check_itemlist[check_counter].Oily;
@@ -1051,6 +1080,10 @@ public class SetImage : MonoBehaviour
         _sp_score9 = pitemlist.player_yosokuitemlist[check_counter].SP_Score9;
         _sp_score10 = pitemlist.player_yosokuitemlist[check_counter].SP_Score10;
 
+        _attri1 = pitemlist.player_yosokuitemlist[check_counter].Attribute1;
+        _attri2 = pitemlist.player_yosokuitemlist[check_counter].Attribute2;
+        _attri3 = pitemlist.player_yosokuitemlist[check_counter].Attribute3;
+
         _powdery_score = pitemlist.player_yosokuitemlist[check_counter].Powdery;
         _oily_score = pitemlist.player_yosokuitemlist[check_counter].Oily;
         _watery_score = pitemlist.player_yosokuitemlist[check_counter].Watery;
@@ -1158,6 +1191,10 @@ public class SetImage : MonoBehaviour
         _sp_score9 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score9;
         _sp_score10 = GameMgr.contestclear_collection_list[check_counter].ItemData.SP_Score10;
 
+        _attri1 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute1;
+        _attri2 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute2;
+        _attri3 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute3;
+
         _powdery_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Powdery;
         _oily_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Oily;
         _watery_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Watery;
@@ -1209,6 +1246,9 @@ public class SetImage : MonoBehaviour
 
         //魔法がかかってるおかしは、エフェクトパネルもON/OFF
         DrawMagicEffect();
+
+        //ウィンドアークなどかけてたら、魔法アイコンを表示
+        DrawMagicIconView();        
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
         if (_secretFlag == 1) //シークレットは少しカードの柄が変わる。
@@ -1685,6 +1725,26 @@ public class SetImage : MonoBehaviour
 
         //魔法のエフェクト表示部分
         itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_magicslot, 0); //2番目の数字は、アクセスする場所を指定　0=カードから
+    }
+
+    void DrawMagicIconView()
+    {
+        Debug.Log("魔法アイコン　カード表示check");
+        Debug.Log("_attri2* " + _attri2);
+
+        foreach (Transform child in magicview_content.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        _magicicon_listitem.Clear();
+
+        if (_attri2 > 0)
+        {
+            for (i = 0; i < _attri2; i++)
+            {
+                _magicicon_listitem.Add(Instantiate(magicPrefab, magicview_content.transform));
+            }
+        }
     }
 
     //調合完了後、カードのボタンを押すと呼び出される。

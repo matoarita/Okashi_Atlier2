@@ -90,6 +90,10 @@ public class Entity_ItemDataBase : ScriptableObject
 		public int MS2_pointup;
 		public string MS3_mariage;
 		public int MS3_pointup;
+		public string MS4_mariage;
+		public int MS4_pointup;
+		public string MS5_mariage;
+		public int MS5_pointup;
 	}
 }
 

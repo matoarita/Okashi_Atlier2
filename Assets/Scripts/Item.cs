@@ -86,6 +86,10 @@ public class Item
     public int MS2_pointup;
     public string MS3_mariage;
     public int MS3_pointup;
+    public string MS4_mariage;
+    public int MS4_pointup;
+    public string MS5_mariage;
+    public int MS5_pointup;
 
     //以下パラメータはExcel上には記載なし
     public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
@@ -236,7 +240,8 @@ public class Item
         string MS01, string MS02, string MS03, string MS04, string MS05, string MS06, string MS07, string MS08, string MS09, string MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
         int _attri1, int _attri2, int _attri3,
-        string _ms1_mariage, int _ms1_pointup, string _ms2_mariage, int _ms2_pointup, string _ms3_mariage, int _ms3_pointup)
+        string _ms1_mariage, int _ms1_pointup, string _ms2_mariage, int _ms2_pointup, string _ms3_mariage, int _ms3_pointup,
+        string _ms4_mariage, int _ms4_pointup, string _ms5_mariage, int _ms5_pointup)
     {
         itemID = id;
         OriginalitemID = OriginalID;
@@ -386,9 +391,13 @@ public class Item
         MS1_mariage = _ms1_mariage;
         MS2_mariage = _ms2_mariage;
         MS3_mariage = _ms3_mariage;
+        MS4_mariage = _ms4_mariage;
+        MS5_mariage = _ms5_mariage;
         MS1_pointup = _ms1_pointup;
         MS2_pointup = _ms2_pointup;
         MS3_pointup = _ms3_pointup;
+        MS4_pointup = _ms4_pointup;
+        MS5_pointup = _ms5_pointup;
     }
 
 }

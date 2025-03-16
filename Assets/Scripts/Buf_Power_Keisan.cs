@@ -1698,41 +1698,6 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         return _buf_shokukanup;
     }
 
-    //魔法によって状態が変わる
-    public void Buf_OkashiAttribute_Magic(string _magicname, int _id, int _toggleType)
-    {
-        _magic_attri = 0;
-
-        switch (_magicname)
-        {
-            case "Cookie_SecondBake":
-
-                _magic_attri = 1; //二度焼きしたというフラグ
-                if(_toggleType == 1)
-                {
-                    pitemlist.player_originalitemlist[_id].Attribute1 = _magic_attri;
-                }
-                else if (_toggleType == 2)
-                {
-                    pitemlist.player_extremepanel_itemlist[_id].Attribute1 = _magic_attri;
-                }
-                
-                break;
-
-            case "Wind_Ark":
-
-                _magic_attri = 1; //ウィンドアークかけた回数
-                if (_toggleType == 1)
-                {
-                    pitemlist.player_originalitemlist[_id].Attribute2 += _magic_attri;
-                }
-                else if (_toggleType == 2)
-                {
-                    pitemlist.player_extremepanel_itemlist[_id].Attribute2 += _magic_attri;
-                }              
-                break;
-        }
-    }
 
     //
     //配合比率の距離に補正をかける。

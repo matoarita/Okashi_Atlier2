@@ -9,6 +9,9 @@ public class ItemCardEffectPanel : MonoBehaviour
     private int i, j;
     private ParticleSystemRenderer m_ParticleSystem;
 
+    private string pt_root;
+    private string img_root;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,9 +82,10 @@ public class ItemCardEffectPanel : MonoBehaviour
         this.transform.Find(_pname).gameObject.SetActive(true);
         //m_ParticleSystem = this.transform.Find(_pname).GetChild(0).GetComponent<ParticleSystemRenderer>();
 
+        pt_root = _pname + "/pt_root";
         if (_status == 1) //お菓子パネルで表示する場合　描画順変える
         {           
-            foreach(Transform child in this.transform.Find(_pname).transform)
+            foreach(Transform child in this.transform.Find(pt_root).transform)
             {
                 m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
                 m_ParticleSystem.sortingOrder = 500;
@@ -89,7 +93,7 @@ public class ItemCardEffectPanel : MonoBehaviour
         }
         else if (_status == 2) //お菓子あげるときに表示する場合　描画順変える
         {
-            foreach (Transform child in this.transform.Find(_pname).transform)
+            foreach (Transform child in this.transform.Find(pt_root).transform)
             {
                 m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
                 m_ParticleSystem.sortingOrder = 660;
@@ -97,11 +101,35 @@ public class ItemCardEffectPanel : MonoBehaviour
         }
         else //デフォ　元のオーダー使う　5010とかになってる
         {
-            foreach (Transform child in this.transform.Find(_pname).transform)
+            foreach (Transform child in this.transform.Find(pt_root).transform)
             {
                 m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
                 m_ParticleSystem.sortingOrder = 5010;
             }           
+        }
+
+        //画像データある場合、画像も描画順を変える
+        img_root = _pname + "/Img_root";
+        if (_status == 1) //お菓子パネルで表示する場合　描画順変える
+        {
+            foreach (Transform child in this.transform.Find(img_root).transform)
+            {
+                child.GetComponent<Canvas>().sortingOrder = 510;
+            }
+        }
+        else if (_status == 2) //お菓子あげるときに表示する場合　描画順変える
+        {
+            foreach (Transform child in this.transform.Find(img_root).transform)
+            {
+                child.GetComponent<Canvas>().sortingOrder = 670;
+            }
+        }
+        else //デフォ　元のオーダー使う　5010とかになってる
+        {
+            foreach (Transform child in this.transform.Find(img_root).transform)
+            {
+                child.GetComponent<Canvas>().sortingOrder = 5020;
+            }
         }
     }
 }

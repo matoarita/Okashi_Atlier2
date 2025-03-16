@@ -38,6 +38,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
     public string _addMS;
     public int _addMSvalue;
+    public int _addMagic;
 
     // Start is called before the first frame update
     void Start()
@@ -56,57 +57,68 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
     {
         _addMS = "Non";
         _addMSvalue = 0;
+        _addMagic = 0;
 
         switch (_magicname)
         {
             case "Fire_Flowers":
                 _addMS = GameMgr.System_MagicSlotName01;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
             case "Buttelfy_illumination":
                 _addMS = GameMgr.System_MagicSlotName02;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
             case "Bubble_Mist":
                 _addMS = GameMgr.System_MagicSlotName03;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
             case "Star_Blessing":
                 _addMS = GameMgr.System_MagicSlotName04;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
-            /*case "Wind_Ark":
-                _addMS = GameMgr.System_MagicSlotName05;
-                _addMSvalue = _value;
-                break;*/
+            case "Wind_Ark": //今は演出魔法でなく、バフをかけるのみ
+                _addMS = "Non"; //GameMgr.System_MagicSlotName05
+                _addMSvalue = 0;
+                _addMagic = 1;
+                break;
 
             case "Mnemonic":
                 _addMS = GameMgr.System_MagicSlotName06;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
             case "Glitter":
                 _addMS = GameMgr.System_MagicSlotName07;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
             case "Spring_Pharmacy":
                 _addMS = GameMgr.System_MagicSlotName08;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
             case "Saint_Fleur":
                 _addMS = GameMgr.System_MagicSlotName09;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
             case "Santiman":
                 _addMS = GameMgr.System_MagicSlotName10;
                 _addMSvalue = _value;
+                _addMagic = 1;
                 break;
 
             default:
@@ -155,9 +167,13 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         _MS_mariage.Add(database.items[check_counter].MS1_mariage);
         _MS_mariage.Add(database.items[check_counter].MS2_mariage);
         _MS_mariage.Add(database.items[check_counter].MS3_mariage);
+        _MS_mariage.Add(database.items[check_counter].MS4_mariage);
+        _MS_mariage.Add(database.items[check_counter].MS5_mariage);
         _MS_pointup.Add(database.items[check_counter].MS1_pointup);
         _MS_pointup.Add(database.items[check_counter].MS2_pointup);
         _MS_pointup.Add(database.items[check_counter].MS3_pointup);
+        _MS_pointup.Add(database.items[check_counter].MS4_pointup);
+        _MS_pointup.Add(database.items[check_counter].MS5_pointup);
 
         for (i = 0; i < _magicslot.Length; i++)
         {

@@ -147,6 +147,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     public int _baseattri1;
     public int _baseattri2;
     public int _baseattri3;
+    public int _basemagic;
 
     private string _addname;
     private int _addhp;
@@ -190,6 +191,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _addkosu;
     private string _addMS;
     private int _addMSvalue;
+    private int _addmagic;
 
     //_baseに加算する前に、一時的に計算する用。
     private int _temphp;
@@ -225,6 +227,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int _tempcost;
     private int _tempsell;
     private string[] _temptp;
+    private int _tempmagic;
 
     private string _before_itemtype_Sub;
 
@@ -985,6 +988,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _baseattri1 = pitemlist.player_originalitemlist[_id].Attribute1;
                     _baseattri2 = pitemlist.player_originalitemlist[_id].Attribute2;
                     _baseattri3 = pitemlist.player_originalitemlist[_id].Attribute3;
+                    _basemagic = pitemlist.player_originalitemlist[_id].Magic;
 
                     _base_extreme_kaisu--;
 
@@ -1055,6 +1059,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _baseattri1 = pitemlist.player_extremepanel_itemlist[_id].Attribute1;
                     _baseattri2 = pitemlist.player_extremepanel_itemlist[_id].Attribute2;
                     _baseattri3 = pitemlist.player_extremepanel_itemlist[_id].Attribute3;
+                    _basemagic = pitemlist.player_extremepanel_itemlist[_id].Magic;
 
                     _base_extreme_kaisu--;
 
@@ -1131,7 +1136,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
             _basegirl1_like, _basecost, _basesell,
             _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-            result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
+            result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori, _basemagic,
             _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
             _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
             _baseattri1, _baseattri2, _baseattri3);
@@ -1245,6 +1250,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _baseattri1 = database.items[_id].Attribute1;
         _baseattri2 = database.items[_id].Attribute2;
         _baseattri3 = database.items[_id].Attribute3;
+        _basemagic = database.items[_id].Magic;
     }
 
     void Setup_Param02()
@@ -1296,6 +1302,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _baseattri1 = database.items[_id].Attribute1;
         _baseattri2 = database.items[_id].Attribute2;
         _baseattri3 = database.items[_id].Attribute3;
+        _basemagic = database.items[_id].Magic;
     }
 
     void Setup_Param03()
@@ -1347,6 +1354,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _baseattri1 = database.items_gamedefault[_id].Attribute1;
         _baseattri2 = database.items_gamedefault[_id].Attribute2;
         _baseattri3 = database.items_gamedefault[_id].Attribute3;
+        _basemagic = database.items_gamedefault[_id].Magic;
     }
 
     //HikariMakeStartPanelから読み出し
@@ -1426,6 +1434,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _baseattri1 = pitemlist.player_yosokuitemlist[_id].Attribute1;
         _baseattri2 = pitemlist.player_yosokuitemlist[_id].Attribute2;
         _baseattri3 = pitemlist.player_yosokuitemlist[_id].Attribute3;
+        _basemagic = pitemlist.player_yosokuitemlist[_id].Magic;
 
         for (i = 0; i < database.items[_id].toppingtype.Length; i++)
         {
@@ -1460,10 +1469,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
         _basegirl1_like, _basecost, _basesell,
         _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-        result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
+        result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori, _basemagic,
         _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
         _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
         _baseattri1, _baseattri2, _baseattri3);
+
+        Debug.Log("_baseattri2: " + _baseattri2);
 
         if (_base_itemType == "Mat" || _base_itemType == "Potion")
         {
@@ -1538,7 +1549,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
                 _basegirl1_like, _basecost, _basesell,
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
+                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori, _basemagic,
                 _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
                 _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
                 _baseattri1, _baseattri2, _baseattri3);
@@ -1559,16 +1570,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 itemfullname = itemslotname + pitemlist.player_originalitemlist[new_item].itemNameHyouji;
                 pitemlist.player_originalitemlist[new_item].item_FullName = itemfullname;
 
-                if (hikari_make_flag) //ヒカリお菓子作る場合は、現状魔法は使用できないため以下の処理は無視
-                {
-                }
-                else
-                {
-                    if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
-                    {
-                        bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill, new_item, 1);
-                    }
-                }
                 break;
 
             case 1: //お菓子パネルにセットする場合。通常はこっちが多い。                    
@@ -1626,7 +1627,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
                 _basegirl1_like, _basecost, _basesell,
                 _basetp[0], _basetp[1], _basetp[2], _basetp[3], _basetp[4], _basetp[5], _basetp[6], _basetp[7], _basetp[8], _basetp[9],
-                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori,
+                result_kosu, _base_extreme_kaisu, _base_item_hyouji, totalkyori, _basemagic,
                 _baseMS[0], _baseMS[1], _baseMS[2], _baseMS[3], _baseMS[4], _baseMS[5], _baseMS[6], _baseMS[7], _baseMS[8], _baseMS[9],
                 _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
                 _baseattri1, _baseattri2, _baseattri3);
@@ -1646,17 +1647,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 pitemlist.player_extremepanel_itemlist[new_item].item_SlotName = itemslotname;
                 itemfullname = itemslotname + pitemlist.player_extremepanel_itemlist[new_item].itemNameHyouji;
                 pitemlist.player_extremepanel_itemlist[new_item].item_FullName = itemfullname;
-
-                if (hikari_make_flag) //ヒカリお菓子作る場合は、現状魔法は使用できないため以下の処理は無視
-                {
-                }
-                else
-                {
-                    if (Comp_method_bunki == 20 || Comp_method_bunki == 22) //魔法を使って仕上げた場合、特定の魔法でお菓子の状態が変わる。それのチェックと更新。
-                    {
-                        bufpower_keisan.Buf_OkashiAttribute_Magic(GameMgr.UseMagicSkill, new_item, 2);
-                    }
-                }
 
                 break;
 
@@ -1924,6 +1914,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _tempgirl1_like = 0;
         _tempcost = 0;
         _tempsell = 0;
+        _tempmagic = 0;
 
         for (i = 0; i < database.items[0].toppingtype.Length; i++)
         {
@@ -2286,6 +2277,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basesp_score8 += _tempsp_score8;
             _basesp_score9 += _tempsp_score9;
             _basesp_score10 += _tempsp_score10;
+            _basemagic = _tempmagic;
 
             //デバッグ用
             if (mstatus == 99)
@@ -2790,12 +2782,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         _addMSvalue = 0;
         _addMS = "Non";
+        _addmagic = 0;
 
         //魔法に応じて、入れるスロット名を先にセットしておく。各SPスコアや見た目の値はgirleat_judgeで計算
         itemCardEffect_database.AddMagicSlot_Keisan(GameMgr.UseMagicSkill, GameMgr.UseMagicSkillLv);
         _addMS = itemCardEffect_database._addMS;
         _addMSvalue = itemCardEffect_database._addMSvalue;
-
+        _addmagic = itemCardEffect_database._addMagic;
 
         if (!GameMgr.System_MagicSlot_MultipleON)
         {
@@ -2812,6 +2805,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _baseMS[0] = _addMS;
                     _baseMSvalue[0] = _addMSvalue;
                 }
+
+                _basemagic = _addmagic; //演出魔法かけると魔法属性のおかしになる。
             }
         }
         else
@@ -2845,43 +2840,27 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                     j++;
                 }
+
+                _basemagic = _addmagic; //演出魔法かけると魔法属性のおかしになる。
             }
         }
 
-        //最後にSPスコアや見た目の計算　現在は、おかしを食べた時についてたスロットで評価するようにしてるのでここではOFF
-        /*for(i=0; i< _baseMS.Length; i++)
+        if (mstatus == 2) //ヒカリお菓子作る場合は、現状魔法は使用できないため以下の処理は無視
         {
-            if (_baseMS[i] == GameMgr.System_MagicSlotName01) //FireFlower
+        }
+        else
+        {
+            //魔法によって状態が変わる　WindArkの回数加算など
+            if (GameMgr.UseMagicSkill == "Cookie_SecondBake")
             {
-                _basesp_score8 = _basesp_score8 + (_baseMSvalue[i] * 3); //芸術性
-                _basebeauty += _baseMSvalue[i];
+                _baseattri1 = 1;
             }
-            if (_baseMS[i] == GameMgr.System_MagicSlotName02) //Butterfly
+            if (GameMgr.UseMagicSkill == "Wind_Ark")
             {
-                _basesp_score6 = _basesp_score6 + (_baseMSvalue[i] * 3); //子供っぽい
-                _basesp_score7 = _basesp_score7 + (_baseMSvalue[i] * 3); //メルヘン
-                _basesp_score8 = _basesp_score8 + (_baseMSvalue[i] * 3); //芸術性
-                _basesp_score9 = _basesp_score9 + (_baseMSvalue[i] * 3); //光らしさ
-                _basebeauty += _baseMSvalue[i];
+                _baseattri2++;
             }
-            if (_baseMS[i] == GameMgr.System_MagicSlotName03) //BubbleMist
-            {
-                _basesp_score2 = _basesp_score2 + (_baseMSvalue[i] * 3); //海らしさ
-                _basebeauty += _baseMSvalue[i];
-            }
-            if (_baseMS[i] == GameMgr.System_MagicSlotName04) //StarBlessing
-            {
-                _basesp_score6 = _basesp_score6 + (_baseMSvalue[i] * 3); //子供っぽい
-                _basesp_score7 = _basesp_score7 + (_baseMSvalue[i] * 3); //メルヘン
-                _basebeauty += _baseMSvalue[i];
-            }
-            if (_baseMS[i] == GameMgr.System_MagicSlotName05) //WindArc
-            {
-                _basesp_wind = _basesp_wind + (_baseMSvalue[i] * 3);
-                _basebeauty += _baseMSvalue[i];
-            }
-        }*/
-        
+        }
+
     }
 
 
@@ -2925,7 +2904,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addcost = database.items[_id].cost_price;
         _addsell = database.items[_id].sell_price;
         _add_itemType = database.items[_id].itemType.ToString();
-        _add_itemType_sub = database.items[_id].itemType_sub.ToString();        
+        _add_itemType_sub = database.items[_id].itemType_sub.ToString();
+        _addmagic = database.items[_id].Magic;
 
         //店売りアイテムを合成に使う場合。通常トッピング＋固有トッピングどちらも計算
 
@@ -2968,11 +2948,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9], 
-        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
+        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, _addmagic, 
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0));
     }
 
     void Set_add_originparam()
@@ -3014,6 +2994,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addsell = pitemlist.player_originalitemlist[_id].sell_price;
         _add_itemType = pitemlist.player_originalitemlist[_id].itemType.ToString();
         _add_itemType_sub = pitemlist.player_originalitemlist[_id].itemType_sub.ToString();
+        _addmagic = pitemlist.player_originalitemlist[_id].Magic;
 
 
         //オリジナルアイテムを合成に使う場合も、固有トッピングを計算する。
@@ -3058,11 +3039,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
-        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
+        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, _addmagic, 
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0));
     }
 
     void Set_add_extremeparam()
@@ -3104,6 +3085,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _addsell = pitemlist.player_extremepanel_itemlist[_id].sell_price;
         _add_itemType = pitemlist.player_extremepanel_itemlist[_id].itemType.ToString();
         _add_itemType_sub = pitemlist.player_extremepanel_itemlist[_id].itemType_sub.ToString();
+        _addmagic = pitemlist.player_extremepanel_itemlist[_id].Magic;
 
 
         //オリジナルアイテムを合成に使う場合も、固有トッピングを計算する。
@@ -3148,11 +3130,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _add_itemType, _add_itemType_sub, "", "",
         _addbase_score, _addgirl1_like, _addcost, _addsell,
         _addtp[0], _addtp[1], _addtp[2], _addtp[3], _addtp[4], _addtp[5], _addtp[6], _addtp[7], _addtp[8], _addtp[9],
-        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 
+        _addkoyutp[0], _addkoyutp[1], _addkoyutp[2], _addkoyutp[3], _addkoyutp[4], _addkosu, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, _addmagic, 
         0, 0,
         "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0,
-        "Non", 0, "Non", 0, "Non", 0));
+        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0));
     }
 
 
@@ -3206,7 +3188,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _tempwatery += _additemlist[i].Watery * _additemlist[i].ItemKosu;
         
         _temptea_flavor += _additemlist[i].Tea_Flavor * _additemlist[i].ItemKosu;
-        
+
+        if (_additemlist[i].Magic != 0) //ひとつでも魔法属性がついてたら、そっちに上書きされる。
+        {
+            _tempmagic = _additemlist[i].Magic;
+        }
+
+
 
         if (mstatus != 99) //DB初期化のときのみ、見た目は加算しないようにする。二重に計算されるため。
         {

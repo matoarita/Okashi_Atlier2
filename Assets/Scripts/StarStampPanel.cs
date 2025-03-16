@@ -27,6 +27,9 @@ public class StarStampPanel : MonoBehaviour
     private string newarea_titletext;
     private Sprite newarea_gohoubiicon;
 
+    private Sprite itemIcon_sprite1;
+    private Sprite itemIcon_sprite2;
+
     private Text star_hyoujiparam;
 
     private int _before_ninki;
@@ -34,6 +37,10 @@ public class StarStampPanel : MonoBehaviour
     private bool InitCheck;
     private bool starrank_Release_ON;
     private bool starevent_endcheck;
+
+    private GameObject sugoroku_board;
+    private GameObject dotevent_obj;
+    private GameObject effect_obj;
 
     private int newarea_num;
     private int newarea_star;
@@ -119,6 +126,9 @@ public class StarStampPanel : MonoBehaviour
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
+        itemIcon_sprite1 = Resources.Load<Sprite>("Sprites/Icon/" + "treasure_extra1");
+        itemIcon_sprite2 = Resources.Load<Sprite>("Sprites/Icon/" + "Book01");
+
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
 
@@ -136,7 +146,11 @@ public class StarStampPanel : MonoBehaviour
         newAreaRelease_Panel.SetActive(false);
 
         star_hyoujiparam = this.transform.Find("StarParamPanel/StarParamText").GetComponent<Text>();
-        
+
+        sugoroku_board = this.transform.Find("Stamprally/pos/SugorokuBoard").gameObject;
+
+        effect_obj = this.transform.Find("Effect").gameObject;
+        effect_obj.SetActive(false);
 
         dot_pos.Clear();
         foreach(Transform child in this.transform.Find("Stamprally/pos/SugorokuBoard").transform)
@@ -163,6 +177,12 @@ public class StarStampPanel : MonoBehaviour
         else
         {
             _before_ninki = GameMgr.Before_Player_ninkiparam;
+        }
+
+        //おたからの状態　初期
+        foreach (var keyValuePair in GameMgr.Star_Eventlist)
+        {
+            NewAreaKaikin_Library(keyValuePair.Value, keyValuePair.Key, 0);
         }
 
         Debug.Log("_before_ninki: " + _before_ninki);
@@ -305,19 +325,26 @@ public class StarStampPanel : MonoBehaviour
     void OnNewAreaReleasePanel()
     {
         //パネルを実際に表示し、ボタン押すまで表示
-        StartCoroutine("GetPanel_Hyouji");
+        StartCoroutine("GetPanel_StartEffect");
     }
 
     //①まず、シュイイイインでための演出
     IEnumerator GetPanel_StartEffect()
     {
         //ピタ
-        yield return new WaitForSeconds(1.0f); //1秒待つ
+        yield return new WaitForSeconds(0.5f); //1秒待つ
 
         //シュイイイイン
+
+        //ちょっと画面暗く
+        //音を鳴らす
+        sc.PlaySe(209);
+        effect_obj.SetActive(true);
         yield return new WaitForSeconds(3.0f); //1秒待つ
 
         //パネルを実際に表示し、ボタン押すまで表示
+        sc.StopSe();
+        effect_obj.SetActive(false);
         StartCoroutine("GetPanel_Hyouji");
     }
 
@@ -329,7 +356,7 @@ public class StarStampPanel : MonoBehaviour
         /* スターフラグ解禁処理 */
         GameMgr.newarea_read_endflag = false;
         newAreaRelease_Panel.SetActive(true); //ボタンおすまではパネルが表示される
-        NewAreaKaikin_Library(newarea_num, newarea_star); //フラグの解禁項目をチェックし、その後パネルの表示用オブジェクトに更新する。
+        NewAreaKaikin_Library(newarea_num, newarea_star, 1); //フラグの解禁項目をチェックし、その後パネルの表示用オブジェクトに更新する。
         Debug.Log("新エリア解禁: " + "☆" + newarea_star + " 解禁フラグ" + newarea_num + " を読んだ");
 
         while (!GameMgr.newarea_read_endflag) //trueになるまではここで待つ　NewAreaReleasePanelのボタン,またはそのイベント終了後でtrueになる
@@ -342,6 +369,12 @@ public class StarStampPanel : MonoBehaviour
         //アイテム獲得画面を閉じた
         //まだ移動が必要かどうかに処理を戻す。
         starrank_Release_ON = false;
+
+        //おたからの状態　画面更新
+        foreach (var keyValuePair in GameMgr.Star_Eventlist)
+        {
+            NewAreaKaikin_Library(keyValuePair.Value, keyValuePair.Key, 0);
+        }
     }
    
 
@@ -356,67 +389,339 @@ public class StarStampPanel : MonoBehaviour
         }
     }
 
-    void NewAreaKaikin_Library(int _num, int _star)
+
+
+    void NewAreaKaikin_Library(int _num, int _star, int _mstatus)
     {
         switch (_num)
         {
             case 0: //おたから
 
-                //アクアマリンの湖
-                _id = matplace_database.SearchMapString("Aquamarine_Lake");
-                newarea_titletext = "おたから";
-                newarea_gohoubitext = "３つの中から好きなアイテムを選んでね。";
-                newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
-                newAreaRelease_panelKoushin(_star);
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。
+                {
+                    if(GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev1", 1);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev1", 0);
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    //アクアマリンの湖
+                    //_id = matplace_database.SearchMapString("Aquamarine_Lake");
+                    newarea_titletext = "おたから";
+                    newarea_gohoubitext = "３つの中から好きなアイテムを選んでね。";
+                    newarea_gohoubiicon = itemIcon_sprite1;
+                    newAreaRelease_panelKoushin(_star);
+                }
 
                 break;
 
             case 1: //思い出イベント
 
-                //ショートケーキの思い出　仮
-                _id = matplace_database.SearchMapString("Emerald_Forest");
-                newarea_titletext = "思い出イベント";
-                newarea_gohoubitext = "ショートケーキの思い出！" + "\n" + "解放！";
-                newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
-                newAreaRelease_panelKoushin(_star);
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev2", 2);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev2", 0);
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    //ショートケーキの思い出　仮
+                    _id = pitemlist.Find_eventitemdatabase("strawberry_sponge_cake_recipi");
+                    newarea_titletext = "レシピ";
+                    newarea_gohoubitext = "ショートケーキのレシピ！" + "\n" + "ゲット！";
+                    newarea_gohoubiicon = pitemlist.eventitemlist[_id].itemIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
 
-                SubEventSet(); //イベント系発生の場合、もう一度サブイベントチェック
-                GameMgr.SetHikariOmoideFlag("strawberry_sponge_cake", true);
+                    pitemlist.add_eventPlayerItem(_id, 1);
+                }
                 break;
 
             case 2: //コスチュームゲット
 
-                
-                _id = pitemlist.SearchEmeraldItemStringID("PinkGoth_Costume");
-                newarea_titletext = "コスチューム";
-                newarea_gohoubitext = "コスチューム１をゲット！！";
-                newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
-                newAreaRelease_panelKoushin(_star);
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev3", 3);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev3", 0); //コスチュームはアイコン見た目変わらない
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    _id = pitemlist.SearchEmeraldItemStringID("PinkGoth_Costume");
+                    newarea_titletext = "コスチューム";
+                    newarea_gohoubitext = "コスチューム１をゲット！！";
+                    newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
 
-                //matplace_database.matPlaceKaikin("Amber_Lake");
+                    pitemlist.add_EmeraldPlayerItem(_id, 1);
+                    //matplace_database.matPlaceKaikin("Amber_Lake");
+                }
                 break;
 
-            case 3: //
+            case 3: //コスチュームゲット
 
-                _id = pitemlist.SearchEmeraldItemStringID("RedDress_Costume");
-                newarea_titletext = "コスチューム";
-                newarea_gohoubitext = "コスチューム２をゲット！！";
-                newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
-                newAreaRelease_panelKoushin(_star);
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev4", 3);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev4", 0); //コスチュームはアイコン見た目変わらない
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    _id = pitemlist.SearchEmeraldItemStringID("RedDress_Costume");
+                    newarea_titletext = "コスチューム";
+                    newarea_gohoubitext = "コスチューム２をゲット！！";
+                    newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
+
+                    pitemlist.add_EmeraldPlayerItem(_id, 1);
+                }
+                break;
+
+            case 4: //思い出イベント
+
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev5", 0);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev5", 0); //アイコン見た目変わらない
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    //ショートケーキの思い出　仮
+                    _id = matplace_database.SearchMapString("Emerald_Forest");
+                    newarea_titletext = "休憩イベント";
+                    newarea_gohoubitext = "街へ買い出しに行こう！" + "\n" + "解放！";
+                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
+
+                    //GameMgr.SetHikariOmoideFlag("strawberry_sponge_cake", true);
+                }
+                break;
+
+            case 5: //思い出イベント いっしょにおふろ♪
+
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev6", 0);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev6", 0); //アイコン見た目変わらない
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    //ショートケーキの思い出　仮
+                    _id = matplace_database.SearchMapString("Emerald_Forest");
+                    newarea_titletext = "思い出イベント";
+                    newarea_gohoubitext = "いっしょにおふろ♪" + "\n" + "解放！";
+                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
+
+                    //GameMgr.SetHikariOmoideFlag("strawberry_sponge_cake", true);
+                }
+                break;
+
+            case 6: //
+
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev7", 3);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev7", 0); //コスチュームはアイコン見た目変わらない
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    _id = pitemlist.SearchEmeraldItemStringID("RedDress_Costume");
+                    newarea_titletext = "コスチューム";
+                    newarea_gohoubitext = "コスチューム３をゲット！！";
+                    newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
+
+                    pitemlist.add_EmeraldPlayerItem(_id, 1);
+                }
+                break;
+
+            case 7: //おたから
+
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev8", 1);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev8", 0);
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    //
+                    _id = pitemlist.Find_eventitemdatabase("cheese_cake_recipi");
+                    newarea_titletext = "レシピ";
+                    newarea_gohoubitext = "チーズケーキ＜上級＞のレシピをゲット！";
+                    newarea_gohoubiicon = itemIcon_sprite2;
+                    newAreaRelease_panelKoushin(_star);
+
+                    pitemlist.add_eventPlayerItem(_id, 1);
+                }
+
+                break;
+
+            case 8: //思い出イベント 
+
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev9", 2);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev9", 0);
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    //マリトッツォの思い出
+                    _id = pitemlist.Find_eventitemdatabase("maritozzo_recipi");
+                    newarea_titletext = "レシピ";
+                    newarea_gohoubitext = "マリトッツォのレシピ！" + "\n" + "ゲット！";
+                    newarea_gohoubiicon = pitemlist.eventitemlist[_id].itemIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
+
+                    pitemlist.add_eventPlayerItem(_id, 1);
+                }
+                break;
+
+            case 9: //思い出イベント いっしょにおふろ♪
+
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev10", 0);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev10", 0); //アイコン見た目変わらない
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    //ショートケーキの思い出　仮
+                    _id = matplace_database.SearchMapString("Emerald_Forest");
+                    newarea_titletext = "思い出イベント";
+                    newarea_gohoubitext = "スウィートホテル♪" + "\n" + "解放！";
+                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
+
+                    //GameMgr.SetHikariOmoideFlag("strawberry_sponge_cake", true);
+                }
+                break;
+
+            case 10: //おたから
+
+                if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。
+                {
+                    if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
+                    {
+                        TreasureStatus("ev11", 1);
+                    }
+                    else
+                    {
+                        TreasureStatus("ev11", 0);
+                    }
+                }
+                else if (_mstatus == 1)
+                {
+                    //アクアマリンの湖
+                    _id = matplace_database.SearchMapString("Aquamarine_Lake");
+                    newarea_titletext = "おたから";
+                    newarea_gohoubitext = "３つの中から好きなアイテムを選んでね。";
+                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
+                }
+
                 break;
 
             default:
 
-                newarea_titletext = "-";
-                newarea_gohoubitext = "";
-                newAreaRelease_panelKoushin(_star);
+                if (_mstatus == 1)
+                {
+                    newarea_titletext = "-";
+                    newarea_gohoubitext = "";
+                    newAreaRelease_panelKoushin(_star);
+                }
                 break;
         }
     }
 
-    void SubEventSet()
+    void TreasureStatus(string _objname, int _status)
     {
-        //GameMgr.check_GirlLoveSubEvent_flag = false;
+        dotevent_obj = sugoroku_board.transform.Find(_objname).gameObject;
+
+        if (_status == 0)
+        {
+            dotevent_obj.transform.Find("dotEvent/IconRoot").gameObject.SetActive(true);
+            dotevent_obj.transform.Find("dotEvent/ImgIcon_empty").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/ImgIcon_plateempty").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/IconRoot2").gameObject.SetActive(false);
+        }
+        else if (_status == 1)
+        {
+            dotevent_obj.transform.Find("dotEvent/IconRoot").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/ImgIcon_empty").gameObject.SetActive(true);
+            dotevent_obj.transform.Find("dotEvent/ImgIcon_plateempty").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/IconRoot2").gameObject.SetActive(false);
+        }
+        else if (_status == 2)
+        {
+            dotevent_obj.transform.Find("dotEvent/IconRoot").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/ImgIcon_empty").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/ImgIcon_plateempty").gameObject.SetActive(true);
+            dotevent_obj.transform.Find("dotEvent/IconRoot2").gameObject.SetActive(false);
+        }
+        else if (_status == 3) //アニメ系の空アイコン
+        {
+            dotevent_obj.transform.Find("dotEvent/IconRoot").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/ImgIcon_empty").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/ImgIcon_plateempty").gameObject.SetActive(false);
+            dotevent_obj.transform.Find("dotEvent/IconRoot2").gameObject.SetActive(true);
+        }
     }
 
     void newAreaRelease_panelKoushin(int _star)

@@ -1424,7 +1424,7 @@ public class Contest_Judge : MonoBehaviour {
                 else if (_status == 1) //審査員の判定に補正
                 {
                     //特定のおかし補正
-                    Contest_KoyuOkashiHosei_1();
+                    //Contest_KoyuOkashiHosei_1();
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -1441,9 +1441,9 @@ public class Contest_Judge : MonoBehaviour {
 
                 break;
 
-            case "Or_Contest_450":　//ピエスモンテ 彫刻おかし限定
+            case "Or_Contest_450":　//ピエスモンテ 彫刻おかし限定 芸術点が高ければ高得点　低かったときかなり減点＋食感あまり点数評価されない
 
-                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                /*if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
                     if (item_subTypeB == "a_IceCreamTwister" || item_subTypeB == "a_IceCandyTwister" || item_subTypeB == "a_ChocolateTwister"
                         || item_subTypeB == "a_CookieCake"
@@ -1457,11 +1457,21 @@ public class Contest_Judge : MonoBehaviour {
                     {
                         judge_flag = false;
                     }
-                }
+                }*/
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
-                   
+                    //じいさんの見た目判定を0に。
+                    //Contest_KyotuHosei_1();
+
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score8[i] = 20; //芸術性の値が最低20は必要 足りない場合、-数値*5倍 + -30 最大の減点が-130点
+                    }
+                    GameMgr.contest_SPJudgeCommentNum = 8; //コンテストコメント番号
+
+                    Debug.Log("判定値追加： 芸術性 " + 20);
+                    Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
                 {

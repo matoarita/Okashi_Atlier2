@@ -18,6 +18,7 @@ public class NewAreaReleasePanel : MonoBehaviour {
 
     private GameObject close_button_obj;
     private GameObject panel_obj;
+    private GameObject effect_obj;
 
     private List<GameObject> _listitem = new List<GameObject>(); //リストビューの個数　テキスト表示用のプレファブのインスタンスを格納する。
 
@@ -42,6 +43,9 @@ public class NewAreaReleasePanel : MonoBehaviour {
 
         close_button_obj = this.transform.Find("CloseButton").gameObject;
         close_button_obj.SetActive(false);
+
+        effect_obj = this.transform.Find("Effect").gameObject;
+        effect_obj.SetActive(false);
 
         ButtonON = false;
 
@@ -70,9 +74,9 @@ public class NewAreaReleasePanel : MonoBehaviour {
     public void Set_GohoubiPanel(string _gohoubitext, string _titletext, int _starparam, Sprite _icon)
     {
         _listitem.Add(Instantiate(contentPrefab, content.transform));
-        panel_text = _listitem[_listitem.Count - 1].transform.Find("Text").GetComponent<Text>();
-        panel_imgIcon = _listitem[_listitem.Count - 1].transform.Find("ImageIcon").GetComponent<Image>();
-        panel_titletext = _listitem[_listitem.Count - 1].transform.Find("TitleText").GetComponent<Text>();
+        panel_text = _listitem[_listitem.Count - 1].transform.Find("ImageTextBG/Text").GetComponent<Text>();
+        panel_imgIcon = _listitem[_listitem.Count - 1].transform.Find("ImageIconBG/ImageIcon").GetComponent<Image>();
+        panel_titletext = _listitem[_listitem.Count - 1].transform.Find("ImageTextBG/TitleText").GetComponent<Text>();
 
         panel_text.text = _gohoubitext;
         panel_titletext.text = "★" + _starparam.ToString() + " " + _titletext;
@@ -103,8 +107,10 @@ public class NewAreaReleasePanel : MonoBehaviour {
     {
         sc.PlaySe(4);
         sc.PlaySe(27);
-        AnimPoyon();      
+        sc.PlaySe(210);
+        effect_obj.SetActive(true); //爆発ぱーてぃくる
 
+        AnimPoyon();
     }
 
     void AnimPoyon()

@@ -2656,14 +2656,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _b = "";
         }
 
-        if (_mp > 0)
+        /*if (_mp > 0)
         {
             _c = "\n" + "MPが " + GameMgr.ColorYellow + _mp + "</color>" + " 上がった！";
         }
         else
         {
             _c = "";
-        }
+        }*/
 
         _text.text = _a + _b + _c;
     }

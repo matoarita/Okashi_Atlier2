@@ -123,6 +123,10 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(70); p.MS2_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(71); p.MS3_mariage = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(72); p.MS3_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(73); p.MS4_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(74); p.MS4_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(75); p.MS5_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(76); p.MS5_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

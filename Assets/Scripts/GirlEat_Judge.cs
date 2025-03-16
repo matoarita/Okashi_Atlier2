@@ -217,6 +217,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private string _baseitemtype_sub;
     private string _baseitemtype_subB;
 
+    private string _base_item_SlotName;
+
     //private string _basename;
     //private int _basemp;
     //private int _baseday;
@@ -354,6 +356,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int tpcheck_utagebunki;
     private int spscore_deg;
     private int spscore_deg_base;
+    private int slotname_length;
+    private int spscore8_score_slotname;
 
     public int total_score;
 
@@ -976,6 +980,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basejuice = database.items[kettei_item1].Juice;
                 _basegirl1_manpuku = database.items[kettei_item1].Manpuku;
                 _basemagic = database.items[kettei_item1].Magic;
+                _base_item_SlotName = database.items[kettei_item1].item_SlotName;
 
                 for (i = 0; i < database.items[kettei_item1].toppingtype.Length; i++)
                 {
@@ -1038,6 +1043,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basejuice = pitemlist.player_originalitemlist[kettei_item1].Juice;
                 _basegirl1_manpuku = pitemlist.player_originalitemlist[kettei_item1].Manpuku;
                 _basemagic = pitemlist.player_originalitemlist[kettei_item1].Magic;
+                _base_item_SlotName = pitemlist.player_originalitemlist[kettei_item1].item_SlotName;
 
                 for (i = 0; i < pitemlist.player_originalitemlist[kettei_item1].toppingtype.Length; i++)
                 {
@@ -1100,6 +1106,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 _basejuice = pitemlist.player_extremepanel_itemlist[kettei_item1].Juice;
                 _basegirl1_manpuku = pitemlist.player_extremepanel_itemlist[kettei_item1].Manpuku;
                 _basemagic = pitemlist.player_extremepanel_itemlist[kettei_item1].Magic;
+                _base_item_SlotName = pitemlist.player_extremepanel_itemlist[kettei_item1].item_SlotName;
 
                 for (i = 0; i < pitemlist.player_extremepanel_itemlist[kettei_item1].toppingtype.Length; i++)
                 {
@@ -1704,6 +1711,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("トッピングスコア: " + topping_score);
 
 
+        //トッピングスロットの名前の長さをみて、芸術性を判定
+        slotname_length = _base_item_SlotName.Length;
+        _base_sp_score8 += slotname_length*2;
+
         //さらに、演出スロットをみて、かかってる魔法スロットごとに特殊点を加算　_baseMSvalue[i]は、使用時のLVが入っている
         _basemagicslot_on = 0;
         _basemagicslot_Name = "";
@@ -2085,7 +2096,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore1_score = SpScore_HoseiA(spscore1_score);
             }
            
-            if (spscore1_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore1_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;  //Onにすると、足りなかったときに強制的にコンテスト失格になる。
                 spscore1_score = spscore1_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2114,7 +2125,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore2_score = SpScore_HoseiA(spscore2_score);
             }
 
-            if (spscore2_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore2_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore2_score = spscore2_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2143,7 +2154,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore3_score = SpScore_HoseiA(spscore3_score);
             }
  
-            if (spscore3_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore3_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore3_score = spscore3_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2172,7 +2183,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore4_score = SpScore_HoseiA(spscore4_score);
             }
             
-            if (spscore4_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore4_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore4_score = spscore4_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2201,7 +2212,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore5_score = SpScore_HoseiA(spscore5_score);
             }
             
-            if (spscore5_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore5_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore5_score = spscore5_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2230,7 +2241,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore6_score = SpScore_HoseiA(spscore6_score);
             }
 
-            if (spscore6_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore6_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore6_score = spscore6_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2259,7 +2270,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore7_score = SpScore_HoseiA(spscore7_score);
             }
 
-            if (spscore7_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore7_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore7_score = spscore7_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2288,7 +2299,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore8_score = SpScore_HoseiA(spscore8_score);
             }
  
-            if (spscore8_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore8_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore8_score = spscore8_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2317,7 +2328,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore9_score = SpScore_HoseiA(spscore9_score);
             }
 
-            if (spscore9_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore9_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore9_score = spscore9_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2346,7 +2357,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 spscore10_score = SpScore_HoseiA(spscore10_score);
             }
 
-            if (spscore10_score < 0) //合格点に達してない場合は、クリアできない
+            if (spscore10_score < 0) //合格点に達してない場合は、減点
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore10_score = spscore10_score * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
@@ -2922,9 +2933,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     //好感度取得+アニメーションをON
                     Getlove_exp = -10;
 
-                    //アイテムの削除
-                    delete_Item();
+                    //味見のときは通らない
+                    switch (GameMgr.Scene_Name)
+                    {
+                        case "Or_Contest": //味見用シーンでの処理
 
+                            Debug.Log("味見中: ");
+                            break;
+
+                        default:
+
+                            //アイテムの削除
+                            delete_Item();
+                            break;
+                    }
+                    
                     OkashiSaitenhyouji(); //採点パネル表示してからリザルト
 
                     //音を鳴らす
@@ -2948,8 +2971,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     //好感度取得+アニメーションをON
                     Getlove_exp = -10;
 
-                    //アイテムの削除
-                    delete_Item();
+                    //味見のときは通らない
+                    switch (GameMgr.Scene_Name)
+                    {
+                        case "Or_Contest": //味見用シーンでの処理
+
+                            Debug.Log("味見中: ");
+                            break;
+
+                        default:
+
+                            //アイテムの削除
+                            delete_Item();
+                            break;
+                    }
 
                     OkashiSaitenhyouji(); //採点パネル表示してからリザルト
 
@@ -3350,7 +3385,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 if (database.items[_baseID].Eat_kaisu < 1)
                 {
-                    random = Random.Range(0, 3);
+                    //random = Random.Range(0, 3);
+                    random = 0;
                     GetMP = 1 + random;
                     PlayerStatus.player_maxmp += GetMP;
                 }
@@ -6514,9 +6550,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //EDシナリオスタート
         GameMgr.Ending_counterenshutu_on = false;
 
-        //エデン食べたのでED
-        GameMgr.girlloveevent_bunki = 2;
-        GameMgr.GirlLoveEvent_num = 100;
+        //エデン食べたのでED 分岐もここでチェック　100ヒカリ倒れる　101ヒカリ生きる隠しエンド
+        GameMgr.GirlLoveEvent_num = 101;
+
+        GameMgr.girlloveevent_bunki = 2;       
         GameMgr.girlEat_ON = false;
         GameMgr.Mute_on = true;
         GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
