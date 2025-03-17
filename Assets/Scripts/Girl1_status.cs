@@ -2827,6 +2827,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     _touchface_comment_lib.Add("今日はあたたかいね～、にいちゃん！");
                     _touchface_comment_lib.Add("エメラルド色のどんぐり、欲しい？にいちゃん。");
                     _touchface_comment_lib.Add("にいちゃん。あのね.. 鳥さんがお庭にきてたから、パンあげたら食べたよ！");
+                    _touchface_comment_lib.Add("にいちゃん。このあいだね、窓にやもりさんいたよ。ぺったりくっついてた！");
                 }
                 else
                 {
