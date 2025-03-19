@@ -100,7 +100,10 @@ public class MagicSkillListController : MonoBehaviour
             player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
             player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
             eff_learn_obj = this.transform.Find("eff_learn").gameObject;
+            eff_learn_obj.transform.Find("eff_learn_01").gameObject.SetActive(false);
+            eff_learn_obj.transform.Find("eff_learn_02").gameObject.SetActive(false);
         }
+       
 
         skillExTextPanel = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MagicLearnPanel/SkillExTextPanel").gameObject;
         skillExtext = skillExTextPanel.transform.Find("MaskPanel").GetComponentsInChildren<Text>();
