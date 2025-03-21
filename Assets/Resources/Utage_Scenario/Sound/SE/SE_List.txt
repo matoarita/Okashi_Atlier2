@@ -211,3 +211,6 @@ SE表
 ・SE_209	audiostock_42215				足音ぷに音　SE_56の単音を抜き出し
 ・SE_210	audiostock_96913_sample				スターイベント発生時のためる音
 ・SE_211	audiostock_108915_sample			スターイベントパネル登場時の余韻のきらきら音
+・SE_212	audiostock_84933_sample				ヒカリ魔法で光りをためる音
+・SE_213	audiostock_816576_sample			ガラスが割れる音
+・SE_214	audiostock_108678_sample			幽霊の登場音

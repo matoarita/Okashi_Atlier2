@@ -4100,7 +4100,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                default_scenetext = "ここは露店通り奥のようだ。";
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                default_scenetext = "わぁ～☆　あったかいばしょ～！";
+
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
 
                 break;
 

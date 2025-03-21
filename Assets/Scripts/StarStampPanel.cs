@@ -33,6 +33,7 @@ public class StarStampPanel : MonoBehaviour
     private Text star_hyoujiparam;
 
     private int _before_ninki;
+    private int goal_star;
     private bool ButtonON;
     private bool InitCheck;
     private bool starrank_Release_ON;
@@ -78,26 +79,51 @@ public class StarStampPanel : MonoBehaviour
                     else
                     {
                         starrank_Release_ON = false;
+
                         //ここに入れた数だけ全てチェックしていく　0が目標スター、1がリリースフラグイベントの番号
-                        foreach (var keyValuePair in GameMgr.Star_Eventlist)
+                        if (_chara_temp_star >= GameMgr.System_StampStarMax)
                         {
-                            star_ReleaseEventCheck(keyValuePair.Key, keyValuePair.Value);
+                            //ゴールについているのでチェック終了
+                        }
+                        else
+                        {
+                            foreach (var keyValuePair in GameMgr.Star_Eventlist)
+                            {
+                                star_ReleaseEventCheck(keyValuePair.Key, keyValuePair.Value);
+                            }
                         }
 
                         if (!starrank_Release_ON) //falseのまま、最後にここにくれば、発生イベント全チェック完了ということになる。
                         {
                             Debug.Log("スターパネルイベント全てチェック完了");
-                            //現在のスターと、今いる位置をさらに比較して、まだ移動が残ってたら、そこを移動する
-                            if (PlayerStatus.player_ninki_param - _chara_temp_star > 0)
+                            if (_chara_temp_star >= GameMgr.System_StampStarMax)
                             {
-                                //キャラ移動アニメを開始
-                                Debug.Log("キャラ移動開始 status=100");
-                                count = 0;
-                                StartCoroutine(Character_Move(PlayerStatus.player_ninki_param, 100));
+                                //ゴールについているので移動も完了
+                                EndStarEvent();
                             }
                             else
                             {
-                                EndStarEvent();
+                                //現在のスターと、今いる位置をさらに比較して、まだ移動が残ってたら、そこを移動する
+                                if (PlayerStatus.player_ninki_param >= GameMgr.System_StampStarMax)
+                                {
+                                    goal_star = GameMgr.System_StampStarMax;
+                                }
+                                else
+                                {
+                                    goal_star = PlayerStatus.player_ninki_param;
+                                }
+
+                                if (goal_star - _chara_temp_star > 0)
+                                {
+                                    //キャラ移動アニメを開始
+                                    Debug.Log("キャラ移動開始 status=100");
+                                    count = 0;
+                                    StartCoroutine(Character_Move(goal_star, 100));
+                                }
+                                else
+                                {
+                                    EndStarEvent();
+                                }
                             }
                         }
                     }
@@ -135,7 +161,7 @@ public class StarStampPanel : MonoBehaviour
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
 
-        character_obj = this.transform.Find("Stamprally/pos/SugorokuBoard/CharacterPanel").gameObject;
+        character_obj = this.transform.Find("PanelPos/Stamprally/pos/SugorokuBoard/CharacterPanel").gameObject;
         close_button_obj = this.transform.Find("CloseButton").gameObject;
         close_button_obj.SetActive(false);
 
@@ -145,15 +171,15 @@ public class StarStampPanel : MonoBehaviour
         newAreaRelease_Panel = canvas.transform.Find("NewAreaReleasePanel").gameObject;
         newAreaRelease_Panel.SetActive(false);
 
-        star_hyoujiparam = this.transform.Find("StarParamPanel/StarParamText").GetComponent<Text>();
+        star_hyoujiparam = this.transform.Find("PanelPos/StarParamPanel/StarParamText").GetComponent<Text>();
 
-        sugoroku_board = this.transform.Find("Stamprally/pos/SugorokuBoard").gameObject;
+        sugoroku_board = this.transform.Find("PanelPos/Stamprally/pos/SugorokuBoard").gameObject;
 
         effect_obj = this.transform.Find("Effect").gameObject;
         effect_obj.SetActive(false);
 
         dot_pos.Clear();
-        foreach(Transform child in this.transform.Find("Stamprally/pos/SugorokuBoard").transform)
+        foreach(Transform child in this.transform.Find("PanelPos/Stamprally/pos/SugorokuBoard").transform)
         {
             if (child.name == "CharacterPanel") //キャラの座標はとらない
             {
@@ -166,9 +192,9 @@ public class StarStampPanel : MonoBehaviour
             }
         }
 
-        if(GameMgr.Before_Player_ninkiparam >= 42) //ボードのこま上限
+        if(GameMgr.Before_Player_ninkiparam >= GameMgr.System_StampStarMax) //ボードのこま上限
         {
-            _before_ninki = 42;
+            _before_ninki = GameMgr.System_StampStarMax;
         }
         else if (GameMgr.Before_Player_ninkiparam < 0)
         {

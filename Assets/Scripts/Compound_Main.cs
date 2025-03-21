@@ -1837,7 +1837,7 @@ public class Compound_Main : MonoBehaviour
                         GameMgr.check_CompoAfter_flag = false;
 
                         Debug.Log("調合後に、サブイベントチェック入る");
-
+                        GameMgr.check_CompoAfter_SubEventflag = true;
                         GameMgr.check_GirlLoveSubEvent_flag = false; //イベントチェック
                         GameMgr.check_GirlLoveTimeEvent_flag = false; //時間イベントもチェック
                     }
@@ -3464,7 +3464,7 @@ public class Compound_Main : MonoBehaviour
                 {
                     GameMgr.ending_on = true;
                     GameMgr.Fullmoon_judge_on = true;
-                    GameMgr.ending_number = 1;
+                    //GameMgr.ending_number = 1;
 
                     //一回目　食べると何も起こらない　二回目、くじらさんと話してから5日後の19時以降に食べると、EDが発生
                     /*if(!GameMgr.GirlLoveSubEvent_stage1[600])

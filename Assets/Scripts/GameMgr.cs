@@ -52,7 +52,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各システムの使用の有無   
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Shiokuri_ON = true; //仕送りの有無
-    public static bool System_Yachin_ON = true; //家賃システムの有無
+    public static bool System_Yachin_ON = false; //家賃システムの有無
 
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
@@ -83,6 +83,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //食感の計算方法の切り替え 0=_basescoreと比率をかける計算 1=単純に、判定値から引き算のみ
     public static int System_GirlEat_ShokukanParamKeisan = 1;
+
+    //ハート魔法の消費基本ハートポイント
+    public static int System_MagicHeartCost = 30;
+
+    //スタンプラリーボードのコマ上限　すなわちスタンプのゴール
+    public static int System_StampStarMax = 43;
 
     //調合シーンでBGM切り替えるかどうかのフラグ
     public static bool CompoBGMCHANGE_ON = false;
@@ -725,6 +731,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool check_GirlLoveTimeEvent_flag;
     public static bool check_ReturnHomeEvent_flag;
     public static bool check_CompoAfter_flag;
+    public static bool check_CompoAfter_SubEventflag;
     public static bool check_GetMat_flag;
     public static bool check_OkashiAfter_flag;
     public static bool[] check_SleepEnd_Eventflag = new bool[10];
@@ -1393,6 +1400,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         check_GirlLoveTimeEvent_flag = false;
         check_ReturnHomeEvent_flag = false;
         check_CompoAfter_flag = false;
+        check_CompoAfter_SubEventflag = false;
         check_GetMat_flag = false;
         check_OkashiAfter_flag = false;       
         ResultComplete_flag = 0;
@@ -2351,6 +2359,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Star_Eventlist.Add(27, 7);
         Star_Eventlist.Add(30, 8);
         Star_Eventlist.Add(32, 9);
+        Star_Eventlist.Add(43, 10);
     }
 
     //150点以上のとき、特別な思い出イベントが発生するおかしテーブル GirlEat_Judgeに機能があり

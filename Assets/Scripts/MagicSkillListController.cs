@@ -875,7 +875,15 @@ public class MagicSkillListController : MonoBehaviour
 
             case "Warming_Handmade": //仕上げ回数＋ハート
 
-                if (PlayerStatus.girl1_Love_exp < magicskill_database.magicskill_lists[_id].skillLv * 30)
+                if (PlayerStatus.girl1_Love_exp < magicskill_database.magicskill_lists[_id].skillLv * GameMgr.System_MagicHeartCost)
+                {
+                    _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
+                }
+                break;
+
+            case "Santiman": //仕上げ回数＋ハート
+
+                if (PlayerStatus.girl1_Love_exp < magicskill_database.magicskill_lists[_id].skillLv * GameMgr.System_MagicHeartCost)
                 {
                     _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
                 }

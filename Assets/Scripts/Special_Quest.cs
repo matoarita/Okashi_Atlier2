@@ -579,9 +579,19 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
-                //Debug エデンレシピそろったことにする
-                pitemlist.add_eventPlayerItemString("eden_recipi_03", 1);
-                pitemlist.add_eventPlayerItemString("eden_recipi_04", 1);
+                //エデンレシピそろったことにする
+                if(pitemlist.KosuCountEvent("eden_recipi_02") < 1)
+                {
+                    pitemlist.add_eventPlayerItemString("eden_recipi_02", 1);
+                }
+                if (pitemlist.KosuCountEvent("eden_recipi_03") < 1)
+                {
+                    pitemlist.add_eventPlayerItemString("eden_recipi_03", 1);
+                }
+                if (pitemlist.KosuCountEvent("eden_recipi_04") < 1)
+                {
+                    pitemlist.add_eventPlayerItemString("eden_recipi_04", 1);
+                }
                 // //
 
                 break;
@@ -651,7 +661,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
         if (_spquest_setnum >= 22)
         {
-            matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 0);            
+            //matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 0);            
         }
 
         if (_spquest_setnum >= 30)
@@ -678,7 +688,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
         if (_spquest_setnum >= 41)
         {
-            matplace_database.ReSetMapFlagString("DreamEater_Swamp", 1); //ゆめくいぬま発見
+            //matplace_database.ReSetMapFlagString("DreamEater_Swamp", 1); //ゆめくいぬま発見
         }
     }
 

@@ -1104,6 +1104,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 GameMgr.GirlLoveSubEvent_num = 405;
 
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                                GameMgr.Mute_on = true;
                             }
                         }
                     }
@@ -1116,41 +1118,45 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-                    _basename = database.items[GameMgr.Okashi_makeID].itemName;
-                    _baseitemtype_sub = database.items[GameMgr.Okashi_makeID].itemType_sub.ToString();
-                    _baseitemtype_subB = database.items[GameMgr.Okashi_makeID].itemType_subB.ToString();
-
-                    //はじめてルミエメラルドシュガー作ったなど
-                    foreach (string items in GameMgr.OkashiAtFirst_eventlist.Keys)
+                    if (GameMgr.check_CompoAfter_SubEventflag)
                     {
-                        if (_basename == items)
-                        {
-                            if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_basename]])
-                            {
-                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_basename], 1, false, false);
-                                break;
-                            }                            
-                        }
+                        GameMgr.check_CompoAfter_SubEventflag = false;
 
-                        if (_baseitemtype_sub == items)
-                        {
-                            if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub]])
-                            {
-                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub], 1, false, false);
-                                break;
-                            }                           
-                        }
+                        _basename = database.items[GameMgr.Okashi_makeID].itemName;
+                        _baseitemtype_sub = database.items[GameMgr.Okashi_makeID].itemType_sub.ToString();
+                        _baseitemtype_subB = database.items[GameMgr.Okashi_makeID].itemType_subB.ToString();
 
-                        if (_baseitemtype_subB == items)
+                        //はじめてルミエメラルドシュガー作ったなど
+                        foreach (string items in GameMgr.OkashiAtFirst_eventlist.Keys)
                         {
-                            if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB]])
+                            if (_basename == items)
                             {
-                                Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB], 1, false, false);
-                                break;
-                            }                           
+                                if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_basename]])
+                                {
+                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_basename], 1, false, false);
+                                    break;
+                                }
+                            }
+
+                            if (_baseitemtype_sub == items)
+                            {
+                                if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub]])
+                                {
+                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub], 1, false, false);
+                                    break;
+                                }
+                            }
+
+                            if (_baseitemtype_subB == items)
+                            {
+                                if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB]])
+                                {
+                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB], 1, false, false);
+                                    break;
+                                }
+                            }
                         }
                     }
-
                 }
 
                 //

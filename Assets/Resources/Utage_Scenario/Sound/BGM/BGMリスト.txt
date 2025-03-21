@@ -144,3 +144,6 @@
 ・BGM_140		02放課後スリーピング			エデン食べた時のトリップ音楽２　※こっちは現在使わない
 ・BGM_141		audiostock_127709_sample		悲しいときに流れる曲６
 ・BGM_142		harunoyokan				イリスさんのテーマ２　BGM_116と同じ
+・BGM_143		PerituneMaterial_Toys_Factory_loop	ブラックロータスとかを見つけたときの不思議な音楽
+・BGM_144		PerituneMaterial_Coppelia_Room_loop	夢喰い沼の悪魔のテーマ
+・BGM_145		audiostock_884907_sample		沼悪魔に真っ暗にされたときの背景音

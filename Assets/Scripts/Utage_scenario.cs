@@ -3651,7 +3651,7 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //入る
 
                         GameMgr.Utage_MapMoveON = true;
-                        moneyStatus_Controller.UseMoney(2000);
+                        //moneyStatus_Controller.UseMoney(2000);
                         break;
 
                 }

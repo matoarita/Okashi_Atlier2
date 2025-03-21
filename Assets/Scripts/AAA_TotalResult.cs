@@ -68,6 +68,7 @@ public class AAA_TotalResult : MonoBehaviour {
     private Text total_collection_count_text;
     private Text total_costume_count_text;
     private Text total_okashiHighScore_text;
+    private Text ednum_text;
     private float total_costume_per;
     private string _rank;
     private Text player_rank_text;
@@ -177,6 +178,7 @@ public class AAA_TotalResult : MonoBehaviour {
         total_okashiHighScore_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/EDLastScoreView/Viewport/Content/EDlastscoreList3/GameTotalHighScore").GetComponent<Text>();
         button_panel2 = canvas.transform.Find("ResultGroup/ResultPanel_2/ButtonPanel_2").gameObject;
         button_panel3 = canvas.transform.Find("ResultGroup/ResultPanel_2/ButtonPanel_3").gameObject;
+        ednum_text = canvas.transform.Find("ResultGroup/ResultPanel_2/ImageBG/EDLastScoreView/Viewport/Content/EDlastscoreList4/EDText").GetComponent<Text>();
 
         //パネル３
         player_rank_text = canvas.transform.Find("ResultGroup/ResultPanel_3/ImageBG/PlayerRankAnim/PlayerRank").GetComponent<Text>();
@@ -252,8 +254,8 @@ public class AAA_TotalResult : MonoBehaviour {
     void DebugParam()
     {
         //Panel3_Action();     
-        GameMgr.ending_number = 4;
-        GameMgr.contest_TotalScore = 130;
+        GameMgr.ending_number = 1;
+        GameMgr.Okashi_totalscore = 130;
         PlayerStatus.girl1_Love_exp = 1300;
         GameMgr.contest_okashiNameHyouji = "ストロベリークッキー";
     }
@@ -306,7 +308,7 @@ public class AAA_TotalResult : MonoBehaviour {
         contest_score_text.text = "0";
 
         //カウントアップのための秒数を割り出す。
-        countTime = GameMgr.contest_TotalScore * 0.03f; //1ごとに0.03fで表示する
+        countTime = GameMgr.Okashi_totalscore * 0.03f; //1ごとに0.03fで表示する
 
         //①②
         StartCoroutine("panel1_anim1");
@@ -332,7 +334,7 @@ public class AAA_TotalResult : MonoBehaviour {
         sequence.Join(Contest_scorepanel.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
 
         contest_score_text.GetComponent<CanvasGroup>().alpha = 1;
-        UpdateCoin(GameMgr.contest_TotalScore);
+        UpdateCoin(GameMgr.Okashi_totalscore);
     }
 
     //③数字演出
@@ -543,9 +545,8 @@ public class AAA_TotalResult : MonoBehaviour {
     void KeisanParam()
     {
         //コンテストクリア時のアイテムと名前　コンテストスコア
-        ClearItemName.text = GameMgr.contest_okashiSlotName + GameMgr.contest_okashiNameHyouji;
-        ClearImg.sprite = database.items[database.SearchItemID(GameMgr.contest_okashiID)].itemIcon_sprite;
-        //contest_score_text.text = GameMgr.contest_TotalScore.ToString();
+        ClearItemName.text = GameMgr.Okashi_lastslot + GameMgr.Okashi_lastname;
+        ClearImg.sprite = database.items[GameMgr.Okashi_lastID].itemIcon_sprite;
 
         //ハート総数とレベル
         girllv_param_text.text = PlayerStatus.girl1_Love_lv.ToString();
@@ -575,7 +576,20 @@ public class AAA_TotalResult : MonoBehaviour {
         total_okashiHighScore_text.text = GameMgr.Okashi_toplast_score.ToString();
 
         //EDタイプの計算
-        ChangeEDNumArray();
+        switch(GameMgr.ending_number)
+        {
+            case 1:
+
+                ednum_text.text = "A";
+                break;
+
+            case 2:
+
+                ednum_text.text = "B";
+                break;
+        }
+        
+        /*ChangeEDNumArray();
         if (GameMgr.ending_number < 5)
         {
             ed_view_list[EDList[GameMgr.ending_number - 1]].transform.Find("Text1_on").gameObject.SetActive(true);
@@ -583,7 +597,7 @@ public class AAA_TotalResult : MonoBehaviour {
         else
         {
             //特殊エンドの場合。ないかも。
-        }
+        }*/
 
         //上記のパラメータをもとに、ゲームトータルスコアを計算
         //ハート総数+コンテストスコア＋コスチュームの数*100
@@ -830,7 +844,6 @@ public class AAA_TotalResult : MonoBehaviour {
         switch (GameMgr.ending_number)
         {
             case 1: //Bad ED
-
 
                 break;
 

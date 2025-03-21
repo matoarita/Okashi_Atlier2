@@ -2344,7 +2344,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             case "Warming_Handmade":
 
                 GameMgr.System_magic_playtime = _magic_enshututime;
-                girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * 30), false); //ハートを消費するパターン;
+                girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * GameMgr.System_MagicHeartCost), false); //ハートを消費するパターン;
+                                                                                  //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
+                break;
+
+            case "Santiman":
+
+                GameMgr.System_magic_playtime = _magic_enshututime;
+                girleat_judge.UpDegHeart(-(GameMgr.UseMagicSkillLv * GameMgr.System_MagicHeartCost), false); //ハートを消費するパターン;
                                                                                   //PlayerStatus.girl1_Love_exp -= GameMgr.UseMagicSkillLv * 30;
                 break;
 

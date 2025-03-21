@@ -6551,7 +6551,25 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.Ending_counterenshutu_on = false;
 
         //エデン食べたのでED 分岐もここでチェック　100ヒカリ倒れる　101ヒカリ生きる隠しエンド
-        GameMgr.GirlLoveEvent_num = 101;
+        if (PlayerStatus.player_ninki_param >= GameMgr.System_StampStarMax)
+        {
+            if(GameMgr.Okashi_totalscore >= 500) //エデンの得点が500点以上
+            {
+                GameMgr.GirlLoveEvent_num = 100;
+                GameMgr.ending_number = 1;
+            }
+            else
+            {
+                GameMgr.GirlLoveEvent_num = 101;
+                GameMgr.ending_number = 2;
+            }
+            
+        }
+        else
+        {
+            GameMgr.GirlLoveEvent_num = 101;
+            GameMgr.ending_number = 2;
+        }
 
         GameMgr.girlloveevent_bunki = 2;       
         GameMgr.girlEat_ON = false;
