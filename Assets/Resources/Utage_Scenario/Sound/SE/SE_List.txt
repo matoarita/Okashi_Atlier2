@@ -214,3 +214,4 @@ SE表
 ・SE_212	audiostock_84933_sample				ヒカリ魔法で光りをためる音
 ・SE_213	audiostock_816576_sample			ガラスが割れる音
 ・SE_214	audiostock_108678_sample			幽霊の登場音
+・SE_215	audiostock_1307203_sample			エデンの魔法で光りが収束するフィーン音

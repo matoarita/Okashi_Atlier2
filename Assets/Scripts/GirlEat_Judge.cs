@@ -1835,6 +1835,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //得点に応じて、好感度・お金に補正がかかる。→ LoveScoreCal()で計算
 
 
+        //さっき食べたお菓子の情報を保存
+        GameMgr.Okashi_lastname = _basenameHyouji;
+        GameMgr.Okashi_lastslot = _basenameSlot;
+        GameMgr.Okashi_lastID = _baseID;
+        GameMgr.Okashi_lastshokukan_param = shokukan_baseparam;
+        GameMgr.Okashi_lastshokukan_mes = shokukan_mes;
+        GameMgr.Okashi_lastsweat_param = _basesweat;
+        GameMgr.Okashi_lastsour_param = _basesour;
+        GameMgr.Okashi_lastbitter_param = _basebitter;
+
 
         //過去最高点の更新
         switch (_setType)
@@ -1948,6 +1958,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
+        
 
         if (_setType == 1) //コンテストのときは、ここでデバッグテキスト更新
         {
@@ -5522,19 +5533,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 break;
         }
 
-        //さっき食べたお菓子の情報
+        //さっき食べたお菓子のヒント
         //temp_hint_text = "◆妹からのヒント◆" + "\n" + temp_hint_text;
 
         database.items[_baseID].last_hinttext = temp_hint_text;
         GameMgr.Okashi_lasthint = temp_hint_text;
-        GameMgr.Okashi_lastname = _basenameHyouji;
-        GameMgr.Okashi_lastslot = _basenameSlot;
-        GameMgr.Okashi_lastID = _baseID;
-        GameMgr.Okashi_lastshokukan_param = shokukan_baseparam;
-        GameMgr.Okashi_lastshokukan_mes = shokukan_mes;
-        GameMgr.Okashi_lastsweat_param = _basesweat;
-        GameMgr.Okashi_lastsour_param = _basesour;
-        GameMgr.Okashi_lastbitter_param = _basebitter;
+        
     }
 
 
@@ -6555,19 +6559,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             if(GameMgr.Okashi_totalscore >= 500) //エデンの得点が500点以上
             {
-                GameMgr.GirlLoveEvent_num = 100;
+                GameMgr.GirlLoveEvent_num = 101;
                 GameMgr.ending_number = 1;
             }
             else
             {
-                GameMgr.GirlLoveEvent_num = 101;
+                GameMgr.GirlLoveEvent_num = 100;
                 GameMgr.ending_number = 2;
             }
             
         }
         else
         {
-            GameMgr.GirlLoveEvent_num = 101;
+            GameMgr.GirlLoveEvent_num = 100;
             GameMgr.ending_number = 2;
         }
 

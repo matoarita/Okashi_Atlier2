@@ -3989,7 +3989,7 @@ public class Utage_scenario : MonoBehaviour
 
 
     //
-    // コンテストイベント
+    // コンテストイベント 1のときに使ってたやつ
     //
     IEnumerator Contest_Event()
     {
@@ -4085,7 +4085,8 @@ public class Utage_scenario : MonoBehaviour
         //ED分岐判定　コンテストの点＞ハートレベルによって、EDが分岐する。
         //
 
-        EDBunki_Judge(); //１の頃のED分岐
+        //EDBunki_Judge(); //１の頃のED分岐
+        //** **//
         
         
 

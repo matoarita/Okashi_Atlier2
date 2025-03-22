@@ -243,12 +243,9 @@ public class AAA_TotalResult : MonoBehaviour {
         //パネル１からのアニメーション自動スタート　デバッグでなければ、これをオンにする。
         Panel1_Action();
 
+        //ヒカリ表示の有無
+        EDLive2DHyoujiON();
         
-        if (GameMgr.ending_number == 1) //Bad EDのときはいなくなる。
-        {
-            _model_obj.SetActive(false);
-            chara_Icon.SetActive(false);
-        }
     }
 
     void DebugParam()
@@ -587,17 +584,13 @@ public class AAA_TotalResult : MonoBehaviour {
 
                 ednum_text.text = "B";
                 break;
+
+            case 3:
+
+                ednum_text.text = "C";
+                break;
         }
         
-        /*ChangeEDNumArray();
-        if (GameMgr.ending_number < 5)
-        {
-            ed_view_list[EDList[GameMgr.ending_number - 1]].transform.Find("Text1_on").gameObject.SetActive(true);
-        }
-        else
-        {
-            //特殊エンドの場合。ないかも。
-        }*/
 
         //上記のパラメータをもとに、ゲームトータルスコアを計算
         //ハート総数+コンテストスコア＋コスチュームの数*100
@@ -608,8 +601,8 @@ public class AAA_TotalResult : MonoBehaviour {
         player_rank_text.text = "";
         player_shogo = "-";
 
-        //特殊な称号を取得してた場合、そっちが優先される。
-        if (GameMgr.special_shogo_flag)
+        //特殊な称号を取得してた場合、そっちが優先される。１のときのやつ
+        /*if (GameMgr.special_shogo_flag)
         {
             _rank = "★";
             switch (GameMgr.special_shogo_num)
@@ -694,7 +687,7 @@ public class AAA_TotalResult : MonoBehaviour {
                 }
             }
             
-        }
+        }*/
         
 
         player_rank_text.text = _rank;
@@ -843,23 +836,19 @@ public class AAA_TotalResult : MonoBehaviour {
         //表情
         switch (GameMgr.ending_number)
         {
-            case 1: //Bad ED
+            case 1: //真エンド
 
+                live2d_animator.SetInteger("trans_expression", 50);
                 break;
 
             case 2:
 
-                live2d_animator.SetInteger("trans_expression", 2);
+                //live2d_animator.SetInteger("trans_expression", 2);
                 break;
 
             case 3:
 
-                live2d_animator.SetInteger("trans_expression", 9);
-                break;
-
-            case 4:
-
-                live2d_animator.SetInteger("trans_expression", 50);
+                live2d_animator.SetInteger("trans_expression", 2);
                 break;
         }
     }
@@ -873,9 +862,37 @@ public class AAA_TotalResult : MonoBehaviour {
         EDList.Add(0, 3);
     }
 
+    void EDLive2DHyoujiON()
+    {
+        if (GameMgr.ending_number == 2) //ヒカリ消えるEDのときはいなくなる。
+        {
+            _model_obj.SetActive(false);
+            chara_Icon.SetActive(false);
+        }
+    }
+
     void EDHukidashiText()
     {
-        if (GameMgr.special_shogo_flag)
+        switch (GameMgr.ending_number)
+        {
+            case 1: //ヒカリが助かるEND　お店を開く
+
+                _hukidashi_content = "にいちゃん" + "\n" + GameMgr.mainGirl_Name + "をゆめから覚ましてくれて、ありがとう！" + "\n" + "にいちゃん.. だ～いすき♪　お店一緒にがんばろ～ね♪";
+                break;
+
+            case 2: //ノーマルエンド　ヒカリが消える
+
+                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "もしかすると、スターを集めたりエデンがおいしければ、あるいは・・？";
+                break;
+
+            case 3: //バッドエンド？
+
+                _hukidashi_content = "おにいちゃん！" + "\n" + "ありがと～！　また会おうね。" + "\n" + "..でもまだ、真の結末があるみたいだよ。";
+                break;
+        }
+
+        //1のときのやつ
+        /*if (GameMgr.special_shogo_flag)
         {
             switch (GameMgr.special_shogo_num)
             {
@@ -934,7 +951,7 @@ public class AAA_TotalResult : MonoBehaviour {
                     _hukidashi_content = "にいちゃん" + "\n" + GameMgr.mainGirl_Name + "のハートいっぱいにしてくれて、ありがとう！" + "\n" + "にいちゃん.. だ～いすき♪　また会いたいな～♪";
                     break;
             }
-        }
+        }*/
     }
 
     //(val1, val2)の値を、(val3, val4)の範囲の値に変換する数式
