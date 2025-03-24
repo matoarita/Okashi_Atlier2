@@ -144,8 +144,10 @@ public class Title_Main : MonoBehaviour {
         StartRead = false;
 
         //シーン読み込み完了時のメソッド
-        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。自分自身のシーン読み込み時でも発動する。      
+        SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。   
         SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
+
+        GameMgr.Scene_LoadedOn_End = true;
     }
 	
 	// Update is called once per frame

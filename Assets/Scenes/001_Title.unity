@@ -225788,6 +225788,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 491031150}
+    - target: {fileID: 114945539244042488, guid: 50527439a5f6e8f41aa08a160742fa2e,
+        type: 3}
+      propertyPath: Opacity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114945539244042488, guid: 50527439a5f6e8f41aa08a160742fa2e,
+        type: 3}
+      propertyPath: _lastOpacity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114957622224499192, guid: 50527439a5f6e8f41aa08a160742fa2e,
         type: 3}
       propertyPath: Center

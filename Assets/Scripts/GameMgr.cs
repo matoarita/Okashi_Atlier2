@@ -216,6 +216,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int scenario_flag;    //全シーンで共通。今、どのシナリオまできているか。クエストやステージではなく、ゲーム自体の進行度を表す。
     public static int ending_count;     //エンディングを迎えた回数
     public static bool bestend_on_flag; //ベストED　Aを一度でも迎えたことがあるフラグ
+    public static int ending_number;    //クリア時のエンディング番号  
     public static int stage_number;     //ステージ番号　stage1 stage2のこと
     public static int stage_quest_num; //メインのクエスト番号
     public static int stage_quest_num_sub; //クエスト番号
@@ -695,7 +696,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //エンディングのフラッグ
     public static bool ending_on;       //エンディングシーンへ移動するためのフラグ
     public static bool ending_on2;      //BadEDの場合。EDムービーなし。
-    public static int ending_number;    //エンディング番号    
+  
 
     //牧場のイベント発生フラグ
     public static bool farm_event_flag;  //ショップで発生するイベントのフラグ。

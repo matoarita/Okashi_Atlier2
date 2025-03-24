@@ -1131,19 +1131,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //めん棒系
         if (pitemlist.KosuCount("wood_rod_doillan") >= 1)
         {
-            _buf_shokukanup += 120;
+            _buf_shokukanup += 80;
         }
         else
         {
             if (pitemlist.KosuCount("wood_rod_great") >= 1)
             {
-                _buf_shokukanup += 80;
+                _buf_shokukanup += 50;
             }
             else
             {
                 if (pitemlist.KosuCount("wood_rod_good") >= 1)
                 {
-                    _buf_shokukanup += 40;
+                    _buf_shokukanup += 30;
                 }
                 else
                 {

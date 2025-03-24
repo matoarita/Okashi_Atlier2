@@ -779,7 +779,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //デバッグ用
         if(databaseCompo.compoitems[result_compID].cmpitem_Name == "bugget")
         {
-            DebugLogKetteiItem();
+            //DebugLogKetteiItem();
         }
 
 

@@ -419,6 +419,7 @@ public class PlayerData
     //エンディングカウント
     public int save_ending_count;
     public bool save_bestend_on_flag;
+    public int save_ending_number;
 
     //ストーリーモード
     public int save_Story_Mode;

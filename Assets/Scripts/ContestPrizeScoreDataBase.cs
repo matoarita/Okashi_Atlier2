@@ -348,7 +348,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                             {
                                 if (GameMgr.System_ContestStarGet_ON)
                                 {
-                                    _getninki = 1; //２位だと1もらえる
+                                    //過去優勝したことがある
+                                    if (conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 2 ||
+                                        conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 1)
+                                    {
+                                        _getninki = 0;
+                                        GameMgr.Contest_pastVictory_on = true;
+                                    } 
+                                    else { 
+                                        _getninki = 1; //２位だと1もらえる
+                                    }
                                 }
                                 else
                                 {

@@ -237,6 +237,10 @@ public class AAA_TotalResult : MonoBehaviour {
         //DebugParam();
         // *** //
 
+        //クリア時のハートを更新
+        GameMgr.stage1_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
+        GameMgr.stage1_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp;
+
         //★エンディング　各スコアの計算　重要
         KeisanParam();
 

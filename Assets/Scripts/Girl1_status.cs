@@ -440,6 +440,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         if (GameMgr.Scene_LoadedOn_End) //シーン読み込み完了してから動き出す
         {
+            //Debug.Log("シーン読み込み完了");
+
             //シーン関係のオブジェクト読み込みをUpdateのタイミングでする。
             if (canvas == null)
             {
@@ -525,21 +527,23 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 hukidashiPrefab = (GameObject)Resources.Load("Prefabs/hukidashi");
             }
 
-
+            //Debug.Log("GameMgr.Scene_Category_Num:" + GameMgr.Scene_Category_Num);
             if (GameMgr.scenario_ON == true) //宴シナリオを読み中は、腹減りカウントしないし、女の子の表情やランダムモーション関連の動作は一時ストップ
             { }
             else
             {
-
-                if (special_animatFirst != true) //ピコンでるまでは触れない
+                if (GameMgr.Scene_Category_Num == 10)
                 {
-                    GameMgr.CharacterTouch_ALLOFF = true;
-                }
+                    if (special_animatFirst != true) //ピコンでるまでは触れない
+                    {
+                        GameMgr.CharacterTouch_ALLOFF = true;
+                    }
 
 
-                if (GameMgr.CompoAfter_BackGirl) //戻り中の間はタッチはできない
-                {
-                    GameMgr.CharacterTouch_ALLOFF = true;
+                    if (GameMgr.CompoAfter_BackGirl) //戻り中の間はタッチはできない
+                    {
+                        GameMgr.CharacterTouch_ALLOFF = true;
+                    }
                 }
 
                 //タッチ終了後の挙動
@@ -721,7 +725,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         //trueだと腹減りカウントが進む。
                         if (GirlEat_Judge_on)
                         {
-                            //timeOut -= Time.deltaTime; //腹減りのカウンタ
                             timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
                         }
 
@@ -736,8 +739,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                             //ランダムセリフ＋モーションを決定する
                             Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
-
-                            //timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
                         }
                         break;
 
@@ -746,7 +747,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                         //trueだと腹減りカウントが進む。
                         if (GirlEat_Judge_on)
                         {
-                            //timeOut -= Time.deltaTime; //腹減りのカウンタ
                             timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
                         }
 
@@ -761,9 +761,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                             //ランダムセリフ＋モーションを決定する
                             Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
-
-                            //timeGirl_hungry_status = 1; //お腹が空いた状態に切り替え。吹き出しがでる。
                         }
+
+                        //消えるエンドのときは、半透明にチカチカ点滅を繰り返す
+
+                        //
                         break;
 
                     default:

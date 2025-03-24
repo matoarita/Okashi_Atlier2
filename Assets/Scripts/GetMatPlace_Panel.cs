@@ -986,6 +986,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
             if (GameMgr.outgirl_Nowprogress)
             {
                 _text.text = "ヒカリがいないから、行ってもしょうがないな・・。";
+                All_Off();
             }
             else
             {

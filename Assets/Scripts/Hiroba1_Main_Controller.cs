@@ -2001,7 +2001,23 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_Active10();
+                if (GameMgr.outgirl_Nowprogress)
+                {
+                    GameMgr.hiroba_event_placeNum = 2000; //
+                    GameMgr.hiroba_event_ID = 200100;
+
+                    EventReadingStart();
+
+                    /*if (text_area_hyouji_on)
+                    {
+                        _text.text = "ヒカリがいないから、行ってもしょうがないな・・。";
+                    }*/
+                }
+                else
+                {
+                    On_Active10();
+                }
+                
                 break;
 
             case "Or_Hiroba_Spring_RotenStreet":
@@ -3982,8 +3998,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                default_scenetext = "にいちゃん！　おっきい噴水があるよ～！";
+                
+                if (GameMgr.outgirl_Nowprogress)
+                {
+                    GameMgr.Window_CharaName = GameMgr.player_Name_First;
+                    default_scenetext = "オランジーナの噴水だ。でっかいな～。";
+                }
+                else
+                {
+                    GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                    default_scenetext = "にいちゃん！　おっきい噴水があるよ～！";
+                }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;

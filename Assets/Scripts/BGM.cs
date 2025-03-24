@@ -1219,7 +1219,11 @@ public class BGM : MonoBehaviour {
 
     public void OnEndingBGM()
     {
-        if (GameMgr.ending_number == 3 || GameMgr.ending_number == 4)
+        if (GameMgr.ending_number == 1) //ヒカリ倒れないエンド
+        {
+            EndingBGM_B();
+        }
+        else if (GameMgr.ending_number == 2)
         {
             EndingBGM_A();
         }

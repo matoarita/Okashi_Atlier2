@@ -3135,12 +3135,20 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
+            case "recipibook_7": //クレープの秘訣　ゲットすると、基本クレープレシピも自動で追加される。
+
+                ev_id = pitemlist.Find_eventitemdatabase("crepe_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
+
+                break;
+
             case "recipibook_11": //クレープのレシピ大全　ゲットすると、基本クレープレシピも自動で追加される。
 
                 ev_id = pitemlist.Find_eventitemdatabase("crepe_recipi");
                 pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
 
                 break;
+            
 
             //魔法の本
             case "mg_firstmagic_book": //初心者向けおかし魔法の本
