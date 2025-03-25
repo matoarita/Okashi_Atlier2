@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 105
+  controlID: 132
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -758,21 +758,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 544df4ffa44df4ffc854f4ff4061f4ffba6df4ffde7ef4ff128df4ff3c98f4ffa6ebf6ffb282f7ff248bf7ff3690f7ff4894f7ff3214f8ff081cf8fffa2ff8ff7c37f8fffc38f8ffac39f8ff983ef8ff8242f8ff384af8ff22b7f8ff2c97f9ffa49ff9ffb4a2f9fffea5f9ffe0cdf9ff0cddf9ffaeddf9ff3606faffda06faff7c07faff1e08faffc008faff6209faff6a09faff0c0afaff123dfaffb63dfaff28befcffba14ffff04fbfffff4ffffff5a830100aa860100389b010062a60100f0b001008a090200281c02009c210200
+      m_ExpandedIDs: e8b4e7ff38b5e7ff5cbce7ffd4c8e7ff4ed5e7ff72e6e7ffa6f4e7ffd0ffe7ff3a53eaff46eaeaffb8f2eaffcaf7eaffdcfbeaffc47bebff9a83ebff8c97ebff0e9febff8ea0ebff3ca1ebff28a6ebff12aaebffc8b1ebffa01eecff6afeecffe206edfff209edff300dedff1235edff3e44edffe044edff666dedff0a6eedffac6eedff4e6fedfff06fedff9270edff9a70edff3c71edff5ea4edff02a5edff4805efff7271efff9675efff2a07f1ff2e37f2ff5049f2ff9256f2ff04fbffffd44703001c5f05001e650500
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: SubView2_SelectToggle
-        m_OriginalName: SubView2_SelectToggle
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -182604
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 7}
       m_SearchString: 
@@ -866,23 +866,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Scenes
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 523}
-    m_SelectedIDs: 56760100
-    m_LastClickedID: 95830
-    m_ExpandedIDs: 00000000d2570100d4570100d6570100d8570100da570100dc570100de570100e0570100e2570100e4570100e657010000ca9a3b
+    m_SelectedIDs: 70e10000
+    m_LastClickedID: 57712
+    m_ExpandedIDs: 00000000d2bd0000d4bd0000d6bd0000d8bd0000dabd0000dcbd0000debd0000e0bd0000e2bd0000e4bd0000e6bd000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -910,7 +910,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d68c0000
     m_LastClickedID: 36054
-    m_ExpandedIDs: 00000000d2570100d4570100d6570100d8570100da570100dc570100de570100e0570100e2570100e4570100e6570100
+    m_ExpandedIDs: 00000000d2bd0000d4bd0000d6bd0000d8bd0000dabd0000dcbd0000debd0000e0bd0000e2bd0000e4bd0000e6bd0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -941,15 +941,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100b0940000fed10000a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100e0d50000603d0100eea10000fc6301002aa000003ad40000a09300001c930000766b0100f6550100505601006e5801003c9200000000000004980000e29400001e950000e6940000ac5a010032950000e465010054950000724d0100744d0100cc4c010030e20300ae570100a4560100fa5e2700a29f0000a09f00001ea00000a295000046e4060004950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Hiroba1_Main_Controller
-      m_OriginalName: Hiroba1_Main_Controller
+      m_Name: Hikari_CompMain
+      m_OriginalName: Hikari_CompMain
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 7214
+      m_UserData: 57874
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -962,7 +962,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 3304.459}
+    m_ScrollPosition: {x: 0, y: 98}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 182
@@ -1364,9 +1364,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.0901773, y: -2.7678783, z: -4.957027}
+    m_Target: {x: -63.45114, y: -6.2315335, z: 1323.9305}
     speed: 2
-    m_Value: {x: -2.0901773, y: -2.7678783, z: -4.957027}
+    m_Value: {x: -63.45114, y: -6.2315335, z: 1323.9305}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1417,9 +1417,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 5.702708
+    m_Target: 91.448265
     speed: 2
-    m_Value: 5.702708
+    m_Value: 91.448265
   m_Ortho:
     m_Target: 1
     speed: 2

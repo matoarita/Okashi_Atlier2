@@ -612,7 +612,13 @@ public class ShopItemListController : MonoBehaviour
         shop_hyouji_flag = 2000;
         Check_ONShopListFlag(shop_hyouji_flag);
 
-        //セールや日によって出たりでなかったりする品物
+        //セールや日によって出たりでなかったりする品物       
+        if (GameMgr.Sale_ON)
+        {
+            //Debug.Log("セール品　表示");
+            shop_hyouji_flag = 100; //100番台はセール品
+            Check_ONShopListFlag(shop_hyouji_flag);
+        }
         switch (SceneManager.GetActiveScene().name)
         {
             case "Shop":
@@ -621,12 +627,7 @@ public class ShopItemListController : MonoBehaviour
 
             case "Farm":
 
-                if (GameMgr.Sale_ON)
-                {
-                    //Debug.Log("セール品　表示");
-                    shop_hyouji_flag = 100; //100番台はセール品
-                    Check_ONShopListFlag(shop_hyouji_flag);
-                }
+                 
                 break;
         }
 

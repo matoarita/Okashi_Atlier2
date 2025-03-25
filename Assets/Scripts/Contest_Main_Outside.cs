@@ -169,7 +169,7 @@ public class Contest_Main_Outside : MonoBehaviour
             i++;
         }
 
-        GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+        
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //春のコンテスト会場
@@ -179,8 +179,16 @@ public class Contest_Main_Outside : MonoBehaviour
                 SettingBGPanel(0); //Map〇〇のリスト番号を指定
                 gotonum = 0; //会場受付シーンの指定
                 backnum = 0; //バックボタン押したときの戻り先 //12秘密の花園
-
-                default_scenetext = "にいちゃん！！ おっきい建物～！！";
+                if (GameMgr.outgirl_Nowprogress)
+                {
+                    GameMgr.Window_CharaName = GameMgr.player_Name_First;
+                    default_scenetext = "春のコンテスト会場がみえてきた。";
+                }
+                else
+                {
+                    GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                    default_scenetext = "にいちゃん！！ おっきい建物～！！";
+                }
                 break;
 
             case 10: //夏のコンテスト会場
@@ -190,6 +198,7 @@ public class Contest_Main_Outside : MonoBehaviour
                 gotonum = 10; //会場受付シーンの指定
                 backnum = 151; //バックボタン押したときの戻り先
 
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
                 default_scenetext = "夏コンテストの会場だ！　にいちゃん！！" + "\n" + "でっけぇ～～！！";
                 break;
 
@@ -200,6 +209,7 @@ public class Contest_Main_Outside : MonoBehaviour
                 gotonum = 20; //会場受付シーンの指定
                 backnum = 203; //バックボタン押したときの戻り先
 
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
                 default_scenetext = "秋コンテストの会場だ！　にいちゃん！！" + "\n" + "あいしゅうだよ～・・。";
                 break;
 
@@ -210,6 +220,7 @@ public class Contest_Main_Outside : MonoBehaviour
                 gotonum = 30; //会場受付シーンの指定
                 backnum = 306; //バックボタン押したときの戻り先
 
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
                 default_scenetext = "冬コンテストの会場だ！　にいちゃん！！" + "\n" + "さぶいぃ.. はやく中入ろう！";
                 break;
 
