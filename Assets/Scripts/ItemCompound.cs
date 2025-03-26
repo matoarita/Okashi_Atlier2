@@ -44,12 +44,13 @@ public class ItemCompound
 
     //Excelにはのってない変数
     public int hikari_make_count; //ヒカリがそのお菓子を作った回数
+    public string cmpitemID_result_itemType; //生成されるおかしの種類　ItemDataBaseのものをこっちにも事前に登録　検索の手間が省ける
 
     //ここでリスト化時に渡す引数をあてがいます   
     public ItemCompound(int id, string cmpname, string item1, string item2, string item3, string subtype1, string subtype2, string subtype3, 
         string result_item, int _result_kosu, string result_item2, int _result_kosu2, int _kosu1, int _kosu2, int _kosu3, float _bestkosu1, float _bestkosu2, float _bestkosu3, 
         int _flag, int _sysflag, int cost_time, int srate, int renkin_bexp, string _keisanm, int _comp_count, string _release_recipi, int _recipi_count, 
-        int _buf_kouka_on, int _defaultkeisan, int _hikari_make_count)
+        int _buf_kouka_on, int _defaultkeisan, int _hikari_make_count, string _itemType)
     {
         cmpitemID = id;
         cmpitem_Name = cmpname;
@@ -88,6 +89,7 @@ public class ItemCompound
         DefaultKeisan = _defaultkeisan;
 
         _hikari_make_count = hikari_make_count;
+        cmpitemID_result_itemType = _itemType;
     }
 
 }

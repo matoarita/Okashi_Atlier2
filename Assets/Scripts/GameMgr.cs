@@ -710,6 +710,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //CGギャラリー再生用のフラグ
     public static bool CGGallery_readflag;
     public static int CGGallery_num; //別シーンから、どのイベントを呼び出すかを、指定する。
+    public static string CGGallery_name; //シーンの名前
 
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
     public static int Scene_Category_Num;           //Compound=10, Compound_Entrance=11, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, 
@@ -722,6 +723,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool MenuOpenFlag; //メニューを現在開いているか閉じているか
     public static bool QuestManzokuFace; //60点以上取って、喜び表情に変えるフラグ
     public static bool OsotoIkitaiFlag; //外いこうよ～モード。このときに外へいくと、喜んでハートがあがる。
+    public static bool OsotoIttazoFlag; //外いこうよのときに、ソーダアイランドなどへでかけた。
+    public static string OsotoIttazoPlace; //そのときの行った場所
     public static bool picnic_event_reading_now; //ピクニック読み中
     public static bool picnic_after; //ピクニック後、少し余韻にひたる
     public static int picnic_after_time; //余韻にひたる時間
@@ -1382,6 +1385,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         MenuOpenFlag = false;
         QuestManzokuFace = false;
         OsotoIkitaiFlag = false;
+        OsotoIttazoFlag = false;
+        OsotoIttazoPlace = "";
         picnic_event_reading_now = false;
         outgirl_returnhome_reading_now = false;
         outgirl_returnhome_homeru = false;

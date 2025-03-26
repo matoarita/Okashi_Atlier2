@@ -4116,6 +4116,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;
 
+                if (GameMgr.OsotoIkitaiFlag) //お外いきたいフラグがたってた場合、来た時点でよろこび
+                {
+                    GameMgr.OsotoIkitaiFlag = false;
+
+                    GameMgr.OsotoIttazoFlag = true;
+                    GameMgr.OsotoIttazoPlace = "RotenStreet";
+                }
                 break;
 
             case "Or_Hiroba_Spring_RotenStreet2": //春のエリア商店街　露店通り2
@@ -4265,6 +4272,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 default_scenetext = "ここは、サマー・ドリームス遊園地だ。島全体が遊園地になっている。";
 
+                if(GameMgr.OsotoIkitaiFlag) //お外いきたいフラグがたってた場合、来た時点でよろこび
+                {
+                    GameMgr.OsotoIkitaiFlag = false;
+
+                    GameMgr.OsotoIttazoFlag = true;
+                    GameMgr.OsotoIttazoPlace = "SodaIsland";
+                }
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_Enter": //夏エリア　遊園地入口

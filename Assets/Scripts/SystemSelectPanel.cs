@@ -118,14 +118,14 @@ public class SystemSelectPanel : MonoBehaviour {
 
     void CheckButtonStatus()
     {
-        if (GameMgr.Story_Mode == 0)
+        /*if (GameMgr.Story_Mode == 0)
         {
             this.transform.Find("Scroll View/Viewport/Content/ExtraOptionButton").gameObject.SetActive(false);
         }
         else
         {
             this.transform.Find("Scroll View/Viewport/Content/ExtraOptionButton").gameObject.SetActive(true);
-        }
+        }*/
     }
 
     //セーブ用画面を開く

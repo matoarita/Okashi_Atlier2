@@ -38,6 +38,7 @@ public class Omake_Main : MonoBehaviour {
 
     private int i;
     private bool StartRead;
+    private int before_costume;
 
     // Use this for initialization
     void Start () {
@@ -95,6 +96,7 @@ public class Omake_Main : MonoBehaviour {
 
         isLoading = false;
         StartRead = false;
+
 
         //システムデータのみロード
         save_controller.SystemloadCheck();
@@ -167,6 +169,13 @@ public class Omake_Main : MonoBehaviour {
     //CGギャラリー閲覧中
     public void ReadCGGallery()
     {
+        //シーンによってはコスチュームを指定
+        if(GameMgr.CGGallery_name == "event_pool")
+        {
+            before_costume = GameMgr.Costume_Num;
+            GameMgr.Costume_Num = 2;
+        }
+
         _waitSeconds = StartCoroutine(WaitSeconds()); //2秒後に宴入力可能になる。
         StartCoroutine("CGGallery_EndWait");
     }
@@ -185,6 +194,9 @@ public class Omake_Main : MonoBehaviour {
             isLoading = false;
             StopCoroutine(_waitSeconds);
         }
+
+        //コスチュームは戻しておく
+        GameMgr.Costume_Num = before_costume;
 
         cg_gallerypanel_obj.SetActive(true);
         OmakeEnterPanel_obj.SetActive(true);

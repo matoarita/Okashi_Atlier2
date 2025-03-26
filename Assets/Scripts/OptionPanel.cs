@@ -178,7 +178,7 @@ public class OptionPanel : MonoBehaviour {
         }
 
         //スキップ関連
-        if (pitemlist.KosuCount("skip_sleep") >= 1)
+        /*if (pitemlist.KosuCount("skip_sleep") >= 1)
         {
             SleepSkip_toggle_obj.SetActive(true);
             PicnicSkip_toggle_obj.SetActive(true);
@@ -189,7 +189,7 @@ public class OptionPanel : MonoBehaviour {
             SleepSkip_toggle_obj.SetActive(false);
             PicnicSkip_toggle_obj.SetActive(false);
             OutGirlSkip_toggle_obj.SetActive(false);
-        }
+        }*/
         if (GameMgr.SleepSkipFlag)
         {
             SleepSkip_toggle.SetIsOnWithoutCallback(true);
@@ -295,7 +295,7 @@ public class OptionPanel : MonoBehaviour {
 
 
                 //ゲームスピード変更のトグル
-                Gamespeed_Panel.SetActive(false);
+                //Gamespeed_Panel.SetActive(false);
                 gamespeed_toggle.Clear();
                 foreach (Transform child in this.transform.Find("ExtraOptionList/Viewport/Content/GameSpeed/Scroll_View/Viewport/Content").transform) //
                 {
@@ -692,12 +692,12 @@ public class OptionPanel : MonoBehaviour {
         if (SleepSkip_toggle.isOn)
         {
             GameMgr.SleepSkipFlag = true;
-            sc.PlaySe(125); //21
+            sc.PlaySe(81); //21
         }
         else
         {
             GameMgr.SleepSkipFlag = false;
-            sc.PlaySe(81);
+            sc.PlaySe(18);
         }
     }
 
@@ -706,12 +706,12 @@ public class OptionPanel : MonoBehaviour {
         if (PicnicSkip_toggle.isOn)
         {
             GameMgr.PicnicSkipFlag = true;
-            sc.PlaySe(125); //21 128
+            sc.PlaySe(81); //21 128
         }
         else
         {
             GameMgr.PicnicSkipFlag = false;
-            sc.PlaySe(81);
+            sc.PlaySe(18);
         }
     }
 
@@ -720,12 +720,12 @@ public class OptionPanel : MonoBehaviour {
         if (OutGirlSkip_toggle.isOn)
         {
             GameMgr.OutGirlSkipFlag = true;
-            sc.PlaySe(125); //21
+            sc.PlaySe(81); //21
         }
         else
         {
             GameMgr.OutGirlSkipFlag = false;
-            sc.PlaySe(81);
+            sc.PlaySe(18);
         }
     }
 }

@@ -9,6 +9,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 {
     private Entity_compoItemDataBase excel_compoitemdatabase;
 
+    private ItemDataBase database;
+
     private int _id;
     private string cmpitem_name;
     private string cmpitem_1;
@@ -46,6 +48,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     private int defaultKeisan;
 
     private int hikari_make_count;
+    private string _itemType;
 
     private int i, j;
     private int count;
@@ -83,6 +86,9 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
         excel_compoitemdatabase = Resources.Load("Excel/Entity_compoItemDataBase") as Entity_compoItemDataBase;
 
+        //アイテムデータベースの取得
+        database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
+
         sheet_no = 0;
 
         while (sheet_no < excel_compoitemdatabase.sheets.Count)
@@ -96,7 +102,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
                 //ここでリストに追加している
                 compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, result_item2, result_kosu2,
                     cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
-                    cmp_flag, cmp_systemflag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, defaultKeisan, hikari_make_count));
+                    cmp_flag, cmp_systemflag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, defaultKeisan, 
+                    hikari_make_count, _itemType));
 
                 ++count;
             }
@@ -113,7 +120,8 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
                 //ここでリストに追加している
                 compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, result_item2, result_kosu2,
                     cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
-                    cmp_flag, cmp_systemflag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, defaultKeisan, hikari_make_count));
+                    cmp_flag, cmp_systemflag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, defaultKeisan, 
+                    hikari_make_count, _itemType));
 
                 //Debug.Log("CompoID: " + magic_compoitems[count].cmpitemID);
 
@@ -171,6 +179,15 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
         //Excelにのってない変数
         hikari_make_count = 0;
+        _id = database.SearchItemIDString(result_item);
+        if (_id != 9999)
+        {
+            _itemType = database.items[_id].itemType.ToString();
+        }
+        else
+        {
+            _itemType = "Non"; //例外処理　アイテムDBに登録されてないものは空　たとえばFailedのパターンなど
+        }
     }
 
     //アイテム名を入力すると、該当するcompoIDをOnにする

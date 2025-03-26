@@ -1642,6 +1642,28 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    void OsotoIttazoCheck()
+    {
+        girlEat_judge.loveGetPlusAnimeON(5, false);
+        girl1_status.GirlExpressionKoushin(20);
+
+        if(GameMgr.OsotoIttazoPlace == "SodaIsland")
+        {
+            _textmain.text = "遊園地で遊んで、満足しているようだ。";
+        }
+        else if (GameMgr.OsotoIttazoPlace == "RotenStreet")
+        {
+            _textmain.text = "屋台で遊んで、喜んだようだ。";
+        }
+        else
+        {
+            _textmain.text = "お外にいって、喜んだようだ。";
+        }
+
+        //ハートゲージを更新。
+        HeartGuageTextKoushin();
+    }
+
 
     //メインの調合シーンの処理  Utageからも読まれる。
     public void MainCompoundMethod()
@@ -1827,7 +1849,15 @@ public class Compound_Main : MonoBehaviour
                         }
                     }
 
-                }               
+                }   
+                
+                //ソーダアイランドとかにいきたいフラグがたっていて、帰ってきたときにハートが上がる処理のチェック
+                if(GameMgr.OsotoIttazoFlag)
+                {
+                    GameMgr.OsotoIttazoFlag = false;
+
+                    OsotoIttazoCheck();
+                }
 
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
                 if (!GameMgr.tutorial_ON)

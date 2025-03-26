@@ -1137,8 +1137,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     if (special_animatFirst != true) //最初の一回だけ、吹き出しアニメスタート
                     {                        
-
-                        //Debug.Log("エクストラモード　電球ピコ");
                         //一度ドアップになり、電球がキラン！　→　そのあと、クエストの吹き出し。最初の一回だけ。
                         StartCoroutine("Special_StartAnim");
                     }
@@ -1156,13 +1154,16 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     void RandomEatOkashiDecide()
     {
+        
         GameMgr.RandomEatOkashi_counter++;
+        Debug.Log("ランダム食べたいお菓子カウント(0で再設定): " + GameMgr.RandomEatOkashi_counter);
 
-        if (GameMgr.RandomEatOkashi_counter >= 3)
+        if (GameMgr.RandomEatOkashi_counter > 3) //3連続で食べたいものが表示されていたなら、4つめは次は新しい食べたいものを表示する。
         {
             GameMgr.RandomEatOkashi_counter = 0;
 
             RandomOkashiDecideMethod(); //新しく食べたいお菓子を設定しなおす
+            Debug.Log("食べたいお菓子を再設定");
         }
         else
         {
@@ -1180,22 +1181,38 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         //ランダムでおぼえたレシピから一つ、食べたいお菓子がきまる。
         girlRandomEat_List.Clear();
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
-        {
-            if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)
+        {           
+            if (databaseCompo.compoitems[i].cmpitemID_result_itemType == "Okashi")
             {
-                _id = database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result);
+                //HLVがある程度こえると、食べたことないお菓子も食べたいと言うようになる。
+                if(PlayerStatus.girl1_Love_lv >= 20)
+                {
+                    random = Random.Range(0, 100);
+                    if(random >= 50) //50%で食べたことないおかし
+                    {
+                        Debug.Log("新しいお菓子を食べたい");
+                        if (databaseCompo.compoitems[i].cmpitem_flag == 0 && databaseCompo.compoitems[i].recipi_count == 1)
+                        {
+                            _id = database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result);
+                            if (database.items[_id].NotEat == 1) //食べたくないに設定されてるものは表示されない
+                            { }
+                            else
+                            {
+                                girlRandomEat_List.Add(_id);
+                                //Debug.Log("databaseCompo.compoitems[i].cmpitemID_result: " + databaseCompo.compoitems[i].cmpitemID_result);
+                            }
 
-                if (database.items[_id].itemType.ToString() == "Okashi")
-                {                    
-                    if (database.items[_id].NotEat == 1) //食べたくないに設定されてるものは表示されない
-                    { }
+                        }
+                    }
                     else
                     {
-                        girlRandomEat_List.Add(_id);
-                        //Debug.Log("databaseCompo.compoitems[i].cmpitemID_result: " + databaseCompo.compoitems[i].cmpitemID_result);
+                        Already_eatOkashi();
                     }
-
-                }
+                    
+                } else
+                {
+                    Already_eatOkashi();
+                }              
             }
         }
 
@@ -1207,6 +1224,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         else //手帳レシピ０の場合、ねこクッキー
         {
             SetQuestHukidashiText(database.SearchItemIDString("neko_cookie"), 1);
+        }
+    }
+
+    void Already_eatOkashi()
+    {
+        Debug.Log("既に食べたことあるお菓子を食べたい");
+
+        if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)
+        {
+            _id = database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result);
+
+            if (database.items[_id].NotEat == 1) //食べたくないに設定されてるものは表示されない
+            { }
+            else
+            {
+                girlRandomEat_List.Add(_id);
+                //Debug.Log("databaseCompo.compoitems[i].cmpitemID_result: " + databaseCompo.compoitems[i].cmpitemID_result);
+            }
+
         }
     }
 
@@ -1500,7 +1536,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 else
                 {
 
-                    //ヒントをだすか、今食べたいもののどちらかを表示する。3連続で食べたいものが表示されていないなら、4つめは次は必ず食べたいものを表示する。
+                    //ヒントをだすか、今食べたいもののどちらかを表示する。
                     if (_noweat_count >= 3)
                     {
                         _noweat_count = 0;

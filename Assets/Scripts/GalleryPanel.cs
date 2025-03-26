@@ -36,6 +36,7 @@ public class GalleryPanel : MonoBehaviour {
         GameMgr.scenario_ON = true;
         GameMgr.CGGallery_readflag = true;
         GameMgr.CGGallery_num = GameMgr.HikariOmoide_Eventlist[_id].ID; //イベント番号ごとに固有のIDがふられている。
+        GameMgr.CGGallery_name = GameMgr.HikariOmoide_Eventlist[_id].titleName;
 
         Omake_Main.GetComponent<Omake_Main>().ReadCGGallery();
         CGGallery_panel.GetComponent<CGGalleryPanel>().OffInteractPanel();
