@@ -2820,6 +2820,7 @@ public class Compound_Main : MonoBehaviour
 
             if (pitemlist.player_extremepanel_itemlist.Count > 0)
             {
+                GameMgr.Window_CharaName = "";
                 _text.text = "今、作ったお菓子をあげますか？"; // + "\n" + "あと " + GameMgr.ColorLemon + nokori_kaisu + "</color>" + "回　あげられるよ。"
                 HintButtonOFF();
                 GameMgr.compound_status = 10;
@@ -2880,14 +2881,36 @@ public class Compound_Main : MonoBehaviour
             {
                 if (!GameMgr.QuestClearflag)
                 {
-                    _text.text = "コンテストに出るの？";
-                    GameMgr.compound_status = 40;
-                    yes_no_clear_panel.SetActive(true);
-                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
-                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+                    if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
+                    {
+                        if (GameMgr.outgirl_Nowprogress)
+                        {
+                            GameMgr.Window_CharaName = GameMgr.player_Name_First;
+                            _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
+                        }
+                        else
+                        {
+                            GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                            _text.text = "今日はもう遅いからやめとこ～..。";
+                        }
+                        GameMgr.compound_status = 40;
+                        yes_no_clear_panel.SetActive(true);
+                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = false;
+                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = false;
+                    }
+                    else
+                    {
+                        GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                        _text.text = "コンテストに出るの？";
+                        GameMgr.compound_status = 40;
+                        yes_no_clear_panel.SetActive(true);
+                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
+                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+                    }
                 }
                 else
                 {
+                    GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
                     _text.text = "次のお話にすすむ？　おにいちゃん。";
 
                     GameMgr.compound_status = 42;

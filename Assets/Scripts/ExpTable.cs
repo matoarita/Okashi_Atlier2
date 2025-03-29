@@ -242,9 +242,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     break;
             }
 
-            if (_maxlevel >= 3 && GameMgr.System_MagicUse_Flag) //レベルが4以上から、LV1ごとにMPが+1
+            if (_maxlevel > 3 && GameMgr.System_MagicUse_Flag) //レベルが4以上から、LV2ごとにMPが+1
             {
-                if (_maxlevel % 1 == 0)
+                if (_maxlevel % 2 == 0)
                 {
                     MagicUpPanelHyouji(1);
                 }

@@ -203,6 +203,10 @@ public class SaveLoadPanel : MonoBehaviour {
 
     public void OnNoButton()
     {
+        //調合シーンでここを通るときは、特に影響がない
+        GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
+
         this.gameObject.SetActive(false);
     }
 

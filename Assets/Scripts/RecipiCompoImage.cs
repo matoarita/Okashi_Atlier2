@@ -45,13 +45,13 @@ public class RecipiCompoImage : MonoBehaviour {
         this.transform.Find("Panel").gameObject.SetActive(true);
 
         //現在のレシピ数を更新
-        databaseCompo.RecipiCount_database();
+        databaseCompo.RecipiCount_database(0);
 
         recipi_tassei_text.text = GameMgr.game_Cullent_recipi_count + " / " + GameMgr.game_All_recipi_count + " " 
             + GameMgr.game_Recipi_archivement_rate.ToString("f2") + "%";
 
         //調合成功率アップパーセント表示も更新
-        databaseCompo.RecipiCount_database();
+        databaseCompo.RecipiCount_database(0);
         //cullent_exup = GameMgr.game_Exup_rate + bufpower_keisan.Buf_CompKakuritsu_Keisan();
         cullent_exup = GameMgr.game_Exup_rate;
         exup_text.text = "+" + cullent_exup.ToString() + "%";

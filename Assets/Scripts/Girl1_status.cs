@@ -1190,7 +1190,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                     random = Random.Range(0, 100);
                     if(random >= 50) //50%で食べたことないおかし
                     {
-                        Debug.Log("新しいお菓子を食べたい");
+                        //Debug.Log("新しいお菓子を食べたい");
                         if (databaseCompo.compoitems[i].cmpitem_flag == 0 && databaseCompo.compoitems[i].recipi_count == 1)
                         {
                             _id = database.SearchItemIDString(databaseCompo.compoitems[i].cmpitemID_result);
@@ -1229,7 +1229,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     void Already_eatOkashi()
     {
-        Debug.Log("既に食べたことあるお菓子を食べたい");
+        //Debug.Log("既に食べたことあるお菓子を食べたい");
 
         if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)
         {

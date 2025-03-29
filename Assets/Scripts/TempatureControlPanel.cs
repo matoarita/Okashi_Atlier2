@@ -76,7 +76,7 @@ public class TempatureControlPanel : MonoBehaviour {
 
 
         GameMgr.System_tempature_control_Param_temp = _tempMin;
-        GameMgr.System_tempature_control_Param_time = 30;       
+        GameMgr.System_tempature_control_Param_time = 0;       
 
         _text_temp.text = GameMgr.System_tempature_control_Param_temp.ToString();
         _text_time.text = GameMgr.System_tempature_control_Param_time.ToString();

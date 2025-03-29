@@ -69,8 +69,8 @@ public class SceneInitSetting : SingletonMonoBehaviour<SceneInitSetting>
         {
             //シーン最初にプレイヤー所持アイテムリストパネルの生成
             pitemlist_scrollview_init_obj = GameObject.FindWithTag("PlayerItemListView_Init");
-            pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
 
+            pitemlist_scrollview_init_obj.GetComponent<PlayerItemListView_Init>().PlayerItemList_ScrollView_Init();
             playeritemlist_onoff = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
             playeritemlist_onoff.SetActive(false);
 

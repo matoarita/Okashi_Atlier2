@@ -415,6 +415,7 @@ public class PlayerData
     public bool save_SleepSkipFlag;
     public bool save_PicnicSkipFlag;
     public bool save_OutGirlSkipFlag;
+    public bool save_TempatureControlSkipFlag;
 
     //エンディングカウント
     public int save_ending_count;

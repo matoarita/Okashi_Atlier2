@@ -346,34 +346,41 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                         {
                                             if (yes_selectitem_kettei.kettei1 == true) //調合二個でYes決定した状態
                                             {
-                                                //温度管理前に、調合アイテムが該当するかチェック
-                                                compound_check.CompoundJudge(GameMgr.temp_itemID1, GameMgr.temp_itemID2, GameMgr.temp_itemID3, 0);
-                                                _subType = database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString();
-
-                                                if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                                                if (GameMgr.TempatureControlSkipFlag) //スキップonのときは温度管理表示しない
                                                 {
-                                                    //GameMgr.tempature_control_ON = false;
                                                     GameMgr.final_select_flag = true;
-
-                                                    foreach (string _type in GameMgr.OkashiTempatureControl_list)
-                                                    {
-                                                        //焼き菓子かどうかを判定
-                                                        if (_subType == _type)
-                                                        {
-                                                            Debug.Log("温度管理画面を表示する");
-
-                                                            //GameMgr.tempature_control_ON = true;
-                                                            GameMgr.tempature_control_select_flag = true;
-                                                            GameMgr.final_select_flag = false;
-                                                            break;
-                                                        }
-                                                        else
-                                                        { }
-                                                    }
                                                 }
                                                 else
                                                 {
-                                                    GameMgr.final_select_flag = true;
+                                                    //温度管理前に、調合アイテムが該当するかチェック
+                                                    compound_check.CompoundJudge(GameMgr.temp_itemID1, GameMgr.temp_itemID2, GameMgr.temp_itemID3, 0);
+                                                    _subType = database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString();
+
+                                                    if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                                                    {
+                                                        //GameMgr.tempature_control_ON = false;
+                                                        GameMgr.final_select_flag = true;
+
+                                                        foreach (string _type in GameMgr.OkashiTempatureControl_list)
+                                                        {
+                                                            //焼き菓子かどうかを判定
+                                                            if (_subType == _type)
+                                                            {
+                                                                Debug.Log("温度管理画面を表示する");
+
+                                                                //GameMgr.tempature_control_ON = true;
+                                                                GameMgr.tempature_control_select_flag = true;
+                                                                GameMgr.final_select_flag = false;
+                                                                break;
+                                                            }
+                                                            else
+                                                            { }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        GameMgr.final_select_flag = true;
+                                                    }
                                                 }
                                             }
                                             else if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。

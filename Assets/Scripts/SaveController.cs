@@ -336,6 +336,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_SleepSkipFlag = GameMgr.SleepSkipFlag,
             save_PicnicSkipFlag = GameMgr.PicnicSkipFlag,
             save_OutGirlSkipFlag = GameMgr.OutGirlSkipFlag,
+            save_TempatureControlSkipFlag = GameMgr.TempatureControlSkipFlag,
 
             //コスチューム番号
             save_costume_num = GameMgr.Costume_Num,
@@ -779,6 +780,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.SleepSkipFlag = playerData.save_SleepSkipFlag;
         GameMgr.PicnicSkipFlag = playerData.save_PicnicSkipFlag;
         GameMgr.OutGirlSkipFlag = playerData.save_OutGirlSkipFlag;
+        GameMgr.TempatureControlSkipFlag = playerData.save_TempatureControlSkipFlag;
 
         //コスチューム番号
         GameMgr.Costume_Num = playerData.save_costume_num;
@@ -1492,12 +1494,33 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //調合フラグと調合回数の取得 
+        Debug.Log("システムデータ　おかし手帳のセーブ");
         _temp_cmpflaglist.Clear();
         for (i = 0; i < databaseCompo.compoitems.Count; i++)
         {
-            _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag, 
+            //Debug.Log("databaseCompo.system_compoitems[i].cmpitem_flag: " + databaseCompo.system_compoitems[i].cmpitem_Name + " " + databaseCompo.system_compoitems[i].cmpitem_flag);
+            if (databaseCompo.compoitems[i].cmpitem_flag == 1)
+            {
+                _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.compoitems[i].cmpitem_flag,
                 databaseCompo.compoitems[i].comp_count, databaseCompo.compoitems[i].hikari_make_count));
-            //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);
+                //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);
+            }
+            else
+            {
+                if (databaseCompo.system_compoitems[i].cmpitem_flag == 1) //ゲーム中では未解禁だが、システムデータではもう解禁されてた場合　システムを優先
+                {
+                    //Debug.Log("ゲーム中では未解禁だが、システムお菓子手帳では解禁されてるもの");
+                    _temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.system_compoitems[i].cmpitem_flag,
+                    databaseCompo.system_compoitems[i].comp_count, databaseCompo.system_compoitems[i].hikari_make_count));
+                    //Debug.Log("databaseCompo.system_compoitems[i].cmpitem_flag: " + databaseCompo.system_compoitems[i].cmpitem_Name + " " + databaseCompo.system_compoitems[i].cmpitem_flag);
+                }
+                else //ゲーム中でも、システムデータでも未解禁
+                {
+                    /*_temp_cmpflaglist.Add(new ItemSaveCompoFlag(databaseCompo.compoitems[i].cmpitem_Name, databaseCompo.system_compoitems[i].cmpitem_flag,
+                    databaseCompo.system_compoitems[i].comp_count, databaseCompo.system_compoitems[i].hikari_make_count));*/
+                    //Debug.Log("databaseCompo.system_compoitems[i].cmpitem_flag: " + databaseCompo.system_compoitems[i].cmpitem_Name + " " + databaseCompo.system_compoitems[i].cmpitem_flag);
+                }
+            }        
         }
 
         //アイテムの前回得点のみ取得
@@ -1587,16 +1610,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             /*save_Autosave_ON = GameMgr.AUTOSAVE_ON,
 
             //調合シーンでBGM切り替えるフラグ
-            save_CompoBGMChange_ON = GameMgr.CompoBGMCHANGE_ON,
-
-            //スキップ系フラグ
-            save_SleepSkipFlag = GameMgr.SleepSkipFlag,
-            save_PicnicSkipFlag = GameMgr.PicnicSkipFlag,
-            save_OutGirlSkipFlag = GameMgr.OutGirlSkipFlag,           
+            save_CompoBGMChange_ON = GameMgr.CompoBGMCHANGE_ON,    */  
 
             //コスチューム番号
             save_costume_num = GameMgr.Costume_Num,
-            save_acce_num = GameMgr.Accesory_Num,*/
+            save_acce_num = GameMgr.Accesory_Num,
 
             //save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
             //save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
@@ -1701,17 +1719,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //オートセーブフラグ
             /*GameMgr.AUTOSAVE_ON = systemData.save_Autosave_ON;
 
-            //スキップ系フラグ
-            GameMgr.SleepSkipFlag = systemData.save_SleepSkipFlag;
-            GameMgr.PicnicSkipFlag = systemData.save_PicnicSkipFlag;
-            GameMgr.OutGirlSkipFlag = systemData.save_OutGirlSkipFlag;
-
             //調合シーンでBGM切り替えるフラグ
-            GameMgr.CompoBGMCHANGE_ON = systemData.save_CompoBGMChange_ON;
+            GameMgr.CompoBGMCHANGE_ON = systemData.save_CompoBGMChange_ON;*/
             
             //コスチューム番号
             GameMgr.Costume_Num = systemData.save_costume_num;
-            GameMgr.Accesory_Num = systemData.save_acce_num;*/
+            GameMgr.Accesory_Num = systemData.save_acce_num;
 
             //PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
             /*if (systemData.save_player_girl_maxlifepoint_system != 0) //ver途中から引継ぎするように仕様変更。なので例外処理をいれる。
@@ -1736,33 +1749,27 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             }*/
 
             //調合のフラグ＋調合回数を読み込み システムデータでは、ヒカリのお菓子制作フラグはONになったものだけ更新する。
-            /*for (count = 0; count < systemData.save_itemCompodatabase.Count; count++)
+            Debug.Log("システムデータ　おかし手帳読み込み");
+            for (count = 0; count < systemData.save_itemCompodatabase.Count; count++)
             {
                 i = 0;
                 while (i < databaseCompo.compoitems.Count)
                 {
                     if (systemData.save_itemCompodatabase[count].comp_name == databaseCompo.compoitems[i].cmpitem_Name)
                     {
-                        if(databaseCompo.compoitems[i].cmpitem_flag == 9999) //最新のエクセルが9999なら、そっちを優先
-                        {  }
-                        else
-                        { //そうじゃないとき
-                            if(systemData.save_itemCompodatabase[count].comp_Flag == 9999) //読み込み元が9999だと、そっちは無視して最新を優先する。
-                            { }
-                            else
-                            {
-                                databaseCompo.compoitems[i].cmpitem_flag = systemData.save_itemCompodatabase[count].comp_Flag;
-                            }
+                        if (systemData.save_itemCompodatabase[count].comp_Flag == 1)
+                        {
+                            databaseCompo.system_compoitems[i].cmpitem_flag = systemData.save_itemCompodatabase[count].comp_Flag;
+                            databaseCompo.system_compoitems[i].comp_count = systemData.save_itemCompodatabase[count].comp_Count;
+                            databaseCompo.system_compoitems[i].hikari_make_count = systemData.save_itemCompodatabase[count].hikarimake_Count;
+                            //Debug.Log("databaseCompo.system_compoitems[i].cmpitem_flag: " + databaseCompo.system_compoitems[i].cmpitem_Name + " " + databaseCompo.system_compoitems[i].cmpitem_flag);
+
+                            break;
                         }
-                        
-                        databaseCompo.compoitems[i].comp_count = systemData.save_itemCompodatabase[count].comp_Count;
-                        databaseCompo.compoitems[i].hikari_make_count = systemData.save_itemCompodatabase[count].hikarimake_Count;
-                        //Debug.Log("databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_Name + " " + databaseCompo.compoitems[i].cmpitem_flag);
-                        break;
                     }
                     i++;
                 }
-            }*/
+            }
 
             //アイテムの前回スコアなどを読み込み
             /*for (count = 0; count < systemData.save_itemdatabase.Count; count++)

@@ -493,6 +493,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool SleepSkipFlag;
     public static bool PicnicSkipFlag;
     public static bool OutGirlSkipFlag;
+    public static bool TempatureControlSkipFlag;
 
     //現在のメインBGMの番号
     public static int mainBGM_Num;
@@ -931,6 +932,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Compo_FinalCostTime; //バフも計算したあとの、最終の調合にかかる時間
     public static bool System_PoolEnd; //プールに入り終わったフラグ
     public static bool QuestClearButton_EnshutuStart; //クエストクリアボタン演出が始まったフラグ
+    public static int MakeItemStatus; //できたお菓子が店売りのものかそうでないか
 
 
     //セリフ関連の一時変数
@@ -1247,6 +1249,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SleepSkipFlag = false;
         PicnicSkipFlag = false;
         OutGirlSkipFlag = false;
+        TempatureControlSkipFlag = false;
 
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。
         scenario_ON = false;

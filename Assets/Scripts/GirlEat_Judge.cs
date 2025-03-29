@@ -3698,20 +3698,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     if(PlayerStatus.girl1_Love_maxlv < PlayerStatus.girl1_Love_lv) //maxlvの上限更新
                     {
                         PlayerStatus.girl1_Love_maxlv = PlayerStatus.girl1_Love_lv;
+
+                        //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
+                        exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 1); //2番目が1だと、パネルの表示
+                        exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
+                                                                                       //exp_table.SkillCheckPatissierLV();
+                                                                                       //ステータスもランダムであがる。
+                        exp_table.StatusUp(); //
                     }
+                    Debug.Log("girl1_Love_maxlv: " + PlayerStatus.girl1_Love_maxlv);
 
                     //Maxバリューを再設定
                     Love_Slider_Setting();
 
                     //分かりやすくするように、レベルアップ時のパネルも表示
-                    LvUpPanel1();
-
-                    //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
-                    exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 1); //2番目が1だと、パネルの表示
-                    exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
-                                                                                   //exp_table.SkillCheckPatissierLV();
-                    //ステータスもランダムであがる。
-                    exp_table.StatusUp(); //
+                    LvUpPanel1();                    
                 }
                 else
                 {

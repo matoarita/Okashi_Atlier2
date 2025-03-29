@@ -418,6 +418,12 @@ public class Compound_Check : MonoBehaviour {
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
                 FinalCheck_ItemIconHyouji(0); //2個表示のとき
 
+                //温度管理覚えてる場合、必ずここで一旦オフ
+                if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                {
+                    GameMgr.tempature_control_Offflag = true;
+                }
+
                 if (GameMgr.compound_select == 3)
                 {
                     _text.text = final_itemmes + "\n" + "作る？";
@@ -445,10 +451,10 @@ public class Compound_Check : MonoBehaviour {
                     case true:
 
                         //温度管理ONにしてたら、温度管理画面をオフにする。
-                        if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                        /*if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
                         {
                             GameMgr.tempature_control_Offflag = true;
-                        }
+                        }*/
 
                         if (GameMgr.compound_select == 3)
                         {
@@ -516,7 +522,10 @@ public class Compound_Check : MonoBehaviour {
 
                         if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
                         {
-                            if (GameMgr.tempature_control_ON)
+                            //GameMgr.tempature_control_Offflag = true;
+                            cancel_Method1();
+
+                            /*if (GameMgr.tempature_control_ON)
                             {
                                 Debug.Log("温度管理画面を表示する");
 
@@ -524,8 +533,9 @@ public class Compound_Check : MonoBehaviour {
                             }
                             else
                             {
+                                GameMgr.tempature_control_Offflag = true;
                                 cancel_Method1();
-                            }
+                            }*/
                         }
                         else
                         {
@@ -555,6 +565,12 @@ public class Compound_Check : MonoBehaviour {
                 //選んだアイテムを表示する。リザルトアイテムも表示する。
                 FinalCheck_ItemIconHyouji(1); //3個表示のとき
 
+                //温度管理覚えてる場合、必ずここで一旦オフ
+                if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                {
+                    GameMgr.tempature_control_Offflag = true;
+                }
+
                 if (GameMgr.compound_select == 3)
                 {
                     _text.text = final_itemmes + "\n" + "作る？";
@@ -582,10 +598,10 @@ public class Compound_Check : MonoBehaviour {
                     case true:
 
                         //温度管理ONにしてたら、温度管理画面をオフにする。
-                        if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+                        /*if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
                         {
                             GameMgr.tempature_control_Offflag = true;
-                        }
+                        }*/
 
                         if (GameMgr.compound_select == 3)
                         {
@@ -645,7 +661,10 @@ public class Compound_Check : MonoBehaviour {
 
                         if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
                         {
-                            if (GameMgr.tempature_control_ON)
+                            //GameMgr.tempature_control_Offflag = true;
+                            cancel_Method2();
+
+                            /*if (GameMgr.tempature_control_ON)
                             {
                                 Debug.Log("温度管理画面を表示する");
 
@@ -653,8 +672,9 @@ public class Compound_Check : MonoBehaviour {
                             }
                             else
                             {
+                                GameMgr.tempature_control_Offflag = true;
                                 cancel_Method2();
-                            }
+                            }*/
                         }
                         else
                         {
@@ -1956,7 +1976,7 @@ public class Compound_Check : MonoBehaviour {
     {
         _buf_kakuritsu = 0;
         _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan(databaseCompo.compoitems[_compID].cmpitemID_result, _compID); //にいちゃん・ヒカリが作るとき共通でバフかかる
-        databaseCompo.RecipiCount_database();
+        databaseCompo.RecipiCount_database(0);
 
 
         if (GameMgr.compound_select == 7) //ヒカリが作るときの成功率計算

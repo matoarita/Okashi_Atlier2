@@ -554,7 +554,7 @@ public class AAA_TotalResult : MonoBehaviour {
         girl_exp_param_text.text = PlayerStatus.girl1_Love_exp.ToString();
 
         //レシピパーセント表示
-        databaseCompo.RecipiCount_database();
+        databaseCompo.RecipiCount_database(0);
         total_recipi_count_text.text = GameMgr.game_Recipi_archivement_rate.ToString("f2") + "%";
         //GameMgr.game_Cullent_recipi_count + " / " + GameMgr.game_All_recipi_count
 

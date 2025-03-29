@@ -47,6 +47,8 @@ public class RecipiListController : MonoBehaviour {
     private int count;
     private int i, j;
 
+    private string _cmpitemID_result;
+    private int _hikarimake_count;
     //public int _count1;
 
     public bool final_recipiselect_flag;    
@@ -60,7 +62,8 @@ public class RecipiListController : MonoBehaviour {
     // Use this for initialization
     void Awake () {
 
-        InitSetting();
+        //InitSetting();
+        //DontDestroyOnLoad(this.gameObject);
     }
 	
 	// Update is called once per frame
@@ -97,12 +100,15 @@ public class RecipiListController : MonoBehaviour {
         category_status = 0;
 
         recipititle = this.transform.Find("Scroll_view_title/Scroll_view_title_text").GetComponent<Text>();
+
+        
     }
 
     void OnEnable()
     {
         //ウィンドウがアクティヴになった瞬間だけ読み出される
         //Debug.Log("OnEnable");  
+        InitSetting();
 
         yes_button = this.transform.Find("Yes").gameObject;
         no_button = this.transform.Find("No").gameObject;
@@ -133,7 +139,7 @@ public class RecipiListController : MonoBehaviour {
                 category_toggle[0].SetActive(false);
                 category_toggle[1].GetComponent<Toggle>().isOn = true;
                 
-                reset_and_DrawView_Okashi();
+                //reset_and_DrawView_Okashi();
                 recipititle.text = "お菓子手帳";
                 break;
 
@@ -161,7 +167,7 @@ public class RecipiListController : MonoBehaviour {
                 category_toggle[0].SetActive(false);
                 category_toggle[1].GetComponent<Toggle>().isOn = true;
 
-                reset_and_DrawView_Okashi();
+                //reset_and_DrawView_Okashi();
                 recipititle.text = "お菓子手帳";
                 break;
         }
@@ -288,25 +294,62 @@ public class RecipiListController : MonoBehaviour {
         _recipi_listitem.Clear();
 
 
-        //調合DBのフラグをチェック
-        for (i = 0; i < databaseCompo.compoitems.Count; i++)
+        switch (GameMgr.compound_select)
         {
-            //調合DBのフラグが1（調合したことがある）かつ、ゲーム中に登場するフラグがONのやつを、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
-            if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)
-            {
-                //Debug.Log(i);
-                drawNormalRecipi();
+            //オマケで開くとき　システムデータにセーブされた手帳データを開く
+            case 3000:
 
-            }
-            else if (databaseCompo.compoitems[i].cmpitem_flag == 0 && databaseCompo.compoitems[i].recipi_count == 1)
-            {
-                //Debug.Log(i);
-                drawEmptyRecipi();
+                Debug.Log("オマケ　システム用のお菓子手帳を開く");
 
-            }
+                //調合DBのフラグをチェック
+                for (i = 0; i < databaseCompo.system_compoitems.Count; i++)
+                {
+                    _cmpitemID_result = databaseCompo.system_compoitems[i].cmpitemID_result;
+                    _hikarimake_count = databaseCompo.system_compoitems[i].hikari_make_count;
 
-            //Debug.Log(databaseCompo.compoitems[i].cmpitem_Name + ": databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_flag);
+                    //調合DBのフラグが1（調合したことがある）かつ、ゲーム中に登場するフラグがONのやつを、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
+                    if (databaseCompo.system_compoitems[i].cmpitem_flag == 1 && databaseCompo.system_compoitems[i].recipi_count == 1)
+                    {
+                        //Debug.Log(i);
+                        drawNormalRecipi();
+
+                    }
+                    else if (databaseCompo.system_compoitems[i].cmpitem_flag == 0 && databaseCompo.system_compoitems[i].recipi_count == 1)
+                    {
+                        //Debug.Log(i);
+                        drawEmptyRecipi();
+
+                    }
+                    //Debug.Log(databaseCompo.compoitems[i].cmpitem_Name + ": databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_flag);
+                }
+                break;
+
+            default:
+
+                //調合DBのフラグをチェック
+                for (i = 0; i < databaseCompo.compoitems.Count; i++)
+                {
+                    _cmpitemID_result = databaseCompo.compoitems[i].cmpitemID_result;
+                    _hikarimake_count = databaseCompo.compoitems[i].hikari_make_count;
+
+                    //調合DBのフラグが1（調合したことがある）かつ、ゲーム中に登場するフラグがONのやつを、表示。そのときに、格納されてる配列番号=iをtoggleに保持する。
+                    if (databaseCompo.compoitems[i].cmpitem_flag == 1 && databaseCompo.compoitems[i].recipi_count == 1)
+                    {
+                        //Debug.Log(i);
+                        drawNormalRecipi();
+
+                    }
+                    else if (databaseCompo.compoitems[i].cmpitem_flag == 0 && databaseCompo.compoitems[i].recipi_count == 1)
+                    {
+                        //Debug.Log(i);
+                        drawEmptyRecipi();
+
+                    }
+                    //Debug.Log(databaseCompo.compoitems[i].cmpitem_Name + ": databaseCompo.compoitems[i].cmpitem_flag: " + databaseCompo.compoitems[i].cmpitem_flag);
+                }
+                break;
         }
+        
     }
 
     void drawEvRecipi()
@@ -370,53 +413,11 @@ public class RecipiListController : MonoBehaviour {
         //調合DBの生成アイテムはローマ字表記なので、アイテムデータベースから、日本語表記をひっぱってくる。
         while (j < database.items.Count)
         {
-            if (database.items[j].itemName == databaseCompo.compoitems[i].cmpitemID_result)
+            if (database.items[j].itemName == _cmpitemID_result)
             {
                 item_name = database.items[j].itemNameHyouji;
                 texture2d = database.items[j].itemIcon_sprite;
                 _toggle_itemID.recipi_itemID = j; //アイテムデータベース上の、アイテムID（コンポデータベースではない。）
-
-                //引継ぎ用の仕様
-                /*switch(GameMgr.compound_select)
-                {
-                    case 3000: //オマケで開く場合
-
-                        if (database.items_system[j].HighScore_flag == 1)
-                        {
-                            _HighStar.SetActive(true);
-                            _HighStar_2.SetActive(false);
-                        }
-                        else if (database.items_system[j].HighScore_flag == 2)
-                        {
-                            _HighStar.SetActive(true);
-                            _HighStar_2.SetActive(true);
-                        }
-                        else
-                        {
-                            _HighStar.SetActive(false);
-                            _HighStar_2.SetActive(false);
-                        }
-                        break;
-
-                    default:
-
-                        if (database.items[j].HighScore_flag == 1)
-                        {
-                            _HighStar.SetActive(true);
-                            _HighStar_2.SetActive(false);
-                        }
-                        else if (database.items[j].HighScore_flag == 2)
-                        {
-                            _HighStar.SetActive(true);
-                            _HighStar_2.SetActive(true);
-                        }
-                        else
-                        {
-                            _HighStar.SetActive(false);
-                            _HighStar_2.SetActive(false);
-                        }
-                        break;
-                }*/
 
                 if (database.items[j].HighScore_flag == 1)
                 {
@@ -440,7 +441,7 @@ public class RecipiListController : MonoBehaviour {
             ++j;
         }
 
-        if(databaseCompo.compoitems[i].hikari_make_count >= 1)
+        if(_hikarimake_count >= 1)
         {
             _HikariLaernIcon.SetActive(true);
         }
@@ -484,7 +485,7 @@ public class RecipiListController : MonoBehaviour {
         //調合DBの生成アイテムはローマ字表記なので、アイテムデータベースから、日本語表記をひっぱってくる。
         while (j < database.items.Count)
         {
-            if (database.items[j].itemName == databaseCompo.compoitems[i].cmpitemID_result)
+            if (database.items[j].itemName == _cmpitemID_result)
             {
                 item_name = database.items[j].itemNameHyouji;
                 texture2d = database.items[j].itemIcon_sprite;                

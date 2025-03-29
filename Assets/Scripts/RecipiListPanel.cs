@@ -24,7 +24,7 @@ public class RecipiListPanel : MonoBehaviour {
         RecipiCountPer = this.transform.Find("PageParamPercent").GetComponent<Text>();
 
         //レシピパーセント表示
-        databaseCompo.RecipiCount_database();
+        databaseCompo.RecipiCount_database(1);
         //total_recipi_count_text.text = GameMgr.game_Recipi_archivement_rate.ToString("f2") + "%";
         RecipiCountPer.text = GameMgr.game_Recipi_archivement_rate.ToString("f2") + "%";
         RecipiCount.text = GameMgr.game_Cullent_recipi_count + " / " + GameMgr.game_All_recipi_count;

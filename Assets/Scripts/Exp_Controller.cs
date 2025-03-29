@@ -502,7 +502,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 databaseCompo.compoitems[result_ID].comp_count++;               
 
                 //レシピ達成率を更新
-                databaseCompo.RecipiCount_database();
+                databaseCompo.RecipiCount_database(0);
 
                 //経験値獲得
                 GetExpMethod();
@@ -730,11 +730,25 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 switch (_status)
                 {
                     case 0: //通常調合時のリザルトカード表示
-                        card_view.ResultCard_DrawView(3, new_item);
+                        if (GameMgr.MakeItemStatus == 0)
+                        {
+                            card_view.ResultCard_DrawView(3, new_item);
+                        }
+                        else if (GameMgr.MakeItemStatus == 2)
+                        {
+                            card_view.ResultCard_DrawView(0, GameMgr.Okashi_makeID); //店売りアイテムの場合、databaseのパラメータを表示
+                        }
                         break;
 
                     case 1: //魔法調合時のリザルトカード表示
-                        card_view.MagicResultCard_DrawView(3, new_item);
+                        if (GameMgr.MakeItemStatus == 0)
+                        {
+                            card_view.MagicResultCard_DrawView(3, new_item);
+                        }
+                        else if (GameMgr.MakeItemStatus == 2)
+                        {
+                            card_view.ResultCard_DrawView(0, GameMgr.Okashi_makeID); //店売りアイテムの場合、databaseのパラメータを表示
+                        }
                         break;
                 }
             }
@@ -1070,7 +1084,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
 
                     //レシピ達成率を更新
-                    databaseCompo.RecipiCount_database();
+                    databaseCompo.RecipiCount_database(0);
 
                     //経験値獲得
                     GetExpMethod();
@@ -1331,7 +1345,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 databaseCompo.compoitems[result_ID].comp_count++;
 
                 //レシピ達成率を更新
-                databaseCompo.RecipiCount_database();
+                databaseCompo.RecipiCount_database(0);
 
                 //経験値獲得
                 GetExpMethod();                

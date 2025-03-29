@@ -1474,8 +1474,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _baseMSvalue[0], _baseMSvalue[1], _baseMSvalue[2], _baseMSvalue[3], _baseMSvalue[4], _baseMSvalue[5], _baseMSvalue[6], _baseMSvalue[7], _baseMSvalue[8], _baseMSvalue[9],
         _baseattri1, _baseattri2, _baseattri3);
 
-        Debug.Log("_baseattri2: " + _baseattri2);
+        //Debug.Log("_baseattri2: " + _baseattri2);
 
+        GameMgr.MakeItemStatus = 0;
         if (_base_itemType == "Mat" || _base_itemType == "Potion")
         {
             //アイテム取得処理
@@ -1489,6 +1490,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             else
             {
                 GetItemMethod(2); //上記以外は店売りアイテムとして登録
+                GameMgr.MakeItemStatus = 2;
             }
         }
         else

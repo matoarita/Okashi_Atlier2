@@ -32,6 +32,7 @@ public class Title_Main : MonoBehaviour {
     private GameObject _model_obj;
     private CubismRenderController cubism_rendercontroller;
     private Animator live2d_animator;
+    private Live2DCostumeTrigger live2d_costumetrigger;
     private GameObject chara_Icon;
 
     private GameObject version_text;
@@ -78,7 +79,8 @@ public class Title_Main : MonoBehaviour {
         _model_move = _model_root_obj.transform.Find("CharacterMove").gameObject;
         _model_obj = _model_root_obj.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
-        live2d_animator = _model_obj.GetComponent<Animator>();       
+        live2d_animator = _model_obj.GetComponent<Animator>();
+        live2d_costumetrigger = _model_obj.GetComponent<Live2DCostumeTrigger>();
 
         version_text = canvas.transform.Find("VersionText").gameObject;
         version_text.GetComponent<Text>().text = "ver " + GameMgr.GameVersion.ToString("f2");
@@ -95,6 +97,7 @@ public class Title_Main : MonoBehaviour {
             chara_Icon.SetActive(false);
             _model_move.SetActive(true);
             live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
+            live2d_costumetrigger.ChangeCostume();
 
             PlayerStatus.girl1_Love_lv = GameMgr.stage1_clear_girl1_lovelv; //タイトル画面でのみの、一時的な好感度レベル。最後にクリアした時のレベルにしておく。         
             if(PlayerStatus.girl1_Love_lv <= 0) { PlayerStatus.girl1_Love_lv = 1; } //例外処理
@@ -142,6 +145,7 @@ public class Title_Main : MonoBehaviour {
         }
 
         StartRead = false;
+        GameMgr.Scene_Status = 0;
 
         //シーン読み込み完了時のメソッド
         SceneManager.sceneLoaded += OnSceneLoaded; //別シーンから、このシーンが読み込まれたときに、処理するメソッド。   
@@ -158,6 +162,25 @@ public class Title_Main : MonoBehaviour {
             StartRead = true;
             sceneBGM.PlaySub();
             sceneBGM.NowFadeVolumeONBGM();
+        }
+
+        switch (GameMgr.Scene_Status)
+        {
+            case 0:
+
+                //腹減りカウント開始
+                girl1_status.GirlEat_Judge_on = true;
+
+                GameMgr.Scene_Status = 100;
+                break;
+
+            case 100: //デフォルトのシーン状態
+
+                break;
+
+            case 200:
+
+                break;
         }
     }
 
@@ -187,8 +210,13 @@ public class Title_Main : MonoBehaviour {
 
     public void OnLoadButton()
     {
+        GameMgr.Scene_Status = 200;
+
         GameMgr.SaveLoadPanel_mode = 1;
         saveload_panel.SetActive(true);
+
+        //腹減りカウント一時停止
+        girl1_status.GirlEatJudgecounter_OFF();
 
         //FadeManager.Instance.fadeColor = new Color(0.0f, 0.0f, 0.0f);
         //save_controller.OnLoadMethod(GameMgr.System_save_nowslot);

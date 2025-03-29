@@ -54,6 +54,7 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
         pitemlist_scrollview_init = (GameObject)Resources.Load("Prefabs/PlayeritemList_ScrollView");
         playeritemlist_onoff = Instantiate(pitemlist_scrollview_init, canvas.transform);
+        //GameObject.DontDestroyOnLoad(playeritemlist_onoff);
 
         //playeritemlist_onoff.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
         //playeritemlist_onoff.transform.localPosition = new Vector3(-240,80, 0);
@@ -70,6 +71,7 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
         recipilist_scrollview_init = (GameObject)Resources.Load("Prefabs/RecipiList_ScrollView");
         recipilist_onoff = Instantiate(recipilist_scrollview_init, canvas.transform);
+        //GameObject.DontDestroyOnLoad(recipilist_onoff);
 
         //recipilist_onoff.transform.localScale = new Vector3(0.9f, 0.9f, 1.0f);
         //recipilist_onoff.transform.localPosition = new Vector3(0, 70, 0);
@@ -83,6 +85,7 @@ public class PlayerItemListView_Init : SingletonMonoBehaviour<PlayerItemListView
 
         magicskilllist_scrollview_init = (GameObject)Resources.Load("Prefabs/MagicSkillList_Panel");
         magicskilllist_onoff = Instantiate(magicskilllist_scrollview_init, canvas.transform);
+        //GameObject.DontDestroyOnLoad(magicskilllist_onoff);
 
         magicskilllist_onoff.name = "MagicSkillList_Panel";
     }

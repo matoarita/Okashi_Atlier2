@@ -11,6 +11,7 @@ public class OptionPanel : MonoBehaviour {
 
     private ItemDataBase database;
     private PlayerItemList pitemlist;
+    private MagicSkillListDataBase magicskill_database;
 
     private TimeController time_controller;
 
@@ -51,6 +52,8 @@ public class OptionPanel : MonoBehaviour {
     private GameObject PicnicSkip_toggle_obj;
     private Toggle OutGirlSkip_toggle;
     private GameObject OutGirlSkip_toggle_obj;
+    private Toggle TempatureControl_toggle;
+    private GameObject TempatureControl_toggle_obj;
 
     private GameObject system_panel;
 
@@ -96,6 +99,9 @@ public class OptionPanel : MonoBehaviour {
 
         //時間管理オブジェクトの取得
         time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //調合メイン取得
         switch (GameMgr.Scene_Category_Num)
@@ -153,7 +159,18 @@ public class OptionPanel : MonoBehaviour {
 
         OutGirlSkip_toggle_obj = this.transform.Find("ExtraOptionList/Viewport/Content/OutGirlSkip").gameObject;
         OutGirlSkip_toggle = this.transform.Find("ExtraOptionList/Viewport/Content/OutGirlSkip/OutGirlSkipToggle").GetComponent<Toggle>();
-        
+
+        TempatureControl_toggle_obj = this.transform.Find("ExtraOptionList/Viewport/Content/TempControlSkip").gameObject;
+        TempatureControl_toggle = this.transform.Find("ExtraOptionList/Viewport/Content/TempControlSkip/TempatureControlToggle").GetComponent<Toggle>();
+        if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
+        {
+            TempatureControl_toggle_obj.SetActive(true);
+        }
+        else
+        {
+            TempatureControl_toggle_obj.SetActive(false);
+        }
+
 
         if (GameMgr.AUTOSAVE_ON)
         {
@@ -213,6 +230,14 @@ public class OptionPanel : MonoBehaviour {
         else
         {
             OutGirlSkip_toggle.SetIsOnWithoutCallback(false);
+        }
+        if (!GameMgr.TempatureControlSkipFlag)
+        {
+            TempatureControl_toggle.SetIsOnWithoutCallback(true);
+        }
+        else
+        {
+            TempatureControl_toggle.SetIsOnWithoutCallback(false);
         }
 
 
@@ -725,6 +750,20 @@ public class OptionPanel : MonoBehaviour {
         else
         {
             GameMgr.OutGirlSkipFlag = false;
+            sc.PlaySe(18);
+        }
+    }
+
+    public void OnTempatureONOFF()
+    {
+        if (!TempatureControl_toggle.isOn)
+        {
+            GameMgr.TempatureControlSkipFlag = true;
+            sc.PlaySe(81); //21
+        }
+        else
+        {
+            GameMgr.TempatureControlSkipFlag = false;
             sc.PlaySe(18);
         }
     }

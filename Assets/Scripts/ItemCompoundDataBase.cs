@@ -68,6 +68,7 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     //アイテム番号が低いものをベースに、残りの番号との組み合わせを見る。番号は、アイテムID。
 
     public List<ItemCompound> compoitems = new List<ItemCompound>(); //
+    public List<ItemCompound> system_compoitems = new List<ItemCompound>(); //
     //public List<ItemCompound> magic_compoitems = new List<ItemCompound>(); //
 
     void Start()
@@ -76,12 +77,13 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
 
         ResetDefaultCompoExcel();
 
-        RecipiCount_database(); //初期値設定。
+        RecipiCount_database(0); //初期値設定。
     }
 
     public void ResetDefaultCompoExcel()
     {
         compoitems.Clear();
+        system_compoitems.Clear();
         //magic_compoitems.Clear();
 
         excel_compoitemdatabase = Resources.Load("Excel/Entity_compoItemDataBase") as Entity_compoItemDataBase;
@@ -105,6 +107,12 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
                     cmp_flag, cmp_systemflag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, defaultKeisan, 
                     hikari_make_count, _itemType));
 
+                //ここでリストに追加している
+                system_compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, result_item2, result_kosu2,
+                    cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
+                    cmp_flag, cmp_systemflag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, defaultKeisan,
+                    hikari_make_count, _itemType));
+
                 ++count;
             }
 
@@ -123,6 +131,12 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
                     cmp_flag, cmp_systemflag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, defaultKeisan, 
                     hikari_make_count, _itemType));
 
+                //ここでリストに追加している
+                system_compoitems.Add(new ItemCompound(_id, cmpitem_name, cmpitem_1, cmpitem_2, cmpitem_3, cmpsubtype_1, cmpsubtype_2, cmpsubtype_3, result_item, result_kosu, result_item2, result_kosu2,
+                    cmp_kosu_1, cmp_kosu_2, cmp_kosu_3, cmp_bestkosu_1, cmp_bestkosu_2, cmp_bestkosu_3,
+                    cmp_flag, cmp_systemflag, _cost_time, _srate, _renkin_bexp, _keisan_method, _comp_count, release_recipi, recipi_count, buf_kouka_on, defaultKeisan,
+                    hikari_make_count, _itemType));
+
                 //Debug.Log("CompoID: " + magic_compoitems[count].cmpitemID);
 
                 ++count;
@@ -135,6 +149,12 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
         {
             //Debug.Log(i + " " + compoitems[i].cmpitem_Name + " " + compoitems[i].cmpitemID + " cmp_flag: " + compoitems[i].cmpitem_flag);
             Debug.Log(i + " " + compoitems[i].cmpitem_Name + " result_item1: " + compoitems[i].cmpitemID_result + " result_item2: " + compoitems[i].cmpitemID_result2);
+        }*/
+
+        /*for (i = 0; i < system_compoitems.Count; i++)
+        {
+            //Debug.Log(i + " " + compoitems[i].cmpitem_Name + " " + compoitems[i].cmpitemID + " cmp_flag: " + compoitems[i].cmpitem_flag);
+            Debug.Log(i + " " + system_compoitems[i].cmpitem_Name + " result_item1: " + system_compoitems[i].cmpitemID_result + " result_item2: " + system_compoitems[i].cmpitemID_result2);
         }*/
     }
 
@@ -252,20 +272,38 @@ public class ItemCompoundDataBase : SingletonMonoBehaviour<ItemCompoundDataBase>
     }
 
     //ゲーム中に表示される全てのレシピ数をカウントする.また現在のレシピ達成率も計算する。
-    public void RecipiCount_database()
+    public void RecipiCount_database(int _mstatus)
     {
         all_recipicount = 0;
         cullent_recipi_count = 0;
 
-        for (i = 0; i < compoitems.Count; i++)
+        if (_mstatus == 0)
         {
-            if (compoitems[i].cmpitem_Name != "" && compoitems[i].recipi_count == 1)
+            for (i = 0; i < compoitems.Count; i++)
             {
-                all_recipicount++;
-
-                if (compoitems[i].cmpitem_flag >= 1 && compoitems[i].cmpitem_flag != 9999)
+                if (compoitems[i].cmpitem_Name != "" && compoitems[i].recipi_count == 1)
                 {
-                    cullent_recipi_count++;
+                    all_recipicount++;
+
+                    if (compoitems[i].cmpitem_flag >= 1 && compoitems[i].cmpitem_flag != 9999)
+                    {
+                        cullent_recipi_count++;
+                    }
+                }
+            }
+        }
+        else if (_mstatus == 1) //システムデータのお菓子手帳用
+        {
+            for (i = 0; i < system_compoitems.Count; i++)
+            {
+                if (system_compoitems[i].cmpitem_Name != "" && system_compoitems[i].recipi_count == 1)
+                {
+                    all_recipicount++;
+
+                    if (system_compoitems[i].cmpitem_flag >= 1 && system_compoitems[i].cmpitem_flag != 9999)
+                    {
+                        cullent_recipi_count++;
+                    }
                 }
             }
         }
