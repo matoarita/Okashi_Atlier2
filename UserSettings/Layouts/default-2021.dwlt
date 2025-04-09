@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 47
+    x: 35
     y: 73
     width: 1837
     height: 906
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 78
+  controlID: 75
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 83
+  controlID: 139
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -744,7 +744,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 943
+    x: 931
     y: 103
     width: 320
     height: 835
@@ -758,7 +758,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 58d5a3ffa2d5a3ffb0d9a3ff26e6a3ff9ef2a3ffc003a4ffe811a4ff101da4ff6e70a6ff7607a7ffe60fa7fff614a7ff0619a7ffee98a7ffc2a0a7ffb2b4a7ff32bca7ffaebda7ff00bea7ffe6c2a7ffccc6a7ff76cea7ff4e3ba8fff21aa9ff6223a9ff7026a9ffac29a9ff8851a9ffa660a9ff4661a9ffc489a9ff648aa9ff048ba9ffa48ba9ff448ca9ffe48ca9ffea8ca9ff8a8da9ffd0c0a9ff72c1a9ffc6caa9ff10cba9ff1ecfa9ff94dba9ff0ce8a9ff2ef9a9ff5607aaff7e12aaffdc65acffe4fcacff5405adff640aadff740eadff5c8eadff3096adff20aaadffa0b1adff1cb3adff6eb3adff54b8adff3abcadffe4c3adffbc30aeff6010afffd018afffde1bafff1a1faffff646afff1456afffb456afff327fafffd27fafff7280afff1281afffb281afff5282afff5882affff882afff3eb6afffe0b6afff96c0afffe6c0afff10c8afff8cd4afff0ae1afff32f2afff6a00b0ff980bb0ff065fb2ff16f6b2ff8cfeb2ffa203b3ffb807b3ffa687b3ff808fb3ff76a3b3ff02abb3ff8eacb3ff42adb3ff3ab2b3ff30b6b3fff2bdb3ffe82ab4ff960ab5ff0c13b5ff2016b5ff6619b5ff4841b5ff7850b5ff1e51b5ffa479b5ff4c7ab5fff27ab5ff987bb5ff3e7cb5ffe47cb5fff07cb5ff967db5ffe2b0b5ff8ab1b5ffb8c6b5ffccc6b5ff1a9bb6ff4e22b7ff8c03b8ffd40cb8ff1e0db8ff2c11b8ffa21db8ff1a2ab8ff3c3bb8ff6449b8ff8c54b8ffeaa7bafff23ebbff6247bbff724cbbff8250bbff6ad0bbff3ed8bbff2eecbbffaef3bbff2af5bbff7af5bbff60fabbff46febbfff005bcffc872bcff6c52bdffdc5abdffea5dbdff2661bdff0289bdff2098bdffc098bdff3ec1bdffdec1bdff7ec2bdff1ec3bdffbec3bdff5ec4bdff64c4bdff04c5bdff4af8bdffecf8bdffcc06beff1c07beff420ebeffba1abeff3427beff5838beff8c46beffb651beff20a5c0ff2c3cc1ff9e44c1ffb049c1ffc24dc1ffaccdc1ff82d5c1ff74e9c1fffcf0c1ff84f2c1ff32f3c1ff26f8c1ff18fcc1ffd603c2ffc870c2ff1851c3ff9059c3ffa05cc3ffea5fc3ffcc87c3fff896c3ff9a97c3ff22c0c3ffc6c0c3ff68c1c3ff0ac2c3ffacc2c3ff4ec3c3ff56c3c3fff8c3c3ff3ef7c3ffe2f7c3ff1cf1c4ff3c84c5ffaea9c8ff4eb9c8ff4499c9ff56abc9ff1a1affff04fbfffff4ffffffd8dc1200e6161300ee191500082f1500dc411b00a86f1b0010731b0062781b0052c31b00c0d01b00
+      m_ExpandedIDs: 72fdf0ffc2fdf0ffe604f1ff5e11f1ffd81df1fffc2ef1ff303df1ff5a48f1ffc49bf3ffd032f4ff423bf4ff5440f4ff6644f4ff50c4f4ff26ccf4ff18e0f4ff9ae7f4ff1ae9f4ffc8e9f4ffb4eef4ff9ef2f4ff54faf4ff3e67f5ffe246f6ff544ff6ff6452f6ffa655f6ff847df6ffb08cf6ff528df6ffd4b5f6ff78b6f6ff1ab7f6ffbcb7f6ff5eb8f6ff00b9f6ff08b9f6ffaab9f6fff2ecf6ff96edf6ff4226f7ff5e32f7ff1a07ffff3a18ffff04fbffff2e7b0100567b0100ee7b0100507c010024b1110036c91100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -803,7 +803,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1620
+    x: 1608
     y: 103
     width: 263
     height: 835
@@ -846,7 +846,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1265
+    x: 1253
     y: 103
     width: 353
     height: 835
@@ -866,23 +866,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Utage_Scenario
+    - Assets/Resources/Utage_Scenario/Texture/Sprite/Video
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Utage_Scenario
+  - Assets/Resources/Utage_Scenario/Texture/Sprite/Video
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 533}
-    m_SelectedIDs: ba760100
-    m_LastClickedID: 95930
-    m_ExpandedIDs: 0000000010580100125801001458010016580100185801001a5801001c5801001e58010020580100225801002458010000ca9a3b
+    m_SelectedIDs: 18c20100
+    m_LastClickedID: 115224
+    m_ExpandedIDs: 0000000010580100125801001458010016580100185801001a5801001c5801001e580100205801002258010024580100c476010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -941,15 +941,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100b0940000fed10000a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100e0d50000603d0100eea10000fc6301002aa000003ad40000a09300001c930000766b0100f6550100505601006e5801003c9200000000000004980000e29400001e950000e694000032950000e465010054950000724d0100744d0100cc4c010030e20300ae570100a4560100fa5e2700a29f0000a09f00001ea00000a295000046e4060004950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: RecipiListController
-      m_OriginalName: RecipiListController
+      m_Name: Utage_Scenario
+      m_OriginalName: Utage_Scenario
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 2638
+      m_UserData: 95990
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -987,7 +987,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 47
+    x: 35
     y: 431
     width: 895
     height: 507
@@ -1081,7 +1081,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 47
+    x: 35
     y: 103
     width: 895
     height: 307

@@ -2382,6 +2382,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない　先頭のIDが、そのまま宴のCGの呼び出し番号になる
+    //イベントの呼び出しは、宴Excelの「CGGalleryScene」に登録する必要あり
     public static void Init_HikariOmoideEvent_Library()
     {
         HikariOmoide_Eventlist.Clear();
@@ -2389,6 +2390,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキの思い出", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(003, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(004, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2"));
 
         HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "プール", false, "EventCG_Icon/cg_gallery_icon_2"));

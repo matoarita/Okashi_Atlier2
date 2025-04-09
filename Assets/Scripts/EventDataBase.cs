@@ -712,20 +712,23 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //ハートレベル系のイベント
                 //
                 //HeartEvent_check(GameMgr.System_HeartBlockLv_01, 300, 1); //秘密の花園へいこうよ
-                HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1); //ヒカリお菓子作る
+                HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1, "Non"); //ヒカリお菓子作る
 
                 //HLVごとに発生するイベント 350番台～
+                //"Non"だと、思い出イベントのフラグ解放はなし　入れる場合は、GameMgrのHikariOmoide_Eventlistに登録する
+
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
                 //HeartEvent_check(15, 350, 1);
-                HeartEvent_check(20, 302, 1); //ヒカリ二個トッピング仕上げできるようになる
-                HeartEvent_check(25, 351, 1);               
-                HeartEvent_check(30, 355, 1);
-                HeartEvent_check(40, 354, 1);
-                //HeartEvent_check(50, 355, 1);
+                HeartEvent_check(20, 302, 1, "Non"); //ヒカリ二個トッピング仕上げできるようになる
+                HeartEvent_check(25, 351, 1, "Non"); //お花のおかし仮  
+                HeartEvent_check(30, 354, 1, "Non"); //カマキリ仮
+                HeartEvent_check(40, 355, 1, "dragon_carnival"); //ドラゴンカーニバル
+                HeartEvent_check(45, 356, 1, "ramen"); //らーめん
+                HeartEvent_check(50, 357, 1, "Non"); //おにもふ
                 //HeartEvent_check(60, 356, 1);
                 //HeartEvent_check(70, 357, 1);
-                HeartEvent_check(80, 358, 1);
-                HeartEvent_check(90, 359, 1);
+                HeartEvent_check(80, 358, 1, "Non");
+                HeartEvent_check(90, 359, 1, "Non");
 
                 //Heartevent_Grt(); //１の頃のイベント
 
@@ -993,7 +996,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
 
                 //置物や土産を買った 100番台～
-                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
                 {
@@ -1004,7 +1007,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             Event_startcheck(100, 1, false, true);
                         }
                     }
-                }
+                }*/
 
                 //レシピ100%達成
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -1756,7 +1759,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
-    void HeartEvent_check(int _lv, int _evnum, int _bgm)
+    void HeartEvent_check(int _lv, int _evnum, int _bgm, string _omoidename)
     {
         if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
         { }
@@ -1772,6 +1775,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 if (_bgm == 1) //宴BGMに切り替え
                 {
                     GameMgr.Mute_on = true;
+                }
+
+                if (_omoidename != "Non")
+                {
+                    GameMgr.SetHikariOmoideFlag(_omoidename, true);
                 }
             }
         }

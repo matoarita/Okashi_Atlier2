@@ -3697,7 +3697,7 @@ public class Compound_Main : MonoBehaviour
                         FadeManager.Instance.LoadScene("Or_Contest_Reception", 0.3f);
                         break;
 
-                    case 2:
+                    /*case 2:
 
                         GameMgr.stage2_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
                         GameMgr.stage2_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
@@ -3709,7 +3709,7 @@ public class Compound_Main : MonoBehaviour
                         GameMgr.stage3_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp; //クリア時の好感度を保存
                         GameMgr.stage3_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
                         FadeManager.Instance.LoadScene("100_Ending", 0.3f);
-                        break;
+                        break;*/
 
                 }
                 
@@ -3889,7 +3889,8 @@ public class Compound_Main : MonoBehaviour
 
             if(GameMgr.ending_on)
             {
-                FadeManager.Instance.LoadScene("100_Ending", 0.3f);
+                //FadeManager.Instance.LoadScene("100_Ending", 0.3f);
+                FadeManager.Instance.LoadScene("110_TotalResult", 0.3f);
             }
         }
         else //シーン移動などしない場合は、以下デフォルトの処理
