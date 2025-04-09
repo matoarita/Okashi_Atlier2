@@ -422,6 +422,16 @@
 			"Name": "わたあめ棒のみONOFF"
 		},
 		{
+			"Id": "ParamKogeHikari",
+			"GroupId": "ParamGroup4",
+			"Name": "焦げヒカリ切り替え"
+		},
+		{
+			"Id": "ParamMizunure",
+			"GroupId": "ParamGroup4",
+			"Name": "水濡れ"
+		},
+		{
 			"Id": "ParamMainCamX",
 			"GroupId": "ParamGroup15",
 			"Name": "MainCameraX"
@@ -1435,6 +1445,14 @@
 		}
 	],
 	"Parts": [
+		{
+			"Id": "Part17",
+			"Name": "水濡れ素材"
+		},
+		{
+			"Id": "Part69",
+			"Name": "焦げヒカリ"
+		},
 		{
 			"Id": "Part14",
 			"Name": "エフェクト"

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1837
     height: 906
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 75
+  controlID: 161
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 139
+  controlID: 18
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,8 +244,8 @@ MonoBehaviour:
     y: 0
     width: 896
     height: 328
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -758,21 +758,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 72fdf0ffc2fdf0ffe604f1ff5e11f1ffd81df1fffc2ef1ff303df1ff5a48f1ffc49bf3ffd032f4ff423bf4ff5440f4ff6644f4ff50c4f4ff26ccf4ff18e0f4ff9ae7f4ff1ae9f4ffc8e9f4ffb4eef4ff9ef2f4ff54faf4ff3e67f5ffe246f6ff544ff6ff6452f6ffa655f6ff847df6ffb08cf6ff528df6ffd4b5f6ff78b6f6ff1ab7f6ffbcb7f6ff5eb8f6ff00b9f6ff08b9f6ffaab9f6fff2ecf6ff96edf6ff4226f7ff5e32f7ff1a07ffff3a18ffff04fbffff2e7b0100567b0100ee7b0100507c010024b1110036c91100
+      m_ExpandedIDs: 7835fdff2a36fdff04fbffff2479000080790000ec990200bcce020048cf0200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Hikari_Live2D_3
+        m_OriginalName: Hikari_Live2D_3
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -34246
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 7}
       m_SearchString: 
@@ -866,23 +866,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Utage_Scenario/Texture/Sprite/Video
+    - Assets/Hikari_Live2D_3
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Utage_Scenario/Texture/Sprite/Video
+  - Assets/Hikari_Live2D_3
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 533}
-    m_SelectedIDs: 18c20100
-    m_LastClickedID: 115224
-    m_ExpandedIDs: 0000000010580100125801001458010016580100185801001a5801001c5801001e580100205801002258010024580100c476010000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 74760100
+    m_LastClickedID: 95860
+    m_ExpandedIDs: 0000000010580100125801001458010016580100185801001a5801001c5801001e580100205801002258010024580100c2760100e876010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -941,18 +941,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100b0940000fed10000a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100e0d50000603d0100eea10000fc6301002aa000003ad40000a09300001c930000766b0100f6550100505601006e5801003c9200000000000004980000e29400001e950000e694000032950000e465010054950000724d0100744d0100cc4c010030e20300ae570100a4560100fa5e2700a29f0000a09f00001ea00000a295000046e4060004950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Utage_Scenario
-      m_OriginalName: Utage_Scenario
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 95990
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:
