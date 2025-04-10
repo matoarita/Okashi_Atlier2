@@ -26,6 +26,7 @@ public class CubismLookTarget : MonoBehaviour, ICubismLookTarget
             }
         }
 
+        //Debug.Log("cubism マウス位置　取得中");
         var targetPosition = Input.mousePosition;
 
         targetPosition = (Camera.main.ScreenToViewportPoint(targetPosition) * 2) - Vector3.one;

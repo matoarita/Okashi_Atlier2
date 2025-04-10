@@ -504,7 +504,7 @@ public class StarStampPanel : MonoBehaviour
                 {
                     if (GameMgr.StarRank_ReleaseList[_num]) //true�Ȃ炷�łɎ擾
                     {
-                        TreasureStatus("ev4", 3);
+                        TreasureStatus("ev4", 0);
                     }
                     else
                     {
