@@ -305,7 +305,7 @@ public class ContestListController : MonoBehaviour
             }
         }
 
-        //ベオルブ家クリアで　オランジーナパティスリーアワード
+        //プラトンアカデミー優勝で自動ででる
         if (GameMgr.Contest_NewReleaseList[2])
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 4)
@@ -331,6 +331,8 @@ public class ContestListController : MonoBehaviour
                 DrawContest();
             }
         }
+
+        
 
         //夏コンテスト
 
@@ -500,7 +502,7 @@ public class ContestListController : MonoBehaviour
                 }
 
                 //ベオルブ家クリアで　オランジーナパティスリーアワード
-                _listID = conteststartList_database.SearchContestString("Or_Contest_030");
+                /*_listID = conteststartList_database.SearchContestString("Or_Contest_030");
                 if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[2])
@@ -508,27 +510,38 @@ public class ContestListController : MonoBehaviour
                         GameMgr.Contest_NewReleaseList[2] = true;
                         contest_new = 1;
                     }
-                }
+                }*/
 
-                //ルミエールエピファニアクリアでルミエールカンデラ
-                _listID = conteststartList_database.SearchContestString("Or_Contest_060");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
+                //以下は、一回プラトンアカデミークリアしないとでない。
+                if (conteststartList_database.SearchContestVictory("Or_Contest_001") == 1)
                 {
-                    if (!GameMgr.Contest_NewReleaseList[3])
+                    //プラトン優勝時点で次にでるやつ
+                    if (!GameMgr.Contest_NewReleaseList[2])
                     {
-                        GameMgr.Contest_NewReleaseList[3] = true;
+                        GameMgr.Contest_NewReleaseList[2] = true;
                         contest_new = 1;
                     }
-                }
 
-                //ルミエールカンデラ一位クリアで春コン最後がでる
-                _listID = conteststartList_database.SearchContestString("Or_Contest_070");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
-                {
-                    if (!GameMgr.Contest_NewReleaseList[4])
+                    //ルミエールエピファニアクリアでルミエールカンデラ
+                    _listID = conteststartList_database.SearchContestString("Or_Contest_060");
+                    if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                     {
-                        GameMgr.Contest_NewReleaseList[4] = true;
-                        contest_new = 1;
+                        if (!GameMgr.Contest_NewReleaseList[3])
+                        {
+                            GameMgr.Contest_NewReleaseList[3] = true;
+                            contest_new = 1;
+                        }
+                    }
+
+                    //ルミエールカンデラ一位クリアで春コン最後がでる
+                    _listID = conteststartList_database.SearchContestString("Or_Contest_070");
+                    if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                    {
+                        if (!GameMgr.Contest_NewReleaseList[4])
+                        {
+                            GameMgr.Contest_NewReleaseList[4] = true;
+                            contest_new = 1;
+                        }
                     }
                 }
                 break;
@@ -571,7 +584,7 @@ public class ContestListController : MonoBehaviour
                 }
 
                 //エデンコンテスト系の登場　スターでもいいし、特定のイベントクリアしたら出現でもいい
-                if (PlayerStatus.player_ninki_param >= 10)
+                if (GameMgr.GirlLoveSubEvent_stage1[501])
                 {
                     if (!GameMgr.Contest_NewReleaseList[40])
                     {
@@ -618,7 +631,8 @@ public class ContestListController : MonoBehaviour
                     }
                 }
 
-                if (PlayerStatus.player_ninki_param >= 15)
+                //秋エデン登場
+                if (GameMgr.GirlLoveSubEvent_stage1[502])
                 {
                     if (!GameMgr.Contest_NewReleaseList[41])
                     {

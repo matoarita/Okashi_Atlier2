@@ -1206,12 +1206,20 @@ public class Contest_Judge : MonoBehaviour {
 
                 break;
 
-            case "Or_Contest_270":　//プラム洋菓子技術コンテスト
+            case "Or_Contest_270":　//プラムアイス技術コンテスト　パフェ限定
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
-                    if (item_subType == "Cake" || item_subType == "CheeseCake" || item_subType == "PanCake" || item_subType == "Castella" || item_subType == "Maffin"
+                    /*if (item_subType == "Cake" || item_subType == "CheeseCake" || item_subType == "PanCake" || item_subType == "Castella" || item_subType == "Maffin"
                         || item_subTypeB == "a_CookieCake")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }*/
+                    if (item_subType == "Parfe")
                     {
                         judge_flag = true;
                     }

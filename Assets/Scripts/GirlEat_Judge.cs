@@ -5125,9 +5125,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case 100210:
 
                 //水族館へ行き、白クジラと会話すればクリア
-                if (GameMgr.NPCHiroba_eventList[260])
+                /*if (GameMgr.NPCHiroba_eventList[260])
                 {
                     Debug.Log("白くじらに会ったので、クエストクリア");
+                    sp_quest_clear = true;
+                }*/
+
+                //エデンのレシピ残り２つを持った時点でクリア
+                if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
+                pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
+                pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
+                {
+                    Debug.Log("エデンレシピ３つそろったので、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;

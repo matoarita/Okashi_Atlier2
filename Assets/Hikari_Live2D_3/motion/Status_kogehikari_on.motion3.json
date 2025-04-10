@@ -1,0 +1,83 @@
+{
+	"Version": 3,
+	"Meta": {
+		"Duration": 2,
+		"Fps": 30.0,
+		"Loop": true,
+		"AreBeziersRestricted": true,
+		"CurveCount": 3,
+		"TotalSegmentCount": 9,
+		"TotalPointCount": 20,
+		"UserDataCount": 0,
+		"TotalUserDataSize": 0
+	},
+	"Curves": [
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeLOpen",
+			"Segments": [
+				0,
+				0.7,
+				0,
+				0.6,
+				0.7,
+				1,
+				0.622,
+				0.7,
+				0.644,
+				0,
+				0.667,
+				0,
+				1,
+				0.689,
+				0,
+				0.711,
+				0.7,
+				0.733,
+				0.7,
+				0,
+				2,
+				0.7
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeROpen",
+			"Segments": [
+				0,
+				0.7,
+				0,
+				0.6,
+				0.7,
+				1,
+				0.622,
+				0.7,
+				0.644,
+				0,
+				0.667,
+				0,
+				1,
+				0.689,
+				0,
+				0.711,
+				0.7,
+				0.733,
+				0.7,
+				0,
+				2,
+				0.7
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamKogeHikari",
+			"Segments": [
+				0,
+				1,
+				0,
+				2,
+				1
+			]
+		}
+	]
+}

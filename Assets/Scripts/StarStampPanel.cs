@@ -498,7 +498,7 @@ public class StarStampPanel : MonoBehaviour
                 }
                 break;
 
-            case 3: //コスチュームゲット
+            case 3: //ソーダアイランド解放
 
                 if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
                 {
@@ -513,13 +513,14 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    _id = pitemlist.SearchEmeraldItemStringID("RedDress_Costume");
-                    newarea_titletext = "コスチューム";
-                    newarea_gohoubitext = "コスチューム２をゲット！！";
-                    newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
+                    //ソーダアイランド解放
+                    _id = matplace_database.SearchMapString("Or_Hiroba_Summer_SodaIsland");
+                    newarea_titletext = "特別な場所";
+                    newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "\n" + "解放！";
+                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
-                    pitemlist.add_EmeraldPlayerItem(_id, 1);
+                    matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
                 }
                 break;
 

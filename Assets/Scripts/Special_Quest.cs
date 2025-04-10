@@ -530,7 +530,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 20: //お城へいってみよう！
+            case 20: //お城へいってみよう！　アロマポーションおぼえる
 
                 girl1_status.OkashiQuest_ID = 100200;
                 OkashiQuest_Count = 1;
@@ -539,7 +539,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 21: //水族館へ行こう！
+            case 21: //自由時間　エデンのレシピ３つを集めよう！
 
                 girl1_status.OkashiQuest_ID = 100210;
                 OkashiQuest_Count = 2;
@@ -572,7 +572,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 40: //最後　エデンそろったので、女王様と白クジラにあいにいく
+            case 40: //最後　エデンレシピそろったので、女王様と白クジラにあいにいく
 
                 girl1_status.OkashiQuest_ID = 100400;
                 OkashiQuest_Count = 1;
@@ -596,7 +596,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 41: //最後　エデンそろったので、女王様と白クジラにあいにいく
+            case 41: //エデンを作ろう！
 
                 girl1_status.OkashiQuest_ID = 100410;
                 OkashiQuest_Count = 2;
@@ -654,36 +654,40 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         }
         if (_spquest_setnum >= 21)
         {
-            matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
+            //夏エリア解放
+            //matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
             matplace_database.ReSetMapFlagString("Emerald_Forest", 1);
             matplace_database.ReSetMapFlagString("Aquamarine_Lake", 1);
-            matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);           
+            matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);
+            matplace_database.ReSetMapFlagString("Or_Contest_B1", 1);
+
+            //秋エリア解放
+            matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
+            matplace_database.ReSetMapFlagString("Or_Bar_C1", 1);
+            matplace_database.ReSetMapFlagString("Or_HirobaEnter_C1", 1);
+            matplace_database.ReSetMapFlagString("Or_Contest_C1", 1);
+            matplace_database.ReSetMapFlagString("Amber_Lake", 1);
+
+            //冬エリア解放
+            matplace_database.ReSetMapFlagString("Or_Shop_D1", 1);
+            matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
+            matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
+            //matplace_database.ReSetMapFlagString("Or_Contest_C1", 1);
         }
+
         if (_spquest_setnum >= 22)
         {
-            //matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 0);            
+     
         }
 
         if (_spquest_setnum >= 30)
         {
-            matplace_database.ReSetMapFlagString("Or_Shop_C1", 1);
-            matplace_database.ReSetMapFlagString("Or_Bar_C1", 1);
-            matplace_database.ReSetMapFlagString("Or_HirobaEnter_C1", 1);
-            matplace_database.ReSetMapFlagString("Or_Contest_B1", 1);
-
-            matplace_database.ReSetMapFlagString("Amber_Lake", 1);
-
-            GameMgr.mainBGM_Num = 2;
+            //GameMgr.mainBGM_Num = 2;
         }
 
         if (_spquest_setnum >= 40)
         {
-            matplace_database.ReSetMapFlagString("Or_Shop_D1", 1);
-            matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
-            matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
-            matplace_database.ReSetMapFlagString("Or_Contest_C1", 1);
-
-            matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
+            GameMgr.mainBGM_Num = 2;
         }
 
         if (_spquest_setnum >= 41)
@@ -855,8 +859,11 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
     //Girl1_statusからも読み出し
     public void RedrawQuestName()
     {
-        //キャンバスの読み込み
-        canvas = GameObject.FindWithTag("Canvas");
+        if (canvas == null)
+        {
+            //キャンバスの読み込み
+            canvas = GameObject.FindWithTag("Canvas");
+        }
 
         //メイン画面に表示する、現在のクエスト
         questname = canvas.transform.Find("MessageWindowMain/SpQuestNamePanel/QuestNameText").GetComponent<Text>();

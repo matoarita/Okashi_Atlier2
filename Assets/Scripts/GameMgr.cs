@@ -61,8 +61,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
     public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
-    public static bool System_BarNinkiHyouji_ON = false; //酒場で人気パネルを表示する
-    public static bool System_QuestStarGet_ON = false; //酒場の依頼で、スターも上がる仕様にする。
+    public static bool System_BarNinkiHyouji_ON = true; //酒場で人気パネルを表示する
+    public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
 
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要

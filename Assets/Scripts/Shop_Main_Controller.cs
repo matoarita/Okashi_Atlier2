@@ -253,18 +253,23 @@ public class Shop_Main_Controller : MonoBehaviour {
                 {
                     shopon_toggle_back.SetActive(false);
                 }*/
+
+                shopon_toggle_back.SetActive(true);
                 break;
 
             case "Or_Shop_B1": //エクレア姉さん
-               
+
+                shopon_toggle_back.SetActive(false);
                 break;
 
             case "Or_Shop_C1": //マダム・オペラのばあさん
 
+                shopon_toggle_back.SetActive(true);
                 break;
 
             case "Or_Shop_D1": //ピティヴィエさん
 
+                shopon_toggle_back.SetActive(false);
                 break;
         }
     }
@@ -959,7 +964,7 @@ public class Shop_Main_Controller : MonoBehaviour {
             {
                 case "Or_Shop_A1": //春エリア
 
-                    GameMgr.SceneSelectNum = 11;
+                    GameMgr.SceneSelectNum = 0; //11
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 

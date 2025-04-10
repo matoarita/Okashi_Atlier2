@@ -423,6 +423,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                 {
                     shopon_toggle_back.SetActive(false);
                 }*/
+                shopon_toggle_back.SetActive(true);
                 break;
 
             case "Or_Bar_B1":
@@ -434,6 +435,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
                 shopon_toggle_talk.SetActive(true);
                 shopon_toggle_uwasa.SetActive(false);
+
                 break;
 
             case "Or_Bar_D1":
@@ -868,7 +870,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             {
                 case "Or_Bar_A1": //春エリア
 
-                    GameMgr.SceneSelectNum = 16;
+                    GameMgr.SceneSelectNum = 0; //16
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 

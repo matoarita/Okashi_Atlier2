@@ -737,6 +737,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //スターで発生するイベント系
                 //
                 //StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
+                StarEvent_check(15, 501, 1); //スター15で、サマードリームフェスティバル解放
+                StarEvent_check(25, 502, 1); //スター25で、アルクアンシェル解放
 
                 //
                 //スターパネル解放で発生するリリースイベント系

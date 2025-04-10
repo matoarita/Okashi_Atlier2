@@ -222,7 +222,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         if (GameMgr.Utage_MapMoveON) //マップ移動中は、ウィンドウオフのまま
         {
-            Debug.Log("マップ移動中　ウィンドウオフのまま");
+            //Debug.Log("マップ移動中　ウィンドウオフのまま");
             WindowOff();
         }
         else
