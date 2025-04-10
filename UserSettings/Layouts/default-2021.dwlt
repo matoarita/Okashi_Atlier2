@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 35
-    y: 73
+    x: 38
+    y: 88
     width: 1837
     height: 906
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 29
+  controlID: 49
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 83
+  controlID: 27
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -253,7 +253,7 @@ MonoBehaviour:
   - {fileID: 14}
   - {fileID: 12}
   m_Selected: 0
-  m_LastSelected: 2
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -331,10 +331,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 61
-    y: 111
+    x: 38
+    y: 118
     width: 895
-    height: 311
+    height: 307
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -370,8 +370,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 35
-    y: 103
+    x: 38
+    y: 118
     width: 895
     height: 307
   m_ViewDataDictionary: {fileID: 0}
@@ -710,11 +710,11 @@ MonoBehaviour:
     - e00: 0.6429507
       e01: 0
       e02: 0
-      e03: 24.58965
+      e03: 24.589691
       e10: 0
       e11: 0.6429507
       e12: 0
-      e13: -8.83442
+      e13: -8.834381
       e20: 0
       e21: 0
       e22: 1
@@ -778,8 +778,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 931
-    y: 103
+    x: 934
+    y: 118
     width: 320
     height: 835
   m_ViewDataDictionary: {fileID: 0}
@@ -792,18 +792,18 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 9e18c5ffee18c5ff0220c5ff7a2cc5fff438c5ff184ac5ff4c58c5ff7663c5ff1ebbc7ffb456c8ff265fc8ff3864c8ff4a68c8ff34e8c8ff0af0c8fffc03c9ff7e0bc9fffe0cc9ffae0dc9ff9a12c9ff8416c9ff3a1ec9ff248bc9ff506fcaffc277caffd27acaff147ecafff27ecaff1e8ecaffc08ecaffccbbcaff70bccaff12bdcaffb4bdcaff56becafff8becaff00bfcaffa2bfcaff74f7caff18f8caffda03cbff2a04cbff3e0bcbffb617cbff3024cbff5435cbff8843cbffb24ecbff5aa6cdfff041ceff624aceff744fceff8653ceff70d3ceff46dbceff38efceffbaf6ceff3af8ceffe8f8ceffd4fdceffbe01cfff7409cfff5e76cfff8a5ad0fffc62d0ff0c66d0ff4e69d0ff2c6ad0ff5879d0fffa79d0ff06a7d0ffaaa7d0ff4ca8d0ffeea8d0ff90a9d0ff32aad0ff3aaad0ffdcaad0ffaee2d0ff52e3d0ff3cc9d1ff107bd6ff1885d6ff4006d7ff5804daff5c01edffc49fefff9c84f0ffcab9f2ff88befbffd87efeffba68ffffca68ffff5278ffff04fbfffff4ffffff006300006a660000f67300007a7c0000b27c00006e0a0400d224040008ca07006ce40700821d0800e01d0800c43b0800066a11009c6a11000a6c11002a6d1100b4b811004ab91100b8ba1100d8bb11007acd1700aa3d1800a03f1800
+      m_ExpandedIDs: 0c19faffba69faffda3bfbffec3bfbfff63bfbfffe3bfbfff63cfbff6040fbff82b6fcff66b7fcff5ac3fcff04fbffff36790000947900001874070076a507000aa6070056a10a00f4a10a00d0a20a00c04f0c00ca670c00
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: rally_BG
-        m_OriginalName: rally_BG
+        m_Name: Hikari_Live2D_3(Clone)
+        m_OriginalName: Hikari_Live2D_3(Clone)
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 33698
+        m_UserData: -312370
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -837,8 +837,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1608
-    y: 103
+    x: 1611
+    y: 118
     width: 263
     height: 835
   m_ViewDataDictionary: {fileID: 0}
@@ -880,8 +880,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1253
-    y: 103
+    x: 1256
+    y: 118
     width: 353
     height: 835
   m_ViewDataDictionary: {fileID: 0}
@@ -900,23 +900,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Hikari_Live2D_3
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Hikari_Live2D_3
+  - Assets/Scenes
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 85}
-    m_SelectedIDs: ee7a0100
-    m_LastClickedID: 97006
-    m_ExpandedIDs: 00000000865c0100885c01008a5c01008c5c01008e5c0100905c0100925c0100945c0100965c0100985c01009a5c01009c5c01009e5c0100ee7a010000ca9a3b
+    scrollPos: {x: 0, y: 597}
+    m_SelectedIDs: 527b0100
+    m_LastClickedID: 97106
+    m_ExpandedIDs: 00000000925c0100945c0100965c0100985c01009a5c01009c5c01009e5c0100a05c0100a25c0100a45c0100a65c0100a85c0100aa5c0100ac5c010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -944,7 +944,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d68c0000
     m_LastClickedID: 36054
-    m_ExpandedIDs: 00000000865c0100885c01008a5c01008c5c01008e5c0100905c0100925c0100945c0100965c0100985c01009a5c01009c5c01009e5c0100
+    m_ExpandedIDs: 00000000925c0100945c0100965c0100985c01009a5c01009c5c01009e5c0100a05c0100a25c0100a45c0100a65c0100a85c0100aa5c0100ac5c0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -975,18 +975,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: d2ad0100b0940000fed10000a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100e0d50000603d0100eea10000fc6301002aa000003ad40000a09300001c930000766b0100f6550100505601006e5801003c9200000000000004980000e29400001e950000e694000032950000e465010054950000724d0100744d0100cc4c010030e20300ae570100a4560100fa5e2700a29f0000a09f00001ea00000a295000046e4060004950000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Hikari_Live2D_3.model3
-      m_OriginalName: Hikari_Live2D_3.model3
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 97152
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:
@@ -1021,8 +1021,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 35
-    y: 431
+    x: 38
+    y: 446
     width: 895
     height: 507
   m_ViewDataDictionary: {fileID: 0}
@@ -1115,8 +1115,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 35
-    y: 103
+    x: 38
+    y: 118
     width: 895
     height: 307
   m_ViewDataDictionary: {fileID: 0}
@@ -1398,9 +1398,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -47.342594, y: 2.9564362, z: 12314.465}
+    m_Target: {x: -1.4881296, y: -0.9307366, z: -4.9550533}
     speed: 2
-    m_Value: {x: -47.342594, y: 2.9564362, z: 12314.465}
+    m_Value: {x: -1.4881296, y: -0.9307366, z: -4.9550533}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1451,9 +1451,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 58.74089
+    m_Target: 2.7079642
     speed: 2
-    m_Value: 58.74089
+    m_Value: 2.7079642
   m_Ortho:
     m_Target: 1
     speed: 2
