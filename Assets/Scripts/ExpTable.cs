@@ -134,7 +134,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 case 7:
 
                     //MagicLearnPanelHyouji("Heart_of_Icecream");
-                    MagicLearnPanelHyouji("Freezing_Spell");
+                    //MagicLearnPanelHyouji("Freezing_Spell");
                     break;
 
                 case 8:
@@ -147,8 +147,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 10:
 
-                    MagicLearnPanelHyouji("Bake_Beans");
-                    MagicLearnPanelHyouji("Chocolate_Tempering");
+                    //MagicLearnPanelHyouji("Bake_Beans");
+                    //MagicLearnPanelHyouji("Chocolate_Tempering");
                     break;
 
                 case 11:
