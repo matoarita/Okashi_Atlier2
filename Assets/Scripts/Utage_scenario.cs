@@ -967,22 +967,16 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         //ここで、宴のパラメータ設定
-        if(GameMgr.Story_Mode != 0)
+
+        if (GameMgr.SleepSkipFlag) //スキップON
         {
-            if (GameMgr.SleepSkipFlag) //スキップON
-            {
-                engine.Param.TrySetParameter("Sleep_num", 10);
-            }
-            else
-            {
-                engine.Param.TrySetParameter("Sleep_num", GameMgr.sleep_status);
-            }           
+            engine.Param.TrySetParameter("Sleep_num", 10);
         }
         else
         {
             engine.Param.TrySetParameter("Sleep_num", GameMgr.sleep_status);
-            
         }
+
 
         engine.Param.TrySetParameter("FoodExpenses", GameMgr.Foodexpenses);
         engine.Param.TrySetParameter("TodayFood", GameMgr.MgrTodayFood);
@@ -990,7 +984,8 @@ public class Utage_scenario : MonoBehaviour
         if (girl1_status.GirlGokigenStatus < 3)
         {
             engine.Param.TrySetParameter("GirlGokigen_num", 0);
-        } else
+        }
+        else
         {
             engine.Param.TrySetParameter("GirlGokigen_num", 1);
         }
@@ -1018,7 +1013,7 @@ public class Utage_scenario : MonoBehaviour
 
         //音を止めて、宿屋のジングル        
         BGMMute();
-        
+
 
         //続きから再度読み込み
         engine.ResumeScenario();
@@ -1050,7 +1045,7 @@ public class Utage_scenario : MonoBehaviour
         CharacterLive2DImageON();
 
         //BGMを再開
-        BGMMuteOFF();        
+        BGMMuteOFF();
         map_ambience.MuteOFF();
 
         scenario_loading = false;

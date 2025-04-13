@@ -599,6 +599,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //ゲームスピード
             save_GameSpeedParam = GameMgr.GameSpeedParam,
+            save_Realtime_speedrange_ON = GameMgr.Realtime_speedrange_ON,
 
             //ストーリーモード
             save_Story_Mode = GameMgr.Story_Mode,
@@ -1200,6 +1201,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //ゲームスピード
         if (playerData.save_GameSpeedParam < 1 || playerData.save_GameSpeedParam > 6) { GameMgr.GameSpeedParam = 3; } //例外処理
         else { GameMgr.GameSpeedParam = playerData.save_GameSpeedParam; }
+        GameMgr.Realtime_speedrange_ON = playerData.save_Realtime_speedrange_ON;
 
         //ストーリーモード
         if (GameMgr.Load_GameVersion >= 1.20f) //バージョン1.2以降で追加したので、それ以前のセーブデータではstory_modeは0に。

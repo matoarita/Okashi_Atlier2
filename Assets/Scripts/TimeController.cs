@@ -235,7 +235,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                         //1秒ごとのタイムカウンター
                         if (timeLeft <= 0.0)
                         {
-                            GameSpeedRange(); //ゲームスピードパラメータの変更。
+                            //GameSpeedRange(); //ゲームスピードパラメータの変更。
 
                             timeLeft = 1.0f; //現実の1秒の時間。
                             count_switch = !count_switch;
@@ -273,41 +273,44 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                         //ゲーム時間が5sで5分進む。
                         if (GameMgr.System_REALTIMEMODE_ON)
                         {
-                            timeIttei2++;
-                            if (timeIttei2 >= 5) //5sごとに。
+                            if (GameMgr.Realtime_speedrange_ON)
                             {
-                                timeIttei2 = 0;
-
-                                SetMinuteToHour(5, 0); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
-                                TimeKoushin(0, true);
-
-                                if (GameMgr.WEATHER_TIMEMODE_ON)
+                                timeIttei2++;
+                                if (timeIttei2 >= 5) //5sごとに。
                                 {
-                                    compound_main.Weather_Change();
-                                }
+                                    timeIttei2 = 0;
 
-                                if (GameMgr.hikari_make_okashiFlag)
-                                {
-                                    //** ヒカリがお菓子を作ってる場合、リアルタイム時間進場合、ここでもお菓子制作時間を計算 **/
+                                    SetMinuteToHour(5, 0); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
+                                    TimeKoushin(0, true);
 
-                                    GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
-                                    if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
+                                    if (GameMgr.WEATHER_TIMEMODE_ON)
                                     {
-                                        GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
-
-                                        //お菓子制作。材料チェックと成功率を計算する。
-                                        HikariMakeOkashiJudge();
+                                        compound_main.Weather_Change();
                                     }
 
-                                    //** **//
-                                }
+                                    if (GameMgr.hikari_make_okashiFlag)
+                                    {
+                                        //** ヒカリがお菓子を作ってる場合、リアルタイム時間進場合、ここでもお菓子制作時間を計算 **/
 
-                                //サブ時間イベントをチェック
-                                if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
-                                { }
-                                else
-                                {
-                                    GameMgr.check_GirlLoveTimeEvent_flag = false;
+                                        GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
+                                        if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
+                                        {
+                                            GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
+
+                                            //お菓子制作。材料チェックと成功率を計算する。
+                                            HikariMakeOkashiJudge();
+                                        }
+
+                                        //** **//
+                                    }
+
+                                    //サブ時間イベントをチェック
+                                    if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
+                                    { }
+                                    else
+                                    {
+                                        GameMgr.check_GirlLoveTimeEvent_flag = false;
+                                    }
                                 }
                             }
                         }
@@ -1374,7 +1377,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     void GameSpeedRange()
     {
-        switch(GameMgr.GameSpeedParam)
+        
+        switch (GameMgr.GameSpeedParam)
         {
             case 1:
 
@@ -1401,6 +1405,10 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 timespeed_range = 3.0f;
                 break;
 
+            case 6:
+                
+                break;
+                
             default:
 
                 timespeed_range = 1.0f;

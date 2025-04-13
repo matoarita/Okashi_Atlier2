@@ -364,7 +364,7 @@ public class StarStampPanel : MonoBehaviour
 
         //‚¿‚å‚Á‚Æ‰æ–ÊˆÃ‚­
         //‰¹‚ð–Â‚ç‚·
-        sc.PlaySe(209);
+        sc.PlaySe(72); //209
         effect_obj.SetActive(true);
         yield return new WaitForSeconds(3.0f); //1•b‘Ò‚Â
 

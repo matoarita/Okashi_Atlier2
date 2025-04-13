@@ -489,6 +489,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float SeVolumeParam;
     public static float AmbientVolumeParam;
     public static int GameSpeedParam;
+    public static bool Realtime_speedrange_ON; //スピード指定を0にしたとき、リアルタイムの時間を停止にする
 
     public static bool SleepSkipFlag;
     public static bool PicnicSkipFlag;
@@ -933,6 +934,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_PoolEnd; //プールに入り終わったフラグ
     public static bool QuestClearButton_EnshutuStart; //クエストクリアボタン演出が始まったフラグ
     public static int MakeItemStatus; //できたお菓子が店売りのものかそうでないか
+    
 
 
     //セリフ関連の一時変数
@@ -1532,6 +1534,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_PanelON = false;
         System_PoolEnd = false;
         QuestClearButton_EnshutuStart = false;
+        Realtime_speedrange_ON = true;
         Contest_MainStoryPlaceNum = 0;
         Before_Player_ninkiparam = 0;
 

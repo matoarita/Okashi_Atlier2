@@ -399,6 +399,7 @@ public class PlayerData
 
     //ゲームスピード
     public int save_GameSpeedParam;
+    public bool save_Realtime_speedrange_ON;
 
     //システムデータ関係
 

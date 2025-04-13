@@ -1708,8 +1708,28 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
             }*/
 
-            //最後エデンのイベント
+            //街の人がきて、おかしのご依頼
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                //ご依頼イベントチェック
+                if (!GameMgr.outgirl_Nowprogress)
+                {
+
+                    //HLV12~  
+                    if (PlayerStatus.girl1_Love_lv >= 12)
+                    {
+                        if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 14) //12時から15時の間に、サイコロふる
+                        {
+                            //PeopleQuestEvent();
+                        }
+                    }
+                }
+            }
+
+            //最後エデンのイベント
+            /*if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
             else
             {
@@ -1744,7 +1764,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }
-            }
+            }*/
 
             //最後のタイミングで、決定したサブイベントの宴を再生
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //サブイベント発生した
@@ -2005,6 +2025,46 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
                 GameMgr.SubEvAfterHeartGet_num = 61;
+            }
+        }
+    }
+
+    void PeopleQuestEvent()
+    {
+        if (GameMgr.picnic_count <= 0)
+        {
+            GameMgr.picnic_event_ON = true;
+        }
+
+        if (GameMgr.picnic_event_ON)
+        {
+            random = Random.Range(0, 100);
+            Debug.Log("ピクニックイベント　抽選スタート　60以下で成功: " + random);
+
+            if (GameMgr.GirlLoveSubEvent_stage1[61])
+            {
+                picnic_exprob = 30; //30%の確率で発生。
+            }
+            else
+            {
+                picnic_exprob = 100; //初回は100%
+            }
+
+            if (random <= picnic_exprob)
+            {
+                GameMgr.GirlLoveSubEvent_num = 61;
+                GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
+                GameMgr.picnic_event_ON = false;
+                GameMgr.picnic_event_reading_now = true; //ピクニックイベント発生のフラグ　宴で使用
+                GameMgr.picnic_count = 5; //次のピクニックイベントまでの日数カウンタ
+
+                GameMgr.check_GirlLoveTimeEvent_flag = false;
+
+                GameMgr.Mute_on = true;
+                //GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
+
+                //GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                //GameMgr.SubEvAfterHeartGet_num = 61;
             }
         }
     }

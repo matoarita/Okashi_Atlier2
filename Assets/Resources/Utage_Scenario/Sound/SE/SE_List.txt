@@ -188,16 +188,16 @@ SE表
 ・SE_186	audiostock_798940_sample			【魔法の音】魔法凍っていく途中の音２
 ・SE_187	audiostock_869671_sample			【魔法の音】魔法凍っていく途中の音３
 ・SE_188	audiostock_1550440				アイテムの装着音
-・SE_189	audiostock_852771				ヒカリから受け取ったおかしをパネルにセットする音
-・SE_190	audiostock_205395_sample			【宴用】エデンコンキャラクタ登場時のヒット音　ジャン！
-・SE_191	audiostock_117338_sample			【未使用】
-・SE_192	audiostock_965916_sample			【宴用】エデンコン結果発表時のファンファーレ勝利　旧:audiostock_976689_sample
-・SE_193	audiostock_939021_sample			【宴用】エデンコン結果発表時のファンファーレ負け　※使わないかも
+・SE_189	audiostock_852771				【未使用】ヒカリから受け取ったおかしをパネルにセットする音
+・SE_190	audiostock_205395				【宴用】エデンコンキャラクタ登場時のヒット音　ジャン！
+・SE_191	audiostock_965421_sample			ヒカリから受け取ったおかしをパネルにセットする音２　マリンバ
+・SE_192	audiostock_965916				【宴用】エデンコン結果発表時のファンファーレ負け
+・SE_193	audiostock_250384_sample			【宴用】エデンコン結果発表時のファンファーレ勝利
 ・SE_194	くつろぎスタジオ - ［紙14］破る			紙を破る音１
 ・SE_195	くつろぎスタジオ - ［紙16］破る			紙を破る音２
 ・SE_196	audiostock_247655				【宴用】ボン燃えてからボボボボ SE_182と同じ
 ・SE_197	間抜け1						コミカルながっかり音　※現在未使用　どこかで使ってもいいかも。
-・SE_198	audiostock_1096779_sample			妖精登場音　ボワン
+・SE_198	audiostock_1096779				妖精登場音　ボワン
 ・SE_199	Electromagnetic_Buzzer06-01(Dry)		乗り物アトラクション開始ブザー音
 ・SE_200	audiostock_1058331				バイキング動作音１　ツー
 ・SE_201	audiostock_125613				バイキング動作音２　プシュー
@@ -209,12 +209,12 @@ SE表
 ・SE_207	Hand-Foley-Clap04-2(High)			ハイタッチの音
 ・SE_208	お皿落とす					お皿落として割れる音
 ・SE_209	audiostock_42215				足音ぷに音　SE_56の単音を抜き出し
-・SE_210	audiostock_96913_sample				スターイベント発生時のためる音
-・SE_211	audiostock_108915_sample			スターイベントパネル登場時の余韻のきらきら音
-・SE_212	audiostock_84933_sample				ヒカリ魔法で光りをためる音
-・SE_213	audiostock_816576_sample			ガラスが割れる音
-・SE_214	audiostock_108678_sample			幽霊の登場音
-・SE_215	audiostock_1307203_sample			エデンの魔法で光りが収束するフィーン音
+・SE_210	audiostock_96913_sample				【未使用】スターイベント発生時のためる音
+・SE_211	audiostock_108915				スターイベントパネル登場時の余韻のきらきら音
+・SE_212	audiostock_84933				ヒカリ魔法で光りをためる音
+・SE_213	audiostock_816576				ガラスが割れる音
+・SE_214	audiostock_108678				幽霊の登場音
+・SE_215	audiostock_1307203				エデンの魔法で光りが収束するフィーン音
 ・SE_216	バタ足で泳ぐ					プールバタ足の音
 ・SE_217	水をバシャッとかける1				プール水泳中の音
 ・SE_218	水・泳ぐ・溺れる				プールおぼれるバシャ音

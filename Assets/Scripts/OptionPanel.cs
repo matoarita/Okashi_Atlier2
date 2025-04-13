@@ -462,6 +462,7 @@ public class OptionPanel : MonoBehaviour {
 
     public void GameSpeedChange()
     {
+        GameMgr.Realtime_speedrange_ON = true;
 
         if (gamespeed_toggle[0].isOn)
         {
@@ -488,7 +489,12 @@ public class OptionPanel : MonoBehaviour {
             GameMgr.GameSpeedParam = 5;
             GameSpeed_paramtext.text = "めちゃおそ";
         }
-
+        else if (gamespeed_toggle[5].isOn)
+        {
+            GameMgr.GameSpeedParam = 6;
+            GameSpeed_paramtext.text = "リアルタイム停止";
+            GameMgr.Realtime_speedrange_ON = false; //リアルタイムを停止
+        }
     }
 
     void BGMFlagCheck()
