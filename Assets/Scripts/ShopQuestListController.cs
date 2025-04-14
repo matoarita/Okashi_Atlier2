@@ -66,6 +66,9 @@ public class ShopQuestListController : MonoBehaviour
     private List<int> selectquestDB = new List<int>();
     private List<int> selectquestDB2 = new List<int>();
 
+    private GameObject character;
+    private GameObject character_01, character_03;
+
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {
         //キャンバスの読み込み
@@ -123,6 +126,11 @@ public class ShopQuestListController : MonoBehaviour
             SetQuestInit = false;
             RandomQuestSelect();
         }
+
+        //キャラクタ取得
+        character = GameObject.FindWithTag("Character");
+        character_01 = character.transform.Find("CharacterImage/CharacterImage01").gameObject;
+        character_03 = character.transform.Find("CharacterImage/CharacterImage03").gameObject;
 
         questListToggle.isOn = true;
         nouhinToggle.isOn = false;
@@ -352,18 +360,18 @@ public class ShopQuestListController : MonoBehaviour
 
     public void OnQuestList()
     {
+        ResetChacarterFace();
 
-        qlist_status = 0;
-        
+        qlist_status = 0;       
         reset_and_DrawView();
         
     }
 
     public void OnNouhinList()
     {
+        ResetChacarterFace();
 
         qlist_status = 1;
-
         NouhinList_DrawView();
         
     }
@@ -506,6 +514,42 @@ public class ShopQuestListController : MonoBehaviour
                 }
             }
             j++;
+        }
+    }
+
+    public void CharacterFaceChange()
+    {
+        //キャラクタ表情変更
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Bar_A1":
+
+                character_01.transform.Find("Smile").gameObject.SetActive(true);
+                break;
+
+            case "Or_Bar_C1":
+
+                character_03.transform.Find("Smile").gameObject.SetActive(true);
+                break;
+
+        }
+    }
+
+    void ResetChacarterFace()
+    {
+        //表情をもどす
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Bar_A1":
+
+                character_01.transform.Find("Smile").gameObject.SetActive(false);
+                break;
+
+            case "Or_Bar_C1":
+
+                character_03.transform.Find("Smile").gameObject.SetActive(false);
+                break;
+
         }
     }
 

@@ -44,6 +44,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     private GameObject hukidasi_sub_Prefab;
 
     private GameObject character;
+    private GameObject character_01, character_03;
 
     private GameObject playeritemlist_onoff;
     private PlayerItemListController pitemlistController;
@@ -132,6 +133,8 @@ public class Bar_Main_Controller : MonoBehaviour {
         black_effect = canvas.transform.Find("Black_Panel_A").gameObject;
 
         character = GameObject.FindWithTag("Character");
+        character_01 = character.transform.Find("CharacterImage/CharacterImage01").gameObject;
+        character_03 = character.transform.Find("CharacterImage/CharacterImage03").gameObject;
         character.GetComponent<FadeCharacter>().SetOff();
 
         hukidasi_oneshot = false;
@@ -310,6 +313,21 @@ public class Bar_Main_Controller : MonoBehaviour {
 
                     GameMgr.Scene_Select = 0;
                     GameMgr.Scene_Status = 100;
+
+                    //表情をもどす
+                    switch (GameMgr.Scene_Name)
+                    {
+                        case "Or_Bar_A1":
+
+                            character_01.transform.Find("Smile").gameObject.SetActive(false);
+                            break;
+
+                        case "Or_Bar_C1":
+
+                            character_03.transform.Find("Smile").gameObject.SetActive(false);
+                            break;
+                    }
+
 
                     if (trans == 1) //カメラが寄っていたら、デフォに戻す。
                     {

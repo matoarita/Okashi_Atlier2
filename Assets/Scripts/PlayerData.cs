@@ -181,6 +181,8 @@ public class PlayerData
     public bool[] save_NPCHiroba_eventList = new bool[GameMgr.NPCHiroba_eventList.Length]; //オランジーナ関連広場イベント
     public bool[] save_NPCMagic_eventList = new bool[GameMgr.NPCMagic_eventList.Length]; //オランジーナ関連広場イベント
     public int[] save_NPC_FriendPoint = new int[GameMgr.NpcEvent_people_num]; //各NPCの友好度
+    public int[] save_NPC_BarFriendPoint = new int[GameMgr.NpcEvent_people_num]; //各酒場NPCの友好度
+    public int[] save_NPC_BarFriendFlag = new int[GameMgr.NpcEvent_people_num]; //各酒場NPCの進行フラグ
     public bool[] save_NPCHiroba_blockReleaseList = new bool[GameMgr.NPCHiroba_blockReleaseList.Length]; //広場のブロックリストフラグイベント
     public int save_NPC_pahupahu_point; //ルーティのマッサージポイント　これがたまらないとマッサージしてくれない
 

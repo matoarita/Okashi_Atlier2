@@ -478,6 +478,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_NPCMagic_eventList = GameMgr.NPCMagic_eventList,
             save_NPCHiroba_blockReleaseList = GameMgr.NPCHiroba_blockReleaseList,
             save_NPC_FriendPoint = GameMgr.NPC_FriendPoint,
+            save_NPC_BarFriendPoint = GameMgr.NPC_BarFriendPoint,
+            save_NPC_BarFriendFlag = GameMgr.NPC_BarFriendFlag,
             save_NPC_pahupahu_point = GameMgr.NPC_pahupahu_point,
 
             //宝箱イベント
@@ -937,6 +939,8 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.NPCMagic_eventList = playerData.save_NPCMagic_eventList;
         GameMgr.NPCHiroba_blockReleaseList = playerData.save_NPCHiroba_blockReleaseList;
         GameMgr.NPC_FriendPoint = playerData.save_NPC_FriendPoint;
+        GameMgr.NPC_BarFriendPoint = playerData.save_NPC_BarFriendPoint;
+        GameMgr.NPC_BarFriendFlag = playerData.save_NPC_BarFriendFlag;
         GameMgr.NPC_pahupahu_point = playerData.save_NPC_pahupahu_point;
 
         //宝箱イベント

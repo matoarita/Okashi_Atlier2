@@ -333,6 +333,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //NPCの友好度ポイント　各NPCの進行度を数値で表したもの　50からはじまり、ミラボー先生なら、あげたときにクリアしたら+10。そして次の魔法の本に..。という具合。
     public static int[] NPC_FriendPoint = new int[NpcEvent_people_num]; //300人分はいる
+    public static int[] NPC_BarFriendPoint = new int[NpcEvent_people_num]; //各酒場NPC　300人分はいる
+    public static int[] NPC_BarFriendFlag = new int[NpcEvent_people_num]; //各酒場NPCのスター取得やイベントの進行フラグ
 
     public static int[] Treature_getList = new int[OrEvent_num]; //道端に落ちてるアイテムなどの宝箱リスト
     public static bool[] NPCHiroba_blockReleaseList = new bool[OrEvent_num]; //主に2での広場ブロックを解除するイベントリスト
@@ -1566,6 +1568,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < NPC_FriendPoint.Length; system_i++)
         {
             NPC_FriendPoint[system_i] = System_NPC_FriendPoint_StartPoint;
+            NPC_BarFriendPoint[system_i] = System_NPC_FriendPoint_StartPoint;
+            NPC_BarFriendFlag[system_i] = 0;
         }
 
         //別シーンから、家に帰ってきたときに発生するイベントリスト

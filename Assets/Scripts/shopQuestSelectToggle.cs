@@ -290,6 +290,9 @@ public class shopQuestSelectToggle : MonoBehaviour
                 //画面の更新
                 shopquestlistController.reset_and_DrawView();
 
+                //表情変更
+                shopquestlistController.CharacterFaceChange();
+
                 _text.text = "受注しました！" + "頑張ってね～！";
 
                 //音を鳴らす。

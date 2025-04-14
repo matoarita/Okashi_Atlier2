@@ -134,7 +134,7 @@ public class RecipiListController : MonoBehaviour {
 
                 //初期位置
                 this.transform.localScale = new Vector3(0.7f, 0.7f, 1.0f);
-                this.transform.localPosition = new Vector3(-105, 75, 0);
+                this.transform.localPosition = new Vector3(-105, 85, 0);
 
                 category_toggle[0].SetActive(false);
                 category_toggle[1].GetComponent<Toggle>().isOn = true;

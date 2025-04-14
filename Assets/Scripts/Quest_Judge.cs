@@ -96,6 +96,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _questID;
     private int _qitemID;
     private int _clientnum;
+    private string _clientname;
 
     private int del_itemid;
     private int del_itemkosu;
@@ -233,6 +234,7 @@ public class Quest_Judge : MonoBehaviour {
     private Text eat_hukidashitext;
 
     private GameObject character;
+    private GameObject character_01, character_03;
 
     private GameObject questResultPanel;
     private GameObject questResultPanel2;
@@ -370,12 +372,8 @@ public class Quest_Judge : MonoBehaviour {
 
     void InitSetting()
     {
-        switch (GameMgr.Scene_Category_Num)
-        {
-            case 30:
-               
-                break;
-        }
+        character_01 = character.transform.Find("CharacterImage/CharacterImage01").gameObject;
+        character_03 = character.transform.Find("CharacterImage/CharacterImage03").gameObject;
     }
 
     // Update is called once per frame
@@ -508,6 +506,8 @@ public class Quest_Judge : MonoBehaviour {
     //
     public void Quest_result(int _ID, bool _status)
     {
+        InitSetting();
+
         _qitemID = _ID;
 
         SetInitQItem(_qitemID);
@@ -707,7 +707,7 @@ public class Quest_Judge : MonoBehaviour {
         _baseMoney = basemoney_keisan();
         _getMoney = _baseMoney;
         _getNinki = 0; //納品のみのクエストは、人気度は上がらない
-        BarNPC_FriendPointUP(1); //友好度は上がる
+        BarNPC_MeidoFriendPointUP(1); //店主の友好度は上がる
 
         //ルーティのマッサージポイント
         switch (GameMgr.Scene_Name)
@@ -730,6 +730,21 @@ public class Quest_Judge : MonoBehaviour {
         //sc.PlaySe(4);
         sc.PlaySe(76);
         sc.PlaySe(31);
+
+        //キャラクタ表情変更
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Bar_A1":
+
+                character_01.transform.Find("Smile").gameObject.SetActive(true);
+                break;
+
+            case "Or_Bar_C1":
+
+                character_03.transform.Find("Smile").gameObject.SetActive(true);
+                break;
+
+        }
 
         //クエストリザルト画面をだす。
         questResultPanel.SetActive(true);
@@ -1418,13 +1433,13 @@ public class Quest_Judge : MonoBehaviour {
                 //味によって、取得のお金が増減する。おいしいと、お金もちょっとプラス。
 
                 _baseMoney = basemoney_keisan();
+                _getNinki = 0;
                 Debug.Log("_baseMoney: " + _baseMoney);
 
                 if (okashi_totalscore < 30) //粗悪なお菓子だと、マイナス評価
                 {
                     _getMoney = (int)(_baseMoney * 0.2f);
-                    debug_money_text = "(基準値 * 0.2f)";
-                    _getNinki = 0;
+                    debug_money_text = "(基準値 * 0.2f)";                    
                     _kanso = "う～ん..。お客さん不満だったみたい。" + "\n" + "次からは気をつけてね。報酬額が少し減った！";
                     
                 }
@@ -1432,49 +1447,42 @@ public class Quest_Judge : MonoBehaviour {
                 {
                     _getMoney = (int)(_baseMoney * 0.4f);
                     debug_money_text = "(基準値 * 0.4f)";
-                    _getNinki = 0;
                     _kanso = "ありがとう。　..少しお客さん不満だったみたい。" + "\n" + "次はもっと期待してるわね！";
                 }
                 else if (okashi_totalscore >= 45 && okashi_totalscore < GameMgr.low_score) //45~60
                 {
                     _getMoney = (int)(_baseMoney * 0.8f);
                     debug_money_text = "(基準値 * 0.8f)";
-                    _getNinki = 0;
                     _kanso = "ありがとう！　お客さん喜んでたわ！";
                 }
                 else if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 80) //60~80
                 {
                     _getMoney = (int)(_baseMoney * 1.1f);
                     debug_money_text = "(基準値 * 1.1f)";
-                    _getNinki = 0;
                     _kanso = "ありがとう！　お客さん、気に入ってたみたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 80 && okashi_totalscore < GameMgr.high_score) //80~100
                 {
                     _getMoney = (int)(_baseMoney * 1.35f);
                     debug_money_text = "(基準値 * 1.35)";
-                    _getNinki = 0;
                     _kanso = "ありがとう！お客さん、大喜びだったわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";                    
                 }
                 else if (okashi_totalscore >= GameMgr.high_score && okashi_totalscore < 120) //100~120
                 {
                     _getMoney = (int)(_baseMoney * 1.5f);
                     debug_money_text = "(基準値 * 1.5f)";
-                    _getNinki = 0;
                     _kanso = "ありがとう！とても良い出来みたい！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 120 && okashi_totalscore < 150) //100~120
                 {
                     _getMoney = (int)(_baseMoney * 1.75f);
                     debug_money_text = "(基準値 * 1.75f)";
-                    _getNinki = 0;
                     _kanso = "グレイトだわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 200) //120~150
                 {
                     _getMoney = (int)(_baseMoney * 1.85f);
                     debug_money_text = "(基準値 * 1.85f)";
-                    _getNinki = 0;
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                     BarNPC_FriendPointUP(1);
                 }
@@ -1518,22 +1526,40 @@ public class Quest_Judge : MonoBehaviour {
                     _getMoney += _MSMoney; //種類によらず一個ついてたら+300 MSValueはUseLVが入ってるので、LVが高いと報酬上がる
                 }
 
-                //ルーティのマッサージポイント
-                switch (GameMgr.Scene_Name)
+                //クライアントのイベントフラグをみてスター取得してたかどうかをチェック
+                Debug.Log("GameMgr.NPC_BarFriendFlag[_clientnum]: " + GameMgr.NPC_BarFriendFlag[_clientnum]);
+                if(GameMgr.NPC_BarFriendFlag[_clientnum] == 0)
                 {
-                    case "Or_Bar_A1":
-
-                        if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 200) //
-                        {
-                            GameMgr.NPC_pahupahu_point += Random.Range(1, 3);
-                        }
-                        else if(okashi_totalscore >= 200) //
-                        {
-                            GameMgr.NPC_pahupahu_point += Random.Range(2, 5);
-                        }
-                        break;
+                    //まだスターをとったことないので、そのままスターゲット _getninkiは、上で事前に計算済
+                    GameMgr.NPC_BarFriendFlag[_clientnum] = 1;
+                    Debug.Log("高得点なおかしだったので、クライアントからスターもらえる");
                 }
-               
+                else //スター一回とったことあるので、次はスターはもらえない ただし、フラグがあると、家に直接きてくれる予定
+                {
+                    _getNinki = 0;
+                }
+
+                //60点以上なら、店主の友好度もあがる。
+                if (okashi_totalscore >= GameMgr.low_score) //60~80
+                {
+                    BarNPC_MeidoFriendPointUP(1);
+
+                    //ルーティのマッサージポイント
+                    switch (GameMgr.Scene_Name)
+                    {
+                        case "Or_Bar_A1":
+
+                            if (okashi_totalscore >= GameMgr.low_score && okashi_totalscore < 200) //
+                            {
+                                GameMgr.NPC_pahupahu_point += Random.Range(1, 3);
+                            }
+                            else if (okashi_totalscore >= 200) //
+                            {
+                                GameMgr.NPC_pahupahu_point += Random.Range(2, 5);
+                            }
+                            break;
+                    }
+                }                             
 
                 _getHeart = (int)(okashi_totalscore * 0.1f);
                 _text.text = "評価: " + GameMgr.ColorYellow + okashi_totalscore + "</color>" + "点" + 
@@ -1586,6 +1612,26 @@ public class Quest_Judge : MonoBehaviour {
                 else
                 {
                     
+                }
+
+                //キャラクタ表情変更
+                if (okashi_totalscore < GameMgr.low_score)
+                { }
+                else
+                {
+                    switch (GameMgr.Scene_Name)
+                    {
+                        case "Or_Bar_A1":
+
+                            character_01.transform.Find("Smile").gameObject.SetActive(true);
+                            break;
+
+                        case "Or_Bar_C1":
+
+                            character_03.transform.Find("Smile").gameObject.SetActive(true);
+                            break;
+
+                    }
                 }
 
                 //クエストリザルト画面をだす。
@@ -1692,7 +1738,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             _getMoney = (int)(_baseMoney * 3.0f + (okashi_totalscore * 1.2f));
             debug_money_text = "(基準値 * 3.0f + (okashi_totalscore * 1.2f))";
-            _getNinki = 2;
+            _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
@@ -1700,7 +1746,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             _getMoney = (int)(_baseMoney * 4.0f + (okashi_totalscore * 1.3f));
             debug_money_text = "(基準値  * 4.0f + (okashi_totalscore * 1.3f))";
-            _getNinki = 3;
+            _getNinki = 2;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
@@ -1736,7 +1782,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 3.0f);
             debug_money_text = "(基準値 * (okashi_totalscore / 100) * 3.0f)";
-            _getNinki = 2;
+            _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
@@ -1744,7 +1790,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 5.0f);
             debug_money_text = "(基準値 * (okashi_totalscore / 100) * 5.0f)";
-            _getNinki = 3;
+            _getNinki = 2;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
@@ -1801,6 +1847,20 @@ public class Quest_Judge : MonoBehaviour {
             }
         }
 
+        //表情をもどす
+        switch (GameMgr.Scene_Name)
+        {
+            case "Or_Bar_A1":
+
+                character_01.transform.Find("Smile").gameObject.SetActive(false);
+                break;
+
+            case "Or_Bar_C1":
+
+                character_03.transform.Find("Smile").gameObject.SetActive(false);
+                break;
+
+        }
 
         ResetQuestStatus();
     }
@@ -1838,25 +1898,27 @@ public class Quest_Judge : MonoBehaviour {
 
     void BarNPC_FriendPointUP(int _point)
     {
-        switch (_clientnum)
+        GameMgr.NPC_BarFriendPoint[_clientnum] += _point;
+        Debug.Log("友好度アップ: " + _clientname + " " + _point + "上昇");
+    }
+
+    void BarNPC_MeidoFriendPointUP(int _point) //酒場の店主の友好度上昇
+    {
+        //ルーティのマッサージポイント
+        switch (GameMgr.Scene_Name)
         {
-            case 0: //大富豪
+            case "Or_Bar_A1":
 
+                //100ルーティさん
+                GameMgr.NPC_BarFriendPoint[100] += _point;
                 break;
 
-            case 100: //ルーティ
+            case "Or_Bar_C1":
 
-                GameMgr.NPC_FriendPoint[40] += _point;
+                //101アプリコットさん
+                GameMgr.NPC_BarFriendPoint[101] += _point;
                 break;
 
-            case 101: //アプリコットさん
-
-                GameMgr.NPC_FriendPoint[41] += _point;
-                break;
-
-            default:
-
-                break;
         }
     }
 
@@ -1942,6 +2004,7 @@ public class Quest_Judge : MonoBehaviour {
         _beauty = quest_database.questTakeset[_count].Quest_beauty;
         _tea_flavor = quest_database.questTakeset[_count].Quest_tea_flavor;
 
+        _clientname = quest_database.questTakeset[_count].Quest_ClientName;
         _clientnum = quest_database.questTakeset[_count].Quest_ClientNumber;
 
         for (i = 0; i < _tp.Length; i++)

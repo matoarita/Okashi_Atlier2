@@ -244,7 +244,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                             if (PlayerStatus.player_contest_second >= 60) //1分たった。
                             {
                                 PlayerStatus.player_contest_second = 0;
-                                SetMinuteToHourContest(1);
+                                SetMinuteToHourContest(5); //5分たつ
                             }
 
                         }
