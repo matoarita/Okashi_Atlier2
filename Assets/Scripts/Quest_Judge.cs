@@ -52,6 +52,8 @@ public class Quest_Judge : MonoBehaviour {
 
     private Text debug_taste_resultText;
 
+    private ItemCardEffectDataBase itemCardEffect_database;
+
     //スロットのトッピングDB。スロット名を取得。
     private SlotNameDataBase slotnamedatabase;
 
@@ -323,6 +325,9 @@ public class Quest_Judge : MonoBehaviour {
 
         //クエストデータベースの取得
         quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
+        //魔法エフェクトの計算データベース
+        itemCardEffect_database = ItemCardEffectDataBase.Instance.GetComponent<ItemCardEffectDataBase>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -1273,7 +1278,13 @@ public class Quest_Judge : MonoBehaviour {
                 okashi_score -= 30;
             }
 
+            //
             //見た目点数の計算
+            //
+            //先に演出がかかっているかをチェック
+            itemCardEffect_database.MagicEffect_SlotKeisan(_baseMS, _baseMSvalue, _id, 1);
+            _basebeauty += itemCardEffect_database._add_magicbeauty;
+
             if (_beauty > 0)
             {
                 beauty_score = girlEat_judge.BeautyKeisanBase(_basebeauty, _beauty);
@@ -1291,6 +1302,9 @@ public class Quest_Judge : MonoBehaviour {
                     _b = "素晴らしい見た目";
                 }
             }
+            //
+            //
+            //
 
             //最終補正　妹の基準より、やや厳しめにするために、点数を下げる。
             Hosei_score = -15;

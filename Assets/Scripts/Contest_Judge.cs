@@ -1967,29 +1967,33 @@ public class Contest_Judge : MonoBehaviour {
     void Contest_SPScoreHintHyouji(int sp_score, string _sptext)
     {
         //SPScoreに関するヒント
-        if (sp_score < 0) //
+        if (GameMgr.contest_SPJudgeCommentNum == 0) //SP判定なし
+        { }
+        else
         {
-            _spscore_kansou = GameMgr.ColorRedDeep + _sptext + " D: " + _sptext + "が全然足りない..。" + "</color>";
-        }
-        else if (sp_score >= 0 && sp_score < 40) //
-        {
-            _spscore_kansou = _sptext + " B: " + _sptext + "もう少し欲しいですわ。";
-        }
-        else if (sp_score >= 40 && sp_score < 60) //
-        {
-            _spscore_kansou = _sptext + " A: " + _sptext + "が出てますね。";
-        }
-        else if (sp_score >= 60 && sp_score < 100) //
-        {
-            _spscore_kansou = GameMgr.ColorPink + _sptext + " A+: " + _sptext + "がよく出ていい感じ！！" + "</color>";
-        }
-        else if (sp_score >= 100) //
-        {
-            _spscore_kansou = GameMgr.ColorGold + _sptext + " S: " + _sptext + "がパーフェクトです！！" + "</color>";
-        }
+            if (sp_score < 0) //
+            {
+                _spscore_kansou = GameMgr.ColorRedDeep + _sptext + " D: " + _sptext + "が全然足りない..。" + "</color>";
+            }
+            else if (sp_score >= 0 && sp_score < 40) //
+            {
+                _spscore_kansou = _sptext + " B: " + _sptext + "もう少し欲しいですわ。";
+            }
+            else if (sp_score >= 40 && sp_score < 60) //
+            {
+                _spscore_kansou = _sptext + " A: " + _sptext + "が出てますね。";
+            }
+            else if (sp_score >= 60 && sp_score < 100) //
+            {
+                _spscore_kansou = GameMgr.ColorPink + _sptext + " A+: " + _sptext + "がよく出ていい感じ！！" + "</color>";
+            }
+            else if (sp_score >= 100) //
+            {
+                _spscore_kansou = GameMgr.ColorGold + _sptext + " S: " + _sptext + "がパーフェクトです！！" + "</color>";
+            }
 
-
-        GameMgr.contest_lasthint_text = GameMgr.contest_lasthint_text + "\n" + _spscore_kansou;
+            GameMgr.contest_lasthint_text = GameMgr.contest_lasthint_text + "\n" + _spscore_kansou;
+        }        
     }
 
     //点数を、入れた値を上限にして100点に正規化する。
