@@ -1076,15 +1076,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_CentralPark2":
 
                 //On_Active31();
-                //On_Active30();
-                On_BackHomeActive02();
+                On_Active30();
+                //On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Spring_Entrance":
 
                 //On_Active31();
-                //On_Active30();
-                On_BackHomeActive02();
+                On_Active30();
+                //On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Spring_Shoping_Moll":
