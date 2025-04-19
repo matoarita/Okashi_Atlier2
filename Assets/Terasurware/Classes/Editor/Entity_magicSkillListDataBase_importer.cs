@@ -66,11 +66,12 @@ public class Entity_magicSkillListDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(13); p.skill_KosuSelect = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(14); p.skill_type = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(15); p.skill_category = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(16); p.success_rate = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(17); p.cost_time = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(18); p.comment_full = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(19); p.skill_Jouken_name1 = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(20); p.skill_Jouken_lv1 = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(16); p.skill_enshututype = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(17); p.success_rate = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(18); p.cost_time = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(19); p.comment_full = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(20); p.skill_Jouken_name1 = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(21); p.skill_Jouken_lv1 = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

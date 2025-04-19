@@ -28,6 +28,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private MagicSkillListDataBase magicskill_database;
 
     private PlayerItemList pitemlist;
 
@@ -301,6 +302,9 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //スペシャルクエストcsの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
@@ -1789,7 +1793,32 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             if (PlayerStatus.player_girl_expression >= 3)
             {
-                hukidashiitem.GetComponent<TextController>().SetText("おいしそ～♪");
+                if (GameMgr.Compo_UseMagic) //魔法調合を使用した場合　直後のみこれはtrueになる
+                {
+                    //通常はおいしそう　演出魔法かけたあとは、なんらかのセリフ
+                    _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+                    if (magicskill_database.magicskill_lists[_id].skillEnshutuType == 1)
+                    {
+                        if (GameMgr.UseMagicSkill_HikariCommentFlag == 1)
+                        {
+                            hukidashiitem.GetComponent<TextController>().SetText(GameMgr.UseMagicSkill_HikariComment); //ItemCardEffectDataBaseで記述
+                        }
+                        else
+                        {
+                            hukidashiitem.GetComponent<TextController>().SetText("かわいい～♪");
+                        }
+                    }
+                    else
+                    {
+                        //演出魔法でない魔法を使ったとき
+                        hukidashiitem.GetComponent<TextController>().SetText("できた～♪");
+                    }
+                    GameMgr.Compo_UseMagic = false; //最後にリセット
+                }
+                else //デフォルト
+                {
+                    hukidashiitem.GetComponent<TextController>().SetText("おいしそ～♪");
+                }
             }
             else
             {

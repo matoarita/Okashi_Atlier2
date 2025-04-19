@@ -156,6 +156,9 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         _ms_sp_score10 = 0;
         _add_magicbeauty = 0;
 
+        GameMgr.UseMagicSkill_HikariCommentFlag = 0; //Girl1_statusのヒカリのふきだしでしか使わない
+        GameMgr.UseMagicSkill_HikariComment = "";
+
         if (_mstatus == 0)
         {
             check_counter = database.SearchItemID(_itemID);
@@ -201,6 +204,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName01;
+
+                GameMgr.UseMagicSkill_HikariComment = "花火～～！きれい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName02) //Butterflyの場合、光のちょうちょがとぶ
@@ -222,6 +227,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName02;
+
+                GameMgr.UseMagicSkill_HikariComment = "にいちゃん！　ちょうちょ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName03) //Bubbleは泡がでる
@@ -245,6 +252,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName03;
+
+                GameMgr.UseMagicSkill_HikariComment = "あわあわ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName04) //Starは星くずがキラキラする
@@ -263,6 +272,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName04;
+
+                GameMgr.UseMagicSkill_HikariComment = "おほしさまキラキラ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName05) //WindArc　風の円弧が周りにとびちる
@@ -293,6 +304,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName06;
+
+                GameMgr.UseMagicSkill_HikariComment = "かいがらきれい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName07) //Glitter 光りのキラキラを飛ばす魔法
@@ -314,6 +327,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName07;
+
+                GameMgr.UseMagicSkill_HikariComment = "キラキラがかわいい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName08) //Spring_Pharmacy さくらの花びらを飛ばす魔法
@@ -335,6 +350,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName08;
+
+                GameMgr.UseMagicSkill_HikariComment = "風流だねぇ～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName09) //Saint_Fleur お花を飛ばす魔法
@@ -356,6 +373,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName09;
+
+                GameMgr.UseMagicSkill_HikariComment = "お花、かわいい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName10) //Santiman ハートを飛ばす魔法
@@ -377,6 +396,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName10;
+
+                GameMgr.UseMagicSkill_HikariComment = "ハートかわいい～♪"; //Girl1_statusのヒカリ吹き出しでコメント使用
             }
         }
     }
@@ -402,12 +423,15 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
             _add_magicbeauty = 10 + _compa + (_magiclv * 10);
             _ms_aisho = "〇";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
+
+            GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }
         else if (_compa >= 50)
         {
             _add_magicbeauty = 10 + _compa + (_magiclv * 15);
             _ms_aisho = "◎";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
+            GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }
        
     }

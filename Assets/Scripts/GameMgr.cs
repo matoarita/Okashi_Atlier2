@@ -47,7 +47,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = true; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
-    public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
 
     //各システムの使用の有無   
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
@@ -783,11 +783,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool girlEat_ON; //女の子　食べ中のフラグ
     public static bool Kaigyo_ON; //メッセージウィンドウの改行ボタンをおした。宴ではなく、材料採取の改行時など。
     public static int Comp_kettei_bunki; //調合の、今何の調合をしている最中かを表すステータス
+    public static bool Compo_UseMagic; //魔法調合を使用したフラグ
     public static string UseMagicSkill; //使用する魔法・スキルのネーム
     public static string UseMagicSkill_nameHyouji; //使用する魔法・スキルのネームの表示用
     public static int UseMagicSkill_ID; //使用するスキルのID    
     public static int UseMagicSkillLv; //使用するスキルの使用レベル
     public static int UseMagicSkill_TimeCost; //使用するスキルでの経過時間
+    public static int UseMagicSkill_HikariCommentFlag; //演出魔法の相性がよかったときに、セリフを変えるフラグ
+    public static string UseMagicSkill_HikariComment;
     public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐    
     public static bool MagicPanel_DefaultHyouji; //魔法パネル開いたときに、デフォルトの光魔法を表示する
     public static int UseMagic_ItemAttri2; //対象アイテムのアトリビュートを一時保存　魔法使用の際、参照して使う
@@ -1443,9 +1446,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Scene_Black_Off = false;
         Kaigyo_ON = false;
         Comp_kettei_bunki = 0;
+        Compo_UseMagic = false;
         UseMagicSkill = "";
         UseMagicSkill_nameHyouji = "";
         UseMagicSkill_ID = 0;
+        UseMagicSkill_HikariCommentFlag = 0;
+        UseMagicSkill_HikariComment = "";
         ResultItem_nameHyouji = "";
         Result_Kosu = 0;
         Result_compound_success = false;

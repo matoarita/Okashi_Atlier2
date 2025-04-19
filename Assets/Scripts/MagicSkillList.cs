@@ -21,6 +21,7 @@ public class MagicSkillList
     public string skill_KosuSelect; //生成時の個数の指定
     public int skillType;   //パッシヴかアクティブスキルか
     public int skillCategory; //スキルの属性　基本、火、氷、光、風、心
+    public int skillEnshutuType;   //演出魔法かそうでないか
     public int success_rate; //スキルの成功率　だが、今のとこcompoDBで決定するので使用してない
     public int cost_time;
     public string skillComment_Full; //スキルの詳細な説明
@@ -34,7 +35,8 @@ public class MagicSkillList
 
     //ここでリスト化時に渡す引数をあてがいます   
     public MagicSkillList(int id, int koyuid, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
-        int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, string skill_kosuselect, int skill_type, int skill_category, int successRate, int costTime, string skill_comment_full,
+        int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, string skill_kosuselect, int skill_type, int skill_category, int skill_enshutuType, 
+        int successRate, int costTime, string skill_comment_full,
         string skill_jouken_name1, int skill_jouken_lv1)
     {
         magicskillID = id;
@@ -54,6 +56,7 @@ public class MagicSkillList
         skill_KosuSelect = skill_kosuselect;
         skillType = skill_type;
         skillCategory = skill_category;
+        skillEnshutuType = skill_enshutuType;
         skillComment_Full = skill_comment_full;
 
         skill_Jouken_name1 = skill_jouken_name1;

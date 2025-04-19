@@ -33,6 +33,7 @@ public class Entity_magicSkillListDataBase : ScriptableObject
 		public string skill_KosuSelect;
 		public int skill_type;
 		public int skill_category;
+		public int skill_enshututype;
 		public int success_rate;
 		public int cost_time;
 		public string comment_full;

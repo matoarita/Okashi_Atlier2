@@ -371,6 +371,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         Debug_timeCount_Panel = compoBG_A.transform.Find("DebugTimeEnshutuPanel").gameObject; //デバッグ用　時間カウントパネル
         Debug_timeCount_Panel_text = Debug_timeCount_Panel.transform.Find("TimeText").GetComponent<Text>();
+
+        GameMgr.Compo_UseMagic = false;
     }
 
     // Update is called once per frame
@@ -1511,6 +1513,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
+
+        //魔法調合を使用した
+        GameMgr.Compo_UseMagic = true;
     }
 
     //シーンごとの後処理

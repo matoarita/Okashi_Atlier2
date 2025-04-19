@@ -228,9 +228,24 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         switch(_itemType_subB)
         {
+            case "a_CacaoNibs":
+
+                KakuritsuUp_BakeBeans();
+                break;
+
             case "a_CacaoMass":
 
                 KakuritsuUp_CacaoMass();
+                break;
+
+            case "a_CoffeeBeans":
+
+                KakuritsuUp_BakeBeans();
+                break;
+
+            case "a_Yakimaron":
+
+                KakuritsuUp_BakeBeans();
                 break;
         }
 
@@ -427,6 +442,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _buf_kakuritsuup -= 50;
         }
 
+    }
+
+    void KakuritsuUp_BakeBeans()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Bake_Beans") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Bake_Beans") * 5; //LV*10
+            _buf_kakuritsuup += _magicup;
+        }
     }
 
     void KakuritsuUp_CacaoMass()
@@ -749,7 +775,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         switch (_status)
         {
-            case 0: //さくさく感のバフ
+            case 0: //さくさく感のバフ(ほくほく感のバフ)
 
                 switch (_itemType_sub)
                 {
@@ -762,6 +788,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Bread":
 
                         OvenBuf();
+                        break;
+
+                    case "BakedSweets":
+
+                        HokuhokuBuf();
                         break;
 
                     case "Cookie":
@@ -1091,6 +1122,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void AppaleilIcecreamBuf()
     {
         
+    }
+
+    void HokuhokuBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Bake_Beans") >= 2)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Bake_Beans") * 30; //LV*30
+            _buf_shokukanup += _magicup;
+        }
     }
 
     void OvenBuf()

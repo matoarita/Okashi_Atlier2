@@ -22,6 +22,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     private string skill_kosuselect;
     private int skill_type;
     private int skill_category;
+    private int skill_enshututype;
     private int success_rate;
     private int cost_time;
     private string skillComment_Full;
@@ -75,6 +76,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 skill_kosuselect = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_KosuSelect;
                 skill_type = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_type;
                 skill_category = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_category;
+                skill_enshututype = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_enshututype;
                 success_rate = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].success_rate;
                 cost_time = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].cost_time;
                 skillComment_Full = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].comment_full;
@@ -86,7 +88,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 {
                     magicskill_lists.Add(new MagicSkillList(_id, _koyuid, skillFileName, skillName, skillName_Hyouji, skillComment, 
                         skill_day, skill_cost, skill_flag, skill_lv, skill_maxlv, skill_uselv, skill_lvselect, skill_kosuselect,
-                        skill_type, skill_category, success_rate, cost_time, skillComment_Full,
+                        skill_type, skill_category, skill_enshututype, success_rate, cost_time, skillComment_Full,
                         skillJouken_name1, skillJouken_lv1));
                 }
                 ++count;
