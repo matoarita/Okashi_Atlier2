@@ -1520,7 +1520,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     //アマノシャンメリーと白紙メモくれる
                                     pitemlist.addPlayerItemString("amano_champmery", 1);
-                                    pitemlist.add_eventPlayerItemString("MemoWhite", 1);                                    
+                                    //pitemlist.add_eventPlayerItemString("MemoWhite", 1);                                    
                                 }
                             }
                         }

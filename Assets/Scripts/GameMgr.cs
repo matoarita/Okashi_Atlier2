@@ -2061,7 +2061,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         return false;
     }
 
-    //イベントコレクションのリスト
+    //イベントコレクションのリスト 1のときのやつ
     public static void InitEventCollectionLibrary()
     {
         event_collection_list.Clear();       
@@ -2391,7 +2391,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Highscore_SPEventlist.Add("huwakoro", 250); //右の番号は、GirlLoveSubEvent_numの番号
         Highscore_SPEventlist.Add("maritozzo", 251);
-        //Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
+        Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない　先頭のIDが、そのまま宴のCGの呼び出し番号になる
@@ -2402,7 +2402,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキの思い出", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(003, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(004, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2"));
 

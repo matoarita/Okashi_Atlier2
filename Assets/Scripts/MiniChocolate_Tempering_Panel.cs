@@ -73,10 +73,10 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         switch(_magiclv) //LV1で1.5f がデフォ速度 めちゃはや
         {
             case 1:
-                _speed_hosei = 1.5f;
+                _speed_hosei = 1.25f;
                 break;
             case 2:
-                _speed_hosei = 1.25f;
+                _speed_hosei = 1.15f;
                 break;
             case 3:
                 _speed_hosei = 1.0f;
@@ -91,12 +91,12 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
 
         //二本目
         _interval2 = guage_length2 / timeMax2; //スピード
-        _interval2 = _interval2 * _speed_hosei; //さらにスピード補正　早い
+        _interval2 = _interval2 * _speed_hosei * 1.1f; //さらにスピード補正　早い
         //Debug.Log("_interval: " + _interval);
 
         //三本目
         _interval3 = guage_length3 / timeMax3; //スピード
-        _interval3 = _interval3 * _speed_hosei; //さらにスピード補正　早い
+        _interval3 = _interval3 * _speed_hosei * 1.25f; //さらにスピード補正　早い
         //Debug.Log("_interval: " + _interval);
 
         _tempslider = this.transform.Find("Comp/Slider").GetComponent<Slider>();
@@ -276,8 +276,8 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         //次のバーへのフラグ
         _status = 1;
 
-        _guage_param2 = _guage_param;
-        _tempslider2.value = _guage_param2;
+        //_guage_param2 = _guage_param;
+        //_tempslider2.value = _guage_param2;
     }
 
     void GuageStop2()
@@ -327,8 +327,8 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         //次のバーへのフラグ
         _status = 2;
 
-        _guage_param3 = _guage_param2;
-        _tempslider3.value = _guage_param3;
+        //_guage_param3 = _guage_param2;
+        //_tempslider3.value = _guage_param3;
     }
 
     void GuageStop3()

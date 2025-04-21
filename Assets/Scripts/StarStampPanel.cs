@@ -654,7 +654,7 @@ public class StarStampPanel : MonoBehaviour
                 }
                 break;
 
-            case 9: //思い出イベント いっしょにおふろ♪
+            case 9: //思い出イベント スウィートホテル♪
 
                 if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
                 {
@@ -680,7 +680,7 @@ public class StarStampPanel : MonoBehaviour
                 }
                 break;
 
-            case 10: //おたから
+            case 10: //ラストイベント
 
                 if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。
                 {
