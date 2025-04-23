@@ -3105,6 +3105,16 @@ public class Utage_scenario : MonoBehaviour
                 }
                 break;
 
+            case 1575: //Or遊園地ホテル
+
+                scenarioLabel = "Or_NPC107_park_sweat_hotel";
+                bgm_changeflag = true;
+
+                omoide_flag = GameMgr.SearchHikariOmoideFlag("event_pool");
+                engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
+
+                break;
+
             case 1600: //Or露店りんごあめ
 
                 scenarioLabel = "Or_NPC110_roten_ringoame";

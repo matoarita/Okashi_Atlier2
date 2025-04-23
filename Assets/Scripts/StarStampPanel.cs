@@ -669,13 +669,14 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    //ショートケーキの思い出　仮
+                    //ホテルの解禁
                     _id = matplace_database.SearchMapString("Emerald_Forest");
                     newarea_titletext = "思い出イベント";
                     newarea_gohoubitext = "スウィートホテル♪" + "\n" + "解放！";
                     newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
+                    GameMgr.NPCHiroba_HikarieventList[320] = true;
                     //GameMgr.SetHikariOmoideFlag("strawberry_sponge_cake", true);
                 }
                 break;

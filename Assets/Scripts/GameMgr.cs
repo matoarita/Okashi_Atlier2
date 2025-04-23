@@ -939,6 +939,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_PoolEnd; //プールに入り終わったフラグ
     public static bool QuestClearButton_EnshutuStart; //クエストクリアボタン演出が始まったフラグ
     public static int MakeItemStatus; //できたお菓子が店売りのものかそうでないか
+    public static bool Debug_StartReadOne; //デバッグ用　最初の一回だけ読み込み
     
 
 
@@ -1542,6 +1543,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_PanelON = false;
         System_PoolEnd = false;
         QuestClearButton_EnshutuStart = false;
+        Debug_StartReadOne = false;
         Realtime_speedrange_ON = true;
         Contest_MainStoryPlaceNum = 0;
         Before_Player_ninkiparam = 0;

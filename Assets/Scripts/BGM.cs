@@ -464,6 +464,11 @@ public class BGM : MonoBehaviour {
                                 _send_clip = sound45;
                                 break;
 
+                            case "Or_Hiroba_Summer_ThemePark_Hotel": //夏エリア  ホテル
+
+                                _send_clip = sound37;
+                                break;
+
                             case "Or_Hiroba_Summer_ThemePark_StreetA_2": //夏エリア　13番街　奥
 
                                 _send_clip = sound45;

@@ -39,6 +39,10 @@ public class Hiroba1_Main_Or : MonoBehaviour
             i++;
         }
 
+        //デバッグ用 チェックが終わったら必ずオフにする
+        //Debug_Scene();        
+        //** **//
+
         switch (GameMgr.SceneSelectNum)
         {
             case 0: //中央噴水 メイン
@@ -243,6 +247,12 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_Pool";
                 SettingBGPanel("Map170"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 171: //夏エリア  遊園地　ホテル
+
+                GameMgr.Scene_Name = "Or_Hiroba_Summer_ThemePark_Hotel";
+                SettingBGPanel("Map171"); //Map〇〇のリスト番号を指定
                 break;
 
             case 175: //夏エリア  １３番街　奥
@@ -491,7 +501,17 @@ public class Hiroba1_Main_Or : MonoBehaviour
         //SceneManager.sceneUnloaded += OnSceneUnloaded;  //アンロードされるタイミングで呼び出しされるメソッド
     }
 
-    
+    void Debug_Scene()
+    {
+        if (!GameMgr.Debug_StartReadOne)
+        {
+            GameMgr.Debug_StartReadOne = true;
+
+            GameMgr.SceneSelectNum = 153;
+            GameMgr.NPCHiroba_HikarieventList[320] = true; //ホテル解禁
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -525,6 +545,8 @@ public class Hiroba1_Main_Or : MonoBehaviour
         }
         BGImg_List_mago[0].gameObject.SetActive(true); //朝の画像一番上オブジェクトをON
     }
+
+    
 
     //別シーンからこのシーンが読み込まれたときに、読み込む
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

@@ -42,6 +42,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     private Text npc7_toggle_text;
     private Text npc8_toggle_text;
 
+    private GameObject npc_subview_obj;
+
     private ItemMatPlaceDataBase matplace_database;
 
     private PlayerItemList pitemlist;
@@ -1881,6 +1883,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active1570_Amupark_pool();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_Hotel":
+
+                On_Active1575_Amupark_hotel();
+                break;
+
             case "Or_Hiroba_Catsle_MainEntrance":
 
                 On_NPC_CatsleActive01();
@@ -2025,6 +2032,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active11();
                 break;
 
+            case "Or_Hiroba_Summer_ThemePark_KanranShaHiroba":
+
+                On_Active86();
+                break;
+
             default:
 
                 On_Active1006_Piero();
@@ -2065,6 +2077,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_Pool":
+
+                On_Active73();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Hotel":
 
                 On_Active73();
                 break;
@@ -2451,6 +2468,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 170;
+        GoAreaMove("Or_Hiroba1");
+    }
+
+    void On_Active86()
+    {
+        //_text.text = "夏エリア遊園地　プールへ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 171;
         GoAreaMove("Or_Hiroba1");
     }
 
@@ -3680,6 +3707,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
+    void On_Active1575_Amupark_hotel()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1575; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
     void On_Active1600_Roten_Ringo()
     {
         //NPC宴の処理へ
@@ -4316,6 +4353,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;
 
+                //スウィートホテル解禁
+                if (GameMgr.NPCHiroba_HikarieventList[320])
+                {
+                    npc_subview_obj.transform.Find("SubView5_SelectToggle").gameObject.SetActive(true);
+                }
+                else
+                {
+                    npc_subview_obj.transform.Find("SubView5_SelectToggle").gameObject.SetActive(false);
+                }
+
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_KanranShaMae": //夏エリア　遊園地　観覧車乗り場
@@ -4415,6 +4462,29 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 {
                     default_scenetext = "プール最高だった！" + "\n" + "にいちゃん。楽しかったね～♪";
                 }
+
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
+
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Hotel": //夏エリア　遊園地　ホテル
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_171").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                GameMgr.Window_CharaName = "";
+                default_scenetext = "いらっしゃいませ。";
+                /*if (!GameMgr.System_PoolEnd)
+                {
+                    default_scenetext = "いらっしゃいませ。";
+                }
+                else
+                {
+                    default_scenetext = "プール最高だった！" + "\n" + "にいちゃん。楽しかったね～♪";
+                }*/
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;
@@ -4760,6 +4830,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         npc6_toggle_text = npc6_toggle_obj.transform.Find("Background/Text").GetComponent<Text>();
         npc7_toggle_text = npc7_toggle_obj.transform.Find("Background/Text").GetComponent<Text>();
         npc8_toggle_text = npc8_toggle_obj.transform.Find("Background/Text").GetComponent<Text>();
+
+        npc_subview_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main").gameObject;
 
         /*npc1_toggle = npc1_toggle_obj.GetComponent<Toggle>();
         npc2_toggle = npc2_toggle_obj.GetComponent<Toggle>();
