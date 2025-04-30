@@ -48,6 +48,16 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int _ms4_pointup;
     private string _ms5_mariage;
     private int _ms5_pointup;
+    private string _ms6_mariage;
+    private int _ms6_pointup;
+    private string _ms7_mariage;
+    private int _ms7_pointup;
+    private string _ms8_mariage;
+    private int _ms8_pointup;
+    private string _ms9_mariage;
+    private int _ms9_pointup;
+    private string _ms10_mariage;
+    private int _ms10_pointup;
     private int _total_kosu;
 
     private string ev_fileName, ev_itemName, ev_itemNameHyouji;
@@ -631,37 +641,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
             if (database.items[i].itemName == _name)
             {
-                _id = database.items[i].itemID;　//アイテムIDのこと。
-                _comp_hosei = database.items[i].itemComp_Hosei;
-                _file_name = database.items[i].fileName;
-                _nameHyouji = database.items[i].itemNameHyouji;
-                _desc = database.items[i].itemDesc;
-                _type = database.items[i].itemType.ToString();
-                _subtype = database.items[i].itemType_sub.ToString();
-                _subtypeB = database.items[i].itemType_subB.ToString();
-                _subtype_category = database.items[i].itemType_sub_category;
-                _best_welldone = database.items[i].Best_Welldone;
-                _base_score = database.items[i].Base_Score;
-                _judge_num = database.items[i].SetJudge_Num;
-                _eat_kaisu = database.items[i].Eat_kaisu;
-                _highscore_flag = database.items[i].HighScore_flag;
-                _lasttotal_score = database.items[i].last_total_score;
-                _hinttext = database.items[i].last_hinttext;
-                _rare = database.items[i].Rare;
-                _manpuku = database.items[i].Manpuku;
-                //_magic = database.items[i].Magic;                
-                _noteat = database.items[i].NotEat;
-                _secretFlag = database.items[i].SecretFlag;
-                _ms1_mariage = database.items[i].MS1_mariage;
-                _ms1_pointup = database.items[i].MS1_pointup;
-                _ms2_mariage = database.items[i].MS2_mariage;
-                _ms2_pointup = database.items[i].MS2_pointup;
-                _ms3_mariage = database.items[i].MS3_mariage;
-                _ms3_pointup = database.items[i].MS3_pointup;
-                _ms4_mariage = database.items[i].MS4_mariage;
-                _ms4_pointup = database.items[i].MS4_pointup;
-                _ms5_mariage = database.items[i].MS5_mariage;
-                _ms5_pointup = database.items[i].MS5_pointup;
+                ItemDatabase_Setting();
+                
 
                 for ( k=0; k < _koyutp.Length; k++)
                 {
@@ -685,7 +666,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
             Attri1, Attri2, Attri3,
-            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup));
+            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
+            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
     }
 
     //エクストリームパネル設定用アイテムを登録する。
@@ -710,37 +692,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
             if (database.items[i].itemName == _name)
             {
-                _id = database.items[i].itemID;　//アイテムIDのこと。
-                _comp_hosei = database.items[i].itemComp_Hosei;
-                _file_name = database.items[i].fileName;
-                _nameHyouji = database.items[i].itemNameHyouji;
-                _desc = database.items[i].itemDesc;
-                _type = database.items[i].itemType.ToString();
-                _subtype = database.items[i].itemType_sub.ToString();
-                _subtypeB = database.items[i].itemType_subB.ToString();
-                _subtype_category = database.items[i].itemType_sub_category;
-                _best_welldone = database.items[i].Best_Welldone;
-                _base_score = database.items[i].Base_Score;
-                _judge_num = database.items[i].SetJudge_Num;
-                _eat_kaisu = database.items[i].Eat_kaisu;
-                _highscore_flag = database.items[i].HighScore_flag;
-                _lasttotal_score = database.items[i].last_total_score;
-                _hinttext = database.items[i].last_hinttext;
-                _rare = database.items[i].Rare;
-                _manpuku = database.items[i].Manpuku;
-                //_magic = database.items[i].Magic;               
-                _noteat = database.items[i].NotEat;
-                _secretFlag = database.items[i].SecretFlag;
-                _ms1_mariage = database.items[i].MS1_mariage;
-                _ms1_pointup = database.items[i].MS1_pointup;
-                _ms2_mariage = database.items[i].MS2_mariage;
-                _ms2_pointup = database.items[i].MS2_pointup;
-                _ms3_mariage = database.items[i].MS3_mariage;
-                _ms3_pointup = database.items[i].MS3_pointup;
-                _ms4_mariage = database.items[i].MS4_mariage;
-                _ms4_pointup = database.items[i].MS4_pointup;
-                _ms5_mariage = database.items[i].MS5_mariage;
-                _ms5_pointup = database.items[i].MS5_pointup;
+                ItemDatabase_Setting();
 
                 for (k = 0; k < _koyutp.Length; k++)
                 {
@@ -764,7 +716,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
             Attri1, Attri2, Attri3,
-            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup));
+            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
+            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
     }
 
     //ヒカリオリジナルアイテムを登録する。
@@ -790,37 +743,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
             if (database.items[i].itemName == _name)
             {
-                _id = database.items[i].itemID;　//アイテムIDのこと。
-                _comp_hosei = database.items[i].itemComp_Hosei;
-                _file_name = database.items[i].fileName;
-                _nameHyouji = database.items[i].itemNameHyouji;
-                _desc = database.items[i].itemDesc;
-                _type = database.items[i].itemType.ToString();
-                _subtype = database.items[i].itemType_sub.ToString();
-                _subtypeB = database.items[i].itemType_subB.ToString();
-                _subtype_category = database.items[i].itemType_sub_category;
-                _best_welldone = database.items[i].Best_Welldone;
-                _base_score = database.items[i].Base_Score;
-                _judge_num = database.items[i].SetJudge_Num;
-                _eat_kaisu = database.items[i].Eat_kaisu;
-                _highscore_flag = database.items[i].HighScore_flag;
-                _lasttotal_score = database.items[i].last_total_score;
-                _hinttext = database.items[i].last_hinttext;
-                _rare = database.items[i].Rare;
-                _manpuku = database.items[i].Manpuku;
-                //_magic = database.items[i].Magic;               
-                _noteat = database.items[i].NotEat;
-                _secretFlag = database.items[i].SecretFlag;
-                _ms1_mariage = database.items[i].MS1_mariage;
-                _ms1_pointup = database.items[i].MS1_pointup;
-                _ms2_mariage = database.items[i].MS2_mariage;
-                _ms2_pointup = database.items[i].MS2_pointup;
-                _ms3_mariage = database.items[i].MS3_mariage;
-                _ms3_pointup = database.items[i].MS3_pointup;
-                _ms4_mariage = database.items[i].MS4_mariage;
-                _ms4_pointup = database.items[i].MS4_pointup;
-                _ms5_mariage = database.items[i].MS5_mariage;
-                _ms5_pointup = database.items[i].MS5_pointup;
+                ItemDatabase_Setting();
 
                 for (k = 0; k < _koyutp.Length; k++)
                 {
@@ -845,7 +768,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
             Attri1, Attri2, Attri3,
-            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup));
+            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
+            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
     }
 
     //チェック用のオリジナルアイテムを登録する。
@@ -871,38 +795,8 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         {
 
             if (database.items[i].itemName == _name)
-            {
-                _id = database.items[i].itemID;　//アイテムIDのこと。
-                _comp_hosei = database.items[i].itemComp_Hosei;
-                _file_name = database.items[i].fileName;
-                _nameHyouji = database.items[i].itemNameHyouji;
-                _desc = database.items[i].itemDesc;
-                _type = database.items[i].itemType.ToString();
-                _subtype = database.items[i].itemType_sub.ToString();
-                _subtypeB = database.items[i].itemType_subB.ToString();
-                _subtype_category = database.items[i].itemType_sub_category;
-                _best_welldone = database.items[i].Best_Welldone;
-                _base_score = database.items[i].Base_Score;
-                _judge_num = database.items[i].SetJudge_Num;
-                _eat_kaisu = database.items[i].Eat_kaisu;
-                _highscore_flag = database.items[i].HighScore_flag;
-                _lasttotal_score = database.items[i].last_total_score;
-                _hinttext = database.items[i].last_hinttext;
-                _rare = database.items[i].Rare;
-                _manpuku = database.items[i].Manpuku;
-                //_magic = database.items[i].Magic;               
-                _noteat = database.items[i].NotEat;
-                _secretFlag = database.items[i].SecretFlag;
-                _ms1_mariage = database.items[i].MS1_mariage;
-                _ms1_pointup = database.items[i].MS1_pointup;
-                _ms2_mariage = database.items[i].MS2_mariage;
-                _ms2_pointup = database.items[i].MS2_pointup;
-                _ms3_mariage = database.items[i].MS3_mariage;
-                _ms3_pointup = database.items[i].MS3_pointup;
-                _ms4_mariage = database.items[i].MS4_mariage;
-                _ms4_pointup = database.items[i].MS4_pointup;
-                _ms5_mariage = database.items[i].MS5_mariage;
-                _ms5_pointup = database.items[i].MS5_pointup;
+            {               
+                ItemDatabase_Setting();
 
                 for (k = 0; k < _koyutp.Length; k++)
                 {
@@ -927,7 +821,54 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
             Attri1, Attri2, Attri3,
-            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup));
+            _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
+            _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
+    }
+
+    void ItemDatabase_Setting()
+    {
+        _id = database.items[i].itemID; //アイテムIDのこと。
+        _comp_hosei = database.items[i].itemComp_Hosei;
+        _file_name = database.items[i].fileName;
+        _nameHyouji = database.items[i].itemNameHyouji;
+        _desc = database.items[i].itemDesc;
+        _type = database.items[i].itemType.ToString();
+        _subtype = database.items[i].itemType_sub.ToString();
+        _subtypeB = database.items[i].itemType_subB.ToString();
+        _subtype_category = database.items[i].itemType_sub_category;
+        _best_welldone = database.items[i].Best_Welldone;
+        _base_score = database.items[i].Base_Score;
+        _judge_num = database.items[i].SetJudge_Num;
+        _eat_kaisu = database.items[i].Eat_kaisu;
+        _highscore_flag = database.items[i].HighScore_flag;
+        _lasttotal_score = database.items[i].last_total_score;
+        _hinttext = database.items[i].last_hinttext;
+        _rare = database.items[i].Rare;
+        _manpuku = database.items[i].Manpuku;
+        //_magic = database.items[i].Magic;               
+        _noteat = database.items[i].NotEat;
+        _secretFlag = database.items[i].SecretFlag;
+
+        _ms1_mariage = database.items[i].MS1_mariage;
+        _ms1_pointup = database.items[i].MS1_pointup;
+        _ms2_mariage = database.items[i].MS2_mariage;
+        _ms2_pointup = database.items[i].MS2_pointup;
+        _ms3_mariage = database.items[i].MS3_mariage;
+        _ms3_pointup = database.items[i].MS3_pointup;
+        _ms4_mariage = database.items[i].MS4_mariage;
+        _ms4_pointup = database.items[i].MS4_pointup;
+        _ms5_mariage = database.items[i].MS5_mariage;
+        _ms5_pointup = database.items[i].MS5_pointup;
+        _ms6_mariage = database.items[i].MS1_mariage;
+        _ms6_pointup = database.items[i].MS1_pointup;
+        _ms7_mariage = database.items[i].MS2_mariage;
+        _ms7_pointup = database.items[i].MS2_pointup;
+        _ms8_mariage = database.items[i].MS3_mariage;
+        _ms8_pointup = database.items[i].MS3_pointup;
+        _ms9_mariage = database.items[i].MS4_mariage;
+        _ms9_pointup = database.items[i].MS4_pointup;
+        _ms10_mariage = database.items[i].MS5_mariage;
+        _ms10_pointup = database.items[i].MS5_pointup;
     }
 
     //お菓子パネルにすでにセットされてるアイテムを、オリジナルアイテムへコピーする。個数だけは計算したものをいれる。
@@ -987,7 +928,12 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             player_extremepanel_itemlist[tempID].MS2_mariage, player_extremepanel_itemlist[tempID].MS2_pointup,
             player_extremepanel_itemlist[tempID].MS3_mariage, player_extremepanel_itemlist[tempID].MS3_pointup,
             player_extremepanel_itemlist[tempID].MS4_mariage, player_extremepanel_itemlist[tempID].MS4_pointup,
-            player_extremepanel_itemlist[tempID].MS5_mariage, player_extremepanel_itemlist[tempID].MS5_pointup));
+            player_extremepanel_itemlist[tempID].MS5_mariage, player_extremepanel_itemlist[tempID].MS5_pointup,
+            player_extremepanel_itemlist[tempID].MS6_mariage, player_extremepanel_itemlist[tempID].MS6_pointup,
+            player_extremepanel_itemlist[tempID].MS7_mariage, player_extremepanel_itemlist[tempID].MS7_pointup,
+            player_extremepanel_itemlist[tempID].MS8_mariage, player_extremepanel_itemlist[tempID].MS8_pointup,
+            player_extremepanel_itemlist[tempID].MS9_mariage, player_extremepanel_itemlist[tempID].MS9_pointup,
+            player_extremepanel_itemlist[tempID].MS10_mariage, player_extremepanel_itemlist[tempID].MS10_pointup));
     }
 
     void KoyuID_Set()

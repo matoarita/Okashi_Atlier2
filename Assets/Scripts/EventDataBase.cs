@@ -737,15 +737,23 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //スターで発生するイベント系
                 //
                 //StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
-                StarEvent_check(15, 501, 1); //スター15で、サマードリームフェスティバル解放
-                StarEvent_check(25, 502, 1); //スター25で、アルクアンシェル解放
+                StarEvent_check(12, 501, 1); //スター15で、サマードリームフェスティバル解放 ここでスターの数値決めてOK
+                StarEvent_check(22, 502, 1); //スター25で、アルクアンシェル解放
 
                 //
                 //スターパネル解放で発生するリリースイベント系
                 //
                 //StarRank_ReleaseListの配列番号をみる　例)1 = starが7のときに解放されるイベントのこと GameMgr.Star_Eventlistを参照
-                //2番目はsubEventのnum
-                StarReleaseEvent_check(1, 359, 1); 
+                //2番目はsubEventのnum 3番目はBGM　1のときは宴のBGMを鳴らす
+                //お宝イベントは、ここのイベント発生でなくスターパネル内で完結させる
+                StarReleaseEvent_check(1, 600, 1); //7なのでショートケーキのレシピゲット
+                StarReleaseEvent_check(2, 601, 0); //9なのでコスチュームゲット
+                StarReleaseEvent_check(3, 602, 1); //15なのでソーダアイランドいけるイベント
+                StarReleaseEvent_check(5, 603, 1); //20なのでおふろいけるイベント　温泉地の解放？
+                StarReleaseEvent_check(6, 604, 0); //22なのでコスチューム2ゲット
+                //StarReleaseEvent_check(8, 605, 1); //30なのでマリトッツォのレシピゲット
+                StarReleaseEvent_check(9, 606, 1); //32なのでスウィートホテルいけるイベント
+                StarReleaseEvent_check(10, 610, 1); //43なのでラストイベント　ヒカリからさくらの指輪をもらう
 
                 //
                 //ビギナー系のサブイベント関係は、80番台～

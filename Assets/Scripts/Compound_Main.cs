@@ -830,6 +830,8 @@ public class Compound_Main : MonoBehaviour
 
         GameMgr.CompoAfter_BackGirl = false;
         GameMgr.System_PoolEnd = false; //ソーダアイランドプールフラグをリセット
+        GameMgr.System_HotelEnd = false; //他、場所フラグをリセット
+        GameMgr.System_HotSpringEnd = false;
         StartRead = false;
 
 

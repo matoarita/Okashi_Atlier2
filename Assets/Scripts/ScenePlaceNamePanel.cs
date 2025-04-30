@@ -241,6 +241,18 @@ public class ScenePlaceNamePanel : MonoBehaviour {
                                 _subtext = "Poolside Entrance";
                                 break;
 
+                            case "Or_Hiroba_Summer_ThemePark_Hotel": //夏エリア  ホテル入口
+
+                                _text = "スウィートホテル玄関";
+                                _subtext = "SweatHotel Entrance";
+                                break;
+
+                            case "Or_Hiroba_HotSpring": //温泉入口
+
+                                _text = "温泉 - 「ヘルシーメルシー」";
+                                _subtext = "HotSpring - HealthyMercy";
+                                break;
+
                             case "Or_Hiroba_Summer_ThemePark_StreetA_2": //夏エリア　13番街　奥
 
                                 //_text = "プールエリア入口";

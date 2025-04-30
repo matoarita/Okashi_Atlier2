@@ -62,12 +62,12 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
             case 2000:
 
-                PrizeSet02();
+                PrizeSet03();
                 break;
 
             case 3000:
 
-                PrizeSet03();
+                PrizeSet04();
                 break;
 
             case 4000:

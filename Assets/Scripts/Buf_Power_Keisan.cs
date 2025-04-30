@@ -1686,7 +1686,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
-                if (_status == 2)//なめらかのバフ
+                if (_status == 2 || _status == 3)//なめらかor歯ごたえのバフ
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Wind_Ark");
 

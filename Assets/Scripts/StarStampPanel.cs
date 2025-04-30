@@ -439,7 +439,7 @@ public class StarStampPanel : MonoBehaviour
                     //アクアマリンの湖
                     //_id = matplace_database.SearchMapString("Aquamarine_Lake");
                     newarea_titletext = "おたから";
-                    newarea_gohoubitext = "３つの中から好きなアイテムを選んでね。";
+                    newarea_gohoubitext = "魔法の泡だて器" + "\n" + "ゲット！";
                     newarea_gohoubiicon = itemIcon_sprite1;
                     newAreaRelease_panelKoushin(_star);
                 }
@@ -515,7 +515,7 @@ public class StarStampPanel : MonoBehaviour
                 {
                     //ソーダアイランド解放
                     _id = matplace_database.SearchMapString("Or_Hiroba_Summer_SodaIsland");
-                    newarea_titletext = "特別な場所";
+                    newarea_titletext = "遊園地";
                     newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "\n" + "解放！";
                     newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
@@ -565,14 +565,14 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    //ショートケーキの思い出　仮
-                    _id = matplace_database.SearchMapString("Emerald_Forest");
+                    //温泉解禁
+                    _id = matplace_database.SearchMapString("Or_Hiroba1_HotSpring");
                     newarea_titletext = "思い出イベント";
                     newarea_gohoubitext = "いっしょにおふろ♪" + "\n" + "解放！";
                     newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
-                    //GameMgr.SetHikariOmoideFlag("strawberry_sponge_cake", true);
+                    matplace_database.ReSetMapFlagString("Or_Hiroba1_HotSpring", 1);
                 }
                 break;
 
@@ -593,7 +593,7 @@ public class StarStampPanel : MonoBehaviour
                 {
                     _id = pitemlist.SearchEmeraldItemStringID("RedDress_Costume");
                     newarea_titletext = "コスチューム";
-                    newarea_gohoubitext = "コスチューム３をゲット！！";
+                    newarea_gohoubitext = "コスチューム２をゲット！！";
                     newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
@@ -617,13 +617,13 @@ public class StarStampPanel : MonoBehaviour
                 else if (_mstatus == 1)
                 {
                     //
-                    _id = pitemlist.Find_eventitemdatabase("cheese_cake_recipi");
-                    newarea_titletext = "レシピ";
-                    newarea_gohoubitext = "チーズケーキ＜上級＞のレシピをゲット！";
+                    //_id = pitemlist.Find_eventitemdatabase("cheesecake_recipi_high");
+                    newarea_titletext = "おたから";
+                    newarea_gohoubitext = "なんらかのアイテムをゲット！";
                     newarea_gohoubiicon = itemIcon_sprite2;
                     newAreaRelease_panelKoushin(_star);
 
-                    pitemlist.add_eventPlayerItem(_id, 1);
+                    //pitemlist.add_eventPlayerItem(_id, 1);
                 }
 
                 break;
@@ -643,7 +643,7 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    //マリトッツォの思い出
+                    //マリトッツォのレシピゲット
                     _id = pitemlist.Find_eventitemdatabase("maritozzo_recipi");
                     newarea_titletext = "レシピ";
                     newarea_gohoubitext = "マリトッツォのレシピ！" + "\n" + "ゲット！";
@@ -698,8 +698,8 @@ public class StarStampPanel : MonoBehaviour
                 {
                     //アクアマリンの湖
                     _id = matplace_database.SearchMapString("Aquamarine_Lake");
-                    newarea_titletext = "おたから";
-                    newarea_gohoubitext = "３つの中から好きなアイテムを選んでね。";
+                    newarea_titletext = "思い出イベント";
+                    newarea_gohoubitext = "さくらの思い出";
                     newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
                 }

@@ -345,8 +345,7 @@ public class ContestListController : MonoBehaviour
             }
         }
 
-        //はるかなる青賞で次でる
-        _listID = conteststartList_database.SearchContestString("Or_Contest_250");
+        //ボンボヤージュクリアで次でる
         if (GameMgr.Contest_NewReleaseList[11])
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 11)
@@ -356,10 +355,18 @@ public class ContestListController : MonoBehaviour
         }
 
         //スカーレットマイスタクリアで最後がでる。
-        _listID = conteststartList_database.SearchContestString("Or_Contest_240");
         if (GameMgr.Contest_NewReleaseList[12])
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 12)
+            {
+                DrawContest();
+            }
+        }
+
+        //はるかなる青クリアで最後がでる。
+        if (GameMgr.Contest_NewReleaseList[13])
+        {
+            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 13)
             {
                 DrawContest();
             }
@@ -561,8 +568,8 @@ public class ContestListController : MonoBehaviour
                     }
                 }
 
-                //はるかなる青賞で次でる
-                _listID = conteststartList_database.SearchContestString("Or_Contest_250");
+                //ボンボヤージュ・カップ賞で次でる
+                _listID = conteststartList_database.SearchContestString("Or_Contest_220");
                 if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[11])
@@ -579,6 +586,17 @@ public class ContestListController : MonoBehaviour
                     if (!GameMgr.Contest_NewReleaseList[12])
                     {
                         GameMgr.Contest_NewReleaseList[12] = true;
+                        contest_new = 1;
+                    }
+                }
+
+                //遥かなる蒼クリアで最後がでる。
+                _listID = conteststartList_database.SearchContestString("Or_Contest_250");
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
+                {
+                    if (!GameMgr.Contest_NewReleaseList[13])
+                    {
+                        GameMgr.Contest_NewReleaseList[13] = true;
                         contest_new = 1;
                     }
                 }

@@ -1994,29 +1994,29 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         if (_basepowdery > GameMgr.Watery_Line) //50より上
         {
-            dislike_flag = false;
-            //dislike_score += _basepowdery * 2;
+            //dislike_flag = false;
+            dislike_score += _basepowdery * 2;
             dislike_status = 3;
             dislike_num = 0;
             Debug.Log("粉っぽい: " + dislike_score);
         }
         if (_baseoily > GameMgr.Watery_Line)
         {
-            dislike_flag = false;
-            //dislike_score += _baseoily * 2;
+            //dislike_flag = false;
+            dislike_score += _baseoily * 2;
             dislike_status = 3;
             dislike_num = 1;
             Debug.Log("油っぽい: " + dislike_score);
         }
         //ジュース・ティー・コーヒー類は、水系の値の判定をなくす。もともと、みずなので。
-        if (_baseitemtype_sub == "Juice" || _baseitemtype_sub == "Tea" || _baseitemtype_sub == "Tea_Potion" || _baseitemtype_sub == "Coffee_Mat"
-            || _baseitemtype_sub == "Coffee")
+        if (_baseitemtype_sub == "Juice" || _baseitemtype_sub == "Soda" || _baseitemtype_sub == "Tea" || 
+            _baseitemtype_sub == "Tea_Potion" || _baseitemtype_sub == "Coffee_Mat" || _baseitemtype_sub == "Coffee")
         { }
         else {
             if (_basewatery > GameMgr.Watery_Line)
             {
-                dislike_flag = false;
-                //dislike_score += _basewatery * 2;
+                //dislike_flag = false;
+                dislike_score += _basewatery * 2;
                 dislike_status = 3;
                 dislike_num = 2;
                 Debug.Log("水っぽい: " + dislike_score);

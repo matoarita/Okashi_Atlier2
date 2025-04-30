@@ -1188,8 +1188,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
         {           
             if (databaseCompo.compoitems[i].cmpitemID_result_itemType == "Okashi")
             {
+                Already_eatOkashi();
+
                 //HLVがある程度こえると、食べたことないお菓子も食べたいと言うようになる。
-                if(PlayerStatus.girl1_Love_lv >= 20)
+                /*if (PlayerStatus.girl1_Love_lv >= 20)
                 {
                     random = Random.Range(0, 100);
                     if(random >= 50) //50%で食べたことないおかし
@@ -1216,7 +1218,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                 } else
                 {
                     Already_eatOkashi();
-                }              
+                }  */            
             }
         }
 

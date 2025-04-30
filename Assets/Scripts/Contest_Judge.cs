@@ -1066,6 +1066,71 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 break;
 
+            case "Or_Contest_210":　//フライングソーダ
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subType == "Soda")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        judge_flag = false;
+                    }
+                }
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    //Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(150); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+
+                break;
+
+            case "Or_Contest_220":　//ボンボヤージュ
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+                }
+                else if (_status == 1)
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(150); //75%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+                break;
+
             case "Or_Contest_230":　//おみやげおかし クッキーかラスクを除く　子ども向けのおかし
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。

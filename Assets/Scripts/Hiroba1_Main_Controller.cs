@@ -1888,6 +1888,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active1575_Amupark_hotel();
                 break;
 
+            case "Or_Hiroba_HotSpring":
+
+                On_Active1580_HotSpring();
+                break;
+
             case "Or_Hiroba_Catsle_MainEntrance":
 
                 On_NPC_CatsleActive01();
@@ -2084,6 +2089,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Summer_ThemePark_Hotel":
 
                 On_Active73();
+                break;
+
+            case "Or_Hiroba_HotSpring":
+
+                On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Catsle_MainEntrance":
@@ -3717,6 +3727,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         EventReadingStart();
     }
 
+    void On_Active1580_HotSpring()
+    {
+        //NPC宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1580; //       
+
+        GameMgr.hiroba_event_ID = 0;
+
+        EventReadingStart();
+    }
+
     void On_Active1600_Roten_Ringo()
     {
         //NPC宴の処理へ
@@ -4348,7 +4368,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                default_scenetext = "にいちゃん！" + "\n" + "のりもの、いっぱいあるよ～！";
+                default_scenetext = "にいちゃん！" + "\n" + "のりもの、いっぱいあるよ～！　あちぃ～～・・。";
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;
@@ -4475,16 +4495,37 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 mainlist_controller_obj.SetActive(true);
                 ToggleSetup();
 
-                GameMgr.Window_CharaName = "";
-                default_scenetext = "いらっしゃいませ。";
-                /*if (!GameMgr.System_PoolEnd)
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                if (!GameMgr.System_HotelEnd)
                 {
-                    default_scenetext = "いらっしゃいませ。";
+                    default_scenetext = "にいちゃん！" + "\n" + "ここがホテル～～？　おっきいね～～♪";
                 }
                 else
                 {
-                    default_scenetext = "プール最高だった！" + "\n" + "にいちゃん。楽しかったね～♪";
-                }*/
+                    default_scenetext = "ホテルたのしかった～！" + "\n" + "またいこ～ね♪";
+                }
+
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                text_area_hyouji_on = true;
+
+                break;
+
+            case "Or_Hiroba_HotSpring": //温泉エリア
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_172").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                if (!GameMgr.System_HotSpringEnd)
+                {
+                    default_scenetext = "にいちゃん！" + "\n" + "ここが温泉～？　あったかいよ～！";
+                }
+                else
+                {
+                    default_scenetext = "温泉きもちよかったね～！" + "\n" + "コーヒー牛乳うまい。にいちゃん♪";
+                }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
                 text_area_hyouji_on = true;

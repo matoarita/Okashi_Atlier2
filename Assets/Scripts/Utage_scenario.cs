@@ -3110,7 +3110,17 @@ public class Utage_scenario : MonoBehaviour
                 scenarioLabel = "Or_NPC107_park_sweat_hotel";
                 bgm_changeflag = true;
 
-                omoide_flag = GameMgr.SearchHikariOmoideFlag("event_pool");
+                omoide_flag = GameMgr.SearchHikariOmoideFlag("event_sweathotel");
+                engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
+
+                break;
+
+            case 1580: //Or温泉
+
+                scenarioLabel = "Or_NPC108_hotspring";
+                bgm_changeflag = true;
+
+                omoide_flag = GameMgr.SearchHikariOmoideFlag("event_hotspring");
                 engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
 
                 break;
@@ -3517,6 +3527,20 @@ public class Utage_scenario : MonoBehaviour
                         trans_costume = GameMgr.Costume_Num;
                         live2d_animator.SetInteger("trans_costume", trans_costume);
                         break;
+
+                    case "Or_NPC108_hotspring": //Or温泉　Yes押したので裸になる
+
+                        Debug.Log("はだかになる");
+
+                        //広場のヒカリLive2Dを取得
+                        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                        live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
+
+                        before_costume = GameMgr.Costume_Num;
+                        GameMgr.Costume_Num = 2;
+                        trans_costume = GameMgr.Costume_Num;
+                        live2d_animator.SetInteger("trans_costume", trans_costume);
+                        break;
                 }
 
                 //BGMをオフにする。
@@ -3542,6 +3566,22 @@ public class Utage_scenario : MonoBehaviour
                         live2d_animator.SetInteger("trans_costume", trans_costume);
 
                         GameMgr.System_PoolEnd = true; //プールに入り終わった
+                        break;
+
+                    case "Or_NPC107_park_sweat_hotel": //Or遊園地ホテル　読み終わり後フラグ
+
+                        GameMgr.System_HotelEnd = true; //ホテル終わり
+                        break;
+
+                    case "Or_NPC108_hotspring": //Or温泉　裸だったので、元に戻す
+
+                        Debug.Log("着替え元に戻す");
+
+                        GameMgr.Costume_Num = before_costume;
+                        trans_costume = GameMgr.Costume_Num;
+                        live2d_animator.SetInteger("trans_costume", trans_costume);
+
+                        GameMgr.System_HotSpringEnd = true; //温泉に入り終わった
                         break;
                 }
 
@@ -3731,11 +3771,56 @@ public class Utage_scenario : MonoBehaviour
 
                     case 1: //のる
 
-                        moneyStatus_Controller.UseMoney(160);
+                        moneyStatus_Controller.UseMoney(500);
                         omoide_flag = GameMgr.SearchHikariOmoideFlag("event_pool");
                         if (!omoide_flag)
                         {
                             GameMgr.SetHikariOmoideFlag("event_pool", true);
+                            //Debug.Log("イベント観覧車　思い出フラグをTrue");
+                        }
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC107_park_sweat_hotel": //Or遊園地ホテル
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //入る
+
+                        omoide_flag = GameMgr.SearchHikariOmoideFlag("event_sweathotel");
+                        if (!omoide_flag)
+                        {
+                            GameMgr.SetHikariOmoideFlag("event_sweathotel", true);
+                            //Debug.Log("イベント観覧車　思い出フラグをTrue");
+                        }
+                        break;
+
+                }
+                break;
+
+            case "Or_NPC108_hotspring": //Or温泉
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //キャンセル
+
+                        break;
+
+                    case 1: //入る
+
+                        moneyStatus_Controller.UseMoney(600);
+                        omoide_flag = GameMgr.SearchHikariOmoideFlag("event_hotspring");
+                        if (!omoide_flag)
+                        {
+                            GameMgr.SetHikariOmoideFlag("event_hotspring", true);
                             //Debug.Log("イベント観覧車　思い出フラグをTrue");
                         }
                         break;

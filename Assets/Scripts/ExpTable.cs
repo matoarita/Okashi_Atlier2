@@ -134,7 +134,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 case 7:
 
                     //MagicLearnPanelHyouji("Heart_of_Icecream"); //下の欄の「魔法をおぼえる」のほうも更新すること
-                    //MagicLearnPanelHyouji("Freezing_Spell");
+                    MagicLearnPanelHyouji("Freezing_Spell");
                     break;
 
                 case 8:
@@ -333,12 +333,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             {
                 Magic_Learn("Cookie_SecondBake");               
             }*/
-            /*if (_lv >= 7)
+            if (_lv >= 7)
             {
                 //Magic_Learn("Heart_of_Icecream");
                 Magic_Learn("Freezing_Spell");
             }
-            if (_lv >= 10)
+            /*if (_lv >= 10)
             {
                 Magic_Learn("Bake_Beans");
                 Magic_Learn("Chocolate_Tempering");

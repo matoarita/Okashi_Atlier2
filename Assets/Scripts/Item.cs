@@ -90,6 +90,16 @@ public class Item
     public int MS4_pointup;
     public string MS5_mariage;
     public int MS5_pointup;
+    public string MS6_mariage;
+    public int MS6_pointup;
+    public string MS7_mariage;
+    public int MS7_pointup;
+    public string MS8_mariage;
+    public int MS8_pointup;
+    public string MS9_mariage;
+    public int MS9_pointup;
+    public string MS10_mariage;
+    public int MS10_pointup;
 
     //以下パラメータはExcel上には記載なし
     public float total_kyori; //ベスト配合と現在配合した材料の距離を保存。アイテムランクで表示される。
@@ -241,7 +251,9 @@ public class Item
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
         int _attri1, int _attri2, int _attri3,
         string _ms1_mariage, int _ms1_pointup, string _ms2_mariage, int _ms2_pointup, string _ms3_mariage, int _ms3_pointup,
-        string _ms4_mariage, int _ms4_pointup, string _ms5_mariage, int _ms5_pointup)
+        string _ms4_mariage, int _ms4_pointup, string _ms5_mariage, int _ms5_pointup,
+        string _ms6_mariage, int _ms6_pointup, string _ms7_mariage, int _ms7_pointup, string _ms8_mariage, int _ms8_pointup,
+        string _ms9_mariage, int _ms9_pointup, string _ms10_mariage, int _ms10_pointup)
     {
         itemID = id;
         OriginalitemID = OriginalID;
@@ -393,11 +405,22 @@ public class Item
         MS3_mariage = _ms3_mariage;
         MS4_mariage = _ms4_mariage;
         MS5_mariage = _ms5_mariage;
+        MS6_mariage = _ms6_mariage;
+        MS7_mariage = _ms7_mariage;
+        MS8_mariage = _ms8_mariage;
+        MS9_mariage = _ms9_mariage;
+        MS10_mariage = _ms10_mariage;
+
         MS1_pointup = _ms1_pointup;
         MS2_pointup = _ms2_pointup;
         MS3_pointup = _ms3_pointup;
         MS4_pointup = _ms4_pointup;
         MS5_pointup = _ms5_pointup;
+        MS6_pointup = _ms6_pointup;
+        MS7_pointup = _ms7_pointup;
+        MS8_pointup = _ms8_pointup;
+        MS9_pointup = _ms9_pointup;
+        MS10_pointup = _ms10_pointup;
     }
 
 }

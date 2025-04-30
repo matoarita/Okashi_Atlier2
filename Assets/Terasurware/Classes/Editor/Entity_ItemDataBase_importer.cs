@@ -127,6 +127,16 @@ public class Entity_ItemDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(74); p.MS4_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(75); p.MS5_mariage = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(76); p.MS5_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(77); p.MS6_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(78); p.MS6_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(79); p.MS7_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(80); p.MS7_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(81); p.MS8_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(82); p.MS8_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(83); p.MS9_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(84); p.MS9_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(85); p.MS10_mariage = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(86); p.MS10_pointup = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

@@ -937,6 +937,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Contest_MainStoryPlaceNum; //そのときにいく会場場所
     public static int Compo_FinalCostTime; //バフも計算したあとの、最終の調合にかかる時間
     public static bool System_PoolEnd; //プールに入り終わったフラグ
+    public static bool System_HotelEnd; //ホテルに入り終わったフラグ
+    public static bool System_HotSpringEnd; //温泉に入り終わったフラグ
     public static bool QuestClearButton_EnshutuStart; //クエストクリアボタン演出が始まったフラグ
     public static int MakeItemStatus; //できたお菓子が店売りのものかそうでないか
     public static bool Debug_StartReadOne; //デバッグ用　最初の一回だけ読み込み
@@ -1542,6 +1544,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_BGMON = false;
         Contest_PanelON = false;
         System_PoolEnd = false;
+        System_HotelEnd = false;
+        System_HotSpringEnd = false;
         QuestClearButton_EnshutuStart = false;
         Debug_StartReadOne = false;
         Realtime_speedrange_ON = true;
@@ -1808,7 +1812,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0);
+                        0, 0, 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0);
         contest_okashiID = 0;
         contest_lasthint_text = ""; //
         contest_shokukan_param = 0; //
@@ -1935,7 +1939,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("aquamarine_pendant");
         CollectionItemsName.Add("white_lily");
         CollectionItemsName.Add("himmeli");
-        CollectionItemsName.Add("kuma_nuigurumi");
+        //CollectionItemsName.Add("kuma_nuigurumi");
         CollectionItemsName.Add("copper_coin");
         CollectionItemsName.Add("compass");
         CollectionItemsName.Add("star_bottle");
@@ -1946,7 +1950,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //DecoItemsの配列数分まで用意
         BGAcceItemsName.Clear();
         BGAcceItemsName.Add("himmeli", false);
-        BGAcceItemsName.Add("kuma_nuigurumi", false);
+        //BGAcceItemsName.Add("kuma_nuigurumi", false);
         BGAcceItemsName.Add("saboten_1", false);
         BGAcceItemsName.Add("saboten_2", false);
         BGAcceItemsName.Add("saboten_3", false);
@@ -2402,14 +2406,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         HikariOmoide_Eventlist.Clear();
 
+        //点数150～関係
         HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(003, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(004, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2"));
 
+        //ハートで発生するイベント系
+        HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2"));
+
+        //スター・場所のイベント系
         HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "プール", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでまったり", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂でいちゃいちゃ", false, "EventCG_Icon/cg_gallery_icon_2"));
     }
 
     //思い出イベントの現在のフラグを取得
