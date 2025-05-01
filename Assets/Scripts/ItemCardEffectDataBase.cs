@@ -298,7 +298,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
-                item_MS_aisho = "星屑: " + _ms_aisho + "　" + aisho_text1;
+                item_MS_aisho = "星屑: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
 
                 _basemagicslot_on = 1; //加点がなくても、魔法はかかってるので、魔法のおかし扱いにはなる。
                 _basemagicslot_Name = GameMgr.System_MagicSlotName04;
@@ -328,8 +328,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 }
 
                 //相性に関係なく、必ず点数を足す
-                _ms_sp_score2 += 15; //海らしさを加算
-                _ms_sp_score6 += 10; //子供っぽさを足す
+                _ms_sp_score2 += 10; //海らしさを加算
+                _ms_sp_score6 += 5; //子供っぽさを足す
                 aisho_text2 = "海らしさ + " + _ms_sp_score2.ToString();
                 aisho_text3 = "子供っぽい + " + _ms_sp_score6.ToString();
 
@@ -455,19 +455,19 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
         if (_compa >= 0 && _compa < 5)
         {
-            _add_magicbeauty = 10;
+            _add_magicbeauty += 10;
             _ms_aisho = "▲";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
         }
         else if (_compa >= 5 && _compa < 20)
         {
-            _add_magicbeauty = 10 + _compa + (_magiclv * 5);
+            _add_magicbeauty += 10 + 5 + (_magiclv * 3);
             _ms_aisho = "△";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
         }
         else if (_compa >= 20 && _compa < 50)
         {
-            _add_magicbeauty = 10 + _compa + (_magiclv * 10);
+            _add_magicbeauty += 10 + (_compa / 2) + (_magiclv * 8);
             _ms_aisho = "〇";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
 
@@ -475,7 +475,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         }
         else if (_compa >= 50)
         {
-            _add_magicbeauty = 10 + _compa + (_magiclv * 15);
+            _add_magicbeauty += 10 + (_compa / 2) + (_magiclv * 15);
             _ms_aisho = "◎";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;

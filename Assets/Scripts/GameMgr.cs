@@ -839,6 +839,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool NewAreaRelease_flag; //なんらかのイベント後、新エリアが解禁されるフラグ
     public static List<int> PrizeScoreAreaList = new List<int>(); //コンテストのランキングスコア、もしくは賞品のスコア範囲のリスト
     public static List<string> PrizeItemList = new List<string>(); //コンテストの優勝のアイテムリスト
+    public static string PrizeItemSecond; //エデンコン　二回目出場以降の賞品
     public static List<string> PrizeCharacterList = new List<string>(); //コンテストの参加者リスト
     public static List<int> PrizeGetMoneyList = new List<int>(); //コンテストの優勝の賞金リスト
     public static int PrizeGetninkiparam_before; //コンテストの順位で獲得する人気度 補正前
@@ -942,7 +943,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool QuestClearButton_EnshutuStart; //クエストクリアボタン演出が始まったフラグ
     public static int MakeItemStatus; //できたお菓子が店売りのものかそうでないか
     public static bool Debug_StartReadOne; //デバッグ用　最初の一回だけ読み込み
-    
+    public static bool EdenFirstVictory; //エデンコン　初優勝かそうでないか
+    public static bool EdenPrizeChange; //エデンコン　賞品が変わるフラグ
+
 
 
     //セリフ関連の一時変数
@@ -1548,6 +1551,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_HotSpringEnd = false;
         QuestClearButton_EnshutuStart = false;
         Debug_StartReadOne = false;
+        EdenFirstVictory = false;
+        EdenPrizeChange = false;
         Realtime_speedrange_ON = true;
         Contest_MainStoryPlaceNum = 0;
         Before_Player_ninkiparam = 0;
@@ -1701,6 +1706,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GetMat_ResultList.Clear();
         ContestItem_supplied_List.Clear();
         ContestItem_supplied_KosuList.Clear();
+        PrizeItemSecond = "";
         contest_boss_name = "";
         Contest_PrizeGet_ItemName = "";
         Contest_PrizeGet_Money = 0;

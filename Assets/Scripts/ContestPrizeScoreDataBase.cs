@@ -273,7 +273,21 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
                     if (GameMgr.PrizeItemList[i] != "Non")
                     {
-                        GetPlayerItem();
+                        if (GameMgr.EdenPrizeChange) //該当コンテスト　賞品が切り替わる
+                        {
+                            if (GameMgr.EdenFirstVictory)
+                            {
+                                GetPlayerItem(GameMgr.PrizeItemList[i]);
+                            }
+                            else
+                            {
+                                GetPlayerItem(GameMgr.PrizeItemSecond);
+                            }
+                        }
+                        else
+                        {
+                            GetPlayerItem(GameMgr.PrizeItemList[i]);
+                        }
                     }
                     else
                     {
@@ -311,7 +325,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                     {
                         if (GameMgr.PrizeItemList[i] != "Non")
                         {
-                            GetPlayerItem();
+                            GetPlayerItem(GameMgr.PrizeItemList[i]);
                         }
                         else
                         {
@@ -335,7 +349,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                         {
                             if (GameMgr.PrizeItemList[i] != "Non")
                             {
-                                GetPlayerItem();
+                                GetPlayerItem(GameMgr.PrizeItemList[i]);
                             }
                             else
                             {
@@ -390,7 +404,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                         {
                             if (GameMgr.PrizeItemList[i] != "Non")
                             {
-                                GetPlayerItem();
+                                GetPlayerItem(GameMgr.PrizeItemList[i]);
                             }
                             else
                             {
@@ -424,16 +438,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         }
     }
 
-    void GetPlayerItem()
+    void GetPlayerItem(string _itemName)
     {
-        if (pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[i]) == 9999) //イベントアイテムが該当してないか先にチェック
+        if (pitemlist.Find_eventitemdatabase(_itemName) == 9999) //イベントアイテムが該当してないか先にチェック
         {
-            pitemlist.addPlayerItemString(GameMgr.PrizeItemList[i], 1);
-            GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(GameMgr.PrizeItemList[i])].itemNameHyouji;
+            pitemlist.addPlayerItemString(_itemName, 1);
+            GameMgr.Contest_PrizeGet_ItemName = database.items[database.SearchItemIDString(_itemName)].itemNameHyouji;
         }
         else //イベントアイテム該当してた場合は、イベントアイテムを追加する処理に。
         {
-            ev_id = pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[i]);
+            ev_id = pitemlist.Find_eventitemdatabase(_itemName);
             pitemlist.add_eventPlayerItem(ev_id, 1); //
             GameMgr.Contest_PrizeGet_ItemName = pitemlist.eventitemlist[ev_id].event_itemNameHyouji;
         }
@@ -483,8 +497,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(10000);
+
+        //二回目出場以降の賞品
+        GameMgr.PrizeItemSecond = "card_alice";
 
         //トーナメント形式では使わない　boss_scoreに直接いれるため
         //相手の点数リスト 5位から順番に入れる
@@ -513,8 +530,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+
+        //二回目出場以降の賞品
+        GameMgr.PrizeItemSecond = "card_alice";
     }
 
     void PrizeSet03()
@@ -528,8 +548,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(10000);
+
+        //二回目出場以降の賞品
+        GameMgr.PrizeItemSecond = "card_alice";
     }
 
     void PrizeSet04()
@@ -543,8 +566,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(10000);
+
+        //二回目出場以降の賞品
+        GameMgr.PrizeItemSecond = "card_alice";
     }
     //
 
@@ -580,9 +606,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(30);
-        GameMgr.PrizeScoreAreaList.Add(56);
-        GameMgr.PrizeScoreAreaList.Add(83);
-        GameMgr.PrizeScoreAreaList.Add(112);        
+        GameMgr.PrizeScoreAreaList.Add(62);
+        GameMgr.PrizeScoreAreaList.Add(103);
+        GameMgr.PrizeScoreAreaList.Add(152);        
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();

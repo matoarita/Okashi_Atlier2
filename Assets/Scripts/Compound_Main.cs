@@ -676,14 +676,14 @@ public class Compound_Main : MonoBehaviour
                     case "Or_Compound": //飾りアイテムはオランジーナではひとまず使わない
 
                         //そのあと、シーンそれぞれのオブジェクトを取得し、表示
-                        SetBGObj("BGOutimg_sc03", "BGimg_sc03", "effect_sc03");
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc02", "effect_sc02");
                         bg_accessory_panel.SetActive(false);
                         break;
 
                     default:
 
                         //そのあと、シーンそれぞれのオブジェクトを取得し、表示
-                        SetBGObj("BGOutimg_sc03", "BGimg_sc03", "effect_sc03");
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc02", "effect_sc02");
                         bg_accessory_panel.SetActive(false);
                         break;
                 }

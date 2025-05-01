@@ -4602,6 +4602,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_PrizeGetNinki", GameMgr.Contest_PrizeGetninkiparam);
         engine.Param.TrySetParameter("contest_ranking_count", GameMgr.contest_Rank_Count); //ランキング形式のとき順位。トーナメントでは使わない。
         engine.Param.TrySetParameter("ContestPastVictory_Flag", GameMgr.Contest_pastVictory_on); //過去、優勝したことがあるかどうか。
+        engine.Param.TrySetParameter("EdenFirstVictory_Flag", GameMgr.EdenFirstVictory); //エデンコン初出場で優勝したかどうか
+        engine.Param.TrySetParameter("EdenPrizeChange_Flag", GameMgr.EdenPrizeChange); //エデンコンで、敵からくれるかそのまま賞品としてもらえるかの分岐がある場合
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
@@ -4639,6 +4641,31 @@ public class Utage_scenario : MonoBehaviour
 
         //ランクを更新
         PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param);
+
+        //エデンレシピをもらう エデンコン二回目以降で、敵からもらう場合
+        if(GameMgr.EdenPrizeChange && !GameMgr.EdenFirstVictory)
+        {
+            switch (GameMgr.Contest_Name)
+            {
+                case "Or_Contest_001": //春コン
+
+                    ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_02");
+                    pitemlist.add_eventPlayerItem(ev_id, 1);
+                    break;
+
+                case "Or_Contest_002": //夏コン
+
+                    ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_03");
+                    pitemlist.add_eventPlayerItem(ev_id, 1);
+                    break;
+
+                case "Or_Contest_003": //秋コン
+
+                    ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_04");
+                    pitemlist.add_eventPlayerItem(ev_id, 1);
+                    break;
+            }
+        }
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。
 

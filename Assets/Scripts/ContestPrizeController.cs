@@ -271,7 +271,7 @@ public class ContestPrizeController : MonoBehaviour
         _rank_score = GameMgr.PrizeGetMoneyList[GameMgr.PrizeGetMoneyList.Count - 1 - i].ToString(); //
         if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i] != "Non")
         {
-            HyoujiPlayerItem(GameMgr.PrizeItemList.Count - 1 - i);
+            HyoujiPlayerItem(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
             //_ID = database.SearchItemIDString(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1 - i]);
             //_name = database.items[_ID].itemNameHyouji;
         }
@@ -341,16 +341,51 @@ public class ContestPrizeController : MonoBehaviour
             _rank_score = GameMgr.PrizeScoreAreaList[GameMgr.PrizeScoreAreaList.Count - 1 - i].ToString() + "点～";
         }*/
 
-        //賞品リスト
+        //賞金
         _rank_score = GameMgr.PrizeGetMoneyList[GameMgr.PrizeGetMoneyList.Count - 1].ToString();
-        if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1] != "Non")
+
+        //賞品リスト
+        //エデンコンの場合、初出場かそうでないかをチェック
+        conteststartList_database.EdenFirstVictoryCheck(GameMgr.Contest_Name);
+
+        if (GameMgr.EdenPrizeChange) //該当コンテスト　賞品が切り替わる
         {
-            HyoujiPlayerItem(GameMgr.PrizeItemList.Count - 1);
+            if (GameMgr.EdenFirstVictory)
+            {
+                if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1] != "Non")
+                {
+                    HyoujiPlayerItem(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1]);
+                }
+                else
+                {
+                    _name = "-";
+                }
+            }
+            else
+            {
+                if (GameMgr.PrizeItemSecond != "Non")
+                {
+                    //HyoujiPlayerItem(GameMgr.PrizeItemSecond);
+                    _name = "???";
+                }
+                else
+                {
+                    _name = "-";
+                }
+            }
         }
         else
         {
-            _name = "-";
+            if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1] != "Non")
+            {
+                HyoujiPlayerItem(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1]);
+            }
+            else
+            {
+                _name = "-";
+            }
         }
+        
 
         Debug.Log("順位: " + _rank_name + " " + "賞品 " + _name);
 
@@ -372,16 +407,16 @@ public class ContestPrizeController : MonoBehaviour
         ++list_count;
     }
 
-    void HyoujiPlayerItem(int _listid)
+    void HyoujiPlayerItem(string _prizename)
     {
-        if (pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[_listid]) == 9999) //イベントアイテムが該当してないか先にチェック
+        if (pitemlist.Find_eventitemdatabase(_prizename) == 9999) //イベントアイテムが該当してないか先にチェック
         {
-            _ID = database.SearchItemIDString(GameMgr.PrizeItemList[_listid]);
+            _ID = database.SearchItemIDString(_prizename);
             _name = database.items[_ID].itemNameHyouji;            
         }
         else //イベントアイテム該当してた場合は、イベントアイテムを追加する処理に。
         {
-            _ID = pitemlist.Find_eventitemdatabase(GameMgr.PrizeItemList[_listid]);
+            _ID = pitemlist.Find_eventitemdatabase(_prizename);
             _name = pitemlist.eventitemlist[_ID].event_itemNameHyouji;
         }
     }

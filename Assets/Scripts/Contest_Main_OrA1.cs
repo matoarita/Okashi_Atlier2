@@ -403,6 +403,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         {
             GameMgr.Contest_PrizeGet_flag = false;
 
+            //エデンコンの場合、初出場かそうでないかをチェック
+            conteststartList_database.EdenFirstVictoryCheck(GameMgr.Contest_Name);      
+
             Contest_PrizeGetScene = true;
             contestPrizePanel.SetActive(false); //ランキング戦で一回表示してる可能性があるので、一度オフ
             contestPrizeScore_dataBase.PrizeGet(); //アイテム獲得
@@ -419,7 +422,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             PlayerStatus.player_contest_second = 0;
 
             scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
-        }
+        }        
 
         //コンテスト終了　会場外へでる。時間過ぎて失格もここを通る。
         if (GameMgr.contest_eventEnd_flag)
@@ -688,6 +691,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             }
         }
     }
+    
 
     //コンテストごとに、会場風景が変わる。
     void ContestHall_Select(string _hallname, string _chuubouname)

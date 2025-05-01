@@ -720,15 +720,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
                 //HeartEvent_check(15, 350, 1);
                 HeartEvent_check(20, 302, 1, "Non"); //ヒカリ二個トッピング仕上げできるようになる
-                HeartEvent_check(25, 351, 1, "Non"); //お花のおかし仮  
-                HeartEvent_check(30, 354, 1, "Non"); //カマキリ仮
+                //HeartEvent_check(25, 351, 1, "Non"); //お花のおかし仮  
+                //HeartEvent_check(30, 354, 1, "Non"); //カマキリ仮
                 HeartEvent_check(40, 355, 1, "dragon_carnival"); //ドラゴンカーニバル
                 HeartEvent_check(45, 356, 1, "ramen"); //らーめん
                 HeartEvent_check(50, 357, 1, "Non"); //おにもふ
                 //HeartEvent_check(60, 356, 1);
                 //HeartEvent_check(70, 357, 1);
-                HeartEvent_check(80, 358, 1, "Non");
-                HeartEvent_check(90, 359, 1, "Non");
+                //HeartEvent_check(80, 358, 1, "Non");
+                //HeartEvent_check(90, 359, 1, "Non");
 
                 //Heartevent_Grt(); //１の頃のイベント
 
@@ -1546,7 +1546,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         Debug.Log("コンテスト終了後　ヒント発生チェック");
 
                         //ヒント系
-                        if (GameMgr.GirlLoveSubEvent_stage1[421] == false)
+                        /*if (GameMgr.GirlLoveSubEvent_stage1[421] == false)
                         {
                             if (conteststartList_database.SearchContestVictory("Or_Contest_010") == 1 ||
                                 conteststartList_database.SearchContestVictory("Or_Contest_010") == 2) //クッキーコンテストで1位か2位に入った。ラスクコンテスト解禁されるタイミング
@@ -1556,7 +1556,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
                             }
-                        }
+                        }*/
                     }
                 }
             }

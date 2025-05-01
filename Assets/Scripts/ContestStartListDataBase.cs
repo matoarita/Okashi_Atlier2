@@ -1513,6 +1513,22 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }*/
     }
 
+    //名前をいれると、そのコンテストの出場回数をかえす
+    public int ContestName_FightCount(string _name)
+    {
+        i = 0;
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestName == _name)
+            {
+                return conteststart_lists[i].ContestFightsCount;
+            }
+            i++;
+        }
+
+        return 0; //該当なかった場合も0
+    }
+
     //これまでのコンテストの総出場回数を返す
     public int ContestAllFightsCount()
     {
@@ -1526,6 +1542,49 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
 
         return fights_count;
+    }
+
+    //エデンコンの初出場かそうでないかをチェックする
+    public void EdenFirstVictoryCheck(string _contestName)
+    {
+        GameMgr.EdenPrizeChange = false;
+        GameMgr.EdenFirstVictory = false;
+
+        switch (_contestName)
+        {
+            case "Or_Contest_001": //春コン
+
+                FirstVictoryCheck(_contestName);
+                break;
+
+            case "Or_Contest_002": //夏コン
+
+                FirstVictoryCheck(_contestName);
+                break;
+
+            case "Or_Contest_003": //秋コン
+
+                FirstVictoryCheck(_contestName);
+                break;
+        }
+    }
+
+    void FirstVictoryCheck(string _contestName)
+    {
+        GameMgr.EdenPrizeChange = true;
+
+        if (ContestName_FightCount(_contestName) <= 1) //初出場
+        {
+            if (GameMgr.contest_Rank_Count == 1) //優勝した場合　そのままエデンレシピもらう　かつ　コンテスト終了後の敵キャラの会話がスキップ
+            {
+                GameMgr.EdenFirstVictory = true;
+            }
+        }
+        else //二回目以降
+        {
+            //もらえるアイテムがレシピでない　かつ　コンテスト終了後の敵キャラの会話でエデンもらえる
+            GameMgr.EdenFirstVictory = false;
+        }
     }
 
     //ランクを入れると、それに合わせたグレードに表記を変換する
