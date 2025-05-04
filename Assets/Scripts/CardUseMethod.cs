@@ -11,6 +11,12 @@ public class CardUseMethod : MonoBehaviour
     private Compound_Main compound_Main;
     private ItemDataBase database;
 
+    private GameObject itemselect_cancel_obj;
+    private ItemSelect_Cancel itemselect_cancel;
+
+    private GameObject pitemlistController_obj;
+    private PlayerItemListController pitemlistController;
+
     private GameObject bgpanelmatome;
     private BGAcceTrigger BGAccetrigger;
     private CardView card_view;
@@ -34,6 +40,8 @@ public class CardUseMethod : MonoBehaviour
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+
     }
 
     // Update is called once per frame
@@ -57,6 +65,7 @@ public class CardUseMethod : MonoBehaviour
 
     }
 
+    //お皿を変える
     public void OnPlateSetAction()
     {
         itemID = this.GetComponent<SetImage>().itemID;
@@ -71,11 +80,8 @@ public class CardUseMethod : MonoBehaviour
                 break;
             }           
         }
-        
-        //bgpanelmatome = GameObject.FindWithTag("BG");
-        //BGAccetrigger = bgpanelmatome.transform.Find("BGAccessory").GetComponent<BGAcceTrigger>();
 
-        //BGAccetrigger.BGAcceOn(database.items[database.SearchItemID(itemID)].itemName); //ヒンメリだったら、himmeliを入力している。
+        UseEnd(); //カードを閉じる
     }
 
     public void OnCollectAction() //コレクションに登録する
@@ -147,5 +153,23 @@ public class CardUseMethod : MonoBehaviour
                 canvas.transform.Find("CollectionKakunin").gameObject.SetActive(false);
                 break;
         }
+    }
+
+    void UseEnd()
+    {
+        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
+
+        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        //Debug.Log("一個目はcancel");
+
+        itemselect_cancel.All_cancel();
+
+        GameMgr.List_count1 = 9999;
+        GameMgr.compound_status = 99; //何も選択していない状態にもどる。
+
+        pitemlistController.transform.Find("BlackImg").gameObject.SetActive(false);
     }
 }

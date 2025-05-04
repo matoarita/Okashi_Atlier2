@@ -18,6 +18,8 @@ public class ItemEvent
     public int ev_itemKosu;
     public int ev_itemType;
     public int ev_ReadFlag;
+    public int ev_costumeNum;
+    public int ev_costumeEquip; //アクセサリー用　どのアクセを装備してるか否か　重複が可能
     public int ev_ListOn;
 
     public string ev_memo;
@@ -27,7 +29,8 @@ public class ItemEvent
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ItemEvent(int id, string file_Name, string ev_item, string ev_itemNameHyouji, int _cost, int _sell, int kosu, int flag, int itemType, int list_on, string _memo, int reflag_num, int evflag_num)
+    public ItemEvent(int id, string file_Name, string ev_item, string ev_itemNameHyouji, int _cost, int _sell, int kosu, int flag, int itemType, 
+        int costumeNum, int costumeEquip, int list_on, string _memo, int reflag_num, int evflag_num)
     {
         ev_ItemID = id;
         event_fileName = file_Name;
@@ -40,6 +43,8 @@ public class ItemEvent
         ev_itemKosu = kosu;
         ev_itemType = itemType;
         ev_ReadFlag = flag;
+        ev_costumeNum = costumeNum;
+        ev_costumeEquip = costumeEquip;
         ev_ListOn = list_on;
 
         ev_memo = _memo;

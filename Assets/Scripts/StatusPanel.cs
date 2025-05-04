@@ -23,6 +23,11 @@ public class StatusPanel : MonoBehaviour {
     private Compound_Main compound_Main;
     private Girl1_status girl1_status;
 
+    private GameObject costumePrefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
+    private GameObject contentCos; //Scroll viewのcontentを取得するための、一時的な変数
+    private GameObject accePrefab;
+    private GameObject contentAcce;
+
     private GameObject statusList;   
     private GameObject paramview1;
     private GameObject paramview2;
@@ -42,6 +47,7 @@ public class StatusPanel : MonoBehaviour {
     private List<GameObject> hikariokashiparam_list = new List<GameObject>();
 
     private List<GameObject> costume_list = new List<GameObject>();
+    private List<GameObject> accesory_list = new List<GameObject>();
 
     private Text girlLV_param;
     private Text girlHeart_param;
@@ -64,8 +70,6 @@ public class StatusPanel : MonoBehaviour {
     private GameObject _model_obj;
     private GameObject collectionitem_toggle_obj;
     public List<GameObject> collectionitem_toggle = new List<GameObject>();
-
-    private int[] acce_num_before = new int[GameMgr.Accesory_Num.Length];
 
     private Sprite cosIcon_sprite;
     private Sprite hatena_sprite;
@@ -105,6 +109,9 @@ public class StatusPanel : MonoBehaviour {
         //バフ効果計算メソッドの取得
         bufpower_keisan = Buf_Power_Keisan.Instance.GetComponent<Buf_Power_Keisan>();
 
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
 
@@ -141,6 +148,11 @@ public class StatusPanel : MonoBehaviour {
         Collection_Panel_obj = this.transform.Find("CollectionPanel").gameObject;
         collectionitem_toggle_obj = (GameObject)Resources.Load("Prefabs/CollectionIcon");
         HikariStatusList_obj = this.transform.Find("HikariStatusList").gameObject;
+
+        contentCos = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
+        costumePrefab = (GameObject)Resources.Load("Prefabs/ClothIcon");
+        contentAcce = this.transform.Find("CostumePanel/ParamView3/Scroll View2/Viewport/Content").gameObject;
+        accePrefab = (GameObject)Resources.Load("Prefabs/AcceIcon");
 
         hatena_sprite = Resources.Load<Sprite>("Sprites/Icon/question");
 
@@ -304,103 +316,97 @@ public class StatusPanel : MonoBehaviour {
         WindowAllOFF();
         Costume_Panel_obj.SetActive(true);
 
-        //コスチューム関係のフラグ
         costume_list.Clear();
-        count = 0;
-        foreach (Transform child in paramview3.transform) //
+        accesory_list.Clear();
+
+        //アイコンの生成
+        foreach (Transform child in contentCos.transform) //初期化
         {
-            costume_list.Add(child.gameObject);
-            costume_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = false;
-            count++;
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in contentAcce.transform) //初期化
+        {
+            Destroy(child.gameObject);
         }
 
-        for (i = 0; i < GameMgr.Accesory_Num.Length; i++)
+        count = 0;
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++) //type=1　衣装でかつリスト表示ONのもののみ
         {
-            acce_num_before[i] = GameMgr.Accesory_Num[i]; //アクセの場合、トグルチェンジ前の状態を保存。（Live2Dは1Frame内で同時にアニメーション切り替えができないため）
+            if (pitemlist.emeralditemlist[i].ev_itemType == 1)
+            {
+                if (pitemlist.emeralditemlist[i].ev_ListOn == 1)
+                {
+                    costume_list.Add(Instantiate(costumePrefab, contentCos.transform));
+                    costume_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = false;
+
+                    //各トグルに名前とタイプ、リストIDを保持
+                    costume_list[count].transform.Find("ClothToggle").GetComponent<ClothToggle>()._listID = count;
+                    costume_list[count].transform.Find("ClothToggle").GetComponent<ClothToggle>().itemName = pitemlist.emeralditemlist[i].event_itemName;
+                    costume_list[count].transform.Find("ClothToggle").GetComponent<ClothToggle>()._itemType = pitemlist.emeralditemlist[i].ev_itemType;                    
+                    costume_list[count].transform.Find("ClothToggle").GetComponent<ClothToggle>()._costumeNum = pitemlist.emeralditemlist[i].ev_costumeNum;
+
+                    //所持してる場合　アイコン表示　ないと???
+                    if (pitemlist.emeralditemlist[i].ev_itemKosu >= 1)
+                    {
+                        costume_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                        CostumeIconDraw(i, count);
+                    }
+                    count++;
+                }
+            }
+        }
+
+        count = 0;
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++) //type=2　アクセサリーでかつリスト表示ONのもののみ
+        {
+            if (pitemlist.emeralditemlist[i].ev_itemType == 2)
+            {
+                if (pitemlist.emeralditemlist[i].ev_ListOn == 1)
+                {
+                    accesory_list.Add(Instantiate(accePrefab, contentAcce.transform));
+                    accesory_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = false;
+
+                    //各トグルに名前とタイプ、リストIDを保持
+                    accesory_list[count].transform.Find("ClothToggle").GetComponent<ClothToggle>()._listID = count;
+                    accesory_list[count].transform.Find("ClothToggle").GetComponent<ClothToggle>().itemName = pitemlist.emeralditemlist[i].event_itemName;
+                    accesory_list[count].transform.Find("ClothToggle").GetComponent<ClothToggle>()._itemType = pitemlist.emeralditemlist[i].ev_itemType;
+                    accesory_list[count].transform.Find("ClothToggle").GetComponent<ClothToggle>()._costumeNum = pitemlist.emeralditemlist[i].ev_costumeNum;
+
+                    //所持してる場合　アイコン表示　ないと???
+                    if (pitemlist.emeralditemlist[i].ev_itemKosu >= 1)
+                    {
+                        accesory_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
+                        AccesoryIconDraw(i, count);
+                    }
+                    count++;
+                }
+            }
         }
 
         costume_list[0].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true; //デフォルト服は常時インタラクトON
-        CostumeIconDraw(0, 0);
+        CostumeIconDraw(0, 0);        
 
-        for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
+        //各コスチュームトグルを更新
+        CostumeListHyoujiKoushin();
+        AcceListHyoujiKoushin();
+
+
+    }
+
+    void CostumeSetListNum() //GameMgr.Costume_Numをリストの配列に戻す
+    {
+        count = 0;
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++) //type=2　アクセサリーでかつリスト表示ONのもののみ
         {
-            /* コスチューム */
-            if (pitemlist.emeralditemlist[i].event_itemName == "Meid_Black_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //黒エプロン
+            if (pitemlist.emeralditemlist[i].ev_itemType == 1 && pitemlist.emeralditemlist[i].ev_ListOn == 1) //衣装をみる
             {
-                costume_list[1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, 1);
+                if (pitemlist.emeralditemlist[i].ev_costumeNum == GameMgr.Costume_Num)
+                {
+                    break;
+                }
+                count++;
             }
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "Sukumizu_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //スク水
-            {
-                costume_list[2].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, 2);
-            }
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "PinkGoth_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ピンクの白い服
-            {
-                costume_list[3].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, 3);
-            }
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "RedDress_Costume" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //赤い服
-            {
-                costume_list[4].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, 4);
-            }
-
-            /* アクセサリー */
-            if (pitemlist.emeralditemlist[i].event_itemName == "Glass_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //メガネ
-            {
-                costume_list[Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, Acce_Startnum);
-            }
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "BalloonHat_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //バルーンハット
-            {
-                costume_list[Acce_Startnum + 1].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, Acce_Startnum + 1);
-            }
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "AngelWing_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //天使のはね
-            {
-                costume_list[Acce_Startnum + 2].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, Acce_Startnum + 2);
-            }
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "Nekomimi_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ねこみみ
-            {
-                costume_list[Acce_Startnum + 3].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, Acce_Startnum + 3);
-            }
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "FlowerHairpin_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //お花のヘアピン
-            {
-                costume_list[Acce_Startnum + 4].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, Acce_Startnum + 4);
-            }
-
-            if (pitemlist.emeralditemlist[i].event_itemName == "TwincleStarDust_Acce" && pitemlist.emeralditemlist[i].ev_itemKosu >= 1) //ティンクルスターダスト
-            {
-                costume_list[Acce_Startnum + 5].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = true;
-                CostumeIconDraw(i, Acce_Startnum + 5);
-            }
-        }
-
-        //現在装備しているアクセや服に応じて、トグルをONにする。
-        costume_list[GameMgr.Costume_Num].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
-        for (i = 0; i < GameMgr.Accesory_Num.Length; i++)
-        {
-            if (GameMgr.Accesory_Num[i] == 1)
-            {
-                //トグルをonにするときに、コールバックを呼ばずにONにできる書き方。ToggleExt.csを追加している。
-                costume_list[i + Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
-            }
-            else
-            {
-                costume_list[i + Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().isOn = false;
-            }
-        }
+        }               
     }
 
     void CostumeIconDraw(int _list, int _num)
@@ -410,6 +416,86 @@ public class StatusPanel : MonoBehaviour {
         costume_list[_num].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().color = Color.white;
     }
 
+    void AccesoryIconDraw(int _list, int _num)
+    {
+        cosIcon_sprite = Resources.Load<Sprite>("Sprites/" + pitemlist.emeralditemlist[_list].event_fileName);
+        accesory_list[_num].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().sprite = cosIcon_sprite;
+        accesory_list[_num].transform.Find("ClothToggle/Background/Image").GetComponent<Image>().color = Color.white;
+    }
+
+    public void OnCostumeChange(int _listID, int _itemType, string _itemName, int _costumeNum) //衣装チェンジ 入力時、何番がおされたか、タイプと名前が入る
+    {
+        if(_itemType == 1) //衣装をおした
+        {
+            if (costume_list[_listID].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
+            {
+                Debug.Log("衣装チェンジ: " + _itemName);
+                GameMgr.Costume_Num = _costumeNum;
+
+                _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
+                CostumeListHyoujiKoushin();
+
+                sc.PlaySe(128);
+            }
+        }
+        else if (_itemType == 2) //アクセをおした
+        {
+            if (accesory_list[_listID].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
+            {
+                Debug.Log("アクセチェンジ: " + _itemName);
+                pitemlist.ReSetEmeraldItemAccesoryString(_itemName, 1);
+
+                sc.PlaySe(128);
+            }
+            else
+            {
+                Debug.Log("アクセチェンジOFF: " + _itemName);
+                pitemlist.ReSetEmeraldItemAccesoryString(_itemName, 0);
+
+                sc.PlaySe(18);
+            }
+
+            _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeAcce();
+            AcceListHyoujiKoushin();
+        }
+    }
+
+
+    void CostumeListHyoujiKoushin()
+    {
+        //現在装備している衣装に応じて、トグルをONにする。
+        //まず全てのフラグをオフにする。
+        for (i = 0; i < costume_list.Count; i++)
+        {
+            costume_list[i].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(false);
+        }
+        CostumeSetListNum(); //GameMgr.Costume_Numをリストの配列に戻す
+        costume_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
+    }
+
+    void AcceListHyoujiKoushin()
+    {
+        //アクセを見る　トグルを各ONにする
+        count = 0;
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
+        {
+            if (pitemlist.emeralditemlist[i].ev_itemType == 2 && pitemlist.emeralditemlist[i].ev_ListOn == 1) //アクセをみる
+            {
+                if (pitemlist.emeralditemlist[i].ev_costumeEquip == 1)
+                {
+                    //トグルをonにするときに、コールバックを呼ばずにONにできる書き方。ToggleExt.csを追加している。
+                    accesory_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(true);
+                }
+                else
+                {
+                    accesory_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().isOn = false;
+                }
+                count++;
+            }
+        }
+    }
+
+
     public void OnCollectionPanel()
     {
         WindowAllOFF();
@@ -417,7 +503,7 @@ public class StatusPanel : MonoBehaviour {
 
         for (i = 0; i < GameMgr.CollectionItems.Count; i++)
         {
-            if(GameMgr.CollectionItems[i]) //登録済みの場合、コレクションとして表示される。
+            if (GameMgr.CollectionItems[i]) //登録済みの場合、コレクションとして表示される。
             {
                 _itemID = database.SearchItemIDString(GameMgr.CollectionItemsName[i]);
                 collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = database.items[_itemID].itemIcon_sprite;
@@ -429,41 +515,6 @@ public class StatusPanel : MonoBehaviour {
                 collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().interactable = false;
             }
         }
-    }
-
-
-    public void OnCostumeChange() //0~5までのトグルを押すと、衣装チェンジ
-    {
-        for( i = 0; i < Acce_Startnum; i++)
-        {
-            if(costume_list[i].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
-            {
-                Debug.Log("衣装チェンジ: " + i);
-                GameMgr.Costume_Num = i;
-                             
-                _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeCostume();
-            }
-        }
-    }
-
-    public void OnAccesoryChange() //6~12までのトグルを押すと、アクセサリーチェンジ
-    {
-        for (i = 0; i < GameMgr.Accesory_Num.Length; i++)
-        {
-            if (costume_list[i+ Acce_Startnum].transform.Find("ClothToggle").GetComponent<Toggle>().isOn == true)
-            {
-                Debug.Log("アクセチェンジON: " + i);
-
-                GameMgr.Accesory_Num[i] = 1;               
-            }
-            else
-            {
-                Debug.Log("アクセチェンジOFF: " + i);
-                GameMgr.Accesory_Num[i] = 0;
-            }
-        }
-
-        _model_obj.GetComponent<Live2DCostumeTrigger>().ChangeAcce();
     }
 
     public void OnHikariOkashiPanel()

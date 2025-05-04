@@ -413,43 +413,11 @@ public class itemSelectToggle : MonoBehaviour
         }
         pitemlistController.transform.Find("BlackImg").gameObject.SetActive(true);
 
-        StartCoroutine("itemselect_kakunin_PitemList");
+        card_view.ItemUseWait();
+        
     }
 
-    IEnumerator itemselect_kakunin_PitemList()
-    {
-
-        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
-        while (yes_selectitem_kettei.onclick != true)
-        {
-
-            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
-        }
-
-        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
-
-        switch (yes_selectitem_kettei.kettei1)
-        {
-
-            case true: //決定が押された アイテムを飾る、使う場合の処理 だが、現在はNoしか受け付けないようにしている。
-
-
-                break;
-
-            case false: //キャンセルが押された
-
-                //Debug.Log("一個目はcancel");
-
-                itemselect_cancel.All_cancel();
-
-                GameMgr.List_count1 = 9999;
-                GameMgr.compound_status = 99; //何も選択していない状態にもどる。
-
-                pitemlistController.transform.Find("BlackImg").gameObject.SetActive(false);
-                break;
-        }
-
-    }
+    
 
 
 

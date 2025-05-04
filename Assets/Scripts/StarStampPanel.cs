@@ -341,6 +341,17 @@ public class StarStampPanel : MonoBehaviour
         ButtonON = true;
     }
 
+    public void OnCloseButton()
+    {
+        if (ButtonON)
+        {
+            Debug.Log("スタースタンプラリー　パネル閉じた");
+
+            compound_main.EndStarReleaseCheck();
+            this.gameObject.SetActive(false);
+        }
+    }
+
     void EndMoveMethod()
     {
         //1マス移動した後        
@@ -404,16 +415,7 @@ public class StarStampPanel : MonoBehaviour
     }
    
 
-    public void OnCloseButton()
-    {
-        if (ButtonON)
-        {
-            Debug.Log("スタースタンプラリー　パネル閉じた");
-            
-            compound_main.EndStarReleaseCheck();
-            this.gameObject.SetActive(false);
-        }
-    }
+    
 
 
 

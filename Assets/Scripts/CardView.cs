@@ -20,6 +20,15 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private GameObject canvas;
     private GameObject cardPrefab;
 
+    private GameObject selectitem_kettei_obj;
+    private SelectItem_kettei yes_selectitem_kettei;//yesボタン内のSelectItem_ketteiスクリプト
+
+    private GameObject itemselect_cancel_obj;
+    private ItemSelect_Cancel itemselect_cancel;
+
+    private GameObject pitemlistController_obj;
+    private PlayerItemListController pitemlistController;
+
     public int Pitem_or_Origin_judge; //店売りアイテムか、オリジナルアイテムの判定
 
     private Transform resulttransform;
@@ -846,6 +855,56 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj[0].transform.localPosition = new Vector3(-100, 50, 0);
         _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
         _cardImage.CardHyoujiAnim();
+    }
+
+    //itemSelectToggleから読み込み　使う場合の処理待ち　キャンセル待ち
+    public void ItemUseWait()
+    {
+        selectitem_kettei_obj = GameObject.FindWithTag("SelectItem_kettei");
+        yes_selectitem_kettei = selectitem_kettei_obj.GetComponent<SelectItem_kettei>();
+
+        itemselect_cancel_obj = GameObject.FindWithTag("ItemSelect_Cancel");
+        itemselect_cancel = itemselect_cancel_obj.GetComponent<ItemSelect_Cancel>();
+
+        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+
+        StartCoroutine("itemselect_kakunin_PitemList");
+    }
+
+    IEnumerator itemselect_kakunin_PitemList()
+    {
+
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+
+            case true: //決定が押された アイテムを飾る、使う場合の処理
+
+                
+                break;
+
+            case false: //キャンセルが押された
+
+                //Debug.Log("一個目はcancel");
+
+                itemselect_cancel.All_cancel();
+
+                GameMgr.List_count1 = 9999;
+                GameMgr.compound_status = 99; //何も選択していない状態にもどる。
+
+                pitemlistController.transform.Find("BlackImg").gameObject.SetActive(false);
+                break;
+        }
+
     }
 
     //調合時のカードアニメーション

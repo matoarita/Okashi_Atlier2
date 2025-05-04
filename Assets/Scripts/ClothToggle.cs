@@ -10,12 +10,15 @@ public class ClothToggle : MonoBehaviour {
 
     private SoundController sc;
 
+    public string itemName;
+    public int _listID;
+    public int _itemType;
+    public int _costumeNum;
+
     Toggle m_Toggle;
 
     // Use this for initialization
     void Start () {
-
-        
 
         //Fetch the Toggle GameObject
         m_Toggle = GetComponent<Toggle>();
@@ -58,7 +61,7 @@ public class ClothToggle : MonoBehaviour {
         if (m_Toggle.isOn == true)
         {
             //sc.PlaySe(127);
-            sc.PlaySe(128); //128 11
+            //sc.PlaySe(128); //128 11
         }
         else
         {
@@ -69,6 +72,6 @@ public class ClothToggle : MonoBehaviour {
     public void OnCostumeToggle()
     {
         InitSetting();
-        status_panel.GetComponent<StatusPanel>().OnCostumeChange();
+        status_panel.GetComponent<StatusPanel>().OnCostumeChange(_listID, _itemType, itemName, _costumeNum);
     }
 }

@@ -18,6 +18,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ReleaseEvent_num = 100;
     public static int NpcEvent_stage_num = 3000;
     public static int NpcEvent_people_num = 300;
+    public static int NPCCounter_num = 1000;
     public static int OrEvent_num = 1000;
     public static int ContestJudgeman_num = 3; //審査員の人数
     public static int SystemCount_itemSetting = 3; //調合時に入れるアイテムの枠　現在3個まで入れれる
@@ -92,6 +93,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //調合シーンでBGM切り替えるかどうかのフラグ
     public static bool CompoBGMCHANGE_ON = false;
+
+    //採取地画面でBGM切り替えるかのフラグ
+    public static bool GetMatBGMCHANGE_ON = false;
 
     //ゲームの進行度でBGMを切り替えるか、ハートLVで切り替えるかの選択 trueならハートLVに応じてBGMが変わる
     public static bool MainBGMChange_HeartLV = false;
@@ -250,7 +254,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //現在着ているコスチュームの番号
     public static int Costume_Num;
-    public static int[] Accesory_Num = new int[6]; //アクセ番号 現在アクセ数６個
 
     //飾っているアイテムのリスト
     //public static bool[] DecoItems = new bool[30];
@@ -330,6 +333,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                                                                              //0~ コンテストレセプション 100~白い布
 
     public static bool[] NPCMagic_eventList = new bool[NpcEvent_stage_num]; //主に2での魔法NPCイベントのフラグリスト
+    public static int[] NPCHiroba_eventDayCounter = new int[NPCCounter_num]; //各NPCのイベント発生までのカウンター　順不同 100個　日がたつと減っていく
 
     //NPCの友好度ポイント　各NPCの進行度を数値で表したもの　50からはじまり、ミラボー先生なら、あげたときにクリアしたら+10。そして次の魔法の本に..。という具合。
     public static int[] NPC_FriendPoint = new int[NpcEvent_people_num]; //300人分はいる
@@ -742,6 +746,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool check_CompoAfter_SubEventflag;
     public static bool check_GetMat_flag;
     public static bool check_OkashiAfter_flag;
+    public static bool check_StarPanel_Endflag;
     public static bool[] check_SleepEnd_Eventflag = new bool[10];
     public static int ResultComplete_flag;
     public static bool Mute_on;
@@ -1274,10 +1279,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Haraheri_Msg = false;
 
         Costume_Num = 0; //初期コスチューム　メイド服がデフォルト
-        for (system_i = 0; system_i < Accesory_Num.Length; system_i++)
-        {
-            Accesory_Num[system_i] = 0;
-        }
+
 
         event_recipi_flag = false;
         event_recipi_endflag = false;
@@ -1421,6 +1423,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         check_GirlLoveSubEvent_flag = false;
         check_GirlLoveTimeEvent_flag = false;
         check_ReturnHomeEvent_flag = false;
+        check_StarPanel_Endflag = false;
         check_CompoAfter_flag = false;
         check_CompoAfter_SubEventflag = false;
         check_GetMat_flag = false;
@@ -1580,7 +1583,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         {
             NPCHiroba_HikarieventList[system_i] = false;
         }
+        for (system_i = 0; system_i < NPCHiroba_eventDayCounter.Length; system_i++)
+        {
+            NPCHiroba_eventDayCounter[system_i] = 0;
+        }
 
+        //各NPCイベント日数カウントの初期値
+        InitNPCEvent_DayCounterReset();
+        
         //NPC友好度の初期化 50はじまり
         for (system_i = 0; system_i < NPC_FriendPoint.Length; system_i++)
         {
@@ -1934,6 +1944,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         Shopday = 0;
         Sale_ON = false;
+    }
+
+    //各NPCイベントの日数カウンタのリセット
+    public static void InitNPCEvent_DayCounterReset()
+    {
+        NPCHiroba_eventDayCounter[0] = 2; //アマクサ優勝イベント発生までの日数
     }
     
     public static void InitCollectionItemsLibrary()

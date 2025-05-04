@@ -737,6 +737,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.Utage_MapMoveON = false;
         GameMgr.utage_charaHyouji_flag = false;
 
+        GameMgr.check_StarPanel_Endflag = true; //スターパネル　チェック前にすでに開始フラグはたてる。サブイベントの発生を回避する。チェック終わりでfalseになる。
 
         gameover_loading = false;
         subevent_after_end = false;
@@ -1741,17 +1742,9 @@ public class Compound_Main : MonoBehaviour
                 exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
 
                 //メインクエのメッセージ更新
-                gameQuestPanel.SetActive(true);
-                gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
-                /*if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
-                {
-                    gameQuestPanel.SetActive(true);
-                    gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
-                }
-                else
-                {
-                    gameQuestPanel.SetActive(false); //本編はじまるまでは表示しない
-                }         */       
+                //gameQuestPanel.SetActive(true);
+                //gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
+      
 
                 //
                 //アニメーション、キャラの表情関係
@@ -2273,7 +2266,7 @@ public class Compound_Main : MonoBehaviour
         quest_kakuninButton_obj.SetActive(false);
         contest_kakuninButton_obj.SetActive(false);
         starPanel_kakuninButton_obj.SetActive(false);
-        gameQuestPanel.SetActive(false);
+        //gameQuestPanel.SetActive(false);
         yachinPanel.SetActive(false);
 
         stageclear_panel.SetActive(false);        
@@ -2299,7 +2292,7 @@ public class Compound_Main : MonoBehaviour
         quest_kakuninButton_obj.SetActive(true);
         contest_kakuninButton_obj.SetActive(true);
         starPanel_kakuninButton_obj.SetActive(true);
-        gameQuestPanel.SetActive(true);
+        //gameQuestPanel.SetActive(true);
         yachinPanel.SetActive(true);
 
         //Stagepanel_obj.SetActive(true);
@@ -2762,9 +2755,12 @@ public class Compound_Main : MonoBehaviour
         StartMessage(); //メインのほうも、デフォルトメッセージに戻しておく。        
 
         //BGMを変更
-        sceneBGM.OnGetMatStartBGM();
-        map_ambience.Mute();
-        GameMgr.matbgm_change_flag = true;
+        if (GameMgr.GetMatBGMCHANGE_ON)
+        {
+            sceneBGM.OnGetMatStartBGM();
+            map_ambience.Mute();
+            GameMgr.matbgm_change_flag = true;
+        }
 
         //音ならす
         //sc.PlaySe(36);
@@ -3459,21 +3455,8 @@ public class Compound_Main : MonoBehaviour
             else
             {
                 GameMgr.NewAreaRelease_flag = true;
+                GameMgr.check_StarPanel_Endflag = false;
             }
-           
-
-            /*if (!starrank_kaikin_ON) //アニメの移動などすべてが終わったら、ここを通って終了
-            {
-                //falseのままなら、チェック終了
-                //GameMgr.Before_Patissier_Rank = PlayerStatus.player_patissier_Rank;
-                GameMgr.Before_Player_ninkiparam = PlayerStatus.player_ninki_param;
-                GameMgr.NewAreaRelease_flag = true;               
-
-                //終わったら再開
-                //girl1_status.GirlEat_Judge_on = true;
-
-                Debug.Log("新エリア解禁フラグ　全てチェック完了");
-            }*/
         }
     }
     
@@ -3481,6 +3464,7 @@ public class Compound_Main : MonoBehaviour
     public void EndStarReleaseCheck()
     {
         NewAreaCheck_loading = false;
+        GameMgr.check_StarPanel_Endflag = false;
         GameMgr.check_GirlLoveSubEvent_flag = false;
         GameMgr.compound_status = 0; //ここまでで、チェックの処理が全て完了したので、status=0にする。
     }
@@ -4357,6 +4341,17 @@ public class Compound_Main : MonoBehaviour
         GameMgr.outgirl_count--; //外出カウンタも進む
         Debug.Log("ピクニックカウント: " + GameMgr.picnic_count);
         Debug.Log("外出カウント: " + GameMgr.outgirl_count);
+
+        //各NPCのイベント日数カウンタも進む
+        for (i = 0; i < GameMgr.NPCHiroba_eventDayCounter.Length; i++)
+        {
+            GameMgr.NPCHiroba_eventDayCounter[i]--;
+
+            if(GameMgr.NPCHiroba_eventDayCounter[i] <= 0)
+            {
+                GameMgr.NPCHiroba_eventDayCounter[i] = 0;
+            }
+        }
 
         //変更したセリフ類は、必ず元に戻す。
         time_controller.TimeReturnHomeSleep_Status = false;

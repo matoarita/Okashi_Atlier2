@@ -746,7 +746,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //StarRank_ReleaseListの配列番号をみる　例)1 = starが7のときに解放されるイベントのこと GameMgr.Star_Eventlistを参照
                 //2番目はsubEventのnum 3番目はBGM　1のときは宴のBGMを鳴らす
                 //お宝イベントは、ここのイベント発生でなくスターパネル内で完結させる
-                StarReleaseEvent_check(1, 600, 1); //7なのでショートケーキのレシピゲット
+                StarReleaseEvent_check(1, 600, 0); //7なのでショートケーキのレシピゲット
                 StarReleaseEvent_check(2, 601, 0); //9なのでコスチュームゲット
                 StarReleaseEvent_check(3, 602, 1); //15なのでソーダアイランドいけるイベント
                 StarReleaseEvent_check(5, 603, 1); //20なのでおふろいけるイベント　温泉地の解放？
@@ -1517,18 +1517,21 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             if (conteststartList_database.ReturnVictoryCount(1) >= 1) //一位のトータル取得数をゲット
                             {
-                                //一位を一回以上取った場合、アマクサが初優勝時にほめてくれるイベント発生
-                                if (!GameMgr.NPCHiroba_eventList[1031])
+                                if (GameMgr.NPCHiroba_eventDayCounter[0] <= 0) //カウンタは寝たあとで1減っていく
                                 {
-                                    GameMgr.NPCHiroba_eventList[1031] = true;
+                                    //一位を一回以上取った場合、アマクサが初優勝時にほめてくれるイベント発生　2日後ぐらいに発生する。
+                                    if (!GameMgr.NPCHiroba_eventList[1031])
+                                    {
+                                        GameMgr.NPCHiroba_eventList[1031] = true;
 
-                                    GameMgr.GirlLoveSubEvent_num = 3000;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GameMgr.Mute_on = true;
+                                        GameMgr.GirlLoveSubEvent_num = 3000;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GameMgr.Mute_on = true;
 
-                                    //アマノシャンメリーと白紙メモくれる
-                                    pitemlist.addPlayerItemString("amano_champmery", 1);
-                                    //pitemlist.add_eventPlayerItemString("MemoWhite", 1);                                    
+                                        //アマノシャンメリーくれる
+                                        pitemlist.addPlayerItemString("amano_champmery", 1);
+                                        //pitemlist.add_eventPlayerItemString("MemoWhite", 1);                                    
+                                    }
                                 }
                             }
                         }
@@ -1817,21 +1820,27 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     void StarEvent_check(int _starparam, int _evnum, int _bgm)
     {
-        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-        { }
+        if (GameMgr.check_StarPanel_Endflag) //スターパネルチェック中かチェック前は、イベント開始しない
+        {
+        }
         else
         {
-            //スター10?で、お城へいけるように。手紙がくる。
-            if (PlayerStatus.player_ninki_param >= _starparam && GameMgr.GirlLoveSubEvent_stage1[_evnum] == false)
+            if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
             {
-                GameMgr.GirlLoveSubEvent_num = _evnum;
-                GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
-
-                GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                if (_bgm == 1) //宴BGMに切り替え
+                //スター10?で、お城へいけるように。手紙がくる。
+                if (PlayerStatus.player_ninki_param >= _starparam && GameMgr.GirlLoveSubEvent_stage1[_evnum] == false)
                 {
-                    GameMgr.Mute_on = true;
+                    GameMgr.GirlLoveSubEvent_num = _evnum;
+                    GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
+
+                    GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                    if (_bgm == 1) //宴BGMに切り替え
+                    {
+                        GameMgr.Mute_on = true;
+                    }
                 }
             }
         }

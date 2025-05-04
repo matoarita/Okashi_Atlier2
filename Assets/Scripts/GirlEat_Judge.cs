@@ -2096,19 +2096,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         spscore_deg = 5;
         spscore_deg_base = -30;
 
-        //①SPスコアがついてた場合、その分がまず点数に加算される。
-        spscore1_score += _base_sp_wind;
-        spscore2_score += _base_sp_score2;
-        spscore3_score += _base_sp_score3;
-        spscore4_score += _base_sp_score4;
-        spscore5_score += _base_sp_score5;
-        spscore6_score += _base_sp_score6;
-        spscore7_score += _base_sp_score7;
-        spscore8_score += _base_sp_score8;
-        spscore9_score += _base_sp_score9;
-        spscore10_score += _base_sp_score10;
+        //女の子の判定値があった場合、追加加点
 
-        //②さらに、女の子の判定値があった場合、追加加点
         //風らしさ
         if (_girlsp1_wind[countNum] > 0)
         {
@@ -5232,7 +5221,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
         }
         _special_kansou = _temp_spkansou;
-        
+
         if (!non_spquest_flag)
         {
             hint_ID = girl1_status.OkashiQuest_ID;
@@ -5429,7 +5418,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                         tpcheck_utagebunki = 0;
                     }
 
-                    break;                
+                    break;
 
                 default:
 
@@ -5456,30 +5445,25 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     }
                     break;
             }
-            
+
 
             //お菓子の名前ごとに、ヒントがでるやつがある。バターなしラスクなど。
             //100000~台　ただし、girl1_status.OkashiQuest_IDの番号とは無関係。
-
-            if (total_score < GameMgr.low_score) //60点未満のときにでるヒント
+            switch (_basename)
             {
-                switch(_basename)
-                {
-                    case "rusk":
+                case "rusk":
 
-                        if (databaseCompo.SearchCompoFlagString("rusk_butter") >= 1) //すでにバターラスクの作り方知ってたら出なくなる。
-                        { }
-                        else
-                        {
-                            hint_ID = 0;
-                            no_hint = false;
-                            tpcheck_utageON = true;
-                            tpcheck_utagebunki = 1000000;
-                        }
-                        break;
-                }                   
+                    if (databaseCompo.SearchCompoFlagString("rusk_butter") >= 1) //すでにバターラスクの作り方知ってたら出なくなる。
+                    { }
+                    else
+                    {
+                        hint_ID = 0;
+                        no_hint = false;
+                        tpcheck_utageON = true;
+                        tpcheck_utagebunki = 1000000;
+                    }
+                    break;
             }
-            
         }
 
         //

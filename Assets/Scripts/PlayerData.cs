@@ -131,7 +131,7 @@ public class PlayerData
 
     //コスチューム番号
     public int save_costume_num;
-    public int[] save_acce_num = new int[GameMgr.Accesory_Num.Length];
+    //public int[] save_acce_num = new int[GameMgr.Accesory_Num.Length];
 
     //飾っているアイテムのリスト
     public List<ItemSaveFlag> save_BGAcceItemsName = new List<ItemSaveFlag>();
@@ -180,6 +180,7 @@ public class PlayerData
     public bool[] save_NPCHiroba_HikarieventList = new bool[GameMgr.NPCHiroba_HikarieventList.Length]; //オランジーナ関連広場イベント
     public bool[] save_NPCHiroba_eventList = new bool[GameMgr.NPCHiroba_eventList.Length]; //オランジーナ関連広場イベント
     public bool[] save_NPCMagic_eventList = new bool[GameMgr.NPCMagic_eventList.Length]; //オランジーナ関連広場イベント
+    public int[] save_NPCHiroba_eventDayCounter = new int[GameMgr.NPCHiroba_eventDayCounter.Length]; //各NPCのイベント日数カウンタ
     public int[] save_NPC_FriendPoint = new int[GameMgr.NpcEvent_people_num]; //各NPCの友好度
     public int[] save_NPC_BarFriendPoint = new int[GameMgr.NpcEvent_people_num]; //各酒場NPCの友好度
     public int[] save_NPC_BarFriendFlag = new int[GameMgr.NpcEvent_people_num]; //各酒場NPCの進行フラグ

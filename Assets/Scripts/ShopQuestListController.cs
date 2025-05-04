@@ -560,9 +560,33 @@ public class ShopQuestListController : MonoBehaviour
         {
             if (quest_database.questset[i].QuestHyouji != 9999)
             {
-                quest_database.RandomNewSetInit(i);
-            }
+                switch (GameMgr.Scene_Name)
+                {
+                    case "Or_Bar_A1":
 
+                        if(quest_database.questset[i].Quest_AreaType == 10)
+                        {
+                            quest_database.RandomNewSetInit(i);
+                        }
+                        break;
+
+                    case "Or_Bar_C1":
+
+                        if (quest_database.questset[i].Quest_AreaType == 30)
+                        {
+                            quest_database.RandomNewSetInit(i);
+                        }
+                        break;
+
+                    default:
+
+                        if (quest_database.questset[i].Quest_AreaType == 0)
+                        {
+                            quest_database.RandomNewSetInit(i);
+                        }
+                        break;
+                }              
+            }
         }
 
         if (qlist_status == 0)

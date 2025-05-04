@@ -148,11 +148,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             _temp_eventitemlist.Add(new ItemSaveKosu(pitemlist.eventitemlist[i].event_itemName, pitemlist.eventitemlist[i].ev_itemKosu, pitemlist.eventitemlist[i].ev_ReadFlag));
         }
 
-        //エメラルドアイテムの所持数取得
+        //エメラルドアイテムの所持数取得 pitemlist.emeralditemlist[i].ev_costumeEquipは、アクセサリーの装備フラグのONOFF
         _temp_emeralditemlist.Clear();
         for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
-            _temp_emeralditemlist.Add(new ItemSaveKosu(pitemlist.emeralditemlist[i].event_itemName, pitemlist.emeralditemlist[i].ev_itemKosu, 0));
+            _temp_emeralditemlist.Add(new ItemSaveKosu(pitemlist.emeralditemlist[i].event_itemName, pitemlist.emeralditemlist[i].ev_itemKosu, pitemlist.emeralditemlist[i].ev_costumeEquip));
         }
 
         //調合フラグと調合回数の取得
@@ -340,7 +340,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //コスチューム番号
             save_costume_num = GameMgr.Costume_Num,
-            save_acce_num = GameMgr.Accesory_Num,
+            //save_acce_num = GameMgr.Accesory_Num,
 
             //飾っているアイテムのリスト
             save_BGAcceItemsName = _temp_bgacce_flaglist,
@@ -476,6 +476,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_NPCHiroba_HikarieventList = GameMgr.NPCHiroba_HikarieventList,
             save_NPCHiroba_eventList = GameMgr.NPCHiroba_eventList,
             save_NPCMagic_eventList = GameMgr.NPCMagic_eventList,
+            save_NPCHiroba_eventDayCounter = GameMgr.NPCHiroba_eventDayCounter,
             save_NPCHiroba_blockReleaseList = GameMgr.NPCHiroba_blockReleaseList,
             save_NPC_FriendPoint = GameMgr.NPC_FriendPoint,
             save_NPC_BarFriendPoint = GameMgr.NPC_BarFriendPoint,
@@ -787,7 +788,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //コスチューム番号
         GameMgr.Costume_Num = playerData.save_costume_num;
-        GameMgr.Accesory_Num = playerData.save_acce_num;
+        //GameMgr.Accesory_Num = playerData.save_acce_num;
 
         //コレクションに登録したアイテムのリスト
         GameMgr.CollectionItems = playerData.save_CollectionItems;
@@ -937,6 +938,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.NPCHiroba_HikarieventList = playerData.save_NPCHiroba_HikarieventList;
         GameMgr.NPCHiroba_eventList = playerData.save_NPCHiroba_eventList;
         GameMgr.NPCMagic_eventList = playerData.save_NPCMagic_eventList;
+        GameMgr.NPCHiroba_eventDayCounter = playerData.save_NPCHiroba_eventDayCounter;
         GameMgr.NPCHiroba_blockReleaseList = playerData.save_NPCHiroba_blockReleaseList;
         GameMgr.NPC_FriendPoint = playerData.save_NPC_FriendPoint;
         GameMgr.NPC_BarFriendPoint = playerData.save_NPC_BarFriendPoint;
@@ -1023,6 +1025,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         for (i = 0; i < playerData.save_player_emeralditemlist.Count; i++)
         {
             pitemlist.ReSetEmeraldItemString(playerData.save_player_emeralditemlist[i].itemName, playerData.save_player_emeralditemlist[i].itemKosu);
+            pitemlist.ReSetEmeraldItemAccesoryString(playerData.save_player_emeralditemlist[i].itemName, playerData.save_player_emeralditemlist[i].Flag);
         }
 
         //アイテムリスト＜オリジナル＞
@@ -1496,7 +1499,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         _temp_emeralditemlist.Clear();
         for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
-            _temp_emeralditemlist.Add(new ItemSaveKosu(pitemlist.emeralditemlist[i].event_itemName, pitemlist.emeralditemlist[i].ev_itemKosu, 0));
+            _temp_emeralditemlist.Add(new ItemSaveKosu(pitemlist.emeralditemlist[i].event_itemName, pitemlist.emeralditemlist[i].ev_itemKosu, pitemlist.emeralditemlist[i].ev_costumeEquip));
         }
 
         //調合フラグと調合回数の取得 
@@ -1620,7 +1623,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //コスチューム番号
             save_costume_num = GameMgr.Costume_Num,
-            save_acce_num = GameMgr.Accesory_Num,
+            //save_acce_num = GameMgr.Accesory_Num,
 
             //save_player_money_system = PlayerStatus.player_money, // 所持金 システム引継ぎ用
             //save_player_girl_maxlifepoint_system = PlayerStatus.player_girl_maxlifepoint, //妹のMAX体力 システム引継ぎ用
@@ -1730,7 +1733,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             
             //コスチューム番号
             GameMgr.Costume_Num = systemData.save_costume_num;
-            GameMgr.Accesory_Num = systemData.save_acce_num;
+            //GameMgr.Accesory_Num = systemData.save_acce_num;
 
             //PlayerStatus.player_money = systemData.save_player_money_system; // 所持金　システム引継ぎ用
             /*if (systemData.save_player_girl_maxlifepoint_system != 0) //ver途中から引継ぎするように仕様変更。なので例外処理をいれる。

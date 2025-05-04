@@ -825,7 +825,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 }
             }
 
-            if (GameMgr.EatOkashi_DecideFlag == 0)
+            //これをONにすると、下のクエスト表記のところで、〇〇が食べたいが表示される。EatOkashi_DecideFlag=1のクエのみ。
+            /*if (GameMgr.EatOkashi_DecideFlag == 0)
             { }
             else
             {
@@ -842,7 +843,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 {
                     OkashiQuest_Name = GameMgr.NowEatOkashiName + "が食べたい！";
                 }
-            }
+            }*/
 
             //クエスト開始時のタイトル名検索
             for (i = 0; i < girlLikeCompo_database.girllike_composet.Count; i++)

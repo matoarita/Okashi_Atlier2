@@ -412,6 +412,21 @@ public class Quest_Judge : MonoBehaviour {
                     eat_hukidashitext.text = ".";
                     sc.PlaySe(7);
 
+                    //表情をむ～っとにする
+                    switch (GameMgr.Scene_Name)
+                    {
+                        case "Or_Bar_A1":
+
+                            character_01.transform.Find("Jitome").gameObject.SetActive(true);
+                            break;
+
+                        case "Or_Bar_C1":
+
+                            character_03.transform.Find("Jitome").gameObject.SetActive(true);
+                            break;
+
+                    }
+
                     _text.text = "納品中.";
 
                     break;
@@ -468,13 +483,24 @@ public class Quest_Judge : MonoBehaviour {
                 case 4: //アニメ終了。判定する
 
                     MoneyStatus_Panel_obj.SetActive(true);
+                    NinkiStatus_Panel_obj.SetActive(true);
 
-                    if (GameMgr.Story_Mode != 0)
-                    {
-                        NinkiStatus_Panel_obj.SetActive(true);
-                    }
                     //text_area.SetActive(true);
 
+                    //表情を戻す
+                    switch (GameMgr.Scene_Name)
+                    {
+                        case "Or_Bar_A1":
+
+                            character_01.transform.Find("Jitome").gameObject.SetActive(false);
+                            break;
+
+                        case "Or_Bar_C1":
+
+                            character_03.transform.Find("Jitome").gameObject.SetActive(false);
+                            break;
+
+                    }
 
                     //食べ中吹き出しの削除
                     if (eat_hukidashiitem != null)

@@ -797,7 +797,7 @@ public class Sound_Trigger : MonoBehaviour {
 
 
                 //クリックしたときに鳴る音。
-                SE_point_click(187);
+                SE_point_click(76); //187
                 break;
 
             case "CardCancel_Toggle": //noを押したときのSE

@@ -26,6 +26,8 @@ public class Entity_eventItemDataBase : ScriptableObject
 		public int kosu;
 		public int read_flag;
 		public int item_Type;
+		public int costume_Num;
+		public int cos_Equip;
 		public int list_hyouji_on;
 		public string memo;
 		public int Re_flag_num;

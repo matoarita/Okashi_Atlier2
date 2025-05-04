@@ -3225,12 +3225,12 @@ public class GetMaterial : MonoBehaviour
                 treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
                 treasureInfo.Add(1, "star_powder");
                 treasureInfo.Add(2, "hydrangea");
-                treasureInfo.Add(3, "mint");
+                treasureInfo.Add(3, "strawberry");
 
-                treasureDropDict.Add(0, 20.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureDropDict.Add(0, 10.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(2, 50.0f + rare_event_kakuritsu);
-                treasureDropDict.Add(3, 25.0f);
+                treasureDropDict.Add(2, 55.0f + rare_event_kakuritsu);
+                treasureDropDict.Add(3, 30.0f + rare_event_kakuritsu);
 
                 break;
 

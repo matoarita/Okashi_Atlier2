@@ -30,6 +30,8 @@ public class ContestListController : MonoBehaviour
 
     private GameObject contest_detailedPanel;
 
+    private Color32 button_color;//Color32型の変数を宣言
+
     private string _name;
     private string _name_Hyouji;
     private int item_kosu;
@@ -245,10 +247,49 @@ public class ContestListController : MonoBehaviour
             }
         }
 
+        //エデンコンの場合、ビックリマークと文字が赤色に。
+        if(conteststartList_database.conteststart_lists[i].ContestName == "Or_Contest_001" ||
+            conteststartList_database.conteststart_lists[i].ContestName == "Or_Contest_002" ||
+            conteststartList_database.conteststart_lists[i].ContestName == "Or_Contest_003")
+        {
+            _contest_listitem[list_count].transform.Find("BikkuriMark").gameObject.SetActive(true);
+
+            //色設定
+            button_color = new Color32(166, 0, 2, 255);
+
+            //設定した色をstage_buttonを押した時の色へ設定
+            ButtonStateColorChange(_contest_listitem[list_count].GetComponent<Toggle>(), button_color, 0);
+            
+        }
+
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
         ++list_count;
     }
-    
+
+    private void ButtonStateColorChange(Toggle button, Color32 color, int changeState)
+    {
+        ColorBlock colorblock = button.colors;
+        switch (changeState)
+        {
+            case 0://normalColor
+                colorblock.normalColor = color;
+                break;
+            case 1://highlightedColor
+                colorblock.highlightedColor = color;
+                break;
+            case 2://pressedColor
+                colorblock.pressedColor = color;
+                break;
+            case 3://selectedColor
+                colorblock.selectedColor = color;
+                break;
+            case 4://disabledColor
+                colorblock.disabledColor = color;
+                break;
+        }
+        button.colors = colorblock;
+    }
+
     //条件をみたすと、さらにコンテストが表示追加される
     void ContestJoukenCheck()
     {

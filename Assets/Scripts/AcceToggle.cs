@@ -60,6 +60,6 @@ public class AcceToggle : MonoBehaviour {
 
     public void OnAcceToggle()
     {
-        status_panel.GetComponent<StatusPanel>().OnAccesoryChange();
+        //status_panel.GetComponent<StatusPanel>().OnAccesoryChange();
     }
 }
