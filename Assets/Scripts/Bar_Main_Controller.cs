@@ -429,10 +429,8 @@ public class Bar_Main_Controller : MonoBehaviour {
                 shopon_toggle_uwasa.SetActive(true);
                 break;
 
-            case "Or_Bar_A1":
+            case "Or_Bar_A1": //ルーティ
 
-                shopon_toggle_talk.SetActive(true);
-                shopon_toggle_uwasa.SetActive(true);
                 /*if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
                 {
                     shopon_toggle_back.SetActive(true);
@@ -441,6 +439,9 @@ public class Bar_Main_Controller : MonoBehaviour {
                 {
                     shopon_toggle_back.SetActive(false);
                 }*/
+
+                shopon_toggle_talk.SetActive(true);
+                shopon_toggle_uwasa.SetActive(true);                
                 shopon_toggle_back.SetActive(true);
                 break;
 
@@ -449,11 +450,11 @@ public class Bar_Main_Controller : MonoBehaviour {
                 
                 break;
 
-            case "Or_Bar_C1":
+            case "Or_Bar_C1": //オペラのばあさん
 
                 shopon_toggle_talk.SetActive(true);
                 shopon_toggle_uwasa.SetActive(false);
-
+                shopon_toggle_back.SetActive(true);
                 break;
 
             case "Or_Bar_D1":

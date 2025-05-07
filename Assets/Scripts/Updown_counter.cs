@@ -264,11 +264,7 @@ public class Updown_counter : MonoBehaviour {
 
                     if (GameMgr.Scene_Select == 1) //ショップ「買う」の時
                     {
-                        ShopUpdownCounter_Pos();
-                    }
-                    else if (GameMgr.Scene_Select == 3) //依頼の納品の時
-                    {
-                        ShopUpdownCounter_Pos2();
+                        ShopUpdownCounter_Pos(0);
                     }
                     else if (GameMgr.Scene_Select == 5) //売るの時
                     {
@@ -299,7 +295,7 @@ public class Updown_counter : MonoBehaviour {
                     updown_button_Big.SetActive(true);
                     updown_button_Small.SetActive(true);
 
-                    ShopUpdownCounter_Pos();
+                    ShopUpdownCounter_Pos(0);
 
                     break;
 
@@ -312,7 +308,7 @@ public class Updown_counter : MonoBehaviour {
                     updown_button_Big.SetActive(true);
                     updown_button_Small.SetActive(true);
 
-                    ShopUpdownCounter_Pos();
+                    ShopUpdownCounter_Pos(0);
 
                     break;
 
@@ -349,7 +345,7 @@ public class Updown_counter : MonoBehaviour {
 
     void SettingPosCompound()
     {
-        this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        ScaleCommonSet();
         this.transform.Find("counter_img1").gameObject.SetActive(true);
 
         switch (GameMgr.compound_select)
@@ -421,14 +417,28 @@ public class Updown_counter : MonoBehaviour {
         }
     }
 
-    void ShopUpdownCounter_Pos()
+    public void ShopUpdownCounter_Pos(int _status) //shopitemSelectToggleから読み出し
     {
-        this.transform.localPosition = new Vector3(280, -60, 0);
+        ScaleCommonSet();
+        if (_status == 0)
+        {
+            this.transform.localPosition = new Vector3(240, -50, 0); //お店で買う　カードが真ん中表示のときのカウンタ位置
+        }
+        else
+        {
+            this.transform.localPosition = new Vector3(280, -50, 0); //お店で買う　カードが左表示のときのカウンタ位置
+        }
     }
 
     void ShopUpdownCounter_Pos2()
     {
+        ScaleCommonSet();       
         this.transform.localPosition = new Vector3(0, -80, 0);
+    }
+
+    void ScaleCommonSet()
+    {
+        this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
     }
 
 

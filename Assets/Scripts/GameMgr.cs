@@ -256,11 +256,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int Costume_Num;
 
     //飾っているアイテムのリスト
-    //public static bool[] DecoItems = new bool[30];
     public static Dictionary<string, bool> BGAcceItemsName = new Dictionary<string, bool>(); //背景の置物のリスト。
 
     //コレクションに登録したアイテムのリスト
-    public static List<bool> CollectionItems = new List<bool>(); //登録済みか否か。こっちはセーブ必要。
+    //public static List<bool> CollectionItems = new List<bool>(); //登録済みか否か。こっちはセーブ必要。
     public static List<string> CollectionItemsName = new List<string>(); //登録済みか否か。こっちはセーブ不要。   
 
     //食器セットのリスト
@@ -1916,11 +1915,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //カレンダーデータセット
         SetCallender();
 
-        CollectionItems.Clear();
+        /*CollectionItems.Clear();
         for (system_i = 0; system_i < CollectionItemsName.Count; system_i++)
         {
             CollectionItems.Add(false);
-        }
+        }*/
 
         //セーブデータの有無確認フラグ
         for (system_i = 0; system_i < System_savepanel_slot.Length; system_i++)
@@ -1929,11 +1928,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
         System_save_nowslot = 0;
 
-        //飾りアイテムの初期化
-        /*for (system_i = 0; system_i < DecoItems.Length; system_i++)
-        {
-            DecoItems[system_i] = false;
-        }*/
 
         //一度に仕上げできる回数 初期値
         topping_Set_Count = 2;
@@ -1950,58 +1944,55 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void InitNPCEvent_DayCounterReset()
     {
         NPCHiroba_eventDayCounter[0] = 2; //アマクサ優勝イベント発生までの日数
+        NPCHiroba_eventDayCounter[1] = 1; //ねこみみ少女　次会話発生までの日数
     }
     
-    public static void InitCollectionItemsLibrary()
+    public static void InitCollectionItemsLibrary() //コレクションアイテムの一覧　コレクションパネルを開いたときに表示される
     {
         CollectionItemsName.Clear();
-        CollectionItemsName.Add("amabie_statue");
-        CollectionItemsName.Add("green_pendant");
-        CollectionItemsName.Add("star_pendant");
-        CollectionItemsName.Add("aquamarine_pendant");
-        CollectionItemsName.Add("white_lily");
-        CollectionItemsName.Add("himmeli");
         //CollectionItemsName.Add("kuma_nuigurumi");
-        CollectionItemsName.Add("copper_coin");
-        CollectionItemsName.Add("compass");
-        CollectionItemsName.Add("star_bottle");
+        CollectionItemsName.Add("amano_champmery");
+        CollectionItemsName.Add("beorv_iron");
+        CollectionItemsName.Add("pink_ninjin");
+        CollectionItemsName.Add("hikari_speed_up1");
+        CollectionItemsName.Add("aroma_potion1");
+        CollectionItemsName.Add("shokukan_powerup2");
+        CollectionItemsName.Add("hikari_powerup1");
+        CollectionItemsName.Add("cookie_powerup2");       
+        CollectionItemsName.Add("crepe_powerup2");
+        CollectionItemsName.Add("tea_powerup2");
+        //CollectionItemsName.Add("music_box");
     }
 
-    public static void InitBGAcceItemsLibrary()
+    public static void InitBGAcceItemsLibrary() //ここに登録すると「飾る」が表示される。
     {
-        //DecoItemsの配列数分まで用意
+
         BGAcceItemsName.Clear();
         BGAcceItemsName.Add("himmeli", false);
+        BGAcceItemsName.Add("mini_house", false);
+        BGAcceItemsName.Add("aroma_candle1", false);
+        BGAcceItemsName.Add("aroma_candle2", false);
+
         //BGAcceItemsName.Add("kuma_nuigurumi", false);
-        BGAcceItemsName.Add("saboten_1", false);
+        /*BGAcceItemsName.Add("saboten_1", false);
         BGAcceItemsName.Add("saboten_2", false);
         BGAcceItemsName.Add("saboten_3", false);
         BGAcceItemsName.Add("dryflowerpot_1", false);
         BGAcceItemsName.Add("dryflowerpot_2", false);
         BGAcceItemsName.Add("dryflowerpot_3", false);
-        BGAcceItemsName.Add("aroma_candle1", false);
-        BGAcceItemsName.Add("aroma_candle2", false);
-
-        BGAcceItemsName.Add("mini_house", false);
+               
         BGAcceItemsName.Add("aroma_potion1", false);
         BGAcceItemsName.Add("aroma_potion2", false);
         BGAcceItemsName.Add("aroma_potion3", false);
         BGAcceItemsName.Add("magic_crystal1", false);
         BGAcceItemsName.Add("magic_crystal2", false);
-        BGAcceItemsName.Add("magic_crystal3", false);
+        BGAcceItemsName.Add("magic_crystal3", false);*/
 
-        /*system_temp_int = DecoItems.Length - BGAcceItemsName.Count;
-
-        for (system_i = 0; system_i < system_temp_int; system_i++)
-        {
-            BGAcceItemsName.Add("Non");
-        }*/
     }
 
     //食器セット
     public static void InitPlateSetItemsLibrary()
     {
-        //DecoItemsでも設定する
         PlateSetItemsName.Clear();
         PlateSetItemsName.Add("teaset_normal", 0); //デフォルト
         PlateSetItemsName.Add("teaset_wizard", 1);

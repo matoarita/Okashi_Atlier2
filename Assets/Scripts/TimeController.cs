@@ -426,7 +426,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                         }
                                     }
 
-                                    if (GameMgr.BGAcceItemsName["saboten_1"])
+                                    if (pitemlist.KosuCount("saboten_1") >= 1)
                                     {
                                         if (timeIttei6 >= 24) //24sごとに。
                                         {
@@ -435,7 +435,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                             girleat_judge.UpDegHeart(1, false);
                                         }
                                     }
-                                    else if (GameMgr.BGAcceItemsName["saboten_2"])
+
+                                    if (pitemlist.KosuCount("saboten_2") >= 1)
                                     {
                                         if (timeIttei6 >= 12) //12sごとに。
                                         {
@@ -444,7 +445,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                             girleat_judge.UpDegHeart(1, false);
                                         }
                                     }
-                                    else if (GameMgr.BGAcceItemsName["saboten_3"])
+
+                                    if (pitemlist.KosuCount("saboten_3") >= 1)
                                     {
                                         if (timeIttei6 >= 6) //6sごとに。
                                         {

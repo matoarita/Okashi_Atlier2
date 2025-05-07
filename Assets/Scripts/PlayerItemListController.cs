@@ -215,7 +215,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                             yes_button.SetActive(false);
                             no_button.SetActive(true);
-                            this.transform.localPosition = new Vector3(-180, 63, 0);
+                            this.transform.localPosition = new Vector3(-220, 63, 0);
                             ResetViewCheck();
                             break;
 

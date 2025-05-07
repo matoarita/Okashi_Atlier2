@@ -1210,19 +1210,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
         if (pitemlist.KosuCount("cookie_powerup2") >= 1) //
         {
-            _buf_shokukanup += 10;
+            _buf_shokukanup += 20;
         }
         if (pitemlist.KosuCount("cookie_powerup3") >= 1) //
         {
-            _buf_shokukanup += 15;
+            _buf_shokukanup += 40;
         }
         if (pitemlist.KosuCount("cookie_powerup4") >= 1) //
         {
-            _buf_shokukanup += 25;
+            _buf_shokukanup += 60;
         }
         if (pitemlist.KosuCount("cookie_powerup5") >= 1) //
         {
-            _buf_shokukanup += 50;
+            _buf_shokukanup += 100;
         }
         
     }
@@ -1308,7 +1308,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         if (pitemlist.KosuCount("candy_powerup1") >= 1) //
         {
-            _buf_shokukanup += 20;
+            _buf_shokukanup += 30;
         }
     }
 
@@ -1320,19 +1320,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
         if (pitemlist.KosuCount("crepe_powerup2") >= 1) //
         {
-            _buf_shokukanup += 10;
+            _buf_shokukanup += 20;
         }
         if (pitemlist.KosuCount("crepe_powerup3") >= 1) //
         {
-            _buf_shokukanup += 15;
+            _buf_shokukanup += 40;
         }
         if (pitemlist.KosuCount("crepe_powerup4") >= 1) //
         {
-            _buf_shokukanup += 25;
+            _buf_shokukanup += 60;
         }
         if (pitemlist.KosuCount("crepe_powerup5") >= 1) //
         {
-            _buf_shokukanup += 50;
+            _buf_shokukanup += 100;
         }
     }
 
@@ -1363,19 +1363,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
         if (pitemlist.KosuCount("tea_powerup2") >= 1) //
         {
-            _buf_shokukanup += 10;
+            _buf_shokukanup += 20;
         }
         if (pitemlist.KosuCount("tea_powerup3") >= 1) //
         {
-            _buf_shokukanup += 20;
+            _buf_shokukanup += 40;
         }
         if (pitemlist.KosuCount("tea_powerup4") >= 1) //
         {
-            _buf_shokukanup += 30;
+            _buf_shokukanup += 60;
         }
         if (pitemlist.KosuCount("tea_powerup5") >= 1) //
         {
-            _buf_shokukanup += 50;
+            _buf_shokukanup += 100;
         }
     }
 
@@ -1477,7 +1477,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         if (_basename == "cannoli" || _basename == "sea_losanonos" || _basename == "cream_coffee" || _basename == "cocoa_cookie")
                         {
-                            _buf_shokukanup += 15;
+                            _buf_shokukanup += 30;
                         }
 
                         return _buf_shokukanup;
@@ -1486,7 +1486,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         if (_basename == "tiramisu" || _basename == "cafeaulait_creampuff")
                         {
-                            _buf_shokukanup += 15;
+                            _buf_shokukanup += 30;
                         }
 
                         return _buf_shokukanup;
@@ -1499,7 +1499,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         if (_basename == "biscotti")
                         {
-                            _buf_shokukanup += 15;
+                            _buf_shokukanup += 30;
                         }
 
                         return _buf_shokukanup;
@@ -1820,15 +1820,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("hikari_powerup1") >= 1) //
         {
-            _buf_shokukanup += 10;
+            _buf_shokukanup += 30;
         }
         if (pitemlist.KosuCount("hikari_powerup2") >= 1) //
         {
-            _buf_shokukanup += 20;
+            _buf_shokukanup += 50;
         }
         if (pitemlist.KosuCount("hikari_powerup3") >= 1) //
         {
-            _buf_shokukanup += 30;
+            _buf_shokukanup += 80;
         }
 
         return _buf_shokukanup;

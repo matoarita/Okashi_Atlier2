@@ -33,6 +33,10 @@ public class MagicSkillListController : MonoBehaviour
     private GameObject skill_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
     private GameObject skill_Prefab_learn;
 
+    private GameObject eff_learn_01_Prefab;
+    private GameObject eff_learn_02_Prefab;
+    private List<GameObject> _listeff = new List<GameObject>();
+
     private MagicSkillListDataBase magicskill_database;
 
     private GameObject player_patissierjob_panel;
@@ -100,8 +104,15 @@ public class MagicSkillListController : MonoBehaviour
             player_patissierjob_panel.transform.Find("player_maxPlv").GetComponent<Text>().text = GameMgr.System_patissier_maxlv.ToString();
             player_patissierjob_panel.transform.Find("player_jp").GetComponent<Text>().text = PlayerStatus.player_patissier_job_pt.ToString();
             eff_learn_obj = this.transform.Find("eff_learn").gameObject;
-            eff_learn_obj.transform.Find("eff_learn_01").gameObject.SetActive(false);
-            eff_learn_obj.transform.Find("eff_learn_02").gameObject.SetActive(false);
+
+            foreach (Transform child in eff_learn_obj.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+            {
+                Destroy(child.gameObject);
+            }
+
+            _listeff.Clear();
+            eff_learn_01_Prefab = (GameObject)Resources.Load("Prefabs/eff_learn_01");
+            eff_learn_02_Prefab = (GameObject)Resources.Load("Prefabs/eff_learn_02");
         }
        
 
@@ -1006,25 +1017,17 @@ public class MagicSkillListController : MonoBehaviour
         {
             case 0:
 
-                eff_learn_obj.transform.Find("eff_learn_02").gameObject.SetActive(true);
+                _listeff.Add(Instantiate(eff_learn_02_Prefab, eff_learn_obj.transform));
                 break;
 
             case 1:
 
-                eff_learn_obj.transform.Find("eff_learn_01").gameObject.SetActive(true);
+                _listeff.Add(Instantiate(eff_learn_01_Prefab, eff_learn_obj.transform));
                 break;
         }
 
-        StartCoroutine("OffKearnEffect");
     }
 
-    IEnumerator OffKearnEffect()
-    {
-        yield return new WaitForSeconds(2f); //2秒待つ
-
-        eff_learn_obj.transform.Find("eff_learn_01").gameObject.SetActive(false);
-        eff_learn_obj.transform.Find("eff_learn_02").gameObject.SetActive(false);
-    }
 
     public void DebugAllSkillFlagON()
     {

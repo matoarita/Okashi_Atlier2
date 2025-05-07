@@ -841,6 +841,7 @@ public class Shop_Main_Controller : MonoBehaviour {
         }
     }
 
+    /*
     public void OnCheck_3() //依頼
     {
         if (shopon_toggle_quest.GetComponent<Toggle>().isOn == true)
@@ -864,7 +865,7 @@ public class Shop_Main_Controller : MonoBehaviour {
             maincam_animator.SetInteger("trans", trans);
 
         }
-    }
+    }*/
 
     /*
     public void OnCheck_4() //うわさ話　一回100Gとかで、ランダムで有用な情報をきける。

@@ -249,6 +249,14 @@ public class shopitemSelectToggle : MonoBehaviour
 
         yes_no_panel.SetActive(true);
         updown_counter_obj.SetActive(true);
+        if(card_view.DrawStatus == 0) //カウンタ位置の設定
+        {
+            updown_counter_obj.GetComponent<Updown_counter>().ShopUpdownCounter_Pos(0);
+        }
+        else
+        {
+            updown_counter_obj.GetComponent<Updown_counter>().ShopUpdownCounter_Pos(1);
+        }
 
         StartCoroutine("shop_buy_kosu_select");
 

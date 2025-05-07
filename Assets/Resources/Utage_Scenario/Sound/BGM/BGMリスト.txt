@@ -149,3 +149,4 @@
 ・BGM_145		audiostock_884907_sample		沼悪魔に真っ暗にされたときの背景音
 ・BGM_146		夜食のじかん				月夜の曲４
 ・BGM_147		icyalove_05				マッサージ中の音楽
+・BGM_148		こんとどぅふぇ素材No.0037-Dimanche	【宴用】オランジーナ酒場用BGM BGM110と同じ

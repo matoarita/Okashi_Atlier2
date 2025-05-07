@@ -202,22 +202,17 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 break;
 
             //材料など
-            case "Fruits":
-                GameMgr.Item_subcategoryText = "フルーツ";
-                GameMgr.Item_OkashiSubType_Num = 99;
-                Etc_Text_Non();
-                break;
-            case "Nuts":
-                GameMgr.Item_subcategoryText = "ナッツ";
-                GameMgr.Item_OkashiSubType_Num = 99;
-                Etc_Text_Non();
-                break;
             case "Source":
                 GameMgr.Item_subcategoryText = "お菓子材料";
                 GameMgr.Item_OkashiSubType_Num = 0;
                 Etc_Text();
                 break;
             case "Potion":
+                GameMgr.Item_subcategoryText = "お菓子材料";
+                GameMgr.Item_OkashiSubType_Num = 0;
+                Etc_Text();
+                break;
+            case "Material":
                 GameMgr.Item_subcategoryText = "お菓子材料";
                 GameMgr.Item_OkashiSubType_Num = 0;
                 Etc_Text();
@@ -246,6 +241,11 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_subcategoryText = "ホイップクリーム";
                 GameMgr.Item_OkashiSubType_Num = 15;
                 Etc_Text();
+                break;
+            case "Water":
+                GameMgr.Item_subcategoryText = "水";
+                GameMgr.Item_OkashiSubType_Num = 0;
+                Etc_Text_Non();
                 break;
             case "Cookie_base":
                 GameMgr.Item_subcategoryText = "生地";
@@ -284,11 +284,32 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_OkashiSubType_Num = 99;
                 Etc_Text_Non();
                 break;
-            case "Water":
-                GameMgr.Item_subcategoryText = "水";
-                GameMgr.Item_OkashiSubType_Num = 0;
+            case "Fruits":
+                GameMgr.Item_subcategoryText = "フルーツ";
+                GameMgr.Item_OkashiSubType_Num = 99;
                 Etc_Text_Non();
                 break;
+            case "Nuts":
+                GameMgr.Item_subcategoryText = "ナッツ";
+                GameMgr.Item_OkashiSubType_Num = 99;
+                Etc_Text_Non();
+                break;
+            case "Harb":
+                GameMgr.Item_subcategoryText = "ハーブ";
+                GameMgr.Item_OkashiSubType_Num = 99;
+                Tea_Text();
+                break;
+            case "Flower":
+                GameMgr.Item_subcategoryText = "お花";
+                GameMgr.Item_OkashiSubType_Num = 99;
+                Tea_Text();
+                break;
+            case "Vegetable": //いも全般のこと　ほかに野菜を入れる場合、食感の表記をかえるため、別に設定しないといけない
+                GameMgr.Item_subcategoryText = "やさい";
+                GameMgr.Item_OkashiSubType_Num = 99;
+                BakedSweats_Text();
+                break;
+            
             case "Machine":
                 GameMgr.Item_subcategoryText = "器具";
                 GameMgr.Item_OkashiSubType_Num = 99;
@@ -298,6 +319,7 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 // 処理３　指定がなかった場合
                 GameMgr.Item_subcategoryText = "";
                 GameMgr.Item_OkashiSubType_Num = 99;
+                Etc_Text_Non();
                 break;
         }        
     }

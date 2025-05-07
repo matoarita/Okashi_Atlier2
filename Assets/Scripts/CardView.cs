@@ -30,6 +30,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private PlayerItemListController pitemlistController;
 
     public int Pitem_or_Origin_judge; //店売りアイテムか、オリジナルアイテムの判定
+    public int DrawStatus; //店売りアイテムをひらいたとき、そのカードの位置の状態を保持　shopitemSelectToggleから読む
 
     private Transform resulttransform;
     private Vector3 resultScale;
@@ -85,6 +86,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
 
         Pitem_or_Origin_judge = 0;
+        DrawStatus = 0;
 
         speed = 2.0f;
     }
@@ -806,14 +808,14 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
 
         //位置とスケール
-        if (database.items[_kettei_item1].itemType.ToString() == "Potion" || database.items[_kettei_item1].itemType.ToString() == "Okashi")
+        if (_cardImage.CardTasteView_flag1)
         {
             Draw4();
         }
         else
         {
             Draw3();
-        }        
+        }
     }
 
 
@@ -839,14 +841,16 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage_obj[0].transform.localPosition = new Vector3(0, 80, 0);
         _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
         _cardImage.CardHyoujiAnim();
+        DrawStatus = 0;
     }
 
-    void Draw4() //お店用
+    void Draw4() //お店用 味ビューが一つ表示されてるので左よりに位置
     {
         _cardImage_obj[0].transform.localScale = new Vector3(0.95f, 0.95f, 1);
         _cardImage_obj[0].transform.localPosition = new Vector3(-180, 80, 0);
         _cardImage.def_scale = new Vector3(0.95f, 0.95f, 1);
         _cardImage.CardHyoujiAnim();
+        DrawStatus = 1;
     }
 
     void Draw5() //コンテストクリア用

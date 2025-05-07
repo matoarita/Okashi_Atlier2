@@ -20,6 +20,7 @@ public class SetImage : MonoBehaviour
     private GameObject Card_TemplateMain_obj;
     private GameObject Card_param_obj;
     private GameObject Card_param_obj2;
+    public bool CardTasteView_flag1; //CardViewから読み出し　味のビューがON/OFF ONなら、ショップ画面などでは左よりに位置し、右にカウンタを表示
     private GameObject TasteSubWindow;
     private GameObject Slot_SubWindow;
     public bool taste_slot_flag;
@@ -378,6 +379,7 @@ public class SetImage : MonoBehaviour
         TasteSubWindow = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow").gameObject;
         SlotChangeButton = this.transform.Find("Card_Param_window/Card_Parameter/SlotHyoujiButton").gameObject;
         //TasteSubWindow.SetActive(false);
+        CardTasteView_flag1 = false;
 
         _slot = new string[database.items[0].toppingtype.Length];
         _koyuslot = new string[database.items[0].koyu_toppingtype.Length];
@@ -1564,6 +1566,11 @@ public class SetImage : MonoBehaviour
                     DrawTasteWindow1();
                     break;
 
+                case "Material":
+
+                    DrawTasteWindow1();
+                    break;
+
                 case "Cream":
 
                     DrawTasteWindow1();
@@ -1575,28 +1582,27 @@ public class SetImage : MonoBehaviour
                     break;
 
                 case "Fruits":
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(false);
+                    DrawTasteWindow2();
                     break;
 
                 case "Berry":
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(false);
+                    DrawTasteWindow2();
                     break;
 
                 case "Nuts":
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(false);
+                    DrawTasteWindow2();
                     break;
 
                 case "Harb":
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(false);
+                    DrawTasteWindow2();
+                    break;
+
+                case "Flower":
+                    DrawTasteWindow2();
                     break;
 
                 case "Vegetable":
-                    Card_param_obj.SetActive(true);
-                    Card_param_obj2.SetActive(false);
+                    DrawTasteWindow2();
                     break;
 
                 default:
@@ -1619,14 +1625,11 @@ public class SetImage : MonoBehaviour
         }
         else if (item_type == "Potion")
         {
-            Card_param_obj.SetActive(true);
-            Card_param_obj2.SetActive(false);
+            DrawTasteWindow2();
 
             item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
         }
 
-        //Debug.Log("_secretFlag: " + _secretFlag);
-        //シークレットアイテムの場合、シークレット表示
         if (_secretFlag == 1)
         {
             Debug.Log("_secretFlag表示ON");
@@ -1636,6 +1639,9 @@ public class SetImage : MonoBehaviour
         {
             secret_panel.SetActive(false);
         }
+
+        //味ビュー１が表示されてるかどうかをフラグにも入れる
+        CheckTasteViewStatus();
     }
 
     void DrawTasteWindow1()
@@ -1651,6 +1657,14 @@ public class SetImage : MonoBehaviour
         item_Name.text = GameMgr.ColorGold + item_SlotName + "</color>" + _name;
     }
 
+    void DrawTasteWindow2()
+    {
+        Card_param_obj.SetActive(true);
+        Card_param_obj2.SetActive(false);
+    }
+
+
+    //「さくさく感」「歯ごたえ」などの表記 GameMgr.Item_ShokukanTypeTextはItemSubTypeSetDatabaseで設定
     void ShokukanText()
     {
         item_Shokukan_Type.text = GameMgr.Item_ShokukanTypeText;
@@ -1680,8 +1694,6 @@ public class SetImage : MonoBehaviour
 
     void Hardness_Text()
     {
-        //item_Shokukan_Type.text = "歯ごたえ";
-        //item_lastShokukan_Type.text = "歯ごたえ";
         item_Shokukan.text = _hardness_score.ToString();
         _shokukan_score = _hardness_score;
         _lastshokukan_score = _lasthardness_score;
@@ -1701,17 +1713,7 @@ public class SetImage : MonoBehaviour
         _lastshokukan_score = _lastcrispy_score;
     }
 
-    void Etc_Text()
-    {
-        item_Shokukan_Type.text = "食感";
-        item_lastShokukan_Type.text = "食感";
-    }
 
-    void Etc_Text_Non()
-    {
-        item_Shokukan_Type.text = "-";
-        item_lastShokukan_Type.text = "-";
-    }
 
     void DrawMagicEffect()
     {
@@ -1918,17 +1920,20 @@ public class SetImage : MonoBehaviour
     {
         Card_param_obj.SetActive(true);
         Card_param_obj2.SetActive(true);
+        CheckTasteViewStatus();
     }
 
     public void CardParamOFF()
     {
         Card_param_obj.SetActive(false);
         Card_param_obj2.SetActive(false);
+        CheckTasteViewStatus();
     }
 
     public void CardParamOFF_2()
     {
         Card_param_obj2.SetActive(false);
+        CheckTasteViewStatus();
     }
 
     public void CardALLParamOFF() //カードの表示そのものもオフにする。ただし、調合リザルトボタンはONのまま
@@ -1936,6 +1941,7 @@ public class SetImage : MonoBehaviour
         Card_TemplateMain_obj.SetActive(false);
         Card_param_obj.SetActive(false);
         Card_param_obj2.SetActive(false);
+        CheckTasteViewStatus();
     }
 
     public void SecretFlag_Hyouji()
@@ -1946,6 +1952,19 @@ public class SetImage : MonoBehaviour
         {
             Debug.Log("_secretFlag表示ON");            
             secret_panel.SetActive(true);
+        }
+    }
+
+    void CheckTasteViewStatus()
+    {
+        //味ビュー１が表示されてるかどうかをフラグにも入れる CardViewなどから読みだして、使う
+        if (Card_param_obj.activeInHierarchy)
+        {
+            CardTasteView_flag1 = true;
+        }
+        else
+        {
+            CardTasteView_flag1 = false;
         }
     }
 

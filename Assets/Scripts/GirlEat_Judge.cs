@@ -3482,10 +3482,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             _buf_moneyup = bufpower_keisan.Buf_CompFatherMoneyUp_Keisan();
             GetMoney = (int)(GetMoney * _buf_moneyup / 2);
 
-            /*if (GameMgr.Story_Mode == 1)
-            {
-                GetMoney = (int)(GetMoney * 0.7f); //エクストラの最終的な調整　元のままだと、少し入りすぎた感があるため。
-            }*/
+            //仕送り補正　元のままだと、少し入りすぎた感があるため。
+            GetMoney = (int)(GetMoney * 0.9f); 
 
             Debug.Log("最終の取得好感度: " + Getlove_exp);
             Debug.Log("取得お金: " + GetMoney);

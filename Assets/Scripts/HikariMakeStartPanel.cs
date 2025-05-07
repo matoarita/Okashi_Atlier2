@@ -453,7 +453,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 GameMgr.hikari_make_success_count = 0;
                 GameMgr.hikari_make_failed_count = 0;
 
-                sc.PlaySe(190);　//
+                sc.PlaySe(76);　//
                 ResultHikariMakeCardView_andOFF();
 
                 //仕上げ回数をリセット
@@ -476,7 +476,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 GameMgr.hikari_make_success_count = 0;
                 GameMgr.hikari_make_failed_count = 0;
 
-                sc.PlaySe(46);
+                sc.PlaySe(190);
                 ResultHikariMakeCardView_andOFF();
 
                 ResetHyouji();

@@ -348,9 +348,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //食器セットの番号
             save_PlateSetNum = GameMgr.PlateSetNum,
 
-            //コレクションに登録したアイテムのリスト
-            save_CollectionItems = GameMgr.CollectionItems,
-
             //ステージ番号
             save_stage_number = GameMgr.stage_number,
             save_stage_quest_num = GameMgr.stage_quest_num,
@@ -789,9 +786,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //コスチューム番号
         GameMgr.Costume_Num = playerData.save_costume_num;
         //GameMgr.Accesory_Num = playerData.save_acce_num;
-
-        //コレクションに登録したアイテムのリスト
-        GameMgr.CollectionItems = playerData.save_CollectionItems;
 
         //ステージ番号
         GameMgr.stage_number = playerData.save_stage_number;

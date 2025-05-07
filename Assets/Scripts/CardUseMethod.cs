@@ -84,7 +84,7 @@ public class CardUseMethod : MonoBehaviour
         UseEnd(); //カードを閉じる
     }
 
-    public void OnCollectAction() //コレクションに登録する
+    /*public void OnCollectAction() //コレクションに登録する
     {
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -127,7 +127,7 @@ public class CardUseMethod : MonoBehaviour
                 {
                     if (GameMgr.CollectionItemsName[i] == database.items[database.SearchItemID(itemID)].itemName)
                     {
-                        GameMgr.CollectionItems[i] = true;
+                        //GameMgr.CollectionItems[i] = true;
                     }
                 }
 
@@ -153,7 +153,7 @@ public class CardUseMethod : MonoBehaviour
                 canvas.transform.Find("CollectionKakunin").gameObject.SetActive(false);
                 break;
         }
-    }
+    }*/
 
     void UseEnd()
     {

@@ -45,6 +45,7 @@ public class Compound_Main : MonoBehaviour
     private Exp_Controller exp_Controller;
     private MoneyStatus_Controller moneyStatus_Controller;
     private CompoundMainController compoundmain_Controller;
+    private ContestStartListDataBase conteststartList_database;
 
     private BGM sceneBGM;
     private Map_Ambience map_ambience;
@@ -356,6 +357,9 @@ public class Compound_Main : MonoBehaviour
 
         //ゲーム最初に所持するアイテムを決定するスクリプト
         playerDefaultStart_ItemGet = PlayerDefaultStartItemGet.Instance.GetComponent<PlayerDefaultStartItemGet>();
+
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
         //レベルアップチェック用オブジェクトの取得
         exp_table = ExpTable.Instance.GetComponent<ExpTable>();
@@ -4345,8 +4349,25 @@ public class Compound_Main : MonoBehaviour
         //各NPCのイベント日数カウンタも進む
         for (i = 0; i < GameMgr.NPCHiroba_eventDayCounter.Length; i++)
         {
-            GameMgr.NPCHiroba_eventDayCounter[i]--;
+            switch(i) //各条件
+            {
+                case 0: //アマクサ　初優勝後お祝いにくる
 
+                    if (conteststartList_database.ReturnVictoryCount(1) >= 1) //初優勝後から
+                    {
+                        GameMgr.NPCHiroba_eventDayCounter[i]--;
+                    }
+                    break;
+
+                case 1: //ねこみみ少女　次の会話発生までのかうんた 連続でイベント発生するのを防止
+
+                    if(GameMgr.NPCHiroba_eventList[1050])
+                    {
+                        GameMgr.NPCHiroba_eventDayCounter[i]--;
+                    }
+                    break;
+            }
+                       
             if(GameMgr.NPCHiroba_eventDayCounter[i] <= 0)
             {
                 GameMgr.NPCHiroba_eventDayCounter[i] = 0;

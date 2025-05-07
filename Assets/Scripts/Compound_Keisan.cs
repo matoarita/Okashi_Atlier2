@@ -2662,10 +2662,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basesmooth = _basesmooth / 2;
             _basehardness = _basehardness / 2;
         }
-        if (_basename == "figure_bear_choco" || _basename == "figure_bear_whitechoco") //トッピング用くまさんは、なめらかを落とす
+        /*if (_basename == "figure_bear_choco" || _basename == "figure_bear_whitechoco") //トッピング用くまさんは、なめらかを落とす
         {
             _basesmooth = _basesmooth / 8;
-        }
+        }*/
         if (_basename == "bitter_potion") //ビターポーションはビターのみ抽出
         {
             _basesweat = 0;

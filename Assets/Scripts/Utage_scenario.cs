@@ -100,7 +100,6 @@ public class Utage_scenario : MonoBehaviour
     private int _evnum, _mgbooknum;
     private bool resipi_getflag;
     private bool resipi_getflag_afteritemuse; //アイテム途中で使う場合、pauseを一回拾うので、そのあとでフラグたつようにする。
-    private bool bgm_changeflag; //宴の途中で選択肢をはいにしたときに、そのタイミングでゲームのBGMと宴BGMを切り替える
     private int pause_or_endnum;
     private bool omoide_flag;
 
@@ -166,7 +165,6 @@ public class Utage_scenario : MonoBehaviour
         live2d_use = false;
         resipi_getflag = false;
         resipi_getflag_afteritemuse = false;
-        bgm_changeflag = false;
     }
 
     void Update()
@@ -2436,6 +2434,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
         engine.Param.TrySetParameter("Story_progress_Num", GameMgr.GirlLoveEvent_num); //ゲームメインストーリーの進行フラグナンバー
         engine.Param.TrySetParameter("StationEvent_num", 0);
+        engine.Param.TrySetParameter("EndOrPause_Num", 0); //ポーズOrエンドどちらかを判定する番号　基本0=エンドでリセットしておく。
 
         if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
         {
@@ -2455,10 +2454,32 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
+        while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
         {
             yield return null;
         }
+        pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。1ならPause判定。
+
+        //ポーズの場合
+        if (pause_or_endnum == 1)
+        {
+            //BGMをオフにする。
+            BGMMute();
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario)
+            {
+                yield return null;
+            }
+
+            //BGMを再開
+            BGMMuteOFF();
+        }
+        else //エンドは、そのままエンドなので流して終了　pause_or_endnum == 0は、EndScenarioを押したときのみ。Pauseしたのにpause_or_endnum == 0は使わない
+        { }
 
         stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
 
@@ -2885,10 +2906,9 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         roten_flag_num = 0;
-        bgm_changeflag = false;
         resipi_getflag = false;
         resipi_getflag_afteritemuse = false;
-        
+
 
         //場所ごとにラベルを変えている
         switch (GameMgr.hiroba_event_placeNum)
@@ -2965,7 +2985,7 @@ public class Utage_scenario : MonoBehaviour
 
             //以下、オランジーナ関連
             case 1000: //コンテスト会場
-              
+
                 scenarioLabel = "Hiroba_Or_Contest_Reception";
                 break;
 
@@ -3032,10 +3052,10 @@ public class Utage_scenario : MonoBehaviour
             case 1400: //OrNPCプラトン女王
 
                 scenarioLabel = "Hiroba_Or_Queen_puraton";
-                switch(GameMgr.hiroba_event_ID)
+                switch (GameMgr.hiroba_event_ID)
                 {
                     case 200:
-                        resipi_getflag = true;
+                        //resipi_getflag = true;
                         break;
                 }
                 break;
@@ -3073,14 +3093,12 @@ public class Utage_scenario : MonoBehaviour
             case 1550: //Or遊園地バイキング
 
                 scenarioLabel = "Or_NPC104_park_biking";
-                bgm_changeflag = true; //途中で乗るを押した場合にBGMを切り替え
                 break;
 
             case 1560: //Or遊園地観覧車
 
                 scenarioLabel = "Or_NPC105_park_kanransha";
-                bgm_changeflag = true;
-               
+
                 omoide_flag = GameMgr.SearchHikariOmoideFlag("event_kanransha");
                 //Debug.Log("観覧車イベントフラグ: " + omoide_flag);
                 engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
@@ -3089,7 +3107,6 @@ public class Utage_scenario : MonoBehaviour
             case 1570: //Or遊園地プール
 
                 scenarioLabel = "Or_NPC106_park_pool";
-                bgm_changeflag = true;
 
                 omoide_flag = GameMgr.SearchHikariOmoideFlag("event_pool");
                 engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
@@ -3108,7 +3125,6 @@ public class Utage_scenario : MonoBehaviour
             case 1575: //Or遊園地ホテル
 
                 scenarioLabel = "Or_NPC107_park_sweat_hotel";
-                bgm_changeflag = true;
 
                 omoide_flag = GameMgr.SearchHikariOmoideFlag("event_sweathotel");
                 engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
@@ -3118,7 +3134,6 @@ public class Utage_scenario : MonoBehaviour
             case 1580: //Or温泉
 
                 scenarioLabel = "Or_NPC108_hotspring";
-                bgm_changeflag = true;
 
                 omoide_flag = GameMgr.SearchHikariOmoideFlag("event_hotspring");
                 engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
@@ -3136,7 +3151,6 @@ public class Utage_scenario : MonoBehaviour
                 else
                 {
                     roten_flag_num = 160001; //りんごあめのレシピをまだもってない
-                    resipi_getflag = true;
                 }
                 break;
 
@@ -3144,7 +3158,7 @@ public class Utage_scenario : MonoBehaviour
 
                 scenarioLabel = "Or_NPC111_roten_potatobutter";
 
-                
+
                 if (pitemlist.KosuCountEvent("potatebutter_recipi") >= 1)
                 {
                     if (GameMgr.NPC_FriendPoint[1] >= 65)
@@ -3156,7 +3170,6 @@ public class Utage_scenario : MonoBehaviour
                         else
                         {
                             roten_flag_num = 160102; //ポテト宝石箱のレシピをまだもってない
-                            resipi_getflag = true;
                         }
                     }
                     else
@@ -3167,7 +3180,6 @@ public class Utage_scenario : MonoBehaviour
                 else
                 {
                     roten_flag_num = 160101; //じゃがバターのレシピをまだもってない
-                    resipi_getflag = true;
                 }
                 break;
 
@@ -3175,14 +3187,13 @@ public class Utage_scenario : MonoBehaviour
 
                 scenarioLabel = "Or_NPC112_roten_crape";
 
-                if(pitemlist.KosuCountEvent("crepe_recipi") >= 1)
+                if (pitemlist.KosuCountEvent("crepe_recipi") >= 1)
                 {
                     roten_flag_num = 0;
                 }
                 else
                 {
                     roten_flag_num = 160201; //クレープのレシピをまだもってない
-                    resipi_getflag = true;
                 }
 
                 break;
@@ -3191,7 +3202,7 @@ public class Utage_scenario : MonoBehaviour
 
                 scenarioLabel = "Or_NPC113_roten_gelato";
 
-                if(GameMgr.NPC_FriendPoint[4] >= 55) //友好度が55以上でジェラート買うと、レシピをもらえる
+                if (GameMgr.NPC_FriendPoint[4] >= 55) //友好度が55以上でジェラート買うと、レシピをもらえる
                 {
                     if (pitemlist.KosuCountEvent("gelato_recipi") >= 1)
                     {
@@ -3200,7 +3211,6 @@ public class Utage_scenario : MonoBehaviour
                     else
                     {
                         roten_flag_num = 160302; //ジェラートのレシピをまだもってない
-                        resipi_getflag = true;
                     }
                 }
                 else
@@ -3214,7 +3224,7 @@ public class Utage_scenario : MonoBehaviour
                         roten_flag_num = 0; //友好度がまだたりてないとレシピはもらえない。体力回復
                     }
                 }
-                
+
                 break;
 
             case 1604: //Or露店条件競売
@@ -3225,6 +3235,26 @@ public class Utage_scenario : MonoBehaviour
             case 1605: //Or露店カフェラテ
 
                 scenarioLabel = "Or_NPC115_roten_cafelatte";
+
+                if(GameMgr.NPCHiroba_eventDayCounter[1] <= 0) //同じ日に連続で発生させない
+                {
+                    if (GameMgr.NPC_FriendPoint[5] >= 58) //
+                    {
+                        roten_flag_num = 160511; //ねこみみ少女　イベント２
+                    }
+                }
+
+                if (!GameMgr.NPCHiroba_eventList[1050]) //3回目の会話が発生する前
+                {
+                    if (GameMgr.NPC_FriendPoint[5] >= 55) //
+                    {
+                        roten_flag_num = 160510; //ねこみみ少女　イベント１
+                    }
+                    else if (GameMgr.NPC_FriendPoint[5] >= 52) //
+                    {
+                        roten_flag_num = 160502;
+                    }
+                }
                 break;
 
             case 1610: //Orアマクサ
@@ -3250,7 +3280,7 @@ public class Utage_scenario : MonoBehaviour
             case 1700: //Or広場エリア入口
 
                 scenarioLabel = "Hiroba_Or_AreaEnter";
-                break;            
+                break;
 
             case 2000: //Orヒカリ広場イベント　通れないとかも含む
 
@@ -3281,7 +3311,7 @@ public class Utage_scenario : MonoBehaviour
                 //クリア済の魔法本リストをチェック　次にあげる本教えてくれる
                 Mirabo_MagicBookCount();
 
-                if (counter < GameMgr.mirabo_present_list.Count) 
+                if (counter < GameMgr.mirabo_present_list.Count)
                 {
                     ev_id = pitemlist.Find_eventitemdatabase(GameMgr.mirabo_present_list[_mgbooknum]);
                     engine.Param.TrySetParameter("event_get_magicbook", pitemlist.eventitemlist[ev_id].event_itemNameHyouji);
@@ -3295,7 +3325,7 @@ public class Utage_scenario : MonoBehaviour
                     engine.Param.TrySetParameter("event_get_magicbook", "");
                     engine.Param.TrySetParameter("Event_tempcheck", 1);
                 }
-                
+
                 scenarioLabel = "Or_MagicNPC01_Light";
                 break;
 
@@ -3328,7 +3358,7 @@ public class Utage_scenario : MonoBehaviour
         Engine.JumpScenario(scenarioLabel);
 
         if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
-        {           
+        {
             StartCoroutine("PitemPresent");
 
             if (resipi_getflag) //もしレシピゲットフラグがたつ場合は、アイテム使用後のpauseを解消してから。EndorPause待ちする。
@@ -3381,7 +3411,7 @@ public class Utage_scenario : MonoBehaviour
             while (!engine.IsPausingScenario)
             {
                 yield return null;
-            }           
+            }
 
 
             switch (scenarioLabel)
@@ -3483,115 +3513,105 @@ public class Utage_scenario : MonoBehaviour
 
                     GameMgr.Utage_SceneEnd_BlackON = true; //シーンブラックにしておく。
                     break;
-            }           
+            }
 
             //続きから再度読み込み
             engine.ResumeScenario();
         }
 
         //エンド待ち部分
-        if (!resipi_getflag && !bgm_changeflag) //何もなければ、End待つだけ
+
+        //Debug.Log("BGM宴途中変更フラグ=true");
+
+        //「宴」のシナリオ終了待ち
+        while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
         {
+            yield return null;
+        }
+        pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。1ならPause判定。
+
+        //ポーズの場合
+        if (pause_or_endnum == 1)
+        {
+            switch (scenarioLabel)
+            {
+                case "Or_NPC106_park_pool": //Or遊園地プール　Yes押したので水着にここで着替える
+
+                    Debug.Log("スク水に着替え");
+
+                    //広場のヒカリLive2Dを取得
+                    character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                    live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
+
+                    before_costume = GameMgr.Costume_Num;
+                    GameMgr.Costume_Num = 2;
+                    trans_costume = GameMgr.Costume_Num;
+                    live2d_animator.SetInteger("trans_costume", trans_costume);
+                    break;
+
+                case "Or_NPC108_hotspring": //Or温泉　Yes押したので裸になる
+
+                    Debug.Log("はだかになる");
+
+                    //広場のヒカリLive2Dを取得
+                    character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+                    live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
+
+                    before_costume = GameMgr.Costume_Num;
+                    GameMgr.Costume_Num = 2;
+                    trans_costume = GameMgr.Costume_Num;
+                    live2d_animator.SetInteger("trans_costume", trans_costume);
+                    break;
+            }
+
+            //BGMをオフにする。
+            BGMMute();
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
+
             //「宴」のシナリオ終了待ち
             while (!Engine.IsEndScenario)
             {
                 yield return null;
             }
-        }
-        else //レシピをとる可能性がある場合は、pauseも待つ。
-        {
-            Debug.Log("レシピゲットフラグ=true Or BGM宴途中変更フラグ=true");
 
-            //「宴」のシナリオ終了待ち
-            while (!Engine.IsEndOrPauseScenario)
+            switch (scenarioLabel)
             {
-                yield return null;
+                case "Or_NPC106_park_pool": //Or遊園地プール　水着着替えてたので、元に戻す
+
+                    Debug.Log("着替え元に戻す");
+
+                    GameMgr.Costume_Num = before_costume;
+                    trans_costume = GameMgr.Costume_Num;
+                    live2d_animator.SetInteger("trans_costume", trans_costume);
+
+                    GameMgr.System_PoolEnd = true; //プールに入り終わった
+                    break;
+
+                case "Or_NPC107_park_sweat_hotel": //Or遊園地ホテル　読み終わり後フラグ
+
+                    GameMgr.System_HotelEnd = true; //ホテル終わり
+                    break;
+
+                case "Or_NPC108_hotspring": //Or温泉　裸だったので、元に戻す
+
+                    Debug.Log("着替え元に戻す");
+
+                    GameMgr.Costume_Num = before_costume;
+                    trans_costume = GameMgr.Costume_Num;
+                    live2d_animator.SetInteger("trans_costume", trans_costume);
+
+                    GameMgr.System_HotSpringEnd = true; //温泉に入り終わった
+                    break;
             }
-            pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。
 
-            //ポーズの場合
-            if(pause_or_endnum == 1)
-            {
-                switch (scenarioLabel)
-                {
-                    case "Or_NPC106_park_pool": //Or遊園地プール　Yes押したので水着にここで着替える
-
-                        Debug.Log("スク水に着替え");
-
-                        //広場のヒカリLive2Dを取得
-                        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                        live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
-
-                        before_costume = GameMgr.Costume_Num;
-                        GameMgr.Costume_Num = 2;
-                        trans_costume = GameMgr.Costume_Num;
-                        live2d_animator.SetInteger("trans_costume", trans_costume);
-                        break;
-
-                    case "Or_NPC108_hotspring": //Or温泉　Yes押したので裸になる
-
-                        Debug.Log("はだかになる");
-
-                        //広場のヒカリLive2Dを取得
-                        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                        live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
-
-                        before_costume = GameMgr.Costume_Num;
-                        GameMgr.Costume_Num = 2;
-                        trans_costume = GameMgr.Costume_Num;
-                        live2d_animator.SetInteger("trans_costume", trans_costume);
-                        break;
-                }
-
-                //BGMをオフにする。
-                BGMMute();
-
-                //続きから再度読み込み
-                engine.ResumeScenario();
-
-                //「宴」のシナリオ終了待ち
-                while (!Engine.IsEndScenario)
-                {
-                    yield return null;
-                }
-
-                switch (scenarioLabel)
-                {
-                    case "Or_NPC106_park_pool": //Or遊園地プール　水着着替えてたので、元に戻す
-
-                        Debug.Log("着替え元に戻す");
-
-                        GameMgr.Costume_Num = before_costume;
-                        trans_costume = GameMgr.Costume_Num;
-                        live2d_animator.SetInteger("trans_costume", trans_costume);
-
-                        GameMgr.System_PoolEnd = true; //プールに入り終わった
-                        break;
-
-                    case "Or_NPC107_park_sweat_hotel": //Or遊園地ホテル　読み終わり後フラグ
-
-                        GameMgr.System_HotelEnd = true; //ホテル終わり
-                        break;
-
-                    case "Or_NPC108_hotspring": //Or温泉　裸だったので、元に戻す
-
-                        Debug.Log("着替え元に戻す");
-
-                        GameMgr.Costume_Num = before_costume;
-                        trans_costume = GameMgr.Costume_Num;
-                        live2d_animator.SetInteger("trans_costume", trans_costume);
-
-                        GameMgr.System_HotSpringEnd = true; //温泉に入り終わった
-                        break;
-                }
-
-                //BGMを再開
-                BGMMuteOFF();
-            }
-            else //エンドは、そのままエンドなので流して終了　pause_or_endnum == 0は、EndScenarioを押したときのみ。Pauseしたのにpause_or_endnum == 0は使わない
-            { }
-            
+            //BGMを再開
+            BGMMuteOFF();
         }
+        else //エンドは、そのままエンドなので流して終了　pause_or_endnum == 0は、EndScenarioを押したときのみ。Pauseしたのにpause_or_endnum == 0は使わない
+        { }
+
 
 
 
@@ -3601,7 +3621,7 @@ public class Utage_scenario : MonoBehaviour
 
         //１の広場イベント
         hiroba_endflag_num = (int)engine.Param.GetParameter("Hiroba_endflag_Num");
-        switch(hiroba_endflag_num)
+        switch (hiroba_endflag_num)
         {
             case 5041:
 
@@ -3620,7 +3640,7 @@ public class Utage_scenario : MonoBehaviour
 
 
         //オランジーナフラグ関係
-        switch(scenarioLabel)
+        switch (scenarioLabel)
         {
             case "Or_NPC01_none":
 
@@ -3750,7 +3770,7 @@ public class Utage_scenario : MonoBehaviour
 
                         moneyStatus_Controller.UseMoney(1000);
                         omoide_flag = GameMgr.SearchHikariOmoideFlag("event_kanransha");
-                        if(!omoide_flag)
+                        if (!omoide_flag)
                         {
                             GameMgr.SetHikariOmoideFlag("event_kanransha", true);
                             //Debug.Log("イベント観覧車　思い出フラグをTrue");
@@ -4020,7 +4040,14 @@ public class Utage_scenario : MonoBehaviour
 
                     case 1: //のる
 
-                        moneyStatus_Controller.UseMoney(1200);
+                        moneyStatus_Controller.UseMoney(800);
+                        GameMgr.NPC_FriendPoint[5] += 3; //友好度上がる
+
+                        if(roten_flag_num == 160510) //3回目で、はじめてねこみみ少女と会話
+                        {
+                            GameMgr.NPCHiroba_eventList[1050] = true;
+                            GameMgr.NPCHiroba_eventDayCounter[1] = 1; //日数カウンタリセット
+                        }
                         break;
 
                 }
@@ -4067,8 +4094,8 @@ public class Utage_scenario : MonoBehaviour
                         break;
                 }
                 break;
-        }      
-        
+        }
+
 
         //
 

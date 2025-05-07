@@ -28,6 +28,9 @@ public class StatusPanel : MonoBehaviour {
     private GameObject accePrefab;
     private GameObject contentAcce;
 
+    private GameObject contentCollection;
+    private GameObject collectionPrefab;
+
     private GameObject statusList;   
     private GameObject paramview1;
     private GameObject paramview2;
@@ -39,6 +42,7 @@ public class StatusPanel : MonoBehaviour {
     private GameObject StatusList_SelectView_obj;
     private GameObject Costume_Panel_obj;
     private GameObject Collection_Panel_obj;
+    private GameObject Collection_CaptionPanel_obj;
     private GameObject HikariStatusList_obj;
 
     private GameObject HikariParam_Toggle_obj;
@@ -68,7 +72,6 @@ public class StatusPanel : MonoBehaviour {
     private Text zairyobox_lv_param;
 
     private GameObject _model_obj;
-    private GameObject collectionitem_toggle_obj;
     public List<GameObject> collectionitem_toggle = new List<GameObject>();
 
     private Sprite cosIcon_sprite;
@@ -146,26 +149,38 @@ public class StatusPanel : MonoBehaviour {
         StatusList_SelectView_obj = this.transform.Find("StatusPanelSelect_ScrollView").gameObject;
         Costume_Panel_obj = this.transform.Find("CostumePanel").gameObject;
         Collection_Panel_obj = this.transform.Find("CollectionPanel").gameObject;
-        collectionitem_toggle_obj = (GameObject)Resources.Load("Prefabs/CollectionIcon");
+        Collection_CaptionPanel_obj = Collection_Panel_obj.transform.Find("ParamView2").gameObject;
         HikariStatusList_obj = this.transform.Find("HikariStatusList").gameObject;
 
         contentCos = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
         costumePrefab = (GameObject)Resources.Load("Prefabs/ClothIcon");
         contentAcce = this.transform.Find("CostumePanel/ParamView3/Scroll View2/Viewport/Content").gameObject;
         accePrefab = (GameObject)Resources.Load("Prefabs/AcceIcon");
-
+        
         hatena_sprite = Resources.Load<Sprite>("Sprites/Icon/question");
 
-        foreach (Transform child in Collection_Panel_obj.transform.Find("ParamView/Scroll View/Viewport/Content").transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
-        {
-            Destroy(child.gameObject);
-        }       
+        contentCollection = Collection_Panel_obj.transform.Find("ParamView/Scroll View/Viewport/Content").gameObject;
+        collectionPrefab = (GameObject)Resources.Load("Prefabs/CollectionIcon");
 
         collectionitem_toggle.Clear();
-        for (i = 0; i < GameMgr.CollectionItems.Count; i++)
+        foreach (Transform child in contentCollection.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
-            collectionitem_toggle.Add(Instantiate(collectionitem_toggle_obj, Collection_Panel_obj.transform.Find("ParamView/Scroll View/Viewport/Content").transform));
-        }       
+            Destroy(child.gameObject);
+        }
+
+        count = 0;
+        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
+        {
+            collectionitem_toggle.Add(Instantiate(collectionPrefab, contentCollection.transform));
+            collectionitem_toggle[count].transform.Find("CollectionToggle").GetComponent<CollectionToggle>()._listnum = count;
+            collectionitem_toggle[count].transform.Find("CollectionToggle").GetComponent<CollectionToggle>()._no = count + 1;
+            collectionitem_toggle[count].transform.Find("CollectionToggle").GetComponent<CollectionToggle>()._itemName = GameMgr.CollectionItemsName[i];
+
+            count++;
+        }
+
+        //最初にコレクション説明文リセット
+        OnCollectionCaptionHyouji(9999, "Non");
 
         girlLV_param = paramview1.transform.Find("ParamA_param/Text").GetComponent<Text>();
         girlHeart_param = paramview1.transform.Find("ParamB_param/Text").GetComponent<Text>();
@@ -501,9 +516,9 @@ public class StatusPanel : MonoBehaviour {
         WindowAllOFF();
         Collection_Panel_obj.SetActive(true);
 
-        for (i = 0; i < GameMgr.CollectionItems.Count; i++)
-        {
-            if (GameMgr.CollectionItems[i]) //登録済みの場合、コレクションとして表示される。
+        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
+        {           
+            if (pitemlist.ReturnItemKosu(GameMgr.CollectionItemsName[i]) > 0) //所持してた場合、画像として表示される。
             {
                 _itemID = database.SearchItemIDString(GameMgr.CollectionItemsName[i]);
                 collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = database.items[_itemID].itemIcon_sprite;
@@ -514,6 +529,39 @@ public class StatusPanel : MonoBehaviour {
                 collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = hatena_sprite;
                 collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().interactable = false;
             }
+        }
+    }
+
+    public void OnCollectionCaptionHyouji(int _no, string _collectionName) //CollectionToggleから読み出し　アイテムの説明を呼び出す
+    {
+        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
+        {
+            collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().SetIsOnWithoutCallback(false);
+        }
+
+        if (_no == 9999)
+        {
+            //空の表記
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/CollectionNum").GetComponent<Text>().text = "--";
+        }
+        else
+        {
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/CollectionNum").GetComponent<Text>().text = _no.ToString();
+        }
+
+        if (_collectionName == "Non")
+        {
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemImg").gameObject.SetActive(false);
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemName").GetComponent<Text>().text = "";
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemCaption").GetComponent<Text>().text = "";
+        }
+        else
+        {
+            _itemID = database.SearchItemIDString(_collectionName);
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemImg").gameObject.SetActive(true);
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemImg").GetComponent<Image>().sprite = database.items[_itemID].itemIcon_sprite;
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemName").GetComponent<Text>().text = database.items[_itemID].itemNameHyouji;
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemCaption").GetComponent<Text>().text = database.items[_itemID].itemDesc;
         }
     }
 
