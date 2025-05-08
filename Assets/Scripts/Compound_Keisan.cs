@@ -1715,29 +1715,21 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "CompNo")
             {
-                result_kosu = final_kette_kosu1 * _set_kaisu; //元のアイテムになにかをかける魔法も、元アイテム一個にかけるので生成も一個 final_kette_kosu1にしてるけど、1個でもいい
+                result_kosu = _kosu1 * _set_kaisu; //元のアイテムになにかをかける魔法も、元アイテム一個にかけるので生成も一個 _kosu1にしてるけど、1個でもいい
             }
             else
             {
                 if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "KetteiKosu")
                 {
-                    result_kosu = final_kette_kosu1 * _set_kaisu; //入れた個数だけできる
+                    result_kosu = _kosu1 * _set_kaisu; //入れた個数だけできる
                 }
                 else
                 {
                     switch (GameMgr.UseMagicSkill)
                     {
-                        case "Aroma_Potion": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
+                        case "Aroma_Potion": //アロマポーションは基本個数が一個（入れた材料の数が濃縮）　ただし、スキル習得レベルで個数増える
 
-                            //final_kette_kosu1 = 1 * GameMgr.UseMagicSkillLv; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
                             result_kosu = 1 * GameMgr.UseMagicSkillLv * _set_kaisu; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            break;
-
-                        case "SugerPot": //アロマポーションは基本個数が一個　ただし、スキル習得レベルで個数増える
-
-                            //final_kette_kosu1 = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
-                            result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu + (1 * GameMgr.UseMagicSkillLv) - 1;
                             break;
 
                         default: //その他　フリージングやテンパリングなど。compoDBを指定するものは、compoDBの個数

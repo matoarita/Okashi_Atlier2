@@ -208,7 +208,7 @@ AnimatorController:
   - m_Name: trans_costume
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 0
+    m_DefaultInt: 1
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: trans_nade
@@ -13634,7 +13634,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102382426716316228}
-    m_Position: {x: 348, y: 72, z: 0}
+    m_Position: {x: 350, y: 70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102323946661172160}
     m_Position: {x: 348, y: 144, z: 0}

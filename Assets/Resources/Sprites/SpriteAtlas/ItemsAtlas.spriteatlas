@@ -425,6 +425,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5a48d6a78df8d5e498f3f3c54ebb0434, type: 3}
   - {fileID: 21300000, guid: d5af1da72f23fe64eb7d4a7d57046815, type: 3}
   - {fileID: 21300000, guid: 8b29eea774186bc4284db8a24d354450, type: 3}
+  - {fileID: 21300000, guid: 2762c2b7378733648b84c34a3d0aa8b4, type: 3}
   - {fileID: 21300000, guid: d75f9db77fa04704498342f0951c970b, type: 3}
   - {fileID: 21300000, guid: 20493fb731a8ff940959733c84c206d8, type: 3}
   - {fileID: 21300000, guid: 122f00c7d8bffd04dbaf98ff4745f896, type: 3}
@@ -511,6 +512,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6773bd89470c12945a48027bd9a57f4d, type: 3}
   - {fileID: 21300000, guid: 16c0bf8995e034645b7f035186aa5d0e, type: 3}
   - {fileID: 21300000, guid: 7bfd70995aae1d449877805fa99bf2d6, type: 3}
+  - {fileID: 21300000, guid: 7c4e1699a895b034984b052e411ebb8b, type: 3}
   - {fileID: 21300000, guid: 52cef699703d09d4db3283255e5a1777, type: 3}
   - {fileID: 21300000, guid: 0778d9999b0c4354292772d0afffe8c4, type: 3}
   - {fileID: 21300000, guid: 266234a9fb36de547b6f1f93be32e066, type: 3}
@@ -708,6 +710,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0ffe466db1a817545b845fe08975c408, type: 3}
   - {fileID: 21300000, guid: c795707d31ec6ac49b7eb51b6d884f5d, type: 3}
   - {fileID: 21300000, guid: 2ad72f7d2b3f0d542b9dee84aa246f86, type: 3}
+  - {fileID: 21300000, guid: 37e0538d2f6c6b543bf086ad725e8800, type: 3}
   - {fileID: 21300000, guid: 95f86c8d32fa131489ad8c7088cabc75, type: 3}
   - {fileID: 21300000, guid: 666e65ad3e7d081408ab7a5a762b89dd, type: 3}
   - {fileID: 21300000, guid: e3bbc8ad231f82e419840eb698bc8550, type: 3}
@@ -1172,6 +1175,7 @@ SpriteAtlas:
   - cookie_powerup1
   - powder_bowl_cocoa
   - neko_badge_red
+  - beorv_iron
   - bush_de_noel_rollcake
   - macaron
   - cookie_house_base_2
@@ -1258,6 +1262,7 @@ SpriteAtlas:
   - juice_mix
   - jelly_water_mint
   - kohakutou_acce2
+  - yukidaruma
   - citric_acid
   - cake_knife
   - lumi_pink_neko_cookie
@@ -1455,6 +1460,7 @@ SpriteAtlas:
   - appaleil_chocolate_twister_3_blue
   - frozen_strawberry
   - butter_cream_chocolate
+  - milk_bin
   - chocolate_green_crown
   - icecream_strawberry
   - aroma_potion3

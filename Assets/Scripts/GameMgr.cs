@@ -1953,6 +1953,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //CollectionItemsName.Add("kuma_nuigurumi");
         CollectionItemsName.Add("amano_champmery");
         CollectionItemsName.Add("beorv_iron");
+        CollectionItemsName.Add("milk_bin");
+        CollectionItemsName.Add("yukidaruma");
         CollectionItemsName.Add("pink_ninjin");
         CollectionItemsName.Add("hikari_speed_up1");
         CollectionItemsName.Add("aroma_potion1");
@@ -1961,6 +1963,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("cookie_powerup2");       
         CollectionItemsName.Add("crepe_powerup2");
         CollectionItemsName.Add("tea_powerup2");
+        CollectionItemsName.Add("neko_badge2");
         //CollectionItemsName.Add("music_box");
     }
 
@@ -2430,9 +2433,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //スター・場所のイベント系
         HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "プール", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでまったり", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂でいちゃいちゃ", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでにいちゃんと・・♪", false, "EventCG_Icon/cg_gallery_icon_2"));
     }
 
     //思い出イベントの現在のフラグを取得

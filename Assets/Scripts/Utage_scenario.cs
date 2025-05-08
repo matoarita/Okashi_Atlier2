@@ -920,6 +920,9 @@ public class Utage_scenario : MonoBehaviour
         //Debug.Log("GameMgr.CGGallery_num: " + GameMgr.CGGallery_num);
         engine.Param.TrySetParameter("HikariOmoide_Flag", true);
 
+        //コスチューム切り替え
+        Live2DCostume_UtageChange();
+
         //音を止める
         BGMMute();
         //sceneBGM.MuteBGM();
@@ -927,23 +930,14 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
-        //
-        //「宴」のポーズ終了待ち
-        /*while (!engine.IsPausingScenario)
-        {
-            yield return null;
-        }
-
-        //終了ボタンをおすと、シナリオエンド
-
-        //続きから再度読み込み
-        engine.ResumeScenario();*/
-
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)
         {
             yield return null;
         }
+
+        //着替えをもどす
+        Live2DCostume_UtageReset();
 
         //BGMを再開
         BGMMuteOFF();
@@ -3346,6 +3340,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Fullmoon_Month", GameMgr.System_Fullmoon_month);
         engine.Param.TrySetParameter("Fullmoon_Day", GameMgr.System_Fullmoon_day);
         engine.Param.TrySetParameter("TrueHeartCost", GameMgr.System_trueheart_cost);
+        engine.Param.TrySetParameter("Costume_num", GameMgr.Costume_Num); //今きてる服の番号
         engine.Param.TrySetParameter("contest_bring_Type", GameMgr.Contest_BringType);
         engine.Param.TrySetParameter("Costume_Sukumizu_Flag", Costume_sukumizu_flag);
         engine.Param.TrySetParameter("magic_lvpoint", GameMgr.System_MagicLVPoint);
@@ -3537,30 +3532,12 @@ public class Utage_scenario : MonoBehaviour
             {
                 case "Or_NPC106_park_pool": //Or遊園地プール　Yes押したので水着にここで着替える
 
-                    Debug.Log("スク水に着替え");
-
-                    //広場のヒカリLive2Dを取得
-                    character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                    live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
-
-                    before_costume = GameMgr.Costume_Num;
-                    GameMgr.Costume_Num = 2;
-                    trans_costume = GameMgr.Costume_Num;
-                    live2d_animator.SetInteger("trans_costume", trans_costume);
+                    Live2DCostume_UtageChange();
                     break;
 
                 case "Or_NPC108_hotspring": //Or温泉　Yes押したので裸になる
 
-                    Debug.Log("はだかになる");
-
-                    //広場のヒカリLive2Dを取得
-                    character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
-                    live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
-
-                    before_costume = GameMgr.Costume_Num;
-                    GameMgr.Costume_Num = 2;
-                    trans_costume = GameMgr.Costume_Num;
-                    live2d_animator.SetInteger("trans_costume", trans_costume);
+                    Live2DCostume_UtageChange();
                     break;
             }
 
@@ -3568,23 +3545,21 @@ public class Utage_scenario : MonoBehaviour
             BGMMute();
 
             //続きから再度読み込み
+            engine.Param.TrySetParameter("EndOrPause_Num", 0); //また戻しておく
             engine.ResumeScenario();
 
             //「宴」のシナリオ終了待ち
-            while (!Engine.IsEndScenario)
+            while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
             {
                 yield return null;
             }
 
+            //シナリオ終了後の処理
             switch (scenarioLabel)
             {
                 case "Or_NPC106_park_pool": //Or遊園地プール　水着着替えてたので、元に戻す
-
-                    Debug.Log("着替え元に戻す");
-
-                    GameMgr.Costume_Num = before_costume;
-                    trans_costume = GameMgr.Costume_Num;
-                    live2d_animator.SetInteger("trans_costume", trans_costume);
+                    
+                    Live2DCostume_UtageReset();
 
                     GameMgr.System_PoolEnd = true; //プールに入り終わった
                     break;
@@ -3596,11 +3571,7 @@ public class Utage_scenario : MonoBehaviour
 
                 case "Or_NPC108_hotspring": //Or温泉　裸だったので、元に戻す
 
-                    Debug.Log("着替え元に戻す");
-
-                    GameMgr.Costume_Num = before_costume;
-                    trans_costume = GameMgr.Costume_Num;
-                    live2d_animator.SetInteger("trans_costume", trans_costume);
+                    Live2DCostume_UtageReset();
 
                     GameMgr.System_HotSpringEnd = true; //温泉に入り終わった
                     break;
@@ -3820,6 +3791,10 @@ public class Utage_scenario : MonoBehaviour
                             GameMgr.SetHikariOmoideFlag("event_sweathotel", true);
                             //Debug.Log("イベント観覧車　思い出フラグをTrue");
                         }
+                        if (pitemlist.KosuCount("yukidaruma") == 0)
+                        {
+                            pitemlist.addPlayerItemString("yukidaruma", 1); //
+                        }
                         break;
 
                 }
@@ -3841,7 +3816,11 @@ public class Utage_scenario : MonoBehaviour
                         if (!omoide_flag)
                         {
                             GameMgr.SetHikariOmoideFlag("event_hotspring", true);
-                            //Debug.Log("イベント観覧車　思い出フラグをTrue");
+                            //Debug.Log("イベント観覧車　思い出フラグをTrue");                           
+                        }
+                        if(pitemlist.KosuCount("milk_bin") == 0)
+                        {
+                            pitemlist.addPlayerItemString("milk_bin", 1); //
                         }
                         break;
 
@@ -4102,6 +4081,29 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false;
 
         GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+    }
+
+    void Live2DCostume_UtageChange()
+    {
+        Debug.Log("宴上でコスチュームに切り替え");
+
+        //広場のヒカリLive2Dを取得
+        character_root = GameObject.FindWithTag("CharacterRoot").gameObject;
+        live2d_animator = character_root.transform.Find("CharacterMove/Hikari_Live2D_3").GetComponent<Animator>();
+
+        before_costume = GameMgr.Costume_Num;
+        GameMgr.Costume_Num = 9999;
+        trans_costume = GameMgr.Costume_Num;
+        live2d_animator.SetInteger("trans_costume", trans_costume);
+    }
+
+    void Live2DCostume_UtageReset()
+    {
+        Debug.Log("着替え元に戻す");
+
+        GameMgr.Costume_Num = before_costume;
+        trans_costume = GameMgr.Costume_Num;
+        live2d_animator.SetInteger("trans_costume", trans_costume);
     }
 
 
