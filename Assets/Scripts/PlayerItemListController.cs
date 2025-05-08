@@ -734,10 +734,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 //トッピング材料（ポーションかフルーツ・ナッツ系など）のみ表示
                 if (check_itemType == "Potion" || check_itemType_sub_category == "Potion" ||
                     check_itemType_sub == "Fruits" || check_itemType_sub == "Berry" || check_itemType_sub == "Harb" ||
-                    check_itemType_sub == "Nuts" || check_itemType_sub == "IceCream"
-                    )
+                    check_itemType_sub == "Nuts" || check_itemType_sub == "IceCream")
                 {
-                    itemlist_hyouji_Check(check_itemListType);
+                    if (check_itemType_sub_category != "NonTopping") //NonToppingがついてたら表示しない
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
                 }
             }
         }
