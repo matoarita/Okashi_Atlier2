@@ -131,6 +131,11 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 PrizeRankingSet09();
                 break;
 
+            case 10900:
+
+                PrizeRankingSet10();
+                break;
+
             case 20000:
 
                 PrizeRankingSet20();
@@ -171,6 +176,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                 PrizeRankingSet27();
                 break;
 
+            case 20800:
+
+                PrizeRankingSet28();
+                break;
+
+            case 20900:
+
+                PrizeRankingSet29();
+                break;
+
             case 30000:
 
                 PrizeRankingSet40();
@@ -209,6 +224,16 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
             case 30700:
 
                 PrizeRankingSet47();
+                break;
+
+            case 30800:
+
+                PrizeRankingSet47(); //デザインコンテスト　現在未実装
+                break;
+
+            case 30900:
+
+                PrizeRankingSet49();
                 break;
 
             case 40000:
@@ -908,6 +933,40 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
     }
 
+    //〇春のおかし大祭典
+    void PrizeRankingSet10()
+    {
+        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        GameMgr.PrizeItemList.Clear();
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+
+        //賞金リスト 5位から順番に入れる
+        GameMgr.PrizeGetMoneyList.Clear();
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(500);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(1500);
+        GameMgr.PrizeGetMoneyList.Add(3000);
+
+        //相手の点数リスト
+        GameMgr.PrizeScoreAreaList.Clear();
+        GameMgr.PrizeScoreAreaList.Add(91);
+        GameMgr.PrizeScoreAreaList.Add(135);
+        GameMgr.PrizeScoreAreaList.Add(157);
+        GameMgr.PrizeScoreAreaList.Add(180);
+
+        //参加者名リスト(上位4人) + 5人目がアキラくんになる
+        GameMgr.PrizeCharacterList.Clear();
+        GameMgr.PrizeCharacterList.Add("シスター・リーシュ");
+        GameMgr.PrizeCharacterList.Add("ナタリー・ポットマン");
+        GameMgr.PrizeCharacterList.Add("セリーヌ");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+    }
+
     //〇ひんやりお菓子コンテスト
     void PrizeRankingSet20()
     {
@@ -915,8 +974,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Clear();
         GameMgr.PrizeItemList.Add("Non"); //5位
         GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("maritozzo_recipi");
         GameMgr.PrizeItemList.Add("cream_brulee_recipi");
 
         //賞金リスト 5位から順番に入れる
@@ -1178,6 +1237,74 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("黒ずきん");
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
         GameMgr.PrizeCharacterList.Add("ベル");
+    }
+
+    //チョコレート初級コンテスト
+    void PrizeRankingSet28()
+    {
+        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        GameMgr.PrizeItemList.Clear();
+        GameMgr.PrizeItemList.Add("Non"); //5位
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+
+        //賞金リスト 5位から順番に入れる
+        GameMgr.PrizeGetMoneyList.Clear();
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(500);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(1500);
+        GameMgr.PrizeGetMoneyList.Add(2500);
+
+        //相手の点数リスト
+        GameMgr.PrizeScoreAreaList.Clear();
+        GameMgr.PrizeScoreAreaList.Add(112);
+        GameMgr.PrizeScoreAreaList.Add(145);
+        GameMgr.PrizeScoreAreaList.Add(168);
+        GameMgr.PrizeScoreAreaList.Add(182);
+
+        //参加者名リスト(上位4人) + 5人目がアキラくんになる
+        GameMgr.PrizeCharacterList.Clear();
+        GameMgr.PrizeCharacterList.Add("ウリユ");
+        GameMgr.PrizeCharacterList.Add("ノーマリー");
+        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+    }
+
+    //パティシエの森　自由課題初級
+    void PrizeRankingSet29()
+    {
+        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        GameMgr.PrizeItemList.Clear();
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+
+        //賞金リスト 5位から順番に入れる
+        GameMgr.PrizeGetMoneyList.Clear();
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(500);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(1500);
+        GameMgr.PrizeGetMoneyList.Add(2500);
+
+        //相手の点数リスト
+        GameMgr.PrizeScoreAreaList.Clear();
+        GameMgr.PrizeScoreAreaList.Add(71);
+        GameMgr.PrizeScoreAreaList.Add(105);
+        GameMgr.PrizeScoreAreaList.Add(127);
+        GameMgr.PrizeScoreAreaList.Add(160);
+
+        //参加者名リスト(上位4人) + 5人目がアキラくんになる
+        GameMgr.PrizeCharacterList.Clear();
+        GameMgr.PrizeCharacterList.Add("エリカ");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("ベル");
+        GameMgr.PrizeCharacterList.Add("イセヤ");
     }
 
     //〇クレープ・ドゥ・シャノワール　クレープ系　クレープは屋台で手に入れるので、入手のヒントがないと困るかも。
@@ -1450,6 +1577,40 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("フランソワ");
         GameMgr.PrizeCharacterList.Add("ジョーカー");
         GameMgr.PrizeCharacterList.Add("クルル");
+    }
+
+    //秋のお菓子コンテスト　自由課題　中級
+    void PrizeRankingSet49()
+    {
+        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        GameMgr.PrizeItemList.Clear();
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+
+        //賞金リスト 5位から順番に入れる
+        GameMgr.PrizeGetMoneyList.Clear();
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(500);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+
+        //相手の点数リスト
+        GameMgr.PrizeScoreAreaList.Clear();
+        GameMgr.PrizeScoreAreaList.Add(128);
+        GameMgr.PrizeScoreAreaList.Add(156);
+        GameMgr.PrizeScoreAreaList.Add(168);
+        GameMgr.PrizeScoreAreaList.Add(204);
+
+        //参加者名リスト(上位4人) + 5人目がアキラくんになる
+        GameMgr.PrizeCharacterList.Clear();
+        GameMgr.PrizeCharacterList.Add("メイドのエリヤ");
+        GameMgr.PrizeCharacterList.Add("クルル");
+        GameMgr.PrizeCharacterList.Add("フランソワ");
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
     }
 
     //〇クワイットスノウ　自由課題

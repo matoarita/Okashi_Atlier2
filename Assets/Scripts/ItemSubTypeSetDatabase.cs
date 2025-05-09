@@ -80,6 +80,21 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_OkashiSubType_Num = 13;
                 Fluffy_Text();
                 break;
+            case "Cake_MatSpongeBaked":
+                GameMgr.Item_subcategoryText = "ケーキの素材";
+                GameMgr.Item_OkashiSubType_Num = 13;
+                Fluffy_Text();
+                break;
+            case "Cake_MatSponge":
+                GameMgr.Item_subcategoryText = "ケーキの素材";
+                GameMgr.Item_OkashiSubType_Num = 13;
+                Fluffy_Text();
+                break;
+            case "Cake_MatCream":
+                GameMgr.Item_subcategoryText = "ケーキの素材";
+                GameMgr.Item_OkashiSubType_Num = 13;
+                Fluffy_Text();
+                break;
             case "CheeseCake":
                 GameMgr.Item_subcategoryText = "チーズケーキ";
                 GameMgr.Item_OkashiSubType_Num = 10;
@@ -106,7 +121,7 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 Fluffy_Text();
                 break;
             case "Crepe_Mat":
-                GameMgr.Item_subcategoryText = "クレープ";
+                GameMgr.Item_subcategoryText = "クレープ生地";
                 GameMgr.Item_OkashiSubType_Num = 4;
                 Fluffy_Text();
                 break;

@@ -831,7 +831,7 @@ public class Quest_Judge : MonoBehaviour {
 
 
     //
-    //クッキーなどの判定するお菓子を納品した場合の処理
+    //クッキーなどの判定するお菓子を納品した場合の処理　特にお菓子タイプでないといけない縛りはない
     //
     public void Okashi_Judge(int _ID)
     {

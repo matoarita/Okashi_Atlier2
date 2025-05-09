@@ -1950,7 +1950,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void InitCollectionItemsLibrary() //コレクションアイテムの一覧　コレクションパネルを開いたときに表示される
     {
         CollectionItemsName.Clear();
-        //CollectionItemsName.Add("kuma_nuigurumi");
+        CollectionItemsName.Add("kuma_nuigurumi");
         CollectionItemsName.Add("amano_champmery");
         CollectionItemsName.Add("beorv_iron");
         CollectionItemsName.Add("milk_bin");
@@ -1963,7 +1963,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("cookie_powerup2");       
         CollectionItemsName.Add("crepe_powerup2");
         CollectionItemsName.Add("tea_powerup2");
-        CollectionItemsName.Add("neko_badge2");
+        //CollectionItemsName.Add("neko_badge2");
         //CollectionItemsName.Add("music_box");
     }
 
@@ -2411,9 +2411,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         Highscore_SPEventlist.Clear();
 
+        //思い出も解放される
         Highscore_SPEventlist.Add("huwakoro", 250); //右の番号は、GirlLoveSubEvent_numの番号
         Highscore_SPEventlist.Add("maritozzo", 251);
         Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
+
+        //解放なしで読むイベントのみ
+        Highscore_SPEventlist.Add("figure_bear_choco", 253); //くまのおにいさんかいもうと　食べると、ふたりのおうち制作のヒントレシピ解放
+        Highscore_SPEventlist.Add("figure_bear_whitechoco", 253);
     }
 
     //特別思い出イベントのリスト　回想シーン用と収集要素 上の特別イベントリストと一致する必要はない　先頭のIDが、そのまま宴のCGの呼び出し番号になる
@@ -2458,11 +2463,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         //Debug.Log("思い出イベントフラグセットの処理入る");
         for (system_i = 0; system_i < HikariOmoide_Eventlist.Count; system_i++)
-        {
-            //Debug.Log("思い出イベントフラグ取得中: " + items);
+        {         
             if (HikariOmoide_Eventlist[system_i].titleName == _name)
             {
                 HikariOmoide_Eventlist[system_i].Flag = _flag;
+                Debug.Log("思い出イベント解放: " + HikariOmoide_Eventlist[system_i].titleName);
             }
         }
     }
@@ -2478,11 +2483,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiAtFirst_eventlist.Add("lumi_sapphire_suger", 202);
         OkashiAtFirst_eventlist.Add("a_ChocolateTwister", 203);
         OkashiAtFirst_eventlist.Add("ice_statue_twister", 204);
+        OkashiAtFirst_eventlist.Add("ice_candy_twister", 204);
         OkashiAtFirst_eventlist.Add("potion_blacklotus", 205);
         OkashiAtFirst_eventlist.Add("cream_row_dream", 206);
         OkashiAtFirst_eventlist.Add("appaleil_mixer_black", 207);
         OkashiAtFirst_eventlist.Add("eden_unfinished", 208);
         OkashiAtFirst_eventlist.Add("Eden", 209);
+        OkashiAtFirst_eventlist.Add("icemilk_frozen_twister", 210);
     }
 
     //温度管理をかけるお菓子のリスト SubTypeを記入する

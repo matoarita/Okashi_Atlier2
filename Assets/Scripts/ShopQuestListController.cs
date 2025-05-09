@@ -499,10 +499,10 @@ public class ShopQuestListController : MonoBehaviour
             if (quest_database.questset[j].Quest_ID >= _id)
             {
                 //Debug.Log("クエストID: " + quest_database.questset[j].Quest_ID);
-                //まず人気度が足りてないのものは表示されない 　人気度による表示は今のところ使用していない。ハートLVが足りてさえいれば、全部表示される。
-                if (quest_database.questset[j].QuestHyouji <= PlayerStatus.player_ninki_param)
+                //quest_database.questset[j].QuestHyoujiHeartは、人気度として使用。quest_database.questset[j].QuestHyoujiは現在未使用だが、なにかで使ってもいい。
+                if (quest_database.questset[j].QuestHyouji <= 99)
                 {
-                    if (quest_database.questset[j].QuestHyoujiHeart <= PlayerStatus.girl1_Love_lv) //ランクが足りてるかつ、ハートLVが足りてるものを表示
+                    if (quest_database.questset[j].QuestHyoujiHeart <= PlayerStatus.player_ninki_param) //ランクが足りてるかつ、ハートLVが足りてるものを表示
                     {                        
                         selectquestDB.Add(j); //クエストDBのリスト番号のリスト
                     }

@@ -1900,22 +1900,27 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //食べたお菓子のスコアを保存する。
                 GameMgr.Okashi_last_totalscore = total_score;
 
-                //食べた後、〇〇点以上で特定のお菓子の場合、ヒカリとの特別イベントが発生
-                if (total_score >= GameMgr.sp_omoide_high_score)
+                if (contest_type == 10) //コンテストの味見のときは無視
+                { }
+                else
                 {
-                    foreach(string items in GameMgr.Highscore_SPEventlist.Keys)
+                    //食べた後、〇〇点以上で特定のお菓子の場合、ヒカリとの特別イベントが発生
+                    if (total_score >= GameMgr.sp_omoide_high_score)
                     {
-                        if (_basename == items)
+                        foreach (string items in GameMgr.Highscore_SPEventlist.Keys)
                         {
-                            //さらに思い出イベントリストをチェックし、一致するおかしの名前があれば、そのイベントは思い出イベントでもあるので、回想シーン用にフラグ解禁する
-                            GameMgr.SetHikariOmoideFlag(items, true);
+                            if (_basename == items)
+                            {
+                                //さらに思い出イベントリストをチェックし、一致するおかしの名前があれば、そのイベントは思い出イベントでもあるので、回想シーン用にフラグ解禁する
+                                GameMgr.SetHikariOmoideFlag(items, true);
 
-                            GameMgr.SpecialSubevent_EatAfterflag = true;
-                            GameMgr.SpecialSubevent_Num = GameMgr.Highscore_SPEventlist[items];
-                            break;
+                                GameMgr.SpecialSubevent_EatAfterflag = true;
+                                GameMgr.SpecialSubevent_Num = GameMgr.Highscore_SPEventlist[items];
+                                break;
 
+                            }
                         }
-                    }                    
+                    }
                 }
 
                 /*
@@ -1933,7 +1938,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 break;
 
-            case 1:
+            case 1: //コンテストの採点
 
                 //コンテスト用に保存
                 if (countNum == 0)
@@ -6358,17 +6363,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     void ShokukanHintHyouji()
     {
         //食感に関するヒント
-        if (shokukan_score < 20) //
+        if (shokukan_score < -40) //
         {
             _shokukan_kansou = GameMgr.ColorRedDeep + "食感 F: " + shokukan_mes + "が全然足りない..。" + "</color>";
             _shopgirl_shokukan_kansou = shokukan_mes + "が全然足りてないわね..。";
         }
-        else if (shokukan_score >= 20 && shokukan_score < 40) //
+        else if (shokukan_score >= -40 && shokukan_score < 0) //
         {
             _shokukan_kansou = GameMgr.ColorRedDeep + "食感 C: " + shokukan_mes + "がもっとほしい" + "</color>";
             _shopgirl_shokukan_kansou = shokukan_mes + "がもっとほしいかも。";
         }
-        else if (shokukan_score >= 40 && shokukan_score < GameMgr.low_score) //
+        else if (shokukan_score >= 0 && shokukan_score < GameMgr.low_score) //
         {
             _shokukan_kansou = "食感 B: " + "まあまあの" + shokukan_mes;
             _shopgirl_shokukan_kansou = "ほどよい" + shokukan_mes + "ね。";
@@ -6476,7 +6481,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         SceneInitSetting();
             
         //コンテスト用に、渡すアイテムのパラメータ設定
-        Girleat_Judge_method(value1, value2, 1); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。
+        Girleat_Judge_method(value1, value2, 1); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。1=コンテスト
         SetGirlTasteInit();      
 
         judge_score(1, _Setcount); //SetTypeは、0=女の子か1=コンテスト用かの判定。_Setcountは、GirlLikeCompoの1,2,3番目のどれを判定に使うかの数値
@@ -6498,7 +6503,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //SceneInitSetting();
 
         //コンテスト用に、渡すアイテムのパラメータ設定
-        Girleat_Judge_method(value1, value2, SetType); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。
+        Girleat_Judge_method(value1, value2, SetType); //決定したアイテムのID(value1)と、タイプ(value2)を取得。SetTypeは、コンテストか否か。0=通常, 1=コンテスト採点, 10=味見
 
         //お菓子の判定値をセッティング
         if (!KoyuJudgeON)

@@ -1566,10 +1566,10 @@ public class SetImage : MonoBehaviour
                     DrawTasteWindow1();
                     break;
 
-                case "Material":
+                /*case "Material": //Sourceと似てるが、こっちは表示をしない
 
                     DrawTasteWindow1();
-                    break;
+                    break;*/
 
                 case "Cream":
 

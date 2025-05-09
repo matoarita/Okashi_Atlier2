@@ -365,6 +365,18 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                     }
                     break;
 
+                case 10900: //
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin;
+                            ContestRankingData_109();
+                            break;
+                    }
+                    break;
+
                 case 20000: //
 
                     switch (GameMgr.ContestRoundNum)
@@ -461,6 +473,30 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                     }
                     break;
 
+                case 20800: //
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin;
+                            ContestRankingData_208();
+                            break;
+                    }
+                    break;
+
+                case 20900: //
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin;
+                            ContestRankingData_209();
+                            break;
+                    }
+                    break;
+
                 case 30000: //
 
                     switch (GameMgr.ContestRoundNum)
@@ -553,6 +589,18 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
                             GameMgr.Contest_Name = contest_name_origin;
                             ContestRankingData_307();
+                            break;
+                    }
+                    break;
+
+                case 30800: //
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin;
+                            ContestRankingData_308();
                             break;
                     }
                     break;
@@ -1033,6 +1081,21 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位          
     }
 
+    void ContestRankingData_109() //春の大祭典　自由課題　中級者向け
+    {
+        //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_DB_list_Type = 108000; //compNum=100000~を指定
+        GameMgr.Contest_commentDB_Select = 100000;
+
+        GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。おいしいおかしを作ってください。" + "\n" + "制限時間: 8時間";
+
+        //コンテスト時間指定
+        Contest_SetStartTime();
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
+    }
+
     void ContestRankingData_200() //ひんやりお菓子コンテスト
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
@@ -1138,15 +1201,45 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
-    void ContestRankingData_207() //プラム洋菓子技術コンテスト　ケーキ限定
+    void ContestRankingData_207() //プラム洋菓子技術コンテスト
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 127000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
-        GameMgr.Contest_ProblemSentence = "テーマ：ケーキ";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。クオリティの高いケーキを作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。クオリティの高いおかしを作ってください。" + "\n" + "制限時間: 8時間";
+
+        //コンテスト時間指定
+        Contest_SetStartTime();
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
+    }
+
+    void ContestRankingData_208() //チョコレート初級コンテスト
+    {
+        //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_DB_list_Type = 127000; //compNum=100000~を指定
+        GameMgr.Contest_commentDB_Select = 100000;
+
+        GameMgr.Contest_ProblemSentence = "テーマ：チョコレート";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。おいしいチョコレートを作ってください。" + "\n" + "制限時間: 8時間";
+
+        //コンテスト時間指定
+        Contest_SetStartTime();
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
+    }
+
+    void ContestRankingData_209() //パティシエの森
+    {
+        //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_DB_list_Type = 127000; //compNum=100000~を指定
+        GameMgr.Contest_commentDB_Select = 100000;
+
+        GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。自由にお菓子を作ってください。" + "\n" + "制限時間: 8時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
@@ -1265,12 +1358,27 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 147000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
-        GameMgr.Contest_ProblemSentence = "テーマ：鉱石お菓子限定";
-        GameMgr.Contest_ProblemSentence2 = "鉱石をモチーフにしたお菓子を作ってください。" + "\n" + "制限時間: 6時間";
+        GameMgr.Contest_ProblemSentence = "テーマ：キラキラお菓子限定";
+        GameMgr.Contest_ProblemSentence2 = "キラキラをモチーフにしたお菓子を作ってください。" + "\n" + "制限時間: 6時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位          
+    }
+
+    void ContestRankingData_308() //秋のお菓子コンテスト
+    {
+        //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_DB_list_Type = 147000; //compNum=100000~を指定
+        GameMgr.Contest_commentDB_Select = 100000;
+
+        GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。自由にお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+
+        //コンテスト時間指定
+        Contest_SetStartTime();
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
     void ContestRankingData_400() //クワイットスノウ　自由課題　雪国に合うお菓子あと少し点数高い

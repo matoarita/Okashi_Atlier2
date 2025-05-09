@@ -581,9 +581,9 @@ public class ContestListController : MonoBehaviour
                         }
                     }
 
-                    //ルミエールカンデラ一位クリアで春コン最後がでる
-                    _listID = conteststartList_database.SearchContestString("Or_Contest_070");
-                    if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1)
+                    //スター20個以上で春コン最後がでる
+                    //_listID = conteststartList_database.SearchContestString("Or_Contest_070");
+                    if (PlayerStatus.player_ninki_param >= 20)
                     {
                         if (!GameMgr.Contest_NewReleaseList[4])
                         {
@@ -598,9 +598,11 @@ public class ContestListController : MonoBehaviour
 
                 //夏コンテスト
 
-                //ひんやりおかしコンテストクリアで、次がでる 1位か2位
+                //ひんやりおかしコンテストかパティシエの森クリアで、次がでる 1位か2位
                 _listID = conteststartList_database.SearchContestString("Or_Contest_200");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
+                _listID2 = conteststartList_database.SearchContestString("Or_Contest_290");
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2 ||
+                    conteststartList_database.conteststart_lists[_listID2].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID2].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[10])
                     {
@@ -657,9 +659,11 @@ public class ContestListController : MonoBehaviour
 
                 //秋コンテスト
 
-                //クレープドゥシャノワールコンテストクリアで、次がでる
+                //クレープドゥシャノワールコンテストか秋のお菓子コンテストクリアで、次がでる
                 _listID = conteststartList_database.SearchContestString("Or_Contest_400");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
+                _listID2 = conteststartList_database.SearchContestString("Or_Contest_490");
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2 ||
+                    conteststartList_database.conteststart_lists[_listID2].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID2].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[20])
                     {
