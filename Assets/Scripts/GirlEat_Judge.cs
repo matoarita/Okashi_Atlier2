@@ -5137,23 +5137,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     sp_quest_clear = true;
                 }*/
 
-                //エデンのレシピ残り２つを持った時点でクリア
-                if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
-                pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
+                //夏か秋どちらかのコンテストで優勝し、2つ目のレシピをゲットすれば先へすすめる
+                if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1 ||
                 pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
                 {
-                    Debug.Log("エデンレシピ３つそろったので、クエストクリア");
+                    Debug.Log("エデンレシピ2つ目をとったので、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;
 
             case 100220:
-
-                //夏コンテストで優勝すると先へ進める
-                _id = conteststartList_database.SearchContestString("Or_Contest_002");
-                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
+                
+                //エデンのレシピ３つを持った時点でクリア
+                if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
+                pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
+                pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
                 {
-                    Debug.Log("エデンコンテスト②で優勝したので、クエストクリア");
+                    Debug.Log("エデンレシピ３つそろったので、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;

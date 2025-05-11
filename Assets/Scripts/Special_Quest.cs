@@ -548,15 +548,15 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 22: //エデン2をゲットしよう！
+            case 22: //自由時間　エデンのレシピ３つを集めよう！あと一つ。
 
                 girl1_status.OkashiQuest_ID = 100220;
                 OkashiQuest_Count = 3;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 //GameMgr.Contest_BGMON = true;
-                GameMgr.Contest_PanelON = true;
-                GameMgr.Contest_MainStoryPlaceNum = 10;
+                //GameMgr.Contest_PanelON = true;
+                //GameMgr.Contest_MainStoryPlaceNum = 10;
 
                 break;
 
