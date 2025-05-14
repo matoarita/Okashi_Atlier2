@@ -63,6 +63,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     private GameObject back_atlier_obj;
     private GameObject scene_black_effect;
+    private GameObject fadeout_panel_obj;
 
     private GameObject Character_panel;
     private List<GameObject> Character_list = new List<GameObject>();
@@ -136,6 +137,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //シーン全てをブラックに消すパネル
         scene_black_effect = canvas.transform.Find("Scene_Black").gameObject;
         scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //黒い画面はオフ
+
+        fadeout_panel_obj = canvas.transform.Find("FadeOutPanel").gameObject;
+        fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //白い画面はオフ
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
@@ -214,6 +218,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         //強制的に発生するイベントをチェック。はじめてショップへきた時など
         EventCheck();
+
+        //宴途中でホワイトをONにする　フェードアウト演出用
+        if (GameMgr.Utage_FadeOutWhiteON)
+        {
+            //白からフェードイン        
+            fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
+        }
 
         //宴途中でブラックをオフにする ドアをあけて会場へ移動する演出用
         if (GameMgr.Utage_SceneEnd_BlackON)
@@ -502,6 +513,18 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
         GameMgr.scenario_read_endflag = false;
         GameMgr.scenario_ON = false;
+
+        if (GameMgr.Utage_FadeOutWhiteON)
+        {
+            GameMgr.Utage_FadeOutWhiteON = false;
+
+            //キラキラ音もなる
+            sc.PlaySe(78);
+
+            //白からフェードイン        
+            fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
+            fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
+        }
 
         if (GameMgr.Utage_MapMoveON)
         {

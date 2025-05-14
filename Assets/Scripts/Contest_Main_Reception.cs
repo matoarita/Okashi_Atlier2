@@ -1078,6 +1078,9 @@ public class Contest_Main_Reception : MonoBehaviour
                 pitemlist.deleteAllExtremePanelItem();
             }
 
+            //さらに、ヒカリが制作中の場合、制作を一度リセット
+            GameMgr.hikari_make_okashiFlag = false;
+
             contest_list = 0;
             _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
 

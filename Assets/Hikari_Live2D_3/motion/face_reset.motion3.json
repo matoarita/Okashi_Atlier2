@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 29,
-		"TotalSegmentCount": 29,
-		"TotalPointCount": 58,
+		"CurveCount": 41,
+		"TotalSegmentCount": 41,
+		"TotalPointCount": 82,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -17,10 +17,10 @@
 			"Id": "ParamEyeLOpen",
 			"Segments": [
 				0,
-				1,
+				0.7,
 				0,
 				0.333,
-				1
+				0.7
 			]
 		},
 		{
@@ -28,10 +28,21 @@
 			"Id": "ParamEyeROpen",
 			"Segments": [
 				0,
-				1,
+				0.7,
 				0,
 				0.333,
-				1
+				0.7
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamEyeLSmile",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
 			]
 		},
 		{
@@ -179,7 +190,29 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamMoguMouthOOff",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamKiba",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
 			"Segments": [
 				0,
 				0,
@@ -289,6 +322,17 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamEyeHiYure",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamEffNoseKemuri",
 			"Segments": [
 				0,
@@ -323,6 +367,94 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamWataame_OnOff",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamWataame_OnOff2",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamRingoAmeONOFF",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamKogeHikari",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMizunure",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBathCheek",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamAppleKakin",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBathSpongeONOFF",
+			"Segments": [
+				0,
+				0,
+				0,
+				0.333,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBathWaterFallAnim1",
 			"Segments": [
 				0,
 				0,

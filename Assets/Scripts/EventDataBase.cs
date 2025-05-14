@@ -1173,7 +1173,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
 
                 //
-                //食べた後にチェック　１５０点以上で特別なイベント
+                //食べた後にチェック　１５０点以上で特別なイベント GirlEatJudge.csで発生の判定
                 //
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -1888,6 +1888,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         {
             GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
             GameMgr.SubEvAfterHeartGet_num = _evnum;
+        }
+
+        switch(_evnum)
+        {
+            case 253: //くまのおにいさんかいもうとで150点以上とったとき
+
+                ev_id = pitemlist.Find_eventitemdatabase("house_for_noisette_recipi");
+                pitemlist.add_eventPlayerItem(ev_id, 1); //ふたりのおうちのレシピを追加
+                break;
         }
     }
 

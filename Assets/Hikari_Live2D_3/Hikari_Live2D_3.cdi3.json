@@ -267,6 +267,11 @@
 			"Name": "左手混ぜ奥行き"
 		},
 		{
+			"Id": "R_upperarm_Updown",
+			"GroupId": "ParamGroup4",
+			"Name": "右肩上下"
+		},
+		{
 			"Id": "R_arm_Updown",
 			"GroupId": "ParamGroup4",
 			"Name": "右腕上下"
@@ -422,6 +427,11 @@
 			"Name": "わたあめ棒のみONOFF"
 		},
 		{
+			"Id": "ParamRingoAmeONOFF",
+			"GroupId": "ParamGroup4",
+			"Name": "りんごあめONOFF"
+		},
+		{
 			"Id": "ParamKogeHikari",
 			"GroupId": "ParamGroup4",
 			"Name": "焦げヒカリ切り替え"
@@ -430,6 +440,41 @@
 			"Id": "ParamMizunure",
 			"GroupId": "ParamGroup4",
 			"Name": "水濡れ"
+		},
+		{
+			"Id": "ParamBathCheek",
+			"GroupId": "ParamGroup4",
+			"Name": "のぼせて真っ赤"
+		},
+		{
+			"Id": "ParamAppleKakin",
+			"GroupId": "ParamGroup4",
+			"Name": "りんごカキン"
+		},
+		{
+			"Id": "ParamBathSpongeONOFF",
+			"GroupId": "ParamGroup4",
+			"Name": "お風呂スポンジONOFF"
+		},
+		{
+			"Id": "ParamBathBubbleAnim2",
+			"GroupId": "ParamGroup4",
+			"Name": "お風呂泡動き"
+		},
+		{
+			"Id": "ParamBathBubbleScale",
+			"GroupId": "ParamGroup4",
+			"Name": "お風呂泡の動きスケール"
+		},
+		{
+			"Id": "ParamShampooOnOFF",
+			"GroupId": "ParamGroup4",
+			"Name": "お風呂のシャンプー泡"
+		},
+		{
+			"Id": "ParamBathBubbleAnim",
+			"GroupId": "ParamGroup4",
+			"Name": "お風呂のシャボンアニメ"
 		},
 		{
 			"Id": "ParamMainCamX",
@@ -1370,6 +1415,26 @@
 			"Id": "ParamStarMove_4",
 			"GroupId": "ParamGroup14",
 			"Name": "きら星ムーブ4"
+		},
+		{
+			"Id": "ParamBathWFall_ONOFF",
+			"GroupId": "",
+			"Name": "お風呂水透明度"
+		},
+		{
+			"Id": "ParamBathWaterFallAnim1",
+			"GroupId": "",
+			"Name": "お風呂水かけスタート"
+		},
+		{
+			"Id": "ParamBathWaterFallLightLoop",
+			"GroupId": "",
+			"Name": "お風呂水かけハイライトアニメ"
+		},
+		{
+			"Id": "ParamBathWaterShibukiAnim",
+			"GroupId": "",
+			"Name": "水かけ先のアニメ"
 		}
 	],
 	"ParameterGroups": [
@@ -1445,6 +1510,10 @@
 		}
 	],
 	"Parts": [
+		{
+			"Id": "Part164",
+			"Name": "お風呂素材"
+		},
 		{
 			"Id": "Part17",
 			"Name": "水濡れ素材"

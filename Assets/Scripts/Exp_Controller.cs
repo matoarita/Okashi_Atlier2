@@ -630,9 +630,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else
         {
             //コンテストのときは、コンテスト時間を計算
-            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 1);
         }
-        //time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 
@@ -973,9 +972,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else
         {
-            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 1);
         }
-        //time_controller.HikarimakeTimeCheck(databaseCompo.compoitems[result_ID].cost_Time); //ヒカリのお菓子作り時間を計算
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
@@ -1221,9 +1219,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else
         {
-            time_controller.SetMinuteToHourContest(15);
+            time_controller.SetMinuteToHourContest(15, 1);
         }
-        //time_controller.HikarimakeTimeCheck(15); //ヒカリのお菓子作り時間を計算
 
         //時間の項目リセット
         time_controller.ResetTimeFlag();
@@ -1483,13 +1480,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //魔法使用時の日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1); //ヒカリのお菓子作り時間を計算
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 0); //ヒカリのお菓子作り時間を計算　魔法はヒカリが使うので計算しない
         }
         else
         {
-            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 0);
         }
-        //time_controller.HikarimakeTimeCheck(GameMgr.UseMagicSkill_TimeCost); //ヒカリのお菓子作り時間を計算
 
         _ex_text = "";
 
@@ -1611,6 +1607,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_make_okashiFlag = true; //現在制作中。このフラグをもとに、キャンセルできるようにもする。
         GameMgr.hikari_make_okashiID = GameMgr.Final_result_itemID1;
         GameMgr.hikari_make_okashi_compID = GameMgr.Final_result_compID;
+
         GameMgr.hikari_make_success_rate = _success_rate;
         GameMgr.hikari_make_okashiKosu_buf = GameMgr.hikari_make_okashiKosu_buf_keisan; //お菓子レベルに応じて、お菓子個数のバフをbufpower_keisan内で計算しここで確定・保存。
         //Debug.Log("ヒカリが作るチェック　GameMgr.hikari_make_okashiKosu_buf: " + GameMgr.hikari_make_okashiKosu_buf);

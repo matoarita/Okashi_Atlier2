@@ -880,6 +880,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Utage_MapMoveBlackON; //宴読み終わり後に、マップ移動のとき、シーンをあらかじめブラックに消すフラグ　こっちは、SceneEnd_BlackONをTrueにするため分岐する用
     public static int Utage_Prizepanel_Type; //コンテストのシーン再生中、賞品リストか順位表を表示する際のタイプ指定
     public static bool Utage_MapMoveON; //シナリオ読み後、シーンを移動するフラグ
+    public static bool Utage_FadeOutWhiteON; //宴読み後に、白からフェードアウトするフラグ
     public static bool Ajimi_AfterFlag; //味見直後　テキスト更新用のフラグ
     public static string AjimiAfter_Text; //味見直後　テキスト
     public static string GetMat_BackPlaceName; //採取から戻るときの戻り先の指定
@@ -1119,8 +1120,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int SleepBefore_Month;
     public static int SleepBefore_Day;
 
-    //時間刻む単位
-    public static int TimeStep;
+    //時間刻む単位　分単位
+    public static int TimeStep = 1;
 
     //現在の天気の状態
     public static int BG_cullent_weather;
@@ -1158,9 +1159,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //秒計算。　
         timeLeft = 1.0f;
-
-        //刻む時間の単位　分単位
-        TimeStep = 1;
 
         //エンディングカウント。リセットされない。
         ending_number = 1;
@@ -1509,6 +1507,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Utage_SceneEnd_BlackON = false;
         Utage_MapMoveBlackON = false;
         Utage_MapMoveON = false;
+        Utage_FadeOutWhiteON = false;
         Utage_Prizepanel_Type = 0;
         Ajimi_AfterFlag = false;
         Station_TrainGoFlag = false;

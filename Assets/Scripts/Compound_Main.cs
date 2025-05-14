@@ -140,6 +140,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject scene_black_effect;
     private GameObject compoBG_A;
     private GameObject ResultBGimage;
+    private GameObject fadeout_panel_obj;
 
     private GameObject Hikarimake_StartPanel;
     private GameObject SelectCompo_panel_1;
@@ -481,6 +482,9 @@ public class Compound_Main : MonoBehaviour
         //黒半透明パネルの取得
         black_panel_A = canvas.transform.Find("Black_Panel_A").gameObject;
         black_panel_A.SetActive(false);
+
+        fadeout_panel_obj = canvas.transform.Find("FadeOutPanel").gameObject;
+        fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 0.0f); //白い画面はオフ
 
         compoBGA_image = compoBG_A.transform.Find("BG").gameObject;
         compoBGA_imageOri = compoBG_A.transform.Find("OriCompoImage").gameObject;
@@ -956,6 +960,12 @@ public class Compound_Main : MonoBehaviour
             compound_status = GameMgr.compound_status;
             compound_select = GameMgr.compound_select;
 
+            //宴途中でホワイトをONにする　フェードアウト演出用
+            if (GameMgr.Utage_FadeOutWhiteON)
+            {
+                //白からフェードイン        
+                fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
+            }
 
             //宴途中でブラックをオフにする 他シーンへ移動する演出用
             if (GameMgr.Utage_SceneEnd_BlackON)
@@ -3853,8 +3863,20 @@ public class Compound_Main : MonoBehaviour
         GameMgr.CompoAfter_BackGirl = false; //戻り中に発生した場合は、戻ったことにしてfalseに。
 
         GameMgr.Mute_on = false;
-       
-        if(GameMgr.Utage_MapMoveON)
+
+        if (GameMgr.Utage_FadeOutWhiteON)
+        {
+            GameMgr.Utage_FadeOutWhiteON = false;
+
+            //キラキラ音もなる
+            sc.PlaySe(78);
+
+            //白からフェードイン        
+            fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
+            fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 1.5f);
+        }
+
+        if (GameMgr.Utage_MapMoveON)
         {
             Debug.Log("Utage_MapMoveON");
             GameMgr.Utage_MapMoveON = false;

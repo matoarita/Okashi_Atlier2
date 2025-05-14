@@ -919,6 +919,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("TextRead_num", GameMgr.CGGallery_num); //思い出リストに振ったID番号を選択
         //Debug.Log("GameMgr.CGGallery_num: " + GameMgr.CGGallery_num);
         engine.Param.TrySetParameter("HikariOmoide_Flag", true);
+        engine.Param.TrySetParameter("EndOrPause_Num", 0);
 
         //コスチューム切り替え
         Live2DCostume_UtageChange();
@@ -931,9 +932,23 @@ public class Utage_scenario : MonoBehaviour
         Engine.JumpScenario(scenarioLabel);
 
         //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
+        while (!Engine.IsEndOrPauseScenario)
         {
             yield return null;
+        }
+        pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。2ならPause判定。
+
+        if (pause_or_endnum == 2)
+        {
+            //続きから再度読み込み
+            engine.Param.TrySetParameter("EndOrPause_Num", 0); //また戻しておく
+            engine.ResumeScenario();
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
         }
 
         //着替えをもどす
@@ -1805,6 +1820,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
         engine.Param.TrySetParameter("Talk_num", GameMgr.GirlTalk_num);
         engine.Param.TrySetParameter("StationEvent_num", 0);
+        engine.Param.TrySetParameter("EndOrPause_Num", 0);
 
         //今食べたいお菓子を設定
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
@@ -1896,10 +1912,28 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndScenario)
+        while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
         {
             yield return null;
         }
+        pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。2ならPause判定。
+
+        if (pause_or_endnum == 2) //2がきた場合、思い出イベントなので、フェードアウト用白をいれておく。
+        {
+            //宴読み終わりに白からフェードアウト
+            GameMgr.Utage_FadeOutWhiteON = true;
+
+            //続きから再度読み込み
+            engine.Param.TrySetParameter("EndOrPause_Num", 0); //また戻しておく
+            engine.ResumeScenario();
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
+        }
+        else { } //それ以外は普通にEnd
 
         //ピクニックイベントの場合、終了のフラグ
         /*if (GameMgr.picnic_event_reading_now)
@@ -3337,6 +3371,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Talk_num", 0); //ランダム会話などでの、会話番号指定
         engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
         engine.Param.TrySetParameter("EndOrPause_Num", 0); //ポーズOrエンドどちらかを判定する番号　基本0=エンドでリセットしておく。
+        engine.Param.TrySetParameter("OmoideFadeOut_Flag", false); //falseでリセット
         engine.Param.TrySetParameter("Fullmoon_Month", GameMgr.System_Fullmoon_month);
         engine.Param.TrySetParameter("Fullmoon_Day", GameMgr.System_Fullmoon_day);
         engine.Param.TrySetParameter("TrueHeartCost", GameMgr.System_trueheart_cost);
@@ -3344,6 +3379,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_bring_Type", GameMgr.Contest_BringType);
         engine.Param.TrySetParameter("Costume_Sukumizu_Flag", Costume_sukumizu_flag);
         engine.Param.TrySetParameter("magic_lvpoint", GameMgr.System_MagicLVPoint);
+
 
 
         Debug.Log("scenarioLabel: " + scenarioLabel);
@@ -3523,9 +3559,9 @@ public class Utage_scenario : MonoBehaviour
         {
             yield return null;
         }
-        pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。1ならPause判定。
+        pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。1,2ならPause判定。
 
-        //ポーズの場合
+        //ポーズの場合　コスチューム切り替えか宴BGMに切り替える場合、ここを通るようにする。
         if (pause_or_endnum == 1)
         {
             switch (scenarioLabel)
@@ -3549,11 +3585,28 @@ public class Utage_scenario : MonoBehaviour
             engine.ResumeScenario();
 
             //「宴」のシナリオ終了待ち
-            while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
+            while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
             {
                 yield return null;
             }
+            pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。ここは、現在2のみ待つ。2なら思い出イベントから戻るようにホワイトON
 
+            if (pause_or_endnum == 2)
+            {
+                //宴読み終わりに白からフェードアウト
+                GameMgr.Utage_FadeOutWhiteON = true;
+
+                //続きから再度読み込み
+                engine.Param.TrySetParameter("EndOrPause_Num", 0); //また戻しておく
+                engine.ResumeScenario();
+
+                //「宴」のシナリオ終了待ち
+                while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
+                {
+                    yield return null;
+                }
+            }
+               
             //シナリオ終了後の処理
             switch (scenarioLabel)
             {
@@ -3580,10 +3633,25 @@ public class Utage_scenario : MonoBehaviour
             //BGMを再開
             BGMMuteOFF();
         }
+        else if (pause_or_endnum == 2) //2なら思い出イベントから戻るようにホワイトON　最初に1を通らずに終わりまできた場合
+        {
+            //宴読み終わりに白からフェードアウト
+            GameMgr.Utage_FadeOutWhiteON = true;
+
+            //続きから再度読み込み
+            engine.Param.TrySetParameter("EndOrPause_Num", 0); //また戻しておく
+            engine.ResumeScenario();
+
+            //「宴」のシナリオ終了待ち
+            while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
+        }
         else //エンドは、そのままエンドなので流して終了　pause_or_endnum == 0は、EndScenarioを押したときのみ。Pauseしたのにpause_or_endnum == 0は使わない
         { }
 
-
+        
 
 
         //

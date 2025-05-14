@@ -244,7 +244,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                             if (PlayerStatus.player_contest_second >= 60) //1分たった。
                             {
                                 PlayerStatus.player_contest_second = 0;
-                                SetMinuteToHourContest(5); //5分たつ
+                                SetMinuteToHourContest(5, 1); //5分たつ
                             }
 
                         }
@@ -280,7 +280,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                 {
                                     timeIttei2 = 0;
 
-                                    SetMinuteToHour(5, 0); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
+                                    SetMinuteToHour(5, 1); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
                                     TimeKoushin(0, true);
 
                                     if (GameMgr.WEATHER_TIMEMODE_ON)
@@ -288,9 +288,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                         compound_main.Weather_Change();
                                     }
 
-                                    if (GameMgr.hikari_make_okashiFlag)
+                                    /*if (GameMgr.hikari_make_okashiFlag)
                                     {
-                                        //** ヒカリがお菓子を作ってる場合、リアルタイム時間進場合、ここでもお菓子制作時間を計算 **/
+                                        //** ヒカリがお菓子を作ってる場合、リアルタイム時間進場合、ここでもお菓子制作時間を計算
 
                                         GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
                                         if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
@@ -301,8 +301,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                             HikariMakeOkashiJudge();
                                         }
 
-                                        //** **//
-                                    }
+                                        //**
+                                    }*/
 
                                     //サブ時間イベントをチェック
                                     if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
@@ -581,176 +581,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     }
 
-    public void HikariMakeOkashiJudge()
-    {
-        //まず残り個数チェック
-        //材料がなくなってたら、ここで終了。これは、にいちゃんが途中で材料を使った場合のチェックになる。
-        HikariKosuCheckMethod();
-        
-        if (itemkosu_check) //trueなら個数がたりないので、終了
-        {
-            //終了
-            GameMgr.hikari_make_okashiFlag = false;
-            GameMgr.hikari_makeokashi_startflag = false;
-
-            //このとき、成功が0だった場合は、全て失敗してるので、失敗しちゃった～の顔に。
-            if (GameMgr.hikari_make_success_count == 0)
-            {
-                GameMgr.hikari_make_Allfailed = true;
-            }
-            else
-            {
-                //材料なくなった～の表情に
-                GameMgr.hikari_zairyo_no_flag = true;
-            }
-        } else
-        {
-            //制作チェック
-
-            //サイコロをふる
-            dice = Random.Range(1, 100); //1~100までのサイコロをふる。
-
-            Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
-
-            if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
-            {
-                GameMgr.hikari_make_success_count++;
-
-                //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
-                GameMgr.hikari_make_okashiKosu++;
-                _getexp = 2;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
-
-                //成功すると、機嫌が少しよくなる。
-                if (!GameMgr.Contest_ON)
-                {
-                    girl1_status.GirlExpressionKoushin(10);
-                }
-            }
-            else //失敗
-            {
-                GameMgr.hikari_make_failed_count++;
-
-                //生成されず。材料だけ消費。
-                _getexp = 5;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
-
-                //コンテスト中は、ハート系は動かない
-                if (!GameMgr.Contest_ON)
-                {
-                    //ハートも下がる。
-                    girleat_judge.UpDegHeart(-5, false);
-
-                    //失敗すると、機嫌は下がる。-20で1段階下がる。
-                    girl1_status.GirlExpressionKoushin(-10);
-                }
-            }
-
-            compound_keisan.Delete_playerItemList(2);
-
-            //
-            //作ったあとのタイミングで、改めて個数をチェックする。なくなってれば、終了
-            HikariKosuCheckMethod();
-
-            if (itemkosu_check) //trueなら個数がたりないので、終了
-            {
-                //終了
-                GameMgr.hikari_make_okashiFlag = false;
-                GameMgr.hikari_makeokashi_startflag = false;
-
-                //このとき、成功が0だった場合は、全て失敗してるので、失敗しちゃった～の顔に。
-                if (GameMgr.hikari_make_success_count == 0)
-                {
-                    GameMgr.hikari_make_Allfailed = true;
-                }
-                else
-                {
-                    //材料なくなった～の表情に
-                    GameMgr.hikari_zairyo_no_flag = true;
-                }
-            }
-        }
-        
-    }
-
-    void HikariKosuCheckMethod()
-    {
-        itemkosu_check = false;
-        for (i = 0; i < GameMgr.SystemCount_itemSetting; i++)
-        {
-            if (i == 2 && GameMgr.hikari_kettei_item[2] == 9999) //3個目が空のときは9999入ってて、無視
-            {
-
-            }
-            else
-            {
-                /* デバッグ用 */
-                /*Debug.Log("オリジナルアイテムリスト総数: " + pitemlist.player_originalitemlist.Count);
-                for (i = 0; i < GameMgr.SystemCount_itemSetting; i++)
-                {
-                    Debug.Log("i = " + i);
-                    Debug.Log("GameMgr.hikari_kettei_toggleType: " + GameMgr.hikari_kettei_toggleType[i]);
-                    Debug.Log("GameMgr.hikari_kettei_item(type=0のとき。店売りアイテムID) : " + GameMgr.hikari_kettei_item[i]);
-                    Debug.Log("GameMgr.hikari_kettei_originalID(type=1 or 2の時のアイテム固有ID) : " + GameMgr.hikari_kettei_originalID[i]);                   
-                    Debug.Log("pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID): " +
-                        pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]));
-                }*/
-                //** **//
-
-                if (GameMgr.hikari_kettei_toggleType[i] == 0) //店売りアイテム
-                {
-                    if (database.items[GameMgr.hikari_kettei_item[i]].itemType_sub.ToString() == "Machine")
-                    {
-
-                    }
-                    else
-                    {
-                        if (pitemlist.playeritemlist[database.items[GameMgr.hikari_kettei_item[i]].itemName] < GameMgr.hikari_kettei_kosu[i])
-                        {
-                            //個数足りない　終了
-                            itemkosu_check = true;
-                        }
-                    }
-                }
-                else if (GameMgr.hikari_kettei_toggleType[i] != 0) //オリジナルアイテムかエクストリームアイテム
-                {
-                    if (pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]) == 9999)
-                    {
-                        //例外　もしなかった場合
-                        itemkosu_check = true;
-                    }
-                    else
-                    {
-                        //その固有IDのアイテムが今、オリジナルかエクストリームに入っているかをチェックする。
-                        if(pitemlist.ReturnOriginalKoyuIDtoItemType(GameMgr.hikari_kettei_originalID[i]) == 1)
-                        {
-                            if (pitemlist.player_originalitemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu < GameMgr.hikari_kettei_kosu[i])
-                            {
-                                //終了
-                                itemkosu_check = true;
-                            }
-                        }
-                        else if (pitemlist.ReturnOriginalKoyuIDtoItemType(GameMgr.hikari_kettei_originalID[i]) == 2)
-                        {
-                            if (pitemlist.player_extremepanel_itemlist.Count == 0) //念のため、エクストリーム今ない状態でチェックしないようにする
-                            {
-                                //例外　もしなかった場合
-                                itemkosu_check = true;
-                            }
-                            else
-                            {
-                                if (pitemlist.player_extremepanel_itemlist[0].ItemKosu < GameMgr.hikari_kettei_kosu[i])
-                                {
-                                    //終了
-                                    itemkosu_check = true;
-                                }
-                            }
-                        }
-                    }
-                }               
-            }
-        }
-    }
+    
 
     
 
@@ -1187,14 +1018,16 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
 
     //入力された分単位の時間を、時間と分にわけて、コンテストの時間に加算する。マイナスの場合、引き算する。
-    public void SetMinuteToHourContest(int _m)
+    public void SetMinuteToHourContest(int _m, int _hikarimake)
     {
         //制限時間から引き算
         PlayerStatus.player_contest_LimitTime -= _m;
 
+        _m_temp = _m;
+
         //もし制限時間を超えた場合、30分以内なら減点はされるが、提出は可能。30分をこえると失格になり、
         //イベント発生のち、コンテスト終了
-        if(PlayerStatus.player_contest_LimitTime < 0)
+        if (PlayerStatus.player_contest_LimitTime < 0)
         {
             if(Mathf.Abs(PlayerStatus.player_contest_LimitTime) < 30)
             {
@@ -1254,6 +1087,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //入力された分を、時間と分に直し加算する。
         PlayerStatus.player_contest_hour += hour;
         PlayerStatus.player_contest_minute += minute;
+
+        //ヒカリのお菓子の制作時間も計算する
+        if (_hikarimake != 0)
+        {
+            HikarimakeTimeCheck(_m_temp);
+        }
     }
 
     public void OnDebugTimeCountUpButton()
@@ -1316,6 +1155,179 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             }
         }
     }
+
+    public void HikariMakeOkashiJudge()
+    {
+        //まず残り個数チェック
+        //材料がなくなってたら、ここで終了。これは、にいちゃんが途中で材料を使った場合のチェックになる。
+        HikariKosuCheckMethod();
+
+        if (itemkosu_check) //trueなら個数がたりないので、終了
+        {
+            //終了
+            GameMgr.hikari_make_okashiFlag = false;
+            GameMgr.hikari_makeokashi_startflag = false;
+
+            //このとき、成功が0だった場合は、全て失敗してるので、失敗しちゃった～の顔に。
+            if (GameMgr.hikari_make_success_count == 0)
+            {
+                GameMgr.hikari_make_Allfailed = true;
+            }
+            else
+            {
+                //材料なくなった～の表情に
+                GameMgr.hikari_zairyo_no_flag = true;
+            }
+        }
+        else
+        {
+            //制作チェック
+
+            //サイコロをふる
+            dice = Random.Range(1, 100); //1~100までのサイコロをふる。
+
+            Debug.Log("ヒカリ成功確率: " + GameMgr.hikari_make_success_rate + " " + "ダイスの目: " + dice);
+
+            if (dice <= (int)GameMgr.hikari_make_success_rate) //出た目が、成功率より下なら成功
+            {
+                GameMgr.hikari_make_success_count++;
+
+                //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
+                GameMgr.hikari_make_okashiKosu++;
+                _getexp = 2;
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
+
+                //成功すると、機嫌が少しよくなる。
+                if (!GameMgr.Contest_ON)
+                {
+                    girl1_status.GirlExpressionKoushin(10);
+                }
+            }
+            else //失敗
+            {
+                GameMgr.hikari_make_failed_count++;
+
+                //生成されず。材料だけ消費。
+                _getexp = 5;
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
+
+                //コンテスト中は、ハート系は動かない
+                if (!GameMgr.Contest_ON)
+                {
+                    //ハートも下がる。
+                    girleat_judge.UpDegHeart(-5, false);
+
+                    //失敗すると、機嫌は下がる。-20で1段階下がる。
+                    girl1_status.GirlExpressionKoushin(-10);
+                }
+            }
+
+            compound_keisan.Delete_playerItemList(2);
+
+            //
+            //作ったあとのタイミングで、改めて個数をチェックする。なくなってれば、終了
+            HikariKosuCheckMethod();
+
+            if (itemkosu_check) //trueなら個数がたりないので、終了
+            {
+                //終了
+                GameMgr.hikari_make_okashiFlag = false;
+                GameMgr.hikari_makeokashi_startflag = false;
+
+                //このとき、成功が0だった場合は、全て失敗してるので、失敗しちゃった～の顔に。
+                if (GameMgr.hikari_make_success_count == 0)
+                {
+                    GameMgr.hikari_make_Allfailed = true;
+                }
+                else
+                {
+                    //材料なくなった～の表情に
+                    GameMgr.hikari_zairyo_no_flag = true;
+                }
+            }
+        }
+
+    }
+
+    void HikariKosuCheckMethod()
+    {
+        itemkosu_check = false;
+        for (i = 0; i < GameMgr.SystemCount_itemSetting; i++)
+        {
+            if (i == 2 && GameMgr.hikari_kettei_item[2] == 9999) //3個目が空のときは9999入ってて、無視
+            {
+
+            }
+            else
+            {
+                /* デバッグ用 */
+                /*Debug.Log("オリジナルアイテムリスト総数: " + pitemlist.player_originalitemlist.Count);
+                for (i = 0; i < GameMgr.SystemCount_itemSetting; i++)
+                {
+                    Debug.Log("i = " + i);
+                    Debug.Log("GameMgr.hikari_kettei_toggleType: " + GameMgr.hikari_kettei_toggleType[i]);
+                    Debug.Log("GameMgr.hikari_kettei_item(type=0のとき。店売りアイテムID) : " + GameMgr.hikari_kettei_item[i]);
+                    Debug.Log("GameMgr.hikari_kettei_originalID(type=1 or 2の時のアイテム固有ID) : " + GameMgr.hikari_kettei_originalID[i]);                   
+                    Debug.Log("pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID): " +
+                        pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]));
+                }*/
+                //** **//
+
+                if (GameMgr.hikari_kettei_toggleType[i] == 0) //店売りアイテム
+                {
+                    if (database.items[GameMgr.hikari_kettei_item[i]].itemType_sub.ToString() == "Machine")
+                    {
+
+                    }
+                    else
+                    {
+                        if (pitemlist.playeritemlist[database.items[GameMgr.hikari_kettei_item[i]].itemName] < GameMgr.hikari_kettei_kosu[i])
+                        {
+                            //個数足りない　終了
+                            itemkosu_check = true;
+                        }
+                    }
+                }
+                else if (GameMgr.hikari_kettei_toggleType[i] != 0) //オリジナルアイテムかエクストリームアイテム
+                {
+                    if (pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i]) == 9999)
+                    {
+                        //例外　もしなかった場合
+                        itemkosu_check = true;
+                    }
+                    else
+                    {
+                        //その固有IDのアイテムが今、オリジナルかエクストリームに入っているかをチェックする。
+                        if (pitemlist.ReturnOriginalKoyuIDtoItemType(GameMgr.hikari_kettei_originalID[i]) == 1)
+                        {
+                            if (pitemlist.player_originalitemlist[pitemlist.ReturnOriginalKoyuIDtoItemID(GameMgr.hikari_kettei_originalID[i])].ItemKosu < GameMgr.hikari_kettei_kosu[i])
+                            {
+                                //終了
+                                itemkosu_check = true;
+                            }
+                        }
+                        else if (pitemlist.ReturnOriginalKoyuIDtoItemType(GameMgr.hikari_kettei_originalID[i]) == 2)
+                        {
+                            if (pitemlist.player_extremepanel_itemlist.Count == 0) //念のため、エクストリーム今ない状態でチェックしないようにする
+                            {
+                                //例外　もしなかった場合
+                                itemkosu_check = true;
+                            }
+                            else
+                            {
+                                if (pitemlist.player_extremepanel_itemlist[0].ItemKosu < GameMgr.hikari_kettei_kosu[i])
+                                {
+                                    //終了
+                                    itemkosu_check = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     //外部から。指定した日付と時間に瞬時に更新する。月と日、時間と分で指定できる。
     public void SetCullentDayTime(int _month, int _day, int _hour, int _minute)
