@@ -482,7 +482,12 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                         case 99: //メニュー画面を開いたとき
 
-                            itemlist_hyouji_Check(check_itemListType);
+                            if (check_itemType_sub == "Object")
+                            { }
+                            else
+                            {
+                                itemlist_hyouji_Check(check_itemListType);
+                            }
                             break;
 
                         case 1000: //イベント

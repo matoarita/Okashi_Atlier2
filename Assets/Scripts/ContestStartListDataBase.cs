@@ -605,6 +605,18 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                     }
                     break;
 
+                case 30900: //
+
+                    switch (GameMgr.ContestRoundNum)
+                    {
+                        case 1: //一回戦
+
+                            GameMgr.Contest_Name = contest_name_origin;
+                            ContestRankingData_309();
+                            break;
+                    }
+                    break;
+
                 case 40000: //
 
                     switch (GameMgr.ContestRoundNum)
@@ -1366,7 +1378,22 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位          
     }
 
-    void ContestRankingData_308() //秋のお菓子コンテスト
+    void ContestRankingData_308() //デザインお菓子コンテスト
+    {
+        //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_DB_list_Type = 147000; //compNum=100000~を指定
+        GameMgr.Contest_commentDB_Select = 100000;
+
+        GameMgr.Contest_ProblemSentence = "テーマ：デザインお菓子";
+        GameMgr.Contest_ProblemSentence2 = "見た目を重視した派手なお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+
+        //コンテスト時間指定
+        Contest_SetStartTime();
+        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
+    }
+
+    void ContestRankingData_309() //秋のお菓子コンテスト
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など

@@ -221,6 +221,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ending_count;     //エンディングを迎えた回数
     public static bool bestend_on_flag; //ベストED　Aを一度でも迎えたことがあるフラグ
     public static int ending_number;    //クリア時のエンディング番号  
+    public static bool[] ending_getflag = new bool[10];  //取得したエンディングフラグ　3つぐらい
     public static int stage_number;     //ステージ番号　stage1 stage2のこと
     public static int stage_quest_num; //メインのクエスト番号
     public static int stage_quest_num_sub; //クエスト番号
@@ -453,6 +454,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int contest_sour_param; //
     public static int contest_bitter_param; //
     public static Item contest_okashi_ItemData;
+
+    public static bool contest_summer_edenVitory; //エデン夏コン優勝
+    public static bool contest_autumn_edenVitory; //エデン秋コン優勝
 
     //お菓子の一度にトッピングできる回数
     public static int topping_Set_Count;
@@ -950,6 +954,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Debug_StartReadOne; //デバッグ用　最初の一回だけ読み込み
     public static bool EdenFirstVictory; //エデンコン　初優勝かそうでないか
     public static bool EdenPrizeChange; //エデンコン　賞品が変わるフラグ
+    public static bool Bend_FadeAnimStart; //トゥルーエンドでないとき、タイトル画面のヒカリちゃんが明滅するフラグ
 
 
 
@@ -1557,6 +1562,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Realtime_speedrange_ON = true;
         Contest_MainStoryPlaceNum = 0;
         Before_Player_ninkiparam = 0;
+        contest_last_Disqualification = false;
+        contest_summer_edenVitory = false;
+        contest_autumn_edenVitory = false;
+        Bend_FadeAnimStart = false;
+
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1595,6 +1605,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             NPC_FriendPoint[system_i] = System_NPC_FriendPoint_StartPoint;
             NPC_BarFriendPoint[system_i] = System_NPC_FriendPoint_StartPoint;
             NPC_BarFriendFlag[system_i] = 0;
+        }
+
+        //ED取得イベントフラグの初期化
+        for (system_i = 0; system_i < ending_getflag.Length; system_i++)
+        {
+            ending_getflag[system_i] = false;
         }
 
         //別シーンから、家に帰ってきたときに発生するイベントリスト
@@ -1954,6 +1970,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("beorv_iron");
         CollectionItemsName.Add("milk_bin");
         CollectionItemsName.Add("yukidaruma");
+        CollectionItemsName.Add("green_pendant");
+        CollectionItemsName.Add("star_pendant");
+        CollectionItemsName.Add("aquamarine_pendant");
         CollectionItemsName.Add("pink_ninjin");
         CollectionItemsName.Add("hikari_speed_up1");
         CollectionItemsName.Add("aroma_potion1");
@@ -2510,6 +2529,29 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiTempatureControl_list.Add("Rusk");
     }
 
+    //エンディング分岐チェック　GirlEat_Judgeから読み込み
+    public static void Ending_BunkiCheck()
+    {
+        //100ヒカリ倒れる　101ヒカリ生きる隠しエンド
+        if (PlayerStatus.player_ninki_param >= System_StampStarMax) //①トゥルーエンド条件　まず、スターはマックスまで取る
+        {
+            if (Okashi_totalscore >= 500) //②エデンの得点が500点以上 GirlEat_JudgeでOkashi_totalscoreは事前計算
+            {
+                GirlLoveEvent_num = 101;
+                ending_number = 1;
+            }
+            else
+            {
+                GirlLoveEvent_num = 100;
+                ending_number = 2;
+            }
+        }
+        else
+        {
+            GirlLoveEvent_num = 100;
+            ending_number = 2;
+        }
+    }
 
     //ヒカリのお菓子経験値テーブル
     public static void InitHikariOkashi_ExpTable()

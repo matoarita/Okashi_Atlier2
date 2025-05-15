@@ -425,6 +425,7 @@ public class PlayerData
     public int save_ending_count;
     public bool save_bestend_on_flag;
     public int save_ending_number;
+    public bool[] save_ending_getflag = new bool[GameMgr.ending_getflag.Length];
 
     //ストーリーモード
     public int save_Story_Mode;

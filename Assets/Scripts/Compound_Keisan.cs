@@ -1483,7 +1483,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" || 
                 _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "WhipeedCream" ||
                 _base_itemType_sub == "Figure" ||
-                _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater")
+                _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerFlower")
             {
                 GetItemMethod(0); //生地作ったときは各ステータスオリジナルのものなので、オリジナルアイテムに登録
             }

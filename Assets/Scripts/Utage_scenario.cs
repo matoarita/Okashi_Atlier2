@@ -2148,6 +2148,15 @@ public class Utage_scenario : MonoBehaviour
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("SpOkashiBefore_num", sp_Okashi_ID);
 
+        if(GameMgr.contest_autumn_edenVitory)
+        {
+            engine.Param.TrySetParameter("EdenAutumn_VictoryFlag", 1); //さきに秋コンを優勝した
+        }
+        else
+        {
+            engine.Param.TrySetParameter("EdenAutumn_VictoryFlag", 0); //さきに夏コンを優勝した
+        }
+
         //ゲーム上のキャラクタOFF
         CharacterLive2DImageOFF();
 

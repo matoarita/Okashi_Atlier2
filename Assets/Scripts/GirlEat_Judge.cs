@@ -6370,25 +6370,30 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else if (shokukan_score >= -40 && shokukan_score < 0) //
         {
+            _shokukan_kansou = GameMgr.ColorRedDeep + "食感 D: " + shokukan_mes + "が足りない" + "</color>";
+            _shopgirl_shokukan_kansou = shokukan_mes + "が足りないわ。";
+        }
+        else if (shokukan_score >= 0 && shokukan_score < GameMgr.low_score) //
+        {
             _shokukan_kansou = GameMgr.ColorRedDeep + "食感 C: " + shokukan_mes + "がもっとほしい" + "</color>";
             _shopgirl_shokukan_kansou = shokukan_mes + "がもっとほしいかも。";
         }
-        else if (shokukan_score >= 0 && shokukan_score < GameMgr.low_score) //
+        else if (shokukan_score >= GameMgr.low_score && shokukan_score < GameMgr.high_score) //
         {
             _shokukan_kansou = "食感 B: " + "まあまあの" + shokukan_mes;
             _shopgirl_shokukan_kansou = "ほどよい" + shokukan_mes + "ね。";
         }
-        else if (shokukan_score >= GameMgr.low_score && shokukan_score < GameMgr.high_score) //
+        else if (shokukan_score >= GameMgr.high_score && shokukan_score < GameMgr.high_score_2) //
         {
             _shokukan_kansou = "食感 A: " + "良い" + shokukan_mes;
             _shopgirl_shokukan_kansou = "よい" + shokukan_mes + "ね。癒される味わいだわ。";
         }
-        else if (shokukan_score >= GameMgr.high_score && shokukan_score < GameMgr.high_score_2) //
+        else if (shokukan_score >= GameMgr.high_score_2 && shokukan_score < 300) //
         {
             _shokukan_kansou = GameMgr.ColorPink + "食感 A+: " + "絶妙な" + shokukan_mes + "</color>";
             _shopgirl_shokukan_kansou = "絶妙な" + shokukan_mes + "ね。良い味わい深さになってるわ。";
         }
-        else if (shokukan_score >= GameMgr.high_score_2) //
+        else if (shokukan_score >= 300) //
         {
             _shokukan_kansou = GameMgr.ColorGold + "食感 S: " + "神の" + shokukan_mes + "！！" + "</color>";
             _shopgirl_shokukan_kansou = "神の" + shokukan_mes + "ね！　最高の味わいだと思うわ！";
@@ -6566,25 +6571,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.Ending_counterenshutu_on = false;
 
         //エデン食べたのでED 分岐もここでチェック　100ヒカリ倒れる　101ヒカリ生きる隠しエンド
-        if (PlayerStatus.player_ninki_param >= GameMgr.System_StampStarMax)
-        {
-            if(GameMgr.Okashi_totalscore >= 500) //エデンの得点が500点以上
-            {
-                GameMgr.GirlLoveEvent_num = 101;
-                GameMgr.ending_number = 1;
-            }
-            else
-            {
-                GameMgr.GirlLoveEvent_num = 100;
-                GameMgr.ending_number = 2;
-            }
-            
-        }
-        else
-        {
-            GameMgr.GirlLoveEvent_num = 100;
-            GameMgr.ending_number = 2;
-        }
+        GameMgr.Ending_BunkiCheck();        
 
         GameMgr.girlloveevent_bunki = 2;       
         GameMgr.girlEat_ON = false;

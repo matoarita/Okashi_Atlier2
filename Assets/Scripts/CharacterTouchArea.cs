@@ -20,7 +20,19 @@ public class CharacterTouchArea : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //キャラクタの位置に合わせて、位置を更新
-        this.transform.localPosition = _model.transform.localPosition;
+        switch(GameMgr.Scene_Category_Num)
+        {
+            case 1000: //タイトルシーンのみ　レンダーテクスチャ使ってるので位置調整
+
+                //キャラクタの位置に合わせて、位置を更新 レンダーカメラの位置は+30ほど右だが、その中のローカルポジション自体は、元のcanvasでの位置座標と数値は一緒なので、この描き方でだいじょうぶ
+                this.transform.localPosition = _model.transform.localPosition + new Vector3(0, 0.5f, 0);
+                break;
+
+            default:
+                //キャラクタの位置に合わせて、位置を更新
+                this.transform.localPosition = _model.transform.localPosition;
+                break;
+        }
+        
     }
 }

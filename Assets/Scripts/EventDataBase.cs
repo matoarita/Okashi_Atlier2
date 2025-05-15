@@ -1004,6 +1004,28 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //
+                //はじめてお皿をとったときのイベントチェック
+                //
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.GirlLoveSubEvent_stage1[86] == false) //はじめておさら系アイテムげっと
+                    {
+                        i = 0;
+                        foreach (string items in GameMgr.PlateSetItemsName.Keys)
+                        {
+                            if (pitemlist.KosuCount(items) >= 1)
+                            {
+                                Event_startcheck(86, 1, false, false);
+                                break;
+                            }
+                            i++;
+                        }
+                        
+                    }
+                }
 
                 //置物や土産を買った 100番台～
                 /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避

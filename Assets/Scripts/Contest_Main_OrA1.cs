@@ -447,6 +447,17 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 GameMgr.Contest_Cookie_VictoryHoleinOne = true;
             }
 
+            //夏コンと秋コンで優勝フラグもとっておく。フラグの取得順によって、お話が変わる場合あり。
+            if (GameMgr.Contest_Name == "Or_Contest_002" && GameMgr.contest_Rank_Count == 1)
+            {
+                GameMgr.contest_summer_edenVitory = true;
+            }
+            if (GameMgr.Contest_Name == "Or_Contest_003" && GameMgr.contest_Rank_Count == 1)
+            {
+                GameMgr.contest_autumn_edenVitory = true;
+            }
+
+
             FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
         }
 

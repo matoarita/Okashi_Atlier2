@@ -242,7 +242,7 @@ public class AAA_TotalResult : MonoBehaviour {
         GameMgr.stage1_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp;
 
         //★エンディング　各スコアの計算　重要
-        KeisanParam();
+        Score_KeisanParam();
 
         //パネル１からのアニメーション自動スタート　デバッグでなければ、これをオンにする。
         Panel1_Action();
@@ -541,9 +541,12 @@ public class AAA_TotalResult : MonoBehaviour {
 
 
 
+    //
+    //レシピ表示や各スコアの計算
+    //
 
 
-    void KeisanParam()
+    void Score_KeisanParam()
     {
         //コンテストクリア時のアイテムと名前　コンテストスコア
         ClearItemName.text = GameMgr.Okashi_lastslot + GameMgr.Okashi_lastname;
@@ -556,7 +559,6 @@ public class AAA_TotalResult : MonoBehaviour {
         //レシピパーセント表示
         databaseCompo.RecipiCount_database(0);
         total_recipi_count_text.text = GameMgr.game_Recipi_archivement_rate.ToString("f2") + "%";
-        //GameMgr.game_Cullent_recipi_count + " / " + GameMgr.game_All_recipi_count
 
         //コレクションアイテムの総数を計算
         /*_collection_count = 0;
@@ -582,16 +584,19 @@ public class AAA_TotalResult : MonoBehaviour {
             case 1:
 
                 ednum_text.text = "A";
+                GameMgr.ending_getflag[0] = true;
                 break;
 
             case 2:
 
                 ednum_text.text = "B";
+                GameMgr.ending_getflag[1] = true;
                 break;
 
             case 3:
 
                 ednum_text.text = "C";
+                GameMgr.ending_getflag[2] = true;
                 break;
         }
         
@@ -605,8 +610,22 @@ public class AAA_TotalResult : MonoBehaviour {
         player_rank_text.text = "";
         player_shogo = "-";
 
-        //特殊な称号を取得してた場合、そっちが優先される。１のときのやつ
-        /*if (GameMgr.special_shogo_flag)
+        //特殊な称号を取得してた場合、そっちが優先される。２はまだ入れてないので、入れる。
+        //Shogo_JoukenCheck_old(); //１のときのやつ。
+
+
+
+        player_rank_text.text = _rank;
+        player_rankanim_text.text = _rank;
+
+        //称号計算　通常は、パティシエランクに合わせて決める。特別な条件をクリアすると、特殊な称号がもらえるようにする。
+        player_shogo_text.text = "";
+        player_shogo_text.text = player_shogo;
+    }
+
+    void Shogo_JoukenCheck_old()
+    {
+        if (GameMgr.special_shogo_flag)
         {
             _rank = "★";
             switch (GameMgr.special_shogo_num)
@@ -689,17 +708,8 @@ public class AAA_TotalResult : MonoBehaviour {
                     player_shogo = GameMgr.SearchTitleCollectionNameString("title6");
                     GameMgr.SetTitleCollectionFlag("title6", true);
                 }
-            }
-            
-        }*/
-        
-
-        player_rank_text.text = _rank;
-        player_rankanim_text.text = _rank;
-
-        //称号計算　通常は、パティシエランクに合わせて決める。特別な条件をクリアすると、特殊な称号がもらえるようにする。
-        player_shogo_text.text = "";
-        player_shogo_text.text = player_shogo;
+            }           
+        }
     }
 
     public void OnEndSceneButton()

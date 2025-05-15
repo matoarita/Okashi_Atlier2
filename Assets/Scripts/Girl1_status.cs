@@ -253,6 +253,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int trans_makemotion;
     private GameObject character_root;
     private GameObject character_move;
+    private GameObject chara_hukidashiPos; //タイトル画面用
 
     //ハートレベルのテーブル
     //public List<int> stage1_lvTable = new List<int>();
@@ -1635,15 +1636,22 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1000: //タイトルのときのセリフ
 
-                random = Random.Range(0, 100);
-                if (random < 20)
-                {                   
-                    IdleMotionHukidashiSetting(440); //ランダムモーションと吹き出しも一緒に生成   
+                if (GameMgr.Bend_FadeAnimStart) //真エンドでないときの明滅アニメ中　Character_EndingAnimのほうで、モーションと吹き出しをコントロール
+                {
+
                 }
                 else
                 {
-                    //デフォルト　女の子のハートレベルに沿って各モーションをランダムで再生する
-                    IdleChange();
+                    random = Random.Range(0, 100);
+                    if (random < 20)
+                    {
+                        IdleMotionHukidashiSetting(440); //ランダムモーションと吹き出しも一緒に生成   
+                    }
+                    else
+                    {
+                        //デフォルト　女の子のハートレベルに沿って各モーションをランダムで再生する
+                        IdleChange();
+                    }
                 }
                 break;
         }
@@ -1849,7 +1857,25 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             DeleteHukidashi();
         }
 
-        hukidashiitem = Instantiate(hukidashiPrefab, _model_obj.transform);
+        //生成位置の取得
+        switch (GameMgr.Scene_Category_Num)
+        {
+            case 1000: //タイトルシーンは、モデルでなく、キャラ吹き出し用OBJの座標を選ぶ
+
+                if (chara_hukidashiPos == null)
+                {
+                    chara_hukidashiPos = GameObject.FindWithTag("CharacterRoot").transform.Find("CharaHukidashiPos").gameObject;
+                }
+                hukidashiitem = Instantiate(hukidashiPrefab, chara_hukidashiPos.transform);
+
+                break;
+
+            default:
+
+                hukidashiitem = Instantiate(hukidashiPrefab, _model_obj.transform);
+                break;
+        }
+        
         hukidashion = true; //今吹き出しがゲームに表示されている状態
         _text = hukidashiitem.transform.Find("hukidashi_Pos/hukidashi_Text").GetComponent<Text>();
 
@@ -3402,6 +3428,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 FaceMotionPlay(1006);
                 _touchface_comment_lib.Add("..おにいちゃん！　おかえりなさい～☆");
+                break;
+
+            case 450: //タイトル画面　ヒカリが消えてしまったときのセリフ　おにい～ちゃん！！　や　おかえりなさいなど
+
+                FaceMotionPlay(1006);
+                _touchface_comment_lib.Add("..おにいちゃん！　おかえりなさい～☆");
+                _touchface_comment_lib.Add("にいちゃ～～ん！");
+                _touchface_comment_lib.Add("一緒に、お菓子つくろ～！！");
                 break;
 
             case 1000: //コンテスト中

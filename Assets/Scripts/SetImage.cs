@@ -1605,14 +1605,26 @@ public class SetImage : MonoBehaviour
                     DrawTasteWindow2();
                     break;
 
+                case "Potion":
+                    DrawTasteWindow2();
+                    break;
+
                 default:
                     
                     break;
             }
 
-            if(item_type_subB == "a_CacaoMass")
+            switch (item_type_subB)
             {
-                DrawTasteWindow1();
+                case "a_SugerFlower":
+
+                    DrawTasteWindow1();
+                    break;
+
+                case "a_CacaoMass":
+
+                    DrawTasteWindow1();
+                    break;
             }
         }
         else if (item_type == "Okashi")

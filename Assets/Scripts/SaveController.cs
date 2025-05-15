@@ -1599,6 +1599,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_ending_count = GameMgr.ending_count,
             save_bestend_on_flag = GameMgr.bestend_on_flag,
             save_ending_number = GameMgr.ending_number,
+            save_ending_getflag = GameMgr.ending_getflag,
 
             //ステージ１クリア時の好感度を保存
             save_stage1_clear_girl1_loveexp = GameMgr.stage1_clear_girl1_loveexp,
@@ -1709,6 +1710,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             GameMgr.ending_count = systemData.save_ending_count; //全セーブデータから共通
             GameMgr.bestend_on_flag = systemData.save_bestend_on_flag;
             GameMgr.ending_number = systemData.save_ending_number;
+            GameMgr.ending_getflag = systemData.save_ending_getflag;
 
             //ステージ１クリア時の好感度を保存
             GameMgr.stage1_clear_girl1_loveexp = systemData.save_stage1_clear_girl1_loveexp;

@@ -34,6 +34,7 @@ public class Title_Main : MonoBehaviour {
     private Animator live2d_animator;
     private Live2DCostumeTrigger live2d_costumetrigger;
     private GameObject chara_Icon;
+    private GameObject _model_rendertexture_obj;
 
     private GameObject version_text;
 
@@ -81,6 +82,7 @@ public class Title_Main : MonoBehaviour {
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
         live2d_animator = _model_obj.GetComponent<Animator>();
         live2d_costumetrigger = _model_obj.GetComponent<Live2DCostumeTrigger>();
+        _model_rendertexture_obj = canvas.transform.Find("CharaUI").gameObject;
 
         version_text = canvas.transform.Find("VersionText").gameObject;
         version_text.GetComponent<Text>().text = "ver " + GameMgr.GameVersion.ToString("f2");
@@ -96,6 +98,7 @@ public class Title_Main : MonoBehaviour {
 
             chara_Icon.SetActive(false);
             _model_move.SetActive(true);
+            _model_rendertexture_obj.SetActive(true);
             live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
             live2d_costumetrigger.ChangeCostume();
 
@@ -129,6 +132,7 @@ public class Title_Main : MonoBehaviour {
 
             chara_Icon.SetActive(true);
             _model_move.SetActive(false);
+            _model_rendertexture_obj.SetActive(false);
         }
 
         if(GameMgr.saveOK)
