@@ -220,6 +220,7 @@ public class Item
         Bubble,
         FloatFruits,
         GlowFruits,
+        AromaPotion,
         Potion,      
         Flower,
         Figure,

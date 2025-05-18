@@ -1743,6 +1743,45 @@ public class Contest_Judge : MonoBehaviour {
 
                 break;
 
+            case "Or_Contest_630":　//フェド・フルラージュ
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score7[i] = 5; //メルヘンの値が最低3は必要
+                    }
+                    GameMgr.contest_SPJudgeCommentNum = 7; //コンテストコメント番号
+
+                    Debug.Log("判定値追加： メルヘン " + 5);
+                    Debug.Log("### ###");
+                }
+                else if (_status == 1) //審査員の判定に補正
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(170); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                }
+
+                break;
+
             default:
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0

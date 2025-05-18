@@ -1609,6 +1609,10 @@ public class SetImage : MonoBehaviour
                     DrawTasteWindow2();
                     break;
 
+                case "AromaPotion":
+                    DrawTasteWindow2();
+                    break;
+
                 default:
                     
                     break;

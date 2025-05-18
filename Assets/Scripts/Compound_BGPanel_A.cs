@@ -29,7 +29,9 @@ public class Compound_BGPanel_A : MonoBehaviour {
     private string originai_text;
     private string extreme_text;
     private string recipi_text;
+    private string recipi_text2;
     private string magic_text;
+    private string magiclearn_text;
     private string hikarimake_text;
 
     // Use this for initialization
@@ -84,7 +86,9 @@ public class Compound_BGPanel_A : MonoBehaviour {
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
         extreme_text = "仕上げをしよう！にいちゃん！ 一個目の材料を選んでね。";
         recipi_text = "ヒカリのお菓子手帳だよ！" + "\n" + "にいちゃんのレシピ　が増えたら、ここに書いてくね！";
+        recipi_text2 = "ヒカリのお菓子手帳だ。" + "\n" + "作ったレシピが書かれている。こっそり見てみよう..。";
         magic_text = "にいちゃん！　ふしぎな魔法をヒカリがかけてあげる！" + "\n" + "使いたい魔法を選んでね！";
+        magiclearn_text = "どの魔法をおぼえる？　にいちゃん！";
         hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
             "好きな材料を" + GameMgr.ColorYellow +
             "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
@@ -182,7 +186,14 @@ public class Compound_BGPanel_A : MonoBehaviour {
         card_view.DeleteCard_DrawView();
         SelectCompo_panel_1.SetActive(false);
 
-        _text.text = recipi_text;
+        if (!GameMgr.outgirl_Nowprogress)
+        {
+            _text.text = recipi_text;
+        }
+        else
+        {
+            _text.text = recipi_text2;
+        }
         GameMgr.compound_status = 1;
     }
 
@@ -264,7 +275,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
         card_view.DeleteCard_DrawView();
         SelectCompo_panel_1.SetActive(false);
 
-        _text.text = magic_text;
+        _text.text = magiclearn_text;
         GameMgr.compound_status = 30;
         GameMgr.MagicPanel_DefaultHyouji = true;
     }

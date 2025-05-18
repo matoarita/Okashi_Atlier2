@@ -2733,9 +2733,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _rate_final = _success_rate; //_success_rateは、事前にCompound_checkで計算したものを代入してるだけ。
 
                 //サイコロをふる
-                _seed1 = Random.Range(1, 100); //1~100までのサイコロをふる。
-                _seed2 = Random.Range(1, 100); //1~100までのサイコロをふる。
-                dice = _seed1 * _seed2 / 100; //0と100付近の数がでにくいランダム
+                dice = Random.Range(1, 100); //1~100までのサイコロをふる。
+                _seed2 = Random.Range(1, 100);
+                if(_seed2 >= 50) //実は、内部的にランダムで少し成功率を上げる。50%の確率で、成功率10%アップ
+                {
+                    dice -= 10;
+                    if(dice < 0 ) { dice = 0; }
+                }
+                //こっちは、0と100付近の数がでにくいランダム　機能が微妙なので、結局使わなかった
+                /*_seed1 = Random.Range(1, 100); //1~100までのサイコロをふる。
+                _seed2 = Random.Range(1, 100); //1~100までのサイコロをふる。               
+                dice = _seed1 * _seed2 / 100; //0と100付近の数がでにくいランダム　のはずだけど、なぜか出目が低いものばかりになる
+                //Debug.Log("_seed1: " + _seed1 + " " + "_seed2: " + _seed2);*/
 
                 Debug.Log("最終成功確率: " + _rate_final + " " + "ダイスの目: " + dice);
 

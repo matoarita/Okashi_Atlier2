@@ -370,6 +370,9 @@ public class Contest_Main_Reception : MonoBehaviour
         text_scenario();
         text_area.GetComponent<MessageWindow>().DrawIcon(); //顔アイコンの有無　再設定        
 
+        //ランダムシードの初期化　現在の秒をもとに値を決める
+        Random.InitState(System.DateTime.Now.Second);
+
         //入店の音
         if (!GameMgr.ShopEnter_ButtonON) //重複防止
         {

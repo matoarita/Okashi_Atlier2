@@ -251,7 +251,7 @@ public class Compound_Main : MonoBehaviour
     private GameObject autosave_panel;
 
     private int i, j, _id, ev_id;
-    private int random;
+    private int random, random2;
     private int lot_count;
     private int nokori_kaisu;
     private int event_num;
@@ -824,6 +824,9 @@ public class Compound_Main : MonoBehaviour
 
         //固有IDがないオリジナルアイテムを自動で削除する　バージョン更新用
         pitemlist.DeleteETCOriginalKoyuIDItem();
+
+        //ランダムシードの初期化　現在の秒をもとに値を決める
+        Random.InitState(System.DateTime.Now.Second); 
 
         Touch_ALLOFF(); //Compound_Status=0になるまでは、触れない
         if (!GameMgr.outgirl_Nowprogress) //外出中はLive2Dをオフに。
@@ -4413,7 +4416,24 @@ public class Compound_Main : MonoBehaviour
         else
         {
             PlayerStatus.player_girl_manpuku = 50; //満腹機能使ってないときは、常に50を保つ。
-        }       
+        }   
+        
+        //ムゲンニワトリがたまごを産んでくれる
+        if(pitemlist.KosuCount("mugen_niwatori") >= 1)
+        {
+            //まれにプレミアム卵うんでくれる
+            random2 = Random.Range(0, 100);
+            if (random2 <= 10) //10%
+            {
+                random = Random.Range(1, 2);
+                pitemlist.addPlayerItemString("egg_premiaum", random);
+            }
+            else
+            {
+                random = Random.Range(1, 3);
+                pitemlist.addPlayerItemString("egg", random);
+            }
+        }
 
         //寝たらスリープフラグもOFFに。
         GameMgr.Sleep_CheckEnd = false;

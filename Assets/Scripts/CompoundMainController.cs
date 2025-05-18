@@ -323,11 +323,12 @@ public class CompoundMainController : MonoBehaviour {
 
 
         //各調合時のシステムメッセージ集
-        magic_text = "にいちゃん！　ふしぎな魔法をヒカリがかけてあげる！" + "\n" + "使いたい魔法を選んでね！";
-        magiclearn_text = "どの魔法をおぼえる？　にいちゃん！";
-        hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
+        //Compound_BGPanel_Aの記述
+        //magic_text = "にいちゃん！　ふしぎな魔法をヒカリがかけてあげる！" + "\n" + "使いたい魔法を選んでね！";
+        //magiclearn_text = "どの魔法をおぼえる？　にいちゃん！";
+        /*hikarimake_text = "にいちゃん！　ヒカリお菓子作りの手伝いしたいな！" + "\n" +
         "好きな材料を" + GameMgr.ColorYellow +
-        "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";
+        "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。";*/
 
         WaitForCompEnd = false;
     }
@@ -631,7 +632,7 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.Comp_kettei_bunki = 0;
 
                     text_area_compound.SetActive(true);
-                    _textcomp.text = hikarimake_text;
+                    //_textcomp.text = hikarimake_text;
                     text_hikari_makecaption.SetActive(true);
 
                     //エフェクトはオフ
@@ -693,7 +694,7 @@ public class CompoundMainController : MonoBehaviour {
                     yes_no_panel.SetActive(false);
 
                     text_area_compound.SetActive(true);
-                    _textcomp.text = magic_text;
+                    //_textcomp.text = magic_text;
 
                     magicskilllistController_Use.SetActive(true);
                     magicskilllistController_2.OnDefaultText(0);
@@ -823,7 +824,7 @@ public class CompoundMainController : MonoBehaviour {
                     yes_no_panel.SetActive(false);
 
                     text_area_compound.SetActive(true);
-                    _textcomp.text = magiclearn_text;
+                    //_textcomp.text = magiclearn_text;
 
                     magicskilllistController_Learn.SetActive(true); //魔法をおぼえるがONになった状態のリストを表示
                     magicskilllistController.OnDefaultText(1);

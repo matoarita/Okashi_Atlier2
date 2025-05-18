@@ -1016,10 +1016,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         i = 0;
                         foreach (string items in GameMgr.PlateSetItemsName.Keys)
                         {
-                            if (pitemlist.KosuCount(items) >= 1)
+                            if (items == "teaset_normal") { } //デフォルトは無視
+                            else
                             {
-                                Event_startcheck(86, 1, false, false);
-                                break;
+                                if (pitemlist.KosuCount(items) >= 1)
+                                {
+                                    Event_startcheck(86, 1, false, false);
+                                    break;
+                                }
                             }
                             i++;
                         }

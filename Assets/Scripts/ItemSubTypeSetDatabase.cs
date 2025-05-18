@@ -319,6 +319,11 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
                 GameMgr.Item_OkashiSubType_Num = 99;
                 Tea_Text();
                 break;
+            case "AromaPotion":
+                GameMgr.Item_subcategoryText = "アロマポーション";
+                GameMgr.Item_OkashiSubType_Num = 99;
+                Tea_Text();
+                break;
             case "Vegetable": //いも全般のこと　ほかに野菜を入れる場合、食感の表記をかえるため、別に設定しないといけない
                 GameMgr.Item_subcategoryText = "やさい";
                 GameMgr.Item_OkashiSubType_Num = 99;
