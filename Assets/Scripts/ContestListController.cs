@@ -324,7 +324,7 @@ public class ContestListController : MonoBehaviour
             }*/
         }
 
-        if (GameMgr.GirlLoveEvent_num >= 13) //招待状がくるので、リストに表示
+        if (GameMgr.GirlLoveSubEvent_stage1[503]) //招待状がくるので、リストに表示
         {
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 100) //プラトンアカデミー
             {

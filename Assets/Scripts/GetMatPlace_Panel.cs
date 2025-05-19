@@ -986,7 +986,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     {
         if(matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba1_Roten" ||
             matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba_Summer_SodaIsland" ||
-            matplace_database.matplace_lists[_place_num].placeName == "Or_HirobaEnter_Catsle")
+            matplace_database.matplace_lists[_place_num].placeName == "Or_HirobaEnter_Catsle" ||
+            matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba1_HotSpring")
         {
             //露店通り・ソーダアイランド・お城は、ヒカリがいないと行けない
             if (GameMgr.outgirl_Nowprogress)

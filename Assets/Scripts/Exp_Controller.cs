@@ -714,6 +714,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     {
                         sp_okashieffect_List[i].SetActive(true);
                     }
+                    if (sp_okashieffect_List[i].gameObject.name == "BGImg")
+                    {
+                        sp_okashieffect_List[i].SetActive(true);
+                    }
                     if (sp_okashieffect_List[i].gameObject.name == "CloseButton")
                     {
                         sp_okashieffect_List[i].SetActive(true);
@@ -725,6 +729,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 1;
                 SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
+
+                text_area.SetActive(true); //なぜかたまにオフってるときがあるので、ここで強制表示
             }
             else
             {
@@ -2075,13 +2081,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 4:
 
-                if (timeOut <= 1.0)
+                if (timeOut <= 0.7f)
                 {
                     //スペシャルなお菓子演出が入る場合、ここらへんでホワイトアウト
                     if (GameMgr.Special_OkashiEnshutsuFlag)
                     {
                         SpecialwhiteEffect.SetActive(true);
-                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 0.8f);
+                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 0.7f);
                     }
                 }
 
@@ -2274,13 +2280,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case 4:
 
-                if (timeOut <= 1.0)
+                if (timeOut <= 0.7f)
                 {
                     //スペシャルなお菓子演出が入る場合、ここらへんでホワイトアウト
                     if (GameMgr.Special_OkashiEnshutsuFlag)
                     {
                         SpecialwhiteEffect.SetActive(true);
-                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 0.8f);
+                        SpecialwhiteEffect.GetComponent<CanvasGroup>().DOFade(1, 0.7f);
                     }
                 }
 

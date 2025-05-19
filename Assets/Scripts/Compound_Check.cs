@@ -1774,7 +1774,7 @@ public class Compound_Check : MonoBehaviour {
         //判定予測処理　ここまで//
     }
 
-    //特定のお菓子つくったときに、特殊スチルが表示されるのを判定
+    //特定のお菓子つくったときに、特殊スチルが表示されるのを判定 はじめて作ったどうかのフラグで重複を回避
     void SpecialEnshutu_Check()
     {
         if (GameMgr.System_SpecialOkashiEnshutu_ON)

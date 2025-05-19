@@ -518,7 +518,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 13: //春コンテストで優勝しよう！
+            case 13: //プラトンアカデミーコンテストで優勝しよう！
 
                 girl1_status.OkashiQuest_ID = 100130;
                 OkashiQuest_Count = 4;
@@ -655,7 +655,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         if (_spquest_setnum >= 21)
         {
             //夏エリア解放
-            //matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
+            matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
             matplace_database.ReSetMapFlagString("Emerald_Forest", 1);
             matplace_database.ReSetMapFlagString("Aquamarine_Lake", 1);
             matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);

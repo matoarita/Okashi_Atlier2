@@ -249,7 +249,7 @@ public class StarStampPanel : MonoBehaviour
 
                 //キャラ移動アニメを開始
                 count = 0;
-                StartCoroutine(Character_Move(newarea_star, 1));
+                StartCoroutine(StartWait());
             }
             else
             {
@@ -257,6 +257,14 @@ public class StarStampPanel : MonoBehaviour
             }
         }
         
+    }
+
+    //完全にパネルが表示されて移動開始まで、少し間をおく
+    IEnumerator StartWait()
+    {
+        yield return new WaitForSeconds(1.0f); //1秒待つ
+
+        StartCoroutine(Character_Move(newarea_star, 1));
     }
 
     IEnumerator Character_Move(int _movestar, int _status)
@@ -500,7 +508,7 @@ public class StarStampPanel : MonoBehaviour
                 }
                 break;
 
-            case 3: //ソーダアイランド解放
+            case 3: //イベント解放
 
                 if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
                 {
@@ -515,14 +523,23 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
+                    //温泉解禁
+                    _id = matplace_database.SearchMapString("Or_Hiroba1_HotSpring");
+                    newarea_titletext = "思い出イベント";
+                    newarea_gohoubitext = "植物園へいこう♪" + "\n" + "解放！";
+                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newAreaRelease_panelKoushin(_star);
+
+                    //matplace_database.ReSetMapFlagString("Or_Hiroba1_HotSpring", 1);
+
                     //ソーダアイランド解放
-                    _id = matplace_database.SearchMapString("Or_Hiroba_Summer_SodaIsland");
+                    /*_id = matplace_database.SearchMapString("Or_Hiroba_Summer_SodaIsland");
                     newarea_titletext = "遊園地";
                     newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "\n" + "解放！";
                     newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
-                    matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);
+                    matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);*/
                 }
                 break;
 

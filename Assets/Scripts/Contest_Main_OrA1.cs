@@ -23,6 +23,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
     private GameObject contest_startbutton_panel;
     private GameObject canvas;
     private GameObject timelimitover_panel;
+    private GameObject contestFirstEnshutuPanel;
 
     private TimeController time_controller;
 
@@ -142,7 +143,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         /* デバッグ用 */
         //GameMgr.System_DebugItemSet_ON = true;
-        if (GameMgr.System_DebugItemSet_ON)
+
+        if (GameMgr.System_DebugItemSet_ON) //上のデバッグ用のチェックをONにするだけでいい　アイテムは下で設定
         {
             _id = conteststartList_database.SearchContestString("Or_Contest_100"); //コンテストの会場番号　コンテスト名いれたらOK
 
@@ -151,6 +153,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
             GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
             GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
+            GameMgr.Contest_NameHyouji = conteststartList_database.conteststart_lists[_id].ContestNameHyouji;
 
             //GameMgr.Story_Mode = 1;
             GameMgr.GirlLoveEvent_num = 10;
@@ -226,6 +229,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         //コンテスト開始ボタンパネル
         contest_startbutton_panel = canvas.transform.Find("MainUIPanel/ContestStartButtonPanel").gameObject;
+
+        //コンテスト演出パネル
+        contestFirstEnshutuPanel = canvas.transform.Find("ContestFirstEnshutuPanel").gameObject;
+        contestFirstEnshutuPanel.SetActive(false);
 
         //BGMの取得
         sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
@@ -579,26 +586,35 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     
                     girl1_status.IdleMotionReset(0); //コンテスト用アイドルモーションにリセット 0は即時切り替え
 
-                    if (!StartRead) //シーン最初だけ読み込む
-                    {
-                        Debug.Log("ContestMainOrA1 StartRead ON");
-                        StartRead = true;
-                        sceneBGM.PlayContestStartBGM();
-                        sceneBGM.NowFadeVolumeONBGM();
-                        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
-                    }                   
-
                     GameMgr.compound_select = 0; //何もしていない状態
                     GameMgr.compound_status = 0;
 
                     GameMgr.Scene_Status = 100;
                     GameMgr.Scene_Select = 0;
 
-                    GameMgr.Status_zero_readOK = true;
-                    GameMgr.contest_MainMatchStart = true; //本戦開始の合図　TimeControllerで時間が進み始める
-
                     //エクストリームパネル表示更新
                     GameMgr.extremepanel_Koushin = true;
+
+                    if (!StartRead) //シーン最初だけ読み込む
+                    {
+                        Debug.Log("ContestMainOrA1 StartRead ON");
+                        StartRead = true;                     
+                        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
+
+                        contestFirstEnshutuPanel.SetActive(true);
+                        contestFirstEnshutuPanel.GetComponent<ContestFirstEnshutuPanel>().SetContestName();
+
+                        GameMgr.ContestStartEnshutu_Flag = true;
+                        mainUI_panel.SetActive(false);
+                        text_area.SetActive(false);
+
+                        //girl1_status.SetMotion_ContestBefore();
+
+                        GameMgr.Scene_Status = 1000;
+                        GameMgr.Scene_Select = 0;
+                       
+                        StartCoroutine("StartEnshutu");
+                    }                                                        
 
                     //制限時間　30分を超えた場合、失格フラグ
                     if (GameMgr.contest_LimitTimeOver_Gameover_flag)
@@ -696,13 +712,43 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     }
                     break;
 
+
+                case 1000: //最初のコンテスト演出中
+
+                    break;
+
                 default:
 
                     break;
             }
         }
     }
-    
+
+    IEnumerator StartEnshutu()
+    {
+        while (GameMgr.ContestStartEnshutu_Flag == true)
+        {
+            yield return null; // オンクリックがfalseになるまでは、とりあえず待機
+        }
+
+        Debug.Log("コンテスト最初演出終了　コンテストスタート！");
+
+        //演出が終了　BGMなど始まる
+        sceneBGM.PlayContestStartBGM();
+        sceneBGM.NowFadeVolumeONBGM();
+
+        //girl1_status.IdleMotionReset(0); //コンテスト用アイドルモーションにリセット 0は即時切り替え
+
+        GameMgr.Status_zero_readOK = true;
+        GameMgr.contest_MainMatchStart = true; //本戦開始の合図　TimeControllerで時間が進み始める
+
+        GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Select = 0;
+
+        mainUI_panel.SetActive(true);
+        text_area.SetActive(true);
+    }
+
 
     //コンテストごとに、会場風景が変わる。
     void ContestHall_Select(string _hallname, string _chuubouname)

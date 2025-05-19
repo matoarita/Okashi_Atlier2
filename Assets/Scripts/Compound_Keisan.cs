@@ -2345,27 +2345,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //お菓子のタイプによって、食感の伸び率に補正がかかる。簡単なおかしは、60点までは伸びるが、100点以降はとたんに伸びなくなる。など
-        switch(_base_itemType_sub)
-        {
-            case "Rusk":
-
-                if(_basecrispy < 60) //60までは伸びる
-                {
-                }
-                else if(_basecrispy >= 60 && _basecrispy < 80)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.9f);
-                }
-                else if (_basecrispy >= 80 && _basecrispy < 100)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.85f);
-                }
-                else if (_basecrispy >= 100)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.8f);
-                }
-                break;
-        }
+        OkashiType_ShokukanBuf();
+        
 
         //デバッグ用
         if (mstatus == 99)
@@ -2601,6 +2582,50 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     //_basechewy = (int)(_basechewy * kyori_hosei);
                 }
             }
+        }
+    }
+
+    void OkashiType_ShokukanBuf()
+    {
+        switch (_base_itemType_subB)
+        {
+            case "a_CookieSimple":
+
+                if (_basecrispy < 60) //60までは伸びる
+                {
+                }
+                else if (_basecrispy >= 60 && _basecrispy < 80)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.9f);
+                }
+                else if (_basecrispy >= 80 && _basecrispy < 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.85f);
+                }
+                else if (_basecrispy >= 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.8f);
+                }
+                break;
+
+            case "a_RuskSimple":
+
+                if (_basecrispy < 60) //60までは伸びる
+                {
+                }
+                else if (_basecrispy >= 60 && _basecrispy < 80)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.9f);
+                }
+                else if (_basecrispy >= 80 && _basecrispy < 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.85f);
+                }
+                else if (_basecrispy >= 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.8f);
+                }
+                break;
         }
     }
 

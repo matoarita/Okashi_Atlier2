@@ -342,140 +342,75 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         {
             //5段階ぐらいで分ける？
             i = 0;
-            while (i <= GameMgr.PrizeScoreAreaList.Count)
+            while (i < 5) //5位まで判定
             {
-                if (i == 0)
+                if (GameMgr.contest_Rank_Count == 5 - i) //5位
                 {
-                    if (GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
+                    //賞品　獲得処理
+                    if (GameMgr.PrizeItemList[i] != "Non")
                     {
-                        if (GameMgr.PrizeItemList[i] != "Non")
-                        {
-                            GetPlayerItem(GameMgr.PrizeItemList[i]);
-                        }
-                        else
-                        {
-                            GameMgr.Contest_PrizeGet_ItemName = "Non";
-                        }
-
-                        moneyStatus_Controller.Getmoney_noAnim(GameMgr.PrizeGetMoneyList[i]);
-                        GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                        _getninki = 0;
-                        GameMgr.Contest_PrizeGetninkiparam = _getninki;
-                        //ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得 最低でも1は入る
-                        Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
-                        break;
+                        GetPlayerItem(GameMgr.PrizeItemList[i]);
                     }
-                }
-                else
-                {
-                    if (i != GameMgr.PrizeScoreAreaList.Count)
+                    else
                     {
-                        if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1] && GameMgr.contest_PrizeScore < GameMgr.PrizeScoreAreaList[i])
-                        {
-                            if (GameMgr.PrizeItemList[i] != "Non")
-                            {
-                                GetPlayerItem(GameMgr.PrizeItemList[i]);
-                            }
-                            else
-                            {
-                                GameMgr.Contest_PrizeGet_ItemName = "Non";
-                            }
-                           
-                            if(i == 3) //2位
-                            {
-                                if (GameMgr.System_ContestStarGet_ON)
-                                {
-                                    //過去優勝したことがある
-                                    if (conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 2 ||
-                                        conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 1)
-                                    {
-                                        _getninki = 0;
-                                        GameMgr.Contest_pastVictory_on = true;
-                                    } 
-                                    else { 
-                                        _getninki = 1; //２位だと1もらえる
-                                    }
-                                }
-                                else
-                                {
-                                    _getninki = 0;
-                                }
-                            }
-                            else
-                            {
-                                //過去優勝したことがある
-                                if (conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 1)
-                                {
-                                    _getninki = 0;
-                                    GameMgr.Contest_pastVictory_on = true;
-                                }
-                                else
-                                {
-                                    _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
-                                }
-                            }
-
-                            //過去優勝したことがあると賞金もなし
-                            if (GameMgr.Contest_pastVictory_on)
-                            {
-                                GameMgr.Contest_PrizeGet_Money = 0;
-                            }
-                            else
-                            {                               
-                                GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                            }
-                            moneyStatus_Controller.Getmoney_noAnim(GameMgr.Contest_PrizeGet_Money);
-
-                            GameMgr.Contest_PrizeGetninkiparam = _getninki;
-                            ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
-                            Debug.Log("ランク: " + PrizeRankList[i] + " 人気獲得: " + _getninki);
-                            break;
-                        }
+                        GameMgr.Contest_PrizeGet_ItemName = "Non";
                     }
-                    else //リストの一番最後
-                    {
-                        if (GameMgr.contest_PrizeScore >= GameMgr.PrizeScoreAreaList[i - 1])
-                        {
-                            if (GameMgr.PrizeItemList[i] != "Non")
-                            {
-                                GetPlayerItem(GameMgr.PrizeItemList[i]);
-                            }
-                            else
-                            {
-                                GameMgr.Contest_PrizeGet_ItemName = "Non";
-                            }
 
-                            //過去優勝したことがある
-                            if (conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 1)
+
+                    if (i == 3) //2位のときのみ
+                    {
+                        if (GameMgr.System_ContestStarGet_ON)
+                        {
+                            //過去2位をとったor優勝したことがある
+                            if (conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 2 ||
+                                conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 1)
                             {
                                 _getninki = 0;
                                 GameMgr.Contest_pastVictory_on = true;
                             }
                             else
                             {
-                                _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
+                                _getninki = 1; //２位だと1もらえる
                             }
-
-                            //過去優勝したことがあると賞金もなし
-                            if (GameMgr.Contest_pastVictory_on)
-                            {
-                                GameMgr.Contest_PrizeGet_Money = 0;
-                            }
-                            else
-                            {
-                                GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
-                            }
-                            moneyStatus_Controller.Getmoney_noAnim(GameMgr.Contest_PrizeGet_Money);
-
-                            GameMgr.Contest_PrizeGetninkiparam = _getninki;
-                            ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得　
-                                                                        //ninkiStatus_Controller.GetNinki(1); 優勝時のみ、優勝回数として人気＋１
-                            Debug.Log("ランク: " + PrizeRankList[i] + "人気獲得: " + _getninki);
-                            break;
+                        }
+                        else
+                        {
+                            _getninki = 0;
+                        }
+                    }
+                    else
+                    {
+                        //過去優勝したことがある
+                        if (conteststartList_database.conteststart_lists[conteststartList_database.SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestVictory == 1)
+                        {
+                            _getninki = 0;
+                            GameMgr.Contest_pastVictory_on = true;
+                        }
+                        else
+                        {
+                            _getninki = (int)(GameMgr.PrizeGetninkiparam_before * PrizeNinkiRankList[i]);
                         }
                     }
 
-                }
+                    //賞金
+                    //過去優勝したことがあると賞金なし
+                    if (GameMgr.Contest_pastVictory_on)
+                    {
+                        GameMgr.Contest_PrizeGet_Money = 0;
+                    }
+                    else
+                    {
+                        GameMgr.Contest_PrizeGet_Money = GameMgr.PrizeGetMoneyList[i];
+                    }
+
+                    //獲得の処理
+                    moneyStatus_Controller.Getmoney_noAnim(GameMgr.Contest_PrizeGet_Money);
+                    GameMgr.Contest_PrizeGetninkiparam = _getninki;
+                    ninkiStatus_Controller.GetNinki(_getninki); //人気の獲得
+                    Debug.Log("ランク: " + PrizeRankList[i] + " 人気獲得: " + _getninki);
+                    break;
+                } 
+
                 i++;
             }
         }
@@ -702,8 +637,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Clear();
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("beorv_iron");
         GameMgr.PrizeItemList.Add("neko_badge2");
+        GameMgr.PrizeItemList.Add("beorv_iron");
         GameMgr.PrizeItemList.Add("strawberry_milfiyu_recipi");
 
         //賞金リスト 5位から順番に入れる
@@ -838,9 +773,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Clear();
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("neko_badge2");
         GameMgr.PrizeItemList.Add("whisk_gold");
-        GameMgr.PrizeItemList.Add("wood_rod_doillan");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();

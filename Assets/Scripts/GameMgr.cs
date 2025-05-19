@@ -71,6 +71,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
     public static bool System_ContestEdenFinalStart_ON = true; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
     public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　CompoundMain→GirlEat_Judgeで発生　trueなら、採点パネル表示前 falseなら後
+   
+    public static bool CompoBGMCHANGE_ON = false; //調合シーンでBGM切り替えるかどうかのフラグ 
+    public static bool GetMatBGMCHANGE_ON = true; //採取地画面でBGM切り替えるかのフラグ    
+    public static bool MainBGMChange_HeartLV = false; //ゲームの進行度でBGMを切り替えるか、ハートLVで切り替えるかの選択 trueならハートLVに応じてBGMが変わる ２では未使用
 
     //多分使わない
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
@@ -90,15 +94,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //スタンプラリーボードのコマ上限　すなわちスタンプのゴール
     public static int System_StampStarMax = 43;
-
-    //調合シーンでBGM切り替えるかどうかのフラグ
-    public static bool CompoBGMCHANGE_ON = false;
-
-    //採取地画面でBGM切り替えるかのフラグ
-    public static bool GetMatBGMCHANGE_ON = false;
-
-    //ゲームの進行度でBGMを切り替えるか、ハートLVで切り替えるかの選択 trueならハートLVに応じてBGMが変わる
-    public static bool MainBGMChange_HeartLV = false;
 
     //シーン移動の際の切り替え時間
     public static float SceneFadeTime = 0.5f;
@@ -750,6 +745,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool check_GetMat_flag;
     public static bool check_OkashiAfter_flag;
     public static bool check_StarPanel_Endflag;
+    public static bool check_StarPanel_Eventflag; //スターパネル閉じた後にイベントチェック
     public static bool[] check_SleepEnd_Eventflag = new bool[10];
     public static int ResultComplete_flag;
     public static bool Mute_on;
@@ -955,6 +951,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool EdenFirstVictory; //エデンコン　初優勝かそうでないか
     public static bool EdenPrizeChange; //エデンコン　賞品が変わるフラグ
     public static bool Bend_FadeAnimStart; //トゥルーエンドでないとき、タイトル画面のヒカリちゃんが明滅するフラグ
+    public static bool ContestStartEnshutu_Flag; //コンテスト最初の演出中　終わればオフに。
 
 
 
@@ -1426,6 +1423,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         check_GirlLoveTimeEvent_flag = false;
         check_ReturnHomeEvent_flag = false;
         check_StarPanel_Endflag = false;
+        check_StarPanel_Eventflag = false;
         check_CompoAfter_flag = false;
         check_CompoAfter_SubEventflag = false;
         check_GetMat_flag = false;
@@ -1566,6 +1564,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_summer_edenVitory = false;
         contest_autumn_edenVitory = false;
         Bend_FadeAnimStart = false;
+        ContestStartEnshutu_Flag = false;
 
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
@@ -1958,7 +1957,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各NPCイベントの日数カウンタのリセット
     public static void InitNPCEvent_DayCounterReset()
     {
-        NPCHiroba_eventDayCounter[0] = 2; //アマクサ優勝イベント発生までの日数
+        NPCHiroba_eventDayCounter[0] = 1; //アマクサ優勝イベント発生までの日数
         NPCHiroba_eventDayCounter[1] = 1; //ねこみみ少女　次会話発生までの日数
     }
     
@@ -2387,6 +2386,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         SPEnshutu_itemlist.Clear();
 
+        //SPEnshutu_itemlist.Add("cookie_nonsuger", "panel01"); //デバッグ用で使える
         SPEnshutu_itemlist.Add("cheese_cake", "panel01");
         SPEnshutu_itemlist.Add("fantasian", "panel01");
         SPEnshutu_itemlist.Add("fantasian_in_nightdream", "panel01");

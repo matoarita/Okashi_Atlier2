@@ -3454,7 +3454,7 @@ public class Compound_Main : MonoBehaviour
 
             if (GameMgr.Before_Player_ninkiparam < PlayerStatus.player_ninki_param) //コンテスト前の人気と獲得後の人気を比較し、取得したスターをチェックする。
             {
-                //get_star = PlayerStatus.player_ninki_param - GameMgr.Before_Player_ninkiparam;
+                WindowOff();
 
                 //スターランク＋新エリアチェック中の状態
                 GameMgr.compound_select = 1100;
@@ -3465,7 +3465,7 @@ public class Compound_Main : MonoBehaviour
 
                 //もし、獲得したスターがあれば、このタイミングでスタンプラリーを開き、アニメーション
                 //フラグの解放なども、スターパネルのほうでチェックしている。
-                starStampPanel.SetActive(true);
+                StartCoroutine(StartWait());
                 //starrank_kaikin_ON = true;
                 NewAreaCheck_loading = true; //スタースタンプパネル表示中のフラグ                
             }
@@ -3476,12 +3476,21 @@ public class Compound_Main : MonoBehaviour
             }
         }
     }
-    
-    //StarStampPanelから読み出し
+
+    //少し間をおく
+    IEnumerator StartWait()
+    {
+        yield return new WaitForSeconds(0.5f); //1秒待つ
+
+        starStampPanel.SetActive(true);
+    }
+
+    //StarStampPanelから読み出し パネルを閉じたあとに呼び出される
     public void EndStarReleaseCheck()
     {
         NewAreaCheck_loading = false;
-        GameMgr.check_StarPanel_Endflag = false;
+        GameMgr.check_StarPanel_Endflag = false; //スターパネル終了後のフラグ
+        GameMgr.check_StarPanel_Eventflag = true;
         GameMgr.check_GirlLoveSubEvent_flag = false;
         GameMgr.compound_status = 0; //ここまでで、チェックの処理が全て完了したので、status=0にする。
     }

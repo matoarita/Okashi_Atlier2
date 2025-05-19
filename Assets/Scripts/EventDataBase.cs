@@ -737,6 +737,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //スターで発生するイベント系
                 //
                 //StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
+                StarEvent_check(5, 503, 1); //スター5で、プラトンアカデミーコンテスト解放 ここでスターの数値決めてOK
                 StarEvent_check(12, 501, 1); //スター15で、サマードリームフェスティバル解放 ここでスターの数値決めてOK
                 StarEvent_check(22, 502, 1); //スター25で、アルクアンシェル解放
 
@@ -1213,6 +1214,25 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+
+                //
+                //スターパネル閉じたあとにチェック
+                //
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_StarPanel_Eventflag) //
+                    {
+                        GameMgr.check_StarPanel_Eventflag = false;
+
+                        if (!GameMgr.GirlLoveSubEvent_stage1[700])
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[700] = true;
+                            Event_startcheck(700, 0, false, false);
+                        }
+                    }
+                }
 
 
 
@@ -1847,8 +1867,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     void StarEvent_check(int _starparam, int _evnum, int _bgm)
     {
         if (GameMgr.check_StarPanel_Endflag) //スターパネルチェック中かチェック前は、イベント開始しない
-        {
-        }
+        { }
         else
         {
             if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -1896,33 +1915,38 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     void Event_startcheck(int _evnum, int _bgm, bool _getemerald, bool _subheart)
     {
-        //メイン画面にもどったときに、イベントを発生させるフラグをON
-        GameMgr.GirlLoveSubEvent_num = _evnum;
-        GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
-
-        GameMgr.check_GirlLoveSubEvent_flag = false;
-
-        if (_bgm == 1) //宴BGMに切り替え
+        if (GameMgr.check_StarPanel_Endflag) //スターパネルチェック中かチェック前は、イベント開始しない
+        { }
+        else
         {
-            GameMgr.Mute_on = true;
-        }
-        if (_getemerald) //コスチュームアイテムのときは、ここをtrueにする。
-        {
-            GetEmeraldItem = true;
-        }
-        if (_subheart)
-        {
-            GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-            GameMgr.SubEvAfterHeartGet_num = _evnum;
-        }
+            //メイン画面にもどったときに、イベントを発生させるフラグをON
+            GameMgr.GirlLoveSubEvent_num = _evnum;
+            GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
 
-        switch(_evnum)
-        {
-            case 253: //くまのおにいさんかいもうとで150点以上とったとき
+            GameMgr.check_GirlLoveSubEvent_flag = false;
 
-                ev_id = pitemlist.Find_eventitemdatabase("house_for_noisette_recipi");
-                pitemlist.add_eventPlayerItem(ev_id, 1); //ふたりのおうちのレシピを追加
-                break;
+            if (_bgm == 1) //宴BGMに切り替え
+            {
+                GameMgr.Mute_on = true;
+            }
+            if (_getemerald) //コスチュームアイテムのときは、ここをtrueにする。
+            {
+                GetEmeraldItem = true;
+            }
+            if (_subheart)
+            {
+                GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+                GameMgr.SubEvAfterHeartGet_num = _evnum;
+            }
+
+            switch (_evnum)
+            {
+                case 253: //くまのおにいさんかいもうとで150点以上とったとき
+
+                    ev_id = pitemlist.Find_eventitemdatabase("house_for_noisette_recipi");
+                    pitemlist.add_eventPlayerItem(ev_id, 1); //ふたりのおうちのレシピを追加
+                    break;
+            }
         }
     }
 

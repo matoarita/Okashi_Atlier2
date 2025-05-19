@@ -388,7 +388,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject Emo_effect_daimanzoku;
     private List<GameObject> _listEffect = new List<GameObject>();
     private List<GameObject> _questClearEffect = new List<GameObject>();
-
+    
 
     private GameObject heart_Prefab;
     private GameObject heart_Prefab2;
@@ -404,6 +404,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private GameObject Magic_effect_Prefab1;
     private List<GameObject> _listHeartAtkeffect = new List<GameObject>();
 
+    private GameObject Ajimi_effect_Prefab1;
+    private List<GameObject> _listAjimiEffect = new List<GameObject>();
 
     private Vector3 heartPos;
 
@@ -586,8 +588,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         heart_Prefab2 = (GameObject)Resources.Load("Prefabs/HeartUpObj2");
         hearthit_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect");
         hearthit2_Prefab = (GameObject)Resources.Load("Prefabs/HeartHitEffect2");
+
         //エフェクトプレファブの取得
         Magic_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode_Heart");
+        Ajimi_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/ParticleTasteEffect");
 
         //Prefab内の、コンテンツ要素を取得
         eat_hukidashiPrefab = (GameObject)Resources.Load("Prefabs/Eat_hukidashi");
@@ -1814,7 +1818,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             GameMgr.ending_on = false; //まずかったときは、EDいく分岐があってもここでoffになる。
         }
 
-        //はじめて、魔法おかしを作ったらフラグをONに。
+        //はじめて、魔法おかしを食べたらフラグをONに。
         if (!GameMgr.tutorial_ON)
         {
             if (_basemagic == 1 || _basemagicslot_on == 1)
@@ -4238,6 +4242,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 else
                 {
                     sc.PlaySe(5);
+
+                    //味見のエフェクト
+                    _listAjimiEffect.Add(Instantiate(Ajimi_effect_Prefab1, character_root.transform.Find("CharacterMove").transform));
                 }
                 break;
 
@@ -5097,7 +5104,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
                 break;
 
-            /*case 100120:
+            case 100120:
 
                 //まほうのおかしを作る
                 if (PlayerStatus.First_magicokashi_on)
@@ -5105,7 +5112,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     Debug.Log("まほうのお菓子作ったので、クエストクリア");
                     sp_quest_clear = true;
                 }
-                break;*/
+                break;
 
             case 100130:
 
@@ -6363,22 +6370,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     void ShokukanHintHyouji()
     {
         //食感に関するヒント
-        if (shokukan_score < -40) //
+        if (shokukan_score < -50) //
         {
             _shokukan_kansou = GameMgr.ColorRedDeep + "食感 F: " + shokukan_mes + "が全然足りない..。" + "</color>";
             _shopgirl_shokukan_kansou = shokukan_mes + "が全然足りてないわね..。";
         }
-        else if (shokukan_score >= -40 && shokukan_score < 0) //
+        else if (shokukan_score >= -50 && shokukan_score < -20) //
         {
             _shokukan_kansou = GameMgr.ColorRedDeep + "食感 D: " + shokukan_mes + "が足りない" + "</color>";
             _shopgirl_shokukan_kansou = shokukan_mes + "が足りないわ。";
         }
-        else if (shokukan_score >= 0 && shokukan_score < GameMgr.low_score) //
+        else if (shokukan_score >= -20 && shokukan_score < 30) //クリア基準は60 GameMgr.low_score
         {
             _shokukan_kansou = GameMgr.ColorRedDeep + "食感 C: " + shokukan_mes + "がもっとほしい" + "</color>";
             _shopgirl_shokukan_kansou = shokukan_mes + "がもっとほしいかも。";
         }
-        else if (shokukan_score >= GameMgr.low_score && shokukan_score < GameMgr.high_score) //
+        else if (shokukan_score >= 30 && shokukan_score < GameMgr.high_score) //
         {
             _shokukan_kansou = "食感 B: " + "まあまあの" + shokukan_mes;
             _shopgirl_shokukan_kansou = "ほどよい" + shokukan_mes + "ね。";

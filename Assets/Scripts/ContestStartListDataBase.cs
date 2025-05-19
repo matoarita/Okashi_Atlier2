@@ -1689,7 +1689,10 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         {
             case "Or_Contest_001": //春コン
 
-                FirstVictoryCheck(_contestName);
+                //ハーマイオニーはいくら負けても、大会優勝時にエデンゲット
+                GameMgr.EdenPrizeChange = false;
+                GameMgr.EdenFirstVictory = true;
+                //FirstVictoryCheck(_contestName);
                 break;
 
             case "Or_Contest_002": //夏コン
