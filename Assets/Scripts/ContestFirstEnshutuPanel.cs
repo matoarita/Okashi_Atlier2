@@ -21,13 +21,14 @@ public class ContestFirstEnshutuPanel : MonoBehaviour
         PanelStart_obj = this.transform.Find("PanelStart").gameObject;
 
         contest_name = PanelContestName_obj.transform.Find("TextContestName").GetComponent<TextMeshProUGUI>();
-        contest_name.text = GameMgr.Contest_NameHyouji;
+        contest_name.text = GameMgr.Contest_EnshutuNameHyouji;
 
         PanelContestName_obj.SetActive(false);
         PanelReady_obj.SetActive(false);
         PanelStart_obj.SetActive(false);
 
         this.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
+        this.transform.Find("BGBlack").GetComponent<CanvasGroup>().DOFade(0.3f, 0.0f);
         StartCoroutine("OnStartAnimWait");
     }
 
@@ -41,13 +42,14 @@ public class ContestFirstEnshutuPanel : MonoBehaviour
     {
         PanelContestName_obj = this.transform.Find("PanelContestName").gameObject;
         contest_name = PanelContestName_obj.transform.Find("TextContestName").GetComponent<TextMeshProUGUI>();
-        contest_name.text = GameMgr.Contest_NameHyouji;
+        contest_name.text = GameMgr.Contest_EnshutuNameHyouji;
     }
 
     IEnumerator OnStartAnimWait()
     {
         yield return new WaitForSeconds(1.0f); //ÉèÉìÉeÉìÉ|Ç®Ç≠
 
+        this.transform.Find("BGBlack").GetComponent<CanvasGroup>().DOFade(1, 0.5f);
         PanelContestName_obj.SetActive(true);
     }
 
@@ -58,11 +60,13 @@ public class ContestFirstEnshutuPanel : MonoBehaviour
 
     public void OnStartAnim2()
     {
+        PanelContestName_obj.SetActive(false);
         PanelReady_obj.SetActive(true);
     }
 
     public void OnStartAnim3()
     {
+        PanelReady_obj.SetActive(false);
         PanelStart_obj.SetActive(true);
     }
 
@@ -81,11 +85,12 @@ public class ContestFirstEnshutuPanel : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-        this.GetComponent<CanvasGroup>().DOFade(0, 0.3f).OnComplete(OffObj);
+        this.GetComponent<CanvasGroup>().DOFade(0, 0.5f).OnComplete(OffObj);
     }
 
     void OffObj()
     {
         GameMgr.ContestStartEnshutu_Flag = false;
+        this.gameObject.SetActive(false);
     }
 }

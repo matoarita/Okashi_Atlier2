@@ -811,6 +811,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_AcceptedDelete; //コンテスト　受注してたコンテストをリストから削除する
     public static string Contest_Name; //コンテストの名前　次のコンテストに出場するまでは、この名前は前回でてたコンテストの名前にもなる。
     public static string Contest_NameHyouji; //コンテストの名前日本語表記
+    public static string Contest_EnshutuNameHyouji; //コンテストの名前日本語表記
     public static string Contest_Name_Round; //コンテストの名前　トーナメント形式で今何回戦かまで表記
     public static string Contest_ProblemSentence; //コンテストの課題の内容
     public static string Contest_ProblemSentence2; //コンテストの課題の内容
@@ -868,7 +869,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Contest_afterHomeEventFlag; //コンテスト終了後、家にかえって寝たあとに発生するイベント
     public static bool Contest_afterHomeHeartUpFlag; //コンテスト終了後、寝ておきてから、順位に応じてハートが上がるイベントのフラグ
     public static bool CharacterTouch_ALLOFF; //キャラの触り判定をオフにする。
-    public static bool CharacterTouch_ALLON; //キャラの触り判定をオンにする。   
+    public static bool CharacterTouch_ALLON; //キャラの触り判定をオンにする。 
     public static bool BGTouch_ALLOFF; //背景オブジェクトの触り判定をオフにする。
     public static bool BGTouch_ALLON; //背景オブジェクトの触り判定をオンにする。
     public static bool EatAnim_End; //食べるときのエフェクトアニメの終了を検知
@@ -1469,6 +1470,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_JudgeType = 0;
         Contest_Name = "";
         Contest_NameHyouji = "";
+        Contest_EnshutuNameHyouji = "";
         Contest_ProblemSentence = "";
         Contest_ProblemSentence2 = "";
         Contest_HallBGName = "";

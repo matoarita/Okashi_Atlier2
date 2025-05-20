@@ -15,6 +15,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     private string FileName;
     private string Name;
     private string Name_Hyouji;
+    private string EnshutuName_Hyouji;
     private string Contest_themeComment;
     private int _pmonth;
     private int _pday;
@@ -78,6 +79,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 FileName = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].file_name;
                 Name = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].Contest_Name;
                 Name_Hyouji = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].Contest_Name_Hyouji;
+                EnshutuName_Hyouji = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].Contest_EnshutuName;
                 Contest_themeComment = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].theme_comment;
                 _pmonth = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].Contest_Pmonth;
                 _pday = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].Contest_Pday;
@@ -102,7 +104,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
 
                 //ここでリストに追加している
-                conteststart_lists.Add(new ContestStartList(_id, _placenum, FileName, Name, Name_Hyouji, Contest_themeComment,
+                conteststart_lists.Add(new ContestStartList(_id, _placenum, FileName, Name, Name_Hyouji, EnshutuName_Hyouji, Contest_themeComment,
                     _pmonth, _pday, _endmonth, _endday, _cost, _flag, _patissierRank, _lv, _bringType, _bringmax,
                     _rankingType, _accepted, _getpt, _contestVictory, _contestFightsCount, ContestBGName, ContestBG_ChubouName, ContestBGMSelect,
                     Comment_out, _read_endflag));
@@ -131,6 +133,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         contest_name_origin = conteststart_lists[SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestName;
         GameMgr.Contest_Name = contest_name_origin;
         GameMgr.Contest_NameHyouji = conteststart_lists[SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestNameHyouji;
+        GameMgr.Contest_EnshutuNameHyouji = conteststart_lists[SearchContestPlaceNum(GameMgr.ContestSelectNum)].ContestEnshutuName;
 
         if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
         {

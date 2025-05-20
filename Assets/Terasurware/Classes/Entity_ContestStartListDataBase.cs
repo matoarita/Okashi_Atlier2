@@ -22,6 +22,7 @@ public class Entity_ContestStartListDataBase : ScriptableObject
 		public string file_name;
 		public string Contest_Name;
 		public string Contest_Name_Hyouji;
+		public string Contest_EnshutuName;
 		public string theme_comment;
 		public int Contest_Pmonth;
 		public int Contest_Pday;

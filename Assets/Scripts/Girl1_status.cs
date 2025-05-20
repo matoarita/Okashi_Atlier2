@@ -1727,9 +1727,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
     public void SetMotion_ContestBefore() //コンテスト開始前のモーションに強制リセット
     {
-        live2d_animator.Play("facemotion_14", motion_layer_num, 0.0f);
+        live2d_animator.Play("facemotion_40", motion_layer_num, 0.0f);
         live2d_animator.Update(0f);
     }
+
 
     void HikariMakeStatus_IdleMotion()
     {

@@ -146,7 +146,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         if (GameMgr.System_DebugItemSet_ON) //上のデバッグ用のチェックをONにするだけでいい　アイテムは下で設定
         {
-            _id = conteststartList_database.SearchContestString("Or_Contest_100"); //コンテストの会場番号　コンテスト名いれたらOK
+            _id = conteststartList_database.SearchContestString("Or_Contest_001"); //コンテストの会場番号　コンテスト名いれたらOK
 
             GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_id].Contest_placeNumID;
             GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_id].Contest_RankingType;
@@ -154,6 +154,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
             GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
             GameMgr.Contest_NameHyouji = conteststartList_database.conteststart_lists[_id].ContestNameHyouji;
+            GameMgr.Contest_EnshutuNameHyouji = conteststartList_database.conteststart_lists[_id].ContestEnshutuName;
 
             //GameMgr.Story_Mode = 1;
             GameMgr.GirlLoveEvent_num = 10;
@@ -605,10 +606,13 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                         contestFirstEnshutuPanel.GetComponent<ContestFirstEnshutuPanel>().SetContestName();
 
                         GameMgr.ContestStartEnshutu_Flag = true;
-                        mainUI_panel.SetActive(false);
-                        text_area.SetActive(false);
+                        mainUI_panel.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
+                        mainUI_panel.GetComponent<CanvasGroup>().interactable = false;
+                        text_area.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
 
-                        //girl1_status.SetMotion_ContestBefore();
+                        girl1_status.SetMotion_ContestBefore();
+                        girl1_status.GirlEat_Judge_on = false;
+
 
                         GameMgr.Scene_Status = 1000;
                         GameMgr.Scene_Select = 0;
@@ -624,6 +628,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                         timelimitover_panel.SetActive(true);
                         LimitTimeOver();
                     }
+
+                    GameMgr.Status_zero_readOK = true;
 
                     text_default();
 
@@ -715,6 +721,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                 case 1000: //最初のコンテスト演出中
 
+                    GameMgr.CharacterTouch_ALLOFF = true; //
+                    UITouch_ALLOFF();
                     break;
 
                 default:
@@ -737,18 +745,51 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         sceneBGM.PlayContestStartBGM();
         sceneBGM.NowFadeVolumeONBGM();
 
-        //girl1_status.IdleMotionReset(0); //コンテスト用アイドルモーションにリセット 0は即時切り替え
+        girl1_status.IdleMotionReset(1); //コンテスト用アイドルモーションにリセット
+        girl1_status.GirlEat_Judge_on = true;
 
-        GameMgr.Status_zero_readOK = true;
+        
         GameMgr.contest_MainMatchStart = true; //本戦開始の合図　TimeControllerで時間が進み始める
 
-        GameMgr.Scene_Status = 0;
+        GameMgr.Scene_Status = 100;
         GameMgr.Scene_Select = 0;
 
-        mainUI_panel.SetActive(true);
-        text_area.SetActive(true);
+        GameMgr.CharacterTouch_ALLON = true; //タッチもオンにする。
+
+        mainUI_panel.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+        mainUI_panel.GetComponent<CanvasGroup>().interactable = true;
+        text_area.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+
+        UITouch_ALLON();
     }
 
+    void UITouch_ALLOFF()
+    {
+        mainUI_panel.transform.Find("HintTaste_Toggle").GetComponent<Toggle>().interactable = false;
+        mainUI_panel.transform.Find("HintTaste_Toggle").GetComponent<Sound_Trigger>().se_sound_ON = false;
+        mainUI_panel.transform.Find("ExtremePanel/Comp/ExtremeButton").GetComponent<Button>().interactable = false;
+        mainUI_panel.transform.Find("ExtremePanel/Comp/ExtremeButton").GetComponent<Sound_Trigger>().se_sound_ON = false;
+        mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_01").GetComponent<Toggle>().interactable = false;
+        mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_01").GetComponent<Sound_Trigger>().se_sound_ON = false;
+        mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_GiveUp").GetComponent<Toggle>().interactable = false;
+        mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_GiveUp").GetComponent<Sound_Trigger>().se_sound_ON = false;
+        mainUI_panel.transform.Find("ContestStartButtonPanel/ContestStartButton/TestStartButton").GetComponent<Button>().interactable = false;
+        mainUI_panel.transform.Find("ContestStartButtonPanel/ContestStartButton/TestStartButton").GetComponent<Sound_Trigger>().se_sound_ON = false;
+    }
+
+    void UITouch_ALLON()
+    {
+        mainUI_panel.transform.Find("HintTaste_Toggle").GetComponent<Toggle>().interactable = true;
+        mainUI_panel.transform.Find("HintTaste_Toggle").GetComponent<Sound_Trigger>().se_sound_ON = true;
+        mainUI_panel.transform.Find("ExtremePanel/Comp/ExtremeButton").GetComponent<Button>().interactable = true;
+        mainUI_panel.transform.Find("ExtremePanel/Comp/ExtremeButton").GetComponent<Sound_Trigger>().se_sound_ON = true;
+        mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_01").GetComponent<Toggle>().interactable = true;
+        mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_01").GetComponent<Sound_Trigger>().se_sound_ON = true;
+        mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_GiveUp").GetComponent<Toggle>().interactable = true;
+        mainUI_panel.transform.Find("Contest_Select/Viewport/Content/ContestOn_Toggle_GiveUp").GetComponent<Sound_Trigger>().se_sound_ON = true;
+        mainUI_panel.transform.Find("ContestStartButtonPanel/ContestStartButton/TestStartButton").GetComponent<Button>().interactable = true;
+        mainUI_panel.transform.Find("ContestStartButtonPanel/ContestStartButton/TestStartButton").GetComponent<Sound_Trigger>().se_sound_ON = true;
+    }
 
     //コンテストごとに、会場風景が変わる。
     void ContestHall_Select(string _hallname, string _chuubouname)

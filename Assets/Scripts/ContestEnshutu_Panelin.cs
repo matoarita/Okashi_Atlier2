@@ -68,7 +68,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
 
         yield return new WaitForSeconds(0.1f); //ワンテンポおく
 
-        sc.PlaySe(14); //シュイン
+        sc.PlaySe(172); //シュイン 172 238
 
         OpenAnim();
     }
@@ -96,7 +96,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
 
     IEnumerator EndAnimWait()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
 
         Sequence sequence = DOTween.Sequence();
 
@@ -137,7 +137,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
 
     void EndAnim2()
     {
-        sc.PlaySe(99); //ピピーーー
+        sc.PlaySe(237); //ピピーーー 99ドラ音
         start_effect.SetActive(true);
         StartCoroutine("EndAnimWait2");
     }

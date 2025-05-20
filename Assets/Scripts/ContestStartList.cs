@@ -10,6 +10,7 @@ public class ContestStartList
     public int Contest_placeNumID; //
     public string ContestName;
     public string ContestNameHyouji;
+    public string ContestEnshutuName;
     public string Contest_themeComment; //コンテストのテーマ
     public int Contest_PMonth; //開催月　0月なら月指定はなく、来た日をもとに日付を決める
     public int Contest_Pday; //開催日
@@ -35,7 +36,7 @@ public class ContestStartList
     public Sprite ContestIcon_sprite;
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public ContestStartList(int id, int placenum, string fileName, string _name, string _name_Hyouji, string _theme, 
+    public ContestStartList(int id, int placenum, string fileName, string _name, string _name_Hyouji, string _enshutu_name, string _theme, 
         int _pmonth, int _pday, int _endmonth, int _endday, int _cost, int _flag, int _Prank,
         int _lv, int _bring_type, int _bring_max, int _ranking_type, int _contest_Accepted, int _get_patissierpoint, 
         int _contestVictory, int _contestFightsCount, string _contestbgname, string _contestbg_chubouname, string _contestbgm, 
@@ -46,6 +47,7 @@ public class ContestStartList
 
         ContestName = _name;
         ContestNameHyouji = _name_Hyouji;
+        ContestEnshutuName = _enshutu_name;
         Contest_themeComment = _theme;
 
         Contest_PMonth = _pmonth;
