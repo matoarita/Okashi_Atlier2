@@ -1093,6 +1093,7 @@ public class Contest_Main_Reception : MonoBehaviour
             GameMgr.Contest_HallBGName = conteststartList_database.conteststart_lists[_id].ContestBGName;
             GameMgr.Contest_ChubouBGName = conteststartList_database.conteststart_lists[_id].ContestBGChubouName;
             GameMgr.Contest_BGMSelect = conteststartList_database.conteststart_lists[_id].ContestBGMSelect;
+            GameMgr.Contest_BGMSelectHall = conteststartList_database.conteststart_lists[_id].ContestBGMSelectHall;
 
             //出場回数+1
             conteststartList_database.conteststart_lists[_id].ContestFightsCount++;

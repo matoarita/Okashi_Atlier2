@@ -42,6 +42,7 @@ public class Entity_ContestStartListDataBase : ScriptableObject
 		public string ContestBGName;
 		public string ContestBGChubouName;
 		public string ContestBGMSelect;
+		public int ContestBGMSelectHall;
 		public string comment_out;
 		public int read_endflag;
 	}

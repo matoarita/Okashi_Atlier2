@@ -30,6 +30,7 @@ public class ContestStartList
     public string ContestBGName; //コンテスト会場風景の名前指定　背景画像自体は、Contest_Main_OrA1内で設定
     public string ContestBGChubouName; //コンテスト会場　厨房背景
     public string ContestBGMSelect; //コンテスト会場　制作中のBGM
+    public int ContestBGMSelectHall; //コンテスト会場　スタート時会場のBGM
     public string Contest_Comment_out; //ゲーム中では使わない　コンテストへのメモ
     public int read_endflag; //ここが1のところで、検索終了
 
@@ -39,7 +40,7 @@ public class ContestStartList
     public ContestStartList(int id, int placenum, string fileName, string _name, string _name_Hyouji, string _enshutu_name, string _theme, 
         int _pmonth, int _pday, int _endmonth, int _endday, int _cost, int _flag, int _Prank,
         int _lv, int _bring_type, int _bring_max, int _ranking_type, int _contest_Accepted, int _get_patissierpoint, 
-        int _contestVictory, int _contestFightsCount, string _contestbgname, string _contestbg_chubouname, string _contestbgm, 
+        int _contestVictory, int _contestFightsCount, string _contestbgname, string _contestbg_chubouname, string _contestbgm, int _contestbgmhall,
         string _comment_out, int _read_endflag)
     {
         ContestID = id;
@@ -71,6 +72,7 @@ public class ContestStartList
         ContestBGName = _contestbgname;
         ContestBGChubouName = _contestbg_chubouname;
         ContestBGMSelect = _contestbgm;
+        ContestBGMSelectHall = _contestbgmhall;
 
         Contest_Comment_out = _comment_out;
         read_endflag = _read_endflag;

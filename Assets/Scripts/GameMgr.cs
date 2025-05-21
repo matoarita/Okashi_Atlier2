@@ -53,7 +53,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各システムの使用の有無   
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Shiokuri_ON = true; //仕送りの有無
-    public static bool System_Yachin_ON = false; //家賃システムの有無
+    public static bool System_Yachin_ON = true; //家賃システムの有無
 
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
@@ -818,6 +818,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Contest_HallBGName; //コンテストの会場背景の指定　stringで
     public static string Contest_ChubouBGName; //コンテストの会場厨房背景の指定　stringで
     public static string Contest_BGMSelect; //コンテスト制作中のBGMの指定
+    public static int Contest_BGMSelectHall; //コンテスト　スタート時会場のBGMの指定
     public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
     public static int Contest_commentDB_Select; //番号に応じて、コメントのDBを指定
     public static int Contest_JudgeType; //コンテストによって、女の子の好み判定のほうを使用する場合もあり
@@ -1490,6 +1491,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_Next_flag = false;
         Contest_PrizeGet_flag = false;
         contest_Rank_Count = 1;
+        Contest_BGMSelectHall = 0;
         Money_counterDeg = 1;
         SceneSelectNum = 0;
         Getmat_return_home = false;
@@ -2457,6 +2459,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2"));
 
         //スター・場所のイベント系
+        HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_2"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_2"));

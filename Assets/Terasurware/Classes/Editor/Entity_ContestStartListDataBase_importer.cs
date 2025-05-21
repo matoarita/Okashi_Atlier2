@@ -75,8 +75,9 @@ public class Entity_ContestStartListDataBase_importer : AssetPostprocessor {
 					cell = row.GetCell(22); p.ContestBGName = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(23); p.ContestBGChubouName = (cell == null ? "" : cell.StringCellValue);
 					cell = row.GetCell(24); p.ContestBGMSelect = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(25); p.comment_out = (cell == null ? "" : cell.StringCellValue);
-					cell = row.GetCell(26); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(25); p.ContestBGMSelectHall = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(26); p.comment_out = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(27); p.read_endflag = (int)(cell == null ? 0 : cell.NumericCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

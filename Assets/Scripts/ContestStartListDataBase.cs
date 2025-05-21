@@ -35,6 +35,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     private string ContestBGName;
     private string ContestBG_ChubouName;
     private string ContestBGMSelect;
+    private int ContestBGMSelectHall;
     private string Comment_out;
     private int _read_endflag;
 
@@ -99,6 +100,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 ContestBGName = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].ContestBGName;
                 ContestBG_ChubouName = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].ContestBGChubouName;
                 ContestBGMSelect = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].ContestBGMSelect;
+                ContestBGMSelectHall = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].ContestBGMSelectHall;
                 Comment_out = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].comment_out;
                 _read_endflag = excel_conteststartlist_itemdatabase.sheets[sheet_no].list[count].read_endflag;
 
@@ -106,7 +108,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 //ここでリストに追加している
                 conteststart_lists.Add(new ContestStartList(_id, _placenum, FileName, Name, Name_Hyouji, EnshutuName_Hyouji, Contest_themeComment,
                     _pmonth, _pday, _endmonth, _endday, _cost, _flag, _patissierRank, _lv, _bringType, _bringmax,
-                    _rankingType, _accepted, _getpt, _contestVictory, _contestFightsCount, ContestBGName, ContestBG_ChubouName, ContestBGMSelect,
+                    _rankingType, _accepted, _getpt, _contestVictory, _contestFightsCount, ContestBGName, ContestBG_ChubouName, ContestBGMSelect, ContestBGMSelectHall,
                     Comment_out, _read_endflag));
 
                 ++count;
@@ -1163,7 +1165,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 123000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
-        GameMgr.Contest_ProblemSentence = "テーマ：おみやげに合うお菓子＜クッキー・ラスクを除く＞";
+        GameMgr.Contest_ProblemSentence = "テーマ：おみやげお菓子＜クッキー・ラスクを除く＞";
         GameMgr.Contest_ProblemSentence2 = "おみやげに合う子供が喜ぶスイーツを希望じゃ！" + "\n" + "制限時間: 6時間";
 
         //コンテスト時間指定

@@ -3130,6 +3130,10 @@ public class Utage_scenario : MonoBehaviour
             case 1550: //Or遊園地バイキング
 
                 scenarioLabel = "Or_NPC104_park_biking";
+
+                omoide_flag = GameMgr.SearchHikariOmoideFlag("event_biking");
+                //Debug.Log("観覧車イベントフラグ: " + omoide_flag);
+                engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
                 break;
 
             case 1560: //Or遊園地観覧車
@@ -3800,6 +3804,13 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(800);
+
+                        omoide_flag = GameMgr.SearchHikariOmoideFlag("event_biking");
+                        if (!omoide_flag)
+                        {
+                            GameMgr.SetHikariOmoideFlag("event_biking", true);
+                            //Debug.Log("イベント観覧車　思い出フラグをTrue");
+                        }
                         break;
 
                 }
@@ -4323,6 +4334,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Contest_num", contest_num);
+        engine.Param.TrySetParameter("Costume_BGMHall_num", GameMgr.Contest_BGMSelectHall);
         engine.Param.TrySetParameter("Round_num", GameMgr.ContestRoundNum); //〇回戦かを指定
         engine.Param.TrySetParameter("contest_ranking_Type", GameMgr.Contest_Cate_Ranking); //トーナメントかランキング形式か 
         engine.Param.TrySetParameter("contest_NameHyouji", GameMgr.Contest_NameHyouji); //コンテスト名前表記
