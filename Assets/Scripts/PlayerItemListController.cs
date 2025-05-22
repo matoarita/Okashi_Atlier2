@@ -548,26 +548,16 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     switch (GameMgr.Scene_Select)
                     {
-                        case 3:
+                        case 3: //依頼
 
                             //お菓子のみ表示
-                            if (check_itemType == "Okashi")
+                            if (check_itemType == "Okashi" || check_itemType_sub == "FrozenFruits")
                             {
                                 itemlist_hyouji_Check(check_itemListType);
                             }
                             break;
 
-                        case 5:
-
-                            //フルーツかレアアイテムを表示
-                            if (check_itemType == "Mat" || check_itemType_sub == "Rare")
-                            {
-
-                                itemlist_hyouji_Check(check_itemListType);
-                            }
-                            break;
-
-                        case 6:
+                        case 6: //おかしあげるとき
 
                             //お菓子のみ表示
                             if (check_itemType == "Okashi")

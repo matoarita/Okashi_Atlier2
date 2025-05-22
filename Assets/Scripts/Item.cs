@@ -203,6 +203,7 @@ public class Item
         Cream,               
         Egg,
         Fruits,
+        FrozenFruits,
         Harb,        
         Komugiko,
         Milk,

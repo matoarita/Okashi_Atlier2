@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuestKakuninButtonPanel : MonoBehaviour {
 
@@ -16,6 +17,9 @@ public class QuestKakuninButtonPanel : MonoBehaviour {
     private int i, j;
     private int counter;
     private int counter_chouka;
+
+    private int questTake_count;
+    private Text CountText;
 
     // Use this for initialization
     void Start () {
@@ -40,6 +44,8 @@ public class QuestKakuninButtonPanel : MonoBehaviour {
         {
             this.transform.Find("QuestKakuninButton").gameObject.SetActive(false);
         }
+
+        CountText = this.transform.Find("QuestKakuninButton/QuestCount/CountText").gameObject.GetComponent<Text>();       
     } 
 
 	// Update is called once per frame
@@ -100,5 +106,9 @@ public class QuestKakuninButtonPanel : MonoBehaviour {
                 Limit_checkmark_obj2.SetActive(true);
             }
         }
+
+        //現在の受注数
+        questTake_count = questset_database.questTakeset.Count;
+        CountText.text = questTake_count.ToString();
     }
 }

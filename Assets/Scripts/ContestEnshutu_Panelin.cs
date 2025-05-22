@@ -68,7 +68,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
 
         yield return new WaitForSeconds(0.1f); //ワンテンポおく
 
-        sc.PlaySe(172); //シュイン 172 238
+        sc.PlaySe(238); //シュイン 172 238
 
         OpenAnim();
     }

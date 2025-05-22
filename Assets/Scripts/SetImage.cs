@@ -1585,6 +1585,10 @@ public class SetImage : MonoBehaviour
                     DrawTasteWindow2();
                     break;
 
+                case "FrozenFruits":
+                    DrawTasteWindow2();
+                    break;
+
                 case "Berry":
                     DrawTasteWindow2();
                     break;

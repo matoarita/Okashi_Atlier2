@@ -2572,12 +2572,12 @@ public class Utage_scenario : MonoBehaviour
 
                 switch (GameMgr.sp_talk_number)
                 {
-                    case 100:
+                    case 100: //マッサージした
 
                         if (stationevent_num == 1) //stationevent_numが1になるのはキャラ会話のときだけ
                         {
                             GameMgr.NPC_pahupahu_point = 0;
-                            GameMgr.NPC_FriendPoint[40] += 2;
+                            GameMgr.NPC_FriendPoint[40] += 3;
                         }
                         break;
                 }
