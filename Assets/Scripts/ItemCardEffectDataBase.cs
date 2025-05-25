@@ -462,13 +462,13 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         else if (_compa >= 5 && _compa < 20)
         {
             _add_magicbeauty += 10 + 5 + (_magiclv * 3);
-            _ms_aisho = "Å¢";
+            _ms_aisho = "ÅZ";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
         }
         else if (_compa >= 20 && _compa < 50)
         {
             _add_magicbeauty += 10 + (_compa / 2) + (_magiclv * 8);
-            _ms_aisho = "ÅZ";
+            _ms_aisho = "Åù";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
 
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;
@@ -476,7 +476,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
         else if (_compa >= 50)
         {
             _add_magicbeauty += 10 + (_compa / 2) + (_magiclv * 15);
-            _ms_aisho = "Åù";
+            _ms_aisho = "Åô";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }

@@ -57,6 +57,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private int _movetime;
     public bool cardcompo_anim_on;
 
+    private int Select_SortingNum = 6000;
+
     // Use this for initialization
     void Start () {
 
@@ -265,6 +267,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _kettei_item2;
         _cardImage.SetInit();
         _cardImage_obj[1].GetComponent<SetImage>().CardParamOFF_2();
+        _cardImage_obj[1].GetComponent<Canvas>().sortingOrder = Select_SortingNum;
         //_cardImage_obj[1].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
@@ -334,6 +337,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _kettei_item3;
         _cardImage.SetInit();
         _cardImage_obj[2].GetComponent<SetImage>().CardParamOFF_2();
+        _cardImage_obj[2].GetComponent<Canvas>().sortingOrder = Select_SortingNum + 1000;
         //_cardImage_obj[2].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理
@@ -412,6 +416,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         _cardImage.check_counter = _kettei_item4;
         _cardImage.SetInit();
         _cardImage_obj[3].GetComponent<SetImage>().CardParamOFF_2();
+        _cardImage_obj[3].GetComponent<Canvas>().sortingOrder = Select_SortingNum + 2000;
         //_cardImage_obj[3].GetComponent<SetImage>().SlotChangeButtonON();
 
         // オリジナル調合を選択した場合の処理

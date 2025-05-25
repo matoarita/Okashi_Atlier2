@@ -252,7 +252,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
         card_view.DeleteCard_DrawView();
         SelectCompo_panel_1.SetActive(false);
 
-        //_text.text = hikarimake_text;
+        _text.text = hikarimake_text;
         GameMgr.compound_status = 8;
     }
 

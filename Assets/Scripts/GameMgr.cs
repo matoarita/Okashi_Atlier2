@@ -498,6 +498,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool SleepSkipFlag;
     public static bool PicnicSkipFlag;
     public static bool OutGirlSkipFlag;
+    public static bool YachinSkipFlag;
     public static bool TempatureControlSkipFlag;
 
     //現在のメインBGMの番号
@@ -1268,6 +1269,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SleepSkipFlag = false;
         PicnicSkipFlag = false;
         OutGirlSkipFlag = false;
+        YachinSkipFlag = false;
         TempatureControlSkipFlag = false;
 
         scenario_flag = 0; //シナリオの進み具合を管理するフラグ。GameMgr.scenario_flagでアクセス可能。

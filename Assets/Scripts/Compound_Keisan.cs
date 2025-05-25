@@ -1761,7 +1761,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * _set_kaisu;
             }
 
-            Debug.Log("ヒカリ制作の個数: 元" + result_kosu + " 個数のバフ（右の数字で割り算）: " + GameMgr.hikari_make_okashiKosu_buf);
+            if (GameMgr.hikari_make_okashiKosu_buf == 0) { GameMgr.hikari_make_okashiKosu_buf = 1.0f; } //例外処理　0で割らないようにする
+            Debug.Log("ヒカリ制作の個数: 元" + result_kosu + " 個数のバフ（右の数字で割り算）: " + GameMgr.hikari_make_okashiKosu_buf);            
             result_kosu = (int)(result_kosu / GameMgr.hikari_make_okashiKosu_buf);
 
             if (GameMgr.hikari_make_success_count >= 1) //一回でも成功してたら、最低一個はできる。
@@ -2401,12 +2402,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
-        //ジュースののどごしを計算する。
-        _basejuice = _basesweat + _basebitter + _basesour;
+        //ジュースののどごしを計算する。新規作成時のみトッピング・仕上げのときは再計算しない。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
+        {
+            _basejuice = _basesweat + _basebitter + _basesour;
+        }
 
         //新規作成時の特殊処理
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
-        {
+        {           
             Okashi_SpecialKeisan();           
         }
 

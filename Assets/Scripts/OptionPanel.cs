@@ -52,6 +52,8 @@ public class OptionPanel : MonoBehaviour {
     private GameObject PicnicSkip_toggle_obj;
     private Toggle OutGirlSkip_toggle;
     private GameObject OutGirlSkip_toggle_obj;
+    private Toggle YachinSkip_toggle;
+    private GameObject YachinSkip_toggle_obj;
     private Toggle TempatureControl_toggle;
     private GameObject TempatureControl_toggle_obj;
 
@@ -160,6 +162,9 @@ public class OptionPanel : MonoBehaviour {
         OutGirlSkip_toggle_obj = this.transform.Find("ExtraOptionList/Viewport/Content/OutGirlSkip").gameObject;
         OutGirlSkip_toggle = this.transform.Find("ExtraOptionList/Viewport/Content/OutGirlSkip/OutGirlSkipToggle").GetComponent<Toggle>();
 
+        YachinSkip_toggle_obj = this.transform.Find("ExtraOptionList/Viewport/Content/YachinSkip").gameObject;
+        YachinSkip_toggle = this.transform.Find("ExtraOptionList/Viewport/Content/YachinSkip/YachinSkipToggle").GetComponent<Toggle>();
+
         TempatureControl_toggle_obj = this.transform.Find("ExtraOptionList/Viewport/Content/TempControlSkip").gameObject;
         TempatureControl_toggle = this.transform.Find("ExtraOptionList/Viewport/Content/TempControlSkip/TempatureControlToggle").GetComponent<Toggle>();
         if (magicskill_database.skillName_SearchLearnLevel("Temperature_of_Control") >= 1)
@@ -194,7 +199,7 @@ public class OptionPanel : MonoBehaviour {
             CompoBGMchange_on_toggle.SetIsOnWithoutCallback(false);
         }
 
-        //スキップ関連
+        //スキップ関連 1のときのやつで今は使ってない
         /*if (pitemlist.KosuCount("skip_sleep") >= 1)
         {
             SleepSkip_toggle_obj.SetActive(true);
@@ -207,13 +212,35 @@ public class OptionPanel : MonoBehaviour {
             PicnicSkip_toggle_obj.SetActive(false);
             OutGirlSkip_toggle_obj.SetActive(false);
         }*/
+
+        //外へでるスキップボタンON/OFF
+        if(PlayerStatus.girl1_Love_lv >= 10)
+        {
+            OutGirlSkip_toggle_obj.SetActive(true);
+        }else
+        {
+            OutGirlSkip_toggle_obj.SetActive(false);
+        }
+        //家賃の会話スキップボタンON/OFF
+        if (GameMgr.System_Yachin_ON)
+        {
+            YachinSkip_toggle_obj.SetActive(true);
+        }
+        else
+        {
+            YachinSkip_toggle_obj.SetActive(false);
+        }
+
+        //各スイッチのON/OFF
         if (GameMgr.SleepSkipFlag)
         {
             SleepSkip_toggle.SetIsOnWithoutCallback(true);
+            SleepSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(true);
         }
         else
         {
             SleepSkip_toggle.SetIsOnWithoutCallback(false);
+            SleepSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(false);
         }
         if (GameMgr.PicnicSkipFlag)
         {
@@ -226,18 +253,32 @@ public class OptionPanel : MonoBehaviour {
         if (GameMgr.OutGirlSkipFlag)
         {
             OutGirlSkip_toggle.SetIsOnWithoutCallback(true);
+            OutGirlSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(true);
         }
         else
         {
             OutGirlSkip_toggle.SetIsOnWithoutCallback(false);
+            OutGirlSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(false);
+        }
+        if (GameMgr.YachinSkipFlag)
+        {
+            YachinSkip_toggle.SetIsOnWithoutCallback(true);
+            YachinSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(true);
+        }
+        else
+        {
+            YachinSkip_toggle.SetIsOnWithoutCallback(false);
+            YachinSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(false);
         }
         if (!GameMgr.TempatureControlSkipFlag)
         {
             TempatureControl_toggle.SetIsOnWithoutCallback(true);
+            TempatureControl_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(true);
         }
         else
         {
             TempatureControl_toggle.SetIsOnWithoutCallback(false);
+            TempatureControl_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(false);
         }
 
 
@@ -492,7 +533,7 @@ public class OptionPanel : MonoBehaviour {
         else if (gamespeed_toggle[5].isOn)
         {
             GameMgr.GameSpeedParam = 6;
-            GameSpeed_paramtext.text = "リアルタイム停止";
+            GameSpeed_paramtext.text = "ストップ";
             GameMgr.Realtime_speedrange_ON = false; //リアルタイムを停止
         }
     }
@@ -724,11 +765,13 @@ public class OptionPanel : MonoBehaviour {
         {
             GameMgr.SleepSkipFlag = true;
             sc.PlaySe(81); //21
+            SleepSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(true);
         }
         else
         {
             GameMgr.SleepSkipFlag = false;
             sc.PlaySe(18);
+            SleepSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(false);
         }
     }
 
@@ -752,11 +795,29 @@ public class OptionPanel : MonoBehaviour {
         {
             GameMgr.OutGirlSkipFlag = true;
             sc.PlaySe(81); //21
+            OutGirlSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(true);
         }
         else
         {
             GameMgr.OutGirlSkipFlag = false;
             sc.PlaySe(18);
+            OutGirlSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(false);
+        }
+    }
+
+    public void OnYachinSkip()
+    {
+        if (YachinSkip_toggle.isOn)
+        {
+            GameMgr.YachinSkipFlag = true;
+            sc.PlaySe(81); //21
+            YachinSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(true);
+        }
+        else
+        {
+            GameMgr.YachinSkipFlag = false;
+            sc.PlaySe(18);
+            YachinSkip_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(false);
         }
     }
 
@@ -766,11 +827,13 @@ public class OptionPanel : MonoBehaviour {
         {
             GameMgr.TempatureControlSkipFlag = true;
             sc.PlaySe(81); //21
+            TempatureControl_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(true);
         }
         else
         {
             GameMgr.TempatureControlSkipFlag = false;
             sc.PlaySe(18);
+            TempatureControl_toggle_obj.transform.Find("autosave_text").gameObject.SetActive(false);
         }
     }
 }

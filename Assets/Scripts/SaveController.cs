@@ -336,6 +336,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_SleepSkipFlag = GameMgr.SleepSkipFlag,
             save_PicnicSkipFlag = GameMgr.PicnicSkipFlag,
             save_OutGirlSkipFlag = GameMgr.OutGirlSkipFlag,
+            save_YachinSkipFlag = GameMgr.YachinSkipFlag,
             save_TempatureControlSkipFlag = GameMgr.TempatureControlSkipFlag,
 
             //コスチューム番号
@@ -781,6 +782,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.SleepSkipFlag = playerData.save_SleepSkipFlag;
         GameMgr.PicnicSkipFlag = playerData.save_PicnicSkipFlag;
         GameMgr.OutGirlSkipFlag = playerData.save_OutGirlSkipFlag;
+        GameMgr.YachinSkipFlag = playerData.save_YachinSkipFlag;
         GameMgr.TempatureControlSkipFlag = playerData.save_TempatureControlSkipFlag;
 
         //コスチューム番号

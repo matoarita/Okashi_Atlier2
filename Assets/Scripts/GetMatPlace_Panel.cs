@@ -2347,7 +2347,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         {
                             event_end_flag = true;
 
-                            if (!GameMgr.MapEvent_Or[1]) //ししゃもクッキーをもっている　かつ　お菓子パネルにセットされてる
+                            /*if (!GameMgr.MapEvent_Or[1]) //ししゃもクッキーをもっている　かつ　お菓子パネルにセットされてる
                             {
                                 if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
                                     pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
@@ -2362,7 +2362,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                                     StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
@@ -2412,6 +2412,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
 
+                //マップフラグ解放
+                matplace_database.matPlaceKaikin("Bluetopaz_Garden");
+
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
                     _text.text = "一面に青色のお花が、絨毯のように咲いている。";
@@ -2447,6 +2450,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                //マップ解禁
+                matplace_database.matPlaceKaikin("Aquamarine_Lake");
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
@@ -2484,6 +2490,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
 
+                //マップ解禁
+                matplace_database.matPlaceKaikin("Emerald_Forest");
+
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
                     _text.text = "幻想的な光るお花が、たくさん咲いている。";
@@ -2519,6 +2528,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                //マップ解禁
+                matplace_database.matPlaceKaikin("Amber_Lake");
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
@@ -2556,6 +2568,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
 
+                //マップ解禁
+                matplace_database.matPlaceKaikin("Ruby_Plane");
+
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
                     _text.text = "一面真っ赤なベリー畑になっている。いい香りがする。";
@@ -2591,6 +2606,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
+
+                //マップ解禁
+                matplace_database.matPlaceKaikin("MoonStone_Hill");
 
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
@@ -2628,6 +2646,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
 
+                //マップ解禁
+                matplace_database.matPlaceKaikin("Diamond_Mountain");
+
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
                     _text.text = "色とりどりの宝石が、そこら中に散らばっている。";
@@ -2664,6 +2685,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 //背景エフェクト
                 map_bg_effect.transform.Find("MapBG_Effect_Ido").gameObject.SetActive(true);
 
+                //次回以降、夢くい沼にいけるようになる。
+                matplace_database.matPlaceKaikin("DreamEater_Swamp");
+
                 if (GameMgr.outgirl_Nowprogress) //妹が一緒にいない場合
                 {
                     _text.text = "沼にあまりつかると、夢をくわれてしまうらしい・・。";
@@ -2684,9 +2708,6 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         GameMgr.map_ev_ID = 1900;
                         GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        //次回以降、夢くい沼にいけるようになる。
-                        matplace_database.matPlaceKaikin("DreamEater_Swamp");
 
                         StartCoroutine(MapEventOn(0));
                     }

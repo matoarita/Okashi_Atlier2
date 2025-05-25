@@ -1348,10 +1348,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                             if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
                                             {
                                                 //払えない場合
-                                                GameMgr.GirlLoveSubEvent_num = 1110;
+                                                GameMgr.GirlLoveSubEvent_num = 1110; //２回たまったのでゲームーオーバー
                                                 GameMgr.GirlTalk_num = 11;
 
-                                                GameMgr.yachin_otetsuki_count++; //お手付き　２回たまるとゲームオーバー
+                                                GameMgr.yachin_otetsuki_count++; //お手付き　２回たまったのでゲームオーバー
                                                 GameMgr.yachin_tainou_count++; //トータルの滞納回数
 
                                                 //一回たまって二回目も支払えなかったのでゲームオーバー　宴終了後自動でゲームオーバー画面へいく
@@ -1392,10 +1392,22 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     }
                                     
                                 }
-                                                                
-                                GameMgr.check_GirlLoveSubEvent_flag = false;
 
-                                GameMgr.Mute_on = true;
+                                if (GameMgr.YachinSkipFlag) //会話スキップがONのとき　会話イベントは表示しない　家賃はとられる
+                                {
+                                    if(GameMgr.GirlLoveSubEvent_num == 1110) //ただし、ゲームオーバーのときはイベント表示
+                                    {
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GameMgr.Mute_on = true;
+                                    }
+                                    else
+                                    { }
+                                }
+                                else
+                                {
+                                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    GameMgr.Mute_on = true;
+                                }                               
                             }
 
                             //月はじめバージョン

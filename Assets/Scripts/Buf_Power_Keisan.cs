@@ -1936,7 +1936,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             _kosuhosei = 3.0f;
         }
-        else if (hikari_okashiLV >= 3.0f && hikari_okashiLV < 6.0f)
+        else if (hikari_okashiLV >= 3.0f && hikari_okashiLV < 7.0f)
         {
             _kosuhosei = 2.0f;
         }
@@ -1947,8 +1947,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         else if (hikari_okashiLV >= 9.0f)
         {
             _kosuhosei = 0.5f;
-        }
+        }        
         GameMgr.hikari_make_okashiKosu_buf_keisan = _kosuhosei; //Exp_Controllerでhikari_make_okashiKosu_bufに入れて確定させる
+        if (GameMgr.hikari_make_okashiKosu_buf_keisan == 0) { GameMgr.hikari_make_okashiKosu_buf_keisan = 1.0f; }//例外処理　０で割らないようにする。
 
         //最終的にかかる時間は、Exp_Controllerで計算
         GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.1f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍
