@@ -59,6 +59,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     private string check_itemType_subB;
     private string check_itemType_sub_category;
     private int check_attribute1;
+
+    private int topping_method;
     
 
     public List<int> _listcount = new List<int>(); //納品時用の選択番号リスト型
@@ -112,6 +114,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         kettei1_on = false;       
 
         i = 0;
+        topping_method = 0;
 
         shopsell_final_select_flag = false;
 
@@ -585,7 +588,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
     //トッピング調合の時のみ使用。ベースアイテムを決める時。
     public void topping_DrawView_1()
-    {  
+    {
+        topping_method = 1; //ベースアイテムを決めるとき
 
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
@@ -654,6 +658,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
     //トッピング調合の時のみ使用する。
     public void topping_DrawView_2()
     {
+        topping_method = 0;
+
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
         {
             Destroy(child.gameObject);
@@ -799,6 +805,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             _MagicIcon.SetActive(false);
         }
 
+        //トッピング調合でベースアイテムきめるとき　残り仕上げ回数が0のおかしは、もうトッピングできない
+        if(topping_method == 1)
+        {
+            if(database.items[i].ExtremeKaisu > 0)
+            { }
+            else
+            {
+                _listitem[list_count].GetComponent<Toggle>().interactable = false;
+            }
+        }
+
         ++list_count;
     }
 
@@ -847,6 +864,17 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
             _MagicIcon.SetActive(false);
         }
 
+        //トッピング調合でベースアイテムきめるとき　残り仕上げ回数が0のおかしは、もうトッピングできない
+        if (topping_method == 1)
+        {
+            if (pitemlist.player_originalitemlist[i].ExtremeKaisu > 0)
+            { }
+            else
+            {
+                _listitem[list_count].GetComponent<Toggle>().interactable = false;
+            }
+        }
+
         ++list_count;
     }
 
@@ -893,6 +921,18 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         else
         {
             _MagicIcon.SetActive(false);
+        }
+
+        //トッピング調合でベースアイテムきめるとき　残り仕上げ回数が0のおかしは、もうトッピングできない
+        if (topping_method == 1)
+        {
+            if (pitemlist.player_extremepanel_itemlist[i].ExtremeKaisu > 0)
+            { }
+            else
+            {
+                //Debug.Log("仕上げマックス　触れなくなる");
+                _listitem[list_count].GetComponent<Toggle>().interactable = false;
+            }
         }
 
         ++list_count;

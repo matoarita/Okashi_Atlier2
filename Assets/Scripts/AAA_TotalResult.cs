@@ -602,15 +602,16 @@ public class AAA_TotalResult : MonoBehaviour {
         
 
         //上記のパラメータをもとに、ゲームトータルスコアを計算
-        //ハート総数+コンテストスコア＋コスチュームの数*100
-        //total_score = GameMgr.contest_TotalScore + PlayerStatus.girl1_Love_exp + (pitemlist.emeralditemlist_CostumeCount() * 100);
-        total_score = PlayerStatus.girl1_Love_exp;
+        //ハート総数+スターの数+コスチュームの数+コレクション数＋お菓子手帳の達成率
+        total_score = (PlayerStatus.girl1_Love_exp / 10) + (PlayerStatus.player_ninki_param * 20) + 
+            (pitemlist.emeralditemlist_CostumeCount() * 20) + (pitemlist.Count_CollectionItems() * 5) + (int)(GameMgr.game_Recipi_archivement_rate * 9);
+        //total_score = PlayerStatus.girl1_Love_exp;
 
         //パティシエランク計算　トータルスコアをもとに、SS S A B C D 6段階
         player_rank_text.text = "";
         player_shogo = "-";
 
-        //特殊な称号を取得してた場合、そっちが優先される。２はまだ入れてないので、入れる。
+        Shogo_JoukenCheck();
         //Shogo_JoukenCheck_old(); //１のときのやつ。
 
 
@@ -621,6 +622,54 @@ public class AAA_TotalResult : MonoBehaviour {
         //称号計算　通常は、パティシエランクに合わせて決める。特別な条件をクリアすると、特殊な称号がもらえるようにする。
         player_shogo_text.text = "";
         player_shogo_text.text = player_shogo;
+    }
+
+    void Shogo_JoukenCheck()
+    {
+        //クリア時の最低値は1070～　スターも最低　コレクション・コスチュームは必要なもの以外一切ない場合　手帳は17%を仮定　これ以下にはおそらくならない
+        if (total_score < 1150)
+        {
+            _rank = "D";
+            player_shogo = GameMgr.SearchTitleCollectionNameString("title1");
+            GameMgr.SetTitleCollectionFlag("title1", true);
+        }
+        else if (total_score >= 1150 && total_score < 1300)
+        {
+            _rank = "C";
+            player_shogo = GameMgr.SearchTitleCollectionNameString("title2");
+            GameMgr.SetTitleCollectionFlag("title2", true);
+        }
+        else if (total_score >= 1300 && total_score < 1620)
+        {
+            _rank = "B";
+            player_shogo = GameMgr.SearchTitleCollectionNameString("title3");
+            GameMgr.SetTitleCollectionFlag("title3", true);
+        }
+        //真エンドが1570 最低ライン 3560付近がハートV99でコスとコレクションと手帳マックス取得時の上限値　あとは、スターが43~で伸びしろあり
+        else if (total_score >= 1620 && total_score < 2100)
+        {
+            _rank = "A";
+            player_shogo = GameMgr.SearchTitleCollectionNameString("title4");
+            GameMgr.SetTitleCollectionFlag("title4", true);
+        }
+        else if (total_score >= 2100 && total_score < 3000)
+        {
+            _rank = "A+";
+            player_shogo = GameMgr.SearchTitleCollectionNameString("title5");
+            GameMgr.SetTitleCollectionFlag("title5", true);
+        }
+        else if (total_score >= 3000 && total_score < 3560)
+        {
+            _rank = "S";
+            player_shogo = GameMgr.SearchTitleCollectionNameString("title6");
+            GameMgr.SetTitleCollectionFlag("title6", true);
+        }
+        else if (total_score >= 3560)
+        {
+            _rank = "SS";
+            player_shogo = GameMgr.SearchTitleCollectionNameString("title7");
+            GameMgr.SetTitleCollectionFlag("title7", true);
+        }
     }
 
     void Shogo_JoukenCheck_old()

@@ -2097,17 +2097,17 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = true;
 
         itemID = GameMgr.OkashiComment_itemID;
-        if (database.items[itemID].itemType_sub.ToString() == "Coffee" || database.items[itemID].itemType_sub.ToString() == "Coffee_Mat" ||
-                   database.items[itemID].itemType_sub.ToString() == "Juice" || database.items[itemID].itemType_sub.ToString() == "Tea" ||
-                   database.items[itemID].itemType_sub.ToString() == "Tea_Mat" || database.items[itemID].itemType_sub.ToString() == "Tea_Potion")
+        engine.Param.TrySetParameter("FoodorJuice_num", 0);
+        foreach (string items in GameMgr.OkashiFoodOrDrink_list)
         {
-            //飲み物の場合
-            engine.Param.TrySetParameter("FoodorJuice_num", 1);
+            if (database.items[itemID].itemType_sub.ToString() == items)
+            {
+                //飲み物の場合
+                engine.Param.TrySetParameter("FoodorJuice_num", 1);
+                break;
+            }
         }
-        else
-        {
-            engine.Param.TrySetParameter("FoodorJuice_num", 0);
-        }
+        
 
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("OkashiComment_num", Okashicomment_ID);
@@ -3706,6 +3706,10 @@ public class Utage_scenario : MonoBehaviour
                         //ウィンドツイスターの本をゲット
                         ev_id = pitemlist.Find_eventitemdatabase("mg_windtwister_book");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //
+
+                        //メイン画面にもどったときに、イベントを発生させるフラグをON
+                        GameMgr.CompoundEvent_num[120] = true; //イベント番号のこと
+                        GameMgr.CompoundEvent_flag = true;
                     }
                     else //選択を間違えたら、一日ほど消える
                     {

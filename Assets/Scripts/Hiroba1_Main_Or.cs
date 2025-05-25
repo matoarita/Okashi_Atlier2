@@ -499,7 +499,7 @@ public class Hiroba1_Main_Or : MonoBehaviour
         hiroba1_mainController.SceneNamePlateSetting();
 
         //広場シーン移動で時間経過
-        time_controller.SetMinuteToHour(GameMgr.System_HirobaMove_Time, 1);
+        time_controller.SetMinuteToHour(GameMgr.System_HirobaMove_Time, 1, 0);
         time_controller.TimeKoushin(0, false);
 
         //シーン読み込み完了時のメソッド

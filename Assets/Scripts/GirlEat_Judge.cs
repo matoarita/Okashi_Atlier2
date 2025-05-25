@@ -116,6 +116,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int i, j, count, _id;
     private int random;
     private int countNum;
+    private int drink_or_food_type;
 
     private int fights_count;
 
@@ -2018,9 +2019,19 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             dislike_num = 1;
             Debug.Log("油っぽい: " + dislike_score);
         }
+
         //ジュース・ティー・コーヒー類は、水系の値の判定をなくす。もともと、みずなので。
-        if (_baseitemtype_sub == "Juice" || _baseitemtype_sub == "Soda" || _baseitemtype_sub == "Tea" || 
-            _baseitemtype_sub == "Tea_Potion" || _baseitemtype_sub == "Coffee_Mat" || _baseitemtype_sub == "Coffee")
+        drink_or_food_type = 0;
+        foreach (string items in GameMgr.OkashiFoodOrDrink_list)
+        {
+            if (_baseitemtype_sub == items)
+            {
+                //飲み物の場合
+                drink_or_food_type = 1;
+                break;
+            }
+        }
+        if (drink_or_food_type == 1)
         { }
         else {
             if (_basewatery > GameMgr.Watery_Line)

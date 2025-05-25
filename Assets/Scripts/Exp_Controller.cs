@@ -625,7 +625,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1);      
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1, 1);      
         }
         else
         {
@@ -974,7 +974,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1);    
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1, 1);    
         }
         else
         {
@@ -1221,7 +1221,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(15, 1); //ヒカリのお菓子作り時間を計算
+            time_controller.SetMinuteToHour(15, 1, 1); //ヒカリのお菓子作り時間を計算
         }
         else
         {
@@ -1390,19 +1390,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 }
             }
 
-            //魔法によってハートを消費　成功時のみ消費するパターン
-            switch (GameMgr.UseMagicSkill)
-            {
-                case "True_of_Myheart":
-
-                    girleat_judge.UpDegHeart(-100, false); //ハートを消費するパターン;     //GameMgr.System_trueheart_cost               
-                    break;
-
-                default:
-
-                    break;
-            }
-
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
             //exp_table.SkillCheckPatissierLV();
 
@@ -1486,7 +1473,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //魔法使用時の日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 0); //ヒカリのお菓子作り時間を計算　魔法はヒカリが使うので計算しない
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 0, 1); //ヒカリのお菓子作り時間を計算　魔法はヒカリが使うので計算しない
         }
         else
         {
@@ -2345,7 +2332,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _magic_enshututime2 = GameMgr.System_compo_playtime_default;
         }
 
-        //演出時間もここで決定　ハートも消費する　真実のハートのみ、成功時に消費し失敗時はなにもなし
+        //演出時間もここで決定　ハートも消費する　使用時に消費する。足りてないときはなにもなし
         switch (GameMgr.UseMagicSkill)
         {
             case "Cookie_SecondBake":
@@ -2381,7 +2368,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 GameMgr.System_magic_playtime = _magic_enshututime;
                 if (PlayerStatus.girl1_Love_exp >= GameMgr.System_trueheart_cost)
-                {  }
+                {
+                    girleat_judge.UpDegHeart(-100, false); //ハートを消費するパターン;
+                }
                 else //足りてないときは、演出が入るが失敗になる。ハートは消費しない
                 {
                     _success_rate = 0;

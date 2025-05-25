@@ -383,8 +383,8 @@ public class NPC_Catsle_Main : MonoBehaviour
                 pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加
 
                 //メイン画面にもどったときに、イベントを発生させるフラグをON
-                //GameMgr.CompoundEvent_num = 5;
-                //GameMgr.CompoundEvent_flag = true;
+                GameMgr.CompoundEvent_num[40] = true; //イベント番号のこと
+                GameMgr.CompoundEvent_flag = true;
             }
 
             if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す

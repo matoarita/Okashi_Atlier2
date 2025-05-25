@@ -172,8 +172,8 @@ SE表
 ・SE_170	audiostock_383264				そしゃく音　猫っぽい
 ・SE_171	飲み込む音　ゴクリ(DOVA)			飲み込む音
 ・SE_172	Quiz-Question03-1				ジャン！　クイズの出題音
-・SE_173	audiostock_116289_sample			【魔法の音】キーン　光が細く飛んでいく音
-・SE_174	audiostock_241560_sample			【魔法の音】光が発生する音　キュラララ
+・SE_173	audiostock_116289				【魔法の音】キーン　光が細く飛んでいく音
+・SE_174	audiostock_241560				【魔法の音】光が発生する音　キュラララ
 ・SE_175	Onoma-Sparkle05-2(High)				【魔法の音】光をためる音
 ・SE_176	audiostock_158711_sample			【魔法の音】凍り付く音
 ・SE_177	Onoma-Flash02-1(Low-Dry)			【魔法の音】氷が発生する音
@@ -220,7 +220,7 @@ SE表
 ・SE_218	水・泳ぐ・溺れる				プールおぼれるバシャ音
 ・SE_219	ゴゴゴゴ					近づいてくる威圧的なゴゴゴ音
 ・SE_220	Explosion08-2(Short)				爆発するような衝撃音
-・SE_221	audiostock_1252412_sample			木製床を走る足音
+・SE_221	audiostock_1252412				木製床を走る足音
 ・SE_222	nc280865_風呂場銭湯桶カポーン			お風呂カポーーーン
 ・SE_223	audiostock_238688				体を洗う音　シャカシャカ　チャキチャキ
 ・SE_224	お風呂でごしごし1				頭を洗う音　シャカシャカ
@@ -239,3 +239,4 @@ SE表
 ・SE_237	カーテンを開ける				カーテンをシャっと開ける音
 ・SE_238	audiostock_207436_sample			ホイッスルピピー音
 ・SE_239	audiostock_1436039_sample			タイトルインのジャキン音
+・SE_240	猫の鳴き声1					ねこのなき声

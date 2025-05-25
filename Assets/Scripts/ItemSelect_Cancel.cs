@@ -754,30 +754,18 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             {
                 if (GameMgr.Comp_kettei_bunki == 10)
                 {
-                    //Debug.Log("調合シーンキャンセル");
-
-                    _text.text = "";
-
-                    card_view.DeleteCard_DrawView();
-                    card_view.DeleteCard_DrawView();
-
-                    GameMgr.Comp_kettei_bunki = 0;
-
-                    GameMgr.compound_status = 6; //何も選択していない状態にもどる。
-                    GameMgr.compound_select = 6;
-                    //GameMgr.CompoundSceneStartON = false;　//調合シーン終了
-
-                    /*
-                    if (GameMgr.extremepanel_on != true) //通常のエクストリーム調合。ベースアイテム選択に戻る
+                    if (GameMgr.System_ExtremeCompo_BaseitemON)
                     {
                         _text.text = "ベースのお菓子を選択してね。";
 
-                        pitemlistController.kettei1_bunki = 0;
+                        GameMgr.Comp_kettei_bunki = 0;
 
                         update_ListSelect_Flag = 0; //オールリセットするのみ。
                         update_ListSelect(); //アイテム選択時の、リストの表示処理
+
+                        pitemlistController.reset_and_DrawView_Topping();
                     }
-                    else //エクストリームパネルから選んでいる。すぐに、プレイヤーアイテムリストをオフにする。
+                    else
                     {
                         //Debug.Log("調合シーンキャンセル");
 
@@ -786,13 +774,12 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         card_view.DeleteCard_DrawView();
                         card_view.DeleteCard_DrawView();
 
-                        pitemlistController.kettei1_bunki = 0;
+                        GameMgr.Comp_kettei_bunki = 0;
 
                         GameMgr.compound_status = 6; //何も選択していない状態にもどる。
-                        GameMgr.compound_select = 0;
-                        //GameMgr.CompoundSceneStartON = false;　//調合シーン終了
+                        GameMgr.compound_select = 6;
+                    }
 
-                    }*/
                 }
             }
             else if (GameMgr.compound_select == 21) //魔法調合の処理
@@ -1029,79 +1016,78 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
     //リストからアイテム選択時に、選択したアイテムを再度入力できなくする処理
     public void update_ListSelect()
+    {
+        for (i = 0; i < pitemlistController._listitem.Count; i++)
         {
+            //まずは、一度全て表示を初期化
+            pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+        }
 
+        if (update_ListSelect_Flag == 0)
+        {
             for (i = 0; i < pitemlistController._listitem.Count; i++)
             {
-                //まずは、一度全て表示を初期化
-                pitemlistController._listitem[i].GetComponent<Toggle>().interactable = true;
+                pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
             }
-
-            if (update_ListSelect_Flag == 0)
+        }
+        else if (update_ListSelect_Flag == 1)
+        {
+            for (i = 0; i < pitemlistController._listitem.Count; i++)
             {
-                for (i = 0; i < pitemlistController._listitem.Count; i++)
-                {
-                    pitemlistController._listitem[i].GetComponent<Toggle>().isOn = false;
-                }
+                update_ListSelect_1();
             }
-            else if (update_ListSelect_Flag == 1)
+        }
+        else if (update_ListSelect_Flag == 2)
+        {
+            for (i = 0; i < pitemlistController._listitem.Count; i++)
             {
-                for (i = 0; i < pitemlistController._listitem.Count; i++)
-                {
-                    update_ListSelect_1();
-                }
+                update_ListSelect_1();
+                update_ListSelect_2();
             }
-            else if (update_ListSelect_Flag == 2)
+        }
+        else if (update_ListSelect_Flag == 3)
+        {
+            for (i = 0; i < pitemlistController._listitem.Count; i++)
             {
-                for (i = 0; i < pitemlistController._listitem.Count; i++)
-                {
-                    update_ListSelect_1();
-                    update_ListSelect_2();
-                }
+                update_ListSelect_1();
+                update_ListSelect_2();
+                update_ListSelect_3();
             }
-            else if (update_ListSelect_Flag == 3)
+        }
+        else if (update_ListSelect_Flag == 10)
+        {
+            for (i = 0; i < pitemlistController._listitem.Count; i++)
             {
-                for (i = 0; i < pitemlistController._listitem.Count; i++)
-                {
-                    update_ListSelect_1();
-                    update_ListSelect_2();
-                    update_ListSelect_3();
-                }
+                update_ListSelect_base();
             }
-            else if (update_ListSelect_Flag == 10)
+        }
+        else if (update_ListSelect_Flag == 11)
+        {
+            for (i = 0; i < pitemlistController._listitem.Count; i++)
             {
-                for (i = 0; i < pitemlistController._listitem.Count; i++)
-                {
-                    update_ListSelect_base();
-                }
+                update_ListSelect_base();
+                update_ListSelect_1();
             }
-            else if (update_ListSelect_Flag == 11)
+        }
+        else if (update_ListSelect_Flag == 12)
+        {
+            for (i = 0; i < pitemlistController._listitem.Count; i++)
             {
-                for (i = 0; i < pitemlistController._listitem.Count; i++)
-                {
-                    update_ListSelect_base();
-                    update_ListSelect_1();
-                }
+                update_ListSelect_base();
+                update_ListSelect_1();
+                update_ListSelect_2();
             }
-            else if (update_ListSelect_Flag == 12)
+        }
+        else if (update_ListSelect_Flag == 13)
+        {
+            for (i = 0; i < pitemlistController._listitem.Count; i++)
             {
-                for (i = 0; i < pitemlistController._listitem.Count; i++)
-                {
-                    update_ListSelect_base();
-                    update_ListSelect_1();
-                    update_ListSelect_2();
-                }
+                update_ListSelect_base();
+                update_ListSelect_1();
+                update_ListSelect_2();
+                update_ListSelect_3();
             }
-            else if (update_ListSelect_Flag == 13)
-            {
-                for (i = 0; i < pitemlistController._listitem.Count; i++)
-                {
-                    update_ListSelect_base();
-                    update_ListSelect_1();
-                    update_ListSelect_2();
-                    update_ListSelect_3();
-                }
-            }
+        }
     }
 
 

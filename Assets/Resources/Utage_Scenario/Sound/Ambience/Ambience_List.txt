@@ -1,5 +1,5 @@
 ・Ambience_01		audiostock_588827				コンテスト会場の野外音<宴で使用>
-・Ambience_02		audiostock_546092_sample			コンテスト会場の野外音２<宴で使用>
+・Ambience_02		audiostock_546092_sample			コンテスト会場の野外音２<未使用>
 ・Ambience_03		audiostock_653282				コンテスト会場内の雑音<宴で使用>
 
 ・Ambience_05		audiostock_58814				きらきらぽんぽの音<宴で使用>
@@ -20,7 +20,7 @@
 ・Ambience_20		audiostock_1170506				電車走行中のガタンガタン音<宴で使用>
 ・Ambience_21		audiostock_913857				春の森の音<宴で使用> MapAmbience_06と一緒
 ・Ambience_22		strong_wind1					高所の強風<宴で使用>
-・Ambience_23		audiostock_1371853_sample			魔法発動中キラキラ音<宴で使用>
+・Ambience_23		audiostock_1371853				魔法発動中キラキラ音<宴で使用>
 
 マップで使う環境音は「Map_Ambience」フォルダに入れる。内容は同じでも、宴とデータは共有しないようにする。
 

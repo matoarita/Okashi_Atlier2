@@ -210,13 +210,11 @@ public class ExtremePanel : MonoBehaviour {
         extreme_itemName.text = GameMgr.ColorYellow + pitemlist.player_extremepanel_itemlist[_id].item_SlotName +
             "</color>" + pitemlist.player_extremepanel_itemlist[_id].itemNameHyouji;
 
-
         item_Icon.color = new Color(1, 1, 1, 1);
         item_Icon.sprite = texture2d;
                                    
-
         //エクストリーム残り回数の表示更新。
-        extreme_kaisu = PlayerStatus.player_extreme_kaisu;
+        extreme_kaisu = pitemlist.player_extremepanel_itemlist[_id].ExtremeKaisu;
         extreme_Param.text = extreme_kaisu.ToString();
 
         //エフェクトの表示

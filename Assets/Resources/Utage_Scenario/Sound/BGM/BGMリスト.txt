@@ -123,11 +123,11 @@
 ・BGM_119		Le Musée				大会コンテスト受付のBGM2 秋イメージ
 ・BGM_120		audiostock_1126077_sample		大会コンテスト受付のBGM3 夏イメージヒップホップ　※未使用
 ・BGM_121		Cafe-con-Cerveza			【宴用】べるのテーマ
-・BGM_122		Take-a-break				酒場秋のイメージ曲
+・BGM_122		どんぐりとジビエと			酒場秋のイメージ曲 旧：Take-a-break	
 ・BGM_123		PerituneMaterial_Poema2_loop		冬エリアお店ピティヴィエさんのテーマの曲 旧:audiostock_911845_sample
 ・BGM_124		PerituneMaterial_Flap_loop		大会コンテスト調合時のBGM03　エデンイメージ
 ・BGM_125		audiostock_849596			【宴用】コンテスト終了後の賞品画面のBGM　91と同じ
-・BGM_126		audiostock_111376_sample		【宴用】エデンコンテスト開始のファンファーレ
+・BGM_126		Victory_March				【宴用】エデンコンテスト開始のファンファーレ	audiostock_111376_sample
 ・BGM_127		PerituneMaterial_Harvest_Festival_loop	【宴用】エデンコンテスト会場BGM
 ・BGM_128		PerituneMaterial_NoWay3_loop		【宴用】ハーマイオニーのテーマ
 ・BGM_129		pianosketch_04_そらをみながら		【宴用】ヒカリと良い雰囲気の音楽
@@ -146,7 +146,7 @@
 ・BGM_142		harunoyokan				イリスさんのテーマ２　BGM_116と同じ
 ・BGM_143		PerituneMaterial_Toys_Factory_loop	ブラックロータスとかを見つけたときの不思議な音楽
 ・BGM_144		PerituneMaterial_Coppelia_Room_loop	夢喰い沼の悪魔のテーマ
-・BGM_145		audiostock_884907_sample		沼悪魔に真っ暗にされたときの背景音
+・BGM_145		audiostock_884907			沼悪魔に真っ暗にされたときの背景音
 ・BGM_146		夜食のじかん				月夜の曲４
 ・BGM_147		icyalove_05				マッサージ中の音楽
 ・BGM_148		こんとどぅふぇ素材No.0037-Dimanche	【宴用】オランジーナ酒場用BGM BGM110と同じ

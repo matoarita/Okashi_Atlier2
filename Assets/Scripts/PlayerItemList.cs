@@ -1215,6 +1215,21 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return _itemcount;
     }
 
+    //コレクションアイテムの所持数総数をカウント
+    public int Count_CollectionItems()
+    {
+        _itemcount = 0;
+        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
+        {
+            if (ReturnItemKosu(GameMgr.CollectionItemsName[i]) > 0) //所持してた場合、+1
+            {
+                _itemcount++;
+            }
+        }
+
+        return _itemcount;
+    }
+
     //アイテムIDを入力すると、エメラルドアイテム名を返す処理
     public string NameFindEmerald(int _itemid)
     {

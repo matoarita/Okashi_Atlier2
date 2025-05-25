@@ -804,11 +804,12 @@ public class itemSelectToggle : MonoBehaviour
 
                 //リスト中の選択された番号を格納。
                 GameMgr.Final_toggle_baseType = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
-                GameMgr.Final_list_baseitemID = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
+                GameMgr.Final_list_baseitemID = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
+                GameMgr.temp_baseitemID = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
                 GameMgr.Comp_kettei_bunki = 10;
 
-                _text.text = database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "をベースにします。";
+                _text.text = database.items[GameMgr.temp_baseitemID].itemNameHyouji + "をベースにします。";
 
                 //Debug.Log(count + "番が押されたよ");
                 //Debug.Log("1個目　アイテムID:" + GameMgr.Final_list_baseitemID + " " + database.items[GameMgr.Final_list_baseitemID].itemNameHyouji + "が選択されました。");

@@ -431,13 +431,19 @@ public class CompoundMainController : MonoBehaviour {
                     pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。
                     GameMgr.Comp_kettei_bunki = 0;
 
+                    pitemlistController.reset_and_DrawView_Topping(); //ここであえて指定すると、リセット後にちゃんと表示を再設定できる
+
                     text_area_compound.SetActive(true);
 
                     //ヒカリちゃんを表示する
                     ReDrawLive2DOrder_Compound();
                     SetLive2DPos_Compound();
 
-                    extreme_Compo_Setup(); //ベースアイテムを事前に設定しておく処理
+                    if(GameMgr.System_ExtremeCompo_BaseitemON)
+                    { }
+                    else {
+                        extreme_Compo_Setup(); //ベースアイテムを事前に設定しておく処理
+                    }
 
                     break;
 
@@ -559,14 +565,28 @@ public class CompoundMainController : MonoBehaviour {
 
                     GameMgr.QuestManzokuFace = false; //おいしかった表情は、調合シーンに入るとリセットされる。
 
-                    
-                    if (pitemlist.player_extremepanel_itemlist.Count > 0 && PlayerStatus.player_extreme_kaisu > 0) //extreme_panel.extreme_kaisu
+                    //仕上げのとき
+                    if (GameMgr.System_ExtremeCompo_BaseitemON)
                     {
-                        select_extreme_button.interactable = true;
+                        if ( PlayerStatus.player_extreme_kaisu > 0) //extreme_panel.extreme_kaisu
+                        {
+                            select_extreme_button.interactable = true;
+                        }
+                        else
+                        {
+                            select_extreme_button.interactable = false;
+                        }
                     }
                     else
                     {
-                        select_extreme_button.interactable = false;
+                        if (pitemlist.player_extremepanel_itemlist.Count > 0 && PlayerStatus.player_extreme_kaisu > 0) //extreme_panel.extreme_kaisu
+                        {
+                            select_extreme_button.interactable = true;
+                        }
+                        else
+                        {
+                            select_extreme_button.interactable = false;
+                        }
                     }
 
                     if (GameMgr.outgirl_Nowprogress)

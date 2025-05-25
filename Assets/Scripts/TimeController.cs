@@ -22,11 +22,17 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     private Compound_Keisan compound_keisan;
 
+    private SoundController sc;
+
     private Girl1_status girl1_status;
 
     private PlayerItemList pitemlist;
 
-    private ItemDataBase database; 
+    private ItemDataBase database;
+    private ItemMatPlaceDataBase matplace_database;
+
+    private GetMatPlace_Panel getmatplace_panel;
+    private GetMaterial get_material;
 
     //private List<int> calender = new List<int>(); //カレンダーデータ　各月
 
@@ -54,6 +60,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     private int i, count;
     private int dice;
+    private int _mapid;
 
     private int _getexp;
 
@@ -112,36 +119,20 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //アイテムデータベースの取得
         database = ItemDataBase.Instance.GetComponent<ItemDataBase>();
 
+        //採取地データベースの取得
+        matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
         //ヒカリお菓子EXPデータベースの取得
         hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();        
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
         girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
-
-        //カレンダー初期化
-        //SetCallender();
               
-        timespeed_range = 1.0f;       
+        timespeed_range = 1.0f;
+
     }
 
-    /*void SetCallender()
-    {
-        calender.Clear();
-
-        calender.Add(31); //１月
-        calender.Add(28); //２月
-        calender.Add(31); //３月
-        calender.Add(30); //４月
-        calender.Add(31); //５月
-        calender.Add(30); //６月
-        calender.Add(31); //７月
-        calender.Add(31); //８月
-        calender.Add(30); //９月
-        calender.Add(31); //１０月
-        calender.Add(30); //１１月
-        calender.Add(31); //１２月       
-    }*/
 
     private void OnEnable()
     {
@@ -280,29 +271,13 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                 {
                                     timeIttei2 = 0;
 
-                                    SetMinuteToHour(5, 1); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
+                                    SetMinuteToHour(5, 1, 1); //5分 下でヒカリの制作時間を別に計算してるのでここでは0
                                     TimeKoushin(0, true);
 
                                     if (GameMgr.WEATHER_TIMEMODE_ON)
                                     {
                                         compound_main.Weather_Change();
                                     }
-
-                                    /*if (GameMgr.hikari_make_okashiFlag)
-                                    {
-                                        //** ヒカリがお菓子を作ってる場合、リアルタイム時間進場合、ここでもお菓子制作時間を計算
-
-                                        GameMgr.hikari_make_okashiTimeCounter -= 5 * GameMgr.TimeStep;
-                                        if (GameMgr.hikari_make_okashiTimeCounter <= 0) //カウンタが0になると、制作完了　トータルの制作時間を再度入れなおす                                                                                                                             
-                                        {
-                                            GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
-
-                                            //お菓子制作。材料チェックと成功率を計算する。
-                                            HikariMakeOkashiJudge();
-                                        }
-
-                                        //**
-                                    }*/
 
                                     //サブ時間イベントをチェック
                                     if (GameMgr.ResultOFF) //リザルト画面表示中は、時間イベントは発生しない
@@ -902,7 +877,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
 
     //入力された分単位の時間を、時間と分にわけて、現在の時間に加算する。マイナスの場合、引き算する。
-    public void SetMinuteToHour(int _m, int _hikarimake)
+    public void SetMinuteToHour(int _m, int _hikarimake, int _catcheck)
     {
         _m_temp = _m;
 
@@ -960,6 +935,14 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         if(_hikarimake != 0)
         {
             HikarimakeTimeCheck(_m_temp);
+        }
+
+        if (GameMgr.catGetMat_PlayFlag)
+        {
+            if (_catcheck != 0)
+            {
+                CatGetMaterialTimeCheck(_m_temp);
+            }
         }
     }
 
@@ -1097,18 +1080,18 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     public void OnDebugTimeCountUpButton()
     {
-        SetMinuteToHour(30, 1); //+30分
+        SetMinuteToHour(30, 1, 0); //+30分
         TimeKoushin(0, false);
     }
 
     public void OnDebugTimeCountDownButton()
     {
-        SetMinuteToHour(-30, 1); //-30分
+        SetMinuteToHour(-30, 1, 0); //-30分
         TimeKoushin(0, false);
     }
 
     //時間をいれると、その経過時間をチェックし、お菓子を作ってないかを判定 Exp_Controllerから読み出し。
-    public void HikarimakeTimeCheck(int _costTime)
+    void HikarimakeTimeCheck(int _costTime)
     {
         if (GameMgr.System_HikariMake_OnichanTimeCost_ON)
         {
@@ -1156,7 +1139,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         }
     }
 
-    public void HikariMakeOkashiJudge()
+    void HikariMakeOkashiJudge()
     {
         //まず残り個数チェック
         //材料がなくなってたら、ここで終了。これは、にいちゃんが途中で材料を使った場合のチェックになる。
@@ -1326,6 +1309,55 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 }
             }
         }
+    }
+
+    //時間をいれると、その経過時間をチェックし、猫が材料をとってくる。
+    void CatGetMaterialTimeCheck(int _costTime)
+    {
+        if (GameMgr.System_CatAutoMaterial_ON)
+        {
+
+            //ひとまず一匹で試作
+            //経った時間より、まだ猫採取にかかる時間のほうが長い場合
+            if (GameMgr.cat_GetMateriaTimeCounter[0] > _costTime)
+            {
+                GameMgr.cat_GetMateriaTimeCounter[0] -= _costTime; //採取時間を減らす
+            }
+            else //にいちゃんの制作時間中に、ヒカリの制作が終わった場合　数回繰り返す可能性がある
+            {
+                Start_count = _costTime;
+                while (Start_count >= GameMgr.cat_GetMateriaTimeCounter[0])
+                {
+                    Debug.Log("猫採取　チェック");
+
+                    Start_count -= GameMgr.cat_GetMateriaTimeCounter[0];
+
+                    //材料採取メソッド。個数チェックと成功率を計算する。場所、猫の探索回数(共通？）
+                    CatGetMaterial_Items("Sakura_Forest", 6);
+
+                    GameMgr.cat_GetMateriaTimeCounter[0] = GameMgr.cat_GetMaterialTimeCost[0];
+                }
+
+                GameMgr.cat_GetMateriaTimeCounter[0] -= Start_count; //最後に余った制作時間分を、カウンタから減らす
+            }
+        }
+    }
+
+    void CatGetMaterial_Items(string _place, int _kaisu)
+    {
+        //サウンドコントローラーの取得
+        sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        get_material = GameObject.FindWithTag("GetMaterial").GetComponent<GetMaterial>();
+        getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
+
+        sc.PlaySe(239);
+        getmatplace_panel.InitializeResultItemDicts();
+
+        //採取地とアイテムの決定　事前にセレクト画面で決めている
+        _mapid = matplace_database.SearchMapString(_place);
+        get_material.CatGetRandomMaterials(_mapid, _kaisu);
+        Debug.Log("猫採取　場所: " + matplace_database.matplace_lists[_mapid].placeNameHyouji);
     }
 
 

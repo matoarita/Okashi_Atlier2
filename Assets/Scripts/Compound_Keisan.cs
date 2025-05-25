@@ -1244,7 +1244,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType = database.items[_id].itemType.ToString();
         _base_itemType_sub = database.items[_id].itemType_sub.ToString();
         _base_itemType_subB = database.items[_id].itemType_subB.ToString();
-        _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
+        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu;
         _base_item_hyouji = database.items[_id].item_Hyouji;
         _base_itemdesc = database.items[_id].itemDesc;
         _baseattri1 = database.items[_id].Attribute1;
@@ -1296,7 +1296,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType = database.items[_id].itemType.ToString();
         _base_itemType_sub = database.items[_id].itemType_sub.ToString();
         _base_itemType_subB = database.items[_id].itemType_subB.ToString();
-        _base_extreme_kaisu = database.items[_id].ExtremeKaisu;
+        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu;
         _base_item_hyouji = database.items[_id].item_Hyouji;
         _base_itemdesc = database.items[_id].itemDesc;
         _baseattri1 = database.items[_id].Attribute1;
@@ -1348,7 +1348,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType = database.items_gamedefault[_id].itemType.ToString();
         _base_itemType_sub = database.items_gamedefault[_id].itemType_sub.ToString();
         _base_itemType_subB = database.items_gamedefault[_id].itemType_subB.ToString();
-        _base_extreme_kaisu = database.items_gamedefault[_id].ExtremeKaisu;
+        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu;
         _base_item_hyouji = database.items_gamedefault[_id].item_Hyouji;
         _base_itemdesc = database.items_gamedefault[_id].itemDesc;
         _baseattri1 = database.items_gamedefault[_id].Attribute1;
@@ -1588,7 +1588,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     {
                         if (Comp_method_bunki == 3 || Comp_method_bunki == 22) //トッピング調合の場合  お菓子パネルのお菓子を削除し、新しく登録するのみ。
                         {
-                            pitemlist.ExtremeToCopyOriginalItem(pitemlist.player_extremepanel_itemlist[0].ItemKosu - 1); //仮に3個同時とか作ってた場合もあるので、-1で計算。
+                            if (pitemlist.player_extremepanel_itemlist[0].ItemKosu >= 2)
+                            {
+                                pitemlist.ExtremeToCopyOriginalItem(pitemlist.player_extremepanel_itemlist[0].ItemKosu - 1); //仮に3個同時とか作ってた場合もあるので、-1で計算。
+                            }
+                            //1個のときはそのまま削除して、新しく登録するのみ。
                         }
                         else
                         {
@@ -2403,7 +2407,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
 
         //ジュースののどごしを計算する。新規作成時のみトッピング・仕上げのときは再計算しない。
-        if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときの計算。
         {
             _basejuice = _basesweat + _basebitter + _basesour;
         }
@@ -2691,16 +2695,31 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _basesweat = 0;
             _basesour = 0;
+
+            for (i = 0; i < database.items[0].toppingtype.Length; i++)
+            {
+                _basetp[i] = "Non";
+            }
         }
         if (_basename == "sour_potion") //サワーポーションなども同じような処理
         {
             _basesweat = 0;
             _basebitter = 0;
+
+            for (i = 0; i < database.items[0].toppingtype.Length; i++)
+            {
+                _basetp[i] = "Non";
+            }
         }
         if (_basename == "sweat_potion") //
         {
             _basebitter = 0;
             _basesour = 0;
+
+            for (i = 0; i < database.items[0].toppingtype.Length; i++)
+            {
+                _basetp[i] = "Non";
+            }
         }
     }
 

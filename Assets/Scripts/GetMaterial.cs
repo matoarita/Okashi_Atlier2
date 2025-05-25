@@ -80,6 +80,7 @@ public class GetMaterial : MonoBehaviour
     private int _getMoney;
     private int _prob;
     private string place_name;
+    private int _cat_rarekaisu;
 
     private int cullent_total_mat;
 
@@ -356,7 +357,7 @@ public class GetMaterial : MonoBehaviour
 
                 //日数の経過
                 //PlayerStatus.player_time += 6; //場所に関係なく、一回とるごとに30分
-                time_controller.SetMinuteToHour(30, 0); //採取中は、ヒカリと一緒に材料とってるので、ヒカリのお菓子制作時間は減らさない
+                time_controller.SetMinuteToHour(30, 0, 1); //採取中は、ヒカリと一緒に材料とってるので、ヒカリのお菓子制作時間は減らさない
                 time_controller.TimeKoushin(0, false);
 
                 //妹の体力消費 一回の行動でマップに応じた量減る。
@@ -773,14 +774,14 @@ public class GetMaterial : MonoBehaviour
                 case "Ido":
 
                     //井戸は一回のみ
-                    ItemGetMethod(0);
+                    ItemGetMethod(0, 0);
                     break;
 
                 default:
 
                     for (count = 0; count < tansaku_count + box_count; count++) //3回繰り返す
                     {
-                        ItemGetMethod(count);
+                        ItemGetMethod(count, 0);
 
                     }
                     break;
@@ -790,7 +791,7 @@ public class GetMaterial : MonoBehaviour
             //通常アイテムとは別に、レアアイテムのドロップも抽選する。
             for (count = 0; count < 1 + rare_box_count; count++) //1回繰り返す
             {
-                RareItemGetMethod(count);
+                RareItemGetMethod(count, 0);
             }
         }
         else { }
@@ -872,7 +873,7 @@ public class GetMaterial : MonoBehaviour
 
     }
 
-    void ItemGetMethod(int _count)
+    void ItemGetMethod(int _count, int _mstatus)
     {
         // ドロップアイテムの抽選
         itemId = Choose();
@@ -926,12 +927,15 @@ public class GetMaterial : MonoBehaviour
             //アイテムの取得処理
             pitemlist.addPlayerItem(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
 
-            //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-            ItemGetforDictionary(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
+            if (_mstatus == 0)
+            {
+                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                ItemGetforDictionary(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
+            }
         }
     }
 
-    void RareItemGetMethod(int _count)
+    void RareItemGetMethod(int _count, int _mstatus)
     {
         //こっちのレアドロップアイテムは、発見力の影響なし
 
@@ -978,8 +982,11 @@ public class GetMaterial : MonoBehaviour
             //アイテムの取得処理
             pitemlist.addPlayerItem(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
 
-            //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-            ItemGetforDictionary(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
+            if (_mstatus == 0)
+            {
+                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                ItemGetforDictionary(database.items[kettei_item[_count]].itemName, kettei_kosu[_count]);
+            }
         }
     }
 
@@ -3747,14 +3754,14 @@ public class GetMaterial : MonoBehaviour
         //アイテムの入手
         for (count = 0; count < 6 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
-            ItemGetMethod(count);
+            ItemGetMethod(count, 0);
         }
 
         //レアアイテムの入手
         for (count = 0; count < 2 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
 
-            RareItemGetMethod(count);
+            RareItemGetMethod(count, 0);
         }
 
         //さらに、宝箱レアアイテムの入手
@@ -3762,6 +3769,57 @@ public class GetMaterial : MonoBehaviour
         {
             TreasureGetHikari();
         }
+    }
+
+    //猫の採取で材料をゲットする処理 TimeControllerから読み出し
+    public void CatGetRandomMaterials(int _index, int _cat_kaisu)
+    {
+        index = _index; //採取地IDの決定
+        place_name = matplace_database.matplace_lists[index].placeName;
+        _findpower_girl_getmat_final = 0;
+        _findpower_girl_getmat = 0;
+
+        // 入手できるアイテムのデータベース
+        ResetItemDicts();
+        InitializeHikariDicts(_index); //ヒカリ入手用のDB
+        //InitializeHikariTreasureDicts(place_name); //ヒカリ採取時の宝箱DB
+
+        //猫のアイテム発見力をバフつきで計算
+        //Keisan_FindPower();
+
+        //アイテム発見力20ごとに、一回探索回数がふえる。
+        _findpower_girl_getmat_final = 0;
+        while (_findpower_girl_getmat >= 20)
+        {
+            _findpower_girl_getmat -= 20;
+            _findpower_girl_getmat_final++;
+        }
+
+        //例外処理  探索回数増加数は30は越えない。
+        if (_findpower_girl_getmat_final <= 0) { _findpower_girl_getmat_final = 0; }
+        if (_findpower_girl_getmat_final >= 30) { _findpower_girl_getmat_final = 30; }
+        //Debug.Log("_findpower_girl_getmat_final: " + _findpower_girl_getmat_final);
+
+        //アイテムの入手
+        for (count = 0; count < _cat_kaisu + _findpower_girl_getmat_final; count++) //〇回繰り返す
+        {
+            ItemGetMethod(count, 1);
+        }
+
+        _cat_rarekaisu = _cat_kaisu / 3;
+        if(_cat_rarekaisu < 1) { _cat_rarekaisu = 1; }
+        //レアアイテムの入手
+        for (count = 0; count < _cat_rarekaisu + _findpower_girl_getmat_final; count++) //〇回繰り返す
+        {
+
+            RareItemGetMethod(count, 1);
+        }
+
+        //さらに、宝箱レアアイテムの入手
+        /*for (count = 0; count < 3; count++) //〇回繰り返す
+        {
+            TreasureGetHikari();
+        }*/
     }
 
     //プレイヤーのアイテム発見力をバフつきで計算

@@ -48,12 +48,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = true; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
-    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_ExtremeCompo_BaseitemON = true; //仕上げのときに、ベースアイテムを選択するところから選べる
 
     //各システムの使用の有無   
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Shiokuri_ON = true; //仕送りの有無
     public static bool System_Yachin_ON = true; //家賃システムの有無
+    public static bool System_CatAutoMaterial_ON = true; //猫が自動でアイテムをとってきてくれるシステムの有無
 
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
@@ -144,8 +146,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static string System_MagicLVPoint = "ジョブポイント";
 
-    //真実のハートのハート消費量
-    public static int System_trueheart_cost = 2000;
+    //真実のハートのハート消費量 Exp_Controllerで成功判定　ハートの魔法時のハート消費も、Exp_Controllerで処理
+    public static int System_trueheart_cost = 5000;
 
     //ゴンドラ乗り場の料金
     public static int System_gondra_cost = 5000;    
@@ -485,7 +487,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static float hikari_make_okashiKosu_buf_keisan; //個数バフ計算用。保存はしない。
     public static bool hikari_make_Allfailed; //すべて失敗して材料がなくなってしまった 　セーブ不要
     public static bool hikari_zairyo_no_flag; //作る材料が単になくなった場合　セーブ不要
-    
+
+
+    //猫材料システム
+    public static bool catGetMat_PlayFlag; //猫が採取を開始するフラグ
+    public static int[] cat_GetMaterialTimeCost = new int[10]; //その猫が採取にかかる時間
+    public static int[] cat_GetMateriaTimeCounter = new int[10]; //採取開始から終了までのタイマー
+
 
     //オプションの設定　マスター音量など
     public static float MasterVolumeParam;
@@ -699,6 +707,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //温度管理対象のおかしリスト
     public static List<string> OkashiTempatureControl_list = new List<string>();
+
+    //温度管理対象のおかしリスト
+    public static List<string> OkashiFoodOrDrink_list = new List<string>();
 
     //エンディングのフラッグ
     public static bool ending_on;       //エンディングシーンへ移動するためのフラグ
@@ -1782,6 +1793,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         hikari_make_Allfailed = false;
         hikari_zairyo_no_flag = false;
 
+        catGetMat_PlayFlag = false;
+
         //マップイベントの初期化
         for (system_i = 0; system_i < MapEvent_01.Length; system_i++)
         {
@@ -1926,6 +1939,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //温度管理対象お菓子リストの設定
         Init_OkashiTempatureControl_Library();
 
+        //おかしを飲み物に設定リスト
+        Init_OkashiFoodOrDrink_Library();
+
         //ヒカリの思い出イベントリスト　回想シーン
         Init_HikariOmoideEvent_Library();
 
@@ -1988,9 +2004,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("tea_powerup2");
         //CollectionItemsName.Add("neko_badge2");
         //CollectionItemsName.Add("music_box");
-    }
+    }    
 
-    public static void InitBGAcceItemsLibrary() //ここに登録すると「飾る」が表示される。
+    public static void InitBGAcceItemsLibrary() //ここに登録すると「飾る」が表示される。 1のときのやつ
     {
 
         BGAcceItemsName.Clear();
@@ -2052,17 +2068,19 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         title_collection_list.Clear();
         title_collection_list.Add(new SpecialTitle(000, "title1", "D:パティシエたまご", false, "Icon/badge_icon_01"));
-        title_collection_list.Add(new SpecialTitle(001, "title3", "C:パティシエ一人前", false, "Icon/badge_icon_09"));
-        title_collection_list.Add(new SpecialTitle(002, "title4", "B:上級パティシエ", false, "Icon/badge_icon_11"));
-        title_collection_list.Add(new SpecialTitle(003, "title5", "A:虹のパティシエ", false, "Icon/badge_icon_10"));
-        title_collection_list.Add(new SpecialTitle(004, "title6", "S:グランド・シェフ", false, "Icon/badge_icon_12"));      
-        title_collection_list.Add(new SpecialTitle(005, "title100", "深紅-スカーレット-", false, "Icon/badge_icon_02")); //バッチアイコンのスプライトが入っている。
+        title_collection_list.Add(new SpecialTitle(001, "title2", "C:パティシエかけだし", false, "Icon/badge_icon_09"));
+        title_collection_list.Add(new SpecialTitle(002, "title3", "B:パティシエ一人前", false, "Icon/badge_icon_11"));
+        title_collection_list.Add(new SpecialTitle(002, "title4", "A:シェフ・ド・パルティ", false, "Icon/badge_icon_11")); //真エンド～
+        title_collection_list.Add(new SpecialTitle(003, "title5", "A+:スー・シェフ", false, "Icon/badge_icon_10"));
+        title_collection_list.Add(new SpecialTitle(004, "title6", "S:シェフ・パティシエール", false, "Icon/badge_icon_12"));
+        title_collection_list.Add(new SpecialTitle(011, "title7", "SS:伝説のシェフ", false, "Icon/badge_icon_08"));
+        title_collection_list.Add(new SpecialTitle(005, "title100", "深紅-スカーレット-", false, "Icon/badge_icon_02")); //バッチアイコンのスプライトが入っている。２では使用しない
         title_collection_list.Add(new SpecialTitle(006, "title101", "白羽-ホワイトプリム-", false, "Icon/badge_icon_03"));
         title_collection_list.Add(new SpecialTitle(007, "title102", "蒼碧-ブルーヴェール-", false, "Icon/badge_icon_04"));
         title_collection_list.Add(new SpecialTitle(008, "title103", "緑癒-ハイルング-", false, "Icon/badge_icon_05"));
         title_collection_list.Add(new SpecialTitle(009, "title104", "ししゃもマニア", false, "Icon/badge_icon_06"));
         title_collection_list.Add(new SpecialTitle(010, "title105", "ゴールドマスター", false, "Icon/badge_icon_07"));
-        title_collection_list.Add(new SpecialTitle(011, "title7", "SS:愛のパティシエ", false, "Icon/badge_icon_08"));
+        
 
     }
 
@@ -2184,7 +2202,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         return system_count;
     }
 
-    //コンテストクリアお菓子コレクションのリスト
+    //コンテストクリアお菓子コレクションのリスト 1のときのやつ
     public static void InitContestClearCollectionLibrary()
     {
         contestclear_collection_list.Clear();
@@ -2534,6 +2552,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiTempatureControl_list.Add("Maffin");
         OkashiTempatureControl_list.Add("Pie");
         OkashiTempatureControl_list.Add("Rusk");
+    }
+
+    //食べ物・飲み物の判定リスト　ここに登録すると、そのお菓子タイプは飲み物タイプ itemType_Subを指定する
+    public static void Init_OkashiFoodOrDrink_Library()
+    {
+        OkashiFoodOrDrink_list.Clear();
+
+        OkashiFoodOrDrink_list.Add("Coffee");
+        OkashiFoodOrDrink_list.Add("Coffee_Mat");
+        OkashiFoodOrDrink_list.Add("Juice");
+        OkashiFoodOrDrink_list.Add("Soda");
+        OkashiFoodOrDrink_list.Add("Tea");
+        OkashiFoodOrDrink_list.Add("Tea_Mat");
+        OkashiFoodOrDrink_list.Add("Tea_Potion");
     }
 
     //エンディング分岐チェック　GirlEat_Judgeから読み込み

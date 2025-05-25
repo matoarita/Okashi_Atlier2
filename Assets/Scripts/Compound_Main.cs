@@ -786,6 +786,12 @@ public class Compound_Main : MonoBehaviour
         StartMessage();
         text_area_Main.SetActive(false);
 
+        //デバッグ用　猫のデータ設定
+        GameMgr.catGetMat_PlayFlag = false;
+        GameMgr.cat_GetMaterialTimeCost[0] = 30;
+        GameMgr.cat_GetMateriaTimeCounter[0] = GameMgr.cat_GetMaterialTimeCost[0];
+        //
+
         //初期アイテムの取得。一度きり。
         playerDefaultStart_ItemGet.DefaultStartPitem();
 
