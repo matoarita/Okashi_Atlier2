@@ -16,6 +16,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
     private GameObject MagicButton;
     private GameObject LearningButton;
     private GameObject HikariMakeButton;
+    private GameObject CatGetButton;
 
     private GameObject card_view_obj;
     private CardView card_view;
@@ -73,6 +74,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
         MagicButton.SetActive(false);
         LearningButton = this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/LearningButton").gameObject;
         LearningButton.SetActive(false);
+        CatGetButton = this.transform.Find("SelectPanel_1/Scroll View/Viewport/Content/CatGetMatButton").gameObject;
 
         //デバッグ用
         Debug_timeCount_Panel = this.transform.Find("DebugTimeEnshutuPanel").gameObject; //デバッグ用　時間カウントパネル
@@ -148,6 +150,25 @@ public class Compound_BGPanel_A : MonoBehaviour {
             HikariMakeButton.GetComponent<Button>().interactable = true;
             MagicButton.GetComponent<Button>().interactable = true;
             LearningButton.GetComponent<Button>().interactable = true;
+        }
+
+        if (GameMgr.System_CatAutoMaterial_ON)
+        {
+            CatGetButton.SetActive(true);
+
+            //コンテスト中は、ねこは触れない
+            if (GameMgr.Contest_ON)
+            {
+                CatGetButton.GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                CatGetButton.GetComponent<Button>().interactable = true;
+            }
+        }
+        else
+        {
+            CatGetButton.SetActive(false);
         }
     }
 
@@ -279,6 +300,19 @@ public class Compound_BGPanel_A : MonoBehaviour {
         GameMgr.compound_status = 30;
         GameMgr.MagicPanel_DefaultHyouji = true;
     }
+
+    //ねこ採取画面
+    public void OnCheck_7_button()
+    {
+        card_view.DeleteCard_DrawView();
+        SelectCompo_panel_1.SetActive(false);
+
+        //_text.text = magiclearn_text;
+        GameMgr.compound_status = 40;
+    }
+
+
+
 
     public void BlackImageON()
     {

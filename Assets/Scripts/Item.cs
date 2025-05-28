@@ -232,6 +232,7 @@ public class Item
         Object,
         Donguri,
         Rare,
+        Valuable,
         Record,
         Etc,
         EventItem,

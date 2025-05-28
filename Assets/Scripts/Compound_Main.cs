@@ -46,6 +46,7 @@ public class Compound_Main : MonoBehaviour
     private MoneyStatus_Controller moneyStatus_Controller;
     private CompoundMainController compoundmain_Controller;
     private ContestStartListDataBase conteststartList_database;
+    private CatDataBase catDataBase;
 
     private BGM sceneBGM;
     private Map_Ambience map_ambience;
@@ -271,6 +272,7 @@ public class Compound_Main : MonoBehaviour
     private int get_star;
     private bool map_move;
     private string _bg_str1, _bg_str2, _bg_str3;
+    private int cat_cost;
 
     private string _todayfood;
     private List<string> _todayfood_lib = new List<string>();
@@ -361,6 +363,9 @@ public class Compound_Main : MonoBehaviour
 
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
+
+        //ねこデータベースの取得
+        catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
 
         //レベルアップチェック用オブジェクトの取得
         exp_table = ExpTable.Instance.GetComponent<ExpTable>();
@@ -786,11 +791,6 @@ public class Compound_Main : MonoBehaviour
         StartMessage();
         text_area_Main.SetActive(false);
 
-        //デバッグ用　猫のデータ設定
-        GameMgr.catGetMat_PlayFlag = false;
-        GameMgr.cat_GetMaterialTimeCost[0] = 30;
-        GameMgr.cat_GetMateriaTimeCounter[0] = GameMgr.cat_GetMaterialTimeCost[0];
-        //
 
         //初期アイテムの取得。一度きり。
         playerDefaultStart_ItemGet.DefaultStartPitem();
@@ -1124,7 +1124,7 @@ public class Compound_Main : MonoBehaviour
                                                 }
                                                 else
                                                 {
-                                                    //スターに応じて、エリア解禁をするチェック　EventDataBaseのTimeの最後にチェックをONにする
+                                                    //スターに応じて、エリア解禁をするチェック　寝るの最後にチェックをONにする
                                                     if (!GameMgr.NewAreaRelease_flag)
                                                     {
                                                         //Debug.Log("スターイベント＆解禁チェック");
@@ -1734,6 +1734,8 @@ public class Compound_Main : MonoBehaviour
                 status_panel.SetActive(false);
                 okashihint_panel.SetActive(false);
                 recipiMemoButton.SetActive(false);
+                GameMgr.OnCatGetMaterial_modeON = false; //ねこ採取画面のモードはここでリセット
+                GameMgr.check_StarPanel_Endflag = false; //ここまでくると、必ずスターパネルはチェックしたことになる。（スター発生していなくてもチェックは完了）
 
                 WindowOn();                
                 select_original_button.interactable = true;
@@ -1741,6 +1743,22 @@ public class Compound_Main : MonoBehaviour
                 select_no_button.interactable = true;
                                
                 OnCompoundSelect();
+
+                if (GameMgr.System_CatAutoMaterial_ON)
+                {
+                    //デバッグ用
+                    if (catDataBase.catdata_list.Count == 0)
+                    {
+                        catDataBase.catdata_list.Clear();
+                        catDataBase.SetInit_CustomCatData("ミカサ", 1, 250, 720, 3, 1);
+                        catDataBase.SetInit_CustomCatData("エレン", 0, 500, 480, 3, 3);
+                        Debug.Log("ねこリストカウント: " + catDataBase.catdata_list.Count);
+                    }
+                    //
+
+                    //ねこチェック　ねこの採取フラグが必要か否か
+                    GameMgr.catGetMat_PlayFlag = catDataBase.Check_CatGotoFlag();
+                }
 
                 //エクストリームパネル表示更新
                 GameMgr.extremepanel_Koushin = true;
@@ -2790,8 +2808,8 @@ public class Compound_Main : MonoBehaviour
 
         getmatplace.SetInit();
         getmatplace_panel.SetActive(true);
-        yes_no_panel.SetActive(true);
-        yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
+        //yes_no_panel.SetActive(true);
+        //yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
 
         moneystatus_panel.SetActive(false);
         TimePanel_obj1.SetActive(false);
@@ -4417,8 +4435,22 @@ public class Compound_Main : MonoBehaviour
         //変更したセリフ類は、必ず元に戻す。
         time_controller.TimeReturnHomeSleep_Status = false;
 
+        cat_cost = 0;
+        if (GameMgr.System_CatAutoMaterial_ON)
+        {           
+            //ねこがいる場合、ねこの費用を減らす
+            for (i = 0; i < catDataBase.catdata_list.Count; i++)
+            {
+                if (catDataBase.catdata_list[i].catStatus == 100)
+                {
+                    cat_cost += catDataBase.catdata_list[i].catCost;
+                }
+            }
+        }
+
         //一日経つと、食費を消費
-        moneyStatus_Controller.UseMoney(GameMgr.Foodexpenses);
+        moneyStatus_Controller.UseMoney(GameMgr.Foodexpenses + cat_cost);
+        
 
         //腹が回復する。
         if (GameMgr.System_Manpuku_ON)

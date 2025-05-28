@@ -56,6 +56,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Shiokuri_ON = true; //仕送りの有無
     public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_CatAutoMaterial_ON = true; //猫が自動でアイテムをとってきてくれるシステムの有無
+    public static bool System_JobLVUP_ON = true; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
 
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
@@ -144,7 +145,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_PStatusName2 = "早さ";
     public static string System_PStatusName3 = "ちえ";
 
-    public static string System_MagicLVPoint = "ジョブポイント";
+    public static string System_MagicLVPoint = "魔法ポイント";
+    public static string System_MagicEXPName = "魔法経験値";
 
     //真実のハートのハート消費量 Exp_Controllerで成功判定　ハートの魔法時のハート消費も、Exp_Controllerで処理
     public static int System_trueheart_cost = 5000;
@@ -491,8 +493,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //猫材料システム
     public static bool catGetMat_PlayFlag; //猫が採取を開始するフラグ
-    public static int[] cat_GetMaterialTimeCost = new int[10]; //その猫が採取にかかる時間
-    public static int[] cat_GetMateriaTimeCounter = new int[10]; //採取開始から終了までのタイマー
 
 
     //オプションの設定　マスター音量など
@@ -758,6 +758,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool check_OkashiAfter_flag;
     public static bool check_StarPanel_Endflag;
     public static bool check_StarPanel_Eventflag; //スターパネル閉じた後にイベントチェック
+    public static bool OnCatGetMaterial_modeON; //ねこ採取画面としてマップ画面を開いた
     public static bool[] check_SleepEnd_Eventflag = new bool[10];
     public static int ResultComplete_flag;
     public static bool Mute_on;
@@ -868,6 +869,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Select_place_name; //採取地の名前
     public static int Select_place_day; //採取地までにかかる日数
     public static Dictionary<string, int> GetMat_ResultList = new Dictionary<string, int>(); //採取で取得したアイテムのリスト　名前と個数
+    public static int Select_cat_num; //選んだ猫のリスト番号
+    public static string Select_cat_nameHyouji; //選んだ猫の名前
     public static bool Money_counterAnim_on; //所持金お金動くアニメON
     public static bool Money_counterAnim_StopDraw; //アニメをすぐとめて表示を更新する
     public static bool Money_counterOnly; //アニメはなしで、カウンタを生成する
@@ -1442,7 +1445,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         check_CompoAfter_flag = false;
         check_CompoAfter_SubEventflag = false;
         check_GetMat_flag = false;
-        check_OkashiAfter_flag = false;       
+        check_OkashiAfter_flag = false;
+        OnCatGetMaterial_modeON = false;
         ResultComplete_flag = 0;
         Mute_on = false;
         SubEvAfterHeartGet = false;

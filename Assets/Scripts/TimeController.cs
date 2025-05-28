@@ -30,6 +30,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
     private ItemDataBase database;
     private ItemMatPlaceDataBase matplace_database;
+    private CatDataBase catDataBase;
 
     private GetMatPlace_Panel getmatplace_panel;
     private GetMaterial get_material;
@@ -128,7 +129,10 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
         girleat_judge = GameObject.FindWithTag("GirlEat_Judge").GetComponent<GirlEat_Judge>();
-              
+
+        //ねこデータベースの取得
+        catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
+
         timespeed_range = 1.0f;
 
     }
@@ -1316,29 +1320,33 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     {
         if (GameMgr.System_CatAutoMaterial_ON)
         {
-
-            //ひとまず一匹で試作
-            //経った時間より、まだ猫採取にかかる時間のほうが長い場合
-            if (GameMgr.cat_GetMateriaTimeCounter[0] > _costTime)
+            for (i = 0; i < catDataBase.catdata_list.Count; i++)
             {
-                GameMgr.cat_GetMateriaTimeCounter[0] -= _costTime; //採取時間を減らす
-            }
-            else //にいちゃんの制作時間中に、ヒカリの制作が終わった場合　数回繰り返す可能性がある
-            {
-                Start_count = _costTime;
-                while (Start_count >= GameMgr.cat_GetMateriaTimeCounter[0])
+                if (catDataBase.catdata_list[i].catStatus == 100) //採取中のねこのみ
                 {
-                    Debug.Log("猫採取　チェック");
+                    //経った時間より、まだ猫採取にかかる時間のほうが長い場合
+                    if (catDataBase.catdata_list[i].cat_GetMateriaTimeCounter > _costTime)
+                    {
+                        catDataBase.catdata_list[i].cat_GetMateriaTimeCounter -= _costTime; //採取時間を減らす
+                    }
+                    else //にいちゃんの制作時間中に、ヒカリの制作が終わった場合　数回繰り返す可能性がある
+                    {
+                        Start_count = _costTime;
+                        while (Start_count >= catDataBase.catdata_list[i].cat_GetMateriaTimeCounter)
+                        {
+                            Debug.Log("猫採取　チェック");
 
-                    Start_count -= GameMgr.cat_GetMateriaTimeCounter[0];
+                            Start_count -= catDataBase.catdata_list[i].cat_GetMateriaTimeCounter;
 
-                    //材料採取メソッド。個数チェックと成功率を計算する。場所、猫の探索回数(共通？）
-                    CatGetMaterial_Items("Sakura_Forest", 6);
+                            //材料採取メソッド。個数チェックと成功率を計算する。場所、猫の探索回数(共通？）
+                            CatGetMaterial_Items(catDataBase.catdata_list[i].catTansaku_MapName, catDataBase.catdata_list[i].catTansaku_Kaisu);
 
-                    GameMgr.cat_GetMateriaTimeCounter[0] = GameMgr.cat_GetMaterialTimeCost[0];
+                            catDataBase.catdata_list[i].cat_GetMateriaTimeCounter = catDataBase.catdata_list[i].catTansaku_Speed;
+                        }
+
+                        catDataBase.catdata_list[i].cat_GetMateriaTimeCounter -= Start_count; //最後に余った制作時間分を、カウンタから減らす
+                    }
                 }
-
-                GameMgr.cat_GetMateriaTimeCounter[0] -= Start_count; //最後に余った制作時間分を、カウンタから減らす
             }
         }
     }
@@ -1351,7 +1359,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         get_material = GameObject.FindWithTag("GetMaterial").GetComponent<GetMaterial>();
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
 
-        sc.PlaySe(239);
+        //sc.PlaySe(239);
         getmatplace_panel.InitializeResultItemDicts();
 
         //採取地とアイテムの決定　事前にセレクト画面で決めている

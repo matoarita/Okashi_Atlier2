@@ -84,6 +84,7 @@ public class CompoundMainController : MonoBehaviour {
     private GameObject select_recipi_button_obj;
     private GameObject select_extreme_button_obj;
     private GameObject select_hikarimake_button_obj;
+    private GameObject select_catget_button_obj;
     private Button select_original_button;
     private Button select_recipi_button;
     private Button select_extreme_button;
@@ -107,6 +108,8 @@ public class CompoundMainController : MonoBehaviour {
     private Color p_color;
 
     private GameObject MagicLearnPanel;
+
+    private GameObject CatGetStartPanel;
 
     private GameObject SpecialwhiteEffect;
     private GameObject SpecialOkashiEffectView;
@@ -207,6 +210,7 @@ public class CompoundMainController : MonoBehaviour {
         select_extreme_button = select_extreme_button_obj.GetComponent<Button>();
         select_hikarimake_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/HikariMakeButton").gameObject;
         select_hikarimake_button = select_hikarimake_button_obj.GetComponent<Button>();
+        select_catget_button_obj = selectPanel_1.transform.Find("Scroll View/Viewport/Content/CatGetMatButton").gameObject;
 
         //確率パネルの取得
         kakuritsuPanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/KakuritsuPanel").gameObject;
@@ -256,6 +260,9 @@ public class CompoundMainController : MonoBehaviour {
 
         MagicLearnPanel = compoBG_A.transform.Find("MagicLearnPanel").gameObject;
         MagicLearnPanel.SetActive(false);
+
+        CatGetStartPanel = compoBG_A.transform.Find("CatGetStartPanel").gameObject;
+        CatGetStartPanel.SetActive(false);
 
         //windowテキストエリアの取得
         text_area_compound = compoBG_A.transform.Find("MessageWindowComp").gameObject;
@@ -566,17 +573,8 @@ public class CompoundMainController : MonoBehaviour {
                     GameMgr.QuestManzokuFace = false; //おいしかった表情は、調合シーンに入るとリセットされる。
 
                     //仕上げのとき
-                    if (GameMgr.System_ExtremeCompo_BaseitemON)
-                    {
-                        if ( PlayerStatus.player_extreme_kaisu > 0) //extreme_panel.extreme_kaisu
-                        {
-                            select_extreme_button.interactable = true;
-                        }
-                        else
-                        {
-                            select_extreme_button.interactable = false;
-                        }
-                    }
+                    if (GameMgr.System_ExtremeCompo_BaseitemON) //仕上げ時、ベースから選択できるモード
+                    { }
                     else
                     {
                         if (pitemlist.player_extremepanel_itemlist.Count > 0 && PlayerStatus.player_extreme_kaisu > 0) //extreme_panel.extreme_kaisu
@@ -771,10 +769,19 @@ public class CompoundMainController : MonoBehaviour {
                     magic_compo3.SetActive(true);
 
                     //魔法によっては、エフェクト表示かorミニゲームの演出画面も開く
-                    Magic_Effect_or_minigamePanel();                    
+                    Magic_Effect_or_minigamePanel();
 
-                    //スキル名表示
-                    magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
+                    if (GameMgr.System_MagicEffect_USE)
+                    {
+                        //魔法をみせるために、スキル表示はオフ
+                        magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(true);
+                        //スキル名表示
+                        magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
+                    }
 
                     playeritemlist_onoff.SetActive(false);                 
                     recipiMemoButton.SetActive(false);
@@ -853,7 +860,34 @@ public class CompoundMainController : MonoBehaviour {
 
                     break;
 
-                default://compound=110　最後調合するかどうかの確認中など、待機状態
+                case 40: //ねこの採取画面を開く              
+
+                    GameMgr.compound_status = 100; //ねこ採取画面シーンに入っています、というフラグ
+                    GameMgr.compound_select = 40;
+
+                    //各調合画面を一度オフ
+                    CompoScreenReset();
+
+                    //ヒカリちゃん表示をオフ
+                    ReSetLive2DOrder_Default();
+
+                    playeritemlist_onoff.SetActive(false);
+                    recipilist_onoff.SetActive(false);
+                    SelectCompo_panel_1.SetActive(false);
+                    yes_no_panel.SetActive(false);
+
+                    text_area_compound.SetActive(true);
+                    _textcomp.text = "ねこに材料をとってきてもらおう！" + "\n" + "好きなねこを選んでね。";
+
+                    //magicskilllistController_Learn.SetActive(true); //魔法をおぼえるがONになった状態のリストを表示
+                    //magicskilllistController.OnDefaultText(1);
+
+                    CatGetStartPanel.SetActive(true);
+
+                    break;
+
+
+                default: //compound=110　最後調合するかどうかの確認中など、待機状態
                     break;
             }
         }
@@ -944,8 +978,8 @@ public class CompoundMainController : MonoBehaviour {
         compoBGA_imageExtreme.SetActive(false);
         compoBGA_imageHikariMake.SetActive(false);
         MagicStartPanel.SetActive(false);
+        CatGetStartPanel.SetActive(false);
 
-        
 
         playeritemlist_onoff.SetActive(false);
         recipilist_onoff.SetActive(false);

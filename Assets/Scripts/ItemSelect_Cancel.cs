@@ -482,6 +482,23 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                 }
                             }
                         }
+
+                        if (GameMgr.compound_select == 41) //ねこ採取選択
+                        {
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                            {
+                                yes_selectitem_kettei.onclick = false;
+
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+                                    canvas.transform.Find("GetMatPlace_Panel/Comp").gameObject.SetActive(false);
+
+                                    GameMgr.compound_status = 40; //何も選択していない状態にもどる。
+                                    GameMgr.compound_select = 40;
+                                }
+
+                            }
+                        }
                         break;
 
                     default://compound=110　最後調合するかどうかの確認中など、待機状態

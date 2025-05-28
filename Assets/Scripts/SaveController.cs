@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System; //DateTimeを使用する為追加。
+using System.Linq;
 
 public class SaveController : SingletonMonoBehaviour<SaveController>
 {
@@ -24,6 +25,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private QuestSetDataBase quest_database;
     private MagicSkillListDataBase magicskill_database;
     private ContestStartListDataBase conteststartList_database;
+    private CatDataBase catDataBase;
 
     //保存するものリスト　ここまで
 
@@ -98,6 +100,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //ねこデータベースの取得
+        catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
 
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
@@ -577,6 +582,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //マップフラグリスト
             save_mapflaglist = _tempmap_placeflaglist,
+
+            //ねこリスト
+            save_catdata_list = catDataBase.catdata_list,
+
+            //ねこフラグ
+            save_catGetMat_PlayFlag = GameMgr.catGetMat_PlayFlag,
 
             //お菓子の一度にトッピングできる回数
             save_topping_Set_Count = GameMgr.topping_Set_Count,
@@ -1127,6 +1138,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         {
             quest_database.ResetSpriteTex(i);
         }
+
+        //ねこリスト
+        catDataBase.catdata_list.Clear();
+        catDataBase.catdata_list = playerData.save_catdata_list;
+
+        //ねこフラグ
+        GameMgr.catGetMat_PlayFlag = playerData.save_catGetMat_PlayFlag;
 
         //マップフラグの読み込み
         for (i = 0; i < playerData.save_mapflaglist.Count; i++)

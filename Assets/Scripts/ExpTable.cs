@@ -484,35 +484,40 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     }
 
 
-    //ジョブレベルのチェック　ジョブがあがったらジョブポイントがたまる
-    void SkillCheckPatissierLV()
-    {       
-        if (PlayerStatus.player_patissier_lv < GameMgr.System_patissier_maxlv) //パティシエLV上限よりも下の場合のみ
+    //ジョブレベルのチェック　ジョブがあがったらジョブポイントがたまる Exp_Controllerからもよみだし
+    public void SkillCheckPatissierLV()
+    {
+        if (!GameMgr.System_JobLVUP_ON)
         {
-            //ハートレベルに連動してレベル上がるパターン
-            if (PlayerStatus.girl1_Love_maxlv > PlayerStatus.player_patissier_lv)
+            if (PlayerStatus.player_patissier_lv < GameMgr.System_patissier_maxlv) //パティシエLV上限よりも下の場合のみ
             {
-                if (PlayerStatus.girl1_Love_maxlv >= GameMgr.System_patissier_maxlv) //マックスレベルと同じか超えそうになった場合
+                //ハートレベルに連動してレベル上がるパターン
+                if (PlayerStatus.girl1_Love_maxlv > PlayerStatus.player_patissier_lv)
                 {
-                    _dev = GameMgr.System_patissier_maxlv - PlayerStatus.player_patissier_lv;
-                    PlayerStatus.player_patissier_job_pt += _dev;
-                    PlayerStatus.player_patissier_lv = GameMgr.System_patissier_maxlv;
-                }
-                else
-                {
-                    _dev = PlayerStatus.girl1_Love_maxlv - PlayerStatus.player_patissier_lv;
-                    PlayerStatus.player_patissier_job_pt += _dev;
-                    PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
+                    if (PlayerStatus.girl1_Love_maxlv >= GameMgr.System_patissier_maxlv) //マックスレベルと同じか超えそうになった場合
+                    {
+                        _dev = GameMgr.System_patissier_maxlv - PlayerStatus.player_patissier_lv;
+                        PlayerStatus.player_patissier_job_pt += _dev;
+                        PlayerStatus.player_patissier_lv = GameMgr.System_patissier_maxlv;
+                    }
+                    else
+                    {
+                        _dev = PlayerStatus.girl1_Love_maxlv - PlayerStatus.player_patissier_lv;
+                        PlayerStatus.player_patissier_job_pt += _dev;
+                        PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv; //ハートLVが、現在パティシエレベルより上回ると、パティシエレベルも同時に上がる。また下がることはない。
 
+                    }
+                }
+                else //例外処理
+                {
+                    PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv;
                 }
             }
-            else //例外処理
-            {
-                PlayerStatus.player_patissier_lv = PlayerStatus.girl1_Love_maxlv;
-            }
-
+        }
+        else
+        {
             //ジョブ経験値に合わせてレベル上がるパターン
-            /*
+            
             before_lv = PlayerStatus.player_patissier_lv;
             JobLVKoushin();
 
@@ -520,8 +525,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             {
                 _dev = PlayerStatus.player_patissier_lv - before_lv;
                 PlayerStatus.player_patissier_job_pt += _dev;            
-            }*/
+            }
         }
+
     }
 
     
@@ -586,17 +592,17 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         stage1_joblvTable.Add(75); //LV8
         stage1_joblvTable.Add(95); //LV9
         stage1_joblvTable.Add(125); //LV10
-        stage1_joblvTable.Add(155); //LV11
-        stage1_joblvTable.Add(185); //LV12
-        stage1_joblvTable.Add(215); //LV13
-        stage1_joblvTable.Add(250); //LV14
-        stage1_joblvTable.Add(300); //LV15
+        stage1_joblvTable.Add(175); //LV11
+        stage1_joblvTable.Add(245); //LV12
+        stage1_joblvTable.Add(345); //LV13
+        stage1_joblvTable.Add(470); //LV14
+        stage1_joblvTable.Add(620); //LV15
 
         _joblv_last = stage1_joblvTable.Count;
         //LV16以上～50まで　100ごとに上がるように設定
         for (i = 1; i < (50 - _joblv_last); i++)
         {
-            stage1_joblvTable.Add((_joblv_last + i) * 100);
+            stage1_joblvTable.Add((_joblv_last + i) * 200);
         }
         stage1_joblvTable[stage1_joblvTable.Count - 1] = 9999; //最後だけ9999
 
@@ -619,8 +625,6 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             PlayerStatus.player_patissier_lv++;
             i++;
         }
-
-        //
     }
 
     //更新後のHeartExpをいれると、現在のHLVに再計算する　Girleat_judgeから読み出し
@@ -655,7 +659,6 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             //覚えるスキルなどがないかチェック。あった場合、それもパネルに表示
             SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 1); //2番目が1だと、パネルの表示
             SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
-                                                                           //exp_table.SkillCheckPatissierLV();
 
             //ステータスもランダムであがる。
             StatusUp(); //

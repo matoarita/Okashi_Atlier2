@@ -352,6 +352,9 @@ public class PlayerData
     //マップのフラグリスト
     public List<ItemSaveKosu> save_mapflaglist = new List<ItemSaveKosu>();
 
+    //ねこリスト。
+    public List<CatData> save_catdata_list = new List<CatData>();
+
     //称号リスト
     public List<ItemSaveFlag> save_titlecollectionlist = new List<ItemSaveFlag>();
 
@@ -390,6 +393,9 @@ public class PlayerData
 
     public bool save_hiroba_ichigo_first;
     public bool[] save_ichigo_collection_listFlag = new bool[GameMgr.ichigo_collection_listFlag.Length];
+
+    //ねこ
+    public bool save_catGetMat_PlayFlag;
 
     //音設定データ
     public float save_masterVolumeparam;

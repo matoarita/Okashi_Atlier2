@@ -200,7 +200,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     private int _id1, _id2;
     private string _a, _b, _c;
-    private string _yaki;
+    private string _yaki, _jobexp_text;
     private float _magic_enshututime;
     private float _magic_enshututime2;
 
@@ -546,7 +546,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            //exp_table.SkillCheckPatissierLV();
+            exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             if (DoubleItemCreated == 0)
@@ -900,10 +900,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            //exp_table.SkillCheckPatissierLV();
+            exp_table.SkillCheckPatissierLV();
 
             //テキストの表示            
-            renkin_default_exp_up();
+            //renkin_default_exp_up();
+            renkin_exp_up();
 
             //完成エフェクト
             if (GameMgr.Special_OkashiEnshutsuFlag) //trueのときの特別演出では通常エフェクト表示しない
@@ -1148,7 +1149,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
 
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            //exp_table.SkillCheckPatissierLV();
+            exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             renkin_exp_up();
@@ -1391,7 +1392,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
 
             //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            //exp_table.SkillCheckPatissierLV();
+            exp_table.SkillCheckPatissierLV();
 
             //テキストの表示
             if (DoubleItemCreated == 0)
@@ -1747,7 +1748,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     void GetExpMethod()
     {
-        if (GameMgr.System_MagicUse_Flag)
+        if (GameMgr.System_MagicUse_Flag) //魔法を解禁したタイミングから経験値が入り始める
         {
             _getexp = databaseCompo.compoitems[result_ID].renkin_Bexp;
             //_getexp = databaseCompo.compoitems[result_ID].renkin_Bexp / databaseCompo.compoitems[result_ID].comp_count;
@@ -1764,7 +1765,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
     void GetExpMethodTopping()
     {
-        if (GameMgr.System_MagicUse_Flag)
+        if (GameMgr.System_MagicUse_Flag) //魔法を解禁したタイミングから経験値が入り始める
         {
             _getexp = compound_keisan._getExp;
             PlayerStatus.player_renkin_exp += _getexp; //エクストリーム経験値。確率が低いものほど、経験値が大きくなる。
@@ -2553,7 +2554,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             _text.text = "やったね！ " +
                 renkin_hyouji +
                 " が " + result_kosu + "個 できたよ！";
-                //+ "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
+            //+ "\n" + _ex_text + GameMgr.System_MagicEXPName + " " + _getexp + "上がった！";
         }
         else
         {
@@ -2572,6 +2573,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //Debug.Log("_getexp: " + _getexp);
 
         _yaki = "";
+        _jobexp_text = "";
 
         if (_getexp != 0)
         {
@@ -2580,12 +2582,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _yaki = "　" + GameMgr.tempature_control_Param_yakitext;
             }
 
+            if (GameMgr.System_JobLVUP_ON)
+            {
+                _jobexp_text = "\n" + _ex_text + GameMgr.System_MagicEXPName + " " + _getexp + "上がった！";
+            }
+
             _text.text = "やったね！ " +
             //GameMgr.ColorYellow + pitemlist.player_originalitemlist[new_item].item_SlotName + "</color>" 
             pitemlist.player_check_itemlist[new_item].itemNameHyouji +
-            " が " + result_kosu + "個 できたよ！" + _yaki;
-            //+ "\n" + _ex_text + "ジョブ経験値 " + _getexp + "上がった！";
-            
+            " が " + result_kosu + "個 できたよ！" + _yaki + _jobexp_text;
+                      
         }
         else
         {
@@ -2608,6 +2614,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void renkin_exp_up2()
     {
         _yaki = "";
+        _jobexp_text = "";
 
         if (_getexp != 0)
         {
@@ -2616,10 +2623,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _yaki = "　" + GameMgr.tempature_control_Param_yakitext;
             }
 
+            if (GameMgr.System_JobLVUP_ON)
+            {
+                _jobexp_text = "\n" + _ex_text + GameMgr.System_MagicEXPName + " " + _getexp + "上がった！";
+            }
+
             _text.text = "やったね！ " +
             database.items[_id1].itemNameHyouji + " と " + database.items[_id2].itemNameHyouji +
-            " が " + result_kosu + "個 できたよ！" + _yaki;
-            //+ "\n" + _ex_text +"ジョブ経験値 " + _getexp + "上がった！";
+            " が " + result_kosu + "個 できたよ！" + _yaki + _jobexp_text;
         }
         else
         {

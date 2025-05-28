@@ -209,6 +209,10 @@ public class RuntimeInitializer : MonoBehaviour
         var ItemCardEffectDataBase_init = new GameObject("ItemCardEffectDataBase", typeof(ItemCardEffectDataBase));
         GameObject.DontDestroyOnLoad(ItemCardEffectDataBase_init);
 
+        //ねこデータベースリスト
+        var cat_database_init = new GameObject("CatDataBase", typeof(CatDataBase));
+        GameObject.DontDestroyOnLoad(cat_database_init);
+
         //ゲーム最初で所持するアイテムなどを設定するスクリプト
         var player_defaultstart_ItemGet_init = new GameObject("PlayerDefaultStartItemGet", typeof(PlayerDefaultStartItemGet));
         GameObject.DontDestroyOnLoad(player_defaultstart_ItemGet_init);

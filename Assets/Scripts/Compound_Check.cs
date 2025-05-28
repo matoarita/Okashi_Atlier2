@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 using System.Linq;
 
 public class Compound_Check : MonoBehaviour {
@@ -1053,6 +1054,8 @@ public class Compound_Check : MonoBehaviour {
 
                 MagicSelectLv_Panel.SetActive(true);
                 MagicSelectLv_Panel.transform.Find("MagicSkillNameImg/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji;
+                //MagicSelectLv_Panel.transform.Find("MagicSkillNameImg/TextSkill").GetComponent<TextMeshProUGUI>().text = GameMgr.UseMagicSkill_nameHyouji;
+                //MagicSelectLv_Panel.transform.Find("MagicSkillNameImg/TextSkill").GetComponent<ArchedText>().enabled = true;
                 //魔法のときは、対象アイテムと魔法のエフェクトなどを表示する
 
                 recipiMemoScrollView_obj.SetActive(false);

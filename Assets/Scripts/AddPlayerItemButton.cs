@@ -80,7 +80,10 @@ public class AddPlayerItemButton : MonoBehaviour {
         for (i = 0; i < database.items.Count; i++)
         {
             if (database.items[i].itemType_sub.ToString() == "Pate" || database.items[i].itemType_sub.ToString() == "Cookie_base" ||
-                database.items[i].itemType_sub.ToString() == "Equip" || database.items[i].itemType_sub.ToString() == "Object")
+                database.items[i].itemType_sub.ToString() == "Machine" || database.items[i].itemType_sub.ToString() == "Record" ||
+                database.items[i].itemType_sub.ToString() == "Equip" || database.items[i].itemType_sub.ToString() == "Object" ||
+                database.items[i].itemType_sub.ToString() == "Donguri" || database.items[i].itemType_sub.ToString() == "Rare" ||
+                database.items[i].itemType_sub.ToString() == "Valuable" || database.items[i].itemType_sub.ToString() == "EventItem")
             {
                 //生地タイプ、クッキーベースタイプ、アパレイユ、アクセサリー装備品を無視する。
             }

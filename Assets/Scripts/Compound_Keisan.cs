@@ -1428,7 +1428,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType = pitemlist.player_yosokuitemlist[_id].itemType.ToString();
         _base_itemType_sub = pitemlist.player_yosokuitemlist[_id].itemType_sub.ToString();
         _base_itemType_subB = pitemlist.player_yosokuitemlist[_id].itemType_subB.ToString();
-        _base_extreme_kaisu = pitemlist.player_yosokuitemlist[_id].ExtremeKaisu;
+        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu;
         _base_item_hyouji = pitemlist.player_yosokuitemlist[_id].item_Hyouji;
         _base_itemdesc = pitemlist.player_yosokuitemlist[_id].itemDesc;
         _baseattri1 = pitemlist.player_yosokuitemlist[_id].Attribute1;
@@ -1586,13 +1586,23 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     }
                     else
                     {
-                        if (Comp_method_bunki == 3 || Comp_method_bunki == 22) //トッピング調合の場合  お菓子パネルのお菓子を削除し、新しく登録するのみ。
+                        if (Comp_method_bunki == 3 || Comp_method_bunki == 22) //トッピング調合の場合  パネルのやつを調合するか、それ以外のおかしを調合するか
+                            //お菓子パネルのお菓子を削除し、新しく登録するのみ。
                         {
-                            if (pitemlist.player_extremepanel_itemlist[0].ItemKosu >= 2)
+                            //1. パネルのやつを調合する場合、パネルのを-1して、移動するか、1個のみの場合は、そのまま何もせず削除して新しく登録する。
+                            //2. パネル以外のを調合するとき、今パネルにあるのは必ず移動する（個数-1しない）
+                            if(base_toggle_type == 2) //1の場合
                             {
-                                pitemlist.ExtremeToCopyOriginalItem(pitemlist.player_extremepanel_itemlist[0].ItemKosu - 1); //仮に3個同時とか作ってた場合もあるので、-1で計算。
+                                if (pitemlist.player_extremepanel_itemlist[0].ItemKosu >= 2)
+                                {
+                                    pitemlist.ExtremeToCopyOriginalItem(pitemlist.player_extremepanel_itemlist[0].ItemKosu - 1); //仮に2とか3個分とか作ってた場合もあるので、-1で計算。
+                                }
+                                //1個のときはそのまま削除して、新しく登録するのみ。
                             }
-                            //1個のときはそのまま削除して、新しく登録するのみ。
+                            else //2の場合　そのままオリジナルアイテムリストへずらす
+                            {
+                                pitemlist.ExtremeToCopyOriginalItem(pitemlist.player_extremepanel_itemlist[0].ItemKosu);
+                            }
                         }
                         else
                         {
@@ -1692,6 +1702,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
             }
+
+            //個数にバフをかける
+            result_kosu += bufpower_keisan.Buf_Kosu_Keisan(databaseCompo.compoitems[_result_cmpID].cmpitemID_result, _result_cmpID);
         }
         else if (_compo_select == 1) //レシピ調合の場合
         {
@@ -1704,6 +1717,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             {
                 result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
             }
+
+            //個数にバフをかける
+            result_kosu += bufpower_keisan.Buf_Kosu_Keisan(databaseCompo.compoitems[_result_cmpID].cmpitemID_result, _result_cmpID);
         }
         else if (_compo_select == 2) //トッピング調合の場合
         {

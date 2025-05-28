@@ -14,6 +14,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _buf_findpower;
     private int _buf_kakuritsuup;
     private float _buf_kakuritsuup_f;
+    private int _buf_kosuup;
     private int _buf_shokukanup;
     private float _buf_kyori;
     private int _buf_compotime_up;
@@ -734,6 +735,84 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _buf_compotime_up += _magicup;
         }
     }
+
+    //
+    //個数のバフ
+    //調合で生成されるアイテムの_itemType_subを指定し、中に補正値をかけばOK
+    //
+    public int Buf_Kosu_Keisan(string _result_item, int _compID)
+    {
+        _buf_kosuup = 0;
+
+        //アイテムによって、特定のお菓子のときのみ成功率をあげる。
+        _id = database.SearchItemIDString(_result_item);
+        _itemType = database.items[_id].itemType.ToString();
+        _itemType_sub = database.items[_id].itemType_sub.ToString();
+        _itemType_subB = database.items[_id].itemType_subB.ToString();
+
+        switch (_itemType_sub)
+        {           
+            case "Appaleil":
+
+                //魔法でのバフ
+                KosuUp_Appaleil();
+                break;
+
+            case "Cream":
+
+                //魔法でのバフ
+                KosuUp_Cream();
+                break;
+        }
+
+        /*switch (_itemType_subB)
+        {
+            case "a_CacaoNibs":
+
+                KakuritsuUp_BakeBeans();
+                break;
+            
+        }*/
+
+        //全般
+
+
+        return _buf_kosuup;
+    }
+
+    void KosuUp_Appaleil()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 3 || magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") < 5)
+        {
+            _magicup = 1; //LV*1
+            _buf_kosuup += _magicup;
+        }
+        else if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 5)
+        {
+            _magicup = 2; //LV*1
+            _buf_kosuup += _magicup;
+        }
+    }
+
+    void KosuUp_Cream()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Nappe") >= 3 || magicskill_database.skillName_SearchLearnLevel("Nappe") < 5)
+        {
+            _magicup = 1; //LV*1
+            _buf_kosuup += _magicup;
+        }
+        else if (magicskill_database.skillName_SearchLearnLevel("Nappe") >= 5)
+        {
+            _magicup = 2; //LV*1
+            _buf_kosuup += _magicup;
+        }
+    }
+
+
 
 
     //

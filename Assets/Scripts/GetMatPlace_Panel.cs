@@ -52,6 +52,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject matplace_toggle_obj;
     public List<GameObject> matplace_toggle = new List<GameObject>();
 
+    private GameObject text_area_compound;
+    private Text _textcomp;
+
     private GameObject text_area;
     private Text _text;
     private MessageWindow msg_window;
@@ -82,6 +85,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private List<GameObject> MapSelect_Imagepanel_obj = new List<GameObject>();
 
     private GameObject map_bg_effect;
+
+    private GameObject CatGetStartPanel_obj;
 
     private int mapid;
     private int _place_num;
@@ -132,6 +137,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
     private GameObject Fadeout_Black_obj;
 
     private bool StartRead = false;
+    private bool StartReadUpdate = false;
 
     // Use this for initialization
     void Start()
@@ -162,6 +168,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         msg_window = text_area.GetComponentInChildren<MessageWindow>();
         text_kaigyo_button = canvas.transform.Find("MessageWindow/KaigyoButton").gameObject;
         text_kaigyo_buttonPanel = canvas.transform.Find("MessageWindow/KaigyoButtonPanel").gameObject;
+
+        
 
         //Yes no パネルの取得
         yes_no_panel = canvas.transform.Find("Yes_no_Panel").gameObject;
@@ -214,6 +222,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
         
         MapSelect_BGpanel = getmatplace_panel.transform.Find("MapSelectBGPanel").gameObject;
         MapSelect_Imagepanel_obj.Clear();
+
+
 
         //今解放済みの、カテゴリーViewも表示
         if (!StartRead)
@@ -377,7 +387,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         }
                     }
                     category_toggleList_obj.SetActive(true);
-                    
+
 
                     break;
 
@@ -409,6 +419,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         }
 
         mapicon_Active();
+
     }
 
     void mapicon_Draw()
@@ -420,6 +431,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         matplace_toggle[count].transform.Find("Label").GetComponent<Text>().text = matplace_database.matplace_lists[i].placeNameHyouji;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_flag = matplace_database.matplace_lists[i].placeFlag;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_default_flag = matplace_database.matplace_lists[i].placeDefaultFlag;
+        matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_type = matplace_database.matplace_lists[i].placeType;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにリスト配列番号を割り振っておく。
 
         count++;
@@ -435,11 +447,27 @@ public class GetMatPlace_Panel : MonoBehaviour {
             {
                 if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_flag == 1)
                 {
-                    matplace_toggle[i].SetActive(true);
-                    //時間が遅いと、選択off
-                    if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //19時こえたとき　もう外にでれない
+                    if (!GameMgr.OnCatGetMaterial_modeON)
                     {
-                        matplace_toggle[i].GetComponent<Toggle>().interactable = false;
+                        matplace_toggle[i].SetActive(true);
+                    
+                        //時間が遅いと、選択off
+                        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //19時こえたとき　もう外にでれない
+                        {
+                            matplace_toggle[i].GetComponent<Toggle>().interactable = false;
+                        }
+                    }
+                    else //ねこ採取画面のとき
+                    {
+                        //お店とかは選択できなくし、採取地のみにする
+                        if(matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_type == 1)
+                        {
+                            matplace_toggle[i].SetActive(true);
+                        }
+                        else
+                        {
+                            matplace_toggle[i].SetActive(false);
+                        }
                     }
                 }
                 else
@@ -453,15 +481,32 @@ public class GetMatPlace_Panel : MonoBehaviour {
             }
             else if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_default_flag == 1)
             {
-                matplace_toggle[i].SetActive(true);
-                //時間が遅いと、選択off
-                if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //19時こえたとき　もう外にでれない
+                if (!GameMgr.OnCatGetMaterial_modeON)
                 {
-                    matplace_toggle[i].GetComponent<Toggle>().interactable = false;
+                    matplace_toggle[i].SetActive(true);
+               
+                    //時間が遅いと、選択off
+                    if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //19時こえたとき　もう外にでれない
+                    {
+                        matplace_toggle[i].GetComponent<Toggle>().interactable = false;
+                    }
+                }
+                else //ねこ採取画面のとき
+                {
+                    //お店とかは選択できなくし、採取地のみにする
+                    if (matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_type == 1)
+                    {
+                        matplace_toggle[i].SetActive(true);
+                    }
+                    else
+                    {
+                        matplace_toggle[i].SetActive(false);
+                    }
                 }
             }
         }
     }
+
 
     void CategoryCompScene_Init()
     {
@@ -605,8 +650,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
         modoru_anim_on = false;
         treasure_anim_on = false;
 
-        
-        
+        yes_no_panel.SetActive(true);
+        yes_no_panel.transform.Find("Yes").gameObject.SetActive(false);
+
 
         //採取地行く前なら、場所番号などはリセット　採取地シーンに入った場合は、ここは無視する
         GameMgr.Select_place_num = 0;
@@ -633,6 +679,22 @@ public class GetMatPlace_Panel : MonoBehaviour {
     void Update () {
 
         //matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //デバッグ用　フラグが狂ったときに
+
+        //別シーンの設定がおわったあとに、最初だけここを読む
+        if (!StartReadUpdate)
+        {
+            switch (GameMgr.Scene_Category_Num)
+            {
+                case 10: //メイン調合
+
+                    //windowテキストエリアの取得
+                    text_area_compound = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/MessageWindowComp").gameObject;
+                    _textcomp = text_area_compound.GetComponentInChildren<Text>();
+
+                    break;
+            }
+            StartReadUpdate = true;
+        }
 
         if (move_anim_on == true)
         {
@@ -917,6 +979,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         StartCoroutine("ResultOn");
     }
 
+
     public void OnClick_Place(int place_num)
     {
         i = 0;
@@ -927,54 +990,66 @@ public class GetMatPlace_Panel : MonoBehaviour {
             {
                 select_num = i;
 
-                //妹の体力が足りてるかチェック
-                if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
+                if (!GameMgr.OnCatGetMaterial_modeON) //通常の採取画面としての処理
                 {
-                    if (GameMgr.outgirl_Nowprogress)
+                    //妹の体力が足りてるかチェック
+                    if (PlayerStatus.player_girl_lifepoint <= 0 && matplace_database.matplace_lists[_place_num].placeType == 1) //0以下かつダンジョンタイプに行こうとする場合
                     {
-                        _text.text = "今日はもうからだが疲れているな..。" + "\n" + "（寝て、" + GameMgr.ColorYellow + "体力を回復" + "</color>" + "しよう。）";
+                        if (GameMgr.outgirl_Nowprogress)
+                        {
+                            _text.text = "今日はもうからだが疲れているな..。" + "\n" + "（寝て、" + GameMgr.ColorYellow + "体力を回復" + "</color>" + "しよう。）";
+                        }
+                        else
+                        {
+                            //顔アイコンも切り替え
+                            msg_window.Setting_WindowIcon(11); //痛い顔
+                            _text.text = "にいちゃん。からだがグタグタでもう動けねぇ～・・。" + "\n" + "（寝て、" + GameMgr.ColorYellow + "体力を回復" + "</color>" + "しよう。）";
+                        }
+
+                        All_Off();
                     }
                     else
                     {
-                        //顔アイコンも切り替え
-                        msg_window.Setting_WindowIcon(11); //痛い顔
-                        _text.text = "にいちゃん。からだがグタグタでもう動けねぇ～・・。" + "\n" + "（寝て、" + GameMgr.ColorYellow + "体力を回復" + "</color>" + "しよう。）";
-                    }
-
-                    All_Off();
-                }
-                else
-                {
-                    //時間が20時をこえないかチェック
-                    if (GameMgr.TimeUSE_FLAG)
-                    {
-                        if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
+                        //時間が20時をこえないかチェック
+                        if (GameMgr.TimeUSE_FLAG)
                         {
-                            //20時を超えるので、妹に止められる。
-                            if (GameMgr.outgirl_Nowprogress)
+                            if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
                             {
-                                _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
+                                //20時を超えるので、妹に止められる。
+                                if (GameMgr.outgirl_Nowprogress)
+                                {
+                                    _text.text = "時間が遅くなりそうだ..。今日はやめておこう。";
+                                }
+                                else
+                                {
+                                    //顔アイコンも切り替え
+                                    msg_window.Setting_WindowIcon(12); //イヤ顔
+                                    _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
+                                }
+                                All_Off();
                             }
                             else
                             {
-                                //顔アイコンも切り替え
-                                msg_window.Setting_WindowIcon(12); //イヤ顔
-                                _text.text = "にいちゃん。今日は遅いから、明日いこ～。";
+                                KakuninPlace();
+                                break;
                             }
-                            All_Off();
+
                         }
                         else
                         {
                             KakuninPlace();
                             break;
                         }
+                    }
+                }
+                else //猫の採取画面として開いているときの処理
+                {                   
+                    CatGetStartPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CatGetStartPanel").gameObject;
+                    CatGetStartPanel_obj.transform.Find("FinalCheckPanel").gameObject.SetActive(true);
+                    CatGetStartPanel_obj.GetComponent<CatGetStartPanel>().FinalCheck_CatDataKoushin(GameMgr.Select_cat_num);
+                    CatGetStartPanel_obj.transform.Find("FinalCheckPanel/CloseButton").gameObject.SetActive(false);
 
-                    }
-                    else
-                    {
-                        KakuninPlace();
-                        break;
-                    }
+                    KakuninPlaceCheck_CatGet();
                 }
 
             }
@@ -1005,6 +1080,20 @@ public class GetMatPlace_Panel : MonoBehaviour {
             KakuninPlaceCheck();
         }
         
+    }
+
+    void KakuninPlaceCheck_CatGet()
+    {
+
+        _textcomp.text = GameMgr.Select_cat_nameHyouji + "を" + matplace_database.matplace_lists[_place_num].placeNameHyouji + "へ採取にだす？";
+
+        GameMgr.Select_place_num = _place_num;
+        GameMgr.Select_place_name = matplace_database.matplace_lists[_place_num].placeName;
+        GameMgr.Select_place_day = matplace_database.matplace_lists[_place_num].placeDay;
+
+        Debug.Log("mapID: " + matplace_database.matplace_lists[_place_num].matplaceID + " " + GameMgr.Select_place_name + "が選択されました。");
+
+        Select_Pause();
     }
 
     void KakuninPlaceCheck()
@@ -1064,73 +1153,86 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             case true: //決定が押された
 
-                //お金が足りてるかチェック
-                mat_cost = matplace_database.matplace_lists[GameMgr.Select_place_num].placeCost;
-                if (PlayerStatus.player_money < mat_cost)
+                if (!GameMgr.OnCatGetMaterial_modeON) //通常の採取画面としての処理
                 {
-                    if (GameMgr.outgirl_Nowprogress)
+                    //お金が足りてるかチェック
+                    mat_cost = matplace_database.matplace_lists[GameMgr.Select_place_num].placeCost;
+                    if (PlayerStatus.player_money < mat_cost)
                     {
-                        _text.text = "お金が足りない・・。";
+                        if (GameMgr.outgirl_Nowprogress)
+                        {
+                            _text.text = "お金が足りない・・。";
+                        }
+                        else
+                        {
+                            //顔アイコンも切り替え
+                            msg_window.Setting_WindowIcon(12); //イヤ
+                            _text.text = "にいちゃん。お金が足りないよ～・・。";
+                        }
+
+                        All_Off();
                     }
                     else
                     {
-                        //顔アイコンも切り替え
-                        msg_window.Setting_WindowIcon(12); //イヤ
-                        _text.text = "にいちゃん。お金が足りないよ～・・。";
-                    }
+                        //Debug.Log("ok");
+                        //解除
 
-                    All_Off();
+                        //顔アイコンも切り替え
+                        msg_window.Setting_WindowIcon(7); //よろこび
+
+                        itemselect_cancel.kettei_on_waiting = false;
+                        yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
+
+                        //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
+
+                        move_anim_on = true;
+                        move_anim_status = 0;
+
+                        subevent_on = false;
+                        event_end_flag = false;
+
+                        next_on = false;
+
+                        girl1_status.hukidasiOff();
+
+                        //音量フェードアウト
+                        sceneBGM.FadeOutBGM(0.5f);
+
+                        //日数の経過。場所ごとに、移動までの日数が変わる。
+                        time_controller.SetMinuteToHour(GameMgr.Select_place_day, 0, 1); //材料採取なので、ヒカリのお菓子制作時間は減らない
+                        time_controller.TimeKoushin(0, false);
+
+                        //時間の項目リセット
+                        time_controller.ResetTimeFlag();
+
+                        //お金の消費
+                        moneyStatus_Controller.UseMoney(mat_cost);
+
+                        //リザルトアイテムをリセット
+                        InitializeResultItemDicts();
+
+                        //戻り先もセット
+                        GameMgr.GetMat_BackPlaceName = GameMgr.Scene_Name;
+
+                        //腹も減る
+                        if (GameMgr.Story_Mode != 0)
+                        {
+                            PlayerStatus.player_girl_manpuku -= 10;
+                        }
+
+                        Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
+                    }
                 }
                 else
                 {
-                    //Debug.Log("ok");
-                    //解除
-
-                    //顔アイコンも切り替え
-                    msg_window.Setting_WindowIcon(7); //よろこび
-
                     itemselect_cancel.kettei_on_waiting = false;
-
                     yes_selectitem_kettei.onclick = false; //オンクリックのフラグはオフにしておく。
 
-                    //採取地確定したので、採取地の番号に従って、ランダムで３つアイテム取得＋金額を消費するメソッドへいく。
+                    yes_no_panel.SetActive(false);
 
-                    move_anim_on = true;
-                    move_anim_status = 0;
-
-                    subevent_on = false;
-                    event_end_flag = false;
-
-                    next_on = false;
-
-                    girl1_status.hukidasiOff();
-
-                    //音量フェードアウト
-                    sceneBGM.FadeOutBGM(0.5f);
-
-                    //日数の経過。場所ごとに、移動までの日数が変わる。
-                    time_controller.SetMinuteToHour(GameMgr.Select_place_day, 0, 1); //材料採取なので、ヒカリのお菓子制作時間は減らない
-                    time_controller.TimeKoushin(0, false);
-
-                    //時間の項目リセット
-                    time_controller.ResetTimeFlag();
-
-                    //お金の消費
-                    moneyStatus_Controller.UseMoney(mat_cost);
-
-                    //リザルトアイテムをリセット
-                    InitializeResultItemDicts();
-
-                    //戻り先もセット
-                    GameMgr.GetMat_BackPlaceName = GameMgr.Scene_Name;
-
-                    //腹も減る
-                    if (GameMgr.Story_Mode != 0)
-                    {
-                        PlayerStatus.player_girl_manpuku -= 10;
-                    }
-
-                    Random.InitState(GameMgr.Game_timeCount); //シード値をバラバラに変える。ゲーム内タイマーで変える。
+                    _textcomp.text = GameMgr.Select_cat_nameHyouji + "を" + matplace_database.matplace_lists[_place_num].placeNameHyouji + "に採取に行かせたよ！"; //CompoundMainControllerのメッセージウィンドウのほうに表示しないとだめ
+                    CatGetStartPanel_obj.GetComponent<CatGetStartPanel>().CatGet_FinalOK(GameMgr.Select_cat_num, GameMgr.Select_place_num);
+                    //GameMgr.Select_cat_numは猫リストのリスト番号　固有IDではないので注意
                 }
 
                 break;
@@ -1138,16 +1240,30 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
             case false: //キャンセルが押された
 
-                //Debug.Log("一個目はcancel");
+                if (!GameMgr.OnCatGetMaterial_modeON) //通常の採取画面としての処理
+                {
+                    //Debug.Log("一個目はcancel");
 
-                All_Off();
+                    All_Off();
 
-                _text.text = "行き先を選んでね。";
+                    _text.text = "行き先を選んでね。";
 
-                MatPlaceDefault_Face();
+                    MatPlaceDefault_Face();
+                }
+                else
+                {
+                    All_Off();
+                    CatGetStartPanel_obj.transform.Find("FinalCheckPanel").gameObject.SetActive(false);
+                }               
                 break;
         }
 
+    }
+    
+    public void CatGet_AllOFF()
+    {
+        All_Off();
+        yes_no_panel.SetActive(true);
     }
 
     //Compound_Mainからも読み込み
