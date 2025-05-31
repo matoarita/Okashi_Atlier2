@@ -566,7 +566,6 @@ public class Sound_Trigger : MonoBehaviour {
                 //SE_point_click(23);
                 break;
 
-
             case "EDTitleBackButton":
 
                 //ポインタが入ったときに鳴る音
@@ -574,6 +573,34 @@ public class Sound_Trigger : MonoBehaviour {
 
                 //クリックしたときに鳴る音。
                 SE_point_click(28);
+                break;
+
+            case "CatGetMatButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(0);
+                break;
+
+            case "CatFireButton":
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+                //クリックしたときに鳴る音。
+                SE_point_click(0);
+                break;
+
+            case "EsaSelectButton": //yesを押したときのSE
+
+                //ポインタが入ったときに鳴る音
+                SE_point_enter(2);
+
+
+                //クリックしたときに鳴る音
+                SE_point_click(46);
                 break;
 
             case "GameStartButton":

@@ -784,7 +784,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         //魔法のバフ
         _magicup = 0;
-        if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 3 || magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") < 5)
+        if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 3 && magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") < 5)
         {
             _magicup = 1; //LV*1
             _buf_kosuup += _magicup;
@@ -800,7 +800,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         //魔法のバフ
         _magicup = 0;
-        if (magicskill_database.skillName_SearchLearnLevel("Nappe") >= 3 || magicskill_database.skillName_SearchLearnLevel("Nappe") < 5)
+        if (magicskill_database.skillName_SearchLearnLevel("Nappe") >= 3 && magicskill_database.skillName_SearchLearnLevel("Nappe") < 5)
         {
             _magicup = 1; //LV*1
             _buf_kosuup += _magicup;

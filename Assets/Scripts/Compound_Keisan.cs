@@ -1367,14 +1367,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         result_compID = GameMgr.hikari_make_okashi_compID;
         //result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * GameMgr.hikari_make_okashiKosu; //compoDBの回数も含む個数
 
-        if (databaseCompo.compoitems[result_compID].KeisanMethod != "Non" && databaseCompo.compoitems[result_compID].KeisanMethod != "Use")
+        /*if (databaseCompo.compoitems[result_compID].KeisanMethod != "Non" && databaseCompo.compoitems[result_compID].KeisanMethod != "Use")
         {
             Kosu_keisanmethod = true;
         }
         else
         {
             Kosu_keisanmethod = false;
-        }
+        }*/
 
         ResultKosuKeisan(7, result_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
                     GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
@@ -1691,6 +1691,15 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     //個数計算メソッド
     public void ResultKosuKeisan(int _compo_select, int _result_cmpID, int _set_kaisu, int _kettei_id1, int _kettei_id2, int _kettei_id3, int _toggletype1, int _toggletype2, int _toggletype3, int _kosu1, int _kosu2, int _kosu3)
     {
+        if (databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Non" && databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Use")
+        {
+            Kosu_keisanmethod = true;
+        }
+        else
+        {
+            Kosu_keisanmethod = false;
+        }
+
         if (_compo_select == 3) //オリジナル調合の場合
         {
             if (Kosu_keisanmethod)
@@ -1774,11 +1783,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             if (Kosu_keisanmethod)
             {
                 //特定の材料を指定した場合、その材料の個数がそのままリザルト個数になる
-                Kosu_ExpSetting(result_compID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _toggletype1, _toggletype2, _toggletype3, _kosu1, _kosu2, _kosu3);
+                Kosu_ExpSetting(_result_cmpID, _set_kaisu, _kettei_id1, _kettei_id2, _kettei_id3, _toggletype1, _toggletype2, _toggletype3, _kosu1, _kosu2, _kosu3);
             }
             else
             {
-                result_kosu = databaseCompo.compoitems[result_compID].cmpitem_result_kosu * _set_kaisu;
+                result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
             }
 
             if (GameMgr.hikari_make_okashiKosu_buf == 0) { GameMgr.hikari_make_okashiKosu_buf = 1.0f; } //例外処理　0で割らないようにする

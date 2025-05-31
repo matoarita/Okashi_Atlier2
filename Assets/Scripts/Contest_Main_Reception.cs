@@ -489,7 +489,7 @@ public class Contest_Main_Reception : MonoBehaviour
             {
                 GameMgr.SceneMoveAfter_Koushin = false;
 
-                time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1, 0);
+                time_controller.SetMinuteToHour(GameMgr.SceneMoveAfter_TimeParam, 1, 0, false);
                 time_controller.TimeKoushin(0, false);
             }
         }
@@ -1318,7 +1318,7 @@ public class Contest_Main_Reception : MonoBehaviour
         GameMgr.Scene_back_home = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
-        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0);
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0, false);
         time_controller.TimeKoushin(0, false);
 
         //メインシーン読み込み

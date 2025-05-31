@@ -596,7 +596,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
-    //〇オランジーナ・パティスリーアワード　ケーキかクリームブリュレ
+    //〇オランジーナ・パティスリーアワード　ケーキかクリームブリュレ　秋に移動したので点数高め
     void PrizeRankingSet02()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
@@ -617,10 +617,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(91);
-        GameMgr.PrizeScoreAreaList.Add(121);
-        GameMgr.PrizeScoreAreaList.Add(135);
-        GameMgr.PrizeScoreAreaList.Add(151);
+        GameMgr.PrizeScoreAreaList.Add(237);
+        GameMgr.PrizeScoreAreaList.Add(301);
+        GameMgr.PrizeScoreAreaList.Add(335);
+        GameMgr.PrizeScoreAreaList.Add(351);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();

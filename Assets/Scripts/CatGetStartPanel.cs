@@ -28,6 +28,9 @@ public class CatGetStartPanel : MonoBehaviour
     private int list_count;
 
     private GameObject finalcheck_panel;
+    private GameObject namechange_panel;
+    private GameObject esaChange_panel;
+
     private GameObject yes_no_panel_comeback;
     private GameObject black_img;
 
@@ -38,7 +41,10 @@ public class CatGetStartPanel : MonoBehaviour
     private bool closebutton;
     private int i, mapid;
 
-
+    //オブジェクトと結びつける
+    private InputField inputField_catname;
+    private Text namechange_origintext;
+    private string namechange_text;
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +84,15 @@ public class CatGetStartPanel : MonoBehaviour
 
         finalcheck_panel = this.transform.Find("FinalCheckPanel").gameObject;
         finalcheck_panel.SetActive(false);
+
+        namechange_panel = this.transform.Find("NameChangePanel").gameObject;
+        namechange_panel.SetActive(false);
+
+        esaChange_panel = this.transform.Find("EsaChangePanel").gameObject;
+        esaChange_panel.SetActive(false);
+
+        inputField_catname = namechange_panel.transform.Find("CatDataPanel/InputField").GetComponent<InputField>();
+        namechange_origintext = namechange_panel.transform.Find("CatDataPanel/NameText").GetComponent<Text>();
 
         black_img = this.transform.Find("BlackImage").gameObject;
         black_img.SetActive(false);
@@ -133,6 +148,7 @@ public class CatGetStartPanel : MonoBehaviour
         _listitem[list_count].transform.Find("CatName").GetComponent<Text>().text = catDataBase.catdata_list[i].catnameHyouji; //ねこの名前
         _listitem[list_count].transform.Find("EsaPanel/EsaText").GetComponent<Text>().text = catDataBase.catdata_list[i].catCost.ToString(); //ねこのエサ代
         _listitem[list_count].transform.Find("CatStatusText").GetComponent<Text>().text = catDataBase.CatStatusTextLibrary(i);
+        _listitem[list_count].transform.Find("CatLv_text").GetComponent<Text>().text = catDataBase.catdata_list[i].catLv.ToString();
 
         //画像を変更
         texture2d = catDataBase.SetSprite(i);
@@ -147,6 +163,9 @@ public class CatGetStartPanel : MonoBehaviour
         for (i = 0; i < _listitem.Count; i++)
         {
             _listitem[i].transform.Find("CatStatusText").GetComponent<Text>().text = catDataBase.CatStatusTextLibrary(i);
+            _listitem[i].transform.Find("CatName").GetComponent<Text>().text = catDataBase.catdata_list[i].catnameHyouji;
+            _listitem[i].transform.Find("EsaPanel/EsaText").GetComponent<Text>().text = catDataBase.catdata_list[i].catCost.ToString();
+            _listitem[i].transform.Find("CatLv_text").GetComponent<Text>().text = catDataBase.catdata_list[i].catLv.ToString();
         }
     }
 
@@ -265,5 +284,96 @@ public class CatGetStartPanel : MonoBehaviour
         closebutton = true;
     }
 
-    
+    public void OnNameChangePanel()
+    {
+        sc.PlaySe(34);
+        namechange_panel.SetActive(true);
+        text_area_compound.SetActive(false);
+
+        //ねこの画像
+        namechange_panel.transform.Find("CatDataPanel/CatIcon").GetComponent<Image>().sprite = catDataBase.SetSprite(GameMgr.Select_cat_num);
+
+        //ねこの名前
+        namechange_origintext.text = catDataBase.catdata_list[GameMgr.Select_cat_num].catnameHyouji;
+    }
+
+    public void Input_CatName()
+    {
+        namechange_origintext.text = inputField_catname.text;
+        namechange_text = inputField_catname.text;
+    }
+
+    public void CatName_OK()
+    {
+        catDataBase.catdata_list[GameMgr.Select_cat_num].catnameHyouji = namechange_text;
+        catStatus_Redraw();
+        namechange_panel.SetActive(false);
+
+        text_area_compound.SetActive(true);
+        _textcomp.text = "名前を変更したよ！";
+    }
+
+    public void CatName_Cancel()
+    {
+        namechange_panel.SetActive(false);
+
+        text_area_compound.SetActive(true);
+    }
+
+    public void OnCatEsaPanel()
+    {
+        esaChange_panel.SetActive(true);
+
+        _textcomp.text = "エサを変更するよ！" + "\n" + "高いエサほど、いっぱい材料をとってきてくれるよ！";
+    }
+
+    public void OnEsaSelectButton(int _status)
+    {
+        switch(_status)
+        {
+            case 1:
+
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catCost = 50;
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catCostLV = 1;
+
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catTansaku_Speed *= 2; //0.5倍　めっちゃ遅くなる
+                break;
+
+            case 2:
+
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catCost = 250;
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catCostLV = 2;
+
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catTansaku_Speed *= 1;
+                break;
+
+            case 3:
+
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catCost = 500;
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catCostLV = 3;
+
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catTansaku_Speed = (int)(catDataBase.catdata_list[GameMgr.Select_cat_num].catTansaku_Speed * 0.75f);
+                break;
+
+            case 4:
+
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catCost = 1000;
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catCostLV = 4;
+
+                catDataBase.catdata_list[GameMgr.Select_cat_num].catTansaku_Speed = (int)(catDataBase.catdata_list[GameMgr.Select_cat_num].catTansaku_Speed * 0.5f);
+                break;
+
+            case 9:
+
+                //変更なし
+                break;
+        }
+
+        if (_status != 9)
+        {
+            _textcomp.text = "エサ代を変更した！"; //効果が反映されるのを次の日にしないと、直前でエサ代を安くすませるワザを使われてしまう。
+        }
+        catStatus_Redraw();
+        esaChange_panel.SetActive(false);
+    }
 }

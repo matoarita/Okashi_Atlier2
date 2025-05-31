@@ -774,7 +774,11 @@ public class CompoundMainController : MonoBehaviour {
                     if (GameMgr.System_MagicEffect_USE)
                     {
                         //魔法をみせるために、スキル表示はオフ
-                        magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(false);
+                        //magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(false);
+
+                        magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(true); //やっぱり表示
+                        //スキル名表示
+                        magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
                     }
                     else
                     {
@@ -1144,6 +1148,13 @@ public class CompoundMainController : MonoBehaviour {
 
                     magic_minigame_Panel.SetActive(true);
                     magic_minigame_Panel.transform.Find("Freezing_OverRun").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ     
+                    magiceffect_result_setting(0);
+                    break;
+
+                case "Mnemonic":
+
+                    magic_minigame_Panel.SetActive(true);
+                    magic_minigame_Panel.transform.Find("Mnemonic").gameObject.SetActive(true); //ミニゲームなし　エフェクトのみ       
                     magiceffect_result_setting(0);
                     break;
 

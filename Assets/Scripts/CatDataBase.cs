@@ -17,6 +17,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
     private int cattype; //猫の種族
 
     private int catcost; //エサ代　一日たつとこの費用が減っていく
+    private int catcostlv;
     private int cattansaku_Speed; //探索にかかる時間。分単位。
     private int cattansaku_Kaisu; //探索一回あたりの試行回数
     private int catexp;
@@ -65,7 +66,8 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         catnameHyouji = "";
         cattype = 0;
-        catcost = 200;
+        catcost = 250;
+        catcostlv = 2;
         cattansaku_Speed = 480; //8hで一回探索
         cattansaku_Kaisu = 6;
 
@@ -88,6 +90,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         catnameHyouji = _name;
         cattype = _type;
         catcost = _cost;
+        catcostlv = 1;
         cattansaku_Speed = _speed; //8hで一回探索
         cattansaku_Kaisu = _kaisu;
 
@@ -105,7 +108,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
     void ListAdd()
     {
         //ここでリストに追加している
-        catdata_list.Add(new CatData(catid, catnameHyouji, cattype, catcost, cattansaku_Speed, cattansaku_Kaisu, catexp, cathp, catlv, cattansaku_MapName, catstatus));
+        catdata_list.Add(new CatData(catid, catnameHyouji, cattype, catcost, catcostlv, cattansaku_Speed, cattansaku_Kaisu, catexp, cathp, catlv, cattansaku_MapName, catstatus));
         Debug.Log("ねこ追加: " + catdata_list[catdata_list.Count - 1].catnameHyouji);
     }
 

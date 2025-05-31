@@ -1506,7 +1506,7 @@ public class Compound_Main : MonoBehaviour
                     //MainCompoundMethod();
                     text_area_compound.SetActive(true);
 
-                    _textcomp.text = "「仕上げる」を押してみよう！";
+                    _textcomp.text = "「仕上げ」ボタンを押してみよう！";
 
                     break;
 
@@ -1518,6 +1518,7 @@ public class Compound_Main : MonoBehaviour
                     compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
                     selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     text_area_compound.SetActive(false);
+                    pitemlistController.Offinteract();
 
                     break;
 
@@ -1529,6 +1530,7 @@ public class Compound_Main : MonoBehaviour
                     compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
                     selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
                     text_area_compound.SetActive(true);
+                    pitemlistController.Oninteract();
 
                     GameMgr.tutorial_Num = 245; //退避
 

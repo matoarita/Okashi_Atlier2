@@ -42,7 +42,7 @@ public class BackTown : MonoBehaviour {
         _text.text = "また来てね～";
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
-        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0);
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0, false);
         time_controller.TimeKoushin(0, false);
 
         //StartCoroutine(CoUnload());
@@ -54,7 +54,7 @@ public class BackTown : MonoBehaviour {
         GameMgr.Scene_back_home = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
-        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0);
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0, false);
         time_controller.TimeKoushin(0, false);
 
         //StartCoroutine(CoUnload());
@@ -70,7 +70,7 @@ public class BackTown : MonoBehaviour {
         GameMgr.Scene_back_home = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
-        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0);
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0, false);
         time_controller.TimeKoushin(0, false);
 
         //メインシーン読み込み
@@ -92,7 +92,7 @@ public class BackTown : MonoBehaviour {
         GameMgr.Scene_back_home = true;
 
         //日数の経過。場所ごとに、移動までの日数が変わる。
-        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0);
+        time_controller.SetMinuteToHour(GameMgr.System_BackHome_Time, 1, 0, false);
         time_controller.TimeKoushin(0, false);
 
         //メインシーン読み込み

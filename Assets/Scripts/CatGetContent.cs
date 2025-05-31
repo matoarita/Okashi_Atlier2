@@ -62,6 +62,31 @@ public class CatGetContent : MonoBehaviour
     {
         SetInit();
 
+        GameMgr.Select_cat_num = toggle_listid;
+        GameMgr.Select_cat_nameHyouji = catDataBase.catdata_list[toggle_listid].catnameHyouji;
+
         //解雇ボタン　解雇するかどうかをきく
+    }
+
+    public void OnEsaButton()
+    {
+        SetInit();
+
+        GameMgr.Select_cat_num = toggle_listid;
+        GameMgr.Select_cat_nameHyouji = catDataBase.catdata_list[toggle_listid].catnameHyouji;
+
+        //エサボタン　エサ代を決める　安いとあんまり働かない　高いと通常よりスピード早くなる
+        catGetStartPanel.OnCatEsaPanel();
+    }
+
+    public void OnCatIconButton()
+    {
+        SetInit();
+
+        GameMgr.Select_cat_num = toggle_listid;
+        GameMgr.Select_cat_nameHyouji = catDataBase.catdata_list[toggle_listid].catnameHyouji;
+
+        //ねこアイコンおす　ステータス表示するか、名前変更できるように。
+        catGetStartPanel.OnNameChangePanel();
     }
 }

@@ -1199,7 +1199,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         sceneBGM.FadeOutBGM(0.5f);
 
                         //日数の経過。場所ごとに、移動までの日数が変わる。
-                        time_controller.SetMinuteToHour(GameMgr.Select_place_day, 0, 1); //材料採取なので、ヒカリのお菓子制作時間は減らない
+                        time_controller.SetMinuteToHour(GameMgr.Select_place_day, 0, 1 ,false); //材料採取なので、ヒカリのお菓子制作時間は減らない 声がなってしまうので、猫チェックもしない
                         time_controller.TimeKoushin(0, false);
 
                         //時間の項目リセット

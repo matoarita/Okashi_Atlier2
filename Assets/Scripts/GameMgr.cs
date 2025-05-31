@@ -125,7 +125,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_HeartLVevent_01 = 9; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
-    public static int System_Yachin_Cost02 = 1500; //〇日ごとバージョン
+    public static int System_Yachin_Cost02 = 1000; //〇日ごとバージョン
     public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号

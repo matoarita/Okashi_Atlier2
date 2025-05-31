@@ -625,7 +625,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1, 1);      
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1, 1, false);      
         }
         else
         {
@@ -975,7 +975,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1, 1);    
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 1, 1, false);    
         }
         else
         {
@@ -1222,7 +1222,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(15, 1, 1); //ヒカリのお菓子作り時間を計算
+            time_controller.SetMinuteToHour(15, 1, 1, false); //ヒカリのお菓子作り時間を計算
         }
         else
         {
@@ -1474,7 +1474,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //魔法使用時の日数の経過
         if (!GameMgr.Contest_ON)
         {
-            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 0, 1); //ヒカリのお菓子作り時間を計算　魔法はヒカリが使うので計算しない
+            time_controller.SetMinuteToHour(GameMgr.Compo_FinalCostTime, 0, 1, false); //ヒカリのお菓子作り時間を計算　魔法はヒカリが使うので計算しない
         }
         else
         {

@@ -726,7 +726,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //HeartEvent_check(30, 354, 1, "Non"); //カマキリ仮
                 HeartEvent_check(40, 355, 1, "dragon_carnival"); //ドラゴンカーニバル
                 HeartEvent_check(45, 356, 1, "ramen"); //らーめん
-                HeartEvent_check(50, 357, 1, "Non"); //おにもふ
+                //HeartEvent_check(50, 357, 1, "Non"); //おにもふ
                 //HeartEvent_check(60, 356, 1);
                 //HeartEvent_check(70, 357, 1);
                 //HeartEvent_check(80, 358, 1, "Non");
