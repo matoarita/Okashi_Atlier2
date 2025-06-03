@@ -39,7 +39,7 @@ public class Anim_EnterWindow2_SlideLeft : MonoBehaviour {
         sequence.Append(_comp.transform.DOLocalMove(new Vector3(-50f, 0f, 0), 0.0f)
             .SetRelative()); //元の位置から30px上に置いておく。
 
-        sequence.Append(_comp.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.3f)
+        sequence.Append(_comp.transform.DOLocalMove(new Vector3(50f, 0f, 0), 0.5f)
             .SetRelative()
             .SetEase(Ease.OutExpo)); //30px上から、元の位置に戻る。
         sequence.Join(_comp.GetComponent<CanvasGroup>().DOFade(1, 0.2f));

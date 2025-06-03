@@ -15,6 +15,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     private ItemDataBase database;
     private ItemSubTypeSetDatabase itemsubtypeset_database;
     private MagicSkillListDataBase magicskill_database;
+    private CatDataBase catDataBase;
 
     //ハートレベルのテーブル
     public List<int> stage1_hlvTable = new List<int>();
@@ -38,6 +39,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     private int random, random2;
 
     private List<string> _temp_skill = new List<string>();
+
+    private Dictionary<int, int> CatExpTable = new Dictionary<int, int>();
 
     //SEを鳴らす
     private SoundController sc;
@@ -79,6 +82,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        //ねこデータベースの取得
+        catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
+
+        //ねこ経験値テーブル設定
+        InitCatExpTable_library();
     }
 
     // Update is called once per frame
@@ -684,5 +693,65 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
 
         return _sum;
+    }
+
+    //ねこのレベルアップ処理
+    public void CatLvUp_Check(int _catid)
+    {
+        if (catDataBase.catdata_list[_catid].catLv >= 20) //LV20が上限
+        { }
+        else
+        {
+            if (catDataBase.catdata_list[_catid].catExp >= CatExpTable[catDataBase.catdata_list[_catid].catLv]) //LVUP簡易 200つまり20回探索したらLV1上がる
+            {
+
+                catDataBase.catdata_list[_catid].catExp = 0;
+
+                catDataBase.catdata_list[_catid].catLv++;
+
+                catDataBase.catdata_list[_catid].catTansaku_DefaultSpeed -= 20; //20分早くなる
+                if (catDataBase.catdata_list[_catid].catTansaku_DefaultSpeed <= 20) //下限20
+                {
+                    catDataBase.catdata_list[_catid].catTansaku_DefaultSpeed = 20;
+                }
+
+                if (catDataBase.catdata_list[_catid].catLv % 3 == 0) //LV3ごと
+                {
+                    catDataBase.catdata_list[_catid].catTansaku_Kaisu++;
+
+                    if (catDataBase.catdata_list[_catid].catTansaku_Kaisu >= 9) //9回探索が上限
+                    {
+                        catDataBase.catdata_list[_catid].catTansaku_Kaisu = 9;
+                    }
+                }
+
+                GameMgr.CatStartPanel_HyoujiKoushinFlag = true;
+            }
+        }
+    }
+
+    void InitCatExpTable_library()
+    {
+        CatExpTable.Clear();
+        CatExpTable.Add(1, 50);
+        CatExpTable.Add(2, 70);
+        CatExpTable.Add(3, 100);
+        CatExpTable.Add(4, 150);
+        CatExpTable.Add(5, 250);
+        CatExpTable.Add(6, 300);
+        CatExpTable.Add(7, 400);
+        CatExpTable.Add(8, 500);
+        CatExpTable.Add(9, 600);
+        CatExpTable.Add(10, 750);
+        CatExpTable.Add(11, 850);
+        CatExpTable.Add(12, 950);
+        CatExpTable.Add(13, 1000);
+        CatExpTable.Add(14, 1100);
+        CatExpTable.Add(15, 1200);
+        CatExpTable.Add(16, 1300);
+        CatExpTable.Add(17, 1500);
+        CatExpTable.Add(18, 1700);
+        CatExpTable.Add(19, 2000);
+        CatExpTable.Add(20, 9999);
     }
 }

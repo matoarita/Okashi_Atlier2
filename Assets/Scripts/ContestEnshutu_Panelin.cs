@@ -14,6 +14,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
     private ContestFirstEnshutuPanel contestFirstEnshutuPanel;
 
     private GameObject start_effect;
+    private GameObject start_effect_blur;
 
     private SoundController sc;
 
@@ -55,6 +56,8 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
 
                 start_effect = this.transform.Find("EffectPanel").gameObject;
                 start_effect.SetActive(false);
+                start_effect_blur = this.transform.Find("eff_start").gameObject;
+                start_effect_blur.SetActive(false);
 
                 StartCoroutine("StartAnim2");
                 break;
@@ -68,7 +71,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
 
         yield return new WaitForSeconds(0.1f); //ワンテンポおく
 
-        sc.PlaySe(238); //シュイン 172 238
+        sc.PlaySe(172); //シュイン 172  ジャギン 238
 
         OpenAnim();
     }
@@ -117,7 +120,6 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
         yield return new WaitForSeconds(0.1f); //ワンテンポおく
 
 
-
         OpenAnim2();
     }
 
@@ -133,6 +135,15 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
         sequence.Append(_comp.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 1.0f)
             .SetEase(Ease.OutSine)); //30px上から、元の位置に戻る。
         sequence.Join(_comp.GetComponent<CanvasGroup>().DOFade(1, 0.2f)).OnComplete(EndAnim2);
+
+
+        //sc.PlaySe(238); //Startブラー登場時の音　シュイーン..ぐらい？
+        start_effect_blur.SetActive(true);
+        Sequence sequence2 = DOTween.Sequence();
+
+        sequence.Append(start_effect_blur.GetComponent<CanvasGroup>().DOFade(1, 0.0f)); //元の位置から30px上に置いておく。
+        sequence.Append(start_effect_blur.GetComponent<CanvasGroup>().DOFade(0, 2.0f));
+
     }
 
     void EndAnim2()

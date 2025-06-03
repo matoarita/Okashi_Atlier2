@@ -969,6 +969,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool EdenPrizeChange; //エデンコン　賞品が変わるフラグ
     public static bool Bend_FadeAnimStart; //トゥルーエンドでないとき、タイトル画面のヒカリちゃんが明滅するフラグ
     public static bool ContestStartEnshutu_Flag; //コンテスト最初の演出中　終わればオフに。
+    public static bool CatStartPanel_HyoujiKoushinFlag; //ねこ採取画面の表示更新　パネルのcsとExpTableとを連携させるよう
 
 
 
@@ -1586,6 +1587,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_autumn_edenVitory = false;
         Bend_FadeAnimStart = false;
         ContestStartEnshutu_Flag = false;
+        CatStartPanel_HyoujiKoushinFlag = false;
 
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)

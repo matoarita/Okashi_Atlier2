@@ -19,6 +19,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private GirlEat_Judge girleat_judge;
 
     private HikariOkashiExpTable hikariOkashiExpTable;
+    private ExpTable exp_table;
 
     private Compound_Keisan compound_keisan;
 
@@ -88,8 +89,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private bool Zairyo_nothing;
     private bool catsound;
 
-    private Dictionary<int, int> CatExpTable = new Dictionary<int, int>();
-
     // Use this for initialization
     void Start()
     {
@@ -127,7 +126,10 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
         //ヒカリお菓子EXPデータベースの取得
-        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();        
+        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
+
+        //レベルアップチェック用オブジェクトの取得
+        exp_table = ExpTable.Instance.GetComponent<ExpTable>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
@@ -135,9 +137,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
         //ねこデータベースの取得
         catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
-
-        //ねこ経験値テーブル設定
-        InitCatExpTable_library();
 
         timespeed_range = 1.0f;
         catsound = false;
@@ -1380,59 +1379,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //ねこ経験値が上昇
         catDataBase.catdata_list[i].catExp += 10;
 
-        if (catDataBase.catdata_list[i].catLv >= 20) //LV20が上限
-        { }
-        else
-        {
-            if (catDataBase.catdata_list[i].catExp >= CatExpTable[catDataBase.catdata_list[i].catLv]) //LVUP簡易 200つまり20回探索したらLV1上がる
-            {
-
-                catDataBase.catdata_list[i].catExp = 0;
-
-                catDataBase.catdata_list[i].catLv++;
-
-                catDataBase.catdata_list[i].catTansaku_Speed -= 20; //30分早くなる
-                if (catDataBase.catdata_list[i].catTansaku_Speed <= 20) //下限20
-                {
-                    catDataBase.catdata_list[i].catTansaku_Speed = 20;
-                }
-
-                if (catDataBase.catdata_list[i].catLv % 3 == 0) //LV3ごと
-                {
-                    catDataBase.catdata_list[i].catTansaku_Kaisu++;
-
-                    if(catDataBase.catdata_list[i].catTansaku_Kaisu >= 9) //9回探索が上限
-                    {
-                        catDataBase.catdata_list[i].catTansaku_Kaisu = 9;
-                    }
-                }
-            }
-        }
-    }
-
-    void InitCatExpTable_library()
-    {
-        CatExpTable.Clear();
-        CatExpTable.Add(1, 50);
-        CatExpTable.Add(2, 70);
-        CatExpTable.Add(3, 100);
-        CatExpTable.Add(4, 150);
-        CatExpTable.Add(5, 250);
-        CatExpTable.Add(6, 300);
-        CatExpTable.Add(7, 400);
-        CatExpTable.Add(8, 500);
-        CatExpTable.Add(9, 600);
-        CatExpTable.Add(10, 750);
-        CatExpTable.Add(11, 850);
-        CatExpTable.Add(12, 950);
-        CatExpTable.Add(13, 1000);
-        CatExpTable.Add(14, 1100);
-        CatExpTable.Add(15, 1200);
-        CatExpTable.Add(16, 1300);
-        CatExpTable.Add(17, 1500);
-        CatExpTable.Add(18, 1700);
-        CatExpTable.Add(19, 2000);
-        CatExpTable.Add(20, 9999);
+        exp_table.CatLvUp_Check(i); //ねこレベルアップチェック
     }
 
 

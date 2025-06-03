@@ -14,7 +14,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
     private string catnameHyouji;         //名前、画像ファイル名
 
-    private int cattype; //猫の種族
+    private int cattype; //猫の種族 現在４つ
 
     private int catcost; //エサ代　一日たつとこの費用が減っていく
     private int catcostlv;
@@ -35,9 +35,12 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
     private string _status_text, _mapnamehyouji;
 
     private List<Sprite> catIcon_sprite = new List<Sprite>();
-    private List<String> catType_name = new List<String>();
+    private List<string> catType_name = new List<string>();
+    private List<string> catIcon_anim = new List<string>();
+    private List<string> catIcon_anim_sleep = new List<string>();
 
     private Sprite _return_sprite;
+    private string _return_catanim;
 
     // Start is called before the first frame update
     void Start()
@@ -45,10 +48,6 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         DontDestroyOnLoad(this); //ゲーム中のアイテムリスト情報は、ゲーム中で全て共通のデータベースで管理したい。なので、破壊されないようにしておく。
 
         catdata_list.Clear();
-
-        SetInit_CustomCatData("みゅ～", 1, 250, 20, 6, 1);
-        SetInit_CustomCatData("モルダウ", 0, 500, 30, 6, 3);
-        Debug.Log("ねこリストカウント: " + catdata_list.Count);
 
         CatType_InitLibrary();
     }
@@ -147,6 +146,20 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         return _return_sprite;
     }
 
+    public string SetCatAnimObj(int _listid)
+    {
+        if(catdata_list[_listid].catStatus == 0) //ねそべりモーション
+        {
+            _return_catanim = catIcon_anim_sleep[catdata_list[_listid].catType];
+        }
+        else if (catdata_list[_listid].catStatus == 100) //採取中モーション
+        {
+            _return_catanim = catIcon_anim[catdata_list[_listid].catType];
+        }        
+
+        return _return_catanim;
+    }
+
     //ねこリストを全部チェックし、採取のチェックが必要か不要かを判定する
     public bool Check_CatGotoFlag()
     {
@@ -161,6 +174,12 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         }
 
         return _playflag;
+    }
+
+    //ねこリストからねこを削除する
+    public void Sayonara_Cat(int _num)
+    {
+        catdata_list.RemoveAt(_num);
     }
 
     public string CatStatusTextLibrary(int _listid)
@@ -190,11 +209,29 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
     {
         catIcon_sprite.Clear();
         catType_name.Clear();
+        catIcon_anim.Clear();
+        catIcon_anim_sleep.Clear();
 
+        //
         catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01"));
-        catType_name.Add("茶猫");
-        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_02"));
         catType_name.Add("灰色雑種");
+        catIcon_anim.Add("tc_cat_type02_anim01"); //ファイル名を記述
+        catIcon_anim_sleep.Add("tc_cat_type02_anim02"); //寝そべりモーション
+        //
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_02"));
+        catType_name.Add("茶猫");
+        catIcon_anim.Add("tc_cat_type01_anim01"); //
+        catIcon_anim_sleep.Add("tc_cat_type01_anim02"); //寝そべりモーション
+        //
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_03"));
+        catType_name.Add("くろ");
+        catIcon_anim.Add("tc_cat_type04_anim01"); //
+        catIcon_anim_sleep.Add("tc_cat_type04_anim02"); //寝そべりモーション
+        //
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_04"));
+        catType_name.Add("しろ");
+        catIcon_anim.Add("tc_cat_type03_anim01"); //
+        catIcon_anim_sleep.Add("tc_cat_type03_anim02"); //寝そべりモーション
     }
 
     

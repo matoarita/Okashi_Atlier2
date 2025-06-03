@@ -22,6 +22,7 @@ public class CatData
     public int catCost;
     public int catCostLV; //エサ代のレベル
     public int catTansaku_Speed; //探索スピード
+    public int catTansaku_DefaultSpeed; //探索スピード　初期値のこと
     public int catTansaku_Kaisu; //探索回数
     public int cat_GetMateriaTimeCounter; //カウンタ　TimeControllerでへっていき、0になると採取
     public int catExp;
@@ -42,6 +43,7 @@ public class CatData
         catCost = _catcost;
         catCostLV = _catcostlv;
         catTansaku_Speed = _cattansaku_speed;
+        catTansaku_DefaultSpeed = _cattansaku_speed;
         catTansaku_Kaisu = _cattansaku_kaisu;
         cat_GetMateriaTimeCounter = catTansaku_Speed;
         catExp = _catexp;

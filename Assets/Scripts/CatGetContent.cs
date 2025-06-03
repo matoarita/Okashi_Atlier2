@@ -66,6 +66,7 @@ public class CatGetContent : MonoBehaviour
         GameMgr.Select_cat_nameHyouji = catDataBase.catdata_list[toggle_listid].catnameHyouji;
 
         //‰ğŒÙƒ{ƒ^ƒ“@‰ğŒÙ‚·‚é‚©‚Ç‚¤‚©‚ğ‚«‚­
+        catGetStartPanel.OnCatFirePanel();
     }
 
     public void OnEsaButton()

@@ -456,8 +456,11 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 sc.PlaySe(76);　//
                 ResultHikariMakeCardView_andOFF();
 
-                //仕上げ回数をリセット
-                PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+                if (!GameMgr.System_ExtremeCompo_BaseitemON)
+                {
+                    //仕上げ回数をリセット
+                    PlayerStatus.player_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
+                }
 
                 //エクストリームパネルも更新
                 GameMgr.extremepanel_Koushin = true;
@@ -599,7 +602,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 
                 //ハートも少し上がる。
-                getheart = _getexp;
+                getheart = Random.Range(1, 6); //1~5 か result_kosu
                 girlEat_judge.loveGetPlusAnimeON(getheart, true); //trueにしておくと、ハートゲット後に、クエストクリアをチェック
 
                 if (GameMgr.hikari_make_doubleItemCreated == 0)

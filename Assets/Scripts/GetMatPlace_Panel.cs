@@ -1046,7 +1046,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                 {                   
                     CatGetStartPanel_obj = canvas.transform.Find("CompoundMainController/Compound_BGPanel_A/CatGetStartPanel").gameObject;
                     CatGetStartPanel_obj.transform.Find("FinalCheckPanel").gameObject.SetActive(true);
-                    CatGetStartPanel_obj.GetComponent<CatGetStartPanel>().FinalCheck_CatDataKoushin(GameMgr.Select_cat_num);
+                    CatGetStartPanel_obj.GetComponent<CatGetStartPanel>().FinalCheck_CatDataKoushin(CatGetStartPanel_obj.transform.Find("FinalCheckPanel").gameObject, GameMgr.Select_cat_num);
                     CatGetStartPanel_obj.transform.Find("FinalCheckPanel/CloseButton").gameObject.SetActive(false);
 
                     KakuninPlaceCheck_CatGet();

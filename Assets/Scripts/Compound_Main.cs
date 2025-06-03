@@ -1748,16 +1748,6 @@ public class Compound_Main : MonoBehaviour
 
                 if (GameMgr.System_CatAutoMaterial_ON)
                 {
-                    //デバッグ用
-                    if (catDataBase.catdata_list.Count == 0)
-                    {
-                        catDataBase.catdata_list.Clear();
-                        catDataBase.SetInit_CustomCatData("ミカサ", 1, 250, 720, 3, 1);
-                        catDataBase.SetInit_CustomCatData("エレン", 0, 500, 480, 3, 3);
-                        Debug.Log("ねこリストカウント: " + catDataBase.catdata_list.Count);
-                    }
-                    //
-
                     //ねこチェック　ねこの採取フラグが必要か否か
                     GameMgr.catGetMat_PlayFlag = catDataBase.Check_CatGotoFlag();
                 }
