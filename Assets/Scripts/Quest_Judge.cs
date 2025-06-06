@@ -1566,15 +1566,15 @@ public class Quest_Judge : MonoBehaviour {
                     _getMoney += _MSMoney; //種類によらず一個ついてたら+300 MSValueはUseLVが入ってるので、LVが高いと報酬上がる
                 }
 
-                //クライアントのイベントフラグをみてスター取得してたかどうかをチェック
+                //クライアントのイベントフラグをみてスター取得してたかどうかをチェック 一つのクライアントから最大５回もらえる
                 Debug.Log("GameMgr.NPC_BarFriendFlag[_clientnum]: " + GameMgr.NPC_BarFriendFlag[_clientnum]);
-                if(GameMgr.NPC_BarFriendFlag[_clientnum] == 0)
+                if(GameMgr.NPC_BarFriendFlag[_clientnum] <= 5)
                 {
                     //まだスターをとったことないので、そのままスターゲット _getninkiは、上で事前に計算済
-                    GameMgr.NPC_BarFriendFlag[_clientnum] = 1;
+                    GameMgr.NPC_BarFriendFlag[_clientnum] += 1;
                     Debug.Log("高得点なおかしだったので、クライアントからスターもらえる");
                 }
-                else //スター一回とったことあるので、次はスターはもらえない ただし、フラグがあると、家に直接きてくれる予定
+                else //スター何個かとったことあるので、次はスターはもらえない ただし、フラグがあると、家に直接きてくれる予定
                 {
                     _getNinki = 0;
                 }
@@ -1776,16 +1776,16 @@ public class Quest_Judge : MonoBehaviour {
         }
         else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
         {
-            _getMoney = (int)(_baseMoney * 3.0f + (okashi_totalscore * 1.2f));
-            debug_money_text = "(基準値 * 3.0f + (okashi_totalscore * 1.2f))";
+            _getMoney = (int)(_baseMoney * 2.3f + (okashi_totalscore * 1.2f));
+            debug_money_text = "(基準値 * 2.3f + (okashi_totalscore * 1.2f))";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
         else if (okashi_totalscore >= 1000) //1000~
         {
-            _getMoney = (int)(_baseMoney * 4.0f + (okashi_totalscore * 1.3f));
-            debug_money_text = "(基準値  * 4.0f + (okashi_totalscore * 1.3f))";
+            _getMoney = (int)(_baseMoney * 3.0f + (okashi_totalscore * 1.3f));
+            debug_money_text = "(基準値  * 3.0f + (okashi_totalscore * 1.3f))";
             _getNinki = 2;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
@@ -1812,27 +1812,32 @@ public class Quest_Judge : MonoBehaviour {
         }
         else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 2.5f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 2.5f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 1.75f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 1.75f)";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(2);
         }
         else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 3.0f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 3.0f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 2.0f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 2.0f)";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
         else if (okashi_totalscore >= 1000) //1000~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 5.0f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 5.0f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 3.0f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 3.0f)";
             _getNinki = 2;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
+        }
+
+        if(_getMoney >= 30000) //30000超えた場合、上がりにくくなるよう補正
+        {
+            _getMoney = (int)(_getMoney * 0.7f);
         }
     }
 

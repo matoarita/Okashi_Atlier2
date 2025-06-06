@@ -1379,6 +1379,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //ねこ経験値が上昇
         catDataBase.catdata_list[i].catExp += 10;
 
+        //採取してると、好感度もあがる
+        catDataBase.catdata_list[i].catHP += 3;
+
         exp_table.CatLvUp_Check(i); //ねこレベルアップチェック
     }
 

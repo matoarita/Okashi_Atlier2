@@ -1450,6 +1450,9 @@ public class Contest_Judge : MonoBehaviour {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
 
+                    //チョコの補正　黒以外は減点
+                    Contest_ChocolateHosei();
+
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();
@@ -1463,7 +1466,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                    SpScoreHosei_2(GameMgr.contest_SPScoreJudge);
                 }
                     
                 break;
@@ -1868,6 +1871,38 @@ public class Contest_Judge : MonoBehaviour {
         Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
     }
 
+    //チョコ系お菓子に対して点数を下方調整　ただし魔法のお菓子なら大丈夫
+    void Contest_ChocolateHosei()
+    {
+        before_tastescore[0] = GameMgr.contest_Taste_Score[0];
+        before_tastescore[1] = GameMgr.contest_Taste_Score[1];
+        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+
+        //チョコ黒以外は点数が下がる
+        if (item_subType == "Chocolate")
+        {
+            if (itemName == "chocolate_black" || itemName == "chocolate_black_twister" || itemName == "chocolate_black_type_of_bar"
+                        || itemName == "chocolate_black_type_of_heart" || itemName == "chocolate_black_crown")
+            { }
+            else
+            {
+                GameMgr.contest_Taste_Score[0] = (int)(GameMgr.contest_Taste_Score[0] * 0.75f);
+                GameMgr.contest_Taste_Score[1] = (int)(GameMgr.contest_Taste_Score[1] * 0.75f);
+                GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.75f);
+            }
+        }
+        
+
+        // 補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
+        total_score[0] = total_score[0] + (GameMgr.contest_Taste_Score[0] - before_tastescore[0]);
+        total_score[1] = total_score[1] + (GameMgr.contest_Taste_Score[1] - before_tastescore[1]);
+        total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
+
+        Debug.Log("審査員全員　チョコ黒系以外だったので、食感点数を0.75に補正");
+        Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
+        Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
+    }
+
     void Contest_ShokukanHosei_1()
     {
         before_tastescore[2] = GameMgr.contest_Taste_Score[2];
@@ -2078,6 +2113,68 @@ public class Contest_Judge : MonoBehaviour {
             }
         }
     }
+
+    //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK
+    void SpScoreHosei_2(int _spscore)
+    {
+        if (_spscore >= 0 && _spscore < 5) //少し上がる
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] * 0.5f);
+            }
+        }
+        else if (_spscore >= 5 && _spscore < 20) //ふつう
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] * 0.5f);
+            }
+        }
+        else if (_spscore >= 20 && _spscore < 40) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.0f));
+            }
+        }
+        else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.25f));
+            }
+        }
+        else if (_spscore >= 60 && _spscore < 80) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.5f));
+            }
+        }
+        else if (_spscore >= 80 && _spscore < 100) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 2.0f));
+            }
+        }
+        else if (_spscore >= 100) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 2.5f));
+            }
+        }
+        else if (_spscore < 0) //足りてないと0.75
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] * 0.35f);
+            }
+        }
+    }
+
 
     void Contest_ShokukanHintHyouji(int shokukan_score, string shokukan_mes)
     {

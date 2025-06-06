@@ -4430,18 +4430,38 @@ public class Compound_Main : MonoBehaviour
         cat_cost = 0;
         if (GameMgr.System_CatAutoMaterial_ON)
         {           
-            //ねこがいる場合、ねこの費用を減らす
+            //ねこがいる場合、ねこのエサ費用を減らす　一匹ずつチェック
             for (i = 0; i < catDataBase.catdata_list.Count; i++)
             {
                 if (catDataBase.catdata_list[i].catStatus == 100)
+                {  }
+                else //外にでておらず家にいる場合　好感度がほんのわずかにあがっていく。
                 {
-                    cat_cost += catDataBase.catdata_list[i].catCost;
+                    catDataBase.catdata_list[i].catHP += 1;
+                }
+
+                //外に出てるに関わらず、エサ代は減っていく。
+                cat_cost = catDataBase.catdata_list[i].catCost;
+
+                if (PlayerStatus.player_money < cat_cost)
+                {
+                    //そのねこにエサをあげれない。ので好感度が下がる。好感度が0になると逃亡する。エサをもらってないので、不機嫌な状態に変化。
+                    catDataBase.catdata_list[i].catHP -= 10;
+                    catDataBase.catdata_list[i].catEsaNoGive = true;
+                }
+                else
+                {
+                    moneyStatus_Controller.Getmoney_noAnim(-cat_cost);
+                    catDataBase.catdata_list[i].catEsaNoGive = false;
                 }
             }
         }
 
+        //ねこチェック　好感度が0を下回っていたら、ここで逃亡が決定する
+        catDataBase.GetOutCatCheck();
+
         //一日経つと、食費を消費
-        moneyStatus_Controller.UseMoney(GameMgr.Foodexpenses + cat_cost);
+        moneyStatus_Controller.UseMoney(GameMgr.Foodexpenses);
         
 
         //腹が回復する。

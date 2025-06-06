@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 {
@@ -26,11 +27,14 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
     private string cattansaku_MapName;
     private int catstatus; //0=ひまで何もしてない。 100=探索に出かけ中。
+    private bool catesa_nogive;
 
     public List<CatData> catdata_list = new List<CatData>();
 
     private int i;
     private int _catstatus;
+    private int _cathp;
+    private bool _catesa_nogive;
     private bool _playflag;
     private string _status_text, _mapnamehyouji;
 
@@ -38,6 +42,8 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
     private List<string> catType_name = new List<string>();
     private List<string> catIcon_anim = new List<string>();
     private List<string> catIcon_anim_sleep = new List<string>();
+
+    private List<int> deleteCatList = new List<int>();
 
     private Sprite _return_sprite;
     private string _return_catanim;
@@ -76,6 +82,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         cattansaku_MapName = "Non";
         catstatus = 0;
+        catesa_nogive = false;
 
         //ここでリストに追加している
         ListAdd();       
@@ -99,6 +106,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         cattansaku_MapName = "Non";
         catstatus = 0;
+        catesa_nogive = false;
 
         //ここでリストに追加している
         ListAdd();
@@ -107,7 +115,8 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
     void ListAdd()
     {
         //ここでリストに追加している
-        catdata_list.Add(new CatData(catid, catnameHyouji, cattype, catcost, catcostlv, cattansaku_Speed, cattansaku_Kaisu, catexp, cathp, catlv, cattansaku_MapName, catstatus));
+        catdata_list.Add(new CatData(catid, catnameHyouji, cattype, catcost, catcostlv, cattansaku_Speed, cattansaku_Kaisu, catexp, 
+            cathp, catlv, cattansaku_MapName, catstatus, catesa_nogive));
         Debug.Log("ねこ追加: " + catdata_list[catdata_list.Count - 1].catnameHyouji);
     }
 
@@ -187,21 +196,60 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
 
+        _cathp = catdata_list[_listid].catHP;
         _catstatus = catdata_list[_listid].catStatus;
+        _catesa_nogive = catdata_list[_listid].catEsaNoGive;
         _status_text = "ぼ～っとしている。";
 
-        if(_catstatus == 0) //ひまの状態
+        if (_catesa_nogive)
         {
-            _status_text = "ぼ～っとしている。";
+            _status_text = "エサをもらえてないので、不機嫌になっている。";
         }
-
-        if (_catstatus == 100) //採取中の状態
+        else
         {
-            _mapnamehyouji = matplace_database.matplace_lists[matplace_database.SearchMapString(catdata_list[_listid].catTansaku_MapName)].placeNameHyouji;
-            _status_text = "採取中 " + _mapnamehyouji + "\n" + "今日はやる気いっぱい！";
+            if (_catstatus == 0) //ひまの状態
+            {
+                if (_cathp <= 11) //好感度が低く逃亡寸前
+                {
+                    _status_text = "家が気に入らないので、逃亡を企てている。";
+                }
+                else
+                {
+                    _status_text = "ぼ～っとしている。";
+                }
+            }
+
+            if (_catstatus == 100) //採取中の状態
+            {
+                _mapnamehyouji = matplace_database.matplace_lists[matplace_database.SearchMapString(catdata_list[_listid].catTansaku_MapName)].placeNameHyouji;
+                _status_text = "採取中 " + _mapnamehyouji + "\n" + "今日はやる気いっぱい！";
+            }
         }
 
         return _status_text;
+    }
+
+    public void GetOutCatCheck() //逃亡するかどうかをチェックする
+    {
+        deleteCatList.Clear();
+        for (i = 0; i < catdata_list.Count; i++)
+        {
+            if (catdata_list[i].catHP <= 0)
+            {
+                deleteCatList.Add(i);
+            }
+        }
+
+        //降順にして後ろから削除
+        if (deleteCatList.Count > 0)
+        {
+            Debug.Log("HP=0のねこがいたので逃亡");
+
+            for (i = 0; i < deleteCatList.Count; i++)
+            {
+                catdata_list.RemoveAt(deleteCatList[deleteCatList.Count - 1 + i]);
+            }
+        }
     }
 
     //種族ごとのねこ画像　上から順番にtype=0, 1.. と対応

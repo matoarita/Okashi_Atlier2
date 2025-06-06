@@ -31,9 +31,10 @@ public class CatData
 
     public string catTansaku_MapName;
     public int catStatus; //ひまか採取中の状態 0=ひまで何もしてない。 100=探索に出かけ中。
+    public bool catEsaNoGive; //エサをあげれなかったとき、不機嫌状態になる。セリフが変わる。次にエサをあげると、これはオフになる。
 
     public CatData(string _id, string _catname, int _cattype, int _catcost, int _catcostlv, int _cattansaku_speed, int _cattansaku_kaisu, int _catexp, int _cathp, int _catlv,
-        string _cattansaku_mapname, int _catstatus)
+        string _cattansaku_mapname, int _catstatus, bool _catesa_nogive)
     {
         catID = _id;
 
@@ -52,5 +53,6 @@ public class CatData
 
         catTansaku_MapName = _cattansaku_mapname;
         catStatus = _catstatus;
+        catEsaNoGive = _catesa_nogive;
     }
 }
