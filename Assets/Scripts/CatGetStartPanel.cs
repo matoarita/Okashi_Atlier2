@@ -177,11 +177,11 @@ public class CatGetStartPanel : MonoBehaviour
         catStatus_ContentDraw(list_count);
         
         //画像を変更
-        texture2d = catDataBase.SetSprite(i);
+        texture2d = catDataBase.SetSprite(i, 0);
         _Img.sprite = texture2d;
 
         //アニメアイコン変更
-        _listitem[list_count].transform.Find("CatIconBaseImg/Catlist_iconanim/CatIconAnim/" + catDataBase.SetCatAnimObj(i)).gameObject.SetActive(true);
+        _listitem[list_count].transform.Find("CatIconBaseImg/Catlist_iconanim/CatIconAnim/" + catDataBase.SetCatAnimObj(i, 0)).gameObject.SetActive(true);
 
         //静止画かアニメアイコンどちらを使う
         catlist_iconanim.SetActive(false); //anim
@@ -281,14 +281,14 @@ public class CatGetStartPanel : MonoBehaviour
         //CatIconAnim_Hyouji(_obj);
 
         //ねこの画像
-        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIcon").GetComponent<Image>().sprite = catDataBase.SetSprite(_catid);
+        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIcon").GetComponent<Image>().sprite = catDataBase.SetSprite(_catid, 0);
 
         //ねこの画像アニメ
         foreach(Transform child in _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIconAnim").gameObject.transform)
         {
             child.gameObject.SetActive(false);
         }
-        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIconAnim/" + catDataBase.SetCatAnimObj(_catid)).gameObject.SetActive(true);
+        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIconAnim/" + catDataBase.SetCatAnimObj(_catid, 0)).gameObject.SetActive(true);
 
         //ねこの名前
         _obj.transform.Find("CatDataPanel/NameText").GetComponent<Text>().text = catDataBase.catdata_list[_catid].catnameHyouji;
@@ -317,7 +317,7 @@ public class CatGetStartPanel : MonoBehaviour
         CatIconAnim_Hyouji(finalcheck_panel); //アイコンを変える
         FinalCheck_CatDataKoushin(finalcheck_panel, _catid);
 
-        sc.PlaySe(239); //ねこごとに鳴き声変わる
+        sc.PlaySe(catDataBase.SetVoice(_catid, 0)); //ねこごとに鳴き声変わる
 
         sc.PlaySe(25);
 
@@ -520,7 +520,7 @@ public class CatGetStartPanel : MonoBehaviour
     public void Debug_CatRandomAdd()
     {
 
-        catDataBase.SetInit_CustomCatData("", Random.Range(0, 4), 250, Random.Range(200, 800), Random.Range(2, 6), 1);
+        catDataBase.SetInit_CustomCatData("", 0, Random.Range(0, 4), 250, Random.Range(200, 800), Random.Range(2, 6), 1, 0);
         reset_and_DrawView();
     }
 

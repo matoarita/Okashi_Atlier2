@@ -181,6 +181,8 @@ public class Compound_Main : MonoBehaviour
     private GameObject bgweather_image_panel;
     private List<GameObject> bg_weather_image = new List<GameObject>();
 
+    private GameObject CatComingGatPanel_obj;
+
     //Live2Dモデルの取得
     private GameObject _model_obj;
     private CubismRenderController cubism_rendercontroller;
@@ -251,6 +253,8 @@ public class Compound_Main : MonoBehaviour
 
     private GameObject autosave_panel;
 
+
+
     private int i, j, _id, ev_id;
     private int random, random2;
     private int lot_count;
@@ -273,6 +277,7 @@ public class Compound_Main : MonoBehaviour
     private bool map_move;
     private string _bg_str1, _bg_str2, _bg_str3;
     private int cat_cost;
+    private bool closebutton;
 
     private string _todayfood;
     private List<string> _todayfood_lib = new List<string>();
@@ -296,6 +301,9 @@ public class Compound_Main : MonoBehaviour
     private GameObject HintObjectGroup;
     private GameObject ClickPanel_1;
     private GameObject ClickPanel_2;
+
+    private List<GameObject> _effect_list = new List<GameObject>(); //
+    private GameObject effparticle_Prefab1;
 
     private int motion_layer_num = 1;
 
@@ -515,6 +523,13 @@ public class Compound_Main : MonoBehaviour
         getmatplace_panel.SetActive(false);
         //GetMatStatusButton_obj = canvas.transform.Find("MainUIPanel/Comp/GetMatStatusPanel").gameObject;
 
+        //ねこゲットパネルの取得
+        CatComingGatPanel_obj = canvas.transform.Find("CatComeGetPanel").gameObject;
+        CatComingGatPanel_obj.SetActive(false);
+        CatComingGatPanel_obj.transform.Find("Yes_no_Pane_catget").gameObject.SetActive(false);
+        closebutton = false;
+
+        effparticle_Prefab1 = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode_3");
 
         //お金パネル
         moneystatus_panel = canvas.transform.Find("MainUIPanel/MoneyStatus_panel").gameObject;
@@ -1063,7 +1078,48 @@ public class Compound_Main : MonoBehaviour
                     //Debug.Log("ゲームマネジャー　シナリオON");           
 
                     //チュートリアル
-                    TutorialEvent();
+                    //チュートリアルモードがONになったら、この中の処理が始まる。
+                    if (GameMgr.tutorial_ON)
+                    {
+                        TutorialEvent();
+                    }
+                    else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
+                    {
+                        WindowOff();
+
+                        check_recipi_flag = false;
+
+                        //腹減りカウント一時停止
+                        girl1_status.GirlEatJudgecounter_OFF();
+
+                        girl1_status.DeleteHukidashiOnly();
+                        girl1_status.Girl1_Status_Init();
+
+                        Touch_ALLOFF();
+                        SceneStart_flag = false;
+
+                        //テキストエリアの表示
+                        if (GameMgr.catcoming_event_ON)
+                        { }
+                        else
+                        {
+                            if (GameMgr.picnic_event_reading_now)
+                            {
+                                if (GameMgr.compound_select == 1 || GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 120)
+                                {
+
+                                }
+                                else
+                                {
+                                    text_area.SetActive(false);
+                                }
+                            }
+                            else
+                            {
+                                text_area.SetActive(false);
+                            }
+                        }
+                    }
 
                 }
                 else //以下が、通常の処理
@@ -1165,479 +1221,444 @@ public class Compound_Main : MonoBehaviour
 
     void TutorialEvent()
     {
-        //チュートリアルモードがONになったら、この中の処理が始まる。
-        if (GameMgr.tutorial_ON)
+
+        Touch_ALLOFF();
+        //girl1_status.HukidashiFlag = false;
+
+        switch (GameMgr.tutorial_Num)
         {
-            Touch_ALLOFF();
-            //girl1_status.HukidashiFlag = false;
+            case 0: //最初にシナリオを読み始める。
 
-            switch (GameMgr.tutorial_Num)
-            {
-                case 0: //最初にシナリオを読み始める。
+                canvas.SetActive(false);
 
-                    canvas.SetActive(false);
+                //腹減りカウント一時停止
+                girl1_status.GirlEatJudgecounter_OFF();
 
-                    //腹減りカウント一時停止
-                    girl1_status.GirlEatJudgecounter_OFF();
+                girl1_status.DeleteHukidashiOnly();
+                //girl1_status.Girl_Full();
+                girl1_status.Girl1_Status_Init();
+                //girl1_status.OkashiNew_Status = 1;
+                GameMgr.tutorial_Num = 1; //退避
+                break;
 
-                    girl1_status.DeleteHukidashiOnly();
-                    //girl1_status.Girl_Full();
-                    girl1_status.Girl1_Status_Init();
-                    //girl1_status.OkashiNew_Status = 1;
-                    GameMgr.tutorial_Num = 1; //退避
-                    break;
+            case 10: //宴ポーズ。エクストリームパネルを押そう！で、待機。
 
-                case 10: //宴ポーズ。エクストリームパネルを押そう！で、待機。
+                canvas.SetActive(true);
+                special_quest.RedrawQuestName();
 
-                    canvas.SetActive(true);
-                    special_quest.RedrawQuestName();
+                MainCompoundMethod();
+                compoundselect_onoff_obj.SetActive(false);
+                OffCompoundSelectnoExtreme();
+                //extreme_Button.interactable = true;
 
-                    MainCompoundMethod();
-                    compoundselect_onoff_obj.SetActive(false);
-                    OffCompoundSelectnoExtreme();
-                    //extreme_Button.interactable = true;
+                _textmain.text = "左の「お菓子パネル」を押してみよう！";
+                break;
 
-                    _textmain.text = "左の「お菓子パネル」を押してみよう！";
-                    break;
+            case 15: //はじめてパネルを開いた。オリジナル調合を押そう！
 
-                case 15: //はじめてパネルを開いた。オリジナル調合を押そう！
+                MainCompoundMethod();
 
-                    MainCompoundMethod();
+                mainUI_panel_obj.SetActive(false);
+                //compoundselect_onoff_obj.SetActive(false);
+                text_area_compound.SetActive(false);
 
-                    mainUI_panel_obj.SetActive(false);
-                    //compoundselect_onoff_obj.SetActive(false);
-                    text_area_compound.SetActive(false);
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
+                compoBGA_image.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
 
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
-                    compoBGA_image.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
+                Extremepanel_obj.SetActive(false);
 
-                    Extremepanel_obj.SetActive(false);
+                select_original_button.interactable = false;
+                select_recipi_button.interactable = false;
+                select_extreme_button.interactable = false;
+                select_no_button.interactable = false;
 
-                    select_original_button.interactable = false;
-                    select_recipi_button.interactable = false;
-                    select_extreme_button.interactable = false;
-                    select_no_button.interactable = false;
+                break;
 
-                    break;
+            case 16: //メッセージおわり
 
-                case 16: //メッセージおわり
+                MainCompoundMethod();
 
-                    MainCompoundMethod();
+                mainUI_panel_obj.SetActive(false);
+                //compoundselect_onoff_obj.SetActive(false);
+                text_area_compound.SetActive(false);
 
-                    mainUI_panel_obj.SetActive(false);
-                    //compoundselect_onoff_obj.SetActive(false);
-                    text_area_compound.SetActive(false);
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
+                compoBGA_image.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
 
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
-                    compoBGA_image.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
+                Extremepanel_obj.SetActive(false);
 
-                    Extremepanel_obj.SetActive(false);
+                select_original_button.interactable = true;
+                select_recipi_button.interactable = false;
+                select_extreme_button.interactable = false;
+                select_no_button.interactable = false;
 
-                    select_original_button.interactable = true;
-                    select_recipi_button.interactable = false;
-                    select_extreme_button.interactable = false;
-                    select_no_button.interactable = false;
+                break;
 
-                    break;
+            case 20: //エクストリームパネルを押して、オリジナル調合画面を開いた
 
-                case 20: //エクストリームパネルを押して、オリジナル調合画面を開いた
+                MainCompoundMethod();
 
-                    MainCompoundMethod();
+                select_recipi_button.interactable = true;
+                select_extreme_button.interactable = true;
+                select_no_button.interactable = true;
 
-                    select_recipi_button.interactable = true;
-                    select_extreme_button.interactable = true;
-                    select_no_button.interactable = true;
+                mainUI_panel_obj.SetActive(false);
+                //compoundselect_onoff_obj.SetActive(false);
+                text_area_compound.SetActive(false);
 
-                    mainUI_panel_obj.SetActive(false);
-                    //compoundselect_onoff_obj.SetActive(false);
-                    text_area_compound.SetActive(false);
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
+                compoBGA_image.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
+                compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
+                pitemlistController.Offinteract();
 
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
-                    compoBGA_image.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageOri.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageRecipi.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageExtreme.GetComponent<Image>().raycastTarget = false;
-                    compoBGA_imageHikariMake.GetComponent<Image>().raycastTarget = false;
-                    pitemlistController.Offinteract();
+                recipiMemoButton.GetComponent<Button>().interactable = false;
 
-                    recipiMemoButton.GetComponent<Button>().interactable = false;
+                break;
 
-                    break;
+            case 30: //宴がポーズ状態。右上のレシピメモを押そう。
 
-                case 30: //宴がポーズ状態。右上のレシピメモを押そう。
+                recipiMemoButton.GetComponent<Button>().interactable = true;
 
-                    recipiMemoButton.GetComponent<Button>().interactable = true;
+                text_area_compound.SetActive(true);
+                _textcomp.text = "右上の「レシピをみる」ボタンを押して" + "\n" + "クッキーを作ってみよう！";
+                break;
 
-                    text_area_compound.SetActive(true);
-                    _textcomp.text = "右上の「レシピをみる」ボタンを押して" + "\n" + "クッキーを作ってみよう！";
-                    break;
+            case 40: //メモ画面を開いた。
 
-                case 40: //メモ画面を開いた。
+                text_area_compound.SetActive(false);
+                break;
 
-                    text_area_compound.SetActive(false);
-                    break;
+            case 50: //宴ポーズ。オリジナル調合をしてみるところ。
 
-                case 50: //宴ポーズ。オリジナル調合をしてみるところ。
+                pitemlistController.Oninteract();
+                text_area_compound.SetActive(true);
+                _textcomp.text = "左のリストから、" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"; ;
 
-                    pitemlistController.Oninteract();
-                    text_area_compound.SetActive(true);
-                    _textcomp.text = "左のリストから、" + "\n" + "好きな材料を" + GameMgr.ColorYellow + "２つ" + "</color>" + "か" + GameMgr.ColorYellow + "３つ" + "</color>" + "選んでね。"; ;
+                GameMgr.tutorial_Num = 55;
+                break;
 
-                    GameMgr.tutorial_Num = 55;
-                    break;
+            case 55: //調合中
+                break;
 
-                case 55: //調合中
-                    break;
+            case 60: //調合完了！
 
-                case 60: //調合完了！
+                text_area_compound.SetActive(false);
 
-                    text_area_compound.SetActive(false);
+                break;
 
-                    break;
+            case 70: //宴ポーズ。やったね！クッキーができた～から、レシピを閃き、ボタンを押し待ち。
 
-                case 70: //宴ポーズ。やったね！クッキーができた～から、レシピを閃き、ボタンを押し待ち。
+                card_view.SetinteractiveOn();
+                text_area_compound.SetActive(true);
+                GameMgr.tutorial_Num = 75; //退避
+                break;
 
-                    card_view.SetinteractiveOn();
-                    text_area_compound.SetActive(true);
-                    GameMgr.tutorial_Num = 75; //退避
-                    break;
+            case 75:
 
-                case 75:
+                text_area_compound.SetActive(true);
+                _textcomp.text = "カードを押してみよう！";
+                break;
 
-                    text_area_compound.SetActive(true);
-                    _textcomp.text = "カードを押してみよう！";
-                    break;
+            case 80: //ボタンを押し、元の画面に戻る。
 
-                case 80: //ボタンを押し、元の画面に戻る。
+                MainCompoundMethod();
 
-                    MainCompoundMethod();
+                canvas.SetActive(false);
 
-                    canvas.SetActive(false);
+                break;
 
-                    break;
+            case 90: //「あげる」ボタンを押すところ。「あげる」のみをON、他のボタンはオフ。
 
-                case 90: //「あげる」ボタンを押すところ。「あげる」のみをON、他のボタンはオフ。
+                //Debug.Log("GameMgr.チュートリアルNo: " + GameMgr.tutorial_Num);
+                MainCompoundMethod();
 
-                    //Debug.Log("GameMgr.チュートリアルNo: " + GameMgr.tutorial_Num);
-                    MainCompoundMethod();
+                //compoundselect_onoff_obj.SetActive(false);
+                OffCompoundSelect();
+                text_area_compound.SetActive(false);
 
-                    //compoundselect_onoff_obj.SetActive(false);
-                    OffCompoundSelect();
-                    text_area_compound.SetActive(false);
+                //girl1_status.Girl_EatDecide();
+                girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
 
-                    //girl1_status.Girl_EatDecide();
-                    girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
-                    
-                    GameMgr.tutorial_Num = 95; //退避
+                GameMgr.tutorial_Num = 95; //退避
 
-                    break;
+                break;
 
-                case 100:
+            case 100:
 
-                    MainCompoundMethod();
-                    canvas.SetActive(true);
-                    compoundselect_onoff_obj.SetActive(true);
-                    //special_quest.RedrawQuestName();
+                MainCompoundMethod();
+                canvas.SetActive(true);
+                compoundselect_onoff_obj.SetActive(true);
+                //special_quest.RedrawQuestName();
 
-                    _textmain.text = "お菓子をあげてみよう！";
+                _textmain.text = "お菓子をあげてみよう！";
 
-                    //このタイミングで、アイテムのどれかが0になっていたら、また、全てのアイテムを5ずつにリセットしなおす。
-                    if (pitemlist.KosuCount("komugiko") <= 1 || pitemlist.KosuCount("butter") <= 1 || pitemlist.KosuCount("suger") <= 1)
-                    {
-                        pitemlist.addPlayerItemString("komugiko", 5 - pitemlist.KosuCount("komugiko"));
-                        pitemlist.addPlayerItemString("butter", 5 - pitemlist.KosuCount("butter"));
-                        pitemlist.addPlayerItemString("suger", 5 - pitemlist.KosuCount("suger"));
-                    }
-
-                    GameMgr.tutorial_Num = 105; //退避
-                    break;
-
-                case 105:
-
-                    MainCompoundMethod();
-
-                    OffCompoundSelect();
-                    girleat_toggle.GetComponent<Toggle>().interactable = true;
-
-                    break;
-
-                case 110:
-
-                    MainCompoundMethod();
-                    girl1_status.DeleteHukidashiOnly();
-                    canvas.SetActive(false);
-
-                    break;
-
-                case 120:
-
-                    MainCompoundMethod();
-
-                    compoundselect_onoff_obj.SetActive(false);
-
-                    girl1_status.timeGirl_hungry_status = 2; //一回、画像を元に戻す。
-
-                    //girl1_status.Girl_EatDecide();
-                    girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
-
-                    GameMgr.tutorial_Num = 130;
-
-                    GameMgr.tutorial_Progress = true;
-                    break;
-
-                case 130:
-
-                    text_area_compound.SetActive(false);
-                    break;
-
-                case 140:
-                   
-                    //一回機嫌はリセットする
-                    girl1_status.GirlExpressionKoushin(50);
-                    MainCompoundMethod();
-                    girl1_status.DefFaceChange();
-
-                    extreme_Button.interactable = true;
-                    canvas.SetActive(true);
-
-                    _textmain.text = "ねこクッキーを作ってみよう！";
-
-                    break;
-
-                case 150: //レシピボタンでも～を説明中。ボタンは押せないようにしておく。
-
-                    MainCompoundMethod();
-
-                    mainUI_panel_obj.SetActive(false);
-
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
-                    select_original_button.interactable = false;
-                    select_extreme_button.interactable = false;
-                    select_recipi_button.interactable = false;
-                    select_no_button.interactable = false;
-
-                    text_area_compound.SetActive(false);
-                    break;
-
-                case 160:
-
-                    MainCompoundMethod();
-
-                    mainUI_panel_obj.SetActive(false);
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
-                    select_recipi_button.interactable = true;
-                    text_area_compound.SetActive(true);
-
-                    GameMgr.tutorial_Num = 165;
-                    break;
-
-                case 165: //レシピ調合中
-
-                    MainCompoundMethod();
-                    mainUI_panel_obj.SetActive(false);
-                    break;
-
-                case 170: //れしぴ調合完了！
-
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
-                    text_area_compound.SetActive(false);
-                    break;
-
-                case 180:
-
-                    card_view.SetinteractiveOn();
-
-                    text_area_compound.SetActive(true);
-                    _textcomp.text = "カードを押してみよう！";
-                    break;
-
-                case 190: //元の画面に戻る
-
-                    MainCompoundMethod();
-                    canvas.SetActive(false);
-
-                    break;
-
-                case 200:
-
-                    MainCompoundMethod();
-
-                    canvas.SetActive(true);
-                    OffCompoundSelectnoExtreme();
-                    //extreme_Button.interactable = true;
-
-                    _textmain.text = "もう一度パネルを押してみよう！";
-
-                    break;
-
-                case 210: //エクストリーム調合　他のボタンは触れない
-
-                    MainCompoundMethod();
-
-                    mainUI_panel_obj.SetActive(false);
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
-                    select_original_button.interactable = false;
-                    select_extreme_button.interactable = true;
-                    select_recipi_button.interactable = false;
-                    select_no_button.interactable = false;
-
-                    text_area_compound.SetActive(false);
-                    break;
-
-                case 220:
-
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
-                    //MainCompoundMethod();
-                    text_area_compound.SetActive(true);
-
-                    _textcomp.text = "「仕上げ」ボタンを押してみよう！";
-
-                    break;
-
-                case 230:
-
-                    MainCompoundMethod();
-
-                    mainUI_panel_obj.SetActive(false);
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
-                    text_area_compound.SetActive(false);
-                    pitemlistController.Offinteract();
-
-                    break;
-
-                case 240:
-
-                    MainCompoundMethod();
-
-                    mainUI_panel_obj.SetActive(false);
-                    compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
-                    selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
-                    text_area_compound.SetActive(true);
-                    pitemlistController.Oninteract();
-
-                    GameMgr.tutorial_Num = 245; //退避
-
-                    break;
-
-                case 245:
-
-                    text_area_compound.SetActive(true);
-                    break;
-
-
-                case 250:
-
-                    text_area_compound.SetActive(false);
-                    break;
-
-                case 260:
-
-                    card_view.SetinteractiveOn();
-
-                    text_area_compound.SetActive(true);
-                    _textcomp.text = "カードを押してみよう！";
-
-                    GameMgr.tutorial_Num = 265; //退避
-                    break;
-
-                case 270: //再び、元画面に戻る。
-
-                    MainCompoundMethod();
-                    canvas.SetActive(false);
-
-
-                    break;
-
-                case 280:
-
-                    MainCompoundMethod();
-                    canvas.SetActive(true);
-
-                    compoundselect_onoff_obj.SetActive(true);
-                    //OffCompoundSelect();
-                    //girleat_toggle.GetComponent<Toggle>().interactable = true;
-                    girl1_status.timeGirl_hungry_status = 1;
-
-                    _textmain.text = "お菓子をあげてみよう！";
-
-                    GameMgr.tutorial_Num = 285; //退避
-                    break;
-
-                case 285:
-
-                    MainCompoundMethod();
-
-                    OffCompoundSelect();
-                    girleat_toggle.GetComponent<Toggle>().interactable = true;
-
-                    break;
-
-                case 290:
-
-                    MainCompoundMethod();
-                    girl1_status.DeleteHukidashiOnly();
-                    canvas.SetActive(false);
-
-                    girl1_status.Girl1_Status_Init2(); //腹減り状態=0にして、Timeoutが0.5s　すぐに電球出る状態
-                    girl1_status.GirlExpressionKoushin(50); //機嫌は元に戻す
-
-                    break;
-
-                default:
-
-                    break;
-            }
-
-        }
-        else //チュートリアル以外、デフォルトで、宴を読んでいるときの処理
-        {
-            WindowOff();
-
-            check_recipi_flag = false;
-
-            //腹減りカウント一時停止
-            girl1_status.GirlEatJudgecounter_OFF();
-
-            girl1_status.DeleteHukidashiOnly();
-            girl1_status.Girl1_Status_Init();
-
-            Touch_ALLOFF();
-            SceneStart_flag = false;
-
-            //テキストエリアの表示
-            if (GameMgr.picnic_event_reading_now)
-            {
-                if (GameMgr.compound_select == 1 || GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 120)
+                //このタイミングで、アイテムのどれかが0になっていたら、また、全てのアイテムを5ずつにリセットしなおす。
+                if (pitemlist.KosuCount("komugiko") <= 1 || pitemlist.KosuCount("butter") <= 1 || pitemlist.KosuCount("suger") <= 1)
                 {
+                    pitemlist.addPlayerItemString("komugiko", 5 - pitemlist.KosuCount("komugiko"));
+                    pitemlist.addPlayerItemString("butter", 5 - pitemlist.KosuCount("butter"));
+                    pitemlist.addPlayerItemString("suger", 5 - pitemlist.KosuCount("suger"));
+                }
 
-                }
-                else
-                {
-                    text_area.SetActive(false);
-                }
-            }
-            else
-            {
-                text_area.SetActive(false);
-            }
+                GameMgr.tutorial_Num = 105; //退避
+                break;
+
+            case 105:
+
+                MainCompoundMethod();
+
+                OffCompoundSelect();
+                girleat_toggle.GetComponent<Toggle>().interactable = true;
+
+                break;
+
+            case 110:
+
+                MainCompoundMethod();
+                girl1_status.DeleteHukidashiOnly();
+                canvas.SetActive(false);
+
+                break;
+
+            case 120:
+
+                MainCompoundMethod();
+
+                compoundselect_onoff_obj.SetActive(false);
+
+                girl1_status.timeGirl_hungry_status = 2; //一回、画像を元に戻す。
+
+                //girl1_status.Girl_EatDecide();
+                girl1_status.timeGirl_hungry_status = 1; //腹減り状態に切り替え
+
+                GameMgr.tutorial_Num = 130;
+
+                GameMgr.tutorial_Progress = true;
+                break;
+
+            case 130:
+
+                text_area_compound.SetActive(false);
+                break;
+
+            case 140:
+
+                //一回機嫌はリセットする
+                girl1_status.GirlExpressionKoushin(50);
+                MainCompoundMethod();
+                girl1_status.DefFaceChange();
+
+                extreme_Button.interactable = true;
+                canvas.SetActive(true);
+
+                _textmain.text = "ねこクッキーを作ってみよう！";
+
+                break;
+
+            case 150: //レシピボタンでも～を説明中。ボタンは押せないようにしておく。
+
+                MainCompoundMethod();
+
+                mainUI_panel_obj.SetActive(false);
+
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
+                select_original_button.interactable = false;
+                select_extreme_button.interactable = false;
+                select_recipi_button.interactable = false;
+                select_no_button.interactable = false;
+
+                text_area_compound.SetActive(false);
+                break;
+
+            case 160:
+
+                MainCompoundMethod();
+
+                mainUI_panel_obj.SetActive(false);
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
+                select_recipi_button.interactable = true;
+                text_area_compound.SetActive(true);
+
+                GameMgr.tutorial_Num = 165;
+                break;
+
+            case 165: //レシピ調合中
+
+                MainCompoundMethod();
+                mainUI_panel_obj.SetActive(false);
+                break;
+
+            case 170: //れしぴ調合完了！
+
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
+                text_area_compound.SetActive(false);
+                break;
+
+            case 180:
+
+                card_view.SetinteractiveOn();
+
+                text_area_compound.SetActive(true);
+                _textcomp.text = "カードを押してみよう！";
+                break;
+
+            case 190: //元の画面に戻る
+
+                MainCompoundMethod();
+                canvas.SetActive(false);
+
+                break;
+
+            case 200:
+
+                MainCompoundMethod();
+
+                canvas.SetActive(true);
+                OffCompoundSelectnoExtreme();
+                //extreme_Button.interactable = true;
+
+                _textmain.text = "もう一度パネルを押してみよう！";
+
+                break;
+
+            case 210: //エクストリーム調合　他のボタンは触れない
+
+                MainCompoundMethod();
+
+                mainUI_panel_obj.SetActive(false);
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
+                select_original_button.interactable = false;
+                select_extreme_button.interactable = true;
+                select_recipi_button.interactable = false;
+                select_no_button.interactable = false;
+
+                text_area_compound.SetActive(false);
+                break;
+
+            case 220:
+
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = true;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = true;
+                //MainCompoundMethod();
+                text_area_compound.SetActive(true);
+
+                _textcomp.text = "「仕上げ」ボタンを押してみよう！";
+
+                break;
+
+            case 230:
+
+                MainCompoundMethod();
+
+                mainUI_panel_obj.SetActive(false);
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
+                text_area_compound.SetActive(false);
+                pitemlistController.Offinteract();
+
+                break;
+
+            case 240:
+
+                MainCompoundMethod();
+
+                mainUI_panel_obj.SetActive(false);
+                compoBG_A.GetComponent<GraphicRaycaster>().enabled = false;
+                selectPanel_1.GetComponent<GraphicRaycaster>().enabled = false;
+                text_area_compound.SetActive(true);
+                pitemlistController.Oninteract();
+
+                GameMgr.tutorial_Num = 245; //退避
+
+                break;
+
+            case 245:
+
+                text_area_compound.SetActive(true);
+                break;
+
+
+            case 250:
+
+                text_area_compound.SetActive(false);
+                break;
+
+            case 260:
+
+                card_view.SetinteractiveOn();
+
+                text_area_compound.SetActive(true);
+                _textcomp.text = "カードを押してみよう！";
+
+                GameMgr.tutorial_Num = 265; //退避
+                break;
+
+            case 270: //再び、元画面に戻る。
+
+                MainCompoundMethod();
+                canvas.SetActive(false);
+
+
+                break;
+
+            case 280:
+
+                MainCompoundMethod();
+                canvas.SetActive(true);
+
+                compoundselect_onoff_obj.SetActive(true);
+                //OffCompoundSelect();
+                //girleat_toggle.GetComponent<Toggle>().interactable = true;
+                girl1_status.timeGirl_hungry_status = 1;
+
+                _textmain.text = "お菓子をあげてみよう！";
+
+                GameMgr.tutorial_Num = 285; //退避
+                break;
+
+            case 285:
+
+                MainCompoundMethod();
+
+                OffCompoundSelect();
+                girleat_toggle.GetComponent<Toggle>().interactable = true;
+
+                break;
+
+            case 290:
+
+                MainCompoundMethod();
+                girl1_status.DeleteHukidashiOnly();
+                canvas.SetActive(false);
+
+                girl1_status.Girl1_Status_Init2(); //腹減り状態=0にして、Timeoutが0.5s　すぐに電球出る状態
+                girl1_status.GirlExpressionKoushin(50); //機嫌は元に戻す
+
+                break;
+
+            default:
+
+                break;
         }
+
     }
 
     void GetMatReturnCheck()
@@ -3800,9 +3821,123 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+    IEnumerator CatComing_Final_select()
+    {
+
+        while (yes_selectitem_kettei.onclick != true)
+        {
+
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        //black_panel_A.SetActive(false);
+        CatComingGatPanel_obj.transform.Find("Yes_no_Pane_catget").gameObject.SetActive(false);
+
+        switch (yes_selectitem_kettei.kettei1)
+        {
+            case true:
+
+                sc.PlaySe(25);
+                sc.PlaySe(catDataBase.SetVoice(0, 1)); //鳴き声 checkのほうを参照
+
+                CatIconAnim_Hyouji(CatComingGatPanel_obj);
+                CatComingGatPanel_obj.transform.Find("CatDataPanel/CatMemo").gameObject.SetActive(false);
+                _text.text = catDataBase.catdata_checklist[0].catnameHyouji + "がお家にきたよ～～！！";
+
+                //表示されたねこを実際にねこリストに追加する
+                catDataBase.CatCopyCheckToOrigin();
+
+                _effect_list.Clear();
+                _effect_list.Add(Instantiate(effparticle_Prefab1, CatComingGatPanel_obj.transform));
+                AnimPoyon(CatComingGatPanel_obj.transform.Find("CatDataPanel/CatIconBaseImg").gameObject); //ぽよんアニメ
+
+                yes_selectitem_kettei.onclick = false;
+                break;
+
+            case false:
+
+                sc.PlaySe(240); //共通　悲しい鳴き声
+
+                //なにもせず終了
+                _text.text = "ねこちゃん。かなしそうな顔で去っていったよ～..。";
+
+                yes_selectitem_kettei.onclick = false;
+                break;
+
+        }
+
+        StartCoroutine("WaitInteract");
+        StartCoroutine("WaitCloseButtonON");
+    }
+
+    IEnumerator WaitCloseButtonON()
+    {
+        // 一時的にここでコルーチンの処理を止める。別オブジェクトで、はいかいいえを押すと、再開する。
+        while (closebutton != true)
+        {
+            yield return null; // オンクリックがtrueになるまでは、とりあえず待機
+        }
+
+        closebutton = false; //オンクリックのフラグはオフにしておく。
+
+        //エフェクトも削除
+        if (_effect_list.Count > 0)
+        {
+            Destroy(_effect_list[0].gameObject);
+            _effect_list.Clear();
+        }
+
+        GameMgr.catcoming_event_endflag = true;
+        CatComingGatPanel_obj.SetActive(false);
+    }
+
+    IEnumerator WaitInteract()
+    {
+        yield return new WaitForSeconds(0.5f); //1秒待つ
+
+        CatComingGatPanel_obj.transform.Find("CloseButton").gameObject.SetActive(true);
+    }
+
+    public void OnCloseButton()
+    {
+        closebutton = true;
+    }
+
+    void FinalCheck_CatCheckDataKoushin(GameObject _obj, int _catid)
+    {
+        CatIconImage_Hyouji(_obj);
+
+        //ねこの画像
+        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIcon").GetComponent<Image>().sprite = catDataBase.SetSprite(_catid, 1);
+
+        //ねこの画像アニメ
+        foreach (Transform child in _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIconAnim").gameObject.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIconAnim/" + catDataBase.SetCatAnimObj(_catid, 1)).gameObject.SetActive(true);
+
+        //ねこの名前
+        _obj.transform.Find("CatDataPanel/NameText").GetComponent<Text>().text = catDataBase.catdata_checklist[_catid].catnameHyouji;
+
+        //ねこのステータス
+        _obj.transform.Find("CatDataPanel/CatMemo/LV_text").GetComponent<Text>().text = catDataBase.catdata_checklist[_catid].catLv.ToString();
+        _obj.transform.Find("CatDataPanel/CatMemo/TansakuSP_text").GetComponent<Text>().text = catDataBase.CatTansakuTextLibrary(catDataBase.catdata_checklist[_catid].catTansaku_Speed);
+    }
+
+    void CatIconAnim_Hyouji(GameObject _obj) //FinalCheckのときにアニメアイコンを表示　画像は非表示
+    {
+        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIcon").gameObject.SetActive(false);
+        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIconAnim").gameObject.SetActive(true);
+    }
+
+    void CatIconImage_Hyouji(GameObject _obj) //FinalCheckのときに画像を表示
+    {
+        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIcon").gameObject.SetActive(true);
+        _obj.transform.Find("CatDataPanel/CatIconBaseImg/CatIconAnim").gameObject.SetActive(false);
+    }
 
 
-    
 
     public void ReadGirlLoveEvent_Fire() //EventDataBaseやGetMatPlace_Panelから読み出し
     {
@@ -3880,6 +4015,42 @@ public class Compound_Main : MonoBehaviour
             yield return null;
         }
 
+        //ねこくるイベント発生中の場合は、そっちの処理が終わるのを待つ
+        if(GameMgr.catcoming_event_ON)
+        {
+            GameMgr.compound_status = 1100;
+
+            GameMgr.Mute_on = false;
+            sceneBGM.MuteOFFBGM();
+            map_ambience.MuteOFF();
+
+            //確認画面をここで開く
+            text_area.SetActive(true);
+            CatComingGatPanel_obj.transform.Find("Yes_no_Pane_catget").gameObject.SetActive(true);
+            CatComingGatPanel_obj.transform.Find("CatDataPanel/CatMemo").gameObject.SetActive(true);
+            _text.text = "おにいちゃん。この子をお家で飼う？";
+
+            //ランダムキャットの抽選
+            catDataBase.RandomCatSelect();
+
+            sc.PlaySe(catDataBase.SetVoice(0, 1)); //鳴き声 checkのほうを参照
+
+            CatComingGatPanel_obj.SetActive(true);
+            CatComingGatPanel_obj.transform.Find("CloseButton").gameObject.SetActive(false);
+
+            FinalCheck_CatCheckDataKoushin(CatComingGatPanel_obj, 0);
+
+            StartCoroutine("CatComing_Final_select");
+
+            while (!GameMgr.catcoming_event_endflag)
+            {
+                yield return null;
+            }
+            GameMgr.catcoming_event_endflag = false;
+
+            GameMgr.catcoming_event_ON = false;
+        }
+
         Debug.Log("サブイベント読み終了");
 
         GameMgr.GirlLoveEvent_bunki_status = 0;
@@ -3889,7 +4060,6 @@ public class Compound_Main : MonoBehaviour
         GameMgr.scenario_ON = false;
         GameMgr.girl_returnhome_endflag = false;
         GameMgr.CompoAfter_BackGirl = false; //戻り中に発生した場合は、戻ったことにしてfalseに。
-
         GameMgr.Mute_on = false;
 
         if (GameMgr.Utage_FadeOutWhiteON)
@@ -3930,8 +4100,14 @@ public class Compound_Main : MonoBehaviour
             if(GameMgr.ending_on)
             {
                 Debug.Log("Ending シーン移動");
-                //FadeManager.Instance.LoadScene("100_Ending", 0.3f);
-                FadeManager.Instance.LoadScene("110_TotalResult", GameMgr.SceneFadeTime);
+                if (GameMgr.ending_number == 1)
+                {
+                    FadeManager.Instance.LoadScene("100_Ending", GameMgr.SceneFadeTime);
+                }
+                else
+                {
+                    FadeManager.Instance.LoadScene("110_TotalResult", GameMgr.SceneFadeTime);
+                }
             }
         }
         else //シーン移動などしない場合は、以下デフォルトの処理
@@ -4396,6 +4572,10 @@ public class Compound_Main : MonoBehaviour
         GameMgr.outgirl_count--; //外出カウンタも進む
         Debug.Log("ピクニックカウント: " + GameMgr.picnic_count);
         Debug.Log("外出カウント: " + GameMgr.outgirl_count);
+
+        //ねこ家くるカウントもすすむ？
+        GameMgr.catcoming_count--;
+        Debug.Log("ねこ家くるカウント: " + GameMgr.catcoming_count);
 
         //各NPCのイベント日数カウンタも進む
         for (i = 0; i < GameMgr.NPCHiroba_eventDayCounter.Length; i++)
@@ -5248,6 +5428,22 @@ public class Compound_Main : MonoBehaviour
     {
         cubism_rendercontroller.Opacity = 0.0f;
         GirlHeartEffect_obj.SetActive(false);
+    }
+
+    void AnimPoyon(GameObject _obj)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        //まず、初期値。
+        _obj.GetComponent<CanvasGroup>().alpha = 0;
+        sequence.Append(_obj.transform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 0.0f));
+
+
+        //移動のアニメ
+        sequence.Append(_obj.transform.DOScale(new Vector3(1f, 1f, 1f), 0.75f)
+            .SetEase(Ease.OutElastic));
+
+        sequence.Join(_obj.GetComponent<CanvasGroup>().DOFade(1, 0.2f));
     }
 
 

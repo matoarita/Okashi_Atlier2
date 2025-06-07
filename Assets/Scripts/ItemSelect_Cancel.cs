@@ -610,7 +610,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                             }
                             break;
 
-                        default://compound=110　最後調合するかどうかの確認中など、待機状態
+                        default://compound=110　最後調合するかどうかの確認中など、待機状態 1100はねこ待機状態
                             break;
                     }
                 }

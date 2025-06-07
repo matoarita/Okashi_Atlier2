@@ -1344,7 +1344,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                             Start_count -= catDataBase.catdata_list[i].cat_GetMateriaTimeCounter;
 
                             //材料採取メソッド。個数チェックと成功率を計算する。場所、猫の探索回数(共通？）
-                            CatGetMaterial_Items(catDataBase.catdata_list[i].catTansaku_MapName, catDataBase.catdata_list[i].catTansaku_Kaisu);
+                            CatGetMaterial_Items(catDataBase.catdata_list[i].catTansaku_MapName, catDataBase.catdata_list[i].catTansaku_Kaisu, i);
 
                             catDataBase.catdata_list[i].cat_GetMateriaTimeCounter = catDataBase.catdata_list[i].catTansaku_Speed;
                         }
@@ -1356,7 +1356,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         }
     }
 
-    void CatGetMaterial_Items(string _place, int _kaisu)
+    void CatGetMaterial_Items(string _place, int _kaisu, int _catid)
     {
         //サウンドコントローラーの取得
         sc = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
@@ -1366,7 +1366,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
         if (catsound) //採ってきた際、ねこボイスがなる なるのは、調合メインで時間経過のときのみ
         {
-            sc.PlaySe(239);
+            sc.PlaySe(catDataBase.SetVoice(_catid, 0));
         }
         getmatplace_panel.InitializeResultItemDicts();
 
@@ -1376,12 +1376,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         Debug.Log("猫採取　場所: " + matplace_database.matplace_lists[_mapid].placeNameHyouji);
 
         //ねこ経験値が上昇
-        catDataBase.catdata_list[i].catExp += 10;
+        catDataBase.catdata_list[_catid].catExp += 10;
 
         //採取してると、好感度もあがる
-        catDataBase.catdata_list[i].catHP += 3;
+        catDataBase.catdata_list[_catid].catHP += 3;
 
-        exp_table.CatLvUp_Check(i); //ねこレベルアップチェック
+        exp_table.CatLvUp_Check(_catid); //ねこレベルアップチェック
     }
 
 

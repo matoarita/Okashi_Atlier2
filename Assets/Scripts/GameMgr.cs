@@ -522,6 +522,11 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool outgirl_event_ON;
     public static bool outgirl_Nowprogress; //ヒカリが採取などで外へ外出中のフラグ
 
+    //猫くるイベントのカウンター
+    public static int catcoming_count;
+    public static bool catcoming_event_ON;
+    public static bool catcoming_event_endflag; //エンドまち　これはセーブ不要
+
     //いちごイベントのフラグ
     public static bool hiroba_ichigo_first; //一回でもいちごお菓子をわたした。
     public static bool[] ichigo_collection_listFlag; //いちごのお菓子のコレクションフラグ。
@@ -970,6 +975,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Bend_FadeAnimStart; //トゥルーエンドでないとき、タイトル画面のヒカリちゃんが明滅するフラグ
     public static bool ContestStartEnshutu_Flag; //コンテスト最初の演出中　終わればオフに。
     public static bool CatStartPanel_HyoujiKoushinFlag; //ねこ採取画面の表示更新　パネルのcsとExpTableとを連携させるよう
+    public static bool CatEscapeFlag; //
 
 
 
@@ -1358,6 +1364,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         outgirl_event_ON = true;
         outgirl_Nowprogress = false;
 
+        catcoming_count = 3;
+        catcoming_event_ON = false;
+        catcoming_event_endflag = false;
+
         hiroba_ichigo_first = false;
 
         hiroba_event_flag = false;
@@ -1588,6 +1598,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Bend_FadeAnimStart = false;
         ContestStartEnshutu_Flag = false;
         CatStartPanel_HyoujiKoushinFlag = false;
+        CatEscapeFlag = false;
 
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)

@@ -396,6 +396,8 @@ public class PlayerData
 
     //ねこ
     public bool save_catGetMat_PlayFlag;
+    public int save_catcoming_count;
+    public bool save_catcoming_event_ON;
 
     //音設定データ
     public float save_masterVolumeparam;

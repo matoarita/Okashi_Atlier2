@@ -11,6 +11,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private Compound_Main compound_Main;
 
     private ItemDataBase database;
+    private CatDataBase catDataBase;
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -49,6 +50,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
+
+        //ねこデータベースの取得
+        catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -1606,7 +1610,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (GameMgr.check_SleepEnd_Eventflag[5]) //ねておきたあとにチェック
                     {
                         GameMgr.check_SleepEnd_Eventflag[5] = false;
-                        Debug.Log("コンテスト終了後　ヒント発生チェック");
+                        Debug.Log("コンテスト終了後　ヒントと猫逃亡イベントチェック");
 
                         //ヒント系
                         /*if (GameMgr.GirlLoveSubEvent_stage1[421] == false)
@@ -1620,6 +1624,17 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 GameMgr.check_GirlLoveSubEvent_flag = false;
                             }
                         }*/
+
+                        //ねこが逃亡フラグもここで処理
+                        if (GameMgr.CatEscapeFlag)
+                        {
+                            GameMgr.CatEscapeFlag = false;
+
+                            GameMgr.GirlLoveSubEvent_num = 1300;
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                            GameMgr.Mute_on = true;
+                        }
                     }
                 }
             }
@@ -1778,6 +1793,26 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
             }*/
+
+            //ねこがランダムでやってくる
+            if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                //ねこイベントチェック
+                if (!GameMgr.outgirl_Nowprogress)
+                {
+                    //HLV12~  
+                    if (PlayerStatus.girl1_Love_lv >= 15)
+                    {
+                        if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 14) //12時から15時の間に、サイコロふる
+                        {
+                            CatRandomComingEvent();
+                        }
+                    }
+                }
+            }
+
 
             //街の人がきて、おかしのご依頼
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -2101,6 +2136,47 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
                 GameMgr.SubEvAfterHeartGet_num = 61;
+            }
+        }
+    }
+
+    void CatRandomComingEvent()
+    {
+        if (GameMgr.catcoming_count <= 0)
+        {
+            GameMgr.catcoming_event_ON = true;
+        }
+
+        if (GameMgr.catcoming_event_ON)
+        {
+            if (catDataBase.catdata_list.Count >= 6) //6匹以上いるときは、もうねこは来なくなる
+            {
+            }
+            else
+            {
+                random = Random.Range(0, 100);
+                Debug.Log("ねこ家くるイベント　抽選スタート　60以下で成功: " + random);
+
+                if (GameMgr.GirlLoveSubEvent_stage1[170])
+                {
+                    picnic_exprob = 20; //20%の確率で発生。
+                }
+                else
+                {
+                    picnic_exprob = 100; //初回は100%
+                }
+
+                if (random <= picnic_exprob)
+                {
+                    GameMgr.GirlLoveSubEvent_num = 170;
+                    GameMgr.GirlLoveSubEvent_stage1[170] = true; //イベント初発生の分をフラグっておく。
+                                                                 //GameMgr.catcoming_event_ON = false;
+                    GameMgr.catcoming_count = 7; //次の猫イベントまでの日数カウンタ
+
+                    GameMgr.check_GirlLoveTimeEvent_flag = false;
+
+                    GameMgr.Mute_on = true;
+                }
             }
         }
     }

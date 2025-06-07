@@ -1994,6 +1994,19 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.ReadGirlLoveTimeEvent_reading_now = false;
         }
 
+        //ねこイベントのとき
+        if (GameMgr.GirlLoveSubEvent_num == 170)
+        {
+            if ((int)engine.Param.GetParameter("CatComeOpen_num") == 0) //開けなかった
+            {
+                GameMgr.catcoming_event_ON = false;
+            }
+            else //開けた場合
+            {
+                //終了せずに、そのまま確認画面へ
+            }
+        }
+
         if (GameMgr.girlloveevent_bunki == 0)
         { }
         else if (GameMgr.girlloveevent_bunki == 1)

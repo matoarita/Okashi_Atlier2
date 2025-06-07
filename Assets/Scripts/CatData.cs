@@ -15,6 +15,8 @@ public class CatData
     public Sprite catIcon_sprite;
     //
 
+    public int caticon_Num;
+
     public string catnameHyouji;         //名前、画像ファイル名
 
     public int catType; //猫の種族　このタイプにより画像が決まる。ので、ここで保存する必要がない。
@@ -33,11 +35,12 @@ public class CatData
     public int catStatus; //ひまか採取中の状態 0=ひまで何もしてない。 100=探索に出かけ中。
     public bool catEsaNoGive; //エサをあげれなかったとき、不機嫌状態になる。セリフが変わる。次にエサをあげると、これはオフになる。
 
-    public CatData(string _id, string _catname, int _cattype, int _catcost, int _catcostlv, int _cattansaku_speed, int _cattansaku_kaisu, int _catexp, int _cathp, int _catlv,
+    public CatData(string _id, string _catname, int _caticon_num, int _cattype, int _catcost, int _catcostlv, int _cattansaku_speed, int _cattansaku_kaisu, int _catexp, int _cathp, int _catlv,
         string _cattansaku_mapname, int _catstatus, bool _catesa_nogive)
     {
         catID = _id;
 
+        caticon_Num = _caticon_num;
         catnameHyouji = _catname;
 
         catType = _cattype;

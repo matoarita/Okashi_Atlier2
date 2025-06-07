@@ -1198,6 +1198,10 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             {
                 _itemcount++;
             }
+            else if (emeralditemlist[i].ev_itemType == 2 && emeralditemlist[i].ev_itemKosu >= 1)
+            {
+                _itemcount++;
+            }
             //Debug.Log("アイテム名: " + emeralditemlist[i].event_itemName + "　所持数: " + emeralditemlist[i].ev_itemKosu);
         }
 
@@ -1212,6 +1216,10 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         for (i = 0; i < emeralditemlist.Count; i++)
         {
             if (emeralditemlist[i].ev_itemType == 1 && emeralditemlist[i].ev_ListOn == 1)
+            {
+                _itemcount++;
+            }
+            else if (emeralditemlist[i].ev_itemType == 2 && emeralditemlist[i].ev_ListOn >= 1)
             {
                 _itemcount++;
             }
