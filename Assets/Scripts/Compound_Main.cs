@@ -3929,8 +3929,9 @@ public class Compound_Main : MonoBehaviour
 
             if(GameMgr.ending_on)
             {
+                Debug.Log("Ending シーン移動");
                 //FadeManager.Instance.LoadScene("100_Ending", 0.3f);
-                FadeManager.Instance.LoadScene("110_TotalResult", 0.3f);
+                FadeManager.Instance.LoadScene("110_TotalResult", GameMgr.SceneFadeTime);
             }
         }
         else //シーン移動などしない場合は、以下デフォルトの処理

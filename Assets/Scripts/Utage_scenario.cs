@@ -1935,6 +1935,8 @@ public class Utage_scenario : MonoBehaviour
         }
         else { } //それ以外は普通にEnd
 
+        //Debug.Log("サブイベント　宴再生終了　直後");
+
         //ピクニックイベントの場合、終了のフラグ
         /*if (GameMgr.picnic_event_reading_now)
         {
@@ -5364,7 +5366,7 @@ public class Utage_scenario : MonoBehaviour
         }
     }
 
-    void EDBunki_Judge()
+    /*void EDBunki_Judge()
     {
         if (yusho_flag == false) // LV4 ノーマルED ED:C
         {
@@ -5421,7 +5423,7 @@ public class Utage_scenario : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
 
     IEnumerator PitemPresent()

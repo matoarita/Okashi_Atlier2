@@ -6589,8 +6589,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.Ending_counterenshutu_on = false;
 
         //エデン食べたのでED 分岐もここでチェック　100ヒカリ倒れる　101ヒカリ生きる隠しエンド
-        GameMgr.Ending_BunkiCheck();        
+        GameMgr.Ending_BunkiCheck();
 
+        GameMgr.GirlLoveSubEvent_num = 0; //念のため0でリセットしておく
         GameMgr.girlloveevent_bunki = 2;       
         GameMgr.girlEat_ON = false;
         GameMgr.Mute_on = true;

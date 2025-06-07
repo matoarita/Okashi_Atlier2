@@ -246,7 +246,6 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                                 PlayerStatus.player_contest_second = 0;
                                 SetMinuteToHourContest(5, 1); //5分たつ
                             }
-
                         }
                     }
                 }

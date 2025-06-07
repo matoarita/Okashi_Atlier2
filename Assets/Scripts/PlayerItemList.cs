@@ -73,6 +73,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     private int ev_evflag_num;
 
     private int i, j, k;
+    private int _kosu;
     private int tempID;
     private int count;
     private int sheet_count;
@@ -81,6 +82,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
 
     private int _itemcount;
     private int _itemid;
+    private string _name;
 
     private bool delete_koyuID_flag;
     private bool break_on;
@@ -320,7 +322,11 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
     public int ReturnItemKosu(string itemName)
     {
         _total_kosu = 0;
-        _total_kosu += playeritemlist[itemName];
+        if( playeritemlist.ContainsKey(itemName))
+        {
+            //Debug.Log("アイテム名　存在してる");
+            _total_kosu += playeritemlist[itemName];
+        }      
 
         //オリジナルアイテムリストも見る。
         for (i = 0; i < player_originalitemlist.Count; i++)
@@ -1215,20 +1221,6 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         return _itemcount;
     }
 
-    //コレクションアイテムの所持数総数をカウント
-    public int Count_CollectionItems()
-    {
-        _itemcount = 0;
-        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
-        {
-            if (ReturnItemKosu(GameMgr.CollectionItemsName[i]) > 0) //所持してた場合、+1
-            {
-                _itemcount++;
-            }
-        }
-
-        return _itemcount;
-    }
 
     //アイテムIDを入力すると、エメラルドアイテム名を返す処理
     public string NameFindEmerald(int _itemid)

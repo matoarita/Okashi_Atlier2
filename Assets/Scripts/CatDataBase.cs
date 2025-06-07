@@ -32,6 +32,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
     public List<CatData> catdata_list = new List<CatData>();
 
     private int i;
+    private int _dcatcount;
     private int _catstatus;
     private int _cathp;
     private bool _catesa_nogive;
@@ -240,14 +241,20 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
             }
         }
 
+        for (i = 0; i < deleteCatList.Count; i++)
+        {
+            Debug.Log(deleteCatList[i]);
+        }
+
         //~‡‚É‚µ‚ÄŒã‚ë‚©‚çíœ
         if (deleteCatList.Count > 0)
         {
             Debug.Log("HP=0‚Ì‚Ë‚±‚ª‚¢‚½‚Ì‚Å“¦–S");
 
-            for (i = 0; i < deleteCatList.Count; i++)
+            _dcatcount = deleteCatList.Count;
+            for (i = 0; i < _dcatcount; i++)
             {
-                catdata_list.RemoveAt(deleteCatList[deleteCatList.Count - 1 + i]);
+                catdata_list.RemoveAt(deleteCatList[_dcatcount - 1 - i]);
             }
         }
     }

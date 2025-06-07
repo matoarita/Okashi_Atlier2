@@ -96,6 +96,7 @@ public class AAA_TotalResult : MonoBehaviour {
     private int _collection_count;
     private int i;
     private int page_cullent;
+    private int _costumecount;
     private string _hukidashi_content;
 
     private Tween coinTween;
@@ -113,6 +114,8 @@ public class AAA_TotalResult : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        Debug.Log("110_TotalResult 読み中　スタート");
 
         //今いるシーン番号を指定
         GameMgr.Scene_Category_Num = 5000;
@@ -241,6 +244,7 @@ public class AAA_TotalResult : MonoBehaviour {
         GameMgr.stage1_clear_girl1_lovelv = PlayerStatus.girl1_Love_lv;
         GameMgr.stage1_clear_girl1_loveexp = PlayerStatus.girl1_Love_exp;
 
+        
         //★エンディング　各スコアの計算　重要
         Score_KeisanParam();
 
@@ -561,17 +565,17 @@ public class AAA_TotalResult : MonoBehaviour {
         total_recipi_count_text.text = GameMgr.game_Recipi_archivement_rate.ToString("f2") + "%";
 
         //コレクションアイテムの総数を計算
-        /*_collection_count = 0;
-        for (i = 0; i < GameMgr.CollectionItems.Count; i++)
+        _collection_count = 0;
+        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
         {
-            if (GameMgr.CollectionItems[i])
+            if (pitemlist.ReturnItemKosu(GameMgr.CollectionItemsName[i]) > 0) //所持してた場合、+1
             {
                 _collection_count++;
             }
-        }*/
-        //total_collection_count_text.text = _collection_count.ToString() + " / " + GameMgr.CollectionItems.Count.ToString();
+        }
 
         //衣装総数を計算
+        _costumecount = pitemlist.emeralditemlist_CostumeCount();
         total_costume_count_text.text = pitemlist.emeralditemlist_CostumeCount().ToString() + " / " + pitemlist.emeralditemlist_CostumeAllCount().ToString();
         total_costume_per = pitemlist.emeralditemlist_CostumeCount() / pitemlist.emeralditemlist_CostumeAllCount();
 
@@ -604,7 +608,7 @@ public class AAA_TotalResult : MonoBehaviour {
         //上記のパラメータをもとに、ゲームトータルスコアを計算
         //ハート総数+スターの数+コスチュームの数+コレクション数＋お菓子手帳の達成率
         total_score = (PlayerStatus.girl1_Love_exp / 10) + (PlayerStatus.player_ninki_param * 20) + 
-            (pitemlist.emeralditemlist_CostumeCount() * 20) + (pitemlist.Count_CollectionItems() * 5) + (int)(GameMgr.game_Recipi_archivement_rate * 9);
+            (_costumecount * 20) + (_collection_count * 5) + (int)(GameMgr.game_Recipi_archivement_rate * 9);
         //total_score = PlayerStatus.girl1_Love_exp;
 
         //パティシエランク計算　トータルスコアをもとに、SS S A B C D 6段階
@@ -613,7 +617,6 @@ public class AAA_TotalResult : MonoBehaviour {
 
         Shogo_JoukenCheck();
         //Shogo_JoukenCheck_old(); //１のときのやつ。
-
 
 
         player_rank_text.text = _rank;

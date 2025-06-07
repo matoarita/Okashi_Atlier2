@@ -263,6 +263,11 @@ public class BGM : MonoBehaviour {
                             case "Or_Bar_A1":
 
                                 _send_clip = sound60;
+
+                                if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour <= 12)
+                                {
+                                    _send_clip_ambient = Ambient1;
+                                }
                                 break;
 
                             case "Or_Bar_B1":

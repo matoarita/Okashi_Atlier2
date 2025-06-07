@@ -231,13 +231,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                         _compatible = _MS_pointup[j] * _msvalue[i];
 
                         _ms_sp_score7 += _MS_pointup[j] / 2 * _msvalue[i]; //メルヘンを足す
-                       
+                        _ms_sp_score5 -= _MS_pointup[j] / 2 * _msvalue[i]; //大人っぽさを減らす 
                     }
                 }
 
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score7 += 10;
                 aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
+                aisho_text3 = "大人らしさ + " + _ms_sp_score5.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
@@ -289,12 +290,14 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                         _compatible = _MS_pointup[j] * _msvalue[i];
 
                         _ms_sp_score6 += _MS_pointup[j] / 3 * _msvalue[i]; //子供っぽさを足す  
+                        _ms_sp_score5 -= _MS_pointup[j] / 3 * _msvalue[i]; //大人っぽさを減らす 
                     }
                 }
 
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score6 += 7;
                 aisho_text2 = "子供っぽい + " + _ms_sp_score6.ToString();
+                aisho_text3 = "大人らしさ + " + _ms_sp_score5.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
@@ -403,12 +406,13 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
                         _ms_sp_score7 += _MS_pointup[j] / 2 * _msvalue[i]; //メルヘンを加算
-                        
+                        _ms_sp_score5 -= _MS_pointup[j] / 2 * _msvalue[i]; //大人っぽさを減らす 
                     }
                 }
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score7 += 10; //メルヘンを加算
                 aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
+                aisho_text3 = "大人らしさ + " + _ms_sp_score5.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
