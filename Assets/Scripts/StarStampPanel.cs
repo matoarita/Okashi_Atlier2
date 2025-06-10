@@ -497,14 +497,13 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    _id = pitemlist.SearchEmeraldItemStringID("PinkGoth_Costume");
+                    _id = pitemlist.SearchEmeraldItemStringID("PinkUsagi_Costume");
                     newarea_titletext = "コスチューム";
-                    newarea_gohoubitext = "コスチューム１をゲット！！";
+                    newarea_gohoubitext = "ピンクのうさぎワンピースをゲット！！";
                     newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
                     pitemlist.add_EmeraldPlayerItem(_id, 1);
-                    //matplace_database.matPlaceKaikin("Amber_Lake");
                 }
                 break;
 
@@ -610,9 +609,9 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    _id = pitemlist.SearchEmeraldItemStringID("RedDress_Costume");
+                    _id = pitemlist.SearchEmeraldItemStringID("Patissier_Costume");
                     newarea_titletext = "コスチューム";
-                    newarea_gohoubitext = "コスチューム２をゲット！！";
+                    newarea_gohoubitext = "パティシエ服をゲット！！";
                     newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 

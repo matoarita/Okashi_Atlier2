@@ -81,7 +81,7 @@ public class Utage_scenario : MonoBehaviour
 
     private int picnic_place_num;
 
-    private int i, j;
+    private int i, j, count;
     private int random, random2;
     private int counter;
     private string recipi_Name;
@@ -118,6 +118,8 @@ public class Utage_scenario : MonoBehaviour
 
     //シーン中のキャラクタ画像を取得（NPCなど）
     private GameObject character;
+
+    private List<int> before_accelist = new List<int>();
 
     //BGMの取得
     private BGM sceneBGM;
@@ -4202,6 +4204,17 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.Costume_Num = 9999;
         trans_costume = GameMgr.Costume_Num;
         live2d_animator.SetInteger("trans_costume", trans_costume);
+
+        //アクセもぜんぶ外す
+        before_accelist.Clear();
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
+        {
+            if (pitemlist.emeralditemlist[i].ev_itemType == 2 && pitemlist.emeralditemlist[i].ev_ListOn == 1)
+            {
+                before_accelist.Add(pitemlist.emeralditemlist[i].ev_costumeEquip);
+                pitemlist.emeralditemlist[i].ev_costumeEquip = 0;
+            }
+        }
     }
 
     void Live2DCostume_UtageReset()
@@ -4211,6 +4224,17 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.Costume_Num = before_costume;
         trans_costume = GameMgr.Costume_Num;
         live2d_animator.SetInteger("trans_costume", trans_costume);
+
+        //アクセをつけなおす
+        count = 0;
+        for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
+        {
+            if (pitemlist.emeralditemlist[i].ev_itemType == 2 && pitemlist.emeralditemlist[i].ev_ListOn == 1)
+            {
+                pitemlist.emeralditemlist[i].ev_costumeEquip = before_accelist[count];
+                count++;
+            }
+        }
     }
 
 

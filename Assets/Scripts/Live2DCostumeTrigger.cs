@@ -35,7 +35,7 @@ public class Live2DCostumeTrigger : MonoBehaviour {
 
     private void OnEnable()
     {
-        InitSetting();
+        //InitSetting();
 
         ChangeCostume();
         ChangeAcce();
@@ -43,6 +43,8 @@ public class Live2DCostumeTrigger : MonoBehaviour {
 
     public void ChangeCostume()
     {
+        InitSetting();
+
         //01 黒エプロン　02 スク水　03 白い服　04 赤い服
         trans_costume = GameMgr.Costume_Num;
         live2d_animator.SetInteger("trans_costume", trans_costume);
@@ -50,6 +52,8 @@ public class Live2DCostumeTrigger : MonoBehaviour {
 
     public void ChangeAcce()
     {
+        InitSetting();
+
         for (i = 0; i < pitemlist.emeralditemlist.Count; i++)
         {
             if (pitemlist.emeralditemlist[i].ev_itemType == 2 && pitemlist.emeralditemlist[i].ev_ListOn == 1)

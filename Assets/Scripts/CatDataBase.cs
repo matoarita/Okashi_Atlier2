@@ -460,6 +460,8 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         //
         catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01"));
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01b"));
+        catIcon_voice.Add(241);
         catIcon_voice.Add(241);
 
         catType_name.Add("灰猫");
@@ -468,6 +470,8 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         //
         catIcon_sprite2.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_02"));
+        catIcon_sprite2.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_02b"));
+        catIcon_voice2.Add(239);
         catIcon_voice2.Add(239);
 
         catType_name.Add("茶猫");
@@ -476,6 +480,8 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         //
         catIcon_sprite3.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_03"));
+        catIcon_sprite3.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_03b"));
+        catIcon_voice3.Add(242);
         catIcon_voice3.Add(242);
 
         catType_name.Add("くろ");
@@ -484,6 +490,8 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         //
         catIcon_sprite4.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_04"));
+        catIcon_sprite4.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_04b"));
+        catIcon_voice4.Add(243);
         catIcon_voice4.Add(243);
 
         catType_name.Add("しろ");
@@ -494,19 +502,19 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
     void CatRandom_InitLibrary() //ランダム猫用のデータセット　タイプでちょっと差をつけてもいいかも？
     {
         SetInit_CustomCatData("ピサロ", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(4, 6), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("ノブナガ", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(4, 6), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("ノブナガ", 1, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(4, 6), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("ロドリゲス", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(4, 6), UnityEngine.Random.Range(1, 4), 2);
 
         SetInit_CustomCatData("じろきち", 0, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(3, 4), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("マロリー", 0, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(3, 4), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("マロリー", 1, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(3, 4), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("クルス", 0, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(3, 4), UnityEngine.Random.Range(1, 4), 2);        
 
         SetInit_CustomCatData("ボコ", 0, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("かにぱん", 0, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("かにぱん", 1, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("えびふらい", 0, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
 
         SetInit_CustomCatData("みこ", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(2, 3), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("メリー", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(2, 3), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("メリー", 1, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(2, 3), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("シヴァ", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(2, 3), UnityEngine.Random.Range(1, 4), 2);
     }
 }

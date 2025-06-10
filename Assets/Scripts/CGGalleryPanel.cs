@@ -110,7 +110,13 @@ public class CGGalleryPanel : MonoBehaviour {
                 eventlist_List[i].transform.Find("Text").GetComponent<Text>().text = GameMgr.HikariOmoide_Eventlist[(_count - 1) * page_stillcount + i].titleNameHyouji;
                 eventlist_List[i].transform.Find("Img").GetComponent<Image>().sprite = GameMgr.HikariOmoide_Eventlist[(_count - 1) * page_stillcount + i].imgIcon_sprite;
                 eventlist_List[i].GetComponent<Button>().interactable = true;
+                eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = true;
                 eventlist_List[i].GetComponent<GalleryPanel>()._id = (_count - 1) * page_stillcount + i; //IDも振っておく。GameMgr.event_collection_listの配列と一緒。
+            }
+            else
+            {
+                eventlist_List[i].GetComponent<Button>().interactable = false;
+                eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = false;
             }
         }
 
@@ -158,7 +164,12 @@ public class CGGalleryPanel : MonoBehaviour {
 
         for (i = 0; i < eventlist_List.Count; i++)
         {
-            if (GameMgr.HikariOmoide_Eventlist[_count - 1 + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
+            if (GameMgr.HikariOmoide_Eventlist[(_count - 1) * page_stillcount + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
+            {
+                eventlist_List[i].GetComponent<Button>().interactable = false;
+                eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = false;
+            }
+            else
             {
                 eventlist_List[i].GetComponent<Button>().interactable = false;
                 eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = false;
@@ -175,10 +186,15 @@ public class CGGalleryPanel : MonoBehaviour {
 
         for (i = 0; i < eventlist_List.Count; i++)
         {
-            if (GameMgr.HikariOmoide_Eventlist[_count - 1 + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
+            if (GameMgr.HikariOmoide_Eventlist[(_count - 1) * page_stillcount + i].Flag) //現在のページ-1で配列になおし、そこから各1~4枚を設定
             {
                 eventlist_List[i].GetComponent<Button>().interactable = true;
                 eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = true;
+            }
+            else
+            {
+                eventlist_List[i].GetComponent<Button>().interactable = false;
+                eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = false;
             }
         }
 

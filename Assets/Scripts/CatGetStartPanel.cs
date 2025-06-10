@@ -520,7 +520,7 @@ public class CatGetStartPanel : MonoBehaviour
     public void Debug_CatRandomAdd()
     {
 
-        catDataBase.SetInit_CustomCatData("", 0, Random.Range(0, 4), 250, Random.Range(200, 800), Random.Range(2, 6), 1, 0);
+        catDataBase.SetInit_CustomCatData("", Random.Range(0, 2), Random.Range(0, 4), 250, Random.Range(200, 800), Random.Range(2, 6), 1, 0);
         reset_and_DrawView();
     }
 

@@ -2019,6 +2019,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("cookie_powerup2");       
         CollectionItemsName.Add("crepe_powerup2");
         CollectionItemsName.Add("tea_powerup2");
+        CollectionItemsName.Add("infinity_fountain");
+        CollectionItemsName.Add("infinity_fountain_tansan");
         //CollectionItemsName.Add("neko_badge2");
         //CollectionItemsName.Add("music_box");
     }    

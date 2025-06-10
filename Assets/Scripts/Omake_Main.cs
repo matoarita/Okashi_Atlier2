@@ -207,8 +207,6 @@ public class Omake_Main : MonoBehaviour {
         fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
         fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 1.5f)
         .OnComplete(() => cg_gallerypanel_obj.GetComponent<CGGalleryPanel>().OnInteractPanel()); //入力をON        
-
-        //cg_gallerypanel_obj.GetComponent<CGGalleryPanel>().OnInteractPanel(); //入力をON
     }
 
     IEnumerator WaitSeconds()

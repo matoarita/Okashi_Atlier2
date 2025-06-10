@@ -755,7 +755,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //お宝イベントは、ここのイベント発生でなくスターパネル内で完結させる
                 StarReleaseEvent_check(1, 600, 0); //7なのでショートケーキのレシピゲット
                 StarReleaseEvent_check(2, 601, 0); //9なのでコスチュームゲット
-                StarReleaseEvent_check(3, 602, 1); //15なのでソーダアイランドいけるイベント
+                StarReleaseEvent_check(3, 9999, 1); //15なので、なんらかのイベント
                 StarReleaseEvent_check(5, 603, 1); //20なのでおふろいけるイベント　温泉地の解放？
                 StarReleaseEvent_check(6, 604, 0); //22なのでコスチューム2ゲット
                 //StarReleaseEvent_check(8, 605, 1); //30なのでマリトッツォのレシピゲット
@@ -2155,7 +2155,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             else
             {
                 random = Random.Range(0, 100);
-                Debug.Log("ねこ家くるイベント　抽選スタート　60以下で成功: " + random);
+                Debug.Log("ねこ家くるイベント　抽選スタート　20以下で成功: " + random);
 
                 if (GameMgr.GirlLoveSubEvent_stage1[170])
                 {

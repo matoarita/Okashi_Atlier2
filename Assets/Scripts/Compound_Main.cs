@@ -4656,10 +4656,32 @@ public class Compound_Main : MonoBehaviour
         else
         {
             PlayerStatus.player_girl_manpuku = 50; //満腹機能使ってないときは、常に50を保つ。
-        }   
+        }
+
+        //
+        //アイテム関係
+        //
+        DayStartItemPassive();
         
+
+
+
+        //寝たらスリープフラグもOFFに。
+        GameMgr.Sleep_CheckEnd = false;
+
+        //寝た後のサブイベントの発生チェック　コンテストの発生もないかここでチェックする
+        GameMgr.check_GirlLoveSubEvent_flag = false;
+        for (i = 0; i < GameMgr.check_SleepEnd_Eventflag.Length; i++) //寝ておきたあとにイベント発生するものがないか全てチェック
+        {
+            GameMgr.check_SleepEnd_Eventflag[i] = true;
+        }
+
+    }
+
+    void DayStartItemPassive()
+    {
         //ムゲンニワトリがたまごを産んでくれる
-        if(pitemlist.KosuCount("mugen_niwatori") >= 1)
+        if (pitemlist.KosuCount("mugen_niwatori") >= 1)
         {
             //まれにプレミアム卵うんでくれる
             random2 = Random.Range(0, 100);
@@ -4675,16 +4697,19 @@ public class Compound_Main : MonoBehaviour
             }
         }
 
-        //寝たらスリープフラグもOFFに。
-        GameMgr.Sleep_CheckEnd = false;
-
-        //寝た後のサブイベントの発生チェック　コンテストの発生もないかここでチェックする
-        GameMgr.check_GirlLoveSubEvent_flag = false;
-        for (i = 0; i < GameMgr.check_SleepEnd_Eventflag.Length; i++) //寝ておきたあとにイベント発生するものがないか全てチェック
+        //湧き出る泉から砂糖水が湧き出る
+        if (pitemlist.KosuCount("infinity_fountain") >= 1)
         {
-            GameMgr.check_SleepEnd_Eventflag[i] = true;
+            random = Random.Range(1, 5);
+            pitemlist.addPlayerItemString("sugerwater", random);
         }
 
+        //湧き出る泉から炭酸水が湧き出る
+        if (pitemlist.KosuCount("infinity_fountain_tansan") >= 1)
+        {
+            random = Random.Range(1, 5);
+            pitemlist.addPlayerItemString("water_soda", random);
+        }
     }
 
     void RandomFoodLottery()
