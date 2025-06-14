@@ -148,7 +148,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
 
     void EndAnim2()
     {
-        sc.PlaySe(237); //ピピーーー 99ドラ音
+        sc.PlaySe(244); //237ピピーーー 99ドラ音
         start_effect.SetActive(true);
         StartCoroutine("EndAnimWait2");
     }

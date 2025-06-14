@@ -1387,7 +1387,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("fantasian_cake_recipi");
+        GameMgr.PrizeItemList.Add("infinity_fountain");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -1446,7 +1446,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("ジョーカー");
     }
 
-    //〇コンチェルティーノ・イン・ブルー　青をテーマにしたお菓子　アクアマリンチョコやブルーチョコ、レーブドゥヴィオレッタ、すみれの青紅茶　ファンタジア手に入るから結構重要
+    //〇コンチェルティーノ・イン・ブルー　青をテーマにしたお菓子　アクアマリンチョコやブルーチョコ、レーブドゥヴィオレッタ、すみれの青紅茶
     void PrizeRankingSet46()
     {
         //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる

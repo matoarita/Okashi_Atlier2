@@ -38,6 +38,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private Debug_Panel debug_panel;
     private Text debug_taste_resultText;
 
+    private HikariOkashiExpTable hikariOkashiExpTable;
+
     private GameObject BlackPanel_event;
     private GameObject ScoreHyoujiPanel;
     private GameObject MainQuestOKPanel;
@@ -446,6 +448,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private float _buf_moneyup;
     private float _up_deg;
     private bool hlv_check;
+    private int _pstatus_up;
 
     private int _judge_sour = 40;
 
@@ -676,6 +679,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //レベルアップチェック用オブジェクトの取得
         exp_table = ExpTable.Instance.GetComponent<ExpTable>();
+
+        //ヒカリお菓子EXPデータベースの取得
+        hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
 
         //スペシャルお菓子クエストの取得
         special_quest = Special_Quest.Instance.GetComponent<Special_Quest>();
@@ -2454,6 +2460,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     TasteScore_keisan2(_taste_result, _taste_Type, _girllike);
                     break;
 
+                case "Cake":
+
+                    TasteScore_keisan3(_taste_result, _taste_Type, _girllike);
+                    break;
+
+                case "Chocolate":
+
+                    TasteScore_keisan3(_taste_result, _taste_Type, _girllike);
+                    break;
+
                 case "Rusk":
 
                     TasteScore_keisan2(_taste_result, _taste_Type, _girllike);
@@ -2605,6 +2621,77 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
+    //チョコレートを基準にした味
+    void TasteScore_keisan3(int _taste_result, string _taste_type, float _girllike)
+    {
+        if (Mathf.Abs(_taste_result) == 0)
+        {
+            Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
+            taste_score = 200;
+            taste_level = 8;
+        }
+        else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
+        {
+            Debug.Log(_taste_type + "Great!!");
+            taste_score = 120;
+            taste_level = 7;
+        }
+        else if (Mathf.Abs(_taste_result) < 12) //+-3~7　絶妙な塩梅
+        {
+            Debug.Log(_taste_type + "Great!!");
+            taste_score = 60;
+            taste_level = 6;
+        }
+        else if (Mathf.Abs(_taste_result) < 20) //+-8~14  すばらしい
+        {
+            Debug.Log(_taste_type + "Well done!");
+            taste_score = 20;
+            taste_level = 5;
+        }
+        else if (Mathf.Abs(_taste_result) < 30) //+15~22  すばらしい
+        {
+            Debug.Log(_taste_type + "Well done!");
+            taste_score = 0;
+            taste_level = 5;
+        }
+        else if (Mathf.Abs(_taste_result) < 40) //+-23~39　かなりいい感じ
+        {
+            Debug.Log(_taste_type + "Well!");
+            taste_score = -30;
+            taste_level = 4;
+        }
+        else if (Mathf.Abs(_taste_result) < 60) //+-29~59  いい感じ
+        {
+            Debug.Log(_taste_type + "Good!");
+            taste_score = -50;
+            taste_level = 4;
+        }
+        else if (Mathf.Abs(_taste_result) < 90) //+-60~89　ちょっと足りない
+        {
+            Debug.Log(_taste_type + "Normal");
+            taste_score = -100;
+            taste_level = 4;
+        }
+        else if (Mathf.Abs(_taste_result) < 120) //+-90~119　全然足りない
+        {
+            Debug.Log(_taste_type + "poor");
+            taste_score = -150;
+            taste_level = 3;
+        }
+        else if (Mathf.Abs(_taste_result) <= 150) //+-119~149
+        {
+            Debug.Log(_taste_type + "death..");
+            taste_score = -200;
+            taste_level = 2;
+        }
+        else if (Mathf.Abs(_taste_result) > 250) //+-250
+        {
+            Debug.Log(_taste_type + "death..");
+            taste_score = -250;
+            taste_level = 1;
+        }
+    }
+
 
 
     void ShokukanScore_keisan(string _temp_baseitemtype_sub)
@@ -2623,12 +2710,26 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 1: //ふわふわ
 
-                Fluffy_Score();
+                if (_temp_baseitemtype_sub == "Cake")
+                {
+                    Fluffy_Score(1);
+                }
+                else
+                {
+                    Fluffy_Score(0);
+                }
                 break;
 
             case 2: //なめらか
 
-                Smooth_Score();
+                if (_temp_baseitemtype_sub == "Chocolate")
+                {
+                    Smooth_Score(1);
+                }
+                else
+                {
+                    Smooth_Score(0);
+                }
                 break;
 
             case 3: //歯ごたえ
@@ -2649,14 +2750,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             case 10: //ゼリー　なめらかさ・歯ごたえ
 
                 Hardness_Score();
-                Smooth_Score();
+                Smooth_Score(0);
                 break;
 
             case 11: //パフェ　さくさく・ふわふわ・アイスのなめらかさ
 
                 Crispy_Score();
-                Fluffy_Score();
-                Smooth_Score();
+                Fluffy_Score(0);
+                Smooth_Score(0);
                 break;
 
             default:
@@ -2711,7 +2812,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log(GameMgr.Item_ShokukanTypeText + "ベース: " + _basecrispy + " 判定値: " + _girlcrispy[countNum] + " " + GameMgr.Item_ShokukanTypeText + "の点: " + crispy_score);
     }
 
-    void Fluffy_Score()
+    void Fluffy_Score(int _mstatus)
     {
         if (_girlfluffy[countNum] > 0)
         {
@@ -2729,7 +2830,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
                 else if (GameMgr.System_GirlEat_ShokukanParamKeisan == 1)
                 {
-                    fluffy_score = _basefluffy - _girlfluffy[countNum];
+                    if (_mstatus == 0)
+                    {
+                        fluffy_score = _basefluffy - _girlfluffy[countNum];
+                    }
+                    else
+                    {
+                        fluffy_score = (int)((_basefluffy - _girlfluffy[countNum]) * 1.2f);
+                    }
                 }
             }
             else
@@ -2752,7 +2860,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         Debug.Log("ふわふわ度ベース: " + _basefluffy + " 判定値: " + _girlfluffy[countNum] + " ふわふわ度の点: " + fluffy_score);
     }
 
-    void Smooth_Score()
+    void Smooth_Score(int _mstatus)
     {
         if (_girlsmooth[countNum] > 0)
         {
@@ -2770,7 +2878,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }
                 else if (GameMgr.System_GirlEat_ShokukanParamKeisan == 1)
                 {
-                    smooth_score = _basesmooth - _girlsmooth[countNum];
+                    if (_mstatus == 0)
+                    {
+                        smooth_score = _basesmooth - _girlsmooth[countNum];
+                    }
+                    else
+                    {
+                        smooth_score = (int)((_basesmooth - _girlsmooth[countNum]) * 1.2f);
+                    }
                 }                
             }
             else
@@ -3440,6 +3555,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //Getlove_exp = (int)(Getlove_exp * 0.3f); //ハートが上がりにくく補正
             GameMgr.RandomEatOkashi_counter++;
 
+            _pstatus_up = 0;
             if (GameMgr.NowEatOkashiID != 9999)
             {
                 if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
@@ -3466,6 +3582,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     //次で食べたいお菓子が強制的に変わる。
                     GameMgr.RandomEatOkashi_counter = 0;
                     girl1_status.RandomOkashiDecideMethod();
+
+                    //隠し味ステータスがあがる
+                    _pstatus_up = Random.Range(1,7);
+                    if (_pstatus_up > 0)
+                    {
+                        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1);
+                        //LvUpPanel5(GameMgr.Item_ShokukanTypeText, _pstatus_up);
+                    }
+                }
+                else
+                {
+                    //隠し味ステータスがあがる
+                    _pstatus_up = 1;
+                    hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1);
+                    _pstatus_up = 0; //ここで０にして、パネルは表示させない
                 }
             }
 
@@ -4287,6 +4418,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 }
 
+
                 if (Getlove_exp < 0) //ハートが下がる
                 {
                     DegHeartAnimOn(Getlove_exp, true); //trueだと音あり
@@ -4369,6 +4501,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                     }
                 }
+
+                
 
                 ResultOFF();
                 break;
@@ -5156,22 +5290,38 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }*/
 
                 //夏か秋どちらかのコンテストで優勝し、2つ目のレシピをゲットすれば先へすすめる
-                if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1 ||
+                /*if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1 ||
                 pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
                 {
                     Debug.Log("エデンレシピ2つ目をとったので、クエストクリア");
+                    sp_quest_clear = true;
+                }*/
+
+                //夏コンテストで優勝すると先へ進める
+                _id = conteststartList_database.SearchContestString("Or_Contest_002");
+                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
+                {
+                    Debug.Log("エデンコンテスト②で優勝したので、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;
 
             case 100220:
-                
+
                 //エデンのレシピ３つを持った時点でクリア
-                if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
+                /*if (pitemlist.KosuCountEvent("eden_recipi_02") >= 1 &&
                 pitemlist.KosuCountEvent("eden_recipi_03") >= 1 &&
                 pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
                 {
                     Debug.Log("エデンレシピ３つそろったので、クエストクリア");
+                    sp_quest_clear = true;
+                }*/
+
+                //秋コンテストで優勝すると先へ進める
+                _id = conteststartList_database.SearchContestString("Or_Contest_003");
+                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
+                {
+                    Debug.Log("エデンコンテスト③で優勝したので、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;
@@ -5189,10 +5339,20 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 100400:
 
-                //白クジラと女王様に会う 白クジラは、ハートをエデン必要LVまであげて、夢喰い沼を教えてもらうまでが条件
-                if (GameMgr.NPCHiroba_eventList[1510] && GameMgr.NPCHiroba_eventList[270])
+                //女王様に会う
+                if (GameMgr.NPCHiroba_eventList[1510])
                 {
-                    Debug.Log("白クジラと女王様と会う、クエストクリア");
+                    Debug.Log("女王様と会う、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100410:
+
+                //白クジラに会う 白クジラは、ハートをエデン必要LVまであげて、夢喰い沼を教えてもらうまでが条件
+                if (GameMgr.NPCHiroba_eventList[270])
+                {
+                    Debug.Log("白クジラと会う、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;
@@ -5755,6 +5915,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 case 100200: 
 
                     GameMgr.OkashiQuest_flag_stage1[2] = true;
+
+                    //3をとばして4へ
+                    GameMgr.OkashiQuest_flag_stage1[3] = true;
+                    GameMgr.GirlLoveEvent_stage1[30] = true;
                     break;
 
                 case 100300: 
@@ -6014,6 +6178,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (GetMP >= 1)
         {
             LvUpPanel4(GetMP);
+        }
+
+        //ステータスアップはここ
+        if (_pstatus_up > 0)
+        {
+            LvUpPanel5(GameMgr.Item_ShokukanTypeText, _pstatus_up);
         }
     }
 

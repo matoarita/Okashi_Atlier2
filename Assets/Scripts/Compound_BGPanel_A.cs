@@ -154,16 +154,23 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         if (GameMgr.System_CatAutoMaterial_ON)
         {
-            CatGetButton.SetActive(true);
-
-            //コンテスト中は、ねこは触れない
-            if (GameMgr.Contest_ON)
+            if (GameMgr.System_CatGetMat_Flag) //ねこ解禁フラグ　HLVで解禁？
             {
-                CatGetButton.GetComponent<Button>().interactable = false;
+                CatGetButton.SetActive(true);
+
+                //コンテスト中は、ねこは触れない
+                if (GameMgr.Contest_ON)
+                {
+                    CatGetButton.GetComponent<Button>().interactable = false;
+                }
+                else
+                {
+                    CatGetButton.GetComponent<Button>().interactable = true;
+                }
             }
             else
             {
-                CatGetButton.GetComponent<Button>().interactable = true;
+                CatGetButton.SetActive(false);
             }
         }
         else

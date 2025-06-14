@@ -1187,7 +1187,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
                 GameMgr.hikari_make_okashiKosu++;
                 _getexp = 2;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0, 0);
 
                 //成功すると、機嫌が少しよくなる。
                 if (!GameMgr.Contest_ON)
@@ -1201,7 +1201,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                 //生成されず。材料だけ消費。
                 _getexp = 5;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0);
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0, 0);
 
                 //コンテスト中は、ハート系は動かない
                 if (!GameMgr.Contest_ON)
@@ -1364,10 +1364,10 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         get_material = GameObject.FindWithTag("GetMaterial").GetComponent<GetMaterial>();
         getmatplace_panel = canvas.transform.Find("GetMatPlace_Panel").GetComponent<GetMatPlace_Panel>();
 
-        if (catsound) //採ってきた際、ねこボイスがなる なるのは、調合メインで時間経過のときのみ
+        /*if (catsound) //採ってきた際、ねこボイスがなる なるのは、調合メインで時間経過のときのみ
         {
             sc.PlaySe(catDataBase.SetVoice(_catid, 0));
-        }
+        }*/
         getmatplace_panel.InitializeResultItemDicts();
 
         //採取地とアイテムの決定　事前にセレクト画面で決めている

@@ -595,7 +595,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 //ヒカリのお菓子経験値の処理
                 _getexp = (int)(5f * database.items[GameMgr.hikari_make_okashiID].girl1_itemLike) * GameMgr.hikari_make_okashiKosu;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 0, 0);
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 0, 0, 0);
 
                 _itemType_subtext = GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji;
                 _nowlv = GameMgr.hikarimakeokashi_nowlv;

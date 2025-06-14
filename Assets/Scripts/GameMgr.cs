@@ -48,7 +48,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = true; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
-    public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
     public static bool System_ExtremeCompo_BaseitemON = true; //仕上げのときに、ベースアイテムを選択するところから選べる
 
     //各システムの使用の有無   
@@ -177,6 +177,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //条件競売のスコア
     public static int joukenkyobai_enemy_score = 258;
 
+    //プレイヤーステータスのお菓子パラメータの上限
+    public static int player_okashistatus_maxparam = 255;
+
     //魔法使用の場合、個数で減る確率 0.05なら、2個目以降から、5％ずつ減っていくということ
     public static float kosu_probabilty_debuf = 0.07f;
 
@@ -232,6 +235,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
     public static bool System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
     public static int System_Topping_Multiple_Max; //トッピングでのせられる個数限界
+    public static bool System_CatGetMat_Flag; //ねこの解禁フラグ
     public static bool System_ContestIcon_OnFlag; //コンテストアイコンをONにする
     public static bool System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
 
@@ -1262,6 +1266,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         System_Topping_Multiple_Flag = false;
         System_ContestIcon_OnFlag = false;
         System_BarQuestIcon_OnFlag = false;
+        System_CatGetMat_Flag = false;
         System_Topping_Multiple_Max = 1;
 
         AUTOSAVE_ON = false;

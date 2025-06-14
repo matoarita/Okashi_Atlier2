@@ -695,7 +695,7 @@ public class ContestListController : MonoBehaviour
                 }
 
                 //秋エデン登場
-                if (GameMgr.GirlLoveSubEvent_stage1[502])
+                if (GameMgr.GirlLoveEvent_num >= 22) //GameMgr.GirlLoveSubEvent_stage1[502] 旧　スターイベントで発生するようにしてた　現在は夏コンクリア後に自動ででる。
                 {
                     if (!GameMgr.Contest_NewReleaseList[41])
                     {

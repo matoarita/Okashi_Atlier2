@@ -800,7 +800,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 80; //一回戦相手の点数
+        GameMgr.contest_boss_score = 162; //一回戦相手の点数
         GameMgr.contest_boss_name = "エリカ";
     }
 
@@ -816,7 +816,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 111; //
+        GameMgr.contest_boss_score = 272; //
         GameMgr.contest_boss_name = "シスター・リーシュ";
     }
 
@@ -834,7 +834,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 176; //
+        GameMgr.contest_boss_score = 350; //
         GameMgr.contest_boss_name = "イセヤ";
     }
 
@@ -851,7 +851,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 140; //一回戦相手の点数
+        GameMgr.contest_boss_score = 178; //一回戦相手の点数
         GameMgr.contest_boss_name = "クルル";
     }
 
@@ -867,7 +867,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 172; //
+        GameMgr.contest_boss_score = 312; //
         GameMgr.contest_boss_name = "フォルトーネ";
     }
 
@@ -885,7 +885,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 258; //
+        GameMgr.contest_boss_score = 608; //
         GameMgr.contest_boss_name = "ベル";
     }
 

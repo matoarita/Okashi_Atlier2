@@ -4700,14 +4700,14 @@ public class Compound_Main : MonoBehaviour
         //湧き出る泉から砂糖水が湧き出る
         if (pitemlist.KosuCount("infinity_fountain") >= 1)
         {
-            random = Random.Range(1, 5);
+            random = Random.Range(1, 3);
             pitemlist.addPlayerItemString("sugerwater", random);
         }
 
         //湧き出る泉から炭酸水が湧き出る
         if (pitemlist.KosuCount("infinity_fountain_tansan") >= 1)
         {
-            random = Random.Range(1, 5);
+            random = Random.Range(1, 3);
             pitemlist.addPlayerItemString("water_soda", random);
         }
     }

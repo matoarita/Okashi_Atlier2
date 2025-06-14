@@ -545,6 +545,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
+                //GameMgr.Contest_BGMON = true;
+                GameMgr.Contest_PanelON = true;
+                GameMgr.Contest_MainStoryPlaceNum = 10;
 
                 break;
 
@@ -555,12 +558,12 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 //GameMgr.Contest_BGMON = true;
-                //GameMgr.Contest_PanelON = true;
-                //GameMgr.Contest_MainStoryPlaceNum = 10;
+                GameMgr.Contest_PanelON = true;
+                GameMgr.Contest_MainStoryPlaceNum = 20;
 
                 break;
 
-            case 30: //エデン3をゲットしよう！
+            case 30: //エデン3をゲットしよう！ 現在未使用
 
                 girl1_status.OkashiQuest_ID = 100300;
                 OkashiQuest_Count = 1;
@@ -572,7 +575,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 40: //最後　エデンレシピそろったので、女王様と白クジラにあいにいく
+            case 40: //最後　エデンレシピそろったので、女王様あいにいく
 
                 girl1_status.OkashiQuest_ID = 100400;
                 OkashiQuest_Count = 1;
@@ -596,10 +599,19 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 41: //エデンを作ろう！
+            case 41: //白クジラに会いに行く
 
                 girl1_status.OkashiQuest_ID = 100410;
                 OkashiQuest_Count = 2;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
+
+                break;
+
+            case 42: //エデンを作ろう！
+
+                girl1_status.OkashiQuest_ID = 100420;
+                OkashiQuest_Count = 3;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
@@ -759,6 +771,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(100300, 30);
         QuestDict.Add(100400, 40);
         QuestDict.Add(100410, 41);
+        QuestDict.Add(100420, 42);
         QuestDict.Add(100500, 50);
     }
 

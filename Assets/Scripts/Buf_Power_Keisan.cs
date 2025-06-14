@@ -1124,27 +1124,27 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             case 0:
 
-                _statusup = (int)(PlayerStatus.player_okashi_crispyup * 2.0f); //1で1上昇ぐらい？
+                _statusup = (int)(PlayerStatus.player_okashi_crispyup * 1.0f); //1で1上昇ぐらい？
                 break;
 
             case 1:
 
-                _statusup = (int)(PlayerStatus.player_okashi_fluffyup * 2.0f); //2で1分上昇ぐらい？
+                _statusup = (int)(PlayerStatus.player_okashi_fluffyup * 1.0f); //2で1分上昇ぐらい？
                 break;
 
             case 2:
 
-                _statusup = (int)(PlayerStatus.player_okashi_smoothup * 2.0f); //2で1分上昇ぐらい？
+                _statusup = (int)(PlayerStatus.player_okashi_smoothup * 1.0f); //2で1分上昇ぐらい？
                 break;
 
             case 3:
 
-                _statusup = (int)(PlayerStatus.player_okashi_hardnessup * 2.0f); //2で1分上昇ぐらい？
+                _statusup = (int)(PlayerStatus.player_okashi_hardnessup * 1.0f); //2で1分上昇ぐらい？
                 break;
 
             case 4: //ジューズ
 
-                _statusup = (int)(PlayerStatus.player_okashi_juiceup * 2.0f); //2で1分上昇ぐらい？
+                _statusup = (int)(PlayerStatus.player_okashi_juiceup * 1.0f); //2で1分上昇ぐらい？
                 break;
 
             case 5: //見た目なので、現在なし
@@ -1153,7 +1153,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case 6: //香り
 
-                _statusup = (int)(PlayerStatus.player_okashi_tea_flavorup * 2.0f); //2で1分上昇ぐらい？
+                _statusup = (int)(PlayerStatus.player_okashi_tea_flavorup * 1.0f); //2で1分上昇ぐらい？
                 break;
         }
 
@@ -1987,7 +1987,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     public void hikariBuf_okashilv(string _itemType_sub)
     {
         //ヒカリお菓子Expテーブルを起動
-        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(_itemType_sub, 0, 0, 1);
+        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(_itemType_sub, 0, 0, 1, 0);
         
         if (GameMgr.hikariokashiExpTable_noTypeflag)
         {
@@ -2079,7 +2079,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _buf_hikari_okashi_paramup = 1.0f;
 
         //ヒカリお菓子Expテーブルを起動
-        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(_itemType_sub, 0, 0, 1);
+        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(_itemType_sub, 0, 0, 1, 0);
 
         if (GameMgr.hikariokashiExpTable_noTypeflag)
         {

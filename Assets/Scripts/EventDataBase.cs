@@ -744,8 +744,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //
                 //StarEvent_check(GameMgr.System_StarBlockLv_04, 500, 1); //スター10で、お城へいけるように。手紙がくる。
                 StarEvent_check(5, 503, 1); //スター5で、プラトンアカデミーコンテスト解放 ここでスターの数値決めてOK
-                StarEvent_check(12, 501, 1); //スター15で、サマードリームフェスティバル解放 ここでスターの数値決めてOK
-                StarEvent_check(22, 502, 1); //スター25で、アルクアンシェル解放
+                StarEvent_check(12, 501, 1); //スター12で、サマードリームフェスティバル解放 ここでスターの数値決めてOK
+                //StarEvent_check(22, 502, 1); //スター25で、アルクアンシェル解放　はなしに。夏コンクリアで次の秋コンがでるように変更。
 
                 //
                 //スターパネル解放で発生するリリースイベント系
@@ -755,7 +755,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //お宝イベントは、ここのイベント発生でなくスターパネル内で完結させる
                 StarReleaseEvent_check(1, 600, 0); //7なのでショートケーキのレシピゲット
                 StarReleaseEvent_check(2, 601, 0); //9なのでコスチュームゲット
-                StarReleaseEvent_check(3, 9999, 1); //15なので、なんらかのイベント
+                StarReleaseEvent_check(3, 602, 1); //15なので、なんらかのイベント
                 StarReleaseEvent_check(5, 603, 1); //20なのでおふろいけるイベント　温泉地の解放？
                 StarReleaseEvent_check(6, 604, 0); //22なのでコスチューム2ゲット
                 //StarReleaseEvent_check(8, 605, 1); //30なのでマリトッツォのレシピゲット
@@ -1518,7 +1518,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 }
                             }
 
-                            //夏コンテスト優勝した場合、エデンをゲットしたぞ～のイベント
+                            //夏コンテスト優勝した場合、エデン２つめをゲットしたぞ～のイベント
                             if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1) //一位をゲットしてた＝エデン２をゲット
                             {
                                 //エデン二枚目を見るイベント
@@ -1527,6 +1527,21 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     GameMgr.GirlLoveSubEvent_stage1[400] = true;
 
                                     GameMgr.GirlLoveSubEvent_num = 400;
+                                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    GameMgr.Mute_on = true;
+
+                                }
+                            }
+
+                            //秋コンテスト優勝した場合、エデン３つめをゲットしたぞ～のイベント
+                            if (conteststartList_database.SearchContestVictory("Or_Contest_003") == 1) //一位をゲットしてた＝エデン３をゲット
+                            {
+                                //エデン二枚目を見るイベント
+                                if (!GameMgr.GirlLoveSubEvent_stage1[401])
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[401] = true;
+
+                                    GameMgr.GirlLoveSubEvent_num = 401;
                                     GameMgr.check_GirlLoveSubEvent_flag = false;
                                     GameMgr.Mute_on = true;
 
@@ -1928,10 +1943,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     void Event_startcheck(int _evnum, int _bgm, bool _getemerald, bool _subheart)
     {
-        if (GameMgr.check_StarPanel_Endflag) //スターパネルチェック中かチェック前は、イベント開始しない
+        /*if (GameMgr.check_StarPanel_Endflag) //スターパネルチェック中かチェック前は、イベント開始しない
         { }
         else
-        {
+        {*/
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.GirlLoveSubEvent_num = _evnum;
             GameMgr.GirlLoveSubEvent_stage1[_evnum] = true;
@@ -1960,7 +1975,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     pitemlist.add_eventPlayerItem(ev_id, 1); //ふたりのおうちのレシピを追加
                     break;
             }
-        }
+        //}
     }
 
 

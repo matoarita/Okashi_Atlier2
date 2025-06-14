@@ -238,7 +238,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score7 += 10;
                 aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
-                aisho_text3 = "大人らしさ + " + _ms_sp_score5.ToString();
+                aisho_text3 = "大人 " + _ms_sp_score5.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
@@ -297,7 +297,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score6 += 7;
                 aisho_text2 = "子供っぽい + " + _ms_sp_score6.ToString();
-                aisho_text3 = "大人らしさ + " + _ms_sp_score5.ToString();
+                aisho_text3 = "大人 " + _ms_sp_score5.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
@@ -412,7 +412,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //相性に関係なく、必ず点数を足す
                 _ms_sp_score7 += 10; //メルヘンを加算
                 aisho_text2 = "メルヘン + " + _ms_sp_score7.ToString();
-                aisho_text3 = "大人らしさ + " + _ms_sp_score5.ToString();
+                aisho_text3 = "大人 " + _ms_sp_score5.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目

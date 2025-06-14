@@ -24,7 +24,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
 		
 	}
 
-    public void hikariOkashi_ExpTableMethod(string _itemType_sub, int _getExp, int _status, int _mode) 
+    public void hikariOkashi_ExpTableMethod(string _itemType_sub, int _getExp, int _status, int _mode, int _pstatusbuf) 
     {
         GameMgr.hikariokashiExpTable_noTypeflag = false;
 
@@ -46,7 +46,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
         {
             case 0:
 
-                LVKeisanMethod(GameMgr.Item_OkashiSubType_Num, _status, _getExp);
+                LVKeisanMethod(GameMgr.Item_OkashiSubType_Num, _status, _getExp, _pstatusbuf);
                 break;
 
             case 1:
@@ -56,7 +56,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
         }
     }
 
-    void LVKeisanMethod(int Type_num, int _status, int _getExp)
+    void LVKeisanMethod(int Type_num, int _status, int _getExp, int _pstatusbuf)
     {
         _getexp = _getExp;
 
@@ -64,235 +64,410 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
         {
             case 0: //生地
 
-                if (_status == 0)
+                if (_pstatusbuf == 0)
                 {
-                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                    if (_status == 0)
+                    {
+                        _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                    }
+                    else
+                    {
+                        _getexp = _getExp;
+                    }
+                    PlayerStatus.player_girl_appaleil_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_appaleil_exp;
+                    _nowlv = PlayerStatus.player_girl_appaleil_lv;
+                    Check_OkashilvUP2();
+                    PlayerStatus.player_girl_appaleil_exp = _nowexp;
+                    PlayerStatus.player_girl_appaleil_lv = _nowlv;
+                    _itemType_subtext = "生地";
                 }
                 else
                 {
-                    _getexp = _getExp;
+                    //隠しの味ステータスをあげる
+                    //PlayerStatus.player_okashi_crispyup += _getexp;
                 }
-                PlayerStatus.player_girl_appaleil_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_appaleil_exp;
-                _nowlv = PlayerStatus.player_girl_appaleil_lv;
-                Check_OkashilvUP2();
-                PlayerStatus.player_girl_appaleil_exp = _nowexp;
-                PlayerStatus.player_girl_appaleil_lv = _nowlv;
-                _itemType_subtext = "生地";
                 break;
 
             case 1: //クッキー
 
-                PlayerStatus.player_girl_cookie_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_cookie_exp;
-                _nowlv = PlayerStatus.player_girl_cookie_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_cookie_exp = _nowexp;
-                PlayerStatus.player_girl_cookie_lv = _nowlv;
-                _itemType_subtext = "クッキー";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_cookie_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_cookie_exp;
+                    _nowlv = PlayerStatus.player_girl_cookie_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_cookie_exp = _nowexp;
+                    PlayerStatus.player_girl_cookie_lv = _nowlv;
+                    _itemType_subtext = "クッキー";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_crispyup += _getexp;
+                }
                 break;
 
             case 2: //チョコレート
 
-                PlayerStatus.player_girl_chocolate_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_chocolate_exp;
-                _nowlv = PlayerStatus.player_girl_chocolate_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_chocolate_exp = _nowexp;
-                PlayerStatus.player_girl_chocolate_lv = _nowlv;
-                _itemType_subtext = "チョコレート";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_chocolate_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_chocolate_exp;
+                    _nowlv = PlayerStatus.player_girl_chocolate_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_chocolate_exp = _nowexp;
+                    PlayerStatus.player_girl_chocolate_lv = _nowlv;
+                    _itemType_subtext = "チョコレート";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_smoothup += _getexp;
+                }
                 break;
 
             case 3: //キャンディ
 
-                PlayerStatus.player_girl_candy_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_candy_exp;
-                _nowlv = PlayerStatus.player_girl_candy_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_candy_exp = _nowexp;
-                PlayerStatus.player_girl_candy_lv = _nowlv;
-                _itemType_subtext = "キャンディ";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_candy_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_candy_exp;
+                    _nowlv = PlayerStatus.player_girl_candy_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_candy_exp = _nowexp;
+                    PlayerStatus.player_girl_candy_lv = _nowlv;
+                    _itemType_subtext = "キャンディ";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_hardnessup += _getexp;
+                }
                 break;
 
             case 4: //クレープ
 
-                if (_status == 0)
+                if (_pstatusbuf == 0)
                 {
-                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                    if (_status == 0)
+                    {
+                        _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                    }
+                    else
+                    {
+                        _getexp = _getExp;
+                    }
+                    PlayerStatus.player_girl_crepe_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_crepe_exp;
+                    _nowlv = PlayerStatus.player_girl_crepe_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_crepe_exp = _nowexp;
+                    PlayerStatus.player_girl_crepe_lv = _nowlv;
+                    _itemType_subtext = "クレープ";
                 }
                 else
                 {
-                    _getexp = _getExp;
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_fluffyup += _getexp;
                 }
-                PlayerStatus.player_girl_crepe_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_crepe_exp;
-                _nowlv = PlayerStatus.player_girl_crepe_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_crepe_exp = _nowexp;
-                PlayerStatus.player_girl_crepe_lv = _nowlv;
-                _itemType_subtext = "クレープ";
                 break;
 
             case 5: //シュークリーム
 
-                PlayerStatus.player_girl_creampuff_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_creampuff_exp;
-                _nowlv = PlayerStatus.player_girl_creampuff_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_creampuff_exp = _nowexp;
-                PlayerStatus.player_girl_creampuff_lv = _nowlv;
-                _itemType_subtext = "シュークリーム";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_creampuff_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_creampuff_exp;
+                    _nowlv = PlayerStatus.player_girl_creampuff_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_creampuff_exp = _nowexp;
+                    PlayerStatus.player_girl_creampuff_lv = _nowlv;
+                    _itemType_subtext = "シュークリーム";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_fluffyup += _getexp;
+                }
                 break;
 
             case 6: //ドーナツ
 
-                PlayerStatus.player_girl_donuts_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_donuts_exp;
-                _nowlv = PlayerStatus.player_girl_donuts_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_donuts_exp = _nowexp;
-                PlayerStatus.player_girl_donuts_lv = _nowlv;
-                _itemType_subtext = "ドーナツ";
-
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_donuts_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_donuts_exp;
+                    _nowlv = PlayerStatus.player_girl_donuts_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_donuts_exp = _nowexp;
+                    PlayerStatus.player_girl_donuts_lv = _nowlv;
+                    _itemType_subtext = "ドーナツ";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_fluffyup += _getexp;
+                }
                 break;
+
             case 7: //ジュース
 
-                PlayerStatus.player_girl_juice_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_juice_exp;
-                _nowlv = PlayerStatus.player_girl_juice_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_juice_exp = _nowexp;
-                PlayerStatus.player_girl_juice_lv = _nowlv;
-                _itemType_subtext = "ジュース";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_juice_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_juice_exp;
+                    _nowlv = PlayerStatus.player_girl_juice_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_juice_exp = _nowexp;
+                    PlayerStatus.player_girl_juice_lv = _nowlv;
+                    _itemType_subtext = "ジュース";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_juiceup += _getexp;
+                }
                 break;
 
             case 8: //ゼリー
 
-                PlayerStatus.player_girl_jelly_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_jelly_exp;
-                _nowlv = PlayerStatus.player_girl_jelly_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_jelly_exp = _nowexp;
-                PlayerStatus.player_girl_jelly_lv = _nowlv;
-                _itemType_subtext = "ゼリー";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_jelly_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_jelly_exp;
+                    _nowlv = PlayerStatus.player_girl_jelly_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_jelly_exp = _nowexp;
+                    PlayerStatus.player_girl_jelly_lv = _nowlv;
+                    _itemType_subtext = "ゼリー";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_smoothup += _getexp;
+                    PlayerStatus.player_okashi_hardnessup += _getexp;
+                }
                 break;
 
             case 9: //アイス
 
-                PlayerStatus.player_girl_icecream_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_icecream_exp;
-                _nowlv = PlayerStatus.player_girl_icecream_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_icecream_exp = _nowexp;
-                PlayerStatus.player_girl_icecream_lv = _nowlv;
-                _itemType_subtext = "アイス";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_icecream_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_icecream_exp;
+                    _nowlv = PlayerStatus.player_girl_icecream_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_icecream_exp = _nowexp;
+                    PlayerStatus.player_girl_icecream_lv = _nowlv;
+                    _itemType_subtext = "アイス";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_smoothup += _getexp;
+                }
                 break;
 
             case 10: //ケーキ
 
-                PlayerStatus.player_girl_cake_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_cake_exp;
-                _nowlv = PlayerStatus.player_girl_cake_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_cake_exp = _nowexp;
-                PlayerStatus.player_girl_cake_lv = _nowlv;
-                _itemType_subtext = "ケーキ";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_cake_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_cake_exp;
+                    _nowlv = PlayerStatus.player_girl_cake_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_cake_exp = _nowexp;
+                    PlayerStatus.player_girl_cake_lv = _nowlv;
+                    _itemType_subtext = "ケーキ";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_fluffyup += _getexp;
+                }
                 break;
 
             case 11: //ラスク
 
-                PlayerStatus.player_girl_rusk_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_rusk_exp;
-                _nowlv = PlayerStatus.player_girl_rusk_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_rusk_exp = _nowexp;
-                PlayerStatus.player_girl_rusk_lv = _nowlv;
-                _itemType_subtext = "ラスク";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_rusk_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_rusk_exp;
+                    _nowlv = PlayerStatus.player_girl_rusk_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_rusk_exp = _nowexp;
+                    PlayerStatus.player_girl_rusk_lv = _nowlv;
+                    _itemType_subtext = "ラスク";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_crispyup += _getexp;
+                }
                 break;
 
             case 12: //レアお菓子系
 
-                PlayerStatus.player_girl_rareokashi_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_rareokashi_exp;
-                _nowlv = PlayerStatus.player_girl_rareokashi_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_rareokashi_exp = _nowexp;
-                PlayerStatus.player_girl_rareokashi_lv = _nowlv;
-                _itemType_subtext = "高級";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_rareokashi_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_rareokashi_exp;
+                    _nowlv = PlayerStatus.player_girl_rareokashi_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_rareokashi_exp = _nowexp;
+                    PlayerStatus.player_girl_rareokashi_lv = _nowlv;
+                    _itemType_subtext = "高級";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_shokukanup += _getexp/2;
+                }
                 break;
 
             case 13: //ケーキ生地
 
-                if (_status == 0)
+                if (_pstatusbuf == 0)
                 {
-                    _getexp = 3 * GameMgr.hikari_make_okashiKosu;
+                    if (_status == 0)
+                    {
+                        _getexp = 3 * GameMgr.hikari_make_okashiKosu;
+                    }
+                    else
+                    {
+                        _getexp = _getExp;
+                    }
+                    PlayerStatus.player_girl_cake_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_cake_exp;
+                    _nowlv = PlayerStatus.player_girl_cake_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_cake_exp = _nowexp;
+                    PlayerStatus.player_girl_cake_lv = _nowlv;
+                    _itemType_subtext = "ケーキ";
                 }
                 else
                 {
-                    _getexp = _getExp;
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_fluffyup += _getexp / 2;
                 }
-                PlayerStatus.player_girl_cake_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_cake_exp;
-                _nowlv = PlayerStatus.player_girl_cake_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_cake_exp = _nowexp;
-                PlayerStatus.player_girl_cake_lv = _nowlv;
-                _itemType_subtext = "ケーキ";
                 break;
 
             case 14: //パン系（ラスク扱いなので11とほぼ内容同じ）
 
-                if (_status == 0)
+                if (_pstatusbuf == 0)
                 {
-                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                    if (_status == 0)
+                    {
+                        _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                    }
+                    else
+                    {
+                        _getexp = _getExp;
+                    }
+                    PlayerStatus.player_girl_rusk_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_rusk_exp;
+                    _nowlv = PlayerStatus.player_girl_rusk_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_rusk_exp = _nowexp;
+                    PlayerStatus.player_girl_rusk_lv = _nowlv;
+                    _itemType_subtext = "ラスク";
                 }
                 else
                 {
-                    _getexp = _getExp;
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_fluffyup += _getexp;
                 }
-                PlayerStatus.player_girl_rusk_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_rusk_exp;
-                _nowlv = PlayerStatus.player_girl_rusk_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_rusk_exp = _nowexp;
-                PlayerStatus.player_girl_rusk_lv = _nowlv;
-                _itemType_subtext = "ラスク";
                 break;
 
             case 15: //クリーム
 
-                if (_status == 0)
+                if (_pstatusbuf == 0)
                 {
-                    _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                    if (_status == 0)
+                    {
+                        _getexp = 2 * GameMgr.hikari_make_okashiKosu;
+                    }
+                    else
+                    {
+                        _getexp = _getExp;
+                    }
+                    PlayerStatus.player_girl_cream_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_cream_exp;
+                    _nowlv = PlayerStatus.player_girl_cream_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_cream_exp = _nowexp;
+                    PlayerStatus.player_girl_cream_lv = _nowlv;
+                    _itemType_subtext = "クリーム";
                 }
                 else
                 {
-                    _getexp = _getExp;
+                    //隠しの味ステータスをあげる
+                    //PlayerStatus.player_okashi_hardnessup += _getexp;
                 }
-                PlayerStatus.player_girl_cream_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_cream_exp;
-                _nowlv = PlayerStatus.player_girl_cream_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_cream_exp = _nowexp;
-                PlayerStatus.player_girl_cream_lv = _nowlv;
-                _itemType_subtext = "クリーム";
                 break;
 
             case 20: //お茶系
 
-                PlayerStatus.player_girl_tea_exp += _getexp;
-                _nowexp = PlayerStatus.player_girl_tea_exp;
-                _nowlv = PlayerStatus.player_girl_tea_lv;
-                Check_OkashilvUP();
-                PlayerStatus.player_girl_tea_exp = _nowexp;
-                PlayerStatus.player_girl_tea_lv = _nowlv;
-                _itemType_subtext = "ティー";
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_tea_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_tea_exp;
+                    _nowlv = PlayerStatus.player_girl_tea_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_tea_exp = _nowexp;
+                    PlayerStatus.player_girl_tea_lv = _nowlv;
+                    _itemType_subtext = "ティー";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_tea_flavorup += _getexp;
+                }
                 break;
         }
+
+        //各おかしステータスの上限チェック
+        PStatus_JougenCheck();
 
         GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji = _itemType_subtext;
         GameMgr.hikarimakeokashi_nowlv = _nowlv;
         GameMgr.hikarimakeokashi_finalgetexp = _getexp;
+    }
+
+    void PStatus_JougenCheck()
+    {
+        //各おかしステータスの上限チェック（PlayerStatusのバフ）
+
+        if(PlayerStatus.player_okashi_crispyup >= GameMgr.player_okashistatus_maxparam)
+        {
+            PlayerStatus.player_okashi_crispyup = GameMgr.player_okashistatus_maxparam;
+        }
+        if (PlayerStatus.player_okashi_fluffyup >= GameMgr.player_okashistatus_maxparam)
+        {
+            PlayerStatus.player_okashi_fluffyup = GameMgr.player_okashistatus_maxparam;
+        }
+        if (PlayerStatus.player_okashi_smoothup >= GameMgr.player_okashistatus_maxparam)
+        {
+            PlayerStatus.player_okashi_smoothup = GameMgr.player_okashistatus_maxparam;
+        }
+        if (PlayerStatus.player_okashi_hardnessup >= GameMgr.player_okashistatus_maxparam)
+        {
+            PlayerStatus.player_okashi_hardnessup = GameMgr.player_okashistatus_maxparam;
+        }
+        if (PlayerStatus.player_okashi_juiceup >= GameMgr.player_okashistatus_maxparam)
+        {
+            PlayerStatus.player_okashi_juiceup = GameMgr.player_okashistatus_maxparam;
+        }
+        if (PlayerStatus.player_okashi_tea_flavorup >= GameMgr.player_okashistatus_maxparam)
+        {
+            PlayerStatus.player_okashi_tea_flavorup = GameMgr.player_okashistatus_maxparam;
+        }
+
+        if (PlayerStatus.player_okashi_shokukanup >= GameMgr.player_okashistatus_maxparam)
+        {
+            PlayerStatus.player_okashi_shokukanup = GameMgr.player_okashistatus_maxparam;
+        }
     }
 
     void NowLvSetting(int _status) //BufPowerKeisan用
