@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 4,
-		"TotalSegmentCount": 4,
-		"TotalPointCount": 8,
+		"CurveCount": 7,
+		"TotalSegmentCount": 7,
+		"TotalPointCount": 14,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -48,6 +48,39 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamCosWhiteDress",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCosPatissier",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCosPinkUsagi",
+			"Segments": [
+				0,
+				0,
+				0,
+				1,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamCosLavender",
 			"Segments": [
 				0,
 				0,

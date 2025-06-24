@@ -1059,10 +1059,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(126);
-        GameMgr.PrizeScoreAreaList.Add(148);
-        GameMgr.PrizeScoreAreaList.Add(183);
-        GameMgr.PrizeScoreAreaList.Add(222);
+        GameMgr.PrizeScoreAreaList.Add(156);
+        GameMgr.PrizeScoreAreaList.Add(208);
+        GameMgr.PrizeScoreAreaList.Add(283);
+        GameMgr.PrizeScoreAreaList.Add(402);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1094,9 +1094,9 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(178);
-        GameMgr.PrizeScoreAreaList.Add(202);
-        GameMgr.PrizeScoreAreaList.Add(225);
-        GameMgr.PrizeScoreAreaList.Add(232);
+        GameMgr.PrizeScoreAreaList.Add(272);
+        GameMgr.PrizeScoreAreaList.Add(325);
+        GameMgr.PrizeScoreAreaList.Add(432);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();

@@ -181,7 +181,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int player_okashistatus_maxparam = 255;
 
     //魔法使用の場合、個数で減る確率 0.05なら、2個目以降から、5％ずつ減っていくということ
-    public static float kosu_probabilty_debuf = 0.07f;
+    public static float kosu_probabilty_debuf = 0.1f; //10%さがる
 
     //魔法状態のスロット名
     public static string System_MagicSlotName01 = "Fire_Flowers";
@@ -2091,19 +2091,19 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void InitTitleCollectionLibrary()
     {
         title_collection_list.Clear();
-        title_collection_list.Add(new SpecialTitle(000, "title1", "D:パティシエたまご", false, "Icon/badge_icon_01"));
-        title_collection_list.Add(new SpecialTitle(001, "title2", "C:パティシエかけだし", false, "Icon/badge_icon_09"));
-        title_collection_list.Add(new SpecialTitle(002, "title3", "B:パティシエ一人前", false, "Icon/badge_icon_11"));
-        title_collection_list.Add(new SpecialTitle(002, "title4", "A:シェフ・ド・パルティ", false, "Icon/badge_icon_11")); //真エンド～
-        title_collection_list.Add(new SpecialTitle(003, "title5", "A+:スー・シェフ", false, "Icon/badge_icon_10"));
-        title_collection_list.Add(new SpecialTitle(004, "title6", "S:シェフ・パティシエール", false, "Icon/badge_icon_12"));
-        title_collection_list.Add(new SpecialTitle(011, "title7", "SS:伝説のシェフ", false, "Icon/badge_icon_08"));
-        title_collection_list.Add(new SpecialTitle(005, "title100", "深紅-スカーレット-", false, "Icon/badge_icon_02")); //バッチアイコンのスプライトが入っている。２では使用しない
-        title_collection_list.Add(new SpecialTitle(006, "title101", "白羽-ホワイトプリム-", false, "Icon/badge_icon_03"));
-        title_collection_list.Add(new SpecialTitle(007, "title102", "蒼碧-ブルーヴェール-", false, "Icon/badge_icon_04"));
-        title_collection_list.Add(new SpecialTitle(008, "title103", "緑癒-ハイルング-", false, "Icon/badge_icon_05"));
-        title_collection_list.Add(new SpecialTitle(009, "title104", "ししゃもマニア", false, "Icon/badge_icon_06"));
-        title_collection_list.Add(new SpecialTitle(010, "title105", "ゴールドマスター", false, "Icon/badge_icon_07"));
+        title_collection_list.Add(new SpecialTitle(000, "title1", "D:パティシエたまご", false, "Icon/badge_icon_01", ""));
+        title_collection_list.Add(new SpecialTitle(001, "title2", "C:パティシエかけだし", false, "Icon/badge_icon_09", ""));
+        title_collection_list.Add(new SpecialTitle(002, "title3", "B:パティシエ一人前", false, "Icon/badge_icon_11", ""));
+        title_collection_list.Add(new SpecialTitle(002, "title4", "A:シェフ・ド・パルティ", false, "Icon/badge_icon_11", "")); //真エンド～
+        title_collection_list.Add(new SpecialTitle(003, "title5", "A+:スー・シェフ", false, "Icon/badge_icon_10", ""));
+        title_collection_list.Add(new SpecialTitle(004, "title6", "S:シェフ・パティシエール", false, "Icon/badge_icon_12", ""));
+        title_collection_list.Add(new SpecialTitle(011, "title7", "SS:伝説のシェフ", false, "Icon/badge_icon_08", ""));
+        title_collection_list.Add(new SpecialTitle(005, "title100", "深紅-スカーレット-", false, "Icon/badge_icon_02", "")); //バッチアイコンのスプライトが入っている。２では使用しない
+        title_collection_list.Add(new SpecialTitle(006, "title101", "白羽-ホワイトプリム-", false, "Icon/badge_icon_03", ""));
+        title_collection_list.Add(new SpecialTitle(007, "title102", "蒼碧-ブルーヴェール-", false, "Icon/badge_icon_04", ""));
+        title_collection_list.Add(new SpecialTitle(008, "title103", "緑癒-ハイルング-", false, "Icon/badge_icon_05", ""));
+        title_collection_list.Add(new SpecialTitle(009, "title104", "ししゃもマニア", false, "Icon/badge_icon_06", ""));
+        title_collection_list.Add(new SpecialTitle(010, "title105", "ゴールドマスター", false, "Icon/badge_icon_07", ""));
         
 
     }
@@ -2153,16 +2153,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         event_collection_list.Clear();       
                
-        event_collection_list.Add(new SpecialTitle(003, "event4", "うまいぞ！にいちゃんのクッキー", false, "EventCG_Icon/cg_gallery_icon_2"));
-        event_collection_list.Add(new SpecialTitle(004, "event5", "ラスクとありんこ", false, "EventCG_Icon/cg_gallery_icon_1"));
-        event_collection_list.Add(new SpecialTitle(005, "event6", "やもりのねがいごと", false, "EventCG_Icon/cg_gallery_icon_10"));
-        event_collection_list.Add(new SpecialTitle(006, "event7", "四つ葉の花かんむり", false, "EventCG_Icon/cg_gallery_icon_4"));
-        event_collection_list.Add(new SpecialTitle(007, "event8", "おにいちゃんにキス！", false, "EventCG_Icon/cg_gallery_icon_3"));
-        event_collection_list.Add(new SpecialTitle(008, "event9", "ねこちゃんのお墓", false, "EventCG_Icon/cg_gallery_icon_5"));
-        event_collection_list.Add(new SpecialTitle(009, "event10", "ままに会いたい", false, "EventCG_Icon/cg_gallery_icon_6"));
-        event_collection_list.Add(new SpecialTitle(000, "event1", "きらきらぽんぽん", false, "EventCG_Icon/cg_gallery_icon_7"));
-        event_collection_list.Add(new SpecialTitle(001, "event2", "おやすみ", false, "EventCG_Icon/cg_gallery_icon_8"));        
-        event_collection_list.Add(new SpecialTitle(002, "event3", "誕生日のクッキー", false, "EventCG_Icon/cg_gallery_icon_9"));
+        event_collection_list.Add(new SpecialTitle(003, "event4", "うまいぞ！にいちゃんのクッキー", false, "EventCG_Icon/cg_gallery_icon_2", ""));
+        event_collection_list.Add(new SpecialTitle(004, "event5", "ラスクとありんこ", false, "EventCG_Icon/cg_gallery_icon_1", ""));
+        event_collection_list.Add(new SpecialTitle(005, "event6", "やもりのねがいごと", false, "EventCG_Icon/cg_gallery_icon_10", ""));
+        event_collection_list.Add(new SpecialTitle(006, "event7", "四つ葉の花かんむり", false, "EventCG_Icon/cg_gallery_icon_4", ""));
+        event_collection_list.Add(new SpecialTitle(007, "event8", "おにいちゃんにキス！", false, "EventCG_Icon/cg_gallery_icon_3", ""));
+        event_collection_list.Add(new SpecialTitle(008, "event9", "ねこちゃんのお墓", false, "EventCG_Icon/cg_gallery_icon_5", ""));
+        event_collection_list.Add(new SpecialTitle(009, "event10", "ままに会いたい", false, "EventCG_Icon/cg_gallery_icon_6", ""));
+        event_collection_list.Add(new SpecialTitle(000, "event1", "きらきらぽんぽん", false, "EventCG_Icon/cg_gallery_icon_7", ""));
+        event_collection_list.Add(new SpecialTitle(001, "event2", "おやすみ", false, "EventCG_Icon/cg_gallery_icon_8", ""));        
+        event_collection_list.Add(new SpecialTitle(002, "event3", "誕生日のクッキー", false, "EventCG_Icon/cg_gallery_icon_9", ""));
 
         //デバッグ用
         /*for (system_i = 0; system_i < event_collection_list.Count; system_i++)
@@ -2231,29 +2231,29 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         contestclear_collection_list.Clear();
 
-        contestclear_collection_list.Add(new SpecialTitle(000, "contestclear1", "クッキーで優勝！", false, "Items/neko_cookie"));
-        contestclear_collection_list.Add(new SpecialTitle(001, "contestclear2", "カリカリ！ラスクで優勝！", false, "Items/rusk"));
-        contestclear_collection_list.Add(new SpecialTitle(002, "contestclear3", "ふんわり☆クレープで優勝！", false, "Items/crepe"));
-        contestclear_collection_list.Add(new SpecialTitle(003, "contestclear4", "さくふわ☆シュークリームで優勝！", false, "Items/creampuff"));
-        contestclear_collection_list.Add(new SpecialTitle(004, "contestclear5", "さっくり☆ドーナツで優勝！", false, "Items/donuts_pinkcharlotte"));
-        contestclear_collection_list.Add(new SpecialTitle(015, "contestclear16", "マフィンの王様！マフィンで優勝！", false, "Items/maffin_jewery"));
-        contestclear_collection_list.Add(new SpecialTitle(016, "contestclear17", "しっとり☆フィナンシェで優勝！", false, "Items/financier"));
-        contestclear_collection_list.Add(new SpecialTitle(017, "contestclear18", "ビスコッティで優勝！", false, "Items/biscouti"));
-        contestclear_collection_list.Add(new SpecialTitle(018, "contestclear19", "パンケーキマイスタ～！パンケーキで優勝！", false, "Items/pan_cake_maple"));
-        contestclear_collection_list.Add(new SpecialTitle(019, "contestclear20", "ほっこり！カステラで優勝！", false, "Items/castella"));
+        contestclear_collection_list.Add(new SpecialTitle(000, "contestclear1", "クッキーで優勝！", false, "Items/neko_cookie", ""));
+        contestclear_collection_list.Add(new SpecialTitle(001, "contestclear2", "カリカリ！ラスクで優勝！", false, "Items/rusk", ""));
+        contestclear_collection_list.Add(new SpecialTitle(002, "contestclear3", "ふんわり☆クレープで優勝！", false, "Items/crepe", ""));
+        contestclear_collection_list.Add(new SpecialTitle(003, "contestclear4", "さくふわ☆シュークリームで優勝！", false, "Items/creampuff", ""));
+        contestclear_collection_list.Add(new SpecialTitle(004, "contestclear5", "さっくり☆ドーナツで優勝！", false, "Items/donuts_pinkcharlotte", ""));
+        contestclear_collection_list.Add(new SpecialTitle(015, "contestclear16", "マフィンの王様！マフィンで優勝！", false, "Items/maffin_jewery", ""));
+        contestclear_collection_list.Add(new SpecialTitle(016, "contestclear17", "しっとり☆フィナンシェで優勝！", false, "Items/financier", ""));
+        contestclear_collection_list.Add(new SpecialTitle(017, "contestclear18", "ビスコッティで優勝！", false, "Items/biscouti", ""));
+        contestclear_collection_list.Add(new SpecialTitle(018, "contestclear19", "パンケーキマイスタ～！パンケーキで優勝！", false, "Items/pan_cake_maple", ""));
+        contestclear_collection_list.Add(new SpecialTitle(019, "contestclear20", "ほっこり！カステラで優勝！", false, "Items/castella", ""));
         //contestclear_collection_list.Add(new SpecialTitle(020, "contestclear21", "パンで優勝！", false, "Items/bugget"));
-        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "優雅なお茶会マスター！お茶で優勝！", false, "Items/rich_tea"));
-        contestclear_collection_list.Add(new SpecialTitle(006, "contestclear7", "健康！ビタミンNo.１！ジュースで優勝！", false, "Items/orange_juice"));
-        contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "イギリス紳士な朝食を！コーヒーで優勝！", false, "Items/coffee"));
-        contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "シンプル！素材の味で優勝！", false, "Items/crepe_maple"));
-        contestclear_collection_list.Add(new SpecialTitle(009, "contestclear10", "きみも、ジェリーボーイ！ゼリー優勝！", false, "Items/slimejelly"));
-        contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータで優勝！", false, "Items/princess_tota"));
-        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "オサ～レ☆ティラミスで優勝！", false, "Items/tiramisu"));
-        contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタで優勝！", false, "Items/violatte_suger"));
-        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "カンノーリでハードボイルドな優勝！", false, "Items/cannoli"));
-        contestclear_collection_list.Add(new SpecialTitle(013, "contestclear14", "アイスクリーム！ユースクリ～ム！で優勝！", false, "Items/icecream"));
-        contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "憧れのパフェマスタ～！パフェで優勝！", false, "Items/parfe_vanilla"));
-        contestclear_collection_list.Add(new SpecialTitle(022, "contestclear23", "キラキラ宝石職人！キャンディで優勝！", false, "Items/jewery_candy"));
+        contestclear_collection_list.Add(new SpecialTitle(005, "contestclear6", "優雅なお茶会マスター！お茶で優勝！", false, "Items/rich_tea", ""));
+        contestclear_collection_list.Add(new SpecialTitle(006, "contestclear7", "健康！ビタミンNo.１！ジュースで優勝！", false, "Items/orange_juice", ""));
+        contestclear_collection_list.Add(new SpecialTitle(007, "contestclear8", "イギリス紳士な朝食を！コーヒーで優勝！", false, "Items/coffee", ""));
+        contestclear_collection_list.Add(new SpecialTitle(008, "contestclear9", "シンプル！素材の味で優勝！", false, "Items/crepe_maple", ""));
+        contestclear_collection_list.Add(new SpecialTitle(009, "contestclear10", "きみも、ジェリーボーイ！ゼリー優勝！", false, "Items/slimejelly", ""));
+        contestclear_collection_list.Add(new SpecialTitle(010, "contestclear11", "乙女のプリンセストータで優勝！", false, "Items/princess_tota", ""));
+        contestclear_collection_list.Add(new SpecialTitle(011, "contestclear12", "オサ～レ☆ティラミスで優勝！", false, "Items/tiramisu", ""));
+        contestclear_collection_list.Add(new SpecialTitle(021, "contestclear22", "夢のレーヴドゥヴィオレッタで優勝！", false, "Items/violatte_suger", ""));
+        contestclear_collection_list.Add(new SpecialTitle(012, "contestclear13", "カンノーリでハードボイルドな優勝！", false, "Items/cannoli", ""));
+        contestclear_collection_list.Add(new SpecialTitle(013, "contestclear14", "アイスクリーム！ユースクリ～ム！で優勝！", false, "Items/icecream", ""));
+        contestclear_collection_list.Add(new SpecialTitle(014, "contestclear15", "憧れのパフェマスタ～！パフェで優勝！", false, "Items/parfe_vanilla", ""));
+        contestclear_collection_list.Add(new SpecialTitle(022, "contestclear23", "キラキラ宝石職人！キャンディで優勝！", false, "Items/jewery_candy", ""));
 
         //デバッグ用
         /*for (system_i = 0; system_i < contestclear_collection_list.Count; system_i++)
@@ -2331,36 +2331,36 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         bgm_collection_list.Clear();
 
-        bgm_collection_list.Add(new SpecialTitle(001, "bgm1", "デフォルト", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "太陽のワルツ", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "フィオーレ・ファティーナ", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie"));      
-        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィのアフタヌーンティー", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie"));       
-        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(012, "bgm12", "近くの森", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(014, "bgm14", "ベリーファーム", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(009, "bgm9", "陽だまりの午後", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(013, "bgm13", "いちごのおさんぽ道", false, "Items/neko_cookie"));      
-        bgm_collection_list.Add(new SpecialTitle(015, "bgm15", "ひまわりの想い出", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(016, "bgm16", "井戸～Ido～", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(017, "bgm17", "バードサンクチュアリ", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(018, "bgm18", "白猫のお墓<ジムノペディ～第1番～>", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(019, "bgm19", "大広場のカンタービレ", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(023, "bgm23", "プリンのお菓子店", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(024, "bgm24", "モタリケ・ファ～ム", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(025, "bgm25", "クエスト日和", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(006, "bgm6", "ずんたかぽんぽん・マーチ！", true, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(030, "bgm30", "パティシエール・レッスン", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(022, "bgm22", "不思議な3分間クッキング", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(020, "bgm20", "ウェルカム・トゥー・ヒカリのアトリエ", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(021, "bgm21", "風と共に", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(026, "bgm26", "ピクニックだよ！にいちゃん！", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(027, "bgm27", "小さな海の冒険", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(028, "bgm28", "天空の庭", false, "Items/neko_cookie"));
-        bgm_collection_list.Add(new SpecialTitle(029, "bgm29", "あったか帰り道", false, "Items/neko_cookie"));       
+        bgm_collection_list.Add(new SpecialTitle(001, "bgm1", "デフォルト", true, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(002, "bgm2", "太陽のワルツ", true, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(003, "bgm3", "フィオーレ・ファティーナ", true, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(004, "bgm4", "エプロンとワンピース", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(005, "bgm5", "悠久の午後", false, "Items/neko_cookie", ""));      
+        bgm_collection_list.Add(new SpecialTitle(007, "bgm7", "ヴィヴィのアフタヌーンティー", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(008, "bgm8", "白猫街道まっしぐら", false, "Items/neko_cookie", ""));       
+        bgm_collection_list.Add(new SpecialTitle(010, "bgm10", "ちっちゃなパティシエのお菓子作り", true, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(011, "bgm11", "アムルーズ・エマ", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(012, "bgm12", "近くの森", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(014, "bgm14", "ベリーファーム", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(009, "bgm9", "陽だまりの午後", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(013, "bgm13", "いちごのおさんぽ道", false, "Items/neko_cookie", ""));      
+        bgm_collection_list.Add(new SpecialTitle(015, "bgm15", "ひまわりの想い出", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(016, "bgm16", "井戸～Ido～", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(017, "bgm17", "バードサンクチュアリ", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(018, "bgm18", "白猫のお墓<ジムノペディ～第1番～>", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(019, "bgm19", "大広場のカンタービレ", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(023, "bgm23", "プリンのお菓子店", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(024, "bgm24", "モタリケ・ファ～ム", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(025, "bgm25", "クエスト日和", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(006, "bgm6", "ずんたかぽんぽん・マーチ！", true, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(030, "bgm30", "パティシエール・レッスン", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(022, "bgm22", "不思議な3分間クッキング", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(020, "bgm20", "ウェルカム・トゥー・ヒカリのアトリエ", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(021, "bgm21", "風と共に", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(026, "bgm26", "ピクニックだよ！にいちゃん！", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(027, "bgm27", "小さな海の冒険", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(028, "bgm28", "天空の庭", false, "Items/neko_cookie", ""));
+        bgm_collection_list.Add(new SpecialTitle(029, "bgm29", "あったか帰り道", false, "Items/neko_cookie", ""));       
     }
 
     //音楽リストのnameを入れると、フラグを置き換えるメソッド
@@ -2494,20 +2494,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Clear();
 
         //点数150～関係
-        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_2", "ふわっところっとした" + "\n" + "お菓子で高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_2", "マリトッツォで高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_2", "ショートケーキで高得点"));
 
         //ハートで発生するイベント系
-        HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLVで解放"));
 
         //スター・場所のイベント系
-        HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_2"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでにいちゃんと・・♪", false, "EventCG_Icon/cg_gallery_icon_2"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでにいちゃんと・・♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
     }
 
     //思い出イベントの現在のフラグを取得

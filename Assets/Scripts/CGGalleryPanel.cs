@@ -115,6 +115,7 @@ public class CGGalleryPanel : MonoBehaviour {
             }
             else
             {
+                eventlist_List[i].transform.Find("Text").GetComponent<Text>().text = GameMgr.HikariOmoide_Eventlist[(_count - 1) * page_stillcount + i].hintHyouji;
                 eventlist_List[i].GetComponent<Button>().interactable = false;
                 eventlist_List[i].GetComponent<Sound_Trigger>().se_sound_ON = false;
             }

@@ -127,6 +127,11 @@
 			"Name": "困り目専用"
 		},
 		{
+			"Id": "ParamIeiEyeToumeido",
+			"GroupId": "ParamGroup7",
+			"Name": "＞＜目"
+		},
+		{
 			"Id": "ParamCheek",
 			"GroupId": "ParamGroup7",
 			"Name": "照れ"
@@ -527,6 +532,21 @@
 			"Name": "白い服"
 		},
 		{
+			"Id": "ParamCosPatissier",
+			"GroupId": "ParamGroup6",
+			"Name": "パティシエ服"
+		},
+		{
+			"Id": "ParamCosPinkUsagi",
+			"GroupId": "ParamGroup6",
+			"Name": "ピンクうさぎ服"
+		},
+		{
+			"Id": "ParamCosLavender",
+			"GroupId": "ParamGroup6",
+			"Name": "ラベンダー服"
+		},
+		{
 			"Id": "ParamAcceBalloonHat",
 			"GroupId": "ParamGroup5",
 			"Name": "バルーンハット"
@@ -555,6 +575,16 @@
 			"Id": "ParamAcceStarDust",
 			"GroupId": "ParamGroup5",
 			"Name": "ティンクルスターダスト"
+		},
+		{
+			"Id": "ParamPatissierHat",
+			"GroupId": "ParamGroup5",
+			"Name": "パティシエ帽子"
+		},
+		{
+			"Id": "ParamDongriPorch",
+			"GroupId": "ParamGroup5",
+			"Name": "どんぐりポーチ"
 		},
 		{
 			"Id": "ParamArmKokyu",
@@ -780,6 +810,181 @@
 			"Id": "WhitePinkFrill_Yure_A3",
 			"GroupId": "ParamGroup3",
 			"Name": "白い服_スカートピンク横揺れA3"
+		},
+		{
+			"Id": "PattisierFrill_Yure_A1",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート横揺れA1"
+		},
+		{
+			"Id": "PattisierFrill_Yure_A2",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート横揺れA2"
+		},
+		{
+			"Id": "PattisierFrill_Yure_A3",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート横揺れA3"
+		},
+		{
+			"Id": "PattisierFrill_Yure_A4",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート横揺れA4"
+		},
+		{
+			"Id": "PattisierFrill_Yure_B1",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート横揺れB1"
+		},
+		{
+			"Id": "PattisierFrill_Yure_B2",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート横揺れB2"
+		},
+		{
+			"Id": "PattisierFrill_Yure_B3",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート横揺れB3"
+		},
+		{
+			"Id": "PattisierFrill_Yure_Hiro1",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート広がり1"
+		},
+		{
+			"Id": "PattisierFrill_Yure_Hiro2",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート広がり2"
+		},
+		{
+			"Id": "PattisierFrill_Yure_Hiro3",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート広がり3"
+		},
+		{
+			"Id": "PattisierFrill_Yure_Hiro4",
+			"GroupId": "ParamGroup3",
+			"Name": "パティシエ服_スカート広がり4"
+		},
+		{
+			"Id": "PinkSkirt_Yure_A1",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れA1"
+		},
+		{
+			"Id": "PinkSkirt_Yure_A2",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れA2"
+		},
+		{
+			"Id": "PinkSkirt_Yure_A3",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れA3"
+		},
+		{
+			"Id": "PinkSkirt_Yure_A4",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れA4"
+		},
+		{
+			"Id": "PinkSkirt_Yure_A5",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れA5"
+		},
+		{
+			"Id": "PinkSkirt_Yure_B1",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れB1"
+		},
+		{
+			"Id": "PinkSkirt_Yure_B2",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れB2"
+		},
+		{
+			"Id": "PinkSkirt_Yure_B3",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れB3"
+		},
+		{
+			"Id": "PinkSkirt_Yure_B4",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れB4"
+		},
+		{
+			"Id": "PinkSkirt_Yure_B5",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れB5"
+		},
+		{
+			"Id": "PinkSkirt_Yure_C1",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れC1"
+		},
+		{
+			"Id": "PinkSkirt_Yure_C2",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート横揺れC2"
+		},
+		{
+			"Id": "PinkSkirt_Yure_Hiro1",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート広がり1"
+		},
+		{
+			"Id": "PinkSkirt_Yure_Hiro2",
+			"GroupId": "ParamGroup3",
+			"Name": "ピンク服_スカート広がり2"
+		},
+		{
+			"Id": "LavenderSkirt_Yure_A1",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカート横揺れA1"
+		},
+		{
+			"Id": "LavenderSkirt_Yure_A2",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカート横揺れA2"
+		},
+		{
+			"Id": "LavenderSkirt_Yure_A3",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカート横揺れA3"
+		},
+		{
+			"Id": "LavenderSkirt_Yure_A4",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカート横揺れA4"
+		},
+		{
+			"Id": "LavenderSkirt_Yure_B1",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカート横揺れB1"
+		},
+		{
+			"Id": "LavenderSkirt_Yure_B2",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカート横揺れB2"
+		},
+		{
+			"Id": "LavenderSkirt_Yure_Hiro1",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカート広がり1"
+		},
+		{
+			"Id": "LavenderSkirt_Yure_Hiro2",
+			"GroupId": "ParamGroup3",
+			"Name": "ラベンダー服_スカート広がり2"
+		},
+		{
+			"Id": "DongriPorch_Yure_1",
+			"GroupId": "ParamGroup3",
+			"Name": "どんぐりポーチ揺れ1"
+		},
+		{
+			"Id": "DongriPorch_Yure_2",
+			"GroupId": "ParamGroup3",
+			"Name": "どんぐりポーチ揺れ2"
 		},
 		{
 			"Id": "Ltwintail_ribbon_A_1",
@@ -1527,8 +1732,16 @@
 			"Name": "エフェクト"
 		},
 		{
+			"Id": "Part12",
+			"Name": "どんぐりポーチ"
+		},
+		{
 			"Id": "Part",
 			"Name": "きらきら"
+		},
+		{
+			"Id": "Part15",
+			"Name": "パティシエ帽"
 		},
 		{
 			"Id": "Part2",
@@ -1587,6 +1800,18 @@
 			"Name": "猫尻尾"
 		},
 		{
+			"Id": "Part93",
+			"Name": "パティシエ"
+		},
+		{
+			"Id": "Part113",
+			"Name": "ピンク服"
+		},
+		{
+			"Id": "Part130",
+			"Name": "ラベンダーミニスカワンピ"
+		},
+		{
 			"Id": "Part30",
 			"Name": "白い服"
 		},
@@ -1639,6 +1864,54 @@
 			"Name": "猫しっぽ(回転)"
 		},
 		{
+			"Id": "Part94",
+			"Name": "パティシエ服_右手上"
+		},
+		{
+			"Id": "Part97",
+			"Name": "パティシエ服_左手"
+		},
+		{
+			"Id": "Part104",
+			"Name": "パティシエ服_胴体"
+		},
+		{
+			"Id": "Part108",
+			"Name": "パティシエ服_右手"
+		},
+		{
+			"Id": "Part114",
+			"Name": "ピンク服_右手上"
+		},
+		{
+			"Id": "Part117",
+			"Name": "ピンク服_左手"
+		},
+		{
+			"Id": "Part122",
+			"Name": "ピンク服_胴体"
+		},
+		{
+			"Id": "Part125",
+			"Name": "ピンク服_右手"
+		},
+		{
+			"Id": "Part131",
+			"Name": "ラベンダー服_右手上"
+		},
+		{
+			"Id": "Part134",
+			"Name": "ラベンダー服_左手"
+		},
+		{
+			"Id": "Part139",
+			"Name": "ラベンダー服_胴体"
+		},
+		{
+			"Id": "Part143",
+			"Name": "ラベンダー服_右手"
+		},
+		{
 			"Id": "Part31",
 			"Name": "白い服_右手上"
 		},
@@ -1685,6 +1958,158 @@
 		{
 			"Id": "Part82",
 			"Name": "黒エプロン_右手"
+		},
+		{
+			"Id": "Part95",
+			"Name": "パティシエ服_右手上混ぜ混ぜ"
+		},
+		{
+			"Id": "Part96",
+			"Name": "パティシエ服_右手上手合わせ"
+		},
+		{
+			"Id": "Part98",
+			"Name": "パティシエ服_左手上混ぜ混ぜ"
+		},
+		{
+			"Id": "Part99",
+			"Name": "パティシエ服_左手上手合わせ"
+		},
+		{
+			"Id": "Part100",
+			"Name": "パティシエ服_左手上グー"
+		},
+		{
+			"Id": "Part103",
+			"Name": "パティシエ服_左手立ち"
+		},
+		{
+			"Id": "Part105",
+			"Name": "パティシエ胸リボン"
+		},
+		{
+			"Id": "Part106",
+			"Name": "パティシエ腰リボン左"
+		},
+		{
+			"Id": "Part107",
+			"Name": "パティシエ腰リボン右"
+		},
+		{
+			"Id": "Part109",
+			"Name": "パティシエ服_右上腕手合わせ"
+		},
+		{
+			"Id": "Part110",
+			"Name": "パティシエ服_右上腕混ぜ混ぜ"
+		},
+		{
+			"Id": "Part111",
+			"Name": "パティシエ服_右手グー"
+		},
+		{
+			"Id": "Part112",
+			"Name": "パティシエ服_右手立ち"
+		},
+		{
+			"Id": "Part115",
+			"Name": "ピンク服_右手混ぜ混ぜ"
+		},
+		{
+			"Id": "Part116",
+			"Name": "ピンク服_右手手合わせ"
+		},
+		{
+			"Id": "Part118",
+			"Name": "ピンク服_左手上混ぜ混ぜ"
+		},
+		{
+			"Id": "Part119",
+			"Name": "ピンク服_左手上手合わせ"
+		},
+		{
+			"Id": "Part120",
+			"Name": "ピンク服_左手上グー"
+		},
+		{
+			"Id": "Part121",
+			"Name": "ピンク服_左手上立ち"
+		},
+		{
+			"Id": "Part123",
+			"Name": "ピンク服_胸リボン"
+		},
+		{
+			"Id": "Part124",
+			"Name": "ピンク服_腰リボン"
+		},
+		{
+			"Id": "Part126",
+			"Name": "ピンク服_右上腕手合わせ"
+		},
+		{
+			"Id": "Part127",
+			"Name": "ピンク服_右上腕混ぜ混ぜ"
+		},
+		{
+			"Id": "Part128",
+			"Name": "ピンク服_右手グー"
+		},
+		{
+			"Id": "Part129",
+			"Name": "ピンク服_右手立ち"
+		},
+		{
+			"Id": "Part132",
+			"Name": "ラベンダー服_右手混ぜ混ぜ"
+		},
+		{
+			"Id": "Part133",
+			"Name": "ラベンダー服_右手手合わせ"
+		},
+		{
+			"Id": "Part135",
+			"Name": "ラベンダー服_左手上混ぜ混ぜ"
+		},
+		{
+			"Id": "Part136",
+			"Name": "ラベンダー服_左手上手合わせ"
+		},
+		{
+			"Id": "Part137",
+			"Name": "ラベンダー服_左手上グー"
+		},
+		{
+			"Id": "Part138",
+			"Name": "ラベンダー服_左手上立ち"
+		},
+		{
+			"Id": "Part140",
+			"Name": "ラベンダー服_胸リボン"
+		},
+		{
+			"Id": "Part141",
+			"Name": "ラベンダー服_腰左リボン"
+		},
+		{
+			"Id": "Part142",
+			"Name": "ラベンダー服_腰右リボン"
+		},
+		{
+			"Id": "Part144",
+			"Name": "ラベンダー服_右上腕手合わせ"
+		},
+		{
+			"Id": "Part145",
+			"Name": "ラベンダー服_右上腕混ぜ混ぜ"
+		},
+		{
+			"Id": "Part146",
+			"Name": "ラベンダー服_右手グー"
+		},
+		{
+			"Id": "Part147",
+			"Name": "ラベンダー服_右手立ち"
 		},
 		{
 			"Id": "Part32",

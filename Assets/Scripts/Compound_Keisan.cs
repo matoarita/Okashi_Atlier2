@@ -2746,6 +2746,26 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basetp[i] = "Non";
             }
         }
+
+        //パイベースは10個できるので、一個あたりの食感を下げる。
+        if (_basename == "pie_base") //
+        {
+            _basecrispy = _basecrispy / 5;
+            _basefluffy = _basefluffy / 5;
+            _basesmooth = _basesmooth / 5;
+            _basehardness = _basehardness / 5;
+        }
+
+        //ケーキベース（スポンジのせるだけ）は、食感が上がりすぎないように調整 粉っぽさも減らす
+        if (_base_itemType_subB == "a_Cake_MatBase") //
+        {
+            _basecrispy = (int)(_basecrispy * 0.75f);
+            _basefluffy = (int)(_basefluffy * 0.75f);
+            _basesmooth = (int)(_basesmooth * 0.75f);
+            _basehardness = (int)(_basehardness * 0.75f);
+
+            _basepowdery = _basepowdery / 2;
+        }
     }
 
 

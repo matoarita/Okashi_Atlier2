@@ -45,7 +45,7 @@ public class Live2DCostumeTrigger : MonoBehaviour {
     {
         InitSetting();
 
-        //01 黒エプロン　02 スク水　03 白い服　04 赤い服
+        //01 黒エプロン　02 スク水　03 白い服　04 赤い服 05 ラベンダー 06 ピンクうさぎ 07 パティシエ
         trans_costume = GameMgr.Costume_Num;
         live2d_animator.SetInteger("trans_costume", trans_costume);
     }
@@ -154,6 +154,38 @@ public class Live2DCostumeTrigger : MonoBehaviour {
                         {
                             trans_acce = 1;
                             live2d_animator.SetInteger("trans_acce06", trans_acce);
+                            //Debug.Log("trans_acce ON: " + trans_acce);
+                        }
+                        break;
+
+                    case "DongriPochet_Acce": //どんぐりポシェット
+
+                        if (pitemlist.emeralditemlist[i].ev_costumeEquip == 0) //OFF
+                        {
+                            trans_acce = 0;
+                            live2d_animator.SetInteger("trans_acce07", trans_acce);
+                            //Debug.Log("trans_acce OFF: " + trans_acce);
+                        }
+                        else //ON
+                        {
+                            trans_acce = 1;
+                            live2d_animator.SetInteger("trans_acce07", trans_acce);
+                            //Debug.Log("trans_acce ON: " + trans_acce);
+                        }
+                        break;
+
+                    case "PatissierHat_Acce": //パティシエハット
+
+                        if (pitemlist.emeralditemlist[i].ev_costumeEquip == 0) //OFF
+                        {
+                            trans_acce = 0;
+                            live2d_animator.SetInteger("trans_acce08", trans_acce);
+                            //Debug.Log("trans_acce OFF: " + trans_acce);
+                        }
+                        else //ON
+                        {
+                            trans_acce = 1;
+                            live2d_animator.SetInteger("trans_acce08", trans_acce);
                             //Debug.Log("trans_acce ON: " + trans_acce);
                         }
                         break;

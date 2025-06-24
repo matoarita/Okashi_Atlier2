@@ -237,11 +237,11 @@ SE表
 ・SE_235	ずっこける					ドシーンとギャグっぽくこける音
 ・SE_236	布団に倒れ込む					布団に倒れ込む音　ポス
 ・SE_237	カーテンを開ける				カーテンをシャっと開ける音
-・SE_238	audiostock_207436_sample			ホイッスルピピー音
-・SE_239	audiostock_1436039_sample			タイトルインのジャキン音
+・SE_238	audiostock_207436_sample			【未使用】ホイッスルピピー音
+・SE_239	audiostock_1436039_sample			【未使用】タイトルインのジャキン音
 ・SE_240	猫の鳴き声1					ねこのなき声
 ・SE_241	audiostock_497314_sample			ねこの悲しいなき声
 ・SE_242	audiostock_71160_sample				ねこのなき声２だみ
 ・SE_243	09うるにゃーおー				ねこのなき声３うるにゃあ
 ・SE_244	audiostock_541296_sample			ねこのなき声４だみ２
-・SE_245	audiostock_1096795_sample			コンテストタイトルドーン音
+・SE_245	audiostock_1096795_sample			【未使用】コンテストタイトルドーン音

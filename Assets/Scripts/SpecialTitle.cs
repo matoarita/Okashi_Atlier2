@@ -15,18 +15,20 @@ public class SpecialTitle
     public bool Flag; //イベントアイテム用の項目
     public int Score;
     public Item ItemData; //アイテムのデータ保存用
+    public string hintHyouji;
 
     public Sprite imgIcon_sprite; //使う場合は、_fileNameに、"Sprites/"以下のフォルダ名/画像データ名を指定。使わない場合は、Non
     //ここまで
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public SpecialTitle(int _id, string _name, string _namehyouji, bool _flag, string _fileName)
+    public SpecialTitle(int _id, string _name, string _namehyouji, bool _flag, string _fileName, string _hinthyouji)
     {
         ID = _id;
         titleName = _name;
         titleNameHyouji = _namehyouji;
         Flag = _flag;
+        hintHyouji = _hinthyouji;
 
         if (_fileName != "Non")
         {
