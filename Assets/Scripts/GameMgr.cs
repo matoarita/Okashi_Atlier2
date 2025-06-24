@@ -980,6 +980,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool ContestStartEnshutu_Flag; //コンテスト最初の演出中　終わればオフに。
     public static bool CatStartPanel_HyoujiKoushinFlag; //ねこ採取画面の表示更新　パネルのcsとExpTableとを連携させるよう
     public static bool CatEscapeFlag; //
+    public static int CountOmoideFlag;
 
 
 
@@ -1991,7 +1992,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         topping_Set_Count = 2;
 
         //メインBGMの番号
-        mainBGM_Num = 0;
+        mainBGM_Num = 0; //メインテーマ曲設定
         userBGM_Num = 0;
 
         Shopday = 0;
@@ -2539,6 +2540,23 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         }
     }
 
+    //取得済の思い出イベントのフラグをカウント
+    public static int CountHikariOmoideFlag()
+    {
+        CountOmoideFlag = 0;
+
+        //Debug.Log("思い出イベントフラグセットの処理入る");
+        for (system_i = 0; system_i < HikariOmoide_Eventlist.Count; system_i++)
+        {
+            if (HikariOmoide_Eventlist[system_i].Flag)
+            {
+                CountOmoideFlag++;
+            }
+        }
+
+        return CountOmoideFlag;
+    }
+
     //はじめて作ったお菓子のイベントリスト
     public static void Init_OkashiAtFirstEvent_Library()
     {
@@ -2598,10 +2616,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //100ヒカリ倒れる　101ヒカリ生きる隠しエンド
         if (PlayerStatus.player_ninki_param >= System_StampStarMax) //①トゥルーエンド条件　まず、スターはマックスまで取る
         {
-            if (Okashi_totalscore >= 500) //②エデンの得点が500点以上 GirlEat_JudgeでOkashi_totalscoreは事前計算
+            if (CountHikariOmoideFlag() >= HikariOmoide_Eventlist.Count) //②思い出　ギャラリーすべて埋める 　※なくした　エデンの得点が500点以上 GirlEat_JudgeでOkashi_totalscoreは事前計算 Okashi_totalscore >= 500
             {
-                GirlLoveEvent_num = 101;
-                ending_number = 1;
+                if(PlayerStatus.girl1_Love_maxlv >= 90) //③ハートレベルが90
+                {
+                    GirlLoveEvent_num = 101;
+                    ending_number = 1;
+                }
+                else
+                {
+                    GirlLoveEvent_num = 100;
+                    ending_number = 2;
+                }               
             }
             else
             {

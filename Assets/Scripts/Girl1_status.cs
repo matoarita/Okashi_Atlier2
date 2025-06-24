@@ -1636,9 +1636,18 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1000: //タイトルのときのセリフ
 
-                if (GameMgr.Bend_FadeAnimStart) //真エンドでないときの明滅アニメ中　Character_EndingAnimのほうで、モーションと吹き出しをコントロール
+                if (GameMgr.Bend_FadeAnimStart) //真エンドでないときの明滅アニメ中の表示
                 {
-
+                    random = Random.Range(0, 100);
+                    if (random < 20)
+                    {
+                        IdleMotionHukidashiSetting(440); //ランダムモーションと吹き出しも一緒に生成   
+                    }
+                    else
+                    {
+                        //デフォルト　女の子のハートレベルに沿って各モーションをランダムで再生する
+                        IdleChange();
+                    }
                 }
                 else
                 {
@@ -3750,6 +3759,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 _touchface_comment_lib.Add("..にいちゃん。");
                 break;
+        }
+
+        //例外処理
+        if(_touchface_comment_lib.Count == 0)
+        {
+            _touchface_comment_lib.Add("..にいちゃん。");
         }
 
         random = Random.Range(0, _touchface_comment_lib.Count);

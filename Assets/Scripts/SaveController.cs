@@ -1391,6 +1391,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //エクストリームパネルも空に。
         pitemlist.deleteAllExtremePanelItem();
 
+        //各コスチュームもリセット アクセは上のイベントアイテムリストのリセットで0にしてる
+        GameMgr.Costume_Num = 0;
+
     }
 
     //ゲーム「はじめから」で、システムロード後に、再度リセットする。絶対にリセットしておきたいパラメータだけ、再度リセットするイメージ。

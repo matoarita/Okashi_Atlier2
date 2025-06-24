@@ -30,7 +30,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     private int i, random;
     private int picnic_exprob;
-    private int ev_id;
+    private int _id, ev_id;
     private bool _fire;
     private string _basename, _baseitemtype_sub, _baseitemtype_subB;
 
@@ -726,11 +726,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
                 //HeartEvent_check(15, 350, 1);
                 HeartEvent_check(20, 302, 1, "Non"); //ヒカリ二個トッピング仕上げできるようになる
-                //HeartEvent_check(25, 351, 1, "Non"); //お花のおかし仮  
-                //HeartEvent_check(30, 354, 1, "Non"); //カマキリ仮
-                HeartEvent_check(40, 355, 1, "dragon_carnival"); //ドラゴンカーニバル
-                HeartEvent_check(45, 356, 1, "ramen"); //らーめん
-                //HeartEvent_check(50, 357, 1, "Non"); //おにもふ
+
+                HeartEvent_check(50, 356, 1, "ramen"); //らーめん
                 //HeartEvent_check(60, 356, 1);
                 //HeartEvent_check(70, 357, 1);
                 //HeartEvent_check(80, 358, 1, "Non");
@@ -753,14 +750,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //StarRank_ReleaseListの配列番号をみる　例)1 = starが7のときに解放されるイベントのこと GameMgr.Star_Eventlistを参照
                 //2番目はsubEventのnum 3番目はBGM　1のときは宴のBGMを鳴らす
                 //お宝イベントは、ここのイベント発生でなくスターパネル内で完結させる
-                StarReleaseEvent_check(1, 600, 0); //7なのでショートケーキのレシピゲット
-                StarReleaseEvent_check(2, 601, 0); //9なのでコスチュームゲット
-                StarReleaseEvent_check(3, 602, 1); //15なので、なんらかのイベント
-                StarReleaseEvent_check(5, 603, 1); //20なのでおふろいけるイベント　温泉地の解放？
-                StarReleaseEvent_check(6, 604, 0); //22なのでコスチューム2ゲット
-                //StarReleaseEvent_check(8, 605, 1); //30なのでマリトッツォのレシピゲット
-                StarReleaseEvent_check(9, 606, 1); //32なのでスウィートホテルいけるイベント
-                StarReleaseEvent_check(10, 610, 1); //43なのでラストイベント　ヒカリからさくらの指輪をもらう
+                StarReleaseEvent_check(1, 600, 0, "Non"); //7なのでショートケーキのレシピゲット
+                StarReleaseEvent_check(2, 601, 0, "Non"); //9なのでコスチュームゲット
+                StarReleaseEvent_check(3, 602, 1, "Non"); //15なので、なんらかのイベント
+                StarReleaseEvent_check(4, 355, 1, "dragon_carnival"); //18なので、休憩イベント
+                StarReleaseEvent_check(5, 603, 1, "Non"); //20なのでおふろいけるイベント　温泉地の解放？
+                StarReleaseEvent_check(6, 604, 0, "Non"); //22なのでコスチューム2ゲット
+                //StarReleaseEvent_check(8, 605, 1, "Non"); //30なのでマリトッツォのレシピゲット
+                StarReleaseEvent_check(9, 606, 1, "Non"); //32なのでスウィートホテルいけるイベント
+                StarReleaseEvent_check(10, 610, 1, "Non"); //43なのでラストイベント　ヒカリからさくらの指輪をもらう
 
                 //
                 //ビギナー系のサブイベント関係は、80番台～
@@ -1066,6 +1064,28 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //ハートレベル99 レコードをゲット
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (PlayerStatus.girl1_Love_lv >= 99 && GameMgr.GirlLoveSubEvent_stage1[103] == false) //
+                    {
+                        GameMgr.GirlLoveSubEvent_num = 103;
+                        GameMgr.GirlLoveSubEvent_stage1[103] = true;
+
+                        GameMgr.check_GirlLoveSubEvent_flag = false;
+
+                        GameMgr.Mute_on = true;
+
+                        //pitemlist.addPlayerItemString("rubyDongri", 1); //るびーどんぐり
+
+                        //ピンクのうさぎコスチューム
+                        _id = pitemlist.SearchEmeraldItemStringID("PinkUsagi_Costume");
+                        pitemlist.add_EmeraldPlayerItem(_id, 1);
+                    }
+                }
+
                 /*
                 //お金10万ルピア達成
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -1130,7 +1150,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }*/
 
-                
+
 
 
                 //
@@ -1919,7 +1939,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
-    void StarReleaseEvent_check(int _starev, int _evnum, int _bgm)
+    void StarReleaseEvent_check(int _starev, int _evnum, int _bgm, string _omoidename)
     {
         if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
         { }
@@ -1936,6 +1956,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 if (_bgm == 1) //宴BGMに切り替え
                 {
                     GameMgr.Mute_on = true;
+                }
+
+                if (_omoidename != "Non")
+                {
+                    GameMgr.SetHikariOmoideFlag(_omoidename, true);
                 }
             }
         }
@@ -2489,28 +2514,26 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             }
         }
 
-        //エクストラモードのみのイベント　ハートレベル99 レコードをゲット
+        //ハートレベル99 レコードをゲット
         if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
         { }
         else
         {
-            if (GameMgr.Story_Mode == 1)
+            if (PlayerStatus.girl1_Love_lv >= 99 && GameMgr.GirlLoveSubEvent_stage1[67] == false) //
             {
-                if (PlayerStatus.girl1_Love_lv >= 99 && GameMgr.GirlLoveSubEvent_stage1[67] == false) //
-                {
-                    GameMgr.GirlLoveSubEvent_num = 67;
-                    GameMgr.GirlLoveSubEvent_stage1[67] = true;
+                GameMgr.GirlLoveSubEvent_num = 67;
+                GameMgr.GirlLoveSubEvent_stage1[67] = true;
 
-                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                GameMgr.check_GirlLoveSubEvent_flag = false;
 
-                    GameMgr.Mute_on = true;
+                GameMgr.Mute_on = true;
 
-                    pitemlist.addPlayerItemString("Record_16", 1); //レコード
-                    pitemlist.addPlayerItemString("rubyDongri", 1); //るびーどんぐり
-                }
+                //pitemlist.addPlayerItemString("Record_16", 1); //レコード
+                pitemlist.addPlayerItemString("rubyDongri", 1); //るびーどんぐり
             }
         }
 
+        
         //エクストラモードのみのイベント　ヒカリに食べたいお菓子あげた回数50回超えた　レコードゲット
         if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
         { }

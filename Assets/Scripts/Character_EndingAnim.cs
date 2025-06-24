@@ -48,33 +48,47 @@ public class Character_EndingAnim : MonoBehaviour
         AnimStart = true;
 
         //一回目アニメ　にいちゃ～～ん。吹き出しもここで出す。
-        girl1_status.MotionChange(450);
+        GirlTouchON();
+        girl1_status.Girl1_RandomMessage_Motion(10.0f);
         this.gameObject.GetComponent<CanvasGroup>().DOFade(0.7f, 3.0f); //
 
-        yield return new WaitForSeconds(5.0f); //ワンテンポおく
+        yield return new WaitForSeconds(10.0f); //ワンテンポおく
 
-        this.gameObject.GetComponent<CanvasGroup>().DOFade(0.0f, 3.0f); //消える
+        DeleteHukidashi();
+        this.gameObject.GetComponent<CanvasGroup>().DOFade(0.0f, 3.0f).OnComplete(GirlTouchOFF); //消える
 
-        yield return new WaitForSeconds(5.0f); //ワンテンポおく
+        yield return new WaitForSeconds(8.0f); //ワンテンポおく
 
-        yield return new WaitForSeconds(2.0f); //ワンテンポおく
 
-        //二回目登場　モーションのみ遊んでる感じ？
-        girl1_status.MotionChange(450);
+        //二回目登場　
+        GirlTouchON();
+        girl1_status.Girl1_RandomMessage_Motion(10.0f);
         this.gameObject.GetComponent<CanvasGroup>().DOFade(0.7f, 3.0f);
 
-        yield return new WaitForSeconds(5.0f); //ワンテンポおく
-
-        yield return new WaitForSeconds(2.0f); //ワンテンポおく
+        yield return new WaitForSeconds(10.0f); //ワンテンポおく
 
         //二回目消える
-        this.gameObject.GetComponent<CanvasGroup>().DOFade(0.0f, 3.0f);
+        DeleteHukidashi();
+        this.gameObject.GetComponent<CanvasGroup>().DOFade(0.0f, 3.0f).OnComplete(GirlTouchOFF);
 
-        yield return new WaitForSeconds(5.0f); //ワンテンポおく
-
-        yield return new WaitForSeconds(2.0f); //ワンテンポおく
+        yield return new WaitForSeconds(8.0f); //ワンテンポおく
 
         //ループ
         AnimStart = false;
+    }
+
+    void DeleteHukidashi()
+    {
+        girl1_status.ResetHukidashi();
+    }
+
+    void GirlTouchON() //タッチをON
+    {
+        GameMgr.CharacterTouch_ALLON = true;
+    }
+
+    void GirlTouchOFF() //消えていないときはタッチできなくなる
+    {
+        GameMgr.CharacterTouch_ALLOFF = true;
     }
 }

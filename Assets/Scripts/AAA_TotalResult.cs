@@ -948,7 +948,7 @@ public class AAA_TotalResult : MonoBehaviour {
 
             case 2: //ノーマルエンド　ヒカリが消える
 
-                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "もしかすると、スターを集めたりエデンがおいしければ、あるいは・・？";
+                _hukidashi_content = ".." + GameMgr.mainGirl_Name + "はいなくなってしまった..。" + "\n" + "もしかすると、思い出を集めれば結末を変えることができたかもしれない・・";
                 break;
 
             case 3: //バッドエンド？

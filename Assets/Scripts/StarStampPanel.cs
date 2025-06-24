@@ -29,6 +29,7 @@ public class StarStampPanel : MonoBehaviour
 
     private Sprite itemIcon_sprite1;
     private Sprite itemIcon_sprite2;
+    private Sprite itemIcon_sprite3;
 
     private Text star_hyoujiparam;
 
@@ -132,7 +133,14 @@ public class StarStampPanel : MonoBehaviour
         }
 
         //現在の★数を表示
-        star_hyoujiparam.text = _chara_temp_star.ToString();
+        if (PlayerStatus.player_ninki_param > GameMgr.System_StampStarMax)
+        {
+            //マックスを超えた場合、クローズボタンがONになるタイミングで☆表示を更新
+        }
+        else
+        {
+            star_hyoujiparam.text = _chara_temp_star.ToString();
+        }
     }
 
     void InitSetting()
@@ -154,6 +162,7 @@ public class StarStampPanel : MonoBehaviour
 
         itemIcon_sprite1 = Resources.Load<Sprite>("Sprites/Icon/" + "treasure_extra1");
         itemIcon_sprite2 = Resources.Load<Sprite>("Sprites/Icon/" + "Book01");
+        itemIcon_sprite3 = Resources.Load<Sprite>("Sprites/Icon/" + "badge_icon_08");
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -216,7 +225,14 @@ public class StarStampPanel : MonoBehaviour
         character_obj.transform.localPosition = dot_pos[_before_ninki];
         _chara_temp_star = _before_ninki;
 
-        star_hyoujiparam.text = _chara_temp_star.ToString();
+        if (PlayerStatus.player_ninki_param >= GameMgr.System_StampStarMax)
+        {
+            star_hyoujiparam.text = PlayerStatus.player_ninki_param.ToString();
+        }
+        else
+        {
+            star_hyoujiparam.text = _chara_temp_star.ToString();
+        }
 
         InitCheck = true;       
     }
@@ -347,6 +363,13 @@ public class StarStampPanel : MonoBehaviour
 
         close_button_obj.SetActive(true);
         ButtonON = true;
+
+        if (PlayerStatus.player_ninki_param > GameMgr.System_StampStarMax)
+        {
+            //マックスを超えた場合、クローズボタンがONになるタイミングで☆表示を更新
+            star_hyoujiparam.text = PlayerStatus.player_ninki_param.ToString();
+        }
+
     }
 
     public void OnCloseButton()
@@ -447,16 +470,18 @@ public class StarStampPanel : MonoBehaviour
                 else if (_mstatus == 1)
                 {
                     //アクアマリンの湖
-                    //_id = matplace_database.SearchMapString("Aquamarine_Lake");
+                    _id = database.SearchItemIDString("wood_rod_normal");
                     newarea_titletext = "おたから";
-                    newarea_gohoubitext = "魔法の泡だて器" + "\n" + "ゲット！";
-                    newarea_gohoubiicon = itemIcon_sprite1;
+                    newarea_gohoubitext = database.items[_id].itemNameHyouji + "\n" + "ゲット！";
+                    newarea_gohoubiicon = database.items[_id].itemIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
+
+                    pitemlist.addPlayerItemString("wood_rod_normal", 1);
                 }
 
                 break;
 
-            case 1: //思い出イベント
+            case 1: //レシピゲットイベント
 
                 if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
                 {
@@ -497,9 +522,9 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    _id = pitemlist.SearchEmeraldItemStringID("PinkUsagi_Costume");
+                    _id = pitemlist.SearchEmeraldItemStringID("PatissierHat_Acce");
                     newarea_titletext = "コスチューム";
-                    newarea_gohoubitext = "ピンクのうさぎワンピースをゲット！！";
+                    newarea_gohoubitext = "「パティシエハット」をゲット！！";
                     newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
@@ -523,10 +548,10 @@ public class StarStampPanel : MonoBehaviour
                 else if (_mstatus == 1)
                 {
                     //温泉解禁
-                    _id = matplace_database.SearchMapString("Or_Hiroba1_HotSpring");
+                    //_id = matplace_database.SearchMapString("Or_Hiroba1_HotSpring");
                     newarea_titletext = "思い出イベント";
                     newarea_gohoubitext = "植物園へいこう♪" + "\n" + "解放！";
-                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newarea_gohoubiicon = itemIcon_sprite3;
                     newAreaRelease_panelKoushin(_star);
 
                     //matplace_database.ReSetMapFlagString("Or_Hiroba1_HotSpring", 1);
@@ -557,11 +582,11 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    //ショートケーキの思い出　仮
-                    _id = matplace_database.SearchMapString("Emerald_Forest");
+                    //休憩イベント
+                    //_id = matplace_database.SearchMapString("Emerald_Forest");
                     newarea_titletext = "休憩イベント";
-                    newarea_gohoubitext = "街へ買い出しに行こう！" + "\n" + "解放！";
-                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newarea_gohoubitext = "ドラゴンカーニバル！" + "\n" + "解放！";
+                    newarea_gohoubiicon = itemIcon_sprite3;
                     newAreaRelease_panelKoushin(_star);
 
                     //GameMgr.SetHikariOmoideFlag("strawberry_sponge_cake", true);
@@ -584,10 +609,11 @@ public class StarStampPanel : MonoBehaviour
                 else if (_mstatus == 1)
                 {
                     //温泉解禁
-                    _id = matplace_database.SearchMapString("Or_Hiroba1_HotSpring");
+                    //_id = matplace_database.SearchMapString("Or_Hiroba1_HotSpring");
                     newarea_titletext = "思い出イベント";
                     newarea_gohoubitext = "いっしょにおふろ♪" + "\n" + "解放！";
-                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newarea_gohoubiicon = itemIcon_sprite3;
+                    //newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
                     matplace_database.ReSetMapFlagString("Or_Hiroba1_HotSpring", 1);
@@ -611,7 +637,7 @@ public class StarStampPanel : MonoBehaviour
                 {
                     _id = pitemlist.SearchEmeraldItemStringID("Patissier_Costume");
                     newarea_titletext = "コスチューム";
-                    newarea_gohoubitext = "パティシエ服をゲット！！";
+                    newarea_gohoubitext = "「チョコミントのパティシエ服」をゲット！！";
                     newarea_gohoubiicon = pitemlist.emeralditemlist[_id].itemIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
@@ -646,7 +672,7 @@ public class StarStampPanel : MonoBehaviour
 
                 break;
 
-            case 8: //思い出イベント 
+            case 8: //レシピゲットイベント 
 
                 if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
                 {
@@ -688,10 +714,10 @@ public class StarStampPanel : MonoBehaviour
                 else if (_mstatus == 1)
                 {
                     //ホテルの解禁
-                    _id = matplace_database.SearchMapString("Emerald_Forest");
+                    //_id = matplace_database.SearchMapString("Emerald_Forest");
                     newarea_titletext = "思い出イベント";
                     newarea_gohoubitext = "スウィートホテル♪" + "\n" + "解放！";
-                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newarea_gohoubiicon = itemIcon_sprite3;
                     newAreaRelease_panelKoushin(_star);
 
                     GameMgr.NPCHiroba_HikarieventList[320] = true;
@@ -715,10 +741,10 @@ public class StarStampPanel : MonoBehaviour
                 else if (_mstatus == 1)
                 {
                     //アクアマリンの湖
-                    _id = matplace_database.SearchMapString("Aquamarine_Lake");
+                    //_id = matplace_database.SearchMapString("Aquamarine_Lake");
                     newarea_titletext = "思い出イベント";
                     newarea_gohoubitext = "さくらの思い出";
-                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
+                    newarea_gohoubiicon = itemIcon_sprite3;
                     newAreaRelease_panelKoushin(_star);
                 }
 

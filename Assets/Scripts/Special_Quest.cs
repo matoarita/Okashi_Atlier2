@@ -438,7 +438,8 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
     void Stage2_Main(int _spquest_setnum)
     {
-        GameMgr.mainBGM_Num = 0; //リセット　後ろで更新
+        GameMgr.mainBGM_Num = 0; //メインテーマ曲セット　もしストーリに応じて変える場合、後ろで更新する　0, 1, 2 
+        //メインは途中で変えるより、やはり固定してそのゲームの象徴というか、印象に残るほうがいいかも。
 
         switch (_spquest_setnum)
         {
@@ -662,7 +663,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         {
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);
             matplace_database.ReSetMapFlagString("Or_Contest_A1", 1);
-            GameMgr.mainBGM_Num = 1;
+            //GameMgr.mainBGM_Num = 1;
         }
         if (_spquest_setnum >= 21)
         {
@@ -697,7 +698,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             //GameMgr.mainBGM_Num = 2;
         }
 
-        if (_spquest_setnum >= 40)
+        if (_spquest_setnum >= 40) //エデン作成の流れに入ると曲が変わる
         {
             GameMgr.mainBGM_Num = 2;
         }

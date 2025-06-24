@@ -3539,8 +3539,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 else
                 { //すでに夢喰い沼の場所を教えてくれてる
 
+
+                    //まだブラックロータスをゲットしてないなら、再度ゆめくいぬまの場所を教えてくれる。
+                    if (!GameMgr.GirlLoveSubEvent_stage1[405])
+                    {
+                        GameMgr.hiroba_event_ID = 101;
+
+                        check_event = true;
+                    }
+                    else
+                    {
+                        //ゲット済なら、セリフが変わる
+
+                        GameMgr.hiroba_event_ID = 103;
+
+                        check_event = true;
+                    }
+
+
                     //エデンを一回食べたことがある　満月の夜に食べるとよいと、教えてくれる。
-                    if (GameMgr.GirlLoveSubEvent_stage1[600])
+                    /*if (GameMgr.GirlLoveSubEvent_stage1[600])
                     {
                         if (!GameMgr.NPCHiroba_eventList[271])
                         {
@@ -3608,7 +3626,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         GameMgr.hiroba_event_ID = 101;
 
                         check_event = true;
-                    }
+                    }*/
                 }
             }            
         }
