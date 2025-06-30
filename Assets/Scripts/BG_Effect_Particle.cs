@@ -60,9 +60,22 @@ public class BG_Effect_Particle : MonoBehaviour
                 particleEm_Light4 = Eff_obj.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
 
                 //particleEm_Light5 = Eff_obj.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
-                //particleEm_Light5 = Eff_obj.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
-                //particleEm_Light6 = Eff_obj.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
-                //particleEm_Light7 = Eff_obj.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;
+                //particleEm_Light6 = Eff_obj.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
+                //particleEm_Light7 = Eff_obj.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
+                //particleEm_Light8 = Eff_obj.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;
+                break;
+
+            case "effect_sc04":
+
+                particleEm_Light1 = Eff_obj.transform.Find("BG_Particle_Light").GetComponent<ParticleSystem>().emission;
+                particleEm_Light2 = Eff_obj.transform.Find("BG_Particle_Light_2").GetComponent<ParticleSystem>().emission;
+                particleEm_Light3 = Eff_obj.transform.Find("BG_Particle_Light_Ball").GetComponent<ParticleSystem>().emission;
+                particleEm_Light4 = Eff_obj.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
+
+                //particleEm_Light5 = Eff_obj.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
+                //particleEm_Light6 = Eff_obj.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
+                //particleEm_Light7 = Eff_obj.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
+                //particleEm_Light8 = Eff_obj.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;
                 break;
         }
         
@@ -79,6 +92,11 @@ public class BG_Effect_Particle : MonoBehaviour
                 break;
 
             case "effect_sc03":
+
+                EffLibrary_3();
+                break;
+
+            case "effect_sc04":
 
                 EffLibrary_3();
                 break;

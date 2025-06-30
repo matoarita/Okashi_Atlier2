@@ -1833,6 +1833,9 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("YachinOtetsukiCount", GameMgr.yachin_otetsuki_count);
         engine.Param.TrySetParameter("YachinTainouCount", GameMgr.yachin_tainou_count);
 
+        //エンディング用
+        engine.Param.TrySetParameter("TopMagicName", GameMgr.MagicSkill_TopUseName); //ベストED時　一番使っていた魔法の名前が入る
+
         //コンテスト時は、締め切り日も設定
         if (GameMgr.GirlLoveEvent_num == 50)
         {

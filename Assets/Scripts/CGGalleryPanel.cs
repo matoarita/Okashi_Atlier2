@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class CGGalleryPanel : MonoBehaviour {
 
+    private SaveController save_controller;
+
     private GameObject event_list_view;
     private GameObject eventlist_obj;
     private List<GameObject> eventlist_List = new List<GameObject>();
@@ -42,6 +44,8 @@ public class CGGalleryPanel : MonoBehaviour {
 
     void InitSet()
     {
+        save_controller = SaveController.Instance.GetComponent<SaveController>();
+
         eventlist_obj = (GameObject)Resources.Load("Prefabs/GalleryPanel");
         count_param = this.transform.Find("PageParam").GetComponent<Text>();       
 
@@ -209,5 +213,21 @@ public class CGGalleryPanel : MonoBehaviour {
     public void backButton()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void Debug_GalleryAllKaihou()
+    {
+        //システムロード
+        save_controller.SystemloadCheck();
+
+        for (i = 0; i < GameMgr.HikariOmoide_Eventlist.Count; i++)
+        {
+            GameMgr.HikariOmoide_Eventlist[i].Flag = true;
+            Debug.Log("思い出イベント解放: " + GameMgr.HikariOmoide_Eventlist[i].titleName);
+        }
+
+        Page_Koushin();
+
+        save_controller.SystemsaveCheck(); //システムデータもセーブ
     }
 }

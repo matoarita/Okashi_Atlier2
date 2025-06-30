@@ -259,6 +259,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //現在着ているコスチュームの番号
     public static int Costume_Num;
 
+    //現在の調合部屋番号
+    public static int OrCompound_RoomNum; //セーブまだ
+
     //飾っているアイテムのリスト
     public static Dictionary<string, bool> BGAcceItemsName = new Dictionary<string, bool>(); //背景の置物のリスト。
 
@@ -981,6 +984,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool CatStartPanel_HyoujiKoushinFlag; //ねこ採取画面の表示更新　パネルのcsとExpTableとを連携させるよう
     public static bool CatEscapeFlag; //
     public static int CountOmoideFlag;
+    public static string MagicSkill_TopUseName;
 
 
 
@@ -1309,7 +1313,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Haraheri_Msg = false;
 
         Costume_Num = 0; //初期コスチューム　メイド服がデフォルト
+        OrCompound_RoomNum = 0; //デフォルトの調合部屋
 
+        MagicSkill_TopUseName = "ルミナスシュガー";
 
         event_recipi_flag = false;
         event_recipi_endflag = false;
@@ -2616,6 +2622,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //100ヒカリ倒れる　101ヒカリ生きる隠しエンド
         if (PlayerStatus.player_ninki_param >= System_StampStarMax) //①トゥルーエンド条件　まず、スターはマックスまで取る
         {
+            
             if (CountHikariOmoideFlag() >= HikariOmoide_Eventlist.Count) //②思い出　ギャラリーすべて埋める 　※なくした　エデンの得点が500点以上 GirlEat_JudgeでOkashi_totalscoreは事前計算 Okashi_totalscore >= 500
             {
                 if(PlayerStatus.girl1_Love_maxlv >= 90) //③ハートレベルが90
@@ -2625,21 +2632,26 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                 }
                 else
                 {
+                    Debug.Log("HLVが90未満");
                     GirlLoveEvent_num = 100;
                     ending_number = 2;
                 }               
             }
             else
             {
+                Debug.Log("思い出を全てとってない");
                 GirlLoveEvent_num = 100;
                 ending_number = 2;
             }
         }
         else
         {
+            Debug.Log("スターがMaxでない");
             GirlLoveEvent_num = 100;
             ending_number = 2;
         }
+
+
     }
 
     //ヒカリのお菓子経験値テーブル

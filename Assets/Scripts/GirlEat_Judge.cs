@@ -1822,7 +1822,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             Mazui_flag = true;
             GameMgr.MazuiFlag_ON = true; //宴で使えるように、GameMgrにしたまずいフラグ
-            GameMgr.ending_on = false; //まずかったときは、EDいく分岐があってもここでoffになる。
+            //GameMgr.ending_on = false; //まずかったときは、EDいく分岐があってもここでoffになる。
         }
 
         //はじめて、魔法おかしを食べたらフラグをONに。
@@ -6766,44 +6766,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.girlEat_ON = false;
         GameMgr.Mute_on = true;
         GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
-
-        /*
-        //一回目　食べると何も起こらない　二回目、くじらさんと話してから5日後の19時以降に食べると、EDが発生
-        if (!GameMgr.GirlLoveSubEvent_stage1[600])
-        {
-            GameMgr.GirlLoveSubEvent_stage1[600] = true;
-
-            GameMgr.girlloveevent_bunki = 2; //EDイベントを指定
-            GameMgr.GirlLoveEvent_num = 10;
-            GameMgr.girlEat_ON = false;
-            GameMgr.Mute_on = true;
-            GameMgr.ending_on = false;
-            //GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
-        }
-        else
-        {
-            //二回目以降　満月の夜に食べた場合　そうでない場合
-            if(!GameMgr.Fullmoon_judge_on)
-            {
-                //満月の夜でない　またなんでもない日に食べた場合　なにもおこらない
-                GameMgr.girlloveevent_bunki = 2; //EDイベントを指定
-                GameMgr.GirlLoveEvent_gameQuestPanel.SetActive(false); //本編はじまるまでは表示しないnum = 11;
-                GameMgr.girlEat_ON = false;
-                GameMgr.Mute_on = true;
-                GameMgr.ending_on = false;
-                //GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
-            }
-            else
-            {
-                //満月の夜にエデン食べたのでED
-                GameMgr.girlloveevent_bunki = 2;
-                GameMgr.GirlLoveEvent_num = 100;
-                GameMgr.girlEat_ON = false;
-                GameMgr.Mute_on = true;
-                GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
-            }
-            
-        }*/
 
 
         compound_Main.ReadGirlLoveEvent_Fire();

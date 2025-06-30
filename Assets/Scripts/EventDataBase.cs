@@ -995,6 +995,30 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     }
                                     break;
 
+                                case "LavenderDress_Costume":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[450])
+                                    {
+                                        Event_startcheck(450, 1, true, true);
+                                    }
+                                    break;
+
+                                case "DongriPochet_Acce":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[451])
+                                    {
+                                        Event_startcheck(451, 1, true, true);
+                                    }
+                                    break;
+
+                                case "PatissierHat_Acce":
+
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[452])
+                                    {
+                                        Event_startcheck(452, 1, true, true);
+                                    }
+                                    break;
+
                                 default:
 
                                     break;

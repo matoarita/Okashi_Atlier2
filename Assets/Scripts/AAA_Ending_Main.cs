@@ -82,7 +82,7 @@ public class AAA_Ending_Main : MonoBehaviour {
 
         timeOut -= Time.deltaTime;
 
-        if (TotalcountSec >= 200)
+        if (TotalcountSec >= 270)
         {
             if (!ed_end_flag)
             {

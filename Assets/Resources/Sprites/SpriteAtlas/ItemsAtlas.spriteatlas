@@ -151,6 +151,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c24977025265f4349b5aa324bc34c3f5, type: 3}
   - {fileID: 21300000, guid: 436d99027722d984a9500cd9952e4592, type: 3}
   - {fileID: 21300000, guid: 573bf612bea8a204abdc74c0a7c59acc, type: 3}
+  - {fileID: 21300000, guid: 4449ab12886c9c94d8ab53988f76ff1c, type: 3}
   - {fileID: 21300000, guid: ddce5f123a767844386da07ad86e575b, type: 3}
   - {fileID: 21300000, guid: 4dad61220d68f7446be583d4f5357b8b, type: 3}
   - {fileID: 21300000, guid: 0257fb223b1a6134da9d112efd5819a8, type: 3}
@@ -166,6 +167,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ff3976520cb94004eaa35c96ea976303, type: 3}
   - {fileID: 21300000, guid: 4b2801625bff70349af7bb4c6e52353c, type: 3}
   - {fileID: 21300000, guid: ae6da1621a1e67f4fb20256fc6946aab, type: 3}
+  - {fileID: 21300000, guid: 1733cd6218502514f893891b52dd470a, type: 3}
   - {fileID: 21300000, guid: f1f17f62b37aa5c42b93a3fc0b3e0644, type: 3}
   - {fileID: 21300000, guid: f210207227eb7af4585505ef6f781269, type: 3}
   - {fileID: 21300000, guid: 8d3e13727812a4449b6092ec17668621, type: 3}
@@ -200,6 +202,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e3ca89d25fa4c514e9255f0161d8847e, type: 3}
   - {fileID: 21300000, guid: 05396cd2e5f7be84284c6f6ccf20f202, type: 3}
   - {fileID: 21300000, guid: 4d27fed2d2820884fa4e87b1e57e90d0, type: 3}
+  - {fileID: 21300000, guid: f84a71e267c844e4fbbb23c6c38e8037, type: 3}
   - {fileID: 21300000, guid: e45118e25f0af824db40b22fe08c1704, type: 3}
   - {fileID: 21300000, guid: 67488de2a62da0b41bbecb198e57e10d, type: 3}
   - {fileID: 21300000, guid: a148ade2bd1d9274b9b421e06cc577d5, type: 3}
@@ -570,6 +573,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 58a68f6a0d07e29498181026d0217161, type: 3}
   - {fileID: 21300000, guid: 6ca7107a64df7ef45bc2584c294b1be4, type: 3}
   - {fileID: 21300000, guid: 29eb527ae1bf96b4a88b5664147843d7, type: 3}
+  - {fileID: 21300000, guid: d817a37aad675594bbcc3ff3978cb181, type: 3}
   - {fileID: 21300000, guid: 9711a87a7e45b0443902eb96c2d4b691, type: 3}
   - {fileID: 21300000, guid: bd42797abb11a474d8d3eb921194b0f3, type: 3}
   - {fileID: 21300000, guid: 5b41af7a2df6f15438318216cb791e23, type: 3}
@@ -760,6 +764,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 96a2998eb12496d44bca8cae589738dc, type: 3}
   - {fileID: 21300000, guid: e1d24d8edcf355845bdcddeddd2af0fe, type: 3}
   - {fileID: 21300000, guid: bb215f8e07653cc4095bf456893c94db, type: 3}
+  - {fileID: 21300000, guid: 0928419e0e6493243a1e4e8aac5d85a1, type: 3}
   - {fileID: 21300000, guid: 9083d39ef4315f44584c2897b682af76, type: 3}
   - {fileID: 21300000, guid: 7ca10f9e7d06f2f489be768a1a24f9f1, type: 3}
   - {fileID: 21300000, guid: 30bb11aef57fcfa40a004eb88470cd8f, type: 3}
@@ -915,6 +920,7 @@ SpriteAtlas:
   - dryflowerpot_3
   - apareiyu_white_2
   - cookie_powerup3
+  - jelly_iced
   - gold_suger
   - juice_haloween
   - soda
@@ -930,6 +936,7 @@ SpriteAtlas:
   - potion_jasmin
   - appaleil_chocolate_heart_green
   - cacao_mass_green
+  - infinity_fountain_tansan
   - apareiyu_chocolate_aquamarine
   - salt
   - tea_violatte
@@ -964,6 +971,7 @@ SpriteAtlas:
   - apareiyu_black
   - green_apple
   - failed_item1
+  - master_proof_jewery
   - soda_suger
   - mont_blanc_bakedsheets
   - eden_recipi_2
@@ -1334,6 +1342,7 @@ SpriteAtlas:
   - orange_juice
   - tiramisu
   - gondra_freepassport
+  - whipped_chocolate
   - blacklotus_sponge_cake_sliced
   - apareiyu_chocolate_white
   - aquamarine_pendant
@@ -1524,6 +1533,7 @@ SpriteAtlas:
   - hikari_powerup3
   - rainbowberry
   - tea_powerup2
+  - infinity_fountain
   - pan_cake_doubleberry_banana
   - rusk_jewery
   - soda_weather_3

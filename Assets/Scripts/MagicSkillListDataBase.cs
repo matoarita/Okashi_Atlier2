@@ -34,6 +34,9 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     private int sheet_count;
     private int sheet_no; //アイテムが格納されているシート番号
 
+    private int skillcount_max, _skillmax_id;
+    private string _skillmax_namehyouji;
+
     public List<MagicSkillList> magicskill_lists = new List<MagicSkillList>(); //
 
     void Start()
@@ -241,6 +244,33 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
             }
             i++;
         }
+    }
+
+    //現在一番使ってる魔法の魔法表示名を返す　すべて等しいときはルミナスシュガーをかえす
+    public string Count_TopUseMagicSkill()
+    {
+        skillcount_max = 0;
+
+        for (i = 0; i < magicskill_lists.Count; i++)
+        {
+            if (magicskill_lists[i].skill_usecount > skillcount_max)
+            {
+                skillcount_max = magicskill_lists[i].skill_usecount;
+                _skillmax_id = i;
+            }
+        }
+
+        if( skillcount_max == 0 )
+        {
+            _id = SearchSkillString("Luminous_Suger");
+            _skillmax_namehyouji = magicskill_lists[_id].skillNameHyouji;
+        }
+        else
+        {
+            _skillmax_namehyouji = magicskill_lists[_skillmax_id].skillNameHyouji;
+        }
+
+        return _skillmax_namehyouji;
     }
 
     //デバッグ用　全てのスキルの表示フラグをONにする

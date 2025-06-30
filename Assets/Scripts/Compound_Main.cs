@@ -692,29 +692,7 @@ public class Compound_Main : MonoBehaviour
 
                 bgpanelmatome = GameObject.FindWithTag("BG");
 
-                switch (GameMgr.Scene_Name)
-                {
-                    case "Compound": //前の村ではON
-
-                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
-                        SetBGObj("BGOutimg_sc01", "BGimg_sc01", "effect_sc01");
-                        bg_accessory_panel.SetActive(true);
-                        break;
-
-                    case "Or_Compound": //飾りアイテムはオランジーナではひとまず使わない
-
-                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
-                        SetBGObj("BGOutimg_sc03", "BGimg_sc02", "effect_sc02");
-                        bg_accessory_panel.SetActive(false);
-                        break;
-
-                    default:
-
-                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
-                        SetBGObj("BGOutimg_sc03", "BGimg_sc02", "effect_sc02");
-                        bg_accessory_panel.SetActive(false);
-                        break;
-                }
+                CompoundRoomSetting(); //調合部屋を設定                
 
                 break;
         }
@@ -1795,10 +1773,13 @@ public class Compound_Main : MonoBehaviour
                 //覚えたスキルやステータスを毎回チェックし、ぬけがないか更新。
                 exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
 
+                //魔法一番使ってるものをここでチェック
+                //GameMgr.MagicSkill_TopUseName = magicskill_database.Count_TopUseMagicSkill();
+
                 //メインクエのメッセージ更新
                 //gameQuestPanel.SetActive(true);
                 //gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
-      
+
 
                 //
                 //アニメーション、キャラの表情関係
@@ -4102,7 +4083,7 @@ public class Compound_Main : MonoBehaviour
                 Debug.Log("Ending シーン移動");
                 if (GameMgr.ending_number == 1)
                 {
-                    FadeManager.Instance.LoadScene("100_Ending", GameMgr.SceneFadeTime);
+                    FadeManager.Instance.LoadScene("100_Ending", GameMgr.SceneFadeTime); //100_Ending　にすると、エンディングのシーンへ一度飛ぶ
                 }
                 else
                 {
@@ -5420,6 +5401,61 @@ public class Compound_Main : MonoBehaviour
                     break;
             }
         }             
+    }
+
+    void CompoundRoomSetting()
+    {
+        switch (GameMgr.Scene_Name)
+        {
+            case "Compound": //前の村ではON
+
+                //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                SetBGObj("BGOutimg_sc01", "BGimg_sc01", "effect_sc01");
+                bg_accessory_panel.SetActive(true);
+                break;
+
+            case "Or_Compound": //飾りアイテムはオランジーナではひとまず使わない
+
+                switch (GameMgr.OrCompound_RoomNum)
+                {
+                    case 0:
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc02", "effect_sc02");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 1:
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc03", "effect_sc03");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 2:
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc04", "effect_sc04");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    default:
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc02", "effect_sc02");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+                }
+
+                break;
+
+            default:
+
+                //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                SetBGObj("BGOutimg_sc03", "BGimg_sc02", "effect_sc02");
+                bg_accessory_panel.SetActive(false);
+                break;
+        }
     }
 
     //Live2D関連コマンド

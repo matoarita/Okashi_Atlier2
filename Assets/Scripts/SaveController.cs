@@ -184,11 +184,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //思い出イベントのリスト
-        _temp_HikariOmoide_Eventlist.Clear();
+        /*_temp_HikariOmoide_Eventlist.Clear();
         for (i = 0; i < GameMgr.HikariOmoide_Eventlist.Count; i++)
         {
             _temp_HikariOmoide_Eventlist.Add(new ItemSaveFlag(GameMgr.HikariOmoide_Eventlist[i].titleName, 0, 0, 0, 0, 0, GameMgr.HikariOmoide_Eventlist[i].Flag));
-        }
+        }*/
 
         //背景アイテムの表示フラグリスト
         _temp_bgacce_flaglist.Clear();
@@ -516,7 +516,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_System_WhiteMemo_text = GameMgr.System_WhiteMemo_text,
 
             //思い出リスト保存
-            save_HikariOmoide_Eventlist = _temp_HikariOmoide_Eventlist,
+            //save_HikariOmoide_Eventlist = _temp_HikariOmoide_Eventlist,
             save_HikariOmoide_Count = GameMgr.HikariOmoide_Count,
 
             //コンテスト審査員の点数
@@ -1163,12 +1163,12 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         }
 
         //思い出リスト読み込み
-        for (i = 0; i < playerData.save_HikariOmoide_Eventlist.Count; i++)
+        /*for (i = 0; i < playerData.save_HikariOmoide_Eventlist.Count; i++)
         {
             _name = playerData.save_HikariOmoide_Eventlist[i].itemName;
             GameMgr.SetHikariOmoideFlag(_name, playerData.save_HikariOmoide_Eventlist[i].Flag);            
         }
-        GameMgr.HikariOmoide_Count = playerData.save_HikariOmoide_Count;
+        GameMgr.HikariOmoide_Count = playerData.save_HikariOmoide_Count;*/
 
         //魔法スキルリストの読み込み
         for (i = 0; i < playerData.save_magicskill_list.Count; i++)
