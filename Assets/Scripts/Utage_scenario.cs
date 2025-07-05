@@ -3114,6 +3114,68 @@ public class Utage_scenario : MonoBehaviour
                     case 200:
                         //resipi_getflag = true;
                         break;
+
+                    case 500:
+
+                        //購入と解放のフラグをセッティング
+                        engine.Param.TrySetParameter("RoomRelease_Flag1", GameMgr.OrRoomRelease[0]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag2", GameMgr.OrRoomRelease[1]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag3", GameMgr.OrRoomRelease[2]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag4", GameMgr.OrRoomRelease[3]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag5", GameMgr.OrRoomRelease[4]);
+
+                        engine.Param.TrySetParameter("RoomBuy_Flag1", GameMgr.OrRoomBuy[0]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag2", GameMgr.OrRoomBuy[1]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag3", GameMgr.OrRoomBuy[2]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag4", GameMgr.OrRoomBuy[3]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag5", GameMgr.OrRoomBuy[4]);
+
+                        engine.Param.TrySetParameter("RoomNameHyouji1", GameMgr.OrRoomNameHyouji[0]);
+                        engine.Param.TrySetParameter("RoomNameHyouji2", GameMgr.OrRoomNameHyouji[1]);
+                        engine.Param.TrySetParameter("RoomNameHyouji3", GameMgr.OrRoomNameHyouji[2]);
+                        engine.Param.TrySetParameter("RoomNameHyouji4", GameMgr.OrRoomNameHyouji[3]);
+                        engine.Param.TrySetParameter("RoomNameHyouji5", GameMgr.OrRoomNameHyouji[4]);
+
+                        if (GameMgr.OrRoomBuy[0])
+                        {
+                            engine.Param.TrySetParameter("RoomCost1", 0);
+                        }else
+                        {
+                            engine.Param.TrySetParameter("RoomCost1", GameMgr.OrRoomCost[0]);
+                        }
+                        if (GameMgr.OrRoomBuy[1])
+                        {
+                            engine.Param.TrySetParameter("RoomCost2", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost2", GameMgr.OrRoomCost[1]);
+                        }
+                        if (GameMgr.OrRoomBuy[2])
+                        {
+                            engine.Param.TrySetParameter("RoomCost3", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost3", GameMgr.OrRoomCost[2]);
+                        }
+                        if (GameMgr.OrRoomBuy[3])
+                        {
+                            engine.Param.TrySetParameter("RoomCost4", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost4", GameMgr.OrRoomCost[3]);
+                        }
+                        if (GameMgr.OrRoomBuy[4])
+                        {
+                            engine.Param.TrySetParameter("RoomCost5", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost5", GameMgr.OrRoomCost[4]);
+                        }
+                        break;
                 }
                 break;
 
@@ -4162,6 +4224,48 @@ public class Utage_scenario : MonoBehaviour
                 }
                 break;
 
+            case "Hiroba_Or_Queen_puraton": //Or女王の間　家かりるシステム
+
+                switch (GameMgr.hiroba_event_ID)
+                {
+                    case 500:
+
+                        stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
+                        switch (stationevent_num)
+                        {
+                            case 0: //キャンセル
+
+                                break;
+
+                            case 1: //最初の家を選んだ
+
+                                GameMgr.OrCompound_RoomNum = 0;
+
+                                RoomBuyCheck(0);                                                          
+                                break;
+
+                            case 2: //
+
+                                GameMgr.OrCompound_RoomNum = 1;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(1);
+                                break;
+
+                            case 3: //
+
+                                GameMgr.OrCompound_RoomNum = 2;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(2);
+                                break;
+
+                        }
+                        break;
+                }
+                break;
+
 
             case "Station": //駅のイベント お金の処理など
 
@@ -4193,6 +4297,19 @@ public class Utage_scenario : MonoBehaviour
         scenario_loading = false;
 
         GameMgr.scenario_read_endflag = true; //シナリオを読み終えたフラグ
+    }
+
+    void RoomBuyCheck(int _id)
+    {
+        if (GameMgr.OrRoomBuy[_id])
+        {
+            GameMgr.OrCompound_RoomNum = 0;
+        }
+        else
+        {
+            moneyStatus_Controller.UseMoney(GameMgr.OrRoomCost[_id]);
+            GameMgr.OrRoomBuy[_id] = true;
+        }
     }
 
     void Live2DCostume_UtageChange()

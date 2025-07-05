@@ -1458,8 +1458,10 @@ public class SetImage : MonoBehaviour
         {
             item_Oily.text = "";
         }
-        if (item_type_sub == "Juice" || item_type_sub == "Soda" || item_type_sub == "Tea" || item_type_sub == "Tea_Potion" || 
-            item_type_sub == "Coffee_Mat" || item_type_sub == "Coffee")
+        //水系アイテムには水っぽいはつかない
+        if (item_type_sub == "Juice" || item_type_sub == "Soda" || item_type_sub == "Tea" || item_type_sub == "Tea_Mat" || item_type_sub == "Tea_Potion" || 
+            item_type_sub == "Coffee_Mat" || item_type_sub == "Coffee" || item_type_sub == "AromaPotion" ||
+            item_type_subB == "a_SugerWater" || item_type_subB == "a_AppaleilJelly")
         {
             item_Watery.text = "";
         }

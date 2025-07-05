@@ -152,7 +152,7 @@ public class NPC_Catsle_Main : MonoBehaviour
         npc8_toggle.interactable = true;
 
         npc2sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView2_SelectToggle").gameObject;
-        npc2sub_toggle_obj.SetActive(false);
+        npc2sub_toggle_obj.SetActive(true);
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -643,7 +643,20 @@ public class NPC_Catsle_Main : MonoBehaviour
     //SubView2
     public void OnSubNPC2_toggle()
     {
-        
+        //家がほしい
+
+        GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
+        GameMgr.hiroba_event_ID = 500;
+        GameMgr.hiroba_event_flag = true;
+        //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+
+        //BGMかえる
+        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        //bgm_change_flag = true;
+
+        check_event = true;
+
+        EventReadingStart();
     }
 
     //SubView3

@@ -758,7 +758,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 StarReleaseEvent_check(6, 604, 0, "Non"); //22なのでコスチューム2ゲット
                 //StarReleaseEvent_check(8, 605, 1, "Non"); //30なのでマリトッツォのレシピゲット
                 StarReleaseEvent_check(9, 606, 1, "Non"); //32なのでスウィートホテルいけるイベント
-                StarReleaseEvent_check(10, 610, 1, "Non"); //43なのでラストイベント　ヒカリからさくらの指輪をもらう
+                StarReleaseEvent_check(10, 610, 1, "event_sakuraring"); //43なのでラストイベント　ヒカリからさくらの指輪をもらう
 
                 //
                 //ビギナー系のサブイベント関係は、80番台～
@@ -1546,7 +1546,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (GameMgr.Contest_afterHomeEventFlag)
                         {
                             GameMgr.Contest_afterHomeEventFlag = false;
-                            
+
                             //コンテスト一回でたあと、コンテストメモについてのイベント
                             if (conteststartList_database.SearchContestVictory("Or_Contest_010") != 0) //クッキーコンテストでとりあえず出場し順位入った。
                             {
@@ -1592,12 +1592,12 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 }
                             }
 
-                            //エデンコンテストでたけど、シンプルなおかしを提出した＆優勝しなかった場合
-                            if (conteststartList_database.SearchContestVictory("Or_Contest_001") != 0 ||
-                                conteststartList_database.SearchContestVictory("Or_Contest_002") != 0 ||
-                                conteststartList_database.SearchContestVictory("Or_Contest_003") != 0) //
+                            //コンテストでたけど、シンプルなおかしを提出した＆100点未満の場合 特定の自由課題のお菓子コンテストのとき　初級あたりのみ出る
+                            if (GameMgr.Contest_Name == "Or_Contest_030" || GameMgr.Contest_Name == "Or_Contest_110" || 
+                                GameMgr.Contest_Name == "Or_Contest_290" || GameMgr.Contest_Name == "Or_Contest_220" || 
+                                GameMgr.Contest_Name == "Or_Contest_490") //
                             {
-                                if (conteststartList_database.SearchContestVictory(GameMgr.Contest_Name) != 1) //さっきでてたコンテストで優勝じゃなかった
+                                if (GameMgr.contest_TotalScore < 100)
                                 {
                                     _baseitemtype_subB = database.items[database.SearchItemID(GameMgr.contest_okashiID)].itemType_subB;
 
@@ -1607,7 +1607,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                         || _baseitemtype_subB == "a_Cake_Mat" || _baseitemtype_subB == "a_Bread" || _baseitemtype_subB == "a_Bread_Sliced"
                                         || _baseitemtype_subB == "a_JuiceSimple")
                                     {
-                                        //エデンコンでは、単純なおかしは点数が出ないというヒントをいう
+                                        //コンテストでは、単純なおかしは点数が出ないというヒントをいう
                                         if (!GameMgr.GirlLoveSubEvent_stage1[422])
                                         {
                                             GameMgr.GirlLoveSubEvent_stage1[422] = true;
@@ -1619,8 +1619,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                         }
                                     }
                                 }
-
                             }
+
+
                         }
                     }
                 }

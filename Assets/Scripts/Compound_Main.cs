@@ -1774,7 +1774,7 @@ public class Compound_Main : MonoBehaviour
                 exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
 
                 //魔法一番使ってるものをここでチェック
-                //GameMgr.MagicSkill_TopUseName = magicskill_database.Count_TopUseMagicSkill();
+                GameMgr.MagicSkill_TopUseName = magicskill_database.Count_TopUseMagicSkill();
 
                 //メインクエのメッセージ更新
                 //gameQuestPanel.SetActive(true);
@@ -4083,7 +4083,7 @@ public class Compound_Main : MonoBehaviour
                 Debug.Log("Ending シーン移動");
                 if (GameMgr.ending_number == 1)
                 {
-                    FadeManager.Instance.LoadScene("100_Ending", GameMgr.SceneFadeTime); //100_Ending　にすると、エンディングのシーンへ一度飛ぶ
+                    FadeManager.Instance.LoadScene("110_TotalResult", GameMgr.SceneFadeTime); //100_Ending　にすると、エンディングのシーンへ一度飛ぶ
                 }
                 else
                 {

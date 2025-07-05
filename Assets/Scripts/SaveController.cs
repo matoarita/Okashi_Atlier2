@@ -373,6 +373,11 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_System_ContestIcon_OnFlag = GameMgr.System_ContestIcon_OnFlag, //コンテストアイコンをONにする
             save_System_BarQuestIcon_OnFlag = GameMgr.System_BarQuestIcon_OnFlag, //酒場ご依頼アイコンをONにする
 
+            //部屋フラグ
+            save_OrCompound_RoomNum = GameMgr.OrCompound_RoomNum,
+            save_OrRoomRelease = GameMgr.OrRoomRelease, //解放 100ほど確保
+            save_OrRoomBuy = GameMgr.OrRoomBuy, //購入のフラグ
+
             //満月の夜の月と日
             save_System_Fullmoon_month = GameMgr.System_Fullmoon_month,
             save_System_Fullmoon_day = GameMgr.System_Fullmoon_day,
@@ -820,6 +825,17 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.System_Topping_Multiple_Max = playerData.save_System_Topping_Multiple_Max; //トッピングで個数のせる限界
         GameMgr.System_ContestIcon_OnFlag = playerData.save_System_ContestIcon_OnFlag; //コンテストアイコンをONにする
         GameMgr.System_BarQuestIcon_OnFlag = playerData.save_System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
+
+        //部屋フラグ
+        GameMgr.OrCompound_RoomNum = playerData.save_OrCompound_RoomNum;
+        GameMgr.OrRoomRelease = playerData.save_OrRoomRelease;
+        GameMgr.OrRoomBuy = playerData.save_OrRoomBuy;
+
+        //初期設定　配布時は消してOK
+        GameMgr.OrRoomBuy[0] = true;
+        GameMgr.OrRoomRelease[0] = true;
+        GameMgr.OrRoomRelease[1] = true;
+        GameMgr.OrRoomRelease[2] = true;
 
         //満月の夜の月と日
         GameMgr.System_Fullmoon_month = playerData.save_System_Fullmoon_month;
@@ -1389,10 +1405,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         quest_database.ResetQuestTakeSet();
 
         //エクストリームパネルも空に。
-        pitemlist.deleteAllExtremePanelItem();
-
-        //各コスチュームもリセット アクセは上のイベントアイテムリストのリセットで0にしてる
-        GameMgr.Costume_Num = 0;
+        pitemlist.deleteAllExtremePanelItem();        
 
     }
 
@@ -1418,8 +1431,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             
 
         //体力は全回復
-        PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;       
+        PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;
 
+        //各コスチュームもリセット アクセは上のイベントアイテムリストのリセットで0にしてる
+        GameMgr.Costume_Num = 0;
     }
 
     //ロードの準備

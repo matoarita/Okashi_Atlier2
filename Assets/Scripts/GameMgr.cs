@@ -259,8 +259,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //現在着ているコスチュームの番号
     public static int Costume_Num;
 
-    //現在の調合部屋番号
-    public static int OrCompound_RoomNum; //セーブまだ
+    //現在の調合部屋番号 解放と購入のフラグも。
+    public static int OrCompound_RoomNum; 
+    public static bool[] OrRoomRelease = new bool[ReleaseEvent_num]; //解放 100ほど確保
+    public static bool[] OrRoomBuy = new bool[ReleaseEvent_num]; //購入のフラグ
+    public static int[] OrRoomCost = new int[ReleaseEvent_num]; //部屋の費用　これはセーブ不要
+    public static string[] OrRoomNameHyouji = new string[ReleaseEvent_num]; //部屋の名前　セーブ不要
 
     //飾っているアイテムのリスト
     public static Dictionary<string, bool> BGAcceItemsName = new Dictionary<string, bool>(); //背景の置物のリスト。
@@ -1652,6 +1656,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             NPC_BarFriendFlag[system_i] = 0;
         }
 
+        //ルームフラグの初期化
+        for (system_i = 0; system_i < OrRoomRelease.Length; system_i++)
+        {
+            OrRoomRelease[system_i] = false;
+            OrRoomBuy[system_i] = false;
+            OrRoomCost[system_i] = 0;
+            OrRoomNameHyouji[system_i] = "";
+        }
+        
+
         //ED取得イベントフラグの初期化
         for (system_i = 0; system_i < ending_getflag.Length; system_i++)
         {
@@ -1977,6 +1991,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //ヒカリのお菓子経験値テーブルをセット
         InitHikariOkashi_ExpTable();
 
+        //部屋の費用セット
+        InitOrRoomCostSetting();
+
         //カレンダーデータセット
         SetCallender();
 
@@ -2011,7 +2028,32 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         NPCHiroba_eventDayCounter[0] = 1; //アマクサ優勝イベント発生までの日数
         NPCHiroba_eventDayCounter[1] = 1; //ねこみみ少女　次会話発生までの日数
     }
-    
+
+    //オランジーナ部屋の費用をセット 現在5個までセット可能
+    public static void InitOrRoomCostSetting()
+    {
+        //0は初期部屋なので、解放と購入は済に。
+        OrRoomRelease[0] = true;
+        OrRoomBuy[0] = true;
+
+        //１と２も最初から出てる
+        OrRoomRelease[1] = true;
+        OrRoomRelease[2] = true;
+
+        OrRoomCost[0] = 0;
+        OrRoomCost[1] = 50000;
+        OrRoomCost[2] = 50000;
+        OrRoomCost[3] = 50000;
+        OrRoomCost[4] = 50000;
+
+        OrRoomNameHyouji[0] = "最初の家";
+        OrRoomNameHyouji[1] = "花と森";
+        OrRoomNameHyouji[2] = "ヨーロピアン";
+        OrRoomNameHyouji[3] = "最初のへや";
+        OrRoomNameHyouji[4] = "最初のへや";
+    }
+
+
     public static void InitCollectionItemsLibrary() //コレクションアイテムの一覧　コレクションパネルを開いたときに表示される
     {
         CollectionItemsName.Clear();
@@ -2515,6 +2557,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでにいちゃんと・・♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(110, "event_sakuraring", "さくらの指輪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
     }
 
     //思い出イベントの現在のフラグを取得

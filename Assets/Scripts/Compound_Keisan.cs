@@ -857,6 +857,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _id = result_item;
 
+            //Debug.Log("新規作成");
             if (_mstatus == 99) //ゲーム開始時のみ使用。
             {
                 if (database.items[_id].itemComp_Hosei == 0) //アイテム自体が持っている値を加算しない場合
@@ -891,6 +892,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _baseMSvalue[i] = database.items[_id].item_MagicSlotValue[i];
             }
 
+            //Debug.Log("_base_extreme_kaisu新規作成時のチェック: " + _base_extreme_kaisu);
             /*if (_mstatus == 99)
             {
                 for (i = 0; i < database.items[_id].toppingtype.Length; i++)
@@ -905,8 +907,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basetp[i] = database.items[_id].toppingtype[i].ToString();
             }
             }*/
-
-
         }
         else if (Comp_method_bunki == 1 || Comp_method_bunki == 3 || Comp_method_bunki == 22) //生地合成、もしくはトッピング調合の場合。
             //もしくは、魔法調合でCompNoが入ってて、新規作成されない場合。
@@ -1244,7 +1244,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType = database.items[_id].itemType.ToString();
         _base_itemType_sub = database.items[_id].itemType_sub.ToString();
         _base_itemType_subB = database.items[_id].itemType_subB.ToString();
-        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu;
+        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
         _base_item_hyouji = database.items[_id].item_Hyouji;
         _base_itemdesc = database.items[_id].itemDesc;
         _baseattri1 = database.items[_id].Attribute1;
@@ -1296,7 +1296,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType = database.items[_id].itemType.ToString();
         _base_itemType_sub = database.items[_id].itemType_sub.ToString();
         _base_itemType_subB = database.items[_id].itemType_subB.ToString();
-        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu;
+        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
         _base_item_hyouji = database.items[_id].item_Hyouji;
         _base_itemdesc = database.items[_id].itemDesc;
         _baseattri1 = database.items[_id].Attribute1;
@@ -1348,7 +1348,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType = database.items_gamedefault[_id].itemType.ToString();
         _base_itemType_sub = database.items_gamedefault[_id].itemType_sub.ToString();
         _base_itemType_subB = database.items_gamedefault[_id].itemType_subB.ToString();
-        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu;
+        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
         _base_item_hyouji = database.items_gamedefault[_id].item_Hyouji;
         _base_itemdesc = database.items_gamedefault[_id].itemDesc;
         _baseattri1 = database.items_gamedefault[_id].Attribute1;
@@ -1428,7 +1428,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         _base_itemType = pitemlist.player_yosokuitemlist[_id].itemType.ToString();
         _base_itemType_sub = pitemlist.player_yosokuitemlist[_id].itemType_sub.ToString();
         _base_itemType_subB = pitemlist.player_yosokuitemlist[_id].itemType_subB.ToString();
-        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu;
+        _base_extreme_kaisu = PlayerStatus.player_extreme_kaisu_Max;
         _base_item_hyouji = pitemlist.player_yosokuitemlist[_id].item_Hyouji;
         _base_itemdesc = pitemlist.player_yosokuitemlist[_id].itemDesc;
         _baseattri1 = pitemlist.player_yosokuitemlist[_id].Attribute1;
@@ -1495,6 +1495,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else
         {
+            Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
             //アイテム取得処理
             GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
         }

@@ -620,9 +620,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         //LV16以上～50まで　100ごとに上がるように設定
         for (i = 1; i < (50 - _joblv_last); i++)
         {
-            stage1_joblvTable.Add(stage1_joblvTable[stage1_joblvTable.Count-1] + (i * 200));
+            stage1_joblvTable.Add(stage1_joblvTable[stage1_joblvTable.Count-1] + 200 + (i*10));
         }
-        stage1_joblvTable[stage1_joblvTable.Count - 1] = 9999; //最後だけ9999
+        stage1_joblvTable[stage1_joblvTable.Count - 1] = 15000; //最後だけ15000
 
         //デバッグ用
         /*for (i = 0; i < stage1_joblvTable.Count; i++)
@@ -637,12 +637,21 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     {
         i = 0;
         PlayerStatus.player_patissier_lv = 1;
-        while (PlayerStatus.player_renkin_exp >= stage1_joblvTable[i])
+        while (i < stage1_joblvTable.Count)
         {
-            //_girllove_param -= stage_levelTable[i];
-            PlayerStatus.player_patissier_lv++;
-            i++;
+            if(PlayerStatus.player_renkin_exp >= stage1_joblvTable[i])
+            {
+                //_girllove_param -= stage_levelTable[i];
+                PlayerStatus.player_patissier_lv++;
+                i++;
+            }
+            else
+            {
+                break;
+            }            
         }
+
+        //Debug.Log("現在のパティシエLVと経験値: " + PlayerStatus.player_patissier_lv + " " + PlayerStatus.player_renkin_exp);
     }
 
     //更新後のHeartExpをいれると、現在のHLVに再計算する　Girleat_judgeから読み出し

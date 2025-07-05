@@ -469,7 +469,7 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    //アクアマリンの湖
+                    //
                     _id = database.SearchItemIDString("wood_rod_normal");
                     newarea_titletext = "おたから";
                     newarea_gohoubitext = database.items[_id].itemNameHyouji + "\n" + "ゲット！";

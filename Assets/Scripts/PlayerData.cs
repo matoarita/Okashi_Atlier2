@@ -121,6 +121,11 @@ public class PlayerData
     public bool save_System_ContestIcon_OnFlag; //コンテストアイコンをONにする
     public bool save_System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
 
+    //部屋フラグ
+    public int save_OrCompound_RoomNum;
+    public bool[] save_OrRoomRelease = new bool[GameMgr.OrRoomRelease.Length]; //解放 100ほど確保
+    public bool[] save_OrRoomBuy = new bool[GameMgr.OrRoomBuy.Length]; //購入のフラグ
+
     //満月の夜の月と日
     public int save_System_Fullmoon_month;
     public int save_System_Fullmoon_day;

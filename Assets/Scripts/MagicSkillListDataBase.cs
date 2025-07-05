@@ -250,17 +250,21 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     public string Count_TopUseMagicSkill()
     {
         skillcount_max = 0;
+        _skillmax_id = 0;
 
         for (i = 0; i < magicskill_lists.Count; i++)
         {
-            if (magicskill_lists[i].skill_usecount > skillcount_max)
+            if (magicskill_lists[i].skillFlag == 1 && magicskill_lists[i].skillType == 1) //習得すみ　かつ　アクティブな魔法のみ
             {
-                skillcount_max = magicskill_lists[i].skill_usecount;
-                _skillmax_id = i;
+                if (magicskill_lists[i].skill_usecount > skillcount_max)
+                {
+                    skillcount_max = magicskill_lists[i].skill_usecount;
+                    _skillmax_id = i;                   
+                }
             }
         }
-
-        if( skillcount_max == 0 )
+        
+        if ( skillcount_max == 0 )
         {
             _id = SearchSkillString("Luminous_Suger");
             _skillmax_namehyouji = magicskill_lists[_id].skillNameHyouji;
@@ -269,6 +273,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
         {
             _skillmax_namehyouji = magicskill_lists[_skillmax_id].skillNameHyouji;
         }
+        Debug.Log("一番使ってるスキルの使用回数: " + _skillmax_namehyouji + " " + skillcount_max);
 
         return _skillmax_namehyouji;
     }
