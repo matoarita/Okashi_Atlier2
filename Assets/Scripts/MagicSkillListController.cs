@@ -340,9 +340,9 @@ public class MagicSkillListController : MonoBehaviour
             for (i = 0; i < skillExtext.Length; i++)
             {
                 skillExtextAnim[i].ResetStartPos();
-                skillExtext[i].text = "光の魔法はきらきら！　フルーツやシュガー、ケーキを光らせたりできるよ！";
+                skillExtext[i].text = "光の魔法はきらきら！　フルーツやシュガーを光らせたりできるよ！";
             }
-            _text_comp.text = "光の魔法はきらきら！" + "\n" + "フルーツやシュガー、ケーキを光らせたりできるよ！";
+            _text_comp.text = "光の魔法はきらきら！" + "\n" + "フルーツやシュガーを光らせたりできるよ！";
         }
     }
 
@@ -359,7 +359,7 @@ public class MagicSkillListController : MonoBehaviour
                 skillExtextAnim[i].ResetStartPos();
                 skillExtext[i].text = "風の魔法は少し特殊！　形を自由に作れるよ！　ふわふわのお菓子に強い！";
             }
-            _text_comp.text = "風の魔法は少し特殊！　形を自由に作れるよ！" + "\n" + "クレープとかケーキとかのお菓子が得意だよ！";
+            _text_comp.text = "風の魔法は少し特殊！　形を自由に作れるよ！" + "\n" + "クレープ・ケーキ・チョコレートのお菓子が得意だよ！";
         }
     }
 
@@ -460,9 +460,9 @@ public class MagicSkillListController : MonoBehaviour
             for (i = 0; i < skillExtext.Length; i++)
             {
                 skillExtextAnim[i].ResetStartPos();
-                skillExtext[i].text = "火の魔法はお菓子の基本！　クッキーや焼き菓子に強いよ！";
+                skillExtext[i].text = "火の魔法はお菓子の基本！　クッキーやチョコレートに強いよ！";
             }
-            _text_comp.text = "火の魔法はお菓子の基本！　クッキーや焼き菓子に強いよ！";
+            _text_comp.text = "火の魔法はお菓子の基本！" + "\n" + "クッキーやチョコレートに強いよ！";
         }
     }
 

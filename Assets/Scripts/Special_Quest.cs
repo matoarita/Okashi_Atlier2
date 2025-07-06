@@ -519,10 +519,22 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 13: //プラトンアカデミーコンテストで優勝しよう！
+            case 13: //クッキーコンテストで２位以上を取ろう！＜最初のコンテストで取ってた場合は、ここを無視する＞
 
                 girl1_status.OkashiQuest_ID = 100130;
                 OkashiQuest_Count = 4;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
+                //GameMgr.Contest_BGMON = true;
+                GameMgr.Contest_PanelON = true;
+                GameMgr.Contest_MainStoryPlaceNum = 0;
+
+                break;
+
+            case 14: //プラトンアカデミーコンテストで優勝しよう！
+
+                girl1_status.OkashiQuest_ID = 100140;
+                OkashiQuest_Count = 5;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 //GameMgr.Contest_BGMON = true;

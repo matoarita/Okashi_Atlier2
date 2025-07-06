@@ -601,20 +601,20 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     void Init_JobTable()
     {
         stage1_joblvTable.Clear();
-        stage1_joblvTable.Add(5); //LV2。LV1で、次のレベルが上がるまでの好感度値
-        stage1_joblvTable.Add(10);　//LV3 LV1の分は含めない。
-        stage1_joblvTable.Add(20); //LV4
-        stage1_joblvTable.Add(30); //LV5
-        stage1_joblvTable.Add(40); //LV6
-        stage1_joblvTable.Add(55); //LV7
-        stage1_joblvTable.Add(75); //LV8
-        stage1_joblvTable.Add(95); //LV9
-        stage1_joblvTable.Add(125); //LV10
-        stage1_joblvTable.Add(175); //LV11
-        stage1_joblvTable.Add(245); //LV12
-        stage1_joblvTable.Add(345); //LV13
-        stage1_joblvTable.Add(470); //LV14
-        stage1_joblvTable.Add(620); //LV15
+        stage1_joblvTable.Add(10); //LV2。LV1で、次のレベルが上がるまでの好感度値
+        stage1_joblvTable.Add(30);　//LV3 LV1の分は含めない。
+        stage1_joblvTable.Add(60); //LV4
+        stage1_joblvTable.Add(90); //LV5
+        stage1_joblvTable.Add(130); //LV6
+        stage1_joblvTable.Add(175); //LV7
+        stage1_joblvTable.Add(215); //LV8
+        stage1_joblvTable.Add(255); //LV9
+        stage1_joblvTable.Add(325); //LV10
+        stage1_joblvTable.Add(400); //LV11
+        stage1_joblvTable.Add(480); //LV12
+        stage1_joblvTable.Add(560); //LV13
+        stage1_joblvTable.Add(660); //LV14
+        stage1_joblvTable.Add(800); //LV15
 
         _joblv_last = stage1_joblvTable.Count;
         //LV16以上～50まで　100ごとに上がるように設定
@@ -636,13 +636,12 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     public void JobLVKoushin()
     {
         i = 0;
-        PlayerStatus.player_patissier_lv = 1;
+        now_level = 1;
         while (i < stage1_joblvTable.Count)
         {
             if(PlayerStatus.player_renkin_exp >= stage1_joblvTable[i])
             {
-                //_girllove_param -= stage_levelTable[i];
-                PlayerStatus.player_patissier_lv++;
+                now_level++;
                 i++;
             }
             else
@@ -650,6 +649,8 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 break;
             }            
         }
+
+        PlayerStatus.player_patissier_lv = now_level;
 
         //Debug.Log("現在のパティシエLVと経験値: " + PlayerStatus.player_patissier_lv + " " + PlayerStatus.player_renkin_exp);
     }

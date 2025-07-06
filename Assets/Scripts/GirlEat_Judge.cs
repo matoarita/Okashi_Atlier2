@@ -5261,6 +5261,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 100130:
 
+                //クッキーコンテストで２位以上をとる
+                _id = conteststartList_database.SearchContestString("Or_Contest_010");
+                if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1 || conteststartList_database.conteststart_lists[_id].ContestVictory == 2)
+                {
+                    Debug.Log("クッキーコンテストで２位以上とったので、クエストクリア");
+                    sp_quest_clear = true;
+                }
+                break;
+
+            case 100140:
+
                 //プラトンアカデミーコンテストで優勝すると先へ進める
                 _id = conteststartList_database.SearchContestString("Or_Contest_001");
                 if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)

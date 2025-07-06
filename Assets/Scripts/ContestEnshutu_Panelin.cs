@@ -148,7 +148,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
 
     void EndAnim2()
     {
-        sc.PlaySe(173); //キュラララ～
+        //sc.PlaySe(173); //キュラララ～
         sc.PlaySe(99); //237ピピーーー 99ドラ音 244ドーーン
 
         start_effect.SetActive(true);
