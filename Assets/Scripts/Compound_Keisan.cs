@@ -2374,9 +2374,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basechewy = (int)(_basechewy * kyori_hosei);
             }           
         }
-
-        //お菓子のタイプによって、食感の伸び率に補正がかかる。簡単なおかしは、60点までは伸びるが、100点以降はとたんに伸びなくなる。など
-        OkashiType_ShokukanBuf();
         
 
         //デバッグ用
@@ -2441,7 +2438,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //新規作成時の特殊処理
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
         {           
-            Okashi_SpecialKeisan();           
+            Okashi_SpecialKeisan();
         }
 
 
@@ -2619,49 +2616,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
     }
 
-    void OkashiType_ShokukanBuf()
-    {
-        switch (_base_itemType_subB)
-        {
-            case "a_CookieSimple":
-
-                if (_basecrispy < 60) //60までは伸びる
-                {
-                }
-                else if (_basecrispy >= 60 && _basecrispy < 80)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.9f);
-                }
-                else if (_basecrispy >= 80 && _basecrispy < 100)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.85f);
-                }
-                else if (_basecrispy >= 100)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.8f);
-                }
-                break;
-
-            case "a_RuskSimple":
-
-                if (_basecrispy < 60) //60までは伸びる
-                {
-                }
-                else if (_basecrispy >= 60 && _basecrispy < 80)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.9f);
-                }
-                else if (_basecrispy >= 80 && _basecrispy < 100)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.85f);
-                }
-                else if (_basecrispy >= 100)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.8f);
-                }
-                break;
-        }
-    }
 
     void Okashi_SpecialKeisan()
     {
@@ -2766,6 +2720,48 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basehardness = (int)(_basehardness * 0.75f);
 
             _basepowdery = _basepowdery / 2;
+        }
+
+        //特殊補正　クッキーなどのおかしの種類で食感が伸びにくくなる
+        switch (_base_itemType_subB)
+        {
+            case "a_CookieSimple":
+
+                if (_basecrispy < 60) //60までは伸びる
+                {
+                }
+                else if (_basecrispy >= 60 && _basecrispy < 80)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.9f);
+                }
+                else if (_basecrispy >= 80 && _basecrispy < 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.85f);
+                }
+                else if (_basecrispy >= 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.7f);
+                }
+                break;
+
+            case "a_RuskSimple":
+
+                if (_basecrispy < 60) //60までは伸びる
+                {
+                }
+                else if (_basecrispy >= 60 && _basecrispy < 80)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.9f);
+                }
+                else if (_basecrispy >= 80 && _basecrispy < 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.85f);
+                }
+                else if (_basecrispy >= 100)
+                {
+                    _basecrispy = (int)(_basecrispy * 0.7f);
+                }
+                break;
         }
     }
 

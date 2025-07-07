@@ -56,7 +56,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Shiokuri_ON = true; //仕送りの有無
     public static bool System_Yachin_ON = true; //家賃システムの有無
     public static bool System_CatAutoMaterial_ON = true; //猫が自動でアイテムをとってきてくれるシステムの有無
-    public static bool System_JobLVUP_ON = true; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
+    public static bool System_JobLVUP_ON = false; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
 
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
@@ -72,7 +72,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_ContestStarGet_ON = true; //コンテストで、スターが上がる仕様にする。
     public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
-    public static bool System_ContestEdenFinalStart_ON = true; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
+    public static bool System_ContestEdenFinalStart_ON = false; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
     public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　CompoundMain→GirlEat_Judgeで発生　trueなら、採点パネル表示前 falseなら後
    
     public static bool CompoBGMCHANGE_ON = false; //調合シーンでBGM切り替えるかどうかのフラグ 
@@ -2075,6 +2075,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("tea_powerup2");
         CollectionItemsName.Add("infinity_fountain");
         CollectionItemsName.Add("infinity_fountain_tansan");
+        CollectionItemsName.Add("teaset_normal");
+        CollectionItemsName.Add("teaset_wizard");
+        CollectionItemsName.Add("teaset_flower");
         //CollectionItemsName.Add("neko_badge2");
         //CollectionItemsName.Add("music_box");
     }    

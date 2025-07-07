@@ -350,11 +350,12 @@ public class ContestPrizeController : MonoBehaviour
 
         if (GameMgr.EdenPrizeChange) //該当コンテスト　賞品が切り替わる
         {
-            if (GameMgr.EdenFirstVictory)
+            if (GameMgr.EdenFirstVictory) //現在エデンコンは表示が???に。
             {
                 if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1] != "Non")
                 {
-                    HyoujiPlayerItem(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1]);
+                    _name = "???";
+                    //HyoujiPlayerItem(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1]);
                 }
                 else
                 {

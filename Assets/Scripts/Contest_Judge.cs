@@ -65,6 +65,9 @@ public class Contest_Judge : MonoBehaviour {
     public int[] total_score;
     private float _temp_score;
     private int[] before_tastescore;
+    private int[] before_sweatscore;
+    private int[] before_bitterscore;
+    private int[] before_sourscore;
     private int[] before_beautyscore;
     private string _basemagicslot_Name;
 
@@ -125,6 +128,9 @@ public class Contest_Judge : MonoBehaviour {
         //要素数の初期化
         total_score = new int[girl1_status.youso_count];
         before_tastescore = new int[girl1_status.youso_count];
+        before_sweatscore = new int[girl1_status.youso_count];
+        before_bitterscore = new int[girl1_status.youso_count];
+        before_sourscore = new int[girl1_status.youso_count];
         before_beautyscore = new int[girl1_status.youso_count];
         _baseMS = new string[database.items[0].item_MagicSlot.Length];
         _baseMSvalue = new int[database.items[0].item_MagicSlotValue.Length];
@@ -478,6 +484,9 @@ public class Contest_Judge : MonoBehaviour {
                 total_score[count] = 0;
             }
             GameMgr.contest_Taste_Score[count] = girlEat_judge.shokukan_score;
+            GameMgr.contest_Sweat_Score[count] = girlEat_judge.sweat_score;
+            GameMgr.contest_Bitter_Score[count] = girlEat_judge.bitter_score;
+            GameMgr.contest_Sour_Score[count] = girlEat_judge.sour_score;
             GameMgr.contest_Beauty_Score[count] = girlEat_judge.beauty_score;           
             GameMgr.contest_Sweat_Comment[count] = girlEat_judge._contest_sweat_kansou;
             GameMgr.contest_Bitter_Comment[count] = girlEat_judge._contest_bitter_kansou;
@@ -564,6 +573,34 @@ public class Contest_Judge : MonoBehaviour {
             //２～
             case "Or_Contest_001":　//プラトンアカデミー
 
+                switch(GameMgr.ContestRoundNum) //各回戦ごとの調整
+                {
+                    case 1: //焼き菓子のみ　クッキー　ラスク　マフィン　フィナンシェ
+
+                        if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                        {
+                            if (item_subType == "Cookie" || item_subType == "Cookie_Hard"
+                                || item_subType == "Rusk" || item_subType == "Maffin" || item_subType == "Financier"
+                                || item_subType == "Cannoli" || item_subType == "Biscotti")
+                            {
+                                judge_flag = true;
+                            }
+                            else
+                            {
+                                judge_flag = false;
+                            }
+                        }
+                        break;
+
+                    case 2:
+
+                        break;
+
+                    case 3:
+
+                        break;
+                }
+
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
                     //じいさんの見た目判定を0に。
@@ -592,6 +629,21 @@ public class Contest_Judge : MonoBehaviour {
                 break;
 
             case "Or_Contest_002":　//サマードリームスフェスティバル
+
+                switch (GameMgr.ContestRoundNum) //各回戦ごとの調整
+                {
+                    case 1:
+
+                        break;
+
+                    case 2:
+
+                        break;
+
+                    case 3:
+
+                        break;
+                }
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
@@ -622,6 +674,21 @@ public class Contest_Judge : MonoBehaviour {
 
             case "Or_Contest_003":　//アルクアンシェル
 
+                switch (GameMgr.ContestRoundNum) //各回戦ごとの調整
+                {
+                    case 1:
+
+                        break;
+
+                    case 2:
+
+                        break;
+
+                    case 3:
+
+                        break;
+                }
+
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
                     //じいさんの見た目判定を0に。
@@ -650,6 +717,21 @@ public class Contest_Judge : MonoBehaviour {
                 break;
 
             case "Or_Contest_004":　//パティスリ・デュモンド
+
+                switch (GameMgr.ContestRoundNum) //各回戦ごとの調整
+                {
+                    case 1:
+
+                        break;
+
+                    case 2:
+
+                        break;
+
+                    case 3:
+
+                        break;
+                }
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
@@ -757,7 +839,21 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 break;
 
-            case "Or_Contest_030":　//ベオルヴ家のディナー　見た目を高くしないと通らない
+            case "Or_Contest_030":　//ベオルヴ家のディナー　見た目を高くしないと通らない 飲み物系は×
+
+                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    judge_flag = true;
+
+                    for ( i=0; i < GameMgr.OkashiFoodOrDrink_list.Count; i++)
+                    {
+                        if (item_subType == GameMgr.OkashiFoodOrDrink_list[i])
+                        {
+                            judge_flag = false;
+                        }
+                    }
+                    
+                }
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
@@ -1309,6 +1405,9 @@ public class Contest_Judge : MonoBehaviour {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
 
+                    //クッキー系は点数が下がる
+                    Contest_CookieHosei();
+
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();
@@ -1363,7 +1462,7 @@ public class Contest_Judge : MonoBehaviour {
 
                 break;
 
-            case "Or_Contest_290":　//パティシエの森　自由課題　初級
+            case "Or_Contest_290":　//パティシエの森　自由課題　クッキーやラスクだと点数上がりにくい
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
@@ -1374,6 +1473,9 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
+
+                    //クッキー系は点数が下がる
+                    Contest_CookieHosei();
 
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
@@ -1823,25 +1925,19 @@ public class Contest_Judge : MonoBehaviour {
     //とくていのお菓子に反応して点数を補正する
     void Contest_KoyuOkashiHosei_1()
     {
-        before_tastescore[0] = GameMgr.contest_Taste_Score[0];
-        before_tastescore[1] = GameMgr.contest_Taste_Score[1];
-        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+        SetBeforeScore();
 
         //生地や素材系アイテム、パンなどお菓子でないものは点数が下がる
         if (item_subTypeB == "a_CookieSource" || item_subTypeB == "a_Crepe_Mat" || item_subTypeB == "a_CreampuffSimple"
             || item_subTypeB == "a_Cake_Mat" || item_subTypeB == "a_Bread" || item_subTypeB == "a_Bread_Sliced")
         {
-            GameMgr.contest_Taste_Score[0] = (int)(GameMgr.contest_Taste_Score[0] * 0.75f);
-            GameMgr.contest_Taste_Score[1] = (int)(GameMgr.contest_Taste_Score[1] * 0.75f);
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.75f);
+            Hosei_ScoreKeisan(0.75f, 0.75f, 0.75f, 0.75f); //食感, 甘さ, 苦さ ,酸味　に補正値
         }
 
         // 補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
-        total_score[0] = total_score[0] + (GameMgr.contest_Taste_Score[0] - before_tastescore[0]);
-        total_score[1] = total_score[1] + (GameMgr.contest_Taste_Score[1] - before_tastescore[1]);
-        total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]); 
+        AfterHosei_TotalScoreKeisan();
 
-        Debug.Log("審査員全員　シンプルなお菓子系だったので、食感点数を0.75に補正");
+        Debug.Log("審査員全員　シンプルなお菓子系だったので、食感点数0.75と甘さ関係0.75に補正");
         Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
         Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
     }
@@ -1849,24 +1945,20 @@ public class Contest_Judge : MonoBehaviour {
     //クッキー系お菓子に対して点数を下方調整　ただし魔法のお菓子なら大丈夫
     void Contest_CookieHosei()
     {
-        before_tastescore[0] = GameMgr.contest_Taste_Score[0];
-        before_tastescore[1] = GameMgr.contest_Taste_Score[1];
-        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+        SetBeforeScore();
+        
 
         //生地や素材系アイテムは点数が下がる
         if (item_subTypeB == "a_Cookie" || item_subTypeB == "a_Cookie_Hard" || item_subTypeB == "a_Rusk")
         {
-            GameMgr.contest_Taste_Score[0] = (int)(GameMgr.contest_Taste_Score[0] * 0.75f);
-            GameMgr.contest_Taste_Score[1] = (int)(GameMgr.contest_Taste_Score[1] * 0.75f);
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.75f);
+            Hosei_ScoreKeisan(0.75f, 0.75f, 0.75f, 0.75f);          
         }
 
         // 補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
-        total_score[0] = total_score[0] + (GameMgr.contest_Taste_Score[0] - before_tastescore[0]);
-        total_score[1] = total_score[1] + (GameMgr.contest_Taste_Score[1] - before_tastescore[1]);
-        total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
+        AfterHosei_TotalScoreKeisan();       
 
-        Debug.Log("審査員全員　クッキーかラスク系だったので、食感点数を0.75に補正");
+
+        Debug.Log("審査員全員　クッキーかラスク系だったので、食感点数0.75と甘さ関係0.75に補正");
         Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
         Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
     }
@@ -1874,9 +1966,7 @@ public class Contest_Judge : MonoBehaviour {
     //チョコ系お菓子に対して点数を下方調整　ただし魔法のお菓子なら大丈夫
     void Contest_ChocolateHosei()
     {
-        before_tastescore[0] = GameMgr.contest_Taste_Score[0];
-        before_tastescore[1] = GameMgr.contest_Taste_Score[1];
-        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+        SetBeforeScore();
 
         //チョコ黒以外は点数が下がる
         if (item_subType == "Chocolate")
@@ -1886,21 +1976,74 @@ public class Contest_Judge : MonoBehaviour {
             { }
             else
             {
-                GameMgr.contest_Taste_Score[0] = (int)(GameMgr.contest_Taste_Score[0] * 0.75f);
-                GameMgr.contest_Taste_Score[1] = (int)(GameMgr.contest_Taste_Score[1] * 0.75f);
-                GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.75f);
+                Hosei_ScoreKeisan(0.75f, 0.75f, 0.75f, 0.75f);
             }
         }
-        
+
 
         // 補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
+        AfterHosei_TotalScoreKeisan();
+
+        Debug.Log("審査員全員　チョコ黒系以外だったので、食感点数0.75と甘さ関係0.75に補正");
+        Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
+        Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
+    }
+
+    void SetBeforeScore()
+    {
+        before_tastescore[0] = GameMgr.contest_Taste_Score[0];
+        before_tastescore[1] = GameMgr.contest_Taste_Score[1];
+        before_tastescore[2] = GameMgr.contest_Taste_Score[2];
+
+        before_sweatscore[0] = GameMgr.contest_Sweat_Score[0];
+        before_sweatscore[1] = GameMgr.contest_Sweat_Score[1];
+        before_sweatscore[2] = GameMgr.contest_Sweat_Score[2];
+
+        before_bitterscore[0] = GameMgr.contest_Bitter_Score[0];
+        before_bitterscore[1] = GameMgr.contest_Bitter_Score[1];
+        before_bitterscore[2] = GameMgr.contest_Bitter_Score[2];
+
+        before_sourscore[0] = GameMgr.contest_Sour_Score[0];
+        before_sourscore[1] = GameMgr.contest_Sour_Score[1];
+        before_sourscore[2] = GameMgr.contest_Sour_Score[2];
+    }
+
+    void Hosei_ScoreKeisan(float _deg1, float _deg2, float _deg3, float _deg4)
+    {
+        GameMgr.contest_Taste_Score[0] = (int)(GameMgr.contest_Taste_Score[0] * _deg1);
+        GameMgr.contest_Taste_Score[1] = (int)(GameMgr.contest_Taste_Score[1] * _deg1);
+        GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * _deg1);
+
+        GameMgr.contest_Sweat_Score[0] = (int)(GameMgr.contest_Sweat_Score[0] * _deg2);
+        GameMgr.contest_Sweat_Score[1] = (int)(GameMgr.contest_Sweat_Score[1] * _deg2);
+        GameMgr.contest_Sweat_Score[2] = (int)(GameMgr.contest_Sweat_Score[2] * _deg2);
+
+        GameMgr.contest_Bitter_Score[0] = (int)(GameMgr.contest_Bitter_Score[0] * _deg3);
+        GameMgr.contest_Bitter_Score[1] = (int)(GameMgr.contest_Bitter_Score[1] * _deg3);
+        GameMgr.contest_Bitter_Score[2] = (int)(GameMgr.contest_Bitter_Score[2] * _deg3);
+
+        GameMgr.contest_Sour_Score[0] = (int)(GameMgr.contest_Sour_Score[0] * _deg4);
+        GameMgr.contest_Sour_Score[1] = (int)(GameMgr.contest_Sour_Score[1] * _deg4);
+        GameMgr.contest_Sour_Score[2] = (int)(GameMgr.contest_Sour_Score[2] * _deg4);
+    }
+
+    void AfterHosei_TotalScoreKeisan()
+    {
         total_score[0] = total_score[0] + (GameMgr.contest_Taste_Score[0] - before_tastescore[0]);
         total_score[1] = total_score[1] + (GameMgr.contest_Taste_Score[1] - before_tastescore[1]);
         total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]);
 
-        Debug.Log("審査員全員　チョコ黒系以外だったので、食感点数を0.75に補正");
-        Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
-        Debug.Log("審査員全員　食感補正後：" + GameMgr.contest_Taste_Score[0] + "点");
+        total_score[0] = total_score[0] + (GameMgr.contest_Sweat_Score[0] - before_sweatscore[0]); //補正がない場合は、単純に１を引いて、１を足す計算なので問題なし
+        total_score[1] = total_score[1] + (GameMgr.contest_Sweat_Score[1] - before_sweatscore[1]);
+        total_score[2] = total_score[2] + (GameMgr.contest_Sweat_Score[2] - before_sweatscore[2]);
+
+        total_score[0] = total_score[0] + (GameMgr.contest_Bitter_Score[0] - before_bitterscore[0]);
+        total_score[1] = total_score[1] + (GameMgr.contest_Bitter_Score[1] - before_bitterscore[1]);
+        total_score[2] = total_score[2] + (GameMgr.contest_Bitter_Score[2] - before_bitterscore[2]);
+
+        total_score[0] = total_score[0] + (GameMgr.contest_Sour_Score[0] - before_sourscore[0]);
+        total_score[1] = total_score[1] + (GameMgr.contest_Sour_Score[1] - before_sourscore[1]);
+        total_score[2] = total_score[2] + (GameMgr.contest_Sour_Score[2] - before_sourscore[2]);
     }
 
     void Contest_ShokukanHosei_1()

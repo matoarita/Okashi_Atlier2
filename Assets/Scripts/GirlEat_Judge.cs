@@ -2012,7 +2012,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (_basepowdery > GameMgr.Watery_Line) //50より上
         {
             //dislike_flag = false;
-            dislike_score += _basepowdery * 2;
+            dislike_score += (int)(_basepowdery * 3.5f);
             dislike_status = 3;
             dislike_num = 0;
             Debug.Log("粉っぽい: " + dislike_score);
@@ -2020,7 +2020,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (_baseoily > GameMgr.Watery_Line)
         {
             //dislike_flag = false;
-            dislike_score += _baseoily * 2;
+            dislike_score += (int)(_baseoily * 3.5f);
             dislike_status = 3;
             dislike_num = 1;
             Debug.Log("油っぽい: " + dislike_score);
@@ -2043,7 +2043,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             if (_basewatery > GameMgr.Watery_Line)
             {
                 //dislike_flag = false;
-                dislike_score += _basewatery * 2;
+                dislike_score += (int)(_basewatery * 3.5f);
                 dislike_status = 3;
                 dislike_num = 2;
                 Debug.Log("水っぽい: " + dislike_score);
@@ -6955,7 +6955,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             + "\n" + spscore8_score_debugtext
             + "\n" + spscore9_score_debugtext
             + "\n" + "Non: " + spscore10_score
-            + "\n" + "\n" + "ディスライクスコア: " + dislike_score
+            + "\n" + "\n" + "ディスライクスコア: -" + dislike_score
             + "\n" + "\n" + "総合得点: " + total_score;
     }
 

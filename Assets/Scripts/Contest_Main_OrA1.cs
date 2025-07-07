@@ -396,7 +396,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
 
-            //じつは一日休んでるので、MPは全回復
+            //MPは全回復
             PlayerStatus.player_mp = PlayerStatus.player_maxmp;
 
             //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する まだ設定してないのでひとまずoff
@@ -596,16 +596,18 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     //エクストリームパネル表示更新
                     GameMgr.extremepanel_Koushin = true;
 
-                    if (!StartRead) //シーン最初だけ読み込む
+                    if (!StartRead) //コンテスト開始時最初だけ読み込む
                     {
+                        sceneBGM.MuteBGM();
+
                         Debug.Log("ContestMainOrA1 StartRead ON");
                         StartRead = true;                     
                         scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
 
                         contestFirstEnshutuPanel.SetActive(true);
                         contestFirstEnshutuPanel.GetComponent<ContestFirstEnshutuPanel>().SetContestName();
+                        contestFirstEnshutuPanel.GetComponent<ContestFirstEnshutuPanel>().SetOnEnshutuStart();
 
-                        GameMgr.ContestStartEnshutu_Flag = true;
                         mainUI_panel.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
                         mainUI_panel.GetComponent<CanvasGroup>().interactable = false;
                         text_area.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
@@ -613,10 +615,11 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                         girl1_status.SetMotion_ContestBefore();
                         girl1_status.GirlEat_Judge_on = false;
 
-
                         GameMgr.Scene_Status = 1000;
                         GameMgr.Scene_Select = 0;
-                       
+
+
+                        GameMgr.ContestStartEnshutu_Flag = true;
                         StartCoroutine("StartEnshutu");
                     }                                                        
 
@@ -744,6 +747,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         //演出が終了　BGMなど始まる
         sceneBGM.PlayContestStartBGM();
         sceneBGM.NowFadeVolumeONBGM();
+        sceneBGM.MuteOFFBGM();
 
         girl1_status.IdleMotionReset(1); //コンテスト用アイドルモーションにリセット
         girl1_status.GirlEat_Judge_on = true;

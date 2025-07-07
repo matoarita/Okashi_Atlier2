@@ -44,6 +44,7 @@ public class StatusPanel : MonoBehaviour {
     private GameObject Collection_Panel_obj;
     private GameObject Collection_CaptionPanel_obj;
     private GameObject HikariStatusList_obj;
+    private GameObject Equip_Panel_obj;
 
     private GameObject HikariParam_Toggle_obj;
 
@@ -66,6 +67,13 @@ public class StatusPanel : MonoBehaviour {
     private Text Okashi_SPquest_eatkaisu_param;
     private Text Okashi_SPquest_MaxScore_param;
     private Text Okashi_Game_MaxScore_param;
+
+    private Text playerOkashi_crispy_param;
+    private Text playerOkashi_fluffy_param;
+    private Text playerOkashi_smooth_param;
+    private Text playerOkashi_hardness_param;
+    private Text playerOkashi_juice_param;
+    private Text playerOkashi_teaflavor_param;
 
     private Text girlFind_power_param_buf;
 
@@ -151,6 +159,7 @@ public class StatusPanel : MonoBehaviour {
         Collection_Panel_obj = this.transform.Find("CollectionPanel").gameObject;
         Collection_CaptionPanel_obj = Collection_Panel_obj.transform.Find("ParamView2").gameObject;
         HikariStatusList_obj = this.transform.Find("HikariStatusList").gameObject;
+        Equip_Panel_obj = this.transform.Find("EquipList").gameObject;
 
         contentCos = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
         costumePrefab = (GameObject)Resources.Load("Prefabs/ClothIcon");
@@ -257,8 +266,6 @@ public class StatusPanel : MonoBehaviour {
     {
         WindowAllOFF();
         StatusList_obj.SetActive(true);
-
-
 
         //
         //パラメータ更新
@@ -405,8 +412,59 @@ public class StatusPanel : MonoBehaviour {
         CostumeListHyoujiKoushin();
         AcceListHyoujiKoushin();
 
+    }
+
+    public void OnCollectionPanel()
+    {
+        WindowAllOFF();
+        Collection_Panel_obj.SetActive(true);
+
+        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
+        {
+            if (pitemlist.ReturnItemKosu(GameMgr.CollectionItemsName[i]) > 0) //所持してた場合、画像として表示される。
+            {
+                _itemID = database.SearchItemIDString(GameMgr.CollectionItemsName[i]);
+                collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = database.items[_itemID].itemIcon_sprite;
+                collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().interactable = true;
+            }
+            else //それ以外は？で表示
+            {
+                collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = hatena_sprite;
+                collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().interactable = false;
+            }
+        }
+    }
+
+    public void OnHikariOkashiPanel()
+    {
+        WindowAllOFF();
+        HikariStatusList_obj.SetActive(true);
+
+        //パラメータ更新
 
     }
+
+    public void OnEquipParamPanel()
+    {
+        WindowAllOFF();
+        Equip_Panel_obj.SetActive(true);
+
+        //パラメータ更新
+        playerOkashi_crispy_param = Equip_Panel_obj.transform.Find("Viewport/Content/Panel_B/ParamView1/Viewport/Content/ParamA_param/Text").GetComponent<Text>();
+        playerOkashi_fluffy_param = Equip_Panel_obj.transform.Find("Viewport/Content/Panel_B/ParamView1/Viewport/Content/ParamB_param/Text").GetComponent<Text>();
+        playerOkashi_smooth_param = Equip_Panel_obj.transform.Find("Viewport/Content/Panel_B/ParamView1/Viewport/Content/ParamC_param/Text").GetComponent<Text>();
+        playerOkashi_hardness_param = Equip_Panel_obj.transform.Find("Viewport/Content/Panel_B/ParamView1/Viewport/Content/ParamD_param/Text").GetComponent<Text>();
+        playerOkashi_juice_param = Equip_Panel_obj.transform.Find("Viewport/Content/Panel_B/ParamView1/Viewport/Content/ParamE_param/Text").GetComponent<Text>();
+        playerOkashi_teaflavor_param = Equip_Panel_obj.transform.Find("Viewport/Content/Panel_B/ParamView1/Viewport/Content/ParamF_param/Text").GetComponent<Text>();
+
+        playerOkashi_crispy_param.text = PlayerStatus.player_okashi_crispyup.ToString();
+        playerOkashi_fluffy_param.text = PlayerStatus.player_okashi_fluffyup.ToString();
+        playerOkashi_smooth_param.text = PlayerStatus.player_okashi_smoothup.ToString();
+        playerOkashi_hardness_param.text = PlayerStatus.player_okashi_hardnessup.ToString();
+        playerOkashi_juice_param.text = PlayerStatus.player_okashi_juiceup.ToString();
+        playerOkashi_teaflavor_param.text = PlayerStatus.player_okashi_tea_flavorup.ToString();
+    }
+
 
     void CostumeSetListNum() //GameMgr.Costume_Numをリストの配列に戻す
     {
@@ -509,28 +567,7 @@ public class StatusPanel : MonoBehaviour {
             }
         }
     }
-
-
-    public void OnCollectionPanel()
-    {
-        WindowAllOFF();
-        Collection_Panel_obj.SetActive(true);
-
-        for (i = 0; i < GameMgr.CollectionItemsName.Count; i++)
-        {           
-            if (pitemlist.ReturnItemKosu(GameMgr.CollectionItemsName[i]) > 0) //所持してた場合、画像として表示される。
-            {
-                _itemID = database.SearchItemIDString(GameMgr.CollectionItemsName[i]);
-                collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = database.items[_itemID].itemIcon_sprite;
-                collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().interactable = true;
-            }
-            else //それ以外は？で表示
-            {
-                collectionitem_toggle[i].transform.Find("CollectionToggle/Background/Image").GetComponent<Image>().sprite = hatena_sprite;
-                collectionitem_toggle[i].transform.Find("CollectionToggle").GetComponent<Toggle>().interactable = false;
-            }
-        }
-    }
+   
 
     public void OnCollectionCaptionHyouji(int _no, string _collectionName) //CollectionToggleから読み出し　アイテムの説明を呼び出す
     {
@@ -565,14 +602,7 @@ public class StatusPanel : MonoBehaviour {
         }
     }
 
-    public void OnHikariOkashiPanel()
-    {
-        WindowAllOFF();
-        HikariStatusList_obj.SetActive(true);
-
-        //パラメータ更新
-
-    }
+    
 
     void WindowAllOFF()
     {
@@ -580,6 +610,7 @@ public class StatusPanel : MonoBehaviour {
         Costume_Panel_obj.SetActive(false);
         Collection_Panel_obj.SetActive(false);
         HikariStatusList_obj.SetActive(false);
+        Equip_Panel_obj.SetActive(false);
     }
 
     void InitHikariOkashiParam_View()

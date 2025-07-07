@@ -350,6 +350,12 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
                     if (GameMgr.PrizeItemList[i] != "Non")
                     {
                         GetPlayerItem(GameMgr.PrizeItemList[i]);
+
+                        //１位のときのみ、ほかにガッポリとたくさんのアイテムを獲得
+                        if(GameMgr.contest_Rank_Count == 1)
+                        {
+
+                        }
                     }
                     else
                     {
@@ -654,7 +660,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Add(75);
         GameMgr.PrizeScoreAreaList.Add(107);
         GameMgr.PrizeScoreAreaList.Add(125);
-        GameMgr.PrizeScoreAreaList.Add(132);
+        GameMgr.PrizeScoreAreaList.Add(179);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -952,7 +958,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(500);
         GameMgr.PrizeGetMoneyList.Add(700);
-        GameMgr.PrizeGetMoneyList.Add(1200);
+        GameMgr.PrizeGetMoneyList.Add(1000);
         GameMgr.PrizeGetMoneyList.Add(2000);
 
         //相手の点数リスト
@@ -1195,10 +1201,10 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(112);
-        GameMgr.PrizeScoreAreaList.Add(145);
-        GameMgr.PrizeScoreAreaList.Add(168);
-        GameMgr.PrizeScoreAreaList.Add(182);
+        GameMgr.PrizeScoreAreaList.Add(152);
+        GameMgr.PrizeScoreAreaList.Add(197);
+        GameMgr.PrizeScoreAreaList.Add(213);
+        GameMgr.PrizeScoreAreaList.Add(252);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
@@ -1229,17 +1235,17 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(71);
-        GameMgr.PrizeScoreAreaList.Add(105);
-        GameMgr.PrizeScoreAreaList.Add(127);
-        GameMgr.PrizeScoreAreaList.Add(160);
+        GameMgr.PrizeScoreAreaList.Add(102);
+        GameMgr.PrizeScoreAreaList.Add(155);
+        GameMgr.PrizeScoreAreaList.Add(178);
+        GameMgr.PrizeScoreAreaList.Add(198);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();
         GameMgr.PrizeCharacterList.Add("エリカ");
-        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
+        GameMgr.PrizeCharacterList.Add("ウリユ");
         GameMgr.PrizeCharacterList.Add("ベル");
-        GameMgr.PrizeCharacterList.Add("イセヤ");
+        GameMgr.PrizeCharacterList.Add("ハーマイオニー");
     }
 
     //〇クレープ・ドゥ・シャノワール　クレープ系　クレープは屋台で手に入れるので、入手のヒントがないと困るかも。

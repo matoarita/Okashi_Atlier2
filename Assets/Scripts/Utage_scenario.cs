@@ -3854,7 +3854,7 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //入る
 
                         GameMgr.Utage_MapMoveON = true;
-                        //moneyStatus_Controller.UseMoney(2000);
+                        moneyStatus_Controller.UseMoney(500);
                         break;
 
                 }
@@ -4567,7 +4567,7 @@ public class Utage_scenario : MonoBehaviour
         //特殊点が足りなかった場合フラグがtrue
         engine.Param.TrySetParameter("contest_Disqualification2", GameMgr.contest_Disqualification2);
 
-        GameMgr.contest_TotalScoreList.Add(GameMgr.contest_TotalScore); //採点時に、各ラウンドごとの得点も保存。賞品獲得時に計算して使う。
+        //GameMgr.contest_TotalScoreList.Add(GameMgr.contest_TotalScore); //採点時に、各ラウンドごとの得点も保存。賞品獲得時に計算して使う。
 
         //採点によって、感想が変わる。
         if (GameMgr.contest_TotalScore >= GameMgr.high_score) //85~
@@ -4827,7 +4827,7 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.contest_Rank_Count = 1; //優勝したので1
                         GameMgr.Contest_PrizeGet_flag = true; //賞品を獲得するイベント発生
                                                               //各ラウンドの採点を合計
-                        SumContestTotalScore();
+                        //SumContestTotalScore();
                     }
                 }
                 else
@@ -4849,12 +4849,12 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.Contest_PrizeGet_flag = true; //賞品を獲得するイベント発生
                                                       //各ラウンドの採点を合計
 
-                SumContestTotalScore();
+                //SumContestTotalScore();
             }
         }
     }
 
-    void SumContestTotalScore()
+    /*void SumContestTotalScore()
     {
         GameMgr.contest_PrizeScore = 0;
         for (i = 0; i < GameMgr.contest_TotalScoreList.Count; i++)
@@ -4862,7 +4862,7 @@ public class Utage_scenario : MonoBehaviour
             GameMgr.contest_PrizeScore = GameMgr.contest_PrizeScore + GameMgr.contest_TotalScoreList[i];
         }
         Debug.Log("各ラウンドの点数の合計: " + GameMgr.contest_PrizeScore);
-    }
+    }*/
 
     //
     // コンテストオランジーナ　賞品獲得
@@ -4877,7 +4877,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Contest_num", contest_num);
-        engine.Param.TrySetParameter("contest_totalPrize_score", GameMgr.contest_PrizeScore); //総合点
+        engine.Param.TrySetParameter("contest_totalPrize_score", GameMgr.contest_TotalScore); //総合点
         engine.Param.TrySetParameter("contest_PrizeGetItemName", GameMgr.Contest_PrizeGet_ItemName); //獲得した賞品名 Nonの場合もある
         engine.Param.TrySetParameter("contest_PrizeGetMoney", GameMgr.Contest_PrizeGet_Money);
         engine.Param.TrySetParameter("contest_PrizeGetNinki", GameMgr.Contest_PrizeGetninkiparam);
