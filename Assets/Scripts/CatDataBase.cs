@@ -501,20 +501,20 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
     void CatRandom_InitLibrary() //ランダム猫用のデータセット　タイプでちょっと差をつけてもいいかも？
     {
-        SetInit_CustomCatData("ピサロ", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(4, 6), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("ノブナガ", 1, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(4, 6), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("ロドリゲス", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(4, 6), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("ピサロ", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("ノブナガ", 1, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("ロドリゲス", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
 
-        SetInit_CustomCatData("じろきち", 0, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(3, 4), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("マロリー", 1, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(3, 4), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("クルス", 0, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(3, 4), UnityEngine.Random.Range(1, 4), 2);        
+        SetInit_CustomCatData("じろきち", 0, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(2, 2), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("マロリー", 1, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(2, 2), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("クルス", 0, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(2, 2), UnityEngine.Random.Range(1, 4), 2);        
 
         SetInit_CustomCatData("ボコ", 0, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("かにぱん", 1, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("えびふらい", 0, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
 
-        SetInit_CustomCatData("みこ", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(2, 3), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("メリー", 1, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(2, 3), UnityEngine.Random.Range(1, 4), 2);
-        SetInit_CustomCatData("シヴァ", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(2, 3), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("みこ", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(1, 2), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("メリー", 1, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(1, 2), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("シヴァ", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(1, 2), UnityEngine.Random.Range(1, 4), 2);
     }
 }

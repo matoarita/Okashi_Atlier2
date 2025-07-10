@@ -1495,7 +1495,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else
         {
-            Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
+            //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
             //アイテム取得処理
             GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
         }
@@ -2441,6 +2441,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Okashi_SpecialKeisan();
         }
 
+        //お菓子の種類による特殊な補正処理　クッキーやラスクがサクサク感を少し上げにくくなるなど
+        if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときのみ計算。
+        {
+            Okashi_SpecialKeisan2();
+        }
+
 
         //⑤器具やアクセサリーなどによるバフ効果を追加する。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合　または　レシピ調合　のときの計算。魔法のときはバフをかけない。Comp_method_bunki == 20
@@ -2559,7 +2565,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basehardness += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(3, _basehardness, GameMgr.UseMagicSkill, _baseattri2);
             _basejuice += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(4, _basejuice, GameMgr.UseMagicSkill, _baseattri2);
             _basebeauty += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(5, _basebeauty, GameMgr.UseMagicSkill, _baseattri2);
-            _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, _basetea_flavor, GameMgr.UseMagicSkill, _baseattri2);
+            _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, _basetea_flavor, GameMgr.UseMagicSkill, _baseattri2);            
 
             //ここで魔法スロット追加
             AddMagicSlot_Method();
@@ -2720,8 +2726,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basehardness = (int)(_basehardness * 0.75f);
 
             _basepowdery = _basepowdery / 2;
-        }
+        }       
+    }
 
+    void Okashi_SpecialKeisan2()
+    {
         //特殊補正　クッキーなどのおかしの種類で食感が伸びにくくなる
         switch (_base_itemType_subB)
         {

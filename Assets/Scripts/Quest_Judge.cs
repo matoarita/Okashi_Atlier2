@@ -114,6 +114,11 @@ public class Quest_Judge : MonoBehaviour {
     private string _itemname;
     private string _itemname2;
     private string _itemname3;
+    private string _itemname4;
+    private string _itemname5;
+    private string _itemname6;
+    private string _itemname7;
+    private string _itemname8;
     private string _itemsubtype;
 
     private int _kosu_default;
@@ -1257,6 +1262,11 @@ public class Quest_Judge : MonoBehaviour {
             OkashiTypeJudge(_itemname);
             OkashiTypeJudge(_itemname2);
             OkashiTypeJudge(_itemname3);
+            OkashiTypeJudge(_itemname4);
+            OkashiTypeJudge(_itemname5);
+            OkashiTypeJudge(_itemname6);
+            OkashiTypeJudge(_itemname7);
+            OkashiTypeJudge(_itemname8);
             OkashiTypeJudge2(_itemsubtype);
 
             //④トッピングスロットをみて、スコアを加算する。アイテムについているスロットの点数を加算する。
@@ -1977,6 +1987,11 @@ public class Quest_Judge : MonoBehaviour {
             + "\n" + "\n" + "判定アイテム名: " + _itemname
             + "\n" + "判定アイテム名2: " + _itemname2
             + "\n" + "判定アイテム名3: " + _itemname3
+            + "\n" + "判定アイテム名4: " + _itemname4
+            + "\n" + "判定アイテム名5: " + _itemname5
+            + "\n" + "判定アイテム名6: " + _itemname6
+            + "\n" + "判定アイテム名7: " + _itemname7
+            + "\n" + "判定アイテム名8: " + _itemname8
             + "\n" + "判定サブタイプ: " + _itemsubtype
             + "\n" + "\n" + "あまさ: " + _basesweat
             + "\n" + " お客さんの好みの甘さ: " + _sweat
@@ -2025,6 +2040,11 @@ public class Quest_Judge : MonoBehaviour {
         _itemname = quest_database.questTakeset[_count].Quest_itemName;
         _itemname2 = quest_database.questTakeset[_count].Quest_itemName2;
         _itemname3 = quest_database.questTakeset[_count].Quest_itemName3;
+        _itemname4 = quest_database.questTakeset[_count].Quest_itemName4;
+        _itemname5 = quest_database.questTakeset[_count].Quest_itemName5;
+        _itemname6 = quest_database.questTakeset[_count].Quest_itemName6;
+        _itemname7 = quest_database.questTakeset[_count].Quest_itemName7;
+        _itemname8 = quest_database.questTakeset[_count].Quest_itemName8;
         _itemsubtype = quest_database.questTakeset[_count].Quest_itemSubtype;
 
         _kosu_min = quest_database.questTakeset[_count].Quest_kosu_min;

@@ -3375,7 +3375,6 @@ public class GetMaterial : MonoBehaviour
                     treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 
-
                 break;
 
             case "BerryFarm":
@@ -3490,6 +3489,106 @@ public class GetMaterial : MonoBehaviour
                     treasureInfo.Add(1, "Record_13");
                     treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
                 }
+                if (pitemlist.KosuCount("otona_powerup1") == 0)
+                {
+                    treasureInfo.Add(2, "otona_powerup1");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
+                break;
+
+
+
+            //２～から
+            case "Sakura_Forest": //お宝セットテーブル　森
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。                
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+
+                if (pitemlist.KosuCount("crepe_powerup3") == 0)
+                {
+                    treasureInfo.Add(2, "crepe_powerup3");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
+
+                break;
+
+            case "Bluetopaz_Garden":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+
+                if (pitemlist.KosuCount("cookie_powerup4") == 0)
+                {
+                    treasureInfo.Add(2, "cookie_powerup4");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
+                break;
+
+            case "Aquamarine_Lake":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+
+                if (pitemlist.KosuCount("shokukan_powerup3") == 0)
+                {
+                    treasureInfo.Add(2, "shokukan_powerup3");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
+                break;
+
+            case "Ruby_Plane":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+
+                if (pitemlist.KosuCount("candy_powerup1") == 0)
+                {
+                    treasureInfo.Add(2, "candy_powerup1");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
+                break;
+
+            case "Emerald_Forest":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+
+                if (pitemlist.KosuCount("hikari_powerup3") == 0)
+                {
+                    treasureInfo.Add(2, "hikari_powerup3");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
+                break;
+
+            case "Or_Old_Ido":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+
+                if (pitemlist.KosuCount("tea_powerup4") == 0)
+                {
+                    treasureInfo.Add(2, "tea_powerup4");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }
+                break;
+
+            case "Amber_Lake":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+
+                /*if (pitemlist.KosuCount("magic_crystal2") == 0)
+                {
+                    treasureInfo.Add(2, "magic_crystal2");
+                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                }*/
+                break;
+
+            case "MoonStone_Hill":
+
+                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+
                 if (pitemlist.KosuCount("otona_powerup1") == 0)
                 {
                     treasureInfo.Add(2, "otona_powerup1");
@@ -3782,12 +3881,12 @@ public class GetMaterial : MonoBehaviour
         // 入手できるアイテムのデータベース
         ResetItemDicts();
         InitializeHikariDicts(_index); //ヒカリ入手用のDB
-        //InitializeHikariTreasureDicts(place_name); //ヒカリ採取時の宝箱DB
+        InitializeHikariTreasureDicts(place_name); //ヒカリ採取時の宝箱DB
 
         //猫のアイテム発見力をバフつきで計算
         //Keisan_FindPower();
 
-        //アイテム発見力20ごとに、一回探索回数がふえる。
+        //アイテム発見力20ごとに、一回探索回数がふえる。ねこでは、アイテム発見力は使ってない。
         _findpower_girl_getmat_final = 0;
         while (_findpower_girl_getmat >= 20)
         {

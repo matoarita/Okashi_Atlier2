@@ -2131,20 +2131,13 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         map_list.Clear();
         for(i=0; i < matplace_database.matplace_lists.Count; i++)
         {
-            if(matplace_database.matplace_lists[i].placeFlag == 1 && matplace_database.matplace_lists[i].placeType == 1)
+            if (matplace_database.matplace_lists[i].matplaceID >= 100) //オランジーナのみ
             {
-                if (matplace_database.matplace_lists[i].placeHP >= 4) //冬エリア関係は、ハートLVが一定以上ないと行かない
+                if (matplace_database.matplace_lists[i].placeFlag == 1 && matplace_database.matplace_lists[i].placeType == 1)
                 {
-                    if (PlayerStatus.girl1_Love_lv >= 25)
+                    if (matplace_database.matplace_lists[i].placeHP >= 4) //冬エリア関係は、ハートLVが一定以上ないと行かない
                     {
-                        map_list.Add(i);
-                    } else { }
-                }
-                else
-                {
-                    if (matplace_database.matplace_lists[i].placeHP == 3) //HP3消費する場所は、ハートLVが一定以上ないと行かない
-                    {
-                        if (PlayerStatus.girl1_Love_lv >= 17)
+                        if (PlayerStatus.girl1_Love_lv >= 25)
                         {
                             map_list.Add(i);
                         }
@@ -2152,10 +2145,21 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                     else
                     {
-                        map_list.Add(i);
+                        if (matplace_database.matplace_lists[i].placeHP == 3) //HP3消費する場所は、ハートLVが一定以上ないと行かない
+                        {
+                            if (PlayerStatus.girl1_Love_lv >= 17)
+                            {
+                                map_list.Add(i);
+                            }
+                            else { }
+                        }
+                        else
+                        {
+                            map_list.Add(i);
+                        }
                     }
+
                 }
-                             
             }
         }
 

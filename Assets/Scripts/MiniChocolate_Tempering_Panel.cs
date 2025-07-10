@@ -208,6 +208,8 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         stop_watch = true;
         this.transform.Find("Comp").GetComponent<CanvasGroup>().DOFade(1, 0.3f); //演出画面をON
         Debug.Log("stop_watch: " + stop_watch);
+
+        //sc.PlaySe(244); //チャージ音
     }
 
     //クリックでそこでゲージを止める
@@ -242,35 +244,50 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         GameMgr.System_magic_playSuccess = true;
         GameMgr.System_magic_playParamUp = 1.0f;
 
-        //ピキーン音ならす
-        sc.PlaySe(16);
+        
+        
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
         if (_guage_param >= 0 && _guage_param < 100)
         {
             GameMgr.System_magic_playParamUp = 0.5f;
+
+            //はずれ判定のとき　ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param >= 100 && _guage_param < 400)
         {
             GameMgr.System_magic_playParamUp = 1.0f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param >= 400 && _guage_param < 430)
         {
             GameMgr.System_magic_playParamUp = 1.1f;
+
+            Sound_OK1(); //成功判定のとき　キラ音
         }
         else if (_guage_param >= 440 && _guage_param < 490)
         {
             GameMgr.System_magic_playParamUp = 1.2f;
+
+            Sound_OK1(); //成功判定のとき　キラ音
         }
         else if (_guage_param >= 490 && _guage_param < 500)
         {
             GameMgr.System_magic_playParamUp = 1.1f;
+
+            Sound_OK1(); //成功判定のとき　キラ音
         }
         else if (_guage_param >= 500)
         {
             //焼すぎで失敗
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング1段階目　焼すぎで失敗");
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
 
         //次のバーへのフラグ
@@ -289,8 +306,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         //GameMgr.System_magic_playSuccess = true;
         //GameMgr.System_magic_playParamUp = 1.0f;
 
-        //ピキーン音ならす
-        sc.PlaySe(16);
+        
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
         if (_guage_param2 >= 0 && _guage_param2 < 40)
@@ -300,28 +316,44 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
             //冷やしすぎで失敗
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング2段階目　冷やしすぎで失敗");
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param2 >= 40 && _guage_param2 < 90)
         {
             GameMgr.System_magic_playParamUp2 = 0.9f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param2 >= 90 && _guage_param2 < 130)
         {
             GameMgr.System_magic_playParamUp2 = 1.3f;
+
+            Sound_OK1(); //成功判定のとき　キラ音
         }
         else if (_guage_param2 >= 130 && _guage_param2 < 400)
         {
             GameMgr.System_magic_playParamUp2 = 1.2f;
+
+            Sound_OK1(); //成功判定のとき　キラ音
         }
         else if (_guage_param2 >= 400 && _guage_param2 < 500)
         {
             GameMgr.System_magic_playParamUp2 = 0.7f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param2 >= 500)
         {
             //焼すぎで失敗
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング2段階目　焼すぎで失敗");
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
 
         //次のバーへのフラグ
@@ -340,34 +372,52 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         //GameMgr.System_magic_playSuccess = true;
         //GameMgr.System_magic_playParamUp = 1.0f;
 
-        //ピキーン音ならす
-        sc.PlaySe(16);
+        
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
         if (_guage_param3 >= 0 && _guage_param3 < 100)
         {
             GameMgr.System_magic_playParamUp3 = 0.5f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param3 >= 100 && _guage_param3 < 200)
         {
             GameMgr.System_magic_playParamUp3 = 1.75f;
+
+            Sound_OK1(); //成功判定のとき　キラ音
         }
         else if (_guage_param3 >= 200 && _guage_param3 < 230)
         {
             GameMgr.System_magic_playParamUp3 = 2.5f;
+
+            Sound_OK1(); //成功判定のとき　キラ音       
         }
         else if (_guage_param3 >= 230 && _guage_param3 < 270)
         {
             GameMgr.System_magic_playParamUp3 = 1.5f;
+
+            Sound_OK1(); //成功判定のとき　キラ音  
         }
         else if (_guage_param3 >= 230)
         {
             //焼すぎで失敗
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング3段階目　焼すぎで失敗");
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
 
         //次のバーへのフラグ
         _status = 9;
+    }
+
+    void Sound_OK1()
+    {
+        //成功判定のとき　キラ音
+        sc.PlaySe(245);
+        //sc.PlaySe(27); //ジャキン音
     }
 }

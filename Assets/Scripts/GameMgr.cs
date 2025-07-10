@@ -2069,10 +2069,17 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("hikari_speed_up1");
         CollectionItemsName.Add("aroma_potion1");
         CollectionItemsName.Add("shokukan_powerup2");
+        CollectionItemsName.Add("shokukan_powerup3");
         CollectionItemsName.Add("hikari_powerup1");
+        CollectionItemsName.Add("hikari_powerup3");
+        CollectionItemsName.Add("candy_powerup1");
         CollectionItemsName.Add("cookie_powerup2");       
         CollectionItemsName.Add("crepe_powerup2");
+        CollectionItemsName.Add("crepe_powerup3");
+        CollectionItemsName.Add("crepe_powerup4");
         CollectionItemsName.Add("tea_powerup2");
+        CollectionItemsName.Add("tea_powerup4");
+        CollectionItemsName.Add("otona_powerup1");
         CollectionItemsName.Add("infinity_fountain");
         CollectionItemsName.Add("infinity_fountain_tansan");
         CollectionItemsName.Add("teaset_normal");

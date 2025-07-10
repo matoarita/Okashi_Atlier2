@@ -666,7 +666,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();                    
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(200); //
+                    ScoreNormalized(175); //
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -1423,7 +1423,7 @@ public class Contest_Judge : MonoBehaviour {
 
                 break;
 
-            case "Or_Contest_280":　//チョコレート初級コンテスト
+            case "Or_Contest_280":　//エレメンタリー・チョコレート
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
@@ -1455,7 +1455,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(150); //50%
+                    ScoreNormalized(120); //80%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }

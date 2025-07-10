@@ -244,4 +244,6 @@ SE表
 ・SE_242	audiostock_71160_sample				ねこのなき声２だみ
 ・SE_243	09うるにゃーおー				ねこのなき声３うるにゃあ
 ・SE_244	audiostock_541296_sample			ねこのなき声４だみ２
-・SE_245	audiostock_1096795_sample			【未使用】コンテストタイトルドーン音
+・SE_245	audiostock_1611564_sample			テンパリングのチャージ音
+・SE_246	audiostock_954672_sample			テンパリングのチャージ成功音
+・SE_247	audiostock_954672_sample			テンパリングのチャージ成功音２（ピッチ上げた　ちょっと高い）

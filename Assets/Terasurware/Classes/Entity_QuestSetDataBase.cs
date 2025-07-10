@@ -27,6 +27,11 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public string quest_itemName;
 		public string quest_itemName2;
 		public string quest_itemName3;
+		public string quest_itemName4;
+		public string quest_itemName5;
+		public string quest_itemName6;
+		public string quest_itemName7;
+		public string quest_itemName8;
 		public string quest_itemsubtype;
 		public int kosu_default;
 		public int kosu_min;

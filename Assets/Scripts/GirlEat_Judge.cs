@@ -296,6 +296,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     public int taste_level; //Quest_Judgeからも読み出し
     private int taste_score;
     private string taste_type;
+    private int taste_score_t;
 
     private int sweat_level;
     private int bitter_level;
@@ -2483,6 +2484,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                   
         }
 
+        //バフをかける場合はここで。
+        taste_score_t = bufpower_keisan.Buf_SweatBitterSour_Keisan(taste_score, _baseitemtype_sub, _baseitemtype_subB);
+        taste_score = taste_score_t;
+
         return taste_score;
     }
 
@@ -2621,73 +2626,73 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
     }
 
-    //チョコレートを基準にした味
+    //ケーキ・チョコレートを基準にした味　割と、差が大き目に広がる60~200ぐらいまでは、結構でそう
     void TasteScore_keisan3(int _taste_result, string _taste_type, float _girllike)
     {
         if (Mathf.Abs(_taste_result) == 0)
         {
             Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
-            taste_score = 200;
+            taste_score = 300;
             taste_level = 8;
         }
         else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 120;
+            taste_score = 200;
             taste_level = 7;
         }
         else if (Mathf.Abs(_taste_result) < 12) //+-3~7　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 60;
+            taste_score = 100;
             taste_level = 6;
         }
         else if (Mathf.Abs(_taste_result) < 20) //+-8~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 20;
+            taste_score = 60;
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) < 30) //+15~22  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 0;
+            taste_score = 30;
             taste_level = 5;
         }
-        else if (Mathf.Abs(_taste_result) < 40) //+-23~39　かなりいい感じ
+        else if (Mathf.Abs(_taste_result) < 60) //+-23~39　かなりいい感じ
         {
             Debug.Log(_taste_type + "Well!");
-            taste_score = -30;
+            taste_score = 10;
             taste_level = 4;
         }
-        else if (Mathf.Abs(_taste_result) < 60) //+-29~59  いい感じ
+        else if (Mathf.Abs(_taste_result) < 120) //+-29~59  いい感じ
         {
             Debug.Log(_taste_type + "Good!");
-            taste_score = -50;
+            taste_score = 5;
             taste_level = 4;
         }
-        else if (Mathf.Abs(_taste_result) < 90) //+-60~89　ちょっと足りない
+        else if (Mathf.Abs(_taste_result) < 180) //+-60~89　ちょっと足りない
         {
             Debug.Log(_taste_type + "Normal");
-            taste_score = -100;
+            taste_score = 0;
             taste_level = 4;
         }
-        else if (Mathf.Abs(_taste_result) < 120) //+-90~119　全然足りない
+        else if (Mathf.Abs(_taste_result) < 240) //+-90~119　全然足りない
         {
             Debug.Log(_taste_type + "poor");
-            taste_score = -150;
+            taste_score = -50;
             taste_level = 3;
         }
-        else if (Mathf.Abs(_taste_result) <= 150) //+-119~149
+        else if (Mathf.Abs(_taste_result) <= 300) //+-119~149
+        {
+            Debug.Log(_taste_type + "death..");
+            taste_score = -100;
+            taste_level = 2;
+        }
+        else if (Mathf.Abs(_taste_result) > 300) //+-250
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -200;
-            taste_level = 2;
-        }
-        else if (Mathf.Abs(_taste_result) > 250) //+-250
-        {
-            Debug.Log(_taste_type + "death..");
-            taste_score = -250;
             taste_level = 1;
         }
     }

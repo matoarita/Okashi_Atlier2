@@ -4500,6 +4500,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Costume_BGMHall_num", GameMgr.Contest_BGMSelectHall);
         engine.Param.TrySetParameter("Round_num", GameMgr.ContestRoundNum); //〇回戦かを指定
         engine.Param.TrySetParameter("contest_ranking_Type", GameMgr.Contest_Cate_Ranking); //トーナメントかランキング形式か 
+        engine.Param.TrySetParameter("contest_TournamentON", GameMgr.System_ContestEdenFinalStart_ON); //トーナメントの場合、3回戦形式か決勝戦のみか
         engine.Param.TrySetParameter("contest_NameHyouji", GameMgr.Contest_NameHyouji); //コンテスト名前表記
         engine.Param.TrySetParameter("bossContest_name", GameMgr.contest_boss_name);
 
@@ -4509,6 +4510,8 @@ public class Utage_scenario : MonoBehaviour
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        //お題を選べる場合、ここでポーズをはさむことになる。
 
         //背景切り替えのため、一度シーンに黒をはさむ
         //「宴」のシナリオ終了待ち

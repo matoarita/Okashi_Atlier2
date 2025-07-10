@@ -21,6 +21,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _statusup, _magicup;
     private float _magicup_f;
     private int original_shokukan_p;
+    private int taste_score;
     private int _magic_attri;
     private int _magic_rate;
     private int _magicLearnLv;
@@ -473,7 +474,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Soda_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Soda_Study") * 5; //LV*5%
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Soda_Study") * 2; //LV*2%
             _buf_kakuritsuup += _magicup;
         }
     }
@@ -676,7 +677,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicid = magicskill_database.SearchSkillString("Heart_of_Icecream");
         if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
         {                       
-            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.02f); //costtimeの2％
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.01f); //costtimeの1％
             _buf_compotime_up += _magicup;
         }
     }
@@ -730,7 +731,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicid2 = magicskill_database.SearchSkillString("Freezing_Spell");
         if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
         {
-            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid2].cost_time * 0.1f); //costtimeの10％
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid2].cost_time * 0.05f); //costtimeの10％
             //Debug.Log("magicskill_database.magicskill_lists[_magicid].cost_time: " + magicskill_database.magicskill_lists[_magicid].cost_time);
             _buf_compotime_up += _magicup;
         }
@@ -1028,6 +1029,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case 4: //ジュースのバフ
 
+                switch (_itemType_sub)
+                {
+                    case "Juice":
+
+                        JuiceSodaBuf();
+                        break;
+
+                    case "Soda":
+
+                        JuiceSodaBuf();
+                        break;
+                }
+
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
 
@@ -1142,7 +1156,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 _statusup = (int)(PlayerStatus.player_okashi_hardnessup * 1.0f); //2で1分上昇ぐらい？
                 break;
 
-            case 4: //ジューズ
+            case 4: //ジュース
 
                 _statusup = (int)(PlayerStatus.player_okashi_juiceup * 1.0f); //2で1分上昇ぐらい？
                 break;
@@ -1210,6 +1224,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (magicskill_database.skillName_SearchLearnLevel("Bake_Beans") >= 2)
         {
             _magicup = magicskill_database.skillName_SearchLearnLevel("Bake_Beans") * 30; //LV*30
+            _buf_shokukanup += _magicup;
+        }
+    }
+
+    void JuiceSodaBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Soda_Study") >= 1)
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Soda_Study") * 10; //LV*10
             _buf_shokukanup += _magicup;
         }
     }
@@ -1365,7 +1390,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") >= 1)
         {
-            _magicup = original_shokukan_p * magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") * 6 / 100; //元の値の6%上昇
+            _magicup = (int)(original_shokukan_p * magicskill_database.skillName_SearchLearnLevel("Beautiful_Power") * 0.06f); //元の値の6%上昇
             _buf_shokukanup += _magicup;
         }
     }
@@ -1716,9 +1741,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 if (_status == 0 || _status == 1 || _status == 3)//さくさくか歯ごたえかふわふわのバフ
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake");
-                    _magicup = _baseparam + (int)(_baseparam * 0.1f * (GameMgr.System_magic_playParamUp + _magicLearnLv * 0.2f));
+                    _magicup = (int)(_baseparam * GameMgr.System_magic_playParamUp) - _baseparam;
 
-                    Debug.Log("補正値: " + "_baseparam" + " + " + "_baseparam * 0.1f" + " * " + GameMgr.System_magic_playParamUp + " + 0.2f * セカンドベイク習得LV: " + _magicLearnLv);
+                    Debug.Log("補正値: " + "_baseparam" + " * " + GameMgr.System_magic_playParamUp);
                     Debug.Log("各ゲージ補正値: " + GameMgr.System_magic_playParamUp);
                     Debug.Log("セカンドベイクの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
@@ -1819,6 +1844,30 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         return _buf_shokukanup;
     }
 
+    //
+    //甘さ・苦さ・酸味の点数に補正をかける
+    //アイテムのサブタイプ(_itemType_sub)を指定し、中で補正をかければOK
+    //
+    public int Buf_SweatBitterSour_Keisan(int _taste_score, string _itemType_sub_t, string _itemType_sub_tb)
+    {
+        _itemType_sub = _itemType_sub_t;
+        _itemType_subB = _itemType_sub_tb;
+        taste_score = _taste_score;
+
+        switch (_itemType_sub)
+        {
+            case "Suger":
+                
+                break;
+
+            case "Cake":
+                
+                break;
+        }
+
+        return taste_score;
+    }
+
 
     //
     //配合比率の距離に補正をかける。
@@ -1879,7 +1928,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 _magicup_f = 0;
                 if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)
                 {
-                    _magicup_f = 1.0f + magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 0.2f; //LV*10
+                    _magicup_f = 1.0f + magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 0.1f; //LV*10
                     _buf_kyori = _buf_kyori * _magicup_f;
                 }
                 break;
