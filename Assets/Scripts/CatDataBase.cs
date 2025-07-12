@@ -443,6 +443,15 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
             catdata_checklist[0].catTansaku_DefaultSpeed, catdata_checklist[0].catTansaku_Kaisu, catdata_checklist[0].catLv, 0);
     }
 
+    public void CatDeleteZairyoList(int _catid)
+    {
+        for(i=0; i < catdata_list[0].getmat_itemname_cat.Length; i++)
+        {
+            catdata_list[_catid].getmat_itemname_cat[i] = "Non";
+            catdata_list[_catid].getmat_kosu_cat[i] = 0;
+        }
+    }
+
     //Ží‘°‚²‚Æ‚Ì‚Ë‚±‰æ‘œ@ã‚©‚ç‡”Ô‚Étype=0, 1.. ‚Æ‘Î‰ž
     void CatType_InitLibrary()
     {

@@ -1129,8 +1129,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Spring_RotenStreet":
 
-                //On_Active30();
-                On_BackHomeActive02();
+                On_Active30();
+                //On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Spring_RotenStreet2":
@@ -4212,7 +4212,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 default_scenetext = "にいちゃん！　なんかいっぱいお店がある～！";
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
-                text_area_hyouji_on = true;
+                //text_area_hyouji_on = true;
 
                 if (GameMgr.OsotoIkitaiFlag) //お外いきたいフラグがたってた場合、来た時点でよろこび
                 {

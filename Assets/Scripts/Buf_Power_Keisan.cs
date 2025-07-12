@@ -2122,7 +2122,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         Debug.Log("GameMgr.hikari_make_okashiTime_successrate_buf: " + GameMgr.hikari_make_okashiTime_successrate_buf + " " + "hikari_okashiLV: " + hikari_okashiLV);
     }
 
-    //ヒカリのお菓子レベルに応じて、にいちゃんが作るお菓子のパラメータにもバフがかかる計算。現在はかからない仕様。
+    //ヒカリのお菓子レベルに応じて、にいちゃんが作るお菓子のパラメータにもバフがかかる計算。
     public float Buf_HikariOkashiLV_HoseiParamUp(string _itemType_sub)
     {
         _buf_hikari_okashi_paramup = 1.0f;
@@ -2138,7 +2138,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         else
         {
             hikari_okashiLV = GameMgr.hikarimakeokashi_nowlv;
-            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.8f); //LV1~9までで、1.0~1.8倍まで上昇
+            _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.5f); //LV1~9までで、1.0~1.5倍まで上昇
         }
 
         return _buf_hikari_okashi_paramup;

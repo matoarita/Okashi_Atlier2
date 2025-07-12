@@ -370,6 +370,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_System_HikariMakeUse_Flag = GameMgr.System_HikariMakeUse_Flag, //ヒカリがお菓子作る解禁フラグ
             save_System_Topping_Multiple_Flag = GameMgr.System_Topping_Multiple_Flag, //トッピングで1個以上をのせるフラグ
             save_System_Topping_Multiple_Max = GameMgr.System_Topping_Multiple_Max, //トッピングで個数のせる限界
+            save_System_CatGetMat_Flag = GameMgr.System_CatGetMat_Flag, //ねこ解禁フラグ
             save_System_ContestIcon_OnFlag = GameMgr.System_ContestIcon_OnFlag, //コンテストアイコンをONにする
             save_System_BarQuestIcon_OnFlag = GameMgr.System_BarQuestIcon_OnFlag, //酒場ご依頼アイコンをONにする
 
@@ -823,6 +824,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.System_HikariMakeUse_Flag = playerData.save_System_HikariMakeUse_Flag; //ヒカリがお菓子作る解禁フラグ
         GameMgr.System_Topping_Multiple_Flag = playerData.save_System_Topping_Multiple_Flag; //トッピングで1個以上をのせるフラグ
         GameMgr.System_Topping_Multiple_Max = playerData.save_System_Topping_Multiple_Max; //トッピングで個数のせる限界
+        GameMgr.System_CatGetMat_Flag = playerData.save_System_CatGetMat_Flag;//ねこ解禁フラグ
         GameMgr.System_ContestIcon_OnFlag = playerData.save_System_ContestIcon_OnFlag; //コンテストアイコンをONにする
         GameMgr.System_BarQuestIcon_OnFlag = playerData.save_System_BarQuestIcon_OnFlag; //酒場ご依頼アイコンをONにする
 

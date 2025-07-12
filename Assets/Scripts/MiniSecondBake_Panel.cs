@@ -23,6 +23,11 @@ public class MiniSecondBake_Panel : MonoBehaviour {
     private int _magiclv;
     private float _speed_hosei;
 
+    private GameObject KiraEffect_1;
+    private GameObject magicstart_panel;
+
+    private Button closebutton;
+
     // Use this for initialization
     void Start () {
 
@@ -36,6 +41,8 @@ public class MiniSecondBake_Panel : MonoBehaviour {
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        magicstart_panel = this.transform.parent.parent.gameObject;
 
         _magiclv = magicskill_database.skillName_SearchLearnLevel("Cookie_SecondBake");
 
@@ -65,6 +72,13 @@ public class MiniSecondBake_Panel : MonoBehaviour {
 
         _tempslider = this.transform.Find("Comp/Slider").GetComponent<Slider>();
         _tempslider.value = 0;
+
+        //キラエフェクトはオフに。
+        KiraEffect_1 = this.transform.Find("Comp/Slider/Handle Slide Area/Handle/effPanel").gameObject;
+        KiraEffect_1.SetActive(false);
+
+        closebutton = this.transform.Find("Comp/Button").GetComponent<Button>();
+        closebutton.interactable = true;
 
         this.transform.Find("Comp").GetComponent<CanvasGroup>().alpha = 0;       
     }
@@ -129,39 +143,65 @@ public class MiniSecondBake_Panel : MonoBehaviour {
         GameMgr.System_magic_playSuccess = true;
         GameMgr.System_magic_playParamUp = 1.0f;
 
-        //ピキーン音ならす
-        sc.PlaySe(16);
+        closebutton.interactable = false;
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
         if (_guage_param >= 0 && _guage_param < 100)
         {
             GameMgr.System_magic_playParamUp = 0.5f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param >= 100 && _guage_param < 250)
         {
             GameMgr.System_magic_playParamUp = 1.0f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param >= 250 && _guage_param < 400)
         {
             GameMgr.System_magic_playParamUp = 1.1f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
-        else if (_guage_param >= 400 && _guage_param < 430)
+        else if (_guage_param >= 400 && _guage_param < 440)
         {
             GameMgr.System_magic_playParamUp = 1.2f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param >= 440 && _guage_param < 460)
         {
             GameMgr.System_magic_playParamUp = 1.35f;
+
+            //3連続成功なら特別な音                
+            sc.PlaySe(14);
+            sc.PlaySe(27);
+            sc.PlaySe(247);
+
+            magicstart_panel.transform.DOShakePosition(0.5f, 5f, 30, 1, false, true);
+
+            KiraEffect_1.SetActive(true); //さらに光りのエフェクト
         }
         else if (_guage_param >= 460 && _guage_param < 500)
         {
             GameMgr.System_magic_playParamUp = 1.2f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param >= 500)
         {
             //焼すぎで失敗
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("セカンドベイク　焼すぎで失敗");
+
+            //失敗音ならす
+            sc.PlaySe(20);
         }
     }
 }

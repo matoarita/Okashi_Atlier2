@@ -34,9 +34,21 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
     private Slider _tempslider2;
     private Slider _tempslider3;
 
+    private GameObject KiraEffect_1;
+    private GameObject KiraEffect_2;
+    private GameObject KiraEffect_3;
+
     private int _status;
     private int _magiclv;
     private float _speed_hosei;
+
+    private bool success_1;
+    private bool success_2;
+    private bool success_3;
+
+    private GameObject magicstart_panel;
+
+    private Button closebutton;
 
     // Use this for initialization
     void Start () {
@@ -51,6 +63,8 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        magicstart_panel = this.transform.parent.parent.gameObject;
 
         _magiclv = magicskill_database.skillName_SearchLearnLevel("Chocolate_Tempering");
 
@@ -79,7 +93,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
                 _speed_hosei = 1.15f;
                 break;
             case 3:
-                _speed_hosei = 1.0f;
+                _speed_hosei = 0.9f;
                 break;
         }
         //_speed_hosei = 1.7f - (0.2f * _magiclv); //LV1で1.5f がデフォ速度
@@ -107,6 +121,21 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
 
         _tempslider3 = this.transform.Find("Comp/Slider3").GetComponent<Slider>();
         _tempslider3.value = _guage_param3;
+
+        //キラエフェクトはオフに。
+        KiraEffect_1 = this.transform.Find("Comp/Slider/Handle Slide Area/Handle/effPanel").gameObject;
+        KiraEffect_1.SetActive(false);
+        KiraEffect_2 = this.transform.Find("Comp/Slider2/Handle Slide Area/Handle/effPanel").gameObject;
+        KiraEffect_2.SetActive(false);
+        KiraEffect_3 = this.transform.Find("Comp/Slider3/Handle Slide Area/Handle/effPanel").gameObject;
+        KiraEffect_3.SetActive(false);
+
+        success_1 = false;
+        success_2 = false;
+        success_3 = false;
+
+        closebutton = this.transform.Find("Comp/Button").GetComponent<Button>();
+        closebutton.interactable = true;
 
         _status = 0; //段階を分ける
 
@@ -203,13 +232,13 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
 
     IEnumerator WaitForMiniGame()
     {
-        yield return new WaitForSeconds(0.2f); //1秒待つ
+        //sc.PlaySe(244); //チャージ音
+
+        yield return new WaitForSeconds(0.5f); //1秒待つ
 
         stop_watch = true;
         this.transform.Find("Comp").GetComponent<CanvasGroup>().DOFade(1, 0.3f); //演出画面をON
-        Debug.Log("stop_watch: " + stop_watch);
-
-        //sc.PlaySe(244); //チャージ音
+        Debug.Log("stop_watch: " + stop_watch);        
     }
 
     //クリックでそこでゲージを止める
@@ -237,15 +266,10 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
 
     void GuageStop1()
     {
-        //stop_watch = false;
-        //Debug.Log("stop_watch: " + stop_watch);
-
         //初期設定
         GameMgr.System_magic_playSuccess = true;
         GameMgr.System_magic_playParamUp = 1.0f;
 
-        
-        
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
         if (_guage_param >= 0 && _guage_param < 100)
@@ -266,19 +290,25 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         {
             GameMgr.System_magic_playParamUp = 1.1f;
 
-            Sound_OK1(); //成功判定のとき　キラ音
+            //Sound_OK1(); //成功判定のとき　キラ音
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param >= 440 && _guage_param < 490)
         {
             GameMgr.System_magic_playParamUp = 1.2f;
 
             Sound_OK1(); //成功判定のとき　キラ音
+            KiraEffect_1.SetActive(true); //さらに光りのエフェクト
+            success_1 = true;
         }
         else if (_guage_param >= 490 && _guage_param < 500)
         {
             GameMgr.System_magic_playParamUp = 1.1f;
 
-            Sound_OK1(); //成功判定のとき　キラ音
+            //Sound_OK1(); //成功判定のとき　キラ音
+            //ピキーン音ならす
+            sc.PlaySe(16);
         }
         else if (_guage_param >= 500)
         {
@@ -286,8 +316,8 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング1段階目　焼すぎで失敗");
 
-            //ピキーン音ならす
-            sc.PlaySe(16);
+            //失敗音ならす
+            sc.PlaySe(20);
         }
 
         //次のバーへのフラグ
@@ -299,14 +329,6 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
 
     void GuageStop2()
     {
-        //stop_watch = false;
-        //Debug.Log("stop_watch: " + stop_watch);
-
-        //初期設定
-        //GameMgr.System_magic_playSuccess = true;
-        //GameMgr.System_magic_playParamUp = 1.0f;
-
-        
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
         if (_guage_param2 >= 0 && _guage_param2 < 40)
@@ -329,15 +351,19 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param2 >= 90 && _guage_param2 < 130)
         {
-            GameMgr.System_magic_playParamUp2 = 1.3f;
-
+            GameMgr.System_magic_playParamUp2 = 1.5f;
+            
             Sound_OK1(); //成功判定のとき　キラ音
+            KiraEffect_2.SetActive(true); //さらに光りのエフェクト
+            success_2 = true;
         }
         else if (_guage_param2 >= 130 && _guage_param2 < 400)
         {
             GameMgr.System_magic_playParamUp2 = 1.2f;
 
-            Sound_OK1(); //成功判定のとき　キラ音
+            //ピキーン音ならす
+            sc.PlaySe(16);
+            //Sound_OK1(); //成功判定のとき　キラ音
         }
         else if (_guage_param2 >= 400 && _guage_param2 < 500)
         {
@@ -352,8 +378,8 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング2段階目　焼すぎで失敗");
 
-            //ピキーン音ならす
-            sc.PlaySe(16);
+            //失敗音ならす
+            sc.PlaySe(20);
         }
 
         //次のバーへのフラグ
@@ -367,47 +393,62 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
     {
         stop_watch = false;
         Debug.Log("stop_watch: " + stop_watch);
+        //演出時間はExp_Controllerで設定
 
-        //初期設定
-        //GameMgr.System_magic_playSuccess = true;
-        //GameMgr.System_magic_playParamUp = 1.0f;
-
-        
+        closebutton.interactable = false;
 
         //そのときのゲージの値によって、成功か不成功かもここで判定
-        if (_guage_param3 >= 0 && _guage_param3 < 100)
+        if (_guage_param3 >= 0 && _guage_param3 < 150)
         {
             GameMgr.System_magic_playParamUp3 = 0.5f;
 
             //ピキーン音ならす
             sc.PlaySe(16);
         }
-        else if (_guage_param3 >= 100 && _guage_param3 < 200)
-        {
-            GameMgr.System_magic_playParamUp3 = 1.75f;
-
-            Sound_OK1(); //成功判定のとき　キラ音
-        }
-        else if (_guage_param3 >= 200 && _guage_param3 < 230)
-        {
-            GameMgr.System_magic_playParamUp3 = 2.5f;
-
-            Sound_OK1(); //成功判定のとき　キラ音       
-        }
-        else if (_guage_param3 >= 230 && _guage_param3 < 270)
+        else if (_guage_param3 >= 150 && _guage_param3 < 300)
         {
             GameMgr.System_magic_playParamUp3 = 1.5f;
 
-            Sound_OK1(); //成功判定のとき　キラ音  
+            //ピキーン音ならす
+            sc.PlaySe(16);
+            //Sound_OK1(); //成功判定のとき　キラ音
         }
-        else if (_guage_param3 >= 230)
+        else if (_guage_param3 >= 300 && _guage_param3 < 330)
+        {
+            GameMgr.System_magic_playParamUp3 = 2.5f;
+
+            if (success_1 && success_2)
+            {
+                //3連続成功なら特別な音                
+                sc.PlaySe(14);
+                sc.PlaySe(27);
+                sc.PlaySe(247);
+
+                magicstart_panel.transform.DOShakePosition(0.5f, 5f, 30, 1, false, true);
+            }
+            else
+            {
+                Sound_OK1(); //成功判定のとき　キラ音   
+            }
+            KiraEffect_3.SetActive(true); //さらに光りのエフェクト
+            success_3 = true;
+        }
+        else if (_guage_param3 >= 330 && _guage_param3 < 420)
+        {
+            GameMgr.System_magic_playParamUp3 = 1.5f;
+
+            //ピキーン音ならす
+            sc.PlaySe(16);
+            //Sound_OK1(); //成功判定のとき　キラ音  
+        }
+        else if (_guage_param3 >= 420)
         {
             //焼すぎで失敗
             GameMgr.System_magic_playSuccess = false;
             Debug.Log("テンパリング3段階目　焼すぎで失敗");
 
-            //ピキーン音ならす
-            sc.PlaySe(16);
+            //失敗音ならす
+            sc.PlaySe(20);
         }
 
         //次のバーへのフラグ
@@ -418,6 +459,20 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
     {
         //成功判定のとき　キラ音
         sc.PlaySe(245);
+        //sc.PlaySe(27); //ジャキン音
+    }
+
+    void Sound_OK2()
+    {
+        //成功判定のとき　キラ音
+        sc.PlaySe(246);
+        //sc.PlaySe(27); //ジャキン音
+    }
+
+    void Sound_OK3()
+    {
+        //成功判定のとき　キラ音
+        sc.PlaySe(247);
         //sc.PlaySe(27); //ジャキン音
     }
 }

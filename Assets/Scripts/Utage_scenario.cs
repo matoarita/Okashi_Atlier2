@@ -64,6 +64,7 @@ public class Utage_scenario : MonoBehaviour
     private ItemMatPlaceDataBase matplace_database;
     private ContestCommentDataBase databaseContestComment;
     private MagicSkillListDataBase magicskill_database;
+    private CatDataBase catDataBase;
 
 
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
@@ -152,6 +153,9 @@ public class Utage_scenario : MonoBehaviour
 
         //コンテスト感想データベースの取得
         databaseContestComment = ContestCommentDataBase.Instance.GetComponent<ContestCommentDataBase>();
+
+        //ねこデータベースの取得
+        catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
 
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
@@ -2076,25 +2080,90 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.recipi_read_endflag = true; //読み終えたフラグ
 
-        if (map_ev_ID == 11)
+        switch (map_ev_ID)
         {
-            catgrave_flag = (int)engine.Param.GetParameter("CatGrave_Flag");
+            case 11:
 
-            if (catgrave_flag == 0)
-            {
-                GameMgr.MapSubEvent_Flag = 0;
-            }
-            else
-            {
-                GameMgr.MapSubEvent_Flag = 10;
+                catgrave_flag = (int)engine.Param.GetParameter("CatGrave_Flag");
 
-                //ししゃもクッキーを消費　パネルにセットされていたら。
-                if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
-                                        pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
+                if (catgrave_flag == 0)
                 {
-                    pitemlist.deleteExtremePanelItem(0, 1);
+                    GameMgr.MapSubEvent_Flag = 0;
                 }
-            }
+                else
+                {
+                    GameMgr.MapSubEvent_Flag = 10;
+
+                    //ししゃもクッキーを消費　パネルにセットされていたら。
+                    if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
+                                            pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
+                    {
+                        pitemlist.deleteExtremePanelItem(0, 1);
+                    }
+                }
+                break;
+
+            case 1010: //ねこ家に来る？　初イベント
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
+                if (stationevent_num == 0)
+                {
+                    GameMgr.MapEvent_Or[2] = false;
+                }
+                else
+                {
+                    GameMgr.MapEvent_Or[2] = true;
+
+                    //ねこフラグたつ
+                    GameMgr.System_CatGetMat_Flag = true;
+
+                    //ねこ一匹　自動で入る
+                    //ランダムキャットの抽選
+                    catDataBase.RandomCatSelect();
+
+                    //表示されたねこを実際にねこリストに追加する
+                    catDataBase.CatCopyCheckToOrigin();
+
+                    //ししゃもクッキーを消費　パネルにセットされていたら。
+                    if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
+                        pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
+                    {
+                        pitemlist.deleteExtremePanelItem(0, 1);
+                    }
+                }
+                break;
+
+            case 1011: //ねこ家に来る？　二回目以降聞かれた場合
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
+                if (stationevent_num == 0)
+                {
+                    GameMgr.MapEvent_Or[2] = false;
+                }
+                else
+                {
+                    GameMgr.MapEvent_Or[2] = true;
+
+                    //ねこフラグたつ
+                    GameMgr.System_CatGetMat_Flag = true;
+
+                    //ねこ一匹　自動で入る
+                    //ランダムキャットの抽選
+                    catDataBase.RandomCatSelect();
+
+                    //表示されたねこを実際にねこリストに追加する
+                    catDataBase.CatCopyCheckToOrigin();
+
+                    //ししゃもクッキーを消費　パネルにセットされていたら。
+                    if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
+                        pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
+                    {
+                        pitemlist.deleteExtremePanelItem(0, 1);
+                    }
+                }
+                break;
         }
         
 

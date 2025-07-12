@@ -1745,6 +1745,10 @@ public class Compound_Main : MonoBehaviour
                                
                 OnCompoundSelect();
 
+                //デバッグ用
+                //GameMgr.System_CatGetMat_Flag = true;
+                //
+
                 if (GameMgr.System_CatAutoMaterial_ON)
                 {
                     //ねこチェック　ねこの採取フラグが必要か否か
@@ -3904,6 +3908,7 @@ public class Compound_Main : MonoBehaviour
         //ねこのステータス
         _obj.transform.Find("CatDataPanel/CatMemo/LV_text").GetComponent<Text>().text = catDataBase.catdata_checklist[_catid].catLv.ToString();
         _obj.transform.Find("CatDataPanel/CatMemo/TansakuSP_text").GetComponent<Text>().text = catDataBase.CatTansakuTextLibrary(catDataBase.catdata_checklist[_catid].catTansaku_Speed);
+        _obj.transform.Find("CatDataPanel/CatMemo/TansakuKaisu_text").GetComponent<Text>().text = catDataBase.CatTansakuTextLibrary(catDataBase.catdata_checklist[_catid].catTansaku_Kaisu);
     }
 
     void CatIconAnim_Hyouji(GameObject _obj) //FinalCheckのときにアニメアイコンを表示　画像は非表示

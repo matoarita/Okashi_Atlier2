@@ -35,6 +35,11 @@ public class CatData
     public int catStatus; //ひまか採取中の状態 0=ひまで何もしてない。 100=探索に出かけ中。
     public bool catEsaNoGive; //エサをあげれなかったとき、不機嫌状態になる。セリフが変わる。次にエサをあげると、これはオフになる。
 
+    public string[] getmat_itemname_cat; //ねこがそれまで採ってきた材料のitemIDと個数
+    public int[] getmat_kosu_cat;
+
+    private int i;
+
     public CatData(string _id, string _catname, int _caticon_num, int _cattype, int _catcost, int _catcostlv, int _cattansaku_speed, int _cattansaku_kaisu, int _catexp, int _cathp, int _catlv,
         string _cattansaku_mapname, int _catstatus, bool _catesa_nogive)
     {
@@ -57,5 +62,14 @@ public class CatData
         catTansaku_MapName = _cattansaku_mapname;
         catStatus = _catstatus;
         catEsaNoGive = _catesa_nogive;
+
+        getmat_itemname_cat = new string[99];
+        getmat_kosu_cat = new int[99];
+
+        for(i=0; i < getmat_itemname_cat.Length; i++)
+        {
+            getmat_itemname_cat[i] = "Non";
+            getmat_kosu_cat[i] = 0;
+        }           
     }
 }

@@ -36,6 +36,7 @@ public class CatGetStartPanel : MonoBehaviour
     private GameObject finalcheck_panel;
     private GameObject namechange_panel;
     private GameObject esaChange_panel;
+    private GameObject catzairyocheck_panel;
 
     private GameObject yes_no_panel_comeback;
     private GameObject yes_no_panel_fire;
@@ -47,6 +48,8 @@ public class CatGetStartPanel : MonoBehaviour
     private CatGetContent _toggle_catID;
     private Image _Img;
     private Sprite texture2d;
+
+    private int Nokori_time, hour_count;
 
     private bool closebutton;
     private int i, mapid;
@@ -106,6 +109,9 @@ public class CatGetStartPanel : MonoBehaviour
 
         esaChange_panel = this.transform.Find("EsaChangePanel").gameObject;
         esaChange_panel.SetActive(false);
+
+        catzairyocheck_panel = this.transform.Find("CatZairyoCheckPanel").gameObject;
+        catzairyocheck_panel.SetActive(false);
 
         inputField_catname = namechange_panel.transform.Find("CatDataPanel/InputField").GetComponent<InputField>();
         namechange_origintext = namechange_panel.transform.Find("CatDataPanel/NameText").GetComponent<Text>();
@@ -203,11 +209,28 @@ public class CatGetStartPanel : MonoBehaviour
         _listitem[_num].transform.Find("CatStatusText").GetComponent<Text>().text = catDataBase.CatStatusTextLibrary(_num);
         _listitem[_num].transform.Find("CatName").GetComponent<Text>().text = catDataBase.catdata_list[_num].catnameHyouji;
         _listitem[_num].transform.Find("EsaPanel/EsaText").GetComponent<Text>().text = catDataBase.catdata_list[_num].catCost.ToString();
-        _listitem[_num].transform.Find("CatLv_text").GetComponent<Text>().text = catDataBase.catdata_list[_num].catLv.ToString();
-        _listitem[_num].transform.Find("CatTansakuSp_text").GetComponent<Text>().text = catDataBase.catdata_list[_num].catTansaku_Speed.ToString();
+        _listitem[_num].transform.Find("CatLv_text").GetComponent<Text>().text = catDataBase.catdata_list[_num].catLv.ToString();       
         _listitem[_num].transform.Find("CatTansakuSp_CounterText").GetComponent<Text>().text = catDataBase.catdata_list[_num].cat_GetMateriaTimeCounter.ToString();
         _listitem[_num].transform.Find("CatTansakuCounter").GetComponent<Slider>().maxValue = catDataBase.catdata_list[_num].catTansaku_Speed;
         _listitem[_num].transform.Find("CatTansakuCounter").GetComponent<Slider>().value = catDataBase.catdata_list[_num].cat_GetMateriaTimeCounter;
+
+        SetMinuteHour_Tansaku(_num);
+    }
+
+    void SetMinuteHour_Tansaku(int _num)
+    {
+        //表記を時間と分に変更
+        hour_count = 0;
+        Nokori_time = catDataBase.catdata_list[_num].cat_GetMateriaTimeCounter;
+
+        while(Nokori_time >= 60)
+        {
+            Nokori_time -= 60;
+            hour_count++;
+        }
+
+        _listitem[_num].transform.Find("CatTansakuSp_Hour").GetComponent<Text>().text = hour_count.ToString();
+        _listitem[_num].transform.Find("CatTansakuSp_Minute").GetComponent<Text>().text = Nokori_time.ToString();
     }
 
     public void OnCatGet_MapSelect()
@@ -254,6 +277,9 @@ public class CatGetStartPanel : MonoBehaviour
 
                 catDataBase.catdata_list[GameMgr.Select_cat_num].catStatus = 0;
                 _textcomp.text = GameMgr.Select_cat_nameHyouji + "を連れ戻した！";
+
+                //それまでとってきた材料リストは一度削除
+                catDataBase.CatDeleteZairyoList(GameMgr.Select_cat_num);
 
                 catStatus_Redraw();               
                 break;
@@ -312,6 +338,9 @@ public class CatGetStartPanel : MonoBehaviour
         
         catDataBase.SetCatGotoMap(_catid, matplace_database.matplace_lists[_map_listid].placeName);
         GameMgr.catGetMat_PlayFlag = true;
+
+        //それまでとってきた材料リストは一度削除
+        catDataBase.CatDeleteZairyoList(_catid);
 
         //** 演出系 **//        
         CatIconAnim_Hyouji(finalcheck_panel); //アイコンを変える
@@ -499,6 +528,17 @@ public class CatGetStartPanel : MonoBehaviour
         }
         catStatus_Redraw();
         esaChange_panel.SetActive(false);
+    }
+
+    public void OnZairyoCheckPanel()
+    {
+        catzairyocheck_panel.SetActive(true);
+        catzairyocheck_panel.GetComponent<CatZairyoCheckPanel>().OpenPanel(GameMgr.Select_cat_num);
+    }
+
+    public void CloseZairyoCheckButton()
+    {
+        catzairyocheck_panel.SetActive(false);
     }
 
     void AnimPoyon()

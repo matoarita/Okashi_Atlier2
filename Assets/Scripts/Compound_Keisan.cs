@@ -2520,7 +2520,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合　または　レシピ調合　または魔法　のときの計算。
                 {
                     //⑦ヒカリのお菓子レベルに応じて、ほんの少し最終的なお菓子の味にバフがかかる。にいちゃんが作る場合のみ。。
-                    /*if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
+                    if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
                     {
                         if (_base_itemType == "Okashi")
                         {
@@ -2535,9 +2535,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                             //_basebeauty = (int)(1.0f * _basebeauty  * hikari_okashilv_paramup);
                             _basetea_flavor = (int)(1.0f * _basetea_flavor * hikari_okashilv_paramup);
                         }
-                    }*/
+                    }
 
-                    //⑧99ハートボーナス　HLV=99のときは、お菓子の味が1.3倍に上昇。にいちゃんが作る場合のみ。
+                    //⑧99ハートボーナス　HLV=99のときは、お菓子の味が1.2倍に上昇。にいちゃんが作る場合のみ。
                     if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0) //バフ計算するものだけ、バフ計算。例えばクッキー×ぶどう＝ぶどうクッキーのときは、バフ計算しない
                     {
                         if (PlayerStatus.girl1_Love_lv >= 99)

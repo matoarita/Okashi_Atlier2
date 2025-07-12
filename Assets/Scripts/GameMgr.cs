@@ -48,7 +48,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = true; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
-    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
     public static bool System_ExtremeCompo_BaseitemON = true; //仕上げのときに、ベースアイテムを選択するところから選べる
 
     //各システムの使用の有無   
@@ -160,9 +160,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //調合時の演出時間 ExpControllerで設定
     public static float System_compo_playtime_default = 2.0f; //通常調合時の演出時間　トータルで3秒ほど。
-    public static float System_magic_playtime_default = 3.3f; //エフェクトのみの時間　トータルで4秒ほど。新規作成エフェクトが入って7秒。エフェクトなしのときは、2.0fがちょうどよい。
+    public static float System_magic_playtime_default = 3.0f; //エフェクトのみの時間　トータルで4秒ほど。新規作成エフェクトが入って7秒。エフェクトなしのときは、2.0fがちょうどよい。
     public static float System_magic_playtime_01 = 3.0f; //セカンドベイク　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
-    public static float System_magic_playtime_02 = 4.0f; //テンパリング　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
+    public static float System_magic_playtime_02 = 4.5f; //テンパリング　ミニゲームある場合の時間　トータルで4秒ほどになる。Exp_Controller内で入れる。
     public static float System_magic_playtime_03 = 1.8f; //豆焼き　時間短い
 
     //パティシエレベルの上限

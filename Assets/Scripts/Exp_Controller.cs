@@ -2343,6 +2343,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             case "Chocolate_Tempering":
 
+                //_magiclv = magicskill_database.skillName_SearchLearnLevel("Chocolate_Tempering");
                 GameMgr.System_magic_playtime = GameMgr.System_magic_playtime_02;
                 break;
 
@@ -2412,7 +2413,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //音を鳴らす キラララーン
                 sc.PlaySe(129);
                 sc.PlaySe(131);
-                //sc.PlaySe(177);
+
+                if(GameMgr.System_MagicEffect_USE)
+                {
+                    sc.PlaySe(244);
+                }
+                else { }
 
                 //パーティクルと色の取得
                 /*compo1_particle = _listEffect[0].GetComponent<ParticleSystem>();

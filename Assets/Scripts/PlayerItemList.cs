@@ -461,7 +461,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         }
     }
 
-    //アイテムリストに、名前をいれると、アイテムリスト・オリジナルアイテムリストのどちらかに所持していた場合は、削除するメソッド
+    //アイテムリストに、名前をいれると、アイテムリスト・オリジナルアイテムリスト・エクストリームパネルに所持していた場合は、削除するメソッド
     public void SearchDeleteItem(string itemName)
     {
         //先にアイテムリストをみて、ない場合オリジナルアイテムリストを見る。

@@ -90,4 +90,14 @@ public class CatGetContent : MonoBehaviour
         //ねこアイコンおす　ステータス表示するか、名前変更できるように。
         catGetStartPanel.OnNameChangePanel();
     }
+
+    public void OnZairyoKakuninButton()
+    {
+        SetInit();
+
+        GameMgr.Select_cat_num = toggle_listid;
+        GameMgr.Select_cat_nameHyouji = catDataBase.catdata_list[toggle_listid].catnameHyouji;
+
+        catGetStartPanel.OnZairyoCheckPanel();
+    }
 }

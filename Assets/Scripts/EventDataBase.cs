@@ -1863,11 +1863,14 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 if (!GameMgr.outgirl_Nowprogress)
                 {
                     //HLV12~  
-                    if (PlayerStatus.girl1_Love_lv >= 15)
+                    if (GameMgr.System_CatGetMat_Flag)
                     {
-                        if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 14) //12時から15時の間に、サイコロふる
+                        if (PlayerStatus.player_cullent_day % 5 == 0) //5日がつく日だけ、抽選する
                         {
-                            CatRandomComingEvent();
+                            if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 15) //12時から15時の間に、サイコロふる
+                            {
+                                CatRandomComingEvent();
+                            }
                         }
                     }
                 }
@@ -2224,11 +2227,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             else
             {
                 random = Random.Range(0, 100);
-                Debug.Log("ねこ家くるイベント　抽選スタート　20以下で成功: " + random);
+                Debug.Log("ねこ家くるイベント　抽選スタート　10以下で成功: " + random);
 
                 if (GameMgr.GirlLoveSubEvent_stage1[170])
                 {
-                    picnic_exprob = 20; //20%の確率で発生。
+                    picnic_exprob = 10; //10%の確率で発生。
                 }
                 else
                 {
@@ -2240,7 +2243,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     GameMgr.GirlLoveSubEvent_num = 170;
                     GameMgr.GirlLoveSubEvent_stage1[170] = true; //イベント初発生の分をフラグっておく。
                                                                  //GameMgr.catcoming_event_ON = false;
-                    GameMgr.catcoming_count = 7; //次の猫イベントまでの日数カウンタ
+                    GameMgr.catcoming_count = 10; //次の猫イベントまでの日数カウンタ
 
                     GameMgr.check_GirlLoveTimeEvent_flag = false;
 

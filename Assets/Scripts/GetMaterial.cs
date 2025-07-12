@@ -34,6 +34,7 @@ public class GetMaterial : MonoBehaviour
 
     private ItemMatPlaceDataBase matplace_database;
     private MagicSkillListDataBase magicskill_database;
+    private CatDataBase catDataBase;
 
     private GameObject TansakuLoding_Panel;
 
@@ -55,6 +56,26 @@ public class GetMaterial : MonoBehaviour
     //宝箱のデータを保持する辞書
     Dictionary<int, string> treasureInfo;
     Dictionary<int, float> treasureDropDict;
+
+    //ヒカリや猫用
+    // アイテムのデータを保持する辞書
+    Dictionary<int, string> itemInfoHikari;
+    Dictionary<int, string> itemrareInfoHikari;
+
+    // 材料をドロップするアイテムの辞書
+    Dictionary<int, float> itemDropDictHikari;
+    Dictionary<int, float> itemrareDropDictHikari;
+
+    // ドロップする個数の辞書
+    Dictionary<int, float> itemDropKosuDictHikari;
+    Dictionary<int, float> itemrareDropKosuDictHikari;
+
+    //宝箱のデータを保持する辞書
+    Dictionary<int, string> treasureInfoHikari;
+    Dictionary<int, float> treasureDropDictHikari;
+    //** **//
+
+
 
     private float randomPoint;
     private float rare_event_kakuritsu;
@@ -97,6 +118,10 @@ public class GetMaterial : MonoBehaviour
     private List<string> _tansaku_result_temp = new List<string>();
     private int[] kettei_item;
     private int[] kettei_kosu;
+
+    //ヒカリと猫用の取得したアイテムと個数
+    private int[] kettei_item_Hikari;
+    private int[] kettei_kosu_Hikari;
 
     private int mat_cost;
     private string mat_place;
@@ -146,6 +171,9 @@ public class GetMaterial : MonoBehaviour
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        //ねこデータベースの取得
+        catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
 
         //テキストエリアの取得
         text_area = canvas.transform.Find("MessageWindow").gameObject;
@@ -876,14 +904,13 @@ public class GetMaterial : MonoBehaviour
     void ItemGetMethod(int _count, int _mstatus)
     {
         // ドロップアイテムの抽選
-        itemId = Choose();
+        itemId = Choose(0);
         itemName = itemInfo[itemId];
-
+            
         //  個数の抽選
-        itemKosu = ChooseKosu();
+        itemKosu = ChooseKosu(0);
         kettei_kosu[_count] = itemKosu;
-
-        if(rare_event_kakuritsu >= 45.0f)
+        /*if (rare_event_kakuritsu >= 45.0f)
         {
             random = Random.Range(0, 10);
             if (random >= 3)
@@ -898,7 +925,9 @@ public class GetMaterial : MonoBehaviour
             {
                 itemKosu++;
             }
-        }
+        }*/
+
+
 
         if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
         {
@@ -940,11 +969,11 @@ public class GetMaterial : MonoBehaviour
         //こっちのレアドロップアイテムは、発見力の影響なし
 
         // レアドロップアイテムの抽選
-        itemId = rareChoose();
+        itemId = rareChoose(0);
         itemName = itemrareInfo[itemId];
 
         //  個数の抽選
-        itemKosu = ChooserareKosu();
+        itemKosu = ChooserareKosu(0);
         kettei_kosu[_count] = itemKosu;
 
         //Debug.Log("レアアイテムの抽選 ダイスの目: " + randomPoint + " 結果 itemID:" + itemId + " itemName: " + itemName);
@@ -989,6 +1018,117 @@ public class GetMaterial : MonoBehaviour
             }
         }
     }
+
+    //こっちは、猫とヒカリ用 _mstatus=0がヒカリ用
+    void ItemGetMethodHikari(int _count, int _mstatus, int _catid)
+    {
+        // ドロップアイテムの抽選
+        itemId = Choose(1);
+        itemName = itemInfoHikari[itemId];
+
+
+        //  個数の抽選
+        itemKosu = ChooseKosu(1);
+
+        if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
+        {
+            itemKosu = 0;
+        }
+        else
+        {
+            //itemNameをもとに、アイテムデータベースのアイテムIDを取得
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+                if (database.items[i].itemName == itemName)
+                {
+                    _itemid = i; //一致したときのiが、DBのitemIDのこと
+                    break;
+                }
+                ++i;
+            }
+
+            //cullent_total_mat += kettei_kosu[_count]; //現在拾った材料の数
+
+            //_tansaku_result_temp.Add(GameMgr.ColorYellow + database.items[kettei_item[_count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[_count] + "個　手に入れた！");
+
+            //アイテムの取得処理
+            pitemlist.addPlayerItem(database.items[_itemid].itemName, itemKosu);
+
+            if (_mstatus == 0)
+            {                
+                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                ItemGetforDictionary(database.items[_itemid].itemName, itemKosu);
+            }
+            else
+            {
+                ItemGetforCatDictionary(database.items[_itemid].itemName, itemKosu, _catid);                
+            }
+        }
+    }
+
+    void RareItemGetMethodHikari(int _count, int _mstatus, int _catid)
+    {
+        //こっちのレアドロップアイテムは、発見力の影響なし
+
+        // レアドロップアイテムの抽選
+        itemId = rareChoose(1);
+        itemName = itemrareInfoHikari[itemId];
+
+        //  個数の抽選
+        itemKosu = ChooserareKosu(1);
+        
+
+        //Debug.Log("レアアイテムの抽選 ダイスの目: " + randomPoint + " 結果 itemID:" + itemId + " itemName: " + itemName);
+
+        if (itemName == "Non" || itemName == "なし") //Nonかなし、の場合は何も手に入らない。Nonの確率は0%
+        {
+            itemKosu = 0;
+        }
+        else
+        {
+
+            //itemNameをもとに、アイテムデータベースのアイテムIDを取得
+            i = 0;
+
+            while (i < database.items.Count)
+            {
+                if (database.items[i].itemName == itemName)
+                {
+                    _itemid = i; //一致したときのiが、DBのitemIDのこと
+                    break;
+                }
+                ++i;
+            }
+
+            //スキルがあれば、個数+1
+            /*if (magicskill_database.skillName_SearchLearnLevel("Rare_FindUP") >= 1)
+            {
+                kettei_kosu[_count] = kettei_kosu[_count] + 1;
+            }*/
+
+            //cullent_total_mat += kettei_kosu[_count]; //現在拾った材料の数
+
+            //_tansaku_result_temp.Add("<color=#E37BB5>" + database.items[kettei_item[_count]].itemNameHyouji + "</color>" + " を" + kettei_kosu[_count] + "個　手に入れた！");
+
+            //アイテムの取得処理
+            pitemlist.addPlayerItem(database.items[_itemid].itemName, itemKosu);
+
+            if (_mstatus == 0)
+            {
+                //取得したアイテムをリストに入れ、あとでリザルト画面で表示
+                ItemGetforDictionary(database.items[_itemid].itemName, itemKosu);
+            }
+            else
+            {
+                //ねこそれぞれに取得した材料を記録しておく
+                ItemGetforCatDictionary(database.items[_itemid].itemName, itemKosu, _catid);
+            }
+        }
+    }
+
+
 
     //採集アイテムが4個以上のとき、3行ずつ表示する。ボタンを押すと、次のページへ送り出す。
     void KaigyoButton()
@@ -1044,6 +1184,16 @@ public class GetMaterial : MonoBehaviour
         itemrareDropKosuDict = new Dictionary<int, float>();
     }
 
+    void ResetHikariItemDicts()
+    {
+        itemInfoHikari = new Dictionary<int, string>();
+        itemDropDictHikari = new Dictionary<int, float>();
+        itemDropKosuDictHikari = new Dictionary<int, float>();
+        itemrareInfoHikari = new Dictionary<int, string>();
+        itemrareDropDictHikari = new Dictionary<int, float>();
+        itemrareDropKosuDictHikari = new Dictionary<int, float>();
+    }
+
     void InitializeDicts(int _index)
     {
         //通常アイテム       
@@ -1097,48 +1247,48 @@ public class GetMaterial : MonoBehaviour
     void InitializeHikariDicts(int _index)
     {
         //通常アイテム       
-        itemInfo.Add(0, matplace_database.matplace_hikariget_lists[_index].dropItem1); //アイテムデータベースに登録されているアイテム名と同じにする
-        itemInfo.Add(1, matplace_database.matplace_hikariget_lists[_index].dropItem2);
-        itemInfo.Add(2, matplace_database.matplace_hikariget_lists[_index].dropItem3);
-        itemInfo.Add(3, matplace_database.matplace_hikariget_lists[_index].dropItem4);
-        itemInfo.Add(4, matplace_database.matplace_hikariget_lists[_index].dropItem5);
-        itemInfo.Add(5, matplace_database.matplace_hikariget_lists[_index].dropItem6);
-        itemInfo.Add(6, matplace_database.matplace_hikariget_lists[_index].dropItem7);
-        itemInfo.Add(7, matplace_database.matplace_hikariget_lists[_index].dropItem8);
-        itemInfo.Add(8, matplace_database.matplace_hikariget_lists[_index].dropItem9);
-        itemInfo.Add(9, matplace_database.matplace_hikariget_lists[_index].dropItem10);
+        itemInfoHikari.Add(0, matplace_database.matplace_hikariget_lists[_index].dropItem1); //アイテムデータベースに登録されているアイテム名と同じにする
+        itemInfoHikari.Add(1, matplace_database.matplace_hikariget_lists[_index].dropItem2);
+        itemInfoHikari.Add(2, matplace_database.matplace_hikariget_lists[_index].dropItem3);
+        itemInfoHikari.Add(3, matplace_database.matplace_hikariget_lists[_index].dropItem4);
+        itemInfoHikari.Add(4, matplace_database.matplace_hikariget_lists[_index].dropItem5);
+        itemInfoHikari.Add(5, matplace_database.matplace_hikariget_lists[_index].dropItem6);
+        itemInfoHikari.Add(6, matplace_database.matplace_hikariget_lists[_index].dropItem7);
+        itemInfoHikari.Add(7, matplace_database.matplace_hikariget_lists[_index].dropItem8);
+        itemInfoHikari.Add(8, matplace_database.matplace_hikariget_lists[_index].dropItem9);
+        itemInfoHikari.Add(9, matplace_database.matplace_hikariget_lists[_index].dropItem10);
 
         //こっちは入手確率テーブル
-        itemDropDict.Add(0, matplace_database.matplace_hikariget_lists[_index].dropProb1);
-        itemDropDict.Add(1, matplace_database.matplace_hikariget_lists[_index].dropProb2);
-        itemDropDict.Add(2, matplace_database.matplace_hikariget_lists[_index].dropProb3);
-        itemDropDict.Add(3, matplace_database.matplace_hikariget_lists[_index].dropProb4);
-        itemDropDict.Add(4, matplace_database.matplace_hikariget_lists[_index].dropProb5);
-        itemDropDict.Add(5, matplace_database.matplace_hikariget_lists[_index].dropProb6);
-        itemDropDict.Add(6, matplace_database.matplace_hikariget_lists[_index].dropProb7);
-        itemDropDict.Add(7, matplace_database.matplace_hikariget_lists[_index].dropProb8);
-        itemDropDict.Add(8, matplace_database.matplace_hikariget_lists[_index].dropProb9);
-        itemDropDict.Add(9, matplace_database.matplace_hikariget_lists[_index].dropProb10);
+        itemDropDictHikari.Add(0, matplace_database.matplace_hikariget_lists[_index].dropProb1);
+        itemDropDictHikari.Add(1, matplace_database.matplace_hikariget_lists[_index].dropProb2);
+        itemDropDictHikari.Add(2, matplace_database.matplace_hikariget_lists[_index].dropProb3);
+        itemDropDictHikari.Add(3, matplace_database.matplace_hikariget_lists[_index].dropProb4);
+        itemDropDictHikari.Add(4, matplace_database.matplace_hikariget_lists[_index].dropProb5);
+        itemDropDictHikari.Add(5, matplace_database.matplace_hikariget_lists[_index].dropProb6);
+        itemDropDictHikari.Add(6, matplace_database.matplace_hikariget_lists[_index].dropProb7);
+        itemDropDictHikari.Add(7, matplace_database.matplace_hikariget_lists[_index].dropProb8);
+        itemDropDictHikari.Add(8, matplace_database.matplace_hikariget_lists[_index].dropProb9);
+        itemDropDictHikari.Add(9, matplace_database.matplace_hikariget_lists[_index].dropProb10);
 
         //個数
-        itemDropKosuDict.Add(1, 75.0f); //1個　75%
-        itemDropKosuDict.Add(2, 25.0f); //2個　25%
-        itemDropKosuDict.Add(3, 0.0f); //3個　15%
+        itemDropKosuDictHikari.Add(1, 75.0f); //1個　75%
+        itemDropKosuDictHikari.Add(2, 25.0f); //2個　25%
+        itemDropKosuDictHikari.Add(3, 0.0f); //3個　15%
 
 
         //レア関係
 
-        itemrareInfo.Add(0, matplace_database.matplace_hikariget_lists[_index].dropRare1);
-        itemrareInfo.Add(1, matplace_database.matplace_hikariget_lists[_index].dropRare2);
-        itemrareInfo.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRare3);
+        itemrareInfoHikari.Add(0, matplace_database.matplace_hikariget_lists[_index].dropRare1);
+        itemrareInfoHikari.Add(1, matplace_database.matplace_hikariget_lists[_index].dropRare2);
+        itemrareInfoHikari.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRare3);
 
-        itemrareDropDict.Add(0, matplace_database.matplace_hikariget_lists[_index].dropRareProb1);
-        itemrareDropDict.Add(1, matplace_database.matplace_hikariget_lists[_index].dropRareProb2 + rare_item_kakuritsu_up);
-        itemrareDropDict.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRareProb3 + rare_item_kakuritsu_up);
+        itemrareDropDictHikari.Add(0, matplace_database.matplace_hikariget_lists[_index].dropRareProb1);
+        itemrareDropDictHikari.Add(1, matplace_database.matplace_hikariget_lists[_index].dropRareProb2 + rare_item_kakuritsu_up);
+        itemrareDropDictHikari.Add(2, matplace_database.matplace_hikariget_lists[_index].dropRareProb3 + rare_item_kakuritsu_up);
 
-        itemrareDropKosuDict.Add(1, 95.0f); //1個
-        itemrareDropKosuDict.Add(2, 5.0f); //2個
-        itemrareDropKosuDict.Add(3, 0.0f); //3個
+        itemrareDropKosuDictHikari.Add(1, 95.0f); //1個
+        itemrareDropKosuDictHikari.Add(2, 5.0f); //2個
+        itemrareDropKosuDictHikari.Add(3, 0.0f); //3個
 
     }
 
@@ -2401,7 +2551,6 @@ public class GetMaterial : MonoBehaviour
         pitemlist.addPlayerItemString("kirakira_stone1", 1);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        //_itemid = pitemlist.SearchItemString("kirakira_stone1");
         ItemGetforDictionary("kirakira_stone1", 1);       
         
 
@@ -2490,7 +2639,6 @@ public class GetMaterial : MonoBehaviour
         pitemlist.addPlayerItemString("kirakira_stone2", 1);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        //_itemid = pitemlist.SearchItemString("kirakira_stone2");
         ItemGetforDictionary("kirakira_stone2", 1);
 
         //音を鳴らす
@@ -2509,7 +2657,6 @@ public class GetMaterial : MonoBehaviour
         pitemlist.addPlayerItemString("kirakira_stone3", 1);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        //_itemid = pitemlist.SearchItemString("kirakira_stone3");
         ItemGetforDictionary("kirakira_stone3", 1);
 
         //音を鳴らす
@@ -2937,7 +3084,7 @@ public class GetMaterial : MonoBehaviour
     {
         //何が当たるかな？
         // 宝箱アイテムの抽選。
-        itemId = TreasureChoose();
+        itemId = TreasureChoose(0);
         itemName = treasureInfo[itemId];
 
         if (itemName == "Non") //はずれ
@@ -2962,7 +3109,7 @@ public class GetMaterial : MonoBehaviour
         itemDropKosuDict.Add(3, 15.0f); //3個　
         itemDropKosuDict.Add(5, 5.0f); //5個　
 
-        itemKosu = ChooseKosu();
+        itemKosu = ChooseKosu(0);
 
         //顔アイコンも切り替え
         msg_window.Setting_WindowIcon(18); //おどろき
@@ -2991,7 +3138,6 @@ public class GetMaterial : MonoBehaviour
         pitemlist.addPlayerItemString(itemName, itemKosu);
 
         //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-        //_itemid = pitemlist.SearchItemString(itemName);
         ItemGetforDictionary(itemName, itemKosu);
 
         //音を鳴らす
@@ -3021,8 +3167,8 @@ public class GetMaterial : MonoBehaviour
     void TreasureGetHikari()
     {
         //音とかパネルとかは無しで、宝箱取得処理のみ
-        itemId = TreasureChoose();
-        itemName = treasureInfo[itemId];
+        itemId = TreasureChoose(1);
+        itemName = treasureInfoHikari[itemId];
 
         if (itemName == "Non") //はずれ
         { }
@@ -3032,7 +3178,6 @@ public class GetMaterial : MonoBehaviour
             pitemlist.addPlayerItemString(itemName, 1);
 
             //取得したアイテムをリストに入れ、あとでリザルト画面で表示
-            //_itemid = pitemlist.SearchItemString(itemName);
             ItemGetforDictionary(itemName, 1);
         }
     }
@@ -3354,145 +3499,145 @@ public class GetMaterial : MonoBehaviour
     void InitializeHikariTreasureDicts(string _treasure_name)
     {
         //まずは初期化
-        treasureInfo = new Dictionary<int, string>();
-        treasureDropDict = new Dictionary<int, float>();
+        treasureInfoHikari = new Dictionary<int, string>();
+        treasureDropDictHikari = new Dictionary<int, float>();
 
         switch (_treasure_name)
         {
             case "Forest": //お宝セットテーブル　森
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。                
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。                
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("Record_6") == 0)
                 {
-                    treasureInfo.Add(1, "Record_6");
-                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "Record_6");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 if (pitemlist.KosuCount("crepe_powerup3") == 0)
                 {
-                    treasureInfo.Add(2, "crepe_powerup3");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "crepe_powerup3");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 
                 break;
 
             case "BerryFarm":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("Record_7") == 0)
-                {                   
-                    treasureInfo.Add(1, "Record_7");
-                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                {
+                    treasureInfoHikari.Add(1, "Record_7");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 if (pitemlist.KosuCount("cookie_powerup4") == 0)
                 {
-                    treasureInfo.Add(2, "cookie_powerup4");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "cookie_powerup4");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "Lavender_field":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("Record_8") == 0)
-                {                  
-                    treasureInfo.Add(1, "Record_8");
-                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                {
+                    treasureInfoHikari.Add(1, "Record_8");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 if (pitemlist.KosuCount("shokukan_powerup3") == 0)
                 {
-                    treasureInfo.Add(2, "shokukan_powerup3");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "shokukan_powerup3");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "StrawberryGarden":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 
                 if (pitemlist.KosuCount("Record_9") == 0)
                 {
-                    treasureInfo.Add(1, "Record_9");
-                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "Record_9");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 if (pitemlist.KosuCount("candy_powerup1") == 0)
                 {
-                    treasureInfo.Add(2, "candy_powerup1");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "candy_powerup1");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "HimawariHill":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 
                 if (pitemlist.KosuCount("Record_10") == 0)
                 {
-                    treasureInfo.Add(1, "Record_10");
-                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "Record_10");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 if (pitemlist.KosuCount("hikari_powerup3") == 0)
                 {
-                    treasureInfo.Add(2, "hikari_powerup3");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "hikari_powerup3");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "Ido":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 
                 if (pitemlist.KosuCount("Record_11") == 0)
                 {
-                    treasureInfo.Add(1, "Record_11");
-                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "Record_11");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 if (pitemlist.KosuCount("tea_powerup4") == 0)
                 {
-                    treasureInfo.Add(2, "tea_powerup4");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "tea_powerup4");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "BirdSanctuali":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 
                 if (pitemlist.KosuCount("Record_12") == 0)
                 {
-                    treasureInfo.Add(1, "Record_12");
-                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "Record_12");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 if (pitemlist.KosuCount("magic_crystal2") == 0)
                 {
-                    treasureInfo.Add(2, "magic_crystal2");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "magic_crystal2");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "CatGrave":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
                 
                 if (pitemlist.KosuCount("Record_13") == 0)
                 {
-                    treasureInfo.Add(1, "Record_13");
-                    treasureDropDict.Add(1, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(1, "Record_13");
+                    treasureDropDictHikari.Add(1, 5.0f + rare_event_kakuritsu);
                 }
                 if (pitemlist.KosuCount("otona_powerup1") == 0)
                 {
-                    treasureInfo.Add(2, "otona_powerup1");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "otona_powerup1");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
@@ -3501,81 +3646,81 @@ public class GetMaterial : MonoBehaviour
             //２～から
             case "Sakura_Forest": //お宝セットテーブル　森
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。                
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。                
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("crepe_powerup3") == 0)
                 {
-                    treasureInfo.Add(2, "crepe_powerup3");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "crepe_powerup3");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
 
                 break;
 
             case "Bluetopaz_Garden":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("cookie_powerup4") == 0)
                 {
-                    treasureInfo.Add(2, "cookie_powerup4");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "cookie_powerup4");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "Aquamarine_Lake":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("shokukan_powerup3") == 0)
                 {
-                    treasureInfo.Add(2, "shokukan_powerup3");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "shokukan_powerup3");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "Ruby_Plane":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("candy_powerup1") == 0)
                 {
-                    treasureInfo.Add(2, "candy_powerup1");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "candy_powerup1");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "Emerald_Forest":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("hikari_powerup3") == 0)
                 {
-                    treasureInfo.Add(2, "hikari_powerup3");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "hikari_powerup3");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "Or_Old_Ido":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("tea_powerup4") == 0)
                 {
-                    treasureInfo.Add(2, "tea_powerup4");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "tea_powerup4");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             case "Amber_Lake":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 /*if (pitemlist.KosuCount("magic_crystal2") == 0)
                 {
@@ -3586,21 +3731,21 @@ public class GetMaterial : MonoBehaviour
 
             case "MoonStone_Hill":
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
-                treasureDropDict.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
+                treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
                 if (pitemlist.KosuCount("otona_powerup1") == 0)
                 {
-                    treasureInfo.Add(2, "otona_powerup1");
-                    treasureDropDict.Add(2, 5.0f + rare_event_kakuritsu);
+                    treasureInfoHikari.Add(2, "otona_powerup1");
+                    treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
                 }
                 break;
 
             default:
 
-                treasureInfo.Add(0, "Non"); //宝箱データ　こっちはアイテム名
+                treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名
 
-                treasureDropDict.Add(0, 100.0f); //こっちは確率テーブル
+                treasureDropDictHikari.Add(0, 100.0f); //こっちは確率テーブル
                 break;
         }
 
@@ -3635,151 +3780,328 @@ public class GetMaterial : MonoBehaviour
         }
     }
 
-    int TreasureChoose()
+    void ItemGetforCatDictionary(string _itemname, int _kosu, int _catid)
+    {
+        //ねこそれぞれに取得した材料を記録しておく 万が一、99個を超えて取得した場合、記録はされないがバグはない
+        i = 0;
+        while (i < catDataBase.catdata_list[_catid].getmat_itemname_cat.Length)
+        {
+            //頭から順番に取得したアイテム名をみていく
+
+            //もしすでに取得してたアイテムだった場合、個数を加算
+            if (catDataBase.catdata_list[_catid].getmat_itemname_cat[i] == _itemname)
+            {
+                catDataBase.catdata_list[_catid].getmat_kosu_cat[i] += _kosu;
+                break;
+            }
+            else
+            {
+                //最初にきたNonの場合は、そこに新規アイテムとして追加
+                if (catDataBase.catdata_list[_catid].getmat_itemname_cat[i] == "Non")
+                {
+                    catDataBase.catdata_list[_catid].getmat_itemname_cat[i] = _itemname;
+                    catDataBase.catdata_list[_catid].getmat_kosu_cat[i] += _kosu;
+                    break;
+                }
+                else //Nonではない。つまり、なんらかのアイテムだったがアイテム名は被ってない場合、そこは消しちゃダメなので無視
+                {
+
+                }
+            }
+            i++;
+        }
+    }
+
+
+    //
+    //アイテムランダムで取得時の計算処理
+    //
+    int TreasureChoose(int _hikariDict)
     {
         // 確率の合計値を格納
         total = 0;
 
-        // 敵ドロップ用の辞書からドロップ率を合計する
-        foreach (KeyValuePair<int, float> elem in treasureDropDict)
+        if (_hikariDict == 0)
         {
-            total += elem.Value;
-        }
-
-        // Random.valueでは0から1までのfloat値を返すので
-        // そこにドロップ率の合計を掛ける
-        randomPoint = Random.value * total;
-
-        // randomPointの位置に該当するキーを返す
-        foreach (KeyValuePair<int, float> elem in treasureDropDict)
-        {
-            if (randomPoint < elem.Value)
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in treasureDropDict)
             {
-                return elem.Key;
+                total += elem.Value;
             }
-            else
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in treasureDropDict)
             {
-                randomPoint -= elem.Value;
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
+            }
+        }
+        else
+        {
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in treasureDropDictHikari)
+            {
+                total += elem.Value;
+            }
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in treasureDropDictHikari)
+            {
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
             }
         }
         return 0;
     }
 
-    int Choose()
+    int Choose(int _hikariDict)
     {
         // 確率の合計値を格納
         total = 0;
 
-        // 敵ドロップ用の辞書からドロップ率を合計する
-        foreach (KeyValuePair<int, float> elem in itemDropDict)
+        if (_hikariDict == 0)
         {
-            total += elem.Value;
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in itemDropDict)
+            {
+                total += elem.Value;
+            }
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in itemDropDict)
+            {
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
+            }
+        }
+        else //ヒカリ採取用のDictを指定　猫の採取と本家の採取がかちあったときに、内部がバグるので分けた
+        {
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in itemDropDictHikari)
+            {
+                total += elem.Value;
+            }
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in itemDropDictHikari)
+            {
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
+            }
         }
 
-        // Random.valueでは0から1までのfloat値を返すので
-        // そこにドロップ率の合計を掛ける
-        randomPoint = Random.value * total;
+        return 0;
+    }
 
-        // randomPointの位置に該当するキーを返す
-        foreach (KeyValuePair<int, float> elem in itemDropDict)
+    int ChooseKosu(int _hikariDict)
+    {
+        // 確率の合計値を格納
+        total = 0;
+
+        if (_hikariDict == 0)
         {
-            if (randomPoint < elem.Value)
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in itemDropKosuDict)
             {
-                return elem.Key;
+                total += elem.Value;
             }
-            else
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in itemDropKosuDict)
             {
-                randomPoint -= elem.Value;
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
+            }
+        }
+        else
+        {
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in itemDropKosuDictHikari)
+            {
+                total += elem.Value;
+            }
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in itemDropKosuDictHikari)
+            {
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
             }
         }
         return 0;
     }
 
-    int ChooseKosu()
+    int rareChoose(int _hikariDict)
     {
         // 確率の合計値を格納
         total = 0;
 
-        // 敵ドロップ用の辞書からドロップ率を合計する
-        foreach (KeyValuePair<int, float> elem in itemDropKosuDict)
+        if (_hikariDict == 0)
         {
-            total += elem.Value;
-        }
-
-        // Random.valueでは0から1までのfloat値を返すので
-        // そこにドロップ率の合計を掛ける
-        randomPoint = Random.value * total;
-
-        // randomPointの位置に該当するキーを返す
-        foreach (KeyValuePair<int, float> elem in itemDropKosuDict)
-        {
-            if (randomPoint < elem.Value)
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in itemrareDropDict)
             {
-                return elem.Key;
+                total += elem.Value;
             }
-            else
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in itemrareDropDict)
             {
-                randomPoint -= elem.Value;
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
+            }
+        }
+        else
+        {
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in itemrareDropDictHikari)
+            {
+                total += elem.Value;
+            }
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in itemrareDropDictHikari)
+            {
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
             }
         }
         return 0;
     }
 
-    int rareChoose()
+    int ChooserareKosu(int _hikariDict)
     {
         // 確率の合計値を格納
         total = 0;
 
-        // 敵ドロップ用の辞書からドロップ率を合計する
-        foreach (KeyValuePair<int, float> elem in itemrareDropDict)
+        if (_hikariDict == 0)
         {
-            total += elem.Value;
-        }
-
-        // Random.valueでは0から1までのfloat値を返すので
-        // そこにドロップ率の合計を掛ける
-        randomPoint = Random.value * total;
-
-        // randomPointの位置に該当するキーを返す
-        foreach (KeyValuePair<int, float> elem in itemrareDropDict)
-        {
-            if (randomPoint < elem.Value)
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in itemrareDropKosuDict)
             {
-                return elem.Key;
+                total += elem.Value;
             }
-            else
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in itemrareDropKosuDict)
             {
-                randomPoint -= elem.Value;
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
             }
         }
-        return 0;
-    }
-
-    int ChooserareKosu()
-    {
-        // 確率の合計値を格納
-        total = 0;
-
-        // 敵ドロップ用の辞書からドロップ率を合計する
-        foreach (KeyValuePair<int, float> elem in itemrareDropKosuDict)
+        else
         {
-            total += elem.Value;
-        }
-
-        // Random.valueでは0から1までのfloat値を返すので
-        // そこにドロップ率の合計を掛ける
-        randomPoint = Random.value * total;
-
-        // randomPointの位置に該当するキーを返す
-        foreach (KeyValuePair<int, float> elem in itemrareDropKosuDict)
-        {
-            if (randomPoint < elem.Value)
+            // 敵ドロップ用の辞書からドロップ率を合計する
+            foreach (KeyValuePair<int, float> elem in itemrareDropKosuDictHikari)
             {
-                return elem.Key;
+                total += elem.Value;
             }
-            else
+
+            // Random.valueでは0から1までのfloat値を返すので
+            // そこにドロップ率の合計を掛ける
+            randomPoint = Random.value * total;
+
+            // randomPointの位置に該当するキーを返す
+            foreach (KeyValuePair<int, float> elem in itemrareDropKosuDictHikari)
             {
-                randomPoint -= elem.Value;
+                if (randomPoint < elem.Value)
+                {
+                    return elem.Key;
+                }
+                else
+                {
+                    randomPoint -= elem.Value;
+                }
             }
         }
         return 0;
@@ -3815,6 +4137,8 @@ public class GetMaterial : MonoBehaviour
         return 0;
     }
 
+
+
     //GetMatPlace_Panel.csからよみだし
     public void SetInit()
     {
@@ -3830,7 +4154,7 @@ public class GetMaterial : MonoBehaviour
         _findpower_girl_getmat_final = 0;
 
         // 入手できるアイテムのデータベース
-        ResetItemDicts();
+        ResetHikariItemDicts();
         InitializeHikariDicts(_index); //ヒカリ入手用のDB
         InitializeHikariTreasureDicts(place_name); //ヒカリ採取時の宝箱DB
 
@@ -3853,14 +4177,13 @@ public class GetMaterial : MonoBehaviour
         //アイテムの入手
         for (count = 0; count < 6 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
-            ItemGetMethod(count, 0);
+            ItemGetMethodHikari(count, 0, 0);　//2番目が0だと、ヒカリとして指定。3番目の数字は、この場合使用しない
         }
 
         //レアアイテムの入手
         for (count = 0; count < 2 + _findpower_girl_getmat_final; count++) //〇回繰り返す
         {
-
-            RareItemGetMethod(count, 0);
+            RareItemGetMethodHikari(count, 0, 0);
         }
 
         //さらに、宝箱レアアイテムの入手
@@ -3871,47 +4194,32 @@ public class GetMaterial : MonoBehaviour
     }
 
     //猫の採取で材料をゲットする処理 TimeControllerから読み出し
-    public void CatGetRandomMaterials(int _index, int _cat_kaisu)
+    public void CatGetRandomMaterials(int _index, int _cat_kaisu, int _catID)
     {
         index = _index; //採取地IDの決定
         place_name = matplace_database.matplace_lists[index].placeName;
-        _findpower_girl_getmat_final = 0;
-        _findpower_girl_getmat = 0;
 
         // 入手できるアイテムのデータベース
-        ResetItemDicts();
+        ResetHikariItemDicts();
         InitializeHikariDicts(_index); //ヒカリ入手用のDB
         InitializeHikariTreasureDicts(place_name); //ヒカリ採取時の宝箱DB
 
         //猫のアイテム発見力をバフつきで計算
         //Keisan_FindPower();
 
-        //アイテム発見力20ごとに、一回探索回数がふえる。ねこでは、アイテム発見力は使ってない。
-        _findpower_girl_getmat_final = 0;
-        while (_findpower_girl_getmat >= 20)
-        {
-            _findpower_girl_getmat -= 20;
-            _findpower_girl_getmat_final++;
-        }
-
-        //例外処理  探索回数増加数は30は越えない。
-        if (_findpower_girl_getmat_final <= 0) { _findpower_girl_getmat_final = 0; }
-        if (_findpower_girl_getmat_final >= 30) { _findpower_girl_getmat_final = 30; }
-        //Debug.Log("_findpower_girl_getmat_final: " + _findpower_girl_getmat_final);
-
         //アイテムの入手
-        for (count = 0; count < _cat_kaisu + _findpower_girl_getmat_final; count++) //〇回繰り返す
+        for (count = 0; count < _cat_kaisu; count++) //〇回繰り返す
         {
-            ItemGetMethod(count, 1);
+            ItemGetMethodHikari(count, 1, _catID); //2番目が1だと、猫として指定。3番目の数字はcatid
         }
 
         _cat_rarekaisu = _cat_kaisu / 3;
         if(_cat_rarekaisu < 1) { _cat_rarekaisu = 1; }
         //レアアイテムの入手
-        for (count = 0; count < _cat_rarekaisu + _findpower_girl_getmat_final; count++) //〇回繰り返す
+        for (count = 0; count < _cat_rarekaisu; count++) //〇回繰り返す
         {
 
-            RareItemGetMethod(count, 1);
+            RareItemGetMethodHikari(count, 1, _catID);
         }
 
         //さらに、宝箱レアアイテムの入手

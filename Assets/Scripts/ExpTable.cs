@@ -335,14 +335,14 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             }
         }*/
 
-        if (_lv < 15)
+        /*if (_lv < 15)
         {
             GameMgr.System_CatGetMat_Flag = false;
         }
         else if (_lv >= 15)
         {
             GameMgr.System_CatGetMat_Flag = true;
-        }
+        }*/
 
         //魔法をおぼえる
         if (GameMgr.System_MagicUse_Flag)

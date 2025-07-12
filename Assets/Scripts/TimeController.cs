@@ -1372,7 +1372,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
         //採取地とアイテムの決定　事前にセレクト画面で決めている
         _mapid = matplace_database.SearchMapString(_place);
-        get_material.CatGetRandomMaterials(_mapid, _kaisu);
+        get_material.CatGetRandomMaterials(_mapid, _kaisu, _catid);
         Debug.Log("猫採取　場所: " + matplace_database.matplace_lists[_mapid].placeNameHyouji);
 
         //ねこ経験値が上昇
