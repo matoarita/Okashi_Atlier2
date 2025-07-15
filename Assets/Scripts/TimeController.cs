@@ -1021,14 +1021,14 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //イベント発生のち、コンテスト終了
         if (PlayerStatus.player_contest_LimitTime < 0)
         {
-            if(Mathf.Abs(PlayerStatus.player_contest_LimitTime) < 30)
+            if(Mathf.Abs(PlayerStatus.player_contest_LimitTime) < 60)
             {
                 //提出は可能　だが減点　時間とボタンが赤になる。
                 GameMgr.contest_LimitTimeOver_DegScore_flag = true;
             }
             else
             {
-                //３０分を超えた場合　失格
+                //60分を超えた場合　失格
                 GameMgr.contest_LimitTimeOver_Gameover_flag = true;
             }
         }

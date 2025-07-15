@@ -431258,10 +431258,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GetMatPlace_Panel
       objectReference: {fileID: 0}
-    - target: {fileID: 1858643036018288, guid: a3a823db655bd404abc7a42f1cf750ee, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 224025280680974648, guid: a3a823db655bd404abc7a42f1cf750ee,
         type: 3}
       propertyPath: m_Pivot.x

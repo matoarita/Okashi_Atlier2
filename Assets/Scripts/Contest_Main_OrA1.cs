@@ -318,6 +318,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.Scene_Status = 0;
         StartRead = false;
         contest_eventStart_flag = false;
+        
 
         //ウィンドウキャラ名設定
         //GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
@@ -364,7 +365,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 GameMgr.ContestRoundNum = 1;
             }
 
-            ContestDataSetting();            
+            ContestDataSetting();
+            StartSetReset();
 
             GameMgr.scenario_ON = true;
 
@@ -387,6 +389,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             GameMgr.ContestRoundNum++;
             ContestDataSetting();
+            StartSetReset();
 
             GameMgr.scenario_ON = true;
 
@@ -623,7 +626,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                         StartCoroutine("StartEnshutu");
                     }                                                        
 
-                    //制限時間　30分を超えた場合、失格フラグ
+                    //制限時間　60分を超えた場合、失格フラグ
                     if (GameMgr.contest_LimitTimeOver_Gameover_flag)
                     {
                         GameMgr.contest_LimitTimeOver_Gameover_flag = false;
@@ -733,6 +736,16 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    void StartSetReset()
+    {
+        GameMgr.contest_LimitTimeOver_DegScore_flag = false;
+        timelimitover_panel.SetActive(false);
+
+        GameMgr.contest_LimitTimeOver_After_flag = false;
+        GameMgr.contest_Disqualification = false;
+        GameMgr.contest_Disqualification2 = false;
     }
 
     IEnumerator StartEnshutu()

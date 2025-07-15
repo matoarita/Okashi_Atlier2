@@ -33,6 +33,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private int _id, ev_id;
     private bool _fire;
     private string _basename, _baseitemtype_sub, _baseitemtype_subB;
+    private bool cat_comecheck;
 
     private List<int> map_list = new List<int>();
 
@@ -71,6 +72,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         GetEmeraldItem = false;
         _fire = false;
+        cat_comecheck = false;
     }
 	
 	// Update is called once per frame
@@ -2214,12 +2216,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     void CatRandomComingEvent()
     {
+        cat_comecheck = false;
+        GameMgr.catcoming_event_ON = false;
+
         if (GameMgr.catcoming_count <= 0)
         {
-            GameMgr.catcoming_event_ON = true;
+            cat_comecheck = true;
         }
 
-        if (GameMgr.catcoming_event_ON)
+        if (cat_comecheck)
         {
             if (catDataBase.catdata_list.Count >= 6) //6匹以上いるときは、もうねこは来なくなる
             {
@@ -2244,6 +2249,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     GameMgr.GirlLoveSubEvent_stage1[170] = true; //イベント初発生の分をフラグっておく。
                                                                  //GameMgr.catcoming_event_ON = false;
                     GameMgr.catcoming_count = 10; //次の猫イベントまでの日数カウンタ
+                    GameMgr.catcoming_event_ON = true;
 
                     GameMgr.check_GirlLoveTimeEvent_flag = false;
 

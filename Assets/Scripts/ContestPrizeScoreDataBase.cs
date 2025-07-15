@@ -712,8 +712,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("emerald_suger");
+        GameMgr.PrizeItemList.Add("neko_badge2");
         GameMgr.PrizeItemList.Add("teaset_flower");
-        GameMgr.PrizeItemList.Add("mg_glitter_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -1067,8 +1067,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Clear();
         GameMgr.PrizeScoreAreaList.Add(156);
         GameMgr.PrizeScoreAreaList.Add(208);
+        GameMgr.PrizeScoreAreaList.Add(242);
         GameMgr.PrizeScoreAreaList.Add(283);
-        GameMgr.PrizeScoreAreaList.Add(402);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();

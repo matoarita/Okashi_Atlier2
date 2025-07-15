@@ -3192,18 +3192,33 @@ public class Utage_scenario : MonoBehaviour
                         engine.Param.TrySetParameter("RoomRelease_Flag3", GameMgr.OrRoomRelease[2]);
                         engine.Param.TrySetParameter("RoomRelease_Flag4", GameMgr.OrRoomRelease[3]);
                         engine.Param.TrySetParameter("RoomRelease_Flag5", GameMgr.OrRoomRelease[4]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag6", GameMgr.OrRoomRelease[5]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag7", GameMgr.OrRoomRelease[6]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag8", GameMgr.OrRoomRelease[7]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag9", GameMgr.OrRoomRelease[8]);
+                        engine.Param.TrySetParameter("RoomRelease_Flag10", GameMgr.OrRoomRelease[9]);
 
                         engine.Param.TrySetParameter("RoomBuy_Flag1", GameMgr.OrRoomBuy[0]);
                         engine.Param.TrySetParameter("RoomBuy_Flag2", GameMgr.OrRoomBuy[1]);
                         engine.Param.TrySetParameter("RoomBuy_Flag3", GameMgr.OrRoomBuy[2]);
                         engine.Param.TrySetParameter("RoomBuy_Flag4", GameMgr.OrRoomBuy[3]);
                         engine.Param.TrySetParameter("RoomBuy_Flag5", GameMgr.OrRoomBuy[4]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag6", GameMgr.OrRoomBuy[5]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag7", GameMgr.OrRoomBuy[6]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag8", GameMgr.OrRoomBuy[7]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag9", GameMgr.OrRoomBuy[8]);
+                        engine.Param.TrySetParameter("RoomBuy_Flag10", GameMgr.OrRoomBuy[9]);
 
                         engine.Param.TrySetParameter("RoomNameHyouji1", GameMgr.OrRoomNameHyouji[0]);
                         engine.Param.TrySetParameter("RoomNameHyouji2", GameMgr.OrRoomNameHyouji[1]);
                         engine.Param.TrySetParameter("RoomNameHyouji3", GameMgr.OrRoomNameHyouji[2]);
                         engine.Param.TrySetParameter("RoomNameHyouji4", GameMgr.OrRoomNameHyouji[3]);
                         engine.Param.TrySetParameter("RoomNameHyouji5", GameMgr.OrRoomNameHyouji[4]);
+                        engine.Param.TrySetParameter("RoomNameHyouji6", GameMgr.OrRoomNameHyouji[5]);
+                        engine.Param.TrySetParameter("RoomNameHyouji7", GameMgr.OrRoomNameHyouji[6]);
+                        engine.Param.TrySetParameter("RoomNameHyouji8", GameMgr.OrRoomNameHyouji[7]);
+                        engine.Param.TrySetParameter("RoomNameHyouji9", GameMgr.OrRoomNameHyouji[8]);
+                        engine.Param.TrySetParameter("RoomNameHyouji10", GameMgr.OrRoomNameHyouji[9]);
 
                         if (GameMgr.OrRoomBuy[0])
                         {
@@ -3243,6 +3258,46 @@ public class Utage_scenario : MonoBehaviour
                         else
                         {
                             engine.Param.TrySetParameter("RoomCost5", GameMgr.OrRoomCost[4]);
+                        }
+                        if (GameMgr.OrRoomBuy[5])
+                        {
+                            engine.Param.TrySetParameter("RoomCost6", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost6", GameMgr.OrRoomCost[5]);
+                        }
+                        if (GameMgr.OrRoomBuy[6])
+                        {
+                            engine.Param.TrySetParameter("RoomCost7", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost7", GameMgr.OrRoomCost[6]);
+                        }
+                        if (GameMgr.OrRoomBuy[7])
+                        {
+                            engine.Param.TrySetParameter("RoomCost8", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost8", GameMgr.OrRoomCost[7]);
+                        }
+                        if (GameMgr.OrRoomBuy[8])
+                        {
+                            engine.Param.TrySetParameter("RoomCost9", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost9", GameMgr.OrRoomCost[8]);
+                        }
+                        if (GameMgr.OrRoomBuy[9])
+                        {
+                            engine.Param.TrySetParameter("RoomCost10", 0);
+                        }
+                        else
+                        {
+                            engine.Param.TrySetParameter("RoomCost10", GameMgr.OrRoomCost[9]);
                         }
                         break;
                 }
@@ -4307,9 +4362,10 @@ public class Utage_scenario : MonoBehaviour
 
                                 break;
 
-                            case 1: //最初の家を選んだ
+                            case 1: //最初の家を選んだ 家賃がかかる
 
                                 GameMgr.OrCompound_RoomNum = 0;
+                                GameMgr.System_Yachin_ON = true;
 
                                 RoomBuyCheck(0);                                                          
                                 break;
@@ -4317,6 +4373,7 @@ public class Utage_scenario : MonoBehaviour
                             case 2: //
 
                                 GameMgr.OrCompound_RoomNum = 1;
+                                GameMgr.System_Yachin_ON = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(1);
@@ -4325,9 +4382,37 @@ public class Utage_scenario : MonoBehaviour
                             case 3: //
 
                                 GameMgr.OrCompound_RoomNum = 2;
+                                GameMgr.System_Yachin_ON = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(2);
+                                break;
+
+                            case 4: //
+
+                                GameMgr.OrCompound_RoomNum = 2;
+                                GameMgr.System_Yachin_ON = false;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(3);
+                                break;
+
+                            case 5: //
+
+                                GameMgr.OrCompound_RoomNum = 2;
+                                GameMgr.System_Yachin_ON = false;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(4);
+                                break;
+
+                            case 6: //
+
+                                GameMgr.OrCompound_RoomNum = 2;
+                                GameMgr.System_Yachin_ON = false;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(5);
                                 break;
 
                         }

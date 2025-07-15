@@ -2715,6 +2715,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basefluffy = _basefluffy / 5;
             _basesmooth = _basesmooth / 5;
             _basehardness = _basehardness / 5;
+
+            _baseoily = _baseoily / 10;
+            _basepowdery = _basepowdery / 10;
+            _basewatery = _basewatery / 10;
         }
 
         //ケーキベース（スポンジのせるだけ）は、食感が上がりすぎないように調整 粉っぽさも減らす

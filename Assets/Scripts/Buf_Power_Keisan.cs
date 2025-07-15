@@ -618,6 +618,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case "Cake_MatCream":
 
+                CostTimeUp_Cake_MatCream();
+                break;
+
+            case "Cake_MatSpongeBaked":
+
+                CostTimeUp_Cake_MatSpongeBaked();
                 break;
 
             case "IceCream": //フリージングでアイスを作る場合は、こっちは通らないので注意　下のFreezing_Spellでかく
@@ -666,6 +672,30 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
         {
             _magicup = magicskill_database.magicskill_lists[_magicid].skillLv * 3; //LV*10
+            _buf_compotime_up += _magicup;
+        }
+    }
+
+    void CostTimeUp_Cake_MatCream()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        _magicid = magicskill_database.SearchSkillString("Nappe");
+        if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
+        {
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.1f); //costtimeの10％
+            _buf_compotime_up += _magicup;
+        }
+    }
+
+    void CostTimeUp_Cake_MatSpongeBaked()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        _magicid = magicskill_database.SearchSkillString("Appaleil_Study");
+        if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
+        {
+            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.2f); //costtimeの20％
             _buf_compotime_up += _magicup;
         }
     }
@@ -1786,6 +1816,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.15f) 習得LV: " + _magicLearnLv);
                     }
 
+                    if(_magicup < 1) { _magicup = 1; } //必ず１は上がる
                     
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
@@ -1804,7 +1835,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.1f)); //1.2倍
                         Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
                     }
-                                                               
+                    if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
+
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
@@ -1818,6 +1850,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     {
                         _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Warming_Handmade");
                         _magicup = (int)(_baseparam * (0.2f + _magicLearnLv * 0.05f));
+                        if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
 
                         Debug.Log("_baseparam * (0.2f + 手作りの温もり習得LV * 0.05f) 習得LV: " + _magicLearnLv); //大体1.3倍
                         Debug.Log("手作りの温もりの最終バフ: " + _magicup);

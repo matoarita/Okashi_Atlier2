@@ -535,7 +535,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //猫くるイベントのカウンター
     public static int catcoming_count;
-    public static bool catcoming_event_ON;
+    public static bool catcoming_event_ON; //セーブ不要
     public static bool catcoming_event_endflag; //エンドまち　これはセーブ不要
 
     //いちごイベントのフラグ
@@ -2043,14 +2043,26 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OrRoomCost[0] = 0;
         OrRoomCost[1] = 50000;
         OrRoomCost[2] = 50000;
-        OrRoomCost[3] = 50000;
-        OrRoomCost[4] = 50000;
+        OrRoomCost[3] = 300000;
+        OrRoomCost[4] = 500000;
+
+        OrRoomCost[5] = 500000;
+        OrRoomCost[6] = 500000;
+        OrRoomCost[7] = 500000;
+        OrRoomCost[8] = 500000;
+        OrRoomCost[9] = 500000;
 
         OrRoomNameHyouji[0] = "最初の家";
         OrRoomNameHyouji[1] = "花と森";
         OrRoomNameHyouji[2] = "ヨーロピアン";
         OrRoomNameHyouji[3] = "最初のへや";
         OrRoomNameHyouji[4] = "最初のへや";
+
+        OrRoomNameHyouji[5] = "最初のへや";
+        OrRoomNameHyouji[6] = "最初のへや";
+        OrRoomNameHyouji[7] = "最初のへや";
+        OrRoomNameHyouji[8] = "最初のへや";
+        OrRoomNameHyouji[9] = "最初のへや";
     }
 
 

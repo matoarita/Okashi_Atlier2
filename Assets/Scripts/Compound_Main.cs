@@ -3908,7 +3908,7 @@ public class Compound_Main : MonoBehaviour
         //ねこのステータス
         _obj.transform.Find("CatDataPanel/CatMemo/LV_text").GetComponent<Text>().text = catDataBase.catdata_checklist[_catid].catLv.ToString();
         _obj.transform.Find("CatDataPanel/CatMemo/TansakuSP_text").GetComponent<Text>().text = catDataBase.CatTansakuTextLibrary(catDataBase.catdata_checklist[_catid].catTansaku_Speed);
-        _obj.transform.Find("CatDataPanel/CatMemo/TansakuKaisu_text").GetComponent<Text>().text = catDataBase.CatTansakuTextLibrary(catDataBase.catdata_checklist[_catid].catTansaku_Kaisu);
+        _obj.transform.Find("CatDataPanel/CatMemo/TansakuKaisu_text").GetComponent<Text>().text = catDataBase.catdata_checklist[_catid].catTansaku_Kaisu.ToString();
     }
 
     void CatIconAnim_Hyouji(GameObject _obj) //FinalCheckのときにアニメアイコンを表示　画像は非表示

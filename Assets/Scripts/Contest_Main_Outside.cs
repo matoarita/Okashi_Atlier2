@@ -631,13 +631,21 @@ public class Contest_Main_Outside : MonoBehaviour
     //SubView1 コンテスト中へ入る
     public void OnSubNPC1_toggle()
     {
-        //入店の音
-        sc.PlaySe(150);
-        GameMgr.ShopEnter_ButtonON = true;
+        //ヒカリがいないときは、入れない
+        if (GameMgr.outgirl_Nowprogress)
+        {
+            _text.text = "ヒカリがいないな..。コンテストは、ヒカリと一緒に出場しよう。";
+        }
+        else
+        {
+            //入店の音
+            sc.PlaySe(150);
+            GameMgr.ShopEnter_ButtonON = true;
 
-        //
-        GameMgr.SceneSelectNum = gotonum;
-        FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+            //
+            GameMgr.SceneSelectNum = gotonum;
+            FadeManager.Instance.LoadScene("Or_Contest_Reception", GameMgr.SceneFadeTime);
+        }
     }
 
     //SubView2　立ち去る

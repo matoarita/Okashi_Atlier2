@@ -661,13 +661,13 @@ public class StarStampPanel : MonoBehaviour
                 else if (_mstatus == 1)
                 {
                     //
-                    //_id = pitemlist.Find_eventitemdatabase("cheesecake_recipi_high");
-                    newarea_titletext = "おたから";
-                    newarea_gohoubitext = "なんらかのアイテムをゲット！";
-                    newarea_gohoubiicon = itemIcon_sprite2;
+                    _id = pitemlist.Find_eventitemdatabase("mg_glitter_book");
+                    newarea_titletext = "魔法の本";
+                    newarea_gohoubitext = "「グリッター」の本！" + "\n" + "ゲット！";
+                    newarea_gohoubiicon = pitemlist.eventitemlist[_id].itemIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
 
-                    //pitemlist.add_eventPlayerItem(_id, 1);
+                    pitemlist.add_eventPlayerItem(_id, 1);
                 }
 
                 break;

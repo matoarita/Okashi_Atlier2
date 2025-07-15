@@ -632,12 +632,26 @@ public class Contest_Judge : MonoBehaviour {
 
                 switch (GameMgr.ContestRoundNum) //各回戦ごとの調整
                 {
-                    case 1:
+                    case 1: //焼き菓子のみ　クッキー　ラスク　マフィン　フィナンシェ
 
+                        if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                        {
+                            if (item_subType == "Cookie" || item_subType == "Cookie_Hard"
+                                || item_subType == "Rusk" || item_subType == "Maffin" || item_subType == "Financier"
+                                || item_subType == "Cannoli" || item_subType == "Biscotti")
+                            {
+                                judge_flag = true;
+                            }
+                            else
+                            {
+                                judge_flag = false;
+                            }
+                        }
                         break;
 
                     case 2:
 
+                        //ひとつは光魔法を使ったおかし
                         break;
 
                     case 3:
@@ -921,78 +935,7 @@ public class Contest_Judge : MonoBehaviour {
                 }
                 break;
 
-            case "Or_Contest_060":　//ルミエール・エピファニア　光りのお菓子で採点される
-
-                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
-                {
-                    if (item_subTypeB == "a_GlowCake" || item_subTypeB == "a_GlowCookie" || item_subTypeB == "a_GlowCookie_Hard"
-                        || item_subTypeB == "a_GlowCheeseCake" || item_subTypeB == "a_GlowJelly" || item_subTypeB == "a_GlowCandy"
-                        || item_subTypeB == "a_GlowRusk" || item_subTypeB == "a_GlowJuice")
-                    {
-                        judge_flag = true;
-                    }
-                    else
-                    {
-                        //上記タイプのおかしでなくても、光りの演出魔法がかかっていれば、採点は通る
-                        if (_basemagicslot_Name == GameMgr.System_MagicSlotName02 || _basemagicslot_Name == GameMgr.System_MagicSlotName07)
-                        {
-                            judge_flag = true;
-                        }
-                        else
-                        {
-                            judge_flag = false;
-                        }
-                    }
-                }
-
-                if (_status == 0) //コンテストの判定に補正入れる場合は0
-                {
-                    //じいさんの見た目判定を0に。
-                    Contest_KyotuHosei_1();
-                }
-                else if (_status == 1)
-                {
-                    //特定のおかし補正
-                    Contest_KoyuOkashiHosei_1();
-
-                    //審査員２　アントワネット王妃　見た目の補正
-                    Contest_BeautyHosei_1();
-                    Contest_ShokukanHosei_10();
-
-                    //審査員３　じいさんだけ、食感の補正
-                    Contest_ShokukanHosei_1();
-
-                    //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(130); //50%
-                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
-                    Debug.Log("### ###");
-                }
-
-                break;
-
-            case "Or_Contest_070":　//ルミエール・カンデラ　光りのお菓子で採点される　キラキラ感で補正がはいる
-
-                if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
-                {
-                    if (item_subTypeB == "a_GlowCake" || item_subTypeB == "a_GlowCookie" || item_subTypeB == "a_GlowCookie_Hard"
-                        || item_subTypeB == "a_GlowCheeseCake" || item_subTypeB == "a_GlowJelly" || item_subTypeB == "a_GlowCandy"
-                        || item_subTypeB == "a_GlowRusk" || item_subTypeB == "a_GlowJuice")
-                    {
-                        judge_flag = true;
-                    }
-                    else
-                    {
-                        //上記タイプのおかしでなくても、光りの演出魔法がかかっていれば、採点は通る
-                        if (_basemagicslot_Name == GameMgr.System_MagicSlotName02 || _basemagicslot_Name == GameMgr.System_MagicSlotName07)
-                        {
-                            judge_flag = true;
-                        }
-                        else
-                        {
-                            judge_flag = false;
-                        }
-                    }
-                }
+            case "Or_Contest_060":　//ルミエール・エピファニア　お菓子の光り度で採点される
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
@@ -1021,12 +964,70 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(150); //50%
+                    ScoreNormalized(130); //50%
+                    Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
+                    Debug.Log("### ###");
+                }
+
+                break;
+
+            case "Or_Contest_070":　//ルミエール・カンデラ　光りのお菓子で採点される　キラキラ感で補正がはいる
+
+                /*if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                {
+                    if (item_subTypeB == "a_GlowCake" || item_subTypeB == "a_GlowCookie" || item_subTypeB == "a_GlowCookie_Hard"
+                        || item_subTypeB == "a_GlowCheeseCake" || item_subTypeB == "a_GlowJelly" || item_subTypeB == "a_GlowCandy"
+                        || item_subTypeB == "a_GlowRusk" || item_subTypeB == "a_GlowJuice")
+                    {
+                        judge_flag = true;
+                    }
+                    else
+                    {
+                        //上記タイプのおかしでなくても、光りの演出魔法がかかっていれば、採点は通る
+                        if (_basemagicslot_Name == GameMgr.System_MagicSlotName02 || _basemagicslot_Name == GameMgr.System_MagicSlotName07)
+                        {
+                            judge_flag = true;
+                        }
+                        else
+                        {
+                            judge_flag = false;
+                        }
+                    }
+                }*/
+
+                if (_status == 0) //コンテストの判定に補正入れる場合は0
+                {
+                    //じいさんの見た目判定を0に。
+                    Contest_KyotuHosei_1();
+
+                    for (i = 0; i < set_ID.Count; i++)
+                    {
+                        girl1_status.girl1_SP_Score9[i] = 20; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
+                    }
+                    GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
+
+                    Debug.Log("判定値追加： キラキラ感 " + 20);
+                    Debug.Log("### ###");
+                }
+                else if (_status == 1)
+                {
+                    //特定のおかし補正
+                    Contest_KoyuOkashiHosei_1();
+
+                    //審査員２　アントワネット王妃　見た目の補正
+                    Contest_BeautyHosei_1();
+                    Contest_ShokukanHosei_10();
+
+                    //審査員３　じいさんだけ、食感の補正
+                    Contest_ShokukanHosei_1();
+
+                    //入れた数値を上限に100点に正規化する。
+                    ScoreNormalized(170); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                    SpScoreHosei_2(GameMgr.contest_SPScoreJudge);
                 }
 
                 break;
@@ -1568,7 +1569,7 @@ public class Contest_Judge : MonoBehaviour {
                     Debug.Log("### ###");
 
                     //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_2(GameMgr.contest_SPScoreJudge);
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
                 }
                     
                 break;
@@ -1789,11 +1790,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低3は必要
+                        girl1_status.girl1_SP_Score9[i] = 30; //キラキラ感の値が最低3は必要
                     }
                     GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： キラキラ感 " + 10);
+                    Debug.Log("判定値追加： キラキラ感 " + 30);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -2197,7 +2198,7 @@ public class Contest_Judge : MonoBehaviour {
     }
 
     //SpScoreの点数補正　各審査員のSP点数は同一なので、Score[0]をもってくればOK
-    void SpScoreHosei_1(int _spscore)
+    void SpScoreHosei_1(int _spscore) //_spscoreは、おかしに入っている値から、好みの判定値を引き算した値　足りてない場合マイナスもある
     {
         if (_spscore >= 0 && _spscore < 5) //少し上がる
         {
@@ -2271,14 +2272,21 @@ public class Contest_Judge : MonoBehaviour {
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] * 0.5f);
+                total_score[i] = (int)(total_score[i] * 0.75f);
             }
         }
-        else if (_spscore >= 20 && _spscore < 40) //SpScoreに補正して加算
+        else if (_spscore >= 20 && _spscore < 30) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.0f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 0.9f));
+            }
+        }
+        else if (_spscore >= 30 && _spscore < 40) //SpScoreに補正して加算
+        {
+            for (i = 0; i < GameMgr.contest_Score.Length; i++)
+            {
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.1f));
             }
         }
         else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算

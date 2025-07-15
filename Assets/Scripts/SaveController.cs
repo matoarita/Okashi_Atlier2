@@ -595,7 +595,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             //ねこフラグ
             save_catGetMat_PlayFlag = GameMgr.catGetMat_PlayFlag,
             save_catcoming_count = GameMgr.catcoming_count,
-            save_catcoming_event_ON = GameMgr.catcoming_event_ON,
 
             //お菓子の一度にトッピングできる回数
             save_topping_Set_Count = GameMgr.topping_Set_Count,
@@ -1166,7 +1165,6 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         //ねこフラグ
         GameMgr.catGetMat_PlayFlag = playerData.save_catGetMat_PlayFlag;
         GameMgr.catcoming_count = playerData.save_catcoming_count;
-        GameMgr.catcoming_event_ON = playerData.save_catcoming_event_ON;
 
         //マップフラグの読み込み
         for (i = 0; i < playerData.save_mapflaglist.Count; i++)

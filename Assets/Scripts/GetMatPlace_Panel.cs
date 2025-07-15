@@ -1062,9 +1062,11 @@ public class GetMatPlace_Panel : MonoBehaviour {
         if(matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba1_Roten" ||
             matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba_Summer_SodaIsland" ||
             matplace_database.matplace_lists[_place_num].placeName == "Or_HirobaEnter_Catsle" ||
-            matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba1_HotSpring")
+            matplace_database.matplace_lists[_place_num].placeName == "Or_Hiroba1_HotSpring" ||
+            matplace_database.matplace_lists[_place_num].placeName == "Or_Contest_A1" || matplace_database.matplace_lists[_place_num].placeName == "Or_Contest_B1" ||
+            matplace_database.matplace_lists[_place_num].placeName == "Or_Contest_C1" || matplace_database.matplace_lists[_place_num].placeName == "Or_Contest_D1")
         {
-            //露店通り・ソーダアイランド・お城は、ヒカリがいないと行けない
+            //露店通り・ソーダアイランド・お城・コンテストは、ヒカリがいないと行けない
             if (GameMgr.outgirl_Nowprogress)
             {
                 _text.text = "ヒカリがいないから、行ってもしょうがないな・・。";

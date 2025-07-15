@@ -302,26 +302,7 @@ public class ContestListController : MonoBehaviour
             if (conteststartList_database.conteststart_lists[i].Contest_Flag == 2)
             {
                 DrawContest();
-            }
-            
-            /*if (conteststartList_database.conteststart_lists[i].Contest_Flag == 200) //サマードリームスフェスティバル
-            {
-                if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1)
-                { }
-                else
-                {
-                    DrawContest();
-                }
-            }
-            if (conteststartList_database.conteststart_lists[i].Contest_Flag == 300) //アルクアンシェル
-            {
-                if (conteststartList_database.SearchContestVictory("Or_Contest_003") == 1)
-                { }
-                else
-                {
-                    DrawContest();
-                }
-            }*/
+            }            
         }
 
         if (GameMgr.GirlLoveSubEvent_stage1[503]) //招待状がくるので、リストに表示
@@ -529,7 +510,7 @@ public class ContestListController : MonoBehaviour
                 _listID = conteststartList_database.SearchContestString("Or_Contest_010");
                 if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
-                    if (!GameMgr.Contest_NewReleaseList[0])
+                    if (!GameMgr.Contest_NewReleaseList[0]) 
                     {
                         GameMgr.Contest_NewReleaseList[0] = true;
                         contest_new = 1;
@@ -564,7 +545,7 @@ public class ContestListController : MonoBehaviour
                 if (conteststartList_database.SearchContestVictory("Or_Contest_001") == 1)
                 {
                     //プラトン優勝時点で次にでるやつ
-                    if (!GameMgr.Contest_NewReleaseList[2])
+                    if (!GameMgr.Contest_NewReleaseList[2]) //4～のこと
                     {
                         GameMgr.Contest_NewReleaseList[2] = true;
                         contest_new = 1;
@@ -574,7 +555,7 @@ public class ContestListController : MonoBehaviour
                     _listID = conteststartList_database.SearchContestString("Or_Contest_060");
                     if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                     {
-                        if (!GameMgr.Contest_NewReleaseList[3])
+                        if (!GameMgr.Contest_NewReleaseList[3]) //5～のこと
                         {
                             GameMgr.Contest_NewReleaseList[3] = true;
                             contest_new = 1;
@@ -585,7 +566,7 @@ public class ContestListController : MonoBehaviour
                     //_listID = conteststartList_database.SearchContestString("Or_Contest_070");
                     if (PlayerStatus.player_ninki_param >= 20)
                     {
-                        if (!GameMgr.Contest_NewReleaseList[4])
+                        if (!GameMgr.Contest_NewReleaseList[4]) //6～のこと
                         {
                             GameMgr.Contest_NewReleaseList[4] = true;
                             contest_new = 1;
@@ -672,8 +653,8 @@ public class ContestListController : MonoBehaviour
                     }
                 }
 
-                //キラキラボンボンズコンテストクリアで、次がでる
-                _listID = conteststartList_database.SearchContestString("Or_Contest_430");
+                //オランジーナパティスリーアワードコンテストクリアで、次がでる
+                _listID = conteststartList_database.SearchContestString("Or_Contest_020");
                 if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[21])
@@ -683,9 +664,11 @@ public class ContestListController : MonoBehaviour
                     }
                 }
 
-                //ピエスモンテ彫刻お菓子コンテストクリアで、次がでる
-                _listID = conteststartList_database.SearchContestString("Or_Contest_450");
-                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2)
+                //フェド・フルラージュorピエスモンテ彫刻お菓子コンテストクリアで、次がでる
+                _listID = conteststartList_database.SearchContestString("Or_Contest_630");
+                _listID2 = conteststartList_database.SearchContestString("Or_Contest_450");
+                if (conteststartList_database.conteststart_lists[_listID].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID].ContestVictory == 2 ||
+                    conteststartList_database.conteststart_lists[_listID2].ContestVictory == 1 || conteststartList_database.conteststart_lists[_listID2].ContestVictory == 2)
                 {
                     if (!GameMgr.Contest_NewReleaseList[22])
                     {

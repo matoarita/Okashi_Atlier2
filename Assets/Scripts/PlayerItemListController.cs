@@ -1233,7 +1233,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Wind_Roll":
 
-                if (check_itemName == "langue_de_chat")
+                if (check_itemName == "langue_de_chat" || check_itemName == "bush_de_noel_based_one")
                 {
                         itemlist_hyouji_Check(check_itemListType);                  
                 }

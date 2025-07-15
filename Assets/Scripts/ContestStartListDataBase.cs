@@ -804,7 +804,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
     void ContestData_021()
     {
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 21000;
         GameMgr.Contest_ProblemSentence = "テーマ：光魔法を使ったお菓子";
@@ -886,7 +886,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestData_060()
     {
         //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 50000; //compNum=20000~を指定   
         GameMgr.Contest_commentDB_Select = 20000;
         GameMgr.Contest_ProblemSentence = "テーマ：チョコレートケーキ限定";
@@ -903,7 +903,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
     void ContestData_061()
     {
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 51000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 21000;
         GameMgr.Contest_ProblemSentence = "テーマ：「風」をテーマにした至高のチョコレート";
