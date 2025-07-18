@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 76
+  controlID: 54
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 96
+  controlID: 32
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -273,8 +273,8 @@ MonoBehaviour:
     y: 328
     width: 896
     height: 528
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -1030,7 +1030,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 52a4f3ffa2a4f3ffbaabf3ff32b8f3ffacc4f3ffd0d5f3ff1ce4f3ff46eff3ffe266f6ffba2ff7ffae38f7ffc03df7ffd241f7ff80e0f7ff56e8f7ff48fcf7ffc803f8ff4805f8fff805f8ffe40af8ffce0ef8ff8416f8ff32a2f8ff7eb9f9ff72c2f9ff82c5f9ffc4c8f9ff8803faff2c42faffce42faff387efaffd87efaff7a7ffaff1c80faffbe80faff6081faff6881faff0a82faffaec8faff52c9faff04fbffff
+      m_ExpandedIDs: 728be1ffc28be1ffda92e1ff529fe1ffccabe1fff0bce1ff3ccbe1ff66d6e1ff024ee4ffda16e5ffce1fe5ffe024e5fff228e5ffa0c7e5ff76cfe5ff68e3e5ffe8eae5ff68ece5ff18ede5ff04f2e5ffeef5e5ffa4fde5ff5289e6ff9ea0e7ff92a9e7ffa2ace7ffe4afe7ffa8eae7ff4c29e8ffee29e8ff5865e8fff865e8ff9a66e8ff3c67e8ffde67e8ff8068e8ff8868e8ff2a69e8ffceafe8ff72b0e8ff04fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1138,22 +1138,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Excel
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Excel
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3a990100
-    m_LastClickedID: 104762
+    scrollPos: {x: 0, y: 597}
+    m_SelectedIDs: dcb30100
+    m_LastClickedID: 111580
     m_ExpandedIDs: 000000000c9901000e99010010990100129901001499010016990100189901001a9901001c9901001e990100209901002299010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1221,7 +1221,7 @@ MonoBehaviour:
         y: 0
         width: 0
         height: 0
-      m_UserData: 105294
+      m_UserData: 110584
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -1234,7 +1234,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 420}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 149

@@ -581,7 +581,7 @@ public class Contest_Judge : MonoBehaviour {
                         {
                             if (item_subType == "Cookie" || item_subType == "Cookie_Hard"
                                 || item_subType == "Rusk" || item_subType == "Maffin" || item_subType == "Financier"
-                                || item_subType == "Cannoli" || item_subType == "Biscotti")
+                                || item_subType == "Cannoli" || item_subType == "Biscotti" || item_subType == "BakedSweets" || item_subTypeB == "a_Maritozzo")
                             {
                                 judge_flag = true;
                             }
@@ -632,33 +632,84 @@ public class Contest_Judge : MonoBehaviour {
 
                 switch (GameMgr.ContestRoundNum) //各回戦ごとの調整
                 {
-                    case 1: //焼き菓子のみ　クッキー　ラスク　マフィン　フィナンシェ
+                    case 1: 
 
-                        if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
+                        if (GameMgr.ContestThemeSelectNum == 0) //焼き菓子のみ　クッキー　ラスク　マフィン　フィナンシェ
                         {
-                            if (item_subType == "Cookie" || item_subType == "Cookie_Hard"
-                                || item_subType == "Rusk" || item_subType == "Maffin" || item_subType == "Financier"
-                                || item_subType == "Cannoli" || item_subType == "Biscotti")
+                            if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                             {
-                                judge_flag = true;
+                                if (item_subType == "Cookie" || item_subType == "Cookie_Hard"
+                                    || item_subType == "Rusk" || item_subType == "Maffin" || item_subType == "Financier"
+                                    || item_subType == "Cannoli" || item_subType == "Biscotti" || item_subType == "BakedSweets" || item_subTypeB == "a_Maritozzo")
+                                {
+                                    judge_flag = true;
+                                }
+                                else
+                                {
+                                    judge_flag = false;
+                                }
                             }
-                            else
+                        }
+                        else if (GameMgr.ContestThemeSelectNum == 1)
+                        {
+                            //Status=10での判定はそもそもないけど、食べた後での判定で光りの数値をチェック
+
+                            if (_status == 0) //コンテストの判定に補正入れる場合は0
                             {
-                                judge_flag = false;
+                                //じいさんの見た目判定を0に。
+                                Contest_KyotuHosei_1();
+
+                                for (i = 0; i < set_ID.Count; i++)
+                                {
+                                    girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
+                                }
+                                GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
+
+                                Debug.Log("判定値追加： キラキラ感 " + 10);
+                                Debug.Log("### ###");
                             }
+                            else if (_status == 1)
+                            {
+                                //SpScoreの値によって全体の点数に補正
+                                SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                            }
+                        } else
+                        {
+                            //自由課題
                         }
                         break;
 
                     case 2:
 
-                        //ひとつは光魔法を使ったおかし
+                        if (GameMgr.ContestThemeSelectNum == 0)  //ひとつは光魔法を使ったおかし
+                        {
+                            if (_status == 0) //コンテストの判定に補正入れる場合は0
+                            {
+                                //じいさんの見た目判定を0に。
+                                Contest_KyotuHosei_1();
+
+                                for (i = 0; i < set_ID.Count; i++)
+                                {
+                                    girl1_status.girl1_SP_Score9[i] = 10; //キラキラ感の値が最低3は必要　上記の_status=10をクリアしてても、ここで弾かれる可能性あり
+                                }
+                                GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
+
+                                Debug.Log("判定値追加： キラキラ感 " + 10);
+                                Debug.Log("### ###");
+                            }
+                        }
+                        else
+                        {
+                            //自由課題
+                        }
                         break;
 
                     case 3:
 
                         break;
                 }
-
+                
+                //全ラウンド　全選択肢で共通
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
                     //じいさんの見た目判定を0に。
@@ -963,6 +1014,9 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(130); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
@@ -1021,13 +1075,13 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_2(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(170); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
-                    Debug.Log("### ###");
-
-                    //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_2(GameMgr.contest_SPScoreJudge);
+                    Debug.Log("### ###");                    
                 }
 
                 break;
@@ -1292,13 +1346,13 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(150); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
-                    Debug.Log("### ###");
-
-                    //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                    Debug.Log("### ###");                    
                 }
 
                 break;
@@ -1343,13 +1397,13 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(170); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
-                    Debug.Log("### ###");
-
-                    //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                    Debug.Log("### ###");                   
                 }
 
                 break;
@@ -1563,13 +1617,15 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(120); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
-                    //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                    
                 }
                     
                 break;
@@ -1602,13 +1658,15 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(120); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
-                    //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);                   
+                                     
                 }
 
                 break;
@@ -1641,13 +1699,15 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(120); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
-                    //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                    
                 }
 
                 break;
@@ -1809,13 +1869,15 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(180); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
-                    //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                    
                 }
 
                 break;
@@ -1877,13 +1939,15 @@ public class Contest_Judge : MonoBehaviour {
                     //審査員３　じいさんだけ、食感の補正
                     Contest_ShokukanHosei_1();
 
+                    //SpScoreの値によって全体の点数に補正
+                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+
                     //入れた数値を上限に100点に正規化する。
                     ScoreNormalized(170); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
-                    //SpScoreの値によって全体の点数に補正
-                    SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
+                    
                 }
 
                 break;
@@ -1936,7 +2000,7 @@ public class Contest_Judge : MonoBehaviour {
         }
 
         // 補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
-        AfterHosei_TotalScoreKeisan();
+        AfterHosei_TasteScoreKeisan();
 
         Debug.Log("審査員全員　シンプルなお菓子系だったので、食感点数0.75と甘さ関係0.75に補正");
         Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
@@ -1956,7 +2020,7 @@ public class Contest_Judge : MonoBehaviour {
         }
 
         // 補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
-        AfterHosei_TotalScoreKeisan();       
+        AfterHosei_TasteScoreKeisan();       
 
 
         Debug.Log("審査員全員　クッキーかラスク系だったので、食感点数0.75と甘さ関係0.75に補正");
@@ -1983,7 +2047,7 @@ public class Contest_Judge : MonoBehaviour {
 
 
         // 補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
-        AfterHosei_TotalScoreKeisan();
+        AfterHosei_TasteScoreKeisan();
 
         Debug.Log("審査員全員　チョコ黒系以外だったので、食感点数0.75と甘さ関係0.75に補正");
         Debug.Log("審査員全員　食感補正前：" + before_tastescore[0] + "点");
@@ -2028,7 +2092,7 @@ public class Contest_Judge : MonoBehaviour {
         GameMgr.contest_Sour_Score[2] = (int)(GameMgr.contest_Sour_Score[2] * _deg4);
     }
 
-    void AfterHosei_TotalScoreKeisan()
+    void AfterHosei_TasteScoreKeisan()
     {
         total_score[0] = total_score[0] + (GameMgr.contest_Taste_Score[0] - before_tastescore[0]);
         total_score[1] = total_score[1] + (GameMgr.contest_Taste_Score[1] - before_tastescore[1]);

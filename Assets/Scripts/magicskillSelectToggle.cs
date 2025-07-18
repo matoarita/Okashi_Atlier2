@@ -513,7 +513,7 @@ public class magicskillSelectToggle : MonoBehaviour
             case "Star_Blessing":
 
                 GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい飲み物を選んでね。";
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "Latte_Art":
@@ -528,10 +528,16 @@ public class magicskillSelectToggle : MonoBehaviour
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいバナナを選んでね。";
                 break;
 
-            case "Weather_Light":
+            case "Magic_Soda":
 
                 GameMgr.compound_status = 21;
-                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい飲み物を選んでね。";
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいソーダを選んでね。";
+                break;
+
+            case "Rainbow_Rain":
+
+                GameMgr.compound_status = 21;
+                _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
                 break;
 
             case "Warming_Handmade":
@@ -570,6 +576,7 @@ public class magicskillSelectToggle : MonoBehaviour
                     case 1: //最終決定後。魔法の次の処理をかく
 
                         GameMgr.compound_status = 21;
+                        _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
                         break;
                 }
 

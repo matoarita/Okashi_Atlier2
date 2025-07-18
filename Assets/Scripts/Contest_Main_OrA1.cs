@@ -365,8 +365,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 GameMgr.ContestRoundNum = 1;
             }
 
-            ContestDataSetting();
             StartSetReset();
+            ContestDataSetting();
+            
 
             GameMgr.scenario_ON = true;
 
@@ -388,8 +389,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.extremepanel_Koushin = true; //パネルの表示更新
 
             GameMgr.ContestRoundNum++;
-            ContestDataSetting();
+
             StartSetReset();
+            ContestDataSetting();           
 
             GameMgr.scenario_ON = true;
 
@@ -746,6 +748,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         GameMgr.contest_LimitTimeOver_After_flag = false;
         GameMgr.contest_Disqualification = false;
         GameMgr.contest_Disqualification2 = false;
+
+        GameMgr.ContestThemeSelectUse = false;
+        GameMgr.ContestThemeSelectNum = 0;
+        GameMgr.ContestThemeCount = 0;
     }
 
     IEnumerator StartEnshutu()

@@ -31,6 +31,7 @@ public class Quest_Judge : MonoBehaviour {
     private Toggle questListToggle;
     private Toggle nouhinToggle;
 
+    private Girl1_status girl1_status;
     private GameObject GirlEat_judge_obj;
     private GirlEat_Judge girlEat_judge;
 
@@ -47,6 +48,9 @@ public class Quest_Judge : MonoBehaviour {
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
     private QuestSetDataBase quest_database;
+
+    //女の子のお菓子の好きセット
+    private GirlLikeSetDataBase girlLikeSet_database;
 
     private GameObject black_effect;
 
@@ -99,6 +103,9 @@ public class Quest_Judge : MonoBehaviour {
     private int _qitemID;
     private int _clientnum;
     private string _clientname;
+    private int _girlset_id;
+    private int _girlset_listid;
+    private int _GirlJudgeUse;
 
     private int del_itemid;
     private int del_itemkosu;
@@ -143,6 +150,17 @@ public class Quest_Judge : MonoBehaviour {
     private int _beauty;
     private int _tea_flavor;
 
+    private int sp1_wind;
+    private int sp_score2;
+    private int sp_score3;
+    private int sp_score4;
+    private int sp_score5;
+    private int sp_score6;
+    private int sp_score7;
+    private int sp_score8;
+    private int sp_score9;
+    private int sp_score10;
+
     private string[] _tp;
     private int[] _tp_score;
 
@@ -175,6 +193,18 @@ public class Quest_Judge : MonoBehaviour {
     private int _basewatery;
     private int _basebeauty;
     private int _basetea_flavor;
+
+    private int _base_sp_wind;
+    private int _base_sp_score2;
+    private int _base_sp_score3;
+    private int _base_sp_score4;
+    private int _base_sp_score5;
+    private int _base_sp_score6;
+    private int _base_sp_score7;
+    private int _base_sp_score8;
+    private int _base_sp_score9;
+    private int _base_sp_score10;
+
     private int _basescore;
     private float _basegirl1_like;
     private int _basecost;
@@ -223,6 +253,12 @@ public class Quest_Judge : MonoBehaviour {
     private string _sour_kansou;
 
     private string debug_money_text;
+
+    private int spscore_total;
+    private int _spscore_difference;
+    private int spscore_deg;
+    private int spscore_deg_base;
+
 
     //カメラ関連
     private Camera main_cam;
@@ -324,6 +360,12 @@ public class Quest_Judge : MonoBehaviour {
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //女の子データの取得
+        girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子 
+
+        //女の子の好みのお菓子セットの取得
+        girlLikeSet_database = GirlLikeSetDataBase.Instance.GetComponent<GirlLikeSetDataBase>();
 
         //スロットの日本語表示用リストの取得
         slotnamedatabase = SlotNameDataBase.Instance.GetComponent<SlotNameDataBase>();
@@ -851,9 +893,7 @@ public class Quest_Judge : MonoBehaviour {
     {
         pitemlistController_obj = canvas.transform.Find("PlayeritemList_ScrollView").gameObject;
         pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-        SetInitQItem(_qitemID); //依頼アイテムのパラメータを代入
-
+       
         deleteOriginalList.Clear();
         deleteExtremeList.Clear();
         result_OkashiScore.Clear();
@@ -871,6 +911,18 @@ public class Quest_Judge : MonoBehaviour {
         {
             //選択したアイテムのデータをセット
             SetInitNouhinItem(pitemlistController._listcount[list_count]);
+
+            //酒場の判定をセット
+            _GirlJudgeUse = quest_database.questTakeset[_qitemID].GirlJudgeUse;
+            if (_GirlJudgeUse == 0)
+            {
+                SetInitQItem(_qitemID); //依頼アイテムのパラメータを代入 番号指定で、女の子の判定を使用できる
+            }
+            else
+            {
+                Debug.Log("酒場　女の子の好み判定に使用");
+                SetInitQItemGirlJudge(_qitemID, _basename); //1 = 女の子の好みを使用
+            }
 
             //
             //お菓子の正解判定。①タイプ　②味　③スロットを見る。
@@ -1258,6 +1310,23 @@ public class Quest_Judge : MonoBehaviour {
                 }
             }
 
+            //特殊点の計算　女の子の好み使用した場合のみ
+            spscore_total = 0;
+            if (_GirlJudgeUse == 1)
+            {
+                Debug.Log("酒場クエスト特殊点の計算");
+                SpScoreKeisanQuest(_base_sp_wind, sp1_wind, "風らしさ");
+                SpScoreKeisanQuest(_base_sp_score2, sp_score2, "海らしさ");
+                SpScoreKeisanQuest(_base_sp_score3, sp_score3, "愛らしさ");
+                SpScoreKeisanQuest(_base_sp_score4, sp_score4, "夏らしさ");
+                SpScoreKeisanQuest(_base_sp_score5, sp_score5, "大人");
+                SpScoreKeisanQuest(_base_sp_score6, sp_score6, "子供");
+                SpScoreKeisanQuest(_base_sp_score7, sp_score7, "メルヘン");
+                SpScoreKeisanQuest(_base_sp_score8, sp_score8, "芸術性");
+                SpScoreKeisanQuest(_base_sp_score9, sp_score9, "光・キラキラ");
+                SpScoreKeisanQuest(_base_sp_score10, sp_score10, "和風感");
+            }
+
             //特定のお菓子の判定。一致しているかチェック。itemNameには、固有名、サブタイプ、サブタイプBどれを入れてもOK。Nonが入ってると無視する。
             OkashiTypeJudge(_itemname);
             OkashiTypeJudge(_itemname2);
@@ -1348,7 +1417,7 @@ public class Quest_Judge : MonoBehaviour {
             //総合点数を計算
             okashi_score += sweat_score + bitter_score + sour_score +
                 crispy_score + fluffy_score + smooth_score + hardness_score + jiggly_score + chewy_score +
-                juice_score + beauty_score + tea_flavor_score + topping_score + Hosei_score;
+                juice_score + beauty_score + tea_flavor_score + topping_score + spscore_total + Hosei_score;
 
             //採点はここまで
 
@@ -1405,6 +1474,58 @@ public class Quest_Judge : MonoBehaviour {
 
         StartCoroutine("Okashi_Judge_Anim2");
         
+    }
+
+    void SpScoreKeisanQuest(int _basespscore, int _girlspscore, string _spname)
+    {
+        spscore_deg = 5;
+        spscore_deg_base = -30;
+
+        //女の子の判定値があった場合、追加加点
+
+        //風らしさ
+        if (_girlspscore > 0)
+        {
+            Debug.Log("酒場クエ　特殊計算: " + _spname + "ON");
+
+            _spscore_difference = _basespscore - _girlspscore;
+
+            if (_spscore_difference > 0) //判定値があり超えていた場合　加点される
+            {
+                spscore_total += SpScore_HoseiA(_spscore_difference);
+            }
+
+            if (_spscore_difference < 0) //合格点に達してない場合は、減点
+            {
+                //GameMgr.Contest_Clear_Failed = true;  //Onにすると、足りなかったときに強制的にコンテスト失格になる。
+                spscore_total += _spscore_difference * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
+            }
+        }
+        else
+        {
+            spscore_total += 0;
+        }
+    }
+
+    int SpScore_HoseiA(float _score)
+    {
+        Debug.Log("SPScore補正前: " + _score);
+
+        if (_score > 0f && _score <= 100f)
+        {
+            _score = _score * 1.0f;
+        }
+        else if (_score > 100f && _score <= 200f)
+        {
+            _score = _score * 1.2f;
+        }
+        else if (_score > 200f)
+        {
+            _score = _score * 1.3f;
+        }
+
+        Debug.Log("SPScore補正後点: " + _score);
+        return (int)_score;
     }
 
     void OkashiTypeJudge(string _name)
@@ -1762,40 +1883,40 @@ public class Quest_Judge : MonoBehaviour {
     {
         if (okashi_totalscore >= 200 && okashi_totalscore < 250) //200~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 150) * 2.0f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 150) * 2.0f)";
+            _getMoney = (int)(_baseMoney * 1.2f + okashi_totalscore);
+            debug_money_text = "(基準値 * 1.2f + okashi_totalscore)";
             _getNinki = 0;
             _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(1);
         }
         else if (okashi_totalscore >= 250 && okashi_totalscore < 300) //250~ ここから下ファンファーレ
         {
-            _getMoney = (int)(_baseMoney * 2.0f + okashi_totalscore);
-            debug_money_text = "(基準値 * 2.0f + okashi_totalscore)";
+            _getMoney = (int)(_baseMoney * 1.3f + okashi_totalscore);
+            debug_money_text = "(基準値 * 1.3f + okashi_totalscore)";
             _getNinki = 1;
             _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(2);
         }
         else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
         {
-            _getMoney = (int)(_baseMoney * 2.0f + (okashi_totalscore * 1.1f));
-            debug_money_text = "(基準値 * 2.0f + (okashi_totalscore * 1.1f))";
+            _getMoney = (int)(_baseMoney * 1.5f + (okashi_totalscore * 1.1f));
+            debug_money_text = "(基準値 * 1.4f + (okashi_totalscore * 1.1f))";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(2);
         }
         else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
         {
-            _getMoney = (int)(_baseMoney * 2.3f + (okashi_totalscore * 1.2f));
-            debug_money_text = "(基準値 * 2.3f + (okashi_totalscore * 1.2f))";
+            _getMoney = (int)(_baseMoney * 1.75f + (okashi_totalscore * 1.2f));
+            debug_money_text = "(基準値 * 1.5f + (okashi_totalscore * 1.2f))";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
         else if (okashi_totalscore >= 1000) //1000~
         {
-            _getMoney = (int)(_baseMoney * 3.0f + (okashi_totalscore * 1.3f));
-            debug_money_text = "(基準値  * 3.0f + (okashi_totalscore * 1.3f))";
+            _getMoney = (int)(_baseMoney * 2.00f + (okashi_totalscore * 1.3f));
+            debug_money_text = "(基準値  * 2.00f + (okashi_totalscore * 1.3f))";
             _getNinki = 2;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
@@ -1806,40 +1927,40 @@ public class Quest_Judge : MonoBehaviour {
     {
         if (okashi_totalscore >= 200 && okashi_totalscore < 250) //200~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 150) * 2.3f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 150) * 2.3f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.3f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.3f)";
             _getNinki = 0;
             _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(1);
         }
         else if (okashi_totalscore >= 250 && okashi_totalscore < 300) //250~ ここから下ファンファーレ
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 1.5f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 1.5f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.5f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.5f)";
             _getNinki = 1;
             _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(2);
         }
         else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 1.75f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 1.75f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.75f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.75f)";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(2);
         }
         else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 2.0f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 2.0f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 2.25f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 2.25f)";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
         else if (okashi_totalscore >= 1000) //1000~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 100) * 3.0f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 100) * 3.0f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 3.0f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 3.0f)";
             _getNinki = 2;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
@@ -1848,6 +1969,11 @@ public class Quest_Judge : MonoBehaviour {
         if(_getMoney >= 30000) //30000超えた場合、上がりにくくなるよう補正
         {
             _getMoney = (int)(_getMoney * 0.7f);
+        }
+
+        if(_getMoney >= 999999) //ないとは思うけど、上限999999
+        {
+            _getMoney = 999999;
         }
     }
 
@@ -1984,6 +2110,8 @@ public class Quest_Judge : MonoBehaviour {
         debug_taste_resultText.text =
             "###  好みの比較　結果　###"
             + "\n" + "\n" + "判定用お菓子セットの番号: " + _questID
+            + "\n" + "\n" + "酒場の判定（固有=0, 女の子の好み=1）: " + _GirlJudgeUse
+            + "\n" + "そのときの女の子判定番号: " + _girlset_id
             + "\n" + "\n" + "判定アイテム名: " + _itemname
             + "\n" + "判定アイテム名2: " + _itemname2
             + "\n" + "判定アイテム名3: " + _itemname3
@@ -2014,6 +2142,7 @@ public class Quest_Judge : MonoBehaviour {
             + "\n" + "\n" + "ぷるぷる度: " + "-"
             + "\n" + "\n" + "噛み応え度: " + "-"
             + "\n" + "\n" + "トッピングスコア: " + topping_score
+            + "\n" + "\n" + "特殊値の加算（女の子の好み=1の時のみ）: " + spscore_total
             + "\n" + "\n" + "指定のトッピングあったかどうか falseで-50点: " + slot_ok
             + "\n" + "\n" + "お菓子の見た目: " + _basebeauty + "\n" + "見た目閾値: " + _beauty + "\n" + "見た目スコア: " + beauty_score
             + "\n" + "\n" + "補正値　無条件で点数を下げる: " + Hosei_score
@@ -2105,6 +2234,99 @@ public class Quest_Judge : MonoBehaviour {
         }
     }
 
+    void SetInitQItemGirlJudge(int _count, string _itemName)
+    {
+        // 判定用に依頼のお菓子のパラメータを代入
+        _Qid = quest_database.questTakeset[_count]._ID;              //基本判定のときは、使わない
+        _questID = quest_database.questTakeset[_count].Quest_ID;    //基本判定のときは、使わない
+
+        _itemname = quest_database.questTakeset[_count].Quest_itemName;
+        _itemname2 = quest_database.questTakeset[_count].Quest_itemName2;
+        _itemname3 = quest_database.questTakeset[_count].Quest_itemName3;
+        _itemname4 = quest_database.questTakeset[_count].Quest_itemName4;
+        _itemname5 = quest_database.questTakeset[_count].Quest_itemName5;
+        _itemname6 = quest_database.questTakeset[_count].Quest_itemName6;
+        _itemname7 = quest_database.questTakeset[_count].Quest_itemName7;
+        _itemname8 = quest_database.questTakeset[_count].Quest_itemName8;
+        _itemsubtype = quest_database.questTakeset[_count].Quest_itemSubtype;
+
+        _kosu_min = quest_database.questTakeset[_count].Quest_kosu_min;
+        _kosu_max = quest_database.questTakeset[_count].Quest_kosu_max;
+
+        _kosu_default = quest_database.questTakeset[_count].Quest_kosu_default;
+        _buy_price = quest_database.questTakeset[_count].Quest_buy_price;
+
+
+        //女の子の好み判定を使用 名前をもとにItemDBから判定用番号を取得し、それをgirlsetDBから探して入れる
+        _girlset_id = database.items[database.SearchItemIDString(_itemName)].SetJudge_Num;
+
+        //お菓子の判定値をセッティング
+        girl1_status.InitializeStageGirlHungrySet(_girlset_id, 0, 0); //compNum, セットする配列番号　の順　
+        //_girlset_listid = girlLikeSet_database.SearchSetID(_girlset_id);
+
+        _rich = girl1_status.girl1_Rich[0];
+        _sweat = girl1_status.girl1_Sweat[0];
+        _bitter = girl1_status.girl1_Bitter[0];
+        _sour = girl1_status.girl1_Sour[0];
+
+        _crispy = girl1_status.girl1_Crispy[0];
+        _fluffy = girl1_status.girl1_Fluffy[0];
+        _smooth = girl1_status.girl1_Smooth[0];
+        _hardness = girl1_status.girl1_Hardness[0];
+        _jiggly = girl1_status.girl1_Jiggly[0];
+        _chewy = girl1_status.girl1_Chewy[0];
+
+        _juice = girl1_status.girl1_Juice[0];
+        _beauty = girl1_status.girl1_Beauty[0];
+        _tea_flavor = girl1_status.girl1_Tea_Flavor[0];
+
+        sp1_wind = girl1_status.girl1_SP1_Wind[0];
+        sp_score2 = girl1_status.girl1_SP_Score2[0];
+        sp_score3 = girl1_status.girl1_SP_Score3[0];
+        sp_score4 = girl1_status.girl1_SP_Score4[0];
+        sp_score5 = girl1_status.girl1_SP_Score5[0];
+        sp_score6 = girl1_status.girl1_SP_Score6[0];
+        sp_score7 = girl1_status.girl1_SP_Score7[0];
+        sp_score8 = girl1_status.girl1_SP_Score8[0];
+        sp_score9 = girl1_status.girl1_SP_Score9[0];
+        sp_score10 = girl1_status.girl1_SP_Score10[0];
+
+        _clientname = quest_database.questTakeset[_count].Quest_ClientName;
+        _clientnum = quest_database.questTakeset[_count].Quest_ClientNumber;
+
+        for (i = 0; i < _tp.Length; i++)
+        {
+            _tp[i] = girlLikeSet_database.girllikeset[_girlset_listid].girlLike_topping[i];
+            _tp_score[i] = girlLikeSet_database.girllikeset[_girlset_listid].girlLike_topping_score[i];
+        }
+
+
+        //一回まず各スコアを初期化。
+        for (i = 0; i < itemslot_NouhinScore.Count; i++)
+        {
+            itemslot_NouhinScore[i] = 0;
+            itemslot_NouhinAddPoint[i] = 0;
+        }
+
+        //トッピングスロットをみて、一致する効果があれば、所持数+1
+        for (i = 0; i < _tp.Length; i++)
+        {
+            count = 0;
+            //itemslotInfoディクショナリのキーを全て取得
+            foreach (string key in itemslotInfo)
+            {
+                //Debug.Log(key);
+                if (_tp[i] == key) //キーと一致するアイテムスロットがあれば、点数を+1
+                {
+                    //Debug.Log(key);
+                    itemslot_NouhinScore[count]++;
+                    itemslot_NouhinAddPoint[count] = _tp_score[i];
+                }
+                count++;
+            }
+        }
+    }
+
     void SetInitNouhinItem(int _count_n)
     {
         // 判定用に依頼のお菓子のパラメータを代入
@@ -2139,6 +2361,16 @@ public class Quest_Judge : MonoBehaviour {
                 _basewatery = database.items[_id].Watery;
                 _basebeauty = database.items[_id].Beauty;
                 _basetea_flavor = database.items[_id].Tea_Flavor;
+                _base_sp_wind = database.items[_id].SP_wind;
+                _base_sp_score2 = database.items[_id].SP_Score2;
+                _base_sp_score3 = database.items[_id].SP_Score3;
+                _base_sp_score4 = database.items[_id].SP_Score4;
+                _base_sp_score5 = database.items[_id].SP_Score5;
+                _base_sp_score6 = database.items[_id].SP_Score6;
+                _base_sp_score7 = database.items[_id].SP_Score7;
+                _base_sp_score8 = database.items[_id].SP_Score8;
+                _base_sp_score9 = database.items[_id].SP_Score9;
+                _base_sp_score10 = database.items[_id].SP_Score10;
                 _basescore = database.items[_id].Base_Score;
                 _basegirl1_like = database.items[_id].girl1_itemLike;
                 _basecost = database.items[_id].cost_price;
@@ -2196,6 +2428,16 @@ public class Quest_Judge : MonoBehaviour {
                 _basewatery = pitemlist.player_originalitemlist[_id].Watery;
                 _basebeauty = pitemlist.player_originalitemlist[_id].Beauty;
                 _basetea_flavor = pitemlist.player_originalitemlist[_id].Tea_Flavor;
+                _base_sp_wind = pitemlist.player_originalitemlist[_id].SP_wind;
+                _base_sp_score2 = pitemlist.player_originalitemlist[_id].SP_Score2;
+                _base_sp_score3 = pitemlist.player_originalitemlist[_id].SP_Score3;
+                _base_sp_score4 = pitemlist.player_originalitemlist[_id].SP_Score4;
+                _base_sp_score5 = pitemlist.player_originalitemlist[_id].SP_Score5;
+                _base_sp_score6 = pitemlist.player_originalitemlist[_id].SP_Score6;
+                _base_sp_score7 = pitemlist.player_originalitemlist[_id].SP_Score7;
+                _base_sp_score8 = pitemlist.player_originalitemlist[_id].SP_Score8;
+                _base_sp_score9 = pitemlist.player_originalitemlist[_id].SP_Score9;
+                _base_sp_score10 = pitemlist.player_originalitemlist[_id].SP_Score10;
                 _basescore = pitemlist.player_originalitemlist[_id].Base_Score;
                 _basegirl1_like = pitemlist.player_originalitemlist[_id].girl1_itemLike;
                 _basecost = pitemlist.player_originalitemlist[_id].cost_price;
@@ -2250,6 +2492,16 @@ public class Quest_Judge : MonoBehaviour {
                 _basewatery = pitemlist.player_extremepanel_itemlist[_id].Watery;
                 _basebeauty = pitemlist.player_extremepanel_itemlist[_id].Beauty;
                 _basetea_flavor = pitemlist.player_extremepanel_itemlist[_id].Tea_Flavor;
+                _base_sp_wind = pitemlist.player_extremepanel_itemlist[_id].SP_wind;
+                _base_sp_score2 = pitemlist.player_extremepanel_itemlist[_id].SP_Score2;
+                _base_sp_score3 = pitemlist.player_extremepanel_itemlist[_id].SP_Score3;
+                _base_sp_score4 = pitemlist.player_extremepanel_itemlist[_id].SP_Score4;
+                _base_sp_score5 = pitemlist.player_extremepanel_itemlist[_id].SP_Score5;
+                _base_sp_score6 = pitemlist.player_extremepanel_itemlist[_id].SP_Score6;
+                _base_sp_score7 = pitemlist.player_extremepanel_itemlist[_id].SP_Score7;
+                _base_sp_score8 = pitemlist.player_extremepanel_itemlist[_id].SP_Score8;
+                _base_sp_score9 = pitemlist.player_extremepanel_itemlist[_id].SP_Score9;
+                _base_sp_score10 = pitemlist.player_extremepanel_itemlist[_id].SP_Score10;
                 _basescore = pitemlist.player_extremepanel_itemlist[_id].Base_Score;
                 _basegirl1_like = pitemlist.player_extremepanel_itemlist[_id].girl1_itemLike;
                 _basecost = pitemlist.player_extremepanel_itemlist[_id].cost_price;

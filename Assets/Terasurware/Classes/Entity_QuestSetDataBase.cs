@@ -23,6 +23,7 @@ public class Entity_QuestSetDataBase : ScriptableObject
 		public int QuestHyouji;
 		public int QuestHyoujiHeart;
 		public int HighType;
+		public int GirlJudgeUse;
 		public string file_name;
 		public string quest_itemName;
 		public string quest_itemName2;

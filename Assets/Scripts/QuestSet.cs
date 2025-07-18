@@ -16,6 +16,7 @@ public class QuestSet
     public int QuestHyouji; //数字を指定すると、ストーリーの進行によって、どのクエストが出るのかを操作できる。
     public int QuestHyoujiHeart; //ハートレベルに応じてクエスト表示を追加
     public int HighType; //そのクエストが高品質クエストかどうか
+    public int GirlJudgeUse; //クエスト用の判定を使うか、女の子の好み値を使用するか
 
     public Sprite questIcon;      //アイコン
     public string Quest_FileName;
@@ -65,7 +66,7 @@ public class QuestSet
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public QuestSet(int id, int _questID, int _questType, int _questHyouji, int _questHyoujiHeart, int _hightype, 
+    public QuestSet(int id, int _questID, int _questType, int _questHyouji, int _questHyoujiHeart, int _hightype, int _girlJudgeUse,
         string fileName, string _itemname, string _itemname2, string _itemname3, string _itemname4, string _itemname5, string _itemname6,
         string _itemname7, string _itemname8, string _itemsubtype, 
         int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, 
@@ -80,6 +81,7 @@ public class QuestSet
         QuestHyouji = _questHyouji;
         QuestHyoujiHeart = _questHyoujiHeart;
         HighType = _hightype;
+        GirlJudgeUse = _girlJudgeUse;
 
         Quest_FileName = fileName;
         questIcon = Resources.Load<Sprite>("Sprites/Items/" + Quest_FileName);

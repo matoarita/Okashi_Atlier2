@@ -452,7 +452,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         }
     }
 
-    //種族ごとのねこ画像　上から順番にtype=0, 1.. と対応
+    //種族ごとのねこ画像　上から順番にtype=0, 1.. と対応　顔アイコンとボイスは対でセットする
     void CatType_InitLibrary()
     {
         catIcon_sprite.Clear();
@@ -469,18 +469,26 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         //
         catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01"));
-        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01b"));
         catIcon_voice.Add(241);
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01b"));        
+        catIcon_voice.Add(241);
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01c"));
+        catIcon_voice.Add(241);
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01d"));
+        catIcon_voice.Add(241);
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01e"));
+        catIcon_voice.Add(241);
+        catIcon_sprite.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_01f"));
         catIcon_voice.Add(241);
 
         catType_name.Add("灰猫");
-        catIcon_anim.Add("tc_cat_type02_anim01"); //ファイル名を記述
+        catIcon_anim.Add("tc_cat_type02_anim01"); //ファイル名を記述 立ちモーション　モーションは共通でだいじょうぶ
         catIcon_anim_sleep.Add("tc_cat_type02_anim02"); //寝そべりモーション
 
         //
         catIcon_sprite2.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_02"));
-        catIcon_sprite2.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_02b"));
         catIcon_voice2.Add(239);
+        catIcon_sprite2.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_02b"));       
         catIcon_voice2.Add(239);
 
         catType_name.Add("茶猫");
@@ -489,8 +497,10 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         //
         catIcon_sprite3.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_03"));
-        catIcon_sprite3.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_03b"));
         catIcon_voice3.Add(242);
+        catIcon_sprite3.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_03b"));       
+        catIcon_voice3.Add(242);
+        catIcon_sprite3.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_03c"));
         catIcon_voice3.Add(242);
 
         catType_name.Add("くろ");
@@ -499,8 +509,8 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
         //
         catIcon_sprite4.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_04"));
-        catIcon_sprite4.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_04b"));
         catIcon_voice4.Add(243);
+        catIcon_sprite4.Add(Resources.Load<Sprite>("Sprites/CatIcon/" + "CatIcon_04b"));       
         catIcon_voice4.Add(243);
 
         catType_name.Add("しろ");
@@ -510,9 +520,14 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
 
     void CatRandom_InitLibrary() //ランダム猫用のデータセット　タイプでちょっと差をつけてもいいかも？
     {
+        //2番目数字が顔アイコン
         SetInit_CustomCatData("ピサロ", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("ノブナガ", 1, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("ロドリゲス", 0, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("にゃた", 2, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("ティピ", 3, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("ぴ～", 4, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("アリス", 5, 0, 250, UnityEngine.Random.Range(400, 800), UnityEngine.Random.Range(1, 3), UnityEngine.Random.Range(1, 4), 2);
 
         SetInit_CustomCatData("じろきち", 0, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(2, 2), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("マロリー", 1, 1, 250, UnityEngine.Random.Range(300, 500), UnityEngine.Random.Range(2, 2), UnityEngine.Random.Range(1, 4), 2);
@@ -521,6 +536,7 @@ public class CatDataBase : SingletonMonoBehaviour<CatDataBase>
         SetInit_CustomCatData("ボコ", 0, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("かにぱん", 1, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("えびふらい", 0, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
+        SetInit_CustomCatData("ジンベエ", 2, 2, 250, UnityEngine.Random.Range(200, 800), UnityEngine.Random.Range(2, 6), UnityEngine.Random.Range(1, 4), 2);
 
         SetInit_CustomCatData("みこ", 0, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(1, 2), UnityEngine.Random.Range(1, 4), 2);
         SetInit_CustomCatData("メリー", 1, 3, 250, UnityEngine.Random.Range(200, 400), UnityEngine.Random.Range(1, 2), UnityEngine.Random.Range(1, 4), 2);

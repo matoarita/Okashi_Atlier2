@@ -14,9 +14,10 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private int _questHyouji;
     private int _questHyoujiHeart;
     private int _hightype;
+    private int _girlJudgeUse;
 
     private string _filename;
-    private string _itemname;
+    private string _itemname; //itemnameの最初のみ"Non"か"itemName（固有名）"を必ず入れる。サブカテゴリー入れると、エラーでる。
     private string _itemname2;
     private string _itemname3;
     private string _itemname4;
@@ -107,7 +108,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                 SetParam();
 
                 //ここでリストに追加している
-                questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3,
+                questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, 
+                    _filename, _itemname, _itemname2, _itemname3,
                     _itemname4, _itemname5, _itemname6, _itemname7, _itemname8,
                     _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
@@ -137,6 +139,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _questHyouji = excel_questset_database.sheets[sheet_no].list[count].QuestHyouji;
         _questHyoujiHeart = excel_questset_database.sheets[sheet_no].list[count].QuestHyoujiHeart;
         _hightype = excel_questset_database.sheets[sheet_no].list[count].HighType;
+        _girlJudgeUse = excel_questset_database.sheets[sheet_no].list[count].GirlJudgeUse;
 
         _filename = excel_questset_database.sheets[sheet_no].list[count].file_name;
         _itemname = excel_questset_database.sheets[sheet_no].list[count].quest_itemName;
@@ -203,6 +206,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _questHyouji = questset[count].QuestHyouji;
         _questHyoujiHeart = questset[count].QuestHyoujiHeart;
         _hightype = questset[count].HighType;
+        _girlJudgeUse = questset[count].GirlJudgeUse;
 
         _filename = questset[count].Quest_FileName;
         _itemname = questset[count].Quest_itemName;
@@ -271,7 +275,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _read_endflag = questset[count].read_endflag;
 
         //ここでリストに追加している
-        questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3,
+        questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, 
+            _filename, _itemname, _itemname2, _itemname3,
             _itemname4, _itemname5, _itemname6, _itemname7, _itemname8,
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
@@ -292,6 +297,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _questHyouji = questRandomset[count].QuestHyouji;
         _questHyoujiHeart = questRandomset[count].QuestHyoujiHeart;
         _hightype = questRandomset[count].HighType;
+        _girlJudgeUse = questRandomset[count].GirlJudgeUse;
 
         _filename = questRandomset[count].Quest_FileName;
         _itemname = questRandomset[count].Quest_itemName;
@@ -355,7 +361,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _read_endflag = questRandomset[count].read_endflag;
 
         //ここでリストに追加している
-        questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _filename, _itemname, _itemname2, _itemname3,
+        questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, 
+            _filename, _itemname, _itemname2, _itemname3,
             _itemname4, _itemname5, _itemname6, _itemname7, _itemname8,
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,

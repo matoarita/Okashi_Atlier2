@@ -1739,7 +1739,7 @@ public class SetImage : MonoBehaviour
 
     void DrawMagicEffect()
     {
-        Debug.Log("魔法エフェクト　カード表示check");
+        //Debug.Log("魔法エフェクト　カード表示check");
 
         item_MS_aisho.text = "";
 
@@ -1753,7 +1753,7 @@ public class SetImage : MonoBehaviour
 
     void DrawMagicIconView()
     {
-        Debug.Log("魔法アイコン　カード表示check");
+        //Debug.Log("魔法アイコン　カード表示check");
         Debug.Log("_attri2* " + _attri2);
 
         foreach (Transform child in magicview_content.transform)

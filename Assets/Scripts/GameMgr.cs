@@ -194,6 +194,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_MagicSlotName08 = "Spring_Pharmacy";
     public static string System_MagicSlotName09 = "Saint_Fleur";
     public static string System_MagicSlotName10 = "Santiman";
+    public static string System_MagicSlotName11 = "Rainbow_Rain";
     //** --ここまで-- **//
 
 
@@ -834,6 +835,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ContestSelectNum; //どのコンテストに今出場しているか
     public static int ContestRoundNum; //今何回戦か
     public static int ContestRoundNumMax; //その大会のMaxのラウンド数
+    public static bool ContestThemeSelectUse; //コンテストで、どの課題を選ぶか　ユーザー選ぶ形式のときに使う 使うときはONにする。
+    public static int ContestThemeSelectNum; //コンテストで、どの課題を選ぶか　ユーザー選ぶ形式のときに使う
+    public static string ContestThemeTitle1; //課題の内容　外で決めて宴にいれる
+    public static string ContestThemeTitle2;
+    public static string ContestThemeTitle3;
+    public static int ContestThemeCount; //コンテストの課題　選択肢の数
     public static int Contest_Cate_Ranking; //トーナメント形式かランキング形式か
     public static int Contest_BringType; //コンテスト　素材持ち込みの形式
     public static int Contest_CostMoney; //そのコンテストの参加費
@@ -1520,6 +1527,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_ProblemSentence2 = "";
         Contest_HallBGName = "";
         Contest_AcceptedDelete = false;
+        ContestThemeSelectUse = false;
         Contest_ON = false;
         MagicPanel_DefaultHyouji = false;
         Sleep_CheckEnd = false;
@@ -2512,12 +2520,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SPEnshutu_itemlist.Add("aquamarine_chocolate", "panel01");
         SPEnshutu_itemlist.Add("lumi_emerald_neko_cookie", "panel01");
         SPEnshutu_itemlist.Add("forget_me_not", "panel01");
+        SPEnshutu_itemlist.Add("house_for_noisette", "panel01");
         SPEnshutu_itemlist.Add("strawberry_sponge_cake", "panel01");
         SPEnshutu_itemlist.Add("mont_blanc", "panel01");
         SPEnshutu_itemlist.Add("tiramisu", "panel01");
         SPEnshutu_itemlist.Add("sachertorte", "panel01");
         SPEnshutu_itemlist.Add("opera", "panel01");
-        SPEnshutu_itemlist.Add("bush_de_noel", "panel01");       
+        SPEnshutu_itemlist.Add("bush_de_noel", "panel01");
+        SPEnshutu_itemlist.Add("violatte_tea", "panel01");
+        SPEnshutu_itemlist.Add("sumire_suger", "panel01");
         SPEnshutu_itemlist.Add("chocolate_black", "panel01");
         SPEnshutu_itemlist.Add("princess_tota", "panel01");
         SPEnshutu_itemlist.Add("cream_row_dream", "panel01");

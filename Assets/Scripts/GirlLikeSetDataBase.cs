@@ -179,4 +179,18 @@ public class GirlLikeSetDataBase : SingletonMonoBehaviour<GirlLikeSetDataBase>
 
         //Debug.Log("GirlLike_tp01: " + girllikeset[count].girlLike_topping[0]);
     }
+
+    //SetJudgeNumの番号をもとに、該当する配列番号を返す
+    public int SearchSetID(int _judgenum)
+    {
+        for(i=0; i < girllikeset.Count; i++)
+        {
+            if(girllikeset[i].girlLike_compNum == _judgenum)
+            {
+                return i;
+            }
+        }
+
+        return 0; //該当ない場合は、一番上の番号
+    }
 }

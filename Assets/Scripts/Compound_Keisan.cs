@@ -2374,7 +2374,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basechewy = (int)(_basechewy * kyori_hosei);
             }           
         }
-        
+        Debug.Log("距離補正後のさくさく感: " + _basecrispy);
 
         //デバッグ用
         if (mstatus == 99)
@@ -2482,6 +2482,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                
             }
         }
+        Debug.Log("器具アクセサリーバフ後のさくさく感: " + _basecrispy);
 
         //⑥ヒカリのお菓子の場合　味に補正かかる。
         if (GameMgr.System_HikariMakeUse_Flag)
@@ -2554,9 +2555,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 }
             }
         }
+        Debug.Log("ヒカリのおかしLV補正・ハートボーナス後のさくさく感: " + _basecrispy);
 
         //⑦魔法使用による、食感のパラメーター上昇
-        if(Comp_method_bunki == 20 || Comp_method_bunki == 22)
+        if (Comp_method_bunki == 20 || Comp_method_bunki == 22)
         {
             //A. お菓子の食感ごとに、バフをかける処理
             _basecrispy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(0, _basecrispy, GameMgr.UseMagicSkill, _baseattri2); //中の数字でどの食感パラムかの指定
@@ -2570,6 +2572,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             //ここで魔法スロット追加
             AddMagicSlot_Method();
         }
+        Debug.Log("魔法使用後のさくさく感（魔法使った場合のみ）: " + _basecrispy);
 
         //⑧温度管理による、食感の補正
         //スキル温度管理を使ったとき、温度と時間によって仕上がりがさらに変わる。

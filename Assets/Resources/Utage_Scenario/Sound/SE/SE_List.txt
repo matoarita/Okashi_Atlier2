@@ -240,11 +240,11 @@ SE表
 ・SE_238	audiostock_207436_sample			【未使用】ホイッスルピピー音
 ・SE_239	audiostock_1436039_sample			【未使用】タイトルインのジャキン音
 ・SE_240	猫の鳴き声1					ねこのなき声
-・SE_241	audiostock_497314_sample			ねこの悲しいなき声
-・SE_242	audiostock_71160_sample				ねこのなき声２だみ
+・SE_241	audiostock_497314				ねこの悲しいなき声
+・SE_242	audiostock_71160				ねこのなき声２だみ
 ・SE_243	09うるにゃーおー				ねこのなき声３うるにゃあ
-・SE_244	audiostock_541296_sample			ねこのなき声４だみ２
-・SE_245	audiostock_1072569_sample			テンパリングのチャージ音　候補：audiostock_1611564_sample
+・SE_244	audiostock_541296				ねこのなき声４だみ２
+・SE_245	audiostock_1072569				テンパリングのチャージ音
 ・SE_246	audiostock_954672_sample			テンパリングのチャージ成功音
 ・SE_247	audiostock_954672_sample			【未使用】テンパリングのチャージ成功音２（ピッチ上げた　ちょっと高い）
-・SE_248	audiostock_459571_sample			テンパリングのチャージ成功音３
+・SE_248	audiostock_459571				テンパリングのチャージ成功音３

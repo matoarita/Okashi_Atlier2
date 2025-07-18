@@ -1309,9 +1309,9 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Star_Blessing": //コーヒーは除外
+            case "Star_Blessing": //おかしにもかけれるように。ただし、相性は飲み物がいい。
 
-                if (check_itemType_sub == "Juice" || check_itemType_sub == "Tea" || check_itemType_sub == "Soda")
+                if (check_itemType == "Okashi")
                 {
                     if (check_itemListType == 2) //お菓子パネルのもののみ表示
                     {
@@ -1350,11 +1350,18 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
-            case "Rainbow_Rain":
+            case "Rainbow_Rain": //おかしにもかけれる
 
-                if (check_itemType_sub == "Soda" || check_itemType_sub == "Berry")
+                if (check_itemType_sub == "Soda" || check_itemType_subB == "a_Strawberry") //ストロベリーは、所持してるもの全てでOK
                 {
                     itemlist_hyouji_Check(check_itemListType);
+                }
+                else if(check_itemType == "Okashi")
+                {
+                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
+                    {
+                        itemlist_hyouji_Check(check_itemListType);
+                    }
                 }
                 break;
 

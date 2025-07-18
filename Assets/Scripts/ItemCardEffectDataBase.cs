@@ -190,7 +190,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
         for (i = 0; i < _magicslot.Length; i++)
         {
-            Debug.Log("_magicslot " + i + ": " + _magicslot[i]);
+            //Debug.Log("_magicslot " + i + ": " + _magicslot[i]);
 
             if (_magicslot[i] == GameMgr.System_MagicSlotName01) //FireFlowerの場合　花火が周りにとびちるエフェクト
             {                                

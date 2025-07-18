@@ -279,6 +279,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void KakuritsuUp_HikariBuf()
     {
+        Debug.Log("ヒカリのおかしLVにより、成功率の上昇バフ");
         hikariBuf_okashilv(_itemType_sub);
         _b = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.0f, 3.0f); //LV1~9までで、1.0~3.0倍まで上昇 LV1だと、バフはかからない 最大30%までアップ
         _buf_kakuritsuup += (int)(10 * _b);
@@ -2174,6 +2175,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _buf_hikari_okashi_paramup = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 1.5f); //LV1~9までで、1.0~1.5倍まで上昇
         }
 
+        Debug.Log("ヒカリのおかしLVによる作ったお菓子へのバフ LV: " + hikari_okashiLV + " Param: " + _buf_hikari_okashi_paramup);
         return _buf_hikari_okashi_paramup;
     }
 

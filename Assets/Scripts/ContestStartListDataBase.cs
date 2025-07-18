@@ -787,34 +787,106 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
     void ContestData_020()
     {
-        //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
-        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
-        GameMgr.Contest_DB_list_Type = 30000; //compNum=20000~を指定  
-        GameMgr.Contest_commentDB_Select = 20000;
-        GameMgr.Contest_ProblemSentence = "テーマ：焼き菓子";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。焼き菓子を作ってください。" + "\n" + "制限時間: 6時間";
+        GameMgr.ContestThemeSelectUse = false; //最初の課題決定のところで、プレイヤーが課題を選択できる　true=ON　必ず宴のほうも、選択肢をいれてPauseを一回分多くはさむ
+        GameMgr.ContestThemeTitle1 = "焼き菓子";
+        GameMgr.ContestThemeTitle2 = "光り魔法のおかし";
+        GameMgr.ContestThemeTitle3 = "自由課題";
+        GameMgr.ContestThemeCount = 1;
 
-        //コンテスト時間指定
-        Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
+        //課題選択方式　0=デフォルト　上がfalseのときは、0が選ばれる　なので使わなくてもデータ削除しなくてOK
+        switch (GameMgr.ContestThemeSelectNum)
+        {
+            case 0:
 
-        GameMgr.contest_boss_score = 162; //一回戦相手の点数
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 30000; //compNum=20000~を指定  
+                GameMgr.Contest_commentDB_Select = 20000;
+                GameMgr.Contest_ProblemSentence = "テーマ：焼き菓子";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。焼き菓子を作ってください。" + "\n" + "制限時間: 6時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 162; //一回戦相手の点数
+                break;
+
+            case 1:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：光魔法を使ったお菓子";
+                GameMgr.Contest_ProblemSentence2 = "光魔法で仕上げたかわいいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 162; //
+                break;
+
+            case 2:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 162; //
+                break;
+        }
+
         GameMgr.contest_boss_name = "おそうじアリス";
     }
 
     void ContestData_021()
     {
-        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
-        GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
-        GameMgr.Contest_commentDB_Select = 21000;
-        GameMgr.Contest_ProblemSentence = "テーマ：光魔法を使ったお菓子";
-        GameMgr.Contest_ProblemSentence2 = "光魔法で仕上げたかわいいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.ContestThemeSelectUse = true; //最初の課題決定のところで、プレイヤーが課題を選択できる　true=ON
+        GameMgr.ContestThemeTitle1 = "光りのお菓子";
+        GameMgr.ContestThemeTitle2 = "自由課題";
+        GameMgr.ContestThemeTitle3 = "";
+        GameMgr.ContestThemeCount = 0;
 
-        //コンテスト時間指定
-        Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+        //課題選択方式　0=デフォルト
+        switch (GameMgr.ContestThemeSelectNum)
+        {
+            case 0:
 
-        GameMgr.contest_boss_score = 191; //
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：光魔法を使ったお菓子";
+                GameMgr.Contest_ProblemSentence2 = "光魔法で仕上げたかわいいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 191; //               
+                break;
+
+            case 1:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 191; //
+                break;
+        }
+
         GameMgr.contest_boss_name = "ウリユ";
     }
 

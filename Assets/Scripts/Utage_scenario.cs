@@ -65,6 +65,7 @@ public class Utage_scenario : MonoBehaviour
     private ContestCommentDataBase databaseContestComment;
     private MagicSkillListDataBase magicskill_database;
     private CatDataBase catDataBase;
+    private ContestStartListDataBase conteststartList_database;
 
 
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
@@ -153,6 +154,9 @@ public class Utage_scenario : MonoBehaviour
 
         //コンテスト感想データベースの取得
         databaseContestComment = ContestCommentDataBase.Instance.GetComponent<ContestCommentDataBase>();
+
+        //コンテスト全般データベースの取得
+        conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
 
         //ねこデータベースの取得
         catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
@@ -4457,7 +4461,7 @@ public class Utage_scenario : MonoBehaviour
     {
         if (GameMgr.OrRoomBuy[_id])
         {
-            GameMgr.OrCompound_RoomNum = 0;
+            
         }
         else
         {
@@ -4662,10 +4666,39 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_ProblemSentence", GameMgr.Contest_ProblemSentence);
         engine.Param.TrySetParameter("contest_ProblemSentence2", GameMgr.Contest_ProblemSentence2);
 
+        //プレイヤー課題選択するかどうかのセット
+        engine.Param.TrySetParameter("contest_ThemeSelectUse", GameMgr.ContestThemeSelectUse);
+        engine.Param.TrySetParameter("contest_ThemeTitle1", GameMgr.ContestThemeTitle1);
+        engine.Param.TrySetParameter("contest_ThemeTitle2", GameMgr.ContestThemeTitle2);
+        engine.Param.TrySetParameter("contest_ThemeTitle3", GameMgr.ContestThemeTitle3);
+        engine.Param.TrySetParameter("contest_ThemeSetting", GameMgr.ContestThemeCount);
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
         //お題を選べる場合、ここでポーズをはさむことになる。
+        if(GameMgr.ContestThemeSelectUse)
+        {
+            //「宴」のシナリオ終了待ち
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            //以下課題を再設定し再開
+
+            GameMgr.ContestThemeSelectNum = (int)engine.Param.GetParameter("contest_ThemeSelectNum");
+
+            //DBで初期設定を行っている
+            conteststartList_database.ContestSetting();
+
+            //課題をセット
+            engine.Param.TrySetParameter("contest_ProblemSentence", GameMgr.Contest_ProblemSentence);
+            engine.Param.TrySetParameter("contest_ProblemSentence2", GameMgr.Contest_ProblemSentence2);
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
+        }
 
         //背景切り替えのため、一度シーンに黒をはさむ
         //「宴」のシナリオ終了待ち
