@@ -840,6 +840,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string ContestThemeTitle1; //課題の内容　外で決めて宴にいれる
     public static string ContestThemeTitle2;
     public static string ContestThemeTitle3;
+    public static string ContestThemeTitle4;
     public static int ContestThemeCount; //コンテストの課題　選択肢の数
     public static int Contest_Cate_Ranking; //トーナメント形式かランキング形式か
     public static int Contest_BringType; //コンテスト　素材持ち込みの形式
@@ -996,6 +997,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool CatEscapeFlag; //
     public static int CountOmoideFlag;
     public static string MagicSkill_TopUseName;
+    public static int AmusePlayCount; //遊園地で乗り物にのった数のカウント
 
 
 
@@ -1528,6 +1530,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Contest_HallBGName = "";
         Contest_AcceptedDelete = false;
         ContestThemeSelectUse = false;
+        ContestThemeTitle1 = "";
+        ContestThemeTitle2 = "";
+        ContestThemeTitle3 = "";
+        ContestThemeTitle4 = "";
         Contest_ON = false;
         MagicPanel_DefaultHyouji = false;
         Sleep_CheckEnd = false;
@@ -1623,6 +1629,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ContestStartEnshutu_Flag = false;
         CatStartPanel_HyoujiKoushinFlag = false;
         CatEscapeFlag = false;
+        AmusePlayCount = 0;
 
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)

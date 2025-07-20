@@ -30,6 +30,9 @@ public class ContestListController : MonoBehaviour
 
     private GameObject contest_detailedPanel;
 
+    private GameObject contest_archivementPanel;
+    private Text archivement_text;
+
     private Color32 button_color;//Color32型の変数を宣言
 
     private string _name;
@@ -55,6 +58,10 @@ public class ContestListController : MonoBehaviour
 
     private int rand;
     private int contest_new;
+
+    private int contest_allcount; //出場できるコンテスト（表示はされてないのも含む）の全ての数
+    private int contest_victorycount; //現在1位をとったコンテスト数のカウント
+    private float archivement_percent;
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {     
@@ -98,6 +105,13 @@ public class ContestListController : MonoBehaviour
 
         contest_detailedPanel = canvas.transform.Find("ContestListPanel/Contest_DetailedPanel").gameObject;
         contest_detailedPanel.SetActive(false);
+
+        contest_archivementPanel = this.transform.Find("ArchivementPanel").gameObject;
+        archivement_text = contest_archivementPanel.transform.Find("ParamText").GetComponent<Text>();
+
+        AreaContestSetting();
+
+        ArchivementHyouji();
     }
 
     void OnEnable()
@@ -109,21 +123,10 @@ public class ContestListController : MonoBehaviour
         reset_and_DrawView();
     }
 
-    // リストビューの描画部分。重要。
-    public void reset_and_DrawView()
+    void AreaContestSetting()
     {
-        //現在、受注リストを開いている状態       
-
-        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
-        {
-            Destroy(child.gameObject);
-        }
-
-        list_count = 0;
-        _contest_listitem.Clear();
-
         //Debug.Log("GameMgr.Scene_Name: " + GameMgr.Scene_Name);
-        switch(GameMgr.Scene_Name)
+        switch (GameMgr.Scene_Name)
         {
             case "Or_Contest_Reception_Spring":
 
@@ -145,7 +148,37 @@ public class ContestListController : MonoBehaviour
                 read_ID = 3000; //ID=0～からread_endflag=1まで読む
                 break;
         }
+    }
 
+    void ArchivementHyouji()
+    {
+        //Debug.Log("readID:" + read_ID);
+        contest_allcount = conteststartList_database.ContestAll_PlayOKCounter(read_ID);
+        contest_victorycount = conteststartList_database.ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
+
+        Debug.Log("contest_allcount:" + contest_allcount);
+        Debug.Log("contest_victorycount:" + contest_victorycount);
+
+        archivement_percent = (float)contest_victorycount / (float)contest_allcount * 100f;
+        Debug.Log("archivement_percent:" + archivement_percent);
+        archivement_text.text = archivement_percent.ToString("F2") + "% / 100%";
+    }
+
+    // リストビューの描画部分。重要。
+    public void reset_and_DrawView()
+    {
+        //現在、受注リストを開いている状態       
+
+        foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+        {
+            Destroy(child.gameObject);
+        }
+
+        list_count = 0;
+        _contest_listitem.Clear();
+
+        //AreaContestSetting();
+        
         i = 0;
         while ( i < conteststartList_database.conteststart_lists.Count)
         {

@@ -36,6 +36,7 @@ public class BG_Effect_Particle : MonoBehaviour
     {
         eff_name = _name;
         Eff_obj = this.transform.Find(eff_name).gameObject;
+        Debug.Log("BGエフェクト名: " + eff_name);
 
         //各パーティクル取得
         switch (eff_name)
@@ -50,6 +51,20 @@ public class BG_Effect_Particle : MonoBehaviour
                 particleEm_Light6 = Eff_obj.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
                 particleEm_Light7 = Eff_obj.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;
                 particleEm_Light8 = Eff_obj.transform.Find("BG_Particle_Rain").GetComponent<ParticleSystem>().emission;
+                break;
+
+            case "effect_sc02":
+
+                particleEm_Light1 = Eff_obj.transform.Find("BG_Particle_Light").GetComponent<ParticleSystem>().emission;
+                particleEm_Light8 = Eff_obj.transform.Find("BG_Particle_Light (1)").GetComponent<ParticleSystem>().emission;
+                particleEm_Light2 = Eff_obj.transform.Find("BG_Particle_Light_Ball").GetComponent<ParticleSystem>().emission;
+                particleEm_Light3 = Eff_obj.transform.Find("BG_Particle_Light_Kira").GetComponent<ParticleSystem>().emission;
+                particleEm_Light4 = Eff_obj.transform.Find("BG_Particle_Light_Morning").GetComponent<ParticleSystem>().emission;
+                particleEm_Light5 = Eff_obj.transform.Find("BG_Particle_Light_Night").GetComponent<ParticleSystem>().emission;
+                particleEm_Light6 = Eff_obj.transform.Find("BG_Particle_Light_twilight").GetComponent<ParticleSystem>().emission;
+                particleEm_Light7 = Eff_obj.transform.Find("BG_Particle_Light_moon").GetComponent<ParticleSystem>().emission;
+
+                //particleEm_Light8 = Eff_obj.transform.Find("BG_Particle_Rain").GetComponent<ParticleSystem>().emission;
                 break;
 
             case "effect_sc03":
@@ -82,13 +97,19 @@ public class BG_Effect_Particle : MonoBehaviour
         SetOK = true;
     }
 
-    public void Koushin()
+    public void WeatherEffect_Koushin()
     {
+        Debug.Log("BGエフェクト名 更新: " + eff_name);
         switch (eff_name)
         {
             case "effect_sc01":
 
                 EffLibrary_1();             
+                break;
+
+            case "effect_sc02":
+
+                EffLibrary_2();
                 break;
 
             case "effect_sc03":
@@ -111,20 +132,27 @@ public class BG_Effect_Particle : MonoBehaviour
     {
         switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
         {
-            case 1:
+            case 1: //深夜→朝
 
                 break;
 
-            case 2: //深夜→朝
-
-                break;
-
-            case 3: //朝
+            case 2: //朝
 
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(200);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                break;
+
+            case 3: //昼
+
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
@@ -169,19 +197,109 @@ public class BG_Effect_Particle : MonoBehaviour
         }
     }
 
+    void EffLibrary_2()
+    {
+        switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
+        {
+            case 1: //深夜→朝
+
+                break;
+
+            case 2: //朝
+
+                //Debug.Log("BGエフェクト　朝更新");
+                Eff_obj.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
+                Eff_obj.transform.Find("BG_Particle_Light (1)").gameObject.SetActive(true);
+                Eff_obj.transform.Find("BG_Particle_Light_Night").gameObject.SetActive(false);
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light8.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(2);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                break;
+
+            case 3: //昼
+
+                //Debug.Log("BGエフェクト　昼更新");
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light8.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                break;
+
+            case 4: //昼
+
+                //Debug.Log("BGエフェクト　昼更新");
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light8.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                break;
+
+            case 5: //夕方
+
+                //Debug.Log("BGエフェクト　夕方更新");
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light8.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(3);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(5);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+
+                break;
+
+            case 6: //夜
+
+                //Debug.Log("BGエフェクト　夜更新");
+                Eff_obj.transform.Find("BG_Particle_Light").gameObject.SetActive(false);
+                Eff_obj.transform.Find("BG_Particle_Light (1)").gameObject.SetActive(false);
+                Eff_obj.transform.Find("BG_Particle_Light_Night").gameObject.SetActive(true);
+
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light8.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(200);
+                particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+
+                break;
+        }
+    }
+
     void EffLibrary_3()
     {
         switch (GameMgr.BG_cullent_weather) //TimeControllerで変更
         {
-            case 1:
+            case 1: //深夜→朝
 
                 break;
 
-            case 2: //深夜→朝
+            case 2: //朝
 
+                particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(3);
+                particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 break;
 
-            case 3: //朝
+            case 3: //昼
 
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(1);

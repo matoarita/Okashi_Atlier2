@@ -2437,8 +2437,22 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         //新規作成時の特殊処理
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
-        {           
-            Okashi_SpecialKeisan();
+        {
+            //ただし、魔法の場合、バフかcompNoのときは無視してOK
+            if (Comp_method_bunki == 20 || Comp_method_bunki == 22)
+            {
+                if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "CompNo" ||
+                    magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "Buf")
+                { }
+                else
+                {
+                    Okashi_SpecialKeisan();
+                }
+            }
+            else
+            {
+                Okashi_SpecialKeisan();
+            }
         }
 
         //お菓子の種類による特殊な補正処理　クッキーやラスクがサクサク感を少し上げにくくなるなど

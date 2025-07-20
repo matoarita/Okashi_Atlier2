@@ -66,7 +66,7 @@ public class Utage_scenario : MonoBehaviour
     private MagicSkillListDataBase magicskill_database;
     private CatDataBase catDataBase;
     private ContestStartListDataBase conteststartList_database;
-
+    private TimeController time_controller;
 
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -151,6 +151,9 @@ public class Utage_scenario : MonoBehaviour
 
         //スキルデータベースの取得
         magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
 
         //コンテスト感想データベースの取得
         databaseContestComment = ContestCommentDataBase.Instance.GetComponent<ContestCommentDataBase>();
@@ -1862,6 +1865,32 @@ public class Utage_scenario : MonoBehaviour
 
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
+
+        if(scenarioLabel == "GirlLove_EDEvent")
+        {
+            //ポーズいれてから、一回天気を変更
+            while (!engine.IsPausingScenario)
+            {
+                yield return null;
+            }
+
+            //次の日に移動する　朝か夜
+            if (GameMgr.ending_number == 1)
+            {
+                //暗転してる間に時間を変更し、朝や夜に変える　EDイベントは、必ず最初に一回ポーズをとおる
+                time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0);
+                time_controller.SetWeatherNow();
+            }
+            else if (GameMgr.ending_number == 2)
+            {
+                //暗転してる間に時間を変更し、朝や夜に変える　EDイベントは、必ず最初に一回ポーズをとおる
+                time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 19, 0);
+                time_controller.SetWeatherNow();
+            }
+
+            //続きから再度読み込み
+            engine.ResumeScenario();
+        }
 
         if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
         {
@@ -3983,6 +4012,7 @@ public class Utage_scenario : MonoBehaviour
 
                         GameMgr.Utage_MapMoveON = true;
                         moneyStatus_Controller.UseMoney(500);
+                        GameMgr.AmusePlayCount++;
                         break;
 
                 }
@@ -4018,6 +4048,7 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(800);
+                        GameMgr.AmusePlayCount++;
 
                         omoide_flag = GameMgr.SearchHikariOmoideFlag("event_biking");
                         if (!omoide_flag)
@@ -4042,6 +4073,7 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(1000);
+                        GameMgr.AmusePlayCount++;
                         omoide_flag = GameMgr.SearchHikariOmoideFlag("event_kanransha");
                         if (!omoide_flag)
                         {
@@ -4065,6 +4097,7 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //のる
 
                         moneyStatus_Controller.UseMoney(500);
+                        GameMgr.AmusePlayCount++;
                         omoide_flag = GameMgr.SearchHikariOmoideFlag("event_pool");
                         if (!omoide_flag)
                         {
@@ -4088,6 +4121,7 @@ public class Utage_scenario : MonoBehaviour
                     case 1: //入る
 
                         omoide_flag = GameMgr.SearchHikariOmoideFlag("event_sweathotel");
+                        GameMgr.AmusePlayCount++;
                         if (!omoide_flag)
                         {
                             GameMgr.SetHikariOmoideFlag("event_sweathotel", true);
@@ -4671,6 +4705,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_ThemeTitle1", GameMgr.ContestThemeTitle1);
         engine.Param.TrySetParameter("contest_ThemeTitle2", GameMgr.ContestThemeTitle2);
         engine.Param.TrySetParameter("contest_ThemeTitle3", GameMgr.ContestThemeTitle3);
+        engine.Param.TrySetParameter("contest_ThemeTitle4", GameMgr.ContestThemeTitle4);
         engine.Param.TrySetParameter("contest_ThemeSetting", GameMgr.ContestThemeCount);
 
         //「宴」のシナリオを呼び出す

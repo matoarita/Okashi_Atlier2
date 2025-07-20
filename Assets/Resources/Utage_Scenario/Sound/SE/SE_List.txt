@@ -175,15 +175,15 @@ SE表
 ・SE_173	audiostock_116289				【魔法の音】キーン　光が細く飛んでいく音
 ・SE_174	audiostock_241560				【魔法の音】光が発生する音　キュラララ
 ・SE_175	Onoma-Sparkle05-2(High)				【魔法の音】光をためる音
-・SE_176	audiostock_158711_sample			【魔法の音】凍り付く音
+・SE_176	audiostock_158711				【魔法の音】凍り付く音
 ・SE_177	Onoma-Flash02-1(Low-Dry)			【魔法の音】氷が発生する音
-・SE_178	audiostock_1072576_sample			【魔法の音】魔法チャージ中の氷のキラキラ音
-・SE_179	audiostock_1105077_sample			【魔法の音】魔法凍っていく途中の音※使ってない
-・SE_180	audiostock_78445_sample				【魔法の音】凍り付く音２　※未使用　いい音なので保存
+・SE_178	audiostock_1072576				【魔法の音】魔法チャージ中の氷のキラキラ音
+・SE_179	audiostock_1105077_sample			【魔法の音】※未使用 魔法凍っていく途中の音
+・SE_180	audiostock_78445_sample				【魔法の音】※未使用 凍り付く音２　いい音なので保存
 ・SE_181	Anime_Motion08-1(High)				【魔法の音】フルーツの足音
 ・SE_182	audiostock_247655				【魔法の音】ボン燃えてからボボボボ
-・SE_183	audiostock_1414824_sample			【魔法の音】炎の発射音
-・SE_184	audiostock_1402719_sample			【魔法の音】炎の着火音
+・SE_183	audiostock_1414824				【魔法の音】炎の発射音
+・SE_184	audiostock_1402719				【魔法の音】炎の着火音
 ・SE_185	audiostock_857161_sample			【魔法の音】発射音２　※未使用　いい音なので保存　★あたりに使えるかも
 ・SE_186	audiostock_798940_sample			【魔法の音】魔法凍っていく途中の音２
 ・SE_187	audiostock_869671_sample			【魔法の音】魔法凍っていく途中の音３

@@ -618,7 +618,6 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                         text_area.GetComponent<CanvasGroup>().DOFade(0, 0.0f);
 
                         girl1_status.SetMotion_ContestBefore();
-                        girl1_status.GirlEat_Judge_on = false;
 
                         GameMgr.Scene_Status = 1000;
                         GameMgr.Scene_Select = 0;

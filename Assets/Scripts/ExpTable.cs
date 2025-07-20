@@ -211,11 +211,6 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     //MagicLearnPanelHyouji("Magic_Soda");
                     break;
 
-                case 22:
-
-                    ShiageUpPanelHyouji();
-                    break;
-
                 case 25: //複数個同時にのせられるようになる。パネル表記はなしで、ハートイベントなどで知らせる。
 
                     break;
@@ -231,8 +226,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     break;
 
                 case 30:
-
-                    ShiageUpPanelHyouji();
+                    
                     break;
 
                 case 31:
@@ -245,7 +239,17 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     //MagicLearnPanelHyouji("Moonlight_Banana");
                     break;
 
-                case 40:
+                case 50:
+
+                    ShiageUpPanelHyouji();
+                    break;
+
+                case 75:
+
+                    ShiageUpPanelHyouji();
+                    break;
+
+                case 90:
 
                     ShiageUpPanelHyouji();
                     break;

@@ -470,7 +470,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
     }
 
     //トーナメント形式の賞品設定　選手名はContestStartListDBで決める 1・2回戦敗退は何ももらえない
-    void PrizeSet01()
+    void PrizeSet01() //現在未使用
     {
         //賞品リスト　トーナメントは3回戦なので3つまで。
         GameMgr.PrizeItemList.Clear();
@@ -518,7 +518,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(5000);
 
         //二回目出場以降の賞品
-        GameMgr.PrizeItemSecond = "card_alice";
+        GameMgr.PrizeItemSecond = "trophy_spring";
     }
 
     void PrizeSet03()
@@ -536,7 +536,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(10000);
 
         //二回目出場以降の賞品
-        GameMgr.PrizeItemSecond = "card_alice";
+        GameMgr.PrizeItemSecond = "trophy_summer";
     }
 
     void PrizeSet04()
@@ -554,7 +554,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(10000);
 
         //二回目出場以降の賞品
-        GameMgr.PrizeItemSecond = "card_alice";
+        GameMgr.PrizeItemSecond = "trophy_autumn";
     }
     //
 

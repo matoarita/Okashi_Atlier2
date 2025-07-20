@@ -68,6 +68,7 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
     {
         //まず、初期値。
         _comp.GetComponent<CanvasGroup>().alpha = 0;
+        _comp.transform.localPosition = new Vector3(0f, 0f, 0f);
 
         yield return new WaitForSeconds(0.1f); //ワンテンポおく
 
@@ -116,6 +117,8 @@ public class ContestEnshutu_Panelin : MonoBehaviour {
     {
         //まず、初期値。
         _comp.GetComponent<CanvasGroup>().alpha = 0;
+        _comp.transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.0f);
+        start_effect_blur.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
 
         yield return new WaitForSeconds(0.1f); //ワンテンポおく
 

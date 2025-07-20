@@ -6783,7 +6783,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         GameMgr.Mute_on = true;
         GameMgr.Utage_MapMoveON = true; //EDシーンへマップ移動もするのでtrue
 
-
         compound_Main.ReadGirlLoveEvent_Fire();
     }
 

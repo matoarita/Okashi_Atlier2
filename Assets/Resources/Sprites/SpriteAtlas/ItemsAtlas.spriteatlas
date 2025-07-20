@@ -117,6 +117,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f375a061fad818d49b354fabd98415f1, type: 3}
   - {fileID: 21300000, guid: 88b6d371f42349b48851cdce91b2f538, type: 3}
   - {fileID: 21300000, guid: fd6915710cc2f394f875e28195ef2138, type: 3}
+  - {fileID: 21300000, guid: b87a5c716acd8564496ebd1fca8d29a1, type: 3}
   - {fileID: 21300000, guid: c4923081add07124689444f9ae5b8933, type: 3}
   - {fileID: 21300000, guid: cb644b816cd1bd1478fbeb4b03e9945a, type: 3}
   - {fileID: 21300000, guid: a01f0d814bf70a74cbbd58f53cce1b8f, type: 3}
@@ -886,6 +887,7 @@ SpriteAtlas:
   - lumi_redberry_juice
   - creampuff_blackberry
   - potion_violatte
+  - yusho_trophy
   - butter_cream_coffee
   - huwakoro
   - kohakutou_acce1

@@ -359,6 +359,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             ReturnHome_check(40, true); //コンテストはじめていって帰ってきた 
             ReturnHome_check(110, false); //ミラボ先生にはじめて会って帰ってきた
             ReturnHome_check(120, false); //ぬねちゃんにはじめて会って帰ってきた
+            ReturnHome_check(130, false); //遊園地で遊んで帰ってきた 何度でも発生する
 
             if (!GameMgr.CompoundEvent_num[30]) //コンテストについて知ったので、アマクサ帰りのコンテストどこ～？イベントは発生しなくなる。
             {
@@ -386,7 +387,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
-    void ReturnHome_check(int _num, bool utagebgm_ON) //二個目は宴のBGMをonにする。
+    void ReturnHome_check(int _num, bool utagebgm_ON) //二個目は宴のBGMをonにする。3個目は、何度でも発生するイベント
     {
         if (!GameMgr.check_ReturnHomeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
         { }
@@ -408,6 +409,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     GameMgr.Mute_on = false;
                 }
             }
+
         }
     }
 
@@ -775,7 +777,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (GameMgr.GirlLoveSubEvent_stage1[80] == false)
                         {
-                            Event_startcheck(80, 0, false, false);
+                            Event_startcheck(80, 0, false, false, 0);
                         }
                     }
                 }
@@ -818,7 +820,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (PlayerStatus.player_girl_lifepoint <= 0)
                         {
                             GameMgr.Beginner_flag[4] = true;
-                            Event_startcheck(82, 1, false, false);
+                            Event_startcheck(82, 1, false, false, 0);
                         }
                     }
                 }
@@ -841,7 +843,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             if (PlayerStatus.player_money <= 1000)
                             {
                                 GameMgr.Beginner_flag[5] = true;
-                                Event_startcheck(83, 1, false, false);
+                                Event_startcheck(83, 1, false, false, 0);
                             }
                         }
                     }
@@ -879,7 +881,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 pitemlist.player_extremepanel_itemlist[0].Powdery > GameMgr.Watery_Line)
                             {
                                 GameMgr.Beginner_flag[6] = true;
-                                Event_startcheck(85, 1, false, false);
+                                Event_startcheck(85, 1, false, false, 0);
                             }
                             else
                             {
@@ -893,7 +895,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     if (pitemlist.player_extremepanel_itemlist[0].Watery > GameMgr.Watery_Line)
                                     {
                                         GameMgr.Beginner_flag[6] = true;
-                                        Event_startcheck(85, 1, false, false);
+                                        Event_startcheck(85, 1, false, false, 0);
                                     }
                                 }
                             }
@@ -921,7 +923,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[70])
                                     {
-                                        Event_startcheck(70, 1, true, true);
+                                        Event_startcheck(70, 1, true, true, 70);
                                     }
                                     break;
 
@@ -929,7 +931,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[71])
                                     {
-                                        Event_startcheck(71, 1, true, true);
+                                        Event_startcheck(71, 1, true, true, 71);
                                     }
                                     break;
 
@@ -937,7 +939,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[72])
                                     {
-                                        Event_startcheck(72, 1, true, true);
+                                        Event_startcheck(72, 1, true, true, 72);
                                     }
                                     break;
 
@@ -945,7 +947,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[73])
                                     {
-                                        Event_startcheck(73, 1, true, true);
+                                        Event_startcheck(73, 1, true, true, 73);
                                     }
                                     break;
 
@@ -953,7 +955,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[74])
                                     {
-                                        Event_startcheck(74, 1, true, true);
+                                        Event_startcheck(74, 1, true, true, 74);
                                     }
                                     break;
 
@@ -961,7 +963,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[75])
                                     {
-                                        Event_startcheck(75, 1, true, true);
+                                        Event_startcheck(75, 1, true, true, 75);
                                     }
                                     break;
 
@@ -969,7 +971,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[76])
                                     {
-                                        Event_startcheck(76, 1, true, true);
+                                        Event_startcheck(76, 1, true, true, 76);
                                     }
                                     break;
 
@@ -977,7 +979,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[77])
                                     {
-                                        Event_startcheck(77, 1, true, true);
+                                        Event_startcheck(77, 1, true, true, 77);
                                     }
                                     break;
 
@@ -985,7 +987,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[78])
                                     {
-                                        Event_startcheck(78, 1, true, true);
+                                        Event_startcheck(78, 1, true, true, 78);
                                     }
                                     break;
 
@@ -993,7 +995,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[79])
                                     {
-                                        Event_startcheck(79, 1, true, true);
+                                        Event_startcheck(79, 1, true, true, 79);
                                     }
                                     break;
 
@@ -1001,7 +1003,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[450])
                                     {
-                                        Event_startcheck(450, 1, true, true);
+                                        Event_startcheck(450, 1, true, true, 80);
                                     }
                                     break;
 
@@ -1009,7 +1011,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[451])
                                     {
-                                        Event_startcheck(451, 1, true, true);
+                                        Event_startcheck(451, 1, true, true, 81);
                                     }
                                     break;
 
@@ -1017,7 +1019,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     if (!GameMgr.GirlLoveSubEvent_stage1[452])
                                     {
-                                        Event_startcheck(452, 1, true, true);
+                                        Event_startcheck(452, 1, true, true, 82);
                                     }
                                     break;
 
@@ -1052,7 +1054,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             {
                                 if (pitemlist.KosuCount(items) >= 1)
                                 {
-                                    Event_startcheck(86, 1, false, false);
+                                    Event_startcheck(86, 1, false, false, 0);
                                     break;
                                 }
                             }
@@ -1071,7 +1073,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         if (pitemlist.KosuCount("kuma_nuigurumi") >= 1)
                         {
-                            Event_startcheck(100, 1, false, true);
+                            Event_startcheck(100, 1, false, true, 0);
                         }
                     }
                 }*/
@@ -1083,7 +1085,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 {
                     if (GameMgr.game_Recipi_archivement_rate >= 100.0f && GameMgr.GirlLoveSubEvent_stage1[101] == false) //4になったときのサブイベントを使う。
                     {
-                        Event_startcheck(101, 1, false, false);
+                        Event_startcheck(101, 1, false, false, 0);
 
                         ev_id = pitemlist.Find_eventitemdatabase("silver_neko_cookie_recipi");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //銀のねこクッキーのレシピを追加
@@ -1225,7 +1227,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             {
                                 if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_basename]])
                                 {
-                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_basename], 1, false, false);
+                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_basename], 1, false, false, 0);
                                     break;
                                 }
                             }
@@ -1234,7 +1236,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             {
                                 if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub]])
                                 {
-                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub], 1, false, false);
+                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub], 1, false, false, 0);
                                     break;
                                 }
                             }
@@ -1243,7 +1245,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             {
                                 if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB]])
                                 {
-                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB], 1, false, false);
+                                    Event_startcheck(GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB], 1, false, false, 0);
                                     break;
                                 }
                             }
@@ -1262,7 +1264,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     {
                         GameMgr.SpecialSubevent_EatAfterflag = false;
 
-                        Event_startcheck(GameMgr.SpecialSubevent_Num, 1, false, false);
+                        Event_startcheck(GameMgr.SpecialSubevent_Num, 1, false, false, 0);
                     }
                 }
 
@@ -1281,7 +1283,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (!GameMgr.GirlLoveSubEvent_stage1[700])
                         {
                             GameMgr.GirlLoveSubEvent_stage1[700] = true;
-                            Event_startcheck(700, 0, false, false);
+                            Event_startcheck(700, 0, false, false, 0);
                         }
                     }
                 }
@@ -1996,7 +1998,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         }
     }
 
-    void Event_startcheck(int _evnum, int _bgm, bool _getemerald, bool _subheart)
+    void Event_startcheck(int _evnum, int _bgm, bool _getemerald, bool _subheart, int _subheart_evnum)
     {
         /*if (GameMgr.check_StarPanel_Endflag) //スターパネルチェック中かチェック前は、イベント開始しない
         { }
@@ -2019,7 +2021,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
             if (_subheart)
             {
                 GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                GameMgr.SubEvAfterHeartGet_num = _evnum;
+                GameMgr.SubEvAfterHeartGet_num = _subheart_evnum;
             }
 
             switch (_evnum)

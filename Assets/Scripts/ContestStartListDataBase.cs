@@ -48,6 +48,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
     private int fights_count;
     private int total_count;
+    private int contest_count;
 
     public List<ContestStartList> conteststart_lists = new List<ContestStartList>(); //
 
@@ -848,10 +849,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestData_021()
     {
         GameMgr.ContestThemeSelectUse = true; //最初の課題決定のところで、プレイヤーが課題を選択できる　true=ON
-        GameMgr.ContestThemeTitle1 = "光りのお菓子";
-        GameMgr.ContestThemeTitle2 = "自由課題";
-        GameMgr.ContestThemeTitle3 = "";
-        GameMgr.ContestThemeCount = 0;
+        GameMgr.ContestThemeTitle1 = "テーマ: 光りのお菓子";
+        GameMgr.ContestThemeTitle2 = "テーマ: チョコレート";
+        GameMgr.ContestThemeTitle3 = "テーマ: 氷のお菓子";
+        GameMgr.ContestThemeTitle4 = "自由課題";
+        GameMgr.ContestThemeCount = 2;
 
         //課題選択方式　0=デフォルト
         switch (GameMgr.ContestThemeSelectNum)
@@ -872,6 +874,36 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 break;
 
             case 1:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：チョコレート";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけたチョコレートを作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 191; //
+                break;
+
+            case 2:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：氷のお菓子";
+                GameMgr.Contest_ProblemSentence2 = "夏に負けない冷たいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 191; //
+                break;
+
+            case 3:
 
                 GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
                 GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
@@ -908,39 +940,169 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
     void ContestData_040()
     {
-        //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
-        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
-        GameMgr.Contest_DB_list_Type = 40000; //compNum=20000~を指定    
-        GameMgr.Contest_commentDB_Select = 20000;
-        GameMgr.Contest_ProblemSentence = "テーマ：チョコレート";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。おいしいチョコレートを作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.ContestThemeSelectUse = true; //最初の課題決定のところで、プレイヤーが課題を選択できる　true=ON　必ず宴のほうも、選択肢をいれてPauseを一回分多くはさむ
+        GameMgr.ContestThemeTitle1 = "テーマ: メルヘンなお菓子";
+        GameMgr.ContestThemeTitle2 = "テーマ: チョコレート";
+        GameMgr.ContestThemeTitle3 = "テーマ: ミルフイユ";
+        GameMgr.ContestThemeTitle4 = "自由課題＜短時間>";
+        GameMgr.ContestThemeCount = 2;
 
-        //コンテスト時間指定
-        Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+        //課題選択方式　0=デフォルト
+        switch (GameMgr.ContestThemeSelectNum)
+        {
+            case 0:
 
-        GameMgr.contest_boss_score = 178; //一回戦相手の点数
-        GameMgr.contest_boss_name = "フォルトーネ";
+                //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 40000; //compNum=20000~を指定    
+                GameMgr.Contest_commentDB_Select = 20000;
+                GameMgr.Contest_ProblemSentence = "テーマ：メルヘンお菓子";
+                GameMgr.Contest_ProblemSentence2 = "メルヘンをテーマにかわいいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 178; //一回戦相手の点数
+                break;
+
+            case 1:
+
+                //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 40000; //compNum=20000~を指定    
+                GameMgr.Contest_commentDB_Select = 20000;
+                GameMgr.Contest_ProblemSentence = "テーマ：チョコレート";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。おいしいチョコレートを作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 198; //一回戦相手の点数
+                
+                break;
+
+            case 2:
+
+                //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 40000; //compNum=20000~を指定    
+                GameMgr.Contest_commentDB_Select = 20000;
+                GameMgr.Contest_ProblemSentence = "テーマ：ミルフイユ";
+                GameMgr.Contest_ProblemSentence2 = "腕によりをかけた至高のミルフイユを作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 238; //一回戦相手の点数
+                break;
+
+            case 3:
+
+                //ランダムでもし課題を選ぶ場合は、ここでランダムで指定してよい
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 40000; //compNum=20000~を指定    
+                GameMgr.Contest_commentDB_Select = 20000;
+                GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 4時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 358; //一回戦相手の点数
+                break;
+        }
+
+        GameMgr.contest_boss_name = "クルル";
+
     }
 
     void ContestData_041()
     {
-        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
-        GameMgr.Contest_DB_list_Type = 41000; //compNum=20000~を指定
-        GameMgr.Contest_commentDB_Select = 21000;
-        GameMgr.Contest_ProblemSentence = "テーマ：風をテーマにしたチョコレート";
-        GameMgr.Contest_ProblemSentence2 = "地球の美しい青を表現するチョコレートを作ってください。" + "\n" + "制限時間: 8時間";
-        
-        //コンテスト時間指定
-        Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+        GameMgr.ContestThemeSelectUse = true; //最初の課題決定のところで、プレイヤーが課題を選択できる　true=ON　必ず宴のほうも、選択肢をいれてPauseを一回分多くはさむ
+        GameMgr.ContestThemeTitle1 = "テーマ: 「風」のチョコレート";
+        GameMgr.ContestThemeTitle2 = "テーマ: クリームブリュレ";
+        GameMgr.ContestThemeTitle3 = "テーマ: ケーキ";
+        GameMgr.ContestThemeTitle4 = "自由課題";
+        GameMgr.ContestThemeCount = 2;
 
-        GameMgr.contest_boss_score = 312; //
-        GameMgr.contest_boss_name = "クルル";
+        //課題選択方式　0=デフォルト
+        switch (GameMgr.ContestThemeSelectNum)
+        {
+            case 0:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 41000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：風をテーマにしたチョコレート";
+                GameMgr.Contest_ProblemSentence2 = "自然・環境をまもる「風」をテーマにしたチョコレートを作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 312; //
+
+                break;
+
+            case 1:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 41000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：クリームブリュレ";
+                GameMgr.Contest_ProblemSentence2 = "至高のクリームブリュレを作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 312; //
+
+                break;
+
+            case 2:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 41000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：ケーキ";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。至高のケーキを作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 312; //
+
+                break;
+
+            case 3:
+
+                GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
+                GameMgr.Contest_DB_list_Type = 41000; //compNum=20000~を指定
+                GameMgr.Contest_commentDB_Select = 21000;
+                GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 8時間";
+
+                //コンテスト時間指定
+                Contest_SetStartTime();
+                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+
+                GameMgr.contest_boss_score = 482; //
+
+                break;
+        }
+
+        GameMgr.contest_boss_name = "フォルトーネ";
     }
 
     void ContestData_042()
     {
+        
         GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 42000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 22000;
@@ -1599,6 +1761,9 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
+
+
+
     //
 
     //コンテスト名をいれると、そのコンテストを解禁する
@@ -1750,6 +1915,33 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         return fights_count;
     }
 
+    //コンテスト　出場できるものの総数をカウント　各エリアごと指定可能
+    public int ContestAll_PlayOKCounter(int _readID)
+    {
+        i = 0;
+        contest_count = 0;
+
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestID >= _readID)
+            {
+                if (conteststart_lists[i].Contest_Flag != 9999)
+                {                  
+                    contest_count++;
+                }
+
+                if (conteststart_lists[i].read_endflag == 1)
+                {
+                    break;
+                }
+            }
+           
+            i++;
+        }
+
+        return contest_count;
+    }
+
     //エデンコンの初出場かそうでないかをチェックする
     public void EdenFirstVictoryCheck(string _contestName)
     {
@@ -1859,7 +2051,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
     }
 
-    //優勝記録と戦った回数の初期化
+    //各コンテストの優勝記録と戦った回数の初期化
     public void ResetDefaultFightsData()
     {
         for (i = 0; i < conteststart_lists.Count; i++)
@@ -1869,7 +2061,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
     }
 
-    //順位を何回とったかのカウントを取得する　順位をいれると、その順位の取得数合計を返す
+    //全コンテスト　順位を何回とったかのカウントを取得する　順位をいれると、その順位の取得数合計を返す
     public int ReturnVictoryCount(int _rank)
     {
         total_count = 0;
@@ -1879,6 +2071,34 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
             {
                 total_count++;
             }
+        }
+
+        return total_count;
+    }
+
+    //エリアを指定　そのエリアで、コンテスト全て　順位を何回とったかのカウントを取得する　順位をいれると、その順位の取得数合計を返す
+    public int ReturnVictoryCount_Area(int _rank, int _readID)
+    {        
+        i = 0;
+        total_count = 0;
+
+        while (i < conteststart_lists.Count)
+        {
+            if (conteststart_lists[i].ContestID >= _readID)
+            {
+                Debug.Log("conteststart_lists[i].ContestVictory: " + conteststart_lists[i].ContestVictory);
+                if (conteststart_lists[i].ContestVictory == _rank)
+                {
+                    total_count++;
+                }
+
+                if (conteststart_lists[i].read_endflag == 1)
+                {
+                    break;
+                }
+            }
+            
+            i++;
         }
 
         return total_count;

@@ -1738,6 +1738,10 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     {
         live2d_animator.Play("facemotion_40", motion_layer_num, 0.0f);
         live2d_animator.Update(0f);
+
+        //吹き出し時間もリセットしておく
+        ResetHukidashiNoSound();
+        GirlEatJudgecounter_OFF();
     }
 
 

@@ -553,7 +553,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             }
             mainlist_controller_obj.SetActive(true);
 
-            
+            //もし遊園地にのってた場合、メイン画面にもどって喜んだイベント発生
+            if (GameMgr.AmusePlayCount >= 1)
+            {
+                AmusePlaying_AfterEvent(); //メイン画面にもどったときに、イベントを発生させるフラグをON 
+            }
 
             //キャラ表示パネルを戻す
             Character_panel.GetComponent<CanvasGroup>().DOFade(1, 0.0f);
@@ -572,6 +576,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             SceneToggleDefaultSetup();
             text_scenario(); //テキストの更新
         }
+    }
+
+    void AmusePlaying_AfterEvent()
+    {
+        //メイン画面にもどったときに、イベントを発生させるフラグをON
+        GameMgr.CompoundEvent_num[130] = true; //イベント番号のこと
+        GameMgr.CompoundEvent_flag = true;
+
+        GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
+        GameMgr.SubEvAfterHeartGet_num = 130;
     }
 
     void MapMove(int _status)
@@ -3743,7 +3757,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //NPC宴の処理へ
         GameMgr.hiroba_event_placeNum = 1560; //       
 
-        GameMgr.hiroba_event_ID = 0;
+        GameMgr.hiroba_event_ID = 0;   
 
         EventReadingStart();
     }
@@ -3766,7 +3780,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GameMgr.hiroba_event_ID = 0;
 
         EventReadingStart();
-    }
+    }    
 
     void On_Active1580_HotSpring()
     {

@@ -235,8 +235,9 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     }
                 }
 
-                //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
+                //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·                
                 _ms_sp_score7 += 10;
+                _ms_sp_score9 += 5; //Œõ‚ç‚µ‚³‚ð‰ÁŽZ
                 aisho_text2 = "ƒƒ‹ƒwƒ“ + " + _ms_sp_score7.ToString();
                 aisho_text3 = "‘ål " + _ms_sp_score5.ToString();
 

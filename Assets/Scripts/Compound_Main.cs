@@ -723,6 +723,7 @@ public class Compound_Main : MonoBehaviour
         /* --- */
 
 
+        //パラメータ関係リセット
         Recipi_loading = false;
         NewAreaCheck_loading = false;
         check_recipi_flag = false;
@@ -749,6 +750,8 @@ public class Compound_Main : MonoBehaviour
         subevent_after_end = false;
         GetFirstCollectionItem = false;
         GetEmeraldItem = false;
+
+        GameMgr.AmusePlayCount = 0;
 
         //女の子　お菓子ハングリー状態のリセット
         girl1_status.Girl1_Status_Init();
@@ -1745,10 +1748,6 @@ public class Compound_Main : MonoBehaviour
                                
                 OnCompoundSelect();
 
-                //デバッグ用
-                //GameMgr.System_CatGetMat_Flag = true;
-                //
-
                 if (GameMgr.System_CatAutoMaterial_ON)
                 {
                     //ねこチェック　ねこの採取フラグが必要か否か
@@ -1885,13 +1884,17 @@ public class Compound_Main : MonoBehaviour
 
                 }   
                 
-                //ソーダアイランドとかにいきたいフラグがたっていて、帰ってきたときにハートが上がる処理のチェック
+                //お外いきたい言ったときに、屋台やソーダアイランドに行くと、帰ってきたときにハートが上がる処理のチェック
                 if(GameMgr.OsotoIttazoFlag)
                 {
                     GameMgr.OsotoIttazoFlag = false;
 
                     OsotoIttazoCheck();
                 }
+
+                //家に帰ってきたときにイベントが発生するフラグ系で、何度も発生するやつはフラグをリセット
+                GameMgr.CompoundEvent_readend[130] = false; //何度でも発生するように、ここでまた読みフラグをリセットする
+
 
                 //調合成功後に、サブイベントチェック。ちなみに、このcompoundstatus=0の最後にいれないと、作った後のサブイベント発生はバグるので注意。
                 if (!GameMgr.tutorial_ON)
@@ -4194,76 +4197,97 @@ public class Compound_Main : MonoBehaviour
 
                         break;
 
-                    /*
-                case 70:
 
-                    _textmain.text = "メガネによろこんだ！";
-                    girlEat_judge.loveGetPlusAnimeON(10, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 70:
 
-                case 71:
+                        _textmain.text = "メガネによろこんだ！";
+                        get_heart = 20;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "スク水をよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(30, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 71:
 
-                case 72:
+                        _textmain.text = "スク水をよろこんだようだ！";
+                        get_heart = 50;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "黒メイド服をよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(30, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 72:
 
-                case 73:
+                        _textmain.text = "黒メイド服をよろこんだようだ！";
+                        get_heart = 50;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "天使のワンピースをよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(70, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 73:
 
-                case 74:
+                        _textmain.text = "天使のワンピースをよろこんだようだ！";
+                        get_heart = 50;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "深紅のハートドレスをよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(70, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 74:
 
-                case 75:
+                        _textmain.text = "深紅のハートドレスをよろこんだようだ！";
+                        get_heart = 50;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "バルーンハットをたいそうよろこんだようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(50, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 75:
 
-                case 76:
+                        _textmain.text = "バルーンハットをたいそうよろこんだようだ！";
+                        get_heart = 30;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "天使の羽根にこころを浄化された！";
-                    girlEat_judge.loveGetPlusAnimeON(70, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 76:
 
-                case 77:
+                        _textmain.text = "天使の羽根にこころを浄化された！";
+                        get_heart = 30;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "ねこみみに興味をひいたようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(30, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 77:
 
-                case 78:
+                        _textmain.text = "ねこみみに興味をひいたようだ！";
+                        get_heart = 10;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "お花のヘアピンを気に入ったようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(10, false);
-                    GameMgr.girl_express_param += 50;
-                    break;
+                    case 78:
 
-                case 79:
+                        _textmain.text = "お花のヘアピンを気に入ったようだ！";
+                        get_heart = 10;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
-                    _textmain.text = "ティンクルスターダストを気に入ったようだ！";
-                    girlEat_judge.loveGetPlusAnimeON(100, false);
-                    GameMgr.girl_express_param += 50;
-                    break;*/
+                    case 79:
+
+                        _textmain.text = "ティンクルスターダストを気に入ったようだ！";
+                        get_heart = 30;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
+
+                    case 80:
+
+                        _textmain.text = "ラベンダードレスをよろこんだようだ！";
+                        get_heart = 50;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
+
+                    case 81:
+
+                        _textmain.text = "どんぐりポシェットを気に入っている！";
+                        get_heart = 20;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
+
+                    case 82:
+
+                        _textmain.text = "パティシエハットに興奮している！";
+                        get_heart = 20;
+                        girl1_status.GirlExpressionKoushin(50);
+                        break;
 
                     case 100:
 
@@ -4283,13 +4307,22 @@ public class Compound_Main : MonoBehaviour
                         heartget_ON = true;
                         break;
 
+                    case 130:
+
+                        _textmain.text = "いっぱい遊んで、喜んでいるようだ！";
+                        get_heart = 10;
+                        girl1_status.GirlExpressionKoushin(50);
+
+                        heartget_ON = true;
+                        break;
+
                     case 200: //コンテスト終了後に、順位に応じてハートが上がるイベント
 
-                       
+
                         if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
                         {
                             _textmain.text = "ヒカリの勇気が少しわいてきた！";
-                            get_heart = 200;
+                            get_heart = 50;
                         }
                         else
                         {
@@ -4298,7 +4331,7 @@ public class Compound_Main : MonoBehaviour
                                 case 1:
 
                                     _textmain.text = "ヒカリは喜びのダンスを踊っている！";
-                                    get_heart = 100;
+                                    get_heart = 50;
                                     break;
 
                                 case 2:
@@ -4320,7 +4353,7 @@ public class Compound_Main : MonoBehaviour
                                     break;
                             }
                         }
-                        
+
                         girl1_status.GirlExpressionKoushin(50);
 
                         heartget_ON = true;
@@ -4330,7 +4363,7 @@ public class Compound_Main : MonoBehaviour
 
 
                         _textmain.text = "ヒカリは励ましている！";
-                        get_heart = 5;                        
+                        get_heart = 5;
 
                         girl1_status.GirlExpressionKoushin(10);
 
@@ -4340,7 +4373,7 @@ public class Compound_Main : MonoBehaviour
                     case 211: //コンテスト終了　時間がすぎて失格だった場合
 
 
-                        _textmain.text = "ヒカリは励ましている！";
+                        _textmain.text = "ヒカリは、ぼくの肩をもみもみしている！";
                         get_heart = 0;
 
                         girl1_status.GirlExpressionKoushin(10);
@@ -4364,7 +4397,7 @@ public class Compound_Main : MonoBehaviour
 
 
                 StartCoroutine("ReadGirlLoveEventAfter");
-                         
+
             }
             else
             {
@@ -4957,8 +4990,6 @@ public class Compound_Main : MonoBehaviour
         //天気モードONのときのみ　変更
         if (GameMgr.WEATHER_TIMEMODE_ON)
         {
-            //Debug.Log("GameMgr.BG_cullent_weather: " + GameMgr.BG_cullent_weather);
-            //Debug.Log("GameMgr.BG_before_weather: " + GameMgr.BG_before_weather);
 
             if (GameMgr.BG_cullent_weather != 2) //朝起きたては、強制的にCompound_MainのOnMorningBG()で変更するので、朝の判定のみ削除。お昼～夜まではチェック。
             {
@@ -4997,7 +5028,7 @@ public class Compound_Main : MonoBehaviour
         {
             case 1:
 
-                BG_effectpanel_Effect.Koushin();
+                BG_effectpanel_Effect.WeatherEffect_Koushin();
                 break;
 
             case 2: //深夜→朝
@@ -5010,7 +5041,7 @@ public class Compound_Main : MonoBehaviour
                 { }
                 daynum = 0;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
-                BG_effectpanel_Effect.Koushin();
+                BG_effectpanel_Effect.WeatherEffect_Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
@@ -5025,7 +5056,7 @@ public class Compound_Main : MonoBehaviour
                 { }
                 daynum = 0;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
-                BG_effectpanel_Effect.Koushin();
+                BG_effectpanel_Effect.WeatherEffect_Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
@@ -5040,7 +5071,7 @@ public class Compound_Main : MonoBehaviour
                 { }
                 daynum = 0;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
-                BG_effectpanel_Effect.Koushin();
+                BG_effectpanel_Effect.WeatherEffect_Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
@@ -5055,7 +5086,7 @@ public class Compound_Main : MonoBehaviour
                 { }
                 daynum = 0;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
-                BG_effectpanel_Effect.Koushin();
+                BG_effectpanel_Effect.WeatherEffect_Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeMorning();
                 break;
@@ -5070,7 +5101,7 @@ public class Compound_Main : MonoBehaviour
                 { }
                 daynum = 3;
                 BGImg_dayAnim.SetInteger("daystatus", daynum);
-                BG_effectpanel_Effect.Koushin();
+                BG_effectpanel_Effect.WeatherEffect_Koushin();
 
                 bg_accessory_panel.GetComponent<BGAcceTrigger>().WeatherChangeNight();
                 break;

@@ -118,7 +118,7 @@
 ・BGM_114		audiostock_1523480			春エリア露店通りのBGM　98と同じ
 ・BGM_115		PerituneMaterial_Powder_Snow_loop	【宴用】プラトン女王様のテーマ　111と同じ
 ・BGM_116		harunoyokan				【宴用】イリスさんのテーマ２　こっちが本当
-・BGM_117		PerituneMaterial_Nightmare_loop		【宴用】家賃BBAの取り立てテーマ曲 旧：free_gsound_19　ギターver
+・BGM_117		free_gsound_1				【宴用】家賃BBAの取り立てテーマ曲 旧：PerituneMaterial_Nightmare_loop
 ・BGM_118		Jardin Botanique			秋エリアお店マダムオペラの曲
 ・BGM_119		Le Musée				大会コンテスト受付のBGM2 秋イメージ
 ・BGM_120		audiostock_1126077_sample		大会コンテスト受付のBGM3 夏イメージヒップホップ　※未使用

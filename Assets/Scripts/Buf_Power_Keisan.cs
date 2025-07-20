@@ -901,6 +901,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         OvenBuf();
                         break;
 
+                    case "Biscotti":
+
+                        OvenBuf();
+                        break;
+
                     case "BakedSweets":
 
                         HokuhokuBuf();
@@ -909,14 +914,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Cookie":
 
                         OvenBuf();
-                        CookieBuf();
+                        //RodsBuf();
                         break;
 
                     case "Cookie_Hard":
 
                         OvenBuf();
-                        CookieBuf();
-                        break;
+                        //RodsBuf();
+                        break;                   
 
                     case "Rusk":
 
@@ -925,6 +930,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                     
                 }
+
+                //おかし全てに効果があるバフ
+                if (_itemType == "Okashi")
+                {
+                    RodsBuf(); //めんぼうは、おかしであれば種類は問わず。全体のさくさく感をあげる
+                    YonetsuStoneBuf();
+                }
+               
 
                 //光りおかしにかかるバフ
                 MagicGlowBuf();                
@@ -946,12 +959,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         AppaleilBuf();
                         break;
 
+                    case "Cream":
+
+                        CreamBuf();
+                        break;
+
                     case "Crepe":
 
                         CrepeBuf();
                         break;
 
                     case "Crepe_Mat":
+
                         CrepeBuf();
                         break;
 
@@ -982,6 +1001,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         break;
                 }
 
+                //おかし全てに効果があるバフ
+                if (_itemType == "Okashi")
+                {
+                    YonetsuStoneBuf();
+                }
+
                 //光りおかしにかかるバフ
                 MagicGlowBuf();
 
@@ -1004,7 +1029,6 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                     case "Appaleil_Icecream":
 
-                        CreamBuf();
                         AppaleilIcecreamBuf();
                         break;
 
@@ -1065,11 +1089,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Juice":
 
                         JuiceSodaBuf();
+                        JuiceMixerBuf();
                         break;
 
                     case "Soda":
 
                         JuiceSodaBuf();
+                        JuiceMixerBuf();
                         break;
                 }
 
@@ -1209,7 +1235,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         if (pitemlist.KosuCount("whisk_gold") >= 1) //魔力の泡だて器をもっている
         {
-            _buf_shokukanup = (int)(_buf_shokukanup * 2.2f);
+            _buf_shokukanup = (int)(_buf_shokukanup * 1.75f);
         }
         else
         {
@@ -1270,6 +1296,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+    void JuiceMixerBuf()
+    {
+        //クリスタルジュースミキサーの効果で食感上がる
+        if (pitemlist.KosuCount("juice_mixer_high") >= 1) //持ってるだけで効果アップ
+        {
+            _buf_shokukanup += 100;
+        }
+    }
+
     void OvenBuf()
     {
         // かまどレベルによるバフ
@@ -1296,14 +1331,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             }
         }
 
+        
+    }
+
+    void YonetsuStoneBuf()
+    {
         //よねつ石の効果で食感上がる
         if (pitemlist.KosuCount("residual_heatstone") >= 1) //持ってるだけで効果アップ
         {
-            _buf_shokukanup += 10;
+            _buf_shokukanup += 20;
         }
     }
 
-    void CookieBuf()
+    void RodsBuf()
     {
         //めん棒系
         if (pitemlist.KosuCount("wood_rod_doillan") >= 1)
@@ -1326,7 +1366,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 {
                     if (pitemlist.KosuCount("wood_rod_normal") >= 1)
                     {
-                        _buf_shokukanup += 20;
+                        _buf_shokukanup += 15;
                     }
                     else
                     {
