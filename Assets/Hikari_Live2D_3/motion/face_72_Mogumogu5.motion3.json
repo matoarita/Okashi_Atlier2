@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 47,
-		"TotalSegmentCount": 86,
-		"TotalPointCount": 251,
+		"CurveCount": 48,
+		"TotalSegmentCount": 87,
+		"TotalPointCount": 253,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -432,6 +432,17 @@
 				0,
 				3,
 				6
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamSpecialEyeOnOff",
+			"Segments": [
+				0,
+				0,
+				0,
+				3,
+				0
 			]
 		},
 		{

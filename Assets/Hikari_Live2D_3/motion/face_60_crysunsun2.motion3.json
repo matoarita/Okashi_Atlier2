@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 43,
-		"TotalSegmentCount": 129,
-		"TotalPointCount": 424,
+		"CurveCount": 44,
+		"TotalSegmentCount": 130,
+		"TotalPointCount": 428,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -644,6 +644,21 @@
 		{
 			"Target": "Parameter",
 			"Id": "ParamKiba",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.333,
+				0,
+				2.667,
+				0,
+				4,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamSpecialEyeOnOff",
 			"Segments": [
 				0,
 				0,

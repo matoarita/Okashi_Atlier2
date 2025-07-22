@@ -855,36 +855,6 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "ParamMainX",
-			"Segments": [
-				0,
-				0,
-				1,
-				1.667,
-				0,
-				3.333,
-				0,
-				5,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamMainY",
-			"Segments": [
-				0,
-				0,
-				1,
-				1.667,
-				0,
-				3.333,
-				0,
-				5,
-				0
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "L_armR",
 			"Segments": [
 				0,
@@ -936,6 +906,36 @@
 				4.333,
 				4,
 				4.667,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMainCamX",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
+				0,
+				5,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMainCamY",
+			"Segments": [
+				0,
+				0,
+				1,
+				1.667,
+				0,
+				3.333,
 				0,
 				5,
 				0

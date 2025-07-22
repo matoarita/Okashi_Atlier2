@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 49,
-		"TotalSegmentCount": 81,
-		"TotalPointCount": 280,
+		"CurveCount": 51,
+		"TotalSegmentCount": 83,
+		"TotalPointCount": 286,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -452,6 +452,21 @@
 			"Segments": [
 				0,
 				0,
+				0,
+				1.467,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamSpecialEyeOnOff",
+			"Segments": [
+				0,
+				0,
+				1,
+				0.489,
+				0,
+				0.978,
 				0,
 				1.467,
 				0
@@ -912,6 +927,17 @@
 				1,
 				1.467,
 				1
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamRingoKiraLoop",
+			"Segments": [
+				0,
+				0,
+				0,
+				1.467,
+				1.956
 			]
 		},
 		{

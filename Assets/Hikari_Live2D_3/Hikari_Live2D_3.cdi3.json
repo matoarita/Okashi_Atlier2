@@ -112,6 +112,11 @@
 			"Name": "口をもぐもぐ"
 		},
 		{
+			"Id": "ParamSpecialEyeOnOff",
+			"GroupId": "ParamGroup7",
+			"Name": "特殊目のONOFF"
+		},
+		{
 			"Id": "ParamGokigen",
 			"GroupId": "ParamGroup7",
 			"Name": "棒目"
@@ -435,6 +440,11 @@
 			"Id": "ParamRingoAmeONOFF",
 			"GroupId": "ParamGroup4",
 			"Name": "りんごあめONOFF"
+		},
+		{
+			"Id": "ParamRingoKiraLoop",
+			"GroupId": "ParamGroup4",
+			"Name": "りんごあめキラキラループ"
 		},
 		{
 			"Id": "ParamKogeHikari",

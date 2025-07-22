@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 65,
-		"TotalSegmentCount": 199,
-		"TotalPointCount": 646,
+		"CurveCount": 66,
+		"TotalSegmentCount": 200,
+		"TotalPointCount": 652,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -528,11 +528,30 @@
 		},
 		{
 			"Target": "Parameter",
+			"Id": "ParamSpecialEyeOnOff",
+			"Segments": [
+				0,
+				1,
+				1,
+				1.333,
+				1,
+				2.667,
+				1,
+				4,
+				1
+			]
+		},
+		{
+			"Target": "Parameter",
 			"Id": "ParamGokigen",
 			"Segments": [
 				0,
 				1,
-				0,
+				1,
+				1.333,
+				1,
+				2.667,
+				1,
 				4,
 				1
 			]
