@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 81,
-		"TotalSegmentCount": 120,
-		"TotalPointCount": 349,
+		"CurveCount": 64,
+		"TotalSegmentCount": 105,
+		"TotalPointCount": 325,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -372,6 +372,17 @@
 				0.667,
 				0,
 				1.333,
+				0,
+				2,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamMouthMogumogu",
+			"Segments": [
+				0,
+				0,
 				0,
 				2,
 				0
@@ -1098,154 +1109,22 @@
 		},
 		{
 			"Target": "Parameter",
-			"Id": "Bhat_ribbon_A_1",
-			"Segments": [
-				0,
-				0.02,
-				0,
-				2,
-				0.02
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "Bhat_ribbon_A_4",
-			"Segments": [
-				0,
-				-0.02,
-				0,
-				2,
-				-0.02
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "R_hairAX_2",
-			"Segments": [
-				0,
-				-0.091,
-				0,
-				2,
-				-0.091
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "R_hairB_2",
-			"Segments": [
-				0,
-				-0.091,
-				0,
-				2,
-				-0.091
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "L_hairA_2",
-			"Segments": [
-				0,
-				0.1,
-				0,
-				2,
-				0.1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "L_hairB_2",
-			"Segments": [
-				0,
-				0.1,
-				0,
-				2,
-				0.1
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "Param_Angle_Rotation_8_ArtMesh509",
-			"Segments": [
-				0,
-				0.913,
-				0,
-				2,
-				0.913
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "Param_Angle_Rotation_11_ArtMesh509",
-			"Segments": [
-				0,
-				-1.878,
-				0,
-				2,
-				-1.878
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "Param_Angle_Rotation_8_ArtMesh508",
-			"Segments": [
-				0,
-				1.039,
-				0,
-				2,
-				1.039
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "Rnekomimi_yure2",
-			"Segments": [
-				0,
-				0.163,
-				0,
-				2,
-				0.163
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "Lnekomimi_yure2",
-			"Segments": [
-				0,
-				-0.163,
-				0,
-				2,
-				-0.163
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "Param_Angle_Rotation_1_ArtMesh421",
-			"Segments": [
-				0,
-				3.296,
-				0,
-				2,
-				3.296
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "Param_Angle_Rotation_8_ArtMesh421",
-			"Segments": [
-				0,
-				-7.616,
-				0,
-				2,
-				-7.616
-			]
-		},
-		{
-			"Target": "Parameter",
 			"Id": "Hair_All_z_Pos",
 			"Segments": [
 				0,
 				19.012,
-				0,
+				1,
+				0.333,
+				19.012,
+				0.667,
+				-6,
+				1,
+				-6,
+				1,
+				1.333,
+				-6,
+				1.667,
+				19.012,
 				2,
 				19.012
 			]
@@ -1256,64 +1135,20 @@
 			"Segments": [
 				0,
 				-27.238,
-				0,
+				1,
+				0.333,
+				-27.238,
+				0.667,
+				14,
+				1,
+				14,
+				1,
+				1.333,
+				14,
+				1.667,
+				-27.238,
 				2,
 				-27.238
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamWingScale",
-			"Segments": [
-				0,
-				-21.865,
-				0,
-				2,
-				-21.865
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamStarWindMove",
-			"Segments": [
-				0,
-				-0.191,
-				0,
-				2,
-				-0.191
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamStarRot_2",
-			"Segments": [
-				0,
-				0.998,
-				0,
-				2,
-				0.998
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamStarScale_1",
-			"Segments": [
-				0,
-				0.356,
-				0,
-				2,
-				0.356
-			]
-		},
-		{
-			"Target": "Parameter",
-			"Id": "ParamStarMove_4",
-			"Segments": [
-				0,
-				0.578,
-				0,
-				2,
-				0.578
 			]
 		}
 	]

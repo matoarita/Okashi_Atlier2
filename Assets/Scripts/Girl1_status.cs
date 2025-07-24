@@ -3887,11 +3887,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             .SetRelative();
     }
 
+
+
     //移動した位置を元に戻す。
     public void ResetCharacterPosition()
     {
         character_move.transform.DOMoveX(0, 0.0f);
     }
+
 
     //FaceMotionの数字を入れると、それを再生。かつ再生フラグもたてる。.Playを使うよりも、アニメの遷移をなめらかにする処理。Debug_Panelからも読み込み。
     public void FaceMotionPlay(int _trans_motion)
@@ -3909,9 +3912,14 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             //timeOut2 = 35.0f; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
             timeOut2 = state.length; //次のヒント発生タイミングを、毎回、モーション再生ごとにリセット
         }
-
     }
 
+    //こっちは表情の強制変更
+    public void FaceExpressionPlay(int _trans_expression)
+    {
+        trans_motion = _trans_expression;
+        live2d_animator.SetInteger("trans_expression", trans_motion);
+    }
 
 
 
@@ -4455,8 +4463,15 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     //タップモーション　ランダムで決定
     void Random_TapMotion()
     {
-
-        random = Random.Range(0, 3);
+        if(GirlGokigenStatus >= 9)
+        {
+            random = Random.Range(0, 4); //intはmaxを含まない
+        }
+        else
+        {
+            random = Random.Range(0, 3);
+        }
+        
 
         switch (random)
         {
@@ -4476,6 +4491,12 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                 live2d_animator.Play("tapmotion_03_3", motion_layer_num, 0.0f);
                 hukidashiitem.GetComponent<TextController>().SetText("いてぃっ！");
+                break;
+
+            case 3:
+
+                live2d_animator.Play("tapmotion_03_4", motion_layer_num, 0.0f);
+                hukidashiitem.GetComponent<TextController>().SetText("あいてっ！");
                 break;
         }
     }

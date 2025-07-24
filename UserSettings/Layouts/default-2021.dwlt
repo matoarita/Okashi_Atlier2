@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 265
+  controlID: 29
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 139
+  controlID: 37
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,8 +166,8 @@ MonoBehaviour:
     y: 0
     width: 383
     height: 856
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -417,14 +417,14 @@ MonoBehaviour:
     - {fileID: 8666874500798138781, guid: c5de3252d77d9a64a9f2c33d5e936d4d, type: 2}
     - {fileID: 3363762880023890042, guid: 70b5d6f0ad31a29408906090fef2a845, type: 2}
     m_ValueSerializationHelper:
-    - e00: 0.4418106
+    - e00: 0.4966504
       e01: 0
       e02: 0
-      e03: -97.36478
+      e03: 84.989716
       e10: 0
-      e11: 0.4418106
+      e11: 0.4966504
       e12: 0
-      e13: 88.28357
+      e13: 68.1626
       e20: 0
       e21: 0
       e22: 1
@@ -433,14 +433,14 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
-    - e00: 0.4418106
+    - e00: 0.4966504
       e01: 0
       e02: 0
-      e03: -137.36479
+      e03: -607.01025
       e10: 0
-      e11: 0.4418106
+      e11: 0.4966504
       e12: 0
-      e13: 149.28357
+      e13: 197.1626
       e20: 0
       e21: 0
       e22: 1
@@ -561,14 +561,14 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
-    - e00: 0.7585824
+    - e00: 0.4966504
       e01: 0
       e02: 0
-      e03: -1368.2693
+      e03: -638.01025
       e10: 0
-      e11: 0.7585824
+      e11: 0.4966504
       e12: 0
-      e13: 301.0531
+      e13: 226.1626
       e20: 0
       e21: 0
       e22: 1
@@ -981,7 +981,7 @@ MonoBehaviour:
   m_AnimatorController: {fileID: 9100000, guid: c5de3252d77d9a64a9f2c33d5e936d4d,
     type: 2}
   m_BreadCrumbs:
-  - m_Target: {fileID: 1107671990025984578, guid: c5de3252d77d9a64a9f2c33d5e936d4d,
+  - m_Target: {fileID: 1107075153291775638, guid: c5de3252d77d9a64a9f2c33d5e936d4d,
       type: 2}
     m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
@@ -994,7 +994,7 @@ MonoBehaviour:
     m_IsLocked: 0
   m_CurrentEditor: 0
   m_LayerEditor:
-    m_SelectedLayerIndex: 1
+    m_SelectedLayerIndex: 0
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1030,7 +1030,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 8847eaffd847eafff04eeaff685beaffe267eaff0679eaff5287eaff7c92eaff400aedff48d3edff3cdcedff4ee1edff60e5edff0e84eeffe48beeffd69feeff56a7eeffd6a8eeff84a9eeff70aeeeff5ab2eeff10baeeffbe45efff3a5df0ff2e66f0ff3e69f0ff806cf0ff74a7f0ff40e6f0ffe2e6f0ff7c22f1ff1c23f1ffbe23f1ff6024f1ff0225f1ffa425f1ffac25f1ff4e26f1ff226df1ffc66df1ff52c5f3ffd49ef4ff20e2f4ffb02cf5ff006af5ffb437f8ff904ff9ff4c44fafff2a7faff2cf4fcffaecdfdff60cefdff04fbffff2e7d00008e7d0000ea7b0200b8a002002ebc0200dcbc020042f00600faa90800b66a090074cf0a00bed30a00bad60a00f6e80a00b6020b00a4070b0018090b00f0420b00
+      m_ExpandedIDs: ccb7ebff1cb8ebff34bfebffaccbebff26d8ebff4ae9ebff96f7ebffc002ecff847aeeff8c43efff804cefff9251efffa455efff52f4efff28fcefff1a10f0ff9a17f0ff1a19f0ffc819f0ffb41ef0ff9e22f0ff542af0ff02b6f0ff2acef1ff24d7f1ff34daf1ff7eddf1ff7618f2ff4457f2ffe657f2ff8693f2ff2694f2ffc894f2ff6a95f2ff0c96f2ffae96f2ffb696f2ff5897f2ff26def2ffcadef2fffadcfeff04fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1138,23 +1138,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Hikari_Live2D_3/motion
+    - Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Hikari_Live2D_3/motion
+  - Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b8b40100
-    m_LastClickedID: 111800
-    m_ExpandedIDs: 00000000ca990100cc990100ce990100d0990100d2990100d4990100d6990100d8990100da990100dc990100de990100e09901002cb4010000ca9a3b
+    scrollPos: {x: 0, y: 209}
+    m_SelectedIDs: 86b40100
+    m_LastClickedID: 111750
+    m_ExpandedIDs: 00000000ec990100ee990100f0990100f2990100f4990100f6990100f8990100fa990100fc990100fe990100009a0100029a01004eb4010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1182,7 +1182,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d68c0000
     m_LastClickedID: 36054
-    m_ExpandedIDs: 00000000ca990100cc990100ce990100d0990100d2990100d4990100d6990100d8990100da990100dc990100de990100e0990100
+    m_ExpandedIDs: 00000000ec990100ee990100f0990100f2990100f4990100f6990100f8990100fa990100fc990100fe990100009a0100029a0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1234,7 +1234,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 1097.5732}
+    m_ScrollPosition: {x: 0, y: 842}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 149

@@ -263,7 +263,14 @@ public class Debug_Panel : MonoBehaviour {
 
             canvas = GameObject.FindWithTag("Canvas");
 
-            girl1_status.FaceMotionPlay(fmotion_num);
+            if (fmotion_num < 1000)
+            {
+                girl1_status.FaceExpressionPlay(fmotion_num);
+            }
+            else //1000~台がfacemotion
+            {
+                girl1_status.FaceMotionPlay(fmotion_num);
+            }
         }
     }
 

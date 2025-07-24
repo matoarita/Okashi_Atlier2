@@ -2597,7 +2597,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでにいちゃんと・・♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(110, "event_sakuraring", "さくらの指輪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(110, "event_sakuraring", "大きなさくらの木の下で・・♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
     }
 
     //思い出イベントの現在のフラグを取得
