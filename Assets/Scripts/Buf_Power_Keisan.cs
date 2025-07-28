@@ -914,13 +914,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case "Cookie":
 
                         OvenBuf();
-                        //RodsBuf();
+                        CookieBuf();
                         break;
 
                     case "Cookie_Hard":
 
                         OvenBuf();
-                        //RodsBuf();
+                        CookieBuf();
                         break;                   
 
                     case "Rusk":
@@ -1377,7 +1377,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     }
                 }
             }
-        }
+        }       
+    }
+
+    void CookieBuf()
+    {
 
         if (pitemlist.KosuCount("cookie_powerup1") >= 1) //
         {
@@ -1399,7 +1403,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             _buf_shokukanup += 100;
         }
-        
+
     }
 
     void MagicGlowBuf()
@@ -1408,8 +1412,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             case "a_GlowCookie":
 
-                MagicGlowBuf_method();
-                
+                MagicGlowBuf_method();               
                 break;
 
             case "a_GlowCookie_Hard":

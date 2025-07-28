@@ -4346,6 +4346,18 @@ public class Compound_Main : MonoBehaviour
                                     get_heart = 10;
                                     break;
 
+                                case 4:
+
+                                    _textmain.text = "ヒカリは励ましている！";
+                                    get_heart = 3;
+                                    break;
+
+                                case 5:
+
+                                    _textmain.text = "ヒカリは励ましている！";
+                                    get_heart = 1;
+                                    break;
+
                                 default:
 
                                     _textmain.text = "ヒカリは応援している！";
@@ -4579,6 +4591,8 @@ public class Compound_Main : MonoBehaviour
         //PlayerStatus.player_time = 0;
         PlayerStatus.player_cullent_hour = GameMgr.StartDay_hour;
         PlayerStatus.player_cullent_minute = 0;
+        GameMgr.BarQuest_NewReset = false; //酒場クエストの更新フラグ　リセット
+        GameMgr.BarQuest_NewReset2 = false;
 
         //寝るタイミングで、いくつかのフラグもリセット
         SleepAfter_FlagReset();

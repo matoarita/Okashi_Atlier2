@@ -207,8 +207,31 @@ public class Bar_Main_Controller : MonoBehaviour {
         StartRead = false;
         check_event = false; //イベントのフラグ              
 
-        //入店のタイミングでのみ、クエスト更新
-        shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
+        //入店のタイミングでのみ、クエスト更新　また、一日に数回更新するモード
+        if (GameMgr.System_BarQuestKoushin_DayTiming)
+        {
+            if (PlayerStatus.player_cullent_hour >= 8 && PlayerStatus.player_cullent_hour < 15)
+            {
+                if (!GameMgr.BarQuest_NewReset)
+                {
+                    GameMgr.BarQuest_NewReset = true;
+                    shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
+                }
+            }
+            else if (PlayerStatus.player_cullent_hour >= 15) //15時にもう一回更新される
+            {
+                if (!GameMgr.BarQuest_NewReset2)
+                {
+                    GameMgr.BarQuest_NewReset2 = true;
+                    shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
+                }
+            }
+        }
+        else
+        {
+            //入店のたびに依頼更新
+            shopquestlist_obj.GetComponent<ShopQuestListController>().SetQuestInit = true;
+        }
 
         //入店の音
         if (!GameMgr.ShopEnter_ButtonON) //重複防止 trueのときは音ならさない

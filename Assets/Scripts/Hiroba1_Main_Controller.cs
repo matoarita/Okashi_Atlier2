@@ -751,7 +751,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_Active31();
+                //On_Active31();
+                On_ContestActive01(); //会場前へ
                 break;
 
             case "Or_Hiroba_CentralPark2":
@@ -1002,7 +1003,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水でToggle2を押した
 
-                On_Active32();
+                //On_Active32();
+                On_Active01();
                 break;
 
             case "Or_Hiroba_CentralPark2":
@@ -1109,7 +1111,23 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水でToggle3を押した
 
-                On_Active03();
+                //On_Active03();
+                if (GameMgr.outgirl_Nowprogress)
+                {
+                    GameMgr.hiroba_event_placeNum = 2000; //
+                    GameMgr.hiroba_event_ID = 200100;
+
+                    EventReadingStart();
+
+                    /*if (text_area_hyouji_on)
+                    {
+                        _text.text = "ヒカリがいないから、行ってもしょうがないな・・。";
+                    }*/
+                }
+                else
+                {
+                    On_Active10();
+                }
                 break;
 
             case "Or_Hiroba_CentralPark2":
@@ -1420,7 +1438,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_Active05();
+                //On_Active05();
+                On_ShopActive01();
                 break;
 
             case "Or_Hiroba_CentralPark2": //散歩道
@@ -1619,7 +1638,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_Active04();
+                On_BarActive01();
+                //On_Active04();
                 break;
 
             case "Or_Hiroba_CentralPark_Left": //中央噴水　左
@@ -1756,7 +1776,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             case "Or_Hiroba_CentralPark": //中央噴水
 
-                On_Active200();
+                //On_Active200();
+                On_FarmActive01();
                 break;
 
             case "Or_Hiroba_CentralPark_Left": //中央噴水　左
@@ -1890,6 +1911,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     {
         switch (GameMgr.Scene_Name)
         {
+            case "Or_Hiroba_CentralPark": //中央噴水
+
+                On_ShopActive01();
+                break;
+
             case "Or_Hiroba_Spring_Shoping_Moll": //中央噴水
 
                 On_ShopActive01();
@@ -4123,7 +4149,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
-                text_area_hyouji_on = true;
+                //text_area_hyouji_on = true;
                 break;
 
             case "Or_Hiroba_CentralPark2": //中央噴水のお散歩小道

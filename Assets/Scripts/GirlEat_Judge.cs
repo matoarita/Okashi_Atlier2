@@ -1887,18 +1887,23 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 }
 
-                //100点以上で、さらに高得点を一度もとったことがなければ、えめらるどんぐり一個もらえる
-                if (total_score >= GameMgr.high_score)
+                if (contest_type == 10) //コンテストの味見
+                { }
+                else
                 {
-                    if (database.items[_baseID].HighScore_flag == 0)
+                    //100点以上で、さらに高得点を一度もとったことがなければ、えめらるどんぐり一個もらえる
+                    if (total_score >= GameMgr.high_score)
                     {
-                        emerarudonguri_get = true;
-                    }
-                    else if (database.items[_baseID].HighScore_flag == 1)
-                    {
-                        if (total_score >= GameMgr.high_score_2)
+                        if (database.items[_baseID].HighScore_flag == 0)
                         {
                             emerarudonguri_get = true;
+                        }
+                        else if (database.items[_baseID].HighScore_flag == 1)
+                        {
+                            if (total_score >= GameMgr.high_score_2)
+                            {
+                                emerarudonguri_get = true;
+                            }
                         }
                     }
                 }
@@ -3260,10 +3265,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             SetHintText(1); //高得点時
             Hint_Text.text = temp_hint_text;
             GameMgr.high_score_flag = true; //ハイスコアでクリアしたので、高得点ゲットのフラグがたつ。
-            if (database.items[_baseID].HighScore_flag < 1)
-            {
-                database.items[_baseID].HighScore_flag = 1;
-                emeraldonguri_status = 0;
+            if (contest_type == 10) //コンテストの味見で使用する
+            { }
+            else { 
+                if (database.items[_baseID].HighScore_flag < 1)
+                {
+                    database.items[_baseID].HighScore_flag = 1;
+                    emeraldonguri_status = 0;
+                }
             }
         }
         else if (total_score >= GameMgr.high_score_2) //150点以上
@@ -3276,10 +3285,15 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             Hint_Text.text = temp_hint_text;
             GameMgr.high_score_flag = true; //ハイスコアでクリアしたので、高得点ゲットのフラグがたつ。  
             //GameMgr.high_score_flag2 = true; //150~でクリアしたフラグ
-            if (database.items[_baseID].HighScore_flag < 2)
+            if (contest_type == 10) //コンテストの味見で使用する
+            { }
+            else
             {
-                database.items[_baseID].HighScore_flag = 2;
-                emeraldonguri_status = 1;
+                if (database.items[_baseID].HighScore_flag < 2)
+                {
+                    database.items[_baseID].HighScore_flag = 2;
+                    emeraldonguri_status = 1;
+                }
             }
         }
         else if (total_score <= 0) //0以下。つまりまずかった

@@ -1519,7 +1519,34 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 }
                                 else
                                 {
-                                    GameMgr.GirlLoveSubEvent_num = 1200;
+                                    switch(GameMgr.contest_Rank_Count) //上から1位～5位
+                                    {
+                                        case 1:
+
+                                            GameMgr.GirlLoveSubEvent_num = 1200;
+                                            break;
+
+                                        case 2:
+
+                                            GameMgr.GirlLoveSubEvent_num = 1201;
+                                            break;
+
+                                        case 3:
+
+                                            GameMgr.GirlLoveSubEvent_num = 1201;
+                                            break;
+
+                                        case 4:
+
+                                            GameMgr.GirlLoveSubEvent_num = 1202;
+                                            break;
+
+                                        case 5:
+
+                                            GameMgr.GirlLoveSubEvent_num = 1203;
+                                            break;
+                                    }
+                                    
                                     GameMgr.SubEvAfterHeartGet_num = 200;
                                 }
                             }

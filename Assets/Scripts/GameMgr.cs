@@ -67,6 +67,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
     public static bool System_BarNinkiHyouji_ON = true; //酒場で人気パネルを表示する
     public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
+    public static bool System_BarQuestKoushin_DayTiming = true; //酒場の依頼が、一日ごとに更新される仕様。オフだと、お店に入るたびに、依頼が変わる。
 
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
@@ -125,7 +126,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_HeartLVevent_01 = 9; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
-    public static int System_Yachin_Cost02 = 1500; //〇日ごとバージョン
+    public static int System_Yachin_Cost02 = 1000; //〇日ごとバージョン
     public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
@@ -266,6 +267,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool[] OrRoomBuy = new bool[ReleaseEvent_num]; //購入のフラグ
     public static int[] OrRoomCost = new int[ReleaseEvent_num]; //部屋の費用　これはセーブ不要
     public static string[] OrRoomNameHyouji = new string[ReleaseEvent_num]; //部屋の名前　セーブ不要
+
+    //セーブまだ
+    public static bool BarQuest_NewReset; //酒場クエストの更新フラグ　falseなら更新し、trueに。寝るとリセットされる
+    public static bool BarQuest_NewReset2;
 
     //飾っているアイテムのリスト
     public static Dictionary<string, bool> BGAcceItemsName = new Dictionary<string, bool>(); //背景の置物のリスト。
@@ -1001,6 +1006,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
 
 
+
     //セリフ関連の一時変数
     public static string ContestRep_text1;
     public static string ContestRep_text2;
@@ -1629,6 +1635,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ContestStartEnshutu_Flag = false;
         CatStartPanel_HyoujiKoushinFlag = false;
         CatEscapeFlag = false;
+        BarQuest_NewReset = false;
+        BarQuest_NewReset2 = false;
         AmusePlayCount = 0;
 
 

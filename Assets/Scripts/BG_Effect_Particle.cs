@@ -211,6 +211,7 @@ public class BG_Effect_Particle : MonoBehaviour
                 Eff_obj.transform.Find("BG_Particle_Light").gameObject.SetActive(true);
                 Eff_obj.transform.Find("BG_Particle_Light (1)").gameObject.SetActive(true);
                 Eff_obj.transform.Find("BG_Particle_Light_Night").gameObject.SetActive(false);
+                Eff_obj.transform.Find("BG_Particle_Light_moon").gameObject.SetActive(false);
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light8.rateOverTime = new ParticleSystem.MinMaxCurve(1);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(2);
@@ -269,15 +270,16 @@ public class BG_Effect_Particle : MonoBehaviour
                 Eff_obj.transform.Find("BG_Particle_Light").gameObject.SetActive(false);
                 Eff_obj.transform.Find("BG_Particle_Light (1)").gameObject.SetActive(false);
                 Eff_obj.transform.Find("BG_Particle_Light_Night").gameObject.SetActive(true);
+                Eff_obj.transform.Find("BG_Particle_Light_moon").gameObject.SetActive(true);
 
                 particleEm_Light1.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light8.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light2.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light3.rateOverTime = new ParticleSystem.MinMaxCurve(0);
                 particleEm_Light4.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(200);
+                particleEm_Light5.rateOverTime = new ParticleSystem.MinMaxCurve(2);
                 particleEm_Light6.rateOverTime = new ParticleSystem.MinMaxCurve(0);
-                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(1);
+                particleEm_Light7.rateOverTime = new ParticleSystem.MinMaxCurve(2);
 
                 break;
         }

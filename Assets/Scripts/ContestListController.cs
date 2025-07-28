@@ -61,7 +61,9 @@ public class ContestListController : MonoBehaviour
 
     private int contest_allcount; //出場できるコンテスト（表示はされてないのも含む）の全ての数
     private int contest_victorycount; //現在1位をとったコンテスト数のカウント
+    private int contest_victorycount2; //現在2位をとったコンテスト数のカウント
     private float archivement_percent;
+    private float ar_one;
 
     void Awake() //Startより手前で先に読みこんで、OnEnableの挙動のエラー回避
     {     
@@ -155,11 +157,22 @@ public class ContestListController : MonoBehaviour
         //Debug.Log("readID:" + read_ID);
         contest_allcount = conteststartList_database.ContestAll_PlayOKCounter(read_ID);
         contest_victorycount = conteststartList_database.ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
+        contest_victorycount2 = conteststartList_database.ReturnVictoryCount_Area(2, read_ID); //そのエリアの取得済　2位をカウント
 
         Debug.Log("contest_allcount:" + contest_allcount);
         Debug.Log("contest_victorycount:" + contest_victorycount);
 
-        archivement_percent = (float)contest_victorycount / (float)contest_allcount * 100f;
+        ar_one = 100f / (float)contest_allcount; //コンテスト一つあたりの達成率 100%をそのエリアの全コンテスト数で割る
+
+        //トータルの達成率　全て1位ならそのまま100％　2位がまざってると、2位は達成率が半減する
+        if (contest_victorycount == contest_allcount) //100%
+        {
+            archivement_percent = 100f;
+        }
+        else
+        {
+            archivement_percent = (float)contest_victorycount * ar_one + (float)contest_victorycount2 * ar_one * 0.5f;
+        }
         Debug.Log("archivement_percent:" + archivement_percent);
         archivement_text.text = archivement_percent.ToString("F2") + "% / 100%";
     }

@@ -22,6 +22,11 @@ public class Character_EndingAnim : MonoBehaviour
         AnimFirst = false;
         GameMgr.Bend_FadeAnimStart = false;
         StartRead = false;
+
+        if(!GameMgr.ending_getflag[0] && GameMgr.ending_getflag[1])
+        {
+            GirlTouchOFF();
+        }
     }
 
     // Update is called once per frame

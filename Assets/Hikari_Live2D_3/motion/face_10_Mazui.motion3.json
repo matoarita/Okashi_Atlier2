@@ -5,9 +5,9 @@
 		"Fps": 30.0,
 		"Loop": true,
 		"AreBeziersRestricted": true,
-		"CurveCount": 68,
-		"TotalSegmentCount": 98,
-		"TotalPointCount": 350,
+		"CurveCount": 69,
+		"TotalSegmentCount": 99,
+		"TotalPointCount": 352,
 		"UserDataCount": 0,
 		"TotalUserDataSize": 0
 	},
@@ -1180,6 +1180,17 @@
 				1,
 				0,
 				2,
+				0,
+				3,
+				0
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Id": "ParamBathCheek",
+			"Segments": [
+				0,
+				0,
 				0,
 				3,
 				0

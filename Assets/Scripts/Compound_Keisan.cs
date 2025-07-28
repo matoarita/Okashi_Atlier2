@@ -2760,17 +2760,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 if (_basecrispy < 60) //60までは伸びる
                 {
                 }
-                else if (_basecrispy >= 60 && _basecrispy < 80)
+                else if (_basecrispy >= 60 && _basecrispy < 110)
                 {
                     _basecrispy = (int)(_basecrispy * 0.9f);
                 }
-                else if (_basecrispy >= 80 && _basecrispy < 100)
+                else if (_basecrispy >= 110)
                 {
                     _basecrispy = (int)(_basecrispy * 0.85f);
-                }
-                else if (_basecrispy >= 100)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.7f);
                 }
                 break;
 
@@ -2779,17 +2775,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 if (_basecrispy < 60) //60までは伸びる
                 {
                 }
-                else if (_basecrispy >= 60 && _basecrispy < 80)
+                else if (_basecrispy >= 60 && _basecrispy < 110)
                 {
                     _basecrispy = (int)(_basecrispy * 0.9f);
                 }
-                else if (_basecrispy >= 80 && _basecrispy < 100)
+                else if (_basecrispy >= 110)
                 {
                     _basecrispy = (int)(_basecrispy * 0.85f);
-                }
-                else if (_basecrispy >= 100)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.7f);
                 }
                 break;
         }
