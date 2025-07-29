@@ -591,14 +591,30 @@ public class Contest_Judge : MonoBehaviour {
                                 judge_flag = false;
                             }
                         }
+
+                        if (_status == 1)
+                        {
+                            //クッキー系は点数が下がる
+                            //Contest_CookieHosei(0.65f);
+                        }
                         break;
 
                     case 2:
 
+                        if (_status == 1)
+                        {
+                            //クッキー系は点数が下がる
+                            Contest_CookieHosei(0.85f);
+                        }
                         break;
 
                     case 3:
 
+                        if (_status == 1)
+                        {
+                            //クッキー系は点数が下がる
+                            Contest_CookieHosei(0.85f);
+                        }
                         break;
                 }
 
@@ -611,10 +627,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
-
-                    //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.65f);
-
+                   
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();

@@ -126,7 +126,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_HeartLVevent_01 = 9; //ヒカリがお菓子作りを覚えるイベント発生
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
-    public static int System_Yachin_Cost02 = 1000; //〇日ごとバージョン
+    public static int System_Yachin_Cost02 = 1500; //〇日ごとバージョン
     public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
@@ -1003,6 +1003,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int CountOmoideFlag;
     public static string MagicSkill_TopUseName;
     public static int AmusePlayCount; //遊園地で乗り物にのった数のカウント
+    public static string barMassage_RandomUpName; //マッサージでどのパラメータがあがるかの名前
+    public static int barMassage_RandomUpPoint; //そのときのポイント表示用
 
 
 
@@ -1638,6 +1640,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         BarQuest_NewReset = false;
         BarQuest_NewReset2 = false;
         AmusePlayCount = 0;
+        barMassage_RandomUpName = "";
 
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)

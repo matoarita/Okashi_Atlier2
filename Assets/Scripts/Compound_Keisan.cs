@@ -2434,6 +2434,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _basejuice = _basesweat + _basebitter + _basesour;
         }
+        else if(Comp_method_bunki == 3) //仕上げのときは、ほんの少しだけあがる
+        {
+            _basejuice = (int)((_basesweat + _basebitter + _basesour) / 3);
+        }
 
         //新規作成時の特殊処理
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
@@ -2753,10 +2757,24 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     void Okashi_SpecialKeisan2()
     {
         //特殊補正　クッキーなどのおかしの種類で食感が伸びにくくなる
-        switch (_base_itemType_subB)
+        if (_base_itemType_subB == "a_CookieSimple" || _base_itemType_subB == "a_GlowCookie" || _base_itemType_subB == "a_CookieSource")
         {
-            case "a_CookieSimple":
 
+            if (_basecrispy < 60) //60までは伸びる
+            {
+            }
+            else if (_basecrispy >= 60 && _basecrispy < 110)
+            {
+                _basecrispy = (int)(_basecrispy * 0.9f);
+            }
+            else if (_basecrispy >= 110)
+            {
+                _basecrispy = (int)(_basecrispy * 0.85f);
+            }
+        }
+
+        if (_base_itemType_subB == "a_RuskSimple")
+        { 
                 if (_basecrispy < 60) //60までは伸びる
                 {
                 }
@@ -2768,22 +2786,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     _basecrispy = (int)(_basecrispy * 0.85f);
                 }
-                break;
-
-            case "a_RuskSimple":
-
-                if (_basecrispy < 60) //60までは伸びる
-                {
-                }
-                else if (_basecrispy >= 60 && _basecrispy < 110)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.9f);
-                }
-                else if (_basecrispy >= 110)
-                {
-                    _basecrispy = (int)(_basecrispy * 0.85f);
-                }
-                break;
         }
     }
 

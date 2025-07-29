@@ -74,7 +74,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     private List<bool> shopuwasa_List = new List<bool>();
     private List<int> random_uwasa_select = new List<int>();
     private int uwasalist_count;
-    private int rnd;
+    private int rnd, rnd2;
     private int count;
     private bool StartRead;
 
@@ -770,6 +770,54 @@ public class Bar_Main_Controller : MonoBehaviour {
                     if (GameMgr.NPC_pahupahu_point >= 10)
                     {
                         GameMgr.sp_talk_number = 100;
+
+                        //マッサージしてもらうので、食感パラメータが一部ランダムで上がる
+                        rnd = Random.Range(0, 6);
+                        rnd2 = Random.Range(1, 6);
+                        switch(rnd)
+                        {
+                            case 0:
+
+                                PlayerStatus.player_okashi_crispyup += rnd2;
+                                GameMgr.barMassage_RandomUpName = "さくさく感";
+                                GameMgr.barMassage_RandomUpPoint = rnd2;
+                                break;
+
+                            case 1:
+
+                                PlayerStatus.player_okashi_fluffyup += rnd2;
+                                GameMgr.barMassage_RandomUpName = "ふわふわ感";
+                                GameMgr.barMassage_RandomUpPoint = rnd2;
+                                break;
+
+                            case 2:
+
+                                PlayerStatus.player_okashi_smoothup += rnd2;
+                                GameMgr.barMassage_RandomUpName = "なめらか感";
+                                GameMgr.barMassage_RandomUpPoint = rnd2;
+                                break;
+
+                            case 3:
+
+                                PlayerStatus.player_okashi_hardnessup += rnd2;
+                                GameMgr.barMassage_RandomUpName = "はごたえ";
+                                GameMgr.barMassage_RandomUpPoint = rnd2;
+                                break;
+
+                            case 4:
+
+                                PlayerStatus.player_okashi_juiceup += rnd2;
+                                GameMgr.barMassage_RandomUpName = "のどごし";
+                                GameMgr.barMassage_RandomUpPoint = rnd2;
+                                break;
+
+                            case 5:
+
+                                PlayerStatus.player_okashi_tea_flavorup += rnd2;
+                                GameMgr.barMassage_RandomUpName = "香り";
+                                GameMgr.barMassage_RandomUpPoint = rnd2;
+                                break;
+                        }
                     }
                     else
                     {

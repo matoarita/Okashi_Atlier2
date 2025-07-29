@@ -2595,6 +2595,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("StationEvent_num", 0);
         engine.Param.TrySetParameter("EndOrPause_Num", 0); //ポーズOrエンドどちらかを判定する番号　基本0=エンドでリセットしておく。
         engine.Param.TrySetParameter("BarPahuPahuPoint", GameMgr.NPC_pahupahu_point); //パフパフポイント
+        engine.Param.TrySetParameter("BarPahuPahu_RandomUPName", GameMgr.barMassage_RandomUpName);
+        engine.Param.TrySetParameter("BarPahuPahu_RandomUPPoint", GameMgr.barMassage_RandomUpPoint);
 
         if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
         {
