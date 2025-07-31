@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 72
+  controlID: 153
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,8 +166,8 @@ MonoBehaviour:
     y: 0
     width: 383
     height: 856
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -1030,7 +1030,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: cebbf8ff1ebcf8ff3cc3f8ffb8cff8ff36dcf8ff5eedf8ffaefbf8ffdc06f9ffa47efbffb047fcffa650fcffbc55fcffd259fcff84f8fcff5e00fdff5414fdffde1bfdff6a1dfdff1e1efdff1623fdff0c27fdffce2efdff88bafdffb4d2feffacdbfeffc0defeff0ee2feff081dffffda5bffff805cffff2498ffffc898ffff6e99ffff149affffba9affff609bffff6c9bffff129cffff40e3fffff8e3ffff04fbffff
+      m_ExpandedIDs: 36f7efff86f7efffa2feefff1e0bf0ff9c17f0ffc428f0ff1437f0ff4242f0ff0abaf2ff1683f3ff0e8cf3ff2491f3ff3a95f3ffec33f4ff5c3cf4ff5250f4ffdc57f4ff6859f4ff1c5af4ff145ff4ff0a63f4ffcc6af4ff86f6f4ff060ef6fffe16f6ff121af6ff581df6ff5058f6ff2097f6ffc697f6ff64d3f6ff08d4f6ffaed4f6ff54d5f6fffad5f6ffa0d6f6ffacd6f6ff52d7f6ff2a1ef7ffd21ef7ff1631f7ff6631f7ff7c38f7fff444f7ff6e51f7ff9262f7ffde70f7ff087cf7ffccf3f9ffd4bcfaffc8c5faffdacafaffeccefaff9a6dfbff0676fbfff889fbff7891fbfff892fbffa893fbff9498fbff7e9cfbff34a4fbffe22ffcff5e47fdff5250fdff6253fdffa456fdff9891fdff64d0fdff06d1fdffa00cfeff400dfeffe20dfeff840efeff260ffeffc80ffeffd00ffeff7210feff4657feffea57feff10d2feff26ddfeff34ddfeff36ddfeff8ae0feff98e0feff04fbffff9a670000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1138,23 +1138,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Utage_Scenario
+    - Assets/Resources/Utage_Scenario/Texture/Sprite
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Utage_Scenario
+  - Assets/Resources/Utage_Scenario/Texture/Sprite
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\aritashogo\Documents\Unity\Okashi_Atlier2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 629}
-    m_SelectedIDs: 189e0000
-    m_LastClickedID: 40472
-    m_ExpandedIDs: 00000000cc7c0000ce7c0000d07c0000d27c0000d47c0000d67c0000d87c0000da7c0000dc7c0000de7c0000e07c0000e27c0000e47c000000ca9a3b
+    m_SelectedIDs: 1ab50100
+    m_LastClickedID: 111898
+    m_ExpandedIDs: 00000000109a0100129a0100149a0100169a0100189a01001a9a01001c9a01001e9a0100209a0100229a0100249a0100269a0100289a010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1182,7 +1182,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d68c0000
     m_LastClickedID: 36054
-    m_ExpandedIDs: 00000000cc7c0000ce7c0000d07c0000d27c0000d47c0000d67c0000d87c0000da7c0000dc7c0000de7c0000e07c0000e27c0000e47c0000
+    m_ExpandedIDs: 00000000109a0100129a0100149a0100169a0100189a01001a9a01001c9a01001e9a0100209a0100229a0100249a0100269a0100289a0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1210,21 +1210,21 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: d2ad0100fed10000a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100603d0100eea10000fc6301002aa000003ad40000a09300001c930000766b0100f6550100505601006e5801003c92000004980000e29400001e950000e6940000e465010054950000724d0100744d0100cc4c010030e20300ae570100a4560100fa5e2700a29f0000a09f00001ea00000a295000046e40600049500009079010040950000360701008a250100009e01004697010032cd000020cd0000d6a4010044cd00006ecd00008ccd000082cd000092cd000058fb0000c0da0000887e00000295000030bd00009e9a0100aabc00006e900100e09f01007427010004650400e0bd0000aebd0000c6d5000080c90000f4e000008ede0000f4970000de9700002a7d01009ecc01002898000076be2c000069010098690100ea6901006c8101003c71010018980000fc97000044980000066801004232190090d15200961e0700d4180800d81808006c980000bae0000042ea0500f2b1000000000000249b00006e9e00002ca10100b49d0000cc9f0100
+    m_ExpandedInstanceIDs: d2ad0100fed10000a2861e00ac861e00daa60100a6ee00000a490100f07200001ed20000d0940000ee4301005289000074e00000ec3c0000ca3c0000e033000084ad00009e710000a46101003c4e0100164e01009e270000c22f0000783b000012660100de590100aa5f01007c440100aeb00000ea4f0100eea10000fc6301002aa000003ad40000a09300001c930000766b0100f6550100505601006e5801003c92000004980000e29400001e950000e6940000e465010054950000724d0100744d0100cc4c010030e20300ae570100a4560100fa5e2700a29f0000a09f00001ea00000a295000046e40600049500009079010040950000360701008a250100009e01004697010032cd000020cd0000d6a4010044cd00006ecd00008ccd000082cd000092cd000058fb0000c0da0000887e00000295000030bd00009e9a0100aabc00006e900100e09f01007427010004650400e0bd0000aebd0000c6d5000080c90000f4e000008ede0000f4970000de9700002a7d01009ecc01002898000076be2c000069010098690100ea6901006c8101003c71010018980000fc97000044980000066801004232190090d15200961e0700d4180800d81808006c980000bae0000042ea0500f2b1000000000000249b00006e9e00002ca10100b49d0000cc9f0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Entity_compoItemDataBase
-      m_OriginalName: Entity_compoItemDataBase
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 36136
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:
@@ -1636,9 +1636,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -10.049034, y: -27.333263, z: -1.6525059}
+    m_Target: {x: 54.95272, y: -39.772285, z: 174.29355}
     speed: 2
-    m_Value: {x: -10.049034, y: -27.333263, z: -1.6525059}
+    m_Value: {x: 54.95272, y: -39.772285, z: 174.29355}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1689,9 +1689,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 41.41599
+    m_Target: 10.410526
     speed: 2
-    m_Value: 41.41599
+    m_Value: 10.410526
   m_Ortho:
     m_Target: 1
     speed: 2

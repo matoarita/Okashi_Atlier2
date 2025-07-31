@@ -454,14 +454,11 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             case "Or_Bar_A1": //ルーティ
 
-                /*if (GameMgr.GirlLoveEvent_num >= GameMgr.System_StartHonpen_num) //「外へでる」がでるようになってから、お店の外にでれるようになる。
+                //あるクエスト以降、お菓子わたせる。
+                if (GameMgr.NPC_FriendPoint[40] >= 70)
                 {
-                    shopon_toggle_back.SetActive(true);
+                    shopon_toggle_present.SetActive(true);
                 }
-                else
-                {
-                    shopon_toggle_back.SetActive(false);
-                }*/
 
                 shopon_toggle_talk.SetActive(true);
                 shopon_toggle_uwasa.SetActive(true);                
@@ -649,6 +646,46 @@ public class Bar_Main_Controller : MonoBehaviour {
             //メイン画面にもどったときに、イベントを発生させるフラグをON
             GameMgr.CompoundEvent_num[10] = true;
             GameMgr.CompoundEvent_flag = true;
+        }
+        else
+        {
+            //自動イベント
+            if (GameMgr.NPC_FriendPoint[40] >= 55 && GameMgr.NPC_FriendPoint[40] < 70)
+            {
+                if (!GameMgr.Or_ShopEvent_stage[105]) //ばななはおすき？
+                {
+                    GameMgr.Or_ShopEvent_stage[105] = true;
+
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.bar_event_num = 1000;
+                    GameMgr.bar_event_flag = true;
+
+                    check_event = true;
+
+                    StartCoroutine("Scenario_loading");
+                }
+            }
+            else if (GameMgr.NPC_FriendPoint[40] >= 70)
+            {
+                if (!GameMgr.Or_ShopEvent_stage[106]) //ばななフェスを教えてくれる
+                {
+                    GameMgr.Or_ShopEvent_stage[106] = true;
+
+                    GameMgr.scenario_ON = true;
+
+                    GameMgr.bar_event_num = 1010;
+                    GameMgr.bar_event_flag = true;
+
+                    check_event = true;
+
+                    StartCoroutine("Scenario_loading");
+                }
+            }
+            else
+            {
+
+            }
         }
     }
 
@@ -929,7 +966,35 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
             GameMgr.talk_flag = true;
-            GameMgr.talk_number = 500;
+
+            switch (GameMgr.Scene_Name)
+            {
+                case "Bar_Grt":
+
+                    GameMgr.talk_number = 500;
+                    break;
+
+                case "Or_Bar_A1": //ルーティさん
+
+                    GameMgr.talk_number = 1500;
+                    break;
+
+                case "Or_Bar_B1":
+
+                    GameMgr.talk_number = 2500;
+                    break;
+
+                case "Or_Bar_C1": //アプリコットのお姉さん
+
+                    GameMgr.talk_number = 3500;
+                    break;
+
+                case "Or_Bar_D1":
+
+                    GameMgr.talk_number = 4500;
+                    break;
+            }
+            
             GameMgr.utage_charaHyouji_flag = true;
 
             //アイテムを使用するときのフラグ

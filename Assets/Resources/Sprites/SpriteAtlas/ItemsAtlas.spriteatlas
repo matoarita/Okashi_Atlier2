@@ -494,6 +494,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6c27d7d858cf9af4995f906dbad82c7b, type: 3}
   - {fileID: 21300000, guid: 361251e877821e9469f0199747d4ed56, type: 3}
   - {fileID: 21300000, guid: f3a894e84259d604691407a273c3bff6, type: 3}
+  - {fileID: 21300000, guid: 81efb8e8afd0f804690d4e8a44961e34, type: 3}
   - {fileID: 21300000, guid: 4cd4ace8c27a4e14bb6c0b975fefa50a, type: 3}
   - {fileID: 21300000, guid: a2a9c3f8ba200654f93352e890846624, type: 3}
   - {fileID: 21300000, guid: a90af7f8eadbc5b45b9d1ca3c18bf200, type: 3}
@@ -1274,6 +1275,7 @@ SpriteAtlas:
   - chocoichigo_base
   - soda_melon
   - apple
+  - sakura_ring
   - elder_flower
   - silver_suger
   - muscat

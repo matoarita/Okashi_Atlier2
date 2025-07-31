@@ -268,8 +268,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] OrRoomCost = new int[ReleaseEvent_num]; //部屋の費用　これはセーブ不要
     public static string[] OrRoomNameHyouji = new string[ReleaseEvent_num]; //部屋の名前　セーブ不要
 
-    //セーブまだ
-    public static bool BarQuest_NewReset; //酒場クエストの更新フラグ　falseなら更新し、trueに。寝るとリセットされる
+    //酒場クエストの更新フラグ
+    public static bool BarQuest_NewReset; //falseなら更新し、trueに。寝るとリセットされる
     public static bool BarQuest_NewReset2;
 
     //飾っているアイテムのリスト
@@ -2096,7 +2096,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         CollectionItemsName.Clear();
         CollectionItemsName.Add("kuma_nuigurumi");
+        CollectionItemsName.Add("yotuba_crown");
         CollectionItemsName.Add("amano_champmery");
+        CollectionItemsName.Add("sakura_ring");
         CollectionItemsName.Add("beorv_iron");
         CollectionItemsName.Add("milk_bin");
         CollectionItemsName.Add("yukidaruma");
@@ -2111,7 +2113,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("hikari_powerup1");
         CollectionItemsName.Add("hikari_powerup3");
         CollectionItemsName.Add("candy_powerup1");
-        CollectionItemsName.Add("cookie_powerup2");       
+        CollectionItemsName.Add("cookie_powerup2");
+        CollectionItemsName.Add("cookie_powerup3");
+        CollectionItemsName.Add("cookie_powerup4");
         CollectionItemsName.Add("crepe_powerup2");
         CollectionItemsName.Add("crepe_powerup3");
         CollectionItemsName.Add("crepe_powerup4");

@@ -217,6 +217,13 @@ public class ShopQuestListController : MonoBehaviour
 
             _quest_listitem[list_count].transform.Find("Background/CancelButton").gameObject.SetActive(false);
 
+            if(quest_database.questRandomset[i].Quest_GetNinkiFlag >= 1) //スターゲットした
+            {
+                _quest_listitem[list_count].transform.Find("Background/NinkiGetIcon").gameObject.SetActive(true);
+            }else
+            {
+                _quest_listitem[list_count].transform.Find("Background/NinkiGetIcon").gameObject.SetActive(false);
+            }
             //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 
             ++list_count;
@@ -353,6 +360,14 @@ public class ShopQuestListController : MonoBehaviour
 
         _quest_listitem[list_count].transform.Find("Background/CancelButton").gameObject.SetActive(true);
 
+        if (quest_database.questTakeset[i].Quest_GetNinkiFlag >= 1) //スターゲットした
+        {
+            _quest_listitem[list_count].transform.Find("Background/NinkiGetIcon").gameObject.SetActive(true);
+        }
+        else
+        {
+            _quest_listitem[list_count].transform.Find("Background/NinkiGetIcon").gameObject.SetActive(false);
+        }
         //Debug.Log("i: " + i + " list_count: " + list_count + " _toggle_itemID.toggle_shopitem_ID: " + _toggle_itemID.toggle_shopitem_ID);
 
         ++list_count;

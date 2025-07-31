@@ -1847,6 +1847,20 @@ public class Utage_scenario : MonoBehaviour
         //エンディング用
         engine.Param.TrySetParameter("TopMagicName", GameMgr.MagicSkill_TopUseName); //ベストED時　一番使っていた魔法の名前が入る
 
+        //思い出イベント系セット
+        engine.Param.TrySetParameter("HikariOmoide_Flag", false);
+        switch (GameMgr.GirlLoveSubEvent_num)
+        {
+            case 610: //さくらのゆびわもらう
+
+                omoide_flag = GameMgr.SearchHikariOmoideFlag("event_sakuraring");
+                //Debug.Log("観覧車イベントフラグ: " + omoide_flag);
+                engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
+                pitemlist.addPlayerItemString("sakura_ring", 1); //さくらのゆびわゲット
+                break;
+        }
+        
+
         //コンテスト時は、締め切り日も設定
         if (GameMgr.GirlLoveEvent_num == 50)
         {
@@ -2597,6 +2611,28 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("BarPahuPahuPoint", GameMgr.NPC_pahupahu_point); //パフパフポイント
         engine.Param.TrySetParameter("BarPahuPahu_RandomUPName", GameMgr.barMassage_RandomUpName);
         engine.Param.TrySetParameter("BarPahuPahu_RandomUPPoint", GameMgr.barMassage_RandomUpPoint);
+        engine.Param.TrySetParameter("HikariOutHome_Flag", GameMgr.outgirl_Nowprogress);
+
+        //ルーティの友好度をセット
+        engine.Param.TrySetParameter("event_NPC_BarFriendPoint1", GameMgr.NPC_FriendPoint[40]);
+        //アプリコットの友好度をセット
+        engine.Param.TrySetParameter("event_NPC_BarFriendPoint2", GameMgr.NPC_FriendPoint[41]);
+
+        if(GameMgr.NPC_FriendPoint[40] >= 55 && GameMgr.NPC_FriendPoint[40] < 70)
+        {
+            engine.Param.TrySetParameter("Bar_NPC01_Flag1", true);
+            engine.Param.TrySetParameter("Bar_NPC01_Flag2", false); //flag2は結局使わない
+        }
+        else if (GameMgr.NPC_FriendPoint[40] >= 70)
+        {
+            engine.Param.TrySetParameter("Bar_NPC01_Flag1", false);
+            engine.Param.TrySetParameter("Bar_NPC01_Flag2", false);
+        }
+        else
+        {
+            engine.Param.TrySetParameter("Bar_NPC01_Flag1", false);
+            engine.Param.TrySetParameter("Bar_NPC01_Flag2", false);
+        }
 
         if (matplace_database.matplace_lists[matplace_database.SearchMapString("Or_Farm")].placeFlag == 1)
         {

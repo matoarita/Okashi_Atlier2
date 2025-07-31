@@ -120,6 +120,7 @@ public class PlayerDefaultStartItemGet : SingletonMonoBehaviour<PlayerDefaultSta
 
             pitemlist.addPlayerItemString("teaset_normal", 1);
             pitemlist.addPlayerItemString("kuma_nuigurumi", 1);
+            pitemlist.addPlayerItemString("yotuba_crown", 1);
             //pitemlist.addPlayerItemString("grape", 2);
             //pitemlist.addPlayerItemString("stone_oven", 1);
 

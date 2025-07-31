@@ -980,7 +980,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 yes_no_panel.SetActive(false);
 
                 //時間の消費
-                time_controller.SetMinuteToHourContest(15, 0);
+                time_controller.SetMinuteToHourContest(15, 0, false);
 
                 //お菓子をあげた回数をカウント
                 /*PlayerStatus.player_girl_eatCount++;

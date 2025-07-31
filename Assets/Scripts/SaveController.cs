@@ -64,6 +64,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
     private List<ItemSaveFlag> _temp_magicskill_list = new List<ItemSaveFlag>();
     private List<ContestSaveList> _temp_contestdatabase_list = new List<ContestSaveList>();
     private List<ItemSaveFlag> _temp_HikariOmoide_Eventlist = new List<ItemSaveFlag>();
+    private List<ItemSaveKosu> _tempQuestDB_list = new List<ItemSaveKosu>();
 
     private GameObject character_root;
     private GameObject character_move;
@@ -225,6 +226,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 database.items[i].last_jiggly_score, database.items[i].last_chewy_score, database.items[i].last_hinttext));
         }
 
+        //酒場クエストリストの人気フラグの獲得の取得
+        _tempQuestDB_list.Clear();
+        for (i = 0; i < quest_database.questset.Count; i++)
+        {
+            _tempQuestDB_list.Add(new ItemSaveKosu("", quest_database.questset[i].Quest_ID, quest_database.questset[i].Quest_GetNinkiFlag)); //名前は使わない QIDと人気フラグを紐づけ
+        }
+
 
         //セーブ保存用のクラスを新規作成。
         playerData = new PlayerData()
@@ -379,6 +387,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_OrRoomRelease = GameMgr.OrRoomRelease, //解放 100ほど確保
             save_OrRoomBuy = GameMgr.OrRoomBuy, //購入のフラグ
 
+            //酒場クエストの更新フラグ　falseなら更新し、trueに。寝るとリセットされる
+            save_BarQuest_NewReset = GameMgr.BarQuest_NewReset, 
+            save_BarQuest_NewReset2 = GameMgr.BarQuest_NewReset2,
+
             //満月の夜の月と日
             save_System_Fullmoon_month = GameMgr.System_Fullmoon_month,
             save_System_Fullmoon_day = GameMgr.System_Fullmoon_day,
@@ -511,6 +523,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
 
             //酒場のイベントリスト
             save_BarEvent_stage = GameMgr.BarEvent_stage,
+
+            //酒場クエストの人気とったかどうかのフラグリスト
+            save_BarQuestDB_list = _tempQuestDB_list,
 
             //ショップのうわさ話リスト
             save_ShopUwasa_stage1 = GameMgr.ShopUwasa_stage1,
@@ -832,6 +847,10 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.OrRoomRelease = playerData.save_OrRoomRelease;
         GameMgr.OrRoomBuy = playerData.save_OrRoomBuy;
 
+        //酒場クエストの更新フラグ　falseなら更新し、trueに。寝るとリセットされる
+        GameMgr.BarQuest_NewReset = playerData.save_BarQuest_NewReset; 
+        GameMgr.BarQuest_NewReset2 = playerData.save_BarQuest_NewReset2;
+
         //初期設定　配布時は消してOK
         GameMgr.OrRoomBuy[0] = true;
         GameMgr.OrRoomRelease[0] = true;
@@ -1145,6 +1164,13 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
                 }
                 i++;
             }
+        }
+
+        //酒場の人気獲得フラグを取得
+        for (i = 0; i < playerData.save_BarQuestDB_list.Count; i++)
+        {
+            quest_database.Reset_QeustGetNinkiFlag(playerData.save_BarQuestDB_list[i].itemKosu, playerData.save_BarQuestDB_list[i].Flag); 
+            //名前が個数になってるが、こっちがQIDで、FlagにGetNinkiをいれてる
         }
 
 

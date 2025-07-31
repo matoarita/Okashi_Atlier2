@@ -783,6 +783,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         }
         else
         {
+            Debug.Log("チェック　ヒカリが制作した　個数　ResultKosuKeisan通る");
             compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
                     GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
                     GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);

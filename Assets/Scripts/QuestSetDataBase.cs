@@ -15,6 +15,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private int _questHyoujiHeart;
     private int _hightype;
     private int _girlJudgeUse;
+    private int _listid;
 
     private string _filename;
     private string _itemname; //itemnameの最初のみ"Non"か"itemName（固有名）"を必ず入れる。サブカテゴリー入れると、エラーでる。
@@ -71,6 +72,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private string _desc;
     private int _read_endflag;
 
+    private int _quest_getninkiFlag;
+
     private int i;
     private int count;
     private int sheet_count;
@@ -114,7 +117,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                     _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
                     _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
                     _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
-                    _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));              
+                    _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag, 0));              
 
                 ++count;
             }
@@ -274,6 +277,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _desc = questset[count].Quest_desc;
         _read_endflag = questset[count].read_endflag;
 
+        _quest_getninkiFlag = questset[count].Quest_GetNinkiFlag;
+
         //ここでリストに追加している
         questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, 
             _filename, _itemname, _itemname2, _itemname3,
@@ -281,7 +286,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
-            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));
+            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag, _quest_getninkiFlag));
     }
 
 
@@ -360,6 +365,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _desc = questRandomset[count].Quest_desc;
         _read_endflag = questRandomset[count].read_endflag;
 
+        _quest_getninkiFlag = questRandomset[count].Quest_GetNinkiFlag;
+
         //ここでリストに追加している
         questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, 
             _filename, _itemname, _itemname2, _itemname3,
@@ -367,7 +374,28 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
             _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
             _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
-            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag));
+            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag, _quest_getninkiFlag));
+    }
+
+    //クエストIDを入れると、元のデータから一致する配列IDを返す
+    public int SearchQuestID(int _questID)
+    {
+        for(i=0; i < questset.Count; i++)
+        {
+            if(questset[i].Quest_ID == _questID)
+            {
+                return i;
+            }
+        }
+
+        return 0; //該当ない場合は0
+    }
+
+    //QuestIDと人気獲得フラグをいれると、その値で現在のクエストセットを上書き
+    public void Reset_QeustGetNinkiFlag(int _questID, int _getninki_flag)
+    {
+        _listid = SearchQuestID(_questID);
+        questset[_listid].Quest_GetNinkiFlag = _getninki_flag;
     }
 
     public void ResetQuestTakeSet()

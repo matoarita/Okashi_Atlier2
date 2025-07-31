@@ -127,6 +127,9 @@ public class PlayerData
     public bool[] save_OrRoomRelease = new bool[GameMgr.OrRoomRelease.Length]; //解放 100ほど確保
     public bool[] save_OrRoomBuy = new bool[GameMgr.OrRoomBuy.Length]; //購入のフラグ
 
+    public bool save_BarQuest_NewReset; //酒場クエストの更新フラグ　falseなら更新し、trueに。寝るとリセットされる
+    public bool save_BarQuest_NewReset2;
+
     //満月の夜の月と日
     public int save_System_Fullmoon_month;
     public int save_System_Fullmoon_day;
@@ -283,6 +286,9 @@ public class PlayerData
 
     //酒場のイベントリスト
     public bool[] save_BarEvent_stage = new bool[GameMgr.BarEvent_stage.Length];
+
+    //酒場クエストの人気とったかどうかのフラグリスト
+    public List<ItemSaveKosu> save_BarQuestDB_list = new List<ItemSaveKosu>();
 
     //ショップのうわさ話リスト
     public bool[] save_ShopUwasa_stage1 = new bool[GameMgr.ShopUwasa_stage1.Length];

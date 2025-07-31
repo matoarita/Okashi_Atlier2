@@ -630,7 +630,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         else
         {
             //コンテストのときは、コンテスト時間を計算
-            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 1);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 1, false);
         }
 
         _ex_text = "";
@@ -979,7 +979,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else
         {
-            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 1);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 1, false);
         }
 
         //時間の項目リセット
@@ -1012,11 +1012,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         CompInitSetting();
 
         pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
-
-        
+        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();        
 
         Comp_method_bunki = 3; //トッピング調合の処理。
+        DoubleItemCreated = 0; //トッピングの場合、2つ以上アイテムができることはないので0にする。
 
         //ウェイトアニメーション開始
         pitemlistController_obj.SetActive(false);
@@ -1226,7 +1225,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else
         {
-            time_controller.SetMinuteToHourContest(15, 1);
+            time_controller.SetMinuteToHourContest(15, 1, false);
         }
 
         //時間の項目リセット
@@ -1478,7 +1477,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else
         {
-            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 0);
+            time_controller.SetMinuteToHourContest(GameMgr.Compo_FinalCostTime, 0, false);
         }
 
         _ex_text = "";

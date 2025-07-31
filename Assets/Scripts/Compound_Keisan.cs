@@ -653,6 +653,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             kettei_item2 = GameMgr.hikari_kettei_item[1];
             kettei_item3 = GameMgr.hikari_kettei_item[2];
 
+            //Debug.Log("ヒカリ制作　kettei_item1: " + kettei_item1);
+            //Debug.Log("ヒカリ制作　kettei_item2: " + kettei_item2);
+            //Debug.Log("ヒカリ制作　kettei_item3: " + kettei_item3);
+
             kettei_originalitemID1 = GameMgr.hikari_kettei_originalID[0]; //オリジナルアイテム（お菓子パネルアイテム）の固有ID　タイムスタンプ
             kettei_originalitemID2 = GameMgr.hikari_kettei_originalID[1];
             kettei_originalitemID3 = GameMgr.hikari_kettei_originalID[2];
@@ -660,6 +664,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             toggle_type1 = GameMgr.hikari_kettei_toggleType[0];
             toggle_type2 = GameMgr.hikari_kettei_toggleType[1];
             toggle_type3 = GameMgr.hikari_kettei_toggleType[2];
+
+            //Debug.Log("ヒカリ制作　toggle_type1: " + toggle_type1);
+            //Debug.Log("ヒカリ制作　toggle_type2: " + toggle_type2);
+            //Debug.Log("ヒカリ制作　toggle_type3: " + toggle_type3);
 
             final_kette_kosu1 = GameMgr.hikari_kettei_kosu[0];
             final_kette_kosu2 = GameMgr.hikari_kettei_kosu[1];
@@ -1505,6 +1513,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     {
         if(!hikari_make_flag)
         {
+            Debug.Log("にいちゃんが作った　アイテムを登録開始");
+
             if (exp_Controller.DoubleItemCreated == 0)
             {
                 MakeMethod(_status);
@@ -1544,6 +1554,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             case 0: //オリジナルアイテムリストに追加する場合
 
+                Debug.Log("オリジナルアイテムにセット");
                 //新しく作ったアイテムをオリジナルアイテムリストに追加。
                 pitemlist.addOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
                 _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, _basechewy, _basepowdery, _baseoily, _basewatery, 
@@ -1577,6 +1588,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             case 1: //お菓子パネルにセットする場合。通常はこっちが多い。                    
 
+                Debug.Log("お菓子パネルにセット");
                 //もし、すでにお菓子パネルにお菓子がセットされてた場合、それをオリジナルアイテムに移動してから、お菓子パネルに新しくセットする。
                 //①まずコピー
                 if (pitemlist.player_extremepanel_itemlist.Count > 0)
@@ -1669,6 +1681,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             case 2:
 
+                Debug.Log("店売りアイテムとしてセット");
                 MakeMethodMaterial();
                 break;
         }
@@ -1689,7 +1702,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         pitemlist.addPlayerItemString(databaseCompo.compoitems[result_compID].cmpitemID_result, result_kosu);
     }
 
-    //個数計算メソッド
+    //個数計算メソッド HikariMakeStartPanelからも読み出し
     public void ResultKosuKeisan(int _compo_select, int _result_cmpID, int _set_kaisu, int _kettei_id1, int _kettei_id2, int _kettei_id3, int _toggletype1, int _toggletype2, int _toggletype3, int _kosu1, int _kosu2, int _kosu3)
     {
         if (databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Non" && databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Use")
@@ -3394,6 +3407,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (_dstatus == 2) //ヒカリがお菓子作り中　材料だけ減らす処理
         {
+            Debug.Log("ヒカリお菓子制作中　材料だけ減らす処理");
             //パラメータの取得
             SetParamHikariMakeInit();
         }

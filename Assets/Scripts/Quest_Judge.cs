@@ -98,6 +98,7 @@ public class Quest_Judge : MonoBehaviour {
     private int _MSMoney;
 
     private int _id;
+    private int _Listid;
     private int _Qid;
     private int _questID;
     private int _qitemID;
@@ -785,7 +786,7 @@ public class Quest_Judge : MonoBehaviour {
         _baseMoney = basemoney_keisan();
         _getMoney = _baseMoney;
         _getNinki = 0; //納品のみのクエストは、人気度は上がらない
-        BarNPC_MeidoFriendPointUP(1); //店主の友好度は上がる
+        //BarNPC_MeidoFriendPointUP(1); //店主の友好度は上がる
 
         //ルーティのマッサージポイント
         switch (GameMgr.Scene_Name)
@@ -1697,23 +1698,23 @@ public class Quest_Judge : MonoBehaviour {
                     _getMoney += _MSMoney; //種類によらず一個ついてたら+300 MSValueはUseLVが入ってるので、LVが高いと報酬上がる
                 }
 
-                //クライアントのイベントフラグをみてスター取得してたかどうかをチェック 一つのクライアントから最大５回もらえる
-                Debug.Log("GameMgr.NPC_BarFriendFlag[_clientnum]: " + GameMgr.NPC_BarFriendFlag[_clientnum]);
-                if(GameMgr.NPC_BarFriendFlag[_clientnum] <= 5)
+                //そのクエストで一回だけスターもらえる _questID
+                if (quest_database.questTakeset[_qitemID].Quest_GetNinkiFlag == 0)
                 {
-                    //まだスターをとったことないので、そのままスターゲット _getninkiは、上で事前に計算済
-                    GameMgr.NPC_BarFriendFlag[_clientnum] += 1;
-                    Debug.Log("高得点なおかしだったので、クライアントからスターもらえる");
+                    //まだスターをとったことないので、そのままスターゲット _getninkiは、上で事前に計算済 テイクのほうでなく元のクエストデータを上書きする。
+                    _Listid = quest_database.SearchQuestID(quest_database.questTakeset[_qitemID].Quest_ID);
+                    quest_database.questset[_Listid].Quest_GetNinkiFlag += 1;
+                    Debug.Log("高得点なおかしだったので、クライアントからスターもらえる。QuestID: " + quest_database.questTakeset[_qitemID].Quest_ID);
                 }
                 else //スター何個かとったことあるので、次はスターはもらえない ただし、フラグがあると、家に直接きてくれる予定
                 {
                     _getNinki = 0;
                 }
 
-                //60点以上なら、店主の友好度もあがる。
+                //60点以上なら、店主のマッサージポイントあがる。
                 if (okashi_totalscore >= GameMgr.low_score) //60~80
                 {
-                    BarNPC_MeidoFriendPointUP(1);
+                    //BarNPC_MeidoFriendPointUP(1);
 
                     //ルーティのマッサージポイント
                     switch (GameMgr.Scene_Name)
@@ -1893,9 +1894,9 @@ public class Quest_Judge : MonoBehaviour {
         {
             _getMoney = (int)(_baseMoney * 1.3f + okashi_totalscore);
             debug_money_text = "(基準値 * 1.3f + okashi_totalscore)";
-            _getNinki = 1;
+            _getNinki = 0;
             _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
-            BarNPC_FriendPointUP(2);
+            BarNPC_FriendPointUP(1);
         }
         else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
         {
@@ -1903,7 +1904,7 @@ public class Quest_Judge : MonoBehaviour {
             debug_money_text = "(基準値 * 1.4f + (okashi_totalscore * 1.1f))";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
-            BarNPC_FriendPointUP(2);
+            BarNPC_FriendPointUP(3);
         }
         else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
         {
@@ -1911,7 +1912,7 @@ public class Quest_Judge : MonoBehaviour {
             debug_money_text = "(基準値 * 1.5f + (okashi_totalscore * 1.2f))";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
-            BarNPC_FriendPointUP(5);
+            BarNPC_FriendPointUP(3);
         }
         else if (okashi_totalscore >= 1000) //1000~
         {
@@ -1939,7 +1940,7 @@ public class Quest_Judge : MonoBehaviour {
             debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.5f)";
             _getNinki = 1;
             _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
-            BarNPC_FriendPointUP(2);
+            BarNPC_FriendPointUP(1);
         }
         else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
         {
@@ -1947,7 +1948,7 @@ public class Quest_Judge : MonoBehaviour {
             debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.75f)";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
-            BarNPC_FriendPointUP(2);
+            BarNPC_FriendPointUP(3);
         }
         else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
         {
@@ -2079,11 +2080,29 @@ public class Quest_Judge : MonoBehaviour {
 
     void BarNPC_FriendPointUP(int _point)
     {
-        GameMgr.NPC_BarFriendPoint[_clientnum] += _point;
+        switch(_clientnum)
+        {
+            case 100: //100ルーティさん
+
+                GameMgr.NPC_FriendPoint[40] += _point;
+                break;
+
+            case 101: //101アプリコットさん
+
+                GameMgr.NPC_FriendPoint[41] += _point;
+                break;
+
+            default:
+
+                GameMgr.NPC_BarFriendPoint[_clientnum] += _point;
+                break;
+        }
+        
         Debug.Log("友好度アップ: " + _clientname + " " + _point + "上昇");
+        Debug.Log("酒場NPC友好度は150点～から上がる");
     }
 
-    void BarNPC_MeidoFriendPointUP(int _point) //酒場の店主の友好度上昇
+    void BarNPC_MeidoFriendPointUP(int _point) //酒場の店主の友好度上昇 現在は、マッサージかその人自身からのご依頼こなさないと上がらない
     {
         //ルーティのマッサージポイント
         switch (GameMgr.Scene_Name)
@@ -2091,13 +2110,13 @@ public class Quest_Judge : MonoBehaviour {
             case "Or_Bar_A1":
 
                 //100ルーティさん
-                GameMgr.NPC_BarFriendPoint[100] += _point;
+                GameMgr.NPC_FriendPoint[40] += _point;
                 break;
 
             case "Or_Bar_C1":
 
                 //101アプリコットさん
-                GameMgr.NPC_BarFriendPoint[101] += _point;
+                GameMgr.NPC_FriendPoint[41] += _point;
                 break;
 
         }

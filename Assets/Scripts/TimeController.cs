@@ -244,7 +244,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                             if (PlayerStatus.player_contest_second >= 60) //1分たった。
                             {
                                 PlayerStatus.player_contest_second = 0;
-                                SetMinuteToHourContest(5, 1); //5分たつ
+                                SetMinuteToHourContest(5, 1, true); //5分たつ trueだとリアルタイムで時間が減ってるときの時間経過
                             }
                         }
                     }
@@ -1010,7 +1010,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
 
     //入力された分単位の時間を、時間と分にわけて、コンテストの時間に加算する。マイナスの場合、引き算する。
-    public void SetMinuteToHourContest(int _m, int _hikarimake)
+    public void SetMinuteToHourContest(int _m, int _hikarimake, bool _realtime)
     {
         //制限時間から引き算
         PlayerStatus.player_contest_LimitTime -= _m;
@@ -1083,7 +1083,19 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         //ヒカリのお菓子の制作時間も計算する
         if (_hikarimake != 0)
         {
-            HikarimakeTimeCheck(_m_temp);
+            if (_realtime) //コンテストリアルタイムのときは、材料選択中の間だとヒカリ制作チェックをしない。
+            {
+                if (GameMgr.compound_status == 110 && GameMgr.compound_select == 0)  //コンテストの外の画面のとき
+                {
+                    HikarimakeTimeCheck(_m_temp);
+                }
+                else { }
+            }
+            else
+            {
+                //リアルタイム関係なければ必ずチェックする
+                HikarimakeTimeCheck(_m_temp);
+            }
         }
     }
 

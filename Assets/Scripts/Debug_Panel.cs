@@ -72,9 +72,12 @@ public class Debug_Panel : MonoBehaviour {
     private GameObject GirlHeartEffect_obj;
     private Particle_Heart_Character GirlHeartEffect;
 
-    private GameObject TastePanel;
+    private GameObject TastePanel;  
     private GameObject DebugLogPanel;
     private GameObject DebugHyouji_panel;
+
+    private GameObject NPCFriendPanel;
+    private Text NPCFriendPanel_text;
 
     //好感度レベルテーブルの取得
     private List<int> stage_levelTable = new List<int>();
@@ -114,6 +117,10 @@ public class Debug_Panel : MonoBehaviour {
 
         TastePanel = this.transform.Find("Hyouji/OkashiTaste_Scroll View").gameObject;
         TastePanel.SetActive(false);
+
+        NPCFriendPanel = this.transform.Find("Hyouji/NPCFriend_Scroll View").gameObject;
+        NPCFriendPanel.SetActive(false);
+        NPCFriendPanel_text = NPCFriendPanel.transform.Find("Viewport/Content/Text").GetComponent<Text>();
 
         DebugLogPanel = this.transform.Find("Hyouji/DebugLogPanel").gameObject;
         DebugLogPanel.SetActive(false);
@@ -725,6 +732,18 @@ public class Debug_Panel : MonoBehaviour {
         }
     }
 
+    void DrawNPCFriendPoint()
+    {
+        NPCFriendPanel_text.text = "【NPC友好度】" + "\n" + "\n"
+            + "ミラボー先生: " + GameMgr.NPC_FriendPoint[0].ToString() + "\n"
+            + "アマクサ: " + GameMgr.NPC_FriendPoint[10].ToString() + "\n"
+            + "イリス: " + GameMgr.NPC_FriendPoint[11].ToString() + "\n"
+            + "プリン: " + GameMgr.NPC_FriendPoint[30].ToString() + "\n"
+            + "\n"
+            + "ルーティ: " + GameMgr.NPC_FriendPoint[40].ToString() + "\n"
+            + "アプリコット: " + GameMgr.NPC_FriendPoint[41].ToString() + "\n";
+    }
+
     public void OnTasteButton()
     {
         if(TastePanel.activeInHierarchy)
@@ -735,6 +754,21 @@ public class Debug_Panel : MonoBehaviour {
         {
             TastePanel.SetActive(true);
         }
+    }
+
+    public void OnNPCFriendButton()
+    {
+        if (NPCFriendPanel.activeInHierarchy)
+        {
+            NPCFriendPanel.SetActive(false);
+        }
+        else
+        {
+            NPCFriendPanel.SetActive(true);
+        }
+
+        DrawNPCFriendPoint();
+        
     }
 
     public void OnDebugLogButton()
