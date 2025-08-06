@@ -1748,6 +1748,18 @@ public class Compound_Main : MonoBehaviour
                                
                 OnCompoundSelect();
 
+                //デバッグ用　ここは、コンテスト100%達成時に解放される予定
+                GameMgr.OrRoomRelease[1] = true;
+                GameMgr.OrRoomRelease[2] = true;
+                GameMgr.OrRoomRelease[3] = true;
+                GameMgr.OrRoomRelease[4] = true;
+                GameMgr.OrRoomRelease[5] = true;
+                GameMgr.OrRoomRelease[6] = true;
+                GameMgr.OrRoomRelease[7] = true;
+                GameMgr.OrRoomRelease[8] = true;
+                GameMgr.OrRoomRelease[9] = true;
+                //
+
                 if (GameMgr.System_CatAutoMaterial_ON)
                 {
                     //ねこチェック　ねこの採取フラグが必要か否か
@@ -5468,24 +5480,73 @@ public class Compound_Main : MonoBehaviour
 
                 switch (GameMgr.OrCompound_RoomNum)
                 {
-                    case 0:
+                    case 0: //デフォルトの家
 
                         //そのあと、シーンそれぞれのオブジェクトを取得し、表示
                         SetBGObj("BGOutimg_sc03", "BGimg_sc02", "effect_sc02");
                         bg_accessory_panel.SetActive(false);
                         break;
 
-                    case 1:
+                    case 1: //花と森
 
                         //そのあと、シーンそれぞれのオブジェクトを取得し、表示
                         SetBGObj("BGOutimg_sc03", "BGimg_sc03", "effect_sc03");
                         bg_accessory_panel.SetActive(false);
                         break;
 
-                    case 2:
+                    case 2: //春２
 
                         //そのあと、シーンそれぞれのオブジェクトを取得し、表示
                         SetBGObj("BGOutimg_sc03", "BGimg_sc04", "effect_sc04");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 3: //夏１　うみのへや
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc05", "effect_sc05");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 4: //夏２　すずらん
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc06", "effect_sc06");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 5: //夏３　ほしのへや
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc07", "effect_sc07");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 6: //秋１　ヨーロッパ
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc08", "effect_sc08");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 7: //ねこのへや
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc09", "effect_sc09");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 8: //ゲージュツの部屋
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc10", "effect_sc10");
+                        bg_accessory_panel.SetActive(false);
+                        break;
+
+                    case 9: //なし
+
+                        //そのあと、シーンそれぞれのオブジェクトを取得し、表示
+                        SetBGObj("BGOutimg_sc03", "BGimg_sc11", "effect_sc11");
                         bg_accessory_panel.SetActive(false);
                         break;
 

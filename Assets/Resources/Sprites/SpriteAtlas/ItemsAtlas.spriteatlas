@@ -207,6 +207,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 05396cd2e5f7be84284c6f6ccf20f202, type: 3}
   - {fileID: 21300000, guid: 4d27fed2d2820884fa4e87b1e57e90d0, type: 3}
   - {fileID: 21300000, guid: f84a71e267c844e4fbbb23c6c38e8037, type: 3}
+  - {fileID: 21300000, guid: 5334b7e2106cef746a0ebb3f50274764, type: 3}
   - {fileID: 21300000, guid: e45118e25f0af824db40b22fe08c1704, type: 3}
   - {fileID: 21300000, guid: 67488de2a62da0b41bbecb198e57e10d, type: 3}
   - {fileID: 21300000, guid: a148ade2bd1d9274b9b421e06cc577d5, type: 3}
@@ -419,6 +420,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 79e16c370fbd6614894a24b03fa5e4a3, type: 3}
   - {fileID: 21300000, guid: 5582cf37d1de82241b86c08ce92e2f51, type: 3}
   - {fileID: 21300000, guid: 3a9a91476b20d794186f9ee4a8e614d5, type: 3}
+  - {fileID: 21300000, guid: 3ed44347685b25c4aa789e758540b5e5, type: 3}
   - {fileID: 21300000, guid: 70af2a47c4b410d489426dd9fe9c2b5f, type: 3}
   - {fileID: 21300000, guid: ce73fd4780945a04a97ef3b37fe02506, type: 3}
   - {fileID: 21300000, guid: 425f03574ff1168419e87d5b0d886962, type: 3}
@@ -811,6 +813,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8ddbf07ff6b59af47a35593b19415c26, type: 3}
   - {fileID: 21300000, guid: 06b0377fbbee05d4c956fdae728da1e6, type: 3}
   - {fileID: 21300000, guid: 683b9b7f061f5c346acc116d12af3c92, type: 3}
+  - {fileID: 21300000, guid: 9e3efc7f37bdb9c4db85889416d7ab01, type: 3}
   - {fileID: 21300000, guid: 134b328f06d996546ac1c7690381db27, type: 3}
   - {fileID: 21300000, guid: 4c3f5e8fc2b09e042a04002c40f9664b, type: 3}
   - {fileID: 21300000, guid: 5254b09fd9ec9854bba5d1ec068b4291, type: 3}
@@ -820,6 +823,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4cc241af68cd8564dac61bd4a9d41c48, type: 3}
   - {fileID: 21300000, guid: 3cc02dafc9b2b444f80e408ef0a5b36f, type: 3}
   - {fileID: 21300000, guid: 8ae50eafdf718c841b3b46a3a3e79ae3, type: 3}
+  - {fileID: 21300000, guid: 7988d1bf8b0512c419983dabcee1ac96, type: 3}
   - {fileID: 21300000, guid: 82f7a1cf26a04c740a3e2223fe96d111, type: 3}
   - {fileID: 21300000, guid: 1a0bdbcf7a909f7409408915c73fdbb1, type: 3}
   - {fileID: 21300000, guid: 6fa250efb05df3e4c8c3a55bba1f6be1, type: 3}
@@ -988,6 +992,7 @@ SpriteAtlas:
   - green_apple
   - failed_item1
   - master_proof_jewery
+  - ticket4
   - soda_suger
   - mont_blanc_bakedsheets
   - eden_recipi_2
@@ -1200,6 +1205,7 @@ SpriteAtlas:
   - chocolate_blue_twister_3
   - lumi_suger_milk
   - pink_neko_cookie
+  - ticket2
   - macha_powder
   - apple_candy
   - lumi_rusk_orange
@@ -1592,6 +1598,7 @@ SpriteAtlas:
   - icecream_lemon
   - shortcake_base
   - crepe_honeycream
+  - ticket3
   - chocolate_aqua_heart
   - appaleil_mochi
   - juice_grape
@@ -1601,6 +1608,7 @@ SpriteAtlas:
   - neko_cookie_crystal
   - blacklotus
   - icecream_bluehawai
+  - ticket1
   - silver_aizan
   - recipibook2
   - tea_elderflower

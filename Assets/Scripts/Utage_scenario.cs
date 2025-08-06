@@ -4467,7 +4467,7 @@ public class Utage_scenario : MonoBehaviour
 
                             case 4: //
 
-                                GameMgr.OrCompound_RoomNum = 2;
+                                GameMgr.OrCompound_RoomNum = 3;
                                 GameMgr.System_Yachin_ON = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
@@ -4476,7 +4476,7 @@ public class Utage_scenario : MonoBehaviour
 
                             case 5: //
 
-                                GameMgr.OrCompound_RoomNum = 2;
+                                GameMgr.OrCompound_RoomNum = 4;
                                 GameMgr.System_Yachin_ON = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
@@ -4485,11 +4485,47 @@ public class Utage_scenario : MonoBehaviour
 
                             case 6: //
 
-                                GameMgr.OrCompound_RoomNum = 2;
+                                GameMgr.OrCompound_RoomNum = 5;
                                 GameMgr.System_Yachin_ON = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(5);
+                                break;
+
+                            case 7: //
+
+                                GameMgr.OrCompound_RoomNum = 6;
+                                GameMgr.System_Yachin_ON = false;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(6);
+                                break;
+
+                            case 8: //
+
+                                GameMgr.OrCompound_RoomNum = 7;
+                                GameMgr.System_Yachin_ON = false;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(7);
+                                break;
+
+                            case 9: //
+
+                                GameMgr.OrCompound_RoomNum = 8;
+                                GameMgr.System_Yachin_ON = false;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(8);
+                                break;
+
+                            case 10: //
+
+                                GameMgr.OrCompound_RoomNum = 9;
+                                GameMgr.System_Yachin_ON = false;
+
+                                //購入してなければ、50000ルピアかかる。権利をゲット
+                                RoomBuyCheck(9);
                                 break;
 
                         }

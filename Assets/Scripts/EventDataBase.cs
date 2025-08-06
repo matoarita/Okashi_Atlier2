@@ -30,7 +30,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     private int i, random;
     private int picnic_exprob;
-    private int _id, ev_id;
+    private int _id, ev_id, read_ID;
+    private int contest_allcount, contest_victorycount;
+    private bool contest_Master_TasseiFlag;
+    private int archive_area;
     private bool _fire;
     private string _basename, _baseitemtype_sub, _baseitemtype_subB;
     private bool cat_comecheck;
@@ -1581,7 +1584,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             //コンテスト一回でたあと、コンテストメモについてのイベント
                             if (conteststartList_database.SearchContestVictory("Or_Contest_010") != 0) //クッキーコンテストでとりあえず出場し順位入った。
                             {
-                                //エデン二枚目を見るイベント
+                                //
                                 if (!GameMgr.GirlLoveSubEvent_stage1[420])
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[420] = true;
@@ -1596,7 +1599,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             //夏コンテスト優勝した場合、エデン２つめをゲットしたぞ～のイベント
                             if (conteststartList_database.SearchContestVictory("Or_Contest_002") == 1) //一位をゲットしてた＝エデン２をゲット
                             {
-                                //エデン二枚目を見るイベント
+                                //エデン2枚目を見るイベント
                                 if (!GameMgr.GirlLoveSubEvent_stage1[400])
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[400] = true;
@@ -1611,7 +1614,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             //秋コンテスト優勝した場合、エデン３つめをゲットしたぞ～のイベント
                             if (conteststartList_database.SearchContestVictory("Or_Contest_003") == 1) //一位をゲットしてた＝エデン３をゲット
                             {
-                                //エデン二枚目を見るイベント
+                                //エデン3枚目を見るイベント
                                 if (!GameMgr.GirlLoveSubEvent_stage1[401])
                                 {
                                     GameMgr.GirlLoveSubEvent_stage1[401] = true;
@@ -1693,7 +1696,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
-                //寝て起きた後、ヒントが発生するイベント
+                //寝て起きた後、猫逃亡が発生するイベント
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1701,7 +1704,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (GameMgr.check_SleepEnd_Eventflag[5]) //ねておきたあとにチェック
                     {
                         GameMgr.check_SleepEnd_Eventflag[5] = false;
-                        Debug.Log("コンテスト終了後　ヒントと猫逃亡イベントチェック");
+                        Debug.Log("コンテスト終了後　猫逃亡イベントチェック");
 
                         //ヒント系
                         /*if (GameMgr.GirlLoveSubEvent_stage1[421] == false)
@@ -1724,6 +1727,129 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             GameMgr.GirlLoveSubEvent_num = 1300;
                             GameMgr.check_GirlLoveSubEvent_flag = false;
 
+                            GameMgr.Mute_on = true;
+                        }
+                    }
+                }
+
+                //寝て起きた後、コンテスト100％達成でご褒美が発生するイベント
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.check_SleepEnd_Eventflag[6]) //ねておきたあとにチェック
+                    {
+                        GameMgr.check_SleepEnd_Eventflag[6] = false;
+                        Debug.Log("コンテスト終了後　コンテスト達成率イベントチェック");
+
+                        contest_Master_TasseiFlag = false;
+
+                        //各コンテストでチェック
+                        while(i < 4)
+                        {
+                            switch(i)
+                            {
+                                case 0:
+
+                                    read_ID = 0; //春
+                                    archive_area = 0;
+                                    break;
+
+                                case 1:
+
+                                    read_ID = 1000; //春
+                                    archive_area = 1000;
+                                    break;
+
+                                case 2:
+
+                                    read_ID = 2000; //春
+                                    archive_area = 2000;
+                                    break;
+
+                                case 3:
+
+                                    read_ID = 3000; //春
+                                    archive_area = 3000;
+                                    break;
+                            }
+                            
+                            contest_allcount = conteststartList_database.ContestAll_PlayOKCounter(read_ID);
+                            contest_victorycount = conteststartList_database.ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
+
+                            if (contest_allcount == contest_victorycount)
+                            {
+                                contest_Master_TasseiFlag = true;
+                                break;
+                            }
+                            i++;
+                        }
+                        
+
+                        //
+                        if (contest_Master_TasseiFlag)
+                        {
+                            //どのエリアを達成したか
+                            switch(archive_area)
+                            {
+                                case 0:
+
+                                    //春エリア100%達成
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[720])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[720] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 720;
+
+                                        GameMgr.OrRoomRelease[1] = true;
+                                        GameMgr.OrRoomRelease[2] = true;
+                                    }
+                                    break;
+
+                                case 1000:
+
+                                    //夏エリア100%達成
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[721])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[721] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 721;
+
+                                        GameMgr.OrRoomRelease[3] = true;
+                                        GameMgr.OrRoomRelease[4] = true;
+                                        GameMgr.OrRoomRelease[5] = true;
+                                    }
+                                    break;
+
+                                case 2000:
+
+                                    //秋エリア100%達成
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[722])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[722] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 722;
+
+                                        GameMgr.OrRoomRelease[6] = true;
+                                        GameMgr.OrRoomRelease[7] = true;
+                                        GameMgr.OrRoomRelease[8] = true;
+                                    }
+                                    break;
+
+                                case 3000:
+
+                                    //冬エリア100%達成
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[723])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[723] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 723;
+
+                                    }
+                                    break;
+                            }
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
                             GameMgr.Mute_on = true;
                         }
                     }

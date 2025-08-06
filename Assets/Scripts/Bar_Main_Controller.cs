@@ -730,7 +730,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             GameMgr.scenario_ON = true;
 
-            GameMgr.bar_event_num = 1000;
+            GameMgr.bar_event_num = 2000;
             GameMgr.bar_event_flag = true;
 
             check_event = true;

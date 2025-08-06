@@ -79,6 +79,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool CompoBGMCHANGE_ON = false; //調合シーンでBGM切り替えるかどうかのフラグ 
     public static bool GetMatBGMCHANGE_ON = true; //採取地画面でBGM切り替えるかのフラグ    
     public static bool MainBGMChange_HeartLV = false; //ゲームの進行度でBGMを切り替えるか、ハートLVで切り替えるかの選択 trueならハートLVに応じてBGMが変わる ２では未使用
+    public static bool MainBGMChange_RoomNum = true; //部屋によって専用BGMに切り替える　OFFだとどの部屋でもデフォルトBGMになる
 
     //多分使わない
     public static bool System_Manpuku_ON = false; //エクストラ　満腹度ONOFF。trueだと、ONにする。
@@ -2065,29 +2066,30 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         //１と２も最初から出てる
         OrRoomRelease[1] = true;
         OrRoomRelease[2] = true;
+        
 
         OrRoomCost[0] = 0;
         OrRoomCost[1] = 50000;
         OrRoomCost[2] = 50000;
-        OrRoomCost[3] = 300000;
-        OrRoomCost[4] = 500000;
+        OrRoomCost[3] = 50000;
+        OrRoomCost[4] = 50000;
 
-        OrRoomCost[5] = 500000;
-        OrRoomCost[6] = 500000;
-        OrRoomCost[7] = 500000;
-        OrRoomCost[8] = 500000;
-        OrRoomCost[9] = 500000;
+        OrRoomCost[5] = 50000;
+        OrRoomCost[6] = 50000;
+        OrRoomCost[7] = 50000;
+        OrRoomCost[8] = 50000;
+        OrRoomCost[9] = 50000;
 
         OrRoomNameHyouji[0] = "最初の家";
         OrRoomNameHyouji[1] = "花と森";
-        OrRoomNameHyouji[2] = "ヨーロピアン";
-        OrRoomNameHyouji[3] = "最初のへや";
-        OrRoomNameHyouji[4] = "最初のへや";
+        OrRoomNameHyouji[2] = "ラベンダー"; //まだ
+        OrRoomNameHyouji[3] = "すずらん";
+        OrRoomNameHyouji[4] = "オーシャン";
 
-        OrRoomNameHyouji[5] = "最初のへや";
-        OrRoomNameHyouji[6] = "最初のへや";
-        OrRoomNameHyouji[7] = "最初のへや";
-        OrRoomNameHyouji[8] = "最初のへや";
+        OrRoomNameHyouji[5] = "ほし";
+        OrRoomNameHyouji[6] = "ヨーロピアン";
+        OrRoomNameHyouji[7] = "ねこ"; //まだ未購入
+        OrRoomNameHyouji[8] = "ゲージュツ";
         OrRoomNameHyouji[9] = "最初のへや";
     }
 

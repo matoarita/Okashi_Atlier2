@@ -891,45 +891,110 @@ public class BGM : MonoBehaviour {
             }
             else
             {
-                //デフォルトのBGM　進捗によりBGMが変わる　Special_questで指定
-                switch (GameMgr.mainBGM_Num)
+                //部屋に応じてBGMが変わる場合はこちら
+                if(GameMgr.MainBGMChange_RoomNum)
                 {
-                    case 0:
+                    switch (GameMgr.OrCompound_RoomNum)
+                    {
+                        case 0: //デフォルト
 
-                        _send_clip = sound40;
-                        break;
+                            //デフォルトのBGM　進捗によりBGMが変わる　Special_questで指定
+                            DefaultBGMSelect();
+                            break;
 
-                    case 1:
+                        case 1:
 
-                        _send_clip = sound71;
-                        break;
+                            _send_clip = sound71;
+                            break;
 
-                    case 2:
+                        case 2:
 
-                        _send_clip = sound72;
-                        break;
+                            _send_clip = sound20;
+                            break;
 
-                    case 3:
+                        case 3:
 
-                        _send_clip = sound21;
-                        break;
+                            _send_clip = sound71;
+                            break;
 
-                    case 4:
+                        case 4:
 
-                        _send_clip = sound1;
-                        break;
+                            _send_clip = sound19;
+                            break;
 
-                    case 5:
+                        case 5:
 
-                        _send_clip = sound19;
-                        break;
+                            _send_clip = sound71;
+                            break;
 
-                    default:
+                        case 6:
 
-                        _send_clip = sound19;
-                        break;
+                            _send_clip = sound71;
+                            break;
+
+                        case 7:
+
+                            _send_clip = sound71;
+                            break;
+
+                        case 8:
+
+                            _send_clip = sound6;
+                            break;
+
+                        case 9:
+
+                            _send_clip = sound71;
+                            break;
+                    }
                 }
+                else
+                {
+                    //デフォルトのBGM　進捗によりBGMが変わる　Special_questで指定
+                    DefaultBGMSelect();
+                }            
             }
+        }
+    }
+
+    void DefaultBGMSelect()
+    {
+        switch (GameMgr.mainBGM_Num)
+        {
+            case 0:
+
+                _send_clip = sound40;
+                break;
+
+            case 1:
+
+                _send_clip = sound71;
+                break;
+
+            case 2:
+
+                _send_clip = sound72;
+                break;
+
+            case 3:
+
+                _send_clip = sound21;
+                break;
+
+            case 4:
+
+                _send_clip = sound1;
+                break;
+
+            case 5:
+
+                _send_clip = sound19;
+                break;
+
+            default:
+
+                _send_clip = sound19;
+                break;
         }
     }
 

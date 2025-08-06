@@ -643,16 +643,49 @@ public class NPC_Catsle_Main : MonoBehaviour
     //SubView2
     public void OnSubNPC2_toggle()
     {
-        //家がほしい
+        //チケットをもらったが、まだ渡してない場合　初回おめでとうセリフもらう
+        if(GameMgr.GirlLoveSubEvent_stage1[720] && !GameMgr.NPCHiroba_eventList[1520])
+        {
+            Check_AreaMaster(1520);            
+        }
+        else if (GameMgr.GirlLoveSubEvent_stage1[721] && !GameMgr.NPCHiroba_eventList[1521])
+        {
+            Check_AreaMaster(1521);
+        }
+        else if (GameMgr.GirlLoveSubEvent_stage1[722] && !GameMgr.NPCHiroba_eventList[1522])
+        {
+            Check_AreaMaster(1522);
+        }
+        else if (GameMgr.GirlLoveSubEvent_stage1[723] && !GameMgr.NPCHiroba_eventList[1523])
+        {
+            Check_AreaMaster(1523);
+        }
+
+        if (check_event) { }
+        else
+        {
+            //家がほしい
+            GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
+            GameMgr.hiroba_event_ID = 500;
+            GameMgr.hiroba_event_flag = true;
+
+            //BGMかえる
+            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+            bgm_change_flag = true;
+
+            check_event = true;
+
+            EventReadingStart();
+        }
+    }
+
+    void Check_AreaMaster(int _evnum)
+    {
+        GameMgr.NPCHiroba_eventList[_evnum] = true;
 
         GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
-        GameMgr.hiroba_event_ID = 500;
+        GameMgr.hiroba_event_ID = 510;
         GameMgr.hiroba_event_flag = true;
-        //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
-
-        //BGMかえる
-        //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-        //bgm_change_flag = true;
 
         check_event = true;
 

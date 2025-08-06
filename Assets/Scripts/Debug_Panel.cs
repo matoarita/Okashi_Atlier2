@@ -739,9 +739,14 @@ public class Debug_Panel : MonoBehaviour {
             + "アマクサ: " + GameMgr.NPC_FriendPoint[10].ToString() + "\n"
             + "イリス: " + GameMgr.NPC_FriendPoint[11].ToString() + "\n"
             + "プリン: " + GameMgr.NPC_FriendPoint[30].ToString() + "\n"
+            + "エクレア: " + GameMgr.NPC_FriendPoint[31].ToString() + "\n"
             + "\n"
             + "ルーティ: " + GameMgr.NPC_FriendPoint[40].ToString() + "\n"
-            + "アプリコット: " + GameMgr.NPC_FriendPoint[41].ToString() + "\n";
+            + "マッサージP: " + GameMgr.NPC_pahupahu_point.ToString() + "\n"
+            + "アプリコット: " + GameMgr.NPC_FriendPoint[41].ToString() + "\n"
+            + "\n"
+            + "ぬね: " + GameMgr.NPC_FriendPoint[106].ToString() + "\n"
+            + "きのこ: " + GameMgr.NPC_FriendPoint[107].ToString() + "\n";
     }
 
     public void OnTasteButton()

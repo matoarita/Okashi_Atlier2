@@ -682,9 +682,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
         //現在受けているクエストを確認し、超過してるものがあったら、怒られて名声が下がる
         if (GameMgr.System_Contest_StartNow) //コンテストすぐ開始の場合は、チェック不要
-        {
-
-        }
+        { }
         else
         {
             if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
