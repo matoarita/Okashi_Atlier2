@@ -152,3 +152,7 @@
 ・BGM_148		こんとどぅふぇ素材No.0037-Dimanche	【宴用】オランジーナ酒場用BGM BGM110と同じ
 ・BGM_149		00-04-海淵紀行 				２のエンディング候補曲（許可でなかったので、使用しないこと）
 ・BGM_150		PerituneMaterial_Memories2		【宴用】サクラフォレストのBGM
+・BGM_151		odekakebiyori				秋ねこの部屋BGM
+・BGM_152		こんとどぅふぇ素材No.0039-Feile		秋ヨーロッパの部屋BGM
+・BGM_153		こんとどぅふぇ素材No.0059-グッモーニンミルク	夏うみの部屋BGM
+・BGM_154		yuruyakanaasayake			夏ほしの部屋BGM

@@ -1807,7 +1807,7 @@ PrefabInstance:
     - target: {fileID: 114388911020817616, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5,
         type: 3}
       propertyPath: m_Text
-      value: "\u79CB\u306E\u9152\u5834\n\u300C\u3055\u3093\u307E\u4EAD\u300D"
+      value: "Bar\n\u300C\u30A2\u30BA\u30FC\u30EB\u300D"
       objectReference: {fileID: 0}
     - target: {fileID: 114389128749711186, guid: c13503a7aa2c60e4bb20f2bcc3d3b6a5,
         type: 3}
@@ -488387,7 +488387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1969309778
 RectTransform:
   m_ObjectHideFlags: 0

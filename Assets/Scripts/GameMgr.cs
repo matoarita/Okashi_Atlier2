@@ -48,7 +48,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_REALTIME_GIRLSTATUS_ON = true; //ヒカリのハートが、アイテムや機嫌によって勝手に上がっていく状態。
     public static bool System_REALTIMEMODE_ON = true; //リアルタイムに時間を進める。    
     public static bool WEATHER_TIMEMODE_ON = true; //時間によって朝・昼・夜の背景を変更するかどうか。   
-    public static bool System_MagicEffect_USE = true; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
+    public static bool System_MagicEffect_USE = false; //魔法発動中エフェクトを表示するかどうか。ミニゲーム部分は、このフラグに関係なく必ず表示される。
     public static bool System_ExtremeCompo_BaseitemON = true; //仕上げのときに、ベースアイテムを選択するところから選べる
 
     //各システムの使用の有無   
@@ -67,7 +67,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarQuest_LimitDayON = true; //酒場クエストの締め切り日を有効にする。falseでオフ。締め切りがなくなる。
     public static bool System_BarNinkiHyouji_ON = true; //酒場で人気パネルを表示する
     public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
-    public static bool System_BarQuestKoushin_DayTiming = true; //酒場の依頼が、一日ごとに更新される仕様。オフだと、お店に入るたびに、依頼が変わる。
+    public static bool System_BarQuestKoushin_DayTiming = false; //酒場の依頼が、一日ごとに更新される仕様。オフだと、お店に入るたびに、依頼が変わる。現在trueはまだ未対応。酒場ごとに個別にクエストリストを保存してないので、別酒場で表示されたクエストが別エリアに残ったままになるバグがある。
 
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
@@ -2070,25 +2070,25 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         OrRoomCost[0] = 0;
         OrRoomCost[1] = 50000;
-        OrRoomCost[2] = 50000;
-        OrRoomCost[3] = 50000;
-        OrRoomCost[4] = 50000;
+        OrRoomCost[2] = 100000;
+        OrRoomCost[3] = 300000;
+        OrRoomCost[4] = 300000;
 
-        OrRoomCost[5] = 50000;
-        OrRoomCost[6] = 50000;
-        OrRoomCost[7] = 50000;
-        OrRoomCost[8] = 50000;
-        OrRoomCost[9] = 50000;
+        OrRoomCost[5] = 300000;
+        OrRoomCost[6] = 300000;
+        OrRoomCost[7] = 300000;
+        OrRoomCost[8] = 300000;
+        OrRoomCost[9] = 500000;
 
         OrRoomNameHyouji[0] = "最初の家";
         OrRoomNameHyouji[1] = "花と森";
-        OrRoomNameHyouji[2] = "ラベンダー"; //まだ
+        OrRoomNameHyouji[2] = "あじさい";
         OrRoomNameHyouji[3] = "すずらん";
         OrRoomNameHyouji[4] = "オーシャン";
 
         OrRoomNameHyouji[5] = "ほし";
         OrRoomNameHyouji[6] = "ヨーロピアン";
-        OrRoomNameHyouji[7] = "ねこ"; //まだ未購入
+        OrRoomNameHyouji[7] = "ねこ";
         OrRoomNameHyouji[8] = "ゲージュツ";
         OrRoomNameHyouji[9] = "最初のへや";
     }

@@ -2417,7 +2417,10 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 {
                     sc.PlaySe(244);
                 }
-                else { }
+                else
+                { //共通エフェクト時のシュイイン音
+                    sc.PlaySe(244);
+                }
 
                 //パーティクルと色の取得
                 /*compo1_particle = _listEffect[0].GetComponent<ParticleSystem>();

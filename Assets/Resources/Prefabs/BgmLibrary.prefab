@@ -122,6 +122,10 @@ MonoBehaviour:
   sound73: {fileID: 8300000, guid: 58d3843bd6aa9ef4f86759936ff63a45, type: 3}
   sound74: {fileID: 8300000, guid: a44c14e13ccc51c4f9bb9959b4a11504, type: 3}
   sound75: {fileID: 8300000, guid: bfb925485090f2f42985b51420d96830, type: 3}
+  sound76: {fileID: 8300000, guid: ed7ea610ccb641843b9188f8fb4dfefa, type: 3}
+  sound77: {fileID: 8300000, guid: 15ae2a260104b1644914a674d38c19f7, type: 3}
+  sound78: {fileID: 8300000, guid: 711c0dee1619c3842ab9d5c60a9e3831, type: 3}
+  sound79: {fileID: 8300000, guid: f6deb620f683b1e4e8b47c827214bf79, type: 3}
   sound1000: {fileID: 0}
   Ambient1: {fileID: 8300000, guid: 22aa78a1a6e88e349860f7432c6b446b, type: 3}
   Ambient2: {fileID: 8300000, guid: 0b3dc0f79a0f48d4c96b0dc73904637f, type: 3}

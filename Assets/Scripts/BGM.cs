@@ -87,6 +87,10 @@ public class BGM : MonoBehaviour {
     public AudioClip sound73;  //大会コンテストのBGM エデンコンテスト2
     public AudioClip sound74;  //おまけのシーンBGM
     public AudioClip sound75;  //イリスさんのテーマ
+    public AudioClip sound76;  //各部屋のテーマ
+    public AudioClip sound77;  //各部屋のテーマ
+    public AudioClip sound78;  //各部屋のテーマ
+    public AudioClip sound79;  //各部屋のテーマ
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -904,12 +908,12 @@ public class BGM : MonoBehaviour {
 
                         case 1:
 
-                            _send_clip = sound71;
+                            _send_clip = sound21;
                             break;
 
                         case 2:
 
-                            _send_clip = sound20;
+                            _send_clip = sound22; //sound20
                             break;
 
                         case 3:
@@ -919,27 +923,27 @@ public class BGM : MonoBehaviour {
 
                         case 4:
 
-                            _send_clip = sound19;
+                            _send_clip = sound78;
                             break;
 
                         case 5:
 
-                            _send_clip = sound71;
+                            _send_clip = sound79;
                             break;
 
                         case 6:
 
-                            _send_clip = sound71;
+                            _send_clip = sound77;
                             break;
 
                         case 7:
 
-                            _send_clip = sound71;
+                            _send_clip = sound76;
                             break;
 
                         case 8:
 
-                            _send_clip = sound6;
+                            _send_clip = sound7; //sound6
                             break;
 
                         case 9:

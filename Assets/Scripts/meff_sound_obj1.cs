@@ -87,4 +87,11 @@ public class meff_sound_obj1 : MonoBehaviour {
         sc.PlaySe(182);
         //sc.PlaySe(183);
     }
+
+    public void OnSound40() //水滴がおちたときのキラーン音
+    {
+        //Debug.Log("OnSound02()");
+        sc.PlaySe(248);
+        sc.PlaySe(249);
+    }
 }

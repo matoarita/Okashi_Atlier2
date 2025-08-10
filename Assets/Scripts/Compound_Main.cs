@@ -1748,8 +1748,8 @@ public class Compound_Main : MonoBehaviour
                                
                 OnCompoundSelect();
 
-                //デバッグ用　ここは、コンテスト100%達成時に解放される予定
-                GameMgr.OrRoomRelease[1] = true;
+                //デバッグ用　ここは、コンテスト100%達成時に解放される
+                /*GameMgr.OrRoomRelease[1] = true;
                 GameMgr.OrRoomRelease[2] = true;
                 GameMgr.OrRoomRelease[3] = true;
                 GameMgr.OrRoomRelease[4] = true;
@@ -1757,7 +1757,7 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.OrRoomRelease[6] = true;
                 GameMgr.OrRoomRelease[7] = true;
                 GameMgr.OrRoomRelease[8] = true;
-                GameMgr.OrRoomRelease[9] = true;
+                GameMgr.OrRoomRelease[9] = true;*/
                 //
 
                 if (GameMgr.System_CatAutoMaterial_ON)
