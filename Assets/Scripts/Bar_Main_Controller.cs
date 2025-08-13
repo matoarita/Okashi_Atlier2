@@ -977,6 +977,12 @@ public class Bar_Main_Controller : MonoBehaviour {
                 case "Or_Bar_A1": //ルーティさん
 
                     GameMgr.talk_number = 1500;
+
+                    //下は、使うときだけtrueにすればOK
+                    GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+                    GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[100];//GirlLikeSetの番号を直接指定
+                    GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+                    GameMgr.NPC_NoScoreCheck = true; //これがtrueだと、判定時の点数は影響しない　おもに店売りアイテムなどを渡すときに使う　また種類が違ってた場合、アイテムはなくならない
                     break;
 
                 case "Or_Bar_B1":
@@ -999,12 +1005,7 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             //アイテムを使用するときのフラグ
             GameMgr.event_pitem_use_select = true;
-            GameMgr.bar_event_ON = true;
-
-            //下は、使うときだけtrueにすればOK
-            GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
-            GameMgr.KoyuJudge_num = GameMgr.NPC_OkashiJudge_num[4];//GirlLikeSetの番号を直接指定
-            GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+            GameMgr.bar_event_ON = true;           
 
             StartCoroutine("UtageEndWait");
 
@@ -1076,7 +1077,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     {
         GameMgr.utage_charaHyouji_flag = true;
 
-        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        //GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
         GameMgr.Scene_Status = 1000;
 
         while (GameMgr.scenario_ON)
@@ -1084,6 +1085,7 @@ public class Bar_Main_Controller : MonoBehaviour {
             yield return null;
         }
 
+        Debug.Log("UtageEndWait終了");
         GameMgr.Scene_Status = 0;
         GameMgr.Scene_Select = 0;
     }

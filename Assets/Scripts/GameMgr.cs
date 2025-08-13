@@ -59,7 +59,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_JobLVUP_ON = false; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
 
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
-    public static bool System_HeartUpwithScore_ON = false; //ハートの上がる量が、単純に点数*0.1にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
+    public static bool System_HeartUpwithScore_ON = true; //ハートの上がる量が、単純に点数の〇分の一にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
 
     public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
@@ -77,7 +77,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　CompoundMain→GirlEat_Judgeで発生　trueなら、採点パネル表示前 falseなら後
    
     public static bool CompoBGMCHANGE_ON = false; //調合シーンでBGM切り替えるかどうかのフラグ 
-    public static bool GetMatBGMCHANGE_ON = true; //採取地画面でBGM切り替えるかのフラグ    
+    public static bool GetMatBGMCHANGE_ON = false; //採取地画面でBGM切り替えるかのフラグ    
     public static bool MainBGMChange_HeartLV = false; //ゲームの進行度でBGMを切り替えるか、ハートLVで切り替えるかの選択 trueならハートLVに応じてBGMが変わる ２では未使用
     public static bool MainBGMChange_RoomNum = true; //部屋によって専用BGMに切り替える　OFFだとどの部屋でもデフォルトBGMになる
 
@@ -91,8 +91,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //ゲーム共通のパラメータデータ
     public static float System_default_sceneFadeBGMTime = 0.5f; //デフォルトのBGMのフェード時間
 
-    //食感の計算方法の切り替え 0=_basescoreと比率をかける計算 1=単純に、判定値から引き算のみ
-    public static int System_GirlEat_ShokukanParamKeisan = 1;
+    //食感の計算方法の切り替え 0=_basescoreと比率をかける計算 1=加算方式　単純に、判定値から引き算のみ
+    public static int System_GirlEat_ShokukanParamKeisan = 0;
+    //食感の比率のベース値は各アイテムごとに設定　_basescore = database.itemlist[kettei_item1].Base_Score;
+
+    //見た目点数の基準点
+    public static int System_GirlEat_BeautyParamKeisan = 0; //0は比率計算　下の基準点を使用　1=単純に判定値から引き算で加算方式
+    public static int System_Beauty_BasicScore = 20; //0=比率計算の場合の、見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
 
     //ハート魔法の消費基本ハートポイント
     public static int System_MagicHeartCost = 30;
@@ -131,9 +136,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
-
-    //見た目点数の基準点※現在未使用
-    public static int System_Beauty_BasicScore = 30; //見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
 
     //どんぐりで上がる体力値
     public static int System_Emeraldongri_life = 1;
@@ -1125,6 +1127,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int KoyuJudge_num;
     public static bool NPC_DislikeFlag;
     public static bool NPC_Dislike_UseON;
+    public static bool NPC_NoScoreCheck; //点数の影響なし　店売りアイテム（ムーンバナナのようにオリジナルアイテム扱いにして）を渡すときに使用
 
     public static Dictionary<int, int> Hikariokashi_Exptable = new Dictionary<int, int>();
     public static Dictionary<int, int> Hikariokashi_Exptable2 = new Dictionary<int, int>();
@@ -1381,6 +1384,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         KoyuJudge_ON = false;
         NPC_DislikeFlag = false;
         NPC_Dislike_UseON = false;
+        NPC_NoScoreCheck = false;
 
         farm_event_flag = false;
         farm_event_num = 0;
@@ -2491,7 +2495,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     
 
-    //各サブイベントのNPCのお菓子判定番号
+    //各サブイベントのNPCのお菓子判定番号 300まで使える
     public static void InitSubNPCEvent_OkashiJudgeLibrary()
     {
         for (system_i = 0; system_i < NPC_OkashiJudge_num.Length; system_i++)
@@ -2499,12 +2503,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             NPC_OkashiJudge_num[0] = 0;
         }
 
+        //１のときのやつ
         NPC_OkashiJudge_num[0] = 100000; //モーセ
         NPC_OkashiJudge_num[1] = 100010; //プリンさん　エクストラ　クエストNo11 お茶会用
         NPC_OkashiJudge_num[2] = 100011; //プリンさん　エクストラ　クエストNo11 お茶会用
         NPC_OkashiJudge_num[3] = 100020; //モタリケさん　エクストラ
         NPC_OkashiJudge_num[4] = 100030; //フィオナさん　エクストラ
         NPC_OkashiJudge_num[50] = 100040; //条件競売01
+
+        //２～から
+        NPC_OkashiJudge_num[100] = 100100; //ルーティ　ムーンバナナ
     }
 
     //ミラボ先生のプレゼントリストの初期化　メイン魔法の本
@@ -2600,13 +2608,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Clear();
 
         //点数150～関係
-        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_2", "ふわっところっとした" + "\n" + "お菓子で高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_1", "ふわっところっとした" + "\n" + "お菓子で高得点"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_2", "マリトッツォで高得点"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_2", "ショートケーキで高得点"));
 
         //ハートで発生するイベント系
-        HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLVで解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLV40で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLV50で解放"));
 
         //スター・場所のイベント系
         HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));

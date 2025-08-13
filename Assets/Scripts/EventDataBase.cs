@@ -734,8 +734,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //HeartEvent_check(15, 350, 1);
                 HeartEvent_check(20, 302, 1, "Non"); //ヒカリ二個トッピング仕上げできるようになる
 
-                HeartEvent_check(50, 356, 1, "ramen"); //らーめん
-                //HeartEvent_check(60, 356, 1);
+                HeartEvent_check(40, 355, 1, "dragon_carnival"); //ドラゴンカーニバル
+                HeartEvent_check(50, 356, 1, "ramen"); //らーめん              
                 //HeartEvent_check(70, 357, 1);
                 //HeartEvent_check(80, 358, 1, "Non");
                 //HeartEvent_check(90, 359, 1, "Non");
@@ -760,7 +760,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 StarReleaseEvent_check(1, 600, 0, "Non"); //7なのでショートケーキのレシピゲット
                 StarReleaseEvent_check(2, 601, 0, "Non"); //9なのでコスチュームゲット
                 StarReleaseEvent_check(3, 602, 1, "Non"); //15なので、なんらかのイベント
-                StarReleaseEvent_check(4, 355, 1, "dragon_carnival"); //18なので、休憩イベント
+                //StarReleaseEvent_check(4, 355, 1, "dragon_carnival"); //18なので、休憩イベント
                 StarReleaseEvent_check(5, 603, 1, "Non"); //20なのでおふろいけるイベント　温泉地の解放？
                 StarReleaseEvent_check(6, 604, 0, "Non"); //22なのでコスチューム2ゲット
                 //StarReleaseEvent_check(8, 605, 1, "Non"); //30なのでマリトッツォのレシピゲット

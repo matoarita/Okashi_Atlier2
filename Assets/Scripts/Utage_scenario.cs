@@ -104,6 +104,8 @@ public class Utage_scenario : MonoBehaviour
     private bool resipi_getflag_afteritemuse; //アイテム途中で使う場合、pauseを一回拾うので、そのあとでフラグたつようにする。
     private int pause_or_endnum;
     private bool omoide_flag;
+    private bool type_okcheck;
+    private bool pitem_present_endflag; //プレゼント終了の合図
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -178,6 +180,7 @@ public class Utage_scenario : MonoBehaviour
         live2d_use = false;
         resipi_getflag = false;
         resipi_getflag_afteritemuse = false;
+        pitem_present_endflag = false;
     }
 
     void Update()
@@ -1911,8 +1914,14 @@ public class Utage_scenario : MonoBehaviour
             StartCoroutine("PitemPresent");
         }
 
+        //終了をまつ
+        while (pitem_present_endflag) //falseなら、そのまま何もせず終了
+        {
+            yield return null;
+        }
+
         //イベントによって、シーン移動するときがあるので、ブラック挟むよう
-        switch(GameMgr.GirlLoveSubEvent_num)
+        switch (GameMgr.GirlLoveSubEvent_num)
         {
             case 1110: //家賃払えなくてゲームオーバーへ
 
@@ -2621,12 +2630,12 @@ public class Utage_scenario : MonoBehaviour
         if(GameMgr.NPC_FriendPoint[40] >= 55 && GameMgr.NPC_FriendPoint[40] < 70)
         {
             engine.Param.TrySetParameter("Bar_NPC01_Flag1", true);
-            engine.Param.TrySetParameter("Bar_NPC01_Flag2", false); //flag2は結局使わない
+            engine.Param.TrySetParameter("Bar_NPC01_Flag2", false); //flag2は結局使わない 
         }
         else if (GameMgr.NPC_FriendPoint[40] >= 70)
         {
-            engine.Param.TrySetParameter("Bar_NPC01_Flag1", false);
-            engine.Param.TrySetParameter("Bar_NPC01_Flag2", false);
+            engine.Param.TrySetParameter("Bar_NPC01_Flag1", true);
+            engine.Param.TrySetParameter("Bar_NPC01_Flag2", false); //何かに使ってもOK
         }
         else
         {
@@ -2648,8 +2657,15 @@ public class Utage_scenario : MonoBehaviour
 
         if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
         {
-            StartCoroutine("PitemPresent");
+            StartCoroutine("PitemPresent");　//pitem_present_endflag入るときにtrueになる
         }
+
+        //終了をまつ
+        while (pitem_present_endflag) //falseなら、そのまま何もせず終了
+        {
+            yield return null;
+        }
+        
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
@@ -3692,6 +3708,12 @@ public class Utage_scenario : MonoBehaviour
                     yield return null;
                 }
             }
+        }
+
+        //終了をまつ
+        while (pitem_present_endflag) //falseなら、そのまま何もせず終了
+        {
+            yield return null;
         }
 
         //コンテスト会場イベントの場合　移動するときに、シーン暗くしておく
@@ -5892,6 +5914,7 @@ public class Utage_scenario : MonoBehaviour
         //
 
         GameMgr.event_pitem_use_select = false;
+        pitem_present_endflag = true;
 
         //キャンバスの読み込み
         //canvas = GameObject.FindWithTag("Canvas");
@@ -5973,12 +5996,16 @@ public class Utage_scenario : MonoBehaviour
             else //それ以外、ここでアイテム選択画面を表示。
             {
                 playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+                Debug.Log("プレイヤーアイテムリスト開く");
             }
-
+           
             while (!GameMgr.event_pitem_use_OK && !GameMgr.event_pitem_cancel) //アイテム選択待ちでポーズ
             {
                 yield return null;
             }
+
+            Debug.Log("GameMgr.event_pitem_use_OK: " + GameMgr.event_pitem_use_OK);
+            Debug.Log("GameMgr.event_pitem_cancel: " + GameMgr.event_pitem_cancel);
 
             if (GameMgr.picnic_event_reading_now)
             {
@@ -6051,8 +6078,10 @@ public class Utage_scenario : MonoBehaviour
 
                 //続きから再度読み込み
                 engine.ResumeScenario();
-            }
+            }           
         }
+
+        pitem_present_endflag = false; //プレゼント終了の合図
     }
 
     void PitemPresentJudge()
@@ -6067,7 +6096,7 @@ public class Utage_scenario : MonoBehaviour
             total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, true, GameMgr.KoyuJudge_num, GameMgr.NPC_Dislike_UseON); //4番目は、判定セットを直接指定するか否か。5番目の番号は、GirlLikeSetの番号。
         }
         GameMgr.KoyuJudge_ON = false;
-        GameMgr.NPC_Dislike_UseON = false;
+        GameMgr.NPC_Dislike_UseON = false;       
 
         GameMgr.event_okashi_score = total_score;
         Debug.Log("点数: （通常の固有お菓子判定と一緒のはず）" + total_score);
@@ -6241,12 +6270,30 @@ public class Utage_scenario : MonoBehaviour
         {
             GameMgr.bar_event_ON = false;
 
-            FionaPresentCheck();            
+            BarPresentCheck();            
         }
         // *** //
     }
 
     void PitemDelete()
+    {
+        if (GameMgr.NPC_NoScoreCheck) //店売りアイテムなど　点数関係ないとき、種類が違ってた場合は、アイテムを削除しない
+        {
+            if(!type_okcheck) //falseだと種類違ってたので削除しない
+            { }
+            else
+            {
+                DeleteMethod();
+            }
+        }
+        else
+        {
+            DeleteMethod();
+        }
+       
+    }
+
+    void DeleteMethod()
     {
         //Debug.Log("アイテム削除");
         //アイテムの削除
@@ -6596,50 +6643,64 @@ public class Utage_scenario : MonoBehaviour
         }
     }
 
-    void FionaPresentCheck()
+    void BarPresentCheck()
     {
         //判定
-        if (!GameMgr.NPC_DislikeFlag)
+        if (!GameMgr.NPC_DislikeFlag) //NPC_DislikeFlagはGirlEat_Judge内でも判定　お菓子が違う場合はfalseになる。
         {
-            //妹のお菓子の判定値で判定
-            //total_score = girlEat_judge.Judge_Score_ReturnEvent(GameMgr.event_kettei_itemID, GameMgr.event_kettei_item_Type, 1, false, 0, false);
-
-            if (total_score < GameMgr.mazui_score) //まずい
+            if (GameMgr.NPC_NoScoreCheck) //店売りアイテムなど　点数関係なくなる
             {
-                engine.Param.TrySetParameter("EventJudge_num", 101);
-                Debug.Log("フィオナ　お菓子が違ってた　まずい");
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("酒場あげる　お菓子が違ってた");
+                type_okcheck = false;
             }
             else
             {
-                engine.Param.TrySetParameter("EventJudge_num", 100);
-                Debug.Log("フィオナ　お菓子が違ってた　でもおいしい");
+                if (total_score < GameMgr.mazui_score) //まずい
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 101);
+                    Debug.Log("酒場あげる　お菓子が違ってた　まずい");
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", 100);
+                    Debug.Log("酒場あげる　お菓子が違ってた　でもおいしい");
+                }
             }
         }
         else
         {
-            //食感、甘さ、苦さ、酸味についてもセリフ
-            engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
-            engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
-            engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
-            engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
-
-            if (GameMgr.event_judge_status >= 2)
+            if (GameMgr.NPC_NoScoreCheck) //店売りアイテムなど　点数関係なくなる
             {
-                if (total_score < 300)
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", 2);
-                }
-                else
-                {
-                    engine.Param.TrySetParameter("EventJudge_num", 3); //
-                    pitemlist.addPlayerItemString("Record_20", 1); //レコード
-                }
+                engine.Param.TrySetParameter("EventJudge_num", 0); //お菓子　タイプあってる
+                type_okcheck = true;
             }
             else
             {
-                engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+                //食感、甘さ、苦さ、酸味についてもセリフ
+                engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
+                engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
+                engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
+                engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
+
+                if (GameMgr.event_judge_status >= 2)
+                {
+                    if (total_score < 300)
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 2);
+                    }
+                    else
+                    {
+                        engine.Param.TrySetParameter("EventJudge_num", 3); //
+                                                                           //pitemlist.addPlayerItemString("Record_20", 1); //レコード
+                    }
+                }
+                else
+                {
+                    engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、60点にたらず。
+                }
             }
-            Debug.Log("フィオナ　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+            Debug.Log("酒場あげる　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
         }
     }
 

@@ -531,10 +531,22 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 14: //プラトンアカデミーコンテストで優勝しよう！
+            case 14: //スターを集めよう！（プラトンアカデミー招待状待ち）
 
                 girl1_status.OkashiQuest_ID = 100140;
                 OkashiQuest_Count = 5;
+                GameMgr.EatOkashi_DecideFlag = 1;
+                GameMgr.SPquestPanelOff = false;
+                //GameMgr.Contest_BGMON = true;
+                GameMgr.Contest_PanelON = true;
+                GameMgr.Contest_MainStoryPlaceNum = 0;
+
+                break;
+
+            case 15: //プラトンアカデミーコンテストで優勝しよう！
+
+                girl1_status.OkashiQuest_ID = 100150;
+                OkashiQuest_Count = 6;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 //GameMgr.Contest_BGMON = true;
@@ -778,6 +790,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         QuestDict.Add(100120, 12);
         QuestDict.Add(100130, 13);
         QuestDict.Add(100140, 14);
+        QuestDict.Add(100150, 15);
         QuestDict.Add(100200, 20);
         QuestDict.Add(100210, 21);
         QuestDict.Add(100220, 22);

@@ -30,6 +30,7 @@ public class StarStampPanel : MonoBehaviour
     private Sprite itemIcon_sprite1;
     private Sprite itemIcon_sprite2;
     private Sprite itemIcon_sprite3;
+    private Sprite itemIcon_sprite4;
 
     private Text star_hyoujiparam;
 
@@ -163,6 +164,7 @@ public class StarStampPanel : MonoBehaviour
         itemIcon_sprite1 = Resources.Load<Sprite>("Sprites/Icon/" + "treasure_extra1");
         itemIcon_sprite2 = Resources.Load<Sprite>("Sprites/Icon/" + "Book01");
         itemIcon_sprite3 = Resources.Load<Sprite>("Sprites/Icon/" + "badge_icon_08");
+        itemIcon_sprite4 = Resources.Load<Sprite>("Sprites/Items/" + "blue_jemstone");
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -532,13 +534,13 @@ public class StarStampPanel : MonoBehaviour
                 }
                 break;
 
-            case 3: //イベント解放
+            case 3: //おたから
 
                 if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
                 {
                     if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
                     {
-                        TreasureStatus("ev4", 0);
+                        TreasureStatus("ev4", 1);
                     }
                     else
                     {
@@ -547,12 +549,14 @@ public class StarStampPanel : MonoBehaviour
                 }
                 else if (_mstatus == 1)
                 {
-                    //温泉解禁
-                    //_id = matplace_database.SearchMapString("Or_Hiroba1_HotSpring");
-                    newarea_titletext = "思い出イベント";
-                    newarea_gohoubitext = "植物園へいこう♪" + "\n" + "解放！";
-                    newarea_gohoubiicon = itemIcon_sprite3;
+                    //
+                    _id = database.SearchItemIDString("wood_rod_normal");
+                    newarea_titletext = "おたから";
+                    newarea_gohoubitext = database.items[_id].itemNameHyouji + "\n" + "ゲット！";
+                    newarea_gohoubiicon = database.items[_id].itemIcon_sprite;
                     newAreaRelease_panelKoushin(_star);
+
+                    pitemlist.addPlayerItemString("wood_rod_normal", 1);
 
                     //matplace_database.ReSetMapFlagString("Or_Hiroba1_HotSpring", 1);
 
@@ -584,12 +588,12 @@ public class StarStampPanel : MonoBehaviour
                 {
                     //休憩イベント
                     //_id = matplace_database.SearchMapString("Emerald_Forest");
-                    newarea_titletext = "休憩イベント";
-                    newarea_gohoubitext = "ドラゴンカーニバル！" + "\n" + "解放！";
-                    newarea_gohoubiicon = itemIcon_sprite3;
+                    newarea_titletext = "休憩";
+                    newarea_gohoubitext = "最大MPが　5" + "\n" + "上がった！";
+                    newarea_gohoubiicon = itemIcon_sprite4;
                     newAreaRelease_panelKoushin(_star);
 
-                    //GameMgr.SetHikariOmoideFlag("strawberry_sponge_cake", true);
+                    PlayerStatus.player_default_mp += 5;
                 }
                 break;
 

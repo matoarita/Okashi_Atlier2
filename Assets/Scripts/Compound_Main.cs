@@ -846,6 +846,7 @@ public class Compound_Main : MonoBehaviour
         GameMgr.System_PoolEnd = false; //ソーダアイランドプールフラグをリセット
         GameMgr.System_HotelEnd = false; //他、場所フラグをリセット
         GameMgr.System_HotSpringEnd = false;
+        GameMgr.NPC_NoScoreCheck = false; //NPCにアイテムあげるとき、店売りアイテムあげるかどうかのチェック用　trueだと店売り扱いで処理する。各シーンだと抜けがある可能性あるため、念のためここで処理。
         StartRead = false;
 
 

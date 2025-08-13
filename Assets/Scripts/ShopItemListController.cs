@@ -131,8 +131,8 @@ public class ShopItemListController : MonoBehaviour
             GameMgr.Shopday = PlayerStatus.player_day;
 
             //セール判定
-            rnd = Random.Range(0, 5);
-            if (rnd <= 1)
+            rnd = Random.Range(0, 9);
+            if (rnd <= 1) //20%で発生
             {
                 GameMgr.Sale_ON = true;
                 Debug.Log("セール ON");
@@ -619,17 +619,7 @@ public class ShopItemListController : MonoBehaviour
             shop_hyouji_flag = 100; //100番台はセール品
             Check_ONShopListFlag(shop_hyouji_flag);
         }
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Shop":
 
-                break;
-
-            case "Farm":
-
-                 
-                break;
-        }
 
         //その他、条件をみたすとでてくるショップ品
         switch (SceneManager.GetActiveScene().name)

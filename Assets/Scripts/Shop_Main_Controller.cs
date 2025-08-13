@@ -1102,7 +1102,7 @@ public class Shop_Main_Controller : MonoBehaviour {
     {
         GameMgr.utage_charaHyouji_flag = true;
 
-        GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
+        //GameMgr.Scene_Select = 1000; //シナリオイベント読み中の状態
         GameMgr.Scene_Status = 1000;
 
         while (GameMgr.scenario_ON)

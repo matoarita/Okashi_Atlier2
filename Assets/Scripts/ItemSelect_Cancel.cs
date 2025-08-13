@@ -651,10 +651,18 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                 GameMgr.Scene_Status = 0;
                             }
                         }
+                        else if (GameMgr.Scene_Select == 6) //ショップあげる
+                        {
+                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                            {
+                                //kettei_on_waiting = false;
+                                GameMgr.event_pitem_cancel = true; //やめたフラグON
+                            }
+                        }
                     }
                 }
 
-                if (GameMgr.Scene_Category_Num == 30)
+                if (GameMgr.Scene_Category_Num == 30) //酒場
                 {
                     if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
                     {
@@ -712,6 +720,14 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                     no.SetActive(false);
                                 }
 
+                            }
+                        }
+                        else if (GameMgr.Scene_Select == 6) //酒場あげる
+                        {
+                            if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                            {
+                                //kettei_on_waiting = false;
+                                GameMgr.event_pitem_cancel = true; //やめたフラグON
                             }
                         }
                     }
