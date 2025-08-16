@@ -724,7 +724,7 @@ public class shopQuestSelectToggle : MonoBehaviour
                 }
                 else if (penalty_on == 1) //ペナルティあり
                 {
-                    //人気が少し下がる
+                    //そのお客さんとの友好度が下がる＋ヒカリのハート下がる
                     //PlayerStatus.player_ninki_param -= 10;
                     PlayerStatus.girl1_Love_exp -= 20;
                     _text.text = "キャンセルしたわ！" + "\n" + "お客さん少し悲しんでたみたい..。" + "\n" + "次からは、納品できるように頑張ってね～。"; ;
@@ -732,7 +732,7 @@ public class shopQuestSelectToggle : MonoBehaviour
 
 
                 //画面の更新
-                shopquestlistController.reset_and_DrawView();                
+                shopquestlistController.OnNouhinList();                
 
                 //音を鳴らす。
                 sc.PlaySe(21);

@@ -3634,7 +3634,6 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     if (_pstatus_up > 0)
                     {
                         hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1);
-                        //LvUpPanel5(GameMgr.Item_ShokukanTypeText, _pstatus_up);
                     }
                 }
                 else
@@ -4716,7 +4715,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //レベルアップパネルは一時オフ
         GameMgr.QuestClearButton_anim = true;
         //Debug.Log("_listlvup_obj.Count: " + _listlvup_obj.Count);
-        HeartLvUpPanel_obj.SetActive(false);        
+        HeartLvUpPanel_obj.SetActive(false);
 
         canvas.SetActive(true);
         stageclear_panel.SetActive(true);
@@ -6245,12 +6244,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (GetMP >= 1)
         {
             LvUpPanel4(GetMP);
+            GetMP = 0; //何度もパネル表示されるのを防止
         }
 
         //ステータスアップはここ
         if (_pstatus_up > 0)
         {
             LvUpPanel5(GameMgr.Item_ShokukanTypeText, _pstatus_up);
+            _pstatus_up = 0; //何度もパネル表示されるのを防止
         }
     }
 
@@ -6902,11 +6903,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_6(_magicname);
     }
 
-    //ハートLVあっぷパネルの削除
+    //ハートLVあっぷパネルの削除　Compound_Mainから読み出し
     public void ListLVUPClear()
     {
         if (_listlvup_obj.Count > 0)
         {
+            HeartLvUpPanel_obj = canvas.transform.Find("HeartLvUpPanel").gameObject;
+            foreach (Transform child in HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される
+            {
+                Destroy(child.gameObject);
+            }
             _listlvup_obj.Clear();
         }
     }

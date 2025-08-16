@@ -859,7 +859,10 @@ public class Compound_Main : MonoBehaviour
 
         //時間をチェックし、背景を自動で変更
         Change_BGimage();
-        
+
+        //レベルアップパネル系　入室時に削除
+        girlEat_judge.ListLVUPClear();
+
 
         //デバッグ用 本番ではオフにする。コンテスト終了後、寝るが終わったあとに始まるイベントのこと　寝るを押せばすぐに発動するようにしてる。
         //GameMgr.Contest_afterHomeEventFlag = true;

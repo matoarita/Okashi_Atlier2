@@ -1698,17 +1698,20 @@ public class Quest_Judge : MonoBehaviour {
                     _getMoney += _MSMoney; //種類によらず一個ついてたら+300 MSValueはUseLVが入ってるので、LVが高いと報酬上がる
                 }
 
-                //そのクエストで一回だけスターもらえる _questID
-                if (quest_database.questTakeset[_qitemID].Quest_GetNinkiFlag == 0)
+                //そのクエストで一回だけスターもらえる _questID 人気度の計算はCostHoseiで済み
+                if (_getNinki >= 1)
                 {
-                    //まだスターをとったことないので、そのままスターゲット _getninkiは、上で事前に計算済 テイクのほうでなく元のクエストデータを上書きする。
-                    _Listid = quest_database.SearchQuestID(quest_database.questTakeset[_qitemID].Quest_ID);
-                    quest_database.questset[_Listid].Quest_GetNinkiFlag += 1;
-                    Debug.Log("高得点なおかしだったので、クライアントからスターもらえる。QuestID: " + quest_database.questTakeset[_qitemID].Quest_ID);
-                }
-                else //スター何個かとったことあるので、次はスターはもらえない ただし、フラグがあると、家に直接きてくれる予定
-                {
-                    _getNinki = 0;
+                    if (quest_database.questTakeset[_qitemID].Quest_GetNinkiFlag == 0)
+                    {
+                        //まだスターをとったことないので、そのままスターゲット _getninkiは、上で事前に計算済 テイクのほうでなく元のクエストデータを上書きする。
+                        _Listid = quest_database.SearchQuestID(quest_database.questTakeset[_qitemID].Quest_ID);
+                        quest_database.questset[_Listid].Quest_GetNinkiFlag += 1;
+                        Debug.Log("高得点なおかしだったので、クライアントからスターもらえる。QuestID: " + quest_database.questTakeset[_qitemID].Quest_ID);
+                    }
+                    else //スター何個かとったことあるので、次はスターはもらえない ただし、フラグがあると、家に直接きてくれる予定
+                    {
+                        _getNinki = 0;
+                    }
                 }
 
                 //60点以上なら、店主のマッサージポイントあがる。

@@ -5013,6 +5013,26 @@ public class Utage_scenario : MonoBehaviour
 
         }
 
+        //点数が僅差か大差か
+        if (Mathf.Abs(GameMgr.contest_TotalScore - GameMgr.contest_boss_score) >= 0 && Mathf.Abs(GameMgr.contest_TotalScore - GameMgr.contest_boss_score) < 10)
+        {
+            //10点差以内なら僅差
+            engine.Param.TrySetParameter("contest_scoredeg_comment1", "かなり僅差の点数で、競り合いでしたが。");
+            engine.Param.TrySetParameter("contest_scoredeg_comment2", "総合評価として、" + GameMgr.player_Name_First + "くんが一歩推されたようデス！！");
+        }
+        else if (Mathf.Abs(GameMgr.contest_TotalScore - GameMgr.contest_boss_score) >= 10 && Mathf.Abs(GameMgr.contest_TotalScore - GameMgr.contest_boss_score) < 50)
+        {
+            //50点差以内ならふつう
+            engine.Param.TrySetParameter("contest_scoredeg_comment1", "今回は順当に差がつきました。");
+            engine.Param.TrySetParameter("contest_scoredeg_comment2", "総合評価として、" + GameMgr.player_Name_First + "くんが一歩推されたようデス！！");
+        }
+        else if (Mathf.Abs(GameMgr.contest_TotalScore - GameMgr.contest_boss_score) >= 50)
+        {
+            //50点差以内ならふつう
+            engine.Param.TrySetParameter("contest_scoredeg_comment1", "ナ～ント！　点数に、圧倒的な差がつきまして..。");
+            engine.Param.TrySetParameter("contest_scoredeg_comment2", GameMgr.player_Name_First + "くんがダントツの勝利だったようデス！！");
+        }
+
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
