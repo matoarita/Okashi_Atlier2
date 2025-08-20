@@ -142,7 +142,8 @@ public class BGM : MonoBehaviour {
         {
             case "001_Title":
 
-                _send_clip = sound24;
+                //_send_clip = sound24; //1のときのタイトルBGM
+                _send_clip = sound32;
                 break;
 
             case "200_Omake":

@@ -52,6 +52,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 604025008c9e94d489b73d0dc259c3d1, type: 3}
   - {fileID: 21300000, guid: 84945900f44ab774f9284d2d513d3386, type: 3}
+  - {fileID: 21300000, guid: 3909511006fb476478d673d26fa086ef, type: 3}
   - {fileID: 21300000, guid: 5344ee107dd09b14abee4854c817c7c4, type: 3}
   - {fileID: 21300000, guid: 50cde0206e89d2e478ff2fe09ea5c471, type: 3}
   - {fileID: 21300000, guid: 426fe720fc2072b4b90ebe2c7e058651, type: 3}
@@ -171,6 +172,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ff3976520cb94004eaa35c96ea976303, type: 3}
   - {fileID: 21300000, guid: 4b2801625bff70349af7bb4c6e52353c, type: 3}
   - {fileID: 21300000, guid: ae6da1621a1e67f4fb20256fc6946aab, type: 3}
+  - {fileID: 21300000, guid: 50658762fadf4c04f856922804988b12, type: 3}
   - {fileID: 21300000, guid: 1733cd6218502514f893891b52dd470a, type: 3}
   - {fileID: 21300000, guid: f1f17f62b37aa5c42b93a3fc0b3e0644, type: 3}
   - {fileID: 21300000, guid: f210207227eb7af4585505ef6f781269, type: 3}
@@ -201,6 +203,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7d2e4fc2269c31c498de49a3cc004913, type: 3}
   - {fileID: 21300000, guid: 727ebfc260833804eacd06347bf39078, type: 3}
   - {fileID: 21300000, guid: f8b1ffc256bc73e418fb29128b896a51, type: 3}
+  - {fileID: 21300000, guid: 2c2742d2307d91548bfec2b365f94e6b, type: 3}
   - {fileID: 21300000, guid: 30a2e2d2901eb534a992e64a9e273fac, type: 3}
   - {fileID: 21300000, guid: 25d3e6d269337ff48a5f57ac17a9c077, type: 3}
   - {fileID: 21300000, guid: e3ca89d25fa4c514e9255f0161d8847e, type: 3}
@@ -248,6 +251,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 60843e837d96e204e80fc1860a9916d8, type: 3}
   - {fileID: 21300000, guid: f7f14f837ca350d44933318290343a64, type: 3}
   - {fileID: 21300000, guid: ebe5ff835e63a004e8035ac1ab97fe7b, type: 3}
+  - {fileID: 21300000, guid: 503515937a7dc6b43a59af4d412d90f4, type: 3}
   - {fileID: 21300000, guid: 4c34e6a3a4c74f940a26a21078c4b818, type: 3}
   - {fileID: 21300000, guid: 57c471b3c2fff9c4b90e0b45701f665e, type: 3}
   - {fileID: 21300000, guid: 3304a3b319db52f45aaaf7692e98c615, type: 3}
@@ -374,6 +378,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: bb0f2446c1700124b920f75736d3a723, type: 3}
   - {fileID: 21300000, guid: 32af05468f65e9a4192094c7792b04fb, type: 3}
   - {fileID: 21300000, guid: d8e93746699a616458dafba8b9323e35, type: 3}
+  - {fileID: 21300000, guid: 3d05445693d52a04681d930e8a1f7b3d, type: 3}
   - {fileID: 21300000, guid: 27cf4856a5ad2464990b00caf51b05e2, type: 3}
   - {fileID: 21300000, guid: ca0f8b56bbbfac547bbb7229c455246f, type: 3}
   - {fileID: 21300000, guid: 9b335e5688bff3344b91520ff9807b36, type: 3}
@@ -449,6 +454,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 723ca5c712479aa43be1f326f9eebb13, type: 3}
   - {fileID: 21300000, guid: e56b0ec78260e1d489506ca225dd115c, type: 3}
   - {fileID: 21300000, guid: 30a0afc76cd043e439d8304c4be8babc, type: 3}
+  - {fileID: 21300000, guid: 3effe1e7412dbc04ca9308dfa2218454, type: 3}
   - {fileID: 21300000, guid: 33dd29e7c0492c141b858f576eb6e137, type: 3}
   - {fileID: 21300000, guid: 638b0ee7a7d5e7342aa366ccb5fe85f5, type: 3}
   - {fileID: 21300000, guid: bedc85f749876df40a4339710dda825c, type: 3}
@@ -729,6 +735,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 742c654d7c0b34749a33036cb9a4d68a, type: 3}
   - {fileID: 21300000, guid: e917e54dc9ec7954ca074d3176232773, type: 3}
   - {fileID: 21300000, guid: 2efb184db40a98e4dad8397c08c70c8b, type: 3}
+  - {fileID: 21300000, guid: 4fc20f4dd5936b4418c6a2f8ae0f40b8, type: 3}
   - {fileID: 21300000, guid: dc18955dcc1606d458ae8d39f1f624ff, type: 3}
   - {fileID: 21300000, guid: 115bc65d273f29f459fb31acdfff6e2b, type: 3}
   - {fileID: 21300000, guid: c46cdc5debc375b4a91fdc75038e1768, type: 3}
@@ -742,6 +749,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 666e65ad3e7d081408ab7a5a762b89dd, type: 3}
   - {fileID: 21300000, guid: e3bbc8ad231f82e419840eb698bc8550, type: 3}
   - {fileID: 21300000, guid: eeec53bd2b5d6d5468839bf5000b6eef, type: 3}
+  - {fileID: 21300000, guid: 4c47d3bdcefb8bd4ab4aea6f0bbe9832, type: 3}
   - {fileID: 21300000, guid: ce3666bdf0756c7429487caada4dc8bd, type: 3}
   - {fileID: 21300000, guid: 713104cd7d958f14493404b6ba04bc34, type: 3}
   - {fileID: 21300000, guid: 6a9496ddea6c93c49b7d619d479210de, type: 3}
@@ -761,6 +769,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 127cf23e57347be49bf225c986f41f0c, type: 3}
   - {fileID: 21300000, guid: e3e4893ee20d208488c745ede11fd060, type: 3}
   - {fileID: 21300000, guid: 5b905d3eaad27cd4a80f31635671001c, type: 3}
+  - {fileID: 21300000, guid: 669e4f3ee003c394cb73b40d4a00f29f, type: 3}
   - {fileID: 21300000, guid: e745d74ea00e1a642a3b4fb54dbc9b67, type: 3}
   - {fileID: 21300000, guid: ebfc5b4e76977dd42be2b33a9f6050b1, type: 3}
   - {fileID: 21300000, guid: f977915e44428d64a9d55b05e6c8562f, type: 3}
@@ -837,6 +846,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - cherry
   - neko_badge_white
+  - twister_small_chocolate
   - record
   - eden_recipi_1
   - princess_tota_base
@@ -956,6 +966,7 @@ SpriteAtlas:
   - potion_jasmin
   - appaleil_chocolate_heart_green
   - cacao_mass_green
+  - twister_small_juice
   - infinity_fountain_tansan
   - apareiyu_chocolate_aquamarine
   - salt
@@ -986,6 +997,7 @@ SpriteAtlas:
   - chocolate_ruby_twister_3
   - maple_syrup
   - soda_weather_2
+  - twister_small_water
   - jewery_candy
   - strange_grass
   - apareiyu_black
@@ -1033,6 +1045,7 @@ SpriteAtlas:
   - strawberry_neko_cookie
   - appaleil_chocolate_crown_blue
   - lumi_grape
+  - twister_small_chocolate_green
   - marzipan
   - zarame
   - soda_grape
@@ -1159,6 +1172,7 @@ SpriteAtlas:
   - tea_hydrangea
   - lumi_sapphire_neko_cookie
   - crepe_cheese
+  - twister_small_milk
   - lumi_raspberry
   - blacklotus_sponge_cake_two
   - marzipan_green
@@ -1234,6 +1248,7 @@ SpriteAtlas:
   - pocket_tissue
   - measuring_spoon
   - gold_leaf
+  - twister_small_chocolate_ruby
   - neko_cookie
   - pan_cake_souffle
   - frozen_rainbowberry
@@ -1514,6 +1529,7 @@ SpriteAtlas:
   - oven_silver
   - parfe_strawberry
   - cheesecake_base2
+  - twister_small_chocolate_aqua
   - cookie_door
   - chocolate_aqua_bar
   - cacao_mass_ruby
@@ -1527,6 +1543,7 @@ SpriteAtlas:
   - icecream_strawberry
   - aroma_potion3
   - apareiyu_blueberry
+  - potate_jewerybox
   - jelly_water_soda
   - shokukan_powerup3
   - wood_rod_good
@@ -1546,6 +1563,7 @@ SpriteAtlas:
   - whipped cream_blackberry
   - whisk_wind
   - apareiyu_orange
+  - twister_small_chocolate_blue
   - lumi_suger_sakura
   - apple_syrup
   - chocobanana_base

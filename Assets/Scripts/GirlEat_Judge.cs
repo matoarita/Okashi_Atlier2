@@ -2508,13 +2508,13 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         if (Mathf.Abs(_taste_result) == 0)
         {
             Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
-            taste_score = 100;
+            taste_score = 120;
             taste_level = 8;
         }
         else if (Mathf.Abs(_taste_result) > 0 && Mathf.Abs(_taste_result) <= 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 90;
+            taste_score = 80;
             taste_level = 7;
         }
         else if (Mathf.Abs(_taste_result) > 5 && Mathf.Abs(_taste_result) <= 15) //+-5~14  すばらしい
@@ -2579,7 +2579,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 60;
+            taste_score = 80;
             taste_level = 7;
         }
         else if (Mathf.Abs(_taste_result) < 12) //+-3~7　絶妙な塩梅

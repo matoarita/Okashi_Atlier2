@@ -33,6 +33,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private int _id, ev_id, read_ID;
     private int contest_allcount, contest_victorycount;
     private bool contest_Master_TasseiFlag;
+    private bool contest_Master_TasseiFlag_half;
     private int archive_area;
     private bool _fire;
     private string _basename, _baseitemtype_sub, _baseitemtype_subB;
@@ -76,6 +77,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         GetEmeraldItem = false;
         _fire = false;
         cat_comecheck = false;
+        contest_Master_TasseiFlag = false;
+        contest_Master_TasseiFlag_half = false;
     }
 	
 	// Update is called once per frame
@@ -1743,9 +1746,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         Debug.Log("コンテスト終了後　コンテスト達成率イベントチェック");
 
                         contest_Master_TasseiFlag = false;
+                        contest_Master_TasseiFlag_half = false;
 
                         //各コンテストでチェック
-                        while(i < 4)
+                        i = 0;
+                        while (i < 4)
                         {
                             switch(i)
                             {
@@ -1782,11 +1787,85 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 contest_Master_TasseiFlag = true;
                                 break;
                             }
+                            else
+                            {
+                                if (Mathf.CeilToInt(contest_allcount / 2) <= contest_victorycount)
+                                {
+                                    contest_Master_TasseiFlag_half = true;
+                                    break;
+                                }
+                            }
                             i++;
                         }
-                        
 
-                        //
+                        //５０％達成
+                        if (contest_Master_TasseiFlag_half)
+                        {
+                            //どのエリアを達成したか
+                            switch (archive_area)
+                            {
+                                case 0:
+
+                                    //春エリア50%達成
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[724])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[724] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 724;
+
+                                        GameMgr.OrRoomRelease[1] = true;
+                                        //GameMgr.OrRoomRelease[2] = true;
+                                    }
+                                    break;
+
+                                case 1000:
+
+                                    //夏エリア50%達成
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[725])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[725] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 725;
+
+                                        GameMgr.OrRoomRelease[3] = true;
+                                        //GameMgr.OrRoomRelease[4] = true;
+                                        //GameMgr.OrRoomRelease[5] = true;
+                                    }
+                                    break;
+
+                                case 2000:
+
+                                    //秋エリア50%達成
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[726])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[726] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 726;
+
+                                        GameMgr.OrRoomRelease[6] = true;
+                                        //GameMgr.OrRoomRelease[7] = true;
+                                        //GameMgr.OrRoomRelease[8] = true;
+                                    }
+                                    break;
+
+                                case 3000:
+
+                                    //冬エリア50%達成
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[727])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[727] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 727;
+
+                                    }
+                                    break;
+                            }
+
+                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                            GameMgr.Mute_on = true;
+                        }
+
+                        //１００％達成
                         if (contest_Master_TasseiFlag)
                         {
                             //どのエリアを達成したか
@@ -1801,7 +1880,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                         GameMgr.GirlLoveSubEvent_num = 720;
 
-                                        GameMgr.OrRoomRelease[1] = true;
+                                        //GameMgr.OrRoomRelease[1] = true;
                                         GameMgr.OrRoomRelease[2] = true;
                                     }
                                     break;
@@ -1815,7 +1894,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                         GameMgr.GirlLoveSubEvent_num = 721;
 
-                                        GameMgr.OrRoomRelease[3] = true;
+                                        //GameMgr.OrRoomRelease[3] = true;
                                         GameMgr.OrRoomRelease[4] = true;
                                         GameMgr.OrRoomRelease[5] = true;
                                     }
@@ -1830,7 +1909,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                         GameMgr.GirlLoveSubEvent_num = 722;
 
-                                        GameMgr.OrRoomRelease[6] = true;
+                                        //GameMgr.OrRoomRelease[6] = true;
                                         GameMgr.OrRoomRelease[7] = true;
                                         GameMgr.OrRoomRelease[8] = true;
                                     }

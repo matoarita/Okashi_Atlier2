@@ -4003,8 +4003,8 @@ public class Utage_scenario : MonoBehaviour
                     {
                         GameMgr.NPCHiroba_eventList[100] = true;
 
-                        //ウィンドツイスターの本をゲット
-                        ev_id = pitemlist.Find_eventitemdatabase("mg_windtwister_book");
+                        //風の魔術書をゲット
+                        ev_id = pitemlist.Find_eventitemdatabase("mg_windmagic_book");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //
 
                         //メイン画面にもどったときに、イベントを発生させるフラグをON

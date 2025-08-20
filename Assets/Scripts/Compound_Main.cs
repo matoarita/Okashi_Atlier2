@@ -3290,6 +3290,28 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
+            case "mg_windmagic_book": //風の魔術書
+
+                magicskill_database.skillHyoujiKaikin("Wind_Twister");
+                magicskill_database.skillHyoujiKaikin("Wind_Heart");
+                magicskill_database.skillHyoujiKaikin("Wind_FlatBar");
+                magicskill_database.skillHyoujiKaikin("Wind_Crown");
+                magicskill_database.skillHyoujiKaikin("Wind_Roll");
+                magicskill_database.skillHyoujiKaikin("Wind_Pen");
+                magicskill_database.skillHyoujiKaikin("Bubble_Mist");
+
+                break;
+
+            case "mg_timemagic_book": //時の魔術書
+
+                //magicskill_database.skillHyoujiKaikin("Star_Gazer");
+                magicskill_database.skillHyoujiKaikin("Soda_Study");
+                magicskill_database.skillHyoujiKaikin("Star_Blessing");
+                magicskill_database.skillHyoujiKaikin("Latte_Art");
+                magicskill_database.skillHyoujiKaikin("Magic_Soda");
+
+                break;
+
             case "mg_beautifulpower_book":
                 magicskill_database.skillHyoujiKaikin("Beautiful_Power");
                 break;
