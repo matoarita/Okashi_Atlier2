@@ -207,6 +207,13 @@ public class SetImage : MonoBehaviour
     private int _attri1;
     private int _attri2;
     private int _attri3;
+    private int _attri4;
+    private int _attri5;
+    private int _attri6;
+    private int _attri7;
+    private int _attri8;
+    private int _attri9;
+    private int _attri10;
 
     private int _powdery_score;
     private int _oily_score;
@@ -658,6 +665,13 @@ public class SetImage : MonoBehaviour
                 _attri1 = database.items[check_counter].Attribute1;
                 _attri2 = database.items[check_counter].Attribute2;
                 _attri3 = database.items[check_counter].Attribute3;
+                _attri4 = database.items[check_counter].Attribute4;
+                _attri5 = database.items[check_counter].Attribute5;
+                _attri6 = database.items[check_counter].Attribute6;
+                _attri7 = database.items[check_counter].Attribute7;
+                _attri8 = database.items[check_counter].Attribute8;
+                _attri9 = database.items[check_counter].Attribute9;
+                _attri10 = database.items[check_counter].Attribute10;
 
                 //前回の味読み込み
                 //_lastquality_score = database.items[check_counter].Quality;
@@ -760,6 +774,13 @@ public class SetImage : MonoBehaviour
                 _attri1 = pitemlist.player_originalitemlist[check_counter].Attribute1;
                 _attri2 = pitemlist.player_originalitemlist[check_counter].Attribute2;
                 _attri3 = pitemlist.player_originalitemlist[check_counter].Attribute3;
+                _attri4 = pitemlist.player_originalitemlist[check_counter].Attribute4;
+                _attri5 = pitemlist.player_originalitemlist[check_counter].Attribute5;
+                _attri6 = pitemlist.player_originalitemlist[check_counter].Attribute6;
+                _attri7 = pitemlist.player_originalitemlist[check_counter].Attribute7;
+                _attri8 = pitemlist.player_originalitemlist[check_counter].Attribute8;
+                _attri9 = pitemlist.player_originalitemlist[check_counter].Attribute9;
+                _attri10 = pitemlist.player_originalitemlist[check_counter].Attribute10;
 
                 _powdery_score = pitemlist.player_originalitemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_originalitemlist[check_counter].Oily;
@@ -865,6 +886,13 @@ public class SetImage : MonoBehaviour
                 _attri1 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute1;
                 _attri2 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute2;
                 _attri3 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute3;
+                _attri4 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute4;
+                _attri5 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute5;
+                _attri6 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute6;
+                _attri7 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute7;
+                _attri8 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute8;
+                _attri9 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute9;
+                _attri10 = pitemlist.player_extremepanel_itemlist[check_counter].Attribute10;
 
                 _powdery_score = pitemlist.player_extremepanel_itemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_extremepanel_itemlist[check_counter].Oily;
@@ -969,6 +997,13 @@ public class SetImage : MonoBehaviour
                 _attri1 = pitemlist.player_check_itemlist[check_counter].Attribute1;
                 _attri2 = pitemlist.player_check_itemlist[check_counter].Attribute2;
                 _attri3 = pitemlist.player_check_itemlist[check_counter].Attribute3;
+                _attri4 = pitemlist.player_check_itemlist[check_counter].Attribute4;
+                _attri5 = pitemlist.player_check_itemlist[check_counter].Attribute5;
+                _attri6 = pitemlist.player_check_itemlist[check_counter].Attribute6;
+                _attri7 = pitemlist.player_check_itemlist[check_counter].Attribute7;
+                _attri8 = pitemlist.player_check_itemlist[check_counter].Attribute8;
+                _attri9 = pitemlist.player_check_itemlist[check_counter].Attribute9;
+                _attri10 = pitemlist.player_check_itemlist[check_counter].Attribute10;
 
                 _powdery_score = pitemlist.player_check_itemlist[check_counter].Powdery;
                 _oily_score = pitemlist.player_check_itemlist[check_counter].Oily;
@@ -1085,6 +1120,13 @@ public class SetImage : MonoBehaviour
         _attri1 = pitemlist.player_yosokuitemlist[check_counter].Attribute1;
         _attri2 = pitemlist.player_yosokuitemlist[check_counter].Attribute2;
         _attri3 = pitemlist.player_yosokuitemlist[check_counter].Attribute3;
+        _attri4 = pitemlist.player_yosokuitemlist[check_counter].Attribute4;
+        _attri5 = pitemlist.player_yosokuitemlist[check_counter].Attribute5;
+        _attri6 = pitemlist.player_yosokuitemlist[check_counter].Attribute6;
+        _attri7 = pitemlist.player_yosokuitemlist[check_counter].Attribute7;
+        _attri8 = pitemlist.player_yosokuitemlist[check_counter].Attribute8;
+        _attri9 = pitemlist.player_yosokuitemlist[check_counter].Attribute9;
+        _attri10 = pitemlist.player_yosokuitemlist[check_counter].Attribute10;
 
         _powdery_score = pitemlist.player_yosokuitemlist[check_counter].Powdery;
         _oily_score = pitemlist.player_yosokuitemlist[check_counter].Oily;
@@ -1196,6 +1238,13 @@ public class SetImage : MonoBehaviour
         _attri1 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute1;
         _attri2 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute2;
         _attri3 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute3;
+        _attri4 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute4;
+        _attri5 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute5;
+        _attri6 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute6;
+        _attri7 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute7;
+        _attri8 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute8;
+        _attri9 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute9;
+        _attri10 = GameMgr.contestclear_collection_list[check_counter].ItemData.Attribute10;
 
         _powdery_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Powdery;
         _oily_score = GameMgr.contestclear_collection_list[check_counter].ItemData.Oily;
@@ -1754,7 +1803,8 @@ public class SetImage : MonoBehaviour
     void DrawMagicIconView()
     {
         //Debug.Log("魔法アイコン　カード表示check");
-        Debug.Log("_attri2* " + _attri2);
+        Debug.Log("_attri2*(WindArk回数) " + _attri2);
+        Debug.Log("_attri4*(生地混ぜ回数) " + _attri4);
 
         foreach (Transform child in magicview_content.transform)
         {

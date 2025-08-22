@@ -38,6 +38,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private string _itemType;
     private string _itemType_sub;
     private string _itemType_subB;
+    private int _compoID;
 
     private float _tempature_param;
     private float _well_done;
@@ -110,7 +111,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //調合成功率のバフ
     //調合で生成されるアイテムの_itemType_subを指定し、中に補正値をかけばOK
     //
-    public int Buf_CompKakuritsu_Keisan(string _result_item, int _compID)
+    public int Buf_CompKakuritsu_Keisan(string _result_item, int _compID, int _attri4)
     {
         _buf_kakuritsuup = 0;
 
@@ -119,9 +120,20 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _itemType = database.items[_id].itemType.ToString();
         _itemType_sub = database.items[_id].itemType_sub.ToString();
         _itemType_subB = database.items[_id].itemType_subB.ToString();
+        _compoID = _compID;
 
         switch (_itemType_sub)
         {
+            case "Appaleil": //_attri4 生地の混ぜ回数が影響にはいる
+
+                KakuritsuUp_Appaleil(_attri4);
+                break;
+
+            case "Appaleil_Icecream":
+
+                KakuritsuUp_Appaleil(_attri4);
+                break;
+
             case "Biscotti":
 
                 //かまどレベルによるバフ
@@ -263,7 +275,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
        
 
         //一回でも成功したことがあれば、+3%ほど成功率が上昇する。
-        if(databaseCompo.compoitems[_compID].cmpitem_flag >= 1 && databaseCompo.compoitems[_compID].cmpitem_flag != 9999) //9999は除外するので計算しない
+        if(databaseCompo.compoitems[_compoID].cmpitem_flag >= 1 && databaseCompo.compoitems[_compoID].cmpitem_flag != 9999) //9999は除外するので計算しない
         {
             _buf_kakuritsuup += 3;
         }
@@ -325,6 +337,31 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     }
                 }
             }
+        }
+    }
+
+    void KakuritsuUp_Appaleil(int _baseattri4)
+    {
+        //生地を混ぜた回数があがるほど、成功率が下がる
+        if (_baseattri4 >= 1 && _baseattri4 < 3) //0回は何もしない
+        {
+            _buf_kakuritsuup += (-10 * _baseattri4);
+        }
+        else if (_baseattri4 >= 3 && _baseattri4 < 6)
+        {
+            _buf_kakuritsuup += (-15 * _baseattri4);
+        }
+        else if (_baseattri4 >= 6)
+        {
+            _buf_kakuritsuup += (-20 * _baseattri4);
+        }
+
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1) //アパレイユのお勉強で、生地を混ぜるときの成功率が上がる
+        {
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 5; //LV*10
+            _buf_kakuritsuup += _magicup;
         }
     }
 
@@ -781,6 +818,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _itemType = database.items[_id].itemType.ToString();
         _itemType_sub = database.items[_id].itemType_sub.ToString();
         _itemType_subB = database.items[_id].itemType_subB.ToString();
+        _compoID = _compID;
 
         switch (_itemType_sub)
         {           
@@ -814,18 +852,22 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void KosuUp_Appaleil()
     {
-        //魔法のバフ
-        _magicup = 0;
-        if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 3 && magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") < 5)
+        if(databaseCompo.compoitems[_compoID].buf_kouka_on != 2)
         {
-            _magicup = 1; //LV*1
-            _buf_kosuup += _magicup;
+            //魔法のバフ
+            _magicup = 0;
+            if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 3 && magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") < 5)
+            {
+                _magicup = 1; //LV*1
+                _buf_kosuup += _magicup;
+            }
+            else if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 5)
+            {
+                _magicup = 2; //LV*1
+                _buf_kosuup += _magicup;
+            }
         }
-        else if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 5)
-        {
-            _magicup = 2; //LV*1
-            _buf_kosuup += _magicup;
-        }
+        { } //2のときは、個数計算しない
     }
 
     void KosuUp_Cream()
@@ -870,7 +912,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //食感などのパラメータのバフ これのみ、ゲームスタート前に一度読み込む可能性あるので、アイテムリストを取得
     //アイテムのサブタイプ(_itemType_sub)を指定し、中で補正をかければOK
     //
-    public int Buf_OkashiParamUp_Keisan(int _status, int _origin_param, string _result_item)
+    public int Buf_OkashiParamUp_Keisan(int _status, int _origin_param, string _result_item, int _compID)
     {
         InitSetup();
 
@@ -880,6 +922,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _itemType = database.items[_id].itemType.ToString();
         _itemType_sub = database.items[_id].itemType_sub.ToString();
         _itemType_subB = database.items[_id].itemType_subB.ToString();
+        _compoID = _compID;
 
         original_shokukan_p = _origin_param;
         
@@ -1260,18 +1303,50 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void AppaleilBuf()
     {
-        //魔法のバフ
-        _magicup = 0;
-        if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1)
+        if (databaseCompo.compoitems[_compoID].buf_kouka_on == 1) //初期作成時は大きいバフ
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 30; //LV*10
-            _buf_shokukanup += _magicup;
+            //魔法のバフ
+            _magicup = 0;
+            if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1)
+            {
+                _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 30; //LV*10
+                _buf_shokukanup += _magicup;
+            }
+        }
+        else if (databaseCompo.compoitems[_compoID].buf_kouka_on == 2) //生地を泡だて器で混ぜることによるバフ　少し上がり幅せまい
+        {
+            //魔法のバフ
+            _magicup = 0;
+            if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1)
+            {
+                _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 10; //LV*10
+                _buf_shokukanup += _magicup;
+            }
         }
     }
 
     void AppaleilIcecreamBuf()
     {
-        
+        if (databaseCompo.compoitems[_compoID].buf_kouka_on == 1) //アイス水溶液を泡だて器で混ぜることによるバフ　少し上がり幅せまい
+        {
+            //魔法のバフ
+            _magicup = 0;
+            if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)　//アイスの気持ちでわずかに上昇値あがる
+            {
+                _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 5; //LV*3
+                _buf_shokukanup += _magicup;
+            }
+        }
+        else if (databaseCompo.compoitems[_compoID].buf_kouka_on == 2) //アイス水溶液を泡だて器で混ぜることによるバフ　少し上がり幅せまい
+        {
+            //魔法のバフ
+            _magicup = 0;
+            if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)　//アイスの気持ちでわずかに上昇値あがる
+            {
+                _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 3; //LV*3
+                _buf_shokukanup += _magicup;
+            }
+        }
     }
 
     void HokuhokuBuf()
@@ -1389,15 +1464,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
         if (pitemlist.KosuCount("cookie_powerup2") >= 1) //
         {
-            _buf_shokukanup += 20;
+            _buf_shokukanup += 10;
         }
         if (pitemlist.KosuCount("cookie_powerup3") >= 1) //
         {
-            _buf_shokukanup += 40;
+            _buf_shokukanup += 20;
         }
         if (pitemlist.KosuCount("cookie_powerup4") >= 1) //
         {
-            _buf_shokukanup += 60;
+            _buf_shokukanup += 30;
         }
         if (pitemlist.KosuCount("cookie_powerup5") >= 1) //
         {

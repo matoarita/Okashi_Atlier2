@@ -660,7 +660,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori, int _magic,
         string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int Attri1, int Attri2, int Attri3)
+        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10)
     {
         //トッピングアイテムを追加の際は、アイテム名（_name）＋任意の数字のパラメータ。ファイルネームやアイコンなどは共通なので、データベースから取得。
 
@@ -696,7 +696,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _noteat, _secretFlag,
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
-            Attri1, Attri2, Attri3,
+            Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
             _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
     }
@@ -711,7 +711,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori, int _magic,
         string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int Attri1, int Attri2, int Attri3)
+        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10)
     {
         //トッピングアイテムを追加の際は、アイテム名（_name）＋任意の数字のパラメータ。ファイルネームやアイコンなどは共通なので、データベースから取得。
 
@@ -746,7 +746,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _noteat, _secretFlag,
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
-            Attri1, Attri2, Attri3,
+            Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
             _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
     }
@@ -761,7 +761,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori, int _magic,
         string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int Attri1, int Attri2, int Attri3)
+        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10)
     {
 
         player_yosokuitemlist.Clear();
@@ -798,7 +798,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _noteat, _secretFlag,
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
-            Attri1, Attri2, Attri3,
+            Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
             _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
     }
@@ -814,7 +814,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
         int _itemkosu, int extreme_kaisu, int _item_hyouji, float _total_kyori, int _magic,
         string _MS01, string _MS02, string _MS03, string _MS04, string _MS05, string _MS06, string _MS07, string _MS08, string _MS09, string _MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int Attri1, int Attri2, int Attri3)
+        int Attri1, int Attri2, int Attri3, int Attri4, int Attri5, int Attri6, int Attri7, int Attri8, int Attri9, int Attri10)
     {
 
         player_check_itemlist.Clear();
@@ -851,7 +851,7 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             _noteat, _secretFlag,
             _MS01, _MS02, _MS03, _MS04, _MS05, _MS06, _MS07, _MS08, _MS09, _MS10,
             MSvalue01, MSvalue02, MSvalue03, MSvalue04, MSvalue05, MSvalue06, MSvalue07, MSvalue08, MSvalue09, MSvalue10,
-            Attri1, Attri2, Attri3,
+            Attri1, Attri2, Attri3, Attri4, Attri5, Attri6, Attri7, Attri8, Attri9, Attri10,
             _ms1_mariage, _ms1_pointup, _ms2_mariage, _ms2_pointup, _ms3_mariage, _ms3_pointup, _ms4_mariage, _ms4_pointup, _ms5_mariage, _ms5_pointup,
             _ms6_mariage, _ms6_pointup, _ms7_mariage, _ms7_pointup, _ms8_mariage, _ms8_pointup, _ms9_mariage, _ms9_pointup, _ms10_mariage, _ms10_pointup));
     }
@@ -954,7 +954,10 @@ public class PlayerItemList : SingletonMonoBehaviour<PlayerItemList>
             player_extremepanel_itemlist[tempID].item_MagicSlotValue[6], player_extremepanel_itemlist[tempID].item_MagicSlotValue[7], player_extremepanel_itemlist[tempID].item_MagicSlotValue[8],
             player_extremepanel_itemlist[tempID].item_MagicSlotValue[9],
             player_extremepanel_itemlist[tempID].Attribute1, player_extremepanel_itemlist[tempID].Attribute2,
-            player_extremepanel_itemlist[tempID].Attribute3,
+            player_extremepanel_itemlist[tempID].Attribute3, player_extremepanel_itemlist[tempID].Attribute4,
+            player_extremepanel_itemlist[tempID].Attribute5, player_extremepanel_itemlist[tempID].Attribute6,
+            player_extremepanel_itemlist[tempID].Attribute7, player_extremepanel_itemlist[tempID].Attribute8,
+            player_extremepanel_itemlist[tempID].Attribute9, player_extremepanel_itemlist[tempID].Attribute10,
             player_extremepanel_itemlist[tempID].MS1_mariage, player_extremepanel_itemlist[tempID].MS1_pointup,
             player_extremepanel_itemlist[tempID].MS2_mariage, player_extremepanel_itemlist[tempID].MS2_pointup,
             player_extremepanel_itemlist[tempID].MS3_mariage, player_extremepanel_itemlist[tempID].MS3_pointup,

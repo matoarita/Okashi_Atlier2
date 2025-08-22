@@ -1008,6 +1008,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int AmusePlayCount; //遊園地で乗り物にのった数のカウント
     public static string barMassage_RandomUpName; //マッサージでどのパラメータがあがるかの名前
     public static int barMassage_RandomUpPoint; //そのときのポイント表示用
+    public static int Appaleil_Attribute4; //生地混ぜ回数の引継ぎ用
 
 
 
@@ -1038,6 +1039,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int temp_itemID1; //一時的にアイテムIDを保存しておくための変数 アイテムDBのリスト配列
     public static int temp_itemID2; //一時的にアイテムIDを保存しておくための変数
     public static int temp_itemID3; //一時的にアイテムIDを保存しておくための変数
+    public static int[] temp_attriID1 = new int[30]; //そのアイテムの属性値も取得　今のところ10個分用意　念のため多めに３０ほどこっちは入れとく
+    public static int[] temp_attriID2 = new int[30];
+    public static int[] temp_attriID3 = new int[30];
     public static int temp_baseitemID;
 
     public static int Final_list_itemID1; //一時的なDBのリスト配列番号　店売り・オリジナル・エクストリーム全て含む　各スクリプトをまたぐため、ここで設定 　
@@ -1646,7 +1650,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         BarQuest_NewReset2 = false;
         AmusePlayCount = 0;
         barMassage_RandomUpName = "";
+        Appaleil_Attribute4 = 0;
 
+        //Tempのattriを初期化
+        for (system_i = 0; system_i < temp_attriID1.Length; system_i++)
+        {
+            temp_attriID1[system_i] = 0;
+            temp_attriID2[system_i] = 0;
+            temp_attriID3[system_i] = 0;
+        }
+        
 
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
@@ -1934,7 +1947,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
                         "Non", "Non", "Non", "Non", 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0,
                         0, 0, 0, 0, 0, 0, "", 0, 1, 0, 0, 0, 0, "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non",
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        0, 0, 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0);
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                        "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0, "Non", 0);
         contest_okashiID = 0;
         contest_lasthint_text = ""; //
         contest_shokukan_param = 0; //
@@ -2614,7 +2628,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         //ハートで発生するイベント系
         HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLV40で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLV50で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん日和", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLV50で解放"));
 
         //スター・場所のイベント系
         HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));

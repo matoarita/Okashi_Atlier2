@@ -105,6 +105,9 @@ public class Compound_Check : MonoBehaviour {
     private int itemID_1;
     private int itemID_2;
     private int itemID_3;
+    private int[] _baseattri_ID1 = new int[GameMgr.temp_attriID1.Length];
+    private int[] _baseattri_ID2 = new int[GameMgr.temp_attriID2.Length];
+    private int[] _baseattri_ID3 = new int[GameMgr.temp_attriID3.Length];
 
     private GameObject memo_result_obj;
     private GameObject recipiMemoButton_obj;
@@ -134,6 +137,7 @@ public class Compound_Check : MonoBehaviour {
     private int _playerhour;
     private int _uselv;
     private int _compNo_check;
+    private int _appaleil_attri4; //生地の混ぜ回数
 
     // Use this for initialization
     void Start () {
@@ -406,6 +410,11 @@ public class Compound_Check : MonoBehaviour {
                 GameMgr.temp_itemID3 = 9999; //9999は空を表す数字
                 itemID_3 = GameMgr.temp_itemID3;
 
+                //生地を泡だて器で混ぜた回数
+                _baseattri_ID1[3] = GameMgr.temp_attriID1[3];
+                _baseattri_ID2[3] = GameMgr.temp_attriID2[3];
+                _baseattri_ID3[3] = GameMgr.temp_attriID3[3];
+
                 card_view.OKCard_DrawView02(GameMgr.Final_kettei_kosu2);
 
                 CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //調合の判定・確率処理にうつる。結果、resultIDに、生成されるアイテム番号が代入されている。
@@ -552,6 +561,11 @@ public class Compound_Check : MonoBehaviour {
                 itemID_1 = GameMgr.temp_itemID1;
                 itemID_2 = GameMgr.temp_itemID2;
                 itemID_3 = GameMgr.temp_itemID3;
+
+                //生地を泡だて器で混ぜた回数
+                _baseattri_ID1[3] = GameMgr.temp_attriID1[3];
+                _baseattri_ID2[3] = GameMgr.temp_attriID2[3];
+                _baseattri_ID3[3] = GameMgr.temp_attriID3[3];
 
                 card_view.OKCard_DrawView03(GameMgr.Final_kettei_kosu3);
 
@@ -1242,6 +1256,23 @@ public class Compound_Check : MonoBehaviour {
                 inputcount = 3;
             }
 
+            //生地を泡だて器でさらに混ぜる場合、生地タイプを探し、その生地回数_baseattri4を取得し、確立に反映する。そのために、回数のみここで取得。
+            if (tempID_3 == 9999)
+            {
+                Debug.Log("_baseattri_ID1[3]: " + _baseattri_ID1[3]);
+                Debug.Log("_baseattri_ID2[3]: " + _baseattri_ID2[3]);
+
+                if (_itemSubtype_temp_result[0] == "Machine")
+                {
+                    _appaleil_attri4 = _baseattri_ID2[3]; //0=器具だった場合、 1=生地系のこと ただしこの段階では、例えばフルーツとかコーヒー豆も検索範囲に入る。
+                    GameMgr.Appaleil_Attribute4 = _appaleil_attri4;
+                }
+                else if (_itemSubtype_temp_result[1] == "Machine")
+                {
+                    _appaleil_attri4 = _baseattri_ID1[3]; //1=器具だった場合、 0=生地系のこと
+                    GameMgr.Appaleil_Attribute4 = _appaleil_attri4;
+                }
+            }
         }
 
         //エクストリーム調合の場合は、こっち。ベース決定アイテムを、temp_resultに入れる。
@@ -1978,7 +2009,7 @@ public class Compound_Check : MonoBehaviour {
     public int Kakuritsu_Keisan(int _compID)
     {
         _buf_kakuritsu = 0;
-        _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan(databaseCompo.compoitems[_compID].cmpitemID_result, _compID); //にいちゃん・ヒカリが作るとき共通でバフかかる
+        _buf_kakuritsu = bufpower_keisan.Buf_CompKakuritsu_Keisan(databaseCompo.compoitems[_compID].cmpitemID_result, _compID, _appaleil_attri4); //にいちゃん・ヒカリが作るとき共通でバフかかる
         databaseCompo.RecipiCount_database(0);
 
 

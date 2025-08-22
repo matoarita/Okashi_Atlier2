@@ -449,6 +449,21 @@ public class itemSelectToggle : MonoBehaviour
                 //GameMgr.Final_list_itemID1という変数には、プレイヤーアイテムリストのリスト番号が入ってる。
                 GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
+                //選んだアイテムの_baseattri4の生地の混ぜ回数も取得する。
+                if(GameMgr.Final_toggle_Type1 == 0)
+                {
+                    GameMgr.temp_attriID1[3] = database.items[GameMgr.Final_list_itemID1].Attribute4;
+                }
+                else if (GameMgr.Final_toggle_Type1 == 1)
+                {
+                    GameMgr.temp_attriID1[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute4;
+                }
+                else if (GameMgr.Final_toggle_Type1 == 2)
+                {
+                    GameMgr.temp_attriID1[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute4;
+                }
+
+
                 //押したタイミングで、分岐＝１に。
                 GameMgr.Comp_kettei_bunki = 1;
 
@@ -507,6 +522,20 @@ public class itemSelectToggle : MonoBehaviour
                 GameMgr.Final_list_itemID2 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
                 GameMgr.temp_itemID2 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
+                //選んだアイテムの_baseattri4の生地の混ぜ回数も取得する。
+                if (GameMgr.Final_toggle_Type2 == 0)
+                {
+                    GameMgr.temp_attriID2[3] = database.items[GameMgr.Final_list_itemID2].Attribute4;
+                }
+                else if (GameMgr.Final_toggle_Type2 == 1)
+                {
+                    GameMgr.temp_attriID2[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].Attribute4;
+                }
+                else if (GameMgr.Final_toggle_Type2 == 2)
+                {
+                    GameMgr.temp_attriID2[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].Attribute4;
+                }
+
                 //押したタイミングで、分岐＝２に。
                 GameMgr.Comp_kettei_bunki = 2;
 
@@ -553,6 +582,20 @@ public class itemSelectToggle : MonoBehaviour
                 GameMgr.Final_toggle_Type3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
                 GameMgr.Final_list_itemID3 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
                 GameMgr.temp_itemID3 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
+
+                //選んだアイテムの_baseattri4の生地の混ぜ回数も取得する。
+                if (GameMgr.Final_toggle_Type3 == 0)
+                {
+                    GameMgr.temp_attriID3[3] = database.items[GameMgr.Final_list_itemID3].Attribute4;
+                }
+                else if (GameMgr.Final_toggle_Type3 == 1)
+                {
+                    GameMgr.temp_attriID3[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].Attribute4;
+                }
+                else if (GameMgr.Final_toggle_Type3 == 2)
+                {
+                    GameMgr.temp_attriID3[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].Attribute4;
+                }
 
                 //押したタイミングで、分岐＝３に。
                 GameMgr.Comp_kettei_bunki = 3;

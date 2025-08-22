@@ -265,7 +265,8 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _magic,
                     _noteat, _secretFlag,
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                    ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
                     ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup));
                 //comp_hoseiでバグらないようにするための、クローン
                 items_gamedefault.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
@@ -277,7 +278,8 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _magic,
                     _noteat, _secretFlag,
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                    ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
                     ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup));
                 //システムデータ保存用のアイテムデータリスト
                 items_system.Add(new Item(_id, "Non", _file_name, _name, _name_hyouji, _desc, _comp_hosei, _hp, _day, _quality, _exp, _ex_probability,
@@ -289,7 +291,8 @@ public class ItemDataBase : SingletonMonoBehaviour<ItemDataBase>
                     _koyutp[0], _koyutp[1], _koyutp[2], _koyutp[3], _koyutp[4], 0, _ex_kaisu, _itemhyouji, _judge_num, 0, 0, 0, "", 0, _rare, _manpuku, _magic,
                     _noteat, _secretFlag,
                     "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", "Non", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                    ms1_mariage, ms1_pointup, ms2_mariage, ms2_pointup, ms3_mariage, ms3_pointup, ms4_mariage, ms4_pointup, ms5_mariage, ms5_pointup,
                     ms6_mariage, ms6_pointup, ms7_mariage, ms7_pointup, ms8_mariage, ms8_pointup, ms9_mariage, ms9_pointup, ms10_mariage, ms10_pointup));
 
                 ++count;

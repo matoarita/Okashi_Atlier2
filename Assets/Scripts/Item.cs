@@ -129,6 +129,13 @@ public class Item
     public int Attribute1; //お菓子の状態1　二度焼きで、すでに二度焼きした状態を1にする。
     public int Attribute2; //お菓子の状態2　ウィンドアークかけた回数
     public int Attribute3; //お菓子の状態3　アブタラで変化した状態を1にする。（2度掛けはできない）
+    public int Attribute4; //お菓子の状態4　空
+    public int Attribute5; //お菓子の状態5　空
+    public int Attribute6; //お菓子の状態6　空
+    public int Attribute7; //お菓子の状態7　空
+    public int Attribute8; //お菓子の状態8　空
+    public int Attribute9; //お菓子の状態9　空
+    public int Attribute10; //お菓子の状態10　空
     //ここまで
 
     //トッピングスロット
@@ -252,7 +259,7 @@ public class Item
         int _noteat, int _secretFlag,
         string MS01, string MS02, string MS03, string MS04, string MS05, string MS06, string MS07, string MS08, string MS09, string MS10,
         int MSvalue01, int MSvalue02, int MSvalue03, int MSvalue04, int MSvalue05, int MSvalue06, int MSvalue07, int MSvalue08, int MSvalue09, int MSvalue10,
-        int _attri1, int _attri2, int _attri3,
+        int _attri1, int _attri2, int _attri3, int _attri4, int _attri5, int _attri6, int _attri7, int _attri8, int _attri9, int _attri10,
         string _ms1_mariage, int _ms1_pointup, string _ms2_mariage, int _ms2_pointup, string _ms3_mariage, int _ms3_pointup,
         string _ms4_mariage, int _ms4_pointup, string _ms5_mariage, int _ms5_pointup,
         string _ms6_mariage, int _ms6_pointup, string _ms7_mariage, int _ms7_pointup, string _ms8_mariage, int _ms8_pointup,
@@ -402,6 +409,13 @@ public class Item
         Attribute1 = _attri1;
         Attribute2 = _attri2;
         Attribute3 = _attri3;
+        Attribute4 = _attri4;
+        Attribute5 = _attri5;
+        Attribute6 = _attri6;
+        Attribute7 = _attri7;
+        Attribute8 = _attri8;
+        Attribute9 = _attri9;
+        Attribute10 = _attri10;
 
         MS1_mariage = _ms1_mariage;
         MS2_mariage = _ms2_mariage;
