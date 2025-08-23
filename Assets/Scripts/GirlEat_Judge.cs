@@ -1938,6 +1938,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                             }
                         }
                     }
+
+                    
                 }
 
                 /*
@@ -5696,20 +5698,42 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             //お菓子の名前ごとに、ヒントがでるやつがある。バターなしラスクなど。
             //100000~台　ただし、girl1_status.OkashiQuest_IDの番号とは無関係。
-            switch (_basename)
+            if (!tpcheck_utageON) //上で発生してなければ
             {
-                case "rusk":
+                switch (_basename)
+                {
+                    case "rusk":
 
-                    if (databaseCompo.SearchCompoFlagString("rusk_butter") >= 1) //すでにバターラスクの作り方知ってたら出なくなる。
-                    { }
-                    else
+                        if (databaseCompo.SearchCompoFlagString("rusk_butter") >= 1) //すでにバターラスクの作り方知ってたら出なくなる。
+                        { }
+                        else
+                        {
+                            hint_ID = 1000000;
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                            tpcheck_utagebunki = 0;
+                        }
+                        break;
+                }
+            }
+            if (!tpcheck_utageON) //上で発生してなければ
+            {
+                //たべたあと、それがクッキー系の場合、さらに60点以下だった場合、サクサク感をあげようのヒントをくれる。
+                if (_baseitemtype_sub == "Cookie")
+                {
+                    if (!GameMgr.GirlLoveSubEvent_stage1[181])
                     {
-                        hint_ID = 0;
-                        no_hint = false;
-                        tpcheck_utageON = true;
-                        tpcheck_utagebunki = 1000000;
+                        if (total_score < GameMgr.low_score)
+                        {
+                            GameMgr.GirlLoveSubEvent_stage1[181] = true;
+
+                            hint_ID = 1000010;
+                            no_hint = false;
+                            tpcheck_utageON = true;
+                            tpcheck_utagebunki = 0;
+                        }
                     }
-                    break;
+                }
             }
         }
 

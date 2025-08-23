@@ -449,17 +449,20 @@ public class itemSelectToggle : MonoBehaviour
                 //GameMgr.Final_list_itemID1という変数には、プレイヤーアイテムリストのリスト番号が入ってる。
                 GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
 
-                //選んだアイテムの_baseattri4の生地の混ぜ回数も取得する。
+                //選んだアイテムの_baseattri4の生地の混ぜ回数も取得する。その他回数系も。
                 if(GameMgr.Final_toggle_Type1 == 0)
                 {
+                    GameMgr.temp_attriID1[1] = database.items[GameMgr.Final_list_itemID1].Attribute2;
                     GameMgr.temp_attriID1[3] = database.items[GameMgr.Final_list_itemID1].Attribute4;
                 }
                 else if (GameMgr.Final_toggle_Type1 == 1)
                 {
+                    GameMgr.temp_attriID1[1] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute2;
                     GameMgr.temp_attriID1[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute4;
                 }
                 else if (GameMgr.Final_toggle_Type1 == 2)
                 {
+                    GameMgr.temp_attriID1[1] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute2;
                     GameMgr.temp_attriID1[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute4;
                 }
 
@@ -525,14 +528,17 @@ public class itemSelectToggle : MonoBehaviour
                 //選んだアイテムの_baseattri4の生地の混ぜ回数も取得する。
                 if (GameMgr.Final_toggle_Type2 == 0)
                 {
+                    GameMgr.temp_attriID2[1] = database.items[GameMgr.Final_list_itemID2].Attribute2;
                     GameMgr.temp_attriID2[3] = database.items[GameMgr.Final_list_itemID2].Attribute4;
                 }
                 else if (GameMgr.Final_toggle_Type2 == 1)
                 {
+                    GameMgr.temp_attriID2[1] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].Attribute2;
                     GameMgr.temp_attriID2[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID2].Attribute4;
                 }
                 else if (GameMgr.Final_toggle_Type2 == 2)
                 {
+                    GameMgr.temp_attriID2[1] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].Attribute2;
                     GameMgr.temp_attriID2[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID2].Attribute4;
                 }
 
@@ -586,14 +592,17 @@ public class itemSelectToggle : MonoBehaviour
                 //選んだアイテムの_baseattri4の生地の混ぜ回数も取得する。
                 if (GameMgr.Final_toggle_Type3 == 0)
                 {
+                    GameMgr.temp_attriID3[1] = database.items[GameMgr.Final_list_itemID3].Attribute2;
                     GameMgr.temp_attriID3[3] = database.items[GameMgr.Final_list_itemID3].Attribute4;
                 }
                 else if (GameMgr.Final_toggle_Type3 == 1)
                 {
+                    GameMgr.temp_attriID3[1] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].Attribute2;
                     GameMgr.temp_attriID3[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID3].Attribute4;
                 }
                 else if (GameMgr.Final_toggle_Type3 == 2)
                 {
+                    GameMgr.temp_attriID3[1] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].Attribute2;
                     GameMgr.temp_attriID3[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID3].Attribute4;
                 }
 

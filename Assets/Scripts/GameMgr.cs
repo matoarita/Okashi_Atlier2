@@ -20,6 +20,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int NpcEvent_people_num = 300;
     public static int NPCCounter_num = 1000;
     public static int OrEvent_num = 1000;
+    public static int itemAttri_num = 30;
     public static int ContestJudgeman_num = 3; //審査員の人数
     public static int SystemCount_itemSetting = 3; //調合時に入れるアイテムの枠　現在3個まで入れれる
 
@@ -1008,7 +1009,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int AmusePlayCount; //遊園地で乗り物にのった数のカウント
     public static string barMassage_RandomUpName; //マッサージでどのパラメータがあがるかの名前
     public static int barMassage_RandomUpPoint; //そのときのポイント表示用
-    public static int Appaleil_Attribute4; //生地混ぜ回数の引継ぎ用
+    public static int[] Appaleil_Attribute = new int[itemAttri_num]; //生地混ぜ回数の引継ぎ用
 
 
 
@@ -1039,9 +1040,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int temp_itemID1; //一時的にアイテムIDを保存しておくための変数 アイテムDBのリスト配列
     public static int temp_itemID2; //一時的にアイテムIDを保存しておくための変数
     public static int temp_itemID3; //一時的にアイテムIDを保存しておくための変数
-    public static int[] temp_attriID1 = new int[30]; //そのアイテムの属性値も取得　今のところ10個分用意　念のため多めに３０ほどこっちは入れとく
-    public static int[] temp_attriID2 = new int[30];
-    public static int[] temp_attriID3 = new int[30];
+    public static int[] temp_attriID1 = new int[itemAttri_num]; //そのアイテムの属性値も取得　今のところ10個分用意　念のため多めに３０ほどこっちは入れとく
+    public static int[] temp_attriID2 = new int[itemAttri_num];
+    public static int[] temp_attriID3 = new int[itemAttri_num];
     public static int temp_baseitemID;
 
     public static int Final_list_itemID1; //一時的なDBのリスト配列番号　店売り・オリジナル・エクストリーム全て含む　各スクリプトをまたぐため、ここで設定 　
@@ -1406,7 +1407,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         outgirl_event_ON = true;
         outgirl_Nowprogress = false;
 
-        catcoming_count = 3;
+        catcoming_count = 30; //最初は一か月たたないと次のねこはこない。
         catcoming_event_ON = false;
         catcoming_event_endflag = false;
 
@@ -1650,7 +1651,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         BarQuest_NewReset2 = false;
         AmusePlayCount = 0;
         barMassage_RandomUpName = "";
-        Appaleil_Attribute4 = 0;
+        
 
         //Tempのattriを初期化
         for (system_i = 0; system_i < temp_attriID1.Length; system_i++)
@@ -1658,6 +1659,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             temp_attriID1[system_i] = 0;
             temp_attriID2[system_i] = 0;
             temp_attriID3[system_i] = 0;
+            Appaleil_Attribute[system_i] = 0;
         }
         
 
@@ -2785,10 +2787,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Hikariokashi_Exptable.Add(2, 30);
         Hikariokashi_Exptable.Add(3, 70);
         Hikariokashi_Exptable.Add(4, 150);
-        Hikariokashi_Exptable.Add(5, 200);
-        Hikariokashi_Exptable.Add(6, 300);
-        Hikariokashi_Exptable.Add(7, 400);
-        Hikariokashi_Exptable.Add(8, 500);
+        Hikariokashi_Exptable.Add(5, 300);
+        Hikariokashi_Exptable.Add(6, 500);
+        Hikariokashi_Exptable.Add(7, 700);
+        Hikariokashi_Exptable.Add(8, 1000);
         Hikariokashi_Exptable.Add(9, 9999);
 
         //少し難しめのお菓子は、レベルも上がりにくくなる。

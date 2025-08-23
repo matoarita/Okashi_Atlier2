@@ -38,6 +38,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private bool _fire;
     private string _basename, _baseitemtype_sub, _baseitemtype_subB;
     private bool cat_comecheck;
+    private int cat_maxcount;
 
     private List<int> map_list = new List<int>();
 
@@ -1266,7 +1267,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 { }
                 else
                 {
-                    if (GameMgr.SpecialSubevent_EatAfterflag) //
+                    if (GameMgr.SpecialSubevent_EatAfterflag) //思い出イベントフラグ解禁の点数以上でないと発生しない
                     {
                         GameMgr.SpecialSubevent_EatAfterflag = false;
 
@@ -1345,10 +1346,10 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             GameMgr.check_SleepEnd_Eventflag[1] = false;
                             Debug.Log("チェック　本日が１０・２０・３０日かどうか");
-                            Debug.Log("本日の日: " + PlayerStatus.player_cullent_day); 
+                            Debug.Log("本日の日: " + PlayerStatus.player_cullent_day);
 
                             //10日ごとチェックバージョン
-                            if(PlayerStatus.player_cullent_day % GameMgr.System_Yachin_Day == 0)
+                            if (PlayerStatus.player_cullent_day % GameMgr.System_Yachin_Day == 0)
                             {
                                 //月はこのタイミングでも更新する。
                                 GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
@@ -1378,7 +1379,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 else
                                 {
                                     //家賃　二回目以降
-                                    GameMgr.yachin_counter++;                                    
+                                    GameMgr.yachin_counter++;
 
                                     //家賃発生　事前に所持金をチェックし、払えない場合はお手付きかゲームオーバー
                                     switch (GameMgr.yachin_otetsuki_count)
@@ -1450,12 +1451,12 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                             }
                                             break;
                                     }
-                                    
+
                                 }
 
                                 if (GameMgr.YachinSkipFlag) //会話スキップがONのとき　会話イベントは表示しない　家賃はとられる
                                 {
-                                    if(GameMgr.GirlLoveSubEvent_num == 1110) //ただし、ゲームオーバーのときはイベント表示
+                                    if (GameMgr.GirlLoveSubEvent_num == 1110) //ただし、ゲームオーバーのときはイベント表示
                                     {
                                         GameMgr.check_GirlLoveSubEvent_flag = false;
                                         GameMgr.Mute_on = true;
@@ -1467,7 +1468,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                 {
                                     GameMgr.check_GirlLoveSubEvent_flag = false;
                                     GameMgr.Mute_on = true;
-                                }                               
+                                }
                             }
 
                             //月はじめバージョン
@@ -1484,6 +1485,20 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                 GameMgr.Mute_on = true;
                             }*/
+
+                            //家賃とられる5日前　アテンションイベント
+                            if (PlayerStatus.player_cullent_day == (GameMgr.System_Yachin_Day / 2))
+                            {
+                                if (!GameMgr.GirlLoveSubEvent_stage1[180])
+                                {
+                                    GameMgr.GirlLoveSubEvent_stage1[180] = true;
+
+                                    GameMgr.GirlLoveSubEvent_num = 180;
+                                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    GameMgr.Mute_on = true;
+
+                                }
+                            }
                         }
                     }
                 }
@@ -1695,7 +1710,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     }
                                 }
                             }
-                        }
+                        }                        
                     }
                 }
 
@@ -2460,7 +2475,30 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         if (cat_comecheck)
         {
-            if (catDataBase.catdata_list.Count >= 6) //6匹以上いるときは、もうねこは来なくなる
+            cat_maxcount = 1;
+
+            if (PlayerStatus.girl1_Love_lv >= 15 && PlayerStatus.girl1_Love_lv < 30)
+            {
+                cat_maxcount = 2;
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 30 && PlayerStatus.girl1_Love_lv < 45)
+            {
+                cat_maxcount = 3;
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 45 && PlayerStatus.girl1_Love_lv < 60)
+            {
+                cat_maxcount = 4;
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 60 && PlayerStatus.girl1_Love_lv < 75)
+            {
+                cat_maxcount = 5;
+            }
+            else if (PlayerStatus.girl1_Love_lv >= 75)
+            {
+                cat_maxcount = 6;
+            }
+
+            if (catDataBase.catdata_list.Count >= cat_maxcount) //6匹以上いるときは、もうねこは来なくなる
             {
             }
             else

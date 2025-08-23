@@ -2856,7 +2856,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //生地・アイスクリーム水溶液は出来上がる際に、生地混ぜ回数もカウント
         if(_base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream")
         {
-            _baseattri4 = GameMgr.Appaleil_Attribute4 + 1;
+            _baseattri2 = GameMgr.Appaleil_Attribute[1]; //Windark回数も引継ぎ
+            _baseattri4 = GameMgr.Appaleil_Attribute[3] + 1;
         }
     }
 

@@ -171,6 +171,7 @@ public class SetImage : MonoBehaviour
 
     private GameObject magicview_content;
     private GameObject magicPrefab;
+    private GameObject magicPrefab2;
     private List<GameObject> _magicicon_listitem = new List<GameObject>();
 
     private int i, j, count;
@@ -400,6 +401,7 @@ public class SetImage : MonoBehaviour
         }
 
         magicPrefab = (GameObject)Resources.Load("Prefabs/card_magiciconObj");
+        magicPrefab2 = (GameObject)Resources.Load("Prefabs/card_magiciconObj2");
         magicview_content = this.transform.Find("Item_card_template/MagicIconView/Viewport/Content").gameObject;
         
         
@@ -1812,11 +1814,18 @@ public class SetImage : MonoBehaviour
         }
         _magicicon_listitem.Clear();
 
-        if (_attri2 > 0)
+        if (_attri2 > 0) //WindArk回数
         {
             for (i = 0; i < _attri2; i++)
             {
                 _magicicon_listitem.Add(Instantiate(magicPrefab, magicview_content.transform));
+            }
+        }
+        if (_attri4 > 0) //生地まぜ回数
+        {
+            for (i = 0; i < _attri4; i++)
+            {
+                _magicicon_listitem.Add(Instantiate(magicPrefab2, magicview_content.transform));
             }
         }
     }

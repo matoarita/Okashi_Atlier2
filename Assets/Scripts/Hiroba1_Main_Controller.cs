@@ -3099,28 +3099,14 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[1600]) //ほかに発生するイベントがなく、すでに友達になった。
             {
-                //頭から順番に会話をまわしていく。
-                switch (talkrot)
-                {
-                    case 0:
+                //
+                GameMgr.hiroba_event_ID = 10;
 
-                        GameMgr.Utage_MapMoveON = true; //シナリオ読み終わり後、マップを移動する
-                        map_move_num = 1410;
-                        GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
+                GameMgr.Utage_MapMoveON = true; //シナリオ読み終わり後、マップを移動する
+                map_move_num = 1410;
+                GameMgr.Utage_MapMoveBlackON = true; //ワンセット　シーンを黒くするための宴の分岐用フラグ
 
-                        GameMgr.hiroba_event_ID = 10;
-                        //talkrot++;
-                        break;
-                    case 1:
-                        GameMgr.hiroba_event_ID = 11;
-                        //talkrot++;
-                        break;
-                    case 2:
-                        GameMgr.hiroba_event_ID = 12;
-                        //talkrot=0;
-                        break;
-                }
-
+                
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                 //bgm_change_flag = true;
@@ -3481,7 +3467,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[220]) //ほかに発生するイベントがなく、すでに友達になった。
             {
-                GameMgr.hiroba_event_ID = 10;
+                GameMgr.hiroba_event_ID = 10 + talkrot;
+                TalkRotation(1, 0); //1つめは、会話のパターン数　1だと2個ある。　2つめが0の時は、パターンがローテーションする
+
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                 //bgm_change_flag = true;
@@ -3935,22 +3923,9 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             if (GameMgr.NPCHiroba_eventList[1200]) //ほかに発生するイベントがなく、すでに友達になった。
             {
                 //頭から順番に会話をまわしていく。
-                switch(talkrot)
-                {
-                    case 0:
-                        GameMgr.hiroba_event_ID = 10;
-                        talkrot++;
-                        break;
-                    case 1:
-                        GameMgr.hiroba_event_ID = 11;
-                        talkrot++;
-                        break;
-                    case 2:
-                        GameMgr.hiroba_event_ID = 12;
-                        //talkrot=0;
-                        break;
-                }
-                
+                GameMgr.hiroba_event_ID = 10 + talkrot;
+                TalkRotation(2, 1); //2つめが1の時は、パターンがローテーションせずに止まる
+
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
                 //bgm_change_flag = true;
@@ -3984,24 +3959,10 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[1220]) //ほかに発生するイベントがなく、すでに友達になった。
             {
-                GameMgr.hiroba_event_ID = 10;
-
                 //頭から順番に会話をまわしていく。
-                /*switch (talkrot)
-                {
-                    case 0:
-                        GameMgr.hiroba_event_ID = 10;
-                        talkrot++;
-                        break;
-                    case 1:
-                        GameMgr.hiroba_event_ID = 11;
-                        talkrot++;
-                        break;
-                    case 2:
-                        GameMgr.hiroba_event_ID = 12;
-                        //talkrot=0;
-                        break;
-                }*/
+                GameMgr.hiroba_event_ID = 10 + talkrot;               
+                //TalkRotation(2, 1); //2つめが1の時は、パターンがローテーションせずに止まる
+
 
                 //BGMかえる
                 //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
@@ -4984,6 +4945,29 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
     public void ToggleFlagCheck()
     {
 
+    }
+
+    void TalkRotation(int _talkmax_rot, int _stopstatus)
+    {
+        if(_stopstatus == 0) //0の場合、止まらずにローテーションする
+        {
+            if (talkrot <= _talkmax_rot) //
+            {
+                talkrot++;
+            }
+        }
+        else if (_stopstatus == 1) //1の場合、パターン終わりで止まる
+        {
+            if (talkrot < _talkmax_rot) //
+            {
+                talkrot++;
+            }
+        }        
+
+        if (talkrot > _talkmax_rot)
+        {
+            talkrot = 0;
+        }
     }
 
     //ネームプレートの設定とアニメーションON

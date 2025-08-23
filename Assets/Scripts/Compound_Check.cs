@@ -411,9 +411,12 @@ public class Compound_Check : MonoBehaviour {
                 itemID_3 = GameMgr.temp_itemID3;
 
                 //生地を泡だて器で混ぜた回数
-                _baseattri_ID1[3] = GameMgr.temp_attriID1[3];
-                _baseattri_ID2[3] = GameMgr.temp_attriID2[3];
-                _baseattri_ID3[3] = GameMgr.temp_attriID3[3];
+                for (i = 0; i < GameMgr.temp_attriID1.Length; i++)
+                {
+                    _baseattri_ID1[i] = GameMgr.temp_attriID1[i];
+                    _baseattri_ID2[i] = GameMgr.temp_attriID2[i];
+                    _baseattri_ID3[i] = GameMgr.temp_attriID3[i];
+                }
 
                 card_view.OKCard_DrawView02(GameMgr.Final_kettei_kosu2);
 
@@ -563,9 +566,12 @@ public class Compound_Check : MonoBehaviour {
                 itemID_3 = GameMgr.temp_itemID3;
 
                 //生地を泡だて器で混ぜた回数
-                _baseattri_ID1[3] = GameMgr.temp_attriID1[3];
-                _baseattri_ID2[3] = GameMgr.temp_attriID2[3];
-                _baseattri_ID3[3] = GameMgr.temp_attriID3[3];
+                for (i = 0; i < GameMgr.temp_attriID1.Length; i++)
+                {
+                    _baseattri_ID1[i] = GameMgr.temp_attriID1[i];
+                    _baseattri_ID2[i] = GameMgr.temp_attriID2[i];
+                    _baseattri_ID3[i] = GameMgr.temp_attriID3[i];
+                }
 
                 card_view.OKCard_DrawView03(GameMgr.Final_kettei_kosu3);
 
@@ -1265,12 +1271,18 @@ public class Compound_Check : MonoBehaviour {
                 if (_itemSubtype_temp_result[0] == "Machine")
                 {
                     _appaleil_attri4 = _baseattri_ID2[3]; //0=器具だった場合、 1=生地系のこと ただしこの段階では、例えばフルーツとかコーヒー豆も検索範囲に入る。
-                    GameMgr.Appaleil_Attribute4 = _appaleil_attri4;
+                    for (i = 0; i < GameMgr.temp_attriID1.Length; i++)
+                    {
+                        GameMgr.Appaleil_Attribute[i] = _baseattri_ID2[i];
+                    }
                 }
                 else if (_itemSubtype_temp_result[1] == "Machine")
                 {
                     _appaleil_attri4 = _baseattri_ID1[3]; //1=器具だった場合、 0=生地系のこと
-                    GameMgr.Appaleil_Attribute4 = _appaleil_attri4;
+                    for (i = 0; i < GameMgr.temp_attriID1.Length; i++)
+                    {
+                        GameMgr.Appaleil_Attribute[i] = _baseattri_ID1[i];
+                    }
                 }
             }
         }

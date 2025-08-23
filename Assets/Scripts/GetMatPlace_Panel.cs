@@ -1562,7 +1562,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         timeOut -= Time.deltaTime;
     }
 
-    IEnumerator MapEventOn(int _status)
+    IEnumerator MapEventOn(int _status, bool _bgmstatus)
     {
         Debug.Log("マップ　イベントON");
         //イベントを再生。再生終了したら、イベントパネルをオフにし、探索ボタンもONにする。
@@ -1572,6 +1572,12 @@ public class GetMatPlace_Panel : MonoBehaviour {
         //getmatplace_panel.SetActive(false);
 
         StatusPanelOFF();
+
+        if(_bgmstatus)
+        {
+            bgmchange_flag = true;
+            sceneBGM.MuteBGM(); //宴のBGMを使う
+        }
 
         while (!GameMgr.recipi_read_endflag)
         {
@@ -1793,7 +1799,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                     {
                         dream_counter = 0;
                         GameMgr.MapEvent_Or[451] = true;
-                        OnMapEvent(1901, true); //2個目はtrueなら、宴のBGMを使う
+                        OnMapEvent(1901, 0, true); //2個目はtrueなら、宴のBGMを使う
                     }
                     
                     mapevent_chk = true;
@@ -1812,7 +1818,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         else //〇回目探索したら、イベントが発生
                         {
                             GameMgr.MapEvent_Or[452] = true;
-                            OnMapEvent(1902, true); //2個目はtrueなら、宴のBGMを使う
+                            OnMapEvent(1902, 0, true); //2個目はtrueなら、宴のBGMを使う
                         }
 
                         mapevent_chk = true;
@@ -2104,12 +2110,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "すげぇ～～！森だー！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避
-
-                        GameMgr.map_ev_ID = 10;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(10, 0, false);
                     }
                     else
                     {
@@ -2129,15 +2130,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                                     GameMgr.MapEvent_01[1] = true; //ししゃもクッキーイベント完了
 
-                                    GameMgr.map_ev_ID = 11;
-                                    GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                                    sceneBGM.MuteBGM(); //宴のBGMを使う
-                                    //this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
-                                    //getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
-                                    Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
-
-                                    StartCoroutine(MapEventOn(1)); //1をいれると、イベント終わりに、再度slotview_status=0で、更新しなおす。
+                                    OnMapEvent(11, 1, true);
                                 }
                             }
                         }
@@ -2171,12 +2164,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "ラベンダー畑だ～！いい香り～。";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避
-
-                        GameMgr.map_ev_ID = 60;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(60, 0, false);
                     }
                     else
                     {
@@ -2234,12 +2222,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "いいにお～い。にいちゃん、いちごいっぱい～！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避
-
-                        GameMgr.map_ev_ID = 40;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(40, 0, false);
                     }
                     else
                     {
@@ -2270,12 +2253,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "にいちゃん。まっ黄色～～！すごいきれい～。";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避
-
-                        GameMgr.map_ev_ID = 50;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(50, 0, false);
                     }
                     else
                     {
@@ -2306,15 +2284,10 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "にいちゃん。とりさんがいっぱいいるよ～！！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避
-
-                        GameMgr.map_ev_ID = 20;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
                         //次回以降、バードサンクチュアリにいけるようになる。
                         matplace_database.matPlaceKaikin("BirdSanctuali");
 
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(20, 0, false);
                     }
                     else
                     {
@@ -2401,13 +2374,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "いっぱい水を汲もう。にいちゃん。";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 30;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(30, 0, false);
                     }
                     else
                     {
@@ -2448,12 +2415,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "さくらの花びらきれい・・。にいちゃん！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避
-
-                        GameMgr.map_ev_ID = 1000;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1000, 0, false);
                     }
                     else
                     {
@@ -2472,15 +2434,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                 {
                                     GameMgr.MapEvent_Or[1] = true;
 
-                                    GameMgr.map_ev_ID = 1010;
-                                    GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                                    sceneBGM.MuteBGM(); //宴のBGMを使う
-                                    //this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
-                                    //getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
-                                    //Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
-
-                                    StartCoroutine(MapEventOn(0)); //1をいれると、イベント終わりに、採取地マップ移動になる。
+                                    OnMapEvent(1010, 0, true);
                                 }
                             }
                             else
@@ -2491,12 +2445,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                     if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
                                         pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
                                     {
-                                        GameMgr.map_ev_ID = 1011;
-                                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                                        sceneBGM.MuteBGM(); //宴のBGMを使う
-
-                                        StartCoroutine(MapEventOn(0)); //1をいれると、イベント終わりに、採取地マップ移動になる。
+                                        OnMapEvent(1011, 0, true);
                                     }
                                 }
                             }
@@ -2526,13 +2475,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "いっぱい水を汲もう。にいちゃん。";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1800;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1800, 0, false);
                     }
                     else
                     {
@@ -2565,13 +2508,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "にいちゃん！　青色のお花でいっぱい～！！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1100;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1100, 0, false);
                     }
                     else
                     {
@@ -2604,13 +2541,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "にいちゃん！" + "\n" + "みずが、キラキラしてる～～♪";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1200;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1200, 0, false);
                     }
                     else
                     {
@@ -2643,13 +2574,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "わぁぁ～♪　光るおはながいっぱい～♪";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1300;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1300, 0, false);
                     }
                     else
                     {
@@ -2682,13 +2607,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "にいちゃん！　金色に透き通った水、きれい～♪";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1400;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1400, 0, false);
                     }
                     else
                     {
@@ -2721,13 +2640,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "くんくん.. 甘酸っぱいいい香りがするね♪　にいちゃん！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1500;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1500, 0, false);
                     }
                     else
                     {
@@ -2760,13 +2673,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "すご～い.. ここはいつでも夜なんだね～。にいちゃん！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1600;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1600, 0, false);
                     }
                     else
                     {
@@ -2799,13 +2706,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                         _text.text = "にいちゃん！　色とりどりのほうせき～！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1700;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1700, 0, false);
                     }
                     else
                     {
@@ -2840,13 +2741,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         msg_window.Setting_WindowIcon(11); //いや顔
                         _text.text = "にいちゃん。なんかどろどろした沼～！！";
 
-                        slot_view_status = 3; //イベント読み込み中用に退避                           
-
-
-                        GameMgr.map_ev_ID = 1900;
-                        GameMgr.map_event_flag = true; //->宴の処理へ移行する。「Utage_scenario.cs」
-
-                        StartCoroutine(MapEventOn(0));
+                        OnMapEvent(1900, 0, false);
                     }
                     else
                     {
@@ -2860,8 +2755,9 @@ public class GetMatPlace_Panel : MonoBehaviour {
     }
 
     //マップイベントを発生させるときに使う
-    void OnMapEvent(int _ev_num, bool _bgm_status)
+    void OnMapEvent(int _ev_num, int _movestatus, bool _bgm_status)
     {
+        
         slot_view_status = 3; //イベント読み込み中用に退避                           
 
         GameMgr.map_ev_ID = _ev_num;
@@ -2873,7 +2769,14 @@ public class GetMatPlace_Panel : MonoBehaviour {
             sceneBGM.MuteBGM(); //宴のBGMを使う
         }
 
-        StartCoroutine(MapEventOn(0));
+        if (_movestatus == 1) //マップ移動用に黒はさむ
+        {
+            //this.transform.Find("Comp/Map_ImageBG_FadeBlack").GetComponent<CanvasGroup>().DOFade(1, 0.0f); //背景黒フェード
+            //getmatplace_panel.SetActive(false); //Comp自体もOFFにして、宴をクリックで進むように。
+            Fadeout_Black_obj.GetComponent<FadeOutBlack>().NowIn(); //家の風景が見えないように、さらに黒をいれる。
+        }
+
+        StartCoroutine(MapEventOn(_movestatus, _bgm_status));
     }
 
     public void Debug_AllMapFlagON()
