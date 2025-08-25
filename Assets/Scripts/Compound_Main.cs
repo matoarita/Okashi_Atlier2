@@ -1997,7 +1997,7 @@ public class Compound_Main : MonoBehaviour
             case 10: //「あげる」を選択
 
                 GameMgr.compound_status = 13; //あげるシーンに入っています、というフラグ
-                GameMgr.compound_select = 10; //あげるを選択
+                GameMgr.compound_select = 13; //あげるを選択
 
                 yes_no_panel.SetActive(true);
                 yes_no_panel.transform.Find("Yes").gameObject.SetActive(true);                
@@ -3269,25 +3269,22 @@ public class Compound_Main : MonoBehaviour
 
                 magicskill_database.skillHyoujiKaikin("Cookie_Study");
                 magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
-                //magicskill_database.skillHyoujiKaikin("Caramelized");
-
-                //magicskill_database.skillHyoujiKaikin("Temperature_of_Control");
-                //magicskill_database.skillHyoujiKaikin("Cookie_SecondBake");
                 magicskill_database.skillHyoujiKaikin("Caramelized");
                 magicskill_database.skillHyoujiKaikin("Fire_Flowers");
 
                 //magicskill_database.skillHyoujiKaikin("Heart_of_Icecream");
                 //magicskill_database.skillHyoujiKaikin("Freezing_Spell");
 
-                //magicskill_database.skillHyoujiKaikin("Nappe");
                 magicskill_database.skillHyoujiKaikin("Appaleil_Study");
                 magicskill_database.skillHyoujiKaikin("Wind_Ark");
 
-                //magicskill_database.skillHyoujiKaikin("Star_Gazer");
-                //magicskill_database.skillHyoujiKaikin("Star_Blessing");
-                //magicskill_database.skillHyoujiKaikin("Latte_Art");
-                //magicskill_database.skillHyoujiKaikin("Magic_Soda");
+                break;
 
+            case "mg_chocolatemagic_book":
+
+                magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
+                magicskill_database.skillHyoujiKaikin("Bake_Beans");
+                magicskill_database.skillHyoujiKaikin("Chocolate_Tempering");
                 break;
 
             case "mg_windmagic_book": //風の魔術書

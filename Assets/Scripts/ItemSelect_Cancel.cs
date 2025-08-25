@@ -298,6 +298,23 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                 }
                             }
                         }
+                        else if (GameMgr.compound_select == 10)
+                        {
+                            if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
+                            {
+                                yes_selectitem_kettei.onclick = false;
+
+                                if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
+                                {
+                                    //Debug.Log("調合シーンキャンセル");
+
+                                    card_view.DeleteCard_DrawView();
+
+                                    GameMgr.compound_status = 9; //何も選択していない状態にもどる。
+                                    GameMgr.compound_select = 0;
+                                }
+                            }
+                        }
                         else
                         {
                             if (yes_selectitem_kettei.onclick) //Yes, No ボタンが押された
@@ -461,7 +478,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                         }
 
 
-                        if (GameMgr.compound_select == 21) //魔法の処理　魔法決定後、アイテムを選択中の画面
+                        if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10) //魔法の処理　魔法決定後、アイテムを選択中の画面
                         {
 
                             if (GameMgr.final_select_flag == false) //最後、これで調合するかどうかを待つフラグがオフの間だけ反応する
@@ -474,14 +491,20 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
                                     if (yes_selectitem_kettei.kettei1 == false) //キャンセルボタンをおした。
                                     {
                                         //魔法選択画面へ戻る
-
-                                        GameMgr.compound_status = 20;//魔法選択スタートのステータスに戻す。
+                                        if (GameMgr.compound_select == 21)
+                                        {
+                                            GameMgr.compound_status = 20;//魔法選択スタートのステータスに戻す。
+                                        } else if (GameMgr.compound_select == 10)
+                                        {
+                                            GameMgr.compound_status = 9;//魔法選択スタートのステータスに戻す。
+                                        }
 
                                     }
 
                                 }
                             }
                         }
+
 
                         if (GameMgr.compound_select == 41) //ねこ採取選択
                         {
@@ -815,7 +838,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
 
                 }
             }
-            else if (GameMgr.compound_select == 21) //魔法調合の処理
+            else if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10) //魔法調合の処理
             {
 
                 _text.text = GameMgr.UseMagicSkill_nameHyouji + "→ ";
@@ -848,7 +871,7 @@ public class ItemSelect_Cancel : SingletonMonoBehaviour<ItemSelect_Cancel>
             if (GameMgr.Scene_Category_Num == 10) // 調合シーンでやりたい処理
             {          
                 //お菓子をあげるときの処理
-                if (GameMgr.compound_select == 10)
+                if (GameMgr.compound_select == 13)
                 {
                     _text.text = "あげるお菓子を選択してね。";
 

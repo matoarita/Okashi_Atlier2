@@ -1573,7 +1573,18 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //コンポ調合データベースのIDを代入
         //result_ID = GameMgr.Final_result_compID;
 
-        Comp_method_bunki = 0;
+        if (GameMgr.compound_select == 7) //ヒカリが通常制作時
+        {
+            Comp_method_bunki = 0;
+            GameMgr.hikari_makingmethod = 0;
+        }
+        else if (GameMgr.compound_select == 10) //ヒカリの魔法使用時
+        {
+            GameMgr.hikari_makingmethod = 1;
+            GameMgr.hikari_make_magicuseName = GameMgr.UseMagicSkill;
+            GameMgr.hikari_make_magicuseLV = GameMgr.UseMagicSkillLv;
+
+        }
         //GameMgr.Extreme_On = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。ヒカリは、新しいお菓子をひらめくことは、今の仕様では無い。
 
 
@@ -1656,8 +1667,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         GameMgr.hikari_zairyo_no_flag = false;
 
         //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が1分なので、*1。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
-        GameMgr.hikari_make_okashiTimeCost = 
-            (int)(databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cost_Time * 1f * 2 * GameMgr.hikari_make_okashiTime_costbuf);
+        /*GameMgr.hikari_make_okashiTimeCost = 
+            (int)(databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cost_Time * 1f * 2 * GameMgr.hikari_make_okashiTime_costbuf);*/
+        GameMgr.hikari_make_okashiTimeCost = (int)(GameMgr.Compo_FinalCostTime * 1f * 2 * GameMgr.hikari_make_okashiTime_costbuf);
         GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
         //Debug.Log("GameMgr.hikari_make_okashiTime_costbuf: " + GameMgr.hikari_make_okashiTime_costbuf);
 

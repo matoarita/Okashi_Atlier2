@@ -502,6 +502,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool hikari_tempature_control_ON; //ヒカリにお菓子作ってもらうで温度管理をON
     public static int hikari_tempature_param_time;
     public static int hikari_tempature_param_temp;
+    public static int hikari_makingmethod; //通常調合か魔法調合をしているかのチェック
+    public static string hikari_make_magicuseName; //そのときに使っている魔法
+    public static int hikari_make_magicuseLV; //そのときの使うLV
 
     public static int hikari_makeokashi_startcounter; //これはセーブ不要。10秒ほどたったら、元のアイドルモーションにもどすためのタイマー
     public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
@@ -904,6 +907,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static Dictionary<string, int> GetMat_ResultList = new Dictionary<string, int>(); //採取で取得したアイテムのリスト　名前と個数
     public static int Select_cat_num; //選んだ猫のリスト番号
     public static string Select_cat_nameHyouji; //選んだ猫の名前
+    public static int Select_cat_lv; //選んだねこのLV
     public static bool Money_counterAnim_on; //所持金お金動くアニメON
     public static bool Money_counterAnim_StopDraw; //アニメをすぐとめて表示を更新する
     public static bool Money_counterOnly; //アニメはなしで、カウンタを生成する
@@ -2059,7 +2063,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
 
         //一度に仕上げできる回数 初期値
-        topping_Set_Count = 2;
+        topping_Set_Count = 1;
 
         //メインBGMの番号
         mainBGM_Num = 0; //メインテーマ曲設定

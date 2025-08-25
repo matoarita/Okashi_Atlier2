@@ -167,6 +167,7 @@ public class Item
         Cookie,
         Cookie_Hard,
         Cookie_Mat,
+        Cookie_Hard_Mat,
         Cookie_base,                
         Chocolate,
         Chocolate_Mat,

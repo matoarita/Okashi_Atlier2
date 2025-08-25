@@ -368,7 +368,7 @@ public class Compound_Check : MonoBehaviour {
 
             }
 
-            if (GameMgr.compound_select == 21) //魔法調合のときの処理
+            if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10) //魔法調合のときの処理
             {
 
                 GameMgr.compound_status = 110;
@@ -389,7 +389,6 @@ public class Compound_Check : MonoBehaviour {
                 _cost_mptext = costTimePanel_obj.transform.Find("Image/CostMP_param").GetComponent<Text>();
 
                 StartCoroutine("MagicFinal_select"); //最終確認 スキルレベルを選択する。
-                //MagicFinal_select();
             }
         }
         
@@ -1115,18 +1114,12 @@ public class Compound_Check : MonoBehaviour {
                         //Debug.Log("二度目チェック");
                         //CompoundJudge(itemID_1, itemID_2, itemID_3, 0); //使う魔法レベルが決定したあと、そのレベルに沿って再び調合判定。※ただし、現在固定のため、不要。
 
-                        //MPを消費
-                        PlayerStatus.player_mp -= costMP;
-
-                        //その魔法を使った回数をカウント
-                        magicskill_database.magicskill_lists[itemID_2].skill_usecount++;
-
+                        
                         //魔法によって、仕上げ回数も消費する。
                         if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo" ||
-                            magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Buf" ||
-                            magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
+                        magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Buf" ||
+                        magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
                         {
-                            
                             if (_compNo_check == 0) //Abra
                             {
                                 exp_Controller.Comp_method_bunki = 20;
@@ -1150,36 +1143,62 @@ public class Compound_Check : MonoBehaviour {
                             GameMgr.Extreme_On = false;
                             exp_Controller.Comp_method_bunki = 20;
                         }
-                       
 
-                        //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
-                        exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
-
-
-                        exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
-                        /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                        if (GameMgr.compound_select == 21)
                         {
-                            exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
-                        }
-                        else
-                        {
+                            //MPを消費
+                            PlayerStatus.player_mp -= costMP;
+
+                            //その魔法を使った回数をカウント
+                            magicskill_database.magicskill_lists[itemID_2].skill_usecount++;
+
+                            //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
+                            exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
+
+
                             exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
-                        }*/
+                                                          /*if (updown_counter_oricompofinalcheck_obj.activeInHierarchy)
+                                                          {
+                                                              exp_Controller.set_kaisu = GameMgr.updown_kosu; //何セット作るかの個数もいれる。
+                                                          }
+                                                          else
+                                                          {
+                                                              exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
+                                                          }*/
 
-                        exp_Controller.result_kosuset.Clear();
-                        for (i = 0; i < result_kosuset.Count; i++)
-                        {
-                            exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                            exp_Controller.result_kosuset.Clear();
+                            for (i = 0; i < result_kosuset.Count; i++)
+                            {
+                                exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                            }
+
+                            GameMgr.compound_status = 22;
+
+                            //card_view.CardCompo_Anim();
+                            card_view.DeleteCard_DrawView();
+                            Off_Flag_Setting();
+
+                            exp_Controller.MagicResultOK();
                         }
+                        else if(GameMgr.compound_select == 10)
+                        {
+                            //ヒカリに作ってもらう。材料の決定                            
 
-                        GameMgr.compound_status = 22;
+                            exp_Controller.set_kaisu = 1; //updownカウンター使っていない仕様のときは1でリセット
 
-                        //card_view.CardCompo_Anim();
-                        card_view.DeleteCard_DrawView();
-                        Off_Flag_Setting();
+                            exp_Controller.result_kosuset.Clear();
+                            for (i = 0; i < result_kosuset.Count; i++)
+                            {
+                                exp_Controller.result_kosuset.Add(result_kosuset[i]); //exp_Controllerにオリジナル個数組み合わせセットもここで登録。
+                            }
 
-                        exp_Controller.MagicResultOK();
+                            GameMgr.compound_status = 4;
 
+                            //card_view.CardCompo_Anim();
+                            Off_Flag_Setting();
+
+                            exp_Controller.HikariMakeOK();
+                        }
                         break;
 
                     case false:
@@ -1979,14 +1998,15 @@ public class Compound_Check : MonoBehaviour {
             resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(true);
 
             //個数の予測計算
-            if (GameMgr.compound_select == 7) //ヒカリが作るときの個数計算予測
+            if (GameMgr.compound_select == 7 || GameMgr.compound_select == 10) //ヒカリが作るときの個数計算予測
             {
                 bufpower_keisan.hikariBuf_okashilv(database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString());
             }
 
             //以下は共通
             compound_keisan.ResultKosuKeisan(GameMgr.compound_select, GameMgr.Final_result_compID, 1,
-                itemID_1, itemID_2, itemID_3, 0, 0, 0, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3);
+                itemID_1, itemID_2, itemID_3, 0, 0, 0, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3,
+                "", 0);
             
             if (GameMgr.Result_Kosu < 1) { GameMgr.Result_Kosu = 1; } //最低一個はできる
             resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Result_Kosu.ToString();
@@ -2003,14 +2023,15 @@ public class Compound_Check : MonoBehaviour {
             resultitem_Hyouji.transform.Find("DefaultBG").gameObject.SetActive(false);
 
             //個数の予測計算
-            if (GameMgr.compound_select == 7) //ヒカリが作るときの個数計算予測
+            if (GameMgr.compound_select == 7 || GameMgr.compound_select == 10) //ヒカリが作るときの個数計算予測
             {
                 bufpower_keisan.hikariBuf_okashilv(database.items[GameMgr.Final_result_itemID1].itemType_sub.ToString());
             }
 
             //以下は共通
             compound_keisan.ResultKosuKeisan(GameMgr.compound_select, GameMgr.Final_result_compID, 1,
-                itemID_1, itemID_2, itemID_3, 0, 0, 0, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3);
+                itemID_1, itemID_2, itemID_3, 0, 0, 0, GameMgr.Final_kettei_kosu1, GameMgr.Final_kettei_kosu2, GameMgr.Final_kettei_kosu3,
+                "", 0);
 
             if (GameMgr.Result_Kosu < 1) { GameMgr.Result_Kosu = 1; } //最低一個はできる
             resultitem_Hyouji.transform.Find("KosuText").GetComponent<Text>().text = GameMgr.Result_Kosu.ToString();
@@ -2025,7 +2046,7 @@ public class Compound_Check : MonoBehaviour {
         databaseCompo.RecipiCount_database(0);
 
 
-        if (GameMgr.compound_select == 7) //ヒカリが作るときの成功率計算
+        if (GameMgr.compound_select == 7 || GameMgr.compound_select == 10) //ヒカリが作るときの成功率計算
         {
             _rate = (int)(databaseCompo.compoitems[_compID].success_Rate * _ex_probabilty_temp * GameMgr.hikari_make_okashiTime_successrate_buf);
         }
@@ -2058,7 +2079,7 @@ public class Compound_Check : MonoBehaviour {
 
         if (databaseCompo.compoitems[_compID].success_Rate >= 100) //生地系などは、基本的に失敗しない
         {
-            if (GameMgr.compound_select == 7) //ヒカリが作るときは、失敗する可能性あり。
+            if (GameMgr.compound_select == 7 || GameMgr.compound_select == 10) //ヒカリが作るときは、失敗する可能性あり。
             {
                 RateJougenCheck();
             }

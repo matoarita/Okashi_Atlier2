@@ -683,80 +683,33 @@ public class CompoundMainController : MonoBehaviour {
                     break;
 
 
-                case 20: //魔法の選択画面を開く              
+                case 9: //ヒカリ魔法の選択画面を開く              
 
-
-                    GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
-                    GameMgr.compound_select = 20;
-                    GameMgr.MagicSkillSelectStatus = 0; //魔法を使うを選択
-                    GameMgr.Comp_kettei_bunki = 0;
-
-                    //各調合画面を一度オフ
-                    CompoScreenReset();
-
-                    //ヒカリちゃんを表示する
-                    ReDrawLive2DOrder_Compound();
-                    SetLive2DPos_Compound();
-
-                    //専用うねうねアイドルモーション
-                    trans_motion = 2031;
-                    live2d_animator.SetInteger("trans_compmotion", trans_motion);
-                    Anchor_Pos.transform.localPosition = new Vector3(-0.4f, 0.134f, -5f); //調合シーンで　位置右のときは、x=-0.5が目線正面になる。
-
-                    //ヒカリちゃん表示をオフ
-                    //ReSetLive2DOrder_Default();                   
-
-                    playeritemlist_onoff.SetActive(false);
-                    recipilist_onoff.SetActive(false);
-                    SelectCompo_panel_1.SetActive(false);
-                    yes_no_panel.SetActive(false);
-
-                    text_area_compound.SetActive(true);
-                    //_textcomp.text = magic_text;
-
-                    magicskilllistController_Use.SetActive(true);
+                    MagicUseSelect1();
+                    GameMgr.compound_select = 9; //一回20通ってからあとで上書き
                     magicskilllistController_2.OnDefaultText(0);
                     magicskilllistController_2.ReDrawView();
+                    break;
 
-                    MagicStartPanel.SetActive(true);
-                    magic_compo1.SetActive(true);
-                    magic_compo2.SetActive(false);
-                    magic_compo3.SetActive(false);
-                    magic_compo4.SetActive(false);
-                    player_mp_panel.SetActive(true);
-                    player_mp_panel.transform.Find("player_mp").GetComponent<Text>().text = PlayerStatus.player_mp.ToString();
-                    player_mp_panel.transform.Find("player_maxmp").GetComponent<Text>().text = PlayerStatus.player_maxmp.ToString();
+                case 10: //ヒカリ魔法　魔法選択後、アイテム選択中のステータス             
 
-                    //環境音鳴らす
-                    //sceneBGM.PlayAmbient(0);
+                    MagicUseSelect2();
+                    GameMgr.compound_select = 10; //一回21通ってからあとで上書き
+                    break;
+
+                case 13: //あげる選択中（ここでは使わないけど、GameMgr.compound_selectをCompound_Mainで共通で使用してるので、なるべく被りを避ける）
+
+                    break;
+
+                case 20: //魔法の選択画面を開く              
+
+                    MagicUseSelect1();                   
 
                     break;
 
                 case 21: //魔法選択後、アイテム選択中のステータス
 
-                    GameMgr.compound_status = 100; //トグルや魔法選択中の状況からは変わらないので100のまま
-                    GameMgr.compound_select = 21;
-
-                    //魔法選択時の調合画面を開く
-                    magic_compo1.SetActive(false);
-                    magic_compo2.SetActive(true);
-                    player_mp_panel.SetActive(false);
-
-                    magicskilllistController_Use.SetActive(false);
-                    playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
-                    pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
-
-                    recipiMemoButton.SetActive(true);
-                    text_area_compound.SetActive(true);
-
-                    //ヒカリちゃん表示をオフ
-                    ReSetLive2DOrder_Default();
-
-                    //ヒカリちゃんを表示する
-                    //ReDrawLive2DOrder_Compound();
-
-                    //環境音とめる
-                    //sceneBGM.StopAmbient();
+                    MagicUseSelect2();
                     break;
 
                 case 22: //魔法演出画面
@@ -904,6 +857,80 @@ public class CompoundMainController : MonoBehaviour {
                 OnCancelCompound_Select();
             }
         }
+    }
+
+    void MagicUseSelect1()
+    {
+        GameMgr.compound_status = 4; //調合シーンに入っています、というフラグ
+        GameMgr.compound_select = 20;
+        GameMgr.MagicSkillSelectStatus = 0; //魔法を使うを選択
+        GameMgr.Comp_kettei_bunki = 0;
+
+        //各調合画面を一度オフ
+        CompoScreenReset();
+
+        //ヒカリちゃんを表示する
+        ReDrawLive2DOrder_Compound();
+        SetLive2DPos_Compound();
+
+        //専用うねうねアイドルモーション
+        trans_motion = 2031;
+        live2d_animator.SetInteger("trans_compmotion", trans_motion);
+        Anchor_Pos.transform.localPosition = new Vector3(-0.4f, 0.134f, -5f); //調合シーンで　位置右のときは、x=-0.5が目線正面になる。
+
+        //ヒカリちゃん表示をオフ
+        //ReSetLive2DOrder_Default();                   
+
+        playeritemlist_onoff.SetActive(false);
+        recipilist_onoff.SetActive(false);
+        SelectCompo_panel_1.SetActive(false);
+        yes_no_panel.SetActive(false);
+
+        text_area_compound.SetActive(true);
+        //_textcomp.text = magic_text;
+
+        magicskilllistController_Use.SetActive(true);
+        magicskilllistController_2.OnDefaultText(0);
+        magicskilllistController_2.ReDrawView();
+
+        MagicStartPanel.SetActive(true);
+        magic_compo1.SetActive(true);
+        magic_compo2.SetActive(false);
+        magic_compo3.SetActive(false);
+        magic_compo4.SetActive(false);
+        player_mp_panel.SetActive(true);
+        player_mp_panel.transform.Find("player_mp").GetComponent<Text>().text = PlayerStatus.player_mp.ToString();
+        player_mp_panel.transform.Find("player_maxmp").GetComponent<Text>().text = PlayerStatus.player_maxmp.ToString();
+
+        //環境音鳴らす
+        //sceneBGM.PlayAmbient(0);
+    }
+
+    void MagicUseSelect2()
+    {
+        GameMgr.compound_status = 100; //トグルや魔法選択中の状況からは変わらないので100のまま
+        GameMgr.compound_select = 21;
+
+        //魔法選択時の調合画面を開く
+        magic_compo1.SetActive(false);
+        magic_compo2.SetActive(true);
+        player_mp_panel.SetActive(false);
+
+        magicskilllistController_Use.SetActive(false);
+        playeritemlist_onoff.SetActive(true); //プレイヤーアイテム画面を表示。
+        pitemlistController.ResetKettei_item(); //プレイヤーアイテムリスト、選択したアイテムIDとリスト番号をリセット。 
+
+        recipiMemoButton.SetActive(true);
+        text_area_compound.SetActive(true);
+
+        //ヒカリちゃん表示をオフ
+        ReSetLive2DOrder_Default();
+
+        //ヒカリちゃんを表示する
+        //ReDrawLive2DOrder_Compound();
+
+        //環境音とめる
+        //sceneBGM.StopAmbient();
     }
 
     private void LateUpdate()

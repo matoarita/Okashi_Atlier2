@@ -666,6 +666,7 @@ public class StatusPanel : MonoBehaviour {
                 case 5: //シュークリーム
 
                     SetOkashiLV(i, PlayerStatus.player_girl_creampuff_lv, PlayerStatus.player_girl_creampuff_exp, 0);
+                    hikariokashiparam_list[i].SetActive(false); //シュークリームは現在使わないのでOFF
                     break;
                 case 6: //ドーナツ
 

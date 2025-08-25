@@ -229,7 +229,15 @@ public class MagicSkillListController : MonoBehaviour
         switch (_type)
         {
             case 0:
-                _text_comp.text = "どの魔法をつかう？　にいちゃん！";
+
+                if (GameMgr.compound_select == 9 || GameMgr.compound_select == 10) //ヒカリの魔法で使う場合
+                {
+                    _text_comp.text = "どの魔法で仕上げていこうかな。にいちゃん！" + "\n" + "※「ヒカリで作る」だと演出魔法は使えないよ！";
+                }
+                else
+                {
+                    _text_comp.text = "どの魔法をつかう？　にいちゃん！";
+                }
                 break;
 
             case 1:
@@ -918,6 +926,15 @@ public class MagicSkillListController : MonoBehaviour
                     }
 
                     break;*/
+        }
+
+        //ヒカリの魔法で使う場合、いくつかの魔法は使えない。おもに演出魔法など。
+        if(GameMgr.compound_select == 9 || GameMgr.compound_select == 10)
+        {
+            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+            {
+                _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
+            }
         }
     }
 

@@ -407,6 +407,25 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 }
                 break;
 
+            case 16: //ハードクッキー
+
+                if (_pstatusbuf == 0)
+                {
+                    PlayerStatus.player_girl_cookie_exp += _getexp;
+                    _nowexp = PlayerStatus.player_girl_cookie_exp;
+                    _nowlv = PlayerStatus.player_girl_cookie_lv;
+                    Check_OkashilvUP();
+                    PlayerStatus.player_girl_cookie_exp = _nowexp;
+                    PlayerStatus.player_girl_cookie_lv = _nowlv;
+                    _itemType_subtext = "クッキー";
+                }
+                else
+                {
+                    //隠しの味ステータスをあげる
+                    PlayerStatus.player_okashi_hardnessup += _getexp;
+                }
+                break;
+
             case 20: //お茶系
 
                 if (_pstatusbuf == 0)

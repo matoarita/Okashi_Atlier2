@@ -282,6 +282,7 @@ public class Compound_BGPanel_A : MonoBehaviour {
 
         _text.text = hikarimake_text;
         GameMgr.compound_status = 8;
+        GameMgr.MagicPanel_DefaultHyouji = true;
     }
 
     //魔法を使う

@@ -432,6 +432,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_flag = matplace_database.matplace_lists[i].placeFlag;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_default_flag = matplace_database.matplace_lists[i].placeDefaultFlag;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_type = matplace_database.matplace_lists[i].placeType;
+        matplace_toggle[count].GetComponent<matplaceSelectToggle>().place_catlv = matplace_database.matplace_lists[i].placeCatLV;
         matplace_toggle[count].GetComponent<matplaceSelectToggle>().placeNum = i; //トグルにリスト配列番号を割り振っておく。
 
         count++;
@@ -462,7 +463,15 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         //お店とかは選択できなくし、採取地のみにする
                         if(matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_type == 1)
                         {
-                            matplace_toggle[i].SetActive(true);
+                            //さらに、ねこのレベルが足りてない採取地は表示されない。
+                            if(GameMgr.Select_cat_lv >= matplace_toggle[i].GetComponent<matplaceSelectToggle>().place_catlv)
+                            {
+                                matplace_toggle[i].SetActive(true);
+                            }
+                            else
+                            {
+                                matplace_toggle[i].SetActive(false);
+                            }
                         }
                         else
                         {

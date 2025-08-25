@@ -25,6 +25,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
     private ItemDataBase database;
     private ItemCompoundDataBase databaseCompo;
+    private MagicSkillListDataBase magicskill_database;
     private PlayerItemList pitemlist;
     private HikariOkashiExpTable hikariOkashiExpTable;
 
@@ -87,6 +88,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private string _itemType_subtext;
     private int getheart;
     private int result_kosu;
+    private int hikari_compselect;
+    private int _id;
 
     // Use this for initialization
     void Start () {
@@ -109,6 +112,9 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -292,8 +298,18 @@ public class HikariMakeStartPanel : MonoBehaviour {
             //一個目
             _listitem.Add(Instantiate(hikarimakecheck_Prefab, content.transform));
 
-            _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_1].itemNameHyouji; //アイテム名
-            texture2d = database.items[itemID_1].itemIcon_sprite;
+            if (GameMgr.hikari_kettei_itemName[0] == "magic_comp_setting")
+            {
+                _id = magicskill_database.SearchSkillString(GameMgr.hikari_make_magicuseName);
+                _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = magicskill_database.magicskill_lists[_id].skillNameHyouji;
+                texture2d = magicskill_database.magicskill_lists[_id].skillIcon_sprite;
+                _listitem[list_count].transform.Find("BGImg (1)").gameObject.SetActive(false);
+            }
+            else
+            {
+                _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_1].itemNameHyouji; //アイテム名
+                texture2d = database.items[itemID_1].itemIcon_sprite;
+            }
 
 
             _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
@@ -304,8 +320,18 @@ public class HikariMakeStartPanel : MonoBehaviour {
             //二個目
             _listitem.Add(Instantiate(hikarimakecheck_Prefab, content.transform));
 
-            _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_2].itemNameHyouji; //アイテム名
-            texture2d = database.items[itemID_2].itemIcon_sprite;
+            if (GameMgr.hikari_kettei_itemName[1] == "magic_comp_setting")
+            {
+                _id = magicskill_database.SearchSkillString(GameMgr.hikari_make_magicuseName);
+                _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = magicskill_database.magicskill_lists[_id].skillNameHyouji;
+                texture2d = magicskill_database.magicskill_lists[_id].skillIcon_sprite;
+                _listitem[list_count].transform.Find("BGImg (1)").gameObject.SetActive(false);
+            }
+            else
+            {
+                _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_2].itemNameHyouji; //アイテム名
+                texture2d = database.items[itemID_2].itemIcon_sprite;
+            }
 
 
             _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
@@ -318,8 +344,18 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 //三個目
                 _listitem.Add(Instantiate(hikarimakecheck_Prefab, content.transform));
 
-                _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_3].itemNameHyouji; //アイテム名
-                texture2d = database.items[itemID_3].itemIcon_sprite;
+                if (GameMgr.hikari_kettei_itemName[2] == "magic_comp_setting")
+                {
+                    _id = magicskill_database.SearchSkillString(GameMgr.hikari_make_magicuseName);
+                    _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = magicskill_database.magicskill_lists[_id].skillNameHyouji;
+                    texture2d = magicskill_database.magicskill_lists[_id].skillIcon_sprite;
+                    _listitem[list_count].transform.Find("BGImg (1)").gameObject.SetActive(false);
+                }
+                else
+                {
+                    _listitem[list_count].transform.Find("NameText").GetComponent<Text>().text = database.items[itemID_3].itemNameHyouji; //アイテム名
+                    texture2d = database.items[itemID_3].itemIcon_sprite;
+                }
 
 
                 _listitem[list_count].transform.Find("itemImage").GetComponent<Image>().sprite = texture2d; //画像データ
@@ -502,9 +538,18 @@ public class HikariMakeStartPanel : MonoBehaviour {
         black_Image.SetActive(true);
         text_area.SetActive(true);
 
-        compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+        if (GameMgr.hikari_makingmethod == 0)
+        {
+            hikari_compselect = 7;
+        }
+        else if (GameMgr.hikari_makingmethod == 1)
+        {
+            hikari_compselect = 10;
+        }
+        compound_keisan.ResultKosuKeisan(hikari_compselect, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
                     GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
-                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
+                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2],
+                    GameMgr.hikari_make_magicuseName, GameMgr.hikari_make_magicuseLV);
         //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
         result_kosu = GameMgr.Result_Kosu;
         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "が　" + 
@@ -537,11 +582,28 @@ public class HikariMakeStartPanel : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
+    public void OnSelect_5() //ヒカリに魔法を使わせる
+    {
+        DeleteCard_DrawView();
+
+        GameMgr.compound_status = 9;
+        this.gameObject.SetActive(false);
+    }
+
     void SelectHyouji_OnOFF()
     {
-        compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+        if (GameMgr.hikari_makingmethod == 0)
+        {
+            hikari_compselect = 7;
+        }
+        else if (GameMgr.hikari_makingmethod == 1)
+        {
+            hikari_compselect = 10;
+        }
+        compound_keisan.ResultKosuKeisan(hikari_compselect, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
                     GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
-                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
+                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2],
+                    GameMgr.hikari_make_magicuseName, GameMgr.hikari_make_magicuseLV);
         //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
         result_kosu = GameMgr.Result_Kosu;
 
@@ -784,9 +846,18 @@ public class HikariMakeStartPanel : MonoBehaviour {
         else
         {
             Debug.Log("チェック　ヒカリが制作した　個数　ResultKosuKeisan通る");
-            compound_keisan.ResultKosuKeisan(7, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+            if (GameMgr.hikari_makingmethod == 0)
+            {
+                hikari_compselect = 7;
+            }
+            else if (GameMgr.hikari_makingmethod == 1)
+            {
+                hikari_compselect = 10;
+            }
+            compound_keisan.ResultKosuKeisan(hikari_compselect, GameMgr.hikari_make_okashi_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
                     GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
-                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
+                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2],
+                    GameMgr.hikari_make_magicuseName, GameMgr.hikari_make_magicuseLV);
             //result_kosu = GameMgr.hikari_make_okashiKosu * databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cmpitem_result_kosu;
             result_kosu = GameMgr.Result_Kosu;
             makeokasi_kosu.text = result_kosu.ToString();

@@ -1279,7 +1279,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                 if (GameMgr.hikari_kettei_toggleType[i] == 0) //店売りアイテム
                 {
-                    if (database.items[GameMgr.hikari_kettei_item[i]].itemType_sub.ToString() == "Machine")
+                    if (database.items[GameMgr.hikari_kettei_item[i]].itemType_sub.ToString() == "Machine" ||
+                        database.items[GameMgr.hikari_kettei_item[i]].itemType_sub.ToString() == "MagicData")
                     {
 
                     }

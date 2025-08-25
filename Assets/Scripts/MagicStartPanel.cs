@@ -18,7 +18,14 @@ public class MagicStartPanel : MonoBehaviour {
 
     public void OnCancel_MagicSelect()
     {
-        GameMgr.compound_status = 6;
+        if (GameMgr.compound_select == 9) //ヒカリ作り中の場合は、ヒカリの選択画面に戻る
+        {
+            GameMgr.compound_status = 8;
+        }
+        else
+        {
+            GameMgr.compound_status = 6;
+        }
 
         this.gameObject.SetActive(false);
     }

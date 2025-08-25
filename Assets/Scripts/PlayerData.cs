@@ -236,6 +236,9 @@ public class PlayerData
     public bool save_hikari_tempature_control_ON; //ヒカリにお菓子作ってもらうで温度管理をON
     public int save_hikari_tempature_param_time;
     public int save_hikari_tempature_param_temp;
+    public int save_hikari_makingmethod; //通常調合か魔法調合をしているかのチェック
+    public string save_hikari_make_magicuseName; //そのときに使っている魔法
+    public int save_hikari_make_magicuseLV; //そのときの使うLV
 
     //クリアお菓子の情報
     public int save_SpecialQuestClear_okashiItemID;

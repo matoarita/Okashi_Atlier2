@@ -736,7 +736,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                 //HeartEvent_check(9, 352, 1); ヒカリお菓子作るとLV被るので、off
                 //HeartEvent_check(15, 350, 1);
-                HeartEvent_check(20, 302, 1, "Non"); //ヒカリ二個トッピング仕上げできるようになる
+                //HeartEvent_check(20, 302, 1, "Non"); //ヒカリ二個トッピング仕上げできるようになる
 
                 HeartEvent_check(40, 355, 1, "dragon_carnival"); //ドラゴンカーニバル
                 HeartEvent_check(50, 356, 1, "ramen"); //らーめん              
@@ -763,7 +763,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //お宝イベントは、ここのイベント発生でなくスターパネル内で完結させる
                 StarReleaseEvent_check(1, 600, 0, "Non"); //7なのでショートケーキのレシピゲット
                 StarReleaseEvent_check(2, 601, 0, "Non"); //9なのでコスチュームゲット
-                StarReleaseEvent_check(3, 602, 1, "Non"); //15なので、なんらかのイベント
+                StarReleaseEvent_check(3, 302, 1, "Non"); //15なので、トッピング二個同時解放
                 //StarReleaseEvent_check(4, 355, 1, "dragon_carnival"); //18なので、休憩イベント
                 StarReleaseEvent_check(5, 603, 1, "Non"); //20なのでおふろいけるイベント　温泉地の解放？
                 StarReleaseEvent_check(6, 604, 0, "Non"); //22なのでコスチューム2ゲット

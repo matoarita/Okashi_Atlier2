@@ -10,6 +10,7 @@ public class matplaceSelectToggle : MonoBehaviour {
     public int place_flag;
     public int place_default_flag;
     public int place_type;
+    public int place_catlv;
 
     private GameObject getmatplace_panel;
     private GetMatPlace_Panel getmatplace;

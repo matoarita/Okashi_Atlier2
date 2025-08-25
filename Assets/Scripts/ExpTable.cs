@@ -217,7 +217,6 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 26:
 
-                    MagicLearnPanelHyouji("Rainbow_Rain");
                     break;
 
                 case 28:
@@ -241,6 +240,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 50:
 
+                    MagicLearnPanelHyouji("Rainbow_Rain");
                     ShiageUpPanelHyouji();
                     break;
 
@@ -283,19 +283,19 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             PlayerStatus.player_extreme_kaisu_Max = 2;
         }
-        else if (_lv >= 15 && _lv < 22)
+        else if (_lv >= 15 && _lv < 50)
         {
             PlayerStatus.player_extreme_kaisu_Max = 3;
         }
-        else if (_lv >= 22 && _lv < 30)
+        else if (_lv >= 50 && _lv < 75)
         {
             PlayerStatus.player_extreme_kaisu_Max = 4;
         }
-        else if (_lv >= 30 && _lv < 40)
+        else if (_lv >= 75 && _lv < 90)
         {
             PlayerStatus.player_extreme_kaisu_Max = 5;
         }
-        else if (_lv >= 40)
+        else if (_lv >= 90)
         {
             PlayerStatus.player_extreme_kaisu_Max = 6;
         }
@@ -312,7 +312,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         }
 
         //二種類～同時トッピング
-        if (_lv < 20)
+        /*if (_lv < 20)
         {
             GameMgr.topping_Set_Count = 1; //デフォルト
         }
@@ -320,7 +320,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             //_temp_skill.Add("一度に　2個　トッピングできるようになった！");
             GameMgr.topping_Set_Count = 2;
-        }
+        }*/
 
         //複数個まとめて数のせる
         /*
@@ -351,61 +351,16 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         //魔法をおぼえる
         if (GameMgr.System_MagicUse_Flag)
         {
-            /*if (_lv >= 6)
-            {
-                Magic_Learn("Cookie_SecondBake");               
-            }*/
             if (_lv >= 7)
             {
                 //Magic_Learn("Heart_of_Icecream");
                 Magic_Learn("Freezing_Spell");
             }
-            /*if (_lv >= 10)
-            {
-                Magic_Learn("Bake_Beans");
-                Magic_Learn("Chocolate_Tempering");
-            }*/
-            /*if (_lv >= 11)
-            {
-                Magic_Learn("SugerPot");
-            }
-            if (_lv >= 12)
-            {
-                Magic_Learn("Buttelfy_illumination");
-            }
-            if (_lv >= 13)
-            {
-                Magic_Learn("Bubble_Mist");
-            }
-            if (_lv >= 14)
-            {
-                Magic_Learn("Wind_Crown");
-                Magic_Learn("Wind_Pen");
-            }
-            if (_lv >= 18)
-            {
-                Magic_Learn("Star_Blessing");
-            }
-            if (_lv >= 19)
-            {
-                Magic_Learn("Latte_Art");
-            }
-            if (_lv >= 21)
-            {
-                Magic_Learn("Magic_Soda");
-            }*/
-            if (_lv >= 26)
+
+            if (_lv >= 50)
             {
                 Magic_Learn("Rainbow_Rain");
             }
-            /*if (_lv >= 28)
-            {
-                Magic_Learn("Warming_Handmade");
-            }
-            if (_lv >= 31)
-            {
-                Magic_Learn("Statue_of_Bear");
-            }*/
             /*if (_lv >= 35)
             {
                 Magic_Learn("Moonlight_Banana");

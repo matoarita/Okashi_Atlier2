@@ -44,6 +44,7 @@ public class CatGetContent : MonoBehaviour
 
         GameMgr.Select_cat_num = toggle_listid;
         GameMgr.Select_cat_nameHyouji = catDataBase.catdata_list[toggle_listid].catnameHyouji;
+        GameMgr.Select_cat_lv = catDataBase.catdata_list[toggle_listid].catLv;
 
         //採取ボタン　採取してないなら、マップ画面ひらく　採取中なら、採取をやめる？と聞く。
         if (catDataBase.catdata_list[toggle_listid].catStatus == 0)

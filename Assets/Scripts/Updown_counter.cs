@@ -404,6 +404,12 @@ public class Updown_counter : MonoBehaviour {
                 }
                 break;
 
+
+            case 10: //ヒカリに魔法使わせるときのカウンター位置
+
+                this.transform.localPosition = new Vector3(0, -87, 0);
+                break;
+
             case 21: //オリジナル調合の場合の、カウンターの位置
 
                 this.transform.localPosition = new Vector3(0, -87, 0);
@@ -451,7 +457,7 @@ public class Updown_counter : MonoBehaviour {
             {
                 if (GameMgr.compound_status == 110) //最後、何セット作るかを確認中
                 {
-                    if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7) //オリジナル調合のとき
+                    if (GameMgr.compound_select == 3 || GameMgr.compound_select == 7 || GameMgr.compound_select == 9) //オリジナル調合のとき
                     {
                         //カウントをとりあえず１足す
                         ++GameMgr.updown_kosu;
@@ -561,7 +567,7 @@ public class Updown_counter : MonoBehaviour {
 
                     }
 
-                    if (GameMgr.compound_select == 21)
+                    if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10)
                     {
                         switch (GameMgr.Comp_kettei_bunki)
                         {
@@ -577,7 +583,8 @@ public class Updown_counter : MonoBehaviour {
                 }
                 else
                 {
-                    if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 7 || GameMgr.compound_select == 21)
+                    if (GameMgr.compound_select == 2 || GameMgr.compound_select == 3 || GameMgr.compound_select == 7 || GameMgr.compound_select == 9 ||
+                        GameMgr.compound_select == 21 || GameMgr.compound_select == 10)
                     {
                         switch (GameMgr.Comp_kettei_bunki)
                         {
@@ -1237,7 +1244,7 @@ public class Updown_counter : MonoBehaviour {
         //調合シーンでの処理
         if (GameMgr.CompoundSceneStartON)
         {
-            if (GameMgr.compound_select == 21) //魔法処理　アイテム選択画面のとき
+            if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10) //魔法処理　アイテム選択画面のとき
             {
                 if(GameMgr.Comp_kettei_bunki == 21 || GameMgr.Comp_kettei_bunki == 22) //選択後、スキルレベルを選ぶタイミング
                 {
@@ -1412,7 +1419,7 @@ public class Updown_counter : MonoBehaviour {
     //アップorダウンしたときに調合確率も再計算する　特定のタイミングのときのみ
     void Magic_ReKeisan()
     {
-        if (GameMgr.compound_select == 21) //魔法処理　アイテム選択画面のとき
+        if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10) //魔法処理　アイテム選択画面のとき
         {
             if (GameMgr.Comp_kettei_bunki == 21) //選択後、スキルレベルを選ぶタイミング
             {

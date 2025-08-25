@@ -256,7 +256,7 @@ public class itemSelectToggle : MonoBehaviour
                 }
 
                 // 魔法調合の場合の処理
-                if (GameMgr.compound_select == 21)
+                if (GameMgr.compound_select == 21 || GameMgr.compound_select == 10)
                 {
                     yes.SetActive(true);
 
@@ -1415,6 +1415,10 @@ public class itemSelectToggle : MonoBehaviour
                 GameMgr.Final_toggle_Type1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_type;
                 GameMgr.Final_list_itemID1 = pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggle_originplist_ID;
                 GameMgr.temp_itemID1 = database.SearchItemID(pitemlistController._listitem[count].GetComponent<itemSelectToggle>().toggleitem_ID);
+
+                //魔法の場合2つ目は、空の魔法アイテムデータ
+                GameMgr.Final_toggle_Type2 = 0;
+                GameMgr.Final_list_itemID2 = database.SearchItemIDString("magic_comp_setting");
 
                 //押したタイミングで、分岐。
                 GameMgr.Comp_kettei_bunki = 20;

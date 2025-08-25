@@ -449,6 +449,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_hikari_tempature_control_ON = GameMgr.hikari_tempature_control_ON,
             save_hikari_tempature_param_time = GameMgr.hikari_tempature_param_time,
             save_hikari_tempature_param_temp = GameMgr.hikari_tempature_param_temp,
+            save_hikari_makingmethod = GameMgr.hikari_makingmethod,
+            save_hikari_make_magicuseName = GameMgr.hikari_make_magicuseName,
+            save_hikari_make_magicuseLV = GameMgr.hikari_make_magicuseLV,
 
             //クリアお菓子の情報
             save_SpecialQuestClear_okashiItemID = GameMgr.SpecialQuestClear_okashiItemID,
@@ -912,6 +915,9 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.hikari_tempature_control_ON = playerData.save_hikari_tempature_control_ON;
         GameMgr.hikari_tempature_param_time = playerData.save_hikari_tempature_param_time;
         GameMgr.hikari_tempature_param_temp = playerData.save_hikari_tempature_param_temp;
+        GameMgr.hikari_makingmethod = playerData.save_hikari_makingmethod;
+        GameMgr.hikari_make_magicuseName = playerData.save_hikari_make_magicuseName;
+        GameMgr.hikari_make_magicuseLV = playerData.save_hikari_make_magicuseLV;
 
 
         if (playerData.save_hikari_kettei_itemName != null)

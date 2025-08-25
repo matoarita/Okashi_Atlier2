@@ -38,6 +38,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     private int itemNum, DBcount;
     private int _attri1;
     private bool Kosu_keisanmethod;
+    private int hikari_compselect;
 
     private int total_qbox_money;
 
@@ -1147,7 +1148,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
             //最終的に生成されるアイテムの個数を決定
             ResultKosuKeisan(GameMgr.compound_select, result_compID, final_select_kaisu, 
-                kettei_item1, kettei_item2, kettei_item3, toggle_type1, toggle_type2, toggle_type3, final_kette_kosu1, final_kette_kosu2, final_kette_kosu3);            
+                kettei_item1, kettei_item2, kettei_item3, toggle_type1, toggle_type2, toggle_type3, 
+                final_kette_kosu1, final_kette_kosu2, final_kette_kosu3, GameMgr.UseMagicSkill, GameMgr.UseMagicSkillLv);            
 
             // アイテムリストの削除処理 //
             Delete_playerItemList(0);
@@ -1426,9 +1428,17 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Kosu_keisanmethod = false;
         }*/
 
-        ResultKosuKeisan(7, result_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
+        if(GameMgr.hikari_makingmethod == 0)
+        {
+            hikari_compselect = 7;
+        }
+        else if(GameMgr.hikari_makingmethod == 1)
+        {
+            hikari_compselect = 10;
+        }
+        ResultKosuKeisan(hikari_compselect, result_compID, GameMgr.hikari_make_okashiKosu, GameMgr.hikari_kettei_item[0], GameMgr.hikari_kettei_item[1], GameMgr.hikari_kettei_item[2],
                     GameMgr.hikari_kettei_toggleType[0], GameMgr.hikari_kettei_toggleType[1], GameMgr.hikari_kettei_toggleType[2], 
-                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2]);
+                    GameMgr.hikari_kettei_kosu[0], GameMgr.hikari_kettei_kosu[1], GameMgr.hikari_kettei_kosu[2], GameMgr.hikari_make_magicuseName, GameMgr.hikari_make_magicuseLV);
         
         
 
@@ -1506,10 +1516,18 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
         if (_status == 0)
         {
-            //アイテム取得処理
-            GetItemMethod(0);
+            GameMgr.MakeItemStatus = 0;
+            if (_base_itemType == "Mat" || _base_itemType == "Potion")
+            {
+                CheckItemType_GetItem();
+            }
+            else
+            {
+                //アイテム取得処理
+                GetItemMethod(0); //パネルにはセットせずオリジナルアイテムとして受け取る
+            }
         }
-        else if (_status == 1)
+        else if (_status == 1)　//ヒカリ受け取るときにお菓子パネルにセットする
         {
             GetItemCheck();         
         }
@@ -1536,26 +1554,31 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         GameMgr.MakeItemStatus = 0;
         if (_base_itemType == "Mat" || _base_itemType == "Potion")
         {
-            //アイテム取得処理
-            if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" || 
-                _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "AromaPotion" || _base_itemType_sub == "WhipeedCream" ||
-                _base_itemType_sub == "Figure" || _base_itemType_sub == "FrozenFruits" ||
-                _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerFlower" ||
-                _basename == "lumi_banana")
-            {
-                GetItemMethod(0); //生地作ったときは各ステータスオリジナルのものなので、オリジナルアイテムに登録
-            }
-            else
-            {
-                GetItemMethod(2); //上記以外は店売りアイテムとして登録
-                GameMgr.MakeItemStatus = 2;
-            }
+            CheckItemType_GetItem();          
         }
         else
         {
             //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
             //アイテム取得処理
             GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
+        }
+    }
+
+    void CheckItemType_GetItem()
+    {
+        //アイテム取得処理
+        if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" ||
+            _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "AromaPotion" || _base_itemType_sub == "WhipeedCream" ||
+            _base_itemType_sub == "Figure" || _base_itemType_sub == "FrozenFruits" ||
+            _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerFlower" ||
+            _basename == "lumi_banana")
+        {
+            GetItemMethod(0); //生地作ったときは各ステータスオリジナルのものなので、オリジナルアイテムに登録
+        }
+        else
+        {
+            GetItemMethod(2); //上記以外は店売りアイテムとして登録
+            GameMgr.MakeItemStatus = 2;
         }
     }
 
@@ -1753,7 +1776,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
     }
 
     //個数計算メソッド HikariMakeStartPanelからも読み出し
-    public void ResultKosuKeisan(int _compo_select, int _result_cmpID, int _set_kaisu, int _kettei_id1, int _kettei_id2, int _kettei_id3, int _toggletype1, int _toggletype2, int _toggletype3, int _kosu1, int _kosu2, int _kosu3)
+    public void ResultKosuKeisan(int _compo_select, int _result_cmpID, int _set_kaisu, int _kettei_id1, 
+        int _kettei_id2, int _kettei_id3, int _toggletype1, int _toggletype2, int _toggletype3, int _kosu1, int _kosu2, int _kosu3, string _useMagic, int _useMagicLV)
     {
         if (databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Non" && databaseCompo.compoitems[_result_cmpID].KeisanMethod != "Use")
         {
@@ -1802,27 +1826,27 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             result_kosu = GameMgr.Final_kettei_kosu1;
         }*/
-        else if (_compo_select == 21) //魔法調合の場合
+        else if (_compo_select == 21 || _compo_select == 10) //魔法調合の場合
         {
             Debug.Log("_compo_select: " + _compo_select + "魔法調合の場合の、最終個数指定");
 
-            if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "CompNo")
+            if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(_useMagic)].skill_KosuSelect == "CompNo")
             {
                 result_kosu = _kosu1 * _set_kaisu; //元のアイテムになにかをかける魔法も、元アイテム一個にかけるので生成も一個 _kosu1にしてるけど、1個でもいい
             }
             else
             {
-                if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(GameMgr.UseMagicSkill)].skill_KosuSelect == "KetteiKosu")
+                if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(_useMagic)].skill_KosuSelect == "KetteiKosu")
                 {
                     result_kosu = _kosu1 * _set_kaisu; //入れた個数だけできる
                 }
                 else
                 {
-                    switch (GameMgr.UseMagicSkill)
+                    switch (_useMagic)
                     {
                         case "Aroma_Potion": //アロマポーションは基本個数が一個（入れた材料の数が濃縮）　ただし、スキル習得レベルで個数増える
 
-                            result_kosu = 1 * GameMgr.UseMagicSkillLv * _set_kaisu; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
+                            result_kosu = 1 * _useMagicLV * _set_kaisu; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
                             break;
 
                         default: //その他　フリージングやテンパリングなど。compoDBを指定するものは、compoDBの個数
@@ -2487,7 +2511,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basesp_score7 += _additemlist[i].SP_Score7 * _additemlist[i].ItemKosu;
                 _basesp_score8 += _additemlist[i].SP_Score8 * _additemlist[i].ItemKosu;
                 _basesp_score9 += _additemlist[i].SP_Score9 * _additemlist[i].ItemKosu;
-                _basesp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;              
+                _basesp_score10 += _additemlist[i].SP_Score10 * _additemlist[i].ItemKosu;
+
+                //仕上げのときは、のどごしほんの少しだけあがる
+                _basejuice += (int)((_additemlist[i].Sweat * _additemlist[i].ItemKosu +
+                    _additemlist[i].Bitter * _additemlist[i].ItemKosu + 
+                    _additemlist[i].Sour * _additemlist[i].ItemKosu) / 2);
                 //}
             }
         }
@@ -2497,10 +2526,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _basejuice = _basesweat + _basebitter + _basesour;
         }
-        else if(Comp_method_bunki == 3) //仕上げのときは、ほんの少しだけあがる
-        {
-            _basejuice = (int)((_basesweat + _basebitter + _basesour) / 3);
-        }
+        else if(Comp_method_bunki == 3) 
+        { }
 
         //新規作成時の特殊処理
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2 || Comp_method_bunki == 20 || Comp_method_bunki == 22)//オリジナル調合・レシピ調合・魔法調合　のときの計算。
@@ -3025,20 +3052,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
-        if (mstatus == 2) //ヒカリお菓子作る場合は、現状魔法は使用できないため以下の処理は無視
+        //魔法によって状態が変わる　WindArkの回数加算など
+        if (GameMgr.UseMagicSkill == "Cookie_SecondBake")
         {
+            _baseattri1 = 1;
         }
-        else
+        if (GameMgr.UseMagicSkill == "Wind_Ark")
         {
-            //魔法によって状態が変わる　WindArkの回数加算など
-            if (GameMgr.UseMagicSkill == "Cookie_SecondBake")
-            {
-                _baseattri1 = 1;
-            }
-            if (GameMgr.UseMagicSkill == "Wind_Ark")
-            {
-                _baseattri2++;
-            }
+            _baseattri2++;
         }
 
     }

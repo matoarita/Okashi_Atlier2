@@ -31,6 +31,7 @@ public class StarStampPanel : MonoBehaviour
     private Sprite itemIcon_sprite2;
     private Sprite itemIcon_sprite3;
     private Sprite itemIcon_sprite4;
+    private Sprite itemIcon_sprite5;
 
     private Text star_hyoujiparam;
 
@@ -165,6 +166,7 @@ public class StarStampPanel : MonoBehaviour
         itemIcon_sprite2 = Resources.Load<Sprite>("Sprites/Icon/" + "Book01");
         itemIcon_sprite3 = Resources.Load<Sprite>("Sprites/Icon/" + "badge_icon_08");
         itemIcon_sprite4 = Resources.Load<Sprite>("Sprites/Items/" + "blue_jemstone");
+        itemIcon_sprite5 = Resources.Load<Sprite>("Sprites/Icon/" + "skillupIcon");
 
         //キャンバスの読み込み
         canvas = GameObject.FindWithTag("Canvas");
@@ -534,13 +536,13 @@ public class StarStampPanel : MonoBehaviour
                 }
                 break;
 
-            case 3: //おたから
+            case 3: //トッピング二個同時解放
 
                 if (_mstatus == 0) //そこのおたからの状態をチェック　すでに取得済なら空アイコンに。変化がないのもあり。
                 {
                     if (GameMgr.StarRank_ReleaseList[_num]) //trueならすでに取得
                     {
-                        TreasureStatus("ev4", 1);
+                        TreasureStatus("ev4", 3);
                     }
                     else
                     {
@@ -550,13 +552,13 @@ public class StarStampPanel : MonoBehaviour
                 else if (_mstatus == 1)
                 {
                     //
-                    _id = database.SearchItemIDString("wood_rod_normal");
-                    newarea_titletext = "おたから";
-                    newarea_gohoubitext = database.items[_id].itemNameHyouji + "\n" + "ゲット！";
-                    newarea_gohoubiicon = database.items[_id].itemIcon_sprite;
+                    //_id = database.SearchItemIDString("wood_rod_normal");
+                    newarea_titletext = "スキル解放";
+                    newarea_gohoubitext = "トッピング二個同時のせ" + "\n" + "解放！";
+                    newarea_gohoubiicon = itemIcon_sprite5;
                     newAreaRelease_panelKoushin(_star);
 
-                    pitemlist.addPlayerItemString("wood_rod_normal", 1);
+                    GameMgr.topping_Set_Count = 2;
 
                     //matplace_database.ReSetMapFlagString("Or_Hiroba1_HotSpring", 1);
 
