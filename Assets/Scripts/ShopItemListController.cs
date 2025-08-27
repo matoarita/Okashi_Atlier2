@@ -154,6 +154,11 @@ public class ShopItemListController : MonoBehaviour
             category_toggle[i].GetComponent<Toggle>().isOn = false;
         }
         category_toggle[0].GetComponent<Toggle>().isOn = true;
+
+        if(GameMgr.Scene_Category_Num == 50) //エメラルショップのときは、カテゴリトグル１が「衣装」になる。
+        {
+            category_toggle[0].transform.Find("Label").GetComponent<Text>().text = "衣装";
+        }
         reset_and_DrawView();
         
     }

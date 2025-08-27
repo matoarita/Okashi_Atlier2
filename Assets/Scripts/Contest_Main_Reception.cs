@@ -973,13 +973,13 @@ public class Contest_Main_Reception : MonoBehaviour
                     GameMgr.contest_accepted_list[i].contestName);
                 contest_list = i;
                 flag_chk = true;
-                
+
                 break;
             }
             i++;
         }
 
-        if(flag_chk)
+        if (flag_chk)
         {
             flag_chk = false;
 
@@ -988,6 +988,26 @@ public class Contest_Main_Reception : MonoBehaviour
         else
         {
             npc2sub_toggle_obj.SetActive(false);
+        }
+
+        //エデンコンが解放されたとき、エデンコンの説明が聞ける
+        switch (GameMgr.SceneSelectNum)
+        {
+            case 10:
+
+                if (GameMgr.Contest_NewReleaseList[40]) //エデン夏コン解放フラグ
+                {
+                    npc3sub_toggle_obj.SetActive(true);
+                }
+                break;
+
+            case 20:
+
+                if (GameMgr.Contest_NewReleaseList[41]) //エデン秋コン解放フラグ
+                {
+                    npc3sub_toggle_obj.SetActive(true);
+                }
+                break;
         }
 
         //オブジェクト配列変わった後に、一度オフ→オンにしなおすと、コンテストの再配置がされる。はず。
@@ -1385,8 +1405,30 @@ public class Contest_Main_Reception : MonoBehaviour
     {
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 1002; //
-        GameMgr.hiroba_event_ID = 0;
+
+        switch (GameMgr.SceneSelectNum)
+        {
+            case 0:
+
+                GameMgr.hiroba_event_ID = 0;
+                break;
+
+            case 10:
+
+                GameMgr.hiroba_event_ID = 10;
+                break;
+
+            default:
+
+                GameMgr.hiroba_event_ID = 0;
+                break;
+        }
+        
         GameMgr.utage_charaHyouji_flag = true;
+
+        //BGMかえる
+        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        bgm_change_flag = true;
 
         EventReadingStart();
 

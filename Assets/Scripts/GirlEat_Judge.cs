@@ -3635,14 +3635,14 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     _pstatus_up = Random.Range(1,7);
                     if (_pstatus_up > 0)
                     {
-                        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1);
+                        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1, 0);
                     }
                 }
                 else
                 {
                     //隠し味ステータスがあがる
                     _pstatus_up = 1;
-                    hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1);
+                    hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1, 0);
                     _pstatus_up = 0; //ここで０にして、パネルは表示させない
                 }
             }

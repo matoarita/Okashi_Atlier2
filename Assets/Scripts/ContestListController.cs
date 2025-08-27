@@ -111,9 +111,10 @@ public class ContestListController : MonoBehaviour
         contest_archivementPanel = this.transform.Find("ArchivementPanel").gameObject;
         archivement_text = contest_archivementPanel.transform.Find("ParamText").GetComponent<Text>();
 
+        conteststartList_database.Contest_ArchivementKeisan();
         AreaContestSetting();
 
-        ArchivementHyouji();
+        //ArchivementHyouji();
     }
 
     void OnEnable()
@@ -133,21 +134,25 @@ public class ContestListController : MonoBehaviour
             case "Or_Contest_Reception_Spring":
 
                 read_ID = 0; //ID=0～からread_endflag=1まで読む
+                archivement_text.text = GameMgr.Contest_archivement_percent[0].ToString("F2") + "% / 100%";
                 break;
 
             case "Or_Contest_Reception_Summer":
 
                 read_ID = 1000; //ID=0～からread_endflag=1まで読む
+                archivement_text.text = GameMgr.Contest_archivement_percent[1].ToString("F2") + "% / 100%";
                 break;
 
             case "Or_Contest_Reception_Autumn":
 
                 read_ID = 2000; //ID=0～からread_endflag=1まで読む
+                archivement_text.text = GameMgr.Contest_archivement_percent[2].ToString("F2") + "% / 100%";
                 break;
 
             case "Or_Contest_Reception_Winter":
 
                 read_ID = 3000; //ID=0～からread_endflag=1まで読む
+                archivement_text.text = GameMgr.Contest_archivement_percent[3].ToString("F2") + "% / 100%";
                 break;
         }
     }

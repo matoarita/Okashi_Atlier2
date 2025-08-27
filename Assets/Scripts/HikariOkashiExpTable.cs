@@ -24,7 +24,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
 		
 	}
 
-    public void hikariOkashi_ExpTableMethod(string _itemType_sub, int _getExp, int _status, int _mode, int _pstatusbuf) 
+    public void hikariOkashi_ExpTableMethod(string _itemType_sub, int _getExp, int _status, int _mode, int _pstatusbuf, int _magicuse) //_magicuseは、ヒカリが魔法使ってるかどうかの判定　現在未使用
     {
         GameMgr.hikariokashiExpTable_noTypeflag = false;
 
@@ -39,7 +39,7 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
 
         if(GameMgr.Item_OkashiSubType_Num == 99)
         {
-            GameMgr.hikariokashiExpTable_noTypeflag = true;
+            GameMgr.hikariokashiExpTable_noTypeflag = true; //BufPower_KeisanやHikariMakeStartPanelで使用
         }
 
         switch (_mode)
@@ -444,6 +444,10 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                     PlayerStatus.player_okashi_tea_flavorup += _getexp;
                 }
                 break;
+
+            case 99: //指定のものがない場合
+
+                break;
         }
 
         //各おかしステータスの上限チェック
@@ -579,7 +583,8 @@ public class HikariOkashiExpTable : SingletonMonoBehaviour<HikariOkashiExpTable>
                 break;
 
             case 99:
-                
+
+                GameMgr.hikarimakeokashi_nowlv = 1;
                 break;
         }
 

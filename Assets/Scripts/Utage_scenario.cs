@@ -3496,20 +3496,27 @@ public class Utage_scenario : MonoBehaviour
 
                 if (pitemlist.KosuCountEvent("potatebutter_recipi") >= 1)
                 {
-                    if (GameMgr.NPC_FriendPoint[1] >= 65)
+                    if (pitemlist.KosuCountEvent("potatefried_recipi") >= 1) //2回目はフライドポテトの作り方
                     {
-                        if (pitemlist.KosuCountEvent("potatemix_recipi") >= 1)
+                        if (GameMgr.NPC_FriendPoint[1] >= 59) //3回目でポテトの宝石箱
                         {
-                            roten_flag_num = 0; //二回目以降は、体力全回復
+                            if (pitemlist.KosuCountEvent("potatemix_recipi") >= 1)
+                            {
+                                roten_flag_num = 0; //3回目以降は、体力全回復
+                            }
+                            else
+                            {
+                                roten_flag_num = 160110; //ポテト宝石箱のレシピをまだもってない
+                            }
                         }
                         else
                         {
-                            roten_flag_num = 160102; //ポテト宝石箱のレシピをまだもってない
+                            roten_flag_num = 0; //3回目以降は、体力全回復
                         }
                     }
                     else
                     {
-                        roten_flag_num = 0; //二回目以降は、体力全回復
+                        roten_flag_num = 160102; //フライドポテトのレシピをまだもってない
                     }
                 }
                 else
@@ -3524,7 +3531,14 @@ public class Utage_scenario : MonoBehaviour
 
                 if (pitemlist.KosuCountEvent("crepe_recipi") >= 1)
                 {
-                    roten_flag_num = 0;
+                    if (pitemlist.KosuCountEvent("chocobanana_crepe_recipi") >= 1) //クレープレシピもらってるけど、まだチョコバナナはもらってない
+                    {
+                        roten_flag_num = 0;
+                    }
+                    else
+                    {
+                        roten_flag_num = 160202; //クレープレシピと一緒にチョコバナナももらう　いちごクレープ選択した場合は、160202は0と一緒
+                    }
                 }
                 else
                 {
@@ -4286,6 +4300,13 @@ public class Utage_scenario : MonoBehaviour
                         }
                         else if (roten_flag_num == 160102)
                         {
+                            if (pitemlist.KosuCountEvent("potatefried_recipi") <= 0)
+                            {
+                                pitemlist.add_eventPlayerItemString("potatefried_recipi", 1); //フライドポテトのレシピをゲット
+                            }
+                        }
+                        else if (roten_flag_num == 160110)
+                        {
                             if (pitemlist.KosuCountEvent("potatemix_recipi") <= 0)
                             {
                                 pitemlist.add_eventPlayerItemString("potatemix_recipi", 1); //ポテトの宝石箱のレシピをゲット
@@ -4310,7 +4331,7 @@ public class Utage_scenario : MonoBehaviour
 
                         break;
 
-                    case 1: //のる
+                    case 1: //いちごクレープ
 
                         moneyStatus_Controller.UseMoney(600);
                         GameMgr.NPC_FriendPoint[3] += 2; //友好度上がる
@@ -4322,23 +4343,28 @@ public class Utage_scenario : MonoBehaviour
                                 pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
                             }
                         }
-                        else if (roten_flag_num == 0)
+                        else if (roten_flag_num == 0 || roten_flag_num == 160202) //いちごクレープは160202は使わないので0と同じ
                         {
                             PlayerStatus.player_girl_lifepoint += 20;
                         }
 
                         break;
 
-                    case 2: //のる
+                    case 2: //チョコバナナクレープレシピ
 
                         moneyStatus_Controller.UseMoney(1000);
                         GameMgr.NPC_FriendPoint[3] += 3; //友好度上がる
 
-                        if (roten_flag_num == 160201)
+                        if (roten_flag_num == 160202)
                         {
                             if (pitemlist.KosuCountEvent("crepe_recipi") <= 0)
                             {
                                 pitemlist.add_eventPlayerItemString("crepe_recipi", 1); //クレープのレシピをゲット
+                            }
+
+                            if (pitemlist.KosuCountEvent("chocobanana_crepe_recipi") <= 0)
+                            {
+                                pitemlist.add_eventPlayerItemString("chocobanana_crepe_recipi", 1); //クレープのレシピをゲット
                             }
                         }
                         else if (roten_flag_num == 0)

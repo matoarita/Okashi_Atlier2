@@ -39,6 +39,13 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     private string Comment_out;
     private int _read_endflag;
 
+    private int contest_allcount; //出場できるコンテスト（表示はされてないのも含む）の全ての数
+    private int contest_victorycount; //現在1位をとったコンテスト数のカウント
+    private int contest_victorycount2; //現在2位をとったコンテスト数のカウント
+    private float archivement_percent;
+    private float ar_one;
+    private int read_ID;
+
     private string contest_name_origin;
 
     private int i;
@@ -853,7 +860,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.ContestThemeTitle2 = "テーマ: チョコレート";
         GameMgr.ContestThemeTitle3 = "テーマ: 氷のお菓子";
         GameMgr.ContestThemeTitle4 = "自由課題";
-        GameMgr.ContestThemeCount = 2;
+        GameMgr.ContestThemeCount = 2; //2=　課題4つのこと
 
         //課題選択方式　0=デフォルト
         switch (GameMgr.ContestThemeSelectNum)
@@ -864,11 +871,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
                 GameMgr.Contest_commentDB_Select = 21000;
                 GameMgr.Contest_ProblemSentence = "テーマ：光魔法を使ったお菓子";
-                GameMgr.Contest_ProblemSentence2 = "光魔法で仕上げたかわいいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+                GameMgr.Contest_ProblemSentence2 = "光魔法で仕上げたかわいいお菓子を作ってください。" + "\n" + "制限時間: 6時間";
 
                 //コンテスト時間指定
                 Contest_SetStartTime();
-                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+                PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
                 GameMgr.contest_boss_score = 191; //               
                 break;
@@ -909,11 +916,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
                 GameMgr.Contest_commentDB_Select = 21000;
                 GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
-                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 8時間";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 6時間";
 
                 //コンテスト時間指定
                 Contest_SetStartTime();
-                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+                PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
                 GameMgr.contest_boss_score = 191; //
                 break;
@@ -934,7 +941,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 250; //
+        GameMgr.contest_boss_score = 576; //
         GameMgr.contest_boss_name = "イセヤ";
     }
 
@@ -2118,6 +2125,68 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         }
 
         return 9999; //見つからなかった場合、9999
+    }
+
+    //各コンテストの達成率の計算
+    public void Contest_ArchivementKeisan()
+    {
+        //Debug.Log("readID:" + read_ID);
+        for(count = 0; count < 4; count++)
+        {
+            switch(count)
+            {
+                case 0:
+
+                    read_ID = 0;
+                    AchivementMethod();
+                    GameMgr.Contest_archivement_percent[count] = archivement_percent;
+                    break;
+
+                case 1:
+
+                    read_ID = 1000;
+                    AchivementMethod();
+                    GameMgr.Contest_archivement_percent[count] = archivement_percent;
+                    break;
+
+                case 2:
+
+                    read_ID = 2000;
+                    AchivementMethod();
+                    GameMgr.Contest_archivement_percent[count] = archivement_percent;
+                    break;
+
+                case 3:
+
+                    read_ID = 3000;
+                    AchivementMethod();
+                    GameMgr.Contest_archivement_percent[count] = archivement_percent;
+                    break;
+            }
+        }       
+    }
+
+    void AchivementMethod()
+    {
+        contest_allcount = ContestAll_PlayOKCounter(read_ID);
+        contest_victorycount = ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
+        contest_victorycount2 = ReturnVictoryCount_Area(2, read_ID); //そのエリアの取得済　2位をカウント
+
+        Debug.Log("contest_allcount:" + contest_allcount);
+        Debug.Log("contest_victorycount:" + contest_victorycount);
+
+        ar_one = 100f / (float)contest_allcount; //コンテスト一つあたりの達成率 100%をそのエリアの全コンテスト数で割る
+
+        //トータルの達成率　全て1位ならそのまま100％　2位がまざってると、2位は達成率が半減する
+        if (contest_victorycount == contest_allcount) //100%
+        {
+            archivement_percent = 100f;
+        }
+        else
+        {
+            archivement_percent = (float)contest_victorycount * ar_one + (float)contest_victorycount2 * ar_one * 0.5f;
+        }
+        Debug.Log("archivement_percent:" + archivement_percent);
     }
 
     void Contest_SetStartTime()

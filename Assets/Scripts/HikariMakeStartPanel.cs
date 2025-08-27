@@ -90,6 +90,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
     private int result_kosu;
     private int hikari_compselect;
     private int _id;
+    private string _exp_txt;
 
     // Use this for initialization
     void Start () {
@@ -657,11 +658,20 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
                 //ヒカリのお菓子経験値の処理
                 _getexp = (int)(5f * database.items[GameMgr.hikari_make_okashiID].girl1_itemLike) * GameMgr.hikari_make_okashiKosu;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 0, 0, 0);
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 0, 0, 0, GameMgr.hikari_makingmethod);
 
                 _itemType_subtext = GameMgr.hikarimakeokashi_itemTypeSub_nameHyouji;
                 _nowlv = GameMgr.hikarimakeokashi_nowlv;
 
+                if(GameMgr.hikariokashiExpTable_noTypeflag) //タイプに属さない場合　経験値アップはしない
+                {
+                    _exp_txt = "";
+                }
+                else
+                {
+                    _exp_txt = "\n" + _itemType_subtext + "経験値: " + GameMgr.hikarimakeokashi_finalgetexp + "アップ！　"
+                    + _itemType_subtext + "LV: " + _nowlv;
+                }
                 
                 //ハートも少し上がる。
                 getheart = Random.Range(1, 6); //1~5 か result_kosu
@@ -675,15 +685,13 @@ public class HikariMakeStartPanel : MonoBehaviour {
                         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
                     GameMgr.ColorYellow + result_kosu.ToString() + "</color>" + "個　うけとった！"
                     + "\n" + "ヒカリは　" + GameMgr.ColorYellow + database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "</color>" + "　を　おぼえた！"
-                    + "\n" + _itemType_subtext + "経験値: " + GameMgr.hikarimakeokashi_finalgetexp + "アップ！　"
-                    + _itemType_subtext + "LV: " + _nowlv;
+                    + _exp_txt;
                     }
                     else
                     {
                         _text.text = database.items[GameMgr.hikari_make_okashiID].itemNameHyouji + "を　" +
                     GameMgr.ColorYellow + result_kosu.ToString() + "</color>" + "個　うけとった！"
-                    + "\n" + _itemType_subtext + "経験値: " + GameMgr.hikarimakeokashi_finalgetexp + "アップ！　"
-                    + _itemType_subtext + "LV: " + _nowlv;
+                    + _exp_txt;
                     }
                 }
                 else //卵白卵黄などの例外処理

@@ -101,6 +101,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
         ContestOn_obj = this.transform.Find("PanelB/OnPanel").gameObject; //
         NoContestText_obj = this.transform.Find("PanelB/OffPanel").gameObject; //
 
+        conteststartList_database.Contest_ArchivementKeisan(); //各コンテスト達成率を計算
 
         //受注コンテストがあるかをチェック　そのリスト番号もいれとく
         ContestAccepted_ON = false;
@@ -133,6 +134,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("ContestMoveButtonA/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "春会場";
+                        placeicon_obj.transform.Find("PercentText").GetComponent<Text>().text = GameMgr.Contest_archivement_percent[0].ToString("F2") + "%";
                         _movetime[0] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
@@ -149,6 +151,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("ContestMoveButtonB/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "夏会場";
+                        placeicon_obj.transform.Find("PercentText").GetComponent<Text>().text = GameMgr.Contest_archivement_percent[1].ToString("F2") + "%";
                         _movetime[1] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
@@ -165,6 +168,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("ContestMoveButtonC/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "秋会場";
+                        placeicon_obj.transform.Find("PercentText").GetComponent<Text>().text = GameMgr.Contest_archivement_percent[2].ToString("F2") + "%";
                         _movetime[2] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
@@ -181,6 +185,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
                         placeicon_obj.SetActive(true);
                         placeicon_obj.transform.Find("ContestMoveButtonD/Icon").GetComponent<Image>().sprite = matplace_database.matplace_lists[i].mapIcon_sprite;
                         placeicon_obj.transform.Find("Text").GetComponent<Text>().text = "冬会場";
+                        placeicon_obj.transform.Find("PercentText").GetComponent<Text>().text = GameMgr.Contest_archivement_percent[3].ToString("F2") + "%";
                         _movetime[3] = matplace_database.matplace_lists[i].placeDay;
                     }
                     else
@@ -313,7 +318,7 @@ public class ContestKakuninHyoujiPanel : MonoBehaviour {
     public void BackOption()
     {
 
-        GameMgr.compound_status = 110;
+        GameMgr.compound_status = 0;
         this.gameObject.SetActive(false);
     }
 

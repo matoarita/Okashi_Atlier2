@@ -2120,9 +2120,9 @@ public class Compound_Main : MonoBehaviour
 
                 extreme_panel.LifeAnimeOnFalse(); //HP減少一時停止
 
-                text_area.SetActive(true);
+                //text_area.SetActive(true);
                 WindowOff();
-                black_panel_A.SetActive(true);
+                //black_panel_A.SetActive(true);
                 StartCoroutine("Contest_Final_select");
                 break;
 
@@ -2959,9 +2959,11 @@ public class Compound_Main : MonoBehaviour
                         GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
                         _text.text = "コンテストに出るの？";
                         GameMgr.compound_status = 40;
-                        yes_no_clear_panel.SetActive(true);
+                        contest_CheckPanel_obj.SetActive(true);
+
+                        /*yes_no_clear_panel.SetActive(true);
                         yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
-                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
+                        yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;*/
                     }
                 }
                 else
@@ -2972,24 +2974,6 @@ public class Compound_Main : MonoBehaviour
                     GameMgr.compound_status = 42;
                     yes_no_clear_okashi_panel.SetActive(true);
                 }
-
-                /*if (pitemlist.player_extremepanel_itemlist.Count == 0)
-                {
-                    //お菓子を作ってないと、コンテストへ進めない。
-                    _text.text = "お兄ちゃん..。まだお菓子を作ってないよ～。";
-                    GameMgr.compound_status = 40;
-                    yes_no_clear_panel.SetActive(true);
-                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = false;
-                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = false;
-                }
-                else
-                {
-                    _text.text = "コンテストに出るの？";
-                    GameMgr.compound_status = 40;
-                    yes_no_clear_panel.SetActive(true);
-                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Button>().interactable = true;
-                    yes_no_clear_panel.transform.Find("Yes_Clear").GetComponent<Sound_Trigger>().enabled = true;
-                }*/
             }
             else
             {

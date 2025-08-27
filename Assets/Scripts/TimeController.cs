@@ -32,6 +32,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private ItemDataBase database;
     private ItemMatPlaceDataBase matplace_database;
     private CatDataBase catDataBase;
+    private MagicSkillListDataBase magicskill_database;
 
     private GetMatPlace_Panel getmatplace_panel;
     private GetMaterial get_material;
@@ -63,6 +64,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
     private int i, count;
     private int dice;
     private int _mapid;
+    private int _magic_id, _costmp;
 
     private int _getexp;
 
@@ -124,6 +126,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
         //採取地データベースの取得
         matplace_database = ItemMatPlaceDataBase.Instance.GetComponent<ItemMatPlaceDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //ヒカリお菓子EXPデータベースの取得
         hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
@@ -1199,7 +1204,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 //お菓子を一個完成。リザルトの個数のみカウンタを追加。+材料のみ減らす。
                 GameMgr.hikari_make_okashiKosu++;
                 _getexp = 2;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0, 0);
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0, 0, GameMgr.hikari_makingmethod);
 
                 //成功すると、機嫌が少しよくなる。
                 if (!GameMgr.Contest_ON)
@@ -1213,7 +1218,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                 //生成されず。材料だけ消費。
                 _getexp = 5;
-                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0, 0);
+                hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[GameMgr.hikari_make_okashiID].itemType_sub.ToString(), _getexp, 1, 0, 0, GameMgr.hikari_makingmethod);
 
                 //コンテスト中は、ハート系は動かない
                 if (!GameMgr.Contest_ON)
@@ -1224,6 +1229,12 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                     //失敗すると、機嫌は下がる。-20で1段階下がる。
                     girl1_status.GirlExpressionKoushin(-10);
                 }
+            }
+
+            //魔法使ってる場合MPを消費
+            if (GameMgr.hikari_makingmethod == 1)
+            {
+                PlayerStatus.player_mp -= _costmp;
             }
 
             compound_keisan.Delete_playerItemList(2);
@@ -1328,6 +1339,22 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                             }
                         }
                     }
+                }
+            }
+        }
+
+        //魔法使ってる場合は、残りMPもチェック
+        if(!itemkosu_check)
+        {
+            if(GameMgr.hikari_makingmethod == 1)
+            {
+                _magic_id = magicskill_database.SearchSkillString(GameMgr.hikari_make_magicuseName);
+                _costmp = magicskill_database.magicskill_lists[_magic_id].skillCost;
+
+                if(PlayerStatus.player_mp < _costmp)
+                {
+                    //終了
+                    itemkosu_check = true;
                 }
             }
         }

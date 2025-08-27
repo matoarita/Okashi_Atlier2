@@ -2188,7 +2188,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     public void hikariBuf_okashilv(string _itemType_sub)
     {
         //ヒカリお菓子Expテーブルを起動
-        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(_itemType_sub, 0, 0, 1, 0);
+        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(_itemType_sub, 0, 0, 1, 0, GameMgr.hikari_makingmethod);
         
         if (GameMgr.hikariokashiExpTable_noTypeflag)
         {
@@ -2243,19 +2243,20 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             GameMgr.hikari_make_okashiTime_costbuf = GameMgr.hikari_make_okashiTime_costbuf　* 0.75f;
         }
 
+        if (GameMgr.hikari_make_okashiTime_costbuf <= 0.1f)
+        {
+            GameMgr.hikari_make_okashiTime_costbuf = 0.1f;
+        }
+        //Debug.Log("hikari_okashiLV: " + hikari_okashiLV + " " + "GameMgr.hikari_make_okashiTime_costbuf: " + GameMgr.hikari_make_okashiTime_costbuf);
+
+
         //最終的な成功率は、Compound_Checkで計算
         GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 1.5f); //成功率　LV1~9 を　0.8から1.5に変換。
 
         if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
         {
             GameMgr.hikari_make_okashiTime_successrate_buf += 0.1f;
-        }
-
-        if (GameMgr.hikari_make_okashiTime_costbuf <= 0.1f)
-        {
-            GameMgr.hikari_make_okashiTime_costbuf = 0.1f;
-        }
-        //Debug.Log("hikari_okashiLV: " + hikari_okashiLV + " " + "GameMgr.hikari_make_okashiTime_costbuf: " + GameMgr.hikari_make_okashiTime_costbuf);
+        }        
 
         //タイプごとの例外処理 生地系は95%になる。
         switch (_itemType_sub)
@@ -2280,7 +2281,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _buf_hikari_okashi_paramup = 1.0f;
 
         //ヒカリお菓子Expテーブルを起動
-        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(_itemType_sub, 0, 0, 1, 0);
+        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(_itemType_sub, 0, 0, 1, 0, GameMgr.hikari_makingmethod);
 
         if (GameMgr.hikariokashiExpTable_noTypeflag)
         {

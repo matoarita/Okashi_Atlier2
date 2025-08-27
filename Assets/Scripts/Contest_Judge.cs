@@ -648,7 +648,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     case 1:
 
-                        _score_hosei = 160;
+                        _score_hosei = 150;
 
                         if (GameMgr.ContestThemeSelectNum == 0) //焼き菓子のみ　クッキー　ラスク　マフィン　フィナンシェ
                         {
@@ -713,6 +713,9 @@ public class Contest_Judge : MonoBehaviour {
                             {
                                 //SpScoreの値によって全体の点数に補正
                                 SpScoreHosei_2(GameMgr.contest_SPScoreJudge);
+
+                                //クッキー系は点数が下がる
+                                Contest_CookieHosei(0.65f);
                             }
                         }
                         else if (GameMgr.ContestThemeSelectNum == 1) //チョコレート
@@ -727,6 +730,12 @@ public class Contest_Judge : MonoBehaviour {
                                 {
                                     judge_flag = false;
                                 }
+                            }
+
+                            if (_status == 1)
+                            {
+                                //クッキー系は点数が下がる
+                                Contest_CookieHosei(0.65f);
                             }
                         }
                         else if (GameMgr.ContestThemeSelectNum == 2) //氷のおかし
@@ -746,12 +755,23 @@ public class Contest_Judge : MonoBehaviour {
                         else
                         {
                             //自由課題
+                            if (_status == 1)
+                            {
+                                //クッキー系は点数が下がる
+                                Contest_CookieHosei(0.65f);
+                            }
                         }
                         break;
 
                     case 3:
 
-                        _score_hosei = 190;
+                        _score_hosei = 100; //決勝戦は点数そのまま。ただし、相手の点数も高い。
+
+                        if (_status == 1)
+                        {
+                            //クッキー系は点数が下がる
+                            Contest_CookieHosei(0.65f);
+                        }
                         break;
                 }
                 
@@ -765,10 +785,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     //特定のおかし補正
                     Contest_KoyuOkashiHosei_1();
-
-                    //クッキー系は点数が下がる
-                    Contest_CookieHosei(0.65f);
-
+                    
                     //審査員２　アントワネット王妃　見た目の補正
                     Contest_BeautyHosei_1();
                     Contest_ShokukanHosei_10();

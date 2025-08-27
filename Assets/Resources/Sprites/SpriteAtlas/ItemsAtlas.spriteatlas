@@ -660,6 +660,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 13bf1bbbf1361ea44bdbc1471b8139e5, type: 3}
   - {fileID: 21300000, guid: 2d6293cb223ad83418be6552bf90f3c5, type: 3}
   - {fileID: 21300000, guid: 544ed6cb75cc9654593595776482572a, type: 3}
+  - {fileID: 21300000, guid: 6e8716db5379b894880273cc032be631, type: 3}
   - {fileID: 21300000, guid: 635813eb11250c047997f93a09a1e8a8, type: 3}
   - {fileID: 21300000, guid: 268f4aebbc652ce44a35618d8dabae3a, type: 3}
   - {fileID: 21300000, guid: 826e72fbcb6c60d43a898ae4a0460f5c, type: 3}
@@ -1454,6 +1455,7 @@ SpriteAtlas:
   - emerald_suger
   - lumi_cherry
   - langue_de_chat
+  - crepe_chocobanana
   - soda_rainbow
   - maffin_starcup
   - aroma_potion1

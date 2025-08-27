@@ -477,24 +477,8 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
             GameMgr.Contest_afterHomeEventFlag = true;           
             GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ     
-            
-            //初回コンテストで、クッキー優勝した場合フラグがたつ
-            if(GameMgr.Contest_Name == "Or_Contest_010" &&
-                GameMgr.contest_Rank_Count == 1 && !GameMgr.NPCMagic_eventList[0])
-            {
-                GameMgr.Contest_Cookie_VictoryHoleinOne = true;
-            }
 
-            //夏コンと秋コンで優勝フラグもとっておく。フラグの取得順によって、お話が変わる場合あり。
-            if (GameMgr.Contest_Name == "Or_Contest_002" && GameMgr.contest_Rank_Count == 1)
-            {
-                GameMgr.contest_summer_edenVitory = true;
-            }
-            if (GameMgr.Contest_Name == "Or_Contest_003" && GameMgr.contest_Rank_Count == 1)
-            {
-                GameMgr.contest_autumn_edenVitory = true;
-            }
-
+            Contest_FlagRelease();           
 
             FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
         }
@@ -507,14 +491,18 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
 
+            //支給されたアイテムはここで削除
+            PlayerItem_Delete_Return();
+
             if (!GameMgr.System_ContestGameOver_ON)
-            {
-                //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
+            {              
                 //家に帰って寝る
                 time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 20, 0); //20時終了
-                //GameMgr.Contest_afterHomeEventFlag = true;
-                //GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ
+                GameMgr.Contest_afterHomeEventFlag = true;
+                GameMgr.Contest_afterHomeHeartUpFlag = true; //コンテスト終了後にハートが上がるフラグ
+
                 FadeManager.Instance.LoadScene("Or_Compound", 0.3f);
+                //FadeManager.Instance.LoadScene("Or_Outside_the_Contest", 0.3f);
             }
             else
             {
@@ -761,6 +749,26 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                     break;
             }
+        }
+    }
+
+    void Contest_FlagRelease()
+    {
+        //初回コンテストで、クッキー優勝した場合フラグがたつ
+        if (GameMgr.Contest_Name == "Or_Contest_010" &&
+            GameMgr.contest_Rank_Count == 1 && !GameMgr.NPCMagic_eventList[0])
+        {
+            GameMgr.Contest_Cookie_VictoryHoleinOne = true;
+        }
+
+        //夏コンと秋コンで優勝フラグもとっておく。フラグの取得順によって、お話が変わる場合あり。
+        if (GameMgr.Contest_Name == "Or_Contest_002" && GameMgr.contest_Rank_Count == 1)
+        {
+            GameMgr.contest_summer_edenVitory = true;
+        }
+        if (GameMgr.Contest_Name == "Or_Contest_003" && GameMgr.contest_Rank_Count == 1)
+        {
+            GameMgr.contest_autumn_edenVitory = true;
         }
     }
 

@@ -1669,7 +1669,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //制作にかかる時間(compoDBのコストタイムで兄ちゃんと共通）とタイマーをセット cost_time=1が1分なので、*1。さらに、ヒカリの場合時間が2倍かかり、お菓子LVによってさらに遅くなる。
         /*GameMgr.hikari_make_okashiTimeCost = 
             (int)(databaseCompo.compoitems[GameMgr.hikari_make_okashi_compID].cost_Time * 1f * 2 * GameMgr.hikari_make_okashiTime_costbuf);*/
-        GameMgr.hikari_make_okashiTimeCost = (int)(GameMgr.Compo_FinalCostTime * 1f * 2 * GameMgr.hikari_make_okashiTime_costbuf);
+        GameMgr.hikari_make_okashiTimeCost = (int)(GameMgr.Compo_FinalCostTime * 2f * GameMgr.hikari_make_okashiTime_costbuf);
         GameMgr.hikari_make_okashiTimeCounter = GameMgr.hikari_make_okashiTimeCost;
         //Debug.Log("GameMgr.hikari_make_okashiTime_costbuf: " + GameMgr.hikari_make_okashiTime_costbuf);
 

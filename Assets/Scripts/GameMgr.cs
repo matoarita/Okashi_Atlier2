@@ -1014,7 +1014,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string barMassage_RandomUpName; //マッサージでどのパラメータがあがるかの名前
     public static int barMassage_RandomUpPoint; //そのときのポイント表示用
     public static int[] Appaleil_Attribute = new int[itemAttri_num]; //生地混ぜ回数の引継ぎ用
-
+    public static float[] Contest_archivement_percent = new float[10]; //各コンテストの達成率
 
 
 
@@ -1665,8 +1665,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             temp_attriID3[system_i] = 0;
             Appaleil_Attribute[system_i] = 0;
         }
-        
 
+        for (system_i = 0; system_i < Contest_archivement_percent.Length; system_i++)
+        {
+            Contest_archivement_percent[system_i] = 0f;
+        }
+        
         for (system_i = 0; system_i < check_SleepEnd_Eventflag.Length; system_i++)
         {
             check_SleepEnd_Eventflag[system_i] = false;
