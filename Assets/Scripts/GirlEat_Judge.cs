@@ -297,6 +297,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private int taste_score;
     private string taste_type;
     private int taste_score_t;
+    private float taste_score_shokukanhosei;
+    private int _temp_tastescore;
+    private int _tastescore_counter;
 
     private int sweat_level;
     private int bitter_level;
@@ -1561,9 +1564,18 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //セットごとの基本得点。難易度が高いお菓子ほど、はじめから得点が上がりやすいように補正がかかる。
         set_score = _girl_set_score[countNum];
 
+        
+        //味系パラメータ計算　甘さ・苦さ・酸味の得点は、食感の値をベースにさらに影響が大きくなる。
+
+        //食感パラメータは、大きければ大きいほど、そのまま得点に。
+        //ただし、女の子の好み値を超えてないと加点されない。
+        //サブジャンルごとに、比較の対象が限定される。例えば、クッキーなら、さくさく度だけを見る。
+        //またジャンルごとに、どのスコアの比重が大きくなるか、補正がかかる。アイスなら甘味が大事、とか。
+        ShokukanScore_keisan(_baseitemtype_sub);
+        ShokukanHintHyouji();
+
         //味パラメータの計算。味は、GirlLikeSetの値で、理想値としている。
         //理想の値に近いほど高得点。超えすぎてもいけない。
-
         //rich_result = _baserich - _girlrich[countNum];
         sweat_result = _basesweat - _girlsweat[countNum];
         bitter_result = _basebitter - _girlbitter[countNum];
@@ -1596,12 +1608,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         SourHintHyouji();
 
 
-        //食感パラメータは、大きければ大きいほど、そのまま得点に。
-        //ただし、女の子の好み値を超えてないと加点されない。
-        //サブジャンルごとに、比較の対象が限定される。例えば、クッキーなら、さくさく度だけを見る。
-        //またジャンルごとに、どのスコアの比重が大きくなるか、補正がかかる。アイスなら甘味が大事、とか。
-        ShokukanScore_keisan(_baseitemtype_sub);
-        ShokukanHintHyouji();
+        
 
 
         //トッピングの値も計算する。①基本的に上がるやつ　+　②クエスト固有でさらに上がるやつ　の2点
@@ -1779,27 +1786,51 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
                 default:
 
-                    //特殊なクエストの場合、採点が少し変わる
-                    switch (girl1_status.OkashiQuest_ID)
+                    if (_setType == 0)
                     {
-                        case 10130: //カミナリのようにすっぱいクレープ 酸味で点数があがる
+                        //１のときのやつ　特殊なクエストの場合、採点が少し変わる
+                        switch (girl1_status.OkashiQuest_ID)
+                        {
+                            case 10130: //カミナリのようにすっぱいクレープ 酸味で点数があがる
 
-                            if (_baseitemtype_sub == "Crepe")
-                            {
-                                total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
-                            }
-                            else
-                            {
+                                if (_baseitemtype_sub == "Crepe")
+                                {
+                                    total_score = (int)(_basesour * 1.2f) + (int)(shokukan_score * 0.2f);
+                                }
+                                else
+                                {
+                                    //以上、全ての点数を合計。
+                                    TotalScoreKeisan();
+                                }
+                                break;
+
+                            default:
+
                                 //以上、全ての点数を合計。
                                 TotalScoreKeisan();
-                            }
-                            break;
+                                break;
+                        }
+                    }
+                    else if (_setType == 2) //イベント等で女の子判定を使う場合　NPCにご依頼であげる場合などはここを通る
+                    {
+                        Debug.Log("個人依頼の場合、点数の特殊補正処理");
 
-                        default:
+                        //個人依頼のQuestDBのクエストIDで指定
+                        switch(GameMgr.GirlLoveSubEvent_NPC_QuestID)
+                        {
+                            case 100001:
 
-                            //以上、全ての点数を合計。
-                            TotalScoreKeisan();
-                            break;
+                                Debug.Log("苦味の計算を3倍");
+                                bitter_score = (int)(bitter_score * 3.0f); //苦味の点数が大きい　-の場合もその分大きくなる
+                                break;
+
+                            default:
+
+                                break;
+                        }
+
+                        //以上、全ての点数を合計。
+                        TotalScoreKeisan();
                     }
 
                     break;
@@ -2462,8 +2493,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         else
         {
+            //食感の値をもとに、影響度を大きくする補正。
+            TasteScore_HoseiKeisan();
+
             //お菓子の種類ごとに、甘さや苦さの数値の絶対的な尺度が変わる。ので、お菓子ごとにちょっと塩梅を変える必要がある。
-            switch(_tasteitemtype_sub)
+            switch (_tasteitemtype_sub)
             {
                 case "Cookie":
 
@@ -2495,8 +2529,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     TasteScore_keisan(_taste_result, _taste_Type, _girllike); 
                     break;
             }
-                  
         }
+       
 
         //バフをかける場合はここで。
         taste_score_t = bufpower_keisan.Buf_SweatBitterSour_Keisan(taste_score, _baseitemtype_sub, _baseitemtype_subB);
@@ -2505,30 +2539,37 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         return taste_score;
     }
 
+
+    
     void TasteScore_keisan(int _taste_result, string _taste_type, float _girllike)
     {
+        
         if (Mathf.Abs(_taste_result) == 0)
         {
             Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
             taste_score = 120;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 8;
         }
         else if (Mathf.Abs(_taste_result) > 0 && Mathf.Abs(_taste_result) <= 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
             taste_score = 80;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 7;
         }
         else if (Mathf.Abs(_taste_result) > 5 && Mathf.Abs(_taste_result) <= 15) //+-5~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
             taste_score = 55;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 6;
         }
         else if (Mathf.Abs(_taste_result) > 15 && Mathf.Abs(_taste_result) <= 30) //+-15~29　かなりいい感じ
         {
             Debug.Log(_taste_type + "Well!");
             taste_score = 40;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) > 30 && Mathf.Abs(_taste_result) <= 60) //+-29~59  いい感じ
@@ -2547,24 +2588,28 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             Debug.Log(_taste_type + "poor");
             taste_score = -20;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 3;
         }
         else if (Mathf.Abs(_taste_result) > 120 && Mathf.Abs(_taste_result) <= 150) //+-150~249
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -60;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 2;
         }
         else if (Mathf.Abs(_taste_result) > 150 && Mathf.Abs(_taste_result) <= 250) //+-250
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -120;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 1;
         }
         else if (Mathf.Abs(_taste_result) > 250) //+-250
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -120;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 1;
         }
     }
@@ -2572,22 +2617,26 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //クッキーを基準にした味
     void TasteScore_keisan2(int _taste_result, string _taste_type, float _girllike)
     {
+
         if (Mathf.Abs(_taste_result) == 0)
         {
             Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
             taste_score = 100;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 8;
         }
         else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
             taste_score = 80;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 7;
         }
         else if (Mathf.Abs(_taste_result) < 12) //+-3~7　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
             taste_score = 45;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 6;
         }
         else if (Mathf.Abs(_taste_result) < 20) //+-8~14  すばらしい
@@ -2624,18 +2673,21 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             Debug.Log(_taste_type + "poor");
             taste_score = -30;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 3;
         }
         else if (Mathf.Abs(_taste_result) <= 150) //+-119~149
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -60;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 2;
         }
         else if (Mathf.Abs(_taste_result) > 250) //+-250
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -120;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 1;
         }
     }
@@ -2643,28 +2695,33 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     //ケーキ・チョコレートを基準にした味　割と、差が大き目に広がる60~200ぐらいまでは、結構でそう
     void TasteScore_keisan3(int _taste_result, string _taste_type, float _girllike)
     {
+        
         if (Mathf.Abs(_taste_result) == 0)
         {
             Debug.Log(_taste_type + "Perfect!!");　//完璧な具合
-            taste_score = 300;
+            taste_score = 200;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 8;
         }
         else if (Mathf.Abs(_taste_result) < 5) //+-1~4　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
-            taste_score = 200;
+            taste_score = 150;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 7;
         }
         else if (Mathf.Abs(_taste_result) < 12) //+-3~7　絶妙な塩梅
         {
             Debug.Log(_taste_type + "Great!!");
             taste_score = 100;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 6;
         }
         else if (Mathf.Abs(_taste_result) < 20) //+-8~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
             taste_score = 60;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) < 30) //+15~22  すばらしい
@@ -2695,19 +2752,45 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         {
             Debug.Log(_taste_type + "poor");
             taste_score = -50;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 3;
         }
         else if (Mathf.Abs(_taste_result) <= 300) //+-119~149
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -100;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 2;
         }
         else if (Mathf.Abs(_taste_result) > 300) //+-250
         {
             Debug.Log(_taste_type + "death..");
             taste_score = -200;
+            taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 1;
+        }
+    }
+
+    void TasteScore_HoseiKeisan()
+    {
+        if (shokukan_score < 200)
+        {
+            //基準
+            taste_score_shokukanhosei = 1.0f;
+        }
+        else if (shokukan_score >= 200)
+        {
+            //200こえたとき、100ごとに1.25倍づつぐらい？大きくなる
+            _temp_tastescore = shokukan_score;
+
+            _tastescore_counter = 0;
+            while (_temp_tastescore <= 200)
+            {
+                _temp_tastescore -= 100;
+                _tastescore_counter++;
+            }
+
+            taste_score_shokukanhosei = 1.0f + _tastescore_counter * 0.25f;
         }
     }
 
@@ -3466,7 +3549,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //ハート計算
                 if (GameMgr.System_HeartUpwithScore_ON)
                 {
-                    Getlove_exp += (int)(total_score * 0.1f); //単純に点数の〇分の1がハート量になるバージョン 0.1なら１０ぶんの１
+                    Getlove_exp += (int)(total_score * 0.05f); //単純に点数の〇分の1がハート量になるバージョン 0.1なら１０ぶんの１
                     girl1_status.GirlExpressionKoushin(20);
                 }
                 else
@@ -3649,11 +3732,11 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
             //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
-            if (PlayerStatus.girl1_Love_lv >= 70 && PlayerStatus.girl1_Love_lv < 80)
+            if (PlayerStatus.girl1_Love_lv >= 60 && PlayerStatus.girl1_Love_lv < 80)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.75f);
             }
-            else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 85)
+            else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.65f);
             }

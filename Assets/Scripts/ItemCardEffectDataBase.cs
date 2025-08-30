@@ -198,10 +198,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 {
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName01) //FireFlowers
                     {
-                        _compatible = _MS_pointup[j] * _msvalue[i];
-                        
-                        _ms_sp_score4 += _MS_pointup[j] / 2 * _msvalue[i]; //âƒÇÁÇµÇ≥Çë´Ç∑   
-                        _ms_sp_score6 += _MS_pointup[j] / 3 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑                         
+                        _compatible = _MS_pointup[j] * _msvalue[i]; //_msvalue[i]ÇÕèKìæLV
+
+                        _ms_sp_score4 += _MS_pointup[j] / 4 * _msvalue[i]; //âƒÇÁÇµÇ≥Çë´Ç∑   
+                        _ms_sp_score6 += _MS_pointup[j] / 5 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑                         
                     }
                 }
 
@@ -230,8 +230,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
 
-                        _ms_sp_score7 += _MS_pointup[j] / 2 * _msvalue[i]; //ÉÅÉãÉwÉìÇë´Ç∑
-                        _ms_sp_score5 -= _MS_pointup[j] / 2 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
+                        _ms_sp_score7 += _MS_pointup[j] / 4 * _msvalue[i]; //ÉÅÉãÉwÉìÇë´Ç∑
+                        _ms_sp_score5 -= _MS_pointup[j] / 4 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
                     }
                 }
 
@@ -261,7 +261,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     {
                         //Debug.Log("Ç†ÇÌÇ†ÇÌàÍívÅ@ÉeÉLÉXÉgï\é¶");
                         _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score2 += _MS_pointup[j] / 2 * _msvalue[i]; //äCÇÁÇµÇ≥Çâ¡éZ
+                        _ms_sp_score2 += _MS_pointup[j] / 4 * _msvalue[i]; //äCÇÁÇµÇ≥Çâ¡éZ
 
                         
                     }
@@ -290,8 +290,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
 
-                        _ms_sp_score6 += _MS_pointup[j] / 3 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑  
-                        _ms_sp_score5 -= _MS_pointup[j] / 3 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
+                        _ms_sp_score6 += _MS_pointup[j] / 6 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑  
+                        _ms_sp_score5 -= _MS_pointup[j] / 6 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
                     }
                 }
 
@@ -325,8 +325,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName06)
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score2 += _MS_pointup[j] / 2 * _msvalue[i]; //äCÇÁÇµÇ≥Çâ¡éZ
-                        _ms_sp_score6 += _MS_pointup[j] / 2 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑
+                        _ms_sp_score2 += _MS_pointup[j] / 4 * _msvalue[i]; //äCÇÁÇµÇ≥Çâ¡éZ
+                        _ms_sp_score6 += _MS_pointup[j] / 4 * _msvalue[i]; //éqãüÇ¡Ç€Ç≥Çë´Ç∑
                        
                     }
                 }
@@ -355,7 +355,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName07)
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score9 += _MS_pointup[j] / 2 * _msvalue[i]; //åıÇÁÇµÇ≥Çâ¡éZ
+                        _ms_sp_score9 += _MS_pointup[j] / 4 * _msvalue[i]; //åıÇÁÇµÇ≥Çâ¡éZ
                     }
                 }
                 //ëäê´Ç…ä÷åWÇ»Ç≠ÅAïKÇ∏ì_êîÇë´Ç∑
@@ -380,7 +380,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName08)
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score10 += _MS_pointup[j] / 2 * _msvalue[i]; //òaïóä¥Çâ¡éZ
+                        _ms_sp_score10 += _MS_pointup[j] / 4 * _msvalue[i]; //òaïóä¥Çâ¡éZ
 
                     }
                 }
@@ -406,8 +406,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName09)
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score7 += _MS_pointup[j] / 2 * _msvalue[i]; //ÉÅÉãÉwÉìÇâ¡éZ
-                        _ms_sp_score5 -= _MS_pointup[j] / 2 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
+                        _ms_sp_score7 += _MS_pointup[j] / 4 * _msvalue[i]; //ÉÅÉãÉwÉìÇâ¡éZ
+                        _ms_sp_score5 -= _MS_pointup[j] / 4 * _msvalue[i]; //ëÂêlÇ¡Ç€Ç≥Çå∏ÇÁÇ∑ 
                     }
                 }
                 //ëäê´Ç…ä÷åWÇ»Ç≠ÅAïKÇ∏ì_êîÇë´Ç∑
@@ -433,7 +433,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName10)
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score3 += _MS_pointup[j] / 2 * _msvalue[i]; //à§Çâ¡éZ
+                        _ms_sp_score3 += _MS_pointup[j] / 4 * _msvalue[i]; //à§Çâ¡éZ
                         
                     }
                 }
@@ -458,29 +458,35 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
     {
         _ms_aisho = "";
 
-        if (_compa >= 0 && _compa < 5)
+        if (_compa < 0)
         {
-            _add_magicbeauty += 10;
+            _add_magicbeauty -= _compa;
+            _ms_aisho = "Å~";
+            aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
+        }
+        if (_compa >= 0 && _compa < 10)
+        {
+            _add_magicbeauty += _compa;
             _ms_aisho = "Å£";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
         }
-        else if (_compa >= 5 && _compa < 20)
+        else if (_compa >= 10 && _compa < 50)
         {
-            _add_magicbeauty += 10 + 5 + (_magiclv * 3);
+            _add_magicbeauty += _compa;
             _ms_aisho = "ÅZ";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
         }
-        else if (_compa >= 20 && _compa < 50)
+        else if (_compa >= 50 && _compa < 100)
         {
-            _add_magicbeauty += 10 + (_compa / 2) + (_magiclv * 8);
+            _add_magicbeauty += _compa;
             _ms_aisho = "Åù";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
 
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }
-        else if (_compa >= 50)
+        else if (_compa >= 100)
         {
-            _add_magicbeauty += 10 + (_compa / 2) + (_magiclv * 15);
+            _add_magicbeauty += _compa;
             _ms_aisho = "Åô";
             aisho_text1 = "å©ÇΩñ⁄ + " + _add_magicbeauty.ToString();
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;

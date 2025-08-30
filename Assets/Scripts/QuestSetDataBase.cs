@@ -15,6 +15,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private int _questHyoujiHeart;
     private int _hightype;
     private int _girlJudgeUse;
+    private int _girlSetJudge_Num;
+    private int _girlSetScore;
     private int _listid;
 
     private string _filename;
@@ -71,6 +73,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private string _title;
     private string _desc;
     private int _read_endflag;
+    private int _tempid;
 
     private int _quest_getninkiFlag;
 
@@ -111,7 +114,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
                 SetParam();
 
                 //ここでリストに追加している
-                questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, 
+                questset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, _girlSetJudge_Num, _girlSetScore,
                     _filename, _itemname, _itemname2, _itemname3,
                     _itemname4, _itemname5, _itemname6, _itemname7, _itemname8,
                     _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
@@ -143,6 +146,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _questHyoujiHeart = excel_questset_database.sheets[sheet_no].list[count].QuestHyoujiHeart;
         _hightype = excel_questset_database.sheets[sheet_no].list[count].HighType;
         _girlJudgeUse = excel_questset_database.sheets[sheet_no].list[count].GirlJudgeUse;
+        _girlSetJudge_Num = excel_questset_database.sheets[sheet_no].list[count].GirlSetJudgeNum;
+        _girlSetScore = excel_questset_database.sheets[sheet_no].list[count].GirlSetScore;
 
         _filename = excel_questset_database.sheets[sheet_no].list[count].file_name;
         _itemname = excel_questset_database.sheets[sheet_no].list[count].quest_itemName;
@@ -200,8 +205,41 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _read_endflag = excel_questset_database.sheets[sheet_no].list[count].read_endflag;
     }
 
+    public void KoyuNPCSetInit(int _questID)
+    {
+        _tempid = SearchQuestID(_questID);
+
+        NewQuestSet(_tempid, 1);
+
+        //ここでリストに追加している
+        questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, _girlSetJudge_Num, _girlSetScore,
+            _filename, _itemname, _itemname2, _itemname3,
+            _itemname4, _itemname5, _itemname6, _itemname7, _itemname8,
+            _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
+            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag, _quest_getninkiFlag));
+    }
+
     public void RandomNewSetInit(int count)
     {
+        NewQuestSet(count, 0);
+        
+        //ここでリストに追加している
+        questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, _girlSetJudge_Num, _girlSetScore,
+            _filename, _itemname, _itemname2, _itemname3,
+            _itemname4, _itemname5, _itemname6, _itemname7, _itemname8,
+            _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
+            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
+            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
+            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag, _quest_getninkiFlag));
+    }
+
+    void NewQuestSet(int count, int _daystatus)
+    {
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
         // 一旦代入
         _id = questset[count]._ID;
         _questID = questset[count].Quest_ID;
@@ -210,6 +248,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _questHyoujiHeart = questset[count].QuestHyoujiHeart;
         _hightype = questset[count].HighType;
         _girlJudgeUse = questset[count].GirlJudgeUse;
+        _girlSetJudge_Num = questset[count].GirlSetJudge_Num;
+        _girlSetScore = questset[count].GirlSetScore;
 
         _filename = questset[count].Quest_FileName;
         _itemname = questset[count].Quest_itemName;
@@ -256,37 +296,42 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _tp_score04 = questset[count].Quest_tp_score[3];
         _tp_score05 = questset[count].Quest_tp_score[4];
 
-        //日付に少しランダムで幅をつける
-        if(questset[count].Quest_AfterDay <= 10)
-        {
-            _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 5);
-        }
-        else
-        {
-            _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 10);
-        }      
-        if(_quest_AfterDay < 0) { _quest_AfterDay = 1; }
-
         _quest_LimitMonth = questset[count].Quest_LimitMonth;
         _quest_LimitDay = questset[count].Quest_LimitDay;
         _quest_AreaType = questset[count].Quest_AreaType;
         _quest_ClientName = questset[count].Quest_ClientName;
         _quest_ClientNumber = questset[count].Quest_ClientNumber;
 
+        if (_daystatus == 0)
+        {
+            //日付に少しランダムで幅をつける
+            if (questset[count].Quest_AfterDay <= 10)
+            {
+                _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 5);
+            }
+            else
+            {
+                _quest_AfterDay = questset[count].Quest_AfterDay + Random.Range(0, 10);
+            }
+            if (_quest_AfterDay < 0) { _quest_AfterDay = 1; }
+        }
+        else
+        {
+            //クエスト決定したタイミングで、AfterDayの日付と現在の日付をもとに、締め切り日を設定する。
+            _quest_AfterDay = questset[count].Quest_AfterDay;
+            _day = PlayerStatus.player_day + _quest_AfterDay;
+
+            time_controller.CullenderKeisan(_day); //GameMgr.Cullender_MonthとDayで値が返る
+            _quest_LimitMonth = GameMgr.Cullender_Month;
+            _quest_LimitDay = GameMgr.Cullender_Day;
+        }
+       
+
         _title = questset[count].Quest_Title;
         _desc = questset[count].Quest_desc;
         _read_endflag = questset[count].read_endflag;
 
         _quest_getninkiFlag = questset[count].Quest_GetNinkiFlag;
-
-        //ここでリストに追加している
-        questRandomset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, 
-            _filename, _itemname, _itemname2, _itemname3,
-            _itemname4, _itemname5, _itemname6, _itemname7, _itemname8,
-            _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
-            _rich, _sweat, _bitter, _sour, _crispy, _fluffy, _smooth, _hardness, _jiggly, _chewy, _juice, _beauty, _tea_flavor,
-            _tp01, _tp02, _tp03, _tp04, _tp05, _tp_score01, _tp_score02, _tp_score03, _tp_score04, _tp_score05,
-            _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag, _quest_getninkiFlag));
     }
 
 
@@ -303,6 +348,8 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _questHyoujiHeart = questRandomset[count].QuestHyoujiHeart;
         _hightype = questRandomset[count].HighType;
         _girlJudgeUse = questRandomset[count].GirlJudgeUse;
+        _girlSetJudge_Num = questRandomset[count].GirlSetJudge_Num;
+        _girlSetScore = questRandomset[count].GirlSetScore;
 
         _filename = questRandomset[count].Quest_FileName;
         _itemname = questRandomset[count].Quest_itemName;
@@ -368,7 +415,7 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         _quest_getninkiFlag = questRandomset[count].Quest_GetNinkiFlag;
 
         //ここでリストに追加している
-        questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, 
+        questTakeset.Add(new QuestSet(_id, _questID, _questType, _questHyouji, _questHyoujiHeart, _hightype, _girlJudgeUse, _girlSetJudge_Num, _girlSetScore,
             _filename, _itemname, _itemname2, _itemname3,
             _itemname4, _itemname5, _itemname6, _itemname7, _itemname8,
             _itemsubtype, _kosu_default, _kosu_min, _kosu_max, _buy_price,
@@ -377,7 +424,9 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
             _quest_AfterDay, _quest_LimitMonth, _quest_LimitDay, _quest_AreaType, _quest_ClientName, _quest_ClientNumber, _title, _desc, _read_endflag, _quest_getninkiFlag));
     }
 
-    //クエストIDを入れると、元のデータから一致する配列IDを返す
+    
+
+    //クエストIDを入れると、元のデータ(questset)から一致する配列IDを返す
     public int SearchQuestID(int _questID)
     {
         for(i=0; i < questset.Count; i++)
@@ -390,6 +439,28 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
 
         return 0; //該当ない場合は0
     }
+
+    //クエストIDを入れると、QuestTakeSetのデータから一致する配列IDを返す
+    public int SearchTakseSet_QuestID(int _questID)
+    {
+        for (i = 0; i < questTakeset.Count; i++)
+        {
+            if (questTakeset[i].Quest_ID == _questID)
+            {
+                return i;
+            }
+        }
+
+        return 0; //該当ない場合は0
+    }
+
+    //クエストIDを指定すると、QuestTakeSetからクエストを削除する
+    public void DeleteQuestTakeSet(int _questID)
+    {
+        _listid = SearchTakseSet_QuestID(_questID);
+        questTakeset.RemoveAt(_listid);
+    }
+
 
     //QuestIDと人気獲得フラグをいれると、その値で現在のクエストセットを上書き
     public void Reset_QeustGetNinkiFlag(int _questID, int _getninki_flag)

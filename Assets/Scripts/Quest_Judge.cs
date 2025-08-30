@@ -1941,7 +1941,7 @@ public class Quest_Judge : MonoBehaviour {
         {
             _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.5f);
             debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.5f)";
-            _getNinki = 1;
+            _getNinki = 0;
             _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(1);
         }
@@ -2097,7 +2097,7 @@ public class Quest_Judge : MonoBehaviour {
 
             default:
 
-                GameMgr.NPC_BarFriendPoint[_clientnum] += _point;
+                GameMgr.NPC_BarFriendPoint[_clientnum] += _point; //スターとるとき300~で3上がる
                 break;
         }
         
@@ -2256,7 +2256,8 @@ public class Quest_Judge : MonoBehaviour {
         }
     }
 
-    void SetInitQItemGirlJudge(int _count, string _itemName)
+    //女の子好みを使う場合　特殊点も計算可能
+    void SetInitQItemGirlJudge(int _count, string _baseitemName)
     {
         // 判定用に依頼のお菓子のパラメータを代入
         _Qid = quest_database.questTakeset[_count]._ID;              //基本判定のときは、使わない
@@ -2280,7 +2281,14 @@ public class Quest_Judge : MonoBehaviour {
 
 
         //女の子の好み判定を使用 名前をもとにItemDBから判定用番号を取得し、それをgirlsetDBから探して入れる
-        _girlset_id = database.items[database.SearchItemIDString(_itemName)].SetJudge_Num;
+        if (quest_database.questTakeset[_count].GirlSetJudge_Num == 0)
+        {
+            _girlset_id = database.items[database.SearchItemIDString(_baseitemName)].SetJudge_Num; //上の_itenameとは違うので注意。提出したお菓子のNameを入れている。
+        }
+        else
+        {
+            _girlset_id = quest_database.questTakeset[_count].GirlSetJudge_Num; //クエストのGirlSetJudge_Numに指定があれば、女の子判定をその番号で使う。
+        }
 
         //お菓子の判定値をセッティング
         girl1_status.InitializeStageGirlHungrySet(_girlset_id, 0, 0); //compNum, セットする配列番号　の順　

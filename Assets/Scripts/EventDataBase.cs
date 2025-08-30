@@ -12,6 +12,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     private ItemDataBase database;
     private CatDataBase catDataBase;
+    private QuestSetDataBase quest_database;
 
     private Girl1_status girl1_status;
     private Special_Quest special_quest;
@@ -28,9 +29,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private int event_num;
     private bool GetEmeraldItem;
 
-    private int i, random;
+    private int i, count, random, rnd;
     private int picnic_exprob;
-    private int _id, ev_id, read_ID;
+    private int _id, ev_id, read_ID, _qid;
     private int contest_allcount, contest_victorycount;
     private bool contest_Master_TasseiFlag;
     private bool contest_Master_TasseiFlag_half;
@@ -39,6 +40,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private string _basename, _baseitemtype_sub, _baseitemtype_subB;
     private bool cat_comecheck;
     private int cat_maxcount;
+
+    private int _Limit_day;
+    private int _Nokori_day;
+    private bool KoyuNPCQuest_OkashiTeishutuON;
+    private int _setjudge_num;
 
     private List<int> map_list = new List<int>();
 
@@ -59,6 +65,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
         //ねこデータベースの取得
         catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
+
+        //クエストデータベースの取得
+        quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
@@ -1767,7 +1776,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         i = 0;
                         while (i < 4)
                         {
-                            switch(i)
+                            switch (i)
                             {
                                 case 0:
 
@@ -1793,158 +1802,173 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     archive_area = 3000;
                                     break;
                             }
-                            
+
                             contest_allcount = conteststartList_database.ContestAll_PlayOKCounter(read_ID);
                             contest_victorycount = conteststartList_database.ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
 
+                            //100%達成をまずチェック
                             if (contest_allcount == contest_victorycount)
                             {
-                                contest_Master_TasseiFlag = true;
-                                break;
+
+                                //どのエリアを達成したか
+                                switch (archive_area)
+                                {
+                                    case 0:
+
+                                        //春エリア100%達成
+                                        if (!GameMgr.GirlLoveSubEvent_stage1[720])
+                                        {
+                                            GameMgr.GirlLoveSubEvent_stage1[720] = true;
+
+                                            GameMgr.GirlLoveSubEvent_num = 720;
+
+                                            //GameMgr.OrRoomRelease[1] = true;
+                                            GameMgr.OrRoomRelease[2] = true;
+
+                                            contest_Master_TasseiFlag = true;
+                                        }
+                                        break;
+
+                                    case 1000:
+
+                                        //夏エリア100%達成
+                                        if (!GameMgr.GirlLoveSubEvent_stage1[721])
+                                        {
+                                            GameMgr.GirlLoveSubEvent_stage1[721] = true;
+
+                                            GameMgr.GirlLoveSubEvent_num = 721;
+
+                                            //GameMgr.OrRoomRelease[3] = true;
+                                            GameMgr.OrRoomRelease[4] = true;
+                                            GameMgr.OrRoomRelease[5] = true;
+
+                                            contest_Master_TasseiFlag = true;
+                                        }
+                                        break;
+
+                                    case 2000:
+
+                                        //秋エリア100%達成
+                                        if (!GameMgr.GirlLoveSubEvent_stage1[722])
+                                        {
+                                            GameMgr.GirlLoveSubEvent_stage1[722] = true;
+
+                                            GameMgr.GirlLoveSubEvent_num = 722;
+
+                                            //GameMgr.OrRoomRelease[6] = true;
+                                            GameMgr.OrRoomRelease[7] = true;
+                                            GameMgr.OrRoomRelease[8] = true;
+
+                                            contest_Master_TasseiFlag = true;
+                                        }
+                                        break;
+
+                                    case 3000:
+
+                                        //冬エリア100%達成
+                                        if (!GameMgr.GirlLoveSubEvent_stage1[723])
+                                        {
+                                            GameMgr.GirlLoveSubEvent_stage1[723] = true;
+
+                                            GameMgr.GirlLoveSubEvent_num = 723;
+
+                                            contest_Master_TasseiFlag = true;
+                                        }
+                                        break;
+                                }
+
+                                if (contest_Master_TasseiFlag)
+                                {
+                                    GameMgr.check_GirlLoveSubEvent_flag = false;
+                                    GameMgr.Mute_on = true;
+
+                                    break;
+                                }
+
                             }
                             else
                             {
+                                //５０％達成
                                 if (Mathf.CeilToInt(contest_allcount / 2) <= contest_victorycount)
                                 {
-                                    contest_Master_TasseiFlag_half = true;
-                                    break;
+                                    //どのエリアを達成したか
+                                    switch (archive_area)
+                                    {
+                                        case 0:
+
+                                            //春エリア50%達成
+                                            if (!GameMgr.GirlLoveSubEvent_stage1[724])
+                                            {
+                                                GameMgr.GirlLoveSubEvent_stage1[724] = true;
+
+                                                GameMgr.GirlLoveSubEvent_num = 724;
+
+                                                GameMgr.OrRoomRelease[1] = true;
+                                                //GameMgr.OrRoomRelease[2] = true;
+
+                                                contest_Master_TasseiFlag_half = true;
+                                            }
+                                            break;
+
+                                        case 1000:
+
+                                            //夏エリア50%達成
+                                            if (!GameMgr.GirlLoveSubEvent_stage1[725])
+                                            {
+                                                GameMgr.GirlLoveSubEvent_stage1[725] = true;
+
+                                                GameMgr.GirlLoveSubEvent_num = 725;
+
+                                                GameMgr.OrRoomRelease[3] = true;
+                                                //GameMgr.OrRoomRelease[4] = true;
+                                                //GameMgr.OrRoomRelease[5] = true;
+
+                                                contest_Master_TasseiFlag_half = true;
+                                            }
+                                            break;
+
+                                        case 2000:
+
+                                            //秋エリア50%達成
+                                            if (!GameMgr.GirlLoveSubEvent_stage1[726])
+                                            {
+                                                GameMgr.GirlLoveSubEvent_stage1[726] = true;
+
+                                                GameMgr.GirlLoveSubEvent_num = 726;
+
+                                                GameMgr.OrRoomRelease[6] = true;
+                                                //GameMgr.OrRoomRelease[7] = true;
+                                                //GameMgr.OrRoomRelease[8] = true;
+
+                                                contest_Master_TasseiFlag_half = true;
+                                            }
+                                            break;
+
+                                        case 3000:
+
+                                            //冬エリア50%達成
+                                            if (!GameMgr.GirlLoveSubEvent_stage1[727])
+                                            {
+                                                GameMgr.GirlLoveSubEvent_stage1[727] = true;
+
+                                                GameMgr.GirlLoveSubEvent_num = 727;
+
+                                                contest_Master_TasseiFlag_half = true;
+                                            }
+                                            break;
+                                    }
+
+                                    if (contest_Master_TasseiFlag_half)
+                                    {
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GameMgr.Mute_on = true;
+
+                                        break;
+                                    }
                                 }
                             }
+
                             i++;
-                        }
-
-                        //５０％達成
-                        if (contest_Master_TasseiFlag_half)
-                        {
-                            //どのエリアを達成したか
-                            switch (archive_area)
-                            {
-                                case 0:
-
-                                    //春エリア50%達成
-                                    if (!GameMgr.GirlLoveSubEvent_stage1[724])
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[724] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 724;
-
-                                        GameMgr.OrRoomRelease[1] = true;
-                                        //GameMgr.OrRoomRelease[2] = true;
-                                    }
-                                    break;
-
-                                case 1000:
-
-                                    //夏エリア50%達成
-                                    if (!GameMgr.GirlLoveSubEvent_stage1[725])
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[725] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 725;
-
-                                        GameMgr.OrRoomRelease[3] = true;
-                                        //GameMgr.OrRoomRelease[4] = true;
-                                        //GameMgr.OrRoomRelease[5] = true;
-                                    }
-                                    break;
-
-                                case 2000:
-
-                                    //秋エリア50%達成
-                                    if (!GameMgr.GirlLoveSubEvent_stage1[726])
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[726] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 726;
-
-                                        GameMgr.OrRoomRelease[6] = true;
-                                        //GameMgr.OrRoomRelease[7] = true;
-                                        //GameMgr.OrRoomRelease[8] = true;
-                                    }
-                                    break;
-
-                                case 3000:
-
-                                    //冬エリア50%達成
-                                    if (!GameMgr.GirlLoveSubEvent_stage1[727])
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[727] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 727;
-
-                                    }
-                                    break;
-                            }
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-                            GameMgr.Mute_on = true;
-                        }
-
-                        //１００％達成
-                        if (contest_Master_TasseiFlag)
-                        {
-                            //どのエリアを達成したか
-                            switch(archive_area)
-                            {
-                                case 0:
-
-                                    //春エリア100%達成
-                                    if (!GameMgr.GirlLoveSubEvent_stage1[720])
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[720] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 720;
-
-                                        //GameMgr.OrRoomRelease[1] = true;
-                                        GameMgr.OrRoomRelease[2] = true;
-                                    }
-                                    break;
-
-                                case 1000:
-
-                                    //夏エリア100%達成
-                                    if (!GameMgr.GirlLoveSubEvent_stage1[721])
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[721] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 721;
-
-                                        //GameMgr.OrRoomRelease[3] = true;
-                                        GameMgr.OrRoomRelease[4] = true;
-                                        GameMgr.OrRoomRelease[5] = true;
-                                    }
-                                    break;
-
-                                case 2000:
-
-                                    //秋エリア100%達成
-                                    if (!GameMgr.GirlLoveSubEvent_stage1[722])
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[722] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 722;
-
-                                        //GameMgr.OrRoomRelease[6] = true;
-                                        GameMgr.OrRoomRelease[7] = true;
-                                        GameMgr.OrRoomRelease[8] = true;
-                                    }
-                                    break;
-
-                                case 3000:
-
-                                    //冬エリア100%達成
-                                    if (!GameMgr.GirlLoveSubEvent_stage1[723])
-                                    {
-                                        GameMgr.GirlLoveSubEvent_stage1[723] = true;
-
-                                        GameMgr.GirlLoveSubEvent_num = 723;
-
-                                    }
-                                    break;
-                            }
-
-                            GameMgr.check_GirlLoveSubEvent_flag = false;
-                            GameMgr.Mute_on = true;
                         }
                     }
                 }
@@ -1981,6 +2005,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         else
         {
             GameMgr.check_GirlLoveTimeEvent_flag = true;
+            GameMgr.GirlLoveSubEvent_NPC_QuestID = 0; //個人依頼クエストIDは一応ここでリセット
 
             //お外勝手に遊びにいく
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -2136,24 +2161,57 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //ご依頼イベントチェック
                 if (!GameMgr.outgirl_Nowprogress)
                 {
-
-                    //HLV12~  
-                    if (PlayerStatus.girl1_Love_lv >= 12)
+                    if (PlayerStatus.player_cullent_hour >= 10 && PlayerStatus.player_cullent_hour <= 12) //10時から12時の間に、サイコロふる
                     {
-                        if (PlayerStatus.player_cullent_hour >= 9 && PlayerStatus.player_cullent_hour <= 14) //12時から15時の間に、サイコロふる
+                        //②ご依頼の品を受け取りにくるフェーズ　こっちが発生したら、下のご依頼がくるフェーズはチェックを無視　次の日までチェックは無視する
+                        //クエスト受注の「個人依頼」の日付をチェックする
+                        PeopleQuest_DayCheck();
+
+                        if (!GameMgr.GirlLoveSubEvent_NPC_OkashiPresentON)
                         {
-                            //PeopleQuestEvent();
+                            //①ご依頼がランダムでくるフェーズ
+                            random = Random.Range(0, 100);
+                            Debug.Log("NPCご依頼イベント　抽選スタート　50以下で成功: " + random);
+
+                            picnic_exprob = 50; //5%の確率で発生。
+                            if (random <= picnic_exprob)
+                            {
+                                //各NPCと酒場NPCの友好度をすべてチェックする
+                                PeopleQuestEvent();
+                            }
                         }
+                    }                   
+                }
+            }
+
+            //③ご依頼の品の事後報告のフェーズ
+            if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+            { }
+            else
+            {
+                //ご依頼イベントチェック
+                if (!GameMgr.outgirl_Nowprogress)
+                {
+                    if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour <= 15) //15~17時
+                    {
+                        random = Random.Range(0, 100);
+                        Debug.Log("NPCご依頼イベント　抽選スタート　20以下で成功: " + random);
+
+                        picnic_exprob = 20; //20%の確率で発生。
+                        if (random <= picnic_exprob)
+                        {
+                            PeopleQuest_AfterEvent();
+                        }
+                        
                     }
                 }
             }
 
-            
+
 
             //最後のタイミングで、決定したサブイベントの宴を再生
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //サブイベント発生した
             {
-
                 //クエスト発生
                 Debug.Log("サブ時間イベントの発生");
 
@@ -2533,40 +2591,161 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
     void PeopleQuestEvent()
     {
-        if (GameMgr.picnic_count <= 0)
+        //酒場NPC
+        for(i = 0; i < GameMgr.NPC_BarFriendPoint.Length; i++)
         {
-            GameMgr.picnic_event_ON = true;
+            switch(i)
+            {
+                case 22: //カフェモナムール
+
+                    //Debug.Log("GameMgr.NPC_BarFriendEventProgress[i]: " + GameMgr.NPC_BarFriendEventProgress[i]);
+                    //Debug.Log("GameMgr.NPC_BarFriendTimeCounter[i]: " + GameMgr.NPC_BarFriendTimeCounter[i]);
+                    //Debug.Log("GameMgr.NPC_BarFriendFlag[i]: " + GameMgr.NPC_BarFriendFlag[i]);
+
+                    //ご依頼がくるフェーズ
+                    if (GameMgr.NPC_BarFriendEventProgress[i] == 0) //EventProgressはご依頼イベントの段階を表す。ご依頼[0]→お菓子渡す[1]→事後報告[2]までみたして、次のフラグへ進む。　
+                    {
+                        if (GameMgr.NPC_BarFriendTimeCounter[i] <= 0) //一回目に断ったりした場合、次同じ依頼がくるのはある程度時間を置いてから。
+                        {
+                            switch (GameMgr.NPC_BarFriendFlag[i]) //FriendFlagはそのNPCのイベント進行度合いをしめす。0, 1, 2..
+                            {
+                                case 0: //一個目の依頼
+
+                                    if (GameMgr.NPC_BarFriendPoint[i] >= 53) //友好度が53以上で発生　チョコレートクエストで300点以上とるか、200点~300点で3回依頼こなした
+                                    {
+                                        GameMgr.NPC_BarFriendQuestEventNum[i] = 100001;
+                                        PerpleQuestStartSetting(i, 800, GameMgr.NPC_BarFriendQuestEventNum[i]);
+
+                                        _qid = quest_database.SearchQuestID(GameMgr.NPC_BarFriendQuestEventNum[i]);
+                                        GameMgr.GirlLoveSubEvent_NPC_LimitDay = quest_database.questset[_qid].Quest_AfterDay;
+
+                                        GameMgr.check_GirlLoveTimeEvent_flag = false;
+
+                                        GameMgr.Mute_on = true;
+                                    }
+                                    break;
+
+                            }
+                        }
+                    }
+                    break;
+            }
+        }       
+    }
+
+    void PeopleQuest_DayCheck()
+    {
+
+        KoyuNPCQuest_OkashiTeishutuON = false;
+
+        //受注クエストの個人依頼をみて、当日かどうかをチェックする。
+        i = 0;
+        while (i < quest_database.questTakeset.Count)
+        {
+            if (quest_database.questTakeset[i].QuestType == 2) //2が個人依頼
+            {
+                _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[i].Quest_LimitMonth, quest_database.questTakeset[i].Quest_LimitDay);
+                _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+                if (_Nokori_day <= 0)
+                {
+                    Debug.Log("本日　個人依頼くる QID: " + quest_database.questTakeset[i].Quest_ID);
+
+                    GameMgr.GirlLoveSubEvent_NPC_OkashiPresentON = true; //寝るとオフになる
+                    KoyuNPCQuest_OkashiTeishutuON = true;
+
+                    //当日なので、受け取りにくる。
+                    PerpleQuestStartSetting(quest_database.questTakeset[i].Quest_ClientNumber, 801, quest_database.questTakeset[i].Quest_ID); //801は依頼でお菓子を受け取りにくる会話                   
+                    _setjudge_num = quest_database.questTakeset[i].GirlSetJudge_Num;
+                    GameMgr.GirlLoveSubEvent_NPC_score = quest_database.questTakeset[i].GirlSetScore; //クリア条件の点数　依頼ごとに変えてもOK
+                }
+            }
+
+            if (KoyuNPCQuest_OkashiTeishutuON)
+            {
+                break;
+            }
+
+            i++;
         }
 
-        if (GameMgr.picnic_event_ON)
+        //チェックし、当日だった
+        if (KoyuNPCQuest_OkashiTeishutuON)
         {
-            random = Random.Range(0, 100);
-            Debug.Log("ピクニックイベント　抽選スタート　60以下で成功: " + random);
+            GameMgr.check_GirlLoveTimeEvent_flag = false;
 
-            if (GameMgr.GirlLoveSubEvent_stage1[61])
-            {
-                picnic_exprob = 30; //30%の確率で発生。
-            }
-            else
-            {
-                picnic_exprob = 100; //初回は100%
-            }
+            GameMgr.Mute_on = true;
 
-            if (random <= picnic_exprob)
+            //下は、使うときだけtrueにすればOK
+            GameMgr.NPC_event_ON = true; //アイテム選択画面だすときに、どのシーンで選択しているかを判定するフラグ
+            GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
+            GameMgr.KoyuJudge_ON = true;//固有のセット判定を使う場合は、使うを宣言するフラグと、そのときのGirlLikeSetの番号も入れる。
+            GameMgr.KoyuJudge_num = _setjudge_num;//GirlLikeSetの番号を直接指定 QuestDatabaseに入力し、指定する。
+            GameMgr.NPC_Dislike_UseON = true; //判定時、そのお菓子の種類が合ってるかどうかのチェックもする
+        }
+    }
+
+    void PeopleQuest_AfterEvent()
+    {
+        //酒場NPC
+        for (i = 0; i < GameMgr.NPC_BarFriendPoint.Length; i++)
+        {
+            switch (i)
             {
-                GameMgr.GirlLoveSubEvent_num = 61;
-                GameMgr.GirlLoveSubEvent_stage1[61] = true; //イベント初発生の分をフラグっておく。
-                GameMgr.picnic_event_ON = false;
-                GameMgr.picnic_event_reading_now = true; //ピクニックイベント発生のフラグ　宴で使用
-                GameMgr.picnic_count = 5; //次のピクニックイベントまでの日数カウンタ
+                case 22: //カフェモナムール
+
+                    //ご依頼がくるフェーズ
+                    PeopleQuestAfterMethod(i);
+                    
+                    break;
+            }
+        }
+    }
+
+
+    void PerpleQuestStartSetting(int _num, int _status, int _progress)
+    {
+        GameMgr.GirlLoveSubEvent_num = _status;
+        GameMgr.GirlLoveSubEvent_NPC_num = _num + 1000; //酒場NPCの場合、1000番台～　つまり1022
+        GameMgr.GirlLoveSubEvent_NPC_koyunum = _num; //宴用に固有のNPC番号ももっていく。通常NPCと酒場NPCでちゃんと区別するよう注意。
+        GameMgr.GirlLoveSubEvent_NPC_progress = _progress;
+        GameMgr.GirlLoveSubEvent_NPC_QuestID = _progress; //クエストDBのクエストIDを指定
+    }
+
+    void PeopleQuestAfterMethod(int _num)
+    {
+        if (GameMgr.NPC_BarFriendEventProgress[_num] == 2) //Flagはイベント進行度を表す。ご依頼[0]→お菓子渡す[1]→事後報告[2]までみたして、次のフラグへ進む。　
+        {
+            if (GameMgr.NPC_BarFriendTimeCounter[_num] <= 0)
+            {
+                GameMgr.NPC_BarFriendEventProgress[_num] = 0; //進行度はリセット
+                GameMgr.NPC_BarFriendTimeCounter[_num] = GameMgr.System_KojinNPC_Count02; //次に別の依頼がくるときまでの日数
+
+                PerpleQuestStartSetting(_num, 802, GameMgr.NPC_BarFriendQuestEventNum[_num]);
+                GameMgr.GirlLoveSubEvent_NPC_comment = GameMgr.NPC_BarFriendOkashiJudge[_num]; //クエスト　おかし渡したときにでたコメントのGameMgr.event_judge_status
+                _qid = quest_database.SearchQuestID(GameMgr.NPC_BarFriendQuestEventNum[_num]);
+                Debug.Log("コメントの番号: " + GameMgr.NPC_BarFriendOkashiJudge[_num]);
+
+
+                //条件クリアしたので、次のご依頼ステップへ進む  //0 =まずい 1=おいしいが条件は届かず 2=クリア 100,101=おかしが違う
+                if (GameMgr.NPC_BarFriendOkashiJudge[_num] == 2) 
+                {
+                    GameMgr.NPC_BarFriendFlag[_num]++; //ご依頼イベントが一つ進行する
+                    GameMgr.NPC_BarFriendPoint[_num] += 3; //友好度も上昇
+
+                    rnd = Random.Range(0, 300);
+                    GameMgr.GirlLoveSubEvent_NPC_PrizeMoney = quest_database.questset[_qid].Quest_buy_price + rnd;
+                    moneyStatus_Controller.GetMoney(GameMgr.GirlLoveSubEvent_NPC_PrizeMoney);
+                }
+                else if (GameMgr.NPC_BarFriendOkashiJudge[_num] == 1) //条件はクリアできてないが、お金はもらえる
+                {
+                    GameMgr.GirlLoveSubEvent_NPC_PrizeMoney = quest_database.questset[_qid].Quest_buy_price / 3;
+                    moneyStatus_Controller.GetMoney(GameMgr.GirlLoveSubEvent_NPC_PrizeMoney);
+                }
 
                 GameMgr.check_GirlLoveTimeEvent_flag = false;
 
                 GameMgr.Mute_on = true;
-                //GameMgr.event_pitem_use_select = true; //イベント途中で、アイテム選択画面がでる時は、これをtrueに。お菓子をあげて採点してもらう場合など。
-
-                //GameMgr.SubEvAfterHeartGet = true; //イベント終了後に、ハートを獲得する演出などがある場合はON。
-                //GameMgr.SubEvAfterHeartGet_num = 61;
             }
         }
     }

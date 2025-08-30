@@ -503,8 +503,17 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_NPCHiroba_eventDayCounter = GameMgr.NPCHiroba_eventDayCounter,
             save_NPCHiroba_blockReleaseList = GameMgr.NPCHiroba_blockReleaseList,
             save_NPC_FriendPoint = GameMgr.NPC_FriendPoint,
+            save_NPC_FriendFlag = GameMgr.NPC_FriendFlag,
+            save_NPC_FriendEventProgress = GameMgr.NPC_FriendEventProgress,
+            save_NPC_FriendQuestEventNum = GameMgr.NPC_FriendQuestEventNum,
+            save_NPC_FriendTimeCounter = GameMgr.NPC_FriendTimeCounter,
+            save_NPC_FriendOkashiJudge = GameMgr.NPC_FriendOkashiJudge,
             save_NPC_BarFriendPoint = GameMgr.NPC_BarFriendPoint,
             save_NPC_BarFriendFlag = GameMgr.NPC_BarFriendFlag,
+            save_NPC_BarFriendEventProgress = GameMgr.NPC_BarFriendEventProgress,
+            save_NPC_BarFriendQuestEventNum = GameMgr.NPC_BarFriendQuestEventNum,
+            save_NPC_BarFriendTimeCounter = GameMgr.NPC_BarFriendTimeCounter,
+            save_NPC_BarFriendOkashiJudge = GameMgr.NPC_BarFriendOkashiJudge,
             save_NPC_pahupahu_point = GameMgr.NPC_pahupahu_point,
 
             //宝箱イベント
@@ -992,8 +1001,17 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.NPCHiroba_eventDayCounter = playerData.save_NPCHiroba_eventDayCounter;
         GameMgr.NPCHiroba_blockReleaseList = playerData.save_NPCHiroba_blockReleaseList;
         GameMgr.NPC_FriendPoint = playerData.save_NPC_FriendPoint;
+        GameMgr.NPC_FriendFlag = playerData.save_NPC_FriendFlag;
+        GameMgr.NPC_FriendEventProgress = playerData.save_NPC_FriendEventProgress;
+        GameMgr.NPC_FriendQuestEventNum = playerData.save_NPC_FriendQuestEventNum;
+        GameMgr.NPC_FriendTimeCounter = playerData.save_NPC_FriendTimeCounter;
+        GameMgr.NPC_FriendOkashiJudge = playerData.save_NPC_FriendOkashiJudge;
         GameMgr.NPC_BarFriendPoint = playerData.save_NPC_BarFriendPoint;
         GameMgr.NPC_BarFriendFlag = playerData.save_NPC_BarFriendFlag;
+        GameMgr.NPC_BarFriendEventProgress = playerData.save_NPC_BarFriendEventProgress;
+        GameMgr.NPC_BarFriendQuestEventNum = playerData.save_NPC_BarFriendQuestEventNum;
+        GameMgr.NPC_BarFriendTimeCounter = playerData.save_NPC_BarFriendTimeCounter;
+        GameMgr.NPC_BarFriendOkashiJudge = playerData.save_NPC_BarFriendOkashiJudge;
         GameMgr.NPC_pahupahu_point = playerData.save_NPC_pahupahu_point;
 
         //宝箱イベント

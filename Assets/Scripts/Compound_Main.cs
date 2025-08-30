@@ -4550,16 +4550,17 @@ public class Compound_Main : MonoBehaviour
 
     IEnumerator SleepDayEnd()
     {
-        
+
         //今日の食事がランダムで決まる
         InitTodayFoodLibrary();
-        if(_todayfood_lib.Count <= 0)
+        if (_todayfood_lib.Count <= 0)
         {
             _todayfood = "じゃがバター";
             _todayfoodexpence = 30;
 
             _todayfoodexpence += (Random.Range(0, 10) - 5);
-        } else
+        }
+        else
         {
             RandomFoodLottery();
 
@@ -4569,21 +4570,22 @@ public class Compound_Main : MonoBehaviour
                 if (_todayfoodexpence > PlayerStatus.player_money) //所持金が足りないときは、もう一度抽選
                 {
                     RandomFoodLottery();
-                }else
+                }
+                else
                 {
                     break;
                 }
                 lot_count++;
             }
 
-            if(lot_count >= 5) //全部抽選して、全て所持金が足りなかった場合　０ルピアのパンを食べる。
+            if (lot_count >= 5) //全部抽選して、全て所持金が足りなかった場合　０ルピアのパンを食べる。
             {
                 _todayfood = "パンのきれはじ";
                 _todayfoodexpence = 0;
             }
         }
-        
-        
+
+
         GameMgr.MgrTodayFood = _todayfood;
         GameMgr.Foodexpenses = _todayfoodexpence;
 
@@ -4612,6 +4614,7 @@ public class Compound_Main : MonoBehaviour
         PlayerStatus.player_cullent_minute = 0;
         GameMgr.BarQuest_NewReset = false; //酒場クエストの更新フラグ　リセット
         GameMgr.BarQuest_NewReset2 = false;
+        GameMgr.GirlLoveSubEvent_NPC_OkashiPresentON = false; //固有NPCが直接家にきて依頼するフラグ　リセット
 
         //寝るタイミングで、いくつかのフラグもリセット
         SleepAfter_FlagReset();
@@ -4632,7 +4635,7 @@ public class Compound_Main : MonoBehaviour
         //各NPCのイベント日数カウンタも進む
         for (i = 0; i < GameMgr.NPCHiroba_eventDayCounter.Length; i++)
         {
-            switch(i) //各条件
+            switch (i) //各条件
             {
                 case 0: //アマクサ　初優勝後お祝いにくる
 
@@ -4644,30 +4647,47 @@ public class Compound_Main : MonoBehaviour
 
                 case 1: //ねこみみ少女　次の会話発生までのかうんた 連続でイベント発生するのを防止
 
-                    if(GameMgr.NPCHiroba_eventList[1050])
+                    if (GameMgr.NPCHiroba_eventList[1050])
                     {
                         GameMgr.NPCHiroba_eventDayCounter[i]--;
                     }
                     break;
             }
-                       
-            if(GameMgr.NPCHiroba_eventDayCounter[i] <= 0)
+
+            if (GameMgr.NPCHiroba_eventDayCounter[i] <= 0)
             {
                 GameMgr.NPCHiroba_eventDayCounter[i] = 0;
             }
         }
+
+        for (i = 0; i < GameMgr.NPC_FriendTimeCounter.Length; i++)
+        {
+            GameMgr.NPC_FriendTimeCounter[i]--;
+            GameMgr.NPC_BarFriendTimeCounter[i]--;
+
+            if (GameMgr.NPC_FriendTimeCounter[i] < 0)
+            {
+                GameMgr.NPC_FriendTimeCounter[i] = 0;
+
+            }
+            if (GameMgr.NPC_BarFriendTimeCounter[i] < 0)
+            {
+                GameMgr.NPC_BarFriendTimeCounter[i] = 0;
+            }
+        }
+
 
         //変更したセリフ類は、必ず元に戻す。
         time_controller.TimeReturnHomeSleep_Status = false;
 
         cat_cost = 0;
         if (GameMgr.System_CatAutoMaterial_ON)
-        {           
+        {
             //ねこがいる場合、ねこのエサ費用を減らす　一匹ずつチェック
             for (i = 0; i < catDataBase.catdata_list.Count; i++)
             {
                 if (catDataBase.catdata_list[i].catStatus == 100)
-                {  }
+                { }
                 else //外にでておらず家にいる場合　好感度がほんのわずかにあがっていく。
                 {
                     catDataBase.catdata_list[i].catHP += 1;
@@ -4695,7 +4715,7 @@ public class Compound_Main : MonoBehaviour
 
         //一日経つと、食費を消費
         moneyStatus_Controller.UseMoney(GameMgr.Foodexpenses);
-        
+
 
         //腹が回復する。
         if (GameMgr.System_Manpuku_ON)
@@ -4714,7 +4734,7 @@ public class Compound_Main : MonoBehaviour
         //アイテム関係
         //
         DayStartItemPassive();
-        
+
 
 
 

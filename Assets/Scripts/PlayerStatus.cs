@@ -100,6 +100,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
     //セーブしない
     public static int player_girl_maxlifepoint_default;     //妹の体力のMAXデフォルト
+    public static int[] player_girl_status = new int[100];   //プレイヤーの状態　魔法でかかった状態も含む
 
     //エクストラモード
     public static int player_girl_manpuku;         //妹の満腹度　ハードモードで使用
@@ -134,6 +135,8 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static bool First_recipi_on; //はじめて調合したフラグ
     public static bool First_extreme_on; //はじめて仕上げをしたフラグ
     public static bool First_magicokashi_on; //はじめて魔法調合したフラグ
+
+    public static int system_ps_count;
 
 
     // Update is called once per frame
@@ -244,6 +247,11 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
 
         player_girl_okashiparam_Count = 15;
         //セーブデータがあれば、次にそこから読み込んで、更新
+
+        //プレイヤー状態の初期化
+        ResetPlayerMagicStatus();
+        
+        
     }
 
     //ヒカリお菓子ステータスのネームリスト
@@ -314,5 +322,14 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_patissier_Rank_hyoukiList.Add("ゴールド");
         player_patissier_Rank_hyoukiList.Add("プラチナ");
         player_patissier_Rank_hyoukiList.Add("ダイア");
+    }
+
+    //プレイヤー状態の初期化
+    public static void ResetPlayerMagicStatus()
+    {
+        for (system_ps_count = 0; system_ps_count < player_girl_status.Length; system_ps_count++)
+        {
+            player_girl_status[system_ps_count] = 0;
+        }
     }
 }

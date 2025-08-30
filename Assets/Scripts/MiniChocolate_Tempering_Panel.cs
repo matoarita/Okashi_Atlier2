@@ -41,6 +41,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
     private int _status;
     private int _magiclv;
     private float _speed_hosei;
+    private float _param_hosei;
 
     private bool success_1;
     private bool success_2;
@@ -96,6 +97,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
                 _speed_hosei = 0.9f;
                 break;
         }
+        _param_hosei = _magiclv * 0.05f;
         //_speed_hosei = 1.7f - (0.2f * _magiclv); //LV1で1.5f がデフォ速度
 
         //一本目
@@ -296,7 +298,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param >= 440 && _guage_param < 490)
         {
-            GameMgr.System_magic_playParamUp = 1.2f;
+            GameMgr.System_magic_playParamUp = 1.2f + _param_hosei;
 
             Sound_OK1(); //成功判定のとき　キラ音
             KiraEffect_1.SetActive(true); //さらに光りのエフェクト
@@ -351,7 +353,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param2 >= 90 && _guage_param2 < 130)
         {
-            GameMgr.System_magic_playParamUp2 = 1.5f;
+            GameMgr.System_magic_playParamUp2 = 1.2f + _param_hosei;
             
             Sound_OK1(); //成功判定のとき　キラ音
             KiraEffect_2.SetActive(true); //さらに光りのエフェクト
@@ -359,7 +361,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param2 >= 130 && _guage_param2 < 400)
         {
-            GameMgr.System_magic_playParamUp2 = 1.2f;
+            GameMgr.System_magic_playParamUp2 = 1.1f + _param_hosei;
 
             //ピキーン音ならす
             sc.PlaySe(16);
@@ -407,7 +409,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param3 >= 150 && _guage_param3 < 300)
         {
-            GameMgr.System_magic_playParamUp3 = 1.5f;
+            GameMgr.System_magic_playParamUp3 = 1.0f + _param_hosei;
 
             //ピキーン音ならす
             sc.PlaySe(16);
@@ -415,7 +417,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param3 >= 300 && _guage_param3 < 330)
         {
-            GameMgr.System_magic_playParamUp3 = 2.5f;
+            GameMgr.System_magic_playParamUp3 = 1.2f + _param_hosei;
 
             if (success_1 && success_2)
             {
@@ -435,7 +437,7 @@ public class MiniChocolate_Tempering_Panel : MonoBehaviour {
         }
         else if (_guage_param3 >= 330 && _guage_param3 < 420)
         {
-            GameMgr.System_magic_playParamUp3 = 1.5f;
+            GameMgr.System_magic_playParamUp3 = 1.0f + _param_hosei;
 
             //ピキーン音ならす
             sc.PlaySe(16);

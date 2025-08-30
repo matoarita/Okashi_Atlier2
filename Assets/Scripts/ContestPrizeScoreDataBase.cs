@@ -1306,7 +1306,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeScoreAreaList.Add(89);
         GameMgr.PrizeScoreAreaList.Add(126);
         GameMgr.PrizeScoreAreaList.Add(157);
-        GameMgr.PrizeScoreAreaList.Add(198);
+        GameMgr.PrizeScoreAreaList.Add(258);
 
         //参加者名リスト(上位4人) + 5人目がアキラくんになる
         GameMgr.PrizeCharacterList.Clear();

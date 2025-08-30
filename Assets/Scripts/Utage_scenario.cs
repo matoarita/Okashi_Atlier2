@@ -67,6 +67,7 @@ public class Utage_scenario : MonoBehaviour
     private CatDataBase catDataBase;
     private ContestStartListDataBase conteststartList_database;
     private TimeController time_controller;
+    private QuestSetDataBase quest_database;
 
     private Girl1_status girl1_status; //女の子１のステータスを取得。    
     private MoneyStatus_Controller moneyStatus_Controller;
@@ -105,7 +106,6 @@ public class Utage_scenario : MonoBehaviour
     private int pause_or_endnum;
     private bool omoide_flag;
     private bool type_okcheck;
-    private bool pitem_present_endflag; //プレゼント終了の合図
 
     private bool tutorial_flag;
     private int catgrave_flag;
@@ -166,6 +166,9 @@ public class Utage_scenario : MonoBehaviour
         //ねこデータベースの取得
         catDataBase = CatDataBase.Instance.GetComponent<CatDataBase>();
 
+        //クエストデータベースの取得
+        quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
+
         //Expコントローラーの取得
         exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
@@ -180,7 +183,6 @@ public class Utage_scenario : MonoBehaviour
         live2d_use = false;
         resipi_getflag = false;
         resipi_getflag_afteritemuse = false;
-        pitem_present_endflag = false;
     }
 
     void Update()
@@ -1836,7 +1838,13 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Girllove_event_num", GirlLoveEvent_num);
         engine.Param.TrySetParameter("Talk_num", GameMgr.GirlTalk_num);
         engine.Param.TrySetParameter("StationEvent_num", 0);
+        engine.Param.TrySetParameter("Quest_NPC_Num", GameMgr.GirlLoveSubEvent_NPC_num);
+        engine.Param.TrySetParameter("Quest_NPC_Progress", GameMgr.GirlLoveSubEvent_NPC_progress);
+        engine.Param.TrySetParameter("Quest_NPC_Comment", GameMgr.GirlLoveSubEvent_NPC_comment);
+        engine.Param.TrySetParameter("Quest_NPC_LimitDay", GameMgr.GirlLoveSubEvent_NPC_LimitDay);
+        engine.Param.TrySetParameter("Quest_NPC_Prizemoney", GameMgr.GirlLoveSubEvent_NPC_PrizeMoney);
         engine.Param.TrySetParameter("EndOrPause_Num", 0);
+
 
         //今食べたいお菓子を設定
         engine.Param.TrySetParameter("NowSPQuest", GameMgr.NowEatOkashiName);
@@ -1914,12 +1922,6 @@ public class Utage_scenario : MonoBehaviour
             StartCoroutine("PitemPresent");
         }
 
-        //終了をまつ
-        while (pitem_present_endflag) //falseなら、そのまま何もせず終了
-        {
-            yield return null;
-        }
-
         //イベントによって、シーン移動するときがあるので、ブラック挟むよう
         switch (GameMgr.GirlLoveSubEvent_num)
         {
@@ -1977,10 +1979,22 @@ public class Utage_scenario : MonoBehaviour
         }
 
         //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
+        if (GameMgr.event_pitem_use_select)
         {
-            yield return null;
+            while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
+            GameMgr.event_pitem_use_select = false; //プレゼント終了
         }
+        else
+        {
+            while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
+        }
+        
         pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。2ならPause判定。
 
         if (pause_or_endnum == 2) //2がきた場合、思い出イベントなので、フェードアウト用白をいれておく。
@@ -2071,6 +2085,52 @@ public class Utage_scenario : MonoBehaviour
                 //終了せずに、そのまま確認画面へ
             }
         }
+
+        //NPC個別依頼受けるとき
+        if (GameMgr.GirlLoveSubEvent_num == 800)
+        {
+            stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
+            if (GameMgr.GirlLoveSubEvent_NPC_num >= 1000) //酒場NPC用
+            {
+                //引き受けた場合は、酒場クエストに個別依頼として受注をいれる。
+                if (stationevent_num == 1)
+                {
+                    GameMgr.NPC_BarFriendEventProgress[GameMgr.GirlLoveSubEvent_NPC_koyunum] = 1;
+
+                    //受注したクエストを、リストに登録。QuestのIDを入れる。
+                    quest_database.KoyuNPCSetInit(GameMgr.GirlLoveSubEvent_NPC_QuestID);
+                }
+                else
+                {
+                    //キャンセルした場合は、またしばらくしないと次がこなくなる。
+                    GameMgr.NPC_BarFriendTimeCounter[GameMgr.GirlLoveSubEvent_NPC_koyunum] = GameMgr.System_KojinNPC_Count01;
+                }
+            }
+        }
+
+        if (GameMgr.GirlLoveSubEvent_num == 801) //提出した　判定はその日にする。報告は後日にする。
+        {
+            stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+
+            if (GameMgr.GirlLoveSubEvent_NPC_num >= 1000) //酒場NPC用
+            {
+                if (stationevent_num == 1)
+                {
+                    GameMgr.NPC_BarFriendEventProgress[GameMgr.GirlLoveSubEvent_NPC_koyunum] = 2;
+
+                    GameMgr.NPC_BarFriendOkashiJudge[GameMgr.GirlLoveSubEvent_NPC_koyunum] = GameMgr.event_judge_status;
+
+                    //受注したクエストを、リストから削除。
+                    quest_database.DeleteQuestTakeSet(GameMgr.GirlLoveSubEvent_NPC_QuestID);
+
+                    GameMgr.NPC_BarFriendTimeCounter[GameMgr.GirlLoveSubEvent_NPC_koyunum] = 3; //3日後に設定
+                }
+                else
+                { }
+            }
+        }
+
 
         if (GameMgr.girlloveevent_bunki == 0)
         { }
@@ -2657,20 +2717,25 @@ public class Utage_scenario : MonoBehaviour
 
         if (GameMgr.event_pitem_use_select) //アイテムを使用するイベントの場合
         {
-            StartCoroutine("PitemPresent");　//pitem_present_endflag入るときにtrueになる
+            StartCoroutine("PitemPresent");
         }
 
-        //終了をまつ
-        while (pitem_present_endflag) //falseなら、そのまま何もせず終了
-        {
-            yield return null;
-        }
-        
 
         //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
+        if (GameMgr.event_pitem_use_select)
         {
-            yield return null;
+            while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
+            GameMgr.event_pitem_use_select = false; //プレゼント終了
+        }
+        else
+        {
+            while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
         }
         pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。1ならPause判定。
 
@@ -3724,12 +3789,6 @@ public class Utage_scenario : MonoBehaviour
             }
         }
 
-        //終了をまつ
-        while (pitem_present_endflag) //falseなら、そのまま何もせず終了
-        {
-            yield return null;
-        }
-
         //コンテスト会場イベントの場合　移動するときに、シーン暗くしておく
         if (GameMgr.hiroba_event_placeNum == 1000)
         {
@@ -3882,9 +3941,20 @@ public class Utage_scenario : MonoBehaviour
         //Debug.Log("BGM宴途中変更フラグ=true");
 
         //「宴」のシナリオ終了待ち
-        while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
+        if (GameMgr.event_pitem_use_select)
         {
-            yield return null;
+            while (!Engine.IsEndScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
+            GameMgr.event_pitem_use_select = false; //プレゼント終了
+        }
+        else
+        {
+            while (!Engine.IsEndOrPauseScenario) //エンドなら、そのまま何もせず終了
+            {
+                yield return null;
+            }
         }
         pause_or_endnum = (int)engine.Param.GetParameter("EndOrPause_Num"); //EndかPauseを判定する。1,2ならPause判定。
 
@@ -3947,6 +4017,14 @@ public class Utage_scenario : MonoBehaviour
                 case "Or_NPC107_park_sweat_hotel": //Or遊園地ホテル　読み終わり後フラグ
 
                     GameMgr.System_HotelEnd = true; //ホテル終わり
+
+                    //体力とMP全回復
+                    PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;
+                    PlayerStatus.player_mp = PlayerStatus.player_maxmp;
+
+                    //時間を次の日に。
+                    time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0);
+                    time_controller.SetWeatherNow();
                     break;
 
                 case "Or_NPC108_hotspring": //Or温泉　裸だったので、元に戻す
@@ -3954,6 +4032,10 @@ public class Utage_scenario : MonoBehaviour
                     Live2DCostume_UtageReset();
 
                     GameMgr.System_HotSpringEnd = true; //温泉に入り終わった
+
+                    //体力とMP全回復
+                    PlayerStatus.player_girl_lifepoint = PlayerStatus.player_girl_maxlifepoint;
+                    PlayerStatus.player_mp = PlayerStatus.player_maxmp;
                     break;
             }
 
@@ -5959,8 +6041,7 @@ public class Utage_scenario : MonoBehaviour
         //→　③採点し、分岐
         //
 
-        GameMgr.event_pitem_use_select = false;
-        pitem_present_endflag = true;
+        //GameMgr.event_pitem_use_select = false;
 
         //キャンバスの読み込み
         //canvas = GameObject.FindWithTag("Canvas");
@@ -5974,6 +6055,7 @@ public class Utage_scenario : MonoBehaviour
 
         //
         //「宴」のポーズ終了待ち　ピクニックいく、いかないを選択。選択肢がないイベントもあり、その場合eventend_flag = false。
+        //アイテム選択画面を開くか、やめるを押す。
         while (!engine.IsPausingScenario)
         {
             yield return null;
@@ -6014,6 +6096,16 @@ public class Utage_scenario : MonoBehaviour
             if (GameMgr.bar_event_ON) //酒場イベントで起こった場合
             {
                 GameMgr.bar_event_ON = false;
+            }
+
+            if (GameMgr.NPC_event_ON) //メイン画面でおこった場合
+            {
+                GameMgr.NPC_event_ON = false;
+
+                if(GameMgr.GirlLoveSubEvent_num == 801) //一度NPCから依頼うけてたのにキャンセルしたので評価が下がる。
+                {
+                    ResetKoyuNPCQuest();
+                }
             }
 
             if (resipi_getflag) //もしレシピゲットフラグがたつ場合は、アイテム使用後のpauseを解消してから。EndorPause待ちする。
@@ -6114,6 +6206,11 @@ public class Utage_scenario : MonoBehaviour
                 GameMgr.farm_event_ON = false;
                 GameMgr.bar_event_ON = false;
 
+                if (GameMgr.GirlLoveSubEvent_num == 801) //一度NPCから依頼うけてたのにキャンセルしたので評価が下がる。
+                {
+                    ResetKoyuNPCQuest();                 
+                }
+
                 if (resipi_getflag) //もしレシピゲットフラグがたつ場合は、アイテム使用後のpauseを解消してから。EndorPause待ちする。
                 {
                     resipi_getflag_afteritemuse = false;
@@ -6123,11 +6220,22 @@ public class Utage_scenario : MonoBehaviour
                 engine.Param.TrySetParameter("EventEnd_Flag", false);
 
                 //続きから再度読み込み
-                engine.ResumeScenario();
+                engine.ResumeScenario();               
             }           
         }
+    }
 
-        pitem_present_endflag = false; //プレゼント終了の合図
+    void ResetKoyuNPCQuest()
+    {
+        //受注したクエストを、リストから削除。
+        quest_database.DeleteQuestTakeSet(GameMgr.GirlLoveSubEvent_NPC_QuestID);
+
+        if (GameMgr.GirlLoveSubEvent_NPC_num >= 1000)
+        {
+            GameMgr.NPC_BarFriendEventProgress[GameMgr.GirlLoveSubEvent_NPC_koyunum] = 0; //進行度はリセット
+            GameMgr.NPC_BarFriendTimeCounter[GameMgr.GirlLoveSubEvent_NPC_koyunum] = GameMgr.System_KojinNPC_Count01; //次に別の依頼がくるときまでの日数
+            GameMgr.NPC_BarFriendPoint[GameMgr.GirlLoveSubEvent_NPC_koyunum] -= 2; //友好度が2下がる
+        }
     }
 
     void PitemPresentJudge()
@@ -6280,6 +6388,12 @@ public class Utage_scenario : MonoBehaviour
                 case 160:
 
                     MosesPresentCheck();
+                    break;
+
+                    //２～から　NPC個別依頼でお菓子をわたした
+                case 801:
+
+                    KoyuNPCPresentCheck();
                     break;
             }
         }
@@ -6454,6 +6568,9 @@ public class Utage_scenario : MonoBehaviour
 
     //
     //各キャラのプレゼント判定コーナー
+
+    //
+    //1~のときやつ
     //
     void IchigoPresentCheck()
     {
@@ -6689,6 +6806,14 @@ public class Utage_scenario : MonoBehaviour
         }
     }
 
+    //
+    //１～ここまで
+    //
+
+
+    //
+    //２～からNPCプレゼント
+    //
     void BarPresentCheck()
     {
         //判定
@@ -6696,6 +6821,7 @@ public class Utage_scenario : MonoBehaviour
         {
             if (GameMgr.NPC_NoScoreCheck) //店売りアイテムなど　点数関係なくなる
             {
+                GameMgr.event_judge_status = 100;
                 engine.Param.TrySetParameter("EventJudge_num", 100);
                 Debug.Log("酒場あげる　お菓子が違ってた");
                 type_okcheck = false;
@@ -6704,11 +6830,13 @@ public class Utage_scenario : MonoBehaviour
             {
                 if (total_score < GameMgr.mazui_score) //まずい
                 {
+                    GameMgr.event_judge_status = 101;
                     engine.Param.TrySetParameter("EventJudge_num", 101);
                     Debug.Log("酒場あげる　お菓子が違ってた　まずい");
                 }
                 else
                 {
+                    GameMgr.event_judge_status = 100;
                     engine.Param.TrySetParameter("EventJudge_num", 100);
                     Debug.Log("酒場あげる　お菓子が違ってた　でもおいしい");
                 }
@@ -6738,7 +6866,6 @@ public class Utage_scenario : MonoBehaviour
                     else
                     {
                         engine.Param.TrySetParameter("EventJudge_num", 3); //
-                                                                           //pitemlist.addPlayerItemString("Record_20", 1); //レコード
                     }
                 }
                 else
@@ -6747,6 +6874,55 @@ public class Utage_scenario : MonoBehaviour
                 }
             }
             Debug.Log("酒場あげる　お菓子合ってる 判定番号: " + GameMgr.event_judge_status);
+        }
+    }
+
+    void KoyuNPCPresentCheck()
+    {
+
+        //初回の判定はこちら。こっちは、モーセの食べたいお菓子だったかどうかの判定もする。
+        if (!GameMgr.NPC_DislikeFlag)
+        {
+            if (total_score < GameMgr.mazui_score) //まずい
+            {
+                GameMgr.event_judge_status = 101;
+                engine.Param.TrySetParameter("EventJudge_num", 101);
+                Debug.Log("酒場あげる　お菓子が違ってた　まずい");
+            }
+            else
+            {
+                GameMgr.event_judge_status = 100;
+                engine.Param.TrySetParameter("EventJudge_num", 100);
+                Debug.Log("酒場あげる　お菓子が違ってた　でもおいしい");
+            }
+        }
+        else
+        {
+            //食感、甘さ、苦さ、酸味についてもセリフ
+            engine.Param.TrySetParameter("event_shokukan_comment1", girlEat_judge._shopgirl_shokukan_kansou);
+            engine.Param.TrySetParameter("event_sweat_comment1", girlEat_judge._shopgirl_sweat_kansou);
+            engine.Param.TrySetParameter("event_bitter_comment1", girlEat_judge._shopgirl_bitter_kansou);
+            engine.Param.TrySetParameter("event_sour_comment1", girlEat_judge._shopgirl_sour_kansou);
+           
+            if (total_score >= GameMgr.GirlLoveSubEvent_NPC_score) //各NPCのクリア条件点数
+            {
+                GameMgr.event_judge_status = 2;      
+            }
+            else
+            {
+                if (total_score >= GameMgr.high_score)
+                {
+                    GameMgr.event_judge_status = 1;
+                }
+                else
+                {
+                    GameMgr.event_judge_status = 0;
+                }
+            }
+
+            engine.Param.TrySetParameter("EventJudge_num", GameMgr.event_judge_status); //0は、まずい。1は、おいしいが、条件にたらず。
+            Debug.Log("NPC　お菓子合ってる 判定: " + GameMgr.event_judge_status);
+            Debug.Log("個人依頼　クリア点数のボーダー: " + GameMgr.GirlLoveSubEvent_NPC_score);
         }
     }
 
@@ -6871,7 +7047,6 @@ public class Utage_scenario : MonoBehaviour
         //ステージレベルに足りてないときは、先にまだもらってない本を優先してゲットする。
         Mirabo_MagicBookCount();
 
-
         if (total_score >= mirabo_clearscore)
         {
             GameMgr.event_judge_status = 3;
@@ -6982,6 +7157,8 @@ public class Utage_scenario : MonoBehaviour
 
         }
     }
+
+
 
     //エリアブロック　おかし判定
     void NPCBlockCheck()

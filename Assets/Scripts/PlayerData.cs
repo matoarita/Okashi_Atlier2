@@ -191,8 +191,17 @@ public class PlayerData
     public bool[] save_NPCMagic_eventList = new bool[GameMgr.NPCMagic_eventList.Length]; //オランジーナ関連広場イベント
     public int[] save_NPCHiroba_eventDayCounter = new int[GameMgr.NPCHiroba_eventDayCounter.Length]; //各NPCのイベント日数カウンタ
     public int[] save_NPC_FriendPoint = new int[GameMgr.NpcEvent_people_num]; //各NPCの友好度
+    public int[] save_NPC_FriendFlag = new int[GameMgr.NpcEvent_people_num]; //通常NPCのご依頼イベント進行フラグ　0=ご依頼うける 1=お菓子わたす 2=事後報告
+    public int[] save_NPC_FriendEventProgress = new int[GameMgr.NpcEvent_people_num]; //通常NPCのイベント進行　こっちは普通に進行度を表す 0=最初の依頼　10=次の依頼..
+    public int[] save_NPC_FriendQuestEventNum = new int[GameMgr.NpcEvent_people_num]; //通常NPCの現在依頼中のクエスト番号を保存
+    public int[] save_NPC_FriendTimeCounter = new int[GameMgr.NpcEvent_people_num]; //タイムカウンタ
+    public int[] save_NPC_FriendOkashiJudge = new int[GameMgr.NpcEvent_people_num]; //お菓子を提出し、かえってきた評価の番号を保存　後日この値をもとに、コメントが決まる。
     public int[] save_NPC_BarFriendPoint = new int[GameMgr.NpcEvent_people_num]; //各酒場NPCの友好度
-    public int[] save_NPC_BarFriendFlag = new int[GameMgr.NpcEvent_people_num]; //各酒場NPCの進行フラグ
+    public int[] save_NPC_BarFriendFlag = new int[GameMgr.NpcEvent_people_num]; //各酒場NPCの進行フラグ　0=ご依頼うける 1=お菓子わたす 2=事後報告
+    public int[] save_NPC_BarFriendEventProgress = new int[GameMgr.NpcEvent_people_num]; //酒場NPCのイベント進行　こっちは普通に進行度を表す 0=最初の依頼　10=次の依頼..
+    public int[] save_NPC_BarFriendQuestEventNum = new int[GameMgr.NpcEvent_people_num]; //酒場NPCの現在依頼中のクエスト番号を保存
+    public int[] save_NPC_BarFriendTimeCounter = new int[GameMgr.NpcEvent_people_num]; //タイムカウンタ
+    public int[] save_NPC_BarFriendOkashiJudge = new int[GameMgr.NpcEvent_people_num]; //お菓子を提出し、かえってきた評価の番号を保存　後日この値をもとに、コメントが決まる。
     public bool[] save_NPCHiroba_blockReleaseList = new bool[GameMgr.NPCHiroba_blockReleaseList.Length]; //広場のブロックリストフラグイベント
     public int save_NPC_pahupahu_point; //ルーティのマッサージポイント　これがたまらないとマッサージしてくれない
 

@@ -2093,7 +2093,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         {
             if (conteststart_lists[i].ContestID >= _readID)
             {
-                Debug.Log("conteststart_lists[i].ContestVictory: " + conteststart_lists[i].ContestVictory);
+                //Debug.Log("conteststart_lists[i].ContestVictory: " + conteststart_lists[i].ContestVictory);
                 if (conteststart_lists[i].ContestVictory == _rank)
                 {
                     total_count++;

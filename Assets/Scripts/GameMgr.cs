@@ -138,6 +138,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
 
+    //個人依頼の次にくるまでの日数系
+    public static int System_KojinNPC_Count01 = 20; //キャンセルした場合に、次にくるまでの日数
+    public static int System_KojinNPC_Count02 = 10; //依頼が成功して、次にくるまでの日数
+
     //どんぐりで上がる体力値
     public static int System_Emeraldongri_life = 1;
     public static int System_Sapphiredongri_life = 2;
@@ -357,8 +361,17 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //NPCの友好度ポイント　各NPCの進行度を数値で表したもの　50からはじまり、ミラボー先生なら、あげたときにクリアしたら+10。そして次の魔法の本に..。という具合。
     public static int[] NPC_FriendPoint = new int[NpcEvent_people_num]; //300人分はいる
+    public static int[] NPC_FriendFlag = new int[NpcEvent_people_num]; //通常NPCのイベント進行　こっちは普通に進行度を表す 0=最初の依頼　1=次の依頼..
+    public static int[] NPC_FriendEventProgress = new int[NpcEvent_people_num]; //通常NPCのご依頼イベント進行フラグ　0=ご依頼くる 1=おかし渡す 2=事後報告　の3巡りで使う
+    public static int[] NPC_FriendQuestEventNum = new int[NpcEvent_people_num]; //通常NPCの現在依頼中のクエスト番号を保存
+    public static int[] NPC_FriendTimeCounter = new int[NpcEvent_people_num]; //なんらかのイベントが発生して、日数をカウントする。
+    public static int[] NPC_FriendOkashiJudge = new int[NpcEvent_people_num]; //お菓子を提出し、かえってきた評価の番号を保存　後日この値をもとに、コメントが決まる。
     public static int[] NPC_BarFriendPoint = new int[NpcEvent_people_num]; //各酒場NPC　300人分はいる
-    public static int[] NPC_BarFriendFlag = new int[NpcEvent_people_num]; //各酒場NPCのスター取得やイベントの進行フラグ
+    public static int[] NPC_BarFriendFlag = new int[NpcEvent_people_num]; //酒場NPCのイベント進行　こっちは普通に進行度を表す 0=最初の依頼　1=次の依頼..
+    public static int[] NPC_BarFriendEventProgress = new int[NpcEvent_people_num]; //酒場NPCのご依頼イベント進行フラグ　0=ご依頼くる 1=おかし渡す 2=事後報告　の3巡りで使う
+    public static int[] NPC_BarFriendQuestEventNum = new int[NpcEvent_people_num]; //酒場NPCの現在依頼中のクエスト番号を保存
+    public static int[] NPC_BarFriendTimeCounter = new int[NpcEvent_people_num]; //なんらかのイベントが発生して、日数をカウントする。
+    public static int[] NPC_BarFriendOkashiJudge = new int[NpcEvent_people_num]; //お菓子を提出し、かえってきた評価の番号を保存　後日この値をもとに、コメントが決まる。
 
     public static int[] Treature_getList = new int[OrEvent_num]; //道端に落ちてるアイテムなどの宝箱リスト
     public static bool[] NPCHiroba_blockReleaseList = new bool[OrEvent_num]; //主に2での広場ブロックを解除するイベントリスト
@@ -622,6 +635,16 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int GirlLoveSubEvent_num;
     public static int girlloveevent_bunki; //メインイベントかサブイベントかを分岐する
+
+    public static int GirlLoveSubEvent_NPC_num; //NPC・酒場NPCのご依頼イベントの際に、どのNPCかを特定する番号 NPC_FriendPointは0~ NPC_BarFriendPointは1000~はじまりで表す
+    public static int GirlLoveSubEvent_NPC_koyunum; //NPC・酒場NPCのご依頼イベントの際に、どのNPCかを特定する番号
+    public static int GirlLoveSubEvent_NPC_progress; //NPCイベント進行度
+    public static int GirlLoveSubEvent_NPC_QuestID; //どのクエストを受けるか　QuestIDを指定でOK
+    public static bool GirlLoveSubEvent_NPC_OkashiPresentON; //依頼うけて、ご依頼日当日がON　その日は新規依頼がこなくなる
+    public static int GirlLoveSubEvent_NPC_comment; //NPCイベントご依頼でうけた判定
+    public static int GirlLoveSubEvent_NPC_LimitDay; //NPCご依頼の締め切り日
+    public static int GirlLoveSubEvent_NPC_PrizeMoney; //ご依頼でもらう報酬
+    public static int GirlLoveSubEvent_NPC_score = 300; //合格の点数
 
     //エメラルどんぐりゲット時の会話
     public static bool emeralDonguri_flag;  //高得点時、エメラルどんぐりをくれるイベント発生のフラグ
@@ -1655,7 +1678,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         BarQuest_NewReset2 = false;
         AmusePlayCount = 0;
         barMassage_RandomUpName = "";
-        
+        GirlLoveSubEvent_NPC_num = 0;
+        GirlLoveSubEvent_NPC_koyunum = 0;
+        GirlLoveSubEvent_NPC_progress = 0;
+        GirlLoveSubEvent_NPC_QuestID = 0;
+        GirlLoveSubEvent_NPC_OkashiPresentON = false;
+        GirlLoveSubEvent_NPC_comment = 0;
+        GirlLoveSubEvent_NPC_LimitDay = 0;
+        GirlLoveSubEvent_NPC_PrizeMoney = 0;
+
 
         //Tempのattriを初期化
         for (system_i = 0; system_i < temp_attriID1.Length; system_i++)
@@ -1706,8 +1737,18 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < NPC_FriendPoint.Length; system_i++)
         {
             NPC_FriendPoint[system_i] = System_NPC_FriendPoint_StartPoint;
+            NPC_FriendFlag[system_i] = 0;
+            NPC_FriendEventProgress[system_i] = 0;
+            NPC_FriendQuestEventNum[system_i] = 0;
+            NPC_FriendTimeCounter[system_i] = 0;
+            NPC_FriendOkashiJudge[system_i] = 0;
+
             NPC_BarFriendPoint[system_i] = System_NPC_FriendPoint_StartPoint;
             NPC_BarFriendFlag[system_i] = 0;
+            NPC_BarFriendEventProgress[system_i] = 0;
+            NPC_BarFriendQuestEventNum[system_i] = 0;
+            NPC_BarFriendTimeCounter[system_i] = 0;
+            NPC_BarFriendOkashiJudge[system_i] = 0;
         }
 
         //ルームフラグの初期化

@@ -4544,7 +4544,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    default_scenetext = "ホテルたのしかった～！" + "\n" + "またいこ～ね♪";
+                    default_scenetext = "ホテルたのしかった～！" + "\n" + "またいこ～ね♪" + "\n" + "体力とMPが全回復した！";
                 }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
@@ -4566,7 +4566,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 }
                 else
                 {
-                    default_scenetext = "温泉きもちよかったね～！" + "\n" + "コーヒー牛乳うまい。にいちゃん♪";
+                    default_scenetext = "温泉きもちよかったね～！" + "\n" + "コーヒー牛乳うまい。にいちゃん♪" + "\n" + "体力とMPが全回復した！";
                 }
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり

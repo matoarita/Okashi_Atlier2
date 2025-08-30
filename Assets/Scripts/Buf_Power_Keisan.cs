@@ -47,6 +47,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _well_done_kyori_noabs;
     private float _well_done_kyori_hosei;
     private float _yonetsu_hosei;
+    private float _choco_hose1, _choco_hose2;
 
     // Use this for initialization
     void Start () {
@@ -1903,15 +1904,16 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 if (_status == 2)//なめらかのバフ
                 {
-                    //_magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Chocolate_Tempering");
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy");
+                    _choco_hose1 = 1.0f + _magicLearnLv * 0.02f;
+
                     _magicup = (int)(_baseparam * 0.3f * GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3 *
-                        (1.0f + magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 0.3f)) + 
-                        (int)(_baseparam * 0.3f);
+                        _choco_hose1);
 
                     Debug.Log("_baseparam: " + _baseparam);
-                    Debug.Log("補正値: " + "_baseparam * 0.3f" + " + " 
-                        + "_baseparam * 0.3f" + " * " + GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3 + " * " + 
-                        "(1.0f + チョコレート哲学習得LV*0.3f): " + (1.0f + magicskill_database.skillName_SearchLearnLevel("Chocolate_Philosophy") * 0.3f));
+                    Debug.Log("補正値: " +
+                       "_baseparam * 0.3f" + " * " + GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3 + " * " + 
+                        "(チョコレート哲学習得LV補正): " + _choco_hose1);
                     Debug.Log("各ゲージ補正値: " + GameMgr.System_magic_playParamUp + " " + GameMgr.System_magic_playParamUp2 + " " + GameMgr.System_magic_playParamUp3);
                     Debug.Log("テンパリングの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
@@ -2100,15 +2102,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("hikari_powerup1") >= 1) //
         {
-            _buf_shokukanup += 30;
+            _buf_shokukanup += 15;
         }
         if (pitemlist.KosuCount("hikari_powerup2") >= 1) //
         {
-            _buf_shokukanup += 50;
+            _buf_shokukanup += 20;
         }
         if (pitemlist.KosuCount("hikari_powerup3") >= 1) //
         {
-            _buf_shokukanup += 80;
+            _buf_shokukanup += 30;
         }
 
         return _buf_shokukanup;
@@ -2193,46 +2195,71 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (GameMgr.hikariokashiExpTable_noTypeflag)
         {
             //どのお菓子タイプにもあてはまらなかったら、計算しない。
-            GameMgr.hikari_make_okashiTime_costbuf = 1.0f;
-            GameMgr.hikari_make_okashiTime_successrate_buf = 1.0f;
-            GameMgr.hikari_make_okashiKosu_buf = 1.0f;
-            GameMgr.hikari_make_okashiKosu_buf_keisan = 1.0f;
+            //GameMgr.hikari_make_okashiTime_costbuf = 1.0f;
+            //GameMgr.hikari_make_okashiTime_successrate_buf = 1.0f;
+            //GameMgr.hikari_make_okashiKosu_buf = 1.0f;
+            //GameMgr.hikari_make_okashiKosu_buf_keisan = 1.0f;
+
+            hikari_okashiLV = 1;
+            HikariOkashilv_Keisan(_itemType_sub, 1); //実際のバフ率を計算
         }
         else
         {
             hikari_okashiLV = GameMgr.hikarimakeokashi_nowlv;
-            HikariOkashilv_Keisan(_itemType_sub); //実際のバフ率を計算
+            HikariOkashilv_Keisan(_itemType_sub, 0); //実際のバフ率を計算
         }        
     }
 
-    void HikariOkashilv_Keisan(string _itemType_sub)
+    void HikariOkashilv_Keisan(string _itemType_sub, int _mstatus)
     {
         //食感への補正
-        _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.5f, 1.4f); //最大LVで、にいちゃんの1.5倍上がる あまりやると強すぎ
-        _buf_hikari_okashiparam = 0.1f + _a;
+        if (_mstatus == 0)
+        {
+            _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.5f, 1.4f); //最大LVで、にいちゃんの1.5倍上がる あまりやると強すぎ
+            _buf_hikari_okashiparam = 0.1f + _a;
+        }
+        else if (_mstatus == 1)
+        {
+            _buf_hikari_okashiparam = 1.0f;
+        }
 
         //個数の補正　最終的ににいちゃんと同じ数 低いうちは3個ほどマイナスになる。
-        if(hikari_okashiLV >= 1.0f && hikari_okashiLV < 3.0f)
+        if (_mstatus == 0)
         {
-            _kosuhosei = 3.0f;
+            if (hikari_okashiLV >= 1.0f && hikari_okashiLV < 3.0f)
+            {
+                _kosuhosei = 3.0f;
+            }
+            else if (hikari_okashiLV >= 3.0f && hikari_okashiLV < 7.0f)
+            {
+                _kosuhosei = 2.0f;
+            }
+            else if (hikari_okashiLV >= 7.0f && hikari_okashiLV < 9.0f)
+            {
+                _kosuhosei = 1.0f;
+            }
+            else if (hikari_okashiLV >= 9.0f)
+            {
+                _kosuhosei = 0.5f;
+            }
         }
-        else if (hikari_okashiLV >= 3.0f && hikari_okashiLV < 7.0f)
-        {
-            _kosuhosei = 2.0f;
-        }
-        else if (hikari_okashiLV >= 7.0f && hikari_okashiLV < 9.0f)
+        else if (_mstatus == 1)
         {
             _kosuhosei = 1.0f;
+            GameMgr.hikari_make_okashiKosu_buf = 1.0f;
         }
-        else if (hikari_okashiLV >= 9.0f)
-        {
-            _kosuhosei = 0.5f;
-        }        
         GameMgr.hikari_make_okashiKosu_buf_keisan = _kosuhosei; //Exp_Controllerでhikari_make_okashiKosu_bufに入れて確定させる
         if (GameMgr.hikari_make_okashiKosu_buf_keisan == 0) { GameMgr.hikari_make_okashiKosu_buf_keisan = 1.0f; }//例外処理　０で割らないようにする。
 
         //最終的にかかる時間は、Exp_Controllerで計算
-        GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.1f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍
+        if (_mstatus == 0)
+        {
+            GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.1f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍
+        }
+        else if (_mstatus == 1)
+        {
+            GameMgr.hikari_make_okashiTime_costbuf = 1.0f;
+        }
 
         if (pitemlist.KosuCount("hikari_speed_up2") >= 1) //持ってるだけで効果アップ
         {
@@ -2251,7 +2278,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
 
         //最終的な成功率は、Compound_Checkで計算
-        GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 1.5f); //成功率　LV1~9 を　0.8から1.5に変換。
+        if (_mstatus == 0)
+        {
+            GameMgr.hikari_make_okashiTime_successrate_buf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 1.5f); //成功率　LV1~9 を　0.8から1.5に変換。
+        }
+        else if (_mstatus == 1)
+        {
+            GameMgr.hikari_make_okashiTime_successrate_buf = 1.0f;
+        }
 
         if (pitemlist.KosuCount("green_pendant") >= 1) //持ってるだけで効果アップ
         {

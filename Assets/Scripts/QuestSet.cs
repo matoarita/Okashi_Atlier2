@@ -12,11 +12,13 @@ public class QuestSet
     public int _ID;
     public int Quest_ID;    //DB固有の番号。IDは、リストの順番を入れ替えると、順番が崩れてしまうので、各リストに固有のIDとしてつけている。
 
-    public int QuestType;   //0なら材料採取系。1ならお菓子を納品系。こっちは、プレイヤーが納品するアイテムを、リストから選択する形式
+    public int QuestType;   //0なら材料採取系。1ならお菓子を納品系。2=個人依頼。こっちは、プレイヤーが納品するアイテムを、リストから選択する形式
     public int QuestHyouji; //数字を指定すると、ストーリーの進行によって、どのクエストが出るのかを操作できる。
     public int QuestHyoujiHeart; //ハートレベルに応じてクエスト表示を追加
     public int HighType; //そのクエストが高品質クエストかどうか
     public int GirlJudgeUse; //クエスト用の判定を使うか、女の子の好み値を使用するか
+    public int GirlSetJudge_Num; //その際、ここの番号を指定すると、GirlLikeSetの判定番号を指定して使うことができる。提出したお菓子Nameの判定を使用する場合は0。
+    public int GirlSetScore; //その個別依頼でのクリア点数
 
     public Sprite questIcon;      //アイコン
     public string Quest_FileName;
@@ -70,7 +72,7 @@ public class QuestSet
 
 
     //ここでリスト化時に渡す引数をあてがいます   
-    public QuestSet(int id, int _questID, int _questType, int _questHyouji, int _questHyoujiHeart, int _hightype, int _girlJudgeUse,
+    public QuestSet(int id, int _questID, int _questType, int _questHyouji, int _questHyoujiHeart, int _hightype, int _girlJudgeUse, int _girlSetJudge_Num, int _girlSetScore,
         string fileName, string _itemname, string _itemname2, string _itemname3, string _itemname4, string _itemname5, string _itemname6,
         string _itemname7, string _itemname8, string _itemsubtype, 
         int _kosu_default, int _kosu_min, int _kosu_max, int _buy_price, 
@@ -86,6 +88,8 @@ public class QuestSet
         QuestHyoujiHeart = _questHyoujiHeart;
         HighType = _hightype;
         GirlJudgeUse = _girlJudgeUse;
+        GirlSetJudge_Num = _girlSetJudge_Num;
+        GirlSetScore = _girlSetScore;
 
         Quest_FileName = fileName;
         questIcon = Resources.Load<Sprite>("Sprites/Items/" + Quest_FileName);
