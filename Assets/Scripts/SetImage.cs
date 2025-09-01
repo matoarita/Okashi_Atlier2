@@ -403,12 +403,7 @@ public class SetImage : MonoBehaviour
         magicPrefab = (GameObject)Resources.Load("Prefabs/card_magiciconObj");
         magicPrefab2 = (GameObject)Resources.Load("Prefabs/card_magiciconObj2");
         magicview_content = this.transform.Find("Item_card_template/MagicIconView/Viewport/Content").gameObject;
-
-        foreach (Transform child in magicview_content.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        _magicicon_listitem.Clear();
+       
 
         //各要素の取得
         item_Icon = this.transform.Find("Item_card_template/ItemIcon").gameObject.GetComponent<Image>(); //画像アイコン
@@ -595,6 +590,12 @@ public class SetImage : MonoBehaviour
         item_screen.sprite = Sprite.Create(card_template_1,
                                    new Rect(0, 0, card_template_1.width, card_template_1.height),
                                    Vector2.zero);
+
+        foreach (Transform child in magicview_content.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        _magicicon_listitem.Clear();
     }
 
     //カード描画用のパラメータ読み込み

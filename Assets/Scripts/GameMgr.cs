@@ -2178,6 +2178,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CollectionItemsName.Add("aquamarine_pendant");
         CollectionItemsName.Add("pink_ninjin");
         CollectionItemsName.Add("hikari_speed_up1");
+        CollectionItemsName.Add("hikari_speed_up2");
         CollectionItemsName.Add("aroma_potion1");
         CollectionItemsName.Add("shokukan_powerup2");
         CollectionItemsName.Add("shokukan_powerup3");

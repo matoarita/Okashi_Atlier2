@@ -1571,7 +1571,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "AromaPotion" || _base_itemType_sub == "WhipeedCream" ||
             _base_itemType_sub == "Figure" || _base_itemType_sub == "FrozenFruits" ||
             _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerFlower" ||
-            _base_itemType_subB == "a_LumiSugerFlower" ||
+            _base_itemType_subB == "a_LumiSugerFlower" || _base_itemType_subB == "a_ToppingChocolate" || _base_itemType_subB == "a_ChocoPen" ||
             _basename == "lumi_banana")
         {
             GetItemMethod(0); //生地作ったときは各ステータスオリジナルのものなので、オリジナルアイテムに登録
@@ -2844,7 +2844,20 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _baseoily = _baseoily / 2;
             _basepowdery = _basepowdery / 2;
             _basewatery = _basewatery / 2;
-        }       
+        }
+
+        //チョコソース・チョコペンは、なめらかのみ。しかも1/20に。
+        if (_base_itemType_subB == "a_ChocoPen" || _base_itemType_subB == "a_ToppingChocolate") //
+        {
+            _basecrispy = 0;
+            _basefluffy = 0;
+            _basesmooth = _basesmooth / 20;
+            _basehardness = 0;
+
+            _baseoily = _baseoily / 10;
+            _basepowdery = _basepowdery / 10;
+            _basewatery = _basewatery / 10;
+        }
     }
 
     void Okashi_SpecialKeisan2()

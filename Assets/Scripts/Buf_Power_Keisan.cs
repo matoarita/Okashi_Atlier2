@@ -2265,7 +2265,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             GameMgr.hikari_make_okashiTime_costbuf = GameMgr.hikari_make_okashiTime_costbuf * 0.5f;
         }
-        else if (pitemlist.KosuCount("hikari_speed_up1") >= 1) //
+        if (pitemlist.KosuCount("hikari_speed_up1") >= 1) //
         {
             GameMgr.hikari_make_okashiTime_costbuf = GameMgr.hikari_make_okashiTime_costbuf　* 0.75f;
         }
