@@ -37,6 +37,8 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
     private GameObject quest_day_today;
     private GameObject quest_clientpanel;
     private GameObject quest_commentPanel;
+    private GameObject quest_area_button;
+    private GameObject quest_area_textobj;
 
     private GameObject bar_placelist;
     private GameObject placeicon_obj;
@@ -98,6 +100,11 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         quest_clientpanel = this.transform.Find("PanelB/ClientPanel").gameObject;
         quest_commentPanel = this.transform.Find("PanelB/CommentPanel").gameObject;
         bar_placelist = this.transform.Find("PanelA/QuestCheckList_ScrollView/ScrollView/Viewport/Content").gameObject;
+
+        quest_area_button = this.transform.Find("PanelB/ClientPanel/Quest_PlaceButton").gameObject;
+        quest_area_button.SetActive(true);
+        quest_area_textobj = this.transform.Find("PanelB/ClientPanel/Quest_Place").gameObject;
+        quest_area_textobj.SetActive(false);
 
         questGo_Button = this.transform.Find("PanelB/ClientPanel/Quest_PlaceButton").GetComponent<Button>();
         nightcheck_text = this.transform.Find("PanelB/ClientPanel/NightCheck_text").gameObject;
@@ -277,6 +284,15 @@ public class QuestKakuninHyoujiPanel : MonoBehaviour {
         {
             questGo_Button.interactable = true;
             nightcheck_text.SetActive(false);
+        }
+
+        //個人依頼のときは、移動ボタンをオフに。
+        if(questset_database.questTakeset[_list].QuestType == 2)
+        {
+            quest_area_button.SetActive(false);
+            quest_area_textobj.SetActive(true);
+
+            quest_area_textobj.GetComponent<Text>().text = "個人依頼";
         }
     }
 

@@ -3453,6 +3453,11 @@ public class Utage_scenario : MonoBehaviour
                             engine.Param.TrySetParameter("RoomCost10", GameMgr.OrRoomCost[9]);
                         }
                         break;
+
+                    case 510: //チケット解放のセリフのみ
+
+                        engine.Param.TrySetParameter("House_FirstRelease_Flag", GameMgr.puraton_houseFirst_flag);
+                        break;
                 }
                 break;
 

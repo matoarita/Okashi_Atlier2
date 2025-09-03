@@ -205,6 +205,18 @@ public class SetImage : MonoBehaviour
     private int _sp_score9;
     private int _sp_score10;
 
+    private int _magic_addbeauty;
+    private int _magic_addspscore1;
+    private int _magic_addspscore2;
+    private int _magic_addspscore3;
+    private int _magic_addspscore4;
+    private int _magic_addspscore5;
+    private int _magic_addspscore6;
+    private int _magic_addspscore7;
+    private int _magic_addspscore8;
+    private int _magic_addspscore9;
+    private int _magic_addspscore10;
+
     private int _attri1;
     private int _attri2;
     private int _attri3;
@@ -403,7 +415,20 @@ public class SetImage : MonoBehaviour
         magicPrefab = (GameObject)Resources.Load("Prefabs/card_magiciconObj");
         magicPrefab2 = (GameObject)Resources.Load("Prefabs/card_magiciconObj2");
         magicview_content = this.transform.Find("Item_card_template/MagicIconView/Viewport/Content").gameObject;
-       
+
+        _magic_addbeauty = 0;
+        _magic_addspscore1 = 0;
+        _magic_addspscore2 = 0;
+        _magic_addspscore3 = 0;
+        _magic_addspscore4 = 0;
+        _magic_addspscore5 = 0;
+        _magic_addspscore6 = 0;
+        _magic_addspscore7 = 0;
+        _magic_addspscore8 = 0;
+        _magic_addspscore9 = 0;
+        _magic_addspscore10 = 0;
+
+
 
         //各要素の取得
         item_Icon = this.transform.Find("Item_card_template/ItemIcon").gameObject.GetComponent<Image>(); //画像アイコン
@@ -446,6 +471,8 @@ public class SetImage : MonoBehaviour
         item_Sp_score6 = debugTaste_ScorePanel.transform.Find("ItemSP_Score6").gameObject.GetComponent<Text>(); //子供
         item_Sp_score7 = debugTaste_ScorePanel.transform.Find("ItemSP_Score7").gameObject.GetComponent<Text>(); //メルヘン
         item_Sp_score8 = debugTaste_ScorePanel.transform.Find("ItemSP_Score8").gameObject.GetComponent<Text>(); //芸術
+        item_Sp_score9 = debugTaste_ScorePanel.transform.Find("ItemSP_Score9").gameObject.GetComponent<Text>(); //光らしさキラキラ感
+        item_Sp_score10 = debugTaste_ScorePanel.transform.Find("ItemSP_Score10").gameObject.GetComponent<Text>(); //和風感
 
         if (GameMgr.DEBUG_MODE)
         {
@@ -1474,16 +1501,18 @@ public class SetImage : MonoBehaviour
         item_Hardness.text = _hardness_score.ToString();
         item_Beauty.text = total_beauty.ToString();
 
-        //デバッグ用表示　見た目・風らしさ      
-        item_Beauty_debug.text = _beauty_score.ToString() + " + " + _slot_beauty.ToString();
-        item_Spwind.text = _spwind_score.ToString();
-        item_Sp_score2.text = _sp_score2.ToString();
-        item_Sp_score3.text = _sp_score3.ToString();
-        item_Sp_score4.text = _sp_score4.ToString();
-        item_Sp_score5.text = _sp_score5.ToString();
-        item_Sp_score6.text = _sp_score6.ToString();
-        item_Sp_score7.text = _sp_score7.ToString();
-        item_Sp_score8.text = _sp_score8.ToString();
+        //SPスコア表示　見た目・風らしさ      
+        item_Beauty_debug.text = _beauty_score.ToString() + " + " + (_slot_beauty + _magic_addbeauty).ToString();
+        item_Spwind.text = (_spwind_score + _magic_addspscore1).ToString();
+        item_Sp_score2.text = (_sp_score2 + _magic_addspscore2).ToString();
+        item_Sp_score3.text = (_sp_score3 + _magic_addspscore3).ToString();
+        item_Sp_score4.text = (_sp_score4 + _magic_addspscore4).ToString();
+        item_Sp_score5.text = (_sp_score5 + _magic_addspscore5).ToString();
+        item_Sp_score6.text = (_sp_score6 + _magic_addspscore6).ToString();
+        item_Sp_score7.text = (_sp_score7 + _magic_addspscore7).ToString();
+        item_Sp_score8.text = (_sp_score8 + _magic_addspscore8).ToString();
+        item_Sp_score9.text = (_sp_score9 + _magic_addspscore9).ToString();
+        item_Sp_score10.text = (_sp_score10 + _magic_addspscore10).ToString();
         //
 
         //ゲージの更新
@@ -1801,7 +1830,19 @@ public class SetImage : MonoBehaviour
 
         //魔法の食感計算の表示部分
         itemCardEffect_database.MagicEffect_SlotKeisan(_magicslot, _msvalue, itemID, 0);
-        item_MS_aisho.text = itemCardEffect_database.item_MS_aisho;       
+        item_MS_aisho.text = itemCardEffect_database.item_MS_aisho;
+
+        _magic_addbeauty = itemCardEffect_database._add_magicbeauty;
+        _magic_addspscore1 = itemCardEffect_database._ms_sp_score1;
+        _magic_addspscore2 = itemCardEffect_database._ms_sp_score2;
+        _magic_addspscore3 = itemCardEffect_database._ms_sp_score3;
+        _magic_addspscore4 = itemCardEffect_database._ms_sp_score4;
+        _magic_addspscore5 = itemCardEffect_database._ms_sp_score5;
+        _magic_addspscore6 = itemCardEffect_database._ms_sp_score6;
+        _magic_addspscore7 = itemCardEffect_database._ms_sp_score7;
+        _magic_addspscore8 = itemCardEffect_database._ms_sp_score8;
+        _magic_addspscore9 = itemCardEffect_database._ms_sp_score9;
+        _magic_addspscore10 = itemCardEffect_database._ms_sp_score10;
 
         //魔法のエフェクト表示部分
         itemEffectPanel.GetComponent<ItemCardEffectPanel>().MagicEffect_Hyouji(_magicslot, 0); //2番目の数字は、アクセスする場所を指定　0=カードから

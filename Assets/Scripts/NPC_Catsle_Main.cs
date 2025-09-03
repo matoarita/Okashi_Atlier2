@@ -70,6 +70,8 @@ public class NPC_Catsle_Main : MonoBehaviour
     private bool StartRead;
     private bool flag_chk;
     private bool check_event;
+    private bool check_ticketevent;
+    private bool check_houseFirst;
 
     private string default_scenetext;
 
@@ -152,7 +154,9 @@ public class NPC_Catsle_Main : MonoBehaviour
         npc8_toggle.interactable = true;
 
         npc2sub_toggle_obj = mainlist_controller_obj.transform.Find("SubView/Viewport/Content_Main/SubView2_SelectToggle").gameObject;
-        npc2sub_toggle_obj.SetActive(true);
+        npc2sub_toggle_obj.SetActive(false);
+
+        House_FirstCheck();
 
         //デバッグパネルの取得
         debug_panel_init = Debug_Panel_Init.Instance.GetComponent<Debug_Panel_Init>();
@@ -322,6 +326,9 @@ public class NPC_Catsle_Main : MonoBehaviour
                     backshopfirst_obj.GetComponent<Button>().interactable = true;
 
                     sceneBGM.MuteOFFBGM();
+
+                    //チケットのフラグチェック　チケットイベント終わったら、ボタンが「家を借りる」になる。
+                    House_TicketCheck(0);
 
                     GameMgr.Scene_Status = 100;
                     GameMgr.Scene_Select = 0;
@@ -643,25 +650,10 @@ public class NPC_Catsle_Main : MonoBehaviour
     //SubView2
     public void OnSubNPC2_toggle()
     {
-        //チケットをもらったが、まだ渡してない場合　初回おめでとうセリフもらう
-        if(GameMgr.GirlLoveSubEvent_stage1[720] && !GameMgr.NPCHiroba_eventList[1520])
-        {
-            Check_AreaMaster(1520);            
-        }
-        else if (GameMgr.GirlLoveSubEvent_stage1[721] && !GameMgr.NPCHiroba_eventList[1521])
-        {
-            Check_AreaMaster(1521);
-        }
-        else if (GameMgr.GirlLoveSubEvent_stage1[722] && !GameMgr.NPCHiroba_eventList[1522])
-        {
-            Check_AreaMaster(1522);
-        }
-        else if (GameMgr.GirlLoveSubEvent_stage1[723] && !GameMgr.NPCHiroba_eventList[1523])
-        {
-            Check_AreaMaster(1523);
-        }
-
-        if (check_event) { }
+        House_TicketCheck(1);
+        
+        if (check_event)
+        { }
         else
         {
             //家がほしい
@@ -679,17 +671,42 @@ public class NPC_Catsle_Main : MonoBehaviour
         }
     }
 
-    void Check_AreaMaster(int _evnum)
+    void Check_AreaMaster()
     {
-        GameMgr.NPCHiroba_eventList[_evnum] = true;
-
         GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
         GameMgr.hiroba_event_ID = 510;
         GameMgr.hiroba_event_flag = true;
 
+        //BGMかえる
+        sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+        bgm_change_flag = true;
+
+        if (!GameMgr.GirlLoveSubEvent_stage1[423]) //家イベントはじめて　説明が軽くある。
+        {
+            GameMgr.GirlLoveSubEvent_stage1[423] = true;
+            GameMgr.puraton_houseFirst_flag = true;
+        }
+        else
+        {
+            GameMgr.puraton_houseFirst_flag = false;
+        }
+
         check_event = true;
 
         EventReadingStart();
+    }
+
+    void Check_TicketFlag(int _evnum, int _mstatus)
+    {
+        if (_mstatus == 1)
+        {
+            GameMgr.NPCHiroba_eventList[_evnum] = true;
+        } else　//_status=0は、チェックはするけどボタンの名前を変更するだけ。フラグはONにしない。
+        {
+            
+        }
+
+        check_ticketevent = true; //ひとつでもチケット渡してなかったら、チケットイベント一回だけ行う
     }
 
     //SubView3
@@ -718,10 +735,131 @@ public class NPC_Catsle_Main : MonoBehaviour
         FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
     }
 
+    void House_TicketCheck(int _status)
+    {
+        check_ticketevent = false;
+
+        //チケットをもらったが、まだ渡してない場合　初回おめでとうセリフもらう
+        if (GameMgr.GirlLoveSubEvent_stage1[720] && !GameMgr.NPCHiroba_eventList[1520])
+        {
+            Check_TicketFlag(1520, _status);
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[721] && !GameMgr.NPCHiroba_eventList[1521])
+        {
+            Check_TicketFlag(1521, _status);
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[722] && !GameMgr.NPCHiroba_eventList[1522])
+        {
+            Check_TicketFlag(1522, _status);
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[723] && !GameMgr.NPCHiroba_eventList[1523])
+        {
+            Check_TicketFlag(1523, _status);
+        }
+
+        //50%達成
+        if (GameMgr.GirlLoveSubEvent_stage1[724] && !GameMgr.NPCHiroba_eventList[1524])
+        {
+            Check_TicketFlag(1524, _status);
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[725] && !GameMgr.NPCHiroba_eventList[1525])
+        {
+            Check_TicketFlag(1525, _status);
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[726] && !GameMgr.NPCHiroba_eventList[1526])
+        {
+            Check_TicketFlag(1526, _status);
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[727] && !GameMgr.NPCHiroba_eventList[1527])
+        {
+            Check_TicketFlag(1527, _status);
+        }
+
+        
+        if (_status == 1)
+        {
+            if (check_ticketevent)
+            {
+                Check_AreaMaster();
+            }
+        }else
+        {
+            if (check_ticketevent)
+            {
+                npc2sub_toggle_obj.transform.Find("Backgournd/Text").GetComponent<Text>().text = "チケットを渡す";
+            }
+            else
+            {
+                npc2sub_toggle_obj.transform.Find("Backgournd/Text").GetComponent<Text>().text = "家が見たい";
+            }
+        }
+    }
+
+    //50％以上達成したことがあるかどうか　達成してなければ、そもそも家借りるボタンを表示しない
+    void House_FirstCheck()
+    {
+        check_houseFirst = false;
+
+        //100%
+        if (GameMgr.GirlLoveSubEvent_stage1[720])
+        {
+            check_houseFirst = true;
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[721])
+        {
+            check_houseFirst = true;
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[722])
+        {
+            check_houseFirst = true;
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[723])
+        {
+            check_houseFirst = true;
+        }
+
+        //50%達成
+        if (GameMgr.GirlLoveSubEvent_stage1[724])
+        {
+            check_houseFirst = true;
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[725])
+        {
+            check_houseFirst = true;
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[726])
+        {
+            check_houseFirst = true;
+        }
+        if (GameMgr.GirlLoveSubEvent_stage1[727])
+        {
+            check_houseFirst = true;
+        }
+
+        if(check_houseFirst)
+        {
+            npc2sub_toggle_obj.SetActive(true);
+        }
+        else
+        {
+            npc2sub_toggle_obj.SetActive(false);
+        }
+        
+    }
+
     void CanvasOff()
     {
         text_area.SetActive(false);
         mainlist_controller_obj.gameObject.SetActive(false);
+    }
+
+    public void Debug_AllHouseRelease()
+    {
+        //ルームフラグの初期化
+        for (i = 0; i < GameMgr.OrRoomRelease.Length; i++)
+        {
+            GameMgr.OrRoomRelease[i] = true;
+        }
     }
 
     //別シーンからこのシーンが読み込まれたときに、読み込む

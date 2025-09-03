@@ -38,7 +38,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //** 本編では必ずfalseにする項目 **//
     public static bool DEBUG_MODE = false; //デバッグモード　falseだと、デバッグパネルの表示をデフォルトでオフにする。
     public static bool DEBUG_MagicPlayTime_ON = false; //デバッグ　魔法の演出時間を表示する。
-    public static bool DEBUG_TasteSPScore_ON = false; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
+    public static bool DEBUG_TasteSPScore_ON = true; //デバッグ　味のSPスコアなども表示する これがfalseでも、デバッグモードがONになると表示される
     public static bool DEBUG_StarPanelCheck = false; //デバッグ　trueだと、ninkiparam_beforeが更新されないので、ゲームロード時にスターパネルが0から始まる 本編では必ずfalseにする
     public static bool System_DebugItemSet_ON = false; //デバッグ用　コンテストのデータやアイテムや魔法などを最初からセットする　最終的にはオフにすること
     public static bool System_DebugAreaKaikin_ON = false; //デバッグ用　進めないエリアの→などを全て表示する。
@@ -97,7 +97,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //食感の比率のベース値は各アイテムごとに設定　_basescore = database.itemlist[kettei_item1].Base_Score;
 
     //見た目点数の基準点
-    public static int System_GirlEat_BeautyParamKeisan = 0; //0は比率計算　下の基準点を使用　1=単純に判定値から引き算で加算方式
+    public static int System_GirlEat_BeautyParamKeisan = 1; //0は比率計算　下の基準点を使用　1=単純に判定値から引き算で加算方式
     public static int System_Beauty_BasicScore = 20; //0=比率計算の場合の、見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
 
     //ハート魔法の消費基本ハートポイント
@@ -1038,6 +1038,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int barMassage_RandomUpPoint; //そのときのポイント表示用
     public static int[] Appaleil_Attribute = new int[itemAttri_num]; //生地混ぜ回数の引継ぎ用
     public static float[] Contest_archivement_percent = new float[10]; //各コンテストの達成率
+    public static bool puraton_houseFirst_flag; //家かりるイベント初めての場合説明がある。
 
 
 
@@ -1686,6 +1687,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GirlLoveSubEvent_NPC_comment = 0;
         GirlLoveSubEvent_NPC_LimitDay = 0;
         GirlLoveSubEvent_NPC_PrizeMoney = 0;
+        puraton_houseFirst_flag = false;
 
 
         //Tempのattriを初期化
@@ -2133,20 +2135,20 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OrRoomBuy[0] = true;
 
         //１と２も最初から出てる
-        OrRoomRelease[1] = true;
-        OrRoomRelease[2] = true;
+        //OrRoomRelease[1] = true;
+        //OrRoomRelease[2] = true;
         
 
         OrRoomCost[0] = 0;
         OrRoomCost[1] = 50000;
         OrRoomCost[2] = 100000;
-        OrRoomCost[3] = 300000;
-        OrRoomCost[4] = 300000;
+        OrRoomCost[3] = 100000;
+        OrRoomCost[4] = 100000;
 
-        OrRoomCost[5] = 300000;
-        OrRoomCost[6] = 300000;
-        OrRoomCost[7] = 300000;
-        OrRoomCost[8] = 300000;
+        OrRoomCost[5] = 100000;
+        OrRoomCost[6] = 100000;
+        OrRoomCost[7] = 100000;
+        OrRoomCost[8] = 100000;
         OrRoomCost[9] = 500000;
 
         OrRoomNameHyouji[0] = "最初の家";

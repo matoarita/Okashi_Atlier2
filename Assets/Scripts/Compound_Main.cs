@@ -47,6 +47,7 @@ public class Compound_Main : MonoBehaviour
     private CompoundMainController compoundmain_Controller;
     private ContestStartListDataBase conteststartList_database;
     private CatDataBase catDataBase;
+    private QuestSetDataBase quest_database;
 
     private BGM sceneBGM;
     private Map_Ambience map_ambience;
@@ -312,6 +313,7 @@ public class Compound_Main : MonoBehaviour
     private Color color_set;
     private bool StartRead;
     private int _baseID;
+    private bool _teishutu_on;
 
     // Use this for initialization
     void Start()
@@ -339,6 +341,9 @@ public class Compound_Main : MonoBehaviour
 
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
+
+        //クエストデータベースの取得
+        quest_database = QuestSetDataBase.Instance.GetComponent<QuestSetDataBase>();
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子        
@@ -2899,15 +2904,35 @@ public class Compound_Main : MonoBehaviour
             sleep_toggle.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
 
             card_view.DeleteCard_DrawView();
-            
-            if (!GameMgr.outgirl_Nowprogress)
+
+            //受注クエストの個人依頼をみて、当日かどうかをチェックする。
+            _teishutu_on = quest_database.CheckKojinQuest_ToDay();
+
+            if (_teishutu_on) //個人依頼の当日
             {
-                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
-                _text.text = "今日はもう寝る？"; //
-            } else
+                if (!GameMgr.outgirl_Nowprogress)
+                {
+                    GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                    _text.text = "にいちゃん！　きょうは、大事なお仕事のしめきり！" + "\n" + "お客さんがくるまで寝る？"; //
+                }
+                else
+                {
+                    GameMgr.Window_CharaName = GameMgr.player_Name_First;
+                    _text.text = "きょうは、大事なお仕事の締め切りだったっけ。" + "\n" + "お客さんがくるまで寝る？"; //
+                }
+            }
+            else
             {
-                GameMgr.Window_CharaName = GameMgr.player_Name_First;
-                _text.text = "ヒカリが戻ってくるまで寝る？"; //
+                if (!GameMgr.outgirl_Nowprogress)
+                {
+                    GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                    _text.text = "今日はもう寝る？"; //
+                }
+                else
+                {
+                    GameMgr.Window_CharaName = GameMgr.player_Name_First;
+                    _text.text = "ヒカリが戻ってくるまで寝る？"; //
+                }
             }
 
             text_area.SetActive(true);
@@ -3533,6 +3558,7 @@ public class Compound_Main : MonoBehaviour
     public void EndStarReleaseCheck()
     {
         NewAreaCheck_loading = false;
+        check_recipi_flag = false;
         GameMgr.check_StarPanel_Endflag = false; //スターパネル終了後のフラグ
         GameMgr.check_StarPanel_Eventflag = true;
         GameMgr.check_GirlLoveSubEvent_flag = false;
@@ -3804,14 +3830,24 @@ public class Compound_Main : MonoBehaviour
                 //寝る処理
                 yes_no_sleep_panel.SetActive(false);
 
-                if (!GameMgr.outgirl_Nowprogress)
+                //受注クエストの個人依頼をみて、当日かどうかをチェックする。
+                _teishutu_on = quest_database.CheckKojinQuest_ToDay();
+
+                if (_teishutu_on) //個人依頼の当日
                 {
-                    GameMgr.sleep_status = 1; //宴で使用
-                    OnSleepReceive();
+                    OnSleep_KojinQuestComing(); //朝10時まで時間を進める処理
                 }
-                else //外出中は、ヒカリが戻ってくるまで寝る処理に。
+                else
                 {
-                    OnSleep_HikariReturnBack();
+                    if (!GameMgr.outgirl_Nowprogress)
+                    {
+                        GameMgr.sleep_status = 1; //宴で使用
+                        OnSleepReceive();
+                    }
+                    else //外出中は、ヒカリが戻ってくるまで寝る処理に。
+                    {
+                        OnSleep_HikariReturnBack();
+                    }
                 }
 
                 break;
@@ -4814,6 +4850,32 @@ public class Compound_Main : MonoBehaviour
 
         eventdatabase.OutGirlReturnHome();
         ReadGirlLoveTimeEvent_Fire();
+    }
+
+    void OnSleep_KojinQuestComing()
+    {
+        //GameMgr.EventAfter_MoveEnd = true;
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
+
+        StartCoroutine("WaitForComingClient");
+    }
+
+    IEnumerator WaitForComingClient()
+    {
+        yield return new WaitForSeconds(2.0f); //1秒待つ
+
+        //時間を10時まで進める。
+        time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day, 10, 0);
+
+        scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f);
+        
+        yield return new WaitForSeconds(1.0f); //1秒待つ
+
+        scene_black_effect.GetComponent<GraphicRaycaster>().enabled = false;
+
+        StartMessage();
+        GameMgr.compound_status = 0;
     }
 
     void SleepAfter_FlagReset()

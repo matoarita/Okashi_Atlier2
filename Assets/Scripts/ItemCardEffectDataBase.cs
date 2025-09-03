@@ -362,6 +362,8 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 _ms_sp_score9 += 10; //光らしさを加算
                 aisho_text2 = "キラキラ感 + " + _ms_sp_score9.ToString();
 
+                _add_magicbeauty += 5; //見た目は+5
+
                 MS_aisho_database(_compatible, _msvalue[i]);
                 Common_Keisan(_compatible); //演出魔法をかけると必ず上がる項目
                 item_MS_aisho = "キラキラ: " + _ms_aisho + "　" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
@@ -460,33 +462,33 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
 
         if (_compa < 0)
         {
-            _add_magicbeauty -= _compa;
+            _add_magicbeauty -= _compa * 2;
             _ms_aisho = "×";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
         }
-        if (_compa >= 0 && _compa < 10)
+        if (_compa >= 0 && _compa < 10) //相性とくになし
         {
             _add_magicbeauty += _compa;
             _ms_aisho = "▲";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
         }
-        else if (_compa >= 10 && _compa < 50)
+        else if (_compa >= 10 && _compa < 30) //まあまあ
         {
-            _add_magicbeauty += _compa;
+            _add_magicbeauty += (int)(_compa * 1.25f);
             _ms_aisho = "〇";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
         }
-        else if (_compa >= 50 && _compa < 100)
+        else if (_compa >= 30 && _compa < 50) //相性ぴったり
         {
-            _add_magicbeauty += _compa;
+            _add_magicbeauty += (int)(_compa * 1.5f);
             _ms_aisho = "◎";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
 
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;
         }
-        else if (_compa >= 100)
+        else if (_compa >= 50) //最高に相性がいい
         {
-            _add_magicbeauty += _compa;
+            _add_magicbeauty += (int)(_compa * 2.0f);
             _ms_aisho = "☆";
             aisho_text1 = "見た目 + " + _add_magicbeauty.ToString();
             GameMgr.UseMagicSkill_HikariCommentFlag = 1;

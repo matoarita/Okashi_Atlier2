@@ -75,6 +75,10 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
     private int _read_endflag;
     private int _tempid;
 
+    private int _Limit_day;
+    private int _Nokori_day;
+    private bool today_flag;
+
     private int _quest_getninkiFlag;
 
     private int i;
@@ -452,6 +456,57 @@ public class QuestSetDataBase : SingletonMonoBehaviour<QuestSetDataBase>
         }
 
         return 0; //該当ない場合は0
+    }
+
+    //個人依頼クエストをチェックし、当日かどうかを返す
+    public bool CheckKojinQuest_ToDay()
+    {
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //受注クエストの個人依頼をみて、当日かどうかをチェックする。
+        KojinQuest_SearchMethod();
+
+        return today_flag;
+    }
+
+    //個人依頼の最初のクエストセットのIDを返す
+    public int SearchKojinQuest_ToDay()
+    {
+        //時間管理オブジェクトの取得
+        time_controller = TimeController.Instance.GetComponent<TimeController>();
+
+        //受注クエストの個人依頼をみて、当日かどうかをチェックする。
+        KojinQuest_SearchMethod();
+        
+        return i;
+    }
+
+    void KojinQuest_SearchMethod()
+    {
+        i = 0;
+        today_flag = false;
+        while (i < questTakeset.Count)
+        {
+            if (questTakeset[i].QuestType == 2) //2が個人依頼
+            {
+                _Limit_day = time_controller.CullenderKeisanInverse(questTakeset[i].Quest_LimitMonth, questTakeset[i].Quest_LimitDay);
+                _Nokori_day = _Limit_day - PlayerStatus.player_day;
+
+                if (_Nokori_day <= 0)
+                {
+                    Debug.Log("本日　個人依頼くる QID: " + questTakeset[i].Quest_ID);
+                    today_flag = true;
+                }
+            }
+
+            if (today_flag)
+            {
+                break;
+            }
+
+            i++;
+        }
     }
 
     //クエストIDを指定すると、QuestTakeSetからクエストを削除する

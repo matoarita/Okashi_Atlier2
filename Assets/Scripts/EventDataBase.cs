@@ -1889,7 +1889,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             else
                             {
                                 //５０％達成
-                                if (Mathf.CeilToInt(contest_allcount / 2) <= contest_victorycount)
+                                if ( 50.0f <= contest_victorycount) //Mathf.CeilToInt(contest_allcount / 2)
                                 {
                                     //どのエリアを達成したか
                                     switch (archive_area)
@@ -2639,34 +2639,17 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
         KoyuNPCQuest_OkashiTeishutuON = false;
 
         //受注クエストの個人依頼をみて、当日かどうかをチェックする。
-        i = 0;
-        while (i < quest_database.questTakeset.Count)
+        KoyuNPCQuest_OkashiTeishutuON = quest_database.CheckKojinQuest_ToDay();
+        _id = quest_database.SearchKojinQuest_ToDay();
+
+        if (KoyuNPCQuest_OkashiTeishutuON)
         {
-            if (quest_database.questTakeset[i].QuestType == 2) //2が個人依頼
-            {
-                _Limit_day = time_controller.CullenderKeisanInverse(quest_database.questTakeset[i].Quest_LimitMonth, quest_database.questTakeset[i].Quest_LimitDay);
-                _Nokori_day = _Limit_day - PlayerStatus.player_day;
+            GameMgr.GirlLoveSubEvent_NPC_OkashiPresentON = true; //寝るとオフになる
+                                                                 //当日なので、受け取りにくる。
 
-                if (_Nokori_day <= 0)
-                {
-                    Debug.Log("本日　個人依頼くる QID: " + quest_database.questTakeset[i].Quest_ID);
-
-                    GameMgr.GirlLoveSubEvent_NPC_OkashiPresentON = true; //寝るとオフになる
-                    KoyuNPCQuest_OkashiTeishutuON = true;
-
-                    //当日なので、受け取りにくる。
-                    PerpleQuestStartSetting(quest_database.questTakeset[i].Quest_ClientNumber, 801, quest_database.questTakeset[i].Quest_ID); //801は依頼でお菓子を受け取りにくる会話                   
-                    _setjudge_num = quest_database.questTakeset[i].GirlSetJudge_Num;
-                    GameMgr.GirlLoveSubEvent_NPC_score = quest_database.questTakeset[i].GirlSetScore; //クリア条件の点数　依頼ごとに変えてもOK
-                }
-            }
-
-            if (KoyuNPCQuest_OkashiTeishutuON)
-            {
-                break;
-            }
-
-            i++;
+            PerpleQuestStartSetting(quest_database.questTakeset[_id].Quest_ClientNumber, 801, quest_database.questTakeset[_id].Quest_ID); //801は依頼でお菓子を受け取りにくる会話                   
+            _setjudge_num = quest_database.questTakeset[_id].GirlSetJudge_Num;
+            GameMgr.GirlLoveSubEvent_NPC_score = quest_database.questTakeset[_id].GirlSetScore; //クリア条件の点数　依頼ごとに変えてもOK
         }
 
         //チェックし、当日だった

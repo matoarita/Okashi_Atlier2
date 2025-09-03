@@ -2195,7 +2195,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore1_score += 0;
-            spscore1_score_debugtext = "・風らしさ計算OFF";
+            spscore1_score += _base_sp_wind / 2;
+            spscore1_score_debugtext = "・風らしさ計算OFF　SP値を加点: " + spscore1_score;
             //Debug.Log("コンテスト　風らしさ計算OFF");
         }
 
@@ -2224,7 +2225,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore2_score += 0;
-            spscore2_score_debugtext = "・海らしさ計算OFF";
+            spscore2_score += _base_sp_score2 / 2;
+            spscore2_score_debugtext = "・海らしさ計算OFF　SP値を加点: " + spscore2_score;
             //Debug.Log("コンテスト　海らしさ計算OFF");
         }
 
@@ -2253,7 +2255,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore3_score += 0;
-            spscore3_score_debugtext = "・愛らしさ計算OFF";
+            spscore3_score += _base_sp_score3 / 2;
+            spscore3_score_debugtext = "・愛らしさ計算OFF　SP値を加点: " + spscore3_score;
             //Debug.Log("コンテスト　愛らしさ計算OFF");
         }
 
@@ -2282,7 +2285,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore4_score += 0;
-            spscore4_score_debugtext = "・夏らしさ計算OFF";
+            spscore4_score += _base_sp_score4 / 2;
+            spscore4_score_debugtext = "・夏らしさ計算OFF　SP値を加点: " + spscore4_score;
             //Debug.Log("コンテスト　宇宙らしさ計算OFF");
         }
 
@@ -2311,7 +2315,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore5_score += 0;
-            spscore5_score_debugtext = "・大人らしさ計算OFF";
+            spscore5_score += _base_sp_score5 / 2;
+            spscore5_score_debugtext = "・大人らしさ計算OFF　SP値を加点: " + spscore5_score;
             //Debug.Log("コンテスト　大人らしさ計算OFF");
         }
 
@@ -2340,11 +2345,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore6_score += 0;
-            spscore6_score_debugtext = "・子供らしさ計算OFF";
+            spscore6_score += _base_sp_score6 / 2;
+            spscore6_score_debugtext = "・子供らしさ計算OFF　SP値を加点: " + spscore6_score;
             //Debug.Log("コンテスト　子供らしさ計算OFF");
         }
 
-        //メルヘン
+        //メルヘン(お花らしさ)
         if (_girlsp_score7[countNum] > 0)
         {
             GameMgr.Contest_Spscore_text = "メルヘンらしさ";
@@ -2369,7 +2375,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore7_score += 0;
-            spscore7_score_debugtext = "・メルヘンらしさ計算OFF";
+            spscore7_score += _base_sp_score7 / 2;
+            spscore7_score_debugtext = "・メルヘンらしさ計算OFF　SP値を加点: " + spscore7_score;
             //Debug.Log("コンテスト　メルヘンらしさ計算OFF");
         }
 
@@ -2398,7 +2405,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore8_score += 0;
-            spscore8_score_debugtext = "・芸術性計算OFF";
+            spscore8_score += _base_sp_score8 / 2;
+            spscore8_score_debugtext = "・芸術性計算OFF　SP値を加点(TPスロットの長さでも芸術点上がる): " + spscore8_score;
             //Debug.Log("コンテスト　芸術性計算OFF");
         }
 
@@ -2427,7 +2435,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore9_score += 0;
-            spscore9_score_debugtext = "・キラキラ感計算OFF";
+            spscore9_score += _base_sp_score9 / 2;
+            spscore9_score_debugtext = "・キラキラ感計算OFF　SP値を加点: " + spscore9_score;
             //Debug.Log("コンテスト　鉱石らしさ計算OFF");
         }
 
@@ -2456,26 +2465,47 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else
         {
             spscore10_score += 0;
-            spscore10_score_debugtext = "・和風感計算OFF";
+            spscore10_score += _base_sp_score10 / 2;
+            spscore10_score_debugtext = "・和風感計算OFF　SP値を加点: " + spscore10_score;
             //Debug.Log("コンテスト　鉱石らしさ計算OFF");
         }
     }
 
-    int SpScore_HoseiA(float _score)
+    int SpScore_HoseiA(float _score) //SPスコア　100が最高値の基準　スロットなどいれるとさらに超える可能性あり。　10以下が足りてない
     {
         Debug.Log("SPScore補正前: " + _score);
 
-        if (_score > 0f && _score <= 100f)
+        if (_score > 0f && _score <= 10f) //判定値と差が10　判定値が仮に50あるとすると、58あっても点数がマイナスになるということ。
         {
-            _score = _score * 1.0f;
+            _score = SujiMap(_score, 0f, 10f, -50, 0);
         }
-        else if (_score > 100f && _score <= 200f)
+        else if (_score > 10f && _score <= 20f)
         {
-            _score = _score * 1.2f;
+            _score = SujiMap(_score, 10f, 20f, 11, 70); ; //11~20
+        }
+        else if (_score > 20f && _score <= 30f) //30は割と良し
+        {
+            _score = SujiMap(_score, 20f, 30f, 70, 100); ; //20~30
+        }
+        else if (_score > 30f && _score <= 50f) //
+        {
+            _score = SujiMap(_score, 30f, 50f, 100, 150); ; //50 かなり高めの数値
+        }
+        else if (_score > 50f && _score <= 75f) //
+        {
+            _score = SujiMap(_score, 50f, 75f, 150, 220); ; //50~80 かなり高めの数値
+        }
+        else if (_score > 75f && _score <= 100f) //100はほぼ最大
+        {
+            _score = SujiMap(_score, 75f, 100f, 220, 300); ; //11~20
+        }
+        else if (_score > 100f && _score <= 200f) //30は割と良し
+        {
+            _score = SujiMap(_score, 100f, 200f, 300, 500); ; //11~20
         }
         else if (_score > 200f)
         {
-            _score = _score * 1.3f;
+            _score = _score * 2.5f;
         }
 
         Debug.Log("SPScore補正後点: " + _score);
@@ -2561,27 +2591,27 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         else if (Mathf.Abs(_taste_result) > 5 && Mathf.Abs(_taste_result) <= 15) //+-5~14  すばらしい
         {
             Debug.Log(_taste_type + "Well done!");
-            taste_score = 55;
+            taste_score = 50;
             taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 6;
         }
         else if (Mathf.Abs(_taste_result) > 15 && Mathf.Abs(_taste_result) <= 30) //+-15~29　かなりいい感じ
         {
             Debug.Log(_taste_type + "Well!");
-            taste_score = 40;
+            taste_score = 20;
             taste_score = (int)(taste_score * taste_score_shokukanhosei); //食感による補正掛け
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) > 30 && Mathf.Abs(_taste_result) <= 60) //+-29~59  いい感じ
         {
             Debug.Log(_taste_type + "Good!");
-            taste_score = 25;
+            taste_score = 5;
             taste_level = 5;
         }
         else if (Mathf.Abs(_taste_result) > 60 && Mathf.Abs(_taste_result) <= 90) //+-60~89　ちょっと足りない
         {
             Debug.Log(_taste_type + "Normal");
-            taste_score = 10;
+            taste_score = 0;
             taste_level = 4;
         }
         else if (Mathf.Abs(_taste_result) > 90 && Mathf.Abs(_taste_result) <= 120) //+-90~119　全然足りない

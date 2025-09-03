@@ -674,6 +674,7 @@ public class StarStampPanel : MonoBehaviour
                     newAreaRelease_panelKoushin(_star);
 
                     pitemlist.add_eventPlayerItem(_id, 1);
+
                 }
 
                 break;
