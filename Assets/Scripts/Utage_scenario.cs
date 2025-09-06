@@ -4577,7 +4577,8 @@ public class Utage_scenario : MonoBehaviour
                             case 1: //最初の家を選んだ 家賃がかかる
 
                                 GameMgr.OrCompound_RoomNum = 0;
-                                GameMgr.System_Yachin_ON = true;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = true;
 
                                 RoomBuyCheck(0);                                                          
                                 break;
@@ -4585,7 +4586,8 @@ public class Utage_scenario : MonoBehaviour
                             case 2: //
 
                                 GameMgr.OrCompound_RoomNum = 1;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(1);
@@ -4594,7 +4596,8 @@ public class Utage_scenario : MonoBehaviour
                             case 3: //
 
                                 GameMgr.OrCompound_RoomNum = 2;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(2);
@@ -4603,7 +4606,8 @@ public class Utage_scenario : MonoBehaviour
                             case 4: //
 
                                 GameMgr.OrCompound_RoomNum = 3;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(3);
@@ -4612,7 +4616,8 @@ public class Utage_scenario : MonoBehaviour
                             case 5: //
 
                                 GameMgr.OrCompound_RoomNum = 4;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(4);
@@ -4621,7 +4626,8 @@ public class Utage_scenario : MonoBehaviour
                             case 6: //
 
                                 GameMgr.OrCompound_RoomNum = 5;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(5);
@@ -4630,7 +4636,8 @@ public class Utage_scenario : MonoBehaviour
                             case 7: //
 
                                 GameMgr.OrCompound_RoomNum = 6;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(6);
@@ -4639,7 +4646,8 @@ public class Utage_scenario : MonoBehaviour
                             case 8: //
 
                                 GameMgr.OrCompound_RoomNum = 7;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(7);
@@ -4648,7 +4656,8 @@ public class Utage_scenario : MonoBehaviour
                             case 9: //
 
                                 GameMgr.OrCompound_RoomNum = 8;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(8);
@@ -4657,7 +4666,8 @@ public class Utage_scenario : MonoBehaviour
                             case 10: //
 
                                 GameMgr.OrCompound_RoomNum = 9;
-                                GameMgr.System_Yachin_ON = false;
+                                GameMgr.System_Yachin_Cost_SPRoom = 0;
+                                GameMgr.yachinSPRoomON_Flag = false;
 
                                 //購入してなければ、50000ルピアかかる。権利をゲット
                                 RoomBuyCheck(9);

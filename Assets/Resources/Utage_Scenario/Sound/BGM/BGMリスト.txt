@@ -155,4 +155,5 @@
 ・BGM_151		odekakebiyori				秋ねこの部屋BGM
 ・BGM_152		こんとどぅふぇ素材No.0039-Feile		秋ヨーロッパの部屋BGM
 ・BGM_153		こんとどぅふぇ素材No.0059-グッモーニンミルク	夏うみの部屋BGM
-・BGM_154		yuruyakanaasayake			夏ほしの部屋BGM
+・BGM_154		PeriTune_Sugar_Sprinkle_loop		夏ほしの部屋BGM 旧:yuruyakanaasayake
+・BGM_155		japaneseautumn				【宴用】おふろ　入浴中のBGM

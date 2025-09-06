@@ -28,6 +28,7 @@ public class MagicSkillListController : MonoBehaviour
     private magicskillSelectToggle _toggle_itemID;
     private magicskillLearnToggle _toggle_learn_itemID;
 
+    private Exp_Controller exp_Controller;
     private Girl1_status girl1_status;
 
     private GameObject skill_Prefab; //ItemPanelのプレファブの内容を取得しておくための変数。プレファブをスクリプトで制御する場合は、一度ゲームオブジェクトに読み込んでおく。
@@ -55,6 +56,7 @@ public class MagicSkillListController : MonoBehaviour
     private int rnd;
     private int _p;
     private int shop_hyouji_flag;
+    private int costmp;
 
     //一時保存用変数
     public int skill_count; //選択したリスト番号が入る。
@@ -78,6 +80,9 @@ public class MagicSkillListController : MonoBehaviour
 
         //女の子データの取得
         girl1_status = Girl1_status.Instance.GetComponent<Girl1_status>(); //メガネっ子
+
+        //Expコントローラーの取得
+        exp_Controller = Exp_Controller.Instance.GetComponent<Exp_Controller>();
 
         //スクロールビュー内の、コンテンツ要素を取得
         content = this.transform.Find("Viewport/Content").gameObject;
@@ -856,13 +861,16 @@ public class MagicSkillListController : MonoBehaviour
         _toggle_itemID.toggle_skill_ID = magicskill_database.magicskill_lists[i].magicskillID; //スキルデータベース上のアイテムID。iと同じ値になる。
         _toggle_itemID.toggle_skill_type = magicskill_database.magicskill_lists[i].skillType; //スキルがパッシヴかアクティブか
         _toggle_itemID.toggle_skill_name = magicskill_database.magicskill_lists[i].skillName; //データ上のスキル名
-        _toggle_itemID.toggle_skill_nameHyouji = magicskill_database.magicskill_lists[i].skillNameHyouji; //表示用の名前
+        _toggle_itemID.toggle_skill_nameHyouji = magicskill_database.magicskill_lists[i].skillNameHyouji; //表示用の名前        
         _toggle_itemID.toggle_skill_timecost = magicskill_database.magicskill_lists[i].cost_time; //時間消費
+
+        costmp = exp_Controller.MPCostKeisan(magicskill_database.magicskill_lists[i].skillCost);
+        _toggle_itemID.toggle_skill_cost = costmp; //消費MP
 
         _text[0].text = magicskill_database.magicskill_lists[i].skillNameHyouji; //i = itemIDと一致する。NameHyoujiで、日本語表記で表示。;
         _text[1].text = magicskill_database.magicskill_lists[i].skillComment; //i = itemIDと一致する。スキルの説明文。
         _text[2].text = "Lv " + magicskill_database.magicskill_lists[i].skillLv + " / " + magicskill_database.magicskill_lists[i].skillMaxLv;
-        _text[3].text = "MP " + magicskill_database.magicskill_lists[i].skillCost;
+        _text[3].text = "MP " + costmp.ToString();
 
         texture2d = magicskill_database.magicskill_lists[i].skillIcon_sprite;
         _Img.sprite = texture2d;
@@ -880,19 +888,19 @@ public class MagicSkillListController : MonoBehaviour
         }
 
         //CompNoの魔法は、仕上げ回数を消費する
-        if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+        /*if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
         {
             if (PlayerStatus.player_extreme_kaisu == 0)
             {
                 _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
             }
-        }
+        }*/
 
-        //心系の魔法は、ハートも使用することがあるので、ハートもチェックする。また、スキルによっては仕上げ回数もチェック。
+        //心系の魔法は、ハートも使用することがあるので、ハートもチェックする。
         switch (magicskill_database.magicskill_lists[_id].skillName)
         {
 
-            case "Warming_Handmade": //仕上げ回数＋ハート
+            case "Warming_Handmade": //ハート
 
                 if (PlayerStatus.girl1_Love_exp < magicskill_database.magicskill_lists[_id].skillLv * GameMgr.System_MagicHeartCost)
                 {
@@ -900,38 +908,21 @@ public class MagicSkillListController : MonoBehaviour
                 }
                 break;
 
-            case "Santiman": //仕上げ回数＋ハート
+            case "Santiman": //ハート
 
                 if (PlayerStatus.girl1_Love_exp < magicskill_database.magicskill_lists[_id].skillLv * GameMgr.System_MagicHeartCost)
                 {
                     _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
                 }
+
+                //True_Heartは、ここで使うこともできるが足りてないと必ず失敗する。
                 break;
-
-                /*case "Moonlight_Banana": //夜6時以降じゃないと使えない
-
-                    if (!GameMgr.Contest_ON)
-                    {
-                        if (PlayerStatus.player_cullent_hour < 18)
-                        {
-                            _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
-                        }
-                    }
-                    else
-                    {
-                        if (PlayerStatus.player_contest_hour < 18)
-                        {
-                            _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
-                        }
-                    }
-
-                    break;*/
         }
 
         //ヒカリの魔法で使う場合、いくつかの魔法は使えない。おもに演出魔法など。
         if(GameMgr.compound_select == 9 || GameMgr.compound_select == 10)
         {
-            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo" || magicskill_database.magicskill_lists[_id].skill_LvSelect == "PlayerBuf")
             {
                 _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
             }

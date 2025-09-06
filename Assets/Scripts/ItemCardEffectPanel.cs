@@ -6,7 +6,7 @@ public class ItemCardEffectPanel : MonoBehaviour
 {
     //こっちは、エフェクト表示用
 
-    private int i, j;
+    private int i, j, count;
     private ParticleSystemRenderer m_ParticleSystem;
 
     private string pt_root;
@@ -74,6 +74,18 @@ public class ItemCardEffectPanel : MonoBehaviour
             {
                 DrawParticle("effect10_Heart", _mstatus);
             }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName11) //WindArc　風の円弧が周りにとびちる
+            {
+                DrawParticle("effect11_RainbowRain", _mstatus);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName12) //WindArc　風の円弧が周りにとびちる
+            {
+                DrawParticle("effect12_NightBarron", _mstatus);
+            }
+            if (_magicslot[i] == GameMgr.System_MagicSlotName13) //WindArc　風の円弧が周りにとびちる
+            {
+                DrawParticle("effect13_CrescentMoon", _mstatus);
+            }
         }
     }
 
@@ -84,52 +96,70 @@ public class ItemCardEffectPanel : MonoBehaviour
 
         pt_root = _pname + "/pt_root";
         if (_status == 1) //お菓子パネルで表示する場合　描画順変える
-        {           
-            foreach(Transform child in this.transform.Find(pt_root).transform)
+        {
+            count = 0;
+            foreach (Transform child in this.transform.Find(pt_root).transform)
             {
                 m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
-                m_ParticleSystem.sortingOrder = 500;
-            }           
+                m_ParticleSystem.sortingOrder = 500 + count;
+                count++;
+            }
+            
         }
         else if (_status == 2) //お菓子あげるときに表示する場合　描画順変える
         {
+            count = 0;
             foreach (Transform child in this.transform.Find(pt_root).transform)
             {
                 m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
-                m_ParticleSystem.sortingOrder = 660;
-            }          
+                m_ParticleSystem.sortingOrder = 660 + count;
+                count++;
+            }
+            
         }
         else //デフォ　元のオーダー使う　5010とかになってる
         {
+            count = 0;
             foreach (Transform child in this.transform.Find(pt_root).transform)
             {
                 m_ParticleSystem = child.GetComponent<ParticleSystemRenderer>();
-                m_ParticleSystem.sortingOrder = 5010;
-            }           
+                m_ParticleSystem.sortingOrder = 5010 + count;
+                count++;
+            }
+            
         }
 
         //画像データある場合、画像も描画順を変える
         img_root = _pname + "/Img_root";
         if (_status == 1) //お菓子パネルで表示する場合　描画順変える
         {
+            count = 0;
             foreach (Transform child in this.transform.Find(img_root).transform)
             {
-                child.GetComponent<Canvas>().sortingOrder = 510;
+                child.GetComponent<Canvas>().sortingOrder = 510 + count;
+                count++;
             }
+            
         }
         else if (_status == 2) //お菓子あげるときに表示する場合　描画順変える
         {
+            count = 0;
             foreach (Transform child in this.transform.Find(img_root).transform)
             {
-                child.GetComponent<Canvas>().sortingOrder = 670;
+                child.GetComponent<Canvas>().sortingOrder = 670 + count;
+                count++;
             }
+            
         }
         else //デフォ　元のオーダー使う　5010とかになってる
         {
+            count = 0;
             foreach (Transform child in this.transform.Find(img_root).transform)
             {
-                child.GetComponent<Canvas>().sortingOrder = 5020;
+                child.GetComponent<Canvas>().sortingOrder = 5020 + count;
+                count++;
             }
+            
         }
     }
 }

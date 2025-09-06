@@ -947,7 +947,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u590F"
+  m_Text: "\u5B87\u5B99"
 --- !u!114 &114716716302951920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9620,7 +9620,7 @@ GameObject:
   - component: {fileID: 222492334704450578}
   - component: {fileID: 114626941407396604}
   m_Layer: 0
-  m_Name: Image
+  m_Name: PlateImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9635,7 +9635,7 @@ RectTransform:
   m_GameObject: {fileID: 1292803414523132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 224448163198991776}
@@ -9643,8 +9643,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: -102}
-  m_SizeDelta: {x: 300, y: 27}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 640, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222492334704450578
 CanvasRenderer:
@@ -9674,7 +9674,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 43c3f95644056454aba4232d95444f59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1a861f91f35ec74b846938b4b722461, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -32799,6 +32799,7 @@ GameObject:
   - component: {fileID: 224448163198991776}
   - component: {fileID: 222104377996059614}
   - component: {fileID: 114311384912840252}
+  - component: {fileID: 1160098217849759921}
   m_Layer: 0
   m_Name: Item_card_template
   m_TagString: Untagged
@@ -32874,6 +32875,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1160098217849759921
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977191554098982}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 46ccc9362510cbb4b9f8d30d7c66f89c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1979008599541110
 GameObject:
   m_ObjectHideFlags: 0

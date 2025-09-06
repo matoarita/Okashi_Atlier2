@@ -1566,13 +1566,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
     void CheckItemType_GetItem()
     {
+
         //アイテム取得処理
         if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" ||
-            _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "AromaPotion" || _base_itemType_sub == "WhipeedCream" ||
-            _base_itemType_sub == "Figure" || _base_itemType_sub == "FrozenFruits" ||
-            _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerFlower" ||
-            _base_itemType_subB == "a_LumiSugerFlower" || _base_itemType_subB == "a_ToppingChocolate" || _base_itemType_subB == "a_ChocoPen" ||
-            _basename == "lumi_banana")
+        _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "AromaPotion" || _base_itemType_sub == "WhipeedCream" ||
+        _base_itemType_sub == "Figure" || _base_itemType_sub == "FrozenFruits" ||
+        _base_itemType_subB == "a_WaterSoda" || _base_itemType_subB == "a_SugerWater" || _base_itemType_subB == "a_SugerFlower" ||
+        _base_itemType_subB == "a_LumiSugerFlower" || _base_itemType_subB == "a_ToppingChocolate" || _base_itemType_subB == "a_ChocoPen" ||
+        _basename == "lumi_banana")
         {
             GetItemMethod(0); //生地作ったときは各ステータスオリジナルのものなので、オリジナルアイテムに登録
         }
@@ -2570,6 +2571,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_Keisan(4, _basejuice, _basename, result_compID);
                 _basebeauty += bufpower_keisan.Buf_OkashiParamUp_Keisan(5, _basebeauty, _basename, result_compID);
                 _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_Keisan(6, _basetea_flavor, _basename, result_compID);
+                _basepowdery += bufpower_keisan.Buf_OkashiParamUp_Keisan(50, _basepowdery, _basename, result_compID);
+                _baseoily += bufpower_keisan.Buf_OkashiParamUp_Keisan(51, _baseoily, _basename, result_compID);
+                _basewatery += bufpower_keisan.Buf_OkashiParamUp_Keisan(52, _basewatery, _basename, result_compID);
+
 
                 //B. 固有のお菓子のみにバフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(0, _basename); //中の数字でどの食感パラムかの指定
@@ -2579,6 +2584,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(4, _basename);
                 _basebeauty += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(5, _basename);
                 _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(6, _basename);
+                _basepowdery += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(50, _basename);
+                _baseoily += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(51, _basename);
+                _basewatery += bufpower_keisan.Buf_OkashiParamUp_ItemNameKeisan(52, _basename);
 
                 //C. 特定の調合DBにのみバフをかける処理
                 _basecrispy += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(0, databaseCompo.compoitems[result_compID].cmpitem_Name); //中の数字でどの食感パラムかの指定
@@ -2588,7 +2596,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 _basejuice += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(4, databaseCompo.compoitems[result_compID].cmpitem_Name);
                 _basebeauty += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(5, databaseCompo.compoitems[result_compID].cmpitem_Name);
                 _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(6, databaseCompo.compoitems[result_compID].cmpitem_Name);
-               
+                _basepowdery += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(50, databaseCompo.compoitems[result_compID].cmpitem_Name);
+                _baseoily += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(51, databaseCompo.compoitems[result_compID].cmpitem_Name);
+                _basewatery += bufpower_keisan.Buf_OkashiParamUp_CompoNameKeisan(52, databaseCompo.compoitems[result_compID].cmpitem_Name);
+
             }
         }
         Debug.Log("器具アクセサリーバフ後のさくさく感: " + _basecrispy);
@@ -2621,6 +2632,9 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                     _basejuice += bufpower_keisan.Buf_HikariParamUp_Keisan(4, _base_itemType_sub);
                     //_basebeauty += bufpower_keisan.Buf_HikariParamUp_Keisan(5, _base_itemType_sub);
                     _basetea_flavor += bufpower_keisan.Buf_HikariParamUp_Keisan(6, _base_itemType_sub);
+                    _basepowdery += bufpower_keisan.Buf_HikariParamUp_Keisan(50, _base_itemType_sub);
+                    _baseoily += bufpower_keisan.Buf_HikariParamUp_Keisan(51, _base_itemType_sub);
+                    _basewatery += bufpower_keisan.Buf_HikariParamUp_Keisan(52, _base_itemType_sub);
                 }
             }
 
@@ -2670,13 +2684,16 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (Comp_method_bunki == 20 || Comp_method_bunki == 22)
         {
             //A. お菓子の食感ごとに、バフをかける処理
-            _basecrispy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(0, _basecrispy, GameMgr.UseMagicSkill, _baseattri2); //中の数字でどの食感パラムかの指定
-            _basefluffy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(1, _basefluffy, GameMgr.UseMagicSkill, _baseattri2);
-            _basesmooth += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(2, _basesmooth, GameMgr.UseMagicSkill, _baseattri2);
-            _basehardness += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(3, _basehardness, GameMgr.UseMagicSkill, _baseattri2);
-            _basejuice += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(4, _basejuice, GameMgr.UseMagicSkill, _baseattri2);
-            _basebeauty += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(5, _basebeauty, GameMgr.UseMagicSkill, _baseattri2);
-            _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, _basetea_flavor, GameMgr.UseMagicSkill, _baseattri2);            
+            _basecrispy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(0, _basecrispy, GameMgr.UseMagicSkill, _baseattri2, _baseattri5); //中の数字でどの食感パラムかの指定
+            _basefluffy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(1, _basefluffy, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _basesmooth += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(2, _basesmooth, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _basehardness += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(3, _basehardness, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _basejuice += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(4, _basejuice, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _basebeauty += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(5, _basebeauty, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, _basetea_flavor, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _basepowdery += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(50, _basepowdery, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _baseoily += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(51, _baseoily, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _basewatery += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(52, _basewatery, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
 
             //ここで魔法スロット追加
             AddMagicSlot_Method();
@@ -2899,6 +2916,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _baseattri2 = GameMgr.Appaleil_Attribute[1]; //Windark回数も引継ぎ
             _baseattri4 = GameMgr.Appaleil_Attribute[3] + 1;
+            _baseattri5 = GameMgr.Appaleil_Attribute[4]; //Fireark回数も引継ぎ
         }
     }
 
@@ -3074,6 +3092,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (GameMgr.UseMagicSkill == "Wind_Ark")
         {
             _baseattri2++;
+        }
+        if (GameMgr.UseMagicSkill == "Fire_Ark")
+        {
+            _baseattri5++;
         }
 
     }

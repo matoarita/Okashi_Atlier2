@@ -417,6 +417,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_yachin_counter = GameMgr.yachin_counter,
             save_yachin_otetsuki_count = GameMgr.yachin_otetsuki_count,
             save_yachin_tainou_count = GameMgr.yachin_tainou_count,
+            save_yachinSPRoomON_Flag = GameMgr.yachinSPRoomON_Flag,
 
             //お菓子クエストフラグ
             save_OkashiQuest_flag_stage1 = GameMgr.OkashiQuest_flag_stage1, //各SPイベントのクリアしたかどうかのフラグ。
@@ -894,6 +895,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         GameMgr.yachin_counter = playerData.save_yachin_counter;
         GameMgr.yachin_otetsuki_count = playerData.save_yachin_otetsuki_count;
         GameMgr.yachin_tainou_count = playerData.save_yachin_tainou_count;
+        GameMgr.yachinSPRoomON_Flag = playerData.save_yachinSPRoomON_Flag;
 
         //お菓子クエストフラグ
         GameMgr.OkashiQuest_flag_stage1 = playerData.save_OkashiQuest_flag_stage1; //各SPイベントのクリアしたかどうかのフラグ。

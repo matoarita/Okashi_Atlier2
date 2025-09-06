@@ -958,6 +958,22 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 CatGetMaterialTimeCheck(_m_temp);
             }
         }
+
+        //各プレイヤーステータス　タイムカウントを計算
+        MagicPlayerStatus_CountCheck(_m_temp);        
+    }
+
+    void MagicPlayerStatus_CountCheck(int _time)
+    {
+        for (i = 0; i < PlayerStatus.player_girl_status_timecounter.Length; i++)
+        {
+            PlayerStatus.player_girl_status_timecounter[i] -= _time;
+
+            if (PlayerStatus.player_girl_status_timecounter[i] <= 0)
+            {
+                PlayerStatus.player_girl_status[i] = 0;
+            }
+        }
     }
 
     //入力された分単位の時間を、時間と分にわけて、現在の時間に加算し、予測時間をだす。実際の加算はしない。Returnは時間のみ。
@@ -1102,6 +1118,9 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
                 HikarimakeTimeCheck(_m_temp);
             }
         }
+
+        //各プレイヤーステータス　タイムカウントを計算
+        MagicPlayerStatus_CountCheck(_m_temp);
     }
 
     public void OnDebugTimeCountUpButton()

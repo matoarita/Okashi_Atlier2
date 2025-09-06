@@ -26,7 +26,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _magic_rate;
     private int _magicLearnLv;
     private int _magic_kakuritsu;
-    private int _attri2;
+    private int _attri2, _attri5;
 
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
@@ -287,6 +287,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //ステータスによる成功率バフ
         KakuritsuUp_PStatusBuf();
 
+        //魔法によるプレイヤー状態のバフ
+        KakuritsuUp_MagicPStatusBuf();
+
         return _buf_kakuritsuup;
     }
 
@@ -302,6 +305,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         _statusup = 0;
         _statusup = (int)(PlayerStatus.player_okashi_kakuritsuup * 0.2f); //5で1%上昇ぐらい？
+        _buf_kakuritsuup += _statusup;
+    }
+
+    void KakuritsuUp_MagicPStatusBuf()
+    {
+        _statusup = 0;
+        
+        //エピクレイシス状態をチェック
+        if(PlayerStatus.player_girl_status[0] > 0)
+        {
+            _statusup = 50; //50%も上がる！
+        }
         _buf_kakuritsuup += _statusup;
     }
 
@@ -528,54 +543,46 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magic_rate = 0;
         _magicLearnLv = magicskill_database.skillName_SearchLearnLevel(_magic_name);
         _magicid = magicskill_database.SearchSkillString(_magic_name);
-        _attri2 = GameMgr.UseMagic_ItemAttri2; //魔法使用時のitemselecttoggleで参照
+        _attri2 = GameMgr.UseMagic_ItemAttri[1]; //魔法使用時のitemselecttoggleで参照
+        _attri5 = GameMgr.UseMagic_ItemAttri[4];
 
         switch (_magic_name)
         {
             case "Freezing_Spell":
 
-                _magic_rate = _magicLearnLv * 3;
+                _magic_rate += _magicLearnLv * 3;
                 break;
 
             case "SugerPot":
 
-                _magic_rate = _magicLearnLv * 5;
+                _magic_rate += _magicLearnLv * 5;
                 break;
 
             case "Luminous_Suger":
 
-                _magic_rate = _magicLearnLv * 5;
+                _magic_rate += _magicLearnLv * 5;
                 break;
 
             case "Luminous_Fruits":
 
-                _magic_rate = _magicLearnLv * 5;
+                _magic_rate += _magicLearnLv * 5;
                 break;
 
             case "Aroma_Potion":
 
-                _magic_rate = _magicLearnLv * 3;
+                _magic_rate += _magicLearnLv * 3;
                 break;
 
             case "Wind_Ark":
 
-                Debug.Log("そのアイテムのAttri2: " + _attri2);
-                if (_attri2 < 3)
-                {
-                    _magic_rate = (int)(-5f * _attri2 * 1.5f); //重ね掛けするほど、確率が減っていく
-                }
-                else if (_attri2 >= 3 && _attri2 < 4)
-                {
-                    _magic_rate = (int)(-5f * _attri2 * 3.0f); //重ね掛けするほど、確率が減っていく
-                }
-                else if (_attri2 >= 4 && _attri2 < 6)
-                {
-                    _magic_rate = (int)(-5f * _attri2 * 3.5f); //重ね掛けするほど、確率が減っていく
-                }
-                else if (_attri2 >= 6)
-                {
-                    _magic_rate = (int)(-5f * _attri2 * 4.0f); //重ね掛けするほど、確率が減っていく 6回以上はほぼ０
-                }
+                Kakuritsu_ArkKeisan(_attri2);
+                _magic_rate += _magicLearnLv * 3;
+                break;
+
+            case "Fire_Ark":
+
+                Kakuritsu_ArkKeisan(_attri5);
+                _magic_rate += _magicLearnLv * 3;
                 break;
         }
 
@@ -612,15 +619,56 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //ステータスによる魔法成功率バフ
         KakuritsuUpMagic_PStatusBuf();
 
+        //魔法によるプレイヤー状態のバフ
+        KakuritsuUpMagic_MagicPStatusBuf();
+
         return _magic_rate;
+    }
+
+    void Kakuritsu_ArkKeisan(int _attri_kaisu)
+    {
+        Debug.Log("そのアイテムのAttri: " + _attri_kaisu);
+        if (_attri_kaisu < 2)
+        {
+            _magic_rate = (int)(-5f * _attri_kaisu * 1.25f); //重ね掛けするほど、確率が減っていく
+        }
+        else if (_attri_kaisu >= 2 && _attri_kaisu < 3)
+        {
+            _magic_rate = (int)(-5f * _attri_kaisu * 1.5f); //重ね掛けするほど、確率が減っていく
+        }
+        else if (_attri_kaisu >= 3 && _attri_kaisu < 4)
+        {
+            _magic_rate = (int)(-5f * _attri_kaisu * 3.0f); //重ね掛けするほど、確率が減っていく
+        }
+        else if (_attri_kaisu >= 4 && _attri_kaisu < 6)
+        {
+            _magic_rate = (int)(-5f * _attri_kaisu * 3.5f); //重ね掛けするほど、確率が減っていく
+        }
+        else if (_attri_kaisu >= 6)
+        {
+            _magic_rate = (int)(-5f * _attri_kaisu * 4.0f); //重ね掛けするほど、確率が減っていく 6回以上はほぼ０
+        }
     }
 
     void KakuritsuUpMagic_PStatusBuf()
     {
         _statusup = 0;
         _statusup = (int)(PlayerStatus.player_okashi_magic_kakuritsuup * 0.34f); //3で1%上昇ぐらい？
-        _buf_kakuritsuup += _statusup;
+        _magic_rate += _statusup;
     }
+
+    void KakuritsuUpMagic_MagicPStatusBuf()
+    {
+        _statusup = 0;
+
+        //エピクレイシス状態をチェック
+        if (PlayerStatus.player_girl_status[0] > 0)
+        {
+            _statusup = 50; //50%も上がる！
+        }
+        _magic_rate += _statusup;
+    }
+
 
 
     //
@@ -1201,19 +1249,27 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 switch (_itemType_sub)
                 {
+                    case "Coffee":
+
+                        FlavorBuf();
+                        break;
+
                     case "Tea":
 
                         TeaBuf();
+                        FlavorBuf();
                         break;
 
                     case "Tea_Mat":
 
                         TeaBuf();
+                        FlavorBuf();
                         break;
 
                     case "Tea_Potion":
 
                         TeaBuf();
+                        FlavorBuf();
                         break;
                 }
 
@@ -1226,9 +1282,37 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 Shokukanup_PStatusBuf(6);
 
                 return _buf_shokukanup;
+
+            case 50: //粉っぽさ
+
+                Shokukanup_MagicPStatusBuf();
+                return _buf_shokukanup;
+
+            case 51: //油っぽさ
+
+                Shokukanup_MagicPStatusBuf();
+                return _buf_shokukanup;
+
+            case 52: //水っぽさ
+
+                Shokukanup_MagicPStatusBuf();
+                return _buf_shokukanup;
         }
 
         return 0; //なにもない場合や例外は0
+    }
+
+    void Shokukanup_MagicPStatusBuf()
+    {
+        _statusup = 0;
+
+        //ラトリア状態をチェック
+        if (PlayerStatus.player_girl_status[1] > 0)
+        {
+            _statusup = -10 + (PlayerStatus.player_girl_status[1] * -3); //各粉っぽさ系をちょっと減らす 使用LVが入ってるはずなので、LVで倍数になる。
+            Debug.Log("ラトリア効果あり　粉っぽさなどの減少: " + _statusup);
+        }
+        _buf_shokukanup += _statusup;
     }
 
     void Shokukanup_PStatusBuf(int _mstatus)
@@ -1367,7 +1451,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Soda_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Soda_Study") * 10; //LV*10
+            _magicup = (int)(original_shokukan_p * magicskill_database.skillName_SearchLearnLevel("Soda_Study") * 0.06f); //元の値の6%上昇*LV
+
             _buf_shokukanup += _magicup;
         }
     }
@@ -1552,7 +1637,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 10;
+            _magicup = (int)(original_shokukan_p * magicskill_database.skillName_SearchLearnLevel("Cookie_Study") * 0.06f); //元の値の6%上昇
+
             _buf_shokukanup += _magicup;
         }
 
@@ -1630,6 +1716,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         if (pitemlist.KosuCount("tea_powerup5") >= 1) //
         {
             _buf_shokukanup += 100;
+        }
+    }
+
+    void FlavorBuf()
+    {
+        //魔法のバフ
+        _magicup = 0;
+        if (magicskill_database.skillName_SearchLearnLevel("Tea_Study") >= 1)
+        {
+            _magicup = (int)(original_shokukan_p * magicskill_database.skillName_SearchLearnLevel("Tea_Study") * 0.06f); //元の値の6%上昇*LV
+
+            _buf_shokukanup += _magicup;
         }
     }
 
@@ -1878,7 +1976,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     //特定の魔法で、バフをかける処理
     //魔法の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK  各アトリは必要に応じて要素数増やす
-    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname, int _attri2)
+    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname, int _attri2, int _attri5)
     {
 
         _buf_shokukanup = 0;
@@ -1961,6 +2059,31 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
+                break;
+
+            case "Fire_Ark":
+
+                if (_status == 0)//さくさくのバフ
+                {
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Fire_Ark");
+
+                    if (_attri5 < 3) //重ね掛け2回までだと効果が小さい
+                    {
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.1f)); //大体元値の1.2倍
+                        Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.1f) 習得LV: " + _magicLearnLv);
+                    }
+                    else
+                    {    //3回以上重ね掛けするとき、効果が大きくなる                    
+                        _magicup = (int)(_baseparam * (0.1f + _magicLearnLv * 0.15f)); //大体元値の1.25倍
+                        Debug.Log("_baseparam * (0.1f + ファイアアーク習得LV * 0.15f) 習得LV: " + _magicLearnLv);
+                    }
+
+                    if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
+
+                    Debug.Log("ファイアアークの最終バフ: " + _magicup);
+                    _buf_shokukanup += _magicup;
+                }
+
                 break;
 
             case "Warming_Handmade": //手作りの温もり
@@ -2112,6 +2235,25 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             _buf_shokukanup += 30;
         }
+
+        switch (_status)
+        {
+            case 50: //粉っぽさ
+
+                Shokukanup_MagicPStatusBuf(); //ヒカリのおかしにも、ラトリアの効果がのる
+                break;
+
+            case 51: //油っぽさ
+
+                Shokukanup_MagicPStatusBuf();
+                break;
+
+            case 52: //水っぽさ
+
+                Shokukanup_MagicPStatusBuf();
+                break;
+        }
+
 
         return _buf_shokukanup;
     }

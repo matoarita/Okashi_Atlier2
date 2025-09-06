@@ -50,6 +50,7 @@ public class SetImage : MonoBehaviour
     private SlotChangeName slotchangename;
     private ItemSubTypeSetDatabase itemsubtypeset_database;
     private ItemCardEffectDataBase itemCardEffect_database;
+    private MagicSkillListDataBase magicskill_database;
 
     private Sprite texture2d;
     private Texture2D card_template_1;
@@ -172,9 +173,11 @@ public class SetImage : MonoBehaviour
     private GameObject magicview_content;
     private GameObject magicPrefab;
     private GameObject magicPrefab2;
+    private GameObject magicPrefab3;
     private List<GameObject> _magicicon_listitem = new List<GameObject>();
 
     private int i, j, count;
+    private int _mid;
 
     private int _quality_score;
     private int _rich_score;
@@ -274,6 +277,7 @@ public class SetImage : MonoBehaviour
     public Vector3 def_scale; //cardview.csからも指定できる
 
     private int _slot_beauty, total_beauty;
+    private bool SpScoreHyouji_OFF;
 
     //SEを鳴らす
     public AudioClip sound1;
@@ -294,9 +298,9 @@ public class SetImage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameMgr.DEBUG_TasteSPScore_ON)
+        if (SpScoreHyouji_OFF)
         {
-            debugTaste_ScorePanel.SetActive(true);
+            debugTaste_ScorePanel.SetActive(false);
         }
         else
         {
@@ -306,7 +310,14 @@ public class SetImage : MonoBehaviour
             }
             else
             {
-                debugTaste_ScorePanel.SetActive(false);
+                if (GameMgr.DEBUG_TasteSPScore_ON)
+                {
+                    debugTaste_ScorePanel.SetActive(true);
+                }
+                else
+                {
+                    debugTaste_ScorePanel.SetActive(false);
+                }
             }
         }
     }
@@ -370,6 +381,9 @@ public class SetImage : MonoBehaviour
         //調合組み合わせデータベースの取得
         databaseCompo = ItemCompoundDataBase.Instance.GetComponent<ItemCompoundDataBase>();
 
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
+
         //アイテムサブタイプの表記を分けるデータベース
         itemsubtypeset_database = ItemSubTypeSetDatabase.Instance.GetComponent<ItemSubTypeSetDatabase>();
 
@@ -399,7 +413,7 @@ public class SetImage : MonoBehaviour
         TasteSubWindow = this.transform.Find("Card_Param_window/Card_Parameter/TasteSubWindow").gameObject;
         SlotChangeButton = this.transform.Find("Card_Param_window/Card_Parameter/SlotHyoujiButton").gameObject;
         //TasteSubWindow.SetActive(false);
-        CardTasteView_flag1 = false;
+        
 
         _slot = new string[database.items[0].toppingtype.Length];
         _koyuslot = new string[database.items[0].koyu_toppingtype.Length];
@@ -414,6 +428,7 @@ public class SetImage : MonoBehaviour
 
         magicPrefab = (GameObject)Resources.Load("Prefabs/card_magiciconObj");
         magicPrefab2 = (GameObject)Resources.Load("Prefabs/card_magiciconObj2");
+        magicPrefab3 = (GameObject)Resources.Load("Prefabs/card_magiciconObj3");
         magicview_content = this.transform.Find("Item_card_template/MagicIconView/Viewport/Content").gameObject;
 
         _magic_addbeauty = 0;
@@ -472,16 +487,7 @@ public class SetImage : MonoBehaviour
         item_Sp_score7 = debugTaste_ScorePanel.transform.Find("ItemSP_Score7").gameObject.GetComponent<Text>(); //メルヘン
         item_Sp_score8 = debugTaste_ScorePanel.transform.Find("ItemSP_Score8").gameObject.GetComponent<Text>(); //芸術
         item_Sp_score9 = debugTaste_ScorePanel.transform.Find("ItemSP_Score9").gameObject.GetComponent<Text>(); //光らしさキラキラ感
-        item_Sp_score10 = debugTaste_ScorePanel.transform.Find("ItemSP_Score10").gameObject.GetComponent<Text>(); //和風感
-
-        if (GameMgr.DEBUG_MODE)
-        {
-            debugTaste_ScorePanel.SetActive(true);
-        }
-        else
-        {
-            debugTaste_ScorePanel.SetActive(false);
-        }
+        item_Sp_score10 = debugTaste_ScorePanel.transform.Find("ItemSP_Score10").gameObject.GetComponent<Text>(); //和風感        
 
 
         //スロット表示
@@ -623,6 +629,11 @@ public class SetImage : MonoBehaviour
             Destroy(child.gameObject);
         }
         _magicicon_listitem.Clear();
+
+        SpScoreHyouji_OFF = false; //trueだと強制的にSPスコア表示はオフになる。デバッグモードでも表示されない。一部の画面でのみ。
+        //Debug.Log("処理順か？");
+
+        
     }
 
     //カード描画用のパラメータ読み込み
@@ -1080,7 +1091,7 @@ public class SetImage : MonoBehaviour
 
             default:
                 break;
-        }
+        }        
 
         //カード　スロット名 現在は、特に表示はしていない
         Slotname_Hyouji();
@@ -1325,7 +1336,11 @@ public class SetImage : MonoBehaviour
     }
 
     void DrawCardParam()
-    {    
+    {
+        CardTasteView_flag1 = false;
+        SpScoreHyouji_OFF = false; //trueだと強制的にSPスコア表示はオフになる。デバッグモードでも表示されない。一部の画面でのみ。
+        //Debug.Log("処理順か？");
+
         // texture2dを使い、Spriteを作って、反映させる
         item_Icon.sprite = texture2d;
 
@@ -1853,6 +1868,7 @@ public class SetImage : MonoBehaviour
         //Debug.Log("魔法アイコン　カード表示check");
         Debug.Log("_attri2*(WindArk回数) " + _attri2);
         Debug.Log("_attri4*(生地混ぜ回数) " + _attri4);
+        Debug.Log("_attri5*(FireArk回数) " + _attri5);
 
         foreach (Transform child in magicview_content.transform)
         {
@@ -1872,6 +1888,13 @@ public class SetImage : MonoBehaviour
             for (i = 0; i < _attri4; i++)
             {
                 _magicicon_listitem.Add(Instantiate(magicPrefab2, magicview_content.transform));
+            }
+        }
+        if (_attri5 > 0) //FireArk回数
+        {
+            for (i = 0; i < _attri5; i++)
+            {
+                _magicicon_listitem.Add(Instantiate(magicPrefab3, magicview_content.transform));
             }
         }
     }
@@ -2063,12 +2086,59 @@ public class SetImage : MonoBehaviour
         CheckTasteViewStatus();
     }
 
+    public void CardParamSpScoreOFF() //外部からSpスコア表示はオフにする。強制力が高い。
+    {
+        SpScoreHyouji_OFF = true;
+        debugTaste_ScorePanel.SetActive(false);
+        Debug.Log("カードSPスコア表示オフ");
+    }
+
+    public void CardOFF_ItemOnlyHyouji() //カード類の表示をオフにし、アイテムアイコンのみ表示
+    {
+        Card_TemplateMain_obj.GetComponent<Image>().enabled = false;
+        Card_TemplateMain_obj.transform.Find("ItemName").gameObject.SetActive(false);
+        Card_TemplateMain_obj.transform.Find("ItemCategory").gameObject.SetActive(false);
+        Card_TemplateMain_obj.transform.Find("ItemRankDesc").gameObject.SetActive(false);
+        Card_TemplateMain_obj.transform.Find("ItemRankDesc").gameObject.SetActive(false);
+        Card_TemplateMain_obj.transform.Find("ItemKosu_Panel").gameObject.SetActive(false);
+        Card_TemplateMain_obj.transform.Find("SecretPanel").gameObject.SetActive(false);
+        Card_TemplateMain_obj.transform.Find("HlvBonusPanel").gameObject.SetActive(false);
+        Card_TemplateMain_obj.transform.Find("MagicIconView").gameObject.SetActive(false);
+
+        CardParamOFF();
+    }
+
+    public void CardOFF_ItemAnimON() //さらにアイテムをふわふわとアニメする
+    {
+        Card_TemplateMain_obj.GetComponent<Animator>().enabled = true;
+    }
+
+    public void CardOFF_PlateHyouji() //さらにお皿画像を表示　仕上げのときに使う
+    {
+        Card_TemplateMain_obj.transform.Find("PlateImage").gameObject.SetActive(true);
+    }
+
+    public void CardOFF_PlateHyoujiOFF() //お皿画像表示をオフ
+    {
+        Card_TemplateMain_obj.transform.Find("PlateImage").gameObject.SetActive(false);
+    }
+
     public void CardALLParamOFF() //カードの表示そのものもオフにする。ただし、調合リザルトボタンはONのまま
     {
         Card_TemplateMain_obj.SetActive(false);
         Card_param_obj.SetActive(false);
         Card_param_obj2.SetActive(false);
         CheckTasteViewStatus();
+    }
+
+    public void CardParamMagic_Hyouji(string _magicname)
+    {
+        _mid = magicskill_database.SearchSkillString(_magicname);
+
+        _name = magicskill_database.magicskill_lists[_mid].skillNameHyouji;
+
+        item_RankDesc.text = "";
+        item_Name.text = _name;
     }
 
     public void SecretFlag_Hyouji()

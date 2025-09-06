@@ -718,27 +718,16 @@ public class CompoundMainController : MonoBehaviour {
                     //GameMgr.compound_select = 22;
 
                     //魔法演出画面を開く
+                    magic_compo1.SetActive(false);
                     magic_compo2.SetActive(false);
                     magic_compo3.SetActive(true);
 
                     //魔法によっては、エフェクト表示かorミニゲームの演出画面も開く
                     Magic_Effect_or_minigamePanel();
 
-                    if (GameMgr.System_MagicEffect_USE)
-                    {
-                        //魔法をみせるために、スキル表示はオフ
-                        //magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(false);
-
-                        magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(true); //やっぱり表示
-                        //スキル名表示
-                        magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
-                    }
-                    else
-                    {
-                        magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(true);
-                        //スキル名表示
-                        magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
-                    }
+                    //スキル名表示
+                    magic_compo3.transform.Find("SkillTextTemplate").gameObject.SetActive(true);                    
+                    magic_compo3.transform.Find("SkillTextTemplate/Text").GetComponent<Text>().text = GameMgr.UseMagicSkill_nameHyouji + " Lv." + GameMgr.UseMagicSkillLv;
 
                     playeritemlist_onoff.SetActive(false);                 
                     recipiMemoButton.SetActive(false);
@@ -755,6 +744,13 @@ public class CompoundMainController : MonoBehaviour {
                         MotionLive2D_Magic_eisho(); //詠唱モーション
                     }
 
+                    if(GameMgr.MagicUseTypeSelect == 1) //プレイヤーに魔法をかける場合、ExpControllerの魔法演出をここで決定
+                    {
+                        player_mp_panel.SetActive(false);
+                        magicskilllistController_Use.SetActive(false);
+
+                        exp_Controller.MagicResultOK();
+                    }
 
                     break;
 
@@ -764,6 +760,8 @@ public class CompoundMainController : MonoBehaviour {
                     //GameMgr.compound_select = 23;
 
                     //魔法演出画面を開く
+                    magic_compo1.SetActive(false);
+                    magic_compo2.SetActive(false);
                     magic_compo3.SetActive(false);
                     magic_compo4.SetActive(true);
 
@@ -773,13 +771,20 @@ public class CompoundMainController : MonoBehaviour {
                     text_area_compound.SetActive(false); //専用ウィンドウを表示させてるのでオフ
 
                     //できるアイテムを表示
-                    if (GameMgr.Result_compound_success)
+                    if (GameMgr.MagicUseTypeSelect == 0)
                     {
-                        magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = GameMgr.ResultItem_nameHyouji + "　が " + GameMgr.Result_Kosu + "個 できたよ！";
+                        if (GameMgr.Result_compound_success)
+                        {
+                            magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = GameMgr.ResultItem_nameHyouji + "　が " + GameMgr.Result_Kosu + "個 できたよ！";
+                        }
+                        else
+                        {
+                            magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = "失敗しちゃった・・。";
+                        }
                     }
-                    else
+                    else if (GameMgr.MagicUseTypeSelect == 1)
                     {
-                        magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = "失敗しちゃった・・。";
+                        magic_compo4.transform.Find("ItemTextTemplate/Text").GetComponent<Text>().text = GameMgr.MagicUseType_StatusText;
                     }
 
                     //ヒカリちゃん表示をオフ

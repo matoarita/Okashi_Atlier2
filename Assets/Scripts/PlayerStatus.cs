@@ -101,6 +101,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     //セーブしない
     public static int player_girl_maxlifepoint_default;     //妹の体力のMAXデフォルト
     public static int[] player_girl_status = new int[100];   //プレイヤーの状態　魔法でかかった状態も含む
+    public static int[] player_girl_status_timecounter = new int[100]; //プレイヤーの状態　タイムカウンター
 
     //エクストラモード
     public static int player_girl_manpuku;         //妹の満腹度　ハードモードで使用
@@ -330,6 +331,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         for (system_ps_count = 0; system_ps_count < player_girl_status.Length; system_ps_count++)
         {
             player_girl_status[system_ps_count] = 0;
+            player_girl_status_timecounter[system_ps_count] = 0;
         }
     }
 }

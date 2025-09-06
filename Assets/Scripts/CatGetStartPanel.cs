@@ -400,7 +400,9 @@ public class CatGetStartPanel : MonoBehaviour
         text_area_compound.SetActive(false);
 
         CatIconImage_Hyouji(namechange_panel);
-        FinalCheck_CatDataKoushin(namechange_panel, GameMgr.Select_cat_num);      
+        FinalCheck_CatDataKoushin(namechange_panel, GameMgr.Select_cat_num);
+
+        sc.PlaySe(catDataBase.SetVoice(GameMgr.Select_cat_num, 0)); //‚Ë‚±‚²‚Æ‚É–Â‚«º•Ï‚í‚é
     }
 
     public void Input_CatName()

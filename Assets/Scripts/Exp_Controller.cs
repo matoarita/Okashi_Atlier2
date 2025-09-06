@@ -90,6 +90,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private ItemRoastDataBase databaseRoast;
     private ItemShopDataBase shop_database;
     private SlotNameDataBase slotnamedatabase;
+    private MagicSkillListDataBase magicskill_database;
 
     private GameObject hukidashiitem;
     private Text _hukidashitext;
@@ -203,6 +204,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private string _yaki, _jobexp_text;
     private float _magic_enshututime;
     private float _magic_enshututime2;
+    private bool pstatus_magic_use;
+    private int _mid, costMP, final_costMP;
 
     // Use this for initialization
     void Start () {
@@ -223,6 +226,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //「焼く」データベースの取得
         databaseRoast = ItemRoastDataBase.Instance.GetComponent<ItemRoastDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //ショップデータベースの取得
         shop_database = ItemShopDataBase.Instance.GetComponent<ItemShopDataBase>();
@@ -653,9 +659,12 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
 
+        //エピクレイシスなど　プレイヤー状態をチェック
+        Magic_PStatusCheck();
+
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
-    }
+    }   
 
     void Compo_1(int _status)
     {
@@ -750,7 +759,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     case 1: //魔法調合時のリザルトカード表示
                         if (GameMgr.MakeItemStatus == 0)
                         {
-                            card_view.MagicResultCard_DrawView(3, new_item);
+                            card_view.MagicResultCard_DrawView(3, new_item, 0, GameMgr.UseMagicSkill);
                         }
                         else if (GameMgr.MakeItemStatus == 2)
                         {
@@ -996,6 +1005,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
+
+        //エピクレイシスなど　プレイヤー状態をチェック
+        Magic_PStatusCheck();
 
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
@@ -1243,6 +1255,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
 
+        //エピクレイシスなど　プレイヤー状態をチェック
+        Magic_PStatusCheck();
+
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
     }
@@ -1254,23 +1269,31 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         InitObject();
         CompInitSetting();
+        
+        if (GameMgr.MagicUseTypeSelect == 0) //アイテムに魔法をかけ、アイテムが生成される場合
+        {
+            pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
+            pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
 
-        pitemlistController_obj = GameObject.FindWithTag("PlayeritemList_ScrollView");
-        pitemlistController = pitemlistController_obj.GetComponent<PlayerItemListController>();
+            pitemlistController_obj.SetActive(false);
 
-        //リザルトアイテムを代入
-        result_item = GameMgr.Final_result_itemID1;
+            //リザルトアイテムを代入
+            result_item = GameMgr.Final_result_itemID1;
 
-        //コンポ調合データベースのIDを代入
-        result_ID = GameMgr.Final_result_compID;
+            //コンポ調合データベースのIDを代入
+            result_ID = GameMgr.Final_result_compID;
+        }
+        else { }
+
+        _mid = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+        costMP = magicskill_database.magicskill_lists[_mid].skillCost;
 
         //演出時間を決定 ハート消費もここで決定
         MagicEnshutuTimeKettei();
 
         //Comp_method_bunki = 20;
 
-        //ウェイトアニメーション開始
-        pitemlistController_obj.SetActive(false);
+        //ウェイトアニメーション開始        
         magiccompo_anim_on = true; //アニメスタート
 
         StartCoroutine("Magic_Compo_anim");
@@ -1287,6 +1310,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         magiccompo_anim_on = false;
         magiccompo_anim_end = false;
         compo_anim_status = 0;
+        pstatus_magic_use = false;
 
         //調合判定
         //チュートリアルモードのときは100%成功
@@ -1312,163 +1336,194 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             }
             else
             {
-                CompoundSuccess_judge();
+                if (GameMgr.MagicUseTypeSelect == 0) //アイテムに魔法をかけ、アイテムが生成される場合
+                {
+                    CompoundSuccess_judge();
+                }
+                else { } //プレイヤーにかける場合、失敗しない
             }
         }
         GameMgr.System_magic_playON = false;
 
-        //調合の成功有無にかかわらず、お菓子の経験値をあげる。
-        OkashiExpUp();
-
-        //調合成功
-        if (GameMgr.Result_compound_success == true)
+        if (GameMgr.MagicUseTypeSelect == 0) //アイテムに魔法をかけ、アイテムが生成される場合
         {
-            //個数の決定
-            if (set_kaisu == 0) //例外処理。ロードしたてのときは、回数0のまま、仕上げから新規作成される際、0になることがある。
+            //調合の成功有無にかかわらず、お菓子の経験値をあげる。
+            OkashiExpUp();
+
+            //調合成功
+            if (GameMgr.Result_compound_success == true)
             {
-                set_kaisu = 1;
-            }
-            //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数set_kaisuは、Compound_Checkから参照。
-            //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
-
-            //調合処理
-            Compo_1(1);
-
-            if (Comp_method_bunki == 20)
-            {
-                //完成アイテムの、レシピフラグをONにする。
-                _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
-                databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
-                Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
-            }
-            //CompNo=22の場合は、レシピ上書きは不要
-
-            //作ったことがあるかどうかをチェック
-            if (databaseCompo.compoitems[result_ID].comp_count == 0)
-            {
-                //作った回数をカウント
-                databaseCompo.compoitems[result_ID].comp_count++;
-
-                //レシピ達成率を更新
-                databaseCompo.RecipiCount_database(0);
-
-                //経験値獲得
-                GetExpMethod();                
-
-                //NewRecipiFlag = true;
-                NewRecipi_compoID = result_ID;
-
-                //_ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
-                _ex_text = "";
-            }
-            //すでに作っていたことがある場合
-            else if (databaseCompo.compoitems[result_ID].comp_count > 0)
-            {
-                //作った回数をカウント
-                databaseCompo.compoitems[result_ID].comp_count++;
-
-                //経験値獲得
-                GetExpMethod();
-
-                _ex_text = "";
-            }
-
-            //はじめて、アイテムを制作した場合は、フラグをONに。
-            if (!GameMgr.tutorial_ON)
-            {
-                if (PlayerStatus.First_recipi_on != true)
+                //個数の決定
+                if (set_kaisu == 0) //例外処理。ロードしたてのときは、回数0のまま、仕上げから新規作成される際、0になることがある。
                 {
-                    PlayerStatus.First_recipi_on = true;
+                    set_kaisu = 1;
                 }
-            }           
+                //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * set_kaisu; //セット数set_kaisuは、Compound_Checkから参照。
+                //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * 1; //現状セット数使用してないので、１に。
 
-            if (GameMgr.Extreme_On) //トッピング・魔法調合から、新規作成に分岐した場合
-            {
-                if (!PlayerStatus.First_extreme_on) //仕上げを一度もやったことがなかったら、フラグをON
+                //調合処理
+                Compo_1(1);
+
+                if (Comp_method_bunki == 20)
                 {
-                    PlayerStatus.First_extreme_on = true;
+                    //完成アイテムの、レシピフラグをONにする。
+                    _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
+                    databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+                    Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
                 }
-            }
+                //CompNo=22の場合は、レシピ上書きは不要
 
-            //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
-            exp_table.SkillCheckPatissierLV();
+                //作ったことがあるかどうかをチェック
+                if (databaseCompo.compoitems[result_ID].comp_count == 0)
+                {
+                    //作った回数をカウント
+                    databaseCompo.compoitems[result_ID].comp_count++;
+
+                    //レシピ達成率を更新
+                    databaseCompo.RecipiCount_database(0);
+
+                    //経験値獲得
+                    GetExpMethod();
+
+                    //NewRecipiFlag = true;
+                    NewRecipi_compoID = result_ID;
+
+                    //_ex_text = "<color=#FF78B4>" + "新しいレシピ" + "</color>" + "を閃いた！" + "\n";
+                    _ex_text = "";
+                }
+                //すでに作っていたことがある場合
+                else if (databaseCompo.compoitems[result_ID].comp_count > 0)
+                {
+                    //作った回数をカウント
+                    databaseCompo.compoitems[result_ID].comp_count++;
+
+                    //経験値獲得
+                    GetExpMethod();
+
+                    _ex_text = "";
+                }
+
+                //はじめて、アイテムを制作した場合は、フラグをONに。
+                if (!GameMgr.tutorial_ON)
+                {
+                    if (PlayerStatus.First_recipi_on != true)
+                    {
+                        PlayerStatus.First_recipi_on = true;
+                    }
+                }
+
+                if (GameMgr.Extreme_On) //トッピング・魔法調合から、新規作成に分岐した場合
+                {
+                    if (!PlayerStatus.First_extreme_on) //仕上げを一度もやったことがなかったら、フラグをON
+                    {
+                        PlayerStatus.First_extreme_on = true;
+                    }
+                }
+
+                //ジョブ経験値の増減後、レベルアップしたかどうかをチェック
+                exp_table.SkillCheckPatissierLV();
+
+                //テキストの表示
+                if (DoubleItemCreated == 0)
+                {
+                    renkin_exp_up();
+                }
+                else //2つ同時にできたとき
+                {
+                    renkin_exp_up2();
+                }
+
+                //完成エフェクト
+                if (GameMgr.Special_OkashiEnshutsuFlag) //trueのときの特別演出では通常エフェクト表示しない
+                {
+                    EffectListClear();
+                }
+                else
+                {
+                    ResultEffect_OK(1);
+                    CompleteMagicAnim(); //完成背景切り替え＋アニメ
+                }
+
+                //調合完了＋成功
+                GameMgr.ResultComplete_flag = 1;
+                ResultSuccess = true;
+
+            }
+            else //調合失敗
+            {
+                if (GameMgr.Special_OkashiEnshutsuFlag) //特別演出　失敗したら白をとく
+                {
+                    SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
+                    SpecialwhiteEffect.SetActive(false);
+                }
+
+                //ゴミアイテムを検索。
+                i = 0;
+
+                while (i < database.items.Count)
+                {
+
+                    if (database.items[i].itemName == "gomi_1")
+                    {
+                        result_item = i; //プレイヤーコントローラーの変数に、アイテムIDを代入
+                        break;
+                    }
+                    ++i;
+                }
+
+                result_kosu = 1;
+                NewRecipiFlag = false;
+
+                //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
+                pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
+
+                //失敗した場合でも、アイテムは消える。
+                compound_keisan.Delete_playerItemList(1);
+                //deleteExtreme_Item();
+                GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
+
+                card_view.ResultCard_DrawView(0, result_item);
+
+                //テキストの表示
+                Failed_Text();
+
+                //完成エフェクト
+                ResultEffect_NG();
+
+                //調合完了＋失敗
+                GameMgr.ResultComplete_flag = 2;
+                ResultSuccess = false;
+            }
+        }
+        else //プレイヤーに魔法かける場合
+        {
+            result_item = database.SearchItemIDString("magic_hyouji_statusbuf01");
+            card_view.MagicResultCard_DrawView(0, result_item, 1, GameMgr.UseMagicSkill);　//プレイヤーにバフがかかった状態をカードで表示
+
+            //あとで時間を消費した際に、使った直後なのにカウンタが進んでしまうので、あとで時間はもう一度リセットする。
+            pstatus_magic_use = true;
+
+            ResultEffect_OK(1); //完成エフェクト
+            CompleteMagicAnim(); //完成背景切り替え＋アニメ
 
             //テキストの表示
-            if (DoubleItemCreated == 0)
-            {
-                renkin_exp_up();
-            }
-            else //2つ同時にできたとき
-            {
-                renkin_exp_up2();
-            }
-
-            //完成エフェクト
-            if (GameMgr.Special_OkashiEnshutsuFlag) //trueのときの特別演出では通常エフェクト表示しない
-            {
-                EffectListClear();
-            }
-            else
-            {
-                ResultEffect_OK(1);
-                CompleteMagicAnim(); //完成背景切り替え＋アニメ
-            }
+            MagicPStatus_Text();
 
             //調合完了＋成功
             GameMgr.ResultComplete_flag = 1;
             ResultSuccess = true;
-
         }
-        else //調合失敗
-        {
-            if (GameMgr.Special_OkashiEnshutsuFlag) //特別演出　失敗したら白をとく
-            {
-                SpecialwhiteEffect.GetComponent<CanvasGroup>().alpha = 0;
-                SpecialwhiteEffect.SetActive(false);
-            }
-
-            //ゴミアイテムを検索。
-            i = 0;
-
-            while (i < database.items.Count)
-            {
-
-                if (database.items[i].itemName == "gomi_1")
-                {
-                    result_item = i; //プレイヤーコントローラーの変数に、アイテムIDを代入
-                    break;
-                }
-                ++i;
-            }
-
-            result_kosu = 1;
-            NewRecipiFlag = false;
-
-            //完成したアイテムの追加。調合失敗の場合、ゴミが入っている。
-            pitemlist.addPlayerItem(database.items[result_item].itemName, result_kosu);
-
-            //失敗した場合でも、アイテムは消える。
-            compound_keisan.Delete_playerItemList(1);
-            //deleteExtreme_Item();
-            GameMgr.extremepanel_Koushin = true; //エクストリームパネルの表示を更新するON　無いシーンではtrueのまま無視。
-
-            card_view.ResultCard_DrawView(0, result_item);
-
-            //テキストの表示
-            Failed_Text();
-
-            //完成エフェクト
-            ResultEffect_NG();
-
-            //調合完了＋失敗
-            GameMgr.ResultComplete_flag = 2;
-            ResultSuccess = false;
-        }        
 
         //完成用の背景を登場　成功・失敗かかわらず共通
         GameMgr.compound_status = 23;
 
         magic_result_ok = false;
+
+        //MPを消費
+        degMP();
+        
+        //その魔法を使った回数をカウント
+        magicskill_database.magicskill_lists[_mid].skill_usecount++;
 
         //魔法使用時の日数の経過
         if (!GameMgr.Contest_ON)
@@ -1500,11 +1555,91 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //温度管理していた場合は、ここでリセット
         GameMgr.tempature_control_ON = false;
 
+        //エピクレイシスなど　プレイヤー状態をチェック
+        Magic_PStatusCheck();
+        
         //作った直後のサブイベントをチェック
         GameMgr.check_CompoAfter_flag = true;
 
         //魔法調合を使用した
         GameMgr.Compo_UseMagic = true;
+    }
+
+    void Magic_PStatusCheck()
+    {
+        if (pstatus_magic_use)
+        {
+            if (GameMgr.Magic_CheckIgnore == 0) //この値の0は、配列番号のこと
+            {  }
+            else
+            {
+                Magic_Pstatus_CheckMethod(0);
+            }
+
+            //さらに、そのプレイヤーステータス魔法使った直後は、もう一度時間リセット
+            PlayerStatus.player_girl_status_timecounter[GameMgr.Magic_CheckIgnore] = GameMgr.Magic_AfterSettingTime;
+        } else
+        {
+            Magic_Pstatus_CheckMethod(0);
+        }
+
+        /*Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status[0]: " + PlayerStatus.player_girl_status[0]);
+        Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status[1]: " + PlayerStatus.player_girl_status[1]);
+        Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status[2]: " + PlayerStatus.player_girl_status[2]);
+
+        Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status_time[0]: " + PlayerStatus.player_girl_status_timecounter[0]);
+        Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status_time[1]: " + PlayerStatus.player_girl_status_timecounter[1]);
+        Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status_time[2]: " + PlayerStatus.player_girl_status_timecounter[2]);*/
+    }
+
+    void Magic_Pstatus_CheckMethod(int _id)
+    {
+        //エピクレイシスなど　プレイヤー状態をチェック というかここでチェックするのはエピクレイシスだけともいえる
+        if (PlayerStatus.player_girl_status[_id] > 0)
+        {
+            PlayerStatus.player_girl_status[_id] = 0; //一回でも調合したらエピクレイシスは消える
+        }
+    }
+
+    void degMP()
+    {
+        if (pstatus_magic_use)
+        {
+            if (GameMgr.Magic_CheckIgnore == 2) //この値の2は、配列番号のこと スリースターズを指している
+            {
+                final_costMP = costMP;
+            }
+            else
+            {
+                final_costMP = MPCostKeisan(costMP);
+            }
+        }
+        else
+        { }        
+
+        PlayerStatus.player_mp -= final_costMP;
+    }
+
+    public int MPCostKeisan(int _mp) //Compound_Checkからも読み出し
+    {
+        //スリースターズ状態だと消費MPが減る。
+        if (PlayerStatus.player_girl_status[2] > 0)
+        {
+            if (PlayerStatus.player_girl_status[2] == 1)
+            {
+                _mp = _mp / 2;
+            }
+            else if (PlayerStatus.player_girl_status[2] >= 2)
+            {
+                _mp = _mp / 3;
+            }
+        }
+        else
+        {
+            //なにもなければ通常のMP消費
+        }
+
+        return _mp;
     }
 
     //シーンごとの後処理
@@ -1532,6 +1667,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             live2d_animator.SetInteger("trans_motion", trans_motion);
         }
     }
+
+
+
 
     //
     //ヒカリが作る完了の場合
@@ -2434,12 +2572,6 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     sc.PlaySe(244);
                 }
 
-                //パーティクルと色の取得
-                /*compo1_particle = _listEffect[0].GetComponent<ParticleSystem>();
-                p_color1 = _listEffect[0].GetComponent<Particle_Compo1>().color_red;
-
-                main = compo1_particle.main;
-                main.startColor = new ParticleSystem.MinMaxGradient(p_color1); //色の指定*/
                 break;
 
             default:
@@ -2674,6 +2806,13 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         _text.text = "失敗しちゃった..！"; ;
 
         Debug.Log(database.items[result_item].itemNameHyouji + "調合失敗..！");
+    }
+
+    void MagicPStatus_Text()
+    {
+        _text.text = GameMgr.MagicUseType_StatusText;
+
+        Debug.Log("魔法でプレイヤーに状態バフをかけた　使用魔法: " + GameMgr.UseMagicSkill);
     }
 
     public void GirlLikeText(int _getlove_exp, int _getmoney, int total_score, int _mp)

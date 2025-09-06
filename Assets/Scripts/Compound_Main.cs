@@ -2964,6 +2964,9 @@ public class Compound_Main : MonoBehaviour
                 {
                     if (PlayerStatus.player_cullent_hour >= GameMgr.NightDay_hour) //20時をこえるかどうか。
                     {
+                        text_area.SetActive(true);
+                        black_panel_A.SetActive(true);
+
                         if (GameMgr.outgirl_Nowprogress)
                         {
                             GameMgr.Window_CharaName = GameMgr.player_Name_First;
@@ -2993,6 +2996,9 @@ public class Compound_Main : MonoBehaviour
                 }
                 else
                 {
+                    text_area.SetActive(true);
+                    black_panel_A.SetActive(true);
+
                     GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
                     _text.text = "次のお話にすすむ？　おにいちゃん。";
 
@@ -3002,6 +3008,9 @@ public class Compound_Main : MonoBehaviour
             }
             else
             {
+                text_area.SetActive(true);
+                black_panel_A.SetActive(true);
+
                 if (GameMgr.QuestClearflag)
                 {
                     _text.text = "次のお話にすすむ？　おにいちゃん。";
@@ -3294,6 +3303,7 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
                 magicskill_database.skillHyoujiKaikin("Bake_Beans");
                 magicskill_database.skillHyoujiKaikin("Chocolate_Tempering");
+                magicskill_database.skillHyoujiKaikin("Night_Barron");
                 break;
 
             case "mg_windmagic_book": //風の魔術書
@@ -3312,6 +3322,7 @@ public class Compound_Main : MonoBehaviour
 
                 //magicskill_database.skillHyoujiKaikin("Star_Gazer");
                 magicskill_database.skillHyoujiKaikin("Soda_Study");
+                magicskill_database.skillHyoujiKaikin("Tea_Study");
                 magicskill_database.skillHyoujiKaikin("Star_Blessing");
                 magicskill_database.skillHyoujiKaikin("Latte_Art");
                 magicskill_database.skillHyoujiKaikin("Magic_Soda");
@@ -3320,6 +3331,10 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_beautifulpower_book":
                 magicskill_database.skillHyoujiKaikin("Beautiful_Power");
+                break;
+
+            case "mg_parfect_princess_book":
+                magicskill_database.skillHyoujiKaikin("Parfect_Princess");
                 break;
 
             case "mg_buttelfy_illumination_book":
@@ -3476,6 +3491,18 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_saint_fleur_book":
                 magicskill_database.skillHyoujiKaikin("Saint_Fleur");
+                break;
+
+            case "mg_epiclesis_book":
+                magicskill_database.skillHyoujiKaikin("Epiclesis");
+                break;
+
+            case "mg_latria_book":
+                magicskill_database.skillHyoujiKaikin("Latria");
+                break;
+
+            case "mg_three_stars_book":
+                magicskill_database.skillHyoujiKaikin("Three_Stars");
                 break;
 
             case "mg_time_illusion_book":

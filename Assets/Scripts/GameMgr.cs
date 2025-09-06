@@ -134,6 +134,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     public static int System_Yachin_Cost01 = 10000; //家賃の額 月始めバージョン
     public static int System_Yachin_Cost02 = 1500; //〇日ごとバージョン
+    public static int System_Yachin_Cost_SPRoom; //特別な部屋の家賃
     public static int System_Yachin_Day = 10; //家賃日。〇日の指定 10なら今日の日付dayをみて、10で割る。つまり、10日ごと。
 
     public static int System_StartHonpen_num = 3; //本編スタート　「街の外へでる」がはじまるときの、GirlLoveEvent_numの番号
@@ -204,6 +205,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_MagicSlotName09 = "Saint_Fleur";
     public static string System_MagicSlotName10 = "Santiman";
     public static string System_MagicSlotName11 = "Rainbow_Rain";
+    public static string System_MagicSlotName12 = "Night_Barron";
+    public static string System_MagicSlotName13 = "Crescent_Moon";
     //** --ここまで-- **//
 
 
@@ -326,6 +329,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int yachin_counter; //家賃BBAがきた回数
     public static int yachin_otetsuki_count; //お手付きの回数　2回目までたまるとゲームオーバー
     public static int yachin_tainou_count; //家賃滞納した回数
+    public static bool yachinSPRoomON_Flag; //その家で家賃があるかどうかをチェック
 
     //好感度やパティシエレベルで発生するサブイベントのフラグ   
     public static bool[] GirlLoveSubEvent_stage1 = new bool[GirlLoveSubEvent_stage_num];
@@ -862,7 +866,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string UseMagicSkill_HikariComment;
     public static int MagicSkillSelectStatus; //今、魔法を使うを選択したか、習得を選択したかを分岐    
     public static bool MagicPanel_DefaultHyouji; //魔法パネル開いたときに、デフォルトの光魔法を表示する
-    public static int UseMagic_ItemAttri2; //対象アイテムのアトリビュートを一時保存　魔法使用の際、参照して使う
+    public static int MagicUseTypeSelect; //魔法を使うとき、その魔法のタイプ　アイテムに魔法をかけるのか　プレイヤーに魔法をかけるのか
+    public static int Magic_CheckIgnore; //プレイヤー状態魔法つかうときに、使用した直後にすぐ使用がカウントされてしまうので、それを無視する用
+    public static int Magic_AfterSettingTime; //持続時間の再設定用
+    public static string MagicUseType_StatusText; //魔法使用時に表示する効果テキストの内容
     public static bool Sleep_CheckEnd; //睡眠イベントのフラグ
     public static bool Status_zero_readOK; //メインステータスを読み終わったよ～のフラグ　その後に、ヒカリが戻ってくるなどの処理を挟む用
     public static int OkashiMake_PanelSetType; //さっき作ったお菓子が、パネルにセットされるお菓子かどうか。生地などはセットされず、すぐ調合画面を戻す
@@ -1036,6 +1043,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int AmusePlayCount; //遊園地で乗り物にのった数のカウント
     public static string barMassage_RandomUpName; //マッサージでどのパラメータがあがるかの名前
     public static int barMassage_RandomUpPoint; //そのときのポイント表示用
+    public static int[] UseMagic_ItemAttri = new int[itemAttri_num]; //対象アイテムのアトリビュートを一時保存　魔法使用の際、参照して使う
     public static int[] Appaleil_Attribute = new int[itemAttri_num]; //生地混ぜ回数の引継ぎ用
     public static float[] Contest_archivement_percent = new float[10]; //各コンテストの達成率
     public static bool puraton_houseFirst_flag; //家かりるイベント初めての場合説明がある。
@@ -1644,6 +1652,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         scene_BarName = "";
         System_BarGetNinki = 0;
         NPC_mirabo_mizuabi = false;
+        yachinSPRoomON_Flag = false;
         Ending_counterenshutu_on = false;
         Fullmoon_judge_on = false;
         System_Fullmoon_month = 4;
@@ -1688,6 +1697,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GirlLoveSubEvent_NPC_LimitDay = 0;
         GirlLoveSubEvent_NPC_PrizeMoney = 0;
         puraton_houseFirst_flag = false;
+        MagicUseTypeSelect = 0;
+        MagicUseType_StatusText = "";
 
 
         //Tempのattriを初期化

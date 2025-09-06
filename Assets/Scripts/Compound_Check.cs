@@ -68,7 +68,7 @@ public class Compound_Check : MonoBehaviour {
     private Text _cost_minutestext;
     private Text _cost_player_mptext;
     private Text _cost_mptext;
-    private int costMP;
+    private int costMP, final_costMP;
 
     private GameObject resultitemName_obj;
 
@@ -492,7 +492,7 @@ public class Compound_Check : MonoBehaviour {
 
                             GameMgr.compound_status = 4;
 
-                            card_view.CardCompo_Anim();
+                            card_view.CardCompo_Anim(0);
                             Off_Flag_Setting();
 
                             exp_Controller.ResultOK();
@@ -641,7 +641,7 @@ public class Compound_Check : MonoBehaviour {
                             GameMgr.compound_status = 4;
 
                             //card_view.DeleteCard_DrawView();
-                            card_view.CardCompo_Anim();
+                            card_view.CardCompo_Anim(0);
                             Off_Flag_Setting();
 
                             exp_Controller.ResultOK();
@@ -782,7 +782,7 @@ public class Compound_Check : MonoBehaviour {
 
                         GameMgr.compound_status = 4;
 
-                        card_view.CardCompo_Anim();
+                        card_view.CardCompo_Anim(1);
                         Off_Flag_Setting();
                         
                         //エクストリーム調合で、コンポDBに合致する新しいアイテムが生成される場合は、新規調合に変える。それ以外は、通常通りトッピング
@@ -853,7 +853,7 @@ public class Compound_Check : MonoBehaviour {
 
                         GameMgr.compound_status = 4;
 
-                        card_view.CardCompo_Anim();
+                        card_view.CardCompo_Anim(1);
                         Off_Flag_Setting();
 
 
@@ -927,7 +927,7 @@ public class Compound_Check : MonoBehaviour {
 
                         GameMgr.compound_status = 4;
 
-                        card_view.CardCompo_Anim();
+                        card_view.CardCompo_Anim(1);
                         Off_Flag_Setting();
 
                         exp_Controller.Topping_Result_OK();
@@ -993,7 +993,7 @@ public class Compound_Check : MonoBehaviour {
                 updown_counter_obj.SetActive(false);
 
                 //card_view.DeleteCard_DrawView();
-                card_view.CardCompo_Anim();
+                card_view.CardCompo_Anim(0);
 
                 GameMgr.compound_status = 4;
 
@@ -1146,12 +1146,7 @@ public class Compound_Check : MonoBehaviour {
 
                         if (GameMgr.compound_select == 21)
                         {
-                            //MPを消費
-                            PlayerStatus.player_mp -= costMP;
-
-                            //その魔法を使った回数をカウント
-                            magicskill_database.magicskill_lists[itemID_2].skill_usecount++;
-
+                            
                             //調合成功確率計算、アイテム増減の処理は、「Exp_Controller」で行う。
                             exp_Controller.magic_result_ok = true; //調合完了のフラグをたてておく。
 
@@ -1366,7 +1361,8 @@ public class Compound_Check : MonoBehaviour {
 
             //消費MPも表示
             _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
-            _cost_mptext.text = costMP.ToString();
+            final_costMP = exp_Controller.MPCostKeisan(costMP);
+            _cost_mptext.text = final_costMP.ToString();
 
             if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "MS")//[MS]が入っている時 マジックソーダの判定　時間帯で番号が変わる。
             {

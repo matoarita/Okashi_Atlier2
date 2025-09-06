@@ -1354,158 +1354,164 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         if (GameMgr.check_SleepEnd_Eventflag[1]) //ねておきたあとにチェック
                         {
                             GameMgr.check_SleepEnd_Eventflag[1] = false;
-                            Debug.Log("チェック　本日が１０・２０・３０日かどうか");
-                            Debug.Log("本日の日: " + PlayerStatus.player_cullent_day);
 
-                            //10日ごとチェックバージョン
-                            if (PlayerStatus.player_cullent_day % GameMgr.System_Yachin_Day == 0)
+                            if (!GameMgr.yachinSPRoomON_Flag) //家賃がない家の場合、家賃なくなる
+                            { }
+                            else
                             {
-                                //月はこのタイミングでも更新する。
-                                GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
+                                Debug.Log("チェック　本日が１０・２０・３０日かどうか");
+                                Debug.Log("本日の日: " + PlayerStatus.player_cullent_day);
 
-                                if (GameMgr.yachin_counter == 0) //はじめて家賃を支払った
+                                //10日ごとチェックバージョン
+                                if (PlayerStatus.player_cullent_day % GameMgr.System_Yachin_Day == 0)
                                 {
-                                    GameMgr.yachin_counter++;
+                                    //月はこのタイミングでも更新する。
+                                    GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
 
-                                    //家賃発生　事前に所持金をチェックし、払えない場合はお手付きかゲームオーバー
-                                    if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
+                                    if (GameMgr.yachin_counter == 0) //はじめて家賃を支払った
                                     {
-                                        //払えない場合
-                                        GameMgr.GirlLoveSubEvent_num = 1100;
-                                        GameMgr.GirlTalk_num = 10;
+                                        GameMgr.yachin_counter++;
 
-                                        GameMgr.yachin_otetsuki_count++; //お手付き　２回たまるとゲームオーバー
-                                        GameMgr.yachin_tainou_count++; //トータルの滞納回数
+                                        //家賃発生　事前に所持金をチェックし、払えない場合はお手付きかゲームオーバー
+                                        if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
+                                        {
+                                            //払えない場合
+                                            GameMgr.GirlLoveSubEvent_num = 1100;
+                                            GameMgr.GirlTalk_num = 10;
+
+                                            GameMgr.yachin_otetsuki_count++; //お手付き　２回たまるとゲームオーバー
+                                            GameMgr.yachin_tainou_count++; //トータルの滞納回数
+                                        }
+                                        else
+                                        {
+                                            //払える
+                                            moneyStatus_Controller.UseMoney(GameMgr.Yachin_Cost_cullent);
+                                            GameMgr.GirlLoveSubEvent_num = 1100;
+                                            GameMgr.GirlTalk_num = 0;
+                                        }
                                     }
                                     else
                                     {
-                                        //払える
-                                        moneyStatus_Controller.UseMoney(GameMgr.Yachin_Cost_cullent);
-                                        GameMgr.GirlLoveSubEvent_num = 1100;
-                                        GameMgr.GirlTalk_num = 0;
-                                    }
-                                }
-                                else
-                                {
-                                    //家賃　二回目以降
-                                    GameMgr.yachin_counter++;
+                                        //家賃　二回目以降
+                                        GameMgr.yachin_counter++;
 
-                                    //家賃発生　事前に所持金をチェックし、払えない場合はお手付きかゲームオーバー
-                                    switch (GameMgr.yachin_otetsuki_count)
+                                        //家賃発生　事前に所持金をチェックし、払えない場合はお手付きかゲームオーバー
+                                        switch (GameMgr.yachin_otetsuki_count)
+                                        {
+                                            case 0:
+
+                                                if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
+                                                {
+                                                    //払えない場合
+                                                    GameMgr.GirlLoveSubEvent_num = 1101;
+                                                    GameMgr.GirlTalk_num = 10;
+
+                                                    GameMgr.yachin_otetsuki_count++; //お手付き　２回たまるとゲームオーバー
+                                                    GameMgr.yachin_tainou_count++; //トータルの滞納回数
+                                                }
+                                                else
+                                                {
+                                                    //払える
+                                                    moneyStatus_Controller.UseMoney(GameMgr.Yachin_Cost_cullent);
+                                                    GameMgr.GirlLoveSubEvent_num = 1101;
+                                                    GameMgr.GirlTalk_num = 0;
+                                                }
+                                                break;
+
+                                            case 1:
+
+                                                if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
+                                                {
+                                                    //払えない場合
+                                                    GameMgr.GirlLoveSubEvent_num = 1110; //２回たまったのでゲームーオーバー
+                                                    GameMgr.GirlTalk_num = 11;
+
+                                                    GameMgr.yachin_otetsuki_count++; //お手付き　２回たまったのでゲームオーバー
+                                                    GameMgr.yachin_tainou_count++; //トータルの滞納回数
+
+                                                    //一回たまって二回目も支払えなかったのでゲームオーバー　宴終了後自動でゲームオーバー画面へいく
+                                                    GameMgr.Utage_MapMoveON = true;
+                                                }
+                                                else
+                                                {
+                                                    //払える
+                                                    moneyStatus_Controller.UseMoney(GameMgr.Yachin_Cost_cullent);
+                                                    GameMgr.GirlLoveSubEvent_num = 1101;
+                                                    GameMgr.GirlTalk_num = 0;
+
+                                                    GameMgr.yachin_otetsuki_count = 0; //お手付きリセット
+                                                }
+                                                break;
+
+                                            default: //例外処理用
+
+                                                if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
+                                                {
+                                                    //払えない場合
+                                                    GameMgr.GirlLoveSubEvent_num = 1101;
+                                                    GameMgr.GirlTalk_num = 10;
+
+                                                    GameMgr.yachin_otetsuki_count++; //お手付き　２回たまるとゲームオーバー
+                                                    GameMgr.yachin_tainou_count++; //トータルの滞納回数
+                                                }
+                                                else
+                                                {
+                                                    //払える
+                                                    moneyStatus_Controller.UseMoney(GameMgr.Yachin_Cost_cullent);
+                                                    GameMgr.GirlLoveSubEvent_num = 1101;
+                                                    GameMgr.GirlTalk_num = 0;
+
+                                                    GameMgr.yachin_otetsuki_count = 0; //お手付きリセット
+                                                }
+                                                break;
+                                        }
+
+                                    }
+
+                                    if (GameMgr.YachinSkipFlag) //会話スキップがONのとき　会話イベントは表示しない　家賃はとられる
                                     {
-                                        case 0:
-
-                                            if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
-                                            {
-                                                //払えない場合
-                                                GameMgr.GirlLoveSubEvent_num = 1101;
-                                                GameMgr.GirlTalk_num = 10;
-
-                                                GameMgr.yachin_otetsuki_count++; //お手付き　２回たまるとゲームオーバー
-                                                GameMgr.yachin_tainou_count++; //トータルの滞納回数
-                                            }
-                                            else
-                                            {
-                                                //払える
-                                                moneyStatus_Controller.UseMoney(GameMgr.Yachin_Cost_cullent);
-                                                GameMgr.GirlLoveSubEvent_num = 1101;
-                                                GameMgr.GirlTalk_num = 0;
-                                            }
-                                            break;
-
-                                        case 1:
-
-                                            if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
-                                            {
-                                                //払えない場合
-                                                GameMgr.GirlLoveSubEvent_num = 1110; //２回たまったのでゲームーオーバー
-                                                GameMgr.GirlTalk_num = 11;
-
-                                                GameMgr.yachin_otetsuki_count++; //お手付き　２回たまったのでゲームオーバー
-                                                GameMgr.yachin_tainou_count++; //トータルの滞納回数
-
-                                                //一回たまって二回目も支払えなかったのでゲームオーバー　宴終了後自動でゲームオーバー画面へいく
-                                                GameMgr.Utage_MapMoveON = true;
-                                            }
-                                            else
-                                            {
-                                                //払える
-                                                moneyStatus_Controller.UseMoney(GameMgr.Yachin_Cost_cullent);
-                                                GameMgr.GirlLoveSubEvent_num = 1101;
-                                                GameMgr.GirlTalk_num = 0;
-
-                                                GameMgr.yachin_otetsuki_count = 0; //お手付きリセット
-                                            }
-                                            break;
-
-                                        default: //例外処理用
-
-                                            if (PlayerStatus.player_money < GameMgr.Yachin_Cost_cullent)
-                                            {
-                                                //払えない場合
-                                                GameMgr.GirlLoveSubEvent_num = 1101;
-                                                GameMgr.GirlTalk_num = 10;
-
-                                                GameMgr.yachin_otetsuki_count++; //お手付き　２回たまるとゲームオーバー
-                                                GameMgr.yachin_tainou_count++; //トータルの滞納回数
-                                            }
-                                            else
-                                            {
-                                                //払える
-                                                moneyStatus_Controller.UseMoney(GameMgr.Yachin_Cost_cullent);
-                                                GameMgr.GirlLoveSubEvent_num = 1101;
-                                                GameMgr.GirlTalk_num = 0;
-
-                                                GameMgr.yachin_otetsuki_count = 0; //お手付きリセット
-                                            }
-                                            break;
+                                        if (GameMgr.GirlLoveSubEvent_num == 1110) //ただし、ゲームオーバーのときはイベント表示
+                                        {
+                                            GameMgr.check_GirlLoveSubEvent_flag = false;
+                                            GameMgr.Mute_on = true;
+                                        }
+                                        else
+                                        { }
                                     }
-
-                                }
-
-                                if (GameMgr.YachinSkipFlag) //会話スキップがONのとき　会話イベントは表示しない　家賃はとられる
-                                {
-                                    if (GameMgr.GirlLoveSubEvent_num == 1110) //ただし、ゲームオーバーのときはイベント表示
+                                    else
                                     {
                                         GameMgr.check_GirlLoveSubEvent_flag = false;
                                         GameMgr.Mute_on = true;
                                     }
-                                    else
-                                    { }
                                 }
-                                else
+
+                                //月はじめバージョン
+                                /*if (PlayerStatus.player_cullent_month > GameMgr.SleepBefore_Month)
                                 {
+                                    //月はこのタイミングでも更新する。
+                                    GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
+
+                                    //寝る前の月　起きた後の月で、月が変わっていた　家賃発生
+                                    moneyStatus_Controller.UseMoney(GameMgr.System_Yachin_Cost01);
+
+                                    GameMgr.GirlLoveSubEvent_num = 1100;
                                     GameMgr.check_GirlLoveSubEvent_flag = false;
+
                                     GameMgr.Mute_on = true;
-                                }
-                            }
+                                }*/
 
-                            //月はじめバージョン
-                            /*if (PlayerStatus.player_cullent_month > GameMgr.SleepBefore_Month)
-                            {
-                                //月はこのタイミングでも更新する。
-                                GameMgr.SleepBefore_Month = PlayerStatus.player_cullent_month;
-
-                                //寝る前の月　起きた後の月で、月が変わっていた　家賃発生
-                                moneyStatus_Controller.UseMoney(GameMgr.System_Yachin_Cost01);
-
-                                GameMgr.GirlLoveSubEvent_num = 1100;
-                                GameMgr.check_GirlLoveSubEvent_flag = false;
-
-                                GameMgr.Mute_on = true;
-                            }*/
-
-                            //家賃とられる5日前　アテンションイベント
-                            if (PlayerStatus.player_cullent_day == (GameMgr.System_Yachin_Day / 2))
-                            {
-                                if (!GameMgr.GirlLoveSubEvent_stage1[180])
+                                //家賃とられる5日前　アテンションイベント
+                                if (PlayerStatus.player_cullent_day == (GameMgr.System_Yachin_Day / 2))
                                 {
-                                    GameMgr.GirlLoveSubEvent_stage1[180] = true;
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[180])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[180] = true;
 
-                                    GameMgr.GirlLoveSubEvent_num = 180;
-                                    GameMgr.check_GirlLoveSubEvent_flag = false;
-                                    GameMgr.Mute_on = true;
+                                        GameMgr.GirlLoveSubEvent_num = 180;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        GameMgr.Mute_on = true;
 
+                                    }
                                 }
                             }
                         }

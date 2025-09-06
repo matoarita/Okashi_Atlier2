@@ -24,6 +24,7 @@ public class MagicSkillList
     public int skillEnshutuType;   //演出魔法かそうでないか
     public int success_rate; //スキルの成功率　だが、今のとこcompoDBで決定するので使用してない
     public int cost_time;
+    public int status_time; //プレイヤーにバフかけるときのその魔法の持続時間基準
     public string skillComment_Full; //スキルの詳細な説明
     public string skill_Jouken_name1; //取得に必要な前提スキル名
     public int skill_Jouken_lv1; //それの必要レベル
@@ -36,7 +37,7 @@ public class MagicSkillList
     //ここでリスト化時に渡す引数をあてがいます   
     public MagicSkillList(int id, int koyuid, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
         int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, string skill_kosuselect, int skill_type, int skill_category, int skill_enshutuType, 
-        int successRate, int costTime, string skill_comment_full,
+        int successRate, int costTime, int _statusTime, string skill_comment_full,
         string skill_jouken_name1, int skill_jouken_lv1)
     {
         magicskillID = id;
@@ -64,6 +65,7 @@ public class MagicSkillList
 
         success_rate = successRate;
         cost_time = costTime;
+        status_time = _statusTime;
 
         skillIcon_sprite = Resources.Load<Sprite>("Sprites/Skill_Icon/" + fileName);
 

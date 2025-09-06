@@ -1431,18 +1431,8 @@ public class itemSelectToggle : MonoBehaviour
                 //Debug.Log("これでいいですか？");
 
                 //対象アイテムの情報を使う場合 ここに記入
-                if(GameMgr.Final_toggle_Type1 == 0)
-                {
-                    GameMgr.UseMagic_ItemAttri2 = database.items[GameMgr.Final_list_itemID1].Attribute2;
-                }
-                else if (GameMgr.Final_toggle_Type1 == 1)
-                {
-                    GameMgr.UseMagic_ItemAttri2 = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute2;
-                }
-                else if (GameMgr.Final_toggle_Type1 == 2)
-                {
-                    GameMgr.UseMagic_ItemAttri2 = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute2;
-                }
+                UseMagicAttri_Matome();
+                
 
                 card_view.SelectCard_DrawView(GameMgr.Final_toggle_Type1, GameMgr.Final_list_itemID1); //選択したアイテムをカードで表示。トグルタイプとリスト番号を入れると、表示してくれる。
                 updown_counter_obj.SetActive(true);
@@ -1454,6 +1444,33 @@ public class itemSelectToggle : MonoBehaviour
         }
     }
 
+    void UseMagicAttri_Matome()
+    {
+        if (GameMgr.Final_toggle_Type1 == 0)
+        {
+            GameMgr.UseMagic_ItemAttri[0] = database.items[GameMgr.Final_list_itemID1].Attribute1;
+            GameMgr.UseMagic_ItemAttri[1] = database.items[GameMgr.Final_list_itemID1].Attribute2;
+            GameMgr.UseMagic_ItemAttri[2] = database.items[GameMgr.Final_list_itemID1].Attribute3;
+            GameMgr.UseMagic_ItemAttri[3] = database.items[GameMgr.Final_list_itemID1].Attribute4;
+            GameMgr.UseMagic_ItemAttri[4] = database.items[GameMgr.Final_list_itemID1].Attribute5;
+        }
+        else if (GameMgr.Final_toggle_Type1 == 1)
+        {
+            GameMgr.UseMagic_ItemAttri[0] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute1;
+            GameMgr.UseMagic_ItemAttri[1] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute2;
+            GameMgr.UseMagic_ItemAttri[2] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute3;
+            GameMgr.UseMagic_ItemAttri[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute4;
+            GameMgr.UseMagic_ItemAttri[4] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute5;
+        }
+        else if (GameMgr.Final_toggle_Type1 == 2)
+        {
+            GameMgr.UseMagic_ItemAttri[0] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute1;
+            GameMgr.UseMagic_ItemAttri[1] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute2;
+            GameMgr.UseMagic_ItemAttri[2] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute3;
+            GameMgr.UseMagic_ItemAttri[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute4;
+            GameMgr.UseMagic_ItemAttri[4] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute5;
+        }
+    }
 
 
     IEnumerator magicitemselect_kakunin_one()

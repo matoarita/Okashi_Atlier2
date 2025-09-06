@@ -79,6 +79,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private ItemMatPlaceDataBase matplace_database;
     private ItemSubTypeSetDatabase itemsubtypeset_database;
     private ItemCardEffectDataBase itemCardEffect_database;
+    private MagicSkillListDataBase magicskill_database;
 
     private ContestStartListDataBase conteststartList_database;
 
@@ -140,6 +141,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     private Text girl_param;
     private Color origin_color;
     private int hint_ID;
+    private int _mlv;
 
     private int _beforeGirllove;
     private int _ResultGirllove;
@@ -665,6 +667,9 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
         //コンテスト全般データベースの取得
         conteststartList_database = ContestStartListDataBase.Instance.GetComponent<ContestStartListDataBase>();
+
+        //スキルデータベースの取得
+        magicskill_database = MagicSkillListDataBase.Instance.GetComponent<MagicSkillListDataBase>();
 
         //魔法エフェクトの計算データベース
         itemCardEffect_database = ItemCardEffectDataBase.Instance.GetComponent<ItemCardEffectDataBase>();
@@ -2260,10 +2265,10 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             //Debug.Log("コンテスト　愛らしさ計算OFF");
         }
 
-        //夏らしさ
+        //宇宙らしさ
         if (_girlsp_score4[countNum] > 0)
         {
-            GameMgr.Contest_Spscore_text = "夏らしさ";
+            GameMgr.Contest_Spscore_text = "宇宙らしさ";
 
             _spscore_difference = _base_sp_score4 - _girlsp_score4[countNum];
 
@@ -2276,17 +2281,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 //GameMgr.Contest_Clear_Failed = true;
                 spscore4_score += _spscore_difference * spscore_deg + spscore_deg_base; //マイナスの場合、減点大きくなる
-                Debug.Log("夏らしさの点: " + spscore4_score + " 足りなかった");
+                Debug.Log("宇宙らしさの点: " + spscore4_score + " 足りなかった");
             }
 
-            spscore4_score_debugtext = "・お菓子の夏らしさ: " + _base_sp_score4 + " 判定値: " + _girlsp_score4[countNum] + " 点数: " + spscore4_score;
+            spscore4_score_debugtext = "・お菓子の宇宙らしさ: " + _base_sp_score4 + " 判定値: " + _girlsp_score4[countNum] + " 点数: " + spscore4_score;
             Debug.Log(spscore4_score_debugtext);
         }
         else
         {
             spscore4_score += 0;
             spscore4_score += _base_sp_score4 / 2;
-            spscore4_score_debugtext = "・夏らしさ計算OFF　SP値を加点: " + spscore4_score;
+            spscore4_score_debugtext = "・宇宙らしさ計算OFF　SP値を加点: " + spscore4_score;
             //Debug.Log("コンテスト　宇宙らしさ計算OFF");
         }
 
@@ -2821,6 +2826,16 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             }
 
             taste_score_shokukanhosei = 1.0f + _tastescore_counter * 0.25f;
+
+            //さらにHLVに応じて、少し点数が上がる
+            taste_score_shokukanhosei = taste_score_shokukanhosei * SujiMap(PlayerStatus.girl1_Love_lv, 1f, 99f, 1.0f, 2.0f);
+
+            //さらにパーフェクトプリンセスでのびる
+            _mlv = magicskill_database.skillName_SearchLearnLevel("Parfect_Princess");
+            if (_mlv > 0)
+            {
+                taste_score_shokukanhosei = taste_score_shokukanhosei * SujiMap(_mlv, 1f, 5f, 1.2f, 2.4f);
+            }
         }
     }
 

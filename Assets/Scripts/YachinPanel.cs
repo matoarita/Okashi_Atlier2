@@ -48,7 +48,13 @@ public class YachinPanel : MonoBehaviour {
 
         if(GameMgr.System_Yachin_ON)
         {
-            this.transform.Find("Panel").gameObject.SetActive(true);
+            if (GameMgr.yachinSPRoomON_Flag) //家賃がない家の場合、家賃なくなる
+            {
+                this.transform.Find("Panel").gameObject.SetActive(true);
+            } else
+            {
+                this.transform.Find("Panel").gameObject.SetActive(false);
+            }       
         }
         else
         {
@@ -149,7 +155,13 @@ public class YachinPanel : MonoBehaviour {
 
     public void Setting_CullentYachin()
     {
-        cullent_yachin = GameMgr.System_Yachin_Cost02;
+        if (GameMgr.OrCompound_RoomNum == 0)
+        {
+            cullent_yachin = GameMgr.System_Yachin_Cost02;
+        }else
+        {
+            cullent_yachin = GameMgr.System_Yachin_Cost_SPRoom;
+        }
 
         //現在の家賃額を設定
         switch (GameMgr.yachin_otetsuki_count)

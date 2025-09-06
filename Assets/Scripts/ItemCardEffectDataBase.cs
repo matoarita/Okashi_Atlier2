@@ -121,6 +121,24 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 _addMagic = 1;
                 break;
 
+            case "Rainbow_Rain":
+                _addMS = GameMgr.System_MagicSlotName11;
+                _addMSvalue = _value;
+                _addMagic = 1;
+                break;
+
+            case "Night_Barron":
+                _addMS = GameMgr.System_MagicSlotName12;
+                _addMSvalue = _value;
+                _addMagic = 1;
+                break;
+
+            case "Crescent_Moon":
+                _addMS = GameMgr.System_MagicSlotName13;
+                _addMSvalue = _value;
+                _addMagic = 1;
+                break;
+
             default:
                 
                 break;
@@ -200,15 +218,15 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i]; //_msvalue[i]‚ÍK“¾LV
 
-                        _ms_sp_score4 += _MS_pointup[j] / 4 * _msvalue[i]; //‰Ä‚ç‚µ‚³‚ð‘«‚·   
+                        _ms_sp_score2 += _MS_pointup[j] / 4 * _msvalue[i]; //‰Ä‚ç‚µ‚³‚ð‘«‚·   
                         _ms_sp_score6 += _MS_pointup[j] / 5 * _msvalue[i]; //Žq‹Ÿ‚Á‚Û‚³‚ð‘«‚·                         
                     }
                 }
 
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
-                _ms_sp_score4 += 10; //‰Ä‚ç‚µ‚³‚ð‘«‚·   
+                _ms_sp_score2 += 10; //ŠC‚ç‚µ‚³‚ð‘«‚·   
                 _ms_sp_score6 += 10;
-                aisho_text2 = "‰Ä‚ç‚µ‚³ + " + _ms_sp_score4.ToString();
+                aisho_text2 = "ŠC‚ç‚µ‚³ + " + _ms_sp_score2.ToString();
                 aisho_text3 = "Žq‹Ÿ‚Á‚Û‚¢ + " + _ms_sp_score6.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
@@ -435,7 +453,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                     if (_MS_mariage[j] == GameMgr.System_MagicSlotName10)
                     {
                         _compatible = _MS_pointup[j] * _msvalue[i];
-                        _ms_sp_score3 += _MS_pointup[j] / 4 * _msvalue[i]; //ˆ¤‚ð‰ÁŽZ
+                        _ms_sp_score3 += _MS_pointup[j] / 3 * _msvalue[i]; //ˆ¤‚ð‰ÁŽZ
                         
                     }
                 }
@@ -452,6 +470,92 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 _basemagicslot_Name = GameMgr.System_MagicSlotName10;
 
                 GameMgr.UseMagicSkill_HikariComment = "ƒn[ƒg‚©‚í‚¢‚¢`ô"; //Girl1_status‚ÌƒqƒJƒŠ‚«o‚µ‚ÅƒRƒƒ“ƒgŽg—p
+            }
+
+            if (_magicslot[i] == GameMgr.System_MagicSlotName11) //Rainbow_Rain
+            {
+
+                for (j = 0; j < _MS_mariage.Count; j++) //‚¨‚©‚µ‚²‚Æ‚Ì‚»‚Ì–‚–@‚Æ‚Ì‘Š«‚ð‚Ý‚ÄA‘Š«‚ª“ü‚Á‚Ä‚ê‚Î‰Á“_
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName11)
+                    {
+                        _compatible = _MS_pointup[j] * _msvalue[i];
+                        _ms_sp_score4 += _MS_pointup[j] / 3 * _msvalue[i]; //‰F’ˆ‚ð‰ÁŽZ
+                        _ms_sp_score8 += _MS_pointup[j] / 3 * _msvalue[i]; //Œ|p‚ð‰ÁŽZ
+                    }
+                }
+
+                //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
+                _ms_sp_score4 += 6; //‰F’ˆ‚ð‰ÁŽZ
+                _ms_sp_score8 += 12; //Œ|p‰ÁŽZ
+                aisho_text2 = "‰F’ˆ + " + _ms_sp_score4.ToString();
+                aisho_text3 = "Œ|p " + _ms_sp_score8.ToString();
+
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //‰‰o–‚–@‚ð‚©‚¯‚é‚Æ•K‚¸ã‚ª‚é€–Ú
+                item_MS_aisho = "“ø: " + _ms_aisho + "@" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
+
+                _basemagicslot_on = 1; //‰Á“_‚ª‚È‚­‚Ä‚àA–‚–@‚Í‚©‚©‚Á‚Ä‚é‚Ì‚ÅA–‚–@‚Ì‚¨‚©‚µˆµ‚¢‚É‚Í‚È‚éB
+                _basemagicslot_Name = GameMgr.System_MagicSlotName11;
+
+                GameMgr.UseMagicSkill_HikariComment = "“ø‚ª‚¤‚¢‚Ä‚é`ô"; //Girl1_status‚ÌƒqƒJƒŠ‚«o‚µ‚ÅƒRƒƒ“ƒgŽg—p
+            }
+
+            if (_magicslot[i] == GameMgr.System_MagicSlotName12) //Night_Barron
+            {
+
+                for (j = 0; j < _MS_mariage.Count; j++) //‚¨‚©‚µ‚²‚Æ‚Ì‚»‚Ì–‚–@‚Æ‚Ì‘Š«‚ð‚Ý‚ÄA‘Š«‚ª“ü‚Á‚Ä‚ê‚Î‰Á“_
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName12)
+                    {
+                        _compatible = _MS_pointup[j] * _msvalue[i];
+                        _ms_sp_score5 += _MS_pointup[j] / 3 * _msvalue[i]; //‘ål‚ð‰ÁŽZ
+
+                    }
+                }
+
+                //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
+                _ms_sp_score5 += 10; //‘ål‚ð‰ÁŽZ
+                aisho_text2 = "‘ål + " + _ms_sp_score5.ToString();
+
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //‰‰o–‚–@‚ð‚©‚¯‚é‚Æ•K‚¸ã‚ª‚é€–Ú
+                item_MS_aisho = "ƒ_ƒ“ƒfƒB: " + _ms_aisho + "@" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
+
+                _basemagicslot_on = 1; //‰Á“_‚ª‚È‚­‚Ä‚àA–‚–@‚Í‚©‚©‚Á‚Ä‚é‚Ì‚ÅA–‚–@‚Ì‚¨‚©‚µˆµ‚¢‚É‚Í‚È‚éB
+                _basemagicslot_Name = GameMgr.System_MagicSlotName12;
+
+                GameMgr.UseMagicSkill_HikariComment = "‚©‚Á‚±‚¢‚¢Bƒ_ƒ“ƒfƒB`ô"; //Girl1_status‚ÌƒqƒJƒŠ‚«o‚µ‚ÅƒRƒƒ“ƒgŽg—p
+            }
+
+            if (_magicslot[i] == GameMgr.System_MagicSlotName13) //Crescent_Moon
+            {
+
+                for (j = 0; j < _MS_mariage.Count; j++) //‚¨‚©‚µ‚²‚Æ‚Ì‚»‚Ì–‚–@‚Æ‚Ì‘Š«‚ð‚Ý‚ÄA‘Š«‚ª“ü‚Á‚Ä‚ê‚Î‰Á“_
+                {
+                    if (_MS_mariage[j] == GameMgr.System_MagicSlotName13)
+                    {
+                        _compatible = _MS_pointup[j] * _msvalue[i];
+                        _ms_sp_score4 += _MS_pointup[j] / 4 * _msvalue[i]; //ˆ¤‚ð‰ÁŽZ
+                        _ms_sp_score8 += _MS_pointup[j] / 2 * _msvalue[i]; //Œ|p‚ð‰ÁŽZ
+
+                    }
+                }
+
+                //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
+                _ms_sp_score4 += 12; //‰F’ˆ‚ð‰ÁŽZ
+                _ms_sp_score8 += 6; //Œ|p‚ð‰ÁŽZ
+                aisho_text2 = "‰F’ˆ + " + _ms_sp_score4.ToString();
+                aisho_text3 = "Œ|p " + _ms_sp_score8.ToString();
+
+                MS_aisho_database(_compatible, _msvalue[i]);
+                Common_Keisan(_compatible); //‰‰o–‚–@‚ð‚©‚¯‚é‚Æ•K‚¸ã‚ª‚é€–Ú
+                item_MS_aisho = "ŽO“úŒŽ: " + _ms_aisho + "@" + aisho_text1 + "\n" + aisho_text2 + " " + aisho_text3;
+
+                _basemagicslot_on = 1; //‰Á“_‚ª‚È‚­‚Ä‚àA–‚–@‚Í‚©‚©‚Á‚Ä‚é‚Ì‚ÅA–‚–@‚Ì‚¨‚©‚µˆµ‚¢‚É‚Í‚È‚éB
+                _basemagicslot_Name = GameMgr.System_MagicSlotName13;
+
+                GameMgr.UseMagicSkill_HikariComment = "‚Ó‚µ‚¬‚È‚¨ŒŽ—lô"; //Girl1_status‚ÌƒqƒJƒŠ‚«o‚µ‚ÅƒRƒƒ“ƒgŽg—p
             }
         }
     }

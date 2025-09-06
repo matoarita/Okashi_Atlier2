@@ -387,11 +387,22 @@ public class HikariMakeStartPanel : MonoBehaviour {
         //Debug.Log("_cardImage.check_counter: " + _cardImage.check_counter);
         _cardImage.SetInitYosoku();
 
-        _cardImage_obj[0].transform.localScale = new Vector3(0.75f, 0.75f, 1);
-        _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0);
-        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 1200;
+        _cardImage_obj[0].transform.localScale = new Vector3(0.7f, 0.7f, 1);
+
+        if (_cardImage.CardTasteView_flag1)
+        {
+            _cardImage_obj[0].transform.localPosition = new Vector3(-80, 0, 0);
+        }
+        else
+        {
+            _cardImage_obj[0].transform.localPosition = new Vector3(0, 0, 0); //1枚のときの表示
+        }     
+        
+        _cardImage_obj[0].GetComponent<Canvas>().sortingOrder = 1300;
 
         _cardImage_obj[0].GetComponent<SetImage>().CardParamOFF_2();
+        _cardImage_obj[0].GetComponent<SetImage>().CardParamSpScoreOFF(); //SPスコア表示はオフにする。
+
     }
 
     //この画面専用でのカード表示　cardViewとは別で処理　受け取る前最終確認のカード

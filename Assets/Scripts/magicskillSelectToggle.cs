@@ -63,6 +63,7 @@ public class magicskillSelectToggle : MonoBehaviour
     private int pitemlist_max;
     private int count;
     private bool selectToggle;
+    private int _id;
 
     private List<GameObject> category_toggle = new List<GameObject>();
 
@@ -213,40 +214,48 @@ public class magicskillSelectToggle : MonoBehaviour
         Debug.Log(count + "番が押されたよ");
         Debug.Log("アイテム:" + _item_Namehyouji + "が選択されました。");
 
-        //①
-        UseKetteiMagicMethod(); //すぐに魔法の次処理画面へ
-
-        //②
-        //以下処理は、使いますかで最終確認する場合の処理　確認したい場合は、チェックを外す
-        /*
-         * compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
-
-        //Debug.Log("これでいいですか？");
-
-        //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
-        for (i = 0; i < magicskilllistController._skill_listitem.Count; i++)
+        _id = magicskill_database.SearchSkillString(_skillname);
+        if (magicskill_database.magicskill_lists[_id].skill_LvSelect != "PlayerBuf")
         {
-            magicskilllistController._skill_listitem[i].GetComponent<Toggle>().interactable = false;
+            //①
+            UseKetteiMagicMethod(); //すぐに魔法の次処理画面へ
         }
-        for (i = 0; i < category_toggle.Count; i++)
+        else
         {
-            category_toggle[i].GetComponent<Toggle>().interactable = false;
+            //プレイヤーにかける魔法やその他の支援魔法など　一回使うかを確認する
+
+            //②
+            //以下処理は、使いますかで最終確認する場合の処理　確認したい場合は、チェックを外す
+
+            compoBG_A.GetComponent<Compound_BGPanel_A>().BlackImageON();
+
+            //Debug.Log("これでいいですか？");
+
+            //すごく面倒な処理だけど、一時的にリスト要素への入力受付を停止している。
+            for (i = 0; i < magicskilllistController._skill_listitem.Count; i++)
+            {
+                magicskilllistController._skill_listitem[i].GetComponent<Toggle>().interactable = false;
+            }
+            for (i = 0; i < category_toggle.Count; i++)
+            {
+                category_toggle[i].GetComponent<Toggle>().interactable = false;
+            }
+
+
+            yes_no_panel.SetActive(true);
+
+            //魔法のエフェクトを表示する
+            //SkillUseLibrary(0);
+
+            magicskilllistController.skill_final_select_flag = true; //確認のフラグ
         }
-
-
-        yes_no_panel.SetActive(true);
-
-        //魔法のエフェクトを表示する
-        //SkillUseLibrary(0);
-
-        magicskilllistController.skill_final_select_flag = true; //確認のフラグ*/
-
     }
 
 
     IEnumerator skilluse_Final_select()
     {
-        _text.text = magicskilllistController.skill_itemName_Hyouji + "を使いますか？";
+        _text.text = magicskilllistController.skill_itemName_Hyouji + "を使いますか？" + "\n" + "MP: " + 
+            magicskilllistController.skill_cost + "　消費時間: " + magicskilllistController.skill_timecost + "分";
 
         while (yes_selectitem_kettei.onclick != true)
         {
@@ -332,7 +341,7 @@ public class magicskillSelectToggle : MonoBehaviour
             magicskilllistController._skill_listitem[i].GetComponent<Toggle>().interactable = true;
             magicskilllistController._skill_listitem[i].GetComponent<Toggle>().isOn = false;
 
-            magicskilllistController.UseHyouji_ONOFF(i, magicskilllistController._skill_listitem[i].GetComponent<magicskillLearnToggle>().toggle_skill_ID);
+            magicskilllistController.UseHyouji_ONOFF(i, magicskilllistController._skill_listitem[i].GetComponent<magicskillSelectToggle>().toggle_skill_ID);
         }
 
         for (i = 0; i < category_toggle.Count; i++)
@@ -380,189 +389,231 @@ public class magicskillSelectToggle : MonoBehaviour
         {
             case "Caramelized":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "Bake_Beans":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい豆を選んでね。";
                 break;
 
             case "Fire_Flowers":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "Removing_Shells":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "豆を選んでね。";
                 break;
 
             case "Chocolate_Tempering":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいカカオマスを選んでね。";
                 break;
 
             case "Cookie_SecondBake":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "クッキーを選んでね。";
                 break;
 
             case "Freezing_Spell":
 
-                CompoStatusMethod();    //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
+                CompoStatusMethod(0);    //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
                 break;
 
             case "Ice_Cube":
 
-                CompoStatusMethod();    //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
+                CompoStatusMethod(0);    //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "水の材料を選んでね。";
                 break;
 
             case "SugerPot":
 
-                CompoStatusMethod();    //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
+                CompoStatusMethod(0);    //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
                 break;
 
             case "Luminous_Suger":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい砂糖を選んでね。";
                 break;
 
             case "Luminous_Fruits":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいフルーツを選んでね。";
                 break;
 
             case "Buttelfy_illumination":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "Aroma_Potion":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "お花を選んでね。";
                 break;
 
             case "Wind_Ark":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
                 break;
 
             case "Wind_Twister":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
                 break;
 
             case "Wind_Heart":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
                 break;
 
             case "Float_Material":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かける素材を選んでね。";
                 break;
 
             case "Bubble_Mist":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "Statue_of_Penguin":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい液体を選んでね。";
                 break;
 
             case "Statue_of_Bear":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい液体を選んでね。";
                 break;
 
             case "Statue_of_Rabitts":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい液体を選んでね。";
                 break;
 
             case "Statue_of_AngelWing":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい液体を選んでね。";
                 break;
 
             case "Star_Blessing":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "Latte_Art":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい飲み物を選んでね。";
                 break;
 
             case "Moonlight_Banana":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいバナナを選んでね。";
                 break;
 
             case "Magic_Soda":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいソーダを選んでね。";
                 break;
 
             case "Rainbow_Rain":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
                 break;
 
             case "Warming_Handmade":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "Life_Stream":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "AbraCadabra":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
 
             case "True_of_Myheart":
 
-                CompoStatusMethod();
+                CompoStatusMethod(0);
                 _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたいお菓子を選んでね。";
                 break;
+
+            //プレイヤーバフ関係
+            case "Epiclesis":
+
+                CompoStatusMethod(1);
+             
+                PStatusBuf(0);
+
+                //効果のテキストもここで書く
+                GameMgr.MagicUseType_StatusText = "「エピクレイシス」状態になった！" + "\n" + "効果: 次に作るお菓子の成功率が、大きく上がる！";
+                break;
+
+            case "Latria":
+
+                CompoStatusMethod(1);
+
+                PStatusBuf(1);
+
+                //効果のテキストもここで書く
+                GameMgr.MagicUseType_StatusText = "「ラトリア」状態になった！" + "\n" + "効果: " + "\n" + "しばらくの間、油っぽさ・水っぽさ・粉っぽさが上がりにくくなる。";
+                
+                break;
+
+            case "Three_Stars":
+
+                CompoStatusMethod(1);
+
+                PStatusBuf(2);
+
+                //効果のテキストもここで書く
+                if (magicskill_database.magicskill_lists[_id].skillLv == 1)
+                {
+                    GameMgr.MagicUseType_StatusText = "「スリースターズ」状態になった！" + "\n" + "効果: しばらくの間、消費MPが 1/2 になる。";
+                }
+                else if (magicskill_database.magicskill_lists[_id].skillLv == 2)
+                {
+                    GameMgr.MagicUseType_StatusText = "「スリースターズ」状態になった！" + "\n" + "効果: しばらくの間、消費MPが 1/3 になる。";
+                }
+
+                break;
+
+            
 
             default: //例外処理　通常ここを通ることはない..が、処理を未登録などの場合、ひとまずここを通る。
 
@@ -575,7 +626,7 @@ public class magicskillSelectToggle : MonoBehaviour
 
                     case 1: //最終決定後。魔法の次の処理をかく
 
-                        CompoStatusMethod();                        
+                        CompoStatusMethod(0);                        
                         _text.text = magicskilllistController.skill_itemName_Hyouji + "→ " + "\n" + "かけたい材料を選んでね。";
                         break;
                 }
@@ -585,17 +636,51 @@ public class magicskillSelectToggle : MonoBehaviour
 
     }
 
-    void CompoStatusMethod()
+    void CompoStatusMethod(int _mstatus)
     {
-        if (GameMgr.compound_select == 20)
+        switch(_mstatus)
         {
-            GameMgr.compound_status = 21; //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
-        }
-        else if(GameMgr.compound_select == 9)
-        {
-            GameMgr.compound_status = 10;
-        }
+            case 0: //アイテムに魔法をかけるタイプの場合
+
+                GameMgr.MagicUseTypeSelect = 0;
+
+                if (GameMgr.compound_select == 20)
+                {
+                    GameMgr.compound_status = 21; //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
+                }
+                else if (GameMgr.compound_select == 9)
+                {
+                    GameMgr.compound_status = 10;
+                }
+                break;
+
+            case 1: //プレイヤーに魔法をかけて状態変化させる場合
+
+                GameMgr.MagicUseTypeSelect = 1;
+
+                if (GameMgr.compound_select == 20)
+                {
+                    GameMgr.compound_status = 22; //21は魔法を選んで、かけるアイテムを選択する場合の処理　他数字を使う場合、CompoundMainControllerにも記述する
+                }
+                break;
+        }      
     }
+
+    void PStatusBuf(int sta_id)
+    {
+        _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
+        GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[_id].skillLv;
+        PlayerStatus.player_girl_status[sta_id] = magicskill_database.magicskill_lists[_id].skillLv; //習得LVで数字を入れる。すなわち、そのスキルのLV。
+        PlayerStatus.player_girl_status_timecounter[sta_id] =
+            magicskill_database.magicskill_lists[_id].status_time * magicskill_database.magicskill_lists[_id].skillLv; //持続時間　分単位
+
+        GameMgr.Compo_FinalCostTime = magicskill_database.magicskill_lists[_id].cost_time; //魔法使用にかかる時間
+        GameMgr.Magic_CheckIgnore = sta_id; //チェック無視　使用したばかりの魔法は、そのときの使用のカウントはしない。おもにエピクレイシス。ExpControllerでチェック用に使う。
+        GameMgr.Magic_AfterSettingTime = PlayerStatus.player_girl_status_timecounter[sta_id]; //あとで再設定する用の持続時間
+
+        //Debug.Log("プレイヤー状態チェックPlayerStatus.player_girl_status[sta_id]: " + PlayerStatus.player_girl_status[sta_id]);
+    }
+
 
     //今は使ってない。魔法選択時にカードとエフェクトが表示される。
     void MagicEffectOn(string _effname)

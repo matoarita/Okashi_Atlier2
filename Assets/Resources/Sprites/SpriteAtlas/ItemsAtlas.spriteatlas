@@ -97,6 +97,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1cbd32e0bd9926049b4c088a41b9b026, type: 3}
   - {fileID: 21300000, guid: 6437b2e014ae2954f847663ad52c48e6, type: 3}
   - {fileID: 21300000, guid: 206037e0ba5114e458ed71024c4f23a5, type: 3}
+  - {fileID: 21300000, guid: ed84f7e0c65d5b246a79101e9d8a6379, type: 3}
   - {fileID: 21300000, guid: ab563fe00efa42149a5b0f08a9d3d4eb, type: 3}
   - {fileID: 21300000, guid: 88aad8f046b0cc446bb81f0c67be22a0, type: 3}
   - {fileID: 21300000, guid: 2c3d6af0a19bf9346bf46e92c6c99bb9, type: 3}
@@ -895,6 +896,7 @@ SpriteAtlas:
   - tea_powerup3
   - emerald_neko_cookie
   - pear
+  - magic_statusdata1
   - doro_flower
   - degpowdery_potion
   - appaleil_chocolate_bar_green
