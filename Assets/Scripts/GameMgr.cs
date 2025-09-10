@@ -659,6 +659,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int touchhint_ID;
     public static bool touchhint_flag;
 
+    //おさらの画像データ
+    public static Sprite[] System_plate_sprite = new Sprite[10];
+
     //寝るイベントフラグ
     public static bool sleep_flag;
     public static int sleep_status;
@@ -2249,6 +2252,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         PlateSetItemsName.Add("teaset_normal", 0); //デフォルト
         PlateSetItemsName.Add("teaset_wizard", 1);
         PlateSetItemsName.Add("teaset_flower", 2);
+
+        System_plate_sprite[0] = Resources.Load<Sprite>("Sprites/Icon/PlateImg_01");
+        System_plate_sprite[1] = Resources.Load<Sprite>("Sprites/Icon/PlateImg_02");
+        System_plate_sprite[2] = Resources.Load<Sprite>("Sprites/Icon/PlateImg_03");
     }
 
     //いちごお菓子コレクションのリスト　ItemNameとそろえる。

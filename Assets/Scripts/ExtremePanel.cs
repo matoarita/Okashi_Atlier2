@@ -73,6 +73,8 @@ public class ExtremePanel : MonoBehaviour {
     private GameObject Extreme_Failed_effect_Prefab;
     private GameObject Extreme_Failed_effect;
 
+    private Image PlateImg;
+
     private SoundController sc;
 
     private int i;
@@ -142,6 +144,10 @@ public class ExtremePanel : MonoBehaviour {
         particle_effect = this.transform.Find("Comp/Particle_Kirakira_3").gameObject;
         particle_effect.SetActive(false);
 
+        PlateImg = this.transform.Find("Comp/BG_imagePlate").GetComponent<Image>();
+        PlateImg.sprite = GameMgr.System_plate_sprite[GameMgr.PlateSetNum];
+
+
         //魔法のエフェクトパネル
         if (effectPrefab_Init == null)
         {
@@ -200,6 +206,9 @@ public class ExtremePanel : MonoBehaviour {
                 //パネルは空
                 EmptyExtremeHyouji();
             }
+
+            //おさら画像も更新
+            PlateImg.sprite = GameMgr.System_plate_sprite[GameMgr.PlateSetNum];
         }
     }
 

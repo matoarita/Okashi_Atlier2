@@ -882,7 +882,7 @@ public class MagicSkillListController : MonoBehaviour
 
     void UseHyouji_method(int _list, int _id)
     {
-        if (PlayerStatus.player_mp < magicskill_database.magicskill_lists[_id].skillCost)
+        if (PlayerStatus.player_mp < costmp)
         {
             _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
         }

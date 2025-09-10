@@ -1497,7 +1497,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         }
         else //プレイヤーに魔法かける場合
         {
-            result_item = database.SearchItemIDString("magic_hyouji_statusbuf01");
+            //かける魔法で表示を変える
+            Setting_MagicPStatusResultHyouji();                      
             card_view.MagicResultCard_DrawView(0, result_item, 1, GameMgr.UseMagicSkill);　//プレイヤーにバフがかかった状態をカードで表示
 
             //あとで時間を消費した際に、使った直後なのにカウンタが進んでしまうので、あとで時間はもう一度リセットする。
@@ -1569,7 +1570,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         if (pstatus_magic_use)
         {
-            if (GameMgr.Magic_CheckIgnore == 0) //この値の0は、配列番号のこと
+            if (GameMgr.Magic_CheckIgnore == 0) //この値の0は、配列番号のこと 0=エピクレイシス
             {  }
             else
             {
@@ -1605,19 +1606,33 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         if (pstatus_magic_use)
         {
-            if (GameMgr.Magic_CheckIgnore == 2) //この値の2は、配列番号のこと スリースターズを指している
-            {
-                final_costMP = costMP;
-            }
-            else
+            if (PlayerStatus.player_girl_status[2] > 0) //すでにスリースターズ状態なら、Ignoreに関係なく消費MPは減る。つまり二回目以降二度掛けした場合
             {
                 final_costMP = MPCostKeisan(costMP);
             }
+            else
+            {
+                //スリースターズ状態でなく、はじめて今スリースターズを自分にかけたとき
+                if (GameMgr.Magic_CheckIgnore == 2) //この値の2は、配列番号のこと スリースターズを指している
+                {
+                    final_costMP = costMP; //元のMPで消費する。
+                }
+                else
+                {
+                    final_costMP = MPCostKeisan(costMP);
+                }
+            }
         }
         else
-        { }        
+        {
+            final_costMP = MPCostKeisan(costMP);
+        }        
 
         PlayerStatus.player_mp -= final_costMP;
+        if(PlayerStatus.player_mp <= 0)
+        {
+            PlayerStatus.player_mp = 0;
+        }
     }
 
     public int MPCostKeisan(int _mp) //Compound_Checkからも読み出し
@@ -1641,6 +1656,34 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
         return _mp;
     }
+
+    void Setting_MagicPStatusResultHyouji()
+    {
+        switch (GameMgr.UseMagicSkill)
+        {
+            case "Latria":
+
+                result_item = database.SearchItemIDString("magic_hyouji_statusbuf02");
+                break;
+
+            case "Three_Stars":
+
+                result_item = database.SearchItemIDString("magic_hyouji_statusbuf03");
+                break;
+
+            case "Epiclesis":
+
+                result_item = database.SearchItemIDString("magic_hyouji_statusbuf04");
+                break;
+
+            default:
+
+                result_item = database.SearchItemIDString("magic_hyouji_statusbuf01");
+                break;
+        }
+    }
+
+
 
     //シーンごとの後処理
     void SceneAfterSetting()

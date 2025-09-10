@@ -868,6 +868,9 @@ public class Compound_Main : MonoBehaviour
         //レベルアップパネル系　入室時に削除
         girlEat_judge.ListLVUPClear();
 
+        //プレイヤーステータスのリセット
+        PlayerStatus.ResetPlayerMagicStatus();
+
 
         //デバッグ用 本番ではオフにする。コンテスト終了後、寝るが終わったあとに始まるイベントのこと　寝るを押せばすぐに発動するようにしてる。
         //GameMgr.Contest_afterHomeEventFlag = true;
@@ -1756,18 +1759,6 @@ public class Compound_Main : MonoBehaviour
                 select_no_button.interactable = true;
                                
                 OnCompoundSelect();
-
-                //デバッグ用　ここは、コンテスト100%達成時に解放される
-                /*GameMgr.OrRoomRelease[1] = true;
-                GameMgr.OrRoomRelease[2] = true;
-                GameMgr.OrRoomRelease[3] = true;
-                GameMgr.OrRoomRelease[4] = true;
-                GameMgr.OrRoomRelease[5] = true;
-                GameMgr.OrRoomRelease[6] = true;
-                GameMgr.OrRoomRelease[7] = true;
-                GameMgr.OrRoomRelease[8] = true;
-                GameMgr.OrRoomRelease[9] = true;*/
-                //
 
                 if (GameMgr.System_CatAutoMaterial_ON)
                 {
@@ -5025,6 +5016,10 @@ public class Compound_Main : MonoBehaviour
         ClickPanel_2.SetActive(false);
     }
 
+    
+
+
+
     //ストーリー進行に応じて、背景の天気+エフェクトも変わる。Save_Controllerからも読まれる。
     public void Change_BGimage()
     {
@@ -5685,6 +5680,10 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
+   
+
+
+
     //Live2D関連コマンド
 
     //さらに、表示するときのコマンド
@@ -5755,6 +5754,9 @@ public class Compound_Main : MonoBehaviour
     //シーンがアンロードされたタイミングで呼び出しされる
     void OnSceneUnloaded(Scene current)
     {
+        //プレイヤーステータスのリセット
+        PlayerStatus.ResetPlayerMagicStatus();
+
         Debug.Log("OnSceneUnloaded: " + current);
         GameMgr.Scene_LoadedOn_End = false;
     }

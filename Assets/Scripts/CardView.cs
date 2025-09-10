@@ -649,9 +649,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
         //Debug.Log("ログ");
         _cardImage.CardParamOFF_2();
+        //_cardImage.CardOFF_ItemOnlyHyouji(); //カード表示をオフにし、アイテムアイコンだけ表示する。
         //_cardImage.CardALLParamOFF(); //魔法調合時、カードそのものの表示はオフ。ただし、調合リザルトボタンは流用したい。
 
-        if(_mstatus == 1) //プレイヤー状態変化をする魔法の場合　名前やテキスト説明を変更　テンプレートも変えてもいいかも？
+        if (_mstatus == 1) //プレイヤー状態変化をする魔法の場合　名前やテキスト説明を変更　テンプレートも変えてもいいかも？
         {
             _cardImage.CardParamMagic_Hyouji(_magicname);
         }

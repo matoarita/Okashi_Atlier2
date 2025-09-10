@@ -107,6 +107,11 @@ public class CompoundMainController : MonoBehaviour {
     private ParticleSystem compo_particle;
     private Color p_color;
 
+    private GameObject border_particle_obj;
+    private ParticleSystem.MainModule main_border;
+    private ParticleSystem border_particle;
+    private Color border_p_color;
+
     private GameObject MagicLearnPanel;
 
     private GameObject CatGetStartPanel;
@@ -244,9 +249,14 @@ public class CompoundMainController : MonoBehaviour {
         magic_minigame_Panel.SetActive(false);
         magic_resulteffect_Panel = MagicStartPanel.transform.Find("magic_result_effect").gameObject;
         magic_resulteffect_Panel.SetActive(false);
+
         compo_particle_obj = magic_resulteffect_Panel.transform.Find("Particle_KiraExplode_result").gameObject;
         compo_particle = compo_particle_obj.GetComponent<ParticleSystem>();
         main = compo_particle.main;
+
+        border_particle_obj = magic_compo3.transform.Find("Circle2/BorderShine").gameObject;
+        border_particle = border_particle_obj.GetComponent<ParticleSystem>();
+        main_border = border_particle.main;
 
         foreach (Transform child in magic_minigame_Panel.transform)
         {
@@ -1448,6 +1458,8 @@ public class CompoundMainController : MonoBehaviour {
                 _meffect_resultname = "Ice_Result";
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_blue;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_blue;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
 
             case 1: //光
@@ -1455,6 +1467,8 @@ public class CompoundMainController : MonoBehaviour {
                 _meffect_resultname = "Luminous_Result";
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_yellow;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_yellow;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
 
             case 2: //火
@@ -1462,13 +1476,17 @@ public class CompoundMainController : MonoBehaviour {
                 _meffect_resultname = "Fire_Result";
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_red;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_red;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
 
             case 3: //風
 
                 _meffect_resultname = "Wind_Result";
-                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_green;
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_mint;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_mint;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
 
             case 4: //星
@@ -1476,13 +1494,17 @@ public class CompoundMainController : MonoBehaviour {
                 _meffect_resultname = "Star_Result";
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_purple;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_purple;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
 
             case 5: //森
 
                 _meffect_resultname = "Forest_Result";
-                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_mint;
+                p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_green;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_green;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
 
             case 6: //時
@@ -1490,6 +1512,8 @@ public class CompoundMainController : MonoBehaviour {
                 _meffect_resultname = "Time_Result";
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_orange;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_orange;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
 
             case 7: //音
@@ -1497,6 +1521,8 @@ public class CompoundMainController : MonoBehaviour {
                 _meffect_resultname = "Music_Result";
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_mint;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_mint;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
 
             case 9: //ハート
@@ -1504,6 +1530,8 @@ public class CompoundMainController : MonoBehaviour {
                 _meffect_resultname = "Heart_Result";
                 p_color = compo_particle_obj.GetComponent<Particle_Compo2>().color_pink;
                 main.startColor = new ParticleSystem.MinMaxGradient(p_color);
+                border_p_color = border_particle_obj.GetComponent<Particle_Compo2>().color_pink;
+                main_border.startColor = new ParticleSystem.MinMaxGradient(border_p_color);
                 break;
         }
         

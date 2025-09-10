@@ -2137,7 +2137,7 @@ public class SetImage : MonoBehaviour
 
         _name = magicskill_database.magicskill_lists[_mid].skillNameHyouji;
 
-        item_RankDesc.text = "";
+        //item_RankDesc.text = "";
         item_Name.text = _name;
     }
 

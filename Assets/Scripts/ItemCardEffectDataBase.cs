@@ -486,9 +486,10 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 }
 
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
-                _ms_sp_score4 += 6; //‰F’ˆ‚ð‰ÁŽZ
+                _ms_sp_score7 += 10; //ƒƒ‹ƒwƒ“‚ð‰ÁŽZ
                 _ms_sp_score8 += 12; //Œ|p‰ÁŽZ
-                aisho_text2 = "‰F’ˆ + " + _ms_sp_score4.ToString();
+                _ms_sp_score6 += 10; //Žq‹Ÿ‚à‰ÁŽZi•\‹L–³j
+                aisho_text2 = "ƒƒ‹ƒwƒ“ + " + _ms_sp_score7.ToString();
                 aisho_text3 = "Œ|p " + _ms_sp_score8.ToString();
 
                 MS_aisho_database(_compatible, _msvalue[i]);
@@ -545,6 +546,7 @@ public class ItemCardEffectDataBase : SingletonMonoBehaviour<ItemCardEffectDataB
                 //‘Š«‚ÉŠÖŒW‚È‚­A•K‚¸“_”‚ð‘«‚·
                 _ms_sp_score4 += 12; //‰F’ˆ‚ð‰ÁŽZ
                 _ms_sp_score8 += 6; //Œ|p‚ð‰ÁŽZ
+                _ms_sp_score7 += 10; //ƒƒ‹ƒwƒ“‚ð‰ÁŽZi•\‹L–³j
                 aisho_text2 = "‰F’ˆ + " + _ms_sp_score4.ToString();
                 aisho_text3 = "Œ|p " + _ms_sp_score8.ToString();
 

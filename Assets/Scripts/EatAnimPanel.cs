@@ -19,11 +19,11 @@ public class EatAnimPanel : MonoBehaviour {
 
     private Image PlateImg;
 
-    private Sprite _plate_sprite1;
+    /*private Sprite _plate_sprite1;
     private Sprite _plate_sprite2;
     private Sprite _plate_sprite3;
     private Sprite _plate_sprite4;
-    private Sprite _plate_sprite5;
+    private Sprite _plate_sprite5;*/
 
     // Use this for initialization
     void Start () {
@@ -41,11 +41,14 @@ public class EatAnimPanel : MonoBehaviour {
         itemImage = this.transform.Find("ItemImage").GetComponent<Image>();        
         
         PlateImg = this.transform.Find("Plate/plate_img1").GetComponent<Image>();
+        PlateImg.sprite = GameMgr.System_plate_sprite[GameMgr.PlateSetNum];
 
         EatStartEffect = GameObject.FindWithTag("EatAnim_Effect").transform.Find("Comp").gameObject;
         EatStartEffect.SetActive(false);
 
-        _plate_sprite1 = Resources.Load<Sprite>("Sprites/Icon/PlateImg_01");
+
+
+        /*_plate_sprite1 = Resources.Load<Sprite>("Sprites/Icon/PlateImg_01");
         _plate_sprite2 = Resources.Load<Sprite>("Sprites/Icon/PlateImg_02");
         _plate_sprite3 = Resources.Load<Sprite>("Sprites/Icon/PlateImg_03");
 
@@ -65,7 +68,7 @@ public class EatAnimPanel : MonoBehaviour {
 
                 PlateImg.sprite = _plate_sprite3;
                 break;
-        }
+        }*/
 
         //魔法のエフェクトパネル
         if (effectPrefab_Init == null)

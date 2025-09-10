@@ -2177,7 +2177,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         {
                             //①ご依頼がランダムでくるフェーズ
                             random = Random.Range(0, 100);
-                            Debug.Log("NPCご依頼イベント　抽選スタート　50以下で成功: " + random);
+                            //Debug.Log("NPCご依頼イベント　抽選スタート　50以下で成功: " + random);
 
                             picnic_exprob = 50; //5%の確率で発生。
                             if (random <= picnic_exprob)
@@ -2201,7 +2201,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour <= 15) //15~17時
                     {
                         random = Random.Range(0, 100);
-                        Debug.Log("NPCご依頼イベント　抽選スタート　20以下で成功: " + random);
+                        //Debug.Log("NPCご依頼イベント　抽選スタート　20以下で成功: " + random);
 
                         picnic_exprob = 20; //20%の確率で発生。
                         if (random <= picnic_exprob)

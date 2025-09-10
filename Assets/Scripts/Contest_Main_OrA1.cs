@@ -378,6 +378,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.contest_MainMatchStart = false;
             PlayerStatus.player_contest_second = 0;
 
+            //プレイヤーステータスのリセット
+            PlayerStatus.ResetPlayerMagicStatus();
+
             scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
 
@@ -403,6 +406,9 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
             //MPは全回復
             PlayerStatus.player_mp = PlayerStatus.player_maxmp;
+
+            //プレイヤーステータスのリセット
+            PlayerStatus.ResetPlayerMagicStatus();
 
             //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する まだ設定してないのでひとまずoff
             if (GameMgr.ContestRoundNum == GameMgr.ContestRoundNumMax)
