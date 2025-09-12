@@ -157,3 +157,4 @@
 ・BGM_153		こんとどぅふぇ素材No.0059-グッモーニンミルク	夏うみの部屋BGM
 ・BGM_154		PeriTune_Sugar_Sprinkle_loop		夏ほしの部屋BGM 旧:yuruyakanaasayake
 ・BGM_155		japaneseautumn				【宴用】おふろ　入浴中のBGM
+・BGM_156		PerituneMaterial_Sweet_loop		【宴用】家選び中のごほうびBGM

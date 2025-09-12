@@ -522,6 +522,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int hikari_makingmethod; //通常調合か魔法調合をしているかのチェック
     public static string hikari_make_magicuseName; //そのときに使っている魔法
     public static int hikari_make_magicuseLV; //そのときの使うLV
+    public static int hikari_make_magic_costMP; //その魔法のMPコスト
 
     public static int hikari_makeokashi_startcounter; //これはセーブ不要。10秒ほどたったら、元のアイドルモーションにもどすためのタイマー
     public static bool hikari_makeokashi_startflag; //これもセーブ不要。作りをお願いした最初だけ、モーションが変わるフラグ。
@@ -871,6 +872,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool MagicPanel_DefaultHyouji; //魔法パネル開いたときに、デフォルトの光魔法を表示する
     public static int MagicUseTypeSelect; //魔法を使うとき、その魔法のタイプ　アイテムに魔法をかけるのか　プレイヤーに魔法をかけるのか
     public static int Magic_CheckIgnore; //プレイヤー状態魔法つかうときに、使用した直後にすぐ使用がカウントされてしまうので、それを無視する用
+    public static bool Magic_CheckKasaneGake; //同魔法の重ね掛けかどうかをチェック　消費MP計算の際に使用
     public static int Magic_AfterSettingTime; //持続時間の再設定用
     public static string MagicUseType_StatusText; //魔法使用時に表示する効果テキストの内容
     public static bool Sleep_CheckEnd; //睡眠イベントのフラグ
@@ -1593,6 +1595,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         ContestThemeTitle4 = "";
         Contest_ON = false;
         MagicPanel_DefaultHyouji = false;
+        Magic_CheckKasaneGake = false;
         Sleep_CheckEnd = false;
         Status_zero_readOK = false;
         OkashiMake_PanelSetType = 0;

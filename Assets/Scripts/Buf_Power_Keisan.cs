@@ -50,7 +50,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private float _choco_hose1, _choco_hose2;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
 
         InitSetup();
     }
@@ -72,11 +72,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //ヒカリお菓子EXPデータベースの取得
         hikariOkashiExpTable = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update() {
+
+    }
 
     //
     //アイテム発見力のバフ
@@ -92,7 +92,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 _buf_findpower += 10;
             }
         }*/
-      
+
         /*if (pitemlist.KosuCount("aquamarine_pendant") >= 1) //持ってるだけで効果アップ
         {
             _buf_findpower += 100;
@@ -201,7 +201,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 //かまどレベルによるバフ
                 KakuritsuUp_Oven();
-                break;            
+                break;
 
             case "IceCream":
 
@@ -241,7 +241,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 break;
         }
 
-        switch(_itemType_subB)
+        switch (_itemType_subB)
         {
             case "a_CacaoNibs":
 
@@ -273,10 +273,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             {
                 _buf_kakuritsuup += 5;
             }*/
-       
+
 
         //一回でも成功したことがあれば、+3%ほど成功率が上昇する。
-        if(databaseCompo.compoitems[_compoID].cmpitem_flag >= 1 && databaseCompo.compoitems[_compoID].cmpitem_flag != 9999) //9999は除外するので計算しない
+        if (databaseCompo.compoitems[_compoID].cmpitem_flag >= 1 && databaseCompo.compoitems[_compoID].cmpitem_flag != 9999) //9999は除外するので計算しない
         {
             _buf_kakuritsuup += 3;
         }
@@ -311,11 +311,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     void KakuritsuUp_MagicPStatusBuf()
     {
         _statusup = 0;
-        
-        //エピクレイシス状態をチェック
-        if(PlayerStatus.player_girl_status[0] > 0)
+
+        //エピクレイシス状態をチェック　LVに応じて確率が上がる
+        if (PlayerStatus.player_girl_status[0] > 0)
         {
-            _statusup = 50; //50%も上がる！
+            _statusup = 20 + (PlayerStatus.player_girl_status[0] * 10); //30~50%も上がる！
         }
         _buf_kakuritsuup += _statusup;
     }
@@ -449,7 +449,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void KakuritsuUp_CakeMatSpongeBaked(int _mstatus)
     {
-        
+
         if (pitemlist.KosuCount("cakemold_stainless") > 1) //所持すると成功率上がる
         {
             if (_mstatus == 0)
@@ -664,7 +664,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //エピクレイシス状態をチェック
         if (PlayerStatus.player_girl_status[0] > 0)
         {
-            _statusup = 50; //50%も上がる！
+            _statusup = 20 + (PlayerStatus.player_girl_status[0] * 10); //30~50%も上がる！
         }
         _magic_rate += _statusup;
     }
@@ -793,7 +793,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         _magicid = magicskill_database.SearchSkillString("Heart_of_Icecream");
         if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
-        {                       
+        {
             _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid].cost_time * 0.01f); //costtimeの1％
             _buf_compotime_up += _magicup;
         }
@@ -814,7 +814,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //特定の魔法使用時の制作時間を短縮する
     public int Buf_CompoTimeMagic_Keisan(string _magicname)
     {
-        _buf_compotime_up = 0;    
+        _buf_compotime_up = 0;
 
         //たとえば、祝福状態なら、制作時間が10%短縮されるなど。もココで書けばおｋ
         switch (_magicname)
@@ -823,7 +823,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 CostTimeUpMagic_IceCream();
                 break;
-            
+
         }
 
         //ステータスによる魔法時間短縮バフ
@@ -870,7 +870,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _compoID = _compID;
 
         switch (_itemType_sub)
-        {           
+        {
             case "Appaleil":
 
                 //魔法でのバフ
@@ -901,7 +901,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void KosuUp_Appaleil()
     {
-        if(databaseCompo.compoitems[_compoID].buf_kouka_on != 2)
+        if (databaseCompo.compoitems[_compoID].buf_kouka_on != 2)
         {
             //魔法のバフ
             _magicup = 0;
@@ -974,7 +974,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _compoID = _compID;
 
         original_shokukan_p = _origin_param;
-        
+
 
         switch (_status)
         {
@@ -1013,14 +1013,14 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         OvenBuf();
                         CookieBuf();
-                        break;                   
+                        break;
 
                     case "Rusk":
 
                         OvenBuf();
                         RuskBuf();
                         break;
-                    
+
                 }
 
                 //おかし全てに効果があるバフ
@@ -1029,10 +1029,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     RodsBuf(); //めんぼうは、おかしであれば種類は問わず。全体のさくさく感をあげる
                     YonetsuStoneBuf();
                 }
-               
+
 
                 //光りおかしにかかるバフ
-                MagicGlowBuf();                
+                MagicGlowBuf();
 
                 AllShokukanBuf();
 
@@ -1319,7 +1319,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         _statusup = 0;
 
-        switch(_mstatus)
+        switch (_mstatus)
         {
             case 0:
 
@@ -1383,7 +1383,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void ChocolateBuf()
     {
-        
+
     }
 
     void AppaleilBuf()
@@ -1492,7 +1492,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             }
         }
 
-        
+
     }
 
     void YonetsuStoneBuf()
@@ -1538,7 +1538,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     }
                 }
             }
-        }       
+        }
     }
 
     void CookieBuf()
@@ -1573,7 +1573,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             case "a_GlowCookie":
 
-                MagicGlowBuf_method();               
+                MagicGlowBuf_method();
                 break;
 
             case "a_GlowCookie_Hard":
@@ -1615,7 +1615,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 MagicGlowBuf_method();
                 break;
-        }       
+        }
 
     }
 
@@ -1632,7 +1632,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     void RuskBuf()
     {
-        
+
         //魔法のバフ
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Cookie_Study") >= 1)
@@ -1691,9 +1691,9 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             }
         }
 
-    }    
+    }
 
-    
+
 
     void TeaBuf()
     {
@@ -1742,7 +1742,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
-    
+
 
     void CakeBeautyBuf()
     {
@@ -1867,8 +1867,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     case 6: //香りのバフ
 
                         break;
-                }                
-            }            
+                }
+            }
         }
 
         if (magicskill_database.skillName_SearchLearnLevel("Star_Gazer") > 0) //星魔法　天体観測の効果が働く
@@ -2010,7 +2010,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                     Debug.Log("_baseparam: " + _baseparam);
                     Debug.Log("補正値: " +
-                       "_baseparam * 0.3f" + " * " + GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3 + " * " + 
+                       "_baseparam * 0.3f" + " * " + GameMgr.System_magic_playParamUp * GameMgr.System_magic_playParamUp2 * GameMgr.System_magic_playParamUp3 + " * " +
                         "(チョコレート哲学習得LV補正): " + _choco_hose1);
                     Debug.Log("各ゲージ補正値: " + GameMgr.System_magic_playParamUp + " " + GameMgr.System_magic_playParamUp2 + " " + GameMgr.System_magic_playParamUp3);
                     Debug.Log("テンパリングの最終バフ: " + _magicup);
@@ -2035,8 +2035,8 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                         Debug.Log("_baseparam * (0.1f + ウィンドアーク習得LV * 0.15f) 習得LV: " + _magicLearnLv);
                     }
 
-                    if(_magicup < 1) { _magicup = 1; } //必ず１は上がる
-                    
+                    if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
+
                     Debug.Log("ウィンドアークの最終バフ: " + _magicup);
                     _buf_shokukanup += _magicup;
                 }
@@ -2109,7 +2109,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 {
                     if (_status != 5) //ただし、見た目はバフを無視。
                     {
-                        rnd = Random.Range(0,300);
+                        rnd = Random.Range(0, 300);
                         _magicup = rnd;
                         _buf_shokukanup += _magicup;
                     }
@@ -2120,6 +2120,34 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         return _buf_shokukanup;
     }
+
+    //
+    //特定の魔法で甘さ・苦さ・酸味の味パラメータに補正をかける _statusで、甘さ・苦さ・酸味を決定
+    //
+    public int Buf_SweatsParamUp_MagicKeisan(int _status, int _baseparam, string _magicname)
+    {
+        Debug.Log("魔法で甘さ・酸味・苦さを変質");
+
+        _buf_shokukanup = 0;
+        _magicup = 0;
+
+        switch (_magicname)
+        {
+            case "Lightning_Grape":
+
+                if (_status == 1) //酸味を変化 すっぱくする
+                {
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Lightning_Grape");
+                    _magicup = 10;
+
+                    _buf_shokukanup += _magicup;
+                }
+                break;
+        }
+
+        return _buf_shokukanup;
+    }
+
 
     //
     //甘さ・苦さ・酸味の点数に補正をかける
@@ -2134,11 +2162,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         switch (_itemType_sub)
         {
             case "Suger":
-                
+
                 break;
 
             case "Cake":
-                
+
                 break;
         }
 

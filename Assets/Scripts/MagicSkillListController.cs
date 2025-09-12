@@ -922,7 +922,7 @@ public class MagicSkillListController : MonoBehaviour
         //ヒカリの魔法で使う場合、いくつかの魔法は使えない。おもに演出魔法など。
         if(GameMgr.compound_select == 9 || GameMgr.compound_select == 10)
         {
-            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo" || magicskill_database.magicskill_lists[_id].skill_LvSelect == "PlayerBuf")
+            if (magicskill_database.magicskill_lists[_id].skill_CompSelect == "CompNo" || magicskill_database.magicskill_lists[_id].skill_CompSelect == "PlayerBuf")
             {
                 _skill_listitem[_list].GetComponent<Toggle>().interactable = false;
             }

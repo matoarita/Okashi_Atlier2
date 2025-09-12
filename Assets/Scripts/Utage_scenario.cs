@@ -1904,13 +1904,13 @@ public class Utage_scenario : MonoBehaviour
             {
                 //暗転してる間に時間を変更し、朝や夜に変える　EDイベントは、必ず最初に一回ポーズをとおる
                 time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0);
-                time_controller.SetWeatherNow();
+                time_controller.SetWeatherNow(); //Compound_Mainでのみ使える
             }
             else if (GameMgr.ending_number == 2)
             {
                 //暗転してる間に時間を変更し、朝や夜に変える　EDイベントは、必ず最初に一回ポーズをとおる
                 time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 19, 0);
-                time_controller.SetWeatherNow();
+                time_controller.SetWeatherNow(); //Compound_Mainでのみ使える
             }
 
             //続きから再度読み込み
@@ -4029,7 +4029,6 @@ public class Utage_scenario : MonoBehaviour
 
                     //時間を次の日に。
                     time_controller.SetCullentDayTime(PlayerStatus.player_cullent_month, PlayerStatus.player_cullent_day + 1, 8, 0);
-                    time_controller.SetWeatherNow();
                     break;
 
                 case "Or_NPC108_hotspring": //Or温泉　裸だったので、元に戻す

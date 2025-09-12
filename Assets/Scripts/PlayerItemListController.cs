@@ -1451,6 +1451,22 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 }
                 break;
 
+            case "Lightning_Grape":
+
+                if (check_itemType_subB == "a_Grape")
+                {
+                    itemlist_hyouji_Check(check_itemListType, 1);
+                }
+                break;
+
+            case "Dreamy_Sapphire":
+
+                if (check_itemName == "sapphire_suger" || check_itemName == "lumi_sapphire_suger")
+                {
+                    itemlist_hyouji_Check(check_itemListType, 1);
+                }
+                break;
+
             case "Life_Stream":
 
                 NonDrinkHyouji(0);

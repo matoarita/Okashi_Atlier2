@@ -17,8 +17,9 @@ public class MagicSkillList
     public int skillLv; //今習得しているLv　0だと未習得
     public int skillMaxLv; //スキルの最大LV
     public int skillUseLv; //スキルを使うLV　習得LVよりも下のLVをあえて使いたい場合などで使用
-    public string skill_LvSelect; //スキルを使うとき、レベルを指定するかどうか。Nonのときは固定レベルで、今覚えているLVの最大で使用する。調合時は、レベル数値を無視する。
-    public string skill_KosuSelect; //生成時の個数の指定
+    public string skill_CompSelect; //スキルを使うとき、調合Compoチェックをするかどうか　CompNo, MS, Bufが入ってると、CompoDBに登録がなくても失敗にならない
+    public string skill_KosuSelect; //生成時の個数の処理指定
+    public string skill_AddOriginalSelect; //アイテムにバフをかけるときに、生成アイテムを必ずオリジナルアイテムとして登録　おもに、ブドウやシュガーを変質させるとき
     public int skillType;   //パッシヴかアクティブスキルか
     public int skillCategory; //スキルの属性　基本、火、氷、光、風、心
     public int skillEnshutuType;   //演出魔法かそうでないか
@@ -36,7 +37,8 @@ public class MagicSkillList
 
     //ここでリスト化時に渡す引数をあてがいます   
     public MagicSkillList(int id, int koyuid, string fileName, string skill_name, string skill_name_Hyouji, string skill_comment, int skill_day, int skill_cost, int skill_flag,
-        int skill_lv, int skill_maxlv, int skill_uselv, string skill_lvselect, string skill_kosuselect, int skill_type, int skill_category, int skill_enshutuType, 
+        int skill_lv, int skill_maxlv, int skill_uselv, string skill_compselect, string skill_kosuselect, string skill_addoriginal_select, 
+        int skill_type, int skill_category, int skill_enshutuType, 
         int successRate, int costTime, int _statusTime, string skill_comment_full,
         string skill_jouken_name1, int skill_jouken_lv1)
     {
@@ -53,8 +55,9 @@ public class MagicSkillList
         skillLv = skill_lv;
         skillMaxLv = skill_maxlv;
         skillUseLv = skill_uselv;
-        skill_LvSelect = skill_lvselect;
+        skill_CompSelect = skill_compselect;
         skill_KosuSelect = skill_kosuselect;
+        skill_AddOriginalSelect = skill_addoriginal_select;
         skillType = skill_type;
         skillCategory = skill_category;
         skillEnshutuType = skill_enshutuType;

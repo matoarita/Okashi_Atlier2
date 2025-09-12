@@ -215,7 +215,7 @@ public class magicskillSelectToggle : MonoBehaviour
         Debug.Log("アイテム:" + _item_Namehyouji + "が選択されました。");
 
         _id = magicskill_database.SearchSkillString(_skillname);
-        if (magicskill_database.magicskill_lists[_id].skill_LvSelect != "PlayerBuf")
+        if (magicskill_database.magicskill_lists[_id].skill_CompSelect != "PlayerBuf")
         {
             //①
             UseKetteiMagicMethod(); //すぐに魔法の次処理画面へ
@@ -670,6 +670,16 @@ public class magicskillSelectToggle : MonoBehaviour
     {
         _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
         GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[_id].skillLv;
+
+        //入れる前に、重ね掛けかどうかをチェック
+        if(PlayerStatus.player_girl_status[sta_id] > 0) //すでにかかってる場合は、0より大きい
+        {
+            GameMgr.Magic_CheckKasaneGake = true; //すでにかかってますよ
+        } else
+        {
+            GameMgr.Magic_CheckKasaneGake = false; //重ね掛けでない。一回目使用。
+        }
+
         PlayerStatus.player_girl_status[sta_id] = magicskill_database.magicskill_lists[_id].skillLv; //習得LVで数字を入れる。すなわち、そのスキルのLV。
         PlayerStatus.player_girl_status_timecounter[sta_id] =
             magicskill_database.magicskill_lists[_id].status_time * magicskill_database.magicskill_lists[_id].skillLv; //持続時間　分単位

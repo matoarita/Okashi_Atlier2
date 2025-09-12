@@ -1165,7 +1165,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
 
                             if (!GameMgr.hikari_make_okashiFlag)
                             {
-                                //終了 途中で材料なくなった
+                                //終了 途中で材料なくなったorMPがきれた
                                 Zairyo_nothing = true;
                                 break;
                             }
@@ -1253,7 +1253,7 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
             //魔法使ってる場合MPを消費
             if (GameMgr.hikari_makingmethod == 1)
             {
-                PlayerStatus.player_mp -= _costmp;
+                PlayerStatus.player_mp -= GameMgr.hikari_make_magic_costMP;
             }
 
             compound_keisan.Delete_playerItemList(2);
@@ -1367,10 +1367,8 @@ public class TimeController : SingletonMonoBehaviour<TimeController>
         {
             if(GameMgr.hikari_makingmethod == 1)
             {
-                _magic_id = magicskill_database.SearchSkillString(GameMgr.hikari_make_magicuseName);
-                _costmp = magicskill_database.magicskill_lists[_magic_id].skillCost;
 
-                if(PlayerStatus.player_mp < _costmp)
+                if(PlayerStatus.player_mp < GameMgr.hikari_make_magic_costMP)
                 {
                     //終了
                     itemkosu_check = true;

@@ -62,6 +62,7 @@ public class Result_Panel : MonoBehaviour
     private Text okashi_score_text;
 
     private float countTime;
+    private int count_Score;
 
     private bool AnimEnd;
 
@@ -192,7 +193,15 @@ public class Result_Panel : MonoBehaviour
     void SujiCountUpAnimation()
     {
         //カウントアップのための秒数を割り出す。
-        countTime = Total_score * 0.03f; //1ごとに0.03fで表示する
+        if(Total_score >= 1000)
+        {
+            count_Score = 1000; //1000点でのスピードを上限にする。でないと、高得点すぎたときに、止まるまで長すぎる。
+        }else
+        {
+            count_Score = Total_score;
+        }
+            
+        countTime = count_Score * 0.03f; //1ごとに0.03fで表示する
 
         //①まずはウィンドウをふわっとだす。
         StartAnim();

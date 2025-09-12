@@ -1145,7 +1145,6 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //以下、実際にアイテムリスト削除と、プレイヤーアイテムへの所持追加処理
         if (_mstatus == 0)
         {
-
             //最終的に生成されるアイテムの個数を決定
             ResultKosuKeisan(GameMgr.compound_select, result_compID, final_select_kaisu, 
                 kettei_item1, kettei_item2, kettei_item3, toggle_type1, toggle_type2, toggle_type3, 
@@ -1155,7 +1154,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             Delete_playerItemList(0);
 
             //アイテム取得チェック
-            GetItemCheck();
+            GetItemCheck(GameMgr.compound_select, GameMgr.UseMagicSkill);
 
         }
         else if (_mstatus == 2) //ヒカリのアイテムの予測処理。予測の場合、アイテムの追加処理はいらない。
@@ -1432,7 +1431,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             hikari_compselect = 7;
         }
-        else if(GameMgr.hikari_makingmethod == 1)
+        else if(GameMgr.hikari_makingmethod == 1) //魔法で作る場合
         {
             hikari_compselect = 10;
         }
@@ -1529,16 +1528,16 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
         else if (_status == 1)　//ヒカリ受け取るときにお菓子パネルにセットする
         {
-            GetItemCheck();         
+            GetItemCheck(hikari_compselect, GameMgr.hikari_make_magicuseName);         
         }
         
     }
 
-    void GetItemCheck()
+    void GetItemCheck(int _compo_select, string _useMagic)
     {
         //最初に、チェック用に一度お菓子をいれて、それが生地かどうか判定する。カードの表示は、このリストのものを使う。
         pitemlist.addCheckOriginalItem(_basename, _basehp, _baseday, _basequality, _baseexp, _baseprobability,
-        _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly, 
+        _baserich, _basesweat, _basebitter, _basesour, _basecrispy, _basefluffy, _basesmooth, _basehardness, _basejiggly,
         _basechewy, _basepowdery, _baseoily, _basewatery, _basebeauty,
         _basejuice, _basetea_flavor,
         _basesp_wind, _basesp_score2, _basesp_score3, _basesp_score4, _basesp_score5, _basesp_score6, _basesp_score7, _basesp_score8, _basesp_score9, _basesp_score10,
@@ -1552,22 +1551,48 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //Debug.Log("_baseattri2: " + _baseattri2);
 
         GameMgr.MakeItemStatus = 0;
-        if (_base_itemType == "Mat" || _base_itemType == "Potion")
+
+        //ライトニンググレープの魔法などを使った場合、素材アイテムでもオリジナルアイテムとして登録
+        if (_compo_select == 21 || _compo_select == 10)
         {
-            CheckItemType_GetItem();          
+            Debug.Log("登録アイテムに、魔法をかけて変質するかどうかチェック");
+            if (magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(_useMagic)].skill_AddOriginalSelect == "AddOriginal")
+            {
+                GetItemMethod(0); //オリジナルアイテムに登録
+            }
+            else
+            {
+                if (_base_itemType == "Mat" || _base_itemType == "Potion")
+                {
+                    CheckItemType_GetItem();
+                }
+                else
+                {
+                    //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
+                    //アイテム取得処理
+                    GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
+                }
+            }
         }
         else
         {
-            //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
-            //アイテム取得処理
-            GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
+            if (_base_itemType == "Mat" || _base_itemType == "Potion")
+            {
+                CheckItemType_GetItem();
+            }
+            else
+            {
+                //Debug.Log("チェック　_base_extreme_kaisu: " + _base_extreme_kaisu);
+                //アイテム取得処理
+                GetItemMethod(1); //お菓子なら、お菓子パネルにすでにお菓子があるかどうかを判定し、追加処理
+            }
         }
     }
 
     void CheckItemType_GetItem()
     {
 
-        //アイテム取得処理
+        //アイテム取得処理 アイテムのタイプによって、オリジナルか店売りアイテムとして登録か判定する
         if (_base_itemType_sub == "Cream" || _base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream" ||
         _base_itemType_sub == "Source" || _base_itemType_sub == "Potion" || _base_itemType_sub == "AromaPotion" || _base_itemType_sub == "WhipeedCream" ||
         _base_itemType_sub == "Figure" || _base_itemType_sub == "FrozenFruits" ||
@@ -2694,6 +2719,11 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basepowdery += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(50, _basepowdery, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
             _baseoily += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(51, _baseoily, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
             _basewatery += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(52, _basewatery, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+
+            //B. お菓子の味にバフや変質をかける処理
+            _basesweat += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(0, _basesweat, GameMgr.UseMagicSkill);
+            _basesour += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(1, _basesour, GameMgr.UseMagicSkill);
+            _basebitter += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(2, _basebitter, GameMgr.UseMagicSkill);
 
             //ここで魔法スロット追加
             AddMagicSlot_Method();

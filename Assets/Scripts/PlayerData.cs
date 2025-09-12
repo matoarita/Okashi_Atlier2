@@ -249,6 +249,7 @@ public class PlayerData
     public int save_hikari_makingmethod; //通常調合か魔法調合をしているかのチェック
     public string save_hikari_make_magicuseName; //そのときに使っている魔法
     public int save_hikari_make_magicuseLV; //そのときの使うLV
+    public int save_hikari_make_magic_costMP; //ヒカリ消費MP
 
     //クリアお菓子の情報
     public int save_SpecialQuestClear_okashiItemID;

@@ -2336,35 +2336,67 @@ public class Contest_Judge : MonoBehaviour {
         before_tastescore[2] = GameMgr.contest_Taste_Score[2];
         if (GameMgr.contest_Taste_Score[2] >= 0 && GameMgr.contest_Taste_Score[2] < 30)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.0f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.6f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 80)
+        else if (GameMgr.contest_Taste_Score[2] >= 30 && GameMgr.contest_Taste_Score[2] < 60)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.2f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.7f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 150)
+        else if (GameMgr.contest_Taste_Score[2] >= 60 && GameMgr.contest_Taste_Score[2] < 80)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.5f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.8f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 300)
+        else if (GameMgr.contest_Taste_Score[2] >= 80 && GameMgr.contest_Taste_Score[2] < 100)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.8f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.85f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 300 && GameMgr.contest_Taste_Score[2] < 500)
+        else if (GameMgr.contest_Taste_Score[2] >= 100 && GameMgr.contest_Taste_Score[2] < 150)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.1f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.9f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 500 && GameMgr.contest_Taste_Score[2] < 750)
+
+        else if (GameMgr.contest_Taste_Score[2] >= 150 && GameMgr.contest_Taste_Score[2] < 220) //150のかべ
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.25f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 220 && GameMgr.contest_Taste_Score[2] < 300)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.3f);
+        }
+
+        else if (GameMgr.contest_Taste_Score[2] >= 300 && GameMgr.contest_Taste_Score[2] < 400) //300のかべ
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.55f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 400 && GameMgr.contest_Taste_Score[2] < 500)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.75f);
+        }
+
+        else if (GameMgr.contest_Taste_Score[2] >= 500 && GameMgr.contest_Taste_Score[2] < 650) //500のかべ
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 1.85f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 650 && GameMgr.contest_Taste_Score[2] < 800)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.0f);
+        }
+        else if (GameMgr.contest_Taste_Score[2] >= 800 && GameMgr.contest_Taste_Score[2] < 1000)
+        {
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.2f);
+        }
+
+        else if (GameMgr.contest_Taste_Score[2] >= 1000 && GameMgr.contest_Taste_Score[2] < 1500) //1000のかべ
         {
             GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.5f);
         }
-        else if (GameMgr.contest_Taste_Score[2] >= 750)
+        else if (GameMgr.contest_Taste_Score[2] >= 1500) 
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 3.0f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 2.7f);
         }
         else if (GameMgr.contest_Taste_Score[2] < 0)
         {
-            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.7f);
+            GameMgr.contest_Taste_Score[2] = (int)(GameMgr.contest_Taste_Score[2] * 0.5f);
         }        
 
         total_score[2] = total_score[2] + (GameMgr.contest_Taste_Score[2] - before_tastescore[2]); //補正前に、一回before_tastescore[2]は計算してtotal_scoreに加点されてるので、ここで引き算
@@ -2429,35 +2461,35 @@ public class Contest_Judge : MonoBehaviour {
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 80 && GameMgr.contest_Beauty_Score[1] < 90)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.8f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.65f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 90 && GameMgr.contest_Beauty_Score[1] < 110)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.75f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 110 && GameMgr.contest_Beauty_Score[1] < 130)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.1f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 1.85f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 130 && GameMgr.contest_Beauty_Score[1] < 150)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.25f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.0f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 150 && GameMgr.contest_Beauty_Score[1] < 220)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.35f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.05f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 220 && GameMgr.contest_Beauty_Score[1] < 270)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.5f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.1f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 270 && GameMgr.contest_Beauty_Score[1] < 320)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.75f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.15f);
         }
         else if (GameMgr.contest_Beauty_Score[1] >= 320)
         {
-            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 3.0f);
+            GameMgr.contest_Beauty_Score[1] = (int)(GameMgr.contest_Beauty_Score[1] * 2.3f);
         }
         else if (GameMgr.contest_Beauty_Score[1] <= 0)
         {
@@ -2502,35 +2534,35 @@ public class Contest_Judge : MonoBehaviour {
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.3f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.15f));
             }
         }
         else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.5f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.2f));
             }
         }
         else if (_spscore >= 60 && _spscore < 80) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.75f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.25f));
             }
         }
         else if (_spscore >= 80 && _spscore < 100) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.8f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.3f));
             }
         }
         else if (_spscore >= 100) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.85f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.35f));
             }
         }
         else if (_spscore < 0) //足りてないと0.75
@@ -2563,42 +2595,42 @@ public class Contest_Judge : MonoBehaviour {
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 0.9f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 0.8f));
             }
         }
         else if (_spscore >= 30 && _spscore < 40) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.1f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 0.9f));
             }
         }
         else if (_spscore >= 40 && _spscore < 60) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.25f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.1f));
             }
         }
         else if (_spscore >= 60 && _spscore < 80) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 1.5f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.35f));
             }
         }
         else if (_spscore >= 80 && _spscore < 100) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 2.0f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.5f));
             }
         }
         else if (_spscore >= 100) //SpScoreに補正して加算
         {
             for (i = 0; i < GameMgr.contest_Score.Length; i++)
             {
-                total_score[i] = (int)(total_score[i] + (_spscore * 2.5f));
+                total_score[i] = (int)(total_score[i] + (_spscore * 1.65f));
             }
         }
         else if (_spscore < 0) //足りてないと0.75

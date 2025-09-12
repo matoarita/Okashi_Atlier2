@@ -18,8 +18,9 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
     private int skill_lv;
     private int skill_maxlv;
     private int skill_uselv;
-    private string skill_lvselect;
+    private string skill_compselect;
     private string skill_kosuselect;
+    private string skill_addoriginal_select;
     private int skill_type;
     private int skill_category;
     private int skill_enshututype;
@@ -76,8 +77,9 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 skill_lv = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_lv;
                 skill_maxlv = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_maxlv;
                 skill_uselv = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_uselv;
-                skill_lvselect = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_lvSelect;
+                skill_compselect = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_CompSelect;
                 skill_kosuselect = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_KosuSelect;
+                skill_addoriginal_select = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_AddOriginalSelect;
                 skill_type = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_type;
                 skill_category = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_category;
                 skill_enshututype = excel_magicskill_itemdatabase.sheets[sheet_no].list[count].skill_enshututype;
@@ -92,7 +94,7 @@ public class MagicSkillListDataBase : SingletonMonoBehaviour<MagicSkillListDataB
                 if (sheet_no == 0)
                 {
                     magicskill_lists.Add(new MagicSkillList(_id, _koyuid, skillFileName, skillName, skillName_Hyouji, skillComment, 
-                        skill_day, skill_cost, skill_flag, skill_lv, skill_maxlv, skill_uselv, skill_lvselect, skill_kosuselect,
+                        skill_day, skill_cost, skill_flag, skill_lv, skill_maxlv, skill_uselv, skill_compselect, skill_kosuselect, skill_addoriginal_select,
                         skill_type, skill_category, skill_enshututype, success_rate, cost_time, status_time, skillComment_Full,
                         skillJouken_name1, skillJouken_lv1));
                 }

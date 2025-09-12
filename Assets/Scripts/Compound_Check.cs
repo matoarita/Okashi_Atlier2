@@ -1044,7 +1044,7 @@ public class Compound_Check : MonoBehaviour {
                 itemID_3 = GameMgr.temp_itemID3;
 
                 //使うスキルLVを決定 現在は固定 Use使ってない
-                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Use")//[USE]が入っている時
+                if (magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "Use")//[USE]が入っている時
                 {
                     magicskill_database.magicskill_lists[itemID_2].skillUseLv = 1; //
                     GameMgr.UseMagicSkillLv = 1;
@@ -1056,9 +1056,9 @@ public class Compound_Check : MonoBehaviour {
                 }
 
                 //CompNoの判定　CompNoは該当するCompoがある場合は、そこで新規生成。ない場合、失敗とはならず、元アイテムをresultItemにして新たに生成しなおし。
-                if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo" ||
-                    magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Buf" ||
-                    magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
+                if (magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "CompNo" ||
+                    magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "Buf" ||
+                    magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "Abra")
                 {
                     //調合DBの判定が必要ない魔法の場合　元アイテムをresultItemにして、新たに生成しなおす。
                     GameMgr.Comp_kettei_bunki = 22;
@@ -1116,9 +1116,9 @@ public class Compound_Check : MonoBehaviour {
 
                         
                         //魔法によって、仕上げ回数も消費する。
-                        if (magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "CompNo" ||
-                        magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Buf" ||
-                        magicskill_database.magicskill_lists[itemID_2].skill_LvSelect == "Abra")
+                        if (magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "CompNo" ||
+                        magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "Buf" ||
+                        magicskill_database.magicskill_lists[itemID_2].skill_CompSelect == "Abra")
                         {
                             if (_compNo_check == 0) //Abra
                             {
@@ -1364,7 +1364,7 @@ public class Compound_Check : MonoBehaviour {
             final_costMP = exp_Controller.MPCostKeisan(costMP);
             _cost_mptext.text = final_costMP.ToString();
 
-            if (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect == "MS")//[MS]が入っている時 マジックソーダの判定　時間帯で番号が変わる。
+            if (magicskill_database.magicskill_lists[tempID_2].skill_CompSelect == "MS")//[MS]が入っている時 マジックソーダの判定　時間帯で番号が変わる。
             {
                 _playerhour = PlayerStatus.player_cullent_hour;
                 _uselv = 1;
@@ -1515,7 +1515,7 @@ public class Compound_Check : MonoBehaviour {
             //魔法で、調合DBのリザルトアイテムでなく、元アイテムを強化する場合は失敗とならず、元アイテムを新たに生成しなおして、魔法のバフをかける。
             if (GameMgr.Comp_kettei_bunki == 22) 
             {
-                switch (magicskill_database.magicskill_lists[tempID_2].skill_LvSelect)
+                switch (magicskill_database.magicskill_lists[tempID_2].skill_CompSelect)
                 {
                     case "CompNo":
 

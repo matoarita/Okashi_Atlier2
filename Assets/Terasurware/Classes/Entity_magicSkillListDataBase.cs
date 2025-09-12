@@ -29,8 +29,9 @@ public class Entity_magicSkillListDataBase : ScriptableObject
 		public int skill_lv;
 		public int skill_maxlv;
 		public int skill_uselv;
-		public string skill_lvSelect;
+		public string skill_CompSelect;
 		public string skill_KosuSelect;
+		public string skill_AddOriginalSelect;
 		public int skill_type;
 		public int skill_category;
 		public int skill_enshututype;

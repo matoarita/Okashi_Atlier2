@@ -457,12 +457,12 @@ public class StatusPanel : MonoBehaviour {
         playerOkashi_juice_param = Equip_Panel_obj.transform.Find("Viewport/Content/Panel_B/ParamView1/Viewport/Content/ParamE_param/Text").GetComponent<Text>();
         playerOkashi_teaflavor_param = Equip_Panel_obj.transform.Find("Viewport/Content/Panel_B/ParamView1/Viewport/Content/ParamF_param/Text").GetComponent<Text>();
 
-        playerOkashi_crispy_param.text = PlayerStatus.player_okashi_crispyup.ToString();
-        playerOkashi_fluffy_param.text = PlayerStatus.player_okashi_fluffyup.ToString();
-        playerOkashi_smooth_param.text = PlayerStatus.player_okashi_smoothup.ToString();
-        playerOkashi_hardness_param.text = PlayerStatus.player_okashi_hardnessup.ToString();
-        playerOkashi_juice_param.text = PlayerStatus.player_okashi_juiceup.ToString();
-        playerOkashi_teaflavor_param.text = PlayerStatus.player_okashi_tea_flavorup.ToString();
+        playerOkashi_crispy_param.text = "+" + PlayerStatus.player_okashi_crispyup.ToString();
+        playerOkashi_fluffy_param.text = "+" + PlayerStatus.player_okashi_fluffyup.ToString();
+        playerOkashi_smooth_param.text = "+" + PlayerStatus.player_okashi_smoothup.ToString();
+        playerOkashi_hardness_param.text = "+" + PlayerStatus.player_okashi_hardnessup.ToString();
+        playerOkashi_juice_param.text = "+" + PlayerStatus.player_okashi_juiceup.ToString();
+        playerOkashi_teaflavor_param.text = "+" + PlayerStatus.player_okashi_tea_flavorup.ToString();
     }
 
 

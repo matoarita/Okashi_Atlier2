@@ -89,7 +89,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
         canvas = GameObject.FindWithTag("Canvas");
         cardPrefab = (GameObject)Resources.Load("Prefabs/Item_card_base");
 
-        toppingItemRoot = canvas.transform.Find("ToppingItemRoot/Obj/ScrollView/Viewport/Content").gameObject;
+        if (GameMgr.Scene_Category_Num == 10 || GameMgr.Scene_Category_Num == 100)
+        {
+            toppingItemRoot = canvas.transform.Find("ToppingItemRoot/Obj/ScrollView/Viewport/Content").gameObject;
+        }
 
         Pitem_or_Origin_judge = 0;
         DrawStatus = 0;

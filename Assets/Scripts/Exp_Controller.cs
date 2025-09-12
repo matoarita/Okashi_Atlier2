@@ -1574,7 +1574,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             {  }
             else
             {
-                Magic_Pstatus_CheckMethod(0);
+                Magic_Pstatus_CheckMethod(0);　//その他のステータス魔法を使った時の計算
             }
 
             //さらに、そのプレイヤーステータス魔法使った直後は、もう一度時間リセット
@@ -1606,21 +1606,21 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     {
         if (pstatus_magic_use)
         {
-            if (PlayerStatus.player_girl_status[2] > 0) //すでにスリースターズ状態なら、Ignoreに関係なく消費MPは減る。つまり二回目以降二度掛けした場合
+            if (PlayerStatus.player_girl_status[2] > 0) //スリースターズ状態である 一回目使用でも二回目以降でも、このタイミングでは使ってた場合は値が入っている。
             {
-                final_costMP = MPCostKeisan(costMP);
-            }
-            else
-            {
-                //スリースターズ状態でなく、はじめて今スリースターズを自分にかけたとき
-                if (GameMgr.Magic_CheckIgnore == 2) //この値の2は、配列番号のこと スリースターズを指している
-                {
-                    final_costMP = costMP; //元のMPで消費する。
-                }
-                else
+                if (GameMgr.Magic_CheckKasaneGake) //重ね掛けだった場合、すでにスリースターズ状態なので計算してMP減らす
                 {
                     final_costMP = MPCostKeisan(costMP);
                 }
+                else
+                {
+                    //さっきまでスリースターズ状態ではなく、今回初めてだった場合。
+                    final_costMP = costMP; //元のMPで消費する。
+                }
+            }
+            else
+            {
+                final_costMP = MPCostKeisan(costMP); //その他のステータス魔法を使った時の計算
             }
         }
         else
@@ -1764,6 +1764,11 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
             GameMgr.hikari_makingmethod = 1;
             GameMgr.hikari_make_magicuseName = GameMgr.UseMagicSkill;
             GameMgr.hikari_make_magicuseLV = GameMgr.UseMagicSkillLv;
+
+            _mid = magicskill_database.SearchSkillString(GameMgr.hikari_make_magicuseName);
+            costMP = magicskill_database.magicskill_lists[_mid].skillCost;
+            final_costMP = MPCostKeisan(costMP);
+            GameMgr.hikari_make_magic_costMP = final_costMP;
 
         }
         //GameMgr.Extreme_On = false; //念のため、エクストリーム調合で新規作成される場合のフラグもオフにしておく。ヒカリは、新しいお菓子をひらめくことは、今の仕様では無い。

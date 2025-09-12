@@ -199,8 +199,8 @@ public class Updown_counter : MonoBehaviour {
                             this.transform.localPosition = new Vector3(60, -70, 0);
 
                             _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
-                            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non" ||
-                                magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+                            if (magicskill_database.magicskill_lists[_id].skill_CompSelect == "Non" ||
+                                magicskill_database.magicskill_lists[_id].skill_CompSelect == "CompNo")
                             {
                                 updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(true);
                             }
@@ -215,8 +215,8 @@ public class Updown_counter : MonoBehaviour {
                             this.transform.localPosition = new Vector3(60, -70, 0);
 
                             _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
-                            if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non" ||
-                                magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+                            if (magicskill_database.magicskill_lists[_id].skill_CompSelect == "Non" ||
+                                magicskill_database.magicskill_lists[_id].skill_CompSelect == "CompNo")
                             {
                                 updown_counter_setpanel.transform.Find("SetBGImage_grey").gameObject.SetActive(true);
                             }
@@ -329,8 +329,8 @@ public class Updown_counter : MonoBehaviour {
         {
             _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
-            if(magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non" ||
-                magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+            if(magicskill_database.magicskill_lists[_id].skill_CompSelect == "Non" ||
+                magicskill_database.magicskill_lists[_id].skill_CompSelect == "CompNo")
             {
                 _skillLV = magicskill_database.magicskill_lists[_id].skillLv;
                 GameMgr.updown_kosu = _skillLV;
@@ -1251,8 +1251,8 @@ public class Updown_counter : MonoBehaviour {
                     //レベル選択しない魔法は、レベル固定のまま
                     _id = magicskill_database.SearchSkillString(GameMgr.UseMagicSkill);
 
-                    if (magicskill_database.magicskill_lists[_id].skill_LvSelect == "Non" ||
-                        magicskill_database.magicskill_lists[_id].skill_LvSelect == "CompNo")
+                    if (magicskill_database.magicskill_lists[_id].skill_CompSelect == "Non" ||
+                        magicskill_database.magicskill_lists[_id].skill_CompSelect == "CompNo")
                     {
                         //数値に変化なし
                     }
