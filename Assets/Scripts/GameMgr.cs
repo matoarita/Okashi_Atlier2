@@ -2697,21 +2697,21 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Clear();
 
         //点数150～関係
-        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_1", "ふわっところっとした" + "\n" + "お菓子で高得点"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_2", "マリトッツォで高得点"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_2", "ショートケーキで高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_a2_01", "ふわっところっとした" + "\n" + "お菓子で高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "マリトッツォで高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_a2_03", "ショートケーキで高得点"));
 
         //ハートで発生するイベント系
-        HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLV40で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん日和", false, "EventCG_Icon/cg_gallery_icon_2", "ハートLV50で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_a2_04", "ハートLV40で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん日和", false, "EventCG_Icon/cg_gallery_icon_a2_05", "ハートLV50で解放"));
 
         //スター・場所のイベント系
-        HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_2", "遊園地で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでにいちゃんと・・♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(110, "event_sakuraring", "大きなさくらの木の下で・・♪", false, "EventCG_Icon/cg_gallery_icon_2", "スター☆で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_a2_06", "遊園地で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "青空かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_a2_07", "遊園地で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_a2_08", "遊園地で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_a2_09", "スター☆で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでにいちゃんと・・♪", false, "EventCG_Icon/cg_gallery_icon_a2_10", "スター☆で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(110, "event_sakuraring", "大きなさくらの木の下で・・♪", false, "EventCG_Icon/cg_gallery_icon_a2_11", "スター☆で解放"));
     }
 
     //思い出イベントの現在のフラグを取得

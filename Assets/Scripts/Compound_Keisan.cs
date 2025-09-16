@@ -2905,6 +2905,19 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basepowdery = _basepowdery / 10;
             _basewatery = _basewatery / 10;
         }
+
+        //チョコアイス水溶液ができるとき、水溶液＋チョコのなめらかさが加わって、数字がでかくなりすぎるので、なめらかさを抑える
+        if (_basename == "appaleil_icecream_chocolate") //
+        {
+            _basesmooth = (int)(_basesmooth * 0.7f);
+        }
+
+        //ラングドシャクッキーは、元のさくさくの影響を少し抑えて、生地のなめらかさを少しさくさくにプラスする。
+        if (_basename == "langue_de_chat") //
+        {
+            _basecrispy = (int)(_basecrispy * 0.9f);
+            _basecrispy = _basecrispy + (int)(_basesmooth * 0.3f);
+        }
     }
 
     void Okashi_SpecialKeisan2()

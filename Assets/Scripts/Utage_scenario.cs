@@ -934,9 +934,12 @@ public class Utage_scenario : MonoBehaviour
         while (Engine.IsWaitBootLoading) yield return null; //宴の起動・初期化待ち
 
         //ここで、宴のパラメータ設定
+        roten_flag_num = 0;
+
         engine.Param.TrySetParameter("TextRead_num", GameMgr.CGGallery_num); //思い出リストに振ったID番号を選択
         //Debug.Log("GameMgr.CGGallery_num: " + GameMgr.CGGallery_num);
-        engine.Param.TrySetParameter("HikariOmoide_Flag", true);
+        engine.Param.TrySetParameter("HikariOmoide_Flag", true);        
+        engine.Param.TrySetParameter("Hiroba_rotenflag_Num", roten_flag_num);
         engine.Param.TrySetParameter("EndOrPause_Num", 0);
 
         //コスチューム切り替え
@@ -3543,6 +3546,14 @@ public class Utage_scenario : MonoBehaviour
                 omoide_flag = GameMgr.SearchHikariOmoideFlag("event_hotspring");
                 engine.Param.TrySetParameter("HikariOmoide_Flag", omoide_flag);
 
+                if(GameMgr.NPCHiroba_HikarieventList[340]) //温泉一回はいったことがある。
+                {
+                    roten_flag_num = 150000;
+                } else
+                {
+                    roten_flag_num = 0;
+                }
+
                 break;
 
             case 1600: //Or露店りんごあめ
@@ -3555,7 +3566,7 @@ public class Utage_scenario : MonoBehaviour
                 }
                 else
                 {
-                    roten_flag_num = 160001; //りんごあめのレシピをまだもってない
+                    roten_flag_num = 160001; //りんごあめのレシピをまだもってない 春露店は160000~番台
                 }
                 break;
 
@@ -4310,15 +4321,23 @@ public class Utage_scenario : MonoBehaviour
 
                         moneyStatus_Controller.UseMoney(600);
                         omoide_flag = GameMgr.SearchHikariOmoideFlag("event_hotspring");
+
                         if (!omoide_flag)
                         {
                             GameMgr.SetHikariOmoideFlag("event_hotspring", true);
                             //Debug.Log("イベント観覧車　思い出フラグをTrue");                           
                         }
+
                         if(pitemlist.KosuCount("milk_bin") == 0)
                         {
                             pitemlist.addPlayerItemString("milk_bin", 1); //
                         }
+
+                        if(!GameMgr.NPCHiroba_HikarieventList[340]) //温泉はじめてはいったフラグ
+                        {
+                            GameMgr.NPCHiroba_HikarieventList[340] = true;
+                        }
+
                         break;
 
                 }

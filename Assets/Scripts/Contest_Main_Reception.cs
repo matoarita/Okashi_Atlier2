@@ -1418,6 +1418,11 @@ public class Contest_Main_Reception : MonoBehaviour
                 GameMgr.hiroba_event_ID = 10;
                 break;
 
+            case 20:
+
+                GameMgr.hiroba_event_ID = 20;
+                break;
+
             default:
 
                 GameMgr.hiroba_event_ID = 0;
