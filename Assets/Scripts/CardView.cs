@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class CardView : SingletonMonoBehaviour<CardView>
 {
 
-    private int i;
+    private int i, j, counter;
 
     private ItemDataBase database;
 
@@ -58,6 +58,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     private float rot_speed_z;
     private int _movetime;
     public bool cardcompo_anim_on;
+    private int anime_select;
 
     private int Select_SortingNum = 6000;
 
@@ -117,13 +118,89 @@ public class CardView : SingletonMonoBehaviour<CardView>
             {
                 timeOut = 1.0f / 60.0f; //60Fで割る
 
-                for (i = 0; i < _cardImage_obj.Count; i++)
+                //Debug.Log("カードanime_select: " + anime_select);
+                if (anime_select == 0)
                 {
+                    //Debug.Log("_cardImage_obj総数: " + _cardImage_obj.Count);
+                    for (i = 0; i < _cardImage_obj.Count; i++)
+                    {
+                        //位置の計算
+                        _temp_nowpos = _now_cardpos[i];
+
+
+                        if (_diff_x[i] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
+                        {
+                            if (_temp_nowpos.x <= 0)
+                            {
+                                _temp_nowpos.x = 0;
+                            }
+                            else
+                            {
+                                _temp_nowpos.x += (_diff_x[i] * (-1.0f));
+                            }
+                        }
+                        else //こっちは負の場合
+                        {
+                            if (_temp_nowpos.x >= 0)
+                            {
+                                _temp_nowpos.x = 0;
+                            }
+                            else
+                            {
+                                _temp_nowpos.x += (_diff_x[i] * (-1.0f));
+                            }
+                        }
+
+                        if (_diff_y[i] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
+                        {
+                            if (_temp_nowpos.y <= 0)
+                            {
+                                _temp_nowpos.y = 0;
+                            }
+                            else
+                            {
+                                _temp_nowpos.y += (_diff_y[i] * (-1.0f));
+                                //_temp_nowpos.y = (_temp_nowpos.y - radius[i] * Mathf.Cos(Time.time * speed));
+                            }
+                        }
+                        else //こっちは負の場合
+                        {
+                            if (_temp_nowpos.y >= 0)
+                            {
+                                _temp_nowpos.y = 0;
+                            }
+                            else
+                            {
+                                _temp_nowpos.y += (_diff_y[i] * (-1.0f));
+                                //_temp_nowpos.y = (_temp_nowpos.y - radius[i] * Mathf.Cos(Time.time * speed));
+                            }
+                        }
+
+                        //位置の更新
+                        _now_cardpos[i] = _temp_nowpos;
+                        _cardImage_obj[i].transform.localPosition = _now_cardpos[i];
+
+
+                        //回転の更新
+                        _temp_nowrot = _now_cardrot[i];
+                        _temp_nowrot += _diff_rot[i];
+                        _now_cardrot[i] = _temp_nowrot;
+
+                        _cardImage_obj[i].transform.localEulerAngles = _now_cardrot[i];
+
+                    }
+                }
+                else if (anime_select == 1)
+                {
+                    //Debug.Log("_cardImage_obj総数: " + _cardImage_obj.Count);
+
+                    counter = 0;
+
                     //位置の計算
-                    _temp_nowpos = _now_cardpos[i];
+                    _temp_nowpos = _now_cardpos[counter];
 
 
-                    if (_diff_x[i] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
+                    if (_diff_x[counter] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
                     {
                         if (_temp_nowpos.x <= 0)
                         {
@@ -131,7 +208,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
                         }
                         else
                         {
-                            _temp_nowpos.x += (_diff_x[i] * (-1.0f));
+                            _temp_nowpos.x += (_diff_x[counter] * (-1.0f));
                         }
                     }
                     else //こっちは負の場合
@@ -142,11 +219,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
                         }
                         else
                         {
-                            _temp_nowpos.x += (_diff_x[i] * (-1.0f));
+                            _temp_nowpos.x += (_diff_x[counter] * (-1.0f));
                         }
                     }
 
-                    if (_diff_y[i] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
+                    if (_diff_y[counter] > 0) //diffが正か負かをみる　正なら0より右に位置　負なら0より左に位置
                     {
                         if (_temp_nowpos.y <= 0)
                         {
@@ -154,7 +231,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
                         }
                         else
                         {
-                            _temp_nowpos.y += (_diff_y[i] * (-1.0f));
+                            _temp_nowpos.y += (_diff_y[counter] * (-1.0f));
                             //_temp_nowpos.y = (_temp_nowpos.y - radius[i] * Mathf.Cos(Time.time * speed));
                         }
                     }
@@ -166,23 +243,22 @@ public class CardView : SingletonMonoBehaviour<CardView>
                         }
                         else
                         {
-                            _temp_nowpos.y += (_diff_y[i] * (-1.0f));
+                            _temp_nowpos.y += (_diff_y[counter] * (-1.0f));
                             //_temp_nowpos.y = (_temp_nowpos.y - radius[i] * Mathf.Cos(Time.time * speed));
                         }
                     }
 
                     //位置の更新
-                    _now_cardpos[i] = _temp_nowpos;
-                    _cardImage_obj[i].transform.localPosition = _now_cardpos[i];
+                    _now_cardpos[counter] = _temp_nowpos;
+                    _cardImage_obj[counter].transform.localPosition = _now_cardpos[counter];
 
 
                     //回転の更新
-                    _temp_nowrot = _now_cardrot[i];
-                    _temp_nowrot += _diff_rot[i];
-                    _now_cardrot[i] = _temp_nowrot;
+                    //_temp_nowrot = _now_cardrot[counter];
+                    //_temp_nowrot += _diff_rot[counter];
+                    //_now_cardrot[counter] = _temp_nowrot;
 
-                    _cardImage_obj[i].transform.localEulerAngles = _now_cardrot[i];
-
+                    //_cardImage_obj[counter].transform.localEulerAngles = _now_cardrot[counter];
                 }
             }
         }
@@ -193,11 +269,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     public void SelectCard_DrawView(int _toggleType, int _kettei_item1)
     {
         //初期化しておく
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-        _cardImage_obj.Clear();
+        DeleteCard_DrawView();
 
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
@@ -226,13 +298,13 @@ public class CardView : SingletonMonoBehaviour<CardView>
     //全てのカードを削除する。
     public void DeleteCard_DrawView()
     {
-        for (i = 0; i < _cardImage_obj.Count; i++) //最後から削除していく。
+        for (j = 0; j < _cardImage_obj.Count; j++) //最後から削除していく。
         {
-            Destroy(_cardImage_obj[(_cardImage_obj.Count-1) - i]);
+            //Destroy(_cardImage_obj[_cardImage_obj.Count - 1 - i]);
+            Destroy(_cardImage_obj[j]);
         }
 
         _cardImage_obj.Clear();
-
     }
 
     public void OKCard_DrawView(int _kosu)
@@ -551,12 +623,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
     //リザルトカードの場合は、カード自体を押すと、消える
     public void ResultCard_DrawView(int _toggleType, int _result_item)
     {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-
-        _cardImage_obj.Clear();
+        //初期化しておく
+        DeleteCard_DrawView();
 
         SetResultCardViewPanel();
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
@@ -584,12 +652,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void ResultCard_DrawView2(int _toggleType, int _result_item1, int _result_item2) //リザルト　２つ同時にできる場合の表示
     {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-
-        _cardImage_obj.Clear();
+        //初期化しておく
+        DeleteCard_DrawView();
 
         //1枚目
         SetResultCardViewPanel();
@@ -630,12 +694,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     public void MagicResultCard_DrawView(int _toggleType, int _result_item, int _mstatus, string _magicname)
     {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-
-        _cardImage_obj.Clear();
+        //初期化しておく
+        DeleteCard_DrawView();
 
         SetResultCardViewPanel();
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
@@ -669,14 +729,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
     //予測表示するときのカード表示
     public void ResultCardYosoku_DrawView(int _toggleType, int _result_item)
     {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
+        //初期化しておく
+        DeleteCard_DrawView();
 
-        _cardImage_obj.Clear();
 
-        
         SetResultCardViewPanel();
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
         _cardImage.anim_status = 99;
@@ -718,11 +774,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     public void RecipiCard_DrawView(int _toggleType, int _kettei_item1)
     {
         //初期化しておく
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-        _cardImage_obj.Clear();
+        DeleteCard_DrawView();
 
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
@@ -752,12 +804,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
     //レシピの場合の、リザルトカード表示
     public void RecipiResultCard_DrawView(int _toggleType, int _result_item)
     {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-
-        _cardImage_obj.Clear();
+        //初期化しておく
+        DeleteCard_DrawView();
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
@@ -786,11 +834,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     public void ItemListCard_DrawView(int _toggleType, int _kettei_item1)
     {
         //初期化しておく
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-        _cardImage_obj.Clear();
+        DeleteCard_DrawView();
 
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
@@ -815,12 +859,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
     //
     public void PresentGirl(int _toggleType, int _result_item)
     {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-
-        _cardImage_obj.Clear();
+        //初期化しておく
+        DeleteCard_DrawView();
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
@@ -843,12 +883,8 @@ public class CardView : SingletonMonoBehaviour<CardView>
     //
     public void ContestClearOkashi(int _result_item)
     {
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-
-        _cardImage_obj.Clear();
+        //初期化しておく
+        DeleteCard_DrawView();
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
         _cardImage = _cardImage_obj[0].GetComponent<SetImage>();
@@ -866,11 +902,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
     public void ShopSelectCard_DrawView(int _toggleType, int _kettei_item1)
     {
         //初期化しておく
-        for (i = 0; i < _cardImage_obj.Count; i++)
-        {
-            Destroy(_cardImage_obj[i]);
-        }
-        _cardImage_obj.Clear();
+        DeleteCard_DrawView();
 
 
         _cardImage_obj.Add(Instantiate(cardPrefab, canvas.transform));
@@ -994,18 +1026,21 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     }
 
-    //調合時のカードアニメーション
+    //調合時のカードアニメーション Compound_Checkから読み出し
     public void CardCompo_Anim(int _animstatus)
     {
         _movetime = 60; //移動にかかるフレーム数
 
         _diff_x.Clear();
         _diff_y.Clear();
+        _diff_rot.Clear();
         _now_cardpos.Clear();
         _now_cardrot.Clear();
         radius.Clear();
 
-        if (_animstatus == 0)
+        anime_select = _animstatus;
+
+        if (anime_select == 0)
         {
             //今存在している全てのカードに対して、アニメーション
             for (i = 0; i < _cardImage_obj.Count; i++)
@@ -1034,8 +1069,10 @@ public class CardView : SingletonMonoBehaviour<CardView>
                 _cardImage_obj[i].GetComponent<SetImage>().Kosu_OFF();
             }
         }
-        else if (_animstatus == 1) //トッピング時の調合アニメーション
+        else if (anime_select == 1) //トッピング時の調合アニメーション
         {
+            _movetime = 30; //移動を早くする。
+
             //今存在している全てのカードに対して、アニメーション
             for (i = 0; i < _cardImage_obj.Count; i++)
             {
@@ -1058,23 +1095,32 @@ public class CardView : SingletonMonoBehaviour<CardView>
                 //radius.Add(Mathf.Sqrt(_diff_pos.x * _diff_pos.x + _diff_pos.y * _diff_pos.y));
 
                 //回転ランダム
-                rot_speed_x = Random.Range(36, 360) / Random.Range(6f, 36f);
-                rot_speed_y = Random.Range(36, 360) / Random.Range(6f, 36f);
-                rot_speed_z = Random.Range(36, 360) / Random.Range(6f, 36f);
+                //rot_speed_x = Random.Range(36, 360) / Random.Range(6f, 36f);
+                //rot_speed_y = Random.Range(36, 360) / Random.Range(6f, 36f);
+                //rot_speed_z = Random.Range(36, 360) / Random.Range(6f, 36f);
+                rot_speed_x = 0f;
+                rot_speed_y = 0f;
+                rot_speed_z = 0f;
                 _diff_rot.Add(new Vector3(rot_speed_x, rot_speed_y, rot_speed_z));
                 //Debug.Log("rot_speed_x, y, z: " + rot_speed_x + " " + rot_speed_y + " " + rot_speed_z);
 
                 _cardImage_obj[i].GetComponent<SetImage>().CardParamOFF();
                 _cardImage_obj[i].GetComponent<SetImage>().Kosu_OFF();
-                _cardImage_obj[i].GetComponent<SetImage>().CardOFF_PlateHyoujiOFF();
+                //_cardImage_obj[i].GetComponent<SetImage>().CardOFF_PlateHyoujiOFF();
+
+                if (i != 0) //スケールもちっちゃくなるアニメ ０番のメイン以外のトッピングたちだけ
+                {
+                    _cardImage_obj[i].transform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 0.5f).SetEase(Ease.InBack);
+                }
+                //StartCoroutine("WaitScaleAnim"); 
             }
         }
 
         //アニメーション開始。
+        Debug.Log("カードanime_select: " + anime_select);
         cardcompo_anim_on = true;
         timeOut = 1.0f / 60.0f;
 
-        //StartCoroutine("WaitScaleAnim"); //2秒ほどたってから、だんだんスケールもちっちゃくなるアニメ
     }
 
     //ボインとはじくようなアニメ
@@ -1107,11 +1153,11 @@ public class CardView : SingletonMonoBehaviour<CardView>
 
     IEnumerator WaitScaleAnim()
     {
-        yield return new WaitForSeconds(2.3f); //2秒待つ
+        yield return new WaitForSeconds(0.1f); //0.~秒待つ
 
-        for (i = 0; i < _cardImage_obj.Count; i++)
+        for (i = 1; i < _cardImage_obj.Count-1; i++)
         {
-            _cardImage_obj[i].transform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 2.0f);
+            _cardImage_obj[i].transform.DOScale(new Vector3(0.0f, 0.0f, 0.0f), 1.0f);
         }
     }
 

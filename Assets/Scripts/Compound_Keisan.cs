@@ -2551,7 +2551,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //ジュースののどごしを計算する。新規作成時のみトッピング・仕上げのときは再計算しない。
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときの計算。
         {
-            _basejuice = _basesweat + _basebitter + _basesour;
+            _basejuice = (_basesweat + _basebitter + _basesour) / 2;
         }
         else if(Comp_method_bunki == 3) 
         { }
@@ -2821,10 +2821,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basesmooth += _basejuice;
             //_basehardness = 0;
         }
-        if (_base_itemType_sub == "Soda") //ソーダは、のどごしになめらかの値も影響する
-        {
-            _basejuice += _basesmooth / 2;
-        }
+
         if (_base_itemType_subB == "a_ChocolateTwister" || _base_itemType_subB == "a_ChocolateCrown") //ツイスターとクラウンは、食感が半減。見た目と芸術性で勝負する。
         {
             _basecrispy = _basecrispy / 2;

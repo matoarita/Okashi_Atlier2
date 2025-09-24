@@ -315,7 +315,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //エピクレイシス状態をチェック　LVに応じて確率が上がる
         if (PlayerStatus.player_girl_status[0] > 0)
         {
-            _statusup = 20 + (PlayerStatus.player_girl_status[0] * 10); //30~50%も上がる！
+            _statusup = 5 + (PlayerStatus.player_girl_status[0] * 10); //15~35%も上がる！
         }
         _buf_kakuritsuup += _statusup;
     }
@@ -905,7 +905,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             //魔法のバフ
             _magicup = 0;
-            if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 3 && magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") < 5)
+            if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 5)
+            {
+                _magicup = 1; //LV*1
+                _buf_kosuup += _magicup;
+            }
+            /*if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 3 && magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") < 5)
             {
                 _magicup = 1; //LV*1
                 _buf_kosuup += _magicup;
@@ -914,7 +919,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             {
                 _magicup = 2; //LV*1
                 _buf_kosuup += _magicup;
-            }
+            }*/
         }
         { } //2のときは、個数計算しない
     }

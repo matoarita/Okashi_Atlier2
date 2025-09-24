@@ -936,7 +936,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         { }
         else
         {
-            Debug.Log("仕上げマックス　触れなくなる");
+            //Debug.Log("仕上げマックス　触れなくなる");
             _listitem[list_count].GetComponent<Toggle>().interactable = false;
         }
     }

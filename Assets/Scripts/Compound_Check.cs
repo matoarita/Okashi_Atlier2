@@ -1815,6 +1815,10 @@ public class Compound_Check : MonoBehaviour {
                     {
                         _success_rate = 100f;
                     }
+                    if (_success_rate < 0)
+                    {
+                        _success_rate = 0;
+                    }
                     exp_Controller._success_judge_flag = 1; //判定処理を行う。
                     exp_Controller._success_rate = _success_rate;
                     kakuritsuPanel.KakuritsuYosoku_Img(_success_rate); //

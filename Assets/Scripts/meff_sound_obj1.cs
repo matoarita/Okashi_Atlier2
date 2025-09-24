@@ -94,4 +94,9 @@ public class meff_sound_obj1 : MonoBehaviour {
         sc.PlaySe(248);
         sc.PlaySe(249);
     }
+
+    public void OnSound100() //トッピング時　パパパパと↑から粒が振った時の音
+    {
+        sc.PlaySe(252);
+    }
 }

@@ -156,6 +156,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
     private int _compID;
     private bool isRunning;
     private bool isRunning2;
+    private bool drink_or_food_flag;
    
     public bool tween_start;
     private float facemotion_duration;
@@ -1393,9 +1394,20 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
             case 1: //ランダム
 
-                if (database.items[_ID].itemType_sub.ToString() == "Coffee" || database.items[_ID].itemType_sub.ToString() == "Coffee_Mat" ||
-                   database.items[_ID].itemType_sub.ToString() == "Juice" || database.items[_ID].itemType_sub.ToString() == "Tea" ||
-                   database.items[_ID].itemType_sub.ToString() == "Tea_Mat" || database.items[_ID].itemType_sub.ToString() == "Tea_Potion")
+                drink_or_food_flag = false;
+                i = 0;
+                while (i < GameMgr.OkashiFoodOrDrink_list.Count)
+                {
+                    if(database.items[_ID].itemType_sub.ToString() == GameMgr.OkashiFoodOrDrink_list[i])
+                    {
+                        //のみものを飲みたい
+                        drink_or_food_flag = true;
+                        break;
+                    }
+                    i++;
+                }
+
+                if (drink_or_food_flag)
                 {
                     _desc = "にいちゃん！　" + database.items[_ID].itemNameHyouji + "がのみたい！";
                 }
@@ -3104,7 +3116,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                             FaceMotionPlay(2002); //なでられたときのへにゃモーション
                             _touchface_comment_lib.Add("にいちゃんのお菓子作り、てつだう～！！");
-                            _touchface_comment_lib.Add("にいちゃんのクッキーは癒しだよ～！");
                             _touchface_comment_lib.Add("にいちゃん！　いま、何してるの～？");
                             _touchface_comment_lib.Add("まごころまごころ～♪");
                             _touchface_comment_lib.Add("にいちゃんの手元よく見る！　おかし作りってむずかし～！");
@@ -3165,7 +3176,6 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                             FaceMotionPlay(2002); //なでられたときのへにゃモーション
                             _touchface_comment_lib.Add("にいちゃんのお菓子作り、てつだう～！！");
-                            _touchface_comment_lib.Add("にいちゃんのクッキーは癒しだよ～！");
                             _touchface_comment_lib.Add("にいちゃん！　いま、何してるの～？");
                             _touchface_comment_lib.Add("まごころまごころ～♪");
                             _touchface_comment_lib.Add("にいちゃんの手元よく見る！　おかし作りってむずかし～！");
@@ -3226,9 +3236,11 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                             FaceMotionPlay(2002); //なでられたときのへにゃモーション
                             _touchface_comment_lib.Add("にいちゃんのお菓子作り、てつだう～！！");
+                            _touchface_comment_lib.Add("にいちゃんのクッキー・・　こころがぽかぽか♪");
                             _touchface_comment_lib.Add("にいちゃん！　いま、何してるの～？");
                             _touchface_comment_lib.Add("まごころまごころ～♪");
                             _touchface_comment_lib.Add("にいちゃんの手元よく見る！　おかし作りってむずかし～！");
+                            _touchface_comment_lib.Add("ままに。早くほしクッキー焼いてあげたいな！");
                             _touchface_comment_lib.Add("にいちゃん..。まじまじ。なんでもな～い！");
                             _touchface_comment_lib.Add("にいちゃん..。あったかあったか♪");
                             _touchface_comment_lib.Add("にいちゃんのそばにいると、なんかリラックス♪");
@@ -3304,6 +3316,7 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
                             FaceMotionPlay(2002); //なでられたときのへにゃモーション
                             _touchface_comment_lib.Add("にいちゃんのお菓子、こころがぽかぽかするんじゃ～");
                             _touchface_comment_lib.Add("にいちゃんのおてて、あたたか～い！");
+                            _touchface_comment_lib.Add("ままに。早くほしクッキー焼いてあげたいな！");
                             _touchface_comment_lib.Add("にいちゃん。・・すきすき～♪");
                             _touchface_comment_lib.Add("えへへ♪　いっつもいっしょ～♪　にいちゃん！");
                             _touchface_comment_lib.Add("にいちゃん..。いつまでも、そばにいてね♪");

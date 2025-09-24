@@ -859,7 +859,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.ContestThemeTitle1 = "テーマ: 光りのお菓子";
         GameMgr.ContestThemeTitle2 = "テーマ: チョコレート";
         GameMgr.ContestThemeTitle3 = "テーマ: 氷のお菓子";
-        GameMgr.ContestThemeTitle4 = "自由課題";
+        GameMgr.ContestThemeTitle4 = "自由課題＜短時間＞";
         GameMgr.ContestThemeCount = 2; //2=　課題4つのこと
 
         //課題選択方式　0=デフォルト
@@ -916,13 +916,13 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 GameMgr.Contest_DB_list_Type = 31000; //compNum=20000~を指定
                 GameMgr.Contest_commentDB_Select = 21000;
                 GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
-                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 6時間";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 5時間";
 
                 //コンテスト時間指定
                 Contest_SetStartTime();
-                PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
+                PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 191; //
+                GameMgr.contest_boss_score = 252; //
                 break;
         }
 
@@ -941,7 +941,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 576; //
+        GameMgr.contest_boss_score = 576; //点数が等倍なので高い
         GameMgr.contest_boss_name = "イセヤ";
     }
 
@@ -951,8 +951,8 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.ContestThemeTitle1 = "テーマ: メルヘンなお菓子";
         GameMgr.ContestThemeTitle2 = "テーマ: チョコレート";
         GameMgr.ContestThemeTitle3 = "テーマ: ミルフイユ";
-        GameMgr.ContestThemeTitle4 = "自由課題＜短時間>";
-        GameMgr.ContestThemeCount = 2;
+        GameMgr.ContestThemeTitle4 = "自由課題＜短時間＞";
+        GameMgr.ContestThemeCount = 1; //1=課題が3つ
 
         //課題選択方式　0=デフォルト
         switch (GameMgr.ContestThemeSelectNum)
@@ -1033,7 +1033,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.ContestThemeTitle1 = "テーマ: 「風」のチョコレート";
         GameMgr.ContestThemeTitle2 = "テーマ: クリームブリュレ";
         GameMgr.ContestThemeTitle3 = "テーマ: ケーキ";
-        GameMgr.ContestThemeTitle4 = "自由課題";
+        GameMgr.ContestThemeTitle4 = "自由課題＜短時間＞";
         GameMgr.ContestThemeCount = 2;
 
         //課題選択方式　0=デフォルト
@@ -1067,7 +1067,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 312; //
+                GameMgr.contest_boss_score = 352; //
 
                 break;
 
@@ -1093,13 +1093,13 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 GameMgr.Contest_DB_list_Type = 41000; //compNum=20000~を指定
                 GameMgr.Contest_commentDB_Select = 21000;
                 GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
-                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 8時間";
+                GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。腕によりをかけた一品を作ってください。" + "\n" + "制限時間: 5時間";
 
                 //コンテスト時間指定
                 Contest_SetStartTime();
-                PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+                PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 482; //
+                GameMgr.contest_boss_score = 462; //
 
                 break;
         }
@@ -1120,7 +1120,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 500; //
+        GameMgr.contest_boss_score = 538; //
         GameMgr.contest_boss_name = "ベル";
     }
 

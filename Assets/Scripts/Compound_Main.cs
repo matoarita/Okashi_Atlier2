@@ -3496,6 +3496,22 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Three_Stars");
                 break;
 
+            case "mg_night_barron_book":
+                magicskill_database.skillHyoujiKaikin("Night_Barron");
+                break;
+
+            case "mg_crescent_moon_book":
+                magicskill_database.skillHyoujiKaikin("Crescent_Moon");
+                break;
+
+            case "mg_lightning_grape_book":
+                magicskill_database.skillHyoujiKaikin("Lightning_Grape");
+                break;
+
+            case "mg_dreamy_sapphire_book":
+                magicskill_database.skillHyoujiKaikin("Dreamy_Sapphire");
+                break;
+
             case "mg_time_illusion_book":
                 magicskill_database.skillHyoujiKaikin("Time_illusion");
                 break;

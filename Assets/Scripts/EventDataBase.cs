@@ -2158,7 +2158,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
             }
 
-
+            /*
             //街の人がきて、おかしのご依頼
             if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
             { }
@@ -2212,6 +2212,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
             }
+            */
 
 
 

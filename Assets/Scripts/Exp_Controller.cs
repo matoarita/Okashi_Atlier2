@@ -174,6 +174,8 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     private GameObject Compo_Magic_effect_Prefab_kiraexplode;
     private List<GameObject> _listEffect = new List<GameObject>();
 
+    private GameObject Compo_Topping_effect_Prefab1;
+
     private ParticleSystem.MainModule main;
     private ParticleSystem compo1_particle;
     private ParticleSystem compo2_particle;
@@ -302,6 +304,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         Compo_Magic_effect_Prefab5 = (GameObject)Resources.Load("Prefabs/Particle_Compo5");
         Compo_Magic_effect_Prefab6 = (GameObject)Resources.Load("Prefabs/Particle_Compo6");
         Compo_Magic_effect_Prefab_kiraexplode = (GameObject)Resources.Load("Prefabs/Particle_KiraExplode");
+        Compo_Topping_effect_Prefab1 = (GameObject)Resources.Load("Prefabs/ToppingEffect");
 
         compo_anim_status = 0;
         compo_anim_on = false;
@@ -2192,10 +2195,16 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                         .SetEase(Ease.InOutSine);
                 }
 
-                //パーティクルエフェクト生成＋アニメ開始
-                StartParticleEffect(0); //0は通常調合
-                
-
+                Debug.Log("Comp_method_bunki: " + Comp_method_bunki);
+                if (GameMgr.compound_select != 2)
+                {
+                    //パーティクルエフェクト生成＋アニメ開始
+                    StartParticleEffect(0); //0は通常調合
+                }
+                else //仕上げのときは、パーティクルでなく別エフェクト
+                {                    
+                    StartParticleEffect(2); //2はトッピング調合
+                } 
                 
 
                 //一時的にお菓子のHP減少をストップ
@@ -2218,7 +2227,14 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
                 if (timeOut <= 0.0)
                 {
-                    timeOut = 1.0f;
+                    if (GameMgr.compound_select != 2)
+                    {
+                        timeOut = 1.0f;
+                    }
+                    else //仕上げのときは、少し時間短め
+                    {
+                        timeOut = 0.6f;
+                    }
                     compo_anim_status = 2;
 
                     _text.text = "ガシャ　ガシャ . .";
@@ -2601,9 +2617,9 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         sequence2.Join(CompleteImage.transform.Find("Image").GetComponent<CanvasGroup>().DOFade(1, 0.2f));*/
     }
 
-    void StartParticleEffect(int _colorstatus)
+    void StartParticleEffect(int _effstatus)
     {      
-        switch(_colorstatus)
+        switch(_effstatus)
         {
             case 1: //魔法調合時
 
@@ -2618,8 +2634,24 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 else
                 { //共通エフェクト時のシュイイン音
                     sc.PlaySe(244);
+                    sc.PlaySe(254);
+                    //sc.PlaySe(177);
                 }
 
+                break;
+
+            case 2: //トッピング調合
+
+                //キラパーティクルON
+                _listEffect.Add(Instantiate(Compo_Topping_effect_Prefab1, canvas.transform));
+
+                //音を鳴らす　シュイン.. 
+                //sc.PlaySe(253);
+                //sc.PlaySe(132);
+                sc.PlaySe(256);
+
+                //sc.PlaySe(244);
+                sc.PlaySe(255);
                 break;
 
             default:
@@ -2680,7 +2712,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //初期化
         for (i = 0; i < _listEffect.Count; i++)
         {
-            Destroy(_listEffect[i]);
+            Destroy(_listEffect[_listEffect.Count - 1 - i]);
         }
         _listEffect.Clear();
     }
@@ -2688,11 +2720,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void ResultEffect_OK(int _status)
     {
         //初期化しておく
-        for (i = 0; i < _listEffect.Count; i++)
-        {
-            Destroy(_listEffect[i]);
-        }
-        _listEffect.Clear();
+        EffectListClear();
 
 
         //リザルト時のエフェクト生成＋アニメ開始 通常と魔法で共通
@@ -2732,11 +2760,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
     void ResultEffect_NG()
     {
         //初期化しておく
-        for (i = 0; i < _listEffect.Count; i++)
-        {
-            Destroy(_listEffect[i]);
-        }
-        _listEffect.Clear();
+        EffectListClear();
 
 
         //リザルト時のエフェクト生成＋アニメ開始
@@ -2746,6 +2770,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //音を鳴らす
         sc.PlaySe(20);
     }
+
 
     void renkin_default_exp_up()
     {
