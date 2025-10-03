@@ -496,8 +496,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
                 GameMgr.Contest_BGMON = true;
-                GameMgr.Contest_PanelON = true;
-                GameMgr.Contest_MainStoryPlaceNum = 0;
+
+                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+                {
+                    //GameMgr.Contest_BGMON = true;
+                    GameMgr.Contest_PanelON = true;
+                    GameMgr.Contest_MainStoryPlaceNum = 0;
+                }
 
                 break;
 
@@ -525,9 +530,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 4;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
-                //GameMgr.Contest_BGMON = true;
-                GameMgr.Contest_PanelON = true;
-                GameMgr.Contest_MainStoryPlaceNum = 0;
+
+                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+                {
+                    //GameMgr.Contest_BGMON = true;
+                    GameMgr.Contest_PanelON = true;
+                    GameMgr.Contest_MainStoryPlaceNum = 0;
+                }
 
                 break;
 
@@ -537,9 +546,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 5;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
-                //GameMgr.Contest_BGMON = true;
-                GameMgr.Contest_PanelON = true;
-                GameMgr.Contest_MainStoryPlaceNum = 0;
+
+                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+                {
+                    //GameMgr.Contest_BGMON = true;
+                    GameMgr.Contest_PanelON = true;
+                    GameMgr.Contest_MainStoryPlaceNum = 0;
+                }
 
                 break;
 
@@ -549,9 +562,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 6;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
-                //GameMgr.Contest_BGMON = true;
-                GameMgr.Contest_PanelON = true;
-                GameMgr.Contest_MainStoryPlaceNum = 0;
+
+                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+                {
+                    //GameMgr.Contest_BGMON = true;
+                    GameMgr.Contest_PanelON = true;
+                    GameMgr.Contest_MainStoryPlaceNum = 0;
+                }
 
                 break;
 
@@ -570,9 +587,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
-                //GameMgr.Contest_BGMON = true;
-                GameMgr.Contest_PanelON = true;
-                GameMgr.Contest_MainStoryPlaceNum = 10;
+
+                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+                {
+                    //GameMgr.Contest_BGMON = true;
+                    GameMgr.Contest_PanelON = true;
+                    GameMgr.Contest_MainStoryPlaceNum = 10;
+                }
 
                 break;
 
@@ -582,9 +603,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 3;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
-                //GameMgr.Contest_BGMON = true;
-                GameMgr.Contest_PanelON = true;
-                GameMgr.Contest_MainStoryPlaceNum = 20;
+
+                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+                {
+                    //GameMgr.Contest_BGMON = true;
+                    GameMgr.Contest_PanelON = true;
+                    GameMgr.Contest_MainStoryPlaceNum = 20;
+                }
 
                 break;
 
@@ -594,9 +619,13 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
-                //GameMgr.Contest_BGMON = true;
-                GameMgr.Contest_PanelON = true;
-                GameMgr.Contest_MainStoryPlaceNum = 20;
+
+                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+                {
+                    //GameMgr.Contest_BGMON = true;
+                    GameMgr.Contest_PanelON = true;
+                    GameMgr.Contest_MainStoryPlaceNum = 20;
+                }
 
                 break;
 
@@ -686,7 +715,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         if (_spquest_setnum >= 20)
         {
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_Catsle", 1);
-            matplace_database.ReSetMapFlagString("Or_Contest_A1", 1);
+            //matplace_database.ReSetMapFlagString("Or_Contest_A1", 1);
             //GameMgr.mainBGM_Num = 1;
         }
         if (_spquest_setnum >= 21)

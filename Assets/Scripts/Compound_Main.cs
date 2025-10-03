@@ -91,6 +91,7 @@ public class Compound_Main : MonoBehaviour
     //private GameObject GetMatStatusButton_obj;
 
     private GameObject contest_kakuninButton_obj;
+    private GameObject contest_kakuninButton_iconobj;
     private GameObject contest_CheckPanel_obj;
 
     private GameObject starPanel_kakuninButton_obj;
@@ -632,6 +633,7 @@ public class Compound_Main : MonoBehaviour
 
         //コンテスト確認ボタンの取得
         contest_kakuninButton_obj = canvas.transform.Find("MainUIPanel/ContestKakuninButtonPanel").gameObject;
+        contest_kakuninButton_iconobj = contest_kakuninButton_obj.transform.Find("ContestKakuninButton").gameObject;
         contest_CheckPanel_obj = canvas.transform.Find("ContestKakuninHyoujiPanel").gameObject;
         contest_CheckPanel_obj.SetActive(false);
 
@@ -639,13 +641,29 @@ public class Compound_Main : MonoBehaviour
         starPanel_obj = canvas.transform.Find("StarStampPanel").gameObject;
         starPanel_obj.SetActive(false);
 
-        if(PlayerStatus.player_ninki_param > 0) //スターをとるまではパネルをオフ
+        if(GameMgr.System_ContestIcon_OnFlag) //スターパネルをもらうまではパネルをオフ
         {
             starPanel_kakuninButton_obj.transform.Find("StarKakuninButton").gameObject.SetActive(true);
         }
         else
         {
             starPanel_kakuninButton_obj.transform.Find("StarKakuninButton").gameObject.SetActive(false);
+        }
+
+        if(!GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+        {
+            if (GameMgr.System_ContestIcon_OnFlag) //スターパネルをもらったあとはコンテストアイコンをON
+            {
+                contest_kakuninButton_iconobj.SetActive(true);
+            }
+            else
+            {
+                contest_kakuninButton_iconobj.SetActive(false);
+            }
+        }
+        else
+        {
+            contest_kakuninButton_iconobj.SetActive(false);
         }
 
         //メインクエ表示パネルの取得
@@ -3277,7 +3295,6 @@ public class Compound_Main : MonoBehaviour
                 //magicskill_database.skillHyoujiKaikin("Buttelfy_illumination");
 
                 magicskill_database.skillHyoujiKaikin("Cookie_Study");
-                magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
                 magicskill_database.skillHyoujiKaikin("Caramelized");
                 magicskill_database.skillHyoujiKaikin("Fire_Flowers");
 
@@ -3294,7 +3311,7 @@ public class Compound_Main : MonoBehaviour
                 magicskill_database.skillHyoujiKaikin("Chocolate_Philosophy");
                 magicskill_database.skillHyoujiKaikin("Bake_Beans");
                 magicskill_database.skillHyoujiKaikin("Chocolate_Tempering");
-                magicskill_database.skillHyoujiKaikin("Night_Barron");
+                //magicskill_database.skillHyoujiKaikin("Night_Barron");
                 break;
 
             case "mg_windmagic_book": //風の魔術書
@@ -3309,7 +3326,7 @@ public class Compound_Main : MonoBehaviour
 
                 break;
 
-            case "mg_timemagic_book": //時の魔術書
+            case "mg_starmagic_book": //星の魔術書
 
                 //magicskill_database.skillHyoujiKaikin("Star_Gazer");
                 magicskill_database.skillHyoujiKaikin("Soda_Study");
@@ -3482,6 +3499,10 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_saint_fleur_book":
                 magicskill_database.skillHyoujiKaikin("Saint_Fleur");
+                break;
+
+            case "mg_santiman_book":
+                magicskill_database.skillHyoujiKaikin("Santiman");
                 break;
 
             case "mg_epiclesis_book":

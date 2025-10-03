@@ -46,6 +46,7 @@ public class StatusPanel : MonoBehaviour {
     private GameObject HikariStatusList_obj;
     private GameObject Equip_Panel_obj;
 
+    private GameObject EquipParam_Toggle_obj;
     private GameObject HikariParam_Toggle_obj;
 
     private GameObject hikariokashiparam_Prefab;
@@ -145,13 +146,13 @@ public class StatusPanel : MonoBehaviour {
         hikariokashi_exp_table = HikariOkashiExpTable.Instance.GetComponent<HikariOkashiExpTable>();
 
         //アクセサリーのスタート　配列番号
-        Acce_Startnum = 6;     
+        Acce_Startnum = 6;
 
         //各ステータスパネルの値を取得。
         statusList = this.transform.Find("StatusList").gameObject;
         paramview1 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView1/Viewport/Content").gameObject;
         paramview2 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView2/Scroll View/Viewport/Content").gameObject;
-        paramview3 = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;        
+        paramview3 = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
 
         StatusList_obj = this.transform.Find("StatusList").gameObject;
         StatusList_SelectView_obj = this.transform.Find("StatusPanelSelect_ScrollView").gameObject;
@@ -165,7 +166,7 @@ public class StatusPanel : MonoBehaviour {
         costumePrefab = (GameObject)Resources.Load("Prefabs/ClothIcon");
         contentAcce = this.transform.Find("CostumePanel/ParamView3/Scroll View2/Viewport/Content").gameObject;
         accePrefab = (GameObject)Resources.Load("Prefabs/AcceIcon");
-        
+
         hatena_sprite = Resources.Load<Sprite>("Sprites/Icon/question");
 
         contentCollection = Collection_Panel_obj.transform.Find("ParamView/Scroll View/Viewport/Content").gameObject;
@@ -217,6 +218,16 @@ public class StatusPanel : MonoBehaviour {
         else
         {
             HikariParam_Toggle_obj.SetActive(false);
+        }
+
+        EquipParam_Toggle_obj = this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/EquipParam_Toggle").gameObject;
+        if (GameMgr.System_TabetaiOkashiStatusUp) //食べたいお菓子をあげたときに、食感も上がる仕様の有無
+        {
+            EquipParam_Toggle_obj.SetActive(true);
+        }
+        else
+        {
+            EquipParam_Toggle_obj.SetActive(false);
         }
 
         /*if(GameMgr.Story_Mode == 1)

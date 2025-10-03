@@ -3594,39 +3594,44 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //ハート計算
                 if (GameMgr.System_HeartUpwithScore_ON)
                 {
-                    Getlove_exp += (int)(total_score * 0.05f); //単純に点数の〇分の1がハート量になるバージョン 0.1なら１０ぶんの１
+                    Getlove_exp += (int)(total_score * GameMgr.System_GetHeartHosei); //単純に点数の〇分の1がハート量になるバージョン 0.1なら１０ぶんの１
                     girl1_status.GirlExpressionKoushin(20);
                 }
                 else
                 {
                     if (total_score >= GameMgr.low_score && total_score < GameMgr.high_score) //ベース×2
                     {
-                        Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 0.7f));
+                        Getlove_exp += (int)((total_score * 0.05f) * (_basegirl1_like * 0.7f));
                         girl1_status.GirlExpressionKoushin(20);
                     }
                     else if (total_score >= GameMgr.high_score && total_score < GameMgr.high_score_2) //ベース×3
                     {
-                        Getlove_exp += (int)((total_score * 0.1f) * (_basegirl1_like * 1.0f));
+                        Getlove_exp += (int)((total_score * 0.05f) * (_basegirl1_like * 1.0f));
                         girl1_status.GirlExpressionKoushin(30);
                     }
                     else if (total_score >= GameMgr.high_score_2 && total_score < 220) //150点~220場合
                     {
-                        Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.15f));
+                        Getlove_exp += (int)((total_score * 0.05f) * (_basegirl1_like * 1.05f));
                         girl1_status.GirlExpressionKoushin(40);
                     }
                     else if (total_score >= 220 && total_score < 300) //220~300点を超えた場合、ベース×5
                     {
-                        Getlove_exp += (int)((total_score * 0.15f) * (_basegirl1_like * 1.2f));
+                        Getlove_exp += (int)((total_score * 0.06f) * (_basegirl1_like * 1.1f));
                         girl1_status.GirlExpressionKoushin(50);
                     }
                     else if (total_score >= 300 && total_score < 500) //300~500点を超えた場合、ベース×5
                     {
-                        Getlove_exp += (int)((total_score * 0.13f) * (_basegirl1_like * 1.3f));
+                        Getlove_exp += (int)((total_score * 0.07f) * (_basegirl1_like * 1.15f));
                         girl1_status.GirlExpressionKoushin(70);
                     }
-                    else if (total_score >= 500) //500点を超えた場合、ベース×5
+                    else if (total_score >= 500 && total_score < 1000) //300~500点を超えた場合、ベース×5
                     {
-                        Getlove_exp += (int)((total_score * 0.11f) * (_basegirl1_like * 1.5f));
+                        Getlove_exp += (int)((total_score * 0.08f) * (_basegirl1_like * 1.2f));
+                        girl1_status.GirlExpressionKoushin(70);
+                    }
+                    else if (total_score >= 1000) //1000点を超えた場合、ベース×5
+                    {
+                        Getlove_exp += (int)((total_score * 0.09f) * (_basegirl1_like * 1.25f));
                         girl1_status.GirlExpressionKoushin(100);
                     }
                 }
@@ -3736,12 +3741,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
             {
                 if (database.items[GameMgr.NowEatOkashiID].itemID == database.items[_baseID].itemID) //食べたいお菓子をあげた場合。ハート〇倍。
                 {
-                    Debug.Log("食べたいお菓子をあげた　ハート*1.3倍");
+                    Debug.Log("食べたいお菓子をあげた　ハート*1.5倍");
 
                     GameMgr.hikari_tabetaiokashi_buf = true; //一時的に特殊状態
                     GameMgr.hikari_tabetaiokashi_buf_time = 72; //効果時間デフォルト 1=5分
 
-                    Getlove_exp = (int)(Getlove_exp * 1.3f);
+                    Getlove_exp = (int)(Getlove_exp * 1.5f);
                     PlayerStatus.player_girl_eatCount_tabetai++; //食べたいお菓子をあげた回数カウント
 
                     if (PlayerStatus.player_girl_eatCount_tabetai >= 999)
@@ -3759,35 +3764,45 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     GameMgr.RandomEatOkashi_counter = 0;
                     girl1_status.RandomOkashiDecideMethod();
 
-                    //隠し味ステータスがあがる
-                    _pstatus_up = Random.Range(1,7);
-                    if (_pstatus_up > 0)
+                    if (GameMgr.System_TabetaiOkashiStatusUp)
                     {
-                        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1, 0);
+                        //隠し味ステータスがあがる
+                        _pstatus_up = Random.Range(1, 7);
+                        if (_pstatus_up > 0)
+                        {
+                            hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1, 0);
+                        }
                     }
                 }
                 else
                 {
-                    //隠し味ステータスがあがる
-                    _pstatus_up = 1;
-                    hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1, 0);
-                    _pstatus_up = 0; //ここで０にして、パネルは表示させない
+                    if (GameMgr.System_TabetaiOkashiStatusUp)
+                    {
+                        //隠し味ステータスがあがる
+                        _pstatus_up = 1;
+                        hikariOkashiExpTable.hikariOkashi_ExpTableMethod(database.items[_baseID].itemType_sub.ToString(), _pstatus_up, 0, 0, 1, 0);
+                        _pstatus_up = 0; //ここで０にして、パネルは表示させない
+                    }
                 }
             }
 
 
             //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
-            if (PlayerStatus.girl1_Love_lv >= 60 && PlayerStatus.girl1_Love_lv < 80)
+            if (PlayerStatus.girl1_Love_lv >= 30 && PlayerStatus.girl1_Love_lv < 50)
             {
                 Getlove_exp = (int)(Getlove_exp * 0.75f);
             }
+            else if (PlayerStatus.girl1_Love_lv >= 50 && PlayerStatus.girl1_Love_lv < 80)
+            {
+                Getlove_exp = (int)(Getlove_exp * 0.6f);
+            }
             else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.65f);
+                Getlove_exp = (int)(Getlove_exp * 0.5f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 90 && PlayerStatus.girl1_Love_lv < 95)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.5f);
+                Getlove_exp = (int)(Getlove_exp * 0.4f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 95 && PlayerStatus.girl1_Love_lv < 99)
             {

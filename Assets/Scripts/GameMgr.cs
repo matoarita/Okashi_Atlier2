@@ -55,9 +55,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //各システムの使用の有無   
     public static bool System_HikariMake_OnichanTimeCost_ON = true; //おにいちゃんがお菓子作ったときの時間を、ヒカリのお菓子作り時間に反映するかどうか
     public static bool System_Shiokuri_ON = true; //仕送りの有無
-    public static bool System_Yachin_ON = true; //家賃システムの有無
+    public static bool System_Yachin_ON = false; //家賃システムの有無
     public static bool System_CatAutoMaterial_ON = true; //猫が自動でアイテムをとってきてくれるシステムの有無
     public static bool System_JobLVUP_ON = false; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
+    public static bool System_TabetaiOkashiStatusUp = false; //食べたいおかしをあげたときに、そのお菓子の食感が固定ステで上昇する仕様。falseならオフ。
 
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = true; //ハートの上がる量が、単純に点数の〇分の一にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
@@ -71,14 +72,14 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarQuestKoushin_DayTiming = false; //酒場の依頼が、一日ごとに更新される仕様。オフだと、お店に入るたびに、依頼が変わる。現在trueはまだ未対応。酒場ごとに個別にクエストリストを保存してないので、別酒場で表示されたクエストが別エリアに残ったままになるバグがある。
 
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
-    public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
+    public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_ContestStarGet_ON = true; //コンテストで、スターが上がる仕様にする。
     public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
     public static bool System_ContestEdenFinalStart_ON = false; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
     public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　CompoundMain→GirlEat_Judgeで発生　trueなら、採点パネル表示前 falseなら後
    
     public static bool CompoBGMCHANGE_ON = false; //調合シーンでBGM切り替えるかどうかのフラグ 
-    public static bool GetMatBGMCHANGE_ON = false; //採取地画面でBGM切り替えるかのフラグ    
+    public static bool GetMatBGMCHANGE_ON = true; //採取地画面でBGM切り替えるかのフラグ    
     public static bool MainBGMChange_HeartLV = false; //ゲームの進行度でBGMを切り替えるか、ハートLVで切り替えるかの選択 trueならハートLVに応じてBGMが変わる ２では未使用
     public static bool MainBGMChange_RoomNum = true; //部屋によって専用BGMに切り替える　OFFだとどの部屋でもデフォルトBGMになる
 
@@ -99,6 +100,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     //見た目点数の基準点
     public static int System_GirlEat_BeautyParamKeisan = 1; //0は比率計算　下の基準点を使用　1=単純に判定値から引き算で加算方式
     public static int System_Beauty_BasicScore = 20; //0=比率計算の場合の、見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
+
+    //ハート上がる量の補正　0.1fなら通常の1/10 System_HeartUpwithScore_ONがtrueのときに影響
+    public static float System_GetHeartHosei = 0.05f;
 
     //ハート魔法の消費基本ハートポイント
     public static int System_MagicHeartCost = 30;
@@ -1052,6 +1056,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] Appaleil_Attribute = new int[itemAttri_num]; //生地混ぜ回数の引継ぎ用
     public static float[] Contest_archivement_percent = new float[10]; //各コンテストの達成率
     public static bool puraton_houseFirst_flag; //家かりるイベント初めての場合説明がある。
+    public static bool TitleMain_Live2DMode_ON; //タイトル画面でLive2D表示がONになってるか否か。
 
 
 
@@ -1658,7 +1663,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         scene_BarName = "";
         System_BarGetNinki = 0;
         NPC_mirabo_mizuabi = false;
-        yachinSPRoomON_Flag = false;
+        yachinSPRoomON_Flag = true; //デフォルトの家だと最初からON
         Ending_counterenshutu_on = false;
         Fullmoon_judge_on = false;
         System_Fullmoon_month = 4;
@@ -1703,6 +1708,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         GirlLoveSubEvent_NPC_LimitDay = 0;
         GirlLoveSubEvent_NPC_PrizeMoney = 0;
         puraton_houseFirst_flag = false;
+        TitleMain_Live2DMode_ON = false;
         MagicUseTypeSelect = 0;
         MagicUseType_StatusText = "";
 
@@ -2681,11 +2687,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Highscore_SPEventlist.Clear();
 
         //思い出も解放される
-        Highscore_SPEventlist.Add("huwakoro", 250); //右の番号は、GirlLoveSubEvent_numの番号
+        Highscore_SPEventlist.Add("star_cookie", 250); //右の番号は、GirlLoveSubEvent_numの番号
         Highscore_SPEventlist.Add("maritozzo", 251);
+        Highscore_SPEventlist.Add("lumi_sapphire_neko_cookie", 254);
         Highscore_SPEventlist.Add("strawberry_sponge_cake", 252);
 
-        //解放なしで読むイベントのみ
+        //解放なしで読むイベントのみ（下の思い出リストには入ってないよ～という意味）
         Highscore_SPEventlist.Add("figure_bear_choco", 253); //くまのおにいさんかいもうと　食べると、ふたりのおうち制作のヒントレシピ解放
         Highscore_SPEventlist.Add("figure_bear_whitechoco", 253);
     }
@@ -2697,8 +2704,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Clear();
 
         //点数150～関係
-        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "huwakoro", "ふわころ", false, "EventCG_Icon/cg_gallery_icon_a2_01", "ふわっところっとした" + "\n" + "お菓子で高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "star_cookie", "ほしクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_01", "星の形のクッキーで高得点"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "マリトッツォで高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(003, "lumi_sapphire_neko_cookie", "サファイアクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "光るサファイアクッキーで高得点"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_a2_03", "ショートケーキで高得点"));
 
         //ハートで発生するイベント系

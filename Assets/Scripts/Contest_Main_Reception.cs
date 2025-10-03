@@ -747,7 +747,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventCheck_OrA1()
     {
-        //matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
+        matplace_database.matPlaceKaikin("Or_Contest_A1"); //解禁
         //matplace_database.ReSetMapFlagString("Or_Hiroba1", 0); //コンテスト会場みつけたら中央噴水はいけなくなる
 
         if (!GameMgr.System_ContestIcon_OnFlag)
@@ -787,7 +787,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventCheck_OrB1()
     {
-        //matplace_database.matPlaceKaikin("Or_Contest_B1"); //解禁
+        matplace_database.matPlaceKaikin("Or_Contest_B1"); //解禁
         if (!GameMgr.System_ContestIcon_OnFlag)
         {
             GameMgr.System_ContestIcon_OnFlag = true;
@@ -826,7 +826,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventCheck_OrC1()
     {
-        //matplace_database.matPlaceKaikin("Or_Contest_C1"); //解禁
+        matplace_database.matPlaceKaikin("Or_Contest_C1"); //解禁
         if (!GameMgr.System_ContestIcon_OnFlag)
         {
             GameMgr.System_ContestIcon_OnFlag = true;
@@ -865,7 +865,7 @@ public class Contest_Main_Reception : MonoBehaviour
 
     void EventCheck_OrD1()
     {
-        //matplace_database.matPlaceKaikin("Or_Contest_D1"); //解禁
+        matplace_database.matPlaceKaikin("Or_Contest_D1"); //解禁
         if (!GameMgr.System_ContestIcon_OnFlag)
         {
             GameMgr.System_ContestIcon_OnFlag = true;
@@ -1050,10 +1050,11 @@ public class Contest_Main_Reception : MonoBehaviour
 
         if (GameMgr.System_Contest_StartNow)
         {
-            On_ActiveContestStart2();
+            On_ActiveContestNow();
         }
         else
         {
+            GameMgr.scenario_ON = false;
             GameMgr.Scene_Status = 0;
         }
     }
@@ -1354,6 +1355,7 @@ public class Contest_Main_Reception : MonoBehaviour
         FadeManager.Instance.LoadScene("Or_Outside_the_Contest", GameMgr.SceneFadeTime);
     }
 
+    //●日後にスタートの場合　出場するを押すと、コンテストスタートするバージョン
     void On_ActiveContestStart()
     {
         //宴の処理へ
@@ -1385,7 +1387,8 @@ public class Contest_Main_Reception : MonoBehaviour
         CanvasOff();
     }
 
-    void On_ActiveContestStart2()
+    //すぐコンテストを開始するバージョン
+    void On_ActiveContestNow()
     {
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 1000; //
@@ -1400,6 +1403,9 @@ public class Contest_Main_Reception : MonoBehaviour
 
         CanvasOff();
     }
+
+
+
 
     void On_ActiveContest_explanation() //コンテストの説明をきく
     {

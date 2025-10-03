@@ -50,7 +50,7 @@ public class EmeraldShop_Main_Or : MonoBehaviour {
                 BGImagePanel.transform.Find("BG_sprite_1").gameObject.SetActive(true);
                 SettingCharacterPanel(0);
                 GameMgr.Window_CharaName = "ドルチェ";
-                GameMgr.System_Shop_text1 = "ニャニャ。よ～見つけなすったね。こんなところを・・。" + "\n" + "それで何がほしいニャ？";
+                GameMgr.System_Shop_text1 = "ニャニャ。よ～見つけなすったね。こんなところを。" + "\n" + "それで何がほしいニャ？";
                 GameMgr.System_Shop_text2 = "何がほしいのかえ？";
                 GameMgr.System_Shop_text3 = ""; //買取時のメッセージ
                 GameMgr.System_Shop_text4 = "買う？";

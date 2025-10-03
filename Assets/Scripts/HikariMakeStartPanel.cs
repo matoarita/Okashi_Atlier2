@@ -426,6 +426,7 @@ public class HikariMakeStartPanel : MonoBehaviour {
         _cardImage.SetInitYosoku();
        
         _cardImage_obj2[0].GetComponent<SetImage>().CardParamOFF_2();
+        _cardImage_obj2[0].GetComponent<SetImage>().CardParamSpScoreOFF(); //SPスコア表示はオフにする。
 
         if (_mstatus == 0) //単に表示するだけ
         {

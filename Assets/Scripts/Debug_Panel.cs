@@ -184,7 +184,7 @@ public class Debug_Panel : MonoBehaviour {
             DebugInputOn.text = "Input:OFF";
         }
 
-        EventNumber_text.text = "Event: " + GameMgr.GirlLoveEvent_num;
+        EventNumber_text.text = "Ev: " + GameMgr.GirlLoveEvent_num;
         StageNumber_text.text = "Stage: " + GameMgr.stage_number;
         SceneNumber_text.text = "SceneNum: " + GameMgr.Scene_Category_Num;
 

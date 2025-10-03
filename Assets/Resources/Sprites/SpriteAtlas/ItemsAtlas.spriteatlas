@@ -806,6 +806,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4fa4b5beb0c71b546b15e49ef54d6fed, type: 3}
   - {fileID: 21300000, guid: 41020ebe2d6288c49bb38c98c640a5df, type: 3}
   - {fileID: 21300000, guid: 3e6611ce634814c44810a06f6491727b, type: 3}
+  - {fileID: 21300000, guid: eae945cec2f6fa041bc37816018e36a2, type: 3}
   - {fileID: 21300000, guid: bdbefdce9cf54ec43ba59294763a8c25, type: 3}
   - {fileID: 21300000, guid: 43b1d2de3a1c32c4493a6313f489085f, type: 3}
   - {fileID: 21300000, guid: d701e2de71424f240b56a45e78963216, type: 3}
@@ -1608,6 +1609,7 @@ SpriteAtlas:
   - neko_badge_black
   - beans_crusher
   - memo
+  - lumi_neko_cookie
   - memo_white
   - chocolate_aquamarine
   - shokukan_powerup1

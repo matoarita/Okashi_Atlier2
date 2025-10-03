@@ -29,6 +29,7 @@ public class Title_Main : MonoBehaviour {
     //Live2Dモデルの取得    
     private GameObject _model_root_obj;
     private GameObject _model_move;
+    private GameObject _model_toutharea;
     private GameObject _model_obj;
     private CubismRenderController cubism_rendercontroller;
     private Animator live2d_animator;
@@ -78,6 +79,7 @@ public class Title_Main : MonoBehaviour {
         //Live2Dモデルの取得
         _model_root_obj = GameObject.FindWithTag("CharacterRoot").gameObject;
         _model_move = _model_root_obj.transform.Find("CharacterMove").gameObject;
+        _model_toutharea = _model_root_obj.transform.Find("Character").gameObject;
         _model_obj = _model_root_obj.transform.Find("CharacterMove/Hikari_Live2D_3").gameObject;
         cubism_rendercontroller = _model_obj.GetComponent<CubismRenderController>();
         live2d_animator = _model_obj.GetComponent<Animator>();
@@ -94,10 +96,13 @@ public class Title_Main : MonoBehaviour {
 
         if (GameMgr.ending_count >= 1) //一回でもEDクリア。トップ画面はLive2Dモードになる。
         {
+            GameMgr.TitleMain_Live2DMode_ON = true;
+
             galleryButton_obj.SetActive(true);           
 
             chara_Icon.SetActive(false);
             _model_move.SetActive(true);
+            _model_toutharea.SetActive(true);
             _model_rendertexture_obj.SetActive(true);
             live2d_animator.SetLayerWeight(3, 0.0f); //メインでは、最初宴用表情はオフにしておく。
             live2d_costumetrigger.ChangeCostume();
@@ -127,11 +132,14 @@ public class Title_Main : MonoBehaviour {
         }
         else
         {
+            GameMgr.TitleMain_Live2DMode_ON = false;
+
             galleryButton_obj.SetActive(false);
             freeModeButton_obj.SetActive(false);
 
             chara_Icon.SetActive(true);
             _model_move.SetActive(false);
+            _model_toutharea.SetActive(false);
             _model_rendertexture_obj.SetActive(false);
         }
 

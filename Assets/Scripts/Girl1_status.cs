@@ -750,28 +750,31 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
 
                     case 1000: //タイトル　ランダムモーション
 
-                        //trueだと腹減りカウントが進む。
-                        if (GirlEat_Judge_on)
+                        if (GameMgr.TitleMain_Live2DMode_ON) //エンディング一回以上みて、Live2DモードがONになってるときのみ
                         {
-                            timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
+                            //trueだと腹減りカウントが進む。
+                            if (GirlEat_Judge_on)
+                            {
+                                timeOut2 -= Time.deltaTime; //ランダムでヒントや食べたいお菓子を決定するカウンタ
+                            }
+
+                            //吹き出しを表示中
+                            HukidashiHyoujiChu();
+
+                            //一定時間たつとヒントを出すか、アイドルモーションを再生。同時に食べたいものを指定する。
+                            if (timeOut2 <= 0.0f)
+                            {
+                                rnd = Random.Range(0.0f, 5.0f);
+                                timeOut2 = Default_hukidashi_nexttime + rnd;
+
+                                //ランダムセリフ＋モーションを決定する
+                                Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
+                            }
+
+                            //消えるエンドのときは、半透明にチカチカ点滅を繰り返す
+
+                            //
                         }
-
-                        //吹き出しを表示中
-                        HukidashiHyoujiChu();
-
-                        //一定時間たつとヒントを出すか、アイドルモーションを再生。同時に食べたいものを指定する。
-                        if (timeOut2 <= 0.0f)
-                        {
-                            rnd = Random.Range(0.0f, 5.0f);
-                            timeOut2 = Default_hukidashi_nexttime + rnd;
-
-                            //ランダムセリフ＋モーションを決定する
-                            Girl1_RandomMessage_Motion(Default_hukidashi_hyoujitime);
-                        }
-
-                        //消えるエンドのときは、半透明にチカチカ点滅を繰り返す
-
-                        //
                         break;
 
                     default:

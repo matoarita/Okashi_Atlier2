@@ -42,10 +42,10 @@ public class ContestKakuninButtonPanel : MonoBehaviour {
         text_day_obj.SetActive(false);
         text_day = text_day_obj.GetComponent<Text>();
 
-        if (!GameMgr.System_ContestIcon_OnFlag)
+        /*if (!GameMgr.System_ContestIcon_OnFlag)
         {
             this.transform.Find("ContestKakuninButton").gameObject.SetActive(false);
-        }
+        }*/
         
     } 
 
