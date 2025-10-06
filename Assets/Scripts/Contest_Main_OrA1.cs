@@ -381,7 +381,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //プレイヤーステータスのリセット
             PlayerStatus.ResetPlayerMagicStatus();
 
-            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
+            //scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
 
         //二回戦以降、始まる場合の処理　Utage_scenarioの採点後にフラグをたてている。
@@ -422,7 +422,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
                     case "Or_Contest_002":
 
-                        GameMgr.Contest_BGMSelect = "sound38";
+                        GameMgr.Contest_BGMSelect = "sound80"; //sound38
                         break;
 
                     case "Or_Contest_003":
@@ -439,7 +439,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             
             //
 
-            scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
+            //scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをフェードイン
         }
 
         //決勝戦終了後、賞品獲得
@@ -568,6 +568,12 @@ public class Contest_Main_OrA1 : MonoBehaviour {
                 GameMgr.Utage_Prizepanel_WaitHyouji = false;
 
                 contestPrizePanel.GetComponent<CanvasGroup>().DOFade(0, 0.5f).OnComplete(OffPrizePanelactive);
+            }
+
+            if (GameMgr.Utage_SceneStart_BlackOFF)
+            {
+                GameMgr.Utage_SceneStart_BlackOFF = false;
+                scene_black_effect.GetComponent<CanvasGroup>().DOFade(0, 1.0f); //ブラックをオフ
             }
 
             if (GameMgr.Utage_SceneEnd_BlackON)
@@ -942,6 +948,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
 
         //Debug_Scorekeisan();//デバッグ用
     }
+
 
     void text_default()
     {

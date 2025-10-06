@@ -968,6 +968,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool Utage_Prizepanel_ON; //コンテスト賞品のシーン再生中、賞品リストを表示する。
     public static bool Utage_Prizepanel_WaitHyouji; //プライズパネルが完全に開くまで、宴の続きを再生しないフラグ
     public static bool Utage_Prizepanel_OFF; //賞品リストをオフにする。
+    public static bool Utage_SceneStart_BlackOFF; //うたげ　コンテスト開始時　背景のデータ読み込み用のフラグ　このタイミングでブラックをオフにする
     public static bool Utage_SceneEnd_BlackON; //うたげ終了時、シーン移動する際に、ゲーム本編の黒をONにする。でないと、一瞬切り替え表示が見えてしまう。
     public static bool Scene_Black_Off; //シーンによっては、このフラグがたつと、宴途中などで、シーンの黒画面をオフにする
     public static bool Utage_MapMoveBlackON; //宴読み終わり後に、マップ移動のとき、シーンをあらかじめブラックに消すフラグ　こっちは、SceneEnd_BlackONをTrueにするため分岐する用
@@ -1634,6 +1635,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         Utage_Prizepanel_ON = false;
         Utage_Prizepanel_WaitHyouji = false;
         Utage_Prizepanel_OFF = false;
+        Utage_SceneStart_BlackOFF = false;
         Utage_SceneEnd_BlackON = false;
         Utage_MapMoveBlackON = false;
         Utage_MapMoveON = false;

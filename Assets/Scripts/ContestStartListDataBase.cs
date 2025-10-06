@@ -751,11 +751,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 20000; //compNum=20000~を指定     
         GameMgr.Contest_commentDB_Select = 20000;
         GameMgr.Contest_ProblemSentence = "テーマ：焼き菓子";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。焼き菓子を作ってください。" + "\n" + "制限時間: 6時間";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類問わず。焼き菓子を作ってください。" + "\n" + "制限時間: 4時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
+        PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 98; //一回戦相手の点数
         GameMgr.contest_boss_name = "エリカ";
@@ -767,11 +767,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_DB_list_Type = 21000; //compNum=20000~を指定
         GameMgr.Contest_commentDB_Select = 21000;
         GameMgr.Contest_ProblemSentence = "テーマ：自由課題";
-        GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。おいしいお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence2 = "材料・種類は問わず。おいしいお菓子を作ってください。" + "\n" + "制限時間: 6時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
+        PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
         GameMgr.contest_boss_score = 137; //
         GameMgr.contest_boss_name = "シスター・リーシュ";
@@ -789,7 +789,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 183; //
+        GameMgr.contest_boss_score = 157; //
         GameMgr.contest_boss_name = "ハーマイオニー";
     }
 

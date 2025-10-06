@@ -201,9 +201,11 @@ public class HikariMakeStartPanel : MonoBehaviour {
 
         select_obj_1 = this.transform.Find("Comp2/Select_command/Scroll View/Viewport/Content/Select_2").gameObject;
         select_obj_2 = this.transform.Find("Comp2/Select_command/Scroll View/Viewport/Content/Select_3").gameObject;
-        SelectHyouji_OnOFF();
-        CharaIconChange();
-        paramHyoujiKoushin();
+
+        ResetHyouji();
+        //SelectHyouji_OnOFF();
+        //CharaIconChange();
+        //paramHyoujiKoushin();
 
         //一度contentの中身を削除
         foreach (Transform child in content.transform) // content内のゲームオブジェクトを一度全て削除。content以下に置いたオブジェクトが、リストに表示される

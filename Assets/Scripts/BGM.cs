@@ -91,6 +91,7 @@ public class BGM : MonoBehaviour {
     public AudioClip sound77;  //各部屋のテーマ
     public AudioClip sound78;  //各部屋のテーマ
     public AudioClip sound79;  //各部屋のテーマ
+    public AudioClip sound80;  //大会コンテストのBGM エデンコンテスト3
     public AudioClip sound1000;  //空のサウンド
 
     //環境音リスト
@@ -795,6 +796,11 @@ public class BGM : MonoBehaviour {
             case "sound73":
 
                 _send_clip = sound73;
+                break;
+
+            case "sound80":
+
+                _send_clip = sound80;
                 break;
 
             default:

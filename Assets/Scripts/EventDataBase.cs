@@ -1581,6 +1581,11 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                             GameMgr.GirlLoveSubEvent_num = 1203;
                                             break;
+
+                                        case 0: //エデンコンで敗退した場合
+
+                                            GameMgr.GirlLoveSubEvent_num = 1204;
+                                            break;
                                     }
                                     
                                     GameMgr.SubEvAfterHeartGet_num = 200;

@@ -4949,8 +4949,22 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
+        //コンテスト開始時　背景切り替えのため、一度シーンに黒をはさむ
+        //「宴」のシナリオ終了待ち
+        while (!engine.IsPausingScenario)
+        {
+            yield return null;
+        }
+
+        GameMgr.Utage_SceneStart_BlackOFF = true;
+        //** **//
+
+        //続きから再度読み込み
+        engine.ResumeScenario();
+
+
         //お題を選べる場合、ここでポーズをはさむことになる。
-        if(GameMgr.ContestThemeSelectUse)
+        if (GameMgr.ContestThemeSelectUse)
         {
             //「宴」のシナリオ終了待ち
             while (!engine.IsPausingScenario)
@@ -4973,6 +4987,7 @@ public class Utage_scenario : MonoBehaviour
             engine.ResumeScenario();
         }
 
+
         //背景切り替えのため、一度シーンに黒をはさむ
         //「宴」のシナリオ終了待ち
         while (!engine.IsPausingScenario)
@@ -4985,6 +5000,7 @@ public class Utage_scenario : MonoBehaviour
 
         //続きから再度読み込み
         engine.ResumeScenario();
+
 
         //「宴」のシナリオ終了待ち
         while (!Engine.IsEndScenario)

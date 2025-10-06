@@ -4431,8 +4431,20 @@ public class Compound_Main : MonoBehaviour
 
                         if (GameMgr.Contest_Cate_Ranking == 0) //コンテストがトーナメント形式=0
                         {
-                            _textmain.text = "ヒカリの勇気が少しわいてきた！";
-                            get_heart = 50;
+                            switch (GameMgr.contest_Rank_Count) //順位
+                            {
+                                case 1:
+
+                                    _textmain.text = "ヒカリの勇気が少しわいてきた！";
+                                    get_heart = 50;
+                                    break;
+
+                                case 0:
+
+                                    _textmain.text = "ヒカリは励ましている！";
+                                    get_heart = 2;
+                                    break;
+                            }
                         }
                         else
                         {
@@ -4467,7 +4479,7 @@ public class Compound_Main : MonoBehaviour
                                     _textmain.text = "ヒカリは励ましている！";
                                     get_heart = 1;
                                     break;
-
+                               
                                 default:
 
                                     _textmain.text = "ヒカリは応援している！";

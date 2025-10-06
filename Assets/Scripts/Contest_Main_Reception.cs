@@ -57,6 +57,7 @@ public class Contest_Main_Reception : MonoBehaviour
     private TimeController time_controller;
     private ContestListController contestListController;
     private MoneyStatus_Controller moneyStatus_Controller;
+    private Compound_Keisan compound_keisan;
 
     private GameObject mainlist_controller_obj;
     private GameObject contestList_ScrollView_obj;
@@ -125,6 +126,9 @@ public class Contest_Main_Reception : MonoBehaviour
 
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
+
+        //合成計算オブジェクトの取得
+        compound_keisan = Compound_Keisan.Instance.GetComponent<Compound_Keisan>();
 
         //シーン最初にプレイヤーアイテムリストの生成
         sceneinit_setting = SceneInitSetting.Instance.GetComponent<SceneInitSetting>();
@@ -1101,7 +1105,7 @@ public class Contest_Main_Reception : MonoBehaviour
             }
 
             //さらに、ヒカリが制作中の場合、制作を一度リセット
-            GameMgr.hikari_make_okashiFlag = false;
+            HikariMakeReset();
 
             contest_list = 0;
             _id = conteststartList_database.SearchContestString(GameMgr.contest_accepted_list[contest_list].contestName);
@@ -1183,6 +1187,34 @@ public class Contest_Main_Reception : MonoBehaviour
     void EventReadEnd_Flagcheck()
     {
         
+    }
+
+    //コンテスト前にヒカリが作るをリセット
+    void HikariMakeReset()
+    {
+        GameMgr.hikari_make_okashiFlag = false;
+        GameMgr.hikari_makeokashi_startflag = false;
+        GameMgr.hikari_zairyo_no_flag = false;
+
+        //うけとる処理
+        if (GameMgr.hikari_make_okashiKosu >= 1)
+        {
+            if (pitemlist.player_yosokuitemlist.Count > 0)
+            {
+                Debug.Log("コンテスト始まる前　ヒカリすでにお菓子作ってたのを受け取り");
+                compound_keisan.HikariMakeGetItem(0);
+            }
+            GameMgr.hikari_make_okashiKosu = 0;
+        }
+        else
+        {
+            GameMgr.hikari_make_okashiKosu = 0;
+        }
+
+        //個数リセット
+        GameMgr.Result_Kosu = 0;
+        GameMgr.hikari_make_success_count = 0;
+        GameMgr.hikari_make_failed_count = 0;
     }
 
 
