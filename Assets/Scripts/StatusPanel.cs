@@ -89,6 +89,7 @@ public class StatusPanel : MonoBehaviour {
     private int i, count;
     private int _itemID;
     private int nowlv;
+    private string Select_PlateName; //選択中アイテムのおさら名
 
     private int _buf_findpower;
     private int player_girl_findpower_final;
@@ -610,7 +611,23 @@ public class StatusPanel : MonoBehaviour {
             Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemImg").GetComponent<Image>().sprite = database.items[_itemID].itemIcon_sprite;
             Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemName").GetComponent<Text>().text = database.items[_itemID].itemNameHyouji;
             Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/ItemCaption").GetComponent<Text>().text = database.items[_itemID].itemDesc;
+
+            Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/SetPlate_Button").gameObject.SetActive(false);
+            foreach (var keyValuePair in GameMgr.PlateSetItemsName)
+            {
+                if(_collectionName == keyValuePair.Key) //登録されてるお皿アイテムだった場合
+                {
+                    Collection_CaptionPanel_obj.transform.Find("ItemDataPanel/SetPlate_Button").gameObject.SetActive(true);
+                    Select_PlateName = _collectionName; //お皿名を一時保存
+                    break;
+                }
+            }
         }
+    }
+
+    public void OnSettingPlate() //お皿アイテムのときにセットボタン押すと、お皿の画像を変更する
+    {
+        GameMgr.PlateSetNum = GameMgr.PlateSetItemsName[Select_PlateName];
     }
 
     

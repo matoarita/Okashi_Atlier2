@@ -725,7 +725,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             matplace_database.ReSetMapFlagString("Emerald_Forest", 1);
             matplace_database.ReSetMapFlagString("Aquamarine_Lake", 1);
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_B1", 1);
-            matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);
+            //matplace_database.ReSetMapFlagString("Or_Shop_B1", 1);
             matplace_database.ReSetMapFlagString("Or_Contest_B1", 1);
 
             //秋エリア解放

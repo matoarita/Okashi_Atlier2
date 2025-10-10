@@ -1197,7 +1197,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Summer_Entrance":
 
-                On_Active32();
+                //On_Active32();
+                On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Summer_Street":
@@ -1207,7 +1208,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Summer_MainStreet":
 
-                On_Active50();
+                //On_Active50();
+                On_Active02();
                 break;
 
             case "Or_Hiroba_Summer_MainStreet_Shop":
@@ -1340,7 +1342,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Winter_Entrance":
 
-                On_Active31();
+                //On_Active31();
+                On_BackHomeActive02();
                 break;
 
             case "Or_Hiroba_Winter_EntranceHiroba":
@@ -1510,7 +1513,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Summer_Entrance":
 
-                On_Active50();
+                //On_Active50();
+                On_Active51();
                 break;
 
             case "Or_Hiroba_Summer_Street":
@@ -1531,6 +1535,12 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Summer_MainStreet_Gondora":
 
                 On_Active1620_Summer_GentleMan();
+                break;
+
+            case "Or_Hiroba_Summer_ThemePark_Map":
+
+                //On_Active1520_soda_guide_return();
+                On_Active86();
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_Enter":
@@ -2151,7 +2161,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Summer_ThemePark_Hotel":
 
-                On_Active73();
+                //On_Active73();
+                On_Active70();
                 break;
 
             case "Or_Hiroba_HotSpring":
@@ -3942,6 +3953,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //宴の処理へ
         GameMgr.hiroba_event_placeNum = 1621; //
 
+        GameMgr.NPCHiroba_eventList[1220] = true; //はじめてイベントは無くした。
+
         if (!GameMgr.NPCHiroba_eventList[1220]) //はじめて
         {
             GameMgr.NPCHiroba_eventList[1220] = true;
@@ -4378,6 +4391,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     GameMgr.OsotoIttazoFlag = true;
                     GameMgr.OsotoIttazoPlace = "SodaIsland";
                 }
+
+                //スウィートホテル解禁
+                if (GameMgr.NPCHiroba_HikarieventList[320])
+                {
+                    npc4_toggle_obj.SetActive(true);
+                }
+                else
+                {
+                    npc4_toggle_obj.SetActive(false);
+                }
                 break;
 
             case "Or_Hiroba_Summer_ThemePark_Enter": //夏エリア　遊園地入口
@@ -4413,17 +4436,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 default_scenetext = "にいちゃん！" + "\n" + "のりもの、いっぱいあるよ～！　あちぃ～～・・。";
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
-                text_area_hyouji_on = true;
+                //text_area_hyouji_on = true;
 
                 //スウィートホテル解禁
-                if (GameMgr.NPCHiroba_HikarieventList[320])
+                /*if (GameMgr.NPCHiroba_HikarieventList[320])
                 {
                     npc_subview_obj.transform.Find("SubView5_SelectToggle").gameObject.SetActive(true);
                 }
                 else
                 {
                     npc_subview_obj.transform.Find("SubView5_SelectToggle").gameObject.SetActive(false);
-                }
+                }*/
 
                 break;
 

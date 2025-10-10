@@ -885,7 +885,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
 
                 case "Or_HirobaEnter_D1":
 
-                    GameMgr.SceneSelectNum = 301;
+                    GameMgr.SceneSelectNum = 300;
                     FadeManager.Instance.LoadScene("Or_Hiroba1", GameMgr.SceneFadeTime);
                     break;
 
