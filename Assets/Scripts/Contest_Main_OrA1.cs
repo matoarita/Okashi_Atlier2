@@ -346,6 +346,7 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             GameMgr.Contest_ON = true;
            
             GameMgr.contest_TotalScoreList.Clear();
+            GameMgr.contest_okashiNameList.Clear(); //提出したお菓子を各回ごとに記録したもの　リセット
 
             if (GameMgr.Contest_Cate_Ranking == 0)
             {

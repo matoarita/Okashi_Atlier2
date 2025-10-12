@@ -337,6 +337,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //好感度やパティシエレベルで発生するサブイベントのフラグ   
     public static bool[] GirlLoveSubEvent_stage1 = new bool[GirlLoveSubEvent_stage_num];
+    public static int[] GirlLoveSubEvent_stage1_Counter = new int[GirlLoveSubEvent_stage_num]; //日数カウンタ　必要なときに使う
 
     //好感度ハイスコアイベントの取得フラグ
     public static bool[] OkashiQuestHighScore_event = new bool[GirlLoveEvent_stage_num];
@@ -480,10 +481,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int[] contest_Sp_Score10 = new int[ContestJudgeman_num];
     public static bool contest_Disqualification; //コンテスト失格フラグ
     public static bool contest_Disqualification2; //特殊点足りなかったフラグ
+    public static bool contest_Disqualification3; //提出したお菓子が、先にだしてたおかしと被ってたので失格フラグ
 
     //コンテストに提出したお菓子
     public static string contest_okashiName;
     public static string contest_okashiNameHyouji;
+    public static List<string> contest_okashiNameList = new List<string>();
     public static string contest_okashiSubType;
     public static string contest_okashiSlotName;
     public static int contest_okashiID;
@@ -1512,6 +1515,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
         ExtraClear_QuestItemRank = 1;
 
+        contest_okashiNameList.Clear();
         contest_eventEnd_flag = false;
         contest_eventEdenLoser_flag = false;
         contest_LimitTimeOver_DegScore_flag = false;
@@ -1820,6 +1824,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         for (system_i = 0; system_i < GirlLoveSubEvent_stage1.Length; system_i++)
         {
             GirlLoveSubEvent_stage1[system_i] = false;
+            GirlLoveSubEvent_stage1_Counter[system_i] = 0;
         }
 
         //お菓子クエストハイスコアゲットフラグの初期化
@@ -1902,6 +1907,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         contest_TotalScoreList.Clear();
         contest_Disqualification = false;
         contest_Disqualification2 = false;
+        contest_Disqualification3 = false;
         contest_PrizeScore = 0;
         contest_BeautyJudgeScore.Clear();
         PrizeScoreAreaList.Clear();

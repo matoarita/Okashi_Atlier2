@@ -694,6 +694,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         {
             //GameMgr.OutEntrance_ON = true;
             //matplace_database.ReSetMapFlagString("Or_Hiroba1", 1); //
+            GameMgr.GirlLoveSubEvent_stage1_Counter[303] = 1;
 
             if (!GameMgr.NPCHiroba_eventList[0])
             {

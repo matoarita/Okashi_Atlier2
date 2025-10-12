@@ -649,42 +649,47 @@ public class Bar_Main_Controller : MonoBehaviour {
         }
         else
         {
-            //自動イベント
-            if (GameMgr.NPC_FriendPoint[40] >= 55 && GameMgr.NPC_FriendPoint[40] < 70)
-            {
-                if (!GameMgr.Or_ShopEvent_stage[105]) //ばななはおすき？
-                {
-                    GameMgr.Or_ShopEvent_stage[105] = true;
-
-                    GameMgr.scenario_ON = true;
-
-                    GameMgr.bar_event_num = 1000;
-                    GameMgr.bar_event_flag = true;
-
-                    check_event = true;
-
-                    StartCoroutine("Scenario_loading");
-                }
-            }
-            else if (GameMgr.NPC_FriendPoint[40] >= 70)
-            {
-                if (!GameMgr.Or_ShopEvent_stage[106]) //ばななフェスを教えてくれる
-                {
-                    GameMgr.Or_ShopEvent_stage[106] = true;
-
-                    GameMgr.scenario_ON = true;
-
-                    GameMgr.bar_event_num = 1010;
-                    GameMgr.bar_event_flag = true;
-
-                    check_event = true;
-
-                    StartCoroutine("Scenario_loading");
-                }
-            }
+            if (GameMgr.outgirl_Nowprogress) //ヒカリがいないときは発生しない
+            { }
             else
             {
+                //自動イベント
+                if (GameMgr.NPC_FriendPoint[40] >= 55 && GameMgr.NPC_FriendPoint[40] < 70)
+                {
+                    if (!GameMgr.Or_ShopEvent_stage[105]) //ばななはおすき？
+                    {
+                        GameMgr.Or_ShopEvent_stage[105] = true;
 
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.bar_event_num = 1000;
+                        GameMgr.bar_event_flag = true;
+
+                        check_event = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+                }
+                else if (GameMgr.NPC_FriendPoint[40] >= 70)
+                {
+                    if (!GameMgr.Or_ShopEvent_stage[106]) //ばななフェスを教えてくれる
+                    {
+                        GameMgr.Or_ShopEvent_stage[106] = true;
+
+                        GameMgr.scenario_ON = true;
+
+                        GameMgr.bar_event_num = 1010;
+                        GameMgr.bar_event_flag = true;
+
+                        check_event = true;
+
+                        StartCoroutine("Scenario_loading");
+                    }
+                }
+                else
+                {
+
+                }
             }
         }
     }

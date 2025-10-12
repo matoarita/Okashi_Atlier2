@@ -1698,7 +1698,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
-                //寝て起きた後、NPCがくるイベント
+                //寝て起きた後、ヒカリかNPCがくるイベント
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1706,7 +1706,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     if (GameMgr.check_SleepEnd_Eventflag[4]) //ねておきたあとにチェック
                     {
                         GameMgr.check_SleepEnd_Eventflag[4] = false;
-                        Debug.Log("コンテスト終了後　NPCがくるチェック");
+                        Debug.Log("コンテスト終了後　ヒカリorNPCがくるイベントチェック");
 
                         //コンテスト初出場し、ミラボ先生にあった後から、発生する
                         if (GameMgr.NPCMagic_eventList[0])
@@ -1730,7 +1730,29 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     }
                                 }
                             }
-                        }                        
+                        }
+
+                        //街へでよう！クエストのとき、まだコンテスト会場いってない場合 会場へいこうと促すイベント
+                        if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                        { }
+                        else
+                        {
+                            if(GameMgr.GirlLoveEvent_num == 3 && matplace_database.GetMapFlagString("Or_Contest_A1") == 0)
+                            {
+                                if (GameMgr.GirlLoveSubEvent_stage1_Counter[303] <= 0)
+                                {
+                                    if (!GameMgr.GirlLoveSubEvent_stage1[303])
+                                    {
+                                        GameMgr.GirlLoveSubEvent_stage1[303] = true;
+
+                                        GameMgr.GirlLoveSubEvent_num = 303;
+                                        GameMgr.check_GirlLoveSubEvent_flag = false;
+                                        //GameMgr.Mute_on = true;
+
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 

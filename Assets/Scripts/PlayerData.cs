@@ -159,6 +159,7 @@ public class PlayerData
 
     //サブイベントフラグ
     public bool[] save_GirlLoveSubEvent_stage1 = new bool[GameMgr.GirlLoveEvent_stage1.Length];
+    public int[] save_GirlLoveSubEvent_stage1_Counter = new int[GameMgr.GirlLoveSubEvent_stage1_Counter.Length];
     public bool[] save_GirlLoveSubEvent_stage1_system = new bool[GameMgr.GirlLoveEvent_stage1.Length]; //衣装などのイベントは、周回しても発生しないように、システムにもセーブする
 
     //好感度ハイスコアイベントの取得フラグ

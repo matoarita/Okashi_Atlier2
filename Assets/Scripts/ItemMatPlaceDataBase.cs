@@ -201,6 +201,22 @@ public class ItemMatPlaceDataBase : SingletonMonoBehaviour<ItemMatPlaceDataBase>
         }
     }
 
+    //マップ名を入れると、そのマップの解禁フラグを取得する。
+    public int GetMapFlagString(string mapName)
+    {
+        i = 0;
+        while (i < matplace_lists.Count)
+        {
+            if (matplace_lists[i].placeName == mapName)
+            {
+                return matplace_lists[i].placeFlag;
+            }
+            i++;
+        }
+
+        return 0; //マップがなかった場合 0を返す
+    }
+
     //マップのエリアタイプをいれると、そのエリアのマップの解禁数を返す
     public int MapType_SearchAllFlagCount(int map_id, int map_category)
     {

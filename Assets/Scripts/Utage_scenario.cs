@@ -5046,6 +5046,9 @@ public class Utage_scenario : MonoBehaviour
         //特殊点が足りなかった場合フラグがtrue
         engine.Param.TrySetParameter("contest_Disqualification2", GameMgr.contest_Disqualification2);
 
+        //お菓子被りが発生した場合フラグがtrue
+        engine.Param.TrySetParameter("contest_Disqualification3", GameMgr.contest_Disqualification3);
+
         //GameMgr.contest_TotalScoreList.Add(GameMgr.contest_TotalScore); //採点時に、各ラウンドごとの得点も保存。賞品獲得時に計算して使う。
 
         //採点によって、感想が変わる。
@@ -5066,7 +5069,7 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_comment_num", 3);
         }
 
-        if (!GameMgr.contest_Disqualification && !GameMgr.contest_Disqualification2)
+        if (!GameMgr.contest_Disqualification && !GameMgr.contest_Disqualification2 && !GameMgr.contest_Disqualification3)
         {
             //感想データベースから該当の感想を検索
             KansouSelect();
@@ -5193,7 +5196,7 @@ public class Utage_scenario : MonoBehaviour
         //「宴」のシナリオを呼び出す
         Engine.JumpScenario(scenarioLabel);
 
-        if (GameMgr.contest_Disqualification || GameMgr.contest_Disqualification2) //課題のお菓子以外を提出し、コンテスト失格の場合　または特殊点足りず不合格の場合
+        if (GameMgr.contest_Disqualification || GameMgr.contest_Disqualification2 || GameMgr.contest_Disqualification3) //課題のお菓子以外を提出し、コンテスト失格の場合　または特殊点足りず不合格の場合
         {
             //なにもせず、宴のシナリオポーズ待ち
             //「宴」のシナリオポーズ待ち
@@ -5298,7 +5301,7 @@ public class Utage_scenario : MonoBehaviour
 
         GameMgr.scenario_ON = false;
 
-        if (GameMgr.contest_Disqualification || GameMgr.contest_Disqualification2) //課題のお菓子以外を提出し、コンテスト失格の場合　または特殊点が足りず不合格
+        if (GameMgr.contest_Disqualification || GameMgr.contest_Disqualification2 || GameMgr.contest_Disqualification3) //課題のお菓子以外を提出し、コンテスト失格の場合　または特殊点が足りず不合格
         {
             //そこで終了し、会場外へ。
             GameMgr.contest_eventEnd_flag = true;

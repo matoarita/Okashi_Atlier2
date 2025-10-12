@@ -58,6 +58,7 @@ public class Contest_Judge : MonoBehaviour {
     private string contest_Name;
 
     private bool judge_flag;
+    private bool judge_flag_type2;
     private int judge_Type;
 
     private float contest_bairitsu_hosei;
@@ -256,8 +257,10 @@ public class Contest_Judge : MonoBehaviour {
         //***
 
         judge_flag = false;
+        judge_flag_type2 = false;
         GameMgr.contest_Disqualification = false;
         GameMgr.contest_Disqualification2 = false;
+        GameMgr.contest_Disqualification3 = false;
         GameMgr.contest_last_Disqualification = false;
         //judge_Type = 0; //基本審査員3人で対応。judge_Typeは、どのコンテストかを指定する。
 
@@ -318,6 +321,7 @@ public class Contest_Judge : MonoBehaviour {
             Contest_Score_JudgeHoseiLibrary(10);
         }
 
+        
         if (!judge_flag)
         {
             //もし、審査員DB上に登録されていないお菓子を渡した場合。課題のお菓子でないので失格。
@@ -344,6 +348,31 @@ public class Contest_Judge : MonoBehaviour {
             {
                 //審査員判定
                 Contest_Judge_method(kettei_itemID, kettei_itemType, _baseSetjudge_num, 1);
+            }
+        }
+
+        //トーナメント形式の場合はチェック
+        if (GameMgr.Contest_Cate_Ranking == 0)
+        {
+            //コンテスト事前に提出したおかしかどうかをチェック　被ってる場合は失格 トーナメント形式2回戦目から判定はじまる
+            foreach (string _name in GameMgr.contest_okashiNameList)
+            {
+                if (_name == GameMgr.contest_okashiSubType) //GameMgr.contest_okashiSubType
+                {
+                    //かぶってたので失格
+                    judge_flag_type2 = true;
+                    break;
+                }
+            }
+
+            if (judge_flag_type2) //trueだとこっちは失格
+            {
+                GameMgr.contest_Disqualification3 = true;
+                Debug.Log("前の戦いですでに出したお菓子の種類と被っていたので、失格！: " + GameMgr.contest_okashiSubType);
+            }
+            else
+            {
+                GameMgr.contest_okashiNameList.Add(GameMgr.contest_okashiSubType);
             }
         }
     }

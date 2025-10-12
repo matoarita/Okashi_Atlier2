@@ -1680,10 +1680,18 @@ public class Compound_Main : MonoBehaviour
         //お外いきたかったら、このタイミングで、ハートボーナスがもらえる。
         if (GameMgr.OsotoIkitaiFlag)
         {
-            GameMgr.OsotoIkitaiFlag = false;
-            girlEat_judge.loveGetPlusAnimeON(5, false);
-            _textmain.text = "お外にいって、喜んだようだ。";
-            girl1_status.GirlExpressionKoushin(20);
+            if (!GameMgr.outgirl_Nowprogress) 
+            {
+                GameMgr.OsotoIkitaiFlag = false;
+                girlEat_judge.loveGetPlusAnimeON(5, false);
+                _textmain.text = "お外にいって、喜んだようだ。";
+                girl1_status.GirlExpressionKoushin(20);
+            }
+            else //ヒカリがいないときは発生しない
+            {
+                GameMgr.OsotoIkitaiFlag = false;
+                _textmain.text = "家に戻ってきた。どうしようかなぁ？";
+            }
         }
         else
         {
@@ -1704,20 +1712,23 @@ public class Compound_Main : MonoBehaviour
 
     void OsotoIttazoCheck()
     {
-        girlEat_judge.loveGetPlusAnimeON(5, false);
-        girl1_status.GirlExpressionKoushin(20);
+        if (!GameMgr.outgirl_Nowprogress)
+        {
+            girlEat_judge.loveGetPlusAnimeON(5, false);
+            girl1_status.GirlExpressionKoushin(20);
 
-        if(GameMgr.OsotoIttazoPlace == "SodaIsland")
-        {
-            _textmain.text = "遊園地で遊んで、満足しているようだ。";
-        }
-        else if (GameMgr.OsotoIttazoPlace == "RotenStreet")
-        {
-            _textmain.text = "屋台で遊んで、喜んだようだ。";
-        }
-        else
-        {
-            _textmain.text = "お外にいって、喜んだようだ。";
+            if (GameMgr.OsotoIttazoPlace == "SodaIsland")
+            {
+                _textmain.text = "遊園地で遊んで、満足しているようだ。";
+            }
+            else if (GameMgr.OsotoIttazoPlace == "RotenStreet")
+            {
+                _textmain.text = "屋台で遊んで、喜んだようだ。";
+            }
+            else
+            {
+                _textmain.text = "お外にいって、喜んだようだ。";
+            }
         }
 
         //ハートゲージを更新。
@@ -4776,6 +4787,17 @@ public class Compound_Main : MonoBehaviour
             if (GameMgr.NPC_BarFriendTimeCounter[i] < 0)
             {
                 GameMgr.NPC_BarFriendTimeCounter[i] = 0;
+            }
+        }
+
+        for (i = 0; i < GameMgr.GirlLoveSubEvent_stage1_Counter.Length; i++)
+        {
+            GameMgr.GirlLoveSubEvent_stage1_Counter[i]--;
+
+            if (GameMgr.GirlLoveSubEvent_stage1_Counter[i] < 0)
+            {
+                GameMgr.GirlLoveSubEvent_stage1_Counter[i] = 0;
+
             }
         }
 
