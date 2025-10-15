@@ -174,6 +174,7 @@ public class SetImage : MonoBehaviour
     private GameObject magicPrefab;
     private GameObject magicPrefab2;
     private GameObject magicPrefab3;
+    private GameObject magicPrefab4;
     private List<GameObject> _magicicon_listitem = new List<GameObject>();
 
     private int i, j, count;
@@ -429,6 +430,7 @@ public class SetImage : MonoBehaviour
         magicPrefab = (GameObject)Resources.Load("Prefabs/card_magiciconObj");
         magicPrefab2 = (GameObject)Resources.Load("Prefabs/card_magiciconObj2");
         magicPrefab3 = (GameObject)Resources.Load("Prefabs/card_magiciconObj3");
+        magicPrefab4 = (GameObject)Resources.Load("Prefabs/card_magiciconObj4");
         magicview_content = this.transform.Find("Item_card_template/MagicIconView/Viewport/Content").gameObject;
 
         _magic_addbeauty = 0;
@@ -1869,6 +1871,7 @@ public class SetImage : MonoBehaviour
         Debug.Log("_attri2*(WindArk回数) " + _attri2);
         Debug.Log("_attri4*(生地混ぜ回数) " + _attri4);
         Debug.Log("_attri5*(FireArk回数) " + _attri5);
+        Debug.Log("_attri6*(素材の変質回数) " + _attri6);
 
         foreach (Transform child in magicview_content.transform)
         {
@@ -1895,6 +1898,13 @@ public class SetImage : MonoBehaviour
             for (i = 0; i < _attri5; i++)
             {
                 _magicicon_listitem.Add(Instantiate(magicPrefab3, magicview_content.transform));
+            }
+        }
+        if (_attri6 > 0) //ライトニンググレープなどの変質回数
+        {
+            for (i = 0; i < _attri6; i++)
+            {
+                _magicicon_listitem.Add(Instantiate(magicPrefab4, magicview_content.transform));
             }
         }
     }

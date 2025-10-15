@@ -2576,10 +2576,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             }
         }
 
-        //お菓子の種類による特殊な補正処理　クッキーやラスクがサクサク感を少し上げにくくなるなど
+        //お菓子の種類による特殊な補正処理　クッキーやラスクがサクサク感を少し上げにくくなるなど　魔法調合ではこの計算は影響しない
         if (Comp_method_bunki == 0 || Comp_method_bunki == 2)//オリジナル調合・レシピ調合　のときのみ計算。
         {
-            Okashi_SpecialKeisan2();
+            Okashi_SpecialKeisan_Nomagic();
         }
 
 
@@ -2709,21 +2709,21 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         if (Comp_method_bunki == 20 || Comp_method_bunki == 22)
         {
             //A. お菓子の食感ごとに、バフをかける処理
-            _basecrispy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(0, _basecrispy, GameMgr.UseMagicSkill, _baseattri2, _baseattri5); //中の数字でどの食感パラムかの指定
-            _basefluffy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(1, _basefluffy, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
-            _basesmooth += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(2, _basesmooth, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
-            _basehardness += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(3, _basehardness, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
-            _basejuice += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(4, _basejuice, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
-            _basebeauty += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(5, _basebeauty, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
-            _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, _basetea_flavor, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
-            _basepowdery += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(50, _basepowdery, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
-            _baseoily += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(51, _baseoily, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
-            _basewatery += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(52, _basewatery, GameMgr.UseMagicSkill, _baseattri2, _baseattri5);
+            _basecrispy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(0, _basecrispy, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6); //中の数字でどの食感パラムかの指定
+            _basefluffy += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(1, _basefluffy, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
+            _basesmooth += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(2, _basesmooth, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
+            _basehardness += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(3, _basehardness, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
+            _basejuice += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(4, _basejuice, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
+            _basebeauty += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(5, _basebeauty, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
+            _basetea_flavor += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(6, _basetea_flavor, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
+            _basepowdery += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(50, _basepowdery, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
+            _baseoily += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(51, _baseoily, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
+            _basewatery += bufpower_keisan.Buf_OkashiParamUp_MagicKeisan(52, _basewatery, GameMgr.UseMagicSkill, _baseattri2, _baseattri5, _baseattri6);
 
             //B. お菓子の味にバフや変質をかける処理
-            _basesweat += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(0, _basesweat, GameMgr.UseMagicSkill);
-            _basesour += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(1, _basesour, GameMgr.UseMagicSkill);
-            _basebitter += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(2, _basebitter, GameMgr.UseMagicSkill);
+            _basesweat += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(0, _basesweat, GameMgr.UseMagicSkill, _baseattri6);
+            _basesour += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(1, _basesour, GameMgr.UseMagicSkill, _baseattri6);
+            _basebitter += bufpower_keisan.Buf_SweatsParamUp_MagicKeisan(2, _basebitter, GameMgr.UseMagicSkill, _baseattri6);
 
             //ここで魔法スロット追加
             AddMagicSlot_Method();
@@ -2909,6 +2909,25 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basesmooth = (int)(_basesmooth * 0.7f);
         }
 
+        
+        //アイスクリームができるとき、水っぽさを上がりにくくする。
+        if (_base_itemType_sub == "IceCream") //
+        {
+            if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0)
+            {
+                _basewatery = _basewatery - 100;
+            }
+        }
+
+        //アイス水溶液ができるとき、水っぽさを上がりにくくする。でも０にはしない。
+        if (_base_itemType_sub == "Appaleil_Icecream") //
+        {
+            if (databaseCompo.compoitems[result_compID].buf_kouka_on != 0)
+            {
+                _basewatery = (int)(_basewatery * 0.5f);
+            }
+        }
+
         //ラングドシャクッキーは、元のさくさくの影響を少し抑えて、生地のなめらかさを少しさくさくにプラスする。
         if (_basename == "langue_de_chat") //
         {
@@ -2917,7 +2936,7 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         }
     }
 
-    void Okashi_SpecialKeisan2()
+    void Okashi_SpecialKeisan_Nomagic()
     {
         //特殊補正　クッキーなどのおかしの種類で食感が伸びにくくなる
         if (_base_itemType_subB == "a_CookieSimple" || _base_itemType_subB == "a_GlowCookie" || _base_itemType_subB == "a_CookieSource")
@@ -2954,9 +2973,12 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //生地・アイスクリーム水溶液は出来上がる際に、生地混ぜ回数もカウント
         if(_base_itemType_sub == "Appaleil" || _base_itemType_sub == "Appaleil_Icecream")
         {
+            _baseattri1 = GameMgr.Appaleil_Attribute[0]; //二度焼き回数引継ぎ
             _baseattri2 = GameMgr.Appaleil_Attribute[1]; //Windark回数も引継ぎ
+            _baseattri3 = GameMgr.Appaleil_Attribute[2]; //アブタラの回数（使ってない）
             _baseattri4 = GameMgr.Appaleil_Attribute[3] + 1;
             _baseattri5 = GameMgr.Appaleil_Attribute[4]; //Fireark回数も引継ぎ
+            _baseattri6 = GameMgr.Appaleil_Attribute[5]; //変質回数をカウント
         }
     }
 
@@ -3137,7 +3159,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _baseattri5++;
         }
-
+        if (GameMgr.UseMagicSkill == "Lightning_Grape" || GameMgr.UseMagicSkill == "Dreamy_Sapphire")
+        {
+            _baseattri6++;
+        }
     }
 
 

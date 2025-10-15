@@ -5572,20 +5572,21 @@ public class Utage_scenario : MonoBehaviour
         //特定のお菓子に反応しなかったので、次のそのコンテストでのデフォルトのコメントになる。
         if (!SpecialItemFlag && !ContestKoyuCommentFlag)
         {
-            i = 0;
-            while (i < databaseContestComment.contestcomment_lists.Count)
+            //飲み物チェック　コーヒーやティーなら香りについての感想になる。
+            if (GameMgr.contest_okashiSubType == "Coffee" || GameMgr.contest_okashiSubType == "Coffee_Mat" ||
+                GameMgr.contest_okashiSubType == "Tea" || GameMgr.contest_okashiSubType == "Tea_Mat"
+                || GameMgr.contest_okashiSubType == "Tea_Potion")
             {
-                if (databaseContestComment.contestcomment_lists[i].CommentID >= 100000)
-                {
-                    if (databaseContestComment.contestcomment_lists[i].ItemName == "Contest_Default")
-                    {
-                        CommentID = i;
-                        Debug.Log("審査員のコメント　共通デフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
-                        break;
-                    }
-                }
-                i++;
+                CommentDB_Check("Coffee_Default");
             }
+            else if (GameMgr.contest_okashiSubType == "Juice" || GameMgr.contest_okashiSubType == "Soda")
+            {
+                CommentDB_Check("Juice_Default");
+            }
+            else
+            {
+                CommentDB_Check("Contest_Default");                
+            }          
         }
 
 
@@ -5742,6 +5743,30 @@ public class Utage_scenario : MonoBehaviour
             engine.Param.TrySetParameter("contest_spjudge1_comment2", "");
             engine.Param.TrySetParameter("contest_spjudge1_comment3", "");
             engine.Param.TrySetParameter("contest_spjudge1_comment4", "");
+        }
+    }
+
+    void CommentDB_Check(string _comment_select)
+    {
+        i = 0;
+        while (i < databaseContestComment.contestcomment_lists.Count)
+        {
+            if (databaseContestComment.contestcomment_lists[i].CommentID >= 100000)
+            {
+                if (databaseContestComment.contestcomment_lists[i].ItemName == _comment_select)
+                {
+                    CommentID = i;
+                    Debug.Log("審査員のコメント　共通デフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
+                    break;
+                }
+
+                //~そのシートの検索EndPointまで検索する。Excel上にフラグがある。
+                if (databaseContestComment.contestcomment_lists[i].Search_flag == 1)
+                {
+                    break;
+                }
+            }
+            i++;
         }
     }
 

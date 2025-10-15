@@ -26,7 +26,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _magic_rate;
     private int _magicLearnLv;
     private int _magic_kakuritsu;
-    private int _attri2, _attri5;
+    private int _attri2, _attri5, _attri6;
 
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
@@ -545,6 +545,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicid = magicskill_database.SearchSkillString(_magic_name);
         _attri2 = GameMgr.UseMagic_ItemAttri[1]; //魔法使用時のitemselecttoggleで参照
         _attri5 = GameMgr.UseMagic_ItemAttri[4];
+        _attri6 = GameMgr.UseMagic_ItemAttri[5]; //ライトニンググレープなどの変質回数
 
         switch (_magic_name)
         {
@@ -1981,7 +1982,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     //特定の魔法で、バフをかける処理
     //魔法の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK  各アトリは必要に応じて要素数増やす
-    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname, int _attri2, int _attri5)
+    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname, int _attri2, int _attri5, int _attri6)
     {
 
         _buf_shokukanup = 0;
@@ -2108,6 +2109,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 }
                 break;
 
+            case "Dreamy_Sapphire": //夢見るサファイア
+
+                if (_status == 5) //見た目
+                {
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
+                    _magicup = _magicLearnLv * 10;
+                    if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
+
+                    Debug.Log("夢見るサファイアの見た目　最終バフ: " + _magicup);
+                    _buf_shokukanup += _magicup;
+                }
+                break;
+
             case "AbraCadabra": //アブタラカブタラ
 
                 if (_status >= 0 && _status <= 6)//すべての食感
@@ -2129,7 +2143,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     //
     //特定の魔法で甘さ・苦さ・酸味の味パラメータに補正をかける _statusで、甘さ・苦さ・酸味を決定
     //
-    public int Buf_SweatsParamUp_MagicKeisan(int _status, int _baseparam, string _magicname)
+    public int Buf_SweatsParamUp_MagicKeisan(int _status, int _baseparam, string _magicname, int _attri6)
     {
         Debug.Log("魔法で甘さ・酸味・苦さを変質");
 
@@ -2144,6 +2158,20 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Lightning_Grape");
                     _magicup = 10;
+
+                    _buf_shokukanup += _magicup;
+                }
+                break;
+
+            case "Dreamy_Sapphire":
+
+                if (_status == 0) //甘さを変化
+                {
+                    if (_attri6 == 0) //最初の一回だけ
+                    {
+                        _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
+                        _magicup = -10;
+                    }
 
                     _buf_shokukanup += _magicup;
                 }

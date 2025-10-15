@@ -1453,6 +1453,11 @@ public class itemSelectToggle : MonoBehaviour
             GameMgr.UseMagic_ItemAttri[2] = database.items[GameMgr.Final_list_itemID1].Attribute3;
             GameMgr.UseMagic_ItemAttri[3] = database.items[GameMgr.Final_list_itemID1].Attribute4;
             GameMgr.UseMagic_ItemAttri[4] = database.items[GameMgr.Final_list_itemID1].Attribute5;
+            GameMgr.UseMagic_ItemAttri[5] = database.items[GameMgr.Final_list_itemID1].Attribute6;
+            GameMgr.UseMagic_ItemAttri[6] = database.items[GameMgr.Final_list_itemID1].Attribute7;
+            GameMgr.UseMagic_ItemAttri[7] = database.items[GameMgr.Final_list_itemID1].Attribute8;
+            GameMgr.UseMagic_ItemAttri[8] = database.items[GameMgr.Final_list_itemID1].Attribute9;
+            GameMgr.UseMagic_ItemAttri[9] = database.items[GameMgr.Final_list_itemID1].Attribute10;
         }
         else if (GameMgr.Final_toggle_Type1 == 1)
         {
@@ -1461,6 +1466,11 @@ public class itemSelectToggle : MonoBehaviour
             GameMgr.UseMagic_ItemAttri[2] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute3;
             GameMgr.UseMagic_ItemAttri[3] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute4;
             GameMgr.UseMagic_ItemAttri[4] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute5;
+            GameMgr.UseMagic_ItemAttri[5] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute6;
+            GameMgr.UseMagic_ItemAttri[6] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute7;
+            GameMgr.UseMagic_ItemAttri[7] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute8;
+            GameMgr.UseMagic_ItemAttri[8] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute9;
+            GameMgr.UseMagic_ItemAttri[9] = pitemlist.player_originalitemlist[GameMgr.Final_list_itemID1].Attribute10;
         }
         else if (GameMgr.Final_toggle_Type1 == 2)
         {
@@ -1469,6 +1479,11 @@ public class itemSelectToggle : MonoBehaviour
             GameMgr.UseMagic_ItemAttri[2] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute3;
             GameMgr.UseMagic_ItemAttri[3] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute4;
             GameMgr.UseMagic_ItemAttri[4] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute5;
+            GameMgr.UseMagic_ItemAttri[5] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute6;
+            GameMgr.UseMagic_ItemAttri[6] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute7;
+            GameMgr.UseMagic_ItemAttri[7] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute8;
+            GameMgr.UseMagic_ItemAttri[8] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute9;
+            GameMgr.UseMagic_ItemAttri[9] = pitemlist.player_extremepanel_itemlist[GameMgr.Final_list_itemID1].Attribute10;
         }
     }
 

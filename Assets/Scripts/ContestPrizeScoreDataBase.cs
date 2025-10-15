@@ -611,7 +611,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("whisk_magic");
+        GameMgr.PrizeItemList.Add("mugen_niwatori");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -815,15 +815,15 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("mg_three_stars_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(2500);
-        GameMgr.PrizeGetMoneyList.Add(10000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(15000);
+        GameMgr.PrizeGetMoneyList.Add(30000);
 
         //相手の点数リスト
         GameMgr.PrizeScoreAreaList.Clear();
@@ -882,8 +882,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("mg_parfect_princess_book");
+        GameMgr.PrizeItemList.Add("cream_brulee_recipi");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -917,7 +917,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("neko_badge2");
-        GameMgr.PrizeItemList.Add("cream_brulee_recipi");
+        GameMgr.PrizeItemList.Add("mg_chocolatemagic_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -1120,8 +1120,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("mg_moonlight_banana_book");
+        GameMgr.PrizeItemList.Add("mg_epiclesis_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -1161,8 +1161,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Clear();
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(10000);
         GameMgr.PrizeGetMoneyList.Add(30000);
 
         //相手の点数リスト
@@ -1461,7 +1461,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("mugen_niwatori");
+        GameMgr.PrizeItemList.Add("mg_crescent_moon_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -1553,6 +1553,44 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("フランソワ");
         GameMgr.PrizeCharacterList.Add("フォルトーネ");
     }
+
+    //〇フェド・フルラージュ　お花がテーマのお菓子限定　お花のクッキーやフローラルバターを使ったケーキかチョコ、チーズケーキにフリーズフラワーをトッピングしたものなど
+    //秋コンに移動した
+    void PrizeRankingSet63()
+    {
+        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
+        GameMgr.PrizeItemList.Clear();
+        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("mg_spring_pharmacy_book");
+
+        //賞金リスト 5位から順番に入れる
+        GameMgr.PrizeGetMoneyList.Clear();
+        GameMgr.PrizeGetMoneyList.Add(0);
+        GameMgr.PrizeGetMoneyList.Add(1000);
+        GameMgr.PrizeGetMoneyList.Add(2000);
+        GameMgr.PrizeGetMoneyList.Add(3000);
+        GameMgr.PrizeGetMoneyList.Add(5000);
+
+        //相手の点数リスト
+        GameMgr.PrizeScoreAreaList.Clear();
+        GameMgr.PrizeScoreAreaList.Add(267);
+        GameMgr.PrizeScoreAreaList.Add(298);
+        GameMgr.PrizeScoreAreaList.Add(310);
+        GameMgr.PrizeScoreAreaList.Add(343);
+
+        //参加者名リスト(上位4人) + 5人目がアキラくんになる
+        GameMgr.PrizeCharacterList.Clear();
+        GameMgr.PrizeCharacterList.Add("フォルトーネ");
+        GameMgr.PrizeCharacterList.Add("シャリー");
+        GameMgr.PrizeCharacterList.Add("シャルロット");
+        GameMgr.PrizeCharacterList.Add("カリン");
+    }
+
+    //冬コンテスト系
+
 
     //〇クワイットスノウ　自由課題
     void PrizeRankingSet60()
@@ -1656,39 +1694,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeCharacterList.Add("シャルロット");
     }
 
-    //〇フェド・フルラージュ　お花がテーマのお菓子限定　お花のクッキーやフローラルバターを使ったケーキかチョコ、チーズケーキにフリーズフラワーをトッピングしたものなど
-    void PrizeRankingSet63()
-    {
-        //賞品リスト　アイテム名のリストと点数の範囲　スコアに応じて変わる。ラウンドごとの点数の合計。5位から順番に入れる
-        GameMgr.PrizeItemList.Clear();
-        GameMgr.PrizeItemList.Add("Non"); //5位 ↓
-        GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("mg_spring_pharmacy_book");
-
-        //賞金リスト 5位から順番に入れる
-        GameMgr.PrizeGetMoneyList.Clear();
-        GameMgr.PrizeGetMoneyList.Add(0);
-        GameMgr.PrizeGetMoneyList.Add(1000);
-        GameMgr.PrizeGetMoneyList.Add(2000);
-        GameMgr.PrizeGetMoneyList.Add(3000);
-        GameMgr.PrizeGetMoneyList.Add(5000);
-
-        //相手の点数リスト
-        GameMgr.PrizeScoreAreaList.Clear();
-        GameMgr.PrizeScoreAreaList.Add(267);
-        GameMgr.PrizeScoreAreaList.Add(298);
-        GameMgr.PrizeScoreAreaList.Add(310);
-        GameMgr.PrizeScoreAreaList.Add(343);
-
-        //参加者名リスト(上位4人) + 5人目がアキラくんになる
-        GameMgr.PrizeCharacterList.Clear();
-        GameMgr.PrizeCharacterList.Add("フォルトーネ");
-        GameMgr.PrizeCharacterList.Add("シャリー");
-        GameMgr.PrizeCharacterList.Add("シャルロット");
-        GameMgr.PrizeCharacterList.Add("カリン");
-    }
+    //63は秋に移動
 
     //〇ルミエール・ドゥ・ソレイユ　あたたかいお菓子限定　アフォガートやアップルパイ
     void PrizeRankingSet64()
@@ -1733,7 +1739,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("cakemold_stainless");
+        GameMgr.PrizeItemList.Add("Non");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
@@ -1767,7 +1773,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("gold_oven");
+        GameMgr.PrizeItemList.Add("infinity_fountain_tansan");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();
