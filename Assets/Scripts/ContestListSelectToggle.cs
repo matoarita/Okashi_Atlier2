@@ -389,7 +389,8 @@ public class ContestListSelectToggle : MonoBehaviour
                     GameMgr.Contest_listnum = _list;
                     GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
                     GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
-                    GameMgr.Contest_BringType = conteststartList_database.conteststart_lists[_list].Contest_BringType;　//0=OK, 1=基本素材のみ, 2=全て不可                   
+                    GameMgr.Contest_BringType = conteststartList_database.conteststart_lists[_list].Contest_BringType;　//0=OK, 1=基本素材のみ, 2=全て不可   
+                    GameMgr.Contest_AfterDay = conteststartList_database.conteststart_lists[_list].Contest_Pday;
 
                     //contest_listController.OnContestList_Draw(); //再描画して受付済のコンテストは触れなくなる
                     contest_detailedPanel.SetActive(false);
@@ -465,8 +466,8 @@ public class ContestListSelectToggle : MonoBehaviour
         GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
 
         yes_no_panel.SetActive(true);
-        yes.transform.Find("Text").GetComponent<Text>().text = "キャンセル";
-        no.transform.Find("Text").GetComponent<Text>().text = "やめる";
+        yes.transform.Find("Text").GetComponent<Text>().text = "はい";
+        no.transform.Find("Text").GetComponent<Text>().text = "いいえ";
         yes.SetActive(true);
         no.SetActive(true);
 

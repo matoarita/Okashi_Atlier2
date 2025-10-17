@@ -1056,10 +1056,12 @@ public class Contest_Main_Reception : MonoBehaviour
         {
             On_ActiveContestNow();
         }
-        else
+        else //コンテスト　数日後に開始ver
         {
-            GameMgr.scenario_ON = false;
-            GameMgr.Scene_Status = 0;
+            On_ActiveContestAfterDay();
+
+            //GameMgr.scenario_ON = false;
+            //GameMgr.Scene_Status = 0;
         }
     }
 
@@ -1430,6 +1432,22 @@ public class Contest_Main_Reception : MonoBehaviour
 
         GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる
         GameMgr.Contest_ReadyToStart = true;　//宴読み終わり後、即コンテストを開始する　trueにしなければ、そこでイベント終了
+
+        EventReadingStart();
+
+        CanvasOff();
+    }
+
+    //コンテスト数日後開始のバージョン　●日後に開始で～すというアナウンスをする。
+    void On_ActiveContestAfterDay()
+    {
+        //宴の処理へ
+        GameMgr.hiroba_event_placeNum = 1000; //
+
+        //イベント発生フラグをチェック
+        GameMgr.hiroba_event_ID = 11;
+
+        GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示する　キャラの切り替えはUtage_Scenario.csでやる        
 
         EventReadingStart();
 

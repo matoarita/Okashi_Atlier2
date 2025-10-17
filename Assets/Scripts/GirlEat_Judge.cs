@@ -334,6 +334,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     public int spscore9_score;
     public int spscore10_score;
     private int _spscore_difference;
+    private int Add_slotlength_point;
 
 
     private string spscore1_score_debugtext;
@@ -1735,11 +1736,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         }
         Debug.Log("トッピングスコア: " + topping_score);
 
-
-        //トッピングスロットの名前の長さをみて、芸術性を判定
-        slotname_length = _base_item_SlotName.Length;
-        _base_sp_score8 += slotname_length*2;
-
+      
         //さらに、演出スロットをみて、かかってる魔法スロットごとに特殊点を加算　_baseMSvalue[i]は、使用時のLVが入っている
         _basemagicslot_on = 0;
         _basemagicslot_Name = "";
@@ -1758,6 +1755,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         _base_sp_score10 += itemCardEffect_database._ms_sp_score10;
         _basemagicslot_on = itemCardEffect_database._basemagicslot_on;
         _basemagicslot_Name = itemCardEffect_database._basemagicslot_Name;
+
+        //さらに、トッピングスロットの名前の長さをみて、見た目と芸術性にさらに加算
+        slotname_length = _base_item_SlotName.Length;
+        Add_slotlength_point = slotname_length;
+        _basebeauty += Add_slotlength_point;
+        _base_sp_score8 += Add_slotlength_point;
 
 
         //見た目点数の計算

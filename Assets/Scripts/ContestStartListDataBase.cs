@@ -1366,7 +1366,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_201() //フライング・ソーダコンテスト
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 121000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -1666,7 +1666,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_401() //アムール・チョコレイト・コンテスト
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 161000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -1681,7 +1681,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_402() //ネオユニバース・カップ
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 162000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -1696,7 +1696,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_403() //フェド・フルラージュ
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 163000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -1711,7 +1711,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_404() //ルミエール・ドゥ・ソレイユ　あたたかいお菓子限定　アフォガートやアップルパイ
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 164000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -1726,7 +1726,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_405() //ミルフイユ・ドゥ・パリ
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 165000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -1741,7 +1741,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_406() //チーズケーキ・パティスリーアワード
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 166000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -1756,7 +1756,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_407() //夢見るチョコレート選手権　愛＋メルヘンが高いチョコレートのお菓子
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 167000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 

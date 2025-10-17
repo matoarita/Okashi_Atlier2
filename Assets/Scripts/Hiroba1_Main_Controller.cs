@@ -931,7 +931,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Winter_EntranceHiroba":
 
-                On_Active151();
+                //On_Active151(); //ランプ街道削除
+                On_Active152();
                 break;
 
             case "Or_Hiroba_Winter_Street1":
@@ -1358,7 +1359,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Winter_MainStreet":
 
-                On_Active151();
+                //On_Active151(); //ランプ街道削除
+                On_Active150();
                 break;
 
             case "Or_Hiroba_Winter_MainHiroba":

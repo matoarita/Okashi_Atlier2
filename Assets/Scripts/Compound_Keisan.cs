@@ -2805,24 +2805,36 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
             _basecrispy = _basefluffy;
             _basefluffy = 0;
         }
-        if (_basename == "brioche") //ブリオッシュは、歯ごたえ（強力粉の値）をふわふわに変換
+
+        //ブリオッシュは、歯ごたえ（強力粉の値）をふわふわに変換
+        if (_basename == "brioche") 
         {
             _basefluffy += _basehardness;
             _basefluffy += (int)(_basecrispy * 0.2f); //さくさくも若干影響する
             _basehardness = 0;
         }
-        if (_basename == "cream_brulee") //クリームブリュレは、生地のなめらかさも半分足す
+
+        //クリームブリュレは、生地のなめらかさも半分足す
+        if (_basename == "cream_brulee") 
         {
             _basefluffy += _basesmooth/2;
         }
+
         //ただのアイスキャンディは、元の水のなめらかさと砂糖のなめらかがそのまま食感になるので必要ない
-        if (_basename == "ice_candy_fruits" || _basename == "ice_candy_twister") //フルーツアイスキャンディは、ジュースをなめらかに変換          
+        //フルーツアイスキャンディは、ジュースをなめらかに変換    
+        if (_basename == "ice_candy_fruits" || _basename == "ice_candy_twister")       
         {
             _basesmooth += _basejuice;
-            //_basehardness = 0;
         }
 
-        if (_base_itemType_subB == "a_ChocolateTwister" || _base_itemType_subB == "a_ChocolateCrown") //ツイスターとクラウンは、食感が半減。見た目と芸術性で勝負する。
+        //ソーダができるときは、元の炭酸水のなめらかの値の影響をいれる。
+        if (_base_itemType_sub == "Soda")       
+        {
+            _basejuice += _basesmooth / 3;
+        }
+
+        //ツイスターとクラウンは、食感が半減。見た目と芸術性で勝負する。
+        if (_base_itemType_subB == "a_ChocolateTwister" || _base_itemType_subB == "a_ChocolateCrown") 
         {
             _basecrispy = _basecrispy / 2;
             _basefluffy = _basefluffy / 2;
@@ -2833,6 +2845,8 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _basesmooth = _basesmooth / 8;
         }*/
+
+        //特殊ポーション関係の処理
         if (_basename == "bitter_potion") //ビターポーションはビターのみ抽出
         {
             _basesweat = 0;
@@ -2933,6 +2947,14 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         {
             _basecrispy = (int)(_basecrispy * 0.9f);
             _basecrispy = _basecrispy + (int)(_basesmooth * 0.3f);
+        }
+
+        //材料でシュガーができるときは、粉・油・水っぽさを0にする。
+        if (_base_itemType_sub == "Suger")
+        {
+            _basepowdery = 0;
+            _baseoily = 0;
+            _basewatery = 0;            
         }
     }
 

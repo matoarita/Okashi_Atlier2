@@ -585,6 +585,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 Kakuritsu_ArkKeisan(_attri5);
                 _magic_rate += _magicLearnLv * 3;
                 break;
+
+            case "Lightning_Grape":
+
+                Kakuritsu_ArkKeisan(_attri6);
+                _magic_rate += _magicLearnLv * 10;
+                break;
+
+            case "Dreamy_Sapphire":
+
+                Kakuritsu_ArkKeisan(_attri6);
+                _magic_rate += _magicLearnLv * 10;
+                break;
         }
 
         //装備品による成功率アップ
@@ -2165,13 +2177,17 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
             case "Dreamy_Sapphire":
 
-                if (_status == 0) //甘さを変化
+                if (_status == 0) //甘さを変化 具体的には甘さを減らす
                 {
-                    if (_attri6 == 0) //最初の一回だけ
-                    {
-                        _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
-                        _magicup = -10;
-                    }
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
+                    _magicup = -5;
+
+                    _buf_shokukanup += _magicup;
+                }
+                if (_status == 1) //酸味を変化
+                {
+                    _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
+                    _magicup = 2;
 
                     _buf_shokukanup += _magicup;
                 }

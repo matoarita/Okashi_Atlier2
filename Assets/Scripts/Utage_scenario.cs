@@ -95,6 +95,7 @@ public class Utage_scenario : MonoBehaviour
     private int judge_num; //審査員の番号
     private bool SpecialItemFlag;
     private bool ContestKoyuCommentFlag;
+    private bool KoyuItemDefaultFlag;
     private int total_score;
     private bool presentevent_end_flag;
     private bool NPCevent_okashicheck;
@@ -3779,6 +3780,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("TrueHeartCost", GameMgr.System_trueheart_cost);
         engine.Param.TrySetParameter("Costume_num", GameMgr.Costume_Num); //今きてる服の番号
         engine.Param.TrySetParameter("contest_bring_Type", GameMgr.Contest_BringType);
+        engine.Param.TrySetParameter("contest_AfterDay", GameMgr.Contest_AfterDay); //コンテスト何日後開始の日数
         engine.Param.TrySetParameter("Costume_Sukumizu_Flag", Costume_sukumizu_flag);
         engine.Param.TrySetParameter("magic_lvpoint", GameMgr.System_MagicLVPoint);
 
@@ -5503,16 +5505,17 @@ public class Utage_scenario : MonoBehaviour
         GameMgr.contest_LimitTimeOver_After_flag = true; //失格後、なんらかのメッセージやペナルティが発生する
     }
 
-    
+
 
     void KansouSelect()
     {
         judge_num = 0;
         SpecialItemFlag = false;
+        KoyuItemDefaultFlag = false;
         ContestKoyuCommentFlag = false;
         CommentID = 0;
-        
-        //まずは特定のお菓子に反応するかをチェック
+
+        //まずは特定のお菓子に反応するかをチェック Contest_commentDB_Selectはコンテスト初期設定で、コンテストごとに番号割り振り　デフォルトを使うときは100000~
         i = 0;
         while (i < databaseContestComment.contestcomment_lists.Count)
         {
@@ -5541,53 +5544,74 @@ public class Utage_scenario : MonoBehaviour
             i++;
         }
 
-        //特定のお菓子に反応しなかったので、次のそのコンテストでのデフォルトのコメント(エクセルシート下部あたり入れるなら）になる。
-        if (!SpecialItemFlag)
+        if (GameMgr.Contest_commentDB_Select != 100000)
         {
-            i = 0;
-            while (i < databaseContestComment.contestcomment_lists.Count)
+            //特定のお菓子に反応しなかったので、次のそのコンテストでのデフォルトのコメント(エクセルシート下部あたり入れるなら）になる。
+            if (!SpecialItemFlag)
             {
-                if (databaseContestComment.contestcomment_lists[i].CommentID >= GameMgr.Contest_commentDB_Select)
+                i = 0;
+                while (i < databaseContestComment.contestcomment_lists.Count)
                 {
-                    if (databaseContestComment.contestcomment_lists[i].ItemName == "Contest_Default")
+                    if (databaseContestComment.contestcomment_lists[i].CommentID >= GameMgr.Contest_commentDB_Select)
                     {
-                        CommentID = i;
-                        ContestKoyuCommentFlag = true;
-                        Debug.Log("審査員のコメント　その大会のデフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
-                        break;
-                    }
+                        if (databaseContestComment.contestcomment_lists[i].ItemName == "Contest_Default")
+                        {
+                            CommentID = i;
+                            ContestKoyuCommentFlag = true;
+                            Debug.Log("審査員のコメント　その大会のデフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
+                            break;
+                        }
 
-                    //~そのシートの検索EndPointまで検索する。Excel上にフラグがある。
-                    if (databaseContestComment.contestcomment_lists[i].Search_flag == 1)
-                    {
-                        ContestKoyuCommentFlag = false;
-                        break;
+                        //~そのシートの検索EndPointまで検索する。Excel上にフラグがある。
+                        if (databaseContestComment.contestcomment_lists[i].Search_flag == 1)
+                        {
+                            ContestKoyuCommentFlag = false;
+                            break;
+                        }
                     }
+                    i++;
                 }
-                i++;
             }
         }
+        else
+        {
+            ContestKoyuCommentFlag = false; //100000を指定してた場合は、そもそも共通デフォルトのコメントを拾う設定
+        }
 
-        //もし、コンテストごとのデフォコメントも該当なかった場合は、共通のコメントを拾う。
+        //もし、コンテストごとのデフォコメントも該当なかった場合は、共通のコメントを拾う。100000~ 
         //特定のお菓子に反応しなかったので、次のそのコンテストでのデフォルトのコメントになる。
         if (!SpecialItemFlag && !ContestKoyuCommentFlag)
         {
-            //飲み物チェック　コーヒーやティーなら香りについての感想になる。
-            if (GameMgr.contest_okashiSubType == "Coffee" || GameMgr.contest_okashiSubType == "Coffee_Mat" ||
-                GameMgr.contest_okashiSubType == "Tea" || GameMgr.contest_okashiSubType == "Tea_Mat"
-                || GameMgr.contest_okashiSubType == "Tea_Potion")
+            //まずは、固有のお菓子について感想がないかチェック
+            CommentDB_Check(100000, GameMgr.contest_okashiName, 0);
+
+            if (!KoyuItemDefaultFlag) //固有おかし名について感想がない場合、共通のタイプごとで感想チェック
             {
-                CommentDB_Check("Coffee_Default");
+                //飲み物チェック　コーヒーやティーなら香りについての感想になる。
+                if (GameMgr.contest_okashiSubType == "Coffee" || GameMgr.contest_okashiSubType == "Coffee_Mat")
+                {
+                    CommentDB_Check(100000, "Coffee_Default", 1);
+                }
+                else if (GameMgr.contest_okashiSubType == "Tea" || GameMgr.contest_okashiSubType == "Tea_Mat"
+                    || GameMgr.contest_okashiSubType == "Tea_Potion")
+                {
+                    CommentDB_Check(100000, "Tea_Default", 1);
+                }
+                else if (GameMgr.contest_okashiSubType == "Juice" || GameMgr.contest_okashiSubType == "Soda")
+                {
+                    CommentDB_Check(100000, "Juice_Default", 1);
+                }
+                else if (GameMgr.contest_okashiSubType == "Soda")
+                {
+                    CommentDB_Check(100000, "Soda_Default", 1);
+                }
+                else
+                {
+                    CommentDB_Check(100000, "Contest_Default", 1);
+                }
             }
-            else if (GameMgr.contest_okashiSubType == "Juice" || GameMgr.contest_okashiSubType == "Soda")
-            {
-                CommentDB_Check("Juice_Default");
-            }
-            else
-            {
-                CommentDB_Check("Contest_Default");                
-            }          
         }
+
 
 
         //審査員１の感想をセット
@@ -5746,17 +5770,22 @@ public class Utage_scenario : MonoBehaviour
         }
     }
 
-    void CommentDB_Check(string _comment_select)
+    void CommentDB_Check(int _comID, string _comment_select, int _chktype)
     {
         i = 0;
         while (i < databaseContestComment.contestcomment_lists.Count)
         {
-            if (databaseContestComment.contestcomment_lists[i].CommentID >= 100000)
+            if (databaseContestComment.contestcomment_lists[i].CommentID >= _comID)
             {
                 if (databaseContestComment.contestcomment_lists[i].ItemName == _comment_select)
                 {
                     CommentID = i;
                     Debug.Log("審査員のコメント　共通デフォルト " + databaseContestComment.contestcomment_lists[i].CommentID);
+
+                    if (_chktype == 0)
+                    {
+                        KoyuItemDefaultFlag = true;
+                    }
                     break;
                 }
 

@@ -2998,8 +2998,8 @@ public class Girl1_status : SingletonMonoBehaviour<Girl1_status>
             case 34: //ボウルをガシャガシャ
 
                 Debug.Log("34 ボウルをガシャガシャ");
-                FaceMotionPlay(1013);
-                _touchface_comment_lib.Add("にいちゃんのクッキー、おいしくなぁれ♪");
+                FaceMotionPlay(1022);
+                _touchface_comment_lib.Add("えへへ♪　にいちゃんのお菓子、作りちゅう～♪");
                 break;
 
             case 35: //エモのみ　♪

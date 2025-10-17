@@ -3538,10 +3538,12 @@ public class Compound_Main : MonoBehaviour
 
             case "mg_lightning_grape_book":
                 magicskill_database.skillHyoujiKaikin("Lightning_Grape");
+                magicskill_database.skillLearnLv_Name("Lightning_Grape", 1); //習得済
                 break;
 
             case "mg_dreamy_sapphire_book":
                 magicskill_database.skillHyoujiKaikin("Dreamy_Sapphire");
+                magicskill_database.skillLearnLv_Name("Dreamy_Sapphire", 1); //習得済
                 break;
 
             case "mg_time_illusion_book":

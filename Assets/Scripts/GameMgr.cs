@@ -898,6 +898,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int ContestThemeCount; //コンテストの課題　選択肢の数
     public static int Contest_Cate_Ranking; //トーナメント形式かランキング形式か
     public static int Contest_BringType; //コンテスト　素材持ち込みの形式
+    public static int Contest_AfterDay; //コンテスト　●日後開始の日数
     public static int Contest_CostMoney; //そのコンテストの参加費
     public static bool Contest_AcceptedDelete; //コンテスト　受注してたコンテストをリストから削除する
     public static string Contest_Name; //コンテストの名前　次のコンテストに出場するまでは、この名前は前回でてたコンテストの名前にもなる。

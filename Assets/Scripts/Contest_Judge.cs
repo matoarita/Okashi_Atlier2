@@ -1499,7 +1499,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(150); //50%
+                    ScoreNormalized(150); //75%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -2530,7 +2530,7 @@ public class Contest_Judge : MonoBehaviour {
 
         total_score[1] = total_score[1] + (GameMgr.contest_Beauty_Score[1] - before_beautyscore[1]); //補正前に、一回before_beautyscore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
 
-        Debug.Log("審査員２　アントワネット王妃は、見た目で得点にバフがかかる。下の食感の値が最終の食感点数");
+        Debug.Log("審査員２　アントワネット王妃は、見た目で得点にバフがかかる。下の値が最終の点数");
         Debug.Log("審査員２　見た目補正前：" + before_beautyscore[1] + "点");
         Debug.Log("審査員２　見た目補正後：" + GameMgr.contest_Taste_Score[1] + "点");
     }

@@ -19,6 +19,8 @@ public class ItemSubTypeSetDatabase : SingletonMonoBehaviour<ItemSubTypeSetDatab
 
     public void SetImageSub(string _subType) //
     {
+        GameMgr.Item_ShokukanTypeText = "-"; //該当なしの場合オフ表示になる
+
         switch (_subType)
         {
             case "Non":

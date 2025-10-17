@@ -1738,6 +1738,12 @@ public class SetImage : MonoBehaviour
                     DrawTasteWindow1();
                     break;
             }
+
+            //回数表示がついてたら、パラメータを表示する。
+            if(_attri6 > 0)
+            {
+                DrawTasteWindow2();
+            }
         }
         else if (item_type == "Okashi")
         {
@@ -1791,6 +1797,8 @@ public class SetImage : MonoBehaviour
     //「さくさく感」「歯ごたえ」などの表記 GameMgr.Item_ShokukanTypeTextはItemSubTypeSetDatabaseで設定
     void ShokukanText()
     {
+        item_Shokukan_Type.text = "-"; //初期値
+        item_lastShokukan_Type.text = "-";
         item_Shokukan_Type.text = GameMgr.Item_ShokukanTypeText;
         item_lastShokukan_Type.text = GameMgr.Item_ShokukanTypeText;
     }
