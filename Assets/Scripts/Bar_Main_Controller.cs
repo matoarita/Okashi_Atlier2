@@ -806,7 +806,7 @@ public class Bar_Main_Controller : MonoBehaviour {
                 case "Or_Bar_A1": //ルーティさん
 
                     GameMgr.talk_number = 1000;
-                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA; //0~2までを繰り返す。はず
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3; //0~2までを繰り返す。はず
 
                     //マッサージポイントで、マッサージしてくれるかどうか変わる
                     if (GameMgr.NPC_pahupahu_point >= 10)

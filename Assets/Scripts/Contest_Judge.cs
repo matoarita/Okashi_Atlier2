@@ -2129,7 +2129,7 @@ public class Contest_Judge : MonoBehaviour {
 
             //480　デザインコンテスト　未実装
 
-            case "Or_Contest_490":　//秋のお菓子コンテスト　自由課題　中級
+            case "Or_Contest_490":　//オータムリーヴス鐘の音
 
                 if (_status == 0) //コンテストの判定に補正入れる場合は0
                 {
@@ -2149,7 +2149,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(150); //50%
+                    ScoreNormalized(130); //80%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }

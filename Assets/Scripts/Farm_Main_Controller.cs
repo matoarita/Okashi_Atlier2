@@ -410,7 +410,7 @@ public class Farm_Main_Controller : MonoBehaviour {
                 case "Or_Farm":
 
                     GameMgr.talk_number = 1000;
-                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3; //3で割ると0~2を繰り返す
                     break;
             }
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。

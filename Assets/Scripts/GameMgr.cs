@@ -147,6 +147,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_KojinNPC_Count01 = 20; //キャンセルした場合に、次にくるまでの日数
     public static int System_KojinNPC_Count02 = 10; //依頼が成功して、次にくるまでの日数
 
+    //各NPCの友好度でイベント発生がするときの条件値
+    public static int System_NPC40_eventPoint01 = 70; //NPC40はルーティ　友情度70超えると、バナナ大祭典イベント
+    public static int System_NPC107_eventPoint01 = 55; //NPC107　きのこ　友情度55~　歌の悩みが発生済
+
     //どんぐりで上がる体力値
     public static int System_Emeraldongri_life = 1;
     public static int System_Sapphiredongri_life = 2;
@@ -711,9 +715,6 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int uwasa_number;      //その時のうわさ話番号。
     public static bool shop_hint;
     public static int shop_hint_num;
-
-    public static int chara_talk_countA = 3; //キャラ会話のバリエーション数 日で割って、順ぐりに０～２の感じで繰り返す
-    public static int chara_talk_countB = 5;
 
 
     //バーのコマンド

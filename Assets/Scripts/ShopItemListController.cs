@@ -627,9 +627,9 @@ public class ShopItemListController : MonoBehaviour
 
 
         //その他、条件をみたすとでてくるショップ品
-        switch (SceneManager.GetActiveScene().name)
+        switch (GameMgr.Scene_Category_Num)
         {
-            case "Emerald_Shop":
+            case 50: //50=エメラルドショップ
 
                 if (GameMgr.GirlLoveSubEvent_stage1[101])
                 {

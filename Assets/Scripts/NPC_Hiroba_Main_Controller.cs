@@ -360,7 +360,7 @@ public class NPC_Hiroba_Main_Controller : MonoBehaviour {
                 case "Or_Hiroba_Summer_SweetsHouse":
 
                     GameMgr.talk_number = 1000;
-                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3;
                     break;
             }
             GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。

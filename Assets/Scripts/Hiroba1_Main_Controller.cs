@@ -3307,10 +3307,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         {
             if (GameMgr.NPCHiroba_eventList[120]) //ほかに発生するイベントがなく、すでに友達になった。
             {
-                GameMgr.hiroba_event_ID = 10;
-                //BGMかえる
-                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-                //bgm_change_flag = true;
+                GameMgr.hiroba_event_ID = 10 + talkrot;
+                TalkRotation(1, 1); //2つめが1の時は、パターンがローテーションせずに止まる
 
                 check_event = true;
             }
@@ -3329,9 +3327,6 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             GameMgr.NPCHiroba_eventList[140] = true;
 
             GameMgr.hiroba_event_ID = 0;
-            //BGMかえる
-            //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
-            //bgm_change_flag = true;
 
             check_event = true;
         }
@@ -4642,6 +4637,15 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 default_scenetext = "ここは、オータム・リーブスの入口だ。" + "\n" + "紅葉の赤やカラフルな色の建物に包まれている。";
 
                 matplace_database.matPlaceKaikin("Or_HirobaEnter_C1"); //秋エリア入口解禁
+
+                //ヒカリが一緒にいないと、ぬねは登場しない
+                if (GameMgr.outgirl_Nowprogress) //trueだとヒカリがいない
+                {
+                    mainlist_controller_obj.transform.Find("NPC2_SelectToggle").gameObject.SetActive(false);
+                }else
+                {
+                    mainlist_controller_obj.transform.Find("NPC2_SelectToggle").gameObject.SetActive(true);
+                }
                 break;
 
             case "Or_Hiroba_Autumn_Entrance_bridge": //秋エリア　入口大橋

@@ -2691,12 +2691,12 @@ public class Utage_scenario : MonoBehaviour
         //アプリコットの友好度をセット
         engine.Param.TrySetParameter("event_NPC_BarFriendPoint2", GameMgr.NPC_FriendPoint[41]);
 
-        if(GameMgr.NPC_FriendPoint[40] >= 55 && GameMgr.NPC_FriendPoint[40] < 70)
+        if(GameMgr.NPC_FriendPoint[40] >= 55 && GameMgr.NPC_FriendPoint[40] < GameMgr.System_NPC40_eventPoint01) //70~
         {
             engine.Param.TrySetParameter("Bar_NPC01_Flag1", true);
             engine.Param.TrySetParameter("Bar_NPC01_Flag2", false); //flag2は結局使わない 
         }
-        else if (GameMgr.NPC_FriendPoint[40] >= 70)
+        else if (GameMgr.NPC_FriendPoint[40] >= GameMgr.System_NPC40_eventPoint01)
         {
             engine.Param.TrySetParameter("Bar_NPC01_Flag1", true);
             engine.Param.TrySetParameter("Bar_NPC01_Flag2", false); //何かに使ってもOK
@@ -3192,6 +3192,8 @@ public class Utage_scenario : MonoBehaviour
         resipi_getflag = false;
         resipi_getflag_afteritemuse = false;
 
+        engine.Param.TrySetParameter("GirlHeartLV_Num", PlayerStatus.girl1_Love_maxlv);
+        
 
         //場所ごとにラベルを変えている
         switch (GameMgr.hiroba_event_placeNum)
@@ -3300,6 +3302,15 @@ public class Utage_scenario : MonoBehaviour
             case 1220: //OrNPC魔女ばあさん
 
                 scenarioLabel = "Or_NPC03_baasan";
+
+                //マップなどのフラグチェック
+                maprelease_flagchk = 0;
+                if (matplace_database.matplace_lists[matplace_database.SearchMapString("MoonStone_Hill")].placeFlag == 0)
+                {
+                    maprelease_flagchk = 1;
+                }
+                engine.Param.TrySetParameter("MapRelease_FlagCheck", maprelease_flagchk);
+                engine.Param.TrySetParameter("Hiroba_HeartJouken1", 20); //ムーンストーンの丘教えてもらう　HLV条件
                 break;
 
             case 1230: //OrNPCおそうじアリス
@@ -4128,6 +4139,47 @@ public class Utage_scenario : MonoBehaviour
                     {
                         GameMgr.NPCHiroba_eventList[101] = true; //寝るタイミングでまたfalseに。
                     }
+                }
+                break;
+
+            case "Or_NPC02_kinoko":
+
+                if (GameMgr.NPC_FriendPoint[107] < GameMgr.System_NPC107_eventPoint01) //まだきのこから歌で泣き出す発生してない
+                {
+                    stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                    switch (stationevent_num)
+                    {
+                        case 0: //キャンセル
+                            
+                            break;
+
+                        case 1: //
+
+                            GameMgr.NPC_FriendPoint[107] += 5; //最初の悩み会話で友情度が少し上がる
+                            break;
+
+                    }
+                }
+                break;
+
+            case "Or_NPC03_baasan":
+
+                stationevent_num = (int)engine.Param.GetParameter("StationEvent_num");
+                switch (stationevent_num)
+                {
+                    case 0: //
+
+                        break;
+
+                    case 1: //採取地についてきき、教えてくれた
+
+                        //マップなどのフラグチェック
+                        if (matplace_database.matplace_lists[matplace_database.SearchMapString("MoonStone_Hill")].placeFlag == 0)
+                        {
+                            //いける場所を追加
+                            matplace_database.matPlaceKaikin("MoonStone_Hill"); //ムーンストーンの丘解禁
+                        }
+                        break;
                 }
                 break;
 

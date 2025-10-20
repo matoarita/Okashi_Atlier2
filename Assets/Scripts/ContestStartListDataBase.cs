@@ -1633,7 +1633,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
     }
 
-    void ContestRankingData_309() //秋のお菓子コンテスト
+    void ContestRankingData_309() //秋のお菓子コンテスト　オータムリーヴス鐘の音
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
         GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など

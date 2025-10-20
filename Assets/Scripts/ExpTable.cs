@@ -201,9 +201,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     //MagicLearnPanelHyouji("Latte_Art");
                     break;
 
-                case 20: //二種類～同時トッピングできるようになる。
+                case 20:
 
-                    girlEat_judge.LvUpPanel3();
+                    //girlEat_judge.LvUpPanel3(); //二種類～同時トッピングできるようになる。
                     break;
 
                 case 21:

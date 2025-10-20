@@ -5293,6 +5293,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1273176242}
     m_Modifications:
+    - target: {fileID: 1936480507059974, guid: 9bf898075b1647744813fb68267846f3, type: 3}
+      propertyPath: m_Name
+      value: MessageWindow
+      objectReference: {fileID: 0}
     - target: {fileID: 224173923846276404, guid: 9bf898075b1647744813fb68267846f3,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5382,6 +5386,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224173923846276404, guid: 9bf898075b1647744813fb68267846f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224173923846276404, guid: 9bf898075b1647744813fb68267846f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224173923846276404, guid: 9bf898075b1647744813fb68267846f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bf898075b1647744813fb68267846f3, type: 3}
@@ -29600,6 +29619,7 @@ MonoBehaviour:
   sound77: {fileID: 0}
   sound78: {fileID: 0}
   sound79: {fileID: 0}
+  sound80: {fileID: 0}
   sound1000: {fileID: 0}
   Ambient1: {fileID: 0}
   Ambient2: {fileID: 0}

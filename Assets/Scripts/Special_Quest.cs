@@ -739,9 +739,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
             //冬エリア解放
             matplace_database.ReSetMapFlagString("Or_HirobaEnter_D1", 1);
             //matplace_database.ReSetMapFlagString("Or_Shop_D1", 1);
-            matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
+            //matplace_database.ReSetMapFlagString("MoonStone_Hill", 1);
             matplace_database.ReSetMapFlagString("Diamond_Mountain", 1);
-            //matplace_database.ReSetMapFlagString("Or_Contest_C1", 1);
+            //matplace_database.ReSetMapFlagString("Or_Contest_D1", 1);
         }
 
         if (_spquest_setnum >= 22)

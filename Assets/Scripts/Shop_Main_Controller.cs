@@ -804,7 +804,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                     GameMgr.talk_number = 2000;
                     //日でランダムに話が切り替わる
-                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3;
                     
                     break;
 
@@ -812,7 +812,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                     GameMgr.talk_number = 3000;
                     //日でランダムに話が切り替わる
-                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3;
                     
                     break;
 
@@ -820,7 +820,7 @@ public class Shop_Main_Controller : MonoBehaviour {
 
                     GameMgr.talk_number = 4000;
                     //日でランダムに話が切り替わる
-                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % GameMgr.chara_talk_countA;
+                    GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3;
                     
                     break;
             }

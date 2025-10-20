@@ -2036,6 +2036,22 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 }
                 break;
 
+            case "Freezing_Spell": //フリージング　LVに応じてほんの少し上昇
+
+                if (_status >= 0 && _status <= 6)//すべての食感
+                {
+                    if (_status != 5) //ただし、見た目はバフを無視。
+                    {
+                        _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Freezing_Spell");
+                        _magicup = (int)(_baseparam * 0.04f * _magicLearnLv);
+                        if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
+
+                        Debug.Log("フリージングバフ(LV*1.04倍): " + _magicup);
+                        _buf_shokukanup += _magicup;
+                    }
+                }
+                break;
+
             case "Wind_Ark":
 
                 if (_status == 1)//ふわふわのバフ
@@ -2434,7 +2450,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //食感への補正
         if (_mstatus == 0)
         {
-            _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.5f, 1.4f); //最大LVで、にいちゃんの1.5倍上がる あまりやると強すぎ
+            _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.6f, 1.5f); //最大LVで、にいちゃんの1.5倍上がる あまりやると強すぎ
             _buf_hikari_okashiparam = 0.1f + _a;
         }
         else if (_mstatus == 1)
@@ -2447,19 +2463,19 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         {
             if (hikari_okashiLV >= 1.0f && hikari_okashiLV < 3.0f)
             {
-                _kosuhosei = 3.0f;
+                _kosuhosei = 2.0f;
             }
             else if (hikari_okashiLV >= 3.0f && hikari_okashiLV < 7.0f)
             {
-                _kosuhosei = 2.0f;
+                _kosuhosei = 1.0f;
             }
             else if (hikari_okashiLV >= 7.0f && hikari_okashiLV < 9.0f)
             {
-                _kosuhosei = 1.0f;
+                _kosuhosei = 0.5f;
             }
             else if (hikari_okashiLV >= 9.0f)
             {
-                _kosuhosei = 0.5f;
+                _kosuhosei = 0.25f;
             }
         }
         else if (_mstatus == 1)
