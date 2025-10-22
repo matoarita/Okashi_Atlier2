@@ -254,9 +254,9 @@ SE表
 ・SE_252	Fracture02-1(Dry)				骨がボキリとなる音
 ・SE_253	audiostock_94822				トッピングで粒が降ってきたときのパパパ音
 ・SE_254	audiostock_1655939_sample			【未使用】トッピング最初の発動音
-・SE_255	audiostock_40348_sample				魔法使用時の上昇ハープ音 　旧：Onoma-Sparkle05-1(Low)
+・SE_255	audiostock_40348				魔法使用時の上昇ハープ音 　旧：Onoma-Sparkle05-1(Low)
 ・SE_256	Onoma-Sparkle02-3(High-Short)			トッピング中の背景キラキラ音
 ・SE_257	audiostock_175671.mp3				トッピング中の背景キラキラ音２　SE_11のピッチを高くした
 ・SE_258	ゴゴゴゴゴ・・・				重めのドアを開けるときのゴゴゴゴ音
 ・SE_259	audiostock_1648925				粉ばささ～の音
-・SE_260	audiostock_947955_sample			コミカルなケンカの音ポカスカ
+・SE_260	audiostock_947955				コミカルなケンカの音ポカスカ

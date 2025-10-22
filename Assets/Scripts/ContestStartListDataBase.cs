@@ -1960,27 +1960,27 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
             case "Or_Contest_001": //春コン
 
                 //ハーマイオニーはいくら負けても、大会優勝時にエデンゲット
-                GameMgr.EdenPrizeChange = false;
+                GameMgr.EdenPrizeChange = true;
                 GameMgr.EdenFirstVictory = true;
                 //FirstVictoryCheck(_contestName);
                 break;
 
             case "Or_Contest_002": //夏コン
 
+                GameMgr.EdenPrizeChange = true;
                 FirstVictoryCheck(_contestName);
                 break;
 
             case "Or_Contest_003": //秋コン
 
+                GameMgr.EdenPrizeChange = true;
                 FirstVictoryCheck(_contestName);
                 break;
         }
     }
 
     void FirstVictoryCheck(string _contestName)
-    {
-        GameMgr.EdenPrizeChange = true;
-
+    {        
         if (ContestName_FightCount(_contestName) <= 1) //初出場
         {
             if (GameMgr.contest_Rank_Count == 1) //優勝した場合　そのままエデンレシピもらう　かつ　コンテスト終了後の敵キャラの会話がスキップ

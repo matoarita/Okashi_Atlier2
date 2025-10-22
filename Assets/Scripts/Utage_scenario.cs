@@ -2676,6 +2676,7 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴で呼び出したいイベント番号を設定する。
         engine.Param.TrySetParameter("Shop_Talk_Num", shop_talk_number);
+        engine.Param.TrySetParameter("SubTalk_num", GameMgr.sub_talk_number);
         engine.Param.TrySetParameter("Chara_Talk_Num", GameMgr.chara_talk_number);
         engine.Param.TrySetParameter("SP_Talk_Num", GameMgr.sp_talk_number);
         engine.Param.TrySetParameter("Story_progress_Num", GameMgr.GirlLoveEvent_num); //ゲームメインストーリーの進行フラグナンバー
@@ -2826,6 +2827,14 @@ public class Utage_scenario : MonoBehaviour
                             GameMgr.NPC_FriendPoint[40] += 3;
                         }
                         break;
+                }
+
+                if (GameMgr.talk_number == 1500) //あげるのとき
+                {
+                    if (stationevent_num == 1) //ぶじムーンバナナあげた
+                    {
+                        GameMgr.Or_ShopEvent_stage[107] = true;
+                    }
                 }
                 break;
 

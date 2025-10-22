@@ -190,6 +190,8 @@ public class Item
         Donuts,
         Financier,
         IceCream,
+        IceCreamCake,
+        IceCandy,
         Juice,
         Soda,
         Jelly,

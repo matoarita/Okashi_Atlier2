@@ -587,4 +587,19 @@ public class RecipiListController : MonoBehaviour {
 
         RecipiList_DrawView2();
     }
+
+    //デバッグ用　全レシピの解禁フラグ削除
+    public void Debug_R3_button()
+    {
+        //調合DBのフラグをチェック
+        for (i = 0; i < databaseCompo.compoitems.Count; i++)
+        {
+            if (databaseCompo.compoitems[i].cmpitem_flag != 9999)
+            {
+                databaseCompo.compoitems[i].cmpitem_flag = 0;
+            }
+        }
+
+        RecipiList_DrawView2();
+    }
 }

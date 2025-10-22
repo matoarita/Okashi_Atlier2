@@ -1247,8 +1247,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     break;
                                 }
                             }
-
-                            if (_baseitemtype_sub == items)
+                            else if (_baseitemtype_sub == items)
                             {
                                 if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_sub]])
                                 {
@@ -1256,8 +1255,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                                     break;
                                 }
                             }
-
-                            if (_baseitemtype_subB == items)
+                            else if (_baseitemtype_subB == items)
                             {
                                 if (!GameMgr.GirlLoveSubEvent_stage1[GameMgr.OkashiAtFirst_eventlist[_baseitemtype_subB]])
                                 {
@@ -2185,61 +2183,62 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
             }
 
-            /*
-            //街の人がきて、おかしのご依頼
-            if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
+            if (GameMgr.System_BarNPC_FriendEventFlag)
             {
-                //ご依頼イベントチェック
-                if (!GameMgr.outgirl_Nowprogress)
+                //街の人がきて、おかしのご依頼
+                if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
                 {
-                    if (PlayerStatus.player_cullent_hour >= 10 && PlayerStatus.player_cullent_hour <= 12) //10時から12時の間に、サイコロふる
+                    //ご依頼イベントチェック
+                    if (!GameMgr.outgirl_Nowprogress)
                     {
-                        //②ご依頼の品を受け取りにくるフェーズ　こっちが発生したら、下のご依頼がくるフェーズはチェックを無視　次の日までチェックは無視する
-                        //クエスト受注の「個人依頼」の日付をチェックする
-                        PeopleQuest_DayCheck();
-
-                        if (!GameMgr.GirlLoveSubEvent_NPC_OkashiPresentON)
+                        if (PlayerStatus.player_cullent_hour >= 10 && PlayerStatus.player_cullent_hour <= 12) //10時から12時の間に、サイコロふる
                         {
-                            //①ご依頼がランダムでくるフェーズ
-                            random = Random.Range(0, 100);
-                            //Debug.Log("NPCご依頼イベント　抽選スタート　50以下で成功: " + random);
+                            //②ご依頼の品を受け取りにくるフェーズ　こっちが発生したら、下のご依頼がくるフェーズはチェックを無視　次の日までチェックは無視する
+                            //クエスト受注の「個人依頼」の日付をチェックする
+                            PeopleQuest_DayCheck();
 
-                            picnic_exprob = 50; //5%の確率で発生。
-                            if (random <= picnic_exprob)
+                            if (!GameMgr.GirlLoveSubEvent_NPC_OkashiPresentON)
                             {
-                                //各NPCと酒場NPCの友好度をすべてチェックする
-                                PeopleQuestEvent();
+                                //①ご依頼がランダムでくるフェーズ
+                                random = Random.Range(0, 100);
+                                //Debug.Log("NPCご依頼イベント　抽選スタート　50以下で成功: " + random);
+
+                                picnic_exprob = 50; //5%の確率で発生。
+                                if (random <= picnic_exprob)
+                                {
+                                    //各NPCと酒場NPCの友好度をすべてチェックする
+                                    PeopleQuestEvent();
+                                }
                             }
                         }
-                    }                   
+                    }
                 }
-            }
 
-            //③ご依頼の品の事後報告のフェーズ
-            if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
-            { }
-            else
-            {
-                //ご依頼イベントチェック
-                if (!GameMgr.outgirl_Nowprogress)
+                //③ご依頼の品の事後報告のフェーズ
+                if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
                 {
-                    if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour <= 15) //15~17時
+                    //ご依頼イベントチェック
+                    if (!GameMgr.outgirl_Nowprogress)
                     {
-                        random = Random.Range(0, 100);
-                        //Debug.Log("NPCご依頼イベント　抽選スタート　20以下で成功: " + random);
-
-                        picnic_exprob = 20; //20%の確率で発生。
-                        if (random <= picnic_exprob)
+                        if (PlayerStatus.player_cullent_hour >= 13 && PlayerStatus.player_cullent_hour <= 15) //15~17時
                         {
-                            PeopleQuest_AfterEvent();
+                            random = Random.Range(0, 100);
+                            //Debug.Log("NPCご依頼イベント　抽選スタート　20以下で成功: " + random);
+
+                            picnic_exprob = 20; //20%の確率で発生。
+                            if (random <= picnic_exprob)
+                            {
+                                PeopleQuest_AfterEvent();
+                            }
+
                         }
-                        
                     }
                 }
             }
-            */
 
 
 

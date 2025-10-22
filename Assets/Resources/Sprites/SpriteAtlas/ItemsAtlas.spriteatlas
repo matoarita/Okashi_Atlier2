@@ -144,6 +144,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b84d88c1faf5fcd438affe0a21b54f0a, type: 3}
   - {fileID: 21300000, guid: 8a8d8ac1015d1a849b8b06cb27a1e42e, type: 3}
   - {fileID: 21300000, guid: 5d74cdc19057f74458d8abfcd823157e, type: 3}
+  - {fileID: 21300000, guid: ce5ea5d1f66225540974f15bdfd787f0, type: 3}
   - {fileID: 21300000, guid: 8492e8d1d6b404a4a9448d9462afc8f9, type: 3}
   - {fileID: 21300000, guid: 2cf869d11046bd14b91477cbabf4af43, type: 3}
   - {fileID: 21300000, guid: b862c9d1ff7e1a746951626e8f992372, type: 3}
@@ -561,6 +562,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: db0045c97ee35854ab6dcc8d5a7a8103, type: 3}
   - {fileID: 21300000, guid: 675199c98397cc64680e6feed99d95b6, type: 3}
   - {fileID: 21300000, guid: 934d3dc9f4864a6499876de094a536c6, type: 3}
+  - {fileID: 21300000, guid: 6e3331d9128c69e48a1ccd8194be0488, type: 3}
   - {fileID: 21300000, guid: 3ea7f6d9b2191e549a192303ea6651c6, type: 3}
   - {fileID: 21300000, guid: cb19f6d9e5b7b8b47936fd3d34e8ec2c, type: 3}
   - {fileID: 21300000, guid: 3346c5e9bb5861940af73e8c03dc5675, type: 3}
@@ -947,6 +949,7 @@ SpriteAtlas:
   - juice_berry
   - rose_water
   - rusk_butter_orange
+  - fantasian_in_nightdream
   - komugiko
   - himmeli
   - crepe_row
@@ -1364,6 +1367,7 @@ SpriteAtlas:
   - crepe_doubleberry
   - magical_torte
   - blacklotus_sponge_cake
+  - fantasian
   - potion
   - whisk_magic
   - maffin

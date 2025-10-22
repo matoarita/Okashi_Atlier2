@@ -13831,6 +13831,8 @@ GameObject:
   - component: {fileID: 224291840412721518}
   - component: {fileID: 114091878124975162}
   - component: {fileID: 114607279205551804}
+  - component: {fileID: 3269820105166318946}
+  - component: {fileID: 5280062842025401102}
   m_Layer: 0
   m_Name: Cate_04
   m_TagString: Untagged
@@ -13934,6 +13936,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &3269820105166318946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258398781189382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5280062842025401102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258398781189382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3269820105166318946}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1260628003935606
 GameObject:
   m_ObjectHideFlags: 0
@@ -15753,6 +15796,8 @@ GameObject:
   - component: {fileID: 224128941035790694}
   - component: {fileID: 114770937380315770}
   - component: {fileID: 114757929552628750}
+  - component: {fileID: 5261286776821348401}
+  - component: {fileID: 7467857306898086763}
   m_Layer: 0
   m_Name: Cate_03
   m_TagString: Untagged
@@ -15856,6 +15901,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &5261286776821348401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349011927683906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7467857306898086763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349011927683906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5261286776821348401}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1356356088375668
 GameObject:
   m_ObjectHideFlags: 0
@@ -21646,6 +21732,8 @@ GameObject:
   - component: {fileID: 224177517690692426}
   - component: {fileID: 114726024104884280}
   - component: {fileID: 114459703509837064}
+  - component: {fileID: 513511001365157844}
+  - component: {fileID: 5702461462815581806}
   m_Layer: 0
   m_Name: Cate_02
   m_TagString: Untagged
@@ -21749,6 +21837,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &513511001365157844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439610089387382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5702461462815581806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439610089387382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 513511001365157844}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1442127690994166
 GameObject:
   m_ObjectHideFlags: 0
@@ -59922,6 +60051,8 @@ GameObject:
   - component: {fileID: 224703118035351846}
   - component: {fileID: 114129996498441590}
   - component: {fileID: 114401642507868796}
+  - component: {fileID: 2450414015305765583}
+  - component: {fileID: 1955279956826604803}
   m_Layer: 0
   m_Name: Cate_10
   m_TagString: Untagged
@@ -60025,6 +60156,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &2450414015305765583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790421667793588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1955279956826604803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790421667793588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2450414015305765583}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1792919724947764
 GameObject:
   m_ObjectHideFlags: 0
@@ -63767,6 +63939,8 @@ GameObject:
   - component: {fileID: 224199939033598848}
   - component: {fileID: 114470783179921620}
   - component: {fileID: 114264617628350164}
+  - component: {fileID: 4494644114895633179}
+  - component: {fileID: 2190220798336662437}
   m_Layer: 0
   m_Name: Cate_01
   m_TagString: Untagged
@@ -63870,6 +64044,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &4494644114895633179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992508105024226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2190220798336662437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992508105024226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4494644114895633179}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1998320453569262
 GameObject:
   m_ObjectHideFlags: 0

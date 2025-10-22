@@ -211,6 +211,7 @@ public class ContestListSelectToggle : MonoBehaviour
 
         GameMgr.Contest_Cate_Ranking = conteststartList_database.conteststart_lists[_list].Contest_RankingType;
         GameMgr.ContestSelectNum = conteststartList_database.conteststart_lists[_list].Contest_placeNumID;
+        GameMgr.Contest_Name = conteststartList_database.conteststart_lists[_list].ContestName;
 
         Debug.Log(count + "番が押されたよ");
         Debug.Log("コンテスト:" + _nameHyouji + " が選択されました。");

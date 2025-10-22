@@ -916,8 +916,8 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("mg_chocolatemagic_book");
         GameMgr.PrizeItemList.Add("neko_badge2");
+        GameMgr.PrizeItemList.Add("mg_chocolatemagic_book");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();

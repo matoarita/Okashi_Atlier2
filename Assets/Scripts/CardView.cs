@@ -1071,7 +1071,7 @@ public class CardView : SingletonMonoBehaviour<CardView>
         }
         else if (anime_select == 1) //トッピング時の調合アニメーション
         {
-            _movetime = 45; //移動を早くする。
+            _movetime = 60; //移動を早くする。
 
             //今存在している全てのカードに対して、アニメーション
             for (i = 0; i < _cardImage_obj.Count; i++)

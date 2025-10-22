@@ -501,14 +501,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
             }
 
-            //完成アイテムの、レシピフラグをONにする。
-            _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
-            databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
-            Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
-
+            
             //作ったことがあるかどうかをチェック
-            if (databaseCompo.compoitems[result_ID].comp_count == 0)
+            if (databaseCompo.compoitems[result_ID].cmpitem_flag == 0)
             {
+                //完成アイテムの、レシピフラグをONにする。
+                _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
+                databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+                Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
+
                 //作った回数をカウント
                 databaseCompo.compoitems[result_ID].comp_count++;               
 
@@ -525,7 +526,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 _ex_text = "";
             }
             //すでに作っていたことがある場合
-            else if (databaseCompo.compoitems[result_ID].comp_count > 0)
+            else
             {
                 //作った回数をカウント
                 databaseCompo.compoitems[result_ID].comp_count++;
@@ -1095,7 +1096,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
 
 
                 //閃き済みかどうかをチェック。
-                if (databaseCompo.compoitems[result_ID].cmpitem_flag != 1)
+                if (databaseCompo.compoitems[result_ID].cmpitem_flag == 0)
                 {
                     //作った回数をカウント
                     databaseCompo.compoitems[result_ID].comp_count++;
@@ -1103,6 +1104,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     //完成アイテムの、レシピフラグをONにする。
                     _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
                     databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+                    Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
 
                     //レシピ達成率を更新
                     databaseCompo.RecipiCount_database(0);
@@ -1367,18 +1369,19 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                 //調合処理
                 Compo_1(1);
 
-                if (Comp_method_bunki == 20)
-                {
-                    //完成アイテムの、レシピフラグをONにする。
-                    _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
-                    databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
-                    Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
-                }
-                //CompNo=22の場合は、レシピ上書きは不要
-
+                
                 //作ったことがあるかどうかをチェック
-                if (databaseCompo.compoitems[result_ID].comp_count == 0)
+                if (databaseCompo.compoitems[result_ID].cmpitem_flag == 0)
                 {
+                    if (Comp_method_bunki == 20)
+                    {
+                        //完成アイテムの、レシピフラグをONにする。
+                        _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_ID].release_recipi);
+                        databaseCompo.compoitems[_releaseID].cmpitem_flag = 1;
+                        Debug.Log("レシピ上書きFlag=1: " + databaseCompo.compoitems[_releaseID].cmpitem_Name);
+                    }
+                    //CompNo=22の場合は、レシピ上書きは不要
+
                     //作った回数をカウント
                     databaseCompo.compoitems[result_ID].comp_count++;
 
@@ -1395,7 +1398,7 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
                     _ex_text = "";
                 }
                 //すでに作っていたことがある場合
-                else if (databaseCompo.compoitems[result_ID].comp_count > 0)
+                else
                 {
                     //作った回数をカウント
                     databaseCompo.compoitems[result_ID].comp_count++;

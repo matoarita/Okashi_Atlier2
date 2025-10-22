@@ -58,11 +58,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Yachin_ON = false; //家賃システムの有無
     public static bool System_CatAutoMaterial_ON = true; //猫が自動でアイテムをとってきてくれるシステムの有無
     public static bool System_JobLVUP_ON = false; //ジョブポイントが、経験値によって上がっていく仕様。falseだと、ハートLVに応じて上がる仕様。
-    public static bool System_TabetaiOkashiStatusUp = false; //食べたいおかしをあげたときに、そのお菓子の食感が固定ステで上昇する仕様。falseならオフ。
-
+    
     public static bool System_SpecialOkashiEnshutu_ON = true; //特別なお菓子作ったときに演出を表示するかどうか。
     public static bool System_HeartUpwithScore_ON = true; //ハートの上がる量が、単純に点数の〇分の一にするかどうか。trueでなる。falseなら、150超えてから各お菓子の上昇補正に依存。
+
     public static bool System_HeartLV_StatusUp = false; //ハートレベルがあがったときにお菓子関連のパラメータが上昇する仕様にする。
+    public static bool System_TabetaiOkashiStatusUp = false; //食べたいおかしをあげたときに、そのお菓子の食感が固定ステで上昇する仕様。falseならオフ。
 
     public static bool System_MagicSlot_MultipleON = false; //魔法スロットの状態を最大10個までつけるようにする。falseの場合、一個のみ。上書きされる。
     public static bool System_Hikari_MagicEnshutuON = true; //魔法演出時、ヒカリを背景に表示する
@@ -70,6 +71,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarNinkiHyouji_ON = true; //酒場で人気パネルを表示する
     public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
     public static bool System_BarQuestKoushin_DayTiming = false; //酒場の依頼が、一日ごとに更新される仕様。オフだと、お店に入るたびに、依頼が変わる。現在trueはまだ未対応。酒場ごとに個別にクエストリストを保存してないので、別酒場で表示されたクエストが別エリアに残ったままになるバグがある。
+    public static bool System_BarNPC_FriendEventFlag = true; //酒場依頼で仲良くなったNPCが、お店に直接くるイベントを発生　ボリューム不足なのでONにするか迷ってる。
 
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
@@ -709,6 +711,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int shop_lvevent_num;
     public static bool talk_flag;       //ショップの「話す」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
     public static int talk_number;      //その時の会話番号。
+    public static int sub_talk_number;      //会話番号の中でさらに分岐する場合。これを使う。
     public static int chara_talk_number; //キャラ会話での番号　日によって変わる
     public static int sp_talk_number; //キャラ会話　特定の行動に対しての会話の中身が変わる　ルーティのマッサージなど
     public static bool uwasa_flag;       //ショップの「うわさ話」コマンドをONにしたとき、これがONになり、宴の会話が優先される。NPCなどでも使う。
@@ -2783,9 +2786,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     {
         OkashiAtFirst_eventlist.Clear();
 
+        //固有のおかしで反応
         OkashiAtFirst_eventlist.Add("lumi_emerald_suger", 200); //
-        OkashiAtFirst_eventlist.Add("lumi_pink_suger", 200);
-        OkashiAtFirst_eventlist.Add("GlowFruits", 201);
+        OkashiAtFirst_eventlist.Add("lumi_pink_suger", 200);       
         OkashiAtFirst_eventlist.Add("lumi_sapphire_suger", 202);
         OkashiAtFirst_eventlist.Add("a_ChocolateTwister", 203);
         OkashiAtFirst_eventlist.Add("ice_statue_twister", 204);
@@ -2796,6 +2799,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiAtFirst_eventlist.Add("eden_unfinished", 208);
         OkashiAtFirst_eventlist.Add("Eden", 209);
         OkashiAtFirst_eventlist.Add("icemilk_frozen_twister", 210);
+        OkashiAtFirst_eventlist.Add("lumi_banana", 211);
+
+        //サブタイプでの反応
+        OkashiAtFirst_eventlist.Add("GlowFruits", 230); //サブタイプやタイプBにも対応　ただし、固有を優先したい場合は、↑サブよりも上に置く
     }
 
     //温度管理をかけるお菓子のリスト SubTypeを記入する

@@ -367,6 +367,8 @@ GameObject:
   - component: {fileID: 224874251231907042}
   - component: {fileID: 114875798250264996}
   - component: {fileID: 114294849761720284}
+  - component: {fileID: 7422209676608971140}
+  - component: {fileID: 99929090229422340}
   m_Layer: 0
   m_Name: Cate_03
   m_TagString: Untagged
@@ -391,10 +393,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 32.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114875798250264996
 MonoBehaviour:
@@ -470,6 +472,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &7422209676608971140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029641643104458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &99929090229422340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029641643104458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7422209676608971140}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1031304249275480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,6 +1380,8 @@ GameObject:
   - component: {fileID: 224144582577954190}
   - component: {fileID: 114448657320420498}
   - component: {fileID: 114583247058739534}
+  - component: {fileID: 2778912534756711352}
+  - component: {fileID: 5614322909950924703}
   m_Layer: 0
   m_Name: Cate_07
   m_TagString: Untagged
@@ -1361,10 +1406,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 90, y: -37.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114448657320420498
 MonoBehaviour:
@@ -1440,6 +1485,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &2778912534756711352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087142585214022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5614322909950924703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087142585214022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2778912534756711352}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1097626992695236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,6 +1537,8 @@ GameObject:
   - component: {fileID: 224576575779077240}
   - component: {fileID: 114736343714628936}
   - component: {fileID: 114367555197391668}
+  - component: {fileID: 2367766915578400474}
+  - component: {fileID: 7324618314127212610}
   m_Layer: 0
   m_Name: Cate_Basic
   m_TagString: Untagged
@@ -1477,7 +1565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 32.5, y: -37.5}
+  m_AnchoredPosition: {x: 32.5, y: -12.5}
   m_SizeDelta: {x: 65, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114736343714628936
@@ -1554,6 +1642,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &2367766915578400474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097626992695236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7324618314127212610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097626992695236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2367766915578400474}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1102814907702514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,6 +1774,8 @@ GameObject:
   - component: {fileID: 224038545469217360}
   - component: {fileID: 114811020537974016}
   - component: {fileID: 114321274519792374}
+  - component: {fileID: 243155093104326405}
+  - component: {fileID: 9113618271392189680}
   m_Layer: 0
   m_Name: Cate_05
   m_TagString: Untagged
@@ -1669,10 +1800,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 270, y: -12.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114811020537974016
 MonoBehaviour:
@@ -1748,6 +1879,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &243155093104326405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104132044734676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9113618271392189680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104132044734676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 243155093104326405}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1123831422789578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +2177,8 @@ GameObject:
   - component: {fileID: 224178662863779120}
   - component: {fileID: 114588050735330826}
   - component: {fileID: 114304321426557208}
+  - component: {fileID: 839100253492699490}
+  - component: {fileID: 3736257482623247756}
   m_Layer: 0
   m_Name: Cate_05
   m_TagString: Untagged
@@ -2029,10 +2203,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 292.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114588050735330826
 MonoBehaviour:
@@ -2108,6 +2282,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &839100253492699490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135471474584962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3736257482623247756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135471474584962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 839100253492699490}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1141057314347490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,9 +2946,9 @@ RectTransform:
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &114245794705659476
 MonoBehaviour:
@@ -3695,6 +3910,8 @@ GameObject:
   - component: {fileID: 224247574540120566}
   - component: {fileID: 114501557815739632}
   - component: {fileID: 114634521439859278}
+  - component: {fileID: 1308127203887165794}
+  - component: {fileID: 3270112853001686017}
   m_Layer: 0
   m_Name: Cate_03
   m_TagString: Untagged
@@ -3719,10 +3936,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 30, y: -12.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114501557815739632
 MonoBehaviour:
@@ -3798,6 +4015,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &1308127203887165794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259470124018284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3270112853001686017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259470124018284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1308127203887165794}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1261137003881772
 GameObject:
   m_ObjectHideFlags: 0
@@ -4345,6 +4603,8 @@ GameObject:
   - component: {fileID: 224354944934999602}
   - component: {fileID: 114415797167824672}
   - component: {fileID: 114860096441282906}
+  - component: {fileID: 3367862506044833371}
+  - component: {fileID: 1015171702419538405}
   m_Layer: 0
   m_Name: Cate_08
   m_TagString: Untagged
@@ -4369,10 +4629,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 487.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114415797167824672
 MonoBehaviour:
@@ -4448,6 +4708,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &3367862506044833371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273133639233010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1015171702419538405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273133639233010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3367862506044833371}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1273518356588464
 GameObject:
   m_ObjectHideFlags: 0
@@ -5065,6 +5366,8 @@ GameObject:
   - component: {fileID: 224452585249569028}
   - component: {fileID: 114657019629499560}
   - component: {fileID: 114519336054802424}
+  - component: {fileID: 5450103106808102097}
+  - component: {fileID: 8501849514702967660}
   m_Layer: 0
   m_Name: Cate_10
   m_TagString: Untagged
@@ -5089,10 +5392,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 90, y: -12.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114657019629499560
 MonoBehaviour:
@@ -5168,6 +5471,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &5450103106808102097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323407778299958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8501849514702967660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323407778299958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5450103106808102097}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1324438610125216
 GameObject:
   m_ObjectHideFlags: 0
@@ -7529,6 +7873,8 @@ GameObject:
   - component: {fileID: 224454337346942092}
   - component: {fileID: 114016312014228736}
   - component: {fileID: 114735717450952118}
+  - component: {fileID: 2498897169431881172}
+  - component: {fileID: 6408982940873792277}
   m_Layer: 0
   m_Name: Cate_09
   m_TagString: Untagged
@@ -7553,10 +7899,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 552.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114016312014228736
 MonoBehaviour:
@@ -7632,6 +7978,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &2498897169431881172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453416170712760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6408982940873792277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453416170712760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2498897169431881172}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1454043160067372
 GameObject:
   m_ObjectHideFlags: 0
@@ -9436,6 +9823,8 @@ GameObject:
   - component: {fileID: 224004467119925194}
   - component: {fileID: 114468584486197468}
   - component: {fileID: 114446445854032366}
+  - component: {fileID: 6455639390408293050}
+  - component: {fileID: 6414957141545248404}
   m_Layer: 0
   m_Name: Cate_06
   m_TagString: Untagged
@@ -9460,10 +9849,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 30, y: -37.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114468584486197468
 MonoBehaviour:
@@ -9539,6 +9928,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &6455639390408293050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553111661098458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6414957141545248404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553111661098458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6455639390408293050}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1557869978094416
 GameObject:
   m_ObjectHideFlags: 0
@@ -11963,6 +12393,8 @@ GameObject:
   - component: {fileID: 224658199100974400}
   - component: {fileID: 114697910548835422}
   - component: {fileID: 114928333249780550}
+  - component: {fileID: 7852177781646094495}
+  - component: {fileID: 3387997886133145568}
   m_Layer: 0
   m_Name: Cate_07
   m_TagString: Untagged
@@ -11987,10 +12419,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 422.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114697910548835422
 MonoBehaviour:
@@ -12066,6 +12498,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &7852177781646094495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738497418794026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3387997886133145568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738497418794026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7852177781646094495}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1744493194859508
 GameObject:
   m_ObjectHideFlags: 0
@@ -12077,6 +12550,8 @@ GameObject:
   - component: {fileID: 224656542770420372}
   - component: {fileID: 114612059709134090}
   - component: {fileID: 114485260153288382}
+  - component: {fileID: 4834032452427581618}
+  - component: {fileID: 2675491235299044856}
   m_Layer: 0
   m_Name: Cate_04
   m_TagString: Untagged
@@ -12101,10 +12576,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 227.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114612059709134090
 MonoBehaviour:
@@ -12180,6 +12655,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &4834032452427581618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744493194859508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2675491235299044856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744493194859508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4834032452427581618}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1753375240737002
 GameObject:
   m_ObjectHideFlags: 0
@@ -12613,7 +13129,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.000036001205}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -3, y: 20}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &114737824581341022
 MonoBehaviour:
@@ -12804,6 +13320,8 @@ GameObject:
   - component: {fileID: 224508601965023438}
   - component: {fileID: 114952801950424990}
   - component: {fileID: 114306363600538044}
+  - component: {fileID: 736591682213700347}
+  - component: {fileID: 1231741729379173510}
   m_Layer: 0
   m_Name: Cate_09
   m_TagString: Untagged
@@ -12828,10 +13346,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 210, y: -37.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114952801950424990
 MonoBehaviour:
@@ -12907,6 +13425,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &736591682213700347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797729327240364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1231741729379173510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797729327240364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 736591682213700347}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1800233323417258
 GameObject:
   m_ObjectHideFlags: 0
@@ -13607,6 +14166,8 @@ GameObject:
   - component: {fileID: 224429551393386892}
   - component: {fileID: 114465138363700454}
   - component: {fileID: 114729129039378108}
+  - component: {fileID: 2265734112116001824}
+  - component: {fileID: 4349402606626468788}
   m_Layer: 0
   m_Name: Cate_02
   m_TagString: Untagged
@@ -13631,10 +14192,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -12.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114465138363700454
 MonoBehaviour:
@@ -13710,6 +14271,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &2265734112116001824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820795587509422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4349402606626468788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820795587509422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2265734112116001824}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1832059694290656
 GameObject:
   m_ObjectHideFlags: 0
@@ -13956,6 +14558,8 @@ GameObject:
   - component: {fileID: 224487802148183564}
   - component: {fileID: 114994282165297500}
   - component: {fileID: 114850875081322702}
+  - component: {fileID: 8812241972823119303}
+  - component: {fileID: 5556527507878913808}
   m_Layer: 0
   m_Name: Cate_04
   m_TagString: Untagged
@@ -13980,10 +14584,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 210, y: -12.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114994282165297500
 MonoBehaviour:
@@ -14059,6 +14663,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &8812241972823119303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854439147298386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5556527507878913808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854439147298386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8812241972823119303}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1867644786083056
 GameObject:
   m_ObjectHideFlags: 0
@@ -14487,6 +15132,8 @@ GameObject:
   - component: {fileID: 224480194230572618}
   - component: {fileID: 114161557884045436}
   - component: {fileID: 114479647151103980}
+  - component: {fileID: 7977231072241522448}
+  - component: {fileID: 4466104570439743742}
   m_Layer: 0
   m_Name: Cate_08
   m_TagString: Untagged
@@ -14511,10 +15158,10 @@ RectTransform:
   m_Father: {fileID: 224855031186832538}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -37.5}
+  m_SizeDelta: {x: 60, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114161557884045436
 MonoBehaviour:
@@ -14590,6 +15237,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &7977231072241522448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886664748706582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4466104570439743742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886664748706582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7977231072241522448}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1890383654660672
 GameObject:
   m_ObjectHideFlags: 0
@@ -14835,6 +15523,8 @@ GameObject:
   - component: {fileID: 224786576361586298}
   - component: {fileID: 114903693452835020}
   - component: {fileID: 114788546209277358}
+  - component: {fileID: 385438352277006733}
+  - component: {fileID: 4545800438560063973}
   m_Layer: 0
   m_Name: Cate_10
   m_TagString: Untagged
@@ -14859,10 +15549,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 97.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114903693452835020
 MonoBehaviour:
@@ -14938,6 +15628,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &385438352277006733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903047586627982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4545800438560063973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903047586627982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 385438352277006733}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1904873385361952
 GameObject:
   m_ObjectHideFlags: 0
@@ -16004,6 +16735,8 @@ GameObject:
   - component: {fileID: 224000790570945272}
   - component: {fileID: 114999215725108642}
   - component: {fileID: 114292507524834420}
+  - component: {fileID: 3028826198462151987}
+  - component: {fileID: 3516313143585635516}
   m_Layer: 0
   m_Name: Cate_06
   m_TagString: Untagged
@@ -16028,10 +16761,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 357.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114999215725108642
 MonoBehaviour:
@@ -16107,6 +16840,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &3028826198462151987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940449346411122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3516313143585635516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940449346411122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3028826198462151987}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1944762016968682
 GameObject:
   m_ObjectHideFlags: 0
@@ -16351,7 +17125,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -16586,6 +17360,8 @@ GameObject:
   - component: {fileID: 224633329413829856}
   - component: {fileID: 114026577046003148}
   - component: {fileID: 114204013526876920}
+  - component: {fileID: 5149807359196321760}
+  - component: {fileID: 3672703525224120566}
   m_Layer: 0
   m_Name: Cate_02
   m_TagString: Untagged
@@ -16610,10 +17386,10 @@ RectTransform:
   m_Father: {fileID: 224895237601774266}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 162.5, y: -12.5}
-  m_SizeDelta: {x: 65, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114026577046003148
 MonoBehaviour:
@@ -16689,6 +17465,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   se_sound_ON: 0
+--- !u!114 &5149807359196321760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981049885749964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65644495a9f2c044887412348048a5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3672703525224120566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981049885749964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5149807359196321760}
+          m_TargetAssemblyTypeName: ButtonAnimTrigger, Assembly-CSharp
+          m_MethodName: OnEnterAnim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1993689418220860
 GameObject:
   m_ObjectHideFlags: 0

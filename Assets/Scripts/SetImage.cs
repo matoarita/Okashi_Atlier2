@@ -1739,6 +1739,11 @@ public class SetImage : MonoBehaviour
                     break;
             }
 
+            if(item_type_sub_category == "Original")
+            {
+                DrawTasteWindow2();
+            }
+
             //回数表示がついてたら、パラメータを表示する。
             if(_attri6 > 0)
             {
@@ -1791,6 +1796,7 @@ public class SetImage : MonoBehaviour
     {
         Card_param_obj.SetActive(true);
         Card_param_obj2.SetActive(false);
+
     }
 
 

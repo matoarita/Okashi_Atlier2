@@ -1093,7 +1093,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemType == "Okashi")
                     {
-                        if (check_itemType_sub != "IceCream" && check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Bread")
+                        if (check_itemType_sub != "IceCream" && check_itemType_sub != "IceCreamCake" && check_itemType_sub != "IceCandy" && 
+                            check_itemType_sub != "Tea" && check_itemType_sub != "Coffee" && check_itemType_sub != "Bread")
                         {
                             if (check_itemType_subB != "a_FreezeJelly") //すでに冷凍したものはダメ
                             {

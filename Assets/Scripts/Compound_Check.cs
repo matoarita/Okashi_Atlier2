@@ -1858,7 +1858,7 @@ public class Compound_Check : MonoBehaviour {
         }
     }
 
-    //特定のアイテムかを判定 特別演出が発生する
+    //特定のアイテムかを判定 特別演出が発生する　レシピ解放時じゃないと発生しない
     void SpecialEnshutu_DB()
     {
         foreach(string items in GameMgr.SPEnshutu_itemlist.Keys)

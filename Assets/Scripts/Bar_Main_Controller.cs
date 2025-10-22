@@ -60,6 +60,7 @@ public class Bar_Main_Controller : MonoBehaviour {
     private GameObject shopon_toggle_quest;
     private GameObject shopon_toggle_uwasa;
     private GameObject shopon_toggle_present;
+    private GameObject shopon_toggle_spevent;
     private GameObject shopon_toggle_back;
 
     private bool check_event;
@@ -145,6 +146,8 @@ public class Bar_Main_Controller : MonoBehaviour {
         shopon_toggle_uwasa = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Uwasa").gameObject;
         shopon_toggle_present = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Present").gameObject;
         shopon_toggle_present.SetActive(false);
+        shopon_toggle_spevent = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_SPEvent").gameObject;
+        shopon_toggle_spevent.SetActive(false);
         shopon_toggle_back = shop_select.transform.Find("Viewport/Content/ShopOn_Toggle_Back").gameObject;
         backshopfirst_obj = canvas.transform.Find("Back_ShopFirst").gameObject;
         backshopfirst_obj.SetActive(false);
@@ -455,10 +458,19 @@ public class Bar_Main_Controller : MonoBehaviour {
             case "Or_Bar_A1": //ルーティ
 
                 //あるクエスト以降、お菓子わたせる。
-                if (GameMgr.NPC_FriendPoint[40] >= 70)
+                if(GameMgr.Or_ShopEvent_stage[107])
                 {
-                    shopon_toggle_present.SetActive(true);
+                    shopon_toggle_present.SetActive(false);
+                    shopon_toggle_spevent.SetActive(true);
                 }
+                else
+                {
+                    if (GameMgr.NPC_FriendPoint[40] >= 70)
+                    {
+                        shopon_toggle_present.SetActive(true);
+                    }
+                }
+                
 
                 shopon_toggle_talk.SetActive(true);
                 shopon_toggle_uwasa.SetActive(true);                
@@ -806,7 +818,13 @@ public class Bar_Main_Controller : MonoBehaviour {
                 case "Or_Bar_A1": //ルーティさん
 
                     GameMgr.talk_number = 1000;
+                    GameMgr.sub_talk_number = 0;
                     GameMgr.chara_talk_number = PlayerStatus.player_cullent_day % 3; //0~2までを繰り返す。はず
+
+                    if (GameMgr.Or_ShopEvent_stage[107]) //ムーンバナナあげたあと、ばななについてのセリフが少し変わる
+                    {
+                        GameMgr.sub_talk_number = 1;
+                    }
 
                     //マッサージポイントで、マッサージしてくれるかどうか変わる
                     if (GameMgr.NPC_pahupahu_point >= 10)
@@ -1014,6 +1032,51 @@ public class Bar_Main_Controller : MonoBehaviour {
 
             StartCoroutine("UtageEndWait");
 
+        }
+    }
+
+    public void OnCheck_SPEvent() //イベント関連で特定のボタン　ルーティのバナナフェスへ行く
+    {
+        if (shopon_toggle_spevent.GetComponent<Toggle>().isOn == true)
+        {
+            shopon_toggle_spevent.GetComponent<Toggle>().isOn = false; //isOnは元に戻しておく。
+
+            GameMgr.Scene_Status = 50; //クエストを押したときのフラグ
+            GameMgr.Scene_Select = 50;
+
+            GameMgr.scenario_ON = true; //これがONのときは、シナリオを優先する。
+            GameMgr.talk_flag = true;
+
+            GameMgr.utage_charaHyouji_flag = true;
+
+            switch (GameMgr.Scene_Name)
+            {
+                case "Bar_Grt":
+
+                    break;
+
+                case "Or_Bar_A1": //ルーティさん
+
+                    GameMgr.talk_number = 1510;                   
+                    break;
+
+                case "Or_Bar_B1":
+
+                    //GameMgr.talk_number = 2500;
+                    break;
+
+                case "Or_Bar_C1": //アプリコットのお姉さん
+
+                    //GameMgr.talk_number = 3500;
+                    break;
+
+                case "Or_Bar_D1":
+
+                    //GameMgr.talk_number = 4500;
+                    break;
+            }
+
+            StartCoroutine("UtageEndWait");
         }
     }
 

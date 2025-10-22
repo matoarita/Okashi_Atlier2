@@ -677,7 +677,7 @@ public class Contest_Judge : MonoBehaviour {
                 {
                     case 1:
 
-                        _score_hosei = 150;
+                        _score_hosei = 125;
 
                         if (GameMgr.ContestThemeSelectNum == 0) //焼き菓子のみ　クッキー　ラスク　マフィン　フィナンシェ
                         {
@@ -723,7 +723,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     case 2:
 
-                        _score_hosei = 175;
+                        _score_hosei = 150;
 
                         if (GameMgr.ContestThemeSelectNum == 0)  //ひとつは光魔法を使ったおかし
                         {
@@ -771,7 +771,8 @@ public class Contest_Judge : MonoBehaviour {
                         {
                             if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                             {
-                                if (item_subType == "IceCream" || item_subType == "Parfe" || item_subType == "Jelly" || item_subTypeB == "a_CookieIce")
+                                if (item_subType == "IceCream" || item_subType == "IceCreamCake" || item_subType == "IceCandy" || 
+                                    item_subType == "Parfe" || item_subType == "Jelly" || item_subTypeB == "a_CookieIce")
                                 {
                                     judge_flag = true;
                                 }
@@ -2015,7 +2016,7 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score8[i] = 20; //芸術性の値が最低20は必要 足りない場合、-数値*5倍 + -30 最大の減点が-130点
+                        girl1_status.girl1_SP_Score8[i] = 40; //芸術性の値が最低20は必要 足りない場合、-数値*5倍 + -30 最大の減点が-130点
                     }
                     GameMgr.contest_SPJudgeCommentNum = 8; //コンテストコメント番号
 

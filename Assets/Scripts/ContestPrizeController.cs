@@ -348,9 +348,9 @@ public class ContestPrizeController : MonoBehaviour
         //エデンコンの場合、初出場かそうでないかをチェック
         conteststartList_database.EdenFirstVictoryCheck(GameMgr.Contest_Name);
 
-        if (GameMgr.EdenPrizeChange) //該当コンテスト　賞品が切り替わる
+        if (GameMgr.EdenPrizeChange) //エデンに該当する場合　賞品名表示が切り替わる
         {
-            if (GameMgr.EdenFirstVictory) //現在エデンコンは表示が???に。
+            if (GameMgr.EdenFirstVictory) //エデンコンは一回戦で負けて二回戦以降の表示 ???
             {
                 if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1] != "Non")
                 {
@@ -366,8 +366,8 @@ public class ContestPrizeController : MonoBehaviour
             {
                 if (GameMgr.PrizeItemSecond != "Non")
                 {
-                    //HyoujiPlayerItem(GameMgr.PrizeItemSecond);
                     _name = "???";
+                    //HyoujiPlayerItem(GameMgr.PrizeItemSecond);
                 }
                 else
                 {

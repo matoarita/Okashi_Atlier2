@@ -372,7 +372,7 @@ public class MagicSkillListController : MonoBehaviour
                 skillExtextAnim[i].ResetStartPos();
                 skillExtext[i].text = "風の魔法は少し特殊！　形を自由に作れるよ！　ふわふわのお菓子に強い！";
             }
-            _text_comp.text = "風の魔法は少し特殊！　形を自由に作れるよ！" + "\n" + "クレープ・ケーキ・チョコレートのお菓子が得意だよ！";
+            _text_comp.text = "風の魔法は少し特殊！　形を自由に作れるよ！" + "\n" + "クレープ・ケーキのお菓子が得意だよ！";
         }
     }
 
@@ -405,9 +405,9 @@ public class MagicSkillListController : MonoBehaviour
             for (i = 0; i < skillExtext.Length; i++)
             {
                 skillExtextAnim[i].ResetStartPos();
-                skillExtext[i].text = "森の魔法は、いろんな植物や木のお菓子を作ったりできるよ！";
+                skillExtext[i].text = "森の魔法は、ポーションを作ったり、材料を変化できるよ！";
             }
-            _text_comp.text = "森の魔法は、いろんな植物や木のお菓子を作ったりできるよ！";
+            _text_comp.text = "森の魔法は、ポーションを作ったり、材料を変化できるよ！";
         }
     }
 
