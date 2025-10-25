@@ -1438,7 +1438,7 @@ public class SetImage : MonoBehaviour
                 break;
         }
 
-
+        item_Shokukan.text = "-";
         item_Shokukan_Type.text = "";
 
         //サブカテゴリーを検出し、subCategoryの内容に、日本語名で入力
@@ -1476,7 +1476,6 @@ public class SetImage : MonoBehaviour
 
                 Tea_Text();
                 break;
-
 
             case 90: //食感
 

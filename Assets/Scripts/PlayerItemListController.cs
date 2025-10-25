@@ -1462,9 +1462,24 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
             case "Dreamy_Sapphire":
 
-                if (check_itemName == "sapphire_suger" || check_itemName == "lumi_sapphire_suger")
+                _lv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
+
+                if (_lv == 1)
                 {
-                    itemlist_hyouji_Check(check_itemListType, 1);
+                    if (check_itemName == "sapphire_suger" || check_itemName == "lumi_sapphire_suger")
+                    {
+                        itemlist_hyouji_Check(check_itemListType, 1);
+                    }
+                }
+                else if (_lv >= 2)
+                {
+                    if (check_itemType_sub == "Suger")
+                    {
+                        if (check_itemType_subB != "a_SugerSimple") //シンプルな砂糖は光らせれない
+                        {
+                            itemlist_hyouji_Check(check_itemListType, 0);
+                        }
+                    }
                 }
                 break;
 

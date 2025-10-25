@@ -3529,7 +3529,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //NPC白クジラ　宴の処理へ
         GameMgr.hiroba_event_placeNum = 1280; //
 
-        if (!GameMgr.NPCHiroba_eventList[260]) //はじめて　学長に会っていないと、「・・・」で話が進まない？
+        if (!GameMgr.NPCHiroba_eventList[260]) //はじめて
         {
             GameMgr.NPCHiroba_eventList[260] = true;
 
@@ -3563,6 +3563,8 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                         //matplace_database.ReSetMapFlagString("DreamEater_Swamp", 1); //ゆめくいぬま発見
 
                         check_event = true;
+
+                        GameMgr.OsotoIttazoFlag = false;　//イベントあったあとは、お外フラグをオフにしとく。
                     }
                     else
                     {
@@ -3573,27 +3575,50 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                     }
                 }
                 else
-                { //すでに夢喰い沼の場所を教えてくれてる
+                { 
+                    //すでに夢喰い沼の場所を教えてくれてる
 
-
-                    //まだブラックロータスをゲットしてないなら、再度ゆめくいぬまの場所を教えてくれる。
-                    if (!GameMgr.GirlLoveSubEvent_stage1[405])
+                    if (!GameMgr.NPCHiroba_eventList[272])
                     {
-                        GameMgr.hiroba_event_ID = 101;
+                        //まだブラックロータスをゲットしてないなら、再度ゆめくいぬまの場所を教えてくれる。
+                        if (!GameMgr.GirlLoveSubEvent_stage1[405])
+                        {
+                            GameMgr.hiroba_event_ID = 101;
 
-                        check_event = true;
+                            check_event = true;
+                        }
+                        else
+                        {
+                            //ゲット済なら、セリフが変わる　このタイミングで、ハートレシピと真実のハートを教えてくれる
+                            GameMgr.hiroba_event_ID = 103;
+                            GameMgr.NPCHiroba_eventList[272] = true;
+                            check_event = true;
+
+                            //BGMかえる
+                            sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                            bgm_change_flag = true;
+
+                            ev_id = pitemlist.Find_eventitemdatabase("mg_TrueofMyheart_book");
+                            pitemlist.add_eventPlayerItem(ev_id, 1); //真実のハート魔法を追加
+
+                            //最後のエデンレシピ「ハートのレシピ」をゲット
+                            ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_05");
+                            pitemlist.add_eventPlayerItem(ev_id, 1); //最後のエデンレシピを追加
+
+                            GameMgr.OsotoIttazoFlag = false;　//イベントあったあとは、お外フラグをオフにしとく。
+                        }
                     }
                     else
                     {
-                        //ゲット済なら、セリフが変わる
+                        //最後のレシピと真実のハートを教えてくれたあと
 
-                        GameMgr.hiroba_event_ID = 103;
-
+                        GameMgr.hiroba_event_ID = 120;
                         check_event = true;
                     }
 
 
                     //エデンを一回食べたことがある　満月の夜に食べるとよいと、教えてくれる。
+                    //110~番台　現在は未使用
                     /*if (GameMgr.GirlLoveSubEvent_stage1[600])
                     {
                         if (!GameMgr.NPCHiroba_eventList[271])

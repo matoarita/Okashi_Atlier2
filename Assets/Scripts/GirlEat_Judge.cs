@@ -5553,15 +5553,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
             case 100400:
 
-                //女王様に会う
-                if (GameMgr.NPCHiroba_eventList[1510])
+                //白クジラに会う 白クジラは、ハートをエデン必要LVまであげて、夢喰い沼を教えてもらうまで＋睡蓮をゲットしたあともう一度会話し、最後のレシピをもらうまで
+                if (GameMgr.NPCHiroba_eventList[272])
+                {
+                    Debug.Log("白クジラと会い、真実のハートと最後のレシピをもらう　クエストクリア");
+                    sp_quest_clear = true;
+                }
+
+                //女王様に会う　廃止
+                /*if (GameMgr.NPCHiroba_eventList[1510])
                 {
                     Debug.Log("女王様と会う、クエストクリア");
                     sp_quest_clear = true;
-                }
+                }*/
                 break;
 
-            case 100410:
+            /*case 100410:
 
                 //白クジラに会う 白クジラは、ハートをエデン必要LVまであげて、夢喰い沼を教えてもらうまでが条件
                 if (GameMgr.NPCHiroba_eventList[270])
@@ -5569,7 +5576,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                     Debug.Log("白クジラと会う、クエストクリア");
                     sp_quest_clear = true;
                 }
-                break;
+                break;*/
 
         }
 

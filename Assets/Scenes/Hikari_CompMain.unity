@@ -442518,6 +442518,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HintTaste_Toggle
       objectReference: {fileID: 0}
+    - target: {fileID: 1252146778393580980, guid: 7f7215b952c6e824f862505529939f3e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1252146778393580981, guid: 7f7215b952c6e824f862505529939f3e,
         type: 3}
       propertyPath: m_Pivot.x

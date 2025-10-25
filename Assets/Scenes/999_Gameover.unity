@@ -106419,6 +106419,11 @@ MonoBehaviour:
   sound73: {fileID: 0}
   sound74: {fileID: 0}
   sound75: {fileID: 0}
+  sound76: {fileID: 0}
+  sound77: {fileID: 0}
+  sound78: {fileID: 0}
+  sound79: {fileID: 0}
+  sound80: {fileID: 0}
   sound1000: {fileID: 0}
   Ambient1: {fileID: 0}
   Ambient2: {fileID: 0}
@@ -124735,11 +124740,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Game Over -'
+  m_text: Game Over
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5f87cf904bf353f4293a270580ce2c16, type: 2}
-  m_sharedMaterial: {fileID: 8438164987929581884, guid: 5f87cf904bf353f4293a270580ce2c16,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b088896a848bede4b9f61fadb68173d2, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 5260003154db8674189ecdd3dab90703, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

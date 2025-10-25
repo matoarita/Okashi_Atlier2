@@ -572,7 +572,25 @@ public class NPC_Catsle_Main : MonoBehaviour
     {
         if (!check_event)
         {
-            if (GameMgr.NPCHiroba_eventList[1510]) //すでに真実のハートを教えてもらった
+
+            if (GameMgr.NPCHiroba_eventList[1500]) //はじめて城へきたイベント終了後の会話　ほかにフラグもたってない場合はここがデフォルト
+            {
+                GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
+                GameMgr.hiroba_event_ID = 101;
+                GameMgr.hiroba_event_flag = true;
+                //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
+
+                //BGMかえる
+                //sceneBGM.FadeOutBGM(GameMgr.System_default_sceneFadeBGMTime);
+                //bgm_change_flag = true;
+
+                check_event = true;
+
+                EventReadingStart();
+            }
+
+            //こっちは、プラトン先生から真実のハートを教えてもらうバージョン　現在は白クジラさんに以降したので廃止
+            /*if (GameMgr.NPCHiroba_eventList[1510]) //すでに真実のハートを教えてもらった
             {
                 GameMgr.hiroba_event_placeNum = 1400; //レセプションの、主にはじめてきたときなどのイベント番号
                 GameMgr.hiroba_event_ID = 201;
@@ -604,7 +622,7 @@ public class NPC_Catsle_Main : MonoBehaviour
                         //GameMgr.utage_charaHyouji_flag = true; //宴のキャラ表示に切り替え
 
                         ev_id = pitemlist.Find_eventitemdatabase("mg_TrueofMyheart_book");
-                        pitemlist.add_eventPlayerItem(ev_id, 1); //初心者向けお菓子魔法を追加
+                        pitemlist.add_eventPlayerItem(ev_id, 1); //真実のハート魔法を追加
 
                         //最後のエデンレシピ「ハートのレシピ」をゲット
                         ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_05");
@@ -637,7 +655,7 @@ public class NPC_Catsle_Main : MonoBehaviour
                         EventReadingStart();
                     }
                 }
-            }
+            }*/
 
             if (check_event) //上でイベント発生してたら、被らないように一回チェックを外す
             { }

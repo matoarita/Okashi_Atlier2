@@ -509,7 +509,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Clear();
         GameMgr.PrizeItemList.Add("Non"); //3位
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("eden_recipi_02");
+        GameMgr.PrizeItemList.Add("trophy_spring"); //エデンレシピ獲得は、Utage_Scenarioに記述
 
         //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
@@ -517,7 +517,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(5000);
 
-        //二回目出場以降の賞品
+        //二回目出場以降の賞品　GameMgr.EdenPrizeChange=trueのときは使用可能
         GameMgr.PrizeItemSecond = "trophy_spring";
     }
 
@@ -527,7 +527,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Clear();
         GameMgr.PrizeItemList.Add("Non"); //3位
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("eden_recipi_03");
+        GameMgr.PrizeItemList.Add("trophy_summer");
 
         //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
@@ -535,7 +535,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(10000);
 
-        //二回目出場以降の賞品
+        //二回目出場以降の賞品　GameMgr.EdenPrizeChange=trueのときは使用可能
         GameMgr.PrizeItemSecond = "trophy_summer";
     }
 
@@ -545,7 +545,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Clear();
         GameMgr.PrizeItemList.Add("Non"); //3位
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("eden_recipi_04");
+        GameMgr.PrizeItemList.Add("trophy_autumn");
 
         //賞金リスト
         GameMgr.PrizeGetMoneyList.Clear();
@@ -553,7 +553,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeGetMoneyList.Add(0);
         GameMgr.PrizeGetMoneyList.Add(10000);
 
-        //二回目出場以降の賞品
+        //二回目出場以降の賞品　GameMgr.EdenPrizeChange=trueのときは使用可能
         GameMgr.PrizeItemSecond = "trophy_autumn";
     }
     //

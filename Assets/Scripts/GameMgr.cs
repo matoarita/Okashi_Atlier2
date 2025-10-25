@@ -76,10 +76,12 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_ContestStarGet_ON = true; //コンテストで、スターが上がる仕様にする。
-    public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
-    public static bool System_ContestEdenFinalStart_ON = false; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦
+    public static bool System_ContestEdenFinalStart_ON = false; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦   
     public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　CompoundMain→GirlEat_Judgeで発生　trueなら、採点パネル表示前 falseなら後
-   
+
+    public static bool System_ContestGameOver_ON = true; //エデンコンテストで負けた場合、ゲームオーバー画面にいく　下がfalseならこっちはtrueにすること。会話の繋がりがおかしくなる。
+    public static bool System_ContestEdenFirstVictoryGet = false; //エデンコンテスト　trueだと、初出場か二回目以降で勝った場合に、敵キャラとの会話の発生。falseなら必ず敵キャラと会話。
+
     public static bool CompoBGMCHANGE_ON = false; //調合シーンでBGM切り替えるかどうかのフラグ 
     public static bool GetMatBGMCHANGE_ON = true; //採取地画面でBGM切り替えるかのフラグ    
     public static bool MainBGMChange_HeartLV = false; //ゲームの進行度でBGMを切り替えるか、ハートLVで切り替えるかの選択 trueならハートLVに応じてBGMが変わる ２では未使用
@@ -169,7 +171,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string System_MagicEXPName = "魔法経験値";
 
     //真実のハートのハート消費量 Exp_Controllerで成功判定　ハートの魔法時のハート消費も、Exp_Controllerで処理
-    public static int System_trueheart_cost = 5000;
+    public static int System_trueheart_cost = 3000;
 
     //ゴンドラ乗り場の料金
     public static int System_gondra_cost = 5000;    
@@ -504,6 +506,22 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int contest_sour_param; //
     public static int contest_bitter_param; //
     public static Item contest_okashi_ItemData;
+
+    //ゲームオーバー時にコンテスト提出したおかしを一時保存する用 リセットをしない
+    public static int GmO_contest_TotalScore;
+    public static string GmO_contest_okashiName;
+    public static string GmO_contest_okashiNameHyouji;
+    public static string GmO_contest_okashiSlotName;
+    public static int GmO_contest_okashiID;
+    public static string GmO_contest_lasthint_text; //
+    public static bool GmO_contest_last_Disqualification; //課題のおかしでないため失格した場合　保存用
+    public static int GmO_contest_shokukan_param; //
+    public static string GmO_contest_shokukan_mes; //
+    public static int GmO_contest_sweat_param; //
+    public static int GmO_contest_sour_param; //
+    public static int GmO_contest_bitter_param; //
+    public static bool GameOverLoadFlag = false; //ゲームオーバー画面へ行き、ロードしたよのフラグ　リセットする　
+
 
     public static bool contest_summer_edenVitory; //エデン夏コン優勝
     public static bool contest_autumn_edenVitory; //エデン秋コン優勝
@@ -913,7 +931,10 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static string Contest_ProblemSentence2; //コンテストの課題の内容
     public static string Contest_HallBGName; //コンテストの会場背景の指定　stringで
     public static string Contest_ChubouBGName; //コンテストの会場厨房背景の指定　stringで
+    public static string Contest_HallBGNameFinal; //決勝戦コンテストの会場背景の指定　stringで
+    public static string Contest_ChubouBGNameFinal; //決勝戦コンテストの会場厨房背景の指定　stringで
     public static string Contest_BGMSelect; //コンテスト制作中のBGMの指定
+    public static string Contest_BGMSelectFinal; //決勝戦コンテスト制作中のBGMの指定
     public static int Contest_BGMSelectHall; //コンテスト　スタート時会場のBGMの指定
     public static int Contest_DB_list_Type; //コンテスト番号に応じた、判定番号を指定
     public static int Contest_commentDB_Select; //番号に応じて、コメントのDBを指定

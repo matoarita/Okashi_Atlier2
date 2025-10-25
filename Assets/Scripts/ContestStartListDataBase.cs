@@ -791,6 +791,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
         GameMgr.contest_boss_score = 157; //
         GameMgr.contest_boss_name = "ハーマイオニー";
+
+        //決勝戦の場所とBGMを指定
+        GameMgr.Contest_HallBGNameFinal = GameMgr.Contest_HallBGName;
+        GameMgr.Contest_ChubouBGNameFinal = GameMgr.Contest_ChubouBGName;
+        GameMgr.Contest_BGMSelectFinal = GameMgr.Contest_BGMSelect;
     }
 
     void ContestData_020()
@@ -816,7 +821,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 162; //一回戦相手の点数
+                GameMgr.contest_boss_score = 145; //一回戦相手の点数
                 break;
 
             case 1:
@@ -831,7 +836,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 162; //
+                GameMgr.contest_boss_score = 145; //
                 break;
 
             case 2:
@@ -846,7 +851,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 162; //
+                GameMgr.contest_boss_score = 145; //
                 break;
         }
 
@@ -922,7 +927,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 252; //
+                GameMgr.contest_boss_score = 232; //
                 break;
         }
 
@@ -941,8 +946,13 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 576; //点数が等倍なので高い
+        GameMgr.contest_boss_score = 252; //点数が等倍なので高い
         GameMgr.contest_boss_name = "イセヤ";
+
+        //決勝戦の場所とBGMを指定
+        GameMgr.Contest_HallBGNameFinal = "h110";
+        GameMgr.Contest_ChubouBGNameFinal = "t110";
+        GameMgr.Contest_BGMSelectFinal = "sound80";
     }
 
     void ContestData_040()
@@ -1019,7 +1029,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 240; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 358; //一回戦相手の点数
+                GameMgr.contest_boss_score = 208; //一回戦相手の点数
                 break;
         }
 
@@ -1067,7 +1077,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 352; //
+                GameMgr.contest_boss_score = 312; //
 
                 break;
 
@@ -1099,7 +1109,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 462; //
+                GameMgr.contest_boss_score = 352; //
 
                 break;
         }
@@ -1122,6 +1132,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
         GameMgr.contest_boss_score = 538; //
         GameMgr.contest_boss_name = "ベル";
+
+        //決勝戦の場所とBGMを指定
+        GameMgr.Contest_HallBGNameFinal = GameMgr.Contest_HallBGName;
+        GameMgr.Contest_ChubouBGNameFinal = GameMgr.Contest_ChubouBGName;
+        GameMgr.Contest_BGMSelectFinal = "sound73";
     }
 
     void ContestData_060()
@@ -1174,6 +1189,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
 
         GameMgr.contest_boss_score = 333; //
         GameMgr.contest_boss_name = "シュバルツヴェルダー";
+
+        //決勝戦の場所とBGMを指定
+        GameMgr.Contest_HallBGNameFinal = GameMgr.Contest_HallBGName;
+        GameMgr.Contest_ChubouBGNameFinal = GameMgr.Contest_ChubouBGName;
+        GameMgr.Contest_BGMSelectFinal = "sound73";
     }
 
     //
@@ -1959,38 +1979,46 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         {
             case "Or_Contest_001": //春コン
 
-                //ハーマイオニーはいくら負けても、大会優勝時にエデンゲット
-                GameMgr.EdenPrizeChange = true;
-                GameMgr.EdenFirstVictory = true;
-                //FirstVictoryCheck(_contestName);
+                //ハーマイオニーは優勝時にトロフィーを獲得し、トロフィーにレシピが隠されているのを発見　先生たちは気づいてない設定
+                FirstVictoryCheck(_contestName);
                 break;
 
             case "Or_Contest_002": //夏コン
 
-                GameMgr.EdenPrizeChange = true;
                 FirstVictoryCheck(_contestName);
                 break;
 
             case "Or_Contest_003": //秋コン
 
-                GameMgr.EdenPrizeChange = true;
                 FirstVictoryCheck(_contestName);
                 break;
         }
     }
 
     void FirstVictoryCheck(string _contestName)
-    {        
-        if (ContestName_FightCount(_contestName) <= 1) //初出場
+    {
+        if (GameMgr.System_ContestEdenFirstVictoryGet) //初試合で勝った場合、NPCとの会話がなくそのままエデンレシピもらえる場合
         {
-            if (GameMgr.contest_Rank_Count == 1) //優勝した場合　そのままエデンレシピもらう　かつ　コンテスト終了後の敵キャラの会話がスキップ
+            GameMgr.EdenPrizeChange = true;
+
+            //コンテストの優勝賞品でエデンレシピをもらう設定の場合      現在は、そっちじゃなく必ず会話が発生     
+            if (ContestName_FightCount(_contestName) <= 1) //初出場
             {
-                GameMgr.EdenFirstVictory = true;
+                if (GameMgr.contest_Rank_Count == 1) //優勝した場合　そのままエデンレシピもらう　かつ　コンテスト終了後の敵キャラの会話がスキップ
+                {
+                    GameMgr.EdenFirstVictory = true;
+                }
+            }
+            else //二回目以降
+            {
+                //もらえるアイテムがレシピでない　かつ　コンテスト終了後の敵キャラの会話でエデンもらえる
+                GameMgr.EdenFirstVictory = false;
             }
         }
-        else //二回目以降
+        else
         {
-            //もらえるアイテムがレシピでない　かつ　コンテスト終了後の敵キャラの会話でエデンもらえる
+            //初試合は関係なく、優勝したら、キャラから直接もらうという設定
+            GameMgr.EdenPrizeChange = false;
             GameMgr.EdenFirstVictory = false;
         }
     }

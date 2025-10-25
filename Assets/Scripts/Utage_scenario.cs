@@ -2356,8 +2356,9 @@ public class Utage_scenario : MonoBehaviour
 
         //ここで、宴のパラメータ設定
         engine.Param.TrySetParameter("SpOkashiBefore_num", sp_Okashi_ID);
+        engine.Param.TrySetParameter("WhiteWhale_FirstFlag", GameMgr.NPCHiroba_eventList[260]); //白クジラさんに会っているか否か
 
-        if(GameMgr.contest_autumn_edenVitory)
+        if (GameMgr.contest_autumn_edenVitory)
         {
             engine.Param.TrySetParameter("EdenAutumn_VictoryFlag", 1); //さきに秋コンを優勝した
         }
@@ -5488,9 +5489,36 @@ public class Utage_scenario : MonoBehaviour
         //ランクを更新
         PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param);
 
-        //エデンレシピをもらう エデンコン二回目以降で、敵からもらう場合
-        if(GameMgr.EdenPrizeChange && !GameMgr.EdenFirstVictory)
+        if (GameMgr.System_ContestEdenFirstVictoryGet) //
         {
+            //エデンレシピをもらう エデンコン二回目以降で、敵からもらう場合
+            /*if(GameMgr.EdenPrizeChange && !GameMgr.EdenFirstVictory)
+            {
+                switch (GameMgr.Contest_Name)
+                {
+                    case "Or_Contest_001": //春コン
+
+                        ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_02");
+                        pitemlist.add_eventPlayerItem(ev_id, 1);
+                        break;
+
+                    case "Or_Contest_002": //夏コン
+
+                        ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_03");
+                        pitemlist.add_eventPlayerItem(ev_id, 1);
+                        break;
+
+                    case "Or_Contest_003": //秋コン
+
+                        ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_04");
+                        pitemlist.add_eventPlayerItem(ev_id, 1);
+                        break;
+                }
+            }*/
+        }
+        else //優勝したら必ずレシピもらえる　初試合とかは関係なし
+        {
+
             switch (GameMgr.Contest_Name)
             {
                 case "Or_Contest_001": //春コン
@@ -5511,6 +5539,7 @@ public class Utage_scenario : MonoBehaviour
                     pitemlist.add_eventPlayerItem(ev_id, 1);
                     break;
             }
+
         }
 
         scenario_loading = false; //シナリオを読み終わったので、falseにし、updateを読み始める。

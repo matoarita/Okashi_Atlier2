@@ -414,27 +414,11 @@ public class Contest_Main_OrA1 : MonoBehaviour {
             //もし、決勝戦のみで背景などを変える場合は、ここで直接指定する まだ設定してないのでひとまずoff
             if (GameMgr.ContestRoundNum == GameMgr.ContestRoundNumMax)
             {
-                switch (GameMgr.Contest_Name)
+                if (GameMgr.Contest_Name == "Or_Contest_001" || GameMgr.Contest_Name == "Or_Contest_002" || GameMgr.Contest_Name == "Or_Contest_003"
+                    || GameMgr.Contest_Name == "Or_Contest_004")
                 {
-                    case "Or_Contest_001":
-
-                        GameMgr.Contest_BGMSelect = "sound38";
-                        break;
-
-                    case "Or_Contest_002":
-
-                        GameMgr.Contest_BGMSelect = "sound80"; //sound38
-                        break;
-
-                    case "Or_Contest_003":
-
-                        GameMgr.Contest_BGMSelect = "sound73";
-                        break;
-
-                    case "Or_Contest_004":
-
-                        GameMgr.Contest_BGMSelect = "sound73";
-                        break;
+                    GameMgr.Contest_BGMSelect = GameMgr.Contest_BGMSelectFinal; //sound38
+                    ContestHall_Select(GameMgr.Contest_HallBGNameFinal, GameMgr.Contest_ChubouBGNameFinal);
                 }
             }
             
@@ -1130,7 +1114,10 @@ public class Contest_Main_OrA1 : MonoBehaviour {
         scene_black_effect.GetComponent<GraphicRaycaster>().enabled = true;
 
         //支給されたアイテムはここで削除
-        PlayerItem_Delete_Return();       
+        PlayerItem_Delete_Return();
+
+        //MPは全回復
+        PlayerStatus.player_mp = PlayerStatus.player_maxmp;
 
         StartCoroutine("WaitForGiveUpContest");
     }

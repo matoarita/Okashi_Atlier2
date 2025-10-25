@@ -2196,7 +2196,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 if (_status == 0) //甘さを変化 具体的には甘さを減らす
                 {
                     _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Dreamy_Sapphire");
-                    _magicup = -5;
+                    _magicup = -(_baseparam / 2);
 
                     _buf_shokukanup += _magicup;
                 }

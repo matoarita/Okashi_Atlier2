@@ -629,7 +629,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 40: //最後　エデンレシピそろったので、女王様あいにいく
+            case 40: //最後　エデンレシピそろったので、白クジラに会いに行く
 
                 girl1_status.OkashiQuest_ID = 100400;
                 OkashiQuest_Count = 1;
@@ -653,7 +653,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 41: //白クジラに会いに行く
+            case 41: //白クジラに会いに行く　廃止
 
                 girl1_status.OkashiQuest_ID = 100410;
                 OkashiQuest_Count = 2;

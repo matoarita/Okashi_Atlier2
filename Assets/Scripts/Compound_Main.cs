@@ -843,6 +843,25 @@ public class Compound_Main : MonoBehaviour
             character_move.transform.position = new Vector3(0f, 0, 0); //念のため、ゼロにリセット            
 
             Debug.Log("エンディング回数: " + GameMgr.ending_count);
+
+            if(GameMgr.GameOverLoadFlag) //さらに、ゲームオーバー画面から読んだ場合
+            {
+                GameMgr.GameOverLoadFlag = false;
+
+                //コンテストの提出データは更新する
+                GameMgr.contest_TotalScore = GameMgr.GmO_contest_TotalScore;
+                GameMgr.contest_okashiName = GameMgr.GmO_contest_okashiName;
+                GameMgr.contest_okashiNameHyouji = GameMgr.GmO_contest_okashiNameHyouji;
+                GameMgr.contest_okashiSlotName = GameMgr.GmO_contest_okashiSlotName;
+                GameMgr.contest_okashiID = GameMgr.GmO_contest_okashiID;
+                GameMgr.contest_lasthint_text = GameMgr.GmO_contest_lasthint_text; //
+                GameMgr.contest_last_Disqualification = GameMgr.GmO_contest_last_Disqualification; //課題のおかしでないため失格した場合　保存用
+                GameMgr.contest_shokukan_param = GameMgr.GmO_contest_shokukan_param; //
+                GameMgr.contest_shokukan_mes = GameMgr.GmO_contest_shokukan_mes; //
+                GameMgr.contest_sweat_param = GameMgr.GmO_contest_sweat_param; //
+                GameMgr.contest_sour_param = GameMgr.GmO_contest_sour_param; //
+                GameMgr.contest_bitter_param = GameMgr.GmO_contest_bitter_param;
+            }
         }
 
         //Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
