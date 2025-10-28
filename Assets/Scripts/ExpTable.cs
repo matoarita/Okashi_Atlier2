@@ -31,6 +31,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     private int _lv;
     private int _dev;
     private string _namehyouji;
+    private int _starlv;
 
     private GameObject canvas;
     private GameObject text_area;
@@ -158,6 +159,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                     //MagicLearnPanelHyouji("Bake_Beans");
                     //MagicLearnPanelHyouji("Chocolate_Tempering");
+                    ShiageUpPanelHyouji();
                     break;
 
                 case 11:
@@ -183,7 +185,7 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 15:
 
-                    ShiageUpPanelHyouji();
+                    //ShiageUpPanelHyouji();
                     break;
 
                 case 17:
@@ -203,7 +205,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
 
                 case 20:
 
+                    MagicLearnPanelHyouji("Warming_Handmade"); //下の欄の「魔法をおぼえる」のほうも更新すること
                     //girlEat_judge.LvUpPanel3(); //二種類～同時トッピングできるようになる。
+                    ShiageUpPanelHyouji();
                     break;
 
                 case 21:
@@ -211,8 +215,9 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                     //MagicLearnPanelHyouji("Magic_Soda");
                     break;
 
-                case 25: //複数個同時にのせられるようになる。パネル表記はなしで、ハートイベントなどで知らせる。
+                case 25: //おかしの個数が一個増える　神スキル
 
+                    OkashiKosuAddPanelHyouji();
                     break;
 
                 case 26:
@@ -279,25 +284,29 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
         {
             PlayerStatus.player_extreme_kaisu_Max = 1;
         }
-        else if (_lv >= 3 && _lv < 15)
+        else if (_lv >= 3 && _lv < 10)
         {
             PlayerStatus.player_extreme_kaisu_Max = 2;
         }
-        else if (_lv >= 15 && _lv < 50)
+        else if (_lv >= 10 && _lv < 20)
         {
             PlayerStatus.player_extreme_kaisu_Max = 3;
         }
-        else if (_lv >= 50 && _lv < 75)
+        else if (_lv >= 20 && _lv < 50)
         {
             PlayerStatus.player_extreme_kaisu_Max = 4;
         }
-        else if (_lv >= 75 && _lv < 90)
+        else if (_lv >= 50 && _lv < 75)
         {
             PlayerStatus.player_extreme_kaisu_Max = 5;
         }
-        else if (_lv >= 90)
+        else if (_lv >= 75 && _lv < 90)
         {
             PlayerStatus.player_extreme_kaisu_Max = 6;
+        }
+        else if (_lv >= 90)
+        {
+            PlayerStatus.player_extreme_kaisu_Max = 7;
         }
         
 
@@ -339,14 +348,25 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             }
         }*/
 
-        /*if (_lv < 15)
+        //おかし個数+1
+        if (_lv < 25)
+        {
+            PlayerStatus.player_okashi_kosuup_max = 0;
+        }
+        else if (_lv >= 25)
+        {
+            PlayerStatus.player_okashi_kosuup_max = 1;
+        }
+
+        //ねこくるようになる
+        if (_lv < 15)
         {
             GameMgr.System_CatGetMat_Flag = false;
         }
         else if (_lv >= 15)
         {
             GameMgr.System_CatGetMat_Flag = true;
-        }*/
+        }
 
         //魔法をおぼえる
         if (GameMgr.System_MagicUse_Flag)
@@ -357,6 +377,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
                 Magic_Learn("Freezing_Spell");
             }
 
+            if (_lv >= 20)
+            {
+                Magic_Learn("Warming_Handmade");
+            }
+
             if (_lv >= 50)
             {
                 Magic_Learn("Rainbow_Rain");
@@ -365,6 +390,16 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
             {
                 Magic_Learn("Moonlight_Banana");
             }*/
+        }
+    }
+
+    //スターによって解放されるパラメータがある場合　スターパネルでも記述
+    public void StarLVCheck()
+    {
+        _starlv = PlayerStatus.player_ninki_param;
+        if (_starlv >= 15)
+        {
+            GameMgr.topping_Set_Count = 2;
         }
     }
 
@@ -380,6 +415,11 @@ public class ExpTable : SingletonMonoBehaviour<ExpTable>
     void ShiageUpPanelHyouji()
     {
         girlEat_judge.LvUpPanel2(1);
+    }
+
+    void OkashiKosuAddPanelHyouji()
+    {
+        girlEat_judge.LvUpPanel7(1);
     }
 
     void MagicLearnPanelHyouji(string _magicname)

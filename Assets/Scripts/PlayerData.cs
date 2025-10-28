@@ -42,6 +42,7 @@ public class PlayerData
     public int save_player_okashi_magic_kakuritsuup; //魔法使用時の成功率アップ
     public int save_player_okashi_magic_costtimeup; //魔法使用時の時間短縮
     public int save_player_okashi_magic_koukaup; //魔法の効果を底上げする
+    public int save_player_okashi_kosuup_max; //作成されるお菓子個数+
 
 
     //妹のステータス

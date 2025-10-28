@@ -268,6 +268,7 @@ public class Compound_Check : MonoBehaviour {
                 costTimePanel_obj = compoBG_A.transform.Find("FinalCheckPanel/Comp/CostTimePanel").gameObject;
                 _cost_hourtext = costTimePanel_obj.transform.Find("Image/TimeHour_param").GetComponent<Text>();
                 _cost_minutestext = costTimePanel_obj.transform.Find("Image/TimeMinutes_param").GetComponent<Text>();
+                
 
                 StartCoroutine("recipiFinal_select");
 
@@ -1359,10 +1360,13 @@ public class Compound_Check : MonoBehaviour {
             costMP = magicskill_database.magicskill_lists[tempID_2].skillCost;
             magic_usecount = magicskill_database.magicskill_lists[tempID_2].skill_usecount;
 
-            //消費MPも表示
-            _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
-            final_costMP = exp_Controller.MPCostKeisan(costMP);
-            _cost_mptext.text = final_costMP.ToString();
+            //消費MPも表示 レシピ調合から使う場合は、とりあえず表示なし
+            if (GameMgr.compound_select != 1)
+            {
+                _cost_player_mptext.text = PlayerStatus.player_mp.ToString() + " / " + PlayerStatus.player_maxmp.ToString();
+                final_costMP = exp_Controller.MPCostKeisan(costMP);
+                _cost_mptext.text = final_costMP.ToString();
+            }
 
             if (magicskill_database.magicskill_lists[tempID_2].skill_CompSelect == "MS")//[MS]が入っている時 マジックソーダの判定　時間帯で番号が変わる。
             {

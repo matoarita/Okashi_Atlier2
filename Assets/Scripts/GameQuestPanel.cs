@@ -21,6 +21,8 @@ public class GameQuestPanel : MonoBehaviour {
 
     public void TextKoushin()
     {
+        quest_text = this.transform.Find("Panel/QuestText").GetComponent<Text>();
+
         //進行具合に応じて、メインクエのテキストが変わる。
         quest_text.text = GameMgr.System_spquest_message;
         Debug.Log("メインクエメッセージ: " + GameMgr.System_spquest_message);

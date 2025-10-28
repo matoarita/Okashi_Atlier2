@@ -99,6 +99,7 @@ public class Compound_Main : MonoBehaviour
 
 
     private GameObject gameQuestPanel;
+    private GameObject gameQuestPanel_Panel;
     private GameObject yachinPanel;
 
     private GameObject manpuku_bar;
@@ -650,7 +651,16 @@ public class Compound_Main : MonoBehaviour
             starPanel_kakuninButton_obj.transform.Find("StarKakuninButton").gameObject.SetActive(false);
         }
 
-        if(!GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+        if (GameMgr.System_ContestIcon_OnFlag) //スターパネルをもらったあとはコンテストアイコンをON
+        {
+            contest_kakuninButton_iconobj.SetActive(true);
+        }
+        else
+        {
+            contest_kakuninButton_iconobj.SetActive(false);
+        }
+
+        /*if (!GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
         {
             if (GameMgr.System_ContestIcon_OnFlag) //スターパネルをもらったあとはコンテストアイコンをON
             {
@@ -664,10 +674,11 @@ public class Compound_Main : MonoBehaviour
         else
         {
             contest_kakuninButton_iconobj.SetActive(false);
-        }
+        }*/
 
         //メインクエ表示パネルの取得
         gameQuestPanel = canvas.transform.Find("MainUIPanel/Comp/GameQuestPanel").gameObject;
+        gameQuestPanel_Panel = canvas.transform.Find("MainUIPanel/Comp/GameQuestPanel/Panel").gameObject;
 
         //家賃パネルの取得
         yachinPanel = canvas.transform.Find("MainUIPanel/Comp/YachinPanel").gameObject;
@@ -863,6 +874,7 @@ public class Compound_Main : MonoBehaviour
                 GameMgr.contest_bitter_param = GameMgr.GmO_contest_bitter_param;
             }
         }
+        
 
         //Debug.Log("ストーリーモード: " + GameMgr.Story_Mode);
 
@@ -1836,12 +1848,15 @@ public class Compound_Main : MonoBehaviour
                 //覚えたスキルやステータスを毎回チェックし、ぬけがないか更新。
                 exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0); //2番目が0で、実際のスキルの更新
 
+                //スターによって解放されるスキルがないかチェック
+                exp_table.StarLVCheck();
+
                 //魔法一番使ってるものをここでチェック
                 GameMgr.MagicSkill_TopUseName = magicskill_database.Count_TopUseMagicSkill();
 
                 //メインクエのメッセージ更新
-                //gameQuestPanel.SetActive(true);
-                //gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
+                gameQuestPanel_Panel.SetActive(true);
+                gameQuestPanel.GetComponent<GameQuestPanel>().TextKoushin();
 
 
                 //
@@ -2368,7 +2383,7 @@ public class Compound_Main : MonoBehaviour
         quest_kakuninButton_obj.SetActive(false);
         contest_kakuninButton_obj.SetActive(false);
         starPanel_kakuninButton_obj.SetActive(false);
-        //gameQuestPanel.SetActive(false);
+        gameQuestPanel_Panel.SetActive(false);
         yachinPanel.SetActive(false);
 
         stageclear_panel.SetActive(false);        
@@ -2394,7 +2409,7 @@ public class Compound_Main : MonoBehaviour
         quest_kakuninButton_obj.SetActive(true);
         contest_kakuninButton_obj.SetActive(true);
         starPanel_kakuninButton_obj.SetActive(true);
-        //gameQuestPanel.SetActive(true);
+        gameQuestPanel_Panel.SetActive(true);
         yachinPanel.SetActive(true);
 
         //Stagepanel_obj.SetActive(true);
@@ -3314,7 +3329,13 @@ public class Compound_Main : MonoBehaviour
                 pitemlist.add_eventPlayerItem(ev_id, 1); //ナジャの基本のレシピを追加
 
                 break;
-            
+
+            case "roll_cookie_recipi": //ロールクッキー　ゲットすると、魔法「ウィンドロール」も自動で追加される。
+
+                magicskill_database.skillHyoujiKaikin("Wind_Roll");
+                magicskill_database.skillLearnLv_Name("Wind_Roll", 1);
+                break;
+
 
             //魔法の本
             case "mg_firstmagic_book": //初心者向けおかし魔法の本
@@ -3388,11 +3409,13 @@ public class Compound_Main : MonoBehaviour
             case "mg_mp_regenaration_book":
 
                 magicskill_database.skillHyoujiKaikin("MP_Regenaration");
+                magicskill_database.skillLearnLv_Name("MP_Regenaration", 1);
                 break;
 
             case "mg_rare_findUP_book":
 
                 magicskill_database.skillHyoujiKaikin("Rare_FindUP");
+                magicskill_database.skillLearnLv_Name("Rare_FindUP", 1);
                 break;
 
             case "mg_summon_mirabo_book":

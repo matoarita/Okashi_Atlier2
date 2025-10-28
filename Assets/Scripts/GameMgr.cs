@@ -74,12 +74,13 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarNPC_FriendEventFlag = true; //酒場依頼で仲良くなったNPCが、お店に直接くるイベントを発生　ボリューム不足なのでONにするか迷ってる。
 
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
-    public static bool System_Contest_StartNow = false; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
+    public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
     public static bool System_ContestStarGet_ON = true; //コンテストで、スターが上がる仕様にする。
     public static bool System_ContestEdenFinalStart_ON = false; //エデンコンテスト　３回戦勝負かいきなり決勝戦スタートか falseなら３回戦勝負 trueならいきなり決勝戦   
     public static bool System_EdenEventStart_EatTiming = true; //エデン食べてEDスタートするタイミング　CompoundMain→GirlEat_Judgeで発生　trueなら、採点パネル表示前 falseなら後
+    public static bool System_ContestPastVictory_GetMoneyFlag = false; //コンテスト過去１～２位取ってた場合、二回目以降は賞金が獲得できなくなる仕様　falseならオフ
 
-    public static bool System_ContestGameOver_ON = true; //エデンコンテストで負けた場合、ゲームオーバー画面にいく　下がfalseならこっちはtrueにすること。会話の繋がりがおかしくなる。
+    public static bool System_ContestGameOver_ON = false; //エデンコンテストで負けた場合、ゲームオーバー画面にいく
     public static bool System_ContestEdenFirstVictoryGet = false; //エデンコンテスト　trueだと、初出場か二回目以降で勝った場合に、敵キャラとの会話の発生。falseなら必ず敵キャラと会話。
 
     public static bool CompoBGMCHANGE_ON = false; //調合シーンでBGM切り替えるかどうかのフラグ 
@@ -106,7 +107,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static int System_Beauty_BasicScore = 20; //0=比率計算の場合の、見た目得点の基準　これをもとに、倍率をかけて実際の見た目得点になる
 
     //ハート上がる量の補正　0.1fなら通常の1/10 System_HeartUpwithScore_ONがtrueのときに影響
-    public static float System_GetHeartHosei = 0.05f;
+    public static float System_GetHeartHosei = 0.1f;
 
     //ハート魔法の消費基本ハートポイント
     public static int System_MagicHeartCost = 30;
@@ -2197,15 +2198,15 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         
 
         OrRoomCost[0] = 0;
-        OrRoomCost[1] = 50000;
-        OrRoomCost[2] = 100000;
-        OrRoomCost[3] = 100000;
-        OrRoomCost[4] = 100000;
+        OrRoomCost[1] = 20000;
+        OrRoomCost[2] = 50000;
+        OrRoomCost[3] = 50000;
+        OrRoomCost[4] = 70000;
 
         OrRoomCost[5] = 100000;
-        OrRoomCost[6] = 100000;
-        OrRoomCost[7] = 100000;
-        OrRoomCost[8] = 100000;
+        OrRoomCost[6] = 35000;
+        OrRoomCost[7] = 60000;
+        OrRoomCost[8] = 80000;
         OrRoomCost[9] = 500000;
 
         OrRoomNameHyouji[0] = "最初の家";
@@ -2225,39 +2226,43 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static void InitCollectionItemsLibrary() //コレクションアイテムの一覧　コレクションパネルを開いたときに表示される
     {
         CollectionItemsName.Clear();
+        //イベント系で手に入る
         CollectionItemsName.Add("kuma_nuigurumi");
         CollectionItemsName.Add("yotuba_crown");
         CollectionItemsName.Add("amano_champmery");
-        CollectionItemsName.Add("sakura_ring");
-        CollectionItemsName.Add("beorv_iron");
+        CollectionItemsName.Add("sakura_ring");       
         CollectionItemsName.Add("milk_bin");
         CollectionItemsName.Add("yukidaruma");
-        CollectionItemsName.Add("green_pendant");
-        CollectionItemsName.Add("star_pendant");
-        CollectionItemsName.Add("aquamarine_pendant");
-        CollectionItemsName.Add("pink_ninjin");
-        CollectionItemsName.Add("hikari_speed_up1");
-        CollectionItemsName.Add("hikari_speed_up2");
-        CollectionItemsName.Add("aroma_potion1");
-        CollectionItemsName.Add("shokukan_powerup2");
-        CollectionItemsName.Add("shokukan_powerup3");
-        CollectionItemsName.Add("hikari_powerup1");
-        CollectionItemsName.Add("hikari_powerup3");
-        CollectionItemsName.Add("candy_powerup1");
-        CollectionItemsName.Add("cookie_powerup2");
-        CollectionItemsName.Add("cookie_powerup3");
-        CollectionItemsName.Add("cookie_powerup4");
-        CollectionItemsName.Add("crepe_powerup2");
-        CollectionItemsName.Add("crepe_powerup3");
-        CollectionItemsName.Add("crepe_powerup4");
-        CollectionItemsName.Add("tea_powerup2");
-        CollectionItemsName.Add("tea_powerup4");
-        CollectionItemsName.Add("otona_powerup1");
-        CollectionItemsName.Add("infinity_fountain");
+
+        CollectionItemsName.Add("beorv_iron"); //コンテスト
+        CollectionItemsName.Add("green_pendant"); //ポンポンファーム
+        CollectionItemsName.Add("star_pendant"); //春のお店
+        CollectionItemsName.Add("aquamarine_pendant"); //エメラルショップ
+        CollectionItemsName.Add("pink_ninjin"); //エメラルショップ
+        CollectionItemsName.Add("hikari_speed_up1"); //エメラルショップ
+        CollectionItemsName.Add("hikari_speed_up2"); //エメラルショップ
+        CollectionItemsName.Add("aroma_potion1"); //エメラルショップ
+        CollectionItemsName.Add("shokukan_powerup2"); //エメラルショップ
+        CollectionItemsName.Add("shokukan_powerup3"); //冬のお店　★ヒカリが拾ってくる
+        CollectionItemsName.Add("hikari_powerup1"); //エメラルショップ
+        CollectionItemsName.Add("hikari_powerup3");　//エメラルショップ　★ヒカリが拾ってくる
+        CollectionItemsName.Add("candy_powerup1"); //エメラルショップ　★ヒカリが拾ってくる
+        CollectionItemsName.Add("cookie_powerup2"); //エメラルショップ
+        CollectionItemsName.Add("cookie_powerup3"); //春のお店
+        CollectionItemsName.Add("cookie_powerup4"); //コンテスト　★ヒカリが拾ってくる
+        CollectionItemsName.Add("crepe_powerup2"); //エメラルショップ
+        CollectionItemsName.Add("crepe_powerup3"); //コンテスト　★ヒカリが拾ってくる
+        CollectionItemsName.Add("crepe_powerup4"); //冬のお店
+        CollectionItemsName.Add("tea_powerup2"); //エメラルショップ
+        CollectionItemsName.Add("tea_powerup4"); //エメラルショップ　★ヒカリが拾ってくる
+        CollectionItemsName.Add("otona_powerup1"); //コンテスト賞品　★ヒカリが拾ってくる
+        CollectionItemsName.Add("mugen_niwatori"); //コンテスト賞品
+        CollectionItemsName.Add("infinity_fountain"); //コンテスト賞品
         CollectionItemsName.Add("infinity_fountain_tansan");
-        CollectionItemsName.Add("teaset_normal");
-        CollectionItemsName.Add("teaset_wizard");
-        CollectionItemsName.Add("teaset_flower");
+        CollectionItemsName.Add("teaset_normal"); //初期
+        CollectionItemsName.Add("teaset_wizard"); //コンテスト賞品
+        CollectionItemsName.Add("teaset_flower"); //コンテスト賞品
+        CollectionItemsName.Add("jewery_master_proof"); //コンテスト賞品
         //CollectionItemsName.Add("neko_badge2");
         //CollectionItemsName.Add("music_box");
     }    
@@ -2738,22 +2743,22 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         HikariOmoide_Eventlist.Clear();
 
         //点数150～関係
-        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "star_cookie", "ほしクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_01", "星の形のクッキーで高得点"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "マリトッツォで高得点"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(003, "lumi_sapphire_neko_cookie", "サファイアクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "光るサファイアクッキーで高得点"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_a2_03", "ショートケーキで高得点"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(000, "star_cookie", "ほしクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_01", "スターチップシュガーでクッキーを作ると・・？"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(001, "maritozzo", "マリトッツォの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "マリトッツォで高得点を出す"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(003, "lumi_sapphire_neko_cookie", "サファイアクッキーの思い出", false, "EventCG_Icon/cg_gallery_icon_a2_02", "光るサファイアクッキーで高得点を出す"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(002, "strawberry_sponge_cake", "ショートケーキは、ままの味", false, "EventCG_Icon/cg_gallery_icon_a2_03", "ショートケーキで高得点を出す"));
 
         //ハートで発生するイベント系
         HikariOmoide_Eventlist.Add(new SpecialTitle(020, "dragon_carnival", "ドラゴンカーニバル", false, "EventCG_Icon/cg_gallery_icon_a2_04", "ハートLV40で解放"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(021, "ramen", "らーめん日和", false, "EventCG_Icon/cg_gallery_icon_a2_05", "ハートLV50で解放"));
 
         //スター・場所のイベント系
-        HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_a2_06", "遊園地で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "青空かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_a2_07", "遊園地で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_a2_08", "遊園地で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(104, "event_biking", "バイキングでゴ～ゴ～", false, "EventCG_Icon/cg_gallery_icon_a2_06", "遊園地のバイキングで・・。"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(100, "event_kanransha", "青空かんらんしゃ", false, "EventCG_Icon/cg_gallery_icon_a2_07", "遊園地のかんらんしゃにのると・・？"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(101, "event_pool", "はじめてのプール", false, "EventCG_Icon/cg_gallery_icon_a2_08", "遊園地のプールに入ると・・？"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(103, "event_hotspring", "お風呂であったか♪", false, "EventCG_Icon/cg_gallery_icon_a2_09", "スター☆で解放"));
         HikariOmoide_Eventlist.Add(new SpecialTitle(102, "event_sweathotel", "ホテルでにいちゃんと・・♪", false, "EventCG_Icon/cg_gallery_icon_a2_10", "スター☆で解放"));
-        HikariOmoide_Eventlist.Add(new SpecialTitle(110, "event_sakuraring", "大きなさくらの木の下で・・♪", false, "EventCG_Icon/cg_gallery_icon_a2_11", "スター☆で解放"));
+        HikariOmoide_Eventlist.Add(new SpecialTitle(110, "event_sakuraring", "大きなさくらの木の下で・・♪", false, "EventCG_Icon/cg_gallery_icon_a2_11", "スタースタンプを全て集める"));
     }
 
     //思い出イベントの現在のフラグを取得

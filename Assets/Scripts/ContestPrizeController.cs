@@ -379,7 +379,8 @@ public class ContestPrizeController : MonoBehaviour
         {
             if (GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1] != "Non")
             {
-                HyoujiPlayerItem(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1]);
+                _name = "???";
+                //HyoujiPlayerItem(GameMgr.PrizeItemList[GameMgr.PrizeItemList.Count - 1]);
             }
             else
             {

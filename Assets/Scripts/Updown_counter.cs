@@ -82,8 +82,12 @@ public class Updown_counter : MonoBehaviour {
     private int player_itemkosu2;
     private int player_itemkosu3;
 
+    private int magic_emptyID;
     private int emeraldonguriID;
     private int kaerucoin;
+
+    private bool itemDB_tansakuFlag;
+    private bool itemDB_MagicUse;
 
     private Button[] updown_button = new Button[2];
 
@@ -1455,11 +1459,20 @@ public class Updown_counter : MonoBehaviour {
         player_itemkosu2 = 0;
         player_itemkosu3 = 0;
 
-        i = 0;
+        magic_emptyID = database.SearchItemIDString("magic_comp_setting");
+        itemDB_MagicUse = false;
 
+        Debug.Log("databaseCompo.compoitems[itemID_1].cmpitemID_1: " + databaseCompo.compoitems[itemID_1].cmpitemID_1);
+        Debug.Log("databaseCompo.compoitems[itemID_1].cmpitemID_2: " + databaseCompo.compoitems[itemID_1].cmpitemID_2);
+        Debug.Log("databaseCompo.compoitems[itemID_1].cmpitemID_3: " + databaseCompo.compoitems[itemID_1].cmpitemID_3);
+
+        i = 0;
+        itemDB_tansakuFlag = false;
         while (i < database.items.Count)
         {
-            if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_1)
+            if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_1 ||
+                database.items[i].itemType_sub.ToString() == databaseCompo.compoitems[itemID_1].cmpitemID_1 ||
+                database.items[i].itemType_subB.ToString() == databaseCompo.compoitems[itemID_1].cmpitemID_1)
             {
                 cmpitem_name1 = database.items[i].itemName; //一個目に選択したアイテム名。店売り・オリジナルでこの名前は共通。
                 cmpitem_namehyouji1 = database.items[i].itemNameHyouji; //調合DB一個目の番号を保存。また、nameを日本語表示に。
@@ -1470,16 +1483,44 @@ public class Updown_counter : MonoBehaviour {
                 else { cmpitem1_type = 0; }
 
                 itemdb_id1 = i; //その時のアイテムDB番号も、保存
+                itemDB_tansakuFlag = true;
                 break;
             }
             ++i;
         }
+        if (!itemDB_tansakuFlag)
+        {
+            //魔法も検索
+            i = 0;
+            while (i < magicskill_database.magicskill_lists.Count)
+            {
+                if (magicskill_database.magicskill_lists[i].skillName == databaseCompo.compoitems[itemID_1].cmpitemID_1)
+                {
+                    //魔法が一致した場合、アイテム合成の際は、空のデータをいれておく
+                    cmpitem_name1 = database.items[magic_emptyID].itemName; //一個目に選択したアイテム名。店売り・オリジナルでこの名前は共通。
+                    cmpitem_namehyouji1 = magicskill_database.magicskill_lists[i].skillNameHyouji; //調合DB一個目の番号を保存。また、nameを日本語表示に。
+                    GameMgr.UseMagicSkill = magicskill_database.magicskill_lists[i].skillName;
+                    GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[i].skillUseLv;
+
+                    cmpitem1_type = 1;//機材アイテムなどの、個数が関係ないアイテムかどうかをチェック
+                    player_itemkosu1 = 1; //魔法の場合は、習得してたら個数を1に。
+                    itemDB_MagicUse = true; //魔法を使う調合でフラグON
+
+                    itemdb_id1 = i; //その時のアイテムDB番号も、保存
+                    break;
+                }
+                ++i;
+            }
+        }
+
 
         i = 0;
-
+        itemDB_tansakuFlag = false;
         while (i < database.items.Count)
         {
-            if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_2)
+            if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_2 ||
+                database.items[i].itemType_sub.ToString() == databaseCompo.compoitems[itemID_1].cmpitemID_2 ||
+                database.items[i].itemType_subB.ToString() == databaseCompo.compoitems[itemID_1].cmpitemID_2)
             {
                 cmpitem_name2 = database.items[i].itemName; //二個目に選択したアイテム名。
                 cmpitem_namehyouji2 = database.items[i].itemNameHyouji; //調合DB二個目のnameを日本語表示に。
@@ -1491,18 +1532,46 @@ public class Updown_counter : MonoBehaviour {
                 else { cmpitem2_type = 0; }
 
                 itemdb_id2 = i; //その時のアイテムDB番号も、保存
+                itemDB_tansakuFlag = true;
                 break;
             }
             ++i;
         }
+        if (!itemDB_tansakuFlag)
+        {
+            //魔法も検索
+            i = 0;
+            while (i < magicskill_database.magicskill_lists.Count)
+            {
+                if (magicskill_database.magicskill_lists[i].skillName == databaseCompo.compoitems[itemID_1].cmpitemID_2)
+                {
+                    //魔法が一致した場合、アイテム合成の際は、空のデータをいれておく
+                    cmpitem_name2 = database.items[magic_emptyID].itemName; //一個目に選択したアイテム名。店売り・オリジナルでこの名前は共通。
+                    cmpitem_namehyouji2 = magicskill_database.magicskill_lists[i].skillNameHyouji; //調合DB一個目の番号を保存。また、nameを日本語表示に。
+                    GameMgr.UseMagicSkill = magicskill_database.magicskill_lists[i].skillName;
+                    GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[i].skillUseLv;
+
+                    cmpitem2_type = 1;//機材アイテムなどの、個数が関係ないアイテムかどうかをチェック
+                    player_itemkosu2 = 1; //魔法の場合は、習得してたら個数を1に。
+                    itemDB_MagicUse = true; //魔法を使う調合でフラグON
+
+                    itemdb_id2 = i; //その時のアイテムDB番号も、保存
+                    break;
+                }
+                ++i;
+            }
+        }
+
 
         i = 0;
-
+        itemDB_tansakuFlag = false;
         itemdb_id3 = 9999; //空の可能性もあるので、もし空なら9999にしておく。あれば、iで更新される。
 
         while (i < database.items.Count)
         {
-            if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_3)
+            if (database.items[i].itemName == databaseCompo.compoitems[itemID_1].cmpitemID_3 ||
+                database.items[i].itemType_sub.ToString() == databaseCompo.compoitems[itemID_1].cmpitemID_3 ||
+                database.items[i].itemType_subB.ToString() == databaseCompo.compoitems[itemID_1].cmpitemID_3)
             {
                 cmpitem_name3 = database.items[i].itemName; //三個目に選択したアイテム名。
                 cmpitem_namehyouji3 = database.items[i].itemNameHyouji; //調合DB三個目のnameを日本語表示に。
@@ -1514,12 +1583,39 @@ public class Updown_counter : MonoBehaviour {
                 else { cmpitem3_type = 0; }
 
                 itemdb_id3 = i; //その時のアイテムDB番号も、保存
+                itemDB_tansakuFlag = true;
                 break;
             }
             ++i;
         }
+        if (!itemDB_tansakuFlag)
+        {
+            //魔法も検索
+            i = 0;
+            while (i < magicskill_database.magicskill_lists.Count)
+            {
+                if (magicskill_database.magicskill_lists[i].skillName == databaseCompo.compoitems[itemID_1].cmpitemID_3)
+                {
+                    //魔法が一致した場合、アイテム合成の際は、空のデータをいれておく
+                    cmpitem_name3 = database.items[magic_emptyID].itemName; //一個目に選択したアイテム名。店売り・オリジナルでこの名前は共通。
+                    cmpitem_namehyouji3 = magicskill_database.magicskill_lists[i].skillNameHyouji; //調合DB一個目の番号を保存。また、nameを日本語表示に。
+                    GameMgr.UseMagicSkill = magicskill_database.magicskill_lists[i].skillName;
+                    GameMgr.UseMagicSkillLv = magicskill_database.magicskill_lists[i].skillUseLv;
 
-        if(cmpitem1_type == 0)
+                    cmpitem3_type = 1;//機材アイテムなどの、個数が関係ないアイテムかどうかをチェック
+                    player_itemkosu3 = 1; //魔法の場合は、習得してたら個数を1に。
+                    itemDB_MagicUse = true; //魔法を使う調合でフラグON
+
+                    itemdb_id3 = i; //その時のアイテムDB番号も、保存
+                    break;
+                }
+                ++i;
+            }
+        }
+
+
+
+        if (cmpitem1_type == 0)
         {
             cmpitem_kosu1_select = cmpitem_kosu1 * GameMgr.updown_kosu; //必要個数×選択している作成数
         }
@@ -1694,6 +1790,7 @@ public class Updown_counter : MonoBehaviour {
 
         GameMgr.Final_list_itemID1 = itemdb_id1; //temp_itemIDと一緒っぽいが、Final_listは、各アイテムリストのリスト番号。なので、Final_toggle_Typeとセットで使う。
         //レシピでは、現在デフォルトアイテムしか対応してないので、アイテムDBのリスト番号を指定していることになる。なので、中身は一緒になる。
+        //レシピでは、オリジナルアイテム・エクストリームアイテムのアイテム削除に対応していない。
         //temp_itemIDは、アイテムDBのリスト番号を直接指定している。
         GameMgr.Final_list_itemID2 = itemdb_id2;
 
@@ -1709,8 +1806,15 @@ public class Updown_counter : MonoBehaviour {
             GameMgr.temp_itemID3 = 9999;
             GameMgr.Final_kettei_kosu3 = 0;
 
-            //押したタイミングで、分岐＝２に。
-            GameMgr.Comp_kettei_bunki = 2;
+            if (itemDB_MagicUse)
+            {
+                GameMgr.Comp_kettei_bunki = 20; //魔法を使った調合
+            }
+            else
+            {
+                //押したタイミングで、分岐＝２に。
+                GameMgr.Comp_kettei_bunki = 2;
+            }
         }
         else //3個アイテムが必要な場合
         {
@@ -1718,8 +1822,15 @@ public class Updown_counter : MonoBehaviour {
             GameMgr.temp_itemID3 = itemdb_id3;
             GameMgr.Final_kettei_kosu3 = cmpitem_kosu3;
 
-            //押したタイミングで、分岐＝２に。
-            GameMgr.Comp_kettei_bunki = 3;
+            if (itemDB_MagicUse)
+            {
+                GameMgr.Comp_kettei_bunki = 20; //魔法を使った調合
+            }
+            else
+            {
+                //押したタイミングで、分岐＝２に。
+                GameMgr.Comp_kettei_bunki = 3;
+            }
         }
     }
 

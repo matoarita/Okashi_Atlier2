@@ -558,18 +558,7 @@ public class StarStampPanel : MonoBehaviour
                     newarea_gohoubiicon = itemIcon_sprite5;
                     newAreaRelease_panelKoushin(_star);
 
-                    GameMgr.topping_Set_Count = 2;
-
-                    //matplace_database.ReSetMapFlagString("Or_Hiroba1_HotSpring", 1);
-
-                    //ソーダアイランド解放
-                    /*_id = matplace_database.SearchMapString("Or_Hiroba_Summer_SodaIsland");
-                    newarea_titletext = "遊園地";
-                    newarea_gohoubitext = matplace_database.matplace_lists[_id].placeNameHyouji + "\n" + "解放！";
-                    newarea_gohoubiicon = matplace_database.matplace_lists[_id].mapIcon_sprite;
-                    newAreaRelease_panelKoushin(_star);
-
-                    matplace_database.ReSetMapFlagString("Or_Hiroba_Summer_SodaIsland", 1);*/
+                    GameMgr.topping_Set_Count = 2; //Exp_Tableでも記述　注意
                 }
                 break;
 

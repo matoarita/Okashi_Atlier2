@@ -132,7 +132,7 @@ public class Item
     public int Attribute4; //お菓子の状態4　生地アイテムの生地混ぜ回数
     public int Attribute5; //お菓子の状態5　ファイアアークかけた回数
     public int Attribute6; //お菓子の状態6　ライトニンググレープなどの変質系魔法の回数
-    public int Attribute7; //お菓子の状態7　空
+    public int Attribute7; //お菓子の状態7　手作りのぬくもりをかけた回数
     public int Attribute8; //お菓子の状態8　空
     public int Attribute9; //お菓子の状態9　空
     public int Attribute10; //お菓子の状態10　空

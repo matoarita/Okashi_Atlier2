@@ -138,6 +138,7 @@ public class MiniSecondBake_Panel : MonoBehaviour {
     {
         stop_watch = false;
         Debug.Log("stop_watch: " + stop_watch);
+        Debug.Log("_guage_param: " + _guage_param);
 
         //初期設定
         GameMgr.System_magic_playSuccess = true;
@@ -167,14 +168,14 @@ public class MiniSecondBake_Panel : MonoBehaviour {
             //ピキーン音ならす
             sc.PlaySe(16);
         }
-        else if (_guage_param >= 400 && _guage_param < 440)
+        else if (_guage_param >= 400 && _guage_param < 435)
         {
             GameMgr.System_magic_playParamUp = 1.2f;
 
             //ピキーン音ならす
             sc.PlaySe(16);
         }
-        else if (_guage_param >= 440 && _guage_param < 460)
+        else if (_guage_param >= 435 && _guage_param < 465) //ゲージの実際の数値より見かけを大きくしてる+5ぐらい
         {
             GameMgr.System_magic_playParamUp = 1.35f;
 
@@ -187,7 +188,7 @@ public class MiniSecondBake_Panel : MonoBehaviour {
 
             KiraEffect_1.SetActive(true); //さらに光りのエフェクト
         }
-        else if (_guage_param >= 460 && _guage_param < 500)
+        else if (_guage_param >= 465 && _guage_param < 500)
         {
             GameMgr.System_magic_playParamUp = 1.2f;
 

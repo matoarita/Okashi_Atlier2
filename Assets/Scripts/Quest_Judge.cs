@@ -1667,14 +1667,14 @@ public class Quest_Judge : MonoBehaviour {
                 }
                 else if (okashi_totalscore >= 120 && okashi_totalscore < 150) //100~120
                 {
-                    _getMoney = (int)(_baseMoney * 1.65f);
-                    debug_money_text = "(基準値 * 1.65f)";
+                    _getMoney = (int)(_baseMoney * 2.0f);
+                    debug_money_text = "(基準値 * 2.0f)";
                     _kanso = "グレイトだわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                 }
                 else if (okashi_totalscore >= 150 && okashi_totalscore < 200) //120~150
                 {
-                    _getMoney = (int)(_baseMoney * 1.75f);
-                    debug_money_text = "(基準値 * 1.75f)";
+                    _getMoney = (int)(_baseMoney * 2.5f);
+                    debug_money_text = "(基準値 * 2.5f)";
                     _kanso = "ほっぺたがとろけちゃうぐらい最高だって！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
                     BarNPC_FriendPointUP(1);
                 }
@@ -1683,7 +1683,7 @@ public class Quest_Judge : MonoBehaviour {
                     //お菓子ごとに、上がりにくかったり補正がかかる
                     switch(_base_itemType_sub)
                     {
-                        case "Cookie":
+                        /*case "Cookie":
 
                             CostHosei_1();
                             break;
@@ -1701,7 +1701,7 @@ public class Quest_Judge : MonoBehaviour {
                         case "Rusk":
 
                             CostHosei_1();
-                            break;
+                            break;*/
 
                         default:
 
@@ -1951,40 +1951,40 @@ public class Quest_Judge : MonoBehaviour {
     {
         if (okashi_totalscore >= 200 && okashi_totalscore < 250) //200~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.85f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.85f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 2.5f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 2.5f)";
             _getNinki = 0;
             _kanso = "まるで宝石のようにすばらしい味らしいわ！！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(1);
         }
         else if (okashi_totalscore >= 250 && okashi_totalscore < 300) //250~ ここから下ファンファーレ
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.5f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.5f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 2.7f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 2.7f)";
             _getNinki = 0;
             _kanso = "天使のような素晴らしい味らしいわ！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(1);
         }
         else if (okashi_totalscore >= 300 && okashi_totalscore < 500) //300~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.2f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.1f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 3.0f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 3.0f)";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(3);
         }
         else if (okashi_totalscore >= 500 && okashi_totalscore < 1000) //500~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.12f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.12f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 4.0f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 4.0f)";
             _getNinki = 1;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);
         }
         else if (okashi_totalscore >= 1000) //1000~
         {
-            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 1.1f);
-            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 1.1f)";
+            _getMoney = (int)(_baseMoney * (okashi_totalscore / 200) * 5.0f);
+            debug_money_text = "(基準値 * (okashi_totalscore / 200) * 5.0f)";
             _getNinki = 2;
             _kanso = "神の味だって、絶叫してたわ！ぜひまたお願いね！" + "\n" + "ちょっとだけど、報酬額を多めにあげるわね。";
             BarNPC_FriendPointUP(5);

@@ -26,7 +26,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     private int _magic_rate;
     private int _magicLearnLv;
     private int _magic_kakuritsu;
-    private int _attri2, _attri5, _attri6;
+    private int _attri2, _attri5, _attri6, _attri7, _attri8, _attri9, _attri10;
 
     private float _buf_hikari_okashiparam;
     private float _buf_hikari_okashi_paramup;
@@ -477,7 +477,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)
         {
-            _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 2; //LV*2
+            _magicup = magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 4; //LV*4
             _buf_kakuritsuup += _magicup;
         }
 
@@ -546,6 +546,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _attri2 = GameMgr.UseMagic_ItemAttri[1]; //魔法使用時のitemselecttoggleで参照
         _attri5 = GameMgr.UseMagic_ItemAttri[4];
         _attri6 = GameMgr.UseMagic_ItemAttri[5]; //ライトニンググレープなどの変質回数
+        _attri7 = GameMgr.UseMagic_ItemAttri[6]; //ライトニンググレープなどの変質回数
 
         switch (_magic_name)
         {
@@ -596,6 +597,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                 Kakuritsu_ArkKeisan(_attri6);
                 _magic_rate += _magicLearnLv * 10;
+                break;
+
+            case "Warming_Handmade":
+
+                Kakuritsu_ArkKeisan(_attri7);
+                _magic_rate += _magicLearnLv * 3;
                 break;
         }
 
@@ -824,7 +831,11 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         }
     }
 
+
+
+    //
     //特定の魔法使用時の制作時間を短縮する
+    //
     public int Buf_CompoTimeMagic_Keisan(string _magicname)
     {
         _buf_compotime_up = 0;
@@ -859,13 +870,18 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         _magicup = 0;
         _magicid = magicskill_database.SearchSkillString("Heart_of_Icecream");
         _magicid2 = magicskill_database.SearchSkillString("Freezing_Spell");
-        if (magicskill_database.magicskill_lists[_magicid].skillLv >= 1)
-        {
-            _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid2].cost_time * 0.05f); //costtimeの10％
-            //Debug.Log("magicskill_database.magicskill_lists[_magicid].cost_time: " + magicskill_database.magicskill_lists[_magicid].cost_time);
-            _buf_compotime_up += _magicup;
-        }
+
+        //アイスの気持ちのバフ
+        _magicup = (int)(magicskill_database.magicskill_lists[_magicid].skillLv * magicskill_database.magicskill_lists[_magicid2].cost_time * 0.1f); //costtimeの10％
+                                                                                                                                                    
+        //フリージングそのものも上がる
+        _magicup += (int)(magicskill_database.magicskill_lists[_magicid2].skillLv * magicskill_database.magicskill_lists[_magicid2].cost_time * 0.05f); //costtimeの5％
+
+        _buf_compotime_up += _magicup;
     }
+
+
+
 
     //
     //個数のバフ
@@ -1564,23 +1580,23 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("cookie_powerup1") >= 1) //
         {
-            _buf_shokukanup += 5;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.05f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("cookie_powerup2") >= 1) //
         {
-            _buf_shokukanup += 10;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.1f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("cookie_powerup3") >= 1) //
         {
-            _buf_shokukanup += 20;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.2f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("cookie_powerup4") >= 1) //
         {
-            _buf_shokukanup += 30;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("cookie_powerup5") >= 1) //
         {
-            _buf_shokukanup += 100;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.5f) - original_shokukan_p;
         }
 
     }
@@ -1666,7 +1682,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         if (pitemlist.KosuCount("candy_powerup1") >= 1) //
         {
-            _buf_shokukanup += 30;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
         }
     }
 
@@ -1674,23 +1690,23 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         if (pitemlist.KosuCount("crepe_powerup1") >= 1) //
         {
-            _buf_shokukanup += 5;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.05f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("crepe_powerup2") >= 1) //
         {
-            _buf_shokukanup += 20;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.1f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("crepe_powerup3") >= 1) //
         {
-            _buf_shokukanup += 40;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.2f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("crepe_powerup4") >= 1) //
         {
-            _buf_shokukanup += 60;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("crepe_powerup5") >= 1) //
         {
-            _buf_shokukanup += 100;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.5f) - original_shokukan_p;
         }
     }
 
@@ -1699,13 +1715,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("cakemold_stainless") >= 1) //
         {
-            _buf_shokukanup = (int)(_buf_shokukanup * 2.5f);
+            _buf_shokukanup += (int)(original_shokukan_p * 1.35f) - original_shokukan_p;
         }
         else
         {
             if (pitemlist.KosuCount("cakemold_black") >= 1) //ケーキ型ブラック
             {
-                _buf_shokukanup = (int)(_buf_shokukanup * 1.2f);
+                _buf_shokukanup += (int)(_buf_shokukanup * 1.15f) - original_shokukan_p;
             }
         }
 
@@ -1717,23 +1733,23 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     {
         if (pitemlist.KosuCount("tea_powerup1") >= 1) //
         {
-            _buf_shokukanup += 5;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.05f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("tea_powerup2") >= 1) //
         {
-            _buf_shokukanup += 20;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.1f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("tea_powerup3") >= 1) //
         {
-            _buf_shokukanup += 40;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.2f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("tea_powerup4") >= 1) //
         {
-            _buf_shokukanup += 60;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
         }
         if (pitemlist.KosuCount("tea_powerup5") >= 1) //
         {
-            _buf_shokukanup += 100;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.5f) - original_shokukan_p;
         }
     }
 
@@ -1829,12 +1845,13 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     //特定のアイテムにのみ、バフをかける処理
     //特定のお菓子の名前を指定し、どの食感(_status)に補正をかけるか指定して、書き込めばOK
-    public int Buf_OkashiParamUp_ItemNameKeisan(int _status, string _basename)
+    public int Buf_OkashiParamUp_ItemNameKeisan(int _status, string _basename, int _origin_param)
     {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         _buf_shokukanup = 0;
+        original_shokukan_p = _origin_param;
 
         if (pitemlist.KosuCount("otona_powerup1") >= 1) //
         {
@@ -1847,7 +1864,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         if (_basename == "cannoli" || _basename == "sea_losanonos" || _basename == "cream_coffee" || _basename == "cocoa_cookie")
                         {
-                            _buf_shokukanup += 30;
+                            _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
                         }
 
                         return _buf_shokukanup;
@@ -1856,7 +1873,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         if (_basename == "tiramisu" || _basename == "cafeaulait_creampuff")
                         {
-                            _buf_shokukanup += 30;
+                            _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
                         }
 
                         return _buf_shokukanup;
@@ -1869,7 +1886,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
                         if (_basename == "biscotti")
                         {
-                            _buf_shokukanup += 30;
+                            _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
                         }
 
                         return _buf_shokukanup;
@@ -1954,28 +1971,29 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     //特定の調合処理にのみ、バフをかける処理
     //コンポ調合の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK
-    public int Buf_OkashiParamUp_CompoNameKeisan(int _status, string _componame)
+    public int Buf_OkashiParamUp_CompoNameKeisan(int _status, string _componame, int _origin_param)
     {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         _buf_shokukanup = 0;
+        original_shokukan_p = _origin_param;
 
         switch (_componame)
         {
             case "whipped cream_row":
 
-                _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+                //_buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
                 break;
 
             case "whipped cream_row_Free":
 
-                _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+                //_buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
                 break;
 
             case "cream_row_ricotta":
 
-                _buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
+                //_buf_shokukanup = (int)(_buf_shokukanup * 1.3f);
                 break;
 
             case "blacklotus_sponge_cake_sliced": //パンナイフでスポンジケーキを切ったとき　マイナスになる。
@@ -1994,7 +2012,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
     //特定の魔法で、バフをかける処理
     //魔法の名前を直接指定して、どの食感(_status)に補正をかけるか指定して、書き込めばOK  各アトリは必要に応じて要素数増やす
-    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname, int _attri2, int _attri5, int _attri6)
+    public int Buf_OkashiParamUp_MagicKeisan(int _status, int _baseparam, string _magicname, int _attri2, int _attri5, int _attri6, int _attri7)
     {
 
         _buf_shokukanup = 0;
@@ -2127,10 +2145,10 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                     if (_status != 5) //ただし、見た目はバフを無視。
                     {
                         _magicLearnLv = magicskill_database.skillName_SearchLearnLevel("Warming_Handmade");
-                        _magicup = (int)(_baseparam * (0.2f + _magicLearnLv * 0.05f));
+                        _magicup = (int)(_baseparam * (0.15f + _magicLearnLv * 0.05f));
                         if (_magicup < 1) { _magicup = 1; } //必ず１は上がる
 
-                        Debug.Log("_baseparam * (0.2f + 手作りの温もり習得LV * 0.05f) 習得LV: " + _magicLearnLv); //大体1.3倍
+                        Debug.Log("_baseparam * (0.15f + 手作りの温もり習得LV * 0.05f) 習得LV: " + _magicLearnLv); //大体1.2~1.3倍
                         Debug.Log("手作りの温もりの最終バフ: " + _magicup);
                         _buf_shokukanup += _magicup;
                     }
@@ -2298,7 +2316,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 _magicup_f = 0;
                 if (magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") >= 1)
                 {
-                    _magicup_f = 1.0f + magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 0.1f; //LV*10
+                    _magicup_f = 1.0f + magicskill_database.skillName_SearchLearnLevel("Heart_of_Icecream") * 0.2f; //LV*5
                     _buf_kyori = _buf_kyori * _magicup_f;
                 }
                 break;
@@ -2309,24 +2327,34 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
     }
 
     //ヒカリの作ったお菓子に、バフをかける処理
-    public int Buf_HikariParamUp_Keisan(int _status, string _itemType_sub)
+    public int Buf_HikariParamUp_Keisan(int _status, string _itemType_sub, int _origin_param)
     {
         //プレイヤー所持アイテムリストの取得
         pitemlist = PlayerItemList.Instance.GetComponent<PlayerItemList>();
 
         _buf_shokukanup = 0;
+        original_shokukan_p = _origin_param;
 
         if (pitemlist.KosuCount("hikari_powerup1") >= 1) //
         {
-            _buf_shokukanup += 15;
+            if (_status != 5) //見た目以外は上昇
+            {
+                _buf_shokukanup += (int)(original_shokukan_p * 1.1f) - original_shokukan_p;
+            }
         }
         if (pitemlist.KosuCount("hikari_powerup2") >= 1) //
         {
-            _buf_shokukanup += 20;
+            if (_status != 5) //見た目以外は上昇
+            {
+                _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
+            }
         }
         if (pitemlist.KosuCount("hikari_powerup3") >= 1) //
         {
-            _buf_shokukanup += 30;
+            if (_status != 5) //見た目以外は上昇
+            {
+                _buf_shokukanup += (int)(original_shokukan_p * 1.5f) - original_shokukan_p;
+            }
         }
 
         switch (_status)
@@ -2450,7 +2478,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //食感への補正
         if (_mstatus == 0)
         {
-            _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.6f, 1.5f); //最大LVで、にいちゃんの1.5倍上がる あまりやると強すぎ
+            _a = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 0.8f, 2.0f); //最大LVで、にいちゃんの1.5倍上がる LVあげなくても普通に作れる　あまりやると強すぎ
             _buf_hikari_okashiparam = 0.1f + _a;
         }
         else if (_mstatus == 1)
@@ -2458,24 +2486,24 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _buf_hikari_okashiparam = 1.0f;
         }
 
-        //個数の補正　最終的ににいちゃんと同じ数 低いうちは3個ほどマイナスになる。
+        //個数の補正　最終的ににいちゃんと同じ数 LVをあげなくても普通に個数　LV上がると個数がどんどん上がる
         if (_mstatus == 0)
         {
             if (hikari_okashiLV >= 1.0f && hikari_okashiLV < 3.0f)
             {
-                _kosuhosei = 2.0f;
+                _kosuhosei = 1.0f;
             }
             else if (hikari_okashiLV >= 3.0f && hikari_okashiLV < 7.0f)
             {
-                _kosuhosei = 1.0f;
+                _kosuhosei = 0.5f;
             }
             else if (hikari_okashiLV >= 7.0f && hikari_okashiLV < 9.0f)
             {
-                _kosuhosei = 0.5f;
+                _kosuhosei = 0.25f;
             }
             else if (hikari_okashiLV >= 9.0f)
             {
-                _kosuhosei = 0.25f;
+                _kosuhosei = 0.125f;
             }
         }
         else if (_mstatus == 1)
@@ -2489,21 +2517,22 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
         //最終的にかかる時間は、Exp_Controllerで計算
         if (_mstatus == 0)
         {
-            GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.1f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍
+            GameMgr.hikari_make_okashiTime_costbuf = SujiMap(hikari_okashiLV, 1.0f, 9.0f, 1.0f, 0.3f); //LV1~9 を　3~1倍に変換。LV9で、通常の兄ちゃんの速度の3倍
         }
         else if (_mstatus == 1)
         {
             GameMgr.hikari_make_okashiTime_costbuf = 1.0f;
         }
 
+        if (pitemlist.KosuCount("hikari_speed_up1") >= 1) //
+        {
+            GameMgr.hikari_make_okashiTime_costbuf = GameMgr.hikari_make_okashiTime_costbuf * 0.75f;
+        }
         if (pitemlist.KosuCount("hikari_speed_up2") >= 1) //持ってるだけで効果アップ
         {
             GameMgr.hikari_make_okashiTime_costbuf = GameMgr.hikari_make_okashiTime_costbuf * 0.5f;
         }
-        if (pitemlist.KosuCount("hikari_speed_up1") >= 1) //
-        {
-            GameMgr.hikari_make_okashiTime_costbuf = GameMgr.hikari_make_okashiTime_costbuf　* 0.75f;
-        }
+        
 
         if (GameMgr.hikari_make_okashiTime_costbuf <= 0.1f)
         {
@@ -2537,6 +2566,15 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
                 GameMgr.hikari_make_okashiTime_successrate_buf = 0.95f;
                 break;
             case "Cream":
+                GameMgr.hikari_make_okashiTime_successrate_buf = 0.95f;
+                break;
+            case "Appaleil_Icecream":
+                GameMgr.hikari_make_okashiTime_successrate_buf = 0.95f;
+                break;
+            case "Source":
+                GameMgr.hikari_make_okashiTime_successrate_buf = 0.95f;
+                break;
+            case "Potion":
                 GameMgr.hikari_make_okashiTime_successrate_buf = 0.95f;
                 break;
         }

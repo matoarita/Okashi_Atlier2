@@ -833,7 +833,15 @@ public class Exp_Controller : SingletonMonoBehaviour<Exp_Controller>
         //個数の決定
         //result_kosu = databaseCompo.compoitems[result_ID].cmpitem_result_kosu * GameMgr.Final_setCount;
 
-        Comp_method_bunki = 2;
+        if (GameMgr.Comp_kettei_bunki != 20)
+        {
+            Comp_method_bunki = 2;
+        }
+        else
+        {
+            //魔法を使った調合の場合　ここで分岐
+            Comp_method_bunki = 20;
+        }
 
         //ウェイトアニメーション開始
         recipilistController_obj.SetActive(false);

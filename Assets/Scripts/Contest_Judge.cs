@@ -357,7 +357,7 @@ public class Contest_Judge : MonoBehaviour {
             //コンテスト事前に提出したおかしかどうかをチェック　被ってる場合は失格 トーナメント形式2回戦目から判定はじまる
             foreach (string _name in GameMgr.contest_okashiNameList)
             {
-                if (_name == GameMgr.contest_okashiSubType) //GameMgr.contest_okashiSubType
+                if (_name == GameMgr.contest_okashiName) //GameMgr.contest_okashiSubType
                 {
                     //かぶってたので失格
                     judge_flag_type2 = true;
@@ -368,11 +368,11 @@ public class Contest_Judge : MonoBehaviour {
             if (judge_flag_type2) //trueだとこっちは失格
             {
                 GameMgr.contest_Disqualification3 = true;
-                Debug.Log("前の戦いですでに出したお菓子の種類と被っていたので、失格！: " + GameMgr.contest_okashiSubType);
+                Debug.Log("前の戦いですでに出したお菓子と被っていたので、失格！: " + GameMgr.contest_okashiName);
             }
             else
             {
-                GameMgr.contest_okashiNameList.Add(GameMgr.contest_okashiSubType);
+                GameMgr.contest_okashiNameList.Add(GameMgr.contest_okashiName);
             }
         }
     }
@@ -665,7 +665,7 @@ public class Contest_Judge : MonoBehaviour {
                     Contest_ShokukanHosei_1();                    
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(130); //
+                    ScoreNormalized(100); //
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
                 }
@@ -751,7 +751,7 @@ public class Contest_Judge : MonoBehaviour {
                         {
                             if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                             {
-                                if (item_subType == "Chocolate")
+                                if (item_subType == "Chocolate" || item_subTypeB == "a_ChocolateCake")
                                 {
                                     judge_flag = true;
                                 }
@@ -861,7 +861,7 @@ public class Contest_Judge : MonoBehaviour {
                         {
                             if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                             {
-                                if (item_subType == "Chocolate")
+                                if (item_subType == "Chocolate" || item_subTypeB == "a_ChocolateCake")
                                 {
                                     judge_flag = true;
                                 }
@@ -899,7 +899,7 @@ public class Contest_Judge : MonoBehaviour {
                         {
                             if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                             {
-                                if (item_subType == "Chocolate") //
+                                if (item_subType == "Chocolate" || item_subTypeB == "a_ChocolateCake") //
                                 {
                                     judge_flag = true;
                                 }
@@ -913,11 +913,11 @@ public class Contest_Judge : MonoBehaviour {
                             {
                                 for (i = 0; i < set_ID.Count; i++)
                                 {
-                                    girl1_status.girl1_SP1_Wind[i] = 50; //メルヘンの値が最低3は必要
+                                    girl1_status.girl1_SP1_Wind[i] = 30; //風の値が最低3は必要
                                 }
                                 GameMgr.contest_SPJudgeCommentNum = 1; //コンテストコメント番号
 
-                                Debug.Log("判定値追加： 風感 " + 50);
+                                Debug.Log("判定値追加： 風感 " + 30);
                                 Debug.Log("### ###");
                             }
                             else if (_status == 1)
@@ -944,7 +944,7 @@ public class Contest_Judge : MonoBehaviour {
                         {
                             if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                             {
-                                if (item_subType == "Cake" || item_subTypeB == "a_CookieCake")
+                                if (item_subType == "Cake" || item_subTypeB == "a_CookieCake" || item_subTypeB == "a_ChocolateCake")
                                 {
                                     judge_flag = true;
                                 }
@@ -1082,7 +1082,7 @@ public class Contest_Judge : MonoBehaviour {
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
                     if (item_subType == "Cake" || item_subType == "CheeseCake" || item_subType == "PanCake" || item_subType == "Castella" || item_subType == "Maffin"
-                        || item_subTypeB == "a_CreamBrulee" || item_subTypeB == "a_CookieCake")
+                        || item_subTypeB == "a_CreamBrulee" || item_subTypeB == "a_CookieCake" || item_subTypeB == "a_ChocolateCake")
                     {
                         judge_flag = true;
                     }
@@ -1312,7 +1312,7 @@ public class Contest_Judge : MonoBehaviour {
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
                     if (item_subType == "Cake" || item_subType == "Cake_Mat" || item_subType == "CheeseCake"
-                        || item_subTypeB == "a_CookieCake")
+                        || item_subTypeB == "a_CookieCake" || item_subTypeB == "a_ChocolateCake")
                     {
                         judge_flag = true;
                     }
@@ -1351,7 +1351,7 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
-                    if (item_subType == "Chocolate")
+                    if (item_subType == "Chocolate" || item_subTypeB == "a_ChocolateCake")
                     {
                         judge_flag = true;
                     }
@@ -1592,7 +1592,7 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
-                    if (item_subType == "Chocolate")
+                    if (item_subType == "Chocolate" || item_subTypeB == "a_ChocolateCake")
                     {
                         judge_flag = true;
                     }
@@ -1716,7 +1716,7 @@ public class Contest_Judge : MonoBehaviour {
 
                 if (_status == 10) //女の子の好みを使用する場合、お菓子タイプの判定をここで行う _status=10がないときは、判定をしていないので、どのお菓子でも通る。
                 {
-                    if (item_subType == "Chocolate")
+                    if (item_subType == "Chocolate" || item_subTypeB == "a_ChocolateCake")
                     {
                         judge_flag = true;
                     }
@@ -2020,7 +2020,7 @@ public class Contest_Judge : MonoBehaviour {
                     }
                     GameMgr.contest_SPJudgeCommentNum = 8; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： 芸術性 " + 20);
+                    Debug.Log("判定値追加： 芸術性 " + 40);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -2093,11 +2093,11 @@ public class Contest_Judge : MonoBehaviour {
 
                     for (i = 0; i < set_ID.Count; i++)
                     {
-                        girl1_status.girl1_SP_Score9[i] = 30; //キラキラ感の値が最低3は必要
+                        girl1_status.girl1_SP_Score9[i] = 20; //キラキラ感の値が最低3は必要
                     }
                     GameMgr.contest_SPJudgeCommentNum = 9; //コンテストコメント番号
 
-                    Debug.Log("判定値追加： キラキラ感 " + 30);
+                    Debug.Log("判定値追加： キラキラ感 " + 20);
                     Debug.Log("### ###");
                 }
                 else if (_status == 1) //審査員の判定に補正
@@ -2119,7 +2119,7 @@ public class Contest_Judge : MonoBehaviour {
                     SpScoreHosei_1(GameMgr.contest_SPScoreJudge);
 
                     //入れた数値を上限に100点に正規化する。
-                    ScoreNormalized(180); //50%
+                    ScoreNormalized(150); //50%
                     Debug.Log("各点数にコンテスト補正で下げる：" + contest_bairitsu_hosei);
                     Debug.Log("### ###");
 
@@ -2454,9 +2454,9 @@ public class Contest_Judge : MonoBehaviour {
         before_tastescore[1] = GameMgr.contest_Taste_Score[1];
         before_tastescore[2] = GameMgr.contest_Taste_Score[2];
 
-        total_score[0] = total_score[0] + (int)(GameMgr.contest_Taste_Score[0] * 0.7f) - before_tastescore[0];
-        total_score[1] = total_score[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.7f) - before_tastescore[1];
-        total_score[2] = total_score[2] + (int)(GameMgr.contest_Taste_Score[2] * 0.7f) - before_tastescore[2];
+        total_score[0] = total_score[0] + (int)(GameMgr.contest_Taste_Score[0] * 0.75f) - before_tastescore[0];
+        total_score[1] = total_score[1] + (int)(GameMgr.contest_Taste_Score[1] * 0.75f) - before_tastescore[1];
+        total_score[2] = total_score[2] + (int)(GameMgr.contest_Taste_Score[2] * 0.75f) - before_tastescore[2];
         //補正前に、一回before_tastescore[1]は計算してtotal_scoreに加点されてるので、ここで引き算
 
         Debug.Log("審査員全員　食感の点数少し下がる。下の食感の値が最終の食感点数");

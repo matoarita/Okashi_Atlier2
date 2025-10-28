@@ -2436,7 +2436,8 @@ public class GetMatPlace_Panel : MonoBehaviour {
                         {
                             event_end_flag = true;
 
-                            if (!GameMgr.MapEvent_Or[1]) //ししゃもクッキーをもっている
+                            //ねこイベント　ハートLVに移行
+                            /*if (!GameMgr.MapEvent_Or[1]) //ししゃもクッキーをもっている
                             {
                                 if (pitemlist.player_extremepanel_itemlist.Count > 0 &&
                                     pitemlist.player_extremepanel_itemlist[0].itemName == "shishamo_cookie")
@@ -2457,7 +2458,7 @@ public class GetMatPlace_Panel : MonoBehaviour {
                                         OnMapEvent(1011, 0, true);
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }
                 }

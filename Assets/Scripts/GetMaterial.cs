@@ -3649,7 +3649,7 @@ public class GetMaterial : MonoBehaviour
                 treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。                
                 treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
-                if (pitemlist.KosuCount("crepe_powerup3") == 0)
+                if (pitemlist.KosuCount("crepe_powerup3") == 0) //ここで拾ってくるしか入手法なし
                 {
                     treasureInfoHikari.Add(2, "crepe_powerup3");
                     treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);
@@ -3662,7 +3662,7 @@ public class GetMaterial : MonoBehaviour
                 treasureInfoHikari.Add(0, "Non"); //宝箱データ　こっちはアイテム名　ItemDatabaseのitemNameと同じ名前にする。
                 treasureDropDictHikari.Add(0, 95.0f); //こっちは確率テーブル　はずれの場合はなにもなし。
 
-                if (pitemlist.KosuCount("cookie_powerup4") == 0)
+                if (pitemlist.KosuCount("cookie_powerup4") == 0) //ここで拾ってくるしか入手法なし
                 {
                     treasureInfoHikari.Add(2, "cookie_powerup4");
                     treasureDropDictHikari.Add(2, 5.0f + rare_event_kakuritsu);

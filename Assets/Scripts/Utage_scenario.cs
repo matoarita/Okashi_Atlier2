@@ -835,6 +835,8 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("Story_num", story_num);
         engine.Param.TrySetParameter("BarName", GameMgr.scene_BarName);
         engine.Param.TrySetParameter("StationEvent_num", 0);
+        engine.Param.TrySetParameter("YachinOn_Flag", GameMgr.System_Yachin_ON);
+
         if (GameMgr.System_BarGetNinki > 0)
         {
             engine.Param.TrySetParameter("Bar_PrizeGetNinki", GameMgr.System_BarGetNinki);
@@ -4138,7 +4140,7 @@ public class Utage_scenario : MonoBehaviour
                         GameMgr.NPCHiroba_eventList[100] = true;
 
                         //風の魔術書をゲット
-                        ev_id = pitemlist.Find_eventitemdatabase("mg_windmagic_book");
+                        ev_id = pitemlist.Find_eventitemdatabase("mg_saint_fleur_book");
                         pitemlist.add_eventPlayerItem(ev_id, 1); //
 
                         //メイン画面にもどったときに、イベントを発生させるフラグをON
@@ -5492,7 +5494,7 @@ public class Utage_scenario : MonoBehaviour
         if (GameMgr.System_ContestEdenFirstVictoryGet) //
         {
             //エデンレシピをもらう エデンコン二回目以降で、敵からもらう場合
-            /*if(GameMgr.EdenPrizeChange && !GameMgr.EdenFirstVictory)
+            if(GameMgr.EdenPrizeChange && !GameMgr.EdenFirstVictory)
             {
                 switch (GameMgr.Contest_Name)
                 {
@@ -5514,7 +5516,7 @@ public class Utage_scenario : MonoBehaviour
                         pitemlist.add_eventPlayerItem(ev_id, 1);
                         break;
                 }
-            }*/
+            }
         }
         else //優勝したら必ずレシピもらえる　初試合とかは関係なし
         {

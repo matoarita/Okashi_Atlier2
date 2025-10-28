@@ -270,6 +270,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
             save_player_okashi_magic_kakuritsuup = PlayerStatus.player_okashi_magic_kakuritsuup, //魔法使用時の成功率アップ
             save_player_okashi_magic_costtimeup = PlayerStatus.player_okashi_magic_costtimeup, //魔法使用時の時間短縮
             save_player_okashi_magic_koukaup = PlayerStatus.player_okashi_magic_koukaup, //魔法の効果を底上げする
+            save_player_okashi_kosuup_max = PlayerStatus.player_okashi_kosuup_max, //作成されるお菓子個数+
 
 
             //妹のステータス
@@ -741,6 +742,7 @@ public class SaveController : SingletonMonoBehaviour<SaveController>
         PlayerStatus.player_okashi_magic_kakuritsuup = playerData.save_player_okashi_magic_kakuritsuup; //魔法使用時の成功率アップ
         PlayerStatus.player_okashi_magic_costtimeup = playerData.save_player_okashi_magic_costtimeup; //魔法使用時の時間短縮
         PlayerStatus.player_okashi_magic_koukaup = playerData.save_player_okashi_magic_koukaup; //魔法の効果を底上げする
+        PlayerStatus.player_okashi_kosuup_max = playerData.save_player_okashi_kosuup_max; //作成されるお菓子個数+
 
         /*if(PlayerStatus.player_mp == 0) //例外処理　MP初期値が0になるのを回避　セーブデータに新パラメータ追加したてのときは0になるので、それを回避
         {

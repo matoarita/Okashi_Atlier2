@@ -45,6 +45,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
     public static int player_okashi_magic_kakuritsuup; //魔法使用時の成功率アップ
     public static int player_okashi_magic_costtimeup; //魔法使用時の時間短縮
     public static int player_okashi_magic_koukaup; //魔法の効果を底上げする
+    public static int player_okashi_kosuup_max; //作成されるお菓子個数+
 
 
     //妹のステータス
@@ -242,6 +243,7 @@ public class PlayerStatus : SingletonMonoBehaviour<PlayerStatus>
         player_okashi_magic_kakuritsuup = 0;
         player_okashi_magic_costtimeup = 0;
         player_okashi_magic_koukaup = 0;
+        player_okashi_kosuup_max = 0;
 
         InitTitleCollectionLibrary();
         SettingPRankHyouki();

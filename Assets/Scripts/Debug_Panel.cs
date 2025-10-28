@@ -701,10 +701,8 @@ public class Debug_Panel : MonoBehaviour {
 
         _slider.value = _girllove_param;
 
+        
         //レベルで上がるスキルなどは初期値にしておく。
-        PlayerStatus.player_extreme_kaisu_Max = 1;
-        GameMgr.topping_Set_Count = 1;
-
         exp_table.SkillCheckHeartLV(PlayerStatus.girl1_Love_maxlv, 0);
 
 

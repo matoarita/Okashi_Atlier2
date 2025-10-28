@@ -209,6 +209,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2c2742d2307d91548bfec2b365f94e6b, type: 3}
   - {fileID: 21300000, guid: 30a2e2d2901eb534a992e64a9e273fac, type: 3}
   - {fileID: 21300000, guid: 25d3e6d269337ff48a5f57ac17a9c077, type: 3}
+  - {fileID: 21300000, guid: bd1649d2228043d43b1fa1927664c7a1, type: 3}
   - {fileID: 21300000, guid: e3ca89d25fa4c514e9255f0161d8847e, type: 3}
   - {fileID: 21300000, guid: 05396cd2e5f7be84284c6f6ccf20f202, type: 3}
   - {fileID: 21300000, guid: 4d27fed2d2820884fa4e87b1e57e90d0, type: 3}
@@ -256,6 +257,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ebe5ff835e63a004e8035ac1ab97fe7b, type: 3}
   - {fileID: 21300000, guid: 503515937a7dc6b43a59af4d412d90f4, type: 3}
   - {fileID: 21300000, guid: 9482c0a32cf7eae4ea3176661208102e, type: 3}
+  - {fileID: 21300000, guid: faea42a3aeeacfe46b4a447bb79be138, type: 3}
   - {fileID: 21300000, guid: 4c34e6a3a4c74f940a26a21078c4b818, type: 3}
   - {fileID: 21300000, guid: 57c471b3c2fff9c4b90e0b45701f665e, type: 3}
   - {fileID: 21300000, guid: 3304a3b319db52f45aaaf7692e98c615, type: 3}
@@ -423,6 +425,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0b74db17221de8f44a359cef3534744e, type: 3}
   - {fileID: 21300000, guid: 5496e12707b64c1438026f6556c16dc0, type: 3}
   - {fileID: 21300000, guid: 8da9422751e526b409daea571ca093ef, type: 3}
+  - {fileID: 21300000, guid: 35d7042743bf81441b219468db5b2979, type: 3}
   - {fileID: 21300000, guid: b365fb279f50da348ab0ced2ecac5960, type: 3}
   - {fileID: 21300000, guid: f13220374a34ae148b1d352991bd97e4, type: 3}
   - {fileID: 21300000, guid: 33f0d137e9a3c23428a1193bcf4df64a, type: 3}
@@ -435,6 +438,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ce73fd4780945a04a97ef3b37fe02506, type: 3}
   - {fileID: 21300000, guid: 425f03574ff1168419e87d5b0d886962, type: 3}
   - {fileID: 21300000, guid: aa32b557e9841fb4e8056a8ffa0bc15c, type: 3}
+  - {fileID: 21300000, guid: d137eb5720346e14c9398d80a0e82feb, type: 3}
   - {fileID: 21300000, guid: d72b5c5749e656041bf5c2356e375d6e, type: 3}
   - {fileID: 21300000, guid: 9c14436719331274a8b6d7050252f823, type: 3}
   - {fileID: 21300000, guid: c6f9db67938328740a43001a78f1d4e2, type: 3}
@@ -1014,6 +1018,7 @@ SpriteAtlas:
   - twister_small_water
   - jewery_candy
   - strange_grass
+  - fantasia_base
   - apareiyu_black
   - green_apple
   - failed_item1
@@ -1061,6 +1066,7 @@ SpriteAtlas:
   - lumi_grape
   - twister_small_chocolate_green
   - sheild_victory2
+  - twister_ice_statue
   - marzipan
   - zarame
   - soda_grape
@@ -1228,6 +1234,7 @@ SpriteAtlas:
   - soda_melon_cream
   - frozen_fruitsset
   - neko_cookie_mixcolor
+  - twister_ice_candy
   - crepe_grape
   - recipibook
   - lumi_star_powder
@@ -1240,6 +1247,7 @@ SpriteAtlas:
   - apple_candy
   - lumi_rusk_orange
   - flower_dry
+  - twister_icemilk_frozen
   - crepe_maple
   - puff
   - potion_earlgrey

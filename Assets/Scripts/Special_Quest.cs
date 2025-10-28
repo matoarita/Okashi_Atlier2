@@ -531,28 +531,18 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
-                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
-                {
-                    //GameMgr.Contest_BGMON = true;
-                    GameMgr.Contest_PanelON = true;
-                    GameMgr.Contest_MainStoryPlaceNum = 0;
-                }
+                //ContestButton_WindowOn(0);
 
                 break;
 
-            case 14: //スターを集めよう！（プラトンアカデミー招待状待ち）
+            case 14: //スターを集めよう！（プラトンアカデミー招待状待ち）　いらんかも。
 
                 girl1_status.OkashiQuest_ID = 100140;
                 OkashiQuest_Count = 5;
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
-                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
-                {
-                    //GameMgr.Contest_BGMON = true;
-                    GameMgr.Contest_PanelON = true;
-                    GameMgr.Contest_MainStoryPlaceNum = 0;
-                }
+                //ContestButton_WindowOn(0);
 
                 break;
 
@@ -563,12 +553,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 GameMgr.EatOkashi_DecideFlag = 1;
                 GameMgr.SPquestPanelOff = false;
 
-                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
-                {
-                    //GameMgr.Contest_BGMON = true;
-                    GameMgr.Contest_PanelON = true;
-                    GameMgr.Contest_MainStoryPlaceNum = 0;
-                }
+                //ContestButton_WindowOn(0);
 
                 break;
 
@@ -586,14 +571,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100210;
                 OkashiQuest_Count = 2;
                 GameMgr.EatOkashi_DecideFlag = 1;
-                GameMgr.SPquestPanelOff = false;
+                GameMgr.SPquestPanelOff = true;
 
-                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
-                {
-                    //GameMgr.Contest_BGMON = true;
-                    GameMgr.Contest_PanelON = true;
-                    GameMgr.Contest_MainStoryPlaceNum = 10;
-                }
+                //ContestButton_WindowOn(10);
 
                 break;
 
@@ -602,14 +582,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100220;
                 OkashiQuest_Count = 3;
                 GameMgr.EatOkashi_DecideFlag = 1;
-                GameMgr.SPquestPanelOff = false;
+                GameMgr.SPquestPanelOff = true;
 
-                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
-                {
-                    //GameMgr.Contest_BGMON = true;
-                    GameMgr.Contest_PanelON = true;
-                    GameMgr.Contest_MainStoryPlaceNum = 20;
-                }
+                //ContestButton_WindowOn(20);
 
                 break;
 
@@ -618,14 +593,9 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
                 girl1_status.OkashiQuest_ID = 100300;
                 OkashiQuest_Count = 1;
                 GameMgr.EatOkashi_DecideFlag = 1;
-                GameMgr.SPquestPanelOff = false;
+                GameMgr.SPquestPanelOff = true;
 
-                if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
-                {
-                    //GameMgr.Contest_BGMON = true;
-                    GameMgr.Contest_PanelON = true;
-                    GameMgr.Contest_MainStoryPlaceNum = 20;
-                }
+                //ContestButton_WindowOn(20);
 
                 break;
 
@@ -653,7 +623,7 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
 
                 break;
 
-            case 41: //白クジラに会いに行く　廃止
+            case 41: //廃止
 
                 girl1_status.OkashiQuest_ID = 100410;
                 OkashiQuest_Count = 2;
@@ -762,6 +732,16 @@ public class Special_Quest : SingletonMonoBehaviour<Special_Quest>
         if (_spquest_setnum >= 41)
         {
             //matplace_database.ReSetMapFlagString("DreamEater_Swamp", 1); //ゆめくいぬま発見
+        }
+    }
+
+    void ContestButton_WindowOn(int _placenum)
+    {
+        if (GameMgr.System_Contest_StartNow) //falseの場合、コンテストすぐはじまらず何日後スタートバージョンのとき
+        {
+            //GameMgr.Contest_BGMON = true;
+            GameMgr.Contest_PanelON = true;
+            GameMgr.Contest_MainStoryPlaceNum = _placenum;
         }
     }
 

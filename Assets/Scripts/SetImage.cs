@@ -175,6 +175,7 @@ public class SetImage : MonoBehaviour
     private GameObject magicPrefab2;
     private GameObject magicPrefab3;
     private GameObject magicPrefab4;
+    private GameObject magicPrefab5;
     private List<GameObject> _magicicon_listitem = new List<GameObject>();
 
     private int i, j, count;
@@ -431,6 +432,7 @@ public class SetImage : MonoBehaviour
         magicPrefab2 = (GameObject)Resources.Load("Prefabs/card_magiciconObj2");
         magicPrefab3 = (GameObject)Resources.Load("Prefabs/card_magiciconObj3");
         magicPrefab4 = (GameObject)Resources.Load("Prefabs/card_magiciconObj4");
+        magicPrefab5 = (GameObject)Resources.Load("Prefabs/card_magiciconObj5");
         magicview_content = this.transform.Find("Item_card_template/MagicIconView/Viewport/Content").gameObject;
 
         _magic_addbeauty = 0;
@@ -1918,6 +1920,13 @@ public class SetImage : MonoBehaviour
             for (i = 0; i < _attri6; i++)
             {
                 _magicicon_listitem.Add(Instantiate(magicPrefab4, magicview_content.transform));
+            }
+        }
+        if (_attri7 > 0) //手作りのぬくもり回数
+        {
+            for (i = 0; i < _attri7; i++)
+            {
+                _magicicon_listitem.Add(Instantiate(magicPrefab5, magicview_content.transform));
             }
         }
     }

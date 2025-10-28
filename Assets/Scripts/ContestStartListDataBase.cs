@@ -773,7 +773,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 360; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 137; //
+        GameMgr.contest_boss_score = 117; //
         GameMgr.contest_boss_name = "シスター・リーシュ";
     }
 
@@ -789,7 +789,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 157; //
+        GameMgr.contest_boss_score = 135; //
         GameMgr.contest_boss_name = "ハーマイオニー";
 
         //決勝戦の場所とBGMを指定
@@ -996,7 +996,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 198; //一回戦相手の点数
+                GameMgr.contest_boss_score = 178; //一回戦相手の点数
                 
                 break;
 
@@ -1013,7 +1013,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 238; //一回戦相手の点数
+                GameMgr.contest_boss_score = 178; //一回戦相手の点数
                 break;
 
             case 3:
@@ -1061,7 +1061,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 312; //
+                GameMgr.contest_boss_score = 212; //
 
                 break;
 
@@ -1077,7 +1077,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 312; //
+                GameMgr.contest_boss_score = 212; //
 
                 break;
 
@@ -1093,7 +1093,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 312; //
+                GameMgr.contest_boss_score = 212; //
 
                 break;
 
@@ -1109,7 +1109,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
                 Contest_SetStartTime();
                 PlayerStatus.player_contest_LimitTime = 300; //制限時間　1分単位
 
-                GameMgr.contest_boss_score = 352; //
+                GameMgr.contest_boss_score = 232; //
 
                 break;
         }
@@ -1130,7 +1130,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         Contest_SetStartTime();
         PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位
 
-        GameMgr.contest_boss_score = 538; //
+        GameMgr.contest_boss_score = 378; //
         GameMgr.contest_boss_name = "ベル";
 
         //決勝戦の場所とBGMを指定
@@ -1601,11 +1601,11 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
         GameMgr.Contest_commentDB_Select = 100000;
 
         GameMgr.Contest_ProblemSentence = "テーマ：芸術的なおかし限定";
-        GameMgr.Contest_ProblemSentence2 = "場を彩る芸術性の高いお菓子を作ってください。" + "\n" + "制限時間: 8時間";
+        GameMgr.Contest_ProblemSentence2 = "場を彩る芸術性の高いお菓子を作ってください。" + "\n" + "制限時間: 10時間";
 
         //コンテスト時間指定
         Contest_SetStartTime();
-        PlayerStatus.player_contest_LimitTime = 480; //制限時間　1分単位          
+        PlayerStatus.player_contest_LimitTime = 600; //制限時間　1分単位          
     }
 
     void ContestRankingData_306() //コンチェルティーノ・イン・ブルー

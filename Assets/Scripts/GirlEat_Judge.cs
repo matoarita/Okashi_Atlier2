@@ -5268,7 +5268,7 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 //まほうのおかしを作る
                 if (total_score >= GameMgr.low_score)
                 {
-                    if (database.items[_baseID].Magic >= 1)
+                    if (_basemagic >= 1)
                     {
                         sp_quest_clear = true;
                         _windowtext.text = "満足しているようだ。";
@@ -7078,6 +7078,12 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
     {
         _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
         _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_6(_magicname);
+    }
+
+    public void LvUpPanel7(int _kaisu) //おかしの個数 +1
+    {
+        _listlvup_obj.Add(Instantiate(lvuppanel_Prefab, HeartLvUpPanel_obj.transform.Find("Viewport/Content").transform));
+        _listlvup_obj[_listlvup_obj.Count - 1].GetComponent<GirlLoveLevelUpPanel>().SelectPanel_7(_kaisu);
     }
 
     //ハートLVあっぷパネルの削除　Compound_Mainから読み出し

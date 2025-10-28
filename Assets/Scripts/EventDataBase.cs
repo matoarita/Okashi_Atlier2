@@ -36,6 +36,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
     private bool contest_Master_TasseiFlag;
     private bool contest_Master_TasseiFlag_half;
     private int archive_area;
+    private float archivement_percent;
     private bool _fire;
     private string _basename, _baseitemtype_sub, _baseitemtype_subB;
     private bool cat_comecheck;
@@ -1080,6 +1081,22 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //
+                //はじめてムゲンニワトリをとったときのイベントチェック
+                //
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.GirlLoveSubEvent_stage1[470] == false) 
+                    {
+                        if (pitemlist.KosuCount("mugen_niwatori") >= 1)
+                        {
+                            Event_startcheck(470, 1, false, false, 0);
+                        }
+                    }
+                }
+
                 //置物や土産を買った 100番台～
                 /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -1803,6 +1820,8 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         contest_Master_TasseiFlag = false;
                         contest_Master_TasseiFlag_half = false;
 
+                        conteststartList_database.Contest_ArchivementKeisan(); //各コンテスト達成率を計算
+
                         //各コンテストでチェック
                         i = 0;
                         while (i < 4)
@@ -1813,29 +1832,37 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
 
                                     read_ID = 0; //春
                                     archive_area = 0;
+                                    archivement_percent = GameMgr.Contest_archivement_percent[0];
                                     break;
 
                                 case 1:
 
                                     read_ID = 1000; //春
                                     archive_area = 1000;
+                                    archivement_percent = GameMgr.Contest_archivement_percent[1];
                                     break;
 
                                 case 2:
 
                                     read_ID = 2000; //春
                                     archive_area = 2000;
+                                    archivement_percent = GameMgr.Contest_archivement_percent[2];
                                     break;
 
                                 case 3:
 
                                     read_ID = 3000; //春
                                     archive_area = 3000;
+                                    archivement_percent = GameMgr.Contest_archivement_percent[3];
                                     break;
                             }
 
                             contest_allcount = conteststartList_database.ContestAll_PlayOKCounter(read_ID);
                             contest_victorycount = conteststartList_database.ReturnVictoryCount_Area(1, read_ID); //そのエリアの取得済　1位をカウント
+
+                            Debug.Log("contest_allcount: " + contest_allcount);
+                            Debug.Log("contest_victorycount: " + contest_victorycount);
+                            Debug.Log("contest_archivement_percent: " + archivement_percent);
 
                             //100%達成をまずチェック
                             if (contest_allcount == contest_victorycount)
@@ -1920,7 +1947,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                             else
                             {
                                 //５０％達成
-                                if ( 50.0f <= contest_victorycount) //Mathf.CeilToInt(contest_allcount / 2)
+                                if ( 50.0f <= archivement_percent) //Mathf.CeilToInt(contest_allcount / 2)
                                 {
                                     //どのエリアを達成したか
                                     switch (archive_area)

@@ -191,6 +191,13 @@ public class GirlLoveLevelUpPanel : MonoBehaviour {
         this.transform.Find("Comp/HeartPanel/HeartLvupImage6/MagicName").GetComponent<Text>().text = _magicname;
     }
 
+    public void SelectPanel_7(int _kaisu) //お菓子の個数 +1
+    {
+        offAllPanel();
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage7").gameObject.SetActive(true);
+        this.transform.Find("Comp/HeartPanel/HeartLvupImage7/LvParam").GetComponent<Text>().text = "+" + _kaisu.ToString();
+    }
+
     void offAllPanel()
     {
         foreach (Transform obj in this.transform.Find("Comp/HeartPanel").transform)

@@ -63,6 +63,7 @@ public class StatusPanel : MonoBehaviour {
     private Text playerMP_param;
     private Text playerNinki_param;
     private Text playerPRank_param;
+    private Text roomname_param;
     private Text girlExtremeKaisu_param;
     private Text BoxLv_param;
     private Text Okashi_SPquest_eatkaisu_param;
@@ -79,6 +80,8 @@ public class StatusPanel : MonoBehaviour {
     private Text girlFind_power_param_buf;
 
     private Text zairyobox_lv_param;
+
+    private GameObject edenicon_param_content;
 
     private GameObject _model_obj;
     public List<GameObject> collectionitem_toggle = new List<GameObject>();
@@ -197,16 +200,26 @@ public class StatusPanel : MonoBehaviour {
         girlHeart_param = paramview1.transform.Find("ParamB_param/Text").GetComponent<Text>();
         girlFind_power_param = paramview1.transform.Find("ParamC_param/Text").GetComponent<Text>();
         playerLV_param = paramview1.transform.Find("ParamD_param/Text").GetComponent<Text>();
-        playerMP_param = paramview1.transform.Find("ParamF_param/Text").GetComponent<Text>();
-        playerNinki_param = paramview1.transform.Find("ParamM_param/Text").GetComponent<Text>();
-        playerPRank_param = paramview1.transform.Find("ParamO_param/Text").GetComponent<Text>();
         girlLifepoint_param = paramview1.transform.Find("ParamE_param/Text").GetComponent<Text>();
+        playerMP_param = paramview1.transform.Find("ParamF_param/Text").GetComponent<Text>();      
+        
         girlExtremeKaisu_param = paramview1.transform.Find("ParamH_param/Text").GetComponent<Text>();
-        BoxLv_param = paramview1.transform.Find("ParamI_param/Text").GetComponent<Text>();
-        zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
+        BoxLv_param = paramview1.transform.Find("ParamI_param/Text").GetComponent<Text>();        
         Okashi_SPquest_eatkaisu_param = paramview1.transform.Find("ParamJ_param/TextKosu").GetComponent<Text>();
         Okashi_SPquest_MaxScore_param = paramview1.transform.Find("ParamK_param/TextKosu").GetComponent<Text>();
         Okashi_Game_MaxScore_param = paramview1.transform.Find("ParamL_param/TextKosu").GetComponent<Text>();
+        playerNinki_param = paramview1.transform.Find("ParamM_param/Text").GetComponent<Text>();
+        playerPRank_param = paramview1.transform.Find("ParamO_param/Text").GetComponent<Text>();
+
+        edenicon_param_content = paramview1.transform.Find("ParamP_param/Scroll View/Viewport/Content").gameObject;
+        foreach(Transform obj in edenicon_param_content.transform)
+        {
+            obj.gameObject.SetActive(false);
+        }
+        roomname_param = paramview1.transform.Find("ParamQ_param/TextKosu").GetComponent<Text>();
+
+        zairyobox_lv_param = paramview2.transform.Find("Panel_1/Param").GetComponent<Text>();
+
 
         //ヒカリお菓子ステータス関係
         InitHikariOkashiParam_View();
@@ -304,6 +317,25 @@ public class StatusPanel : MonoBehaviour {
         playerNinki_param.text = PlayerStatus.player_ninki_param.ToString();
         PlayerStatus.SetPatissierRank(PlayerStatus.player_ninki_param); //パティシエランクのチェック
         playerPRank_param.text = PlayerStatus.player_patissier_Rank_hyouki;
+        roomname_param.text = GameMgr.OrRoomNameHyouji[GameMgr.OrCompound_RoomNum];
+
+        //エデンレシピ　もってるのを表示
+        if(pitemlist.KosuCountEvent("eden_recipi_02") >= 1) //太陽
+        {
+            edenicon_param_content.transform.Find("eden_icon01").gameObject.SetActive(true);
+        }
+        if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1) //星
+        {
+            edenicon_param_content.transform.Find("eden_icon02").gameObject.SetActive(true);
+        }
+        if (pitemlist.KosuCountEvent("eden_recipi_04") >= 1) //月
+        {
+            edenicon_param_content.transform.Find("eden_icon03").gameObject.SetActive(true);
+        }
+        if (pitemlist.KosuCountEvent("eden_recipi_05") >= 1) //ハート
+        {
+            edenicon_param_content.transform.Find("eden_icon04").gameObject.SetActive(true);
+        }
 
 
         //装備品があった場合、バフ効果も表示        
