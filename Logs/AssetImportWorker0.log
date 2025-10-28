@@ -15,7 +15,7 @@ C:/Users/aritashogo/Documents/Unity/Okashi_Atlier2
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-61249
+61402
 Successfully changed project path to: C:/Users/aritashogo/Documents/Unity/Okashi_Atlier2
 C:/Users/aritashogo/Documents/Unity/Okashi_Atlier2
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,12 +47,12 @@ C:/Users/aritashogo/Documents/Unity/Okashi_Atlier2
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [25308] Host "[IP] 10.206.8.13 [Port] 0 [Flags] 2 [Guid] 802298795 [EditorId] 802298795 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-LERANFG) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [26176] Host "[IP] 10.206.8.13 [Port] 0 [Flags] 2 [Guid] 61645057 [EditorId] 61645057 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-LERANFG) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [25308] Host "[IP] 10.206.8.13 [Port] 0 [Flags] 2 [Guid] 802298795 [EditorId] 802298795 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-LERANFG) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [26176] Host "[IP] 10.206.8.13 [Port] 0 [Flags] 2 [Guid] 61645057 [EditorId] 61645057 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-LERANFG) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
 [Physics::Module] Initialized MultithreadedJobDispatcher with {0} workers.
-Refreshing native plugins compatible for Editor in 114.29 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 118.95 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.45f1 (0da89fac8e79)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.45f1/Editor/Data/Resources/UnitySubsystems
@@ -68,91 +68,91 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.45f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.45f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.45f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56540
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56508
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.45f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.012237 seconds.
+Registered in 0.009015 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 99.38 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 103.03 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.838 seconds
+- Completed reload, in  0.811 seconds
 Domain Reload Profiling:
-	ReloadAssembly (839ms)
-		BeginReloadAssembly (117ms)
+	ReloadAssembly (811ms)
+		BeginReloadAssembly (119ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (583ms)
-			LoadAssemblies (114ms)
+		EndReloadAssembly (558ms)
+			LoadAssemblies (115ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (152ms)
+			SetupTypeCache (144ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (36ms)
-			SetupLoadedEditorAssemblies (334ms)
+			RebuildScriptCaches (32ms)
+			SetupLoadedEditorAssemblies (329ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (9ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (99ms)
+				RefreshPlugins (103ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (167ms)
-				ProcessInitializeOnLoadMethodAttributes (56ms)
+				ProcessInitializeOnLoadAttributes (160ms)
+				ProcessInitializeOnLoadMethodAttributes (55ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.011843 seconds.
+Registered in 0.012680 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.74 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.35 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Package Manager log level set to [2]
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Completed reload, in  2.652 seconds
+- Completed reload, in  1.853 seconds
 Domain Reload Profiling:
-	ReloadAssembly (2653ms)
-		BeginReloadAssembly (364ms)
+	ReloadAssembly (1854ms)
+		BeginReloadAssembly (155ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (9ms)
+			DisableScriptedObjects (6ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (36ms)
-		EndReloadAssembly (2136ms)
-			LoadAssemblies (252ms)
+			CreateAndSetChildDomain (24ms)
+		EndReloadAssembly (1568ms)
+			LoadAssemblies (125ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (351ms)
+			SetupTypeCache (306ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (98ms)
-			SetupLoadedEditorAssemblies (1506ms)
+			RebuildScriptCaches (93ms)
+			SetupLoadedEditorAssemblies (1019ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (9ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (185ms)
-				ProcessInitializeOnLoadAttributes (1043ms)
-				ProcessInitializeOnLoadMethodAttributes (238ms)
-				AfterProcessingInitializeOnLoad (29ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (145ms)
+				ProcessInitializeOnLoadAttributes (702ms)
+				ProcessInitializeOnLoadMethodAttributes (152ms)
+				AfterProcessingInitializeOnLoad (12ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (8ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 1.33 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
+Refreshing native plugins compatible for Editor in 1.69 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3627 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 93 unused Assets / (1.8 MB). Loaded Objects now: 4049.
-Memory consumption went from 228.4 MB to 226.7 MB.
-Total: 9.105700 ms (FindLiveObjects: 0.281000 ms CreateObjectMapping: 0.192000 ms MarkObjects: 8.222200 ms  DeleteObjects: 0.409300 ms)
+Memory consumption went from 228.5 MB to 226.7 MB.
+Total: 8.574800 ms (FindLiveObjects: 0.473100 ms CreateObjectMapping: 0.238900 ms MarkObjects: 7.442700 ms  DeleteObjects: 0.419100 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -168,9 +168,241 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 1141254.109005 seconds.
-  path: Assets/Resources/Excel/Entity_ItemDataBase.xlsx
-  artifactKey: Guid(ca4deab8429069b428abfc98a63fba9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+  Time since last request: 1141707.142318 seconds.
+  path: Assets/Scenes/Or_Shop.unity
+  artifactKey: Guid(1afc0297bafe1964a8e50af0d787d517) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Number of updated assets reloaded before import = 0
-Start importing Assets/Resources/Excel/Entity_ItemDataBase.xlsx using Guid(ca4deab8429069b428abfc98a63fba9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1986d396c67e6dc2f75ffa5119cf01b') in 0.060156 seconds 
-Number of asset objects unloaded after import = 1
+Start importing Assets/Scenes/Or_Shop.unity using Guid(1afc0297bafe1964a8e50af0d787d517) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0083d2fcceb15b92c37346249adc76a') in 0.008679 seconds 
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 200.687337 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/eu_050.png
+  artifactKey: Guid(f3497d91bbbcbf3479aaf13cb46b27a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/eu_050.png using Guid(f3497d91bbbcbf3479aaf13cb46b27a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54b84d744b0f1c03261ce6c213ff08e6') in 0.279274 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 27.390390 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/eu_048.png
+  artifactKey: Guid(bc64af5663ed65f418455c9c6858c04d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/eu_048.png using Guid(bc64af5663ed65f418455c9c6858c04d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97ae01425084a6dcf5e6321865040549') in 0.122535 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.909887 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/eu_047.png
+  artifactKey: Guid(ef38dd42a65de394eb7c5da0784464d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/eu_047.png using Guid(ef38dd42a65de394eb7c5da0784464d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e977c9709cdfbb731815848e1f8e863') in 0.108976 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 36.093040 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/eu_040.png
+  artifactKey: Guid(0647bb74f2fb1d24ab686da36a170e17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/eu_040.png using Guid(0647bb74f2fb1d24ab686da36a170e17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb8f077af8f34daa5f3343a3eff314c0') in 0.119064 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 23.784697 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/f_tool.jpg
+  artifactKey: Guid(942a8cc27d2a78b4caca8455de754c29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/f_tool.jpg using Guid(942a8cc27d2a78b4caca8455de754c29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92f6e6b87dfab8633b60212bd23c7a93') in 0.088680 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.951196 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/fantasy05_1_19201080.jpg
+  artifactKey: Guid(76e7cb559b56492478e30d250453405a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/fantasy05_1_19201080.jpg using Guid(76e7cb559b56492478e30d250453405a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e86053f47b07dcd3af1d4c70b3a03975') in 0.175331 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 1.445890 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/fantasy_b_1.png
+  artifactKey: Guid(9a59053bc6adbcc4e8b779b375541f08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/fantasy_b_1.png using Guid(9a59053bc6adbcc4e8b779b375541f08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa8813a023384f9c6dfe03b6c2d6fb7b') in 0.112487 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 1.181241 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/gra54-1280x720.png
+  artifactKey: Guid(7f59dd832c8478a46be6ece1d9d2ffd2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/gra54-1280x720.png using Guid(7f59dd832c8478a46be6ece1d9d2ffd2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d12d32589655e78220b45a3cf8b23cb') in 0.081006 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.665247 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/gra55.png
+  artifactKey: Guid(784eda261579c914bbb4508a94938201) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/gra55.png using Guid(784eda261579c914bbb4508a94938201) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b66a57245c6e33ecde312b10884738a8') in 0.118245 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 3.713950 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/ID003_Western-Castle_noon-1024x576.jpg
+  artifactKey: Guid(f60d829d0020bd945a3a6ba69450a632) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/ID003_Western-Castle_noon-1024x576.jpg using Guid(f60d829d0020bd945a3a6ba69450a632) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1ee6afea76d2a875ffba6bf0598d615') in 0.067775 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 12.835678 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/Or_Bar_BG2.jpg
+  artifactKey: Guid(361f501fb3eda38489147a01f823570f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/Or_Bar_BG2.jpg using Guid(361f501fb3eda38489147a01f823570f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9da587d5de61cb2ce503d29dfcd3b31') in 0.059249 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.658509 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/Or_Bar_BG.jpg
+  artifactKey: Guid(349879a1172de294ca6e04f7e3b9c32d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/Or_Bar_BG.jpg using Guid(349879a1172de294ca6e04f7e3b9c32d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ea120dc5a60063b11e8296fb437e169') in 0.051141 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 177.957721 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/c07.gif
+  artifactKey: Guid(15d23514b06ec504aa47405e26df8e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/c07.gif using Guid(15d23514b06ec504aa47405e26df8e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e55eb44641b315af2489772e1ef50a4e') in 0.019723 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 3.847343 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/castle_1080_sample.jpg
+  artifactKey: Guid(ec1884aee224aaf458bf48d210f8d89f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/castle_1080_sample.jpg using Guid(ec1884aee224aaf458bf48d210f8d89f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b240a73f9307c8a7ec01da800585bcfc') in 0.055501 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 17.289089 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/1709yashiki010_800600.jpg
+  artifactKey: Guid(fd1ba152c234987478c96abc0b152595) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/1709yashiki010_800600.jpg using Guid(fd1ba152c234987478c96abc0b152595) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8de21330884cf808dca2ec13dbc5d363') in 0.059287 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 13.506972 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/011_sb-road_y_19201080.jpg
+  artifactKey: Guid(0de0fbe1359014747a164bac487e0f39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/011_sb-road_y_19201080.jpg using Guid(0de0fbe1359014747a164bac487e0f39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c42df303694b4d654c869483e12902a') in 0.177325 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 4.493198 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/03_desk.png
+  artifactKey: Guid(1a5f85e1655965c47a3657f4e98bed20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/03_desk.png using Guid(1a5f85e1655965c47a3657f4e98bed20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29d70359665eb8e90773a63175a5b0bb') in 0.221461 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 3.754122 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/018_chapel_800600.jpg
+  artifactKey: Guid(ac4806be3c32df04bb620f4d931fe831) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/018_chapel_800600.jpg using Guid(ac4806be3c32df04bb620f4d931fe831) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '213e2c8faef2b7a37e7b6b46e22426f2') in 0.053514 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 5.760445 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/train_seat05.png
+  artifactKey: Guid(78038a36301030d4ea2c6435cdda1ffa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/train_seat05.png using Guid(78038a36301030d4ea2c6435cdda1ffa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a082b8db4b4d9617fc1c0bec070ee642') in 0.070433 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 1.218901 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/train_exterior06.png
+  artifactKey: Guid(5b2b2c929c10b32409f13c9aa1f9fd33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/train_exterior06.png using Guid(5b2b2c929c10b32409f13c9aa1f9fd33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ed5b6ca723ed89731c41b0c1c18b3d0') in 0.071165 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.701766 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/train_exterior05.png
+  artifactKey: Guid(71427941a6eb7a04f85844c1b609f509) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/train_exterior05.png using Guid(71427941a6eb7a04f85844c1b609f509) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1816cc54c4cf7b150390bd03f49bfc8b') in 0.141648 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 2.390319 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/sdniti025_800600.jpg
+  artifactKey: Guid(5d31357feb0d76e479552893781799a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/sdniti025_800600.jpg using Guid(5d31357feb0d76e479552893781799a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee5e16427f0fe813ce066f5af5740b7e') in 0.054478 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.571197 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/Sanpomiti_BG.jpg
+  artifactKey: Guid(f1c5175b4c67f3d49994cf7d534d8e08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/Sanpomiti_BG.jpg using Guid(f1c5175b4c67f3d49994cf7d534d8e08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '434dd54ca91f827a5e98a2f85cf020fa') in 0.058517 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.469290 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/romen_noon_train_nontxt_d_600.png
+  artifactKey: Guid(f57ba5431401969479a8dabc71c3e655) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/romen_noon_train_nontxt_d_600.png using Guid(f57ba5431401969479a8dabc71c3e655) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a2694074d1bc1e8185ec82596ecb323') in 0.059260 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 1.767993 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/Or_SweatHotel_BG06.jpg
+  artifactKey: Guid(7f4fc0962a31f3c41ac9b8c0e1e8bb61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/Or_SweatHotel_BG06.jpg using Guid(7f4fc0962a31f3c41ac9b8c0e1e8bb61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a01cb69484633bd89425668639a4cd7') in 0.053967 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 1.274512 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/park_056.png
+  artifactKey: Guid(e664120b0ffd0a14690fe92ff8b62bb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/park_056.png using Guid(e664120b0ffd0a14690fe92ff8b62bb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e3fb28f983a1f8f4f1988fe5754e7d8') in 0.130179 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.675965 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/Or_SweatHotel_BG05.jpg
+  artifactKey: Guid(b0f250f8ff0fbc54e823e07b688c190a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/Or_SweatHotel_BG05.jpg using Guid(b0f250f8ff0fbc54e823e07b688c190a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f91e519f2b5da6c93120270df475a89') in 0.050610 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 16.177079 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/kimagure_house_small.jpg
+  artifactKey: Guid(8ec163250159b7a4fb71e75a6e5fc4d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/kimagure_house_small.jpg using Guid(8ec163250159b7a4fb71e75a6e5fc4d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2f78769fd369f87f4cbf2bacc57542d') in 0.058995 seconds 
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 1.213772 seconds.
+  path: Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/kissaten_BG.png
+  artifactKey: Guid(664fe96802b34ea44bac3bbf4f190fc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Resources/Utage_Scenario/Texture/Bg/UtageBG/kissaten_BG.png using Guid(664fe96802b34ea44bac3bbf4f190fc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3e44a7d4659b636807f410bc599f21b') in 0.042324 seconds 
+Number of asset objects unloaded after import = 3
