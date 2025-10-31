@@ -1371,7 +1371,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_200() //ひんやりお菓子コンテスト
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 120000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 
@@ -1611,7 +1611,7 @@ public class ContestStartListDataBase : SingletonMonoBehaviour<ContestStartListD
     void ContestRankingData_306() //コンチェルティーノ・イン・ブルー
     {
         //ランダムでもし課題を選ぶ場合は、ContestDataをランダムで指定してよい
-        GameMgr.Contest_JudgeType = 0; //1のときは、女の子の好み判定を使用する　自由課題など
+        GameMgr.Contest_JudgeType = 1; //1のときは、女の子の好み判定を使用する　自由課題など
         GameMgr.Contest_DB_list_Type = 146000; //compNum=100000~を指定
         GameMgr.Contest_commentDB_Select = 100000;
 

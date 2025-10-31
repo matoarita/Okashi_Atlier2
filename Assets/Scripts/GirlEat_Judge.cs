@@ -3791,21 +3791,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
 
 
             //ハートレベルが上がるにつれて、ハート量獲得が減少する補正。
-            if (PlayerStatus.girl1_Love_lv >= 30 && PlayerStatus.girl1_Love_lv < 50)
+            if (PlayerStatus.girl1_Love_lv >= 45 && PlayerStatus.girl1_Love_lv < 80)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.75f);
-            }
-            else if (PlayerStatus.girl1_Love_lv >= 50 && PlayerStatus.girl1_Love_lv < 80)
-            {
-                Getlove_exp = (int)(Getlove_exp * 0.6f);
+                Getlove_exp = (int)(Getlove_exp * 0.85f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 80 && PlayerStatus.girl1_Love_lv < 90)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.5f);
+                Getlove_exp = (int)(Getlove_exp * 0.7f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 90 && PlayerStatus.girl1_Love_lv < 95)
             {
-                Getlove_exp = (int)(Getlove_exp * 0.4f);
+                Getlove_exp = (int)(Getlove_exp * 0.5f);
             }
             else if (PlayerStatus.girl1_Love_lv >= 95 && PlayerStatus.girl1_Love_lv < 99)
             {
@@ -5512,10 +5508,17 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }*/
 
                 //夏コンテストで優勝すると先へ進める
-                _id = conteststartList_database.SearchContestString("Or_Contest_002");
+                /*_id = conteststartList_database.SearchContestString("Or_Contest_002");
                 if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
                 {
                     Debug.Log("エデンコンテスト②で優勝したので、クエストクリア");
+                    sp_quest_clear = true;
+                }*/
+
+                //エデンレシピ2つ目をゲットしたのでクリア
+                if (pitemlist.KosuCountEvent("eden_recipi_03") >= 1)
+                {
+                    Debug.Log("エデンレシピ2つ目をとったので、クエストクリア");
                     sp_quest_clear = true;
                 }
                 break;
@@ -5532,15 +5535,22 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
                 }*/
 
                 //秋コンテストで優勝すると先へ進める
-                _id = conteststartList_database.SearchContestString("Or_Contest_003");
+                /*_id = conteststartList_database.SearchContestString("Or_Contest_003");
                 if (conteststartList_database.conteststart_lists[_id].ContestVictory == 1)
                 {
                     Debug.Log("エデンコンテスト③で優勝したので、クエストクリア");
                     sp_quest_clear = true;
+                }*/
+
+                //エデンレシピ3つ目をゲットしたのでクリア
+                if (pitemlist.KosuCountEvent("eden_recipi_04") >= 1)
+                {
+                    Debug.Log("エデンレシピ3つ目をとったので、クエストクリア");
+                    sp_quest_clear = true;
                 }
                 break;
 
-            case 100300:
+            case 100300: //現在は飛ばし
 
                 //秋コンテストで優勝すると先へ進める
                 _id = conteststartList_database.SearchContestString("Or_Contest_003");

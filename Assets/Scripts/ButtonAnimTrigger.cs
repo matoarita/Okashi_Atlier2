@@ -73,6 +73,12 @@ public class ButtonAnimTrigger : MonoBehaviour {
         }
     }
 
+    public void OnAnyEnterAnim() //一回小さくなってすぐ戻る
+    {
+
+        Animation1();
+    }
+
     public void OnEnterAnimScaleUp() //Enter時でかくなり、ボタン外へいくと元に戻る。
     {
         if (this.GetComponent<Toggle>())

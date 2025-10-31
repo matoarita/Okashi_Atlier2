@@ -71,7 +71,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool System_BarNinkiHyouji_ON = true; //酒場で人気パネルを表示する
     public static bool System_QuestStarGet_ON = true; //酒場の依頼で、スターも上がる仕様にする。
     public static bool System_BarQuestKoushin_DayTiming = false; //酒場の依頼が、一日ごとに更新される仕様。オフだと、お店に入るたびに、依頼が変わる。現在trueはまだ未対応。酒場ごとに個別にクエストリストを保存してないので、別酒場で表示されたクエストが別エリアに残ったままになるバグがある。
-    public static bool System_BarNPC_FriendEventFlag = true; //酒場依頼で仲良くなったNPCが、お店に直接くるイベントを発生　ボリューム不足なのでONにするか迷ってる。
+    public static bool System_BarNPC_FriendEventFlag = false; //酒場依頼で仲良くなったNPCが、お店に直接くるイベントを発生　ボリューム不足なのでONにするか迷ってる。今回は時間ないのでfalse
 
     public static bool System_Contest_RealTimeProgress_ON = true; //コンテスト中に時間をリアルタイムに経過するかどうか　現状の仕様はON
     public static bool System_Contest_StartNow = true; //コンテストすぐ開始するか、〇日後に開始するかの切り替え　Falseで〇日後　〇日後の場合、Excelで日付指定も必要
@@ -129,6 +129,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
 
     //各ハートレベル・スターのブロック
     public static int System_HeartBlockLv_01 = 4; //秘密の花園
+    public static int System_HeartBlockLv_10 = 25; //エデンレシピ解放 星
+    public static int System_HeartBlockLv_11 = 37; //エデンレシピ解放 月
+
     public static int System_HeartBlockLv_50 = 20; //冬
     public static int System_HeartBlockLv_51 = 13; //秋
     public static int System_HeartBlockLv_52 = 10; //夏
@@ -2687,6 +2690,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SPEnshutu_itemlist.Add("lumi_emerald_neko_cookie", "panel01");
         SPEnshutu_itemlist.Add("forget_me_not", "panel01");
         SPEnshutu_itemlist.Add("house_for_noisette", "panel01");
+        SPEnshutu_itemlist.Add("potate_jewerybox", "panel01");
         SPEnshutu_itemlist.Add("strawberry_sponge_cake", "panel01");
         SPEnshutu_itemlist.Add("mont_blanc", "panel01");
         SPEnshutu_itemlist.Add("tiramisu", "panel01");
@@ -2697,6 +2701,9 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         SPEnshutu_itemlist.Add("sumire_suger", "panel01");
         SPEnshutu_itemlist.Add("chocolate_black", "panel01");
         SPEnshutu_itemlist.Add("princess_tota", "panel01");
+        SPEnshutu_itemlist.Add("soda_galaxy", "panel01");
+        SPEnshutu_itemlist.Add("cafelatte", "panel01");
+        SPEnshutu_itemlist.Add("cafelatte_art", "panel01");
         SPEnshutu_itemlist.Add("cream_row_dream", "panel01");
         SPEnshutu_itemlist.Add("blacklotus_sponge_cake", "panel01");
         SPEnshutu_itemlist.Add("Eden", "panel01");

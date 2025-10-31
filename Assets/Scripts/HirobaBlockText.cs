@@ -83,6 +83,66 @@ public class HirobaBlockText : MonoBehaviour {
                 }
                 break;
 
+            case "MainList_ScrollView_08":
+
+                if (this.gameObject.name == "NPC4_SelectToggle") //
+                {
+                    //ハートレベルで通れない箇所のチェック
+                    _player_check = PlayerStatus.girl1_Love_lv;
+                    _block_check = GameMgr.System_HeartBlockLv_10; //
+
+                    if (_player_check < _block_check)
+                    {
+                        BlockText_obj.SetActive(true);
+                        BlockTextHyouji(_block_check, 0);
+                    }
+                    else
+                    {
+                        //ハートで進めるイベントが発生して、それからブロックが消える。
+                        if (GameMgr.NPCHiroba_blockReleaseList[10])
+                        {
+                            BlockText_obj.SetActive(false);
+                        }
+                        else
+                        {
+                            BlockText_obj.SetActive(true);
+                            BlockTextHyouji(_block_check, 0);
+                        }
+                    }
+                }
+                break;
+
+            case "MainList_ScrollView_305":
+
+                if (this.gameObject.name == "NPC1_SelectToggle") //
+                {
+                    //ハートレベルで通れない箇所のチェック
+                    _player_check = PlayerStatus.girl1_Love_lv;
+                    _block_check = GameMgr.System_HeartBlockLv_11; //
+
+                    if (_player_check < _block_check)
+                    {
+                        BlockText_obj.SetActive(true);
+                        BlockTextHyouji(_block_check, 0);
+                    }
+                    else
+                    {
+                        //ハートで進めるイベントが発生して、それからブロックが消える。
+                        if (GameMgr.NPCHiroba_blockReleaseList[11])
+                        {
+                            BlockText_obj.SetActive(false);
+                        }
+                        else
+                        {
+                            BlockText_obj.SetActive(true);
+                            BlockTextHyouji(_block_check, 0);
+                        }
+                    }
+                }
+                break;
+
+
+
             case "MainList_ScrollView_51":
 
                 if (this.gameObject.name == "NPC5_SelectToggle") //冬エリア入口

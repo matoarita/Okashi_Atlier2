@@ -1428,7 +1428,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _magicup = 0;
             if (magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") >= 1)
             {
-                _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 30; //LV*10
+                _magicup = magicskill_database.skillName_SearchLearnLevel("Appaleil_Study") * 20; //LV*10
                 _buf_shokukanup += _magicup;
             }
         }
@@ -1715,7 +1715,7 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
 
         if (pitemlist.KosuCount("cakemold_stainless") >= 1) //
         {
-            _buf_shokukanup += (int)(original_shokukan_p * 1.35f) - original_shokukan_p;
+            _buf_shokukanup += (int)(original_shokukan_p * 1.25f) - original_shokukan_p;
         }
         else
         {
@@ -1762,6 +1762,12 @@ public class Buf_Power_Keisan : SingletonMonoBehaviour<Buf_Power_Keisan>
             _magicup = (int)(original_shokukan_p * magicskill_database.skillName_SearchLearnLevel("Tea_Study") * 0.06f); //元の値の6%上昇*LV
 
             _buf_shokukanup += _magicup;
+        }
+
+        //家によるバフ
+        if (GameMgr.OrCompound_RoomNum == 2)
+        {
+            _buf_shokukanup += (int)(original_shokukan_p * 1.3f) - original_shokukan_p;
         }
     }
 

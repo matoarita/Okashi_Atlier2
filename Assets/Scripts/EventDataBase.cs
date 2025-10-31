@@ -741,6 +741,15 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 //HeartEvent_check(GameMgr.System_HeartBlockLv_01, 300, 1); //秘密の花園へいこうよ
                 HeartEvent_check(GameMgr.System_HeartLVevent_01, 301, 1, "Non"); //ヒカリお菓子作る
 
+                if (pitemlist.ReturnEventItemKosu("eden_recipi_03") < 1) //持ってない場合に発生　持ってるときは、コンテストでイセヤを倒しゲットしている
+                {
+                    HeartEvent_check(GameMgr.System_HeartBlockLv_10, 380, 1, "Non"); //エデンレシピの場所解放　星
+                }
+                if (pitemlist.ReturnEventItemKosu("eden_recipi_04") < 1) //持ってない場合に発生　持ってるときは、コンテストでベルを倒しゲットしている
+                {
+                    HeartEvent_check(GameMgr.System_HeartBlockLv_11, 381, 1, "Non"); //エデンレシピの場所解放　月
+                }
+
                 //HLVごとに発生するイベント 350番台～
                 //"Non"だと、思い出イベントのフラグ解放はなし　入れる場合は、GameMgrのHikariOmoide_Eventlistに登録する
 
@@ -1081,6 +1090,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                //置物や土産を買った
                 //
                 //はじめてムゲンニワトリをとったときのイベントチェック
                 //
@@ -1097,7 +1107,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
-                //置物や土産を買った 100番台～
+
                 /*if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1110,6 +1120,38 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                         }
                     }
                 }*/
+
+                //紫色の小瓶
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.GirlLoveSubEvent_stage1[453] == false)
+                    {
+                        if (pitemlist.KosuCount("shokukan_powerup3") >= 1)
+                        {
+                            Event_startcheck(453, 1, false, false, 0);
+                        }
+                    }
+                }
+
+                //エンジェルハート
+                if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
+                { }
+                else
+                {
+                    if (GameMgr.GirlLoveSubEvent_stage1[454] == false)
+                    {
+                        if (pitemlist.KosuCount("otona_powerup1") >= 1)
+                        {
+                            Event_startcheck(454, 1, false, false, 0);
+                        }
+                    }
+                }
+
+
+
+
 
                 //レシピ100%達成
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
@@ -1125,7 +1167,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
-                //ハートレベル99 レコードをゲット
+                //ハートレベル99 コスチュームをゲット
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else
@@ -1147,7 +1189,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
-                /*
+                
                 //お金10万ルピア達成
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -1167,6 +1209,7 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                     }
                 }
 
+                /*
                 //エクストラモードのみのイベント　ゲーム中で点数が777点をこえた。
                 if (!GameMgr.check_GirlLoveSubEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
@@ -2210,9 +2253,9 @@ public class EventDataBase : SingletonMonoBehaviour<EventDataBase>
                 }
             }
 
+            //街の人がきて、おかしのご依頼
             if (GameMgr.System_BarNPC_FriendEventFlag)
-            {
-                //街の人がきて、おかしのご依頼
+            {                
                 if (!GameMgr.check_GirlLoveTimeEvent_flag) //上で先に発生していたら、ひとまずチェックを回避
                 { }
                 else

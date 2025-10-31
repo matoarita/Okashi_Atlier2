@@ -4491,7 +4491,7 @@ public class Compound_Main : MonoBehaviour
                                 case 1:
 
                                     _textmain.text = "ヒカリの勇気が少しわいてきた！";
-                                    get_heart = 50;
+                                    get_heart = 100;
                                     break;
 
                                 case 0:
@@ -4508,7 +4508,7 @@ public class Compound_Main : MonoBehaviour
                                 case 1:
 
                                     _textmain.text = "ヒカリは喜びのダンスを踊っている！";
-                                    get_heart = 50;
+                                    get_heart = 80;
                                     break;
 
                                 case 2:
@@ -5720,7 +5720,7 @@ public class Compound_Main : MonoBehaviour
                         bg_accessory_panel.SetActive(false);
                         break;
 
-                    case 2: //春２
+                    case 2: //春２　あじさい
 
                         //そのあと、シーンそれぞれのオブジェクトを取得し、表示
                         SetBGObj("BGOutimg_sc03", "BGimg_sc04", "effect_sc04");

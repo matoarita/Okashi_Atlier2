@@ -504,7 +504,8 @@ public class HikariMakeStartPanel : MonoBehaviour {
                 GameMgr.hikari_make_success_count = 0;
                 GameMgr.hikari_make_failed_count = 0;
 
-                sc.PlaySe(76);　//
+                //sc.PlaySe(76);　//
+                sc.PlaySe(190);
                 ResultHikariMakeCardView_andOFF();
 
                 if (!GameMgr.System_ExtremeCompo_BaseitemON)

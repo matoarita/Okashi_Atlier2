@@ -3603,7 +3603,7 @@ public class Utage_scenario : MonoBehaviour
                 {
                     if (pitemlist.KosuCountEvent("potatefried_recipi") >= 1) //2回目はフライドポテトの作り方
                     {
-                        if (GameMgr.NPC_FriendPoint[1] >= 59) //3回目でポテトの宝石箱
+                        if (GameMgr.NPC_FriendPoint[1] >= 55) //3回目でポテトの宝石箱
                         {
                             if (pitemlist.KosuCountEvent("potatemix_recipi") >= 1)
                             {

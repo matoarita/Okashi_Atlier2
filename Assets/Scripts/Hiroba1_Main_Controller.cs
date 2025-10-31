@@ -952,12 +952,30 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
             case "Or_Hiroba_Winter_Street2":
 
-                On_Active155();
+                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_11) //エデンレシピが隠されている祭壇へ
+                {
+                    On_Active2000(200020); //まだ通れない
+                }
+                else
+                {
+                    if (GameMgr.NPCHiroba_blockReleaseList[11])
+                    {
+                        On_Active155();
+                    }
+                    else
+                    {
+                        GameMgr.NPCHiroba_blockReleaseList[11] = true; //
+                        On_BlockReleaseActive1(0); //hiroba_numの指定
+                    }
+                }              
                 break;
 
-            case "Or_Hiroba_Winter_ContestBridge":
+            case "Or_Hiroba_Winter_ContestBridge": //冬の橋
 
-                On_ContestActive04();
+                //On_ContestActive04();
+
+                //エデンレシピ月の祭壇へ
+                On_Active156();                
                 break;
 
             case "Or_Hiroba_Winter_Street3":
@@ -1196,6 +1214,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active16();
                 break;
 
+            case "Or_Hiroba_Spring_Out_alter":
+
+                On_Active11();
+                break;
+
             case "Or_Hiroba_Summer_Entrance":
 
                 //On_Active32();
@@ -1378,6 +1401,11 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_Active154();
                 break;
 
+            case "Or_Hiroba_Winter_altar":
+
+                On_Active155();
+                break;
+
             case "Or_Hiroba_Winter_Street3":
 
                 On_Active153();
@@ -1386,7 +1414,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Winter_PatissierHouseMae":
 
                 On_Active160();
-                break;
+                break;           
 
             case "Or_Hiroba_MainGate_Street":
 
@@ -1461,7 +1489,7 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
                 if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_01)
                 {
-                    On_Active2000(); //まだ通れない
+                    On_Active2000(200000); //まだ通れない
                 }
                 else
                 {
@@ -1496,6 +1524,28 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Spring_RotenStreet":
 
                 On_Active11();
+                break;
+
+            case "Or_Hiroba_Spring_RotenStreet2":
+
+                if (PlayerStatus.girl1_Love_lv < GameMgr.System_HeartBlockLv_10) //エデンレシピが隠されている祭壇へ
+                {
+                    On_Active2000(200010); //まだ通れない
+                }
+                else
+                {
+                    if (GameMgr.NPCHiroba_blockReleaseList[10])
+                    {
+                        //エデンレシピ星の祭壇へ
+                        On_Active18();
+                        
+                    }
+                    else
+                    {
+                        GameMgr.NPCHiroba_blockReleaseList[10] = true; //
+                        On_BlockReleaseActive1(0); //hiroba_numの指定
+                    }
+                }
                 break;
 
             case "Or_Hiroba_Spring_Flower_Campo":
@@ -1738,6 +1788,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 On_EmeralShopActive01();
                 break;
 
+            case "Or_Hiroba_Spring_Out_alter":
+
+                On_Active2000(200011);　//サンプル
+                ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_03");
+                pitemlist.add_eventPlayerItem(ev_id, 1);
+                break;
+
             case "Or_Hiroba_Summer_Entrance":
 
                 On_Active1621_Summer_Ariachan();
@@ -1767,6 +1824,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
             case "Or_Hiroba_Autumn_MainStreet":
 
                 On_Active104();
+                break;
+
+            case "Or_Hiroba_Winter_altar":
+
+                On_Active2000(200021); //サンプル
+                ev_id = pitemlist.Find_eventitemdatabase("eden_recipi_04");
+                pitemlist.add_eventPlayerItem(ev_id, 1);
                 break;
 
             default:
@@ -2344,6 +2408,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         GoAreaMove("Or_Hiroba1");
     }
 
+    void On_Active18()
+    {
+        //_text.text = "春エリア　祭壇へ　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 23;
+        GoAreaMove("Or_Hiroba1");
+    }
+
     //中央噴水
     void On_Active30()
     {
@@ -2714,6 +2788,16 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
         //GameMgr.Scene_back_home = true;
         //シーン読み込み
         GameMgr.SceneSelectNum = 306;
+        GoAreaMove("Or_Hiroba1");
+    }
+
+    void On_Active156()
+    {
+        //_text.text = "冬エリア　祭壇　移動";
+
+        //GameMgr.Scene_back_home = true;
+        //シーン読み込み
+        GameMgr.SceneSelectNum = 307;
         GoAreaMove("Or_Hiroba1");
     }
 
@@ -4056,13 +4140,13 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
 
     //ヒカリ関連のマップイベントはActive2000～
     //
-    void On_Active2000()
+    void On_Active2000(int _num)
     {
         GameMgr.hiroba_event_placeNum = 2000; //
 
         //sceneBGM.FadeOutBGM();
         //bgm_change_flag = true;
-        GameMgr.hiroba_event_ID = 200000; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
+        GameMgr.hiroba_event_ID = _num; //そのときに呼び出すイベント番号 placeNumとセットで使う。        
 
         EventReadingStart();
     }
@@ -4270,11 +4354,26 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 default_scenetext = "わぁ～☆　あったかいばしょ～！";
 
                 //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
-                text_area_hyouji_on = true;
+                //text_area_hyouji_on = true;
 
                 break;
 
-            case "Or_Hiroba_Spring_BarStreet": //春のエリア商店街　露店通り2
+            case "Or_Hiroba_Spring_RotenStreet3": //春のエリア商店街　露店通り右の広場　使ってない
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_16").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                GameMgr.Window_CharaName = GameMgr.mainGirl_Name;
+                default_scenetext = "らーめんイベントとか。広場でスタートする場合はここ使いたい";
+
+                //場所によって、テキストエリア＋横長のサブビュー表示の場合もあり
+                //text_area_hyouji_on = true;
+
+                break;
+
+            case "Or_Hiroba_Spring_BarStreet": //春のエリア商店街　酒場前
 
                 //移動用リストオブジェクトの取得
                 mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_14").gameObject;
@@ -4326,6 +4425,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは静けさの湖。光先生の家がある。";
+
+                break;
+
+            case "Or_Hiroba_Spring_Out_alter": //春エリア　祭壇
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_15").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは春の祭壇だ。";
 
                 break;
 
@@ -4826,6 +4936,17 @@ public class Hiroba1_Main_Controller : MonoBehaviour {
                 ToggleSetup();
 
                 default_scenetext = "ここは、スノーマンズ・レストの橋だ。";
+
+                break;
+
+            case "Or_Hiroba_Winter_altar": //冬エリア　祭壇
+
+                //移動用リストオブジェクトの取得
+                mainlist_controller_obj = canvas.transform.Find("MainListPanel/MainList_ScrollView_307").gameObject;
+                mainlist_controller_obj.SetActive(true);
+                ToggleSetup();
+
+                default_scenetext = "ここは、スノーマンズ・レストの祭壇だ。";
 
                 break;
 

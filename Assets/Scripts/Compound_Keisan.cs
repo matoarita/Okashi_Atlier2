@@ -1881,8 +1881,19 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                 {
                     result_kosu = _kosu1 * _set_kaisu; //入れた個数だけできる
 
-                    //さらにステータスによる個数バフ
-                    result_kosu += PlayerStatus.player_okashi_kosuup_max;
+                    if(magicskill_database.magicskill_lists[magicskill_database.SearchSkillString(_useMagic)].skill_CompSelect == "Buf")
+                    {
+                        //バフ系魔法の場合は、個数が増えない
+                    }else
+                    {
+                        if (_compo_select == 10) //ヒカリの魔法の場合は、個数増えない
+                        { }
+                        else
+                        {
+                            //さらにステータスによる個数バフ
+                            result_kosu += PlayerStatus.player_okashi_kosuup_max;
+                        }
+                    }                    
                 }
                 else
                 {
@@ -1892,8 +1903,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
 
                             result_kosu = 1 * _useMagicLV * _set_kaisu; //GameMgr.UseMagicSkillLvは使うときのレベルでもあるが、現在は習得レベルと同一。
 
-                            //さらにステータスによる個数バフ
-                            result_kosu += PlayerStatus.player_okashi_kosuup_max;
+                            if (_compo_select == 10) //ヒカリの魔法の場合は、個数増えない
+                            { }
+                            else
+                            {
+                                //さらにステータスによる個数バフ
+                                result_kosu += PlayerStatus.player_okashi_kosuup_max;
+                            }
                             break;
 
                         default: //その他　フリージングやテンパリングなど。compoDBを指定するものは、compoDBの個数
@@ -1908,8 +1924,13 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
                                 result_kosu = databaseCompo.compoitems[_result_cmpID].cmpitem_result_kosu * _set_kaisu;
                             }
 
-                            //さらにステータスによる個数バフ
-                            result_kosu += PlayerStatus.player_okashi_kosuup_max;
+                            if (_compo_select == 10) //ヒカリの魔法の場合は、個数増えない
+                            { }
+                            else
+                            {
+                                //さらにステータスによる個数バフ
+                                result_kosu += PlayerStatus.player_okashi_kosuup_max;
+                            }
                             break;
                     }
                 }
@@ -2918,10 +2939,10 @@ public class Compound_Keisan : SingletonMonoBehaviour<Compound_Keisan>
         //ケーキベース（スポンジのせるだけ）は、食感が上がりすぎないように調整 でもほんの少し上がる
         if (_base_itemType_subB == "a_Cake_MatBaseNoUP")
         {
-            _basecrispy = (int)(_basecrispy * 0.75f);
-            _basefluffy = (int)(_basefluffy * 0.75f);
-            _basesmooth = (int)(_basesmooth * 0.75f);
-            _basehardness = (int)(_basehardness * 0.75f);
+            _basecrispy = (int)(_basecrispy * 0.6f);
+            _basefluffy = (int)(_basefluffy * 0.6f);
+            _basesmooth = (int)(_basesmooth * 0.6f);
+            _basehardness = (int)(_basehardness * 0.6f);
         }
 
         //ケーキベースは粉っぽさも減らす

@@ -179,6 +179,7 @@ public class CatGetStartPanel : MonoBehaviour
 
         _toggle_catID.toggle_listid = i; //リスト番号を、リストビューのトグル自体にも記録させておく。 
         _toggle_catID.toggle_catid = catDataBase.catdata_list[i].catID; //固有ID string
+        _toggle_catID.toggle_status_text_data = catDataBase.CatStatusTextLibrary(list_count);
 
         catStatus_ContentDraw(list_count);
         

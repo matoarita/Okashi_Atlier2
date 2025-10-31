@@ -1615,12 +1615,12 @@ public class Compound_Check : MonoBehaviour {
 
         //
         //
+        exp_Controller.NewRecipiFlag = false;
+        newrecipi_flag = false;
+        hikari_nomake = false;
 
         if (compoDB_select_judge) //一致する場合
-        {
-            newrecipi_flag = false;
-            hikari_nomake = false;
-
+        {                      
             //新しいレシピかどうか。           
             _releaseID = databaseCompo.SearchCompoIDString(databaseCompo.compoitems[result_compoID].release_recipi);
             if (databaseCompo.compoitems[_releaseID].cmpitem_flag == 0) //0なら新しいレシピ
@@ -1803,6 +1803,7 @@ public class Compound_Check : MonoBehaviour {
 
                 }
             }
+
             //魔法のCompNoの場合で、新アイテム生成に該当しない場合
             else if (GameMgr.Comp_kettei_bunki == 22)
             {
@@ -1832,6 +1833,7 @@ public class Compound_Check : MonoBehaviour {
             else
             {
                 //失敗
+                _success_rate = 0f;
                 exp_Controller._success_judge_flag = 2; //必ず失敗する
                 success_text = "これは.. 失敗かも？";
                 kakuritsuPanel.KakuritsuYosoku_Img(0);

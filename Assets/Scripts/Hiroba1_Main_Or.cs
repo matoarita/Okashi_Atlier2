@@ -141,6 +141,18 @@ public class Hiroba1_Main_Or : MonoBehaviour
                 SettingBGPanel("Map20"); //Map〇〇のリスト番号を指定
                 break;
 
+            case 23: //春エリア　祭壇
+
+                GameMgr.Scene_Name = "Or_Hiroba_Spring_Out_alter";
+                SettingBGPanel("Map14"); //Map〇〇のリスト番号を指定
+                break;
+
+            case 24: //春エリア　露店通り右の広場　使ってない
+
+                GameMgr.Scene_Name = "Or_Hiroba_Spring_RotenStreet3";
+                SettingBGPanel("Map15"); //Map〇〇のリスト番号を指定
+                break;
+
             case 100: //夏エリア
 
                 GameMgr.Scene_Name = "Or_Hiroba_Summer_Entrance";
@@ -373,6 +385,13 @@ public class Hiroba1_Main_Or : MonoBehaviour
 
                 GameMgr.Scene_Name = "Or_Hiroba_Winter_ContestBridge";
                 SettingBGPanel("Map306"); //Map〇〇のリスト番号を指定
+
+                break;
+
+            case 307: //冬エリア　祭壇
+
+                GameMgr.Scene_Name = "Or_Hiroba_Winter_altar";
+                SettingBGPanel("Map307"); //Map〇〇のリスト番号を指定
 
                 break;
 

@@ -859,6 +859,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         ArkKaisu_Hyouji(pitemlist.player_originalitemlist[i].Attribute2); //WindArk
         ArkKaisu_Hyouji(pitemlist.player_originalitemlist[i].Attribute4); //生地混ぜ
         ArkKaisu_Hyouji(pitemlist.player_originalitemlist[i].Attribute5); //FireArk
+        ArkKaisu_Hyouji(pitemlist.player_originalitemlist[i].Attribute6); //ライトニンググレープ系
+        ArkKaisu_Hyouji(pitemlist.player_originalitemlist[i].Attribute7); //手作りぬくもり
 
         //トッピング調合でベースアイテムきめるとき　残り仕上げ回数が0のおかしは、もうトッピングできない
         if (topping_method == 1)
@@ -914,6 +916,8 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
         ArkKaisu_Hyouji(pitemlist.player_extremepanel_itemlist[i].Attribute2); //Windark
         ArkKaisu_Hyouji(pitemlist.player_extremepanel_itemlist[i].Attribute4); //生地混ぜ回数
         ArkKaisu_Hyouji(pitemlist.player_extremepanel_itemlist[i].Attribute5); //FireArk
+        ArkKaisu_Hyouji(pitemlist.player_extremepanel_itemlist[i].Attribute6); //ライトニンググレープ系
+        ArkKaisu_Hyouji(pitemlist.player_extremepanel_itemlist[i].Attribute7); //手作りぬくもり
 
 
         //トッピング調合でベースアイテムきめるとき　残り仕上げ回数が0のおかしは、もうトッピングできない
@@ -1364,10 +1368,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_sub == "Soda")
                 {
-                    if (check_itemListType == 2) //お菓子パネルのもののみ表示
-                    {
-                        itemlist_hyouji_Check(check_itemListType, 0);
-                    }
+                    itemlist_hyouji_Check(check_itemListType, 0);
                 }
                 break;
 
@@ -1457,7 +1458,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
 
                 if (check_itemType_subB == "a_Grape")
                 {
-                    itemlist_hyouji_Check(check_itemListType, 1);
+                    itemlist_hyouji_Check(check_itemListType, 0);
                 }
                 break;
 
@@ -1469,7 +1470,7 @@ public class PlayerItemListController : SingletonMonoBehaviour<PlayerItemListCon
                 {
                     if (check_itemName == "sapphire_suger" || check_itemName == "lumi_sapphire_suger")
                     {
-                        itemlist_hyouji_Check(check_itemListType, 1);
+                        itemlist_hyouji_Check(check_itemListType, 0);
                     }
                 }
                 else if (_lv >= 2)
