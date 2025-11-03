@@ -822,6 +822,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
     public static bool CGGallery_readflag;
     public static int CGGallery_num; //別シーンから、どのイベントを呼び出すかを、指定する。
     public static string CGGallery_name; //シーンの名前
+    public static bool CGGallery_StatusPanelreadflag; //ステータスパネルから思い出を呼びだす場合に使う
 
     //今自分がいるシーンの属性　調合関係とかショップ関係、バー関係など シーン名そのものが違っても、処理は共通として使用できる。
     public static int Scene_Category_Num;           //Compound=10, Compound_Entrance=11, Shop=20, Bar=30, Farm=40, EmeraldShop=50, Hiroba=60, 
@@ -1529,6 +1530,7 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         CompoundEvent_storynum = 0;
 
         CGGallery_readflag = false;
+        CGGallery_StatusPanelreadflag = false;
 
         Okashi_lastID = 0;
         Okashi_totalscore = 0;
@@ -2833,6 +2835,8 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
         OkashiAtFirst_eventlist.Add("Eden", 209);
         OkashiAtFirst_eventlist.Add("icemilk_frozen_twister", 210);
         OkashiAtFirst_eventlist.Add("lumi_banana", 211);
+        OkashiAtFirst_eventlist.Add("soda_galaxy", 212);
+        OkashiAtFirst_eventlist.Add("potate_jewerybox", 213);
 
         //サブタイプでの反応
         OkashiAtFirst_eventlist.Add("GlowFruits", 230); //サブタイプやタイプBにも対応　ただし、固有を優先したい場合は、↑サブよりも上に置く
@@ -2880,14 +2884,23 @@ public class GameMgr : SingletonMonoBehaviour<GameMgr>
             
             if (CountHikariOmoideFlag() >= HikariOmoide_Eventlist.Count) //②思い出　ギャラリーすべて埋める 　※なくした　エデンの得点が500点以上 GirlEat_JudgeでOkashi_totalscoreは事前計算 Okashi_totalscore >= 500
             {
-                if(PlayerStatus.girl1_Love_maxlv >= 90) //③ハートレベルが90
+                if(PlayerStatus.girl1_Love_maxlv >= 70) //③ハートレベルが70
                 {
-                    GirlLoveEvent_num = 101;
-                    ending_number = 1;
+                    if (game_Recipi_archivement_rate >= 70.0f) //④おかし手帳が70%以上　※システム共通データを参照でOK
+                    {
+                        GirlLoveEvent_num = 101;
+                        ending_number = 1;
+                    }
+                    else
+                    {
+                        Debug.Log("おかし手帳が70%未満");
+                        GirlLoveEvent_num = 100;
+                        ending_number = 2;
+                    }
                 }
                 else
                 {
-                    Debug.Log("HLVが90未満");
+                    Debug.Log("HLVが70未満");
                     GirlLoveEvent_num = 100;
                     ending_number = 2;
                 }               

@@ -317,6 +317,10 @@ public class Compound_Main : MonoBehaviour
     private int _baseID;
     private bool _teishutu_on;
 
+    private int before_costume;
+    private bool isLoading;
+    Coroutine _waitSeconds;
+
     // Use this for initialization
     void Start()
     {
@@ -5795,7 +5799,76 @@ public class Compound_Main : MonoBehaviour
         }
     }
 
-   
+    //CGギャラリー閲覧中
+    public void ReadCGGallery(int _cgnum)
+    {
+        GameMgr.CGGallery_num = _cgnum;
+
+        //シーンによってはコスチュームを指定
+        if (GameMgr.CGGallery_name == "event_pool")
+        {
+            before_costume = GameMgr.Costume_Num;
+            GameMgr.Costume_Num = 2;
+        }
+
+        _waitSeconds = StartCoroutine(CGGalleryWaitSeconds()); //2秒後に宴入力可能になる。
+        StartCoroutine("CGGallery_EndWait");
+    }
+
+    IEnumerator CGGallery_EndWait()
+    {
+        GameMgr.scenario_ON = true;
+
+        //「宴」のシナリオ終了待ち
+        while (GameMgr.scenario_ON)
+        {
+            yield return null;
+        }
+
+        if (isLoading)
+        {
+            isLoading = false;
+            StopCoroutine(_waitSeconds);
+        }
+
+        GameMgr.compound_status = 301;
+        GameMgr.compound_select = 300;
+
+        //コスチュームは戻しておく
+        GameMgr.Costume_Num = before_costume;
+
+        status_panel.SetActive(true);
+        status_panel.GetComponent<StatusPanel>().OnOmoidePanel();
+        status_panel.transform.Find("OmoideList/TouchOffPanel").gameObject.SetActive(true); //入力をOFF 1~2秒後に入力可能
+
+        //白からフェードイン        
+        fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 1;
+        fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(0, 1.5f)
+        .OnComplete(() => CGGallery_TouchOff()); //入力をON        
+    }
+
+    IEnumerator CGGalleryWaitSeconds()
+    {
+        GameMgr.CGGallery_StatusPanelreadflag = true;
+        GameMgr.compound_status = 1000;
+        GameMgr.compound_select = 1000;
+
+        isLoading = true;
+        yield return new WaitForSeconds(1.5f);
+
+        isLoading = false;
+      
+        status_panel.SetActive(false);
+
+        //fadeout_panel_obj.SetActive(true);
+        fadeout_panel_obj.GetComponent<CanvasGroup>().alpha = 0;
+        fadeout_panel_obj.GetComponent<CanvasGroup>().DOFade(1, 1.0f);
+    }
+
+    void CGGallery_TouchOff()
+    {
+        status_panel.transform.Find("OmoideList/TouchOffPanel").gameObject.SetActive(false);
+    }
 
 
 

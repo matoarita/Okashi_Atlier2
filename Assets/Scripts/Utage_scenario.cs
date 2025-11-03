@@ -352,7 +352,20 @@ public class Utage_scenario : MonoBehaviour
                 }              
             }
 
-            
+            //ステータスパネルから思い出を呼び出し
+            if (GameMgr.CGGallery_StatusPanelreadflag)
+            {
+                GameMgr.CGGallery_StatusPanelreadflag = false;
+
+                if (!sceneBGM)
+                {
+                    //BGMの取得
+                    sceneBGM = GameObject.FindWithTag("BGM").gameObject.GetComponent<BGM>();
+                }
+                scenarioLabel = "CGGalleryScene";
+                StartCoroutine(CGGallery_Read());
+            }
+
 
             if (GameMgr.CompoundEvent_storyflag)
             {
@@ -3806,6 +3819,7 @@ public class Utage_scenario : MonoBehaviour
         engine.Param.TrySetParameter("contest_AfterDay", GameMgr.Contest_AfterDay); //コンテスト何日後開始の日数
         engine.Param.TrySetParameter("Costume_Sukumizu_Flag", Costume_sukumizu_flag);
         engine.Param.TrySetParameter("magic_lvpoint", GameMgr.System_MagicLVPoint);
+        engine.Param.TrySetParameter("HikariOutHome_Flag", GameMgr.outgirl_Nowprogress);
 
 
 

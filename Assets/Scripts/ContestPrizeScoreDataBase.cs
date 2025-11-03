@@ -1262,7 +1262,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non"); //5位 ↓
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("crepe_powerup3");
+        GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("mg_nappe_book");
 
         //賞金リスト 5位から順番に入れる
@@ -1535,7 +1535,7 @@ public class ContestPrizeScoreDataBase : SingletonMonoBehaviour<ContestPrizeScor
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
         GameMgr.PrizeItemList.Add("Non");
-        GameMgr.PrizeItemList.Add("Non");
+        GameMgr.PrizeItemList.Add("crepe_powerup3");
 
         //賞金リスト 5位から順番に入れる
         GameMgr.PrizeGetMoneyList.Clear();

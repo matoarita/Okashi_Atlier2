@@ -425,6 +425,9 @@ public class Compound_Check : MonoBehaviour {
                 recipiMemoScrollView_obj.SetActive(false);
                 memo_result_obj.SetActive(false);
 
+                //セット数を選ぶ
+                updown_counter_obj.SetActive(true);
+
                 //確率に応じて、テキストが変わる。
                 FinalCheck_Text.text = success_text;
 
@@ -579,6 +582,9 @@ public class Compound_Check : MonoBehaviour {
 
                 recipiMemoScrollView_obj.SetActive(false);
                 memo_result_obj.SetActive(false);
+
+                //セット数を選ぶ
+                updown_counter_obj.SetActive(true);
 
                 //確率に応じて、テキストが変わる。
                 FinalCheck_Text.text = success_text;

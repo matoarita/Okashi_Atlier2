@@ -28,6 +28,9 @@ public class StatusPanel : MonoBehaviour {
     private GameObject accePrefab;
     private GameObject contentAcce;
 
+    private GameObject contentOmoide;
+    private GameObject OmoidePrefab;
+
     private GameObject contentCollection;
     private GameObject collectionPrefab;
 
@@ -45,6 +48,7 @@ public class StatusPanel : MonoBehaviour {
     private GameObject Collection_CaptionPanel_obj;
     private GameObject HikariStatusList_obj;
     private GameObject Equip_Panel_obj;
+    private GameObject OmoideList_obj;
 
     private GameObject EquipParam_Toggle_obj;
     private GameObject HikariParam_Toggle_obj;
@@ -54,6 +58,7 @@ public class StatusPanel : MonoBehaviour {
 
     private List<GameObject> costume_list = new List<GameObject>();
     private List<GameObject> accesory_list = new List<GameObject>();
+    private List<GameObject> omoide_list = new List<GameObject>();
 
     private Text girlLV_param;
     private Text girlHeart_param;
@@ -98,6 +103,11 @@ public class StatusPanel : MonoBehaviour {
     private int player_girl_findpower_final;
 
     private int Acce_Startnum;
+
+    private int before_costume;
+    private bool isLoading;
+    Coroutine _waitSeconds;
+    private GameObject fadeout_panel_obj;
 
     // Use this for initialization
     void Start () {
@@ -152,6 +162,8 @@ public class StatusPanel : MonoBehaviour {
         //アクセサリーのスタート　配列番号
         Acce_Startnum = 6;
 
+        fadeout_panel_obj = canvas.transform.Find("FadeOutPanel").gameObject;
+
         //各ステータスパネルの値を取得。
         statusList = this.transform.Find("StatusList").gameObject;
         paramview1 = this.transform.Find("StatusList/Viewport/Content/Panel_B/ParamView1/Viewport/Content").gameObject;
@@ -165,11 +177,15 @@ public class StatusPanel : MonoBehaviour {
         Collection_CaptionPanel_obj = Collection_Panel_obj.transform.Find("ParamView2").gameObject;
         HikariStatusList_obj = this.transform.Find("HikariStatusList").gameObject;
         Equip_Panel_obj = this.transform.Find("EquipList").gameObject;
+        OmoideList_obj = this.transform.Find("OmoideList").gameObject;
 
         contentCos = this.transform.Find("CostumePanel/ParamView3/Scroll View/Viewport/Content").gameObject;
         costumePrefab = (GameObject)Resources.Load("Prefabs/ClothIcon");
         contentAcce = this.transform.Find("CostumePanel/ParamView3/Scroll View2/Viewport/Content").gameObject;
         accePrefab = (GameObject)Resources.Load("Prefabs/AcceIcon");
+
+        contentOmoide = this.transform.Find("OmoideList/Viewport/Content/Panel_B/ParamView1/Viewport/Content").gameObject;
+        OmoidePrefab = (GameObject)Resources.Load("Prefabs/OmoideListPanel");
 
         hatena_sprite = Resources.Load<Sprite>("Sprites/Icon/question");
 
@@ -257,6 +273,8 @@ public class StatusPanel : MonoBehaviour {
         this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Costume_Toggle").GetComponent<Toggle>().isOn = false;
         this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Collection_Toggle").GetComponent<Toggle>().isOn = false;
         this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/HikariParam_Toggle").GetComponent<Toggle>().isOn = false;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/EquipParam_Toggle").GetComponent<Toggle>().isOn = false;
+        this.transform.Find("StatusPanelSelect_ScrollView/Viewport/Content/Omoide_Toggle").GetComponent<Toggle>().isOn = false;
         OnStatusMainPanel();
 
         //画面のアニメ
@@ -509,6 +527,48 @@ public class StatusPanel : MonoBehaviour {
         playerOkashi_teaflavor_param.text = "+" + PlayerStatus.player_okashi_tea_flavorup.ToString();
     }
 
+    public void OnOmoidePanel()
+    {
+        WindowAllOFF();
+        OmoideList_obj.SetActive(true);
+
+        omoide_list.Clear();
+
+        //アイコンの生成
+        foreach (Transform child in contentOmoide.transform) //初期化
+        {
+            Destroy(child.gameObject);
+        }
+
+        count = 0;
+        for (i = 0; i < GameMgr.HikariOmoide_Eventlist.Count; i++) //type=1　衣装でかつリスト表示ONのもののみ
+        {
+            omoide_list.Add(Instantiate(OmoidePrefab, contentOmoide.transform));
+            //omoide_list[count].transform.Find("ClothToggle").GetComponent<Toggle>().interactable = false;
+
+            //各トグルに名前とタイプ、リストIDを保持
+            omoide_list[count].GetComponent<OmoideListPanel>().toggle_id = count;
+            omoide_list[count].GetComponent<OmoideListPanel>().toggle_omoide_utageid = GameMgr.HikariOmoide_Eventlist[i].ID;
+
+            if (GameMgr.HikariOmoide_Eventlist[i].Flag)
+            {
+                omoide_list[count].transform.Find("OmoideButton/Text").GetComponent<Text>().text = GameMgr.HikariOmoide_Eventlist[i].titleNameHyouji;
+                omoide_list[count].transform.Find("HintText").GetComponent<Text>().text = "";
+                omoide_list[count].transform.Find("OmoideButton").GetComponent<Button>().interactable = true;
+            }
+            else
+            {
+                //解放されてないと???
+                omoide_list[count].transform.Find("OmoideButton/Text").GetComponent<Text>().text = "??????????";
+                omoide_list[count].transform.Find("HintText").GetComponent<Text>().text = GameMgr.HikariOmoide_Eventlist[i].hintHyouji; //ヒント表示
+                omoide_list[count].transform.Find("OmoideButton").GetComponent<Button>().interactable = false;
+            }
+
+            count++;
+        }
+
+    }
+
 
     void CostumeSetListNum() //GameMgr.Costume_Numをリストの配列に戻す
     {
@@ -662,6 +722,12 @@ public class StatusPanel : MonoBehaviour {
         GameMgr.PlateSetNum = GameMgr.PlateSetItemsName[Select_PlateName];
     }
 
+    //CGギャラリー閲覧中
+    public void ReadCGGallery(int _cgnum)
+    {
+        compound_Main.ReadCGGallery(_cgnum);        
+    }
+
     
 
     void WindowAllOFF()
@@ -671,6 +737,7 @@ public class StatusPanel : MonoBehaviour {
         Collection_Panel_obj.SetActive(false);
         HikariStatusList_obj.SetActive(false);
         Equip_Panel_obj.SetActive(false);
+        OmoideList_obj.SetActive(false);
     }
 
     void InitHikariOkashiParam_View()

@@ -812,13 +812,12 @@ public class Debug_Panel : MonoBehaviour {
         
 
         //女の子イベントフラグリセット　ハートで発生するイベント系
-        for (i = 300; i < GameMgr.GirlLoveSubEvent_stage1.Length; i++)
+        for (i = 200; i < GameMgr.GirlLoveSubEvent_stage1.Length; i++)
         {
             GameMgr.GirlLoveSubEvent_stage1[i] = false;
         }
         GameMgr.GirlLoveSubEvent_stage1[160] = false; //モーセ　最終的に使わないけど、ひとまず。
-
-
+        
     }
 
     public void OnAreaKaikinButton()

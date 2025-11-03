@@ -7013,6 +7013,8 @@ public class GirlEat_Judge : SingletonMonoBehaviour<GirlEat_Judge> {
         //EDシナリオスタート
         GameMgr.Ending_counterenshutu_on = false;
 
+        //レシピパーセント表示
+        databaseCompo.RecipiCount_database(1); //EDチェック前にレシピ達成率システムのほうをチェック
         //エデン食べたのでED 分岐もここでチェック　100ヒカリ倒れる　101ヒカリ生きる隠しエンド
         GameMgr.Ending_BunkiCheck();
 
